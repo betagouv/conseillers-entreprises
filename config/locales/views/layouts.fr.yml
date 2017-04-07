@@ -1,0 +1,5 @@
+fr:
+  layouts:
+    navbar:
+      home: Accueil
+      search: Recherche Entreprise

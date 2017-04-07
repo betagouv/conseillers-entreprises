@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %title EConseils
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', data: {turbolinks_track: 'reload'}
+    = javascript_include_tag 'application', data: {turbolinks_track: 'reload'}
+  %body
+    = render 'layouts/navbar'
+    .main.container
+      = yield
+    %footer.ui.bottom.fixed.menu
+      .ui.container
+        .item
+          Footer with information.

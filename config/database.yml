@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  database: econseils-development
+  host: localhost
+  username: antoineboileau
+  password:
+
+test:
+  <<: *default
+  database: econseils-test
+  host: localhost
+  username: antoineboileau
+  password:
+
+production:
+  <<: *default
+  database: econseils-production
