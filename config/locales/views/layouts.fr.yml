@@ -3,3 +3,6 @@ fr:
     navbar:
       home: Accueil
       search: Recherche Entreprise
+      sign_in: Se connecter
+      sign_up: S'inscrire
+      sign_out: Se déconnecter

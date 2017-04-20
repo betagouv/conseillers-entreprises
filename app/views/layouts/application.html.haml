@@ -8,5 +8,7 @@
   %body
     = render 'layouts/navbar'
     .main.container
+      %p.notice= notice
+      %p.alert= alert
       = yield
     = render 'layouts/footer'

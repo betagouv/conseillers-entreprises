@@ -11,11 +11,12 @@ require: rubocop-rspec
 AllCops:
   TargetRubyVersion: 2.4
   Exclude:
+    - 'db/migrate/20170420210630_devise_create_users.rb'
     - 'db/schema.rb'
     - 'tmp/**/*'
 
 Metrics/LineLength:
-  Max: 120
+  Max: 160
 
 Style/Documentation:
   Enabled: false

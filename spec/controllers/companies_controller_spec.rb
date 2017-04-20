@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe CompaniesController, type: :controller do
+  login_user
+
   describe 'GET #index' do
     it 'returns http success' do
       get :index
