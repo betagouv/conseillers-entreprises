@@ -1,2 +1,10 @@
-%h1 Companies#show
-%p Find me in app/views/companies/show.html.haml
+%h1= @company.name
+%table
+  %thead
+    %tr
+      %th
+      %th
+  %tbody
+    %tr
+      %td= 'Siren'
+      %td= @company.siren

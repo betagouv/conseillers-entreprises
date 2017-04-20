@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
+
+ruby '2.4.1'
 
 gem 'coffee-rails', '~> 4.2'
 gem 'haml-rails', '~> 0.9'
@@ -23,6 +27,8 @@ gem 'turbolinks', '~> 5'
 
 gem 'semantic-ui-sass', '~> 2'
 
+gem 'i18n-tasks', '~> 0.8.3'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -31,9 +37,14 @@ gem 'semantic-ui-sass', '~> 2'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :test do
+  gem 'shoulda-matchers', '~> 3.1'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.5'
 end
 
@@ -46,6 +57,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

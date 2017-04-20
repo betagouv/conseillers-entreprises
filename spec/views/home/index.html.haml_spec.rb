@@ -1,5 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "home/index.html.haml", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe 'home/index.html.haml', type: :view do
+  it 'displays a title' do
+    render
+
+    expect(rendered).to match(/Bienvenue sur la plateforme/)
+  end
 end

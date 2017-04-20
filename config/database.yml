@@ -8,15 +8,15 @@ development:
   <<: *default
   database: econseils-development
   host: localhost
-  username: antoineboileau
-  password:
+  username: postgres
+  password: postgres
 
 test:
   <<: *default
   database: econseils-test
   host: localhost
-  username: antoineboileau
-  password:
+  username: postgres
+  password: postgres
 
 production:
   <<: *default
