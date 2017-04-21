@@ -55,6 +55,8 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
+    foreman (0.83.0)
+      thor (~> 0.19.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -205,6 +207,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
+  foreman
   haml-rails (~> 0.9)
   jbuilder (~> 2.5)
   jquery-rails
