@@ -41,3 +41,7 @@ From now on, we're gonna switch in english. 🇬🇧
 
         $ foreman start
     And yay! Check out [this page](http://localhost:3000)!
+    
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
