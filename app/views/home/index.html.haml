@@ -1,13 +1,12 @@
-.ui.main.text.container
-  = image_tag 'e-conseils.png', width: 220
-  = image_tag 'https://github.com/sgmap/beta.gouv.fr/wiki/images/marianne.png', width: 210
-  %h1= t('.welcome')
-  = link_to home_about_path, class: 'ui orange button' do
-    = semantic_icon('question mark')
-    = t('layouts.navbar.know_more')
-  = link_to new_user_session_path, class: 'ui yellow button' do
-    = semantic_icon('sign in')
-    = t('layouts.navbar.sign_in')
-  = link_to new_user_registration_path, class: 'ui olive button' do
-    = semantic_icon('sign in')
-    = t('layouts.navbar.sign_up')
+= image_tag 'e-conseils.png', width: 220
+= image_tag 'https://github.com/sgmap/beta.gouv.fr/wiki/images/marianne.png', width: 210
+%h1= t('.welcome')
+= link_to home_about_path, class: 'ui orange button' do
+  = semantic_icon('question mark')
+  = t('layouts.navbar.know_more')
+= link_to new_user_session_path, class: 'ui yellow button' do
+  = semantic_icon('sign in')
+  = t('layouts.navbar.sign_in')
+= link_to new_user_registration_path, class: 'ui olive button' do
+  = semantic_icon('sign in')
+  = t('layouts.navbar.sign_up')
