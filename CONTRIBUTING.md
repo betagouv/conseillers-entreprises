@@ -2,7 +2,7 @@
 
 When contributing to this repository, please first make sure you follow the following git and coding conventions. 
 
-## Git Convention
+## Git Conventions and Pull Request Process 
 
 1. Each new feature should be developed on it's own feature branch. The branch naming should be feature/XX_FeatureName,
  where XX is the Trello ticket number (e.g. 41_awesome_feature).
@@ -13,6 +13,6 @@ If you followed the 'Getting started' steps, this should be automatic, thanks to
 so that someone gets notified).
 5. At least one person of the team should review the PR and the tests should pass for the PR to be accepted.
 
-## Coding Convention
+## Coding Conventions
 
 For now nothing special. Just follow the Ruby On Rails conventions as well as the [SGMAP conventions](https://github.com/sgmap/beta.gouv.fr/wiki/Developpement).
