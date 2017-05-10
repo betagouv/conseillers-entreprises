@@ -1,8 +1,8 @@
 fr:
   layouts:
     navbar:
-      home: Accueil
       search: Recherche Entreprise
+      know_more: En savoir plus
       sign_in: Se connecter
       sign_up: S'inscrire
       sign_out: Se déconnecter

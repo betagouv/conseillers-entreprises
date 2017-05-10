@@ -2,23 +2,29 @@
   .ui.container
     .header.item
       = link_to root_path do
-        = semantic_icon('home')
-        = t('.home')
-    .header.item
-      = link_to companies_path do
-        = semantic_icon('building outline')
-        = t('.search')
-    - unless user_signed_in?
-      .header.item
-        = link_to new_user_session_path do
-          = semantic_icon('sign in')
-          = t('.sign_in')
-      .header.item
-        = link_to new_user_registration_path do
-          = semantic_icon('sign in')
-          = t('.sign_up')
+        = 'E-Conseils'
     - if user_signed_in?
-      .header.item
-        = link_to destroy_user_session_path, method: :delete do
-          = semantic_icon('sign out')
-          = t('.sign_out')
+      .item
+        = link_to companies_path do
+          = semantic_icon('building outline')
+          = t('.search')
+    - else
+      .item
+        = link_to home_about_path do
+          = semantic_icon('question mark')
+          = t('.know_more')
+    .right.menu
+      - unless user_signed_in?
+        .item
+          = link_to new_user_session_path do
+            = semantic_icon('sign in')
+            = t('.sign_in')
+        .item
+          = link_to new_user_registration_path do
+            = semantic_icon('sign in')
+            = t('.sign_up')
+      - if user_signed_in?
+        .item
+          = link_to destroy_user_session_path, method: :delete do
+            = semantic_icon('sign out')
+            = t('.sign_out')
