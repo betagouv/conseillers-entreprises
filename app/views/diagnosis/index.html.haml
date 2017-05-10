@@ -1,2 +1,9 @@
-%h1 Diagnosis#index
-%p Find me in app/views/diagnosis/index.html.haml
+%h1= 'Diagnostic'
+%ul
+  - @questions.each do |question|
+    %li
+      = question.label
+      - unless question.answers.empty?
+        %ul
+          - question.answers.each do |answer|
+            %li= answer.label
