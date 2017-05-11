@@ -2,7 +2,7 @@
   .ui.container
     .header.item
       = link_to root_path do
-        = 'E-Conseils'
+        = t('app_name')
     - if user_signed_in?
       .item
         = link_to companies_path do
