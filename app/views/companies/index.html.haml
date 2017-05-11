@@ -1,2 +1,7 @@
-%h1 Companies#index
-%p Find me in app/views/companies/index.html.haml
+%h1= t('.companies')
+%p= t('.enter_company_number')
+= form_for :company, url: search_companies_path do |f|
+  .field
+    = f.text_field :siret, type: 'number', min: 10**13, max: 10**14-1, style: 'width: 150px', value: 41816609600069
+  .actions
+    = f.submit t('.search')
