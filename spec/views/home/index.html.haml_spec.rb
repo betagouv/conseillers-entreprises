@@ -9,11 +9,3 @@ RSpec.describe 'home/index.html.haml', type: :view do
     expect(rendered).to match(/Bienvenue !/)
   end
 end
-
-RSpec.describe 'home/about.html.haml', type: :view do
-  it 'displays a title' do
-    render
-
-    expect(rendered).to match(/Des entrepreneurs isolés, des conseils cloisonnés/)
-  end
-end
