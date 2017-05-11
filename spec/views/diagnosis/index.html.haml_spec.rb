@@ -4,17 +4,13 @@ require 'rails_helper'
 
 RSpec.describe 'diagnosis/index.html.haml', type: :view do
   let(:question) { create :question }
-  let!(:answer) { create :answer, question: question }
 
-  before { assign :questions, [question] }
-
-  it 'displays a title' do
+  before do
+    create :answer, question: question
+    assign :questions, [question]
     render
-    expect(rendered).to match(/Diagnostic/)
   end
 
-  it 'displays two list elements' do
-    render
-    assert_select 'li', count: 2
-  end
+  it('displays a title') { expect(rendered).to match(/Diagnostic/) }
+  it('displays two list elements') { assert_select 'li', count: 2 }
 end
