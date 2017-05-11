@@ -1,0 +1,8 @@
+fr:
+  companies:
+    index:
+      companies: Entreprises
+      enter_company_number: "Entrez le numéro SIRET de l'entreprise que vous cherchez :"
+      search: Rechercher
+    search:
+      companies: Entreprises
