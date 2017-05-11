@@ -1,14 +1,13 @@
 !!!
 %html
   %head
-    %title= 'EConseils'
+    %title= t('app_name')
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', data: {turbolinks_track: 'reload'}
     = javascript_include_tag 'application', data: {turbolinks_track: 'reload'}
   %body
     = render 'layouts/navbar'
-    .main.container
+    .ui.main.text.container
       %p.notice= notice
       %p.alert= alert
       = yield
-    = render 'layouts/footer'
