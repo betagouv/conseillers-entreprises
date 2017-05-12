@@ -2,6 +2,7 @@ fr:
   layouts:
     navbar:
       search: Recherche Entreprise
+      diagnosis_tool: Outil de diagnostic
       know_more: En savoir plus
       sign_in: Se connecter
       sign_up: S'inscrire

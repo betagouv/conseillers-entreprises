@@ -1,0 +1,9 @@
+%h1= 'Diagnostic'
+%ul
+  - @questions.each do |question|
+    %li
+      = question.label
+      - unless question.answers.empty?
+        %ul
+          - question.answers.each do |answer|
+            %li= answer.label
