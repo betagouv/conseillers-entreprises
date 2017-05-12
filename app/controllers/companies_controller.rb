@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  def index; end
+  def index
+    @queries = Search.last_queries_of_user current_user
+  end
 
   def search
     Search.create! user: current_user, query: params[:company][:siret]

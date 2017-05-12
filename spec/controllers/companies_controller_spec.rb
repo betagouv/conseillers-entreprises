@@ -7,6 +7,7 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns http success' do
+      allow(Search).to receive(:last_queries_of_user).with(current_user)
       get :index
       expect(response).to have_http_status(:success)
     end
