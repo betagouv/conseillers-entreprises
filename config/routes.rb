@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :diagnosis, only: %i[index]
 
-  resources :companies, only: %i[index show] do
+  resources :companies, only: %i[index show], param: :siret do
     post 'search', on: :collection
   end
 

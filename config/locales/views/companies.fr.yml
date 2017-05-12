@@ -4,7 +4,7 @@ fr:
       companies: Entreprises
       enter_company_number: "Entrez le numéro SIRET de l'entreprise que vous cherchez :"
       search: Rechercher
-    search:
+    show:
       companies: Entreprises
       result_for_siret_html: Résultat pour le SIRET <strong>%{siret}</strong>.
       siren: SIREN
