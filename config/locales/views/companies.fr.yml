@@ -6,3 +6,35 @@ fr:
       search: Rechercher
     search:
       companies: Entreprises
+      result_for_siret_html: Résultat pour le SIRET <strong>%{siret}</strong>.
+      siren: SIREN
+      capital_social: Capital social
+      numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
+      forme_juridique: Forme juridique
+      forme_juridique_code: Code de la forme juridique
+      nom_commercial: Nom Commercial
+      procedure_collective: En cours de procedure collective ?
+      raison_sociale: Raison Sociale
+      date_creation: Date de création
+      nom: Nom
+      prenom: Prénom
+      date_radiation: Date de radiation
+      categorie_entreprise: Categorie de l'entreprise
+      siege_social: Siège social
+      naf: Code NAF
+      date_mise_a_jour: Date de mise à jour
+      tranche_effectif_salarie_etablissement: Tranche d'effectif de salariés de l'établissement
+      date_creation_etablissement: Date de création de l'établissement
+      enseigne: Enseigne
+      region_implantation: Région d'implantation
+      commune_implantation: Commune d'implantation
+      pays_implantation: Pays d'implantation
+      diffusable_commercialement: Diffusable commercialement
+      adresse: Adresse
+      tranche_effectif_salarie_entreprise: Tranche d'effectif de salariés de l'entreprise
+      mandataires_sociaux: Mandataires sociaux
+      personne_morale: Personne morale
+      fonction: Fonction
+      date_naissance: Date de naissance
+      dirigeant: Est-ce un dirigeant ?
+      identifiant: Identifiant

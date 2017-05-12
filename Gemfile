@@ -31,6 +31,7 @@ gem 'turbolinks', '~> 5'
 gem 'semantic-ui-sass', '~> 2'
 
 gem 'i18n-tasks', '~> 0.8.3'
+gem 'wannabe_bool'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
