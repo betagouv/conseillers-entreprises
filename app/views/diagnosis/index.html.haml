@@ -8,6 +8,4 @@
         %td
           .ui.buttons
             - question.answers.each do |answer|
-              - if question.answers.first != answer
-                .or{data: {text: 'ou'}}
-              = link_to answer.label, answer_diagnosis_index_path(answer), class: 'ui button'
+              = render partial: 'diagnosis/answer', locals: {is_not_first: question.answers.first != answer, answer: answer}

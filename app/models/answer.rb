@@ -5,4 +5,8 @@ class Answer < ApplicationRecord
   has_one :child_question, class_name: 'Question'
 
   validates :parent_question, presence: true
+
+  def to_s
+    "#{id} - #{label}"
+  end
 end

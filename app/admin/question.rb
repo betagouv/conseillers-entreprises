@@ -9,7 +9,7 @@ ActiveAdmin.register Question do
   # or
   #
   permit_params do
-    permitted = [:label]
+    permitted = %i[label answer_id]
     permitted << :other if params[:action] == 'create'
     permitted
   end

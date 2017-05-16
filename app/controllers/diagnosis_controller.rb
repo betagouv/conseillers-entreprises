@@ -6,6 +6,6 @@ class DiagnosisController < ApplicationController
   end
 
   def answer
-    @answer = Answer.find params[:id]
+    @answer = Answer.find(params[:id])
   end
 end
