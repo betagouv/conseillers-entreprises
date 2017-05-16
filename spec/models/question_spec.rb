@@ -10,8 +10,8 @@ RSpec.describe Question, type: :model do
     describe 'without_anwser_parent' do
       let(:question_without_parent) { create :question }
       let(:answer) { create :answer, parent_question: question_without_parent }
-      let!(:question_with_parent) { create :question, answer: answer }
-      
+      let(:question_with_parent) { create :question, answer: answer }
+
       it { expect(Question.without_anwser_parent).to eq [question_without_parent] }
     end
   end
