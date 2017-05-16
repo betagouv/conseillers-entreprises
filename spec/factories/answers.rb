@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :answer do
     label 'MyString'
-    question nil
+    association :question
   end
 end
