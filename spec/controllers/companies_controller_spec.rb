@@ -7,37 +7,31 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns http success' do
+      allow(Search).to receive(:last_queries_of_user).with(current_user)
       get :index
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'POST #search' do
-    subject(:request) { post :search, params: { company: { siret: siret } } }
-
     let(:siret) { '12345678901234' }
-    let(:company_name) { 'Company Name' }
 
-    before do
-      api_json = { 'entreprise' => { 'nom_commercial' => company_name } }
-      allow(ApiEntrepriseService).to receive(:fetch_company_with_siret).with(siret) { api_json }
-      request
-    end
-
-    it('returns http success') { expect(response).to have_http_status(:success) }
-
-    it 'creates a Search entry' do
-      expect(Search.last.user).to eq current_user
-      expect(Search.last.query).to eq siret
-      expect(Search.last.label).to eq company_name
+    it 'redirects to the show page' do
+      allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret: siret, user: current_user)
+      post :search, params: { company: { siret: siret } }
+      is_expected.to redirect_to company_path(siret)
     end
   end
 
   describe 'GET #show' do
-    let(:company) { create :company }
+    let(:siret) { '12345678901234' }
+    let(:company_name) { 'Random name' }
 
-    it 'returns http success' do
-      get :show, params: { id: company.id }
+    it do
+      api_json = { 'entreprise' => { 'nom_commercial' => company_name } }
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { api_json }
+      allow(QwantApiService).to receive(:results_for_query).with(company_name)
+      get :show, params: { siret: siret }
       expect(response).to have_http_status(:success)
     end
   end

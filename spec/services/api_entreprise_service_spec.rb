@@ -21,14 +21,14 @@ describe ApiEntrepriseService do
       expect(JSON).to have_received(:parse)
     end
 
-    describe 'fetch_company_with_siren' do
-      it { described_class.fetch_company_with_siren siren }
-    end
-
     describe 'fetch_company_with_siret' do
       let(:siret) { '12345678901234' }
 
       it { described_class.fetch_company_with_siret siret }
+    end
+
+    describe 'fetch_company_with_siren' do
+      it { described_class.send(:fetch_company_with_siren, siren) }
     end
   end
 end
