@@ -1,4 +1,4 @@
-%h1= 'Diagnostic'
+%h1= t('.diagnosis')
 %h2= @answer.parent_question
 %p= @answer.label
 
@@ -9,8 +9,8 @@
       = render partial: 'diagnosis/answer', locals: {is_not_first: @answer.child_question.answers.first != answer, answer: answer}
 - elsif @answer.assistance
   .ui.info.message
-    %p= 'Une aide a été trouvée !'
+    %p= t('.assitance_was_found')
   %p= simple_format @answer.assistance.description
 - else
   .ui.warning.message
-    %p= 'Aucune aide n\'a été trouvée sur ce sujet...'
+    %p= t('.no_assitance_found')
