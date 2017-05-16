@@ -6,7 +6,7 @@ RSpec.describe 'diagnosis/index.html.haml', type: :view do
   let(:question) { create :question }
 
   before do
-    create :answer, question: question
+    create :answer, parent_question: question
     assign :questions, [question]
     render
   end

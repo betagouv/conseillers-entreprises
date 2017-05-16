@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :answer do
     label 'MyString'
-    association :question
+    association :parent_question, factory: :question
   end
 end
