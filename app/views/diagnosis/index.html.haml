@@ -10,4 +10,4 @@
             - question.answers.each do |answer|
               - if question.answers.first != answer
                 .or{data: {text: 'ou'}}
-              %button.ui.button= answer.label
+              = link_to answer.label, answer_diagnosis_index_path(answer), class: 'ui button'
