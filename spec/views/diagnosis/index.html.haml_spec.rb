@@ -6,11 +6,11 @@ RSpec.describe 'diagnosis/index.html.haml', type: :view do
   let(:question) { create :question }
 
   before do
-    create :answer, question: question
+    create :answer, parent_question: question
     assign :questions, [question]
     render
   end
 
   it('displays a title') { expect(rendered).to match(/Diagnostic/) }
-  it('displays two list elements') { assert_select 'li', count: 2 }
+  it('displays two list elements') { assert_select 'tr', count: 2 }
 end

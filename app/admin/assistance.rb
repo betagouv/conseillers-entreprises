@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register Answer do
-  menu priority: 3
+ActiveAdmin.register Assistance do
+  menu priority: 4
 
   permit_params do
-    permitted = %i[label question_id]
+    permitted = %i[answer_id description]
     permitted << :other if params[:action] == 'create'
     permitted
   end

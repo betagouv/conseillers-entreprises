@@ -1,9 +1,11 @@
-%h1= 'Diagnostic'
-%ul
-  - @questions.each do |question|
-    %li
-      = question.label
-      - unless question.answers.empty?
-        %ul
-          - question.answers.each do |answer|
-            %li= answer.label
+%h1= t('.diagnosis')
+%table.ui.selectable.celled.table
+  %tbody
+    - @questions.each do |question|
+      %tr{onClick: '$(this).next("tr"").show()'}
+        %td= question.label
+      %tr.warning
+        %td
+          .ui.buttons
+            - question.answers.each do |answer|
+              = render partial: 'diagnosis/answer', locals: {is_not_first: question.answers.first != answer, answer: answer}

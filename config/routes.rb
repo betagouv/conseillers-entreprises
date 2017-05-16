@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get 'home/about'
 
-  resources :diagnosis, only: %i[index]
+  resources :diagnosis, only: %i[index] do
+    collection do
+      get 'answer/:id' => 'diagnosis#answer', as: :answer
+    end
+  end
 
   resources :companies, only: %i[index show], param: :siret do
     post 'search', on: :collection
