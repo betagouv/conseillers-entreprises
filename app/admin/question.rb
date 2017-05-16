@@ -8,7 +8,7 @@ ActiveAdmin.register Question do
 #
   permit_params do
     permitted = [:label]
-    permitted << :other if params[:action] == 'create' && current_user.is_admin?
+    permitted << :other if params[:action] == 'create'
     permitted
   end
 end
