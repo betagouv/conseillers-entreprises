@@ -14,31 +14,23 @@ RSpec.describe CompaniesController, type: :controller do
   end
 
   describe 'POST #search' do
-    subject(:request) { post :search, params: { company: { siret: siret } } }
-
     let(:siret) { '12345678901234' }
 
-    before { request }
-
-    it('redirects to the show page') { is_expected.to redirect_to company_path(siret) }
-
-    it 'creates a Search entry' do
-      expect(Search.last.user).to eq current_user
-      expect(Search.last.query).to eq siret
+    it 'redirects to the show page' do
+      allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret: siret, user: current_user)
+      post :search, params: { company: { siret: siret } }
+      is_expected.to redirect_to company_path(siret)
     end
   end
 
   describe 'GET #show' do
-    subject(:request) { get :show, params: { siret: siret } }
-
     let(:siret) { '12345678901234' }
 
-    before do
+    it do
       api_json = { 'entreprise' => { 'nom_commercial' => 'Random name' } }
-      allow(ApiEntrepriseService).to receive(:fetch_company_with_siret).with(siret) { api_json }
-      request
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { api_json }
+      get :show, params: { siret: siret }
+      expect(response).to have_http_status(:success)
     end
-
-    it('returns http success') { expect(response).to have_http_status(:success) }
   end
 end
