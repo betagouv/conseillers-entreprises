@@ -1,9 +1,13 @@
 %h1= 'Diagnostic'
-%ul
-  - @questions.each do |question|
-    %li
-      = question.label
-      - unless question.answers.empty?
-        %ul
-          - question.answers.each do |answer|
-            %li= answer.label
+%table.ui.selectable.celled.table
+  %tbody
+    - @questions.each do |question|
+      %tr{onClick: '$(this).next("tr"").show()'}
+        %td= question.label
+      %tr.warning
+        %td
+          .ui.buttons
+            - question.answers.each do |answer|
+              - if question.answers.first != answer
+                .or{data: {text: 'ou'}}
+              %button.ui.button= answer.label
