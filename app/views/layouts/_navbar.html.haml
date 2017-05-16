@@ -23,10 +23,6 @@
           = link_to new_user_session_path do
             = semantic_icon('sign in')
             = t('.sign_in')
-        .item
-          = link_to new_user_registration_path do
-            = semantic_icon('sign in')
-            = t('.sign_up')
       - if user_signed_in?
         .item
           = link_to destroy_user_session_path, method: :delete do
