@@ -12,5 +12,6 @@ class CompaniesController < ApplicationController
 
   def show
     @company = UseCases::SearchCompany.with_siret params[:siret]
+    render layout: 'company'
   end
 end
