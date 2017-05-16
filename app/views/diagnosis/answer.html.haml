@@ -7,8 +7,10 @@
   .ui.buttons
     - @answer.child_question.answers.each do |answer|
       = render partial: 'diagnosis/answer', locals: {is_not_first: @answer.child_question.answers.first != answer, answer: answer}
-
-- if @answer.assistance
+- elsif @answer.assistance
   .ui.info.message
     %p= 'Une aide a été trouvée !'
   %p= simple_format @answer.assistance.description
+- else
+  .ui.warning.message
+    %p= 'Aucune aide n\'a été trouvée sur ce sujet...'
