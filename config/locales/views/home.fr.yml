@@ -1,7 +1,8 @@
 fr:
   home:
     index:
-      welcome: Bienvenue !
+      welcome: Bienvenue sur E-Conseils !
+      explanation: E-Conseils est une plateforme pour aider les conseillers à cibler les entreprises en besoin, ainsi qu'aider les entreprises à avoir accès aux aides dont elles ont besoin !
     about:
       explanation_html: |
         <h2>Des entrepreneurs isolés, des conseils cloisonnés</h2>

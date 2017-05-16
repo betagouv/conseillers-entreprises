@@ -8,6 +8,5 @@
   %body
     = render 'layouts/navbar'
     .ui.main.container
-      %p.notice= notice
-      %p.alert= alert
+      = render 'layouts/flashes'
       = yield
