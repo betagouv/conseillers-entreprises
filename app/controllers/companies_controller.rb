@@ -12,6 +12,7 @@ class CompaniesController < ApplicationController
 
   def show
     @company = UseCases::SearchCompany.with_siret params[:siret]
+    @qwant_results = QwantApiService.results_for_query @company['entreprise']['nom_commercial']
     render layout: 'company'
   end
 end

@@ -25,10 +25,12 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'GET #show' do
     let(:siret) { '12345678901234' }
+    let(:company_name) { 'Random name' }
 
     it do
-      api_json = { 'entreprise' => { 'nom_commercial' => 'Random name' } }
+      api_json = { 'entreprise' => { 'nom_commercial' => company_name } }
       allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { api_json }
+      allow(QwantApiService).to receive(:results_for_query).with(company_name)
       get :show, params: { siret: siret }
       expect(response).to have_http_status(:success)
     end
