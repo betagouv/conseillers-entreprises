@@ -1,5 +1,12 @@
 fr:
   activerecord:
+    models:
+      answer:
+        one: 'Réponse'
+        other: 'Réponses'
+      question:
+        one: 'Question'
+        other: 'Questions'
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
