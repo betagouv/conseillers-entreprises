@@ -1,8 +1,14 @@
 %h1= 'Diagnostic'
 %h2= @answer.parent_question
 %p= @answer.label
+
 - if @answer.child_question
-  %h2= @answer.child_question
+  %h3= @answer.child_question
   .ui.buttons
     - @answer.child_question.answers.each do |answer|
       = render partial: 'diagnosis/answer', locals: {is_not_first: @answer.child_question.answers.first != answer, answer: answer}
+
+- if @answer.assistance
+  .ui.info.message
+    %p= 'Une aide a été trouvée !'
+  %p= simple_format @answer.assistance.description
