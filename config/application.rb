@@ -20,5 +20,7 @@ module EConseils
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**/*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = :fr
+
+    config.action_mailer.delivery_method = :mailjet
   end
 end
