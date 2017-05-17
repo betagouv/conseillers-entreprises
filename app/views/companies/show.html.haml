@@ -123,10 +123,13 @@
 
   .six.wide.column
     %h2= t('.ereputation')
-    .ui.very.relaxed.celled.list
-      - @qwant_results['data']['result']['items'].each do |item|
-        .item
-          = image_tag item['favicon'], class: 'ui avatar image'
-          .content
-            = link_to item['title'].html_safe, item['url'], class: 'header'
-            .description= item['desc'].html_safe
+    - if @qwant_results.blank?
+      %p= t('.information_not_found')
+    - else
+      .ui.very.relaxed.celled.list
+        - @qwant_results['data']['result']['items'].each do |item|
+          .item
+            = image_tag item['favicon'], class: 'ui avatar image'
+            .content
+              = link_to item['title'].html_safe, item['url'], class: 'header'
+              .description= item['desc'].html_safe
