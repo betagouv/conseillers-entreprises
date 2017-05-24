@@ -23,6 +23,8 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
+      f.input :first_name
+      f.input :last_name
       f.input :email
     end
     f.inputs I18n.t('active_admin.user.user_activation') do
