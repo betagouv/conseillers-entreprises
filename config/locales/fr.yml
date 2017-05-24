@@ -2,6 +2,7 @@ fr:
   attributes:
     created_at: Date de création
     updated_at: Date de mise à jour
+    approved: Validé
   activerecord:
     models:
       user: 

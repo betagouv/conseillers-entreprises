@@ -58,6 +58,7 @@ GEM
       activesupport (>= 3.0.0)
     arel (8.0.0)
     ast (2.3.0)
+    awesome_print (1.7.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
     bourbon (4.3.4)
@@ -333,6 +334,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  awesome_print
   byebug
   capybara
   coffee-rails (~> 4.2)
