@@ -33,6 +33,7 @@ gem 'i18n-tasks', '~> 0.8.3'
 gem 'wannabe_bool'
 
 gem 'capybara'
+gem 'webpacker', '~> 2.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
