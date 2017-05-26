@@ -2,7 +2,7 @@
 
 ActiveAdmin.register User do
   menu priority: 1
-  permit_params :email, :password, :password_confirmation, :approved
+  permit_params :email, :password, :password_confirmation, :is_approved
 
   index do
     selectable_column
@@ -19,7 +19,7 @@ ActiveAdmin.register User do
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
-  filter :approved
+  filter :is_approved
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -28,7 +28,7 @@ ActiveAdmin.register User do
       f.input :email
     end
     f.inputs I18n.t('active_admin.user.user_activation') do
-      f.input :approved
+      f.input :is_approved
     end
     f.actions
   end
