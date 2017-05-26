@@ -1,5 +1,10 @@
 fr:
-  app_name: E-Conseils
+  app_name: RéSo
   "yes": oui
   "no": non
   admin_authentication_failure: Vous n'avez pas accès à cette page.
+  devise:
+    failure:
+      not_approved: "Votre compte n'a pas encore été validé par un administateur."
+    registrations:
+      signed_up_but_not_approved: "Vous avez été enregistré avec succès, mais votre compte n'a pas encore été validé par un administrateur."
