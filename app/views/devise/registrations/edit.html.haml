@@ -43,3 +43,41 @@
   Unhappy? #{button_to 'Cancel my account', registration_path(resource_name), data: { confirm: 'Are you sure?' }, method: :delete}
 = link_to 'Back', :back
 
+#profile
+  %table.ui.padded.basic.table
+    %tbody
+      %tr
+        %td
+          = User.human_attribute_name(:email)
+        %td
+          %div{'v-if' => 'editMode'}
+            .ui.form.inline.field
+              %input{ type: 'text', 'v-model' =>  'user.email'}
+          %div{'v-else' => true}
+            {{user.email}}
+      %tr
+        %td
+          = User.human_attribute_name(:first_name)
+        %td
+          %div{'v-if' => 'editMode'}
+            .ui.form.inline.field
+              %input{ type: 'text', 'v-model' =>  'user.first_name'}
+          %div{'v-else' => true}
+            {{user.first_name}}
+      %tr
+        %td
+          = User.human_attribute_name(:last_name)
+        %td
+          %div{'v-if' => 'editMode'}
+            .ui.form.inline.field
+              %input{ type: 'text', 'v-model' =>  'user.last_name'}
+          %div{'v-else' => true}
+            {{user.last_name}}
+  .ui.button{'@click' =>  'editMode = !editMode'}
+    %div{'v-if' => 'editMode'}
+      = I18n.t('cancel')
+    %div{'v-else' => true}
+      = I18n.t('modify')
+
+= javascript_pack_tag 'user_profile/user_profile'
+= javascript_pack_tag 'hello_vue'

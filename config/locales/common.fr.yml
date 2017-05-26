@@ -2,6 +2,8 @@ fr:
   app_name: RéSo
   "yes": oui
   "no": non
+  cancel: Annuler
+  modify: Modifier
   admin_authentication_failure: Vous n'avez pas accès à cette page.
   devise:
     failure:

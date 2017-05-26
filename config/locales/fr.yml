@@ -35,6 +35,8 @@ fr:
         confirmation_sent_at: Date d'envoi du mail de confirmation
         is_admin: Est administrateur ?
         is_approved: Est validé ?
+        first_name: Prénom
+        last_name: Nom de famille
       question:
         label: Intitulé
         answer: Réponse parente
