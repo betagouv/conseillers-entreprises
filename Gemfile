@@ -23,9 +23,6 @@ gem 'devise'
 gem 'faker'
 gem 'mailjet'
 
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
@@ -35,11 +32,14 @@ gem 'semantic-ui-sass', '~> 2'
 gem 'i18n-tasks', '~> 0.8.3'
 gem 'wannabe_bool'
 
+gem 'capybara'
+
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
