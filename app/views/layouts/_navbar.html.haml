@@ -27,12 +27,16 @@
           = link_to new_user_registration_path do
             = semantic_icon('sign in')
             = t('.sign_up')
-      - if user_signed_in? && current_user.is_admin?
-        .item
-          = link_to admin_dashboard_path do
-            = semantic_icon('dashboard')
-            = t('.dashboard')
       - if user_signed_in?
+        - if current_user.is_admin?
+          .item
+            = link_to admin_dashboard_path do
+              = semantic_icon('dashboard')
+              = t('.dashboard')
+        .item
+          = link_to edit_user_registration_path do
+            = semantic_icon('dashboard')
+            = t('.edit_profile')
         .item
           = link_to destroy_user_session_path, method: :delete do
             = semantic_icon('sign out')

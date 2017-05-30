@@ -9,4 +9,10 @@ RSpec.describe User, type: :model do
       is_expected.not_to allow_value('test').for(:email)
     end
   end
+
+  describe 'full_name' do
+    let(:user) { build :user, first_name: 'Ivan', last_name: 'Collombet' }
+
+    it { expect(user.full_name).to eq 'Ivan Collombet' }
+  end
 end
