@@ -6,6 +6,7 @@ AllCops:
     - 'db/migrate/20170420210630_devise_create_users.rb'
     - 'db/schema.rb'
     - 'tmp/**/*'
+    - 'node_modules/**/*'
 
 Metrics/LineLength:
   Max: 160
@@ -21,3 +22,6 @@ RSpec/MultipleExpectations:
 
 RSpec/NestedGroups:
   Max: 4
+
+RSpec/ExampleLength:
+  Max: 7
