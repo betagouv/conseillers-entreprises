@@ -3,7 +3,7 @@ fr:
   "yes": oui
   "no": non
   cancel: Annuler
-  modify: Modifier
+  edit: Modifier
   admin_authentication_failure: Vous n'avez pas accès à cette page.
   devise:
     failure:
