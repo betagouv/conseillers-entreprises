@@ -15,6 +15,7 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "glob": "^7.1.2",
+    "hamljs": "^0.6.2",
     "js-yaml": "^3.8.4",
     "node-sass": "^4.5.3",
     "path-complete-extname": "^0.1.0",
