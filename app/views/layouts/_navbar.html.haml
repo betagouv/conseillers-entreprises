@@ -1,8 +1,8 @@
 %header.ui.top.fixed.menu
   .ui.container
-    .header.item
+    .header.item{style: 'padding-top: 0;padding-bottom: 0;'}
       = link_to root_path do
-        = t('app_name')
+        = image_tag 'reso-logo-simple.png', style: 'width: 60px'
     - if user_signed_in?
       .item
         = link_to companies_path do
