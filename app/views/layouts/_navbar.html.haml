@@ -34,9 +34,9 @@
               = semantic_icon('dashboard')
               = t('.dashboard')
         .item
-          = link_to edit_user_registration_path do
-            = semantic_icon('dashboard')
-            = t('.edit_profile')
+          = link_to profile_path do
+            = semantic_icon('user')
+            = t('.profile')
         .item
           = link_to destroy_user_session_path, method: :delete do
             = semantic_icon('sign out')

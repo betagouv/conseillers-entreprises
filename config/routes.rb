@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root to: 'home#index'
   get 'home/about'
+  get 'profile' => 'users#show'
 
   resources :diagnosis, only: %i[index] do
     collection do
