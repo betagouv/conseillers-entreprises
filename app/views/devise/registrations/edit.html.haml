@@ -47,8 +47,7 @@
   %table.ui.padded.basic.table
     %tbody
       %tr
-        %td
-          = User.human_attribute_name(:email)
+        %td= User.human_attribute_name(:email)
         %td
           %div{'v-if' => 'editMode'}
             .ui.form.inline.field
@@ -56,8 +55,7 @@
           %div{'v-else' => true}
             {{user.email}}
       %tr
-        %td
-          = User.human_attribute_name(:first_name)
+        %td= User.human_attribute_name(:first_name)
         %td
           %div{'v-if' => 'editMode'}
             .ui.form.inline.field
@@ -65,8 +63,7 @@
           %div{'v-else' => true}
             {{user.first_name}}
       %tr
-        %td
-          = User.human_attribute_name(:last_name)
+        %td= User.human_attribute_name(:last_name)
         %td
           %div{'v-if' => 'editMode'}
             .ui.form.inline.field
@@ -80,4 +77,3 @@
       = I18n.t('modify')
 
 = javascript_pack_tag 'user_profile/user_profile'
-= javascript_pack_tag 'hello_vue'
