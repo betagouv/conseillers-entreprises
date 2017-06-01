@@ -22,6 +22,7 @@ gem 'activeadmin'
 gem 'devise'
 gem 'faker'
 gem 'mailjet'
+gem 'metamagic'
 
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
