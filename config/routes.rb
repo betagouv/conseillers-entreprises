@@ -4,8 +4,14 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
   ActiveAdmin.routes(self)
   root to: 'home#index'
-  get 'home/about'
   get 'profile' => 'users#show'
+
+  resources :home, only: %i[] do
+    collection do
+      get :about
+      get :contact
+    end
+  end
 
   resources :diagnosis, only: %i[index] do
     collection do

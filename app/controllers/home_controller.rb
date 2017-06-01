@@ -6,4 +6,8 @@ class HomeController < ApplicationController
   def index; end
 
   def about; end
+
+  def contact
+    @contacts = User.for_contact_page
+  end
 end

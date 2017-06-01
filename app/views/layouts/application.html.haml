@@ -7,6 +7,10 @@
     = javascript_include_tag 'application', data: {turbolinks_track: 'reload'}
   %body
     = render 'layouts/navbar'
-    .ui.main.text.container
-      = render 'layouts/flashes'
-      = yield
+
+    %main.site-content
+      .ui.main.text.container
+        = render 'layouts/flashes'
+        = yield
+
+    = render 'layouts/footer'

@@ -9,3 +9,6 @@ fr:
       sign_out: Se déconnecter
       dashboard: Admin
       profile: Profil
+    footer:
+      problem_or_question: Un problème ? Une question ?
+      contact_us: Contactez-nous !

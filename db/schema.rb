@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526153949) do
+ActiveRecord::Schema.define(version: 20170601144406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -90,6 +91,9 @@ ActiveRecord::Schema.define(version: 20170526153949) do
     t.boolean "is_approved", default: false, null: false
     t.string "first_name"
     t.string "last_name"
+    t.integer "contact_page_order"
+    t.string "contact_page_role"
+    t.string "phone_number"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["is_approved"], name: "index_users_on_is_approved"

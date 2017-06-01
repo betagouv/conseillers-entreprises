@@ -26,10 +26,49 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :email
+      f.input :password
+      f.input :password_confirmation
+      f.input :contact_page_order
+      f.input :contact_page_role
+      f.input :phone_number
     end
+
     f.inputs I18n.t('active_admin.user.user_activation') do
       f.input :is_approved
     end
+
     f.actions
+  end
+
+  controller do
+    def update
+      update_params_depending_on_password
+      redirect_or_display_form
+    end
+
+    def update_params_depending_on_password
+      @user = User.find(params[:id])
+      if params[:user][:password].blank?
+        @user.update_without_password(update_without_password)
+      else
+        @user.update_attributes(update_with_password)
+      end
+    end
+
+    def redirect_or_display_form
+      if @user.errors.blank?
+        redirect_to admin_users_path, notice: 'User updated successfully.'
+      else
+        render :edit
+      end
+    end
+
+    def update_without_password
+      params.require(:user).permit(%i[first_name last_name email is_approved contact_page_order contact_page_role phone_number])
+    end
+
+    def update_with_password
+      params.require(:user).permit(%i[first_name last_name email password password_confirmation is_approved contact_page_order contact_page_role phone_number])
+    end
   end
 end

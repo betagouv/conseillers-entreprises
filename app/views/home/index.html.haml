@@ -3,7 +3,7 @@
 = image_tag 'https://github.com/sgmap/beta.gouv.fr/wiki/images/marianne.png', width: 200
 %h1= t('.welcome')
 %p= t('.explanation')
-= link_to home_about_path, class: 'ui orange button' do
+= link_to about_home_index_path, class: 'ui orange button' do
   = semantic_icon('question mark')
   = t('layouts.navbar.know_more')
 - unless user_signed_in?
