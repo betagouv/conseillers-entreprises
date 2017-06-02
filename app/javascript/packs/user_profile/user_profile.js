@@ -11,6 +11,15 @@ const profile = new Vue({
     data: {
         user: {},
         editMode: false,
+        trad: {},
+        profileFields: [
+            'email',
+            'first_name',
+            'last_name'
+        ],
+        immutableFields: [
+            'email'
+        ]
     },
     components: {},
     computed: {},
@@ -28,7 +37,6 @@ const profile = new Vue({
             axios.get('/profile.json')
                 .then(function (response) {
                     that.user = response.data;
-                    that.updateProfileFields();
                 })
                 .catch(function (error) {
                     console.log('axios.get error' + error);
@@ -40,18 +48,10 @@ const profile = new Vue({
             axios.patch('/profile', { user: this.user})
                 .then(function (response) {
                     that.user = response.data.user;
-                    that.updateProfileFields();
                 })
                 .catch(function (error) {
                     console.log('axios.patch error' + error);
                 });
-        },
-        updateProfileFields: function () {
-            this.profileFields = [
-                'email',
-                'first_name',
-                'last_name'
-            ]
         },
         editButtonClicked: function () {
             this.unmodifiedUser = $.extend(true, {}, this.user);

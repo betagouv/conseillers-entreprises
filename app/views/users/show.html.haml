@@ -3,10 +3,24 @@
   {{profileFields}}
   %table.ui.padded.basic.table
     %tbody
-      %tr{is: 'profile-item', 'v-for' => 'info in profileFields', ':info' => 'info'}
-
-  .ui.button{'@click' =>  'editMode = !editMode'}
-    %div{'v-if' => 'editMode'}
+      %tr{'v-for' => 'key in profileFields'}
+        %td
+          {{trad[key]}}
+        %td
+          %div{'v-if' => 'editMode && !immutableFields.includes(key)'}
+            .ui.form.inline.field.fluid
+              %input{'type' => 'text',
+                     'v-model' => 'user[key]'}
+          %div{'v-else-if' => 'editMode && immutableFields.includes(key)'}
+            .ui.form.inline.field.disabled.input.fluid.transparent.input
+              %input{'type' => 'text',
+                     'v-model' => 'user[key]'}
+          %div{'v-else' => true}
+            {{user[key]}}
+  %div{'v-if' => 'editMode'}
+    .ui.button.right.floated.green{'v-on:click' => 'saveButtonClicked()'}
+      = I18n.t('save')
+    .ui.button.right.floated{'v-on:click' => 'cancelButtonClicked()'}
       = I18n.t('cancel')
     %div{'v-else' => true}
       = I18n.t('edit')
