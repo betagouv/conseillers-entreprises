@@ -14,7 +14,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'PATCH #update' do
     it do
-      patch :update, format: :json, params: {user: {email: current_user.email}}
+      patch :update, format: :json, params: { user: { email: current_user.email } }
       expect(response).to have_http_status(:success)
     end
   end

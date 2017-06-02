@@ -10,10 +10,10 @@ class UsersController < ApplicationController
       @user = current_user
     else
       data = {
-          status: 'could not save data',
-          errors: 422
+        status: 'could not save data',
+        errors: 422
       }
-      render json: data , status: 422
+      render json: data, status: 422
     end
   end
 
