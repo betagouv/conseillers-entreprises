@@ -23,7 +23,7 @@
   .field
     = f.label :password
     - if @minimum_password_length
-      %em= t('.password_minimum_characters', count: @minimum_password_length)
+      %em= t('devise.password_minimum_characters', count: @minimum_password_length)
     = f.password_field :password, autocomplete: 'off'
   .field
     = f.label :password_confirmation

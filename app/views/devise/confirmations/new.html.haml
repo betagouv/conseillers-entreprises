@@ -1,0 +1,12 @@
+%h2= t('.resend_confirmation_instructions')
+
+= form_for resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'ui form' } do |f|
+  = devise_error_messages!
+  .field
+    = f.label :email
+    - email_value = resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email
+    = f.email_field :email, placeholder: Faker::Internet.email, autofocus: true, value: email_value
+  .actions
+    = f.submit t('.resend_confirmation_instructions'), class: 'ui button green'
+
+= render 'devise/shared/links'

@@ -1,0 +1,22 @@
+fr:
+  devise:
+    forgot_password: Mot de passe oublié ?
+    password_minimum_characters: (%{count} caractères minimum)
+    failure:
+      not_approved: "Votre compte n'a pas encore été validé par un administateur."
+    registrations:
+      signed_up_but_not_approved: "Vous avez été enregistré avec succès, mais votre compte n'a pas encore été validé par un administrateur."
+    shared:
+      links:
+        not_received_confirmation: Vous n'avez pas reçu l'e-mail de confirmation ?
+        not_received_unlocked: Vous n'avez pas reçu l'email pour débloquer votre compte ?
+        sign_in_with: Se connecter avec %{provider}
+    passwords:
+      new:
+        send_me_reset_password_instructions: M'envoyer les instructions
+      edit:
+        change_own_password: Changer son mot de passe
+        new_password: Nouveau mot de passe
+    confirmations:
+      new:
+        resend_confirmation_instructions: Renvoyer les instructions de confirmation

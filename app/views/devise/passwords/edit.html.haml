@@ -1,0 +1,17 @@
+%h2= t('.change_own_password')
+
+= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'ui form' } do |f|
+  = devise_error_messages!
+  = f.hidden_field :reset_password_token
+  .field
+    = f.label :password, t('.new_password')
+    - if @minimum_password_length
+      %em= t('devise.password_minimum_characters', count: @minimum_password_length)
+    = f.password_field :password, autofocus: true, autocomplete: 'off'
+  .field
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, autocomplete: 'off'
+  .actions
+    = f.submit t('.change_own_password'), class: 'ui button green'
+
+= render 'devise/shared/links'

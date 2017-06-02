@@ -1,0 +1,11 @@
+%h2= t('devise.forgot_password')
+
+= form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'ui form' } do |f|
+  = devise_error_messages!
+  .field
+    = f.label :email
+    = f.email_field :email, placeholder: Faker::Internet.email, autofocus: true
+  .actions
+    = f.submit t('.send_me_reset_password_instructions'), class: 'ui button green'
+
+= render 'devise/shared/links'
