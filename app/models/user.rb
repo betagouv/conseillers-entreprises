@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
+  validates :first_name, :last_name, presence: true
+
   scope :for_contact_page, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
 
   def active_for_authentication?
