@@ -38,9 +38,9 @@ fr:
         is_admin: Est administrateur ?
         is_approved: Est validé ?
         first_name: Prénom
-        last_name: Nom de famille
+        last_name: Nom
         institution: Institution
-        role: Poste
+        role: Fonction
         phone_number: Numéro de téléphone
         contact_page_order: Ordre sur la page Contact
         contact_page_role: Role sur la page Contact
