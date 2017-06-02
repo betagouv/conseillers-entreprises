@@ -70,7 +70,9 @@ ActiveAdmin.register User do
     end
 
     def update_with_password
-      params.require(:user).permit(%i[first_name last_name email institution role phone_number password password_confirmation is_approved contact_page_order contact_page_role])
+      permitted_keys = %i[first_name last_name email institution role phone_number password password_confirmation]
+      permitted_keys += %i[is_approved contact_page_order contact_page_role]
+      params.require(:user).permit(permitted_keys)
     end
   end
 end
