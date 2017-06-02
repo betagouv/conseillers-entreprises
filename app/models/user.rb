@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :institution, :role, :phone_number, presence: true
 
   scope :for_contact_page, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
 

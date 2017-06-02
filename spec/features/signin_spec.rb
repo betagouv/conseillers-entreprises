@@ -9,7 +9,7 @@ describe 'the signin process', type: :feature do
     visit new_user_session_path
     within('#new_user') do
       fill_in 'Adresse e-mail', with: 'user@example.com'
-      fill_in 'Password', with: 'password'
+      fill_in 'Mot de passe', with: 'password'
     end
     click_button 'Log in'
     expect(page).to have_content 'Connecté'
