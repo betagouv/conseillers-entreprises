@@ -15,7 +15,7 @@ describe 'the profile update', type: :feature do
     fill_in id: 'user_last_name', with: 'Doe'
     fill_in id: 'user_current_password', with: 'password'
 
-    click_button 'Update'
+    click_button 'Mettre à jour'
 
     expect(User.first.first_name).to eq 'John'
     expect(User.first.last_name).to eq 'Doe'

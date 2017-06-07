@@ -24,6 +24,7 @@ fr:
         email: Adresse e-mail
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
+        current_password: Mot de passe actuel
         encrypted_password: Mot de passe chiffré
         reset_password_token: Token de régénération du mot de passe
         reset_password_sent_at: Date de régénération du mot de passe
