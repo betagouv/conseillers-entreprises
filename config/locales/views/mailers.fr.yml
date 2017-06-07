@@ -1,0 +1,7 @@
+fr:
+  mailers:
+    admin_mailer:
+      new_user_created_notification:
+        user_has_signed_up: L'utilisateur %{full_name} <%{email}> vient de s'inscrire.
+        activate_its_account_html: Pour activer son compte, veuillez %{click_here_link}.
+        click_here: cliquer ici

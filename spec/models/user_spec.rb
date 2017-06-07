@@ -20,4 +20,28 @@ RSpec.describe User, type: :model do
 
     it { expect(user.full_name).to eq 'Ivan Collombet' }
   end
+
+  describe 'send_admin_mail' do
+    let(:mail) { Mail::Message.new }
+
+    before do
+      allow(AdminMailer).to receive(:new_user_created_notification).and_return(mail)
+      allow(mail).to receive(:deliver)
+    end
+
+    context 'user is not approved' do
+      it 'warns admins' do
+        create :user, is_approved: false
+        expect(AdminMailer).to have_received(:new_user_created_notification)
+        expect(mail).to have_received(:deliver)
+      end
+    end
+
+    context 'user is approved' do
+      it 'does not warn admins' do
+        create :user, is_approved: true
+        expect(AdminMailer).not_to have_received(:new_user_created_notification)
+      end
+    end
+  end
 end

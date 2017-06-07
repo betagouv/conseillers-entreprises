@@ -4,11 +4,9 @@ fr:
     password_minimum_characters: (%{count} caractères minimum)
     failure:
       not_approved: "Votre compte n'a pas encore été validé par un administateur."
-    registrations:
-      signed_up_but_not_approved: "Vous avez été enregistré avec succès, mais votre compte n'a pas encore été validé par un administrateur."
     shared:
       links:
-        not_received_confirmation: Vous n'avez pas reçu l'e-mail de confirmation ?
+        not_received_confirmation: E-mail pour valider votre adresse non reçu ?
         not_received_unlocked: Vous n'avez pas reçu l'email pour débloquer votre compte ?
         sign_in_with: Se connecter avec %{provider}
     passwords:
@@ -19,4 +17,24 @@ fr:
         new_password: Nouveau mot de passe
     confirmations:
       new:
-        resend_confirmation_instructions: Renvoyer les instructions de confirmation
+        resend_confirmation_instructions: Renvoyer l'e-mail pour confirmer son adresse
+    mailer:
+      hello: Bonjour %{user_first_name},
+      emails_footer:
+        answer_this_email_if_any_question_html: Pour toute question, répondez à cet e-mail ou %{link_to_contact_us} !
+        contact_us: contactez-nous
+        site_team_html: L'équipe %{link_to_root}.
+      confirmation_instructions:
+        welcome: Bienvenue sur Réso, %{user_first_name} !
+        confirm_your_email_by_clicking_on_the_link: 'Vous pouvez confirmer votre adresse e-mail en cliquant sur le lien ci-dessous :'
+        confirm_my_account: Confirmer mon compte
+      email_changed:
+        your_email_is_being_changed: Nous vous contactons pour vous informer que votre adresse e-mail va être changée pour %{unconfirmed_email}.
+        your_email_has_been_changed: Nous vous contactons pour vous informer que votre adresse e-mail a bien été changée pour %{new_email}.
+      password_change:
+        your_password_has_been_changed: Nous vous contactons pour vous informer que votre mot de passe a bien été changé.
+      reset_password_instructions:
+        someone_has_requested_a_link: Quelqu'un a fait une demande pour changer le mot de passe associé à votre adresse e-mail. Pour ce faire, cliquez sur le lien ci-dessous.
+        change_my_password: Changer mon mot de passe
+        please_ignore_this_mail: Si vous n'êtes pas l'auteur de cette demande, merci d'ignorer cet e-mail.
+        your_password_wont_change_for_now: Votre mot de passe ne sera pas modifié tant que vous ne remplirez pas le formulaire qui se trouve en cliquant sur le précédent lien.

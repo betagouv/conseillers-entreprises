@@ -1,0 +1,3 @@
+%p= t('.user_has_signed_up', full_name: @user.full_name, email: @user.email)
+- link_to_activate_account = link_to t('.click_here'), admin_user_url(@user)
+%p= t('.activate_its_account_html', click_here_link: link_to_activate_account)
