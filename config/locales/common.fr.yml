@@ -2,9 +2,7 @@ fr:
   app_name: Réso
   "yes": oui
   "no": non
-  cancel: Annuler
   edit: Modifier
-  save: Sauver
   sign_up: S'inscrire
   sign_in: Se connecter
   admin_authentication_failure: Vous n'avez pas accès à cette page.

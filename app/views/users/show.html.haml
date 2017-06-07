@@ -1,28 +1,9 @@
 #profile
-  {{editMode}}
-  {{profileFields}}
   %table.ui.padded.basic.table
     %tbody
-      %tr{'v-for' => 'key in profileFields'}
-        %td
-          {{trad[key]}}
-        %td
-          %div{'v-if' => 'editMode && !immutableFields.includes(key)'}
-            .ui.form.inline.field.fluid
-              %input{'type' => 'text',
-                     'v-model' => 'user[key]'}
-          %div{'v-else-if' => 'editMode && immutableFields.includes(key)'}
-            .ui.form.inline.field.disabled.input.fluid.transparent.input
-              %input{'type' => 'text',
-                     'v-model' => 'user[key]'}
-          %div{'v-else' => true}
-            {{user[key]}}
-  %div{'v-if' => 'editMode'}
-    .ui.button.right.floated.green{'v-on:click' => 'saveButtonClicked()'}
-      = I18n.t('save')
-    .ui.button.right.floated{'v-on:click' => 'cancelButtonClicked()'}
-      = I18n.t('cancel')
-    %div{'v-else' => true}
-      = I18n.t('edit')
+      - [:first_name, :last_name, :institution, :role, :phone_number, :email].each do |attribute|
+        %tr
+          %td= User.human_attribute_name(attribute)
+          %td= @user.send(attribute)
 
-= javascript_pack_tag 'user_profile/user_profile'
+  = link_to t('edit'), edit_user_registration_path, class: 'ui green button'
