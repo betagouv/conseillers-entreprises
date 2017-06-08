@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :visits, only: %i[new create]
+
   resources :companies, only: %i[index show], param: :siret do
     post 'search', on: :collection
   end

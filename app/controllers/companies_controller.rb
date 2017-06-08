@@ -6,8 +6,13 @@ class CompaniesController < ApplicationController
   end
 
   def search
-    UseCases::SearchCompany.with_siret_and_save siret: params[:company][:siret], user: current_user
-    redirect_to company_path params[:company][:siret]
+    siret = params[:company][:siret]
+    UseCases::SearchCompany.with_siret_and_save siret: siret, user: current_user
+    if Visit.exists?(siret: siret, advisor: current_user)
+      redirect_to company_path siret
+    else
+      redirect_to new_visit_path siret: siret
+    end
   end
 
   def show

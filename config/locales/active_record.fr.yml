@@ -7,6 +7,9 @@ fr:
       user:
         one: Utilisateur
         other: Utilisateurs
+      visit:
+        one: Visite
+        other: Visites
       question:
         one: Question
         other: Questions
@@ -45,6 +48,11 @@ fr:
         phone_number: Numéro de téléphone
         contact_page_order: Ordre sur la page Contact
         contact_page_role: Role sur la page Contact
+      visit:
+        happened_at: Date de la visite
+        advisor: Conseiller visiteur
+        visitee: Personne rencontrée
+        siret: SIRET de l'entreprise visitée
       question:
         label: Intitulé
         answer: Réponse parente

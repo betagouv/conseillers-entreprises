@@ -1,0 +1,10 @@
+%h2= t('.new_visit')
+%p= t('.new_visit_introduction_text')
+
+= form_for @visit, html: { method: :post, class: 'ui form' } do |f|
+  = f.hidden_field :siret
+  .field
+    = f.label :happened_at
+    = f.date_field :happened_at, autofocus: true
+  .actions
+    = f.submit t('save'), class: 'ui button green'
