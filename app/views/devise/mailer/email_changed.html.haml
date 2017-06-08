@@ -1,0 +1,6 @@
+%p= t('devise.mailer.hello', user_first_name: @resource.first_name)
+- if @resource.try(:unconfirmed_email?)
+  %p= t('.your_email_is_being_changed', unconfirmed_email: @resource.unconfirmed_email)
+- else
+  %p= t('.your_email_has_been_changed', new_email: @resource.email)
+= render partial: 'emails_footer'

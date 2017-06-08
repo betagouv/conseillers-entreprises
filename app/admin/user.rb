@@ -26,11 +26,13 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :email
+      f.input :institution
+      f.input :role
+      f.input :phone_number
       f.input :password
       f.input :password_confirmation
       f.input :contact_page_order
       f.input :contact_page_role
-      f.input :phone_number
     end
 
     f.inputs I18n.t('active_admin.user.user_activation') do
@@ -64,11 +66,13 @@ ActiveAdmin.register User do
     end
 
     def update_without_password
-      params.require(:user).permit(%i[first_name last_name email is_approved contact_page_order contact_page_role phone_number])
+      params.require(:user).permit(%i[first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role])
     end
 
     def update_with_password
-      params.require(:user).permit(%i[first_name last_name email password password_confirmation is_approved contact_page_order contact_page_role phone_number])
+      permitted_keys = %i[first_name last_name email institution role phone_number password password_confirmation]
+      permitted_keys += %i[is_approved contact_page_order contact_page_role]
+      params.require(:user).permit(permitted_keys)
     end
   end
 end

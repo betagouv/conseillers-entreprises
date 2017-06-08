@@ -1,0 +1,63 @@
+fr:
+  attributes:
+    created_at: Date de création
+    updated_at: Date de mise à jour
+  activerecord:
+    models:
+      user:
+        one: Utilisateur
+        other: Utilisateurs
+      question:
+        one: Question
+        other: Questions
+      answer:
+        one: Réponse
+        other: Réponses
+      assistance:
+        one: Aide
+        other: Aides
+      comment:
+        one: Commentaire
+        other: Commentaires
+    attributes:
+      user:
+        email: Adresse e-mail
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        current_password: Mot de passe actuel
+        encrypted_password: Mot de passe chiffré
+        reset_password_token: Token de régénération du mot de passe
+        reset_password_sent_at: Date de régénération du mot de passe
+        current_sign_in_at: Date de connexion
+        last_sign_in_at: Date de de la dernière connexion
+        current_sign_in_ip: IP de connexion
+        last_sign_in_ip: IP lors de la dernière connexion
+        sign_in_count: Nombre de connexions
+        confirmation_token: Token de confirmation d'adresse e-mail
+        confirmed_at: Date de confirmation d'adresse e-mail
+        confirmation_sent_at: Date d'envoi du mail de confirmation
+        is_admin: Est administrateur ?
+        is_approved: Est validé ?
+        first_name: Prénom
+        last_name: Nom
+        institution: Institution
+        role: Fonction
+        phone_number: Numéro de téléphone
+        contact_page_order: Ordre sur la page Contact
+        contact_page_role: Role sur la page Contact
+      question:
+        label: Intitulé
+        answer: Réponse parente
+        answers: Réponses filles
+      answer:
+        label: Intitulé
+        parent_question: Question parente
+        child_question: Question fille
+      assistance:
+        answer: Réponse parente
+    errors:
+      messages:
+        record_invalid: 'La validation a échoué : %{errors}'
+        restrict_dependent_destroy:
+          has_one: "Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record} dépendant(e) existe"
+          has_many: "Vous ne pouvez pas supprimer l'enregistrement parce que les %{record} dépendants existent"

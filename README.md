@@ -1,6 +1,6 @@
-# e-conseils
+# Réso
 
-Réso : Apporter l'ensemble des aides publiques aux entreprises qui en ont besoin.<br />
+Apporter l'ensemble des aides publiques aux entreprises qui en ont besoin.<br />
 [Voir sur le site de beta.gouv.fr](https://beta.gouv.fr/startup/e-conseils.html)
 
 From now on, we're gonna switch in english. 🇬🇧
@@ -9,8 +9,8 @@ From now on, we're gonna switch in english. 🇬🇧
 
 1. Clone the repository.
 
-        $ git clone git@github.com:sgmap/e-conseils.git
-        $ cd e-conseils
+        $ git clone git@github.com:sgmap/reso.git
+        $ cd reso
 
 2. Install ruby using **rvm**. See `Gemfile` file to know which ruby version is needed.
 

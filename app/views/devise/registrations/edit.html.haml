@@ -1,44 +1,39 @@
-%h2= "Edit #{resource_name.to_s.humanize}"
+%h2= "#{t('edit')} #{resource.model_name.human}"
 
-= form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put } do |f|
+= form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'ui form' } do |f|
   = devise_error_messages!
   .field
     = f.label :email
-    %br
     = f.email_field :email, autofocus: true
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     %div
-      = "Currently waiting confirmation for: #{resource.unconfirmed_email}"
-  .field
-    = f.label :first_name
-    %br
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    %br
-    = f.text_field :last_name
+      = t('.waiting_confirmation_for', unconfirmed_email: resource.unconfirmed_email)
+
+  - [:first_name, :last_name, :institution, :role, :phone_number].each do |attribute|
+    .field
+      = f.label attribute
+      = f.text_field attribute
+
   .field
     = f.label :password
-    %i= "(leave blank if you don't want to change it)"
-    %br
-    = f.password_field :password, autocomplete: 'off'
     - if @minimum_password_length
-      %br
-      %em= "#{@minimum_password_length} characters minimum"
+      %em= t('devise.password_minimum_characters', count: @minimum_password_length)
+    %i= t('.leave_blank_to_change_it')
+    = f.password_field :password, autocomplete: 'off'
   .field
     = f.label :password_confirmation
-    %br
+    %i= t('.leave_blank_to_change_it')
     = f.password_field :password_confirmation, autocomplete: 'off'
   .field
     = f.label :current_password
-    %i= '(we need your current password to confirm your changes)'
-    %br
+    %i= t('.we_need_current_password')
     = f.password_field :current_password, autocomplete: 'off'
   .actions
-    = f.submit 'Update'
+    = f.submit t('update'), class: 'ui green button'
 
-%h3= 'Cancel my account'
+%h3= t('.cancel_account')
 %p
-  = 'Unhappy?'
-  = button_to 'Cancel my account', registration_path(resource_name), data: { confirm: 'Are you sure?' }, method: :delete
-= link_to 'Back', :back
+  = t('.unhappy')
+  = button_to t('.cancel_account'), registration_path(resource_name), class: 'ui red button', data: { confirm: t('.are_you_sure') }, method: :delete
+
+= link_to t('back'), :back

@@ -6,18 +6,18 @@ default: &default
 
 development:
   <<: *default
-  database: econseils-development
+  database: reso-development
   host: localhost
   username: postgres
   password: postgres
 
 test:
   <<: *default
-  database: econseils-test
+  database: reso-test
   host: localhost
   username: postgres
   password: postgres
 
 production:
   <<: *default
-  database: econseils-production
+  database: reso-production

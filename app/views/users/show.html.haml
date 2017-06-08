@@ -1,14 +1,9 @@
 #profile
-  {{editMode}}
-  {{profileFields}}
   %table.ui.padded.basic.table
     %tbody
-      %tr{is: 'profile-item', 'v-for' => 'info in profileFields', ':info' => 'info'}
+      - [:first_name, :last_name, :institution, :role, :phone_number, :email].each do |attribute|
+        %tr
+          %td= User.human_attribute_name(attribute)
+          %td= @user.send(attribute)
 
-  .ui.button{'@click' =>  'editMode = !editMode'}
-    %div{'v-if' => 'editMode'}
-      = I18n.t('cancel')
-    %div{'v-else' => true}
-      = I18n.t('edit')
-
-= javascript_pack_tag 'user_profile/user_profile'
+  = link_to t('edit'), edit_user_registration_path, class: 'ui green button'
