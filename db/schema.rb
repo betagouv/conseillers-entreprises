@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608172609) do
+ActiveRecord::Schema.define(version: 20170609101326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,9 @@ ActiveRecord::Schema.define(version: 20170608172609) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["answer_id"], name: "index_assistances_on_answer_id"
+    t.index ["user_id"], name: "index_assistances_on_user_id"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
@@ -115,6 +117,7 @@ ActiveRecord::Schema.define(version: 20170608172609) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "assistances", "answers"
+  add_foreign_key "assistances", "users"
   add_foreign_key "questions", "answers"
   add_foreign_key "searches", "users"
   add_foreign_key "visits", "users", column: "advisor_id"
