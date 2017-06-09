@@ -15,6 +15,10 @@ class VisitsController < ApplicationController
     end
   end
 
+  def prepare_email
+    @visit = Visit.find params[:id]
+  end
+
   private
 
   def visit_param

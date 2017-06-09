@@ -29,4 +29,12 @@ RSpec.describe VisitsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #prepare_email' do
+    it 'returns http success' do
+      visit = create :visit
+      get :prepare_email, params: { id: visit.id }
+      expect(response).to have_http_status(:success)
+    end
+  end
 end

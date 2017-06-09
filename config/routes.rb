@@ -22,7 +22,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :visits, only: %i[new create]
+  resources :visits, only: %i[new create] do
+    get :prepare_email, on: :member
+  end
 
   resources :companies, only: %i[index show], param: :siret do
     post 'search', on: :collection

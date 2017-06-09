@@ -5,4 +5,6 @@ class Visit < ApplicationRecord
   belongs_to :visitee, class_name: 'User'
 
   validates :happened_at, :siret, :advisor, presence: true
+
+  scope :of_advisor, (->(user) { where(advisor: user) })
 end

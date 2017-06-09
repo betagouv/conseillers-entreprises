@@ -10,9 +10,7 @@
     - @answer.child_question.answers.each do |answer|
       = render partial: 'diagnosis/answer', locals: {is_not_first: @answer.child_question.answers.first != answer, answer: answer}
 - elsif @answer.assistance
-  .ui.info.message
-    %p= t('.assitance_was_found')
-  %p= simple_format @answer.assistance.description
+  = render partial: 'assistance/assistance', locals: {assistance: @answer.assistance}
 - else
   .ui.warning.message
     %p= t('.no_assitance_found')
