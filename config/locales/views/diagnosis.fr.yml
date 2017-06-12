@@ -4,5 +4,4 @@ fr:
       diagnosis: Diagnostic
     answer:
       diagnosis: Diagnostic
-      assitance_was_found: Une aide a été trouvée !
       no_assitance_found: Aucune aide n'a été trouvée sur ce sujet...

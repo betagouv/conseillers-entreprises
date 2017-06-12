@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602125457) do
+ActiveRecord::Schema.define(version: 20170609101326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,9 @@ ActiveRecord::Schema.define(version: 20170602125457) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["answer_id"], name: "index_assistances_on_answer_id"
+    t.index ["user_id"], name: "index_assistances_on_user_id"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
@@ -101,8 +103,22 @@ ActiveRecord::Schema.define(version: 20170602125457) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "visits", force: :cascade do |t|
+    t.bigint "advisor_id"
+    t.bigint "visitee_id"
+    t.date "happened_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "siret"
+    t.index ["advisor_id"], name: "index_visits_on_advisor_id"
+    t.index ["visitee_id"], name: "index_visits_on_visitee_id"
+  end
+
   add_foreign_key "answers", "questions"
   add_foreign_key "assistances", "answers"
+  add_foreign_key "assistances", "users"
   add_foreign_key "questions", "answers"
   add_foreign_key "searches", "users"
+  add_foreign_key "visits", "users", column: "advisor_id"
+  add_foreign_key "visits", "users", column: "visitee_id"
 end

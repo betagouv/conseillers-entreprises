@@ -27,17 +27,25 @@ From now on, we're gonna switch in english. 🇬🇧
         $ gem install bundler
         $ bundle install
 
-6. Execute database configurations.
+6. Install [webpacker](https://github.com/rails/webpacker) and Vue.js.
+
+        $ rails webpacker:install:vue
+
+7. Execute database configurations.
 
         $ rake db:create db:schema:load db:migrate
         $ rake db:create db:schema:load db:migrate RAILS_ENV=test
 
-7. Configure Git to prepend commits with branch name.
+8. Create `.env` file from `.env.example`, and ask the team to fill it in.
+
+        $ cp .env.example .env
+
+9. Configure Git to prepend commits with branch name.
 
         $ curl https://gist.githubusercontent.com/jvenezia/57673140506ae9e330c2/raw/bff6973325b159254a3ba13c5cb9ac8fda8e382b/prepare-commit-msg.sh -o .git/hooks/prepare-commit-msg
         $ chmod +x .git/hooks/prepare-commit-msg
 
-8. You can now start a server.
+10. You can now start a server.
 
         $ foreman start
     And yay! Check out [this page](http://localhost:3000)!

@@ -16,10 +16,21 @@ RSpec.describe CompaniesController, type: :controller do
   describe 'POST #search' do
     let(:siret) { '12345678901234' }
 
-    it 'redirects to the show page' do
-      allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret: siret, user: current_user)
-      post :search, params: { company: { siret: siret } }
-      is_expected.to redirect_to company_path(siret)
+    context 'visit exists' do
+      it 'redirects to the show page' do
+        create :visit, advisor: current_user, siret: siret
+        allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret: siret, user: current_user)
+        post :search, params: { company: { siret: siret } }
+        is_expected.to redirect_to company_path(siret)
+      end
+    end
+
+    context 'visit does not exist' do
+      it 'redirects to the show page' do
+        allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret: siret, user: current_user)
+        post :search, params: { company: { siret: siret } }
+        is_expected.to redirect_to new_visit_path(siret: siret)
+      end
     end
   end
 
