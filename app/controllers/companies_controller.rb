@@ -11,10 +11,19 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = UseCases::SearchCompany.with_siret params[:siret]
-    nom_commercial = @company['entreprise']['nom_commercial']
-    nom_commercial = @company['entreprise']['raison_sociale'] if nom_commercial.blank?
-    @qwant_results = QwantApiService.results_for_query nom_commercial if nom_commercial.present?
-    render layout: 'company'
+    @company = ApiEntreprise::Company.from_siret params[:siret]
+    if @company.blank?
+      render :no_results, layout: 'company'
+    else
+      @qwant_results = QwantApiService.results_for_query nom_commercial if nom_commercial.present?
+      render layout: 'company'
+    end
+  end
+
+  private
+
+  def nom_commercial
+    nom_commercial = @company.entreprise.nom_commercial
+    nom_commercial.present? ? nom_commercial : @company.entreprise.raison_sociale
   end
 end

@@ -47,6 +47,7 @@ gem 'webpacker', '~> 2.0'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'webmock'
 end
 
 group :development, :test do

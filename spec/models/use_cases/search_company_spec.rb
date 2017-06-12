@@ -7,33 +7,32 @@ describe UseCases::SearchCompany do
     subject(:with_siret_and_save) { described_class.with_siret_and_save siret: siret, user: user }
 
     let(:siret) { '12345678901234' }
-    let(:company_name) { 'Company name' }
+    let(:company_name) { 'OCTO-TECHNOLOGY' }
     let(:user) { build :user }
 
-    before { allow(described_class).to receive(:with_siret).with(siret) { { 'entreprise' => { 'raison_sociale' => company_name } } } }
-
-    it 'calls another method' do
-      with_siret_and_save
-      expect(described_class).to have_received(:with_siret).with(siret)
+    before do
+      stub_request(
+        :get,
+        'https://api.apientreprise.fr/v2/entreprises/123456789?token=1234'
+      ).with(
+        headers: {
+          'Accept' => '*/*',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent' => 'Ruby'
+        }
+      ).to_return(
+        status: 200,
+        body: File.read(Rails.root.join('spec/responses/api_entreprise.json')),
+        headers: {}
+      )
     end
 
     it 'creates a Search' do
-      with_siret_and_save
-      expect(Search.last.query).to eq siret
-      expect(Search.last.user).to eq user
-      expect(Search.last.label).to eq company_name
-    end
-  end
-
-  describe 'with_siret' do
-    let(:siret) { '12345678901234' }
-    let(:company_name) { 'Company name' }
-    let(:user) { build :user }
-
-    it 'calls external service' do
-      allow(ApiEntrepriseService).to receive(:fetch_company_with_siret).with(siret) { { 'entreprise' => { 'raison_sociale' => company_name } } }
-      described_class.with_siret siret
-      expect(ApiEntrepriseService).to have_received(:fetch_company_with_siret).with(siret)
+      search = with_siret_and_save
+      expect(search.persisted?).to be_truthy
+      expect(search.query).to eq siret
+      expect(search.user).to eq user
+      expect(search.label).to eq company_name
     end
   end
 end
