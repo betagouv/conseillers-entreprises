@@ -5,7 +5,7 @@ class Question < ApplicationRecord
   belongs_to :answer
   belongs_to :category
 
-  scope :without_anwser_parent, (-> { where(answer: nil) })
+  scope :without_answer_parent, (-> { where(answer: nil) })
 
   def to_s
     label
