@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   end
 
   resources :visits, only: %i[new create] do
-    get :prepare_email, on: :member
+    member do
+      get :prepare_email
+      get :edit_visitee
+      patch :update_visitee
+    end
   end
 
   resources :companies, only: %i[index show], param: :siret do
