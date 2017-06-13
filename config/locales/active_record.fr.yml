@@ -48,6 +48,7 @@ fr:
         phone_number: Numéro de téléphone
         contact_page_order: Ordre sur la page Contact
         contact_page_role: Role sur la page Contact
+        added_by_advisor: A été ajouté par un Conseiller ?
       visit:
         happened_at: Date de la visite
         advisor: Conseiller visiteur
@@ -63,6 +64,7 @@ fr:
         child_question: Question fille
       assistance:
         answer: Réponse parente
+        user: Utilisateur référent
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
