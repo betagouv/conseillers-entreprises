@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe Question, type: :model do
   it { is_expected.to have_many :answers }
   it { is_expected.to belong_to :answer }
+  it { is_expected.to belong_to :category }
 
   describe 'scopes' do
     describe 'without_anwser_parent' do

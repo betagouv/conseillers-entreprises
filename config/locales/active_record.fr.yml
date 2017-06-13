@@ -22,6 +22,9 @@ fr:
       comment:
         one: Commentaire
         other: Commentaires
+      category:
+        one: Catégorie
+        other: Catégories
     attributes:
       user:
         email: Adresse e-mail
@@ -58,6 +61,7 @@ fr:
         label: Intitulé
         answer: Réponse parente
         answers: Réponses filles
+        category: Catégorie
       answer:
         label: Intitulé
         parent_question: Question parente
@@ -65,6 +69,8 @@ fr:
       assistance:
         answer: Réponse parente
         user: Utilisateur référent
+      category:
+        label: Intitulé
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
