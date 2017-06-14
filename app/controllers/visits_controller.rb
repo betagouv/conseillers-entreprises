@@ -30,11 +30,7 @@ class VisitsController < ApplicationController
     @visit.visitee.added_by_advisor = true
     @visit.visitee.skip_confirmation!
     if @visit.save
-      if params[:question_id].present?
-        redirect_to question_diagnosis_index_path(id: params[:question_id])
-      else
-        redirect_to visits_path
-      end
+      update_visitee_redirection
     else
       render 'edit_visitee'
     end
@@ -49,6 +45,14 @@ class VisitsController < ApplicationController
 
   def find_visit
     @visit = Visit.find params[:id]
+  end
+
+  def update_visitee_redirection
+    if params[:question_id].present?
+      redirect_to question_diagnosis_index_path(id: params[:question_id])
+    else
+      redirect_to visits_path
+    end
   end
 
   def visit_params
