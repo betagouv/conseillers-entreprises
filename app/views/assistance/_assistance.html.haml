@@ -1,22 +1,27 @@
 .ui.segment
   %h4.ui.header= assistance.title
+  %p= assistance.company.name
   - if assistance.user
     %h5= t('.contact')
     - contact = assistance.user
     %p
       = contact.full_name
       %br
-      = "#{contact.role} - #{contact.institution}"
-    - visit = Visit.of_advisor(current_user).last # TODO: Improve selection of visit
-    - if visit.blank?
-      %p= 'Vous n\'avez pas encore de visite programmée'
-      = link_to 'Ajouter une visite', companies_path, class: 'ui button green'
-    - elsif visit.visitee
-      - visit_date = I18n.l(visit.happened_at)
-      - email_body = render partial: 'visits/email_to_expert', locals: { visit_date: visit_date, advisor_user: current_user, company_user: visit.visitee, advice_type: question.label, offer: assistance.title, expert_user: contact }
-      - email_body = strip_tags email_body
-      = mail_to contact.email, t('.contact_by_email'), bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - Une entreprise a besoin de vous !", class: 'ui button green'
-    - else
-      = link_to t('.contact_by_email'), edit_visitee_visit_path(visit, question_id: question.id), class: 'ui button green'
+      = contact.role
+    - expert_email = contact.email
+    - mailto_text = t('.contact_by_email')
   - else
-    = link_to t('.contact_institution_by_email'), '', class: 'ui button green'
+    - expert_email = assistance.company.email
+    - mailto_text = t('.contact_institution_by_email')
+
+  - visit = Visit.of_advisor(current_user).last # TODO: Improve selection of visit
+  - if visit.blank?
+    %p= t('.no_visit_scheduled_yet')
+    = link_to t('.add_a_visit'), companies_path, class: 'ui button green'
+  - elsif visit.visitee
+    - visit_date = I18n.l(visit.happened_at)
+    - email_body = render partial: 'visits/email_to_expert', locals: { visit_date: visit_date, advisor_user: current_user, company_user: visit.visitee, advice_type: question.label, offer: assistance.title, expert_institution: assistance.company.name }
+    - email_body = strip_tags email_body
+    = mail_to expert_email, mailto_text, bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company: visit.visitee.institution )}", class: 'ui button green'
+  - else
+    = link_to mailto_text, edit_visitee_visit_path(visit, question_id: question.id), class: 'ui button green'
