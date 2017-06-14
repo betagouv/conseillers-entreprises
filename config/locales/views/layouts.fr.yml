@@ -1,8 +1,9 @@
 fr:
   layouts:
     navbar:
-      search: Recherche Entreprise
-      diagnosis_tool: Outil de diagnostic
+      company_info: Info Entreprises
+      analysis_tool: Analyse Entreprise
+      visits: Visites
       know_more: En savoir plus
       sign_out: Se déconnecter
       dashboard: Admin

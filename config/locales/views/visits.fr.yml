@@ -1,5 +1,10 @@
 fr:
   visits:
+    index:
+      visits: Visites
+      this_is_your_visits_list: Voici la liste de vos visites que vous avez indiquées dans Réso.
+      company_siret: "SIRET de l'entreprise : %{siret}"
+      visit_date: "Date : %{date}"
     new:
       new_visit: Nouvelle visite
       new_visit_introduction_text: Quand est planifiée votre visite de cette entreprise ?

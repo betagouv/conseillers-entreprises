@@ -7,11 +7,15 @@
       .item
         = link_to companies_path do
           = semantic_icon('building outline')
-          = t('.search') # TODO : Rename 'Préparation de visites'
+          = t('.company_info')
       .item
         = link_to diagnosis_index_path do
           = semantic_icon('sitemap')
-          = t('.diagnosis_tool')
+          = t('.analysis_tool')
+      .item
+        = link_to visits_path do
+          = semantic_icon('calendar')
+          = t('.visits')
     - else
       .item
         = link_to about_home_index_path do

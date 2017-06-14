@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class VisitsController < ApplicationController
+  def index
+    @visits = Visit.of_advisor current_user
+  end
+
   def new
     @visit = Visit.new siret: params[:siret]
   end

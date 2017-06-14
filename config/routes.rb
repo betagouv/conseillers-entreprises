@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :visits, only: %i[new create] do
+  resources :visits, only: %i[index new create] do
     member do
       get :prepare_email
       get :edit_visitee

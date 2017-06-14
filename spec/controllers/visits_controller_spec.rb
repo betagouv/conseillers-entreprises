@@ -5,10 +5,16 @@ require 'rails_helper'
 RSpec.describe VisitsController, type: :controller do
   login_user
 
-  let(:siret) { '12345678901234' }
+  describe 'GET #index' do
+    it 'returns http success' do
+      get :index
+      expect(response).to have_http_status(:success)
+    end
+  end
 
   describe 'GET #new' do
     it 'returns http success' do
+      siret = '12345678901234'
       get :new, params: { visit: { siret: siret } }
       expect(response).to have_http_status(:success)
     end
@@ -17,6 +23,7 @@ RSpec.describe VisitsController, type: :controller do
   describe 'POST #create' do
     context 'save worked' do
       it 'redirects to the show page' do
+        siret = '12345678901234'
         post :create, params: { visit: { siret: siret, happened_at: 1.day.from_now } }
         is_expected.to redirect_to company_path(siret)
       end
