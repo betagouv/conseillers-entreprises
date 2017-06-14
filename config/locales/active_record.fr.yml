@@ -25,6 +25,9 @@ fr:
       category:
         one: Catégorie
         other: Catégories
+      company:
+        one: Institution
+        other: Institutions
     attributes:
       user:
         email: Adresse e-mail
@@ -69,8 +72,17 @@ fr:
       assistance:
         answer: Réponse parente
         user: Utilisateur référent
+        question: Question parente
+        description: Description
+        title: Titre
+        company: Institution référente
       category:
         label: Intitulé
+      company:
+        name: Raison sociale
+        siren: SIREN
+        email: Adresse e-mail
+        phone_number: Numéro de téléphone
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

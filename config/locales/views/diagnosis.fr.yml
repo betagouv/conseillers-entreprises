@@ -2,6 +2,11 @@ fr:
   diagnosis:
     index:
       diagnosis: Analyse Entreprise
+    question:
+      assitances_count_found:
+        zero: Aucune aide trouvée...
+        one: Une aide a été trouvée
+        other: "%{count} aides ont été trouvées"
     answer:
       diagnosis: Analyse Entreprise
       no_assitance_found: Aucune aide n'a été trouvée sur ce sujet...

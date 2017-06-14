@@ -1,13 +1,14 @@
-.ui.info.message
-  %p= t('.assitance_was_found')
+.ui.segment
+  %h4.ui.header= assistance.title
+  - if assistance.user
+    %h5= t('.contact')
+    - contact = assistance.user
+    %p
+      = contact.full_name
+      %br
+      = "#{contact.role} - #{contact.institution}"
+    - visit = Visit.of_advisor(current_user).last # TODO: Improve selection of visit
+    = link_to t('.contact_by_email'), prepare_email_visit_path(visit), class: 'ui button green'
+  - else
+    = link_to t('.contact_institution_by_email'), '', class: 'ui button green'
 
-%h3= t('.description')
-%p= simple_format assistance.description
-
-%h3= t('.contact')
-- if assistance.user
-  - contact = assistance.user
-  %p= contact.full_name
-  %p= "#{contact.role} - #{contact.institution}"
-  - visit = Visit.of_advisor(current_user).last # TODO: Improve selection of visit
-  = link_to t('.contact_by_email'), prepare_email_visit_path(visit), class: 'ui button green'

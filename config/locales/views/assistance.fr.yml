@@ -1,7 +1,6 @@
 fr:
   assistance:
     assistance:
-      assitance_was_found: Une aide a été trouvée !
-      description: Description
       contact: Contact
       contact_by_email: Le contacter par e-mail
+      contact_institution_by_email: Contacter l'institution par e-mail

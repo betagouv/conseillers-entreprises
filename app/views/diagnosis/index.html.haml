@@ -7,4 +7,4 @@
     %tbody
       - item[:questions].each do |question|
         %tr
-          %td= question.label
+          %td= link_to question.label, question_diagnosis_index_path(question)

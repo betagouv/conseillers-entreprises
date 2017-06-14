@@ -2,6 +2,7 @@
 
 class Question < ApplicationRecord
   has_many :answers
+  has_many :assistances
   belongs_to :answer
   belongs_to :category
 

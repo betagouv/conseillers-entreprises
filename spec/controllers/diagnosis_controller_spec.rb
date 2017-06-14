@@ -12,6 +12,14 @@ RSpec.describe DiagnosisController, type: :controller do
     end
   end
 
+  describe 'GET #question' do
+    it 'returns http success' do
+      question = create :question
+      get :question, params: { id: question.id }
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'GET #answer' do
     it 'returns http success' do
       answer = create :answer
