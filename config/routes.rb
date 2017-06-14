@@ -25,7 +25,6 @@ Rails.application.routes.draw do
 
   resources :visits, only: %i[index new create] do
     member do
-      get :prepare_email
       get :edit_visitee
       patch :update_visitee
     end

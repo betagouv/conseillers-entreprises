@@ -36,11 +36,6 @@ class VisitsController < ApplicationController
     end
   end
 
-  def prepare_email
-    # @assistance = Assistance.find params[:assistance_id]
-    find_visit
-  end
-
   private
 
   def find_visit
