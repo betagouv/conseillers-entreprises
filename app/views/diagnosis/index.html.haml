@@ -1,13 +1,10 @@
 - meta title: t('.diagnosis')
 
 %h1= t('.diagnosis')
-%table.ui.selectable.celled.table
-  %tbody
-    - @questions.each do |question|
-      %tr{onClick: '$(this).next("tr"").show()'}
-        %td= question.label
-      %tr.warning
-        %td
-          .ui.buttons
-            - question.answers.each do |answer|
-              = render partial: 'diagnosis/answer', locals: {is_not_first: question.answers.first != answer, answer: answer}
+- categories_with_questions.each do |item|
+  %h2= item[:category]
+  %table.ui.selectable.celled.table
+    %tbody
+      - item[:questions].each do |question|
+        %tr
+          %td= question.label

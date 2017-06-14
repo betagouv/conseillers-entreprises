@@ -8,6 +8,10 @@ AllCops:
     - 'tmp/**/*'
     - 'node_modules/**/*'
 
+Metrics/MethodLength:
+  Exclude:
+    - 'app/helpers/diagnosis_helper.rb' # TODO: Remove
+
 Metrics/LineLength:
   Max: 160
 
