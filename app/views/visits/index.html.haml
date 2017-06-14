@@ -12,3 +12,6 @@
           .header= t('.company_siret', siret: visit.siret)
           .description
             = t('.visit_date', date: I18n.l(visit.happened_at))
+            - if visit.visitee.present?
+              %br
+              = t('.person_met', visitee_full_name: visit.visitee.full_name)
