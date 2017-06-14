@@ -46,10 +46,11 @@ RSpec.describe VisitsController, type: :controller do
   end
 
   describe 'PATCH #update_visitee' do
-    subject { patch :update_visitee, params: { id: visit.id, visit: { visitee_attributes: visitee_attributes } } }
+    subject { patch :update_visitee, params: { id: visit.id, visit: { visitee_attributes: visitee_attributes }, question_id: question_id } }
 
     let(:visit) { create :visit }
     let(:user) { build :user }
+    let(:question_id) { nil }
 
     context 'save worked' do
       let(:visitee_attributes) do
@@ -59,8 +60,19 @@ RSpec.describe VisitsController, type: :controller do
         }
       end
 
-      it 'redirects to the show page' do
-        is_expected.to redirect_to root_path
+      context 'there is no question_id' do
+        it 'redirects to the visit list' do
+          is_expected.to redirect_to visits_path
+        end
+      end
+
+      context 'there is a question_id' do
+        let(:question) { create :question }
+        let(:question_id) { question.id }
+
+        it 'redirects to the question page' do
+          is_expected.to redirect_to question_diagnosis_index_path(id: question_id)
+        end
       end
     end
 

@@ -1,7 +1,9 @@
 %h2= t('.your_contact_in_the_company')
 %p= t('.info_about_who_you_saw_during_your_visit')
 
-= form_for @visit, url: update_visitee_visit_path, html: { method: :patch, class: 'ui form' } do |f|
+- form_url = params[:question_id].present? ? update_visitee_visit_path(question_id: params[:question_id]) : update_visitee_visit_path
+
+= form_for @visit, url: form_url, html: { method: :patch, class: 'ui form' } do |f|
   = f.hidden_field :siret
   = f.hidden_field :added_by_advisor, value: true
   = f.fields_for :visitee do |visitee_form|
