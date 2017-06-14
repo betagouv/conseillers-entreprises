@@ -1,0 +1,14 @@
+= t('.hello')
+%br
+= t('.i_just_met_this_company', visit_date: visit_date, company_name: 'OCTO Technology', company_address: '34 avenue de l\'Opéra - 75002 Paris')
+-#= t('.i_just_met_this_company', visit_date: visit.happened_at, company_name: company_user.company.name, company_address: company_user.company.address)
+%br
+= t('.they_need_advice', advice_type: advice_type, expert_institution: expert_user.institution)
+%br
+= t('.company_contact_is', company_contact_full_name: company_user.full_name, company_contact_role: company_user.role, company_contact_phone_number: company_user.phone_number)
+-#= t('.you_can_find_info_on_this_link', app_name: t('app_name'))
+-#= link_to
+%br
+= t('.regards')
+%br
+= advisor_user.full_name

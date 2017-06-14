@@ -8,7 +8,12 @@
       %br
       = "#{contact.role} - #{contact.institution}"
     - visit = Visit.of_advisor(current_user).last # TODO: Improve selection of visit
-    = link_to t('.contact_by_email'), prepare_email_visit_path(visit), class: 'ui button green'
+    - if visit.visitee
+      - visit_date = I18n.l(visit.happened_at)
+      - email_body = render partial: 'visits/email_to_expert', locals: { visit_date: visit_date, advisor_user: current_user, company_user: visit.visitee, advice_type: question_label, offer: assistance.title, expert_user: contact }
+      - email_body = strip_tags email_body
+      = mail_to contact.email, t('.contact_by_email'), bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - Une entreprise a besoin de vous !", class: 'ui button green'
+    - else
+      = link_to t('.contact_by_email'), edit_visitee_visit_path(visit), class: 'ui button green'
   - else
     = link_to t('.contact_institution_by_email'), '', class: 'ui button green'
-
