@@ -17,5 +17,4 @@ fr:
       i_just_met_this_company: J’ai rencontré le %{visit_date} l’entreprise %{company_name}.
       they_need_advice: 'Elle a exprimé le besoin "%{advice_type}". Le projet Réso lui a conseillé %{offer} de %{expert_institution}.'
       company_contact_is: Mon contact dans l’entreprise est %{company_contact_full_name}, %{company_contact_role}, joignable au %{company_contact_phone_number}.
-      you_can_find_info_on_this_link: "Les informations concernant  la visite et l’entreprise sont accessibles sur %{app_name} sur le lien suivant :"
       regards: Bien cordialement,
