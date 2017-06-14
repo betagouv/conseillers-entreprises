@@ -1,7 +1,7 @@
 fr:
   diagnosis:
     index:
-      diagnosis: Diagnostic
+      diagnosis: Analyse Entreprise
     answer:
-      diagnosis: Diagnostic
+      diagnosis: Analyse Entreprise
       no_assitance_found: Aucune aide n'a été trouvée sur ce sujet...
