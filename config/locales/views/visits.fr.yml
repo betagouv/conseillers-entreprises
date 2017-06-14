@@ -2,6 +2,7 @@ fr:
   visits:
     index:
       visits: Visites
+      no_visits_yet: Vous n'avez pas encore de visites indiquées dans Réso.
       this_is_your_visits_list: Voici la liste de vos visites que vous avez indiquées dans Réso.
       company_siret: "SIRET de l'entreprise : %{siret}"
       visit_date: "Date : %{date}"

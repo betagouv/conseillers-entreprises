@@ -1,11 +1,14 @@
 - meta title: t('.visits')
 
 %h1= t('.visits')
-%p= t('.this_is_your_visits_list')
-.ui.relaxed.list
-  - @visits.each do |visit|
-    .item
-      .content
-        .header= t('.company_siret', siret: visit.siret)
-        .description
-          = t('.visit_date', date: I18n.l(visit.happened_at))
+- if @visits.empty?
+  %p= t('.no_visits_yet')
+- else
+  %p= t('.this_is_your_visits_list')
+  .ui.relaxed.list
+    - @visits.each do |visit|
+      .item
+        .content
+          .header= t('.company_siret', siret: visit.siret)
+          .description
+            = t('.visit_date', date: I18n.l(visit.happened_at))
