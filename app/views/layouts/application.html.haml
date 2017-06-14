@@ -6,11 +6,12 @@
     = stylesheet_link_tag 'application', media: 'all', data: {turbolinks_track: 'reload'}
     = javascript_include_tag 'application', data: {turbolinks_track: 'reload'}
   %body
-    = render 'layouts/navbar'
+    = render partial: 'layouts/navbar'
+    = render partial: 'layouts/environment_ribbon'
 
     %main.site-content
       .ui.main.text.container
-        = render 'layouts/flashes'
+        = render partial: 'layouts/flashes'
         = yield
 
-    = render 'layouts/footer'
+    = render partial: 'layouts/footer'
