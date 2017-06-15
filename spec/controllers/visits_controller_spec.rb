@@ -25,7 +25,7 @@ RSpec.describe VisitsController, type: :controller do
       it 'redirects to the show page' do
         siret = '12345678901234'
         post :create, params: { visit: { siret: siret, happened_at: 1.day.from_now } }
-        is_expected.to redirect_to company_path(siret)
+        is_expected.to redirect_to visit_company_path(visit_id: Visit.last.id, siret: siret)
       end
     end
 
@@ -71,7 +71,7 @@ RSpec.describe VisitsController, type: :controller do
         let(:question_id) { question.id }
 
         it 'redirects to the question page' do
-          is_expected.to redirect_to question_diagnosis_index_path(id: question_id)
+          is_expected.to redirect_to question_visit_diagnosis_index_path(id: question_id, visit_id: visit.id)
         end
       end
     end

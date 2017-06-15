@@ -5,9 +5,11 @@ require 'rails_helper'
 RSpec.describe DiagnosisController, type: :controller do
   login_user
 
+  let(:visit) { create :visit }
+
   describe 'GET #index' do
     it 'returns http success' do
-      get :index
+      get :index, params: { visit_id: visit.id }
       expect(response).to have_http_status(:success)
     end
   end
@@ -15,7 +17,7 @@ RSpec.describe DiagnosisController, type: :controller do
   describe 'GET #question' do
     it 'returns http success' do
       question = create :question
-      get :question, params: { id: question.id }
+      get :question, params: { id: question.id, visit_id: visit.id }
       expect(response).to have_http_status(:success)
     end
   end

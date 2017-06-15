@@ -5,10 +5,12 @@ require 'rails_helper'
 RSpec.describe CompaniesController, type: :controller do
   login_user
 
+  let(:visit) { create :visit }
+
   describe 'GET #index' do
     it 'returns http success' do
       allow(Search).to receive(:last_queries_of_user).with(current_user)
-      get :index
+      get :index, params: { visit_id: visit.id }
       expect(response).to have_http_status(:success)
     end
   end
@@ -18,24 +20,24 @@ RSpec.describe CompaniesController, type: :controller do
 
     context 'visit exists' do
       it 'redirects to the show page' do
-        create :visit, advisor: current_user, siret: siret
+        other_visit = create :visit, advisor: current_user, siret: siret
         allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret: siret, user: current_user)
-        post :search, params: { company: { siret: siret } }
-        is_expected.to redirect_to company_path(siret)
+        post :search, params: { visit_id: visit.id, company: { siret: siret } }
+        is_expected.to redirect_to visit_company_path(visit_id: other_visit.id, siret: siret)
       end
     end
 
     context 'visit does not exist' do
       it 'redirects to the show page' do
         allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret: siret, user: current_user)
-        post :search, params: { company: { siret: siret } }
+        post :search, params: { visit_id: visit.id, company: { siret: siret } }
         is_expected.to redirect_to new_visit_path(siret: siret)
       end
     end
   end
 
   describe 'POST #search_with_name' do
-    let(:request) { post :search_with_name, params: { company: { name: 'Octo', county: 75 } }, format: :js }
+    let(:request) { post :search_with_name, params: { visit_id: visit.id, company: { name: 'Octo', county: 75 } }, format: :js }
 
     it 'returns http success' do
       allow(FirmapiService).to receive(:search_companies)
@@ -53,7 +55,7 @@ RSpec.describe CompaniesController, type: :controller do
       api_json = { 'entreprise' => { 'nom_commercial' => company_name } }
       allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { api_json }
       allow(QwantApiService).to receive(:results_for_query).with(company_name)
-      get :show, params: { siret: siret }
+      get :show, params: { visit_id: visit.id, siret: siret }
       expect(response).to have_http_status(:success)
     end
   end

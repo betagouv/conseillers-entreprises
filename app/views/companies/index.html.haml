@@ -4,7 +4,7 @@
 
 #company-siret-search-form
   %p= t('.enter_company_number')
-  = form_for :company, url: search_companies_path, html: {class: 'ui form'} do |f|
+  = form_for :company, url: search_visit_companies_path(params[:visit_id]), html: {class: 'ui form'} do |f|
     .inline.fields
       .field
         = f.label :siret, t('activerecord.attributes.company.siret')
@@ -14,7 +14,7 @@
 #company-name-search
   #company-name-search-form
     %p= t('.enter_company_name')
-    = form_for :company, url: search_with_name_companies_path, remote: true, html: {class: 'ui form'} do |f|
+    = form_for :company, url: search_with_name_visit_companies_path(params[:visit_id]), remote: true, html: {class: 'ui form'} do |f|
       .inline.fields
         .field
           = f.label :name, t('activerecord.attributes.company.name')
@@ -22,9 +22,3 @@
           = f.label :county, t('.county')
           = f.text_field :county, pattern: '[0-9]{2,3}', value: 75, required: true
         = f.button t('.search'), class: 'ui blue button'
-
-%h2= t('.last_searches')
-- if @queries
-  %ul
-    - @queries.each do |query|
-      %li= link_to query, company_path(query)

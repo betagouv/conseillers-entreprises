@@ -6,7 +6,6 @@ fr:
       enter_company_name: "Ou cherchez directement un nom d\'entreprise :"
       county: Département
       search: Rechercher
-      last_searches: Dernières recherches
     search_with_name:
       no_result: Aucun résultat.
       location: Localité

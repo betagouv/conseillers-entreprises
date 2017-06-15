@@ -13,7 +13,7 @@ class VisitsController < ApplicationController
     @visit = Visit.new visit_params
     @visit.advisor = current_user
     if @visit.save
-      redirect_to company_path(siret: @visit.siret)
+      redirect_to visit_company_path visit_id: @visit.id, siret: @visit.siret
     else
       render 'new'
     end
@@ -44,7 +44,7 @@ class VisitsController < ApplicationController
 
   def update_visitee_redirection
     if params[:question_id].present?
-      redirect_to question_diagnosis_index_path(id: params[:question_id])
+      redirect_to question_visit_diagnosis_index_path(visit_id: @visit.id, id: params[:question_id])
     else
       redirect_to visits_path
     end

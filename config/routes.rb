@@ -16,23 +16,23 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnosis, only: %i[index] do
-    collection do
-      get 'question/:id' => 'diagnosis#question', as: :question
-    end
-  end
-
   resources :visits, only: %i[index new create] do
     member do
       get :edit_visitee
       patch :update_visitee
     end
-  end
 
-  resources :companies, only: %i[index show], param: :siret do
-    collection do
-      post 'search'
-      post 'search_with_name'
+    resources :diagnosis, only: %i[index] do
+      collection do
+        get 'question/:id' => 'diagnosis#question', as: :question
+      end
+    end
+
+    resources :companies, only: %i[index show], param: :siret do
+      collection do
+        post 'search'
+        post 'search_with_name'
+      end
     end
   end
 

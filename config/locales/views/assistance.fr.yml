@@ -4,6 +4,4 @@ fr:
       contact: Contact
       contact_by_email: Contacter par e-mail
       contact_institution_by_email: Contacter l'institution par e-mail
-      no_visit_scheduled_yet: Vous n'avez pas encore de visite programmée.
-      add_a_visit: Ajouter une visite
       company_needs_you: L'entreprise %{company} a besoin de vous !

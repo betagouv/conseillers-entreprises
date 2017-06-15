@@ -20,4 +20,4 @@
           %tr
             %td= company_name
             %td= "#{company['postal_code']} #{company['city']}"
-            %td= link_to t('.search'), search_companies_path(company: {siret: company['siren']}), method: :post, class: 'ui mini blue button'
+            %td= link_to t('.search'), search_visit_companies_path(company: {siret: company['siren']}), method: :post, class: 'ui mini blue button'

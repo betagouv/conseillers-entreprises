@@ -18,10 +18,10 @@
           %td= I18n.l(visit.happened_at)
           %td= visit.siret
           %td
-            = link_to company_path(siret: visit.siret), class: 'ui mini orange button' do
+            = link_to visit_company_path(visit_id: visit.id, siret: visit.siret), class: 'ui mini orange button' do
               = semantic_icon('building outline')
               = t('.company_info')
-            = link_to diagnosis_index_path(visit_id: visit.id), class: 'ui mini yellow button' do
+            = link_to visit_diagnosis_index_path(visit_id: visit.id), class: 'ui mini yellow button' do
               = semantic_icon('sitemap')
               = t('.analysis_tool')
 
