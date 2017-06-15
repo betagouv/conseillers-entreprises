@@ -1,12 +1,27 @@
 - meta title: t('.companies')
 
 %h1= t('.companies')
-%p= t('.enter_company_number')
-= form_for :company, url: search_companies_path, html: {class: 'ui form'} do |f|
-  .inline.fields
-    .field
-      = f.text_field :siret, type: 'number', min: 10**13, max: 10**14-1, style: 'width: 165px', value: 41816609600069
-    = f.button t('.search'), class: 'ui button'
+
+#company-siret-search-form
+  %p= t('.enter_company_number')
+  = form_for :company, url: search_companies_path, html: {class: 'ui form'} do |f|
+    .inline.fields
+      .field
+        = f.label :siret, t('activerecord.attributes.company.siret')
+        = f.text_field :siret, type: 'number', min: 10**13, max: 10**14-1, id: 'siret-field', required: true
+      = f.button t('.search'), class: 'ui blue button'
+
+#company-name-search
+  #company-name-search-form
+    %p= t('.enter_company_name')
+    = form_for :company, url: search_with_name_companies_path, remote: true, html: {class: 'ui form'} do |f|
+      .inline.fields
+        .field
+          = f.label :name, t('activerecord.attributes.company.name')
+          = f.text_field :name, value: 'Octo', required: true
+          = f.label :county, t('.county')
+          = f.text_field :county, type: 'number', min: 1, max: 999,  value: 75, required: true
+        = f.button t('.search'), class: 'ui blue button'
 
 %h2= t('.last_searches')
 - if @queries

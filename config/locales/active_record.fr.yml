@@ -81,6 +81,7 @@ fr:
       company:
         name: Raison sociale
         siren: SIREN
+        siret: SIRET
         email: Adresse e-mail
         phone_number: Numéro de téléphone
     errors:

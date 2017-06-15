@@ -3,8 +3,14 @@ fr:
     index:
       companies: Entreprises
       enter_company_number: "Entrez le numéro SIRET de l'entreprise que vous cherchez :"
+      enter_company_name: "Ou cherchez directement un nom d\'entreprise :"
+      county: Département
       search: Rechercher
       last_searches: Dernières recherches
+    search_with_name:
+      no_result: Aucun résultat.
+      location: Localité
+      search: Consulter
     show:
       companies: Entreprises
       result_for_siret_html: Résultat pour le SIRET <strong>%{siret}</strong>.

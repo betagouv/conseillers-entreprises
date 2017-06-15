@@ -34,6 +34,17 @@ RSpec.describe CompaniesController, type: :controller do
     end
   end
 
+  describe 'POST #search_with_name' do
+    let(:request) { post :search_with_name, params: { company: { name: 'Octo', county: 75 } }, format: :js }
+
+    it 'returns http success' do
+      allow(FirmapiService).to receive(:search_companies)
+      request
+      expect(FirmapiService).to have_received(:search_companies).with(name: 'Octo', county: '75')
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'GET #show' do
     let(:siret) { '12345678901234' }
     let(:company_name) { 'Random name' }
