@@ -12,10 +12,17 @@ RSpec.describe VisitsController, type: :controller do
     end
   end
 
+  describe 'GET #edit_visitee' do
+    it 'returns http success' do
+      visit = create :visit
+      get :show, params: { id: visit.id }
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'GET #new' do
     it 'returns http success' do
-      siret = '12345678901234'
-      get :new, params: { visit: { siret: siret } }
+      get :new
       expect(response).to have_http_status(:success)
     end
   end
@@ -25,7 +32,7 @@ RSpec.describe VisitsController, type: :controller do
       it 'redirects to the show page' do
         siret = '12345678901234'
         post :create, params: { visit: { siret: siret, happened_at: 1.day.from_now } }
-        is_expected.to redirect_to company_visit_path(Visit.last)
+        is_expected.to redirect_to visit_path(Visit.last)
       end
     end
 

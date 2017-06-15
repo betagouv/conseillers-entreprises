@@ -5,15 +5,19 @@ class VisitsController < ApplicationController
     @visits = Visit.of_advisor current_user
   end
 
+  def show
+    find_visit
+  end
+
   def new
-    @visit = Visit.new siret: params[:siret]
+    @visit = Visit.new
   end
 
   def create
     @visit = Visit.new visit_params
     @visit.advisor = current_user
     if @visit.save
-      redirect_to company_visit_path @visit
+      redirect_to visit_path @visit
     else
       render 'new'
     end

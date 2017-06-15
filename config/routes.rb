@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :visits, only: %i[index new create] do
+  resources :visits, only: %i[index show new create] do
     member do
       get 'company' => 'companies#show'
       get :edit_visitee
