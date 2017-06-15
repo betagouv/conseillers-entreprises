@@ -50,6 +50,18 @@ From now on, we're gonna switch in english. 🇬🇧
         $ foreman start
     And yay! Check out [this page](http://localhost:3000)!
     
+## Deployment
+
+In order to deploy the project use :
+
+        $ git push scalingo master
+
+More information on [Scalingo documentation website](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/).
+
+If there is any trouble with deployment, make sure to update your webpacker files before deploying :
+
+        $ bundle exec rake webpacker:install 
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our git and coding conventions, and the process for submitting pull requests to us.
