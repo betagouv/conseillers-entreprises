@@ -3,7 +3,6 @@
 FactoryGirl.define do
   factory :visit do
     association :advisor, factory: :user
-    association :visitee, factory: :user
     happened_at '2017-06-08'
     siret '123456789'
   end
