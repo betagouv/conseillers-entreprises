@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :category do
-    label 'MyString'
+    label { Faker::Lorem.word.capitalize }
   end
 end

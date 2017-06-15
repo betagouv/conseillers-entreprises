@@ -2,7 +2,7 @@
 
 module DiagnosisHelper
   def categories_with_questions
-    questions = Question.without_answer_parent.includes(:category).order(:category_id)
+    questions = Question.all.includes(:category).order(:category_id, :id)
     current_category = nil
     categories_with_questions = []
     i = -1

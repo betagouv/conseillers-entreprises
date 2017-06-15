@@ -13,9 +13,6 @@ fr:
       question:
         one: Question
         other: Questions
-      answer:
-        one: Réponse
-        other: Réponses
       assistance:
         one: Aide
         other: Aides
@@ -62,15 +59,8 @@ fr:
         siret: SIRET de l'entreprise visitée
       question:
         label: Intitulé
-        answer: Réponse parente
-        answers: Réponses filles
         category: Catégorie
-      answer:
-        label: Intitulé
-        parent_question: Question parente
-        child_question: Question fille
       assistance:
-        answer: Réponse parente
         user: Utilisateur référent
         question: Question parente
         description: Description

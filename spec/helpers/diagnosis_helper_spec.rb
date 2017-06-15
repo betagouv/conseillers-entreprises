@@ -15,9 +15,9 @@ describe DiagnosisHelper, type: :helper do
     end
 
     context 'two categories with questions' do
-      let(:first_category) { create :category, label: 'First category' }
+      let(:first_category) { create :category }
       let!(:first_category_questions) { create_list :question, 2, category: first_category }
-      let(:second_category) { create :category, label: 'Second category' }
+      let(:second_category) { create :category }
       let!(:second_category_question) { create :question, category: second_category }
 
       let(:expected_array) do

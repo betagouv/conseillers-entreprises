@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   resources :diagnosis, only: %i[index] do
     collection do
       get 'question/:id' => 'diagnosis#question', as: :question
-      get 'answer/:id' => 'diagnosis#answer', as: :answer
     end
   end
 

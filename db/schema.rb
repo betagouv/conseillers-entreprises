@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614063209) do
+ActiveRecord::Schema.define(version: 20170615132012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,16 +30,7 @@ ActiveRecord::Schema.define(version: 20170614063209) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "answers", id: :serial, force: :cascade do |t|
-    t.string "label"
-    t.integer "question_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_answers_on_question_id"
-  end
-
   create_table "assistances", force: :cascade do |t|
-    t.bigint "answer_id"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,7 +38,6 @@ ActiveRecord::Schema.define(version: 20170614063209) do
     t.bigint "question_id"
     t.string "title"
     t.bigint "company_id"
-    t.index ["answer_id"], name: "index_assistances_on_answer_id"
     t.index ["company_id"], name: "index_assistances_on_company_id"
     t.index ["question_id"], name: "index_assistances_on_question_id"
     t.index ["user_id"], name: "index_assistances_on_user_id"
@@ -72,9 +62,7 @@ ActiveRecord::Schema.define(version: 20170614063209) do
     t.string "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "answer_id"
     t.bigint "category_id"
-    t.index ["answer_id"], name: "index_questions_on_answer_id"
     t.index ["category_id"], name: "index_questions_on_category_id"
   end
 
@@ -131,12 +119,9 @@ ActiveRecord::Schema.define(version: 20170614063209) do
     t.index ["visitee_id"], name: "index_visits_on_visitee_id"
   end
 
-  add_foreign_key "answers", "questions"
-  add_foreign_key "assistances", "answers"
   add_foreign_key "assistances", "companies"
   add_foreign_key "assistances", "questions"
   add_foreign_key "assistances", "users"
-  add_foreign_key "questions", "answers"
   add_foreign_key "questions", "categories"
   add_foreign_key "searches", "users"
   add_foreign_key "visits", "users", column: "advisor_id"

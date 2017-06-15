@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :assistance do
-    association :answer
     description 'MyText'
   end
 end
