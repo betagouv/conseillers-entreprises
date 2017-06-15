@@ -9,9 +9,9 @@
   %table.ui.compact.celled.table
     %thead
       %tr
-        %th= 'Date'
-        %th= 'SIRET'
-        %th= 'Actions'
+        %th= t('activerecord.attributes.visit.happened_at')
+        %th= t('activerecord.attributes.visit.siret')
+        %th= t('actions')
     %tbody
       - @visits.each do |visit|
         %tr
@@ -20,11 +20,11 @@
           %td
             = link_to company_path(siret: visit.siret), class: 'ui mini orange button' do
               = semantic_icon('building outline')
-              = 'Informations'
+              = t('.company_info')
             = link_to diagnosis_index_path(visit_id: visit.id), class: 'ui mini yellow button' do
               = semantic_icon('sitemap')
-              = 'Analyse'
+              = t('.analysis_tool')
 
 = link_to new_visit_path, class: 'ui green button' do
   = semantic_icon('plus')
-  = 'Nouvelle visite'
+  = t('.new_visit')

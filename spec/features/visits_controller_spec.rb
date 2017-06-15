@@ -10,23 +10,14 @@ describe 'visit feature', type: :feature do
     allow(ApiEntrepriseService).to receive(:fetch_company_with_siret).at_least(:once) { api_entreprise_fixture }
 
     visit '/visits'
+    expect(page).not_to have_content 'Analyse'
 
-    expect(page).not_to have_content 'SIRET de l\'entreprise'
-
-    click_link 'Info Entreprises'
-
-    expect(page).to have_content 'Entreprises'
-    within '#company-siret-search-form' do
-      fill_in id: 'siret-field', with: '41816609600051'
-      click_button 'Rechercher'
-    end
-
+    click_link 'Nouvelle visite'
     expect(page).to have_content 'Nouvelle visite'
     fill_in 'Date de la visite', with: Date.tomorrow
+    fill_in 'SIRET de l\'entreprise visitée', with: '12345678901234'
     click_button 'Enregistrer'
   end
 
-  it 'redirects to new_visit' do
-    expect(page).to have_content 'Résultat pour le SIRET 41816609600051'
-  end
+  it {}
 end

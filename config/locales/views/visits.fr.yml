@@ -3,10 +3,10 @@ fr:
     index:
       visits: Visites
       no_visits_yet: Vous n'avez pas encore de visites indiquées dans Réso.
-      this_is_your_visits_list: Voici la liste de vos visites que vous avez indiquées dans Réso.
-      company_siret: "SIRET de l'entreprise : %{siret}"
-      visit_date: "Date : %{date}"
-      person_met: "Personne rencontrée : %{visitee_full_name}"
+      this_is_your_visits_list: Voici la liste des visites que vous avez indiquées dans Réso.
+      company_info: Informations
+      analysis_tool: Analyse
+      new_visit: Nouvelle visite
     new:
       new_visit: Nouvelle visite
       new_visit_introduction_text: Entrez les informations sur une visite qui a eu lieu ou va avoir lieu.
