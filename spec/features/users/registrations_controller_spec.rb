@@ -3,10 +3,7 @@
 require 'rails_helper'
 
 describe 'the profile update', type: :feature do
-  before do
-    user = create :user, first_name: 'first name', last_name: 'last name', password: 'password'
-    login_as user, scope: :user
-  end
+  login_user
 
   it 'updates the profile' do
     visit edit_user_registration_path
@@ -17,7 +14,7 @@ describe 'the profile update', type: :feature do
 
     click_button 'Mettre à jour'
 
-    expect(User.first.first_name).to eq 'John'
-    expect(User.first.last_name).to eq 'Doe'
+    expect(current_user.reload.first_name).to eq 'John'
+    expect(current_user.reload.last_name).to eq 'Doe'
   end
 end
