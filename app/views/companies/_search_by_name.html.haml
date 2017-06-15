@@ -7,8 +7,8 @@
       %thead
         %tr
           %th= t('activerecord.attributes.company.name')
+          %th= t('activerecord.attributes.company.siren')
           %th= t('.location')
-          %th= t('.search')
       %tbody
         - @firmapi_json['companies'].each do |company|
           - best_name = company['names']['best']
@@ -19,5 +19,5 @@
             - company_name = best_name
           %tr
             %td= company_name
+            %td= company['siren']
             %td= "#{company['postal_code']} #{company['city']}"
-            %td= link_to t('.search'), search_visit_companies_path(company: {siret: company['siren']}), method: :post, class: 'ui mini blue button'

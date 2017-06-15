@@ -10,6 +10,9 @@ fr:
     new:
       new_visit: Nouvelle visite
       new_visit_introduction_text: Entrez les informations sur une visite qui a eu lieu ou va avoir lieu.
+      search_by_company_name: "Vous pouvez trouver le SIRET en entrant le nom de l'entreprise :"
+      county: Département
+      search: Rechercher
     edit_visitee:
       your_contact_in_the_company: Votre contact en entreprise
       info_about_who_you_saw_during_your_visit: Remplissez ces informations concernant la personne que vous avez rencontrée en entreprise.

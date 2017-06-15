@@ -7,14 +7,6 @@ RSpec.describe CompaniesController, type: :controller do
 
   let(:visit) { create :visit }
 
-  describe 'GET #index' do
-    it 'returns http success' do
-      allow(Search).to receive(:last_queries_of_user).with(current_user)
-      get :index, params: { visit_id: visit.id }
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe 'POST #search' do
     let(:siret) { '12345678901234' }
 
@@ -36,8 +28,8 @@ RSpec.describe CompaniesController, type: :controller do
     end
   end
 
-  describe 'POST #search_with_name' do
-    let(:request) { post :search_with_name, params: { visit_id: visit.id, company: { name: 'Octo', county: 75 } }, format: :js }
+  describe 'POST #search_by_name' do
+    let(:request) { post :search_by_name, params: { visit_id: visit.id, company: { name: 'Octo', county: 75 } }, format: :js }
 
     it 'returns http success' do
       allow(FirmapiService).to receive(:search_companies)

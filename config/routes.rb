@@ -29,11 +29,16 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :companies, only: %i[index], param: :siret do
+    resources :companies, only: %i[], param: :siret do
       collection do
         post :search
-        post :search_with_name
       end
+    end
+  end
+
+  resources :companies, only: %i[], param: :siret do
+    collection do
+      post :search_by_name
     end
   end
 
