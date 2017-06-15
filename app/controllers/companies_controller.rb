@@ -10,7 +10,7 @@ class CompaniesController < ApplicationController
     UseCases::SearchCompany.with_siret_and_save siret: siret, user: current_user
     visit = Visit.find_by(siret: siret, advisor: current_user)
     if visit
-      redirect_to visit_company_path visit_id: visit.id, siret: siret
+      redirect_to company_visit_path visit
     else
       redirect_to new_visit_path siret: siret
     end
@@ -21,7 +21,8 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    @company = UseCases::SearchCompany.with_siret params[:siret]
+    @visit = Visit.find params[:id]
+    @company = UseCases::SearchCompany.with_siret @visit.siret
     nom_commercial = @company['entreprise']['nom_commercial']
     nom_commercial = @company['entreprise']['raison_sociale'] if nom_commercial.blank?
     @qwant_results = QwantApiService.results_for_query nom_commercial if nom_commercial.present?

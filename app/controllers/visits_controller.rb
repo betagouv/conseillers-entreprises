@@ -13,7 +13,7 @@ class VisitsController < ApplicationController
     @visit = Visit.new visit_params
     @visit.advisor = current_user
     if @visit.save
-      redirect_to visit_company_path visit_id: @visit.id, siret: @visit.siret
+      redirect_to company_visit_path @visit
     else
       render 'new'
     end

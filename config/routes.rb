@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :visits, only: %i[index new create] do
     member do
+      get 'company' => 'companies#show'
       get :edit_visitee
       patch :update_visitee
     end
@@ -28,10 +29,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :companies, only: %i[index show], param: :siret do
+    resources :companies, only: %i[index], param: :siret do
       collection do
-        post 'search'
-        post 'search_with_name'
+        post :search
+        post :search_with_name
       end
     end
   end

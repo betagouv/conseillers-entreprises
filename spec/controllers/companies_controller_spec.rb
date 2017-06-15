@@ -23,7 +23,7 @@ RSpec.describe CompaniesController, type: :controller do
         other_visit = create :visit, advisor: current_user, siret: siret
         allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret: siret, user: current_user)
         post :search, params: { visit_id: visit.id, company: { siret: siret } }
-        is_expected.to redirect_to visit_company_path(visit_id: other_visit.id, siret: siret)
+        is_expected.to redirect_to company_visit_path(other_visit)
       end
     end
 
@@ -48,14 +48,13 @@ RSpec.describe CompaniesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:siret) { '12345678901234' }
     let(:company_name) { 'Random name' }
 
     it do
       api_json = { 'entreprise' => { 'nom_commercial' => company_name } }
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { api_json }
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(visit.siret) { api_json }
       allow(QwantApiService).to receive(:results_for_query).with(company_name)
-      get :show, params: { visit_id: visit.id, siret: siret }
+      get :show, params: { id: visit.id }
       expect(response).to have_http_status(:success)
     end
   end
