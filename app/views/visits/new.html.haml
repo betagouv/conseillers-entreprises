@@ -2,9 +2,11 @@
 %p= t('.new_visit_introduction_text')
 
 = form_for @visit, html: { method: :post, class: 'ui form' } do |f|
-  = f.hidden_field :siret
   .field
     = f.label :happened_at
-    = f.date_field :happened_at, autofocus: true
+    = f.date_field :happened_at, autofocus: true, required: true
+  .field
+    = f.label :siret
+    = f.text_field :siret, pattern: '[0-9]{14}', required: true
   .actions
     = f.submit t('save'), class: 'ui button green'

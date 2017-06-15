@@ -9,7 +9,7 @@ fr:
       person_met: "Personne rencontrée : %{visitee_full_name}"
     new:
       new_visit: Nouvelle visite
-      new_visit_introduction_text: Quand est planifiée votre visite de cette entreprise ?
+      new_visit_introduction_text: Entrez les informations sur une visite qui a eu lieu ou va avoir lieu.
     edit_visitee:
       your_contact_in_the_company: Votre contact en entreprise
       info_about_who_you_saw_during_your_visit: Remplissez ces informations concernant la personne que vous avez rencontrée en entreprise.

@@ -1,17 +1,30 @@
 - meta title: t('.visits')
 
 %h1= t('.visits')
+
 - if @visits.empty?
   %p= t('.no_visits_yet')
 - else
   %p= t('.this_is_your_visits_list')
-  .ui.relaxed.list
-    - @visits.each do |visit|
-      .item
-        .content
-          .header= t('.company_siret', siret: visit.siret)
-          .description
-            = t('.visit_date', date: I18n.l(visit.happened_at))
-            - if visit.visitee.present?
-              %br
-              = t('.person_met', visitee_full_name: visit.visitee.full_name)
+  %table.ui.compact.celled.table
+    %thead
+      %tr
+        %th= 'Date'
+        %th= 'SIRET'
+        %th= 'Actions'
+    %tbody
+      - @visits.each do |visit|
+        %tr
+          %td= I18n.l(visit.happened_at)
+          %td= visit.siret
+          %td
+            = link_to company_path(siret: visit.siret), class: 'ui mini orange button' do
+              = semantic_icon('building outline')
+              = 'Informations'
+            = link_to diagnosis_index_path(visit_id: visit.id), class: 'ui mini yellow button' do
+              = semantic_icon('sitemap')
+              = 'Analyse'
+
+= link_to new_visit_path, class: 'ui green button' do
+  = semantic_icon('plus')
+  = 'Nouvelle visite'

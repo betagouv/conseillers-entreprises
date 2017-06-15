@@ -5,14 +5,6 @@
         = image_tag 'reso-logo-simple.png', style: 'width: 60px'
     - if user_signed_in?
       .item
-        = link_to companies_path do
-          = semantic_icon('building outline')
-          = t('.company_info')
-      .item
-        = link_to diagnosis_index_path do
-          = semantic_icon('sitemap')
-          = t('.analysis_tool')
-      .item
         = link_to visits_path do
           = semantic_icon('calendar')
           = t('.visits')

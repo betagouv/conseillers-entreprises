@@ -1,6 +1,9 @@
 - meta title: t('.diagnosis')
 
 %h1= t('.diagnosis')
+- if params[:visit_id]
+  - visit = Visit.find params[:visit_id]
+  %p= "Pour la visite du #{I18n.l visit.happened_at} pour l'entreprise au SIRET #{visit.siret}."
 - categories_with_questions.each do |item|
   %h2= item[:category]
   %table.ui.selectable.celled.table
