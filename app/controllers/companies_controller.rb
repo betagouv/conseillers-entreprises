@@ -1,17 +1,6 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  def search
-    siret = params[:company][:siret]
-    UseCases::SearchCompany.with_siret_and_save siret: siret, user: current_user
-    visit = Visit.find_by(siret: siret, advisor: current_user)
-    if visit
-      redirect_to company_visit_path visit
-    else
-      redirect_to new_visit_path siret: siret
-    end
-  end
-
   def search_by_name
     @firmapi_json = FirmapiService.search_companies name: params[:company][:name], county: params[:company][:county]
   end

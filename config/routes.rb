@@ -28,12 +28,6 @@ Rails.application.routes.draw do
         get 'question/:id' => 'diagnosis#question', as: :question
       end
     end
-
-    resources :companies, only: %i[], param: :siret do
-      collection do
-        post :search
-      end
-    end
   end
 
   resources :companies, only: %i[], param: :siret do
