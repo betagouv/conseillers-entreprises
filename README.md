@@ -3,7 +3,7 @@
 Apporter l'ensemble des aides publiques aux entreprises qui en ont besoin.<br />
 [Voir sur le site de beta.gouv.fr](https://beta.gouv.fr/startup/e-conseils.html)
 
-From now on, we're gonna switch in english. 🇬🇧
+From now on, we're gonna switch in English. 🇬🇧
 
 ## Getting started
 
@@ -27,7 +27,7 @@ From now on, we're gonna switch in english. 🇬🇧
         $ gem install bundler
         $ bundle install
 
-6. Install [webpacker](https://github.com/rails/webpacker) and Vue.js.
+6. Install [Webpacker](https://github.com/rails/webpacker) and Vue.js.
 
         $ rails webpacker:install:vue
 
@@ -49,7 +49,7 @@ From now on, we're gonna switch in english. 🇬🇧
 
         $ foreman start
     And yay! Check out [this page](http://localhost:3000)!
-    
+
 ## Deployment
 
 In order to deploy the project use :
@@ -58,9 +58,16 @@ In order to deploy the project use :
 
 More information on [Scalingo documentation website](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/).
 
-If there is any trouble with deployment, make sure to update your webpacker files before deploying :
+If there is any trouble with deployment, make sure to update your JS files before deploying :
 
-        $ bundle exec rake webpacker:install 
+        $ bundle exec rake webpacker:install
+
+Or :
+
+        $ yarn
+
+More information on [Webpacker GitHub](https://github.com/rails/webpacker).
+
 
 ## Contributing
 
