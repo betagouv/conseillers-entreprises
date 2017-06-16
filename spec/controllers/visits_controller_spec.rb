@@ -69,7 +69,7 @@ RSpec.describe VisitsController, type: :controller do
 
       context 'there is no question_id' do
         it 'redirects to the visit list' do
-          is_expected.to redirect_to visits_path
+          is_expected.to redirect_to visit_path(visit)
         end
       end
 

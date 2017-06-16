@@ -52,7 +52,7 @@ class VisitsController < ApplicationController
     if params[:question_id].present?
       redirect_to question_visit_diagnosis_index_path(visit_id: @visit.id, id: params[:question_id])
     else
-      redirect_to visits_path # TODO: Change for a specific visit
+      redirect_to visit_path(@visit)
     end
   end
 
