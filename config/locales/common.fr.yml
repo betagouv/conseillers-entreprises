@@ -6,6 +6,7 @@ fr:
   update: Mettre à jour
   back: Retour
   save: Enregistrer
+  actions: Actions
   sign_up: S'inscrire
   sign_in: Se connecter
   admin_authentication_failure: Vous n'avez pas accès à cette page.

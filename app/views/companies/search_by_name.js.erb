@@ -1,0 +1,4 @@
+resultsDiv = document.getElementById('company-name-search-results');
+if(resultsDiv != null) { document.getElementById('company-name-search').removeChild(resultsDiv); }
+var results = "<%= escape_javascript(render partial: 'search_by_name') %>";
+document.getElementById('company-name-search-form').insertAdjacentHTML('afterend', results);

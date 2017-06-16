@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 
 class DiagnosisController < ApplicationController
+  layout 'with_visit_subnavbar'
+
   def index
-    @questions = Question.without_anwser_parent.includes(:answers)
+    find_visit
   end
 
-  def answer
-    @answer = Answer.find(params[:id])
+  def question
+    find_visit
+    @question = Question.find(params[:id])
+  end
+
+  private
+
+  def find_visit
+    @visit = Visit.find params[:visit_id]
   end
 end

@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :search do
-    query 'MyString'
+    query { Faker::Lorem.word }
     user nil
-    label 'MyString'
+    label { Faker::Lorem.word.capitalize }
   end
 end

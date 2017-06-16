@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 describe UseCases::SearchCompany do
-  describe 'with_siret_and_save' do
-    subject(:with_siret_and_save) { described_class.with_siret_and_save siret: siret, user: user }
+  describe 'with_siret' do
+    subject(:with_siret) { described_class.with_siret siret: siret }
 
     let(:siret) { '12345678901234' }
     let(:company_name) { 'OCTO-TECHNOLOGY' }
@@ -27,12 +27,8 @@ describe UseCases::SearchCompany do
       )
     end
 
-    it 'creates a Search' do
-      search = with_siret_and_save
-      expect(search.persisted?).to be_truthy
-      expect(search.query).to eq siret
-      expect(search.user).to eq user
-      expect(search.label).to eq company_name
+    it 'calls external service' do
+      subject
     end
   end
 end

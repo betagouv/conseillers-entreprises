@@ -1,0 +1,30 @@
+- meta title: t('.visits')
+
+%h1= t('.visits')
+
+- if @visits.empty?
+  %p= t('.no_visits_yet')
+- else
+  %p= t('.this_is_your_visits_list')
+  %table.ui.compact.celled.table
+    %thead
+      %tr
+        %th= t('activerecord.attributes.visit.happened_at')
+        %th= t('activerecord.attributes.visit.siret')
+        %th= t('actions')
+    %tbody
+      - @visits.each do |visit|
+        %tr
+          %td= link_to I18n.l(visit.happened_at), visit_path(visit)
+          %td= link_to visit.siret, visit_path(visit)
+          %td
+            = link_to company_visit_path(visit), class: 'ui mini orange button' do
+              = semantic_icon('building outline')
+              = t('.company_info')
+            = link_to visit_diagnosis_index_path(visit_id: visit.id), class: 'ui mini yellow button' do
+              = semantic_icon('sitemap')
+              = t('.analysis_tool')
+
+= link_to new_visit_path, class: 'ui green button' do
+  = semantic_icon('plus')
+  = t('.new_visit')

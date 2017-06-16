@@ -1,27 +1,66 @@
 # frozen_string_literal: true
 
 class VisitsController < ApplicationController
+  def index
+    @visits = Visit.of_advisor current_user
+  end
+
+  def show
+    find_visit
+    render layout: 'with_visit_subnavbar'
+  end
+
   def new
-    @visit = Visit.new siret: params[:siret]
+    @visit = Visit.new
   end
 
   def create
-    @visit = Visit.new visit_param
+    @visit = Visit.new visit_params
     @visit.advisor = current_user
     if @visit.save
-      redirect_to company_path(siret: @visit.siret)
+      redirect_to visit_path @visit
     else
       render 'new'
     end
   end
 
-  def prepare_email
-    @visit = Visit.find params[:id]
+  def edit_visitee
+    find_visit
+    @visit.build_visitee
+    render layout: 'with_visit_subnavbar'
+  end
+
+  def update_visitee
+    find_visit
+    @visit.assign_attributes update_visitee_params
+    @visit.visitee.added_by_advisor = true
+    @visit.visitee.skip_confirmation!
+    if @visit.save
+      update_visitee_redirection
+    else
+      render layout: 'with_visit_subnavbar'
+    end
   end
 
   private
 
-  def visit_param
+  def find_visit
+    @visit = Visit.find params[:id]
+  end
+
+  def update_visitee_redirection
+    if params[:question_id].present?
+      redirect_to question_visit_diagnosis_index_path(visit_id: @visit.id, id: params[:question_id])
+    else
+      redirect_to visits_path # TODO: Change for a specific visit
+    end
+  end
+
+  def visit_params
     params.require(:visit).permit(:siret, :happened_at)
+  end
+
+  def update_visitee_params
+    params.require(:visit).permit(visitee_attributes: %i[first_name last_name email role institution phone_number])
   end
 end

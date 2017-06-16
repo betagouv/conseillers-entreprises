@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 class Question < ApplicationRecord
-  has_many :answers
-  belongs_to :answer
-
-  scope :without_anwser_parent, (-> { where(answer: nil) })
+  has_many :assistances
+  belongs_to :category
 
   def to_s
     label

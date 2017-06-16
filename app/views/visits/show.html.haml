@@ -1,0 +1,11 @@
+- meta title: @visit
+
+%h1= @visit
+
+= link_to company_visit_path(@visit), class: 'ui mini orange button' do
+  = semantic_icon('building outline')
+  = t('visits.index.company_info')
+
+= link_to visit_diagnosis_index_path(visit_id: @visit.id), class: 'ui mini yellow button' do
+  = semantic_icon('sitemap')
+  = t('visits.index.analysis_tool')

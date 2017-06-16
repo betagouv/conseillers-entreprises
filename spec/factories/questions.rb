@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :question do
-    label ''
+    label { Faker::Lorem.sentence }
   end
 end

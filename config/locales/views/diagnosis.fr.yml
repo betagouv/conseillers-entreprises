@@ -1,7 +1,9 @@
 fr:
   diagnosis:
     index:
-      diagnosis: Diagnostic
-    answer:
-      diagnosis: Diagnostic
-      no_assitance_found: Aucune aide n'a été trouvée sur ce sujet...
+      diagnosis: Analyse
+    question:
+      assitances_count_found:
+        zero: Aucune aide trouvée...
+        one: Une aide a été trouvée
+        other: "%{count} aides ont été trouvées"

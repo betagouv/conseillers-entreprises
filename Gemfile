@@ -10,6 +10,7 @@ end
 ruby '2.4.1'
 
 gem 'coffee-rails', '~> 4.2'
+gem 'compass-rails'
 gem 'foreman'
 gem 'haml-rails', '~> 0.9'
 gem 'pg'

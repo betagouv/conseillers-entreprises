@@ -4,14 +4,30 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'validations' do
-    it do
-      is_expected.to validate_presence_of(:first_name)
-      is_expected.to validate_presence_of(:last_name)
-      is_expected.to validate_presence_of(:institution)
-      is_expected.to validate_presence_of(:role)
-      is_expected.to validate_presence_of(:phone_number)
-      is_expected.to allow_value('test@beta.gouv.fr').for(:email)
-      is_expected.not_to allow_value('test').for(:email)
+    describe 'presence' do
+      it do
+        is_expected.to validate_presence_of(:first_name)
+        is_expected.to validate_presence_of(:last_name)
+        is_expected.to validate_presence_of(:institution)
+        is_expected.to validate_presence_of(:role)
+        is_expected.to validate_presence_of(:phone_number)
+        is_expected.to validate_presence_of(:password)
+      end
+    end
+
+    describe 'emails' do
+      it do
+        is_expected.to validate_presence_of(:email)
+        is_expected.to allow_value('test@beta.gouv.fr').for(:email)
+        is_expected.not_to allow_value('test').for(:email)
+      end
+    end
+
+    describe 'passwords' do
+      it do
+        is_expected.to validate_presence_of(:password)
+        is_expected.not_to allow_value('short').for(:password)
+      end
     end
   end
 
@@ -37,9 +53,16 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'user is approved' do
+    context 'user is not approved' do
       it 'does not warn admins' do
         create :user, is_approved: true
+        expect(AdminMailer).not_to have_received(:new_user_created_notification)
+      end
+    end
+
+    context 'user is not approved but is added by an advisor' do
+      it 'does not warn admins' do
+        create :user, is_approved: false, added_by_advisor: true
         expect(AdminMailer).not_to have_received(:new_user_created_notification)
       end
     end

@@ -1,22 +1,13 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  def index
-    @queries = Search.last_queries_of_user current_user
-  end
-
-  def search
-    siret = params[:company][:siret]
-    UseCases::SearchCompany.with_siret_and_save siret: siret, user: current_user
-    if Visit.exists?(siret: siret, advisor: current_user)
-      redirect_to company_path siret
-    else
-      redirect_to new_visit_path siret: siret
-    end
+  def search_by_name
+    @firmapi_json = FirmapiService.search_companies name: params[:company][:name], county: params[:company][:county]
   end
 
   def show
-    @company = ApiEntreprise::Company.from_siret params[:siret]
+    @visit = Visit.find params[:id]
+    @company = ApiEntreprise::Company.from_siret @visit.siret
     if @company.blank?
       render :no_results, layout: 'company'
     else

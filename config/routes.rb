@@ -16,18 +16,24 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnosis, only: %i[index] do
-    collection do
-      get 'answer/:id' => 'diagnosis#answer', as: :answer
+  resources :visits, only: %i[index show new create] do
+    member do
+      get 'company' => 'companies#show'
+      get :edit_visitee
+      patch :update_visitee
+    end
+
+    resources :diagnosis, only: %i[index] do
+      collection do
+        get 'question/:id' => 'diagnosis#question', as: :question
+      end
     end
   end
 
-  resources :visits, only: %i[new create] do
-    get :prepare_email, on: :member
-  end
-
-  resources :companies, only: %i[index show], param: :siret do
-    post 'search', on: :collection
+  resources :companies, only: %i[], param: :siret do
+    collection do
+      post :search_by_name
+    end
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :assistance do
-    association :answer
-    description 'MyText'
+    title { Faker::Lorem.sentence }
+    association :question
+    association :company
   end
 end
