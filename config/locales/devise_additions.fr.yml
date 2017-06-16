@@ -14,9 +14,6 @@ fr:
         waiting_confirmation_for: "En attente de confirmation pour l'adresse : %{unconfirmed_email}"
         leave_blank_to_change_it: (laisser vide si pas de changement)
         we_need_current_password: (nécessaire pour prendre en compte les modifications)
-        cancel_account: Supprimer mon compte
-        unhappy: Mécontent ?
-        are_you_sure: Êtes-vous sûr(e) et certain ? Il ne sera pas possible de revenir en arrière.
     passwords:
       new:
         send_me_reset_password_instructions: M'envoyer les instructions

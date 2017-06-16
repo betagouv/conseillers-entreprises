@@ -31,9 +31,5 @@
   .actions
     = f.submit t('update'), class: 'ui green button'
 
-%h3= t('.cancel_account')
-%p
-  = t('.unhappy')
-  = button_to t('.cancel_account'), registration_path(resource_name), class: 'ui red button', data: { confirm: t('.are_you_sure') }, method: :delete
-
-= link_to t('back'), :back
+%div{style: 'margin-top: 30px'}
+  = link_to t('back'), :back
