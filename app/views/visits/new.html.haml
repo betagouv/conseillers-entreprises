@@ -1,10 +1,13 @@
 %h2= t('.new_visit')
 %p= t('.new_visit_introduction_text')
 
-= form_for @visit, html: { method: :post, class: 'ui form' } do |f|
+= form_for @visit, html: { method: :post, class: 'ui form', id: 'new-visit-form' } do |f|
   .field
     = f.label :happened_at
-    = f.date_field :happened_at, autofocus: true, required: true
+    .ui.calendar#datepicker
+      .ui.input.left.icon
+        %i.calendar.icon
+        = f.text_field :happened_at, required: true
   .field
     = f.label :siret
     = f.text_field :siret, pattern: '[0-9]{9,14}', required: true
@@ -22,3 +25,9 @@
           = f.label :county, t('.county')
           = f.text_field :county, pattern: '[0-9]{2,3}', value: 75, required: true
         = f.button t('.search'), class: 'ui blue button'
+
+- content_for :head do
+  = stylesheet_link_tag 'semantic-ui-calendar.min.css', media: 'all', data: {turbolinks_track: 'reload'}
+
+- content_for :body_bottom do
+  = javascript_include_tag 'semantic-ui-calendar.min.js', data: {turbolinks_track: 'reload'}
