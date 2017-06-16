@@ -11,7 +11,7 @@ RSpec.describe 'diagnosis/index.html.haml', type: :view do
     render
   end
 
-  it('displays a title') { expect(rendered).to match(/Analyse Entreprise/) }
+  it('displays a title') { expect(rendered).to match(/Analyse/) }
   it('displays one category title') { assert_select 'h2', count: 1 }
   it('displays two list elements') { assert_select 'tr', count: 2 }
 end
