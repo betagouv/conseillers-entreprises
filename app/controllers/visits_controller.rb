@@ -15,9 +15,10 @@ class VisitsController < ApplicationController
   end
 
   def create
+    company = UseCases::SearchCompany.with_siret_and_save params[:visit][:siret]
     @visit = Visit.new visit_params
-    @visit.advisor = current_user
-    if @visit.save
+    @visit.assign_attributes advisor: current_user, company: company
+    if company && @visit.save
       redirect_to visit_path @visit
     else
       render 'new'
@@ -57,7 +58,7 @@ class VisitsController < ApplicationController
   end
 
   def visit_params
-    params.require(:visit).permit(:siret, :happened_at)
+    params.require(:visit).permit(:happened_at)
   end
 
   def update_visitee_params

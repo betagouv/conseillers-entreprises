@@ -31,6 +31,8 @@ RSpec.describe VisitsController, type: :controller do
     context 'save worked' do
       it 'redirects to the show page' do
         siret = '12345678901234'
+        company = create :company, siren: siret[0, 9]
+        allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret) { company }
         post :create, params: { visit: { siret: siret, happened_at: 1.day.from_now } }
         is_expected.to redirect_to visit_path(Visit.last)
       end
@@ -38,6 +40,7 @@ RSpec.describe VisitsController, type: :controller do
 
     context 'saved failed' do
       it 'does not redirect' do
+        allow(UseCases::SearchCompany).to receive(:with_siret_and_save)
         post :create, params: { visit: { happened_at: 1.day.from_now } }
         expect(response).to have_http_status(:success)
       end
