@@ -7,4 +7,9 @@ class ApplicationController < ActionController::Base
   def authenticate_admin!
     current_user.is_admin? || redirect_to(root_path, alert: t('admin_authentication_failure'))
   end
+
+  # Devise parameter
+  def after_sign_in_path_for(_resource)
+    visits_path
+  end
 end
