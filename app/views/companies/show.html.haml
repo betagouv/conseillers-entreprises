@@ -4,95 +4,93 @@
 
 .ui.grid
   .ten.wide.column
-    - company = @company['entreprise']
+    - entreprise = @company.entreprise
     %table.ui.compact.celled.table
       %tbody
         %tr
           %td= t('.raison_sociale')
-          %td= company['raison_sociale']
-        - if company['nom_commercial'] != company['raison_sociale']
+          %td= entreprise.raison_sociale
+        - if entreprise.nom_commercial != entreprise.raison_sociale
           %tr
             %td= t('.nom_commercial')
-            %td= company['nom_commercial']
+            %td= entreprise.nom_commercial
         %tr
           %td= t('.categorie_entreprise')
-          %td= company['categorie_entreprise']
+          %td= entreprise.categorie_entreprise
         %tr
           %td= t('.tranche_effectif_salarie_entreprise')
-          %td= company['tranche_effectif_salarie_entreprise']['intitule']
+          %td= entreprise.tranche_effectif_salarie_entreprise['intitule']
         %tr
           %td= t('.siren')
-          %td= company['siren']
+          %td= entreprise.siren
         %tr
           %td= t('.capital_social')
-          %td= "#{company['capital_social']} €"
+          %td= "#{entreprise.capital_social} €"
         %tr
           %td= t('.numero_tva_intracommunautaire')
-          %td= company['numero_tva_intracommunautaire']
+          %td= entreprise.numero_tva_intracommunautaire
         %tr
           %td= t('.forme_juridique')
-          %td= company['forme_juridique']
+          %td= entreprise.forme_juridique
         %tr
           %td= t('.forme_juridique_code')
-          %td= company['forme_juridique_code']
+          %td= entreprise.forme_juridique_code
         %tr
           %td= t('.procedure_collective')
-          %td= company['procedure_collective'].to_b ? t('yes') : t('no')
+          %td= entreprise.procedure_collective.to_b ? t('yes') : t('no')
         %tr
           %td= t('.date_creation')
-          %td= date_from_timestamp(company['date_creation'])
-        - if company['nom'].present?
+          %td= date_from_timestamp(entreprise.date_creation)
+        - if entreprise.nom.present?
           %tr
             %td= t('.nom')
-            %td= company['nom']
-        - if company['prenom'].present?
+            %td= entreprise.nom
+        - if entreprise.prenom.present?
           %tr
             %td= t('.prenom')
-            %td= company['prenom']
-        %tr
-          %td= t('.date_radiation')
-          %td= date_from_timestamp(company['date_radiation'])
+            %td= entreprise.prenom
+        - if entreprise.date_radiation
+          %tr
+            %td= t('.date_radiation')
+            %td= date_from_timestamp(entreprise.date_radiation.to_s)
 
     %h2= t('.siege_social')
-    - etablissement_siege = @company['etablissement_siege']
+    - etablissement_siege = @company.etablissement_siege
     %table.ui.compact.celled.table
       %tbody
         %tr
           %td= t('.naf')
-          %td= "#{etablissement_siege['naf']} - #{etablissement_siege['libelle_naf']}"
+          %td= "#{etablissement_siege.naf} - #{etablissement_siege.libelle_naf}"
         %tr
           %td= t('.date_mise_a_jour')
-          %td= date_from_timestamp(etablissement_siege['date_mise_a_jour'])
+          %td= date_from_timestamp(etablissement_siege.date_mise_a_jour)
         %tr
           %td= t('.tranche_effectif_salarie_etablissement')
-          %td= etablissement_siege['tranche_effectif_salarie_etablissement']['intitule']
+          %td= etablissement_siege.tranche_effectif_salarie_etablissement['intitule']
         %tr
           %td= t('.date_creation_etablissement')
-          %td= date_from_timestamp(etablissement_siege['date_creation_etablissement'])
-        %tr
-          %td= t('.enseigne')
-          %td= etablissement_siege['enseigne']
+          %td= date_from_timestamp(etablissement_siege.date_creation_etablissement)
         %tr
           %td= t('.region_implantation')
-          %td= etablissement_siege['region_implantation']['value']
+          %td= etablissement_siege.region_implantation['value']
         %tr
           %td= t('.commune_implantation')
-          %td= etablissement_siege['commune_implantation']['value']
+          %td= etablissement_siege.commune_implantation['value']
         %tr
           %td= t('.pays_implantation')
-          %td= etablissement_siege['pays_implantation']['value'] || ''
+          %td= etablissement_siege.pays_implantation['value'] || ''
         %tr
           %td= t('.diffusable_commercialement')
-          %td= etablissement_siege['diffusable_commercialement']
+          %td= etablissement_siege.diffusable_commercialement
         %tr
           %td= t('.adresse')
           %td
-            - adresse = etablissement_siege['adresse']
+            - adresse = etablissement_siege.adresse
             - (1..7).each do |i|
               %p= adresse["l#{i}"] if adresse["l#{i}"].present?
 
     %h2= t('.mandataires_sociaux')
-    - company['mandataires_sociaux'].each do |person|
+    - entreprise.mandataires_sociaux.each do |person|
       %table.ui.compact.celled.table{class: (person['type'] == 'PM' ? 'violet' : 'teal')}
         %tbody
           - if person['type'] == 'PM'

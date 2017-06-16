@@ -19,11 +19,28 @@ RSpec.describe CompaniesController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:company_name) { 'Random name' }
+    let(:company_name) { 'OCTO-TECHNOLOGY' }
+
+    before do
+      ENV['API_ENTREPRISE_TOKEN'] = '1234'
+      stub_request(
+        :get,
+        'https://api.apientreprise.fr/v2/entreprises/1234567890?token=1234'
+      ).with(
+        headers: {
+          'Accept' => '*/*',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent' => 'Ruby'
+        }
+      ).to_return(
+        status: 200,
+        body: File.read(Rails.root.join('spec/responses/api_entreprise.json')),
+        headers: {}
+      )
+    end
 
     it do
       api_json = { 'entreprise' => { 'nom_commercial' => company_name } }
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(visit.siret) { api_json }
       allow(QwantApiService).to receive(:results_for_query).with(company_name)
       get :show, params: { id: visit.id }
       expect(response).to have_http_status(:success)
