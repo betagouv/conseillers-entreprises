@@ -1,7 +1,7 @@
 fr:
   diagnosis:
     index:
-      diagnosis: Analyse Entreprise
+      diagnosis: Analyse
     question:
       assitances_count_found:
         zero: Aucune aide trouvée...

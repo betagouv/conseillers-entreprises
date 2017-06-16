@@ -4,8 +4,7 @@ fr:
       no_result: Aucun résultat.
       location: Localité
     show:
-      companies: Entreprises
-      result_for_siret_html: Résultat pour le SIRET <strong>%{siret}</strong>.
+      informations: Informations
       siren: SIREN
       capital_social: Capital social
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
