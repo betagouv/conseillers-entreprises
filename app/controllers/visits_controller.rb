@@ -7,6 +7,7 @@ class VisitsController < ApplicationController
 
   def show
     find_visit
+    render layout: 'with_visit_subnavbar'
   end
 
   def new
@@ -26,6 +27,7 @@ class VisitsController < ApplicationController
   def edit_visitee
     find_visit
     @visit.build_visitee
+    render layout: 'with_visit_subnavbar'
   end
 
   def update_visitee
@@ -36,7 +38,7 @@ class VisitsController < ApplicationController
     if @visit.save
       update_visitee_redirection
     else
-      render 'edit_visitee'
+      render layout: 'with_visit_subnavbar'
     end
   end
 
@@ -50,7 +52,7 @@ class VisitsController < ApplicationController
     if params[:question_id].present?
       redirect_to question_visit_diagnosis_index_path(visit_id: @visit.id, id: params[:question_id])
     else
-      redirect_to visits_path
+      redirect_to visits_path # TODO: Change for a specific visit
     end
   end
 

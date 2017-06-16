@@ -1,8 +1,6 @@
-- title = "Visite du #{I18n.l(@visit.happened_at)} SIRET #{@visit.siret}"
+- meta title: @visit
 
-- meta title: title
-
-%h1= title
+%h1= @visit
 
 = link_to company_visit_path(@visit), class: 'ui mini orange button' do
   = semantic_icon('building outline')

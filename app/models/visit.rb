@@ -8,4 +8,8 @@ class Visit < ApplicationRecord
   validates :happened_at, :siret, :advisor, presence: true
 
   scope :of_advisor, (->(user) { where(advisor: user) })
+
+  def to_s
+    "Visite du #{I18n.l(happened_at)} SIRET #{siret}"
+  end
 end
