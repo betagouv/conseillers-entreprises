@@ -9,28 +9,28 @@
         %i.calendar.icon
         = f.text_field :happened_at, required: true
   .field
-    = f.label :siret
-    = f.text_field :siret, pattern: '[0-9]{9,14}', required: true
-  .actions
+    = f.label :company
+    %input{type: 'hidden', name: 'visit[siret]', id: 'visit-siret', pattern: Company::NUMBER_PATTERN, required: true}
+    #company-info.ui.segment
+      %p
+        = t('activerecord.attributes.company.name')
+        %span.name
+      %p
+        = t('.location')
+        %span.location
+      .ui.teal.labeled.icon.mini.button.open-company-name-modal
+        = t('edit')
+        %i.pencil.icon
+    .ui.teal.labeled.icon.button.open-company-name-modal#add-company
+      = t('.add_company')
+      %i.add.icon
+  .actions#new-visit-submit-wrapper
     = f.submit t('save'), class: 'ui button green'
-
-#company-name-search
-  #company-name-search-form
-    %p= t('.search_by_company_name')
-    = form_for :company, url: search_by_name_companies_path, remote: true, html: {class: 'ui form'} do |f|
-      .inline.fields
-        .field
-          .ui.labeled.input
-            = f.label :name, t('activerecord.attributes.company.name'), class: 'ui label'
-            = f.text_field :name, required: true
-        .field
-          .ui.labeled.input
-            = f.label :county, t('.county'), class: 'ui label'
-            = f.text_field :county, pattern: '[0-9]{2,3}', id: 'county-input', required: true
-        = f.button t('.search'), class: 'ui blue button'
 
 - content_for :head do
   = stylesheet_link_tag 'semantic-ui-calendar.min.css', media: 'all', data: {turbolinks_track: 'reload'}
 
 - content_for :body_bottom do
   = javascript_include_tag 'semantic-ui-calendar.min.js', data: {turbolinks_track: 'reload'}
+
+= render partial: 'add_company_modal'

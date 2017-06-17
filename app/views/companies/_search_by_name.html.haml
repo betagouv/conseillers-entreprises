@@ -7,7 +7,6 @@
       %thead
         %tr
           %th= t('activerecord.attributes.company.name')
-          %th= t('activerecord.attributes.company.siren')
           %th= t('.location')
       %tbody
         - @firmapi_json['companies'].each do |company|
@@ -17,7 +16,9 @@
             - company_name = "#{best_name} (#{denomination.titleize})"
           - else
             - company_name = best_name
+          - company_location = "#{company['postal_code']} #{company['city']}"
           %tr
-            %td= company_name
-            %td= company['siren']
-            %td= "#{company['postal_code']} #{company['city']}"
+            %td
+              - data_attributes = {company_siren: company['siren'], company_name: company_name, company_location: company_location}
+              .company-link{data: data_attributes}= company_name
+            %td= company_location

@@ -15,4 +15,6 @@
 //= require turbolinks
 //= require semantic-ui/transition
 //= require semantic-ui/popup
+//= require semantic-ui/dimmer
+//= require semantic-ui/modal
 //= require_tree .

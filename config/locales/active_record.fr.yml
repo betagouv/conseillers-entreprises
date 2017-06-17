@@ -56,7 +56,7 @@ fr:
         happened_at: Date de la visite
         advisor: Conseiller visiteur
         visitee: Personne rencontrée
-        siret: SIRET de l'entreprise visitée
+        company: Entreprise visitée
       question:
         label: Intitulé
         category: Catégorie

@@ -10,7 +10,13 @@ fr:
     new:
       new_visit: Nouvelle visite
       new_visit_introduction_text: Entrez les informations sur une visite qui a eu lieu ou va avoir lieu.
-      search_by_company_name: "Vous pouvez trouver le SIRET en entrant le nom de l'entreprise :"
+      add_company: Ajouter une Entreprise
+      location: Localité
+    add_company_modal:
+      add_company: Ajouter une Entreprise
+      you_have_two_choices: "Vous pouvez soit indiquer le SIRET de l'entreprise soit faire une recherche."
+      or: ou
+      search_by_name_and_county: "Rechercher l'entreprise en renseignant sa raison sociale et son numéro de département."
       county: Numéro de département
       search: Rechercher
     edit_visitee:

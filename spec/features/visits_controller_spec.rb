@@ -15,8 +15,6 @@ describe 'visit feature', type: :feature do
     click_link 'Nouvelle visite'
     expect(page).to have_content 'Nouvelle visite'
     fill_in 'Date de la visite', with: Date.tomorrow
-    fill_in 'SIRET de l\'entreprise visitée', with: '12345678901234'
-    click_button 'Enregistrer'
   end
 
   it {}
