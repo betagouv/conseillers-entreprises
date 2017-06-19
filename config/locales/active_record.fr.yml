@@ -93,6 +93,9 @@ fr:
         company: Entreprise
         email: Adresse e-mail
         phone_number: Numéro de téléphone
+      mailto_log:
+        visit: Visite
+        assistance: Aide
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
