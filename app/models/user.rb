@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?
 
-  after_create :send_admin_mail, if: :must_send_admin_mail?
+  after_create :send_admin_mail, unless: :is_approved?
 
   scope :for_contact_page, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
 
@@ -23,10 +23,6 @@ class User < ApplicationRecord
   end
 
   protected
-
-  def must_send_admin_mail?
-    !is_approved?
-  end
 
   def send_admin_mail
     AdminMailer.new_user_created_notification(self).deliver
