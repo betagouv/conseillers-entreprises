@@ -7,6 +7,7 @@ class VisitsController < ApplicationController
 
   def show
     find_visit
+    @company = UseCases::SearchCompany.with_siret @visit.company.siren
     render layout: 'with_visit_subnavbar'
   end
 

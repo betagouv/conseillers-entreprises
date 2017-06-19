@@ -1,5 +1,6 @@
 fr:
   visits:
+    to_s: Visite de %{company_name} (%{date})
     index:
       visits: Visites
       no_visits_yet: Vous n'avez pas encore de visites indiquées dans Réso.
@@ -7,6 +8,15 @@ fr:
       company_info: Informations
       analysis_tool: Analyse
       new_visit: Nouvelle visite
+    show:
+      title: Visite de %{company_name}
+      visit_date: "Date de la viste : %{date}"
+      company_info: Informations sur l'entreprise
+      address: Adresse
+      company_detailled_info: Informations détaillées
+      person_you_met: Personne que vous avez rencontrée
+      diagnosis: Analyse des besoins de l'entreprise
+      cta_diagnosis: Faire l'analyse des besoins
     new:
       new_visit: Nouvelle visite
       new_visit_introduction_text: Entrez les informations sur une visite qui a eu lieu ou va avoir lieu.

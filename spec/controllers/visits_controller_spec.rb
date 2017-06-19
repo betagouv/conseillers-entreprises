@@ -12,9 +12,10 @@ RSpec.describe VisitsController, type: :controller do
     end
   end
 
-  describe 'GET #edit_visitee' do
+  describe 'GET #show' do
     it 'returns http success' do
       visit = create :visit
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(visit.company.siren)
       get :show, params: { id: visit.id }
       expect(response).to have_http_status(:success)
     end

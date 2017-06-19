@@ -1,11 +1,39 @@
 - meta title: @visit
 
-%h1= @visit
+%h1= t('.title', company_name: @visit.company_name)
+%p= t('.visit_date', date: @visit.happened_at_localized)
 
-= link_to company_visit_path(@visit), class: 'ui mini orange button' do
+%h3= t('.company_info')
+
+.ui.segment
+  .ui.small.header
+    = t('.address')
+  - adresse = @company['etablissement_siege']['adresse']
+  - (1..7).each do |i|
+    - if adresse["l#{i}"].present?
+      = adresse["l#{i}"].titleize
+      %br
+
+= link_to company_visit_path(@visit), class: 'ui mini yellow button' do
   = semantic_icon('building outline')
-  = t('visits.index.company_info')
+  = t('.company_detailled_info')
 
-= link_to visit_diagnosis_index_path(visit_id: @visit.id), class: 'ui mini yellow button' do
+- if @visit.visitee
+  %h3= t('.person_you_met')
+
+  .ui.segment
+    .ui.small.header
+      = @visit.visitee.full_name
+    = @visit.visitee.role
+    %br
+    -if @visit.visitee.email
+      = @visit.visitee.email
+      %br
+    -if @visit.visitee.phone_number
+      = @visit.visitee.phone_number
+      %br
+
+%h3= t('.diagnosis')
+= link_to visit_diagnosis_index_path(visit_id: @visit.id), class: 'ui medium green button' do
   = semantic_icon('sitemap')
-  = t('visits.index.analysis_tool')
+  = t('.cta_diagnosis')
