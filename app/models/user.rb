@@ -8,7 +8,7 @@ class User < ApplicationRecord
   # Inspired by Devise validatable module
   validates :email, uniqueness: true, format: { with: Devise.email_regexp }, allow_blank: true, if: :will_save_change_to_email?
   validates :password, length: { within: Devise.password_length }, allow_blank: true
-  validates :password, presence: true, confirmation: true, if: :must_validate_password?
+  validates :password, presence: true, confirmation: true, if: :password_required?
 
   after_create :send_admin_mail, if: :must_send_admin_mail?
 
@@ -23,10 +23,6 @@ class User < ApplicationRecord
   end
 
   protected
-
-  def must_validate_password?
-    password_required?
-  end
 
   def must_send_admin_mail?
     !is_approved?
