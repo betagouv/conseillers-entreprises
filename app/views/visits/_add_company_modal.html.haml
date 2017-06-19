@@ -10,7 +10,7 @@
             .field
               .ui.labeled.input
                 = f.label :siret, class: 'ui label'
-                %input{type: 'text', pattern: Company::NUMBER_PATTERN, name: 'siret', id: 'company-siret'}
+                %input{type: 'text', pattern: Company::NUMBER_PATTERN, required: true, name: 'siret', id: 'company-siret'}
             %button.ui.blue.button#company-siret-submit= t('save')
 
       .ui.horizontal.divider

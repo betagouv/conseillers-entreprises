@@ -2,13 +2,13 @@
 %p= t('.new_visit_introduction_text')
 
 = form_for @visit, html: { method: :post, class: 'ui form', id: 'new-visit-form' } do |f|
-  .field
+  .field.required
     = f.label :happened_at
     .ui.calendar#datepicker
       .ui.input.left.icon
         %i.calendar.icon
         = f.text_field :happened_at, required: true
-  .field
+  .field.required
     = f.label :company
     %input{type: 'hidden', name: 'visit[siret]', id: 'visit-siret', pattern: Company::NUMBER_PATTERN, required: true}
     #company-info.ui.segment
