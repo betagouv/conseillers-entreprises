@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619155109) do
+ActiveRecord::Schema.define(version: 20170619174320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,17 @@ ActiveRecord::Schema.define(version: 20170619155109) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_contacts_on_company_id"
+  end
+
+  create_table "mailto_logs", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "visit_id"
+    t.bigint "assistance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assistance_id"], name: "index_mailto_logs_on_assistance_id"
+    t.index ["question_id"], name: "index_mailto_logs_on_question_id"
+    t.index ["visit_id"], name: "index_mailto_logs_on_visit_id"
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|
@@ -135,6 +146,9 @@ ActiveRecord::Schema.define(version: 20170619155109) do
   add_foreign_key "assistances", "questions"
   add_foreign_key "assistances", "users"
   add_foreign_key "contacts", "companies"
+  add_foreign_key "mailto_logs", "assistances"
+  add_foreign_key "mailto_logs", "questions"
+  add_foreign_key "mailto_logs", "visits"
   add_foreign_key "questions", "categories"
   add_foreign_key "searches", "users"
   add_foreign_key "visits", "companies"

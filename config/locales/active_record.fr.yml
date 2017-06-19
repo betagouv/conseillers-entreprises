@@ -28,6 +28,9 @@ fr:
       contact:
         one: Contact
         other: Contacts
+      mailto_log:
+        one: Mailto
+        other: Mailtos
     attributes:
       user:
         email: Adresse e-mail
