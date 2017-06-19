@@ -2,7 +2,7 @@
 
 ActiveAdmin.register User do
   menu priority: 2
-  permit_params :email, :password, :password_confirmation, :is_approved
+  permit_params :first_name, :last_name, :institution, :role, :email, :phone_number, :password, :password_confirmation, :is_approved
 
   index do
     selectable_column
