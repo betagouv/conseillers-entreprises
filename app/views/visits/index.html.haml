@@ -15,8 +15,8 @@
     %tbody
       - @visits.each do |visit|
         %tr
-          %td= link_to I18n.l(visit.happened_at), visit_path(visit)
-          %td= link_to visit.company.name, visit_path(visit)
+          %td= link_to visit.happened_at_localized, visit_path(visit)
+          %td= link_to visit.company_name, visit_path(visit)
           %td
             = link_to company_visit_path(visit), class: 'ui mini orange button' do
               = semantic_icon('building outline')

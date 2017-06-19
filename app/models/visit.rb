@@ -11,6 +11,14 @@ class Visit < ApplicationRecord
   scope :of_advisor, (->(user) { where(advisor: user) })
 
   def to_s
-    "Visite de #{company.name} (#{I18n.l(happened_at)})"
+    "Visite de #{company_name} (#{happened_at_localized})"
+  end
+
+  def happened_at_localized
+    I18n.l happened_at
+  end
+
+  def company_name
+    company.name.first(40)
   end
 end
