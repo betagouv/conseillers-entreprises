@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
 
-  validates :first_name, :last_name, :institution, :role, :phone_number, :email, presence: true
+  validates :last_name, :institution, :role, :phone_number, :email, presence: true
 
   # Inspired by Devise validatable module
   validates :email, uniqueness: true, format: { with: Devise.email_regexp }, allow_blank: true, if: :will_save_change_to_email?
@@ -16,6 +16,19 @@ class User < ApplicationRecord
 
   def active_for_authentication?
     super && is_approved?
+  end
+
+  def full_name=(full_name)
+    return unless full_name
+    split_full_name = full_name.split(' ')
+    return nil if split_full_name.count.zero?
+    case split_full_name.count
+    when 1
+      self.last_name = split_full_name[0]
+    else
+      self.first_name = split_full_name[0]
+      self.last_name = split_full_name[1..-1].join(' ')
+    end
   end
 
   def full_name
