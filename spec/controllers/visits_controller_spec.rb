@@ -63,12 +63,7 @@ RSpec.describe VisitsController, type: :controller do
     let(:question_id) { nil }
 
     context 'save worked' do
-      let(:visitee_attributes) do
-        {
-          first_name: user.first_name, last_name: user.last_name, email: user.email,
-          role: user.role, institution: user.institution, phone_number: user.phone_number
-        }
-      end
+      let(:visitee_attributes) { { full_name: user.full_name, email: user.email, role: user.role, phone_number: user.phone_number } }
 
       context 'there is no question_id' do
         it 'redirects to the visit list' do
@@ -87,7 +82,7 @@ RSpec.describe VisitsController, type: :controller do
     end
 
     context 'saved failed' do
-      let(:visitee_attributes) { { first_name: user.first_name, last_name: user.last_name } }
+      let(:visitee_attributes) { { full_name: user.full_name } }
 
       it 'does not redirect' do
         expect(response).to have_http_status(:success)

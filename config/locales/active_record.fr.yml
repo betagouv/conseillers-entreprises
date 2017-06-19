@@ -44,6 +44,7 @@ fr:
         confirmation_sent_at: Date d'envoi du mail de confirmation
         is_admin: Est administrateur ?
         is_approved: Est validé ?
+        full_name: Prénom et Nom
         first_name: Prénom
         last_name: Nom
         institution: Institution
@@ -57,6 +58,11 @@ fr:
         advisor: Conseiller visiteur
         visitee: Personne rencontrée
         company: Entreprise visitée
+      visit/visitee:
+        last_name: Prénom et Nom de la personne rencontrée
+        role: Fonction de la personne rencontrée
+        email: Adresse e-mail de la personne rencontrée
+        phone_number: Numéro de téléphone de la personne rencontrée
       question:
         label: Intitulé
         category: Catégorie

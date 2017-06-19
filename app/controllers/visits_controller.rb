@@ -39,7 +39,7 @@ class VisitsController < ApplicationController
     if @visit.save
       update_visitee_redirection
     else
-      render layout: 'with_visit_subnavbar'
+      render 'edit_visitee', layout: 'with_visit_subnavbar'
     end
   end
 
@@ -62,6 +62,6 @@ class VisitsController < ApplicationController
   end
 
   def update_visitee_params
-    params.require(:visit).permit(visitee_attributes: %i[first_name last_name email role institution phone_number])
+    params.require(:visit).permit(visitee_attributes: %i[full_name email role phone_number])
   end
 end

@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
 
-  validates :last_name, :institution, :role, :phone_number, :email, presence: true
+  validates :last_name, :role, :email, presence: true
 
   # Inspired by Devise validatable module
   validates :email, uniqueness: true, format: { with: Devise.email_regexp }, allow_blank: true, if: :will_save_change_to_email?

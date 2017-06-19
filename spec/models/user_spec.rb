@@ -7,9 +7,7 @@ RSpec.describe User, type: :model do
     describe 'presence' do
       it do
         is_expected.to validate_presence_of(:last_name)
-        is_expected.to validate_presence_of(:institution)
         is_expected.to validate_presence_of(:role)
-        is_expected.to validate_presence_of(:phone_number)
         is_expected.to validate_presence_of(:password)
       end
     end
