@@ -23,6 +23,7 @@ fr:
       your_contact_in_the_company: Votre contact en entreprise
       info_about_who_you_saw_during_your_visit: Remplissez ces informations concernant la personne que vous avez rencontrée chez %{company_name}.
       coordinates: Coordonnées
+      add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
     email_to_expert:
       hello: Bonjour,
       i_just_met_this_company: J’ai rencontré le %{visit_date} l’entreprise %{company_name}.

@@ -34,7 +34,7 @@ describe 'diagnosis feature', type: :feature do
 
     expect(page).to have_content 'Votre contact en entreprise'
 
-    visitee = create :user
+    visitee = create :contact, :with_email
     visit.update visitee: visitee
 
     visit visit_diagnosis_index_path(visit_id: visit.id)

@@ -59,11 +59,11 @@ RSpec.describe VisitsController, type: :controller do
     subject { patch :update_visitee, params: { id: visit.id, visit: { visitee_attributes: visitee_attributes }, question_id: question_id } }
 
     let(:visit) { create :visit }
-    let(:user) { build :user }
+    let(:contact) { build :contact, :with_email, :with_phone_number }
     let(:question_id) { nil }
 
     context 'save worked' do
-      let(:visitee_attributes) { { full_name: user.full_name, email: user.email, role: user.role, phone_number: user.phone_number } }
+      let(:visitee_attributes) { { full_name: contact.full_name, email: contact.email, role: contact.role, phone_number: contact.phone_number } }
 
       context 'there is no question_id' do
         it 'redirects to the visit list' do
@@ -82,7 +82,7 @@ RSpec.describe VisitsController, type: :controller do
     end
 
     context 'saved failed' do
-      let(:visitee_attributes) { { full_name: user.full_name } }
+      let(:visitee_attributes) { { full_name: contact.full_name } }
 
       it 'does not redirect' do
         expect(response).to have_http_status(:success)

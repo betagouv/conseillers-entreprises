@@ -19,6 +19,6 @@
     - visit_date = I18n.l(visit.happened_at)
     - email_body = render partial: 'visits/email_to_expert', locals: { visit_date: visit_date, visit_company: visit.company, advisor_user: current_user, company_user: visit.visitee, advice_type: question.label, offer: assistance.title, expert_institution: assistance.company.name }
     - email_body = strip_tags email_body
-    = mail_to expert_email, mailto_text, bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company: visit.visitee.institution )}", class: 'ui button green'
+    = mail_to expert_email, mailto_text, bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company: visit.visitee.company )}", class: 'ui button green'
   - else
     = link_to mailto_text, edit_visitee_visit_path(visit, question_id: question.id), class: 'ui button green'

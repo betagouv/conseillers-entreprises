@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170616145850) do
+ActiveRecord::Schema.define(version: 20170619155109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,18 @@ ActiveRecord::Schema.define(version: 20170616145850) do
     t.string "phone_number"
   end
 
+  create_table "contacts", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone_number"
+    t.string "role"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_contacts_on_company_id"
+  end
+
   create_table "questions", id: :serial, force: :cascade do |t|
     t.string "label"
     t.datetime "created_at", null: false
@@ -101,7 +113,6 @@ ActiveRecord::Schema.define(version: 20170616145850) do
     t.string "phone_number"
     t.string "institution"
     t.string "role"
-    t.boolean "added_by_advisor", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["is_approved"], name: "index_users_on_is_approved"
@@ -123,9 +134,10 @@ ActiveRecord::Schema.define(version: 20170616145850) do
   add_foreign_key "assistances", "companies"
   add_foreign_key "assistances", "questions"
   add_foreign_key "assistances", "users"
+  add_foreign_key "contacts", "companies"
   add_foreign_key "questions", "categories"
   add_foreign_key "searches", "users"
   add_foreign_key "visits", "companies"
+  add_foreign_key "visits", "contacts", column: "visitee_id"
   add_foreign_key "visits", "users", column: "advisor_id"
-  add_foreign_key "visits", "users", column: "visitee_id"
 end

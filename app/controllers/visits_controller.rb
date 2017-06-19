@@ -34,8 +34,7 @@ class VisitsController < ApplicationController
   def update_visitee
     find_visit
     @visit.assign_attributes update_visitee_params
-    @visit.visitee.added_by_advisor = true
-    @visit.visitee.skip_confirmation!
+    @visit.visitee.company = @visit.company
     if @visit.save
       update_visitee_redirection
     else
@@ -62,6 +61,6 @@ class VisitsController < ApplicationController
   end
 
   def update_visitee_params
-    params.require(:visit).permit(visitee_attributes: %i[full_name email role phone_number])
+    params.require(:visit).permit(visitee_attributes: %i[full_name role email phone_number])
   end
 end

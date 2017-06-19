@@ -3,11 +3,11 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
 
-  validates :last_name, :role, :email, presence: true
+  validates :first_name, :last_name, :role, :email, :phone_number, presence: true
 
   # Inspired by Devise validatable module
   validates :email, uniqueness: true, format: { with: Devise.email_regexp }, allow_blank: true, if: :will_save_change_to_email?
-  validates :password, length: { within: Devise.password_length }, allow_blank: true, unless: :added_by_advisor?
+  validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :must_validate_password?
 
   after_create :send_admin_mail, if: :must_send_admin_mail?
@@ -18,19 +18,6 @@ class User < ApplicationRecord
     super && is_approved?
   end
 
-  def full_name=(full_name)
-    return unless full_name
-    split_full_name = full_name.split(' ')
-    return nil if split_full_name.count.zero?
-    case split_full_name.count
-    when 1
-      self.last_name = split_full_name[0]
-    else
-      self.first_name = split_full_name[0]
-      self.last_name = split_full_name[1..-1].join(' ')
-    end
-  end
-
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -38,11 +25,11 @@ class User < ApplicationRecord
   protected
 
   def must_validate_password?
-    password_required? && !added_by_advisor?
+    password_required?
   end
 
   def must_send_admin_mail?
-    !is_approved? && !added_by_advisor?
+    !is_approved?
   end
 
   def send_admin_mail
