@@ -20,17 +20,20 @@ describe 'admin panel', type: :feature do
     click_link 'Visites'
     click_link 'Créer Visite'
 
+    click_link 'Institutions'
+    click_link 'Créer Institution'
+
+    click_link 'Contact'
+    click_link 'Créer Contact'
+
+    click_link 'Catégories'
+    click_link 'Créer Catégorie'
+
     click_link 'Questions'
     click_link 'Créer Question'
 
     click_link 'Aides'
     click_link 'Créer Aide'
-
-    click_link 'Catégories'
-    click_link 'Créer Catégorie'
-
-    click_link 'Institutions'
-    click_link 'Créer Institution'
 
     click_link current_user.full_name
   end
