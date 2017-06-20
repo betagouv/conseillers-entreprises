@@ -14,7 +14,7 @@ RSpec.describe VisitsController, type: :controller do
 
   describe 'GET #show' do
     it 'returns http success' do
-      visit = create :visit
+      visit = create :visit, advisor: current_user
       allow(UseCases::SearchCompany).to receive(:with_siret).with(visit.company.siren)
       get :show, params: { id: visit.id }
       expect(response).to have_http_status(:success)
@@ -50,7 +50,7 @@ RSpec.describe VisitsController, type: :controller do
 
   describe 'GET #edit_visitee' do
     it 'returns http success' do
-      visit = create :visit
+      visit = create :visit, advisor: current_user
       get :edit_visitee, params: { id: visit.id }
       expect(response).to have_http_status(:success)
     end
@@ -59,7 +59,7 @@ RSpec.describe VisitsController, type: :controller do
   describe 'PATCH #update_visitee' do
     subject { patch :update_visitee, params: { id: visit.id, visit: { visitee_attributes: visitee_attributes }, question_id: question_id } }
 
-    let(:visit) { create :visit }
+    let(:visit) { create :visit, advisor: current_user }
     let(:contact) { build :contact, :with_email, :with_phone_number }
     let(:question_id) { nil }
 

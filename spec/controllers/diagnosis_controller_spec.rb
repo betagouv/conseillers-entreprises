@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe DiagnosisController, type: :controller do
   login_user
 
-  let(:visit) { create :visit }
+  let(:visit) { create :visit, advisor: current_user }
 
   describe 'GET #index' do
     it 'returns http success' do

@@ -46,7 +46,7 @@ class VisitsController < ApplicationController
   private
 
   def find_visit
-    @visit = Visit.find params[:id]
+    @visit = Visit.of_advisor(current_user).includes(:company).find params[:id]
   end
 
   def update_visitee_redirection
