@@ -26,6 +26,8 @@ ActiveAdmin.register Assistance do
       f.input :title
       f.input :user
       f.input :company
+      f.input :geographic_scope
+      f.input :county, as: :select, collection: Assistance::AUTHORIZED_COUNTIES
       f.input :email_specific_sentence
     end
     f.actions

@@ -78,6 +78,12 @@ fr:
         title: Titre
         company: Institution référente
         email_specific_sentence: Phrase spécifique dans l'e-mail
+        geographic_scope: Champ d'action géographique
+        county: Département d'action
+        geographic_scopes:
+          region: Région
+          county: Département
+          town: Ville
       category:
         label: Intitulé
       company:
