@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Question do
-  menu priority: 7
+  menu priority: 5
 
   permit_params do
     permitted = %i[label category_id]

@@ -29,11 +29,16 @@ describe 'admin panel', type: :feature do
     click_link 'Catégories'
     click_link 'Créer Catégorie'
 
-    click_link 'Questions'
-    click_link 'Créer Question'
+    click_link 'Besoins'
+    click_link 'Créer Besoin'
 
     click_link 'Aides'
     click_link 'Créer Aide'
+
+    click_link 'Établissement'
+    click_link 'Créer Établissement'
+
+    click_link 'Mailto'
 
     click_link current_user.full_name
   end

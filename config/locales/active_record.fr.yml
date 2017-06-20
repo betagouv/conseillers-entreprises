@@ -11,8 +11,8 @@ fr:
         one: Visite
         other: Visites
       question:
-        one: Question
-        other: Questions
+        one: Besoin
+        other: Besoins
       assistance:
         one: Aide
         other: Aides
@@ -25,6 +25,9 @@ fr:
       company:
         one: Institution
         other: Institutions
+      facility:
+        one: Établissement
+        other: Établissements
       contact:
         one: Contact
         other: Contacts
@@ -92,6 +95,10 @@ fr:
         siret: SIRET
         email: Adresse e-mail
         phone_number: Numéro de téléphone
+      facility:
+        company: Entreprise
+        siret: SIRET
+        postal_code: Code postal
       contact:
         first_name: Prénom
         last_name: Nom
