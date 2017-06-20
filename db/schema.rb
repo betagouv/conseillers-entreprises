@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170619174320) do
+ActiveRecord::Schema.define(version: 20170620125516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 20170619174320) do
     t.bigint "question_id"
     t.string "title"
     t.bigint "company_id"
+    t.text "email_specific_sentence"
     t.index ["company_id"], name: "index_assistances_on_company_id"
     t.index ["question_id"], name: "index_assistances_on_question_id"
     t.index ["user_id"], name: "index_assistances_on_user_id"

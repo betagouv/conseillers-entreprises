@@ -77,6 +77,7 @@ fr:
         description: Description
         title: Titre
         company: Institution référente
+        email_specific_sentence: Phrase spécifique dans l'e-mail
       category:
         label: Intitulé
       company:

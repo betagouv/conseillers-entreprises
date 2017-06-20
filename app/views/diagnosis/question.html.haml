@@ -4,5 +4,6 @@
 - assistances_count = @question.assistances.count
 .ui.info.message
   %p= t('.assitances_count_found', count: assistances_count)
+- visit = Visit.find params[:visit_id] # TODO: Improve
 - @question.assistances.each do |assistance|
-  = render partial: 'assistance/assistance', locals: {assistance: assistance, question: @question}
+  = render partial: 'assistance/assistance', locals: {assistance: assistance, question: @question, visit: visit}
