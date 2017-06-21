@@ -1,0 +1,12 @@
+#!/bin/bash
+Red='\033[0;31m'
+BoldRed='\033[1;31m'
+NoFormating='\033[0m' # No Color
+
+\e[1m
+printf "${BoldRed}#1 - Launch Tests${NoFormating}\n"
+rake
+printf "\n${BoldRed}#2 - Launch Rubocop${NoFormating}\n"
+rubocop -a
+printf "\n${BoldRed}#3 - Launch i18n-tasks${NoFormatingn"
+i18n-tasks health
