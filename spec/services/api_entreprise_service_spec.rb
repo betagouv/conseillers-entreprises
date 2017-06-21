@@ -28,7 +28,32 @@ describe ApiEntrepriseService do
     end
 
     describe 'fetch_company_with_siren' do
-      it { described_class.send(:fetch_company_with_siren, siren) }
+      it { described_class.send(:fetch_cache_company_with_siren, siren) }
+    end
+  end
+
+  describe 'fetch_facility_with_siret' do
+    let(:url) { 'https://api.apientreprise.fr/v2/etablissements/12345678901234?token=awesome_secured_token' }
+    let(:api_entreprise_json) { '{ok: true}' }
+    let(:siret) { '12345678901234' }
+
+    before do
+      ENV['API_ENTREPRISE_TOKEN'] = 'awesome_secured_token'
+      allow(described_class).to receive(:open).with(url) { File }
+      allow(File).to receive(:read) { api_entreprise_json }
+      allow(JSON).to receive(:parse).with(api_entreprise_json)
+    end
+
+    after do
+      expect(described_class).to have_received(:open)
+      expect(File).to have_received(:read)
+      expect(JSON).to have_received(:parse)
+    end
+
+    describe 'fetch_facility_with_siret' do
+      let(:siret) { '12345678901234' }
+
+      it { described_class.fetch_facility_with_siret siret }
     end
   end
 end
