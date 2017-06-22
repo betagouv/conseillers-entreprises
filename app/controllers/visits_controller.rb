@@ -45,6 +45,11 @@ class VisitsController < ApplicationController
 
   def update_diagnosis
     pp params
+    diagnosis = Diagnosis.new
+    diagnosis.save
+    # if diagnosis.save
+    #
+    # end
   end
 
   private

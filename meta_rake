@@ -3,10 +3,10 @@ Red='\033[0;31m'
 BoldRed='\033[1;31m'
 NoFormating='\033[0m' # No Color
 
-\e[1m
-printf "${BoldRed}#1 - Launch Tests${NoFormating}\n"
+printf "\n${BoldRed}### - Test Sequence - ###${NoFormating}\n"
+printf "\n${BoldRed}#1 - Launch Tests${NoFormating}\n\n"
 rake
-printf "\n${BoldRed}#2 - Launch Rubocop${NoFormating}\n"
+printf "\n${BoldRed}#2 - Launch Rubocop${NoFormating}\n\n"
 rubocop -a
-printf "\n${BoldRed}#3 - Launch i18n-tasks${NoFormatingn"
+printf "\n${BoldRed}#3 - Launch i18n-tasks${NoFormating}\n\n"
 i18n-tasks health
