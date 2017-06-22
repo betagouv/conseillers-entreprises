@@ -58,7 +58,7 @@ fr:
         confirmed_at: Date de confirmation d'adresse e-mail
         confirmation_sent_at: Date d'envoi du mail de confirmation
         is_admin: Est administrateur ?
-        is_approved: Est validé ?
+        is_blocked: Est bloqué ?
         full_name: Prénom et Nom
         first_name: Prénom
         last_name: Nom

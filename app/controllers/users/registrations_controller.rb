@@ -4,6 +4,11 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :configure_permitted_parameters, only: %i[create update]
 
+    def create
+      super
+      AdminMailer.new_user_created_notification(@user).deliver if @user.persisted?
+    end
+
     protected
 
     def configure_permitted_parameters

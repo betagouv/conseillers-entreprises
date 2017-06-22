@@ -2,7 +2,7 @@
 
 ActiveAdmin.register User do
   menu priority: 2
-  permit_params :first_name, :last_name, :institution, :role, :email, :phone_number, :password, :password_confirmation, :is_approved
+  permit_params :first_name, :last_name, :institution, :role, :email, :phone_number, :password, :password_confirmation, :is_blocked
 
   index do
     selectable_column
@@ -11,7 +11,7 @@ ActiveAdmin.register User do
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
-    column :is_approved
+    column :is_blocked
     actions
   end
 
@@ -19,7 +19,7 @@ ActiveAdmin.register User do
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
-  filter :is_approved
+  filter :is_blocked
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -36,7 +36,7 @@ ActiveAdmin.register User do
     end
 
     f.inputs I18n.t('active_admin.user.user_activation') do
-      f.input :is_approved
+      f.input :is_blocked
     end
 
     f.actions
@@ -66,12 +66,12 @@ ActiveAdmin.register User do
     end
 
     def update_without_password
-      params.require(:user).permit(%i[first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role])
+      params.require(:user).permit(%i[first_name last_name email institution role phone_number is_blocked contact_page_order contact_page_role])
     end
 
     def update_with_password
       permitted_keys = %i[first_name last_name email institution role phone_number password password_confirmation]
-      permitted_keys += %i[is_approved contact_page_order contact_page_role]
+      permitted_keys += %i[is_blocked contact_page_order contact_page_role]
       params.require(:user).permit(permitted_keys)
     end
   end
