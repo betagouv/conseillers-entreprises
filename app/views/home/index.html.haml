@@ -1,15 +1,25 @@
-= image_tag 'reso-logo.png', width: 260
-= image_tag 'reso-picture.png', width: 210
-= image_tag 'https://github.com/sgmap/beta.gouv.fr/wiki/images/marianne.png', width: 200
-%h1= t('.welcome')
-%p= t('.explanation')
-= link_to about_home_index_path, class: 'ui orange button' do
-  = semantic_icon('question mark')
-  = t('layouts.navbar.know_more')
-- unless user_signed_in?
-  = link_to new_user_session_path, class: 'ui yellow button' do
-    = semantic_icon('sign in')
-    = t('sign_in')
-  = link_to new_user_registration_path, class: 'ui olive button' do
-    = semantic_icon('sign in')
-    = t('sign_up')
+#home-index
+  .ui.relaxed.grid
+    .three.column.row
+      .column
+        = image_tag 'reso-logo.png', width: 200
+      .column
+        = image_tag 'reso-picture.png', width: 210
+      .column
+        = image_tag 'marianne.png', width: 200
+
+  %h1= t('.welcome')
+  %p= t('.explanation')
+  = link_to about_home_index_path, class: 'ui orange button' do
+    = semantic_icon('question mark')
+    = t('layouts.navbar.know_more')
+  - unless user_signed_in?
+    = link_to new_user_session_path, class: 'ui yellow button' do
+      = semantic_icon('sign in')
+      = t('sign_in')
+    = link_to new_user_registration_path, class: 'ui olive button' do
+      = semantic_icon('sign in')
+      = t('sign_up')
+
+  #pia-logo
+    = image_tag 'investissements_avenir.jpeg', width: 140
