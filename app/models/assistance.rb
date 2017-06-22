@@ -6,10 +6,10 @@ class Assistance < ApplicationRecord
   enum geographic_scope: %i[region county town]
 
   belongs_to :question
-  belongs_to :company
-  belongs_to :user
+  belongs_to :institution
+  belongs_to :expert
 
-  validates :title, :question, :company, presence: true
+  validates :title, :question, :institution, presence: true
   validates :county, presence: true, if: :county?
   validates :county, inclusion: { in: AUTHORIZED_COUNTIES }, if: :county?
 end

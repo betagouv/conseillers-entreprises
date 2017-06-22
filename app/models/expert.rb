@@ -5,5 +5,5 @@ class Expert < ApplicationRecord
 
   belongs_to :institution
 
-  validates :institution, presence: true
+  validates :institution, :email, presence: true
 end

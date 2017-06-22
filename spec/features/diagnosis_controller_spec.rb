@@ -21,14 +21,14 @@ describe 'diagnosis feature', type: :feature do
     expect(page).to have_content 'Aucune aide trouvée...'
 
     assistance = create :assistance, question: question
-    assistance.company.update email: Faker::Internet.email # TODO: Force having an email
+    assistance.institution.update email: Faker::Internet.email # TODO: Force having an email
 
     visit visit_diagnosis_index_path(visit_id: visit.id)
     click_link question.label
 
     expect(page).to have_content 'Une aide a été trouvée'
     expect(page).to have_content assistance.title
-    expect(page).to have_content assistance.company.name
+    expect(page).to have_content assistance.institution.name
 
     click_link "Contacter l'institution par e-mail"
 
@@ -40,7 +40,7 @@ describe 'diagnosis feature', type: :feature do
     visit visit_diagnosis_index_path(visit_id: visit.id)
     click_link question.label
 
-    expect(page).to have_xpath "//a[contains(@href,'mailto:#{assistance.company.email}')]"
+    expect(page).to have_xpath "//a[contains(@href,'mailto:#{assistance.institution.email}')]"
   end
 
   it('has a mailto') {}

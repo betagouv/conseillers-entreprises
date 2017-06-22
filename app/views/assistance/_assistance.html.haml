@@ -1,9 +1,9 @@
 .ui.segment.assistance
   %h4.ui.header= assistance.title
-  %p= assistance.company.name
-  - if assistance.user
+  %p= assistance.institution.name
+  - if assistance.expert
     %h5= t('.contact')
-    - contact = assistance.user
+    - contact = assistance.expert
     %p
       = contact.full_name
       %br
@@ -11,11 +11,11 @@
     - expert_email = contact.email
     - mailto_text = t('.contact_by_email')
   - else
-    - expert_email = assistance.company.email
+    - expert_email = assistance.institution.email
     - mailto_text = t('.contact_institution_by_email')
 
   - if visit.visitee
-    - email_body = render partial: 'visits/email_to_expert', locals: { visit_date: visit.happened_at_localized, visit_company: visit.company, advisor_user: current_user, company_user: visit.visitee, advice_type: question.label, offer: assistance.title, email_specific_sentence: assistance.email_specific_sentence, expert_institution: assistance.company.name }
+    - email_body = render partial: 'visits/email_to_expert', locals: { visit_date: visit.happened_at_localized, visit_company: visit.company, advisor_user: current_user, company_user: visit.visitee, advice_type: question.label, offer: assistance.title, email_specific_sentence: assistance.email_specific_sentence, expert_institution: assistance.institution.name }
     - email_body = strip_tags email_body
     - mailto_data = { mailto_log_path: mailto_logs_path(mailto_log: {question_id: question.id, visit_id: visit.id, assistance_id: assistance.id}), mailto_logged: false }
     = mail_to expert_email, mailto_text, bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company: visit.company )}", id: 'mailto-expert-button', class: 'ui button green', target: :_blank, data: mailto_data
