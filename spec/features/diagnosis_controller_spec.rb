@@ -8,13 +8,13 @@ describe 'diagnosis feature', type: :feature do
   before do
     visit = create :visit, advisor: current_user
 
-    visit visit_diagnosis_index_path(visit_id: visit.id)
+    visit new_visit_diagnosis_path(visit_id: visit.id)
     expect(page).not_to have_css 'table.table'
 
     category = create :category
     question = create :question, category: category
 
-    visit visit_diagnosis_index_path(visit_id: visit.id)
+    visit new_visit_diagnosis_path(visit_id: visit.id)
     expect(page).to have_css 'table.table'
 
     click_link question.label
@@ -23,7 +23,7 @@ describe 'diagnosis feature', type: :feature do
     assistance = create :assistance, question: question
     assistance.institution.update email: Faker::Internet.email # TODO: Force having an email
 
-    visit visit_diagnosis_index_path(visit_id: visit.id)
+    visit new_visit_diagnosis_path(visit_id: visit.id)
     click_link question.label
 
     expect(page).to have_content 'Une aide a été trouvée'
@@ -37,7 +37,7 @@ describe 'diagnosis feature', type: :feature do
     visitee = create :contact, :with_email
     visit.update visitee: visitee
 
-    visit visit_diagnosis_index_path(visit_id: visit.id)
+    visit new_visit_diagnosis_path(visit_id: visit.id)
     click_link question.label
 
     expect(page).to have_xpath "//a[contains(@href,'mailto:#{assistance.institution.email}')]"

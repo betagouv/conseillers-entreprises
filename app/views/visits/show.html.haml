@@ -34,6 +34,6 @@
       %br
 
 %h3= t('.diagnosis')
-= link_to visit_diagnosis_index_path(visit_id: @visit.id), class: 'ui medium green button' do
+= link_to new_visit_diagnosis_path(visit_id: @visit.id), class: 'ui medium green button' do
   = semantic_icon('sitemap')
   = t('.cta_diagnosis')

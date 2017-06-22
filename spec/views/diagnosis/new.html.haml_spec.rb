@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'diagnosis/index.html.haml', type: :view do
+RSpec.describe 'diagnosis/new.html.haml', type: :view do
   before do
     visit = create :visit
     allow(view).to receive(:params).and_return(visit_id: visit.id)

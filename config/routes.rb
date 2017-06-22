@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       patch :update_diagnosis
     end
 
-    resources :diagnosis, only: %i[index] do
+    resources :diagnosis, only: %i[new] do
       collection do
         get 'question/:id' => 'diagnosis#question', as: :question
       end
