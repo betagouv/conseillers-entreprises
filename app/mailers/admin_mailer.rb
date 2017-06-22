@@ -7,17 +7,12 @@ class AdminMailer < ApplicationMailer
   def new_user_created_notification(user)
     @user = user
 
-    recipients = default_recipients
-    raise RecipientsExpectedError if recipients.empty?
-
-    mail(to: recipients, subject: 'BIM ! Un matelot a rejoint l\'aventure !')
+    mail(to: default_recipients, subject: 'BIM ! Un matelot a rejoint l\'aventure !')
   end
 
   private
 
   def default_recipients
-    User.where(is_admin: true).map(&:email) # TODO: Add [PROJECT_MAILING_LIST] when there is one
+    ENV['APPLICATION_EMAIL']
   end
-
-  class RecipientsExpectedError < StandardError; end
 end
