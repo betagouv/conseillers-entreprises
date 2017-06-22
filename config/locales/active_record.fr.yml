@@ -23,6 +23,9 @@ fr:
         one: Catégorie
         other: Catégories
       company:
+        one: Entreprise
+        other: Entreprises
+      institution:
         one: Institution
         other: Institutions
       facility:
@@ -93,6 +96,10 @@ fr:
         name: Raison sociale
         siren: SIREN
         siret: SIRET
+        email: Adresse e-mail
+        phone_number: Numéro de téléphone
+      institution:
+        name: Raison sociale
         email: Adresse e-mail
         phone_number: Numéro de téléphone
       facility:
