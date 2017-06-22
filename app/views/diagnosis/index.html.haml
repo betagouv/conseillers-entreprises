@@ -1,10 +1,19 @@
 - meta title: t('.diagnosis')
 
 %h1= t('.diagnosis')
-- categories_with_questions.each do |item|
-  %h2= item[:category]
-  %table.ui.selectable.celled.table
-    %tbody
-      - item[:questions].each do |question|
-        %tr
-          %td= link_to question.label, question_visit_diagnosis_index_path(question.id, visit_id: params[:visit_id])
+
+= form_for :visit, url: update_diagnosis_visit_path(@visit), html: { method: :patch, class: 'ui form' } do |f|
+  - categories_with_questions.each do |item|
+    %h2= item[:category]
+    %table.ui.celled.table
+      %tbody
+        - item[:questions].each do |question|
+          %tr
+            %td
+              = link_to question.label, question_visit_diagnosis_index_path(question.id, visit_id: params[:visit_id])
+            %td.collapsing
+              .ui.checkbox.fitted
+                %input{name: question.id, type: 'checkbox'}
+                %label
+  .actions
+    = f.submit t('save'), class: 'ui button green'

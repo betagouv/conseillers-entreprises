@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get 'company' => 'companies#show'
       get :edit_visitee
       patch :update_visitee
+      patch :update_diagnosis
     end
 
     resources :diagnosis, only: %i[index] do

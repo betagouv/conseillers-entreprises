@@ -43,6 +43,10 @@ class VisitsController < ApplicationController
     end
   end
 
+  def update_diagnosis
+    pp params
+  end
+
   private
 
   def find_visit
