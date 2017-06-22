@@ -22,9 +22,10 @@
     = f.email_field :email, placeholder: Faker::Internet.email
   .field
     = f.label :password
-    - if @minimum_password_length
-      %em= t('devise.password_minimum_characters', count: @minimum_password_length)
-    = f.password_field :password, autocomplete: 'off'
+    - minimum_password_length = Devise.password_length.min
+    - if minimum_password_length
+      %em= t('devise.password_minimum_characters', count: minimum_password_length)
+    = f.password_field :password, autocomplete: 'off', pattern: ".{#{minimum_password_length},}"
   .field
     = f.label :password_confirmation
     = f.password_field :password_confirmation, autocomplete: 'off'

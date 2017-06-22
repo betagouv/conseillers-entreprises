@@ -16,10 +16,11 @@
 
   .field
     = f.label :password
-    - if @minimum_password_length
-      %em= t('devise.password_minimum_characters', count: @minimum_password_length)
+    - minimum_password_length = Devise.password_length.min
+    - if minimum_password_length
+      %em= t('devise.password_minimum_characters', count: minimum_password_length)
     %i= t('.leave_blank_to_change_it')
-    = f.password_field :password, autocomplete: 'off'
+    = f.password_field :password, autocomplete: 'off', pattern: ".{#{minimum_password_length},}"
   .field
     = f.label :password_confirmation
     %i= t('.leave_blank_to_change_it')
