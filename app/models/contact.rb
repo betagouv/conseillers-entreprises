@@ -7,9 +7,11 @@ class ContactValidator < ActiveModel::Validator
 end
 
 class Contact < ApplicationRecord
+  include PersonConcern
+
   belongs_to :company
 
-  validates :last_name, :role, :company, presence: true
+  validates :company, presence: true
   validates_with ContactValidator
 
   def full_name=(full_name)
@@ -23,9 +25,5 @@ class Contact < ApplicationRecord
       self.first_name = split_full_name[0]
       self.last_name = split_full_name[1..-1].join(' ')
     end
-  end
-
-  def full_name
-    "#{first_name} #{last_name}"
   end
 end

@@ -20,8 +20,8 @@ describe 'admin panel', type: :feature do
     click_link 'Visites'
     click_link 'Créer Visite'
 
-    click_link 'Institutions'
-    click_link 'Créer Institution'
+    click_link 'Entreprises'
+    click_link 'Créer Entreprise'
 
     click_link 'Contact'
     click_link 'Créer Contact'
@@ -37,6 +37,12 @@ describe 'admin panel', type: :feature do
 
     click_link 'Établissement'
     click_link 'Créer Établissement'
+
+    click_link 'Institutions'
+    click_link 'Créer Institution'
+
+    click_link 'Référents'
+    click_link 'Créer Référent'
 
     click_link 'Mailto'
 

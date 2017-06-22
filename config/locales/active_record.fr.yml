@@ -34,6 +34,9 @@ fr:
       contact:
         one: Contact
         other: Contacts
+      expert:
+        one: Référent
+        other: Référents
       mailto_log:
         one: Mailto
         other: Mailtos
@@ -112,6 +115,14 @@ fr:
         full_name: Prénom et Nom
         role: Fonction
         company: Entreprise
+        email: Adresse e-mail
+        phone_number: Numéro de téléphone
+      expert:
+        first_name: Prénom
+        last_name: Nom
+        full_name: Prénom et Nom
+        role: Fonction
+        institution: Institution
         email: Adresse e-mail
         phone_number: Numéro de téléphone
       mailto_log:
