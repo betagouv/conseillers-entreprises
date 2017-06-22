@@ -1,7 +1,8 @@
 - meta title: t('.title')
 
 %h1= t('.title')
-%p= t('.you_can_contact_us')
+- mailto_link = mail_to ENV['APPLICATION_EMAIL'], ENV['APPLICATION_EMAIL'], target: :_blank
+%p= t('.you_can_contact_us_html', mailto_link: mailto_link)
 
 .ui.relaxed.list
   - @contacts.each do |contact|

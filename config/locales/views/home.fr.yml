@@ -15,4 +15,4 @@ fr:
         <p>Réso permet ainsi à l’administration de développer un rôle de conseil à destination des entreprises en complément de son rôle régalien de contrôle.</p>
     contact:
       title: Contactez-nous
-      you_can_contact_us: Vous pouvez nous contacter à tout moment pour toute question.
+      you_can_contact_us_html: "Vous pouvez nous contacter à tout moment par e-mail sur %{mailto_link} ou sur les numéros de téléphone suivants :"
