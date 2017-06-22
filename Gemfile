@@ -37,6 +37,9 @@ gem 'wannabe_bool'
 gem 'capybara'
 gem 'webpacker', '~> 2.0'
 
+gem 'exception_notification'
+gem 'slack-notifier'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use Redis adapter to run Action Cable in production

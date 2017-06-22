@@ -113,6 +113,9 @@ GEM
       thread_safe
     erubi (1.6.0)
     erubis (2.7.0)
+    exception_notification (4.2.1)
+      actionmailer (>= 4.0, < 6)
+      activesupport (>= 4.0, < 6)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -304,6 +307,7 @@ GEM
     sexp_processor (4.9.0)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
+    slack-notifier (1.5.1)
     spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -362,6 +366,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   compass-rails
   devise
+  exception_notification
   factory_girl_rails
   faker
   foreman
@@ -381,6 +386,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   semantic-ui-sass (~> 2)
   shoulda-matchers (~> 3.1)
+  slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

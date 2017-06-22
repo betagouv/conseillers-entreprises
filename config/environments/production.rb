@@ -86,4 +86,18 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.middleware.use ExceptionNotification::Rack,
+                        email: {
+                          email_prefix: '[Erreur Réso] ',
+                          sender_address: "\"Erreur Réso\" <#{ENV['DO_NOT_REPLY_EMAIL']}>",
+                          exception_recipients: [ENV['APPLICATION_EMAIL']]
+                        },
+                        slack: {
+                          webhook_url: ENV['SLACK_WEBHOOK_URL'],
+                          channel: '#startup-reso-dev',
+                          additional_parameters: {
+                            mrkdwn: true
+                          }
+                        }
 end
