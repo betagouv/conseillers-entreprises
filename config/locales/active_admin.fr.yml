@@ -1,9 +1,8 @@
 fr:
   active_admin:
-    dashboard: "Tableau de bord"
+    dashboard: Tableau de bord
     dashboard_welcome:
-      call_to_action: "Ici gérez les utilisateurs ainsi que les questions et réponses de l'outil de diagnostic"
-      welcome: "Bienvenue dans le tableau de bord d'administration"
+      useful_links: Liens utiles
     user:
-      user_info: "Informations utilisateur"
-      user_activation: "Bloquage du compte"
+      user_info: Informations utilisateur
+      user_activation: Bloquage du compte
