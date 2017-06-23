@@ -14,6 +14,28 @@ RSpec.describe Visit, type: :model do
     end
   end
 
+  describe 'scopes' do
+    describe 'of_advisor' do
+      subject { Visit.of_advisor user }
+
+      let(:user) { create :user }
+
+      context 'visit exists' do
+        it do
+          visit = create :visit, advisor: user
+          is_expected.to eq [visit]
+        end
+      end
+
+      context 'visit does not exist' do
+        it do
+          create :visit
+          is_expected.to be_empty
+        end
+      end
+    end
+  end
+
   describe 'to_s' do
     it do
       company = create :company
