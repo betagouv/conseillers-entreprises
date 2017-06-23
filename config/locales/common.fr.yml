@@ -7,6 +7,8 @@ fr:
   back: Retour
   save: Enregistrer
   actions: Actions
+  show: Montrer
+  hide: Cacher
   sign_up: S'inscrire
   sign_in: Se connecter
   admin_authentication_failure: Vous n'avez pas accès à cette page.

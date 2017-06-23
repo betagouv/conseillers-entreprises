@@ -18,7 +18,18 @@ fr:
       prenom: Prénom
       date_radiation: Date de radiation
       categorie_entreprise: Categorie de l'entreprise
+      facility: Établissement
       siege_social: Siège social
+      tranche_effectif_salarie_entreprise: Tranche d'effectif de salariés de l'entreprise
+      mandataires_sociaux: Mandataires sociaux
+      personne_morale: Personne morale
+      fonction: Fonction
+      date_naissance: Date de naissance
+      dirigeant: Est-ce un dirigeant ?
+      identifiant: Identifiant
+      ereputation: e-réputation
+      information_not_found: Aucune actualité n'a été trouvée sur cette entreprise.
+    facility:
       naf: Code NAF
       date_mise_a_jour: Date de mise à jour
       tranche_effectif_salarie_etablissement: Tranche d'effectif de salariés de l'établissement
@@ -29,12 +40,4 @@ fr:
       pays_implantation: Pays d'implantation
       diffusable_commercialement: Diffusable commercialement
       adresse: Adresse
-      tranche_effectif_salarie_entreprise: Tranche d'effectif de salariés de l'entreprise
-      mandataires_sociaux: Mandataires sociaux
-      personne_morale: Personne morale
-      fonction: Fonction
-      date_naissance: Date de naissance
-      dirigeant: Est-ce un dirigeant ?
-      identifiant: Identifiant
-      ereputation: e-réputation
-      information_not_found: Aucune actualité n'a été trouvée sur cette entreprise.
+

@@ -6,4 +6,8 @@ class Facility < ApplicationRecord
   belongs_to :company
 
   validates :company, :siret, :postal_code, presence: true
+
+  def to_s
+    "#{company.name_short} (#{postal_code})"
+  end
 end

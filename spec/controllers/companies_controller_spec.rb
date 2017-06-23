@@ -35,8 +35,8 @@ RSpec.describe CompaniesController, type: :controller do
   describe 'GET #show' do
     it do
       visit = create :visit, :with_facility
-      api_json = { 'etablissement' => { 'nom_commercial' => visit.company_name } }
-      allow(UseCases::SearchFacility).to receive(:with_siret).with(visit.facility.siret) { api_json }
+      allow(UseCases::SearchFacility).to receive(:with_siret).with(visit.facility.siret)
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(visit.facility.siret)
       allow(QwantApiService).to receive(:results_for_query).with(visit.company_name)
       get :show, params: { id: visit.id }
       expect(response).to have_http_status(:success)

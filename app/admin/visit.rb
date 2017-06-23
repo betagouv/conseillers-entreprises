@@ -2,5 +2,5 @@
 
 ActiveAdmin.register Visit do
   menu priority: 3
-  permit_params :advisor_id, :visitee_id, :happened_at, :company_id
+  permit_params :advisor_id, :visitee_id, :happened_at, :company_id, :facility_id
 end
