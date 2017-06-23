@@ -21,4 +21,21 @@ RSpec.describe Visit, type: :model do
       expect(visit.to_s).to include company.name
     end
   end
+
+  describe 'happened_at_localized' do
+    it do
+      visit = create :visit, happened_at: Date.new(2017, 07, 01)
+      expect(visit.happened_at_localized).to eq '01/07/2017'
+    end
+  end
+
+  describe 'company_name' do
+    it do
+      name = 'Octo'
+      company = create :company, name: name
+      facility = create :facility, company: company
+      visit = create :visit, facility: facility
+      expect(visit.company_name).to eq name
+    end
+  end
 end

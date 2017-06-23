@@ -20,6 +20,6 @@ class Visit < ApplicationRecord
   end
 
   def company_name
-    facility ? facility.company.name.first(40) : company.name.first(40)
+    facility ? facility.company.name_short : company.name_short
   end
 end
