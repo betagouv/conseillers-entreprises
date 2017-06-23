@@ -7,7 +7,7 @@ class Visit < ApplicationRecord
   belongs_to :facility
   accepts_nested_attributes_for :visitee
 
-  validates :happened_at, :advisor, :company, presence: true
+  validates :happened_at, :advisor, presence: true
 
   scope :of_advisor, (->(user) { where(advisor: user) })
 
@@ -20,6 +20,6 @@ class Visit < ApplicationRecord
   end
 
   def company_name
-    company.name.first(40)
+    facility ? facility.company.name.first(40) : company.name.first(40)
   end
 end

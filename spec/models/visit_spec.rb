@@ -11,7 +11,6 @@ RSpec.describe Visit, type: :model do
       is_expected.to belong_to :facility
       is_expected.to validate_presence_of :happened_at
       is_expected.to validate_presence_of :advisor
-      is_expected.to validate_presence_of :company
     end
   end
 
