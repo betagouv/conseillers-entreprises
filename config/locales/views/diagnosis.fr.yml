@@ -7,3 +7,5 @@ fr:
         zero: Aucune aide trouvée...
         one: Une aide a été trouvée
         other: "%{count} aides ont été trouvées"
+      contact_all_with_one_email: Contacter tous en un e-mail
+      company_needs_you: L'entreprise %{company_name} a besoin de vous !

@@ -37,7 +37,15 @@ fr:
     email_to_expert:
       hello: Bonjour,
       i_just_met_this_company: J’ai rencontré le %{visit_date} l’entreprise %{company_name}.
-      they_need_advice: Elle a exprimé le besoin "%{advice_type}".
+      they_need_advice: Elle a exprimé le besoin "%{need}".
       reso_advised_this_offer: Le projet Réso lui a conseillé %{offer} de %{expert_institution}.
       company_contact_is: Mon contact dans l’entreprise est %{company_contact_full_name}, %{company_contact_role}, joignable au %{company_contact_contact_type}.
+      regards: Bien cordialement,
+    grouped_email_to_experts:
+      hello_all: Bonjour à tous,
+      i_just_met_this_company: J’ai rencontré le %{visit_date} l’entreprise %{company_name}.
+      they_need_advice: Elle a exprimé le besoin "%{need}".
+      reso_advised_several_assistances: "Le projet Réso lui a conseillé pour ce besoin plusieurs dispositifs d'accompagnement :"
+      company_contact_is: Mon contact dans l’entreprise est %{company_contact_full_name}, %{company_contact_role}, joignable au %{company_contact_contact_type}.
+      you_can_reply_all: "[Vous pouvez répondre à tous par retour de mail afin d'assurer une coordination optimale dans la prise en charge du besoin de l’entreprise.]"
       regards: Bien cordialement,

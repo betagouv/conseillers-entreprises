@@ -1,7 +1,7 @@
 - meta title: t('.your_contact_in_the_company')
 
 %h2= t('.your_contact_in_the_company')
-%p= t('.info_about_who_you_saw_during_your_visit', company_name: @visit.company.name)
+%p= t('.info_about_who_you_saw_during_your_visit', company_name: @visit.company_name)
 
 - form_url = params[:question_id].present? ? update_visitee_visit_path(question_id: params[:question_id]) : update_visitee_visit_path
 

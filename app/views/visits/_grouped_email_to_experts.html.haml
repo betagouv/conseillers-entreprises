@@ -1,4 +1,4 @@
-= t('.hello')
+= t('.hello_all')
 %br
 
 = t('.i_just_met_this_company', visit_date: visit_date, company_name: company_name)
@@ -7,14 +7,16 @@
 = t('.they_need_advice', need: need)
 %br
 
-- if email_specific_sentence
-  = email_specific_sentence
-- else
-  = t('.reso_advised_this_offer', offer: offer, expert_institution: expert_institution)
-%br
+= t('.reso_advised_several_assistances')
+%ul
+  - assistances.each do |assistance|
+    %li= "#{assistance[:title]} de #{assistance[:institution]}"
 
 - company_contact_contact_type = company_user.phone_number.presence || company_user.email
 = t('.company_contact_is', company_contact_full_name: company_user.full_name, company_contact_role: company_user.role, company_contact_contact_type: company_contact_contact_type)
+%br
+
+= t('.you_can_reply_all')
 %br
 
 = t('.regards')

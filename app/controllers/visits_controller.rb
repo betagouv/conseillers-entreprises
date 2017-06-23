@@ -35,7 +35,7 @@ class VisitsController < ApplicationController
   def update_visitee
     find_visit
     @visit.assign_attributes update_visitee_params
-    @visit.visitee.company = @visit.company
+    @visit.visitee.company = @visit.facility.company
     if @visit.save
       update_visitee_redirection
     else

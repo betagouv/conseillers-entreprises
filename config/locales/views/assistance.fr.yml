@@ -4,4 +4,4 @@ fr:
       contact: Contact
       contact_by_email: Contacter par e-mail
       contact_institution_by_email: Contacter l'institution par e-mail
-      company_needs_you: L'entreprise %{company} a besoin de vous !
+      company_needs_you: L'entreprise %{company_name} a besoin de vous !
