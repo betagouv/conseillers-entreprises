@@ -56,4 +56,22 @@ describe ApiEntrepriseService do
       it { described_class.fetch_facility_with_siret siret }
     end
   end
+
+  describe 'company_name' do
+    subject(:company_name) { described_class.company_name company_json }
+
+    let(:company) { build :company }
+
+    context 'no social name' do
+      let(:company_json) { { 'entreprise' => { 'nom_commercial' => company.name, 'raison_sociale' => '' } } }
+
+      it { expect(company_name).to eq company.name }
+    end
+
+    context 'no commercial name' do
+      let(:company_json) { { 'entreprise' => { 'nom_commercial' => '', 'raison_sociale' => company.name } } }
+
+      it { expect(company_name).to eq company.name }
+    end
+  end
 end

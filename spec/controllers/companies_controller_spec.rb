@@ -5,34 +5,35 @@ require 'rails_helper'
 RSpec.describe CompaniesController, type: :controller do
   login_user
 
-  let(:visit) { create :visit }
-
   describe 'POST #search_by_siret' do
-    subject(:request) { post :search_by_siret, params: { siret: visit.company.siren }, format: :js }
+    subject(:request) { post :search_by_siret, params: { siret: siret }, format: :js }
 
-    let(:company) { create :company }
+    let(:facility) { build :facility }
+    let(:siret) { facility.siret }
 
     it 'returns http success' do
-      visit.update company: company
       api_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(visit.company.siren) { api_json }
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { api_json }
       request
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'POST #search_by_name' do
-    subject(:request) { post :search_by_name, params: { visit_id: visit.id, company: { name: 'Octo', county: 75 } }, format: :js }
+    subject(:request) { post :search_by_name, params: { company: search_company_params }, format: :js }
+
+    let(:search_company_params) { { name: 'Octo', county: '75' } }
 
     it 'returns http success' do
       allow(FirmapiService).to receive(:search_companies)
       request
-      expect(FirmapiService).to have_received(:search_companies).with(name: 'Octo', county: '75')
+      expect(FirmapiService).to have_received(:search_companies).with(search_company_params)
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'GET #show' do
+    let(:visit) { create :visit }
     let(:company) { create :company }
 
     it do
