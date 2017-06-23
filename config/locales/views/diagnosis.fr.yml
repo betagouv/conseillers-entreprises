@@ -9,3 +9,9 @@ fr:
         other: "%{count} aides ont été trouvées"
       contact_all_with_one_email: Contacter tous en un e-mail
       company_needs_you: L'entreprise %{company_name} a besoin de vous !
+    show:
+      identified_needs:
+        zero: Aucune besoin identifié
+        one: Un besoin a été identifié
+        other: "%{count} besoins ont été identifiés"
+      diagnosis_date: "Date de création du diagnostic : %{date}"

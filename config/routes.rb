@@ -21,10 +21,9 @@ Rails.application.routes.draw do
       get 'company' => 'companies#show'
       get :edit_visitee
       patch :update_visitee
-      patch :update_diagnosis
     end
 
-    resources :diagnosis, only: %i[new] do
+    resources :diagnosis, only: %i[new create show] do
       collection do
         get 'question/:id' => 'diagnosis#question', as: :question
       end

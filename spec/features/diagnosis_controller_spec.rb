@@ -17,14 +17,18 @@ describe 'diagnosis feature', type: :feature do
     visit new_visit_diagnosis_path(visit_id: visit.id)
     expect(page).to have_css 'table.table'
 
-    click_link question.label
+    check("checkbox_#{question.id}")
+    click_button('submit_button')
+
     expect(page).to have_content 'Aucune aide trouvée...'
 
     assistance = create :assistance, question: question
     assistance.institution.update email: Faker::Internet.email # TODO: Force having an email
 
     visit new_visit_diagnosis_path(visit_id: visit.id)
-    click_link question.label
+
+    check("checkbox_#{question.id}")
+    click_button('submit_button')
 
     expect(page).to have_content 'Une aide a été trouvée'
     expect(page).to have_content assistance.title
@@ -38,7 +42,9 @@ describe 'diagnosis feature', type: :feature do
     visit.update visitee: visitee
 
     visit new_visit_diagnosis_path(visit_id: visit.id)
-    click_link question.label
+
+    check("checkbox_#{question.id}")
+    click_button('submit_button')
 
     expect(page).to have_xpath "//a[contains(@href,'mailto:#{assistance.institution.email}')]"
   end

@@ -2,7 +2,7 @@
 
 %h1= t('.diagnosis')
 
-= form_for :visit, url: update_diagnosis_visit_path(@visit), html: { method: :patch, class: 'ui form' } do |f|
+= form_for :visit, url: visit_diagnosis_index_path(@visit), html: { method: :post, class: 'ui form' } do |f|
   - categories_with_questions.each do |item|
     %h2= item[:category]
     %table.ui.celled.table
@@ -10,10 +10,15 @@
         - item[:questions].each do |question|
           %tr
             %td
-              = link_to question.label, question_visit_diagnosis_index_path(question.id, visit_id: params[:visit_id])
+              %label{for: "checkbox_#{question.id}"}
+                %div{style: 'with:100%; cursor:pointer'}
+                  = question.label
             %td.collapsing
-              .ui.checkbox.fitted
-                %input{name: question.id, type: 'checkbox'}
+              %input{name: 'diagnosed_needs[][question_id]' , type: :hidden, value: question.id}
+              %input{name: 'diagnosed_needs[][question_label]' , type: :hidden, value: question.label}
+              .ui.checkbox
+                %input{id: "checkbox_#{question.id}", name: 'diagnosed_needs[][selected]' , type: 'checkbox', value: 'on'}
                 %label
+
   .actions
-    = f.submit t('save'), class: 'ui button green'
+    = f.submit t('save'),id: 'submit_button',  class: 'ui button green'

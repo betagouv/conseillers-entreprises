@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :diagnosis do
-    visit nil
+    association :visit
     content 'MyText'
   end
 end

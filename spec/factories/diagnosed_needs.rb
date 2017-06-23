@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :diagnosed_need do
-    diagnosis nil
+    association :diagnosis
     question_label 'MyString'
     question nil
   end
