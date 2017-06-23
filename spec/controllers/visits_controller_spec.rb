@@ -14,8 +14,8 @@ RSpec.describe VisitsController, type: :controller do
 
   describe 'GET #show' do
     it 'returns http success' do
-      visit = create :visit, advisor: current_user
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(visit.company.siren)
+      visit = create :visit, :with_facility, advisor: current_user
+      allow(UseCases::SearchFacility).to receive(:with_siret).with(visit.facility.siret)
       get :show, params: { id: visit.id }
       expect(response).to have_http_status(:success)
     end
@@ -32,8 +32,8 @@ RSpec.describe VisitsController, type: :controller do
     context 'save worked' do
       it 'redirects to the show page' do
         siret = '12345678901234'
-        company = create :company, siren: siret[0, 9]
-        allow(UseCases::SearchCompany).to receive(:with_siret_and_save).with(siret) { company }
+        facility = create :facility, siret: siret
+        allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { facility }
         post :create, params: { visit: { siret: siret, happened_at: 1.day.from_now } }
         is_expected.to redirect_to visit_path(Visit.last)
       end
@@ -41,7 +41,7 @@ RSpec.describe VisitsController, type: :controller do
 
     context 'saved failed' do
       it 'does not redirect' do
-        allow(UseCases::SearchCompany).to receive(:with_siret_and_save)
+        allow(UseCases::SearchFacility).to receive(:with_siret_and_save)
         post :create, params: { visit: { happened_at: 1.day.from_now } }
         expect(response).to have_http_status(:success)
       end

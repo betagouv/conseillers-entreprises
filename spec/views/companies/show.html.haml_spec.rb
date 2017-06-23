@@ -3,13 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'companies/show.html.haml', type: :view do
-  let(:company_json) do
+  let(:facility_json) do
     {
-      'entreprise' => {
-        'tranche_effectif_salarie_entreprise' => {},
-        'mandataires_sociaux' => {}
-      },
-      'etablissement_siege' => {
+      'etablissement' => {
         'tranche_effectif_salarie_etablissement' => {},
         'region_implantation' => {},
         'commune_implantation' => {},
@@ -40,7 +36,7 @@ RSpec.describe 'companies/show.html.haml', type: :view do
   end
 
   it 'displays a title' do
-    assign :company, company_json
+    assign :facility, facility_json
     assign :qwant_results, qwant_json
     render
     expect(rendered).to match(/Informations/)

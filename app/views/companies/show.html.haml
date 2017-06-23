@@ -4,123 +4,43 @@
 
 .ui.grid
   .ten.wide.column
-    - company = @company['entreprise']
-    %table.ui.compact.celled.table
-      %tbody
-        %tr
-          %td= t('.raison_sociale')
-          %td= company['raison_sociale']
-        - if company['nom_commercial'] != company['raison_sociale']
-          %tr
-            %td= t('.nom_commercial')
-            %td= company['nom_commercial']
-        %tr
-          %td= t('.categorie_entreprise')
-          %td= company['categorie_entreprise']
-        %tr
-          %td= t('.tranche_effectif_salarie_entreprise')
-          %td= company['tranche_effectif_salarie_entreprise']['intitule']
-        %tr
-          %td= t('.siren')
-          %td= company['siren']
-        %tr
-          %td= t('.capital_social')
-          %td= "#{company['capital_social']} €"
-        %tr
-          %td= t('.numero_tva_intracommunautaire')
-          %td= company['numero_tva_intracommunautaire']
-        %tr
-          %td= t('.forme_juridique')
-          %td= company['forme_juridique']
-        %tr
-          %td= t('.forme_juridique_code')
-          %td= company['forme_juridique_code']
-        %tr
-          %td= t('.procedure_collective')
-          %td= company['procedure_collective'].to_b ? t('yes') : t('no')
-        %tr
-          %td= t('.date_creation')
-          %td= date_from_timestamp(company['date_creation'])
-        - if company['nom'].present?
-          %tr
-            %td= t('.nom')
-            %td= company['nom']
-        - if company['prenom'].present?
-          %tr
-            %td= t('.prenom')
-            %td= company['prenom']
-        %tr
-          %td= t('.date_radiation')
-          %td= date_from_timestamp(company['date_radiation'])
+    - facility = @facility['etablissement']
 
-    %h2= t('.siege_social')
-    - etablissement_siege = @company['etablissement_siege']
     %table.ui.compact.celled.table
       %tbody
         %tr
           %td= t('.naf')
-          %td= "#{etablissement_siege['naf']} - #{etablissement_siege['libelle_naf']}"
+          %td= "#{facility['naf']} - #{facility['libelle_naf']}"
         %tr
           %td= t('.date_mise_a_jour')
-          %td= date_from_timestamp(etablissement_siege['date_mise_a_jour'])
+          %td= date_from_timestamp(facility['date_mise_a_jour'])
         %tr
           %td= t('.tranche_effectif_salarie_etablissement')
-          %td= etablissement_siege['tranche_effectif_salarie_etablissement']['intitule']
+          %td= facility['tranche_effectif_salarie_etablissement']['intitule']
         %tr
           %td= t('.date_creation_etablissement')
-          %td= date_from_timestamp(etablissement_siege['date_creation_etablissement'])
+          %td= date_from_timestamp(facility['date_creation_etablissement'])
         %tr
           %td= t('.enseigne')
-          %td= etablissement_siege['enseigne']
+          %td= facility['enseigne']
         %tr
           %td= t('.region_implantation')
-          %td= etablissement_siege['region_implantation']['value']
+          %td= facility['region_implantation']['value']
         %tr
           %td= t('.commune_implantation')
-          %td= etablissement_siege['commune_implantation']['value']
+          %td= facility['commune_implantation']['value']
         %tr
           %td= t('.pays_implantation')
-          %td= etablissement_siege['pays_implantation']['value'] || ''
+          %td= facility['pays_implantation']['value'] || ''
         %tr
           %td= t('.diffusable_commercialement')
-          %td= etablissement_siege['diffusable_commercialement']
+          %td= facility['diffusable_commercialement']
         %tr
           %td= t('.adresse')
           %td
-            - adresse = etablissement_siege['adresse']
+            - adresse = facility['adresse']
             - (1..7).each do |i|
               %p= adresse["l#{i}"] if adresse["l#{i}"].present?
-
-    %h2= t('.mandataires_sociaux')
-    - company['mandataires_sociaux'].each do |person|
-      %table.ui.compact.celled.table{class: (person['type'] == 'PM' ? 'violet' : 'teal')}
-        %tbody
-          - if person['type'] == 'PM'
-            %tr
-              %td{colspan: 2}= t('.personne_morale')
-          - if person['raison_sociale'].present?
-            %tr
-              %td= t('.raison_sociale')
-              %td= person['raison_sociale'].humanize
-          - if person['prenom'].present? && person['nom'].present?
-            %tr
-              %td= t('.nom')
-              %td= "#{person['prenom'].humanize} #{person['nom'].humanize}"
-          - if person['fonction'].present?
-            %tr
-              %td= t('.fonction')
-              %td= person['fonction'].humanize
-          - if person['date_naissance_timestamp']
-            %tr
-              %td= t('.date_naissance')
-              %td= date_from_timestamp(person['date_naissance_timestamp'])
-          %tr
-            %td= t('.dirigeant')
-            %td= person['dirigeant'].to_b ? t('yes') : t('no')
-          - if person['identifiant'].present?
-            %tr
-              %td= t('.identifiant')
-              %td= person['identifiant']
 
   .six.wide.column
     %h2= t('.ereputation')

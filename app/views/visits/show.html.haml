@@ -8,7 +8,7 @@
 .ui.segment
   .ui.small.header
     = t('.address')
-  - adresse = @company['etablissement_siege']['adresse']
+  - adresse = @facility['etablissement']['adresse']
   - (1..7).each do |i|
     - if adresse["l#{i}"].present?
       = adresse["l#{i}"].titleize

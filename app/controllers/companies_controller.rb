@@ -14,9 +14,8 @@ class CompaniesController < ApplicationController
 
   def show
     @visit = Visit.find params[:id]
-    @company = UseCases::SearchCompany.with_siret @visit.company.siren
-    nom_commercial = ApiEntrepriseService.company_name(@company)
-    @qwant_results = QwantApiService.results_for_query nom_commercial if nom_commercial.present?
+    @facility = UseCases::SearchFacility.with_siret @visit.facility.siret
+    @qwant_results = QwantApiService.results_for_query @visit.company_name
     render layout: 'company'
   end
 end

@@ -7,7 +7,7 @@ class VisitsController < ApplicationController
 
   def show
     find_visit
-    @company = UseCases::SearchCompany.with_siret @visit.company.siren
+    @facility = UseCases::SearchFacility.with_siret @visit.facility.siret
     render layout: 'with_visit_subnavbar'
   end
 
@@ -16,10 +16,10 @@ class VisitsController < ApplicationController
   end
 
   def create
-    company = UseCases::SearchCompany.with_siret_and_save params[:visit][:siret]
+    facility = UseCases::SearchFacility.with_siret_and_save params[:visit][:siret]
     @visit = Visit.new visit_params
-    @visit.assign_attributes advisor: current_user, company: company
-    if company && @visit.save
+    @visit.assign_attributes advisor: current_user, facility: facility
+    if facility && @visit.save
       redirect_to visit_path @visit
     else
       render 'new'
