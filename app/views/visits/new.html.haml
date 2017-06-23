@@ -12,7 +12,7 @@
         = f.text_field :happened_at, required: true
   .field.required
     = f.label :company
-    %input{type: 'hidden', name: 'visit[siret]', id: 'visit-siret', pattern: Company::NUMBER_PATTERN, required: true}
+    %input{type: 'hidden', name: 'visit[siret]', id: 'visit-siret', pattern: Facility::NUMBER_PATTERN, required: true}
     #company-info.ui.segment
       %p
         = t('activerecord.attributes.company.name')

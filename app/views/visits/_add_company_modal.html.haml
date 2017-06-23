@@ -9,8 +9,8 @@
           .inline.fields
             .field
               .ui.labeled.input
-                = f.label :siret, class: 'ui label'
-                %input{type: 'text', pattern: Company::NUMBER_PATTERN, required: true, name: 'siret', id: 'company-siret'}
+                = f.label :siret, for: 'company-siret', class: 'ui label'
+                %input{type: 'text', pattern: Facility::NUMBER_PATTERN, required: true, name: 'siret', id: 'company-siret'}
             %button.ui.blue.button#company-siret-submit= t('save')
 
       .ui.horizontal.divider
@@ -26,6 +26,6 @@
                 = f.text_field :name, required: true
             .field
               .ui.labeled.input
-                = f.label :county, t('.county'), class: 'ui label'
+                = f.label :county, t('.county'), for: 'county-input', class: 'ui label'
                 = f.text_field :county, pattern: '[0-9]{2,3}', id: 'county-input', required: true
             = f.button t('.search'), class: 'ui blue button'
