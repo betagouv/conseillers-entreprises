@@ -24,7 +24,7 @@ RSpec.describe Visit, type: :model do
 
   describe 'happened_at_localized' do
     it do
-      visit = create :visit, happened_at: Date.new(2017, 07, 01)
+      visit = create :visit, happened_at: Date.new(2017, 7, 1)
       expect(visit.happened_at_localized).to eq '01/07/2017'
     end
   end
