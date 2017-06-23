@@ -46,7 +46,7 @@ class VisitsController < ApplicationController
   private
 
   def find_visit
-    @visit = Visit.of_advisor(current_user).includes(:facility).find params[:id]
+    @visit = Visit.of_advisor(current_user).includes([:facility, :diagnoses]).find params[:id]
   end
 
   def update_visitee_redirection
