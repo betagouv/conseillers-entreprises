@@ -1,15 +1,20 @@
-$ ->
-  if $('#mandataires').length > 0
-    window.Companies.setupMandatairesShowHide()
-
 window.Companies =
-  setupMandatairesShowHide: ->
-    $('#show-mandataires').on 'click', ->
-      $('#show-mandataires').hide()
-      $('#hide-mandataires').show()
-      $('#mandataires').show()
+  setupMandatairesDisplay: ->
+    $('#show-mandataires').on 'click', =>
+      @showMandataires()
+    $('#hide-mandataires').on 'click', =>
+      @hideMandataires()
 
-    $('#hide-mandataires').on 'click', ->
-      $('#hide-mandataires').hide()
-      $('#show-mandataires').show()
-      $('#mandataires').hide()
+  showMandataires: ->
+    $('#show-mandataires').hide()
+    $('#hide-mandataires').show()
+    $('#mandataires').show()
+
+  hideMandataires: ->
+    $('#hide-mandataires').hide()
+    $('#show-mandataires').show()
+    $('#mandataires').hide()
+
+$ ->
+  if $('#company-show').length > 0
+    window.Companies.setupMandatairesDisplay()
