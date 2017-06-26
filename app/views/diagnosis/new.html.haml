@@ -11,12 +11,12 @@
           %tr
             %td
               %label{for: "checkbox_#{question.id}"}
-                %div{style: 'with:100%; cursor:pointer'}
+                .full-width.clickable
                   = question.label
             %td.collapsing
               %input{name: 'diagnosed_needs[][question_id]' , type: :hidden, value: question.id}
               %input{name: 'diagnosed_needs[][question_label]' , type: :hidden, value: question.label}
-              .ui.checkbox
+              .ui.fitted.checkbox
                 %input{id: "checkbox_#{question.id}", name: 'diagnosed_needs[][selected]' , type: 'checkbox', value: 'on'}
                 %label
 

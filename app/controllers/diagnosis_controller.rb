@@ -17,13 +17,6 @@ class DiagnosisController < ApplicationController
     @diagnosis = Diagnosis.of_visit(@visit).includes(diagnosed_needs: [question: :assistances]).find params[:id]
   end
 
-  def index; end
-
-  def question
-    @visit = Visit.of_advisor(current_user).includes(:visitee, :facility).find params[:visit_id]
-    @question = Question.includes(:assistances, assistances: %i[institution expert]).find params[:id]
-  end
-
   private
 
   def create_diagnosis_params

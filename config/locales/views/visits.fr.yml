@@ -17,7 +17,7 @@ fr:
       person_you_met: Personne que vous avez rencontrée
       diagnosis: Analyse des besoins de l'entreprise
       cta_diagnosis: Faire l'analyse des besoins
-      diagnosis_date: "Diagnostic datant du : %{date}"
+      diagnosis_date: "Analyse du %{date}"
     new:
       new_visit: Nouvelle visite
       new_visit_introduction_text: Entrez les informations sur une visite qui a eu lieu ou va avoir lieu.

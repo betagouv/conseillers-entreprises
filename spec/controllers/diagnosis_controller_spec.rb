@@ -14,10 +14,17 @@ RSpec.describe DiagnosisController, type: :controller do
     end
   end
 
-  describe 'GET #question' do
+  describe 'POST #create' do
     it 'returns http success' do
-      question = create :question
-      get :question, params: { id: question.id, visit_id: visit.id }
+      post :create, params: { visit_id: visit.id }
+      expect(response).to have_http_status(:redirect)
+    end
+  end
+
+  describe 'GET #show' do
+    it 'returns http success' do
+      diagnosis = create :diagnosis, visit: visit
+      get :show, params: { id: diagnosis.id, visit_id: visit.id }
       expect(response).to have_http_status(:success)
     end
   end

@@ -20,4 +20,4 @@
     - mailto_data = { mailto_log_path: mailto_logs_path(mailto_log: {question_id: question.id, visit_id: visit.id, assistance_id: assistance.id}), mailto_logged: false }
     = mail_to expert_email, mailto_text, bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company_name: visit.company_name )}", id: "mailto-expert-#{assistance.id}-button", class: 'ui button green', target: :_blank, data: mailto_data
   - else
-    = link_to mailto_text, edit_visitee_visit_path(visit, question_id: question.id), class: 'ui button green'
+    = link_to mailto_text, edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green'

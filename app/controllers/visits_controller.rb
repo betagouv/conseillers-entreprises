@@ -46,12 +46,12 @@ class VisitsController < ApplicationController
   private
 
   def find_visit
-    @visit = Visit.of_advisor(current_user).includes([:facility, :diagnoses]).find params[:id]
+    @visit = Visit.of_advisor(current_user).includes(%i[facility diagnoses]).find params[:id]
   end
 
   def update_visitee_redirection
-    if params[:question_id].present?
-      redirect_to question_visit_diagnosis_index_path(visit_id: @visit.id, id: params[:question_id])
+    if params[:diagnosis_id].present?
+      redirect_to visit_diagnosis_path(visit_id: @visit.id, id: params[:diagnosis_id])
     else
       redirect_to visit_path(@visit)
     end

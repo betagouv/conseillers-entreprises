@@ -11,7 +11,7 @@ fr:
       company_needs_you: L'entreprise %{company_name} a besoin de vous !
     show:
       identified_needs:
-        zero: Aucune besoin identifié
+        zero: Aucun besoin identifié
         one: Un besoin a été identifié
         other: "%{count} besoins ont été identifiés"
-      diagnosis_date: "Date de création du diagnostic : %{date}"
+      diagnosis_date: "Analyse datant du : %{date}"

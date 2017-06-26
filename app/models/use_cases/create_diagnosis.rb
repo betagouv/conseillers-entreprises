@@ -5,7 +5,7 @@ module UseCases
     class << self
       def create_with_params(params)
         diagnosis = Diagnosis.create visit_id: params['visit_id']
-        return nil unless params['diagnosed_needs']
+        return diagnosis unless params['diagnosed_needs']
         params['diagnosed_needs'].each do |need|
           next unless need['selected'] == 'on'
           DiagnosedNeed.create diagnosis: diagnosis,

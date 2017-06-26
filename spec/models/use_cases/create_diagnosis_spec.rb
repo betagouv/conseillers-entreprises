@@ -4,8 +4,9 @@ require 'rails_helper'
 
 describe UseCases::CreateDiagnosis do
   describe 'create_for_params' do
+    let(:visit) { create :visit, id: 4 }
+
     context 'no selected need' do
-      let(:visit) { create :visit, id: 4 }
       let(:params) { { 'visit_id' => visit.id.to_s } }
 
       before { described_class.create_with_params params }
@@ -17,7 +18,6 @@ describe UseCases::CreateDiagnosis do
     end
 
     context 'one selected need with no selected key' do
-      let(:visit) { create :visit, id: 4 }
       let(:question) { create :question }
       let(:params) do
         {
@@ -37,13 +37,13 @@ describe UseCases::CreateDiagnosis do
         expect(Diagnosis.all.count).to eq 1
         expect(Diagnosis.first.visit).to eq visit
       end
+
       it 'does not create a diagnosed_need' do
         expect(DiagnosedNeed.all.count).to eq 0
       end
     end
 
     context 'one selected need with selected = on' do
-      let(:visit) { create :visit, id: 4 }
       let(:question) { create :question }
       let(:params) do
         {
@@ -62,18 +62,18 @@ describe UseCases::CreateDiagnosis do
 
       it 'creates a diagnosis linked to the right visit' do
         expect(Diagnosis.all.count).to eq 1
-        expect(Diagnosis.first.visit).to eq visit
+        expect(Diagnosis.last.visit).to eq visit
       end
+
       it 'creates a diagnosed_need linked to the right diagnosis and right question' do
         expect(DiagnosedNeed.all.count).to eq 1
-        expect(DiagnosedNeed.first.diagnosis).to eq Diagnosis.first
-        expect(DiagnosedNeed.first.question).to eq question
-        expect(DiagnosedNeed.first.question_label).to eq question.label
+        expect(DiagnosedNeed.last.diagnosis).to eq Diagnosis.first
+        expect(DiagnosedNeed.last.question).to eq question
+        expect(DiagnosedNeed.last.question_label).to eq question.label
       end
     end
 
     context 'multiple selected needs' do
-      let(:visit) { create :visit, id: 4 }
       let(:question1) { create :question }
       let(:question2) { create :question }
       let(:params) do
@@ -98,8 +98,9 @@ describe UseCases::CreateDiagnosis do
 
       it 'creates a diagnosis linked to the right visit' do
         expect(Diagnosis.all.count).to eq 1
-        expect(Diagnosis.first.visit).to eq visit
+        expect(Diagnosis.last.visit).to eq visit
       end
+
       it 'creates multiple diagnosed_needs' do
         expect(DiagnosedNeed.all.count).to eq 2
       end

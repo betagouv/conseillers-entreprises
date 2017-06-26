@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :diagnosis do
     association :visit
-    content 'MyText'
+    content { Faker::Lorem.sentence }
   end
 end

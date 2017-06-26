@@ -41,7 +41,7 @@
         %td
           = link_to visit_diagnosis_path(visit_id: diagnosis.visit_id, id: diagnosis.id) do
             .full-width
-              = t('.diagnosis_date', date: I18n.l(diagnosis.created_at.to_date))
+              = t('.diagnosis_date', date: diagnosis.creation_date_localized)
 
 = link_to new_visit_diagnosis_path(visit_id: @visit.id), class: 'ui medium green button' do
   = semantic_icon('sitemap')
