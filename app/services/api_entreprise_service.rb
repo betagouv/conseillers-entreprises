@@ -12,6 +12,11 @@ module ApiEntrepriseService
       fetch_cache_facility_with_siret siret
     end
 
+    def fetch_headquarters_siret_with_siren(siren)
+      company_information = fetch_cache_company_with_siren siren
+      company_information['entreprise']['siret_siege_social']
+    end
+
     def company_name(company_json)
       company_name = company_json['entreprise']['nom_commercial']
       company_name = company_json['entreprise']['raison_sociale'] if company_name.blank?
