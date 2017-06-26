@@ -72,6 +72,7 @@ fr:
         advisor: Conseiller visiteur
         visitee: Personne rencontrée
         company: Entreprise visitée
+        facility: Établissement visité
       visit/visitee:
         last_name: Prénom et Nom de la personne rencontrée
         role: Fonction de la personne rencontrée
