@@ -8,7 +8,7 @@ module UseCases
         return diagnosis unless params['diagnosed_needs']
         params['diagnosed_needs'].each do |need|
           next unless need['selected'] == 'on'
-          DiagnosedNeed.create (
+          DiagnosedNeed.create(
             diagnosis: diagnosis,
             question_label: need['question_label'],
             question_id: need['question_id']
