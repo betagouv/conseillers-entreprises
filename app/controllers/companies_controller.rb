@@ -8,6 +8,14 @@ class CompaniesController < ApplicationController
     @company_location = "#{location_hash['code']} #{location_hash['value']}" if location_hash
   end
 
+  def search_by_siren
+    company = UseCases::SearchCompany.with_siren params[:siren]
+    @company_name = ApiEntrepriseService.company_name(company)
+    location_hash = company['etablissement_siege']['commune_implantation']
+    @company_location = "#{location_hash['code']} #{location_hash['value']}" if location_hash
+    @company_headquarters_siret = company['entreprise']['siret_siege_social']
+  end
+
   def search_by_name
     @firmapi_json = FirmapiService.search_companies name: params[:company][:name], county: params[:company][:county]
   end

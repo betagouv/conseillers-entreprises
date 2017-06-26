@@ -7,11 +7,8 @@ module UseCases
         ApiEntrepriseService.fetch_company_with_siret siret
       end
 
-      def with_siret_and_save(siret)
-        api_entreprise_result = with_siret(siret)
-        return nil if api_entreprise_result.blank?
-        company_name = ApiEntrepriseService.company_name api_entreprise_result
-        Company.create! name: company_name.titleize, siren: api_entreprise_result['entreprise']['siren']
+      def with_siren(siren)
+        ApiEntrepriseService.fetch_company_with_siren siren
       end
     end
   end

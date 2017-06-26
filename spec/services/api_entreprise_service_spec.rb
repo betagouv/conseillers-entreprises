@@ -32,6 +32,20 @@ describe ApiEntrepriseService do
     end
   end
 
+  describe 'fetch_company_with_siren' do
+    it do
+      siren = '418166096'
+      siret = '41816609600051'
+      api_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
+      allow(described_class).to receive(:fetch_cache_company_with_siren).with(siren) { api_json }
+
+      result = described_class.fetch_company_with_siren siren
+
+      expect(described_class).to have_received(:fetch_cache_company_with_siren).with(siren) { api_json }
+      expect(result['entreprise']['siret_siege_social']).to eq siret
+    end
+  end
+
   describe 'fetch_facility_with_siret' do
     let(:url) { 'https://api.apientreprise.fr/v2/etablissements/12345678901234?token=awesome_secured_token' }
     let(:api_entreprise_json) { '{ok: true}' }
@@ -54,20 +68,6 @@ describe ApiEntrepriseService do
       let(:siret) { '12345678901234' }
 
       it { described_class.fetch_facility_with_siret siret }
-    end
-  end
-
-  describe 'fetch_headquarters_siret_with_siren' do
-    it do
-      siren = '418166096'
-      siret = '41816609600051'
-      api_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
-      allow(described_class).to receive(:fetch_cache_company_with_siren).with(siren) { api_json }
-
-      result = described_class.fetch_headquarters_siret_with_siren siren
-
-      expect(described_class).to have_received(:fetch_cache_company_with_siren).with(siren) { api_json }
-      expect(result).to eq siret
     end
   end
 

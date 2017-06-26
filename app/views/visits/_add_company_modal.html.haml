@@ -17,7 +17,7 @@
         = t('.or')
 
       %p= t('.search_by_name_and_county')
-      #company-name-search
+      #company-name-search{data: {search_by_siren_url: search_by_siren_companies_path}}
         = form_for :company, url: search_by_name_companies_path, remote: true, html: {class: 'ui form', id: 'company-name-search-form'} do |f|
           .inline.fields
             .field

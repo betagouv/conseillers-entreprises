@@ -8,13 +8,12 @@ module ApiEntrepriseService
       fetch_cache_company_with_siren siret[0, 9]
     end
 
-    def fetch_facility_with_siret(siret)
-      fetch_cache_facility_with_siret siret
+    def fetch_company_with_siren(siren)
+      fetch_cache_company_with_siren siren
     end
 
-    def fetch_headquarters_siret_with_siren(siren)
-      company_information = fetch_cache_company_with_siren siren
-      company_information['entreprise']['siret_siege_social']
+    def fetch_facility_with_siret(siret)
+      fetch_cache_facility_with_siret siret
     end
 
     def company_name(company_json)

@@ -15,7 +15,14 @@ window.Visits =
   setupCompanyLink: ->
     $('.company-link').off 'click'
     $('.company-link').on 'click', ->
-      window.Visits.setCompanyInfoAndCloseModal($(@).data('company-siren'), $(@).data('company-name'), $(@).data('company-location'))
+      window.Visits.fetchSiretWithSiren($(@).data('company-siren'))
+
+  fetchSiretWithSiren: (siren) ->
+    url = $('#company-name-search').data('search-by-siren-url')
+    $.ajax url,
+      data:
+        siren: siren
+      type: 'POST'
 
   setupModalDisplay: ->
     $('.open-company-name-modal').click ->
