@@ -3,6 +3,7 @@ fr:
     dashboard: Tableau de bord
     dashboard_welcome:
       useful_links: Liens utiles
+      invite_users: Inviter des utilisateurs
     user:
       user_info: Informations utilisateur
       user_activation: Bloquage du compte

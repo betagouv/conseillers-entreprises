@@ -14,4 +14,15 @@ describe Users::RegistrationsHelper, type: :helper do
       expect(resource.first_name).to eq expected_first_name
     end
   end
+
+  describe 'new_registration_params' do
+    it do
+      expected_first_name = 'Juliette'
+      params[:first_name] = expected_first_name
+
+      returned_hash = helper.new_registration_params params
+
+      expect(returned_hash[:default_first_name]).to eq expected_first_name
+    end
+  end
 end

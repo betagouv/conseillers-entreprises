@@ -4,6 +4,11 @@ ActiveAdmin.register User do
   menu priority: 2
   permit_params :first_name, :last_name, :institution, :role, :email, :phone_number, :password, :password_confirmation, :is_blocked
 
+  collection_action :send_invitation_emails, method: :post do
+    UserMailer.send_new_user_invitation(params).deliver_now
+    redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
+  end
+
   index do
     selectable_column
     id_column

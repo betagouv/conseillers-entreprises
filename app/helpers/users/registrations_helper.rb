@@ -9,5 +9,14 @@ module Users
         resource.send("#{attribute}=", param)
       end
     end
+
+    def new_registration_params(params)
+      hash = {}
+      %w[first_name last_name institution role phone_number email].each do |attribute|
+        string = "default_#{attribute}"
+        hash[string.to_sym] = params[attribute.to_sym]
+      end
+      hash
+    end
   end
 end
