@@ -9,7 +9,7 @@
     .ui.calendar#datepicker
       .ui.input.left.icon
         %i.calendar.icon
-        = f.text_field :happened_at, required: true
+        = f.text_field :happened_at, autocomplete: 'off', required: true
   .field.required
     = f.label :company
     %input{type: 'hidden', name: 'visit[siret]', id: 'visit-siret', pattern: Facility::NUMBER_PATTERN, required: true}
