@@ -1,12 +1,12 @@
 %h2= t('sign_in')
 
 = form_for resource, as: resource_name, url: session_path(resource_name), html: {class: 'ui form'} do |f|
-  .field
+  .field.required
     = f.label :email
-    = f.email_field :email, autofocus: true
-  .field
+    = f.email_field :email, autofocus: true, required: true
+  .field.required
     = f.label :password
-    = f.password_field :password, autocomplete: 'off'
+    = f.password_field :password, autocomplete: 'off', required: true
   - if devise_mapping.rememberable?
     .field
       .ui.checkbox
