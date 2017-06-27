@@ -7,7 +7,7 @@
 = t('.they_need_advice', need: need)
 %br
 
-- if email_specific_sentence
+- if email_specific_sentence.present?
   = email_specific_sentence
 - else
   = t('.reso_advised_this_offer', offer: offer, expert_institution: expert_institution)
