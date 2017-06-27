@@ -71,7 +71,6 @@ fr:
         happened_at: Date de la visite
         advisor: Conseiller visiteur
         visitee: Personne rencontrée
-        company: Entreprise visitée
         facility: Établissement visité
       visit/visitee:
         last_name: Prénom et Nom de la personne rencontrée
@@ -82,11 +81,11 @@ fr:
         label: Intitulé
         category: Catégorie
       assistance:
-        user: Utilisateur référent
+        expert: Référent
+        institution: Institution référente
         question: Question parente
-        description: Description
         title: Titre
-        company: Institution référente
+        description: Description
         email_specific_sentence: Phrase spécifique dans l'e-mail
         geographic_scope: Champ d'action géographique
         county: Département d'action
@@ -99,7 +98,6 @@ fr:
       company:
         name: Raison sociale
         siren: SIREN
-        siret: SIRET
         email: Adresse e-mail
         phone_number: Numéro de téléphone
       institution:
