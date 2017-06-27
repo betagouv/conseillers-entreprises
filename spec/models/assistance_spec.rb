@@ -14,6 +14,33 @@ RSpec.describe Assistance, type: :model do
     end
   end
 
+  describe 'validation of institution email' do
+    subject(:assistance) { build :assistance, expert: expert, institution: institution }
+
+    context 'without expert' do
+      let(:expert) { nil }
+
+      context 'with institution with email' do
+        let(:institution) { create :institution, email: 'random@institution.com' }
+
+        it { is_expected.to be_valid }
+      end
+
+      context 'with institution without email' do
+        let(:institution) { create :institution, email: nil }
+
+        it { is_expected.not_to be_valid }
+      end
+    end
+
+    context 'with expert' do
+      let(:expert) { create :expert }
+      let(:institution) { create :institution, email: nil }
+
+      it { is_expected.to be_valid }
+    end
+  end
+
   describe 'county and geographic scope' do
     subject(:assistance) { build :assistance, geographic_scope: geographic_scope, county: county }
 
