@@ -12,11 +12,12 @@
     - recipients_emails = []
     - @question.assistances.each do |assistance|
       - assistances << {title: assistance.title, institution: assistance.institution}
-      - recipients_emails << assistance.expert.email || assistance.institution.email
+      - assistance_email = assistance.expert&.email || assistance.institution.email
+      - recipients_emails << assistance_email
     - email_body = render partial: 'visits/grouped_email_to_experts', locals: { visit_date: @visit.happened_at_localized, company_name: @visit.company_name, advisor_user: current_user, company_user: @visit.visitee, need: @question.label, assistances: assistances }
     - email_body = strip_tags email_body
     - mailto_data = { mailto_log_path: mailto_logs_path(mailto_log: {question_id: @question.id, visit_id: @visit.id}), mailto_logged: false }
-    = mail_to recipients_emails.uniq!.join(','), t('.contact_all_with_one_email'), bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company_name: @visit.company_name )}", id: 'mailto-all-experts-button', class: 'ui button green', target: :_blank, data: mailto_data
+    = mail_to recipients_emails.uniq.join(','), t('.contact_all_with_one_email'), bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company_name: @visit.company_name )}", id: 'mailto-all-experts-button', class: 'ui button green', target: :_blank, data: mailto_data
   - else
     = link_to t('.contact_all_with_one_email'), edit_visitee_visit_path(@visit, question_id: @question.id), class: 'ui button green'
 
