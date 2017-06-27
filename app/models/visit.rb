@@ -3,11 +3,10 @@
 class Visit < ApplicationRecord
   belongs_to :advisor, class_name: 'User'
   belongs_to :visitee, class_name: 'Contact'
-  belongs_to :company
   belongs_to :facility
   accepts_nested_attributes_for :visitee
 
-  validates :happened_at, :advisor, presence: true
+  validates :happened_at, :advisor, :facility, presence: true
 
   scope :of_advisor, (->(user) { where(advisor: user) })
 
@@ -20,6 +19,6 @@ class Visit < ApplicationRecord
   end
 
   def company_name
-    facility ? facility.company.name_short : company.name_short
+    facility.company.name_short
   end
 end

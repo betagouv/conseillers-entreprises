@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :assistance do
     title { Faker::Lorem.sentence }
     association :question
-    association :institution
+    association :institution, :with_email
   end
 end

@@ -2,7 +2,7 @@
 
 class AssistanceValidator < ActiveModel::Validator
   def validate(assistance)
-    assistance.errors.add(:institution, :email_blank) if !assistance.expert && assistance.institution.email.blank?
+    assistance.errors.add(:institution, :email_blank) if !assistance.expert && assistance.institution&.email.blank?
   end
 end
 

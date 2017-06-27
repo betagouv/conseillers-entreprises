@@ -2,7 +2,7 @@
 
 class VisitsController < ApplicationController
   def index
-    @visits = Visit.of_advisor(current_user).includes(:company)
+    @visits = Visit.of_advisor(current_user).includes(:facility)
   end
 
   def show

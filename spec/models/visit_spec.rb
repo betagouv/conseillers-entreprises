@@ -7,10 +7,10 @@ RSpec.describe Visit, type: :model do
     it do
       is_expected.to belong_to :advisor
       is_expected.to belong_to :visitee
-      is_expected.to belong_to :company
       is_expected.to belong_to :facility
       is_expected.to validate_presence_of :happened_at
       is_expected.to validate_presence_of :advisor
+      is_expected.to validate_presence_of :facility
     end
   end
 
@@ -38,9 +38,9 @@ RSpec.describe Visit, type: :model do
 
   describe 'to_s' do
     it do
-      company = create :company
-      visit = create :visit, company: company
-      expect(visit.to_s).to include company.name
+      facility = create :facility
+      visit = create :visit, facility: facility
+      expect(visit.to_s).to include facility.company.name
     end
   end
 
