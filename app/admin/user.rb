@@ -41,7 +41,7 @@ ActiveAdmin.register User do
     end
 
     f.inputs I18n.t('active_admin.user.user_activation') do
-      f.input :is_blocked
+      f.input :is_blocked, as: :boolean
     end
 
     f.actions
