@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :category do
-    label { Faker::Lorem.word.capitalize }
+    label { Faker::Lorem.characters.capitalize }
   end
 end

@@ -72,6 +72,24 @@ ActiveRecord::Schema.define(version: 20170627030426) do
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
+  create_table "diagnosed_needs", force: :cascade do |t|
+    t.bigint "diagnosis_id"
+    t.string "question_label"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["diagnosis_id"], name: "index_diagnosed_needs_on_diagnosis_id"
+    t.index ["question_id"], name: "index_diagnosed_needs_on_question_id"
+  end
+
+  create_table "diagnoses", force: :cascade do |t|
+    t.bigint "visit_id"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["visit_id"], name: "index_diagnoses_on_visit_id"
+  end
+
   create_table "experts", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -177,6 +195,9 @@ ActiveRecord::Schema.define(version: 20170627030426) do
   add_foreign_key "assistances", "institutions"
   add_foreign_key "assistances", "questions"
   add_foreign_key "contacts", "companies"
+  add_foreign_key "diagnosed_needs", "diagnoses"
+  add_foreign_key "diagnosed_needs", "questions"
+  add_foreign_key "diagnoses", "visits"
   add_foreign_key "experts", "institutions"
   add_foreign_key "facilities", "companies"
   add_foreign_key "mailto_logs", "assistances"

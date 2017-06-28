@@ -4,6 +4,8 @@ class Question < ApplicationRecord
   has_many :assistances
   belongs_to :category
 
+  validates :category, presence: true
+
   def to_s
     label
   end

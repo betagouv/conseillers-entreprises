@@ -2,10 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe 'diagnosis/index.html.haml', type: :view do
+RSpec.describe 'diagnosis/new.html.haml', type: :view do
   before do
     visit = create :visit
     allow(view).to receive(:params).and_return(visit_id: visit.id)
+    assign :visit, visit
     category = create :category
     create_list :question, 2, category: category
     render

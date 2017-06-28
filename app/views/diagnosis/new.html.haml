@@ -1,0 +1,24 @@
+- meta title: t('.diagnosis')
+
+%h1= t('.diagnosis')
+
+= form_for :visit, url: visit_diagnosis_index_path(@visit), html: { method: :post, class: 'ui form' } do |f|
+  - categories_with_questions.each do |item|
+    %h2= item[:category]
+    %table.ui.celled.table
+      %tbody
+        - item[:questions].each do |question|
+          %tr
+            %td
+              %label{for: "checkbox_#{question.id}"}
+                .full-width.clickable
+                  = question.label
+            %td.collapsing
+              %input{name: 'diagnosed_needs[][question_id]' , type: :hidden, value: question.id}
+              %input{name: 'diagnosed_needs[][question_label]' , type: :hidden, value: question.label}
+              .ui.fitted.checkbox
+                %input{id: "checkbox_#{question.id}", name: 'diagnosed_needs[][selected]' , type: 'checkbox', value: 'on'}
+                %label
+
+  .actions
+    = f.submit t('save'),id: 'submit_button',  class: 'ui button green'
