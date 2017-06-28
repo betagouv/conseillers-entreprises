@@ -13,7 +13,7 @@ Metrics/MethodLength:
     - 'app/helpers/diagnosis_helper.rb' # TODO: Remove
 
 Metrics/LineLength:
-  Max: 160
+  Max: 120
 
 Metrics/BlockLength:
   Max: 100

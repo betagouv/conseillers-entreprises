@@ -8,7 +8,11 @@ RSpec.describe MailtoLogsController, type: :controller do
   describe 'POST #create' do
     before do
       visit = create :visit
-      post :create, params: { mailto_log: { question_id: question_id, visit_id: visit.id, assistance_id: assistance_id } }, format: :js
+      post :create,
+           params: {
+             mailto_log: { question_id: question_id, visit_id: visit.id, assistance_id: assistance_id }
+           },
+           format: :js
     end
 
     context 'with question' do

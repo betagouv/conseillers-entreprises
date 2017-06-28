@@ -57,7 +57,8 @@ module ApiEntrepriseService
     end
 
     def check_credentials
-      raise CredentialsMissingError, 'API_ENTREPRISE_TOKEN environment variable is missing' if ENV['API_ENTREPRISE_TOKEN'].blank?
+      error_meesage = 'API_ENTREPRISE_TOKEN environment variable is missing'
+      raise CredentialsMissingError, error_meesage if ENV['API_ENTREPRISE_TOKEN'].blank?
     end
   end
 

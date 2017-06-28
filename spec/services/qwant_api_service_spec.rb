@@ -14,8 +14,8 @@ describe QwantApiService do
             'items' => [
               {
                 'title' => "Mais comment passe-t-on des startups d'Etat à l'Etat plateforme",
-                'url' => 'http://www.internetactu.net/2017/04/13/mais-comment-passe-t-on-des-startups-detat-a-letat-plateforme/',
-                'desc' => 'Lentrepreneur Pierre Pezziardi (@ppezziardi) était linvité dune récente matinée organisée par le Liberté Living Lab sur la',
+                'url' => 'http://www.internetactu.net/2017/04/13/mais-comment-passe-t-on-des-startups/',
+                'desc' => 'Lentrepreneur Pierre Pezziardi (@ppezziardi) était linvité dune récente matinée',
                 'date' => 1_492_059_620,
                 'domain' => 'internetactu.net',
                 '_id' => '342a28b3d4af89967a8415e06c28081d',
