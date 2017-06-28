@@ -2,9 +2,9 @@
 
 class DiagnosisController < ApplicationController
   layout 'with_visit_subnavbar'
-  
+
   def new
-    @visit = Visit.of_advisor(current_user).includes(:company).find params[:visit_id]
+    @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
   end
 
   def create
@@ -13,7 +13,7 @@ class DiagnosisController < ApplicationController
   end
 
   def show
-    @visit = Visit.of_advisor(current_user).includes(:company).find params[:visit_id]
+    @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
     @diagnosis = Diagnosis.of_visit(@visit).includes(diagnosed_needs: [question: :assistances]).find params[:id]
   end
 
