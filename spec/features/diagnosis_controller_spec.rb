@@ -22,8 +22,8 @@ describe 'diagnosis feature', type: :feature do
 
     expect(page).to have_content 'Aucune aide trouvée...'
 
-    assistance = create :assistance, question: question
-    assistance.institution.update email: Faker::Internet.email # TODO: Force having an email
+    assistance = create :assistance, question: question, for_maubeuge: true
+    assistance.institution.update email: Faker::Internet.email
 
     visit new_visit_diagnosis_path(visit_id: visit.id)
 
