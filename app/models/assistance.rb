@@ -35,7 +35,7 @@ class Assistance < ApplicationRecord
     elsif in_lens
       where(for_lens: true)
     else
-      where('0=1')
+      none
     end
   end)
 end
