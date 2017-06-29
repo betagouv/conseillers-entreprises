@@ -15,10 +15,14 @@ class Assistance < ApplicationRecord
   belongs_to :institution
   belongs_to :expert
 
-  scope :for_maubeuge, (-> { where(for_maubeuge: true) })
-
   validates :title, :question, :institution, presence: true
   validates :county, presence: true, if: :county?
   validates :county, inclusion: { in: AUTHORIZED_COUNTIES }, if: :county?
   validates_with AssistanceValidator
+
+  scope :for_maubeuge, (-> { where(for_maubeuge: true) })
+  scope :of_location, (lambda do |city_code|
+    in_maubeuge = UseCases::LocalizeCityCode.new(city_code).in_maubeuge?
+    where(for_maubeuge: in_maubeuge)
+  end)
 end

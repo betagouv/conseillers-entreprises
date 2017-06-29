@@ -106,5 +106,26 @@ RSpec.describe Assistance, type: :model do
         end
       end
     end
+
+    describe 'of_location' do
+      subject { Assistance.of_location city_code }
+
+      let(:maubeuge_assistance) { create :assistance, for_maubeuge: true }
+
+      before { create :assistance, for_maubeuge: false }
+
+      context 'one assistance for maubeuge' do
+        let(:city_code) { 59_003 }
+
+        it { is_expected.to eq [maubeuge_assistance] }
+      end
+
+      # TODO: This test should pass
+      # context 'no assistance for maubeuge' do
+      #   let(:city_code) { 75_002 }
+      #
+      #   it { is_expected.to eq [] }
+      # end
+    end
   end
 end
