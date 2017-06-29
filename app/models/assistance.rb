@@ -15,6 +15,8 @@ class Assistance < ApplicationRecord
   belongs_to :institution
   belongs_to :expert
 
+  scope :for_maubeuge, (-> { where(for_maubeuge: true) })
+
   validates :title, :question, :institution, presence: true
   validates :county, presence: true, if: :county?
   validates :county, inclusion: { in: AUTHORIZED_COUNTIES }, if: :county?

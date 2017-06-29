@@ -5,7 +5,7 @@
 module UseCases
   class LocalizeCityCode
     def initialize(city_code)
-      @city_code = city_code
+      @city_code = city_code.to_i
     end
 
     def in_maubeuge?
@@ -25,8 +25,8 @@ module UseCases
       maubeuge_city_codes.include? @city_code
     end
 
-    def in_valencienne_cambrai?
-      valencienne_cambrai_city_codes = [
+    def in_valenciennes_cambrai?
+      valenciennes_cambrai_city_codes = [
         59_001, 59_002, 59_010, 59_014, 59_019, 59_023, 59_027, 59_032, 59_037, 59_038, 59_039, 59_047, 59_048, 59_049,
         59_055, 59_059, 59_109, 59_112, 59_149, 59_153, 59_209, 59_213, 59_285, 59_287, 59_341, 59_348, 59_405, 59_407,
         59_060, 59_063, 59_064, 59_069, 59_074, 59_075, 59_079, 59_081, 59_085, 59_092, 59_097, 59_100, 59_102, 59_108,
@@ -43,7 +43,7 @@ module UseCases
         59_594, 59_595, 59_597, 59_603, 59_604, 59_606, 59_608, 59_610, 59_612, 59_613, 59_614, 59_616, 59_622, 59_623,
         59_631, 59_652
       ]
-      valencienne_cambrai_city_codes.include? @city_code
+      valenciennes_cambrai_city_codes.include? @city_code
     end
 
     def in_lens?

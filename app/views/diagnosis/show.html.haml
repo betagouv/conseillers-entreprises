@@ -4,6 +4,6 @@
 
   %h2= diagnosed_need.question_label
   .ui.info.message
-    %p= t('diagnosis.question.assitances_count_found', count: diagnosed_need.question.assistances.count)
-  - diagnosed_need.question.assistances.each do |assistance|
+    %p= t('diagnosis.question.assitances_count_found', count: diagnosed_need.assistances.count)
+  - diagnosed_need.assistances.each do |assistance|
     = render partial: 'assistance/assistance', locals: { assistance: assistance, question: diagnosed_need.question, diagnosis_id: @diagnosis.id, visit: @visit }

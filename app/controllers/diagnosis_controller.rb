@@ -14,7 +14,9 @@ class DiagnosisController < ApplicationController
 
   def show
     @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
-    @diagnosis = Diagnosis.of_visit(@visit).includes(diagnosed_needs: [question: :assistances]).find params[:id]
+    @diagnosis = Diagnosis.of_visit(@visit)
+                          .includes(diagnosed_needs: [:question])
+                          .find params[:id]
   end
 
   private

@@ -23,22 +23,22 @@ describe UseCases::LocalizeCityCode do
     end
   end
 
-  describe 'in_valencienne_cambrai?' do
-    let(:in_valencienne_cambrai) { described_class.new(city_code).in_valencienne_cambrai? }
+  describe 'in_valenciennes_cambrai?' do
+    let(:in_valenciennes_cambrai) { described_class.new(city_code).in_valenciennes_cambrai? }
 
-    context 'is not in in_valencienne_cambrai perimeter' do
+    context 'is not in in_valenciennes_cambrai perimeter' do
       let(:city_code) { 75_108 }
 
       it 'returns false' do
-        expect(in_valencienne_cambrai).to be_falsey
+        expect(in_valenciennes_cambrai).to be_falsey
       end
     end
 
-    context 'is in in_valencienne_cambrai perimeter' do
+    context 'is in in_valenciennes_cambrai perimeter' do
       let(:city_code) { 59_603 }
 
       it 'returns true' do
-        expect(in_valencienne_cambrai).to be_truthy
+        expect(in_valenciennes_cambrai).to be_truthy
       end
     end
   end

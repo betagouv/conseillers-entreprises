@@ -73,4 +73,38 @@ RSpec.describe Assistance, type: :model do
       it { is_expected.to be_valid }
     end
   end
+
+  describe 'scopes' do
+    describe 'for_maubeuge' do
+      subject { Assistance.for_maubeuge }
+
+      context 'no assistance for maubeuge' do
+        before { create :assistance, for_maubeuge: false }
+
+        it do
+          create :assistance, for_maubeuge: false
+
+          is_expected.to eq []
+        end
+      end
+
+      context 'one assistance for maubeuge' do
+        it do
+          assistance = create :assistance, for_maubeuge: true
+
+          is_expected.to eq [assistance]
+        end
+      end
+
+      context 'two diagnosis' do
+        it do
+          assistance1 = create :assistance, for_maubeuge: true
+          assistance2 = create :assistance, for_maubeuge: true
+          create :assistance, for_maubeuge: false
+
+          is_expected.to match_array [assistance1, assistance2]
+        end
+      end
+    end
+  end
 end
