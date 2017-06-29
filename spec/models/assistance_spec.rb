@@ -114,14 +114,14 @@ RSpec.describe Assistance, type: :model do
 
       before { create :assistance, for_maubeuge: false }
 
-      context 'no assistance for maubeuge' do
+      context 'one assistance for maubeuge' do
         let(:city_code) { 59_003 }
 
         it { is_expected.to eq [maubeuge_assistance] }
       end
 
       # TODO: This test should pass
-      # context 'one assistance for maubeuge' do
+      # context 'no assistance for maubeuge' do
       #   let(:city_code) { 75_002 }
       #
       #   it { is_expected.to eq [] }
