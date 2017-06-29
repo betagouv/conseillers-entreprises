@@ -75,57 +75,43 @@ RSpec.describe Assistance, type: :model do
   end
 
   describe 'scopes' do
-    describe 'for_maubeuge' do
-      subject { Assistance.for_maubeuge }
-
-      context 'no assistance for maubeuge' do
-        before { create :assistance, for_maubeuge: false }
-
-        it do
-          create :assistance, for_maubeuge: false
-
-          is_expected.to eq []
-        end
-      end
-
-      context 'one assistance for maubeuge' do
-        it do
-          assistance = create :assistance, for_maubeuge: true
-
-          is_expected.to eq [assistance]
-        end
-      end
-
-      context 'two diagnosis' do
-        it do
-          assistance1 = create :assistance, for_maubeuge: true
-          assistance2 = create :assistance, for_maubeuge: true
-          create :assistance, for_maubeuge: false
-
-          is_expected.to match_array [assistance1, assistance2]
-        end
-      end
-    end
-
     describe 'of_location' do
       subject { Assistance.of_location city_code }
 
-      let(:maubeuge_assistance) { create :assistance, for_maubeuge: true }
+      let!(:maubeuge_assistance) { create :assistance, for_maubeuge: true }
+      let!(:valenciennes_cambrai_assistance) { create :assistance, for_valenciennes_cambrai: true }
+      let!(:calais_assistance) { create :assistance, for_calais: true }
+      let!(:lens_assistance) { create :assistance, for_lens: true }
 
-      before { create :assistance, for_maubeuge: false }
-
-      context 'one assistance for maubeuge' do
+      context 'city code in maubeuge' do
         let(:city_code) { 59_003 }
 
         it { is_expected.to eq [maubeuge_assistance] }
       end
 
-      # TODO: This test should pass
-      # context 'no assistance for maubeuge' do
-      #   let(:city_code) { 75_002 }
-      #
-      #   it { is_expected.to eq [] }
-      # end
+      context 'city code in valenciennes_cambrai' do
+        let(:city_code) { 59_075 }
+
+        it { is_expected.to eq [valenciennes_cambrai_assistance] }
+      end
+
+      context 'city code in calais' do
+        let(:city_code) { 62_055 }
+
+        it { is_expected.to eq [calais_assistance] }
+      end
+
+      context 'city code in lens' do
+        let(:city_code) { 62_065 }
+
+        it { is_expected.to eq [lens_assistance] }
+      end
+
+      context 'city code in neither' do
+        let(:city_code) { 75_108 }
+
+        it { is_expected.to eq [] }
+      end
     end
   end
 end
