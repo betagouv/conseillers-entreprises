@@ -11,10 +11,6 @@ ActiveAdmin.register Assistance do
       :institution_id,
       :title,
       :email_specific_sentence,
-      :for_maubeuge,
-      :for_valenciennes_cambrai,
-      :for_calais,
-      :for_lens,
       assistances_experts_attributes: %i[id _create _update _destroy expert_id]
     ]
     permitted << :other if params[:action] == 'create'
@@ -28,12 +24,27 @@ ActiveAdmin.register Assistance do
     column :title
     column :experts, (proc { |assistance| assistance.experts.size })
     column :institution
-    column :for_maubeuge
-    column :for_valenciennes_cambrai
-    column :for_calais
-    column :for_lens
     column :email_specific_sentence, (proc { |assistance| assistance.email_specific_sentence.present? })
     actions
+  end
+
+  show do
+    attributes_table do
+      row :title
+      row :question
+      row :email_specific_sentence
+    end
+    panel I18n.t('active_admin.assistances.experts') do
+      table_for assistance.experts do
+        column :full_name, (proc { |expert| link_to(expert.full_name, admin_expert_path(expert)) })
+        column :role
+        column :institution
+        column :on_maubeuge
+        column :on_valenciennes_cambrai
+        column :on_lens
+        column :on_calais
+      end
+    end
   end
 
   form do |f|
@@ -42,13 +53,14 @@ ActiveAdmin.register Assistance do
       f.input :question
       f.input :title
       f.input :institution
-      f.input :for_maubeuge
-      f.input :for_valenciennes_cambrai
-      f.input :for_calais
-      f.input :for_lens
       f.input :email_specific_sentence
-      f.has_many :assistances_experts, allow_destroy: true do |assistance_expert|
-        assistance_expert.input :expert
+    end
+    f.inputs I18n.t('active_admin.assistances.experts') do
+      f.has_many :assistances_experts,
+                 heading: false,
+                 new_record: I18n.t('active_admin.assistances.add_expert'),
+                 allow_destroy: true do |assistance_expert|
+        assistance_expert.input :expert, label: I18n.t('active_admin.assistances.expert')
       end
     end
     f.actions
