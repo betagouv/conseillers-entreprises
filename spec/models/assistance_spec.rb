@@ -52,39 +52,45 @@ RSpec.describe Assistance, type: :model do
     describe 'of_location' do
       subject { Assistance.of_location city_code }
 
-      let!(:maubeuge_assistance) { create :assistance, for_maubeuge: true }
-      let!(:valenciennes_cambrai_assistance) { create :assistance, for_valenciennes_cambrai: true }
-      let!(:calais_assistance) { create :assistance, for_calais: true }
-      let!(:lens_assistance) { create :assistance, for_lens: true }
+      let!(:maubeuge_expert) { create :expert, on_maubeuge: true }
+      let!(:valenciennes_cambrai_expert) { create :expert, on_valenciennes_cambrai: true }
+      let!(:calais_expert) { create :expert, on_calais: true }
+      let!(:lens_expert) { create :expert, on_lens: true }
+
+      let!(:maubeuge_assistance) { create :assistance, experts: [maubeuge_expert] }
+      let!(:multi_city_assistance) { create :assistance, experts: [maubeuge_expert, calais_expert, lens_expert] }
+      let!(:valenciennes_cambrai_assistance) { create :assistance, experts: [valenciennes_cambrai_expert] }
+      let!(:calais_assistance) { create :assistance, experts: [calais_expert] }
+      let!(:lens_assistance) { create :assistance, experts: [lens_expert] }
 
       context 'city code in maubeuge' do
         let(:city_code) { 59_003 }
 
-        it { is_expected.to eq [maubeuge_assistance] }
+        it { is_expected.to match_array [maubeuge_assistance, multi_city_assistance] }
       end
 
       context 'city code in valenciennes_cambrai' do
         let(:city_code) { 59_075 }
 
-        it { is_expected.to eq [valenciennes_cambrai_assistance] }
+        it { is_expected.to match_array [valenciennes_cambrai_assistance] }
       end
 
       context 'city code in calais' do
         let(:city_code) { 62_055 }
 
-        it { is_expected.to eq [calais_assistance] }
+        it { is_expected.to match_array [calais_assistance, multi_city_assistance] }
       end
 
       context 'city code in lens' do
         let(:city_code) { 62_065 }
 
-        it { is_expected.to eq [lens_assistance] }
+        it { is_expected.to match_array [lens_assistance, multi_city_assistance] }
       end
 
       context 'city code in neither' do
         let(:city_code) { 75_108 }
 
-        it { is_expected.to eq [] }
+        it { is_expected.to match_array [] }
       end
     end
   end

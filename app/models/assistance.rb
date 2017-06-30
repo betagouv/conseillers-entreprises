@@ -24,13 +24,13 @@ class Assistance < ApplicationRecord
     in_lens = UseCases::LocalizeCityCode.new(city_code).in_lens?
 
     if in_maubeuge
-      where(for_maubeuge: true)
+      where(experts: { on_maubeuge: true }).joins(:experts)
     elsif in_valenciennes_cambrai
-      where(for_valenciennes_cambrai: true)
+      where(experts: { on_valenciennes_cambrai: true }).joins(:experts)
     elsif in_calais
-      where(for_calais: true)
+      where(experts: { on_calais: true }).joins(:experts)
     elsif in_lens
-      where(for_lens: true)
+      where(experts: { on_lens: true }).joins(:experts)
     else
       none
     end
