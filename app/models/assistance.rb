@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-class AssistanceValidator < ActiveModel::Validator
-  def validate(assistance)
-    assistance.errors.add(:institution, :email_blank) if !assistance.expert && assistance.institution&.email.blank?
-  end
-end
-
 class Assistance < ApplicationRecord
   AUTHORIZED_COUNTIES = [59, 62].freeze
 
@@ -13,12 +7,15 @@ class Assistance < ApplicationRecord
 
   belongs_to :question
   belongs_to :institution
-  belongs_to :expert
+
+  has_many :assistances_experts
+  has_many :experts, through: :assistances_experts
+
+  accepts_nested_attributes_for :assistances_experts, allow_destroy: true
 
   validates :title, :question, :institution, presence: true
   validates :county, presence: true, if: :county?
   validates :county, inclusion: { in: AUTHORIZED_COUNTIES }, if: :county?
-  validates_with AssistanceValidator
 
   scope :of_location, (lambda do |city_code|
     in_maubeuge = UseCases::LocalizeCityCode.new(city_code).in_maubeuge?

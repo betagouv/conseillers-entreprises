@@ -7,37 +7,11 @@ RSpec.describe Assistance, type: :model do
     it do
       is_expected.to belong_to :question
       is_expected.to belong_to :institution
-      is_expected.to belong_to :expert
+      is_expected.to have_many :assistances_experts
+      is_expected.to have_many :experts
       is_expected.to validate_presence_of :title
       is_expected.to validate_presence_of :question
       is_expected.to validate_presence_of :institution
-    end
-  end
-
-  describe 'validation of institution email' do
-    subject(:assistance) { build :assistance, expert: expert, institution: institution }
-
-    context 'without expert' do
-      let(:expert) { nil }
-
-      context 'with institution with email' do
-        let(:institution) { create :institution, email: 'random@institution.com' }
-
-        it { is_expected.to be_valid }
-      end
-
-      context 'with institution without email' do
-        let(:institution) { create :institution, email: nil }
-
-        it { is_expected.not_to be_valid }
-      end
-    end
-
-    context 'with expert' do
-      let(:expert) { create :expert }
-      let(:institution) { create :institution, email: nil }
-
-      it { is_expected.to be_valid }
     end
   end
 

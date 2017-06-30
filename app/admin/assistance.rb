@@ -4,16 +4,18 @@ ActiveAdmin.register Assistance do
   menu parent: :questions, priority: 2
 
   permit_params do
-    permitted = %i[
-      question_id
-      expert_id
-      institution_id
-      title
-      email_specific_sentence
-      for_maubeuge
-      for_valenciennes_cambrai
-      for_calais
-      for_lens
+    permitted = [
+      :id,
+      :_destroy,
+      :question_id,
+      :institution_id,
+      :title,
+      :email_specific_sentence,
+      :for_maubeuge,
+      :for_valenciennes_cambrai,
+      :for_calais,
+      :for_lens,
+      assistances_experts_attributes: %i[id _create _update _destroy expert_id]
     ]
     permitted << :other if params[:action] == 'create'
     permitted
@@ -24,7 +26,7 @@ ActiveAdmin.register Assistance do
     id_column
     column :question
     column :title
-    column :expert
+    column :experts, (proc { |assistance| assistance.experts.size })
     column :institution
     column :for_maubeuge
     column :for_valenciennes_cambrai
@@ -35,17 +37,25 @@ ActiveAdmin.register Assistance do
   end
 
   form do |f|
+    f.semantic_errors(*f.object.errors.keys)
     f.inputs do
       f.input :question
       f.input :title
-      f.input :expert
       f.input :institution
       f.input :for_maubeuge
       f.input :for_valenciennes_cambrai
       f.input :for_calais
       f.input :for_lens
       f.input :email_specific_sentence
+      f.has_many :assistances_experts, allow_destroy: true do |assistance_expert|
+        assistance_expert.input :expert
+      end
     end
     f.actions
   end
+end
+
+ActiveAdmin.register Category do
+  menu parent: :questions, priority: 1
+  permit_params :label
 end
