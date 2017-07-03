@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170629140642) do
+ActiveRecord::Schema.define(version: 20170703092053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,10 +40,6 @@ ActiveRecord::Schema.define(version: 20170629140642) do
     t.integer "geographic_scope"
     t.bigint "institution_id"
     t.bigint "expert_id"
-    t.boolean "for_maubeuge", default: false, null: false
-    t.boolean "for_valenciennes_cambrai", default: false, null: false
-    t.boolean "for_lens", default: false, null: false
-    t.boolean "for_calais", default: false, null: false
     t.index ["expert_id"], name: "index_assistances_on_expert_id"
     t.index ["institution_id"], name: "index_assistances_on_institution_id"
     t.index ["question_id"], name: "index_assistances_on_question_id"

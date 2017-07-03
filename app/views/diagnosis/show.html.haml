@@ -2,7 +2,7 @@
 %p= t('.diagnosis_date', date: @diagnosis.creation_date_localized)
 - @diagnosis.diagnosed_needs.each do |diagnosed_need|
   %h2= diagnosed_need.question_label
-  - assistances = diagnosed_need.assistances.of_location(@visit.location)
+  - assistances = diagnosed_need.question.assistances.of_location(@visit.location)
   .ui.info.message
     %p= t('diagnosis.question.assitances_count_found', count: assistances.count)
   - assistances.each do |assistance|

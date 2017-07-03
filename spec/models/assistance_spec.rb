@@ -90,7 +90,7 @@ RSpec.describe Assistance, type: :model do
       context 'city code in neither' do
         let(:city_code) { 75_108 }
 
-        it { is_expected.to match_array [] }
+        it { is_expected.to be_empty }
       end
     end
   end

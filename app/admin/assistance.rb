@@ -6,12 +6,12 @@ ActiveAdmin.register Assistance do
   permit_params do
     permitted = [
       :id,
-      :_destroy,
       :question_id,
       :institution_id,
       :title,
       :email_specific_sentence,
-      assistances_experts_attributes: %i[id _create _update _destroy expert_id]
+      :_destroy,
+      assistances_experts_attributes: %i[id expert_id _create _update _destroy]
     ]
     permitted << :other if params[:action] == 'create'
     permitted
@@ -65,9 +65,4 @@ ActiveAdmin.register Assistance do
     end
     f.actions
   end
-end
-
-ActiveAdmin.register Category do
-  menu parent: :questions, priority: 1
-  permit_params :label
 end

@@ -13,7 +13,7 @@ ActiveAdmin.register Expert do
     :on_valenciennes_cambrai,
     :on_calais,
     :on_lens,
-    assistances_experts_attributes: %i[id _create _update _destroy assistance_id]
+    assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
   ]
 
   index do
