@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627030426) do
+ActiveRecord::Schema.define(version: 20170703092053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 20170627030426) do
     t.index ["expert_id"], name: "index_assistances_on_expert_id"
     t.index ["institution_id"], name: "index_assistances_on_institution_id"
     t.index ["question_id"], name: "index_assistances_on_question_id"
+  end
+
+  create_table "assistances_experts", force: :cascade do |t|
+    t.bigint "assistance_id"
+    t.bigint "expert_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assistance_id"], name: "index_assistances_experts_on_assistance_id"
+    t.index ["expert_id"], name: "index_assistances_experts_on_expert_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -99,13 +108,17 @@ ActiveRecord::Schema.define(version: 20170627030426) do
     t.bigint "institution_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "on_maubeuge", default: false, null: false
+    t.boolean "on_valenciennes_cambrai", default: false, null: false
+    t.boolean "on_lens", default: false, null: false
+    t.boolean "on_calais", default: false, null: false
     t.index ["institution_id"], name: "index_experts_on_institution_id"
   end
 
   create_table "facilities", force: :cascade do |t|
     t.bigint "company_id"
     t.string "siret"
-    t.string "postal_code"
+    t.string "city_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_facilities_on_company_id"
@@ -194,6 +207,8 @@ ActiveRecord::Schema.define(version: 20170627030426) do
   add_foreign_key "assistances", "experts"
   add_foreign_key "assistances", "institutions"
   add_foreign_key "assistances", "questions"
+  add_foreign_key "assistances_experts", "assistances"
+  add_foreign_key "assistances_experts", "experts"
   add_foreign_key "contacts", "companies"
   add_foreign_key "diagnosed_needs", "diagnoses"
   add_foreign_key "diagnosed_needs", "questions"

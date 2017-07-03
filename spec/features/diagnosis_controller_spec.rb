@@ -22,8 +22,9 @@ describe 'diagnosis feature', type: :feature do
 
     expect(page).to have_content 'Aucune aide trouvée...'
 
-    assistance = create :assistance, question: question
-    assistance.institution.update email: Faker::Internet.email # TODO: Force having an email
+    expert = create :expert, on_maubeuge: true
+    assistance = create :assistance, question: question, experts: [expert]
+    assistance.institution.update email: Faker::Internet.email
 
     visit new_visit_diagnosis_path(visit_id: visit.id)
 
@@ -33,8 +34,10 @@ describe 'diagnosis feature', type: :feature do
     expect(page).to have_content 'Une aide a été trouvée'
     expect(page).to have_content assistance.title
     expect(page).to have_content assistance.institution.name
+    expect(page).to have_content expert.last_name
+    expect(page).to have_content expert.role
 
-    click_link "Contacter l'institution par e-mail"
+    click_link 'Contacter par e-mail'
 
     expect(page).to have_content 'Votre contact en entreprise'
 
@@ -46,7 +49,7 @@ describe 'diagnosis feature', type: :feature do
     check("checkbox_#{question.id}")
     click_button('submit_button')
 
-    expect(page).to have_xpath "//a[contains(@href,'mailto:#{assistance.institution.email}')]"
+    expect(page).to have_xpath "//a[contains(@href,'mailto:#{expert.email}')]"
   end
 
   it('has a mailto') {}

@@ -8,7 +8,7 @@ RSpec.describe Facility, type: :model do
       is_expected.to belong_to :company
       is_expected.to validate_presence_of :company
       is_expected.to validate_presence_of :siret
-      is_expected.to validate_presence_of :postal_code
+      is_expected.to validate_presence_of :city_code
     end
   end
 end

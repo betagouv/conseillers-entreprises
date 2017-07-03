@@ -1,9 +1,9 @@
 %h1= t('.identified_needs', count: @diagnosis.diagnosed_needs.count)
 %p= t('.diagnosis_date', date: @diagnosis.creation_date_localized)
 - @diagnosis.diagnosed_needs.each do |diagnosed_need|
-
   %h2= diagnosed_need.question_label
+  - assistances = diagnosed_need.question.assistances.of_location(@visit.location)
   .ui.info.message
-    %p= t('diagnosis.question.assitances_count_found', count: diagnosed_need.question.assistances.count)
-  - diagnosed_need.question.assistances.each do |assistance|
+    %p= t('diagnosis.question.assitances_count_found', count: assistances.count)
+  - assistances.each do |assistance|
     = render partial: 'assistance/assistance', locals: { assistance: assistance, question: diagnosed_need.question, diagnosis_id: @diagnosis.id, visit: @visit }

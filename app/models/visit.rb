@@ -23,4 +23,8 @@ class Visit < ApplicationRecord
   def company_name
     facility.company.name_short
   end
+
+  def location
+    facility.city_code
+  end
 end

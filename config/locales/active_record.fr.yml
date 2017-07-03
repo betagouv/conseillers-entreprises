@@ -107,7 +107,7 @@ fr:
       facility:
         company: Entreprise
         siret: SIRET
-        postal_code: Code postal
+        city_code: Code commune
       contact:
         first_name: Prénom
         last_name: Nom

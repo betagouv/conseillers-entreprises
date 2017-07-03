@@ -5,9 +5,9 @@ class Facility < ApplicationRecord
 
   belongs_to :company
 
-  validates :company, :siret, :postal_code, presence: true
+  validates :company, :siret, :city_code, presence: true
 
   def to_s
-    "#{company.name_short} (#{postal_code})"
+    "#{company.name_short} (#{city_code})"
   end
 end

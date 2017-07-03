@@ -4,7 +4,15 @@ ActiveAdmin.register Assistance do
   menu parent: :questions, priority: 2
 
   permit_params do
-    permitted = %i[question_id expert_id institution_id title email_specific_sentence]
+    permitted = [
+      :id,
+      :question_id,
+      :institution_id,
+      :title,
+      :email_specific_sentence,
+      :_destroy,
+      assistances_experts_attributes: %i[id expert_id _create _update _destroy]
+    ]
     permitted << :other if params[:action] == 'create'
     permitted
   end
@@ -14,21 +22,46 @@ ActiveAdmin.register Assistance do
     id_column
     column :question
     column :title
-    column :expert
+    column :experts, (proc { |assistance| assistance.experts.size })
     column :institution
     column :email_specific_sentence, (proc { |assistance| assistance.email_specific_sentence.present? })
     actions
   end
 
+  show do
+    attributes_table do
+      row :title
+      row :question
+      row :email_specific_sentence
+    end
+    panel I18n.t('active_admin.assistances.experts') do
+      table_for assistance.experts do
+        column :full_name, (proc { |expert| link_to(expert.full_name, admin_expert_path(expert)) })
+        column :role
+        column :institution
+        column :on_maubeuge
+        column :on_valenciennes_cambrai
+        column :on_lens
+        column :on_calais
+      end
+    end
+  end
+
   form do |f|
+    f.semantic_errors(*f.object.errors.keys)
     f.inputs do
       f.input :question
       f.input :title
-      f.input :expert
       f.input :institution
-      f.input :geographic_scope
-      f.input :county, as: :select, collection: Assistance::AUTHORIZED_COUNTIES
       f.input :email_specific_sentence
+    end
+    f.inputs I18n.t('active_admin.assistances.experts') do
+      f.has_many :assistances_experts,
+                 heading: false,
+                 new_record: I18n.t('active_admin.assistances.add_expert'),
+                 allow_destroy: true do |assistance_expert|
+        assistance_expert.input :expert, label: I18n.t('active_admin.assistances.expert')
+      end
     end
     f.actions
   end

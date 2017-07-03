@@ -7,37 +7,11 @@ RSpec.describe Assistance, type: :model do
     it do
       is_expected.to belong_to :question
       is_expected.to belong_to :institution
-      is_expected.to belong_to :expert
+      is_expected.to have_many :assistances_experts
+      is_expected.to have_many :experts
       is_expected.to validate_presence_of :title
       is_expected.to validate_presence_of :question
       is_expected.to validate_presence_of :institution
-    end
-  end
-
-  describe 'validation of institution email' do
-    subject(:assistance) { build :assistance, expert: expert, institution: institution }
-
-    context 'without expert' do
-      let(:expert) { nil }
-
-      context 'with institution with email' do
-        let(:institution) { create :institution, email: 'random@institution.com' }
-
-        it { is_expected.to be_valid }
-      end
-
-      context 'with institution without email' do
-        let(:institution) { create :institution, email: nil }
-
-        it { is_expected.not_to be_valid }
-      end
-    end
-
-    context 'with expert' do
-      let(:expert) { create :expert }
-      let(:institution) { create :institution, email: nil }
-
-      it { is_expected.to be_valid }
     end
   end
 
@@ -71,6 +45,53 @@ RSpec.describe Assistance, type: :model do
       let(:county) { nil }
 
       it { is_expected.to be_valid }
+    end
+  end
+
+  describe 'scopes' do
+    describe 'of_location' do
+      subject { Assistance.of_location city_code }
+
+      let!(:maubeuge_expert) { create :expert, on_maubeuge: true }
+      let!(:valenciennes_cambrai_expert) { create :expert, on_valenciennes_cambrai: true }
+      let!(:calais_expert) { create :expert, on_calais: true }
+      let!(:lens_expert) { create :expert, on_lens: true }
+
+      let!(:maubeuge_assistance) { create :assistance, experts: [maubeuge_expert] }
+      let!(:multi_city_assistance) { create :assistance, experts: [maubeuge_expert, calais_expert, lens_expert] }
+      let!(:valenciennes_cambrai_assistance) { create :assistance, experts: [valenciennes_cambrai_expert] }
+      let!(:calais_assistance) { create :assistance, experts: [calais_expert] }
+      let!(:lens_assistance) { create :assistance, experts: [lens_expert] }
+
+      context 'city code in maubeuge' do
+        let(:city_code) { 59_003 }
+
+        it { is_expected.to match_array [maubeuge_assistance, multi_city_assistance] }
+      end
+
+      context 'city code in valenciennes_cambrai' do
+        let(:city_code) { 59_075 }
+
+        it { is_expected.to match_array [valenciennes_cambrai_assistance] }
+      end
+
+      context 'city code in calais' do
+        let(:city_code) { 62_055 }
+
+        it { is_expected.to match_array [calais_assistance, multi_city_assistance] }
+      end
+
+      context 'city code in lens' do
+        let(:city_code) { 62_065 }
+
+        it { is_expected.to match_array [lens_assistance, multi_city_assistance] }
+      end
+
+      context 'city code in neither' do
+        let(:city_code) { 75_108 }
+
+        it { is_expected.to be_empty }
+      end
     end
   end
 end

@@ -7,3 +7,12 @@ fr:
     user:
       user_info: Informations utilisateur
       user_activation: Bloquage du compte
+    assistances:
+      expert: Référent
+      experts: Les référents pour cette aide
+      add_expert: Ajouter un nouveau référent
+    experts:
+      assistance: Aide
+      assistances: Les aides portées par ce référent
+      add_assistance: Ajouter une nouvelle aide
+      perimeter: Périmètre territorial
