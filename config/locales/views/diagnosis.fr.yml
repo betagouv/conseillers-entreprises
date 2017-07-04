@@ -13,7 +13,7 @@ fr:
         zero: Aucune aide trouvée...
         one: Une aide a été trouvée
         other: "%{count} aides ont été trouvées"
-      diagnosis_date: "Analyse datant du : %{date}"
+      diagnosis_date: "Analyse du %{date}"
       description: Entrez des informations complémentaires concernant le diagnostic
       save_description: Sauver
       save_loader: Sauvegarde en cours
