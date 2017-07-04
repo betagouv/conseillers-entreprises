@@ -7,7 +7,7 @@
   %h2= diagnosed_need.question_label
   - assistances = diagnosed_need.question.assistances.of_location(@visit.location)
   .ui.info.message
-    %p= t('.assitances_found', count: assistances.count)
+    %p= t('.assistances_found', count: assistances.count)
 
   - if assistances.count > 1
     - if @visit.visitee

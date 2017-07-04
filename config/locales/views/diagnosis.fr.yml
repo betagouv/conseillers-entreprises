@@ -9,7 +9,7 @@ fr:
         zero: Aucun besoin identifié
         one: Un besoin a été identifié
         other: "%{count} besoins ont été identifiés"
-      assitances_found:
+      assistances_found:
         zero: Aucune aide trouvée...
         one: Une aide a été trouvée
         other: "%{count} aides ont été trouvées"
