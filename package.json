@@ -34,6 +34,13 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
+    "jasmine-core": "^2.6.4",
+    "karma": "^1.7.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
     "webpack-dev-server": "^2.4.5"
+  },
+  "scripts": {
+    "test": "karma start"
   }
 }
