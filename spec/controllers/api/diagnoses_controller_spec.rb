@@ -6,8 +6,7 @@ RSpec.describe Api::DiagnosesController, type: :controller do
   login_user
 
   let(:visit) { create :visit, advisor: current_user }
-  let(:content) { Faker::Lorem.paragraph }
-  let(:diagnosis) { create :diagnosis, visit: visit, content: content }
+  let(:diagnosis) { create :diagnosis, visit: visit, content: Faker::Lorem.paragraph }
 
   describe 'GET #show' do
     before { get :show, format: :json, params: { id: diagnosis.id } }
