@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Api
-  class DiagnosesController < ApiController
+  class DiagnosesController < ApplicationController
     def show
       @diagnosis = Diagnosis.find params[:id]
     end
 
     def update
       @diagnosis = Diagnosis.find params[:id]
-      render status: 500 unless @diagnosis.update(content: update_params[:content])
+      render status: 500 unless @diagnosis.update(update_params)
     end
 
     private

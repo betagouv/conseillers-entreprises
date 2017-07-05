@@ -25,9 +25,9 @@ RSpec.describe Api::DiagnosesController, type: :controller do
     it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
+
     it 'updates the diagnosis s content' do
-      content = (Diagnosis.find diagnosis.id).content
-      expect(content).to eq(updated_content)
+      expect(diagnosis.reload.content).to eq(updated_content)
     end
   end
 end

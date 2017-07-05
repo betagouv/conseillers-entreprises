@@ -24,7 +24,7 @@
         name: 'content-form',
         data () {
             return {
-                diagnosis: { content: ''},
+                diagnosis: {content: ''},
                 disabled: true,
                 pageData: {
                     diagnosis_id: '',
@@ -41,8 +41,7 @@
         },
         watch: {
             pageData: function (val) {
-                console.log('diagnosis_id: ' + this.pageData.diagnosis_id );
-                if(val.diagnosis_id) {
+                if (val.diagnosis_id) {
                     this.getDiagnosis();
                 }
             }
@@ -51,8 +50,7 @@
             getDiagnosis: function () {
                 var that;
                 that = this;
-                console.log('getDiagnosis');
-                axios.get('/api/diagnoses/' + this.pageData.diagnosis_id  + '.json')
+                axios.get('/api/diagnoses/' + this.pageData.diagnosis_id + '.json')
                     .then(function (response) {
                         that.$nextTick(() => {
                             that.diagnosis = response.data;
@@ -60,15 +58,12 @@
                         })
                     })
                     .catch(function (error) {
-                        console.log('axios.get error' + error);
                     });
             },
             updateDiagnosis: function () {
                 var that;
                 that = this;
-                console.log('updateDiagnosis with content: ' + this.diagnosis.content);
-
-                axios.patch('/api/diagnoses/' + this.pageData.diagnosis_id, { diagnosis: this.diagnosis } )
+                axios.patch('/api/diagnoses/' + this.pageData.diagnosis_id, {diagnosis: this.diagnosis})
                     .then(function (response) {
                         that.$nextTick(() => {
                             that.diagnosis = response.data;
@@ -76,18 +71,15 @@
                         })
                     })
                     .catch(function (error) {
-                        console.log('axios.get error' + error);
                     });
             },
             mountPageData: function () {
                 this.$nextTick(() => {
-                    console.log('launchData' + launchData.locales.description)
                     this.pageData = launchData;
                 })
             },
             saveButtonClicked: function () {
                 this.$nextTick(() => {
-                    console.log('saveButtonClicked')
                     this.disabled = true;
                 })
                 this.updateDiagnosis();
