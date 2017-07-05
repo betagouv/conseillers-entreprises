@@ -1,11 +1,6 @@
 {
-  "app.css": "/packs-test/app.css",
-  "app.js": "/packs-test/app.js",
-  "application.js": "/packs-test/application.js",
-  "hello_vue.css": "/packs-test/hello_vue.css",
-  "hello_vue.js": "/packs-test/hello_vue.js",
-  "user_profile/profile.css": "/packs-test/user_profile/profile.css",
-  "user_profile/profile.js": "/packs-test/user_profile/profile.js",
-  "user_profile/user_profile.css": "/packs-test/user_profile/user_profile.css",
+  "diagnosis/content_form.js": "/packs-test/diagnosis/content_form.js",
+  "diagnosis/diagnosis_main.js": "/packs-test/diagnosis/diagnosis_main.js",
+  "user_profile/profile_item.js": "/packs-test/user_profile/profile_item.js",
   "user_profile/user_profile.js": "/packs-test/user_profile/user_profile.js"
 }

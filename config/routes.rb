@@ -36,5 +36,9 @@ Rails.application.routes.draw do
 
   resources :mailto_logs, only: %i[create]
 
+  namespace :api do
+    resources :diagnoses, only: %i[show update]
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

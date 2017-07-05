@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/packs-test/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 47);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -13958,20 +13958,13 @@ Vue$3.compile = compileToFunctions;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(12)))
 
 /***/ }),
-/* 36 */,
-/* 37 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -13979,30 +13972,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-    //        props: ['user'],
+    name: 'content-form',
     data: function data() {
         return {
-            msg: 'Hello world!'
+            diagnosis: { content: 'Hello world!' }
         };
+    },
+
+    mounted: function mounted() {
+        this.getDiagnosis();
+    },
+    methods: {
+        getDiagnosis: function getDiagnosis() {
+            var that;
+            that = this;
+            console.log('getDiagnosis');
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/diagnoses/1.json').then(function (response) {
+                that.$nextTick(function () {
+                    that.diagnosis = response.data;
+                });
+            }).catch(function (error) {
+                console.log('axios.get error' + error);
+            });
+        }
     }
 });
 
 /***/ }),
-/* 38 */,
-/* 39 */
+/* 37 */,
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(43)
+  __webpack_require__(42)
 }
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(37),
+  __webpack_require__(36),
   /* template */
-  __webpack_require__(41),
+  __webpack_require__(40),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -14010,9 +14023,9 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/Users/antoineboileau/Programming/EConseils/EConseils/app/javascript/packs/user_profile/profile_item.vue"
+Component.options.__file = "/Users/antoineboileau/Programming/EConseils/EConseils/app/javascript/packs/diagnosis/content_form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] profile_item.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] content_form.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -14021,9 +14034,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-935aff54", Component.options)
+    hotAPI.createRecord("data-v-8b72e236", Component.options)
   } else {
-    hotAPI.reload("data-v-935aff54", Component.options)
+    hotAPI.reload("data-v-8b72e236", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -14034,48 +14047,44 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 40 */,
-/* 41 */
+/* 39 */,
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td'), _vm._v(" "), _c('td', [_c('div', [_c('div', {
-    staticClass: "ui form inline field"
-  }, [_c('input', {
+  return _c('div', {
     attrs: {
-      "type": "text"
+      "id": "content-form"
     }
-  })])])])])
-}]}
+  }, [_c('h1', [_vm._v(_vm._s(_vm.diagnosis.content))])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-935aff54", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-8b72e236", module.exports)
   }
 }
 
 /***/ }),
-/* 42 */,
-/* 43 */
+/* 41 */,
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(45);
+var content = __webpack_require__(44);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("796ba18c", content, false);
+var update = __webpack_require__(10)("7df52829", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-935aff54\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./profile_item.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-935aff54\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./profile_item.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8b72e236\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./content_form.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8b72e236\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./content_form.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -14085,8 +14094,8 @@ if(false) {
 }
 
 /***/ }),
-/* 44 */,
-/* 45 */
+/* 43 */,
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(9)(undefined);
@@ -14100,75 +14109,29 @@ exports.push([module.i, "\n.example {\n  font-weight: bold;\n}\n", ""]);
 
 
 /***/ }),
-/* 46 */,
-/* 47 */
+/* 45 */,
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_dist_vue_esm__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_item_vue__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_item_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__profile_item_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content_form_vue__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__content_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__content_form_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 
 
 
 
 var token = document.getElementsByName('csrf-token')[0].getAttribute('content');
-__WEBPACK_IMPORTED_MODULE_1_axios___default.a.defaults.headers.common['X-CSRF-Token'] = token;
-__WEBPACK_IMPORTED_MODULE_1_axios___default.a.defaults.headers.common['Accept'] = 'application/json';
+__WEBPACK_IMPORTED_MODULE_2_axios___default.a.defaults.headers.common['X-CSRF-Token'] = token;
+__WEBPACK_IMPORTED_MODULE_2_axios___default.a.defaults.headers.common['Accept'] = 'application/json';
 
-var profile = new __WEBPACK_IMPORTED_MODULE_0_vue_dist_vue_esm__["a" /* default */]({
-    el: '#profile',
-    data: {
-        user: {},
-        editMode: false,
-        trad: {},
-        profileFields: ['email', 'first_name', 'last_name'],
-        immutableFields: ['email']
-    },
-    components: {},
-    computed: {},
-    mounted: function mounted() {
-        this.getUser();
-        this.mountTraductions();
-    },
-    methods: {
-        mountTraductions: function mountTraductions() {
-            this.trad = traductions;
-        },
-        getUser: function getUser() {
-            var that;
-            that = this;
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('/profile.json').then(function (response) {
-                that.user = response.data;
-            }).catch(function (error) {
-                console.log('axios.get error' + error);
-            });
-        },
-        patchUser: function patchUser() {
-            var that;
-            that = this;
-            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.patch('/profile', { user: this.user }).then(function (response) {
-                that.user = response.data.user;
-            }).catch(function (error) {
-                console.log('axios.patch error' + error);
-            });
-        },
-        editButtonClicked: function editButtonClicked() {
-            this.unmodifiedUser = $.extend(true, {}, this.user);
-            this.editMode = true;
-        },
-        saveButtonClicked: function saveButtonClicked() {
-            this.unmodifiedUser = {};
-            this.editMode = false;
-            this.patchUser();
-        },
-        cancelButtonClicked: function cancelButtonClicked() {
-            this.user = $.extend(true, {}, this.unmodifiedUser);
-            this.editMode = false;
-        }
+new __WEBPACK_IMPORTED_MODULE_0_vue_dist_vue_esm__["a" /* default */]({
+    el: '#content-form',
+    render: function render(createElement) {
+        return createElement(__WEBPACK_IMPORTED_MODULE_1__content_form_vue___default.a);
     }
 });
 

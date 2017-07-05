@@ -15,3 +15,6 @@ fr:
         one: Un besoin a été identifié
         other: "%{count} besoins ont été identifiés"
       diagnosis_date: "Analyse datant du : %{date}"
+      description: Entrez des informations complémentaires concernant le diagnostic
+      save_description: Sauver
+      save_loader: Sauvegarde en cours
