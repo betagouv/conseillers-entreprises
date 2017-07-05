@@ -1,15 +1,15 @@
 <template>
     <div class="ui dimmable segment shadow-less" v-bind:class="{ dimmed: disabled }">
         <div class="ui simple inverted dimmer">
-            <div class="ui text loader">{{ locales.save_loader }}</div>
+            <div class="ui text loader"><%= I18n.t('diagnosis.show.save_loader') %></div>
         </div>
         <div class="ui form">
             <div class="field">
-                <label>{{ locales.description }}</label>
+                <label><%= I18n.t('diagnosis.show.description') %></label>
                 <textarea rows="2" v-model="diagnosis.content"></textarea>
             </div>
             <button class="small ui button" v-on:click="saveButtonClicked">
-                {{ locales.save_description }}
+                <%= I18n.t('diagnosis.show.save_description') %>
             </button>
         </div>
     </div>
@@ -24,16 +24,10 @@
         data () {
             return {
                 diagnosis: {content: ''},
-                disabled: true,
-                locales: {
-                    description: '',
-                    save_description: '',
-                    save_loader: ''
-                }
+                disabled: true
             }
         },
         mounted: function () {
-            this.mountPageData();
             this.getDiagnosis();
         },
         methods: {
@@ -61,15 +55,10 @@
                     .catch(function (error) {
                     });
             },
-            mountPageData: function () {
-                this.$nextTick(() => {
-                    this.locales = pageLocales;
-                })
-            },
             saveButtonClicked: function () {
                 this.$nextTick(() => {
                     this.disabled = true;
-                })
+                });
                 this.updateDiagnosis();
             }
         }

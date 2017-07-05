@@ -20,11 +20,5 @@
 
   - assistances.each do |assistance|
     = render partial: 'assistance/assistance', locals: { assistance: assistance, question: diagnosed_need.question, diagnosis_id: @diagnosis.id, visit: @visit }
-:javascript
-  pageLocales = {
-     description: "#{ I18n.t('diagnosis.show.description') }",
-     save_description: "#{ I18n.t('save') }",
-     save_loader: "#{ I18n.t('diagnosis.show.save_loader') }"
-  };
 
-= javascript_pack_tag 'diagnosis/diagnosis_main'
+= javascript_pack_tag 'diagnosis/diagnosisMain'

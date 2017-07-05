@@ -1,6 +1,7 @@
 {
-  "diagnosis/content_form.js": "/packs-test/diagnosis/content_form.js",
-  "diagnosis/diagnosis_main.js": "/packs-test/diagnosis/diagnosis_main.js",
+  "diagnosis/contactModal.js": "/packs-test/diagnosis/contactModal.js",
+  "diagnosis/contentForm.js": "/packs-test/diagnosis/contentForm.js",
+  "diagnosis/diagnosisMain.js": "/packs-test/diagnosis/diagnosisMain.js",
   "user_profile/profile_item.js": "/packs-test/user_profile/profile_item.js",
   "user_profile/user_profile.js": "/packs-test/user_profile/user_profile.js"
 }

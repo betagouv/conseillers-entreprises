@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/packs-test/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 52);
+/******/ 	return __webpack_require__(__webpack_require__.s = 51);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -13959,8 +13959,7 @@ Vue$3.compile = compileToFunctions;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(12)))
 
 /***/ }),
-/* 36 */,
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13969,46 +13968,122 @@ Vue$3.compile = compileToFunctions;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+var _axios = __webpack_require__(8);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    //        props: ['user'],
+    name: 'contact-modal',
+    props: ['username'],
     data: function data() {
         return {
-            msg: 'Hello world!'
+            name: 'nameeee'
         };
-    }
-};
+    },
+
+    mounted: function mounted() {},
+    methods: {}
+}; //
+//
+//
+//
+//
+//
 
 /***/ }),
-/* 38 */,
-/* 39 */,
-/* 40 */
+/* 37 */,
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = __webpack_require__(8);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: 'content-form',
+    props: ['diagnosis_id'],
+    data: function data() {
+        return {
+            diagnosis: { content: '' },
+            disabled: true
+        };
+    },
+
+    mounted: function mounted() {
+        this.getDiagnosis();
+    },
+    methods: {
+        getDiagnosis: function getDiagnosis() {
+            var that;
+            that = this;
+            _axios2.default.get('/api/diagnoses/' + this.diagnosis_id + '.json').then(function (response) {
+                that.diagnosis = response.data;
+                that.disabled = false;
+            }).catch(function (error) {});
+        },
+        updateDiagnosis: function updateDiagnosis() {
+            var that;
+            that = this;
+            _axios2.default.patch('/api/diagnoses/' + this.diagnosis_id, { diagnosis: this.diagnosis }).then(function (response) {
+                that.$nextTick(function () {
+                    that.diagnosis = response.data;
+                    that.disabled = false;
+                });
+            }).catch(function (error) {});
+        },
+        saveButtonClicked: function saveButtonClicked() {
+            var _this = this;
+
+            this.$nextTick(function () {
+                _this.disabled = true;
+            });
+            this.updateDiagnosis();
+        }
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(47)
+  __webpack_require__(45)
 }
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(37),
+  __webpack_require__(36),
   /* template */
-  __webpack_require__(44),
+  __webpack_require__(42),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -14016,9 +14091,9 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/Users/antoineboileau/Programming/EConseils/EConseils/app/javascript/packs/user_profile/profile_item.vue"
+Component.options.__file = "/Users/antoineboileau/Programming/EConseils/EConseils/app/javascript/packs/diagnosis/contactModal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] profile_item.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] contactModal.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -14027,9 +14102,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-935aff54", Component.options)
+    hotAPI.createRecord("data-v-0cd20b08", Component.options)
   } else {
-    hotAPI.reload("data-v-935aff54", Component.options)
+    hotAPI.reload("data-v-0cd20b08", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -14040,51 +14115,138 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */
+/* 40 */,
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(46)
+}
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(38),
+  /* template */
+  __webpack_require__(43),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/antoineboileau/Programming/EConseils/EConseils/app/javascript/packs/diagnosis/contentForm.vue.erb"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] contentForm.vue.erb: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4c62250e", Component.options)
+  } else {
+    hotAPI.reload("data-v-4c62250e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', [_c('td'), _vm._v(" "), _c('td', [_c('div', [_c('div', {
-    staticClass: "ui form inline field"
-  }, [_c('input', {
-    attrs: {
-      "type": "text"
+  return _c('div', [_vm._v("\n    Username : " + _vm._s(_vm.username) + "\n")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0cd20b08", module.exports)
+  }
+}
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "ui dimmable segment shadow-less",
+    class: {
+      dimmed: _vm.disabled
     }
-  })])])])])
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "ui form"
+  }, [_c('div', {
+    staticClass: "field"
+  }, [_c('label', [_vm._v("Entrez des informations complémentaires concernant le diagnostic")]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.diagnosis.content),
+      expression: "diagnosis.content"
+    }],
+    attrs: {
+      "rows": "2"
+    },
+    domProps: {
+      "value": (_vm.diagnosis.content)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.diagnosis.content = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "small ui button",
+    on: {
+      "click": _vm.saveButtonClicked
+    }
+  }, [_vm._v("\n            Sauver\n        ")])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "ui simple inverted dimmer"
+  }, [_c('div', {
+    staticClass: "ui text loader"
+  }, [_vm._v("Sauvegarde en cours")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-935aff54", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-4c62250e", module.exports)
   }
 }
 
 /***/ }),
-/* 45 */,
-/* 46 */,
-/* 47 */
+/* 44 */,
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(50);
+var content = __webpack_require__(48);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(10)("796ba18c", content, false);
+var update = __webpack_require__(10)("177af8c0", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-935aff54\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./profile_item.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-935aff54\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./profile_item.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0cd20b08\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./contactModal.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0cd20b08\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./contactModal.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -14094,9 +14256,34 @@ if(false) {
 }
 
 /***/ }),
-/* 48 */,
-/* 49 */,
-/* 50 */
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(49);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(10)("8432c158", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4c62250e\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!../../../../node_modules/rails-erb-loader/index.js?{\"runner\":\"bin/rails runner\"}!./contentForm.vue.erb", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4c62250e\",\"scoped\":false,\"hasInlineConfig\":false}!../../../../node_modules/postcss-loader/lib/index.js!../../../../node_modules/sass-loader/lib/loader.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!../../../../node_modules/rails-erb-loader/index.js?{\"runner\":\"bin/rails runner\"}!./contentForm.vue.erb");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 47 */,
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(9)(undefined);
@@ -14104,14 +14291,28 @@ exports = module.exports = __webpack_require__(9)(undefined);
 
 
 // module
-exports.push([module.i, "\n.example {\n  font-weight: bold;\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
 
 /***/ }),
-/* 51 */,
-/* 52 */
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(9)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 50 */,
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14121,13 +14322,17 @@ var _vue = __webpack_require__(35);
 
 var _vue2 = _interopRequireDefault(_vue);
 
+var _contentFormVue = __webpack_require__(41);
+
+var _contentFormVue2 = _interopRequireDefault(_contentFormVue);
+
+var _contactModal = __webpack_require__(39);
+
+var _contactModal2 = _interopRequireDefault(_contactModal);
+
 var _axios = __webpack_require__(8);
 
 var _axios2 = _interopRequireDefault(_axios);
-
-var _profile_item = __webpack_require__(40);
-
-var _profile_item2 = _interopRequireDefault(_profile_item);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14135,56 +14340,11 @@ var token = document.getElementsByName('csrf-token')[0].getAttribute('content');
 _axios2.default.defaults.headers.common['X-CSRF-Token'] = token;
 _axios2.default.defaults.headers.common['Accept'] = 'application/json';
 
-var profile = new _vue2.default({
-    el: '#profile',
-    data: {
-        user: {},
-        editMode: false,
-        trad: {},
-        profileFields: ['email', 'first_name', 'last_name'],
-        immutableFields: ['email']
-    },
-    components: {},
-    computed: {},
-    mounted: function mounted() {
-        this.getUser();
-        this.mountTraductions();
-    },
-    methods: {
-        mountTraductions: function mountTraductions() {
-            this.trad = traductions;
-        },
-        getUser: function getUser() {
-            var that;
-            that = this;
-            _axios2.default.get('/profile.json').then(function (response) {
-                that.user = response.data;
-            }).catch(function (error) {
-                console.log('axios.get error' + error);
-            });
-        },
-        patchUser: function patchUser() {
-            var that;
-            that = this;
-            _axios2.default.patch('/profile', { user: this.user }).then(function (response) {
-                that.user = response.data.user;
-            }).catch(function (error) {
-                console.log('axios.patch error' + error);
-            });
-        },
-        editButtonClicked: function editButtonClicked() {
-            this.unmodifiedUser = $.extend(true, {}, this.user);
-            this.editMode = true;
-        },
-        saveButtonClicked: function saveButtonClicked() {
-            this.unmodifiedUser = {};
-            this.editMode = false;
-            this.patchUser();
-        },
-        cancelButtonClicked: function cancelButtonClicked() {
-            this.user = $.extend(true, {}, this.unmodifiedUser);
-            this.editMode = false;
-        }
+new _vue2.default({
+    el: '#vue-js-app',
+    components: {
+        'content-form': _contentFormVue2.default,
+        'contact-modal': _contactModal2.default
     }
 });
 

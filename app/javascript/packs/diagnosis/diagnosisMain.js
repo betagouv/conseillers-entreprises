@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.esm'
-import ContentForm from './content_form.vue'
-import ContactModal from './contact_modal.vue'
+import ContentForm from './contentForm.vue.erb'
+import ContactModal from './contactModal.vue'
 import axios from 'axios'
 
 var token = document.getElementsByName('csrf-token')[0].getAttribute('content');
