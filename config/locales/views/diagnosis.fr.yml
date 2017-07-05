@@ -2,19 +2,16 @@ fr:
   diagnosis:
     new:
       diagnosis: Analyse
-    question:
-      assitances_count_found:
-        zero: Aucune aide trouvée...
-        one: Une aide a été trouvée
-        other: "%{count} aides ont été trouvées"
-      contact_all_with_one_email: Contacter tous en un e-mail
-      company_needs_you: L'entreprise %{company_name} a besoin de vous !
     show:
       identified_needs:
         zero: Aucun besoin identifié
         one: Un besoin a été identifié
         other: "%{count} besoins ont été identifiés"
-      diagnosis_date: "Analyse datant du : %{date}"
+      assistances_found:
+        zero: Aucune aide trouvée...
+        one: Une aide a été trouvée
+        other: "%{count} aides ont été trouvées"
+      diagnosis_date: "Analyse du %{date}"
       description: Entrez des informations complémentaires concernant le diagnostic
       save_description: Sauver
       save_loader: Sauvegarde en cours

@@ -17,5 +17,9 @@ FactoryGirl.define do
     trait :with_phone_number do
       phone_number { Faker::PhoneNumber.phone_number }
     end
+
+    factory :contact_with_email do
+      with_email
+    end
   end
 end

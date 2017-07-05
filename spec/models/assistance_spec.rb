@@ -94,4 +94,20 @@ RSpec.describe Assistance, type: :model do
       end
     end
   end
+
+  describe 'has_experts?' do
+    context 'with experts' do
+      it do
+        assistance = create :assistance, :with_expert
+        expect(assistance.has_experts?).to eq true
+      end
+    end
+
+    context 'without expert' do
+      it do
+        assistance = create :assistance
+        expect(assistance.has_experts?).to eq false
+      end
+    end
+  end
 end
