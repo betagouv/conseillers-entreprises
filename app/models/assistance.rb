@@ -18,19 +18,16 @@ class Assistance < ApplicationRecord
   validates :county, inclusion: { in: AUTHORIZED_COUNTIES }, if: :county?
 
   scope :of_location, (lambda do |city_code|
-    in_maubeuge = UseCases::LocalizeCityCode.new(city_code).in_maubeuge?
-    in_valenciennes_cambrai = UseCases::LocalizeCityCode.new(city_code).in_valenciennes_cambrai?
-    in_calais = UseCases::LocalizeCityCode.new(city_code).in_calais?
-    in_lens = UseCases::LocalizeCityCode.new(city_code).in_lens?
+    localize_city_code = UseCases::LocalizeCityCode.new(city_code)
 
-    if in_maubeuge
-      where(experts: { on_maubeuge: true }).joins(:experts)
-    elsif in_valenciennes_cambrai
-      where(experts: { on_valenciennes_cambrai: true }).joins(:experts)
-    elsif in_calais
-      where(experts: { on_calais: true }).joins(:experts)
-    elsif in_lens
-      where(experts: { on_lens: true }).joins(:experts)
+    experts_hash = {}
+    experts_hash[:on_maubeuge] = true if localize_city_code.in_maubeuge?
+    experts_hash[:on_valenciennes_cambrai] = true if localize_city_code.in_valenciennes_cambrai?
+    experts_hash[:on_calais] = true if localize_city_code.in_calais?
+    experts_hash[:on_lens] = true if localize_city_code.in_lens?
+
+    if !experts_hash.empty?
+      where(experts: experts_hash).joins(:experts).includes(:experts)
     else
       none
     end

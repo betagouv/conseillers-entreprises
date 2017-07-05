@@ -5,7 +5,7 @@
 #content-form
 - @diagnosis.diagnosed_needs.each do |diagnosed_need|
   %h2= diagnosed_need.question_label
-  - assistances = diagnosed_need.question.assistances.of_location(@visit.location) # TODO: Fix of_location scope so that it returns x assistances instead of x*y (with y = experts count)
+  - assistances = diagnosed_need.question.assistances.of_location(@visit.location)
   .ui.info.message
     %p= t('.assistances_found', count: assistances.count)
 
