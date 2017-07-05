@@ -20,7 +20,7 @@ describe 'diagnosis feature', type: :feature do
     check("checkbox_#{question.id}")
     click_button('submit_button')
 
-    expect(page).to have_content 'Aucun besoin identifié' # TODO: Change 'need' for 'assistance' here
+    expect(page).to have_content 'Aucune aide trouvée...'
 
     expert = create :expert, on_maubeuge: true
     assistance = create :assistance, question: question, experts: [expert]
@@ -31,7 +31,7 @@ describe 'diagnosis feature', type: :feature do
     check("checkbox_#{question.id}")
     click_button('submit_button')
 
-    expect(page).to have_content 'Un besoin a été identifié' # TODO: Change 'need' for 'assistance' here
+    expect(page).to have_content 'Une aide a été trouvée'
     expect(page).to have_content assistance.title
     expect(page).to have_content assistance.institution.name
     expect(page).to have_content expert.last_name

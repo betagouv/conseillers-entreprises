@@ -1,31 +1,19 @@
 .ui.segment.assistance.shadow-less
   %h4.ui.header= assistance.title
   %p= assistance.institution.name
-  - assistance.experts.each do |expert|
-    %h5= t('.contact')
-    - contact = expert
-    %p
-      = contact.full_name
-      %br
-      = contact.role
-    - expert_email = contact.email
-    - mailto_text = t('.contact_by_email')
-
-    - if visit.visitee && expert_email
-      - email_body = render partial: 'visits/email_to_expert', locals: { visit_date: visit.happened_at_localized, company_name: visit.company_name, advisor_user: current_user, company_user: visit.visitee, need: question.label, offer: assistance.title, email_specific_sentence: assistance.email_specific_sentence, expert_institution: assistance.institution.name }
-      - email_body = strip_tags email_body
-      - mailto_data = { mailto_log_path: mailto_logs_path(mailto_log: {question_id: question.id, visit_id: visit.id, assistance_id: assistance.id}), mailto_logged: false }
-      = mail_to expert_email, mailto_text, bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company_name: visit.company_name )}", class: 'ui button green mini mailto-expert-button', target: :_blank, data: mailto_data
+  - if assistance.has_experts?
+    - assistance.experts.each do |expert|
+      %h5= t('.contact')
+      %p
+        = expert.full_name
+        %br
+        = expert.role
+      - if visit.visitee && expert.email
+        = expert_contact_button(visit: visit, question: question, assistance: assistance, expert: expert)
+      - else
+        = link_to t('assistance.assistance.contact_by_email'), edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green mini'
+  - else
+    - if visit.visitee
+      = institution_contact_button(visit: visit, question: question, assistance: assistance)
     - else
-      = link_to mailto_text, edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green mini'
-
-  - if assistance.experts.size == 0 && assistance.institution.email
-    - expert_email = assistance.institution.email
-    - mailto_text = t('.contact_institution_by_email')
-    - if visit.visitee && expert_email
-      - email_body = render partial: 'visits/email_to_expert', locals: { visit_date: visit.happened_at_localized, company_name: visit.company_name, advisor_user: current_user, company_user: visit.visitee, need: question.label, offer: assistance.title, email_specific_sentence: assistance.email_specific_sentence, expert_institution: assistance.institution.name }
-      - email_body = strip_tags email_body
-      - mailto_data = { mailto_log_path: mailto_logs_path(mailto_log: {question_id: question.id, visit_id: visit.id, assistance_id: assistance.id}), mailto_logged: false }
-      = mail_to expert_email, mailto_text, bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company_name: visit.company_name )}", class: 'ui button green mini mailto-expert-button', target: :_blank, data: mailto_data
-    - else
-      = link_to mailto_text, edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green mini'
+      = link_to t('assistance.assistance.contact_institution_by_email'), edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green mini'

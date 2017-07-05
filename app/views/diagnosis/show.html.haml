@@ -5,27 +5,15 @@
 #content-form
 - @diagnosis.diagnosed_needs.each do |diagnosed_need|
   %h2= diagnosed_need.question_label
-  - assistances = diagnosed_need.question.assistances.of_location(@visit.location)
+  - assistances = diagnosed_need.question.assistances.of_location(@visit.location) # TODO: Fix of_location scope so that it returns x assistances instead of x*y (with y = experts count)
   .ui.info.message
     %p= t('.assistances_found', count: assistances.count)
 
   - if assistances.count > 1
     - if @visit.visitee
-      - assistances_hash = []
-      - recipients_emails = []
-      - assistances.each do |assistance|
-        - assistances_hash << {title: assistance.title, institution: assistance.institution}
-        - if assistance.experts.present?
-          - assistance.experts.each do |expert|
-            - recipients_emails << expert.email
-        - else
-          - recipients_emails << assistance.institution.email
-      - email_body = render partial: 'visits/grouped_email_to_experts', locals: { visit_date: @visit.happened_at_localized, company_name: @visit.company_name, advisor_user: current_user, company_user: @visit.visitee, need: diagnosed_need.question_label, assistances: assistances_hash }
-      - email_body = strip_tags email_body
-      - mailto_data = { mailto_log_path: mailto_logs_path(mailto_log: {question_id: diagnosed_need.question.id, visit_id: @visit.id}), mailto_logged: false }
-      = mail_to recipients_emails.uniq.join(','), t('.contact_all_with_one_email'), bcc: ENV['APPLICATION_EMAIL'], body: email_body, subject: "#{t('app_name')} - #{t('.company_needs_you', company_name: @visit.company_name )}", class: 'ui button green mailto-expert-button', target: :_blank, data: mailto_data
+      = assistances_contact_all_button(visit: @visit, question: diagnosed_need.question, assistances: assistances)
     - else
-      = link_to t('.contact_all_with_one_email'), edit_visitee_visit_path(@visit, question_id: diagnosed_need.question.id), class: 'ui button green'
+      = link_to t('assistance.assistance.contact_all_with_one_email'), edit_visitee_visit_path(@visit, question_id: diagnosed_need.question.id), class: 'ui button green'
 
   - assistances.each do |assistance|
     = render partial: 'assistance/assistance', locals: { assistance: assistance, question: diagnosed_need.question, diagnosis_id: @diagnosis.id, visit: @visit }
