@@ -27,33 +27,35 @@
                 disabled: true
             }
         },
+        created: function () {
+            var that = this;
+            var onSuccess = function (response) {
+                that.diagnosis = response.data;
+                that.disabled = false;
+            };
+            var onError = function (error) {};
+            this.requestService = new RequestService(onSuccess, onError);
+        },
         mounted: function () {
             this.getDiagnosis();
         },
         methods: {
             getDiagnosis: function () {
-                var that;
-                that = this;
-                axios.get('/api/diagnoses/' + this.diagnosis_id  + '.json')
-                    .then(function (response) {
-                        that.diagnosis = response.data;
-                        that.disabled = false;
-                    })
-                    .catch(function (error) {
-                    });
+                var config = {
+                    method: 'get',
+                    url: `/api/diagnoses/${this.diagnosis_id}.json`,
+                };
+                this.requestService.send(config);
             },
             updateDiagnosis: function () {
-                var that;
-                that = this;
-                axios.patch('/api/diagnoses/' + this.diagnosis_id, { diagnosis: this.diagnosis } )
-                    .then(function (response) {
-                        that.$nextTick(() => {
-                            that.diagnosis = response.data;
-                            that.disabled = false;
-                        })
-                    })
-                    .catch(function (error) {
-                    });
+                var config = {
+                    method: 'patch',
+                    url: `/api/diagnoses/${this.diagnosis_id}`,
+                    data: {
+                        diagnosis: this.diagnosis
+                    }
+                };
+                this.requestService.send(config);
             },
             saveButtonClicked: function () {
                 this.$nextTick(() => {
@@ -63,6 +65,19 @@
             }
         }
     }
+
+    class RequestService {
+        constructor(onSuccess, onError) {
+            this.onSuccess = onSuccess;
+            this.onError = onError;
+            this.axios = axios;
+        }
+
+        send(config) {
+            this.axios(config).then(this.onSuccess).catch(this.onError)
+        }
+    }
+
 </script>
 
 <style lang="sass">
