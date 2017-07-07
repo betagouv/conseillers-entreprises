@@ -38,7 +38,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :diagnoses, only: %i[show update]
-    resources :contacts, only: %i[index show create update destroy]
+
+    resources :visits, only: %i[] do
+      resources :contacts, only: %i[index create]
+    end
+
+    resources :contacts, only: %i[show update destroy]
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
