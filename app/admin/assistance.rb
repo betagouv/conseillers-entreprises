@@ -2,6 +2,7 @@
 
 ActiveAdmin.register Assistance do
   menu parent: :questions, priority: 2
+  includes :question, :experts, :institution
 
   permit_params do
     permitted = [
@@ -65,4 +66,11 @@ ActiveAdmin.register Assistance do
     end
     f.actions
   end
+
+  filter :title
+  filter :question
+  filter :institution
+  filter :experts
+  filter :created_at
+  filter :updated_at
 end

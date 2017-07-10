@@ -8,4 +8,6 @@ ActiveAdmin.register Question do
     permitted << :other if params[:action] == 'create'
     permitted
   end
+
+  includes :category
 end
