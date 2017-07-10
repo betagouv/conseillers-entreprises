@@ -7,6 +7,7 @@
         = semantic_icon('building outline')
         = t('visits.index.company_info')
     .item
-      = link_to new_visit_diagnosis_path(visit_id: @visit.id) do
+      - visit_link = @visit.diagnoses.count.zero? ? new_visit_diagnosis_path(visit_id: @visit.id) : visit_diagnosis_index_path(visit_id: @visit.id)
+      = link_to visit_link do
         = semantic_icon('sitemap')
         = t('visits.index.analysis_tool')

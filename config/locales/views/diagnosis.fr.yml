@@ -1,5 +1,9 @@
 fr:
   diagnosis:
+    index:
+      title: Analyses
+      create_new_diagnosis: Faire une nouvelle analyse
+      diagnosis_date: "Analyse du %{date}"
     new:
       diagnosis: Analyse
     show:

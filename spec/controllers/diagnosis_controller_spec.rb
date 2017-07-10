@@ -7,6 +7,13 @@ RSpec.describe DiagnosisController, type: :controller do
 
   let(:visit) { create :visit, advisor: current_user }
 
+  describe 'GET #index' do
+    it 'returns http success' do
+      get :index, params: { visit_id: visit.id }
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'GET #new' do
     it 'returns http success' do
       get :new, params: { visit_id: visit.id }

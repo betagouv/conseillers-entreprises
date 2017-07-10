@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       patch :update_visitee
     end
 
-    resources :diagnosis, only: %i[new create show]
+    resources :diagnosis, only: %i[index new create show]
   end
 
   resources :companies, only: %i[], param: :siret do
