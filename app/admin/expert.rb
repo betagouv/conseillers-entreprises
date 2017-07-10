@@ -44,7 +44,7 @@ ActiveAdmin.register Expert do
     end
     panel I18n.t('active_admin.experts.assistances') do
       table_for expert.assistances do
-        column :title, (proc { |assistance| link_to(assistance.title, admin_assistance_path(expert)) })
+        column :title, (proc { |assistance| link_to(assistance.title, admin_assistance_path(assistance)) })
         column :question
       end
     end
