@@ -2,6 +2,8 @@
 
 ActiveAdmin.register Expert do
   menu parent: :institutions, priority: 1
+  includes :institution, :assistances
+
   permit_params [
     :first_name,
     :last_name,
@@ -23,6 +25,7 @@ ActiveAdmin.register Expert do
     column :last_name
     column :role
     column :institution
+    column 'Nombre d\'aides', (proc { |expert| expert.assistances.length })
     column :on_maubeuge
     column :on_valenciennes_cambrai
     column :on_calais
@@ -75,4 +78,18 @@ ActiveAdmin.register Expert do
     end
     f.actions
   end
+
+  filter :institution
+  filter :assistances
+  filter :first_name
+  filter :last_name
+  filter :email
+  filter :phone_number
+  filter :role
+  filter :created_at
+  filter :updated_at
+  filter :on_maubeuge
+  filter :on_valenciennes_cambrai
+  filter :on_lens
+  filter :on_calais
 end
