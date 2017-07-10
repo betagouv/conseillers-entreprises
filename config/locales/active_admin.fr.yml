@@ -16,3 +16,5 @@ fr:
       assistances: Les aides portées par ce référent
       add_assistance: Ajouter une nouvelle aide
       perimeter: Périmètre territorial
+    institutions:
+      experts: Les référents pour cette institution

@@ -3,4 +3,19 @@
 ActiveAdmin.register Institution do
   menu priority: 6
   permit_params :name, :email, :phone_number
+
+  show do
+    attributes_table do
+      row :name
+      row :email
+      row :phone_number
+      row :created_at
+      row :updated_at
+    end
+    panel I18n.t('active_admin.institutions.experts') do
+      table_for institution.experts do
+        column I18n.t('activerecord.attributes.expert.full_name'), (proc { |expert| link_to(expert, admin_expert_path(expert)) })
+      end
+    end
+  end
 end
