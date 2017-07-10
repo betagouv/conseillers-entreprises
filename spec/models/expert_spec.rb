@@ -16,4 +16,10 @@ RSpec.describe Expert, type: :model do
 
     it { expect(expert.full_name).to eq 'Ivan Collombet' }
   end
+
+  describe 'to_s' do
+    let(:expert) { build :expert, first_name: 'Ivan', last_name: 'Collombet' }
+
+    it { expect(expert.to_s).to eq 'Ivan Collombet' }
+  end
 end

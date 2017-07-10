@@ -97,4 +97,10 @@ RSpec.describe Contact, type: :model do
 
     it { expect(contact.full_name).to eq 'Ivan Collombet' }
   end
+
+  describe 'to_s' do
+    let(:contact) { build :contact, first_name: 'Ivan', last_name: 'Collombet' }
+
+    it { expect(contact.to_s).to eq 'Ivan Collombet' }
+  end
 end
