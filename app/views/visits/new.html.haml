@@ -11,7 +11,7 @@
         %i.calendar.icon
         = f.text_field :happened_at, autocomplete: 'off', required: true
   .field.required
-    = f.label :company
+    = f.label :facility
     %input{type: 'hidden', name: 'visit[siret]', id: 'visit-siret', pattern: Facility::NUMBER_PATTERN, required: true}
     #company-info.ui.segment
       %p

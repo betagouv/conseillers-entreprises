@@ -1,5 +1,9 @@
 fr:
   diagnosis:
+    index:
+      title: Analyses
+      create_new_diagnosis: Faire une nouvelle analyse
+      diagnosis_date: "Analyse du %{date}"
     new:
       diagnosis: Analyse
     show:
@@ -12,6 +16,5 @@ fr:
         one: Une aide a été trouvée
         other: "%{count} aides ont été trouvées"
       diagnosis_date: "Analyse du %{date}"
-      description: Entrez des informations complémentaires concernant le diagnostic
-      save_description: Sauver
+      description: "Entrez des informations complémentaires concernant cette analyse :"
       save_loader: Sauvegarde en cours
