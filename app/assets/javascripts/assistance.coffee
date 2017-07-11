@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
   if $('.mailto-expert-button').length > 0
     window.Assistances.setupMailToLogger()
 
