@@ -13,8 +13,9 @@ ActiveAdmin.register Institution do
       row :updated_at
     end
     panel I18n.t('active_admin.institutions.experts') do
+      column_title = I18n.t('activerecord.attributes.expert.full_name')
       table_for institution.experts do
-        column I18n.t('activerecord.attributes.expert.full_name'), (proc { |expert| link_to(expert, admin_expert_path(expert)) })
+        column column_title, (proc { |expert| link_to(expert, admin_expert_path(expert)) })
       end
     end
   end
