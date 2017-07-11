@@ -23,6 +23,7 @@
             .header= expert.full_name
             .meta= expert.role
           .extra.content
+            %contact-modal{ 'visit-id' => visit.id, 'assistance-id' => assistance.id, 'expert-id' => expert.id}
             - if visit.visitee && expert.email
               = expert_contact_button(visit: visit, question: question, assistance: assistance, expert: expert)
             - else

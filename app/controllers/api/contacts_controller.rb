@@ -2,6 +2,7 @@
 
 module Api
   class ContactsController < ApplicationController
+
     def show
       @contact = Contact.find params[:id]
     end
@@ -12,7 +13,7 @@ module Api
 
     def create
       visit = Visit.find visit_id_param
-      params = create_params.merge!({company_id: visit.facility.company_id})
+      params = create_params.merge!(company_id: visit.facility.company_id)
       @contact = Contact.create(params)
       if @contact.save!
         render :show
@@ -29,6 +30,13 @@ module Api
     def destroy
       contact = Contact.find params[:id]
       render status: :bad_request unless contact.destroy!
+    end
+
+    def contact_button_expert
+      @visit = Visit.find params[:visit_id]
+      @assistance = Assistance.find params[:assistance_id]
+      @question = @assistance.question
+      @expert = Expert.find params[:expert_id]
     end
 
     private

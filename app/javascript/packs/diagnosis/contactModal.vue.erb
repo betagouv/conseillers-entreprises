@@ -1,0 +1,111 @@
+<template>
+    <div class="ui dimmable segment basic" v-bind:class="{ dimmed: isLoading }">
+        <div class="ui simple inverted dimmer">
+            <div class="ui text loader"><%= I18n.t('diagnosis.show.save_loader') %></div>
+        </div>
+
+        <div>
+            Nombre de contacts  : {{ contacts.length }}
+        </div>
+        <div>
+            visitId  : {{ visitId }}
+            assistanceId  : {{ assistanceId }}
+            expertId  : {{ expertId }}
+        </div>
+
+        <div v-if="contacts.length > 0">
+            <%= I18n.t('diagnosis.show.save_loader') %>
+            <div v-for="contact in contacts">
+                {{ contact.full_name }}
+            </div>
+            <div v-html="expertButton"></div>
+        </div>
+        <div v-else>
+            <%= I18n.t('diagnosis.show.save_loader') %>
+            <button class="ui button mailto-expert-button mini">Pas de contact</button>
+        </div>
+    </div>
+</template>
+
+<script>
+    import axios from 'axios'
+    import he from 'he'
+
+    export default {
+        name: 'contact-modal',
+        props: [
+            'visitId',
+            'assistanceId',
+            'expertId'
+            ],
+        data: function () {
+            return {
+                isLoading: false,
+                contacts: [],
+                expertButton: '</br>'
+            }
+        },
+        created: function () {
+            var onSuccess = function (response) {};
+            var onError = function (error) {};
+            this.requestService = new RequestService(onSuccess, onError);
+        },
+        mounted: function () {
+            this.loadContacts();
+        },
+        watch: {
+            contacts: function (newContacts) {
+                if(newContacts.length > 0) {
+                    this.getExpertButton();
+                }
+            }
+        },
+        methods: {
+            loadContacts: function () {
+                this.isLoading = true;
+                var that = this;
+                var onSuccess = function (response) {
+                    that.isLoading = false;
+                    that.contacts = response.data;
+                };
+                var config = {
+                    method: 'get',
+                    url: `/api/visits/${this.visitId}/contacts.json`
+                };
+                this.requestService.send(config, onSuccess);
+            },
+            getExpertButton: function () {
+                var that = this;
+                var onSuccess = function (response) {
+                    var html = he.decode(response.data.html);
+                    that.expertButton = html;
+                };
+                var config = {
+                    method: 'get',
+                    url: '/api/contacts/contact_button_expert.json',
+                    params: {
+                        visit_id: this.visitId,
+                        assistance_id: this.assistanceId,
+                        expert_id: this.expertId
+                    }
+                };
+                this.requestService.send(config, onSuccess);
+            }
+        }
+    }
+
+    class RequestService {
+        constructor(defaultOnSuccess, defaultOnError) {
+            this.defaultOnSuccess = defaultOnSuccess;
+            this.defaultOnError = defaultOnError;
+            this.axios = axios;
+        }
+
+        send(config, onSuccess = this.defaultOnSuccess , onError = this.defaultOnError) {
+            this.axios(config).then(onSuccess).catch(onError)
+        }
+    }
+</script>
+
+<style lang="sass">
+</style>

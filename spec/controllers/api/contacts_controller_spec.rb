@@ -83,7 +83,7 @@ RSpec.describe Api::ContactsController, type: :controller do
     end
   end
 
-  describe 'DELETE #destroy' do
+  describe 'GET #destroy' do
     let(:company) { create :company }
     let(:contact) { create :contact, :with_email, company: company }
 
@@ -101,6 +101,24 @@ RSpec.describe Api::ContactsController, type: :controller do
 
     it 'destroys the contact' do
       expect(company.contacts.count).to eq(0)
+    end
+  end
+
+  describe 'GET #contact_button_expert' do
+    let(:visit) { create :visit }
+    let(:assistance) { create :assistance, :with_expert }
+
+    before do
+      get :contact_button_expert,
+          params: {
+            visit_id: visit.id,
+            assistance_id: assistance.id,
+            expert_id: assistance.experts.first.id
+          }
+    end
+
+    it 'returns http success' do
+      expect(response).to have_http_status(:ok)
     end
   end
 end
