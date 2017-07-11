@@ -12,6 +12,7 @@ ActiveAdmin.register Institution do
       row :created_at
       row :updated_at
     end
+
     panel I18n.t('active_admin.institutions.experts') do
       column_title = I18n.t('activerecord.attributes.expert.full_name')
       table_for institution.experts do

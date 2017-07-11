@@ -110,6 +110,7 @@ RSpec.describe Api::ContactsController, type: :controller do
 
     before do
       get :contact_button_expert,
+          format: :json,
           params: {
             visit_id: visit.id,
             assistance_id: assistance.id,
