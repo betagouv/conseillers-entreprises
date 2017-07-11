@@ -35,7 +35,6 @@ window.ToggleDiv =
     $wrapperDiv.find('.toggle-div').hide()
 
 $(document).on 'turbolinks:load', ->
-  console.log 'yala'
   if $('#company-show').length > 0
     window.Companies.setupMandatairesDisplay()
 
