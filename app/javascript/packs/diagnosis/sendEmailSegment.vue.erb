@@ -1,38 +1,45 @@
 <template>
-    <div class="ui dimmable segment basic" v-bind:class="{ dimmed: isLoading }">
+    <div class="ui dimmable segment shadow-less" v-bind:class="{ dimmed: isLoading }">
         <div class="ui simple inverted dimmer">
             <div class="ui text loader"><%= I18n.t('diagnosis.show.save_loader') %></div>
         </div>
 
-        <div>
-            Nombre de contacts  : {{ contacts.length }}
-        </div>
         <div>
             visitId  : {{ visitId }}
             assistanceId  : {{ assistanceId }}
             expertId  : {{ expertId }}
         </div>
 
+        <p>
+            Nombre de contacts  : {{ contacts.length }}
+        </p>
+
         <div v-if="contacts.length > 0">
-            <%= I18n.t('diagnosis.show.save_loader') %>
+            <%= I18n.t('diagnosis.show.selected_visitee') %>
             <div v-for="contact in contacts">
                 {{ contact.full_name }}
             </div>
             <div v-html="expertButton"></div>
         </div>
         <div v-else>
-            <%= I18n.t('diagnosis.show.save_loader') %>
-            <button class="ui button mailto-expert-button mini">Pas de contact</button>
+            <div class="ui small message"><%= I18n.t('diagnosis.show.no_visitee_message') %></div>
+            <button class="ui button mailto-expert-button mini" v-on:click="addVisiteeButtonClicked"><%= I18n.t('diagnosis.show.add_visitee') %></button>
         </div>
+
+        <add-contact-modal v-bind:show= "modalIsShowing" v-on:close="onModalClose" v-on:save="onModalSave" ></add-contact-modal>
     </div>
 </template>
 
 <script>
     import axios from 'axios'
     import he from 'he'
+    import addContactModal from './addContactModal.vue.erb'
 
     export default {
         name: 'contact-modal',
+        components: {
+            'add-contact-modal': addContactModal
+        },
         props: [
             'visitId',
             'assistanceId',
@@ -42,7 +49,8 @@
             return {
                 isLoading: false,
                 contacts: [],
-                expertButton: '</br>'
+                expertButton: '</br>',
+                modalIsShowing: false
             }
         },
         created: function () {
@@ -90,6 +98,15 @@
                     }
                 };
                 this.requestService.send(config, onSuccess);
+            },
+            addVisiteeButtonClicked: function() {
+                this.modalIsShowing = true;
+            },
+            onModalClose: function() {
+                this.modalIsShowing = false;
+            },
+            onModalSave: function() {
+                this.modalIsShowing = false;
             }
         }
     }

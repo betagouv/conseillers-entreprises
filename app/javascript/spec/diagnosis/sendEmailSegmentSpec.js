@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
-import ContactModal from '../../packs/diagnosis/contactModal.vue.erb'
+import ContactModal from '../../packs/diagnosis/sendEmailSegment.vue.erb'
 
 //for the async function to work
 require("babel-core/register");

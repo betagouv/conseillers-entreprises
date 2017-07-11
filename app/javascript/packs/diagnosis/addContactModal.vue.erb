@@ -1,0 +1,58 @@
+<template>
+    <div class="ui inverted page dimmer" v-bind:class="{ active: show }" v-on:click="dimmerClicked">
+        <div class="ui modal" v-bind:class="{ active: show }">
+            <!--<i class="close icon"></i>-->
+            <div class="header">
+                Chicken
+            </div>
+            <div class="content">
+                <div class="description">
+                    <div class="ui header">Chicken</div>
+                    <p>Chicken Chicken Chicken Chicken?</p>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui button" v-on:click="closeButtonClicked">
+                    Chicken
+                </div>
+                <div class="ui positive right labeled icon button" v-on:click="saveButtonClicked">
+                    Chicken
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'generic-modal',
+        props: [
+            'show'
+            ],
+        data: function () {
+            return {
+            }
+        },
+        created: function () {
+        },
+        mounted: function () {
+        },
+        methods: {
+            dimmerClicked: function (event) {
+                if(event.target.className.includes("ui page dimmer")) {
+                    this.$emit('close');
+                }
+            },
+            closeButtonClicked: function () {
+                this.$emit('close');
+            },
+            saveButtonClicked: function () {
+                this.$emit('save');
+            }
+        }
+    }
+</script>
+
+<style lang="sass">
+</style>

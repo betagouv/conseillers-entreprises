@@ -18,3 +18,6 @@ fr:
       diagnosis_date: "Analyse du %{date}"
       description: "Entrez des informations complémentaires concernant cette analyse :"
       save_loader: Sauvegarde en cours
+      selected_visitee: "Votre contact en entreprise pour cette visite est:"
+      no_visitee_message: "Vous n'avez pas renseigné le contact que vous avez rencontré durant la visite. Complétez cette information s'il vous plait, avant de contacter les experts."
+      add_visitee: Ajouter un contact entreprise
