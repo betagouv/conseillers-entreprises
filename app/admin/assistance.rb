@@ -10,6 +10,7 @@ ActiveAdmin.register Assistance do
       :question_id,
       :institution_id,
       :title,
+      :description,
       :email_specific_sentence,
       :_destroy,
       assistances_experts_attributes: %i[id expert_id _create _update _destroy]
@@ -31,9 +32,11 @@ ActiveAdmin.register Assistance do
 
   show do
     attributes_table do
-      row :title
       row :question
+      row :title
+      row :description
       row :email_specific_sentence
+      row :institution
     end
     panel I18n.t('active_admin.assistances.experts') do
       table_for assistance.experts do
@@ -53,8 +56,9 @@ ActiveAdmin.register Assistance do
     f.inputs do
       f.input :question
       f.input :title
-      f.input :institution
+      f.input :description
       f.input :email_specific_sentence
+      f.input :institution
     end
     f.inputs I18n.t('active_admin.assistances.experts') do
       f.has_many :assistances_experts,
