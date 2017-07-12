@@ -21,7 +21,8 @@
             = link_to company_visit_path(visit), class: 'ui mini orange button' do
               = semantic_icon('building outline')
               = t('.company_info')
-            = link_to new_visit_diagnosis_path(visit_id: visit.id), class: 'ui mini yellow button' do
+            - visit_link = visit.diagnoses.count.zero? ? new_visit_diagnosis_path(visit_id: visit.id) : visit_diagnosis_index_path(visit_id: visit.id)
+            = link_to visit_link, class: 'ui mini yellow button' do
               = semantic_icon('sitemap')
               = t('.analysis_tool')
 
