@@ -17,7 +17,7 @@
         %tr
           %td= link_to visit.happened_at_localized, visit_path(visit)
           %td= link_to visit.company_name, visit_path(visit)
-          %td
+          %td.visit-actions
             = link_to company_visit_path(visit), class: 'ui mini orange button' do
               = semantic_icon('building outline')
               = t('.company_info')

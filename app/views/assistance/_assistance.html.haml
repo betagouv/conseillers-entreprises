@@ -1,17 +1,32 @@
 .ui.segment.assistance.shadow-less
   %h4.ui.header= assistance.title
   %p= assistance.institution.name
+  - if assistance.description
+    .toggle-div-wrapper.assistance-description-wrapper
+      .toggle-show-button.clickable
+        %strong
+          = t('activerecord.attributes.assistance.description')
+          = semantic_icon('caret right')
+      .toggle-hide-button.clickable
+        %strong
+          = t('activerecord.attributes.assistance.description')
+          = semantic_icon('caret down')
+      .toggle-div
+        %p
+          %em= simple_format assistance.description
   - if assistance.has_experts?
-    - assistance.experts.each do |expert|
-      %h5= t('.contact')
-      %p
-        = expert.full_name
-        %br
-        = expert.role
-      - if visit.visitee && expert.email
-        = expert_contact_button(visit: visit, question: question, assistance: assistance, expert: expert)
-      - else
-        = link_to t('assistance.assistance.contact_by_email'), edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green mini'
+    %h5= t('.contacts')
+    .ui.cards
+      - assistance.experts.each do |expert|
+        .card
+          .content
+            .header= expert.full_name
+            .meta= expert.role
+          .extra.content
+            - if visit.visitee && expert.email
+              = expert_contact_button(visit: visit, question: question, assistance: assistance, expert: expert)
+            - else
+              = link_to t('assistance.assistance.contact_by_email'), edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green mini'
   - else
     - if visit.visitee
       = institution_contact_button(visit: visit, question: question, assistance: assistance)

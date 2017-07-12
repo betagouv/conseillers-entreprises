@@ -4,7 +4,7 @@
     = metamagic site: t('app_name'), title: [:title, :site]
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', data: {turbolinks_track: 'reload'}
-    = javascript_include_tag 'application', data: {turbolinks_track: 'reload'}
+    = javascript_include_tag 'application', data: {turbolinks_track: true}
   %body
     = render partial: 'layouts/navbar'
     = render partial: 'layouts/environment_ribbon'

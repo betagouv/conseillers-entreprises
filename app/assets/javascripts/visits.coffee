@@ -1,4 +1,4 @@
-$ ->
+$(document).on 'turbolinks:load', ->
   if $('#new-visit-form').length > 0
     window.Visits.setupModalDisplay()
     window.Visits.setupDatePicker()
