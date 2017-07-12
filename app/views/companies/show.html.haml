@@ -109,5 +109,7 @@
                   = image_tag item['media'].first['pict']['url']
               .content
                 = link_to item['title'].html_safe, item['url'], class: 'header'
+                .meta
+                  %span= item['domain']
                 .description
                   %p= item['desc'].html_safe
