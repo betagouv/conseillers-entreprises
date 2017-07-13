@@ -12,14 +12,14 @@ fr:
         happy_discovery_html: Bonne découverte de %{link_to_root}.
     admin_mailer:
       new_user_created_notification:
-        subject: [Réso] Une personne vient de s'inscrire !
+        subject: "[Réso] Une personne vient de s'inscrire !"
         hello: Bonjour,
         user_has_signed_up: L'utilisateur %{full_name} <%{email}> vient de s'inscrire.
         activate_its_account_html: Par défaut, son compte est approuvé et il peut utiliser l'outil. Pour bloquer son compte, veuillez %{click_here_link}.
         click_here: cliquer ici
         reso_app_html: L'application %{link_to_root}.
       weekly_statistics:
-        subject: [Réso] Bon lundi ! Voici les statistiques d'utilisation !
+        subject: "[Réso] Bon lundi ! Voici les statistiques d'utilisation !"
         hello: Bonjour, chers administrateurs !
         last_week: 'La semaine dernière sur Réso, nous avons eu :'
         signed_up_users_count:
