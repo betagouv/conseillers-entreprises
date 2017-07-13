@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :password, presence: true, confirmation: true, if: :password_required?
 
   scope :for_contact_page, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
+  scope :not_admin, (-> { where(is_admin: false) })
 
   def active_for_authentication?
     super && !is_blocked?
@@ -23,6 +24,10 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def full_name_with_role
+    "#{first_name} #{last_name}, #{role}, #{institution}"
   end
 
   protected
