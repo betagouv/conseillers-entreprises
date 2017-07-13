@@ -15,4 +15,23 @@ describe AdminMailer do
 
     it { expect(mail.from).to eq AdminMailer::SENDER }
   end
+
+  describe '#weekly_statistics' do
+    subject(:mail) { described_class.weekly_statistics(information_hash).deliver_now }
+
+    let(:information_hash) do
+      user = create :user
+      visit = create :visit
+      {
+        signed_up_users: { count: 1, items: [user] },
+        visits: [{ user: user, visits_count: 1 }],
+        diagnoses: [{ visit: visit, diagnoses_count: 1 }],
+        mailto_logs: [{ visit: visit, logs_count: 1 }]
+      }
+    end
+
+    it_behaves_like 'an email'
+
+    it { expect(mail.from).to eq AdminMailer::SENDER }
+  end
 end
