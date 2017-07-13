@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import axios from 'axios'
-import ContactModal from '../../packs/diagnosis/sendEmailSegment.vue.erb'
+import SendEmailSegment from '../../packs/diagnosis/sendEmailSegment.vue.erb'
 
 //for the async function to work
 require("babel-core/register");
 require("babel-polyfill");
 
-describe('ContactModal', () => {
+describe('sendEmailSegment', () => {
 
     var contact = {
         "id": 1,
@@ -18,48 +18,48 @@ describe('ContactModal', () => {
     };
 
     it('has a created hook', () => {
-        expect(typeof ContactModal.mounted).toBe('function')
+        expect(typeof SendEmailSegment.mounted).toBe('function')
     });
 
     it('sets the correct default data', () => {
-        expect(typeof ContactModal.data).toBe('function');
+        expect(typeof SendEmailSegment.data).toBe('function');
 
-        const defaultData = ContactModal.data();
+        const defaultData = SendEmailSegment.data();
         expect(defaultData.isLoading).toBeFalsy();
         expect(defaultData.contacts).toEqual([]);
     });
 
     describe('| life cycle |', () => {
-        var contactModal;
+        var sendEmailSegment;
 
         beforeEach(function () {
             var propsData = {'visitId': '0', 'assistanceId': '1', 'expertId': '2'};
-            const vueApp = Vue.extend(ContactModal);
-            contactModal = new vueApp({propsData: propsData});
+            const vueApp = Vue.extend(SendEmailSegment);
+            sendEmailSegment = new vueApp({propsData: propsData});
         });
 
         describe('right after the modal is mounted', function () {
 
             beforeEach(function () {
-                spyOn(contactModal, 'loadContacts');
-                contactModal.$mount();
+                spyOn(sendEmailSegment, 'loadContacts');
+                sendEmailSegment.$mount();
             });
 
             it('calls loadContacts', function () {
-                expect(contactModal.loadContacts.calls.count()).toEqual(1);
+                expect(sendEmailSegment.loadContacts.calls.count()).toEqual(1);
             });
         });
 
         describe('after the contacts are updated', function () {
             beforeEach(function () {
-                spyOn(contactModal, 'getExpertButton').and.callFake(function() {
+                spyOn(sendEmailSegment, 'getExpertButton').and.callFake(function() {
                 });
-                contactModal.contacts = [contact];
+                sendEmailSegment.contacts = [contact];
             });
 
             it('calls getExpertButton if there is at least one contact', function (done) {
                 setTimeout(function () {
-                    expect(contactModal.getExpertButton.calls.count()).toEqual(1);
+                    expect(sendEmailSegment.getExpertButton.calls.count()).toEqual(1);
                     done(); // call this to finish off the it block
                 }, 50);
             });
@@ -67,26 +67,26 @@ describe('ContactModal', () => {
     });
 
     describe('| HTTP calls |', () => {
-        var contactModal;
+        var sendEmailSegment;
 
         beforeEach(function () {
             var propsData = {'visitId': '0', 'assistanceId': '1', 'expertId': '2'};
-            const vueApp = Vue.extend(ContactModal);
-            contactModal = new vueApp({propsData: propsData});
+            const vueApp = Vue.extend(SendEmailSegment);
+            sendEmailSegment = new vueApp({propsData: propsData});
         });
 
         it('has a RequestService object', function () {
-            expect(typeof contactModal.requestService).toBe('object');
-            expect(typeof contactModal.requestService.send).toBe('function');
-            expect(typeof contactModal.requestService.axios).toBe('function');
+            expect(typeof sendEmailSegment.requestService).toBe('object');
+            expect(typeof sendEmailSegment.requestService.send).toBe('function');
+            expect(typeof sendEmailSegment.requestService.axios).toBe('function');
         });
 
         describe('calling loadContacts', function () {
 
             beforeEach(function () {
                 var promise = Promise.resolve({data: [contact]});
-                spyOn(contactModal.requestService, 'axios').and.returnValue(promise);
-                contactModal.loadContacts();
+                spyOn(sendEmailSegment.requestService, 'axios').and.returnValue(promise);
+                sendEmailSegment.loadContacts();
             });
 
             it('calls axios with the right arguments', function () {
@@ -94,14 +94,14 @@ describe('ContactModal', () => {
                     method: 'get',
                     url: `/api/visits/0/contacts.json`
                 };
-                expect(contactModal.requestService.axios.calls.count()).toEqual(1);
-                expect(contactModal.requestService.axios.calls.argsFor(0)).toEqual([config]);
+                expect(sendEmailSegment.requestService.axios.calls.count()).toEqual(1);
+                expect(sendEmailSegment.requestService.axios.calls.argsFor(0)).toEqual([config]);
             });
 
             it('updates the contacts data', async function () {
                 await Vue.nextTick();
-                expect(contactModal.contacts.length).toEqual(1);
-                expect(contactModal.contacts).toEqual([contact]);
+                expect(sendEmailSegment.contacts.length).toEqual(1);
+                expect(sendEmailSegment.contacts).toEqual([contact]);
             });
         });
 
@@ -113,8 +113,8 @@ describe('ContactModal', () => {
 
             beforeEach(function () {
                 var promise = Promise.resolve({data: {html: escapedHtmlButton}});
-                spyOn(contactModal.requestService, 'axios').and.returnValue(promise);
-                contactModal.getExpertButton();
+                spyOn(sendEmailSegment.requestService, 'axios').and.returnValue(promise);
+                sendEmailSegment.getExpertButton();
             });
 
             it('calls axios with the right arguments', function () {
@@ -127,13 +127,13 @@ describe('ContactModal', () => {
                         expert_id: '2'
                     }
                 };
-                expect(contactModal.requestService.axios.calls.count()).toEqual(1);
-                expect(contactModal.requestService.axios.calls.argsFor(0)).toEqual([config]);
+                expect(sendEmailSegment.requestService.axios.calls.count()).toEqual(1);
+                expect(sendEmailSegment.requestService.axios.calls.argsFor(0)).toEqual([config]);
             });
 
             it('updates the button html with the decoded data', async function () {
                 await Vue.nextTick();
-                expect(contactModal.expertButton).toEqual(htmlButton);
+                expect(sendEmailSegment.expertButton).toEqual(htmlButton);
             });
         });
     });

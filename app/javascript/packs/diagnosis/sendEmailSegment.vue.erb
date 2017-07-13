@@ -26,17 +26,17 @@
             <button class="ui button mailto-expert-button mini" v-on:click="addVisiteeButtonClicked"><%= I18n.t('diagnosis.show.add_visitee') %></button>
         </div>
 
-        <add-contact-modal v-bind:show= "modalIsShowing" v-on:close="onModalClose" v-on:save="onModalSave" ></add-contact-modal>
+        <add-contact-modal :show.sync= "modalIsShowing" v-on:close="onModalClose" v-on:save="onModalSave" ></add-contact-modal>
     </div>
 </template>
 
 <script>
-    import axios from 'axios'
     import he from 'he'
     import addContactModal from './addContactModal.vue.erb'
+    import RequestService from './requestService'
 
     export default {
-        name: 'contact-modal',
+        name: 'send-email-segement',
         components: {
             'add-contact-modal': addContactModal
         },
@@ -103,23 +103,9 @@
                 this.modalIsShowing = true;
             },
             onModalClose: function() {
-                this.modalIsShowing = false;
             },
             onModalSave: function() {
-                this.modalIsShowing = false;
             }
-        }
-    }
-
-    class RequestService {
-        constructor(defaultOnSuccess, defaultOnError) {
-            this.defaultOnSuccess = defaultOnSuccess;
-            this.defaultOnError = defaultOnError;
-            this.axios = axios;
-        }
-
-        send(config, onSuccess = this.defaultOnSuccess , onError = this.defaultOnError) {
-            this.axios(config).then(onSuccess).catch(onError)
         }
     }
 </script>

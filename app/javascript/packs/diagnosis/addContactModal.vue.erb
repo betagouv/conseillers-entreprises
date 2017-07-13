@@ -1,58 +1,121 @@
 <template>
-    <div class="ui inverted page dimmer" v-bind:class="{ active: show }" v-on:click="dimmerClicked">
-        <div class="ui modal" v-bind:class="{ active: show }">
+    <div class="ui dimmer modals page inverted" v-bind:class="{ active: show }" v-on:click="dimmerClicked">
+        <div class="ui modal large visible scrolling" v-bind:class="{ active: show }" style="display: block !important;">
             <!--<i class="close icon"></i>-->
             <div class="header">
                 Chicken
             </div>
             <div class="content">
                 <div class="description">
-                    <div class="ui header">Chicken</div>
-                    <p>Chicken Chicken Chicken Chicken?</p>
+                    <div class="ui form">
+                        <div class="required field" v-bind:class="{ error: !nameCompleted && errorShowing }">
+                            <label>Prénom et Nom</label>
+                            <input v-model="name" type="text">
+                        </div>
+                        <div class="required field" v-bind:class="{ error: !jobCompleted && errorShowing }">
+                            <label>Fonction</label>
+                            <input v-model="job" type="text" required="required">
+                        </div>
+                        <h3>Coordonnées</h3>
+                        <p>Veuillez indiquer au moins un mode de contact ci-dessous.</p>
+                        <div class="field" v-bind:class="{ error: !contactCompleted && errorShowing }">
+                            <label>Addresse e-mail</label>
+                            <input v-model="email" type="text">
+                        </div>
+                        <div class="field"  v-bind:class="{ error: !contactCompleted && errorShowing }">
+                            <label>Numéro de téléphone</label>
+                            <input v-model="phoneNumber" type="text">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="actions">
-                <div class="ui button" v-on:click="closeButtonClicked">
+                <div class="ui right labeled icon button" v-on:click="closeButtonClicked">
                     Chicken
+                    <i class="remove icon"></i>
                 </div>
-                <div class="ui positive right labeled icon button" v-on:click="saveButtonClicked">
+                <button class="ui positive right labeled icon button" v-on:click="saveButtonClicked">
                     Chicken
                     <i class="checkmark icon"></i>
-                </div>
+                </button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import RequestService from './requestService'
+
     export default {
-        name: 'generic-modal',
+        name: 'add-contact-modal',
         props: [
             'show'
             ],
         data: function () {
             return {
+                name: '',
+                job: '',
+                email: '',
+                phoneNumber: '',
+                errorShowing: false
             }
         },
-        created: function () {
+        watch: {
+            show: function (newShow) {
+                if(newShow) {
+                    document.body.style.overflow='hidden';
+                } else {
+                    document.body.style.overflow='';
+                }
+            }
         },
-        mounted: function () {
+        computed: {
+            dataCompleted: function () {
+                return this.nameCompleted && this.jobCompleted && this.contactCompleted
+            },
+            nameCompleted: function () {
+                return this.name != '';
+            },
+            jobCompleted: function () {
+                return this.job != '';
+            },
+            contactCompleted: function () {
+                return (this.email != '' || this.phoneNumber != '');
+            }
         },
         methods: {
+            createContact: function () {
+
+            },
             dimmerClicked: function (event) {
-                if(event.target.className.includes("ui page dimmer")) {
+                if(event.target.className.includes("ui dimmer")) {
+                    this.$emit('update:show', false);
                     this.$emit('close');
                 }
             },
             closeButtonClicked: function () {
+                this.name = '';
+                this.job = '';
+                this.email = '';
+                this.phoneNumber = '';
+                this.errorShowing = false;
+                this.$emit('update:show', false);
                 this.$emit('close');
             },
             saveButtonClicked: function () {
-                this.$emit('save');
+                if(this.dataCompleted) {
+                    this.$emit('update:show', false);
+                    this.$emit('save');
+                    this.createContact();
+                } else {
+                    this.errorShowing = true;
+                }
             }
         }
     }
 </script>
 
 <style lang="sass">
+    .active
+        overflow: auto
 </style>
