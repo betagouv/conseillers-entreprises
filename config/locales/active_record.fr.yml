@@ -37,6 +37,12 @@ fr:
       expert:
         one: Référent
         other: Référents
+      diagnosis:
+        one: Analyse
+        other: Analyses
+      diagnosed_need:
+        one: Besoin analysé
+        other: Besoins analysés
       mailto_log:
         one: Mailto
         other: Mailtos
@@ -124,6 +130,13 @@ fr:
         institution: Institution
         email: Adresse e-mail
         phone_number: Numéro de téléphone
+      diagnosis:
+        visit: Visite qui a fait l'objet de l'analyse
+        content: Description
+      diagnosed_need:
+        diagnosis: Analyse parente
+        question_label: Nom du besoin
+        question: Besoin
       mailto_log:
         visit: Visite
         assistance: Aide

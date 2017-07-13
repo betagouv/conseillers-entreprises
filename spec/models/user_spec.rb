@@ -29,9 +29,41 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'scopes' do
+    describe 'for_contact_page' do
+      it do
+        create :user, contact_page_order: nil
+        user_of_contact_page = create :user, contact_page_order: 1
+
+        expect(User.for_contact_page).to eq [user_of_contact_page]
+      end
+    end
+
+    describe 'not_admin' do
+      it do
+        create :user, is_admin: true
+        regular_user = create :user, is_admin: false
+
+        expect(User.not_admin).to eq [regular_user]
+      end
+    end
+  end
+
   describe 'full_name' do
     let(:user) { build :user, first_name: 'Ivan', last_name: 'Collombet' }
 
     it { expect(user.full_name).to eq 'Ivan Collombet' }
+  end
+
+  describe 'full_name_with_role' do
+    let(:user) do
+      build :user,
+            first_name: 'Ivan',
+            last_name: 'Collombet',
+            role: 'Business Developer',
+            institution: 'SGMAP'
+    end
+
+    it { expect(user.full_name_with_role).to eq 'Ivan Collombet, Business Developer, SGMAP' }
   end
 end
