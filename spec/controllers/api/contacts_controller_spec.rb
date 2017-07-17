@@ -48,33 +48,19 @@ RSpec.describe Api::ContactsController, type: :controller do
   end
 
   describe 'POST #create' do
-    subject(:request) do
-      post :create,
-           format: :json,
-           params: {
-             visit_id: visit.id,
-             contact: contact_params
-           }
-    end
+    subject(:request) { post :create, format: :json, params: { visit_id: visit.id, contact: contact_params } }
 
     let(:facility) { create :facility }
     let(:visit) { create :visit, facility: facility }
 
     context 'when parameters are OK' do
       let(:contact_params) do
-        {
-          full_name: 'Gérard Pardessus',
-          email: 'g.pardessus@looser.com',
-          phone_number: nil,
-          role: 'looser'
-        }
+        { full_name: 'Gérard Pardessus', email: 'g.pardessus@looser.com', phone_number: nil, role: 'looser' }
       end
 
       before { request }
 
-      it 'returns http success' do
-        expect(response).to have_http_status(:created)
-      end
+      it('returns http success') { expect(response).to have_http_status(:created) }
 
       it 'creates a contact for the selected company' do
         expect(facility.company.contacts.count).to eq(1)
@@ -84,48 +70,28 @@ RSpec.describe Api::ContactsController, type: :controller do
         expect(facility.company.contacts.first.role).to eq('looser')
       end
 
-      it 'adds the contact to the visit' do
-        expect(visit.reload.visitee).to eq(facility.company.contacts.first)
-      end
+      it('adds the contact to the visit') { expect(visit.reload.visitee).to eq(facility.company.contacts.first) }
     end
 
     context 'when parameters are missing' do
-      let(:contact_params) do
-        {
-          full_name: 'Gérard Pardessus'
-        }
-      end
+      let(:contact_params) { { full_name: 'Gérard Pardessus' } }
 
       before { request }
 
-      it 'returns http bad request' do
-        expect(response).to have_http_status(:bad_request)
-      end
-
-      it 'does not create a contact' do
-        expect(facility.company.contacts.count).to eq 0
-      end
+      it('returns http bad request') { expect(response).to have_http_status(:bad_request) }
+      it('does not create a contact') { expect(facility.company.contacts.count).to eq 0 }
     end
 
     context 'when visit does not exist' do
       let(:visit) { build :visit }
       let(:contact_params) { nil }
 
-      it 'raises an error' do
-        expect { request }.to raise_error ActionController::UrlGenerationError
-      end
+      it('raises an error') { expect { request }.to raise_error ActionController::UrlGenerationError }
     end
   end
 
   describe 'PATCH #update' do
-    subject(:request) do
-      patch :update,
-            format: :json,
-            params: {
-              id: contact.id,
-              contact: contact_params
-            }
-    end
+    subject(:request) { patch :update, format: :json, params: { id: contact.id, contact: contact_params } }
 
     let(:contact) { create :contact, :with_email }
     let(:new_contact) { build :contact, :with_email, :with_phone_number }
@@ -142,9 +108,7 @@ RSpec.describe Api::ContactsController, type: :controller do
 
       before { request }
 
-      it 'returns http success' do
-        expect(response).to have_http_status(:success)
-      end
+      it('returns http success') { expect(response).to have_http_status(:success) }
 
       it 'updates the diagnosis s content' do
         reloaded_contact = contact.reload
@@ -156,42 +120,24 @@ RSpec.describe Api::ContactsController, type: :controller do
     end
 
     context 'when parameters are wrong' do
-      let(:contact_params) do
-        {
-          email: '',
-          role: ''
-        }
-      end
+      let(:contact_params) { { email: '', role: '' } }
 
       before { request }
 
-      it 'returns http bad request' do
-        expect(response).to have_http_status(:bad_request)
-      end
-
-      it 'updates the diagnosis s content' do
-        expect(contact.reload.full_name).to eq(contact.full_name)
-      end
+      it('returns http bad request') { expect(response).to have_http_status(:bad_request) }
+      it('updates the diagnosis s content') { expect(contact.reload.full_name).to eq(contact.full_name) }
     end
 
     context 'when contact does not exist' do
       let(:contact) { build :contact }
       let(:contact_params) { nil }
 
-      it 'raises an error' do
-        expect { request }.to raise_error ActionController::UrlGenerationError
-      end
+      it('raises an error') { expect { request }.to raise_error ActionController::UrlGenerationError }
     end
   end
 
   describe 'GET #destroy' do
-    subject(:request) do
-      delete :destroy,
-             format: :json,
-             params: {
-               id: contact.id
-             }
-    end
+    subject(:request) { delete :destroy, format: :json, params: { id: contact.id } }
 
     context 'when contact exists' do
       let(:company) { create :company }
@@ -206,9 +152,7 @@ RSpec.describe Api::ContactsController, type: :controller do
           expect(response).to have_http_status(:ok)
         end
 
-        it 'destroys the contact' do
-          expect { request }.to change(Contact, :count).by(-1)
-        end
+        it('destroys the contact') { expect { request }.to change(Contact, :count).by(-1) }
       end
 
       context 'when contact cannot be destroyed' do
@@ -220,18 +164,14 @@ RSpec.describe Api::ContactsController, type: :controller do
           expect(response).to have_http_status(:unprocessable_entity)
         end
 
-        it 'does not destroy the contact' do
-          expect { request }.not_to change(Contact, :count)
-        end
+        it('does not destroy the contact') { expect { request }.not_to change(Contact, :count) }
       end
     end
 
     context 'when contact does not exist' do
       let(:contact) { build :contact }
 
-      it 'raises an error' do
-        expect { request }.to raise_error ActionController::UrlGenerationError
-      end
+      it('raises an error') { expect { request }.to raise_error ActionController::UrlGenerationError }
     end
   end
 
@@ -239,11 +179,7 @@ RSpec.describe Api::ContactsController, type: :controller do
     subject(:request) do
       get :contact_button_expert,
           format: :json,
-          params: {
-            visit_id: visit.id,
-            assistance_id: assistance.id,
-            expert_id: expert.id
-          }
+          params: { visit_id: visit.id, assistance_id: assistance.id, expert_id: expert.id }
     end
 
     context 'when visit exists' do
