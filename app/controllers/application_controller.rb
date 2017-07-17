@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   private
 
   def render_error(exception)
+    raise exception if Rails.env.development?
     if NOT_FOUND_ERROR_CLASSES.include? exception.class
       respond_with_status(404)
     else
