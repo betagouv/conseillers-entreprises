@@ -26,7 +26,8 @@
             <button class="ui button mailto-expert-button mini" v-on:click="addVisiteeButtonClicked"><%= I18n.t('diagnosis.show.add_visitee') %></button>
         </div>
 
-        <add-contact-modal :show.sync= "modalIsShowing" v-on:close="onModalClose" v-on:save="onModalSave" ></add-contact-modal>
+        <add-contact-modal :show.sync= "modalIsShowing" v-bind:visit-id="visitId"
+         v-on:close="onModalClose" v-on:save="onModalSave" ></add-contact-modal>
     </div>
 </template>
 

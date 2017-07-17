@@ -15,6 +15,7 @@ module Api
       params = create_params.merge!(company_id: visit.facility.company_id)
       @contact = Contact.create(params)
       if @contact.save!
+        visit.update!(visitee: @contact)
         render :show
       else
         render status: :bad_request
@@ -41,7 +42,7 @@ module Api
     private
 
     def create_params
-      params.require(:contact).permit(%i[full_name email phone_number role company_id])
+      params.require(:contact).permit(%i[full_name email phone_number role])
     end
 
     def update_params

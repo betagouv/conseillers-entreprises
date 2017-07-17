@@ -7,7 +7,11 @@
             </div>
             <div class="content">
                 <div class="description">
-                    <div class="ui form">
+                    <div class="ui form" v-bind:class="{ error: showErrorMessage }" >
+                        <div class="ui error message">
+                            <div class="header">Échec de la création</div>
+                            <p>Bla bla bla erreur.</p>
+                        </div>
                         <div class="required field" v-bind:class="{ error: !nameCompleted && errorShowing }">
                             <label>Prénom et Nom</label>
                             <input v-model="name" type="text">
@@ -30,11 +34,13 @@
                 </div>
             </div>
             <div class="actions">
-                <div class="ui right labeled icon button" v-on:click="closeButtonClicked">
+                <div class="ui right labeled icon button" v-on:click="closeButtonClicked"
+                v-bind:class="{ disabled: isSaving}">
                     Chicken
                     <i class="remove icon"></i>
                 </div>
-                <button class="ui positive right labeled icon button" v-on:click="saveButtonClicked">
+                <button class="ui positive right labeled icon button" v-on:click="saveButtonClicked"
+                 v-bind:class="{ disabled: isSaving, loading: isSaving, button: isSaving}">
                     Chicken
                     <i class="checkmark icon"></i>
                 </button>
@@ -49,7 +55,8 @@
     export default {
         name: 'add-contact-modal',
         props: [
-            'show'
+            'show',
+            'visitId'
             ],
         data: function () {
             return {
@@ -57,7 +64,9 @@
                 job: '',
                 email: '',
                 phoneNumber: '',
-                errorShowing: false
+                errorShowing: false,
+                showErrorMessage: false,
+                isSaving: false
             }
         },
         watch: {
@@ -83,33 +92,66 @@
                 return (this.email != '' || this.phoneNumber != '');
             }
         },
+        created: function () {
+            var that = this;
+            var onSuccess = function (response) {};
+            var onError = function (error) {
+                that.isLoading = false;
+                that.showErrorMessage = true;
+                that.errorShowing = true;
+            };
+            this.requestService = new RequestService(onSuccess, onError);
+        },
         methods: {
             createContact: function () {
-
+                this.isLoading = true;
+                var that = this;
+                var onSuccess = function (response) {
+                      that.isLoading = false;
+                      that.clearForm();
+                      that.$emit('update:show', false);
+                      that.$emit('save');
+                };
+                var config = {
+                    method: 'post',
+                    url: `/api/visits/${this.visitId}/contacts.json`,
+                    data: {
+                        contact: {
+                            full_name: this.name,
+                            email: this.email,
+                            phone_number: this.phoneNumber,
+                            role: this.job
+                        }
+                    }
+                };
+                this.requestService.send(config, onSuccess);
             },
             dimmerClicked: function (event) {
-                if(event.target.className.includes("ui dimmer")) {
+                if(event.target.className.includes("ui dimmer") && !this.isSaving) {
                     this.$emit('update:show', false);
                     this.$emit('close');
                 }
             },
             closeButtonClicked: function () {
+                this.clearForm();
+                this.$emit('update:show', false);
+                this.$emit('close');
+            },
+            saveButtonClicked: function () {
+                this.showErrorMessage = false;
+                if(this.dataCompleted) {
+                    this.createContact();
+                } else {
+                    this.errorShowing = true;
+                }
+            },
+            clearForm: function () {
                 this.name = '';
                 this.job = '';
                 this.email = '';
                 this.phoneNumber = '';
                 this.errorShowing = false;
-                this.$emit('update:show', false);
-                this.$emit('close');
-            },
-            saveButtonClicked: function () {
-                if(this.dataCompleted) {
-                    this.$emit('update:show', false);
-                    this.$emit('save');
-                    this.createContact();
-                } else {
-                    this.errorShowing = true;
-                }
+                this.showErrorMessage = false;
             }
         }
     }

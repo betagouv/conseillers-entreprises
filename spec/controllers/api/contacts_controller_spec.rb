@@ -57,6 +57,10 @@ RSpec.describe Api::ContactsController, type: :controller do
       expect(facility.company.contacts.first.phone_number).to eq('')
       expect(facility.company.contacts.first.role).to eq('looser')
     end
+
+    it 'adds the contact to the visit' do
+      expect(visit.reload.visitee).to eq(facility.company.contacts.first)
+    end
   end
 
   describe 'PATCH #update' do

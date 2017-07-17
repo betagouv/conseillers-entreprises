@@ -26,13 +26,15 @@ describe('addContactModal', () => {
         expect(defaultData.email).toEqual('');
         expect(defaultData.phoneNumber).toEqual('');
         expect(defaultData.errorShowing).toBeFalsy();
+        expect(defaultData.showErrorMessage).toBeFalsy();
+        expect(defaultData.isSaving).toBeFalsy();
     });
 
     describe('dataCompleted', () => {
         var addContactModal;
 
         beforeEach(function () {
-            var propsData = {'show': true};
+            var propsData = {'show': true, 'visitId': '10'};
             const vueApp = Vue.extend(AddContactModal);
             addContactModal = new vueApp({propsData: propsData});
         });
@@ -98,11 +100,122 @@ describe('addContactModal', () => {
         });
     });
 
-    describe('clickSaveButton', () => {
+    describe('click on dimmer', () => {
+        var addContactModal;
+
+        beforeEach(async function () {
+            var propsData = {'show': true, 'visitId': '10'};
+            const vueApp = Vue.extend(AddContactModal);
+            addContactModal = new vueApp({propsData: propsData});
+
+            spyOn(addContactModal, '$emit');
+
+            addContactModal.name = 'Jean Jean';
+            addContactModal.job = '';
+            addContactModal.email = 'email@com.fr';
+            addContactModal.phoneNumber = '';
+            addContactModal.errorShowing = true;
+            await Vue.nextTick();
+        });
+
+        describe('when the dimmer is not the event target', () => {
+
+            beforeEach(function () {
+                var className = 'ui right labeled icon button';
+                var eventMock = {target: {className: className}};
+
+                addContactModal.dimmerClicked(eventMock);
+            });
+
+            it('does not modify the value of errorShowing', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.errorShowing).toBeTruthy();
+            });
+
+            it('does not emit the close event nor change the show state', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.$emit.calls.count()).toEqual(0);
+            });
+
+            it('does not puts the form data back at default value', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.name).toEqual('Jean Jean');
+                expect(addContactModal.job).toEqual('');
+                expect(addContactModal.email).toEqual('email@com.fr');
+                expect(addContactModal.phoneNumber).toEqual('');
+            });
+        });
+
+        describe('when the dimmer is the event target and that no saving action is under way', () => {
+
+            beforeEach(async function () {
+                addContactModal.isSaving = false;
+                await Vue.nextTick();
+
+                var className = 'ui dimmer';
+                var eventMock = {target: {className: className}};
+
+                addContactModal.dimmerClicked(eventMock);
+            });
+
+            it('does not modify the value of errorShowing', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.errorShowing).toBeTruthy();
+            });
+
+            it('does emits a close event and changes the show state', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.$emit.calls.count()).toEqual(2);
+                expect(addContactModal.$emit.calls.argsFor(0)).toEqual(['update:show', false]);
+                expect(addContactModal.$emit.calls.argsFor(1)).toEqual(['close']);
+            });
+
+            it('does not puts the form data back at default value', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.name).toEqual('Jean Jean');
+                expect(addContactModal.job).toEqual('');
+                expect(addContactModal.email).toEqual('email@com.fr');
+                expect(addContactModal.phoneNumber).toEqual('');
+            });
+        });
+
+        describe('when the dimmer is the event target and that a saving action is under way', () => {
+
+            beforeEach(async function () {
+                addContactModal.isSaving = true;
+                await Vue.nextTick();
+
+                var className = 'ui dimmer';
+                var eventMock = {target: {className: className}};
+
+                addContactModal.dimmerClicked(eventMock);
+            });
+
+            it('does not modify the value of errorShowing', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.errorShowing).toBeTruthy();
+            });
+
+            it('does not emit the close event nor change the show state', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.$emit.calls.count()).toEqual(0);
+            });
+
+            it('does not puts the form data back at default value', async function () {
+                await Vue.nextTick();
+                expect(addContactModal.name).toEqual('Jean Jean');
+                expect(addContactModal.job).toEqual('');
+                expect(addContactModal.email).toEqual('email@com.fr');
+                expect(addContactModal.phoneNumber).toEqual('');
+            });
+        });
+    });
+
+    describe('click on save button', () => {
         var addContactModal;
 
         beforeEach(function () {
-            var propsData = {'show': true};
+            var propsData = {'show': true, 'visitId': '10'};
             const vueApp = Vue.extend(AddContactModal);
             addContactModal = new vueApp({propsData: propsData});
         });
@@ -120,9 +233,11 @@ describe('addContactModal', () => {
             it('passes the value of error showing at true', () => {
                 expect(addContactModal.errorShowing).toBeTruthy();
             });
+
             it('does not emit the save event nor does it change the show state', () => {
                 expect(addContactModal.$emit.calls.count()).toEqual(0);
             });
+
             it('does not call createContact function', () => {
                 expect(addContactModal.createContact.calls.count()).toEqual(0);
             });
@@ -133,7 +248,7 @@ describe('addContactModal', () => {
         var addContactModal;
 
         beforeEach(async function () {
-            var propsData = {'show': true};
+            var propsData = {'show': true, 'visitId': '10'};
             const vueApp = Vue.extend(AddContactModal);
             addContactModal = new vueApp({propsData: propsData});
 
@@ -153,12 +268,14 @@ describe('addContactModal', () => {
             await Vue.nextTick();
             expect(addContactModal.errorShowing).toBeFalsy();
         });
+
         it('does emit the close event and it changes the show state', async function () {
             await Vue.nextTick();
             expect(addContactModal.$emit.calls.count()).toEqual(2);
             expect(addContactModal.$emit.calls.argsFor(0)).toEqual(['update:show', false]);
             expect(addContactModal.$emit.calls.argsFor(1)).toEqual(['close']);
         });
+
         it('does puts the form data back at default value', async function () {
             await Vue.nextTick();
             expect(addContactModal.name).toEqual('');
@@ -168,42 +285,123 @@ describe('addContactModal', () => {
         });
     });
 
-    xdescribe('| HTTP calls |', () => {
-        var contactModal;
+    describe('| HTTP calls |', () => {
+        var addContactModal;
 
         beforeEach(function () {
-            var propsData = {'visitId': '0', 'assistanceId': '1', 'expertId': '2'};
-            const vueApp = Vue.extend(ContactModal);
-            contactModal = new vueApp({propsData: propsData});
+            var propsData = {'show': true, 'visitId': '10'};
+            const vueApp = Vue.extend(AddContactModal);
+            addContactModal = new vueApp({propsData: propsData});
         });
 
         it('has a RequestService object', function () {
-            expect(typeof contactModal.requestService).toBe('object');
-            expect(typeof contactModal.requestService.send).toBe('function');
-            expect(typeof contactModal.requestService.axios).toBe('function');
+            expect(typeof addContactModal.requestService).toBe('object');
+            expect(typeof addContactModal.requestService.send).toBe('function');
+            expect(typeof addContactModal.requestService.axios).toBe('function');
         });
 
         describe('create contact', function () {
 
             beforeEach(function () {
-                var promise = Promise.resolve({data: [contact]});
-                spyOn(contactModal.requestService, 'axios').and.returnValue(promise);
-                contactModal.loadContacts();
+                addContactModal.name = 'name';
+                addContactModal.email = 'email@google.com';
+                addContactModal.phoneNumber = '0102030405';
+                addContactModal.job = 'JOB!!';
             });
 
-            it('calls axios with the right arguments', function () {
-                var config = {
-                    method: 'get',
-                    url: `/api/visits/0/contacts.json`
-                };
-                expect(contactModal.requestService.axios.calls.count()).toEqual(1);
-                expect(contactModal.requestService.axios.calls.argsFor(0)).toEqual([config]);
+            describe('with a success', function () {
+
+                beforeEach(function () {
+                    var promise = Promise.resolve({data: contact});
+                    spyOn(addContactModal.requestService, 'axios').and.returnValue(promise);
+                    spyOn(addContactModal, '$emit');
+
+                    addContactModal.createContact();
+                });
+
+                it('calls axios with the right arguments', function () {
+                    var config = {
+                        method: 'post',
+                        url: `/api/visits/10/contacts.json`,
+                        data: {
+                            contact: {
+                                full_name: 'name',
+                                email: 'email@google.com',
+                                phone_number: '0102030405',
+                                role: 'JOB!!'
+                            }
+                        }
+                    };
+                    expect(addContactModal.requestService.axios.calls.count()).toEqual(1);
+                    expect(addContactModal.requestService.axios.calls.argsFor(0)).toEqual([config]);
+                });
+
+                it('clears the form', async function () {
+                    await Vue.nextTick();
+                    expect(addContactModal.name).toEqual('');
+                    expect(addContactModal.job).toEqual('');
+                    expect(addContactModal.email).toEqual('');
+                    expect(addContactModal.phoneNumber).toEqual('');
+                });
+
+                it('passes the value of error showing at false', async function () {
+                    await Vue.nextTick();
+                    expect(addContactModal.errorShowing).toBeFalsy();
+                });
+
+                it('does emit the save event and it changes the show state', async function () {
+                    await Vue.nextTick();
+                    expect(addContactModal.$emit.calls.count()).toEqual(2);
+                    expect(addContactModal.$emit.calls.argsFor(0)).toEqual(['update:show', false]);
+                    expect(addContactModal.$emit.calls.argsFor(1)).toEqual(['save']);
+                });
             });
 
-            it('updates the contacts data', async function () {
-                await Vue.nextTick();
-                expect(contactModal.contacts.length).toEqual(1);
-                expect(contactModal.contacts).toEqual([contact]);
+            describe('with an error', function () {
+
+                beforeEach(function () {
+                    var promise = Promise.reject(new Error("error"));
+                    spyOn(addContactModal.requestService, 'axios').and.returnValue(promise);
+                    spyOn(addContactModal, '$emit');
+
+                    addContactModal.createContact();
+                });
+
+                it('calls axios with the right arguments', function () {
+                    var config = {
+                        method: 'post',
+                        url: `/api/visits/10/contacts.json`,
+                        data: {
+                            contact: {
+                                full_name: 'name',
+                                email: 'email@google.com',
+                                phone_number: '0102030405',
+                                role: 'JOB!!'
+                            }
+                        }
+                    };
+                    expect(addContactModal.requestService.axios.calls.count()).toEqual(1);
+                    expect(addContactModal.requestService.axios.calls.argsFor(0)).toEqual([config]);
+                });
+
+                it('does not clear the form', async function () {
+                    await Vue.nextTick();
+                    expect(addContactModal.name).toEqual('name');
+                    expect(addContactModal.email).toEqual('email@google.com');
+                    expect(addContactModal.phoneNumber).toEqual('0102030405');
+                    expect(addContactModal.job).toEqual('JOB!!');
+                });
+
+                it('passes the value of error showing at true and show the error message', async function () {
+                    await Vue.nextTick();
+                    expect(addContactModal.errorShowing).toBeTruthy();
+                    expect(addContactModal.showErrorMessage).toBeTruthy();
+                });
+
+                it('does not emit the save event nor change the show state', async function () {
+                    await Vue.nextTick();
+                    expect(addContactModal.$emit.calls.count()).toEqual(0);
+                });
             });
         });
     });
