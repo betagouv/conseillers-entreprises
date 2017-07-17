@@ -54,6 +54,7 @@ describe 'ApplicationController specific features', type: :feature do
     login_user
 
     before do
+      ENV['TEST_ERROR_RENDERING'] = 'true'
       allow(Visit).to receive(:of_advisor).and_raise(raised_error)
       visit visits_path
     end

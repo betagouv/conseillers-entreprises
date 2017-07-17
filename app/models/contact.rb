@@ -10,7 +10,7 @@ class Contact < ApplicationRecord
   include PersonConcern
 
   belongs_to :company
-  has_many :visits, foreign_key: 'visitee_id'
+  has_many :visits, foreign_key: 'visitee_id', dependent: :restrict_with_error
 
   validates :company, presence: true
   validates_with ContactValidator

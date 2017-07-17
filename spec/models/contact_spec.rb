@@ -6,8 +6,9 @@ RSpec.describe Contact, type: :model do
   describe 'validations' do
     it do
       is_expected.to belong_to :company
-      is_expected.to have_many :visits
+      is_expected.to have_many(:visits).dependent(:restrict_with_error)
     end
+
     describe 'presence' do
       it do
         is_expected.to validate_presence_of(:last_name)

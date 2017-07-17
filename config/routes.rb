@@ -44,9 +44,7 @@ Rails.application.routes.draw do
     end
 
     resources :contacts, only: %i[show update destroy] do
-      collection do
-        get :contact_button_expert
-      end
+      get :contact_button_expert, on: :collection
     end
   end
 
