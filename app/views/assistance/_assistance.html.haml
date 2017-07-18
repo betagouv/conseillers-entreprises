@@ -18,16 +18,12 @@
     %h5= t('.contacts')
     .ui.cards
       - assistance.experts.each do |expert|
-        .card
+        .card.shadow-less
           .content
             .header= expert.full_name
             .meta= expert.role
           .extra.content
             %contact-modal{ 'visit-id' => visit.id, 'assistance-id' => assistance.id, 'expert-id' => expert.id}
-            - if visit.visitee && expert.email
-              = expert_contact_button(visit: visit, question: question, assistance: assistance, expert: expert)
-            - else
-              = link_to t('assistance.assistance.contact_by_email'), edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green mini'
   - else
     - if visit.visitee
       = institution_contact_button(visit: visit, question: question, assistance: assistance)

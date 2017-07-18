@@ -19,5 +19,15 @@ fr:
       description: "Entrez des informations complémentaires concernant cette analyse :"
       save_loader: Sauvegarde en cours
       selected_visitee: "Votre contact en entreprise pour cette visite est:"
-      no_visitee_message: "Vous n'avez pas renseigné le contact que vous avez rencontré durant la visite. Complétez cette information s'il vous plait, avant de contacter les experts."
+      no_visitee_message: "Vous n'avez pas renseigné le contact que vous avez rencontré durant la visite. Complétez cette information, avant de pouvoir contacter les experts."
       add_visitee: Ajouter un contact entreprise
+      add_contact_modal:
+        header: Ajouter le contact entreprise
+        error_header: Erreur lors de la création
+        error_message: "Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l'erreur persite contactez l'equipe SGMAP."
+        full_name: Nom
+        role: Fonction au sein de l'entreprise
+        contact_detail: Coordonnées
+        add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
+        email_address: Adresse email
+        phone_number: Numéro de télephone

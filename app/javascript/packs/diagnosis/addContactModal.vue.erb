@@ -1,33 +1,40 @@
 <template>
     <div class="ui dimmer modals page inverted" v-bind:class="{ active: show }" v-on:click="dimmerClicked">
-        <div class="ui modal large visible scrolling" v-bind:class="{ active: show }" style="display: block !important;">
+        <div class="ui modal large visible scrolling" v-bind:class="{ active: show }"
+        style="display: block !important;">
             <!--<i class="close icon"></i>-->
             <div class="header">
-                Chicken
+                <%= I18n.t('diagnosis.show.add_contact_modal.header') %>
             </div>
             <div class="content">
                 <div class="description">
                     <div class="ui form" v-bind:class="{ error: showErrorMessage }" >
                         <div class="ui error message">
-                            <div class="header">Échec de la création</div>
-                            <p>Bla bla bla erreur.</p>
+                            <div class="header">
+                                <%= I18n.t('diagnosis.show.add_contact_modal.error_header') %>
+                            </div>
+                            <p>
+                                <%= I18n.t('diagnosis.show.add_contact_modal.error_message') %>
+                            </p>
                         </div>
                         <div class="required field" v-bind:class="{ error: !nameCompleted && errorShowing }">
-                            <label>Prénom et Nom</label>
+                            <label><%= I18n.t('diagnosis.show.add_contact_modal.full_name') %></label>
                             <input v-model="name" type="text">
                         </div>
                         <div class="required field" v-bind:class="{ error: !jobCompleted && errorShowing }">
-                            <label>Fonction</label>
+                            <label><%= I18n.t('diagnosis.show.add_contact_modal.role') %></label>
                             <input v-model="job" type="text" required="required">
                         </div>
-                        <h3>Coordonnées</h3>
-                        <p>Veuillez indiquer au moins un mode de contact ci-dessous.</p>
+                        <h3 class="ui header">
+                            <%= I18n.t('diagnosis.show.add_contact_modal.contact_detail') %>
+                            <div class="sub header "><%= I18n.t('diagnosis.show.add_contact_modal.add_one_contact_mode_below') %></div>
+                        </h3>
                         <div class="field" v-bind:class="{ error: !contactCompleted && errorShowing }">
-                            <label>Addresse e-mail</label>
+                            <label><%= I18n.t('diagnosis.show.add_contact_modal.email_address') %></label>
                             <input v-model="email" type="text">
                         </div>
                         <div class="field"  v-bind:class="{ error: !contactCompleted && errorShowing }">
-                            <label>Numéro de téléphone</label>
+                            <label><%= I18n.t('diagnosis.show.add_contact_modal.phone_number') %></label>
                             <input v-model="phoneNumber" type="text">
                         </div>
                     </div>
@@ -36,12 +43,12 @@
             <div class="actions">
                 <div class="ui right labeled icon button" v-on:click="closeButtonClicked"
                 v-bind:class="{ disabled: isSaving}">
-                    Chicken
+                    <%= I18n.t('cancel') %>
                     <i class="remove icon"></i>
                 </div>
                 <button class="ui positive right labeled icon button" v-on:click="saveButtonClicked"
                  v-bind:class="{ disabled: isSaving, loading: isSaving, button: isSaving}">
-                    Chicken
+                    <%= I18n.t('save') %>
                     <i class="checkmark icon"></i>
                 </button>
             </div>
@@ -160,4 +167,6 @@
 <style lang="sass">
     .active
         overflow: auto
+    .ui.dimmer.modals.page.inverted
+        padding-top: 4rem
 </style>
