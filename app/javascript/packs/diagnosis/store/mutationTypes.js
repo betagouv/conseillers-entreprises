@@ -1,0 +1,3 @@
+export const CONTACT_REQUEST_UNDERWAY = 'CONTACT_REQUEST_UNDERWAY';
+export const CONTACT = 'CONTACT';
+export const VISIT_ID = 'VISIT_ID';
