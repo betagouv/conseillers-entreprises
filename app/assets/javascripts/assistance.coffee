@@ -1,7 +1,3 @@
-$(document).on 'turbolinks:load', ->
-  if $('.mailto-expert-button').length > 0
-    window.Assistances.setupMailToLogger()
-
 window.Assistances =
   setupMailToLogger: ->
     $('.mailto-expert-button').off 'click'
@@ -14,3 +10,12 @@ window.Assistances =
           type: 'POST'
           success: =>
             $(this).data('logged', true)
+
+$(document).on 'turbolinks:load', ->
+  if $('.mailto-expert-button').length > 0
+    window.Assistances.setupMailToLogger()
+
+# IE9 compatibility
+$ ->
+  if $('.mailto-expert-button').length > 0
+    window.Assistances.setupMailToLogger()

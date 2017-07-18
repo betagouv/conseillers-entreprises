@@ -1,9 +1,3 @@
-$(document).on 'turbolinks:load', ->
-  if $('#new-visit-form').length > 0
-    window.Visits.setupModalDisplay()
-    window.Visits.setupDatePicker()
-    window.Visits.updateSubmitDisplay()
-
 window.Visits =
   setCompanyInfoAndCloseModal: (companySiret, companyName, companyLocation) ->
     $('#visit-siret').val(companySiret)
@@ -60,3 +54,16 @@ window.Visits =
           month = '0' + month if (month.length < 2)
           year = date.getFullYear()
           return day + '/' + month + '/' + year
+
+$(document).on 'turbolinks:load', ->
+  if $('#new-visit-form').length > 0
+    window.Visits.setupModalDisplay()
+    window.Visits.setupDatePicker()
+    window.Visits.updateSubmitDisplay()
+
+# IE9 compatibility
+$ ->
+  if $('#new-visit-form').length > 0
+    window.Visits.setupModalDisplay()
+    window.Visits.setupDatePicker()
+    window.Visits.updateSubmitDisplay()
