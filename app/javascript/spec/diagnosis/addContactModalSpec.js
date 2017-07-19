@@ -242,6 +242,58 @@ describe('addContactModal', () => {
                 expect(addContactModal.createContact.calls.count()).toEqual(0);
             });
         });
+
+        describe('when all the data is completed', () => {
+
+            function sleep (time) {
+                return new Promise((resolve) => setTimeout(resolve, time));
+            };
+
+            beforeEach(async function () {
+                var promise = Promise.resolve(true);
+
+                spyOn(addContactModal, 'dataCompleted').and.returnValue(true);
+                spyOn(addContactModal, 'createContact').and.returnValue(promise);
+                spyOn(addContactModal, '$emit');
+                spyOn(addContactModal, 'clearForm');
+
+                addContactModal.name = 'Jean Jean';
+                addContactModal.job = 'Peon';
+                addContactModal.email = 'email@com.fr';
+                addContactModal.phoneNumber = '010203040506';
+
+                await Vue.nextTick();
+
+                addContactModal.saveButtonClicked();
+            });
+
+            it('emits the save event and it changes the show state', async function () {
+                await sleep(10);
+
+                expect(addContactModal.$emit.calls.count()).toEqual(2);
+                expect(addContactModal.$emit.calls.argsFor(0)).toEqual(['update:show', false]);
+                expect(addContactModal.$emit.calls.argsFor(1)).toEqual(['save']);
+            });
+
+            it('calls the clear form function', async function () {
+                await sleep(10);
+
+                expect(addContactModal.clearForm.calls.count()).toEqual(1);
+            });
+
+            it('calls createContact function', async function () {
+                await sleep(10);
+
+                const contactData = {
+                    full_name: 'Jean Jean',
+                    email: 'email@com.fr',
+                    phone_number: '010203040506',
+                    role: 'Peon'
+                };
+                expect(addContactModal.createContact.calls.count()).toEqual(1);
+                expect(addContactModal.createContact.calls.argsFor(0)).toEqual(contactData);
+            });
+        });
     });
 
     describe('click on close button', () => {
@@ -282,127 +334,6 @@ describe('addContactModal', () => {
             expect(addContactModal.job).toEqual('');
             expect(addContactModal.email).toEqual('');
             expect(addContactModal.phoneNumber).toEqual('');
-        });
-    });
-
-    describe('| HTTP calls |', () => {
-        var addContactModal;
-
-        beforeEach(function () {
-            var propsData = {'show': true, 'visitId': '10'};
-            const vueApp = Vue.extend(AddContactModal);
-            addContactModal = new vueApp({propsData: propsData});
-        });
-
-        it('has a RequestService object', function () {
-            expect(typeof addContactModal.requestService).toBe('object');
-            expect(typeof addContactModal.requestService.send).toBe('function');
-            expect(typeof addContactModal.requestService.axios).toBe('function');
-        });
-
-        describe('create contact', function () {
-
-            beforeEach(function () {
-                addContactModal.name = 'name';
-                addContactModal.email = 'email@google.com';
-                addContactModal.phoneNumber = '0102030405';
-                addContactModal.job = 'JOB!!';
-            });
-
-            describe('with a success', function () {
-
-                beforeEach(function () {
-                    var promise = Promise.resolve({data: contact});
-                    spyOn(addContactModal.requestService, 'axios').and.returnValue(promise);
-                    spyOn(addContactModal, '$emit');
-
-                    addContactModal.createContact();
-                });
-
-                it('calls axios with the right arguments', function () {
-                    var config = {
-                        method: 'post',
-                        url: `/api/visits/10/contacts.json`,
-                        data: {
-                            contact: {
-                                full_name: 'name',
-                                email: 'email@google.com',
-                                phone_number: '0102030405',
-                                role: 'JOB!!'
-                            }
-                        }
-                    };
-                    expect(addContactModal.requestService.axios.calls.count()).toEqual(1);
-                    expect(addContactModal.requestService.axios.calls.argsFor(0)).toEqual([config]);
-                });
-
-                it('clears the form', async function () {
-                    await Vue.nextTick();
-                    expect(addContactModal.name).toEqual('');
-                    expect(addContactModal.job).toEqual('');
-                    expect(addContactModal.email).toEqual('');
-                    expect(addContactModal.phoneNumber).toEqual('');
-                });
-
-                it('passes the value of error showing at false', async function () {
-                    await Vue.nextTick();
-                    expect(addContactModal.errorShowing).toBeFalsy();
-                });
-
-                it('does emit the save event and it changes the show state', async function () {
-                    await Vue.nextTick();
-                    expect(addContactModal.$emit.calls.count()).toEqual(2);
-                    expect(addContactModal.$emit.calls.argsFor(0)).toEqual(['update:show', false]);
-                    expect(addContactModal.$emit.calls.argsFor(1)).toEqual(['save']);
-                });
-            });
-
-            describe('with an error', function () {
-
-                beforeEach(function () {
-                    var promise = Promise.reject(new Error("error"));
-                    spyOn(addContactModal.requestService, 'axios').and.returnValue(promise);
-                    spyOn(addContactModal, '$emit');
-
-                    addContactModal.createContact();
-                });
-
-                it('calls axios with the right arguments', function () {
-                    var config = {
-                        method: 'post',
-                        url: `/api/visits/10/contacts.json`,
-                        data: {
-                            contact: {
-                                full_name: 'name',
-                                email: 'email@google.com',
-                                phone_number: '0102030405',
-                                role: 'JOB!!'
-                            }
-                        }
-                    };
-                    expect(addContactModal.requestService.axios.calls.count()).toEqual(1);
-                    expect(addContactModal.requestService.axios.calls.argsFor(0)).toEqual([config]);
-                });
-
-                it('does not clear the form', async function () {
-                    await Vue.nextTick();
-                    expect(addContactModal.name).toEqual('name');
-                    expect(addContactModal.email).toEqual('email@google.com');
-                    expect(addContactModal.phoneNumber).toEqual('0102030405');
-                    expect(addContactModal.job).toEqual('JOB!!');
-                });
-
-                it('passes the value of error showing at true and show the error message', async function () {
-                    await Vue.nextTick();
-                    expect(addContactModal.errorShowing).toBeTruthy();
-                    expect(addContactModal.showErrorMessage).toBeTruthy();
-                });
-
-                it('does not emit the save event nor change the show state', async function () {
-                    await Vue.nextTick();
-                    expect(addContactModal.$emit.calls.count()).toEqual(0);
-                });
-            });
         });
     });
 });

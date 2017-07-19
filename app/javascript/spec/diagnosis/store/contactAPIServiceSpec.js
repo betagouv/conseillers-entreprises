@@ -115,4 +115,172 @@ describe('ContactAPIService', () => {
             });
         });
     });
+
+    describe('getExpertEmailButton', () => {
+
+        var returnPromise;
+        const escapedHtmlButton = '&lt;button&gt;BUTTON&lt;/button&gt;';
+        const htmlButton = '<button>BUTTON</button>';
+
+        describe('with a success', function () {
+
+            beforeEach(function () {
+
+                var promise = Promise.resolve({data: {html: escapedHtmlButton}});
+                spyOn(ContactAPIService, 'send').and.returnValue(promise);
+
+                returnPromise = ContactAPIService.getExpertEmailButton('10', '11', '12');
+            });
+
+            it('calls send with the right arguments', function () {
+                var config = {
+                    method: 'get',
+                    url: '/api/contacts/contact_button_expert.json',
+                    params: {
+                        visit_id: '10',
+                        assistance_id: '11',
+                        expert_id: '12'
+                    }
+                };
+                expect(ContactAPIService.send.calls.count()).toEqual(1);
+                expect(ContactAPIService.send.calls.argsFor(0)).toEqual([config]);
+            });
+
+            it('returns a promise', function () {
+                expect(typeof returnPromise.then).toBe('function');
+            });
+
+            it('returns a button', async function () {
+                var serviceResponse;
+                await returnPromise.then((response) => {
+                    serviceResponse = response;
+                });
+                expect(serviceResponse).toEqual(htmlButton);
+            });
+        });
+
+        describe('with an error', function () {
+
+            const error = new Error('error');
+
+            beforeEach(function () {
+                var promise = Promise.reject(error);
+                spyOn(ContactAPIService, 'send').and.returnValue(promise);
+
+                returnPromise = ContactAPIService.getExpertEmailButton('10', '11', '12');
+            });
+
+            it('calls send with the right arguments', function () {
+                var config = {
+                    method: 'get',
+                    url: '/api/contacts/contact_button_expert.json',
+                    params: {
+                        visit_id: '10',
+                        assistance_id: '11',
+                        expert_id: '12'
+                    }
+                };
+                expect(ContactAPIService.send.calls.count()).toEqual(1);
+                expect(ContactAPIService.send.calls.argsFor(0)).toEqual([config]);
+            });
+
+            it('returns a promise', function () {
+                expect(typeof returnPromise.then).toBe('function');
+            });
+
+            it('returns an error', async function () {
+
+                var serviceResponse;
+                var serviceError;
+                await returnPromise
+                    .then((response) => {
+                        serviceResponse = response;
+                    })
+                    .catch((error) => {
+                        serviceError = error;
+                    });
+
+                expect(serviceResponse).toBeUndefined();
+                expect(serviceError).toEqual(error);
+            });
+        });
+    });
+
+    describe('getContacts', () => {
+
+        var returnPromise;
+
+        describe('with a success', function () {
+
+            beforeEach(function () {
+
+                var promise = Promise.resolve({data: [contact]});
+                spyOn(ContactAPIService, 'send').and.returnValue(promise);
+
+                returnPromise = ContactAPIService.getContacts('17');
+            });
+
+            it('calls send with the right arguments', function () {
+                var config = {
+                    method: 'get',
+                    url: `/api/visits/17/contacts.json`
+                };
+                expect(ContactAPIService.send.calls.count()).toEqual(1);
+                expect(ContactAPIService.send.calls.argsFor(0)).toEqual([config]);
+            });
+
+            it('returns a promise', function () {
+                expect(typeof returnPromise.then).toBe('function');
+            });
+
+            it('returns a button', async function () {
+                var serviceResponse;
+                await returnPromise.then((response) => {
+                    serviceResponse = response;
+                });
+                expect(serviceResponse).toEqual([contact]);
+            });
+        });
+
+        describe('with an error', function () {
+
+            const error = new Error('error');
+
+            beforeEach(function () {
+                var promise = Promise.reject(error);
+                spyOn(ContactAPIService, 'send').and.returnValue(promise);
+
+                returnPromise = ContactAPIService.getContacts('10');
+            });
+
+            it('calls send with the right arguments', function () {
+                var config = {
+                    method: 'get',
+                    url: `/api/visits/10/contacts.json`
+                };
+                expect(ContactAPIService.send.calls.count()).toEqual(1);
+                expect(ContactAPIService.send.calls.argsFor(0)).toEqual([config]);
+            });
+
+            it('returns a promise', function () {
+                expect(typeof returnPromise.then).toBe('function');
+            });
+
+            it('returns an error', async function () {
+
+                var serviceResponse;
+                var serviceError;
+                await returnPromise
+                    .then((response) => {
+                        serviceResponse = response;
+                    })
+                    .catch((error) => {
+                        serviceError = error;
+                    });
+
+                expect(serviceResponse).toBeUndefined();
+                expect(serviceError).toEqual(error);
+            });
+        });
+    });
 });

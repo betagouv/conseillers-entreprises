@@ -17,11 +17,25 @@ const actions = {
             conctactAPIService = ContactAPIService;
         }
 
-        commit(types.CONTACT_REQUEST_UNDERWAY, true);
+        commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: true});
         return conctactAPIService.createContactOnVisit(state.visitId, contactData)
             .then( (contact) => {
-                commit(types.CONTACT, contact);
-                commit(types.CONTACT_REQUEST_UNDERWAY, false);
+                commit(types.CONTACT, {contact: contact});
+                commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: false});
+            });
+    },
+
+    getContact ({ commit, state, contactAPIServiceDependency }) {
+        var conctactAPIService = contactAPIServiceDependency;
+        if(typeof conctactAPIService == 'undefined') {
+            conctactAPIService = ContactAPIService;
+        }
+
+        commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: true});
+        return conctactAPIService.getContacts(state.visitId)
+            .then( (contacts) => {
+                commit(types.CONTACT, {contact: contacts[0]});
+                commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: false});
             });
     }
 };
