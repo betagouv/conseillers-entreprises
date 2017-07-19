@@ -5,6 +5,7 @@
     ["env", {
       "modules": false,
       "targets": {
+        "ie": 9,
         "browsers": "> 1%",
         "uglify": true
       },
