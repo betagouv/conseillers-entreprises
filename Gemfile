@@ -20,6 +20,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'activeadmin'
+gem 'browser'
 gem 'devise'
 gem 'faker'
 gem 'mailjet'
