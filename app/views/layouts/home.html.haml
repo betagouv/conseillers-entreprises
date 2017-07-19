@@ -1,0 +1,14 @@
+!!!
+%html
+  = render partial: 'layouts/head'
+
+  %body
+    = render partial: 'layouts/navbar'
+    = render partial: 'layouts/environment_ribbon'
+
+    %main
+      .ui.main.home-layout
+        = render partial: 'layouts/flashes'
+        = yield
+
+    = yield :body_bottom

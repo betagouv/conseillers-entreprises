@@ -1,6 +1,233 @@
-#home-index
-  #pia-logo
-    width: 140px
-    margin-top: 80px
-    margin-left: auto
-    margin-right: auto
+$page-width: 1040px
+$default-padding: 15px
+
+
+$blue: #d64f56
+$light-blue: rgba(214, 79, 86, 0.8)
+$black: #333333
+$light-grey: #F8F8F8
+$border-grey: #CCCCCC
+
+
+@mixin horizontal-padding($value)
+  padding-left: $value
+  padding-right: $value
+
+@mixin vertical-padding($value)
+  padding-top: $value
+  padding-bottom: $value
+
+
+%horizontal-list
+  list-style-type: none
+  margin: 0
+  padding: 0
+  font-size: 0
+  display: flex
+  flex-wrap: wrap
+
+%horizontal-list-item
+  display: inline-block
+
+%page-width-container
+  @include horizontal-padding($default-padding)
+  max-width: $page-width + 2 * $default-padding
+  margin: 0 auto
+
+
+.home-layout
+  padding-top: 30px
+
+.landing
+  background-color: #FFFFFF
+  .landing-panel
+    @include vertical-padding(60px)
+  .landing-panel-inner-content
+    @extend %page-width-container
+
+  $landing-breakpoint: 1040px
+
+  .hero-panel
+    @include vertical-padding(100px)
+    .hero-wrapper
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      @media (max-width: $landing-breakpoint)
+        justify-content: center
+      .hero-text
+        max-width: 500px
+        @media (max-width: $landing-breakpoint)
+          margin: auto
+      .hero-tagline
+        font-size: 30px
+        margin-bottom: 0
+      .hero-tagline-em
+        color: $blue
+        font-size: 36px
+        font-style: normal
+        font-weight: bold
+      .hero-illustration
+        padding-top: 20px
+        max-width: 500px
+        img
+          max-width: 100%
+        @media (max-width: 1030px)
+          margin: auto
+      .hero-button
+        @include horizontal-padding(30px)
+        display: inline-block
+        height: 60px
+        line-height: 60px
+        border-radius: 60px
+        background-color: $blue
+        color: #FFFFFF
+        font-size: 24px
+        margin-top: 30px
+        cursor: pointer
+        &:hover
+          color: #FFFFFF
+          text-decoration: none
+          background-color: $light-blue
+        &:focus
+          color: #FFFFFF
+          text-decoration: none
+
+  .landing-panel-title
+    width: 100%
+    font-size: 30px
+    font-weight: normal
+    text-align: center
+    margin-bottom: 40px
+    margin-top: 0
+
+  .features-panel
+    background-color: $blue
+    .features-panel-title
+      color: #FFFFFF
+    .features
+      @extend %horizontal-list
+      width: 100%
+      align-items: baseline
+      justify-content: space-between
+      @media (max-width: $landing-breakpoint)
+        justify-content: center
+      .feature
+        @extend %horizontal-list-item
+        width: 220px
+        @media (max-width: $landing-breakpoint)
+          margin: 15px 20px
+      .feature-text
+        text-align: center
+        color: #FFFFFF
+        font-size: 20px
+      .feature-text-em
+        font-weight: bold
+        font-style: normal
+      .feature-image
+        display: block
+        margin: 0 auto
+        margin-bottom: 24px
+
+  $dev-logos-breakpoint: 950px
+
+  .dev-logos
+    @extend %horizontal-list
+    justify-content: space-between
+    width: 100%
+    @media (max-width: $dev-logos-breakpoint)
+      justify-content: space-around
+    .dev-logo
+      @extend %horizontal-list-item
+      width: 170px
+      &:hover
+        opacity: 0.6
+      @media (max-width: $dev-logos-breakpoint)
+        margin: 0 15px 15px
+      &.direccte-logo
+        margin-top: 50px
+      &.beta-gouv-logo
+        margin-top: 45px
+
+  .cta-panel
+    background-color: $blue
+    color: #FFFFFF
+    .cta-panel-wrapper
+      width: 100%
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+    .cta-panel-title
+      font-size: 24px
+      font-weight: bold
+      margin-top: 13px
+    .cta-panel-explanation
+      font-size: 24px
+      margin-bottom: 10px
+    .cta-panel-button-wrapper
+      margin-top: 50px
+
+    .cta-panel-button
+      @include horizontal-padding(30px)
+      display: block
+      padding: 10px
+      border-radius: 100px
+      border: 2px solid #FFFFFF
+      color: #FFFFFF
+      font-size: 24px
+      text-align: center
+      cursor: pointer
+      &:hover
+        color: #FFFFFF
+        text-decoration: none
+        background-color: rgba(255, 255, 255, 0.2)
+      &:focus
+        color: #FFFFFF
+        text-decoration: none
+    .cta-panel-phone-cta
+      color: rgba(255, 255, 255, 0.9)
+      text-align: center
+      width: 293px
+      margin-top: 12px
+      margin-bottom: 0
+
+
+  .footer
+    @include vertical-padding(72px)
+    background-color: $light-grey
+    border-top: 1px solid $border-grey
+    .footer-inner-content
+      @extend %page-width-container
+    .footer-columns
+      @extend %horizontal-list
+      justify-content: flex-start
+    .footer-column
+      @extend %horizontal-list-item
+      font-size: 14px
+      vertical-align: top
+      flex-grow: 1
+      min-width: 320px
+      @media (max-width: 1000px)
+        width: 100%
+        margin-bottom: 14px
+    .footer-logos, .footer-links
+      list-style-type: none
+      padding: 0
+      margin: 0
+    .footer-link
+      margin-bottom: 14px
+      &:last-of-type
+        margin-bottom: 0
+    .footer-logo:hover
+      opacity: 0.8
+    .footer-logo-rf
+      width: 75px
+      margin-bottom: 14px
+    .footer-logo-beta-gouv-fr
+      width: 190px
+    .footer-link a
+      color: $black
+      text-decoration: none
+      &:hover, &:focus
+        color: $blue
+        text-decoration: none
