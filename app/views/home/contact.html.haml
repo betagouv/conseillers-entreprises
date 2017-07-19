@@ -1,15 +1,16 @@
-- meta title: t('.title')
+- meta title: t('contact_us')
 
-%h1= t('.title')
-- mailto_link = mail_to ENV['APPLICATION_EMAIL'], ENV['APPLICATION_EMAIL'], target: :_blank
-%p= t('.you_can_contact_us_html', mailto_link: mailto_link)
+.ui.text.container
+  %h1= t('contact_us')
+  - mailto_link = mail_to ENV['APPLICATION_EMAIL'], ENV['APPLICATION_EMAIL'], target: :_blank
+  %p= t('.you_can_contact_us_html', mailto_link: mailto_link)
 
-.ui.relaxed.list
-  - @contacts.each do |contact|
-    .item
-      .content
-        .header= contact.full_name
-        .description
-          = contact.contact_page_role.html_safe
-          %br
-          = "Tel : #{contact.phone_number}"
+  .ui.relaxed.list
+    - @contacts.each do |contact|
+      .item
+        .content
+          .header= contact.full_name
+          .description
+            = contact.contact_page_role.html_safe
+            %br
+            = "Tel : #{contact.phone_number}"

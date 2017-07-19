@@ -36,7 +36,7 @@ $border-grey: #CCCCCC
 
 
 .home-layout
-  padding-top: 30px
+  padding-top: 80px
 
 .landing
   background-color: #FFFFFF
@@ -48,7 +48,8 @@ $border-grey: #CCCCCC
   $landing-breakpoint: 1040px
 
   .hero-panel
-    @include vertical-padding(100px)
+    padding-top: 30px
+    padding-bottom: 100px
     .hero-wrapper
       display: flex
       flex-wrap: wrap
@@ -192,42 +193,36 @@ $border-grey: #CCCCCC
       margin-bottom: 0
 
 
-  .footer
-    @include vertical-padding(72px)
-    background-color: $light-grey
-    border-top: 1px solid $border-grey
-    .footer-inner-content
-      @extend %page-width-container
-    .footer-columns
-      @extend %horizontal-list
-      justify-content: flex-start
-    .footer-column
-      @extend %horizontal-list-item
-      font-size: 14px
-      vertical-align: top
-      flex-grow: 1
-      min-width: 320px
-      @media (max-width: 1000px)
-        width: 100%
-        margin-bottom: 14px
-    .footer-logos, .footer-links
-      list-style-type: none
-      padding: 0
-      margin: 0
-    .footer-link
+.footer-home
+  @include vertical-padding(72px)
+  background-color: $light-grey
+  border-top: 1px solid $border-grey
+  .footer-inner-content
+    @extend %page-width-container
+  .footer-columns
+    @extend %horizontal-list
+    justify-content: flex-start
+  .footer-column
+    @extend %horizontal-list-item
+    font-size: 14px
+    vertical-align: top
+    flex-grow: 1
+    min-width: 320px
+    @media (max-width: 1000px)
+      width: 100%
       margin-bottom: 14px
-      &:last-of-type
-        margin-bottom: 0
-    .footer-logo:hover
-      opacity: 0.8
-    .footer-logo-rf
-      width: 75px
-      margin-bottom: 14px
-    .footer-logo-beta-gouv-fr
-      width: 190px
-    .footer-link a
-      color: $black
-      text-decoration: none
-      &:hover, &:focus
-        color: $blue
-        text-decoration: none
+  .footer-logos, .footer-links
+    list-style-type: none
+    padding: 0
+    margin: 0
+  .footer-link
+    margin-bottom: 14px
+    &:last-of-type
+      margin-bottom: 0
+  .footer-logo:hover
+    opacity: 0.8
+  .footer-logo-rf
+    width: 75px
+    margin-bottom: 14px
+  .footer-logo-beta-gouv-fr
+    width: 190px

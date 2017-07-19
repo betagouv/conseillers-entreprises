@@ -4,58 +4,31 @@
       .hero-wrapper
         .hero-text
           %p.hero-tagline
-            = 'Aidez les entreprises'
-            %br
-            %em.hero-tagline-em= 'à accéder aux aides'
-            %br
-            = 'dont elles ont besoin'
-
-          = link_to 'Inscrivez-vous !', new_user_registration_path, class: 'hero-button'
+            = t('.tagline_html')
+          = link_to t('.sign_up_button'), new_user_registration_path, class: 'hero-button'
         .hero-illustration
           = image_tag 'reso-picture.png', class: 'ui medium circular image'
 
   .landing-panel.features-panel
     .landing-panel-inner-content
-      %h2.landing-panel-title.features-panel-title= 'Un outil pour conseiller les entreprises'
+      %h2.landing-panel-title.features-panel-title= t('.tool_to_help_companies')
       %ul.features
         %li.feature
-          -#= image_tag '', class: 'feature-image'
           %p.feature-text
-            = '1'
-            %br
-            %em.feature-text-em= 'Rencontrez'
-            %br
-            = 'une entreprise'
+            = t('.feature_meet_company_html')
         %li.feature
-          -#= image_tag '', class: 'feature-image'
           %p.feature-text
-            = '2'
-            %br
-            %em.feature-text-em= 'Analysez'
-            %br
-            = 'ses besoins'
+            = t('.feature_analyse_needs_html')
         %li.feature
-          -#= image_tag '', class: 'feature-image'
           %p.feature-text
-            = '3'
-            %br
-            = 'Trouvez les'
-            %br
-            %em.feature-text-em= 'contacts adaptés'
-            %br
-            = 'à ces besoins'
+            = t('.feature_find_relevant_contacts_html')
         %li.feature
-          -#= image_tag '', class: 'feature-image'
           %p.feature-text
-            = '4'
-            %br
-            %em.feature-text-em= 'Notifiez-les'
-            %br
-            = "d'un simple clic"
+            = t('.feature_contact_with_one_clic_html')
 
   .landing-panel.dev-logos-panel
     .landing-panel-inner-content
-      %h2.landing-panel-title= 'Réso est développé par'
+      %h2.landing-panel-title= t('.made_by')
       %ul.dev-logos
         %li.dev-logo.beta-gouv-logo
           = link_to 'https://beta.gouv.fr' do
@@ -71,36 +44,8 @@
     .landing-panel-inner-content
       .cta-panel-wrapper
         .cta-panel-explanation-wrapper
-          %h1.cta-panel-title= 'Des questions ? Des suggestions ?'
+          %h1.cta-panel-title= t('.questions_or_suggestions')
           %p.cta-panel-explanation
-            = "Nous vous accompagnons dans l'utilisation de Réso"
-            %br
-            = 'et recevons vos commentaires'
+            = t('.we_help_you_and_we_want_feedbacks_html')
         .cta-panel-button-wrapper
-          = link_to 'Contactez-nous', contact_home_index_path, class: 'cta-panel-button'
-
-  .footer
-    .footer-inner-content
-      %ul.footer-columns
-        %li.footer-column
-          %ul.footer-logos
-            %li
-              = link_to 'http://www.gouvernement.fr' do
-                = image_tag 'logo-rf.svg', class: 'footer-logo footer-logo-rf'
-            %li
-              = link_to 'https://beta.gouv.fr' do
-                = image_tag 'logo-beta-gouv-fr.svg', class: 'footer-logo footer-logo-beta-gouv-fr'
-
-        %li.footer-column
-          %ul.footer-links
-            %li.footer-link
-              = link_to 'SGMAP', 'http://www.modernisation.gouv.fr/le-sgmap', class: 'footer-link'
-            %li.footer-link
-              = link_to 'Nouveautés', 'https://github.com/sgmap/reso/releases', class: 'footer-link'
-
-        %li.footer-column
-          %ul.footer-links
-            %li.footer-link
-              = link_to 'Contact', contact_home_index_path, class: 'footer-link'
-            %li.footer-link
-              = link_to t('layouts.navbar.know_more'), about_home_index_path
+          = link_to t('contact_us'), contact_home_index_path, class: 'cta-panel-button'
