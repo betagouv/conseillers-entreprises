@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   private
 
   def render_error(exception)
-    raise exception if Rails.env.development?
+    raise exception if Rails.env.development? || (Rails.env.test? && !ENV['TEST_ERROR_RENDERING'].to_b)
     if NOT_FOUND_ERROR_CLASSES.include? exception.class
       respond_with_status(404)
     else

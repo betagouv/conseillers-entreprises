@@ -1,3 +1,4 @@
 web: bundle exec puma -C config/puma.rb
 clock: bundle exec clockwork app/models/clockwork.rb
 log: tail -f log/development.log
+webpack: ./bin/webpack-dev-server

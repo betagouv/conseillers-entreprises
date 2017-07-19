@@ -38,6 +38,14 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :diagnoses, only: %i[show update]
+
+    resources :visits, only: %i[] do
+      resources :contacts, only: %i[index create]
+    end
+
+    resources :contacts, only: %i[show update destroy] do
+      get :contact_button_expert, on: :collection
+    end
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

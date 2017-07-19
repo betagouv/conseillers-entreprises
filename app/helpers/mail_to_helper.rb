@@ -7,12 +7,6 @@ module MailToHelper
     one_contact_email_button(visit, question, assistance, expert_email, mailto_text)
   end
 
-  def institution_contact_button(visit:, question:, assistance:)
-    institution_email = assistance.institution.email
-    mailto_text = t('assistance.assistance.contact_institution_by_email')
-    one_contact_email_button(visit, question, assistance, institution_email, mailto_text)
-  end
-
   def assistances_contact_all_button(visit:, question:, assistances:)
     mail_to(
       assistances_contact_emails_string_list(assistances),
