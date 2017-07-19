@@ -12,8 +12,7 @@
           = t('activerecord.attributes.assistance.description')
           = semantic_icon('caret down')
       .toggle-div
-        %p
-          %em= simple_format assistance.description
+        %em= simple_format assistance.description
   - if assistance.has_experts?
     %h5= t('.contacts')
     .ui.cards
