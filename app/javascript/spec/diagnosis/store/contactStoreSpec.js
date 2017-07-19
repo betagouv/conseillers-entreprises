@@ -61,7 +61,7 @@ describe('ContactStore', () => {
 
         var contactAPIServiceMock = {
             createContactOnVisit: () => {
-                var promise = Promise.resolve({data: {}});
+                var promise = Promise.resolve(contact);
                 return promise;
             }
         };
@@ -80,7 +80,7 @@ describe('ContactStore', () => {
 
             beforeEach(function () {
                 state = {visitId: 7, isContactRequestUnderWay: false};
-                spyOn(contactAPIServiceMock,'createContactOnVisit').and.callThrough();
+                spyOn(contactAPIServiceMock, 'createContactOnVisit').and.callThrough();
                 commit = jasmine.createSpy();
             });
 
@@ -96,8 +96,25 @@ describe('ContactStore', () => {
                 expect(contactAPIServiceMock.createContactOnVisit.calls.argsFor(0)).toEqual([7, contactData]);
             });
 
-            xit('calls commit CONTACT with the contact data', {
+            it('calls commit CONTACT with the contact data', async function () {
+                await actions.createContact(createContactContext(commit, state), contactData);
 
+                expect(commit.calls.count()).toEqual(3);
+                expect(commit.calls.argsFor(1)).toEqual(['CONTACT', contact]);
+            });
+
+            it('calls commit CONTACT_REQUEST_UNDERWAY with true at start of action', function () {
+                actions.createContact(createContactContext(commit, state), contactData);
+
+                expect(commit.calls.count()).toEqual(1);
+                expect(commit.calls.argsFor(0)).toEqual(['CONTACT_REQUEST_UNDERWAY', true]);
+            });
+
+            it('calls commit CONTACT_REQUEST_UNDERWAY with false at end of action', async function () {
+                await actions.createContact(createContactContext(commit, state), contactData);
+
+                expect(commit.calls.count()).toEqual(3);
+                expect(commit.calls.argsFor(2)).toEqual(['CONTACT_REQUEST_UNDERWAY', false]);
             });
         });
     });

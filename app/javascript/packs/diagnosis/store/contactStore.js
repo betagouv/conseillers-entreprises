@@ -10,7 +10,6 @@ const state = {
 const getters = {
 };
 
-// actions
 const actions = {
     createContact ({ commit, state, contactAPIServiceDependency }, contactData) {
         var conctactAPIService = contactAPIServiceDependency;
@@ -18,11 +17,15 @@ const actions = {
             conctactAPIService = ContactAPIService;
         }
 
-        return conctactAPIService.createContactOnVisit(state.visitId, contactData);
+        commit(types.CONTACT_REQUEST_UNDERWAY, true);
+        return conctactAPIService.createContactOnVisit(state.visitId, contactData)
+            .then( (contact) => {
+                commit(types.CONTACT, contact);
+                commit(types.CONTACT_REQUEST_UNDERWAY, false);
+            });
     }
 };
 
-// mutations
 const mutations = {
     [types.CONTACT_REQUEST_UNDERWAY] (state, { isContactRequestUnderWay }) {
         state.isContactRequestUnderWay = isContactRequestUnderWay;
