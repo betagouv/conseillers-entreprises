@@ -1,8 +1,6 @@
 <template>
     <div class="ui dimmer modals page inverted" v-bind:class="{ active: show }" v-on:click="dimmerClicked">
-        <div class="ui modal large visible scrolling" v-bind:class="{ active: show }"
-        style="display: block !important;">
-            <!--<i class="close icon"></i>-->
+        <div class="ui modal large visible scrolling" v-bind:class="{ active: show }">
             <div class="header">
                 <%= I18n.t('diagnosis.show.add_contact_modal.header') %>
             </div>

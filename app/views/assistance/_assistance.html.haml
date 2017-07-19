@@ -24,8 +24,3 @@
             .meta= expert.role
           .extra.content
             %contact-modal{ 'visit-id' => visit.id, 'assistance-id' => assistance.id, 'expert-id' => expert.id}
-  - else
-    - if visit.visitee
-      = institution_contact_button(visit: visit, question: question, assistance: assistance)
-    - else
-      = link_to t('assistance.assistance.contact_institution_by_email'), edit_visitee_visit_path(visit, diagnosis_id: diagnosis_id), class: 'ui button green mini'

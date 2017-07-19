@@ -43,8 +43,7 @@
         },
         computed: {
             ...mapState({
-                contact: state => state.contactStore.contact,
-                isLoadingD: 'contactStore/isContactRequestUnderWay'
+                contact: state => state.contactStore.contact
             }),
             contacts: function () {
                 return [this.contact].filter( Boolean );
