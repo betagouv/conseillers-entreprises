@@ -12,13 +12,13 @@ const getters = {
 
 const actions = {
     createContact ({ commit, state, contactAPIServiceDependency }, contactData) {
-        var conctactAPIService = contactAPIServiceDependency;
-        if(typeof conctactAPIService == 'undefined') {
-            conctactAPIService = ContactAPIService;
+        var contactAPIService = contactAPIServiceDependency;
+        if(typeof contactAPIService == 'undefined') {
+            contactAPIService = ContactAPIService;
         }
 
         commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: true});
-        return conctactAPIService.createContactOnVisit(state.visitId, contactData)
+        return contactAPIService.createContactOnVisit(state.visitId, contactData)
             .then( (contact) => {
                 commit(types.CONTACT, {contact: contact});
                 commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: false});
@@ -26,13 +26,13 @@ const actions = {
     },
 
     getContact ({ commit, state, contactAPIServiceDependency }) {
-        var conctactAPIService = contactAPIServiceDependency;
-        if(typeof conctactAPIService == 'undefined') {
-            conctactAPIService = ContactAPIService;
+        var contactAPIService = contactAPIServiceDependency;
+        if(typeof contactAPIService == 'undefined') {
+            contactAPIService = ContactAPIService;
         }
 
         commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: true});
-        return conctactAPIService.getContacts(state.visitId)
+        return contactAPIService.getContacts(state.visitId)
             .then( (contacts) => {
                 commit(types.CONTACT, {contact: contacts[0]});
                 commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: false});
