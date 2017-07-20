@@ -1,4 +1,10 @@
 fr:
+  diagnosis_v2:
+    steps:
+      step1_title_html: Entreprise<br>visitée
+      step2_title_html: Besoins<br>détectés
+      step3_title_html: Informations<br>complémentaires
+      step4_title_html: Mise en<br>contact
   diagnosis:
     index:
       title: Analyses
