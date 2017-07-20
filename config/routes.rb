@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :diagnosis_v2, only: %i[new]
+
   resources :visits, only: %i[index show new create] do
     member do
       get 'company' => 'companies#show'
