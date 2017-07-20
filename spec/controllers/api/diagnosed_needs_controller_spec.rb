@@ -40,7 +40,7 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
       let(:diagnosed_needs_array) do
         [
           { question_id: question1.id, content: Faker::Lorem.paragraph },
-          { question_id: "lol_id", content: Faker::Lorem.paragraph }
+          { question_id: 'lol_id', content: Faker::Lorem.paragraph }
         ]
       end
 
