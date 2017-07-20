@@ -1,0 +1,25 @@
+- meta title: t('.diagnosis_date', date: @diagnosis.creation_date_localized)
+
+%h1= t('.identified_needs', count: @diagnosis.diagnosed_needs.count)
+%p= t('.diagnosis_date', date: @diagnosis.creation_date_localized)
+
+#vue-js-app
+  %content-form{ diagnosis_id: @diagnosis.id }
+
+  - categories_with_questions.each do |item|
+    %h2= item[:category]
+    %table.ui.celled.table
+      %tbody
+        - item[:questions].each do |question|
+          %tr
+            %td
+              %label
+                .full-width.clickable
+                  = "#{question.id} - #{question.label}"
+            %td.collapsing
+              .ui.fitted.checkbox
+                %input{ type: 'checkbox', value: 'on'}
+                %label
+
+
+= javascript_pack_tag 'diagnosis/diagnosisMain'

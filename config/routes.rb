@@ -23,7 +23,11 @@ Rails.application.routes.draw do
       patch :update_visitee
     end
 
-    resources :diagnosis, only: %i[index new create show]
+    resources :diagnosis, only: %i[index new create show] do
+      member do
+        get 'step-2' => 'diagnosis#step2'
+      end
+    end
   end
 
   resources :companies, only: %i[], param: :siret do

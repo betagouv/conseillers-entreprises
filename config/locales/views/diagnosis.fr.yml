@@ -30,3 +30,11 @@ fr:
         add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
         email_address: Adresse e-mail
         phone_number: Numéro de télephone
+    step2:
+      identified_needs:
+        zero: Aucun besoin identifié
+        one: Un besoin a été identifié
+        other: "%{count} besoins ont été identifiés"
+      diagnosis_date: "Analyse du %{date}"
+      description: "Entrez des informations complémentaires concernant cette analyse :"
+      save_loader: Sauvegarde en cours
