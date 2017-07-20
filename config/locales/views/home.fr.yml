@@ -5,12 +5,12 @@ fr:
       sign_up_button: Inscrivez-vous !
       tool_to_help_companies: Un outil pour conseiller les entreprises
       feature_meet_company_html: "1<br><em class='feature-text-em'>Rencontrez</em><br>une entreprise"
-      feature_analyse_needs_html: "2<br><em class='feature-text-em'>Analyses</em><br>ses besoins"
+      feature_analyse_needs_html: "2<br><em class='feature-text-em'>Analysez</em><br>ses besoins"
       feature_find_relevant_contacts_html: "3<br>Trouvez les<br><em class='feature-text-em'>contacts adaptés</em><br>à ces besoins"
       feature_contact_with_one_clic_html: "4<br><em class='feature-text-em'>Notifiez-les</em><br>d'un simple clic"
       made_by: Réso est développé par
       questions_or_suggestions: Des questions ? Des suggestions ?
-      we_help_you_and_we_want_feedbacks_html: "Nous vous accompagnons dans l'utilisation de Réso<br>et recevons vos commentaires"
+      we_help_you_and_we_want_feedbacks_html: "Nous vous accompagnons dans l'utilisation de Réso<br>et recevons vos commentaires."
     about:
       explanation_html: |
         <h2>Des entrepreneurs isolés, des conseils cloisonnés</h2>
