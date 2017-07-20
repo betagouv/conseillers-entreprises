@@ -1,25 +1,51 @@
-#home-index
-  .ui.relaxed.grid
-    .three.column.row
-      .column
-        = image_tag 'reso-logo.png', width: 200
-      .column
-        = image_tag 'reso-picture.png', width: 210
-      .column
-        = image_tag 'marianne.png', width: 200
+.landing
+  .landing-panel.hero-panel
+    .landing-panel-inner-content
+      .hero-wrapper
+        .hero-text
+          %p.hero-tagline
+            = t('.tagline_html')
+          = link_to t('.sign_up_button'), new_user_registration_path, class: 'hero-button'
+        .hero-illustration
+          = image_tag 'reso-picture.png', class: 'ui medium circular image'
 
-  %h1= t('.welcome')
-  %p= t('.explanation')
-  = link_to about_home_index_path, class: 'ui orange button' do
-    = semantic_icon('question mark')
-    = t('layouts.navbar.know_more')
-  - unless user_signed_in?
-    = link_to new_user_session_path, class: 'ui yellow button' do
-      = semantic_icon('sign in')
-      = t('sign_in')
-    = link_to new_user_registration_path, class: 'ui olive button' do
-      = semantic_icon('sign in')
-      = t('sign_up')
+  .landing-panel.features-panel
+    .landing-panel-inner-content
+      %h2.landing-panel-title.features-panel-title= t('.tool_to_help_companies')
+      %ul.features
+        %li.feature
+          %p.feature-text
+            = t('.feature_meet_company_html')
+        %li.feature
+          %p.feature-text
+            = t('.feature_analyse_needs_html')
+        %li.feature
+          %p.feature-text
+            = t('.feature_find_relevant_contacts_html')
+        %li.feature
+          %p.feature-text
+            = t('.feature_contact_with_one_clic_html')
 
-  #pia-logo
-    = image_tag 'investissements_avenir.png', width: 140
+  .landing-panel.dev-logos-panel
+    .landing-panel-inner-content
+      %h2.landing-panel-title= t('.made_by')
+      %ul.dev-logos
+        %li.dev-logo.beta-gouv-logo
+          = link_to 'https://beta.gouv.fr' do
+            = image_tag 'logo-beta-gouv-fr.svg', width: 200
+        %li.dev-logo
+          = link_to 'http://www.gouvernement.fr/investissements-d-avenir-cgi' do
+            = image_tag 'investissements_avenir.png', width: 140
+        %li.dev-logo.direccte-logo
+          = link_to 'http://hauts-de-france.direccte.gouv.fr' do
+            = image_tag 'logo-direccte.png', width: 200
+
+  .landing-panel.cta-panel
+    .landing-panel-inner-content
+      .cta-panel-wrapper
+        .cta-panel-explanation-wrapper
+          %h1.cta-panel-title= t('.questions_or_suggestions')
+          %p.cta-panel-explanation
+            = t('.we_help_you_and_we_want_feedbacks_html')
+        .cta-panel-button-wrapper
+          = link_to t('contact_us'), contact_home_index_path, class: 'cta-panel-button'

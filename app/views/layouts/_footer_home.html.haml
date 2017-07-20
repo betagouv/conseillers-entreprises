@@ -1,0 +1,25 @@
+.footer-home
+  .footer-inner-content
+    %ul.footer-columns
+      %li.footer-column
+        %ul.footer-logos
+          %li
+            = link_to 'http://www.gouvernement.fr' do
+              = image_tag 'logo-rf.svg', class: 'footer-logo footer-logo-rf'
+          %li
+            = link_to 'https://beta.gouv.fr' do
+              = image_tag 'logo-beta-gouv-fr.svg', class: 'footer-logo footer-logo-beta-gouv-fr'
+
+      %li.footer-column
+        %ul.footer-links
+          %li.footer-link
+            = link_to 'SGMAP', 'http://www.modernisation.gouv.fr/le-sgmap', class: 'footer-link'
+          %li.footer-link
+            = link_to t('.news'), 'https://github.com/sgmap/reso/releases', class: 'footer-link'
+
+      %li.footer-column
+        %ul.footer-links
+          %li.footer-link
+            = link_to t('contact_us'), contact_home_index_path, class: 'footer-link'
+          %li.footer-link
+            = link_to t('.know_more'), about_home_index_path

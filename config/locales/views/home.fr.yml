@@ -1,8 +1,16 @@
 fr:
   home:
     index:
-      welcome: Bienvenue sur Réso !
-      explanation: Réso (Rapprocher les Entreprises des Solutions publiques Optimales) aide les conseillers à cibler les entreprises en besoin, et aide les entreprises à recourir aux aides.
+      tagline_html: "Aidez les entreprises<br><em class='hero-tagline-em'>à accéder aux aides</em><br>dont elles ont besoin"
+      sign_up_button: Inscrivez-vous !
+      tool_to_help_companies: Un outil pour conseiller les entreprises
+      feature_meet_company_html: "1<br><em class='feature-text-em'>Rencontrez</em><br>une entreprise"
+      feature_analyse_needs_html: "2<br><em class='feature-text-em'>Analyses</em><br>ses besoins"
+      feature_find_relevant_contacts_html: "3<br>Trouvez les<br><em class='feature-text-em'>contacts adaptés</em><br>à ces besoins"
+      feature_contact_with_one_clic_html: "4<br><em class='feature-text-em'>Notifiez-les</em><br>d'un simple clic"
+      made_by: Réso est développé par
+      questions_or_suggestions: Des questions ? Des suggestions ?
+      we_help_you_and_we_want_feedbacks_html: "Nous vous accompagnons dans l'utilisation de Réso<br>et recevons vos commentaires"
     about:
       explanation_html: |
         <h2>Des entrepreneurs isolés, des conseils cloisonnés</h2>
@@ -14,5 +22,4 @@ fr:
         <p>Un outil numérique est au cœur de ce réseau et permet de le fédérer. Des algorithmes utilisant des bases de données publiques (activités, résultats financiers, export…) permettent de cibler la prospection : entreprises en pré-difficulté, à fort potentiel de croissance ou ayant un projet de recrutement… Un simulateur permet aux conseillers de proposer aux chefs d’entreprise un premier niveau d’information sur les aides correspondant à leurs besoins et, le cas échéant, d’identifier un contact au sein de l’administration capable de les accompagner dans leurs démarches.</p>
         <p>Réso permet ainsi à l’administration de développer un rôle de conseil à destination des entreprises en complément de son rôle régalien de contrôle.</p>
     contact:
-      title: Contactez-nous
       you_can_contact_us_html: "Vous pouvez nous contacter à tout moment par e-mail sur %{mailto_link} ou sur les numéros de téléphone suivants :"

@@ -6,6 +6,6 @@ RSpec.describe 'home/index.html.haml', type: :view do
   it 'displays a title' do
     render
 
-    expect(rendered).to match(/Bienvenue sur Réso !/)
+    expect(rendered).to match(/Un outil pour conseiller les entreprises/)
   end
 end
