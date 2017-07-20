@@ -22,7 +22,6 @@ pickle-email-*.html
 # config/secrets.yml
 
 # dotenv
-# TODO Comment out this rule if environment variables can be committed
 .env
 
 # Ignore bundler config.

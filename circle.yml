@@ -1,8 +1,9 @@
 machine:
   node:
-    version: 6.1.0
+    version: 8.1.2
 
 dependencies:
   override:
     - bundle
     - yarn install
+    - npm rebuild node-sass

@@ -64,6 +64,7 @@ GEM
     bourbon (4.3.4)
       sass (~> 3.4)
       thor (~> 0.19)
+    browser (2.4.0)
     builder (3.2.3)
     byebug (9.0.6)
     capybara (2.14.0)
@@ -364,6 +365,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin
   awesome_print
+  browser
   byebug
   capybara
   clockwork (~> 2.0, >= 2.0.2)
@@ -404,4 +406,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.1
+   1.15.2

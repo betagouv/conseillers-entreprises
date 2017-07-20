@@ -20,3 +20,8 @@ window.ToggleDiv =
 $(document).on 'turbolinks:load', ->
   if $('#company-show').length > 0 || $('.assistance').length > 0
     window.ToggleDiv.setup()
+
+# IE9 compatibility
+$ ->
+  if $('#company-show').length > 0 || $('.assistance').length > 0
+    window.ToggleDiv.setup()
