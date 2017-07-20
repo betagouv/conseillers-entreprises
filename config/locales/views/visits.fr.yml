@@ -29,7 +29,6 @@ fr:
       or: ou
       search_by_name_and_county: "Rechercher l'entreprise en renseignant sa raison sociale et son numéro de département."
       county: Numéro de département
-      search: Rechercher
     edit_visitee:
       your_contact_in_the_company: Votre contact en entreprise
       info_about_who_you_saw_during_your_visit: Remplissez ces informations concernant la personne que vous avez rencontrée chez %{company_name}.
