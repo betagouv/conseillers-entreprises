@@ -29,6 +29,10 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
 
       it 'creates two diagnosed needs' do
         expect(DiagnosedNeed.all.count).to eq(2)
+        expect(DiagnosedNeed.first.question_id).to eq(diagnosed_needs_array.first[:question_id])
+        expect(DiagnosedNeed.last.question_id).to eq(diagnosed_needs_array.last[:question_id])
+        expect(DiagnosedNeed.first.content).to eq(diagnosed_needs_array.first[:content])
+        expect(DiagnosedNeed.last.content).to eq(diagnosed_needs_array.last[:content])
       end
     end
 
