@@ -37,7 +37,9 @@ Rails.application.routes.draw do
   resources :mailto_logs, only: %i[create]
 
   namespace :api do
-    resources :diagnoses, only: %i[show update]
+    resources :diagnoses, only: %i[show update] do
+      resources :diagnosed_needs, only: %i[create]
+    end
 
     resources :visits, only: %i[] do
       resources :contacts, only: %i[index create]

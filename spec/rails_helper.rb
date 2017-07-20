@@ -34,7 +34,6 @@ RSpec.configure do |config|
   config.before :suite do
     # Run webpack compilation before suite, so assets exists in public/packs
     # see https://github.com/rspec/rspec-core/issues/2366
-    `bin/webpack`
   end
 end
 
