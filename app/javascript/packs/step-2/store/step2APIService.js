@@ -8,13 +8,13 @@ export default class step2APIService {
             url: `/api/diagnoses/${diagnosisId}`,
             data: {
                 diagnosis: {
-                    content: 'Awesome random stuff'
+                    content: content
                 }
             }
-        };
+        }
         return this.send(config).then(() => {
-            return true;
-        });
+            return true
+        })
     }
 
     static send(config) {

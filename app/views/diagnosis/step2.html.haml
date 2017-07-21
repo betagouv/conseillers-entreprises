@@ -5,7 +5,7 @@
 
 #step2-app
   %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content }
-  -#%content-form{ diagnosis_id: @diagnosis.id }
+  %content-text-area
 
   - categories_with_questions.each do |item|
     %h2= item[:category]
@@ -22,5 +22,6 @@
                 %input{ type: 'checkbox', value: 'on'}
                 %label
 
+  %next-step-button
 
 = javascript_pack_tag 'step-2/step2App'
