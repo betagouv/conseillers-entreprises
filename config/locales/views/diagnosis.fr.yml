@@ -11,6 +11,8 @@ fr:
       siret_error_title: Entreprise non trouvée !
       siret_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
       location: Localité
+    step2:
+      title: Etape 2 !!
   diagnosis:
     index:
       title: Analyses

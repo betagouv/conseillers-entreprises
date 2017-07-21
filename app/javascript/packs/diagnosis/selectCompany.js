@@ -71,6 +71,7 @@ new Vue({
                 const vm = this
                 let onSuccess = function (response) {
                     vm.isLoading = false
+                    Turbolinks.visit(`/diagnosis_v2/${response.data.id}/step-2`)
                 }
                 let onError = function (error) {
                     vm.isLoading = false

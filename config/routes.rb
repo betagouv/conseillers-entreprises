@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnosis_v2, only: %i[new]
+  resources :diagnosis_v2, only: %i[new] do
+    get 'step-2' => :step2, on: :member
+  end
 
   resources :visits, only: %i[index show new create] do
     member do
