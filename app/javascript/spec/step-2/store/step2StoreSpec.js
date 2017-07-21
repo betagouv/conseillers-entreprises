@@ -1,5 +1,5 @@
 import axios from 'axios'
-import ContactStore from '../../../packs/step-2/store/step2Store'
+import Step2Store from '../../../packs/step-2/store/step2Store'
 
 //for the async function to work
 require("babel-core/register");
@@ -9,7 +9,7 @@ describe('ContactStore', () => {
 
     describe('mutations', () => {
 
-        var mutations = ContactStore.mutations;
+        var mutations = Step2Store.mutations;
 
         describe('DIAGNOSTIC_ID', function () {
 
@@ -29,7 +29,7 @@ describe('ContactStore', () => {
             });
         });
 
-        xdescribe('DIAGNOSTIC_REQUEST_UNDERWAY', function () {
+        describe('DIAGNOSTIC_REQUEST_UNDERWAY', function () {
 
             it('updates the isDiagnosisRequestUnderWay', function () {
                 const state = {isDiagnosisRequestUnderWay: false};
@@ -39,127 +39,123 @@ describe('ContactStore', () => {
         });
     });
 
-    xdescribe('actions', () => {
+    describe('actions', () => {
 
-        var actions = ContactStore.actions;
+        var actions = Step2Store.actions;
 
-        var contactAPIServiceMock = {
-            createContactOnVisit: () => {
-                var promise = Promise.resolve(contact);
-                return promise;
-            },
-            getContacts: () => {
-                var promise = Promise.resolve([contact]);
-                return promise;
+        var step2StoreAPIServiceMock = {
+            udpateDiagnosisContent: () => {
             }
         };
-        var createContactContext = function (commit, state) {
+        var apiServiceContext = function (commit, state) {
             return {
                 commit: commit,
                 state: state,
-                contactAPIServiceDependency: contactAPIServiceMock
+                step2APIServiceDependency: step2StoreAPIServiceMock
             };
         };
 
-        describe('createContact', function () {
+        describe('udpateDiagnosisContent', function () {
 
             var commit;
-            var state;
+            const state = {
+                diagnosisContent: 'content !',
+                diagnosisId: 12,
+                isDiagnosisRequestUnderWay: false
+            };
 
-            beforeEach(function () {
-                state = {visitId: 7, isContactRequestUnderWay: false};
-                spyOn(contactAPIServiceMock, 'createContactOnVisit').and.callThrough();
-                commit = jasmine.createSpy();
+            describe('when api call is a success', function () {
+
+                const positivePromise = Promise.resolve(true);
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'udpateDiagnosisContent').and.returnValue(positivePromise);
+                    commit = jasmine.createSpy();
+                });
+
+                it('returns a promise', function () {
+                    var promise = actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state));
+                    expect(typeof promise.then).toBe('function')
+                });
+
+                it('calls contactAPIService with the diagnosisId and the content', async function () {
+                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state));
+
+                    expect(step2StoreAPIServiceMock.udpateDiagnosisContent.calls.count()).toEqual(1);
+                    expect(step2StoreAPIServiceMock.udpateDiagnosisContent.calls.argsFor(0)).toEqual([12, 'content !']);
+                });
+
+                it('calls commit DIAGNOSTIC_REQUEST_UNDERWAY with true at start of action', function () {
+                    actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state));
+
+                    expect(commit.calls.count()).toEqual(1);
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'DIAGNOSTIC_REQUEST_UNDERWAY',
+                        true
+                    ]);
+                });
+
+                it('calls commit DIAGNOSTIC_REQUEST_UNDERWAY with false at end of action', async function () {
+                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state));
+
+                    expect(commit.calls.count()).toEqual(2);
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'DIAGNOSTIC_REQUEST_UNDERWAY',
+                        false
+                    ]);
+                });
             });
 
-            it('returns a promise', function () {
-                var promise = actions.createContact(createContactContext(commit, state), contactData);
-                expect(typeof promise.then).toBe('function')
-            });
+            describe('when api call throws an error', function () {
 
-            it('calls contactAPIService with the visitId and the contact data', async function () {
-                await actions.createContact(createContactContext(commit, state), contactData);
+                const apiError = new Error('error :-(');
+                const negativePromise = Promise.reject(apiError);
 
-                expect(contactAPIServiceMock.createContactOnVisit.calls.count()).toEqual(1);
-                expect(contactAPIServiceMock.createContactOnVisit.calls.argsFor(0)).toEqual([7, contactData]);
-            });
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'udpateDiagnosisContent').and.returnValue(negativePromise);
+                    commit = jasmine.createSpy();
+                });
 
-            it('calls commit CONTACT with the contact data', async function () {
-                await actions.createContact(createContactContext(commit, state), contactData);
+                it('returns a promise', function () {
+                    var promise = actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state));
+                    expect(typeof promise.then).toBe('function')
+                });
 
-                expect(commit.calls.count()).toEqual(3);
-                expect(commit.calls.argsFor(1)).toEqual(['CONTACT', {contact: contact}]);
-            });
+                it('calls contactAPIService with the diagnosisId and the content', async function () {
+                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state));
 
-            it('calls commit CONTACT_REQUEST_UNDERWAY with true at start of action', function () {
-                actions.createContact(createContactContext(commit, state), contactData);
+                    expect(step2StoreAPIServiceMock.udpateDiagnosisContent.calls.count()).toEqual(1);
+                    expect(step2StoreAPIServiceMock.udpateDiagnosisContent.calls.argsFor(0)).toEqual([12, 'content !']);
+                });
 
-                expect(commit.calls.count()).toEqual(1);
-                expect(commit.calls.argsFor(0)).toEqual([
-                    'CONTACT_REQUEST_UNDERWAY',
-                    {isContactRequestUnderWay: true}
-                ]);
-            });
+                it('calls commit DIAGNOSTIC_REQUEST_UNDERWAY with true at start of action', function () {
+                    actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state));
 
-            it('calls commit CONTACT_REQUEST_UNDERWAY with false at end of action', async function () {
-                await actions.createContact(createContactContext(commit, state), contactData);
+                    expect(commit.calls.count()).toEqual(1);
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'DIAGNOSTIC_REQUEST_UNDERWAY',
+                        true
+                    ]);
+                });
 
-                expect(commit.calls.count()).toEqual(3);
-                expect(commit.calls.argsFor(2)).toEqual([
-                    'CONTACT_REQUEST_UNDERWAY',
-                    {isContactRequestUnderWay: false}
-                ]);
-            });
-        });
+                it('calls commit DIAGNOSTIC_REQUEST_UNDERWAY with false at end of action', async function () {
+                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state)).catch( () => {});
 
-        describe('getContact', function () {
+                    expect(commit.calls.count()).toEqual(2);
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'DIAGNOSTIC_REQUEST_UNDERWAY',
+                        false
+                    ]);
+                });
 
-            var commit;
-            var state;
-
-            beforeEach(function () {
-                state = {visitId: 7, isContactRequestUnderWay: false};
-                spyOn(contactAPIServiceMock, 'getContacts').and.callThrough();
-                commit = jasmine.createSpy();
-            });
-
-            it('returns a promise', function () {
-                var promise = actions.getContact(createContactContext(commit, state), contactData);
-                expect(typeof promise.then).toBe('function')
-            });
-
-            it('calls contactAPIService with the visitId and the contact data', async function () {
-                await actions.getContact(createContactContext(commit, state), contactData);
-
-                expect(contactAPIServiceMock.getContacts.calls.count()).toEqual(1);
-                expect(contactAPIServiceMock.getContacts.calls.argsFor(0)).toEqual([7]);
-            });
-
-            it('calls commit CONTACT with the contact data', async function () {
-                await actions.getContact(createContactContext(commit, state), contactData);
-
-                expect(commit.calls.count()).toEqual(3);
-                expect(commit.calls.argsFor(1)).toEqual(['CONTACT', {contact: contact}]);
-            });
-
-            it('calls commit CONTACT_REQUEST_UNDERWAY with true at start of action', function () {
-                actions.getContact(createContactContext(commit, state), contactData);
-
-                expect(commit.calls.count()).toEqual(1);
-                expect(commit.calls.argsFor(0)).toEqual([
-                    'CONTACT_REQUEST_UNDERWAY',
-                    {isContactRequestUnderWay: true}
-                ]);
-            });
-
-            it('calls commit CONTACT_REQUEST_UNDERWAY with false at end of action', async function () {
-                await actions.createContact(createContactContext(commit, state), contactData);
-
-                expect(commit.calls.count()).toEqual(3);
-                expect(commit.calls.argsFor(2)).toEqual([
-                    'CONTACT_REQUEST_UNDERWAY',
-                    {isContactRequestUnderWay: false}
-                ]);
+                it('propagtes the error', async function () {
+                    var catchedError;
+                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                        .catch( (error) => {
+                            catchedError = error;
+                        });
+                    expect(catchedError).toEqual(apiError);
+                });
             });
         });
     });

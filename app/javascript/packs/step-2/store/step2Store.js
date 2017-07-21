@@ -1,4 +1,4 @@
-import ContactAPIService from './step2APIService'
+import Step2APIService from './step2APIService'
 import * as types from './mutationTypes'
 
 const state = {
@@ -11,19 +11,23 @@ const getters = {
 };
 
 const actions = {
-    // getContact ({ commit, state, contactAPIServiceDependency }) {
-    //     var contactAPIService = contactAPIServiceDependency;
-    //     if(typeof contactAPIService == 'undefined') {
-    //         contactAPIService = ContactAPIService;
-    //     }
-    //
-    //     commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: true});
-    //     return contactAPIService.getContacts(state.visitId)
-    //         .then( (contacts) => {
-    //             commit(types.CONTACT, {contact: contacts[0]});
-    //             commit(types.CONTACT_REQUEST_UNDERWAY, {isContactRequestUnderWay: false});
-    //         });
-    // }
+
+    sendDiagnosisContentUdpate ({ commit, state, step2APIServiceDependency }) {
+        var step2APIService = step2APIServiceDependency;
+        if(typeof step2APIService == 'undefined') {
+            step2APIService = Step2APIService;
+        }
+
+        commit(types.DIAGNOSTIC_REQUEST_UNDERWAY, true);
+        return step2APIService.udpateDiagnosisContent(state.diagnosisId, state.diagnosisContent)
+            .then( () => {
+                commit(types.DIAGNOSTIC_REQUEST_UNDERWAY, false);
+            })
+            .catch( (error) => {
+                commit(types.DIAGNOSTIC_REQUEST_UNDERWAY, false);
+                throw error;
+            });
+    }
 };
 
 const mutations = {
