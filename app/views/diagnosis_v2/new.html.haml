@@ -14,8 +14,8 @@
         .inline.fields.no-margin
           .field
             .ui.labeled.input
-              %label.ui.label{for: 'company-siret'}= t('activerecord.attributes.facility.siret')
-              %input.company-siret{type: 'text', name: 'siret', 'v-model' => 'siret', pattern: Facility::NUMBER_PATTERN, required: true}
+              %label.ui.label{for: 'siret'}= t('activerecord.attributes.facility.siret')
+              %input{type: 'text', id: 'siret', name: 'siret', 'v-model' => 'siret', pattern: Facility::NUMBER_PATTERN, required: true}
           %button.ui.teal.labeled.icon.button
             = t('search')
             %i.search.icon
