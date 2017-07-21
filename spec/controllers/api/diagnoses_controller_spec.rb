@@ -24,7 +24,9 @@ RSpec.describe Api::DiagnosesController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    subject(:request) { patch :update, format: :json, params: { id: diagnosis.id, diagnosis: { content: new_content } } }
+    subject(:request) do
+      patch :update, format: :json, params: { id: diagnosis.id, diagnosis: { content: new_content } }
+    end
 
     let(:new_content) { 'Lorem fake stuff content' }
 
