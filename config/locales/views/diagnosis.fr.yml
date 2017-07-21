@@ -5,6 +5,12 @@ fr:
       step2_title_html: Besoins<br>détectés
       step3_title_html: Informations<br>complémentaires
       step4_title_html: Mise en<br>contact
+    new:
+      title: Nouvelle analyse
+      search_company: Recherche de l'entreprise
+      siret_error_title: Entreprise non trouvée !
+      siret_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
+      location: Localité
   diagnosis:
     index:
       title: Analyses

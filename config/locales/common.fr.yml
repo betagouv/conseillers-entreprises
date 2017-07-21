@@ -7,10 +7,12 @@ fr:
   back: Retour
   search: Rechercher
   save: Enregistrer
+  save_in_progress: Sauvegarde en cours
   cancel: Annuler
   actions: Actions
   show: Montrer
   hide: Cacher
+  next_step: Étape suivante
   sign_up: S'inscrire
   sign_in: Se connecter
   contact_us: Contactez-nous

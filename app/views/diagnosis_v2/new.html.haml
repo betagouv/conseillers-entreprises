@@ -1,4 +1,4 @@
-- meta title: 'Nouveau diagnostic'
+- meta title: t('.title')
 
 = render partial: 'steps', locals: { current_step: 1 }
 
@@ -6,8 +6,8 @@
   .ui.segment.shadow-less.dimmable{ ':class' => '{ dimmed: isLoading }' }
     .ui.simple.inverted.dimmer
       .ui.text.loader
-        %template{'v-if' => 'companyFormDisplayed'}= "Recherche de l'entreprise"
-        %template{'v-if' => 'companyInfoDisplayed'}= 'Sauvegarde en cours'
+        %template{'v-if' => 'companyFormDisplayed'}= t('.search_company')
+        %template{'v-if' => 'companyInfoDisplayed'}= t('save_in_progress')
 
     %template{'v-if' => 'companyFormDisplayed'}
       %form.ui.form.company-siret-form{'v-on:submit.prevent' => "submitSelectCompany('#{search_by_siret_api_facilities_path}')", ':class' => '{ error: formHasError }'}
@@ -21,19 +21,19 @@
             %i.search.icon
         %template{'v-if' => 'formHasError'}
           .ui.error.message
-            .header= 'Entreprise non trouvée !'
-            %p= 'Êtes-vous sûr(e) de son numéro SIRET ?'
+            .header= t('.siret_error_title')
+            %p= t('.siret_error_text')
 
     %template{'v-if' => 'companyInfoDisplayed'}
       %input{type: 'hidden', name: 'visit[siret]', pattern: Facility::NUMBER_PATTERN, required: true}
       %p= "#{t('activerecord.attributes.company.name')} : {{ companyName }}"
-      %p= 'Localisation : {{ facilityLocation }}'
+      %p= "#{t('.location')} : {{ facilityLocation }}"
       %button.ui.teal.labeled.icon.mini.button{'@click' => 'displayCompanyForm'}
         = t('edit')
         %i.pencil.icon
 
   %button.ui.teal.right.labeled.icon.button.right.floated{'@click' => "saveAndGoToNextStep('#{api_diagnoses_path}')", ':class' => '{ disabled: nextStepButtonDisabled }'}
-    = 'Etape suivante'
+    = t('next_step')
     %i.arrow.right.icon
 
 = javascript_pack_tag 'diagnosis/selectCompany'
