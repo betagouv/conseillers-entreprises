@@ -16,10 +16,27 @@ RSpec.describe Api::DiagnosesController, type: :controller do
   end
 
   describe 'POST #create' do
-    it('returns http success') do
-      post :create, format: :json, params: { siret: '12345678901234' }
+    context 'save worked' do
+      it 'redirects to the show page' do
+        siret = '12345678901234'
+        facility = create :facility, siret: siret
+        allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { facility }
 
-      expect(response).to have_http_status(:created)
+        post :create, format: :json, params: { siret: siret }
+
+        expect(response).to have_http_status(:created)
+        expect(response.headers['Location']).to eq api_diagnosis_url(Diagnosis.last)
+      end
+    end
+
+    context 'saved failed' do
+      it 'does not redirect' do
+        allow(UseCases::SearchFacility).to receive(:with_siret_and_save)
+
+        post :create, format: :json, params: {}
+
+        expect(response).to have_http_status(:bad_request)
+      end
     end
   end
 
