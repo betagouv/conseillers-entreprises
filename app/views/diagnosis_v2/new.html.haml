@@ -25,7 +25,6 @@
             %p= t('.siret_error_text')
 
     %template{'v-if' => 'companyInfoDisplayed'}
-      %input{type: 'hidden', name: 'visit[siret]', pattern: Facility::NUMBER_PATTERN, required: true}
       %p= "#{t('activerecord.attributes.company.name')} : {{ companyName }}"
       %p= "#{t('.location')} : {{ facilityLocation }}"
       %button.ui.teal.labeled.icon.mini.button{'@click' => 'displayCompanyForm'}
