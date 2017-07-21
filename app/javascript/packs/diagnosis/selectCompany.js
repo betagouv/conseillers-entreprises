@@ -17,7 +17,7 @@ new Vue({
         companyFormDisplayed: true,
         companyInfoDisplayed: false,
         nextStepButtonDisabled: true,
-        isSearching: false,
+        isLoading: false,
         formHasError: false
     },
     methods: {
@@ -28,7 +28,7 @@ new Vue({
             return this.siret.match(/[0-9]{14}/)
         },
         fetchCompany: function(searchFacilityPath) {
-            this.isSearching = true
+            this.isLoading = true
 
             const requestConfig = {
                 method: 'post',
@@ -37,14 +37,14 @@ new Vue({
             }
             const vm = this
             let onSuccess = function (response) {
-                vm.isSearching = false
+                vm.isLoading = false
                 vm.companyName = response.data.company_name
                 vm.facilityLocation = response.data.facility_location
                 vm.displayCompanyInfo()
             }
             let onError = function (_error) {
                 vm.formHasError = true
-                vm.isSearching = false
+                vm.isLoading = false
             }
 
             new RequestService(onSuccess, onError).send(requestConfig)
@@ -61,7 +61,7 @@ new Vue({
         },
         saveAndGoToNextStep: function(saveDiagnosisPath) {
             if(!this.nextStepButtonDisabled) {
-                this.isSearching = true
+                this.isLoading = true
 
                 const requestConfig = {
                     method: 'post',
@@ -70,10 +70,10 @@ new Vue({
                 }
                 const vm = this
                 let onSuccess = function (response) {
-                    vm.isSearching = false
+                    vm.isLoading = false
                 }
                 let onError = function (error) {
-                    vm.isSearching = false
+                    vm.isLoading = false
                     // TODO: error
                 }
 

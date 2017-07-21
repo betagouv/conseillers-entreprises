@@ -3,7 +3,7 @@
 = render partial: 'steps', locals: { current_step: 1 }
 
 .diagnosis-step1
-  .ui.segment.shadow-less.dimmable{ ':class' => '{ dimmed: isSearching }' }
+  .ui.segment.shadow-less.dimmable{ ':class' => '{ dimmed: isLoading }' }
     .ui.simple.inverted.dimmer
       .ui.text.loader= "Recherche de l'entreprise"
 
