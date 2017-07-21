@@ -5,28 +5,32 @@ require 'rails_helper'
 RSpec.describe Api::DiagnosesController, type: :controller do
   login_user
 
-  let(:visit) { create :visit, advisor: current_user }
-  let(:diagnosis) { create :diagnosis, visit: visit, content: Faker::Lorem.paragraph }
+  let(:diagnosis) { create :diagnosis, content: Faker::Lorem.paragraph }
 
   describe 'GET #show' do
-    before { get :show, format: :json, params: { id: diagnosis.id } }
+    it('returns http success') do
+      get :show, format: :json, params: { id: diagnosis.id }
 
-    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
   end
 
+  describe 'POST #create' do
+    it('returns http success') do
+      post :create, format: :json, params: { siret: '12345678901234' }
+
+      expect(response).to have_http_status(:created)
+    end
+  end
+
   describe 'PATCH #update' do
-    let(:updated_content) { 'Lorem fake stuff content' }
+    subject(:request) { patch :update, format: :json, params: { id: diagnosis.id, diagnosis: { content: new_content } } }
 
-    before { patch :update, format: :json, params: { id: diagnosis.id, diagnosis: { content: updated_content } } }
+    let(:new_content) { 'Lorem fake stuff content' }
 
-    it 'returns http success' do
-      expect(response).to have_http_status(:success)
-    end
+    before { request }
 
-    it 'updates the diagnosis s content' do
-      expect(diagnosis.reload.content).to eq(updated_content)
-    end
+    it('returns http success') { expect(response).to have_http_status(:success) }
+    it('updates the diagnosis s content') { expect(diagnosis.reload.content).to eq(new_content) }
   end
 end

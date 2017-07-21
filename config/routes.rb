@@ -47,7 +47,7 @@ Rails.application.routes.draw do
       post :search_by_siret, on: :collection
     end
 
-    resources :diagnoses, only: %i[show update] do
+    resources :diagnoses, only: %i[show create update] do
       resources :diagnosed_needs, only: %i[create]
     end
 

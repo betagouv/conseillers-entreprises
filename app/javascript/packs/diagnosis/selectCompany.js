@@ -6,6 +6,8 @@ const token = document.getElementsByName('csrf-token')[0].getAttribute('content'
 axios.defaults.headers.common['X-CSRF-Token'] = token
 axios.defaults.headers.common['Accept'] = 'application/json'
 
+// TODO: test
+
 new Vue({
     el: '.diagnosis-step1',
     data: {
@@ -19,18 +21,18 @@ new Vue({
         formHasError: false
     },
     methods: {
-        submitSelectCompany: function() {
-            return this.siretFormatValid() ? this.fetchCompany() : true // render true to let browser deal with format error message
+        submitSelectCompany: function(searchFacilityPath) {
+            return this.siretFormatValid() ? this.fetchCompany(searchFacilityPath) : true // TODO: Don't use HTML5 errors
         },
         siretFormatValid: function() {
             return this.siret.match(/[0-9]{14}/)
         },
-        fetchCompany: function() {
+        fetchCompany: function(searchFacilityPath) {
             this.isSearching = true
 
             const requestConfig = {
                 method: 'post',
-                url: '/api/companies/search_by_siret', // TODO: put url in front end from rails
+                url: searchFacilityPath,
                 params: { siret: this.siret }
             }
             const vm = this
@@ -57,11 +59,11 @@ new Vue({
             this.companyInfoDisplayed = true
             this.nextStepButtonDisabled = false
         },
-        saveAndGoToNextStep: function() {
+        saveAndGoToNextStep: function(saveDiagnosisPath) {
             if(!this.nextStepButtonDisabled) {
                 const requestConfig = {
                     method: 'post',
-                    url: '/api/diagnosis', // TODO: endpoint to create Diagnosis
+                    url: saveDiagnosisPath,
                     params: { siret: this.siret }
                 }
                 let onSuccess = function (response) {

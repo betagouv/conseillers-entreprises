@@ -6,6 +6,10 @@ module Api
       @diagnosis = Diagnosis.find params[:id]
     end
 
+    def create
+      render body: nil, status: 201
+    end
+
     def update
       @diagnosis = Diagnosis.find params[:id]
       render status: 500 unless @diagnosis.update(update_params)

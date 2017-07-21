@@ -7,7 +7,7 @@
     .ui.segment.shadow-less.dimmable{ ':class' => '{ dimmed: isSearching }' }
       .ui.simple.inverted.dimmer
         .ui.text.loader= "Recherche de l'entreprise"
-      %form.ui.form.company-siret-form{'v-on:submit.prevent' => 'submitSelectCompany', ':class' => '{ error: formHasError }'}
+      %form.ui.form.company-siret-form{'v-on:submit.prevent' => "submitSelectCompany('#{search_by_siret_api_facilities_path}')", ':class' => '{ error: formHasError }'}
         .inline.fields.no-margin
           .field
             .ui.labeled.input
@@ -30,7 +30,7 @@
         = t('edit')
         %i.pencil.icon
 
-  %button.ui.teal.right.labeled.icon.button.right.floated{'@click' => 'saveAndGoToNextStep', ':class' => '{ disabled: nextStepButtonDisabled }'}
+  %button.ui.teal.right.labeled.icon.button.right.floated{'@click' => "saveAndGoToNextStep('#{api_diagnoses_path}')", ':class' => '{ disabled: nextStepButtonDisabled }'}
     = 'Etape suivante'
     %i.arrow.right.icon
 
