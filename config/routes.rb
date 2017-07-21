@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   resources :mailto_logs, only: %i[create]
 
   namespace :api do
-    resources :companies, only: %i[] do
+    resources :facilities, only: %i[] do
       post :search_by_siret, on: :collection
     end
 

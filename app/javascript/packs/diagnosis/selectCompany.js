@@ -13,7 +13,7 @@ new Vue({
     data: {
         siret: '',
         companyName: '',
-        companyLocation: '',
+        facilityLocation: '',
         companyFormDisplayed: true,
         companyInfoDisplayed: false,
         nextStepButtonDisabled: true,
@@ -39,7 +39,7 @@ new Vue({
             let onSuccess = function (response) {
                 vm.isSearching = false
                 vm.companyName = response.data.company_name
-                vm.companyLocation = response.data.company_location  // TODO: facility location, not company
+                vm.facilityLocation = response.data.facility_location
                 vm.displayCompanyInfo()
             }
             let onError = function (_error) {

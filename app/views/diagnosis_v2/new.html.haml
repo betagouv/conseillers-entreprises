@@ -25,7 +25,7 @@
     %input{type: 'hidden', name: 'visit[siret]', pattern: Facility::NUMBER_PATTERN, required: true}
     .ui.segment.shadow-less
       %p= "#{t('activerecord.attributes.company.name')} : {{ companyName }}"
-      %p= 'Localisation : {{ companyLocation }}'
+      %p= 'Localisation : {{ facilityLocation }}'
       %button.ui.teal.labeled.icon.mini.button{'@click' => 'displayCompanyForm'}
         = t('edit')
         %i.pencil.icon
