@@ -61,16 +61,19 @@ new Vue({
         },
         saveAndGoToNextStep: function(saveDiagnosisPath) {
             if(!this.nextStepButtonDisabled) {
+                this.isSearching = true
+
                 const requestConfig = {
                     method: 'post',
                     url: saveDiagnosisPath,
                     params: { siret: this.siret }
                 }
+                const vm = this
                 let onSuccess = function (response) {
-
-                    Turbolinks.visit('/')
+                    vm.isSearching = false
                 }
                 let onError = function (error) {
+                    vm.isSearching = false
                     // TODO: error
                 }
 
