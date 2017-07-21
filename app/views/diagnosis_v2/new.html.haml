@@ -5,7 +5,9 @@
 .diagnosis-step1
   .ui.segment.shadow-less.dimmable{ ':class' => '{ dimmed: isLoading }' }
     .ui.simple.inverted.dimmer
-      .ui.text.loader= "Recherche de l'entreprise"
+      .ui.text.loader
+        %template{'v-if' => 'companyFormDisplayed'}= "Recherche de l'entreprise"
+        %template{'v-if' => 'companyInfoDisplayed'}= 'Sauvegarde en cours'
 
     %template{'v-if' => 'companyFormDisplayed'}
       %form.ui.form.company-siret-form{'v-on:submit.prevent' => "submitSelectCompany('#{search_by_siret_api_facilities_path}')", ':class' => '{ error: formHasError }'}
