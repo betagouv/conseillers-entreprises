@@ -14,8 +14,8 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
     describe 'in case of success' do
       let(:diagnosed_needs_array) do
         [
-          { question_id: question1.id, content: Faker::Lorem.paragraph },
-          { question_id: question2.id, content: Faker::Lorem.paragraph }
+          { question_id: question1.id, question_label: question1.label, content: Faker::Lorem.paragraph },
+          { question_id: question2.id, question_label: question2.label, content: Faker::Lorem.paragraph }
         ]
       end
 
@@ -29,10 +29,13 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
 
       it 'creates two diagnosed needs' do
         expect(DiagnosedNeed.all.count).to eq(2)
+
         expect(DiagnosedNeed.first.question_id).to eq(diagnosed_needs_array.first[:question_id])
         expect(DiagnosedNeed.last.question_id).to eq(diagnosed_needs_array.last[:question_id])
         expect(DiagnosedNeed.first.content).to eq(diagnosed_needs_array.first[:content])
         expect(DiagnosedNeed.last.content).to eq(diagnosed_needs_array.last[:content])
+        expect(DiagnosedNeed.first.question_label).to eq(diagnosed_needs_array.first[:question_label])
+        expect(DiagnosedNeed.last.question_label).to eq(diagnosed_needs_array.last[:question_label])
       end
     end
 

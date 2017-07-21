@@ -36,5 +36,3 @@ fr:
         one: Un besoin a été identifié
         other: "%{count} besoins ont été identifiés"
       diagnosis_date: "Analyse du %{date}"
-      description: "Entrez des informations complémentaires concernant cette analyse :"
-      save_loader: Sauvegarde en cours
