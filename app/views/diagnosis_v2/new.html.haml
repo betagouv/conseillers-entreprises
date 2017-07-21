@@ -15,7 +15,7 @@
           .field
             .ui.labeled.input
               %label.ui.label{for: 'siret'}= t('activerecord.attributes.facility.siret')
-              %input{type: 'text', id: 'siret', name: 'siret', 'v-model' => 'siret'}
+              %input#siret{type: 'text', name: 'siret', 'v-model' => 'siret'}
           %button.ui.teal.labeled.icon.button
             = t('search')
             %i.search.icon
@@ -39,7 +39,7 @@
           .header= t('.save_error_title')
           %p= t('.save_error_text')
 
-  %button.ui.teal.right.labeled.icon.button.right.floated{'@click' => "saveAndGoToNextStep('#{api_diagnoses_path}')", ':class' => '{ disabled: nextStepButtonDisabled }'}
+  %button.ui.teal.right.labeled.icon.button.right.floated#next-step-button{'@click' => "saveAndGoToNextStep('#{api_diagnoses_path}')", ':class' => '{ disabled: nextStepButtonDisabled }'}
     = t('next_step')
     %i.arrow.right.icon
 

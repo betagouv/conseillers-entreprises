@@ -47,6 +47,7 @@ new Vue({
                 vm.companyName = response.data.company_name
                 vm.facilityLocation = response.data.facility_location
                 vm.displayCompanyInfo()
+                document.getElementById('next-step-button').focus()
             }
             let onError = function (_error) {
                 vm.companyNotFoundError = true
