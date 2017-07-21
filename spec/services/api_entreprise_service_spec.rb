@@ -79,13 +79,59 @@ describe ApiEntrepriseService do
     context 'no social name' do
       let(:company_json) { { 'entreprise' => { 'nom_commercial' => company.name, 'raison_sociale' => '' } } }
 
-      it { expect(company_name).to eq company.name }
+      it { is_expected.to eq company.name.titleize }
     end
 
     context 'no commercial name' do
       let(:company_json) { { 'entreprise' => { 'nom_commercial' => '', 'raison_sociale' => company.name } } }
 
-      it { expect(company_name).to eq company.name }
+      it { is_expected.to eq company.name.titleize }
+    end
+
+    context 'empty values' do
+      let(:company_json) { { 'entreprise' => { 'nom_commercial' => '', 'raison_sociale' => '' } } }
+
+      it { is_expected.to eq nil }
+    end
+
+    context 'empty entreprise hash' do
+      let(:company_json) { { 'entreprise' => {} } }
+
+      it { is_expected.to eq nil }
+    end
+
+    context 'empty json' do
+      let(:company_json) { {} }
+
+      it { is_expected.to eq nil }
+    end
+  end
+
+  describe 'facility_location' do
+    subject(:facility_location) { described_class.facility_location facility_json }
+
+    context 'normal case' do
+      let(:facility_json) { { 'commune_implantation' => { 'code' => '75108', 'value' => 'PARIS 8' } } }
+
+      it { is_expected.to eq '75108 Paris 8' }
+    end
+
+    context 'empty values' do
+      let(:facility_json) { { 'commune_implantation' => { 'code' => '', 'value' => '' } } }
+
+      it { is_expected.to eq nil }
+    end
+
+    context 'empty commune hash' do
+      let(:facility_json) { { 'commune_implantation' => {} } }
+
+      it { is_expected.to eq nil }
+    end
+
+    context 'empty json' do
+      let(:facility_json) { {} }
+
+      it { is_expected.to eq nil }
     end
   end
 end
