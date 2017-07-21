@@ -1,6 +1,6 @@
 fr:
   visits:
-    to_s: Visite de %{company_name} (%{date})
+    to_s: Visite de %{company_name}
     index:
       visits: Visites
       no_visits_yet: Vous n'avez pas encore de visites indiquées dans Réso.
