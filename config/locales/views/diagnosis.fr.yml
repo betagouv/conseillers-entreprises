@@ -11,6 +11,8 @@ fr:
       siret_error_title: Entreprise non trouvée !
       siret_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
       location: Localité
+      save_error_title: La sauvegarde a échoué !
+      save_error_text: Réessayez ou rechargez la page si le problème persiste...
     step2:
       title: Etape 2 !!
   diagnosis:

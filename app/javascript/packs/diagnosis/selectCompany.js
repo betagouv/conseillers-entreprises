@@ -49,6 +49,10 @@ new Vue({
 
             new RequestService(onSuccess, onError).send(requestConfig)
         },
+        editCompanyForm: function() {
+            this.formHasError = false
+            this.displayCompanyForm()
+        },
         displayCompanyForm: function() {
             this.companyFormDisplayed = true
             this.companyInfoDisplayed = false
@@ -61,6 +65,7 @@ new Vue({
         },
         saveAndGoToNextStep: function(saveDiagnosisPath) {
             if(!this.nextStepButtonDisabled) {
+                this.formHasError = false
                 this.isLoading = true
 
                 const requestConfig = {
@@ -74,8 +79,8 @@ new Vue({
                     Turbolinks.visit(`/diagnosis_v2/${response.data.id}/step-2`)
                 }
                 let onError = function (error) {
+                    vm.formHasError = true
                     vm.isLoading = false
-                    // TODO: error
                 }
 
                 new RequestService(onSuccess, onError).send(requestConfig)

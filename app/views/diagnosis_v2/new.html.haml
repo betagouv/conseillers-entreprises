@@ -19,17 +19,22 @@
           %button.ui.teal.labeled.icon.button
             = t('search')
             %i.search.icon
-        %template{'v-if' => 'formHasError'}
-          .ui.error.message
-            .header= t('.siret_error_title')
-            %p= t('.siret_error_text')
 
     %template{'v-if' => 'companyInfoDisplayed'}
       %p= "#{t('activerecord.attributes.company.name')} : {{ companyName }}"
       %p= "#{t('.location')} : {{ facilityLocation }}"
-      %button.ui.teal.labeled.icon.mini.button{'@click' => 'displayCompanyForm'}
+      %button.ui.teal.labeled.icon.mini.button{'@click' => 'editCompanyForm'}
         = t('edit')
         %i.pencil.icon
+
+    %template{'v-if' => 'formHasError'}
+      .ui.error.message
+        %template{'v-if' => 'companyFormDisplayed'}
+          .header= t('.siret_error_title')
+          %p= t('.siret_error_text')
+        %template{'v-if' => 'companyInfoDisplayed'}
+          .header= t('.save_error_title')
+          %p= t('.save_error_text')
 
   %button.ui.teal.right.labeled.icon.button.right.floated{'@click' => "saveAndGoToNextStep('#{api_diagnoses_path}')", ':class' => '{ disabled: nextStepButtonDisabled }'}
     = t('next_step')
