@@ -18,14 +18,20 @@ new Vue({
         companyInfoDisplayed: false,
         nextStepButtonDisabled: true,
         isLoading: false,
-        formHasError: false
+        siretFormatError: false,
+        companyNotFoundError: false,
+        diagnosisSaveError: false
     },
     methods: {
         submitSelectCompany: function(searchFacilityPath) {
-            return this.siretFormatValid() ? this.fetchCompany(searchFacilityPath) : true // TODO: Don't use HTML5 errors
+            if(this.siretFormatValid()) {
+                this.fetchCompany(searchFacilityPath)
+            } else {
+                this.siretFormatError = true
+            }
         },
         siretFormatValid: function() {
-            return this.siret.match(/[0-9]{14}/)
+            return this.siret.match(/^[0-9]{14}$/)
         },
         fetchCompany: function(searchFacilityPath) {
             this.isLoading = true
@@ -43,14 +49,14 @@ new Vue({
                 vm.displayCompanyInfo()
             }
             let onError = function (_error) {
-                vm.formHasError = true
+                vm.companyNotFoundError = true
                 vm.isLoading = false
             }
 
             new RequestService(onSuccess, onError).send(requestConfig)
         },
         editCompanyForm: function() {
-            this.formHasError = false
+            this.removeErrors()
             this.displayCompanyForm()
         },
         displayCompanyForm: function() {
@@ -65,7 +71,7 @@ new Vue({
         },
         saveAndGoToNextStep: function(saveDiagnosisPath) {
             if(!this.nextStepButtonDisabled) {
-                this.formHasError = false
+                this.removeErrors()
                 this.isLoading = true
 
                 const requestConfig = {
@@ -76,20 +82,28 @@ new Vue({
                 const vm = this
                 let onSuccess = function (response) {
                     vm.isLoading = false
-                    Turbolinks.visit(`/diagnosis_v2/${response.data.id}/step-2`)
+                    Turbolinks.visit(`/diagnosis_v2/${response.data.id}/step-2`) // TODO: Test this route presence
                 }
                 let onError = function (error) {
-                    vm.formHasError = true
+                    vm.diagnosisSaveError = true
                     vm.isLoading = false
                 }
 
                 new RequestService(onSuccess, onError).send(requestConfig)
             }
+        },
+        formHasError: function() {
+            return this.siretFormatError || this.companyNotFoundError || this.diagnosisSaveError
+        },
+        removeErrors: function() {
+            this.siretFormatError = false
+            this.companyNotFoundError = false
+            this.diagnosisSaveError = false
         }
     },
     watch: {
         siret: function(newValue) {
-            this.formHasError = false
+            this.removeErrors()
         }
     }
 })
