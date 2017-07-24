@@ -31,20 +31,20 @@ describe('ContactStore', () => {
 
         var mutations = Step2Store.mutations
 
-        describe('DIAGNOSTIC_ID', function () {
+        describe('DIAGNOSIS_ID', function () {
 
             it('updates the diagnosisID', function () {
                 const state = {diagnosisId: undefined}
-                mutations.DIAGNOSTIC_ID(state, '12')
+                mutations.DIAGNOSIS_ID(state, '12')
                 expect(state.diagnosisId).toEqual('12')
             })
         })
 
-        describe('DIAGNOSTIC_CONTENT', function () {
+        describe('DIAGNOSIS_CONTENT', function () {
 
             it('updates the diagnosis content', function () {
                 const state = {diagnosisContent: ''}
-                mutations.DIAGNOSTIC_CONTENT(state, 'Random Content')
+                mutations.DIAGNOSIS_CONTENT(state, 'Random Content')
                 expect(state.diagnosisContent).toEqual('Random Content')
             })
         })

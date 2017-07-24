@@ -61,11 +61,11 @@ const mutations = {
         state.isRequestInProgress = isRequestInProgress
     },
 
-    [types.DIAGNOSTIC_CONTENT] (state, content) {
+    [types.DIAGNOSIS_CONTENT] (state, content) {
         state.diagnosisContent = content
     },
 
-    [types.DIAGNOSTIC_ID] (state, diagnosisId) {
+    [types.DIAGNOSIS_ID] (state, diagnosisId) {
         state.diagnosisId = diagnosisId
     },
 
