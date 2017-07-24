@@ -2,7 +2,7 @@
   <button class="ui teal right labeled icon button right floated"
   v-bind:class="{ loading: this.isRequestInProgress, disabled: this.isRequestInProgress }"
   @click="nextStepButtonClicked">
-    BLABLABLA
+    <label><%= I18n.t('next_step') %></label>
     <i class="arrow right icon"></i>
   </button>
 </template>
@@ -22,6 +22,7 @@
         methods: {
             nextStepButtonClicked: function () {
                 this.sendDiagnosisContentUdpate()
+                .then( this.createSelectedQuestions() )
                 .then( () => {
                     Turbolinks.visit('/')
                 });
@@ -30,7 +31,8 @@
                 setRequestInProgress: types.DIAGNOSTIC_REQUEST_UNDERWAY
             }),
             ...mapActions([
-                'sendDiagnosisContentUdpate'
+                'sendDiagnosisContentUdpate',
+                'createSelectedQuestions'
             ])
         }
     }

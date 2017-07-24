@@ -12,15 +12,9 @@
     %table.ui.celled.table
       %tbody
         - item[:questions].each do |question|
-          %tr
-            %td
-              %label
-                .full-width.clickable
-                  = "#{question.id} - #{question.label}"
-            %td.collapsing
-              .ui.fitted.checkbox
-                %input{ type: 'checkbox', value: 'on'}
-                %label
+          %tr{'is' => 'question-selection-row', 'question-id' => question.id, 'question-label' => question.label }
+          %tr{'is' => 'question-content-row', 'question-id' => question.id, 'question-label' => question.label }
+
 
   %next-step-button
 

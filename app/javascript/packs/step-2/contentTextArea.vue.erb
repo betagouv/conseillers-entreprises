@@ -2,7 +2,7 @@
   <div class="ui form">
     <div class="field">
       <label><%= I18n.t('diagnosis.show.description') %></label>
-      <textarea rows="2" v-model="content"></textarea>
+      <textarea rows="2" v-model="content" v-bind:disabled="isRequestInProgress"></textarea>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
         computed: {
             ...mapState({
                 diagnosisContent: state => state.step2Store.diagnosisContent,
-                isRequestInProgress: state => state.step2Store.isDiagnosisRequestUnderWay
+                isRequestInProgress: state => state.step2Store.isRequestInProgress
             }),
             content: {
                 get () {

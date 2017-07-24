@@ -4,10 +4,17 @@ import * as types from './mutationTypes'
 const state = {
     diagnosisContent: '',
     diagnosisId: undefined,
-    isDiagnosisRequestUnderWay: false
+    isRequestInProgress: false,
+    questions: []
 }
 
-const getters = {}
+const getters = {
+    getQuestionStateById: (state, getters) => (questionId) => {
+        return state.questions.find((question) => {
+            return question.questionId === questionId
+        })
+    }
+}
 
 const actions = {
 
@@ -17,21 +24,41 @@ const actions = {
             step2APIService = Step2APIService
         }
 
-        commit(types.DIAGNOSTIC_REQUEST_UNDERWAY, true)
+        commit(types.REQUEST_IN_PROGRESS, true)
         return step2APIService.udpateDiagnosisContent(state.diagnosisId, state.diagnosisContent)
             .then(() => {
-                commit(types.DIAGNOSTIC_REQUEST_UNDERWAY, false)
+                commit(types.REQUEST_IN_PROGRESS, false)
             })
             .catch((error) => {
-                commit(types.DIAGNOSTIC_REQUEST_UNDERWAY, false)
+                commit(types.REQUEST_IN_PROGRESS, false)
+                throw error
+            })
+    },
+
+    createSelectedQuestions ({commit, state, step2APIServiceDependency}) {
+        var step2APIService = step2APIServiceDependency
+        if (typeof step2APIService == 'undefined') {
+            step2APIService = Step2APIService
+        }
+
+        commit(types.REQUEST_IN_PROGRESS, true)
+        const selectedQuestions = state.questions.filter((question) => {
+            return question.isSelected
+        })
+        return step2APIService.createDiagnosedNeeds(state.diagnosisId, selectedQuestions)
+            .then(() => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+            })
+            .catch((error) => {
+                commit(types.REQUEST_IN_PROGRESS, false)
                 throw error
             })
     }
 }
 
 const mutations = {
-    [types.DIAGNOSTIC_REQUEST_UNDERWAY] (state, isDiagnosisRequestUnderWay) {
-        state.isDiagnosisRequestUnderWay = isDiagnosisRequestUnderWay
+    [types.REQUEST_IN_PROGRESS] (state, isRequestInProgress) {
+        state.isRequestInProgress = isRequestInProgress
     },
 
     [types.DIAGNOSTIC_CONTENT] (state, content) {
@@ -40,7 +67,41 @@ const mutations = {
 
     [types.DIAGNOSTIC_ID] (state, diagnosisId) {
         state.diagnosisId = diagnosisId
+    },
+
+    [types.QUESTION_SELECTED] (state, {questionId, isSelected}) {
+        let questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
+        questionAndIndex.newQuestion.isSelected = isSelected
+
+        state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
+    },
+
+    [types.QUESTION_CONTENT] (state, {questionId, content}) {
+        let questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
+        questionAndIndex.newQuestion.content = content
+        state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
+    },
+
+    [types.QUESTION_LABEL] (state, {questionId, questionLabel}) {
+        let questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
+        questionAndIndex.newQuestion.questionLabel = questionLabel
+        state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
     }
+}
+
+let getOrCreateQuestionEnumerated = function (state, questionId) {
+    let question = state.questions.find((question) => {
+        return question.questionId === questionId
+    })
+    if (!question) {
+        question = {}
+        state.questions.push(question)
+        question.questionId = questionId
+    }
+    // To trigger vue updates, one must use splice
+    const index = state.questions.indexOf(question)
+    const newQuestion = JSON.parse(JSON.stringify(question))
+    return {newQuestion: newQuestion, index: index}
 }
 
 export default {

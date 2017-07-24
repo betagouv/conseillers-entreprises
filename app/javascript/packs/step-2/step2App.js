@@ -4,6 +4,8 @@ import axios from 'axios'
 
 import appDataSetter from './appDataSetter.vue.erb'
 import contentTextArea from './contentTextArea.vue.erb'
+import questionSelectionRow from './questionSelectionRow.vue.erb'
+import questionContentRow from './questionContentRow.vue.erb'
 import nextStepButton from './nextStepButton.vue.erb'
 
 var token = document.getElementsByName('csrf-token')[0].getAttribute('content');
@@ -16,6 +18,8 @@ new Vue({
     components: {
         'app-data-setter': appDataSetter,
         'content-text-area': contentTextArea,
+        'question-selection-row':questionSelectionRow,
+        'question-content-row':questionContentRow,
         'next-step-button': nextStepButton
     }
 });
