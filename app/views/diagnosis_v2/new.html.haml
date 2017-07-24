@@ -2,7 +2,7 @@
 
 = render partial: 'steps', locals: { current_step: 1 }
 
-.diagnosis-step1
+#diagnosis-step1
   .ui.segment.shadow-less.dimmable{ ':class' => '{ dimmed: isLoading }' }
     .ui.simple.inverted.dimmer
       .ui.text.loader
@@ -42,5 +42,3 @@
   %button.ui.teal.right.labeled.icon.button.right.floated#next-step-button{'@click' => "saveAndGoToNextStep('#{api_diagnoses_path}')", ':class' => '{ disabled: nextStepButtonDisabled }'}
     = t('next_step')
     %i.arrow.right.icon
-
-= javascript_pack_tag 'diagnosis/selectCompany'
