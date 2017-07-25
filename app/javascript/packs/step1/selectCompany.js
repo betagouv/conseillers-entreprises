@@ -15,6 +15,13 @@ const SelectCompany = {
     initialize: function() {
         new Vue({
             el: '#diagnosis-step1',
+            
+        })
+    },
+
+    former: function() {
+        new Vue({
+            el: '#diagnosis-step1',
             data: {
                 siret: '',
                 companyName: '',
