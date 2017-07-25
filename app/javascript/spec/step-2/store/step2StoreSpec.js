@@ -84,7 +84,7 @@ describe('ContactStore', () => {
 
         describe('QUESTION_CONTENT', function () {
 
-            it('create the question in the questions array if it does not exist', function () {
+            it('creates the question in the questions array if it does not exist', function () {
                 const state = {questions: []}
                 const expectedQuestions = [{questionId: '1', content: 'Potato everywhere'}]
                 mutations.QUESTION_CONTENT(state, {questionId: '1', content: 'Potato everywhere'})
@@ -108,7 +108,7 @@ describe('ContactStore', () => {
 
         describe('QUESTION_LABEL', function () {
 
-            it('create the question in the questions array if it does not exist', function () {
+            it('creates the question in the questions array if it does not exist', function () {
                 const state = {questions: []}
                 const expectedQuestions = [{questionId: '1', questionLabel: 'OtherLabel'}]
                 mutations.QUESTION_LABEL(state, {questionId: '1', questionLabel: 'OtherLabel'})
@@ -243,7 +243,7 @@ describe('ContactStore', () => {
                     ])
                 })
 
-                it('propagtes the error', async function () {
+                it('propagates the error', async function () {
                     var catchedError
                     await actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
                         .catch((error) => {
@@ -366,7 +366,7 @@ describe('ContactStore', () => {
                     ])
                 })
 
-                it('propagtes the error', async function () {
+                it('propagates the error', async function () {
                     var catchedError
                     await actions.createSelectedQuestions(apiServiceContext(commit, state))
                         .catch((error) => {
