@@ -5,7 +5,7 @@ import Step2Store from '../../../packs/step-2/store/step2Store'
 require('babel-core/register')
 require('babel-polyfill')
 
-describe('ContactStore', () => {
+describe('step2Store', () => {
 
     describe('getters', () => {
 

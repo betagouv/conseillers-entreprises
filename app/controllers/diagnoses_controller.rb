@@ -13,7 +13,8 @@ class DiagnosesController < ApplicationController
   end
 
   def step3
-    render body: nil
+    @diagnosis = Diagnosis.find params[:id]
+    # .includes(:visit)
   end
 
   def step4

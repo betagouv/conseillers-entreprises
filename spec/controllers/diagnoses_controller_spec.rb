@@ -52,4 +52,12 @@ RSpec.describe DiagnosesController, type: :controller do
       end
     end
   end
+
+  describe 'GET #step3' do
+    it 'returns http success' do
+      diagnosis = create :diagnosis, visit: visit
+      get :step3, params: { id: diagnosis.id, visit_id: visit.id }
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
