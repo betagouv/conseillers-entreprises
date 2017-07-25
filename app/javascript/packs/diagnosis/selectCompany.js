@@ -1,21 +1,20 @@
 import Vue from 'vue/dist/vue.esm'
-import axios from 'axios'
 import RequestService from './requestService'
 import TurbolinksAdapter from 'vue-turbolinks'
 
 Vue.use(TurbolinksAdapter)
 
-const token = document.getElementsByName('csrf-token')[0].getAttribute('content')
-axios.defaults.headers.common['X-CSRF-Token'] = token
-axios.defaults.headers.common['Accept'] = 'application/json'
-
-// TODO: test
-
 document.addEventListener('turbolinks:load', () => {
     const element = document.getElementById('diagnosis-step1')
     if(element !== null) {
+        SelectCompany.initialize()
+    }
+})
+
+const SelectCompany = {
+    initialize: function() {
         new Vue({
-            el: element,
+            el: '#diagnosis-step1',
             data: {
                 siret: '',
                 companyName: '',
@@ -115,4 +114,6 @@ document.addEventListener('turbolinks:load', () => {
             }
         })
     }
-})
+}
+
+export default SelectCompany

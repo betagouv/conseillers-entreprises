@@ -8,6 +8,11 @@ export default class RequestService {
     }
 
     send(config, onSuccess = this.defaultOnSuccess , onError = this.defaultOnError) {
+        const token = document.getElementsByName('csrf-token')[0].getAttribute('content')
+        config.headers = {
+            'X-CSRF-Token': token,
+            'Accept': 'application/json'
+        }
         this.axios(config).then(onSuccess).catch(onError)
     }
 }
