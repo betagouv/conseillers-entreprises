@@ -1,6 +1,6 @@
 <template>
   <button class="ui teal right labeled icon button right floated"
-  v-bind:class="{ loading: this.isRequestInProgress, disabled: this.isRequestInProgress }"
+  v-bind:class="{ loading: isRequestInProgress, disabled: isRequestInProgress }"
   @click="nextStepButtonClicked">
     <label><%= I18n.t('next_step') %></label>
     <i class="arrow right icon"></i>
@@ -16,22 +16,22 @@
         computed: {
             ...mapState({
                 diagnosisContent: state => state.step2Store.diagnosisContent,
-                isRequestInProgress: state => state.step2Store.isDiagnosisRequestUnderWay
+                isRequestInProgress: state => state.step2Store.isRequestInProgress
             })
         },
         methods: {
             nextStepButtonClicked: function () {
-                this.sendDiagnosisContentUdpate()
+                this.sendDiagnosisContentUpdate()
                 .then( this.createSelectedQuestions() )
                 .then( () => {
                     Turbolinks.visit('/')
                 });
             },
             ...mapMutations({
-                setRequestInProgress: types.DIAGNOSTIC_REQUEST_UNDERWAY
+                setRequestInProgress: types.REQUEST_IN_PROGRESS
             }),
             ...mapActions([
-                'sendDiagnosisContentUdpate',
+                'sendDiagnosisContentUpdate',
                 'createSelectedQuestions'
             ])
         }

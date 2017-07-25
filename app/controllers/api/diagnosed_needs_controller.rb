@@ -15,8 +15,7 @@ module Api
 
     def create_param_array
       param_array = params.permit(diagnosed_needs: %i[question_id question_label content]).require(:diagnosed_needs)
-      param_array.each { |need_params| need_params.merge!(diagnosis_id: params[:diagnosis_id]) }
-      param_array
+      param_array.map { |need_params| need_params.merge!(diagnosis_id: params[:diagnosis_id]) }
     end
   end
 end

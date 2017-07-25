@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default class step2APIService {
 
-    static udpateDiagnosisContent(diagnosisId, content) {
+    static updateDiagnosisContent(diagnosisId, content) {
         var config = {
             method: 'patch',
             url: `/api/diagnoses/${diagnosisId}`,

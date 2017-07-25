@@ -136,7 +136,7 @@ describe('ContactStore', () => {
         var actions = Step2Store.actions
 
         var step2StoreAPIServiceMock = {
-            udpateDiagnosisContent: () => {
+            updateDiagnosisContent: () => {
             },
             createDiagnosedNeeds: () => {
             }
@@ -149,7 +149,7 @@ describe('ContactStore', () => {
             }
         }
 
-        describe('udpateDiagnosisContent', function () {
+        describe('updateDiagnosisContent', function () {
 
             var commit
             const state = {
@@ -163,24 +163,24 @@ describe('ContactStore', () => {
                 const positivePromise = Promise.resolve(true)
 
                 beforeEach(function () {
-                    spyOn(step2StoreAPIServiceMock, 'udpateDiagnosisContent').and.returnValue(positivePromise)
+                    spyOn(step2StoreAPIServiceMock, 'updateDiagnosisContent').and.returnValue(positivePromise)
                     commit = jasmine.createSpy()
                 })
 
                 it('returns a promise', function () {
-                    var promise = actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                    var promise = actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
                     expect(typeof promise.then).toBe('function')
                 })
 
                 it('calls contactAPIService with the diagnosisId and the content', async function () {
-                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                    await actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
 
-                    expect(step2StoreAPIServiceMock.udpateDiagnosisContent.calls.count()).toEqual(1)
-                    expect(step2StoreAPIServiceMock.udpateDiagnosisContent.calls.argsFor(0)).toEqual([12, 'content !'])
+                    expect(step2StoreAPIServiceMock.updateDiagnosisContent.calls.count()).toEqual(1)
+                    expect(step2StoreAPIServiceMock.updateDiagnosisContent.calls.argsFor(0)).toEqual([12, 'content !'])
                 })
 
                 it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
-                    actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                    actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
 
                     expect(commit.calls.count()).toEqual(1)
                     expect(commit.calls.argsFor(0)).toEqual([
@@ -190,7 +190,7 @@ describe('ContactStore', () => {
                 })
 
                 it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
-                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                    await actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
 
                     expect(commit.calls.count()).toEqual(2)
                     expect(commit.calls.argsFor(1)).toEqual([
@@ -206,24 +206,24 @@ describe('ContactStore', () => {
                 const negativePromise = Promise.reject(apiError)
 
                 beforeEach(function () {
-                    spyOn(step2StoreAPIServiceMock, 'udpateDiagnosisContent').and.returnValue(negativePromise)
+                    spyOn(step2StoreAPIServiceMock, 'updateDiagnosisContent').and.returnValue(negativePromise)
                     commit = jasmine.createSpy()
                 })
 
                 it('returns a promise', function () {
-                    var promise = actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                    var promise = actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
                     expect(typeof promise.then).toBe('function')
                 })
 
                 it('calls contactAPIService with the diagnosisId and the content', async function () {
-                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                    await actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
 
-                    expect(step2StoreAPIServiceMock.udpateDiagnosisContent.calls.count()).toEqual(1)
-                    expect(step2StoreAPIServiceMock.udpateDiagnosisContent.calls.argsFor(0)).toEqual([12, 'content !'])
+                    expect(step2StoreAPIServiceMock.updateDiagnosisContent.calls.count()).toEqual(1)
+                    expect(step2StoreAPIServiceMock.updateDiagnosisContent.calls.argsFor(0)).toEqual([12, 'content !'])
                 })
 
                 it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
-                    actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                    actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
 
                     expect(commit.calls.count()).toEqual(1)
                     expect(commit.calls.argsFor(0)).toEqual([
@@ -233,7 +233,7 @@ describe('ContactStore', () => {
                 })
 
                 it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
-                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state)).catch(() => {
+                    await actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state)).catch(() => {
                     })
 
                     expect(commit.calls.count()).toEqual(2)
@@ -245,7 +245,7 @@ describe('ContactStore', () => {
 
                 it('propagtes the error', async function () {
                     var catchedError
-                    await actions.sendDiagnosisContentUdpate(apiServiceContext(commit, state))
+                    await actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
                         .catch((error) => {
                             catchedError = error
                         })
@@ -355,7 +355,7 @@ describe('ContactStore', () => {
                     ])
                 })
 
-                it('calls commit DIAGNOSTIC_REQUEST_UNDERWAY with false at end of action', async function () {
+                it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
                     await actions.createSelectedQuestions(apiServiceContext(commit, state)).catch(() => {
                     })
 

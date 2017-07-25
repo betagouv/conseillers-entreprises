@@ -6,7 +6,7 @@ require('babel-polyfill')
 
 describe('Step2APIService', () => {
 
-    describe('udpateDiagnosisContent', () => {
+    describe('updateDiagnosisContent', () => {
 
         var returnPromise
 
@@ -16,7 +16,7 @@ describe('Step2APIService', () => {
                 var promise = Promise.resolve({data: ''})
                 spyOn(Step2APIService, 'send').and.returnValue(promise)
 
-                returnPromise = Step2APIService.udpateDiagnosisContent(12, 'Awesome random stuff')
+                returnPromise = Step2APIService.updateDiagnosisContent(12, 'Awesome random stuff')
             })
 
             it('calls send with the right arguments', function () {
@@ -61,7 +61,7 @@ describe('Step2APIService', () => {
                 var promise = Promise.reject(error)
                 spyOn(Step2APIService, 'send').and.returnValue(promise)
 
-                returnPromise = Step2APIService.udpateDiagnosisContent(12, 'Awesome random stuff')
+                returnPromise = Step2APIService.updateDiagnosisContent(12, 'Awesome random stuff')
             })
 
             it('calls send with the right arguments', function () {
