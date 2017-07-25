@@ -39,7 +39,7 @@ RSpec.describe DiagnosisController, type: :controller do
   describe 'GET #step2' do
     it 'returns http success' do
       diagnosis = create :diagnosis, visit: visit
-      get :show, params: { id: diagnosis.id, visit_id: visit.id }
+      get :step2, params: { id: diagnosis.id, visit_id: visit.id }
       expect(response).to have_http_status(:success)
     end
   end

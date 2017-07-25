@@ -4,7 +4,7 @@ module Api
   class DiagnosedNeedsController < ApplicationController
     def create
       DiagnosedNeed.transaction do
-        @diagnosed_needs = DiagnosedNeed.create create_param_array
+        DiagnosedNeed.create create_param_array
       end
       render body: nil, status: :created
     rescue StandardError

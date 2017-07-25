@@ -24,10 +24,11 @@ class DiagnosisController < ApplicationController
   end
 
   def step2
-    @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
-    @diagnosis = Diagnosis.of_visit(@visit)
+    visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
+    @diagnosis = Diagnosis.of_visit(visit)
                           .includes(diagnosed_needs: [:question])
                           .find params[:id]
+    render layout: 'application'
   end
 
   private

@@ -36,6 +36,7 @@ gem 'i18n-tasks', '~> 0.9'
 gem 'wannabe_bool'
 
 gem 'capybara'
+gem 'poltergeist'
 gem 'webpacker', '~> 2.0'
 
 gem 'exception_notification'
