@@ -24,6 +24,7 @@
                 this.sendDiagnosisContentUpdate()
                 .then( this.createSelectedQuestions() )
                 .then( () => {
+                    //TODO: Change after the right path is determined
                     Turbolinks.visit('/')
                 });
             },
