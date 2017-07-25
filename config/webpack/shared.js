@@ -27,10 +27,8 @@ var packPathsReduced = function() {
     )
 
     Object.keys(packs).map(function (key, index) {
-        // packs[key] = ['babel-polyfill', packs[key]]
+        packs[key] = ['babel-polyfill', packs[key]]
     })
-
-    console.log(JSON.stringify(packs))
     return packs
 }()
 
