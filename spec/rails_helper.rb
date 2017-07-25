@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -30,12 +31,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
-  config.before :suite do
-    # Run webpack compilation before suite, so assets exists in public/packs
-    # see https://github.com/rspec/rspec-core/issues/2366
-    `bin/webpack`
-  end
 end
 
 Shoulda::Matchers.configure do |config|
@@ -44,3 +39,5 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Capybara.javascript_driver = :poltergeist

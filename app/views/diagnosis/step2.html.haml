@@ -1,0 +1,21 @@
+- meta title: t('.diagnosis_date', date: @diagnosis.creation_date_localized)
+
+%h1= t('.identified_needs', count: @diagnosis.diagnosed_needs.count)
+%p= t('.diagnosis_date', date: @diagnosis.creation_date_localized)
+
+#step2-app
+  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content }
+  %content-text-area
+
+  - categories_with_questions.each do |item|
+    %h2= item[:category]
+    %table.ui.celled.table
+      %tbody
+        - item[:questions].each do |question|
+          %tr{'is' => 'question-selection-row', 'question-id' => question.id, 'question-label' => question.label }
+          %tr{'is' => 'question-content-row', 'question-id' => question.id, 'question-label' => question.label }
+
+
+  %next-step-button
+
+= javascript_pack_tag 'step-2/step2App'

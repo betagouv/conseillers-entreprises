@@ -1,0 +1,39 @@
+<template>
+  <div class="ui form">
+    <div class="field">
+      <label><%= I18n.t('diagnosis.show.description') %></label>
+      <textarea rows="2" v-model="content" v-bind:disabled="isRequestInProgress"></textarea>
+    </div>
+  </div>
+</template>
+
+<script>
+    import { mapState, mapMutations } from 'vuex'
+    import * as types from './store/mutationTypes'
+
+    export default {
+        name: 'content-text-area',
+        computed: {
+            ...mapState({
+                diagnosisContent: state => state.step2Store.diagnosisContent,
+                isRequestInProgress: state => state.step2Store.isRequestInProgress
+            }),
+            content: {
+                get () {
+                    return this.diagnosisContent
+                },
+                set (value) {
+                    this.setDiagnosisContent(value)
+                }
+            }
+        },
+        methods: {
+            ...mapMutations({
+                setDiagnosisContent: types.DIAGNOSIS_CONTENT
+            })
+        }
+    }
+</script>
+
+<style lang="sass">
+</style>
