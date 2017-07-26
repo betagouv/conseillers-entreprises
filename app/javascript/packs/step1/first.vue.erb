@@ -24,8 +24,8 @@
               i.search.icon
 
       template(v-if='companyInfoDisplayed')
-        p= "#{I18n.t('activerecord.attributes.company.name')} : {{ companyName }}"
-        p= "#{I18n.t('.location')} : {{ facilityLocation }}"
+        p= "<%= I18n.t('activerecord.attributes.company.name') %> : {{ companyName }}"
+        p= "<%= I18n.t('step1.location') %> : {{ facilityLocation }}"
         button.ui.teal.labeled.icon.mini.button(@click='editCompanyForm')
           | <%= I18n.t('edit') %>
           i.pencil.icon
