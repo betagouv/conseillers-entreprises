@@ -12,9 +12,8 @@ fr:
   actions: Actions
   show: Montrer
   hide: Cacher
-  next_step: Étape suivante
+  next_step: Passer à la suite
   sign_up: S'inscrire
   sign_in: Se connecter
   contact_us: Contactez-nous
   admin_authentication_failure: Vous n'avez pas accès à cette page.
-  next_step: Passer à la suite
