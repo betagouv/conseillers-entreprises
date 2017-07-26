@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class DiagnosisController < ApplicationController
-  layout 'with_visit_subnavbar', only: %i[index new create show]
+  layout 'with_visit_subnavbar', only: %i[index_ex new create show]
+
+  def index
+    @diagnoses_count = Diagnosis.of_user(current_user).count
+    @diagnoses = Diagnosis.of_user(current_user).reverse_chronological.limited
+  end
 
   def step1; end
 
@@ -19,7 +24,7 @@ class DiagnosisController < ApplicationController
 
   # Former actions
 
-  def index
+  def index_ex
     @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
   end
 

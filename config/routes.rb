@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnosis, only: %i[] do
+  resources :diagnosis, only: %i[index] do
     get 'step-1' => 'diagnosis#step1', on: :collection
 
     member do
@@ -33,7 +33,9 @@ Rails.application.routes.draw do
       patch :update_visitee
     end
 
-    resources :diagnosis, only: %i[index new create show]
+    resources :diagnosis, only: %i[new create show] do
+      get :index_ex, on: :collection
+    end
   end
 
   resources :companies, only: %i[], param: :siret do

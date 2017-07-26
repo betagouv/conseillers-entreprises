@@ -1,0 +1,16 @@
+- meta title: t('.title')
+
+%h1= t('.title')
+
+- if @visit.diagnosis
+  %table.ui.celled.table.ui.selectable
+    %tbody
+      %tr
+        %td
+          = link_to visit_diagnosis_path(visit_id: @visit.diagnosis.visit_id, id: @visit.diagnosis.id) do
+            .full-width
+              = t('.diagnosis_date', date: @visit.diagnosis.creation_date_localized)
+
+= link_to new_visit_diagnosis_path(visit_id: @visit.id), class: 'ui medium green button' do
+  = semantic_icon('sitemap')
+  = t('.create_new_diagnosis')
