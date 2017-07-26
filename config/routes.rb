@@ -38,7 +38,6 @@ Rails.application.routes.draw do
 
   resources :companies, only: %i[], param: :siret do
     collection do
-      post :search_by_siret
       post :search_by_siren
       post :search_by_name
     end
