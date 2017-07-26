@@ -8,7 +8,6 @@ class VisitsController < ApplicationController
   def show
     find_visit
     @facility = UseCases::SearchFacility.with_siret @visit.facility.siret
-    render layout: 'with_visit_subnavbar'
   end
 
   def new
@@ -29,7 +28,6 @@ class VisitsController < ApplicationController
   def edit_visitee
     find_visit
     @visit.build_visitee
-    render layout: 'with_visit_subnavbar'
   end
 
   def update_visitee
@@ -39,7 +37,7 @@ class VisitsController < ApplicationController
     if @visit.save
       update_visitee_redirection
     else
-      render 'edit_visitee', layout: 'with_visit_subnavbar'
+      render 'edit_visitee'
     end
   end
 

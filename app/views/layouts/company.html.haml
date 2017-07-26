@@ -5,10 +5,9 @@
   %body
     = render partial: 'layouts/navbar'
     = render partial: 'layouts/environment_ribbon'
-    = render partial: 'layouts/visit_subnavbar'
 
     %main
-      .ui.main.container.with_visit_subnavbar
+      .ui.main.container
         = render partial: 'layouts/flashes'
         = yield
 

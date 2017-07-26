@@ -1,8 +1,0 @@
-.ui.top.fixed.menu#visit-subnavbar
-  .ui.container
-    .header.item
-      = link_to @visit, visit_path(@visit)
-    .item
-      = link_to company_visit_path(@visit) do
-        = semantic_icon('building outline')
-        = t('visits.index.company_info')
