@@ -9,9 +9,9 @@ module Api
     def create
       facility = UseCases::SearchFacility.with_siret_and_save params[:siret]
       visit = Visit.create advisor: current_user, facility: facility if facility
-      diagnosis = Diagnosis.new visit: visit if visit
-      if facility && visit && diagnosis.save
-        render json: { id: diagnosis.id }, status: :created, location: api_diagnosis_url(diagnosis)
+      @diagnosis = Diagnosis.new visit: visit if visit
+      if facility && visit && @diagnosis.save
+        render status: :created, location: api_diagnosis_url(@diagnosis)
       else
         render body: nil, status: :bad_request
       end
