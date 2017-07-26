@@ -8,7 +8,7 @@ RSpec.describe Visit, type: :model do
       is_expected.to belong_to :advisor
       is_expected.to belong_to :visitee
       is_expected.to belong_to :facility
-      is_expected.to have_many :diagnoses
+      is_expected.to have_one :diagnosis
       is_expected.to validate_presence_of :advisor
       is_expected.to validate_presence_of :facility
     end

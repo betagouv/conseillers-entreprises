@@ -6,7 +6,6 @@ fr:
       no_visits_yet: Vous n'avez pas encore de visites indiquées dans Réso.
       this_is_your_visits_list: Voici la liste des visites que vous avez indiquées dans Réso.
       company_info: Informations
-      analysis_tool: Analyse
       new_visit: Nouvelle visite
     show:
       title: Visite de %{company_name}

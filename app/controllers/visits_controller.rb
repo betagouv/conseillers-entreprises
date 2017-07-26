@@ -2,7 +2,7 @@
 
 class VisitsController < ApplicationController
   def index
-    @visits = Visit.of_advisor(current_user).includes(:diagnoses, :facility, facility: :company)
+    @visits = Visit.of_advisor(current_user).includes(:facility, facility: :company)
   end
 
   def show
@@ -46,7 +46,7 @@ class VisitsController < ApplicationController
   private
 
   def find_visit
-    @visit = Visit.of_advisor(current_user).includes(%i[facility diagnoses]).find params[:id]
+    @visit = Visit.of_advisor(current_user).includes(%i[facility]).find params[:id]
   end
 
   def update_visitee_redirection
