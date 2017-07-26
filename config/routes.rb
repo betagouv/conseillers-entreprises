@@ -29,8 +29,6 @@ Rails.application.routes.draw do
   resources :visits, only: %i[show] do
     member do
       get 'company' => 'companies#show'
-      get :edit_visitee
-      patch :update_visitee
     end
 
     resources :diagnosis, only: %i[new create show] do
