@@ -1,4 +1,13 @@
 fr:
+  step1:
+    search_company: Recherche de l'entreprise
+    siret_format_error_title: Numéro invalide !
+    siret_format_error_text: Vérifiez que le numéro SIRET est bien composé de 14 chiffres.
+    company_not_found_error_title: Entreprise non trouvée !
+    company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
+    location: Localité
+    save_error_title: La sauvegarde a échoué !
+    save_error_text: Réessayez ou rechargez la page si le problème persiste...
   diagnosis_v2:
     steps:
       step1_title_html: Entreprise<br>visitée
@@ -7,14 +16,6 @@ fr:
       step4_title_html: Mise en<br>contact
     new:
       title: Nouvelle analyse
-      search_company: Recherche de l'entreprise
-      siret_format_error_title: Numéro invalide !
-      siret_format_error_text: Vérifiez que le numéro SIRET est bien composé de 14 chiffres.
-      company_not_found_error_title: Entreprise non trouvée !
-      company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
-      location: Localité
-      save_error_title: La sauvegarde a échoué !
-      save_error_text: Réessayez ou rechargez la page si le problème persiste...
     step2:
       title: Etape 2 !!
   diagnosis:

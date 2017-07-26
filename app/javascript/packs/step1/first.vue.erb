@@ -1,49 +1,51 @@
 <template lang="pug">
-  .ui.segment.shadow-less.dimmable(':class'='{ dimmed: isLoading }')
+
+  <% include Rails.application.routes.url_helpers %>
+
+  .ui.segment.shadow-less.dimmable(:class='{ dimmed: isLoading }')
     .ui.simple.inverted.dimmer
       .ui.text.loader
-        template('v-if' = 'companyFormDisplayed') <%= I18n.t('.search_company') %>
-        template('v-if' = 'companyInfoDisplayed') <%= I18n.t('save_in_progress') %>
+        template(v-if='companyFormDisplayed') <%= I18n.t('step1.search_company') %>
+        template(v-if='companyInfoDisplayed') <%= I18n.t('save_in_progress') %>
 
-    template('v-if' = 'companyFormDisplayed')
-      form.ui.form.company-siret-form('v-on:submit.prevent'="submitSelectCompany('<%= Rails.application.routes.url_helpers.search_by_siret_api_facilities_path %>')", ':class'='{ error: formHasError() }')
+    template(v-if='companyFormDisplayed')
+      form.ui.form.company-siret-form(
+        v-on:submit.prevent="submitSelectCompany('<%= search_by_siret_api_facilities_path %>')",
+        :class='{ error: formHasError() }'
+      )
         .inline.fields.no-margin
           .field
             .ui.labeled.input
               label.ui.label(for='siret') <%= I18n.t('activerecord.attributes.facility.siret') %>
-              input#siret(type='text', name='siret', 'v-model'='siret')
+              input#siret(name='siret', v-model='siret')
           button.ui.teal.labeled.icon.button
-            span <%= I18n.t('search') %>
+            | <%= I18n.t('search') %>
             i.search.icon
 
-    template('v-if' = 'companyInfoDisplayed')
-      p= "#{t('activerecord.attributes.company.name')} : {{ companyName }}"
-      p= "#{t('.location')} : {{ facilityLocation }}"
-      button.ui.teal.labeled.icon.mini.button('@click' = 'editCompanyForm')
-        span <%= I18n.t('edit') %>
+    template(v-if='companyInfoDisplayed')
+      p= "#{I18n.t('activerecord.attributes.company.name')} : {{ companyName }}"
+      p= "#{I18n.t('.location')} : {{ facilityLocation }}"
+      button.ui.teal.labeled.icon.mini.button(@click='editCompanyForm')
+        | <%= I18n.t('edit') %>
         i.pencil.icon
 
-    template('v-if' = 'formHasError()')
+    template(v-if='formHasError()')
       .ui.error.message
-        template('v-if' = 'siretFormatError')
-          .header
-            span <%= I18n.t('.siret_format_error_title') %>
-          p <%= I18n.t('.siret_format_error_text') %>
-        template('v-if' = 'companyNotFoundError')
-          .header
-            span <%= I18n.t('.company_not_found_error_title') %>
-          p <%= I18n.t('.company_not_found_error_text') %>
-        template('v-if' = 'diagnosisSaveError')
-          .header
-            span <%= I18n.t('.save_error_title') %>
-          p <%= I18n.t('.save_error_text') %>
-  //
-  //button.ui.teal.right.labeled.icon.button.right.floated#next-step-button('@click'="saveAndGoToNextStep('<%= Rails.application.routes.url_helpers.api_diagnoses_path %>')", ':class'='{ disabled: nextStepButtonDisabled }')
-    span <%= I18n.t('next_step') %>
-  //  i.arrow.right.icon
+        template(v-if='siretFormatError')
+          .header <%= I18n.t('step1.siret_format_error_title') %>
+          p <%= I18n.t('step1.siret_format_error_text') %>
+        template(v-if='companyNotFoundError')
+          .header <%= I18n.t('step1.company_not_found_error_title') %>
+          p <%= I18n.t('step1.company_not_found_error_text') %>
+        template(v-if='diagnosisSaveError')
+          .header <%= I18n.t('step1.save_error_title') %>
+          p <%= I18n.t('step1.save_error_text') %>
+
 </template>
 
 <script>
+  import RequestService from '../diagnosis/requestService'
+
   export default {
       name: 'first',
       props: [],
