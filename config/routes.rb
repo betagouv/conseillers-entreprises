@@ -18,7 +18,12 @@ Rails.application.routes.draw do
 
   resources :diagnosis, only: %i[] do
     get 'step-1' => 'diagnosis#step1', on: :collection
-    get 'step-2' => 'diagnosis#step2', on: :member
+
+    member do
+      get 'step-2' => 'diagnosis#step2'
+      get 'step-3' => 'diagnosis#step3'
+      get 'step-4' => 'diagnosis#step4'
+    end
   end
 
   resources :visits, only: %i[index show new create] do

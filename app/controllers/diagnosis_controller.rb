@@ -9,6 +9,14 @@ class DiagnosisController < ApplicationController
     @diagnosis = Diagnosis.find params[:id]
   end
 
+  def step3
+    render body: nil
+  end
+
+  def step4
+    render body: nil
+  end
+
   # Former actions
 
   def index
@@ -27,8 +35,8 @@ class DiagnosisController < ApplicationController
   def show
     @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
     @diagnosis = Diagnosis.of_visit(@visit)
-                          .includes(diagnosed_needs: [:question])
-                          .find params[:id]
+                   .includes(diagnosed_needs: [:question])
+                   .find params[:id]
   end
 
   private
