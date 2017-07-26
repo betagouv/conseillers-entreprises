@@ -13,12 +13,6 @@ fr:
       title: Analyses
       create_new_diagnosis: Faire une nouvelle analyse
       diagnosis_date: "Analyse du %{date}"
-    index_ex:
-      title: Analyses
-      create_new_diagnosis: Faire une nouvelle analyse
-      diagnosis_date: "Analyse du %{date}"
-    new:
-      diagnosis: Analyse
     show:
       identified_needs:
         zero: Aucun besoin identifié

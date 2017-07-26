@@ -31,9 +31,7 @@ Rails.application.routes.draw do
       get 'company' => 'companies#show'
     end
 
-    resources :diagnosis, only: %i[new create show] do
-      get :index_ex, on: :collection
-    end
+    resources :diagnosis, only: %i[show]
   end
 
   resources :companies, only: %i[], param: :siret do

@@ -9,7 +9,6 @@ fr:
       company_detailled_info: Informations détaillées
       person_you_met: Personne que vous avez rencontrée
       diagnosis: Analyse des besoins de l'entreprise
-      cta_diagnosis: Faire l'analyse des besoins
       diagnosis_date: "Analyse du %{date}"
     add_company_modal:
       add_company: Ajouter une Entreprise
