@@ -1,28 +1,9 @@
 # frozen_string_literal: true
 
 class VisitsController < ApplicationController
-  def index
-    @visits = Visit.of_advisor(current_user).includes(:facility, facility: :company)
-  end
-
   def show
     find_visit
     @facility = UseCases::SearchFacility.with_siret @visit.facility.siret
-  end
-
-  def new
-    @visit = Visit.new
-  end
-
-  def create
-    facility = UseCases::SearchFacility.with_siret_and_save params[:visit][:siret]
-    @visit = Visit.new visit_params
-    @visit.assign_attributes advisor: current_user, facility: facility
-    if facility && @visit.save
-      redirect_to visit_path @visit
-    else
-      render 'new'
-    end
   end
 
   def edit_visitee

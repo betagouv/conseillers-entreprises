@@ -47,7 +47,7 @@ describe 'ApplicationController specific features', type: :feature do
       click_button I18n.t('sign_in')
     end
 
-    it('redirects to visits page') { expect(current_url).to eq visits_url }
+    it('redirects to visits page') { expect(current_url).to eq diagnosis_index_url }
   end
 
   describe 'render_error' do
@@ -55,8 +55,8 @@ describe 'ApplicationController specific features', type: :feature do
 
     before do
       ENV['TEST_ERROR_RENDERING'] = 'true'
-      allow(Visit).to receive(:of_advisor).and_raise(raised_error)
-      visit visits_path
+      allow(Diagnosis).to receive(:of_user).and_raise(raised_error)
+      visit diagnosis_index_path
     end
 
     describe '404 error' do
