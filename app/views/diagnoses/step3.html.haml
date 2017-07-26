@@ -5,7 +5,11 @@
 %h1= t('.complementary_data')
 
 %h2= t('.your_contact_in_the_company')
--#%p= t('.info_about_who_you_saw_during_your_visit', company_name: @visit.company_name)
 
+%p= t('.info_about_who_you_saw_during_your_visit', company_name: @visit.company_name)
+
+#step3-app
+  %visit-date-input
+  %date-picker-input
 
 = javascript_pack_tag 'step-3/step3App'

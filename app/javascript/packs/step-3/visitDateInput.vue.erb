@@ -1,0 +1,56 @@
+<template>
+  <div class="ui form">
+    <div class="field required">
+      <!--<label><%= I18n.t('diagnosis.show.description') %></label>-->
+      <label>DATE</label>
+      <div class="ui calendar">
+        <div class="ui input left icon">
+          <i class="calendar icon"></i>
+          <input type="date" v-model="date">
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+    import { mapState, mapGetters, mapMutations } from 'vuex'
+    import * as types from './store/mutationTypes'
+
+    export default {
+        name: 'visit-date-input',
+        data: function() {
+          return {
+              date:''
+          }
+        },
+        props: [
+        ],
+        created: function() {
+        },
+        computed: {
+            ...mapState({
+                visitDate: state => state.step3Store.visitDate
+            }),
+            ...mapGetters({
+                isDateCompleted: 'isDateCompleted'
+            }),
+            visitDate: {
+                get () {
+                    return this.visitDate
+                },
+                set (value) {
+                    this.setVisitDate(value)
+                }
+            }
+        },
+        methods: {
+            ...mapMutations({
+                setVisitDate: types.VISIT_DATE
+            })
+        }
+    }
+</script>
+
+<style lang="sass">
+</style>

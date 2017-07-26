@@ -18,7 +18,8 @@ describe('step3Store', () => {
                 name: '',
                 job: '',
                 email: '',
-                phoneNumber: ''
+                phoneNumber: '',
+                visitDate: ''
             }
         })
 
@@ -78,19 +79,32 @@ describe('step3Store', () => {
         describe('isFormCompleted', function () {
 
             it('returns false when at least one of the completion getters is false', function () {
-                spyOn(getters, 'isNameCompleted').and.returnValue(false)
-                spyOn(getters, 'isJobCompleted').and.returnValue(true)
-                spyOn(getters, 'areContactDetailsCompleted').and.returnValue(true)
+                getters.isNameCompleted = false
+                getters.isJobCompleted = true
+                getters.areContactDetailsCompleted = true
 
                 expect(getters.isFormCompleted(state, getters)).toBeFalsy()
             })
 
             it('returns true when all of the completion getters are true', function () {
-                spyOn(getters, 'isNameCompleted').and.returnValue(true)
-                spyOn(getters, 'isJobCompleted').and.returnValue(true)
-                spyOn(getters, 'areContactDetailsCompleted').and.returnValue(true)
+                getters.isNameCompleted = true
+                getters.isJobCompleted = true
+                getters.areContactDetailsCompleted = true
 
                 expect(getters.isFormCompleted(state, getters)).toBeTruthy()
+            })
+        })
+
+        describe('isDateCompleted', function () {
+
+            it('returns false when empty', function () {
+                state.visitDate = ''
+                expect(getters.isDateCompleted(state)).toBeFalsy()
+            })
+
+            it('returns true when not empty', function () {
+                state.visitDate = '10/20/30'
+                expect(getters.isDateCompleted(state)).toBeTruthy()
             })
         })
     })
@@ -141,6 +155,15 @@ describe('step3Store', () => {
                 const state = {phoneNumber: 'no number'}
                 mutations.CONTACT_PHONE_NUMBER(state, '060606060606')
                 expect(state.phoneNumber).toEqual('060606060606')
+            })
+        })
+
+        describe('VISIT_DATE', function () {
+
+            it('updates the date', function () {
+                const state = {visitDate: 'no date'}
+                mutations.VISIT_DATE(state, '01/04/2029')
+                expect(state.visitDate).toEqual('01/04/2029')
             })
         })
     })

@@ -6,7 +6,8 @@ const state = {
     name: '',
     job: '',
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    visitDate: ''
 }
 
 const getters = {
@@ -24,9 +25,13 @@ const getters = {
     },
 
     isFormCompleted: (state, getters) => {
-        return (getters.isNameCompleted(state)
-        && getters.isJobCompleted(state)
-        && getters.areContactDetailsCompleted(state))
+        return (getters.isNameCompleted
+        && getters.isJobCompleted
+        && getters.areContactDetailsCompleted)
+    },
+
+    isDateCompleted: state => {
+        return (state.visitDate.length > 0)
     }
 }
 
@@ -52,6 +57,10 @@ const mutations = {
 
     [types.CONTACT_PHONE_NUMBER] (state, phoneNumber) {
         state.phoneNumber = phoneNumber
+    },
+
+    [types.VISIT_DATE] (state, visitDate) {
+        state.visitDate = visitDate
     }
 }
 
