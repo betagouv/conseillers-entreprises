@@ -1,8 +1,8 @@
 import Vue from 'vue/dist/vue.esm'
-import TurbolinksAdapter from 'vue-turbolinks'
 import store from './store'
 import axios from 'axios'
 
+import TurbolinksAdapter from 'vue-turbolinks'
 Vue.use(TurbolinksAdapter)
 
 import appDataSetter from './appDataSetter.vue.erb'

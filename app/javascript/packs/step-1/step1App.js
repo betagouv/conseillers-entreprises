@@ -1,8 +1,9 @@
 import Vue from 'vue/dist/vue.esm'
-import TurbolinksAdapter from 'vue-turbolinks'
-import SelectCompany from './selectCompany.vue.erb'
 
+import TurbolinksAdapter from 'vue-turbolinks'
 Vue.use(TurbolinksAdapter)
+
+import SelectCompany from './selectCompany.vue.erb'
 
 new Vue({
     el: '#step1-app',
