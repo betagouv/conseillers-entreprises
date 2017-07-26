@@ -6,20 +6,12 @@ Vue.use(TurbolinksAdapter)
 
 document.addEventListener('turbolinks:load', () => {
     const element = document.getElementById('diagnosis-step1')
-    if(element !== null) {
-        SelectCompany.initialize()
-    }
-})
-
-const SelectCompany = {
-    initialize: function() {
+    if (element !== null) {
         new Vue({
-            el: '#diagnosis-step1',
+            el: element,
             components: {
                 'first': First
             }
         })
     }
-}
-
-export default SelectCompany
+})

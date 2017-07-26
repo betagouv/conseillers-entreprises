@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 module DiagnosisHelper
+  def classes_for_step(displayed_step, current_step = nil)
+    if displayed_step == current_step
+      'active'
+    elsif displayed_step < current_step
+      'completed'
+    end
+  end
+
   def categories_with_questions
     questions = Question.all.includes(:category).order(:category_id, :id)
     current_category = nil

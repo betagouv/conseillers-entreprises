@@ -16,8 +16,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnosis_v2, only: %i[new] do
-    get 'step-2' => :step2, on: :member
+  resources :diagnosis, only: %i[] do
+    get 'step-1' => 'diagnosis#step1', on: :collection
+    get 'step-2' => 'diagnosis#step2', on: :member
   end
 
   resources :visits, only: %i[index show new create] do
@@ -27,11 +28,7 @@ Rails.application.routes.draw do
       patch :update_visitee
     end
 
-    resources :diagnosis, only: %i[index new create show] do
-      member do
-        get 'step-2' => 'diagnosis#step2'
-      end
-    end
+    resources :diagnosis, only: %i[index new create show]
   end
 
   resources :companies, only: %i[], param: :siret do
