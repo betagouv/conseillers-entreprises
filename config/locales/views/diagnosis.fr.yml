@@ -64,3 +64,5 @@ fr:
       add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
       email_address: Adresse e-mail
       phone_number: Numéro de télephone
+    step4:
+      title: Sélection des référents

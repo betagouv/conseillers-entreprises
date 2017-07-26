@@ -1,0 +1,8 @@
+- meta title: t('.title')
+
+= render partial: 'steps', locals: { current_step: 4 }
+
+#step4-app
+  %select-experts
+
+= javascript_pack_tag 'step-4/step4App'

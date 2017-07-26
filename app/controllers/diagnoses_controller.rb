@@ -20,7 +20,7 @@ class DiagnosesController < ApplicationController
   end
 
   def step4
-    render body: nil
+    @diagnosis = Diagnosis.find params[:id]
   end
 
   # Former action
