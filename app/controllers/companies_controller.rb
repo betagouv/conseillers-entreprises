@@ -1,18 +1,10 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  def search_by_siret
-    company = UseCases::SearchCompany.with_siret params[:siret]
-    @company_name = ApiEntrepriseService.company_name(company)
-    location_hash = company['etablissement_siege']['commune_implantation']
-    @company_location = "#{location_hash['code']} #{location_hash['value']}" if location_hash
-  end
-
   def search_by_siren
     company = UseCases::SearchCompany.with_siren params[:siren]
     @company_name = ApiEntrepriseService.company_name(company)
-    location_hash = company['etablissement_siege']['commune_implantation']
-    @company_location = "#{location_hash['code']} #{location_hash['value']}" if location_hash
+    @company_location = ApiEntrepriseService.company_name(company.dig('etablissement_siege'))
     @company_headquarters_siret = company['entreprise']['siret_siege_social']
   end
 

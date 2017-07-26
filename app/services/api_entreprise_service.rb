@@ -17,9 +17,19 @@ module ApiEntrepriseService
     end
 
     def company_name(company_json)
-      company_name = company_json['entreprise']['nom_commercial']
-      company_name = company_json['entreprise']['raison_sociale'] if company_name.blank?
-      company_name
+      entreprise_hash = company_json.dig('entreprise')
+      return nil unless entreprise_hash
+      company_name = entreprise_hash.dig('nom_commercial')
+      company_name = entreprise_hash.dig('raison_sociale') if company_name.blank?
+      company_name.present? ? company_name.titleize : nil
+    end
+
+    def facility_location(etablissement_json)
+      location_hash = etablissement_json.dig('commune_implantation')
+      return nil unless location_hash
+      postal_code = location_hash.dig('code')
+      town_name = location_hash.dig('value')&.titleize
+      "#{postal_code} #{town_name}".presence
     end
 
     private

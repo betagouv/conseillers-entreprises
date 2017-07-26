@@ -9,13 +9,14 @@ end
 
 ruby '2.4.1'
 
+gem 'rails', '~> 5.1.2'
+
 gem 'coffee-rails', '~> 4.2'
 gem 'compass-rails'
 gem 'foreman'
 gem 'haml-rails', '~> 0.9'
 gem 'pg'
 gem 'puma', '~> 3.0'
-gem 'rails', '~> 5.1.1'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 

@@ -5,13 +5,15 @@ fr:
   edit: Modifier
   update: Mettre à jour
   back: Retour
+  search: Rechercher
   save: Enregistrer
+  save_in_progress: Sauvegarde en cours
   cancel: Annuler
   actions: Actions
   show: Montrer
   hide: Cacher
+  next_step: Passer à la suite
   sign_up: S'inscrire
   sign_in: Se connecter
   contact_us: Contactez-nous
   admin_authentication_failure: Vous n'avez pas accès à cette page.
-  next_step: Passer à la suite

@@ -1,7 +1,23 @@
 # frozen_string_literal: true
 
 class DiagnosisController < ApplicationController
-  layout 'with_visit_subnavbar'
+  layout 'with_visit_subnavbar', only: %i[index new create show]
+
+  def step1; end
+
+  def step2
+    @diagnosis = Diagnosis.find params[:id]
+  end
+
+  def step3
+    render body: nil
+  end
+
+  def step4
+    render body: nil
+  end
+
+  # Former actions
 
   def index
     @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
@@ -21,14 +37,6 @@ class DiagnosisController < ApplicationController
     @diagnosis = Diagnosis.of_visit(@visit)
                           .includes(diagnosed_needs: [:question])
                           .find params[:id]
-  end
-
-  def step2
-    visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
-    @diagnosis = Diagnosis.of_visit(visit)
-                          .includes(diagnosed_needs: [:question])
-                          .find params[:id]
-    render layout: 'application'
   end
 
   private

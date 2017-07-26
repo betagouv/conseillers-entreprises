@@ -1,5 +1,7 @@
 - meta title: t('.diagnosis_date', date: @diagnosis.creation_date_localized)
 
+= render partial: 'steps', locals: { current_step: 2 }
+
 %h1= t('.identified_needs', count: @diagnosis.diagnosed_needs.count)
 %p= t('.diagnosis_date', date: @diagnosis.creation_date_localized)
 

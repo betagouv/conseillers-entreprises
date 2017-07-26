@@ -1,0 +1,6 @@
+.diagnosis-steps-wrapper
+  .ui.mini.ordered.steps.diagnosis-steps
+    - (1..4).each do |displayed_step|
+      .step{class: classes_for_step(displayed_step, current_step)}
+        .content
+          .title= t(".step#{displayed_step}_title_html")

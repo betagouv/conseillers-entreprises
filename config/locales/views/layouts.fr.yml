@@ -2,6 +2,7 @@ fr:
   layouts:
     navbar:
       visits: Visites
+      new_diagnosis: Nouvelle analyse
       know_more: En savoir plus
       sign_out: Se déconnecter
       dashboard: Admin

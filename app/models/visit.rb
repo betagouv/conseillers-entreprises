@@ -8,16 +8,16 @@ class Visit < ApplicationRecord
   has_many :diagnoses
   accepts_nested_attributes_for :visitee
 
-  validates :happened_at, :advisor, :facility, presence: true
+  validates :advisor, :facility, presence: true
 
   scope :of_advisor, (->(user) { where(advisor: user) })
 
   def to_s
-    I18n.t('visits.to_s', company_name: company_name, date: happened_at_localized)
+    I18n.t('visits.to_s', company_name: company_name)
   end
 
   def happened_at_localized
-    I18n.l happened_at
+    I18n.l happened_at if happened_at
   end
 
   def company_name

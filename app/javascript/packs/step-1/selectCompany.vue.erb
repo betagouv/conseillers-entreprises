@@ -1,0 +1,160 @@
+<template lang="pug">
+
+  <% include Rails.application.routes.url_helpers %>
+
+  div
+    .ui.segment.shadow-less.dimmable(:class='{ dimmed: isLoading }')
+      .ui.simple.inverted.dimmer
+        .ui.text.loader
+          template(v-if='companyFormDisplayed') <%= I18n.t('step1.search_company') %>
+          template(v-if='companyInfoDisplayed') <%= I18n.t('save_in_progress') %>
+
+      template(v-if='companyFormDisplayed')
+        form.ui.form.company-siret-form(
+          v-on:submit.prevent="submitSelectCompany('<%= search_by_siret_api_facilities_path %>')",
+          :class='{ error: formHasError() }'
+        )
+          .inline.fields.no-margin
+            .field
+              .ui.labeled.input
+                label.ui.label(for='siret') <%= I18n.t('activerecord.attributes.facility.siret') %>
+                input#siret(name='siret', v-model='siret')
+            button.ui.teal.labeled.icon.button
+              | <%= I18n.t('search') %>
+              i.search.icon
+
+      template(v-if='companyInfoDisplayed')
+        p= "<%= I18n.t('activerecord.attributes.company.name') %> : {{ companyName }}"
+        p= "<%= I18n.t('step1.location') %> : {{ facilityLocation }}"
+        button.ui.teal.labeled.icon.mini.button(@click='editCompanyForm')
+          | <%= I18n.t('edit') %>
+          i.pencil.icon
+  
+      template(v-if='formHasError()')
+        .ui.error.message
+          template(v-if='siretFormatError')
+            .header <%= I18n.t('step1.siret_format_error_title') %>
+            p <%= I18n.t('step1.siret_format_error_text') %>
+          template(v-if='companyNotFoundError')
+            .header <%= I18n.t('step1.company_not_found_error_title') %>
+            p <%= I18n.t('step1.company_not_found_error_text') %>
+          template(v-if='diagnosisSaveError')
+            .header <%= I18n.t('step1.save_error_title') %>
+            p <%= I18n.t('step1.save_error_text') %>
+
+    button.ui.teal.right.labeled.icon.button.right.floated#next-step-button(
+      @click="saveAndGoToNextStep('<%= api_diagnoses_path %>')",
+      :class='{ disabled: nextStepButtonDisabled }'
+    )
+      | <%= I18n.t('next_step') %>
+      i.arrow.right.icon
+
+</template>
+
+<script>
+  import RequestService from './requestService'
+
+  export default {
+      name: 'select-company',
+      props: [],
+      data: function () {
+          return {
+            siret: '',
+            companyName: '',
+            facilityLocation: '',
+            companyFormDisplayed: true,
+            companyInfoDisplayed: false,
+            nextStepButtonDisabled: true,
+            isLoading: false,
+            siretFormatError: false,
+            companyNotFoundError: false,
+            diagnosisSaveError: false
+          }
+      },
+      methods: {
+          submitSelectCompany: function (searchFacilityPath) {
+              if (this.siretFormatValid()) {
+                  this.fetchCompany(searchFacilityPath)
+              } else {
+                  this.siretFormatError = true
+              }
+          },
+          siretFormatValid: function () {
+              return this.siret.match(/^[0-9]{14}$/)
+          },
+          fetchCompany: function (searchFacilityPath) {
+              this.isLoading = true
+
+              const requestConfig = {
+                  method: 'post',
+                  url: searchFacilityPath,
+                  params: {siret: this.siret}
+              }
+              const vm = this
+              let onSuccess = function (response) {
+                  vm.isLoading = false
+                  vm.companyName = response.data.company_name
+                  vm.facilityLocation = response.data.facility_location
+                  vm.displayCompanyInfo()
+                  document.getElementById('next-step-button').focus()
+              }
+              let onError = function (_error) {
+                  vm.companyNotFoundError = true
+                  vm.isLoading = false
+              }
+
+              new RequestService(onSuccess, onError).send(requestConfig)
+          },
+          editCompanyForm: function () {
+              this.removeErrors()
+              this.displayCompanyForm()
+          },
+          displayCompanyForm: function () {
+              this.companyFormDisplayed = true
+              this.companyInfoDisplayed = false
+              this.nextStepButtonDisabled = true
+          },
+          displayCompanyInfo: function () {
+              this.companyFormDisplayed = false
+              this.companyInfoDisplayed = true
+              this.nextStepButtonDisabled = false
+          },
+          saveAndGoToNextStep: function (saveDiagnosisPath) {
+              if (!this.nextStepButtonDisabled) {
+                  this.removeErrors()
+                  this.isLoading = true
+
+                  const requestConfig = {
+                      method: 'post',
+                      url: saveDiagnosisPath,
+                      params: {siret: this.siret}
+                  }
+                  const vm = this
+                  let onSuccess = function (response) {
+                      vm.isLoading = false
+                      Turbolinks.visit(`/diagnosis/${response.data.id}/step-2`) // TODO: Test this route presence
+                  }
+                  let onError = function (error) {
+                      vm.diagnosisSaveError = true
+                      vm.isLoading = false
+                  }
+
+                  new RequestService(onSuccess, onError).send(requestConfig)
+              }
+          },
+          formHasError: function () {
+              return this.siretFormatError || this.companyNotFoundError || this.diagnosisSaveError
+          },
+          removeErrors: function () {
+              this.siretFormatError = false
+              this.companyNotFoundError = false
+              this.diagnosisSaveError = false
+          }
+      },
+      watch: {
+          siret: function (newValue) {
+              this.removeErrors()
+          }
+      }
+  }
+</script>

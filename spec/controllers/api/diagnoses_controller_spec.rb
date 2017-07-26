@@ -5,28 +5,51 @@ require 'rails_helper'
 RSpec.describe Api::DiagnosesController, type: :controller do
   login_user
 
-  let(:visit) { create :visit, advisor: current_user }
-  let(:diagnosis) { create :diagnosis, visit: visit, content: Faker::Lorem.paragraph }
+  let(:diagnosis) { create :diagnosis, content: Faker::Lorem.paragraph }
 
   describe 'GET #show' do
-    before { get :show, format: :json, params: { id: diagnosis.id } }
+    it('returns http success') do
+      get :show, format: :json, params: { id: diagnosis.id }
 
-    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
   end
 
+  describe 'POST #create' do
+    context 'save worked' do
+      it 'redirects to the show page' do
+        siret = '12345678901234'
+        facility = create :facility, siret: siret
+        allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { facility }
+
+        post :create, format: :json, params: { siret: siret }
+
+        expect(response).to have_http_status(:created)
+        expect(response.headers['Location']).to eq api_diagnosis_url(Diagnosis.last)
+      end
+    end
+
+    context 'saved failed' do
+      it 'does not redirect' do
+        allow(UseCases::SearchFacility).to receive(:with_siret_and_save)
+
+        post :create, format: :json, params: {}
+
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+  end
+
   describe 'PATCH #update' do
-    let(:updated_content) { 'Lorem fake stuff content' }
-
-    before { patch :update, format: :json, params: { id: diagnosis.id, diagnosis: { content: updated_content } } }
-
-    it 'returns http success' do
-      expect(response).to have_http_status(:success)
+    subject(:request) do
+      patch :update, format: :json, params: { id: diagnosis.id, diagnosis: { content: new_content } }
     end
 
-    it 'updates the diagnosis s content' do
-      expect(diagnosis.reload.content).to eq(updated_content)
-    end
+    let(:new_content) { 'Lorem fake stuff content' }
+
+    before { request }
+
+    it('returns http success') { expect(response).to have_http_status(:success) }
+    it('updates the diagnosis s content') { expect(diagnosis.reload.content).to eq(new_content) }
   end
 end
