@@ -2,5 +2,7 @@
 
 = render partial: 'steps', locals: { current_step: 1 }
 
-#diagnosis-step1
-  %first
+#step1-app
+  %select-company
+
+= javascript_pack_tag 'step-1/step1App'
