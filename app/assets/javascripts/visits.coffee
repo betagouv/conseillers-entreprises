@@ -1,37 +1,4 @@
 window.Visits =
-  setCompanyInfoAndCloseModal: (companySiret, companyName, companyLocation) ->
-    $('#visit-siret').val(companySiret)
-    $('#company-info .name').text(' : ' + companyName)
-    $('#company-info .location').text(' : ' + companyLocation)
-    window.Visits.updateSubmitDisplay()
-    $('#company-name-modal').modal('hide')
-
-  setupCompanyLink: ->
-    $('.company-link').off 'click'
-    $('.company-link').on 'click', ->
-      window.Visits.fetchSiretWithSiren($(@).data('company-siren'))
-
-  fetchSiretWithSiren: (siren) ->
-    url = $('#company-name-search').data('search-by-siren-url')
-    $.ajax url,
-      data:
-        siren: siren
-      type: 'POST'
-
-  setupModalDisplay: ->
-    $('.open-company-name-modal').click ->
-      $('#company-name-modal').modal('show')
-
-  updateSubmitDisplay: ->
-    if $('#visit-siret').val() == ''
-      $('#add-company').show()
-      $('#company-info').hide()
-      $('#new-visit-submit-wrapper').hide()
-    else
-      $('#add-company').hide()
-      $('#company-info').show()
-      $('#new-visit-submit-wrapper').show()
-
   setupDatePicker: ->
     $('#datepicker').calendar
       type: 'date',
@@ -57,13 +24,9 @@ window.Visits =
 
 $(document).on 'turbolinks:load', ->
   if $('#new-visit-form').length > 0
-    window.Visits.setupModalDisplay()
     window.Visits.setupDatePicker()
-    window.Visits.updateSubmitDisplay()
 
 # IE9 compatibility
 $ ->
   if $('#new-visit-form').length > 0
-    window.Visits.setupModalDisplay()
     window.Visits.setupDatePicker()
-    window.Visits.updateSubmitDisplay()
