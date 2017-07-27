@@ -20,7 +20,9 @@ class DiagnosesController < ApplicationController
   end
 
   def step4
-    @diagnosis = Diagnosis.find params[:id]
+    diagnosis = Diagnosis.find params[:id]
+    @diagnosed_needs = DiagnosedNeed.of_diagnosis(diagnosis).joins(:question, question: :assistances)
+    @diagnosed_needs = @diagnosed_needs.includes(:question, question: :assistances)
   end
 
   # Former action

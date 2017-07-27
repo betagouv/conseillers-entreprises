@@ -3,6 +3,36 @@
 = render partial: 'steps', locals: { current_step: 4 }
 
 #step4-app
-  %select-experts
+  %p= t('.explanation')
 
-= javascript_pack_tag 'step-4/step4App'
+  - @diagnosed_needs.each do |diagnosed_need|
+    %table.ui.compact.small.table.celled
+      %thead
+        %tr
+          %th{colspan: 4}= diagnosed_need.question
+      %tbody
+        - assistances = diagnosed_need.question.assistances
+        - assistances.each do |assistance|
+          - assistance.experts.each do |expert|
+            %tr
+              %td.checkbox-width
+                .ui.fitted.checkbox
+                  %input{type: 'checkbox', checked: true, id: "#{assistance.id}-#{expert.id}"}
+                  %label{for: "#{assistance.id}-#{expert.id}"}
+              %td.expert-width
+                %label.clickable{for: "#{assistance.id}-#{expert.id}"}
+                  = expert.full_name
+                  %br
+                  = expert.institution
+              %td
+                %label.clickable{for: "#{assistance.id}-#{expert.id}"}
+                  = assistance.title
+              %td.info-button-width
+                %button.circular.ui.teal.icon.basic.button.mini
+                  %i.info.icon
+
+  .ui.info.message
+    = t('.before_sending_emails_text_html')
+
+  %button.ui.teal.button.right.floated#next-step-button
+    = t('.notify_experts_button', count: 2) # TODO

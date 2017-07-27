@@ -5,4 +5,6 @@ class DiagnosedNeed < ApplicationRecord
   belongs_to :question
 
   validates :diagnosis, presence: true
+
+  scope :of_diagnosis, (->(diagnosis) { where(diagnosis: diagnosis) })
 end

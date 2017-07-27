@@ -66,3 +66,12 @@ fr:
       phone_number: Numéro de télephone
     step4:
       title: Sélection des référents
+      explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
+      before_sending_emails_text_html: |
+        <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
+        <p>Ils auront accès aux coordonnées de l'entreprise et aux commentaires que vous avez ajoutés à l'analyse.</p>
+        <p>Ils pourront recontacter l'entreprise et l'accompagner sur les besoins estimés, ou revenir vers vous pour avoir plus d'information.</p>
+      notify_experts_button:
+        zero: Aucun référent sélectionné
+        one: Notifier le référent sélectionné
+        other: Notifier les %{count} référents sélectionnés
