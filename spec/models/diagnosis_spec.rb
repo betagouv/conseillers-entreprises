@@ -27,15 +27,6 @@ RSpec.describe Diagnosis, type: :model do
           is_expected.to eq [diagnosis]
         end
       end
-
-      context 'two diagnoses' do
-        it do
-          diagnosis1 = create :diagnosis, visit: visit
-          diagnosis2 = create :diagnosis, visit: visit
-
-          is_expected.to match_array [diagnosis1, diagnosis2]
-        end
-      end
     end
 
     describe 'of_user' do
