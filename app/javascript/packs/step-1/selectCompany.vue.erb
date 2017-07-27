@@ -132,7 +132,7 @@
                   const vm = this
                   let onSuccess = function (response) {
                       vm.isLoading = false
-                      Turbolinks.visit(`/diagnosis/${response.data.id}/step-2`) // TODO: Test this route presence
+                      Turbolinks.visit(`/diagnoses/${response.data.id}/step-2`) // TODO: Test this route presence
                   }
                   let onError = function (error) {
                       vm.diagnosisSaveError = true
