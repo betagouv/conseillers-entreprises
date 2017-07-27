@@ -47,6 +47,12 @@ describe('step2Store', () => {
                 mutations.DIAGNOSIS_CONTENT(state, 'Random Content')
                 expect(state.diagnosisContent).toEqual('Random Content')
             })
+
+            it('sets the diagnosis content at empty string if undefined is passed', function () {
+                const state = {diagnosisContent: 'Random Content'}
+                mutations.DIAGNOSIS_CONTENT(state, undefined)
+                expect(state.diagnosisContent).toEqual('')
+            })
         })
 
         describe('REQUEST_IN_PROGRESS', function () {
