@@ -1,8 +1,7 @@
 <template lang="pug">
 
-  <% include Rails.application.routes.url_helpers %>
-
   div
+    <% include Rails.application.routes.url_helpers %>
     .ui.segment.shadow-less.dimmable(:class='{ dimmed: isLoading }')
       .ui.simple.inverted.dimmer
         .ui.text.loader
