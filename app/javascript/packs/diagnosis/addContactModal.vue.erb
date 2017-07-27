@@ -2,37 +2,37 @@
     <div class="ui dimmer modals page inverted" v-bind:class="{ active: show }" v-on:click="dimmerClicked">
         <div class="ui modal large visible scrolling" v-bind:class="{ active: show }">
             <div class="header">
-                <%= I18n.t('diagnosis.show.add_contact_modal.header') %>
+                <%= I18n.t('diagnoses.show.add_contact_modal.header') %>
             </div>
             <div class="content">
                 <div class="description">
                     <div class="ui form" v-bind:class="{ error: showErrorMessage }" >
                         <div class="ui error message">
                             <div class="header">
-                                <%= I18n.t('diagnosis.show.add_contact_modal.error_header') %>
+                                <%= I18n.t('diagnoses.show.add_contact_modal.error_header') %>
                             </div>
                             <p>
-                                <%= I18n.t('diagnosis.show.add_contact_modal.error_message') %>
+                                <%= I18n.t('diagnoses.show.add_contact_modal.error_message') %>
                             </p>
                         </div>
                         <div class="required field" v-bind:class="{ error: !nameCompleted && errorShowing }">
-                            <label><%= I18n.t('diagnosis.show.add_contact_modal.full_name') %></label>
+                            <label><%= I18n.t('diagnoses.show.add_contact_modal.full_name') %></label>
                             <input v-model="name" type="text">
                         </div>
                         <div class="required field" v-bind:class="{ error: !jobCompleted && errorShowing }">
-                            <label><%= I18n.t('diagnosis.show.add_contact_modal.role') %></label>
+                            <label><%= I18n.t('diagnoses.show.add_contact_modal.role') %></label>
                             <input v-model="job" type="text" required="required">
                         </div>
                         <h3 class="ui header">
-                            <%= I18n.t('diagnosis.show.add_contact_modal.contact_detail') %>
-                            <div class="sub header "><%= I18n.t('diagnosis.show.add_contact_modal.add_one_contact_mode_below') %></div>
+                            <%= I18n.t('diagnoses.show.add_contact_modal.contact_detail') %>
+                            <div class="sub header "><%= I18n.t('diagnoses.show.add_contact_modal.add_one_contact_mode_below') %></div>
                         </h3>
                         <div class="field" v-bind:class="{ error: !contactCompleted && errorShowing }">
-                            <label><%= I18n.t('diagnosis.show.add_contact_modal.email_address') %></label>
+                            <label><%= I18n.t('diagnoses.show.add_contact_modal.email_address') %></label>
                             <input v-model="email" type="text">
                         </div>
                         <div class="field"  v-bind:class="{ error: !contactCompleted && errorShowing }">
-                            <label><%= I18n.t('diagnosis.show.add_contact_modal.phone_number') %></label>
+                            <label><%= I18n.t('diagnoses.show.add_contact_modal.phone_number') %></label>
                             <input v-model="phoneNumber" type="text">
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 fr:
   layouts:
     navbar:
-      visits: Visites
+      diagnoses: Analyses
       new_diagnosis: Nouvelle analyse
       know_more: En savoir plus
       sign_out: Se déconnecter

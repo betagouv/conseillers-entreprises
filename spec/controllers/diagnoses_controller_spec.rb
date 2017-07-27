@@ -2,10 +2,17 @@
 
 require 'rails_helper'
 
-RSpec.describe DiagnosisController, type: :controller do
+RSpec.describe DiagnosesController, type: :controller do
   login_user
 
   let(:diagnosis) { create :diagnosis }
+
+  describe 'GET #index' do
+    it 'returns http success' do
+      get :index
+      expect(response).to have_http_status(:success)
+    end
+  end
 
   describe 'GET #step1' do
     it 'returns http success' do
@@ -35,32 +42,10 @@ RSpec.describe DiagnosisController, type: :controller do
     end
   end
 
-  describe 'former pages' do
-    let(:visit) { create :visit, advisor: current_user }
-
-    describe 'GET #index' do
-      it 'returns http success' do
-        get :index, params: { visit_id: visit.id }
-        expect(response).to have_http_status(:success)
-      end
-    end
-
-    describe 'GET #new' do
-      it 'returns http success' do
-        get :new, params: { visit_id: visit.id }
-        expect(response).to have_http_status(:success)
-      end
-    end
-
-    describe 'POST #create' do
-      it 'returns http success' do
-        post :create, params: { visit_id: visit.id }
-        expect(response).to have_http_status(:redirect)
-      end
-    end
-
+  describe 'former page' do
     describe 'GET #show' do
       it 'returns http success' do
+        visit = create :visit, advisor: current_user
         diagnosis = create :diagnosis, visit: visit
         get :show, params: { id: diagnosis.id, visit_id: visit.id }
         expect(response).to have_http_status(:success)

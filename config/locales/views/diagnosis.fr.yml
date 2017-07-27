@@ -8,13 +8,11 @@ fr:
     location: Localité
     save_error_title: La sauvegarde a échoué !
     save_error_text: Réessayez ou rechargez la page si le problème persiste...
-  diagnosis:
+  diagnoses:
     index:
       title: Analyses
       create_new_diagnosis: Faire une nouvelle analyse
       diagnosis_date: "Analyse du %{date}"
-    new:
-      diagnosis: Analyse
     show:
       identified_needs:
         zero: Aucun besoin identifié

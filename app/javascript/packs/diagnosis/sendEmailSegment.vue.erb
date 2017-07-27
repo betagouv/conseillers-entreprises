@@ -1,14 +1,14 @@
 <template>
     <div class="ui dimmable" v-bind:class="{ dimmed: isLoading }">
         <div class="ui simple inverted dimmer">
-            <div class="ui text loader"><%= I18n.t('diagnosis.show.save_loader') %></div>
+            <div class="ui text loader"><%= I18n.t('diagnoses.show.save_loader') %></div>
         </div>
         <div v-if="contacts.length > 0">
             <div v-html="expertButton"></div>
         </div>
         <div v-else>
-            <div class="ui small message"><%= I18n.t('diagnosis.show.no_visitee_message') %></div>
-            <button class="ui button mailto-expert-button mini" v-on:click="addVisiteeButtonClicked"><%= I18n.t('diagnosis.show.add_visitee') %></button>
+            <div class="ui small message"><%= I18n.t('diagnoses.show.no_visitee_message') %></div>
+            <button class="ui button mailto-expert-button mini" v-on:click="addVisiteeButtonClicked"><%= I18n.t('diagnoses.show.add_visitee') %></button>
         </div>
 
         <add-contact-modal :show.sync= "modalIsShowing" v-bind:visit-id="visitId"

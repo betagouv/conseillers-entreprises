@@ -5,7 +5,7 @@ class Visit < ApplicationRecord
   belongs_to :visitee, class_name: 'Contact'
   belongs_to :facility
 
-  has_many :diagnoses
+  has_one :diagnosis
   accepts_nested_attributes_for :visitee
 
   validates :advisor, :facility, presence: true

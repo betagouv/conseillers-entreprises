@@ -1,0 +1,24 @@
+- meta title: t('.title')
+
+%h1= t('.title')
+
+- if @diagnoses.present?
+  %table.ui.celled.table.ui.selectable
+    %tbody
+      - @diagnoses.each do |diagnosis|
+        %tr
+          %td
+            = t('.diagnosis_date', date: diagnosis.creation_date_localized)
+          %td
+            = "Visit n°#{diagnosis.visit_id}"
+          - (2..4).each do |index|
+            %td
+              = link_to "Etape #{index}", controller: 'diagnoses', action: "step#{index}", id: diagnosis
+      - if @diagnoses_count > @diagnoses.length
+        %tr
+          %td{colspan: 5}
+            = "#{@diagnoses_count - @diagnoses.length} restants"
+
+= link_to step_1_diagnoses_path, class: 'ui medium green button' do
+  = semantic_icon('plus')
+  = t('.create_new_diagnosis')

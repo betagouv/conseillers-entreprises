@@ -5,11 +5,11 @@
         = image_tag 'reso-logo-simple.png', style: 'width: 60px'
     - if user_signed_in?
       .item
-        = link_to visits_path do
-          = semantic_icon('calendar')
-          = t('.visits')
+        = link_to diagnoses_path do
+          = semantic_icon('sitemap')
+          = t('.diagnoses')
       .item
-        = link_to step_1_diagnosis_index_path do
+        = link_to step_1_diagnoses_path do
           = semantic_icon('plus')
           = t('.new_diagnosis')
     - else
