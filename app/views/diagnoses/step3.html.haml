@@ -1,17 +1,20 @@
-- meta title: t('.complementary_data')
+- meta title: t('.title')
 
 = render partial: 'steps', locals: { current_step: 3 }
 
-%p= 'Changer les locales après l\'intégration dans le processus global.'
 
-%h1= t('.complementary_data')
-
-%h2= t('.your_contact_in_the_company')
-
--#%p= t('.info_about_who_you_saw_during_your_visit', company_name: @visit.company_name)
+%h1= t('.title')
 
 #step3-app
+  %form-error-message
+
+  %h2= t('.date_header')
   %visit-date-input
-  %date-picker-input
+
+  %h2= t('.your_contact_in_the_company')
+  %p= t('.info_about_who_you_saw_during_your_visit', company_name: 'COMPANY_NAME_PLACEHOLDER')
+  %contact-form
+
+  %next-step-button
 
 = javascript_pack_tag 'step-3/step3App'

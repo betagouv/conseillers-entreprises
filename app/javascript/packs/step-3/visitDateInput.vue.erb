@@ -1,13 +1,10 @@
 <template>
-  <div class="ui form">
-    <div class="field required">
-      <!--<label><%= I18n.t('diagnosis.show.description') %></label>-->
-      <label>DATE</label>
-      <div class="ui calendar">
-        <div class="ui input left icon">
-          <i class="calendar icon"></i>
-          <input type="date" v-model="date">
-        </div>
+  <div>
+    <div class="ui form">
+      <div class="field required" v-bind:class="{ error: !isDateCompleted && showFormErrorMessage }">
+        <label><%= I18n.t('diagnoses.step3.date') %></label>
+        <date-input v-model="visitDate"></date-input>
+
       </div>
     </div>
   </div>
@@ -16,28 +13,24 @@
 <script>
     import { mapState, mapGetters, mapMutations } from 'vuex'
     import * as types from './store/mutationTypes'
+    import dateInput from './Utils/dateInput.vue.erb'
 
     export default {
         name: 'visit-date-input',
-        data: function() {
-          return {
-              date:''
-          }
-        },
-        props: [
-        ],
-        created: function() {
+        components: {
+            'date-input': dateInput,
         },
         computed: {
             ...mapState({
-                visitDate: state => state.step3Store.visitDate
+                storeVisitDate: state => state.step3Store.visitDate,
+                showFormErrorMessage: state => state.step3Store.showFormErrorMessage
             }),
             ...mapGetters({
                 isDateCompleted: 'isDateCompleted'
             }),
             visitDate: {
                 get () {
-                    return this.visitDate
+                    return this.storeVisitDate
                 },
                 set (value) {
                     this.setVisitDate(value)

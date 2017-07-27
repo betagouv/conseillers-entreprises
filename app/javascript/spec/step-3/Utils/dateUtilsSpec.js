@@ -16,7 +16,7 @@ describe('DateUtils', () => {
     describe('dateString', () => {
 
         it('creates the month object', function () {
-            const expectedDate = '26/07/2017'
+            const expectedDate = '2017-07-26'
             expect(dateUtils.dateString).toEqual(expectedDate)
         })
     })
@@ -94,7 +94,7 @@ describe('DateUtils', () => {
         })
 
         it('selects the day passed as argument', function () {
-            const expectedDate = '12/07/2017'
+            const expectedDate = '2017-07-12'
             expect(dateUtils.dateString).toEqual(expectedDate)
         })
     })

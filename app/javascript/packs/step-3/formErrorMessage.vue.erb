@@ -1,0 +1,35 @@
+<template>
+  <div class="ui form" v-bind:class="{ error: showErrorMessage }" >
+    <div class="ui error message">
+      <div class="header">
+        <%= I18n.t('diagnoses.step3.error_header') %>
+      </div>
+      <p>
+        <%= I18n.t('diagnoses.step3.error_message') %>
+      </p>
+    </div>
+  </div>
+</template>
+
+<script>
+    import { mapState, mapGetters, mapMutations } from 'vuex'
+    import * as types from './store/mutationTypes'
+    import dateInput from './Utils/dateInput.vue.erb'
+
+    export default {
+        name: 'form-error-message',
+        data: function() {
+            return {
+                showErrorMessage: true
+            }
+        },
+        computed: {
+            ...mapState({
+                storeName: state => state.step3Store.name,
+            }),
+        }
+    }
+</script>
+
+<style lang="sass">
+</style>

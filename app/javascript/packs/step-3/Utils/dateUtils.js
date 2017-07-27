@@ -5,7 +5,18 @@ export default class DateUtils {
     }
 
     get dateString() {
-        return this.selectedDate.toLocaleDateString()
+        let year = this.selectedDate.getFullYear();
+        let month = this.selectedDate.getMonth()+1;
+        let day = this.selectedDate.getDate();
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        return `${year}-${month}-${day}`
     }
 
     get daysOfMonth() {

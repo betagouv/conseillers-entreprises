@@ -3,6 +3,8 @@ import * as types from './mutationTypes'
 
 const state = {
     isRequestInProgress: false,
+    showFormFieldErrors: false,
+    showFormErrorMessage: false,
     name: '',
     job: '',
     email: '',
@@ -61,6 +63,14 @@ const mutations = {
 
     [types.VISIT_DATE] (state, visitDate) {
         state.visitDate = visitDate
+    },
+
+    [types.FORM_FIELDS_ERROR] (state, showFormFieldErrors) {
+        state.showFormFieldErrors = showFormFieldErrors
+    },
+
+    [types.FORM_ERROR_MESSAGE] (state, showFormErrorMessage) {
+        state.showFormErrorMessage = showFormErrorMessage
     }
 }
 

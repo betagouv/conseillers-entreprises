@@ -1,0 +1,91 @@
+<template>
+  <div class="ui form">
+    <div class="required field" v-bind:class="{ error: !isNameCompleted && showFormErrorMessage }">
+      <label><%= I18n.t('diagnoses.step3.full_name') %></label>
+      <input v-model="name" type="text">
+    </div>
+    <div class="required field" v-bind:class="{ error: !isJobCompleted && showFormErrorMessage }">
+      <label><%= I18n.t('diagnoses.step3.role') %></label>
+      <input v-model="job" type="text" required="required">
+    </div>
+    <h3 class="ui header">
+      <%= I18n.t('diagnoses.step3.contact_detail') %>
+      <div class="sub header "><%= I18n.t('diagnoses.step3.add_one_contact_mode_below') %></div>
+    </h3>
+    <div class="field" v-bind:class="{ error: !areContactDetailsCompleted && showFormErrorMessage }">
+      <label><%= I18n.t('diagnoses.step3.email_address') %></label>
+      <input v-model="email" type="text">
+    </div>
+    <div class="field"  v-bind:class="{ error: !areContactDetailsCompleted && showFormErrorMessage }">
+      <label><%= I18n.t('diagnoses.step3.phone_number') %></label>
+      <input v-model="phoneNumber" type="text">
+    </div>
+</div>
+</template>
+
+<script>
+    import { mapState, mapGetters, mapMutations } from 'vuex'
+    import * as types from './store/mutationTypes'
+    import dateInput from './Utils/dateInput.vue.erb'
+
+    export default {
+        name: 'contact-form',
+        computed: {
+            ...mapState({
+                storeName: state => state.step3Store.name,
+                storeJob: state => state.step3Store.job,
+                storeEmail: state => state.step3Store.email,
+                storePhoneNumber: state => state.step3Store.phoneNumber,
+                showFormErrorMessage: state => state.step3Store.showFormErrorMessage
+            }),
+            ...mapGetters({
+                isNameCompleted: 'isNameCompleted',
+                isJobCompleted: 'isJobCompleted',
+                areContactDetailsCompleted: 'areContactDetailsCompleted'
+            }),
+            name: {
+                get () {
+                    return this.storeName
+                },
+                set (value) {
+                    this.setContactName(value)
+                }
+            },
+            job: {
+                get () {
+                    return this.storeJob
+                },
+                set (value) {
+                    this.setContactJob(value)
+                }
+            },
+            email: {
+                get () {
+                    return this.storeEmail
+                },
+                set (value) {
+                    this.setContactEmail(value)
+                }
+            },
+            phoneNumber: {
+                get () {
+                    return this.storePhoneNumber
+                },
+                set (value) {
+                    this.setContactPhoneNumber(value)
+                }
+            }
+        },
+        methods: {
+            ...mapMutations({
+                setContactName: types.CONTACT_NAME,
+                setContactJob: types.CONTACT_JOB,
+                setContactEmail: types.CONTACT_EMAIL,
+                setContactPhoneNumber: types.CONTACT_PHONE_NUMBER
+            })
+        }
+    }
+</script>
+
+<style lang="sass">
+</style>

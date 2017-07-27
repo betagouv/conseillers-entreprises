@@ -3,7 +3,9 @@ import store from './store'
 import axios from 'axios'
 
 import visitDateInput from './visitDateInput.vue.erb'
-import datePickerInput from './datePickerInput.vue.erb'
+import contactForm from './contactForm.vue.erb'
+import formErrorMessage from './formErrorMessage.vue.erb'
+import nextStepButton from './nextStepButton.vue.erb'
 
 var token = document.getElementsByName('csrf-token')[0].getAttribute('content')
 axios.defaults.headers.common['X-CSRF-Token'] = token
@@ -14,6 +16,8 @@ new Vue({
     store,
     components: {
         'visit-date-input': visitDateInput,
-        'date-picker-input': datePickerInput
+        'contact-form': contactForm,
+        'form-error-message': formErrorMessage,
+        'next-step-button': nextStepButton
     }
 })

@@ -166,6 +166,24 @@ describe('step3Store', () => {
                 expect(state.visitDate).toEqual('01/04/2029')
             })
         })
+
+        describe('FORM_FIELDS_ERROR', function () {
+
+            it('updates the showFormFieldsError boolean', function () {
+                const state = {showFormFieldErrors: false}
+                mutations.FORM_FIELDS_ERROR(state, true)
+                expect(state.showFormFieldErrors).toBeTruthy()
+            })
+        })
+
+        xdescribe('FORM_ERROR_MESSAGE', function () {
+
+            it('updates the date', function () {
+                const state = {showFormErrorMessage: false}
+                mutations.FORM_ERROR_MESSAGE(state, true)
+                expect(state.showFormErrorMessage).toBeTruthy()
+            })
+        })
     })
 
     describe('actions', () => {
