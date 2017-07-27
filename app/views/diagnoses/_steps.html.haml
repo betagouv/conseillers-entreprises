@@ -3,4 +3,8 @@
     - (1..4).each do |displayed_step|
       .step{class: classes_for_step(displayed_step, current_step)}
         .content
-          .title= t(".step#{displayed_step}_title_html")
+          .title
+            - if displayed_step < current_step && displayed_step > 1
+              = link_to t(".step#{displayed_step}_title_html"), controller: 'diagnosis', action: "step#{displayed_step}"
+            - else
+              = t(".step#{displayed_step}_title_html")
