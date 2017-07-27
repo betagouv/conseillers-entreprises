@@ -69,8 +69,8 @@ fr:
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
       before_sending_emails_text_html: |
         <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
-        <p>Ils auront accès aux coordonnées de l'entreprise et aux commentaires que vous avez ajoutés à l'analyse.</p>
-        <p>Ils pourront recontacter l'entreprise et l'accompagner sur les besoins estimés, ou revenir vers vous pour avoir plus d'information.</p>
+        <p>Ils auront accès aux coordonnées de l'entreprise et à l'analyse que vous avez réalisée, y compris vos commentaires.</p>
+        <p>Ils pourront recontacter directement l'entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d'information.</p>
       notify_experts_button:
         zero: Aucun référent sélectionné
         one: Notifier le référent sélectionné
