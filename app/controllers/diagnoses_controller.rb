@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DiagnosisController < ApplicationController
+class DiagnosesController < ApplicationController
   def index
     @diagnoses_count = Diagnosis.of_user(current_user).count
     @diagnoses = Diagnosis.of_user(current_user).reverse_chronological.limited

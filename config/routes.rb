@@ -16,13 +16,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnosis, only: %i[index] do
-    get 'step-1' => 'diagnosis#step1', on: :collection
+  resources :diagnoses, only: %i[index] do
+    get 'step-1' => 'diagnoses#step1', on: :collection
 
     member do
-      get 'step-2' => 'diagnosis#step2'
-      get 'step-3' => 'diagnosis#step3'
-      get 'step-4' => 'diagnosis#step4'
+      get 'step-2' => 'diagnoses#step2'
+      get 'step-3' => 'diagnoses#step3'
+      get 'step-4' => 'diagnoses#step4'
     end
   end
 
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       get 'company' => 'companies#show'
     end
 
-    resources :diagnosis, only: %i[show]
+    resources :diagnoses, only: %i[show]
   end
 
   resources :companies, only: %i[], param: :siret do

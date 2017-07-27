@@ -13,12 +13,12 @@
             = "Visit n°#{diagnosis.visit_id}"
           - (2..4).each do |index|
             %td
-              = link_to "Etape #{index}", controller: 'diagnosis', action: "step#{index}", id: diagnosis
+              = link_to "Etape #{index}", controller: 'diagnoses', action: "step#{index}", id: diagnosis
       - if @diagnoses_count > @diagnoses.length
         %tr
           %td{colspan: 5}
             = "#{@diagnoses_count - @diagnoses.length} restants"
 
-= link_to step_1_diagnosis_index_path, class: 'ui medium green button' do
+= link_to step_1_diagnoses_path, class: 'ui medium green button' do
   = semantic_icon('plus')
   = t('.create_new_diagnosis')

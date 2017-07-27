@@ -1,11 +1,11 @@
 <template>
     <div class="ui dimmable segment shadow-less" v-bind:class="{ dimmed: disabled }">
         <div class="ui simple inverted dimmer">
-            <div class="ui text loader"><%= I18n.t('diagnosis.show.save_loader') %></div>
+            <div class="ui text loader"><%= I18n.t('diagnoses.show.save_loader') %></div>
         </div>
         <div class="ui form">
             <div class="field">
-                <label><%= I18n.t('diagnosis.show.description') %></label>
+                <label><%= I18n.t('diagnoses.show.description') %></label>
                 <textarea rows="2" v-model="diagnosis.content"></textarea>
             </div>
             <button class="small ui button" v-on:click="saveButtonClicked">

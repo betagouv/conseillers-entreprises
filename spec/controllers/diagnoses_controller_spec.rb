@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DiagnosisController, type: :controller do
+RSpec.describe DiagnosesController, type: :controller do
   login_user
 
   let(:diagnosis) { create :diagnosis }

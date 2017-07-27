@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   # Devise parameter
   def after_sign_in_path_for(_resource)
-    diagnosis_index_path
+    diagnoses_path
   end
 
   private
