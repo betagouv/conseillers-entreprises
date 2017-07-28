@@ -8,31 +8,32 @@
   - else
     %p= t('.explanation')
 
-    - @diagnosed_needs.each do |diagnosed_need|
-      %table.ui.compact.small.table.celled
-        %thead
-          %tr
-            %th{colspan: 3}= diagnosed_need.question
-        %tbody
-          - assistances = diagnosed_need.question.assistances
-          - assistances.each do |assistance|
-            - assistance.experts.each do |expert|
-              %tr
-                %td.checkbox-width
-                  .ui.fitted.checkbox
-                    %input{type: 'checkbox', checked: true, id: "#{assistance.id}-#{expert.id}"}
-                    %label{for: "#{assistance.id}-#{expert.id}"}
-                %td.expert-width
-                  %label.clickable{for: "#{assistance.id}-#{expert.id}"}
-                    = expert.full_name
-                    %br
-                    = expert.institution
-                %td
-                  %label.clickable{for: "#{assistance.id}-#{expert.id}"}
-                    = assistance.title
+    = form_for :diagnosis, url: notify_experts_diagnosis_path, method: :post do |f|
+      - @diagnosed_needs.each do |diagnosed_need|
+        %table.ui.compact.small.table.celled
+          %thead
+            %tr
+              %th{colspan: 3}= diagnosed_need.question
+          %tbody
+            - assistances = diagnosed_need.question.assistances
+            - assistances.each do |assistance|
+              - assistance.experts.each do |expert|
+                %tr
+                  %td.checkbox-width
+                    .ui.fitted.checkbox
+                      = f.check_box :"#{assistance.id}-#{expert.id}", checked: true
+                      %label
+                  %td.expert-width
+                    = f.label :"#{assistance.id}-#{expert.id}", class: 'clickable' do
+                      = expert.full_name
+                      %br
+                      = expert.institution
+                  %td
+                    = f.label :"#{assistance.id}-#{expert.id}", class: 'clickable' do
+                      = assistance.title
 
-    .ui.info.message
-      = t('.before_sending_emails_text_html')
+      .ui.info.message
+        = t('.before_sending_emails_text_html')
 
-    %button.ui.teal.button.right.floated#next-step-button
-      = t('.notify_selected_experts')
+      %button.ui.teal.button.right.floated#next-step-button
+        = t('.notify_selected_experts')

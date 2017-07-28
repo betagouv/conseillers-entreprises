@@ -26,6 +26,11 @@ class DiagnosesController < ApplicationController
     @diagnosed_needs = @diagnosed_needs.joins(associations).includes(associations)
   end
 
+  def notify_experts
+    diagnosis = Diagnosis.find params[:id]
+
+  end
+
   # Former action
 
   def show

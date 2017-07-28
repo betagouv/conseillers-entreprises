@@ -42,6 +42,28 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
+  describe 'POST #notify_experts' do
+    let(:assistance) { create :assistance }
+    let(:expert) { create :expert }
+    let(:expert2) { create :expert }
+    let(:expert3) { create :expert }
+
+    before do
+      post :notify_experts, params: {
+        id: diagnosis.id,
+        diagnosis: {
+          "#{assistance.id}-#{expert.id}" => '1',
+          "#{assistance.id}-#{expert2.id}" => '1',
+          "#{assistance.id}-#{expert3.id}" => '0'
+        }
+      }
+    end
+
+    it 'returns http success' do
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'former page' do
     describe 'GET #show' do
       it 'returns http success' do

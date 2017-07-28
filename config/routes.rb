@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get 'step-2' => 'diagnoses#step2'
       get 'step-3' => 'diagnoses#step3'
       get 'step-4' => 'diagnoses#step4'
+      post :notify_experts
     end
   end
 
