@@ -8,7 +8,7 @@
   - else
     %p= t('.explanation')
 
-    = form_for :diagnosis, url: notify_experts_diagnosis_path, method: :post do |f|
+    = form_for :selected_assistances_experts, url: notify_experts_diagnosis_path, method: :post do |f|
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
           %thead
@@ -17,19 +17,19 @@
           %tbody
             - assistances = diagnosed_need.question.assistances
             - assistances.each do |assistance|
-              - assistance.experts.each do |expert|
+              - assistance.assistances_experts.each do |assistance_expert|
                 %tr
                   %td.checkbox-width
                     .ui.fitted.checkbox
-                      = f.check_box :"#{assistance.id}-#{expert.id}", checked: true
+                      = f.check_box :"#{assistance_expert.id}", checked: true
                       %label
                   %td.expert-width
-                    = f.label :"#{assistance.id}-#{expert.id}", class: 'clickable' do
-                      = expert.full_name
+                    = f.label :"#{assistance_expert.id}", class: 'clickable' do
+                      = assistance_expert.expert.full_name
                       %br
-                      = expert.institution
+                      = assistance_expert.expert.institution
                   %td
-                    = f.label :"#{assistance.id}-#{expert.id}", class: 'clickable' do
+                    = f.label :"#{assistance_expert.id}", class: 'clickable' do
                       = assistance.title
 
       .ui.info.message

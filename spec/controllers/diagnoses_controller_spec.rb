@@ -43,19 +43,9 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'POST #notify_experts' do
-    let(:assistance) { create :assistance }
-    let(:expert) { create :expert }
-    let(:expert2) { create :expert }
-    let(:expert3) { create :expert }
-
     before do
       post :notify_experts, params: {
-        id: diagnosis.id,
-        diagnosis: {
-          "#{assistance.id}-#{expert.id}" => '1',
-          "#{assistance.id}-#{expert2.id}" => '1',
-          "#{assistance.id}-#{expert3.id}" => '0'
-        }
+        id: diagnosis.id
       }
     end
 
