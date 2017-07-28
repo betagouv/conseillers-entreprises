@@ -3,36 +3,55 @@
 = render partial: 'steps', locals: { current_step: 4 }
 
 #step4-app
-  %p= t('.explanation')
 
-  - @diagnosed_needs.each do |diagnosed_need|
-    %table.ui.compact.small.table.celled
-      %thead
-        %tr
-          %th{colspan: 4}= diagnosed_need.question
-      %tbody
-        - assistances = diagnosed_need.question.assistances
-        - assistances.each do |assistance|
-          - assistance.experts.each do |expert|
-            %tr
-              %td.checkbox-width
-                .ui.fitted.checkbox
-                  %input{type: 'checkbox', checked: true, id: "#{assistance.id}-#{expert.id}"}
-                  %label{for: "#{assistance.id}-#{expert.id}"}
-              %td.expert-width
-                %label.clickable{for: "#{assistance.id}-#{expert.id}"}
-                  = expert.full_name
-                  %br
-                  = expert.institution
-              %td
-                %label.clickable{for: "#{assistance.id}-#{expert.id}"}
-                  = assistance.title
-              %td.info-button-width
-                %button.circular.ui.teal.icon.basic.button.mini
-                  %i.info.icon
+  - if @diagnosed_needs.empty?
+    %p= t('.no_assistance')
+  - else
+    %p= t('.explanation')
 
-  .ui.info.message
-    = t('.before_sending_emails_text_html')
+    %span.select-all{'@click' => 'selectAll'}= t('.select_all')
+    %span.select-all{'@click' => 'unSelectAll'}= t('.unselect_all')
 
-  %button.ui.teal.button.right.floated#next-step-button
-    = t('.notify_experts_button', count: 2) # TODO
+    - @diagnosed_needs.each do |diagnosed_need|
+      %table.ui.compact.small.table.celled
+        %thead
+          %tr
+            %th{colspan: 4}= diagnosed_need.question
+        %tbody
+          - assistances = diagnosed_need.question.assistances
+          - assistances.each do |assistance|
+            - assistance.experts.each do |expert|
+              %tr
+                %td.checkbox-width
+                  .ui.fitted.checkbox
+                    %input{type: 'checkbox', checked: true, id: "#{assistance.id}-#{expert.id}", value: "#{assistance.id}-#{expert.id}", 'v-model' => 'selectedAssistanceExperts'}
+                    %label{for: "#{assistance.id}-#{expert.id}"}
+                %td.expert-width
+                  %label.clickable{for: "#{assistance.id}-#{expert.id}"}
+                    = expert.full_name
+                    %br
+                    = expert.institution
+                %td
+                  %label.clickable{for: "#{assistance.id}-#{expert.id}"}
+                    = assistance.title
+                %td.info-button-width
+                  %button.circular.ui.teal.icon.basic.button.mini
+                    %i.info.icon
+
+    %span.select-all{'@click' => 'selectAll'}= t('.select_all')
+    %span.select-all{'@click' => 'unSelectAll'}= t('.unselect_all')
+
+    .ui.info.message
+      = t('.before_sending_emails_text_html')
+
+    %button.ui.teal.button.right.floated#next-step-button{'v-bind:class' => '{ disabled : selectedAssistanceExpertsCount == 0 }'}
+      %template{'v-if' => 'selectedAssistanceExpertsCount > 1'}
+        = t('.notify')
+        {{ selectedAssistanceExpertsCount }}
+        = t('.selected_experts')
+      %template{'v-if' => 'selectedAssistanceExpertsCount == 1'}
+        = t('.notify_experts_button', count: 1)
+      %template{'v-if' => 'selectedAssistanceExpertsCount == 0'}
+        = t('.notify_experts_button', count: 0)
+
+= javascript_pack_tag 'step-4/step4App'
