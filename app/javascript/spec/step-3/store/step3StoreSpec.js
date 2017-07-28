@@ -176,7 +176,7 @@ describe('step3Store', () => {
             })
         })
 
-        xdescribe('FORM_ERROR_MESSAGE', function () {
+        describe('FORM_ERROR_MESSAGE', function () {
 
             it('updates the date', function () {
                 const state = {showFormErrorMessage: false}

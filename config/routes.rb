@@ -52,7 +52,7 @@ Rails.application.routes.draw do
       resources :diagnosed_needs, only: %i[create]
     end
 
-    resources :visits, only: %i[] do
+    resources :visits, only: %i[update] do
       resources :contacts, only: %i[index create]
     end
 
