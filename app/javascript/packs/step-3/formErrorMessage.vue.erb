@@ -1,5 +1,5 @@
 <template>
-  <div class="ui form" v-bind:class="{ error: showErrorMessage }" >
+  <div class="ui form" v-bind:class="{ error: showFormErrorMessage }" >
     <div class="ui error message">
       <div class="header">
         <%= I18n.t('diagnoses.step3.error_header') %>
@@ -18,14 +18,9 @@
 
     export default {
         name: 'form-error-message',
-        data: function() {
-            return {
-                showErrorMessage: true
-            }
-        },
         computed: {
             ...mapState({
-                storeName: state => state.step3Store.name,
+                showFormErrorMessage: state => state.step3Store.showFormErrorMessage,
             }),
         }
     }

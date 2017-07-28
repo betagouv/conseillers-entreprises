@@ -121,7 +121,7 @@ describe('Step3APIService', () => {
         describe('with a success', function () {
 
             beforeEach(function () {
-                var promise = Promise.resolve({data: contact})
+                var promise = Promise.resolve(true)
                 spyOn(Step3APIService, 'send').and.returnValue(promise)
 
                 returnPromise = Step3APIService.updateVisitDate(10, '2017-08-21')

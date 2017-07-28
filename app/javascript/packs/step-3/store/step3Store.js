@@ -1,6 +1,8 @@
 import Step3APIService from './step3APIService'
 import * as types from './mutationTypes'
 
+const formCompletionError = new Error('the form is not completed')
+
 const state = {
     isRequestInProgress: false,
     showFormFieldErrors: false,
@@ -9,7 +11,9 @@ const state = {
     job: '',
     email: '',
     phoneNumber: '',
-    visitDate: ''
+    visitDate: '',
+    visitId: undefined,
+    diagnosisId: undefined,
 }
 
 const getters = {
@@ -37,7 +41,62 @@ const getters = {
     }
 }
 
-const actions = {}
+const actions = {
+
+    launchNextStep ({dispatch, commit, state, getters}) {
+        commit(types.REQUEST_IN_PROGRESS, true)
+        commit(types.FORM_FIELDS_ERROR, true)
+        commit(types.FORM_ERROR_MESSAGE, false)
+
+        return dispatch('checkFormCompletion')
+            .then(() => {
+                return dispatch('updateVisitDate')
+            })
+            .then(() => {
+                return dispatch('createContact')
+            })
+            .then(() => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+            })
+            .catch((error) => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+                commit(types.FORM_ERROR_MESSAGE, error == formCompletionError ? false : true)
+                throw error
+            })
+    },
+
+    checkFormCompletion ({getters}) {
+
+        return new Promise((resolve, reject) => {
+            getters.isFormCompleted && getters.isDateCompleted ? resolve(true) : reject(formCompletionError)
+        })
+
+    },
+
+    updateVisitDate ({state, step3APIServiceDependency}) {
+        var step3APIService = step3APIServiceDependency
+        if (typeof step3APIService == 'undefined') {
+            step3APIService = Step3APIService
+        }
+
+        return step3APIService.updateVisitDate(state.visitId, state.visitDate)
+    },
+
+    createContact ({state, step3APIServiceDependency}) {
+        var step3APIService = step3APIServiceDependency
+        if (typeof step3APIService == 'undefined') {
+            step3APIService = Step3APIService
+        }
+
+        const contactData = {
+            full_name: state.name,
+            email: state.email,
+            phone_number: state.phoneNumber,
+            role: state.job
+        }
+        return step3APIService.createContactForVisit(state.visitId, contactData)
+    }
+}
 
 const mutations = {
 
@@ -65,12 +124,20 @@ const mutations = {
         state.visitDate = visitDate
     },
 
+    [types.VISIT_ID] (state, visitId) {
+        state.visitId = visitId
+    },
+
     [types.FORM_FIELDS_ERROR] (state, showFormFieldErrors) {
         state.showFormFieldErrors = showFormFieldErrors
     },
 
     [types.FORM_ERROR_MESSAGE] (state, showFormErrorMessage) {
         state.showFormErrorMessage = showFormErrorMessage
+    },
+
+    [types.DIAGNOSIS_ID] (state, diagnosisId) {
+        state.diagnosisId = diagnosisId
     }
 }
 

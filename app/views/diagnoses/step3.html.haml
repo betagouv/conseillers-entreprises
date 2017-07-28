@@ -6,6 +6,7 @@
 %h1= t('.title')
 
 #step3-app
+  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'visit-id' => @diagnosis.visit.id }
   %form-error-message
 
   %h2= t('.date_header')

@@ -13,8 +13,8 @@ class DiagnosesController < ApplicationController
   end
 
   def step3
-    @diagnosis = Diagnosis.find params[:id]
-    # .includes(:visit)
+    @diagnosis = Diagnosis.includes(:visit)
+                          .find params[:id]
   end
 
   def step4

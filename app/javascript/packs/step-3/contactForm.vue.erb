@@ -1,10 +1,10 @@
 <template>
   <div class="ui form">
-    <div class="required field" v-bind:class="{ error: !isNameCompleted && showFormErrorMessage }">
+    <div class="required field" v-bind:class="{ error: !isNameCompleted && showFormFieldErrors }">
       <label><%= I18n.t('diagnoses.step3.full_name') %></label>
       <input v-model="name" type="text">
     </div>
-    <div class="required field" v-bind:class="{ error: !isJobCompleted && showFormErrorMessage }">
+    <div class="required field" v-bind:class="{ error: !isJobCompleted && showFormFieldErrors }">
       <label><%= I18n.t('diagnoses.step3.role') %></label>
       <input v-model="job" type="text" required="required">
     </div>
@@ -12,11 +12,11 @@
       <%= I18n.t('diagnoses.step3.contact_detail') %>
       <div class="sub header "><%= I18n.t('diagnoses.step3.add_one_contact_mode_below') %></div>
     </h3>
-    <div class="field" v-bind:class="{ error: !areContactDetailsCompleted && showFormErrorMessage }">
+    <div class="field" v-bind:class="{ error: !areContactDetailsCompleted && showFormFieldErrors }">
       <label><%= I18n.t('diagnoses.step3.email_address') %></label>
       <input v-model="email" type="text">
     </div>
-    <div class="field"  v-bind:class="{ error: !areContactDetailsCompleted && showFormErrorMessage }">
+    <div class="field"  v-bind:class="{ error: !areContactDetailsCompleted && showFormFieldErrors }">
       <label><%= I18n.t('diagnoses.step3.phone_number') %></label>
       <input v-model="phoneNumber" type="text">
     </div>
@@ -36,7 +36,7 @@
                 storeJob: state => state.step3Store.job,
                 storeEmail: state => state.step3Store.email,
                 storePhoneNumber: state => state.step3Store.phoneNumber,
-                showFormErrorMessage: state => state.step3Store.showFormErrorMessage
+                showFormFieldErrors: state => state.step3Store.showFormFieldErrors
             }),
             ...mapGetters({
                 isNameCompleted: 'isNameCompleted',

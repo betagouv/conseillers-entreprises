@@ -2,6 +2,7 @@ import Vue from 'vue/dist/vue.esm'
 import store from './store'
 import axios from 'axios'
 
+import appDataSetter from  './appDataSetter.vue.erb'
 import visitDateInput from './visitDateInput.vue.erb'
 import contactForm from './contactForm.vue.erb'
 import formErrorMessage from './formErrorMessage.vue.erb'
@@ -15,6 +16,7 @@ new Vue({
     el: '#step3-app',
     store,
     components: {
+        'app-data-setter': appDataSetter,
         'visit-date-input': visitDateInput,
         'contact-form': contactForm,
         'form-error-message': formErrorMessage,
