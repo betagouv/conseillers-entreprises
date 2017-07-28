@@ -13,7 +13,9 @@ class DiagnosesController < ApplicationController
   end
 
   def step3
-    @diagnosis = Diagnosis.includes(:visit)
+    associations = [visit: [facility: [:company]]]
+    @diagnosis = Diagnosis.joins(associations)
+                          .includes(associations)
                           .find params[:id]
   end
 

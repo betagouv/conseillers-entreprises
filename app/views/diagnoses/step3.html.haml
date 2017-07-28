@@ -13,7 +13,7 @@
   %visit-date-input
 
   %h2= t('.your_contact_in_the_company')
-  %p= t('.info_about_who_you_saw_during_your_visit', company_name: 'COMPANY_NAME_PLACEHOLDER')
+  %p= t('.info_about_who_you_saw_during_your_visit', company_name: @diagnosis.visit.facility.company.name)
   %contact-form
 
   %next-step-button
