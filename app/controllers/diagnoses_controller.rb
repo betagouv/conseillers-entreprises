@@ -20,8 +20,8 @@ class DiagnosesController < ApplicationController
   end
 
   def step4
-    diagnosis = Diagnosis.find params[:id]
-    @diagnosed_needs = DiagnosedNeed.of_diagnosis(diagnosis)
+    @diagnosis = Diagnosis.find params[:id]
+    @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis)
     associations = [
       :question, question: [
         :assistances, assistances: [
@@ -34,7 +34,11 @@ class DiagnosesController < ApplicationController
 
   def notify_experts
     diagnosis = Diagnosis.find params[:id]
-
+    ExpertMailersService.send_assistances_email(
+      advisor: current_user,
+      diagnosis: diagnosis,
+      assistances_experts_hash: params[:assistances_experts]
+    )
   end
 
   # Former action

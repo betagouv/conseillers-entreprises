@@ -43,14 +43,26 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'POST #notify_experts' do
+    let(:assistances_experts) do
+      { '12' => '1', '21' => '0', '31' => '0', '42' => '1', '43' => '1', '72' => '1', '90' => '0' }
+    end
+
     before do
+      allow(ExpertMailersService).to receive(:send_assistances_email)
+
       post :notify_experts, params: {
-        id: diagnosis.id
+        id: diagnosis.id,
+        assistances_experts: assistances_experts
       }
     end
 
     it 'returns http success' do
       expect(response).to have_http_status(:success)
+      expect(ExpertMailersService).to have_received(:send_assistances_email).with(
+        advisor: current_user,
+        diagnosis: diagnosis,
+        assistances_experts_hash: assistances_experts
+      )
     end
   end
 

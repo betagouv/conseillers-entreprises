@@ -8,7 +8,7 @@
   - else
     %p= t('.explanation')
 
-    = form_for :selected_assistances_experts, url: notify_experts_diagnosis_path, method: :post do |f|
+    = form_for :assistances_experts, url: notify_experts_diagnosis_path, method: :post do |f|
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
           %thead
@@ -35,5 +35,11 @@
       .ui.info.message
         = t('.before_sending_emails_text_html')
 
-      %button.ui.teal.button.right.floated#next-step-button
+      - unless @diagnosis.visit.visitee
+        .ui.error.message
+          %p= t('.add_contact_to_notify')
+
+      %button.ui.teal.button.right.floated#next-step-button{class: ('disabled' unless @diagnosis.visit.visitee)}
         = t('.notify_selected_experts')
+
+      .clear
