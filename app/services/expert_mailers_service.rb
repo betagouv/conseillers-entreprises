@@ -2,8 +2,7 @@
 
 class ExpertMailersService
   class << self
-    def send_assistances_email(advisor:, diagnosis:, assistances_experts_hash:)
-      assistance_expert_ids = filter_assistances_experts(assistances_experts_hash)
+    def send_assistances_email(advisor:, diagnosis:, assistance_expert_ids:)
       assistances_experts = retrieve_assistances_experts(assistance_expert_ids)
       assistances_grouped_by_experts = assistances_grouped_by_experts(assistances_experts)
       assistances_grouped_by_experts.each { |expert_hash| notify_expert(expert_hash, advisor, diagnosis) }

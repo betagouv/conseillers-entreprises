@@ -8,7 +8,7 @@ describe ExpertMailersService do
   describe 'send_assistances_email' do
     subject(:send_assistances_email) do
       described_class.send_assistances_email(
-        advisor: user, diagnosis: diagnosis, assistances_experts_hash: assistances_experts_hash
+        advisor: user, diagnosis: diagnosis, assistance_expert_ids: assistance_expert_ids
       )
     end
 
@@ -17,13 +17,7 @@ describe ExpertMailersService do
     let(:diagnosis) { create :diagnosis, visit: visit }
 
     let(:assistances_experts) { create_list :assistance_expert, 3 }
-    let(:assistances_experts_hash) do
-      {
-        assistances_experts[0].id.to_s => '1',
-        assistances_experts[1].id.to_s => '0',
-        assistances_experts[2].id.to_s => '1'
-      }
-    end
+    let(:assistance_expert_ids) { [assistances_experts.first.id, assistances_experts.last.id] }
 
     it { expect { send_assistances_email }.to change { ActionMailer::Base.deliveries.count }.by(2) }
   end

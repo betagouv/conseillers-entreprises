@@ -34,11 +34,10 @@ class DiagnosesController < ApplicationController
 
   def notify_experts
     diagnosis = Diagnosis.find params[:id]
-    ExpertMailersService.send_assistances_email(
-      advisor: current_user,
-      diagnosis: diagnosis,
-      assistances_experts_hash: params[:assistances_experts]
-    )
+    assistance_expert_ids = ExpertMailersService.filter_assistances_experts(params[:assistances_experts])
+    UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
+    ExpertMailersService.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
+                                                assistance_expert_ids: assistance_expert_ids)
     redirect_to step_5_diagnosis_path(diagnosis)
   end
 
