@@ -15,7 +15,7 @@
             %tr
               %th{colspan: 3}= diagnosed_need.question
           %tbody
-            - assistances = diagnosed_need.question.assistances
+            - assistances = diagnosed_need.question.assistances.of_location(@diagnosis.visit.location) # TODO : Optimize queries
             - assistances.each do |assistance|
               - assistance.assistances_experts.each do |assistance_expert|
                 %tr
