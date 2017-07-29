@@ -13,7 +13,10 @@ class DiagnosesController < ApplicationController
   end
 
   def step3
-    render body: nil
+    associations = [visit: [facility: [:company]]]
+    @diagnosis = Diagnosis.joins(associations)
+                          .includes(associations)
+                          .find params[:id]
   end
 
   def step4

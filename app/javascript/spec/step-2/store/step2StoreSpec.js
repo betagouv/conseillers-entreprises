@@ -5,7 +5,7 @@ import Step2Store from '../../../packs/step-2/store/step2Store'
 require('babel-core/register')
 require('babel-polyfill')
 
-describe('ContactStore', () => {
+describe('step2Store', () => {
 
     describe('getters', () => {
 
@@ -46,6 +46,12 @@ describe('ContactStore', () => {
                 const state = {diagnosisContent: ''}
                 mutations.DIAGNOSIS_CONTENT(state, 'Random Content')
                 expect(state.diagnosisContent).toEqual('Random Content')
+            })
+
+            it('sets the diagnosis content at empty string if undefined is passed', function () {
+                const state = {diagnosisContent: 'Random Content'}
+                mutations.DIAGNOSIS_CONTENT(state, undefined)
+                expect(state.diagnosisContent).toEqual('')
             })
         })
 

@@ -1,0 +1,21 @@
+- meta title: t('.title')
+
+= render partial: 'steps', locals: { current_step: 3 }
+
+
+%h1= t('.title')
+
+#step3-app
+  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'visit-id' => @diagnosis.visit.id }
+  %form-error-message
+
+  %h2= t('.date_header')
+  %visit-date-input
+
+  %h2= t('.your_contact_in_the_company')
+  %p= t('.info_about_who_you_saw_during_your_visit', company_name: @diagnosis.visit.facility.company.name)
+  %contact-form
+
+  %next-step-button
+
+= javascript_pack_tag 'step-3/step3App'

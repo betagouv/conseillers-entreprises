@@ -62,7 +62,11 @@ const mutations = {
     },
 
     [types.DIAGNOSIS_CONTENT] (state, content) {
-        state.diagnosisContent = content
+        let diagnosis_content = content
+        if (!diagnosis_content) {
+            diagnosis_content = ''
+        }
+        state.diagnosisContent = diagnosis_content
     },
 
     [types.DIAGNOSIS_ID] (state, diagnosisId) {

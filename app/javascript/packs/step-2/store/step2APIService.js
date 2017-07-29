@@ -12,6 +12,7 @@ export default class step2APIService {
                 }
             }
         }
+
         return this.send(config).then(() => {
             return true
         })
@@ -25,6 +26,7 @@ export default class step2APIService {
                 diagnosed_needs: convertDiagnosedNeedsToAPIFormat(diagnosedNeeds)
             }
         }
+
         return this.send(config).then(() => {
             return true
         })

@@ -50,3 +50,17 @@ fr:
         one: Un besoin a été identifié
         other: "%{count} besoins ont été identifiés"
       diagnosis_date: "Analyse du %{date}"
+    step3:
+      title: Informations complémentaires
+      date_header: Date de votre visite
+      date: Date
+      your_contact_in_the_company: Votre contact en entreprise
+      info_about_who_you_saw_during_your_visit: Remplissez les informations suivantes concernant la personne que vous avez rencontrée durant votre visite chez %{company_name}.
+      error_header: Erreur lors de la création
+      error_message: "Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l'erreur persite, contactez l'equipe Réso."
+      full_name: Nom
+      role: Fonction au sein de l'entreprise
+      contact_detail: Coordonnées
+      add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
+      email_address: Adresse e-mail
+      phone_number: Numéro de télephone
