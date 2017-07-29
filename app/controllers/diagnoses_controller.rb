@@ -39,6 +39,11 @@ class DiagnosesController < ApplicationController
       diagnosis: diagnosis,
       assistances_experts_hash: params[:assistances_experts]
     )
+    redirect_to step_5_diagnosis_path(diagnosis)
+  end
+
+  def step5
+    @diagnosis = Diagnosis.find params[:id]
   end
 
   # Former action

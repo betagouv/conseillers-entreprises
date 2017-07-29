@@ -56,13 +56,21 @@ RSpec.describe DiagnosesController, type: :controller do
       }
     end
 
-    it 'returns http success' do
-      expect(response).to have_http_status(:success)
+    it('redirects to') { expect(response).to redirect_to step_5_diagnosis_path(diagnosis) }
+
+    it 'sends emails' do
       expect(ExpertMailersService).to have_received(:send_assistances_email).with(
         advisor: current_user,
         diagnosis: diagnosis,
         assistances_experts_hash: assistances_experts
       )
+    end
+  end
+
+  describe 'GET #step5' do
+    it 'returns http success' do
+      get :step5, params: { id: diagnosis.id }
+      expect(response).to have_http_status(:success)
     end
   end
 
