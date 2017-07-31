@@ -1,0 +1,15 @@
+%p= t('.hello')
+- if @params[:visit_date].present?
+  %p= t('.advisor_met_this_company', advisor_name: @params[:advisor].full_name, visit_date: @params[:visit_date], company_name: @params[:company_name])
+- else
+  %p= t('.advisor_met_this_company_without_date', advisor_name: @params[:advisor].full_name, company_name: @params[:company_name])
+%p= t('.they_need_advice', advisor_institution: @params[:expert_institution])
+
+%ul
+  - @params[:assistances].each do |assistance|
+    %li= "#{assistance.question.label} (aide conseillée : #{assistance.title})"
+
+- company_contact_contact_type = @params[:company_contact].phone_number.presence || @params[:company_contact].email
+%p= t('.company_contact_is', company_contact_full_name: @params[:company_contact].full_name, company_contact_role: @params[:company_contact].role, company_contact_contact_type: company_contact_contact_type)
+-# TODO: Les informations concernant la visite et l’entreprise sont accessibles sur Réso sur le lien suivant :
+%p= t('.regards')

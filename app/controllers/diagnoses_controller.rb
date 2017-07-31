@@ -20,7 +20,32 @@ class DiagnosesController < ApplicationController
   end
 
   def step4
-    render body: nil
+    @diagnosis = Diagnosis.find params[:id]
+    @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis)
+    associations = [
+      question: [
+        assistances: [
+          assistances_experts: [
+            expert: :institution
+          ]
+        ]
+      ]
+    ]
+    @diagnosed_needs = @diagnosed_needs.joins(associations).includes(associations)
+  end
+
+  def notify_experts
+    diagnosis = Diagnosis.find params[:id]
+    assistance_expert_ids = ExpertMailersService.filter_assistances_experts(params[:assistances_experts])
+    UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
+    # TODO: Use Delayed Jobs to perform email sending ; http://doc.scalingo.com/languages/ruby/delayed-job.html
+    ExpertMailersService.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
+                                                assistance_expert_ids: assistance_expert_ids)
+    redirect_to step_5_diagnosis_path(diagnosis)
+  end
+
+  def step5
+    @diagnosis = Diagnosis.find params[:id]
   end
 
   # Former action

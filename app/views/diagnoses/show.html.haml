@@ -12,10 +12,6 @@
     .ui.info.message
       %p= t('.assistances_found', count: assistances.count)
 
-    - if assistances.count > 1
-      - if @visit.visitee
-        = assistances_contact_all_button(visit: @visit, question: diagnosed_need.question, assistances: assistances)
-
     - assistances.each do |assistance|
       = render partial: 'assistance/assistance', locals: { assistance: assistance, question: diagnosed_need.question, diagnosis_id: @diagnosis.id, visit: @visit }
 

@@ -15,7 +15,8 @@
         name: 'next-step-button',
         computed: {
             ...mapState({
-                isRequestInProgress: state => state.step3Store.isRequestInProgress
+                isRequestInProgress: state => state.step3Store.isRequestInProgress,
+                diagnosisId: state => state.step3Store.diagnosisId
             })
         },
         methods: {

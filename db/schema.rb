@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726170511) do
+ActiveRecord::Schema.define(version: 20170729021604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,6 +160,15 @@ ActiveRecord::Schema.define(version: 20170726170511) do
     t.index ["user_id"], name: "index_searches_on_user_id"
   end
 
+  create_table "selected_assistances_experts", force: :cascade do |t|
+    t.bigint "diagnosed_need_id"
+    t.bigint "assistances_experts_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assistances_experts_id"], name: "index_selected_assistances_experts_on_assistances_experts_id"
+    t.index ["diagnosed_need_id"], name: "index_selected_assistances_experts_on_diagnosed_need_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -219,6 +228,8 @@ ActiveRecord::Schema.define(version: 20170726170511) do
   add_foreign_key "mailto_logs", "visits"
   add_foreign_key "questions", "categories"
   add_foreign_key "searches", "users"
+  add_foreign_key "selected_assistances_experts", "assistances_experts", column: "assistances_experts_id"
+  add_foreign_key "selected_assistances_experts", "diagnosed_needs"
   add_foreign_key "visits", "contacts", column: "visitee_id"
   add_foreign_key "visits", "facilities"
   add_foreign_key "visits", "users", column: "advisor_id"

@@ -64,3 +64,16 @@ fr:
       add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
       email_address: Adresse e-mail
       phone_number: Numéro de télephone
+    step4:
+      title: Sélection des référents
+      no_assistance: Pas d'aides sélectionnées.
+      explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
+      before_sending_emails_text_html: |
+        <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
+        <p>Ils auront accès aux coordonnées de l'entreprise et à l'analyse que vous avez réalisée, y compris vos commentaires.</p>
+        <p>Ils pourront recontacter directement l'entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d'information.</p>
+      notify_selected_experts: Notifier les référents sélectionnés
+      add_contact_to_notify: Veuillez ajouter un contact pour pouvoir envoyer ces notifications (étape 3).
+    step5:
+      title: Récapitulatif
+      notifications_sent: Les notifications ont bien été envoyées !

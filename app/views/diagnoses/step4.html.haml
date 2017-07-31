@@ -1,0 +1,45 @@
+- meta title: t('.title')
+
+= render partial: 'steps', locals: { current_step: 4 }
+
+#step4-app
+  - if @diagnosed_needs.empty?
+    %p= t('.no_assistance')
+  - else
+    %p= t('.explanation')
+
+    = form_for :assistances_experts, url: notify_experts_diagnosis_path, method: :post do |f|
+      - @diagnosed_needs.each do |diagnosed_need|
+        %table.ui.compact.small.table.celled
+          %thead
+            %tr
+              %th{colspan: 3}= diagnosed_need.question
+          %tbody
+            - assistances = diagnosed_need.question.assistances.of_location(@diagnosis.visit.location) # TODO : Optimize queries
+            - assistances.each do |assistance|
+              - assistance.assistances_experts.each do |assistance_expert|
+                %tr
+                  %td.checkbox-width
+                    .ui.fitted.checkbox
+                      = f.check_box :"#{assistance_expert.id}", checked: true
+                      %label
+                  %td.expert-width
+                    = f.label :"#{assistance_expert.id}", class: 'clickable' do
+                      = assistance_expert.expert.full_name
+                      %br
+                      = assistance_expert.expert.institution
+                  %td
+                    = f.label :"#{assistance_expert.id}", class: 'clickable' do
+                      = assistance.title
+
+      .ui.info.message
+        = t('.before_sending_emails_text_html')
+
+      - unless @diagnosis.visit.visitee
+        .ui.error.message
+          %p= t('.add_contact_to_notify')
+
+      %button.ui.teal.button.right.floated#next-step-button{class: ('disabled' unless @diagnosis.visit.visitee)}
+        = t('.notify_selected_experts')
+
+      .clear

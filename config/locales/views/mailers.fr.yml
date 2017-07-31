@@ -10,6 +10,15 @@ fr:
         finish_registration: Finaliser mon inscription
         dont_hesitate_to_ask: N'hésitez pas à répondre à cet e-mail pour toute question !
         happy_discovery_html: Bonne découverte de %{link_to_root}.
+    expert_mailer:
+      notify_company_needs:
+        subject: "[Réso] L'entreprise %{company_name} a besoin de vous !"
+        hello: Bonjour,
+        advisor_met_this_company: "%{advisor_name} a rencontré le %{visit_date} l'entreprise %{company_name}."
+        advisor_met_this_company_without_date: "%{advisor_name} a rencontré l'entreprise %{company_name}."
+        they_need_advice: "Cette entreprise a des besoins sur lesquels %{advisor_institution} est référent pour Réso :"
+        company_contact_is: La personne à contacter dans l'entreprise est %{company_contact_full_name}, %{company_contact_role}, joignable au %{company_contact_contact_type}.
+        regards: Bien cordialement,
     admin_mailer:
       new_user_created_notification:
         subject: "[Réso] Une personne vient de s'inscrire !"

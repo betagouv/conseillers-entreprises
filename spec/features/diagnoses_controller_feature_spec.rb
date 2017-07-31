@@ -10,7 +10,7 @@ describe 'diagnosis feature', type: :feature do
       visit = create :visit, advisor: current_user
       diagnosis = create :diagnosis, visit: visit
 
-      visit step_2_visit_diagnosis_path(id: diagnosis.id, visit_id: visit.id)
+      visit step_2_diagnosis_path(id: diagnosis.id)
 
       question = create :question
 
