@@ -16,13 +16,13 @@ axios.defaults.headers.common['X-CSRF-Token'] = token
 axios.defaults.headers.common['Accept'] = 'application/json'
 
 new Vue({
-    el: '#step2-app',
-    store,
-    components: {
-        'app-data-setter': appDataSetter,
-        'content-text-area': contentTextArea,
-        'question-selection-row': questionSelectionRow,
-        'question-content-row': questionContentRow,
-        'next-step-button': nextStepButton
-    }
+  el: '#step2-app',
+  store,
+  components: {
+    'app-data-setter': appDataSetter,
+    'content-text-area': contentTextArea,
+    'question-selection-row': questionSelectionRow,
+    'question-content-row': questionContentRow,
+    'next-step-button': nextStepButton
+  }
 })

@@ -16,67 +16,67 @@
 </template>
 
 <script>
-    import axios from 'axios'
+import axios from 'axios'
 
-    export default {
-        name: 'content-form',
-        props: ['diagnosis_id'],
-        data () {
-            return {
-                diagnosis: {content: ''},
-                disabled: true
-            }
-        },
-        created: function () {
-            var that = this;
-            var onSuccess = function (response) {
-                that.diagnosis = response.data;
-                that.disabled = false;
-            };
-            var onError = function (error) {};
-            this.requestService = new RequestService(onSuccess, onError);
-        },
-        mounted: function () {
-            this.getDiagnosis();
-        },
-        methods: {
-            getDiagnosis: function () {
-                var config = {
-                    method: 'get',
-                    url: `/api/diagnoses/${this.diagnosis_id}.json`,
-                };
-                this.requestService.send(config);
-            },
-            updateDiagnosis: function () {
-                var config = {
-                    method: 'patch',
-                    url: `/api/diagnoses/${this.diagnosis_id}`,
-                    data: {
-                        diagnosis: this.diagnosis
-                    }
-                };
-                this.requestService.send(config);
-            },
-            saveButtonClicked: function () {
-                this.$nextTick(() => {
-                    this.disabled = true;
-                });
-                this.updateDiagnosis();
-            }
-        }
+export default {
+  name: 'content-form',
+  props: ['diagnosis_id'],
+  data () {
+    return {
+      diagnosis: { content: '' },
+      disabled: true
     }
-
-    class RequestService {
-        constructor(onSuccess, onError) {
-            this.onSuccess = onSuccess;
-            this.onError = onError;
-            this.axios = axios;
-        }
-
-        send(config) {
-            this.axios(config).then(this.onSuccess).catch(this.onError)
-        }
+  },
+  created: function () {
+    var that = this
+    var onSuccess = function (response) {
+      that.diagnosis = response.data
+      that.disabled = false
     }
+    var onError = function (error) {}
+    this.requestService = new RequestService(onSuccess, onError)
+  },
+  mounted: function () {
+    this.getDiagnosis()
+  },
+  methods: {
+    getDiagnosis: function () {
+      var config = {
+        method: 'get',
+        url: `/api/diagnoses/${this.diagnosis_id}.json`
+      }
+      this.requestService.send(config)
+    },
+    updateDiagnosis: function () {
+      var config = {
+        method: 'patch',
+        url: `/api/diagnoses/${this.diagnosis_id}`,
+        data: {
+          diagnosis: this.diagnosis
+        }
+      }
+      this.requestService.send(config)
+    },
+    saveButtonClicked: function () {
+      this.$nextTick(() => {
+        this.disabled = true
+      })
+      this.updateDiagnosis()
+    }
+  }
+}
+
+class RequestService {
+  constructor (onSuccess, onError) {
+    this.onSuccess = onSuccess
+    this.onError = onError
+    this.axios = axios
+  }
+
+  send (config) {
+    this.axios(config).then(this.onSuccess).catch(this.onError)
+  }
+}
 
 </script>
 

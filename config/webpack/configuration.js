@@ -9,11 +9,11 @@ const configPath = resolve('config', 'webpacker.yml')
 const loadersDir = join(__dirname, 'loaders')
 const settings = safeLoad(readFileSync(configPath), 'utf8')[env.NODE_ENV]
 
-function removeOuterSlashes(string) {
+function removeOuterSlashes (string) {
   return string.replace(/^\/*/, '').replace(/\/*$/, '')
 }
 
-function formatPublicPath(host = '', path = '') {
+function formatPublicPath (host = '', path = '') {
   let formattedHost = removeOuterSlashes(host)
   if (formattedHost && !/^http/i.test(formattedHost)) {
     formattedHost = `//${formattedHost}`

@@ -8,31 +8,31 @@
 </template>
 
 <script>
-    import { mapState, mapMutations } from 'vuex'
-    import * as types from './store/mutationTypes'
+import { mapState, mapMutations } from 'vuex'
+import * as types from './store/mutationTypes'
 
-    export default {
-        name: 'content-text-area',
-        computed: {
-            ...mapState({
-                diagnosisContent: state => state.step2Store.diagnosisContent,
-                isRequestInProgress: state => state.step2Store.isRequestInProgress
-            }),
-            content: {
-                get () {
-                    return this.diagnosisContent
-                },
-                set (value) {
-                    this.setDiagnosisContent(value)
-                }
-            }
-        },
-        methods: {
-            ...mapMutations({
-                setDiagnosisContent: types.DIAGNOSIS_CONTENT
-            })
-        }
+export default {
+  name: 'content-text-area',
+  computed: {
+    ...mapState({
+      diagnosisContent: state => state.step2Store.diagnosisContent,
+      isRequestInProgress: state => state.step2Store.isRequestInProgress
+    }),
+    content: {
+      get () {
+        return this.diagnosisContent
+      },
+      set (value) {
+        this.setDiagnosisContent(value)
+      }
     }
+  },
+  methods: {
+    ...mapMutations({
+      setDiagnosisContent: types.DIAGNOSIS_CONTENT
+    })
+  }
+}
 </script>
 
 <style lang="sass">

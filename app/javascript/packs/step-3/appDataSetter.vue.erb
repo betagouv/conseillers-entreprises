@@ -1,26 +1,26 @@
 <template></template>
 
 <script>
-    import { mapMutations } from 'vuex'
-    import * as types from './store/mutationTypes'
+import { mapMutations } from 'vuex'
+import * as types from './store/mutationTypes'
 
-    export default {
-        name: 'app-data-setter',
-        props: [
-            'diagnosisId',
-            'visitId'
-            ],
-        created: function() {
-            this.setDiagnosisId(this.diagnosisId);
-            this.setVisitId(this.visitId);
-        },
-        methods: {
-            ...mapMutations({
-                setDiagnosisId: types.DIAGNOSIS_ID,
-                setVisitId: types.VISIT_ID
-            })
-        }
-    }
+export default {
+  name: 'app-data-setter',
+  props: [
+    'diagnosisId',
+    'visitId'
+  ],
+  created: function () {
+    this.setDiagnosisId(this.diagnosisId)
+    this.setVisitId(this.visitId)
+  },
+  methods: {
+    ...mapMutations({
+      setDiagnosisId: types.DIAGNOSIS_ID,
+      setVisitId: types.VISIT_ID
+    })
+  }
+}
 </script>
 
 <style lang="sass">

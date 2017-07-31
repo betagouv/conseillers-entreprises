@@ -59,6 +59,7 @@
   },
   "scripts": {
     "test": "karma start",
-    "linter": "./node_modules/eslint/bin/eslint.js . --ext vue.erb --ext js"
-  }
+    "linter": "./node_modules/eslint/bin/eslint.js . --ext vue.erb --ext js",
+	"linter:fix": "./node_modules/eslint/bin/eslint.js . --ext vue.erb --ext js --fix"  
+	}
 }
