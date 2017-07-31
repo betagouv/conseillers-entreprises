@@ -23,9 +23,11 @@ class DiagnosesController < ApplicationController
     @diagnosis = Diagnosis.find params[:id]
     @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis)
     associations = [
-      :question, question: [
-        :assistances, assistances: [
-          :assistances_experts, assistances_experts: [:expert, expert: :institution]
+      question: [
+        assistances: [
+          assistances_experts: [
+            expert: :institution
+          ]
         ]
       ]
     ]
