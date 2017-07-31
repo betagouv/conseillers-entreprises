@@ -41,6 +41,14 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-config-vue": "^2.0.2",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^3.8.0",
     "jasmine-core": "^2.6.4",
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.2.0",
@@ -50,6 +58,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "linter": "./node_modules/eslint/bin/eslint.js . --ext vue.erb --ext js"
   }
 }
