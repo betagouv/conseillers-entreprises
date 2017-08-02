@@ -12,43 +12,43 @@
 </template>
 
 <script>
-    import { mapState, mapGetters, mapMutations } from 'vuex'
-    import * as types from './store/mutationTypes'
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import * as types from './store/mutationTypes'
 
-    export default {
-        name: 'question-content-row',
-        props: [
-            'questionId',
-            'questionLabel'
-        ],
-        created: function() {
-            this.setQuestionContent({questionId: this.questionId, content: ''})
-        },
-        computed: {
-            ...mapState({
-                isRequestInProgress: state => state.step2Store.isRequestInProgress
-            }),
-            ...mapGetters({
-                getQuestionStateById: 'getQuestionStateById'
-            }),
-            isHidden: function() {
-                return !this.getQuestionStateById(this.questionId).isSelected
-            },
-            content: {
-                get () {
-                    return this.getQuestionStateById(this.questionId).content
-                },
-                set (value) {
-                    this.setQuestionContent({questionId: this.questionId, content: value})
-                }
-            }
-        },
-        methods: {
-            ...mapMutations({
-                setQuestionContent: types.QUESTION_CONTENT
-            })
-        }
+export default {
+  name: 'question-content-row',
+  props: [
+    'questionId',
+    'questionLabel'
+  ],
+  created: function () {
+    this.setQuestionContent({ questionId: this.questionId, content: '' })
+  },
+  computed: {
+    ...mapState({
+      isRequestInProgress: state => state.step2Store.isRequestInProgress
+    }),
+    ...mapGetters({
+      getQuestionStateById: 'getQuestionStateById'
+    }),
+    isHidden: function () {
+      return !this.getQuestionStateById(this.questionId).isSelected
+    },
+    content: {
+      get () {
+        return this.getQuestionStateById(this.questionId).content
+      },
+      set (value) {
+        this.setQuestionContent({ questionId: this.questionId, content: value })
+      }
     }
+  },
+  methods: {
+    ...mapMutations({
+      setQuestionContent: types.QUESTION_CONTENT
+    })
+  }
+}
 </script>
 
 <style lang="sass">

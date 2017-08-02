@@ -1,12 +1,10 @@
 {
   "presets": [
-    "stage-0",
-    "es2015",
     ["env", {
       "modules": false,
       "targets": {
-        "ie": 9,
-        "browsers": "> 1%",
+        "ie": 10,
+        "browsers": ["last 2 versions"],
         "uglify": true
       },
       "useBuiltIns": true
@@ -15,6 +13,7 @@
 
   "plugins": [
     "syntax-dynamic-import",
-    ["transform-class-properties", { "spec": true }]
+    ["transform-class-properties", { "spec": true }],
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
   ]
 }

@@ -54,40 +54,39 @@
 </template>
 
 <script>
-    import DateUtils from './dateUtils'
+import DateUtils from './dateUtils'
 
-    export default {
-        name: 'date-input',
-        props: [
-            'value'
-        ],
-        data () {
-          return {
-            showPopup: false,
-            currMonthName: 'Juillet',
-            currYear: '2017',
-            currentMonthDays:[]
-          }
-        },
-        computed: {
-        },
-        methods: {
-            updateValue: function(value) {
-                this.$emit('input', value)
-            },
-            clickedOnDay: function(day) {
-                this.dateUtils.selectDay(day)
-                this.currentMonthDays = this.dateUtils.daysOfMonth
-                this.$emit('input', this.dateUtils.dateString)
-            }
-        },
-        mounted () {
-            this.dateUtils = new DateUtils(new Date())
-            this.currentMonthDays = this.dateUtils.daysOfMonth
-        }
+export default {
+  name: 'date-input',
+  props: [
+    'value'
+  ],
+  data () {
+    return {
+      showPopup: false,
+      currMonthName: 'Juillet',
+      currYear: '2017',
+      currentMonthDays: []
     }
+  },
+  computed: {
+  },
+  methods: {
+    updateValue: function (value) {
+      this.$emit('input', value)
+    },
+    clickedOnDay: function (day) {
+      this.dateUtils.selectDay(day)
+      this.currentMonthDays = this.dateUtils.daysOfMonth
+      this.$emit('input', this.dateUtils.dateString)
+    }
+  },
+  mounted () {
+    this.dateUtils = new DateUtils(new Date())
+    this.currentMonthDays = this.dateUtils.daysOfMonth
+  }
+}
 </script>
-
 
 <style lang="sass">
   input

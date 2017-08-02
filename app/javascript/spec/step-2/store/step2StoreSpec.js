@@ -222,7 +222,8 @@ describe('step2Store', () => {
                 })
 
                 it('calls contactAPIService with the diagnosisId and the content', async function () {
-                    await actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state))
+                    await actions.sendDiagnosisContentUpdate(apiServiceContext(commit, state)).catch(() => {
+                    })
 
                     expect(step2StoreAPIServiceMock.updateDiagnosisContent.calls.count()).toEqual(1)
                     expect(step2StoreAPIServiceMock.updateDiagnosisContent.calls.argsFor(0)).toEqual([12, 'content !'])
@@ -345,7 +346,8 @@ describe('step2Store', () => {
                 })
 
                 it('calls contactAPIService with the diagnosisId and the content', async function () {
-                    await actions.createSelectedQuestions(apiServiceContext(commit, state))
+                    await actions.createSelectedQuestions(apiServiceContext(commit, state)).catch(() => {
+                    })
 
                     expect(step2StoreAPIServiceMock.createDiagnosedNeeds.calls.count()).toEqual(1)
                     expect(step2StoreAPIServiceMock.createDiagnosedNeeds.calls.argsFor(0)).toEqual([12, selectedQuestions])

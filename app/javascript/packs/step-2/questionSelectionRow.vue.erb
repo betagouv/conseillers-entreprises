@@ -18,45 +18,45 @@
 </template>
 
 <script>
-    import { mapState, mapGetters, mapMutations } from 'vuex'
-    import * as types from './store/mutationTypes'
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import * as types from './store/mutationTypes'
 
-    export default {
-        name: 'question-selection-row',
-        props: [
-            'questionId',
-            'questionLabel'
-        ],
-        created: function () {
-            this.selectQuestion({questionId: this.questionId, isSelected: false})
-            this.setQuestionLabel({questionId: this.questionId, questionLabel: this.questionLabel})
-        },
-        computed: {
-            ...mapState({
-                isRequestInProgress: state => state.step2Store.isRequestInProgress
-            }),
-            ...mapGetters({
-                getQuestionStateById: 'getQuestionStateById'
-            }),
-            checkboxId: function () {
-                return `checkbox_${this.questionId}`
-            },
-            selected: {
-                get () {
-                    return this.getQuestionStateById(this.questionId).isSelected
-                },
-                set (value) {
-                    this.selectQuestion({questionId: this.questionId, isSelected: value})
-                }
-            }
-        },
-        methods: {
-            ...mapMutations({
-                selectQuestion: types.QUESTION_SELECTED,
-                setQuestionLabel: types.QUESTION_LABEL
-            })
-        }
+export default {
+  name: 'question-selection-row',
+  props: [
+    'questionId',
+    'questionLabel'
+  ],
+  created: function () {
+    this.selectQuestion({ questionId: this.questionId, isSelected: false })
+    this.setQuestionLabel({ questionId: this.questionId, questionLabel: this.questionLabel })
+  },
+  computed: {
+    ...mapState({
+      isRequestInProgress: state => state.step2Store.isRequestInProgress
+    }),
+    ...mapGetters({
+      getQuestionStateById: 'getQuestionStateById'
+    }),
+    checkboxId: function () {
+      return `checkbox_${this.questionId}`
+    },
+    selected: {
+      get () {
+        return this.getQuestionStateById(this.questionId).isSelected
+      },
+      set (value) {
+        this.selectQuestion({ questionId: this.questionId, isSelected: value })
+      }
     }
+  },
+  methods: {
+    ...mapMutations({
+      selectQuestion: types.QUESTION_SELECTED,
+      setQuestionLabel: types.QUESTION_LABEL
+    })
+  }
+}
 </script>
 
 <style lang="sass">
