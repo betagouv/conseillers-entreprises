@@ -11,18 +11,25 @@ import questionSelectionRow from './questionSelectionRow.vue.erb'
 import questionContentRow from './questionContentRow.vue.erb'
 import nextStepButton from './nextStepButton.vue.erb'
 
-var token = document.getElementsByName('csrf-token')[0].getAttribute('content')
+var token
+try {
+    token = document.getElementsByName('csrf-token')[0].getAttribute('content')
+}
+catch (e) {
+    token = ''
+}
+
 axios.defaults.headers.common['X-CSRF-Token'] = token
 axios.defaults.headers.common['Accept'] = 'application/json'
 
 new Vue({
-  el: '#step2-app',
-  store,
-  components: {
-    'app-data-setter': appDataSetter,
-    'content-text-area': contentTextArea,
-    'question-selection-row': questionSelectionRow,
-    'question-content-row': questionContentRow,
-    'next-step-button': nextStepButton
-  }
+    el: '#step2-app',
+    store,
+    components: {
+        'app-data-setter': appDataSetter,
+        'content-text-area': contentTextArea,
+        'question-selection-row': questionSelectionRow,
+        'question-content-row': questionContentRow,
+        'next-step-button': nextStepButton
+    }
 })

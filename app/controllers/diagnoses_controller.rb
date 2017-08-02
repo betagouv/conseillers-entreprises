@@ -22,15 +22,7 @@ class DiagnosesController < ApplicationController
   def step4
     @diagnosis = Diagnosis.find params[:id]
     @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis)
-    associations = [
-      question: [
-        assistances: [
-          assistances_experts: [
-            expert: :institution
-          ]
-        ]
-      ]
-    ]
+    associations = [question: [assistances: [assistances_experts: [expert: :institution]]]]
     @diagnosed_needs = @diagnosed_needs.joins(associations).includes(associations)
   end
 

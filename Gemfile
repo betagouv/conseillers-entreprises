@@ -36,8 +36,6 @@ gem 'semantic-ui-sass', '~> 2'
 gem 'i18n-tasks', '~> 0.9'
 gem 'wannabe_bool'
 
-gem 'capybara'
-gem 'poltergeist'
 gem 'webpacker', '~> 2.0'
 
 gem 'exception_notification'
@@ -56,6 +54,9 @@ gem 'clockwork', '~> 2.0', '>= 2.0.2'
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
+
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 group :development, :test do
