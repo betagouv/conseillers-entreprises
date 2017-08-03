@@ -3,3 +3,28 @@
 #step5-app
   .ui.success.message
     %p= t('.notifications_sent')
+
+  %h1= t('.title')
+
+  - selected_assistance_experts_count = @diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
+
+  %ul
+    %li
+      = t('.identified_needs', count: @diagnosis.diagnosed_needs.count)
+    %li
+      = t('.global_contacted_expert', count: selected_assistance_experts_count)
+
+
+  - @diagnosis.diagnosed_needs.each do |diagnosed_need|
+    %table.ui.celled.table
+      %thead
+        %th
+          =diagnosed_need.question_label
+      %thead
+        %th
+          = t('.contacted_expert', count: diagnosed_need.selected_assistance_experts.count)
+      %tbody
+        - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+          %tr
+            %td
+              =selected_assistance_expert.assistance_expert.expert.full_name
