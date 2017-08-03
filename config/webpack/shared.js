@@ -15,24 +15,27 @@ const extensionGlob = `**/*{${settings.extensions.join(',')}}*`
 const entryPath = join(settings.source_path, settings.source_entry_path)
 const packPaths = sync(join(entryPath, extensionGlob))
 
-var packPathsReduced = (function () {
-  var packs = packPaths.reduce(
+const acceptedEntryPointArray = [
+    'step-1/step1App',
+    'step-2/step2App',
+    'step-3/step3App',
+    'diagnosis/diagnosisMain'
+]
+
+module.exports = {
+  entry: packPaths.reduce(
     (map, entry) => {
       const localMap = map
       const namespace = relative(join(entryPath), dirname(entry))
-      localMap[join(namespace, basename(entry, extname(entry)))] = resolve(entry)
+      const entryPointName = join(namespace, basename(entry, extname(entry)))
+
+      if(acceptedEntryPointArray.includes(entryPointName)) {
+        localMap[entryPointName] = resolve(entry)
+      }
+      console.log(`localMap ${JSON.stringify(localMap)}`)
       return localMap
     }, {}
-  )
-
-  Object.keys(packs).map(function (key, index) {
-    packs[key] = ['babel-polyfill', packs[key]]
-  })
-  return packs
-}())
-
-module.exports = {
-  entry: packPathsReduced,
+  ),
 
   output: {
     filename: '[name].js',
