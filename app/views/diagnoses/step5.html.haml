@@ -3,3 +3,49 @@
 #step5-app
   .ui.success.message
     %p= t('.notifications_sent')
+
+  %h1= t('.title')
+  %p= t('.context', company_name: @diagnosis.visit.company_name, date: @diagnosis.creation_date_localized)
+
+  - selected_assistance_experts_count = @diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
+
+  %ul
+    %li
+      = t('.identified_needs', count: @diagnosis.diagnosed_needs.count)
+    %li
+      = t('.global_contacted_expert', count: selected_assistance_experts_count)
+
+  %h2= t('.company_contact_subtitle')
+  = @diagnosis.visit.visitee.full_name
+  = @diagnosis.visit.visitee.role
+  %br
+  -if @diagnosis.visit.visitee.email
+    = @diagnosis.visit.visitee.email
+    %br
+  -if @diagnosis.visit.visitee.phone_number
+    = @diagnosis.visit.visitee.phone_number
+    %br
+
+  %h2= t('.need_contacts_summary_subtitle')
+  - @diagnosis.diagnosed_needs.each do |diagnosed_need|
+    %table.ui.celled.table
+      %thead
+        %th
+          =diagnosed_need.question_label
+      -if !diagnosed_need.content.nil? && diagnosed_need.content.lstrip.length > 0
+        %tbody
+          %tr
+            %td
+              =diagnosed_need.content
+      %tbody
+        -if diagnosed_need.selected_assistance_experts.count > 0
+          - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+            %tr
+              %td
+                =selected_assistance_expert.assistance_expert.expert.full_name
+                =' - '
+                =selected_assistance_expert.assistance_expert.expert.institution.name
+        -else
+          %tr
+            %td
+              = t('.zero_contacted_expert')
