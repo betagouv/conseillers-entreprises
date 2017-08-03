@@ -43,6 +43,8 @@
             %tr
               %td
                 =selected_assistance_expert.assistance_expert.expert.full_name
+                =' - '
+                =selected_assistance_expert.assistance_expert.expert.institution.name
         -else
           %tr
             %td
