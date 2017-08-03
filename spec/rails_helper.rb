@@ -36,7 +36,7 @@ RSpec.configure do |config|
     # Run webpack compilation before suite, so assets exists in public/packs
     # see https://github.com/rspec/rspec-core/issues/2366
     # `bin/webpack`
-    `env UV_THREADPOOL_SIZE=128 bin/webpack  -d --progress --verbose --display-reasons --display-chunks`
+    # `env UV_THREADPOOL_SIZE=128 bin/webpack  -d --progress --verbose --display-reasons --display-chunks`
     # Webpacker::Manifest.load
   end
 end
