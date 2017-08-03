@@ -86,10 +86,6 @@ fr:
               zero: Aucun référent n'a été contacté durant cette analyse
               one: Un référent a été contacté  durant cette analyse
               other: "%{count} référents ont été contactés durant cette analyse"
-      contacted_expert:
-        zero: Aucun référent n'a été contacté pour ce besoin
-        one: Un référent a été contacté  pour ce besoin
-        other: "%{count} référents ont été contactés pour ce besoin"
       company_contact_subtitle: Contact rencontré au sein de l'entreprise
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin

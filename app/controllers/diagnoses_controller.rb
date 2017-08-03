@@ -39,8 +39,8 @@ class DiagnosesController < ApplicationController
   def step5
     associations = [visit: [facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
     @diagnosis = Diagnosis.left_outer_joins(associations)
-                   .includes(associations)
-                   .find params[:id]
+                          .includes(associations)
+                          .find params[:id]
   end
 
   # Former action
