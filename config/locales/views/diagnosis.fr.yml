@@ -76,6 +76,7 @@ fr:
       add_contact_to_notify: Veuillez ajouter un contact pour pouvoir envoyer ces notifications (étape 3).
     step5:
       title: Récapitulatif
+      context: "Voici un résumé de l'analyse qui a été effectuée pour l'entreprise %{company_name} le %{date} :"
       notifications_sent: Les notifications ont bien été envoyées !
       identified_needs:
         zero: Aucun besoin identifié
@@ -89,3 +90,6 @@ fr:
         zero: Aucun référent n'a été contacté pour ce besoin
         one: Un référent a été contacté  pour ce besoin
         other: "%{count} référents ont été contactés pour ce besoin"
+      company_contact_subtitle: Contact rencontré au sein de l'entreprise
+      need_contacts_summary_subtitle: Référents contactés classés par besoin
+      zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
