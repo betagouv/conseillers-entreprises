@@ -1,0 +1,54 @@
+
+<div class="ui form field input left icon">
+
+  <i class="calendar icon"></i>
+  <input type="date"
+         v-bind:class="{ visible: showPopup }"
+         @click="showPopup = !showPopup"
+         v-bind:value="value"
+         v-on:input="updateValue($event.target.value)">
+
+  <div class="ui popup bottom left"
+       v-bind:class="{ visible: false, hidden: true }"
+       style="position: absolute; top: 100%; left: 0px; width: auto; padding: 0px">
+
+
+    <table class="ui very compact fixed table center aligned"
+           style="margin: 0px; border:none; border-radius:inherit">
+      <thead>
+      <tr>
+        <th colspan="1" class="smallest center aligned">
+          <i class="chevron left icon" @click=""
+             v-bind:class="{ 'disabled' : false }"></i>
+        </th>
+        <th colspan="5" @click="" class="smaller center aligned">
+          {{ currMonthName }} {{ currYear }}
+        </th>
+        <th colspan="1" class="smallest center aligned">
+          <i class="chevron right icon" @click=""
+             v-bind:class="{ 'disabled' : false }"></i>
+        </th>
+      </tr>
+      <tr>
+        <th class="smallest center aligned">L</th>
+        <th class="smallest center aligned">M</th>
+        <th class="smallest center aligned">M</th>
+        <th class="smallest center aligned">J</th>
+        <th class="smallest center aligned">V</th>
+        <th class="smallest center aligned">S</th>
+        <th class="smallest center aligned">D</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="weekDays in currentMonthDays">
+        <td v-for="day in weekDays"
+            v-bind:class="{ 'disabled' : !day.inCurrentMonth,
+              'selectedDay' : day.selected, 'notSelectedDay': !day.selected}"
+            @click="clickedOnDay(day)"
+            v-on:mouseenter="clickedOnDay(day)">{{day.day}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+w</div>
