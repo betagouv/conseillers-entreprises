@@ -41,10 +41,16 @@ const actions = {
       step2APIService = Step2APIService
     }
 
-    commit(types.REQUEST_IN_PROGRESS, true)
     const selectedQuestions = state.questions.filter((question) => {
       return question.isSelected
     })
+
+    if (selectedQuestions.length == 0) {
+      return Promise.resolve(true)
+
+    }  else {
+    commit(types.REQUEST_IN_PROGRESS, true)
+
     return step2APIService.createDiagnosedNeeds(state.diagnosisId, selectedQuestions)
       .then(() => {
         commit(types.REQUEST_IN_PROGRESS, false)
@@ -53,6 +59,7 @@ const actions = {
         commit(types.REQUEST_IN_PROGRESS, false)
         throw error
       })
+    }
   }
 }
 

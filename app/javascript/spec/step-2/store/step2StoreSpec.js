@@ -281,12 +281,44 @@ describe('step2Store', () => {
             const selectedQuestions = questions.filter((question) => {
                 return question.isSelected
             })
-            const state = {
-                diagnosisContent: 'content !',
-                diagnosisId: 12,
-                isDiagnosisRequestUnderWay: false,
-                questions: questions
-            }
+            let state = {}
+
+            beforeEach(function() {
+                state = {
+                    diagnosisContent: 'content !',
+                    diagnosisId: 12,
+                    isDiagnosisRequestUnderWay: false,
+                    questions: questions
+                }
+            })
+
+            describe('when there is no questions to send', function () {
+
+                const positivePromise = Promise.resolve(true)
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'createDiagnosedNeeds').and.returnValue(positivePromise)
+                    commit = jasmine.createSpy()
+                    state.questions = []
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.createSelectedQuestions(apiServiceContext(commit, state))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('should not call contactAPIService', async function () {
+                    await actions.createSelectedQuestions(apiServiceContext(commit, state))
+
+                    expect(step2StoreAPIServiceMock.createDiagnosedNeeds.calls.count()).toEqual(0)
+                })
+
+                it('does not call commit REQUEST_IN_PROGRESS', async function () {
+                    await actions.createSelectedQuestions(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(0)
+                })
+            })
 
             describe('when api call is a success', function () {
 
