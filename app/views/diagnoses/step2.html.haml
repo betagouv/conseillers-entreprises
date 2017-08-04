@@ -1,15 +1,16 @@
-- meta title: t('.diagnosis_date', date: @diagnosis.creation_date_localized)
+- meta title: t('.title')
 
 = render partial: 'steps', locals: { current_step: 2 }
 
-%p= 'Changer les locales après l\'intégration dans le processus global.'
+%h1.ui.header
+  = t('.title')
+  .sub.header
+    = t('.diagnosis_date', date: @diagnosis.creation_date_localized)
 
-%h1= t('.identified_needs', count: @diagnosis.diagnosed_needs.count)
-%p= t('.diagnosis_date', date: @diagnosis.creation_date_localized)
+%p= t('.identify_needs')
 
 #step2-app
   %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content }
-  %content-text-area
 
   - categories_with_questions.each do |item|
     %h2= item[:category]
@@ -19,6 +20,7 @@
           %tr{'is' => 'question-selection-row', 'question-id' => question.id, 'question-label' => question.label }
           %tr{'is' => 'question-content-row', 'question-id' => question.id, 'question-label' => question.label }
 
+  %content-text-area
 
   %next-step-button
 
