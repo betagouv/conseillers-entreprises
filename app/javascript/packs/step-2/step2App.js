@@ -12,7 +12,7 @@ import questionContentRow from './questionContentRow.vue.erb'
 import nextStepButton from '../common/nextStepButton.vue.erb'
 
 var token
-var configureNextStepButton = function (nextStepButton, that) {
+var configureNextStepButton = function (that) {
     nextStepButton.computed.isRequestInProgress = function() {
         return that.$store.state.step2Store.isRequestInProgress
     }
@@ -52,7 +52,7 @@ new Vue({
         'next-step-button': nextStepButton
     },
     beforeCreate: function () {
-        configureNextStepButton(nextStepButton, this)
-    },
+        configureNextStepButton(this)
+    }
 })
 

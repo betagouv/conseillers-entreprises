@@ -1,10 +1,12 @@
 <template>
-  <button class="ui teal right labeled icon button right floated"
+  <div class="next step container">
+    <button class="ui teal right labeled icon button next step"
           v-bind:class="{ loading: isRequestInProgress, disabled: isRequestInProgress }"
           @click="nextStepButtonClicked">
-    <label><%= I18n.t('next_step') %></label>
-    <i class="arrow right icon"></i>
-  </button>
+      <label><%= I18n.t('next_step') %></label>
+      <i class="arrow right icon"></i>
+    </button>
+  </div>
 </template>
 
 <script>
@@ -24,4 +26,13 @@
 </script>
 
 <style lang="sass">
+  .next.step.container
+    height: 2em
+    position: relative
+    margin-top: 1em
+    margin-bottom: 1em
+  .next.step.button
+    margin: 0
+    position: absolute !important
+    right: 0%  !important
 </style>
