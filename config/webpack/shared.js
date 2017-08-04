@@ -32,7 +32,6 @@ module.exports = {
       if(acceptedEntryPointArray.includes(entryPointName)) {
         localMap[entryPointName] = resolve(entry)
       }
-      console.log(`localMap ${JSON.stringify(localMap)}`)
       return localMap
     }, {}
   ),

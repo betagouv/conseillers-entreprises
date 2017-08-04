@@ -1,11 +1,13 @@
 
-<div class="ui form field input left icon">
+<div class="ui form field input left icon"
+     v-bind:class="{ error: !isDateValid }">
+
 
   <i class="calendar icon"></i>
   <input type="date"
          v-bind:class="{ visible: showPopup }"
          @click="showPopup = !showPopup"
-         v-bind:value="value"
+         v-bind:value="dateValue"
          v-on:input="updateValue($event.target.value)">
 
   <div class="ui popup bottom left"
@@ -51,4 +53,4 @@
     </table>
   </div>
 
-w</div>
+</div>

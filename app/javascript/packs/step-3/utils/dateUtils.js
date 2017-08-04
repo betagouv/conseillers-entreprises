@@ -1,66 +1,66 @@
 export default class DateUtils {
-  constructor (selectedDate) {
-    this.selectedDate = selectedDate
-  }
-
-  get dateString () {
-    const year = this.selectedDate.getFullYear()
-    let month = this.selectedDate.getMonth() + 1
-    let day = this.selectedDate.getDate()
-
-    if (day < 10) {
-      day = '0' + day
-    }
-    if (month < 10) {
-      month = '0' + month
+    constructor(selectedDate) {
+        this.selectedDate = selectedDate
     }
 
-    return `${year}-${month}-${day}`
-  }
+    get dateString() {
+        const year = this.selectedDate.getFullYear()
+        let month = this.selectedDate.getMonth() + 1
+        let day = this.selectedDate.getDate()
 
-  get daysOfMonth () {
-    const firstDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
-    const lastDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0)
+        if (day < 10) {
+            day = '0' + day
+        }
+        if (month < 10) {
+            month = '0' + month
+        }
 
-    const mondayAsFirstDayOfWeekOffset = 1
-    const firstDayOfFirstWeek = new Date(firstDayOfMonth.getFullYear(),
-      firstDayOfMonth.getMonth(),
-      firstDayOfMonth.getDate() - firstDayOfMonth.getDay() + mondayAsFirstDayOfWeekOffset)
-
-    const monthArray = []
-    let isLastDayOfMonthPassed = false
-
-    let workingDate = new Date(firstDayOfFirstWeek.getFullYear(),
-      firstDayOfFirstWeek.getMonth(),
-      firstDayOfFirstWeek.getDate())
-
-    while (!isLastDayOfMonthPassed) {
-      const weekArray = []
-      const firstDayOfWeek = new Date(workingDate.getFullYear(),
-        workingDate.getMonth(),
-        workingDate.getDate())
-
-      for (let i = 1; i < 8; i++) {
-        const isDaySelected = workingDate.toLocaleDateString() == this.selectedDate.toLocaleDateString()
-        const isInCuurentMonth = workingDate.getMonth() == this.selectedDate.getMonth()
-        weekArray.push({ day: workingDate.getDate(), selected: isDaySelected, inCurrentMonth: isInCuurentMonth })
-
-        isLastDayOfMonthPassed = ((workingDate.toLocaleDateString() == lastDayOfMonth.toLocaleDateString()) ||
-                isLastDayOfMonthPassed)
-
-        workingDate = new Date(firstDayOfWeek.getFullYear(),
-          firstDayOfWeek.getMonth(),
-          firstDayOfWeek.getDate() + i)
-      }
-
-      monthArray.push(weekArray)
+        return `${year}-${month}-${day}`
     }
-    return monthArray
-  }
 
-  selectDay (day) {
-    this.selectedDate = new Date(this.selectedDate.getFullYear(),
-      this.selectedDate.getMonth(),
-      day.day)
-  }
+    get daysOfMonth() {
+        const firstDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
+        const lastDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0)
+
+        const mondayAsFirstDayOfWeekOffset = 1
+        const firstDayOfFirstWeek = new Date(firstDayOfMonth.getFullYear(),
+            firstDayOfMonth.getMonth(),
+            firstDayOfMonth.getDate() - firstDayOfMonth.getDay() + mondayAsFirstDayOfWeekOffset)
+
+        const monthArray = []
+        let isLastDayOfMonthPassed = false
+
+        let workingDate = new Date(firstDayOfFirstWeek.getFullYear(),
+            firstDayOfFirstWeek.getMonth(),
+            firstDayOfFirstWeek.getDate())
+
+        while (!isLastDayOfMonthPassed) {
+            const weekArray = []
+            const firstDayOfWeek = new Date(workingDate.getFullYear(),
+                workingDate.getMonth(),
+                workingDate.getDate())
+
+            for (let i = 1; i < 8; i++) {
+                const isDaySelected = workingDate.toLocaleDateString() == this.selectedDate.toLocaleDateString()
+                const isInCuurentMonth = workingDate.getMonth() == this.selectedDate.getMonth()
+                weekArray.push({day: workingDate.getDate(), selected: isDaySelected, inCurrentMonth: isInCuurentMonth})
+
+                isLastDayOfMonthPassed = ((workingDate.toLocaleDateString() == lastDayOfMonth.toLocaleDateString()) ||
+                    isLastDayOfMonthPassed)
+
+                workingDate = new Date(firstDayOfWeek.getFullYear(),
+                    firstDayOfWeek.getMonth(),
+                    firstDayOfWeek.getDate() + i)
+            }
+
+            monthArray.push(weekArray)
+        }
+        return monthArray
+    }
+
+    selectDay(day) {
+        this.selectedDate = new Date(this.selectedDate.getFullYear(),
+            this.selectedDate.getMonth(),
+            day.day)
+    }
 }
