@@ -2,6 +2,7 @@
 
 <script>
 import DateUtils from './dateUtils'
+import DateValidator from './dateValidator'
 
 export default {
   name: 'date-input',
@@ -10,6 +11,8 @@ export default {
   ],
   data () {
     return {
+      dateValue: '',
+      dateValidator: {},
       showPopup: false,
       currMonthName: 'Juillet',
       currYear: '2017',
@@ -17,20 +20,31 @@ export default {
     }
   },
   computed: {
+      isDateValid: function() {
+          return this.dateValidator.isValid || this.dateValidator.isEmpty
+      }
   },
   methods: {
     updateValue: function (value) {
-      this.$emit('input', value)
+      this.dateValue = value
+      this.dateValidator = new DateValidator(this.dateValue)
+
+      this.$emit('input', this.dateValidator.toIsoString)
     },
     clickedOnDay: function (day) {
       this.dateUtils.selectDay(day)
       this.currentMonthDays = this.dateUtils.daysOfMonth
       this.$emit('input', this.dateUtils.dateString)
+    },
+    setInitialValues() {
+      this.dateUtils = new DateUtils(new Date())
+      this.currentMonthDays = this.dateUtils.daysOfMonth
+      this.dateValue = this.value
+      this.dateValidator = new DateValidator(this.dateValue)
     }
   },
   mounted () {
-    this.dateUtils = new DateUtils(new Date())
-    this.currentMonthDays = this.dateUtils.daysOfMonth
+    this.setInitialValues()
   }
 }
 </script>

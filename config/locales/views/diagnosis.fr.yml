@@ -53,7 +53,7 @@ fr:
     step3:
       title: Informations complémentaires
       date_header: Date de votre visite
-      date: Date
+      date: Date (format jj/mm/aaaa)
       your_contact_in_the_company: Votre contact en entreprise
       info_about_who_you_saw_during_your_visit: Remplissez les informations suivantes concernant la personne que vous avez rencontrée durant votre visite chez %{company_name}.
       error_header: Erreur lors de la création
@@ -61,7 +61,7 @@ fr:
       full_name: Nom
       role: Fonction au sein de l'entreprise
       contact_detail: Coordonnées
-      add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
+      add_one_contact_mode_below: Veuillez indiquer au moins soit le numéro de téléphone ou l'émail.
       email_address: Adresse e-mail
       phone_number: Numéro de télephone
     step4:
