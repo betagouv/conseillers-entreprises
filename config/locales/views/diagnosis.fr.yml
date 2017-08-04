@@ -45,11 +45,11 @@ fr:
     step1:
       title: Nouvelle analyse
     step2:
-      identified_needs:
-        zero: Aucun besoin identifié
-        one: Un besoin a été identifié
-        other: "%{count} besoins ont été identifiés"
+      title: Identification des besoins
+      identify_needs: Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l'entreprise.
       diagnosis_date: "Analyse du %{date}"
+      diagnosis_content: "Entrez des informations complémentaires concernant l'analyse au global :"
+      diagnosed_need_content: "Entrez des informations complémentaires concernant ce besoin spécifique :"
     step3:
       title: Informations complémentaires
       date_header: Date de votre visite
