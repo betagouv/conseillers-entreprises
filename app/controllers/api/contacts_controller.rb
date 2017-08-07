@@ -11,15 +11,10 @@ module Api
     end
 
     def create
-      visit = Visit.find params[:visit_id]
-      params = create_params.merge!(company_id: visit.facility.company_id)
-      @contact = Contact.create params
-      if @contact.save
-        visit.update visitee: @contact
-        render :show, status: :created
-      else
-        render body: nil, status: :bad_request
-      end
+      @contact = UseCases::CreateContact.create_for_visit(contact_params: create_params, visit_id: params[:visit_id])
+      render :show, status: :created
+    rescue StandardError
+      render body: nil, status: :bad_request
     end
 
     def update
