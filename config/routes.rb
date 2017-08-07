@@ -29,14 +29,14 @@ Rails.application.routes.draw do
   end
 
   resources :visits, only: %i[show] do
-    member do
-      get 'company' => 'companies#show'
-    end
+    # member do
+    #   get 'company' => 'companies#show'
+    # end
 
     resources :diagnoses, only: %i[show]
   end
 
-  resources :companies, only: %i[], param: :siret do
+  resources :companies, only: %i[show], param: :siret do
     collection do
       post :search_by_siren
       post :search_by_name

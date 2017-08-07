@@ -32,12 +32,18 @@ RSpec.describe CompaniesController, type: :controller do
   end
 
   describe 'GET #show' do
+    siret = '44622002200227'
+    company_name = 'C H D GRAND HAINAUT'
+
+    before do
+      allow(UseCases::SearchFacility).to receive(:with_siret).with(siret)
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret)
+      allow(ApiEntrepriseService).to receive(:company_name).and_return(company_name)
+      allow(QwantApiService).to receive(:results_for_query).with(company_name)
+    end
+
     it do
-      visit = create :visit
-      allow(UseCases::SearchFacility).to receive(:with_siret).with(visit.facility.siret)
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(visit.facility.siret)
-      allow(QwantApiService).to receive(:results_for_query).with(visit.company_name)
-      get :show, params: { id: visit.id }
+      get :show, params: { siret: siret }
       expect(response).to have_http_status(:success)
     end
   end
