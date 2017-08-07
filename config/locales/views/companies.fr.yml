@@ -30,6 +30,7 @@ fr:
       ereputation: e-réputation
       information_not_found: Aucune actualité n'a été trouvée sur cette entreprise.
     facility:
+      siret: SIRET
       naf: Code NAF
       date_mise_a_jour: Date de mise à jour
       tranche_effectif_salarie_etablissement: Tranche d'effectif de salariés de l'établissement
