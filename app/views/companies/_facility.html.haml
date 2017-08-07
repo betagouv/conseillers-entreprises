@@ -1,6 +1,9 @@
 %table.ui.compact.celled.table
   %tbody
     %tr
+      %td= t('.siret')
+      %td= etablissement['siret']
+    %tr
       %td= t('.naf')
       %td= "#{etablissement['naf']} - #{etablissement['libelle_naf']}"
     %tr
