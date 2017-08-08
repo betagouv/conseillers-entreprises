@@ -10,7 +10,7 @@ module Api
       visit.update update_params
     rescue StandardError
       render body: nil, status: :bad_request
-  end
+    end
 
     private
 

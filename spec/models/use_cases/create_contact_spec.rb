@@ -19,7 +19,7 @@ describe UseCases::CreateContact do
       end
 
       before do
-        return_value = UseCases::CreateContact.create_for_visit(contact_params: contact_params, visit_id: visit.id)
+        return_value = described_class.create_for_visit(contact_params: contact_params, visit_id: visit.id)
       end
 
       it 'creates a contact for the selected company' do
@@ -50,8 +50,8 @@ describe UseCases::CreateContact do
 
       before do
         begin
-          return_value = UseCases::CreateContact.create_for_visit(contact_params: contact_params, visit_id: visit.id)
-        rescue Exception => e
+          return_value = described_class.create_for_visit(contact_params: contact_params, visit_id: visit.id)
+        rescue StandardError => e
           error = e
         end
       end
@@ -78,9 +78,9 @@ describe UseCases::CreateContact do
 
       before do
         begin
-          return_value = UseCases::CreateContact.create_for_visit(contact_params: contact_params,
-                                                                  visit_id: visit.id + 1)
-        rescue Exception => e
+          return_value = described_class.create_for_visit(contact_params: contact_params,
+                                                          visit_id: visit.id + 1)
+        rescue StandardError => e
           error = e
         end
       end

@@ -5,11 +5,11 @@ module UseCases
     class << self
       def create_for_visit(contact_params:, visit_id:)
         visit = Visit.find visit_id
-        contact_params.merge!(company_id: visit.facility.company_id)
+        contact_params[:company_id] = visit.facility.company_id
         contact = Contact.create contact_params
         contact.save!
         visit.update visitee: contact
-        return contact
+        contact
       end
     end
   end

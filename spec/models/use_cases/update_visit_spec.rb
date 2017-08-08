@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe UseCases::UpdateVisit do
   describe 'validate_happened_at' do
-    subject(:validation) { UseCases::UpdateVisit.validate_happened_at happened_at }
+    subject(:validation) { described_class.validate_happened_at happened_at }
 
     context 'when happened at is valid' do
       let(:happened_at) { '2012-02-12' }
