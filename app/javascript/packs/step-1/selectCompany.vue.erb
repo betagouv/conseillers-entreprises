@@ -55,6 +55,7 @@
 
 <script>
 import RequestService from './requestService'
+import StepRoutingService from '../common/stepRoutingService'
 
 export default {
   name: 'select-company',
@@ -138,7 +139,8 @@ export default {
         const vm = this
         const onSuccess = function (response) {
           vm.isLoading = false
-          Turbolinks.visit(`/diagnoses/${response.data.id}/step-2`) // TODO: Test this route presence
+          const stepRoutingService = new StepRoutingService(response.data.id)
+          stepRoutingService.go_to_step(2)
         }
         const onError = function (error) {
           vm.diagnosisSaveError = true
