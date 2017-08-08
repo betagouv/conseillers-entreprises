@@ -2,14 +2,15 @@ import Vue from 'vue/dist/vue.esm'
 import store from './store'
 import axios from 'axios'
 
-import TurbolinksAdapter from 'vue-turbolinks'
-Vue.use(TurbolinksAdapter)
-
 import appDataSetter from './appDataSetter.vue.erb'
 import contentTextArea from './contentTextArea.vue.erb'
 import questionSelectionRow from './questionSelectionRow.vue.erb'
 import questionContentRow from './questionContentRow.vue.erb'
 import nextStepButton from '../common/nextStepButton.vue.erb'
+import StepRoutingService from '../common/stepRoutingService'
+
+import TurbolinksAdapter from 'vue-turbolinks'
+Vue.use(TurbolinksAdapter)
 
 var token
 var configureNextStepButton = function (that) {
@@ -18,13 +19,13 @@ var configureNextStepButton = function (that) {
     }
 
     nextStepButton.methods.nextStepButtonClicked = function () {
-        const url = `/diagnoses/${that.$store.state.step2Store.diagnosisId}/step-3`
+        const stepRoutingService = new StepRoutingService(that.$store.state.step2Store.diagnosisId)
         that.$store.dispatch('sendDiagnosisContentUpdate')
             .then(() => {
                 return that.$store.dispatch('createSelectedQuestions')
             })
             .then(() => {
-                Turbolinks.visit(url)
+                return stepRoutingService.go_to_step(3)
             })
             .catch((error) => {
             })
