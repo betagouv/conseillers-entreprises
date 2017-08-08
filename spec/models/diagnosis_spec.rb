@@ -91,11 +91,63 @@ RSpec.describe Diagnosis, type: :model do
         it { is_expected.to eq 0 }
       end
 
-      context 'two diagnoses' do
+      context 'sixteen diagnoses' do
         it do
           create_list :diagnosis, 16
 
           is_expected.to eq 15
+        end
+      end
+    end
+
+    describe 'in progress' do
+      subject { Diagnosis.all.in_progress.count }
+
+      context 'no diagnosis' do
+        it { is_expected.to eq 0 }
+      end
+
+      context 'no diagnosis in_progress' do
+        it do
+          create :diagnosis, step: 5
+
+          is_expected.to eq 0
+        end
+      end
+
+      context 'two diagnosis in_progress' do
+        it do
+          create :diagnosis, step: 5
+          create :diagnosis, step: 2
+          create :diagnosis, step: 4
+
+          is_expected.to eq 2
+        end
+      end
+    end
+
+    describe 'completed' do
+      subject { Diagnosis.all.completed.count }
+
+      context 'no diagnosis' do
+        it { is_expected.to eq 0 }
+      end
+
+      context 'no diagnosis completed' do
+        it do
+          create :diagnosis, step: 3
+
+          is_expected.to eq 0
+        end
+      end
+
+      context 'two diagnosis completed' do
+        it do
+          create :diagnosis, step: 5
+          create :diagnosis, step: 5
+          create :diagnosis, step: 4
+
+          is_expected.to eq 2
         end
       end
     end

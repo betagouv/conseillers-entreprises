@@ -2,8 +2,12 @@ fr:
   diagnoses:
     index:
       title: Analyses
+      diagnoses_in_progress: Analyses en cours
+      diagnoses_completed: Analyses réalisées
       create_new_diagnosis: Faire une nouvelle analyse
-      diagnosis_date: "Analyse du %{date}"
+      step: "Etape : %{step}/4"
+      continue_diagnosis: Poursuivre l'analyse
+      show_summary: Voir le récapitulatif
     show:
       identified_needs:
         zero: Aucun besoin identifié
