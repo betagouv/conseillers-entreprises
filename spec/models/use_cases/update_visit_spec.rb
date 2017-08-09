@@ -21,5 +21,13 @@ describe UseCases::UpdateVisit do
         expect { validation }.to raise_error ArgumentError
       end
     end
+
+    context 'when happened at is nil' do
+      let(:happened_at) { nil }
+
+      it('throws an argument error') do
+        expect { validation }.to raise_error ArgumentError
+      end
+    end
   end
 end

@@ -4,9 +4,7 @@ module Api
   class VisitsController < ApplicationController
     def update
       visit = Visit.find params[:id]
-      happened_at_param = update_params[:happened_at]
-      UseCases::UpdateVisit.validate_happened_at happened_at_param unless happened_at_param.nil?
-
+      UseCases::UpdateVisit.validate_happened_at update_params[:happened_at]
       visit.update update_params
     rescue StandardError
       render body: nil, status: :bad_request
