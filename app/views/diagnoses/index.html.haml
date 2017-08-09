@@ -31,7 +31,7 @@
             %h3.ui.header
               = diagnosis.visit.facility.company.name_short
               .sub.header
-                = diagnosis.visit.visitee.full_name
+                = t('.visitee', visitee_name: diagnosis.visit.visitee.full_name)
           %td.collapsing
             .ui.middle.aligned.list
               .item
