@@ -7,10 +7,8 @@
     %tbody
       - @diagnoses[:in_progress].each do |diagnosis|
         %tr
-          %td
-            = diagnosis.visit.facility.company.name_short
-          %td.collapsing
-            = t('.step', step: diagnosis.step)
+          %td= diagnosis.visit.facility.company.name_short
+          %td.collapsing= t('.step', step: diagnosis.step)
           %td.collapsing
             = link_to t('.continue_diagnosis'),
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
@@ -41,6 +39,7 @@
               .item
                 .middle.aligned.content
                   %h5.ui.header.disabled
+                    -# TODO: Move in Diagnosis helper
                     - selected_assistance_experts_count = diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
                     = t('.selected_assistance_experts', selected_assistance_experts: selected_assistance_experts_count)
 
