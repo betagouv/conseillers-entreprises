@@ -6,13 +6,11 @@ class DiagnosesController < ApplicationController
     in_progress_associations = [visit: [facility: [:company]]]
     @diagnoses_in_progress = Diagnosis.of_user(current_user)
                                .in_progress.reverse_chronological
-                               .joins(in_progress_associations)
                                .includes(in_progress_associations)
-    completed_associations = [{ visit: [{ facility: [:company] }, :visitee] }]
-    completed_associations_outer_join = [{ diagnosed_needs: [:selected_assistance_experts] }]
+    completed_associations = [{ visit: [{ facility: [:company] }, :visitee] },
+                              { diagnosed_needs: [:selected_assistance_experts] }]
     @diagnoses_completed = Diagnosis.of_user(current_user)
                              .completed.reverse_chronological
-                             .joins(completed_associations)
                              .includes(completed_associations)
   end
 

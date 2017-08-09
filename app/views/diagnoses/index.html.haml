@@ -28,10 +28,23 @@
       - @diagnoses_completed.each do |diagnosis|
         %tr
           %td
-            = diagnosis.visit.facility.company.name_short
+            %h3.ui.header
+              = diagnosis.visit.facility.company.name_short
+              .sub.header
+                = diagnosis.visit.visitee.full_name
+          %td.collapsing
+            .ui.middle.aligned.list
+              .item
+                .middle.aligned.content
+                  %h5.ui.header.disabled
+                    = t('.diagnosed_needs', diagnosed_needs: diagnosis.diagnosed_needs.count)
+              .item
+                .middle.aligned.content
+                  %h5.ui.header.disabled
+                    - selected_assistance_experts_count = diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
+                    = t('.selected_assistance_experts', selected_assistance_experts: selected_assistance_experts_count)
+
           %td.collapsing
             = link_to t('.show_summary'),
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'
-
-  // = t('.diagnosis_date', date: diagnosis.creation_date_localized)

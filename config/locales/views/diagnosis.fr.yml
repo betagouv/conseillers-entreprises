@@ -8,6 +8,8 @@ fr:
       step: "Etape : %{step}/4"
       continue_diagnosis: Poursuivre l'analyse
       show_summary: Voir le récapitulatif
+      diagnosed_needs: "%{diagnosed_needs} besoins identifiés"
+      selected_assistance_experts: "%{selected_assistance_experts} mises en relation"
     show:
       identified_needs:
         zero: Aucun besoin identifié
