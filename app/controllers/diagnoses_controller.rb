@@ -5,17 +5,16 @@ class DiagnosesController < ApplicationController
     @diagnoses_count = Diagnosis.of_user(current_user).count
     in_progress_associations = [visit: [facility: [:company]]]
     @diagnoses_in_progress = Diagnosis.of_user(current_user)
-                               .in_progress.reverse_chronological
-                               .includes(in_progress_associations)
+                                      .in_progress.reverse_chronological
+                                      .includes(in_progress_associations)
     completed_associations = [{ visit: [{ facility: [:company] }, :visitee] },
                               { diagnosed_needs: [:selected_assistance_experts] }]
     @diagnoses_completed = Diagnosis.of_user(current_user)
-                             .completed.reverse_chronological
-                             .includes(completed_associations)
+                                    .completed.reverse_chronological
+                                    .includes(completed_associations)
   end
 
-  def step1;
-  end
+  def step1; end
 
   def step2
     @diagnosis = Diagnosis.find params[:id]
@@ -24,8 +23,8 @@ class DiagnosesController < ApplicationController
   def step3
     associations = [visit: [facility: [:company]]]
     @diagnosis = Diagnosis.joins(associations)
-                   .includes(associations)
-                   .find params[:id]
+                          .includes(associations)
+                          .find params[:id]
   end
 
   def step4
@@ -38,8 +37,8 @@ class DiagnosesController < ApplicationController
   def step5
     associations = [visit: [facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
     @diagnosis = Diagnosis.left_outer_joins(associations)
-                   .includes(associations)
-                   .find params[:id]
+                          .includes(associations)
+                          .find params[:id]
   end
 
   def notify_experts
@@ -58,7 +57,7 @@ class DiagnosesController < ApplicationController
   def show
     @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
     @diagnosis = Diagnosis.of_visit(@visit)
-                   .includes(diagnosed_needs: [:question])
-                   .find params[:id]
+                          .includes(diagnosed_needs: [:question])
+                          .find params[:id]
   end
 end

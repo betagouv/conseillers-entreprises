@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe Diagnosis, type: :model do
   it do
     is_expected.to have_many :diagnosed_needs
@@ -160,3 +161,4 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
