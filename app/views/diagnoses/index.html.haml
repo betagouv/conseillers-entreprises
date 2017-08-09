@@ -2,10 +2,10 @@
 
 %h1= t('.diagnoses_in_progress')
 
-- if @diagnoses_in_progress.present?
+- if @diagnoses[:in_progress].present?
   %table.ui.table.ui.selectable
     %tbody
-      - @diagnoses_in_progress.each do |diagnosis|
+      - @diagnoses[:in_progress].each do |diagnosis|
         %tr
           %td
             = diagnosis.visit.facility.company.name_short
@@ -22,10 +22,10 @@
 
 %h1= t('.diagnoses_completed')
 
-- if @diagnoses_in_progress.present?
+- if @diagnoses[:completed].present?
   %table.ui.table.ui.selectable
     %tbody
-      - @diagnoses_completed.each do |diagnosis|
+      - @diagnoses[:completed].each do |diagnosis|
         %tr
           %td
             %h3.ui.header

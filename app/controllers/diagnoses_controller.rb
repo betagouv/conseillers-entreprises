@@ -2,16 +2,7 @@
 
 class DiagnosesController < ApplicationController
   def index
-    @diagnoses_count = Diagnosis.of_user(current_user).count
-    in_progress_associations = [visit: [facility: [:company]]]
-    @diagnoses_in_progress = Diagnosis.of_user(current_user)
-                                      .in_progress.reverse_chronological
-                                      .includes(in_progress_associations)
-    completed_associations = [{ visit: [{ facility: [:company] }, :visitee] },
-                              { diagnosed_needs: [:selected_assistance_experts] }]
-    @diagnoses_completed = Diagnosis.of_user(current_user)
-                                    .completed.reverse_chronological
-                                    .includes(completed_associations)
+    @diagnoses = UseCases::GetDiagnoses.for_user(current_user)
   end
 
   def step1; end
