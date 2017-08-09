@@ -15,7 +15,7 @@ describe DiagnosisHelper, type: :helper do
       it { is_expected.to eq 'completed' }
     end
 
-    context 'displayed step = current step && displayed step => diagnosis step' do
+    context 'displayed step = current step && displayed step >= diagnosis step' do
       let(:current_step) { 2 }
       let(:diagnosis_step) { 2 }
 
