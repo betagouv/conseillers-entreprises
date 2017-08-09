@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe UseCases::GetDiagnoses do
   describe 'for_user' do
-    subject { UseCases::GetDiagnoses.for_user user }
+    subject { described_class.for_user user }
 
     let(:user) { create :user }
 
