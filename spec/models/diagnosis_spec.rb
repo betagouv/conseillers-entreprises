@@ -11,6 +11,20 @@ RSpec.describe Diagnosis, type: :model do
     is_expected.to validate_inclusion_of(:step).in_array(Diagnosis::AUTHORIZED_STEPS)
   end
 
+  describe 'acts_as_paranoid' do
+    let(:diagnosis) { create :diagnosis }
+
+    before do
+      diagnosis.destroy
+    end
+
+    it('destroys softly the diagnosis') do
+      expect(Diagnosis.all.count).to eq 0
+      expect(Diagnosis.only_deleted.count).to eq 1
+      expect(Diagnosis.with_deleted.count).to eq 1
+    end
+  end
+
   describe 'scopes' do
     describe 'of_visit' do
       subject { Diagnosis.of_visit visit }

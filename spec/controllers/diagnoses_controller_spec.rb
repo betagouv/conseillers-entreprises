@@ -87,6 +87,17 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
+  describe 'POST #update_is_deleted' do
+    before do
+      post :delete, params: {
+        id: diagnosis.id
+      }
+    end
+
+    it('redirects to index') { expect(response).to redirect_to diagnoses_path }
+    it('destroys the diagnosis') { expect(Diagnosis.all.count).to eq 0 }
+  end
+
   describe 'former page' do
     describe 'GET #show' do
       it 'returns http success' do

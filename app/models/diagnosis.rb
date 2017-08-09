@@ -2,6 +2,7 @@
 
 class Diagnosis < ApplicationRecord
   AUTHORIZED_STEPS = [1, 2, 3, 4, 5].freeze
+  acts_as_paranoid
 
   belongs_to :visit
 
