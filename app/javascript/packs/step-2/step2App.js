@@ -25,7 +25,7 @@ var configureNextStepButton = function (that) {
                 return that.$store.dispatch('createSelectedQuestions')
             })
             .then(() => {
-                return stepRoutingService.go_to_step(3)
+                return stepRoutingService.goToStep(3)
             })
             .catch((error) => {
             })

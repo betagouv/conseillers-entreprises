@@ -5,7 +5,7 @@ export default class StepRoutingService {
         this.diagnosisId = diagnosisId
     }
 
-    go_to_step(step) {
+    goToStep(step) {
         const config = {
             method: 'patch',
             url: `/api/diagnoses/${this.diagnosisId}`,
@@ -18,7 +18,7 @@ export default class StepRoutingService {
         const url = `/diagnoses/${this.diagnosisId}/step-${step}`
 
         return StepRoutingService.send(config).then(() => {
-            StepRoutingService.go_to(url)
+            StepRoutingService.goTo(url)
         })
     }
 
@@ -26,7 +26,7 @@ export default class StepRoutingService {
         return axios(config)
     }
 
-    static go_to(url) {
+    static goTo(url) {
         Turbolinks.visit(url)
     }
 }

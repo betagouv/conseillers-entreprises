@@ -22,7 +22,7 @@ var configureNextStepButton = function (that) {
         const stepRoutingService = new StepRoutingService(that.$store.state.step3Store.diagnosisId)
         that.$store.dispatch('launchNextStep')
             .then(() => {
-                return stepRoutingService.go_to_step(4)
+                return stepRoutingService.goToStep(4)
             })
             .catch((error) => {
             })

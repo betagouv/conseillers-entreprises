@@ -20,9 +20,9 @@ describe('StepRoutingService', () => {
             beforeEach(function () {
                 const promise = Promise.resolve(true)
                 spyOn(StepRoutingService, 'send').and.returnValue(promise)
-                spyOn(StepRoutingService, 'go_to')
+                spyOn(StepRoutingService, 'goTo')
 
-                returnPromise = stepRoutingService.go_to_step(3)
+                returnPromise = stepRoutingService.goToStep(3)
             })
 
             it('returns a promise', function () {
@@ -46,13 +46,13 @@ describe('StepRoutingService', () => {
                 expect(StepRoutingService.send.calls.argsFor(0)).toEqual([config])
             })
 
-            it('calls go_to with the right arguments', async function () {
+            it('calls goTo with the right arguments', async function () {
                 await returnPromise.catch(function () {
                 })
 
                 const expectedUrl = '/diagnoses/2/step-3'
-                expect(StepRoutingService.go_to.calls.count()).toEqual(1)
-                expect(StepRoutingService.go_to.calls.argsFor(0)).toEqual([expectedUrl])
+                expect(StepRoutingService.goTo.calls.count()).toEqual(1)
+                expect(StepRoutingService.goTo.calls.argsFor(0)).toEqual([expectedUrl])
             })
         })
 
@@ -62,9 +62,9 @@ describe('StepRoutingService', () => {
             beforeEach(function () {
                 const promise = Promise.reject(error)
                 spyOn(StepRoutingService, 'send').and.returnValue(promise)
-                spyOn(StepRoutingService, 'go_to')
+                spyOn(StepRoutingService, 'goTo')
 
-                returnPromise = stepRoutingService.go_to_step(3)
+                returnPromise = stepRoutingService.goToStep(3)
             })
 
             it('returns a promise', function () {
@@ -92,7 +92,7 @@ describe('StepRoutingService', () => {
                 await returnPromise.catch(function () {
                 })
 
-                expect(StepRoutingService.go_to.calls.count()).toEqual(0)
+                expect(StepRoutingService.goTo.calls.count()).toEqual(0)
             })
         })
     })
