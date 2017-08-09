@@ -45,7 +45,7 @@ class DiagnosesController < ApplicationController
 
   def delete
     diagnosis = Diagnosis.find params[:id]
-    diagnosis.delete
+    diagnosis.destroy
     redirect_to diagnoses_path
   end
 
