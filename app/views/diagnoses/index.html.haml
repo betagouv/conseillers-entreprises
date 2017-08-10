@@ -9,7 +9,6 @@
         %tr
           %td= diagnosis.visit.facility.company.name_short
           %td.collapsing= t('.step', step: diagnosis.step)
-          %td.collapsing
           %td.collapsing.no-left-padding
             = link_to diagnosis_path(diagnosis), method: :delete, class: '' do
               %i.ui.icon.link.trash.light.grey.no-margin
