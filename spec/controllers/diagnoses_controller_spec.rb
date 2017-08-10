@@ -87,9 +87,9 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
-  describe 'POST #update_is_deleted' do
+  describe 'DELETE #destroy' do
     before do
-      post :delete, params: {
+      delete :destroy, params: {
         id: diagnosis.id
       }
     end

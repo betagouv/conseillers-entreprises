@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnoses, only: %i[index] do
+  resources :diagnoses, only: %i[index destroy] do
     get 'step-1' => 'diagnoses#step1', on: :collection
 
     member do
@@ -25,7 +25,6 @@ Rails.application.routes.draw do
       get 'step-4' => 'diagnoses#step4'
       get 'step-5' => 'diagnoses#step5'
       post :notify_experts
-      post :delete
     end
   end
 
