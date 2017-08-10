@@ -3,13 +3,16 @@
 %h1= t('.diagnoses_in_progress')
 
 - if @diagnoses[:in_progress].present?
-  %table.ui.table.ui.selectable
+  %table.ui.table.ui
     %tbody
       - @diagnoses[:in_progress].each do |diagnosis|
         %tr
           %td= diagnosis.visit.facility.company.name_short
           %td.collapsing= t('.step', step: diagnosis.step)
-          %td.collapsing
+          %td.collapsing.no-left-padding
+            = link_to diagnosis_path(diagnosis), method: :delete, class: '' do
+              %i.ui.icon.link.trash.light.grey.no-margin
+          %td.collapsing.no-left-padding
             = link_to t('.continue_diagnosis'),
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'
@@ -21,7 +24,7 @@
 %h1= t('.diagnoses_completed')
 
 - if @diagnoses[:completed].present?
-  %table.ui.table.ui.selectable
+  %table.ui.table.ui
     %tbody
       - @diagnoses[:completed].each do |diagnosis|
         %tr
@@ -43,7 +46,10 @@
                     - selected_assistance_experts_count = diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
                     = t('.selected_assistance_experts', selected_assistance_experts: selected_assistance_experts_count)
 
-          %td.collapsing
+          %td.collapsing.no-left-padding
+            = link_to diagnosis_path(diagnosis), method: :delete, class: '' do
+              %i.ui.icon.link.trash.light.grey.no-margin
+          %td.collapsing.no-left-padding
             = link_to t('.show_summary'),
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'

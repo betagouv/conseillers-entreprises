@@ -43,6 +43,12 @@ class DiagnosesController < ApplicationController
     redirect_to step_5_diagnosis_path(diagnosis)
   end
 
+  def destroy
+    diagnosis = Diagnosis.find params[:id]
+    diagnosis.destroy
+    redirect_to diagnoses_path
+  end
+
   # Former action
 
   def show

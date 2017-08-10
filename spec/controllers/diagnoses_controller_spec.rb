@@ -87,6 +87,17 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
+  describe 'DELETE #destroy' do
+    before do
+      delete :destroy, params: {
+        id: diagnosis.id
+      }
+    end
+
+    it('redirects to index') { expect(response).to redirect_to diagnoses_path }
+    it('destroys the diagnosis') { expect(Diagnosis.all.count).to eq 0 }
+  end
+
   describe 'former page' do
     describe 'GET #show' do
       it 'returns http success' do

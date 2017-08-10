@@ -42,6 +42,7 @@ gem 'exception_notification'
 gem 'slack-notifier'
 
 gem 'clockwork', '~> 2.0', '>= 2.0.2'
+gem 'paranoia', '~> 2.2'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby

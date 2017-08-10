@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnoses, only: %i[index] do
+  resources :diagnoses, only: %i[index destroy] do
     get 'step-1' => 'diagnoses#step1', on: :collection
 
     member do
