@@ -102,7 +102,3 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
-      contact_name: "Nom :"
-      contact_role: "Fonction au sein de l'entreprise :"
-      contact_email: "Email :"
-      contact_phone_number: "Numéro de téléphone : %{phone_number}"
