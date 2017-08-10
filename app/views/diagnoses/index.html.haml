@@ -24,7 +24,7 @@
 %h1= t('.diagnoses_completed')
 
 - if @diagnoses[:completed].present?
-  %table.ui.table.ui.selectable
+  %table.ui.table.ui
     %tbody
       - @diagnoses[:completed].each do |diagnosis|
         %tr
