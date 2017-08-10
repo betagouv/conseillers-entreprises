@@ -1,24 +1,49 @@
 - meta title: t('.title')
 
-%h1= t('.title')
+%h1= t('.diagnoses_in_progress')
 
-- if @diagnoses.present?
-  %table.ui.celled.table.ui.selectable
+- if @diagnoses[:in_progress].present?
+  %table.ui.table.ui.selectable
     %tbody
-      - @diagnoses.each do |diagnosis|
+      - @diagnoses[:in_progress].each do |diagnosis|
         %tr
-          %td
-            = t('.diagnosis_date', date: diagnosis.creation_date_localized)
-          %td
-            = "Visit n°#{diagnosis.visit_id}"
-          - (2..4).each do |index|
-            %td
-              = link_to "Etape #{index}", controller: 'diagnoses', action: "step#{index}", id: diagnosis
-      - if @diagnoses_count > @diagnoses.length
-        %tr
-          %td{colspan: 5}
-            = "#{@diagnoses_count - @diagnoses.length} restants"
+          %td= diagnosis.visit.facility.company.name_short
+          %td.collapsing= t('.step', step: diagnosis.step)
+          %td.collapsing
+            = link_to t('.continue_diagnosis'),
+            { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
+            class: 'ui positive basic tiny button'
 
 = link_to step_1_diagnoses_path, class: 'ui medium green button' do
   = semantic_icon('plus')
   = t('.create_new_diagnosis')
+
+%h1= t('.diagnoses_completed')
+
+- if @diagnoses[:completed].present?
+  %table.ui.table.ui.selectable
+    %tbody
+      - @diagnoses[:completed].each do |diagnosis|
+        %tr
+          %td
+            %h3.ui.header
+              = diagnosis.visit.facility.company.name_short
+              .sub.header
+                = t('.visitee', visitee_name: diagnosis.visit.visitee.full_name)
+          %td.collapsing
+            .ui.middle.aligned.list
+              .item
+                .middle.aligned.content
+                  %h5.ui.header.disabled
+                    = t('.diagnosed_needs', diagnosed_needs: diagnosis.diagnosed_needs.count)
+              .item
+                .middle.aligned.content
+                  %h5.ui.header.disabled
+                    -# TODO: Move in Diagnosis helper
+                    - selected_assistance_experts_count = diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
+                    = t('.selected_assistance_experts', selected_assistance_experts: selected_assistance_experts_count)
+
+          %td.collapsing
+            = link_to t('.show_summary'),
+            { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
+            class: 'ui positive basic tiny button'

@@ -7,6 +7,10 @@ import visitDateInput from './visitDateInput.vue.erb'
 import contactForm from './contactForm.vue.erb'
 import formErrorMessage from './formErrorMessage.vue.erb'
 import nextStepButton from '../common/nextStepButton.vue.erb'
+import StepRoutingService from '../common/stepRoutingService'
+
+import TurbolinksAdapter from 'vue-turbolinks'
+Vue.use(TurbolinksAdapter)
 
 var token
 var configureNextStepButton = function (that) {
@@ -15,10 +19,10 @@ var configureNextStepButton = function (that) {
     }
 
     nextStepButton.methods.nextStepButtonClicked = function () {
-        const url = `/diagnoses/${that.$store.state.step3Store.diagnosisId}/step-4`
+        const stepRoutingService = new StepRoutingService(that.$store.state.step3Store.diagnosisId)
         that.$store.dispatch('launchNextStep')
             .then(() => {
-                Turbolinks.visit(url)
+                return stepRoutingService.goToStep(4)
             })
             .catch((error) => {
             })

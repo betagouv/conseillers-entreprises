@@ -19,13 +19,16 @@ module Api
 
     def update
       @diagnosis = Diagnosis.find params[:id]
-      render status: 500 unless @diagnosis.update(update_params)
+      @diagnosis.update UseCases::UpdateDiagnosis.clean_update_params update_params,
+                                                                      current_step: @diagnosis.step
+    rescue StandardError
+      render body: nil, status: :bad_request
     end
 
     private
 
     def update_params
-      params.require(:diagnosis).permit(:content)
+      params.require(:diagnosis).permit(%i[content step])
     end
   end
 end

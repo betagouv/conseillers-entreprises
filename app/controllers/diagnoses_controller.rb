@@ -2,8 +2,7 @@
 
 class DiagnosesController < ApplicationController
   def index
-    @diagnoses_count = Diagnosis.of_user(current_user).count
-    @diagnoses = Diagnosis.of_user(current_user).reverse_chronological.limited
+    @diagnoses = UseCases::GetDiagnoses.for_user(current_user)
   end
 
   def step1; end
@@ -26,6 +25,13 @@ class DiagnosesController < ApplicationController
     @diagnosed_needs = @diagnosed_needs.joins(associations).includes(associations)
   end
 
+  def step5
+    associations = [visit: [facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
+    @diagnosis = Diagnosis.left_outer_joins(associations)
+                          .includes(associations)
+                          .find params[:id]
+  end
+
   def notify_experts
     diagnosis = Diagnosis.find params[:id]
     assistance_expert_ids = ExpertMailersService.filter_assistances_experts(params[:assistances_experts])
@@ -33,14 +39,8 @@ class DiagnosesController < ApplicationController
     # TODO: Use Delayed Jobs to perform email sending ; http://doc.scalingo.com/languages/ruby/delayed-job.html
     ExpertMailersService.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
                                                 assistance_expert_ids: assistance_expert_ids)
+    diagnosis.update step: 5
     redirect_to step_5_diagnosis_path(diagnosis)
-  end
-
-  def step5
-    associations = [visit: [facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
-    @diagnosis = Diagnosis.left_outer_joins(associations)
-                          .includes(associations)
-                          .find params[:id]
   end
 
   # Former action

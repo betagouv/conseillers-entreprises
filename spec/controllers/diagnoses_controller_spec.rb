@@ -62,6 +62,8 @@ RSpec.describe DiagnosesController, type: :controller do
 
     it('redirects to step 5') { expect(response).to redirect_to step_5_diagnosis_path(diagnosis) }
 
+    it('updates the diagnosis to step 5') { expect(diagnosis.reload.step).to eq 5 }
+
     it 'has called the right methods' do
       expect(ExpertMailersService).to have_received(:filter_assistances_experts).with(assistances_experts)
       expect(UseCases::CreateSelectedAssistancesExperts).to have_received(:perform).with(

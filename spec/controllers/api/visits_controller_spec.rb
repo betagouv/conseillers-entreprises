@@ -9,11 +9,7 @@ RSpec.describe Api::VisitsController, type: :controller do
     subject(:request) { patch :update, format: :json, params: { id: visit.id, visit: visit_params } }
 
     let(:visit) { create :visit }
-    let(:visit_params) do
-      {
-        happened_at: date_string
-      }
-    end
+    let(:visit_params) { { happened_at: date_string } }
 
     context 'when parameters are OK' do
       let(:date_string) { '2017-03-23' }

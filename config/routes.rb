@@ -29,10 +29,6 @@ Rails.application.routes.draw do
   end
 
   resources :visits, only: %i[show] do
-    # member do
-    #   get 'company' => 'companies#show'
-    # end
-
     resources :diagnoses, only: %i[show]
   end
 
