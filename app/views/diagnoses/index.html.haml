@@ -6,11 +6,13 @@
   %table.ui.table.ui
     %tbody
       - @diagnoses[:in_progress].each do |diagnosis|
+        - company_name = diagnosis.visit.facility.company.name_short
         %tr
-          %td= diagnosis.visit.facility.company.name_short
+          %td= company_name
           %td.collapsing= t('.step', step: diagnosis.step)
           %td.collapsing.no-left-padding
-            = link_to diagnosis_path(diagnosis), method: :delete, class: '' do
+            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
+             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)} do
               %i.ui.icon.link.trash.light.grey.no-margin
           %td.collapsing.no-left-padding
             = link_to t('.continue_diagnosis'),
@@ -27,10 +29,11 @@
   %table.ui.table.ui
     %tbody
       - @diagnoses[:completed].each do |diagnosis|
+        - company_name = diagnosis.visit.facility.company.name_short
         %tr
           %td
             %h3.ui.header
-              = diagnosis.visit.facility.company.name_short
+              = company_name
               .sub.header
                 = t('.visitee', visitee_name: diagnosis.visit.visitee.full_name)
           %td.collapsing
@@ -47,7 +50,8 @@
                     = t('.selected_assistance_experts', selected_assistance_experts: selected_assistance_experts_count)
 
           %td.collapsing.no-left-padding
-            = link_to diagnosis_path(diagnosis), method: :delete, class: '' do
+            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
+             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)}  do
               %i.ui.icon.link.trash.light.grey.no-margin
           %td.collapsing.no-left-padding
             = link_to t('.show_summary'),
