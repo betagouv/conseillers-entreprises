@@ -2,7 +2,6 @@ import Step2APIService from '../../../packs/step-2/store/step2APIService'
 
 //for the async function to work
 require('babel-core/register')
-require('babel-polyfill')
 
 describe('Step2APIService', () => {
 

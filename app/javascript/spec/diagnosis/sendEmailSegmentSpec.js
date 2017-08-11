@@ -4,7 +4,6 @@ import SendEmailSegment from '../../packs/diagnosis/sendEmailSegment.vue.erb'
 
 //for the async function to work
 require("babel-core/register");
-require("babel-polyfill");
 
 describe('sendEmailSegment', () => {
 

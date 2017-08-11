@@ -2,7 +2,6 @@ import DateValidator from '../../../packs/step-3/utils/dateValidator'
 
 //for the async function to work
 require('babel-core/register')
-require('babel-polyfill')
 
 describe('DateValidator', () => {
 

@@ -3,7 +3,6 @@ import ContactAPIService from '../../../packs/diagnosis/store/contactAPIService'
 
 //for the async function to work
 require("babel-core/register");
-require("babel-polyfill");
 
 describe('ContactAPIService', () => {
 

@@ -2,7 +2,6 @@ import DateUtils from '../../../packs/step-3/utils/dateUtils'
 
 //for the async function to work
 require('babel-core/register')
-require('babel-polyfill')
 
 describe('DateUtils', () => {
 

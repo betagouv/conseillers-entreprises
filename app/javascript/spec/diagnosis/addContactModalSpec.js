@@ -4,7 +4,6 @@ import AddContactModal from '../../packs/diagnosis/addContactModal.vue.erb'
 
 //for the async function to work
 require('babel-core/register')
-require('babel-polyfill')
 
 describe('addContactModal', () => {
 

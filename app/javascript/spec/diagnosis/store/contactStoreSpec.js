@@ -3,7 +3,6 @@ import ContactStore from '../../../packs/diagnosis/store/contactStore'
 
 //for the async function to work
 require("babel-core/register");
-require("babel-polyfill");
 
 describe('ContactStore', () => {
 

@@ -3,7 +3,6 @@ import Step3Store from '../../../packs/step-3/store/step3Store'
 
 //for the async function to work
 require('babel-core/register')
-require('babel-polyfill')
 
 describe('step3Store', () => {
 

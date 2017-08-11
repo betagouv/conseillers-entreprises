@@ -4,7 +4,6 @@ import ContentForm from '../../packs/diagnosis/contentForm.vue.erb'
 
 //for the async function to work
 require("babel-core/register");
-require("babel-polyfill");
 
 describe('ContentForm', () => {
     it('has a created hook', () => {
