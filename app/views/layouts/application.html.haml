@@ -6,6 +6,8 @@
     = render partial: 'layouts/navbar'
     = render partial: 'layouts/environment_ribbon'
 
+    - unless Rails.env.test?
+      = javascript_pack_tag 'common/babel-polyfill'
     %main
       .ui.main.text.container
         = render partial: 'layouts/flashes'
@@ -14,4 +16,3 @@
     = render partial: 'layouts/footer'
     = yield :body_bottom
 
-= javascript_pack_tag 'common/babel-polyfill'
