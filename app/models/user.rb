@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?
-  
+
   scope :for_contact_page, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
   scope :not_admin, (-> { where(is_admin: false) })
 
