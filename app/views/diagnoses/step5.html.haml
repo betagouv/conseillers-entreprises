@@ -28,8 +28,6 @@
                   - selected_assistance_experts_count = @diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
                   = t('.selected_assistance_experts', count: selected_assistance_experts_count)
 
-  - selected_assistance_experts_count = @diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
-
   %h2= t('.company_contact_subtitle')
 
   - visitee = @diagnosis.visit.visitee
@@ -66,17 +64,25 @@
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
             %tr
               %td
-                = selected_assistance_expert.assistance_expert.expert.full_name
-                = ' - '
-                = selected_assistance_expert.assistance_expert.expert.institution.name
+                - if selected_assistance_expert.expert_full_name
+                  = selected_assistance_expert.expert_full_name
+                  = ' - '
+                  = selected_assistance_expert.expert_institution_name
+                  = ' - '
+                  = selected_assistance_expert.assistance_title
+                - else
+                  = selected_assistance_expert.assistance_expert.expert.full_name
+                  = ' - '
+                  = selected_assistance_expert.assistance_expert.expert.institution.name
         - else
           %tr
             %td= t('.zero_contacted_expert')
 
-  %h2= t('.diagnosis_content_subtitle')
-  .ui.segment.shadow-less
-    .ui.form
-      .field
-        %label
-          = t('.diagnosis_content_label')
-        = @diagnosis.content
+  - if @diagnosis.content
+    %h2= t('.diagnosis_content_subtitle')
+    .ui.segment.shadow-less
+      .ui.form
+        .field
+          %label
+            = t('.diagnosis_content_label')
+          = @diagnosis.content
