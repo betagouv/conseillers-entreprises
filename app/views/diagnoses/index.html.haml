@@ -41,13 +41,13 @@
               .item
                 .middle.aligned.content
                   %h5.ui.header.disabled
-                    = t('.diagnosed_needs', diagnosed_needs: diagnosis.diagnosed_needs.count)
+                    = t('.diagnosed_needs', count: diagnosis.diagnosed_needs.count)
               .item
                 .middle.aligned.content
                   %h5.ui.header.disabled
                     -# TODO: Move in Diagnosis helper
                     - selected_assistance_experts_count = diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
-                    = t('.selected_assistance_experts', selected_assistance_experts: selected_assistance_experts_count)
+                    = t('.selected_assistance_experts', count: selected_assistance_experts_count)
 
           %td.collapsing.no-left-padding
             = link_to diagnosis_path(diagnosis), method: :delete, class: '',
