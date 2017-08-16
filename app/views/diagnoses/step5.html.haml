@@ -53,11 +53,15 @@
     %table.ui.celled.table
       %thead
         %th= diagnosed_need.question_label
-      - if diagnosed_need.content && diagnosed_need.content.lstrip.length > 0
-        %tbody
-          %tr
-            %td= diagnosed_need.content
       %tbody
+        - if diagnosed_need.content && diagnosed_need.content.lstrip.length > 0
+          %tr
+            %td
+              .ui.form
+                .field
+                  %label
+                    = t('.diagnosis_needs_content_label')
+                  = diagnosed_need.content
         - if diagnosed_need.selected_assistance_experts.count > 0
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
             %tr
@@ -68,3 +72,11 @@
         - else
           %tr
             %td= t('.zero_contacted_expert')
+
+  %h2= t('.diagnosis_content_subtitle')
+  .ui.segment.shadow-less
+    .ui.form
+      .field
+        %label
+          = t('.diagnosis_content_label')
+        = @diagnosis.content

@@ -94,6 +94,10 @@ fr:
       company_contact_subtitle: Contact rencontré au sein de l'entreprise
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
+      diagnosis_needs_content_label: "Les informations complémentaires concernant ce besoin :"
+      diagnosis_content_subtitle: Informations complémentaires
+      diagnosis_content_label: "Les informations complémentaires concernant la visite au global :"
+      need_contacts_summary_subtitle: Référents contactés classés par besoin
       diagnosed_needs:
         zero: 0 besoin identifié
         one: 1 besoin identifié
