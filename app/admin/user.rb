@@ -10,7 +10,7 @@ ActiveAdmin.register User do
                 :phone_number,
                 :password,
                 :password_confirmation,
-                :is_blocked
+                :is_approved
 
   collection_action :send_invitation_emails, method: :post do
     UserMailer.send_new_user_invitation(params).deliver_now
@@ -24,7 +24,7 @@ ActiveAdmin.register User do
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
-    column :is_blocked
+    column :is_approved
     actions
   end
 
@@ -32,7 +32,7 @@ ActiveAdmin.register User do
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
-  filter :is_blocked
+  filter :is_approved
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -49,7 +49,7 @@ ActiveAdmin.register User do
     end
 
     f.inputs I18n.t('active_admin.user.user_activation') do
-      f.input :is_blocked, as: :boolean
+      f.input :is_approved, as: :boolean
     end
 
     f.actions
@@ -80,13 +80,13 @@ ActiveAdmin.register User do
 
     def update_without_password
       params.require(:user).permit(
-        %i[first_name last_name email institution role phone_number is_blocked contact_page_order contact_page_role]
+        %i[first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role]
       )
     end
 
     def update_with_password
       permitted_keys = %i[first_name last_name email institution role phone_number password password_confirmation]
-      permitted_keys += %i[is_blocked contact_page_order contact_page_role]
+      permitted_keys += %i[is_approved contact_page_order contact_page_role]
       params.require(:user).permit(permitted_keys)
     end
   end

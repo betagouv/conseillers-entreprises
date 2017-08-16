@@ -6,7 +6,7 @@ fr:
       invite_users: Inviter des utilisateurs
     user:
       user_info: Informations utilisateur
-      user_activation: Bloquage du compte
+      user_activation: Validation du compte
     assistances:
       expert: Référent
       experts: Les référents pour cette aide

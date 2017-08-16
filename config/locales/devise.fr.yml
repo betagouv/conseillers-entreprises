@@ -6,7 +6,7 @@ fr:
       send_paranoid_instructions: "Si votre adresse e-mail existe dans notre base de données, vous allez bientôt recevoir un e-mail contenant les instructions de confirmation de votre compte."
     failure:
       already_authenticated: "Vous êtes déjà connecté"
-      inactive: "Votre compte est actuellement bloqué. Veuillez contacter les administrateurs pour demander son déblocage."
+      inactive: "Votre compte n'est pas encore activé. Les administrateurs ont été prévenus et activeront votre compte très bientôt."
       invalid: "E-mail ou mot de passe incorrect."
       last_attempt: "Vous avez droit à une tentative avant que votre compte ne soit verrouillé."
       locked: "Votre compte est verrouillé."

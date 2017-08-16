@@ -14,12 +14,12 @@ class User < ApplicationRecord
 
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?
-
+  
   scope :for_contact_page, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
   scope :not_admin, (-> { where(is_admin: false) })
 
   def active_for_authentication?
-    super && !is_blocked?
+    super && is_approved?
   end
 
   def full_name
@@ -31,6 +31,12 @@ class User < ApplicationRecord
   end
 
   protected
+
+  def send_admin_mail
+    AdminMailer.new_user_created_notification(self).deliver
+  rescue AdminMailer::RecipientsExpectedError
+    Rails.logger.warn 'No recipients present for new User email.'
+  end
 
   # Inspired by Devise validatable module
   # Checks whether a password is needed or not. For validations only.
