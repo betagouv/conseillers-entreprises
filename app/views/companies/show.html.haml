@@ -1,7 +1,7 @@
 - meta title: t('.informations')
 
 #company-show
-  %h1= t('.informations')
+  %h1= t('.company')
 
   - company = @company['entreprise']
   %table.ui.compact.celled.table
@@ -31,9 +31,6 @@
       %tr
         %td= t('.forme_juridique')
         %td= company['forme_juridique']
-      %tr
-        %td= t('.forme_juridique_code')
-        %td= company['forme_juridique_code']
       %tr
         %td= t('.procedure_collective')
         %td= company['procedure_collective'].to_b ? t('yes') : t('no')

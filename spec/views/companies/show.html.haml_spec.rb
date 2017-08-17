@@ -56,6 +56,6 @@ RSpec.describe 'companies/show.html.haml', type: :view do
     assign :company, company_json
     assign :qwant_results, qwant_json
     render
-    expect(rendered).to match(/Informations/)
+    expect(rendered).to match(/Entreprise/)
   end
 end

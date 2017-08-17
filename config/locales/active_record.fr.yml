@@ -73,6 +73,7 @@ fr:
         phone_number: Numéro de téléphone
         contact_page_order: Ordre sur la page Contact
         contact_page_role: Role sur la page Contact
+        remember_me: Se souvenir de moi
       visit:
         happened_at: Date de la visite
         advisor: Conseiller visiteur

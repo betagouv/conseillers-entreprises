@@ -5,11 +5,11 @@ fr:
       location: Localité
     show:
       informations: Informations
+      company: Entreprise
       siren: SIREN
       capital_social: Capital social
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
       forme_juridique: Forme juridique
-      forme_juridique_code: Code de la forme juridique
       nom_commercial: Nom Commercial
       procedure_collective: En cours de procedure collective ?
       raison_sociale: Raison Sociale
@@ -39,6 +39,5 @@ fr:
       region_implantation: Région d'implantation
       commune_implantation: Commune d'implantation
       pays_implantation: Pays d'implantation
-      diffusable_commercialement: Diffusable commercialement
       adresse: Adresse
 

@@ -10,6 +10,7 @@
     </div>
     <h3 class="ui header">
       <%= I18n.t('diagnoses.step3.contact_detail') %>
+      <span class="required field"><label style="display: inline-block;"></label></span>
       <div class="sub header "><%= I18n.t('diagnoses.step3.add_one_contact_mode_below') %></div>
     </h3>
     <div class="field" v-bind:class="{ error: !areContactDetailsCompleted && showFormFieldErrors }">
