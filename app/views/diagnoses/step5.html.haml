@@ -28,8 +28,6 @@
                   - selected_assistance_experts_count = @diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
                   = t('.selected_assistance_experts', count: selected_assistance_experts_count)
 
-  %h2= t('.company_contact_subtitle')
-
   - visitee = @diagnosis.visit.visitee
   - visitee_data = [{label: t('activerecord.attributes.contact.last_name'), value: visitee.full_name},
                     {label: t('activerecord.attributes.contact.role'), value: visitee.role},
@@ -37,6 +35,8 @@
                     {label: t('activerecord.attributes.contact.phone_number'), value: visitee.phone_number}]
 
   .ui.segment.shadow-less
+    %h3.ui.header
+      =t('.company_contact_subtitle')
     %table.full-width
       %tbody.small-horizontal-padding
         - (visitee_data.reject { |item| item[:value].blank? }).each do |item|
@@ -45,6 +45,9 @@
               .small.text.bold= item[:label]
             %td
               .small.text= item[:value]
+
+  = link_to t('.show_detailled_information'), company_path(siret: @diagnosis.visit.facility.siret),
+   target: '_blank', class: 'ui yellow basic tiny button'
 
   %h2= t('.need_contacts_summary_subtitle')
   - @diagnosis.diagnosed_needs.each do |diagnosed_need|

@@ -92,6 +92,7 @@ fr:
       title: Récapitulatif
       notifications_sent: Les notifications ont bien été envoyées !
       company_contact_subtitle: Contact rencontré au sein de l'entreprise
+      show_detailled_information: Informations détaillées
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
       diagnosis_needs_content_label: "Les informations complémentaires concernant ce besoin :"
