@@ -11,13 +11,13 @@
           %td= company_name
           %td.collapsing= t('.step', step: diagnosis.step)
           %td.collapsing.no-left-padding
-            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
-             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)} do
-              %i.ui.icon.link.trash.light.grey.no-margin
-          %td.collapsing.no-left-padding
             = link_to t('.continue_diagnosis'),
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'
+          %td.collapsing.no-left-padding
+            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
+             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)} do
+              %i.ui.icon.link.trash.light.grey.no-margin
 
 = link_to step_1_diagnoses_path, class: 'ui medium green button' do
   = semantic_icon('plus')
@@ -50,10 +50,10 @@
                     = t('.selected_assistance_experts', count: selected_assistance_experts_count)
 
           %td.collapsing.no-left-padding
-            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
-             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)}  do
-              %i.ui.icon.link.trash.light.grey.no-margin
-          %td.collapsing.no-left-padding
             = link_to t('.show_summary'),
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'
+          %td.collapsing.no-left-padding
+            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
+             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)}  do
+              %i.ui.icon.link.trash.light.grey.no-margin
