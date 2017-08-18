@@ -1,0 +1,3 @@
+export const REQUEST_IN_PROGRESS = 'REQUEST_IN_PROGRESS'
+export const FORM_ERROR_MESSAGE = 'FORM_ERROR_MESSAGE'
+export const SIRET = 'SIRET'

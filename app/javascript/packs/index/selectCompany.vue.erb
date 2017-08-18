@@ -1,0 +1,29 @@
+<template lang="pug">
+  .ui.segment.shadow-less.dimmable(:class='{ dimmed: false }')
+    company-input(v-on:search-siret="searchSiret",
+                  v-on:error="manageError")
+
+</template>
+
+<script>
+import CompanyInput from './companyInput.vue.erb'
+
+export default {
+    name: 'select-company',
+    components: {
+      CompanyInput,
+    },
+    data: function () {
+      return {
+      }
+    },
+    methods: {
+        searchSiret: function(siret) {
+          console.log(siret)
+        },
+        manageError: function(error) {
+          console.log(error)
+        }
+    }
+}
+</script>

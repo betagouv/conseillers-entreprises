@@ -1,5 +1,8 @@
 - meta title: t('.title')
 
+#index-app
+  %select-company
+
 %h1= t('.diagnoses_in_progress')
 
 - if @diagnoses[:in_progress].present?
@@ -57,3 +60,6 @@
             = link_to diagnosis_path(diagnosis), method: :delete, class: '',
              :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)}  do
               %i.ui.icon.link.trash.light.grey.no-margin
+
+- unless Rails.env.test?
+  = javascript_pack_tag 'index/indexApp'
