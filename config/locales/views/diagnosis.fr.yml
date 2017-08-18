@@ -80,7 +80,8 @@ fr:
       phone_number: Numéro de télephone
     step4:
       title: Sélection des référents
-      no_assistance: Pas d'aides sélectionnées.
+      no_diagnosed_needs: Pas de besoins sélectionnées.
+      no_assistance: Aucune aide répond à ce besoin sur ce territoire pour l'instant.
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
       before_sending_emails_text_html: |
         <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
