@@ -2,6 +2,7 @@ fr:
   diagnoses:
     index:
       title: Analyses
+      search_company: Rechercher une entreprise
       diagnoses_in_progress: Analyses en cours
       diagnoses_completed: Analyses réalisées
       create_new_diagnosis: Faire une nouvelle analyse
