@@ -18,30 +18,9 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
-    show:
-      identified_needs:
-        zero: Aucun besoin identifié
-        one: Un besoin a été identifié
-        other: "%{count} besoins ont été identifiés"
-      assistances_found:
-        zero: Aucune aide trouvée...
-        one: Une aide a été trouvée
-        other: "%{count} aides ont été trouvées"
-      diagnosis_date: "Analyse du %{date}"
-      description: "Entrez des informations complémentaires concernant cette analyse :"
-      save_loader: Sauvegarde en cours
-      no_visitee_message: "Vous n'avez pas renseigné le contact que vous avez rencontré durant la visite. Complétez cette information, avant de pouvoir contacter les référents."
-      add_visitee: Ajouter un contact de l'entreprise
-      add_contact_modal:
-        header: Ajouter le contact de l'entreprise
-        error_header: Erreur lors de la création
-        error_message: "Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l'erreur persite, contactez l'equipe Réso."
-        full_name: Nom
-        role: Fonction au sein de l'entreprise
-        contact_detail: Coordonnées
-        add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
-        email_address: Adresse e-mail
-        phone_number: Numéro de télephone
+      company_found: Entreprise trouvée
+      show_detailled_information: Voir les informations<br/>détaillées
+      location: Localité
     steps:
       step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins<br>détectés

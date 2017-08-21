@@ -1,0 +1,7 @@
+export const REQUEST_IN_PROGRESS = 'REQUEST_IN_PROGRESS'
+export const FORM_ERROR_TYPE = 'FORM_ERROR_TYPE'
+export const SIRET = 'SIRET'
+export const COMPANY_DATA = 'COMPANY_DATA'
+export const COMPANY_NAME = 'COMPANY_NAME'
+export const COMPANY_LOCATION = 'COMPANY_LOCATION'
+

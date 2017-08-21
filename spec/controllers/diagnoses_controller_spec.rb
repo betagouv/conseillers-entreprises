@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-# rubocop:disable Metrics/BlockLength
 RSpec.describe DiagnosesController, type: :controller do
   login_user
 
@@ -116,16 +115,4 @@ RSpec.describe DiagnosesController, type: :controller do
     it('redirects to index') { expect(response).to redirect_to diagnoses_path }
     it('destroys the diagnosis') { expect(Diagnosis.all.count).to eq 0 }
   end
-
-  describe 'former page' do
-    describe 'GET #show' do
-      it 'returns http success' do
-        visit = create :visit, advisor: current_user
-        diagnosis = create :diagnosis, visit: visit
-        get :show, params: { id: diagnosis.id, visit_id: visit.id }
-        expect(response).to have_http_status(:success)
-      end
-    end
-  end
 end
-# rubocop:enable Metrics/BlockLength
