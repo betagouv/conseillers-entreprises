@@ -21,7 +21,6 @@ const acceptedEntryPointArray = [
     'step-1/step1App',
     'step-2/step2App',
     'step-3/step3App',
-    'diagnosis/diagnosisMain'
 ]
 
 module.exports = {
