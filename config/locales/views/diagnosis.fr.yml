@@ -18,6 +18,9 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
+      company_found: Entreprise trouvée
+      show_detailled_information: Voir les informations<br/>détaillées
+      location: Localité
     show:
       identified_needs:
         zero: Aucun besoin identifié
