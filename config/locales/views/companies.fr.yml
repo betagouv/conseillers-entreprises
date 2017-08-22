@@ -4,9 +4,9 @@ fr:
       no_result: Aucun résultat.
       location: Localité
     show:
-      informations: Informations
-      company: Entreprise
-      siren: SIREN
+      data_on: "Fiche %{company_name}"
+      informations_on: "Informations sur %{company_name}"
+      siren: SIRENru
       capital_social: Capital social
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
       forme_juridique: Forme juridique
@@ -29,6 +29,18 @@ fr:
       identifiant: Identifiant
       ereputation: e-réputation
       information_not_found: Aucune actualité n'a été trouvée sur cette entreprise.
+      diagnoses_completed: "Analyses complétées de %{company_name}"
+      visited_at: "Visitée le %{date}"
+      visited_by_html: "par %{advisor_name} </br> email : %{advisor_email}"
+      diagnosed_needs:
+        zero: 0 besoin identifié
+        one: 1 besoin identifié
+        other: "%{count} besoins identifiés"
+      selected_assistance_experts:
+        zero: 0 mise en relation
+        one: 1 mise en relation
+        other: "%{count} mises en relation"
+      no_visit_found: Aucune analyse n'a encore été complétée pour cette entreprise.
     facility:
       siret: SIRET
       naf: Code NAF

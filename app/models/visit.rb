@@ -11,6 +11,9 @@ class Visit < ApplicationRecord
   validates :advisor, :facility, presence: true
 
   scope :of_advisor, (->(user) { where(advisor: user) })
+  scope :of_facility, (->(facility) { where(facility: facility) })
+  scope :of_siret, (->(siret) { joins(:facility).where(facilities: { siret: siret }) })
+  scope :with_completed_diagnosis, (-> { joins(:diagnosis).merge(Diagnosis.completed) })
 
   def to_s
     I18n.t('visits.to_s', company_name: company_name)

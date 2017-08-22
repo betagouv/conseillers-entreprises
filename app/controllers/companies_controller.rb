@@ -12,11 +12,15 @@ class CompaniesController < ApplicationController
     @firmapi_json = FirmapiService.search_companies name: params[:company][:name], county: params[:company][:county]
   end
 
+  # rubocop:disable Metrics/AbcSize
   def show
     @facility = UseCases::SearchFacility.with_siret params[:siret]
     @company = UseCases::SearchCompany.with_siret params[:siret]
-    company_name = ApiEntrepriseService.company_name @company
-    @qwant_results = QwantApiService.results_for_query company_name
+    @company_name = ApiEntrepriseService.company_name @company
+    @qwant_results = QwantApiService.results_for_query @company_name
+    associations = [{ diagnosis: [diagnosed_needs: [:selected_assistance_experts]] }, :advisor]
+    @visits = Visit.includes(associations).of_siret(params[:siret]).with_completed_diagnosis
     render layout: 'company'
   end
+  # rubocop:enable Metrics/AbcSize
 end

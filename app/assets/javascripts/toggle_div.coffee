@@ -8,14 +8,14 @@ window.ToggleDiv =
     $('.toggle-div').hide()
 
   show: ($wrapperDiv) ->
-    $wrapperDiv.find('.toggle-show-button').hide()
-    $wrapperDiv.find('.toggle-hide-button').show()
-    $wrapperDiv.find('.toggle-div').show()
+    $wrapperDiv.find('.toggle-show-button').first().hide()
+    $wrapperDiv.find('.toggle-hide-button').first().show()
+    $wrapperDiv.find('.toggle-div').first().show()
 
   hide: ($wrapperDiv) ->
-    $wrapperDiv.find('.toggle-hide-button').hide()
-    $wrapperDiv.find('.toggle-show-button').show()
-    $wrapperDiv.find('.toggle-div').hide()
+    $wrapperDiv.find('.toggle-hide-button').first().hide()
+    $wrapperDiv.find('.toggle-show-button').first().show()
+    $wrapperDiv.find('.toggle-div').first().hide()
 
 $(document).on 'turbolinks:load', ->
   if $('#company-show').length > 0 || $('.assistance').length > 0
