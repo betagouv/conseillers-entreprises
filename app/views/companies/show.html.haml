@@ -157,3 +157,5 @@
   - else
     .text.small
       = t('.no_visit_found')
+
+  = link_to t('.create_diagnosis'), create_diagnosis_from_siret_companies_path(siret: @siret), method: :post, class: 'ui positive basic tiny button'

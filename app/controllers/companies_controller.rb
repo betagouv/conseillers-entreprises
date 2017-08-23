@@ -14,13 +14,25 @@ class CompaniesController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize
   def show
-    @facility = UseCases::SearchFacility.with_siret params[:siret]
-    @company = UseCases::SearchCompany.with_siret params[:siret]
+    @siret = params[:siret]
+    @facility = UseCases::SearchFacility.with_siret @siret
+    @company = UseCases::SearchCompany.with_siret @siret
     @company_name = ApiEntrepriseService.company_name @company
     @qwant_results = QwantApiService.results_for_query @company_name
     associations = [{ diagnosis: [diagnosed_needs: [:selected_assistance_experts]] }, :advisor]
-    @visits = Visit.includes(associations).of_siret(params[:siret]).with_completed_diagnosis
+    @visits = Visit.includes(associations).of_siret(@siret).with_completed_diagnosis
     render layout: 'company'
   end
   # rubocop:enable Metrics/AbcSize
+
+  def create_diagnosis_from_siret
+    facility = UseCases::SearchFacility.with_siret_and_save params[:siret]
+    visit = Visit.create advisor: current_user, facility: facility if facility
+    diagnosis = Diagnosis.new visit: visit, step: '2' if visit
+    if facility && visit && diagnosis.save
+      redirect_to step_2_diagnosis_path(diagnosis)
+    else
+      render body: nil, status: :bad_request
+    end
+  end
 end

@@ -6,7 +6,7 @@ fr:
     show:
       data_on: "Fiche %{company_name}"
       informations_on: "Informations sur %{company_name}"
-      siren: SIRENru
+      siren: SIREN
       capital_social: Capital social
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
       forme_juridique: Forme juridique
@@ -41,6 +41,7 @@ fr:
         one: 1 mise en relation
         other: "%{count} mises en relation"
       no_visit_found: Aucune analyse n'a encore été complétée pour cette entreprise.
+      create_diagnosis: Faire une nouvelle analyse pour cette entreprise
     facility:
       siret: SIRET
       naf: Code NAF
