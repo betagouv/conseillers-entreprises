@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     collection do
       post :search_by_siren
       post :search_by_name
+      post :create_diagnosis_from_siret
     end
   end
 

@@ -34,6 +34,64 @@ RSpec.describe Visit, type: :model do
         end
       end
     end
+
+    describe 'of_facility' do
+      subject { Visit.of_facility facility }
+
+      let(:facility) { create :facility }
+
+      context 'visit exists' do
+        it do
+          visit = create :visit, facility: facility
+          is_expected.to eq [visit]
+        end
+      end
+
+      context 'visit does not exist' do
+        it do
+          create :visit
+          is_expected.to be_empty
+        end
+      end
+    end
+
+    describe 'of_siret' do
+      subject { Visit.of_siret facility.siret }
+
+      let(:facility) { create :facility, siret: '44622002200229' }
+
+      context 'visit exists' do
+        it do
+          visit = create :visit, facility: facility
+          is_expected.to eq [visit]
+        end
+      end
+
+      context 'visit does not exist' do
+        it do
+          create :visit
+          is_expected.to be_empty
+        end
+      end
+    end
+
+    describe 'with_completed_diagnosis' do
+      subject { Visit.with_completed_diagnosis }
+
+      let(:visit) { create :visit, diagnosis: diagnosis }
+
+      context 'visit exists' do
+        let(:diagnosis) { create :diagnosis, step: 5 }
+
+        it { is_expected.to eq [visit] }
+      end
+
+      context 'visit does not exist' do
+        let(:diagnosis) { create :diagnosis, step: 2 }
+
+        it { is_expected.to be_empty }
+      end
+    end
   end
 
   describe 'to_s' do

@@ -1,7 +1,7 @@
-- meta title: t('.informations')
+- meta title: t('.data_on', company_name: @company_name)
 
 #company-show
-  %h1= t('.company')
+  %h1= t('.informations_on', company_name: @company_name)
 
   - company = @company['entreprise']
   %table.ui.compact.celled.table
@@ -49,73 +49,112 @@
         %td= t('.date_radiation')
         %td= date_from_timestamp(company['date_radiation'])
 
-  %h2= t('.facility')
   .toggle-div-wrapper
-    %button.ui.blue.tiny.button.toggle-show-button= t('show')
-    %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
+    %button.ui.basic.blue.icon.tiny.button.toggle-show-button
+      %i.ui.icon.chevron.right
+      = t('show_more')
+    %button.ui.basic.blue.icon.tiny.button.toggle-hide-button
+      %i.ui.icon.chevron.down
+      = t('show_less')
     .toggle-div
-      = render partial: 'facility', locals: { etablissement: @facility['etablissement'] }
 
-  - unless @facility['etablissement']['siege_social'].to_b
-    %h2= t('.siege_social')
-    .toggle-div-wrapper
-      %button.ui.blue.tiny.button.toggle-show-button= t('show')
-      %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
-      .toggle-div
-        = render partial: 'facility', locals: { etablissement: @company['etablissement_siege'] }
+      %h2= t('.facility')
+      .toggle-div-wrapper
+        %button.ui.blue.tiny.button.toggle-show-button= t('show')
+        %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
+        .toggle-div
+          = render partial: 'facility', locals: { etablissement: @facility['etablissement'] }
 
-  %h2= t('.mandataires_sociaux')
-  .toggle-div-wrapper
-    %button.ui.blue.tiny.button.toggle-show-button= t('show')
-    %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
-    .toggle-div#mandataires
-      - company['mandataires_sociaux'].each do |person|
-        %table.ui.compact.celled.table{class: (person['type'] == 'PM' ? 'violet' : 'teal')}
-          %tbody
-            - if person['type'] == 'PM'
-              %tr
-                %td{colspan: 2}= t('.personne_morale')
-            - if person['raison_sociale'].present?
-              %tr
-                %td= t('.raison_sociale')
-                %td= person['raison_sociale'].humanize
-            - if person['prenom'].present? && person['nom'].present?
-              %tr
-                %td= t('.nom')
-                %td= "#{person['prenom'].humanize} #{person['nom'].humanize}"
-            - if person['fonction'].present?
-              %tr
-                %td= t('.fonction')
-                %td= person['fonction'].humanize
-            - if person['date_naissance_timestamp']
-              %tr
-                %td= t('.date_naissance')
-                %td= date_from_timestamp(person['date_naissance_timestamp'])
-            %tr
-              %td= t('.dirigeant')
-              %td= person['dirigeant'].to_b ? t('yes') : t('no')
-            - if person['identifiant'].present?
-              %tr
-                %td= t('.identifiant')
-                %td= person['identifiant']
+      - unless @facility['etablissement']['siege_social'].to_b
+        %h2= t('.siege_social')
+        .toggle-div-wrapper
+          %button.ui.blue.tiny.button.toggle-show-button= t('show')
+          %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
+          .toggle-div
+            = render partial: 'facility', locals: { etablissement: @company['etablissement_siege'] }
 
-  %h2= t('.ereputation')
-  .toggle-div-wrapper
-    %button.ui.blue.tiny.button.toggle-show-button= t('show')
-    %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
-    .toggle-div
-      - if @qwant_results.blank? || @qwant_results['data']['result']['items'].count == 0
-        %p= t('.information_not_found')
-      - else
-        .ui.items
-          - @qwant_results['data']['result']['items'].each do |item|
-            .item
-              .ui.tiny.image
-                - if item['media'].present?
-                  = image_tag item['media'].first['pict']['url']
-              .content
-                = link_to item['title'].html_safe, item['url'], class: 'header'
-                .meta
-                  %span= item['domain']
-                .description
-                  %p= item['desc'].html_safe
+      %h2= t('.mandataires_sociaux')
+      .toggle-div-wrapper
+        %button.ui.blue.tiny.button.toggle-show-button= t('show')
+        %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
+        .toggle-div#mandataires
+          - company['mandataires_sociaux'].each do |person|
+            %table.ui.compact.celled.table{class: (person['type'] == 'PM' ? 'violet' : 'teal')}
+              %tbody
+                - if person['type'] == 'PM'
+                  %tr
+                    %td{colspan: 2}= t('.personne_morale')
+                - if person['raison_sociale'].present?
+                  %tr
+                    %td= t('.raison_sociale')
+                    %td= person['raison_sociale'].humanize
+                - if person['prenom'].present? && person['nom'].present?
+                  %tr
+                    %td= t('.nom')
+                    %td= "#{person['prenom'].humanize} #{person['nom'].humanize}"
+                - if person['fonction'].present?
+                  %tr
+                    %td= t('.fonction')
+                    %td= person['fonction'].humanize
+                - if person['date_naissance_timestamp']
+                  %tr
+                    %td= t('.date_naissance')
+                    %td= date_from_timestamp(person['date_naissance_timestamp'])
+                %tr
+                  %td= t('.dirigeant')
+                  %td= person['dirigeant'].to_b ? t('yes') : t('no')
+                - if person['identifiant'].present?
+                  %tr
+                    %td= t('.identifiant')
+                    %td= person['identifiant']
+
+      %h2= t('.ereputation')
+      .toggle-div-wrapper
+        %button.ui.blue.tiny.button.toggle-show-button= t('show')
+        %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
+        .toggle-div
+          - if @qwant_results.blank? || @qwant_results['data']['result']['items'].count == 0
+            %p= t('.information_not_found')
+          - else
+            .ui.items
+              - @qwant_results['data']['result']['items'].each do |item|
+                .item
+                  .ui.tiny.image
+                    - if item['media'].present?
+                      = image_tag item['media'].first['pict']['url']
+                  .content
+                    = link_to item['title'].html_safe, item['url'], class: 'header'
+                    .meta
+                      %span= item['domain']
+                    .description
+                      %p= item['desc'].html_safe
+
+  %h2= t('.diagnoses_completed', company_name: @company_name)
+  - if @visits && @visits.count > 0
+    %table.ui.table.ui
+      %tbody
+        - @visits.each do |visit|
+          %tr
+            %td
+              %h3.ui.header
+                = t('.visited_at', date: visit.happened_at_localized)
+                .sub.header
+                  = t('.visited_by_html', advisor_name: visit.advisor.full_name_with_role, advisor_email: visit.advisor.email)
+            %td.collapsing
+              .ui.middle.aligned.list
+                .item
+                  .middle.aligned.content
+                    %h5.ui.header.disabled
+                      = t('.diagnosed_needs', count: visit.diagnosis.diagnosed_needs.count)
+                .item
+                  .middle.aligned.content
+                    %h5.ui.header.disabled
+                      -# TODO: Move in Diagnosis helper
+                      - selected_assistance_experts_count = visit.diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
+                      = t('.selected_assistance_experts', count: selected_assistance_experts_count)
+  - else
+    %p.text.small
+      = t('.no_visit_found')
+
+  = link_to t('.create_diagnosis'), create_diagnosis_from_siret_companies_path(siret: @siret),
+   method: :post, class: 'ui positive basic tiny button'
