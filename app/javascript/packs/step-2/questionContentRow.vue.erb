@@ -14,15 +14,21 @@
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import * as types from './store/mutationTypes'
+import QuestionObjectParser from './utils/questionObjectParser'
 
 export default {
   name: 'question-content-row',
   props: [
-    'questionId',
-    'questionLabel'
+      'questionDataSerialized'
   ],
+  data () {
+        return {
+            questionData: {}
+        }
+    },
   created: function () {
-    this.setQuestionContent({ questionId: this.questionId, content: '' })
+    this.questionData = QuestionObjectParser.parse(this.questionDataSerialized)
+    this.setQuestionContent({ questionId: this.questionData.questionId, content: this.questionData.content })
   },
   computed: {
     ...mapState({
@@ -32,14 +38,14 @@ export default {
       getQuestionStateById: 'getQuestionStateById'
     }),
     isHidden: function () {
-      return !this.getQuestionStateById(this.questionId).isSelected
+      return !this.getQuestionStateById(this.questionData.questionId).isSelected
     },
     content: {
       get () {
-        return this.getQuestionStateById(this.questionId).content
+        return this.getQuestionStateById(this.questionData.questionId).content
       },
       set (value) {
-        this.setQuestionContent({ questionId: this.questionId, content: value })
+        this.setQuestionContent({ questionId: this.questionData.questionId, content: value })
       }
     }
   },

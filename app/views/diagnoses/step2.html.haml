@@ -15,8 +15,8 @@
     %table.ui.celled.table
       %tbody
         - item[:questions].each do |question|
-          %tr{'is' => 'question-selection-row', 'question-id' => question[:question_id], 'question-label' => question[:label] }
-          %tr{'is' => 'question-content-row', 'question-id' => question[:question_id], 'question-label' => question[:label]}
+          %tr{'is' => 'question-selection-row', 'question-data-serialized' => question.to_json}
+          %tr{'is' => 'question-content-row', 'question-data-serialized' => question.to_json}
 
   %content-text-area
 

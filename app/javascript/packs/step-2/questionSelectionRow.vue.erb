@@ -3,7 +3,7 @@
       <td>
         <label v-bind:for="checkboxId">
           <div class="full-width clickable">
-            {{questionLabel}}
+            {{questionData.label}}
           </div>
         </label>
       </td>
@@ -20,42 +20,48 @@
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import * as types from './store/mutationTypes'
+import QuestionObjectParser from './utils/questionObjectParser'
 
 export default {
-  name: 'question-selection-row',
-  props: [
-    'questionId',
-    'questionLabel'
-  ],
-  created: function () {
-    this.selectQuestion({ questionId: this.questionId, isSelected: false })
-    this.setQuestionLabel({ questionId: this.questionId, questionLabel: this.questionLabel })
-  },
-  computed: {
-    ...mapState({
-      isRequestInProgress: state => state.step2Store.isRequestInProgress
-    }),
-    ...mapGetters({
-      getQuestionStateById: 'getQuestionStateById'
-    }),
-    checkboxId: function () {
-      return `checkbox_${this.questionId}`
+    name: 'question-selection-row',
+    props: [
+        'questionDataSerialized'
+    ],
+    data () {
+        return {
+            questionData: {}
+        }
     },
-    selected: {
-      get () {
-        return this.getQuestionStateById(this.questionId).isSelected
-      },
-      set (value) {
-        this.selectQuestion({ questionId: this.questionId, isSelected: value })
-      }
+    created: function () {
+        this.questionData = QuestionObjectParser.parse(this.questionDataSerialized)
+        this.selectQuestion({ questionId: this.questionData.questionId, isSelected: this.questionData.isSelected })
+        this.setQuestionLabel({ questionId: this.questionData.questionId, questionLabel: this.questionData.label })
+    },
+    computed: {
+        ...mapState({
+            isRequestInProgress: state => state.step2Store.isRequestInProgress
+        }),
+        ...mapGetters({
+            getQuestionStateById: 'getQuestionStateById'
+        }),
+        checkboxId: function () {
+            return `checkbox_${this.questionData.questionId}`
+        },
+        selected: {
+            get () {
+                return this.getQuestionStateById(this.questionData.questionId).isSelected
+            },
+            set (value) {
+                this.selectQuestion({ questionId: this.questionData.questionId, isSelected: value })
+            }
+        }
+    },
+    methods: {
+        ...mapMutations({
+            selectQuestion: types.QUESTION_SELECTED,
+            setQuestionLabel: types.QUESTION_LABEL
+        })
     }
-  },
-  methods: {
-    ...mapMutations({
-      selectQuestion: types.QUESTION_SELECTED,
-      setQuestionLabel: types.QUESTION_LABEL
-    })
-  }
 }
 </script>
 

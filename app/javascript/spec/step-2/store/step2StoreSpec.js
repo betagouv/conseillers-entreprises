@@ -15,12 +15,12 @@ describe('step2Store', () => {
             it('gets the question matching the id', function () {
                 const state = {
                     questions: [
-                        {questionId: '12', content: 'CONTENT'},
-                        {questionId: '14', content: 'Pas CONTENT'}
+                        {questionId: 12, content: 'CONTENT'},
+                        {questionId: 14, content: 'Pas CONTENT'}
                     ]
                 }
-                const question = getters.getQuestionStateById(state, getters)('12')
-                expect(question.questionId).toEqual('12')
+                const question = getters.getQuestionStateById(state, getters)(12)
+                expect(question.questionId).toEqual(12)
                 expect(question.content).toEqual('CONTENT')
             })
         })
