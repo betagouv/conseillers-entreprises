@@ -12,7 +12,6 @@ class CompaniesController < ApplicationController
     @firmapi_json = FirmapiService.search_companies name: params[:company][:name], county: params[:company][:county]
   end
 
-  # rubocop:disable Metrics/AbcSize
   def show
     @siret = params[:siret]
     @facility = UseCases::SearchFacility.with_siret @siret
