@@ -9,6 +9,7 @@ class DiagnosesController < ApplicationController
 
   def step2
     @diagnosis = Diagnosis.find params[:id]
+    @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
   end
 
   def step3

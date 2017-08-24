@@ -4,21 +4,19 @@
 
 %h1.ui.header
   = t('.title')
-  .sub.header
-    = t('.diagnosis_date', date: @diagnosis.creation_date_localized)
 
 %p= t('.identify_needs')
 
 #step2-app
-  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content }
+  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content}
 
-  - categories_with_questions.each do |item|
-    %h2= item[:category]
+  - @categories_with_questions.each do |item|
+    %h2= item[:category] || 'UNCATEGORIZED'
     %table.ui.celled.table
       %tbody
         - item[:questions].each do |question|
-          %tr{'is' => 'question-selection-row', 'question-id' => question.id, 'question-label' => question.label }
-          %tr{'is' => 'question-content-row', 'question-id' => question.id, 'question-label' => question.label }
+          %tr{'is' => 'question-selection-row', 'question-id' => question[:question_id], 'question-label' => question[:label] }
+          %tr{'is' => 'question-content-row', 'question-id' => question[:question_id], 'question-label' => question[:label]}
 
   %content-text-area
 

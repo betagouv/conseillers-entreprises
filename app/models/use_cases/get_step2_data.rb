@@ -11,6 +11,8 @@ module UseCases
         categories_with_questions.delete_if { |item| item[:questions].empty? }
       end
 
+      private
+
       def create_categories_with_questions(questions, diagnosed_needs_hash)
         questions_by_category_id = questions.group_by { |question| question.category.id }
         categories_with_questions = questions_by_category_id
