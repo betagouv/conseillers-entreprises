@@ -60,6 +60,10 @@ const actions = {
                     throw error
                 })
         }
+    },
+
+    sendDiagnosedNeedsBulkUpdate({commit, state, step2APIServiceDependency}) {
+        return Promise.resolve(true)
     }
 }
 

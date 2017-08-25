@@ -415,5 +415,163 @@ describe('step2Store', () => {
                 })
             })
         })
+
+        describe('updateDiagnosedNeeds', function () {
+
+            var commit
+            const questions = [
+                {
+                    isSelected: true,
+                    questionId: '23',
+                    questionLabel: 'Some Question',
+                    diagnosedNeedId: undefined,
+                    content: 'Awesome random stuff'
+                },
+                {
+                    isSelected: false,
+                    questionId: '43',
+                    questionLabel: 'QUESTION',
+                    diagnosedNeedId: 12,
+                    content: 'I need anwsers !'
+                }
+            ]
+            const selectedQuestions = questions.filter((question) => {
+                return question.isSelected
+            })
+            let state = {}
+
+            beforeEach(function() {
+                state = {
+                    diagnosisContent: 'content !',
+                    diagnosisId: 12,
+                    isDiagnosisRequestUnderWay: false,
+                    questions: questions
+                }
+            })
+
+            describe('when there is no changes to send', function () {
+
+                const positivePromise = Promise.resolve(true)
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'createDiagnosedNeeds').and.returnValue(positivePromise)
+                    commit = jasmine.createSpy()
+                    state.questions = []
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.sendDiagnosedNeedsBulkUpdate(apiServiceContext(commit, state))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('should not call contactAPIService', async function () {
+                    await actions.sendDiagnosedNeedsBulkUpdate(apiServiceContext(commit, state))
+
+                    expect(step2StoreAPIServiceMock.createDiagnosedNeeds.calls.count()).toEqual(0)
+                })
+
+                it('does not call commit REQUEST_IN_PROGRESS', async function () {
+                    await actions.sendDiagnosedNeedsBulkUpdate(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(0)
+                })
+            })
+
+            xdescribe('when api call is a success', function () {
+
+                const positivePromise = Promise.resolve(true)
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'createDiagnosedNeeds').and.returnValue(positivePromise)
+                    commit = jasmine.createSpy()
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.createSelectedQuestions(apiServiceContext(commit, state))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('calls contactAPIService with the diagnosisId and the diagnosedNeeds', async function () {
+                    await actions.createSelectedQuestions(apiServiceContext(commit, state))
+
+                    expect(step2StoreAPIServiceMock.createDiagnosedNeeds.calls.count()).toEqual(1)
+                    expect(step2StoreAPIServiceMock.createDiagnosedNeeds.calls.argsFor(0)).toEqual([12, selectedQuestions])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                    actions.createSelectedQuestions(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(1)
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        true
+                    ])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                    await actions.createSelectedQuestions(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(2)
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        false
+                    ])
+                })
+            })
+
+            xdescribe('when api call throws an error', function () {
+
+                const apiError = new Error('error :-(')
+                const negativePromise = Promise.reject(apiError)
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'createDiagnosedNeeds').and.returnValue(negativePromise)
+                    commit = jasmine.createSpy()
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.createSelectedQuestions(apiServiceContext(commit, state))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('calls contactAPIService with the diagnosisId and the content', async function () {
+                    await actions.createSelectedQuestions(apiServiceContext(commit, state)).catch(() => {
+                    })
+
+                    expect(step2StoreAPIServiceMock.createDiagnosedNeeds.calls.count()).toEqual(1)
+                    expect(step2StoreAPIServiceMock.createDiagnosedNeeds.calls.argsFor(0)).toEqual([12, selectedQuestions])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                    actions.createSelectedQuestions(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(1)
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        true
+                    ])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                    await actions.createSelectedQuestions(apiServiceContext(commit, state)).catch(() => {
+                    })
+
+                    expect(commit.calls.count()).toEqual(2)
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        false
+                    ])
+                })
+
+                it('propagates the error', async function () {
+                    var catchedError
+                    await actions.createSelectedQuestions(apiServiceContext(commit, state))
+                        .catch((error) => {
+                            catchedError = error
+                        })
+                    expect(catchedError).toEqual(apiError)
+                })
+            })
+        })
     })
 })
