@@ -1,24 +1,5 @@
 import axios from 'axios'
-//
-// export const createContactForVisit = (visitId, contact) => {
-//
-//     var config = {
-//         method: 'post',
-//         url: `/api/visits/${visitId}/contacts.json`,
-//         data: {
-//             contact: contact
-//         }
-//     }
-//
-//     return axios(config).then((response) => {
-//         return response.data
-//     })
-//
-// }
-//
-// export default {
-//     createContactForVisit,
-// }
+
 export default class step3APIService {
   static createContactForVisit (visitId, contact) {
     var config = {
