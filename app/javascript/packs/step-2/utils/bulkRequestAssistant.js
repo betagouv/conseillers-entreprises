@@ -31,7 +31,7 @@ function shouldDelete(question) {
 function paramForCreate(question) {
     return {
         question_id: question.questionId,
-        question_label: question.label,
+        question_label: question.questionLabel,
         content: question.content
     }
 }

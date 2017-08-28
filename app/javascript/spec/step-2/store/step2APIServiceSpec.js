@@ -207,4 +207,114 @@ describe('Step2APIService', () => {
             })
         })
     })
+
+    describe('updateDiagnosedNeeds', () => {
+
+        var returnPromise
+        const diagnosedNeedBulkRequestBody = {
+            create: [
+                {
+                    question_id: 1,
+                    question_label: 'LABEL or label ?',
+                    content: 'This is content'
+                }
+            ],
+            update: [
+                {
+                    id: 12,
+                    content: 'This is updated content. Maybe.'
+                }
+            ],
+            delete: [
+                {
+                    id: 23
+                }
+            ]
+        }
+
+        describe('when the call is a success', function () {
+
+            beforeEach(function () {
+                var promise = Promise.resolve({})
+                spyOn(Step2APIService, 'send').and.returnValue(promise)
+
+                returnPromise = Step2APIService.updateDiagnosedNeeds(12, diagnosedNeedBulkRequestBody)
+            })
+
+            it('calls send with the right arguments', function () {
+                var config = {
+                    method: 'post',
+                    url: `/api/diagnoses/12/diagnosed_needs/bulk`,
+                    data: {
+                        bulk_params: diagnosedNeedBulkRequestBody
+                    }
+                }
+                expect(Step2APIService.send.calls.count()).toEqual(1)
+                expect(Step2APIService.send.calls.argsFor(0)).toEqual([config])
+            })
+
+            it('returns a promise', function () {
+                expect(typeof returnPromise.then).toBe('function')
+            })
+
+            it('does not return an error', async function () {
+                var serviceResponse
+                var serviceError
+
+                await returnPromise
+                    .then((response) => {
+                        serviceResponse = response
+                    })
+                    .catch((error) => {
+                        serviceError = error
+                    })
+
+                expect(serviceResponse).toBeTruthy()
+                expect(serviceError).toBeUndefined()
+            })
+        })
+
+        describe('when the call returns an error', function () {
+
+            let error = new Error('error')
+            beforeEach(function () {
+                var promise = Promise.reject(error)
+                spyOn(Step2APIService, 'send').and.returnValue(promise)
+
+                returnPromise = Step2APIService.updateDiagnosedNeeds(12, diagnosedNeedBulkRequestBody)
+            })
+
+            it('calls send with the right arguments', function () {
+                var config = {
+                    method: 'post',
+                    url: `/api/diagnoses/12/diagnosed_needs/bulk`,
+                    data: {
+                        bulk_params: diagnosedNeedBulkRequestBody
+                    }
+                }
+                expect(Step2APIService.send.calls.count()).toEqual(1)
+                expect(Step2APIService.send.calls.argsFor(0)).toEqual([config])
+            })
+
+            it('returns a promise', function () {
+                expect(typeof returnPromise.then).toBe('function')
+            })
+
+            it('returns an error', async function () {
+
+                var serviceResponse
+                var serviceError
+                await returnPromise
+                    .then((response) => {
+                        serviceResponse = response
+                    })
+                    .catch((error) => {
+                        serviceError = error
+                    })
+
+                expect(serviceResponse).toBeUndefined()
+                expect(serviceError).toEqual(error)
+            })
+        })
+    })
 })

@@ -9,28 +9,28 @@ describe('BulkRequestAssistant', () => {
         const questions = [
             {
                 questionId: 1,
-                label: 'LABEL or label ?',
+                questionLabel: 'LABEL or label ?',
                 isSelected: true,
                 diagnosedNeedId: undefined,
                 content: 'This is content'
             },
             {
                 questionId: 2,
-                label: 'Question ?',
+                questionLabel: 'Question ?',
                 isSelected: true,
                 diagnosedNeedId: 12,
                 content: 'This is updated content. Maybe.'
             },
             {
                 questionId: 3,
-                label: 'Whatever ?',
+                questionLabel: 'Whatever ?',
                 isSelected: false,
                 diagnosedNeedId: 23,
                 content: 'Nooooooooo'
             },
             {
                 questionId: 4,
-                label: 'LABEL !',
+                questionLabel: 'LABEL !',
                 isSelected: false,
                 diagnosedNeedId: undefined,
                 content: ''

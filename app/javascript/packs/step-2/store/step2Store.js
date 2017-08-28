@@ -1,4 +1,5 @@
 import Step2APIService from './step2APIService'
+import BulkRequestAssistant from '../utils/bulkRequestAssistant'
 import * as types from './mutationTypes'
 
 const state = {
@@ -63,7 +64,29 @@ const actions = {
     },
 
     sendDiagnosedNeedsBulkUpdate({commit, state, step2APIServiceDependency}) {
-        return Promise.resolve(true)
+        var step2APIService = step2APIServiceDependency
+        if (typeof step2APIService === 'undefined') {
+            step2APIService = Step2APIService
+        }
+
+        const bulkRequestBody = BulkRequestAssistant.createBody(state.questions)
+        if (bulkRequestBody.create.length == 0 &&
+            bulkRequestBody.update.length == 0 &&
+            bulkRequestBody.delete.length == 0) {
+            return Promise.resolve(true)
+
+        } else {
+            commit(types.REQUEST_IN_PROGRESS, true)
+
+            return step2APIService.updateDiagnosedNeeds(state.diagnosisId, bulkRequestBody)
+                .then(() => {
+                    commit(types.REQUEST_IN_PROGRESS, false)
+                })
+                .catch((error) => {
+                    commit(types.REQUEST_IN_PROGRESS, false)
+                    throw error
+                })
+        }
     }
 }
 
@@ -100,6 +123,12 @@ const mutations = {
     [types.QUESTION_LABEL](state, {questionId, questionLabel}) {
         const questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
         questionAndIndex.newQuestion.questionLabel = questionLabel
+        state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
+    },
+
+    [types.DIAGNOSIS_NEED_ID](state, {questionId, diagnosedNeedId}) {
+        const questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
+        questionAndIndex.newQuestion.diagnosedNeedId = diagnosedNeedId
         state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
     }
 }
