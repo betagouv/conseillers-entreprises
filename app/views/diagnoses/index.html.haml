@@ -19,8 +19,8 @@
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'
           %td.collapsing.no-left-padding
-            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
-             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)} do
+            - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
+            = link_to diagnosis_path(diagnosis), method: :delete, data: {confirm: confirm_delete_message} do
               %i.ui.icon.link.trash.light.grey.no-margin
 
 = link_to step_1_diagnoses_path, class: 'ui medium green button' do
@@ -58,8 +58,8 @@
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'
           %td.collapsing.no-left-padding
-            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
-             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)}  do
+            - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
+            = link_to diagnosis_path(diagnosis), method: :delete, data: {confirm: confirm_delete_message} do
               %i.ui.icon.link.trash.light.grey.no-margin
 
 - unless Rails.env.test?

@@ -2,11 +2,11 @@
   .ui.segment.shadow-less.dimmable(:class='{ dimmed: isRequestInProgress }')
     .ui.simple.inverted.dimmer
       .ui.text.loader
-    company-input(v-on:search-siret="searchSiret",
-                  v-on:error="manageError")
+    company-input(v-on:search-siret='searchSiret',
+                  v-on:error='manageError')
     error-message(:error-type='errorType')
     company-view(:company-data='companyData',
-                 v-on:detail-button-click="siret => { goToDetailedCompanyInfo(siret)}")
+                 v-on:detail-button-click='siret => { goToDetailedCompanyInfo(siret) }')
 </template>
 
 <script>

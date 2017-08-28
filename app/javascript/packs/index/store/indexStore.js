@@ -13,7 +13,7 @@ const getters = {}
 
 const actions = {
     fetchCompany({commit, state, indexAPIServiceDependency}) {
-        var indexAPIService = indexAPIServiceDependency
+        let indexAPIService = indexAPIServiceDependency
         if (typeof indexAPIService === 'undefined') {
             indexAPIService = IndexAPIService
         }
