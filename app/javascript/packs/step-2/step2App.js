@@ -21,7 +21,7 @@ var configureNextStepButton = function (that) {
         const stepRoutingService = new StepRoutingService(that.$store.state.step2Store.diagnosisId)
         that.$store.dispatch('sendDiagnosisContentUpdate')
             .then(() => {
-                return that.$store.dispatch('createSelectedQuestions')
+                return that.$store.dispatch('sendDiagnosedNeedsBulkUpdate')
             })
             .then(() => {
                 return stepRoutingService.goToStep(3)

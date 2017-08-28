@@ -126,7 +126,7 @@ const mutations = {
         state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
     },
 
-    [types.DIAGNOSIS_NEED_ID](state, {questionId, diagnosedNeedId}) {
+    [types.DIAGNOSED_NEED_ID](state, {questionId, diagnosedNeedId}) {
         const questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
         questionAndIndex.newQuestion.diagnosedNeedId = diagnosedNeedId
         state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)

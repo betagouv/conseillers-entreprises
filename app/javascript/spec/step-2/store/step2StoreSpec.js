@@ -135,12 +135,12 @@ describe('step2Store', () => {
             })
         })
 
-        describe('DIAGNOSIS_NEED_ID', function () {
+        describe('DIAGNOSED_NEED_ID', function () {
 
             it('creates the question in the questions array if it does not exist', function () {
                 const state = {questions: []}
                 const expectedQuestions = [{questionId: 1, diagnosedNeedId: 42}]
-                mutations.DIAGNOSIS_NEED_ID(state, {questionId: 1, diagnosedNeedId: 42})
+                mutations.DIAGNOSED_NEED_ID(state, {questionId: 1, diagnosedNeedId: 42})
                 expect(state.questions).toEqual(expectedQuestions)
             })
             it('does not destroy the question object in the questions array object if it already exists', function () {
@@ -154,7 +154,7 @@ describe('step2Store', () => {
                     {questionId: 1, diagnosedNeedId: 42, randomProperty: true},
                     {questionId: 2, diagnosedNeedId: 53, randomProperty: false}
                 ]
-                mutations.DIAGNOSIS_NEED_ID(state, {questionId: 1, diagnosedNeedId: 42})
+                mutations.DIAGNOSED_NEED_ID(state, {questionId: 1, diagnosedNeedId: 42})
                 expect(state.questions).toEqual(expectedQuestions)
             })
         })

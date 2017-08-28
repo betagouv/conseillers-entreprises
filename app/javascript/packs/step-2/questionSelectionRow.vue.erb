@@ -36,6 +36,7 @@ export default {
         this.questionData = QuestionObjectParser.parse(this.questionDataSerialized)
         this.selectQuestion({ questionId: this.questionData.questionId, isSelected: this.questionData.isSelected })
         this.setQuestionLabel({ questionId: this.questionData.questionId, questionLabel: this.questionData.label })
+        this.setDiagnosedNeedId({ questionId: this.questionData.questionId, diagnosedNeedId: this.questionData.diagnosedNeedId })
     },
     computed: {
         ...mapState({
@@ -59,7 +60,8 @@ export default {
     methods: {
         ...mapMutations({
             selectQuestion: types.QUESTION_SELECTED,
-            setQuestionLabel: types.QUESTION_LABEL
+            setQuestionLabel: types.QUESTION_LABEL,
+            setDiagnosedNeedId: types.DIAGNOSED_NEED_ID
         })
     }
 }
