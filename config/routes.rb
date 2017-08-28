@@ -28,10 +28,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :visits, only: %i[show] do
-    resources :diagnoses, only: %i[show]
-  end
-
   resources :companies, only: %i[show], param: :siret do
     collection do
       post :search_by_siren
