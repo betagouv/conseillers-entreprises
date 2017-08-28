@@ -20,7 +20,7 @@ fr:
         one: 1 mise en relation
         other: "%{count} mises en relation"
       company_found: Entreprise trouvée
-      show_detailled_information: Voir les informations<br/>détaillées
+      show_detailed_information: Voir les informations<br/>détaillées
       location: Localité
     steps:
       step1_title_html: Entreprise<br>visitée
@@ -31,7 +31,7 @@ fr:
       title: Nouvelle analyse
       search_company: Recherche de l'entreprise
       location: Localité
-      show_detailled_information: Informations détaillées
+      show_detailed_information: Informations détaillées
       siret_format_error_title: Numéro invalide !
       siret_format_error_text: Vérifiez que le numéro SIRET est bien composé de 14 chiffres.
       company_not_found_error_title: Entreprise non trouvée !
@@ -74,10 +74,10 @@ fr:
       title: Récapitulatif
       notifications_sent: Les notifications ont bien été envoyées !
       company_contact_subtitle: Contact rencontré au sein de l'entreprise
-      show_detailled_information: Informations détaillées
+      show_detailed_information: Informations détaillées
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
-      diagnosis_needs_content_label: "Les informations complémentaires concernant ce besoin :"
+      diagnosed_needs_content_label: "Les informations complémentaires concernant ce besoin :"
       diagnosis_content_subtitle: Informations complémentaires
       diagnosis_content_label: "Les informations complémentaires concernant la visite au global :"
       need_contacts_summary_subtitle: Référents contactés classés par besoin
