@@ -36,33 +36,6 @@ const actions = {
             })
     },
 
-    createSelectedQuestions({commit, state, step2APIServiceDependency}) {
-        var step2APIService = step2APIServiceDependency
-        if (typeof step2APIService === 'undefined') {
-            step2APIService = Step2APIService
-        }
-
-        const selectedQuestions = state.questions.filter((question) => {
-            return question.isSelected
-        })
-
-        if (selectedQuestions.length == 0) {
-            return Promise.resolve(true)
-
-        } else {
-            commit(types.REQUEST_IN_PROGRESS, true)
-
-            return step2APIService.createDiagnosedNeeds(state.diagnosisId, selectedQuestions)
-                .then(() => {
-                    commit(types.REQUEST_IN_PROGRESS, false)
-                })
-                .catch((error) => {
-                    commit(types.REQUEST_IN_PROGRESS, false)
-                    throw error
-                })
-        }
-    },
-
     sendDiagnosedNeedsBulkUpdate({commit, state, step2APIServiceDependency}) {
         var step2APIService = step2APIServiceDependency
         if (typeof step2APIService === 'undefined') {

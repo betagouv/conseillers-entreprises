@@ -17,20 +17,6 @@ export default class step2APIService {
         })
     }
 
-    static createDiagnosedNeeds(diagnosisId, diagnosedNeeds) {
-        var config = {
-            method: 'post',
-            url: `/api/diagnoses/${diagnosisId}/diagnosed_needs`,
-            data: {
-                diagnosed_needs: convertDiagnosedNeedsToAPIFormat(diagnosedNeeds)
-            }
-        }
-
-        return this.send(config).then(() => {
-            return true
-        })
-    }
-
     static updateDiagnosedNeeds(diagnosisId, diagnosedNeedBulkRequestBody) {
         var config = {
             method: 'post',
@@ -48,14 +34,4 @@ export default class step2APIService {
     static send(config) {
         return axios(config)
     }
-}
-
-const convertDiagnosedNeedsToAPIFormat = function (diagnosedNeeds) {
-    return diagnosedNeeds.map(function (diagnosedNeed) {
-        return {
-            question_id: diagnosedNeed.questionId,
-            question_label: diagnosedNeed.questionLabel,
-            content: diagnosedNeed.content
-        }
-    })
 }
