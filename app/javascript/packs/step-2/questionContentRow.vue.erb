@@ -28,7 +28,7 @@ export default {
     },
   created: function () {
     this.questionData = QuestionObjectParser.parse(this.questionDataSerialized)
-    this.setQuestionContent({ questionId: this.questionData.questionId, content: this.questionData.content })
+    this.setQuestionContent({ id: this.questionData.id, content: this.questionData.content })
   },
   computed: {
     ...mapState({
@@ -38,14 +38,14 @@ export default {
       getQuestionStateById: 'getQuestionStateById'
     }),
     isHidden: function () {
-      return !this.getQuestionStateById(this.questionData.questionId).isSelected
+      return !this.getQuestionStateById(this.questionData.id).isSelected
     },
     content: {
       get () {
-        return this.getQuestionStateById(this.questionData.questionId).content
+        return this.getQuestionStateById(this.questionData.id).content
       },
       set (value) {
-        this.setQuestionContent({ questionId: this.questionData.questionId, content: value })
+        this.setQuestionContent({ id: this.questionData.id, content: value })
       }
     }
   },

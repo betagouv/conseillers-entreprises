@@ -11,7 +11,14 @@
   %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content}
 
   - @categories_with_questions.each do |item|
-    %h2= item[:category] || 'UNCATEGORIZED'
+    - if item[:category]
+      %h2.ui.header
+        = item[:category]
+    - else
+      %h2.ui.header
+        = t('.no_category')
+        .sub.header
+          = t('.no_category_detail')
     %table.ui.celled.table
       %tbody
         - item[:questions].each do |question|

@@ -10,9 +10,9 @@ const state = {
 }
 
 const getters = {
-    getQuestionStateById: (state, getters) => (questionId) => {
+    getQuestionStateById: (state, getters) => (id) => {
         return state.questions.find((question) => {
-            return question.questionId === questionId
+            return question.id === id
         })
     }
 }
@@ -80,40 +80,47 @@ const mutations = {
         state.diagnosisId = diagnosisId
     },
 
-    [types.QUESTION_SELECTED](state, {questionId, isSelected}) {
-        const questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
+
+    [types.QUESTION_ID](state, {id, questionId}) {
+        const questionAndIndex = getOrCreateQuestionEnumerated(state, id)
+        questionAndIndex.newQuestion.questionId = questionId
+        state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
+    },
+
+    [types.QUESTION_SELECTED](state, {id, isSelected}) {
+        const questionAndIndex = getOrCreateQuestionEnumerated(state, id)
         questionAndIndex.newQuestion.isSelected = isSelected
 
         state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
     },
 
-    [types.QUESTION_CONTENT](state, {questionId, content}) {
-        const questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
+    [types.QUESTION_CONTENT](state, {id, content}) {
+        const questionAndIndex = getOrCreateQuestionEnumerated(state, id)
         questionAndIndex.newQuestion.content = content
         state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
     },
 
-    [types.QUESTION_LABEL](state, {questionId, questionLabel}) {
-        const questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
+    [types.QUESTION_LABEL](state, {id, questionLabel}) {
+        const questionAndIndex = getOrCreateQuestionEnumerated(state, id)
         questionAndIndex.newQuestion.questionLabel = questionLabel
         state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
     },
 
-    [types.DIAGNOSED_NEED_ID](state, {questionId, diagnosedNeedId}) {
-        const questionAndIndex = getOrCreateQuestionEnumerated(state, questionId)
+    [types.DIAGNOSED_NEED_ID](state, {id, diagnosedNeedId}) {
+        const questionAndIndex = getOrCreateQuestionEnumerated(state, id)
         questionAndIndex.newQuestion.diagnosedNeedId = diagnosedNeedId
         state.questions.splice(questionAndIndex.index, 1, questionAndIndex.newQuestion)
     }
 }
 
-const getOrCreateQuestionEnumerated = function (state, questionId) {
+const getOrCreateQuestionEnumerated = function (state, id) {
     let question = state.questions.find((question) => {
-        return question.questionId === questionId
+        return question.id === id
     })
     if (!question) {
         question = {}
         state.questions.push(question)
-        question.questionId = questionId
+        question.id = id
     }
     // To trigger vue updates, one must use splice
     const index = state.questions.indexOf(question)

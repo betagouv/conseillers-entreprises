@@ -8,6 +8,7 @@ describe('BulkRequestAssistant', () => {
     describe('createBody', () => {
         const questions = [
             {
+                id: 'q1',
                 questionId: 1,
                 questionLabel: 'LABEL or label ?',
                 isSelected: true,
@@ -15,6 +16,7 @@ describe('BulkRequestAssistant', () => {
                 content: 'This is content'
             },
             {
+                id: 'q2',
                 questionId: 2,
                 questionLabel: 'Question ?',
                 isSelected: true,
@@ -22,6 +24,7 @@ describe('BulkRequestAssistant', () => {
                 content: 'This is updated content. Maybe.'
             },
             {
+                id: 'q3',
                 questionId: 3,
                 questionLabel: 'Whatever ?',
                 isSelected: false,
@@ -29,11 +32,20 @@ describe('BulkRequestAssistant', () => {
                 content: 'Nooooooooo'
             },
             {
+                id: 'q4',
                 questionId: 4,
                 questionLabel: 'LABEL !',
                 isSelected: false,
                 diagnosedNeedId: undefined,
                 content: ''
+            },
+            {
+                id: 'd111',
+                questionId: undefined,
+                questionLabel: 'LABEL !',
+                isSelected: true,
+                diagnosedNeedId: 111,
+                content: 'Update an old thing'
             }
         ]
 
@@ -49,6 +61,10 @@ describe('BulkRequestAssistant', () => {
                 {
                     id: 12,
                     content: 'This is updated content. Maybe.'
+                },
+                {
+                    id: 111,
+                    content: 'Update an old thing'
                 }
             ],
             delete: [
@@ -60,7 +76,6 @@ describe('BulkRequestAssistant', () => {
 
         it('creates the expected request body object', function () {
             const requestBody = BulkRequestAssistant.createBody(questions)
-            console.log(`requestBody ${JSON.stringify(requestBody)}`)
             expect(requestBody).toEqual(expectedRequestBody)
         })
     })

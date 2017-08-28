@@ -8,8 +8,9 @@
         </label>
       </td>
       <td class="collapsing">
-        <div class="ui fitted checkbox">
+        <div class="ui fitted checkbox" v-bind:class="{ disabled: disabled }">
           <input v-bind:id="checkboxId"
+          v-bind:disabled="disabled"
           type="checkbox" v-model="selected" value="on"/>
           <label></label>
         </div>
@@ -34,9 +35,7 @@ export default {
     },
     created: function () {
         this.questionData = QuestionObjectParser.parse(this.questionDataSerialized)
-        this.selectQuestion({ questionId: this.questionData.questionId, isSelected: this.questionData.isSelected })
-        this.setQuestionLabel({ questionId: this.questionData.questionId, questionLabel: this.questionData.label })
-        this.setDiagnosedNeedId({ questionId: this.questionData.questionId, diagnosedNeedId: this.questionData.diagnosedNeedId })
+        this.setInitialStoreData()
     },
     computed: {
         ...mapState({
@@ -48,18 +47,41 @@ export default {
         checkboxId: function () {
             return `checkbox_${this.questionData.questionId}`
         },
+        disabled: function() {
+            const questionId = this.getQuestionStateById(this.questionData.id).questionId
+            return (new Number(questionId) != questionId)
+        },
         selected: {
             get () {
-                return this.getQuestionStateById(this.questionData.questionId).isSelected
+                return this.getQuestionStateById(this.questionData.id).isSelected
             },
             set (value) {
-                this.selectQuestion({ questionId: this.questionData.questionId, isSelected: value })
+                this.selectQuestion({ id: this.questionData.id, isSelected: value })
             }
         }
     },
     methods: {
+        setInitialStoreData: function() {
+            this.setQuestionId({
+                id: this.questionData.id,
+                questionId: this.questionData.questionId
+            })
+            this.setQuestionLabel({
+                id: this.questionData.id,
+                questionLabel: this.questionData.label
+            })
+            this.setDiagnosedNeedId({
+                id: this.questionData.id,
+                diagnosedNeedId: this.questionData.diagnosedNeedId
+            })
+            this.selectQuestion({
+                id: this.questionData.id,
+                isSelected: this.questionData.isSelected
+            })
+        },
         ...mapMutations({
             selectQuestion: types.QUESTION_SELECTED,
+            setQuestionId: types.QUESTION_ID,
             setQuestionLabel: types.QUESTION_LABEL,
             setDiagnosedNeedId: types.DIAGNOSED_NEED_ID
         })
