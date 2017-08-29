@@ -25,8 +25,8 @@ module Api
     def bulk_update_param_hash
       update_param = params.require(:bulk_params).permit(update: %i[id content])
       update_param.fetch(:update, [])
-                  .delete_if { |udpate_item| udpate_item[:id].nil? }
-                  .group_by { |udpate_item| udpate_item[:id] }
+                  .delete_if { |update_item| update_item[:id].nil? }
+                  .group_by { |update_item| update_item[:id] }
                   .each_with_object({}) { |(k, v), hash| hash[k] = { content: v.first&.fetch('content', '') } }
     end
 
