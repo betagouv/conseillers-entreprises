@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :visits, only: %i[update] do
+    resources :visits, only: %i[show update] do
       resources :contacts, only: %i[index create]
     end
 

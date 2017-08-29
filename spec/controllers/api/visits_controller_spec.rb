@@ -5,6 +5,26 @@ require 'rails_helper'
 RSpec.describe Api::VisitsController, type: :controller do
   login_user
 
+  describe 'GET #show' do
+    subject(:request) { get :show, format: :json, params: { id: visit.id } }
+
+    context 'when visit exists' do
+      let(:visit) { create :visit }
+
+      it 'returns http success' do
+        request
+
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'when visit does not exist' do
+      let(:visit) { build :visit }
+
+      it('raises an error') { expect { request }.to raise_error ActionController::UrlGenerationError }
+    end
+  end
+
   describe 'PATCH #update' do
     subject(:request) { patch :update, format: :json, params: { id: visit.id, visit: visit_params } }
 

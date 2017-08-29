@@ -2,6 +2,10 @@
 
 module Api
   class VisitsController < ApplicationController
+    def show
+      @visit = Visit.find params[:id]
+    end
+
     def update
       visit = Visit.find params[:id]
       UseCases::UpdateVisit.validate_happened_at update_params[:happened_at]
