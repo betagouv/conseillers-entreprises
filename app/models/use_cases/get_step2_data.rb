@@ -5,27 +5,32 @@ module UseCases
     class << self
       def for_diagnosis(diagnosis)
         questions = Question.all.includes(:category).order(:category_id, :id)
-        diagnosed_needs_hash = prepare_diagnosed_need_hash diagnosis.diagnosed_needs
-        categories_with_questions = create_categories_with_questions questions, diagnosed_needs_hash
-        categories_with_questions << create_question_less_category(diagnosed_needs_hash)
+        diagnosed_needs_hash = needs_grouped_by_question diagnosis.diagnosed_needs
+        categories_with_questions = questions_array_with_categories questions, diagnosed_needs_hash
+        categories_with_questions << questions_array_without_category(diagnosed_needs_hash)
         categories_with_questions.delete_if { |item| item[:questions].empty? }
       end
 
       private
 
-      def create_categories_with_questions(questions, diagnosed_needs_hash)
+      def needs_grouped_by_question(diagnosed_needs)
+        diagnosed_needs.group_by { |diagnosed_need| diagnosed_need.question_id ? diagnosed_need.question_id : 0 }
+      end
+
+      def questions_array_with_categories(questions, diagnosed_needs_hash)
         questions_by_category_id = questions.group_by { |question| question.category.id }
         categories_with_questions = questions_by_category_id
                                     .collect { |_k, v| { category: v.first.category.label, questions: v } }
-        categories_with_questions.map! { |item| transform_category_with_questions item, diagnosed_needs_hash }
+        categories_with_questions.map! { |item| transform_category_questions item, diagnosed_needs_hash }
       end
 
-      def transform_category_with_questions(item, diagnosed_needs_hash)
-        { category: item[:category], questions: transform_questions(item[:questions], diagnosed_needs_hash) }
-      end
-
-      def transform_questions(questions, diagnosed_needs_hash)
-        questions.map { |question| create_item_from_question(question, diagnosed_needs_hash[question.id]) }
+      def transform_category_questions(item, diagnosed_needs_hash)
+        {
+          category: item[:category],
+          questions: item[:questions].map do |question|
+            create_item_from_question(question, diagnosed_needs_hash[question.id])
+          end
+        }
       end
 
       def create_item_from_question(question, diagnosed_needs)
@@ -38,7 +43,7 @@ module UseCases
         }
       end
 
-      def create_question_less_category(diagnosed_needs_hash)
+      def questions_array_without_category(diagnosed_needs_hash)
         diagnosed_need_items = diagnosed_needs_hash
                                .fetch(0, [])
                                .map { |diagnosed_need| create_item_from_diagnosed_needs(diagnosed_need) }
@@ -53,10 +58,6 @@ module UseCases
           diagnosed_need_id: diagnosed_need.id,
           content: diagnosed_need.content
         }
-      end
-
-      def prepare_diagnosed_need_hash(diagnosed_needs)
-        diagnosed_needs.group_by { |diagnosed_need| diagnosed_need.question_id.nil? ? 0 : diagnosed_need.question_id }
       end
     end
   end

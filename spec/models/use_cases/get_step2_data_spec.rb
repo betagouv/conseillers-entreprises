@@ -6,15 +6,15 @@ describe UseCases::GetStep2Data do
   describe 'for_diagnosis' do
     subject { described_class.for_diagnosis diagnosis }
 
+    let(:diagnosis) { create :diagnosis }
+
     let(:category1) { create :category }
     let(:category2) { create :category }
-    let(:category3) { create :category }
     let(:question1) { create :question, category: category1 }
     let(:question2) { create :question, category: category1 }
     let(:question3) { create :question, category: category2 }
 
     context 'no diagnosed_need' do
-      let(:diagnosis) { create :diagnosis }
       let!(:expected_array) do
         [{
           category: category1.label,
@@ -53,7 +53,6 @@ describe UseCases::GetStep2Data do
     end
 
     context 'some diagnosed_needs' do
-      let(:diagnosis) { create :diagnosis }
       let(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis, question: question1, content: 'Content' }
       let(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis, content: 'Pas Content' }
 
