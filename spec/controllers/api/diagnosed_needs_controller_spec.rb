@@ -41,8 +41,7 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
       end
 
       it 'updates the flagged toUpdate diagnosed need' do
-        diagnosed_need1_content = DiagnosedNeed.find(diagnosed_need1.id).content
-        expect(diagnosed_need1_content).to eq('New content')
+        expect(diagnosed_need1.reload.content).to eq('New content')
       end
 
       it 'deletes the flagged toDelete diagnosed need' do
