@@ -49,9 +49,7 @@
               .item
                 .middle.aligned.content
                   %h5.ui.header.disabled
-                    -# TODO: Move in Diagnosis helper
-                    - selected_assistance_experts_count = diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
-                    = t('.selected_assistance_experts', count: selected_assistance_experts_count)
+                    = t('.selected_assistance_experts', count: diagnosis.selected_assistance_experts_count)
 
           %td.collapsing.no-left-padding
             = link_to t('.show_summary'),

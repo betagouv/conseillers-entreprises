@@ -149,9 +149,7 @@
                 .item
                   .middle.aligned.content
                     %h5.ui.header.disabled
-                      -# TODO: Move in Diagnosis helper
-                      - selected_assistance_experts_count = visit.diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
-                      = t('.selected_assistance_experts', count: selected_assistance_experts_count)
+                      = t('.selected_assistance_experts', count: visit.diagnosis.selected_assistance_experts_count)
   - else
     %p.text.small
       = t('.no_visit_found')
