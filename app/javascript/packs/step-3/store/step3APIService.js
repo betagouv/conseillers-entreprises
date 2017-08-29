@@ -1,6 +1,16 @@
 import axios from 'axios'
 
 export default {
+    getContactFromId(contactId) {
+        var config = {
+            method: 'get',
+            url: `/api/contacts/${contactId}.json`
+        }
+        return this.send(config).then((response) => {
+            return response.data
+        })
+    },
+
     createContactForVisit(visitId, contact) {
         var config = {
             method: 'post',
@@ -8,6 +18,16 @@ export default {
             data: {
                 contact: contact
             }
+        }
+        return this.send(config).then((response) => {
+            return response.data
+        })
+    },
+
+    getVisitFromId(visitId) {
+        var config = {
+            method: 'get',
+            url: `/api/visits/${visitId}.json`
         }
         return this.send(config).then((response) => {
             return response.data

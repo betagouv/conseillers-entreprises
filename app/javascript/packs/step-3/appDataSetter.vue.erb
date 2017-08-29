@@ -13,6 +13,8 @@ export default {
   created: function () {
     this.setDiagnosisId(this.diagnosisId)
     this.setVisitId(this.visitId)
+
+    this.$store.dispatch('getVisitData')
   },
   methods: {
     ...mapMutations({

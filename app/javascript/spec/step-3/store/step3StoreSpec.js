@@ -113,9 +113,18 @@ describe('step3Store', () => {
 
         const mutations = Step3Store.mutations
 
+        describe('INITIAL_LOADING_IN_PROGRESS', function () {
+
+            it('updates the isInitialLoadingInProgress', function () {
+                const state = {isInitialLoadingInProgress: false}
+                mutations.INITIAL_LOADING_IN_PROGRESS(state, true)
+                expect(state.isInitialLoadingInProgress).toBeTruthy()
+            })
+        })
+
         describe('REQUEST_IN_PROGRESS', function () {
 
-            it('updates the isDiagnosisRequestUnderWay', function () {
+            it('updates the isRequestInProgress', function () {
                 const state = {isRequestInProgress: false}
                 mutations.REQUEST_IN_PROGRESS(state, true)
                 expect(state.isRequestInProgress).toBeTruthy()
@@ -202,6 +211,15 @@ describe('step3Store', () => {
                 expect(state.diagnosisId).toEqual('12')
             })
         })
+
+        describe('CONTACT_ID', function () {
+
+            it('updates the contactId', function () {
+                const state = {contactId: undefined}
+                mutations.CONTACT_ID(state, 12)
+                expect(state.contactId).toEqual(12)
+            })
+        })
     })
 
     describe('actions', () => {
@@ -211,7 +229,11 @@ describe('step3Store', () => {
         const step3StoreAPIServiceMock = {
             updateVisitDate: function () {
             },
+            getVisitFromId: function () {
+            },
             createContactForVisit: function () {
+            },
+            getContactFromId: function () {
             }
         }
 
@@ -229,6 +251,170 @@ describe('step3Store', () => {
                 step3APIServiceDependency: step3StoreAPIServiceMock
             }
         }
+
+        describe('getInitialData', function () {
+
+            let dispatchFunction = function (withContactId) {
+                return (dispatchedTo) => {
+                    let data = {}
+                    if(dispatchedTo == 'getVisitData') {
+                        data = {
+                            visit_id: 1,
+                            happened_at: '2017-08-29',
+                            visitee_id: withContactId ? 2 : undefined
+                        }
+                    } else {
+                        data = {
+                            id: 2,
+                            full_name: 'Monsieur Daron',
+                            email: 'daron@patron.com',
+                            phone_number: '',
+                            role: 'Patron',
+                            company_id: 1
+                        }
+                    }
+                    return Promise.resolve(data)
+                }
+            }
+
+            describe('when there is a contact to laod', function () {
+
+                beforeEach(function () {
+                    state.contactId = 123
+                    commit = jasmine.createSpy()
+                    dispatch = jasmine.createSpy().and.callFake(dispatchFunction(true))
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('calls commit INITIAL_LOADING_IN_PROGRESS with true at start of action', function () {
+                    actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'INITIAL_LOADING_IN_PROGRESS',
+                        true
+                    ])
+                })
+
+                it('calls dispatch getVisitData', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(dispatch.calls.argsFor(0)).toEqual(['getVisitData'])
+                })
+
+                it('calls commit VISIT_DATE and CONTACT_ID with value received', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'VISIT_DATE',
+                        '2017-08-29'
+                    ])
+                    expect(commit.calls.argsFor(2)).toEqual([
+                        'CONTACT_ID',
+                        2
+                    ])
+                })
+
+                it('calls dispatch getContactData', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(dispatch.calls.count()).toEqual(2)
+                    expect(dispatch.calls.argsFor(1)).toEqual(['getContactData'])
+                })
+
+                it('calls commit for contact properties with value received', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(commit.calls.argsFor(3)).toEqual([
+                        'CONTACT_NAME',
+                        'Monsieur Daron'
+                    ])
+                    expect(commit.calls.argsFor(4)).toEqual([
+                        'CONTACT_JOB',
+                        'Patron'
+                    ])
+                    expect(commit.calls.argsFor(5)).toEqual([
+                        'CONTACT_EMAIL',
+                        'daron@patron.com'
+                    ])
+                    expect(commit.calls.argsFor(6)).toEqual([
+                        'CONTACT_PHONE_NUMBER',
+                        ''
+                    ])
+                })
+
+                it('calls commit INITIAL_LOADING_IN_PROGRESS with false at end of action', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(commit.calls.count()).toEqual(8)
+                    expect(commit.calls.argsFor(7)).toEqual([
+                        'INITIAL_LOADING_IN_PROGRESS',
+                        false
+                    ])
+                })
+            })
+
+            describe('when there is no contact to laod', function () {
+
+                beforeEach(function () {
+                    state.contactId = undefined
+                    commit = jasmine.createSpy()
+                    dispatch = jasmine.createSpy().and.callFake(dispatchFunction(false))
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('calls commit INITIAL_LOADING_IN_PROGRESS with true at start of action', function () {
+                    actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'INITIAL_LOADING_IN_PROGRESS',
+                        true
+                    ])
+                })
+
+                it('calls dispatch getVisitData', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(dispatch.calls.argsFor(0)).toEqual(['getVisitData'])
+                })
+
+                it('calls commit VISIT_DATE and CONTACT_ID with value received', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'VISIT_DATE',
+                        '2017-08-29'
+                    ])
+                    expect(commit.calls.argsFor(2)).toEqual([
+                        'CONTACT_ID',
+                        undefined
+                    ])
+                })
+
+                it('does not calls dispatch getContactData', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(dispatch.calls.count()).toEqual(1)
+                })
+
+                it('calls commit INITIAL_LOADING_IN_PROGRESS with false at end of action', async function () {
+                    await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(commit.calls.count()).toEqual(4)
+                    expect(commit.calls.argsFor(3)).toEqual([
+                        'INITIAL_LOADING_IN_PROGRESS',
+                        false
+                    ])
+                })
+            })
+        })
 
         describe('launchNextStep', function () {
 
@@ -391,6 +577,30 @@ describe('step3Store', () => {
             })
         })
 
+        describe('getVisitData', function () {
+
+            const positivePromise = Promise.resolve(true)
+
+            beforeEach(function () {
+                spyOn(step3StoreAPIServiceMock, 'getVisitFromId').and.returnValue(positivePromise)
+                commit = jasmine.createSpy()
+
+                state.visitId = 12
+            })
+
+            it('returns a promise', function () {
+                var promise = actions.getVisitData(apiServiceContext(dispatch, commit, state, getters))
+                expect(typeof promise.then).toBe('function')
+            })
+
+            it('calls Step3APIService with the visitId', async function () {
+                await actions.getVisitData(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(step3StoreAPIServiceMock.getVisitFromId.calls.count()).toEqual(1)
+                expect(step3StoreAPIServiceMock.getVisitFromId.calls.argsFor(0)).toEqual([12])
+            })
+        })
+
         describe('createContactForVisit', function () {
 
             const contactData = {
@@ -422,6 +632,30 @@ describe('step3Store', () => {
 
                 expect(step3StoreAPIServiceMock.createContactForVisit.calls.count()).toEqual(1)
                 expect(step3StoreAPIServiceMock.createContactForVisit.calls.argsFor(0)).toEqual([12, contactData])
+            })
+        })
+
+        describe('getContactData', function () {
+
+            const positivePromise = Promise.resolve(true)
+
+            beforeEach(function () {
+                spyOn(step3StoreAPIServiceMock, 'getContactFromId').and.returnValue(positivePromise)
+                commit = jasmine.createSpy()
+
+                state.contactId = 12
+            })
+
+            it('returns a promise', function () {
+                var promise = actions.getContactData(apiServiceContext(dispatch, commit, state, getters))
+                expect(typeof promise.then).toBe('function')
+            })
+
+            it('calls Step3APIService with the contactId', async function () {
+                await actions.getContactData(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(step3StoreAPIServiceMock.getContactFromId.calls.count()).toEqual(1)
+                expect(step3StoreAPIServiceMock.getContactFromId.calls.argsFor(0)).toEqual([12])
             })
         })
     })
