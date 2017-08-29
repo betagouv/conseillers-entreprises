@@ -6,10 +6,8 @@ require 'rails_helper'
 RSpec.describe Api::DiagnosedNeedsController, type: :controller do
   login_user
 
-  let(:visit) { create :visit, advisor: current_user }
-  let(:diagnosis) { create :diagnosis, visit: visit, content: Faker::Lorem.paragraph }
+  let(:diagnosis) { create :diagnosis, content: Faker::Lorem.paragraph }
   let(:question1) { create :question }
-  let(:question2) { create :question }
 
   describe 'POST #bulk' do
     let(:id1) { 1 }
@@ -71,7 +69,7 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
         expect(response).to have_http_status(:bad_request)
       end
 
-      it 'does not modify anything' do
+      it 'does not change anything' do
         expect(DiagnosedNeed.all.count).to eq(3)
         expect(DiagnosedNeed.where(id: id2)).to exist
         expect(DiagnosedNeed.where(id: id3)).to exist
