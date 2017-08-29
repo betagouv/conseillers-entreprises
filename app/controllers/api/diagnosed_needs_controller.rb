@@ -2,15 +2,6 @@
 
 module Api
   class DiagnosedNeedsController < ApplicationController
-    def create
-      DiagnosedNeed.transaction do
-        DiagnosedNeed.create create_param_array
-      end
-      render body: nil, status: :created
-    rescue StandardError
-      render body: nil, status: :bad_request
-    end
-
     def bulk
       DiagnosedNeed.transaction do
         DiagnosedNeed.create bulk_create_param_array
