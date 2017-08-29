@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe Api::DiagnosedNeedsController, type: :controller do
   login_user
 
@@ -78,4 +77,3 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
