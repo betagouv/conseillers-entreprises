@@ -24,7 +24,6 @@ class CompaniesController < ApplicationController
   end
 
   def create_diagnosis_from_siret
-    # TODO: Move in diagnosis controller and factorize with a UseCase
     facility = UseCases::SearchFacility.with_siret_and_save params[:siret]
     visit = Visit.create advisor: current_user, facility: facility if facility
     diagnosis = Diagnosis.new visit: visit, step: '2' if visit
