@@ -28,30 +28,30 @@ module UseCases
         questions.map { |question| create_item_from_question(question, diagnosed_needs_hash[question.id]) }
       end
 
-      def create_item_from_question(question, diagnosis_needs)
+      def create_item_from_question(question, diagnosed_needs)
         {
           question_id: question.id,
           label: question.label,
-          is_selected: !diagnosis_needs&.first&.id.nil?,
-          diagnosed_need_id: diagnosis_needs&.first&.id,
-          content: diagnosis_needs&.first&.content
+          is_selected: !diagnosed_needs&.first&.id.nil?,
+          diagnosed_need_id: diagnosed_needs&.first&.id,
+          content: diagnosed_needs&.first&.content
         }
       end
 
       def create_question_less_category(diagnosed_needs_hash)
         diagnosed_need_items = diagnosed_needs_hash
                                .fetch(0, [])
-                               .map { |diagnosed_need| create_item_from_diagnosis_needs(diagnosed_need) }
+                               .map { |diagnosed_need| create_item_from_diagnosed_needs(diagnosed_need) }
         { category: nil, questions: diagnosed_need_items }
       end
 
-      def create_item_from_diagnosis_needs(diagnosis_need)
+      def create_item_from_diagnosed_needs(diagnosed_need)
         {
           question_id: nil,
-          label: diagnosis_need.question_label,
+          label: diagnosed_need.question_label,
           is_selected: true,
-          diagnosed_need_id: diagnosis_need.id,
-          content: diagnosis_need.content
+          diagnosed_need_id: diagnosed_need.id,
+          content: diagnosed_need.content
         }
       end
 
