@@ -65,7 +65,7 @@ describe('step2Store', () => {
 
         describe('QUESTION_ID', function () {
 
-            it('create the question in the questions array if it does not exist', function () {
+            it('creates the question in the questions array if it does not exist', function () {
                 const state = {questions: []}
                 const expectedQuestions = [{id: 'q1', questionId: 1}]
                 mutations.QUESTION_ID(state, {id: 'q1', questionId: 1})
@@ -89,7 +89,7 @@ describe('step2Store', () => {
 
         describe('QUESTION_SELECTED', function () {
 
-            it('create the question in the questions array if it does not exist', function () {
+            it('creates the question in the questions array if it does not exist', function () {
                 const state = {questions: []}
                 const expectedQuestions = [{id: 'q1', isSelected: true}]
                 mutations.QUESTION_SELECTED(state, {id: 'q1', isSelected: true})
@@ -357,7 +357,7 @@ describe('step2Store', () => {
                 }
             })
 
-            describe('when there is no changes to send', function () {
+            describe('when there is no change to send', function () {
 
                 const positivePromise = Promise.resolve(true)
 
