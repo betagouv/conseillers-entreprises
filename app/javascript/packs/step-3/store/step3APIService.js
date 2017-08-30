@@ -24,6 +24,19 @@ export default {
         })
     },
 
+    updateContact(contactId, contact) {
+        var config = {
+            method: 'patch',
+            url: `/api/contacts/${contactId}.json`,
+            data: {
+                contact: contact
+            }
+        }
+        return this.send(config).then((response) => {
+            return true
+        })
+    },
+
     getVisitFromId(visitId) {
         var config = {
             method: 'get',

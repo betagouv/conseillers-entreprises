@@ -260,6 +260,8 @@ describe('step3Store', () => {
             createContactForVisit: function () {
             },
             getContactFromId: function () {
+            },
+            updateContact: function () {
             }
         }
 
@@ -501,11 +503,19 @@ describe('step3Store', () => {
                     expect(dispatch.calls.argsFor(1)).toEqual(['updateVisitDate'])
                 })
 
-                it('calls dispatch createContact', async function () {
+                it('calls dispatch createContact if no contact Id', async function () {
                     await actions.launchNextStep(apiServiceContext(dispatch, commit, state, getters))
 
                     expect(dispatch.calls.count()).toEqual(3)
                     expect(dispatch.calls.argsFor(2)).toEqual(['createContact'])
+                })
+
+                it('calls dispatch udpateContact if there is a contact Id', async function () {
+                    state.contactId = 10
+                    await actions.launchNextStep(apiServiceContext(dispatch, commit, state, getters))
+
+                    expect(dispatch.calls.count()).toEqual(3)
+                    expect(dispatch.calls.argsFor(2)).toEqual(['updateContact'])
                 })
 
                 it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
@@ -658,6 +668,40 @@ describe('step3Store', () => {
 
                 expect(step3StoreAPIServiceMock.createContactForVisit.calls.count()).toEqual(1)
                 expect(step3StoreAPIServiceMock.createContactForVisit.calls.argsFor(0)).toEqual([12, contactData])
+            })
+        })
+
+        describe('updateContact', function () {
+
+            const contactData = {
+                full_name: 'Monsieur Daron',
+                email: 'daron@patron.com',
+                phone_number: '0102030405',
+                role: 'Patron'
+            }
+            const positivePromise = Promise.resolve(true)
+
+            beforeEach(function () {
+                spyOn(step3StoreAPIServiceMock, 'updateContact').and.returnValue(positivePromise)
+                commit = jasmine.createSpy()
+
+                state.name = 'Monsieur Daron'
+                state.email = 'daron@patron.com'
+                state.job = 'Patron'
+                state.phoneNumber = '0102030405'
+                state.contactId = 12
+            })
+
+            it('returns a promise', function () {
+                var promise = actions.updateContact(apiServiceContext(dispatch, commit, state, getters))
+                expect(typeof promise.then).toBe('function')
+            })
+
+            it('calls APIService with the contactId and the contactData', async function () {
+                await actions.updateContact(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(step3StoreAPIServiceMock.updateContact.calls.count()).toEqual(1)
+                expect(step3StoreAPIServiceMock.updateContact.calls.argsFor(0)).toEqual([12, contactData])
             })
         })
 

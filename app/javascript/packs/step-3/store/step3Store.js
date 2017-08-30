@@ -91,7 +91,11 @@ const actions = {
                 return dispatch('updateVisitDate')
             })
             .then(() => {
-                return dispatch('createContact')
+                if(typeof state.contactId !== 'undefined' && state.contactId != null) {
+                    return dispatch('updateContact')
+                } else {
+                    return dispatch('createContact')
+                }
             })
             .then(() => {
                 commit(types.REQUEST_IN_PROGRESS, false)
@@ -148,6 +152,21 @@ const actions = {
             role: state.job
         }
         return step3APIService.createContactForVisit(state.visitId, contactData)
+    },
+
+    updateContact({state, step3APIServiceDependency}) {
+        var step3APIService = step3APIServiceDependency
+        if (typeof step3APIService === 'undefined') {
+            step3APIService = Step3APIService
+        }
+
+        const contactData = {
+            full_name: state.name,
+            email: state.email,
+            phone_number: state.phoneNumber,
+            role: state.job
+        }
+        return step3APIService.updateContact(state.contactId, contactData)
     }
 }
 
