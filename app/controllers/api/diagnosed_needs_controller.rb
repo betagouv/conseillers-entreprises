@@ -10,8 +10,7 @@ module Api
       end
 
       render body: nil
-    rescue StandardError => e
-      puts e
+    rescue StandardError
       render body: nil, status: :bad_request
     end
 

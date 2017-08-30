@@ -9,12 +9,9 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
   let(:question1) { create :question }
 
   describe 'POST #bulk' do
-    let(:id1) { 1 }
-    let(:id2) { 2 }
-    let(:id3) { 3 }
-    let!(:diagnosed_need1) { create :diagnosed_need, id: id1, diagnosis: diagnosis, content: 'Not random content' }
-    let!(:diagnosed_need2) { create :diagnosed_need, id: id2, diagnosis: diagnosis }
-    let!(:diagnosed_need3) { create :diagnosed_need, id: id3, diagnosis: diagnosis }
+    let!(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis, content: 'Not random content' }
+    let!(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis }
+    let!(:diagnosed_need3) { create :diagnosed_need, diagnosis: diagnosis }
 
     describe 'in case of success' do
       let(:bulk_params) do
@@ -45,8 +42,8 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
       end
 
       it 'deletes the flagged toDelete diagnosed need' do
-        expect(DiagnosedNeed.where(id: id2)).not_to exist
-        expect(DiagnosedNeed.where(id: id3)).not_to exist
+        expect(DiagnosedNeed.where(id: diagnosed_need2.id)).not_to exist
+        expect(DiagnosedNeed.where(id: diagnosed_need3.id)).not_to exist
       end
     end
 
@@ -69,9 +66,9 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
 
       it 'does not change anything' do
         expect(DiagnosedNeed.all.count).to eq(3)
-        expect(DiagnosedNeed.where(id: id2)).to exist
-        expect(DiagnosedNeed.where(id: id3)).to exist
-        expect(DiagnosedNeed.find(id1).content).to eq 'Not random content'
+        expect(DiagnosedNeed.where(id: diagnosed_need2.id)).to exist
+        expect(DiagnosedNeed.where(id: diagnosed_need3.id)).to exist
+        expect(diagnosed_need1.reload.content).to eq 'Not random content'
       end
     end
   end
