@@ -99,16 +99,29 @@ describe('Step2APIService', () => {
         })
     })
 
-    describe('createDiagnosedNeeds', () => {
+    describe('updateDiagnosedNeeds', () => {
 
         var returnPromise
-        const diagnosedNeeds = [
-            {
-                questionId: '23',
-                questionLabel: 'Some Question',
-                content: 'Awesome random stuff'
-            }
-        ]
+        const diagnosedNeedBulkRequestBody = {
+            create: [
+                {
+                    question_id: 1,
+                    question_label: 'LABEL or label ?',
+                    content: 'This is content'
+                }
+            ],
+            update: [
+                {
+                    id: 12,
+                    content: 'This is updated content. Maybe.'
+                }
+            ],
+            delete: [
+                {
+                    id: 23
+                }
+            ]
+        }
 
         describe('when the call is a success', function () {
 
@@ -116,21 +129,15 @@ describe('Step2APIService', () => {
                 var promise = Promise.resolve({})
                 spyOn(Step2APIService, 'send').and.returnValue(promise)
 
-                returnPromise = Step2APIService.createDiagnosedNeeds(12, diagnosedNeeds)
+                returnPromise = Step2APIService.updateDiagnosedNeeds(12, diagnosedNeedBulkRequestBody)
             })
 
             it('calls send with the right arguments', function () {
                 var config = {
                     method: 'post',
-                    url: `/api/diagnoses/12/diagnosed_needs`,
+                    url: `/api/diagnoses/12/diagnosed_needs/bulk`,
                     data: {
-                        diagnosed_needs: [
-                            {
-                                question_id: '23',
-                                question_label: 'Some Question',
-                                content: 'Awesome random stuff'
-                            }
-                        ]
+                        bulk_params: diagnosedNeedBulkRequestBody
                     }
                 }
                 expect(Step2APIService.send.calls.count()).toEqual(1)
@@ -165,21 +172,15 @@ describe('Step2APIService', () => {
                 var promise = Promise.reject(error)
                 spyOn(Step2APIService, 'send').and.returnValue(promise)
 
-                returnPromise = Step2APIService.createDiagnosedNeeds(12, diagnosedNeeds)
+                returnPromise = Step2APIService.updateDiagnosedNeeds(12, diagnosedNeedBulkRequestBody)
             })
 
             it('calls send with the right arguments', function () {
                 var config = {
                     method: 'post',
-                    url: `/api/diagnoses/12/diagnosed_needs`,
+                    url: `/api/diagnoses/12/diagnosed_needs/bulk`,
                     data: {
-                        diagnosed_needs: [
-                            {
-                                question_id: '23',
-                                question_label: 'Some Question',
-                                content: 'Awesome random stuff'
-                            }
-                        ]
+                        bulk_params: diagnosedNeedBulkRequestBody
                     }
                 }
                 expect(Step2APIService.send.calls.count()).toEqual(1)

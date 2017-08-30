@@ -3,13 +3,14 @@
       <td>
         <label v-bind:for="checkboxId">
           <div class="full-width clickable">
-            {{questionLabel}}
+            {{questionData.label}}
           </div>
         </label>
       </td>
       <td class="collapsing">
-        <div class="ui fitted checkbox">
+        <div class="ui fitted checkbox" v-bind:class="{ disabled: disabled }">
           <input v-bind:id="checkboxId"
+          v-bind:disabled="disabled"
           type="checkbox" v-model="selected" value="on"/>
           <label></label>
         </div>
@@ -20,42 +21,71 @@
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import * as types from './store/mutationTypes'
+import QuestionObjectParser from './utils/questionObjectParser'
 
 export default {
-  name: 'question-selection-row',
-  props: [
-    'questionId',
-    'questionLabel'
-  ],
-  created: function () {
-    this.selectQuestion({ questionId: this.questionId, isSelected: false })
-    this.setQuestionLabel({ questionId: this.questionId, questionLabel: this.questionLabel })
-  },
-  computed: {
-    ...mapState({
-      isRequestInProgress: state => state.step2Store.isRequestInProgress
-    }),
-    ...mapGetters({
-      getQuestionStateById: 'getQuestionStateById'
-    }),
-    checkboxId: function () {
-      return `checkbox_${this.questionId}`
+    name: 'question-selection-row',
+    props: [
+        'questionDataSerialized'
+    ],
+    data () {
+        return {
+            questionData: {}
+        }
     },
-    selected: {
-      get () {
-        return this.getQuestionStateById(this.questionId).isSelected
-      },
-      set (value) {
-        this.selectQuestion({ questionId: this.questionId, isSelected: value })
-      }
+    created: function () {
+        this.questionData = QuestionObjectParser.parse(this.questionDataSerialized)
+        this.setInitialStoreData()
+    },
+    computed: {
+        ...mapState({
+            isRequestInProgress: state => state.step2Store.isRequestInProgress
+        }),
+        ...mapGetters({
+            getQuestionStateById: 'getQuestionStateById'
+        }),
+        checkboxId: function () {
+            return `checkbox_${this.questionData.questionId}`
+        },
+        disabled: function() {
+            const questionId = this.getQuestionStateById(this.questionData.id).questionId
+            return (new Number(questionId) != questionId)
+        },
+        selected: {
+            get () {
+                return this.getQuestionStateById(this.questionData.id).isSelected
+            },
+            set (value) {
+                this.selectQuestion({ id: this.questionData.id, isSelected: value })
+            }
+        }
+    },
+    methods: {
+        setInitialStoreData: function() {
+            this.setQuestionId({
+                id: this.questionData.id,
+                questionId: this.questionData.questionId
+            })
+            this.setQuestionLabel({
+                id: this.questionData.id,
+                questionLabel: this.questionData.label
+            })
+            this.setDiagnosedNeedId({
+                id: this.questionData.id,
+                diagnosedNeedId: this.questionData.diagnosedNeedId
+            })
+            this.selectQuestion({
+                id: this.questionData.id,
+                isSelected: this.questionData.isSelected
+            })
+        },
+        ...mapMutations({
+            selectQuestion: types.QUESTION_SELECTED,
+            setQuestionId: types.QUESTION_ID,
+            setQuestionLabel: types.QUESTION_LABEL,
+            setDiagnosedNeedId: types.DIAGNOSED_NEED_ID
+        })
     }
-  },
-  methods: {
-    ...mapMutations({
-      selectQuestion: types.QUESTION_SELECTED,
-      setQuestionLabel: types.QUESTION_LABEL
-    })
-  }
 }
 </script>
 
