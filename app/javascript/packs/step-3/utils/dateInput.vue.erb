@@ -5,47 +5,55 @@ import DateUtils from './dateUtils'
 import DateValidator from './dateValidator'
 
 export default {
-  name: 'date-input',
-  props: [
-    'value'
-  ],
-  data () {
-    return {
-      dateValue: '',
-      dateValidator: {},
-      showPopup: false,
-      currMonthName: 'Juillet',
-      currYear: '2017',
-      currentMonthDays: []
-    }
-  },
-  computed: {
-      isDateValid: function() {
-          return this.dateValidator.isValid || this.dateValidator.isEmpty
-      }
-  },
-  methods: {
-    updateValue: function (value) {
-      this.dateValue = value
-      this.dateValidator = new DateValidator(this.dateValue)
+    name: 'date-input',
+    props: [
+      'value'
+    ],
+    data () {
+        return {
+            dateValue: '',
+            dateValidator: {},
+            showPopup: false,
+            currMonthName: 'Juillet',
+            currYear: '2017',
+            currentMonthDays: []
+        }
+    },
+    computed: {
+        isDateValid: function() {
+            return this.dateValidator.isValid || this.dateValidator.isEmpty
+        }
+    },
+    watch: {
+        value: function (value) {
+            if(value.length != 0) {
+                this.dateValidator = new DateValidator(value)
+                this.dateValue = this.dateValidator.toInputFormatString
+            }
+        }
+    },
+    methods: {
+        updateValue: function (value) {
+            this.dateValue = value
+            this.dateValidator = new DateValidator(this.dateValue)
 
-      this.$emit('input', this.dateValidator.toIsoString)
+            this.$emit('input', this.dateValidator.toIsoString)
+        },
+        clickedOnDay: function (day) {
+            this.dateUtils.selectDay(day)
+            this.currentMonthDays = this.dateUtils.daysOfMonth
+            this.$emit('input', this.dateUtils.dateString)
+        },
+        setInitialValues() {
+            this.dateUtils = new DateUtils(new Date())
+            this.currentMonthDays = this.dateUtils.daysOfMonth
+            this.dateValue = this.value
+            this.dateValidator = new DateValidator(this.dateValue)
+        }
     },
-    clickedOnDay: function (day) {
-      this.dateUtils.selectDay(day)
-      this.currentMonthDays = this.dateUtils.daysOfMonth
-      this.$emit('input', this.dateUtils.dateString)
-    },
-    setInitialValues() {
-      this.dateUtils = new DateUtils(new Date())
-      this.currentMonthDays = this.dateUtils.daysOfMonth
-      this.dateValue = this.value
-      this.dateValidator = new DateValidator(this.dateValue)
+    mounted () {
+        this.setInitialValues()
     }
-  },
-  mounted () {
-    this.setInitialValues()
-  }
 }
 </script>
 

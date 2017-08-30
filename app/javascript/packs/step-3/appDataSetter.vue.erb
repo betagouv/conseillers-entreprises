@@ -14,7 +14,7 @@ export default {
     this.setDiagnosisId(this.diagnosisId)
     this.setVisitId(this.visitId)
 
-    this.$store.dispatch('getVisitData')
+    this.$store.dispatch('getInitialData')
   },
   methods: {
     ...mapMutations({
