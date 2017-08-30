@@ -32,12 +32,6 @@ class User < ApplicationRecord
 
   protected
 
-  def send_admin_mail
-    AdminMailer.new_user_created_notification(self).deliver
-  rescue AdminMailer::RecipientsExpectedError
-    Rails.logger.warn 'No recipients present for new User email.'
-  end
-
   # Inspired by Devise validatable module
   # Checks whether a password is needed or not. For validations only.
   # Passwords are always required if it's a new record, or if the password
