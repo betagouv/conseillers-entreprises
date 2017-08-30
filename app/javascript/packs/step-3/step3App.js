@@ -11,23 +11,6 @@ import StepRoutingService from '../common/stepRoutingService'
 import TurbolinksAdapter from 'vue-turbolinks'
 Vue.use(TurbolinksAdapter)
 
-var token
-var configureNextStepButton = function (that) {
-    nextStepButton.computed.isRequestInProgress = function() {
-        return that.$store.state.step3Store.isRequestInProgress
-    }
-
-    nextStepButton.methods.nextStepButtonClicked = function () {
-        const stepRoutingService = new StepRoutingService(that.$store.state.step3Store.diagnosisId)
-        that.$store.dispatch('launchNextStep')
-            .then(() => {
-                return stepRoutingService.goToStep(4)
-            })
-            .catch((error) => {
-            })
-    }
-}
-
 import AxiosConfigurator from '../common/axiosConfigurator'
 AxiosConfigurator.configure()
 
@@ -42,7 +25,26 @@ new Vue({
         'next-step-button': nextStepButton
     },
     beforeCreate: function () {
-        configureNextStepButton(this)
-    }
+        // configureNextStepButton(this)
+    },
+    computed: {
+        isRequestInProgress: function() {
+            return this.$store.state.step3Store.isRequestInProgress
+        },
+        areModificationDisabled: function() {
+            return this.$store.getters.areModificationDisabled
+        },
+    },
+    methods: {
+        nextStepButtonClicked:function () {
+            const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
+            this.$store.dispatch('launchNextStep')
+                .then(() => {
+                    return stepRoutingService.goToStep(4)
+                })
+                .catch((error) => {
+                })
+        }
+    },
 })
 

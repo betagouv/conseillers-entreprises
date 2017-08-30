@@ -40,6 +40,10 @@ const getters = {
 
     isDateCompleted: state => {
         return (state.visitDate.length > 0)
+    },
+
+    areModificationDisabled: state => {
+        return state.isRequestInProgress || state.isInitialLoadingInProgress
     }
 }
 

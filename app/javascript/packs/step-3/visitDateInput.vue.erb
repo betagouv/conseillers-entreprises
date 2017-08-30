@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ui form">
-      <div class="field required" v-bind:class="{ error: !isDateCompleted && showFormFieldErrors }">
+      <div class="field required" v-bind:class="{ error: !isDateCompleted && showFormFieldErrors, disabled: areModificationDisabled }">
         <label><%= I18n.t('diagnoses.step3.date') %></label>
         <date-input v-model="visitDate"></date-input>
 
@@ -26,7 +26,8 @@ export default {
       showFormFieldErrors: state => state.step3Store.showFormFieldErrors
     }),
     ...mapGetters({
-      isDateCompleted: 'isDateCompleted'
+      isDateCompleted: 'isDateCompleted',
+      areModificationDisabled: 'areModificationDisabled',
     }),
     visitDate: {
       get () {

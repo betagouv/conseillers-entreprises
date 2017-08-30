@@ -13,6 +13,7 @@ describe('step3Store', () => {
 
         beforeEach(() => {
             state = {
+                isInitialLoadingInProgress: false,
                 isRequestInProgress: false,
                 name: '',
                 job: '',
@@ -105,6 +106,25 @@ describe('step3Store', () => {
             it('returns true when not empty', function () {
                 state.visitDate = '10/20/30'
                 expect(getters.isDateCompleted(state)).toBeTruthy()
+            })
+        })
+
+        describe('areModificationDisabled', function () {
+
+            it('returns false when isRequestInProgress and isInitialLoadingInProgress false', function () {
+                state.isInitialLoadingInProgress = false
+                state.isRequestInProgress = false
+                expect(getters.areModificationDisabled(state)).toBeFalsy()
+            })
+
+            it('returns true when isRequestInProgress is true', function () {
+                state.isRequestInProgress = true
+                expect(getters.areModificationDisabled(state)).toBeTruthy()
+            })
+
+            it('returns true when isInitialLoadingInProgress is true', function () {
+                state.isInitialLoadingInProgress = true
+                expect(getters.areModificationDisabled(state)).toBeTruthy()
             })
         })
     })

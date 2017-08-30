@@ -1,7 +1,7 @@
 <template>
   <div class="next step container">
     <button class="ui teal right labeled icon button next step"
-          v-bind:class="{ loading: isRequestInProgress, disabled: isRequestInProgress }"
+          v-bind:class="{ loading: isRequestInProgress, disabled: isRequestInProgress || disabled }"
           @click="nextStepButtonClicked">
       <label><%= I18n.t('next_step') %></label>
       <i class="arrow right icon"></i>
@@ -14,12 +14,15 @@
 
     export default {
         name: 'next-step-button',
+        props: ['disabled', 'loading'],
         computed: {
             isRequestInProgress: function () {
+                return this.loading
             }
         },
         methods: {
             nextStepButtonClicked: function () {
+                this.$emit('click')
             }
         }
     }
