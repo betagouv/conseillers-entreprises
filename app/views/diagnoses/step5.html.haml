@@ -8,11 +8,10 @@
 
   %table.ui.table.ui
     %tbody
-      - company_name = @diagnosis.visit.facility.company.name_short
       %tr
         %td
           %h2.ui.header
-            = company_name
+            = @diagnosis.visit.facility.company.name_short
             .sub.header
               = @diagnosis.creation_date_localized
         %td.collapsing
@@ -24,9 +23,7 @@
             .item
               .middle.aligned.content
                 %h4.ui.header.disabled
-                  -# TODO: Move in Diagnosis helper
-                  - selected_assistance_experts_count = @diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
-                  = t('.selected_assistance_experts', count: selected_assistance_experts_count)
+                  = t('.selected_assistance_experts', count: @diagnosis.selected_assistance_experts_count)
 
   - visitee = @diagnosis.visit.visitee
   - visitee_data = [{label: t('activerecord.attributes.contact.last_name'), value: visitee.full_name},
@@ -36,7 +33,7 @@
 
   .ui.segment.shadow-less
     %h3.ui.header
-      =t('.company_contact_subtitle')
+      = t('.company_contact_subtitle')
     %table.full-width
       %tbody.small-horizontal-padding
         - (visitee_data.reject { |item| item[:value].blank? }).each do |item|
@@ -46,7 +43,7 @@
             %td
               .small.text= item[:value]
 
-  = link_to t('.show_detailled_information'), company_path(siret: @diagnosis.visit.facility.siret),
+  = link_to t('.show_detailed_information'), company_path(siret: @diagnosis.visit.facility.siret),
    target: '_blank', class: 'ui yellow basic tiny button'
 
   %h2= t('.need_contacts_summary_subtitle')
@@ -60,8 +57,7 @@
             %td
               .ui.form
                 .field
-                  %label
-                    = t('.diagnosis_needs_content_label')
+                  %label= t('.diagnosed_needs_content_label')
                   = diagnosed_need.content
         - if diagnosed_need.selected_assistance_experts.count > 0
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
@@ -86,6 +82,5 @@
     .ui.segment.shadow-less
       .ui.form
         .field
-          %label
-            = t('.diagnosis_content_label')
+          %label= t('.diagnosis_content_label')
           = @diagnosis.content

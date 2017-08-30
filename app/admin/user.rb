@@ -13,7 +13,7 @@ ActiveAdmin.register User do
                 :is_approved
 
   collection_action :send_invitation_emails, method: :post do
-    UserMailer.send_new_user_invitation(params).deliver_now
+    UserMailer.delay.send_new_user_invitation(params)
     redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
   end
 

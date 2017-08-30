@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable all
 class DeviseCreateUsers < ActiveRecord::Migration[5.0]
   def change
     create_table :users do |t|
@@ -35,3 +36,4 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
     add_index :users, :confirmation_token,   unique: true
   end
 end
+# rubocop:enable all

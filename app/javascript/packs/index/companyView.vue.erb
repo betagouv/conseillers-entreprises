@@ -16,8 +16,8 @@
               td
                 .small.text {{companyData.location}}
           .ui.right.internal.rail.small-width
-            button.ui.yellow.tiny.basic.button.no-margin(@click="detailButtonClicked")
-              | <%= I18n.t('diagnoses.index.show_detailled_information') %>
+            button.ui.yellow.tiny.basic.button.no-margin(@click='detailButtonClicked')
+              | <%= I18n.t('diagnoses.index.show_detailed_information') %>
 </template>
 
 <script>
@@ -43,5 +43,5 @@ export default {
   .ui.internal.rail.small-width
     width: auto
     padding: 1em
-    margin: 0em 0em 0em 1em
+    margin: 0 0 0 1em
 </style>

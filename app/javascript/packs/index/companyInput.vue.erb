@@ -1,5 +1,5 @@
 <template lang="pug">
-  form.ui.form( v-on:submit.prevent="searchButtonClicked")
+  form.ui.form(v-on:submit.prevent='searchButtonClicked')
     .field
       .ui.fluid.labeled.input
         label.ui.label(for='siret') <%= I18n.t('activerecord.attributes.facility.siret') %>
@@ -21,7 +21,7 @@ export default {
         return {
             textInput: '',
             textValid: false,
-            siret:''
+            siret: ''
         }
     },
     methods: {

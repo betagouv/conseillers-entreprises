@@ -44,6 +44,8 @@ gem 'slack-notifier'
 gem 'clockwork', '~> 2.0', '>= 2.0.2'
 gem 'paranoia', '~> 2.2'
 
+gem 'delayed_job_active_record'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use Redis adapter to run Action Cable in production

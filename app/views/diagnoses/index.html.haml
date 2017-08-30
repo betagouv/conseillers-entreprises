@@ -19,8 +19,8 @@
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'
           %td.collapsing.no-left-padding
-            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
-             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)} do
+            - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
+            = link_to diagnosis_path(diagnosis), method: :delete, data: {confirm: confirm_delete_message} do
               %i.ui.icon.link.trash.light.grey.no-margin
 
 = link_to step_1_diagnoses_path, class: 'ui medium green button' do
@@ -49,17 +49,15 @@
               .item
                 .middle.aligned.content
                   %h5.ui.header.disabled
-                    -# TODO: Move in Diagnosis helper
-                    - selected_assistance_experts_count = diagnosis.diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
-                    = t('.selected_assistance_experts', count: selected_assistance_experts_count)
+                    = t('.selected_assistance_experts', count: diagnosis.selected_assistance_experts_count)
 
           %td.collapsing.no-left-padding
             = link_to t('.show_summary'),
             { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
             class: 'ui positive basic tiny button'
           %td.collapsing.no-left-padding
-            = link_to diagnosis_path(diagnosis), method: :delete, class: '',
-             :data => {:confirm => t('.delete_diagnosis_confirmation_message', company_name: company_name)}  do
+            - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
+            = link_to diagnosis_path(diagnosis), method: :delete, data: {confirm: confirm_delete_message} do
               %i.ui.icon.link.trash.light.grey.no-margin
 
 - unless Rails.env.test?

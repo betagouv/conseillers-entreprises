@@ -15,7 +15,7 @@ class AdminMailersService
       diagnoses_statistics
       mailto_statistics
 
-      AdminMailer.weekly_statistics(@information_hash).deliver_now
+      AdminMailer.delay.weekly_statistics(@information_hash)
     end
 
     private
