@@ -194,6 +194,12 @@ describe('step3Store', () => {
                 mutations.VISIT_DATE(state, '01/04/2029')
                 expect(state.visitDate).toEqual('01/04/2029')
             })
+
+            it('filter non string value', function () {
+                const state = {visitDate: '01/04/2029'}
+                mutations.VISIT_DATE(state, null)
+                expect(state.visitDate).toEqual('01/04/2029')
+            })
         })
 
         describe('VISIT_ID', function () {

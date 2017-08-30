@@ -59,7 +59,7 @@ const actions = {
                 return data.visitee_id
             })
             .then((visitee_id) => {
-                if (typeof visitee_id !== 'undefined') {
+                if (typeof visitee_id !== 'undefined' && visitee_id != null) {
                     return dispatch('getContactData')
                 }
             })
@@ -75,7 +75,7 @@ const actions = {
                 commit(types.INITIAL_LOADING_IN_PROGRESS, false)
             })
             .catch((error) => {
-                commit(types.REQUEST_IN_PROGRESS, false)
+                commit(types.INITIAL_LOADING_IN_PROGRESS, false)
                 commit(types.FORM_ERROR_MESSAGE, error != formCompletionError)
                 throw error
             })
@@ -182,7 +182,9 @@ const mutations = {
     },
 
     [types.VISIT_DATE](state, visitDate) {
-        state.visitDate = visitDate
+        if(typeof visitDate == 'string') {
+            state.visitDate = visitDate
+        }
     },
 
     [types.VISIT_ID](state, visitId) {
