@@ -3,14 +3,9 @@ require: rubocop-rspec
 AllCops:
   TargetRubyVersion: 2.4
   Exclude:
-    - 'db/migrate/20170420210630_devise_create_users.rb'
     - 'db/schema.rb'
     - 'tmp/**/*'
     - 'node_modules/**/*'
-
-Metrics/MethodLength:
-  Exclude:
-    - 'app/helpers/diagnosis_helper.rb' # TODO: Remove
 
 Metrics/LineLength:
   Max: 120
