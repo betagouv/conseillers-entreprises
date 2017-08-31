@@ -4,7 +4,7 @@
 
 
   <i class="calendar icon"></i>
-  <input type="date"
+  <input type="text"
          v-bind:class="{ visible: showPopup }"
          @click="showPopup = !showPopup"
          v-bind:value="dateValue"
@@ -24,7 +24,7 @@
              v-bind:class="{ 'disabled' : false }"></i>
         </th>
         <th colspan="5" @click="" class="smaller center aligned">
-          {{ currMonthName }} {{ currYear }}
+          {{ currentMonthName }} {{ currentYear }}
         </th>
         <th colspan="1" class="smallest center aligned">
           <i class="chevron right icon" @click=""
