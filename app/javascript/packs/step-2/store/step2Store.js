@@ -80,7 +80,6 @@ const mutations = {
         state.diagnosisId = diagnosisId
     },
 
-
     [types.QUESTION_ID](state, {id, questionId}) {
         const questionAndIndex = getOrCreateQuestionEnumerated(state, id)
         questionAndIndex.newQuestion.questionId = questionId

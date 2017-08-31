@@ -42,7 +42,7 @@ const getters = {
         return (state.visitDate.length > 0)
     },
 
-    areModificationDisabled: state => {
+    isFormDisabled: state => {
         return state.isRequestInProgress || state.isInitialLoadingInProgress
     }
 }

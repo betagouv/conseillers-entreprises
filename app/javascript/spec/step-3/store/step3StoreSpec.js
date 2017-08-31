@@ -109,22 +109,22 @@ describe('step3Store', () => {
             })
         })
 
-        describe('areModificationDisabled', function () {
+        describe('isFormDisabled', function () {
 
             it('returns false when isRequestInProgress and isInitialLoadingInProgress false', function () {
                 state.isInitialLoadingInProgress = false
                 state.isRequestInProgress = false
-                expect(getters.areModificationDisabled(state)).toBeFalsy()
+                expect(getters.isFormDisabled(state)).toBeFalsy()
             })
 
             it('returns true when isRequestInProgress is true', function () {
                 state.isRequestInProgress = true
-                expect(getters.areModificationDisabled(state)).toBeTruthy()
+                expect(getters.isFormDisabled(state)).toBeTruthy()
             })
 
             it('returns true when isInitialLoadingInProgress is true', function () {
                 state.isInitialLoadingInProgress = true
-                expect(getters.areModificationDisabled(state)).toBeTruthy()
+                expect(getters.isFormDisabled(state)).toBeTruthy()
             })
         })
     })
@@ -195,7 +195,7 @@ describe('step3Store', () => {
                 expect(state.visitDate).toEqual('01/04/2029')
             })
 
-            it('filter non string value', function () {
+            it('filters non string value', function () {
                 const state = {visitDate: '01/04/2029'}
                 mutations.VISIT_DATE(state, null)
                 expect(state.visitDate).toEqual('01/04/2029')
@@ -305,7 +305,7 @@ describe('step3Store', () => {
                 }
             }
 
-            describe('when there is a contact to laod', function () {
+            describe('when there is a contact to load', function () {
 
                 beforeEach(function () {
                     state.contactId = 123
@@ -426,7 +426,7 @@ describe('step3Store', () => {
                     ])
                 })
 
-                it('does not calls dispatch getContactData', async function () {
+                it('does not call dispatch getContactData', async function () {
                     await actions.getInitialData(apiServiceContext(dispatch, commit, state, getters))
 
                     expect(dispatch.calls.count()).toEqual(1)
@@ -510,7 +510,7 @@ describe('step3Store', () => {
                     expect(dispatch.calls.argsFor(2)).toEqual(['createContact'])
                 })
 
-                it('calls dispatch udpateContact if there is a contact Id', async function () {
+                it('calls dispatch updateContact if there is a contact Id', async function () {
                     state.contactId = 10
                     await actions.launchNextStep(apiServiceContext(dispatch, commit, state, getters))
 

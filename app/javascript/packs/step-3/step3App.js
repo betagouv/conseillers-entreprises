@@ -24,15 +24,12 @@ new Vue({
         'form-error-message': formErrorMessage,
         'next-step-button': nextStepButton
     },
-    beforeCreate: function () {
-        // configureNextStepButton(this)
-    },
     computed: {
         isRequestInProgress: function() {
             return this.$store.state.step3Store.isRequestInProgress
         },
-        areModificationDisabled: function() {
-            return this.$store.getters.areModificationDisabled
+        isFormDisabled: function() {
+            return this.$store.getters.isFormDisabled
         },
     },
     methods: {
