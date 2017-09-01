@@ -33,12 +33,12 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'GET #show' do
     siret = '44622002200227'
-    company_name = 'C H D GRAND HAINAUT'
+    company_name = 'Octo Technology'
 
     before do
       allow(UseCases::SearchFacility).to receive(:with_siret).with(siret)
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret)
-      allow(ApiEntrepriseService).to receive(:company_name).and_return(company_name)
+      company_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { ApiEntreprise::Entreprise.new(company_json) }
       allow(QwantApiService).to receive(:results_for_query).with(company_name)
     end
 

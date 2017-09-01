@@ -16,8 +16,7 @@ class CompaniesController < ApplicationController
     siret = params[:siret]
     @facility = UseCases::SearchFacility.with_siret siret
     @company = UseCases::SearchCompany.with_siret siret
-    @company_name = ApiEntrepriseService.company_name @company
-    @qwant_results = QwantApiService.results_for_query @company_name
+    @qwant_results = QwantApiService.results_for_query @company.name
     associations = [{ diagnosis: [diagnosed_needs: [:selected_assistance_experts]] }, :advisor]
     @visits = Visit.includes(associations).of_siret(siret).with_completed_diagnosis
     render layout: 'company'

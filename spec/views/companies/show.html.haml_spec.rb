@@ -4,19 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'companies/show.html.haml', type: :view do
   let(:company_json) do
-    {
-      'entreprise' => {
-        'tranche_effectif_salarie_entreprise' => {},
-        'mandataires_sociaux' => {}
-      },
-      'etablissement_siege' => {
-        'tranche_effectif_salarie_etablissement' => {},
-        'region_implantation' => {},
-        'commune_implantation' => {},
-        'pays_implantation' => {},
-        'adresse' => {}
-      }
-    }
+    JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
   end
 
   let(:facility_json) do
@@ -53,7 +41,7 @@ RSpec.describe 'companies/show.html.haml', type: :view do
 
   it 'displays a title' do
     assign :facility, facility_json
-    assign :company, company_json
+    assign :company, ApiEntreprise::Entreprise.new(company_json)
     assign :qwant_results, qwant_json
     render
     expect(rendered).to match(/Informations sur/)
