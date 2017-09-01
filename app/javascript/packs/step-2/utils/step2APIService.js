@@ -1,7 +1,20 @@
 import axios from 'axios'
 
-export default class step2APIService {
-    static updateDiagnosisContent(diagnosisId, content) {
+export default {
+
+    getDiagnosisContent(diagnosisId) {
+        var config = {
+            method: 'get',
+            url: `/api/diagnoses/${diagnosisId}`
+        }
+
+        return this.send(config)
+            .then((response) => {
+                return response.data.content
+            })
+    },
+
+    updateDiagnosisContent(diagnosisId, content) {
         var config = {
             method: 'patch',
             url: `/api/diagnoses/${diagnosisId}`,
@@ -15,9 +28,20 @@ export default class step2APIService {
         return this.send(config).then(() => {
             return true
         })
-    }
+    },
 
-    static updateDiagnosedNeeds(diagnosisId, diagnosedNeedBulkRequestBody) {
+    getDiagnosedNeeds(diagnosisId) {
+        var config = {
+            method: 'get',
+            url: `/api/diagnoses/${diagnosisId}/diagnosed_needs`,
+        }
+
+        return this.send(config).then((response) => {
+            return response.data
+        })
+    },
+
+    updateDiagnosedNeeds(diagnosisId, diagnosedNeedBulkRequestBody) {
         var config = {
             method: 'post',
             url: `/api/diagnoses/${diagnosisId}/diagnosed_needs/bulk`,
@@ -29,9 +53,9 @@ export default class step2APIService {
         return this.send(config).then(() => {
             return true
         })
-    }
+    },
 
-    static send(config) {
+    send(config) {
         return axios(config)
     }
 }
