@@ -1,4 +1,4 @@
-import Step2APIService from './step2APIService'
+import Step2APIService from '../utils/step2APIService'
 import BulkRequestAssistant from '../utils/bulkRequestAssistant'
 import * as types from './mutationTypes'
 
