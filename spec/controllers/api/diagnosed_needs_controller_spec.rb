@@ -8,7 +8,28 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
   let(:diagnosis) { create :diagnosis, content: Faker::Lorem.paragraph }
   let(:question1) { create :question }
 
+  describe 'GET #index' do
+    subject(:request) { get :index, format: :json, params: { diagnosis_id: diagnosis_id } }
+
+    context 'when diagnosis exists' do
+      let(:diagnosis_id) { diagnosis.id }
+
+      it 'returns http success' do
+        request
+
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'when visit does not exist' do
+      let(:diagnosis_id) { nil }
+
+      it('raises an error') { expect { request }.to raise_error ActionController::UrlGenerationError }
+    end
+  end
+
   describe 'POST #bulk' do
+    let(:diagnosis_id) { diagnosis.id }
     let!(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis, content: 'Not random content' }
     let!(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis }
     let!(:diagnosed_need3) { create :diagnosed_need, diagnosis: diagnosis }

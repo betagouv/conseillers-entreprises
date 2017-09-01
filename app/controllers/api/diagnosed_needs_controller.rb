@@ -2,6 +2,11 @@
 
 module Api
   class DiagnosedNeedsController < ApplicationController
+    def index
+      # @contacts = Contact.joins(:visits).where(visits: { id: params[:visit_id] })
+      @diagnosed_needs = DiagnosedNeed.joins(:diagnoses).where(diagnoses: { id: params[:diagnosis_id] })
+    end
+
     def bulk
       DiagnosedNeed.transaction do
         DiagnosedNeed.create bulk_create_param_array
