@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module ApiEntreprise
-  class EntrepriseResponse
+  class EtablissementResponse
     attr_reader :http_response
 
-    DEFAULT_ERROR_MESSAGE = 'There was an error retrieving entreprise details.'
+    DEFAULT_ERROR_MESSAGE = 'There was an error retrieving etablissement details.'
 
     def initialize(http_response)
       @http_response = http_response
@@ -18,8 +18,8 @@ module ApiEntreprise
       data&.fetch('message', DEFAULT_ERROR_MESSAGE)
     end
 
-    def entreprise_wrapper
-      EntrepriseWrapper.new(data)
+    def etablissement_wrapper
+      EtablissementWrapper.new(data)
     end
 
     private

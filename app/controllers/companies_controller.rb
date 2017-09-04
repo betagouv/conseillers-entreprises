@@ -3,9 +3,9 @@
 class CompaniesController < ApplicationController
   def search_by_siren
     company = UseCases::SearchCompany.with_siren params[:siren]
-    @company_name = ApiEntrepriseService.company_name(company)
-    @company_location = ApiEntrepriseService.company_name(company.dig('etablissement_siege'))
-    @company_headquarters_siret = company['entreprise']['siret_siege_social']
+    @company_name = company.name
+    @company_location = company.headquarters_location
+    @company_headquarters_siret = company.entreprise['siret_siege_social']
   end
 
   def search_by_name

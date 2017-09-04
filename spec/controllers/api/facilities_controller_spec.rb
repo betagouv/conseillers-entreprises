@@ -6,14 +6,16 @@ RSpec.describe Api::FacilitiesController, type: :controller do
   login_user
 
   describe 'POST #search_by_siret' do
-    let(:facility) { build :facility }
-    let(:siret) { facility.siret }
+    let(:siret) { '12345678901234' }
 
     before do
-      facility_api_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_etablissement.json'))
-      company_api_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
-      allow(UseCases::SearchFacility).to receive(:with_siret).with(siret) { facility_api_json }
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { company_api_json }
+      company_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
+      entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprises_instance }
+
+      facility_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_etablissement.json')))
+      facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_json)
+      allow(UseCases::SearchFacility).to receive(:with_siret).with(siret) { facility_instance }
     end
 
     it 'returns http success' do

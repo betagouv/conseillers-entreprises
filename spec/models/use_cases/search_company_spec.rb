@@ -8,18 +8,7 @@ describe UseCases::SearchCompany do
   describe 'with_siren' do
     let(:token) { '1234' }
 
-    before do
-      ENV['API_ENTREPRISE_TOKEN'] = token
-
-      stub_request(
-        :get, 'https://api.apientreprise.fr/v2/entreprises/123456789?token=1234'
-      ).with(
-        headers: { 'Connection' => 'close', 'Host' => 'api.apientreprise.fr', 'User-Agent' => 'http.rb/2.2.2' }
-      ).to_return(
-        status: 200, headers: {},
-        body: File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json'))
-      )
-    end
+    before { ENV['API_ENTREPRISE_TOKEN'] = token }
 
     it 'calls external service' do
       entreprises_instance = ApiEntreprise::Entreprises.new(token)

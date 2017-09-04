@@ -20,9 +20,7 @@ module ApiEntreprise
       entreprise_response = EntrepriseRequest.new(token, siren, connection).response
       raise ApiEntrepriseError, entreprise_response.error_message unless entreprise_response.success?
 
-      entreprise_response.entreprise
+      entreprise_response.entreprise_wrapper
     end
   end
-
-  class ApiEntrepriseError < StandardError; end
 end

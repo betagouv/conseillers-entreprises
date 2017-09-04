@@ -7,10 +7,10 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'POST #search_by_siren' do
     it 'returns http success' do
-      company = build :company
-      siren = company.siren
-      api_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
-      allow(UseCases::SearchCompany).to receive(:with_siren).with(siren) { api_json }
+      siren = '123456789'
+      company_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
+      entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
+      allow(UseCases::SearchCompany).to receive(:with_siren).with(siren) { entreprises_instance }
 
       post :search_by_siren, params: { siren: siren }, format: :js
 
@@ -38,7 +38,8 @@ RSpec.describe CompaniesController, type: :controller do
     before do
       allow(UseCases::SearchFacility).to receive(:with_siret).with(siret)
       company_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { ApiEntreprise::Entreprise.new(company_json) }
+      entreprise_wrapper = ApiEntreprise::EntrepriseWrapper.new(company_json)
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprise_wrapper }
       allow(QwantApiService).to receive(:results_for_query).with(company_name)
     end
 
