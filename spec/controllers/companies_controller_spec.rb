@@ -5,19 +5,6 @@ require 'rails_helper'
 RSpec.describe CompaniesController, type: :controller do
   login_user
 
-  describe 'POST #search_by_siren' do
-    it 'returns http success' do
-      siren = '123456789'
-      company_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
-      entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
-      allow(UseCases::SearchCompany).to receive(:with_siren).with(siren) { entreprises_instance }
-
-      post :search_by_siren, params: { siren: siren }, format: :js
-
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe 'POST #search_by_name' do
     subject(:request) { post :search_by_name, params: { company: search_company_params }, format: :js }
 
