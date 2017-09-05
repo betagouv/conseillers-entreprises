@@ -1,4 +1,5 @@
 import Step2APIService from '../utils/step2APIService'
+import QuestionObjectParser from '../utils/questionObjectParser'
 import BulkRequestAssistant from '../utils/bulkRequestAssistant'
 import * as types from './mutationTypes'
 
@@ -19,6 +20,26 @@ const getters = {
 
 const actions = {
 
+    getDiagnosisContentValue({commit, state, step2APIServiceDependency}) {
+        var step2APIService = step2APIServiceDependency
+        if (typeof step2APIService === 'undefined') {
+            step2APIService = Step2APIService
+        }
+
+        commit(types.REQUEST_IN_PROGRESS, true)
+        return step2APIService.getDiagnosisContent(state.diagnosisId)
+            .then((content) => {
+                commit(types.DIAGNOSIS_CONTENT, content)
+            })
+            .then(() => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+            })
+            .catch((error) => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+                throw error
+            })
+    },
+
     sendDiagnosisContentUpdate({commit, state, step2APIServiceDependency}) {
         var step2APIService = step2APIServiceDependency
         if (typeof step2APIService === 'undefined') {
@@ -27,6 +48,33 @@ const actions = {
 
         commit(types.REQUEST_IN_PROGRESS, true)
         return step2APIService.updateDiagnosisContent(state.diagnosisId, state.diagnosisContent)
+            .then(() => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+            })
+            .catch((error) => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+                throw error
+            })
+    },
+
+    getDiagnosedNeeds({commit, state, step2APIServiceDependency}) {
+        var step2APIService = step2APIServiceDependency
+        if (typeof step2APIService === 'undefined') {
+            step2APIService = Step2APIService
+        }
+
+        commit(types.REQUEST_IN_PROGRESS, true)
+        return step2APIService.getDiagnosedNeeds(state.diagnosisId)
+            .then((rawDiagnosedNeeds) => {
+                rawDiagnosedNeeds
+                    .map(rawDiagnosedNeed => QuestionObjectParser.transformDiagnosedNeed(rawDiagnosedNeed))
+                    .forEach((diagnosedNeed) => {
+                        const id = diagnosedNeed.id
+                        commit(types.QUESTION_SELECTED, {id: id, isSelected: diagnosedNeed.isSelected})
+                        commit(types.DIAGNOSED_NEED_ID, {id: id, diagnosedNeedId: diagnosedNeed.diagnosedNeedId})
+                        commit(types.QUESTION_CONTENT, {id: id, content: diagnosedNeed.content})
+                    })
+            })
             .then(() => {
                 commit(types.REQUEST_IN_PROGRESS, false)
             })

@@ -14,6 +14,9 @@ export default {
   created: function () {
     this.setDiagnosisId(this.diagnosisId)
     this.setDiagnosisContent(this.diagnosisContent)
+
+    this.$store.dispatch('getDiagnosisContentValue')
+    this.$store.dispatch('getDiagnosedNeeds')
   },
   methods: {
     ...mapMutations({
