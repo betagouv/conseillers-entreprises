@@ -11,6 +11,10 @@ module UseCases
       def with_siret(siret)
         with_siren(siret[0, 9])
       end
+
+      def with_name_and_county(name, county)
+        Firmapi::FirmsSearch.new.fetch(name, county)
+      end
     end
   end
 end

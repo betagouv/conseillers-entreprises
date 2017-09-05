@@ -33,4 +33,21 @@ describe UseCases::SearchCompany do
       expect(described_class).to have_received(:with_siren).with(siren)
     end
   end
+
+  describe 'with_name_and_county' do
+    let(:name) { 'Octo' }
+    let(:county) { '75' }
+
+    it 'calls external service' do
+      firms_instance = Firmapi::FirmsSearch.new
+
+      allow(Firmapi::FirmsSearch).to receive(:new) { firms_instance }
+      allow(firms_instance).to receive(:fetch).with(name, county)
+
+      described_class.with_name_and_county name, county
+
+      expect(Firmapi::FirmsSearch).to have_received(:new)
+      expect(firms_instance).to have_received(:fetch).with(name, county)
+    end
+  end
 end

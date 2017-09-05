@@ -2,7 +2,7 @@
 
 class CompaniesController < ApplicationController
   def search_by_name
-    @firmapi_json = FirmapiService.search_companies name: params[:company][:name], county: params[:company][:county]
+    @firmapi_json = UseCases::SearchCompany.with_name_and_county params[:company][:name], params[:company][:county]
   end
 
   def show
