@@ -5,8 +5,11 @@ import * as errors from '../utils/indexErrorTypes'
 const state = {
     isRequestInProgress: false,
     formErrorType: '',
-    siret: '',
     companyData: {},
+    siret: '',
+    name: '',
+    county: '',
+    companies: []
 }
 
 const getters = {}
@@ -50,10 +53,22 @@ const mutations = {
         state.siret = siret
     },
 
+    [types.NAME](state, name) {
+        state.name = name
+    },
+
+    [types.COUNTY](state, county) {
+        state.county = county
+    },
+
+    [types.COMPANIES](state, companies) {
+        state.companies = companies
+    },
+
     [types.COMPANY_DATA](state, {name, location, siret}) {
         state.companyData = {name: name, location: location, siret: siret}
         state.formErrorType = ''
-    },
+    }
 }
 
 export default {

@@ -54,6 +54,33 @@ describe('IndexStore', () => {
             })
         })
 
+        describe('NAME', function () {
+
+            it('updates the name value', function () {
+                const state = {name: ''}
+                mutations.NAME(state, 'Octo')
+                expect(state.name).toEqual('Octo')
+            })
+        })
+
+        describe('COUNTY', function () {
+
+            it('updates the county value', function () {
+                const state = {county: ''}
+                mutations.COUNTY(state, '59')
+                expect(state.county).toEqual('59')
+            })
+        })
+
+        describe('COMPANIES', function () {
+
+            it('updates the companies array', function () {
+                const state = {companies: []}
+                mutations.COMPANIES(state, ['123'])
+                expect(state.companies).toEqual(['123'])
+            })
+        })
+
         describe('COMPANY_DATA', function () {
 
             let state
@@ -87,10 +114,10 @@ describe('IndexStore', () => {
             }
         }
 
-        var commit
         var dispatch
-        var getters = {}
+        var commit
         var state = {}
+        var getters = {}
 
         let apiServiceContext = function (dispatch, commit, state, getters) {
             return {
