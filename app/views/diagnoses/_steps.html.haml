@@ -1,7 +1,11 @@
 .diagnosis-steps-wrapper
   .ui.mini.ordered.steps.diagnosis-steps
     - (1..4).each do |displayed_step|
-      .step{class: html_classes_for_step(displayed_step, current_page_step, diagnosis_step)}
+      - class_for_step = html_classes_for_step(displayed_step, current_page_step, diagnosis_step)
+      .step{class: class_for_step}
         .content
           .title
-            = t(".step#{displayed_step}_title_html")
+            - if displayed_step > 1 && class_for_step&.match(/completed/)
+              = link_to t(".step#{displayed_step}_title_html"), controller: 'diagnoses', action: "step#{displayed_step}"
+            - else
+              = t(".step#{displayed_step}_title_html")
