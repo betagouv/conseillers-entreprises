@@ -1,8 +1,5 @@
 fr:
   companies:
-    search_by_name:
-      no_result: Aucun résultat.
-      location: Localité
     show:
       data_on: "Fiche %{company_name}"
       informations_on: "Informations sur %{company_name}"
