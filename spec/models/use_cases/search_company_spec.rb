@@ -40,9 +40,10 @@ describe UseCases::SearchCompany do
 
     it 'calls external service' do
       firms_instance = Firmapi::FirmsSearch.new
+      firms_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/firmapi_get_firms.json')))
 
       allow(Firmapi::FirmsSearch).to receive(:new) { firms_instance }
-      allow(firms_instance).to receive(:fetch).with(name, county)
+      allow(firms_instance).to receive(:fetch).with(name, county) { Firmapi::Firms.new(firms_json) }
 
       described_class.with_name_and_county name, county
 
