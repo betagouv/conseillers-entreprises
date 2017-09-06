@@ -75,7 +75,7 @@ describe UseCases::UpdateDiagnosis do
       it('returns empty params') do
         hash = {}
         expect(cleaned_params).to eq hash
-        
+
 
         expect(cleaned_params.key?(:content)).to eq false
         expect(cleaned_params.key?(:step)).to eq false

@@ -43,8 +43,13 @@
       - unless @diagnosis.visit.visitee
         .ui.error.message
           %p= t('.add_contact_to_notify')
-
-      %button.ui.teal.button.right.floated#next-step-button{class: ('disabled' unless @diagnosis.visit.visitee)}
-        = t('.notify_selected_experts')
+      .ui.two.column.stackable.grid.container
+        .ui.left.aligned.column.no-left-padding.no-margin
+          = link_to step_3_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
+            = t('previous_step')
+            %i.arrow.left.icon
+        .ui.right.aligned.column.no-right-padding.no-margin
+          %button.ui.teal.button.no-margin#next-step-button{class: ('disabled' unless @diagnosis.visit.visitee)}
+            = t('.notify_selected_experts')
 
       .clear
