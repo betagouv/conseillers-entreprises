@@ -1,11 +1,33 @@
 <template>
-  <div class="next step container">
-    <button class="ui teal right labeled icon button next step"
-          v-bind:class="{ loading: isRequestInProgress, disabled: isRequestInProgress || disabled }"
-          @click="nextStepButtonClicked">
-      <label><%= I18n.t('next_step') %></label>
-      <i class="arrow right icon"></i>
-    </button>
+  <div class="ui three column stackable vertically padded grid container">
+    <div class="ui left aligned column no-left-padding no-margin">
+      <div v-if="previousStepButton">
+        <button class="ui left labeled icon button step-3 no-margin"
+              v-bind:class="{ loading: isRequestInProgress, disabled: isRequestInProgress || disabled }"
+              @click="previousStepButtonClicked">
+          <label><%= I18n.t('previous_step') %></label>
+          <i class="arrow left icon"></i>
+        </button>
+      </div>
+    </div>
+    <div class="ui center aligned column">
+      <div v-if="saveButton">
+        <button class="ui left labeled icon button step-3 no-margin"
+              v-bind:class="{loading: isRequestInProgress, disabled: isRequestInProgress || disabled }"
+              @click="saveButtonClicked">
+          <i class="save icon"></i>
+          <label><%= I18n.t('save') %></label>
+        </button>
+      </div>
+    </div>
+    <div class="ui right aligned column no-right-padding">
+      <button class="ui teal right labeled icon button step-3 no-margin"
+            v-bind:class="{ loading: isRequestInProgress, disabled: isRequestInProgress || disabled }"
+            @click="nextStepButtonClicked">
+        <label><%= I18n.t('next_step') %></label>
+        <i class="arrow right icon"></i>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -14,28 +36,32 @@
 
     export default {
         name: 'next-step-button',
-        props: ['disabled', 'loading'],
+        props: [
+            'previousStepButton',
+            'saveButton',
+            'disabled',
+            'loading'
+            ],
         computed: {
             isRequestInProgress: function () {
                 return this.loading
             }
         },
         methods: {
+            previousStepButtonClicked: function () {
+                this.$emit('previous-step-click')
+            },
+            saveButtonClicked: function () {
+                this.$emit('save-click')
+            },
             nextStepButtonClicked: function () {
-                this.$emit('click')
+                this.$emit('next-step-click')
             }
         }
     }
 </script>
 
 <style lang="sass">
-  .next.step.container
-    height: 2em
-    position: relative
-    margin-top: 1em
-    margin-bottom: 1em
-  .next.step.button
-    margin: 0
-    position: absolute !important
-    right: 0%  !important
+  button.step-3
+    width: 13em
 </style>
