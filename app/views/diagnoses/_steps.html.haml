@@ -5,7 +5,7 @@
       .step{class: class_for_step}
         .content
           .title{'data-turbolinks' => 'false'}
-            - if displayed_step > 1 && class_for_step&.match(/completed/)
+            - if displayed_step > 1 && class_for_step&.include?('completed')
               = link_to t(".step#{displayed_step}_title_html"), controller: 'diagnoses', action: "step#{displayed_step}"
             - else
               = t(".step#{displayed_step}_title_html")
