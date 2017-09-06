@@ -15,6 +15,23 @@ export default {
         })
     },
 
+    fetchCompaniesByName: function ({name, county}) {
+        var config = {
+            method: 'post',
+            url: `/api/companies/search_by_name`,
+            data: {
+                company: {
+                    name: name,
+                    county: county
+                }
+            }
+        }
+
+        return this.send(config).then((response) => {
+            return response.data
+        })
+    },
+
     send: function (config) {
         return axios(config)
     }
