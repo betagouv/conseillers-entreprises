@@ -6,7 +6,7 @@ module UseCases
       def clean_update_params(params, current_step:)
         params[:step] = params[:step].to_i if params.key?(:step)
         params.delete_if { |_key, value| value.blank? }
-        params.delete_if { |key, value| key == :step && value < current_step }
+        params.delete_if { |key, value| key.to_sym == :step && value < current_step }
         params
       end
     end
