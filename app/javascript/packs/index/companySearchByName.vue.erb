@@ -23,15 +23,13 @@ export default {
     props: [],
     data: function () {
         return {
-            textInput: '',
-            textValid: false,
             name: '',
             county: ''
         }
     },
     methods: {
         searchButtonClicked: function () {
-            this.$emit('search-name', this.name)
+            this.$emit('search-name', this.name, this.county)
         }
     }
 }

@@ -4,30 +4,69 @@
       .ui.text.loader
     company-input(v-on:search-siret='searchSiret',
                   v-on:error='manageError')
+    .ui.aligned.basic.segment
+      .ui.horizontal.divider <%= I18n.t('diagnoses.index.or') %>
+      p <%= I18n.t('diagnoses.index.search_by_name_and_county') %>
+    company-search-by-name(v-on:search-name='searchName',
+                           v-on:error='manageError')
     error-message(:error-type='errorType')
     company-view(:company-data='companyData',
                  v-on:detail-button-click='siret => { goToDetailedCompanyInfo(siret) }')
+    modal(:show.sync='modalIsShowing')
+      table.ui.table
+        thead
+          tr
+            th Nom
+            th Localité
+            th Actions
+        tbody
+          tr(
+            is="company-item"
+            v-for="(company, index) in companies"
+            v-bind:key="index"
+            v-bind:company="company"
+          )
+      div(slot='actions')
+        button.ui.button(v-on:click='modalIsShowing = false') Fermer
 </template>
 
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import * as types from './store/indexMutationTypes'
 import CompanyInput from './companyInput.vue.erb'
+import CompanySearchByName from './CompanySearchByName.vue.erb'
 import ErrorMessage from './errorMessage.vue.erb'
 import CompanyView from './companyView.vue.erb'
+import CompanyItem from './companyItem.vue.erb'
+import Modal from '../common/modal.vue.erb'
 
 export default {
     name: 'select-company',
     components: {
         CompanyInput,
+        CompanySearchByName,
         ErrorMessage,
         CompanyView,
+        CompanyItem,
+        Modal
+    },
+    data: function () {
+      return {
+          modalIsShowing: false
+      }
     },
     methods: {
         searchSiret: function(siret) {
             this.setSiret(siret)
             this.clearError()
             this.$store.dispatch('fetchCompany').catch(() => {})
+        },
+        searchName: function(name, county) {
+            this.setName(name)
+            this.setCounty(county)
+            this.clearError()
+            this.$store.dispatch('fetchCompaniesByName').catch(() => {})
+            this.modalIsShowing = true
         },
         manageError: function(error) {
             this.setErrorType(error)
@@ -41,15 +80,18 @@ export default {
         },
         ...mapMutations({
             setSiret: types.SIRET,
+            setName: types.NAME,
+            setCounty: types.COUNTY,
             setErrorType: types.FORM_ERROR_TYPE
         }),
         goToDetailedCompanyInfo: function (siret) {
             const url = `/companies/${siret}`
             window.open(url, '_blank')
-        },
+        }
     },
     computed: {
         ...mapState({
+            companies: state => state.indexStore.companies,
             errorType: state => state.indexStore.formErrorType,
             companyData: state => state.indexStore.companyData,
             isRequestInProgress: state => state.indexStore.isRequestInProgress,

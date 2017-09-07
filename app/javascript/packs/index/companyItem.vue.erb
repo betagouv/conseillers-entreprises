@@ -1,0 +1,17 @@
+<template lang="pug">
+  tr
+    td {{ company.name }}
+    td {{ company.location }}
+    td
+      button
+</template>
+
+<script>
+export default {
+    name: 'company-item',
+    props: ['company']
+}
+</script>
+
+<style lang="sass">
+</style>
