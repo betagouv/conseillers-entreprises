@@ -188,9 +188,9 @@ describe('IndexStore', () => {
 
         describe('fetchCompaniesByName', function () {
 
-            const positivePromise = Promise.resolve(
-                [{siren: '123456789', name: 'Octo', location: '59123 Meubauge'}]
-            )
+            const positivePromise = Promise.resolve({
+                companies: [{siren: '123456789', name: 'Octo', location: '59123 Meubauge'}]
+            })
 
             beforeEach(function () {
                 spyOn(indexAPIServiceMock, 'fetchCompaniesByName').and.returnValue(positivePromise)

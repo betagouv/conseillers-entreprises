@@ -47,7 +47,7 @@ const actions = {
         commit(types.REQUEST_IN_PROGRESS, true)
         return indexAPIService.fetchCompaniesByName(state.name, state.county)
             .then((data) => {
-                commit(types.COMPANIES, data)
+                commit(types.COMPANIES, data.companies)
             })
             .catch(() => {
                 commit(types.FORM_ERROR_TYPE, errors.NOT_FOUND_ERROR)
