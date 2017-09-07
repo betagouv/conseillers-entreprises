@@ -15,6 +15,20 @@ export default {
         })
     },
 
+    fetchCompanyBySiren: function (siren) {
+        var config = {
+            method: 'post',
+            url: `/api/facilities/search_by_siren`,
+            data: {
+                siren: siren
+            }
+        }
+
+        return this.send(config).then((response) => {
+            return response.data
+        })
+    },
+
     fetchCompaniesByName: function ({name, county}) {
         var config = {
             method: 'post',

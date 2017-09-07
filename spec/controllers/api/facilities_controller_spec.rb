@@ -42,20 +42,22 @@ RSpec.describe Api::FacilitiesController, type: :controller do
   end
 
   describe 'POST #search_by_siren' do
-    let(:siren) { '123456789' }
+    let(:siren) { '418166096' }
 
     context 'when company is found' do
       before do
         company_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
         entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
         allow(UseCases::SearchCompany).to receive(:with_siren).with(siren) { entreprises_instance }
+
+        post :search_by_siren, params: { siren: siren }, format: :js
       end
 
       it 'returns http success' do
-        post :search_by_siren, params: { siren: siren }, format: :js
-
         expect(response).to have_http_status(:success)
-        expect(response.body).to eq({ company_name: 'Octo Technology', facility_location: '75108 Paris 8' }.to_json)
+        expect(response.body).to eq(
+          { company_name: 'Octo Technology', facility_location: '75108 Paris 8', siret: '41816609600051' }.to_json
+        )
       end
     end
 

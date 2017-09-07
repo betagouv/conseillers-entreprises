@@ -1,6 +1,7 @@
 export const REQUEST_IN_PROGRESS = 'REQUEST_IN_PROGRESS'
 export const FORM_ERROR_TYPE = 'FORM_ERROR_TYPE'
 export const SIRET = 'SIRET'
+export const SIREN = 'SIREN'
 export const NAME = 'NAME'
 export const COUNTY = 'COUNTY'
 export const COMPANIES = 'COMPANIES'

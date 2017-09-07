@@ -7,6 +7,7 @@ const state = {
     formErrorType: '',
     companyData: {},
     siret: '',
+    siren: '',
     name: '',
     county: '',
     companies: []
@@ -28,6 +29,29 @@ const actions = {
                     name: data.company_name,
                     location: data.facility_location,
                     siret: state.siret
+                })
+            })
+            .catch(() => {
+                commit(types.FORM_ERROR_TYPE, errors.NOT_FOUND_ERROR)
+            })
+            .then(() => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+            })
+    },
+
+    fetchCompanyBySiren({commit, state, indexAPIServiceDependency}) {
+        let indexAPIService = indexAPIServiceDependency
+        if (typeof indexAPIService === 'undefined') {
+            indexAPIService = IndexAPIService
+        }
+
+        commit(types.REQUEST_IN_PROGRESS, true)
+        return indexAPIService.fetchCompanyBySiren(state.siren)
+            .then((data) => {
+                commit(types.COMPANY_DATA, {
+                    name: data.company_name,
+                    location: data.facility_location,
+                    siret: data.siret
                 })
             })
             .catch(() => {
@@ -70,6 +94,10 @@ const mutations = {
 
     [types.SIRET](state, siret) {
         state.siret = siret
+    },
+
+    [types.SIREN](state, siren) {
+        state.siren = siren
     },
 
     [types.NAME](state, name) {
