@@ -29,7 +29,11 @@ export default {
     },
     methods: {
         searchButtonClicked: function () {
-            this.$emit('search-name', this.name, this.county)
+            if (this.name != '' && companyInputValidation.validateCounty(this.county)) {
+                this.$emit('search-name', this.name, this.county)
+            } else {
+                this.$emit('error', Errors.INPUT_ERROR)
+            }
         }
     }
 }

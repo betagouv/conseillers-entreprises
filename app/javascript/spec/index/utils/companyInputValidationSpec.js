@@ -29,4 +29,29 @@ describe('companyInputValidation', () => {
             expect(validateSiret(siret)).toBeFalsy()
         })
     })
+
+    describe('validateCounty', () => {
+
+        const validateCounty = companyInputValidation.validateCounty
+
+        it('returns true when the county is valid', function () {
+            const county = '75'
+            expect(validateCounty(county)).toBeTruthy()
+        })
+
+        it('returns false when the county is not valid (too short number)', function () {
+            const county = ''
+            expect(validateCounty(county)).toBeFalsy()
+        })
+
+        it('returns false when the county is not valid (too long number)', function () {
+            const county = '7575'
+            expect(validateCounty(county)).toBeFalsy()
+        })
+
+        it('returns false when the county is not valid (random text)', function () {
+            const county = 'sdfsdfzef'
+            expect(validateCounty(county)).toBeFalsy()
+        })
+    })
 })
