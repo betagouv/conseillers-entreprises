@@ -40,7 +40,10 @@ Rails.application.routes.draw do
     end
 
     resources :facilities, only: %i[] do
-      post :search_by_siret, on: :collection
+      collection do
+        post :search_by_siret
+        post :search_by_siren
+      end
     end
 
     resources :diagnoses, only: %i[show create update] do
