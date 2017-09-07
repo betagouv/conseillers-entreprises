@@ -91,26 +91,29 @@ describe('IndexAPIService', () => {
 
     describe('fetchCompaniesByName', () => {
 
-        var returnPromise
+        let returnPromise
         const name = 'Boulangerie Maubeuge'
         const county = '59'
 
-        const responseData = [{
-            'siren': '123456789',
-            'names': {}
-        }]
+        const responseData = {
+            'companies': [{
+                'siren': '123456789',
+                'name': 'Octo',
+                'location': 'Meubauge'
+            }]
+        }
 
         describe('with a success', function () {
 
             beforeEach(function () {
-                var promise = Promise.resolve({data: responseData})
+                const promise = Promise.resolve({data: responseData})
                 spyOn(IndexAPIService, 'send').and.returnValue(promise)
 
                 returnPromise = IndexAPIService.fetchCompaniesByName({name: name, county: county})
             })
 
             it('calls send with the right arguments', function () {
-                var config = {
+                const config = {
                     method: 'post',
                     url: `/api/companies/search_by_name`,
                     data: {company: {name: name, county: county}}
@@ -124,7 +127,7 @@ describe('IndexAPIService', () => {
             })
 
             it('returns company data', async function () {
-                var serviceResponse
+                let serviceResponse
                 await returnPromise.then((response) => {
                     serviceResponse = response
                 })
@@ -136,14 +139,14 @@ describe('IndexAPIService', () => {
 
             let error = new Error('error')
             beforeEach(function () {
-                var promise = Promise.reject(error)
+                const promise = Promise.reject(error)
                 spyOn(IndexAPIService, 'send').and.returnValue(promise)
 
                 returnPromise = IndexAPIService.fetchCompaniesByName({name: name, county: county})
             })
 
             it('calls send with the right arguments', function () {
-                var config = {
+                const config = {
                     method: 'post',
                     url: `/api/companies/search_by_name`,
                     data: {company: {name: name, county: county}}
@@ -158,8 +161,8 @@ describe('IndexAPIService', () => {
 
             it('returns an error', async function () {
 
-                var serviceResponse
-                var serviceError
+                let serviceResponse
+                let serviceError
                 await returnPromise
                     .then((response) => {
                         serviceResponse = response
