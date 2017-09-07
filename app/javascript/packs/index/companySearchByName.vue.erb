@@ -1,0 +1,46 @@
+<template lang="pug">
+  form.ui.form(v-on:submit.prevent='searchButtonClicked')
+    .inline.fields
+      .field
+        .ui.labeled.input
+          label.ui.label(for='name') <%= I18n.t('activerecord.attributes.company.name') %>
+          input#name-input(name='name', v-model='name')
+      .field
+        .ui.labeled.input
+          label.ui.label(for='county') <%= I18n.t('diagnoses.index.county') %>
+          input#county-input(name='county', v-model='county', pattern='[0-9]{2,3}')
+      button.ui.teal.labeled.icon.button.left-margin
+        | <%= I18n.t('search') %>
+        i.search.icon
+</template>
+
+<script>
+import companyInputValidation from './utils/companyInputValidation'
+import * as Errors from './utils/indexErrorTypes'
+
+export default {
+    name: 'company-search-by-name',
+    props: [],
+    data: function () {
+        return {
+            textInput: '',
+            textValid: false,
+            name: '',
+            county: ''
+        }
+    },
+    methods: {
+        searchButtonClicked: function () {
+            this.$emit('search-name', this.name)
+        }
+    }
+}
+</script>
+
+<style lang="sass">
+  #name-input
+    max-width: 150px
+
+  #county-input
+    max-width: 50px
+</style>
