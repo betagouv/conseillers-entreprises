@@ -5,7 +5,7 @@ require('babel-core/register')
 
 describe('IndexAPIService', () => {
 
-    describe('fetchCompany', () => {
+    describe('fetchCompanyBySiret', () => {
 
         const siret = '48245813000010'
         const responseData = {
@@ -21,7 +21,7 @@ describe('IndexAPIService', () => {
                 var promise = Promise.resolve({data: responseData})
                 spyOn(IndexAPIService, 'send').and.returnValue(promise)
 
-                returnPromise = IndexAPIService.fetchCompany(siret)
+                returnPromise = IndexAPIService.fetchCompanyBySiret(siret)
             })
 
             it('calls send with the right arguments', function () {
@@ -54,7 +54,7 @@ describe('IndexAPIService', () => {
                 var promise = Promise.reject(error)
                 spyOn(IndexAPIService, 'send').and.returnValue(promise)
 
-                returnPromise = IndexAPIService.fetchCompany(siret)
+                returnPromise = IndexAPIService.fetchCompanyBySiret(siret)
             })
 
             it('calls send with the right arguments', function () {

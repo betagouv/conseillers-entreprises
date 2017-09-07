@@ -15,14 +15,14 @@ const state = {
 const getters = {}
 
 const actions = {
-    fetchCompany({commit, state, indexAPIServiceDependency}) {
+    fetchCompanyBySiret({commit, state, indexAPIServiceDependency}) {
         let indexAPIService = indexAPIServiceDependency
         if (typeof indexAPIService === 'undefined') {
             indexAPIService = IndexAPIService
         }
 
         commit(types.REQUEST_IN_PROGRESS, true)
-        return indexAPIService.fetchCompany(state.siret)
+        return indexAPIService.fetchCompanyBySiret(state.siret)
             .then((data) => {
                 commit(types.COMPANY_DATA, {
                     name: data.company_name,

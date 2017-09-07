@@ -2,8 +2,8 @@
   .ui.segment.shadow-less.dimmable(:class='{ dimmed: isRequestInProgress }')
     .ui.simple.inverted.dimmer
       .ui.text.loader
-    company-input(v-on:search-siret='searchSiret',
-                  v-on:error='manageError')
+    company-search-by-siret(v-on:search-siret='searchSiret',
+                            v-on:error='manageError')
     .ui.aligned.basic.segment
       .ui.horizontal.divider <%= I18n.t('diagnoses.index.or') %>
       p <%= I18n.t('diagnoses.index.search_by_name_and_county') %>
@@ -34,8 +34,8 @@
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import * as types from './store/indexMutationTypes'
-import CompanyInput from './companyInput.vue.erb'
-import CompanySearchByName from './CompanySearchByName.vue.erb'
+import CompanySearchBySiret from './companySearchBySiret.vue.erb'
+import CompanySearchByName from './companySearchByName.vue.erb'
 import ErrorMessage from './errorMessage.vue.erb'
 import CompanyView from './companyView.vue.erb'
 import CompanyItem from './companyItem.vue.erb'
@@ -44,7 +44,7 @@ import Modal from '../common/modal.vue.erb'
 export default {
     name: 'select-company',
     components: {
-        CompanyInput,
+        CompanySearchBySiret,
         CompanySearchByName,
         ErrorMessage,
         CompanyView,
@@ -60,7 +60,7 @@ export default {
         searchSiret: function(siret) {
             this.setSiret(siret)
             this.clearError()
-            this.$store.dispatch('fetchCompany').catch(() => {})
+            this.$store.dispatch('fetchCompanyBySiret').catch(() => {})
         },
         searchName: function(name, county) {
             this.setName(name)

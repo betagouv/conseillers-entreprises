@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-    fetchCompany: function (siret) {
+    fetchCompanyBySiret: function (siret) {
         var config = {
             method: 'post',
             url: `/api/facilities/search_by_siret`,
