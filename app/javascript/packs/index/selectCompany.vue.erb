@@ -13,18 +13,19 @@
     company-view(:company-data='companyData',
                  v-on:detail-button-click='siret => { goToDetailedCompanyInfo(siret) }')
     modal(:show.sync='modalIsShowing')
+      div(slot='header') Entreprises correspondantes
       table.ui.table
         thead
           tr
             th Nom
             th Localité
-            th Actions
         tbody
           tr(
             is="company-item"
             v-for="(company, index) in companies"
             v-bind:key="index"
             v-bind:company="company"
+            v-on:close-modal="closeModal"
           )
       div(slot='actions')
         button.ui.button(v-on:click='modalIsShowing = false') Fermer
@@ -77,6 +78,9 @@ export default {
         },
         clearError: function() {
             this.setErrorType('')
+        },
+        closeModal: function() {
+            this.modalIsShowing = false
         },
         ...mapMutations({
             setSiret: types.SIRET,

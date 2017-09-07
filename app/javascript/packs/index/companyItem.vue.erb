@@ -1,17 +1,31 @@
 <template lang="pug">
   tr
-    td {{ company.name }}
-    td {{ company.location }}
     td
-      button
+     .company-link(@click='siren = company.siren') {{ company.name }}
+    td {{ company.location }}
 </template>
 
 <script>
 export default {
     name: 'company-item',
-    props: ['company']
+    props: ['company'],
+    data: function () {
+        return {
+            siren: ''
+        }
+    },
+    watch: {
+        siren: function (newSiren) {
+            this.$emit('close-modal', true)
+        }
+    },
 }
 </script>
 
 <style lang="sass">
+  .company-link
+    color: #4183C4
+    cursor: pointer
+    &:hover
+      color: #1e70bf
 </style>
