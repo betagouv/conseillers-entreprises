@@ -1,7 +1,7 @@
 <template lang="pug">
   tr
     td
-     .company-link(@click='siren = company.siren') {{ company.name }}
+     .company-link(@click='selectCompany(company.siren)') {{ company.name }}
     td {{ company.location }}
 </template>
 
@@ -14,11 +14,12 @@ export default {
             siren: ''
         }
     },
-    watch: {
-        siren: function (newSiren) {
-            this.$emit('close-modal', true)
+    methods: {
+        selectCompany: function (siren) {
+            this.siren = siren
+            this.$emit('search-siren', this.siren)
         }
-    },
+    }
 }
 </script>
 

@@ -21,11 +21,12 @@
             th Localité
         tbody
           tr(
-            is="company-item"
-            v-for="(company, index) in companies"
-            v-bind:key="index"
-            v-bind:company="company"
-            v-on:close-modal="closeModal"
+            is="company-item",
+            v-for="(company, index) in companies",
+            v-bind:key="index",
+            v-bind:company="company",
+            v-on:close-modal="closeModal",
+            v-on:search-siren="searchSiren"
           )
       div(slot='actions')
         button.ui.button(v-on:click='modalIsShowing = false') Fermer
@@ -62,6 +63,12 @@ export default {
             this.clearError()
             this.$store.dispatch('fetchCompanyBySiret').catch(() => {})
         },
+        searchSiren: function(siren) {
+            this.setSiren(siren)
+            this.clearError()
+            this.closeModal()
+            this.$store.dispatch('fetchCompanyBySiren').catch(() => {})
+        },
         searchName: function(name, county) {
             this.setName(name)
             this.setCounty(county)
@@ -84,6 +91,7 @@ export default {
         },
         ...mapMutations({
             setSiret: types.SIRET,
+            setSiren: types.SIREN,
             setName: types.NAME,
             setCounty: types.COUNTY,
             setErrorType: types.FORM_ERROR_TYPE
