@@ -36,6 +36,25 @@ const actions = {
             .then(() => {
                 commit(types.REQUEST_IN_PROGRESS, false)
             })
+    },
+
+    fetchCompaniesByName({commit, state, indexAPIServiceDependency}) {
+        let indexAPIService = indexAPIServiceDependency
+        if (typeof indexAPIService === 'undefined') {
+            indexAPIService = IndexAPIService
+        }
+
+        commit(types.REQUEST_IN_PROGRESS, true)
+        return indexAPIService.fetchCompaniesByName(state.name, state.county)
+            .then((data) => {
+                commit(types.COMPANIES, data)
+            })
+            .catch(() => {
+                commit(types.FORM_ERROR_TYPE, errors.NOT_FOUND_ERROR)
+            })
+            .then(() => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+            })
     }
 }
 

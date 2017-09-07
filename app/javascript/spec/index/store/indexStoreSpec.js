@@ -111,6 +111,9 @@ describe('IndexStore', () => {
 
         const indexAPIServiceMock = {
             fetchCompany: function () {
+            },
+
+            fetchCompaniesByName: function () {
             }
         }
 
@@ -175,6 +178,60 @@ describe('IndexStore', () => {
 
             it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
                 await actions.fetchCompany(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(2)).toEqual([
+                    'REQUEST_IN_PROGRESS',
+                    false
+                ])
+            })
+        })
+
+        describe('fetchCompaniesByName', function () {
+
+            const positivePromise = Promise.resolve(
+                [{siren: '123456789', name: 'Octo', location: '59123 Meubauge'}]
+            )
+
+            beforeEach(function () {
+                spyOn(indexAPIServiceMock, 'fetchCompaniesByName').and.returnValue(positivePromise)
+                commit = jasmine.createSpy()
+
+                state.name = 'Octo'
+                state.county = '59'
+            })
+
+            it('returns a promise', function () {
+                var promise = actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+                expect(typeof promise.then).toBe('function')
+            })
+
+            it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(0)).toEqual([
+                    'REQUEST_IN_PROGRESS',
+                    true
+                ])
+            })
+
+            it('calls IndexAPIService with the siret', async function () {
+                await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(indexAPIServiceMock.fetchCompaniesByName.calls.count()).toEqual(1)
+                expect(indexAPIServiceMock.fetchCompaniesByName.calls.argsFor(0)).toEqual(['Octo', '59'])
+            })
+
+            it('calls commit COMPANIES with the companies data', async function () {
+                await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(1)).toEqual([
+                    'COMPANIES',
+                    [{siren: '123456789', name: 'Octo', location: '59123 Meubauge'}]
+                ])
+            })
+
+            it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
 
                 expect(commit.calls.argsFor(2)).toEqual([
                     'REQUEST_IN_PROGRESS',
