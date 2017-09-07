@@ -45,7 +45,7 @@ const actions = {
         }
 
         commit(types.REQUEST_IN_PROGRESS, true)
-        return indexAPIService.fetchCompaniesByName(state.name, state.county)
+        return indexAPIService.fetchCompaniesByName({name: state.name, county: state.county})
             .then((data) => {
                 commit(types.COMPANIES, data.companies)
             })

@@ -107,7 +107,7 @@ describe('IndexStore', () => {
             })
 
             it('returns a promise', function () {
-                var promise = actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+                const promise = actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
                 expect(typeof promise.then).toBe('function')
             })
 
@@ -120,11 +120,11 @@ describe('IndexStore', () => {
                 ])
             })
 
-            it('calls IndexAPIService with the siret', async function () {
+            it('calls IndexAPIService with company name and county', async function () {
                 await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
 
                 expect(indexAPIServiceMock.fetchCompaniesByName.calls.count()).toEqual(1)
-                expect(indexAPIServiceMock.fetchCompaniesByName.calls.argsFor(0)).toEqual(['Octo', '59'])
+                expect(indexAPIServiceMock.fetchCompaniesByName.calls.argsFor(0)).toEqual([{name: 'Octo', county: '59'}])
             })
 
             it('calls commit COMPANIES with the companies data', async function () {
