@@ -11,12 +11,12 @@ module Firmapi
     end
 
     def response
-      http_response = connection.get(url)
+      http_response = connection.get(root_url, params: { name: name, department: county })
       FirmsResponse.new(http_response)
     end
 
-    def url
-      "https://firmapi.com/api/v1/companies?name=#{name}&department=#{county}"
+    def root_url
+      'https://firmapi.com/api/v1/companies'
     end
   end
 end
