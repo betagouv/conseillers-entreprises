@@ -26,6 +26,10 @@ fr:
       company_found: Entreprise trouvée
       show_detailed_information: Voir les informations<br/>détaillées
       location: Localité
+    company_search:
+      modal_header_title: Entreprises correspondantes
+      company_name: Nom
+      company_location: Localité
     steps:
       step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins<br>détectés
