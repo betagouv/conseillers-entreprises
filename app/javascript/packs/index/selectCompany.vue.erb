@@ -1,18 +1,26 @@
 <template lang="pug">
-  .ui.segment.shadow-less.dimmable(:class='{ dimmed: isRequestInProgress }')
-    .ui.simple.inverted.dimmer
-      .ui.text.loader
-    company-search-by-siret(v-on:search-siret='searchSiret',
-                            v-on:error='manageError')
-    .ui.aligned.basic.segment
-      .ui.horizontal.divider <%= I18n.t('diagnoses.index.or') %>
-      p <%= I18n.t('diagnoses.index.search_by_name_and_county') %>
-    company-search-by-name(v-on:search-name='searchName',
-                           v-on:error='manageError')
-    error-message(:error-type='errorType')
-    company-view(:company-data='companyData',
-                 v-on:detail-button-click='goToDetailedCompanyInfo')
-    company-selection-modal(:show.sync="modalIsShowing")
+  div
+    .ui.top.attached.tabular.menu.two.items
+      .active.first.item(:class='{ not: !firstItemActive }',
+                         v-on:click='activateFirstTab')
+        template <%= I18n.t('diagnoses.company_search.search_by_name') %>
+      .active.last.item(:class='{ not: firstItemActive }',
+                         v-on:click='activateLastTab')
+        template <%= I18n.t('diagnoses.company_search.search_by_siret') %>
+    .ui.bottom.attached.active.tab.segment.shadow-less.dimmable(:class='{ dimmed: isRequestInProgress }')
+      .ui.simple.inverted.dimmer
+        .ui.text.loader
+      template(v-if='firstItemActive')
+        company-search-by-siret(v-on:search-siret='searchSiret',
+                                v-on:error='manageError')
+      template(v-else='')
+        p <%= I18n.t('diagnoses.index.search_by_name_and_county') %>
+        company-search-by-name(v-on:search-name='searchName',
+                               v-on:error='manageError')
+      error-message(:error-type='errorType')
+      company-view(:company-data='companyData',
+                   v-on:detail-button-click='goToDetailedCompanyInfo')
+      company-selection-modal(:show.sync="modalIsShowing")
 </template>
 
 <script>
@@ -36,10 +44,17 @@ export default {
     },
     data: function () {
       return {
-          modalIsShowing: false
+          modalIsShowing: false,
+          firstItemActive: false
       }
     },
     methods: {
+        activateFirstTab: function() {
+           this.firstItemActive = true
+        },
+        activateLastTab: function() {
+           this.firstItemActive = false
+        },
         searchSiret: function(siret) {
             this.setSiret(siret)
             this.clearError()
@@ -92,3 +107,19 @@ export default {
     }
 }
 </script>
+
+<style lang="sass">
+  .ui.tabular.menu.two.items
+    .first.item
+      margin-right: 0.5%
+    .last.item
+      margin-left: 0.5%
+    .item
+      margin-top: 0px
+      width: 49.5%
+    .not.active.item
+      background-color: #F8F8F8
+      border-bottom: solid
+      border-bottom-width: 1px
+      border-bottom-color: #D4D4D5
+</style>

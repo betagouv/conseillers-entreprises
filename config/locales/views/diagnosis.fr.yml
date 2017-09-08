@@ -30,6 +30,8 @@ fr:
       modal_header_title: Entreprises correspondantes
       company_name: Nom
       company_location: Localité
+      search_by_name: Recherche par nom d'entreprise
+      search_by_siret: Recherche par SIRET
     steps:
       step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins<br>détectés
