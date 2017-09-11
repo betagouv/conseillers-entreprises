@@ -26,13 +26,13 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
-import * as types from './store/indexMutationTypes'
+import * as types from './store/searchMutationTypes'
 import CompanySearchBySiret from './companySearchBySiret.vue.erb'
 import CompanySearchByName from './companySearchByName.vue.erb'
 import ErrorMessage from './errorMessage.vue.erb'
 import CompanyView from './companyView.vue.erb'
 import CompanySelectionModal from './companySelectionModal.vue.erb'
-import Modal from '../common/modal.vue.erb'
+import Modal from '../modal.vue.erb'
 
 export default {
     name: 'select-company',
@@ -101,9 +101,9 @@ export default {
     },
     computed: {
         ...mapState({
-            errorType: state => state.indexStore.formErrorType,
-            companyData: state => state.indexStore.companyData,
-            isRequestInProgress: state => state.indexStore.isRequestInProgress,
+            errorType: state => state.searchStore.formErrorType,
+            companyData: state => state.searchStore.companyData,
+            isRequestInProgress: state => state.searchStore.isRequestInProgress,
         }),
     }
 }

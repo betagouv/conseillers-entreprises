@@ -2,6 +2,7 @@ import SearchStore from '../../../../packs/common/companySearch/store/searchStor
 
 //for the async function to work
 require('babel-core/register')
+//TODO : WHY IS babel-polyfill needed. And why does it go to other files...
 require('babel-polyfill')
 
 describe('SearchStore', () => {

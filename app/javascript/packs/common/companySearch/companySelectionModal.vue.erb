@@ -21,9 +21,9 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
-import * as types from './store/indexMutationTypes'
+import * as types from './store/searchMutationTypes'
 import CompanyItem from './companyItem.vue.erb'
-import Modal from '../common/modal.vue.erb'
+import Modal from '../modal.vue.erb'
 
 export default {
     name: 'company-selection-modal',
@@ -52,8 +52,8 @@ export default {
     },
     computed: {
         ...mapState({
-            companies: state => state.indexStore.companies,
-            isRequestInProgress: state => state.indexStore.isRequestInProgress,
+            companies: state => state.searchStore.companies,
+            isRequestInProgress: state => state.searchStore.isRequestInProgress,
         }),
         showModal: {
             get () {
