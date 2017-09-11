@@ -5,27 +5,73 @@ import * as errors from '../utils/indexErrorTypes'
 const state = {
     isRequestInProgress: false,
     formErrorType: '',
-    siret: '',
     companyData: {},
+    siret: '',
+    siren: '',
+    name: '',
+    county: '',
+    companies: []
 }
 
 const getters = {}
 
 const actions = {
-    fetchCompany({commit, state, indexAPIServiceDependency}) {
+    fetchCompanyBySiret({commit, state, indexAPIServiceDependency}) {
         let indexAPIService = indexAPIServiceDependency
         if (typeof indexAPIService === 'undefined') {
             indexAPIService = IndexAPIService
         }
 
         commit(types.REQUEST_IN_PROGRESS, true)
-        return indexAPIService.fetchCompany(state.siret)
+        return indexAPIService.fetchCompanyBySiret(state.siret)
             .then((data) => {
                 commit(types.COMPANY_DATA, {
                     name: data.company_name,
                     location: data.facility_location,
                     siret: state.siret
                 })
+            })
+            .catch(() => {
+                commit(types.FORM_ERROR_TYPE, errors.NOT_FOUND_ERROR)
+            })
+            .then(() => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+            })
+    },
+
+    fetchCompanyBySiren({commit, state, indexAPIServiceDependency}) {
+        let indexAPIService = indexAPIServiceDependency
+        if (typeof indexAPIService === 'undefined') {
+            indexAPIService = IndexAPIService
+        }
+
+        commit(types.REQUEST_IN_PROGRESS, true)
+        return indexAPIService.fetchCompanyBySiren(state.siren)
+            .then((data) => {
+                commit(types.COMPANY_DATA, {
+                    name: data.company_name,
+                    location: data.facility_location,
+                    siret: data.siret
+                })
+            })
+            .catch(() => {
+                commit(types.FORM_ERROR_TYPE, errors.NOT_FOUND_ERROR)
+            })
+            .then(() => {
+                commit(types.REQUEST_IN_PROGRESS, false)
+            })
+    },
+
+    fetchCompaniesByName({commit, state, indexAPIServiceDependency}) {
+        let indexAPIService = indexAPIServiceDependency
+        if (typeof indexAPIService === 'undefined') {
+            indexAPIService = IndexAPIService
+        }
+
+        commit(types.REQUEST_IN_PROGRESS, true)
+        return indexAPIService.fetchCompaniesByName({name: state.name, county: state.county})
+            .then((data) => {
+                commit(types.COMPANIES, data.companies)
             })
             .catch(() => {
                 commit(types.FORM_ERROR_TYPE, errors.NOT_FOUND_ERROR)
@@ -50,10 +96,26 @@ const mutations = {
         state.siret = siret
     },
 
+    [types.SIREN](state, siren) {
+        state.siren = siren
+    },
+
+    [types.NAME](state, name) {
+        state.name = name
+    },
+
+    [types.COUNTY](state, county) {
+        state.county = county
+    },
+
+    [types.COMPANIES](state, companies) {
+        state.companies = companies
+    },
+
     [types.COMPANY_DATA](state, {name, location, siret}) {
         state.companyData = {name: name, location: location, siret: siret}
         state.formErrorType = ''
-    },
+    }
 }
 
 export default {

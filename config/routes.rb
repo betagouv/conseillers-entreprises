@@ -29,17 +29,21 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: %i[show], param: :siret do
-    collection do
-      post :search_by_name
-      post :create_diagnosis_from_siret
-    end
+    post :create_diagnosis_from_siret, on: :collection
   end
 
   resources :mailto_logs, only: %i[create]
 
   namespace :api do
+    resources :companies, only: %i[] do
+      post :search_by_name, on: :collection
+    end
+
     resources :facilities, only: %i[] do
-      post :search_by_siret, on: :collection
+      collection do
+        post :search_by_siret
+        post :search_by_siren
+      end
     end
 
     resources :diagnoses, only: %i[show create update] do

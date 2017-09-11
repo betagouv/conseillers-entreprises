@@ -94,14 +94,6 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe 'to_s' do
-    it do
-      facility = create :facility
-      visit = create :visit, facility: facility
-      expect(visit.to_s).to include facility.company.name
-    end
-  end
-
   describe 'happened_at_localized' do
     it do
       visit = create :visit, happened_at: Date.new(2017, 7, 1)

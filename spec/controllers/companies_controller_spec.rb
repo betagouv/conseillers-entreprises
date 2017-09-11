@@ -5,19 +5,6 @@ require 'rails_helper'
 RSpec.describe CompaniesController, type: :controller do
   login_user
 
-  describe 'POST #search_by_name' do
-    subject(:request) { post :search_by_name, params: { company: search_company_params }, format: :js }
-
-    let(:search_company_params) { { name: 'Octo', county: '75' } }
-
-    it 'returns http success' do
-      allow(FirmapiService).to receive(:search_companies)
-      request
-      expect(FirmapiService).to have_received(:search_companies).with(search_company_params)
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe 'GET #show' do
     siret = '44622002200227'
     company_name = 'Octo Technology'

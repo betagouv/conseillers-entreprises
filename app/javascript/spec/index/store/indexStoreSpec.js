@@ -11,6 +11,200 @@ describe('IndexStore', () => {
 
     })
 
+    describe('actions', () => {
+
+        const actions = IndexStore.actions
+
+        const indexAPIServiceMock = {
+            fetchCompanyBySiret: function () {
+            },
+
+            fetchCompanyBySiren: function () {
+            },
+
+            fetchCompaniesByName: function () {
+            }
+        }
+
+        var dispatch
+        var commit
+        var state = {}
+        var getters = {}
+
+        let apiServiceContext = function (dispatch, commit, state, getters) {
+            return {
+                dispatch: dispatch,
+                commit: commit,
+                state: state,
+                getters: getters,
+                indexAPIServiceDependency: indexAPIServiceMock
+            }
+        }
+
+        describe('fetchCompanyBySiret', function () {
+
+            const positivePromise = Promise.resolve({
+                company_name: 'Fun Company',
+                facility_location: '59350 Lille'
+            })
+
+            beforeEach(function () {
+                spyOn(indexAPIServiceMock, 'fetchCompanyBySiret').and.returnValue(positivePromise)
+                commit = jasmine.createSpy()
+
+                state.siret = 'siret number'
+            })
+
+            it('returns a promise', function () {
+                var promise = actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+                expect(typeof promise.then).toBe('function')
+            })
+
+            it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(0)).toEqual([
+                    'REQUEST_IN_PROGRESS',
+                    true
+                ])
+            })
+
+            it('calls IndexAPIService with the siret', async function () {
+                await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(indexAPIServiceMock.fetchCompanyBySiret.calls.count()).toEqual(1)
+                expect(indexAPIServiceMock.fetchCompanyBySiret.calls.argsFor(0)).toEqual(['siret number'])
+            })
+
+            it('calls commit COMPANY_DATA with the company data', async function () {
+                await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(1)).toEqual([
+                    'COMPANY_DATA',
+                    {name: 'Fun Company', location: '59350 Lille', siret: 'siret number'}
+                ])
+            })
+
+            it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(2)).toEqual([
+                    'REQUEST_IN_PROGRESS',
+                    false
+                ])
+            })
+        })
+
+        describe('fetchCompanyBySiren', function () {
+
+            const positivePromise = Promise.resolve({
+                company_name: 'Fun Company',
+                facility_location: '59350 Lille',
+                siret: '12345678901234'
+            })
+
+            beforeEach(function () {
+                spyOn(indexAPIServiceMock, 'fetchCompanyBySiren').and.returnValue(positivePromise)
+                commit = jasmine.createSpy()
+
+                state.siren = 'siren number'
+            })
+
+            it('returns a promise', function () {
+                var promise = actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+                expect(typeof promise.then).toBe('function')
+            })
+
+            it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(0)).toEqual([
+                    'REQUEST_IN_PROGRESS',
+                    true
+                ])
+            })
+
+            it('calls IndexAPIService with the siren', async function () {
+                await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(indexAPIServiceMock.fetchCompanyBySiren.calls.count()).toEqual(1)
+                expect(indexAPIServiceMock.fetchCompanyBySiren.calls.argsFor(0)).toEqual(['siren number'])
+            })
+
+            it('calls commit COMPANY_DATA with the company data', async function () {
+                await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(1)).toEqual([
+                    'COMPANY_DATA',
+                    {name: 'Fun Company', location: '59350 Lille', siret: '12345678901234'}
+                ])
+            })
+
+            it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(2)).toEqual([
+                    'REQUEST_IN_PROGRESS',
+                    false
+                ])
+            })
+        })
+
+        describe('fetchCompaniesByName', function () {
+
+            const positivePromise = Promise.resolve({
+                companies: [{siren: '123456789', name: 'Octo', location: '59123 Meubauge'}]
+            })
+
+            beforeEach(function () {
+                spyOn(indexAPIServiceMock, 'fetchCompaniesByName').and.returnValue(positivePromise)
+                commit = jasmine.createSpy()
+
+                state.name = 'Octo'
+                state.county = '59'
+            })
+
+            it('returns a promise', function () {
+                const promise = actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+                expect(typeof promise.then).toBe('function')
+            })
+
+            it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(0)).toEqual([
+                    'REQUEST_IN_PROGRESS',
+                    true
+                ])
+            })
+
+            it('calls IndexAPIService with company name and county', async function () {
+                await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(indexAPIServiceMock.fetchCompaniesByName.calls.count()).toEqual(1)
+                expect(indexAPIServiceMock.fetchCompaniesByName.calls.argsFor(0)).toEqual([{name: 'Octo', county: '59'}])
+            })
+
+            it('calls commit COMPANIES with the companies data', async function () {
+                await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(1)).toEqual([
+                    'COMPANIES',
+                    [{siren: '123456789', name: 'Octo', location: '59123 Meubauge'}]
+                ])
+            })
+
+            it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+
+                expect(commit.calls.argsFor(2)).toEqual([
+                    'REQUEST_IN_PROGRESS',
+                    false
+                ])
+            })
+        })
+    })
+
     describe('mutations', () => {
 
         const mutations = IndexStore.mutations
@@ -54,6 +248,33 @@ describe('IndexStore', () => {
             })
         })
 
+        describe('NAME', function () {
+
+            it('updates the name value', function () {
+                const state = {name: ''}
+                mutations.NAME(state, 'Octo')
+                expect(state.name).toEqual('Octo')
+            })
+        })
+
+        describe('COUNTY', function () {
+
+            it('updates the county value', function () {
+                const state = {county: ''}
+                mutations.COUNTY(state, '59')
+                expect(state.county).toEqual('59')
+            })
+        })
+
+        describe('COMPANIES', function () {
+
+            it('updates the companies array', function () {
+                const state = {companies: []}
+                mutations.COMPANIES(state, ['123'])
+                expect(state.companies).toEqual(['123'])
+            })
+        })
+
         describe('COMPANY_DATA', function () {
 
             let state
@@ -74,85 +295,6 @@ describe('IndexStore', () => {
             it('clears the error value', function () {
                 mutations.COMPANY_DATA(state, {name: 'Café Bourgeois', location: 'somewhere'})
                 expect(state.formErrorType).toEqual('')
-            })
-        })
-    })
-
-    describe('actions', () => {
-
-        const actions = IndexStore.actions
-
-        const indexAPIServiceMock = {
-            fetchCompany: function () {
-            }
-        }
-
-        var commit
-        var dispatch
-        var getters = {}
-        var state = {}
-
-        let apiServiceContext = function (dispatch, commit, state, getters) {
-            return {
-                dispatch: dispatch,
-                commit: commit,
-                state: state,
-                getters: getters,
-                indexAPIServiceDependency: indexAPIServiceMock
-            }
-        }
-
-        describe('fetchCompany', function () {
-
-            const positivePromise = Promise.resolve({
-                company_name: 'Fun Company',
-                facility_location: '59350 Lille'
-            })
-
-            beforeEach(function () {
-                spyOn(indexAPIServiceMock, 'fetchCompany').and.returnValue(positivePromise)
-                commit = jasmine.createSpy()
-
-                state.siret = 'siret number'
-            })
-
-            it('returns a promise', function () {
-                var promise = actions.fetchCompany(apiServiceContext(dispatch, commit, state, getters))
-                expect(typeof promise.then).toBe('function')
-            })
-
-            it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
-                actions.fetchCompany(apiServiceContext(dispatch, commit, state, getters))
-
-                expect(commit.calls.argsFor(0)).toEqual([
-                    'REQUEST_IN_PROGRESS',
-                    true
-                ])
-            })
-
-            it('calls IndexAPIService with the siret', async function () {
-                await actions.fetchCompany(apiServiceContext(dispatch, commit, state, getters))
-
-                expect(indexAPIServiceMock.fetchCompany.calls.count()).toEqual(1)
-                expect(indexAPIServiceMock.fetchCompany.calls.argsFor(0)).toEqual(['siret number'])
-            })
-
-            it('calls commit COMPANY_DATA with the company data', async function () {
-                await actions.fetchCompany(apiServiceContext(dispatch, commit, state, getters))
-
-                expect(commit.calls.argsFor(1)).toEqual([
-                    'COMPANY_DATA',
-                    {name: 'Fun Company', location: '59350 Lille', siret: 'siret number'}
-                ])
-            })
-
-            it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
-                await actions.fetchCompany(apiServiceContext(dispatch, commit, state, getters))
-
-                expect(commit.calls.argsFor(2)).toEqual([
-                    'REQUEST_IN_PROGRESS',
-                    false
-                ])
             })
         })
     })

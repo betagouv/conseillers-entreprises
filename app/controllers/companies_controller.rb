@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  def search_by_name
-    @firmapi_json = FirmapiService.search_companies name: params[:company][:name], county: params[:company][:county]
-  end
-
   def show
     siret = params[:siret]
     @facility = UseCases::SearchFacility.with_siret siret
