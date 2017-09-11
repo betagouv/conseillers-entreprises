@@ -29,7 +29,7 @@ export default {
             if (companyInputValidation.validateSiret(this.siret)) {
                 this.$emit('search-siret', this.siret)
             } else {
-                this.$emit('error', Errors.INPUT_ERROR)
+                this.$emit('error', Errors.SIRET_INPUT_ERROR)
             }
         }
     }

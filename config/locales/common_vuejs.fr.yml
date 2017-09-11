@@ -10,6 +10,8 @@ fr:
       location: Localité
       siret_format_error_title: Numéro invalide !
       siret_format_error_text: Vérifiez que le numéro SIRET est bien composé de 14 chiffres.
+      input_error_title: Informations non valides !
+      input_error_text: Vérifiez que vous avez correctement complété la raison sociale ainsi que le numéro de département.
       company_not_found_error_title: Entreprise non trouvée !
       company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
       search_by_siret: "Rechercher l'entreprise en renseignant son SIRET."

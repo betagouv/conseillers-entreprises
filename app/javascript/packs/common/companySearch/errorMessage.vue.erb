@@ -2,9 +2,12 @@
   div
     template(v-if='hasError')
       .ui.error.message.with-top-margin
-        template(v-if='errorType == Errors.INPUT_ERROR')
+        template(v-if='errorType == Errors.SIRET_INPUT_ERROR')
           .header <%= I18n.t('common_vuejs.company_search.siret_format_error_title') %>
           p <%= I18n.t('common_vuejs.company_search.siret_format_error_text') %>
+        template(v-if='errorType == Errors.INPUT_ERROR')
+          .header <%= I18n.t('common_vuejs.company_search.input_error_title') %>
+          p <%= I18n.t('common_vuejs.company_search.input_error_text') %>
         template(v-if='errorType == Errors.NOT_FOUND_ERROR')
           .header <%= I18n.t('common_vuejs.company_search.company_not_found_error_title') %>
           p <%= I18n.t('common_vuejs.company_search.company_not_found_error_text') %>
