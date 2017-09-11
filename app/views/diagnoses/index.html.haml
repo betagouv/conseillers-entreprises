@@ -6,15 +6,23 @@
       %i.plus.icon
       = t('.create_new_diagnosis')
 
-  .toggle-div-wrapper
-    %h2.toggle-show-button
-      = t('.diagnoses_in_progress')
-      %i.ui.icon.chevron.right
-    %h2.toggle-hide-button
-      = t('.diagnoses_in_progress')
-      %i.ui.icon.chevron.down
-    .toggle-div
-      - if @diagnoses[:in_progress].present?
+  %h1= t('.title')
+
+  - if @diagnoses[:in_progress].empty? && @diagnoses[:completed].empty?
+    %p= t('.no_analysis_message')
+
+  - if @diagnoses[:in_progress].empty?
+    %h2= t('.diagnoses_in_progress')
+    %p= t('.no_diagnoses_in_progress_message_html')
+  - else
+    .toggle-div-wrapper
+      %h2.toggle-show-button
+        = t('.diagnoses_in_progress')
+        %i.ui.icon.chevron.right
+      %h2.toggle-hide-button
+        = t('.diagnoses_in_progress')
+        %i.ui.icon.chevron.down
+      .toggle-div
         %table.ui.table.ui
           %tbody
             - @diagnoses[:in_progress].each do |diagnosis|
@@ -31,15 +39,18 @@
                   = link_to diagnosis_path(diagnosis), method: :delete, data: {confirm: confirm_delete_message} do
                     %i.ui.icon.link.trash.light.grey.no-margin
 
-  .toggle-div-wrapper
-    %h2.toggle-show-button
-      = t('.diagnoses_completed')
-      %i.ui.icon.chevron.right
-    %h2.toggle-hide-button
-      = t('.diagnoses_completed')
-      %i.ui.icon.chevron.down
-    .toggle-div
-      - if @diagnoses[:completed].present?
+  - if @diagnoses[:completed].empty?
+    %h2= t('.completed_diagnoses')
+    %p= t('.no_completed_diagnosis_message_html')
+  - else
+    .toggle-div-wrapper
+      %h2.toggle-show-button
+        = t('.completed_diagnoses')
+        %i.ui.icon.chevron.right
+      %h2.toggle-hide-button
+        = t('.completed_diagnoses')
+        %i.ui.icon.chevron.down
+      .toggle-div
         %table.ui.table.ui
           %tbody
             - @diagnoses[:completed].each do |diagnosis|
