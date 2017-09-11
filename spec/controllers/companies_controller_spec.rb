@@ -23,6 +23,13 @@ RSpec.describe CompaniesController, type: :controller do
     end
   end
 
+  describe 'GET #show' do
+    it do
+      get :search
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'POST #create_diagnosis_from_siret' do
     context 'save worked' do
       it 'redirects to the created diagnosis step2 page' do

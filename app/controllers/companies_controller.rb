@@ -11,6 +11,8 @@ class CompaniesController < ApplicationController
     render layout: 'company'
   end
 
+  def search; end
+
   def create_diagnosis_from_siret
     facility = UseCases::SearchFacility.with_siret_and_save params[:siret]
     visit = Visit.create advisor: current_user, facility: facility if facility
