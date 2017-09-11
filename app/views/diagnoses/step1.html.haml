@@ -5,4 +5,10 @@
 #step1-app
   %select-company
 
+  %next-step-button{ 'v-bind:previous-step-button' => 'false',
+                     'v-bind:save-button' => 'false',
+                     'v-bind:loading' => 'isRequestInProgress',
+                     'v-bind:disabled' => 'isButtonDisabled',
+                     'v-on:next-step-click' => 'nextStepButtonClicked' }
+
 = javascript_pack_tag 'step-1/step1App'
