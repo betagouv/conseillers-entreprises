@@ -51,4 +51,4 @@ fr:
       adresse: Adresse
     search:
       search_company: Rechercher une entreprise
-      you_have_two_choices: "Vous pouvez soit indiquer le SIRET de l'entreprise soit faire une recherche."
+      you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l'entreprise, soit indiquer son SIRET."

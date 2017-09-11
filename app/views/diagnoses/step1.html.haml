@@ -3,8 +3,11 @@
 = render partial: 'steps', locals: { current_page_step: 1, diagnosis_step: 0 }
 
 #step1-app
-  %select-company
 
+  %h1= t('.select_company')
+  %p= t('.you_have_two_choices')
+
+  %select-company
   %next-step-button{ 'v-bind:previous-step-button' => 'false',
                      'v-bind:save-button' => 'false',
                      'v-bind:loading' => 'isRequestInProgress',
