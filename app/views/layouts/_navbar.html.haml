@@ -8,10 +8,6 @@
         = link_to diagnoses_path do
           = semantic_icon('sitemap')
           = t('.diagnoses')
-      .item
-        = link_to step_1_diagnoses_path do
-          = semantic_icon('plus')
-          = t('.new_diagnosis')
     - else
       .item
         = link_to about_home_index_path do
@@ -33,6 +29,10 @@
             = link_to admin_dashboard_path do
               = semantic_icon('dashboard')
               = t('.dashboard')
+        .item
+          = link_to search_companies_path do
+            = semantic_icon('file text icon')
+            = t('.company_search')
         .item
           = link_to profile_path do
             = semantic_icon('user')
