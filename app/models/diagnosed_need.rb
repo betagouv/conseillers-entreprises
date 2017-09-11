@@ -9,6 +9,7 @@ class DiagnosedNeed < ApplicationRecord
   validates :diagnosis, presence: true
 
   scope :of_diagnosis, (->(diagnosis) { where(diagnosis: diagnosis) })
+  scope :of_question, (->(question) { where(question: question) })
   scope :of_assistance_expert_id, (proc do |assistance_expert_id|
     joins(question: [assistances: :assistances_experts])
       .where(questions: { assistances: { assistances_experts: { id: assistance_expert_id } } })

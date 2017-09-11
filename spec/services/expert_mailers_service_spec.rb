@@ -15,9 +15,13 @@ describe ExpertMailersService do
     let(:user) { create :user }
     let(:visit) { create :visit, :with_visitee }
     let(:diagnosis) { create :diagnosis, visit: visit }
+    let(:question) { create :question }
+    let(:assistance) { create :assistance, question: question }
 
-    let(:assistances_experts) { create_list :assistance_expert, 3 }
+    let(:assistances_experts) { create_list :assistance_expert, 3, assistance: assistance }
     let(:assistance_expert_ids) { [assistances_experts.first.id, assistances_experts.last.id] }
+
+    before { create :diagnosed_need, question: question, diagnosis: diagnosis }
 
     it { expect { send_assistances_email }.to change { ActionMailer::Base.deliveries.count }.by(2) }
   end
@@ -45,10 +49,12 @@ describe ExpertMailersService do
     it { is_expected.to match_array assistances_experts }
   end
 
-  describe 'assistances_grouped_by_experts' do
-    subject(:assistances_grouped_by_experts) do
-      described_class.assistances_grouped_by_experts(assistances_experts)
+  describe 'questions_grouped_by_experts' do
+    subject(:questions_grouped_by_experts) do
+      described_class.questions_grouped_by_experts(assistances_experts, diagnosis)
     end
+
+    let(:diagnosis) { create :diagnosis }
 
     context 'when there is no assistance expert' do
       let(:assistances_experts) { [] }
@@ -56,29 +62,60 @@ describe ExpertMailersService do
       it { is_expected.to eq [] }
     end
 
-    context 'when there is one assistance_expert' do
+    context 'when there is one assistance expert' do
       let(:expert) { create :expert }
-      let(:assistance) { create :assistance }
+      let(:question) { create :question }
+      let(:assistance) { create :assistance, question: question }
       let(:assistance_expert) { create :assistance_expert, expert: expert, assistance: assistance }
-
       let(:assistances_experts) { [assistance_expert] }
+      let!(:diagnosed_need) { create :diagnosed_need, question: question, diagnosis: diagnosis }
 
-      it { is_expected.to eq [{ expert: expert, assistances: [assistance] }] }
+      let(:expected_array) { [{ question: question, need_description: diagnosed_need.content }] }
+
+      it { is_expected.to eq [{ expert: expert, questions_with_needs_description: expected_array }] }
     end
 
-    context 'when there are several assistances experts' do
+    context 'when there are several assistances experts linked to different questions' do
       let(:expert) { create :expert }
-
-      let(:assistance1) { create :assistance }
-      let(:ae1) { create :assistance_expert, expert: expert, assistance: assistance1 }
-
-      let(:assistance2) { create :assistance }
-      let(:ae2) { create :assistance_expert, expert: expert, assistance: assistance2 }
-
       let(:assistances_experts) { [ae1, ae2] }
 
-      it { is_expected.to eq [{ expert: expert, assistances: [assistance1, assistance2] }] }
+      let(:question1) { create :question }
+      let!(:diagnosed_need1) { create :diagnosed_need, question: question1, diagnosis: diagnosis }
+      let(:assistance1) { create :assistance, question: question1 }
+      let(:ae1) { create :assistance_expert, expert: expert, assistance: assistance1 }
+
+      let(:question2) { create :question }
+      let!(:diagnosed_need2) { create :diagnosed_need, question: question2, diagnosis: diagnosis }
+      let(:assistance2) { create :assistance, question: question2 }
+      let(:ae2) { create :assistance_expert, expert: expert, assistance: assistance2 }
+
+      let(:expected_array) do
+        [
+          { question: question1, need_description: diagnosed_need1.content },
+          { question: question2, need_description: diagnosed_need2.content }
+        ]
+      end
+
+      it { is_expected.to eq [{ expert: expert, questions_with_needs_description: expected_array }] }
     end
+
+    # context 'when there are several assistances experts linked to the same question' do
+    #   let(:expert) { create :expert }
+    #   let(:question) { create :question }
+    #   let!(:diagnosed_need) { create :diagnosed_need, question: question, diagnosis: diagnosis }
+    #
+    #   let(:assistance1) { create :assistance, question: question }
+    #   let(:ae1) { create :assistance_expert, expert: expert, assistance: assistance1 }
+    #
+    #   let(:assistance2) { create :assistance, question: question }
+    #   let(:ae2) { create :assistance_expert, expert: expert, assistance: assistance2 }
+    #
+    #   let(:assistances_experts) { [ae1, ae2] }
+    #
+    #   let(:expected_array) { [{ question: question, need_description: diagnosed_need.content }] }
+    #
+    #   it { is_expected.to eq [{ expert: expert, questions_with_needs_description: expected_array }] }
+    # end
   end
 
   describe 'notify_expert' do
@@ -86,13 +123,14 @@ describe ExpertMailersService do
       described_class.notify_expert(expert_hash, user, diagnosis)
     end
 
-    let(:expert_hash) { { expert: expert, assistances: assistances } }
     let(:user) { create :user }
     let(:visit) { create :visit, :with_visitee }
     let(:diagnosis) { create :diagnosis, visit: visit }
 
     let(:expert) { create :expert }
-    let(:assistances) { create_list :assistance, 3 }
+    let(:expert_hash) { { expert: expert, questions_with_needs_description: questions_with_needs_description } }
+    let(:questions_with_needs_description) { [{ question: question, need_description: 'Help this company' }] }
+    let(:question) { create :question }
 
     let(:email_params) do
       {
@@ -100,7 +138,7 @@ describe ExpertMailersService do
         visit_date: diagnosis.visit.happened_at_localized,
         company_name: diagnosis.visit.company_name,
         company_contact: diagnosis.visit.visitee,
-        assistances: assistances
+        questions_with_needs_description: questions_with_needs_description
       }
     end
 
