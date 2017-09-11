@@ -35,8 +35,7 @@ class ExpertMailersService
         visit_date: diagnosis.visit.happened_at_localized,
         company_name: diagnosis.visit.company_name,
         company_contact: diagnosis.visit.visitee,
-        assistances: expert_hash[:assistances],
-        expert_institution: expert_hash[:expert].institution.name
+        assistances: expert_hash[:assistances]
       }
       ExpertMailer.notify_company_needs(expert_hash[:expert], email_params).deliver_now
     end

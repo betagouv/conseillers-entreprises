@@ -13,8 +13,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
         company_name: visit.company_name,
         company_contact: visit.visitee,
         assistances: assistances,
-        advisor: user,
-        expert_institution: expert.institution.name
+        advisor: user
       }
     end
 
@@ -29,7 +28,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       let(:assistances) { create_list :assistance, 2 }
 
       it 'displays the date, phone number and 2 list items' do
-        expect(rendered).to include visit.happened_at_localized
+        expect(rendered).to match(%r{le [0-9]{2}/[0-9]{2}/20[0-9]{2}})
         expect(rendered).to include "joignable au #{contact.phone_number}"
         assert_select 'li', count: 2
       end
@@ -41,8 +40,8 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       let(:assistances) { create_list :assistance, 1 }
 
       it 'does not display the date, and displays email and one list item' do
-        expect(rendered).not_to include 'a visité le'
-        expect(rendered).to include "joignable au #{contact.email}"
+        expect(rendered).not_to match(%r{le [0-9]{2}/[0-9]{2}/20[0-9]{2}})
+        expect(rendered).to include "joignable à l'adresse e-mail #{contact.email}"
         assert_select 'li', count: 1
       end
     end

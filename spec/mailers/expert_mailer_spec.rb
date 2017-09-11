@@ -20,8 +20,7 @@ describe ExpertMailer do
         company_name: visit.company_name,
         company_contact: visit.visitee,
         assistances: assistances,
-        advisor: user,
-        expert_institution: expert.institution.name
+        advisor: user
       }
     end
 

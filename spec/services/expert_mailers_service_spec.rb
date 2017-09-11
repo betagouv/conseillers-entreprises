@@ -100,8 +100,7 @@ describe ExpertMailersService do
         visit_date: diagnosis.visit.happened_at_localized,
         company_name: diagnosis.visit.company_name,
         company_contact: diagnosis.visit.visitee,
-        assistances: assistances,
-        expert_institution: expert.institution.name
+        assistances: assistances
       }
     end
 
