@@ -11,7 +11,7 @@
 
 %ul
   - @params[:assistances].each do |assistance|
-    %li= "#{assistance.question.label} (aide conseillée : #{assistance.title})"
+    %li= assistance.question.label
 
 - if @params[:company_contact].phone_number.present?
   %p= t('.company_contact_with_phone_number', company_name: @params[:company_name], company_contact_full_name: @params[:company_contact].full_name, company_contact_role: @params[:company_contact].role, company_contact_phone_number: @params[:company_contact].phone_number, company_contact_email: @params[:company_contact].email)
