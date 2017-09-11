@@ -5,19 +5,6 @@ require 'rails_helper'
 RSpec.describe CompaniesController, type: :controller do
   login_user
 
-  describe 'POST #search_by_siren' do
-    it 'returns http success' do
-      company = build :company
-      siren = company.siren
-      api_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
-      allow(UseCases::SearchCompany).to receive(:with_siren).with(siren) { api_json }
-
-      post :search_by_siren, params: { siren: siren }, format: :js
-
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe 'POST #search_by_name' do
     subject(:request) { post :search_by_name, params: { company: search_company_params }, format: :js }
 
@@ -33,12 +20,13 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'GET #show' do
     siret = '44622002200227'
-    company_name = 'C H D GRAND HAINAUT'
+    company_name = 'Octo Technology'
 
     before do
       allow(UseCases::SearchFacility).to receive(:with_siret).with(siret)
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret)
-      allow(ApiEntrepriseService).to receive(:company_name).and_return(company_name)
+      company_json = JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
+      entreprise_wrapper = ApiEntreprise::EntrepriseWrapper.new(company_json)
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprise_wrapper }
       allow(QwantApiService).to receive(:results_for_query).with(company_name)
     end
 
