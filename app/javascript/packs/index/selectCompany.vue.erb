@@ -11,13 +11,13 @@
       .ui.simple.inverted.dimmer
         .ui.text.loader
       template(v-if='firstItemActive')
-        p <%= I18n.t('diagnoses.company_search.search_by_siret') %>
-        company-search-by-siret(v-on:search-siret='searchSiret',
-                                v-on:error='manageError')
-      template(v-else='')
         p <%= I18n.t('diagnoses.company_search.search_by_name_and_county') %>
         company-search-by-name(v-on:search-name='searchName',
                                v-on:error='manageError')
+      template(v-else='')
+        p <%= I18n.t('diagnoses.company_search.search_by_siret') %>
+        company-search-by-siret(v-on:search-siret='searchSiret',
+                                v-on:error='manageError')
       error-message(:error-type='errorType')
       company-view(:company-data='companyData',
                    v-on:detail-button-click='goToDetailedCompanyInfo')
