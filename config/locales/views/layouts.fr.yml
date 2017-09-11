@@ -1,7 +1,7 @@
 fr:
   layouts:
     navbar:
-      diagnoses: Analyses
+      diagnoses: Liste des analyses
       know_more: En savoir plus
       sign_out: Se déconnecter
       dashboard: Admin
