@@ -1,0 +1,68 @@
+<template lang="pug">
+  modal(:show.sync='showModal')
+    div(slot='header') <%= I18n.t('diagnoses.company_search.modal_header_title') %>
+    table.ui.table
+      thead
+        tr
+          th <%= I18n.t('diagnoses.company_search.company_name') %>
+          th <%= I18n.t('diagnoses.company_search.company_location') %>
+      tbody
+        tr(
+          is="company-item",
+          v-for="(company, index) in companies",
+          v-bind:key="index",
+          v-bind:company="company",
+          v-on:close-modal="closeModal",
+          v-on:search-siren="searchSiren"
+        )
+    div(slot='actions')
+      button.ui.button(v-on:click='closeModal') <%= I18n.t('close') %>
+</template>
+
+<script>
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import * as types from './store/indexMutationTypes'
+import CompanyItem from './companyItem.vue.erb'
+import Modal from '../common/modal.vue.erb'
+
+export default {
+    name: 'company-selection-modal',
+    components: {
+        CompanyItem,
+        Modal
+    },
+    props: ['show'],
+    methods: {
+        searchSiren: function(siren) {
+            this.setSiren(siren)
+            this.clearError()
+            this.closeModal()
+            this.$store.dispatch('fetchCompanyBySiren').catch(() => {})
+        },
+        closeModal: function() {
+            this.$emit('update:show', false)
+        },
+        clearError: function() {
+            this.setErrorType('')
+        },
+        ...mapMutations({
+            setSiren: types.SIREN,
+            setErrorType: types.FORM_ERROR_TYPE,
+        }),
+    },
+    computed: {
+        ...mapState({
+            companies: state => state.indexStore.companies,
+            isRequestInProgress: state => state.indexStore.isRequestInProgress,
+        }),
+        showModal: {
+            get () {
+                return this.show
+            },
+            set (value) {
+                this.$emit('update:show', value)
+            }
+        }
+    }
+}
+</script>

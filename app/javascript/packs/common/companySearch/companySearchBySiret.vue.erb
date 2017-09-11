@@ -1,0 +1,42 @@
+<template lang="pug">
+  form.ui.form(v-on:submit.prevent='searchButtonClicked')
+    .field
+      .ui.fluid.labeled.input
+        label.ui.label(for='siret') <%= I18n.t('activerecord.attributes.facility.siret') %>
+        input#siret(name='siret', v-model='siret')
+        button.ui.teal.labeled.icon.button.left-margin
+          | <%= I18n.t('search') %>
+          i.search.icon
+
+</template>
+
+<script>
+import companyInputValidation from './utils/companyInputValidation'
+import * as Errors from './utils/indexErrorTypes'
+
+export default {
+    name: 'company-search-by-siret',
+    props: [],
+    data: function () {
+        return {
+            textInput: '',
+            textValid: false,
+            siret: ''
+        }
+    },
+    methods: {
+        searchButtonClicked: function () {
+            if (companyInputValidation.validateSiret(this.siret)) {
+                this.$emit('search-siret', this.siret)
+            } else {
+                this.$emit('error', Errors.INPUT_ERROR)
+            }
+        }
+    }
+}
+</script>
+
+<style lang="sass">
+  button.ui.button.left-margin
+    margin-left: 1em
+</style>

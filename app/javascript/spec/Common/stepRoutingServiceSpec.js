@@ -4,7 +4,6 @@ import StepRoutingService from '../../packs/common/stepRoutingService'
 
 //TODO : WHY IS babel-polyfill needed. And why does it go to other files...
 require('babel-core/register')
-require('babel-polyfill')
 
 describe('StepRoutingService', () => {
 
