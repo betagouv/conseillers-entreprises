@@ -2,8 +2,6 @@ fr:
   diagnoses:
     index:
       title: Analyses
-      search_company: Rechercher une entreprise
-      you_have_two_choices: "Vous pouvez soit indiquer le SIRET de l'entreprise soit faire une recherche."
       diagnoses_in_progress: Analyses en cours
       diagnoses_completed: Analyses réalisées
       create_new_diagnosis: Faire une nouvelle analyse
