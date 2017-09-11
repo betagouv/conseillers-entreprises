@@ -10,11 +10,11 @@
     .ui.bottom.attached.active.tab.segment.shadow-less.dimmable(:class='{ dimmed: isRequestInProgress }')
       .ui.simple.inverted.dimmer
         .ui.text.loader
-      template(v-if='firstItemActive')
+      div(v-show='firstItemActive')
         p <%= I18n.t('diagnoses.company_search.search_by_name_and_county') %>
         company-search-by-name(v-on:search-name='searchName',
                                v-on:error='manageError')
-      template(v-else='')
+      div(v-show='!firstItemActive')
         p <%= I18n.t('diagnoses.company_search.search_by_siret') %>
         company-search-by-siret(v-on:search-siret='searchSiret',
                                 v-on:error='manageError')
@@ -46,7 +46,7 @@ export default {
     data: function () {
       return {
           modalIsShowing: false,
-          firstItemActive: false
+          firstItemActive: true
       }
     },
     methods: {

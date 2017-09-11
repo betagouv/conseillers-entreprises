@@ -42,6 +42,13 @@ export default {
         closeModal: function() {
             this.$emit('update:show', false)
         },
+        clearError: function() {
+            this.setErrorType('')
+        },
+        ...mapMutations({
+            setSiren: types.SIREN,
+            setErrorType: types.FORM_ERROR_TYPE,
+        }),
     },
     computed: {
         ...mapState({
