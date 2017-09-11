@@ -16,8 +16,11 @@
   %p= t('.info_about_who_you_saw_during_your_visit', company_name: @diagnosis.visit.facility.company.name)
   %contact-form
 
-  %next-step-button{ 'v-bind:disabled' => 'isFormDisabled',
+  %next-step-button{ 'v-bind:previous-step-button' => 'true',
+                     'v-bind:save-button' => 'false',
+                     'v-bind:disabled' => 'isFormDisabled',
                      'v-bind:loading' => 'isRequestInProgress',
-                     'v-on:click' => 'nextStepButtonClicked' }
+                     'v-on:previous-step-click' => 'previousStepButtonClicked',
+                     'v-on:next-step-click' => 'nextStepButtonClicked' }
 
 = javascript_pack_tag 'step-3/step3App'

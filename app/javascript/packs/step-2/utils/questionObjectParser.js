@@ -9,6 +9,16 @@ export default  {
             diagnosedNeedId: rawJson.diagnosed_need_id || undefined,
             content: rawJson.content || ''
         }
+    },
+
+    transformDiagnosedNeed(rawJson) {
+        return {
+            id: generateId(rawJson.question_id, rawJson.id),
+            questionId: rawJson.question_id,
+            isSelected: true,
+            diagnosedNeedId: rawJson.id,
+            content: rawJson.content || ''
+        }
     }
 }
 

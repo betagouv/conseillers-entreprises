@@ -27,6 +27,7 @@ export default class StepRoutingService {
     }
 
     static goTo(url) {
+        Turbolinks.clearCache()
         Turbolinks.visit(url)
     }
 }

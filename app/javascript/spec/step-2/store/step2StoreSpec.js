@@ -191,7 +191,11 @@ describe('step2Store', () => {
         var step2StoreAPIServiceMock = {
             updateDiagnosisContent: () => {
             },
+            getDiagnosisContent: () => {
+            },
             updateDiagnosedNeeds: () => {
+            },
+            getDiagnosedNeeds: () => {
             }
         }
         var apiServiceContext = function (commit, state) {
@@ -201,6 +205,121 @@ describe('step2Store', () => {
                 step2APIServiceDependency: step2StoreAPIServiceMock
             }
         }
+
+        describe('getDiagnosisContentValue', function () {
+
+            var commit
+            const state = {
+                diagnosisContent: 'content 1',
+                diagnosisId: 12,
+                isDiagnosisRequestUnderWay: false
+            }
+
+            describe('when api call is a success', function () {
+
+                const positivePromise = Promise.resolve('content 2!')
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'getDiagnosisContent').and.returnValue(positivePromise)
+                    commit = jasmine.createSpy()
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.getDiagnosisContentValue(apiServiceContext(commit, state))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('calls contactAPIService with the diagnosisId and the content', async function () {
+                    await actions.getDiagnosisContentValue(apiServiceContext(commit, state))
+
+                    expect(step2StoreAPIServiceMock.getDiagnosisContent.calls.count()).toEqual(1)
+                    expect(step2StoreAPIServiceMock.getDiagnosisContent.calls.argsFor(0)).toEqual([12])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                    actions.getDiagnosisContentValue(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(1)
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        true
+                    ])
+                })
+
+                it('calls commit DIAGNOSIS_CONTENT with the fetched content value', async function () {
+                    await actions.getDiagnosisContentValue(apiServiceContext(commit, state))
+
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'DIAGNOSIS_CONTENT',
+                        'content 2!'
+                    ])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                    await actions.getDiagnosisContentValue(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(3)
+                    expect(commit.calls.argsFor(2)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        false
+                    ])
+                })
+            })
+
+            describe('when api call throws an error', function () {
+
+                const apiError = new Error('error :-(')
+                const negativePromise = Promise.reject(apiError)
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'getDiagnosisContent').and.returnValue(negativePromise)
+                    commit = jasmine.createSpy()
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.getDiagnosisContentValue(apiServiceContext(commit, state))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('calls contactAPIService with the diagnosisId and the content', async function () {
+                    await actions.getDiagnosisContentValue(apiServiceContext(commit, state)).catch(() => {
+                    })
+
+                    expect(step2StoreAPIServiceMock.getDiagnosisContent.calls.count()).toEqual(1)
+                    expect(step2StoreAPIServiceMock.getDiagnosisContent.calls.argsFor(0)).toEqual([12])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                    actions.getDiagnosisContentValue(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(1)
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        true
+                    ])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                    await actions.getDiagnosisContentValue(apiServiceContext(commit, state)).catch(() => {
+                    })
+
+                    expect(commit.calls.count()).toEqual(2)
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        false
+                    ])
+                })
+
+                it('propagates the error', async function () {
+                    var catchedError
+                    await actions.getDiagnosisContentValue(apiServiceContext(commit, state))
+                        .catch((error) => {
+                            catchedError = error
+                        })
+                    expect(catchedError).toEqual(apiError)
+                })
+            })
+        })
 
         describe('updateDiagnosisContent', function () {
 
@@ -308,6 +427,138 @@ describe('step2Store', () => {
             })
         })
 
+        describe('getDiagnosedNeeds', function () {
+
+            var commit
+            const state = {
+                diagnosisId: 12
+            }
+
+            describe('when api call is a success', function () {
+
+                const responseArray = [
+                    {
+                        id: 1,
+                        diagnosis_id: 23,
+                        question_id: 21,
+                        question_label: 'Question ?',
+                        content: 'Great content'
+                    },
+                    {
+                        id: 123,
+                        diagnosis_id: 23,
+                        question_id: null,
+                        question_label: 'Question ?',
+                        content: 'Another content'
+                    }
+                ]
+                const positivePromise = Promise.resolve(responseArray)
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'getDiagnosedNeeds').and.returnValue(positivePromise)
+                    commit = jasmine.createSpy()
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.getDiagnosedNeeds(apiServiceContext(commit, state))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('calls contactAPIService with the diagnosisId and the content', async function () {
+                    await actions.getDiagnosedNeeds(apiServiceContext(commit, state))
+
+                    expect(step2StoreAPIServiceMock.getDiagnosedNeeds.calls.count()).toEqual(1)
+                    expect(step2StoreAPIServiceMock.getDiagnosedNeeds.calls.argsFor(0)).toEqual([12])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                    actions.getDiagnosedNeeds(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(1)
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        true
+                    ])
+                })
+
+                it('calls commit with the fetched content values', async function () {
+                    await actions.getDiagnosedNeeds(apiServiceContext(commit, state))
+
+                    expect(commit.calls.argsFor(1)).toEqual(['QUESTION_SELECTED',{id: 'q21', isSelected: true}])
+                    expect(commit.calls.argsFor(2)).toEqual(['DIAGNOSED_NEED_ID',{id: 'q21', diagnosedNeedId: 1}])
+                    expect(commit.calls.argsFor(3)).toEqual(['QUESTION_CONTENT',{id: 'q21', content: 'Great content'}])
+
+                    expect(commit.calls.argsFor(4)).toEqual(['QUESTION_SELECTED',{id: 'd123', isSelected: true}])
+                    expect(commit.calls.argsFor(5)).toEqual(['DIAGNOSED_NEED_ID',{id: 'd123', diagnosedNeedId: 123}])
+                    expect(commit.calls.argsFor(6)).toEqual(['QUESTION_CONTENT',{id: 'd123', content: 'Another content'}])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                    await actions.getDiagnosedNeeds(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(8)
+                    expect(commit.calls.argsFor(7)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        false
+                    ])
+                })
+            })
+
+            describe('when api call throws an error', function () {
+
+                const apiError = new Error('error :-(')
+                const negativePromise = Promise.reject(apiError)
+
+                beforeEach(function () {
+                    spyOn(step2StoreAPIServiceMock, 'getDiagnosedNeeds').and.returnValue(negativePromise)
+                    commit = jasmine.createSpy()
+                })
+
+                it('returns a promise', function () {
+                    var promise = actions.getDiagnosedNeeds(apiServiceContext(commit, state))
+                    expect(typeof promise.then).toBe('function')
+                })
+
+                it('calls contactAPIService with the diagnosisId and the content', async function () {
+                    await actions.getDiagnosedNeeds(apiServiceContext(commit, state)).catch(() => {
+                    })
+
+                    expect(step2StoreAPIServiceMock.getDiagnosedNeeds.calls.count()).toEqual(1)
+                    expect(step2StoreAPIServiceMock.getDiagnosedNeeds.calls.argsFor(0)).toEqual([12])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
+                    actions.getDiagnosedNeeds(apiServiceContext(commit, state))
+
+                    expect(commit.calls.count()).toEqual(1)
+                    expect(commit.calls.argsFor(0)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        true
+                    ])
+                })
+
+                it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
+                    await actions.getDiagnosedNeeds(apiServiceContext(commit, state)).catch(() => {
+                    })
+
+                    expect(commit.calls.count()).toEqual(2)
+                    expect(commit.calls.argsFor(1)).toEqual([
+                        'REQUEST_IN_PROGRESS',
+                        false
+                    ])
+                })
+
+                it('propagates the error', async function () {
+                    var catchedError
+                    await actions.getDiagnosedNeeds(apiServiceContext(commit, state))
+                        .catch((error) => {
+                            catchedError = error
+                        })
+                    expect(catchedError).toEqual(apiError)
+                })
+            })
+        })
+
         describe('updateDiagnosedNeeds', function () {
 
             var commit
@@ -348,7 +599,7 @@ describe('step2Store', () => {
             })
             let state = {}
 
-            beforeEach(function() {
+            beforeEach(function () {
                 state = {
                     diagnosisContent: 'content !',
                     diagnosisId: 12,

@@ -70,14 +70,16 @@ describe UseCases::UpdateDiagnosis do
 
     context 'the step is smaller than current step' do
       let(:current_step) { 5 }
-      let(:params) { { step: 3 } }
+      let(:params) { { 'step' => 3 } }
 
       it('returns empty params') do
         hash = {}
         expect(cleaned_params).to eq hash
 
+
         expect(cleaned_params.key?(:content)).to eq false
         expect(cleaned_params.key?(:step)).to eq false
+        expect(cleaned_params.key?('step')).to eq false
       end
     end
   end

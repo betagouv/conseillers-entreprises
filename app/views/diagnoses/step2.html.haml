@@ -27,6 +27,10 @@
 
   %content-text-area
 
-  %next-step-button
+  %next-step-button{ 'v-bind:previous-step-button' => 'false',
+                     'v-bind:save-button' => 'true',
+                     'v-bind:loading' => 'isRequestInProgress',
+                     'v-on:save-click' => 'saveButtonClicked',
+                     'v-on:next-step-click' => 'nextStepButtonClicked' }
 
 = javascript_pack_tag 'step-2/step2App'

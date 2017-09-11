@@ -53,4 +53,28 @@ describe('QuestionObjectParser ', () => {
             })
         })
     })
+
+    describe('transformDiagnosedNeed', () => {
+        describe('there is a question id', () => {
+            const diagnosedNeedJSON = {
+                id: 54321,
+                question_id: 12345,
+                label: 'LABEL or label',
+                content: ''
+            }
+
+            const expectedQuestion = {
+                id: 'q12345',
+                questionId: 12345,
+                isSelected: true,
+                diagnosedNeedId: 54321,
+                content: ''
+            }
+
+            it('creates the expected object', function () {
+                const question = QuestionObjectParser.transformDiagnosedNeed(diagnosedNeedJSON)
+                expect(question).toEqual(expectedQuestion)
+            })
+        })
+    })
 })

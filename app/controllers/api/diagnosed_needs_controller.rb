@@ -2,6 +2,10 @@
 
 module Api
   class DiagnosedNeedsController < ApplicationController
+    def index
+      @diagnosed_needs = DiagnosedNeed.where(diagnosis_id: params[:diagnosis_id])
+    end
+
     def bulk
       DiagnosedNeed.transaction do
         DiagnosedNeed.create bulk_create_param_array

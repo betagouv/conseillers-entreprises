@@ -6,9 +6,11 @@ fr:
   update: Mettre à jour
   back: Retour
   search: Rechercher
+  save: Sauvegarder
   save_in_progress: Sauvegarde en cours
   show: Montrer
   hide: Cacher
+  previous_step: Précédent
   next_step: Passer à la suite
   sign_up: S'inscrire
   sign_in: Se connecter

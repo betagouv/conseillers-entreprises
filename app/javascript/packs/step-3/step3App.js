@@ -9,9 +9,9 @@ import nextStepButton from '../common/nextStepButton.vue.erb'
 import StepRoutingService from '../common/stepRoutingService'
 
 import TurbolinksAdapter from 'vue-turbolinks'
-Vue.use(TurbolinksAdapter)
-
 import AxiosConfigurator from '../common/axiosConfigurator'
+
+Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
 
 new Vue({
@@ -25,15 +25,27 @@ new Vue({
         'next-step-button': nextStepButton
     },
     computed: {
-        isRequestInProgress: function() {
+        isRequestInProgress: function () {
             return this.$store.state.step3Store.isRequestInProgress
         },
-        isFormDisabled: function() {
+        isFormDisabled: function () {
             return this.$store.getters.isFormDisabled
-        },
+        }
     },
     methods: {
-        nextStepButtonClicked:function () {
+        previousStepButtonClicked: function () {
+            const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
+            return stepRoutingService.goToStep(2)
+                .catch((error) => {
+                })
+        },
+        saveButtonClicked: function () {
+            console.log('saveButtonClicked')
+            this.$store.dispatch('launchNextStep')
+                .catch((error) => {
+                })
+        },
+        nextStepButtonClicked: function () {
             const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
             this.$store.dispatch('launchNextStep')
                 .then(() => {
@@ -42,6 +54,6 @@ new Vue({
                 .catch((error) => {
                 })
         }
-    },
+    }
 })
 
