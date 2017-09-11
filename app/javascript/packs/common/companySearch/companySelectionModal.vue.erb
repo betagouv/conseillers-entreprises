@@ -1,11 +1,11 @@
 <template lang="pug">
   modal(:show.sync='showModal')
-    div(slot='header') <%= I18n.t('diagnoses.company_search.modal_header_title') %>
+    div(slot='header') <%= I18n.t('common_vuejs.company_search.modal_header_title') %>
     table.ui.table
       thead
         tr
-          th <%= I18n.t('diagnoses.company_search.company_name') %>
-          th <%= I18n.t('diagnoses.company_search.company_location') %>
+          th <%= I18n.t('common_vuejs.company_search.company_name') %>
+          th <%= I18n.t('common_vuejs.company_search.company_location') %>
       tbody
         tr(
           is="company-item",

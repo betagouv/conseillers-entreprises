@@ -7,7 +7,7 @@
           input#name-input(name='name', v-model='name')
       .eleven.wide.field.no-right-padding
         .ui.labeled.input
-          label.ui.label(for='county') <%= I18n.t('diagnoses.company_search.county') %>
+          label.ui.label(for='county') <%= I18n.t('common_vuejs.company_search.county') %>
           input#county-input(name='county', v-model='county', pattern='[0-9]{2,3}')
           button.ui.teal.labeled.icon.button.left-margin.no-right-margin
             | <%= I18n.t('search') %>

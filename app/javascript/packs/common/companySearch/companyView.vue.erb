@@ -2,7 +2,7 @@
   div
     template(v-if='hasData')
       .ui.segment.shadow-less.with-top-margin
-        h3.ui.header <%= I18n.t('diagnoses.index.company_found') %>
+        h3.ui.header <%= I18n.t('common_vuejs.company_search.company_found') %>
         table.full-width
           tbody.small-horizontal-padding
             tr
@@ -12,12 +12,12 @@
                 .small.text {{companyData.name}}
             tr
               td.collapsing
-                .small.text.bold <%= I18n.t('diagnoses.index.location') %>
+                .small.text.bold <%= I18n.t('common_vuejs.company_search.location') %>
               td
                 .small.text {{companyData.location}}
           .ui.right.internal.rail.small-width
             button.ui.yellow.tiny.basic.button.no-margin(@click='detailButtonClicked')
-              | <%= I18n.t('diagnoses.index.show_detailed_information') %>
+              | <%= I18n.t('common_vuejs.company_search.show_detailed_information') %>
 </template>
 
 <script>

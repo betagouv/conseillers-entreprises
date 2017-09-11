@@ -3,19 +3,19 @@
     .ui.top.attached.tabular.menu.two.items
       .active.first.item(:class='{ not: !firstItemActive }',
                          v-on:click='activateFirstTab')
-        template <%= I18n.t('diagnoses.company_search.search_by_name') %>
+        template <%= I18n.t('common_vuejs.company_search.search_by_name') %>
       .active.last.item(:class='{ not: firstItemActive }',
                          v-on:click='activateLastTab')
-        template <%= I18n.t('diagnoses.company_search.search_by_siret') %>
+        template <%= I18n.t('common_vuejs.company_search.search_by_siret') %>
     .ui.bottom.attached.active.tab.segment.shadow-less.dimmable(:class='{ dimmed: isRequestInProgress }')
       .ui.simple.inverted.dimmer
         .ui.text.loader
       div(v-show='firstItemActive')
-        p <%= I18n.t('diagnoses.company_search.search_by_name_and_county') %>
+        p <%= I18n.t('common_vuejs.company_search.search_by_name_and_county') %>
         company-search-by-name(v-on:search-name='searchName',
                                v-on:error='manageError')
       div(v-show='!firstItemActive')
-        p <%= I18n.t('diagnoses.company_search.search_by_siret') %>
+        p <%= I18n.t('common_vuejs.company_search.search_by_siret') %>
         company-search-by-siret(v-on:search-siret='searchSiret',
                                 v-on:error='manageError')
       error-message(:error-type='errorType')
