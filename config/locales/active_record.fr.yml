@@ -43,9 +43,6 @@ fr:
       diagnosed_need:
         one: Besoin analysé
         other: Besoins analysés
-      mailto_log:
-        one: Mailto
-        other: Mailtos
     attributes:
       user:
         email: Adresse e-mail
@@ -138,9 +135,6 @@ fr:
         diagnosis: Analyse parente
         question_label: Nom du besoin
         question: Besoin
-      mailto_log:
-        visit: Visite
-        assistance: Aide
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

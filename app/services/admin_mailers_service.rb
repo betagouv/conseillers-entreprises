@@ -13,7 +13,6 @@ class AdminMailersService
       sign_up_statistics
       visits_statistics
       diagnoses_statistics
-      mailto_statistics
 
       AdminMailer.delay.weekly_statistics(@information_hash)
     end
@@ -38,13 +37,6 @@ class AdminMailersService
       recent_diagnoses = Diagnosis.created_last_week.where(visit: @not_admin_visits).group(:visit).count
       @information_hash[:diagnoses] = recent_diagnoses.collect do |visit, count|
         { visit: visit, diagnoses_count: count }
-      end
-    end
-
-    def mailto_statistics
-      recent_mailto_logs = MailtoLog.created_last_week.where(visit: @not_admin_visits).group(:visit).count
-      @information_hash[:mailto_logs] = recent_mailto_logs.collect do |visit, count|
-        { visit: visit, logs_count: count }
       end
     end
   end

@@ -25,8 +25,7 @@ describe AdminMailer do
       {
         signed_up_users: { count: 1, items: [user] },
         visits: [{ user: user, visits_count: 1 }],
-        diagnoses: [{ visit: visit, diagnoses_count: 1 }],
-        mailto_logs: [{ visit: visit, logs_count: 1 }]
+        diagnoses: [{ visit: visit, diagnoses_count: 1 }]
       }
     end
 

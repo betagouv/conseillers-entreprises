@@ -33,8 +33,6 @@ Rails.application.routes.draw do
     post :create_diagnosis_from_siret, on: :collection
   end
 
-  resources :mailto_logs, only: %i[create]
-
   namespace :api do
     resources :companies, only: %i[] do
       post :search_by_name, on: :collection

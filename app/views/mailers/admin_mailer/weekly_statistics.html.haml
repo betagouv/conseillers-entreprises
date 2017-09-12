@@ -36,17 +36,4 @@
       %li= link_to text, admin_diagnoses_url(query_params)
 
 
-- if @information_hash[:mailto_logs].empty?
-  %p
-    %strong= t('.no_email_button_clicked')
-- else
-  %p
-    %strong= t('.email_buttons_clicked')
-  %ul
-    - @information_hash[:mailto_logs].each do |log|
-      - query_params = {'q[visit_id_eq]' => log[:visit].id, 'q[created_at_gteq_datetime]' => 1.week.ago.to_date, 'q[created_at_lteq_datetime]' => Time.zone.today}
-      - text = t('.email_button_clicked_count_visit', count: log[:logs_count], visit: log[:visit])
-      %li= link_to text, admin_mailto_logs_url(query_params)
-
-
 %p= t('.see_you_next_week')

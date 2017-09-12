@@ -49,9 +49,4 @@ fr:
         diagnosis_count_visit:
           one: "Une analyse pour la %{visit}"
           other: "%{count} analyses pour la %{visit}"
-        no_email_button_clicked: Aucun bouton email cliqué.
-        email_buttons_clicked: 'Boutons email cliqués :'
-        email_button_clicked_count_visit:
-          one: "Un bouton email cliqué pour la %{visit}"
-          other: "%{count} boutons email cliqués pour la %{visit}"
         see_you_next_week: A la semaine prochaine pour de nouvelles aventures !
