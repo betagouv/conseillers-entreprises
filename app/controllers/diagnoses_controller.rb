@@ -34,12 +34,9 @@ class DiagnosesController < ApplicationController
 
   def notify_experts
     diagnosis = Diagnosis.find params[:id]
-    assistances_experts = params[:assistances_experts]
-    unless assistances_experts.blank?
-      assistance_expert_ids = ExpertMailersService.filter_assistances_experts(assistances_experts)
-      UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
-      ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
-                                                        assistance_expert_ids: assistance_expert_ids)
+    if params[:assistances_experts].present?
+      assistance_expert_ids = ExpertMailersService.filter_assistances_experts(params[:assistances_experts])
+      create_selected_ae_and_send_emails(diagnosis, assistance_expert_ids)
     end
     diagnosis.update step: 5
     redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
@@ -49,5 +46,13 @@ class DiagnosesController < ApplicationController
     diagnosis = Diagnosis.find params[:id]
     diagnosis.destroy
     redirect_to diagnoses_path
+  end
+
+  private
+
+  def create_selected_ae_and_send_emails(diagnosis, assistance_expert_ids)
+    UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
+    ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
+                                                      assistance_expert_ids: assistance_expert_ids)
   end
 end

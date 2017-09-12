@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserImpersonate
   class Engine < Rails::Engine
     # Devise user model
@@ -41,4 +43,3 @@ module UserImpersonate
     config.current_staff = 'current_user'
   end
 end
-
