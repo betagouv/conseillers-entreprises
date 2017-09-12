@@ -17,7 +17,7 @@ fr:
         advisor_met_this_company_html: Dans le cadre de l'expérimentation %{link_to_root}, %{advisor_name}, conseiller en entreprise au sein de l'organisme %{advisor_institution}, a rencontré l'entreprise %{company_name} le %{visit_date}.
         advisor_met_this_company_without_date_html: Dans le cadre de l'expérimentation %{link_to_root}, %{advisor_name}, conseiller en entreprise au sein de l'organisme %{advisor_institution}, a rencontré l'entreprise %{company_name}.
         needs_are_relevant_with_your_skills: "L'entreprise a exprimé des besoins qui correspondent à votre compétence :"
-        more_info: Informations complémentaires
+        more_info: "Informations complémentaires :"
         company_contact_with_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l'entreprise %{company_name}, joignable au %{company_contact_phone_number} ou à l'adresse e-mail %{company_contact_email}.
         company_contact_without_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l'entreprise %{company_name}, joignable à l'adresse e-mail %{company_contact_email}.
         contact_advisor_for_more_info: Pour plus d'informations, vous pouvez contacter %{advisor_name} au %{advisor_phone_number} ou à l'adresse e-mail %{advisor_email}.

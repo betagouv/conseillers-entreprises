@@ -42,7 +42,7 @@ class DiagnosesController < ApplicationController
                                                         assistance_expert_ids: assistance_expert_ids)
     end
     diagnosis.update step: 5
-    redirect_to step_5_diagnosis_path(diagnosis)
+    redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
   end
 
   def destroy

@@ -37,7 +37,7 @@ fr:
     step2:
       title: Identification des besoins
       identify_needs: Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l'entreprise.
-      diagnosis_content: "Entrez des informations complémentaires concernant l'analyse au global :"
+      diagnosis_content: "Informations générales sur cette entreprise :"
       diagnosed_need_content: "Entrez des informations complémentaires concernant ce besoin spécifique :"
       no_category: Besoins non désélectionnables
       no_category_detail: Ces besoins ayant été modifiés par l'équipe Réso, ils ne sont plus disponibles ni à la création ni à la suppression. Il est toujours possible de modifier les informations complémentaires.
@@ -75,7 +75,6 @@ fr:
       zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
       diagnosed_needs_content_label: "Les informations complémentaires concernant ce besoin :"
       diagnosis_content_subtitle: Informations complémentaires
-      diagnosis_content_label: "Les informations complémentaires concernant la visite au global :"
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       diagnosed_needs:
         zero: 0 besoin identifié

@@ -10,6 +10,8 @@
 #step2-app
   %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content}
 
+  %content-text-area
+
   - @categories_with_questions.each do |item|
     - if item[:category]
       %h2.ui.header
@@ -24,8 +26,6 @@
         - item[:questions].each do |question|
           %tr{'is' => 'question-selection-row', 'question-data-serialized' => question.to_json}
           %tr{'is' => 'question-content-row', 'question-data-serialized' => question.to_json}
-
-  %content-text-area
 
   %next-step-button{ 'v-bind:previous-step-button' => 'false',
                      'v-bind:save-button' => 'true',

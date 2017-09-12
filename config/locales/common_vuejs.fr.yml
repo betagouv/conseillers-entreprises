@@ -14,7 +14,7 @@ fr:
       input_error_text: Vérifiez que vous avez correctement complété la raison sociale ainsi que le numéro de département.
       company_not_found_error_title: Entreprise non trouvée !
       company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
-      search_by_siret: "Rechercher l'entreprise en renseignant son SIRET."
-      search_by_name_and_county: "Rechercher l'entreprise en renseignant sa raison sociale et son numéro de département."
       search_by_name: Recherche par nom d'entreprise
       search_by_siret: Recherche par SIRET
+      search_by_name_description: "Rechercher l'entreprise en renseignant sa raison sociale et son numéro de département."
+      search_by_siret_description: "Rechercher l'entreprise en renseignant son numéro SIRET."

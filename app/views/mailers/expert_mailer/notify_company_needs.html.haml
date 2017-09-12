@@ -13,9 +13,10 @@
   - @params[:questions_with_needs_description].each do |question_with_need_description|
     %li
       = question_with_need_description[:question].label
-      %br
-        %strong= t('.more_info')
-      %br= question_with_need_description[:need_description]
+      - if question_with_need_description[:need_description].present?
+        %br
+        = t('.more_info')
+        = question_with_need_description[:need_description]
 
 - if @params[:company_contact].phone_number.present?
   %p= t('.company_contact_with_phone_number', company_name: @params[:company_name], company_contact_full_name: @params[:company_contact].full_name, company_contact_role: @params[:company_contact].role, company_contact_phone_number: @params[:company_contact].phone_number, company_contact_email: @params[:company_contact].email)

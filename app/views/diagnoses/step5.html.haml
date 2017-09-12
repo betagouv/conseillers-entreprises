@@ -1,9 +1,6 @@
 - meta title: t('.title')
 
 #step5-app
-  .ui.success.message
-    %p= t('.notifications_sent')
-
   %h1= t('.title')
 
   %table.ui.table.ui
@@ -82,5 +79,4 @@
     .ui.segment.shadow-less
       .ui.form
         .field
-          %label= t('.diagnosis_content_label')
           = @diagnosis.content
