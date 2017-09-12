@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
     if NOT_FOUND_ERROR_CLASSES.include? exception.class
       respond_with_status(404)
     else
+      send_error_notifications(exception)
       respond_with_status(500)
     end
   end
@@ -41,5 +42,16 @@ class ApplicationController < ActionController::Base
       format.json { render body: nil, status: status }
       format.js { render body: nil, status: status }
     end
+  end
+
+  def send_error_notifications(exception)
+    data = {
+      message: '500',
+      format: request&.format&.symbol,
+      current_user_full_name: current_user&.full_name,
+      current_user_email: current_user&.email,
+      current_user_id: current_user&.id
+    }
+    ExceptionNotifier.notify_exception exception, env: request.env, data: data
   end
 end
