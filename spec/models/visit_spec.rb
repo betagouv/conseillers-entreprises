@@ -110,4 +110,23 @@ RSpec.describe Visit, type: :model do
       expect(visit.company_name).to eq name
     end
   end
+
+  describe 'can_be_viewed_by?' do
+    subject { visit.can_be_viewed_by?(user) }
+
+    let(:visit) { create :visit, advisor: advisor }
+    let(:user) { create :user }
+
+    context 'visit advisor is the user' do
+      let(:advisor) { user }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'visit advisor is not the user' do
+      let(:advisor) { create :user }
+
+      it { is_expected.to eq false }
+    end
+  end
 end

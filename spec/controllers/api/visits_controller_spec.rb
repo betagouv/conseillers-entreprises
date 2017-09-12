@@ -9,7 +9,7 @@ RSpec.describe Api::VisitsController, type: :controller do
     subject(:request) { get :show, format: :json, params: { id: visit.id } }
 
     context 'when visit exists' do
-      let(:visit) { create :visit }
+      let(:visit) { create :visit, advisor: current_user }
 
       it 'returns http success' do
         request
@@ -28,7 +28,7 @@ RSpec.describe Api::VisitsController, type: :controller do
   describe 'PATCH #update' do
     subject(:request) { patch :update, format: :json, params: { id: visit.id, visit: visit_params } }
 
-    let(:visit) { create :visit }
+    let(:visit) { create :visit, advisor: current_user }
     let(:visit_params) { { happened_at: date_string } }
 
     context 'when parameters are OK' do

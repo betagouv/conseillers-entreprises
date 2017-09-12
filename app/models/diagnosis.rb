@@ -28,6 +28,6 @@ class Diagnosis < ApplicationRecord
   end
 
   def can_be_viewed_by?(user)
-    visit.advisor == user
+    visit.can_be_viewed_by?(user)
   end
 end
