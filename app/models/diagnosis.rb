@@ -26,4 +26,8 @@ class Diagnosis < ApplicationRecord
   def selected_assistance_experts_count
     diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
   end
+
+  def can_be_viewed_by?(user)
+    visit.advisor == user
+  end
 end

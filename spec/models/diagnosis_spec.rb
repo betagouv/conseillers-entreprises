@@ -222,5 +222,25 @@ RSpec.describe Diagnosis, type: :model do
       end
     end
   end
+
+  describe 'can_be_viewed_by?' do
+    subject { diagnosis.can_be_viewed_by?(user) }
+
+    let(:visit) { create :visit, advisor: advisor }
+    let(:user) { create :user }
+    let!(:diagnosis) { create :diagnosis, visit: visit }
+
+    context 'diagnosis advisor is the user' do
+      let(:advisor) { user }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'diagnosis advisor is not the user' do
+      let(:advisor) { create :user }
+
+      it { is_expected.to eq false }
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

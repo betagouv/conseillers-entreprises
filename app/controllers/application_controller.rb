@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
     diagnoses_path
   end
 
+  def not_found
+    raise ActionController::RoutingError, 'Not Found'
+  end
+
   private
 
   def render_error(exception)
