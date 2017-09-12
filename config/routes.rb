@@ -58,9 +58,7 @@ Rails.application.routes.draw do
       resources :contacts, only: %i[index create]
     end
 
-    resources :contacts, only: %i[show update destroy] do
-      get :contact_button_expert, on: :collection
-    end
+    resources :contacts, only: %i[show update destroy]
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

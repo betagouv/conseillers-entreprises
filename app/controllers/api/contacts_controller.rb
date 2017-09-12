@@ -35,13 +35,6 @@ module Api
       end
     end
 
-    def contact_button_expert
-      @visit = Visit.find params[:visit_id]
-      @assistance = Assistance.find params[:assistance_id]
-      @expert = Expert.find params[:expert_id]
-      @question = @assistance.question
-    end
-
     private
 
     def create_params

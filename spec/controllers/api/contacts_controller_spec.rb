@@ -174,43 +174,5 @@ RSpec.describe Api::ContactsController, type: :controller do
       it('raises an error') { expect { request }.to raise_error ActionController::UrlGenerationError }
     end
   end
-
-  describe 'GET #contact_button_expert' do
-    subject(:request) do
-      get :contact_button_expert,
-          format: :json,
-          params: { visit_id: visit.id, assistance_id: assistance.id, expert_id: expert.id }
-    end
-
-    context 'when visit exists' do
-      let(:visit) { create :visit }
-
-      context 'when assistance exists' do
-        let(:assistance) { create :assistance, :with_expert }
-        let(:expert) { assistance.experts.first }
-
-        it('returns http success') do
-          request
-
-          expect(response).to have_http_status(:ok)
-        end
-      end
-
-      context 'when assistance does not exist' do
-        let(:assistance) { build :assistance, :with_expert }
-        let(:expert) { create :expert }
-
-        it('raises an error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
-      end
-    end
-
-    context 'when visit does not exist' do
-      let(:visit) { build :visit }
-      let(:assistance) { create :assistance, :with_expert }
-      let(:expert) { create :expert }
-
-      it('raises an error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
-    end
-  end
 end
 # rubocop:enable Metrics/BlockLength
