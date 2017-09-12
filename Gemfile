@@ -27,6 +27,7 @@ gem 'uglifier', '>= 1.3.0'
 
 # Parallel processes
 gem 'clockwork', '~> 2.0', '>= 2.0.2'
+gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'webpacker', '~> 2.0'
 
