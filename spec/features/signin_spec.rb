@@ -12,6 +12,6 @@ describe 'the signin process', type: :feature do
       fill_in 'Mot de passe', with: 'password'
     end
     click_button 'Se connecter'
-    expect(page).to have_content 'Connecté'
+    expect(page).to have_content 'Analyses en cours'
   end
 end

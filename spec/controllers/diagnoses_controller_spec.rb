@@ -45,6 +45,7 @@ RSpec.describe DiagnosesController, type: :controller do
     before do
       allow(ExpertMailersService).to receive(:filter_assistances_experts) { assistance_expert_ids }
       allow(UseCases::CreateSelectedAssistancesExperts).to receive(:perform)
+      allow(ExpertMailersService).to receive(:delay) { ExpertMailersService }
       allow(ExpertMailersService).to receive(:send_assistances_email)
 
       post :notify_experts, params: {

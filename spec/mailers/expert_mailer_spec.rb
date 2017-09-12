@@ -12,16 +12,17 @@ describe ExpertMailer do
     let(:expert) { create :expert }
     let(:assistances) { create_list :assistance, 2 }
     let(:user) { create :user }
+    let(:question) { create :question }
     let(:visit) { create :visit, :with_visitee, advisor: user }
+    let(:questions_with_needs_description) { [{ question: question, need_description: 'Help this company' }] }
 
     let(:params_hash) do
       {
         visit_date: visit.happened_at_localized,
         company_name: visit.company_name,
         company_contact: visit.visitee,
-        assistances: assistances,
-        advisor: user,
-        expert_institution: expert.institution.name
+        questions_with_needs_description: questions_with_needs_description,
+        advisor: user
       }
     end
 

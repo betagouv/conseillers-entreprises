@@ -8,7 +8,8 @@
 
     %main
       .ui.main.home-layout
-        = render partial: 'layouts/flashes'
+        .ui.container
+          = render partial: 'layouts/flashes'
         = yield
 
     = render partial: 'layouts/footer_home'

@@ -1,11 +1,16 @@
 window.ToggleDiv =
-  setup: ->
+  setupButtons: ->
     $('.toggle-show-button').on 'click', ->
       window.ToggleDiv.show($(this).parent())
     $('.toggle-hide-button').on 'click', ->
       window.ToggleDiv.hide($(this).parent())
+
+  hideToggleDiv: ->
     $('.toggle-hide-button').hide()
     $('.toggle-div').hide()
+
+  hideToggleShow: ->
+    $('.toggle-show-button').hide()
 
   show: ($wrapperDiv) ->
     $wrapperDiv.find('.toggle-show-button').first().hide()
@@ -18,10 +23,18 @@ window.ToggleDiv =
     $wrapperDiv.find('.toggle-div').first().hide()
 
 $(document).on 'turbolinks:load', ->
-  if $('#company-show').length > 0 || $('.assistance').length > 0
-    window.ToggleDiv.setup()
+  if $('#company-show').length > 0
+    window.ToggleDiv.setupButtons()
+    window.ToggleDiv.hideToggleDiv()
+  if $('#diagnoses-index').length > 0
+    window.ToggleDiv.setupButtons()
+    window.ToggleDiv.hideToggleShow()
 
 # IE9 compatibility
 $ ->
-  if $('#company-show').length > 0 || $('.assistance').length > 0
-    window.ToggleDiv.setup()
+  if $('#company-show').length > 0
+    window.ToggleDiv.setupButtons()
+    window.ToggleDiv.hideToggleDiv()
+  if $('#diagnoses-index').length > 0
+    window.ToggleDiv.setupButtons()
+    window.ToggleDiv.hideToggleShow()

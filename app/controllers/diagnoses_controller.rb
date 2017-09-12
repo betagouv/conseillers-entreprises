@@ -38,9 +38,8 @@ class DiagnosesController < ApplicationController
     unless assistances_experts.blank?
       assistance_expert_ids = ExpertMailersService.filter_assistances_experts(assistances_experts)
       UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
-      # TODO: Use Delayed Jobs to perform email sending ; http://doc.scalingo.com/languages/ruby/delayed-job.html
-      ExpertMailersService.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
-                                                  assistance_expert_ids: assistance_expert_ids)
+      ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
+                                                        assistance_expert_ids: assistance_expert_ids)
     end
     diagnosis.update step: 5
     redirect_to step_5_diagnosis_path(diagnosis)
