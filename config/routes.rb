@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount UserImpersonate::Engine => '/impersonate', as: 'impersonate_engine'
   devise_for :users, controllers: { registrations: 'users/registrations' }
   ActiveAdmin.routes(self)
   root to: 'home#index'

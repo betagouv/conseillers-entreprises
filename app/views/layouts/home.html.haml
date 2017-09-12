@@ -6,6 +6,9 @@
     = render partial: 'layouts/navbar'
     = render partial: 'layouts/environment_ribbon'
 
+    - if current_staff_user
+      = render 'user_impersonate/header'
+
     %main
       .ui.main.home-layout
         .ui.container

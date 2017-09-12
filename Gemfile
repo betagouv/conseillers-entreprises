@@ -33,6 +33,7 @@ gem 'webpacker', '~> 2.0'
 # Improving models
 gem 'devise'
 gem 'paranoia', '~> 2.2'
+gem 'user_impersonate2', require: 'user_impersonate', github: 'rcook/user_impersonate2'
 
 # Misc
 gem 'activeadmin'
