@@ -49,4 +49,6 @@ fr:
       commune_implantation: Commune d'implantation
       pays_implantation: Pays d'implantation
       adresse: Adresse
-
+    search:
+      search_company: Rechercher une entreprise
+      you_have_two_choices: "Vous pouvez soit indiquer le SIRET de l'entreprise soit faire une recherche."

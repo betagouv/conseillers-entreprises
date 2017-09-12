@@ -1,0 +1,126 @@
+<template lang="pug">
+  div
+    .ui.top.attached.tabular.menu.two.items
+      .active.first.item(:class='{ not: !firstItemActive }',
+                         v-on:click='activateFirstTab')
+        template <%= I18n.t('common_vuejs.company_search.search_by_name') %>
+      .active.last.item(:class='{ not: firstItemActive }',
+                         v-on:click='activateLastTab')
+        template <%= I18n.t('common_vuejs.company_search.search_by_siret') %>
+    .ui.bottom.attached.active.tab.segment.shadow-less.dimmable(:class='{ dimmed: isRequestInProgress }')
+      .ui.simple.inverted.dimmer
+        .ui.text.loader
+      div(v-show='firstItemActive')
+        p <%= I18n.t('common_vuejs.company_search.search_by_name_and_county') %>
+        company-search-by-name(v-on:search-name='searchName',
+                               v-on:error='manageError')
+      div(v-show='!firstItemActive')
+        p <%= I18n.t('common_vuejs.company_search.search_by_siret') %>
+        company-search-by-siret(v-on:search-siret='searchSiret',
+                                v-on:error='manageError')
+      error-message(:error-type='errorType')
+      company-view(:company-data='companyData',
+                   v-on:detail-button-click='goToDetailedCompanyInfo')
+      company-selection-modal(:show.sync="modalIsShowing")
+</template>
+
+<script>
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import * as types from './store/searchMutationTypes'
+import CompanySearchBySiret from './companySearchBySiret.vue.erb'
+import CompanySearchByName from './companySearchByName.vue.erb'
+import ErrorMessage from './errorMessage.vue.erb'
+import CompanyView from './companyView.vue.erb'
+import CompanySelectionModal from './companySelectionModal.vue.erb'
+import Modal from '../modal.vue.erb'
+
+export default {
+    name: 'select-company',
+    components: {
+        CompanySearchBySiret,
+        CompanySearchByName,
+        ErrorMessage,
+        CompanyView,
+        CompanySelectionModal
+    },
+    data: function () {
+      return {
+          modalIsShowing: false,
+          firstItemActive: true
+      }
+    },
+    methods: {
+        activateFirstTab: function() {
+           this.firstItemActive = true
+        },
+        activateLastTab: function() {
+           this.firstItemActive = false
+        },
+        searchSiret: function(siret) {
+            this.setSiret(siret)
+            this.clearError()
+            this.$store.dispatch('fetchCompanyBySiret').catch(() => {})
+        },
+        searchSiren: function(siren) {
+            this.setSiren(siren)
+            this.clearError()
+            this.closeModal()
+            this.$store.dispatch('fetchCompanyBySiren').catch(() => {})
+        },
+        searchName: function(name, county) {
+            this.setName(name)
+            this.setCounty(county)
+            this.clearError()
+            this.$store.dispatch('fetchCompaniesByName').catch(() => {})
+            this.showModal()
+        },
+        manageError: function(error) {
+            this.setErrorType(error)
+            this.clearSiret()
+        },
+        clearSiret: function() {
+            this.setSiret('')
+        },
+        clearError: function() {
+            this.setErrorType('')
+        },
+        showModal: function() {
+            this.modalIsShowing = true
+        },
+        ...mapMutations({
+            setSiret: types.SIRET,
+            setSiren: types.SIREN,
+            setName: types.NAME,
+            setCounty: types.COUNTY,
+            setErrorType: types.FORM_ERROR_TYPE
+        }),
+        goToDetailedCompanyInfo: function (siret) {
+            const url = `/companies/${siret}`
+            window.open(url, '_blank')
+        }
+    },
+    computed: {
+        ...mapState({
+            errorType: state => state.searchStore.formErrorType,
+            companyData: state => state.searchStore.companyData,
+            isRequestInProgress: state => state.searchStore.isRequestInProgress,
+        }),
+    }
+}
+</script>
+
+<style lang="sass">
+  .ui.tabular.menu.two.items
+    .first.item
+      margin-right: 0.5%
+    .last.item
+      margin-left: 0.5%
+    .item
+      margin-top: 0px
+      width: 49.5%
+    .not.active.item
+      background-color: #F8F8F8
+      border-bottom: solid
+      border-bottom-width: 1px
+      border-bottom-color: #D4D4D5
+</style>

@@ -2,10 +2,10 @@ fr:
   layouts:
     navbar:
       diagnoses: Analyses
-      new_diagnosis: Nouvelle analyse
       know_more: En savoir plus
       sign_out: Se déconnecter
       dashboard: Admin
+      company_search: Fiche Entreprise
       profile: Profil
     footer:
       problem_or_question: Un problème ? Une question ?

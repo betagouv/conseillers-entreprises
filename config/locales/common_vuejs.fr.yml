@@ -1,0 +1,20 @@
+fr:
+  common_vuejs:
+    company_search:
+      modal_header_title: Entreprises correspondantes
+      county: N° de département
+      company_name: Nom
+      company_location: Localité
+      company_found: Entreprise trouvée
+      show_detailed_information: Voir les informations<br/>détaillées
+      location: Localité
+      siret_format_error_title: Numéro invalide !
+      siret_format_error_text: Vérifiez que le numéro SIRET est bien composé de 14 chiffres.
+      input_error_title: Informations non valides !
+      input_error_text: Vérifiez que vous avez correctement complété la raison sociale ainsi que le numéro de département.
+      company_not_found_error_title: Entreprise non trouvée !
+      company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
+      search_by_siret: "Rechercher l'entreprise en renseignant son SIRET."
+      search_by_name_and_county: "Rechercher l'entreprise en renseignant sa raison sociale et son numéro de département."
+      search_by_name: Recherche par nom d'entreprise
+      search_by_siret: Recherche par SIRET

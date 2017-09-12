@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: %i[show], param: :siret do
+    get :search, on: :collection
     post :create_diagnosis_from_siret, on: :collection
   end
 
