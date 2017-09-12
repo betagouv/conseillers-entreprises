@@ -95,7 +95,7 @@ Rails.application.configure do
                           channel: '#startup-reso-dev',
                           username: 'RéSo production',
                           additional_parameters: {
-                            icon_emoji: ':boom:'
+                            icon_emoji: ':boom:',
                             mrkdwn: true
                           }
                         }

@@ -106,7 +106,7 @@ Rails.application.configure do
                           channel: '#startup-reso-dev',
                           username: 'RéSo staging',
                           additional_parameters: {
-                            icon_emoji: ':turtle:'
+                            icon_emoji: ':turtle:',
                             mrkdwn: true
                           }
                         }
