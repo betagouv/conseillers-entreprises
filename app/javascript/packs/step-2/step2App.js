@@ -8,11 +8,13 @@ import questionContentRow from './questionContentRow.vue.erb'
 import nextStepButton from '../common/nextStepButton.vue.erb'
 import StepRoutingService from '../common/stepRoutingService'
 
+import ErrorHandler from '../common/errorHandler'
 import TurbolinksAdapter from 'vue-turbolinks'
 import AxiosConfigurator from '../common/axiosConfigurator'
 
 Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
+ErrorHandler.configure()
 
 new Vue({
     el: '#step2-app',
@@ -41,11 +43,11 @@ new Vue({
                 .then(() => {
                     this.$store.dispatch('getDiagnosedNeeds')
                 })
-                .catch((error) => {
-                })
+                .catch(ErrorHandler.report)
         },
         nextStepButtonClicked: function () {
-            const stepRoutingService = new StepRoutingService(this.$store.state.step2Store.diagnosisId)
+            const stepRoutingService = new StepRoutingService(2454)
+            // const stepRoutingService = new StepRoutingService(this.$store.state.step2Store.diagnosisId)
             this.$store.dispatch('sendDiagnosisContentUpdate')
                 .then(() => {
                     return this.$store.dispatch('sendDiagnosedNeedsBulkUpdate')
@@ -53,8 +55,7 @@ new Vue({
                 .then(() => {
                     return stepRoutingService.goToStep(3)
                 })
-                .catch((error) => {
-                })
+                .catch(ErrorHandler.report)
         }
     }
 })

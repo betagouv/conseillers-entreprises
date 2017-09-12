@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ErrorService from '../../common/errorService'
 
 export default {
 
@@ -33,7 +34,7 @@ export default {
     getDiagnosedNeeds(diagnosisId) {
         var config = {
             method: 'get',
-            url: `/api/diagnoses/${diagnosisId}/diagnosed_needs`,
+            url: `/api/diagnoses/${diagnosisId}/diagnosed_needs`
         }
 
         return this.send(config).then((response) => {
@@ -56,6 +57,8 @@ export default {
     },
 
     send(config) {
-        return axios(config)
+        return axios(config).catch((error) => {
+            throw ErrorService.configureAPIErrorMessage(error, config)
+        })
     }
 }
