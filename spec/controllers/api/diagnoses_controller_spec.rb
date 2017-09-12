@@ -6,7 +6,8 @@ RSpec.describe Api::DiagnosesController, type: :controller do
   login_user
 
   let(:content) { Faker::Lorem.paragraph }
-  let(:diagnosis) { create :diagnosis, content: content }
+  let(:diagnosis) { create :diagnosis, content: content, visit: visit }
+  let(:visit) { create :visit, advisor: current_user }
 
   describe 'GET #show' do
     it('returns http success') do

@@ -4,6 +4,7 @@ module Api
   class DiagnosesController < ApplicationController
     def show
       @diagnosis = Diagnosis.find params[:id]
+      check_access_to_diagnosis(@diagnosis)
     end
 
     def create
@@ -19,13 +20,17 @@ module Api
 
     def update
       @diagnosis = Diagnosis.find params[:id]
-      @diagnosis.update UseCases::UpdateDiagnosis.clean_update_params update_params,
-                                                                      current_step: @diagnosis.step
+      check_access_to_diagnosis(@diagnosis)
+      @diagnosis.update UseCases::UpdateDiagnosis.clean_update_params update_params, current_step: @diagnosis.step
     rescue StandardError
       render body: nil, status: :bad_request
     end
 
     private
+
+    def check_access_to_diagnosis(diagnosis)
+      not_found unless diagnosis.can_be_viewed_by?(current_user)
+    end
 
     def update_params
       params.require(:diagnosis).permit(%i[content step])
