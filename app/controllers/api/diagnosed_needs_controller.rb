@@ -3,22 +3,29 @@
 module Api
   class DiagnosedNeedsController < ApplicationController
     def index
-      @diagnosed_needs = DiagnosedNeed.where(diagnosis_id: params[:diagnosis_id])
+      diagnosis = Diagnosis.find params[:diagnosis_id]
+      not_found unless diagnosis.can_be_viewed_by?(current_user)
+      @diagnosed_needs = DiagnosedNeed.where(diagnosis: diagnosis)
     end
 
     def bulk
-      DiagnosedNeed.transaction do
-        DiagnosedNeed.create bulk_create_param_array
-        DiagnosedNeed.update(bulk_update_param_hash.keys, bulk_update_param_hash.values)
-        DiagnosedNeed.destroy bulk_delete_param_array
-      end
-
+      diagnosis = Diagnosis.find params[:diagnosis_id]
+      not_found unless diagnosis.can_be_viewed_by?(current_user)
+      bulk_transaction
       render body: nil
     rescue StandardError
       render body: nil, status: :bad_request
     end
 
     private
+
+    def bulk_transaction
+      DiagnosedNeed.transaction do
+        DiagnosedNeed.create bulk_create_param_array
+        DiagnosedNeed.update(bulk_update_param_hash.keys, bulk_update_param_hash.values)
+        DiagnosedNeed.destroy bulk_delete_param_array
+      end
+    end
 
     def bulk_create_param_array
       create_param = params.require(:bulk_params).permit(create: %i[question_id question_label content])
