@@ -9,7 +9,7 @@ import ErrorService from '../common/errorService'
 
 Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
-ErrorService.configure()
+ErrorService.configureFramework(Vue)
 
 new Vue({
     el: '#company-search-app',

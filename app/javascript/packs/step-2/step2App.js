@@ -14,7 +14,7 @@ import AxiosConfigurator from '../common/axiosConfigurator'
 
 Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
-ErrorService.configure()
+ErrorService.configureFramework(Vue)
 
 new Vue({
     el: '#step2-app',

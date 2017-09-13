@@ -1,17 +1,16 @@
 import TraceKit from 'tracekit'
-import Vue from 'vue/dist/vue.esm'
 import axios from 'axios'
 
+TraceKit.report.subscribe(function yourLogger(errorReport) {
+    console.log(' >  Tracekit')
+    console.log(errorReport)
+})
+
 export default {
-    configure() {
+    configureFramework(Vue) {
         Vue.config.errorHandler = function (err, vm, info) {
             TraceKit.report(err)
         }
-
-        TraceKit.report.subscribe(function yourLogger(errorReport) {
-            console.log(' >  Tracekit')
-            console.log(errorReport)
-        })
     },
 
     report(error) {
