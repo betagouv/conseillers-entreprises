@@ -13,8 +13,12 @@ ActiveAdmin.register User do
                 :is_approved
 
   collection_action :send_invitation_emails, method: :post do
-    UserMailer.send_new_user_invitation(params).deliver_now
+    UserMailer.delay.send_new_user_invitation(params)
     redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
+  end
+
+  action_item :impersonate, only: :show do
+    link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
   end
 
   index do
@@ -25,6 +29,9 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :created_at
     column :is_approved
+    column 'Impersonate' do |user|
+      link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
+    end
     actions
   end
 

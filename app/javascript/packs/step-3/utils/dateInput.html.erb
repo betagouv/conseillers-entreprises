@@ -4,7 +4,7 @@
 
 
   <i class="calendar icon"></i>
-  <input type="date"
+  <input type="text"
          v-bind:class="{ visible: showPopup }"
          @click="showPopup = !showPopup"
          v-bind:value="dateValue"
@@ -12,11 +12,11 @@
 
   <div class="ui popup bottom left"
        v-bind:class="{ visible: false, hidden: true }"
-       style="position: absolute; top: 100%; left: 0px; width: auto; padding: 0px">
+       style="position: absolute; top: 100%; left: 0; width: auto; padding: 0">
 
 
     <table class="ui very compact fixed table center aligned"
-           style="margin: 0px; border:none; border-radius:inherit">
+           style="margin: 0; border:none; border-radius:inherit">
       <thead>
       <tr>
         <th colspan="1" class="smallest center aligned">
@@ -24,7 +24,7 @@
              v-bind:class="{ 'disabled' : false }"></i>
         </th>
         <th colspan="5" @click="" class="smaller center aligned">
-          {{ currMonthName }} {{ currYear }}
+          {{ currentMonthName }} {{ currentYear }}
         </th>
         <th colspan="1" class="smallest center aligned">
           <i class="chevron right icon" @click=""

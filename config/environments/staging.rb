@@ -54,9 +54,6 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "EConseils_#{Rails.env}"
   config.action_mailer.default_url_options = { host: 'reso-staging.scalingo.io' }
   config.action_mailer.perform_caching = false
 
@@ -97,4 +94,20 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.middleware.use ExceptionNotification::Rack,
+                        email: {
+                          email_prefix: '[Erreur Réso Staging] ',
+                          sender_address: "\"Erreur Réso\" <#{ENV['DO_NOT_REPLY_EMAIL']}>",
+                          exception_recipients: [ENV['APPLICATION_EMAIL']]
+                        },
+                        slack: {
+                          webhook_url: ENV['SLACK_WEBHOOK_URL'],
+                          channel: '#startup-reso-dev',
+                          username: 'RéSo staging',
+                          additional_parameters: {
+                            icon_emoji: ':turtle:',
+                            mrkdwn: true
+                          }
+                        }
 end

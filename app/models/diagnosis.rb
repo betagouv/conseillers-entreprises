@@ -22,4 +22,8 @@ class Diagnosis < ApplicationRecord
   def creation_date_localized
     I18n.l(created_at.to_date)
   end
+
+  def selected_assistance_experts_count
+    diagnosed_needs.reduce(0) { |sum, diagnosed_need| sum + diagnosed_need.selected_assistance_experts.count }
+  end
 end

@@ -1,10 +1,10 @@
 <template>
-  <div class="ui form">
-    <div class="required field" v-bind:class="{ error: !isNameCompleted && showFormFieldErrors }">
+  <div class="ui form" v-bind:class="{ loading: isFormDisabled }" >
+    <div class="required field" v-bind:class="{ error: !isNameCompleted && showFormFieldErrors, disabled: isFormDisabled }">
       <label><%= I18n.t('diagnoses.step3.full_name') %></label>
       <input v-model="name" type="text">
     </div>
-    <div class="required field" v-bind:class="{ error: !isJobCompleted && showFormFieldErrors }">
+    <div class="required field" v-bind:class="{ error: !isJobCompleted && showFormFieldErrors, disabled: isFormDisabled }">
       <label><%= I18n.t('diagnoses.step3.role') %></label>
       <input v-model="job" type="text" required="required">
     </div>
@@ -13,11 +13,11 @@
       <span class="required field"><label style="display: inline-block;"></label></span>
       <div class="sub header "><%= I18n.t('diagnoses.step3.add_one_contact_mode_below') %></div>
     </h3>
-    <div class="field" v-bind:class="{ error: !areContactDetailsCompleted && showFormFieldErrors }">
+    <div class="field" v-bind:class="{ error: !areContactDetailsCompleted && showFormFieldErrors, disabled: isFormDisabled }">
       <label><%= I18n.t('diagnoses.step3.email_address') %></label>
       <input v-model="email" type="text">
     </div>
-    <div class="field"  v-bind:class="{ error: !areContactDetailsCompleted && showFormFieldErrors }">
+    <div class="field"  v-bind:class="{ error: !areContactDetailsCompleted && showFormFieldErrors, disabled: isFormDisabled }">
       <label><%= I18n.t('diagnoses.step3.phone_number') %></label>
       <input v-model="phoneNumber" type="text">
     </div>
@@ -41,7 +41,8 @@ export default {
     ...mapGetters({
       isNameCompleted: 'isNameCompleted',
       isJobCompleted: 'isJobCompleted',
-      areContactDetailsCompleted: 'areContactDetailsCompleted'
+      areContactDetailsCompleted: 'areContactDetailsCompleted',
+      isFormDisabled: 'isFormDisabled',
     }),
     name: {
       get () {

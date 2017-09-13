@@ -1,6 +1,5 @@
 import Vue from 'vue/dist/vue.esm'
 import store from './store'
-import axios from 'axios'
 
 import appDataSetter from './appDataSetter.vue.erb'
 import contentTextArea from './contentTextArea.vue.erb'
@@ -10,37 +9,10 @@ import nextStepButton from '../common/nextStepButton.vue.erb'
 import StepRoutingService from '../common/stepRoutingService'
 
 import TurbolinksAdapter from 'vue-turbolinks'
+import AxiosConfigurator from '../common/axiosConfigurator'
+
 Vue.use(TurbolinksAdapter)
-
-var token
-var configureNextStepButton = function (that) {
-    nextStepButton.computed.isRequestInProgress = function() {
-        return that.$store.state.step2Store.isRequestInProgress
-    }
-
-    nextStepButton.methods.nextStepButtonClicked = function () {
-        const stepRoutingService = new StepRoutingService(that.$store.state.step2Store.diagnosisId)
-        that.$store.dispatch('sendDiagnosisContentUpdate')
-            .then(() => {
-                return that.$store.dispatch('createSelectedQuestions')
-            })
-            .then(() => {
-                return stepRoutingService.goToStep(3)
-            })
-            .catch((error) => {
-            })
-    }
-}
-
-try {
-    token = document.getElementsByName('csrf-token')[0].getAttribute('content')
-}
-catch (e) {
-    token = ''
-}
-
-axios.defaults.headers.common['X-CSRF-Token'] = token
-axios.defaults.headers.common['Accept'] = 'application/json'
+AxiosConfigurator.configure()
 
 new Vue({
     el: '#step2-app',
@@ -52,8 +24,38 @@ new Vue({
         'question-content-row': questionContentRow,
         'next-step-button': nextStepButton
     },
-    beforeCreate: function () {
-        configureNextStepButton(this)
+    computed: {
+        isRequestInProgress: function() {
+            return this.$store.state.step2Store.isRequestInProgress
+        },
+    },
+    methods: {
+        saveButtonClicked: function () {
+            this.$store.dispatch('sendDiagnosisContentUpdate')
+                .then(() => {
+                    return this.$store.dispatch('sendDiagnosedNeedsBulkUpdate')
+                })
+                .then(() => {
+                    this.$store.dispatch('getDiagnosisContentValue')
+                })
+                .then(() => {
+                    this.$store.dispatch('getDiagnosedNeeds')
+                })
+                .catch((error) => {
+                })
+        },
+        nextStepButtonClicked: function () {
+            const stepRoutingService = new StepRoutingService(this.$store.state.step2Store.diagnosisId)
+            this.$store.dispatch('sendDiagnosisContentUpdate')
+                .then(() => {
+                    return this.$store.dispatch('sendDiagnosedNeedsBulkUpdate')
+                })
+                .then(() => {
+                    return stepRoutingService.goToStep(3)
+                })
+                .catch((error) => {
+                })
+        }
     }
 })
 

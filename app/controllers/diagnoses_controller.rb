@@ -9,6 +9,7 @@ class DiagnosesController < ApplicationController
 
   def step2
     @diagnosis = Diagnosis.find params[:id]
+    @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
   end
 
   def step3
@@ -33,16 +34,12 @@ class DiagnosesController < ApplicationController
 
   def notify_experts
     diagnosis = Diagnosis.find params[:id]
-    assistances_experts = params[:assistances_experts]
-    unless assistances_experts.blank?
-      assistance_expert_ids = ExpertMailersService.filter_assistances_experts(assistances_experts)
-      UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
-      # TODO: Use Delayed Jobs to perform email sending ; http://doc.scalingo.com/languages/ruby/delayed-job.html
-      ExpertMailersService.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
-                                                  assistance_expert_ids: assistance_expert_ids)
+    if params[:assistances_experts].present?
+      assistance_expert_ids = ExpertMailersService.filter_assistances_experts(params[:assistances_experts])
+      create_selected_ae_and_send_emails(diagnosis, assistance_expert_ids)
     end
     diagnosis.update step: 5
-    redirect_to step_5_diagnosis_path(diagnosis)
+    redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
   end
 
   def destroy
@@ -51,12 +48,11 @@ class DiagnosesController < ApplicationController
     redirect_to diagnoses_path
   end
 
-  # Former action
+  private
 
-  def show
-    @visit = Visit.of_advisor(current_user).includes(facility: :company).find params[:visit_id]
-    @diagnosis = Diagnosis.of_visit(@visit)
-                          .includes(diagnosed_needs: [:question])
-                          .find params[:id]
+  def create_selected_ae_and_send_emails(diagnosis, assistance_expert_ids)
+    UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
+    ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
+                                                      assistance_expert_ids: assistance_expert_ids)
   end
 end

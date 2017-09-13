@@ -54,9 +54,6 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "EConseils_#{Rails.env}"
   config.action_mailer.default_url_options = { host: 'reso.beta.gouv.fr' }
   config.action_mailer.perform_caching = false
 
@@ -96,7 +93,9 @@ Rails.application.configure do
                         slack: {
                           webhook_url: ENV['SLACK_WEBHOOK_URL'],
                           channel: '#startup-reso-dev',
+                          username: 'RéSo production',
                           additional_parameters: {
+                            icon_emoji: ':boom:',
                             mrkdwn: true
                           }
                         }

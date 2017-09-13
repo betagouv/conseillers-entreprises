@@ -1,9 +1,16 @@
 fr:
   diagnoses:
     index:
-      title: Analyses
+      title: Liste des analyses
+      no_analysis_message: Cette page vous permet de suivre l'ensemble des analyses que vous avez réalisées.
       diagnoses_in_progress: Analyses en cours
-      diagnoses_completed: Analyses réalisées
+      no_diagnoses_in_progress_message_html: |
+        Retrouvez ici les analyses que vous avez initiées et qui demeurent incomplètes.
+        <br>Vous pouvez les compléter à tout moment en reprenant à l'étape où vous vous êtes arrêté.
+      completed_diagnoses: Analyses réalisées
+      no_completed_diagnosis_message_html: |
+        Retrouvez ici les analyses que vous avez complétées.
+        <br>Vous pouvez retrouver toutes les informations fournies ainsi que les actions effectuées dans le récapitulatif.
       create_new_diagnosis: Faire une nouvelle analyse
       step: "Étape : %{step}/4"
       continue_diagnosis: Poursuivre l'analyse
@@ -18,30 +25,6 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
-    show:
-      identified_needs:
-        zero: Aucun besoin identifié
-        one: Un besoin a été identifié
-        other: "%{count} besoins ont été identifiés"
-      assistances_found:
-        zero: Aucune aide trouvée...
-        one: Une aide a été trouvée
-        other: "%{count} aides ont été trouvées"
-      diagnosis_date: "Analyse du %{date}"
-      description: "Entrez des informations complémentaires concernant cette analyse :"
-      save_loader: Sauvegarde en cours
-      no_visitee_message: "Vous n'avez pas renseigné le contact que vous avez rencontré durant la visite. Complétez cette information, avant de pouvoir contacter les référents."
-      add_visitee: Ajouter un contact de l'entreprise
-      add_contact_modal:
-        header: Ajouter le contact de l'entreprise
-        error_header: Erreur lors de la création
-        error_message: "Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l'erreur persite, contactez l'equipe Réso."
-        full_name: Nom
-        role: Fonction au sein de l'entreprise
-        contact_detail: Coordonnées
-        add_one_contact_mode_below: Veuillez indiquer au moins un mode de contact ci-dessous.
-        email_address: Adresse e-mail
-        phone_number: Numéro de télephone
     steps:
       step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins<br>détectés
@@ -49,21 +32,15 @@ fr:
       step4_title_html: Mise en<br>contact
     step1:
       title: Nouvelle analyse
-      search_company: Recherche de l'entreprise
-      location: Localité
-      show_detailled_information: Informations détaillées
-      siret_format_error_title: Numéro invalide !
-      siret_format_error_text: Vérifiez que le numéro SIRET est bien composé de 14 chiffres.
-      company_not_found_error_title: Entreprise non trouvée !
-      company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
-      save_error_title: La sauvegarde a échoué !
-      save_error_text: Réessayez ou rechargez la page si le problème persiste...
+      select_company: Sélectionner une entreprise pour l'analyse
+      you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l'entreprise, soit indiquer son SIRET."
     step2:
       title: Identification des besoins
       identify_needs: Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l'entreprise.
-      diagnosis_date: "Analyse du %{date}"
-      diagnosis_content: "Entrez des informations complémentaires concernant l'analyse au global :"
+      diagnosis_content: "Informations générales sur cette entreprise :"
       diagnosed_need_content: "Entrez des informations complémentaires concernant ce besoin spécifique :"
+      no_category: Besoins non désélectionnables
+      no_category_detail: Ces besoins ayant été modifiés par l'équipe Réso, ils ne sont plus disponibles ni à la création ni à la suppression. Il est toujours possible de modifier les informations complémentaires.
     step3:
       title: Informations complémentaires
       date_header: Date de votre visite
@@ -80,8 +57,8 @@ fr:
       phone_number: Numéro de télephone
     step4:
       title: Sélection des référents
-      no_diagnosed_needs: Pas de besoins sélectionnées.
-      no_assistance: Aucune aide répond à ce besoin sur ce territoire pour l'instant.
+      no_diagnosed_needs: Pas de besoins sélectionnés.
+      no_assistance: Aucune aide ne répond à ce besoin sur ce territoire pour l'instant.
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
       before_sending_emails_text_html: |
         <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
@@ -93,12 +70,11 @@ fr:
       title: Récapitulatif
       notifications_sent: Les notifications ont bien été envoyées !
       company_contact_subtitle: Contact rencontré au sein de l'entreprise
-      show_detailled_information: Informations détaillées
+      show_detailed_information: Informations détaillées
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
-      diagnosis_needs_content_label: "Les informations complémentaires concernant ce besoin :"
+      diagnosed_needs_content_label: "Les informations complémentaires concernant ce besoin :"
       diagnosis_content_subtitle: Informations complémentaires
-      diagnosis_content_label: "Les informations complémentaires concernant la visite au global :"
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       diagnosed_needs:
         zero: 0 besoin identifié

@@ -15,8 +15,8 @@ describe UseCases::UpdateDiagnosis do
         hash = { content: 'content', step: 3 }
         expect(cleaned_params).to eq hash
 
-        expect(cleaned_params.key?(:content)).to be_truthy
-        expect(cleaned_params.key?(:step)).to be_truthy
+        expect(cleaned_params.key?(:content)).to eq true
+        expect(cleaned_params.key?(:step)).to eq true
       end
     end
 
@@ -27,8 +27,8 @@ describe UseCases::UpdateDiagnosis do
         hash = { content: 'content', step: 3 }
         expect(cleaned_params).to eq hash
 
-        expect(cleaned_params.key?(:content)).to be_truthy
-        expect(cleaned_params.key?(:step)).to be_truthy
+        expect(cleaned_params.key?(:content)).to eq true
+        expect(cleaned_params.key?(:step)).to eq true
       end
     end
 
@@ -39,8 +39,8 @@ describe UseCases::UpdateDiagnosis do
         hash = {}
         expect(cleaned_params).to eq hash
 
-        expect(cleaned_params.key?(:content)).to be_falsey
-        expect(cleaned_params.key?(:step)).to be_falsey
+        expect(cleaned_params.key?(:content)).to eq false
+        expect(cleaned_params.key?(:step)).to eq false
       end
     end
 
@@ -51,8 +51,8 @@ describe UseCases::UpdateDiagnosis do
         hash = { content: 'content' }
         expect(cleaned_params).to eq hash
 
-        expect(cleaned_params.key?(:content)).to be_truthy
-        expect(cleaned_params.key?(:step)).to be_falsey
+        expect(cleaned_params.key?(:content)).to eq true
+        expect(cleaned_params.key?(:step)).to eq false
       end
     end
 
@@ -63,21 +63,22 @@ describe UseCases::UpdateDiagnosis do
         hash = { content: 'content' }
         expect(cleaned_params).to eq hash
 
-        expect(cleaned_params.key?(:content)).to be_truthy
-        expect(cleaned_params.key?(:step)).to be_falsey
+        expect(cleaned_params.key?(:content)).to eq true
+        expect(cleaned_params.key?(:step)).to eq false
       end
     end
 
     context 'the step is smaller than current step' do
       let(:current_step) { 5 }
-      let(:params) { { step: 3 } }
+      let(:params) { { 'step' => 3 } }
 
       it('returns empty params') do
         hash = {}
         expect(cleaned_params).to eq hash
 
-        expect(cleaned_params.key?(:content)).to be_falsey
-        expect(cleaned_params.key?(:step)).to be_falsey
+        expect(cleaned_params.key?(:content)).to eq false
+        expect(cleaned_params.key?(:step)).to eq false
+        expect(cleaned_params.key?('step')).to eq false
       end
     end
   end

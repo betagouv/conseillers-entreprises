@@ -22,6 +22,10 @@ class User < ApplicationRecord
     super && is_approved?
   end
 
+  def to_s
+    full_name
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -31,12 +35,6 @@ class User < ApplicationRecord
   end
 
   protected
-
-  def send_admin_mail
-    AdminMailer.new_user_created_notification(self).deliver
-  rescue AdminMailer::RecipientsExpectedError
-    Rails.logger.warn 'No recipients present for new User email.'
-  end
 
   # Inspired by Devise validatable module
   # Checks whether a password is needed or not. For validations only.

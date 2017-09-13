@@ -174,5 +174,53 @@ RSpec.describe Diagnosis, type: :model do
       expect(diagnosis.creation_date_localized).to eq '01/07/2017'
     end
   end
+
+  describe 'selected_assistance_experts_count' do
+    subject { diagnosis.selected_assistance_experts_count }
+
+    let(:diagnosis) { create :diagnosis }
+
+    context 'no diagnosed needs' do
+      it { is_expected.to eq 0 }
+    end
+
+    context 'one diagnosed need' do
+      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+
+      context 'no selected assistance experts' do
+        it { is_expected.to eq 0 }
+      end
+
+      context 'one selected assistance experts' do
+        it do
+          create :selected_assistance_expert, diagnosed_need: diagnosed_need
+
+          is_expected.to eq 1
+        end
+      end
+    end
+
+    context 'two diagnosed need' do
+      let(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis }
+      let(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis }
+
+      context 'no relevant selected assistance experts' do
+        it do
+          create :selected_assistance_expert
+
+          is_expected.to eq 0
+        end
+      end
+
+      context 'three selected_assistance_experts' do
+        it do
+          create :selected_assistance_expert, diagnosed_need: diagnosed_need1
+          create_list :selected_assistance_expert, 2, diagnosed_need: diagnosed_need2
+
+          is_expected.to eq 3
+        end
+      end
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength

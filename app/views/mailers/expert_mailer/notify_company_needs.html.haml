@@ -1,15 +1,28 @@
 %p= t('.hello')
+
+- link_to_root = link_to t('app_name'), root_url
+
 - if @params[:visit_date].present?
-  %p= t('.advisor_met_this_company', advisor_name: @params[:advisor].full_name, visit_date: @params[:visit_date], company_name: @params[:company_name])
+  %p= t('.advisor_met_this_company_html', link_to_root: link_to_root, advisor_name: @params[:advisor].full_name, advisor_institution: @params[:advisor].institution, company_name: @params[:company_name], visit_date: @params[:visit_date])
 - else
-  %p= t('.advisor_met_this_company_without_date', advisor_name: @params[:advisor].full_name, company_name: @params[:company_name])
-%p= t('.they_need_advice', advisor_institution: @params[:expert_institution])
+  %p= t('.advisor_met_this_company_without_date_html', link_to_root: link_to_root, advisor_name: @params[:advisor].full_name, advisor_institution: @params[:advisor].institution, company_name: @params[:company_name])
+
+%p= t('.needs_are_relevant_with_your_skills')
 
 %ul
-  - @params[:assistances].each do |assistance|
-    %li= "#{assistance.question.label} (aide conseillée : #{assistance.title})"
+  - @params[:questions_with_needs_description].each do |question_with_need_description|
+    %li
+      = question_with_need_description[:question].label
+      - if question_with_need_description[:need_description].present?
+        %br
+        = t('.more_info')
+        = question_with_need_description[:need_description]
 
-- company_contact_contact_type = @params[:company_contact].phone_number.presence || @params[:company_contact].email
-%p= t('.company_contact_is', company_contact_full_name: @params[:company_contact].full_name, company_contact_role: @params[:company_contact].role, company_contact_contact_type: company_contact_contact_type)
--# TODO: Les informations concernant la visite et l’entreprise sont accessibles sur Réso sur le lien suivant :
+- if @params[:company_contact].phone_number.present?
+  %p= t('.company_contact_with_phone_number', company_name: @params[:company_name], company_contact_full_name: @params[:company_contact].full_name, company_contact_role: @params[:company_contact].role, company_contact_phone_number: @params[:company_contact].phone_number, company_contact_email: @params[:company_contact].email)
+- else
+  %p= t('.company_contact_without_phone_number', company_name: @params[:company_name], company_contact_full_name: @params[:company_contact].full_name, company_contact_role: @params[:company_contact].role, company_contact_email: @params[:company_contact].email)
+
+%p= t('.contact_advisor_for_more_info', advisor_name: @params[:advisor].full_name, advisor_phone_number: @params[:advisor].phone_number, advisor_email: @params[:advisor].email)
 %p= t('.regards')
+%p= t('.reso_team_html', link_to_root: link_to_root)

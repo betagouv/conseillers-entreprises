@@ -1,6 +1,5 @@
 import Vue from 'vue/dist/vue.esm'
 import store from './store'
-import axios from 'axios'
 
 import appDataSetter from './appDataSetter.vue.erb'
 import visitDateInput from './visitDateInput.vue.erb'
@@ -10,34 +9,10 @@ import nextStepButton from '../common/nextStepButton.vue.erb'
 import StepRoutingService from '../common/stepRoutingService'
 
 import TurbolinksAdapter from 'vue-turbolinks'
+import AxiosConfigurator from '../common/axiosConfigurator'
+
 Vue.use(TurbolinksAdapter)
-
-var token
-var configureNextStepButton = function (that) {
-    nextStepButton.computed.isRequestInProgress = function() {
-        return that.$store.state.step3Store.isRequestInProgress
-    }
-
-    nextStepButton.methods.nextStepButtonClicked = function () {
-        const stepRoutingService = new StepRoutingService(that.$store.state.step3Store.diagnosisId)
-        that.$store.dispatch('launchNextStep')
-            .then(() => {
-                return stepRoutingService.goToStep(4)
-            })
-            .catch((error) => {
-            })
-    }
-}
-
-try {
-    token = document.getElementsByName('csrf-token')[0].getAttribute('content')
-}
-catch (e) {
-    token = ''
-}
-
-axios.defaults.headers.common['X-CSRF-Token'] = token
-axios.defaults.headers.common['Accept'] = 'application/json'
+AxiosConfigurator.configure()
 
 new Vue({
     el: '#step3-app',
@@ -49,8 +24,36 @@ new Vue({
         'form-error-message': formErrorMessage,
         'next-step-button': nextStepButton
     },
-    beforeCreate: function () {
-        configureNextStepButton(this)
+    computed: {
+        isRequestInProgress: function () {
+            return this.$store.state.step3Store.isRequestInProgress
+        },
+        isFormDisabled: function () {
+            return this.$store.getters.isFormDisabled
+        }
+    },
+    methods: {
+        previousStepButtonClicked: function () {
+            const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
+            return stepRoutingService.goToStep(2)
+                .catch((error) => {
+                })
+        },
+        saveButtonClicked: function () {
+            console.log('saveButtonClicked')
+            this.$store.dispatch('launchNextStep')
+                .catch((error) => {
+                })
+        },
+        nextStepButtonClicked: function () {
+            const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
+            this.$store.dispatch('launchNextStep')
+                .then(() => {
+                    return stepRoutingService.goToStep(4)
+                })
+                .catch((error) => {
+                })
+        }
     }
 })
 

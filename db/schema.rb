@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816153317) do
+ActiveRecord::Schema.define(version: 20170912122004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,21 @@ ActiveRecord::Schema.define(version: 20170816153317) do
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "diagnosed_needs", force: :cascade do |t|
     t.bigint "diagnosis_id"
     t.string "question_label"
@@ -132,17 +147,6 @@ ActiveRecord::Schema.define(version: 20170816153317) do
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "mailto_logs", force: :cascade do |t|
-    t.bigint "question_id"
-    t.bigint "visit_id"
-    t.bigint "assistance_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["assistance_id"], name: "index_mailto_logs_on_assistance_id"
-    t.index ["question_id"], name: "index_mailto_logs_on_question_id"
-    t.index ["visit_id"], name: "index_mailto_logs_on_visit_id"
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|
@@ -228,9 +232,6 @@ ActiveRecord::Schema.define(version: 20170816153317) do
   add_foreign_key "diagnoses", "visits"
   add_foreign_key "experts", "institutions"
   add_foreign_key "facilities", "companies"
-  add_foreign_key "mailto_logs", "assistances"
-  add_foreign_key "mailto_logs", "questions"
-  add_foreign_key "mailto_logs", "visits"
   add_foreign_key "questions", "categories"
   add_foreign_key "searches", "users"
   add_foreign_key "selected_assistances_experts", "assistances_experts", column: "assistances_experts_id"

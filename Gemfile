@@ -11,65 +11,64 @@ ruby '2.4.1'
 
 gem 'rails', '~> 5.1.2'
 
-gem 'coffee-rails', '~> 4.2'
-gem 'compass-rails'
+# Server
 gem 'foreman'
-gem 'haml-rails', '~> 0.9'
 gem 'pg'
 gem 'puma', '~> 3.0'
+
+# Assets
+gem 'coffee-rails', '~> 4.2'
+gem 'compass-rails'
+gem 'haml-rails', '~> 0.9'
+gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
+gem 'semantic-ui-sass', '~> 2'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'activeadmin'
-gem 'browser'
-gem 'devise'
-gem 'faker'
-gem 'mailjet'
-gem 'metamagic'
-
-gem 'jbuilder', '~> 2.5'
-gem 'jquery-rails'
-gem 'turbolinks', '~> 5'
-
-gem 'semantic-ui-sass', '~> 2'
-
-gem 'i18n-tasks', '~> 0.9'
-gem 'wannabe_bool'
-
+# Parallel processes
+gem 'clockwork', '~> 2.0', '>= 2.0.2'
+gem 'daemons'
+gem 'delayed_job_active_record'
 gem 'webpacker', '~> 2.0'
 
+# Improving models
+gem 'devise'
+gem 'paranoia', '~> 2.2'
+gem 'user_impersonate2', require: 'user_impersonate', github: 'rcook/user_impersonate2'
+
+# Misc
+gem 'activeadmin'
+gem 'http'
+gem 'jbuilder', '~> 2.5'
+gem 'mailjet'
+gem 'turbolinks', '~> 5'
+
+# Notifiers
 gem 'exception_notification'
 gem 'slack-notifier'
 
-gem 'clockwork', '~> 2.0', '>= 2.0.2'
-gem 'paranoia', '~> 2.2'
-
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# Helper gems
+gem 'browser'
+gem 'faker'
+gem 'metamagic'
+gem 'wannabe_bool'
 
 group :test do
-  gem 'shoulda-matchers', '~> 3.1'
-
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'webmock'
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.5'
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'awesome_print'
+  gem 'awesome_print' # IRB console on exception pages or by using <%= console %>
+  gem 'i18n-tasks', '~> 0.9'
   gem 'listen', '~> 3.0.5'
   gem 'web-console', '>= 3.3.0'
 
@@ -82,3 +81,8 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+# gem 'therubyracer', platforms: :ruby # See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'redis', '~> 3.0' # Use Redis adapter to run Action Cable in production
+# gem 'bcrypt', '~> 3.1.7' # Use ActiveModel has_secure_password
+# gem 'capistrano-rails', group: :development # Use Capistrano for deployment

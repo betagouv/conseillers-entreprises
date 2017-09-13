@@ -6,15 +6,15 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
   context 'hash with several information' do
     let(:expert) { create :expert }
     let(:user) { create :user }
+    let(:question) { create :question }
 
     let(:params_hash) do
       {
         visit_date: visit.happened_at_localized,
         company_name: visit.company_name,
         company_contact: visit.visitee,
-        assistances: assistances,
-        advisor: user,
-        expert_institution: expert.institution.name
+        questions_with_needs_description: questions_with_needs_description,
+        advisor: user
       }
     end
 
@@ -23,26 +23,32 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       render
     end
 
-    context 'when visit has a date, contact has phone number, and there are two assistances' do
+    context 'when visit has a date, contact has phone number, and there are two questions' do
       let(:contact) { create :contact, :with_phone_number }
       let(:visit) { create :visit, :with_visitee, :with_date, advisor: user, visitee: contact }
-      let(:assistances) { create_list :assistance, 2 }
+      let(:other_question) { create :question }
+      let(:questions_with_needs_description) do
+        [
+          { question: question, need_description: 'Help this company' },
+          { question: other_question, need_description: 'You can ignore this' }
+        ]
+      end
 
       it 'displays the date, phone number and 2 list items' do
-        expect(rendered).to include visit.happened_at_localized
+        expect(rendered).to match(%r{le [0-9]{2}/[0-9]{2}/20[0-9]{2}})
         expect(rendered).to include "joignable au #{contact.phone_number}"
         assert_select 'li', count: 2
       end
     end
 
-    context 'when visit has no date, contact has no phone number, and there is one assistance' do
+    context 'when visit has no date, contact has no phone number, and there is one question' do
       let(:contact) { create :contact, :with_email }
       let(:visit) { create :visit, :with_visitee, advisor: user, visitee: contact }
-      let(:assistances) { create_list :assistance, 1 }
+      let(:questions_with_needs_description) { [{ question: question, need_description: 'Help this company' }] }
 
       it 'does not display the date, and displays email and one list item' do
-        expect(rendered).not_to include 'a visité le'
-        expect(rendered).to include "joignable au #{contact.email}"
+        expect(rendered).not_to match(%r{le [0-9]{2}/[0-9]{2}/20[0-9]{2}})
+        expect(rendered).to include "joignable à l'adresse e-mail #{contact.email}"
         assert_select 'li', count: 1
       end
     end

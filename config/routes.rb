@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount UserImpersonate::Engine => '/impersonate', as: 'impersonate_engine'
   devise_for :users, controllers: { registrations: 'users/registrations' }
   ActiveAdmin.routes(self)
   root to: 'home#index'
@@ -28,29 +29,30 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :visits, only: %i[show] do
-    resources :diagnoses, only: %i[show]
-  end
-
   resources :companies, only: %i[show], param: :siret do
-    collection do
-      post :search_by_siren
-      post :search_by_name
-    end
+    get :search, on: :collection
+    post :create_diagnosis_from_siret, on: :collection
   end
-
-  resources :mailto_logs, only: %i[create]
 
   namespace :api do
+    resources :companies, only: %i[] do
+      post :search_by_name, on: :collection
+    end
+
     resources :facilities, only: %i[] do
-      post :search_by_siret, on: :collection
+      collection do
+        post :search_by_siret
+        post :search_by_siren
+      end
     end
 
     resources :diagnoses, only: %i[show create update] do
-      resources :diagnosed_needs, only: %i[create]
+      resources :diagnosed_needs, only: %i[index] do
+        post :bulk, on: :collection
+      end
     end
 
-    resources :visits, only: %i[update] do
+    resources :visits, only: %i[show update] do
       resources :contacts, only: %i[index create]
     end
 

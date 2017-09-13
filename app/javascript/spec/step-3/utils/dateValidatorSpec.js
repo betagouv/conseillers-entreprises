@@ -71,4 +71,22 @@ describe('DateValidator', () => {
             expect(isoString).toEqual(expectedDate)
         })
     })
+
+    describe('toInputFormatString', () => {
+
+        it('returns an empty string when date is not valid', function () {
+            const stringDate = '1992-99-12'
+
+            const inputFormatString = new DateValidator(stringDate).toInputFormatString
+            expect(inputFormatString).toEqual('')
+        })
+
+        it('returns an input formated string when date is valid', function () {
+            const expectedDate = '22/12/1992'
+            const stringDate = '1992-12-22'
+
+            const inputFormatString = new DateValidator(stringDate).toInputFormatString
+            expect(inputFormatString).toEqual(expectedDate)
+        })
+    })
 })

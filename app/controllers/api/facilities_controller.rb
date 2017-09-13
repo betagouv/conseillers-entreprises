@@ -5,11 +5,20 @@ module Api
     def search_by_siret
       facility = UseCases::SearchFacility.with_siret params[:siret]
       company = UseCases::SearchCompany.with_siret params[:siret]
+      render json: { company_name: company.name, facility_location: facility.etablissement.location }
+    rescue ApiEntreprise::ApiEntrepriseError
+      render body: nil, status: :unprocessable_entity
+    end
 
-      company_name = ApiEntrepriseService.company_name(company)
-      facility_location = ApiEntrepriseService.facility_location(facility.dig('etablissement'))
-
-      render json: { company_name: company_name, facility_location: facility_location }
+    def search_by_siren
+      company = UseCases::SearchCompany.with_siren params[:siren]
+      render json: {
+        company_name: company.name,
+        facility_location: company.etablissement_siege.location,
+        siret: company.etablissement_siege.siret
+      }
+    rescue ApiEntreprise::ApiEntrepriseError
+      render body: nil, status: :unprocessable_entity
     end
   end
 end

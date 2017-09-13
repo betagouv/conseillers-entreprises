@@ -44,8 +44,6 @@ describe 'admin panel', type: :feature do
     click_link 'Référents'
     click_link 'Créer Référent'
 
-    click_link 'Mailto'
-
     click_link current_user.full_name
   end
 

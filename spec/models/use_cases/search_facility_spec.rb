@@ -3,44 +3,48 @@
 require 'rails_helper'
 
 describe UseCases::SearchFacility do
-  let(:api_entreprise_fixture) do
-    JSON.parse(File.read('./spec/fixtures/api_entreprise_get_entreprise.json'))
-  end
-  let(:api_entreprise_etablissement_fixture) do
-    JSON.parse(File.read('./spec/fixtures/api_entreprise_get_etablissement.json'))
-  end
   let(:siret) { '41816609600051' }
+  let(:siren) { '418166096' }
+  let(:token) { '1234' }
 
   describe 'with_siret' do
-    it 'calls external service' do
-      allow(ApiEntrepriseService).to receive(:fetch_facility_with_siret).with(siret) do
-        api_entreprise_etablissement_fixture
-      end
+    let!(:etablissements_instance) { ApiEntreprise::Etablissements.new(token) }
 
+    before do
+      ENV['API_ENTREPRISE_TOKEN'] = token
+      allow(ApiEntreprise::Etablissements).to receive(:new).with(token) { etablissements_instance }
+      allow(etablissements_instance).to receive(:fetch).with(siret)
+    end
+
+    it 'calls external service' do
       described_class.with_siret siret
 
-      expect(ApiEntrepriseService).to have_received(:fetch_facility_with_siret).with(siret)
+      expect(ApiEntreprise::Etablissements).to have_received(:new).with(token)
+      expect(etablissements_instance).to have_received(:fetch).with(siret)
     end
   end
 
   describe 'with_siret_and_save' do
     before do
-      allow(ApiEntrepriseService).to receive(:fetch_company_with_siret).with(siret) do
-        api_entreprise_fixture
-      end
-      allow(ApiEntrepriseService).to receive(:fetch_facility_with_siret).with(siret) do
-        api_entreprise_etablissement_fixture
-      end
+      company_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
+      entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprises_instance }
+
+      facility_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_etablissement.json')))
+      facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_json)
+      allow(described_class).to receive(:with_siret).with(siret) { facility_instance }
     end
 
     context 'first call' do
       it 'calls external service' do
         described_class.with_siret_and_save siret
 
-        expect(ApiEntrepriseService).to have_received(:fetch_company_with_siret).with(siret)
-        expect(ApiEntrepriseService).to have_received(:fetch_facility_with_siret).with(siret)
-        expect(Company.last.siren).to eq siret[0, 9]
+        expect(UseCases::SearchCompany).to have_received(:with_siret).with(siret)
+        expect(described_class).to have_received(:with_siret).with(siret)
+
+        expect(Company.last.siren).to eq siren
         expect(Facility.last.siret).to eq siret
+        expect(Facility.last.city_code).to eq '75008'
       end
     end
 
