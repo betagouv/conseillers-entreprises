@@ -24,6 +24,7 @@ import { mapState, mapGetters, mapMutations } from 'vuex'
 import * as types from './store/searchMutationTypes'
 import CompanyItem from './companyItem.vue.erb'
 import Modal from '../modal.vue.erb'
+import ErrorService from '../errorService'
 
 export default {
     name: 'company-selection-modal',
@@ -37,7 +38,7 @@ export default {
             this.setSiren(siren)
             this.clearError()
             this.closeModal()
-            this.$store.dispatch('fetchCompanyBySiren').catch(() => {})
+            this.$store.dispatch('fetchCompanyBySiren').catch(ErrorService.report)
         },
         closeModal: function() {
             this.$emit('update:show', false)

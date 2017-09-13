@@ -5,9 +5,11 @@ import SelectCompany from '../common/companySearch/selectCompany.vue.erb'
 
 import TurbolinksAdapter from 'vue-turbolinks'
 import AxiosConfigurator from '../common/axiosConfigurator'
+import ErrorService from '../common/errorService'
 
 Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
+ErrorService.configure()
 
 new Vue({
     el: '#company-search-app',
