@@ -22,9 +22,6 @@ export default class StepRoutingService {
             .then(() => {
                 StepRoutingService.goTo(url)
             })
-            .catch((error) => {
-                throw this.configureErrorForURL(error, url)
-            })
     }
 
     static send(config) {

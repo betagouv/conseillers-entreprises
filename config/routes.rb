@@ -59,6 +59,8 @@ Rails.application.routes.draw do
     end
 
     resources :contacts, only: %i[show update]
+
+    resources :errors, only: %i[create]
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
