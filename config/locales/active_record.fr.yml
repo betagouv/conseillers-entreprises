@@ -90,7 +90,6 @@ fr:
         question: Question parente
         title: Titre
         description: Description
-        email_specific_sentence: Phrase spécifique dans l'e-mail
         geographic_scope: Champ d'action géographique
         county: Département d'action
         geographic_scopes:
