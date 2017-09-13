@@ -130,29 +130,29 @@
                       %p= item['desc'].html_safe
 
   %h2= t('.diagnoses_completed', company_name: @company.name)
-  - if @visits && @visits.count > 0
+  - if @diagnoses.empty?
+    %p.text.small
+      = t('.no_visit_found')
+  - else
     %table.ui.table.ui
       %tbody
-        - @visits.each do |visit|
+        - @diagnoses.each do |diagnosis|
           %tr
             %td
               %h3.ui.header
-                = t('.visited_at', date: visit.happened_at_localized)
+                = t('.visited_at', date: diagnosis.visit.happened_at_localized)
                 .sub.header
-                  = t('.visited_by_html', advisor_name: visit.advisor.full_name_with_role, advisor_email: visit.advisor.email)
+                  = t('.visited_by_html', advisor_name: diagnosis.visit.advisor.full_name_with_role, advisor_email: diagnosis.visit.advisor.email)
             %td.collapsing
               .ui.middle.aligned.list
                 .item
                   .middle.aligned.content
                     %h5.ui.header.disabled
-                      = t('.diagnosed_needs', count: visit.diagnosis.diagnosed_needs.count)
+                      = t('.diagnosed_needs', count: diagnosis.diagnosed_needs_count)
                 .item
                   .middle.aligned.content
                     %h5.ui.header.disabled
-                      = t('.selected_assistance_experts', count: visit.diagnosis.selected_assistance_experts_count)
-  - else
-    %p.text.small
-      = t('.no_visit_found')
+                      = t('.selected_assistance_experts', count: diagnosis.selected_assistances_experts_count)
 
   = link_to t('.create_diagnosis'), create_diagnosis_from_siret_companies_path(siret: params[:siret]),
    method: :post, class: 'ui positive basic tiny button'

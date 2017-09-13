@@ -26,10 +26,12 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_visit' do
-      subject { Diagnosis.of_visit visit }
+    describe 'of_siret' do
+      subject { Diagnosis.of_siret siret }
 
-      let(:visit) { build :visit }
+      let(:visit) { build :visit, facility: facility }
+      let(:facility) { create :facility }
+      let(:siret) { facility.siret }
 
       context 'no diagnosis' do
         it { is_expected.to eq [] }
@@ -99,22 +101,6 @@ RSpec.describe Diagnosis, type: :model do
       end
     end
 
-    describe 'limited' do
-      subject { Diagnosis.all.limited.count }
-
-      context 'no diagnosis' do
-        it { is_expected.to eq 0 }
-      end
-
-      context 'sixteen diagnoses' do
-        it do
-          create_list :diagnosis, 16
-
-          is_expected.to eq 15
-        end
-      end
-    end
-
     describe 'in progress' do
       subject { Diagnosis.all.in_progress.count }
 
@@ -175,50 +161,68 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 
-  describe 'selected_assistance_experts_count' do
-    subject { diagnosis.selected_assistance_experts_count }
+  describe 'enrich_with_diagnosed_needs_count' do
+    subject(:diagnoses_with_count) { described_class.enrich_with_diagnosed_needs_count diagnoses }
 
+    let(:diagnoses) { [diagnosis] }
     let(:diagnosis) { create :diagnosis }
 
-    context 'no diagnosed needs' do
-      it { is_expected.to eq 0 }
+    context 'no diagnosed need' do
+      it { expect(diagnoses_with_count.first.diagnosed_needs_count).to eq 0 }
     end
 
-    context 'one diagnosed need' do
-      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+    context '2 diagnosed needs' do
+      before { create_list :diagnosed_need, 2, diagnosis: diagnosis }
 
-      context 'no selected assistance experts' do
-        it { is_expected.to eq 0 }
-      end
-
-      context 'one selected assistance experts' do
-        it do
-          create :selected_assistance_expert, diagnosed_need: diagnosed_need
-
-          is_expected.to eq 1
-        end
-      end
+      it { expect(diagnoses_with_count.first.diagnosed_needs_count).to eq 2 }
     end
 
-    context 'two diagnosed need' do
-      let(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis }
-      let(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis }
+    context '2 diagnosis and 3 needs' do
+      let(:diagnoses) { [diagnosis, other_diagnosis] }
+      let(:other_diagnosis) { create :diagnosis }
 
-      context 'no relevant selected assistance experts' do
-        it do
-          create :selected_assistance_expert
-
-          is_expected.to eq 0
-        end
+      before do
+        create_list :diagnosed_need, 2, diagnosis: diagnosis
+        create_list :diagnosed_need, 1, diagnosis: other_diagnosis
       end
 
-      context 'three selected_assistance_experts' do
-        it do
-          create :selected_assistance_expert, diagnosed_need: diagnosed_need1
-          create_list :selected_assistance_expert, 2, diagnosed_need: diagnosed_need2
+      it do
+        expect(diagnoses_with_count.first.diagnosed_needs_count).to eq 2
+        expect(diagnoses_with_count.last.diagnosed_needs_count).to eq 1
+      end
+    end
+  end
 
-          is_expected.to eq 3
-        end
+  describe 'enrich_with_selected_assistances_experts_count' do
+    subject(:diagnoses_with_count) { described_class.enrich_with_selected_assistances_experts_count diagnoses }
+
+    let(:diagnoses) { [diagnosis] }
+    let(:diagnosis) { create :diagnosis }
+    let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+
+    context 'no selected assistance expert' do
+      it { expect(diagnoses_with_count.first.selected_assistances_experts_count).to eq 0 }
+    end
+
+    context '2 selected assistances experts' do
+      before { create_list :selected_assistance_expert, 2, diagnosed_need: diagnosed_need }
+
+      it { expect(diagnoses_with_count.first.selected_assistances_experts_count).to eq 2 }
+    end
+
+    context '2 diagnosis and 3 selected assistances experts' do
+      let(:diagnoses) { [diagnosis, other_diagnosis] }
+      let(:other_diagnosis) { create :diagnosis }
+      let(:other_diagnosed_need) { create :diagnosed_need, diagnosis: other_diagnosis }
+
+      before do
+        create_list :selected_assistance_expert, 2, diagnosed_need: diagnosed_need
+        create_list :selected_assistance_expert, 1, diagnosed_need: other_diagnosed_need
+      end
+
+      it do
+        expect(diagnoses_with_count.first.selected_assistances_experts_count).to eq 2
+        expect(diagnoses_with_count.last.selected_assistances_experts_count).to eq 1
       end
     end
   end

@@ -6,8 +6,10 @@ class CompaniesController < ApplicationController
     @facility = UseCases::SearchFacility.with_siret siret
     @company = UseCases::SearchCompany.with_siret siret
     @qwant_results = QwantApiService.results_for_query @company.name
-    associations = [{ diagnosis: [diagnosed_needs: [:selected_assistance_experts]] }, :advisor]
-    @visits = Visit.includes(associations).of_siret(siret).with_completed_diagnosis
+    associations = [diagnosed_needs: :selected_assistance_experts, visit: :advisor]
+    @diagnoses = Diagnosis.completed.includes(associations).of_siret(siret)
+    @diagnoses = Diagnosis.enrich_with_diagnosed_needs_count(@diagnoses)
+    @diagnoses = Diagnosis.enrich_with_selected_assistances_experts_count(@diagnoses)
   end
 
   def search; end
