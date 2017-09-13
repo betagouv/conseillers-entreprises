@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ErrorService from '../../common/errorService'
 
 export default {
     getContactFromId(contactId) {
@@ -63,6 +64,8 @@ export default {
     },
 
     send(config) {
-        return axios(config)
+        return axios(config).catch((error) => {
+            throw ErrorService.configureAPIErrorMessage(error, config)
+        })
     }
 }

@@ -8,11 +8,13 @@ import formErrorMessage from './formErrorMessage.vue.erb'
 import nextStepButton from '../common/nextStepButton.vue.erb'
 import StepRoutingService from '../common/stepRoutingService'
 
+import ErrorService from '../common/errorService'
 import TurbolinksAdapter from 'vue-turbolinks'
 import AxiosConfigurator from '../common/axiosConfigurator'
 
 Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
+ErrorService.configureFramework(Vue)
 
 new Vue({
     el: '#step3-app',
@@ -36,14 +38,7 @@ new Vue({
         previousStepButtonClicked: function () {
             const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
             return stepRoutingService.goToStep(2)
-                .catch((error) => {
-                })
-        },
-        saveButtonClicked: function () {
-            console.log('saveButtonClicked')
-            this.$store.dispatch('launchNextStep')
-                .catch((error) => {
-                })
+                .catch(ErrorService.report)
         },
         nextStepButtonClicked: function () {
             const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
@@ -51,8 +46,7 @@ new Vue({
                 .then(() => {
                     return stepRoutingService.goToStep(4)
                 })
-                .catch((error) => {
-                })
+                .catch(ErrorService.report)
         }
     }
 })
