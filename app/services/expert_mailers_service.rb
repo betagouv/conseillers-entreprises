@@ -19,15 +19,23 @@ class ExpertMailersService
 
     def questions_grouped_by_experts(assistances_experts, diagnosis)
       questions_grouped_by_experts = {}
+      diagnosed_need_contents_hash = diagnosed_need_contents_hash(diagnosis)
       assistances_experts.each do |assistance_expert|
         expert_id = assistance_expert.expert_id
         unless questions_grouped_by_experts[expert_id]
           questions_grouped_by_experts[expert_id] = init_questions_grouped_by_experts_for_ae(assistance_expert)
         end
         questions_grouped_by_experts[expert_id][:questions_with_needs_description] <<
-          questions_with_needs_description_hash(assistance_expert, diagnosis)
+          questions_with_needs_description_hash(assistance_expert, diagnosed_need_contents_hash)
       end
       questions_grouped_by_experts.values
+    end
+
+    def diagnosed_need_contents_hash(diagnosis)
+      diagnosed_need_contents_hash = {}
+      needs = DiagnosedNeed.of_diagnosis(diagnosis).group(:question_id, :content).select(:question_id, :content)
+      needs.map { |need| diagnosed_need_contents_hash[need.question_id] = need.content }
+      diagnosed_need_contents_hash
     end
 
     def init_questions_grouped_by_experts_for_ae(assistance_expert)
@@ -37,12 +45,11 @@ class ExpertMailersService
       }
     end
 
-    def questions_with_needs_description_hash(assistance_expert, diagnosis)
+    def questions_with_needs_description_hash(assistance_expert, diagnosed_need_contents_hash)
       question = assistance_expert.assistance.question
-      need_description = DiagnosedNeed.of_diagnosis(diagnosis).of_question(question).first.content
       {
         question: question,
-        need_description: need_description
+        need_description: diagnosed_need_contents_hash[question.id]
       }
     end
 
