@@ -66,11 +66,11 @@
                     .item
                       .middle.aligned.content
                         %h5.ui.header.disabled
-                          = t('.diagnosed_needs', count: diagnosis.diagnosed_needs.count)
+                          = t('.diagnosed_needs', count: diagnosis.diagnosed_needs_count)
                     .item
                       .middle.aligned.content
                         %h5.ui.header.disabled
-                          = t('.selected_assistance_experts', count: diagnosis.selected_assistance_experts_count)
+                          = t('.selected_assistance_experts', count: diagnosis.selected_assistances_experts_count)
                 %td.collapsing.no-left-padding
                   = link_to t('.show_summary'),
                   { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
