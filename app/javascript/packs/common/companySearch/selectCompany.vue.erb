@@ -33,6 +33,7 @@ import ErrorMessage from './errorMessage.vue.erb'
 import CompanyView from './companyView.vue.erb'
 import CompanySelectionModal from './companySelectionModal.vue.erb'
 import Modal from '../modal.vue.erb'
+import ErrorService from '../errorService'
 
 export default {
     name: 'select-company',
@@ -59,19 +60,19 @@ export default {
         searchSiret: function(siret) {
             this.setSiret(siret)
             this.clearError()
-            this.$store.dispatch('fetchCompanyBySiret').catch(() => {})
+            this.$store.dispatch('fetchCompanyBySiret').catch(ErrorService.report)
         },
         searchSiren: function(siren) {
             this.setSiren(siren)
             this.clearError()
             this.closeModal()
-            this.$store.dispatch('fetchCompanyBySiren').catch(() => {})
+            this.$store.dispatch('fetchCompanyBySiren').catch(ErrorService.report)
         },
         searchName: function(name, county) {
             this.setName(name)
             this.setCounty(county)
             this.clearError()
-            this.$store.dispatch('fetchCompaniesByName').catch(() => {})
+            this.$store.dispatch('fetchCompaniesByName').catch(ErrorService.report)
             this.showModal()
         },
         manageError: function(error) {

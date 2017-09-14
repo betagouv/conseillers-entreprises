@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ErrorService from './errorService'
 
 export default class StepRoutingService {
     constructor(diagnosisId) {
@@ -17,13 +18,16 @@ export default class StepRoutingService {
         }
         const url = `/diagnoses/${this.diagnosisId}/step-${step}`
 
-        return StepRoutingService.send(config).then(() => {
-            StepRoutingService.goTo(url)
-        })
+        return StepRoutingService.send(config)
+            .then(() => {
+                StepRoutingService.goTo(url)
+            })
     }
 
     static send(config) {
-        return axios(config)
+        return axios(config).catch((error) => {
+            throw ErrorService.configureAPIErrorMessage(error, config)
+        })
     }
 
     static goTo(url) {

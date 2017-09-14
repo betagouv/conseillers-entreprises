@@ -7,9 +7,11 @@ import StepRoutingService from '../common/stepRoutingService'
 import store from './store'
 import TurbolinksAdapter from 'vue-turbolinks'
 import AxiosConfigurator from '../common/axiosConfigurator'
+import ErrorService from '../common/errorService'
 
 Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
+ErrorService.configureFramework(Vue)
 
 
 new Vue({
@@ -39,8 +41,7 @@ new Vue({
                     const stepRoutingService = new StepRoutingService(diagnosisId)
                     return stepRoutingService.goToStep(2)
                 })
-                .catch((error) => {
-                })
+                .catch(ErrorService.report)
         }
     }
 

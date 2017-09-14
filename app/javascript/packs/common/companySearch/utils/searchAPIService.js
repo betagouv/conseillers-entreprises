@@ -1,4 +1,5 @@
 import axios from 'axios'
+import ErrorService from '../../errorService'
 
 export default {
     fetchCompanyBySiret: function (siret) {
@@ -47,6 +48,8 @@ export default {
     },
 
     send: function (config) {
-        return axios(config)
+        return axios(config).catch((error) => {
+            throw ErrorService.configureAPIErrorMessage(error, config)
+        })
     }
 }
