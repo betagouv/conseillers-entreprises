@@ -40,7 +40,7 @@ describe ExpertMailersService do
 
   describe 'retrieve_assistances_experts' do
     subject(:retrieve_assistances_experts) do
-      described_class.retrieve_assistances_experts(assistance_expert_ids)
+      described_class.send(:retrieve_assistances_experts, assistance_expert_ids)
     end
 
     let(:assistances_experts) { create_list :assistance_expert, 3 }
@@ -51,7 +51,7 @@ describe ExpertMailersService do
 
   describe 'questions_grouped_by_experts' do
     subject(:questions_grouped_by_experts) do
-      described_class.questions_grouped_by_experts(assistances_experts, diagnosis)
+      described_class.send(:questions_grouped_by_experts, assistances_experts, diagnosis)
     end
 
     let(:diagnosis) { create :diagnosis }
@@ -120,7 +120,7 @@ describe ExpertMailersService do
 
   describe 'notify_expert' do
     subject(:notify_expert) do
-      described_class.notify_expert(expert_hash, user, diagnosis)
+      described_class.send(:notify_expert, expert_hash, user, diagnosis)
     end
 
     let(:user) { create :user }
