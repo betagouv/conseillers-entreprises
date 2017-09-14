@@ -28,4 +28,28 @@ describe UseCases::GetDiagnoses do
       end
     end
   end
+
+  describe 'for_siret' do
+    subject { described_class.for_siret siret }
+
+    let(:facility) { create :facility }
+    let(:siret) { facility.siret }
+
+    context 'no diagnoses' do
+      it { is_expected.to be_empty }
+    end
+
+    context 'several diagnoses' do
+      let(:visit) { create :visit, facility: facility }
+      let!(:diagnoses) { create_list :diagnosis, 2, step: 5, visit: visit }
+
+      before do
+        create :diagnosis, step: 1, visit: visit
+        allow(Diagnosis).to receive(:enrich_with_diagnosed_needs_count) { diagnoses }
+        allow(Diagnosis).to receive(:enrich_with_selected_assistances_experts_count) { diagnoses }
+      end
+
+      it { is_expected.to eq diagnoses }
+    end
+  end
 end

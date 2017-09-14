@@ -12,6 +12,13 @@ module UseCases
         }
       end
 
+      def for_siret(siret)
+        associations = [diagnosed_needs: :selected_assistance_experts, visit: :advisor]
+        diagnoses = Diagnosis.completed.includes(associations).of_siret(siret)
+        diagnoses = Diagnosis.enrich_with_diagnosed_needs_count(diagnoses)
+        Diagnosis.enrich_with_selected_assistances_experts_count(diagnoses)
+      end
+
       private
 
       def completed_diagnoses_from_user_diagnoses(diagnoses)
