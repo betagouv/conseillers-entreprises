@@ -4,16 +4,26 @@ module UseCases
   class CreateSelectedAssistancesExperts
     class << self
       def perform(diagnosis, assistance_expert_ids)
-        assistance_expert_ids.each do |id|
-          diagnosed_need = DiagnosedNeed.of_diagnosis(diagnosis).of_assistance_expert_id(id).first
+        assistances_experts = assistances_experts(diagnosis, assistance_expert_ids)
+        assistances_experts.each do |assistance_expert|
+          diagnosed_need = assistance_expert.assistance.question.diagnosed_needs.first
           next unless diagnosed_need
-          assistance_expert = AssistanceExpert.find id
           expert = assistance_expert.expert
           assistance = assistance_expert.assistance
           SelectedAssistanceExpert.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,
                                           expert_full_name: expert.full_name, assistance_title: assistance.title,
                                           expert_institution_name: expert.institution.name
         end
+      end
+
+      private
+
+      def assistances_experts(diagnosis, assistance_expert_ids)
+        associations = [:expert, :assistance, expert: :institution, assistance: [
+          :question, question: [:diagnosed_needs, diagnosed_needs: :diagnosis]
+        ]]
+        condition = { assistances: { questions: { diagnosed_needs: { diagnoses: { id: diagnosis.id } } } } }
+        AssistanceExpert.joins(associations).includes(associations).where(condition).where(id: assistance_expert_ids)
       end
     end
   end
