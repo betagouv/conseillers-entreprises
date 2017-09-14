@@ -18,8 +18,8 @@ describe UseCases::GetDiagnoses do
       let!(:completed_diagnosis) { create :diagnosis, step: 5, visit: visit }
 
       before do
-        allow(Diagnosis).to receive(:enrich_with_diagnosed_needs_count) { [completed_diagnosis] }
-        allow(Diagnosis).to receive(:enrich_with_selected_assistances_experts_count) { [completed_diagnosis] }
+        allow(UseCases::EnrichDiagnoses).to receive(:with_diagnosed_needs_count) { [completed_diagnosis] }
+        allow(UseCases::EnrichDiagnoses).to receive(:with_selected_assistances_experts_count) { [completed_diagnosis] }
       end
 
       it do
@@ -45,8 +45,8 @@ describe UseCases::GetDiagnoses do
 
       before do
         create :diagnosis, step: 1, visit: visit
-        allow(Diagnosis).to receive(:enrich_with_diagnosed_needs_count) { diagnoses }
-        allow(Diagnosis).to receive(:enrich_with_selected_assistances_experts_count) { diagnoses }
+        allow(UseCases::EnrichDiagnoses).to receive(:with_diagnosed_needs_count) { diagnoses }
+        allow(UseCases::EnrichDiagnoses).to receive(:with_selected_assistances_experts_count) { diagnoses }
       end
 
       it { is_expected.to eq diagnoses }
