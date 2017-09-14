@@ -49,17 +49,17 @@
     %table.ui.celled.table
       %thead
         %tr
-          %th{colspan: 2}= diagnosed_need.question_label
+          %th{ colspan: 2 }= diagnosed_need.question_label
       %tbody
         - if diagnosed_need.content && diagnosed_need.content.lstrip.length > 0
           %tr
-            %td{colspan: 2}
+            %td{ colspan: 2 }
               .ui.form
                 .field
                   %label= t('.diagnosed_needs_content_label')
                   = diagnosed_need.content
         - if diagnosed_need.selected_assistance_experts.empty?
-          %tr.small.text.ui.tiny.table{colspan: 2}
+          %tr.small.text.ui.tiny.table{ colspan: 2 }
             %td= t('.zero_contacted_expert')
         - else
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|

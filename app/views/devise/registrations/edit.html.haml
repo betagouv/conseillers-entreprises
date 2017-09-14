@@ -1,6 +1,7 @@
-%h2= "#{t('edit')} #{resource.model_name.human}"
+%h2 #{t('edit')} #{resource.model_name.human}
 
-= form_for resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'ui form' } do |f|
+- url = registration_path(resource_name)
+= form_for resource, as: resource_name, url: url, html: { method: :put, class: 'ui form' } do |f|
   = devise_error_messages!
   .field
     = f.label :email
@@ -32,5 +33,5 @@
   .actions
     = f.submit t('update'), class: 'ui green button'
 
-%div{style: 'margin-top: 30px'}
+.devise-links
   = link_to t('back'), :back

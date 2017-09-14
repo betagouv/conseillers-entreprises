@@ -24,7 +24,7 @@
         %td= entreprise.siren
       %tr
         %td= t('.capital_social')
-        %td= "#{entreprise.capital_social} €"
+        %td #{entreprise.capital_social} €
       %tr
         %td= t('.numero_tva_intracommunautaire')
         %td= entreprise.numero_tva_intracommunautaire
@@ -79,11 +79,11 @@
         %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
         .toggle-div#mandataires
           - entreprise.mandataires_sociaux.each do |person|
-            %table.ui.compact.celled.table{class: (person['type'] == 'PM' ? 'violet' : 'teal')}
+            %table.ui.compact.celled.table{ class: (person['type'] == 'PM' ? 'violet' : 'teal') }
               %tbody
                 - if person['type'] == 'PM'
                   %tr
-                    %td{colspan: 2}= t('.personne_morale')
+                    %td{ colspan: 2 }= t('.personne_morale')
                 - if person['raison_sociale'].present?
                   %tr
                     %td= t('.raison_sociale')
@@ -91,7 +91,7 @@
                 - if person['prenom'].present? && person['nom'].present?
                   %tr
                     %td= t('.nom')
-                    %td= "#{person['prenom'].humanize} #{person['nom'].humanize}"
+                    %td #{person['prenom'].humanize} #{person['nom'].humanize}
                 - if person['fonction'].present?
                   %tr
                     %td= t('.fonction')
@@ -142,7 +142,8 @@
               %h3.ui.header
                 = t('.visited_at', date: diagnosis.visit.happened_at_localized)
                 .sub.header
-                  = t('.visited_by_html', advisor_name: diagnosis.visit.advisor.full_name_with_role, advisor_email: diagnosis.visit.advisor.email)
+                  - advisor = diagnosis.visit.advisor
+                  = t('.visited_by_html', advisor_name: advisor.full_name_with_role, advisor_email: advisor.email)
             %td.collapsing
               .ui.middle.aligned.list
                 .item

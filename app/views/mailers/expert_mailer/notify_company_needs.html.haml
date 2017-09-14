@@ -2,10 +2,15 @@
 
 - link_to_root = link_to t('app_name'), root_url
 
+- advisor_met_company_params = {link_to_root: link_to_root,
+  advisor_name: @params[:advisor].full_name,
+  advisor_institution: @params[:advisor].institution,
+  company_name: @params[:company_name]}
+
 - if @params[:visit_date].present?
-  %p= t('.advisor_met_this_company_html', link_to_root: link_to_root, advisor_name: @params[:advisor].full_name, advisor_institution: @params[:advisor].institution, company_name: @params[:company_name], visit_date: @params[:visit_date])
+  %p= t('.advisor_met_this_company_html', advisor_met_company_params.merge(visit_date: @params[:visit_date]))
 - else
-  %p= t('.advisor_met_this_company_without_date_html', link_to_root: link_to_root, advisor_name: @params[:advisor].full_name, advisor_institution: @params[:advisor].institution, company_name: @params[:company_name])
+  %p= t('.advisor_met_this_company_without_date_html', advisor_met_company_params)
 
 %p= t('.needs_are_relevant_with_your_skills')
 
@@ -18,11 +23,21 @@
         = t('.more_info')
         = question_with_need_description[:need_description]
 
-- if @params[:company_contact].phone_number.present?
-  %p= t('.company_contact_with_phone_number', company_name: @params[:company_name], company_contact_full_name: @params[:company_contact].full_name, company_contact_role: @params[:company_contact].role, company_contact_phone_number: @params[:company_contact].phone_number, company_contact_email: @params[:company_contact].email)
-- else
-  %p= t('.company_contact_without_phone_number', company_name: @params[:company_name], company_contact_full_name: @params[:company_contact].full_name, company_contact_role: @params[:company_contact].role, company_contact_email: @params[:company_contact].email)
+- company_contact_params = {company_name: @params[:company_name],
+  company_contact_full_name: @params[:company_contact].full_name,
+  company_contact_role: @params[:company_contact].role,
+  company_contact_email: @params[:company_contact].email}
 
-%p= t('.contact_advisor_for_more_info', advisor_name: @params[:advisor].full_name, advisor_phone_number: @params[:advisor].phone_number, advisor_email: @params[:advisor].email)
+- if @params[:company_contact].phone_number.present?
+  - phone_number_hash = { company_contact_phone_number: @params[:company_contact].phone_number }
+  %p= t('.company_contact_with_phone_number', company_contact_params.merge(phone_number_hash))
+- else
+  %p= t('.company_contact_without_phone_number', company_contact_params)
+
+- contact_advisor_params = {advisor_name: @params[:advisor].full_name,
+  advisor_phone_number: @params[:advisor].phone_number,
+  advisor_email: @params[:advisor].email}
+
+%p= t('.contact_advisor_for_more_info', contact_advisor_params)
 %p= t('.regards')
 %p= t('.reso_team_html', link_to_root: link_to_root)

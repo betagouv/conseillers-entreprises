@@ -8,7 +8,7 @@
 %p= t('.identify_needs')
 
 #step2-app
-  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content}
+  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content }
 
   %content-text-area
 
@@ -24,8 +24,8 @@
     %table.ui.celled.table
       %tbody
         - item[:questions].each do |question|
-          %tr{'is' => 'question-selection-row', 'question-data-serialized' => question.to_json}
-          %tr{'is' => 'question-content-row', 'question-data-serialized' => question.to_json}
+          %tr{ 'is' => 'question-selection-row', 'question-data-serialized' => question.to_json }
+          %tr{ 'is' => 'question-content-row', 'question-data-serialized' => question.to_json }
 
   %next-step-button{ 'v-bind:previous-step-button' => 'false',
                      'v-bind:save-button' => 'true',

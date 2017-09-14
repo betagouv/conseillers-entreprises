@@ -12,3 +12,5 @@ printf "\n${BoldRed}#3 - Launch Rubocop${NoFormating}\n\n"
 rubocop
 printf "\n${BoldRed}#4 - Launch i18n-tasks${NoFormating}\n\n"
 i18n-tasks health
+printf "\n${BoldRed}#5 - Launch haml-lint${NoFormating}\n\n"
+haml-lint app/views/

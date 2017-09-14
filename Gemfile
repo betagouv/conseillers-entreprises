@@ -68,6 +68,7 @@ end
 
 group :development do
   gem 'awesome_print' # IRB console on exception pages or by using <%= console %>
+  gem 'haml_lint', require: false
   gem 'i18n-tasks', '~> 0.9'
   gem 'listen', '~> 3.0.5'
   gem 'web-console', '>= 3.3.0'

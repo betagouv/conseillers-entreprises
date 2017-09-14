@@ -13,9 +13,10 @@
         %table.ui.compact.small.table.celled
           %thead
             %tr
-              %th{colspan: 3}= diagnosed_need.question
+              %th{ colspan: 3 }= diagnosed_need.question
           %tbody
-            - assistances = diagnosed_need.question.assistances.of_location(@diagnosis.visit.location) # TODO : Optimize queries
+            -# TODO : Optimize queries
+            - assistances = diagnosed_need.question.assistances.of_location(@diagnosis.visit.location)
             - if assistances.blank?
               %tr
                 %td
@@ -49,7 +50,7 @@
             = t('previous_step')
             %i.arrow.left.icon
         .ui.right.aligned.column.no-right-padding.no-margin
-          %button.ui.teal.button.no-margin#next-step-button{class: ('disabled' unless @diagnosis.visit.visitee)}
+          %button.ui.teal.button.no-margin#next-step-button{ class: ('disabled' unless @diagnosis.visit.visitee) }
             = t('.notify_selected_experts')
 
       .clear
