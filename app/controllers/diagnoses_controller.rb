@@ -9,7 +9,7 @@ class DiagnosesController < ApplicationController
 
   def step2
     @diagnosis = Diagnosis.find params[:id]
-    check_access_to_diagnosis(@diagnosis)
+    check_current_user_access_to(@diagnosis)
     @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
   end
 
@@ -18,12 +18,12 @@ class DiagnosesController < ApplicationController
     @diagnosis = Diagnosis.joins(associations)
                           .includes(associations)
                           .find params[:id]
-    check_access_to_diagnosis(@diagnosis)
+    check_current_user_access_to(@diagnosis)
   end
 
   def step4
     @diagnosis = Diagnosis.find params[:id]
-    check_access_to_diagnosis(@diagnosis)
+    check_current_user_access_to(@diagnosis)
     @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis)
     associations = [question: [assistances: [assistances_experts: [expert: :institution]]]]
     @diagnosed_needs = @diagnosed_needs.joins(associations).includes(associations)
@@ -32,12 +32,12 @@ class DiagnosesController < ApplicationController
   def step5
     associations = [visit: [facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
     @diagnosis = Diagnosis.includes(associations).find params[:id]
-    check_access_to_diagnosis(@diagnosis)
+    check_current_user_access_to(@diagnosis)
   end
 
   def notify_experts
     diagnosis = Diagnosis.find params[:id]
-    check_access_to_diagnosis(diagnosis)
+    check_current_user_access_to(diagnosis)
     create_selected_ae_and_send_emails(diagnosis, params[:assistances_experts]) if params[:assistances_experts].present?
     diagnosis.update step: 5
     redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
@@ -45,16 +45,12 @@ class DiagnosesController < ApplicationController
 
   def destroy
     diagnosis = Diagnosis.find params[:id]
-    check_access_to_diagnosis(diagnosis)
+    check_current_user_access_to(diagnosis)
     diagnosis.destroy
     redirect_to diagnoses_path
   end
 
   private
-
-  def check_access_to_diagnosis(diagnosis)
-    not_found unless diagnosis.can_be_viewed_by?(current_user)
-  end
 
   def create_selected_ae_and_send_emails(diagnosis, assistances_experts)
     assistance_expert_ids = ExpertMailersService.filter_assistances_experts(assistances_experts)

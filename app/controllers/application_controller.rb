@@ -58,4 +58,8 @@ class ApplicationController < ActionController::Base
     }
     ExceptionNotifier.notify_exception exception, env: request.env, data: data
   end
+
+  def check_current_user_access_to(resource)
+    not_found unless resource.send(:can_be_viewed_by?, current_user)
+  end
 end

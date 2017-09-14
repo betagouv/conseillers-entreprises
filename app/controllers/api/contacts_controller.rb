@@ -4,18 +4,18 @@ module Api
   class ContactsController < ApplicationController
     def index
       visit = Visit.find params[:visit_id]
-      check_access_to_visit(visit)
+      check_current_user_access_to(visit)
       @contacts = Contact.joins(:visits).where(visits: { id: visit.id })
     end
 
     def show
       @contact = Contact.find params[:id]
-      check_access_to_contact(@contact)
+      check_current_user_access_to(@contact)
     end
 
     def create
       visit = Visit.find params[:visit_id]
-      check_access_to_visit(visit)
+      check_current_user_access_to(visit)
       @contact = UseCases::CreateContact.create_for_visit(contact_params: create_params, visit_id: visit.id)
       render :show, status: :created
     rescue StandardError
@@ -24,7 +24,7 @@ module Api
 
     def update
       @contact = Contact.find params[:id]
-      check_access_to_contact(@contact)
+      check_current_user_access_to(@contact)
       if @contact.update update_params
         render :show
       else
@@ -33,14 +33,6 @@ module Api
     end
 
     private
-
-    def check_access_to_visit(visit)
-      not_found unless visit.can_be_viewed_by?(current_user)
-    end
-
-    def check_access_to_contact(contact)
-      not_found unless contact.can_be_viewed_by?(current_user)
-    end
 
     def create_params
       params.require(:contact).permit(%i[full_name email phone_number role])

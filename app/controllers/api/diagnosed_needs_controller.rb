@@ -4,13 +4,13 @@ module Api
   class DiagnosedNeedsController < ApplicationController
     def index
       diagnosis = Diagnosis.find params[:diagnosis_id]
-      not_found unless diagnosis.can_be_viewed_by?(current_user)
+      check_current_user_access_to diagnosis
       @diagnosed_needs = DiagnosedNeed.where(diagnosis: diagnosis)
     end
 
     def bulk
       diagnosis = Diagnosis.find params[:diagnosis_id]
-      not_found unless diagnosis.can_be_viewed_by?(current_user)
+      check_current_user_access_to diagnosis
       bulk_transaction
       render body: nil
     rescue StandardError
