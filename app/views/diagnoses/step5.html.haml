@@ -47,7 +47,8 @@
   - @diagnosis.diagnosed_needs.each do |diagnosed_need|
     %table.ui.celled.table
       %thead
-        %th{colspan: 2}= diagnosed_need.question_label
+        %tr
+          %th{colspan: 2}= diagnosed_need.question_label
       %tbody
         - if diagnosed_need.content && diagnosed_need.content.lstrip.length > 0
           %tr
