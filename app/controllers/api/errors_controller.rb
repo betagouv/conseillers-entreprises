@@ -18,7 +18,7 @@ module Api
     private
 
     def update_params
-      params.require(:errorReport).permit(:name, :message, :mode, stack: [%i[url func line column context]])
+      params.require(:error_report).permit(:name, :message, :mode, stack: [%i[url func line column context]])
     end
   end
 end

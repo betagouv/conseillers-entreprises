@@ -24,7 +24,7 @@ let ErrorService = {
             method: 'post',
             url: '/api/errors',
             data: {
-                errorReport: errorReport
+                error_report: errorReport
             }
         }
 
@@ -36,8 +36,8 @@ let ErrorService = {
     },
 
     configureAPIErrorMessage: function (error, config) {
-        const errorMessage = `API ${config.method} call request to: ${config.url} | `
-        error.message = errorMessage + error.message
+        const errorMessageIntroduction = `API ${config.method} call request to: ${config.url} | `
+        error.message = errorMessageIntroduction + error.message
         return error
     }
 }

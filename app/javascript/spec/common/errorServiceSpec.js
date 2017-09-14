@@ -7,7 +7,7 @@ describe('ErrorService', () => {
 
     describe('configureAPIErrorMessage', function () {
 
-        it('prepends error message with an detailed message build from config', () => {
+        it('prepends error message with a detailed message build from config', () => {
             let error = new Error('Nice error message')
             const config = {
                 method: 'get',
@@ -43,7 +43,7 @@ describe('ErrorService', () => {
                     method: 'post',
                     url: '/api/errors',
                     data: {
-                        errorReport: errorReport
+                        error_report: errorReport
                     }
                 }
                 expect(ErrorService.send.calls.count()).toEqual(1)

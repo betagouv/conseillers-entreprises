@@ -7,7 +7,7 @@ RSpec.describe Api::ErrorsController, type: :controller do
 
   describe 'POST #create' do
     params = {
-      'errorReport' => {
+      'error_report' => {
         'mode' => 'stack',
         'name' => 'ReferenceError',
         'message' => 'blabla is not defined',
