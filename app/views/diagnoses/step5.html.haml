@@ -47,31 +47,25 @@
   - @diagnosis.diagnosed_needs.each do |diagnosed_need|
     %table.ui.celled.table
       %thead
-        %th= diagnosed_need.question_label
+        %th{colspan: 2}= diagnosed_need.question_label
       %tbody
         - if diagnosed_need.content && diagnosed_need.content.lstrip.length > 0
-          %tr
-            %td
-              .ui.form
-                .field
-                  %label= t('.diagnosed_needs_content_label')
-                  = diagnosed_need.content
+          %td{colspan: 2}
+            .ui.form
+              .field
+                %label= t('.diagnosed_needs_content_label')
+                = diagnosed_need.content
         - if diagnosed_need.selected_assistance_experts.count > 0
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
-            %tr
+            %tr.small.text.ui.tiny.table
+              %td.expert-width
+                = selected_assistance_expert.expert_full_name
+                %br
+                = selected_assistance_expert.expert_institution_name
               %td
-                - if selected_assistance_expert.expert_full_name
-                  = selected_assistance_expert.expert_full_name
-                  = ' - '
-                  = selected_assistance_expert.expert_institution_name
-                  = ' - '
-                  = selected_assistance_expert.assistance_title
-                - else
-                  = selected_assistance_expert.assistance_expert.expert.full_name
-                  = ' - '
-                  = selected_assistance_expert.assistance_expert.expert.institution.name
+                = selected_assistance_expert.assistance_title
         - else
-          %tr
+          %th{colspan: 2}
             %td= t('.zero_contacted_expert')
 
   - if @diagnosis.content
