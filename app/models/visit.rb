@@ -26,4 +26,8 @@ class Visit < ApplicationRecord
   def location
     facility.city_code
   end
+
+  def can_be_viewed_by?(user)
+    advisor == user
+  end
 end

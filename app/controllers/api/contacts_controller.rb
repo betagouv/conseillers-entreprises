@@ -3,15 +3,20 @@
 module Api
   class ContactsController < ApplicationController
     def index
-      @contacts = Contact.joins(:visits).where(visits: { id: params[:visit_id] })
+      visit = Visit.find params[:visit_id]
+      check_current_user_access_to(visit)
+      @contacts = Contact.joins(:visits).where(visits: { id: visit.id })
     end
 
     def show
       @contact = Contact.find params[:id]
+      check_current_user_access_to(@contact)
     end
 
     def create
-      @contact = UseCases::CreateContact.create_for_visit(contact_params: create_params, visit_id: params[:visit_id])
+      visit = Visit.find params[:visit_id]
+      check_current_user_access_to(visit)
+      @contact = UseCases::CreateContact.create_for_visit(contact_params: create_params, visit_id: visit.id)
       render :show, status: :created
     rescue StandardError
       render body: nil, status: :bad_request
@@ -19,27 +24,12 @@ module Api
 
     def update
       @contact = Contact.find params[:id]
+      check_current_user_access_to(@contact)
       if @contact.update update_params
         render :show
       else
         render body: nil, status: :bad_request
       end
-    end
-
-    def destroy
-      contact = Contact.find params[:id]
-      if contact.destroy
-        render body: nil, status: :ok
-      else
-        render body: nil, status: :unprocessable_entity
-      end
-    end
-
-    def contact_button_expert
-      @visit = Visit.find params[:visit_id]
-      @assistance = Assistance.find params[:assistance_id]
-      @expert = Expert.find params[:expert_id]
-      @question = @assistance.question
     end
 
     private

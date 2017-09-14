@@ -93,7 +93,7 @@ Rails.application.configure do
                         slack: {
                           webhook_url: ENV['SLACK_WEBHOOK_URL'],
                           channel: '#startup-reso-dev',
-                          username: 'RéSo production',
+                          username: 'Réso Production',
                           additional_parameters: {
                             icon_emoji: ':boom:',
                             mrkdwn: true

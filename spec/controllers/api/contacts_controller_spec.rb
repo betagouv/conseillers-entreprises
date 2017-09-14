@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe Api::ContactsController, type: :controller do
   login_user
 
@@ -11,7 +10,7 @@ RSpec.describe Api::ContactsController, type: :controller do
 
     context 'when visit exists' do
       let(:contact) { create :contact, :with_email }
-      let(:visit) { create :visit, visitee: contact }
+      let(:visit) { create :visit, advisor: current_user, visitee: contact }
 
       it 'returns http success' do
         request
@@ -33,6 +32,8 @@ RSpec.describe Api::ContactsController, type: :controller do
     context 'when contact exists' do
       let(:contact) { create :contact, :with_email }
 
+      before { create :visit, advisor: current_user, visitee: contact }
+
       it 'returns http success' do
         request
 
@@ -51,7 +52,7 @@ RSpec.describe Api::ContactsController, type: :controller do
     subject(:request) { post :create, format: :json, params: { visit_id: visit.id, contact: contact_params } }
 
     let(:facility) { create :facility }
-    let(:visit) { create :visit, facility: facility }
+    let(:visit) { create :visit, advisor: current_user, facility: facility }
 
     context 'when parameters are OK' do
       let(:contact_params) do
@@ -106,7 +107,10 @@ RSpec.describe Api::ContactsController, type: :controller do
         }
       end
 
-      before { request }
+      before do
+        create :visit, advisor: current_user, visitee: contact
+        request
+      end
 
       it('returns http success') { expect(response).to have_http_status(:success) }
 
@@ -122,7 +126,10 @@ RSpec.describe Api::ContactsController, type: :controller do
     context 'when parameters are wrong' do
       let(:contact_params) { { email: '', role: '' } }
 
-      before { request }
+      before do
+        create :visit, advisor: current_user, visitee: contact
+        request
+      end
 
       it('returns http bad request') { expect(response).to have_http_status(:bad_request) }
       it('updates the diagnosis s content') { expect(contact.reload.full_name).to eq(contact.full_name) }
@@ -135,82 +142,4 @@ RSpec.describe Api::ContactsController, type: :controller do
       it('raises an error') { expect { request }.to raise_error ActionController::UrlGenerationError }
     end
   end
-
-  describe 'GET #destroy' do
-    subject(:request) { delete :destroy, format: :json, params: { id: contact.id } }
-
-    context 'when contact exists' do
-      let(:company) { create :company }
-      let(:contact) { build :contact, :with_email, company: company }
-
-      before { contact.save }
-
-      context 'when contact can be destroyed' do
-        it 'returns http ok' do
-          request
-
-          expect(response).to have_http_status(:ok)
-        end
-
-        it('destroys the contact') { expect { request }.to change(Contact, :count).by(-1) }
-      end
-
-      context 'when contact cannot be destroyed' do
-        before { create :visit, visitee: contact }
-
-        it 'returns http bad request' do
-          request
-
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
-
-        it('does not destroy the contact') { expect { request }.not_to change(Contact, :count) }
-      end
-    end
-
-    context 'when contact does not exist' do
-      let(:contact) { build :contact }
-
-      it('raises an error') { expect { request }.to raise_error ActionController::UrlGenerationError }
-    end
-  end
-
-  describe 'GET #contact_button_expert' do
-    subject(:request) do
-      get :contact_button_expert,
-          format: :json,
-          params: { visit_id: visit.id, assistance_id: assistance.id, expert_id: expert.id }
-    end
-
-    context 'when visit exists' do
-      let(:visit) { create :visit }
-
-      context 'when assistance exists' do
-        let(:assistance) { create :assistance, :with_expert }
-        let(:expert) { assistance.experts.first }
-
-        it('returns http success') do
-          request
-
-          expect(response).to have_http_status(:ok)
-        end
-      end
-
-      context 'when assistance does not exist' do
-        let(:assistance) { build :assistance, :with_expert }
-        let(:expert) { create :expert }
-
-        it('raises an error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
-      end
-    end
-
-    context 'when visit does not exist' do
-      let(:visit) { build :visit }
-      let(:assistance) { create :assistance, :with_expert }
-      let(:expert) { create :expert }
-
-      it('raises an error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
-    end
-  end
 end
-# rubocop:enable Metrics/BlockLength

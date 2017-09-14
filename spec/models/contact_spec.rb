@@ -41,6 +41,30 @@ RSpec.describe Contact, type: :model do
     end
   end
 
+  describe 'can_be_viewed_by?' do
+    subject { contact.can_be_viewed_by?(user) }
+
+    let(:user) { create :user }
+    let(:contact) { create :contact, :with_email }
+
+    before do
+      create :visit, advisor: advisor
+      create :visit, advisor: advisor, visitee: contact
+    end
+
+    context 'visit advisor is the user' do
+      let(:advisor) { user }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'visit advisor is not the user' do
+      let(:advisor) { create :user }
+
+      it { is_expected.to eq false }
+    end
+  end
+
   describe 'full_name=' do
     subject(:set_full_name) { contact.full_name = full_name }
 
