@@ -1,463 +1,466 @@
 import Step3APIService from '../../../packs/step-3/store/step3APIService'
 
-//for the async function to work
+// for the async function to work
 require('babel-core/register')
 
 describe('Step3APIService', () => {
+  const contactData = {
+    'full_name': 'Monsieur Daron',
+    'email': 'daron@patron.com',
+    'phone_number': '0102030405',
+    'role': 'Patron'
+  }
 
-    const contactData = {
-        'full_name': 'Monsieur Daron',
-        'email': 'daron@patron.com',
-        'phone_number': '0102030405',
-        'role': 'Patron'
-    }
+  const contact = {
+    'id': 1,
+    'full_name': 'Monsieur Daron',
+    'email': 'daron@patron.com',
+    'phone_number': '',
+    'role': 'Patron',
+    'company_id': 1
+  }
 
-    const contact = {
-        'id': 1,
-        'full_name': 'Monsieur Daron',
-        'email': 'daron@patron.com',
-        'phone_number': '',
-        'role': 'Patron',
-        'company_id': 1
-    }
+  describe('getContactFromId', () => {
+    var returnPromise
 
-    describe('getContactFromId', () => {
-
-        var returnPromise
-
-        describe('with a success', function () {
-
-            beforeEach(function () {
-                var promise = Promise.resolve({
-                    data: {
-                        id: 123,
-                        full_name: 'Jean Bon',
-                        email: 'jeanbon@herta.fr',
-                        role: 'responsable charcuterie',
-                        company_id: 432
-                    }
-                })
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
-
-                returnPromise = Step3APIService.getContactFromId(10)
-            })
-
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'get',
-                    url: `/api/contacts/10.json`
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
-
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
-
-            it('returns a contact', async function () {
-                var serviceResponse
-                await returnPromise.then((response) => {
-                    serviceResponse = response
-                })
-                expect(serviceResponse).toEqual({
-                    id: 123,
-                    full_name: 'Jean Bon',
-                    email: 'jeanbon@herta.fr',
-                    role: 'responsable charcuterie',
-                    company_id: 432
-                })
-            })
+    describe('with a success', function () {
+      beforeEach(function () {
+        /* eslint-disable camelcase */
+        var promise = Promise.resolve({
+          data: {
+            id: 123,
+            full_name: 'Jean Bon',
+            email: 'jeanbon@herta.fr',
+            role: 'responsable charcuterie',
+            company_id: 432
+          }
         })
+        /* eslint-enable camelcase */
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
 
-        describe('with an error', function () {
-            let error = new Error('error')
+        returnPromise = Step3APIService.getContactFromId(10)
+      })
 
-            beforeEach(function () {
-                var promise = Promise.reject(error)
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
+      it('calls send with the right arguments', function () {
+        var config = {
+          method: 'get',
+          url: '/api/contacts/10.json'
+        }
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
 
-                returnPromise = Step3APIService.getContactFromId(10)
-            })
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
 
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'get',
-                    url: `/api/contacts/10.json`
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
-
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
-
-            it('returns an error', async function () {
-                var serviceResponse
-                var serviceError
-                await returnPromise
-                    .then((response) => {
-                        serviceResponse = response
-                    })
-                    .catch((error) => {
-                        serviceError = error
-                    })
-
-                expect(serviceResponse).toBeUndefined()
-                expect(serviceError).toEqual(error)
-            })
+      it('returns a contact', async function () {
+        var serviceResponse
+        await returnPromise.then((response) => {
+          serviceResponse = response
         })
+        /* eslint-disable camelcase */
+        expect(serviceResponse).toEqual({
+          id: 123,
+          full_name: 'Jean Bon',
+          email: 'jeanbon@herta.fr',
+          role: 'responsable charcuterie',
+          company_id: 432
+        })
+        /* eslint-enable camelcase */
+      })
     })
 
-    describe('createContactOnVisit', () => {
+    describe('with an error', function () {
+      const error = new Error('error')
 
-        var returnPromise
+      beforeEach(function () {
+        var promise = Promise.reject(error)
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
 
-        describe('with a success', function () {
+        returnPromise = Step3APIService.getContactFromId(10)
+      })
 
-            beforeEach(function () {
-                var promise = Promise.resolve({data: contact})
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
+      it('calls send with the right arguments', function () {
+        var config = {
+          method: 'get',
+          url: '/api/contacts/10.json'
+        }
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
 
-                returnPromise = Step3APIService.createContactForVisit(10, contactData)
-            })
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
 
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'post',
-                    url: `/api/visits/10/contacts.json`,
-                    data: {
-                        contact: {
-                            full_name: 'Monsieur Daron',
-                            email: 'daron@patron.com',
-                            phone_number: '0102030405',
-                            role: 'Patron'
-                        }
-                    }
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
+      it('returns an error', async function () {
+        var serviceResponse
+        var serviceError
+        await returnPromise
+          .then((response) => {
+            serviceResponse = response
+          })
+          .catch((error) => {
+            serviceError = error
+          })
 
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
+        expect(serviceResponse).toBeUndefined()
+        expect(serviceError).toEqual(error)
+      })
+    })
+  })
 
-            it('returns a contact', async function () {
-                var serviceResponse
-                await returnPromise.then((response) => {
-                    serviceResponse = response
-                })
-                expect(serviceResponse).toEqual(contact)
-            })
+  describe('createContactOnVisit', () => {
+    var returnPromise
+
+    describe('with a success', function () {
+      beforeEach(function () {
+        var promise = Promise.resolve({ data: contact })
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
+
+        returnPromise = Step3APIService.createContactForVisit(10, contactData)
+      })
+
+      it('calls send with the right arguments', function () {
+        /* eslint-disable camelcase */
+        var config = {
+          method: 'post',
+          url: '/api/visits/10/contacts.json',
+          data: {
+            contact: {
+              full_name: 'Monsieur Daron',
+              email: 'daron@patron.com',
+              phone_number: '0102030405',
+              role: 'Patron'
+            }
+          }
+        }
+        /* eslint-enable camelcase */
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
+
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
+
+      it('returns a contact', async function () {
+        var serviceResponse
+        await returnPromise.then((response) => {
+          serviceResponse = response
         })
-
-        describe('with an error', function () {
-
-            let error = new Error('error')
-            beforeEach(function () {
-                var promise = Promise.reject(error)
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
-
-                returnPromise = Step3APIService.createContactForVisit(10, contactData)
-            })
-
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'post',
-                    url: `/api/visits/10/contacts.json`,
-                    data: {
-                        contact: {
-                            full_name: 'Monsieur Daron',
-                            email: 'daron@patron.com',
-                            phone_number: '0102030405',
-                            role: 'Patron'
-                        }
-                    }
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
-
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
-
-            it('returns an error', async function () {
-
-                var serviceResponse
-                var serviceError
-                await returnPromise
-                    .then((response) => {
-                        serviceResponse = response
-                    })
-                    .catch((error) => {
-                        serviceError = error
-                    })
-
-                expect(serviceResponse).toBeUndefined()
-                expect(serviceError).toEqual(error)
-            })
-        })
+        expect(serviceResponse).toEqual(contact)
+      })
     })
 
-    describe('updateContact', () => {
+    describe('with an error', function () {
+      const error = new Error('error')
+      beforeEach(function () {
+        var promise = Promise.reject(error)
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
 
-        var returnPromise
+        returnPromise = Step3APIService.createContactForVisit(10, contactData)
+      })
 
-        describe('with a success', function () {
+      it('calls send with the right arguments', function () {
+        /* eslint-disable camelcase */
+        var config = {
+          method: 'post',
+          url: '/api/visits/10/contacts.json',
+          data: {
+            contact: {
+              full_name: 'Monsieur Daron',
+              email: 'daron@patron.com',
+              phone_number: '0102030405',
+              role: 'Patron'
+            }
+          }
+        }
+        /* eslint-enable camelcase */
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
 
-            beforeEach(function () {
-                var promise = Promise.resolve(true)
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
 
-                returnPromise = Step3APIService.updateContact(10, contactData)
-            })
+      it('returns an error', async function () {
+        var serviceResponse
+        var serviceError
+        await returnPromise
+          .then((response) => {
+            serviceResponse = response
+          })
+          .catch((error) => {
+            serviceError = error
+          })
 
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'patch',
-                    url: `/api/contacts/10.json`,
-                    data: {
-                        contact: {
-                            'full_name': 'Monsieur Daron',
-                            'email': 'daron@patron.com',
-                            'phone_number': '0102030405',
-                            'role': 'Patron'
-                        }
-                    }
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
+        expect(serviceResponse).toBeUndefined()
+        expect(serviceError).toEqual(error)
+      })
+    })
+  })
 
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
+  describe('updateContact', () => {
+    var returnPromise
 
-            it('returns true', async function () {
-                var serviceResponse
-                await returnPromise.then((response) => {
-                    serviceResponse = response
-                })
-                expect(serviceResponse).toBeTruthy()
-            })
+    describe('with a success', function () {
+      beforeEach(function () {
+        var promise = Promise.resolve(true)
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
+
+        returnPromise = Step3APIService.updateContact(10, contactData)
+      })
+
+      it('calls send with the right arguments', function () {
+        var config = {
+          method: 'patch',
+          url: '/api/contacts/10.json',
+          data: {
+            contact: {
+              'full_name': 'Monsieur Daron',
+              'email': 'daron@patron.com',
+              'phone_number': '0102030405',
+              'role': 'Patron'
+            }
+          }
+        }
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
+
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
+
+      it('returns true', async function () {
+        var serviceResponse
+        await returnPromise.then((response) => {
+          serviceResponse = response
         })
-
-        describe('with an error', function () {
-            let error = new Error('error')
-
-            beforeEach(function () {
-                var promise = Promise.reject(error)
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
-
-                returnPromise = Step3APIService.updateContact(10, contactData)
-            })
-
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'patch',
-                    url: `/api/contacts/10.json`,
-                    data: {
-                        contact: {
-                            'full_name': 'Monsieur Daron',
-                            'email': 'daron@patron.com',
-                            'phone_number': '0102030405',
-                            'role': 'Patron'
-                        }
-                    }
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
-
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
-
-            it('returns an error', async function () {
-                var serviceResponse
-                var serviceError
-                await returnPromise
-                    .then((response) => {
-                        serviceResponse = response
-                    })
-                    .catch((error) => {
-                        serviceError = error
-                    })
-
-                expect(serviceResponse).toBeUndefined()
-                expect(serviceError).toEqual(error)
-            })
-        })
+        expect(serviceResponse).toBeTruthy()
+      })
     })
 
-    describe('getVisitFromId', () => {
+    describe('with an error', function () {
+      const error = new Error('error')
 
-        var returnPromise
+      beforeEach(function () {
+        var promise = Promise.reject(error)
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
 
-        describe('with a success', function () {
+        returnPromise = Step3APIService.updateContact(10, contactData)
+      })
 
-            beforeEach(function () {
-                var promise = Promise.resolve({
-                    data: {
-                        happened_at: '2017-08-21',
-                        visitee_id: 123
-                    }
-                })
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
+      it('calls send with the right arguments', function () {
+        var config = {
+          method: 'patch',
+          url: '/api/contacts/10.json',
+          data: {
+            contact: {
+              'full_name': 'Monsieur Daron',
+              'email': 'daron@patron.com',
+              'phone_number': '0102030405',
+              'role': 'Patron'
+            }
+          }
+        }
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
 
-                returnPromise = Step3APIService.getVisitFromId(10)
-            })
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
 
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'get',
-                    url: `/api/visits/10.json`
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
+      it('returns an error', async function () {
+        var serviceResponse
+        var serviceError
+        await returnPromise
+          .then((response) => {
+            serviceResponse = response
+          })
+          .catch((error) => {
+            serviceError = error
+          })
 
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
+        expect(serviceResponse).toBeUndefined()
+        expect(serviceError).toEqual(error)
+      })
+    })
+  })
 
-            it('returns a contact', async function () {
-                var serviceResponse
-                await returnPromise.then((response) => {
-                    serviceResponse = response
-                })
-                expect(serviceResponse).toEqual({
-                    happened_at: '2017-08-21',
-                    visitee_id: 123
-                })
-            })
+  describe('getVisitFromId', () => {
+    var returnPromise
+
+    describe('with a success', function () {
+      beforeEach(function () {
+        /* eslint-disable camelcase */
+        var promise = Promise.resolve({
+          data: {
+            happened_at: '2017-08-21',
+            visitee_id: 123
+          }
         })
+        /* eslint-enable camelcase */
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
 
-        describe('with an error', function () {
-            let error = new Error('error')
+        returnPromise = Step3APIService.getVisitFromId(10)
+      })
 
-            beforeEach(function () {
-                var promise = Promise.reject(error)
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
+      it('calls send with the right arguments', function () {
+        var config = {
+          method: 'get',
+          url: '/api/visits/10.json'
+        }
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
 
-                returnPromise = Step3APIService.getVisitFromId(10)
-            })
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
 
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'get',
-                    url: `/api/visits/10.json`
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
-
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
-
-            it('returns an error', async function () {
-                var serviceResponse
-                var serviceError
-                await returnPromise
-                    .then((response) => {
-                        serviceResponse = response
-                    })
-                    .catch((error) => {
-                        serviceError = error
-                    })
-
-                expect(serviceResponse).toBeUndefined()
-                expect(serviceError).toEqual(error)
-            })
+      it('returns a contact', async function () {
+        var serviceResponse
+        await returnPromise.then((response) => {
+          serviceResponse = response
         })
+        /* eslint-disable camelcase */
+        expect(serviceResponse).toEqual({
+          happened_at: '2017-08-21',
+          visitee_id: 123
+        })
+        /* eslint-enable camelcase */
+      })
     })
 
-    describe('updateVisitDate', () => {
+    describe('with an error', function () {
+      const error = new Error('error')
 
-        var returnPromise
+      beforeEach(function () {
+        var promise = Promise.reject(error)
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
 
-        describe('with a success', function () {
+        returnPromise = Step3APIService.getVisitFromId(10)
+      })
 
-            beforeEach(function () {
-                var promise = Promise.resolve(true)
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
+      it('calls send with the right arguments', function () {
+        var config = {
+          method: 'get',
+          url: '/api/visits/10.json'
+        }
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
 
-                returnPromise = Step3APIService.updateVisitDate(10, '2017-08-21')
-            })
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
 
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'patch',
-                    url: `/api/visits/10.json`,
-                    data: {
-                        visit: {
-                            happened_at: '2017-08-21'
-                        }
-                    }
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
+      it('returns an error', async function () {
+        var serviceResponse
+        var serviceError
+        await returnPromise
+          .then((response) => {
+            serviceResponse = response
+          })
+          .catch((error) => {
+            serviceError = error
+          })
 
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
-
-            it('returns true', async function () {
-                var serviceResponse
-                await returnPromise.then((response) => {
-                    serviceResponse = response
-                })
-                expect(serviceResponse).toBeTruthy()
-            })
-        })
-
-        describe('with an error', function () {
-            let error = new Error('error')
-
-            beforeEach(function () {
-                var promise = Promise.reject(error)
-                spyOn(Step3APIService, 'send').and.returnValue(promise)
-
-                returnPromise = Step3APIService.updateVisitDate(10, '2017-08-21')
-            })
-
-            it('calls send with the right arguments', function () {
-                var config = {
-                    method: 'patch',
-                    url: `/api/visits/10.json`,
-                    data: {
-                        visit: {
-                            happened_at: '2017-08-21'
-                        }
-                    }
-                }
-                expect(Step3APIService.send.calls.count()).toEqual(1)
-                expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
-            })
-
-            it('returns a promise', function () {
-                expect(typeof returnPromise.then).toBe('function')
-            })
-
-            it('returns an error', async function () {
-                var serviceResponse
-                var serviceError
-                await returnPromise
-                    .then((response) => {
-                        serviceResponse = response
-                    })
-                    .catch((error) => {
-                        serviceError = error
-                    })
-
-                expect(serviceResponse).toBeUndefined()
-                expect(serviceError).toEqual(error)
-            })
-        })
+        expect(serviceResponse).toBeUndefined()
+        expect(serviceError).toEqual(error)
+      })
     })
+  })
+
+  describe('updateVisitDate', () => {
+    var returnPromise
+
+    describe('with a success', function () {
+      beforeEach(function () {
+        var promise = Promise.resolve(true)
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
+
+        returnPromise = Step3APIService.updateVisitDate(10, '2017-08-21')
+      })
+
+      it('calls send with the right arguments', function () {
+        /* eslint-disable camelcase */
+        var config = {
+          method: 'patch',
+          url: '/api/visits/10.json',
+          data: {
+            visit: {
+              happened_at: '2017-08-21'
+            }
+          }
+        }
+        /* eslint-enable camelcase */
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
+
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
+
+      it('returns true', async function () {
+        var serviceResponse
+        await returnPromise.then((response) => {
+          serviceResponse = response
+        })
+        expect(serviceResponse).toBeTruthy()
+      })
+    })
+
+    describe('with an error', function () {
+      const error = new Error('error')
+
+      beforeEach(function () {
+        var promise = Promise.reject(error)
+        spyOn(Step3APIService, 'send').and.returnValue(promise)
+
+        returnPromise = Step3APIService.updateVisitDate(10, '2017-08-21')
+      })
+
+      it('calls send with the right arguments', function () {
+        /* eslint-disable camelcase */
+        var config = {
+          method: 'patch',
+          url: '/api/visits/10.json',
+          data: {
+            visit: {
+              happened_at: '2017-08-21'
+            }
+          }
+        }
+        /* eslint-enable camelcase */
+        expect(Step3APIService.send.calls.count()).toEqual(1)
+        expect(Step3APIService.send.calls.argsFor(0)).toEqual([config])
+      })
+
+      it('returns a promise', function () {
+        expect(typeof returnPromise.then).toBe('function')
+      })
+
+      it('returns an error', async function () {
+        var serviceResponse
+        var serviceError
+        await returnPromise
+          .then((response) => {
+            serviceResponse = response
+          })
+          .catch((error) => {
+            serviceError = error
+          })
+
+        expect(serviceResponse).toBeUndefined()
+        expect(serviceError).toEqual(error)
+      })
+    })
+  })
 })

@@ -50,4 +50,3 @@ new Vue({ // eslint-disable-line no-new
     }
   }
 })
-

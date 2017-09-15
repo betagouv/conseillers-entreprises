@@ -1,5 +1,4 @@
 vendor/**
-app/javascript/spec/**
 app/assets/**
 public/**
 karma.conf.js
