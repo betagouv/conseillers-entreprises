@@ -16,6 +16,17 @@ describe AdminMailer do
     it { expect(mail.from).to eq AdminMailer::SENDER }
   end
 
+  describe '#new_user_approved_notification' do
+    subject(:mail) { described_class.new_user_approved_notification(user, admin).deliver_now }
+
+    let(:user) { create :user }
+    let(:admin) { create :user }
+
+    it_behaves_like 'an email'
+
+    it { expect(mail.from).to eq AdminMailer::SENDER }
+  end
+
   describe '#weekly_statistics' do
     subject(:mail) { described_class.weekly_statistics(information_hash).deliver_now }
 

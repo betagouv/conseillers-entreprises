@@ -12,6 +12,15 @@ ActiveAdmin.register User do
                 :password_confirmation,
                 :is_approved
 
+  before_action :send_approval_emails, only: :update
+
+  controller do
+    def send_approval_emails
+      nil if resource.is_approved || !params[:user][:is_approved].to_b
+      AdminMailer.delay.new_user_approved_notification(resource, current_user)
+    end
+  end
+
   collection_action :send_invitation_emails, method: :post do
     UserMailer.delay.send_new_user_invitation(params)
     redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
