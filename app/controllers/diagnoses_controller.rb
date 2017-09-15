@@ -15,18 +15,16 @@ class DiagnosesController < ApplicationController
 
   def step3
     associations = [visit: [facility: [:company]]]
-    @diagnosis = Diagnosis.joins(associations)
-                          .includes(associations)
-                          .find params[:id]
+    @diagnosis = Diagnosis.joins(associations).includes(associations).find params[:id]
     check_current_user_access_to(@diagnosis)
   end
 
   def step4
     @diagnosis = Diagnosis.find params[:id]
     check_current_user_access_to(@diagnosis)
-    @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis)
     associations = [question: [assistances: [assistances_experts: [expert: :institution]]]]
-    @diagnosed_needs = @diagnosed_needs.joins(associations).includes(associations)
+    @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis).joins(associations).includes(associations)
+    @assistances_of_location = Assistance.of_location(@diagnosis.visit.location).of_diagnosis(@diagnosis)
   end
 
   def step5
