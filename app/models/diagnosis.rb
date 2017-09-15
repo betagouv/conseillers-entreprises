@@ -2,6 +2,7 @@
 
 class Diagnosis < ApplicationRecord
   AUTHORIZED_STEPS = [1, 2, 3, 4, 5].freeze
+  LAST_STEP = 5
   acts_as_paranoid
 
   attr_accessor :diagnosed_needs_count, :selected_assistances_experts_count
