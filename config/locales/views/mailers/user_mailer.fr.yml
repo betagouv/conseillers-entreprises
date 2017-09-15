@@ -10,3 +10,10 @@ fr:
         finish_registration: Finaliser mon inscription
         dont_hesitate_to_ask: N'hésitez pas à répondre à cet e-mail pour toute question !
         happy_discovery_html: Bonne découverte de %{link_to_root}.
+      account_approved:
+        subject: "[Réso] Votre compte a été validé !"
+        hello: Bonjour,
+        account_was_approved: Un administrateur de Réso a validé votre compte. Vous pouvez désormais vous connecter pour découvrir la plateforme !
+        sign_me_in: Me connecter
+        dont_hesitate_to_ask: N'hésitez pas à répondre à cet e-mail pour toute question !
+        happy_discovery_html: Bonne découverte de %{link_to_root}.

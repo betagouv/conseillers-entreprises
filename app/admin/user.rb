@@ -17,6 +17,7 @@ ActiveAdmin.register User do
   controller do
     def send_approval_emails
       nil if resource.is_approved || !params[:user][:is_approved].to_b
+      UserMailer.delay.account_approved(resource)
       AdminMailer.delay.new_user_approved_notification(resource, current_user)
     end
   end
