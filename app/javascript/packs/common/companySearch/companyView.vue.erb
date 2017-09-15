@@ -22,18 +22,18 @@
 
 <script>
 export default {
-    name: 'company-view',
-    props: ['companyData'],
-    computed: {
-        hasData: function() {
-           return Boolean(this.companyData.siret)
-        },
-    },
-    methods: {
-        detailButtonClicked: function () {
-            this.$emit('detail-button-click', this.companyData.siret)
-        }
+  name: 'company-view',
+  props: ['companyData'],
+  computed: {
+    hasData: function () {
+      return Boolean(this.companyData.siret)
     }
+  },
+  methods: {
+    detailButtonClicked: function () {
+      this.$emit('detail-button-click', this.companyData.siret)
+    }
+  }
 }
 </script>
 

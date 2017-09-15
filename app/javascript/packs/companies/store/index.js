@@ -7,8 +7,8 @@ Vue.use(Vuex)
 const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
-    modules: {
-        searchStore
-    },
-    strict: debug
+  modules: {
+    searchStore
+  },
+  strict: debug
 })

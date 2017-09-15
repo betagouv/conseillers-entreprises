@@ -16,38 +16,38 @@ Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
 ErrorService.configureFramework(Vue)
 
-new Vue({
-    el: '#step3-app',
-    store,
-    components: {
-        'app-data-setter': appDataSetter,
-        'visit-date-input': visitDateInput,
-        'contact-form': contactForm,
-        'form-error-message': formErrorMessage,
-        'next-step-button': nextStepButton
+new Vue({ // eslint-disable-line no-new
+  el: '#step3-app',
+  store,
+  components: {
+    'app-data-setter': appDataSetter,
+    'visit-date-input': visitDateInput,
+    'contact-form': contactForm,
+    'form-error-message': formErrorMessage,
+    'next-step-button': nextStepButton
+  },
+  computed: {
+    isRequestInProgress: function () {
+      return this.$store.state.step3Store.isRequestInProgress
     },
-    computed: {
-        isRequestInProgress: function () {
-            return this.$store.state.step3Store.isRequestInProgress
-        },
-        isFormDisabled: function () {
-            return this.$store.getters.isFormDisabled
-        }
-    },
-    methods: {
-        previousStepButtonClicked: function () {
-            const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
-            return stepRoutingService.goToStep(2)
-                .catch(ErrorService.report)
-        },
-        nextStepButtonClicked: function () {
-            const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
-            this.$store.dispatch('launchNextStep')
-                .then(() => {
-                    return stepRoutingService.goToStep(4)
-                })
-                .catch(ErrorService.report)
-        }
+    isFormDisabled: function () {
+      return this.$store.getters.isFormDisabled
     }
+  },
+  methods: {
+    previousStepButtonClicked: function () {
+      const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
+      return stepRoutingService.goToStep(2)
+        .catch(ErrorService.report)
+    },
+    nextStepButtonClicked: function () {
+      const stepRoutingService = new StepRoutingService(this.$store.state.step3Store.diagnosisId)
+      this.$store.dispatch('launchNextStep')
+        .then(() => {
+          return stepRoutingService.goToStep(4)
+        })
+        .catch(ErrorService.report)
+    }
+  }
 })
 

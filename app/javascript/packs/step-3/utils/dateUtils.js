@@ -1,66 +1,66 @@
 export default class DateUtils {
-    constructor(selectedDate) {
-        this.selectedDate = selectedDate
+  constructor (selectedDate) {
+    this.selectedDate = selectedDate
+  }
+
+  get dateString () {
+    const year = this.selectedDate.getFullYear()
+    let month = this.selectedDate.getMonth() + 1
+    let day = this.selectedDate.getDate()
+
+    if (day < 10) {
+      day = '0' + day
+    }
+    if (month < 10) {
+      month = '0' + month
     }
 
-    get dateString() {
-        const year = this.selectedDate.getFullYear()
-        let month = this.selectedDate.getMonth() + 1
-        let day = this.selectedDate.getDate()
+    return `${year}-${month}-${day}`
+  }
 
-        if (day < 10) {
-            day = '0' + day
-        }
-        if (month < 10) {
-            month = '0' + month
-        }
+  get daysOfMonth () {
+    const firstDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
+    const lastDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0)
 
-        return `${year}-${month}-${day}`
-    }
+    const mondayAsFirstDayOfWeekOffset = 1
+    const firstDayOfFirstWeek = new Date(firstDayOfMonth.getFullYear(),
+      firstDayOfMonth.getMonth(),
+      firstDayOfMonth.getDate() - firstDayOfMonth.getDay() + mondayAsFirstDayOfWeekOffset)
 
-    get daysOfMonth() {
-        const firstDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
-        const lastDayOfMonth = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1, 0)
+    const monthArray = []
+    let isLastDayOfMonthPassed = false
 
-        const mondayAsFirstDayOfWeekOffset = 1
-        const firstDayOfFirstWeek = new Date(firstDayOfMonth.getFullYear(),
-            firstDayOfMonth.getMonth(),
-            firstDayOfMonth.getDate() - firstDayOfMonth.getDay() + mondayAsFirstDayOfWeekOffset)
+    let workingDate = new Date(firstDayOfFirstWeek.getFullYear(),
+      firstDayOfFirstWeek.getMonth(),
+      firstDayOfFirstWeek.getDate())
 
-        const monthArray = []
-        let isLastDayOfMonthPassed = false
+    while (!isLastDayOfMonthPassed) {
+      const weekArray = []
+      const firstDayOfWeek = new Date(workingDate.getFullYear(),
+        workingDate.getMonth(),
+        workingDate.getDate())
 
-        let workingDate = new Date(firstDayOfFirstWeek.getFullYear(),
-            firstDayOfFirstWeek.getMonth(),
-            firstDayOfFirstWeek.getDate())
+      for (let i = 1; i < 8; i++) {
+        const isDaySelected = workingDate.toLocaleDateString() === this.selectedDate.toLocaleDateString()
+        const isInCuurentMonth = workingDate.getMonth() === this.selectedDate.getMonth()
+        weekArray.push({ day: workingDate.getDate(), selected: isDaySelected, inCurrentMonth: isInCuurentMonth })
 
-        while (!isLastDayOfMonthPassed) {
-            const weekArray = []
-            const firstDayOfWeek = new Date(workingDate.getFullYear(),
-                workingDate.getMonth(),
-                workingDate.getDate())
-
-            for (let i = 1; i < 8; i++) {
-                const isDaySelected = workingDate.toLocaleDateString() == this.selectedDate.toLocaleDateString()
-                const isInCuurentMonth = workingDate.getMonth() == this.selectedDate.getMonth()
-                weekArray.push({day: workingDate.getDate(), selected: isDaySelected, inCurrentMonth: isInCuurentMonth})
-
-                isLastDayOfMonthPassed = ((workingDate.toLocaleDateString() == lastDayOfMonth.toLocaleDateString()) ||
+        isLastDayOfMonthPassed = ((workingDate.toLocaleDateString() === lastDayOfMonth.toLocaleDateString()) ||
                     isLastDayOfMonthPassed)
 
-                workingDate = new Date(firstDayOfWeek.getFullYear(),
-                    firstDayOfWeek.getMonth(),
-                    firstDayOfWeek.getDate() + i)
-            }
+        workingDate = new Date(firstDayOfWeek.getFullYear(),
+          firstDayOfWeek.getMonth(),
+          firstDayOfWeek.getDate() + i)
+      }
 
-            monthArray.push(weekArray)
-        }
-        return monthArray
+      monthArray.push(weekArray)
     }
+    return monthArray
+  }
 
-    selectDay(day) {
-        this.selectedDate = new Date(this.selectedDate.getFullYear(),
-            this.selectedDate.getMonth(),
-            day.day)
-    }
+  selectDay (day) {
+    this.selectedDate = new Date(this.selectedDate.getFullYear(),
+      this.selectedDate.getMonth(),
+      day.day)
+  }
 }

@@ -17,18 +17,18 @@
 import * as Errors from './utils/searchErrorTypes'
 
 export default {
-    name: 'error-message',
-    props: ['errorType'],
-    data: function () {
-      return {
-          Errors: Errors
-      }
-    },
-    computed: {
-        hasError: function() {
-          return Boolean(this.errorType)
-        }
+  name: 'error-message',
+  props: ['errorType'],
+  data: function () {
+    return {
+      Errors: Errors
     }
+  },
+  computed: {
+    hasError: function () {
+      return Boolean(this.errorType)
+    }
+  }
 }
 </script>
 
