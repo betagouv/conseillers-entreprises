@@ -18,7 +18,7 @@ class Assistance < ApplicationRecord
   validates :county, inclusion: { in: AUTHORIZED_COUNTIES }, if: :county?
 
   scope :of_diagnosis, (lambda do |diagnosis|
-    joins(question: :diagnosed_needs).where(question: { diagnosed_needs: { diagnosis_id: diagnosis.id } })
+    joins(question: :diagnosed_needs).merge(DiagnosedNeed.of_diagnosis(diagnosis))
   end)
   scope :of_location, (lambda do |city_code|
     localize_city_code = UseCases::LocalizeCityCode.new(city_code)
