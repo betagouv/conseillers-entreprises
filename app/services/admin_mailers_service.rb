@@ -11,6 +11,8 @@ class AdminMailersService
       @completed_diagnoses = @not_admin_diagnoses.completed.updated_last_week
 
       sign_up_statistics
+      created_diagnoses_statistics
+      updated_diagnoses_statistics
       completed_diagnoses_statistics
       contacted_experts_count_statistics
 
@@ -24,6 +26,21 @@ class AdminMailersService
       @information_hash[:signed_up_users] = {}
       @information_hash[:signed_up_users][:count] = recently_signed_up_users.count
       @information_hash[:signed_up_users][:items] = recently_signed_up_users
+    end
+
+    def created_diagnoses_statistics
+      created_diagnoses = @not_admin_diagnoses.in_progress.created_last_week
+      @information_hash[:created_diagnoses] = {}
+      @information_hash[:created_diagnoses][:count] = created_diagnoses.count
+      @information_hash[:created_diagnoses][:items] = created_diagnoses
+    end
+
+    def updated_diagnoses_statistics
+      updated_diagnoses = @not_admin_diagnoses.in_progress.updated_last_week
+      updated_diagnoses = updated_diagnoses.where('diagnoses.created_at < ?', 1.week.ago)
+      @information_hash[:updated_diagnoses] = {}
+      @information_hash[:updated_diagnoses][:count] = updated_diagnoses.count
+      @information_hash[:updated_diagnoses][:items] = updated_diagnoses
     end
 
     def completed_diagnoses_statistics

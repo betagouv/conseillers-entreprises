@@ -9,6 +9,20 @@
       %li= link_to user.full_name_with_role, admin_user_url(user)
 
 %p
+  %strong= t('.created_diagnoses_count', count: @information_hash[:created_diagnoses][:count])
+- if @information_hash[:created_diagnoses][:count].positive?
+  %ul
+    - @information_hash[:created_diagnoses][:items].each do |diagnosis|
+      %li= link_to diagnosis.to_s, admin_diagnosis_url(diagnosis)
+
+%p
+  %strong= t('.updated_diagnoses_count', count: @information_hash[:updated_diagnoses][:count])
+- if @information_hash[:updated_diagnoses][:count].positive?
+  %ul
+    - @information_hash[:updated_diagnoses][:items].each do |diagnosis|
+      %li= link_to diagnosis.to_s, admin_diagnosis_url(diagnosis)
+
+%p
   %strong= t('.completed_diagnoses_count', count: @information_hash[:completed_diagnoses][:count])
 - if @information_hash[:completed_diagnoses][:count].positive?
   %ul

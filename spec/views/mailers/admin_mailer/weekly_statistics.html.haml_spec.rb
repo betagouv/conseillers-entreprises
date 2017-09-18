@@ -10,6 +10,8 @@ RSpec.describe 'mailers/admin_mailer/weekly_statistics.html.haml', type: :view d
     before do
       information_hash = {
         signed_up_users: { count: 1, items: [user] },
+        created_diagnoses: { count: 2, items: diagnoses },
+        updated_diagnoses: { count: 2, items: diagnoses },
         completed_diagnoses: { count: 2, items: diagnoses },
         contacted_experts_count: 3
       }
@@ -20,7 +22,7 @@ RSpec.describe 'mailers/admin_mailer/weekly_statistics.html.haml', type: :view d
 
     it 'displays a title and 4 list elements' do
       expect(rendered).to include 'Bonjour, chers administrateurs !'
-      assert_select 'li', count: 3
+      assert_select 'li', count: 7
     end
   end
 
@@ -28,6 +30,8 @@ RSpec.describe 'mailers/admin_mailer/weekly_statistics.html.haml', type: :view d
     before do
       information_hash = {
         signed_up_users: { count: 0, items: [] },
+        created_diagnoses: { count: 0, items: [] },
+        updated_diagnoses: { count: 0, items: [] },
         completed_diagnoses: { count: 0, items: [] },
         contacted_experts_count: 0
       }
