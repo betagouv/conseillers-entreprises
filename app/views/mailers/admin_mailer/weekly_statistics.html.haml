@@ -1,7 +1,6 @@
 %p= t('.hello')
 %p= t('.last_week')
 
-
 %p
   %strong= t('.signed_up_users_count', count: @information_hash[:signed_up_users][:count])
 - if @information_hash[:signed_up_users][:count].positive?
@@ -9,21 +8,14 @@
     - @information_hash[:signed_up_users][:items].each do |user|
       %li= link_to user.full_name_with_role, admin_user_url(user)
 
-
-- if @information_hash[:diagnoses].empty?
-  %p
-    %strong= t('.no_diagnosis_added')
-- else
-  %p
-    %strong= t('.diagnoses')
+%p
+  %strong= t('.completed_diagnoses_count', count: @information_hash[:completed_diagnoses][:count])
+- if @information_hash[:completed_diagnoses][:count].positive?
   %ul
-    - @information_hash[:diagnoses].each do |diagnosis|
-      - text = t('.diagnosis_count_visit', count: diagnosis[:diagnoses_count], visit: diagnosis[:visit])
-      - query_params = { 'q[visit_id_eq]' => diagnosis[:visit].id,
-      'q[created_at_gteq_datetime]' => 1.week.ago.to_date,
-      'q[created_at_lteq_datetime]' => Time.zone.today }
+    - @information_hash[:completed_diagnoses][:items].each do |diagnosis|
+      %li= link_to diagnosis.to_s, admin_diagnosis_url(diagnosis)
 
-      %li= link_to text, admin_diagnoses_url(query_params)
-
+%p
+  %strong= t('.contacted_experts_count', count: @information_hash[:contacted_experts_count])
 
 %p= t('.see_you_next_week')

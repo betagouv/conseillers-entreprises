@@ -21,7 +21,8 @@ describe AdminMailersService do
         it do
           information_hash = {
             signed_up_users: { count: 1, items: [not_admin_user] },
-            diagnoses: []
+            completed_diagnoses: { count: 0, items: [] },
+            contacted_experts_count: 0
           }
           expect(AdminMailer).to have_received(:weekly_statistics).with(information_hash)
         end
@@ -29,9 +30,13 @@ describe AdminMailersService do
 
       context 'some data' do
         let(:visit) { create :visit, advisor: not_admin_user }
+        let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, visit: visit }
+        let(:diagnosed_need) { create :diagnosed_need, diagnosis: completed_diagnoses.first }
 
         before do
-          create :diagnosis, visit: visit
+          create :diagnosis, step: 1, visit: visit
+          create_list :selected_assistance_expert, 3, diagnosed_need: diagnosed_need
+
           allow(AdminMailer).to receive(:delay) { AdminMailer }
           allow(AdminMailer).to receive(:weekly_statistics).and_call_original
           send_statistics_email
@@ -40,7 +45,8 @@ describe AdminMailersService do
         it do
           information_hash = {
             signed_up_users: { count: 1, items: [not_admin_user] },
-            diagnoses: [{ visit: visit, diagnoses_count: 1 }]
+            completed_diagnoses: { count: 2, items: completed_diagnoses },
+            contacted_experts_count: 3
           }
           expect(AdminMailer).to have_received(:weekly_statistics).with(information_hash)
         end

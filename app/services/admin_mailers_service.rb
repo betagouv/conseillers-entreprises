@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 class AdminMailersService
-  attr_accessor :information_hash, :not_admin_visits
+  attr_accessor :information_hash, :not_admin_visits, :not_admin_diagnoses, :completed_diagnoses
 
   class << self
     def send_statistics_email
       @information_hash = {}
 
-      regular_users_ids = User.not_admin.pluck(:id)
-      @not_admin_visits = Visit.where(advisor_id: regular_users_ids).includes(:advisor)
+      @not_admin_diagnoses = Diagnosis.of_user(User.not_admin)
+      @completed_diagnoses = @not_admin_diagnoses.completed.updated_last_week
 
       sign_up_statistics
-      diagnoses_statistics
+      completed_diagnoses_statistics
+      contacted_experts_count_statistics
 
       AdminMailer.delay.weekly_statistics(@information_hash)
     end
@@ -25,11 +26,15 @@ class AdminMailersService
       @information_hash[:signed_up_users][:items] = recently_signed_up_users
     end
 
-    def diagnoses_statistics
-      recent_diagnoses = Diagnosis.created_last_week.where(visit: @not_admin_visits).group(:visit).count
-      @information_hash[:diagnoses] = recent_diagnoses.collect do |visit, count|
-        { visit: visit, diagnoses_count: count }
-      end
+    def completed_diagnoses_statistics
+      @information_hash[:completed_diagnoses] = {}
+      @information_hash[:completed_diagnoses][:count] = @completed_diagnoses.count
+      @information_hash[:completed_diagnoses][:items] = @completed_diagnoses
+    end
+
+    def contacted_experts_count_statistics
+      contacted_experts_count = SelectedAssistanceExpert.of_diagnoses(@completed_diagnoses).count
+      @information_hash[:contacted_experts_count] = contacted_experts_count
     end
   end
 end
