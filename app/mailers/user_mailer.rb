@@ -10,4 +10,10 @@ class UserMailer < ApplicationMailer
 
     mail(to: @user_params[:email], subject: t('mailers.user_mailer.send_new_user_invitation.subject'))
   end
+
+  def account_approved(user)
+    @user = user
+
+    mail(to: @user.email, subject: t('mailers.user_mailer.account_approved.subject'))
+  end
 end
