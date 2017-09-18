@@ -49,7 +49,7 @@ describe AdminMailersService do
             signed_up_users: { count: 1, items: [not_admin_user] },
             created_diagnoses: { count: 1, items: created_diagnoses },
             updated_diagnoses: { count: 1, items: updated_diagnoses },
-            completed_diagnoses: { count: 2, items: completed_diagnoses },
+            completed_diagnoses: { count: 2, items: completed_diagnoses.reverse },
             contacted_experts_count: 3
           }
         end
