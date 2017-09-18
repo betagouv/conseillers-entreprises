@@ -3,6 +3,7 @@ fr:
     diagnosis:
       title: Récapitulatif
       company_contact_subtitle: Contact rencontré au sein de l'entreprise
+      advisor_contact_subtitle: Conseiller ayant effectué l'analyse des besoins de l'entreprise
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
       diagnosed_needs_content_label: "Les informations complémentaires concernant ce besoin :"
