@@ -1,0 +1,28 @@
+%table.ui.compact.celled.table{ class: (person['type'] == 'PM' ? 'violet' : 'teal') }
+  %tbody
+    - if person['type'] == 'PM'
+      %tr
+        %td{ colspan: 2 }= t('.personne_morale')
+    - if person['raison_sociale'].present?
+      %tr
+        %td= t('.raison_sociale')
+        %td= person['raison_sociale'].humanize
+    - if person['prenom'].present? && person['nom'].present?
+      %tr
+        %td= t('.nom')
+        %td #{person['prenom'].humanize} #{person['nom'].humanize}
+    - if person['fonction'].present?
+      %tr
+        %td= t('.fonction')
+        %td= person['fonction'].humanize
+    - if person['date_naissance_timestamp']
+      %tr
+        %td= t('.date_naissance')
+        %td= date_from_timestamp(person['date_naissance_timestamp'])
+    %tr
+      %td= t('.dirigeant')
+      %td= person['dirigeant'].to_b ? t('yes') : t('no')
+    - if person['identifiant'].present?
+      %tr
+        %td= t('.identifiant')
+        %td= person['identifiant']

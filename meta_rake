@@ -4,15 +4,34 @@ BoldRed='\033[1;31m'
 NoFormating='\033[0m' # No Color
 
 printf "\n${BoldRed}### - Test Sequence - ###${NoFormating}\n"
+
+
 printf "\n${BoldRed}#1 - Launch Tests${NoFormating}\n\n"
+
 rake
+
+
 printf "${BoldRed}#2 - Launch JavaScript Tests${NoFormating}\n"
+
 npm test
+
+
 printf "${BoldRed}#3 - Launch Rubocop${NoFormating}\n\n"
+
 rubocop
+
+
 printf "\n${BoldRed}#4 - Launch i18n-tasks${NoFormating}\n\n"
-i18n-tasks health
+
+i18n-tasks unused
+i18n-tasks missing
+
+
 printf "\n${BoldRed}#5 - Launch haml-lint${NoFormating}\n\n"
+
 haml-lint app/views/
+
+
 printf "\n${BoldRed}#6 - Launch eslint${NoFormating}\n"
+
 npm run linter

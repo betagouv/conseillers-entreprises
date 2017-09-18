@@ -1,7 +1,7 @@
 #profile
   %table.ui.padded.basic.table
     %tbody
-      - [:first_name, :last_name, :institution, :role, :phone_number, :email].each do |attribute|
+      - %i[first_name last_name institution role phone_number email].each do |attribute|
         %tr
           %td= User.human_attribute_name(attribute)
           %td= @user.send(attribute)

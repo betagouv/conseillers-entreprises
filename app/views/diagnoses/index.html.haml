@@ -36,7 +36,7 @@
                   class: 'ui positive basic tiny button'
                 %td.collapsing.no-left-padding
                   - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
-                  = link_to diagnosis_path(diagnosis), method: :delete, data: {confirm: confirm_delete_message} do
+                  = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
                     %i.ui.icon.link.trash.light.grey.no-margin
 
   - if @diagnoses[:completed].empty?
@@ -77,5 +77,5 @@
                   class: 'ui positive basic tiny button'
                 %td.collapsing.no-left-padding
                   - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
-                  = link_to diagnosis_path(diagnosis), method: :delete, data: {confirm: confirm_delete_message} do
+                  = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
                     %i.ui.icon.link.trash.light.grey.no-margin

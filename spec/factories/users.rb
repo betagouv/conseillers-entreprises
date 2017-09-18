@@ -12,7 +12,7 @@ FactoryGirl.define do
     institution { institutions.sample }
     password 'password'
     password_confirmation 'password'
-    confirmed_at Date.today
+    confirmed_at { Time.zone.now }
     is_approved true
   end
 end
