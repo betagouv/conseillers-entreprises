@@ -13,21 +13,33 @@
 - if @information_hash[:created_diagnoses][:count].positive?
   %ul
     - @information_hash[:created_diagnoses][:items].each do |diagnosis|
-      %li= link_to diagnosis.to_s, admin_diagnosis_url(diagnosis)
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= link_to description, admin_diagnosis_url(diagnosis)
 
 %p
   %strong= t('.updated_diagnoses_count', count: @information_hash[:updated_diagnoses][:count])
 - if @information_hash[:updated_diagnoses][:count].positive?
   %ul
     - @information_hash[:updated_diagnoses][:items].each do |diagnosis|
-      %li= link_to diagnosis.to_s, admin_diagnosis_url(diagnosis)
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= link_to description, admin_diagnosis_url(diagnosis)
 
 %p
   %strong= t('.completed_diagnoses_count', count: @information_hash[:completed_diagnoses][:count])
 - if @information_hash[:completed_diagnoses][:count].positive?
   %ul
     - @information_hash[:completed_diagnoses][:items].each do |diagnosis|
-      %li= link_to diagnosis.to_s, admin_diagnosis_url(diagnosis)
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= link_to description, admin_diagnosis_url(diagnosis)
 
 %p
   %strong= t('.contacted_experts_count', count: @information_hash[:contacted_experts_count])
