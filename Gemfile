@@ -18,10 +18,10 @@ gem 'puma', '~> 3.0'
 
 # Assets
 gem 'coffee-rails', '~> 4.2'
-gem 'compass-rails'
+gem 'compass-rails', '~> 3.0.2'
 gem 'haml-rails', '~> 0.9'
 gem 'jquery-rails'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 gem 'semantic-ui-sass', '~> 2'
 gem 'uglifier', '>= 1.3.0'
 

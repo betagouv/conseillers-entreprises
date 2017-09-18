@@ -46,14 +46,14 @@ describe QwantApiService do
       allow(described_class).to receive(:open).with(url) { File }
       allow(File).to receive(:read) { qwant_json }
       allow(JSON).to receive(:parse).with(qwant_json)
+
+      described_class.results_for_query query
     end
 
-    after do
+    it do
       expect(described_class).to have_received(:open)
       expect(File).to have_received(:read)
       expect(JSON).to have_received(:parse)
     end
-
-    it { described_class.results_for_query query }
   end
 end

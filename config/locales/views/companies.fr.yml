@@ -3,27 +3,9 @@ fr:
     show:
       data_on: "Fiche %{company_name}"
       informations_on: "Informations sur %{company_name}"
-      siren: SIREN
-      capital_social: Capital social
-      numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
-      forme_juridique: Forme juridique
-      nom_commercial: Nom Commercial
-      procedure_collective: En cours de procedure collective ?
-      raison_sociale: Raison Sociale
-      date_creation: Date de création
-      nom: Nom
-      prenom: Prénom
-      date_radiation: Date de radiation
-      categorie_entreprise: Categorie de l'entreprise
       facility: Établissement
       siege_social: Siège social
-      tranche_effectif_salarie_entreprise: Tranche d'effectif de salariés de l'entreprise
       mandataires_sociaux: Mandataires sociaux
-      personne_morale: Personne morale
-      fonction: Fonction
-      date_naissance: Date de naissance
-      dirigeant: Est-ce un dirigeant ?
-      identifiant: Identifiant
       ereputation: e-réputation
       information_not_found: Aucune actualité n'a été trouvée sur cette entreprise.
       diagnoses_completed: "Analyses complétées de %{company_name}"
@@ -39,6 +21,20 @@ fr:
         other: "%{count} mises en relation"
       no_visit_found: Aucune analyse n'a encore été complétée pour cette entreprise.
       create_diagnosis: Faire une nouvelle analyse pour cette entreprise
+    company:
+      raison_sociale: Raison Sociale
+      nom_commercial: Nom Commercial
+      categorie_entreprise: Categorie de l'entreprise
+      tranche_effectif_salarie_entreprise: Tranche d'effectif de salariés de l'entreprise
+      siren: SIREN
+      capital_social: Capital social
+      numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
+      forme_juridique: Forme juridique
+      procedure_collective: En cours de procedure collective ?
+      date_creation: Date de création
+      nom: Nom
+      prenom: Prénom
+      date_radiation: Date de radiation
     facility:
       siret: SIRET
       naf: Code NAF
@@ -49,6 +45,14 @@ fr:
       commune_implantation: Commune d'implantation
       pays_implantation: Pays d'implantation
       adresse: Adresse
+    mandataire:
+      raison_sociale: Raison Sociale
+      personne_morale: Personne morale
+      nom: Nom
+      fonction: Fonction
+      date_naissance: Date de naissance
+      dirigeant: Est-ce un dirigeant ?
+      identifiant: Identifiant
     search:
       search_company: Rechercher une entreprise
       you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l'entreprise, soit indiquer son SIRET."

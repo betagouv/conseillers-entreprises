@@ -10,7 +10,7 @@
     %div
       = t('.waiting_confirmation_for', unconfirmed_email: resource.unconfirmed_email)
 
-  - [:first_name, :last_name, :institution, :role, :phone_number].each do |attribute|
+  - %i[first_name last_name institution role phone_number].each do |attribute|
     .field
       = f.label attribute
       = f.text_field attribute

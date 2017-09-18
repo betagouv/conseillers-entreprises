@@ -24,10 +24,10 @@
                   = t('.selected_assistance_experts', count: selected_assistances_experts_count)
 
   - visitee = @diagnosis.visit.visitee
-  - visitee_data = [{label: t('activerecord.attributes.contact.last_name'), value: visitee.full_name},
-                    {label: t('activerecord.attributes.contact.role'), value: visitee.role},
-                    {label: t('activerecord.attributes.contact.email'), value: visitee.email},
-                    {label: t('activerecord.attributes.contact.phone_number'), value: visitee.phone_number}]
+  - visitee_data = [{ label: t('activerecord.attributes.contact.last_name'), value: visitee.full_name },
+                    { label: t('activerecord.attributes.contact.role'), value: visitee.role },
+                    { label: t('activerecord.attributes.contact.email'), value: visitee.email },
+                    { label: t('activerecord.attributes.contact.phone_number'), value: visitee.phone_number }]
 
   .ui.segment.shadow-less
     %h3.ui.header
@@ -51,7 +51,7 @@
         %tr
           %th{ colspan: 2 }= diagnosed_need.question_label
       %tbody
-        - if diagnosed_need.content && diagnosed_need.content.lstrip.length > 0
+        - if diagnosed_need.content.present?
           %tr
             %td{ colspan: 2 }
               .ui.form
