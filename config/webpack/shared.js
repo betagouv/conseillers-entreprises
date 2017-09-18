@@ -16,11 +16,11 @@ const entryPath = join(settings.source_path, settings.source_entry_path)
 const packPaths = sync(join(entryPath, extensionGlob))
 
 const acceptedEntryPointArray = [
-    'common/babel-polyfill',
-    'companies/companySearchApp',
-    'step-1/step1App',
-    'step-2/step2App',
-    'step-3/step3App',
+  'common/babel-polyfill',
+  'companies/companySearchApp',
+  'step-1/step1App',
+  'step-2/step2App',
+  'step-3/step3App'
 ]
 
 module.exports = {
@@ -30,7 +30,7 @@ module.exports = {
       const namespace = relative(join(entryPath), dirname(entry))
       const entryPointName = join(namespace, basename(entry, extname(entry)))
 
-      if(acceptedEntryPointArray.includes(entryPointName)) {
+      if (acceptedEntryPointArray.includes(entryPointName)) {
         localMap[entryPointName] = resolve(entry)
       }
       return localMap

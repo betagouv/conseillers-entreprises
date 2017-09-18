@@ -8,4 +8,3 @@ export const COMPANIES = 'COMPANIES'
 export const COMPANY_DATA = 'COMPANY_DATA'
 export const COMPANY_NAME = 'COMPANY_NAME'
 export const COMPANY_LOCATION = 'COMPANY_LOCATION'
-

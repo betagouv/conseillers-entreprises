@@ -19,13 +19,13 @@ import QuestionObjectParser from './utils/questionObjectParser'
 export default {
   name: 'question-content-row',
   props: [
-      'questionDataSerialized'
+    'questionDataSerialized'
   ],
   data () {
-        return {
-            questionData: {}
-        }
-    },
+    return {
+      questionData: {}
+    }
+  },
   created: function () {
     this.questionData = QuestionObjectParser.parse(this.questionDataSerialized)
     this.setQuestionContent({ id: this.questionData.id, content: this.questionData.content })

@@ -11,11 +11,10 @@ Vue.use(TurbolinksAdapter)
 AxiosConfigurator.configure()
 ErrorService.configureFramework(Vue)
 
-new Vue({
-    el: '#company-search-app',
-    store,
-    components: {
-        SelectCompany
-    }
+new Vue({ // eslint-disable-line no-new
+  el: '#company-search-app',
+  store,
+  components: {
+    SelectCompany
+  }
 })
-
