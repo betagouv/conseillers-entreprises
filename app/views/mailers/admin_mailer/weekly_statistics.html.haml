@@ -10,22 +10,6 @@
       %li= link_to user.full_name_with_role, admin_user_url(user)
 
 
-- if @information_hash[:visits].empty?
-  %p
-    %strong= t('.no_visit_added')
-- else
-  %p
-    %strong= t('.visits')
-  %ul
-    - @information_hash[:visits].each do |visit|
-      - text = t('.visit_count_advisor', count: visit[:visits_count], advisor: visit[:user].full_name)
-      - query_params = { 'q[advisor_id_eq]' => visit[:user].id,
-      'q[created_at_gteq_datetime]' => 1.week.ago.to_date,
-      'q[created_at_lteq_datetime]' => Time.zone.today }
-
-      %li= link_to text, admin_visits_url(query_params)
-
-
 - if @information_hash[:diagnoses].empty?
   %p
     %strong= t('.no_diagnosis_added')

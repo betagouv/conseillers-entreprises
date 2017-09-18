@@ -21,7 +21,6 @@ describe AdminMailersService do
         it do
           information_hash = {
             signed_up_users: { count: 1, items: [not_admin_user] },
-            visits: [],
             diagnoses: []
           }
           expect(AdminMailer).to have_received(:weekly_statistics).with(information_hash)
@@ -41,7 +40,6 @@ describe AdminMailersService do
         it do
           information_hash = {
             signed_up_users: { count: 1, items: [not_admin_user] },
-            visits: [{ user: not_admin_user, visits_count: 1 }],
             diagnoses: [{ visit: visit, diagnoses_count: 1 }]
           }
           expect(AdminMailer).to have_received(:weekly_statistics).with(information_hash)

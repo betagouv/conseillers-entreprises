@@ -11,7 +11,6 @@ class AdminMailersService
       @not_admin_visits = Visit.where(advisor_id: regular_users_ids).includes(:advisor)
 
       sign_up_statistics
-      visits_statistics
       diagnoses_statistics
 
       AdminMailer.delay.weekly_statistics(@information_hash)
@@ -24,13 +23,6 @@ class AdminMailersService
       @information_hash[:signed_up_users] = {}
       @information_hash[:signed_up_users][:count] = recently_signed_up_users.count
       @information_hash[:signed_up_users][:items] = recently_signed_up_users
-    end
-
-    def visits_statistics
-      recent_visits = @not_admin_visits.created_last_week.group(:advisor).count
-      @information_hash[:visits] = recent_visits.collect do |user, count|
-        { user: user, visits_count: count }
-      end
     end
 
     def diagnoses_statistics

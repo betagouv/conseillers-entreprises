@@ -21,11 +21,6 @@ fr:
           zero: Aucun nouvel inscrit.
           one: "Un nouvel inscrit :"
           other: "%{count} nouveaux inscrits :"
-        no_visit_added: Aucune visite ajoutée.
-        visits: 'Visites :'
-        visit_count_advisor:
-          one: "Une visite par %{advisor}"
-          other: "%{count} visites par %{advisor}"
         no_diagnosis_added: Aucune analyse créée.
         diagnoses: 'Analyses :'
         diagnosis_count_visit:
