@@ -1,0 +1,34 @@
+fr:
+  mailers:
+    admin_mailer:
+      new_user_created_notification:
+        subject: "[Réso] %{full_name} vient de s'inscrire !"
+        hello: Bonjour,
+        user_has_signed_up: L'utilisateur %{full_name} <%{email}> vient de s'inscrire.
+        activate_its_account_html: Pour valider son compte, veuillez %{click_here_link}.
+        click_here: cliquer ici
+        reso_app_html: L'application %{link_to_root}.
+      new_user_approved_notification:
+        subject: "Re: [Réso] %{full_name} vient de s'inscrire !"
+        hello: Bonjour,
+        user_was_approved: L'utilisateur %{user_full_name} <%{user_email}> a été validé par %{admin_full_name}.
+        reso_app_html: L'application %{link_to_root}.
+      weekly_statistics:
+        subject: "[Réso] Bon lundi ! Voici les statistiques d'utilisation !"
+        hello: Bonjour, chers administrateurs !
+        last_week: 'La semaine dernière sur Réso, nous avons eu :'
+        signed_up_users_count:
+          zero: Aucun nouvel inscrit.
+          one: "Un nouvel inscrit :"
+          other: "%{count} nouveaux inscrits :"
+        no_visit_added: Aucune visite ajoutée.
+        visits: 'Visites :'
+        visit_count_advisor:
+          one: "Une visite par %{advisor}"
+          other: "%{count} visites par %{advisor}"
+        no_diagnosis_added: Aucune analyse créée.
+        diagnoses: 'Analyses :'
+        diagnosis_count_visit:
+          one: "Une analyse pour la %{visit}"
+          other: "%{count} analyses pour la %{visit}"
+        see_you_next_week: A la semaine prochaine pour de nouvelles aventures !

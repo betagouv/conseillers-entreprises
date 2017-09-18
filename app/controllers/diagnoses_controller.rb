@@ -8,49 +8,56 @@ class DiagnosesController < ApplicationController
   def step1; end
 
   def step2
-    @diagnosis = Diagnosis.find params[:id]
+    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
     @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
   end
 
   def step3
-    associations = [visit: [facility: [:company]]]
-    @diagnosis = Diagnosis.joins(associations)
-                          .includes(associations)
-                          .find params[:id]
+    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
   end
 
   def step4
-    @diagnosis = Diagnosis.find params[:id]
-    @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis)
+    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
     associations = [question: [assistances: [assistances_experts: [expert: :institution]]]]
-    @diagnosed_needs = @diagnosed_needs.joins(associations).includes(associations)
+    @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis).joins(associations).includes(associations)
+    @assistances_of_location = Assistance.of_location(@diagnosis.visit.location).of_diagnosis(@diagnosis)
   end
 
   def step5
-    associations = [visit: [facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
-    @diagnosis = Diagnosis.includes(associations)
-                          .find params[:id]
+    associations = [visit: [:visitee, facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
+    @diagnosis = Diagnosis.includes(associations).find params[:id]
+    check_current_user_access_to(@diagnosis)
   end
 
   def notify_experts
-    diagnosis = Diagnosis.find params[:id]
-    if params[:assistances_experts].present?
-      assistance_expert_ids = ExpertMailersService.filter_assistances_experts(params[:assistances_experts])
-      create_selected_ae_and_send_emails(diagnosis, assistance_expert_ids)
-    end
-    diagnosis.update step: 5
+    diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
+    create_selected_ae_and_send_emails(diagnosis, params[:assistances_experts]) if params[:assistances_experts].present?
+    diagnosis.update step: Diagnosis::LAST_STEP
     redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
   end
 
   def destroy
     diagnosis = Diagnosis.find params[:id]
+    check_current_user_access_to(diagnosis)
     diagnosis.destroy
     redirect_to diagnoses_path
   end
 
   private
 
-  def create_selected_ae_and_send_emails(diagnosis, assistance_expert_ids)
+  def fetch_and_check_diagnosis_by_id(diagnosis_id)
+    diagnosis = Diagnosis.find diagnosis_id
+    check_availability_of_diagnosis(diagnosis)
+    check_current_user_access_to(diagnosis)
+    diagnosis
+  end
+
+  def check_availability_of_diagnosis(diagnosis)
+    not_found if diagnosis.step == Diagnosis::LAST_STEP
+  end
+
+  def create_selected_ae_and_send_emails(diagnosis, assistances_experts)
+    assistance_expert_ids = ExpertMailersService.filter_assistances_experts(assistances_experts)
     UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
     ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
                                                       assistance_expert_ids: assistance_expert_ids)

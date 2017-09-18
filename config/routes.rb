@@ -30,8 +30,10 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: %i[show], param: :siret do
-    get :search, on: :collection
-    post :create_diagnosis_from_siret, on: :collection
+    collection do
+      get :search
+      post :create_diagnosis_from_siret
+    end
   end
 
   namespace :api do
@@ -56,9 +58,9 @@ Rails.application.routes.draw do
       resources :contacts, only: %i[index create]
     end
 
-    resources :contacts, only: %i[show update destroy] do
-      get :contact_button_expert, on: :collection
-    end
+    resources :contacts, only: %i[show update]
+
+    resources :errors, only: %i[create]
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

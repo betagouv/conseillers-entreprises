@@ -1,0 +1,6 @@
+%p= t('.hello')
+%p= t('.account_was_approved')
+%p= link_to t('.sign_me_in'), new_user_session_url
+%p= t('.dont_hesitate_to_ask')
+- link_to_root = link_to t('app_name'), root_url
+%p= t('.happy_discovery_html', link_to_root: link_to_root)

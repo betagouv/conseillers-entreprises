@@ -11,33 +11,33 @@
 </template>
 
 <script>
-    export default {
-        name: 'modal',
-        props: [
-            'show'
-            ],
-        data: function () {
-            return {
-            }
-        },
-        watch: {
-            show: function (newShow) {
-                if(newShow) {
-                    document.body.style.overflow='hidden'
-                } else {
-                    document.body.style.overflow=''
-                }
-            }
-        },
-        methods: {
-            dimmerClicked: function (event) {
-                if(event.target.className.includes('ui dimmer') && !this.isSaving) {
-                    this.$emit('update:show', false)
-                    this.$emit('close')
-                }
-            }
-        }
+export default {
+  name: 'modal',
+  props: [
+    'show'
+  ],
+  data: function () {
+    return {
     }
+  },
+  watch: {
+    show: function (newShow) {
+      if (newShow) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+      }
+    }
+  },
+  methods: {
+    dimmerClicked: function (event) {
+      if (event.target.className.includes('ui dimmer') && !this.isSaving) {
+        this.$emit('update:show', false)
+        this.$emit('close')
+      }
+    }
+  }
+}
 </script>
 
 <style lang="sass">

@@ -8,7 +8,7 @@ fr:
       links:
         not_received_confirmation: E-mail pour valider votre adresse non reçu ?
         not_received_unlocked: Vous n'avez pas reçu l'email pour débloquer votre compte ?
-        sign_in_with: Se connecter avec %{provider}
+        sign_in_with: Se connecter avec %{provider_name}
     registrations:
       edit:
         waiting_confirmation_for: "En attente de confirmation pour l'adresse : %{unconfirmed_email}"

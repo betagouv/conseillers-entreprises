@@ -7,19 +7,19 @@
 
 <script>
 export default {
-    name: 'company-item',
-    props: ['company'],
-    data: function () {
-        return {
-            siren: ''
-        }
-    },
-    methods: {
-        selectCompany: function (siren) {
-            this.siren = siren
-            this.$emit('search-siren', this.siren)
-        }
+  name: 'company-item',
+  props: ['company'],
+  data: function () {
+    return {
+      siren: ''
     }
+  },
+  methods: {
+    selectCompany: function (siren) {
+      this.siren = siren
+      this.$emit('search-siren', this.siren)
+    }
+  }
 }
 </script>
 

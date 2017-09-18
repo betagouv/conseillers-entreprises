@@ -20,49 +20,50 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import * as types from './store/searchMutationTypes'
 import CompanyItem from './companyItem.vue.erb'
 import Modal from '../modal.vue.erb'
+import ErrorService from '../errorService'
 
 export default {
-    name: 'company-selection-modal',
-    components: {
-        CompanyItem,
-        Modal
+  name: 'company-selection-modal',
+  components: {
+    CompanyItem,
+    Modal
+  },
+  props: ['show'],
+  methods: {
+    searchSiren: function (siren) {
+      this.setSiren(siren)
+      this.clearError()
+      this.closeModal()
+      this.$store.dispatch('fetchCompanyBySiren').catch(ErrorService.report)
     },
-    props: ['show'],
-    methods: {
-        searchSiren: function(siren) {
-            this.setSiren(siren)
-            this.clearError()
-            this.closeModal()
-            this.$store.dispatch('fetchCompanyBySiren').catch(() => {})
-        },
-        closeModal: function() {
-            this.$emit('update:show', false)
-        },
-        clearError: function() {
-            this.setErrorType('')
-        },
-        ...mapMutations({
-            setSiren: types.SIREN,
-            setErrorType: types.FORM_ERROR_TYPE,
-        }),
+    closeModal: function () {
+      this.$emit('update:show', false)
     },
-    computed: {
-        ...mapState({
-            companies: state => state.searchStore.companies,
-            isRequestInProgress: state => state.searchStore.isRequestInProgress,
-        }),
-        showModal: {
-            get () {
-                return this.show
-            },
-            set (value) {
-                this.$emit('update:show', value)
-            }
-        }
+    clearError: function () {
+      this.setErrorType('')
+    },
+    ...mapMutations({
+      setSiren: types.SIREN,
+      setErrorType: types.FORM_ERROR_TYPE
+    })
+  },
+  computed: {
+    ...mapState({
+      companies: state => state.searchStore.companies,
+      isRequestInProgress: state => state.searchStore.isRequestInProgress
+    }),
+    showModal: {
+      get () {
+        return this.show
+      },
+      set (value) {
+        this.$emit('update:show', value)
+      }
     }
+  }
 }
 </script>

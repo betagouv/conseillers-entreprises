@@ -14,4 +14,14 @@ describe UserMailer do
 
     it { expect(mail.from).to eq UserMailer::SENDER }
   end
+
+  describe '#account_approved' do
+    subject(:mail) { described_class.account_approved(user).deliver_now }
+
+    let(:user) { create :user }
+
+    it_behaves_like 'an email'
+
+    it { expect(mail.from).to eq UserMailer::SENDER }
+  end
 end

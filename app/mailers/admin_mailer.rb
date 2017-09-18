@@ -7,7 +7,16 @@ class AdminMailer < ApplicationMailer
   def new_user_created_notification(user)
     @user = user
 
-    mail(to: default_recipients, subject: t('mailers.admin_mailer.new_user_created_notification.subject'))
+    subject = t('mailers.admin_mailer.new_user_created_notification.subject', full_name: @user.full_name)
+    mail(to: default_recipients, subject: subject)
+  end
+
+  def new_user_approved_notification(user, admin)
+    @user = user
+    @admin = admin
+
+    subject = t('mailers.admin_mailer.new_user_approved_notification.subject', full_name: @user.full_name)
+    mail(to: default_recipients, subject: subject)
   end
 
   def weekly_statistics(information_hash)

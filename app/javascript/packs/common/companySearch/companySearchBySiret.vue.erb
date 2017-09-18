@@ -15,24 +15,24 @@ import companyInputValidation from './utils/companyInputValidation'
 import * as Errors from './utils/searchErrorTypes'
 
 export default {
-    name: 'company-search-by-siret',
-    props: [],
-    data: function () {
-        return {
-            textInput: '',
-            textValid: false,
-            siret: ''
-        }
-    },
-    methods: {
-        searchButtonClicked: function () {
-            if (companyInputValidation.validateSiret(this.siret)) {
-                this.$emit('search-siret', this.siret)
-            } else {
-                this.$emit('error', Errors.SIRET_INPUT_ERROR)
-            }
-        }
+  name: 'company-search-by-siret',
+  props: [],
+  data: function () {
+    return {
+      textInput: '',
+      textValid: false,
+      siret: ''
     }
+  },
+  methods: {
+    searchButtonClicked: function () {
+      if (companyInputValidation.validateSiret(this.siret)) {
+        this.$emit('search-siret', this.siret)
+      } else {
+        this.$emit('error', Errors.SIRET_INPUT_ERROR)
+      }
+    }
+  }
 }
 </script>
 

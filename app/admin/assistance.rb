@@ -11,7 +11,6 @@ ActiveAdmin.register Assistance do
       :institution_id,
       :title,
       :description,
-      :email_specific_sentence,
       :_destroy,
       assistances_experts_attributes: %i[id expert_id _create _update _destroy]
     ]
@@ -26,7 +25,6 @@ ActiveAdmin.register Assistance do
     column :title
     column :experts, (proc { |assistance| assistance.experts.size })
     column :institution
-    column :email_specific_sentence, (proc { |assistance| assistance.email_specific_sentence.present? })
     actions
   end
 
@@ -35,7 +33,6 @@ ActiveAdmin.register Assistance do
       row :question
       row :title
       row :description
-      row :email_specific_sentence
       row :institution
     end
     panel I18n.t('active_admin.assistances.experts') do
@@ -57,7 +54,6 @@ ActiveAdmin.register Assistance do
       f.input :question
       f.input :title
       f.input :description
-      f.input :email_specific_sentence
       f.input :institution
     end
     f.inputs I18n.t('active_admin.assistances.experts') do

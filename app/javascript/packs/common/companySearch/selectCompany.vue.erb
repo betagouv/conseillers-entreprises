@@ -25,87 +25,87 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import * as types from './store/searchMutationTypes'
 import CompanySearchBySiret from './companySearchBySiret.vue.erb'
 import CompanySearchByName from './companySearchByName.vue.erb'
 import ErrorMessage from './errorMessage.vue.erb'
 import CompanyView from './companyView.vue.erb'
 import CompanySelectionModal from './companySelectionModal.vue.erb'
-import Modal from '../modal.vue.erb'
+import ErrorService from '../errorService'
 
 export default {
-    name: 'select-company',
-    components: {
-        CompanySearchBySiret,
-        CompanySearchByName,
-        ErrorMessage,
-        CompanyView,
-        CompanySelectionModal
-    },
-    data: function () {
-      return {
-          modalIsShowing: false,
-          firstItemActive: true
-      }
-    },
-    methods: {
-        activateFirstTab: function() {
-           this.firstItemActive = true
-        },
-        activateLastTab: function() {
-           this.firstItemActive = false
-        },
-        searchSiret: function(siret) {
-            this.setSiret(siret)
-            this.clearError()
-            this.$store.dispatch('fetchCompanyBySiret').catch(() => {})
-        },
-        searchSiren: function(siren) {
-            this.setSiren(siren)
-            this.clearError()
-            this.closeModal()
-            this.$store.dispatch('fetchCompanyBySiren').catch(() => {})
-        },
-        searchName: function(name, county) {
-            this.setName(name)
-            this.setCounty(county)
-            this.clearError()
-            this.$store.dispatch('fetchCompaniesByName').catch(() => {})
-            this.showModal()
-        },
-        manageError: function(error) {
-            this.setErrorType(error)
-            this.clearSiret()
-        },
-        clearSiret: function() {
-            this.setSiret('')
-        },
-        clearError: function() {
-            this.setErrorType('')
-        },
-        showModal: function() {
-            this.modalIsShowing = true
-        },
-        ...mapMutations({
-            setSiret: types.SIRET,
-            setSiren: types.SIREN,
-            setName: types.NAME,
-            setCounty: types.COUNTY,
-            setErrorType: types.FORM_ERROR_TYPE
-        }),
-        goToDetailedCompanyInfo: function (siret) {
-            const url = `/companies/${siret}`
-            window.open(url, '_blank')
-        }
-    },
-    computed: {
-        ...mapState({
-            errorType: state => state.searchStore.formErrorType,
-            companyData: state => state.searchStore.companyData,
-            isRequestInProgress: state => state.searchStore.isRequestInProgress,
-        }),
+  name: 'select-company',
+  components: {
+    CompanySearchBySiret,
+    CompanySearchByName,
+    ErrorMessage,
+    CompanyView,
+    CompanySelectionModal
+  },
+  data: function () {
+    return {
+      modalIsShowing: false,
+      firstItemActive: true
     }
+  },
+  methods: {
+    activateFirstTab: function () {
+      this.firstItemActive = true
+    },
+    activateLastTab: function () {
+      this.firstItemActive = false
+    },
+    searchSiret: function (siret) {
+      this.setSiret(siret)
+      this.clearError()
+      this.$store.dispatch('fetchCompanyBySiret').catch(ErrorService.report)
+    },
+    searchSiren: function (siren) {
+      this.setSiren(siren)
+      this.clearError()
+      this.closeModal()
+      this.$store.dispatch('fetchCompanyBySiren').catch(ErrorService.report)
+    },
+    searchName: function (name, county) {
+      this.setName(name)
+      this.setCounty(county)
+      this.clearError()
+      this.$store.dispatch('fetchCompaniesByName').catch(ErrorService.report)
+      this.showModal()
+    },
+    manageError: function (error) {
+      this.setErrorType(error)
+      this.clearSiret()
+    },
+    clearSiret: function () {
+      this.setSiret('')
+    },
+    clearError: function () {
+      this.setErrorType('')
+    },
+    showModal: function () {
+      this.modalIsShowing = true
+    },
+    ...mapMutations({
+      setSiret: types.SIRET,
+      setSiren: types.SIREN,
+      setName: types.NAME,
+      setCounty: types.COUNTY,
+      setErrorType: types.FORM_ERROR_TYPE
+    }),
+    goToDetailedCompanyInfo: function (siret) {
+      const url = `/companies/${siret}`
+      window.open(url, '_blank')
+    }
+  },
+  computed: {
+    ...mapState({
+      errorType: state => state.searchStore.formErrorType,
+      companyData: state => state.searchStore.companyData,
+      isRequestInProgress: state => state.searchStore.isRequestInProgress
+    })
+  }
 }
 </script>
 

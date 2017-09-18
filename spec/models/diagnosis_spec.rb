@@ -26,10 +26,12 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_visit' do
-      subject { Diagnosis.of_visit visit }
+    describe 'of_siret' do
+      subject { Diagnosis.of_siret siret }
 
-      let(:visit) { build :visit }
+      let(:visit) { build :visit, facility: facility }
+      let(:facility) { create :facility }
+      let(:siret) { facility.siret }
 
       context 'no diagnosis' do
         it { is_expected.to eq [] }
@@ -99,22 +101,6 @@ RSpec.describe Diagnosis, type: :model do
       end
     end
 
-    describe 'limited' do
-      subject { Diagnosis.all.limited.count }
-
-      context 'no diagnosis' do
-        it { is_expected.to eq 0 }
-      end
-
-      context 'sixteen diagnoses' do
-        it do
-          create_list :diagnosis, 16
-
-          is_expected.to eq 15
-        end
-      end
-    end
-
     describe 'in progress' do
       subject { Diagnosis.all.in_progress.count }
 
@@ -175,51 +161,23 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 
-  describe 'selected_assistance_experts_count' do
-    subject { diagnosis.selected_assistance_experts_count }
+  describe 'can_be_viewed_by?' do
+    subject { diagnosis.can_be_viewed_by?(user) }
 
-    let(:diagnosis) { create :diagnosis }
+    let(:visit) { create :visit, advisor: advisor }
+    let(:user) { create :user }
+    let!(:diagnosis) { create :diagnosis, visit: visit }
 
-    context 'no diagnosed needs' do
-      it { is_expected.to eq 0 }
+    context 'diagnosis advisor is the user' do
+      let(:advisor) { user }
+
+      it { is_expected.to eq true }
     end
 
-    context 'one diagnosed need' do
-      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+    context 'diagnosis advisor is not the user' do
+      let(:advisor) { create :user }
 
-      context 'no selected assistance experts' do
-        it { is_expected.to eq 0 }
-      end
-
-      context 'one selected assistance experts' do
-        it do
-          create :selected_assistance_expert, diagnosed_need: diagnosed_need
-
-          is_expected.to eq 1
-        end
-      end
-    end
-
-    context 'two diagnosed need' do
-      let(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis }
-      let(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis }
-
-      context 'no relevant selected assistance experts' do
-        it do
-          create :selected_assistance_expert
-
-          is_expected.to eq 0
-        end
-      end
-
-      context 'three selected_assistance_experts' do
-        it do
-          create :selected_assistance_expert, diagnosed_need: diagnosed_need1
-          create_list :selected_assistance_expert, 2, diagnosed_need: diagnosed_need2
-
-          is_expected.to eq 3
-        end
-      end
+      it { is_expected.to eq false }
     end
   end
 end

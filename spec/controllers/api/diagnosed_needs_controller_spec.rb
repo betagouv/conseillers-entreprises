@@ -5,7 +5,8 @@ require 'rails_helper'
 RSpec.describe Api::DiagnosedNeedsController, type: :controller do
   login_user
 
-  let(:diagnosis) { create :diagnosis, content: Faker::Lorem.paragraph }
+  let(:diagnosis) { create :diagnosis, content: Faker::Lorem.paragraph, visit: visit }
+  let(:visit) { create :visit, advisor: current_user }
   let(:question1) { create :question }
 
   describe 'GET #index' do

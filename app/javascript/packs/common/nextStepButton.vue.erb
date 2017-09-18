@@ -32,33 +32,31 @@
 </template>
 
 <script>
-    import {mapState, mapMutations, mapActions} from 'vuex'
-
-    export default {
-        name: 'next-step-button',
-        props: [
-            'previousStepButton',
-            'saveButton',
-            'disabled',
-            'loading'
-            ],
-        computed: {
-            isRequestInProgress: function () {
-                return this.loading
-            }
-        },
-        methods: {
-            previousStepButtonClicked: function () {
-                this.$emit('previous-step-click')
-            },
-            saveButtonClicked: function () {
-                this.$emit('save-click')
-            },
-            nextStepButtonClicked: function () {
-                this.$emit('next-step-click')
-            }
-        }
+export default {
+  name: 'next-step-button',
+  props: [
+    'previousStepButton',
+    'saveButton',
+    'disabled',
+    'loading'
+  ],
+  computed: {
+    isRequestInProgress: function () {
+      return this.loading
     }
+  },
+  methods: {
+    previousStepButtonClicked: function () {
+      this.$emit('previous-step-click')
+    },
+    saveButtonClicked: function () {
+      this.$emit('save-click')
+    },
+    nextStepButtonClicked: function () {
+      this.$emit('next-step-click')
+    }
+  }
+}
 </script>
 
 <style lang="sass">

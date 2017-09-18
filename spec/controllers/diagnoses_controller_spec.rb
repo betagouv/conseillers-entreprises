@@ -4,7 +4,9 @@ require 'rails_helper'
 RSpec.describe DiagnosesController, type: :controller do
   login_user
 
-  let(:diagnosis) { create :diagnosis }
+  let(:diagnosis) { create :diagnosis, visit: visit }
+  let(:visit) { create :visit, advisor: advisor }
+  let(:advisor) { current_user }
 
   describe 'GET #index' do
     it 'returns http success' do
@@ -21,23 +23,62 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'GET #step2' do
-    it 'returns http success' do
-      get :step2, params: { id: diagnosis.id }
-      expect(response).to have_http_status(:success)
+    subject(:request) { get :step2, params: { id: diagnosis.id } }
+
+    context 'diagnosis step < last' do
+      it('returns http success') { expect(response).to have_http_status(:success) }
+    end
+
+    context 'diagnosis step == last' do
+      before { diagnosis.update step: Diagnosis::LAST_STEP }
+
+      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
+    end
+
+    context 'current user should not access the diagnosis' do
+      let(:advisor) { create :user }
+
+      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
     end
   end
 
   describe 'GET #step3' do
-    it 'returns http success' do
-      get :step3, params: { id: diagnosis.id }
-      expect(response).to have_http_status(:success)
+    subject(:request) { get :step3, params: { id: diagnosis.id } }
+
+    context 'diagnosis step < last' do
+      it('returns http success') { expect(response).to have_http_status(:success) }
+    end
+
+    context 'diagnosis step == last' do
+      before { diagnosis.update step: Diagnosis::LAST_STEP }
+
+      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
+    end
+
+    context 'current user should not access the diagnosis' do
+      let(:advisor) { create :user }
+
+      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
     end
   end
 
   describe 'GET #step4' do
-    it 'returns http success' do
-      get :step4, params: { id: diagnosis.id }
-      expect(response).to have_http_status(:success)
+    subject(:request) { get :step4, params: { id: diagnosis.id } }
+
+    context 'diagnosis step < last' do
+      it('returns http success') { expect(response).to have_http_status(:success) }
+    end
+
+    context 'diagnosis step == last' do
+      before { diagnosis.update step: Diagnosis::LAST_STEP }
+
+      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
+    end
+
+    context 'current user should not access the diagnosis' do
+      let(:advisor) { create :user }
+
+      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
     end
   end
 
@@ -100,9 +141,16 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'GET #step5' do
-    it 'returns http success' do
-      get :step5, params: { id: diagnosis.id }
-      expect(response).to have_http_status(:success)
+    subject(:request) { get :step5, params: { id: diagnosis.id } }
+
+    context 'current user can access the diagnosis' do
+      it('returns http success') { expect(response).to have_http_status(:success) }
+    end
+
+    context 'current user should not access the diagnosis' do
+      let(:advisor) { create :user }
+
+      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
     end
   end
 

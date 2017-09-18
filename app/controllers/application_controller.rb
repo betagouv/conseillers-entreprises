@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
     diagnoses_path
   end
 
+  def not_found
+    raise ActionController::RoutingError, 'Not Found'
+  end
+
   private
 
   def render_error(exception)
@@ -53,5 +57,9 @@ class ApplicationController < ActionController::Base
       current_user_id: current_user&.id
     }
     ExceptionNotifier.notify_exception exception, env: request.env, data: data
+  end
+
+  def check_current_user_access_to(resource)
+    not_found unless resource.send(:can_be_viewed_by?, current_user)
   end
 end

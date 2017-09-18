@@ -19,23 +19,23 @@ import companyInputValidation from './utils/companyInputValidation'
 import * as Errors from './utils/searchErrorTypes'
 
 export default {
-    name: 'company-search-by-name',
-    props: [],
-    data: function () {
-        return {
-            name: '',
-            county: ''
-        }
-    },
-    methods: {
-        searchButtonClicked: function () {
-            if (this.name != '' && companyInputValidation.validateCounty(this.county)) {
-                this.$emit('search-name', this.name, this.county)
-            } else {
-                this.$emit('error', Errors.INPUT_ERROR)
-            }
-        }
+  name: 'company-search-by-name',
+  props: [],
+  data: function () {
+    return {
+      name: '',
+      county: ''
     }
+  },
+  methods: {
+    searchButtonClicked: function () {
+      if (this.name !== '' && companyInputValidation.validateCounty(this.county)) {
+        this.$emit('search-name', this.name, this.county)
+      } else {
+        this.$emit('error', Errors.INPUT_ERROR)
+      }
+    }
+  }
 }
 </script>
 
