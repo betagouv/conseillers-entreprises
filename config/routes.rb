@@ -36,6 +36,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :experts, only: %i[] do
+    collection do
+      get :diagnosis
+    end
+  end
+
   namespace :api do
     resources :companies, only: %i[] do
       post :search_by_name, on: :collection

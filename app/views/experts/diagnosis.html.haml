@@ -1,0 +1,84 @@
+- meta title: t('.title')
+
+#dignoses-app
+  %h1= t('.title')
+
+  %table.ui.table.ui
+    %tbody
+      %tr
+        %td
+          %h2.ui.header
+            = @diagnosis.visit.facility.company.name_short
+            .sub.header
+              = @diagnosis.creation_date_localized
+        %td.collapsing
+          .ui.middle.aligned.list
+            .item
+              .middle.aligned.content
+                %h4.ui.header.disabled
+                  = t('.diagnosed_needs', count: @diagnosis.diagnosed_needs.count)
+            .item
+              .middle.aligned.content
+                %h4.ui.header.disabled
+                  - selected_assistances_experts_count = SelectedAssistanceExpert.of_diagnoses([@diagnosis]).count
+                  = t('.selected_assistance_experts', count: selected_assistances_experts_count)
+
+  - visitee = @diagnosis.visit.visitee
+  - visitee_data = [{label: t('activerecord.attributes.contact.last_name'), value: visitee.full_name},
+                    {label: t('activerecord.attributes.contact.role'), value: visitee.role},
+                    {label: t('activerecord.attributes.contact.email'), value: visitee.email},
+                    {label: t('activerecord.attributes.contact.phone_number'), value: visitee.phone_number}]
+
+  .ui.segment.shadow-less
+    %h3.ui.header
+      = t('.company_contact_subtitle')
+    %table.full-width
+      %tbody.small-horizontal-padding
+        - (visitee_data.reject { |item| item[:value].blank? }).each do |item|
+          %tr
+            %td.collapsing
+              .small.text.bold= item[:label]
+            %td
+              .small.text= item[:value]
+
+  %h2= t('.need_contacts_summary_subtitle')
+  - @diagnosis.diagnosed_needs.each do |diagnosed_need|
+    %table.ui.celled.table
+      %thead
+        %tr
+          %th{ colspan: 2 }= diagnosed_need.question_label
+      %tbody
+        - if diagnosed_need.content && diagnosed_need.content.lstrip.length > 0
+          %tr
+            %td{ colspan: 2 }
+              .ui.form
+                .field
+                  %label= t('.diagnosed_needs_content_label')
+                  = diagnosed_need.content
+        - if diagnosed_need.selected_assistance_experts.empty?
+          %tr.small.text.ui.tiny.table{ colspan: 2 }
+            %td= t('.zero_contacted_expert')
+        - else
+          - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+            %tr.small.text.ui.tiny.table
+              - if selected_assistance_expert.expert_full_name
+                %td.expert-width
+                  = selected_assistance_expert.expert_full_name
+                  %br
+                  = selected_assistance_expert.expert_institution_name
+                %td
+                  = selected_assistance_expert.assistance_title
+              - else
+                %td.expert-width
+                  = selected_assistance_expert.assistance_expert.expert.full_name
+                  %br
+                  = selected_assistance_expert.assistance_expert.expert.institution.name
+                %td
+                  = selected_assistance_expert.assistance_expert.assistance.title
+
+  - if @diagnosis.content
+    %h2= t('.diagnosis_content_subtitle')
+    .ui.segment.shadow-less
+      .ui.form
+        .field
+          = @diagnosis.content
