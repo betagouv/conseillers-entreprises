@@ -20,6 +20,10 @@ class Diagnosis < ApplicationRecord
   scope :reverse_chronological, (-> { order(created_at: :desc) })
   scope :in_progress, (-> { where(step: [1..4]) })
   scope :completed, (-> { where(step: LAST_STEP) })
+  scope :available_for_expert, (lambda do |expert|
+    joins(diagnosed_needs: [selected_assistance_experts: [assistance_expert: :expert]])
+      .where(diagnosed_needs: { selected_assistance_experts: { assistance_expert: { experts: { id: expert.id } } } })
+  end)
 
   def creation_date_localized
     I18n.l(created_at.to_date)

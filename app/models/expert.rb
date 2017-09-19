@@ -15,8 +15,6 @@ class Expert < ApplicationRecord
 
   before_validation :generate_access_token!, on: :create
 
-  scope :with_access_token, (->(access_token) { where(access_token: access_token) })
-
   def generate_access_token!
     self.access_token = SecureRandom.hex(32)
     generate_access_token! if Expert.exists?(access_token: access_token)

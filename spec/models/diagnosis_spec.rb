@@ -152,6 +152,28 @@ RSpec.describe Diagnosis, type: :model do
         end
       end
     end
+
+    describe 'available_for_expert' do
+      subject { Diagnosis.available_for_expert(expert) }
+
+      let(:expert) { create :expert }
+
+      context 'no diagnosis' do
+        it { is_expected.to eq [] }
+      end
+
+      context 'one diagnosis' do
+        let(:diagnosis) { create :diagnosis }
+        let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+        let(:assistance_expert) { create :assistance_expert, expert: expert }
+
+        before do
+          create :selected_assistance_expert, diagnosed_need: diagnosed_need, assistance_expert: assistance_expert
+        end
+
+        it { is_expected.to eq [diagnosis] }
+      end
+    end
   end
 
   describe 'creation_date_localized' do

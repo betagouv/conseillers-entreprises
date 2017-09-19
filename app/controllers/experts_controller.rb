@@ -4,7 +4,8 @@ class ExpertsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def diagnosis
+    expert = Expert.find_by! access_token: params[:access_token]
     associations = [visit: [:visitee, :advisor, facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
-    @diagnosis = Diagnosis.includes(associations).find params[:diagnosis_id]
+    @diagnosis = Diagnosis.available_for_expert(expert).includes(associations).find(params[:diagnosis_id])
   end
 end
