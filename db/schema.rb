@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913141855) do
+ActiveRecord::Schema.define(version: 20170919085828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20170913141855) do
     t.boolean "on_valenciennes_cambrai", default: false, null: false
     t.boolean "on_lens", default: false, null: false
     t.boolean "on_calais", default: false, null: false
+    t.string "access_token"
     t.index ["institution_id"], name: "index_experts_on_institution_id"
   end
 
@@ -180,7 +181,7 @@ ActiveRecord::Schema.define(version: 20170913141855) do
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
+    t.string "reset_password_ee"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
