@@ -2,6 +2,7 @@
 
 class ExpertsController < ApplicationController
   skip_before_action :authenticate_user!
+  layout 'experts'
 
   def diagnosis
     expert = Expert.find_by! access_token: params[:access_token]
