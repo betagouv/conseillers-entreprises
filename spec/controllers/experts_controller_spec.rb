@@ -24,6 +24,11 @@ RSpec.describe ExpertsController, type: :controller do
 
         before do
           create :selected_assistance_expert, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
+
+          allow(UseCases::UpdateExpertViewedPageAt).to receive(:perform).with(
+            diagnosis_id: diagnosis.id,
+            expert_id: expert.id
+          )
         end
 
         it 'returns http success' do
