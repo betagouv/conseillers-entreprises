@@ -15,6 +15,19 @@ RSpec.describe Expert, type: :model do
     end
   end
 
+  describe 'scopes' do
+    describe 'with_access_token' do
+      let(:expert) { create :expert }
+
+      before { create :expert }
+
+      it do
+        expect(Expert.with_access_token(expert.access_token)).to eq [expert]
+        expect(Expert.with_access_token('')).to eq []
+      end
+    end
+  end
+
   describe 'full_name' do
     let(:expert) { build :expert, first_name: 'Ivan', last_name: 'Collombet' }
 
