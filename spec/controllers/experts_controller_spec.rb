@@ -77,7 +77,7 @@ RSpec.describe ExpertsController, type: :controller do
           request
 
           expect(response).to have_http_status(:success)
-          selected_assistance_expert.reload.status == :taking_care
+          expect(selected_assistance_expert.reload.taking_care?).to eq true
         end
       end
 
