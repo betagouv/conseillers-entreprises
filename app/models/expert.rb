@@ -16,7 +16,7 @@ class Expert < ApplicationRecord
   before_validation :generate_access_token!, on: :create
 
   def generate_access_token!
-    self.access_token = SecureRandom.hex
+    self.access_token = SecureRandom.hex(32)
     generate_access_token! if Expert.exists?(access_token: access_token)
   end
 end
