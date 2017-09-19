@@ -127,6 +127,7 @@ fr:
         institution: Institution
         email: Adresse e-mail
         phone_number: Numéro de téléphone
+        access_token: Token d'accès
       diagnosis:
         visit: Visite qui a fait l'objet de l'analyse
         content: Description
