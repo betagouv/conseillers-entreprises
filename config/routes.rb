@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
   resources :experts, only: %i[] do
     collection do
-      get :diagnosis
+      get 'diagnoses/:diagnosis_id' => 'expert#diagnosis', as: :diagnosis
     end
   end
 

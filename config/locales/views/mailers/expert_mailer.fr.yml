@@ -10,6 +10,8 @@ fr:
         more_info: "Informations complémentaires :"
         company_contact_with_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l'entreprise %{company_name}, joignable au %{company_contact_phone_number} ou à l'adresse e-mail %{company_contact_email}.
         company_contact_without_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l'entreprise %{company_name}, joignable à l'adresse e-mail %{company_contact_email}.
+        information_are_available_on_app_html: Les informations concernant la visite et l'entreprise sont accessibles sur Réso %{more_info_link}.
+        by_clicking_here: en cliquant ici
         contact_advisor_for_more_info: Pour plus d'informations, vous pouvez contacter %{advisor_name} au %{advisor_phone_number} ou à l'adresse e-mail %{advisor_email}.
         regards: Bien cordialement,
         reso_team_html: L'équipe %{link_to_root}.
