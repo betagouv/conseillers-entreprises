@@ -13,7 +13,7 @@ class ExpertsController < ApplicationController
     UseCases::UpdateExpertViewedPageAt.perform(diagnosis_id: params[:diagnosis_id].to_i, expert_id: @expert.id)
   end
 
-  def update_need
+  def update_status
     @selected_assistance_expert = SelectedAssistanceExpert.of_expert(@expert)
                                                           .find params[:selected_assistance_expert_id]
     @selected_assistance_expert.update status: params[:status]
