@@ -4,7 +4,7 @@
   = selected_assistance_expert.expert_institution_name
 %td
   = selected_assistance_expert.assistance_title
-%td.taking-care-cell
+%td.expert-status-cell
   - if selected_assistance_expert.status_taking_care?
     %i.icon.checkmark
     = expert_is_current_user ? t('.i_take_care') : t('.he_takes_care')
