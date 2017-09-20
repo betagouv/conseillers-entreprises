@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SelectedAssistanceExpert < ApplicationRecord
-  enum status: { quo: 0, taking_care: 1, done: 2, nope: 3 }
+  enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
 
   belongs_to :diagnosed_need
   belongs_to :assistance_expert, foreign_key: :assistances_experts_id

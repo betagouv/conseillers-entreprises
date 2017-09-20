@@ -44,8 +44,8 @@ RSpec.describe ExpertsController, type: :controller do
     end
   end
 
-  describe 'GET #take_care_of_need' do
-    subject(:request) { get :take_care_of_need, xhr: true, params: params }
+  describe 'GET #update_need' do
+    subject(:request) { patch :update_need, xhr: true, params: params }
 
     let(:params) { { selected_assistance_expert_id: selected_assistance_expert_id, access_token: access_token } }
 
@@ -67,22 +67,33 @@ RSpec.describe ExpertsController, type: :controller do
       it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
     end
 
-    context 'access token exists' do
-      context 'selected assistance expert exists' do
-        let(:assistance_expert) { create :assistance_expert, expert: expert }
+    context 'selected assistance expert is not available to expert' do
+      it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
+    end
 
-        before { selected_assistance_expert.update assistance_expert: assistance_expert }
+    context 'selected assistance expert exists' do
+      let(:assistance_expert) { create :assistance_expert, expert: expert }
 
+      before { selected_assistance_expert.update assistance_expert: assistance_expert }
+
+      context 'with status quo' do
         it 'returns http success' do
+          params[:status] = :quo
           request
 
           expect(response).to have_http_status(:success)
-          expect(selected_assistance_expert.reload.taking_care?).to eq true
+          expect(selected_assistance_expert.reload.status_quo?).to eq true
         end
       end
 
-      context 'selected assistance expert is not available to expert' do
-        it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
+      context 'with status taking_care' do
+        it 'returns http success' do
+          params[:status] = :taking_care
+          request
+
+          expect(response).to have_http_status(:success)
+          expect(selected_assistance_expert.reload.status_taking_care?).to eq true
+        end
       end
     end
   end
