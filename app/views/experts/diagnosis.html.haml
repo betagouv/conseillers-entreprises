@@ -49,18 +49,16 @@
         - else
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
             - expert_is_current_user = @expert == selected_assistance_expert.assistance_expert.expert
-            %tr.small.text.ui.tiny.table{class: ('positive' if expert_is_current_user)}
+            %tr.small.text.ui.tiny.table{ class: ('positive' if expert_is_current_user) }
               %td.expert-width
                 = selected_assistance_expert.expert_full_name
                 %br
                 = selected_assistance_expert.expert_institution_name
               %td
                 = selected_assistance_expert.assistance_title
-              %td.taking-care-cell
-                - if expert_is_current_user
-                  - url = take_care_of_need_experts_path(selected_assistance_expert_id: selected_assistance_expert.id,
-                  access_token: params[:access_token])
-                  = link_to "Je m'en charge !", url, class: 'ui button green tiny'
+              %td.taking-care-cell{ id: "taking-care-cell-#{selected_assistance_expert.id}" }
+                = render partial: 'taking_care_cell', locals: { expert_is_current_user: expert_is_current_user,
+                selected_assistance_expert: selected_assistance_expert }
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')

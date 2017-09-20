@@ -45,7 +45,7 @@ RSpec.describe ExpertsController, type: :controller do
   end
 
   describe 'GET #take_care_of_need' do
-    subject(:request) { get :take_care_of_need, params: params }
+    subject(:request) { get :take_care_of_need, xhr: true, params: params }
 
     let(:params) { { selected_assistance_expert_id: selected_assistance_expert_id, access_token: access_token } }
 

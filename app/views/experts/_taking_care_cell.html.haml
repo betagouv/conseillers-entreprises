@@ -1,0 +1,11 @@
+- if expert_is_current_user
+  - if selected_assistance_expert.taking_care?
+    %i.icon.checkmark
+    = t('.you_take_care')
+  - else
+    - url = take_care_of_need_experts_path(selected_assistance_expert_id: selected_assistance_expert.id,
+                  access_token: params[:access_token])
+    = link_to t('.i_take_care'), url, remote: true, class: 'ui button green tiny'
+- elsif selected_assistance_expert.taking_care?
+  %i.icon.checkmark
+  = t('.he_takes_care')

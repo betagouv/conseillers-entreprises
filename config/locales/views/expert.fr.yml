@@ -17,3 +17,7 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
+    taking_care_cell:
+      you_take_care: Vous avez indiqué le prendre en charge
+      i_take_care: Je m'en charge !
+      he_takes_care: S'en charge

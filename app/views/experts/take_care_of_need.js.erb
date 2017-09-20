@@ -1,0 +1,3 @@
+var content = "<%= j render(partial: 'taking_care_cell', locals: { expert_is_current_user: true,
+                selected_assistance_expert: @selected_assistance_expert }) %>";
+document.getElementById('taking-care-cell-<%= @selected_assistance_expert.id %>').innerHTML = content;

@@ -14,9 +14,9 @@ class ExpertsController < ApplicationController
   end
 
   def take_care_of_need
-    selected_assistance_expert = SelectedAssistanceExpert.of_expert(@expert).find params[:selected_assistance_expert_id]
-    selected_assistance_expert.taking_care!
-    render body: nil
+    @selected_assistance_expert = SelectedAssistanceExpert.of_expert(@expert)
+                                                          .find params[:selected_assistance_expert_id]
+    @selected_assistance_expert.taking_care!
   end
 
   private
