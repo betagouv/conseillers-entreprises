@@ -17,11 +17,14 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
-    taking_care_cell:
-      you_take_care: Vous avez indiqué le prendre en charge
-      dont_take_care_any_more: Ne plus s'en charger
-      done: Besoin résolu
-      not_for_me: Ce n'est pas pour moi
-      not_for_him: Ce n'est pas pour lui
-      i_take_care: Je m'en charge !
+    selected_assistance_expert:
       he_takes_care: S'en charge
+      i_take_care: Je m'en charge !
+      not_for_him: Ce n'est pas pour lui
+      not_for_me: Ce n'est pas pour moi
+      done: Besoin résolu
+    expert_buttons:
+      i_take_care: Je m'en charge !
+      dont_take_care_any_more: Ne plus s'en charger
+      not_for_me: Ce n'est pas pour moi
+      done: Besoin résolu

@@ -1,30 +1,14 @@
-- default_url_params = { selected_assistance_expert_id: selected_assistance_expert.id,
+%td
+%td{ colspan: 2 }
+  - default_url_params = { selected_assistance_expert_id: selected_assistance_expert.id,
                   access_token: params[:access_token] }
-
-- if expert_is_current_user
   - if selected_assistance_expert.status_taking_care?
-    %i.icon.checkmark
-    = t('.you_take_care')
     - status_quo_url = update_need_experts_path(default_url_params.merge(status: :quo))
     = link_to t('.dont_take_care_any_more'), status_quo_url, remote: true, method: :patch, class: 'ui button basic tiny'
     - done_url = update_need_experts_path(default_url_params.merge(status: :done))
     = link_to t('.done'), done_url, remote: true, method: :patch, class: 'ui button green tiny'
     - not_for_me_url = update_need_experts_path(default_url_params.merge(status: :not_for_me))
     = link_to t('.not_for_me'), not_for_me_url, remote: true, method: :patch, class: 'ui button red tiny'
-  - elsif selected_assistance_expert.status_done?
-    = t('.done')
-  - elsif selected_assistance_expert.status_not_for_me?
-    = t('.not_for_me')
-  - else
+  - elsif selected_assistance_expert.status_quo?
     - url = update_need_experts_path(default_url_params.merge(status: :taking_care))
     = link_to t('.i_take_care'), url, remote: true, method: :patch, class: 'ui button green tiny'
-- else
-  - if selected_assistance_expert.status_taking_care?
-    %i.icon.checkmark
-    = t('.he_takes_care')
-  - elsif selected_assistance_expert.status_done?
-    %i.icon.checkmark
-    = t('.done')
-  - elsif selected_assistance_expert.status_not_for_me?
-    %i.icon.remove
-    = t('.not_for_him')
