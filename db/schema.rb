@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170921132448) do
+ActiveRecord::Schema.define(version: 20170921161824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 20170921132448) do
     t.string "expert_institution_name"
     t.string "assistance_title"
     t.datetime "expert_viewed_page_at"
-    t.integer "status", default: 0
+    t.integer "status", default: 0, null: false
     t.index ["assistances_experts_id"], name: "index_selected_assistances_experts_on_assistances_experts_id"
     t.index ["diagnosed_need_id"], name: "index_selected_assistances_experts_on_diagnosed_need_id"
   end
