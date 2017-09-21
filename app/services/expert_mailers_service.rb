@@ -62,6 +62,7 @@ class ExpertMailersService
     def notify_expert(expert_hash, advisor, diagnosis)
       email_params = {
         advisor: advisor,
+        diagnosis_id: diagnosis.id,
         visit_date: diagnosis.visit.happened_at_localized,
         company_name: diagnosis.visit.company_name,
         company_contact: diagnosis.visit.visitee,

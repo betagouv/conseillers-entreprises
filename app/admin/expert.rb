@@ -40,6 +40,7 @@ ActiveAdmin.register Expert do
       row :role
       row :institution
       row :email
+      row :access_token
       row :on_maubeuge
       row :on_valenciennes_cambrai
       row :on_calais

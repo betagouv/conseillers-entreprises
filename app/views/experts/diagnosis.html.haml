@@ -1,6 +1,6 @@
 - meta title: t('.title')
 
-#step5-app
+#experts-diagnoses
   %h1= t('.title')
 
   %table.ui.table.ui
@@ -24,11 +24,10 @@
                   = t('.selected_assistance_experts', count: selected_assistances_experts_count)
 
   - visitee = @diagnosis.visit.visitee
+  - advisor = @diagnosis.visit.advisor
 
   = render partial: 'people/person', locals: { person: visitee, subtitle: t('.company_contact_subtitle') }
-
-  = link_to t('.show_detailed_information'), company_path(siret: @diagnosis.visit.facility.siret),
-   target: '_blank', class: 'ui yellow basic tiny button'
+  = render partial: 'people/person', locals: { person: advisor, subtitle: t('.advisor_contact_subtitle') }
 
   %h2= t('.need_contacts_summary_subtitle')
   - @diagnosis.diagnosed_needs.each do |diagnosed_need|
@@ -49,9 +48,17 @@
             %td= t('.zero_contacted_expert')
         - else
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
-            %tr.small.text.ui.tiny.table
-              - locals = { selected_assistance_expert: selected_assistance_expert, expert_is_current_user: false }
-              = render partial: 'experts/selected_assistance_expert', locals: locals
+            - expert_is_current_user = @expert == selected_assistance_expert.assistance_expert.expert
+            - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}"
+            %tr.small.text.ui.tiny.table{ class: ('positive' if expert_is_current_user), id: id }
+              - locals = { selected_assistance_expert: selected_assistance_expert,
+              expert_is_current_user: expert_is_current_user }
+              = render partial: 'selected_assistance_expert', locals: locals
+            - status_pending = selected_assistance_expert.status_taking_care? || selected_assistance_expert.status_quo?
+            - if expert_is_current_user && status_pending
+              %tr.small.text.ui.tiny.table.positive{ id: "expert-buttons-line-#{selected_assistance_expert.id}" }
+                - locals = { selected_assistance_expert: selected_assistance_expert }
+                = render partial: 'expert_buttons', locals: locals
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')

@@ -7,10 +7,12 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
     let(:expert) { create :expert }
     let(:user) { create :user }
     let(:question) { create :question }
+    let(:diagnosis) { create :diagnosis, visit: visit }
 
     let(:params_hash) do
       {
         visit_date: visit.happened_at_localized,
+        diagnosis_id: diagnosis.id,
         company_name: visit.company_name,
         company_contact: visit.visitee,
         questions_with_needs_description: questions_with_needs_description,

@@ -36,6 +36,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :experts, only: %i[] do
+    collection do
+      get 'diagnoses/:diagnosis_id' => 'experts#diagnosis', as: :diagnosis
+      patch :update_status
+    end
+  end
+
   namespace :api do
     resources :companies, only: %i[] do
       post :search_by_name, on: :collection

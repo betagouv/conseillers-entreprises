@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Diagnosis < ApplicationRecord
-  AUTHORIZED_STEPS = [1, 2, 3, 4, 5].freeze
   LAST_STEP = 5
+  AUTHORIZED_STEPS = (1..LAST_STEP).to_a.freeze
   acts_as_paranoid
 
   attr_accessor :diagnosed_needs_count, :selected_assistances_experts_count
@@ -18,8 +18,12 @@ class Diagnosis < ApplicationRecord
   scope :of_siret, (->(siret) { joins(:visit).merge(Visit.of_siret(siret)) })
   scope :of_user, (->(user) { joins(:visit).where(visits: { advisor: user }) })
   scope :reverse_chronological, (-> { order(created_at: :desc) })
-  scope :in_progress, (-> { where(step: [1..4]) })
+  scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
   scope :completed, (-> { where(step: LAST_STEP) })
+  scope :available_for_expert, (lambda do |expert|
+    joins(diagnosed_needs: [selected_assistance_experts: [assistance_expert: :expert]])
+      .where(diagnosed_needs: { selected_assistance_experts: { assistance_expert: { experts: { id: expert.id } } } })
+  end)
 
   def creation_date_localized
     I18n.l(created_at.to_date)

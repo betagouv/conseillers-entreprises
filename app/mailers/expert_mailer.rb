@@ -6,6 +6,7 @@ class ExpertMailer < ApplicationMailer
 
   def notify_company_needs(expert, params)
     @params = params
+    @access_token = expert.access_token
 
     mail(
       to: "#{expert.full_name} <#{expert.email}>",

@@ -1,0 +1,30 @@
+fr:
+  experts:
+    diagnosis:
+      title: Récapitulatif
+      company_contact_subtitle: Contact rencontré au sein de l'entreprise
+      advisor_contact_subtitle: Conseiller ayant effectué l'analyse des besoins de l'entreprise
+      need_contacts_summary_subtitle: Référents contactés classés par besoin
+      zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
+      diagnosed_needs_content_label: "Les informations complémentaires concernant ce besoin :"
+      diagnosis_content_subtitle: Informations générales
+      need_contacts_summary_subtitle: Référents contactés classés par besoin
+      diagnosed_needs:
+        zero: 0 besoin identifié
+        one: 1 besoin identifié
+        other: "%{count} besoins identifiés"
+      selected_assistance_experts:
+        zero: 0 mise en relation
+        one: 1 mise en relation
+        other: "%{count} mises en relation"
+    selected_assistance_expert:
+      he_takes_care: S'en charge
+      i_take_care: Je m'en charge !
+      not_for_him: Ce n'est pas pour lui
+      not_for_me: Ce n'est pas pour moi
+      done: Besoin résolu
+    expert_buttons:
+      i_take_care: Je m'en charge !
+      dont_take_care_any_more: Ne plus s'en charger
+      not_for_me: Ce n'est pas pour moi
+      done: Besoin résolu

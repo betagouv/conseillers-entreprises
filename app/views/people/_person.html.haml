@@ -1,0 +1,16 @@
+- person_data = [{ label: t('activerecord.attributes.contact.last_name'), value: person.full_name },
+                { label: t('activerecord.attributes.contact.role'), value: person.role },
+                { label: t('activerecord.attributes.contact.email'), value: person.email },
+                { label: t('activerecord.attributes.contact.phone_number'), value: person.phone_number }]
+
+.ui.segment.shadow-less
+  %h3.ui.header
+    = subtitle
+  %table.full-width
+    %tbody.small-horizontal-padding
+      - (person_data.reject { |item| item[:value].blank? }).each do |item|
+        %tr
+          %td.collapsing
+            .small.text.bold= item[:label]
+          %td
+            .small.text= item[:value]

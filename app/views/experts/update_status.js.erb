@@ -1,0 +1,4 @@
+var selectedAssistanceExpert = "<%= j render(partial: 'selected_assistance_expert', locals: { selected_assistance_expert: @selected_assistance_expert, expert_is_current_user: true }) %>";
+document.getElementById('selected-assistance-expert-line-<%= @selected_assistance_expert.id %>').innerHTML = selectedAssistanceExpert;
+var expertButtons = "<%= j render(partial: 'expert_buttons', locals: { selected_assistance_expert: @selected_assistance_expert }) %>";
+document.getElementById('expert-buttons-line-<%= @selected_assistance_expert.id %>').innerHTML = expertButtons;
