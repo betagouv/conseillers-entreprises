@@ -15,7 +15,13 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
   describe 'defaults' do
     let(:selected_assistance_expert) { create :selected_assistance_expert }
 
-    it { expect(selected_assistance_expert.status).not_to be_nil }
+    context 'creation' do
+      it { expect(selected_assistance_expert.status).not_to be_nil }
+    end
+
+    context 'update' do
+      it { expect { selected_assistance_expert.update status: nil }.to raise_error ActiveRecord::NotNullViolation }
+    end
   end
 
   describe 'scopes' do
