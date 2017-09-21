@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root to: 'home#index'
   get 'home/about'
+  get 'video' => 'home#tutorial_video'
 
   get 'profile' => 'users#show'
   patch 'profile' => 'users#update'
@@ -42,8 +43,6 @@ Rails.application.routes.draw do
       patch :update_status
     end
   end
-
-  get '/video', to: redirect(ENV['TUTORIAL_VIDEO_URL'])
 
   namespace :api do
     resources :companies, only: %i[] do
