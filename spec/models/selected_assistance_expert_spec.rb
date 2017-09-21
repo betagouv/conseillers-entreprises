@@ -12,6 +12,12 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
   end
 
+  describe 'defaults' do
+    let(:selected_assistance_expert) { create :selected_assistance_expert }
+
+    it { expect(selected_assistance_expert.status).not_to be_nil }
+  end
+
   describe 'scopes' do
     describe 'of_expert' do
       subject { SelectedAssistanceExpert.of_expert expert }
