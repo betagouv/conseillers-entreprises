@@ -24,22 +24,8 @@
                   = t('.selected_assistance_experts', count: selected_assistances_experts_count)
 
   - visitee = @diagnosis.visit.visitee
-  - visitee_data = [{label: t('activerecord.attributes.contact.last_name'), value: visitee.full_name},
-                    {label: t('activerecord.attributes.contact.role'), value: visitee.role},
-                    {label: t('activerecord.attributes.contact.email'), value: visitee.email},
-                    {label: t('activerecord.attributes.contact.phone_number'), value: visitee.phone_number}]
 
-  .ui.segment.shadow-less
-    %h3.ui.header
-      = t('.company_contact_subtitle')
-    %table.full-width
-      %tbody.small-horizontal-padding
-        - (visitee_data.reject { |item| item[:value].blank? }).each do |item|
-          %tr
-            %td.collapsing
-              .small.text.bold= item[:label]
-            %td
-              .small.text= item[:value]
+  = render partial: 'people/person', locals: { person: visitee, subtitle: t('.company_contact_subtitle') }
 
   = link_to t('.show_detailed_information'), company_path(siret: @diagnosis.visit.facility.siret),
    target: '_blank', class: 'ui yellow basic tiny button'
@@ -49,11 +35,11 @@
     %table.ui.celled.table
       %thead
         %tr
-          %th{ colspan: 2 }= diagnosed_need.question_label
+          %th{ colspan: 3 }= diagnosed_need.question_label
       %tbody
-        - if diagnosed_need.content && diagnosed_need.content.lstrip.length > 0
+        - if diagnosed_need.content.present?
           %tr
-            %td{ colspan: 2 }
+            %td{ colspan: 3 }
               .ui.form
                 .field
                   %label= t('.diagnosed_needs_content_label')
@@ -64,20 +50,8 @@
         - else
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
             %tr.small.text.ui.tiny.table
-              - if selected_assistance_expert.expert_full_name
-                %td.expert-width
-                  = selected_assistance_expert.expert_full_name
-                  %br
-                  = selected_assistance_expert.expert_institution_name
-                %td
-                  = selected_assistance_expert.assistance_title
-              - else
-                %td.expert-width
-                  = selected_assistance_expert.assistance_expert.expert.full_name
-                  %br
-                  = selected_assistance_expert.assistance_expert.expert.institution.name
-                %td
-                  = selected_assistance_expert.assistance_expert.assistance.title
+              - locals = { selected_assistance_expert: selected_assistance_expert, expert_is_current_user: false }
+              = render partial: 'experts/selected_assistance_expert', locals: locals
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')

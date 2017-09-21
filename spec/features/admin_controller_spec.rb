@@ -5,49 +5,63 @@ require 'rails_helper'
 describe 'admin panel', type: :feature do
   login_user
 
-  before do
-    visit '/admin'
-    expect(page).not_to have_content 'Tableau de bord'
+  describe 'user access to panel' do
+    context 'user is not admin' do
+      before { visit '/admin' }
 
-    current_user.update is_admin: true
+      it { expect(page).not_to have_content 'Tableau de bord' }
+    end
 
-    visit '/admin'
-    expect(page).to have_content 'Tableau de bord'
+    context 'user is admin' do
+      before do
+        current_user.update is_admin: true
+        visit '/admin'
+      end
 
-    click_link 'Utilisateurs'
-    click_link 'Créer Utilisateur'
-
-    click_link 'Visites'
-    click_link 'Créer Visite'
-
-    click_link 'Entreprises'
-    click_link 'Créer Entreprise'
-
-    click_link 'Contact'
-    click_link 'Créer Contact'
-
-    click_link 'Catégories'
-    click_link 'Créer Catégorie'
-
-    click_link 'Besoins'
-    click_link 'Créer Besoin'
-
-    click_link 'Aides'
-    click_link 'Créer Aide'
-
-    click_link 'Établissement'
-    click_link 'Créer Établissement'
-
-    click_link 'Institutions'
-    click_link 'Créer Institution'
-
-    click_link 'Référents'
-    click_link 'Créer Référent'
-
-    click_link current_user.full_name
+      it { expect(page).to have_content 'Tableau de bord' }
+    end
   end
 
-  it 'displays user name' do
-    expect(page).to have_content current_user.full_name
+  describe 'user access to admin pages' do
+    before do
+      current_user.update is_admin: true
+      visit '/admin'
+
+      click_link 'Utilisateurs'
+      click_link 'Créer Utilisateur'
+
+      click_link 'Visites'
+      click_link 'Créer Visite'
+
+      click_link 'Entreprises'
+      click_link 'Créer Entreprise'
+
+      click_link 'Contact'
+      click_link 'Créer Contact'
+
+      click_link 'Catégories'
+      click_link 'Créer Catégorie'
+
+      click_link 'Besoins'
+      click_link 'Créer Besoin'
+
+      click_link 'Aides'
+      click_link 'Créer Aide'
+
+      click_link 'Établissement'
+      click_link 'Créer Établissement'
+
+      click_link 'Institutions'
+      click_link 'Créer Institution'
+
+      click_link 'Référents'
+      click_link 'Créer Référent'
+
+      click_link current_user.full_name
+    end
+
+    it 'displays user name' do
+      expect(page).to have_content current_user.full_name
+    end
   end
 end

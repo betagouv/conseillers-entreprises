@@ -43,6 +43,9 @@ fr:
       diagnosed_need:
         one: Besoin analysé
         other: Besoins analysés
+      selected_assistance_expert:
+        one: Référent contacté
+        other: Référents contactés
     attributes:
       user:
         email: Adresse e-mail
@@ -127,6 +130,7 @@ fr:
         institution: Institution
         email: Adresse e-mail
         phone_number: Numéro de téléphone
+        access_token: Token d'accès
       diagnosis:
         visit: Visite qui a fait l'objet de l'analyse
         content: Description
@@ -134,6 +138,14 @@ fr:
         diagnosis: Analyse parente
         question_label: Nom du besoin
         question: Besoin
+        content: Description
+      selected_assistance_expert:
+        diagnosed_need: Besoin analysé
+        expert_full_name: Expert
+        expert_institution_name: Institution
+        assistance_title: Titre de l'aide
+        expert_viewed_page_at: Date de consultation par l'expert
+        status: Statut
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

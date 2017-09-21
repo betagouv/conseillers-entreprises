@@ -1,45 +1,47 @@
 %p= t('.hello')
 %p= t('.last_week')
 
-
 %p
   %strong= t('.signed_up_users_count', count: @information_hash[:signed_up_users][:count])
-- if @information_hash[:signed_up_users][:count] > 0
+- if @information_hash[:signed_up_users][:count].positive?
   %ul
     - @information_hash[:signed_up_users][:items].each do |user|
       %li= link_to user.full_name_with_role, admin_user_url(user)
 
-
-- if @information_hash[:visits].empty?
-  %p
-    %strong= t('.no_visit_added')
-- else
-  %p
-    %strong= t('.visits')
+%p
+  %strong= t('.created_diagnoses_count', count: @information_hash[:created_diagnoses][:count])
+- if @information_hash[:created_diagnoses][:count].positive?
   %ul
-    - @information_hash[:visits].each do |visit|
-      - text = t('.visit_count_advisor', count: visit[:visits_count], advisor: visit[:user].full_name)
-      - query_params = {'q[advisor_id_eq]' => visit[:user].id,
-      'q[created_at_gteq_datetime]' => 1.week.ago.to_date,
-      'q[created_at_lteq_datetime]' => Time.zone.today}
+    - @information_hash[:created_diagnoses][:items].each do |diagnosis|
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= link_to description, admin_diagnosis_url(diagnosis)
 
-      %li= link_to text, admin_visits_url(query_params)
-
-
-- if @information_hash[:diagnoses].empty?
-  %p
-    %strong= t('.no_diagnosis_added')
-- else
-  %p
-    %strong= t('.diagnoses')
+%p
+  %strong= t('.updated_diagnoses_count', count: @information_hash[:updated_diagnoses][:count])
+- if @information_hash[:updated_diagnoses][:count].positive?
   %ul
-    - @information_hash[:diagnoses].each do |diagnosis|
-      - text = t('.diagnosis_count_visit', count: diagnosis[:diagnoses_count], visit: diagnosis[:visit])
-      - query_params = {'q[visit_id_eq]' => diagnosis[:visit].id,
-      'q[created_at_gteq_datetime]' => 1.week.ago.to_date,
-      'q[created_at_lteq_datetime]' => Time.zone.today}
+    - @information_hash[:updated_diagnoses][:items].each do |diagnosis|
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= link_to description, admin_diagnosis_url(diagnosis)
 
-      %li= link_to text, admin_diagnoses_url(query_params)
+%p
+  %strong= t('.completed_diagnoses_count', count: @information_hash[:completed_diagnoses][:count])
+- if @information_hash[:completed_diagnoses][:count].positive?
+  %ul
+    - @information_hash[:completed_diagnoses][:items].each do |diagnosis|
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= link_to description, admin_diagnosis_url(diagnosis)
 
+%p
+  %strong= t('.contacted_experts_count', count: @information_hash[:contacted_experts_count])
 
 %p= t('.see_you_next_week')

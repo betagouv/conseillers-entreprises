@@ -35,8 +35,4 @@ class Assistance < ApplicationRecord
       none
     end
   end)
-
-  def has_experts? # rubocop:disable Style/PredicateName
-    !experts.empty?
-  end
 end

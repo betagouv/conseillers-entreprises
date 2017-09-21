@@ -19,7 +19,7 @@ RSpec.describe Diagnosis, type: :model do
     end
 
     it('destroys softly the diagnosis') do
-      expect(Diagnosis.all.count).to eq 0
+      expect(Diagnosis.count).to eq 0
       expect(Diagnosis.only_deleted.count).to eq 1
       expect(Diagnosis.with_deleted.count).to eq 1
     end
@@ -77,7 +77,7 @@ RSpec.describe Diagnosis, type: :model do
     end
 
     describe 'reverse_chronological' do
-      subject { Diagnosis.all.reverse_chronological }
+      subject { Diagnosis.reverse_chronological }
 
       context 'no diagnosis' do
         it { is_expected.to eq [] }
@@ -102,7 +102,7 @@ RSpec.describe Diagnosis, type: :model do
     end
 
     describe 'in progress' do
-      subject { Diagnosis.all.in_progress.count }
+      subject { Diagnosis.in_progress.count }
 
       context 'no diagnosis' do
         it { is_expected.to eq 0 }
@@ -110,7 +110,7 @@ RSpec.describe Diagnosis, type: :model do
 
       context 'no diagnosis in_progress' do
         it do
-          create :diagnosis, step: 5
+          create :diagnosis, step: Diagnosis::LAST_STEP
 
           is_expected.to eq 0
         end
@@ -118,7 +118,7 @@ RSpec.describe Diagnosis, type: :model do
 
       context 'two diagnosis in_progress' do
         it do
-          create :diagnosis, step: 5
+          create :diagnosis, step: Diagnosis::LAST_STEP
           create :diagnosis, step: 2
           create :diagnosis, step: 4
 
@@ -128,7 +128,7 @@ RSpec.describe Diagnosis, type: :model do
     end
 
     describe 'completed' do
-      subject { Diagnosis.all.completed.count }
+      subject { Diagnosis.completed.count }
 
       context 'no diagnosis' do
         it { is_expected.to eq 0 }
@@ -144,12 +144,34 @@ RSpec.describe Diagnosis, type: :model do
 
       context 'two diagnosis completed' do
         it do
-          create :diagnosis, step: 5
-          create :diagnosis, step: 5
+          create :diagnosis, step: Diagnosis::LAST_STEP
+          create :diagnosis, step: Diagnosis::LAST_STEP
           create :diagnosis, step: 4
 
           is_expected.to eq 2
         end
+      end
+    end
+
+    describe 'available_for_expert' do
+      subject { Diagnosis.available_for_expert(expert) }
+
+      let(:expert) { create :expert }
+
+      context 'no diagnosis' do
+        it { is_expected.to eq [] }
+      end
+
+      context 'one diagnosis' do
+        let(:diagnosis) { create :diagnosis }
+        let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+        let(:assistance_expert) { create :assistance_expert, expert: expert }
+
+        before do
+          create :selected_assistance_expert, diagnosed_need: diagnosed_need, assistance_expert: assistance_expert
+        end
+
+        it { is_expected.to eq [diagnosis] }
       end
     end
   end

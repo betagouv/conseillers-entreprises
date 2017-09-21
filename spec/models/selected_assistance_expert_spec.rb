@@ -13,6 +13,21 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
   end
 
   describe 'scopes' do
+    describe 'of_expert' do
+      subject { SelectedAssistanceExpert.of_expert expert }
+
+      let(:expert) { create :expert }
+      let(:assistance_expert) { create :assistance_expert, expert: expert }
+      let(:selected_assistance_expert) { create :selected_assistance_expert, assistance_expert: assistance_expert }
+
+      before do
+        create :assistance_expert
+        create :selected_assistance_expert
+      end
+
+      it { is_expected.to eq [selected_assistance_expert] }
+    end
+
     describe 'of_diagnoses' do
       subject { SelectedAssistanceExpert.of_diagnoses [diagnosis] }
 

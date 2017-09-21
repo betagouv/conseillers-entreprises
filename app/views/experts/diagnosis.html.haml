@@ -1,0 +1,68 @@
+- meta title: t('.title')
+
+#experts-diagnoses
+  %h1= t('.title')
+
+  %table.ui.table.ui
+    %tbody
+      %tr
+        %td
+          %h2.ui.header
+            = @diagnosis.visit.facility.company.name_short
+            .sub.header
+              = @diagnosis.creation_date_localized
+        %td.collapsing
+          .ui.middle.aligned.list
+            .item
+              .middle.aligned.content
+                %h4.ui.header.disabled
+                  = t('.diagnosed_needs', count: @diagnosis.diagnosed_needs.count)
+            .item
+              .middle.aligned.content
+                %h4.ui.header.disabled
+                  - selected_assistances_experts_count = SelectedAssistanceExpert.of_diagnoses([@diagnosis]).count
+                  = t('.selected_assistance_experts', count: selected_assistances_experts_count)
+
+  - visitee = @diagnosis.visit.visitee
+  - advisor = @diagnosis.visit.advisor
+
+  = render partial: 'people/person', locals: { person: visitee, subtitle: t('.company_contact_subtitle') }
+  = render partial: 'people/person', locals: { person: advisor, subtitle: t('.advisor_contact_subtitle') }
+
+  %h2= t('.need_contacts_summary_subtitle')
+  - @diagnosis.diagnosed_needs.each do |diagnosed_need|
+    %table.ui.celled.table
+      %thead
+        %tr
+          %th{ colspan: 3 }= diagnosed_need.question_label
+      %tbody
+        - if diagnosed_need.content.present?
+          %tr
+            %td{ colspan: 3 }
+              .ui.form
+                .field
+                  %label= t('.diagnosed_needs_content_label')
+                  = diagnosed_need.content
+        - if diagnosed_need.selected_assistance_experts.empty?
+          %tr.small.text.ui.tiny.table{ colspan: 2 }
+            %td= t('.zero_contacted_expert')
+        - else
+          - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+            - expert_is_current_user = @expert == selected_assistance_expert.assistance_expert.expert
+            - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}"
+            %tr.small.text.ui.tiny.table{ class: ('positive' if expert_is_current_user), id: id }
+              - locals = { selected_assistance_expert: selected_assistance_expert,
+              expert_is_current_user: expert_is_current_user }
+              = render partial: 'selected_assistance_expert', locals: locals
+            - status_pending = selected_assistance_expert.status_taking_care? || selected_assistance_expert.status_quo?
+            - if expert_is_current_user && status_pending
+              %tr.small.text.ui.tiny.table.positive{ id: "expert-buttons-line-#{selected_assistance_expert.id}" }
+                - locals = { selected_assistance_expert: selected_assistance_expert }
+                = render partial: 'expert_buttons', locals: locals
+
+  - if @diagnosis.content
+    %h2= t('.diagnosis_content_subtitle')
+    .ui.segment.shadow-less
+      .ui.form
+        .field
+          = @diagnosis.content

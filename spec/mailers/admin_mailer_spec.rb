@@ -32,11 +32,13 @@ describe AdminMailer do
 
     let(:information_hash) do
       user = create :user
-      visit = create :visit
+      diagnoses = create_list :diagnosis, 2
       {
         signed_up_users: { count: 1, items: [user] },
-        visits: [{ user: user, visits_count: 1 }],
-        diagnoses: [{ visit: visit, diagnoses_count: 1 }]
+        created_diagnoses: { count: 2, items: diagnoses },
+        updated_diagnoses: { count: 2, items: diagnoses },
+        completed_diagnoses: { count: 2, items: diagnoses },
+        contacted_experts_count: 3
       }
     end
 

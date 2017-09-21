@@ -22,7 +22,7 @@ class Contact < ApplicationRecord
   def full_name=(full_name)
     return unless full_name
     split_full_name = full_name.split(' ')
-    return nil if split_full_name.count.zero?
+    return if split_full_name.count.zero?
     case split_full_name.count
     when 1
       self.last_name = split_full_name[0]

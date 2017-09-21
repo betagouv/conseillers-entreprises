@@ -14,11 +14,13 @@ describe ExpertMailer do
     let(:user) { create :user }
     let(:question) { create :question }
     let(:visit) { create :visit, :with_visitee, advisor: user }
+    let(:diagnosis) { create :diagnosis, visit: visit }
     let(:questions_with_needs_description) { [{ question: question, need_description: 'Help this company' }] }
 
     let(:params_hash) do
       {
         visit_date: visit.happened_at_localized,
+        diagnosis_id: diagnosis.id,
         company_name: visit.company_name,
         company_contact: visit.visitee,
         questions_with_needs_description: questions_with_needs_description,

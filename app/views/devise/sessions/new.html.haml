@@ -1,6 +1,6 @@
 %h2= t('sign_in')
 
-= form_for resource, as: resource_name, url: session_path(resource_name), html: {class: 'ui form'} do |f|
+= form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'ui form' } do |f|
   .field.required
     = f.label :email
     = f.email_field :email, autofocus: true, required: true

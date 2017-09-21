@@ -30,16 +30,5 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       it { is_expected.to eq [diagnosed_need] }
     end
-
-    describe 'of_assistance_expert_id' do
-      subject { DiagnosedNeed.of_assistance_expert_id assistance_expert.id }
-
-      let(:question) { create :question }
-      let(:assistance) { create :assistance, question: question }
-      let(:assistance_expert) { create :assistance_expert, assistance: assistance }
-      let(:diagnosed_need) { create :diagnosed_need, question: question }
-
-      it { is_expected.to eq [diagnosed_need] }
-    end
   end
 end

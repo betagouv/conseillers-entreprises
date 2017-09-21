@@ -8,7 +8,17 @@ RSpec.describe ApplicationRecord, type: :model do
       it do
         new_record = create :user
         create :user, created_at: 2.weeks.ago
+
         expect(User.created_last_week).to eq [new_record]
+      end
+    end
+
+    describe 'updated_last_week' do
+      it do
+        new_record = create :user
+        create :user, updated_at: 2.weeks.ago
+
+        expect(User.updated_last_week).to eq [new_record]
       end
     end
   end

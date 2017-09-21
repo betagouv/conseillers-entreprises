@@ -2,10 +2,10 @@
 
 - link_to_root = link_to t('app_name'), root_url
 
-- advisor_met_company_params = {link_to_root: link_to_root,
+- advisor_met_company_params = { link_to_root: link_to_root,
   advisor_name: @params[:advisor].full_name,
   advisor_institution: @params[:advisor].institution,
-  company_name: @params[:company_name]}
+  company_name: @params[:company_name] }
 
 - if @params[:visit_date].present?
   %p= t('.advisor_met_this_company_html', advisor_met_company_params.merge(visit_date: @params[:visit_date]))
@@ -23,10 +23,10 @@
         = t('.more_info')
         = question_with_need_description[:need_description]
 
-- company_contact_params = {company_name: @params[:company_name],
+- company_contact_params = { company_name: @params[:company_name],
   company_contact_full_name: @params[:company_contact].full_name,
   company_contact_role: @params[:company_contact].role,
-  company_contact_email: @params[:company_contact].email}
+  company_contact_email: @params[:company_contact].email }
 
 - if @params[:company_contact].phone_number.present?
   - phone_number_hash = { company_contact_phone_number: @params[:company_contact].phone_number }
@@ -34,9 +34,13 @@
 - else
   %p= t('.company_contact_without_phone_number', company_contact_params)
 
-- contact_advisor_params = {advisor_name: @params[:advisor].full_name,
+- more_info_url = diagnosis_experts_url(diagnosis_id: @params[:diagnosis_id], access_token: @access_token)
+- more_info_link = link_to t('.by_clicking_here'), more_info_url
+%p= t('.information_are_available_on_app_html', more_info_link: more_info_link)
+
+- contact_advisor_params = { advisor_name: @params[:advisor].full_name,
   advisor_phone_number: @params[:advisor].phone_number,
-  advisor_email: @params[:advisor].email}
+  advisor_email: @params[:advisor].email }
 
 %p= t('.contact_advisor_for_more_info', contact_advisor_params)
 %p= t('.regards')

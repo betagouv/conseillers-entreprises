@@ -10,5 +10,13 @@ class Expert < ApplicationRecord
 
   accepts_nested_attributes_for :assistances_experts, allow_destroy: true
 
-  validates :institution, :email, presence: true
+  validates :institution, :email, :access_token, presence: true
+  validates :access_token, uniqueness: true
+
+  before_validation :generate_access_token!, on: :create
+
+  def generate_access_token!
+    self.access_token = SecureRandom.hex(32)
+    generate_access_token! if Expert.exists?(access_token: access_token)
+  end
 end

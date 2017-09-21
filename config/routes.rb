@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root to: 'home#index'
   get 'home/about'
+  get 'video' => 'home#tutorial_video'
 
   get 'profile' => 'users#show'
   patch 'profile' => 'users#update'
@@ -33,6 +34,13 @@ Rails.application.routes.draw do
     collection do
       get :search
       post :create_diagnosis_from_siret
+    end
+  end
+
+  resources :experts, only: %i[] do
+    collection do
+      get 'diagnoses/:diagnosis_id' => 'experts#diagnosis', as: :diagnosis
+      patch :update_status
     end
   end
 
