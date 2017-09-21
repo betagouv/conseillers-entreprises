@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/video', to: redirect(ENV['TUTORIAL_VIDEO_URL'])
+
   namespace :api do
     resources :companies, only: %i[] do
       post :search_by_name, on: :collection
