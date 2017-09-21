@@ -1,18 +1,21 @@
 # frozen_string_literal: true
 
 class AdminMailersService
-  attr_accessor :information_hash, :not_admin_visits
+  attr_accessor :information_hash, :not_admin_visits, :not_admin_diagnoses, :completed_diagnoses
 
   class << self
     def send_statistics_email
       @information_hash = {}
 
-      regular_users_ids = User.not_admin.pluck(:id)
-      @not_admin_visits = Visit.where(advisor_id: regular_users_ids).includes(:advisor)
+      associations = [visit: [:advisor, facility: [:company]]]
+      @not_admin_diagnoses = Diagnosis.includes(associations).of_user(User.not_admin).reverse_chronological
+      @completed_diagnoses = @not_admin_diagnoses.completed.updated_last_week
 
       sign_up_statistics
-      visits_statistics
-      diagnoses_statistics
+      created_diagnoses_statistics
+      updated_diagnoses_statistics
+      completed_diagnoses_statistics
+      contacted_experts_count_statistics
 
       AdminMailer.delay.weekly_statistics(@information_hash)
     end
@@ -26,18 +29,30 @@ class AdminMailersService
       @information_hash[:signed_up_users][:items] = recently_signed_up_users
     end
 
-    def visits_statistics
-      recent_visits = @not_admin_visits.created_last_week.group(:advisor).count
-      @information_hash[:visits] = recent_visits.collect do |user, count|
-        { user: user, visits_count: count }
-      end
+    def created_diagnoses_statistics
+      created_diagnoses = @not_admin_diagnoses.in_progress.created_last_week
+      @information_hash[:created_diagnoses] = {}
+      @information_hash[:created_diagnoses][:count] = created_diagnoses.count
+      @information_hash[:created_diagnoses][:items] = created_diagnoses
     end
 
-    def diagnoses_statistics
-      recent_diagnoses = Diagnosis.created_last_week.where(visit: @not_admin_visits).group(:visit).count
-      @information_hash[:diagnoses] = recent_diagnoses.collect do |visit, count|
-        { visit: visit, diagnoses_count: count }
-      end
+    def updated_diagnoses_statistics
+      updated_diagnoses = @not_admin_diagnoses.in_progress.updated_last_week
+      updated_diagnoses = updated_diagnoses.where('diagnoses.created_at < ?', 1.week.ago)
+      @information_hash[:updated_diagnoses] = {}
+      @information_hash[:updated_diagnoses][:count] = updated_diagnoses.count
+      @information_hash[:updated_diagnoses][:items] = updated_diagnoses
+    end
+
+    def completed_diagnoses_statistics
+      @information_hash[:completed_diagnoses] = {}
+      @information_hash[:completed_diagnoses][:count] = @completed_diagnoses.count
+      @information_hash[:completed_diagnoses][:items] = @completed_diagnoses
+    end
+
+    def contacted_experts_count_statistics
+      contacted_experts_count = SelectedAssistanceExpert.of_diagnoses(@completed_diagnoses).count
+      @information_hash[:contacted_experts_count] = contacted_experts_count
     end
   end
 end

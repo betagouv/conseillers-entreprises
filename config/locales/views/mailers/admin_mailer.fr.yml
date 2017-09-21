@@ -21,14 +21,21 @@ fr:
           zero: Aucun nouvel inscrit.
           one: "Un nouvel inscrit :"
           other: "%{count} nouveaux inscrits :"
-        no_visit_added: Aucune visite ajoutée.
-        visits: 'Visites :'
-        visit_count_advisor:
-          one: "Une visite par %{advisor}"
-          other: "%{count} visites par %{advisor}"
-        no_diagnosis_added: Aucune analyse créée.
-        diagnoses: 'Analyses :'
-        diagnosis_count_visit:
-          one: "Une analyse pour la %{visit}"
-          other: "%{count} analyses pour la %{visit}"
+        diagnosis_description: "Analyse #%{id} par %{advisor_name} pour %{company_name}"
+        created_diagnoses_count:
+          zero: Aucune analyse créée.
+          one: "Une analyse créée :"
+          other: "%{count} analyses créées :"
+        updated_diagnoses_count:
+          zero: Aucune analyse mise à jour.
+          one: "Une analyse mise à jour :"
+          other: "%{count} analyses mises à jour :"
+        completed_diagnoses_count:
+          zero: Aucune analyse terminée.
+          one: "Une analyse terminée :"
+          other: "%{count} analyses terminées :"
+        contacted_experts_count:
+          zero: Aucun référent contacté.
+          one: "Un référent contacté."
+          other: "%{count} référents contactés."
         see_you_next_week: A la semaine prochaine pour de nouvelles aventures !
