@@ -44,7 +44,7 @@ RSpec.describe ExpertsController, type: :controller do
     end
   end
 
-  describe 'GET #update_status' do
+  describe 'PATCH #update_status' do
     subject(:request) { patch :update_status, xhr: true, params: params }
 
     let(:params) { { selected_assistance_expert_id: selected_assistance_expert_id, access_token: access_token } }
