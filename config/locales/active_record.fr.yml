@@ -141,11 +141,16 @@ fr:
         content: Description
       selected_assistance_expert:
         diagnosed_need: Besoin analysé
-        expert_full_name: Expert
-        expert_institution_name: Institution
+        expert_full_name: Référent contacté
+        expert_institution_name: Institution du référent
         assistance_title: Titre de l'aide
-        expert_viewed_page_at: Date de consultation par l'expert
+        expert_viewed_page_at: Date de consultation par le référent
         status: Statut
+        statuses:
+          quo: Statut quo
+          taking_care: Prend en charge
+          done: Besoin résolu
+          not_for_me: Pas pour lui
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
