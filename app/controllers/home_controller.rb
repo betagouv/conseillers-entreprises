@@ -8,6 +8,8 @@ class HomeController < ApplicationController
 
   def about; end
 
+  def cgu; end
+
   def contact
     @contacts = User.for_contact_page
   end

@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
   ActiveAdmin.routes(self)
   root to: 'home#index'
-  get 'home/about'
   get 'video' => 'home#tutorial_video'
 
   get 'profile' => 'users#show'
@@ -14,6 +13,7 @@ Rails.application.routes.draw do
   resources :home, only: %i[] do
     collection do
       get :about
+      get :cgu
       get :contact
     end
   end
