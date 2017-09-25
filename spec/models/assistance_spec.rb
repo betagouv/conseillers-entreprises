@@ -82,12 +82,17 @@ RSpec.describe Assistance, type: :model do
       let!(:valenciennes_cambrai_expert) { create :expert, on_valenciennes_cambrai: true }
       let!(:calais_expert) { create :expert, on_calais: true }
       let!(:lens_expert) { create :expert, on_lens: true }
+      let!(:boulogne_expert) { create :expert, on_boulogne: true }
 
       let!(:maubeuge_assistance) { create :assistance, experts: [maubeuge_expert] }
-      let!(:multi_city_assistance) { create :assistance, experts: [maubeuge_expert, calais_expert, lens_expert] }
       let!(:valenciennes_cambrai_assistance) { create :assistance, experts: [valenciennes_cambrai_expert] }
       let!(:calais_assistance) { create :assistance, experts: [calais_expert] }
       let!(:lens_assistance) { create :assistance, experts: [lens_expert] }
+      let!(:boulogne_assistance) { create :assistance, experts: [boulogne_expert] }
+
+      let!(:multi_city_assistance) do
+        create :assistance, experts: [maubeuge_expert, calais_expert, lens_expert, boulogne_expert]
+      end
 
       context 'city code in maubeuge' do
         let(:city_code) { 59_003 }
@@ -111,6 +116,12 @@ RSpec.describe Assistance, type: :model do
         let(:city_code) { 62_065 }
 
         it { is_expected.to match_array [lens_assistance, multi_city_assistance] }
+      end
+
+      context 'city code in boulogne' do
+        let(:city_code) { 62_160 }
+
+        it { is_expected.to match_array [boulogne_assistance, multi_city_assistance] }
       end
 
       context 'city code in neither' do

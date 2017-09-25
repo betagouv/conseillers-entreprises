@@ -66,6 +66,13 @@ module UseCases
       ]
       calais_city_codes.include? @city_code
     end
+
+    def in_boulogne?
+      boulogne_city_codes = [
+        62_160, 62_908, 62_237, 62_653, 62_658, 62_893, 62_894, 62_075, 62_281, 62_667, 62_758
+      ]
+      boulogne_city_codes.include? @city_code
+    end
   end
 end
 

@@ -28,6 +28,7 @@ class Assistance < ApplicationRecord
     experts_hash[:on_valenciennes_cambrai] = true if localize_city_code.in_valenciennes_cambrai?
     experts_hash[:on_calais] = true if localize_city_code.in_calais?
     experts_hash[:on_lens] = true if localize_city_code.in_lens?
+    experts_hash[:on_boulogne] = true if localize_city_code.in_boulogne?
 
     if !experts_hash.empty?
       where(experts: experts_hash).joins(:experts).includes(:experts)
