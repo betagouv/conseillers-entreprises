@@ -30,6 +30,7 @@ ActiveAdmin.register Expert do
     column :on_valenciennes_cambrai
     column :on_calais
     column :on_lens
+    column :on_boulogne
     actions
   end
 
@@ -45,7 +46,9 @@ ActiveAdmin.register Expert do
       row :on_valenciennes_cambrai
       row :on_calais
       row :on_lens
+      row :on_boulogne
     end
+
     panel I18n.t('active_admin.experts.assistances') do
       table_for expert.assistances do
         column :title, (proc { |assistance| link_to(assistance.title, admin_assistance_path(assistance)) })

@@ -44,6 +44,7 @@ ActiveAdmin.register Assistance do
         column :on_valenciennes_cambrai
         column :on_lens
         column :on_calais
+        column :on_boulogne
       end
     end
   end
