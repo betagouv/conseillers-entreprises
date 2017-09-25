@@ -14,10 +14,14 @@
         %ul.footer-links
           %li.footer-link
             = link_to 'SGMAP', 'http://www.modernisation.gouv.fr/le-sgmap', class: 'footer-link'
+          %li.footer-link
+            = link_to t('.know_more'), about_home_index_path
+          %li.footer-link
+            = link_to t('.video'), video_path, class: 'footer-link'
 
       %li.footer-column
         %ul.footer-links
           %li.footer-link
-            = link_to t('contact_us'), contact_home_index_path, class: 'footer-link'
+            = link_to 'CGU', cgu_home_index_path, class: 'footer-link'
           %li.footer-link
-            = link_to t('.know_more'), about_home_index_path
+            = link_to t('contact_us'), contact_home_index_path, class: 'footer-link'

@@ -1,17 +1,21 @@
 fr:
   home:
     index:
-      tagline_html: "Aidez les entreprises<br><em class='hero-tagline-em'>à accéder aux aides</em><br>dont elles ont besoin"
-      sign_up_button: Inscrivez-vous !
+      tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
       start_button: Commencez !
-      tool_to_help_companies: Un outil pour conseiller les entreprises
-      feature_meet_company_html: "1<br><em class='feature-text-em'>Rencontrez</em><br>une entreprise"
-      feature_analyse_needs_html: "2<br><em class='feature-text-em'>Analysez</em><br>ses besoins"
-      feature_find_relevant_contacts_html: "3<br>Trouvez les<br><em class='feature-text-em'>contacts adaptés</em><br>à ces besoins"
-      feature_contact_with_one_clic_html: "4<br><em class='feature-text-em'>Notifiez-les</em><br>d'un simple clic"
-      made_by: Réso est développé par
+      sign_up_button: Inscrivez-vous !
+      or_call_us: ou appelez-nous au 09 72 62 57 11
+      tool_to_help_advisors: Un outil dédié aux conseillers d'entreprise des organismes publics
+      feature_spot_needs_html: "1<br><em class='feature-text-em'>Identifiez</em><br>les besoins des entreprises en quelques minutes"
+      feature_find_contacts_html: "2<br><em class='feature-text-em'>Trouvez</em><br>les contacts compétents sur votre territoire"
+      feature_notify_and_follow_html: "3<br><em class='feature-text-em'>Notifiez-les</em><br> en un clic et suivez leur action"
+      public_service_from_the_north: Un service public numérique expérimenté dans les Hauts-de-France
       questions_or_suggestions: Des questions ? Des suggestions ?
       we_help_you_and_we_want_feedbacks_html: "Nous vous accompagnons dans l'utilisation de Réso<br>et recevons vos commentaires."
+    cgu:
+      explanation_html: |
+        <h2>Conditions générales d'utilisation</h2>
+        <p>A venir bientôt !</p>
     about:
       explanation_html: |
         <h2>Des entrepreneurs isolés, des conseils cloisonnés</h2>

@@ -48,8 +48,8 @@ $border-grey: #CCCCCC
   $landing-breakpoint: 1040px
 
   .hero-panel
-    padding-top: 30px
-    padding-bottom: 100px
+    padding-top: 40px
+    padding-bottom: 90px
     .hero-wrapper
       display: flex
       flex-wrap: wrap
@@ -58,6 +58,7 @@ $border-grey: #CCCCCC
         justify-content: center
       .hero-text
         max-width: 500px
+        padding-top: 10px
         @media (max-width: $landing-breakpoint)
           margin: auto
       .hero-tagline
@@ -69,7 +70,6 @@ $border-grey: #CCCCCC
         font-style: normal
         font-weight: bold
       .hero-illustration
-        padding-top: 20px
         max-width: 500px
         img
           max-width: 100%
@@ -85,6 +85,7 @@ $border-grey: #CCCCCC
         color: #FFFFFF
         font-size: 24px
         margin-top: 30px
+        margin-left: 10px
         cursor: pointer
         &:hover
           color: #FFFFFF
@@ -93,6 +94,12 @@ $border-grey: #CCCCCC
         &:focus
           color: #FFFFFF
           text-decoration: none
+      .hero-phone-cta
+        color: #999999
+        text-align: center
+        width: 250px
+        margin-top: 12px
+        font-size: 16px
 
   .landing-panel-title
     width: 100%
@@ -115,7 +122,7 @@ $border-grey: #CCCCCC
         justify-content: center
       .feature
         @extend %horizontal-list-item
-        width: 220px
+        width: 250px
         @media (max-width: $landing-breakpoint)
           margin: 15px 20px
       .feature-text
@@ -136,6 +143,7 @@ $border-grey: #CCCCCC
     @extend %horizontal-list
     justify-content: space-between
     width: 100%
+    text-align: center
     @media (max-width: $dev-logos-breakpoint)
       justify-content: space-around
     .dev-logo
@@ -145,10 +153,6 @@ $border-grey: #CCCCCC
         opacity: 0.6
       @media (max-width: $dev-logos-breakpoint)
         margin: 0 15px 15px
-      &.direccte-logo
-        margin-top: 50px
-      &.beta-gouv-logo
-        margin-top: 45px
 
   .cta-panel
     background-color: $blue
@@ -166,31 +170,30 @@ $border-grey: #CCCCCC
       font-size: 24px
       margin-bottom: 10px
     .cta-panel-button-wrapper
-      margin-top: 50px
-
-    .cta-panel-button
-      @include horizontal-padding(30px)
-      display: block
-      padding: 10px
-      border-radius: 100px
-      border: 2px solid #FFFFFF
-      color: #FFFFFF
-      font-size: 24px
-      text-align: center
-      cursor: pointer
-      &:hover
+      margin-top: 20px
+      .cta-panel-button
+        display: block
+        padding: 15px 10px
+        border-radius: 100px
+        border: 2px solid #FFFFFF
         color: #FFFFFF
-        text-decoration: none
-        background-color: rgba(255, 255, 255, 0.2)
-      &:focus
-        color: #FFFFFF
-        text-decoration: none
-    .cta-panel-phone-cta
-      color: rgba(255, 255, 255, 0.9)
-      text-align: center
-      width: 293px
-      margin-top: 12px
-      margin-bottom: 0
+        font-size: 24px
+        text-align: center
+        cursor: pointer
+        &:hover
+          color: #FFFFFF
+          text-decoration: none
+          background-color: rgba(255, 255, 255, 0.2)
+        &:focus
+          color: #FFFFFF
+          text-decoration: none
+      .cta-panel-phone-cta
+        color: rgba(255, 255, 255, 0.9)
+        text-align: center
+        width: 250px
+        margin-top: 12px
+        margin-bottom: 0
+        font-size: 16px
 
 
 .footer-home
