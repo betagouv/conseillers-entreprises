@@ -15,6 +15,7 @@ ActiveAdmin.register Expert do
     :on_valenciennes_cambrai,
     :on_calais,
     :on_lens,
+    :on_boulogne,
     assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
   ]
 
@@ -71,6 +72,7 @@ ActiveAdmin.register Expert do
       f.input :on_valenciennes_cambrai
       f.input :on_calais
       f.input :on_lens
+      f.input :on_boulogne
     end
     f.inputs I18n.t('active_admin.experts.assistances') do
       f.has_many :assistances_experts,
@@ -96,4 +98,5 @@ ActiveAdmin.register Expert do
   filter :on_valenciennes_cambrai
   filter :on_lens
   filter :on_calais
+  filter :on_boulogne
 end
