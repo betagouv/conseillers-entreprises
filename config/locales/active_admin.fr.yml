@@ -12,9 +12,12 @@ fr:
       experts: Les référents pour cette aide
       add_expert: Ajouter un nouveau référent
     experts:
+      assistances_count: Nombre d'aides
+      territory: Territoire
+      territories: Les territoires d'action du référent
+      add_territory: Ajouter une nouveau territoire
       assistance: Aide
       assistances: Les aides portées par ce référent
       add_assistance: Ajouter une nouvelle aide
-      perimeter: Périmètre territorial
     institutions:
       experts: Les référents pour cette institution

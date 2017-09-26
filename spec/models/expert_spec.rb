@@ -8,7 +8,7 @@ RSpec.describe Expert, type: :model do
       is_expected.to belong_to :institution
       is_expected.to have_many(:assistances_experts).dependent(:destroy)
       is_expected.to have_many :assistances
-      is_expected.to have_many :expert_territories
+      is_expected.to have_many(:expert_territories).dependent(:destroy)
       is_expected.to have_many :territories
       is_expected.to have_many :territory_cities
     end
