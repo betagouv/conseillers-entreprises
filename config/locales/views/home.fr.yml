@@ -15,16 +15,73 @@ fr:
     cgu:
       explanation_html: |
         <h2>Conditions générales d'utilisation</h2>
-        <p>A venir bientôt !</p>
+        <h3>Mentions légales</h3>
+        <h4>Editeur</h4>
+        <p>Incubateur des services numériques,<br>
+        Direction interministérielle du numérique et du système d'information et de communication de l'Etat (DINSIC),<br>
+        Secrétariat général pour la modernisation de l'action publique (SGMAP).</p>
+        <h4>Directeur de la publication</h4>
+        <p>Monsieur Henri Verdier,<br>
+        Directeur interministériel du numérique et du système d'information et de communication de l'Etat (DINSIC).</p>
+        <h4>Hébergeur</h4>
+        <p>Scalingo<br>
+        15 avenue du Rhin<br>
+        67000 STRASBOURG</p>
+        <h3>Objet</h3>
+        <p>«Réso», ci-après dénommé le Service, permet aux agents publics chargés de conseiller les entreprises d'identifier les problématiques rencontrées par ces entreprises et de trouver rapidement l'interlocuteur approprié pour répondre aux besoins détectés.</p>
+        <p>Le Service mutualise ainsi les forces des multiples acteurs publics proposant des aides aux entreprises, en offrant à chaque conseiller l'accès à l'ensemble de l'offre publique ainsi que le ciblage de l'interlocuteur adapté au sein de cette offre.</p>
+        <p>Le Service est mis en œuvre par l'Incubateur des services numériques de la Direction interministérielle du numérique et du système d'information et de communication de l'État (ci-après dénommé « la DINSIC »), rattachée au Secrétariat général pour la modernisation de l'action publique.</p>
+        <p>L'utilisation du Service est facultative et gratuite.</p>
+        <h3>Fonctionnalités</h3>
+        Ce Service est ouvert aux agents des administrations chargés de conseiller et d'accompagner les entreprises dans leur développement ou le maintien de leur activité. Il offre plusieurs fonctionnalités :
+        <ul>
+          <li>L'accès à des informations détaillées sur l'entreprise de son choix ;</li>
+          <li>Un outil d'analyse permettant d'identifier les besoins de l'entreprise choisie ;</li>
+          <li>Un annuaire des organismes et des agents ayant des offres de services pour les entreprises ;</li>
+          <li>La mise en contact automatisée avec ces agents ;</li>
+          <li>Un tableau de bord permettant d'observer et de suivre l'ensemble des actions réalisées en faveur des entreprises ;</li>
+        </ul>
+        <h4>Inscription au Service</h4>
+        <p>L'utilisation du Service est réservée, à ce jour, aux conseillers territoriaux chargés d'accompagner les entreprises dans le développement de leur activité et la résolution de leurs difficultés.</p>
+        <p>Il est expérimenté dans la région des Hauts de France.</p>
+        <p>L'utilisation du Service est conditionnée à une procédure d'inscription en ligne. Lors de l'inscription sur le Service, l'agent doit renseigner des informations relatives à sa situation professionnelle : son nom, prénom, son organisme de rattachement, ses fonctions, son numéro de téléphone et une adresse mél.</p>
+        <p>L'utilisation du Service requiert une connexion et un navigateur internet. La DINSIC se réserve le droit de supprimer ou de demander la suppression, sans préavis ni indemnité d'aucune sorte, de tout profil inscrit présentant un caractère illicite ou frauduleux ou contraire aux présentes CGU.</p>
+        <h4>Analyse des besoins</h4>
+        <p>Le conseiller en entreprise peut rechercher une entreprise et accéder à des informations sur l'entreprise relatives à son identité, son statut juridique, ses mandataires sociaux, ainsi que sur sa e-réputation.</p>
+        <p>Le Service fournit aux conseillers un outil de diagnostic permettant de faire le tour de l'ensemble des problématiques éventuelles auxquelles les entreprises peuvent être confrontées. Le conseiller peut alors sélectionner les besoins qu'il a identifiés et saisir des éléments rédactionnels relatifs à l'analyse qu'il a réalisée.</p>
+        <h4>Mise en contact</h4>
+        <p>Le conseiller saisit des éléments additionnels relatifs à sa relation avec l'entreprise, notamment à l'identité et aux coordonnées de son contact au sein de l'entreprise.</p>
+        <p>Le Service propose au conseiller des contacts au sein des organismes partenaires en fonction des besoins identifiés. Il peut alors notifier ces contacts qui seront informés de la situation de l'entreprise et prendront le cas échéant le relais pour accompagner l'entreprise dans les démarches nécessaires à la résolution de son besoin.</p>
+        <p>Pour ce faire, la DINSIC accompagne les acteurs territoriaux et notamment la DIRECCTE dans la constitution d'un annuaire des professionnels du développement économique et de l'accompagnement des entreprises.</p>
+        <p>Cet annuaire regroupe des informations dont des données à caractère personnel, relatives à l'identité et l'activité professionnelle des conseillers (administration de rattachement, fonctions, contacts professionnels). Il est réalisé dans le cadre de la mission de service public d'information et de conseil des entreprises.</p>
+        <p>Les professionnels inscrits dans cet annuaire sont informés par les acteurs territoriaux et consentent à la mise à disposition de ces informations aux utilisateurs inscrits sur le Service.</p>
+        <p>La constitution de l'annuaire est un traitement de données à caractère personnel. Pour la DINSIC, il correspond aux dispositions de la délibération n°2006-138 du 9 mai 2006 décidant de la dispense de déclaration des traitements constitués à des fins d'information ou de communication externe.</p>
+        <h3>Traitement des données à caractère personnel</h3>
+        <p>La DINSIC s'engage à prendre toutes les mesures nécessaires permettant de garantir la sécurité et la confidentialité des informations fournies dans le cadre du Service.
+        <p>La DINSIC s'engage à n'opérer aucune commercialisation des informations transmises  par l'usager au moyen du Service, et à ne pas les communiquer en dehors des cas prévus par la loi hormis aux personnes publiques responsables de l'attribution des aides visées par le Service.
+        <p>La DINSIC garantit aux personnes concernées par le Service les droits d'accès, de rectification et d'opposition prévus par la loin° 78-17 du 6 janvier 1978 relative à l'informatique aux fichiers et aux libertés. Toute demande relative à l'accès aux données à caractère personnel de l'utilisateur s'effectue auprès de la DINSIC :</p>
+         <p>Par mail : contact@reso.beta.gouv.fr</p>
+         <p>Par voie postale :<br>
+         Incubateur des services numériques / DINSIC<br>
+         Tour Mirabeau<br>
+         9-43 quai André-Citroën<br>
+         75015 Paris</p>
+         <p>Le Service fait l'objet d'un traitement de données à caractère personnel déclaré auprès de la Commission nationale de l'informatique et des libertés, sous le n°2092561.</p>
+         <h3>Evolutions de Réso</h3>
+         <p>La DINSIC se réserve la liberté de faire évoluer, de modifier ou de suspendre, sans préavis, le Service pour des raisons de maintenance ou pour tout autre motif jugé nécessaire. Une page d'information est alors affichée à l'usager lui mentionnant cette indisponibilité.</p>
+         <p>Les termes des présentes conditions d'utilisation peuvent être amendés à tout moment, en fonction des modifications apportées au Service, de l'évolution de la législation ou pour tout autre motif jugé nécessaire.</p>
+         <h3>Engagements et responsabilité</h3>
+         <p>Les responsables du Services'engagent à réaliser toute formalité nécessaire à la mise en œuvre d'un éventuel traitement de données à caractère personnel dans le cadre de la réalisation du Service.</p>
+         <p>Le Service est hébergé sous la responsabilité de la DINSIC. Cet hébergement n'est pas qualifié pour récolter des données sensibles au sens des articles 8 et suivants de la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés.</p>
     about:
       explanation_html: |
         <h2>Des entrepreneurs isolés, des conseils cloisonnés</h2>
-        <p>Plus de 2 000 aides publiques existent mais les chefs entreprises n’ont ni le temps, ni les moyens d’en faire la demande. De nombreux organismes publics - Chambres de Commerce, DIRECCTE, Région... - ont donc déployé sur le terrain des conseillers pour apporter directement ces aides aux entreprises.</p>
-        <p>L’activité de ces conseillers est aujourd’hui confrontée à un double problème de ciblage et de cloisonnement. D’une part, les conseillers ciblent fréquemment les mêmes entreprises qui se plaignent d’être sur-sollicitées alors que celles qui ont le plus besoin d’aide ne sont souvent pas accompagnées. D’autre part, les conseillers ne proposent que les dispositifs d’aide des institutions auxquelles ils sont rattachés et ne sont donc en mesure de répondre qu’à une fraction des besoins exprimés par les chefs d’entreprise.</p>
+        <p>Plus de 2 000 aides publiques existent mais les chefs entreprises n'ont ni le temps, ni les moyens d'en faire la demande. De nombreux organismes publics - Chambres de Commerce, DIRECCTE, Région... - ont donc déployé sur le terrain des conseillers pour apporter directement ces aides aux entreprises.</p>
+        <p>L'activité de ces conseillers est aujourd'hui confrontée à un double problème de ciblage et de cloisonnement. D'une part, les conseillers ciblent fréquemment les mêmes entreprises qui se plaignent d'être sur-sollicitées alors que celles qui ont le plus besoin d'aide ne sont souvent pas accompagnées. D'autre part, les conseillers ne proposent que les dispositifs d'aide des institutions auxquelles ils sont rattachés et ne sont donc en mesure de répondre qu'à une fraction des besoins exprimés par les chefs d'entreprise.</p>
         <h2>Un guichet unique à la porte des entreprises</h2>
-        <p>Avec Réso, l’État ouvre un guichet unique qu’il apporte aux entreprises en ayant le plus besoin. Les organismes publics proposant des aides les mettent à la disposition de l’ensemble des conseillers qui vont au contact des chefs d’entreprise. Cette mutualisation des moyens permet des visites d’entreprise plus productives et des dispositifs d’aide qui trouvent mieux leur public.</p>
+        <p>Avec Réso, l'État ouvre un guichet unique qu'il apporte aux entreprises en ayant le plus besoin. Les organismes publics proposant des aides les mettent à la disposition de l'ensemble des conseillers qui vont au contact des chefs d'entreprise. Cette mutualisation des moyens permet des visites d'entreprise plus productives et des dispositifs d'aide qui trouvent mieux leur public.</p>
         <h2>Un outil numérique au service du conseil public</h2>
-        <p>Un outil numérique est au cœur de ce réseau et permet de le fédérer. Des algorithmes utilisant des bases de données publiques (activités, résultats financiers, export…) permettent de cibler la prospection : entreprises en pré-difficulté, à fort potentiel de croissance ou ayant un projet de recrutement… Un simulateur permet aux conseillers de proposer aux chefs d’entreprise un premier niveau d’information sur les aides correspondant à leurs besoins et, le cas échéant, d’identifier un contact au sein de l’administration capable de les accompagner dans leurs démarches.</p>
-        <p>Réso permet ainsi à l’administration de développer un rôle de conseil à destination des entreprises en complément de son rôle régalien de contrôle.</p>
+        <p>Un outil numérique est au cœur de ce réseau et permet de le fédérer. Des algorithmes utilisant des bases de données publiques (activités, résultats financiers, export…) permettent de cibler la prospection : entreprises en pré-difficulté, à fort potentiel de croissance ou ayant un projet de recrutement… Un simulateur permet aux conseillers de proposer aux chefs d'entreprise un premier niveau d'information sur les aides correspondant à leurs besoins et, le cas échéant, d'identifier un contact au sein de l'administration capable de les accompagner dans leurs démarches.</p>
+        <p>Réso permet ainsi à l'administration de développer un rôle de conseil à destination des entreprises en complément de son rôle régalien de contrôle.</p>
     contact:
       you_can_contact_us_html: "Vous pouvez nous contacter à tout moment par e-mail sur %{mailto_link} ou par téléphone au 09 72 62 57 11"
