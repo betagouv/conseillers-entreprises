@@ -21,19 +21,7 @@ class Assistance < ApplicationRecord
     joins(question: :diagnosed_needs).merge(DiagnosedNeed.of_diagnosis(diagnosis))
   end)
   scope :of_location, (lambda do |city_code|
-    localize_city_code = UseCases::LocalizeCityCode.new(city_code)
-
-    experts_hash = {}
-    experts_hash[:on_maubeuge] = true if localize_city_code.in_maubeuge?
-    experts_hash[:on_valenciennes_cambrai] = true if localize_city_code.in_valenciennes_cambrai?
-    experts_hash[:on_calais] = true if localize_city_code.in_calais?
-    experts_hash[:on_lens] = true if localize_city_code.in_lens?
-    experts_hash[:on_boulogne] = true if localize_city_code.in_boulogne?
-
-    if !experts_hash.empty?
-      where(experts: experts_hash).joins(:experts).includes(:experts)
-    else
-      none
-    end
+    joins(experts: [territories: :territory_cities])
+      .where(experts: { territories: { territory_cities: { city_code: city_code.to_s } } })
   end)
 end

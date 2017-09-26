@@ -78,54 +78,48 @@ RSpec.describe Assistance, type: :model do
     describe 'of_location' do
       subject { Assistance.of_location city_code }
 
-      let!(:maubeuge_expert) { create :expert, on_maubeuge: true }
-      let!(:valenciennes_cambrai_expert) { create :expert, on_valenciennes_cambrai: true }
-      let!(:calais_expert) { create :expert, on_calais: true }
-      let!(:lens_expert) { create :expert, on_lens: true }
-      let!(:boulogne_expert) { create :expert, on_boulogne: true }
-
+      let(:city_code) { '59003' }
+      let(:maubeuge_expert) { create :expert }
+      let(:maubeuge_experts) { [maubeuge_expert] }
+      let(:maubeuge_territory) { create :territory, name: 'Maubeuge', experts: maubeuge_experts }
       let!(:maubeuge_assistance) { create :assistance, experts: [maubeuge_expert] }
-      let!(:valenciennes_cambrai_assistance) { create :assistance, experts: [valenciennes_cambrai_expert] }
-      let!(:calais_assistance) { create :assistance, experts: [calais_expert] }
-      let!(:lens_assistance) { create :assistance, experts: [lens_expert] }
-      let!(:boulogne_assistance) { create :assistance, experts: [boulogne_expert] }
 
-      let!(:multi_city_assistance) do
-        create :assistance, experts: [maubeuge_expert, calais_expert, lens_expert, boulogne_expert]
+      before do
+        create :assistance
+        create :territory, name: 'Valenciennes', experts: [maubeuge_expert]
+        create :territory_city, territory: maubeuge_territory, city_code: '59003'
+        create :territory_city, territory: maubeuge_territory, city_code: '59006'
       end
 
-      context 'city code in maubeuge' do
-        let(:city_code) { 59_003 }
-
-        it { is_expected.to match_array [maubeuge_assistance, multi_city_assistance] }
+      context 'one assistance' do
+        it { is_expected.to eq [maubeuge_assistance] }
       end
 
-      context 'city code in valenciennes_cambrai' do
-        let(:city_code) { 59_075 }
+      context 'several experts for an assistance' do
+        let(:other_maubeuge_expert) { create :expert }
+        let(:maubeuge_experts) { [maubeuge_expert, other_maubeuge_expert] }
 
-        it { is_expected.to match_array [valenciennes_cambrai_assistance] }
+        it { is_expected.to eq [maubeuge_assistance] }
       end
 
-      context 'city code in calais' do
-        let(:city_code) { 62_055 }
+      context 'several assistances on this location and territory' do
+        let!(:other_assistance) { create :assistance, experts: [maubeuge_expert] }
 
-        it { is_expected.to match_array [calais_assistance, multi_city_assistance] }
+        it { is_expected.to match_array [maubeuge_assistance, other_assistance] }
       end
 
-      context 'city code in lens' do
-        let(:city_code) { 62_065 }
+      context 'several assistances on this location but another territory' do
+        let(:other_territory_expert) { create :expert }
+        let(:other_territory) { create :territory, name: 'Maubeuge', experts: [other_territory_expert] }
+        let!(:other_territory_assistance) { create :assistance, experts: [other_territory_expert] }
 
-        it { is_expected.to match_array [lens_assistance, multi_city_assistance] }
-      end
+        before { create :territory_city, territory: other_territory, city_code: city_code }
 
-      context 'city code in boulogne' do
-        let(:city_code) { 62_160 }
-
-        it { is_expected.to match_array [boulogne_assistance, multi_city_assistance] }
+        it { is_expected.to match_array [maubeuge_assistance, other_territory_assistance] }
       end
 
       context 'city code in neither' do
-        let(:city_code) { 75_108 }
+        let(:city_code) { '75108' }
 
         it { is_expected.to be_empty }
       end
