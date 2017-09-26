@@ -7,6 +7,9 @@ class Expert < ApplicationRecord
 
   has_many :assistances_experts, dependent: :destroy
   has_many :assistances, through: :assistances_experts
+  has_many :expert_territories
+  has_many :territories, through: :expert_territories
+  has_many :territory_cities, through: :territories
 
   accepts_nested_attributes_for :assistances_experts, allow_destroy: true
 
