@@ -109,6 +109,10 @@ $border-grey: #CCCCCC
     margin-bottom: 40px
     margin-top: 0
 
+  .pia-logo-wrapper
+    width: 100%
+    text-align: center
+
   .features-panel
     background-color: $blue
     .features-panel-title
@@ -136,23 +140,6 @@ $border-grey: #CCCCCC
         display: block
         margin: 0 auto
         margin-bottom: 24px
-
-  $dev-logos-breakpoint: 950px
-
-  .dev-logos
-    @extend %horizontal-list
-    justify-content: space-between
-    width: 100%
-    text-align: center
-    @media (max-width: $dev-logos-breakpoint)
-      justify-content: space-around
-    .dev-logo
-      @extend %horizontal-list-item
-      width: 170px
-      &:hover
-        opacity: 0.6
-      @media (max-width: $dev-logos-breakpoint)
-        margin: 0 15px 15px
 
   .cta-panel
     background-color: $blue
