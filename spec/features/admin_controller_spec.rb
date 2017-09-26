@@ -57,11 +57,30 @@ describe 'admin panel', type: :feature do
       click_link 'Référents'
       click_link 'Créer Référent'
 
+      click_link 'Besoins analysés'
+
+      click_link 'Référents contactés'
+
       click_link current_user.full_name
     end
 
     it 'displays user name' do
       expect(page).to have_content current_user.full_name
     end
+  end
+
+  describe 'access to selected_assistances_experts page when no diagnosis' do
+    let(:selected_assistance_expert) { create :selected_assistance_expert }
+
+    before do
+      current_user.update is_admin: true
+      visit '/admin'
+
+      selected_assistance_expert.diagnosed_need.diagnosis.destroy
+
+      click_link 'Référents contactés'
+    end
+
+    it('displays page content') { expect(page).to have_content 'Référents contactés' }
   end
 end
