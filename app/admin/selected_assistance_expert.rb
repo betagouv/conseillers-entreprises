@@ -10,7 +10,7 @@ ActiveAdmin.register SelectedAssistanceExpert do
     id_column
     column('Date de contact', :created_at)
     column :diagnosed_need
-    column('Conseiller') { |sae| sae.diagnosed_need.diagnosis.visit.advisor.full_name }
+    column('Conseiller') { |sae| sae.diagnosed_need.diagnosis&.visit&.advisor&.full_name }
     column :expert_full_name
     column :expert_institution_name
     column :assistance_title
