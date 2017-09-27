@@ -48,7 +48,7 @@
             %td= t('.zero_contacted_expert')
         - else
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
-            - expert_is_current_user = @expert == selected_assistance_expert.assistance_expert.expert
+            - expert_is_current_user = @expert == selected_assistance_expert.assistance_expert&.expert
             - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}"
             %tr.small.text.ui.tiny.table{ class: ('positive' if expert_is_current_user), id: id }
               - locals = { selected_assistance_expert: selected_assistance_expert,
