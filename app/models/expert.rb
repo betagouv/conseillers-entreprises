@@ -19,6 +19,10 @@ class Expert < ApplicationRecord
 
   before_validation :generate_access_token!, on: :create
 
+  scope :of_city_code, (lambda do |city_code|
+    joins(territories: :territory_cities).where(territories: { territory_cities: { city_code: city_code.to_s } })
+  end)
+
   def generate_access_token!
     self.access_token = SecureRandom.hex(32)
     generate_access_token! if Expert.exists?(access_token: access_token)

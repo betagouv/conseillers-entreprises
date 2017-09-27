@@ -74,55 +74,5 @@ RSpec.describe Assistance, type: :model do
         it { is_expected.to be_empty }
       end
     end
-
-    describe 'of_location' do
-      subject { Assistance.of_location city_code }
-
-      let(:city_code) { '59003' }
-      let(:maubeuge_expert) { create :expert }
-      let(:maubeuge_experts) { [maubeuge_expert] }
-      let(:maubeuge_territory) { create :territory, name: 'Maubeuge', experts: maubeuge_experts }
-      let!(:maubeuge_assistance) { create :assistance, experts: [maubeuge_expert] }
-
-      before do
-        create :assistance
-        create :territory, name: 'Valenciennes', experts: [maubeuge_expert]
-        create :territory_city, territory: maubeuge_territory, city_code: '59003'
-        create :territory_city, territory: maubeuge_territory, city_code: '59006'
-      end
-
-      context 'one assistance' do
-        it { is_expected.to eq [maubeuge_assistance] }
-      end
-
-      context 'several experts for an assistance' do
-        let(:other_maubeuge_expert) { create :expert }
-        let(:maubeuge_experts) { [maubeuge_expert, other_maubeuge_expert] }
-
-        it { is_expected.to eq [maubeuge_assistance] }
-      end
-
-      context 'several assistances on this location and territory' do
-        let!(:other_assistance) { create :assistance, experts: [maubeuge_expert] }
-
-        it { is_expected.to match_array [maubeuge_assistance, other_assistance] }
-      end
-
-      context 'several assistances on this location but another territory' do
-        let(:other_territory_expert) { create :expert }
-        let(:other_territory) { create :territory, name: 'Maubeuge', experts: [other_territory_expert] }
-        let!(:other_territory_assistance) { create :assistance, experts: [other_territory_expert] }
-
-        before { create :territory_city, territory: other_territory, city_code: city_code }
-
-        it { is_expected.to match_array [maubeuge_assistance, other_territory_assistance] }
-      end
-
-      context 'city code in neither' do
-        let(:city_code) { '75108' }
-
-        it { is_expected.to be_empty }
-      end
-    end
   end
 end

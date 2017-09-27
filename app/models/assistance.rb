@@ -20,8 +20,4 @@ class Assistance < ApplicationRecord
   scope :of_diagnosis, (lambda do |diagnosis|
     joins(question: :diagnosed_needs).merge(DiagnosedNeed.of_diagnosis(diagnosis))
   end)
-  scope :of_location, (lambda do |city_code|
-    joins(experts: [territories: :territory_cities])
-      .where(experts: { territories: { territory_cities: { city_code: city_code.to_s } } })
-  end)
 end
