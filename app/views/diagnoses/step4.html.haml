@@ -23,8 +23,8 @@
                 %td
                   = t('.no_assistance')
             - else
+              - there_are_assistances_experts ||= true
               - assistances_experts.each do |assistance_expert|
-                - there_are_assistances_experts ||= true
                 %tr
                   %td.checkbox-width
                     .ui.fitted.checkbox
