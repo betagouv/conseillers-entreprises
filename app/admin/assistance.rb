@@ -35,16 +35,17 @@ ActiveAdmin.register Assistance do
       row :description
       row :institution
     end
+
     panel I18n.t('active_admin.assistances.experts') do
-      table_for assistance.experts do
+      table_for assistance.experts.includes(:territories) do
         column :full_name, (proc { |expert| link_to(expert.full_name, admin_expert_path(expert)) })
         column :role
         column :institution
-        column :on_maubeuge
-        column :on_valenciennes_cambrai
-        column :on_lens
-        column :on_calais
-        column :on_boulogne
+        column(:territories) do |expert|
+          safe_join(expert.territories.map do |territory|
+            link_to territory.name, admin_territory_path(territory)
+          end, ', '.html_safe)
+        end
       end
     end
   end
@@ -57,6 +58,7 @@ ActiveAdmin.register Assistance do
       f.input :description
       f.input :institution
     end
+
     f.inputs I18n.t('active_admin.assistances.experts') do
       f.has_many :assistances_experts,
                  heading: false,
@@ -65,6 +67,7 @@ ActiveAdmin.register Assistance do
         assistance_expert.input :expert, label: I18n.t('active_admin.assistances.expert')
       end
     end
+
     f.actions
   end
 

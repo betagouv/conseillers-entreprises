@@ -13,4 +13,8 @@ module DiagnosisHelper
       'completed'
     end
   end
+
+  def assistances_experts_localized(diagnosed_need:, assistances_experts_of_location:)
+    diagnosed_need.question.assistances.map(&:assistances_experts).flatten & assistances_experts_of_location
+  end
 end

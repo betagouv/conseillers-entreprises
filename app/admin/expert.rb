@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Expert do
   menu parent: :institutions, priority: 1
-  includes :institution, :assistances
+  includes :institution, :assistances, :territories
 
   permit_params [
     :first_name,
@@ -11,11 +11,7 @@ ActiveAdmin.register Expert do
     :institution_id,
     :email,
     :phone_number,
-    :on_maubeuge,
-    :on_valenciennes_cambrai,
-    :on_calais,
-    :on_lens,
-    :on_boulogne,
+    expert_territories_attributes: %i[id territory_id _create _update _destroy],
     assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
   ]
 
@@ -26,12 +22,12 @@ ActiveAdmin.register Expert do
     column :last_name
     column :role
     column :institution
-    column 'Nombre d\'aides', (proc { |expert| expert.assistances.length })
-    column :on_maubeuge
-    column :on_valenciennes_cambrai
-    column :on_calais
-    column :on_lens
-    column :on_boulogne
+    column t('active_admin.experts.assistances_count'), (proc { |expert| expert.assistances.length })
+    column(:territories) do |expert|
+      safe_join(expert.territories.map do |territory|
+        link_to territory.name, admin_territory_path(territory)
+      end, ', '.html_safe)
+    end
     actions
   end
 
@@ -43,11 +39,11 @@ ActiveAdmin.register Expert do
       row :institution
       row :email
       row :access_token
-      row :on_maubeuge
-      row :on_valenciennes_cambrai
-      row :on_calais
-      row :on_lens
-      row :on_boulogne
+      row(:territories) do |expert|
+        safe_join(expert.territories.map do |territory|
+          link_to territory.name, admin_territory_path(territory)
+        end, ', '.html_safe)
+      end
     end
 
     panel I18n.t('active_admin.experts.assistances') do
@@ -67,13 +63,16 @@ ActiveAdmin.register Expert do
       f.input :email
       f.input :phone_number
     end
-    f.inputs I18n.t('active_admin.experts.perimeter') do
-      f.input :on_maubeuge
-      f.input :on_valenciennes_cambrai
-      f.input :on_calais
-      f.input :on_lens
-      f.input :on_boulogne
+
+    f.inputs I18n.t('active_admin.experts.territories') do
+      f.has_many :expert_territories,
+                 heading: false,
+                 new_record: I18n.t('active_admin.experts.add_territory'),
+                 allow_destroy: true do |expert_territory|
+        expert_territory.input :territory, label: I18n.t('active_admin.experts.territory')
+      end
     end
+
     f.inputs I18n.t('active_admin.experts.assistances') do
       f.has_many :assistances_experts,
                  heading: false,
@@ -82,6 +81,7 @@ ActiveAdmin.register Expert do
         assistance_expert.input :assistance, label: I18n.t('active_admin.experts.assistance')
       end
     end
+
     f.actions
   end
 
@@ -94,9 +94,5 @@ ActiveAdmin.register Expert do
   filter :role
   filter :created_at
   filter :updated_at
-  filter :on_maubeuge
-  filter :on_valenciennes_cambrai
-  filter :on_lens
-  filter :on_calais
-  filter :on_boulogne
+  filter :territories
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170925145000) do
+ActiveRecord::Schema.define(version: 20170926145237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,15 @@ ActiveRecord::Schema.define(version: 20170925145000) do
     t.index ["visit_id"], name: "index_diagnoses_on_visit_id"
   end
 
+  create_table "expert_territories", force: :cascade do |t|
+    t.bigint "expert_id"
+    t.bigint "territory_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expert_id"], name: "index_expert_territories_on_expert_id"
+    t.index ["territory_id"], name: "index_expert_territories_on_territory_id"
+  end
+
   create_table "experts", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -181,6 +190,20 @@ ActiveRecord::Schema.define(version: 20170925145000) do
     t.index ["diagnosed_need_id"], name: "index_selected_assistances_experts_on_diagnosed_need_id"
   end
 
+  create_table "territories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "territory_cities", force: :cascade do |t|
+    t.string "city_code"
+    t.bigint "territory_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["territory_id"], name: "index_territory_cities_on_territory_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -233,12 +256,15 @@ ActiveRecord::Schema.define(version: 20170925145000) do
   add_foreign_key "diagnosed_needs", "diagnoses"
   add_foreign_key "diagnosed_needs", "questions"
   add_foreign_key "diagnoses", "visits"
+  add_foreign_key "expert_territories", "experts"
+  add_foreign_key "expert_territories", "territories"
   add_foreign_key "experts", "institutions"
   add_foreign_key "facilities", "companies"
   add_foreign_key "questions", "categories"
   add_foreign_key "searches", "users"
   add_foreign_key "selected_assistances_experts", "assistances_experts", column: "assistances_experts_id"
   add_foreign_key "selected_assistances_experts", "diagnosed_needs"
+  add_foreign_key "territory_cities", "territories"
   add_foreign_key "visits", "contacts", column: "visitee_id"
   add_foreign_key "visits", "facilities"
   add_foreign_key "visits", "users", column: "advisor_id"
