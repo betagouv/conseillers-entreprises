@@ -37,11 +37,15 @@ ActiveAdmin.register Assistance do
     end
 
     panel I18n.t('active_admin.assistances.experts') do
-      table_for assistance.experts do
+      table_for assistance.experts.includes(:territories) do
         column :full_name, (proc { |expert| link_to(expert.full_name, admin_expert_path(expert)) })
         column :role
         column :institution
-        column :territories
+        column(:territories) do |expert|
+          safe_join(expert.territories.map do |territory|
+            link_to territory.name, admin_territory_path(territory)
+          end, ', '.html_safe)
+        end
       end
     end
   end

@@ -160,6 +160,7 @@ fr:
           not_for_me: Pas pour lui
       territory:
         name: Nom
+        city_codes: Codes commune
       territory_city:
         city_code: Code commune
         territory: Territoire

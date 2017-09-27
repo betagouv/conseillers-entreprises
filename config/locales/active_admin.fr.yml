@@ -7,6 +7,8 @@ fr:
     user:
       user_info: Informations utilisateur
       user_activation: Validation du compte
+    territories:
+      experts: Les référents pour ce territoire
     assistances:
       expert: Référent
       experts: Les référents pour cette aide

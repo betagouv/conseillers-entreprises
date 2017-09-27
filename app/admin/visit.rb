@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Visit do
-  menu priority: 3
+  menu parent: :diagnoses, priority: 3
   permit_params :advisor_id, :visitee_id, :happened_at, :company_id, :facility_id
   includes :advisor, :visitee, :facility, facility: :company
 
