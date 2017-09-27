@@ -1,0 +1,12 @@
+%table
+  %thead
+    %tr
+      %th= t('activerecord.models.company.one')
+      %th= t('activerecord.models.question.one')
+  %tbody
+    - selected_assistances_experts.each do |selected_assistance_expert|
+      - diagnosis_id = selected_assistance_expert.diagnosed_need.diagnosis.id
+      - more_info_url = diagnosis_experts_url(diagnosis_id: diagnosis_id, access_token: access_token)
+      %tr
+        %td= link_to selected_assistance_expert.diagnosed_need.diagnosis.visit.company_name, more_info_url
+        %td= selected_assistance_expert.diagnosed_need.question
