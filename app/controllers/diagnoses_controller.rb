@@ -20,7 +20,7 @@ class DiagnosesController < ApplicationController
     @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
     associations = [question: [assistances: [assistances_experts: [expert: :institution]]]]
     @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis).joins(associations).includes(associations)
-    @assistances_of_location = Assistance.of_location(@diagnosis.visit.location).of_diagnosis(@diagnosis)
+    @assistances_experts_of_location = AssistanceExpert.of_city_code(@diagnosis.visit.location).of_diagnosis(@diagnosis)
   end
 
   def step5

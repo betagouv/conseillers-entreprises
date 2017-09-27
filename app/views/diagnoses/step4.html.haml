@@ -16,28 +16,28 @@
             %tr
               %th{ colspan: 3 }= diagnosed_need.question
           %tbody
-            - assistances = diagnosed_need.question.assistances & @assistances_of_location
-            - if assistances.blank?
+            - assistances_experts = assistances_experts_localized(diagnosed_need: diagnosed_need,
+            assistances_experts_of_location: @assistances_experts_of_location)
+            - if assistances_experts.blank?
               %tr
                 %td
                   = t('.no_assistance')
             - else
-              - assistances.each do |assistance|
-                - assistance.assistances_experts.each do |assistance_expert|
-                  - there_are_assistances_experts ||= true
-                  %tr
-                    %td.checkbox-width
-                      .ui.fitted.checkbox
-                        = f.check_box :"#{assistance_expert.id}", checked: true
-                        %label
-                    %td.expert-width
-                      = f.label :"#{assistance_expert.id}", class: 'clickable' do
-                        = assistance_expert.expert.full_name
-                        %br
-                        = assistance_expert.expert.institution
-                    %td
-                      = f.label :"#{assistance_expert.id}", class: 'clickable' do
-                        = assistance.title
+              - assistances_experts.each do |assistance_expert|
+                - there_are_assistances_experts ||= true
+                %tr
+                  %td.checkbox-width
+                    .ui.fitted.checkbox
+                      = f.check_box :"#{assistance_expert.id}", checked: true
+                      %label
+                  %td.expert-width
+                    = f.label :"#{assistance_expert.id}", class: 'clickable' do
+                      = assistance_expert.expert.full_name
+                      %br
+                      = assistance_expert.expert.institution
+                  %td
+                    = f.label :"#{assistance_expert.id}", class: 'clickable' do
+                      = assistance_expert.assistance.title
 
       - notify_button_enabled = @diagnosis.visit.visitee.present? && there_are_assistances_experts
 

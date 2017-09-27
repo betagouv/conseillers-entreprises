@@ -46,6 +46,12 @@ fr:
       selected_assistance_expert:
         one: Référent contacté
         other: Référents contactés
+      territory:
+        one: Territoire
+        other: Territoires
+      territory_city:
+        one: Ville d'un territoire
+        other: Villes d'un territoire
     attributes:
       user:
         email: Adresse e-mail
@@ -131,6 +137,7 @@ fr:
         email: Adresse e-mail
         phone_number: Numéro de téléphone
         access_token: Token d'accès
+        territories: Territoires
       diagnosis:
         visit: Visite qui a fait l'objet de l'analyse
         content: Description
@@ -151,6 +158,12 @@ fr:
           taking_care: Prend en charge
           done: Besoin résolu
           not_for_me: Pas pour lui
+      territory:
+        name: Nom
+        city_codes: Codes commune
+      territory_city:
+        city_code: Code commune
+        territory: Territoire
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

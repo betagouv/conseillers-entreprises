@@ -3,15 +3,57 @@
 require 'rails_helper'
 
 RSpec.describe Expert, type: :model do
-  describe 'validations' do
+  describe 'associations' do
     it do
       is_expected.to belong_to :institution
       is_expected.to have_many(:assistances_experts).dependent(:destroy)
       is_expected.to have_many :assistances
+      is_expected.to have_many(:expert_territories).dependent(:destroy)
+      is_expected.to have_many :territories
+      is_expected.to have_many :territory_cities
+    end
+  end
+
+  describe 'validations' do
+    it do
       is_expected.to validate_presence_of(:last_name)
       is_expected.to validate_presence_of(:role)
       is_expected.to validate_presence_of(:institution)
       is_expected.to validate_presence_of(:email)
+    end
+  end
+
+  describe 'scopes' do
+    describe 'of_city_code' do
+      subject { Expert.of_city_code city_code }
+
+      let(:city_code) { '59003' }
+      let(:maubeuge_expert) { create :expert }
+      let(:maubeuge_experts) { [maubeuge_expert] }
+      let(:maubeuge_territory) { create :territory, name: 'Maubeuge', experts: maubeuge_experts }
+
+      before do
+        create :territory, name: 'Valenciennes', experts: [maubeuge_expert]
+        create :territory_city, territory: maubeuge_territory, city_code: '59003'
+        create :territory_city, territory: maubeuge_territory, city_code: '59006'
+      end
+
+      context 'one expert' do
+        it { is_expected.to eq [maubeuge_expert] }
+      end
+
+      context 'several experts' do
+        let(:other_maubeuge_expert) { create :expert }
+        let(:maubeuge_experts) { [maubeuge_expert, other_maubeuge_expert] }
+
+        it { is_expected.to match_array [maubeuge_expert, other_maubeuge_expert] }
+      end
+
+      context 'city code in neither' do
+        let(:city_code) { '75108' }
+
+        it { is_expected.to be_empty }
+      end
     end
   end
 
