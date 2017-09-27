@@ -14,10 +14,10 @@ class SelectedAssistanceExpert < ApplicationRecord
     joins(diagnosed_need: :diagnosis).where(diagnosed_needs: { diagnosis: diagnoses })
   end)
   scope :with_status, (->(status) { where(status: status) })
-  scope :created_before_one_week_ago, (-> { where('created_at < ?', 1.week.ago) })
-  scope :needing_taking_care_update, (-> { with_status(:taking_care).created_before_one_week_ago })
+  scope :updated_before_five_days_ago, (-> { where('updated_at < ?', 5.days.ago) })
+  scope :needing_taking_care_update, (-> { with_status(:taking_care).updated_before_five_days_ago })
   scope :with_no_one_in_charge, (lambda do
     ids = SelectedAssistanceExpert.select(:diagnosed_need_id).group(:diagnosed_need_id).having('SUM(status) = 0')
-    where(diagnosed_need_id: ids)
+    where(diagnosed_need_id: ids).updated_before_five_days_ago
   end)
 end

@@ -79,27 +79,27 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       end
     end
 
-    describe 'created_before_one_week_ago' do
-      subject { SelectedAssistanceExpert.created_before_one_week_ago }
+    describe 'updated_before_five_days_ago' do
+      subject { SelectedAssistanceExpert.updated_before_five_days_ago }
 
-      let!(:selected_ae_created_two_weeks_ago) { create :selected_assistance_expert, created_at: 2.weeks.ago }
+      let!(:selected_ae_updated_two_weeks_ago) { create :selected_assistance_expert, updated_at: 2.weeks.ago }
 
-      before { create :selected_assistance_expert, created_at: 6.days.ago }
+      before { create :selected_assistance_expert, updated_at: 4.days.ago }
 
-      it { is_expected.to match_array [selected_ae_created_two_weeks_ago] }
+      it { is_expected.to match_array [selected_ae_updated_two_weeks_ago] }
     end
 
     describe 'needing_taking_care_update' do
       subject { SelectedAssistanceExpert.needing_taking_care_update }
 
       let!(:selected_ae_needing_update) do
-        create :selected_assistance_expert, status: :taking_care, created_at: 2.weeks.ago
+        create :selected_assistance_expert, status: :taking_care, updated_at: 2.weeks.ago
       end
 
       before do
-        create :selected_assistance_expert, created_at: 6.days.ago
-        create :selected_assistance_expert, status: :quo, created_at: 2.weeks.ago
-        create :selected_assistance_expert, status: :done, created_at: 2.weeks.ago
+        create :selected_assistance_expert, status: :taking_care, updated_at: 4.days.ago
+        create :selected_assistance_expert, status: :quo, updated_at: 2.weeks.ago
+        create :selected_assistance_expert, status: :done, updated_at: 2.weeks.ago
       end
 
       it { is_expected.to match_array [selected_ae_needing_update] }
@@ -113,15 +113,33 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       let(:other_answered_diagnosed_need) { create :diagnosed_need }
 
       let(:selected_aes_with_noone_in_charge) do
-        create_list :selected_assistance_expert, 2, status: :quo, diagnosed_need: abandoned_diagnosed_need
+        create_list :selected_assistance_expert,
+                    2,
+                    status: :quo,
+                    diagnosed_need: abandoned_diagnosed_need,
+                    updated_at: 6.days.ago
       end
 
       before do
-        create :selected_assistance_expert, status: :quo, diagnosed_need: answered_diagnosed_need
-        create :selected_assistance_expert, status: :taking_care, diagnosed_need: answered_diagnosed_need
+        create :selected_assistance_expert,
+               status: :quo,
+               diagnosed_need: answered_diagnosed_need,
+               updated_at: 6.days.ago
 
-        create :selected_assistance_expert, status: :done, diagnosed_need: other_answered_diagnosed_need
-        create :selected_assistance_expert, status: :not_for_me, diagnosed_need: other_answered_diagnosed_need
+        create :selected_assistance_expert,
+               status: :taking_care,
+               diagnosed_need: answered_diagnosed_need,
+               updated_at: 6.days.ago
+
+        create :selected_assistance_expert,
+               status: :done,
+               diagnosed_need: other_answered_diagnosed_need,
+               updated_at: 6.days.ago
+
+        create :selected_assistance_expert,
+               status: :not_for_me,
+               diagnosed_need: other_answered_diagnosed_need,
+               updated_at: 6.days.ago
       end
 
       it { is_expected.to match_array selected_aes_with_noone_in_charge }
