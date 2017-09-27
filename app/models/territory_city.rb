@@ -5,6 +5,6 @@ class TerritoryCity < ApplicationRecord
 
   belongs_to :territory
 
-  validates :city_code, :territory, presence: true
-  validates :city_code, format: { with: CITY_CODE_FORMAT }
+  validates :territory, presence: true
+  validates :city_code, presence: true, uniqueness: { scope: :territory }, format: { with: CITY_CODE_FORMAT }
 end
