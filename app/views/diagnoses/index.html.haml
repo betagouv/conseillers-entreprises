@@ -6,8 +6,6 @@
       %i.plus.icon
       = t('.create_new_diagnosis')
 
-  %h1= t('.title')
-
   - if @diagnoses[:in_progress].empty? && @diagnoses[:completed].empty?
     %p= t('.no_analysis_message')
 
