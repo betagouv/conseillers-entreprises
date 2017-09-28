@@ -79,8 +79,8 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       end
     end
 
-    describe 'updated_before_five_days_ago' do
-      subject { SelectedAssistanceExpert.updated_before_five_days_ago }
+    describe 'updated_more_than_five_days_ago' do
+      subject { SelectedAssistanceExpert.updated_more_than_five_days_ago }
 
       let!(:selected_ae_updated_two_weeks_ago) { create :selected_assistance_expert, updated_at: 2.weeks.ago }
 
