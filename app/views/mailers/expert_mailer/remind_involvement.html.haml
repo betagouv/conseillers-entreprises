@@ -10,10 +10,10 @@
   access_token: @access_token }
   = render partial: 'mailers/expert_mailer/reminders_selected_assistance_expert', locals: locals
 
-- unless @selected_assistances_experts_hash[:with_noone_in_charge].empty?
+- unless @selected_assistances_experts_hash[:with_no_one_in_charge].empty?
   %h2= t('.needs_without_answer')
   %p= t('.some_companies_are_waiting_for_you')
-  - locals = { selected_assistances_experts: @selected_assistances_experts_hash[:with_noone_in_charge],
+  - locals = { selected_assistances_experts: @selected_assistances_experts_hash[:with_no_one_in_charge],
   access_token: @access_token }
   = render partial: 'mailers/expert_mailer/reminders_selected_assistance_expert', locals: locals
 

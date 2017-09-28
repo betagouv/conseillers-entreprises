@@ -38,12 +38,12 @@ describe ExpertMailer do
 
     let(:expert) { create :expert }
     let(:sae_needing_taking_care_update) { create :selected_assistance_expert }
-    let(:sae_with_noone_in_charge) { create :selected_assistance_expert }
+    let(:sae_with_no_one_in_charge) { create :selected_assistance_expert }
 
     let(:selected_assistances_experts_hash) do
       {
         needing_taking_care_update: [sae_needing_taking_care_update],
-        with_noone_in_charge: [sae_with_noone_in_charge]
+        with_no_one_in_charge: [sae_with_no_one_in_charge]
       }
     end
 

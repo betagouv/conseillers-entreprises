@@ -112,7 +112,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       let(:answered_diagnosed_need) { create :diagnosed_need }
       let(:other_answered_diagnosed_need) { create :diagnosed_need }
 
-      let(:selected_aes_with_noone_in_charge) do
+      let(:selected_aes_with_no_one_in_charge) do
         create_list :selected_assistance_expert,
                     2,
                     status: :quo,
@@ -142,7 +142,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
                updated_at: 6.days.ago
       end
 
-      it { is_expected.to match_array selected_aes_with_noone_in_charge }
+      it { is_expected.to match_array selected_aes_with_no_one_in_charge }
     end
   end
 end

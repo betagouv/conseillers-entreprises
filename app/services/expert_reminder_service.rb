@@ -29,7 +29,7 @@ class ExpertReminderService
         next unless sae.assistance_expert
         expert_id = sae.assistance_expert.expert_id
         init_expert_hash(sae) unless @experts_hash[expert_id]
-        @experts_hash[expert_id][:selected_assistances_experts_hash][:with_noone_in_charge] << sae
+        @experts_hash[expert_id][:selected_assistances_experts_hash][:with_no_one_in_charge] << sae
       end
     end
 
@@ -39,7 +39,7 @@ class ExpertReminderService
         expert: expert,
         selected_assistances_experts_hash: {
           needing_taking_care_update: [],
-          with_noone_in_charge: []
+          with_no_one_in_charge: []
         }
       }
     end
