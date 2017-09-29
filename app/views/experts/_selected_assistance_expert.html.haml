@@ -1,9 +1,15 @@
 %td.expert-width
-  = selected_assistance_expert.expert_full_name
+  %strong= selected_assistance_expert.expert_full_name
   %br
-  = selected_assistance_expert.expert_institution_name
+  - expert = selected_assistance_expert.assistance_expert.expert
+  - if expert.phone_number.present?
+    = expert.phone_number
+    %br
+  = mail_to expert.email
 %td
-  = selected_assistance_expert.assistance_title
+  #{t('activerecord.models.institution.one')} : #{selected_assistance_expert.expert_institution_name}
+  %br
+  #{t('activerecord.models.assistance.one')} : #{selected_assistance_expert.assistance_title}
 %td.expert-status-cell
   - if selected_assistance_expert.status_taking_care?
     %i.icon.checkmark

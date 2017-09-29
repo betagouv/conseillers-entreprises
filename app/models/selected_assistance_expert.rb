@@ -6,7 +6,7 @@ class SelectedAssistanceExpert < ApplicationRecord
   belongs_to :diagnosed_need
   belongs_to :assistance_expert, foreign_key: :assistances_experts_id
 
-  validates :diagnosed_need, :assistance_expert, presence: true
+  validates :diagnosed_need, presence: true
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
   scope :of_expert, (->(expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })

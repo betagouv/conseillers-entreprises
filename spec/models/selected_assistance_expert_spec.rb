@@ -8,7 +8,6 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       is_expected.to belong_to :diagnosed_need
       is_expected.to belong_to :assistance_expert
       is_expected.to validate_presence_of :diagnosed_need
-      is_expected.to validate_presence_of :assistance_expert
     end
   end
 
