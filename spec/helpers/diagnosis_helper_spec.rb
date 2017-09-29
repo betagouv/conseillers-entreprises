@@ -65,7 +65,7 @@ describe DiagnosisHelper, type: :helper do
       it { is_expected.to eq assistances_experts_of_location }
     end
 
-    context 'assistances_experts are totaly different' do
+    context 'assistances_experts are totally different' do
       let(:assistances_experts_of_location) { create_list :assistance_expert, 2 }
 
       it { is_expected.to be_empty }
