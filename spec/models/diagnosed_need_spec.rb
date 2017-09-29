@@ -8,7 +8,7 @@ RSpec.describe DiagnosedNeed, type: :model do
       is_expected.to belong_to :diagnosis
       is_expected.to belong_to :question
       is_expected.to have_many :selected_assistance_experts
-      is_expected.to validate_presence_of(:diagnosis)
+      is_expected.to validate_presence_of :diagnosis
     end
   end
 
