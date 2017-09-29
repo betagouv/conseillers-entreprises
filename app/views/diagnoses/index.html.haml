@@ -6,6 +6,11 @@
       %i.plus.icon
       = t('.create_new_diagnosis')
 
+  .print-diagnosis-button
+    = link_to print_diagnoses_path(format: :pdf), class: 'ui labeled icon green button' do
+      %i.print.icon
+      = 'Imprimer le questionnaire'
+
   - if @diagnoses[:in_progress].empty? && @diagnoses[:completed].empty?
     %p= t('.no_analysis_message')
 

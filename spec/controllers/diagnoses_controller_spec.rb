@@ -18,6 +18,16 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
+  describe 'GET #print' do
+    it 'returns http success' do
+      allow(UseCases::GetQuestionsForPdf).to receive(:perform)
+
+      get :print, format: :pdf
+
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe 'GET #step1' do
     it 'returns http success' do
       get :step1

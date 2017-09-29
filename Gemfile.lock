@@ -250,10 +250,17 @@ GEM
       activerecord (>= 4.0, < 5.2)
     parser (2.4.0.0)
       ast (~> 2.2)
+    pdf-core (0.7.0)
     pg (0.21.0)
     polyamorous (1.3.1)
       activerecord (>= 3.0)
     powerpack (0.1.1)
+    prawn (2.2.2)
+      pdf-core (~> 0.7.0)
+      ttfunk (~> 1.5)
+    prawn_rails (0.0.11)
+      prawn (>= 0.11.1)
+      railties (>= 3.0.0)
     public_suffix (3.0.0)
     puma (3.10.0)
     rack (2.0.3)
@@ -369,6 +376,7 @@ GEM
     thread (0.2.2)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    ttfunk (1.5.1)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.3)
@@ -432,6 +440,7 @@ DEPENDENCIES
   metamagic
   paranoia (~> 2.2)
   pg
+  prawn_rails
   puma (~> 3.0)
   rails (~> 5.1.4)
   rspec-rails (~> 3.5)

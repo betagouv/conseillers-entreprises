@@ -19,7 +19,10 @@ Rails.application.routes.draw do
   end
 
   resources :diagnoses, only: %i[index destroy] do
-    get 'step-1' => 'diagnoses#step1', on: :collection
+    collection do
+      get 'print'
+      get 'step-1' => 'diagnoses#step1'
+    end
 
     member do
       get 'step-2' => 'diagnoses#step2'
