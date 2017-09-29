@@ -27,7 +27,8 @@ module UseCases
         ]
         diagnoses = diagnoses.completed.includes(completed_associations)
         diagnoses = UseCases::EnrichDiagnoses.with_diagnosed_needs_count(diagnoses)
-        UseCases::EnrichDiagnoses.with_selected_assistances_experts_count(diagnoses)
+        diagnoses = UseCases::EnrichDiagnoses.with_selected_assistances_experts_count(diagnoses)
+        UseCases::EnrichDiagnoses.with_solved_needs_count(diagnoses)
       end
     end
   end

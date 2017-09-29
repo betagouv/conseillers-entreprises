@@ -17,14 +17,13 @@ fr:
       delete_diagnosis_confirmation_message: "Êtes-vous sûr de vouloir supprimer définitivement l'analyse de %{company_name} ?"
       show_summary: Voir le récapitulatif
       visitee: "Contact : %{visitee_name}"
-      diagnosed_needs:
-        zero: 0 besoin identifié
-        one: 1 besoin identifié
-        other: "%{count} besoins identifiés"
       selected_assistance_experts:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
+      solved_needs:
+        one: "%{solved_needs_count}/1 besoin résolu"
+        other: "%{solved_needs_count}/%{count} besoins résolus"
     steps:
       step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins<br>détectés

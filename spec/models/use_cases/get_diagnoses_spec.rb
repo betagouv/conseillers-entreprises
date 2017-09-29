@@ -20,6 +20,7 @@ describe UseCases::GetDiagnoses do
       before do
         allow(UseCases::EnrichDiagnoses).to receive(:with_diagnosed_needs_count) { [completed_diagnosis] }
         allow(UseCases::EnrichDiagnoses).to receive(:with_selected_assistances_experts_count) { [completed_diagnosis] }
+        allow(UseCases::EnrichDiagnoses).to receive(:with_solved_needs_count) { [completed_diagnosis] }
       end
 
       it do
