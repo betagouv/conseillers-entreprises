@@ -20,16 +20,18 @@ module UseCases
         company_name = api_entreprise_company.name
         siren = api_entreprise_company.entreprise['siren']
         legal_form_code = api_entreprise_company.entreprise['forme_juridique_code']
-        Company.find_or_create_by! name: company_name.titleize,
-                                   siren: siren,
-                                   legal_form_code: legal_form_code
+        company = Company.find_or_initialize_by siren: siren
+        company.update! name: company_name.titleize, legal_form_code: legal_form_code
+        company
       end
 
       def create_or_update_facility(siret, company)
         api_entreprise_facility = with_siret(siret)
         city_code = api_entreprise_facility.etablissement['commune_implantation']['code']
         naf_code = api_entreprise_facility.etablissement['naf']
-        Facility.find_or_create_by! company: company, siret: siret, city_code: city_code, naf_code: naf_code
+        facility = Facility.find_or_initialize_by siret: siret
+        facility.update! company: company, city_code: city_code, naf_code: naf_code
+        facility
       end
     end
   end
