@@ -18,9 +18,7 @@ class DiagnosesController < ApplicationController
 
   def step4
     @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
-    associations = [question: [assistances: [assistances_experts: [expert: :institution]]]]
-    @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis).joins(associations).includes(associations)
-    @assistances_experts_of_location = AssistanceExpert.of_city_code(@diagnosis.visit.location).of_diagnosis(@diagnosis)
+    @diagnosed_needs = UseCases::GetDiagnosedNeedsWithLocalizedAssistanceExperts.of_diagnosis(@diagnosis)
   end
 
   def step5
