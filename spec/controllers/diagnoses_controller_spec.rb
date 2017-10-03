@@ -10,7 +10,10 @@ RSpec.describe DiagnosesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns http success' do
+      allow(UseCases::GetDiagnoses).to receive(:for_user).with(current_user)
+
       get :index
+
       expect(response).to have_http_status(:success)
     end
   end
@@ -24,6 +27,8 @@ RSpec.describe DiagnosesController, type: :controller do
 
   describe 'GET #step2' do
     subject(:request) { get :step2, params: { id: diagnosis.id } }
+
+    before { allow(UseCases::GetStep2Data).to receive(:for_diagnosis).with(diagnosis) }
 
     context 'diagnosis step < last' do
       it('returns http success') { expect(response).to have_http_status(:success) }
@@ -64,6 +69,10 @@ RSpec.describe DiagnosesController, type: :controller do
 
   describe 'GET #step4' do
     subject(:request) { get :step4, params: { id: diagnosis.id } }
+
+    before do
+      allow(UseCases::GetDiagnosedNeedsWithLocalizedAssistanceExperts).to receive(:of_diagnosis).with(diagnosis)
+    end
 
     context 'diagnosis step < last' do
       it('returns http success') { expect(response).to have_http_status(:success) }
