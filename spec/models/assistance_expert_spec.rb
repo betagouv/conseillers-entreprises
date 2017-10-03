@@ -92,5 +92,37 @@ RSpec.describe AssistanceExpert, type: :model do
         it { is_expected.to be_empty }
       end
     end
+
+    describe 'of_naf_code' do
+      subject { AssistanceExpert.of_naf_code naf_code }
+
+      let(:commerce_naf_code) { '6202A' }
+      let(:artisanry_naf_code) { '1011Z' }
+
+      let(:commerce_institution) { create :institution, qualified_for_artisanry: false, qualified_for_commerce: true }
+      let(:artisanry_institution) { create :institution, qualified_for_artisanry: true, qualified_for_commerce: false }
+
+      let(:artisanry_expert) { create :expert, institution: artisanry_institution }
+      let(:commerce_expert) { create :expert, institution: commerce_institution }
+
+      let!(:assistance_expert_for_artisanry) { create :assistance_expert, expert: artisanry_expert }
+      let!(:assistance_expert_for_commerce) { create :assistance_expert, expert: commerce_expert }
+
+      context 'naf code is for artisanry' do
+        let(:naf_code) { artisanry_naf_code }
+
+        it 'returns the assistance expert for artisanry' do
+          is_expected.to match_array [assistance_expert_for_artisanry]
+        end
+      end
+
+      context 'naf code is for commerce' do
+        let(:naf_code) { commerce_naf_code }
+
+        it 'returns the assistance expert for commerce' do
+          is_expected.to match_array [assistance_expert_for_commerce]
+        end
+      end
+    end
   end
 end

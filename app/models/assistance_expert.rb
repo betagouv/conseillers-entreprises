@@ -7,4 +7,5 @@ class AssistanceExpert < ApplicationRecord
 
   scope :of_diagnosis, (->(diagnosis) { joins(:assistance).merge(Assistance.of_diagnosis(diagnosis)) })
   scope :of_city_code, (->(city_code) { joins(:expert).merge(Expert.of_city_code(city_code)) })
+  scope :of_naf_code, (->(naf_code) { joins(expert: :institution).merge(Institution.of_naf_code(naf_code)) })
 end

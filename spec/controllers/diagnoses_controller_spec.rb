@@ -71,7 +71,7 @@ RSpec.describe DiagnosesController, type: :controller do
     subject(:request) { get :step4, params: { id: diagnosis.id } }
 
     before do
-      allow(UseCases::GetDiagnosedNeedsWithLocalizedAssistanceExperts).to receive(:of_diagnosis).with(diagnosis)
+      allow(UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts).to receive(:of_diagnosis).with(diagnosis)
     end
 
     context 'diagnosis step < last' do

@@ -18,7 +18,7 @@ class DiagnosesController < ApplicationController
 
   def step4
     @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
-    @diagnosed_needs = UseCases::GetDiagnosedNeedsWithLocalizedAssistanceExperts.of_diagnosis(@diagnosis)
+    @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
   end
 
   def step5

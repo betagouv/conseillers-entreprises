@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe UseCases::SearchFacility do
+  let(:legal_form_code) { '5699' }
+  let(:naf_code) { '6202A' }
   let(:siret) { '41816609600051' }
   let(:siren) { '418166096' }
   let(:token) { '1234' }
@@ -36,15 +38,20 @@ describe UseCases::SearchFacility do
     end
 
     context 'first call' do
-      it 'calls external service' do
-        described_class.with_siret_and_save siret
+      before { described_class.with_siret_and_save siret }
 
+      it 'calls external service' do
         expect(UseCases::SearchCompany).to have_received(:with_siret).with(siret)
         expect(described_class).to have_received(:with_siret).with(siret)
+      end
 
+      it 'sets company and facility' do
         expect(Company.last.siren).to eq siren
+        expect(Company.last.legal_form_code).to eq legal_form_code
+
         expect(Facility.last.siret).to eq siret
         expect(Facility.last.city_code).to eq '75008'
+        expect(Facility.last.naf_code).to eq naf_code
       end
     end
 
