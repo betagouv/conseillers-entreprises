@@ -12,37 +12,6 @@ RSpec.describe AssistanceExpert, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_diagnosis' do
-      subject { AssistanceExpert.of_diagnosis diagnosis }
-
-      let(:diagnosis) { create :diagnosis }
-      let(:question) { create :question }
-
-      before { create :diagnosed_need, diagnosis: diagnosis, question: question }
-
-      context 'one assistance_expert' do
-        let!(:assistance) { create :assistance, question: question }
-        let!(:assistance_expert) { create :assistance_expert, assistance: assistance }
-
-        it { is_expected.to eq [assistance_expert] }
-      end
-
-      context 'several assistances_experts' do
-        let!(:assistance) { create :assistance, question: question }
-        let!(:assistance_expert) { create :assistance_expert, assistance: assistance }
-
-        let!(:assistance2) { create :assistance, question: question }
-        let!(:assistance_expert2) { create :assistance_expert, assistance: assistance2 }
-        let!(:assistance_expert3) { create :assistance_expert, assistance: assistance2 }
-
-        it { is_expected.to match_array [assistance_expert, assistance_expert2, assistance_expert3] }
-      end
-
-      context 'no assistance_expert' do
-        it { is_expected.to be_empty }
-      end
-    end
-
     describe 'of_city_code' do
       subject { AssistanceExpert.of_city_code city_code }
 
