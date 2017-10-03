@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20170927131720) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "phone_number"
+    t.string "legal_form_code"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -143,6 +144,7 @@ ActiveRecord::Schema.define(version: 20170927131720) do
     t.string "city_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "naf_code"
     t.index ["company_id"], name: "index_facilities_on_company_id"
   end
 
