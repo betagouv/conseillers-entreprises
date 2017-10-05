@@ -6,10 +6,10 @@
       %i.plus.icon
       = t('.create_new_diagnosis')
 
-  .print-diagnosis-button
-    = link_to print_diagnoses_path(format: :pdf), class: 'ui labeled icon green button' do
+  .create-diagnosis-button
+    = link_to print_diagnoses_path(format: :pdf), class: 'fluid ui labeled icon large basic button' do
       %i.print.icon
-      = 'Imprimer le questionnaire'
+      = t('.print_questions')
 
   - if @diagnoses[:in_progress].empty? && @diagnoses[:completed].empty?
     %p= t('.no_analysis_message')
@@ -73,7 +73,8 @@
                     .item
                       .middle.aligned.content
                         %h5.ui.header.disabled
-                          = t('.solved_needs', count: diagnosis.diagnosed_needs_count, solved_needs_count: diagnosis.solved_needs_count)
+                          = t('.solved_needs', count: diagnosis.diagnosed_needs_count,
+                           solved_needs_count: diagnosis.solved_needs_count)
                 %td.collapsing.no-left-padding
                   = link_to t('.show_summary'),
                   { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
