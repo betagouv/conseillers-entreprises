@@ -24,6 +24,10 @@ fr:
       solved_needs:
         one: "%{solved_needs_count}/1 besoin résolu"
         other: "%{solved_needs_count}/%{count} besoins résolus"
+    print:
+      title: Questionnaire en entreprise
+      creation_date: "Généré le %{date}"
+      institution_example: "Géré par exemple par :  %{institution_list_string}"
     steps:
       step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins<br>détectés
