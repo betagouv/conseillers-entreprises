@@ -3,6 +3,7 @@
     "node": ">=8.6.0"
   },
   "dependencies": {
+    "@rails/webpacker": "^3.0.2",
     "autoprefixer": "^7.1.4",
     "axios": "^0.16.2",
     "babel-core": "^6.26.0",
@@ -14,6 +15,7 @@
     "babel-preset-latest": "^6.24.1",
     "coffee-loader": "^0.8.0",
     "coffee-script": "^1.12.7",
+    "coffeescript": "1.12.7",
     "compression-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.1",
