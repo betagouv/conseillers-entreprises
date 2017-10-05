@@ -12,8 +12,14 @@ describe CompaniesHelper, type: :helper do
       it { is_expected.to eq '01/01/1970' }
     end
 
+    context 'timestamp at midnight' do
+      let(:timestamp) { 1506808800 }
+
+      it { is_expected.to eq '01/10/2017' }
+    end
+
     context 'negative timestamp' do
-      let(:timestamp) { -100 }
+      let(:timestamp) { -50000 }
 
       it { is_expected.to eq '31/12/1969' }
     end
