@@ -29,7 +29,11 @@ module UseCases
       def create_item_from_question(question)
         {
           label: question.label,
-          institutions_list: question.assistances.map(&:institution).map(&:name).uniq.join(', ')
+          institutions_list: question.assistances
+                                     .map(&:experts).flatten
+                                     .map(&:institution)
+                                     .map(&:name)
+                                     .uniq.join(', ')
         }
       end
     end

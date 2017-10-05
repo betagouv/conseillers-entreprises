@@ -3,16 +3,29 @@
 require 'rails_helper'
 
 describe UseCases::GetQuestionsForPdf do
-  xdescribe 'perform' do
-    subject { described_class.for_diagnosis diagnosis }
-
-    let(:diagnosis) { create :diagnosis }
+  describe 'perform' do
+    subject { described_class.perform }
 
     let(:category1) { create :category }
     let(:category2) { create :category }
+
+    let(:institution1) { create :institution }
+    let(:institution2) { create :institution }
+
+    let(:expert1) { create :expert, institution: institution1 }
+    let(:expert2) { create :expert, institution: institution2 }
+
+    let(:assistance1) { create :assistance, question: question1 }
+    let(:assistance2) { create :assistance, question: question1 }
+
     let(:question1) { create :question, category: category1 }
     let(:question2) { create :question, category: category1 }
     let(:question3) { create :question, category: category2 }
+
+    before do
+      create :assistance_expert, assistance: assistance1, expert: expert1
+      create :assistance_expert, assistance: assistance2, expert: expert2
+    end
 
     context 'no diagnosed_need' do
       let!(:expected_array) do
@@ -20,18 +33,12 @@ describe UseCases::GetQuestionsForPdf do
           category: category1.label,
           questions: [
             {
-              question_id: question1.id,
               label: question1.label,
-              is_selected: false,
-              diagnosed_need_id: nil,
-              content: nil
+              institutions_list: "#{institution1.name}, #{institution2.name}"
             },
             {
-              question_id: question2.id,
               label: question2.label,
-              is_selected: false,
-              diagnosed_need_id: nil,
-              content: nil
+              institutions_list: ''
             }
           ]
         },
@@ -39,70 +46,14 @@ describe UseCases::GetQuestionsForPdf do
            category: category2.label,
            questions: [
              {
-               question_id: question3.id,
                label: question3.label,
-               is_selected: false,
-               diagnosed_need_id: nil,
-               content: nil
+               institutions_list: ''
              }
            ]
          }]
       end
 
-      it { is_expected.to eq expected_array }
-    end
-
-    context 'some diagnosed_needs' do
-      let(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis, question: question1, content: 'Content' }
-      let(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis, content: 'Pas Content' }
-
-      let!(:expected_array) do
-        [{
-          category: category1.label,
-          questions: [
-            {
-              question_id: question1.id,
-              label: question1.label,
-              is_selected: true,
-              diagnosed_need_id: diagnosed_need1.id,
-              content: 'Content'
-            },
-            {
-              question_id: question2.id,
-              label: question2.label,
-              is_selected: false,
-              diagnosed_need_id: nil,
-              content: nil
-            }
-          ]
-        },
-         {
-           category: category2.label,
-           questions: [
-             {
-               question_id: question3.id,
-               label: question3.label,
-               is_selected: false,
-               diagnosed_need_id: nil,
-               content: nil
-             }
-           ]
-         },
-         {
-           category: nil,
-           questions: [
-             {
-               question_id: nil,
-               label: diagnosed_need2.question_label,
-               is_selected: true,
-               diagnosed_need_id: diagnosed_need2.id,
-               content: 'Pas Content'
-             }
-           ]
-         }]
-      end
-
-      it { is_expected.to eq expected_array }
+      it { is_expected.to match_array expected_array }
     end
   end
 end
