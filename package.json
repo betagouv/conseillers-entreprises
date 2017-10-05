@@ -1,7 +1,4 @@
 {
-  "engines": {
-    "node": ">=8.6.0"
-  },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
     "autoprefixer": "^7.1.4",
