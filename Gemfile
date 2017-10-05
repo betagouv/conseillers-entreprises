@@ -53,7 +53,7 @@ gem 'faker'
 gem 'metamagic'
 gem 'wannabe_bool'
 
-gem 'prawn_rails'
+gem 'prawn-rails'
 
 group :test do
   gem 'capybara'
