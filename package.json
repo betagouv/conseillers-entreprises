@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": ">=7.4.0 <= 7.10.1"
+    "node": ">=8.6.0"
   },
   "dependencies": {
     "autoprefixer": "^7.1.4",
