@@ -7,6 +7,7 @@ class DiagnosesController < ApplicationController
 
   def print
     @categories_with_questions = UseCases::GetQuestionsForPdf.perform
+    render 'print.pdf'
   end
 
   def step1; end

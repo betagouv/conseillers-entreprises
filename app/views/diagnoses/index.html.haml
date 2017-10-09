@@ -7,7 +7,7 @@
       = t('.create_new_diagnosis')
 
   .print-diagnosis-button
-    = link_to print_diagnoses_path(format: :pdf), class: 'fluid ui labeled icon large basic button' do
+    = link_to print_diagnoses_path, class: 'fluid ui labeled icon large basic button' do
       %i.print.icon
       = t('.print_questions')
 
