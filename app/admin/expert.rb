@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Expert do
-  menu parent: :institutions, priority: 1
+  menu priority: 6
   includes :institution, :assistances, :territories
 
   permit_params [

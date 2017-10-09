@@ -14,8 +14,8 @@ fr:
         one: Besoin
         other: Besoins
       assistance:
-        one: Aide
-        other: Aides
+        one: Champ de compétence
+        other: Champs de compétence
       comment:
         one: Commentaire
         other: Commentaires
@@ -99,12 +99,6 @@ fr:
         question: Question parente
         title: Titre
         description: Description
-        geographic_scope: Champ d'action géographique
-        county: Département d'action
-        geographic_scopes:
-          region: Région
-          county: Département
-          town: Ville
       category:
         label: Intitulé
       company:

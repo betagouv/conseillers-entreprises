@@ -19,8 +19,8 @@ fr:
       territory: Territoire
       territories: Les territoires d'action du référent
       add_territory: Ajouter une nouveau territoire
-      assistance: Aide
-      assistances: Les aides portées par ce référent
+      assistance: Champ de compétence
+      assistances: Les domaines d'intervention de ce référent
       add_assistance: Ajouter une nouvelle aide
     institutions:
       experts: Les référents pour cette institution

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Assistance do
-  menu parent: :questions, priority: 2
+  menu parent: :experts, priority: 2
   includes :question, :experts
 
   permit_params do
