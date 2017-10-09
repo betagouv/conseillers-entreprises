@@ -25,3 +25,5 @@ fr:
         some_companies_are_waiting_for_you: Ces entreprises ont des besoins auxquels personne n'a su répondre pour l'instant. Pouvez-vous apporter une solution ?
         regards: Bien cordialement,
         reso_team_html: L'équipe %{link_to_root}.
+      reminders_selected_assistance_expert:
+        show_information: Voir les informations

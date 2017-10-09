@@ -53,6 +53,8 @@ gem 'faker'
 gem 'metamagic'
 gem 'wannabe_bool'
 
+gem 'prawn-rails'
+
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'

@@ -5,6 +5,11 @@ class DiagnosesController < ApplicationController
     @diagnoses = UseCases::GetDiagnoses.for_user(current_user)
   end
 
+  def print
+    @categories_with_questions = UseCases::GetQuestionsForPdf.perform
+    render 'print.pdf'
+  end
+
   def step1; end
 
   def step2

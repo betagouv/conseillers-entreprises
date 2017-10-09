@@ -12,6 +12,7 @@ fr:
         Retrouvez ici les analyses que vous avez complétées.
         <br>Vous pouvez retrouver toutes les informations fournies ainsi que les actions effectuées dans le récapitulatif.
       create_new_diagnosis: Faire une nouvelle analyse
+      print_questions: Imprimer le questionnaire
       step: "Étape : %{step}/4"
       continue_diagnosis: Poursuivre l'analyse
       delete_diagnosis_confirmation_message: "Êtes-vous sûr de vouloir supprimer définitivement l'analyse de %{company_name} ?"
@@ -24,6 +25,10 @@ fr:
       solved_needs:
         one: "%{solved_needs_count}/1 besoin résolu"
         other: "%{solved_needs_count}/%{count} besoins résolus"
+    print:
+      title: Questionnaire en entreprise
+      creation_date: "Généré le %{date}"
+      institution_example: "Exemple d'institutions référentes : %{institution_list_string}"
     steps:
       step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins<br>détectés
