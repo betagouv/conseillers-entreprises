@@ -10,13 +10,15 @@ ActiveAdmin.register User do
                 :phone_number,
                 :password,
                 :password_confirmation,
-                :is_approved
+                :is_approved,
+                :is_admin
 
   before_action :send_approval_emails, only: :update
 
   controller do
     def send_approval_emails
-      nil if resource.is_approved || !params[:user][:is_approved].to_b
+      return if resource.is_approved || !params[:user][:is_approved].to_b
+
       UserMailer.delay.account_approved(resource)
       AdminMailer.delay.new_user_approved_notification(resource, current_user)
     end
@@ -39,6 +41,7 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :created_at
     column :is_approved
+    column :is_admin
     column 'Impersonate' do |user|
       link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
     end
@@ -50,6 +53,7 @@ ActiveAdmin.register User do
   filter :sign_in_count
   filter :created_at
   filter :is_approved
+  filter :is_admin
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -67,6 +71,10 @@ ActiveAdmin.register User do
 
     f.inputs I18n.t('active_admin.user.user_activation') do
       f.input :is_approved, as: :boolean
+    end
+
+    f.inputs I18n.t('active_admin.user.user_admin') do
+      f.input :is_admin, as: :boolean
     end
 
     f.actions
