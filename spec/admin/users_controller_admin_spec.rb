@@ -20,7 +20,6 @@ RSpec.describe Admin::UsersController, type: :controller do
       let(:user) { create :user, is_approved: true, first_name: 'Bob' }
       let(:request) { put :update, params: { id: user.id, user: { first_name: 'not Bob' } } }
 
-
       it 'does not add jobs in database' do
         expect { request }.to change { Delayed::Job.count }.by(0)
       end
