@@ -4,7 +4,8 @@ module UseCases
   class GetQuestionsForPdf
     class << self
       def perform
-        questions = Question.all.includes(:category, assistances: :institution).order(:category_id, :id)
+        associations = [:category, assistances: [experts: :institution]]
+        questions = Question.all.includes(associations).order(:category_id, :id)
         questions_array_with_categories questions
       end
 
