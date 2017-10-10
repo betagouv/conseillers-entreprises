@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
 
   has_many :territory_users
+  has_many :territories, through: :territory_users
 
   validates :first_name, :last_name, :role, :email, :phone_number, presence: true
 

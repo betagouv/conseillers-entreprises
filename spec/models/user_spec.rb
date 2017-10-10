@@ -4,7 +4,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'associations' do
-    it { is_expected.to have_many :territory_users }
+    it do
+      is_expected.to have_many :territory_users
+      is_expected.to have_many :territories
+    end
   end
 
   describe 'validations' do

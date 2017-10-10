@@ -11,8 +11,8 @@ class HomeController < ApplicationController
   def cgu; end
 
   def contact
-    @contacts = User.with_contact_page_order
-    @administrators = User.administrators_of_territory
+    @territory_administrators = User.administrators_of_territory.includes(territory_users: :territory)
+    @product_team = User.with_contact_page_order
   end
 
   def tutorial_video
