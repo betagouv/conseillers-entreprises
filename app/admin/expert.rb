@@ -38,6 +38,7 @@ ActiveAdmin.register Expert do
       row :role
       row :institution
       row :email
+      row :phone_number
       row :access_token
       row(:territories) do |expert|
         safe_join(expert.territories.map do |territory|
