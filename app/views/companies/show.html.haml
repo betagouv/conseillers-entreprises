@@ -44,6 +44,10 @@
         .toggle-div
           - if @qwant_results.blank? || @qwant_results['data']['result']['items'].count.zero?
             %p= t('.information_not_found')
+            %ul
+              %li= link_to t('.news_search_on_google'), "https://www.google.fr/search?q=#{@company.name}&tbm=nws", target: :_blank
+              %li= link_to t('.global_search_on_qwant'), "https://www.qwant.com/?q=#{@company.name}&t=web", target: :_blank
+              %li= link_to t('.global_search_on_google'), "https://www.google.fr/search?q=#{@company.name}", target: :_blank
           - else
             .ui.items
               - @qwant_results['data']['result']['items'].each do |item|
