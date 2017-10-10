@@ -4,8 +4,9 @@ module UseCases
   class GetDiagnosedNeedsWithFilteredAssistanceExperts
     class << self
       def of_diagnosis(diagnosis)
-        associations = [question: [assistances: [assistances_experts: [expert: :institution]]]]
+        associations = [question: [:category, assistances: [assistances_experts: [expert: :institution]]]]
         diagnosed_needs = DiagnosedNeed.of_diagnosis(diagnosis).joins(associations).includes(associations)
+        diagnosed_needs = diagnosed_needs.order('categories.id, questions.id')
         select_localized_and_business_assistance_experts(diagnosed_needs, diagnosis)
       end
 
