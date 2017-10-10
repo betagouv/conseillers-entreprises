@@ -2,27 +2,10 @@
 
 ActiveAdmin.register User do
   menu priority: 2
-  permit_params :first_name,
-                :last_name,
-                :institution,
-                :role,
-                :email,
-                :phone_number,
-                :password,
-                :password_confirmation,
-                :is_approved,
-                :is_admin
-
-  before_action :send_approval_emails, only: :update
-
-  controller do
-    def send_approval_emails
-      return if resource.is_approved || !params[:user][:is_approved].to_b
-
-      UserMailer.delay.account_approved(resource)
-      AdminMailer.delay.new_user_approved_notification(resource, current_user)
-    end
-  end
+  permit_params %i[
+    first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role
+    is_admin password password_confirmation
+  ]
 
   collection_action :send_invitation_emails, method: :post do
     UserMailer.delay.send_new_user_invitation(params)
@@ -41,19 +24,9 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :created_at
     column :is_approved
-    column :is_admin
-    column 'Impersonate' do |user|
-      link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
-    end
+    column('Impersonate') { |user| link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id)) }
     actions
   end
-
-  filter :email
-  filter :current_sign_in_at
-  filter :sign_in_count
-  filter :created_at
-  filter :is_approved
-  filter :is_admin
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -80,39 +53,45 @@ ActiveAdmin.register User do
     f.actions
   end
 
+  filter :first_name
+  filter :last_name
+  filter :email
+  filter :institution
+  filter :role
+  filter :phone_number
+  filter :current_sign_in_at
+  filter :sign_in_count
+  filter :created_at
+  filter :is_approved
+  filter :is_admin
+
   controller do
     def update
+      send_approval_emails
       update_params_depending_on_password
       redirect_or_display_form
     end
 
+    def send_approval_emails
+      return if resource.is_approved? || !params[:user][:is_approved].to_b
+      UserMailer.delay.account_approved(resource)
+      AdminMailer.delay.new_user_approved_notification(resource, current_user)
+    end
+
     def update_params_depending_on_password
-      @user = User.find(params[:id])
       if params[:user][:password].blank?
-        @user.update_without_password(update_without_password)
+        resource.update_without_password(permitted_params.require(:user))
       else
-        @user.update_attributes(update_with_password)
+        resource.update_attributes(permitted_params.require(:user))
       end
     end
 
     def redirect_or_display_form
-      if @user.errors.blank?
+      if resource.errors.blank?
         redirect_to admin_users_path, notice: 'User updated successfully.'
       else
         render :edit
       end
-    end
-
-    def update_without_password
-      params.require(:user).permit(
-        %i[first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role]
-      )
-    end
-
-    def update_with_password
-      permitted_keys = %i[first_name last_name email institution role phone_number password password_confirmation]
-      permitted_keys += %i[is_approved contact_page_order contact_page_role]
-      params.require(:user).permit(permitted_keys)
     end
   end
 end

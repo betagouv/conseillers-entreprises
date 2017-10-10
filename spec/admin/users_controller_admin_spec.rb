@@ -4,9 +4,21 @@ require 'rails_helper'
 RSpec.describe Admin::UsersController, type: :controller do
   login_user
 
-  before { current_user.update! is_admin: true }
+  before { current_user.update is_admin: true }
 
-  describe 'PUT update' do
+  describe 'POST send_invitation_emails' do
+    let(:request) { post :send_invitation_emails, params: { email: 'inviteme@randmail.com' } }
+
+    it('add one job in database') { expect { request }.to change { Delayed::Job.count }.by(1) }
+
+    it('redirects') do
+      request
+
+      expect(response).to have_http_status(:redirect)
+    end
+  end
+
+  describe 'send_approval_emails' do
     context 'previously unauthorized user is authorized' do
       let(:user) { create :user, is_approved: false }
       let(:request) { put :update, params: { id: user.id, user: { is_approved: true } } }
@@ -23,6 +35,52 @@ RSpec.describe Admin::UsersController, type: :controller do
       it 'does not add jobs in database' do
         expect { request }.to change { Delayed::Job.count }.by(0)
       end
+    end
+  end
+
+  describe 'update_params_depending_on_password' do
+    before do
+      allow(User).to receive(:find).with(user.id.to_s).and_return(user)
+      allow(user).to receive(:update_without_password)
+      allow(user).to receive(:update_attributes)
+    end
+
+    let(:user) { create :user }
+
+    context 'password entered is blank' do
+      before { put :update, params: { id: user.id, user: { password: '' } } }
+
+      it 'updates without password' do
+        expect(user).to have_received(:update_without_password)
+        expect(user).not_to have_received(:update_attributes)
+      end
+    end
+
+    context 'password entered is present' do
+      before { put :update, params: { id: user.id, user: { password: 'new_password' } } }
+
+      it 'updates all attributes' do
+        expect(user).not_to have_received(:update_without_password)
+        expect(user).to have_received(:update_attributes)
+      end
+    end
+  end
+
+  describe 'redirect_or_display_form' do
+    before { allow(User).to receive(:find).with(user.id.to_s).and_return(user) }
+
+    let(:user) { create :user }
+
+    context 'update worked' do
+      before { put :update, params: { id: user.id, user: { first_name: 'Jack' } } }
+
+      it('redirects') { expect(response).to have_http_status(:redirect) }
+    end
+
+    context 'update failed' do
+      before { put :update, params: { id: user.id, user: { first_name: '' } } }
+
+      it('does not redirect') { expect(response).to have_http_status(:success) }
     end
   end
 end
