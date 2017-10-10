@@ -11,22 +11,22 @@ RSpec.describe 'experts/diagnosis.html.haml', type: :view do
   before { assign :diagnosis, diagnosis }
 
   context 'experts still exists' do
-    it('displays words') do
+    it do
       render
 
       expect(rendered).to include 'Institution'
-      expect(rendered).to include 'Aide'
+      expect(rendered).to include 'Champ de compétence'
     end
   end
 
   context 'experts does not exist any more' do
     before { selected_assistance_expert.assistance_expert.destroy }
 
-    it('displays words') do
+    it do
       render
 
       expect(rendered).to include 'Institution'
-      expect(rendered).to include 'Aide'
+      expect(rendered).to include 'Champ de compétence'
     end
   end
 end

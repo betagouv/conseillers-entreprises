@@ -13,13 +13,13 @@ describe CompaniesHelper, type: :helper do
     end
 
     context 'timestamp at midnight' do
-      let(:timestamp) { 1506808800 }
+      let(:timestamp) { 1_506_808_800 }
 
       it { is_expected.to eq '01/10/2017' }
     end
 
     context 'negative timestamp' do
-      let(:timestamp) { -50000 }
+      let(:timestamp) { -50_000 }
 
       it { is_expected.to eq '31/12/1969' }
     end

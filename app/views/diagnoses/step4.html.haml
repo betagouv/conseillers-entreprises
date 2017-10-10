@@ -36,7 +36,10 @@
                       = assistance_expert.expert.institution
                   %td
                     = f.label :"#{assistance_expert.id}", class: 'clickable' do
-                      = assistance_expert.assistance.title
+                      .tiny.text.bold
+                        = t('.expert_scope_of_work')
+                      .small.text
+                        = assistance_expert.assistance.title
 
       - notify_button_enabled = @diagnosis.visit.visitee.present? && there_are_assistances_experts
 

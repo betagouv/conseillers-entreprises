@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Institution do
-  menu priority: 6
+  menu parent: :experts, priority: 1
   permit_params :name, :email, :phone_number
 
   show do

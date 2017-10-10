@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Expert do
-  menu parent: :institutions, priority: 1
+  menu priority: 6
   includes :institution, :assistances, :territories
 
   permit_params [
@@ -38,6 +38,7 @@ ActiveAdmin.register Expert do
       row :role
       row :institution
       row :email
+      row :phone_number
       row :access_token
       row(:territories) do |expert|
         safe_join(expert.territories.map do |territory|

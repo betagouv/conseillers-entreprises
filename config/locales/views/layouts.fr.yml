@@ -1,12 +1,12 @@
 fr:
   layouts:
     navbar:
-      diagnoses: Liste des analyses
+      diagnoses: Mes analyses
       know_more: En savoir plus
-      sign_out: Se déconnecter
+      sign_out: Me déconnecter
       dashboard: Admin
-      company_search: Fiche Entreprise
-      profile: Profil
+      company_search: Rechercher une entreprise
+      profile: Mon profil
     footer:
       problem_or_question: Un problème ? Une question ?
       contact_us: Contactez-nous !

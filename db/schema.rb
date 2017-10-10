@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003141931) do
+ActiveRecord::Schema.define(version: 20171009130729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,10 +35,6 @@ ActiveRecord::Schema.define(version: 20171003141931) do
     t.datetime "updated_at", null: false
     t.bigint "question_id"
     t.string "title"
-    t.integer "county"
-    t.integer "geographic_scope"
-    t.bigint "institution_id"
-    t.index ["institution_id"], name: "index_assistances_on_institution_id"
     t.index ["question_id"], name: "index_assistances_on_question_id"
   end
 
@@ -247,7 +243,6 @@ ActiveRecord::Schema.define(version: 20171003141931) do
     t.index ["visitee_id"], name: "index_visits_on_visitee_id"
   end
 
-  add_foreign_key "assistances", "institutions"
   add_foreign_key "assistances", "questions"
   add_foreign_key "assistances_experts", "assistances"
   add_foreign_key "assistances_experts", "experts"

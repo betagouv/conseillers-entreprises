@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :assistance do
     title { Faker::Lorem.sentence }
+
     association :question
-    association :institution, :with_email
 
     trait :with_expert do
       after(:create) do |assistance|
