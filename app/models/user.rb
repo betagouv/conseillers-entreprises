@@ -3,6 +3,8 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
 
+  has_many :territory_users
+
   validates :first_name, :last_name, :role, :email, :phone_number, presence: true
 
   # Inspired by Devise validatable module
@@ -15,7 +17,8 @@ class User < ApplicationRecord
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?
 
-  scope :for_contact_page, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
+  scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
+  scope :administrators_of_territory, (-> { joins(:territory_users).distinct })
   scope :not_admin, (-> { where(is_admin: false) })
 
   def active_for_authentication?
