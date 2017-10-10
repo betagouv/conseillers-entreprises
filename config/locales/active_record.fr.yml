@@ -52,6 +52,9 @@ fr:
       territory_city:
         one: Ville d'un territoire
         other: Villes d'un territoire
+      territory_user:
+        one: Gestionnaire d'un territoire
+        other: Gestionnaires de territoires
     attributes:
       user:
         email: Adresse e-mail
@@ -157,6 +160,9 @@ fr:
         city_codes: Codes commune
       territory_city:
         city_code: Code commune
+        territory: Territoire
+      territory_user:
+        user: Utilisateur
         territory: Territoire
     errors:
       messages:
