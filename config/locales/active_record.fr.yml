@@ -96,7 +96,7 @@ fr:
       assistance:
         expert: Référent
         institution: Institution référente
-        question: Question parente
+        question: Besoin parent
         title: Titre
         description: Description
       category:
@@ -169,7 +169,3 @@ fr:
           attributes:
             email:
               blank: Le contact doit avoir au moins une adresse e-mail ou un numéro de téléphone.
-        assistance:
-          attributes:
-            institution:
-              email_blank: L'institution n'a pas d'adresse e-mail et ne peut donc pas être contactée pour cette aide.
