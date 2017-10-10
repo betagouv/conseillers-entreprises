@@ -59,11 +59,12 @@ ActiveAdmin.register User do
   filter :institution
   filter :role
   filter :phone_number
+  filter :is_approved
+  filter :is_admin
+  filter :contact_page_order
   filter :current_sign_in_at
   filter :sign_in_count
   filter :created_at
-  filter :is_approved
-  filter :is_admin
 
   controller do
     def update
