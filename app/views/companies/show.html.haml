@@ -25,25 +25,14 @@
         = render partial: 'mandataire', locals: { person: person }
 
       %h2= t('.ereputation')
-      - if @qwant_results.blank? || @qwant_results['data']['result']['items'].count.zero?
-        %p= t('.information_not_found')
-        %ul
-          %li= link_to t('.news_search_on_google'), "https://www.google.fr/search?q=#{@company.name}&tbm=nws", target: :_blank
-          %li= link_to t('.global_search_on_qwant'), "https://www.qwant.com/?q=#{@company.name}&t=web", target: :_blank
-          %li= link_to t('.global_search_on_google'), "https://www.google.fr/search?q=#{@company.name}", target: :_blank
-      - else
-        .ui.items
-          - @qwant_results['data']['result']['items'].each do |item|
-            .item
-              .ui.tiny.image
-                - if item['media'].present?
-                  = image_tag item['media'].first['pict']['url']
-              .content
-                = link_to item['title'].html_safe, item['url'], class: 'header'
-                .meta
-                  %span= item['domain']
-                .description
-                  %p= item['desc'].html_safe
+      %ul
+        :ruby
+          google_news_url = "https://www.google.fr/search?q=#{@company.name}&tbm=nws"
+          qwant_url = "https://www.qwant.com/?q=#{@company.name}&t=web"
+          google_url = "https://www.google.fr/search?q=#{@company.name}"
+        %li= link_to t('.news_search_on_google'), google_news_url, target: :_blank
+        %li= link_to t('.global_search_on_qwant'), qwant_url, target: :_blank
+        %li= link_to t('.global_search_on_google'), google_url, target: :_blank
 
   %h2= t('.diagnoses_completed', company_name: @company.name)
   - if @diagnoses.empty?

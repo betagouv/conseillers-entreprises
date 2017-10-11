@@ -5,7 +5,6 @@ class CompaniesController < ApplicationController
     siret = params[:siret]
     @facility = UseCases::SearchFacility.with_siret siret
     @company = UseCases::SearchCompany.with_siret siret
-    @qwant_results = QwantApiService.results_for_query @company.name
     @diagnoses = UseCases::GetDiagnoses.for_siret siret
   end
 
