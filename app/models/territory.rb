@@ -8,4 +8,8 @@ class Territory < ApplicationRecord
   def to_s
     "#{id} : #{name}"
   end
+
+  def city_codes
+    territory_cities.pluck(:city_code)
+  end
 end
