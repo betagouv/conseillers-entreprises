@@ -2,13 +2,13 @@
 
 Rails.application.routes.draw do
   mount UserImpersonate::Engine => '/impersonate', as: 'impersonate_engine'
-  devise_for :users, controllers: { registrations: 'users/registrations' }
   ActiveAdmin.routes(self)
-  root to: 'home#index'
-  get 'video' => 'home#tutorial_video'
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
+  root to: 'home#index'
+
+  get 'video' => 'home#tutorial_video'
   get 'profile' => 'users#show'
-  patch 'profile' => 'users#update'
 
   resources :home, only: %i[] do
     collection do

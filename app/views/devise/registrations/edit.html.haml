@@ -5,7 +5,7 @@
   = devise_error_messages!
   .field
     = f.label :email
-    = f.email_field :email, autofocus: true
+    = f.email_field :email, autofocus: true, disabled: true
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     %div
       = t('.waiting_confirmation_for', unconfirmed_email: resource.unconfirmed_email)
