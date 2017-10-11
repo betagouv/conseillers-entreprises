@@ -8,7 +8,8 @@
   - else
     %p= t('.explanation')
 
-    = form_for :assistances_experts, url: notify_experts_diagnosis_path, method: :post do |f|
+    = form_for :assistances_experts, url: notify_experts_diagnosis_path,
+               method: :post, data: { confirm: t('.form_confirmation_message') } do |f|
       - there_are_assistances_experts = false
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled

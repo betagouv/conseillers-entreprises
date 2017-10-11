@@ -71,6 +71,7 @@ fr:
         <p>Ils pourront recontacter directement l'entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d'information.</p>
       notify_selected_experts: Notifier les référents sélectionnés
       add_contact_to_notify: Veuillez ajouter un contact pour pouvoir envoyer ces notifications (étape 3).
+      form_confirmation_message:  Voulez vous contacter les référents sélectionnés ?
     step5:
       title: Récapitulatif
       notifications_sent: Les notifications ont bien été envoyées !
