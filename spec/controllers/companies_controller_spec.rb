@@ -7,7 +7,6 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'GET #show' do
     siret = '44622002200227'
-    company_name = 'Octo Technology'
 
     before do
       allow(UseCases::SearchFacility).to receive(:with_siret).with(siret)
