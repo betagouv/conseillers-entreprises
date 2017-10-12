@@ -31,7 +31,11 @@ prawn_document do |pdf|
     end
 
     item[:questions].each do |question|
-      institutions_list_text = I18n.t('diagnoses.print.institution_example', institution_list_string: question[:institutions_list])
+      institutions_list_text = ''
+      if question[:institutions_list].present?
+        institutions_list_text = I18n.t('diagnoses.print.institution_example', institution_list_string: question[:institutions_list])
+      end
+
       question_data = [[question[:label], "<font size='10'>#{institutions_list_text}</font>"]]
 
       pdf.font('Lato', size: 12) do
