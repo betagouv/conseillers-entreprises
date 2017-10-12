@@ -10,6 +10,8 @@ fr:
         not_received_unlocked: Vous n'avez pas reçu l'email pour débloquer votre compte ?
         sign_in_with: Se connecter avec %{provider_name}
     registrations:
+      new:
+        warning_message: L'inscription est réservé aux conseillers d'entreprise et référents des organismes publics. Merci de bien vouloir utiliser votre adresse e-mail professionnelle afin que votre compte soit validé.
       edit:
         waiting_confirmation_for: "En attente de confirmation pour l'adresse : %{unconfirmed_email}"
         leave_blank_to_change_it: (laisser vide si pas de changement)
