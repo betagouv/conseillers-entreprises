@@ -68,4 +68,55 @@ describe UseCases::EnrichDiagnoses do
       end
     end
   end
+
+  describe 'with_solved_needs_count' do
+    subject(:diagnoses_with_count) { described_class.with_solved_needs_count diagnoses }
+
+    let(:diagnoses) { [diagnosis] }
+    let(:diagnosis) { create :diagnosis }
+
+    context 'no diagnosed need' do
+      it { expect(diagnoses_with_count.first.solved_needs_count).to eq 0 }
+    end
+
+    context '3 selected_assistance_expert with one done' do
+      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+
+      before do
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :taking_care
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :not_for_me
+      end
+
+      it { expect(diagnoses_with_count.first.solved_needs_count).to eq 1 }
+    end
+
+    context '3 selected_assistance_expert, all done' do
+      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+
+      before do
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+      end
+
+      it { expect(diagnoses_with_count.first.solved_needs_count).to eq 1 }
+    end
+
+    context '3 diagnosed_needs, 5 selected_assistance_expert' do
+      let(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis }
+      let(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis }
+      let(:diagnosed_need3) { create :diagnosed_need, diagnosis: diagnosis }
+
+      before do
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need1, status: :done
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need2, status: :taking_care
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need2, status: :done
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need2, status: :done
+        create :selected_assistance_expert, diagnosed_need: diagnosed_need3, status: :taking_care
+      end
+
+      it { expect(diagnoses_with_count.first.solved_needs_count).to eq 2 }
+    end
+  end
 end

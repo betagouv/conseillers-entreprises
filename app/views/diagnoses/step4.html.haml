@@ -8,7 +8,8 @@
   - else
     %p= t('.explanation')
 
-    = form_for :assistances_experts, url: notify_experts_diagnosis_path, method: :post do |f|
+    = form_for :assistances_experts, url: notify_experts_diagnosis_path,
+               method: :post, data: { confirm: t('.form_confirmation_message') } do |f|
       - there_are_assistances_experts = false
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
@@ -16,15 +17,14 @@
             %tr
               %th{ colspan: 3 }= diagnosed_need.question
           %tbody
-            - assistances_experts = assistances_experts_localized(diagnosed_need: diagnosed_need,
-            assistances_experts_of_location: @assistances_experts_of_location)
+            - assistances_experts = diagnosed_need.question.assistances.map(&:assistances_experts).flatten
             - if assistances_experts.blank?
               %tr
                 %td
                   = t('.no_assistance')
             - else
+              - there_are_assistances_experts ||= true
               - assistances_experts.each do |assistance_expert|
-                - there_are_assistances_experts ||= true
                 %tr
                   %td.checkbox-width
                     .ui.fitted.checkbox
@@ -37,7 +37,10 @@
                       = assistance_expert.expert.institution
                   %td
                     = f.label :"#{assistance_expert.id}", class: 'clickable' do
-                      = assistance_expert.assistance.title
+                      .tiny.text.bold
+                        = t('.expert_scope_of_work')
+                      .small.text
+                        = assistance_expert.assistance.title
 
       - notify_button_enabled = @diagnosis.visit.visitee.present? && there_are_assistances_experts
 

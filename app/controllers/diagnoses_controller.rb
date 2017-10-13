@@ -5,6 +5,11 @@ class DiagnosesController < ApplicationController
     @diagnoses = UseCases::GetDiagnoses.for_user(current_user)
   end
 
+  def print
+    @categories_with_questions = UseCases::GetQuestionsForPdf.perform
+    render 'print.pdf'
+  end
+
   def step1; end
 
   def step2
@@ -18,9 +23,7 @@ class DiagnosesController < ApplicationController
 
   def step4
     @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
-    associations = [question: [assistances: [assistances_experts: [expert: :institution]]]]
-    @diagnosed_needs = DiagnosedNeed.of_diagnosis(@diagnosis).joins(associations).includes(associations)
-    @assistances_experts_of_location = AssistanceExpert.of_city_code(@diagnosis.visit.location).of_diagnosis(@diagnosis)
+    @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
   end
 
   def step5

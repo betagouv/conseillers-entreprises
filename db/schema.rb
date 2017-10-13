@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926145237) do
+ActiveRecord::Schema.define(version: 20171009130729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,10 +35,6 @@ ActiveRecord::Schema.define(version: 20170926145237) do
     t.datetime "updated_at", null: false
     t.bigint "question_id"
     t.string "title"
-    t.integer "county"
-    t.integer "geographic_scope"
-    t.bigint "institution_id"
-    t.index ["institution_id"], name: "index_assistances_on_institution_id"
     t.index ["question_id"], name: "index_assistances_on_question_id"
   end
 
@@ -64,6 +60,7 @@ ActiveRecord::Schema.define(version: 20170926145237) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "phone_number"
+    t.string "legal_form_code"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -133,12 +130,7 @@ ActiveRecord::Schema.define(version: 20170926145237) do
     t.bigint "institution_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "on_maubeuge", default: false, null: false
-    t.boolean "on_valenciennes_cambrai", default: false, null: false
-    t.boolean "on_lens", default: false, null: false
-    t.boolean "on_calais", default: false, null: false
     t.string "access_token"
-    t.boolean "on_boulogne", default: false, null: false
     t.index ["institution_id"], name: "index_experts_on_institution_id"
   end
 
@@ -148,6 +140,7 @@ ActiveRecord::Schema.define(version: 20170926145237) do
     t.string "city_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "naf_code"
     t.index ["company_id"], name: "index_facilities_on_company_id"
   end
 
@@ -157,6 +150,8 @@ ActiveRecord::Schema.define(version: 20170926145237) do
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "qualified_for_commerce", default: true, null: false
+    t.boolean "qualified_for_artisanry", default: true, null: false
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|
@@ -248,7 +243,6 @@ ActiveRecord::Schema.define(version: 20170926145237) do
     t.index ["visitee_id"], name: "index_visits_on_visitee_id"
   end
 
-  add_foreign_key "assistances", "institutions"
   add_foreign_key "assistances", "questions"
   add_foreign_key "assistances_experts", "assistances"
   add_foreign_key "assistances_experts", "experts"

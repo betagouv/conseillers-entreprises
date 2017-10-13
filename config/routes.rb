@@ -2,13 +2,13 @@
 
 Rails.application.routes.draw do
   mount UserImpersonate::Engine => '/impersonate', as: 'impersonate_engine'
-  devise_for :users, controllers: { registrations: 'users/registrations' }
   ActiveAdmin.routes(self)
-  root to: 'home#index'
-  get 'video' => 'home#tutorial_video'
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
+  root to: 'home#index'
+
+  get 'video' => 'home#tutorial_video'
   get 'profile' => 'users#show'
-  patch 'profile' => 'users#update'
 
   resources :home, only: %i[] do
     collection do
@@ -19,7 +19,10 @@ Rails.application.routes.draw do
   end
 
   resources :diagnoses, only: %i[index destroy] do
-    get 'step-1' => 'diagnoses#step1', on: :collection
+    collection do
+      get 'print'
+      get 'step-1' => 'diagnoses#step1'
+    end
 
     member do
       get 'step-2' => 'diagnoses#step2'

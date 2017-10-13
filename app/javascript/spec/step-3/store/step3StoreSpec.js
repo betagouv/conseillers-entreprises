@@ -1,4 +1,5 @@
 import Step3Store from '../../../packs/step-3/store/step3Store'
+import Moment from 'moment'
 
 // for the async function to work
 require('babel-core/register')
@@ -265,7 +266,7 @@ describe('step3Store', () => {
           if (dispatchedTo === 'getVisitData') {
             data = {
               visit_id: 1,
-              happened_at: '2017-08-29',
+              happened_at: withContactId ? '2017-08-29' : null,
               visitee_id: withContactId ? 2 : undefined
             }
           } else {
@@ -362,7 +363,7 @@ describe('step3Store', () => {
         })
       })
 
-      describe('when there is no contact to laod', function () {
+      describe('when there is no contact to load', function () {
         beforeEach(function () {
           state.contactId = undefined
           commit = jasmine.createSpy()
@@ -394,7 +395,7 @@ describe('step3Store', () => {
 
           expect(commit.calls.argsFor(1)).toEqual([
             'VISIT_DATE',
-            '2017-08-29'
+            Moment().format('YYYY-MM-DD')
           ])
           expect(commit.calls.argsFor(2)).toEqual([
             'CONTACT_ID',

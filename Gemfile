@@ -29,7 +29,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'clockwork', '~> 2.0', '>= 2.0.2'
 gem 'daemons'
 gem 'delayed_job_active_record'
-gem 'webpacker', '~> 2.0'
+gem 'webpacker', '~> 3.0'
 
 # Improving models
 gem 'devise'
@@ -52,6 +52,9 @@ gem 'browser'
 gem 'faker'
 gem 'metamagic'
 gem 'wannabe_bool'
+
+gem 'prawn-rails'
+gem 'roadie-rails'
 
 group :test do
   gem 'capybara'

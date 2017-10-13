@@ -10,7 +10,20 @@ RSpec.describe DiagnosesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns http success' do
+      allow(UseCases::GetDiagnoses).to receive(:for_user).with(current_user)
+
       get :index
+
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe 'GET #print' do
+    it 'returns http success' do
+      allow(UseCases::GetQuestionsForPdf).to receive(:perform)
+
+      get :print, format: :pdf
+
       expect(response).to have_http_status(:success)
     end
   end
@@ -24,6 +37,8 @@ RSpec.describe DiagnosesController, type: :controller do
 
   describe 'GET #step2' do
     subject(:request) { get :step2, params: { id: diagnosis.id } }
+
+    before { allow(UseCases::GetStep2Data).to receive(:for_diagnosis).with(diagnosis) }
 
     context 'diagnosis step < last' do
       it('returns http success') { expect(response).to have_http_status(:success) }
@@ -64,6 +79,8 @@ RSpec.describe DiagnosesController, type: :controller do
 
   describe 'GET #step4' do
     subject(:request) { get :step4, params: { id: diagnosis.id } }
+
+    before { allow(UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts).to receive(:of_diagnosis).with(diagnosis) }
 
     context 'diagnosis step < last' do
       it('returns http success') { expect(response).to have_http_status(:success) }
@@ -114,9 +131,7 @@ RSpec.describe DiagnosesController, type: :controller do
 
       it 'sends emails' do
         expect(ExpertMailersService).to have_received(:send_assistances_email).with(
-          advisor: current_user,
-          diagnosis: diagnosis,
-          assistance_expert_ids: assistance_expert_ids
+          advisor: current_user, diagnosis: diagnosis, assistance_expert_ids: assistance_expert_ids
         )
       end
     end
@@ -155,11 +170,7 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before do
-      delete :destroy, params: {
-        id: diagnosis.id
-      }
-    end
+    before { delete :destroy, params: { id: diagnosis.id } }
 
     it('redirects to index') { expect(response).to redirect_to diagnoses_path }
     it('destroys the diagnosis') { expect(Diagnosis.all.count).to eq 0 }

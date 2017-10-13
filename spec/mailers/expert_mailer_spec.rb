@@ -32,4 +32,23 @@ describe ExpertMailer do
 
     it { expect(mail.from).to eq ExpertMailer::SENDER }
   end
+
+  describe '#remind_involvement' do
+    subject(:mail) { described_class.remind_involvement(expert, selected_assistances_experts_hash).deliver_now }
+
+    let(:expert) { create :expert }
+    let(:sae_needing_taking_care_update) { create :selected_assistance_expert }
+    let(:sae_with_no_one_in_charge) { create :selected_assistance_expert }
+
+    let(:selected_assistances_experts_hash) do
+      {
+        needing_taking_care_update: [sae_needing_taking_care_update],
+        with_no_one_in_charge: [sae_with_no_one_in_charge]
+      }
+    end
+
+    it_behaves_like 'an email'
+
+    it { expect(mail.from).to eq ExpertMailer::SENDER }
+  end
 end

@@ -2,6 +2,6 @@
 
 module CompaniesHelper
   def date_from_timestamp(timestamp)
-    I18n.l(DateTime.strptime(timestamp.to_s, '%s').to_date) if timestamp
+    I18n.l(Time.strptime(timestamp.to_s, '%s').in_time_zone.to_date) if timestamp
   end
 end

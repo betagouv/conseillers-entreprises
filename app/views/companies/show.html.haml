@@ -13,50 +13,26 @@
       %i.ui.icon.chevron.down
       = t('show_less')
     .toggle-div
-
       %h2= t('.facility')
-      .toggle-div-wrapper
-        %button.ui.blue.tiny.button.toggle-show-button= t('show')
-        %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
-        .toggle-div
-          = render partial: 'facility', locals: { etablissement: @facility.etablissement }
+      = render partial: 'facility', locals: { etablissement: @facility.etablissement }
 
       - unless @facility.etablissement['siege_social'].to_b
         %h2= t('.siege_social')
-        .toggle-div-wrapper
-          %button.ui.blue.tiny.button.toggle-show-button= t('show')
-          %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
-          .toggle-div
-            = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
+        = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
 
       %h2= t('.mandataires_sociaux')
-      .toggle-div-wrapper
-        %button.ui.blue.tiny.button.toggle-show-button= t('show')
-        %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
-        .toggle-div#mandataires
-          - @company.entreprise.mandataires_sociaux.each do |person|
-            = render partial: 'mandataire', locals: { person: person }
+      - @company.entreprise.mandataires_sociaux.each do |person|
+        = render partial: 'mandataire', locals: { person: person }
 
       %h2= t('.ereputation')
-      .toggle-div-wrapper
-        %button.ui.blue.tiny.button.toggle-show-button= t('show')
-        %button.ui.blue.tiny.button.toggle-hide-button= t('hide')
-        .toggle-div
-          - if @qwant_results.blank? || @qwant_results['data']['result']['items'].count.zero?
-            %p= t('.information_not_found')
-          - else
-            .ui.items
-              - @qwant_results['data']['result']['items'].each do |item|
-                .item
-                  .ui.tiny.image
-                    - if item['media'].present?
-                      = image_tag item['media'].first['pict']['url']
-                  .content
-                    = link_to item['title'].html_safe, item['url'], class: 'header'
-                    .meta
-                      %span= item['domain']
-                    .description
-                      %p= item['desc'].html_safe
+      %ul
+        :ruby
+          google_news_url = "https://www.google.fr/search?q=#{@company.name}&tbm=nws"
+          qwant_url = "https://www.qwant.com/?q=#{@company.name}&t=web"
+          google_url = "https://www.google.fr/search?q=#{@company.name}"
+        %li= link_to t('.news_search_on_google'), google_news_url, target: :_blank
+        %li= link_to t('.global_search_on_qwant'), qwant_url, target: :_blank
+        %li= link_to t('.global_search_on_google'), google_url, target: :_blank
 
   %h2= t('.diagnoses_completed', company_name: @company.name)
   - if @diagnoses.empty?

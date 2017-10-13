@@ -1,5 +1,8 @@
 %h2= t('sign_up')
 
+.ui.warning.message
+  = t('.warning_message')
+
 - form_default_values_for_resource(resource)
 
 = form_for resource, as: resource_name, url: registration_path(resource_name), html: { class: 'ui form' } do |f|

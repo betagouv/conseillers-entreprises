@@ -1,4 +1,5 @@
 import Step3APIService from './step3APIService'
+import Moment from 'moment'
 import * as types from './mutationTypes'
 
 const formCompletionError = new Error('the form is not completed')
@@ -55,7 +56,12 @@ const actions = {
 
     return dispatch('getVisitData')
       .then((data) => {
-        commit(types.VISIT_DATE, data.happened_at)
+        const dateToday = Moment().format('YYYY-MM-DD')
+        const visitDate = data.happened_at === null ? dateToday : data.happened_at
+        commit(types.VISIT_DATE, visitDate)
+        return data
+      })
+      .then((data) => {
         commit(types.CONTACT_ID, data.visitee_id)
         return data.visitee_id
       })
