@@ -7,10 +7,10 @@ describe TerritoryUserMailer do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
   describe '#weekly_statistics' do
-    subject(:mail) { described_class.weekly_statistics(user, territory_name, information_hash).deliver_now }
+    subject(:mail) { described_class.weekly_statistics(territory_user, information_hash, stats_csv).deliver_now }
 
-    let(:user) { create :user }
-    let(:territory_name) { 'Valenciennes' }
+    let(:territory_user) { create :territory_user }
+    let(:stats_csv) { CSV.generate { |line| line << %w[col_1 col_2] } }
 
     let(:information_hash) do
       diagnoses = create_list :diagnosis, 2

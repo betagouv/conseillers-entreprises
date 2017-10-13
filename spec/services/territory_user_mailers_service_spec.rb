@@ -37,7 +37,7 @@ describe TerritoryUserMailersService do
 
         it 'sends one email' do
           expect(TerritoryUserMailer).to have_received(:weekly_statistics).once.with(
-            territory1_user.user, territory.first.name, empty_information_hash
+            territory1_user, empty_information_hash, an_instance_of(String)
           )
         end
       end
@@ -75,16 +75,16 @@ describe TerritoryUserMailersService do
 
         it 'sends one email with data' do
           expect(TerritoryUserMailer).to have_received(:weekly_statistics).once.with(
-            territory1_user.user, territory.first.name, information_hash_with_data
+            territory1_user, information_hash_with_data, an_instance_of(String)
           )
         end
 
         it 'sends two emails without data' do
           expect(TerritoryUserMailer).to have_received(:weekly_statistics).once.with(
-            territory2_user1.user, territory.last.name, empty_information_hash
+            territory2_user1, empty_information_hash, an_instance_of(String)
           )
           expect(TerritoryUserMailer).to have_received(:weekly_statistics).once.with(
-            territory2_user2.user, territory.last.name, empty_information_hash
+            territory2_user2, empty_information_hash, an_instance_of(String)
           )
         end
       end
