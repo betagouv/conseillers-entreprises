@@ -3,8 +3,7 @@
     <div class="ui form">
       <div class="field required" v-bind:class="{ error: !isDateCompleted && showFormFieldErrors, disabled: isFormDisabled }">
         <label><%= I18n.t('diagnoses.step3.date') %></label>
-        <date-input v-model="visitDate"></date-input>
-
+        <date-picker v-model="visitDate"></date-picker>
       </div>
     </div>
   </div>
@@ -13,12 +12,12 @@
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
 import * as types from './store/mutationTypes'
-import dateInput from './utils/dateInput.vue.erb'
+import DatePicker from './utils/datePicker.vue'
 
 export default {
   name: 'visit-date-input',
   components: {
-    'date-input': dateInput
+    DatePicker
   },
   computed: {
     ...mapState({
@@ -34,6 +33,7 @@ export default {
         return this.storeVisitDate
       },
       set (value) {
+        console.log('date value updated: ' + value)
         this.setVisitDate(value)
       }
     }

@@ -2356,7 +2356,7 @@ eslint-plugin-standard@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-3.0.1.tgz#34d0c915b45edc6f010393c7eef3823b08565cf2"
 
-eslint-plugin-vue@^3.18.0:
+eslint-plugin-vue@^3.13.1:
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-3.13.1.tgz#875dc47a90c2e4034013b6ce1b915e5a5c6e9bf9"
   dependencies:
@@ -3479,6 +3479,10 @@ jasmine-core@^2.8.0:
 javascript-natural-sort@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/javascript-natural-sort/-/javascript-natural-sort-0.7.1.tgz#f9e2303d4507f6d74355a73664d1440fb5a0ef59"
+
+jquery@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.3.2"
@@ -5873,6 +5877,10 @@ selfsigned@^1.9.1:
   resolved "https://registry.yarnpkg.com/selfsigned/-/selfsigned-1.10.1.tgz#bf8cb7b83256c4551e31347c6311778db99eec52"
   dependencies:
     node-forge "0.6.33"
+
+semantic-ui-calendar@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/semantic-ui-calendar/-/semantic-ui-calendar-0.0.8.tgz#ae16504e4d8016cac5ba9a00ad8ccd4a430de3ef"
 
 "semver@2 || 3 || 4 || 5", semver@^5.3.0:
   version "5.4.1"
