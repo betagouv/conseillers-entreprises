@@ -34,4 +34,21 @@ RSpec.describe TerritoryUser, type: :model do
       it { is_expected.not_to be_valid }
     end
   end
+
+  describe 'scopes' do
+    describe 'of_diagnosis_location' do
+      subject { described_class.of_diagnosis_location(diagnosis) }
+
+      let(:facility) { create :facility, city_code: '59123' }
+      let(:visit) { create :visit, facility: facility }
+      let(:diagnosis) { create :diagnosis, visit: visit }
+
+      let(:territory) { create :territory }
+      let!(:territory_user) { create :territory_user, territory: territory }
+
+      before { create :territory_city, territory: territory, city_code: '59123' }
+
+      it { is_expected.to eq [territory_user] }
+    end
+  end
 end
