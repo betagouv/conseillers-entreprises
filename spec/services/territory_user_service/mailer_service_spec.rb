@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe TerritoryUserMailersService do
+describe TerritoryUserService::MailerService do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
   describe 'send_statistics_email' do
