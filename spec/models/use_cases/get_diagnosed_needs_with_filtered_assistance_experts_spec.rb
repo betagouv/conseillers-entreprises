@@ -23,9 +23,6 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
     let(:artisanry_expert) do
       create :expert, institution: artisanry_institution, expert_territories: [expert_territory1]
     end
-    let!(:assistance_expert_for_artisanry) do
-      create :assistance_expert, expert: artisanry_expert, assistance: assistance1
-    end
 
     let(:expert_territory2) { create :expert_territory, territory: territory }
     let(:commerce_institution) { create :institution, qualified_for_artisanry: false, qualified_for_commerce: true }
@@ -38,20 +35,35 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
 
     before do
       create :diagnosed_need
-      create :assistance_expert, assistance: assistance2
-      create :assistance_expert, expert: commerce_expert, assistance: assistance1
       create :territory_city, territory: territory, city_code: 75_001
     end
 
-    it 'gets the right diagnosed needs' do
-      expect(diagnosed_needs).to contain_exactly(diagnosed_need1, diagnosed_need2)
+    context 'with assistance experts' do
+      let!(:assistance_expert_for_artisanry) do
+        create :assistance_expert, expert: artisanry_expert, assistance: assistance1
+      end
+
+      before do
+        create :assistance_expert, assistance: assistance2
+        create :assistance_expert, expert: commerce_expert, assistance: assistance1
+      end
+
+      it 'gets the right diagnosed needs' do
+        expect(diagnosed_needs).to match_array [diagnosed_need1, diagnosed_need2]
+      end
+
+      it 'includes the rightly filtered assistance experts' do
+        returned_assistance_experts = diagnosed_needs.map(&:question)
+                                                     .flat_map(&:assistances)
+                                                     .flat_map(&:assistances_experts)
+        expect(returned_assistance_experts).to contain_exactly(assistance_expert_for_artisanry)
+      end
     end
 
-    it 'includes the rightly filtered assistance experts' do
-      returned_assistance_experts = diagnosed_needs.map(&:question)
-                                                   .flat_map(&:assistances)
-                                                   .flat_map(&:assistances_experts)
-      expect(returned_assistance_experts).to contain_exactly(assistance_expert_for_artisanry)
+    context 'no assistance experts' do
+      it 'displays diagnosed needs anyway' do
+        expect(diagnosed_needs).to match_array [diagnosed_need1, diagnosed_need2]
+      end
     end
   end
 end
