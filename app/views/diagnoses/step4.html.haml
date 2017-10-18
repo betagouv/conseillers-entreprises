@@ -17,7 +17,7 @@
             %tr
               %th{ colspan: 3 }= diagnosed_need.question
           %tbody
-            - assistances_experts = diagnosed_need.question.assistances.map(&:assistances_experts).flatten
+            - assistances_experts = diagnosed_need.question.assistances.flat_map(&:assistances_experts)
             - if assistances_experts.blank?
               %tr
                 %td

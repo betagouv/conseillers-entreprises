@@ -31,7 +31,7 @@ module UseCases
         {
           label: question.label,
           institutions_list: question.assistances
-                                     .map(&:experts).flatten
+                                     .flat_map(&:experts)
                                      .map(&:institution)
                                      .map(&:name)
                                      .uniq.join(', ')
