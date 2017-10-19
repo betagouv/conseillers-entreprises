@@ -40,8 +40,11 @@ fr:
       you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l'entreprise, soit indiquer son SIRET."
     step2:
       title: Identification des besoins
-      identify_needs: Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l'entreprise.
-      diagnosis_content: "Informations générales sur cette entreprise :"
+      identify_needs: |
+        Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l'entreprise.
+        Vous pouvez entrer des informations complémentaires qui seront par la suite transmises aux référents pertinents.
+      diagnosis_content_subtitle: Informations générales sur cette entreprise
+      diagnosis_content: "Entrez des informations complémentaires concernant cette entreprise :"
       diagnosed_need_content: "Entrez des informations complémentaires concernant ce besoin spécifique :"
       no_category: Besoins non désélectionnables
       no_category_detail: Ces besoins ayant été modifiés par l'équipe Réso, ils ne sont plus disponibles ni à la création ni à la suppression. Il est toujours possible de modifier les informations complémentaires.
