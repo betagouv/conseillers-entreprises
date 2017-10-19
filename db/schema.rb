@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010121049) do
+ActiveRecord::Schema.define(version: 20171019121423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,7 +131,9 @@ ActiveRecord::Schema.define(version: 20171010121049) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "access_token"
+    t.bigint "user_id"
     t.index ["institution_id"], name: "index_experts_on_institution_id"
+    t.index ["user_id"], name: "index_experts_on_user_id"
   end
 
   create_table "facilities", force: :cascade do |t|
@@ -181,8 +183,10 @@ ActiveRecord::Schema.define(version: 20171010121049) do
     t.string "assistance_title"
     t.datetime "expert_viewed_page_at"
     t.integer "status", default: 0, null: false
+    t.bigint "territory_user_id"
     t.index ["assistances_experts_id"], name: "index_selected_assistances_experts_on_assistances_experts_id"
     t.index ["diagnosed_need_id"], name: "index_selected_assistances_experts_on_diagnosed_need_id"
+    t.index ["territory_user_id"], name: "index_selected_assistances_experts_on_territory_user_id"
   end
 
   create_table "territories", force: :cascade do |t|
@@ -262,11 +266,13 @@ ActiveRecord::Schema.define(version: 20171010121049) do
   add_foreign_key "expert_territories", "experts"
   add_foreign_key "expert_territories", "territories"
   add_foreign_key "experts", "institutions"
+  add_foreign_key "experts", "users"
   add_foreign_key "facilities", "companies"
   add_foreign_key "questions", "categories"
   add_foreign_key "searches", "users"
   add_foreign_key "selected_assistances_experts", "assistances_experts", column: "assistances_experts_id"
   add_foreign_key "selected_assistances_experts", "diagnosed_needs"
+  add_foreign_key "selected_assistances_experts", "territory_users"
   add_foreign_key "territory_cities", "territories"
   add_foreign_key "territory_users", "territories"
   add_foreign_key "territory_users", "users"

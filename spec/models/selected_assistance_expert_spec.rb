@@ -11,6 +11,36 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
   end
 
+  describe 'assistance expert and territory user cannot both be set' do
+    subject(:selected_assistance_expert) do
+      build :selected_assistance_expert, assistance_expert: nil, territory_user: nil
+    end
+
+    let(:assistance_expert) { create :assistance_expert }
+    let(:territory_user) { create :territory_user }
+
+    context 'assistance expert and territory user cannot both be set' do
+      before { selected_assistance_expert.assistance_expert = assistance_expert }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'assistance expert and territory user cannot both be set' do
+      before { selected_assistance_expert.territory_user = territory_user }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'assistance expert and territory user cannot both be set' do
+      before do
+        selected_assistance_expert.assign_attributes assistance_expert: assistance_expert,
+                                                     territory_user: territory_user
+      end
+
+      it { is_expected.not_to be_valid }
+    end
+  end
+
   describe 'defaults' do
     let(:selected_assistance_expert) { create :selected_assistance_expert }
 
