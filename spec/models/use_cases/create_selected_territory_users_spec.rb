@@ -6,11 +6,12 @@ describe UseCases::CreateSelectedTerritoryUsers do
   describe 'perform' do
     let(:territory_user) { create :territory_user }
     let(:diagnosed_needs) { create_list :diagnosed_need, 1 }
+    let(:diagnosed_need_ids) { diagnosed_needs.map(&:id) }
 
     let(:assistance_expert_ids) { [assistance_expert.id] }
 
     context 'one selected diagnosed need' do
-      before { described_class.perform(territory_user, diagnosed_needs) }
+      before { described_class.perform(territory_user, diagnosed_need_ids) }
 
       it do
         expect(SelectedAssistanceExpert.all.count).to eq 1
