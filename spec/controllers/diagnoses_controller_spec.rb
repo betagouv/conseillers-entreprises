@@ -99,58 +99,28 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
-  describe 'POST #notify_experts' do
-    before do
-      allow(ExpertMailersService).to receive(:filter_assistances_experts) { assistance_expert_ids }
-      allow(UseCases::CreateSelectedAssistancesExperts).to receive(:perform)
-      allow(ExpertMailersService).to receive(:delay) { ExpertMailersService }
-      allow(ExpertMailersService).to receive(:send_assistances_email)
-
-      post :notify_experts, params: {
-        id: diagnosis.id,
-        assistances_experts: assistances_experts
+  describe 'POST #notify' do
+    let(:selected_assistances_experts) do
+      {
+        'assistances_experts' => { '12' => '1', '90' => '0' },
+        'diagnosed_needs' => { '31' => '1', '78' => '0' }
       }
     end
+
+    before do
+      allow(UseCases::SaveAndNotifyDiagnosis).to receive(:perform)
+
+      post :notify, params: { id: diagnosis.id, selected_assistances_experts: selected_assistances_experts }
+    end
+
     context 'some experts are selected' do
-      let(:assistances_experts) do
-        { '12' => '1', '21' => '0', '31' => '0', '42' => '1', '43' => '1', '72' => '1', '90' => '0' }
-      end
-
-      let(:assistance_expert_ids) { [12, 42, 43, 72] }
-
       it('redirects to step 5') { expect(response).to redirect_to step_5_diagnosis_path(diagnosis) }
 
       it('updates the diagnosis to step 5') { expect(diagnosis.reload.step).to eq 5 }
 
       it 'has called the right methods' do
-        expect(ExpertMailersService).to have_received(:filter_assistances_experts).with(assistances_experts)
-        expect(UseCases::CreateSelectedAssistancesExperts).to have_received(:perform).with(
-          diagnosis, assistance_expert_ids
-        )
-      end
-
-      it 'sends emails' do
-        expect(ExpertMailersService).to have_received(:send_assistances_email).with(
-          advisor: current_user, diagnosis: diagnosis, assistance_expert_ids: assistance_expert_ids
-        )
-      end
-    end
-
-    context 'no experts are selected' do
-      let(:assistances_experts) { nil }
-      let(:assistance_expert_ids) { [] }
-
-      it('redirects to step 5') { expect(response).to redirect_to step_5_diagnosis_path(diagnosis) }
-
-      it('updates the diagnosis to step 5') { expect(diagnosis.reload.step).to eq 5 }
-
-      it 'does not call the use case methods' do
-        expect(ExpertMailersService).not_to have_received(:filter_assistances_experts)
-        expect(UseCases::CreateSelectedAssistancesExperts).not_to have_received(:perform)
-      end
-
-      it 'does not send emails' do
-        expect(ExpertMailersService).not_to have_received(:send_assistances_email)
+        expect(UseCases::SaveAndNotifyDiagnosis).to have_received(:perform).with(diagnosis,
+                                                                                 selected_assistances_experts)
       end
     end
   end

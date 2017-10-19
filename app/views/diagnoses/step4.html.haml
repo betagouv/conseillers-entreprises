@@ -8,9 +8,9 @@
   - else
     %p= t('.explanation')
 
-    = form_for :selected_assistances_experts, url: notify_experts_diagnosis_path,
+    = form_for :selected_assistances_experts, url: notify_diagnosis_path,
                method: :post, data: { confirm: t('.form_confirmation_message') } do |f|
-      - territory_users = TerritoryUser.of_diagnosis_location @diagnosis
+      - territory_user = TerritoryUser.of_diagnosis_location(@diagnosis).first
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
           %thead
@@ -19,29 +19,28 @@
           %tbody
             - assistances_experts = diagnosed_need.question.assistances.flat_map(&:assistances_experts)
             - if assistances_experts.blank?
-              - if territory_users.empty?
+              - if territory_user.nil?
                 %tr
                   %td= t('.no_assistance')
               - else
-                = f.fields_for :territory_users do |territory_user_form|
-                  - territory_users.each do |territory_user|
-                    %tr
-                      - checkbox_id = territory_user.id.to_s.to_sym
-                      %td.checkbox-width
-                        .ui.fitted.checkbox
-                          = territory_user_form.check_box checkbox_id, checked: true
-                          %label
-                      %td.expert-width
-                        = territory_user_form.label checkbox_id, class: 'clickable' do
-                          = territory_user.user.full_name
-                          %br
-                          = territory_user.user.institution
-                      %td
-                        = territory_user_form.label checkbox_id, class: 'clickable' do
-                          .tiny.text.bold
-                            = t('.expert_scope_of_work')
-                          .small.text
-                            = "Gestionnaire du territoire #{territory_user.territory.name}."
+                = f.fields_for :diagnosed_needs do |territory_user_form|
+                  %tr
+                    - checkbox_id = diagnosed_need.id.to_s
+                    %td.checkbox-width
+                      .ui.fitted.checkbox
+                        = territory_user_form.check_box checkbox_id, checked: true
+                        %label
+                    %td.expert-width
+                      = territory_user_form.label checkbox_id, class: 'clickable' do
+                        = territory_user.user.full_name
+                        %br
+                        = territory_user.user.institution
+                    %td
+                      = territory_user_form.label checkbox_id, class: 'clickable' do
+                        .tiny.text.bold
+                          = t('.expert_scope_of_work')
+                        .small.text
+                          = "Gestionnaire du territoire #{territory_user.territory.name}."
             - else
               = f.fields_for :assistances_experts do |assistance_expert_form|
                 - assistances_experts.each do |assistance_expert|

@@ -32,9 +32,9 @@ class DiagnosesController < ApplicationController
     check_current_user_access_to(@diagnosis)
   end
 
-  def notify_experts
+  def notify
     diagnosis = fetch_and_check_diagnosis_by_id params[:id]
-    save_selection_and_notify diagnosis, params[:selected_assistances_experts]
+    UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:selected_assistances_experts]
     diagnosis.update step: Diagnosis::LAST_STEP
     redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
   end
@@ -57,31 +57,5 @@ class DiagnosesController < ApplicationController
 
   def check_availability_of_diagnosis(diagnosis)
     not_found if diagnosis.step == Diagnosis::LAST_STEP
-  end
-
-  def save_selection_and_notify(diagnosis, selected_assistances_experts)
-    return if selected_assistances_experts.blank?
-
-    assistance_expert_ids = filter_step4_params selected_assistances_experts[:assistances_experts]
-    save_assistance_experts_selection_and_notify(diagnosis, assistance_expert_ids)
-
-    territory_user_ids = filter_step4_params selected_assistances_experts[:territory_users]
-    save_territory_users_selection_and_notify(diagnosis, territory_user_ids)
-  end
-
-  def filter_step4_params(hash)
-    hash.select { |_key, value| value == '1' }.keys.map(&:to_i)
-  end
-
-  def save_assistance_experts_selection_and_notify(diagnosis, assistance_expert_ids)
-    UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
-    ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
-                                                      assistance_expert_ids: assistance_expert_ids)
-  end
-
-  def save_territory_users_selection_and_notify(diagnosis, territory_user_ids)
-    # UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, territory_user_ids)
-    # TerritoryUserMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
-    #                                                   territory_user_ids: territory_user_ids)
   end
 end

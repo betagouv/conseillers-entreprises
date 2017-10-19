@@ -30,7 +30,7 @@ module TerritoryUserService
         information_hash = TerritoryUserService::InformationHash.new
 
         created_diagnoses = territory_diagnoses.in_progress.created_last_week
-        information_hash.fill_created_diagnoses_statistics(created_diagnoses)
+        information_hash.fill_created_diagnoses_statistics created_diagnoses
 
         updated_diagnoses = territory_diagnoses.in_progress.created_before_last_week.updated_last_week
         information_hash.fill_updated_diagnoses_statistics updated_diagnoses
@@ -39,7 +39,7 @@ module TerritoryUserService
         information_hash.fill_completed_diagnoses_statistics completed_diagnoses
 
         contacted_experts_count = SelectedAssistanceExpert.of_diagnoses(completed_diagnoses).count
-        information_hash.fill_contacted_experts_count_statistics(contacted_experts_count)
+        information_hash.fill_contacted_experts_count_statistics contacted_experts_count
         information_hash
       end
     end
