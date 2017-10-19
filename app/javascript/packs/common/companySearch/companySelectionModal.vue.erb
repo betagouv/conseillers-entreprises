@@ -1,20 +1,24 @@
 <template lang="pug">
   modal(:show.sync='showModal')
     div(slot='header') <%= I18n.t('common_vuejs.company_search.modal_header_title') %>
-    table.ui.table
-      thead
-        tr
-          th <%= I18n.t('common_vuejs.company_search.company_name') %>
-          th <%= I18n.t('common_vuejs.company_search.company_location') %>
-      tbody
-        tr(
-          is="company-item",
-          v-for="(company, index) in companies",
-          v-bind:key="index",
-          v-bind:company="company",
-          v-on:close-modal="closeModal",
-          v-on:search-siren="searchSiren"
-        )
+    .ui.basic.segment
+      .ui.inverted.dimmer(:class='{ active: isRequestInProgress }')
+        .ui.indeterminate.text.loader
+          div <%= I18n.t('common_vuejs.company_search.modal_loading') %>
+      table.ui.table
+        thead
+          tr
+            th <%= I18n.t('common_vuejs.company_search.company_name') %>
+            th <%= I18n.t('common_vuejs.company_search.company_location') %>
+        tbody
+          tr(
+            is="company-item",
+            v-for="(company, index) in companies",
+            v-bind:key="index",
+            v-bind:company="company",
+            v-on:close-modal="closeModal",
+            v-on:search-siren="searchSiren"
+          )
     div(slot='actions')
       button.ui.button(v-on:click='closeModal') <%= I18n.t('close') %>
 </template>
