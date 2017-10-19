@@ -62,14 +62,14 @@ const actions = {
       })
   },
 
-  fetchCompaniesByName ({ commit, state, searchAPIServiceDependency }) {
+  fetchCompaniesByName ({ commit, state, searchAPIServiceDependency }, { name, county }) {
     let searchAPIService = searchAPIServiceDependency
     if (typeof searchAPIService === 'undefined') {
       searchAPIService = SearchAPIService
     }
 
     commit(types.REQUEST_IN_PROGRESS, true)
-    return searchAPIService.fetchCompaniesByName({ name: state.name, county: state.county })
+    return searchAPIService.fetchCompaniesByName({ name: name, county: county })
       .then((data) => {
         commit(types.COMPANIES, data.companies)
       })
@@ -98,14 +98,6 @@ const mutations = {
 
   [types.SIREN] (state, siren) {
     state.siren = siren
-  },
-
-  [types.NAME] (state, name) {
-    state.name = name
-  },
-
-  [types.COUNTY] (state, county) {
-    state.county = county
   },
 
   [types.COMPANIES] (state, companies) {

@@ -6,6 +6,7 @@ fr:
       company_name: Nom
       company_location: Localité
       company_found: Entreprise trouvée
+      modal_loading: Recherche en cours
       show_detailed_information: Voir les informations<br/>détaillées
       location: Localité
       siret_format_error_title: Numéro invalide !
