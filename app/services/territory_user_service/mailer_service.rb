@@ -16,9 +16,9 @@ module TerritoryUserService
         associations = [visit: [:advisor, facility: [:company]],
                         diagnosed_needs: %i[question selected_assistance_experts]]
         not_admin_territory_diagnoses = Diagnosis.includes(associations)
-                                          .of_user(User.not_admin)
-                                          .in_territory(user.territory)
-                                          .reverse_chronological
+                                                 .of_user(User.not_admin)
+                                                 .in_territory(user.territory)
+                                                 .reverse_chronological
 
         information_hash = generate_statistics_hash not_admin_territory_diagnoses
         stats_csv = TerritoryUserService::CSVGenerator.generate_statistics_csv(not_admin_territory_diagnoses)
