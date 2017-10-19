@@ -131,9 +131,7 @@ ActiveRecord::Schema.define(version: 20171019121423) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "access_token"
-    t.bigint "user_id"
     t.index ["institution_id"], name: "index_experts_on_institution_id"
-    t.index ["user_id"], name: "index_experts_on_user_id"
   end
 
   create_table "facilities", force: :cascade do |t|
@@ -266,7 +264,6 @@ ActiveRecord::Schema.define(version: 20171019121423) do
   add_foreign_key "expert_territories", "experts"
   add_foreign_key "expert_territories", "territories"
   add_foreign_key "experts", "institutions"
-  add_foreign_key "experts", "users"
   add_foreign_key "facilities", "companies"
   add_foreign_key "questions", "categories"
   add_foreign_key "searches", "users"
