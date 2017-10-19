@@ -1,0 +1,18 @@
+%td.text.tiny.bold{ colspan: 1 }
+  = t('.my_status')
+%td.expert-owner-status-cell{ colspan: 2 }
+  - if selected_assistance_expert.status_quo?
+    %i.icon.clock
+    = t('.waiting_for_answer')
+
+  - elsif selected_assistance_expert.status_taking_care?
+    %i.icon.checkmark
+    = t('.ongoing')
+
+  - elsif selected_assistance_expert.status_done?
+    %i.icon.checkmark
+    = t('.done')
+
+  - elsif selected_assistance_expert.status_not_for_me?
+    %i.icon.remove
+    = t('.not_for_me')

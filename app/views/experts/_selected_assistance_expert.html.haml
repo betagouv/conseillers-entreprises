@@ -12,12 +12,15 @@
   %br
   #{t('activerecord.models.assistance.one')} : #{selected_assistance_expert.assistance_title}
 %td.expert-status-cell
-  - if selected_assistance_expert.status_taking_care?
+  - if selected_assistance_expert.status_quo?
+    %i.icon.clock
+    = t('.waiting_for_answer')
+  - elsif selected_assistance_expert.status_taking_care?
     %i.icon.checkmark
-    = expert_is_current_user ? t('.i_take_care') : t('.he_takes_care')
+    = t('.he_takes_care')
   - elsif selected_assistance_expert.status_done?
     %i.icon.checkmark
     = t('.done')
   - elsif selected_assistance_expert.status_not_for_me?
     %i.icon.remove
-    = expert_is_current_user ? t('.not_for_me') : t('.not_for_him')
+    = t('.not_for_him')

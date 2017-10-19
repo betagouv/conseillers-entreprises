@@ -2,8 +2,15 @@ fr:
   experts:
     diagnosis:
       title: Récapitulatif
+      introduction_html: |
+        L'entreprise ci-dessous a exprimé des besoins qui correspondent à votre compétence. Pour prendre en charge ces
+        besoins, vous pouvez recontacter l'entreprise ou le conseiller en utilisant les informations de contact
+        disponibles ci-dessous.<br>
+        N'oubliez pas d'indiquer votre prise en charge des besoins pour que le conseiller et autres référents puissent
+        être mis au courant de votre avancée.
       company_contact_subtitle: Contact rencontré au sein de l'entreprise
       advisor_contact_subtitle: Conseiller ayant effectué l'analyse des besoins de l'entreprise
+      my_needs_summary_subtitle: Demandes me concernant
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
       diagnosed_needs_content_label: "Les informations complémentaires concernant ce besoin :"
@@ -18,13 +25,19 @@ fr:
         one: 1 mise en relation
         other: "%{count} mises en relation"
     selected_assistance_expert:
+      waiting_for_answer: "En attente d'une réponse du référent"
       he_takes_care: S'en charge
-      i_take_care: Je m'en charge !
       not_for_him: Ce n'est pas pour lui
+      done: Besoin résolu
+    selected_assistance_expert_for_need_owner:
+      my_status: "Mon statut sur ce besoin :"
+      waiting_for_answer: En attente de votre réponse
+      ongoing: En cours de résolution
       not_for_me: Ce n'est pas pour moi
       done: Besoin résolu
     expert_buttons:
       i_take_care: Je m'en charge !
+      ongoing: En cours de résolution
       dont_take_care_any_more: Ne plus s'en charger
       not_for_me: Ce n'est pas pour moi
       done: Besoin résolu
