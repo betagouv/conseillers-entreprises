@@ -10,7 +10,6 @@
 
     = form_for :selected_assistances_experts, url: notify_experts_diagnosis_path,
                method: :post, data: { confirm: t('.form_confirmation_message') } do |f|
-      - there_are_assistances_experts = false
       - territory_users = TerritoryUser.of_diagnosis_location @diagnosis
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
@@ -24,52 +23,50 @@
                 %tr
                   %td= t('.no_assistance')
               - else
-                - territory_users.each do |territory_user|
+                = f.fields_for :territory_users do |territory_user_form|
+                  - territory_users.each do |territory_user|
+                    %tr
+                      - checkbox_id = territory_user.id.to_s.to_sym
+                      %td.checkbox-width
+                        .ui.fitted.checkbox
+                          = territory_user_form.check_box checkbox_id, checked: true
+                          %label
+                      %td.expert-width
+                        = territory_user_form.label checkbox_id, class: 'clickable' do
+                          = territory_user.user.full_name
+                          %br
+                          = territory_user.user.institution
+                      %td
+                        = territory_user_form.label checkbox_id, class: 'clickable' do
+                          .tiny.text.bold
+                            = t('.expert_scope_of_work')
+                          .small.text
+                            = "Gestionnaire du territoire #{territory_user.territory.name}."
+            - else
+              = f.fields_for :assistances_experts do |assistance_expert_form|
+                - assistances_experts.each do |assistance_expert|
                   %tr
-                    - checkbox_id = "territory-user-#{territory_user.id}".to_sym
+                    - checkbox_id = assistance_expert.id.to_s.to_sym
                     %td.checkbox-width
                       .ui.fitted.checkbox
-                        = f.check_box checkbox_id, checked: true
+                        = assistance_expert_form.check_box checkbox_id, checked: true
                         %label
                     %td.expert-width
-                      = f.label checkbox_id, class: 'clickable' do
-                        = territory_user.user.full_name
+                      = assistance_expert_form.label checkbox_id, class: 'clickable' do
+                        = assistance_expert.expert.full_name
                         %br
-                        = territory_user.user.institution
+                        = assistance_expert.expert.institution
                     %td
-                      = f.label checkbox_id, class: 'clickable' do
+                      = assistance_expert_form.label checkbox_id, class: 'clickable' do
                         .tiny.text.bold
                           = t('.expert_scope_of_work')
                         .small.text
-                          = "Gestionnaire du territoire #{territory_user.territory.name}."
-            - else
-              - there_are_assistances_experts ||= true
-              - assistances_experts.each do |assistance_expert|
-                %tr
-                  - checkbox_id = "assistance-expert-#{assistance_expert.id}".to_sym
-                  %td.checkbox-width
-                    .ui.fitted.checkbox
-                      = f.check_box checkbox_id, checked: true
-                      %label
-                  %td.expert-width
-                    = f.label checkbox_id, class: 'clickable' do
-                      = assistance_expert.expert.full_name
-                      %br
-                      = assistance_expert.expert.institution
-                  %td
-                    = f.label checkbox_id, class: 'clickable' do
-                      .tiny.text.bold
-                        = t('.expert_scope_of_work')
-                      .small.text
-                        = assistance_expert.assistance.title
+                          = assistance_expert.assistance.title
 
-      - notify_button_enabled = @diagnosis.visit.visitee.present? && there_are_assistances_experts
-
-      - if notify_button_enabled
+      - if @diagnosis.visit.visitee.present?
         .ui.info.message
           = t('.before_sending_emails_text_html')
-
-      - unless @diagnosis.visit.visitee
+      - else
         .ui.error.message
           %p= t('.add_contact_to_notify')
 
@@ -80,7 +77,7 @@
             %i.arrow.left.icon
 
         .ui.right.aligned.column.no-right-padding.no-margin
-          %button.ui.teal.button.no-margin#next-step-button{ class: ('disabled' unless notify_button_enabled) }
+          %button.ui.teal.button.no-margin#next-step-button{ class: ('disabled' unless @diagnosis.visit.visitee.present?) }
             = t('.notify_selected_experts')
 
       .clear
