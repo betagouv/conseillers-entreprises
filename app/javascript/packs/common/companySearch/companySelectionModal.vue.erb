@@ -45,12 +45,17 @@ export default {
     },
     closeModal: function () {
       this.$emit('update:show', false)
+      this.clearCompaniesSearchResults()
     },
     clearError: function () {
       this.setErrorType('')
     },
+    clearCompaniesSearchResults: function() {
+      this.setCompanies([])
+    },
     ...mapMutations({
-      setErrorType: types.FORM_ERROR_TYPE
+      setErrorType: types.FORM_ERROR_TYPE,
+      setCompanies: types.COMPANIES
     })
   },
   computed: {

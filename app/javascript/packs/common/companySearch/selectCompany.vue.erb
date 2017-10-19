@@ -60,11 +60,6 @@ export default {
       this.clearError()
       this.$store.dispatch('fetchCompanyBySiret', { siret }).catch(ErrorService.report)
     },
-    searchSiren: function (siren) {
-      this.clearError()
-      this.closeModal()
-      this.$store.dispatch('fetchCompanyBySiren', { siren }).catch(ErrorService.report)
-    },
     searchName: function (name, county) {
       this.clearError()
       this.$store.dispatch('fetchCompaniesByName', { name, county }).catch(ErrorService.report)
@@ -72,7 +67,6 @@ export default {
     },
     manageError: function (error) {
       this.setErrorType(error)
-      this.clearSiret()
     },
     clearError: function () {
       this.setErrorType('')
