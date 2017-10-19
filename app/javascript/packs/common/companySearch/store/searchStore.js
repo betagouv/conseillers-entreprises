@@ -7,28 +7,25 @@ const state = {
   formErrorType: '',
   companyData: {},
   siret: '',
-  siren: '',
-  name: '',
-  county: '',
   companies: []
 }
 
 const getters = {}
 
 const actions = {
-  fetchCompanyBySiret ({ commit, state, searchAPIServiceDependency }) {
+  fetchCompanyBySiret ({ commit, state, searchAPIServiceDependency }, { siret }) {
     let searchAPIService = searchAPIServiceDependency
     if (typeof searchAPIService === 'undefined') {
       searchAPIService = SearchAPIService
     }
 
     commit(types.REQUEST_IN_PROGRESS, true)
-    return searchAPIService.fetchCompanyBySiret(state.siret)
+    return searchAPIService.fetchCompanyBySiret(siret)
       .then((data) => {
         commit(types.COMPANY_DATA, {
           name: data.company_name,
           location: data.facility_location,
-          siret: state.siret
+          siret: siret
         })
       })
       .catch(() => {
@@ -39,14 +36,14 @@ const actions = {
       })
   },
 
-  fetchCompanyBySiren ({ commit, state, searchAPIServiceDependency }) {
+  fetchCompanyBySiren ({ commit, state, searchAPIServiceDependency }, { siren }) {
     let searchAPIService = searchAPIServiceDependency
     if (typeof searchAPIService === 'undefined') {
       searchAPIService = SearchAPIService
     }
 
     commit(types.REQUEST_IN_PROGRESS, true)
-    return searchAPIService.fetchCompanyBySiren(state.siren)
+    return searchAPIService.fetchCompanyBySiren(siren)
       .then((data) => {
         commit(types.COMPANY_DATA, {
           name: data.company_name,
@@ -90,14 +87,6 @@ const mutations = {
   [types.FORM_ERROR_TYPE] (state, formErrorType) {
     state.formErrorType = formErrorType
     state.companyData = {}
-  },
-
-  [types.SIRET] (state, siret) {
-    state.siret = siret
-  },
-
-  [types.SIREN] (state, siren) {
-    state.siren = siren
   },
 
   [types.COMPANIES] (state, companies) {

@@ -39,10 +39,9 @@ export default {
   props: ['show'],
   methods: {
     searchSiren: function (siren) {
-      this.setSiren(siren)
       this.clearError()
       this.closeModal()
-      this.$store.dispatch('fetchCompanyBySiren').catch(ErrorService.report)
+      this.$store.dispatch('fetchCompanyBySiren', { siren }).catch(ErrorService.report)
     },
     closeModal: function () {
       this.$emit('update:show', false)
@@ -51,7 +50,6 @@ export default {
       this.setErrorType('')
     },
     ...mapMutations({
-      setSiren: types.SIREN,
       setErrorType: types.FORM_ERROR_TYPE
     })
   },
