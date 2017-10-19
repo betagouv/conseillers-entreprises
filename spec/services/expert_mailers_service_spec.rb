@@ -27,15 +27,39 @@ describe ExpertMailersService do
   end
 
   describe 'filter_assistances_experts' do
-    subject(:filter_assistances_experts) do
-      described_class.filter_assistances_experts(assistances_experts_hash)
-    end
+    subject { described_class.filter_assistances_experts(assistances_experts_hash) }
 
     let(:assistances_experts_hash) do
-      { '12' => '1', '42' => '1', '43' => '1', '72' => '1', '21' => '0', '31' => '0', '90' => '0' }
+      {
+        'assistance-expert-12' => '1',
+        'territory-user-42' => '1',
+        'assistance-expert-43' => '1',
+        'territory-user-72' => '1',
+        'assistance-expert-21' => '0',
+        'assistance-expert-31' => '0',
+        'territory-user-90' => '0'
+      }
     end
 
-    it { is_expected.to match_array [12, 42, 43, 72] }
+    it { is_expected.to match_array [12, 43] }
+  end
+
+  describe 'filter_territory_users' do
+    subject { described_class.filter_territory_users(assistances_experts_hash) }
+
+    let(:assistances_experts_hash) do
+      {
+        'assistance-expert-12' => '1',
+        'territory-user-42' => '1',
+        'assistance-expert-43' => '1',
+        'territory-user-72' => '1',
+        'assistance-expert-21' => '0',
+        'assistance-expert-31' => '0',
+        'territory-user-90' => '0'
+      }
+    end
+
+    it { is_expected.to match_array [42, 72] }
   end
 
   describe 'retrieve_assistances_experts' do

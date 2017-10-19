@@ -13,16 +13,16 @@ class DiagnosesController < ApplicationController
   def step1; end
 
   def step2
-    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
+    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
     @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
   end
 
   def step3
-    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
+    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
   end
 
   def step4
-    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
+    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
   end
 
@@ -33,8 +33,8 @@ class DiagnosesController < ApplicationController
   end
 
   def notify_experts
-    diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
-    create_selected_ae_and_send_emails(diagnosis, params[:assistances_experts]) if params[:assistances_experts].present?
+    diagnosis = fetch_and_check_diagnosis_by_id params[:id]
+    save_selection_and_notify diagnosis, params[:selected_assistances_experts]
     diagnosis.update step: Diagnosis::LAST_STEP
     redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
   end
@@ -59,8 +59,24 @@ class DiagnosesController < ApplicationController
     not_found if diagnosis.step == Diagnosis::LAST_STEP
   end
 
-  def create_selected_ae_and_send_emails(diagnosis, assistances_experts)
-    assistance_expert_ids = ExpertMailersService.filter_assistances_experts(assistances_experts)
+  def save_selection_and_notify(diagnosis, selected_assistances_experts)
+    return if selected_assistances_experts.blank?
+
+    assistance_expert_ids = ExpertMailersService.filter_assistances_experts(selected_assistances_experts)
+    save_assistance_experts_selection_and_notify_experts(diagnosis, assistance_expert_ids)
+
+    territory_user_ids = ExpertMailersService.filter_territory_users(selected_assistances_experts)
+    save_territory_users_selection_and_notify_territory_users(diagnosis, territory_user_ids)
+  end
+
+  def save_assistance_experts_selection_and_notify_experts(diagnosis, assistance_expert_ids)
+    UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
+    ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
+                                                      assistance_expert_ids: assistance_expert_ids)
+  end
+
+  def save_territory_users_selection_and_notify_territory_users(diagnosis, territory_user_ids)
+    assistance_expert_ids = ExpertMailersService.filter_assistances_experts(territory_user_ids)
     UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
     ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
                                                       assistance_expert_ids: assistance_expert_ids)

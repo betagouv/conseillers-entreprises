@@ -10,8 +10,16 @@ class ExpertMailersService
       questions_grouped_by_experts.each { |expert_hash| notify_expert(expert_hash, advisor, diagnosis) }
     end
 
-    def filter_assistances_experts(assistances_experts_hash)
-      assistances_experts_hash.select { |_key, value| value == '1' }.keys.map(&:to_i)
+    def filter_assistances_experts(selected_assistances_experts_hash)
+      selected_assistances_experts_hash.select { |key, value| key.start_with?('assistance-expert-') && value == '1' }
+                                       .keys
+                                       .map { |string| string[18..-1].to_i }
+    end
+
+    def filter_territory_users(selected_assistances_experts_hash)
+      selected_assistances_experts_hash.select { |key, value| key.start_with?('territory-user-') && value == '1' }
+                                       .keys
+                                       .map { |string| string[15..-1].to_i }
     end
 
     private
