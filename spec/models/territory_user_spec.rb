@@ -36,6 +36,33 @@ RSpec.describe TerritoryUser, type: :model do
   end
 
   describe 'scopes' do
+    describe 'of_user' do
+      subject { described_class.of_user user }
+
+      let(:user) { build :user }
+
+      context 'no territory user' do
+        it { is_expected.to eq [] }
+      end
+
+      context 'only one territory user' do
+        it do
+          territory_user = create :territory_user, user: user
+
+          is_expected.to eq [territory_user]
+        end
+      end
+
+      context 'two territory users' do
+        it do
+          territory_user1 = create :territory_user, user: user
+          territory_user2 = create :territory_user, user: user
+
+          is_expected.to match_array [territory_user1, territory_user2]
+        end
+      end
+    end
+
     describe 'of_diagnosis_location' do
       subject { described_class.of_diagnosis_location(diagnosis) }
 

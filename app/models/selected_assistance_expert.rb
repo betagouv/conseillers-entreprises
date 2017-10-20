@@ -7,6 +7,7 @@ class SelectedAssistanceExpertValidator < ActiveModel::Validator
   end
 end
 
+# TODO: Rename for ContactedExpert
 class SelectedAssistanceExpert < ApplicationRecord
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
 
@@ -19,6 +20,7 @@ class SelectedAssistanceExpert < ApplicationRecord
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
   scope :of_expert, (->(expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })
+  scope :of_territory_user, (->(territory_user) { where(territory_user: territory_user) })
   scope :of_diagnoses, (lambda do |diagnoses|
     joins(diagnosed_need: :diagnosis).where(diagnosed_needs: { diagnosis: diagnoses })
   end)

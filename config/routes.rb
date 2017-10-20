@@ -47,6 +47,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :territory_users, only: %i[] do
+    collection do
+      get 'diagnoses/:diagnosis_id' => 'territory_users#diagnosis', as: :diagnosis
+    end
+  end
+
   namespace :api do
     resources :companies, only: %i[] do
       post :search_by_name, on: :collection

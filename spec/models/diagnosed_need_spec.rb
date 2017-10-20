@@ -31,6 +31,40 @@ RSpec.describe DiagnosedNeed, type: :model do
       it { is_expected.to eq [diagnosed_need] }
     end
 
+    describe 'of_expert' do
+      subject { DiagnosedNeed.of_expert expert }
+
+      let(:expert) { create :expert }
+      let(:assistance_expert) { create :assistance_expert, expert: expert }
+      let(:diagnosed_need) { create :diagnosed_need }
+
+      before do
+        create :selected_assistance_expert, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
+        create :assistance_expert
+        create :selected_assistance_expert
+      end
+
+      it { is_expected.to eq [diagnosed_need] }
+    end
+
+    describe 'of_territory_user' do
+      subject { DiagnosedNeed.of_territory_user territory_user }
+
+      let(:territory_user) { create :territory_user }
+      let(:diagnosed_need) { create :diagnosed_need }
+
+      before do
+        create :selected_assistance_expert,
+               assistance_expert: nil,
+               territory_user: territory_user,
+               diagnosed_need: diagnosed_need
+        create :territory_user
+        create :selected_assistance_expert
+      end
+
+      it { is_expected.to eq [diagnosed_need] }
+    end
+
     describe 'with_at_least_one_expert_done' do
       subject { DiagnosedNeed.with_at_least_one_expert_done }
 

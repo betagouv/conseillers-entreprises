@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe SelectedAssistanceExpert, type: :model do
   describe 'validations' do
     it do
@@ -73,6 +74,22 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
 
       before do
         create :assistance_expert
+        create :selected_assistance_expert
+      end
+
+      it { is_expected.to eq [selected_assistance_expert] }
+    end
+
+    describe 'of_territory_user' do
+      subject { SelectedAssistanceExpert.of_territory_user territory_user }
+
+      let(:territory_user) { create :territory_user }
+      let(:selected_assistance_expert) do
+        create :selected_assistance_expert, assistance_expert: nil, territory_user: territory_user
+      end
+
+      before do
+        create :territory_user
         create :selected_assistance_expert
       end
 
@@ -175,3 +192,4 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
