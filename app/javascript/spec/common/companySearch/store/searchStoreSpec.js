@@ -39,7 +39,7 @@ describe('SearchStore', () => {
         facility_location: '59350 Lille'
       })
       const searchObject = {
-        siret:'siret number'
+        siret: 'siret number'
       }
 
       beforeEach(function () {
@@ -53,7 +53,7 @@ describe('SearchStore', () => {
       })
 
       it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
-        actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters) , searchObject)
+        actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(0)).toEqual([
           'REQUEST_IN_PROGRESS',
@@ -94,7 +94,7 @@ describe('SearchStore', () => {
         siret: '12345678901234'
       })
       const searchObject = {
-        siren:'siren number'
+        siren: 'siren number'
       }
 
       beforeEach(function () {
