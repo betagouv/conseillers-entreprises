@@ -27,7 +27,7 @@ class Diagnosis < ApplicationRecord
   end)
 
   def creation_date_localized
-    I18n.l(created_at.to_date)
+    I18n.l created_at.to_date
   end
 
   def can_be_viewed_by?(user)
