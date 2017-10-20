@@ -1,11 +1,13 @@
 <template lang="pug">
   modal(:show.sync='showModal')
     div(slot='header') <%= I18n.t('common_vuejs.company_search.modal_header_title') %>
-    .ui.basic.segment
-      .ui.inverted.dimmer(:class='{ active: isRequestInProgress }')
-        .ui.indeterminate.text.loader
-          div <%= I18n.t('common_vuejs.company_search.modal_loading') %>
-      table.ui.table
+    template(v-if='isRequestInProgress')
+      .ui.basic.segment.padded
+        .ui.inverted.dimmer(:class='{ active: isRequestInProgress }')
+          .ui.indeterminate.medium.text.loader
+            div <%= I18n.t('common_vuejs.company_search.modal_loading') %>
+    template(v-else='')
+      table.ui.table(:class='{ hidden: isRequestInProgress }')
         thead
           tr
             th <%= I18n.t('common_vuejs.company_search.company_name') %>
@@ -44,8 +46,7 @@ export default {
       this.$store.dispatch('fetchCompanyBySiren', { siren }).catch(ErrorService.report)
     },
     closeModal: function () {
-      this.$emit('update:show', false)
-      this.clearCompaniesSearchResults()
+      this.showModal = false
     },
     clearError: function () {
       this.setErrorType('')
@@ -69,8 +70,18 @@ export default {
       },
       set (value) {
         this.$emit('update:show', value)
+        if(!value) {
+          this.clearCompaniesSearchResults()
+        }
       }
     }
   }
 }
 </script>
+
+
+<style lang="sass">
+  .ui.basic.segment.padded
+    margin: 2em 0
+</style>
+
