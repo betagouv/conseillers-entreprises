@@ -6,6 +6,11 @@ fr:
       company_name: Nom
       company_location: Localité
       company_found: Entreprise trouvée
+      no_company_found_title: Aucun résultat trouvé
+      no_company_found_text_html: >
+        Nous n'avons trouvé aucune entreprise correspondant à la raison sociale et au département que vous avez indiqués.<br />
+        Le siège de l'entreprise se trouve peut-être dans un autre département ?
+      modal_loading: Recherche en cours
       show_detailed_information: Voir les informations<br/>détaillées
       location: Localité
       siret_format_error_title: Numéro invalide !
