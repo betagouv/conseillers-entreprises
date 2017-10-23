@@ -3,6 +3,13 @@
 FactoryGirl.define do
   factory :selected_assistance_expert do
     association :diagnosed_need
-    association :assistance_expert
+
+    trait :with_assistance_expert do
+      association :assistance_expert
+    end
+
+    trait :with_territory_user do
+      association :territory_user
+    end
   end
 end

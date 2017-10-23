@@ -13,9 +13,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
   end
 
   describe 'assistance expert and territory user cannot both be set' do
-    subject(:selected_assistance_expert) do
-      build :selected_assistance_expert, assistance_expert: nil, territory_user: nil
-    end
+    subject(:selected_assistance_expert) { build :selected_assistance_expert }
 
     let(:assistance_expert) { create :assistance_expert }
     let(:territory_user) { create :territory_user }
@@ -43,7 +41,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
   end
 
   describe 'defaults' do
-    let(:selected_assistance_expert) { create :selected_assistance_expert }
+    let(:selected_assistance_expert) { create :selected_assistance_expert, :with_assistance_expert }
 
     context 'creation' do
       it { expect(selected_assistance_expert.status).not_to be_nil }
@@ -74,7 +72,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
 
       before do
         create :assistance_expert
-        create :selected_assistance_expert
+        create :selected_assistance_expert, :with_assistance_expert
       end
 
       it { is_expected.to eq [selected_assistance_expert] }
@@ -85,12 +83,12 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
 
       let(:territory_user) { create :territory_user }
       let(:selected_assistance_expert) do
-        create :selected_assistance_expert, assistance_expert: nil, territory_user: territory_user
+        create :selected_assistance_expert, territory_user: territory_user
       end
 
       before do
         create :territory_user
-        create :selected_assistance_expert
+        create :selected_assistance_expert, :with_territory_user
       end
 
       it { is_expected.to eq [selected_assistance_expert] }
@@ -101,11 +99,13 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
 
       let(:diagnosis) { create :diagnosis }
       let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
-      let(:selected_assistance_expert) { create :selected_assistance_expert, diagnosed_need: diagnosed_need }
+      let(:selected_assistance_expert) do
+        create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need
+      end
 
       before do
         create :diagnosed_need, diagnosis: diagnosis
-        create :selected_assistance_expert
+        create :selected_assistance_expert, :with_assistance_expert
       end
 
       it { is_expected.to eq [selected_assistance_expert] }

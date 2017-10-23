@@ -53,7 +53,7 @@ RSpec.describe ExpertsController, type: :controller do
     let(:expert) { create :expert }
 
     let(:selected_assistance_expert_id) { selected_assistance_expert.id }
-    let(:selected_assistance_expert) { create :selected_assistance_expert }
+    let(:selected_assistance_expert) { create :selected_assistance_expert, :with_assistance_expert }
 
     context 'access token is empty' do
       let(:access_token) { nil }

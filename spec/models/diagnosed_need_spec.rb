@@ -55,7 +55,6 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       before do
         create :selected_assistance_expert,
-               assistance_expert: nil,
                territory_user: territory_user,
                diagnosed_need: diagnosed_need
         create :territory_user
@@ -73,15 +72,17 @@ RSpec.describe DiagnosedNeed, type: :model do
       before { create :diagnosed_need }
 
       context 'no expert done' do
-        before { create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :quo }
+        before do
+          create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :quo
+        end
 
         it { is_expected.to eq [] }
       end
 
       context 'two experts done for the same need' do
         before do
-          create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :done
-          create :selected_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+          create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+          create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
         end
 
         it { is_expected.to eq [diagnosed_need] }
