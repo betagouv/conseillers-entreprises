@@ -7,7 +7,7 @@
           .ui.indeterminate.medium.text.loader
             div <%= I18n.t('common_vuejs.company_search.modal_loading') %>
     template(v-else-if='companies.length == 0')
-      .ui.message
+      .ui.warning.message
         .header <%= I18n.t('common_vuejs.company_search.no_company_found_title') %>
         p <%= I18n.t('common_vuejs.company_search.no_company_found_text_html') %>
     template(v-else='')

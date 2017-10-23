@@ -8,8 +8,8 @@ fr:
       company_found: Entreprise trouvée
       no_company_found_title: Aucun résultat trouvé
       no_company_found_text_html: >
-        La recherche n'a trouvée aucune entreprise correspondant au nom et au département que vous avez indiqués.<br>
-        Le siege de l'entreprise est peut être installé dans un autre département ?
+        Nous n'avons trouvé aucune entreprise correspondant à la raison sociale et au département que vous avez indiqués.<br />
+        Le siège de l'entreprise se trouve peut-être dans un autre département ?
       modal_loading: Recherche en cours
       show_detailed_information: Voir les informations<br/>détaillées
       location: Localité
