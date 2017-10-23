@@ -12,7 +12,8 @@ module Api
       check_current_user_access_to visit
       UseCases::UpdateVisit.validate_happened_at update_params[:happened_at]
       visit.update update_params
-    rescue StandardError
+    rescue StandardError => error
+      send_error_notifications(error)
       render body: nil, status: :bad_request
     end
 

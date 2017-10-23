@@ -45,10 +45,16 @@ RSpec.describe Api::VisitsController, type: :controller do
     context 'when parameters are wrong' do
       let(:date_string) { 'Not an iso date string' }
 
-      before { request }
+      before do
+        allow(controller).to receive(:send_error_notifications)
+        request
+      end
 
       it('returns http bad request') { expect(response).to have_http_status(:bad_request) }
       it('does not update the visits date') { expect(visit.reload.happened_at).to be_nil }
+      it('sends an error notification') do
+        expect(controller).to have_received(:send_error_notifications)
+      end
     end
   end
 end
