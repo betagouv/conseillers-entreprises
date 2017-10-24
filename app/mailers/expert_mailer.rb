@@ -4,12 +4,12 @@ class ExpertMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/expert_mailer'
 
-  def notify_company_needs(expert, params)
-    @access_token = expert.access_token
+  def notify_company_needs(person, params)
+    @access_token = person.access_token if person.is_a? Expert
     @params = params
 
     mail(
-      to: "#{expert.full_name} <#{expert.email}>",
+      to: "#{person.full_name} <#{person.email}>",
       cc: "#{params[:advisor].full_name} <#{params[:advisor].email}>",
       subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: params[:company_name])
     )

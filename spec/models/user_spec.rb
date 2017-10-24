@@ -3,6 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  describe 'associations' do
+    it do
+      is_expected.to have_many :territory_users
+      is_expected.to have_many :territories
+    end
+  end
+
   describe 'validations' do
     describe 'presence' do
       it do
@@ -30,12 +37,25 @@ RSpec.describe User, type: :model do
   end
 
   describe 'scopes' do
-    describe 'for_contact_page' do
+    describe 'with_contact_page_order' do
       it do
         create :user, contact_page_order: nil
         user_of_contact_page = create :user, contact_page_order: 1
 
-        expect(User.for_contact_page).to eq [user_of_contact_page]
+        expect(User.with_contact_page_order).to eq [user_of_contact_page]
+      end
+    end
+
+    describe 'administrator_of_territory' do
+      it do
+        user1 = create :user
+        create :territory_user, user: user1
+        create :territory_user, user: user1
+        user2 = create :user
+        create :territory_user, user: user2
+        create :user
+
+        expect(User.administrators_of_territory).to match_array [user1, user2]
       end
     end
 

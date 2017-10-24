@@ -16,4 +16,20 @@ RSpec.describe Territory, type: :model do
 
     it { expect(territory.to_s).to include 'Calaisis' }
   end
+
+  describe 'city_codes' do
+    subject { territory.city_codes }
+
+    let(:territory) { create :territory }
+
+    context 'with territory cities' do
+      before { create :territory_city, territory: territory, city_code: 59_001 }
+
+      it { is_expected.to eq %w[59001] }
+    end
+
+    context 'without territory city' do
+      it { is_expected.to eq [] }
+    end
+  end
 end

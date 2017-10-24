@@ -8,9 +8,8 @@
   - else
     %p= t('.explanation')
 
-    = form_for :assistances_experts, url: notify_experts_diagnosis_path,
-               method: :post, data: { confirm: t('.form_confirmation_message') } do |f|
-      - there_are_assistances_experts = false
+    = form_for :selected_assistances_experts, url: notify_diagnosis_path, method: :post,
+               html: { id: 'step4-form' }, data: { confirm: '' } do |f|
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
           %thead
@@ -18,37 +17,54 @@
               %th{ colspan: 3 }= diagnosed_need.question
           %tbody
             - assistances_experts = diagnosed_need.question.assistances.flat_map(&:assistances_experts)
-            - if assistances_experts.blank?
-              %tr
-                %td
-                  = t('.no_assistance')
-            - else
-              - there_are_assistances_experts ||= true
-              - assistances_experts.each do |assistance_expert|
+            - if assistances_experts.present?
+              = f.fields_for :assistances_experts do |assistance_expert_form|
+                - assistances_experts.each do |assistance_expert|
+                  %tr
+                    - checkbox_id = assistance_expert.id.to_s.to_sym
+                    %td.checkbox-width
+                      .ui.fitted.checkbox
+                        = assistance_expert_form.check_box checkbox_id, checked: true
+                        %label
+                    %td.expert-width
+                      = assistance_expert_form.label checkbox_id, class: 'clickable' do
+                        = assistance_expert.expert.full_name
+                        %br
+                        = assistance_expert.expert.institution
+                    %td
+                      = assistance_expert_form.label checkbox_id, class: 'clickable' do
+                        .tiny.text.bold
+                          = t('.expert_scope_of_work')
+                        .small.text
+                          = assistance_expert.assistance.title
+            - elsif @territory_users_full_names.present?
+              = f.fields_for :diagnosed_needs do |territory_user_form|
                 %tr
+                  %td{ colspan: 3 }
+                    .ui.warning.message
+                      = t('.no_assistance')
+                      = t('.you_can_contact_territory_users')
+                %tr
+                  - checkbox_id = diagnosed_need.id.to_s
                   %td.checkbox-width
                     .ui.fitted.checkbox
-                      = f.check_box :"#{assistance_expert.id}", checked: true
+                      = territory_user_form.check_box checkbox_id, checked: true
                       %label
                   %td.expert-width
-                    = f.label :"#{assistance_expert.id}", class: 'clickable' do
-                      = assistance_expert.expert.full_name
-                      %br
-                      = assistance_expert.expert.institution
+                    = territory_user_form.label checkbox_id, class: 'clickable' do
+                      = @territory_users_full_names.join(', ')
                   %td
-                    = f.label :"#{assistance_expert.id}", class: 'clickable' do
-                      .tiny.text.bold
-                        = t('.expert_scope_of_work')
+                    = territory_user_form.label checkbox_id, class: 'clickable' do
                       .small.text
-                        = assistance_expert.assistance.title
+                        = t('.territory_users_role', count: @territory_users_full_names.count)
+            - else
+              %tr
+                %td= t('.no_assistance')
 
-      - notify_button_enabled = @diagnosis.visit.visitee.present? && there_are_assistances_experts
-
-      - if notify_button_enabled
+      - if @diagnosis.visit.visitee.present?
         .ui.info.message
           = t('.before_sending_emails_text_html')
-
-      - unless @diagnosis.visit.visitee
+      - else
         .ui.error.message
           %p= t('.add_contact_to_notify')
 
@@ -59,7 +75,7 @@
             %i.arrow.left.icon
 
         .ui.right.aligned.column.no-right-padding.no-margin
-          %button.ui.teal.button.no-margin#next-step-button{ class: ('disabled' unless notify_button_enabled) }
+          %button.ui.teal.button.no-margin#next-step-button{ class: ('disabled' unless @diagnosis.visit.visitee.present?) }
             = t('.notify_selected_experts')
 
       .clear

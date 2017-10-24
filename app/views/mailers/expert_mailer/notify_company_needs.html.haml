@@ -34,8 +34,13 @@
 - else
   %p= t('.company_contact_without_phone_number', company_contact_params)
 
-- more_info_url = diagnosis_experts_url(diagnosis_id: @params[:diagnosis_id], access_token: @access_token)
-- more_info_link = link_to t('.by_clicking_here'), more_info_url
+:ruby
+  if @access_token
+    more_info_url = diagnosis_experts_url(diagnosis_id: @params[:diagnosis_id], access_token: @access_token)
+  else
+    more_info_url = diagnosis_territory_users_url(diagnosis_id: @params[:diagnosis_id])
+  end
+  more_info_link = link_to t('.by_clicking_here'), more_info_url
 %p= t('.information_are_available_on_app_html', more_info_link: more_info_link)
 
 - contact_advisor_params = { advisor_name: @params[:advisor].full_name,

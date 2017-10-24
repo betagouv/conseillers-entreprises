@@ -1,27 +1,28 @@
 %td.expert-owner-button-cell{ colspan: 3 }
   :ruby
-    default_url_params = { selected_assistance_expert_id: selected_assistance_expert.id,
+    default_url_params = { action: 'update_status',
+                           selected_assistance_expert_id: selected_assistance_expert.id,
                            access_token: params[:access_token] }
-    status_quo_url = update_status_experts_path(default_url_params.merge(status: :quo))
-    url = update_status_experts_path(default_url_params.merge(status: :taking_care))
-    done_url = update_status_experts_path(default_url_params.merge(status: :done))
-    not_for_me_url = update_status_experts_path(default_url_params.merge(status: :not_for_me))
+    status_quo_link_params = default_url_params.merge(status: :quo)
+    taking_care_link_params = default_url_params.merge(status: :taking_care)
+    done_link_params = default_url_params.merge(status: :done)
+    not_for_me_link_params = default_url_params.merge(status: :not_for_me)
 
   - if selected_assistance_expert.status_quo?
-    = link_to t('.i_take_care'), url, remote: true, method: :patch, class: 'ui button green tiny'
-    = link_to t('.not_for_me'), not_for_me_url, remote: true, method: :patch, class: 'ui button red tiny'
+    = link_to t('.i_take_care'), taking_care_link_params, remote: true, method: :patch, class: 'ui button green tiny'
+    = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button red tiny'
 
   - elsif selected_assistance_expert.status_taking_care?
-    = link_to t('.dont_take_care_any_more'), status_quo_url, remote: true, method: :patch, class: 'ui button basic tiny'
-    = link_to t('.done'), done_url, remote: true, method: :patch, class: 'ui button green tiny'
-    = link_to t('.not_for_me'), not_for_me_url, remote: true, method: :patch, class: 'ui button red tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
+    = link_to t('.done'), done_link_params, remote: true, method: :patch, class: 'ui button green tiny'
+    = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button red tiny'
 
   - elsif selected_assistance_expert.status_done?
-    = link_to t('.dont_take_care_any_more'), status_quo_url, remote: true, method: :patch, class: 'ui button basic tiny'
-    = link_to t('.ongoing'), url, remote: true, method: :patch, class: 'ui button basic tiny'
-    = link_to t('.not_for_me'), not_for_me_url, remote: true, method: :patch, class: 'ui button basic red tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
+    = link_to t('.ongoing'), taking_care_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
+    = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button basic red tiny'
 
   - elsif selected_assistance_expert.status_not_for_me?
-    = link_to t('.dont_take_care_any_more'), status_quo_url, remote: true, method: :patch, class: 'ui button basic tiny'
-    = link_to t('.ongoing'), url, remote: true, method: :patch, class: 'ui button basic tiny'
-    = link_to t('.done'), done_url, remote: true, method: :patch, class: 'ui button basic green tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
+    = link_to t('.ongoing'), taking_care_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
+    = link_to t('.done'), done_link_params, remote: true, method: :patch, class: 'ui button basic green tiny'

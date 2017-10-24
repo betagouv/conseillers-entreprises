@@ -23,19 +23,26 @@ describe ExpertMailersService do
 
     before { create :diagnosed_need, question: question, diagnosis: diagnosis }
 
-    it { expect { send_assistances_email }.to change { ActionMailer::Base.deliveries.count }.by(2) }
+    it { expect { send_assistances_email }.to change { ActionMailer::Base.deliveries.count }.by 2 }
   end
 
-  describe 'filter_assistances_experts' do
-    subject(:filter_assistances_experts) do
-      described_class.filter_assistances_experts(assistances_experts_hash)
+  describe 'send_territory_user_assistances_email' do
+    subject(:send_territory_user_assistances_email) do
+      described_class.send_territory_user_assistances_email(
+        territory_user: territory_user,
+        diagnosed_need_ids: diagnosed_needs.map(&:id),
+        advisor: advisor,
+        diagnosis: diagnosis
+      )
     end
 
-    let(:assistances_experts_hash) do
-      { '12' => '1', '42' => '1', '43' => '1', '72' => '1', '21' => '0', '31' => '0', '90' => '0' }
-    end
+    let(:advisor) { create :user }
+    let(:territory_user) { create :territory_user }
+    let(:visit) { create :visit, :with_visitee }
+    let(:diagnosis) { create :diagnosis, visit: visit }
+    let(:diagnosed_needs) { create_list :diagnosed_need, 2 }
 
-    it { is_expected.to match_array [12, 42, 43, 72] }
+    it { expect { send_territory_user_assistances_email }.to change { ActionMailer::Base.deliveries.count }.by 1 }
   end
 
   describe 'retrieve_assistances_experts' do

@@ -6,9 +6,14 @@ RSpec.describe 'experts/diagnosis.html.haml', type: :view do
   let(:visit) { create :visit, :with_visitee }
   let(:diagnosis) { create :diagnosis, visit: visit }
   let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
-  let!(:selected_assistance_expert) { create :selected_assistance_expert, diagnosed_need: diagnosed_need }
+  let!(:selected_assistance_expert) do
+    create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need
+  end
 
-  before { assign :diagnosis, diagnosis }
+  before do
+    assign :diagnosis, diagnosis
+    assign :current_user_diagnosed_needs, [diagnosed_need]
+  end
 
   context 'experts still exists' do
     it do

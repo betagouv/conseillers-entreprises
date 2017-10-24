@@ -29,7 +29,7 @@ Rails.application.routes.draw do
       get 'step-3' => 'diagnoses#step3'
       get 'step-4' => 'diagnoses#step4'
       get 'step-5' => 'diagnoses#step5'
-      post :notify_experts
+      post :notify
     end
   end
 
@@ -43,6 +43,13 @@ Rails.application.routes.draw do
   resources :experts, only: %i[] do
     collection do
       get 'diagnoses/:diagnosis_id' => 'experts#diagnosis', as: :diagnosis
+      patch :update_status
+    end
+  end
+
+  resources :territory_users, only: %i[] do
+    collection do
+      get 'diagnoses/:diagnosis_id' => 'territory_users#diagnosis', as: :diagnosis
       patch :update_status
     end
   end

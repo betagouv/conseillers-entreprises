@@ -50,7 +50,7 @@
         - else
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
             %tr.small.text.ui.tiny.table
-              - locals = { selected_assistance_expert: selected_assistance_expert, expert_is_current_user: false }
+              - locals = { selected_assistance_expert: selected_assistance_expert }
               = render partial: 'experts/selected_assistance_expert', locals: locals
 
   - if @diagnosis.content
