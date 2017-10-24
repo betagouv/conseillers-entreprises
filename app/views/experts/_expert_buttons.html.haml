@@ -7,25 +7,23 @@
     taking_care_link_params = default_url_params.merge(status: :taking_care)
     done_link_params = default_url_params.merge(status: :done)
     not_for_me_link_params = default_url_params.merge(status: :not_for_me)
+    data = { remote: true, method: :patch }
 
   - if selected_assistance_expert.status_quo?
-    = link_to t('.i_take_care'), taking_care_link_params, remote: true, method: :patch, class: 'ui button green tiny'
-    = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button red tiny'
+    = link_to t('.i_take_care'), taking_care_link_params, data: data, class: expert_button_classes(%w[green])
+    = link_to t('.not_for_me'), not_for_me_link_params, data: data, class: expert_button_classes(%w[red])
 
   - elsif selected_assistance_expert.status_taking_care?
-    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch,
-    class: 'ui button basic tiny'
-    = link_to t('.done'), done_link_params, remote: true, method: :patch, class: 'ui button green tiny'
-    = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button red tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, data: data, class: expert_button_classes(%w[basic])
+    = link_to t('.done'), done_link_params, data: data, class: expert_button_classes(%w[green])
+    = link_to t('.not_for_me'), not_for_me_link_params, data: data, class: expert_button_classes(%w[red])
 
   - elsif selected_assistance_expert.status_done?
-    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch,
-    class: 'ui button basic tiny'
-    = link_to t('.ongoing'), taking_care_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
-    = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button basic red tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, data: data, class: expert_button_classes(%w[basic])
+    = link_to t('.ongoing'), taking_care_link_params, data: data, class: expert_button_classes(%w[basic])
+    = link_to t('.not_for_me'), not_for_me_link_params, data: data, class: expert_button_classes(%w[basic red])
 
   - elsif selected_assistance_expert.status_not_for_me?
-    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch,
-    class: 'ui button basic tiny'
-    = link_to t('.ongoing'), taking_care_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
-    = link_to t('.done'), done_link_params, remote: true, method: :patch, class: 'ui button basic green tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, data: data, class: expert_button_classes(%w[basic])
+    = link_to t('.ongoing'), taking_care_link_params, data: data, class: expert_button_classes(%w[basic])
+    = link_to t('.done'), done_link_params, data: data, class: expert_button_classes(%w[basic green])
