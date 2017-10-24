@@ -63,6 +63,8 @@ GEM
       activesupport (>= 3.0.0)
     arel (8.0.0)
     ast (2.3.0)
+    audited (4.5.0)
+      activerecord (>= 4.0, < 5.2)
     awesome_print (1.8.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
@@ -427,6 +429,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  audited (~> 4.5)
   awesome_print
   browser
   byebug

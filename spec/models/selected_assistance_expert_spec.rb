@@ -12,6 +12,32 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
   end
 
+  describe 'audited' do
+    context 'create' do
+      it { expect { create :selected_assistance_expert }.to change(Audited::Audit, :count).by 1 }
+    end
+
+    context 'update status' do
+      let!(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      it { expect { selected_assistance_expert.update status: :done }.to change(Audited::Audit, :count).by 1 }
+    end
+
+    context 'update other thing' do
+      let!(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      it do
+        expect { selected_assistance_expert.update assistance_title: 'UPDATE !!' }.not_to change Audited::Audit, :count
+      end
+    end
+
+    context 'destroy' do
+      let!(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      it { expect { selected_assistance_expert.destroy }.to change(Audited::Audit, :count).by 1 }
+    end
+  end
+
   describe 'assistance expert and territory user cannot both be set' do
     subject(:selected_assistance_expert) { build :selected_assistance_expert }
 
