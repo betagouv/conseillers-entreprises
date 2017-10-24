@@ -11,6 +11,14 @@ class TerritoryUsersController < ApplicationController
     render 'experts/diagnosis'
   end
 
+  def update_status
+    territory_user = TerritoryUser.of_user(current_user)
+    @selected_assistance_expert = SelectedAssistanceExpert.of_territory_user(territory_user)
+                                                          .find params[:selected_assistance_expert_id]
+    @selected_assistance_expert.update status: params[:status]
+    render 'experts/update_status'
+  end
+
   private
 
   def check_territory_user_access

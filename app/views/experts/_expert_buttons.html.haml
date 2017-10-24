@@ -1,11 +1,12 @@
 %td.expert-owner-button-cell{ colspan: 3 }
   :ruby
-    default_url_params = { selected_assistance_expert_id: selected_assistance_expert.id,
+    default_url_params = { action: 'update_status',
+                           selected_assistance_expert_id: selected_assistance_expert.id,
                            access_token: params[:access_token] }
-    status_quo_url = update_status_experts_path(default_url_params.merge(status: :quo))
-    url = update_status_experts_path(default_url_params.merge(status: :taking_care))
-    done_url = update_status_experts_path(default_url_params.merge(status: :done))
-    not_for_me_url = update_status_experts_path(default_url_params.merge(status: :not_for_me))
+    status_quo_url = default_url_params.merge(status: :quo)
+    url = default_url_params.merge(status: :taking_care)
+    done_url = default_url_params.merge(status: :done)
+    not_for_me_url = default_url_params.merge(status: :not_for_me)
 
   - if selected_assistance_expert.status_quo?
     = link_to t('.i_take_care'), url, remote: true, method: :patch, class: 'ui button green tiny'
