@@ -1,8 +1,11 @@
 import SearchStore from '../../../../packs/common/companySearch/store/searchStore'
 
-// for the async function to work
+// Needed for the async function
 require('babel-core/register')
-// TODO : WHY IS babel-polyfill needed. And why does it go to other files...
+
+// Babel is required here once, but is used for all following tests. (This test is the first to be run.)
+// If removed, it fails. If added in another test file, it fails.
+// TODO: Move in another file? Remove from here?
 require('babel-polyfill')
 
 describe('SearchStore', () => {
