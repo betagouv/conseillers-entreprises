@@ -8,8 +8,8 @@
   - else
     %p= t('.explanation')
 
-    = form_for :selected_assistances_experts, url: notify_diagnosis_path,
-               method: :post, data: { confirm: t('.form_confirmation_message') } do |f|
+    = form_for :selected_assistances_experts, url: notify_diagnosis_path, method: :post,
+               html: { id: 'step4-form' }, data: { confirm: '' } do |f|
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
           %thead
@@ -76,6 +76,6 @@
 
         .ui.right.aligned.column.no-right-padding.no-margin
           %button.ui.teal.button.no-margin#next-step-button{ class: ('disabled' unless @diagnosis.visit.visitee.present?) }
-            = t('.notify_selected_experts') # TODO: Disable if nothing is checked
+            = t('.notify_selected_experts') # TODO
 
       .clear
