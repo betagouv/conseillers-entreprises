@@ -75,7 +75,9 @@
             %i.arrow.left.icon
 
         .ui.right.aligned.column.no-right-padding.no-margin
-          %button.ui.teal.button.no-margin#next-step-button{ class: ('disabled' unless @diagnosis.visit.visitee.present?) }
+          - button_classes = []
+          - button_classes << 'disabled' unless @diagnosis.visit.visitee.present?
+          %button.ui.teal.button.no-margin#next-step-button{ class: button_classes }
             = t('.notify_selected_experts')
 
       .clear

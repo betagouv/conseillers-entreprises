@@ -8,7 +8,7 @@
   .ui.two.column.grid
     - @territory_administrators.each do |user|
       .column
-        .ui.fluid.card.territory-administrators-card{class: random_color}
+        .ui.fluid.card.territory-administrators-card{ class: random_color }
           .content
             .header= user.full_name
             .meta
@@ -29,7 +29,7 @@
   .ui.two.column.grid
     - @product_team.each do |user|
       .column
-        .ui.fluid.card.product-team-card{class: random_color}
+        .ui.fluid.card.product-team-card{ class: random_color }
           .content
             .header= user.full_name
             .description

@@ -13,16 +13,19 @@
     = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button red tiny'
 
   - elsif selected_assistance_expert.status_taking_care?
-    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch,
+    class: 'ui button basic tiny'
     = link_to t('.done'), done_link_params, remote: true, method: :patch, class: 'ui button green tiny'
     = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button red tiny'
 
   - elsif selected_assistance_expert.status_done?
-    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch,
+    class: 'ui button basic tiny'
     = link_to t('.ongoing'), taking_care_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
     = link_to t('.not_for_me'), not_for_me_link_params, remote: true, method: :patch, class: 'ui button basic red tiny'
 
   - elsif selected_assistance_expert.status_not_for_me?
-    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
+    = link_to t('.dont_take_care_any_more'), status_quo_link_params, remote: true, method: :patch,
+    class: 'ui button basic tiny'
     = link_to t('.ongoing'), taking_care_link_params, remote: true, method: :patch, class: 'ui button basic tiny'
     = link_to t('.done'), done_link_params, remote: true, method: :patch, class: 'ui button basic green tiny'

@@ -38,7 +38,7 @@ RSpec.describe Api::VisitsController, type: :controller do
 
       it('returns http success') { expect(response).to have_http_status(:success) }
       it 'updates the visits date' do
-        expect(visit.reload.happened_at).to eq DateTime.iso8601(date_string)
+        expect(visit.reload.happened_at).to eq DateTime.iso8601(date_string, Date::GREGORIAN)
       end
     end
 

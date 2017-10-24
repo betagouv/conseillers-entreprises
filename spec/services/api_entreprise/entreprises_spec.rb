@@ -6,7 +6,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   let(:company) { described_class.new(token).fetch(siren) }
 
   let(:httprb_request_headers) do
-    { 'Connection' => 'close', 'Host' => 'api.apientreprise.fr', 'User-Agent' => 'http.rb/2.2.2' }
+    { 'Connection' => 'close', 'Host' => 'api.apientreprise.fr', 'User-Agent' => 'http.rb/3.0.0' }
   end
 
   before { Rails.cache.clear }
@@ -40,7 +40,7 @@ RSpec.describe ApiEntreprise::Entreprises do
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
-        status: 500, headers: {}, body: nil
+        status: 500, headers: {}, body: '{}'
       )
     end
 
