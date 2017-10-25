@@ -3,8 +3,8 @@
 class UserNotificationMailerService
   class << self
     def send_yesterday_modification_notifications
-      # TODO: Don't forget to eager load
-      user_selected_assistance_experts_hash = SelectedAssistanceExpert.updated_yesterday
+      associations = [diagnosed_need: [diagnosis: [visit: [:advisor, facility: [:company]]]]]
+      user_selected_assistance_experts_hash = SelectedAssistanceExpert.includes(associations).updated_yesterday
                                                                       .group_by do |selected_assistance_expert|
         selected_assistance_expert.diagnosed_need.diagnosis.visit.advisor
       end
