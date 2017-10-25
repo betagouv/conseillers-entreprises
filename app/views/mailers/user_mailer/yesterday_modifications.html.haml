@@ -11,7 +11,7 @@
           expert_institution: yesterday_modification[:expert_institution],
           question_title: yesterday_modification[:question_title],
           company_name: yesterday_modification[:company_name],
-          start_date: yesterday_modification[:start_date])
+          start_date: I18n.l(yesterday_modification[:start_date]))
       %b
         = t(text_key_for_step(yesterday_modification[:old_status],
                               yesterday_modification[:current_status]))

@@ -23,7 +23,7 @@ describe UserNotificationMailerService do
             expert_institution: selected_assistance_expert2.expert_institution_name,
             question_title: selected_assistance_expert2.diagnosed_need.question_label,
             company_name: selected_assistance_expert2.diagnosed_need.diagnosis.visit.facility.company.name_short,
-            start_date: selected_assistance_expert2.created_at,
+            start_date: selected_assistance_expert2.created_at.beginning_of_minute,
             old_status: 'quo',
             current_status: 'done'
           }
@@ -59,7 +59,7 @@ describe UserNotificationMailerService do
             expert_institution: selected_assistance_expert2.expert_institution_name,
             question_title: selected_assistance_expert2.diagnosed_need.question_label,
             company_name: selected_assistance_expert2.diagnosed_need.diagnosis.visit.facility.company.name_short,
-            start_date: selected_assistance_expert2.created_at,
+            start_date: selected_assistance_expert2.created_at.beginning_of_minute,
             old_status: 'quo',
             current_status: 'done'
           },
@@ -68,7 +68,7 @@ describe UserNotificationMailerService do
             expert_institution: selected_assistance_expert3.expert_institution_name,
             question_title: selected_assistance_expert2.diagnosed_need.question_label,
             company_name: selected_assistance_expert2.diagnosed_need.diagnosis.visit.facility.company.name_short,
-            start_date: selected_assistance_expert3.created_at,
+            start_date: selected_assistance_expert3.created_at.beginning_of_minute,
             old_status: 'quo',
             current_status: 'done'
           }

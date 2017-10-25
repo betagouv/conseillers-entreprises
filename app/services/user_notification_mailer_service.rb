@@ -41,7 +41,7 @@ class UserNotificationMailerService
       modification_hash[:company_name] = selected_assistance_expert.diagnosed_need
                                                                    .diagnosis.visit
                                                                    .facility.company.name_short
-      modification_hash[:start_date] = selected_assistance_expert.created_at
+      modification_hash[:start_date] = selected_assistance_expert.created_at.beginning_of_minute
       modification_hash
     end
 
