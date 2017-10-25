@@ -70,5 +70,21 @@ describe UseCases::SaveAndNotifyDiagnosis do
         expect(ExpertMailersService).not_to have_received(:send_territory_user_assistances_email)
       end
     end
+
+    context 'empty hash' do
+      let(:selected_assistances_experts) { {} }
+
+      before { save_and_notify }
+
+      it 'does not call the use case methods' do
+        expect(UseCases::CreateSelectedAssistancesExperts).not_to have_received(:perform)
+        expect(UseCases::CreateSelectedTerritoryUsers).not_to have_received(:perform)
+      end
+
+      it 'does not send emails' do
+        expect(ExpertMailersService).not_to have_received(:send_assistances_email)
+        expect(ExpertMailersService).not_to have_received(:send_territory_user_assistances_email)
+      end
+    end
   end
 end
