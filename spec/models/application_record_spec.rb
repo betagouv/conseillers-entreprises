@@ -30,5 +30,14 @@ RSpec.describe ApplicationRecord, type: :model do
         expect(User.updated_last_week).to eq [new_record]
       end
     end
+
+    describe 'updated_yesterday' do
+      it do
+        new_record = create :user
+        create :user, updated_at: 2.days.ago
+
+        expect(User.updated_yesterday).to eq [new_record]
+      end
+    end
   end
 end

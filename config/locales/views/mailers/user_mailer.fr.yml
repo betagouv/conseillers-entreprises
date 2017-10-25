@@ -21,7 +21,7 @@ fr:
         subject: "[Réso] Hier sur Réso"
         hello: Bonjour,
         yesterday: 'Hier sur Réso les demandes suivantes ont évolué :'
-        context: "%{expert_name}, %{expert_job} %{expert_institution}, contacté•e pour le besoin %{question_title} de l'entreprise %{company_name} le %{start_date},"
+        context: "%{expert_name}, %{expert_institution}, contacté•e pour le besoin %{question_title} de l'entreprise %{company_name} le %{start_date},"
         waiting_for_answer: n'a pas pris de decision sur le besoin.
         taking_care: a pris en charge la résolution du besoin.
         not_finished: a indiqué que le besoin est toujours en cours de résolution.
