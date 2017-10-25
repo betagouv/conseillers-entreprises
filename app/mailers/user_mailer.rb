@@ -18,9 +18,9 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: t('mailers.user_mailer.account_approved.subject'))
   end
 
-  def yesterday_modifications(user, yesterday_modifications)
+  def daily_change_update(user, change_updates)
     @user = user
-    @yesterday_modifications = yesterday_modifications
-    mail(to: @user.email, subject: t('mailers.user_mailer.yesterday_modifications.subject'))
+    @change_updates = change_updates
+    mail(to: @user.email, subject: t('mailers.user_mailer.daily_change_update.subject'))
   end
 end

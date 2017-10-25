@@ -23,7 +23,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       it { expect { selected_assistance_expert.update status: :done }.to change(Audited::Audit, :count).by 1 }
     end
 
-    context 'update other thing' do
+    context 'update attribute other than status' do
       let!(:selected_assistance_expert) { create :selected_assistance_expert }
 
       it do

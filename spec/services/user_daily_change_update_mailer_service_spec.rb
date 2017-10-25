@@ -2,15 +2,15 @@
 
 require 'rails_helper'
 
-describe UserNotificationMailerService do
+describe UserDailyChangeUpdateMailerService do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
-  describe 'send_yesterday_modification_notifications' do
-    subject(:send_user_notifications) { described_class.send_yesterday_modification_notifications }
+  describe 'send_daily_change_updates' do
+    subject(:send_daily_change) { described_class.send_daily_change_updates }
 
     before do
       allow(UserMailer).to receive(:delay) { UserMailer }
-      allow(UserMailer).to receive(:yesterday_modifications)
+      allow(UserMailer).to receive(:daily_change_update)
     end
 
     context 'one selected assistance modified during the last 24h' do
@@ -31,17 +31,17 @@ describe UserNotificationMailerService do
       end
 
       before do
-        selected_assistance_expert1.update status: 'done', updated_at: Date.today - 2.days
-        Audited::Audit.last.update created_at: Date.today - 2.days
+        selected_assistance_expert1.update status: 'done', updated_at: 2.days.ago
+        Audited::Audit.last.update created_at: 2.days.ago
 
         selected_assistance_expert2.update status: 'done'
 
-        send_user_notifications
+        send_daily_change
       end
 
       it 'sends only one email' do
         user = selected_assistance_expert2.diagnosed_need.diagnosis.visit.advisor
-        expect(UserMailer).to have_received(:yesterday_modifications).once.with(user, expected_array)
+        expect(UserMailer).to have_received(:daily_change_update).once.with(user, expected_array)
       end
     end
 
@@ -76,18 +76,18 @@ describe UserNotificationMailerService do
       end
 
       before do
-        selected_assistance_expert1.update status: 'done', updated_at: Date.today - 2.days
-        Audited::Audit.last.update created_at: Date.today - 2.days
+        selected_assistance_expert1.update status: 'done', updated_at: 2.days.ago
+        Audited::Audit.last.update created_at: 2.days.ago
 
         selected_assistance_expert2.update status: 'done'
         selected_assistance_expert3.update status: 'done'
 
-        send_user_notifications
+        send_daily_change
       end
 
       it 'sends only one email' do
         user = selected_assistance_expert2.diagnosed_need.diagnosis.visit.advisor
-        expect(UserMailer).to have_received(:yesterday_modifications).once.with(user, expected_array)
+        expect(UserMailer).to have_received(:daily_change_update).once.with(user, expected_array)
       end
     end
 
@@ -95,16 +95,16 @@ describe UserNotificationMailerService do
       let(:selected_assistance_expert) { create :selected_assistance_expert }
 
       before do
-        selected_assistance_expert.update status: 'done', updated_at: Date.today - 2.days
-        Audited::Audit.last.update created_at: Date.today - 2.days
+        selected_assistance_expert.update status: 'done', updated_at: 2.days.ago
+        Audited::Audit.last.update created_at: 2.days.ago
         selected_assistance_expert.update status: 'quo'
         selected_assistance_expert.update status: 'done'
 
-        send_user_notifications
+        send_daily_change
       end
 
       it 'sends no email' do
-        expect(UserMailer).not_to have_received(:yesterday_modifications)
+        expect(UserMailer).not_to have_received(:daily_change_update)
       end
     end
   end
