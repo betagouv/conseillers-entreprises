@@ -9,6 +9,8 @@ end
 
 # TODO: Rename for ContactedExpert
 class SelectedAssistanceExpert < ApplicationRecord
+  audited only: :status
+
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
 
   belongs_to :diagnosed_need
