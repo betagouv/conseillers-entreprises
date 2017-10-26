@@ -12,9 +12,7 @@
           question_title: change_update[:question_title],
           company_name: change_update[:company_name],
           start_date: I18n.l(change_update[:start_date]))
-      %b
-        = t(text_key_for_status(change_update[:old_status],
-                                change_update[:current_status]))
+      %b= t('.status.' + text_key_for_status(change_update[:old_status], change_update[:current_status]))
 
 %br
 %p= t('.nice_day')

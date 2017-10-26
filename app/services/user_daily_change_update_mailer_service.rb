@@ -44,7 +44,7 @@ class UserDailyChangeUpdateMailerService
     end
 
     def fill_status_information(change_hash, selected_assistance_expert)
-      change_hash[:old_status] = selected_assistance_expert.revision_at(Date.yesterday)&.status || 'quo'
+      change_hash[:old_status] = selected_assistance_expert.revision_at(1.day.ago)&.status || 'quo'
       change_hash[:current_status] = selected_assistance_expert.status
       change_hash
     end

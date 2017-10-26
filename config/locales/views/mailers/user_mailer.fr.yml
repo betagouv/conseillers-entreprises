@@ -22,10 +22,11 @@ fr:
         hello: Bonjour,
         yesterday: 'Hier sur Réso les demandes suivantes ont évolué :'
         context: "%{expert_name}, %{expert_institution}, contacté•e pour le besoin %{question_title} de l'entreprise %{company_name} le %{start_date},"
-        waiting_for_answer: n'a pas pris de décision sur le besoin.
-        taking_care: a pris en charge la résolution du besoin.
-        not_finished: a indiqué que le besoin est toujours en cours de résolution.
-        done: a indiqué que le besoin a été résolu.
-        not_for_me: a indiqué que le besoin est hors de son champ de compétence.
+        status:
+          waiting_for_answer: n'a pas pris de décision sur le besoin.
+          taking_care: a pris en charge la résolution du besoin.
+          not_finished: a indiqué que le besoin est toujours en cours de résolution.
+          done: a indiqué que le besoin a été résolu.
+          not_for_me: a indiqué que le besoin est hors de son champ de compétence.
         nice_day: Bonne journée,
         reso_team_html: L'équipe %{link_to_root}.
