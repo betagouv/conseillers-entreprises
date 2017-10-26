@@ -31,8 +31,11 @@ module TerritoryUserService
           I18n.t('activerecord.models.company.one'),
           I18n.t('activerecord.attributes.visit.happened_at'),
           I18n.t('activerecord.attributes.visit.advisor'),
+          I18n.t('activerecord.attributes.user.institution'),
           I18n.t('activerecord.models.question.one'),
+          I18n.t('activerecord.attributes.diagnosed_need.content'),
           I18n.t('activerecord.models.expert.one'),
+          I18n.t('activerecord.attributes.expert.institution'),
           I18n.t('activerecord.attributes.selected_assistance_expert.status')
         ]
       end
@@ -42,8 +45,11 @@ module TerritoryUserService
           diagnosis.visit.company_name,
           diagnosis.visit.happened_at,
           diagnosis.visit.advisor.full_name,
-          diagnosed_need.question,
+          diagnosis.visit.advisor.institution,
+          diagnosed_need.question_label,
+          diagnosed_need.content,
           selected_assistance_expert.expert_full_name,
+          selected_assistance_expert.expert_institution_name,
           I18n.t("activerecord.attributes.selected_assistance_expert.statuses.#{selected_assistance_expert.status}")
         ]
         csv_line
