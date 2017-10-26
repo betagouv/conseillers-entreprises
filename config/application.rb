@@ -8,7 +8,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module EConseils
+module Reso
   class Application < Rails::Application
     config.time_zone = 'Paris'
 
