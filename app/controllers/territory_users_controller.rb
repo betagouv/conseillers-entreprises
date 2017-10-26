@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class TerritoryUsersController < ApplicationController
+  def diagnoses
+    @territory_user = TerritoryUser.of_user(current_user)
+    @diagnoses = Diagnosis.joins(:diagnosed_needs).merge(DiagnosedNeed.of_territory_user(@territory_user))
+  end
+
   def diagnosis
     associations = [visit: [:visitee, :advisor, facility: [:company]],
                     diagnosed_needs: [selected_assistance_experts: [assistance_expert: :expert]]]

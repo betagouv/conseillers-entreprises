@@ -5,6 +5,22 @@ require 'rails_helper'
 RSpec.describe TerritoryUsersController, type: :controller do
   login_user
 
+  describe 'GET #diagnoses' do
+    let(:diagnosis) { create :diagnosis }
+
+    before { get :diagnoses }
+
+    context 'current user is not territory user' do
+      it { expect(response).to have_http_status(:success) }
+    end
+
+    context 'current user is a territory user' do
+      before { create :territory_user, user: current_user }
+
+      it { expect(response).to have_http_status(:success) }
+    end
+  end
+
   describe 'GET #diagnosis' do
     subject(:request) { get :diagnosis, params: { diagnosis_id: diagnosis.id } }
 
