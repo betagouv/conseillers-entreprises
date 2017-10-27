@@ -79,6 +79,7 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
       end
 
       before do
+        allow(controller).to receive(:send_error_notifications)
         post :bulk, format: :json, params: { diagnosis_id: diagnosis.id, bulk_params: bulk_params }
       end
 
@@ -91,6 +92,10 @@ RSpec.describe Api::DiagnosedNeedsController, type: :controller do
         expect(DiagnosedNeed.where(id: diagnosed_need2.id)).to exist
         expect(DiagnosedNeed.where(id: diagnosed_need3.id)).to exist
         expect(diagnosed_need1.reload.content).to eq 'Not random content'
+      end
+
+      it('sends an error notification') do
+        expect(controller).to have_received(:send_error_notifications)
       end
     end
   end

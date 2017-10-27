@@ -61,6 +61,7 @@ RSpec.describe Api::DiagnosesController, type: :controller do
 
     context 'when update fails' do
       before do
+        allow(controller).to receive(:send_error_notifications)
         allow(UseCases::UpdateDiagnosis).to receive(:clean_update_params).and_raise(StandardError)
         request
       end
@@ -68,6 +69,9 @@ RSpec.describe Api::DiagnosesController, type: :controller do
       it('returns http bad request') { expect(response).to have_http_status(:bad_request) }
       it('does not update the diagnosis s content') { expect(diagnosis.reload.content).to eq(content) }
       it('does not update the diagnosis s step') { expect(diagnosis.reload.step).to eq(1) }
+      it('sends an error notification') do
+        expect(controller).to have_received(:send_error_notifications)
+      end
     end
   end
 end

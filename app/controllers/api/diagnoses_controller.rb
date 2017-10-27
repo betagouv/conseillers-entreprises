@@ -22,7 +22,8 @@ module Api
       @diagnosis = Diagnosis.find params[:id]
       check_current_user_access_to(@diagnosis)
       @diagnosis.update UseCases::UpdateDiagnosis.clean_update_params update_params, current_step: @diagnosis.step
-    rescue StandardError
+    rescue StandardError => error
+      send_error_notifications(error)
       render body: nil, status: :bad_request
     end
 

@@ -1,15 +1,28 @@
 # frozen_string_literal: true
 
+class SelectedAssistanceExpertValidator < ActiveModel::Validator
+  def validate(selected_assistance_expert)
+    return nil unless selected_assistance_expert.assistance_expert && selected_assistance_expert.territory_user
+    selected_assistance_expert.errors.add(:assistance_expert, :can_not_be_set_with_territory_user)
+  end
+end
+
+# TODO: Rename for ContactedExpert
 class SelectedAssistanceExpert < ApplicationRecord
+  audited only: :status
+
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
 
   belongs_to :diagnosed_need
   belongs_to :assistance_expert, foreign_key: :assistances_experts_id
+  belongs_to :territory_user
 
   validates :diagnosed_need, presence: true
+  validates_with SelectedAssistanceExpertValidator
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
   scope :of_expert, (->(expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })
+  scope :of_territory_user, (->(territory_user) { where(territory_user: territory_user) })
   scope :of_diagnoses, (lambda do |diagnoses|
     joins(diagnosed_need: :diagnosis).where(diagnosed_needs: { diagnosis: diagnoses })
   end)

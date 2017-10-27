@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe SelectedAssistanceExpert, type: :model do
   describe 'validations' do
     it do
@@ -11,8 +12,62 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
   end
 
+  describe 'audited' do
+    context 'create' do
+      it { expect { create :selected_assistance_expert }.to change(Audited::Audit, :count).by 1 }
+    end
+
+    context 'update status' do
+      let!(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      it { expect { selected_assistance_expert.update status: :done }.to change(Audited::Audit, :count).by 1 }
+    end
+
+    context 'update attribute other than status' do
+      let!(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      it do
+        expect { selected_assistance_expert.update assistance_title: 'UPDATE !!' }.not_to change Audited::Audit, :count
+      end
+    end
+
+    context 'destroy' do
+      let!(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      it { expect { selected_assistance_expert.destroy }.to change(Audited::Audit, :count).by 1 }
+    end
+  end
+
+  describe 'assistance expert and territory user cannot both be set' do
+    subject(:selected_assistance_expert) { build :selected_assistance_expert }
+
+    let(:assistance_expert) { create :assistance_expert }
+    let(:territory_user) { create :territory_user }
+
+    context 'assistance expert and territory user cannot both be set' do
+      before { selected_assistance_expert.assistance_expert = assistance_expert }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'assistance expert and territory user cannot both be set' do
+      before { selected_assistance_expert.territory_user = territory_user }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'assistance expert and territory user cannot both be set' do
+      before do
+        selected_assistance_expert.assign_attributes assistance_expert: assistance_expert,
+                                                     territory_user: territory_user
+      end
+
+      it { is_expected.not_to be_valid }
+    end
+  end
+
   describe 'defaults' do
-    let(:selected_assistance_expert) { create :selected_assistance_expert }
+    let(:selected_assistance_expert) { create :selected_assistance_expert, :with_assistance_expert }
 
     context 'creation' do
       it { expect(selected_assistance_expert.status).not_to be_nil }
@@ -43,7 +98,23 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
 
       before do
         create :assistance_expert
-        create :selected_assistance_expert
+        create :selected_assistance_expert, :with_assistance_expert
+      end
+
+      it { is_expected.to eq [selected_assistance_expert] }
+    end
+
+    describe 'of_territory_user' do
+      subject { SelectedAssistanceExpert.of_territory_user territory_user }
+
+      let(:territory_user) { create :territory_user }
+      let(:selected_assistance_expert) do
+        create :selected_assistance_expert, territory_user: territory_user
+      end
+
+      before do
+        create :territory_user
+        create :selected_assistance_expert, :with_territory_user
       end
 
       it { is_expected.to eq [selected_assistance_expert] }
@@ -54,11 +125,13 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
 
       let(:diagnosis) { create :diagnosis }
       let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
-      let(:selected_assistance_expert) { create :selected_assistance_expert, diagnosed_need: diagnosed_need }
+      let(:selected_assistance_expert) do
+        create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need
+      end
 
       before do
         create :diagnosed_need, diagnosis: diagnosis
-        create :selected_assistance_expert
+        create :selected_assistance_expert, :with_assistance_expert
       end
 
       it { is_expected.to eq [selected_assistance_expert] }
@@ -145,3 +218,4 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

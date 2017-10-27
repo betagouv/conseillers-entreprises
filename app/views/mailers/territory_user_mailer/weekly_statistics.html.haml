@@ -1,0 +1,43 @@
+%p= t('.hello', first_name: @user.first_name)
+
+- link_to_root = link_to t('app_name'), root_url
+%p= t('.here_are_weekly_statistics_html', link_to_root: link_to_root, territory_name: @territory_name)
+
+%p
+  %strong= t('.created_diagnoses_count', count: @information_hash[:created_diagnoses][:count])
+- if @information_hash[:created_diagnoses][:count].positive?
+  %ul
+    - @information_hash[:created_diagnoses][:items].each do |diagnosis|
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= description
+
+%p
+  %strong= t('.updated_diagnoses_count', count: @information_hash[:updated_diagnoses][:count])
+- if @information_hash[:updated_diagnoses][:count].positive?
+  %ul
+    - @information_hash[:updated_diagnoses][:items].each do |diagnosis|
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= description
+
+%p
+  %strong= t('.completed_diagnoses_count', count: @information_hash[:completed_diagnoses][:count])
+- if @information_hash[:completed_diagnoses][:count].positive?
+  %ul
+    - @information_hash[:completed_diagnoses][:items].each do |diagnosis|
+      - description = t('.diagnosis_description',
+      id: diagnosis.id,
+      advisor_name: diagnosis.visit.advisor.full_name,
+      company_name: diagnosis.visit.company_name)
+      %li= description
+
+%p
+  %strong= t('.contacted_experts_count', count: @information_hash[:contacted_experts_count])
+
+%p= t('.have_a_nice_week')
+%p= t('.reso_team_html', link_to_root: link_to_root)

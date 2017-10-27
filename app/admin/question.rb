@@ -2,12 +2,6 @@
 
 ActiveAdmin.register Question do
   menu priority: 5
-
-  permit_params do
-    permitted = %i[label category_id]
-    permitted << :other if params[:action] == 'create'
-    permitted
-  end
-
+  permit_params :category_id, :label
   includes :category
 end

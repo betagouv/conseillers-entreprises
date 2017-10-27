@@ -18,7 +18,8 @@ module Api
       check_current_user_access_to(visit)
       @contact = UseCases::CreateContact.create_for_visit(contact_params: create_params, visit_id: visit.id)
       render :show, status: :created
-    rescue StandardError
+    rescue StandardError => error
+      send_error_notifications(error)
       render body: nil, status: :bad_request
     end
 

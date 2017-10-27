@@ -10,7 +10,7 @@ RSpec.describe Firmapi::FirmsSearch do
   let(:url) { 'https://firmapi.com/api/v1/companies?department=75&name=Octo' }
 
   let(:httprb_request_headers) do
-    { 'Connection' => 'close', 'Host' => 'firmapi.com', 'User-Agent' => 'http.rb/2.2.2' }
+    { 'Connection' => 'close', 'Host' => 'firmapi.com', 'User-Agent' => 'http.rb/3.0.0' }
   end
 
   before { Rails.cache.clear }
@@ -31,7 +31,7 @@ RSpec.describe Firmapi::FirmsSearch do
   context 'when there is a server error' do
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
-        status: 500, headers: {}, body: nil
+        status: 500, headers: {}, body: '{}'
       )
     end
 

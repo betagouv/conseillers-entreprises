@@ -15,11 +15,33 @@ RSpec.describe Expert, type: :model do
   end
 
   describe 'validations' do
-    it do
-      is_expected.to validate_presence_of(:last_name)
-      is_expected.to validate_presence_of(:role)
-      is_expected.to validate_presence_of(:institution)
-      is_expected.to validate_presence_of(:email)
+    describe 'presence' do
+      it do
+        is_expected.to validate_presence_of(:last_name)
+        is_expected.to validate_presence_of(:role)
+        is_expected.to validate_presence_of(:institution)
+        is_expected.to validate_presence_of(:email)
+      end
+    end
+
+    describe 'email format' do
+      it do
+        is_expected.to allow_value('test@beta.gouv.fr').for(:email)
+        is_expected.to allow_value('0_@1-.2').for(:email)
+        is_expected.not_to allow_value('test').for(:email)
+        is_expected.not_to allow_value('te@st').for(:email)
+      end
+    end
+
+    describe 'phone number format' do
+      it do
+        is_expected.to allow_value('06 12 23 45 67').for(:phone_number)
+        is_expected.to allow_value('06.12.23.45.67').for(:phone_number)
+        is_expected.to allow_value('+33612234567').for(:phone_number)
+        is_expected.not_to allow_value('06 12 23').for(:phone_number)
+        is_expected.not_to allow_value('06.12.23').for(:phone_number)
+        is_expected.not_to allow_value('+336122ab34567').for(:phone_number)
+      end
     end
   end
 

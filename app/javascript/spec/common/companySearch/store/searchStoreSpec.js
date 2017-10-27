@@ -1,8 +1,11 @@
 import SearchStore from '../../../../packs/common/companySearch/store/searchStore'
 
-// for the async function to work
+// Needed for the async function
 require('babel-core/register')
-// TODO : WHY IS babel-polyfill needed. And why does it go to other files...
+
+// Babel is required here once, but is used for all following tests. (This test is the first to be run.)
+// If removed, it fails. If added in another test file, it fails.
+// TODO: Move in another file? Remove from here?
 require('babel-polyfill')
 
 describe('SearchStore', () => {
@@ -38,21 +41,22 @@ describe('SearchStore', () => {
         company_name: 'Fun Company',
         facility_location: '59350 Lille'
       })
+      const searchObject = {
+        siret: 'siret number'
+      }
 
       beforeEach(function () {
         spyOn(searchAPIServiceMock, 'fetchCompanyBySiret').and.returnValue(positivePromise)
         commit = jasmine.createSpy()
-
-        state.siret = 'siret number'
       })
 
       it('returns a promise', function () {
-        var promise = actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+        var promise = actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters), searchObject)
         expect(typeof promise.then).toBe('function')
       })
 
       it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
-        actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+        actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(0)).toEqual([
           'REQUEST_IN_PROGRESS',
@@ -61,14 +65,14 @@ describe('SearchStore', () => {
       })
 
       it('calls IndexAPIService with the siret', async function () {
-        await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(searchAPIServiceMock.fetchCompanyBySiret.calls.count()).toEqual(1)
         expect(searchAPIServiceMock.fetchCompanyBySiret.calls.argsFor(0)).toEqual(['siret number'])
       })
 
       it('calls commit COMPANY_DATA with the company data', async function () {
-        await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(1)).toEqual([
           'COMPANY_DATA',
@@ -77,7 +81,7 @@ describe('SearchStore', () => {
       })
 
       it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
-        await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompanyBySiret(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(2)).toEqual([
           'REQUEST_IN_PROGRESS',
@@ -92,21 +96,22 @@ describe('SearchStore', () => {
         facility_location: '59350 Lille',
         siret: '12345678901234'
       })
+      const searchObject = {
+        siren: 'siren number'
+      }
 
       beforeEach(function () {
         spyOn(searchAPIServiceMock, 'fetchCompanyBySiren').and.returnValue(positivePromise)
         commit = jasmine.createSpy()
-
-        state.siren = 'siren number'
       })
 
       it('returns a promise', function () {
-        var promise = actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+        var promise = actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters), searchObject)
         expect(typeof promise.then).toBe('function')
       })
 
       it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
-        actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+        actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(0)).toEqual([
           'REQUEST_IN_PROGRESS',
@@ -115,14 +120,14 @@ describe('SearchStore', () => {
       })
 
       it('calls IndexAPIService with the siren', async function () {
-        await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(searchAPIServiceMock.fetchCompanyBySiren.calls.count()).toEqual(1)
         expect(searchAPIServiceMock.fetchCompanyBySiren.calls.argsFor(0)).toEqual(['siren number'])
       })
 
       it('calls commit COMPANY_DATA with the company data', async function () {
-        await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(1)).toEqual([
           'COMPANY_DATA',
@@ -131,7 +136,7 @@ describe('SearchStore', () => {
       })
 
       it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
-        await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompanyBySiren(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(2)).toEqual([
           'REQUEST_IN_PROGRESS',
@@ -144,22 +149,23 @@ describe('SearchStore', () => {
       const positivePromise = Promise.resolve({
         companies: [{ siren: '123456789', name: 'Octo', location: '59123 Meubauge' }]
       })
+      const searchObject = {
+        name: 'Octo',
+        county: '59'
+      }
 
       beforeEach(function () {
         spyOn(searchAPIServiceMock, 'fetchCompaniesByName').and.returnValue(positivePromise)
         commit = jasmine.createSpy()
-
-        state.name = 'Octo'
-        state.county = '59'
       })
 
       it('returns a promise', function () {
-        const promise = actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+        const promise = actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters), searchObject)
         expect(typeof promise.then).toBe('function')
       })
 
       it('calls commit REQUEST_IN_PROGRESS with true at start of action', function () {
-        actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+        actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(0)).toEqual([
           'REQUEST_IN_PROGRESS',
@@ -168,14 +174,14 @@ describe('SearchStore', () => {
       })
 
       it('calls IndexAPIService with company name and county', async function () {
-        await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(searchAPIServiceMock.fetchCompaniesByName.calls.count()).toEqual(1)
         expect(searchAPIServiceMock.fetchCompaniesByName.calls.argsFor(0)).toEqual([{ name: 'Octo', county: '59' }])
       })
 
       it('calls commit COMPANIES with the companies data', async function () {
-        await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(1)).toEqual([
           'COMPANIES',
@@ -184,7 +190,7 @@ describe('SearchStore', () => {
       })
 
       it('calls commit REQUEST_IN_PROGRESS with false at end of action', async function () {
-        await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters))
+        await actions.fetchCompaniesByName(apiServiceContext(dispatch, commit, state, getters), searchObject)
 
         expect(commit.calls.argsFor(2)).toEqual([
           'REQUEST_IN_PROGRESS',
@@ -222,30 +228,6 @@ describe('SearchStore', () => {
       it('clears the company values', function () {
         mutations.FORM_ERROR_TYPE(state, 'ERROR')
         expect(state.companyData).toEqual({})
-      })
-    })
-
-    describe('SIRET', function () {
-      it('updates the siret value', function () {
-        const state = { siret: '' }
-        mutations.SIRET(state, '48245813000010')
-        expect(state.siret).toEqual('48245813000010')
-      })
-    })
-
-    describe('NAME', function () {
-      it('updates the name value', function () {
-        const state = { name: '' }
-        mutations.NAME(state, 'Octo')
-        expect(state.name).toEqual('Octo')
-      })
-    })
-
-    describe('COUNTY', function () {
-      it('updates the county value', function () {
-        const state = { county: '' }
-        mutations.COUNTY(state, '59')
-        expect(state.county).toEqual('59')
       })
     })
 

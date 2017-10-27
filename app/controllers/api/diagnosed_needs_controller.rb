@@ -13,7 +13,8 @@ module Api
       check_current_user_access_to diagnosis
       bulk_transaction
       render body: nil
-    rescue StandardError
+    rescue StandardError => error
+      send_error_notifications(error)
       render body: nil, status: :bad_request
     end
 

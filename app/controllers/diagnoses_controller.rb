@@ -13,17 +13,18 @@ class DiagnosesController < ApplicationController
   def step1; end
 
   def step2
-    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
+    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
     @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
   end
 
   def step3
-    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
+    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
   end
 
   def step4
-    @diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
+    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
+    @territory_users_full_names = TerritoryUser.of_diagnosis_location(@diagnosis).map(&:user).map(&:full_name)
   end
 
   def step5
@@ -32,9 +33,9 @@ class DiagnosesController < ApplicationController
     check_current_user_access_to(@diagnosis)
   end
 
-  def notify_experts
-    diagnosis = fetch_and_check_diagnosis_by_id(params[:id])
-    create_selected_ae_and_send_emails(diagnosis, params[:assistances_experts]) if params[:assistances_experts].present?
+  def notify
+    diagnosis = fetch_and_check_diagnosis_by_id params[:id]
+    UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:selected_assistances_experts]
     diagnosis.update step: Diagnosis::LAST_STEP
     redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
   end
@@ -57,12 +58,5 @@ class DiagnosesController < ApplicationController
 
   def check_availability_of_diagnosis(diagnosis)
     not_found if diagnosis.step == Diagnosis::LAST_STEP
-  end
-
-  def create_selected_ae_and_send_emails(diagnosis, assistances_experts)
-    assistance_expert_ids = ExpertMailersService.filter_assistances_experts(assistances_experts)
-    UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
-    ExpertMailersService.delay.send_assistances_email(advisor: current_user, diagnosis: diagnosis,
-                                                      assistance_expert_ids: assistance_expert_ids)
   end
 end

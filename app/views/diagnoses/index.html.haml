@@ -26,7 +26,7 @@
         = t('.diagnoses_in_progress')
         %i.ui.icon.chevron.down
       .toggle-div
-        %table.ui.table.ui
+        %table.ui.table
           %tbody
             - @diagnoses[:in_progress].each do |diagnosis|
               - company_name = diagnosis.visit.facility.company.name_short
@@ -54,7 +54,7 @@
         = t('.completed_diagnoses')
         %i.ui.icon.chevron.down
       .toggle-div
-        %table.ui.table.ui
+        %table.ui.table
           %tbody
             - @diagnoses[:completed].each do |diagnosis|
               - company_name = diagnosis.visit.facility.company.name_short

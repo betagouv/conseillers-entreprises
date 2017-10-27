@@ -1,14 +1,36 @@
 - meta title: t('contact_us')
 
-.ui.text.container
+.ui.text.container#home-contact
   %h1= t('contact_us')
-  - mailto_link = mail_to ENV['APPLICATION_EMAIL'], ENV['APPLICATION_EMAIL'], target: :_blank
-  %p= t('.you_can_contact_us_html', mailto_link: mailto_link)
 
-  .ui.relaxed.list
-    - @contacts.each do |contact|
-      .item
-        .content
-          .header= contact.full_name
-          .description
-            = contact.contact_page_role.html_safe
+  %h2= t('.territory_administrators')
+  %p= t('.contact_admins_for_local_purpose')
+  .ui.two.column.grid
+    - @territory_administrators.each do |user|
+      .column
+        .ui.fluid.card.territory-administrators-card{ class: random_color }
+          .content
+            .header= user.full_name
+            .meta
+              %span.role= user.role
+              %br
+              %span.institution= user.institution
+            .description
+              = t('.responsible_of_territories', count: user.territories.count)
+              %strong= user.territories.map(&:name).uniq.join(', ')
+          .extra.content
+            %span.phone-number= user.phone_number
+            %br
+            %span.email= user.email
+
+  %h2= t('.product_team')
+  - mailto_link = mail_to ENV['APPLICATION_EMAIL'], ENV['APPLICATION_EMAIL'], target: :_blank
+  %p= t('.contact_team_for_general_purpose_html', mailto_link: mailto_link)
+  .ui.two.column.grid
+    - @product_team.each do |user|
+      .column
+        .ui.fluid.card.product-team-card{ class: random_color }
+          .content
+            .header= user.full_name
+            .description
+              = user.contact_page_role.html_safe

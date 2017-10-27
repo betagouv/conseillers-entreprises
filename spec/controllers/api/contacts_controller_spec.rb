@@ -77,10 +77,16 @@ RSpec.describe Api::ContactsController, type: :controller do
     context 'when parameters are missing' do
       let(:contact_params) { { full_name: 'Gérard Pardessus' } }
 
-      before { request }
+      before do
+        allow(controller).to receive(:send_error_notifications)
+        request
+      end
 
       it('returns http bad request') { expect(response).to have_http_status(:bad_request) }
       it('does not create a contact') { expect(facility.company.contacts.count).to eq 0 }
+      it('sends an error notification') do
+        expect(controller).to have_received(:send_error_notifications)
+      end
     end
 
     context 'when visit does not exist' do

@@ -1,0 +1,20 @@
+- meta title: t('.title')
+
+#territory-user-diagnoses
+  %h1= t('.title')
+
+  - if @diagnoses.empty?
+    %p= t('.no_diagnoses')
+  - else
+    %table.ui.table
+      %thead
+        %tr
+          %th= t('activerecord.attributes.company.name')
+          %th= t('activerecord.attributes.visit.happened_at')
+          %th
+      %tbody
+        - @diagnoses.each do |diagnosis|
+          %tr
+            %td= diagnosis.visit.company_name
+            %td= I18n.l diagnosis.visit.happened_at
+            %td= link_to 'Voir', action: 'diagnosis', diagnosis_id: diagnosis.id

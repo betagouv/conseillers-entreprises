@@ -24,4 +24,15 @@ describe UserMailer do
 
     it { expect(mail.from).to eq UserMailer::SENDER }
   end
+
+  describe '#daily_change_update' do
+    subject(:mail) { described_class.daily_change_update(user, change_updates).deliver_now }
+
+    let(:user) { create :user }
+    let(:change_updates) { [] }
+
+    it_behaves_like 'an email'
+
+    it { expect(mail.from).to eq UserMailer::SENDER }
+  end
 end

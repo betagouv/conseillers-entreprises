@@ -14,8 +14,8 @@ describe ExpertReminderService do
     end
 
     context 'experts are different' do
-      let(:sae_needing_taking_care_update) { create_list :selected_assistance_expert, 2 }
-      let(:sae_with_no_one_in_charge) { create_list :selected_assistance_expert, 2 }
+      let(:sae_needing_taking_care_update) { create_list :selected_assistance_expert, 2, :with_assistance_expert }
+      let(:sae_with_no_one_in_charge) { create_list :selected_assistance_expert, 2, :with_assistance_expert }
 
       it { expect { send_experts_reminders }.to change { Delayed::Job.count }.by(4) }
     end
@@ -25,10 +25,10 @@ describe ExpertReminderService do
       let(:assistance_expert) { create :assistance_expert, expert: expert }
 
       let(:sae_needing_taking_care_update) do
-        create_list :selected_assistance_expert, 2, assistance_expert: assistance_expert
+        create_list :selected_assistance_expert, 2, :with_assistance_expert, assistance_expert: assistance_expert
       end
       let(:sae_with_no_one_in_charge) do
-        create_list :selected_assistance_expert, 2, assistance_expert: assistance_expert
+        create_list :selected_assistance_expert, 2, :with_assistance_expert, assistance_expert: assistance_expert
       end
 
       it { expect { send_experts_reminders }.to change { Delayed::Job.count }.by(1) }

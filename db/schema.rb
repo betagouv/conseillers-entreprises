@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009130729) do
+ActiveRecord::Schema.define(version: 20171023160529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,28 @@ ActiveRecord::Schema.define(version: 20171009130729) do
     t.datetime "updated_at", null: false
     t.index ["assistance_id"], name: "index_assistances_experts_on_assistance_id"
     t.index ["expert_id"], name: "index_assistances_experts_on_expert_id"
+  end
+
+  create_table "audits", force: :cascade do |t|
+    t.integer "auditable_id"
+    t.string "auditable_type"
+    t.integer "associated_id"
+    t.string "associated_type"
+    t.integer "user_id"
+    t.string "user_type"
+    t.string "username"
+    t.string "action"
+    t.jsonb "audited_changes"
+    t.integer "version", default: 0
+    t.string "comment"
+    t.string "remote_address"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["associated_id", "associated_type"], name: "associated_index"
+    t.index ["auditable_id", "auditable_type"], name: "auditable_index"
+    t.index ["created_at"], name: "index_audits_on_created_at"
+    t.index ["request_uuid"], name: "index_audits_on_request_uuid"
+    t.index ["user_id", "user_type"], name: "user_index"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -181,8 +203,10 @@ ActiveRecord::Schema.define(version: 20171009130729) do
     t.string "assistance_title"
     t.datetime "expert_viewed_page_at"
     t.integer "status", default: 0, null: false
+    t.bigint "territory_user_id"
     t.index ["assistances_experts_id"], name: "index_selected_assistances_experts_on_assistances_experts_id"
     t.index ["diagnosed_need_id"], name: "index_selected_assistances_experts_on_diagnosed_need_id"
+    t.index ["territory_user_id"], name: "index_selected_assistances_experts_on_territory_user_id"
   end
 
   create_table "territories", force: :cascade do |t|
@@ -197,6 +221,15 @@ ActiveRecord::Schema.define(version: 20171009130729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["territory_id"], name: "index_territory_cities_on_territory_id"
+  end
+
+  create_table "territory_users", force: :cascade do |t|
+    t.bigint "territory_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["territory_id"], name: "index_territory_users_on_territory_id"
+    t.index ["user_id"], name: "index_territory_users_on_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -258,7 +291,10 @@ ActiveRecord::Schema.define(version: 20171009130729) do
   add_foreign_key "searches", "users"
   add_foreign_key "selected_assistances_experts", "assistances_experts", column: "assistances_experts_id"
   add_foreign_key "selected_assistances_experts", "diagnosed_needs"
+  add_foreign_key "selected_assistances_experts", "territory_users"
   add_foreign_key "territory_cities", "territories"
+  add_foreign_key "territory_users", "territories"
+  add_foreign_key "territory_users", "users"
   add_foreign_key "visits", "contacts", column: "visitee_id"
   add_foreign_key "visits", "facilities"
   add_foreign_key "visits", "users", column: "advisor_id"

@@ -1,4 +1,10 @@
-var selectedAssistanceExpert = "<%= j render(partial: 'selected_assistance_expert', locals: { selected_assistance_expert: @selected_assistance_expert, expert_is_current_user: true }) %>";
-document.getElementById('selected-assistance-expert-line-<%= @selected_assistance_expert.id %>').innerHTML = selectedAssistanceExpert;
-var expertButtons = "<%= j render(partial: 'expert_buttons', locals: { selected_assistance_expert: @selected_assistance_expert }) %>";
+<%- locals = { selected_assistance_expert: @selected_assistance_expert } %>
+
+var selectedAssistanceExpert = "<%= j render(partial: 'experts/selected_assistance_expert', locals: locals) %>";
+document.getElementById('selected-assistance-expert-line-<%= @selected_assistance_expert.id %>-global').innerHTML = selectedAssistanceExpert;
+
+var selectedAssistanceExpertOwner = "<%= j render(partial: 'experts/selected_assistance_expert_for_need_owner', locals: locals) %>";
+document.getElementById('selected-assistance-expert-line-<%= @selected_assistance_expert.id %>-owner').innerHTML = selectedAssistanceExpertOwner;
+
+var expertButtons = "<%= j render(partial: 'experts/expert_buttons', locals: locals) %>";
 document.getElementById('expert-buttons-line-<%= @selected_assistance_expert.id %>').innerHTML = expertButtons;

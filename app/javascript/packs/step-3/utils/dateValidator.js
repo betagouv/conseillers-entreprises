@@ -14,6 +14,10 @@ export default class DateValidator {
     return this.date.isValid()
   }
 
+  get toDate () {
+    return this.date.toDate()
+  }
+
   get toIsoString () {
     return this.isValid ? this.date.format('YYYY-MM-DD') : ''
   }

@@ -10,8 +10,10 @@ class ExpertMailersService
       questions_grouped_by_experts.each { |expert_hash| notify_expert(expert_hash, advisor, diagnosis) }
     end
 
-    def filter_assistances_experts(assistances_experts_hash)
-      assistances_experts_hash.select { |_key, value| value == '1' }.keys.map(&:to_i)
+    def send_territory_user_assistances_email(territory_user:, diagnosed_need_ids:, advisor:, diagnosis:)
+      diagnosed_needs = DiagnosedNeed.of_diagnosis(diagnosis).where(id: diagnosed_need_ids)
+      questions_for_territory_user = questions_for_territory_user(territory_user, diagnosed_needs)
+      notify_expert(questions_for_territory_user, advisor, diagnosis)
     end
 
     private
@@ -25,6 +27,17 @@ class ExpertMailersService
       questions_grouped_by_experts = {}
       assistances_experts.each { |ae| questions_grouped_by_experts_for_ae(ae, diagnosis, questions_grouped_by_experts) }
       questions_grouped_by_experts.values
+    end
+
+    def questions_for_territory_user(territory_user, diagnosed_needs)
+      questions_for_territory_user = { expert: territory_user.user }
+      questions_for_territory_user[:questions_with_needs_description] = diagnosed_needs.collect do |diagnosed_need|
+        {
+          question: diagnosed_need.question,
+          need_description: diagnosed_need.content
+        }
+      end
+      questions_for_territory_user
     end
 
     def questions_grouped_by_experts_for_ae(assistance_expert, diagnosis, questions_grouped_by_experts)

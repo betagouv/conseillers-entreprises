@@ -2,6 +2,7 @@ fr:
   layouts:
     navbar:
       diagnoses: Mes analyses
+      territory_user_dashboard: Mon tableau de bord
       know_more: En savoir plus
       sign_out: Me déconnecter
       dashboard: Admin

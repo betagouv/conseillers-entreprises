@@ -1,9 +1,11 @@
 - meta title: t('.title')
 
-#experts-diagnoses
-  %h1= t('.title')
+#experts-diagnosis
+  .ui.info.message
+    .text.tiny.justified
+      = t('.introduction_html')
 
-  %table.ui.table.ui
+  %table.ui.table
     %tbody
       %tr
         %td
@@ -20,14 +22,38 @@
             .item
               .middle.aligned.content
                 %h4.ui.header.disabled
-                  - selected_assistances_experts_count = SelectedAssistanceExpert.of_diagnoses([@diagnosis]).count
-                  = t('.selected_assistance_experts', count: selected_assistances_experts_count)
+                  = t('.selected_assistance_experts', count: diagnosis_selected_assistances_experts_count)
 
   - visitee = @diagnosis.visit.visitee
   - advisor = @diagnosis.visit.advisor
 
   = render partial: 'people/person', locals: { person: visitee, subtitle: t('.company_contact_subtitle') }
   = render partial: 'people/person', locals: { person: advisor, subtitle: t('.advisor_contact_subtitle') }
+
+  %h2= t('.my_needs_summary_subtitle')
+  - @current_user_diagnosed_needs.each do |diagnosed_need|
+    %table.ui.celled.table
+      %thead
+        %tr
+          %th{ colspan: 3 }= diagnosed_need.question_label
+      %tbody
+        - if diagnosed_need.content.present?
+          %tr
+            %td{ colspan: 3 }
+              .ui.form
+                .field
+                  %label= t('.diagnosed_needs_content_label')
+                  = diagnosed_need.content
+
+        - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+          - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}-owner"
+          %tr.small.text.ui.tiny.table{ id: id }
+            - locals = { selected_assistance_expert: selected_assistance_expert }
+            = render partial: 'experts/selected_assistance_expert_for_need_owner', locals: locals
+
+          %tr.small.text.ui.tiny.table{ id: "expert-buttons-line-#{selected_assistance_expert.id}" }
+            - locals = { selected_assistance_expert: selected_assistance_expert }
+            = render partial: 'experts/expert_buttons', locals: locals
 
   %h2= t('.need_contacts_summary_subtitle')
   - @diagnosis.diagnosed_needs.each do |diagnosed_need|
@@ -48,17 +74,10 @@
             %td= t('.zero_contacted_expert')
         - else
           - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
-            - expert_is_current_user = @expert == selected_assistance_expert.assistance_expert&.expert
-            - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}"
-            %tr.small.text.ui.tiny.table{ class: ('positive' if expert_is_current_user), id: id }
-              - locals = { selected_assistance_expert: selected_assistance_expert,
-              expert_is_current_user: expert_is_current_user }
-              = render partial: 'selected_assistance_expert', locals: locals
-            - status_pending = selected_assistance_expert.status_taking_care? || selected_assistance_expert.status_quo?
-            - if expert_is_current_user && status_pending
-              %tr.small.text.ui.tiny.table.positive{ id: "expert-buttons-line-#{selected_assistance_expert.id}" }
-                - locals = { selected_assistance_expert: selected_assistance_expert }
-                = render partial: 'expert_buttons', locals: locals
+            - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}-global"
+            %tr.small.text.ui.tiny.table{ id: id }
+              - locals = { selected_assistance_expert: selected_assistance_expert }
+              = render partial: 'experts/selected_assistance_expert', locals: locals
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')

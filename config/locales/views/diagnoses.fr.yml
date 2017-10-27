@@ -40,8 +40,11 @@ fr:
       you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l'entreprise, soit indiquer son SIRET."
     step2:
       title: Identification des besoins
-      identify_needs: Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l'entreprise.
-      diagnosis_content: "Informations générales sur cette entreprise :"
+      identify_needs: |
+        Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l'entreprise.
+        Vous pouvez entrer des informations complémentaires qui seront par la suite transmises aux référents pertinents.
+      diagnosis_content_subtitle: Informations générales sur cette entreprise
+      diagnosis_content: "Entrez des informations complémentaires concernant cette entreprise :"
       diagnosed_need_content: "Entrez des informations complémentaires concernant ce besoin spécifique :"
       no_category: Besoins non désélectionnables
       no_category_detail: Ces besoins ayant été modifiés par l'équipe Réso, ils ne sont plus disponibles ni à la création ni à la suppression. Il est toujours possible de modifier les informations complémentaires.
@@ -64,6 +67,10 @@ fr:
       expert_scope_of_work: "Champ de compétence du référent :"
       no_diagnosed_needs: Pas de besoins sélectionnés.
       no_assistance: Aucune aide ne répond à ce besoin sur ce territoire pour l'instant.
+      you_can_contact_territory_users: Vous pouvez néanmoins contacter vos gestionnaires locaux.
+      territory_users_role:
+        one: Gestionnaire local
+        other: Gestionnaires locaux
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
       before_sending_emails_text_html: |
         <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
@@ -71,7 +78,6 @@ fr:
         <p>Ils pourront recontacter directement l'entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d'information.</p>
       notify_selected_experts: Notifier les référents sélectionnés
       add_contact_to_notify: Veuillez ajouter un contact pour pouvoir envoyer ces notifications (étape 3).
-      form_confirmation_message:  Voulez vous contacter les référents sélectionnés ?
     step5:
       title: Récapitulatif
       notifications_sent: Les notifications ont bien été envoyées !

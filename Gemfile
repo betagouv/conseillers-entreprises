@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.4.1'
+ruby '2.4.2'
 
 gem 'rails', '~> 5.1.4'
 
@@ -32,6 +32,7 @@ gem 'delayed_job_active_record'
 gem 'webpacker', '~> 3.0'
 
 # Improving models
+gem 'audited', '~> 4.5'
 gem 'devise'
 gem 'paranoia', '~> 2.2'
 gem 'user_impersonate2', require: 'user_impersonate', github: 'rcook/user_impersonate2'

@@ -6,8 +6,7 @@ module UseCases
       def create_for_visit(contact_params:, visit_id:)
         visit = Visit.find visit_id
         contact_params[:company_id] = visit.facility.company_id
-        contact = Contact.create contact_params
-        contact.save!
+        contact = Contact.create! contact_params
         visit.update visitee: contact
         contact
       end
