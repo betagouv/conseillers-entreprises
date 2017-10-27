@@ -202,6 +202,8 @@ ActiveRecord::Schema.define(version: 20171027100601) do
     t.datetime "expert_viewed_page_at"
     t.integer "status", default: 0, null: false
     t.bigint "territory_user_id"
+    t.datetime "taken_care_of_at"
+    t.datetime "closed_at"
     t.index ["assistances_experts_id"], name: "index_selected_assistances_experts_on_assistances_experts_id"
     t.index ["diagnosed_need_id"], name: "index_selected_assistances_experts_on_diagnosed_need_id"
     t.index ["territory_user_id"], name: "index_selected_assistances_experts_on_territory_user_id"

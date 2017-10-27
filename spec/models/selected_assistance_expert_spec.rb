@@ -38,6 +38,85 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
   end
 
+  describe 'after_update' do
+
+    context 'status is taking_care and going back to quo' do
+
+      let(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      before do
+        selected_assistance_expert.update status: :taking_care
+        selected_assistance_expert.update status: :quo
+      end
+
+      it 'updates the taken_care_of_at to nil' do
+        expect(selected_assistance_expert.taken_care_of_at).to be_nil
+      end
+
+      it 'leaves the closed_at timestamp at nil' do
+        expect(selected_assistance_expert.closed_at).to be_nil
+      end
+    end
+
+    context 'status is quo and updating to taking_care' do
+
+      let(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      before do
+        selected_assistance_expert.update status: :taking_care
+      end
+
+      it 'updates the taken_care_of_at timestamp' do
+        taken_care_of_at_date = selected_assistance_expert.taken_care_of_at&.to_date
+        expect(selected_assistance_expert.taken_care_of_at).not_to be_nil
+        expect(taken_care_of_at_date).to eq Date.today
+      end
+
+      it 'leaves the closed_at timestamp at nil' do
+        expect(selected_assistance_expert.closed_at).to be_nil
+      end
+    end
+
+    context 'status is quo and going back to done' do
+
+      let(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      before do
+        selected_assistance_expert.update status: :done
+      end
+
+      it 'updates the taken_care_of_at timestamp' do
+        taken_care_of_at_date = selected_assistance_expert.taken_care_of_at&.to_date
+        expect(selected_assistance_expert.taken_care_of_at).not_to be_nil
+        expect(taken_care_of_at_date).to eq Date.today
+      end
+
+      it 'updates the closed_at timestamp' do
+        closed_at_date = selected_assistance_expert.closed_at&.to_date
+        expect(selected_assistance_expert.closed_at).not_to be_nil
+        expect(closed_at_date).to eq Date.today
+      end
+    end
+
+    context 'status is done and going back to taking_care' do
+
+      let(:selected_assistance_expert) { create :selected_assistance_expert }
+
+      before do
+        selected_assistance_expert.update status: :done
+        selected_assistance_expert.update status: :taking_care
+      end
+
+      it 'keeps the taken_care_of_at timestamp' do
+        expect(selected_assistance_expert.taken_care_of_at).not_to be_nil
+      end
+
+      it 'updates the closed_at timestamp to nil' do
+        expect(selected_assistance_expert.closed_at).to be_nil
+      end
+    end
+  end
+
   describe 'assistance expert and territory user cannot both be set' do
     subject(:selected_assistance_expert) { build :selected_assistance_expert }
 
