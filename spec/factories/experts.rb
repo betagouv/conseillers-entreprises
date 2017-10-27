@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :expert do
     last_name { Faker::Name.last_name }
     email { Faker::Internet.email }
