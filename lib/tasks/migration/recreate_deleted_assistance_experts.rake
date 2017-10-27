@@ -13,7 +13,7 @@ task recreate_deleted_assistance_experts: :environment do
     end
     expert = experts.first
     assistance = Assistance.joins(:assistances_experts).where(title: sae.assistance_title)
-                            .group('assistances.id').select('assistances.*').order('COUNT(*) DESC').first
+                           .group('assistances.id').select('assistances.*').order('COUNT(*) DESC').first
     unless assistance
       puts "#{sae.id} - #{sae.assistance_title} - Assistance not found"
       next

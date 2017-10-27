@@ -62,7 +62,7 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
 
       it 'does not delete the other assistances_experts' do
         diagnosed_needs
-        
+
         commerce_expert_assistance_experts = commerce_expert.reload.assistances_experts
         expect(commerce_expert_assistance_experts.count).to eq 1
       end
