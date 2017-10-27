@@ -5,6 +5,8 @@ class Territory < ApplicationRecord
   has_many :expert_territories
   has_many :experts, through: :expert_territories
 
+  scope :ordered_by_name, (-> { order(:name) })
+
   def to_s
     "#{id} : #{name}"
   end

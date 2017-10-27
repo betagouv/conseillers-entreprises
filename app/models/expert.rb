@@ -22,6 +22,7 @@ class Expert < ApplicationRecord
   scope :of_city_code, (lambda do |city_code|
     joins(territories: :territory_cities).where(territories: { territory_cities: { city_code: city_code.to_s } })
   end)
+  scope :ordered_by_names, (-> { order(:first_name, :last_name) })
 
   def generate_access_token!
     self.access_token = SecureRandom.hex(32)

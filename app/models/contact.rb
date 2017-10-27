@@ -15,6 +15,8 @@ class Contact < ApplicationRecord
   validates :company, presence: true
   validates_with ContactValidator
 
+  scope :ordered_by_names, (-> { order(:first_name, :last_name) })
+
   def can_be_viewed_by?(user)
     visits.any? { |visit| visit.can_be_viewed_by?(user) }
   end

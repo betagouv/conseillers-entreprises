@@ -25,7 +25,7 @@ ActiveAdmin.register Territory do
     end
   end
 
-  filter :experts
+  filter :experts, collection: -> { Expert.ordered_by_names }
   filter :name
   filter :created_at
   filter :updated_at

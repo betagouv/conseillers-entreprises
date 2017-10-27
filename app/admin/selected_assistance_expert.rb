@@ -18,4 +18,12 @@ ActiveAdmin.register SelectedAssistanceExpert do
     column(:status) { |sae| t("activerecord.attributes.selected_assistance_expert.statuses.#{sae.status}") }
     actions
   end
+
+  filter :diagnosed_need, collection: -> { DiagnosedNeed.order(created_at: :desc).pluck(:id) }
+  filter :expert_full_name
+  filter :expert_institution_name
+  filter :assistance_title
+  filter :status
+  filter :created_at
+  filter :updated_at
 end

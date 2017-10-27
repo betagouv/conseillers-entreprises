@@ -12,4 +12,9 @@ ActiveAdmin.register Search do
     column :label
     column :created_at
   end
+
+  filter :user, collection: -> { User.ordered_by_names }
+  filter :query
+  filter :label
+  filter :created_at
 end
