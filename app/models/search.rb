@@ -5,5 +5,6 @@ class Search < ApplicationRecord
 
   validates :user, presence: true
 
-  scope :last_queries_of_user, (->(user) { where(user: user).order(created_at: :desc).pluck(:query).uniq })
+  scope :of_user, (->(user) { where(user: user) })
+  scope :recent, (-> { order(created_at: :desc).limit(30) })
 end

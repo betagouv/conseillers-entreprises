@@ -55,6 +55,9 @@ fr:
       territory_user:
         one: Gestionnaire d'un territoire
         other: Gestionnaires de territoires
+      search:
+        one: Recherche
+        other: Recherches
     attributes:
       user:
         email: Adresse e-mail
@@ -162,6 +165,10 @@ fr:
       territory_user:
         user: Utilisateur
         territory: Territoire
+      search:
+        query: SIRET recherché
+        user: Utilisateur
+        label: Entreprise trouvée
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

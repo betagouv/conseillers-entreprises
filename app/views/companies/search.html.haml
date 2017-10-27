@@ -6,4 +6,11 @@
 
   %select-company
 
+  %h3= t('.last_searches')
+  - searches = last_searches
+  - unless searches.empty?
+    %ul
+      - searches.each_with_index do |search|
+        %li= link_to search.label, company_path(siret: search.query)
+
 = javascript_pack_tag 'companies/companySearchApp'
