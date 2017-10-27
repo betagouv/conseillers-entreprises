@@ -10,7 +10,7 @@
   - searches = last_searches
   - unless searches.empty?
     %ul
-      - searches.each_with_index do |search|
+      - searches.each do |search|
         %li= link_to search.label, company_path(siret: search.query)
 
 = javascript_pack_tag 'companies/companySearchApp'
