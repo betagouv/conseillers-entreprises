@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Assistance < ApplicationRecord
+  attr_accessor :filtered_assistances_experts
+
   belongs_to :question
 
   has_many :assistances_experts, dependent: :destroy

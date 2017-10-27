@@ -13,6 +13,14 @@ RSpec.describe Assistance, type: :model do
     end
   end
 
+  describe 'default value' do
+    let(:assistance) { create :assistance }
+
+    it 'returns nil for filtered_assistances_experts' do
+      expect(assistance.filtered_assistances_experts).to be_nil
+    end
+  end
+
   describe 'scopes' do
     describe 'of_diagnosis' do
       subject { Assistance.of_diagnosis diagnosis }
