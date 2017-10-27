@@ -36,7 +36,9 @@ module TerritoryUserService
           I18n.t('activerecord.attributes.diagnosed_need.content'),
           I18n.t('activerecord.models.expert.one'),
           I18n.t('activerecord.attributes.expert.institution'),
-          I18n.t('activerecord.attributes.selected_assistance_expert.status')
+          I18n.t('activerecord.attributes.selected_assistance_expert.status'),
+          I18n.t('activerecord.attributes.selected_assistance_expert.taken_care_of_at'),
+          I18n.t('activerecord.attributes.selected_assistance_expert.closed_at')
         ]
       end
 
@@ -50,7 +52,9 @@ module TerritoryUserService
           diagnosed_need.content,
           selected_assistance_expert.expert_full_name,
           selected_assistance_expert.expert_institution_name,
-          I18n.t("activerecord.attributes.selected_assistance_expert.statuses.#{selected_assistance_expert.status}")
+          I18n.t("activerecord.attributes.selected_assistance_expert.statuses.#{selected_assistance_expert.status}"),
+          selected_assistance_expert.taken_care_of_at&.to_date,
+          selected_assistance_expert.closed_at&.to_date
         ]
         csv_line
       end

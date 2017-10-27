@@ -159,6 +159,8 @@ fr:
           taking_care: En cours de prise en charge
           done: Besoin résolu
           not_for_me: Hors champ de compétence
+        taken_care_of_at: Date de prise en charge
+        closed_at: Date de résolution
       territory:
         name: Nom
         city_codes: Codes commune

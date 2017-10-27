@@ -20,8 +20,8 @@ class SelectedAssistanceExpert < ApplicationRecord
   validates :diagnosed_need, presence: true
   validates_with SelectedAssistanceExpertValidator
 
-  after_update :update_taken_care_of_at
-  after_update :update_closed_at
+  after_commit :update_taken_care_of_at
+  after_commit :update_closed_at
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
   scope :of_expert, (->(expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })

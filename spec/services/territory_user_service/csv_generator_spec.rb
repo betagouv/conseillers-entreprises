@@ -11,14 +11,17 @@ describe TerritoryUserService::CSVGenerator do
       let(:facility) { create :facility, company: company }
       let(:visit) { create :visit, facility: facility, advisor: user, happened_at: Date.parse('2017-10-10') }
       let!(:diagnosis) { create :diagnosis, visit: visit }
-      let!(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis, question_label: 'Need money ?', content: 'Very poor, much sad' }
+      let!(:diagnosed_need) do
+        create :diagnosed_need, diagnosis: diagnosis, question_label: 'Need money ?', content: 'Very poor, much sad'
+      end
       let(:expected_csv) do
         File.read(Rails.root.join('spec/fixtures/territory_user_statistic_csv_fixture.csv'))
       end
 
       before do
         create :selected_assistance_expert, diagnosed_need: diagnosed_need,
-               expert_full_name: 'Expert Joe', expert_institution_name: 'Educ Nat'
+               expert_full_name: 'Expert Joe', expert_institution_name: 'Educ Nat',
+               status: :done, taken_care_of_at: Date.parse('2017-10-21'), closed_at: Date.parse('2017-11-04')
       end
 
       it 'creates the csv with the right data' do
