@@ -3,10 +3,11 @@
   %br
     - person = selected_assistance_expert.assistance_expert&.expert
     - person ||= selected_assistance_expert.territory_user&.user
-    - if person.phone_number.present?
-      = person.phone_number
-      %br
-    = mail_to person.email
+    - if person
+      - if person.phone_number.present?
+        = person.phone_number
+        %br
+      = mail_to person.email
 %td
   #{t('activerecord.models.institution.one')} : #{selected_assistance_expert.expert_institution_name}
   - if selected_assistance_expert.assistance_title
