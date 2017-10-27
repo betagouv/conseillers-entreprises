@@ -5,7 +5,6 @@ require 'rails_helper'
 describe TerritoryUserService::CSVGenerator do
   describe 'generate_statistics_csv' do
     context 'one diagnosis' do
-
       let(:user) { create :user, first_name: 'Jean', last_name: 'Bon', institution: 'SGMAP' }
       let(:company) { create :company, name: 'COMPANY NAME' }
       let(:facility) { create :facility, company: company }
@@ -20,8 +19,11 @@ describe TerritoryUserService::CSVGenerator do
 
       before do
         create :selected_assistance_expert, diagnosed_need: diagnosed_need,
-               expert_full_name: 'Expert Joe', expert_institution_name: 'Educ Nat',
-               status: :done, taken_care_of_at: Date.parse('2017-10-21'), closed_at: Date.parse('2017-11-04')
+                                            expert_full_name: 'Expert Joe',
+                                            expert_institution_name: 'Educ Nat',
+                                            status: :done,
+                                            taken_care_of_at: Date.parse('2017-10-21'),
+                                            closed_at: Date.parse('2017-11-04')
       end
 
       it 'creates the csv with the right data' do

@@ -26,6 +26,7 @@ module TerritoryUserService
         csv_line
       end
 
+      # rubocop:disable Metrics/MethodLength
       def csv_first_line
         [
           I18n.t('activerecord.models.company.one'),
@@ -42,6 +43,7 @@ module TerritoryUserService
         ]
       end
 
+      # rubocop:disable Metrics/AbcSize
       def csv_line_from_data(csv_line, diagnosis, diagnosed_need, selected_assistance_expert)
         csv_line << [
           diagnosis.visit.company_name,
@@ -58,6 +60,8 @@ module TerritoryUserService
         ]
         csv_line
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

@@ -39,9 +39,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
   end
 
   describe 'after_update' do
-
     context 'status is taking_care and going back to quo' do
-
       let(:selected_assistance_expert) { create :selected_assistance_expert }
 
       before do
@@ -59,7 +57,6 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     context 'status is quo and updating to taking_care' do
-
       let(:selected_assistance_expert) { create :selected_assistance_expert }
 
       before do
@@ -78,7 +75,6 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     context 'status is quo and going back to done' do
-
       let(:selected_assistance_expert) { create :selected_assistance_expert }
 
       before do
@@ -99,7 +95,6 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     context 'status is done and going back to taking_care' do
-
       let(:selected_assistance_expert) { create :selected_assistance_expert }
 
       before do
