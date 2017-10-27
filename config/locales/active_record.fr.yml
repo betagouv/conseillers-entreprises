@@ -107,8 +107,6 @@ fr:
       company:
         name: Raison sociale
         siren: SIREN
-        email: Adresse e-mail
-        phone_number: Numéro de téléphone
       institution:
         name: Raison sociale
         email: Adresse e-mail
