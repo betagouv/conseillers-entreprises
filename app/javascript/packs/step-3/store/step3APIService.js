@@ -55,7 +55,7 @@ export default {
       url: `/api/visits/${visitId}.json`,
       data: {
         visit: {
-          happened_at: dateString
+          happened_on: dateString
         }
       }
     }

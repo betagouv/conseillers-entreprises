@@ -9,7 +9,7 @@ describe TerritoryUserService::CSVGenerator do
       let(:user) { create :user, first_name: 'Jean', last_name: 'Bon', institution: 'SGMAP' }
       let(:company) { create :company, name: 'COMPANY NAME' }
       let(:facility) { create :facility, company: company }
-      let(:visit) { create :visit, facility: facility, advisor: user, happened_at: Date.parse('2017-10-10') }
+      let(:visit) { create :visit, facility: facility, advisor: user, happened_on: Date.parse('2017-10-10') }
       let!(:diagnosis) { create :diagnosis, visit: visit }
       let!(:diagnosed_need) do
         create :diagnosed_need, diagnosis: diagnosis, question_label: 'Need money ?', content: 'Very poor, much sad'

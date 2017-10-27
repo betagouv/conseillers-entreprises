@@ -29,7 +29,7 @@ RSpec.describe Api::VisitsController, type: :controller do
     subject(:request) { patch :update, format: :json, params: { id: visit.id, visit: visit_params } }
 
     let(:visit) { create :visit, advisor: current_user }
-    let(:visit_params) { { happened_at: date_string } }
+    let(:visit_params) { { happened_on: date_string } }
 
     context 'when parameters are OK' do
       let(:date_string) { '2017-03-23' }
@@ -38,7 +38,7 @@ RSpec.describe Api::VisitsController, type: :controller do
 
       it('returns http success') { expect(response).to have_http_status(:success) }
       it 'updates the visits date' do
-        expect(visit.reload.happened_at).to eq DateTime.iso8601(date_string, Date::GREGORIAN)
+        expect(visit.reload.happened_on).to eq DateTime.iso8601(date_string, Date::GREGORIAN)
       end
     end
 
@@ -51,7 +51,7 @@ RSpec.describe Api::VisitsController, type: :controller do
       end
 
       it('returns http bad request') { expect(response).to have_http_status(:bad_request) }
-      it('does not update the visits date') { expect(visit.reload.happened_at).to be_nil }
+      it('does not update the visits date') { expect(visit.reload.happened_on).to be_nil }
       it('sends an error notification') do
         expect(controller).to have_received(:send_error_notifications)
       end

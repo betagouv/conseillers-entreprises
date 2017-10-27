@@ -57,7 +57,7 @@ const actions = {
     return dispatch('getVisitData')
       .then((data) => {
         const dateToday = Moment().format('YYYY-MM-DD')
-        const visitDate = data.happened_at === null ? dateToday : data.happened_at
+        const visitDate = data.happened_on === null ? dateToday : data.happened_on
         commit(types.VISIT_DATE, visitDate)
         return data
       })

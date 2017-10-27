@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe UseCases::UpdateVisit do
-  describe 'validate_happened_at' do
-    subject(:validation) { described_class.validate_happened_at happened_at }
+  describe 'validate_happened_on' do
+    subject(:validation) { described_class.validate_happened_on happened_on }
 
     context 'when happened at is valid' do
-      let(:happened_at) { '2012-02-12' }
+      let(:happened_on) { '2012-02-12' }
 
       it('does not throw an error') do
         expect { validation }.not_to raise_error
@@ -15,7 +15,7 @@ describe UseCases::UpdateVisit do
     end
 
     context 'when happened at is invalid' do
-      let(:happened_at) { '2012/12/Choufleur' }
+      let(:happened_on) { '2012/12/Choufleur' }
 
       it('throws an argument error') do
         expect { validation }.to raise_error ArgumentError
@@ -23,7 +23,7 @@ describe UseCases::UpdateVisit do
     end
 
     context 'when happened at is nil' do
-      let(:happened_at) { nil }
+      let(:happened_on) { nil }
 
       it('throws an argument error') do
         expect { validation }.to raise_error ArgumentError

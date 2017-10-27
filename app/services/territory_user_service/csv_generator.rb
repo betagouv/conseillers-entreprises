@@ -29,7 +29,7 @@ module TerritoryUserService
       def csv_first_line
         [
           I18n.t('activerecord.models.company.one'),
-          I18n.t('activerecord.attributes.visit.happened_at'),
+          I18n.t('activerecord.attributes.visit.happened_on'),
           I18n.t('activerecord.attributes.visit.advisor'),
           I18n.t('activerecord.attributes.user.institution'),
           I18n.t('activerecord.models.question.one'),
@@ -45,7 +45,7 @@ module TerritoryUserService
       def csv_line_from_data(csv_line, diagnosis, diagnosed_need, selected_assistance_expert)
         csv_line << [
           diagnosis.visit.company_name,
-          diagnosis.visit.happened_at,
+          diagnosis.visit.happened_on,
           diagnosis.visit.advisor.full_name,
           diagnosis.visit.advisor.institution,
           diagnosed_need.question_label,
