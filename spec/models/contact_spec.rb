@@ -28,17 +28,6 @@ RSpec.describe Contact, type: :model do
       end
     end
 
-    describe 'phone number format' do
-      it do
-        is_expected.to allow_value('06 12 23 45 67').for(:phone_number)
-        is_expected.to allow_value('06.12.23.45.67').for(:phone_number)
-        is_expected.to allow_value('+33612234567').for(:phone_number)
-        is_expected.not_to allow_value('06 12 23').for(:phone_number)
-        is_expected.not_to allow_value('06.12.23').for(:phone_number)
-        is_expected.not_to allow_value('+336122ab34567').for(:phone_number)
-      end
-    end
-
     describe 'email or phone_number' do
       context 'without any contact type' do
         it do

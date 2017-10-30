@@ -27,7 +27,11 @@ class TerritoryUsersController < ApplicationController
   private
 
   def check_territory_user_access
-    @territory_user = TerritoryUser.of_user(current_user).of_diagnosis_location(@diagnosis).first
-    not_found unless @territory_user
+    if current_user.is_admin? && params[:territory_user_id]
+      @territory_user = TerritoryUser.find params[:territory_user_id]
+    else
+      @territory_user = TerritoryUser.of_user(current_user).of_diagnosis_location(@diagnosis).first
+      not_found unless @territory_user
+    end
   end
 end
