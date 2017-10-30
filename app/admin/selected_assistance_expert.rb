@@ -38,7 +38,7 @@ ActiveAdmin.register SelectedAssistanceExpert do
       end)
       f.input :assistance_expert, collection: (AssistanceExpert.order(expert_id: :desc).map do |ae|
         assistance_title = truncate(ae.assistance&.title, length: 40)
-        ["#{ae.expert.full_name}, Champ de compétence #{ae.assistance_id} (#{assistance_title})", ae.id]
+        ["#{ae.expert&.full_name}, Champ de compétence #{ae.assistance_id} (#{assistance_title})", ae.id]
       end)
       f.input :territory_user, collection: TerritoryUser.all.map { |tu| [tu.user.full_name, tu.id] }
       f.input :status
