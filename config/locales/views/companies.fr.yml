@@ -58,3 +58,4 @@ fr:
     search:
       search_company: Rechercher une entreprise
       you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l'entreprise, soit indiquer son SIRET."
+      last_searches: Dernières recherches

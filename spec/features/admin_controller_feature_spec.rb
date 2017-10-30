@@ -31,7 +31,6 @@ describe 'admin panel', type: :feature do
       click_link 'Créer Utilisateur'
 
       click_link 'Visites'
-      click_link 'Créer Visite'
 
       click_link 'Entreprises'
       click_link 'Créer Entreprise'

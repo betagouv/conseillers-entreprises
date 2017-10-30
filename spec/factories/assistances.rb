@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :assistance do
     title { Faker::Lorem.sentence }
 
@@ -8,7 +8,7 @@ FactoryGirl.define do
 
     trait :with_expert do
       after(:create) do |assistance|
-        FactoryGirl.create :assistance_expert, assistance: assistance
+        FactoryBot.create :assistance_expert, assistance: assistance
       end
     end
   end

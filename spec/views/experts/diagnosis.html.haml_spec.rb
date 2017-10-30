@@ -7,7 +7,10 @@ RSpec.describe 'experts/diagnosis.html.haml', type: :view do
   let(:diagnosis) { create :diagnosis, visit: visit }
   let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
   let!(:selected_assistance_expert) do
-    create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need
+    create :selected_assistance_expert,
+           :with_assistance_expert,
+           diagnosed_need: diagnosed_need,
+           assistance_title: 'Help companies in distress'
   end
 
   before do

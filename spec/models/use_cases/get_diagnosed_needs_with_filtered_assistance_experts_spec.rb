@@ -44,6 +44,7 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
       end
 
       before do
+        create :assistance_expert, assistance: assistance1
         create :assistance_expert, assistance: assistance2
         create :assistance_expert, expert: commerce_expert, assistance: assistance1
       end
@@ -55,8 +56,15 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
       it 'includes the rightly filtered assistance experts' do
         returned_assistance_experts = diagnosed_needs.map(&:question)
                                                      .flat_map(&:assistances)
-                                                     .flat_map(&:assistances_experts)
+                                                     .flat_map(&:filtered_assistances_experts)
         expect(returned_assistance_experts).to contain_exactly(assistance_expert_for_artisanry)
+      end
+
+      it 'does not delete the other assistances_experts' do
+        diagnosed_needs
+
+        commerce_expert_assistance_experts = commerce_expert.reload.assistances_experts
+        expect(commerce_expert_assistance_experts.count).to eq 1
       end
     end
 

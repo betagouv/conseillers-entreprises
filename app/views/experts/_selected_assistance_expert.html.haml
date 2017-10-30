@@ -1,16 +1,18 @@
 %td.expert-width
   %strong= selected_assistance_expert.expert_full_name
   %br
-  - if selected_assistance_expert.assistance_expert
-    - expert = selected_assistance_expert.assistance_expert.expert
-    - if expert.phone_number.present?
-      = expert.phone_number
-      %br
-    = mail_to expert.email
+    - person = selected_assistance_expert.assistance_expert&.expert
+    - person ||= selected_assistance_expert.territory_user&.user
+    - if person
+      - if person.phone_number.present?
+        = person.phone_number
+        %br
+      = mail_to person.email
 %td
   #{t('activerecord.models.institution.one')} : #{selected_assistance_expert.expert_institution_name}
-  %br
-  #{t('activerecord.models.assistance.one')} : #{selected_assistance_expert.assistance_title}
+  - if selected_assistance_expert.assistance_title
+    %br
+    #{t('activerecord.models.assistance.one')} : #{selected_assistance_expert.assistance_title}
 %td.expert-status-cell
   - if selected_assistance_expert.status_quo?
     %i.icon.clock

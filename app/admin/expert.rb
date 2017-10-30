@@ -60,7 +60,7 @@ ActiveAdmin.register Expert do
       f.input :first_name
       f.input :last_name
       f.input :role
-      f.input :institution
+      f.input :institution, collection: Institution.ordered_by_name
       f.input :email
       f.input :phone_number
     end
@@ -86,8 +86,8 @@ ActiveAdmin.register Expert do
     f.actions
   end
 
-  filter :institution
-  filter :assistances
+  filter :institution, collection: -> { Institution.ordered_by_name }
+  filter :assistances, collection: -> { Assistance.order(:title).map { |a| ["#{a.title} (#{a.id})", a.id] } }
   filter :first_name
   filter :last_name
   filter :email
@@ -95,5 +95,5 @@ ActiveAdmin.register Expert do
   filter :role
   filter :created_at
   filter :updated_at
-  filter :territories
+  filter :territories, collection: -> { Territory.order(:name) }
 end

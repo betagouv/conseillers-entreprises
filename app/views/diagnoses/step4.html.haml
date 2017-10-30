@@ -16,7 +16,7 @@
             %tr
               %th{ colspan: 3 }= diagnosed_need.question
           %tbody
-            - assistances_experts = diagnosed_need.question.assistances.flat_map(&:assistances_experts)
+            - assistances_experts = diagnosed_need.question.assistances.flat_map(&:filtered_assistances_experts)
             - if assistances_experts.present?
               = f.fields_for :assistances_experts do |assistance_expert_form|
                 - assistances_experts.each do |assistance_expert|

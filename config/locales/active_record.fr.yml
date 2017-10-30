@@ -55,6 +55,9 @@ fr:
       territory_user:
         one: Gestionnaire d'un territoire
         other: Gestionnaires de territoires
+      search:
+        one: Recherche
+        other: Recherches
     attributes:
       user:
         email: Adresse e-mail
@@ -107,12 +110,12 @@ fr:
       company:
         name: Raison sociale
         siren: SIREN
-        email: Adresse e-mail
-        phone_number: Numéro de téléphone
       institution:
         name: Raison sociale
         email: Adresse e-mail
         phone_number: Numéro de téléphone
+        qualified_for_commerce: S'occupe des entreprises commerciales
+        qualified_for_artisanry: S'occupe des entreprises d'artisanat
       facility:
         company: Entreprise
         siret: SIRET
@@ -164,6 +167,10 @@ fr:
       territory_user:
         user: Utilisateur
         territory: Territoire
+      search:
+        query: SIRET recherché
+        user: Utilisateur
+        label: Entreprise trouvée
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

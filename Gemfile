@@ -19,7 +19,7 @@ gem 'puma', '~> 3.0'
 # Assets
 gem 'coffee-rails', '~> 4.2'
 gem 'compass-rails', '~> 3.0.2'
-gem 'haml-rails', '~> 0.9'
+gem 'haml-rails', '~> 1.0'
 gem 'jquery-rails'
 gem 'sass-rails'
 gem 'semantic-ui-sass', '~> 2'
@@ -66,14 +66,14 @@ end
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.5'
 end
 
 group :development do
   gem 'awesome_print' # IRB console on exception pages or by using <%= console %>
   gem 'haml_lint', require: false
-  gem 'i18n-tasks', '~> 0.9'
+  gem 'i18n-tasks', '~> 0.9.18'
   gem 'listen', '~> 3.0.5'
   gem 'web-console', '>= 3.3.0'
 

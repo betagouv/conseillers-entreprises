@@ -17,7 +17,7 @@ module UseCases
                                                            .of_naf_code(diagnosis.visit.facility.naf_code)
         diagnosed_needs.each do |diagnosed_need|
           diagnosed_need.question.assistances.each do |assistance|
-            assistance.assistances_experts &= all_assistances_experts_in_scope
+            assistance.filtered_assistances_experts = assistance.assistances_experts & all_assistances_experts_in_scope
           end
         end
       end

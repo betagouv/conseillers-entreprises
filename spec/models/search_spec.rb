@@ -3,26 +3,34 @@
 require 'rails_helper'
 
 RSpec.describe Search, type: :model do
-  it { is_expected.to belong_to :user }
-  it { is_expected.to validate_presence_of :user }
+  describe 'associations' do
+    it { is_expected.to belong_to :user }
+  end
+
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :user }
+  end
 
   describe 'scopes' do
-    describe 'last_queries_of_user' do
-      subject { Search.last_queries_of_user user }
+    describe 'of_user' do
+      subject { Search.of_user user }
 
       let(:user) { build :user }
+      let!(:search) { create :search, user: user }
 
-      before { create :search, user: user, query: '1' }
+      before { create :search }
 
-      context 'only one query' do
-        it { is_expected.to eq ['1'] }
-      end
+      it { is_expected.to eq [search] }
+    end
 
-      context 'two times the same query' do
-        before { create :search, user: user, query: '1' }
+    describe 'recent' do
+      subject { Search.recent }
 
-        it { is_expected.to eq ['1'] }
-      end
+      let!(:search1) { create :search }
+      let!(:search2) { create :search }
+      let!(:search3) { create :search }
+
+      it { is_expected.to eq [search3, search2, search1] }
     end
   end
 end

@@ -36,4 +36,24 @@ describe CompaniesHelper, type: :helper do
       it { is_expected.to be_nil }
     end
   end
+
+  describe 'last_searches' do
+    subject(:last_searches) { helper.last_searches }
+
+    login_user
+
+    context 'no searches' do
+      it { is_expected.to eq [] }
+    end
+
+    context 'several searches' do
+      before do
+        create :search, query: '1', user: current_user
+        create :search, query: '1', user: current_user
+        create :search, query: '2', user: current_user
+      end
+
+      it('removes duplicates') { expect(last_searches.length).to eq 2 }
+    end
+  end
 end

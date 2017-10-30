@@ -21,6 +21,7 @@ class User < ApplicationRecord
   scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
   scope :administrators_of_territory, (-> { joins(:territory_users).distinct })
   scope :not_admin, (-> { where(is_admin: false) })
+  scope :ordered_by_names, (-> { order(:first_name, :last_name) })
 
   def active_for_authentication?
     super && is_approved?

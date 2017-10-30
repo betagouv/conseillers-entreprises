@@ -5,6 +5,8 @@ class Company < ApplicationRecord
 
   validates :name, presence: true
 
+  scope :ordered_by_name, (-> { order(:name) })
+
   def to_s
     name
   end

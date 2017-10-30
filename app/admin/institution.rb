@@ -20,4 +20,13 @@ ActiveAdmin.register Institution do
       end
     end
   end
+
+  filter :experts, collection: -> { Expert.ordered_by_names }
+  filter :name
+  filter :email
+  filter :phone_number
+  filter :created_at
+  filter :updated_at
+  filter :qualified_for_commerce
+  filter :qualified_for_artisanry
 end
