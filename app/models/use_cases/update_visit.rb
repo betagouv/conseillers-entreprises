@@ -3,8 +3,8 @@
 module UseCases
   class UpdateVisit
     class << self
-      def validate_happened_at(happened_at)
-        DateTime.iso8601(happened_at, Date::GREGORIAN)
+      def validate_happened_on(happened_on)
+        DateTime.iso8601(happened_on, Date::GREGORIAN)
       end
     end
   end

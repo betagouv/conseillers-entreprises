@@ -87,7 +87,7 @@ fr:
         contact_page_role: Role sur la page Contact
         remember_me: Se souvenir de moi
       visit:
-        happened_at: Date de la visite
+        happened_on: Date de la visite
         advisor: Conseiller visiteur
         visitee: Personne rencontrée
         facility: Établissement visité
@@ -101,7 +101,6 @@ fr:
         category: Catégorie
       assistance:
         expert: Référent
-        institution: Institution référente
         question: Besoin parent
         title: Titre
         description: Description
@@ -145,7 +144,7 @@ fr:
         diagnosis: Analyse parente
         question_label: Nom du besoin
         question: Besoin
-        content: Description
+        content: Description du besoin
       selected_assistance_expert:
         diagnosed_need: Besoin analysé
         expert_full_name: Référent contacté
@@ -156,10 +155,12 @@ fr:
         expert_viewed_page_at: Date de consultation par le référent
         status: Statut
         statuses:
-          quo: Statut quo
-          taking_care: Prend en charge
+          quo: En attente de prise en charge
+          taking_care: En cours de prise en charge
           done: Besoin résolu
-          not_for_me: Pas pour lui
+          not_for_me: Hors champ de compétence
+        taken_care_of_at: Date de prise en charge
+        closed_at: Date de résolution
       territory:
         name: Nom
         city_codes: Codes commune

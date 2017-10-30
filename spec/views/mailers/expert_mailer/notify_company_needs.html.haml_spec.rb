@@ -11,7 +11,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
 
     let(:params_hash) do
       {
-        visit_date: visit.happened_at_localized,
+        visit_date: visit.happened_on_localized,
         diagnosis_id: diagnosis.id,
         company_name: visit.company_name,
         company_contact: visit.visitee,

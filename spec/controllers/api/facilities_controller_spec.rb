@@ -10,11 +10,11 @@ RSpec.describe Api::FacilitiesController, type: :controller do
 
     context 'when facility is found' do
       before do
-        company_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
+        company_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_entreprise.json')))
         entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
         allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprises_instance }
 
-        facility_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_etablissement.json')))
+        facility_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_etablissement.json')))
         facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_json)
         allow(UseCases::SearchFacility).to receive(:with_siret).with(siret) { facility_instance }
       end
@@ -46,7 +46,7 @@ RSpec.describe Api::FacilitiesController, type: :controller do
 
     context 'when company is found' do
       before do
-        company_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
+        company_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_entreprise.json')))
         entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
         allow(UseCases::SearchCompany).to receive(:with_siren).with(siren) { entreprises_instance }
 

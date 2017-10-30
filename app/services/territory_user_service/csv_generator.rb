@@ -26,28 +26,42 @@ module TerritoryUserService
         csv_line
       end
 
+      # rubocop:disable Metrics/MethodLength
       def csv_first_line
         [
           I18n.t('activerecord.models.company.one'),
-          I18n.t('activerecord.attributes.visit.happened_at'),
+          I18n.t('activerecord.attributes.visit.happened_on'),
           I18n.t('activerecord.attributes.visit.advisor'),
+          I18n.t('activerecord.attributes.user.institution'),
           I18n.t('activerecord.models.question.one'),
+          I18n.t('activerecord.attributes.diagnosed_need.content'),
           I18n.t('activerecord.models.expert.one'),
-          I18n.t('activerecord.attributes.selected_assistance_expert.status')
+          I18n.t('activerecord.attributes.expert.institution'),
+          I18n.t('activerecord.attributes.selected_assistance_expert.status'),
+          I18n.t('activerecord.attributes.selected_assistance_expert.taken_care_of_at'),
+          I18n.t('activerecord.attributes.selected_assistance_expert.closed_at')
         ]
       end
 
+      # rubocop:disable Metrics/AbcSize
       def csv_line_from_data(csv_line, diagnosis, diagnosed_need, selected_assistance_expert)
         csv_line << [
           diagnosis.visit.company_name,
-          diagnosis.visit.happened_at,
+          diagnosis.visit.happened_on,
           diagnosis.visit.advisor.full_name,
-          diagnosed_need.question,
+          diagnosis.visit.advisor.institution,
+          diagnosed_need.question_label,
+          diagnosed_need.content,
           selected_assistance_expert.expert_full_name,
-          I18n.t("activerecord.attributes.selected_assistance_expert.statuses.#{selected_assistance_expert.status}")
+          selected_assistance_expert.expert_institution_name,
+          I18n.t("activerecord.attributes.selected_assistance_expert.statuses.#{selected_assistance_expert.status}"),
+          selected_assistance_expert.taken_care_of_at&.to_date,
+          selected_assistance_expert.closed_at&.to_date
         ]
         csv_line
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

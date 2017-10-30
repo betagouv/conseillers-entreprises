@@ -20,6 +20,9 @@ class SelectedAssistanceExpert < ApplicationRecord
   validates :diagnosed_need, presence: true
   validates_with SelectedAssistanceExpertValidator
 
+  after_commit :update_taken_care_of_at
+  after_commit :update_closed_at
+
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
   scope :of_expert, (->(expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })
   scope :of_territory_user, (->(territory_user) { where(territory_user: territory_user) })
@@ -33,4 +36,20 @@ class SelectedAssistanceExpert < ApplicationRecord
     ids = SelectedAssistanceExpert.select(:diagnosed_need_id).group(:diagnosed_need_id).having('SUM(status) = 0')
     where(diagnosed_need_id: ids).updated_more_than_five_days_ago
   end)
+
+  def status_closed?
+    status_done? || status_not_for_me?
+  end
+
+  private
+
+  def update_taken_care_of_at
+    update taken_care_of_at: Time.now if (status_taking_care? || status_closed?) && !taken_care_of_at
+    update taken_care_of_at: nil if status_quo? && taken_care_of_at
+  end
+
+  def update_closed_at
+    update closed_at: Time.now if status_closed? && !closed_at
+    update closed_at: nil if (status_quo? || status_taking_care?) && closed_at
+  end
 end
