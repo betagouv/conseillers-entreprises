@@ -5,7 +5,7 @@ class CreateVisits < ActiveRecord::Migration[5.1]
     create_table :visits do |t|
       t.references :advisor
       t.references :visitee
-      t.date :happened_at
+      t.date :happened_on
 
       t.timestamps
     end

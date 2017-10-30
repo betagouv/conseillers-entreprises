@@ -28,11 +28,11 @@ describe UseCases::SearchFacility do
 
   describe 'with_siret_and_save' do
     before do
-      company_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
+      company_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_entreprise.json')))
       entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
       allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprises_instance }
 
-      facility_json = JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_etablissement.json')))
+      facility_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_etablissement.json')))
       facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_json)
       allow(described_class).to receive(:with_siret).with(siret) { facility_instance }
     end

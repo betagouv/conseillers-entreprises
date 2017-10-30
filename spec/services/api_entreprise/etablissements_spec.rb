@@ -19,7 +19,7 @@ RSpec.describe ApiEntreprise::Etablissements do
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
         status: 200, headers: {},
-        body: File.read(Rails.root.join('spec/fixtures/api_entreprise_get_etablissement.json'))
+        body: File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_etablissement.json'))
       )
     end
 
@@ -52,7 +52,7 @@ RSpec.describe ApiEntreprise::Etablissements do
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
         status: 500, headers: {},
-        body: File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json'))
+        body: File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_entreprise.json'))
       )
     end
 
@@ -69,7 +69,7 @@ RSpec.describe ApiEntreprise::Etablissements do
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
         status: 401, headers: {},
-        body: File.read(Rails.root.join('spec/fixtures/api_entreprise_401.json'))
+        body: File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_401.json'))
       )
     end
 

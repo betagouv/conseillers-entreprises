@@ -266,7 +266,7 @@ describe('step3Store', () => {
           if (dispatchedTo === 'getVisitData') {
             data = {
               visit_id: 1,
-              happened_at: withContactId ? '2017-08-29' : null,
+              happened_on: withContactId ? '2017-08-29' : null,
               visitee_id: withContactId ? 2 : undefined
             }
           } else {

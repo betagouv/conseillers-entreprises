@@ -300,7 +300,7 @@ describe('Step3APIService', () => {
         /* eslint-disable camelcase */
         var promise = Promise.resolve({
           data: {
-            happened_at: '2017-08-21',
+            happened_on: '2017-08-21',
             visitee_id: 123
           }
         })
@@ -330,7 +330,7 @@ describe('Step3APIService', () => {
         })
         /* eslint-disable camelcase */
         expect(serviceResponse).toEqual({
-          happened_at: '2017-08-21',
+          happened_on: '2017-08-21',
           visitee_id: 123
         })
         /* eslint-enable camelcase */
@@ -395,7 +395,7 @@ describe('Step3APIService', () => {
           url: '/api/visits/10.json',
           data: {
             visit: {
-              happened_at: '2017-08-21'
+              happened_on: '2017-08-21'
             }
           }
         }
@@ -434,7 +434,7 @@ describe('Step3APIService', () => {
           url: '/api/visits/10.json',
           data: {
             visit: {
-              happened_at: '2017-08-21'
+              happened_on: '2017-08-21'
             }
           }
         }

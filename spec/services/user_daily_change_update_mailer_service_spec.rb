@@ -31,7 +31,8 @@ describe UserDailyChangeUpdateMailerService do
       end
 
       before do
-        selected_assistance_expert1.update status: 'done', updated_at: 2.days.ago
+        selected_assistance_expert1.update status: 'done'
+        selected_assistance_expert1.update updated_at: 2.days.ago
         Audited::Audit.last.update created_at: 2.days.ago
 
         selected_assistance_expert2.update status: 'done'
@@ -76,7 +77,8 @@ describe UserDailyChangeUpdateMailerService do
       end
 
       before do
-        selected_assistance_expert1.update status: 'done', updated_at: 2.days.ago
+        selected_assistance_expert1.update status: 'done'
+        selected_assistance_expert1.update updated_at: 2.days.ago
         Audited::Audit.last.update created_at: 2.days.ago
 
         selected_assistance_expert2.update status: 'done'
@@ -95,7 +97,8 @@ describe UserDailyChangeUpdateMailerService do
       let(:selected_assistance_expert) { create :selected_assistance_expert }
 
       before do
-        selected_assistance_expert.update status: 'done', updated_at: 2.days.ago
+        selected_assistance_expert.update status: 'done'
+        selected_assistance_expert.update updated_at: 2.days.ago
         Audited::Audit.last.update created_at: 2.days.ago
         selected_assistance_expert.update status: 'quo'
         selected_assistance_expert.update status: 'done'

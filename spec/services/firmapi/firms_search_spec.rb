@@ -19,7 +19,7 @@ RSpec.describe Firmapi::FirmsSearch do
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
         status: 200, headers: {},
-        body: File.read(Rails.root.join('spec/fixtures/firmapi_get_firms.json'))
+        body: File.read(Rails.root.join('spec', 'fixtures', 'firmapi_get_firms.json'))
       )
     end
 

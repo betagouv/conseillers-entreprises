@@ -38,7 +38,7 @@ ActiveAdmin.register SelectedAssistanceExpert do
       end)
       f.input :assistance_expert, collection: (AssistanceExpert.order(expert_id: :desc).map do |ae|
         assistance_title = truncate(ae.assistance&.title, length: 40)
-        ["#{ae.expert.full_name}, Champ de compétence #{ae.assistance_id} (#{assistance_title})", ae.id]
+        ["#{ae.expert&.full_name}, Champ de compétence #{ae.assistance_id} (#{assistance_title})", ae.id]
       end)
       f.input :territory_user, collection: TerritoryUser.all.map { |tu| [tu.user.full_name, tu.id] }
       f.input :status
@@ -54,4 +54,37 @@ ActiveAdmin.register SelectedAssistanceExpert do
   filter :status
   filter :created_at
   filter :updated_at
+
+  controller do
+    def update
+      super
+      fill_from_territory_user if territory_user_changed?
+      fill_from_assistance_expert if assistance_expert_changed?
+    end
+
+    def territory_user_changed?
+      form_param = params[:selected_assistance_expert]
+      form_param[:territory_user_id].present? && form_param[:territory_user_id] != resource.territory_user_id
+    end
+
+    def fill_from_territory_user
+      territory_user = TerritoryUser.find params[:selected_assistance_expert][:territory_user_id]
+      resource.update expert_full_name: territory_user.user.full_name,
+                      expert_institution_name: territory_user.user.institution,
+                      assistance_title: nil
+    end
+
+    def assistance_expert_changed?
+      form_param = params[:selected_assistance_expert]
+      form_param[:assistances_experts_id].present? &&
+        form_param[:assistances_experts_id] != resource.assistances_experts_id
+    end
+
+    def fill_from_assistance_expert
+      assistance_expert = AssistanceExpert.find params[:selected_assistance_expert][:assistances_experts_id]
+      resource.update expert_full_name: assistance_expert.expert&.full_name,
+                      expert_institution_name: assistance_expert.expert&.institution&.name,
+                      assistance_title: assistance_expert.assistance&.title
+    end
+  end
 end

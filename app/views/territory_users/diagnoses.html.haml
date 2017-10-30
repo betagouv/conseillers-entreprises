@@ -10,11 +10,11 @@
       %thead
         %tr
           %th= t('activerecord.attributes.company.name')
-          %th= t('activerecord.attributes.visit.happened_at')
+          %th= t('activerecord.attributes.visit.happened_on')
           %th
       %tbody
         - @diagnoses.each do |diagnosis|
           %tr
             %td= diagnosis.visit.company_name
-            %td= I18n.l diagnosis.visit.happened_at
+            %td= I18n.l diagnosis.visit.happened_on
             %td= link_to 'Voir', action: 'diagnosis', diagnosis_id: diagnosis.id

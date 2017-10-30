@@ -7,7 +7,7 @@ RSpec.describe Firmapi::Firms do
     subject { described_class.new(data).parsed_companies }
 
     context 'denomination is nil' do
-      let(:data) { JSON.parse(File.read(Rails.root.join('spec/fixtures/firmapi_get_firms.json'))) }
+      let(:data) { JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'firmapi_get_firms.json'))) }
 
       expected_json = [
         { siren: '810579037', name: 'Octra', location: '75002 Paris' },
