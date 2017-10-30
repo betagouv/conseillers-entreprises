@@ -23,18 +23,6 @@ describe 'ApplicationController specific features', type: :feature do
     end
   end
 
-  describe 'set_admin_timezone' do
-    login_user
-
-    before do
-      current_user.update is_admin: true
-      user = create :user, created_at: Time.now.utc.beginning_of_day
-      visit admin_user_path(user)
-    end
-
-    it('displays hour as UTC+2') { expect(page).to have_content '02h00' }
-  end
-
   describe 'after_sign_in_path_for' do
     before do
       password = '1234567'
