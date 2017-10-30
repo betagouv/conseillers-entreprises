@@ -39,9 +39,9 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
   end
 
   describe 'after_update' do
-    context 'status is taking_care and going back to quo' do
-      let(:selected_assistance_expert) { create :selected_assistance_expert }
+    let(:selected_assistance_expert) { create :selected_assistance_expert }
 
+    context 'status is taking_care and going back to quo' do
       before do
         selected_assistance_expert.update status: :taking_care
         selected_assistance_expert.update status: :quo
@@ -57,16 +57,11 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     context 'status is quo and updating to taking_care' do
-      let(:selected_assistance_expert) { create :selected_assistance_expert }
-
-      before do
-        selected_assistance_expert.update status: :taking_care
-      end
+      before { selected_assistance_expert.update status: :taking_care }
 
       it 'updates the taken_care_of_at timestamp' do
-        taken_care_of_at_date = selected_assistance_expert.taken_care_of_at&.to_date
         expect(selected_assistance_expert.taken_care_of_at).not_to be_nil
-        expect(taken_care_of_at_date).to eq Date.today
+        expect(selected_assistance_expert.taken_care_of_at.to_date).to eq Date.today
       end
 
       it 'leaves the closed_at timestamp at nil' do
@@ -75,28 +70,20 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     context 'status is quo and going back to done' do
-      let(:selected_assistance_expert) { create :selected_assistance_expert }
-
-      before do
-        selected_assistance_expert.update status: :done
-      end
+      before { selected_assistance_expert.update status: :done }
 
       it 'updates the taken_care_of_at timestamp' do
-        taken_care_of_at_date = selected_assistance_expert.taken_care_of_at&.to_date
         expect(selected_assistance_expert.taken_care_of_at).not_to be_nil
-        expect(taken_care_of_at_date).to eq Date.today
+        expect(selected_assistance_expert.taken_care_of_at.to_date).to eq Date.today
       end
 
       it 'updates the closed_at timestamp' do
-        closed_at_date = selected_assistance_expert.closed_at&.to_date
         expect(selected_assistance_expert.closed_at).not_to be_nil
-        expect(closed_at_date).to eq Date.today
+        expect(selected_assistance_expert.closed_at.to_date).to eq Date.today
       end
     end
 
     context 'status is done and going back to taking_care' do
-      let(:selected_assistance_expert) { create :selected_assistance_expert }
-
       before do
         selected_assistance_expert.update status: :done
         selected_assistance_expert.update status: :taking_care
