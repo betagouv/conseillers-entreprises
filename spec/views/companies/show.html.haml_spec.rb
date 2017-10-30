@@ -4,11 +4,11 @@ require 'rails_helper'
 
 RSpec.describe 'companies/show.html.haml', type: :view do
   let(:company_json) do
-    JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_entreprise.json')))
+    JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_entreprise.json')))
   end
 
   let(:facility_json) do
-    JSON.parse(File.read(Rails.root.join('spec/fixtures/api_entreprise_get_etablissement.json')))
+    JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_etablissement.json')))
   end
 
   let(:diagnoses) { create_list :diagnosis, 2 }
