@@ -151,6 +151,8 @@ fr:
         expert_full_name: Référent contacté
         expert_institution_name: Institution du référent
         assistance_title: Titre de l'aide
+        assistance_expert: Référent (non Gestionnaire du territoire)
+        territory_user: Référent (Gestionnaire du territoire)
         expert_viewed_page_at: Date de consultation par le référent
         status: Statut
         statuses:

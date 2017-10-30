@@ -2,7 +2,8 @@
 
 ActiveAdmin.register SelectedAssistanceExpert do
   menu parent: :diagnoses, priority: 2
-  actions :index, :show
+  actions :index, :show, :edit, :update
+  permit_params :diagnosed_need_id, :assistances_experts_id, :territory_user_id, :status
   includes diagnosed_need: [diagnosis: [visit: :advisor]]
 
   index do
@@ -16,7 +17,34 @@ ActiveAdmin.register SelectedAssistanceExpert do
     column :assistance_title
     column :expert_viewed_page_at
     column(:status) { |sae| t("activerecord.attributes.selected_assistance_expert.statuses.#{sae.status}") }
+    column('Page Référent') do |sae|
+      diagnosis_id = sae.diagnosed_need.diagnosis_id
+      if sae.assistance_expert
+        access_token = sae.assistance_expert.expert.access_token
+        link_to 'Page Référent', diagnosis_experts_path(diagnosis_id: diagnosis_id, access_token: access_token)
+      else
+        link_to 'Page Référent',
+                diagnosis_territory_users_path(diagnosis_id: diagnosis_id, territory_user_id: sae.territory_user_id)
+      end
+    end
+
     actions
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :diagnosed_need, collection: (DiagnosedNeed.order(diagnosis_id: :desc).map do |dn|
+        ["Analyse #{dn.diagnosis_id}, Besoin #{dn.question_id} (#{dn.question})", dn.id]
+      end)
+      f.input :assistance_expert, collection: (AssistanceExpert.order(expert_id: :desc).map do |ae|
+        assistance_title = truncate(ae.assistance&.title, length: 40)
+        ["#{ae.expert.full_name}, Champ de compétence #{ae.assistance_id} (#{assistance_title})", ae.id]
+      end)
+      f.input :territory_user, collection: TerritoryUser.all.map { |tu| [tu.user.full_name, tu.id] }
+      f.input :status
+    end
+
+    f.actions
   end
 
   filter :diagnosed_need, collection: -> { DiagnosedNeed.order(created_at: :desc).pluck(:id) }
