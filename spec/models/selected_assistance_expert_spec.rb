@@ -226,17 +226,16 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       subject { SelectedAssistanceExpert.needing_taking_care_update }
 
       let!(:selected_ae_needing_update) do
-        create :selected_assistance_expert, status: :taking_care
+        create :selected_assistance_expert, status: :taking_care, updated_at: 6.days.ago
       end
 
       before do
-        selected_ae_needing_update.update updated_at: 2.weeks.ago
         create :selected_assistance_expert, status: :taking_care, updated_at: 4.days.ago
         create :selected_assistance_expert, status: :quo, updated_at: 2.weeks.ago
         create :selected_assistance_expert, status: :done, updated_at: 2.weeks.ago
       end
 
-      it { is_expected.to match_array [selected_ae_needing_update] }
+      it { is_expected.to eq [selected_ae_needing_update] }
     end
 
     describe 'with_no_one_in_charge' do

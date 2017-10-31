@@ -20,8 +20,8 @@ class SelectedAssistanceExpert < ApplicationRecord
   validates :diagnosed_need, presence: true
   validates_with SelectedAssistanceExpertValidator
 
-  after_commit :update_taken_care_of_at
-  after_commit :update_closed_at
+  after_update :update_taken_care_of_at
+  after_update :update_closed_at
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
   scope :of_expert, (->(expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })
@@ -44,12 +44,12 @@ class SelectedAssistanceExpert < ApplicationRecord
   private
 
   def update_taken_care_of_at
-    update taken_care_of_at: Time.now if (status_taking_care? || status_closed?) && !taken_care_of_at
-    update taken_care_of_at: nil if status_quo? && taken_care_of_at
+    update_columns taken_care_of_at: Time.now if (status_taking_care? || status_closed?) && !taken_care_of_at
+    update_columns taken_care_of_at: nil if status_quo? && taken_care_of_at
   end
 
   def update_closed_at
-    update closed_at: Time.now if status_closed? && !closed_at
-    update closed_at: nil if (status_quo? || status_taking_care?) && closed_at
+    update_columns closed_at: Time.now if status_closed? && !closed_at
+    update_columns closed_at: nil if (status_quo? || status_taking_care?) && closed_at
   end
 end
