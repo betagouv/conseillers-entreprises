@@ -42,7 +42,17 @@ RSpec.describe TerritoryUsersController, type: :controller do
       context 'user is responsible of diagnosis territory' do
         before do
           create :territory_city, territory: territory_user.territory, city_code: facility.city_code
+          request
+        end
 
+        it('returns http success') { expect(response).to have_http_status(:success) }
+      end
+
+      context 'safe deleted diagnosis' do
+        before do
+          diagnosis.destroy
+
+          create :territory_city, territory: territory_user.territory, city_code: facility.city_code
           request
         end
 

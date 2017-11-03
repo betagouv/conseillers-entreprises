@@ -18,24 +18,34 @@ RSpec.describe ExpertsController, type: :controller do
       let(:access_token) { expert.access_token }
       let(:expert) { create :expert }
 
-      context 'expert has access to diagnosis' do
-        let(:assistance_expert) { create :assistance_expert, expert: expert }
-        let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+      let(:assistance_expert) { create :assistance_expert, expert: expert }
+      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
 
+      before do
+        allow(UseCases::UpdateExpertViewedPageAt).to receive(:perform).with(
+          diagnosis_id: diagnosis.id,
+          expert_id: expert.id
+        )
+      end
+
+      context 'expert has access to diagnosis' do
         before do
           create :selected_assistance_expert, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
-
-          allow(UseCases::UpdateExpertViewedPageAt).to receive(:perform).with(
-            diagnosis_id: diagnosis.id,
-            expert_id: expert.id
-          )
-        end
-
-        it 'returns http success' do
           request
-
-          expect(response).to have_http_status(:success)
         end
+
+        it('returns http success') { expect(response).to have_http_status(:success) }
+      end
+
+      context 'safe deleted diagnosis' do
+        before do
+          diagnosis.destroy
+
+          create :selected_assistance_expert, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
+          request
+        end
+
+        it('returns http success') { expect(response).to have_http_status(:success) }
       end
 
       context 'expert does not have access to diagnosis' do
