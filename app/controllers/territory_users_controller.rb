@@ -3,7 +3,7 @@
 class TerritoryUsersController < ApplicationController
   def diagnoses
     @territory_user = TerritoryUser.of_user(current_user)
-    @diagnoses = Diagnosis.joins(:diagnosed_needs).merge(DiagnosedNeed.of_territory_user(@territory_user)).distinct
+    @diagnoses = Diagnosis.unscoped.joins(:diagnosed_needs).merge(DiagnosedNeed.of_territory_user(@territory_user)).distinct
   end
 
   def diagnosis
