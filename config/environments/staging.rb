@@ -54,7 +54,6 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  config.action_mailer.default_url_options = { host: 'reso-staging.scalingo.io' }
   config.action_mailer.perform_caching = false
 
   # Using Mailtrap
@@ -97,16 +96,16 @@ Rails.application.configure do
 
   config.middleware.use ExceptionNotification::Rack,
                         email: {
-                          email_prefix: '[Erreur Réso Staging] ',
-                          sender_address: "\"Erreur Réso\" <#{ENV['DO_NOT_REPLY_EMAIL']}>",
+                          email_prefix: "[Erreur #{ENV['APPLICATION_ENV_NAME']}] ",
+                          sender_address: "\"Erreur #{ENV['APPLICATION_ENV_NAME']}\" <#{ENV['DO_NOT_REPLY_EMAIL']}>",
                           exception_recipients: [ENV['APPLICATION_EMAIL']]
                         },
                         slack: {
                           webhook_url: ENV['SLACK_WEBHOOK_URL'],
                           channel: '#startup-reso-dev',
-                          username: 'Réso Staging',
+                          username: ENV['APPLICATION_ENV_NAME'],
                           additional_parameters: {
-                            icon_emoji: ':turtle:',
+                            icon_emoji: ":#{ENV['ERROR_EMOJI']}:",
                             mrkdwn: true
                           }
                         }

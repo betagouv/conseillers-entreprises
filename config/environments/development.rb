@@ -28,7 +28,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: ENV['HOST_NAME'], port: ENV['PORT'] }
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.perform_caching = false
 
