@@ -14,8 +14,9 @@ RSpec.describe Api::FacilitiesController, type: :controller do
         entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
         allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprises_instance }
 
-        facility_json = JSON.parse(File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_etablissement.json')))
-        facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_json)
+        facility_json = File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_etablissement.json'))
+        facility_parsed_json = JSON.parse(facility_json)
+        facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_parsed_json)
         allow(UseCases::SearchFacility).to receive(:with_siret).with(siret) { facility_instance }
       end
 
