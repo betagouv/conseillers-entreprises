@@ -21,5 +21,5 @@ fr:
       company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
       search_by_name: Recherche par nom d'entreprise
       search_by_siret: Recherche par SIRET
-      search_by_name_description: "Rechercher l'entreprise en renseignant sa raison sociale et son numéro de département."
+      search_by_name_description: "Ce moyen de recherche est temporairement indisponible."
       search_by_siret_description: "Rechercher l'entreprise en renseignant son numéro SIRET."
