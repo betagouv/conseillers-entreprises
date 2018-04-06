@@ -15,7 +15,7 @@ module ApiEntreprise
     end
 
     def error_message
-      data&.fetch('message', DEFAULT_ERROR_MESSAGE)
+      data&.fetch('errors', DEFAULT_ERROR_MESSAGE)
     end
 
     def etablissement_wrapper

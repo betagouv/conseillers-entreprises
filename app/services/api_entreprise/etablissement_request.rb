@@ -16,7 +16,7 @@ module ApiEntreprise
     end
 
     def url
-      "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?token=#{token}"
+      "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?token=#{token}&context=Reso&recipient=Reso&object=Reso"
     end
   end
 end
