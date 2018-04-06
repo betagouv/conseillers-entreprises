@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe ApiEntreprise::Etablissements do
   let(:facility) { described_class.new(token).fetch(siren) }
 
+  let(:base_url) { 'https://entreprise.api.gouv.fr/v2/etablissements' }
   let(:httprb_request_headers) do
     { 'Connection' => 'close', 'Host' => 'entreprise.api.gouv.fr', 'User-Agent' => 'http.rb/3.0.0' }
   end
@@ -14,11 +15,12 @@ RSpec.describe ApiEntreprise::Etablissements do
   context 'SIREN number exists' do
     let(:token) { '1234' }
     let(:siren) { '12345678901234' }
-    let(:url) { 'https://entreprise.api.gouv.fr/v2/etablissements/12345678901234?token=1234' }
+    let(:url) { "#{base_url}/12345678901234?token=1234&context=Reso&recipient=Reso&object=Reso" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
-        status: 200, headers: {},
+        status: 200,
+        headers: {},
         body: File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_etablissement.json'))
       )
     end
@@ -31,7 +33,7 @@ RSpec.describe ApiEntreprise::Etablissements do
   context 'SIREN is missing' do
     let(:token) { '1234' }
     let(:siren) { '' }
-    let(:url) { 'https://entreprise.api.gouv.fr/v2/etablissements/?token=1234' }
+    let(:url) { "#{base_url}/?token=1234&context=Reso&recipient=Reso&object=Reso" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
@@ -47,7 +49,7 @@ RSpec.describe ApiEntreprise::Etablissements do
   context 'SIREN does not exist' do
     let(:token) { '1234' }
     let(:siren) { '' }
-    let(:url) { 'https://entreprise.api.gouv.fr/v2/etablissements/?token=1234' }
+    let(:url) { "#{base_url}/?token=1234&context=Reso&recipient=Reso&object=Reso" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
@@ -64,7 +66,7 @@ RSpec.describe ApiEntreprise::Etablissements do
   context 'Token is unauthorized' do
     let(:token) { '' }
     let(:siren) { '12345678901234' }
-    let(:url) { 'https://entreprise.api.gouv.fr/v2/etablissements/12345678901234?token=' }
+    let(:url) { "#{base_url}/12345678901234?token=&context=Reso&recipient=Reso&object=Reso" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
