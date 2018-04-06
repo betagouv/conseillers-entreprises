@@ -9,7 +9,7 @@ end
 
 ruby '2.4.4'
 
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1.6'
 
 # Server
 gem 'foreman'
