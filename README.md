@@ -1,10 +1,10 @@
-# Réso
+# RéSo
 
-Apporter l'ensemble des aides publiques aux entreprises qui en ont besoin. [reso.beta.gouv.fr](https://reso.beta.gouv.fr/)
+Apporter l’ensemble des aides publiques aux entreprises qui en ont besoin. [reso.beta.gouv.fr](https://reso.beta.gouv.fr/)
 
-Créé dans le contexte de [l'incubateur des startups d'état](https://beta.gouv.fr/).
+Créé dans le contexte de [l’incubateur des startups d’état](https://beta.gouv.fr/).
 
-From now on, we're gonna switch in English. 🇬🇧
+From now on, we’re gonna switch in English.
 
 ## Getting started
 
@@ -18,7 +18,7 @@ From now on, we're gonna switch in English. 🇬🇧
         $ brew install rvm
         $ rvm install x.x.x
 
-3. Install PostgreSQL and create a user if you don't have any.
+3. Install PostgreSQL and create a user if you don’t have any.
 
         $ brew install postgres
 
@@ -108,7 +108,7 @@ In order to deploy the project on staging environment, use:
 
     $ git push scalingo-staging master
 
-Don't forget to perform database migrations if any:
+Don’t forget to perform database migrations if any:
 
     $ scalingo -a reso-staging run rails db:migrate
 
