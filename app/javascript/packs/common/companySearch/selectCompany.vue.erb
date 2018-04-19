@@ -3,21 +3,21 @@
     .ui.top.attached.tabular.menu.two.items
       .active.first.item.clickable(:class='{ not: !firstItemActive }',
                          v-on:click='activateFirstTab')
-        template <%= I18n.t('common_vuejs.company_search.search_by_name') %>
+        template <%= I18n.t('common_vuejs.company_search.search_by_siret') %>
       .active.last.item.clickable(:class='{ not: firstItemActive }',
                          v-on:click='activateLastTab')
-        template <%= I18n.t('common_vuejs.company_search.search_by_siret') %>
+        template <%= I18n.t('common_vuejs.company_search.search_by_name') %>
     .ui.bottom.attached.active.tab.segment.shadow-less.dimmable(:class='{ dimmed: isRequestInProgress }')
       .ui.simple.inverted.dimmer
         .ui.text.loader
       div(v-show='firstItemActive')
-        p <%= I18n.t('common_vuejs.company_search.search_by_name_description') %>
-        company-search-by-name(v-on:search-name='searchName',
-                               v-on:error='manageError')
-      div(v-show='!firstItemActive')
         p <%= I18n.t('common_vuejs.company_search.search_by_siret_description') %>
         company-search-by-siret(v-on:search-siret='searchSiret',
                                 v-on:error='manageError')
+      div(v-show='!firstItemActive')
+        .ui.info.message
+          p <%= I18n.t('common_vuejs.company_search.search_by_name_description') %>
+        //company-search-by-name(v-on:search-name='searchName', v-on:error='manageError')
       error-message(:error-type='errorType')
       company-view(:company-data='companyData',
                    v-on:detail-button-click='goToDetailedCompanyInfo')

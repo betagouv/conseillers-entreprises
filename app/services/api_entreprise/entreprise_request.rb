@@ -16,7 +16,8 @@ module ApiEntreprise
     end
 
     def url
-      "https://api.apientreprise.fr/v2/entreprises/#{siren}?token=#{token}"
+      # TODO: Send more relevant recipient and object values
+      "https://entreprise.api.gouv.fr/v2/entreprises/#{siren}?token=#{token}&context=Reso&recipient=Reso&object=Reso"
     end
   end
 end

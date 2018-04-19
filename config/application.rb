@@ -18,6 +18,7 @@ module Reso
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = :fr
 
+    config.action_mailer.default_url_options = { host: ENV['HOST_NAME'] }
     config.action_mailer.delivery_method = :mailjet
     config.active_job.queue_adapter = :delayed_job
   end

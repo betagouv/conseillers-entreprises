@@ -5,8 +5,9 @@ require 'rails_helper'
 RSpec.describe ApiEntreprise::Entreprises do
   let(:company) { described_class.new(token).fetch(siren) }
 
+  let(:base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises' }
   let(:httprb_request_headers) do
-    { 'Connection' => 'close', 'Host' => 'api.apientreprise.fr', 'User-Agent' => 'http.rb/3.0.0' }
+    { 'Connection' => 'close', 'Host' => 'entreprise.api.gouv.fr', 'User-Agent' => 'http.rb/3.0.0' }
   end
 
   before { Rails.cache.clear }
@@ -14,7 +15,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN number exists' do
     let(:token) { '1234' }
     let(:siren) { '123456789' }
-    let(:url) { 'https://api.apientreprise.fr/v2/entreprises/123456789?token=1234' }
+    let(:url) { "#{base_url}/123456789?token=1234&context=Reso&recipient=Reso&object=Reso" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
@@ -36,7 +37,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN is missing' do
     let(:token) { '1234' }
     let(:siren) { '' }
-    let(:url) { 'https://api.apientreprise.fr/v2/entreprises/?token=1234' }
+    let(:url) { "#{base_url}/?token=1234&context=Reso&recipient=Reso&object=Reso" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
@@ -52,7 +53,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN does not exist' do
     let(:token) { '1234' }
     let(:siren) { '' }
-    let(:url) { 'https://api.apientreprise.fr/v2/entreprises/?token=1234' }
+    let(:url) { "#{base_url}/?token=1234&context=Reso&recipient=Reso&object=Reso" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
@@ -69,7 +70,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'Token is unauthorized' do
     let(:token) { '' }
     let(:siren) { '123456789' }
-    let(:url) { 'https://api.apientreprise.fr/v2/entreprises/123456789?token=' }
+    let(:url) { "#{base_url}/123456789?token=&context=Reso&recipient=Reso&object=Reso" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
