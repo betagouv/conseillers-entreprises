@@ -2,11 +2,12 @@ fr:
   mailers:
     admin_mailer:
       new_user_created_notification:
-        subject: "[Réso] %{full_name} vient de s’inscrire !"
+        subject: "[Réso] %{full_name} vient de s’inscrire"
         hello: Bonjour,
-        user_has_signed_up: L’utilisateur %{full_name} <%{email}> vient de s’inscrire.
-        activate_its_account_html: Pour valider son compte, veuillez %{click_here_link}.
-        click_here: cliquer ici
+        user_has_signed_up: "%{full_name} <%{email}> vient de s’inscrire."
+        view_their_account_html: "%{click_here_link} pour consulter son compte."
+        activate_their_account_html: "%{click_here_link} pour valider son compte."
+        click_here: Cliquez ici
         reso_app_html: L’application %{link_to_root}.
       new_user_approved_notification:
         subject: "Re: [Réso] %{full_name} vient de s’inscrire !"
