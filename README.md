@@ -1,16 +1,16 @@
-# Réso
+# RéSo
 
-Apporter l'ensemble des aides publiques aux entreprises qui en ont besoin. [https://reso.beta.gouv.fr/](https://reso.beta.gouv.fr/)
+Apporter l’ensemble des aides publiques aux entreprises qui en ont besoin. [reso.beta.gouv.fr](https://reso.beta.gouv.fr/)
 
-Créé dans le contexte de [l'incubateur des startups d'état](https://beta.gouv.fr/).
+Créé dans le contexte de [l’incubateur des startups d’état](https://beta.gouv.fr/).
 
-From now on, we're gonna switch in English. 🇬🇧
+From now on, we’re gonna switch in English.
 
 ## Getting started
 
 1. Clone the repository.
 
-        $ git clone git@github.com:sgmap/reso.git
+        $ git clone git@github.com:betagouv/reso.git
         $ cd reso
 
 2. Install Ruby using **rvm**. See `Gemfile` file to know which Ruby version is needed.
@@ -18,7 +18,7 @@ From now on, we're gonna switch in English. 🇬🇧
         $ brew install rvm
         $ rvm install x.x.x
 
-3. Install PostgreSQL and create a user if you don't have any.
+3. Install PostgreSQL and create a user if you don’t have any.
 
         $ brew install postgres
 
@@ -32,7 +32,7 @@ From now on, we're gonna switch in English. 🇬🇧
 
 4. Create `config/database.yml` file from `config/database.yml.example`. Fill development and test sections in the latter with your PostgreSQL username and password.
 
-        $ cp config/database.yml.example config/database.yml
+        $ cp config/database.example.yml config/database.yml
 
 5. Install project dependencies (gems) with bundler.
 
@@ -62,13 +62,10 @@ From now on, we're gonna switch in English. 🇬🇧
 
 10. You can now start a server.
 
-        $ foreman start
+        $ gem install foreman
+        $ foreman start --procfile=Procfile.dev
 
-    In another terminal, run webpack dev server:
-
-        $ DISABLE_SPRING=1 ./bin/webpack-dev-server
-
-    And yay! Check out [this page](http://localhost:3000)!
+    And yay! Reso is now [running locally](http://localhost:3000)!
 
 ## Tests
 
@@ -111,7 +108,7 @@ In order to deploy the project on staging environment, use:
 
     $ git push scalingo-staging master
 
-Don't forget to perform database migrations if any:
+Don’t forget to perform database migrations if any:
 
     $ scalingo -a reso-staging run rails db:migrate
 
