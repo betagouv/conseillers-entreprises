@@ -81,9 +81,9 @@ RSpec.describe User, type: :model do
             first_name: 'Ivan',
             last_name: 'Collombet',
             role: 'Business Developer',
-            institution: 'SGMAP'
+            institution: 'DINSIC'
     end
 
-    it { expect(user.full_name_with_role).to eq 'Ivan Collombet, Business Developer, SGMAP' }
+    it { expect(user.full_name_with_role).to eq 'Ivan Collombet, Business Developer, DINSIC' }
   end
 end
