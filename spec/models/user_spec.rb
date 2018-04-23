@@ -48,14 +48,14 @@ RSpec.describe User, type: :model do
 
     describe 'administrator_of_territory' do
       it do
-        user1 = create :user
+        user1 = create :user, first_name:'bb', last_name:'bb'
         create :territory_user, user: user1
-        create :territory_user, user: user1
-        user2 = create :user
+        user2 = create :user, first_name:'aa', last_name:'aa'
         create :territory_user, user: user2
-        create :user
+        user3 = create :user, contact_page_order: 2
+        create :territory_user, user: user3
 
-        expect(User.administrators_of_territory).to match_array [user1, user2]
+        expect(User.administrators_of_territory).to eq [user2, user1]
       end
     end
 
