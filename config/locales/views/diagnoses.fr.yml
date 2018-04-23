@@ -2,22 +2,22 @@ fr:
   diagnoses:
     index:
       title: Liste des analyses
-      no_analysis_message: Cette page vous permet de suivre l'ensemble des analyses que vous avez réalisées.
+      no_analysis_message: Cette page vous permet de suivre l’ensemble des analyses que vous avez réalisées.
       diagnoses_in_progress: Analyses en cours
       no_diagnoses_in_progress_message_html: |
         Retrouvez ici les analyses que vous avez initiées et qui demeurent incomplètes.
-        <br>Vous pouvez les compléter à tout moment en reprenant à l'étape où vous vous êtes arrêté.
+        <br>Vous pouvez les compléter à tout moment en reprenant à l’étape où vous vous êtes arrêté.
       completed_diagnoses: Analyses réalisées
       no_completed_diagnosis_message_html: |
         Retrouvez ici les analyses que vous avez complétées.
         <br>Vous pouvez retrouver toutes les informations fournies ainsi que les actions effectuées dans le récapitulatif.
       create_new_diagnosis: Faire une nouvelle analyse
       print_questions: Imprimer le questionnaire
-      step: "Étape : %{step}/4"
-      continue_diagnosis: Poursuivre l'analyse
-      delete_diagnosis_confirmation_message: "Êtes-vous sûr de vouloir supprimer définitivement l'analyse de %{company_name} ?"
+      step: "Étape : %{step}/4"
+      continue_diagnosis: Poursuivre l’analyse
+      delete_diagnosis_confirmation_message: "Êtes-vous sûr de vouloir supprimer définitivement l’analyse de %{company_name} ?"
       show_summary: Voir le récapitulatif
-      visitee: "Contact : %{visitee_name}"
+      visitee: "Contact : %{visitee_name}"
       selected_assistance_experts:
         zero: 0 mise en relation
         one: 1 mise en relation
@@ -28,7 +28,7 @@ fr:
     print:
       title: Questionnaire en entreprise
       creation_date: "Généré le %{date}"
-      institution_example: "Exemple d'institutions référentes : %{institution_list_string}"
+      institution_example: "Exemple d’institutions référentes : %{institution_list_string}"
     steps:
       step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins<br>détectés
@@ -36,18 +36,18 @@ fr:
       step4_title_html: Mise en<br>contact
     step1:
       title: Nouvelle analyse
-      select_company: Sélectionner une entreprise pour l'analyse
-      you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l'entreprise, soit indiquer son SIRET."
+      select_company: Sélectionner une entreprise pour l’analyse
+      you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l’entreprise, soit indiquer son SIRET."
     step2:
       title: Identification des besoins
       identify_needs: |
-        Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l'entreprise.
+        Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l’entreprise.
         Vous pouvez entrer des informations complémentaires qui seront par la suite transmises aux référents pertinents.
       diagnosis_content_subtitle: Informations générales sur cette entreprise
-      diagnosis_content: "Entrez des informations complémentaires concernant cette entreprise :"
-      diagnosed_need_content: "Entrez des informations complémentaires concernant ce besoin spécifique :"
+      diagnosis_content: "Entrez des informations complémentaires concernant cette entreprise :"
+      diagnosed_need_content: "Entrez des informations complémentaires concernant ce besoin spécifique :"
       no_category: Besoins non désélectionnables
-      no_category_detail: Ces besoins ayant été modifiés par l'équipe Réso, ils ne sont plus disponibles ni à la création ni à la suppression. Il est toujours possible de modifier les informations complémentaires.
+      no_category_detail: Ces besoins ayant été modifiés par l’équipe Réso, ils ne sont plus disponibles ni à la création ni à la suppression. Il est toujours possible de modifier les informations complémentaires.
     step3:
       title: Informations complémentaires
       date_header: Date de votre visite
@@ -55,18 +55,18 @@ fr:
       your_contact_in_the_company: Votre contact en entreprise
       info_about_who_you_saw_during_your_visit: Remplissez les informations suivantes concernant la personne que vous avez rencontrée durant votre visite chez %{company_name}.
       error_header: Erreur lors de la création
-      error_message: "Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l'erreur persite, contactez l'equipe Réso."
+      error_message: "Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l’erreur persite, contactez l’equipe Réso."
       full_name: Nom
-      role: Fonction au sein de l'entreprise
+      role: Fonction au sein de l’entreprise
       contact_detail: Coordonnées
-      add_one_contact_mode_below: Veuillez indiquer au moins le numéro de téléphone ou l'adresse e-mail.
+      add_one_contact_mode_below: Veuillez indiquer au moins le numéro de téléphone ou l’adresse e-mail.
       email_address: Adresse e-mail
       phone_number: Numéro de télephone
     step4:
       title: Sélection des référents
-      expert_scope_of_work: "Champ de compétence du référent :"
+      expert_scope_of_work: "Champ de compétence du référent :"
       no_diagnosed_needs: Pas de besoins sélectionnés.
-      no_assistance: Aucune aide ne répond à ce besoin sur ce territoire pour l'instant.
+      no_assistance: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
       you_can_contact_territory_users: Vous pouvez néanmoins contacter vos gestionnaires locaux.
       territory_users_role:
         one: Gestionnaire local
@@ -74,18 +74,18 @@ fr:
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
       before_sending_emails_text_html: |
         <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
-        <p>Ils auront accès aux coordonnées de l'entreprise et à l'analyse que vous avez réalisée, y compris vos commentaires.</p>
-        <p>Ils pourront recontacter directement l'entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d'information.</p>
+        <p>Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires.</p>
+        <p>Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.</p>
       notify_selected_experts: Notifier les référents sélectionnés
       add_contact_to_notify: Veuillez ajouter un contact pour pouvoir envoyer ces notifications (étape 3).
     step5:
       title: Récapitulatif
-      notifications_sent: Les notifications ont bien été envoyées !
-      company_contact_subtitle: Contact rencontré au sein de l'entreprise
+      notifications_sent: Les notifications ont bien été envoyées !
+      company_contact_subtitle: Contact rencontré au sein de l’entreprise
       show_detailed_information: Informations détaillées
       need_contacts_summary_subtitle: Référents contactés classés par besoin
-      zero_contacted_expert: Aucun référent n'a été contacté pour ce besoin
-      diagnosed_needs_content_label: "Les informations complémentaires concernant ce besoin :"
+      zero_contacted_expert: Aucun référent n’a été contacté pour ce besoin
+      diagnosed_needs_content_label: "Les informations complémentaires concernant ce besoin :"
       diagnosis_content_subtitle: Informations générales
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       diagnosed_needs:

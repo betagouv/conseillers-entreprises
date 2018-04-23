@@ -8,18 +8,18 @@ fr:
       company_found: Entreprise trouvée
       no_company_found_title: Aucun résultat trouvé
       no_company_found_text_html: >
-        Nous n'avons trouvé aucune entreprise correspondant à la raison sociale et au département que vous avez indiqués.<br />
-        Le siège de l'entreprise se trouve peut-être dans un autre département ?
+        Nous n’avons trouvé aucune entreprise correspondant à la raison sociale et au département que vous avez indiqués.<br />
+        Le siège de l’entreprise se trouve peut-être dans un autre département ?
       modal_loading: Recherche en cours
       show_detailed_information: Voir les informations<br/>détaillées
       location: Localité
-      siret_format_error_title: Numéro invalide !
+      siret_format_error_title: Numéro invalide !
       siret_format_error_text: Vérifiez que le numéro SIRET est bien composé de 14 chiffres.
-      input_error_title: Informations non valides !
+      input_error_title: Informations non valides !
       input_error_text: Vérifiez que vous avez correctement complété la raison sociale ainsi que le numéro de département.
-      company_not_found_error_title: Entreprise non trouvée !
-      company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
-      search_by_name: Recherche par nom d'entreprise
+      company_not_found_error_title: Entreprise non trouvée !
+      company_not_found_error_text: Êtes-vous sûr(e) de son numéro SIRET ?
+      search_by_name: Recherche par nom d’entreprise
       search_by_siret: Recherche par SIRET
       search_by_name_description: "Ce moyen de recherche est temporairement indisponible."
-      search_by_siret_description: "Rechercher l'entreprise en renseignant son numéro SIRET."
+      search_by_siret_description: "Rechercher l’entreprise en renseignant son numéro SIRET."
