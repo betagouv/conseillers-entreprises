@@ -6,13 +6,13 @@ fr:
       facility: Établissement
       siege_social: Siège social
       mandataires_sociaux: Mandataires sociaux
-      ereputation: Faire une recherche sur l'actualité de l'entreprise
-      news_search_on_google: Recherche d'actualités sur Google
+      ereputation: Faire une recherche sur l’actualité de l’entreprise
+      news_search_on_google: Recherche d’actualités sur Google
       global_search_on_qwant: Recherche générale sur Qwant
       global_search_on_google: Recherche générale sur Google
       diagnoses_completed: "Analyses complétées de %{company_name}"
       visited_at: "Visitée le %{date}"
-      visited_by_html: "par %{advisor_name} </br> email : %{advisor_email}"
+      visited_by_html: "par %{advisor_name} </br> email : %{advisor_email}"
       diagnosed_needs:
         zero: 0 besoin identifié
         one: 1 besoin identifié
@@ -21,18 +21,18 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
-      no_visit_found: Aucune analyse n'a encore été complétée pour cette entreprise.
+      no_visit_found: Aucune analyse n’a encore été complétée pour cette entreprise.
       create_diagnosis: Faire une nouvelle analyse pour cette entreprise
     company:
       raison_sociale: Raison Sociale
       nom_commercial: Nom Commercial
-      categorie_entreprise: Categorie de l'entreprise
-      tranche_effectif_salarie_entreprise: Tranche d'effectif de salariés de l'entreprise
+      categorie_entreprise: Categorie de l’entreprise
+      tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
       siren: SIREN
       capital_social: Capital social
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
       forme_juridique: Forme juridique
-      procedure_collective: En cours de procedure collective ?
+      procedure_collective: En cours de procedure collective ?
       date_creation: Date de création
       nom: Nom
       prenom: Prénom
@@ -41,11 +41,11 @@ fr:
       siret: SIRET
       naf: Code NAF
       date_mise_a_jour: Date de mise à jour
-      tranche_effectif_salarie_etablissement: Tranche d'effectif de salariés de l'établissement
-      date_creation_etablissement: Date de création de l'établissement
-      region_implantation: Région d'implantation
-      commune_implantation: Commune d'implantation
-      pays_implantation: Pays d'implantation
+      tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
+      date_creation_etablissement: Date de création de l’établissement
+      region_implantation: Région d’implantation
+      commune_implantation: Commune d’implantation
+      pays_implantation: Pays d’implantation
       adresse: Adresse
     mandataire:
       raison_sociale: Raison Sociale
@@ -53,9 +53,9 @@ fr:
       nom: Nom
       fonction: Fonction
       date_naissance: Date de naissance
-      dirigeant: Est-ce un dirigeant ?
+      dirigeant: Est-ce un dirigeant ?
       identifiant: Identifiant
     search:
       search_company: Rechercher une entreprise
-      you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l'entreprise, soit indiquer son SIRET."
+      you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l’entreprise, soit indiquer son SIRET."
       last_searches: Dernières recherches
