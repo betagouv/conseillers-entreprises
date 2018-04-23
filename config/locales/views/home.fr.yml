@@ -4,7 +4,7 @@ fr:
       tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
       start_button: Commencez !
       sign_up_button: Inscrivez-vous !
-      or_call_us: ou appelez-nous au 09 72 62 57 11
+      or_call_us: ou appelez-nous au 06 99 05 47 37
       tool_to_help_advisors: Un outil dédié aux conseillers d'entreprise des organismes publics
       feature_spot_needs_html: "1<br><em class='feature-text-em'>Identifiez</em><br>les besoins des entreprises en quelques minutes"
       feature_find_contacts_html: "2<br><em class='feature-text-em'>Trouvez</em><br>les contacts compétents sur votre territoire"
@@ -88,4 +88,4 @@ fr:
         one: Gestionnaire du territoire
         other: Gestionnaire des territoires
       product_team: Équipe projet
-      contact_team_for_general_purpose_html: "Pour toute question générale, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 09 72 62 57 11."
+      contact_team_for_general_purpose_html: "Pour toute question générale, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37."
