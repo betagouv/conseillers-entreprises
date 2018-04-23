@@ -4,23 +4,23 @@ fr:
       weekly_statistics:
         subject: "[Réso] Statistiques hebdomadaires pour le territoire de %{territory_name}"
         hello: "Bonjour %{first_name},"
-        here_are_weekly_statistics_html: "Voici ce qui s'est passé sur %{link_to_root} cette semaine pour le territoire de %{territory_name} :"
+        here_are_weekly_statistics_html: "Voici ce qui s’est passé sur %{link_to_root} cette semaine pour le territoire de %{territory_name} :"
         diagnosis_description: "Analyse #%{id} par %{advisor_name} pour %{company_name}"
         created_diagnoses_count:
           zero: Aucune analyse créée.
-          one: "Une analyse créée :"
-          other: "%{count} analyses créées :"
+          one: "Une analyse créée :"
+          other: "%{count} analyses créées :"
         updated_diagnoses_count:
           zero: Aucune analyse mise à jour.
-          one: "Une analyse mise à jour :"
-          other: "%{count} analyses mises à jour :"
+          one: "Une analyse mise à jour :"
+          other: "%{count} analyses mises à jour :"
         completed_diagnoses_count:
           zero: Aucune analyse terminée.
-          one: "Une analyse terminée :"
-          other: "%{count} analyses terminées :"
+          one: "Une analyse terminée :"
+          other: "%{count} analyses terminées :"
         contacted_experts_count:
           zero: Aucun référent contacté.
           one: "Un référent contacté."
           other: "%{count} référents contactés."
-        have_a_nice_week: Bonne semaine !
-        reso_team_html: L'équipe %{link_to_root}.
+        have_a_nice_week: Bonne semaine !
+        reso_team_html: L’équipe %{link_to_root}.

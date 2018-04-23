@@ -10,7 +10,7 @@ RSpec.describe 'home/index.html.haml', type: :view do
       it 'displays a title' do
         render
 
-        expect(rendered).to include 'Commencez !'
+        expect(rendered).to include 'Commencez !'
       end
     end
 
@@ -18,7 +18,7 @@ RSpec.describe 'home/index.html.haml', type: :view do
       it 'displays a title' do
         render
 
-        expect(rendered).to include 'Inscrivez-vous !'
+        expect(rendered).to include 'Inscrivez-vous !'
       end
     end
   end

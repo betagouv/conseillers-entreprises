@@ -19,7 +19,12 @@ class User < ApplicationRecord
   validates :password, presence: true, confirmation: true, if: :password_required?
 
   scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
-  scope :administrators_of_territory, (-> { joins(:territory_users).distinct })
+  scope :administrators_of_territory, (lambda do
+    where(contact_page_order: nil)
+        .joins(:territory_users)
+        .distinct
+        .order(:first_name, :last_name)
+  end)
   scope :not_admin, (-> { where(is_admin: false) })
   scope :ordered_by_names, (-> { order(:first_name, :last_name) })
 

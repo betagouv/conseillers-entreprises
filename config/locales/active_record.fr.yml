@@ -50,10 +50,10 @@ fr:
         one: Territoire
         other: Territoires
       territory_city:
-        one: Ville d'un territoire
-        other: Villes d'un territoire
+        one: Ville d’un territoire
+        other: Villes d’un territoire
       territory_user:
-        one: Gestionnaire d'un territoire
+        one: Gestionnaire d’un territoire
         other: Gestionnaires de territoires
       search:
         one: Recherche
@@ -72,11 +72,11 @@ fr:
         current_sign_in_ip: IP de connexion
         last_sign_in_ip: IP lors de la dernière connexion
         sign_in_count: Nombre de connexions
-        confirmation_token: Token de confirmation d'adresse e-mail
-        confirmed_at: Date de confirmation d'adresse e-mail
-        confirmation_sent_at: Date d'envoi du mail de confirmation
-        is_admin: Est administrateur ?
-        is_approved: Est validé ?
+        confirmation_token: Token de confirmation d’adresse e-mail
+        confirmed_at: Date de confirmation d’adresse e-mail
+        confirmation_sent_at: Date d’envoi du mail de confirmation
+        is_admin: Est administrateur ?
+        is_approved: Est validé ?
         full_name: Prénom et Nom
         first_name: Prénom
         last_name: Nom
@@ -113,8 +113,8 @@ fr:
         name: Raison sociale
         email: Adresse e-mail
         phone_number: Numéro de téléphone
-        qualified_for_commerce: S'occupe des entreprises commerciales
-        qualified_for_artisanry: S'occupe des entreprises d'artisanat
+        qualified_for_commerce: S’occupe des entreprises commerciales
+        qualified_for_artisanry: S’occupe des entreprises d’artisanat
       facility:
         company: Entreprise
         siret: SIRET
@@ -135,10 +135,10 @@ fr:
         institution: Institution
         email: Adresse e-mail
         phone_number: Numéro de téléphone
-        access_token: Token d'accès
+        access_token: Token d’accès
         territories: Territoires
       diagnosis:
-        visit: Visite qui a fait l'objet de l'analyse
+        visit: Visite qui a fait l’objet de l’analyse
         content: Description
         deleted_at: Date de suppression
       diagnosed_need:
@@ -150,7 +150,7 @@ fr:
         diagnosed_need: Besoin analysé
         expert_full_name: Référent contacté
         expert_institution_name: Institution du référent
-        assistance_title: Titre de l'aide
+        assistance_title: Titre de l’aide
         assistance_expert: Référent (non Gestionnaire du territoire)
         territory_user: Référent (Gestionnaire du territoire)
         expert_viewed_page_at: Date de consultation par le référent
@@ -177,10 +177,10 @@ fr:
         label: Entreprise trouvée
     errors:
       messages:
-        record_invalid: 'La validation a échoué : %{errors}'
+        record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          has_one: "Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record} dépendant(e) existe"
-          has_many: "Vous ne pouvez pas supprimer l'enregistrement parce que les %{record} dépendants existent"
+          has_one: "Vous ne pouvez pas supprimer l’enregistrement car un(e) %{record} dépendant(e) existe"
+          has_many: "Vous ne pouvez pas supprimer l’enregistrement parce que les %{record} dépendants existent"
       models:
         contact:
           attributes:

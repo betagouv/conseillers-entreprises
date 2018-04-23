@@ -10,7 +10,7 @@ describe 'ApplicationController specific features', type: :feature do
       it do
         visit '/admin'
         expect(page).not_to have_content 'Tableau de bord'
-        expect(page).to have_content "Vous n'avez pas accès à cette page."
+        expect(page).to have_content "Vous n’avez pas accès à cette page."
       end
     end
 
@@ -50,13 +50,13 @@ describe 'ApplicationController specific features', type: :feature do
     describe '404 error' do
       let(:raised_error) { ActiveRecord::RecordNotFound }
 
-      it { expect(page).to have_content "Vous n'avez pas accès à cette page !" }
+      it { expect(page).to have_content "Vous n’avez pas accès à cette page !" }
     end
 
     describe '500 error' do
       let(:raised_error) { ArgumentError }
 
-      it { expect(page).to have_content 'Cette erreur était inattendue...' }
+      it { expect(page).to have_content 'Cette erreur était inattendue…' }
     end
   end
 end

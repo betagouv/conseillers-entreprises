@@ -10,9 +10,9 @@ fr:
   save: Sauvegarder
   previous_step: Précédent
   next_step: Passer à la suite
-  sign_up: S'inscrire
+  sign_up: S’inscrire
   sign_in: Se connecter
   contact_us: Contactez-nous
-  admin_authentication_failure: Vous n'avez pas accès à cette page.
-  show_more: plus d'informations
-  show_less: moins d'informations
+  admin_authentication_failure: Vous n’avez pas accès à cette page.
+  show_more: plus d’informations
+  show_less: moins d’informations
