@@ -67,10 +67,10 @@ fr:
       expert_scope_of_work: "Champ de compétence du référent :"
       no_diagnosed_needs: Pas de besoins sélectionnés.
       no_assistance: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-      you_can_contact_territory_users: Vous pouvez néanmoins contacter vos gestionnaires locaux.
+      you_can_contact_territory_users: Vous pouvez néanmoins contacter vos relais locaux.
       territory_users_role:
-        one: Gestionnaire local
-        other: Gestionnaires locaux
+        one: Relais local
+        other: Relais locaux
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
       before_sending_emails_text_html: |
         <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
