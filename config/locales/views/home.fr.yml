@@ -82,10 +82,10 @@ fr:
         <p>Un outil numérique est au cœur de ce réseau et permet de le fédérer. Des algorithmes utilisant des bases de données publiques (activités, résultats financiers, export…) permettent de cibler la prospection : entreprises en pré-difficulté, à fort potentiel de croissance ou ayant un projet de recrutement… Un simulateur permet aux conseillers de proposer aux chefs d’entreprise un premier niveau d’information sur les aides correspondant à leurs besoins et, le cas échéant, d’identifier un contact au sein de l’administration capable de les accompagner dans leurs démarches.</p>
         <p>Réso permet ainsi à l’administration de développer un rôle de conseil à destination des entreprises en complément de son rôle régalien de contrôle.</p>
     contact:
-      territory_administrators: Gestionnaires locaux
-      contact_admins_for_local_purpose: Pour toute question spécifique à un réseau local, merci de contacter le gestionnaire concerné.
+      territory_administrators: Relais locaux
+      contact_admins_for_local_purpose: Pour toute question spécifique à un territoire, merci de contacter le relais local concerné.
       responsible_of_territories:
-        one: Gestionnaire du territoire
-        other: Gestionnaire des territoires
+        one: Relais local
+        other: Relais locaux
       product_team: Équipe projet
-      contact_team_for_general_purpose_html: "Pour toute question générale, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37."
+      contact_team_for_general_purpose_html: "Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37."

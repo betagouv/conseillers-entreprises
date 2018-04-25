@@ -53,8 +53,8 @@ fr:
         one: Ville d’un territoire
         other: Villes d’un territoire
       territory_user:
-        one: Gestionnaire d’un territoire
-        other: Gestionnaires de territoires
+        one: Relais local
+        other: Relais locaux
       search:
         one: Recherche
         other: Recherches
@@ -151,8 +151,8 @@ fr:
         expert_full_name: Référent contacté
         expert_institution_name: Institution du référent
         assistance_title: Titre de l’aide
-        assistance_expert: Référent (non Gestionnaire du territoire)
-        territory_user: Référent (Gestionnaire du territoire)
+        assistance_expert: Référent (non Relais local)
+        territory_user: Référent (Relais local)
         expert_viewed_page_at: Date de consultation par le référent
         status: Statut
         statuses:
@@ -189,4 +189,4 @@ fr:
         selected_assistance_expert:
           attributes:
             assistance_expert:
-              can_not_be_set_with_territory_user: La ressource ne peut pas être liée à la fois à un référent et un gestionnaire local.
+              can_not_be_set_with_territory_user: La ressource ne peut pas être liée à la fois à un référent et un relais local.
