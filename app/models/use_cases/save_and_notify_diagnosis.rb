@@ -34,7 +34,7 @@ module UseCases
       end
 
       def ids_from_selected_checkboxes(hash)
-        return [] unless hash
+        return [] if !hash
         hash.select { |_key, value| value == '1' }.keys.map(&:to_i)
       end
     end

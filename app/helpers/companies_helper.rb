@@ -9,7 +9,7 @@ module CompaniesHelper
     array = []
     searches = Search.of_user(current_user).recent
     searches.each do |search|
-      array << search unless array.map(&:query).include?(search.query)
+      array << search if !array.map(&:query).include?(search.query)
     end
     array.first(5)
   end

@@ -7,7 +7,7 @@ module UseCases
         assistances_experts = assistances_experts_for_diagnosis(diagnosis.id, assistance_expert_ids)
         assistances_experts.each do |assistance_expert|
           diagnosed_need = assistance_expert.assistance.question.diagnosed_needs.first
-          next unless diagnosed_need
+          next if !diagnosed_need
           expert = assistance_expert.expert
           assistance = assistance_expert.assistance
           SelectedAssistanceExpert.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,

@@ -8,7 +8,7 @@
         = link_to diagnoses_path do
           = semantic_icon('tasks')
           = t('.diagnoses')
-      - unless current_user.territory_users.empty?
+      - if !current_user.territory_users.empty?
         .item
           = link_to diagnoses_territory_users_path do
             = semantic_icon('dashboard')
@@ -19,7 +19,7 @@
           = semantic_icon('question mark')
           = t('.know_more')
     .right.menu
-      - unless user_signed_in?
+      - if !user_signed_in?
         .item
           = link_to new_user_session_path do
             = semantic_icon('sign in')

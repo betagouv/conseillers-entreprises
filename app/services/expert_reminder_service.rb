@@ -17,18 +17,18 @@ class ExpertReminderService
 
     def selected_assistances_experts_needing_taking_care_update
       SelectedAssistanceExpert.includes(assistance_expert: :expert).needing_taking_care_update.each do |sae|
-        next unless sae.assistance_expert
+        next if !sae.assistance_expert
         expert_id = sae.assistance_expert.expert_id
-        init_expert_hash(sae) unless @experts_hash[expert_id]
+        init_expert_hash(sae) if !@experts_hash[expert_id]
         @experts_hash[expert_id][:selected_assistances_experts_hash][:needing_taking_care_update] << sae
       end
     end
 
     def selected_assistances_experts_with_no_one_in_charge
       SelectedAssistanceExpert.includes(assistance_expert: :expert).with_no_one_in_charge.each do |sae|
-        next unless sae.assistance_expert
+        next if !sae.assistance_expert
         expert_id = sae.assistance_expert.expert_id
-        init_expert_hash(sae) unless @experts_hash[expert_id]
+        init_expert_hash(sae) if !@experts_hash[expert_id]
         @experts_hash[expert_id][:selected_assistances_experts_hash][:with_no_one_in_charge] << sae
       end
     end

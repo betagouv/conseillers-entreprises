@@ -16,7 +16,7 @@ class Contact < ApplicationRecord
   end
 
   def full_name=(full_name)
-    return unless full_name
+    return if !full_name
     split_full_name = full_name.split(' ')
     return if split_full_name.count.zero?
     case split_full_name.count
