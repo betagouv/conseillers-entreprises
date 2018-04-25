@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :territory_users
   has_many :territories, through: :territory_users
 
-  validates :first_name, :last_name, :role, :email, :phone_number, presence: true
+  validates :first_name, :email, :phone_number, presence: true
 
   # Inspired by Devise validatable module
   validates :email,
