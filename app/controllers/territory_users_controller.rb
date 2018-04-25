@@ -34,7 +34,9 @@ class TerritoryUsersController < ApplicationController
       @territory_user = TerritoryUser.find params[:territory_user_id]
     else
       @territory_user = TerritoryUser.of_user(current_user).of_diagnosis_location(@diagnosis).first
-      not_found if !@territory_user
+      if !@territory_user
+        not_found
+      end
     end
   end
 end

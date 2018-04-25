@@ -16,9 +16,16 @@ class Contact < ApplicationRecord
   end
 
   def full_name=(full_name)
-    return if !full_name
+    if !full_name
+      return
+    end
+
     split_full_name = full_name.split(' ')
-    return if split_full_name.count.zero?
+
+    if split_full_name.count.zero?
+      return
+    end
+
     case split_full_name.count
     when 1
       self.last_name = split_full_name[0]

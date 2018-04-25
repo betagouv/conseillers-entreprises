@@ -6,7 +6,10 @@ module Users
 
     def create
       super
-      AdminMailer.delay.new_user_created_notification(@user) if @user.persisted?
+
+      if @user.persisted?
+        AdminMailer.delay.new_user_created_notification(@user)
+      end
     end
 
     protected

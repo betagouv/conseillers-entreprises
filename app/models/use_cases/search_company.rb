@@ -14,7 +14,9 @@ module UseCases
 
       def with_name_and_county(name, county)
         firmapi_json = Firmapi::FirmsSearch.new.fetch(name, county)
-        nil if firmapi_json.blank? || firmapi_json.companies.empty?
+        if firmapi_json.blank? || firmapi_json.companies.empty?
+          nil
+        end
         firmapi_json.parsed_companies
       end
     end

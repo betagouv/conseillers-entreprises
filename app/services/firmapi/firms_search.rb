@@ -14,7 +14,10 @@ module Firmapi
       connection = HTTP
 
       firms_response = FirmsRequest.new(name, county, connection).response
-      raise FirmapiError, firms_response.error_message if !firms_response.success?
+
+      if !firms_response.success?
+        raise FirmapiError, firms_response.error_message
+      end
 
       firms_response.firms
     end

@@ -3,7 +3,10 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" if !repo_name.include?('/')
+  if !repo_name.include?('/')
+    repo_name = "#{repo_name}/#{repo_name}"
+  end
+
   "https://github.com/#{repo_name}.git"
 end
 

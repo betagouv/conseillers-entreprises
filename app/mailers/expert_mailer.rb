@@ -5,7 +5,10 @@ class ExpertMailer < ApplicationMailer
   default from: SENDER, template_path: 'mailers/expert_mailer'
 
   def notify_company_needs(person, params)
-    @access_token = person.access_token if person.is_a? Expert
+    if person.is_a? Expert
+      @access_token = person.access_token
+    end
+
     @params = params
 
     mail(

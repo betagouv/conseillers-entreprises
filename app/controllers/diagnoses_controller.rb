@@ -57,6 +57,8 @@ class DiagnosesController < ApplicationController
   end
 
   def check_availability_of_diagnosis(diagnosis)
-    not_found if diagnosis.step == Diagnosis::LAST_STEP
+    if diagnosis.step == Diagnosis::LAST_STEP
+      not_found
+    end
   end
 end

@@ -12,7 +12,10 @@ class UserDailyChangeUpdateMailerService
       user_selected_assistance_experts_hash.each do |user, selected_assistance_experts|
         change_updates = create_change_update_array selected_assistance_experts
 
-        break if change_updates.empty?
+        if change_updates.empty?
+          break
+        end
+
         UserMailer.delay.daily_change_update(user, change_updates)
       end
     end

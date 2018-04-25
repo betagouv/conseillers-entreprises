@@ -37,12 +37,22 @@ class SelectedAssistanceExpert < ApplicationRecord
   private
 
   def update_taken_care_of_at
-    update_columns taken_care_of_at: Time.now if (status_taking_care? || status_closed?) && !taken_care_of_at
-    update_columns taken_care_of_at: nil if status_quo? && taken_care_of_at
+    if (status_taking_care? || status_closed?) && !taken_care_of_at
+      update_columns taken_care_of_at: Time.now
+    end
+
+    if status_quo? && taken_care_of_at
+      update_columns taken_care_of_at: nil
+    end
   end
 
   def update_closed_at
-    update_columns closed_at: Time.now if status_closed? && !closed_at
-    update_columns closed_at: nil if (status_quo? || status_taking_care?) && closed_at
+    if status_closed? && !closed_at
+      update_columns closed_at: Time.now
+    end
+
+    if (status_quo? || status_taking_care?) && closed_at
+      update_columns closed_at: nil
+    end
   end
 end
