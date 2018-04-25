@@ -7,7 +7,7 @@ class Diagnosis < ApplicationRecord
 
   attr_accessor :diagnosed_needs_count, :selected_assistances_experts_count, :solved_needs_count
 
-  belongs_to :visit
+  belongs_to :visit, validate: true
 
   has_many :diagnosed_needs
   accepts_nested_attributes_for :diagnosed_needs

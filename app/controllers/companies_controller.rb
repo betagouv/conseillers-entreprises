@@ -14,7 +14,7 @@ class CompaniesController < ApplicationController
     facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
 
     if facility
-      visit = Visit.create(advisor: current_user, facility: facility)
+      visit = Visit.new(advisor: current_user, facility: facility)
     end
 
     if visit
