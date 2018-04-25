@@ -4,14 +4,14 @@
   - link_to_root = link_to t('app_name'), root_url
   %p= t('.here_is_a_summary_email_html', link_to_root: link_to_root)
 
-  - if !@selected_assistances_experts_hash[:needing_taking_care_update].empty?
+  - if @selected_assistances_experts_hash[:needing_taking_care_update].present?
     %h2= t('.needs_taken_care_of')
     %p= t('.you_took_care_of_needs')
     - locals = { selected_assistances_experts: @selected_assistances_experts_hash[:needing_taking_care_update],
     access_token: @access_token }
     = render partial: 'mailers/expert_mailer/reminders_selected_assistance_expert', locals: locals
 
-  - if !@selected_assistances_experts_hash[:with_no_one_in_charge].empty?
+  - if @selected_assistances_experts_hash[:with_no_one_in_charge].present?
     %h2= t('.needs_without_answer')
     %p= t('.some_companies_are_waiting_for_you')
     - locals = { selected_assistances_experts: @selected_assistances_experts_hash[:with_no_one_in_charge],

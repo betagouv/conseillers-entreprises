@@ -8,7 +8,7 @@
         = link_to diagnoses_path do
           = semantic_icon('tasks')
           = t('.diagnoses')
-      - if !current_user.territory_users.empty?
+      - if current_user.territory_users.present?
         .item
           = link_to diagnoses_territory_users_path do
             = semantic_icon('dashboard')
