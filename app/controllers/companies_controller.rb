@@ -18,7 +18,7 @@ class CompaniesController < ApplicationController
       diagnosis = Diagnosis.new(visit: visit, step: '2')
     end
 
-    if facility && visit && diagnosis.save
+    if diagnosis && diagnosis.save
       redirect_to step_2_diagnosis_path(diagnosis)
     else
       render body: nil, status: :bad_request
