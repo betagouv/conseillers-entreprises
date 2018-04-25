@@ -15,9 +15,6 @@ class CompaniesController < ApplicationController
 
     if facility
       visit = Visit.new(advisor: current_user, facility: facility)
-    end
-
-    if visit
       diagnosis = Diagnosis.new(visit: visit, step: '2')
     end
 
