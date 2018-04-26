@@ -11,10 +11,14 @@ class CompaniesController < ApplicationController
   def search; end
 
   def create_diagnosis_from_siret
-    facility = UseCases::SearchFacility.with_siret_and_save params[:siret]
-    visit = Visit.create advisor: current_user, facility: facility if facility
-    diagnosis = Diagnosis.new visit: visit, step: '2' if visit
-    if facility && visit && diagnosis.save
+    facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
+
+    if facility
+      visit = Visit.new(advisor: current_user, facility: facility)
+      diagnosis = Diagnosis.new(visit: visit, step: '2')
+    end
+
+    if diagnosis&.save
       redirect_to step_2_diagnosis_path(diagnosis)
     else
       render body: nil, status: :bad_request
