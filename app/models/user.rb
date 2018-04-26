@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  WHITELISTED_DOMAINS = %w[beta.gouv.fr direccte.gouv.fr pole-emploi.fr pole-emploi.net cma-hautsdefrance.fr].freeze
+
   include PersonConcern
 
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
@@ -20,6 +22,8 @@ class User < ApplicationRecord
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?
 
+  before_create :auto_approve_if_whitelisted_domain
+
   scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
   scope :administrators_of_territory, (lambda do
     where(contact_page_order: nil)
@@ -36,6 +40,13 @@ class User < ApplicationRecord
 
   def full_name_with_role
     "#{first_name} #{last_name}, #{role}, #{institution}"
+  end
+
+  def auto_approve_if_whitelisted_domain
+    email_domain = email.split("@").last
+    if email_domain.in?(WHITELISTED_DOMAINS)
+      self.is_approved = true
+    end
   end
 
   protected
