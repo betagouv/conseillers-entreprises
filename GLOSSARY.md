@@ -1,7 +1,7 @@
 # Glossaire
 
 Petit glossaire des termes de l'application:
- 
+
  Terme anglais | Traduction francaise
  ------------- | --------------------
  company       | entreprise
@@ -12,4 +12,3 @@ Petit glossaire des termes de l'application:
  expert        | référent
  county        | département
 
-  
