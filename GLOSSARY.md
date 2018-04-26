@@ -11,4 +11,3 @@ Petit glossaire des termes de l'application:
  visitee       | personne en entreprise rencontrée lors d'une visite
  expert        | référent
  county        | département
-
