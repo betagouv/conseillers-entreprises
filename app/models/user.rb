@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include PersonConcern
+
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
 
   has_many :territory_users
   has_many :territories, through: :territory_users
 
-  validates :first_name, :last_name, :role, :email, :phone_number, presence: true
+  validates :first_name, :email, :phone_number, presence: true
 
   # Inspired by Devise validatable module
   validates :email,
@@ -30,14 +32,6 @@ class User < ApplicationRecord
 
   def active_for_authentication?
     super && is_approved?
-  end
-
-  def to_s
-    full_name
-  end
-
-  def full_name
-    "#{first_name} #{last_name}"
   end
 
   def full_name_with_role
