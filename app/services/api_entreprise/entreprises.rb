@@ -18,7 +18,10 @@ module ApiEntreprise
       connection = HTTP
 
       entreprise_response = EntrepriseRequest.new(token, siren, connection).response
-      raise ApiEntrepriseError, entreprise_response.error_message unless entreprise_response.success?
+
+      if !entreprise_response.success?
+        raise ApiEntrepriseError, entreprise_response.error_message
+      end
 
       entreprise_response.entreprise_wrapper
     end

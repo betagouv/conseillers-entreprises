@@ -21,4 +21,3 @@ test:
 production:
   <<: *default
   database: reso-production
-

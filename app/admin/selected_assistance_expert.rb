@@ -58,8 +58,13 @@ ActiveAdmin.register SelectedAssistanceExpert do
   controller do
     def update
       super
-      fill_from_territory_user if territory_user_changed?
-      fill_from_assistance_expert if assistance_expert_changed?
+      if territory_user_changed?
+        fill_from_territory_user
+      end
+
+      if assistance_expert_changed?
+        fill_from_assistance_expert
+      end
     end
 
     def territory_user_changed?

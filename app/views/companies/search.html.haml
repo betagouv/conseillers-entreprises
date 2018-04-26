@@ -8,7 +8,7 @@
 
   %h3= t('.last_searches')
   - searches = last_searches
-  - unless searches.empty?
+  - if searches.present?
     %ul
       - searches.each do |search|
         %li= link_to search.label, company_path(siret: search.query)

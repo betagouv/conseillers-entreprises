@@ -1,4 +1,4 @@
-- unless Rails.env.production?
+- if !Rails.env.production?
   .environment-ribbon-wrapper.right
     .environment-ribbon
       %a= Rails.env
