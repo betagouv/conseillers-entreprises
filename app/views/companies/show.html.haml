@@ -24,15 +24,6 @@
       - @company.entreprise.mandataires_sociaux.each do |person|
         = render partial: 'mandataire', locals: { person: person }
 
-      %h2= t('.ereputation')
-      %ul
-        :ruby
-          google_news_url = "https://www.google.fr/search?q=#{@company.name}&tbm=nws"
-          qwant_url = "https://www.qwant.com/?q=#{@company.name}&t=web"
-          google_url = "https://www.google.fr/search?q=#{@company.name}"
-        %li= link_to t('.news_search_on_google'), google_news_url, target: :_blank
-        %li= link_to t('.global_search_on_qwant'), qwant_url, target: :_blank
-        %li= link_to t('.global_search_on_google'), google_url, target: :_blank
 
   %h2= t('.diagnoses_completed', company_name: @company.name)
   - if @diagnoses.empty?
