@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   has_many :territory_users
   has_many :territories, through: :territory_users
+  has_many :visits, foreign_key: 'advisor_id'
+  has_many :searches
 
   validates :first_name, :email, :phone_number, presence: true
 
