@@ -57,5 +57,7 @@ fr:
       identifiant: Identifiant
     search:
       search_company: Rechercher une entreprise
-      you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l’entreprise, soit indiquer son SIRET."
-      last_searches: Dernières recherches
+      explanation: SIRET, raison sociale, adresse, activité…
+      suggestions: Suggestions
+      last_searches: Recherches récentes
+      generic_error: La recherche a échoué pour une raison inconnue. Réessayez plus tard.
