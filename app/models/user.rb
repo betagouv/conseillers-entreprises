@@ -36,6 +36,25 @@ class User < ApplicationRecord
   scope :not_admin, (-> { where(is_admin: false) })
   scope :ordered_by_names, (-> { order(:first_name, :last_name) })
 
+  scope :active_searchers, (lambda do |date|
+    joins(:searches)
+        .where(searches: {created_at: date})
+        .uniq
+  end)
+  
+  scope :active_diagnosers, (lambda do |date, minimum_step|
+    joins(visits: :diagnosis)
+        .where(visits: {created_at: date})
+        .where('step >= ?', minimum_step).uniq
+  end)
+
+  scope :active_answered, (lambda do |date, allowed_statuses|
+    joins(visits: [diagnosis: [diagnosed_needs: :selected_assistance_experts]])
+        .where(visits: {created_at: date})
+        .where('status IN (?)', allowed_statuses)
+        .uniq
+  end)
+
   def active_for_authentication?
     super && is_approved?
   end
