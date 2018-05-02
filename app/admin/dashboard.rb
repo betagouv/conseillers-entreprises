@@ -26,7 +26,44 @@ ActiveAdmin.register_page 'Dashboard' do
           end
         end
       end
-      column do
+      column class: 'attributes_table' do
+        panel I18n.t('active_admin.dashboard_welcome.user_stats') do
+          table do
+            tr class: 'row' do
+              th I18n.t('active_admin.dashboard_welcome.registered_users')
+              td User.not_admin.count
+            end
+            range = (Time.now - 30.days)..Time.now
+            tr class: 'row' do
+              th I18n.t('active_admin.dashboard_welcome.searchers')
+              td User.not_admin.active_searchers(range).count
+            end
+            tr class: 'row' do
+              th I18n.t('active_admin.dashboard_welcome.diagnosers_2')
+              td User.not_admin.active_diagnosers(range, 2).count
+            end
+            tr class: 'row' do
+              th I18n.t('active_admin.dashboard_welcome.diagnosers_3')
+              td User.not_admin.active_diagnosers(range, 3).count
+            end
+            tr class: 'row' do
+              th I18n.t('active_admin.dashboard_welcome.diagnosers_4')
+              td User.not_admin.active_diagnosers(range, 4).count
+            end
+            tr class: 'row' do
+              th I18n.t('active_admin.dashboard_welcome.diagnosers_5')
+              td User.not_admin.active_diagnosers(range, 5).count
+            end
+            tr class: 'row' do
+              th I18n.t('active_admin.dashboard_welcome.answered_taken_care_of')
+              td User.not_admin.active_answered(range, [1, 2]).count
+            end
+            tr class: 'row' do
+              th I18n.t('active_admin.dashboard_welcome.answered_solved')
+              td User.not_admin.active_answered(range, [2]).count
+            end
+          end
+        end
       end
     end
   end

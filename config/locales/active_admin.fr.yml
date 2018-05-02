@@ -4,6 +4,15 @@ fr:
     dashboard_welcome:
       useful_links: Liens utiles
       invite_users: Inviter des utilisateurs
+      user_stats: Utilisateurs (30 derniers jours)
+      registered_users: Inscrits
+      searchers: …ont fait au moins une recherche
+      diagnosers_2: …ont créé au moins un diagnostic
+      diagnosers_3: …ont saisi les besoins (step 2)
+      diagnosers_4: …ont saisi le contact (step 3)
+      diagnosers_5: …ont lancé la mise en relation (step 4)
+      answered_taken_care_of: …qui a été pris en charge
+      answered_solved: …qui a résolu un besoin
     user:
       user_info: Informations utilisateur
       user_activation: Validation du compte
