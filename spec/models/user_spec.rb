@@ -48,9 +48,9 @@ RSpec.describe User, type: :model do
 
     describe 'administrator_of_territory' do
       it do
-        user1 = create :user, first_name:'bb', last_name:'bb'
+        user1 = create :user, first_name: 'bb', last_name: 'bb'
         create :territory_user, user: user1
-        user2 = create :user, first_name:'aa', last_name:'aa'
+        user2 = create :user, first_name: 'aa', last_name: 'aa'
         create :territory_user, user: user2
         user3 = create :user, contact_page_order: 2
         create :territory_user, user: user3
@@ -85,5 +85,23 @@ RSpec.describe User, type: :model do
     end
 
     it { expect(user.full_name_with_role).to eq 'Ivan Collombet, Business Developer, DINSIC' }
+  end
+
+  describe '#auto_approve_if_whitelisted_domain callback' do
+    subject { user.is_approved? }
+
+    let(:user) { create(:user, :just_registered, email: email) }
+
+    context 'with an unkown email domain' do
+      let(:email) { 'user@example.com' }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'with a kown email domain' do
+      let(:email) { 'user@beta.gouv.fr' }
+
+      it { is_expected.to be_truthy }
+    end
   end
 end
