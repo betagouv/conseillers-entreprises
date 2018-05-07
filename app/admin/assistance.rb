@@ -13,7 +13,11 @@ ActiveAdmin.register Assistance do
       :_destroy,
       assistances_experts_attributes: %i[id expert_id _create _update _destroy]
     ]
-    permitted << :other if params[:action] == 'create'
+
+    if params[:action] == 'create'
+      permitted << :other
+    end
+
     permitted
   end
 

@@ -48,9 +48,9 @@ RSpec.describe User, type: :model do
 
     describe 'administrator_of_territory' do
       it do
-        user1 = create :user, first_name:'bb', last_name:'bb'
+        user1 = create :user, first_name: 'bb', last_name: 'bb'
         create :territory_user, user: user1
-        user2 = create :user, first_name:'aa', last_name:'aa'
+        user2 = create :user, first_name: 'aa', last_name: 'aa'
         create :territory_user, user: user2
         user3 = create :user, contact_page_order: 2
         create :territory_user, user: user3
@@ -67,6 +67,45 @@ RSpec.describe User, type: :model do
         expect(User.not_admin).to eq [regular_user]
       end
     end
+
+    describe 'active_searchers' do
+      it do
+        searcher = create :user, searches: [(create :search, created_at: 1.day.ago)]
+        create :user, searches: [(create :search, created_at: 2.months.ago)]
+
+        last_30_days = (30.days.ago)..Time.now
+        expect(User.active_searchers(last_30_days)).to eq [searcher]
+      end
+    end
+
+    describe 'active_diagnosers' do
+      it do
+        diagnosis = create :diagnosis, step: 3
+        visit = create :visit, created_at: 1.day.ago, diagnosis: diagnosis
+        diagnoser = create :user, visits: [visit]
+
+        last_30_days = (30.days.ago)..Time.now
+
+        expect(User.active_diagnosers(last_30_days, 3)).to eq [diagnoser]
+        expect(User.active_diagnosers(last_30_days, 4)).to eq []
+      end
+    end
+
+    describe 'active_answered' do
+      it do
+        expert = create :selected_assistance_expert, status: 2
+        need = create :diagnosed_need, selected_assistance_experts: [expert]
+        diagnosis = create :diagnosis, diagnosed_needs: [need]
+        visit = create :visit, created_at: 1.day.ago, diagnosis: diagnosis
+        active_user = create :user, visits: [visit]
+
+        last_30_days = (30.days.ago)..Time.now
+
+        expect(User.active_answered(last_30_days, [1,2])).to eq [active_user]
+        expect(User.active_answered(last_30_days, [3])).to eq []
+      end
+    end
+
   end
 
   describe 'full_name' do
@@ -85,5 +124,23 @@ RSpec.describe User, type: :model do
     end
 
     it { expect(user.full_name_with_role).to eq 'Ivan Collombet, Business Developer, DINSIC' }
+  end
+
+  describe '#auto_approve_if_whitelisted_domain callback' do
+    subject { user.is_approved? }
+
+    let(:user) { create(:user, :just_registered, email: email) }
+
+    context 'with an unkown email domain' do
+      let(:email) { 'user@example.com' }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'with a kown email domain' do
+      let(:email) { 'user@beta.gouv.fr' }
+
+      it { is_expected.to be_truthy }
+    end
   end
 end

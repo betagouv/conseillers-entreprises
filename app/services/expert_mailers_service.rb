@@ -43,7 +43,7 @@ class ExpertMailersService
     def questions_grouped_by_experts_for_ae(assistance_expert, diagnosis, questions_grouped_by_experts)
       expert_id = assistance_expert.expert_id
       diagnosed_need_contents_hash = diagnosed_need_contents_hash(diagnosis)
-      unless questions_grouped_by_experts[expert_id]
+      if !questions_grouped_by_experts[expert_id]
         questions_grouped_by_experts[expert_id] = init_questions_grouped_by_experts_for_ae(assistance_expert)
       end
       questions_grouped_by_experts[expert_id][:questions_with_needs_description] <<

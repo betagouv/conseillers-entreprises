@@ -1,12 +1,18 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  WHITELISTED_DOMAINS = %w[beta.gouv.fr direccte.gouv.fr pole-emploi.fr pole-emploi.net cma-hautsdefrance.fr].freeze
+
+  include PersonConcern
+
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
 
   has_many :territory_users
   has_many :territories, through: :territory_users
+  has_many :visits, foreign_key: 'advisor_id'
+  has_many :searches
 
-  validates :first_name, :last_name, :role, :email, :phone_number, presence: true
+  validates :first_name, :email, :phone_number, presence: true
 
   # Inspired by Devise validatable module
   validates :email,
@@ -18,6 +24,8 @@ class User < ApplicationRecord
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?
 
+  before_create :auto_approve_if_whitelisted_domain
+
   scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
   scope :administrators_of_territory, (lambda do
     where(contact_page_order: nil)
@@ -28,20 +36,38 @@ class User < ApplicationRecord
   scope :not_admin, (-> { where(is_admin: false) })
   scope :ordered_by_names, (-> { order(:first_name, :last_name) })
 
+  scope :active_searchers, (lambda do |date|
+    joins(:searches)
+        .where(searches: {created_at: date})
+        .uniq
+  end)
+  
+  scope :active_diagnosers, (lambda do |date, minimum_step|
+    joins(visits: :diagnosis)
+        .where(visits: {created_at: date})
+        .where('step >= ?', minimum_step).uniq
+  end)
+
+  scope :active_answered, (lambda do |date, allowed_statuses|
+    joins(visits: [diagnosis: [diagnosed_needs: :selected_assistance_experts]])
+        .where(visits: {created_at: date})
+        .where('status IN (?)', allowed_statuses)
+        .uniq
+  end)
+
   def active_for_authentication?
     super && is_approved?
   end
 
-  def to_s
-    full_name
-  end
-
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
   def full_name_with_role
     "#{first_name} #{last_name}, #{role}, #{institution}"
+  end
+
+  def auto_approve_if_whitelisted_domain
+    email_domain = email.split("@").last
+    if email_domain.in?(WHITELISTED_DOMAINS)
+      self.is_approved = true
+    end
   end
 
   protected

@@ -18,7 +18,7 @@ module ApiEntreprise
       connection = HTTP
 
       etablissement_response = EtablissementRequest.new(token, siret, connection).response
-      raise ApiEntrepriseError, etablissement_response.error_message unless etablissement_response.success?
+      raise ApiEntrepriseError, etablissement_response.error_message if !etablissement_response.success?
 
       etablissement_response.etablissement_wrapper
     end

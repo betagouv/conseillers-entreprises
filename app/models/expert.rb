@@ -26,6 +26,9 @@ class Expert < ApplicationRecord
 
   def generate_access_token!
     self.access_token = SecureRandom.hex(32)
-    generate_access_token! if Expert.exists?(access_token: access_token)
+
+    if Expert.exists?(access_token: access_token)
+      generate_access_token!
+    end
   end
 end

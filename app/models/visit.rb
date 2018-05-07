@@ -17,7 +17,9 @@ class Visit < ApplicationRecord
   end
 
   def happened_on_localized
-    I18n.l happened_on if happened_on
+    if happened_on
+      I18n.l happened_on
+    end
   end
 
   def company_name

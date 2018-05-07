@@ -27,7 +27,9 @@ prawn_document do |pdf|
     pdf.move_down 12
 
     pdf.font('Lato', style: :bold, size: 15) do
-      pdf.text item[:category] if item[:category]
+      if item[:category]
+        pdf.text item[:category]
+      end
     end
 
     item[:questions].each do |question|

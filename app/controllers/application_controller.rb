@@ -60,6 +60,6 @@ class ApplicationController < ActionController::Base
   end
 
   def check_current_user_access_to(resource)
-    not_found unless resource.send(:can_be_viewed_by?, current_user)
+    not_found if !resource.send(:can_be_viewed_by?, current_user)
   end
 end

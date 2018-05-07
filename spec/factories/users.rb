@@ -14,5 +14,9 @@ FactoryBot.define do
     password_confirmation 'password'
     confirmed_at { Time.zone.now }
     is_approved true
+
+    trait :just_registered do
+      is_approved false
+    end
   end
 end

@@ -11,7 +11,11 @@ module ApiEntreprise
 
     def name
       company_name = @entreprise.nom_commercial
-      company_name = @entreprise.raison_sociale if company_name.blank?
+
+      if company_name.blank?
+        company_name = @entreprise.raison_sociale
+      end
+
       company_name.present? ? company_name.titleize : nil
     end
 

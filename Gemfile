@@ -3,7 +3,10 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
+  if !repo_name.include?('/')
+    repo_name = "#{repo_name}/#{repo_name}"
+  end
+
   "https://github.com/#{repo_name}.git"
 end
 
@@ -29,7 +32,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'clockwork', '~> 2.0', '>= 2.0.2'
 gem 'daemons'
 gem 'delayed_job_active_record'
-gem 'webpacker', '~> 3.0'
+gem 'webpacker', '~> 3.2'
 
 # Improving models
 gem 'audited', '~> 4.5'

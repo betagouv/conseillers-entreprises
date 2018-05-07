@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-class SelectedAssistanceExpertValidator < ActiveModel::Validator
-  def validate(selected_assistance_expert)
-    return nil unless selected_assistance_expert.assistance_expert && selected_assistance_expert.territory_user
-    selected_assistance_expert.errors.add(:assistance_expert, :can_not_be_set_with_territory_user)
-  end
-end
-
 # TODO: Rename for ContactedExpert
 class SelectedAssistanceExpert < ApplicationRecord
   audited only: :status
@@ -44,12 +37,22 @@ class SelectedAssistanceExpert < ApplicationRecord
   private
 
   def update_taken_care_of_at
-    update_columns taken_care_of_at: Time.now if (status_taking_care? || status_closed?) && !taken_care_of_at
-    update_columns taken_care_of_at: nil if status_quo? && taken_care_of_at
+    if (status_taking_care? || status_closed?) && !taken_care_of_at
+      update_columns taken_care_of_at: Time.now
+    end
+
+    if status_quo? && taken_care_of_at
+      update_columns taken_care_of_at: nil
+    end
   end
 
   def update_closed_at
-    update_columns closed_at: Time.now if status_closed? && !closed_at
-    update_columns closed_at: nil if (status_quo? || status_taking_care?) && closed_at
+    if status_closed? && !closed_at
+      update_columns closed_at: Time.now
+    end
+
+    if (status_quo? || status_taking_care?) && closed_at
+      update_columns closed_at: nil
+    end
   end
 end

@@ -4,7 +4,7 @@
 # This file loads spring without using Bundler, in order to be fast.
 # It gets overwritten when you run the `spring binstub` command.
 
-unless defined?(Spring)
+if !defined?(Spring)
   require 'rubygems'
   require 'bundler'
 

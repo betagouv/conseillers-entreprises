@@ -74,7 +74,10 @@ ActiveAdmin.register User do
     end
 
     def send_approval_emails
-      return if resource.is_approved? || !params[:user][:is_approved].to_b
+      if resource.is_approved? || !params[:user][:is_approved].to_b
+        return
+      end
+
       UserMailer.delay.account_approved(resource)
       AdminMailer.delay.new_user_approved_notification(resource, current_user)
     end

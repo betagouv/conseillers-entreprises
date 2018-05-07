@@ -29,4 +29,5 @@
       %td
         - adresse = etablissement.adresse
         - (1..7).each do |i|
-          %p= adresse["l#{i}"] if adresse["l#{i}"].present?
+          - if adresse["l#{i}"].present?
+            %p= adresse["l#{i}"]
