@@ -67,6 +67,45 @@ RSpec.describe User, type: :model do
         expect(User.not_admin).to eq [regular_user]
       end
     end
+
+    describe 'active_searchers' do
+      it do
+        searcher = create :user, searches: [(create :search, created_at: 1.day.ago)]
+        create :user, searches: [(create :search, created_at: 2.months.ago)]
+
+        last_30_days = (30.days.ago)..Time.now
+        expect(User.active_searchers(last_30_days)).to eq [searcher]
+      end
+    end
+
+    describe 'active_diagnosers' do
+      it do
+        diagnosis = create :diagnosis, step: 3
+        visit = create :visit, created_at: 1.day.ago, diagnosis: diagnosis
+        diagnoser = create :user, visits: [visit]
+
+        last_30_days = (30.days.ago)..Time.now
+
+        expect(User.active_diagnosers(last_30_days, 3)).to eq [diagnoser]
+        expect(User.active_diagnosers(last_30_days, 4)).to eq []
+      end
+    end
+
+    describe 'active_answered' do
+      it do
+        expert = create :selected_assistance_expert, status: 2
+        need = create :diagnosed_need, selected_assistance_experts: [expert]
+        diagnosis = create :diagnosis, diagnosed_needs: [need]
+        visit = create :visit, created_at: 1.day.ago, diagnosis: diagnosis
+        active_user = create :user, visits: [visit]
+
+        last_30_days = (30.days.ago)..Time.now
+
+        expect(User.active_answered(last_30_days, [1,2])).to eq [active_user]
+        expect(User.active_answered(last_30_days, [3])).to eq []
+      end
+    end
+
   end
 
   describe 'full_name' do
