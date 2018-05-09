@@ -2,7 +2,10 @@
 
 ActiveAdmin.register Territory do
   menu priority: 8
-  permit_params :name
+  permit_params :name,
+                :city_codes,
+                territory_cities: %i[id city_code _create _update _destroy]
+
 
   show do
     attributes_table do
@@ -23,6 +26,18 @@ ActiveAdmin.register Territory do
         column :institution
       end
     end
+  end
+
+  form do |f|
+    f.inputs I18n.t('activerecord.attributes.territory.name') do
+      f.input :name
+    end
+
+    f.inputs I18n.t('activerecord.attributes.territory_city.city_code') do
+      f.input :city_codes
+    end
+
+    f.actions
   end
 
   filter :experts, collection: -> { Expert.ordered_by_names }
