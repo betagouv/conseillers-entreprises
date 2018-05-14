@@ -32,4 +32,45 @@ RSpec.describe Territory, type: :model do
       it { is_expected.to eq [] }
     end
   end
+
+  describe 'city_codes=' do
+    subject { territory.city_codes }
+
+    let(:territory) { create :territory }
+
+    context 'with invalid data' do
+      subject(:set_city_codes) { territory.city_codes = raw_codes }
+
+      let(:raw_codes) { 'baddata morebaddata' }
+
+      it { expect { set_city_codes }.to raise_error 'Invalid city codes'}
+    end
+
+    context 'with empty data' do
+      let(:raw_codes) { '' }
+      before { territory.city_codes = raw_codes }
+
+      it { is_expected.to eq [] }
+    end
+
+    context 'with proper values' do
+      let(:raw_codes) { '12345, 12346' }
+      before { territory.city_codes = raw_codes }
+
+      it { is_expected.to eq %w[12345 12346] }
+    end
+
+    context 'with previous values' do
+      before {
+        create :territory_city, territory: territory, city_code: 10_001
+        create :territory_city, territory: territory, city_code: 10_002
+        territory.city_codes = raw_codes
+      }
+
+      let(:raw_codes) { '10002, 10003' }
+
+      it { is_expected.to eq %w[10002 10003] }
+    end
+
+  end
 end
