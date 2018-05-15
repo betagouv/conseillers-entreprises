@@ -1,13 +1,16 @@
 - meta title: t('.title')
 
 #diagnoses-index
-  .create-diagnosis-button
-    = link_to step_1_diagnoses_path, class: 'fluid ui labeled icon large green basic button' do
-      %i.plus.icon
-      = t('.create_new_diagnosis')
+  %h2= t('.title')
+  %h3= t('.create_new_diagnosis')
+  = form_tag(:search_companies, method: :get, class: 'ui form') do
+    .field
+      .ui.action.input
+        = text_field_tag :query, @query, autofocus: true, placeholder: t('companies.search.explanation')
+        = submit_tag t('search'), class: 'ui button green'
 
   .print-diagnosis-button
-    = link_to print_diagnoses_path, class: 'fluid ui labeled icon large basic button' do
+    = link_to print_diagnoses_path   do
       %i.print.icon
       = t('.print_questions')
 
@@ -24,8 +27,10 @@
         - @diagnoses[:in_progress].each do |diagnosis|
           - company_name = diagnosis.visit.facility.company.name_short
           %tr
-            %td= company_name
-            %td.collapsing= t('.step', step: diagnosis.step)
+            %td
+              %h3.ui.header= company_name
+            %td.collapsing
+              %h5.ui.header.disabled= t("diagnoses.step#{diagnosis.step}.title")
             %td.collapsing.no-left-padding
               = link_to t('.continue_diagnosis'),
               { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
