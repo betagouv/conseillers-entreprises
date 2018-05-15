@@ -18,68 +18,54 @@
     %h2= t('.diagnoses_in_progress')
     %p= t('.no_diagnoses_in_progress_message_html')
   - else
-    .toggle-div-wrapper
-      %h2.toggle-show-button
-        = t('.diagnoses_in_progress')
-        %i.ui.icon.chevron.right
-      %h2.toggle-hide-button
-        = t('.diagnoses_in_progress')
-        %i.ui.icon.chevron.down
-      .toggle-div
-        %table.ui.table
-          %tbody
-            - @diagnoses[:in_progress].each do |diagnosis|
-              - company_name = diagnosis.visit.facility.company.name_short
-              %tr
-                %td= company_name
-                %td.collapsing= t('.step', step: diagnosis.step)
-                %td.collapsing.no-left-padding
-                  = link_to t('.continue_diagnosis'),
-                  { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
-                  class: 'ui positive basic tiny button'
-                %td.collapsing.no-left-padding
-                  - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
-                  = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
-                    %i.ui.icon.link.trash.light.grey.no-margin
+    %h2= t('.diagnoses_in_progress')
+    %table.ui.table
+      %tbody
+        - @diagnoses[:in_progress].each do |diagnosis|
+          - company_name = diagnosis.visit.facility.company.name_short
+          %tr
+            %td= company_name
+            %td.collapsing= t('.step', step: diagnosis.step)
+            %td.collapsing.no-left-padding
+              = link_to t('.continue_diagnosis'),
+              { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
+              class: 'ui positive basic tiny button'
+            %td.collapsing.no-left-padding
+              - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
+              = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
+                %i.ui.icon.link.trash.light.grey.no-margin
 
   - if @diagnoses[:completed].empty?
     %h2= t('.completed_diagnoses')
     %p= t('.no_completed_diagnosis_message_html')
   - else
-    .toggle-div-wrapper
-      %h2.toggle-show-button
-        = t('.completed_diagnoses')
-        %i.ui.icon.chevron.right
-      %h2.toggle-hide-button
-        = t('.completed_diagnoses')
-        %i.ui.icon.chevron.down
-      .toggle-div
-        %table.ui.table
-          %tbody
-            - @diagnoses[:completed].each do |diagnosis|
-              - company_name = diagnosis.visit.facility.company.name_short
-              %tr
-                %td
-                  %h3.ui.header
-                    = company_name
-                    .sub.header
-                      = t('.visitee', visitee_name: diagnosis.visit.visitee.full_name)
-                %td.collapsing
-                  .ui.middle.aligned.list
-                    .item
-                      .middle.aligned.content
-                        %h5.ui.header.disabled
-                          = t('.selected_assistance_experts', count: diagnosis.selected_assistances_experts_count)
-                    .item
-                      .middle.aligned.content
-                        %h5.ui.header.disabled
-                          = t('.solved_needs', count: diagnosis.diagnosed_needs_count,
-                           solved_needs_count: diagnosis.solved_needs_count)
-                %td.collapsing.no-left-padding
-                  = link_to t('.show_summary'),
-                  { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
-                  class: 'ui positive basic tiny button'
-                %td.collapsing.no-left-padding
-                  - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
-                  = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
-                    %i.ui.icon.link.trash.light.grey.no-margin
+    %h2= t('.completed_diagnoses')
+    %table.ui.table
+      %tbody
+        - @diagnoses[:completed].each do |diagnosis|
+          - company_name = diagnosis.visit.facility.company.name_short
+          %tr
+            %td
+              %h3.ui.header
+                = company_name
+                .sub.header
+                  = t('.visitee', visitee_name: diagnosis.visit.visitee.full_name)
+            %td.collapsing
+              .ui.middle.aligned.list
+                .item
+                  .middle.aligned.content
+                    %h5.ui.header.disabled
+                      = t('.selected_assistance_experts', count: diagnosis.selected_assistances_experts_count)
+                .item
+                  .middle.aligned.content
+                    %h5.ui.header.disabled
+                      = t('.solved_needs', count: diagnosis.diagnosed_needs_count,
+                       solved_needs_count: diagnosis.solved_needs_count)
+            %td.collapsing.no-left-padding
+              = link_to t('.show_summary'),
+              { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
+              class: 'ui positive basic tiny button'
+            %td.collapsing.no-left-padding
+              - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
+              = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
+                %i.ui.icon.link.trash.light.grey.no-margin
