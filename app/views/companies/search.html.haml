@@ -40,5 +40,3 @@
     %ul
       - searches.each do |search|
         %li= link_to search.label.upcase, company_path(siret: search.query)
-
-= javascript_pack_tag 'companies/companySearchApp'
