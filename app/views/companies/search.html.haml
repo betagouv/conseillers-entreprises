@@ -2,15 +2,41 @@
 
 #company-search-app
   %h1= t('.search_company')
-  %p= t('.you_have_two_choices')
 
-  %select-company
+  = form_tag(:search_companies, method: :get, class: 'ui form') do
+    .field
+      .ui.action.input
+        = text_field_tag :query, @query, autofocus: true, placeholder: t('.explanation')
+        = submit_tag t('search'), class: 'ui button green'
 
-  %h3= t('.last_searches')
+  - results = @etablissements
+  - if results.present?
+    .ui.selection.list
+      - results.each do |etablissement|
+        %a.item{ href: company_path(etablissement.siret) }
+          .ui.medium.header
+            =etablissement.nom.upcase
+            - if etablissement.enseigne.present?
+              .ui.text.small
+                .content= etablissement.enseigne.capitalize
+            .ui.text.small
+              %i.file.icon
+              .content= etablissement.activite.capitalize
+            .ui.text.small
+              %i.marker.icon
+              .content= etablissement.lieu.upcase
+
+  - suggestions = @suggestions
+  - if suggestions.present?
+    %h1= t('.suggestions')
+    %ul
+      - suggestions.each do |suggestion|
+        %li
+          = link_to suggestion.capitalize, search_companies_path(query: suggestion)
+
+  %h1= t('.last_searches')
   - searches = last_searches
   - if searches.present?
     %ul
       - searches.each do |search|
-        %li= link_to search.label, company_path(siret: search.query)
-
-= javascript_pack_tag 'companies/companySearchApp'
+        %li= link_to search.label.upcase, company_path(siret: search.query)
