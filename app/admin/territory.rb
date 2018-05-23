@@ -19,6 +19,14 @@ ActiveAdmin.register Territory do
       end
     end
 
+    panel I18n.t('active_admin.territories.relais') do
+      table_for territory.users do
+        column :full_name, (proc { |user| link_to(user.full_name, admin_user_path(user)) })
+        column :role
+        column :institution
+      end
+    end
+
     panel I18n.t('active_admin.territories.experts') do
       table_for territory.experts.includes(:institution) do
         column :full_name, (proc { |expert| link_to(expert.full_name, admin_expert_path(expert)) })
