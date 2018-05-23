@@ -11,11 +11,10 @@ module SireneApi
     end
 
     def self.cleanquery(query)
-      I18n.transliterate(query, locale: :fr)
-          .upcase
-          .gsub(/[^A-Z ]/, ' ')
-          .strip
-          .squeeze(' ')
+      query = I18n.transliterate(query, locale: :fr)
+                  .strip
+                  .squeeze(' ')
+      ERB::Util.url_encode(query)
     end
 
     def self.url(query)
