@@ -20,6 +20,7 @@ fr:
     territories:
       experts: Référents
       relais: Relais locaux
+      contacted_experts: Mises en relation
     assistances:
       expert: Référent
       experts: Les référents pour cette aide
