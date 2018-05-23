@@ -47,6 +47,7 @@ ActiveAdmin.register SelectedAssistanceExpert do
     f.actions
   end
 
+  filter :territories, collection: -> { Territory.order(:name) }
   filter :diagnosed_need, collection: -> { DiagnosedNeed.order(created_at: :desc).pluck(:id) }
   filter :expert_full_name
   filter :expert_institution_name
@@ -54,7 +55,7 @@ ActiveAdmin.register SelectedAssistanceExpert do
   filter :status
   filter :created_at
   filter :updated_at
-
+  
   controller do
     def update
       super

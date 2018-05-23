@@ -9,6 +9,8 @@ class SelectedAssistanceExpert < ApplicationRecord
   belongs_to :diagnosed_need
   belongs_to :assistance_expert, foreign_key: :assistances_experts_id
   belongs_to :territory_user
+  has_one :expert, through: :assistance_expert
+  has_many :territories, through: :expert
 
   validates :diagnosed_need, presence: true
   validates_with SelectedAssistanceExpertValidator
