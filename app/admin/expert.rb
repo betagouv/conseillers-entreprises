@@ -86,6 +86,7 @@ ActiveAdmin.register Expert do
     f.actions
   end
 
+  filter :territories, collection: -> { Territory.order(:name) }
   filter :institution, collection: -> { Institution.ordered_by_name }
   filter :assistances, collection: -> { Assistance.order(:title).map { |a| ["#{a.title} (#{a.id})", a.id] } }
   filter :first_name
@@ -95,5 +96,4 @@ ActiveAdmin.register Expert do
   filter :role
   filter :created_at
   filter :updated_at
-  filter :territories, collection: -> { Territory.order(:name) }
 end

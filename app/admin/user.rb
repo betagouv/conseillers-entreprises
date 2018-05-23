@@ -24,6 +24,11 @@ ActiveAdmin.register User do
     column :sign_in_count
     column :created_at
     column :is_approved
+    column(:territories) do |user|
+      safe_join(user.territories.map do |territory|
+        link_to territory.name, admin_territory_path(territory)
+      end, ', '.html_safe)
+    end
     column('Impersonate') { |user| link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id)) }
     actions
   end
@@ -53,6 +58,7 @@ ActiveAdmin.register User do
     f.actions
   end
 
+  filter :territories, collection: -> { Territory.order(:name) }
   filter :first_name
   filter :last_name
   filter :email

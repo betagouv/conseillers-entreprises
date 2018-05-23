@@ -18,7 +18,9 @@ fr:
       user_activation: Validation du compte
       user_admin: A les privilèges administrateur
     territories:
-      experts: Les référents pour ce territoire
+      experts: Référents
+      relais: Relais locaux
+      contacted_experts: Mises en relation
     assistances:
       expert: Référent
       experts: Les référents pour cette aide
