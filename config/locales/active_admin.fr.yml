@@ -3,15 +3,24 @@ fr:
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
-      user_stats: Utilisateurs (30 derniers jours)
-      registered_users: Inscrits
-      searchers: …ont fait au moins une recherche
-      diagnosers_2: …ont créé au moins un diagnostic
-      diagnosers_3: …ont saisi les besoins (step 2)
-      diagnosers_4: …ont saisi le contact (step 3)
-      diagnosers_5: …ont lancé la mise en relation (step 4)
-      answered_taken_care_of: …qui a été pris en charge
-      answered_solved: …qui a résolu un besoin
+      activity: Activité le mois dernier
+      activity_visits_2: Visites faites
+      activity_visits_3: Visites dont les besoins ont été diagnostiqués (step 2)
+      activity_visits_4: Visite dont le contact a été saisi (step 3)
+      activity_visits_5: Visites pour lesquelles la mise en relation a été faite (step 4)
+      activity_match_taken_care_of: Mises en relation prises en charge
+      activity_match_done: Mises en relation marquées comment ayant résolu le besoin
+      activity_match_not_for_me: Mises en relation rejetées (« Pas pour moi »)
+      users_activity: Conseillers actifs
+      users_registered_total: Total inscrits
+      users_registered_recent: Inscrits le mois dernier
+      users_searches: Conseillers qui ont fait (au moins) une recherche dans le mois dernier
+      users_visits_2: Conseillers qui ont rédigé (au moins) une visite dans le mois dernier
+      users_visits_3:  … dont les besoins ont été diagnostiqués
+      users_visits_4:  … dont le contact  a été saisi
+      users_visits_5:  … pour lesquelles la mise en relation a été faite
+      users_match_taken_care_of: Conseillers dont (au moins) une mise en relation a été prise en charge dans le mois dernier
+      users_match_done:  … dont (au moins) une mise en relation a été marquée comment ayant résolu le besoin dans le mois dernier
     user:
       user_info: Informations utilisateur
       user_activation: Validation du compte
