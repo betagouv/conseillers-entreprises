@@ -2,7 +2,6 @@ fr:
   active_admin:
     dashboard: Tableau de bord
     dashboard_welcome:
-      useful_links: Liens utiles
       invite_users: Inviter des utilisateurs
       user_stats: Utilisateurs (30 derniers jours)
       registered_users: Inscrits
