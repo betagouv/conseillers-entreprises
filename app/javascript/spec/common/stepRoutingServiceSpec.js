@@ -3,6 +3,11 @@ import StepRoutingService from '../../packs/common/stepRoutingService'
 // for the async function to work
 require('babel-core/register')
 
+// Babel is required here once, but is used for all following tests. (This test is the first to be run.)
+// If removed, it fails. If added in another test file, it fails.
+// TODO: Move in another file? Remove from here?
+require('babel-polyfill')
+
 describe('StepRoutingService', () => {
   describe('go_to_step', () => {
     let returnPromise
