@@ -29,14 +29,9 @@ fr:
       creation_date: "Généré le %{date}"
       institution_example: "Exemple d’institutions référentes : %{institution_list_string}"
     steps:
-      step1_title_html: Entreprise<br>visitée
       step2_title_html: Besoins détectés
       step3_title_html: Informations complémentaires
       step4_title_html: Mise en contact
-    step1:
-      title: Nouvelle analyse
-      select_company: Sélectionner une entreprise pour l’analyse
-      you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l’entreprise, soit indiquer son SIRET."
     step2:
       title: Besoins détectés
       identify_needs: |

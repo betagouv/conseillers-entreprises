@@ -28,13 +28,6 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
-  describe 'GET #step1' do
-    it 'returns http success' do
-      get :step1
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe 'GET #step2' do
     subject(:request) { get :step2, params: { id: diagnosis.id } }
 
