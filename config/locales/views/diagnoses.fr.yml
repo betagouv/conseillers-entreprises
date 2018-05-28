@@ -1,7 +1,7 @@
 fr:
   diagnoses:
     index:
-      title: Liste des analyses
+      title: Analyses
       no_analysis_message: Cette page vous permet de suivre l’ensemble des analyses que vous avez réalisées.
       diagnoses_in_progress: Analyses en cours
       no_diagnoses_in_progress_message_html: |
@@ -11,9 +11,8 @@ fr:
       no_completed_diagnosis_message_html: |
         Retrouvez ici les analyses que vous avez complétées.
         <br>Vous pouvez retrouver toutes les informations fournies ainsi que les actions effectuées dans le récapitulatif.
-      create_new_diagnosis: Faire une nouvelle analyse
+      create_new_diagnosis: Rechercher une entreprise
       print_questions: Imprimer le questionnaire
-      step: "Étape : %{step}/4"
       continue_diagnosis: Poursuivre l’analyse
       delete_diagnosis_confirmation_message: "Êtes-vous sûr de vouloir supprimer définitivement l’analyse de %{company_name} ?"
       show_summary: Voir le récapitulatif
@@ -31,17 +30,17 @@ fr:
       institution_example: "Exemple d’institutions référentes : %{institution_list_string}"
     steps:
       step1_title_html: Entreprise<br>visitée
-      step2_title_html: Besoins<br>détectés
-      step3_title_html: Informations<br>complémentaires
-      step4_title_html: Mise en<br>contact
+      step2_title_html: Besoins détectés
+      step3_title_html: Informations complémentaires
+      step4_title_html: Mise en contact
     step1:
       title: Nouvelle analyse
       select_company: Sélectionner une entreprise pour l’analyse
       you_have_two_choices: "Vous pouvez, pour effectuer la recherche, soit indiquer la raison sociale de l’entreprise, soit indiquer son SIRET."
     step2:
-      title: Identification des besoins
+      title: Besoins détectés
       identify_needs: |
-        Sélectionnez les besoins qui ont été détectés durant votre rencontre avec l’entreprise.
+        Sélectionnez les besoins qui ont été détectés durant votre rencontre avec %{company_name}.
         Vous pouvez entrer des informations complémentaires qui seront par la suite transmises aux référents pertinents.
       diagnosis_content_subtitle: Informations générales sur cette entreprise
       diagnosis_content: "Entrez des informations complémentaires concernant cette entreprise :"
