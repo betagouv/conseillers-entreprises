@@ -6,10 +6,6 @@ fr:
       facility: Établissement
       siege_social: Siège social
       mandataires_sociaux: Mandataires sociaux
-      ereputation: Faire une recherche sur l’actualité de l’entreprise
-      news_search_on_google: Recherche d’actualités sur Google
-      global_search_on_qwant: Recherche générale sur Qwant
-      global_search_on_google: Recherche générale sur Google
       diagnoses_completed: "Analyses complétées de %{company_name}"
       visited_at: "Visitée le %{date}"
       visited_by_html: "par %{advisor_name} </br> email : %{advisor_email}"
