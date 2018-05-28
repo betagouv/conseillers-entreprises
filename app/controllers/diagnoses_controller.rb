@@ -35,9 +35,12 @@ class DiagnosesController < ApplicationController
 
   def notify
     diagnosis = fetch_and_check_diagnosis_by_id params[:id]
-    UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:selected_assistances_experts]
-    diagnosis.update step: Diagnosis::LAST_STEP
-    redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
+    experts = params[:selected_assistances_experts]
+    if experts.present?
+      UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:selected_assistances_experts]
+      diagnosis.update step: Diagnosis::LAST_STEP
+      redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
+    end
   end
 
   def destroy
