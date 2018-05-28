@@ -26,6 +26,8 @@ class Diagnosis < ApplicationRecord
       .where(diagnosed_needs: { selected_assistance_experts: { assistance_expert: { experts: { id: expert.id } } } })
   end)
 
+  scope :after_step, ( ->(minimum_step) { where('step >= ?', minimum_step) })
+
   def creation_date_localized
     I18n.l created_at.to_date
   end

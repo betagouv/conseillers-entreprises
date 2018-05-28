@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApplicationRecord, type: :model do
+RSpec.describe CreatedWithin, type: :model do
   describe 'scopes' do
     describe 'created_last_week' do
       it do
