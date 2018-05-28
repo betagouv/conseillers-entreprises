@@ -4,11 +4,6 @@ ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: proc { I18n.t('active_admin.dashboard') }
 
   content title: proc { I18n.t('active_admin.dashboard') } do
-    panel I18n.t('active_admin.dashboard_welcome.useful_links') do
-      span link_to 'Trello', 'https://trello.com/b/TdTq4e5P/web', class: 'button'
-      span link_to 'Mailtrap', 'https://mailtrap.io', class: 'button'
-    end
-
     columns do
       column do
         panel t('active_admin.dashboard_welcome.invite_users') do
@@ -26,42 +21,57 @@ ActiveAdmin.register_page 'Dashboard' do
           end
         end
       end
-      column class: 'attributes_table' do
-        panel I18n.t('active_admin.dashboard_welcome.user_stats') do
+    end
+
+    columns do
+      date_range = (Time.now - 30.days)..Time.now
+      column do
+        panel I18n.t('active_admin.dashboard_welcome.activity')do
           table do
-            tr class: 'row' do
-              th I18n.t('active_admin.dashboard_welcome.registered_users')
-              td User.not_admin.count
+            diagnoses_in_range = Diagnosis.where(created_at: date_range)
+            selected_experts_in_range = SelectedAssistanceExpert.where(taken_care_of_at: date_range)
+            rows = {
+                "activity_visits_2": diagnoses_in_range.after_step(2),
+                "activity_visits_3": diagnoses_in_range.after_step(3),
+                "activity_visits_4": diagnoses_in_range.after_step(4),
+                "activity_visits_5": diagnoses_in_range.after_step(5),
+                "activity_match_taken_care_of": selected_experts_in_range.with_status([:taking_care, :done]),
+                "activity_match_done": selected_experts_in_range.with_status(:done),
+                "activity_match_not_for_me": selected_experts_in_range.with_status(:not_for_me)
+            }
+            rows.each do |k, v|
+              tr class: 'row' do
+                td I18n.t("active_admin.dashboard_welcome.#{k}")
+                td v.count
+              end
             end
-            range = (Time.now - 30.days)..Time.now
-            tr class: 'row' do
-              th I18n.t('active_admin.dashboard_welcome.searchers')
-              td User.not_admin.active_searchers(range).count
+          end
+        end
+      end
+
+      column do
+        panel I18n.t('active_admin.dashboard_welcome.users_activity') do
+          table do
+            users = User.not_admin
+            rows = {
+                'users_registered_total': users,
+                'users_registered_recent': users.where(created_at: date_range),
+                'users_searches': users.active_searchers(date_range),
+                'users_visits_2': users.active_diagnosers(date_range, 2),
+                'users_visits_3': users.active_diagnosers(date_range, 3),
+                'users_visits_4': users.active_diagnosers(date_range, 4),
+                'users_visits_5': users.active_diagnosers(date_range, 5),
+                'users_match_taken_care_of': users.active_answered(date_range, [:taking_care, :done]),
+                'users_match_done': users.active_answered(date_range, :done)
+            }
+
+            rows.each do |k, v|
+              tr class: 'row' do
+                td I18n.t("active_admin.dashboard_welcome.#{k}")
+                td v.count
+              end
             end
-            tr class: 'row' do
-              th I18n.t('active_admin.dashboard_welcome.diagnosers_2')
-              td User.not_admin.active_diagnosers(range, 2).count
-            end
-            tr class: 'row' do
-              th I18n.t('active_admin.dashboard_welcome.diagnosers_3')
-              td User.not_admin.active_diagnosers(range, 3).count
-            end
-            tr class: 'row' do
-              th I18n.t('active_admin.dashboard_welcome.diagnosers_4')
-              td User.not_admin.active_diagnosers(range, 4).count
-            end
-            tr class: 'row' do
-              th I18n.t('active_admin.dashboard_welcome.diagnosers_5')
-              td User.not_admin.active_diagnosers(range, 5).count
-            end
-            tr class: 'row' do
-              th I18n.t('active_admin.dashboard_welcome.answered_taken_care_of')
-              td User.not_admin.active_answered(range, [1, 2]).count
-            end
-            tr class: 'row' do
-              th I18n.t('active_admin.dashboard_welcome.answered_solved')
-              td User.not_admin.active_answered(range, [2]).count
-            end
+
           end
         end
       end

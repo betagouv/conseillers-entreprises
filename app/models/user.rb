@@ -38,20 +38,22 @@ class User < ApplicationRecord
 
   scope :active_searchers, (lambda do |date|
     joins(:searches)
-        .where(searches: {created_at: date})
+        .merge(Search.where(created_at: date))
         .uniq
   end)
   
   scope :active_diagnosers, (lambda do |date, minimum_step|
     joins(visits: :diagnosis)
-        .where(visits: {created_at: date})
-        .where('step >= ?', minimum_step).uniq
+        .merge(Diagnosis.where(created_at: date)
+                   .after_step(minimum_step))
+        .uniq
   end)
 
-  scope :active_answered, (lambda do |date, allowed_statuses|
+  scope :active_answered, (lambda do |date, status|
     joins(visits: [diagnosis: [diagnosed_needs: :selected_assistance_experts]])
-        .where(visits: {created_at: date})
-        .where('status IN (?)', allowed_statuses)
+        .merge(SelectedAssistanceExpert
+                   .where(taken_care_of_at: date)
+                   .with_status(status))
         .uniq
   end)
 
