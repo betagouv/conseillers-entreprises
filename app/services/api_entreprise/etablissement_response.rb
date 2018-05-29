@@ -8,24 +8,24 @@ module ApiEntreprise
 
     def initialize(http_response)
       @http_response = http_response
+      begin
+        @data = http_response.parse(:json)
+      rescue StandardError => error
+        @error = error
+      end
     end
 
     def success?
-      http_response.status == 200
+      @error.nil? && @http_response.status.success?
     end
 
     def error_message
-      data&.fetch('errors', DEFAULT_ERROR_MESSAGE)
+      @error&.message || @data['errors'] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
     end
 
     def etablissement_wrapper
-      EtablissementWrapper.new(data)
+      EtablissementWrapper.new(@data)
     end
 
-    private
-
-    def data
-      http_response.parse(:json)
-    end
   end
 end
