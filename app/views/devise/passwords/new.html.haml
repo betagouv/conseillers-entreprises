@@ -5,7 +5,7 @@
   = devise_error_messages!
   .field
     = f.label :email
-    = f.email_field :email, placeholder: Faker::Internet.email, autofocus: true
+    = f.email_field :email, autofocus: true
   .actions
     = f.submit t('.send_me_reset_password_instructions'), class: 'ui button green'
 
