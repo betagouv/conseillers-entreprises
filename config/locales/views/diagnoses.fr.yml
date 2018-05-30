@@ -11,7 +11,8 @@ fr:
       no_completed_diagnosis_message_html: |
         Retrouvez ici les analyses que vous avez complétées.
         <br>Vous pouvez retrouver toutes les informations fournies ainsi que les actions effectuées dans le récapitulatif.
-      create_new_diagnosis: Rechercher une entreprise
+      create_new_diagnosis: Démarrer une analyse
+      find_company: Rechercher l’entreprise
       print_questions: Imprimer le questionnaire
       continue_diagnosis: Poursuivre l’analyse
       delete_diagnosis_confirmation_message: "Êtes-vous sûr de vouloir supprimer définitivement l’analyse de %{company_name} ?"
