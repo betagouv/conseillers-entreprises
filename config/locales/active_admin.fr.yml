@@ -8,6 +8,8 @@ fr:
       activity_match_taken_care_of: Mises en relation prises en charge
       activity_match_done: Mises en relation marquées comment ayant résolu le besoin
       activity_match_not_for_me: Mises en relation rejetées (« Pas pour moi »)
+      activity_diagnosed_needs: Besoins diagnostiqués
+      activity_diagnosed_needs_notified: Besoins diagnostiqués et transmis à des référents
       users_activity: Conseillers actifs
       users_registered_total: Total inscrits
       users_registered_recent: Inscrits les 30 derniers jours
