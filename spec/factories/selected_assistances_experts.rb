@@ -8,8 +8,8 @@ FactoryBot.define do
       association :assistance_expert
     end
 
-    trait :with_territory_user do
-      association :territory_user
+    trait :with_relay do
+      association :relay
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :territory_user do
+  factory :relay do
     association :territory
     association :user
   end

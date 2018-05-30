@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-class TerritoryUserMailer < ApplicationMailer
+class RelayMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
-  default from: SENDER, template_path: 'mailers/territory_user_mailer'
+  default from: SENDER, template_path: 'mailers/relay_mailer'
 
-  def weekly_statistics(territory_user, information_hash, stats_csv)
-    @user = territory_user.user
-    @territory_name = territory_user.territory.name
+  def weekly_statistics(relay, information_hash, stats_csv)
+    @user = relay.user
+    @territory_name = relay.territory.name
     @information_hash = information_hash
 
-    subject = t('mailers.territory_user_mailer.weekly_statistics.subject', territory_name: @territory_name)
+    subject = t('mailers.relay_mailer.weekly_statistics.subject', territory_name: @territory_name)
 
     attach_csv_for_territory(stats_csv, @territory_name)
     mail(to: @user.email, subject: subject)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TerritoryUserService
+module RelayService
   class CSVGenerator
     class << self
       def generate_statistics_csv(diagnoses)

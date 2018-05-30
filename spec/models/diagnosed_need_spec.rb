@@ -47,17 +47,17 @@ RSpec.describe DiagnosedNeed, type: :model do
       it { is_expected.to eq [diagnosed_need] }
     end
 
-    describe 'of_territory_user' do
-      subject { DiagnosedNeed.of_territory_user territory_user }
+    describe 'of_relay' do
+      subject { DiagnosedNeed.of_relay relay}
 
-      let(:territory_user) { create :territory_user }
+      let(:relay) { create :relay }
       let(:diagnosed_need) { create :diagnosed_need }
 
       before do
         create :selected_assistance_expert,
-               territory_user: territory_user,
+               relay: relay,
                diagnosed_need: diagnosed_need
-        create :territory_user
+        create :relay
         create :selected_assistance_expert
       end
 

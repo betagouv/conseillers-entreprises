@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe TerritoryUsersController, type: :controller do
+RSpec.describe RelaysController, type: :controller do
   login_user
 
   describe 'GET #diagnoses' do
@@ -10,12 +10,12 @@ RSpec.describe TerritoryUsersController, type: :controller do
 
     before { get :diagnoses }
 
-    context 'current user is not territory user' do
+    context 'current user is not relay' do
       it { expect(response).to have_http_status(:success) }
     end
 
-    context 'current user is a territory user' do
-      before { create :territory_user, user: current_user }
+    context 'current user is a relay' do
+      before { create :relay, user: current_user }
 
       it { expect(response).to have_http_status(:success) }
     end
@@ -28,12 +28,12 @@ RSpec.describe TerritoryUsersController, type: :controller do
     let(:visit) { create :visit, facility: facility }
     let(:facility) { create :facility }
 
-    context 'current user is not territory user' do
+    context 'current user is not relay' do
       it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
     end
 
-    context 'current user is a territory user' do
-      let!(:territory_user) { create :territory_user, user: current_user }
+    context 'current user is a relay' do
+      let!(:relay) { create :relay, user: current_user }
 
       context 'user is not responsible of diagnosis territory' do
         it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
@@ -41,7 +41,7 @@ RSpec.describe TerritoryUsersController, type: :controller do
 
       context 'user is responsible of diagnosis territory' do
         before do
-          create :territory_city, territory: territory_user.territory, city_code: facility.city_code
+          create :territory_city, territory: relay.territory, city_code: facility.city_code
           request
         end
 
@@ -52,7 +52,7 @@ RSpec.describe TerritoryUsersController, type: :controller do
         before do
           diagnosis.destroy
 
-          create :territory_city, territory: territory_user.territory, city_code: facility.city_code
+          create :territory_city, territory: relay.territory, city_code: facility.city_code
           request
         end
 
@@ -68,7 +68,7 @@ RSpec.describe TerritoryUsersController, type: :controller do
 
     let(:selected_assistance_expert_id) { selected_assistance_expert.id }
     let(:selected_assistance_expert) do
-      create :selected_assistance_expert, :with_territory_user, diagnosed_need: diagnosed_need
+      create :selected_assistance_expert, :with_relay, diagnosed_need: diagnosed_need
     end
 
     let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
@@ -76,12 +76,12 @@ RSpec.describe TerritoryUsersController, type: :controller do
     let(:visit) { create :visit, facility: facility }
     let(:facility) { create :facility }
 
-    context 'current user is not territory user' do
+    context 'current user is not relay' do
       it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
     end
 
-    context 'current user is a territory user' do
-      let!(:territory_user) { create :territory_user, user: current_user }
+    context 'current user is a relay' do
+      let!(:relay) { create :relay, user: current_user }
 
       context 'selected assistance expert does not exist' do
         let(:selected_assistance_expert_id) { nil }
@@ -95,8 +95,8 @@ RSpec.describe TerritoryUsersController, type: :controller do
 
       context 'with status quo' do
         before do
-          selected_assistance_expert.update territory_user: territory_user
-          create :territory_city, territory: territory_user.territory, city_code: facility.city_code
+          selected_assistance_expert.update relay: relay
+          create :territory_city, territory: relay.territory, city_code: facility.city_code
           params[:status] = :quo
           request
         end
@@ -109,8 +109,8 @@ RSpec.describe TerritoryUsersController, type: :controller do
 
       context 'with status taking_care' do
         before do
-          selected_assistance_expert.update territory_user: territory_user
-          create :territory_city, territory: territory_user.territory, city_code: facility.city_code
+          selected_assistance_expert.update relay: relay
+          create :territory_city, territory: relay.territory, city_code: facility.city_code
           params[:status] = :taking_care
           request
         end

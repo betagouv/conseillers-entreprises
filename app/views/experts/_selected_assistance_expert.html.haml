@@ -2,7 +2,7 @@
   %strong= selected_assistance_expert.expert_full_name
   %br
     - person = selected_assistance_expert.assistance_expert&.expert
-    - person ||= selected_assistance_expert.territory_user&.user
+    - person ||= selected_assistance_expert.relay&.user
     - if person
       - if person.phone_number.present?
         = person.phone_number

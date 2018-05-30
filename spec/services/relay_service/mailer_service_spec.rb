@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe TerritoryUserService::MailerService do
+describe RelayService::MailerService do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
   describe 'send_statistics_email' do
@@ -11,13 +11,13 @@ describe TerritoryUserService::MailerService do
     let(:not_admin_user) { create :user, is_admin: false }
 
     before do
-      allow(TerritoryUserMailer).to receive(:delay) { TerritoryUserMailer }
-      allow(TerritoryUserMailer).to receive(:weekly_statistics).and_call_original
+      allow(RelayMailer).to receive(:delay) { RelayMailer }
+      allow(RelayMailer).to receive(:weekly_statistics).and_call_original
     end
 
     describe 'email method parameters' do
       let(:territory) { create_list :territory, 2 }
-      let!(:territory1_user) { create :territory_user, territory: territory.first }
+      let!(:territory1_user) { create :relay, territory: territory.first }
 
       let(:territory_city1) { create :territory_city, territory: territory.first }
       let(:facility1) { create :facility, city_code: territory_city1.city_code }
@@ -36,15 +36,15 @@ describe TerritoryUserService::MailerService do
         before { send_statistics_email }
 
         it 'sends one email' do
-          expect(TerritoryUserMailer).to have_received(:weekly_statistics).once.with(
+          expect(RelayMailer).to have_received(:weekly_statistics).once.with(
             territory1_user, empty_information_hash, an_instance_of(String)
           )
         end
       end
 
       context 'some data' do
-        let!(:territory2_user1) { create :territory_user, territory: territory.last }
-        let!(:territory2_user2) { create :territory_user, territory: territory.last }
+        let!(:territory2_user1) { create :relay, territory: territory.last }
+        let!(:territory2_user2) { create :relay, territory: territory.last }
 
         let(:territory_city2) { create :territory_city, territory: territory.last }
         let(:facility2) { create :facility, city_code: territory_city2.city_code }
@@ -74,16 +74,16 @@ describe TerritoryUserService::MailerService do
         end
 
         it 'sends one email with data' do
-          expect(TerritoryUserMailer).to have_received(:weekly_statistics).once.with(
+          expect(RelayMailer).to have_received(:weekly_statistics).once.with(
             territory1_user, information_hash_with_data, an_instance_of(String)
           )
         end
 
         it 'sends two emails without data' do
-          expect(TerritoryUserMailer).to have_received(:weekly_statistics).once.with(
+          expect(RelayMailer).to have_received(:weekly_statistics).once.with(
             territory2_user1, empty_information_hash, an_instance_of(String)
           )
-          expect(TerritoryUserMailer).to have_received(:weekly_statistics).once.with(
+          expect(RelayMailer).to have_received(:weekly_statistics).once.with(
             territory2_user2, empty_information_hash, an_instance_of(String)
           )
         end

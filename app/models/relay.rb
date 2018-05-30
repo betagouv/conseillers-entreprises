@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# TODO: Rename for TerritoryAssignment
-class TerritoryUser < ApplicationRecord
+class Relay < ApplicationRecord
   belongs_to :territory
   belongs_to :user
 

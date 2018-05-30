@@ -1,6 +1,6 @@
 fr:
   mailers:
-    territory_user_mailer:
+    relay_mailer:
       weekly_statistics:
         subject: "[Réso] Statistiques hebdomadaires pour le territoire de %{territory_name}"
         hello: "Bonjour %{first_name},"

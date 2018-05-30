@@ -82,7 +82,7 @@ fr:
         <p>Un outil numérique est au cœur de ce réseau et permet de le fédérer. Des algorithmes utilisant des bases de données publiques (activités, résultats financiers, export…) permettent de cibler la prospection : entreprises en pré-difficulté, à fort potentiel de croissance ou ayant un projet de recrutement… Un simulateur permet aux conseillers de proposer aux chefs d’entreprise un premier niveau d’information sur les aides correspondant à leurs besoins et, le cas échéant, d’identifier un contact au sein de l’administration capable de les accompagner dans leurs démarches.</p>
         <p>Réso permet ainsi à l’administration de développer un rôle de conseil à destination des entreprises en complément de son rôle régalien de contrôle.</p>
     contact:
-      territory_administrators: Relais locaux
+      relays: Relais locaux
       contact_admins_for_local_purpose: Pour toute question spécifique à un territoire, merci de contacter le relais local concerné.
       responsible_of_territories:
         one: Relais local
