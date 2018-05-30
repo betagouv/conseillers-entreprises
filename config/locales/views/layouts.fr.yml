@@ -1,12 +1,11 @@
 fr:
   layouts:
     navbar:
-      diagnoses: Mes analyses
+      diagnoses: Analyses
       territory_user_dashboard: Mon tableau de bord
       know_more: En savoir plus
       sign_out: Me déconnecter
       dashboard: Admin
-      company_search: Rechercher une entreprise
       profile: Mon profil
     footer:
       problem_or_question: Un problème ? Une question ?

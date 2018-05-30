@@ -20,5 +20,5 @@ RSpec.describe 'companies/show.html.haml', type: :view do
     render
   end
 
-  it('displays a title') { expect(rendered).to match(/Informations sur/) }
+  it('displays a title') { expect(rendered).to match(/Raison Sociale/) }
 end

@@ -1,8 +1,7 @@
 fr:
   companies:
     show:
-      data_on: "Fiche %{company_name}"
-      informations_on: "Informations sur %{company_name}"
+      information: Informations
       facility: Établissement
       siege_social: Siège social
       mandataires_sociaux: Mandataires sociaux
@@ -17,8 +16,7 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
-      no_visit_found: Aucune analyse n’a encore été complétée pour cette entreprise.
-      create_diagnosis: Faire une nouvelle analyse pour cette entreprise
+      create_diagnosis: Démarrer une analyse
     company:
       raison_sociale: Raison Sociale
       nom_commercial: Nom Commercial

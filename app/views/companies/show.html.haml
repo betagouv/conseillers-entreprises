@@ -1,35 +1,13 @@
-- meta title: t('.data_on', company_name: @company.name)
+- meta title: @company.name
 
 #company-show
-  %h1= t('.informations_on', company_name: @company.name)
+  %h1
+    = @company.name
+    = link_to t('.create_diagnosis'), create_diagnosis_from_siret_companies_path(siret: params[:siret]),
+    method: :post, class: 'ui right floated positive basic button'
 
-  = render partial: 'company', locals: { entreprise: @company.entreprise }
-
-  .toggle-div-wrapper
-    %button.ui.basic.blue.icon.tiny.button.toggle-show-button
-      %i.ui.icon.chevron.right
-      = t('show_more')
-    %button.ui.basic.blue.icon.tiny.button.toggle-hide-button
-      %i.ui.icon.chevron.down
-      = t('show_less')
-    .toggle-div
-      %h2= t('.facility')
-      = render partial: 'facility', locals: { etablissement: @facility.etablissement }
-
-      - if !@facility.etablissement['siege_social'].to_b
-        %h2= t('.siege_social')
-        = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
-
-      %h2= t('.mandataires_sociaux')
-      - @company.entreprise.mandataires_sociaux.each do |person|
-        = render partial: 'mandataire', locals: { person: person }
-
-
-  %h2= t('.diagnoses_completed', company_name: @company.name)
-  - if @diagnoses.empty?
-    %p.text.small
-      = t('.no_visit_found')
-  - else
+  - if @diagnoses.present?
+    %h2= t('.diagnoses_completed')
     %table.ui.table
       %tbody
         - @diagnoses.each do |diagnosis|
@@ -51,5 +29,16 @@
                     %h5.ui.header.disabled
                       = t('.selected_assistance_experts', count: diagnosis.selected_assistances_experts_count)
 
-  = link_to t('.create_diagnosis'), create_diagnosis_from_siret_companies_path(siret: params[:siret]),
-   method: :post, class: 'ui positive basic tiny button'
+  %h2= t('.information')
+  = render partial: 'company', locals: { entreprise: @company.entreprise }
+
+  %h2= t('.facility')
+  = render partial: 'facility', locals: { etablissement: @facility.etablissement }
+
+  - if !@facility.etablissement['siege_social'].to_b
+    %h2= t('.siege_social')
+    = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
+
+  %h2= t('.mandataires_sociaux')
+  - @company.entreprise.mandataires_sociaux.each do |person|
+    = render partial: 'mandataire', locals: { person: person }
