@@ -32,9 +32,6 @@ ActiveAdmin.register_page 'Dashboard' do
             selected_experts_in_range = SelectedAssistanceExpert.where(taken_care_of_at: date_range)
             rows = {
                 "activity_visits_2": diagnoses_in_range.after_step(2),
-                "activity_visits_3": diagnoses_in_range.after_step(3),
-                "activity_visits_4": diagnoses_in_range.after_step(4),
-                "activity_visits_5": diagnoses_in_range.after_step(5),
                 "activity_match_taken_care_of": selected_experts_in_range.with_status([:taking_care, :done]),
                 "activity_match_done": selected_experts_in_range.with_status(:done),
                 "activity_match_not_for_me": selected_experts_in_range.with_status(:not_for_me)
@@ -58,9 +55,6 @@ ActiveAdmin.register_page 'Dashboard' do
                 'users_registered_recent': users.where(created_at: date_range),
                 'users_searches': users.active_searchers(date_range),
                 'users_visits_2': users.active_diagnosers(date_range, 2),
-                'users_visits_3': users.active_diagnosers(date_range, 3),
-                'users_visits_4': users.active_diagnosers(date_range, 4),
-                'users_visits_5': users.active_diagnosers(date_range, 5),
                 'users_match_taken_care_of': users.active_answered(date_range, [:taking_care, :done]),
                 'users_match_done': users.active_answered(date_range, :done)
             }
