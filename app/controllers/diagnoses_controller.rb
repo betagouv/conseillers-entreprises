@@ -10,8 +10,6 @@ class DiagnosesController < ApplicationController
     render 'print.pdf'
   end
 
-  def step1; end
-
   def step2
     @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
     @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis

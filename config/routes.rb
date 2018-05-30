@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   resources :diagnoses, only: %i[index destroy] do
     collection do
       get 'print'
-      get 'step-1' => 'diagnoses#step1'
     end
 
     member do
@@ -56,17 +55,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :companies, only: %i[] do
-      post :search_by_name, on: :collection
-    end
-
-    resources :facilities, only: %i[] do
-      collection do
-        post :search_by_siret
-        post :search_by_siren
-      end
-    end
-
     resources :diagnoses, only: %i[show create update] do
       resources :diagnosed_needs, only: %i[index] do
         post :bulk, on: :collection

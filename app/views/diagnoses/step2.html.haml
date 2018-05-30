@@ -6,7 +6,7 @@
   = t('.title')
 
 %p.small.text.justified
-  = t('.identify_needs')
+  = t('.identify_needs', company_name: @diagnosis.visit.facility.company.name)
 
 #step2-app
   %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content }
