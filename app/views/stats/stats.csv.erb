@@ -1,0 +1,6 @@
+<%- headers = @stats.first[1].keys -%>
+<%= CSV.generate_line headers -%>
+<%- @stats.reverse_each do |date_range, info| -%>
+<%- row = [ date_range.begin.strftime('%Y-%m') ] + info.values -%>
+<%= CSV.generate_line row -%>
+<%- end -%>
