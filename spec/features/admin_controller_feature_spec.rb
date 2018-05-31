@@ -81,7 +81,7 @@ describe 'admin panel', type: :feature do
       current_user.update is_admin: true
       visit '/admin'
 
-      selected_assistance_expert.diagnosed_need.diagnosis.destroy
+      selected_assistance_expert.diagnosed_need.diagnosis.archive!
 
       click_link 'Référents contactés'
     end

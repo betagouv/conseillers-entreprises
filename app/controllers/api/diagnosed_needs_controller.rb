@@ -3,7 +3,7 @@
 module Api
   class DiagnosedNeedsController < ApplicationController
     def index
-      diagnosis = Diagnosis.find params[:diagnosis_id]
+      diagnosis = Diagnosis.only_active.find params[:diagnosis_id]
       check_current_user_access_to diagnosis
       @diagnosed_needs = DiagnosedNeed.of_diagnosis(diagnosis)
     end

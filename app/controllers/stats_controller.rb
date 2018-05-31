@@ -48,12 +48,12 @@ class StatsController < ApplicationController
 
   def activity_stats_in(date_range)
     {
-        "activity.visits": Diagnosis.where(created_at: date_range).after_step(2).count,
+        "activity.visits": Diagnosis.only_active.where(created_at: date_range).after_step(2).count,
         "activity.match_taken_care_of": SelectedAssistanceExpert.where(taken_care_of_at: date_range).with_status([:taking_care, :done]).count,
         "activity.match_done": SelectedAssistanceExpert.where(taken_care_of_at: date_range).with_status(:done).count,
         "activity.match_not_for_me": SelectedAssistanceExpert.where(taken_care_of_at: date_range).with_status(:not_for_me).count,
         "activity.diagnosed_needs": DiagnosedNeed.where(created_at: date_range).count,
-        "activity.diagnosed_needs_notified": DiagnosedNeed.where(created_at: date_range).joins(:diagnosis).merge(Diagnosis.where(step: 5)).count
+        "activity.diagnosed_needs_notified": DiagnosedNeed.where(created_at: date_range).joins(:diagnosis).merge(Diagnosis.only_active.where(step: 5)).count
     }
   end
 
