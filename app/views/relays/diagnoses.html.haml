@@ -16,4 +16,4 @@
         %tr
           %td= diagnosis.visit.company_name
           %td= I18n.l diagnosis.visit.happened_on
-          %td= link_to 'Voir', action: 'diagnosis', diagnosis_id: diagnosis.id
+          %td= link_to t('.view'), action: 'diagnosis', diagnosis_id: diagnosis.id
