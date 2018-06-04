@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171027133750) do
+ActiveRecord::Schema.define(version: 20180528143332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,6 +182,15 @@ ActiveRecord::Schema.define(version: 20171027133750) do
     t.index ["category_id"], name: "index_questions_on_category_id"
   end
 
+  create_table "relays", force: :cascade do |t|
+    t.bigint "territory_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["territory_id"], name: "index_relays_on_territory_id"
+    t.index ["user_id"], name: "index_relays_on_user_id"
+  end
+
   create_table "searches", id: :serial, force: :cascade do |t|
     t.string "query"
     t.integer "user_id"
@@ -201,12 +210,12 @@ ActiveRecord::Schema.define(version: 20171027133750) do
     t.string "assistance_title"
     t.datetime "expert_viewed_page_at"
     t.integer "status", default: 0, null: false
-    t.bigint "territory_user_id"
+    t.bigint "relay_id"
     t.datetime "taken_care_of_at"
     t.datetime "closed_at"
     t.index ["assistances_experts_id"], name: "index_selected_assistances_experts_on_assistances_experts_id"
     t.index ["diagnosed_need_id"], name: "index_selected_assistances_experts_on_diagnosed_need_id"
-    t.index ["territory_user_id"], name: "index_selected_assistances_experts_on_territory_user_id"
+    t.index ["relay_id"], name: "index_selected_assistances_experts_on_relay_id"
   end
 
   create_table "territories", force: :cascade do |t|
@@ -221,15 +230,6 @@ ActiveRecord::Schema.define(version: 20171027133750) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["territory_id"], name: "index_territory_cities_on_territory_id"
-  end
-
-  create_table "territory_users", force: :cascade do |t|
-    t.bigint "territory_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["territory_id"], name: "index_territory_users_on_territory_id"
-    t.index ["user_id"], name: "index_territory_users_on_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -288,13 +288,13 @@ ActiveRecord::Schema.define(version: 20171027133750) do
   add_foreign_key "experts", "institutions"
   add_foreign_key "facilities", "companies"
   add_foreign_key "questions", "categories"
+  add_foreign_key "relays", "territories"
+  add_foreign_key "relays", "users"
   add_foreign_key "searches", "users"
   add_foreign_key "selected_assistances_experts", "assistances_experts", column: "assistances_experts_id"
   add_foreign_key "selected_assistances_experts", "diagnosed_needs"
-  add_foreign_key "selected_assistances_experts", "territory_users"
+  add_foreign_key "selected_assistances_experts", "relays"
   add_foreign_key "territory_cities", "territories"
-  add_foreign_key "territory_users", "territories"
-  add_foreign_key "territory_users", "users"
   add_foreign_key "visits", "contacts", column: "visitee_id"
   add_foreign_key "visits", "facilities"
   add_foreign_key "visits", "users", column: "advisor_id"

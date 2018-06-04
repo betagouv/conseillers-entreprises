@@ -22,7 +22,7 @@ class DiagnosesController < ApplicationController
   def step4
     @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
-    @territory_users_full_names = TerritoryUser.of_diagnosis_location(@diagnosis).map(&:user).map(&:full_name)
+    @relays_full_names = Relay.of_diagnosis_location(@diagnosis).map(&:user).map(&:full_name)
   end
 
   def step5

@@ -99,28 +99,28 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
   end
 
-  describe 'assistance expert and territory user cannot both be set' do
+  describe 'assistance expert and relay cannot both be set' do
     subject(:selected_assistance_expert) { build :selected_assistance_expert }
 
     let(:assistance_expert) { create :assistance_expert }
-    let(:territory_user) { create :territory_user }
+    let(:relay) { create :relay }
 
-    context 'assistance expert and territory user cannot both be set' do
+    context 'assistance expert and relay cannot both be set' do
       before { selected_assistance_expert.assistance_expert = assistance_expert }
 
       it { is_expected.to be_valid }
     end
 
-    context 'assistance expert and territory user cannot both be set' do
-      before { selected_assistance_expert.territory_user = territory_user }
+    context 'assistance expert and relay cannot both be set' do
+      before { selected_assistance_expert.relay = relay }
 
       it { is_expected.to be_valid }
     end
 
-    context 'assistance expert and territory user cannot both be set' do
+    context 'assistance expert and relay cannot both be set' do
       before do
         selected_assistance_expert.assign_attributes assistance_expert: assistance_expert,
-                                                     territory_user: territory_user
+                                                     relay: relay
       end
 
       it { is_expected.not_to be_valid }
@@ -165,17 +165,17 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       it { is_expected.to eq [selected_assistance_expert] }
     end
 
-    describe 'of_territory_user' do
-      subject { SelectedAssistanceExpert.of_territory_user territory_user }
+    describe 'of_relay' do
+      subject { SelectedAssistanceExpert.of_relay relay}
 
-      let(:territory_user) { create :territory_user }
+      let(:relay) { create :relay }
       let(:selected_assistance_expert) do
-        create :selected_assistance_expert, territory_user: territory_user
+        create :selected_assistance_expert, relay: relay
       end
 
       before do
-        create :territory_user
-        create :selected_assistance_expert, :with_territory_user
+        create :relay
+        create :selected_assistance_expert, :with_relay
       end
 
       it { is_expected.to eq [selected_assistance_expert] }

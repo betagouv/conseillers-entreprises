@@ -8,7 +8,7 @@ class SelectedAssistanceExpert < ApplicationRecord
 
   belongs_to :diagnosed_need
   belongs_to :assistance_expert, foreign_key: :assistances_experts_id
-  belongs_to :territory_user
+  belongs_to :relay
   has_one :expert, through: :assistance_expert
   has_many :territories, through: :expert
 
@@ -20,7 +20,7 @@ class SelectedAssistanceExpert < ApplicationRecord
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
   scope :of_expert, (->(expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })
-  scope :of_territory_user, (->(territory_user) { where(territory_user: territory_user) })
+  scope :of_relay, (->(relay) { where(relay: relay) })
   scope :of_diagnoses, (lambda do |diagnoses|
     joins(diagnosed_need: :diagnosis).where(diagnosed_needs: { diagnosis: diagnoses })
   end)

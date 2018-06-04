@@ -7,8 +7,8 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
 
-  has_many :territory_users
-  has_many :territories, through: :territory_users
+  has_many :relays
+  has_many :territories, through: :relays
   has_many :visits, foreign_key: 'advisor_id'
   has_many :searches
 
@@ -27,9 +27,9 @@ class User < ApplicationRecord
   before_create :auto_approve_if_whitelisted_domain
 
   scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
-  scope :administrators_of_territory, (lambda do
+  scope :contact_relays, (lambda do
     where(contact_page_order: nil)
-        .joins(:territory_users)
+        .joins(:relays)
         .distinct
         .order(:first_name, :last_name)
   end)

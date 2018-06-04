@@ -5,8 +5,8 @@ class Territory < ApplicationRecord
   has_many :expert_territories
   has_many :experts, through: :expert_territories
   has_many :selected_assistance_experts, through: :experts
-  has_many :territory_users
-  has_many :users, through: :territory_users
+  has_many :relays
+  has_many :users, through: :relays
 
   accepts_nested_attributes_for :territory_cities
 

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'mailers/territory_user_mailer/weekly_statistics.html.haml', type: :view do
+RSpec.describe 'mailers/relay_mailer/weekly_statistics.html.haml', type: :view do
   let(:user) { create :user }
   let(:territory) { create :territory }
 

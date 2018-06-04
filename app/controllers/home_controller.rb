@@ -11,7 +11,7 @@ class HomeController < ApplicationController
   def cgu; end
 
   def contact
-    @territory_administrators = User.administrators_of_territory.includes(territory_users: :territory)
+    @relays = User.contact_relays.includes(relays: :territory)
     @product_team = User.with_contact_page_order
   end
 

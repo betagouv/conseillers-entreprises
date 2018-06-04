@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'territory users feature', type: :feature do
+describe 'relays feature', type: :feature do
   login_user
 
   let(:facility) { create :facility }
@@ -12,12 +12,12 @@ describe 'territory users feature', type: :feature do
 
   before do
     territory = create :territory
-    territory_user = create :territory_user, user: current_user, territory: territory
+    relay = create :relay, user: current_user, territory: territory
     create :territory_city, city_code: facility.city_code, territory: territory
 
-    create :selected_assistance_expert, territory_user: territory_user, diagnosed_need: diagnosed_need, status: :quo
+    create :selected_assistance_expert, relay: relay, diagnosed_need: diagnosed_need, status: :quo
 
-    visit diagnosis_territory_users_path(diagnosis_id: diagnosis.id)
+    visit diagnosis_relays_path(diagnosis_id: diagnosis.id)
   end
 
   it 'displays diagnosis page' do

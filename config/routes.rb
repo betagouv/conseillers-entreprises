@@ -46,10 +46,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :territory_users, only: %i[] do
+  resources :relays, only: %i[] do
     collection do
       get :diagnoses
-      get 'diagnoses/:diagnosis_id' => 'territory_users#diagnosis', as: :diagnosis
+      get 'diagnoses/:diagnosis_id' => 'relays#diagnosis', as: :diagnosis
       patch :update_status
     end
   end

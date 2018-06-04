@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class TerritoryUsersController < ApplicationController
+class RelaysController < ApplicationController
   def diagnoses
-    @territory_user = TerritoryUser.of_user(current_user)
+    @relay= Relay.of_user(current_user)
     @diagnoses = Diagnosis.unscoped
                           .joins(:diagnosed_needs)
-                          .merge(DiagnosedNeed.of_territory_user(@territory_user))
+                          .merge(DiagnosedNeed.of_relay(@relay))
                           .distinct
   end
 
@@ -13,15 +13,15 @@ class TerritoryUsersController < ApplicationController
     associations = [visit: [:visitee, :advisor, facility: [:company]],
                     diagnosed_needs: [selected_assistance_experts: [assistance_expert: :expert]]]
     @diagnosis = Diagnosis.unscoped.includes(associations).find(params[:diagnosis_id])
-    check_territory_user_access
-    @current_user_diagnosed_needs = @diagnosis.diagnosed_needs.of_territory_user(@territory_user)
+    check_relay_access
+    @current_user_diagnosed_needs = @diagnosis.diagnosed_needs.of_relay(@relay)
                                               .includes(:selected_assistance_experts)
     render 'experts/diagnosis'
   end
 
   def update_status
-    territory_user = TerritoryUser.of_user(current_user)
-    @selected_assistance_expert = SelectedAssistanceExpert.of_territory_user(territory_user)
+    relay = Relay.of_user(current_user)
+    @selected_assistance_expert = SelectedAssistanceExpert.of_relay(relay)
                                                           .find params[:selected_assistance_expert_id]
     @selected_assistance_expert.update status: params[:status]
     render 'experts/update_status'
@@ -29,12 +29,12 @@ class TerritoryUsersController < ApplicationController
 
   private
 
-  def check_territory_user_access
-    if current_user.is_admin? && params[:territory_user_id]
-      @territory_user = TerritoryUser.find params[:territory_user_id]
+  def check_relay_access
+    if current_user.is_admin? && params[:relay_id]
+      @relay = Relay.find params[:relay_id]
     else
-      @territory_user = TerritoryUser.of_user(current_user).of_diagnosis_location(@diagnosis).first
-      if !@territory_user
+      @relay = Relay.of_user(current_user).of_diagnosis_location(@diagnosis).first
+      if !@relay
         not_found
       end
     end

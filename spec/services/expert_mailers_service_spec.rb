@@ -26,10 +26,10 @@ describe ExpertMailersService do
     it { expect { send_assistances_email }.to change { ActionMailer::Base.deliveries.count }.by 2 }
   end
 
-  describe 'send_territory_user_assistances_email' do
-    subject(:send_territory_user_assistances_email) do
-      described_class.send_territory_user_assistances_email(
-        territory_user: territory_user,
+  describe 'send_relay_assistances_email' do
+    subject(:send_relay_assistances_email) do
+      described_class.send_relay_assistances_email(
+        relay: relay,
         diagnosed_need_ids: diagnosed_needs.map(&:id),
         advisor: advisor,
         diagnosis: diagnosis
@@ -37,12 +37,12 @@ describe ExpertMailersService do
     end
 
     let(:advisor) { create :user }
-    let(:territory_user) { create :territory_user }
+    let(:relay) { create :relay }
     let(:visit) { create :visit, :with_visitee }
     let(:diagnosis) { create :diagnosis, visit: visit }
     let(:diagnosed_needs) { create_list :diagnosed_need, 2 }
 
-    it { expect { send_territory_user_assistances_email }.to change { ActionMailer::Base.deliveries.count }.by 1 }
+    it { expect { send_relay_assistances_email }.to change { ActionMailer::Base.deliveries.count }.by 1 }
   end
 
   describe 'retrieve_assistances_experts' do
