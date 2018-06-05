@@ -59,7 +59,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       it 'does not display the date, but displays email and one list item' do
         expect(rendered).not_to match(%r{le [0-9]{2}/[0-9]{2}/20[0-9]{2}})
         expect(rendered).to include "joignable à l’adresse e-mail #{contact.email}"
-        expect(rendered).to include "territory_users/diagnoses/#{diagnosis.id}"
+        expect(rendered).to include "relays/diagnoses/#{diagnosis.id}"
         assert_select 'li', count: 1
       end
     end

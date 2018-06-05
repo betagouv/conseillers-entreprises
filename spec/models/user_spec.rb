@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'associations' do
     it do
-      is_expected.to have_many :territory_users
+      is_expected.to have_many :relays
       is_expected.to have_many :territories
     end
   end
@@ -49,13 +49,13 @@ RSpec.describe User, type: :model do
     describe 'administrator_of_territory' do
       it do
         user1 = create :user, first_name: 'bb', last_name: 'bb'
-        create :territory_user, user: user1
+        create :relay, user: user1
         user2 = create :user, first_name: 'aa', last_name: 'aa'
-        create :territory_user, user: user2
+        create :relay, user: user2
         user3 = create :user, contact_page_order: 2
-        create :territory_user, user: user3
+        create :relay, user: user3
 
-        expect(User.administrators_of_territory).to eq [user2, user1]
+        expect(User.contact_relays).to eq [user2, user1]
       end
     end
 

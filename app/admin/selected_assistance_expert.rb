@@ -3,7 +3,7 @@
 ActiveAdmin.register SelectedAssistanceExpert do
   menu parent: :diagnoses, priority: 2
   actions :index, :show, :edit, :update
-  permit_params :diagnosed_need_id, :assistances_experts_id, :territory_user_id, :status
+  permit_params :diagnosed_need_id, :assistances_experts_id, :relay_id, :status
   includes diagnosed_need: [diagnosis: [visit: :advisor]]
 
   index do
@@ -24,7 +24,7 @@ ActiveAdmin.register SelectedAssistanceExpert do
         link_to 'Page Référent', diagnosis_experts_path(diagnosis_id: diagnosis_id, access_token: access_token)
       else
         link_to 'Page Référent',
-                diagnosis_territory_users_path(diagnosis_id: diagnosis_id, territory_user_id: sae.territory_user_id)
+                diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: sae.relay_id)
       end
     end
 
@@ -40,7 +40,7 @@ ActiveAdmin.register SelectedAssistanceExpert do
         assistance_title = truncate(ae.assistance&.title, length: 40)
         ["#{ae.expert&.full_name}, Champ de compétence #{ae.assistance_id} (#{assistance_title})", ae.id]
       end)
-      f.input :territory_user, collection: TerritoryUser.all.map { |tu| [tu.user.full_name, tu.id] }
+      f.input :relay, collection: Relay.all.map { |relay| [relay.user.full_name, relay.id] }
       f.input :status
     end
 
@@ -59,8 +59,8 @@ ActiveAdmin.register SelectedAssistanceExpert do
   controller do
     def update
       super
-      if territory_user_changed?
-        fill_from_territory_user
+      if relay_changed?
+        fill_from_relay
       end
 
       if assistance_expert_changed?
@@ -68,15 +68,15 @@ ActiveAdmin.register SelectedAssistanceExpert do
       end
     end
 
-    def territory_user_changed?
+    def relay_changed?
       form_param = params[:selected_assistance_expert]
-      form_param[:territory_user_id].present? && form_param[:territory_user_id] != resource.territory_user_id
+      form_param[:relay_id].present? && form_param[:relay_id] != resource.relay_id
     end
 
-    def fill_from_territory_user
-      territory_user = TerritoryUser.find params[:selected_assistance_expert][:territory_user_id]
-      resource.update expert_full_name: territory_user.user.full_name,
-                      expert_institution_name: territory_user.user.institution,
+    def fill_from_relay
+      relay = Relay.find params[:selected_assistance_expert][:relay_id]
+      resource.update expert_full_name: relay.user.full_name,
+                      expert_institution_name: relay.user.institution,
                       assistance_title: nil
     end
 

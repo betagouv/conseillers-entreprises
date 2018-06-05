@@ -3,12 +3,12 @@
 .ui.text.container#home-contact
   %h1= t('contact_us')
 
-  %h2= t('.territory_administrators')
+  %h2= t('.relays')
   %p= t('.contact_admins_for_local_purpose')
   .ui.two.column.grid
-    - @territory_administrators.each do |user|
+    - @relays.each do |user|
       .column
-        .ui.fluid.card.territory-administrators-card{ class: random_color }
+        .ui.fluid.card.relays-card{ class: random_color }
           .content
             .header= user.full_name
             .meta

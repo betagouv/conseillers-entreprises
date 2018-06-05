@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe TerritoryUser, type: :model do
+RSpec.describe Relay, type: :model do
   describe 'validations' do
     it do
       is_expected.to belong_to :territory
@@ -13,7 +13,7 @@ RSpec.describe TerritoryUser, type: :model do
   end
 
   describe 'territory uniqueness in the scope of a user' do
-    subject { build :territory_user, user: user, territory: territory }
+    subject { build :relay, user: user, territory: territory }
 
     let(:user) { create :user }
     let(:territory) { create :territory }
@@ -23,13 +23,13 @@ RSpec.describe TerritoryUser, type: :model do
     end
 
     context 'user administrator for another territory' do
-      before { create :territory_user, user: user }
+      before { create :relay, user: user }
 
       it { is_expected.to be_valid }
     end
 
     context 'user administrator for the same territory' do
-      before { create :territory_user, user: user, territory: territory }
+      before { create :relay, user: user, territory: territory }
 
       it { is_expected.not_to be_valid }
     end
@@ -41,24 +41,24 @@ RSpec.describe TerritoryUser, type: :model do
 
       let(:user) { build :user }
 
-      context 'no territory user' do
+      context 'no relay' do
         it { is_expected.to eq [] }
       end
 
-      context 'only one territory user' do
+      context 'only one relay' do
         it do
-          territory_user = create :territory_user, user: user
+          relay = create :relay, user: user
 
-          is_expected.to eq [territory_user]
+          is_expected.to eq [relay]
         end
       end
 
-      context 'two territory users' do
+      context 'two relays' do
         it do
-          territory_user1 = create :territory_user, user: user
-          territory_user2 = create :territory_user, user: user
+          relay1 = create :relay, user: user
+          relay2 = create :relay, user: user
 
-          is_expected.to match_array [territory_user1, territory_user2]
+          is_expected.to match_array [relay1, relay2]
         end
       end
     end
@@ -71,11 +71,11 @@ RSpec.describe TerritoryUser, type: :model do
       let(:diagnosis) { create :diagnosis, visit: visit }
 
       let(:territory) { create :territory }
-      let!(:territory_user) { create :territory_user, territory: territory }
+      let!(:relay) { create :relay, territory: territory }
 
       before { create :territory_city, territory: territory, city_code: '59123' }
 
-      it { is_expected.to eq [territory_user] }
+      it { is_expected.to eq [relay] }
     end
   end
 end

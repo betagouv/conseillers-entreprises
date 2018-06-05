@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-module TerritoryUserService
+module RelayService
   class MailerService
     class << self
       def send_statistics_email
-        territory_users = TerritoryUser.all.includes(territory: :territory_cities)
-        territory_users.each do |territory_user|
-          send_statistics_email_to territory_user
+        relays = Relay.all.includes(territory: :territory_cities)
+        relays.each do |relay|
+          send_statistics_email_to relay
         end
       end
 
@@ -21,13 +21,13 @@ module TerritoryUserService
                                                  .reverse_chronological
 
         information_hash = generate_statistics_hash not_admin_territory_diagnoses
-        stats_csv = TerritoryUserService::CSVGenerator.generate_statistics_csv(not_admin_territory_diagnoses)
+        stats_csv = RelayService::CSVGenerator.generate_statistics_csv(not_admin_territory_diagnoses)
 
-        TerritoryUserMailer.delay.weekly_statistics(user, information_hash, stats_csv)
+        RelayMailer.delay.weekly_statistics(user, information_hash, stats_csv)
       end
 
       def generate_statistics_hash(territory_diagnoses)
-        information_hash = TerritoryUserService::InformationHash.new
+        information_hash = RelayService::InformationHash.new
 
         created_diagnoses = territory_diagnoses.in_progress.created_last_week
         information_hash.fill_created_diagnoses_statistics created_diagnoses

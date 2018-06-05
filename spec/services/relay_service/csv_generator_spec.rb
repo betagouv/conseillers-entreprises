@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe TerritoryUserService::CSVGenerator do
+describe RelayService::CSVGenerator do
   describe 'generate_statistics_csv' do
     context 'one diagnosis' do
       let(:user) { create :user, first_name: 'Jean', last_name: 'Bon', institution: 'DINSIC' }
@@ -14,7 +14,7 @@ describe TerritoryUserService::CSVGenerator do
         create :diagnosed_need, diagnosis: diagnosis, question_label: 'Need money ?', content: 'Very poor, much sad'
       end
       let(:expected_csv) do
-        File.read(Rails.root.join('spec', 'fixtures', 'territory_user_statistic_csv_fixture.csv'))
+        File.read(Rails.root.join('spec', 'fixtures', 'relay_statistic_csv_fixture.csv'))
       end
 
       before do

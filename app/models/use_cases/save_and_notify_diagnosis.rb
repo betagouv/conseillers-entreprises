@@ -5,7 +5,7 @@ module UseCases
     class << self
       def perform(diagnosis, selected_assistances_experts)
         save_assistance_experts_selection_and_notify diagnosis, selected_assistances_experts[:assistances_experts]
-        save_territory_users_selection_and_notify diagnosis,
+        save_relays_selection_and_notify diagnosis,
                                                   selected_assistances_experts[:diagnosed_needs]
       end
 
@@ -22,18 +22,18 @@ module UseCases
                                                           assistance_expert_ids: assistance_expert_ids)
       end
 
-      def save_territory_users_selection_and_notify(diagnosis, diagnosed_needs)
+      def save_relays_selection_and_notify(diagnosis, diagnosed_needs)
         diagnosed_need_ids = ids_from_selected_checkboxes(diagnosed_needs)
         if diagnosed_need_ids.empty?
           return
         end
-        territory_users = TerritoryUser.of_diagnosis_location(diagnosis)
-        territory_users.each do |territory_user|
-          UseCases::CreateSelectedTerritoryUsers.perform(territory_user, diagnosed_need_ids)
-          ExpertMailersService.delay.send_territory_user_assistances_email(territory_user: territory_user,
-                                                                           diagnosed_need_ids: diagnosed_need_ids,
-                                                                           advisor: diagnosis.visit.advisor,
-                                                                           diagnosis: diagnosis)
+        relays = Relay.of_diagnosis_location(diagnosis)
+        relays.each do |relay|
+          UseCases::CreateSelectedRelays.perform(relay, diagnosed_need_ids)
+          ExpertMailersService.delay.send_relay_assistances_email(relay: relay,
+                                                                  diagnosed_need_ids: diagnosed_need_ids,
+                                                                  advisor: diagnosis.visit.advisor,
+                                                                  diagnosis: diagnosis)
         end
       end
 

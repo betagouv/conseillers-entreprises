@@ -6,7 +6,7 @@
   .field
     = f.label :email
     - email_value = resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email
-    = f.email_field :email, placeholder: Faker::Internet.email, autofocus: true, value: email_value
+    = f.email_field :email, autofocus: true, value: email_value
   .actions
     = f.submit t('.resend_confirmation_instructions'), class: 'ui button green'
 

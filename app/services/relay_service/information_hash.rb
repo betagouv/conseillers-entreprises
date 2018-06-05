@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TerritoryUserService
+module RelayService
   class InformationHash < Hash
     def fill_created_diagnoses_statistics(created_diagnoses)
       self[:created_diagnoses] = {}

@@ -9,22 +9,22 @@
   = devise_error_messages!
   .field.required
     = f.label :first_name
-    = f.text_field :first_name, autofocus: true, placeholder: Faker::Name.first_name, required: true
+    = f.text_field :first_name, autofocus: true, required: true
   .field.required
     = f.label :last_name
-    = f.text_field :last_name, placeholder: Faker::Name.last_name, required: true
+    = f.text_field :last_name, required: true
   .field.required
     = f.label :institution
-    = f.text_field :institution, placeholder: Faker::Company.name, required: true
+    = f.text_field :institution, required: true
   .field.required
     = f.label :role
-    = f.text_field :role, placeholder: Faker::Job.title, required: true
+    = f.text_field :role, required: true
   .field.required
     = f.label :phone_number
-    = f.text_field :phone_number, placeholder: Faker::PhoneNumber.phone_number, required: true
+    = f.text_field :phone_number, required: true
   .field.required
     = f.label :email
-    = f.email_field :email, placeholder: Faker::Internet.email, required: true
+    = f.email_field :email, required: true
   .field.required
     = f.label :password
     - minimum_password_length = Devise.password_length.min

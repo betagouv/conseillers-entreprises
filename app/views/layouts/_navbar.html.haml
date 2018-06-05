@@ -8,11 +8,11 @@
         = link_to diagnoses_path do
           = semantic_icon('tasks')
           = t('.diagnoses')
-      - if current_user.territory_users.present?
+      - if current_user.relays.present?
         .item
-          = link_to diagnoses_territory_users_path do
+          = link_to diagnoses_relays_path do
             = semantic_icon('dashboard')
-            = t('.territory_user_dashboard')
+            = t('.relay_dashboard')
     - else
       .item
         = link_to about_home_index_path do

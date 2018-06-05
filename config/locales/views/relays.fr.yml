@@ -1,5 +1,6 @@
 fr:
-  territory_users:
+  relays:
     diagnoses:
-      title: Mon tableau de bord
+      title: Suivi des demandes
       no_diagnoses: Il n’y a aucune analyse sur laquelle vous êtes référent pour le moment.
+      view: Afficher

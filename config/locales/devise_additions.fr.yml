@@ -6,8 +6,8 @@ fr:
       not_approved: "Votre compte n’a pas encore été validé par un administateur."
     shared:
       links:
-        not_received_confirmation: E-mail pour valider votre adresse non reçu ?
-        not_received_unlocked: Vous n’avez pas reçu l’email pour débloquer votre compte ?
+        not_received_confirmation: Vous n’avez pas reçu l’e-mail de confirmation ?
+        not_received_unlocked: Vous n’avez pas reçu l’e-mail pour débloquer votre compte ?
         sign_in_with: Se connecter avec %{provider_name}
     registrations:
       new:
@@ -18,13 +18,13 @@ fr:
         we_need_current_password: (nécessaire pour prendre en compte les modifications)
     passwords:
       new:
-        send_me_reset_password_instructions: M’envoyer les instructions
+        send_me_reset_password_instructions: Envoyer les instructions de réinitialisation
       edit:
         change_own_password: Changer son mot de passe
         new_password: Nouveau mot de passe
     confirmations:
       new:
-        resend_confirmation_instructions: Renvoyer l’e-mail pour confirmer son adresse
+        resend_confirmation_instructions: Renvoyer l’e-mail de confirmation
     mailer:
       hello: Bonjour %{user_first_name},
       emails_footer:

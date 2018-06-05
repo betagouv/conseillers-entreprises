@@ -3,13 +3,13 @@
 require 'rails_helper'
 require 'mailers/shared_examples_for_an_email'
 
-describe TerritoryUserMailer do
+describe RelayMailer do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
   describe '#weekly_statistics' do
-    subject(:mail) { described_class.weekly_statistics(territory_user, information_hash, stats_csv).deliver_now }
+    subject(:mail) { described_class.weekly_statistics(relay, information_hash, stats_csv).deliver_now }
 
-    let(:territory_user) { create :territory_user }
+    let(:relay) { create :relay }
     let(:stats_csv) { CSV.generate { |line| line << %w[col_1 col_2] } }
 
     let(:information_hash) do
@@ -24,6 +24,6 @@ describe TerritoryUserMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.from).to eq TerritoryUserMailer::SENDER }
+    it { expect(mail.from).to eq RelayMailer::SENDER }
   end
 end
