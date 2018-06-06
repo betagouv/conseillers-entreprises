@@ -10,6 +10,13 @@ Rails.application.routes.draw do
   get 'video' => 'home#tutorial_video'
   get 'profile' => 'users#show'
 
+  resources :stats, only: [:index] do
+    collection do
+      get :users
+      get :activity
+    end
+  end
+
   resources :home, only: %i[] do
     collection do
       get :about
@@ -70,5 +77,4 @@ Rails.application.routes.draw do
     resources :errors, only: %i[create]
   end
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
