@@ -28,6 +28,18 @@ class Diagnosis < ApplicationRecord
 
   scope :after_step, ( ->(minimum_step) { where('step >= ?', minimum_step) })
 
+  scope :only_active, (-> { where(archived_at: nil) })
+
+  def archive!
+    self.archived_at = Time.now
+    self.save!
+  end
+
+  def unarchive!
+    self.archived_at = nil
+    self.save!
+  end
+
   def creation_date_localized
     I18n.l created_at.to_date
   end
