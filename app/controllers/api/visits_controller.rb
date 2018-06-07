@@ -10,8 +10,8 @@ module Api
     def update
       visit = Visit.find params[:id]
       check_current_user_access_to visit
-      UseCases::UpdateVisit.validate_happened_on update_params[:happened_on]
-      visit.update update_params
+      visit.happened_on = Date.iso8601(update_params[:happened_on])
+      visit.save
     rescue StandardError => error
       send_error_notifications(error)
       render body: nil, status: :bad_request
