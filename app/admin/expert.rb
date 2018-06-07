@@ -21,6 +21,7 @@ ActiveAdmin.register Expert do
     column :first_name
     column :last_name
     column :role
+    column :email
     column :institution
     column t('active_admin.experts.assistances_count'), (proc { |expert| expert.assistances.length })
     column(:territories) do |expert|
