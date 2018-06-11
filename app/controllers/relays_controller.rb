@@ -3,8 +3,7 @@
 class RelaysController < ApplicationController
   def diagnoses
     @relay= Relay.of_user(current_user)
-    @diagnoses = Diagnosis.unscoped
-                          .joins(:diagnosed_needs)
+    @diagnoses = Diagnosis.joins(:diagnosed_needs)
                           .merge(DiagnosedNeed.of_relay(@relay))
                           .distinct
   end
@@ -12,7 +11,7 @@ class RelaysController < ApplicationController
   def diagnosis
     associations = [visit: [:visitee, :advisor, facility: [:company]],
                     diagnosed_needs: [selected_assistance_experts: [assistance_expert: :expert]]]
-    @diagnosis = Diagnosis.unscoped.includes(associations).find(params[:diagnosis_id])
+    @diagnosis = Diagnosis.includes(associations).find(params[:diagnosis_id])
     check_relay_access
     @current_user_diagnosed_needs = @diagnosis.diagnosed_needs.of_relay(@relay)
                                               .includes(:selected_assistance_experts)

@@ -39,7 +39,7 @@ RSpec.describe ExpertsController, type: :controller do
 
       context 'safe deleted diagnosis' do
         before do
-          diagnosis.destroy
+          diagnosis.archive!
 
           create :selected_assistance_expert, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
           request

@@ -50,7 +50,7 @@ RSpec.describe RelaysController, type: :controller do
 
       context 'safe deleted diagnosis' do
         before do
-          diagnosis.destroy
+          diagnosis.archive!
 
           create :territory_city, territory: relay.territory, city_code: facility.city_code
           request

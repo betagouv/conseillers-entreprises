@@ -8,7 +8,7 @@ class AdminMailersService
       @information_hash = {}
 
       associations = [visit: [:advisor, facility: [:company]]]
-      @not_admin_diagnoses = Diagnosis.includes(associations).of_user(User.not_admin).reverse_chronological
+      @not_admin_diagnoses = Diagnosis.includes(associations).only_active.of_user(User.not_admin).reverse_chronological
       @completed_diagnoses = @not_admin_diagnoses.completed.updated_last_week
 
       sign_up_statistics

@@ -4,7 +4,7 @@ module UseCases
   class GetDiagnoses
     class << self
       def for_user(user)
-        user_diagnoses = Diagnosis.of_user(user).reverse_chronological
+        user_diagnoses = Diagnosis.only_active.of_user(user).reverse_chronological
         in_progress_associations = [visit: [facility: [:company]]]
         {
           in_progress: user_diagnoses.in_progress.includes(in_progress_associations),
@@ -14,7 +14,7 @@ module UseCases
 
       def for_siret(siret)
         associations = [diagnosed_needs: :selected_assistance_experts, visit: :advisor]
-        diagnoses = Diagnosis.completed.includes(associations).of_siret(siret)
+        diagnoses = Diagnosis.only_active.completed.includes(associations).of_siret(siret)
         diagnoses = UseCases::EnrichDiagnoses.with_diagnosed_needs_count(diagnoses)
         UseCases::EnrichDiagnoses.with_selected_assistances_experts_count(diagnoses)
       end

@@ -44,14 +44,14 @@ class DiagnosesController < ApplicationController
   def destroy
     diagnosis = Diagnosis.find params[:id]
     check_current_user_access_to(diagnosis)
-    diagnosis.destroy
+    diagnosis.archive!
     redirect_to diagnoses_path
   end
 
   private
 
   def fetch_and_check_diagnosis_by_id(diagnosis_id)
-    diagnosis = Diagnosis.find diagnosis_id
+    diagnosis = Diagnosis.only_active.find diagnosis_id
     check_availability_of_diagnosis(diagnosis)
     check_current_user_access_to(diagnosis)
     diagnosis

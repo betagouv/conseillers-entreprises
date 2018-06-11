@@ -11,17 +11,16 @@ RSpec.describe Diagnosis, type: :model do
     is_expected.to validate_inclusion_of(:step).in_array(Diagnosis::AUTHORIZED_STEPS)
   end
 
-  describe 'acts_as_paranoid' do
+  describe 'archive' do
     let(:diagnosis) { create :diagnosis }
 
     before do
-      diagnosis.destroy
+      diagnosis.archive!
     end
 
-    it('destroys softly the diagnosis') do
-      expect(Diagnosis.count).to eq 0
-      expect(Diagnosis.only_deleted.count).to eq 1
-      expect(Diagnosis.with_deleted.count).to eq 1
+    it('archives the diagnosis') do
+      expect(Diagnosis.all.count).to eq 1
+      expect(Diagnosis.only_active.count).to eq 0
     end
   end
 
