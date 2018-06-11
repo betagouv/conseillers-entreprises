@@ -6,7 +6,7 @@ class CompaniesController < ApplicationController
     if @query.present?
       siret = siret(@query)
       if siret.present? && luhn(siret)
-        redirect_to company_path(siret)
+        redirect_to company_path(siret, query: @query)
       else
         search_results
       end
@@ -15,9 +15,11 @@ class CompaniesController < ApplicationController
 
   def show
     siret = params[:siret]
+    query = params[:query]
     @facility = UseCases::SearchFacility.with_siret siret
     @company = UseCases::SearchCompany.with_siret siret
     @diagnoses = UseCases::GetDiagnoses.for_siret siret
+    save_search(query, @company.name)
   end
 
   def create_diagnosis_from_siret
@@ -45,6 +47,7 @@ class CompaniesController < ApplicationController
     else
       flash.now.alert = response.error_message || I18n.t('companies.search.generic_error')
     end
+    save_search(@query)
   end
 
   def search_query
@@ -70,5 +73,9 @@ class CompaniesController < ApplicationController
       sum += tmp
     end
     (sum%10).zero?
+  end
+
+  def save_search(query, label = nil)
+    Search.create user: current_user, query: query, label: label
   end
 end

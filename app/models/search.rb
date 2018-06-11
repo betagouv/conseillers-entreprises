@@ -7,4 +7,8 @@ class Search < ApplicationRecord
 
   scope :of_user, (->(user) { where(user: user) })
   scope :recent, (-> { order(created_at: :desc).limit(30) })
+
+  def summary
+    label || query
+  end
 end
