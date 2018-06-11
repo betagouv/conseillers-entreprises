@@ -37,7 +37,7 @@ RSpec.describe ExpertsController, type: :controller do
         it('returns http success') { expect(response).to have_http_status(:success) }
       end
 
-      context 'safe deleted diagnosis' do
+      context 'archived diagnosis' do
         before do
           diagnosis.archive!
 

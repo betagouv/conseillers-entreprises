@@ -140,7 +140,7 @@ fr:
       diagnosis:
         visit: Visite qui a fait l’objet de l’analyse
         content: Description
-        deleted_at: Date de suppression
+        archived_at: Date d’archivage
       diagnosed_need:
         diagnosis: Analyse parente
         question_label: Nom du besoin
