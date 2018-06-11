@@ -5,12 +5,10 @@
 - advisor_met_company_params = { link_to_root: link_to_root,
   advisor_name: @params[:advisor].full_name,
   advisor_institution: @params[:advisor].institution,
-  company_name: @params[:company_name] }
+  company_name: @params[:company_name],
+  visit_date: @params[:visit_date] }
 
-- if @params[:visit_date].present?
-  %p= t('.advisor_met_this_company_html', advisor_met_company_params.merge(visit_date: @params[:visit_date]))
-- else
-  %p= t('.advisor_met_this_company_without_date_html', advisor_met_company_params)
+%p= t('.advisor_met_this_company_html', advisor_met_company_params)
 
 %p= t('.needs_are_relevant_with_your_skills')
 
