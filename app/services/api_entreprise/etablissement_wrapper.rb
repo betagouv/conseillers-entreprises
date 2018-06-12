@@ -7,9 +7,5 @@ module ApiEntreprise
     def initialize(data)
       @etablissement = Etablissement.new(data.fetch('etablissement'))
     end
-
-    def headquarters_location
-      @etablissement.location
-    end
   end
 end
