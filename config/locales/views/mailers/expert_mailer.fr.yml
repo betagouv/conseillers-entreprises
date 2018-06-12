@@ -4,7 +4,7 @@ fr:
       notify_company_needs:
         subject: "[Réso] L’entreprise %{company_name} a besoin de vous !"
         hello: Bonjour,
-        advisor_met_this_company_html: Dans le cadre de l’expérimentation %{link_to_root}, %{advisor_name}, conseiller en entreprise au sein de l’organisme %{advisor_institution}, a rencontré l’entreprise %{company_name} le %{visit_date}.
+        advisor_met_this_company_html: Dans le cadre de l’expérimentation %{link_to_root}, %{advisor_name}, conseiller en entreprise au sein de l’organisme %{advisor_institution}, a rencontré l’entreprise %{company_description} le %{visit_date}.
         needs_are_relevant_with_your_skills: "L’entreprise a exprimé des besoins qui correspondent à votre compétence :"
         more_info: "Informations complémentaires :"
         company_contact_with_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l’entreprise %{company_name}, joignable au %{company_contact_phone_number} ou à l’adresse e-mail %{company_contact_email}.
