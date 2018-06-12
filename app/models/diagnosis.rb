@@ -3,7 +3,7 @@
 class Diagnosis < ApplicationRecord
   LAST_STEP = 5
   AUTHORIZED_STEPS = (1..LAST_STEP).to_a.freeze
-  acts_as_paranoid
+
 
   attr_accessor :diagnosed_needs_count, :selected_assistances_experts_count, :solved_needs_count
 
@@ -27,6 +27,18 @@ class Diagnosis < ApplicationRecord
   end)
 
   scope :after_step, ( ->(minimum_step) { where('step >= ?', minimum_step) })
+
+  scope :only_active, (-> { where(archived_at: nil) })
+
+  def archive!
+    self.archived_at = Time.now
+    self.save!
+  end
+
+  def unarchive!
+    self.archived_at = nil
+    self.save!
+  end
 
   def creation_date_localized
     I18n.l created_at.to_date

@@ -39,4 +39,4 @@
   - if searches.present?
     %ul
       - searches.each do |search|
-        %li= link_to search.label.upcase, company_path(siret: search.query)
+        %li= link_to search.summary, search_companies_path(query: search.query)

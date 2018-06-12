@@ -44,7 +44,8 @@ class User < ApplicationRecord
   
   scope :active_diagnosers, (lambda do |date, minimum_step|
     joins(visits: :diagnosis)
-        .merge(Diagnosis.where(created_at: date)
+        .merge(Diagnosis.only_active
+                   .where(created_at: date)
                    .after_step(minimum_step))
         .uniq
   end)

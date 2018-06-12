@@ -15,7 +15,8 @@ module RelayService
       def send_statistics_email_to(user)
         associations = [visit: [:advisor, facility: [:company]],
                         diagnosed_needs: %i[question selected_assistance_experts]]
-        not_admin_territory_diagnoses = Diagnosis.includes(associations)
+        not_admin_territory_diagnoses = Diagnosis.only_active
+                                                 .includes(associations)
                                                  .of_user(User.not_admin)
                                                  .in_territory(user.territory)
                                                  .reverse_chronological
