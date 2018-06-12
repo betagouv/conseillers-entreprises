@@ -7,7 +7,7 @@
     method: :post, class: 'ui right floated positive basic button'
 
   - if @diagnoses.present?
-    %h2= t('.diagnoses_completed')
+    %h2= t('.diagnoses_completed', company_name: @company.name)
     %table.ui.table
       %tbody
         - @diagnoses.each do |diagnosis|
