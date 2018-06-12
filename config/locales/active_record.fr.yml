@@ -119,6 +119,7 @@ fr:
         company: Entreprise
         siret: SIRET
         city_code: Code commune
+        readable_locality: Commune
       contact:
         first_name: Prénom
         last_name: Nom
