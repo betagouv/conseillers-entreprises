@@ -143,7 +143,7 @@ describe ExpertMailersService do
       {
         advisor: user,
         diagnosis_id: diagnosis.id,
-        visit_date: diagnosis.visit.happened_on_localized,
+        visit_date: diagnosis.visit.happened_on,
         readable_locality: diagnosis.visit.facility.readable_locality,
         company_name: diagnosis.visit.company_name,
         company_contact: diagnosis.visit.visitee,

@@ -13,13 +13,7 @@ class Visit < ApplicationRecord
   scope :of_siret, (->(siret) { joins(:facility).where(facilities: { siret: siret }) })
 
   def to_s
-    "#{company_name} (#{happened_on_localized})"
-  end
-
-  def happened_on_localized
-    if happened_on
-      I18n.l happened_on
-    end
+    "#{company_name} (#{I18n.l happened_on})"
   end
 
   def company_name

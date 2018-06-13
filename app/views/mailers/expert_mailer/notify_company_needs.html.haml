@@ -10,7 +10,7 @@
   advisor_name: @params[:advisor].full_name,
   advisor_institution: @params[:advisor].institution,
   company_description: company_description,
-  visit_date: @params[:visit_date] }
+  visit_date: I18n.l(@params[:visit_date]) }
 
 %p= t('.advisor_met_this_company_html', advisor_met_company_params)
 

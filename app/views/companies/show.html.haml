@@ -14,7 +14,7 @@
           %tr
             %td
               %h3.ui.header
-                = t('.visited_at', date: diagnosis.visit.happened_on_localized)
+                = t('.visited_at', date: I18n.l(diagnosis.visit.happened_on))
                 .sub.header
                   - advisor = diagnosis.visit.advisor
                   = t('.visited_by_html', advisor_name: advisor.full_name_with_role, advisor_email: advisor.email)
