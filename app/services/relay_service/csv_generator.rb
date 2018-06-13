@@ -19,7 +19,7 @@ module RelayService
 
       def csv_line_from_diagnosis(csv_line, diagnosis)
         diagnosis.diagnosed_needs.each do |diagnosed_need|
-          diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+          diagnosed_need.matches.each do |selected_assistance_expert|
             csv_line = csv_line_from_data(csv_line, diagnosis, diagnosed_need, selected_assistance_expert)
           end
         end

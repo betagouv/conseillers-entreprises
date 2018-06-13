@@ -56,7 +56,7 @@ ActiveAdmin.register Territory do
           if expert.present?
             link_to(selected_expert.expert_description, admin_expert_path(expert))
           else
-            I18n.t('active_admin.selected_assistance_experts.deleted', expert: selected_expert.expert_description)
+            I18n.t('active_admin.matches.deleted', expert: selected_expert.expert_description)
           end
         end
         column :status do |selected_expert|

@@ -21,7 +21,7 @@
               .middle.aligned.content
                 %h4.ui.header.disabled
                   - selected_assistances_experts_count = SelectedAssistanceExpert.of_diagnoses([@diagnosis]).count
-                  = t('.selected_assistance_experts', count: selected_assistances_experts_count)
+                  = t('.matches', count: selected_assistances_experts_count)
 
   - visitee = @diagnosis.visit.visitee
 
@@ -44,11 +44,11 @@
                 .field
                   %label= t('.diagnosed_needs_content_label')
                   = diagnosed_need.content
-        - if diagnosed_need.selected_assistance_experts.empty?
+        - if diagnosed_need.matches.empty?
           %tr.small.text.ui.tiny.table{ colspan: 2 }
             %td= t('.zero_contacted_expert')
         - else
-          - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+          - diagnosed_need.matches.each do |selected_assistance_expert|
             %tr.small.text.ui.tiny.table
               - locals = { selected_assistance_expert: selected_assistance_expert }
               = render partial: 'experts/selected_assistance_expert', locals: locals

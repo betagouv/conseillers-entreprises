@@ -15,6 +15,6 @@ module DiagnosisHelper
   end
 
   def diagnosis_selected_assistances_experts_count
-    @diagnosis.diagnosed_needs.flat_map(&:selected_assistance_experts).count
+    @diagnosis.diagnosed_needs.flat_map(&:matches).count
   end
 end

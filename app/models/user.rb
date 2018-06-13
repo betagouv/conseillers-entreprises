@@ -51,7 +51,7 @@ class User < ApplicationRecord
   end)
 
   scope :active_answered, (lambda do |date, status|
-    joins(visits: [diagnosis: [diagnosed_needs: :selected_assistance_experts]])
+    joins(visits: [diagnosis: [diagnosed_needs: :matches]])
         .merge(SelectedAssistanceExpert
                    .where(taken_care_of_at: date)
                    .with_status(status))

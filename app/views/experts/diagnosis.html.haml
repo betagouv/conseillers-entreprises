@@ -22,7 +22,7 @@
             .item
               .middle.aligned.content
                 %h4.ui.header.disabled
-                  = t('.selected_assistance_experts', count: diagnosis_selected_assistances_experts_count)
+                  = t('.matches', count: diagnosis_selected_assistances_experts_count)
 
   - visitee = @diagnosis.visit.visitee
   - advisor = @diagnosis.visit.advisor
@@ -45,7 +45,7 @@
                   %label= t('.diagnosed_needs_content_label')
                   = diagnosed_need.content
 
-        - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+        - diagnosed_need.matches.each do |selected_assistance_expert|
           - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}-owner"
           %tr.small.text.ui.tiny.table{ id: id }
             - locals = { selected_assistance_expert: selected_assistance_expert }
@@ -69,11 +69,11 @@
                 .field
                   %label= t('.diagnosed_needs_content_label')
                   = diagnosed_need.content
-        - if diagnosed_need.selected_assistance_experts.empty?
+        - if diagnosed_need.matches.empty?
           %tr.small.text.ui.tiny.table{ colspan: 2 }
             %td= t('.zero_contacted_expert')
         - else
-          - diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
+          - diagnosed_need.matches.each do |selected_assistance_expert|
             - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}-global"
             %tr.small.text.ui.tiny.table{ id: id }
               - locals = { selected_assistance_expert: selected_assistance_expert }

@@ -23,8 +23,8 @@ class Diagnosis < ApplicationRecord
   scope :in_territory, (->(territory) { of_facilities(Facility.in_territory(territory))})
   scope :of_facilities, (->(facilities) { joins(:visit).merge(Visit.where(facility: facilities))})
   scope :available_for_expert, (lambda do |expert|
-    joins(diagnosed_needs: [selected_assistance_experts: [assistance_expert: :expert]])
-      .where(diagnosed_needs: { selected_assistance_experts: { assistance_expert: { experts: { id: expert.id } } } })
+    joins(diagnosed_needs: [matches: [assistance_expert: :expert]])
+      .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
   end)
 
   scope :after_step, ( ->(minimum_step) { where('step >= ?', minimum_step) })

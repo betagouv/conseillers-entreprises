@@ -4,13 +4,13 @@ class UserDailyChangeUpdateMailerService
   class << self
     def send_daily_change_updates
       associations = [diagnosed_need: [diagnosis: [visit: [:advisor, facility: [:company]]]]]
-      user_selected_assistance_experts_hash = SelectedAssistanceExpert.includes(associations).updated_yesterday
+      user_matches_hash = SelectedAssistanceExpert.includes(associations).updated_yesterday
                                                                       .group_by do |selected_assistance_expert|
         selected_assistance_expert.diagnosed_need.diagnosis.visit.advisor
       end
 
-      user_selected_assistance_experts_hash.each do |user, selected_assistance_experts|
-        change_updates = create_change_update_array selected_assistance_experts
+      user_matches_hash.each do |user, matches|
+        change_updates = create_change_update_array matches
 
         if change_updates.empty?
           break
@@ -22,8 +22,8 @@ class UserDailyChangeUpdateMailerService
 
     private
 
-    def create_change_update_array(selected_assistance_experts)
-      change_array = selected_assistance_experts.map do |selected_assistance_expert|
+    def create_change_update_array(matches)
+      change_array = matches.map do |selected_assistance_expert|
         convert_to_change_hash selected_assistance_expert
       end
       change_array.reject { |change| change[:old_status] == change[:current_status] }

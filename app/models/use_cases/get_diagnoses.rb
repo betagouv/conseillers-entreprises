@@ -13,7 +13,7 @@ module UseCases
       end
 
       def for_siret(siret)
-        associations = [diagnosed_needs: :selected_assistance_experts, visit: :advisor]
+        associations = [diagnosed_needs: :matches, visit: :advisor]
         diagnoses = Diagnosis.only_active.completed.includes(associations).of_siret(siret)
         diagnoses = UseCases::EnrichDiagnoses.with_diagnosed_needs_count(diagnoses)
         UseCases::EnrichDiagnoses.with_selected_assistances_experts_count(diagnoses)
@@ -23,7 +23,7 @@ module UseCases
 
       def completed_diagnoses_from_user_diagnoses(diagnoses)
         completed_associations = [
-          visit: [:visitee, facility: [:company]], diagnosed_needs: [:selected_assistance_experts]
+          visit: [:visitee, facility: [:company]], diagnosed_needs: [:matches]
         ]
         diagnoses = diagnoses.completed.includes(completed_associations)
         diagnoses = UseCases::EnrichDiagnoses.with_diagnosed_needs_count(diagnoses)

@@ -26,7 +26,7 @@ class DiagnosesController < ApplicationController
   end
 
   def step5
-    associations = [visit: [:visitee, facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
+    associations = [visit: [:visitee, facility: [:company]], diagnosed_needs: [:matches]]
     @diagnosis = Diagnosis.includes(associations).find params[:id]
     check_current_user_access_to(@diagnosis)
   end
