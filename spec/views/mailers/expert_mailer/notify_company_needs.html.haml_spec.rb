@@ -11,7 +11,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
 
     let(:params_hash) do
       {
-        visit_date: visit.happened_on_localized,
+        visit_date: visit.happened_on,
         diagnosis_id: diagnosis.id,
         company_name: visit.company_name,
         company_contact: visit.visitee,
@@ -24,7 +24,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
 
     context 'when visit has a date, contact has phone number, there is an access token and there are two questions' do
       let(:contact) { create :contact, :with_phone_number }
-      let(:visit) { create :visit, :with_visitee, :with_date, advisor: user, visitee: contact }
+      let(:visit) { create :visit, :with_visitee, advisor: user, visitee: contact }
       let(:other_question) { create :question }
       let(:questions_with_needs_description) do
         [
@@ -46,7 +46,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       end
     end
 
-    context 'when visit has no date, contact has no phone number, there is no access token and there is one question' do
+    context 'when contact has no phone number, there is no access token and there is one question' do
       let(:contact) { create :contact, :with_email }
       let(:visit) { create :visit, :with_visitee, advisor: user, visitee: contact }
       let(:questions_with_needs_description) { [{ question: question, need_description: 'Help this company' }] }
@@ -57,7 +57,6 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       end
 
       it 'does not display the date, but displays email and one list item' do
-        expect(rendered).not_to match(%r{le [0-9]{2}/[0-9]{2}/20[0-9]{2}})
         expect(rendered).to include "joignable à l’adresse e-mail #{contact.email}"
         expect(rendered).to include "relays/diagnoses/#{diagnosis.id}"
         assert_select 'li', count: 1

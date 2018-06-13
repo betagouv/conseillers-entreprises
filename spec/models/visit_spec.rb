@@ -36,13 +36,6 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe 'happened_on_localized' do
-    it do
-      visit = create :visit, happened_on: Date.new(2017, 7, 1)
-      expect(visit.happened_on_localized).to eq '01/07/2017'
-    end
-  end
-
   describe 'company_name' do
     it do
       name = 'Octo'

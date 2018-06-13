@@ -43,6 +43,7 @@ RSpec.describe Api::VisitsController, type: :controller do
     end
 
     context 'when parameters are wrong' do
+      let(:visit) { create :visit, advisor: current_user, happened_on: nil }
       let(:date_string) { 'Not an iso date string' }
 
       before do

@@ -19,7 +19,7 @@ describe ExpertMailer do
 
     let(:params_hash) do
       {
-        visit_date: visit.happened_on_localized,
+        visit_date: visit.happened_on,
         diagnosis_id: diagnosis.id,
         company_name: visit.company_name,
         company_contact: visit.visitee,
