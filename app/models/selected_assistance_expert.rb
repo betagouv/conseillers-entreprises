@@ -32,6 +32,7 @@ class SelectedAssistanceExpert < ApplicationRecord
     where(diagnosed_need_id: ids).updated_more_than_five_days_ago
   end)
 
+  scope :in_territory, (->(territory) { of_diagnoses(Diagnosis.in_territory(territory))})
   def status_closed?
     status_done? || status_not_for_me?
   end
