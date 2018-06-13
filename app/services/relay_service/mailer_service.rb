@@ -39,7 +39,7 @@ module RelayService
         completed_diagnoses = territory_diagnoses.completed.updated_last_week
         information_hash.fill_completed_diagnoses_statistics completed_diagnoses
 
-        contacted_experts_count = SelectedAssistanceExpert.of_diagnoses(completed_diagnoses).count
+        contacted_experts_count = Match.of_diagnoses(completed_diagnoses).count
         information_hash.fill_contacted_experts_count_statistics contacted_experts_count
         information_hash
       end

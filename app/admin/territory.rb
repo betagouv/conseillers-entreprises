@@ -36,7 +36,7 @@ ActiveAdmin.register Territory do
     end
 
     panel I18n.t('active_admin.territories.contacted_experts') do
-      table_for SelectedAssistanceExpert.in_territory(territory)
+      table_for Match.in_territory(territory)
                     .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
                     .includes(:expert)
                     .order(created_at: :desc) do

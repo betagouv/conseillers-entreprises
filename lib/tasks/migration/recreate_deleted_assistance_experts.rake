@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 task recreate_deleted_assistance_experts: :environment do
-  saes = SelectedAssistanceExpert.where(assistances_experts_id: nil)
-                                 .where.not(assistance_title: ['', nil])
-                                 .where.not(expert_full_name: ['', nil])
+  saes = Match.where(assistances_experts_id: nil)
+              .where.not(assistance_title: ['', nil])
+              .where.not(expert_full_name: ['', nil])
   puts "Il y en a #{saes.count}"
   saes.each do |sae|
     experts = Expert.where("experts.first_name || ' ' || experts.last_name = ?", sae.expert_full_name)
@@ -22,9 +22,9 @@ task recreate_deleted_assistance_experts: :environment do
     assistance_expert = AssistanceExpert.find_or_create_by!(assistance: assistance, expert: expert)
     sae.update! assistances_experts_id: assistance_expert.id
   end
-  saes = SelectedAssistanceExpert.where(assistances_experts_id: nil)
-                                 .where.not(assistance_title: ['', nil])
-                                 .where.not(expert_full_name: ['', nil])
+  saes = Match.where(assistances_experts_id: nil)
+              .where.not(assistance_title: ['', nil])
+              .where.not(expert_full_name: ['', nil])
   puts "Il en reste #{saes.count}"
   array = saes.map(&:id)
   print array

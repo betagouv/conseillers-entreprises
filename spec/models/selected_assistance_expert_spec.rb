@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-RSpec.describe SelectedAssistanceExpert, type: :model do
+RSpec.describe Match, type: :model do
   describe 'validations' do
     it do
       is_expected.to belong_to :diagnosed_need
@@ -141,7 +141,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
 
   describe 'scopes' do
     describe 'not_viewed' do
-      subject { SelectedAssistanceExpert.not_viewed }
+      subject { Match.not_viewed }
 
       let(:match) { create :match, expert_viewed_page_at: nil }
 
@@ -151,7 +151,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     describe 'of_expert' do
-      subject { SelectedAssistanceExpert.of_expert expert }
+      subject { Match.of_expert expert }
 
       let(:expert) { create :expert }
       let(:assistance_expert) { create :assistance_expert, expert: expert }
@@ -166,7 +166,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     describe 'of_relay' do
-      subject { SelectedAssistanceExpert.of_relay relay}
+      subject { Match.of_relay relay}
 
       let(:relay) { create :relay }
       let(:match) do
@@ -182,7 +182,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     describe 'of_diagnoses' do
-      subject { SelectedAssistanceExpert.of_diagnoses [diagnosis] }
+      subject { Match.of_diagnoses [diagnosis] }
 
       let(:diagnosis) { create :diagnosis }
       let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
@@ -205,15 +205,15 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
       let!(:match_not_for_expert) { create :match, status: :not_for_me }
 
       it do
-        expect(SelectedAssistanceExpert.with_status(:quo)).to eq [match_with_status_quo]
-        expect(SelectedAssistanceExpert.with_status(:taking_care)).to eq [match_taken_care_of]
-        expect(SelectedAssistanceExpert.with_status(:done)).to eq [match_with_status_done]
-        expect(SelectedAssistanceExpert.with_status(:not_for_me)).to eq [match_not_for_expert]
+        expect(Match.with_status(:quo)).to eq [match_with_status_quo]
+        expect(Match.with_status(:taking_care)).to eq [match_taken_care_of]
+        expect(Match.with_status(:done)).to eq [match_with_status_done]
+        expect(Match.with_status(:not_for_me)).to eq [match_not_for_expert]
       end
     end
 
     describe 'updated_more_than_five_days_ago' do
-      subject { SelectedAssistanceExpert.updated_more_than_five_days_ago }
+      subject { Match.updated_more_than_five_days_ago }
 
       let!(:match_updated_two_weeks_ago) { create :match, updated_at: 2.weeks.ago }
 
@@ -223,7 +223,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     describe 'needing_taking_care_update' do
-      subject { SelectedAssistanceExpert.needing_taking_care_update }
+      subject { Match.needing_taking_care_update }
 
       let!(:match_needing_update) do
         create :match, status: :taking_care, updated_at: 6.days.ago
@@ -239,7 +239,7 @@ RSpec.describe SelectedAssistanceExpert, type: :model do
     end
 
     describe 'with_no_one_in_charge' do
-      subject { SelectedAssistanceExpert.with_no_one_in_charge }
+      subject { Match.with_no_one_in_charge }
 
       let(:abandoned_diagnosed_need) { create :diagnosed_need }
       let(:answered_diagnosed_need) { create :diagnosed_need }

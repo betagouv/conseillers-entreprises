@@ -23,7 +23,7 @@ ActiveAdmin.register Company do
     end
 
     panel I18n.t('active_admin.territories.contacted_experts') do
-      table_for SelectedAssistanceExpert.of_facilities(company.facilities)
+      table_for Match.of_facilities(company.facilities)
                     .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
                     .includes(:expert)
                     .order(created_at: :desc) do

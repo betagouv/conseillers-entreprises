@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register SelectedAssistanceExpert do
+ActiveAdmin.register Match do
   menu parent: :diagnoses, priority: 2
   actions :index, :show, :edit, :update
   permit_params :diagnosed_need_id, :assistances_experts_id, :relay_id, :status

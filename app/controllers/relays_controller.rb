@@ -20,7 +20,7 @@ class RelaysController < ApplicationController
 
   def update_status
     relay = Relay.of_user(current_user)
-    @match = SelectedAssistanceExpert.of_relay(relay)
+    @match = Match.of_relay(relay)
                                                           .find params[:match_id]
     @match.update status: params[:status]
     render 'experts/update_status'

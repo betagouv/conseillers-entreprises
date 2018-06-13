@@ -9,8 +9,8 @@ describe ExpertReminderService do
     subject(:send_experts_reminders) { described_class.send_reminders }
 
     before do
-      allow(SelectedAssistanceExpert).to receive(:needing_taking_care_update).and_return(sae_needing_taking_care_update)
-      allow(SelectedAssistanceExpert).to receive(:with_no_one_in_charge).and_return(sae_with_no_one_in_charge)
+      allow(Match).to receive(:needing_taking_care_update).and_return(sae_needing_taking_care_update)
+      allow(Match).to receive(:with_no_one_in_charge).and_return(sae_with_no_one_in_charge)
     end
 
     context 'experts are different' do

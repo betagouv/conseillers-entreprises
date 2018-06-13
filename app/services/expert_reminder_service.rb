@@ -16,7 +16,7 @@ class ExpertReminderService
     private
 
     def matches_needing_taking_care_update
-      SelectedAssistanceExpert.includes(assistance_expert: :expert).needing_taking_care_update.each do |sae|
+      Match.includes(assistance_expert: :expert).needing_taking_care_update.each do |sae|
         if !sae.assistance_expert
           next
         end
@@ -31,7 +31,7 @@ class ExpertReminderService
     end
 
     def matches_with_no_one_in_charge
-      SelectedAssistanceExpert.includes(assistance_expert: :expert).with_no_one_in_charge.each do |sae|
+      Match.includes(assistance_expert: :expert).with_no_one_in_charge.each do |sae|
         if !sae.assistance_expert
           next
         end

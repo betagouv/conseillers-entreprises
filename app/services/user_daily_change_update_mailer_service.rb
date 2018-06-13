@@ -4,7 +4,7 @@ class UserDailyChangeUpdateMailerService
   class << self
     def send_daily_change_updates
       associations = [diagnosed_need: [diagnosis: [visit: [:advisor, facility: [:company]]]]]
-      user_matches_hash = SelectedAssistanceExpert.includes(associations).updated_yesterday
+      user_matches_hash = Match.includes(associations).updated_yesterday
                                                                       .group_by do |match|
         match.diagnosed_need.diagnosis.visit.advisor
       end

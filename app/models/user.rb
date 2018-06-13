@@ -52,7 +52,7 @@ class User < ApplicationRecord
 
   scope :active_answered, (lambda do |date, status|
     joins(visits: [diagnosis: [diagnosed_needs: :matches]])
-        .merge(SelectedAssistanceExpert
+        .merge(Match
                    .where(taken_care_of_at: date)
                    .with_status(status))
         .uniq

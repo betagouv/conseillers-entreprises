@@ -20,7 +20,7 @@
             .item
               .middle.aligned.content
                 %h4.ui.header.disabled
-                  - matches_count = SelectedAssistanceExpert.of_diagnoses([@diagnosis]).count
+                  - matches_count = Match.of_diagnoses([@diagnosis]).count
                   = t('.matches', count: matches_count)
 
   - visitee = @diagnosis.visit.visitee

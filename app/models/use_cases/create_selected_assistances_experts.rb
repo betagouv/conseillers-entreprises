@@ -12,9 +12,9 @@ module UseCases
           end
           expert = assistance_expert.expert
           assistance = assistance_expert.assistance
-          SelectedAssistanceExpert.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,
-                                          expert_full_name: expert.full_name, assistance_title: assistance.title,
-                                          expert_institution_name: expert.institution.name
+          Match.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,
+                       expert_full_name: expert.full_name, assistance_title: assistance.title,
+                       expert_institution_name: expert.institution.name
         end
       end
 
