@@ -4,7 +4,6 @@ class Territory < ApplicationRecord
   has_many :territory_cities, dependent: :destroy
   has_many :expert_territories
   has_many :experts, through: :expert_territories
-  has_many :selected_assistance_experts, through: :experts
   has_many :relays
   has_many :users, through: :relays
 
