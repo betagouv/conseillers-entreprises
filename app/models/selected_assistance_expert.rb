@@ -33,6 +33,8 @@ class SelectedAssistanceExpert < ApplicationRecord
   end)
 
   scope :in_territory, (->(territory) { of_diagnoses(Diagnosis.in_territory(territory))})
+  scope :of_facilities, (->(facilities) { of_diagnoses(Diagnosis.of_facilities(facilities))})
+
   def status_closed?
     status_done? || status_not_for_me?
   end
