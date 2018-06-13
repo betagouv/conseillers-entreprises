@@ -39,7 +39,7 @@ describe UseCases::UpdateExpertViewedPageAt do
 
     before { perform_use_case }
 
-    it 'updates the selected assistance expert without date' do
+    it 'updates the match without date' do
       expect(sae_without_date.reload.expert_viewed_page_at).not_to be_nil
     end
 

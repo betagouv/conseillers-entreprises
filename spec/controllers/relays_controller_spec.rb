@@ -83,13 +83,13 @@ RSpec.describe RelaysController, type: :controller do
     context 'current user is a relay' do
       let!(:relay) { create :relay, user: current_user }
 
-      context 'selected assistance expert does not exist' do
+      context 'match does not exist' do
         let(:match_id) { nil }
 
         it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
       end
 
-      context 'selected assistance expert is not available to expert' do
+      context 'match is not available to expert' do
         it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
       end
 

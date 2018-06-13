@@ -42,17 +42,17 @@ describe UseCases::EnrichDiagnoses do
     let(:diagnosis) { create :diagnosis }
     let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
 
-    context 'no selected assistance expert' do
+    context 'no match' do
       it { expect(diagnoses_with_count.first.matches_count).to eq 0 }
     end
 
-    context '2 selected assistances experts' do
+    context '2 matches' do
       before { create_list :match, 2, diagnosed_need: diagnosed_need }
 
       it { expect(diagnoses_with_count.first.matches_count).to eq 2 }
     end
 
-    context '2 diagnosis and 3 selected assistances experts' do
+    context '2 diagnosis and 3 matches' do
       let(:diagnoses) { [diagnosis, other_diagnosis] }
       let(:other_diagnosis) { create :diagnosis }
       let(:other_diagnosed_need) { create :diagnosed_need, diagnosis: other_diagnosis }

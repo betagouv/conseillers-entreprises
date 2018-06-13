@@ -12,7 +12,7 @@ describe UseCases::CreateMatches do
 
     let(:assistance_expert_ids) { [assistance_expert.id] }
 
-    context 'one selected assistance expert' do
+    context 'one match' do
       before { described_class.perform(diagnosis, assistance_expert_ids) }
 
       it do

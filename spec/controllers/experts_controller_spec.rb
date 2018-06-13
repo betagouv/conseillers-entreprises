@@ -71,17 +71,17 @@ RSpec.describe ExpertsController, type: :controller do
       it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
     end
 
-    context 'selected assistance expert does not exist' do
+    context 'match does not exist' do
       let(:match_id) { nil }
 
       it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
     end
 
-    context 'selected assistance expert is not available to expert' do
+    context 'match is not available to expert' do
       it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
     end
 
-    context 'selected assistance expert exists' do
+    context 'match exists' do
       let(:assistance_expert) { create :assistance_expert, expert: expert }
 
       before { match.update assistance_expert: assistance_expert }
