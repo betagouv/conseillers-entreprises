@@ -37,6 +37,10 @@ class SelectedAssistanceExpert < ApplicationRecord
     status_done? || status_not_for_me?
   end
 
+  def expert_description
+    "#{expert_full_name} (#{expert_institution_name})"
+  end
+
   private
 
   def update_taken_care_of_at
