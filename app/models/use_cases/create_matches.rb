@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module UseCases
-  class CreateSelectedAssistancesExperts
-    class << self
+  class CreateMatches
+  class << self
       def perform(diagnosis, assistance_expert_ids)
         assistances_experts = assistances_experts_for_diagnosis(diagnosis.id, assistance_expert_ids)
         assistances_experts.each do |assistance_expert|

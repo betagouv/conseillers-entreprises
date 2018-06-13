@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe UseCases::CreateSelectedAssistancesExperts do
+describe UseCases::CreateMatches do
   describe 'perform' do
     let(:diagnosis) { create :diagnosis }
     let(:question) { create :question }
