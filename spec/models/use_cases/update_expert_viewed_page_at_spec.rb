@@ -11,27 +11,27 @@ describe UseCases::UpdateExpertViewedPageAt do
     let(:expert) { create :expert }
     let(:assistance_expert) { create :assistance_expert, expert: expert }
 
-    let!(:sae_with_date) do
+    let!(:match_with_date) do
       create :match,
              diagnosed_need: diagnosed_need,
              assistance_expert: assistance_expert,
              expert_viewed_page_at: 1.day.ago
     end
 
-    let!(:sae_without_date) do
+    let!(:match_without_date) do
       create :match,
              diagnosed_need: diagnosed_need,
              assistance_expert: assistance_expert,
              expert_viewed_page_at: nil
     end
 
-    let!(:sae_without_diagnosed_need) do
+    let!(:match_without_diagnosed_need) do
       create :match,
              assistance_expert: assistance_expert,
              expert_viewed_page_at: nil
     end
 
-    let!(:sae_without_assistance_expert) do
+    let!(:match_without_assistance_expert) do
       create :match,
              diagnosed_need: diagnosed_need,
              expert_viewed_page_at: nil
@@ -40,13 +40,13 @@ describe UseCases::UpdateExpertViewedPageAt do
     before { perform_use_case }
 
     it 'updates the match without date' do
-      expect(sae_without_date.reload.expert_viewed_page_at).not_to be_nil
+      expect(match_without_date.reload.expert_viewed_page_at).not_to be_nil
     end
 
-    it 'does not change others selected assistances experts' do
-      expect(sae_with_date.reload.expert_viewed_page_at.to_date).to eq 1.day.ago.to_date
-      expect(sae_without_diagnosed_need.reload.expert_viewed_page_at).to be_nil
-      expect(sae_without_assistance_expert.reload.expert_viewed_page_at).to be_nil
+    it 'does not change others matches' do
+      expect(match_with_date.reload.expert_viewed_page_at.to_date).to eq 1.day.ago.to_date
+      expect(match_without_diagnosed_need.reload.expert_viewed_page_at).to be_nil
+      expect(match_without_assistance_expert.reload.expert_viewed_page_at).to be_nil
     end
   end
 end

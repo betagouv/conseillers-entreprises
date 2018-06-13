@@ -11,20 +11,20 @@ ActiveAdmin.register Match do
     id_column
     column('Date de contact', :created_at)
     column :diagnosed_need
-    column('Conseiller') { |sae| sae.diagnosed_need.diagnosis&.visit&.advisor&.full_name }
+    column('Conseiller') { |match| match.diagnosed_need.diagnosis&.visit&.advisor&.full_name }
     column :expert_full_name
     column :expert_institution_name
     column :assistance_title
     column :expert_viewed_page_at
-    column(:status) { |sae| t("activerecord.attributes.match.statuses.#{sae.status}") }
-    column('Page Référent') do |sae|
-      diagnosis_id = sae.diagnosed_need.diagnosis_id
-      if sae.assistance_expert
-        access_token = sae.assistance_expert.expert.access_token
+    column(:status) { |match| t("activerecord.attributes.match.statuses.#{match.status}") }
+    column('Page Référent') do |match|
+      diagnosis_id = match.diagnosed_need.diagnosis_id
+      if match.assistance_expert
+        access_token = match.assistance_expert.expert.access_token
         link_to 'Page Référent', diagnosis_experts_path(diagnosis_id: diagnosis_id, access_token: access_token)
       else
         link_to 'Page Référent',
-                diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: sae.relay_id)
+                diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: match.relay_id)
       end
     end
 

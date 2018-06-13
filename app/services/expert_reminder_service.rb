@@ -16,32 +16,32 @@ class ExpertReminderService
     private
 
     def matches_needing_taking_care_update
-      Match.includes(assistance_expert: :expert).needing_taking_care_update.each do |sae|
-        if !sae.assistance_expert
+      Match.includes(assistance_expert: :expert).needing_taking_care_update.each do |match|
+        if !match.assistance_expert
           next
         end
 
-        expert_id = sae.assistance_expert.expert_id
+        expert_id = match.assistance_expert.expert_id
 
         if !@experts_hash[expert_id]
-          init_expert_hash(sae)
+          init_expert_hash(match)
         end
-        @experts_hash[expert_id][:matches_hash][:needing_taking_care_update] << sae
+        @experts_hash[expert_id][:matches_hash][:needing_taking_care_update] << match
       end
     end
 
     def matches_with_no_one_in_charge
-      Match.includes(assistance_expert: :expert).with_no_one_in_charge.each do |sae|
-        if !sae.assistance_expert
+      Match.includes(assistance_expert: :expert).with_no_one_in_charge.each do |match|
+        if !match.assistance_expert
           next
         end
 
-        expert_id = sae.assistance_expert.expert_id
+        expert_id = match.assistance_expert.expert_id
 
         if !@experts_hash[expert_id]
-          init_expert_hash(sae)
+          init_expert_hash(match)
         end
-        @experts_hash[expert_id][:matches_hash][:with_no_one_in_charge] << sae
+        @experts_hash[expert_id][:matches_hash][:with_no_one_in_charge] << match
       end
     end
 
