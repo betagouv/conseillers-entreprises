@@ -40,27 +40,27 @@ ActiveAdmin.register Territory do
                     .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
                     .includes(:expert)
                     .order(created_at: :desc) do
-        column(:id) do |selected_expert|
-          link_to(selected_expert.id, admin_match_path(selected_expert))
+        column(:id) do |match|
+          link_to(match.id, admin_match_path(match))
         end
         column :created_at
-        column(I18n.t('activerecord.attributes.visit.facility')) do |selected_expert|
-          selected_expert.diagnosed_need&.diagnosis&.visit&.facility
+        column(I18n.t('activerecord.attributes.visit.facility')) do |match|
+          match.diagnosed_need&.diagnosis&.visit&.facility
         end
-        column(:diagnosed_need) do |selected_expert|
-          need = selected_expert.diagnosed_need
+        column(:diagnosed_need) do |match|
+          need = match.diagnosed_need
           link_to(need.question_label, admin_diagnosed_need_path(need))
         end
-        column :expert_full_name do |selected_expert|
-          expert = selected_expert.expert
+        column :expert_full_name do |match|
+          expert = match.expert
           if expert.present?
-            link_to(selected_expert.expert_description, admin_expert_path(expert))
+            link_to(match.expert_description, admin_expert_path(expert))
           else
-            I18n.t('active_admin.matches.deleted', expert: selected_expert.expert_description)
+            I18n.t('active_admin.matches.deleted', expert: match.expert_description)
           end
         end
-        column :status do |selected_expert|
-          I18n.t("activerecord.attributes.match.statuses.#{selected_expert.status}")
+        column :status do |match|
+          I18n.t("activerecord.attributes.match.statuses.#{match.status}")
         end
       end
     end

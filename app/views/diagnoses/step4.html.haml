@@ -79,6 +79,6 @@
           - if @diagnosis.visit.visitee.blank?
             - button_classes << 'disabled'
           %button.ui.teal.button.no-margin#next-step-button{ class: button_classes }
-            = t('.notify_selected_experts')
+            = t('.notify_matches')
 
       .clear
