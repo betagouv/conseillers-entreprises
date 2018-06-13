@@ -16,7 +16,7 @@ module UseCases
         if assistance_expert_ids.empty?
           return
         end
-        UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
+        UseCases::CreateMatches .perform(diagnosis, assistance_expert_ids)
         ExpertMailersService.delay.send_assistances_email(advisor: diagnosis.visit.advisor,
                                                           diagnosis: diagnosis,
                                                           assistance_expert_ids: assistance_expert_ids)

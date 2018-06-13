@@ -10,7 +10,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
     let(:relay) { create :relay }
 
     before do
-      allow(UseCases::CreateSelectedAssistancesExperts).to receive(:perform)
+      allow(UseCases::CreateMatches).to receive(:perform)
       allow(ExpertMailersService).to receive(:delay) { ExpertMailersService }
       allow(ExpertMailersService).to receive(:send_assistances_email)
 
@@ -33,7 +33,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
       before { save_and_notify }
 
       it 'has called the right methods' do
-        expect(UseCases::CreateSelectedAssistancesExperts).to have_received(:perform).with diagnosis,
+        expect(UseCases::CreateMatches).to have_received(:perform).with diagnosis,
                                                                                            assistance_expert_ids
         expect(UseCases::CreateSelectedRelays).to have_received(:perform).with relay,
                                                                                diagnosed_need_ids
@@ -61,7 +61,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
       before { save_and_notify }
 
       it 'does not call the use case methods' do
-        expect(UseCases::CreateSelectedAssistancesExperts).not_to have_received(:perform)
+        expect(UseCases::CreateMatches).not_to have_received(:perform)
         expect(UseCases::CreateSelectedRelays).not_to have_received(:perform)
       end
 
@@ -77,7 +77,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
       before { save_and_notify }
 
       it 'does not call the use case methods' do
-        expect(UseCases::CreateSelectedAssistancesExperts).not_to have_received(:perform)
+        expect(UseCases::CreateMatches).not_to have_received(:perform)
         expect(UseCases::CreateSelectedRelays).not_to have_received(:perform)
       end
 

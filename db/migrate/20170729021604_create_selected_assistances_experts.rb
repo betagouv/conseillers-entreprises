@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateSelectedAssistancesExperts < ActiveRecord::Migration[5.1]
+class CreateMatches < ActiveRecord::Migration[5.1]
   def change
     create_table :selected_assistances_experts do |t|
       t.references :diagnosed_need, foreign_key: true
