@@ -93,7 +93,7 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'POST #notify' do
-    let(:selected_assistances_experts) do
+    let(:matches) do
       {
         'assistances_experts' => { '12' => '1', '90' => '0' },
         'diagnosed_needs' => { '31' => '1', '78' => '0' }
@@ -103,7 +103,7 @@ RSpec.describe DiagnosesController, type: :controller do
     before do
       allow(UseCases::SaveAndNotifyDiagnosis).to receive(:perform)
 
-      post :notify, params: { id: diagnosis.id, selected_assistances_experts: selected_assistances_experts }
+      post :notify, params: { id: diagnosis.id, matches: matches }
     end
 
     context 'some experts are selected' do
@@ -113,7 +113,7 @@ RSpec.describe DiagnosesController, type: :controller do
 
       it 'has called the right methods' do
         expect(UseCases::SaveAndNotifyDiagnosis).to have_received(:perform).with(diagnosis,
-                                                                                 selected_assistances_experts)
+                                                                                 matches)
       end
     end
   end

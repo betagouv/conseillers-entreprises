@@ -13,7 +13,7 @@ describe 'experts feature', type: :feature do
   before do
     assistance_expert = create :assistance_expert, expert: expert
 
-    create :selected_assistance_expert,
+    create :match,
            assistance_expert: assistance_expert,
            diagnosed_need: diagnosed_need,
            status: :quo

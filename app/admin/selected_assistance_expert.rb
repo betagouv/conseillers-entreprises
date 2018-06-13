@@ -16,7 +16,7 @@ ActiveAdmin.register SelectedAssistanceExpert do
     column :expert_institution_name
     column :assistance_title
     column :expert_viewed_page_at
-    column(:status) { |sae| t("activerecord.attributes.selected_assistance_expert.statuses.#{sae.status}") }
+    column(:status) { |sae| t("activerecord.attributes.match.statuses.#{sae.status}") }
     column('Page Référent') do |sae|
       diagnosis_id = sae.diagnosed_need.diagnosis_id
       if sae.assistance_expert
@@ -69,25 +69,25 @@ ActiveAdmin.register SelectedAssistanceExpert do
     end
 
     def relay_changed?
-      form_param = params[:selected_assistance_expert]
+      form_param = params[:match]
       form_param[:relay_id].present? && form_param[:relay_id] != resource.relay_id
     end
 
     def fill_from_relay
-      relay = Relay.find params[:selected_assistance_expert][:relay_id]
+      relay = Relay.find params[:match][:relay_id]
       resource.update expert_full_name: relay.user.full_name,
                       expert_institution_name: relay.user.institution,
                       assistance_title: nil
     end
 
     def assistance_expert_changed?
-      form_param = params[:selected_assistance_expert]
+      form_param = params[:match]
       form_param[:assistances_experts_id].present? &&
         form_param[:assistances_experts_id] != resource.assistances_experts_id
     end
 
     def fill_from_assistance_expert
-      assistance_expert = AssistanceExpert.find params[:selected_assistance_expert][:assistances_experts_id]
+      assistance_expert = AssistanceExpert.find params[:match][:assistances_experts_id]
       resource.update expert_full_name: assistance_expert.expert&.full_name,
                       expert_institution_name: assistance_expert.expert&.institution&.name,
                       assistance_title: assistance_expert.assistance&.title

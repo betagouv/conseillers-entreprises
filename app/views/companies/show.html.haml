@@ -27,7 +27,7 @@
                 .item
                   .middle.aligned.content
                     %h5.ui.header.disabled
-                      = t('.matches', count: diagnosis.selected_assistances_experts_count)
+                      = t('.matches', count: diagnosis.matches_count)
 
   %h2= t('.information')
   = render partial: 'company', locals: { entreprise: @company.entreprise }

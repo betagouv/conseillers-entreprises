@@ -24,12 +24,12 @@ fr:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"
-    selected_assistance_expert:
+    match:
       waiting_for_answer: "En attente d’une réponse du référent"
       he_takes_care: S’en charge
       not_for_him: Ce n’est pas pour lui
       done: Besoin résolu
-    selected_assistance_expert_for_need_owner:
+    match_for_need_owner:
       my_status: "Mon statut sur ce besoin :"
       waiting_for_answer: En attente de votre réponse
       ongoing: En cours de résolution

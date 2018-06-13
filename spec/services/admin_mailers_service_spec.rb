@@ -56,7 +56,7 @@ describe AdminMailersService do
 
         before do
           create :diagnosis, step: 1, visit: visit, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
-          create_list :selected_assistance_expert, 3, :with_assistance_expert, diagnosed_need: diagnosed_need
+          create_list :match, 3, :with_assistance_expert, diagnosed_need: diagnosed_need
         end
 
         it do

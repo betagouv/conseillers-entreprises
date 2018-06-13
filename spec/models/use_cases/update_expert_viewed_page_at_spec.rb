@@ -12,27 +12,27 @@ describe UseCases::UpdateExpertViewedPageAt do
     let(:assistance_expert) { create :assistance_expert, expert: expert }
 
     let!(:sae_with_date) do
-      create :selected_assistance_expert,
+      create :match,
              diagnosed_need: diagnosed_need,
              assistance_expert: assistance_expert,
              expert_viewed_page_at: 1.day.ago
     end
 
     let!(:sae_without_date) do
-      create :selected_assistance_expert,
+      create :match,
              diagnosed_need: diagnosed_need,
              assistance_expert: assistance_expert,
              expert_viewed_page_at: nil
     end
 
     let!(:sae_without_diagnosed_need) do
-      create :selected_assistance_expert,
+      create :match,
              assistance_expert: assistance_expert,
              expert_viewed_page_at: nil
     end
 
     let!(:sae_without_assistance_expert) do
-      create :selected_assistance_expert,
+      create :match,
              diagnosed_need: diagnosed_need,
              expert_viewed_page_at: nil
     end

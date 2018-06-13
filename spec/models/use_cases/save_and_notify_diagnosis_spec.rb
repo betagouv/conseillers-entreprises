@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe UseCases::SaveAndNotifyDiagnosis do
   describe 'perform' do
-    subject(:save_and_notify) { described_class.perform diagnosis, selected_assistances_experts }
+    subject(:save_and_notify) { described_class.perform diagnosis, matches }
 
     let(:diagnosis) { create :diagnosis }
     let(:relay) { create :relay }
@@ -21,7 +21,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
     end
 
     context 'some experts are selected' do
-      let(:selected_assistances_experts) do
+      let(:matches) do
         {
           assistances_experts: { '12' => '1', '90' => '0' },
           diagnosed_needs: { '31' => '1', '78' => '0' }
@@ -51,7 +51,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
     end
 
     context 'no experts are selected' do
-      let(:selected_assistances_experts) do
+      let(:matches) do
         {
           assistances_experts: { '12' => '0', '90' => '0' },
           diagnosed_needs: { '31' => '0', '78' => '0' }
@@ -72,7 +72,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
     end
 
     context 'empty hash' do
-      let(:selected_assistances_experts) { {} }
+      let(:matches) { {} }
 
       before { save_and_notify }
 

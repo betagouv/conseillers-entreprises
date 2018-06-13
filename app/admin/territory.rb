@@ -41,7 +41,7 @@ ActiveAdmin.register Territory do
                     .includes(:expert)
                     .order(created_at: :desc) do
         column(:id) do |selected_expert|
-          link_to(selected_expert.id, admin_selected_assistance_expert_path(selected_expert))
+          link_to(selected_expert.id, admin_match_path(selected_expert))
         end
         column :created_at
         column(I18n.t('activerecord.attributes.visit.facility')) do |selected_expert|
@@ -60,7 +60,7 @@ ActiveAdmin.register Territory do
           end
         end
         column :status do |selected_expert|
-          I18n.t("activerecord.attributes.selected_assistance_expert.statuses.#{selected_expert.status}")
+          I18n.t("activerecord.attributes.match.statuses.#{selected_expert.status}")
         end
       end
     end

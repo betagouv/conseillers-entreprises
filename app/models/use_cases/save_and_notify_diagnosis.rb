@@ -3,10 +3,10 @@
 module UseCases
   class SaveAndNotifyDiagnosis
     class << self
-      def perform(diagnosis, selected_assistances_experts)
-        save_assistance_experts_selection_and_notify diagnosis, selected_assistances_experts[:assistances_experts]
+      def perform(diagnosis, matches)
+        save_assistance_experts_selection_and_notify diagnosis, matches[:assistances_experts]
         save_relays_selection_and_notify diagnosis,
-                                                  selected_assistances_experts[:diagnosed_needs]
+                                         matches[:diagnosed_needs]
       end
 
       private

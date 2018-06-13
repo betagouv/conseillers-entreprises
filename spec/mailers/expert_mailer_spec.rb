@@ -34,13 +34,13 @@ describe ExpertMailer do
   end
 
   describe '#remind_involvement' do
-    subject(:mail) { described_class.remind_involvement(expert, selected_assistances_experts_hash).deliver_now }
+    subject(:mail) { described_class.remind_involvement(expert, matches_hash).deliver_now }
 
     let(:expert) { create :expert }
-    let(:sae_needing_taking_care_update) { create :selected_assistance_expert }
-    let(:sae_with_no_one_in_charge) { create :selected_assistance_expert }
+    let(:sae_needing_taking_care_update) { create :match }
+    let(:sae_with_no_one_in_charge) { create :match }
 
-    let(:selected_assistances_experts_hash) do
+    let(:matches_hash) do
       {
         needing_taking_care_update: [sae_needing_taking_care_update],
         with_no_one_in_charge: [sae_with_no_one_in_charge]

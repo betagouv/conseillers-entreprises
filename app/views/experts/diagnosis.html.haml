@@ -22,7 +22,7 @@
             .item
               .middle.aligned.content
                 %h4.ui.header.disabled
-                  = t('.matches', count: diagnosis_selected_assistances_experts_count)
+                  = t('.matches', count: diagnosis_matches_count)
 
   - visitee = @diagnosis.visit.visitee
   - advisor = @diagnosis.visit.advisor
@@ -45,14 +45,14 @@
                   %label= t('.diagnosed_needs_content_label')
                   = diagnosed_need.content
 
-        - diagnosed_need.matches.each do |selected_assistance_expert|
-          - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}-owner"
+        - diagnosed_need.matches.each do |match|
+          - id = "selected-assistance-expert-line-#{match.id}-owner"
           %tr.small.text.ui.tiny.table{ id: id }
-            - locals = { selected_assistance_expert: selected_assistance_expert }
-            = render partial: 'experts/selected_assistance_expert_for_need_owner', locals: locals
+            - locals = { match: match }
+            = render partial: 'experts/match_for_need_owner', locals: locals
 
-          %tr.small.text.ui.tiny.table{ id: "expert-buttons-line-#{selected_assistance_expert.id}" }
-            - locals = { selected_assistance_expert: selected_assistance_expert }
+          %tr.small.text.ui.tiny.table{ id: "expert-buttons-line-#{match.id}" }
+            - locals = { match: match }
             = render partial: 'experts/expert_buttons', locals: locals
 
   %h2= t('.need_contacts_summary_subtitle')
@@ -73,11 +73,11 @@
           %tr.small.text.ui.tiny.table{ colspan: 2 }
             %td= t('.zero_contacted_expert')
         - else
-          - diagnosed_need.matches.each do |selected_assistance_expert|
-            - id = "selected-assistance-expert-line-#{selected_assistance_expert.id}-global"
+          - diagnosed_need.matches.each do |match|
+            - id = "selected-assistance-expert-line-#{match.id}-global"
             %tr.small.text.ui.tiny.table{ id: id }
-              - locals = { selected_assistance_expert: selected_assistance_expert }
-              = render partial: 'experts/selected_assistance_expert', locals: locals
+              - locals = { match: match }
+              = render partial: 'experts/match', locals: locals
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')

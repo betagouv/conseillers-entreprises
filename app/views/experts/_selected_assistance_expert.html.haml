@@ -1,28 +1,28 @@
 %td.expert-width
-  %strong= selected_assistance_expert.expert_full_name
+  %strong= match.expert_full_name
   %br
-    - person = selected_assistance_expert.assistance_expert&.expert
-    - person ||= selected_assistance_expert.relay&.user
+    - person = match.assistance_expert&.expert
+    - person ||= match.relay&.user
     - if person
       - if person.phone_number.present?
         = person.phone_number
         %br
       = mail_to person.email
 %td
-  #{t('activerecord.models.institution.one')} : #{selected_assistance_expert.expert_institution_name}
-  - if selected_assistance_expert.assistance_title
+  #{t('activerecord.models.institution.one')} : #{match.expert_institution_name}
+  - if match.assistance_title
     %br
-    #{t('activerecord.models.assistance.one')} : #{selected_assistance_expert.assistance_title}
+    #{t('activerecord.models.assistance.one')} : #{match.assistance_title}
 %td.expert-status-cell
-  - if selected_assistance_expert.status_quo?
+  - if match.status_quo?
     %i.icon.clock
     = t('.waiting_for_answer')
-  - elsif selected_assistance_expert.status_taking_care?
+  - elsif match.status_taking_care?
     %i.icon.checkmark
     = t('.he_takes_care')
-  - elsif selected_assistance_expert.status_done?
+  - elsif match.status_done?
     %i.icon.checkmark
     = t('.done')
-  - elsif selected_assistance_expert.status_not_for_me?
+  - elsif match.status_not_for_me?
     %i.icon.remove
     = t('.not_for_him')

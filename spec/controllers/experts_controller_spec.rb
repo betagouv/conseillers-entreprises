@@ -30,7 +30,7 @@ RSpec.describe ExpertsController, type: :controller do
 
       context 'expert has access to diagnosis' do
         before do
-          create :selected_assistance_expert, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
+          create :match, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
           request
         end
 
@@ -41,7 +41,7 @@ RSpec.describe ExpertsController, type: :controller do
         before do
           diagnosis.archive!
 
-          create :selected_assistance_expert, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
+          create :match, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
           request
         end
 
@@ -57,13 +57,13 @@ RSpec.describe ExpertsController, type: :controller do
   describe 'PATCH #update_status' do
     subject(:request) { patch :update_status, xhr: true, params: params }
 
-    let(:params) { { selected_assistance_expert_id: selected_assistance_expert_id, access_token: access_token } }
+    let(:params) { { match_id: match_id, access_token: access_token } }
 
     let(:access_token) { expert.access_token }
     let(:expert) { create :expert }
 
-    let(:selected_assistance_expert_id) { selected_assistance_expert.id }
-    let(:selected_assistance_expert) { create :selected_assistance_expert, :with_assistance_expert }
+    let(:match_id) { match.id }
+    let(:match) { create :match, :with_assistance_expert }
 
     context 'access token is empty' do
       let(:access_token) { nil }
@@ -72,7 +72,7 @@ RSpec.describe ExpertsController, type: :controller do
     end
 
     context 'selected assistance expert does not exist' do
-      let(:selected_assistance_expert_id) { nil }
+      let(:match_id) { nil }
 
       it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
     end
@@ -84,7 +84,7 @@ RSpec.describe ExpertsController, type: :controller do
     context 'selected assistance expert exists' do
       let(:assistance_expert) { create :assistance_expert, expert: expert }
 
-      before { selected_assistance_expert.update assistance_expert: assistance_expert }
+      before { match.update assistance_expert: assistance_expert }
 
       context 'with status quo' do
         it 'returns http success' do
@@ -92,7 +92,7 @@ RSpec.describe ExpertsController, type: :controller do
           request
 
           expect(response).to have_http_status(:success)
-          expect(selected_assistance_expert.reload.status_quo?).to eq true
+          expect(match.reload.status_quo?).to eq true
         end
       end
 
@@ -102,7 +102,7 @@ RSpec.describe ExpertsController, type: :controller do
           request
 
           expect(response).to have_http_status(:success)
-          expect(selected_assistance_expert.reload.status_taking_care?).to eq true
+          expect(match.reload.status_taking_care?).to eq true
         end
       end
     end

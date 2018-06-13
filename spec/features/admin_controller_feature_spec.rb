@@ -74,14 +74,14 @@ describe 'admin panel', type: :feature do
     end
   end
 
-  describe 'access to selected_assistances_experts page when no diagnosis' do
-    let(:selected_assistance_expert) { create :selected_assistance_expert }
+  describe 'access to matches page when no diagnosis' do
+    let(:match) { create :match }
 
     before do
       current_user.update is_admin: true
       visit '/admin'
 
-      selected_assistance_expert.diagnosed_need.diagnosis.archive!
+      match.diagnosed_need.diagnosis.archive!
 
       click_link 'Référents contactés'
     end

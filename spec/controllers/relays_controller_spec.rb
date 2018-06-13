@@ -64,11 +64,11 @@ RSpec.describe RelaysController, type: :controller do
   describe 'PATCH #update_status' do
     subject(:request) { patch :update_status, xhr: true, params: params }
 
-    let(:params) { { selected_assistance_expert_id: selected_assistance_expert_id } }
+    let(:params) { { match_id: match_id } }
 
-    let(:selected_assistance_expert_id) { selected_assistance_expert.id }
-    let(:selected_assistance_expert) do
-      create :selected_assistance_expert, :with_relay, diagnosed_need: diagnosed_need
+    let(:match_id) { match.id }
+    let(:match) do
+      create :match, :with_relay, diagnosed_need: diagnosed_need
     end
 
     let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
@@ -84,7 +84,7 @@ RSpec.describe RelaysController, type: :controller do
       let!(:relay) { create :relay, user: current_user }
 
       context 'selected assistance expert does not exist' do
-        let(:selected_assistance_expert_id) { nil }
+        let(:match_id) { nil }
 
         it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
       end
@@ -95,7 +95,7 @@ RSpec.describe RelaysController, type: :controller do
 
       context 'with status quo' do
         before do
-          selected_assistance_expert.update relay: relay
+          match.update relay: relay
           create :territory_city, territory: relay.territory, city_code: facility.city_code
           params[:status] = :quo
           request
@@ -103,13 +103,13 @@ RSpec.describe RelaysController, type: :controller do
 
         it 'returns http success' do
           expect(response).to have_http_status(:success)
-          expect(selected_assistance_expert.reload.status_quo?).to eq true
+          expect(match.reload.status_quo?).to eq true
         end
       end
 
       context 'with status taking_care' do
         before do
-          selected_assistance_expert.update relay: relay
+          match.update relay: relay
           create :territory_city, territory: relay.territory, city_code: facility.city_code
           params[:status] = :taking_care
           request
@@ -117,7 +117,7 @@ RSpec.describe RelaysController, type: :controller do
 
         it 'returns http success' do
           expect(response).to have_http_status(:success)
-          expect(selected_assistance_expert.reload.status_taking_care?).to eq true
+          expect(match.reload.status_taking_care?).to eq true
         end
       end
     end

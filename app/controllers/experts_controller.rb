@@ -16,9 +16,9 @@ class ExpertsController < ApplicationController
   end
 
   def update_status
-    @selected_assistance_expert = SelectedAssistanceExpert.of_expert(@expert)
-                                                          .find params[:selected_assistance_expert_id]
-    @selected_assistance_expert.update status: params[:status]
+    @match = SelectedAssistanceExpert.of_expert(@expert)
+                                     .find params[:match_id]
+    @match.update status: params[:status]
   end
 
   private

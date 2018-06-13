@@ -68,7 +68,7 @@ describe RelayService::MailerService do
 
         before do
           create :diagnosis, step: 1, visit: visit1, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
-          create_list :selected_assistance_expert, 3, diagnosed_need: diagnosed_need
+          create_list :match, 3, diagnosed_need: diagnosed_need
 
           send_statistics_email
         end

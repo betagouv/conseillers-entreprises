@@ -20,8 +20,8 @@
             .item
               .middle.aligned.content
                 %h4.ui.header.disabled
-                  - selected_assistances_experts_count = SelectedAssistanceExpert.of_diagnoses([@diagnosis]).count
-                  = t('.matches', count: selected_assistances_experts_count)
+                  - matches_count = SelectedAssistanceExpert.of_diagnoses([@diagnosis]).count
+                  = t('.matches', count: matches_count)
 
   - visitee = @diagnosis.visit.visitee
 
@@ -48,10 +48,10 @@
           %tr.small.text.ui.tiny.table{ colspan: 2 }
             %td= t('.zero_contacted_expert')
         - else
-          - diagnosed_need.matches.each do |selected_assistance_expert|
+          - diagnosed_need.matches.each do |match|
             %tr.small.text.ui.tiny.table
-              - locals = { selected_assistance_expert: selected_assistance_expert }
-              = render partial: 'experts/selected_assistance_expert', locals: locals
+              - locals = { match: match }
+              = render partial: 'experts/match', locals: locals
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')
