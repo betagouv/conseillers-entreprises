@@ -34,9 +34,9 @@ RSpec.describe Facility, type: :model do
   describe 'to_s' do
     subject { facility.to_s }
 
-    let(:facility) { create :facility, city_code: 59_001, company: company }
+    let(:facility) { create :facility, readable_locality: '59600 Maubeuge', company: company }
     let(:company) { create :company, name: 'Mc Donalds' }
 
-    it { is_expected.to eq 'Mc Donalds (59001)' }
+    it { is_expected.to eq 'Mc Donalds (59600 Maubeuge)' }
   end
 end

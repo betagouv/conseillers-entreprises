@@ -2,11 +2,15 @@
 
 - link_to_root = link_to t('app_name'), root_url
 
+- if @params[:readable_locality].present?
+  - company_description = "#{@params[:company_name]} (#{@params[:readable_locality]})"
+- else
+  - company_description = @params[:company_name]
 - advisor_met_company_params = { link_to_root: link_to_root,
   advisor_name: @params[:advisor].full_name,
   advisor_institution: @params[:advisor].institution,
-  company_name: @params[:company_name],
-  visit_date: @params[:visit_date] }
+  company_description: company_description,
+  visit_date: I18n.l(@params[:visit_date]) }
 
 %p= t('.advisor_met_this_company_html', advisor_met_company_params)
 

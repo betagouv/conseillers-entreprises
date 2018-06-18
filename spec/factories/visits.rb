@@ -5,9 +5,7 @@ FactoryBot.define do
     association :advisor, factory: :user
     association :facility
 
-    trait :with_date do
-      happened_on { 3.days.from_now }
-    end
+    happened_on { 3.days.from_now }
 
     trait :with_visitee do
       association :visitee, factory: :contact_with_email

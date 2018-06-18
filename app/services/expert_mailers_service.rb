@@ -76,8 +76,9 @@ class ExpertMailersService
       email_params = {
         advisor: advisor,
         diagnosis_id: diagnosis.id,
-        visit_date: diagnosis.visit.happened_on_localized,
+        visit_date: diagnosis.visit.happened_on,
         company_name: diagnosis.visit.company_name,
+        readable_locality: diagnosis.visit.facility.readable_locality,
         company_contact: diagnosis.visit.visitee,
         questions_with_needs_description: expert_hash[:questions_with_needs_description]
       }

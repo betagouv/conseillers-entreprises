@@ -2,12 +2,10 @@
 
 module ApiEntreprise
   class Etablissement < OpenStruct
-    def location
-      location_hash = dig('commune_implantation')
-      return nil if !location_hash
-      postal_code = location_hash.dig('code')
-      town_name = location_hash.dig('value')&.titleize
-      "#{postal_code} #{town_name}".presence
+    def readable_locality
+      code_postal = dig('adresse', 'code_postal')
+      localite = dig('adresse', 'localite')
+      [code_postal, localite].reject(&:blank?).join(' ').presence
     end
   end
 end

@@ -13,7 +13,7 @@ module UseCases
       private
 
       def select_localized_and_business_assistance_experts(diagnosed_needs, diagnosis)
-        all_assistances_experts_in_scope = AssistanceExpert.of_city_code(diagnosis.visit.location)
+        all_assistances_experts_in_scope = AssistanceExpert.of_city_code(diagnosis.visit.facility.city_code)
                                                            .of_naf_code(diagnosis.visit.facility.naf_code)
         diagnosed_needs.each do |diagnosed_need|
           diagnosed_need.question.assistances.each do |assistance|

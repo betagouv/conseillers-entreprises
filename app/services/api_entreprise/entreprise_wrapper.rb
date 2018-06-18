@@ -18,9 +18,5 @@ module ApiEntreprise
 
       company_name.present? ? company_name.titleize : nil
     end
-
-    def headquarters_location
-      @etablissement_siege.location
-    end
   end
 end

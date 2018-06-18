@@ -58,8 +58,9 @@ class StatsController < ApplicationController
   end
 
   def history_date_ranges
+    # Make sure min and max are in the same timezone (The one defined for Rails / ActiveSupport in application.rb)
     min_date = User.not_admin.first.created_at.beginning_of_month
-    max_date = Time.now.advance(months: 1).beginning_of_month
+    max_date = Time.zone.now.advance(months: 1).beginning_of_month
     ranges = []
     start_date, end_date = min_date, min_date.advance(months: 1)
     while start_date < max_date
@@ -69,5 +70,4 @@ class StatsController < ApplicationController
     end
     ranges
   end
-
 end
