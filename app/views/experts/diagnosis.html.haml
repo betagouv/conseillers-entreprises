@@ -46,7 +46,7 @@
                   = diagnosed_need.content
 
         - diagnosed_need.matches.each do |match|
-          - id = "selected-assistance-expert-line-#{match.id}-owner"
+          - id = "match-line-#{match.id}-owner"
           %tr.small.text.ui.tiny.table{ id: id }
             - locals = { match: match }
             = render partial: 'experts/match_for_need_owner', locals: locals
@@ -74,7 +74,7 @@
             %td= t('.zero_contacted_expert')
         - else
           - diagnosed_need.matches.each do |match|
-            - id = "selected-assistance-expert-line-#{match.id}-global"
+            - id = "match-line-#{match.id}-global"
             %tr.small.text.ui.tiny.table{ id: id }
               - locals = { match: match }
               = render partial: 'experts/match', locals: locals

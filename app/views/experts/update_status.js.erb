@@ -1,10 +1,10 @@
 <%- locals = { match: @match } %>
 
-var selectedAssistanceExpert = "<%= j render(partial: 'experts/match', locals: locals) %>";
-document.getElementById('selected-assistance-expert-line-<%= @match.id %>-global').innerHTML = selectedAssistanceExpert;
+var match = "<%= j render(partial: 'experts/match', locals: locals) %>";
+document.getElementById('match-line-<%= @match.id %>-global').innerHTML = match;
 
-var selectedAssistanceExpertOwner = "<%= j render(partial: 'experts/match_for_need_owner', locals: locals) %>";
-document.getElementById('selected-assistance-expert-line-<%= @match.id %>-owner').innerHTML = selectedAssistanceExpertOwner;
+var matchOwner = "<%= j render(partial: 'experts/match_for_need_owner', locals: locals) %>";
+document.getElementById('match-line-<%= @match.id %>-owner').innerHTML = matchOwner;
 
 var expertButtons = "<%= j render(partial: 'experts/expert_buttons', locals: locals) %>";
 document.getElementById('expert-buttons-line-<%= @match.id %>').innerHTML = expertButtons;
