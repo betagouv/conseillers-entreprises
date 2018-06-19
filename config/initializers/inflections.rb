@@ -12,6 +12,8 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   # inflect.uncountable %w( fish sheep )
   inflect.irregular 'assistance_expert', 'assistances_experts'
   inflect.irregular 'AssistanceExpert', 'AssistancesExperts'
+  inflect.irregular 'match', 'matches'
+  inflect.irregular 'Match', 'Matches'
 end
 
 # These inflection rules are supported but not enabled by default:
