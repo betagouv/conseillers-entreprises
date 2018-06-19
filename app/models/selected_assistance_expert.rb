@@ -32,8 +32,15 @@ class SelectedAssistanceExpert < ApplicationRecord
     where(diagnosed_need_id: ids).updated_more_than_five_days_ago
   end)
 
+  scope :in_territory, (->(territory) { of_diagnoses(Diagnosis.in_territory(territory))})
+  scope :of_facilities, (->(facilities) { of_diagnoses(Diagnosis.of_facilities(facilities))})
+
   def status_closed?
     status_done? || status_not_for_me?
+  end
+
+  def expert_description
+    "#{expert_full_name} (#{expert_institution_name})"
   end
 
   private
