@@ -96,31 +96,27 @@ Make sure [Scalingo CLI](http://doc.scalingo.com/app/command-line-tool.html) is 
 
 Make sure data is anonymous to preserve users privacy.
 
-## Staging
-
-A staging environment is available [at this address](http://reso-staging.scalingo.io).
-
-Add staging repository to your git remote configuration:
-
-    $ git remote add scalingo-staging git@scalingo.com:reso-staging.git
-
-In order to deploy the project on staging environment, use:
-
-    $ git push scalingo-staging master
-
-Don’t forget to perform database migrations if any:
-
-    $ scalingo -a reso-staging run rails db:migrate
-
 ## Emails
 
 Development and staging emails are sent on [Mailtrap](https://mailtrap.io/) in order to test email notifications without sending them to the real users. Ask the team for credentials.
 
-## Deployment / Production
+## Deployment
 
-Same logic as staging environment, replacing `-staging` with `-production`.
+Reso is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, ``reso-staging`` and `reso-production.
 
-More information on [Scalingo documentation](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/).
+* `reso-staging` is served at https://reso-staging.scalingo.io.
+* ``reso-production`` is the actual https://reso.beta.gouv.fr
+
+GitHub->Scalingo hooks are setup for auto-deployment:
+* The `master` branch is automatically deployed to the `reso-staging` env.
+* The `production` branch is automatically deployed to the `reso-staging` env.  
+
+Additionally, a `postdeploy` hook [is setup in the Procfile](https://doc.scalingo.com/platform/app/postdeploy-hook#applying-migrations) so that Rails migrations are run automatically.  
+
+In case of emergency, you can always run rails migrations manually using the `scalingo` command line tool.
+    
+    $ scalingo -a reso-staging run rails db:migrate
+    $ scalingo -a reso-production run rails db:migrate 
 
 ## Contributing
 
