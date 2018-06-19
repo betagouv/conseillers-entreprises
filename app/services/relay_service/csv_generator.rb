@@ -19,8 +19,8 @@ module RelayService
 
       def csv_line_from_diagnosis(csv_line, diagnosis)
         diagnosis.diagnosed_needs.each do |diagnosed_need|
-          diagnosed_need.selected_assistance_experts.each do |selected_assistance_expert|
-            csv_line = csv_line_from_data(csv_line, diagnosis, diagnosed_need, selected_assistance_expert)
+          diagnosed_need.matches.each do |match|
+            csv_line = csv_line_from_data(csv_line, diagnosis, diagnosed_need, match)
           end
         end
         csv_line
@@ -37,14 +37,14 @@ module RelayService
           I18n.t('activerecord.attributes.diagnosed_need.content'),
           I18n.t('activerecord.models.expert.one'),
           I18n.t('activerecord.attributes.expert.institution'),
-          I18n.t('activerecord.attributes.selected_assistance_expert.status'),
-          I18n.t('activerecord.attributes.selected_assistance_expert.taken_care_of_at'),
-          I18n.t('activerecord.attributes.selected_assistance_expert.closed_at')
+          I18n.t('activerecord.attributes.match.status'),
+          I18n.t('activerecord.attributes.match.taken_care_of_at'),
+          I18n.t('activerecord.attributes.match.closed_at')
         ]
       end
 
       # rubocop:disable Metrics/AbcSize
-      def csv_line_from_data(csv_line, diagnosis, diagnosed_need, selected_assistance_expert)
+      def csv_line_from_data(csv_line, diagnosis, diagnosed_need, match)
         csv_line << [
           diagnosis.visit.company_name,
           diagnosis.visit.happened_on,
@@ -52,11 +52,11 @@ module RelayService
           diagnosis.visit.advisor.institution,
           diagnosed_need.question_label,
           diagnosed_need.content,
-          selected_assistance_expert.expert_full_name,
-          selected_assistance_expert.expert_institution_name,
-          I18n.t("activerecord.attributes.selected_assistance_expert.statuses.#{selected_assistance_expert.status}"),
-          selected_assistance_expert.taken_care_of_at&.to_date,
-          selected_assistance_expert.closed_at&.to_date
+          match.expert_full_name,
+          match.expert_institution_name,
+          I18n.t("activerecord.attributes.match.statuses.#{match.status}"),
+          match.taken_care_of_at&.to_date,
+          match.closed_at&.to_date
         ]
         csv_line
       end

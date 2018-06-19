@@ -8,7 +8,7 @@
   - else
     %p= t('.explanation')
 
-    = form_for :selected_assistances_experts, url: notify_diagnosis_path, method: :post,
+    = form_for :matches, url: notify_diagnosis_path, method: :post,
                html: { id: 'step4-form' }, data: { confirm: '' } do |f|
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
@@ -79,6 +79,6 @@
           - if @diagnosis.visit.visitee.blank?
             - button_classes << 'disabled'
           %button.ui.teal.button.no-margin#next-step-button{ class: button_classes }
-            = t('.notify_selected_experts')
+            = t('.notify_matches')
 
       .clear

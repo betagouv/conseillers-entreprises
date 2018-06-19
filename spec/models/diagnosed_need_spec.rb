@@ -7,7 +7,7 @@ RSpec.describe DiagnosedNeed, type: :model do
     it do
       is_expected.to belong_to :diagnosis
       is_expected.to belong_to :question
-      is_expected.to have_many :selected_assistance_experts
+      is_expected.to have_many :matches
       is_expected.to validate_presence_of :diagnosis
     end
   end
@@ -39,9 +39,9 @@ RSpec.describe DiagnosedNeed, type: :model do
       let(:diagnosed_need) { create :diagnosed_need }
 
       before do
-        create :selected_assistance_expert, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
+        create :match, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
         create :assistance_expert
-        create :selected_assistance_expert
+        create :match
       end
 
       it { is_expected.to eq [diagnosed_need] }
@@ -54,11 +54,11 @@ RSpec.describe DiagnosedNeed, type: :model do
       let(:diagnosed_need) { create :diagnosed_need }
 
       before do
-        create :selected_assistance_expert,
+        create :match,
                relay: relay,
                diagnosed_need: diagnosed_need
         create :relay
-        create :selected_assistance_expert
+        create :match
       end
 
       it { is_expected.to eq [diagnosed_need] }
@@ -73,7 +73,7 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       context 'no expert done' do
         before do
-          create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :quo
+          create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :quo
         end
 
         it { is_expected.to eq [] }
@@ -81,8 +81,8 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       context 'two experts done for the same need' do
         before do
-          create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
-          create :selected_assistance_expert, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+          create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+          create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
         end
 
         it { is_expected.to eq [diagnosed_need] }

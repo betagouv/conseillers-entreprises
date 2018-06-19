@@ -10,19 +10,19 @@ class RelaysController < ApplicationController
 
   def diagnosis
     associations = [visit: [:visitee, :advisor, facility: [:company]],
-                    diagnosed_needs: [selected_assistance_experts: [assistance_expert: :expert]]]
+                    diagnosed_needs: [matches: [assistance_expert: :expert]]]
     @diagnosis = Diagnosis.includes(associations).find(params[:diagnosis_id])
     check_relay_access
     @current_user_diagnosed_needs = @diagnosis.diagnosed_needs.of_relay(@relay)
-                                              .includes(:selected_assistance_experts)
+                                              .includes(:matches)
     render 'experts/diagnosis'
   end
 
   def update_status
     relay = Relay.of_user(current_user)
-    @selected_assistance_expert = SelectedAssistanceExpert.of_relay(relay)
-                                                          .find params[:selected_assistance_expert_id]
-    @selected_assistance_expert.update status: params[:status]
+    @match = Match.of_relay(relay)
+                                                          .find params[:match_id]
+    @match.update status: params[:status]
     render 'experts/update_status'
   end
 
