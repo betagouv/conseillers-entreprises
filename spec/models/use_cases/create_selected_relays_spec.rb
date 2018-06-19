@@ -14,13 +14,13 @@ describe UseCases::CreateSelectedRelays do
       before { described_class.perform(relay, diagnosed_need_ids) }
 
       it do
-        expect(SelectedAssistanceExpert.all.count).to eq 1
-        expect(SelectedAssistanceExpert.first.diagnosed_need).to eq diagnosed_needs.first
-        expect(SelectedAssistanceExpert.first.assistance_expert).to be_nil
-        expect(SelectedAssistanceExpert.first.relay).to eq relay
-        expect(SelectedAssistanceExpert.first.expert_full_name).to eq relay.user.full_name
-        expect(SelectedAssistanceExpert.first.expert_institution_name).to eq relay.user.institution
-        expect(SelectedAssistanceExpert.first.assistance_title).to be_nil
+        expect(Match.all.count).to eq 1
+        expect(Match.first.diagnosed_need).to eq diagnosed_needs.first
+        expect(Match.first.assistance_expert).to be_nil
+        expect(Match.first.relay).to eq relay
+        expect(Match.first.expert_full_name).to eq relay.user.full_name
+        expect(Match.first.expert_institution_name).to eq relay.user.institution
+        expect(Match.first.assistance_title).to be_nil
       end
     end
   end

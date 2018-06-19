@@ -18,12 +18,12 @@ describe RelayService::CSVGenerator do
       end
 
       before do
-        create :selected_assistance_expert, diagnosed_need: diagnosed_need,
-                                            expert_full_name: 'Expert Joe',
-                                            expert_institution_name: 'Educ Nat',
-                                            status: :done,
-                                            taken_care_of_at: Date.parse('2017-10-21'),
-                                            closed_at: Date.parse('2017-11-04')
+        create :match, diagnosed_need: diagnosed_need,
+               expert_full_name: 'Expert Joe',
+               expert_institution_name: 'Educ Nat',
+               status: :done,
+               taken_care_of_at: Date.parse('2017-10-21'),
+               closed_at: Date.parse('2017-11-04')
       end
 
       it 'creates the csv with the right data' do

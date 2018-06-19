@@ -3,10 +3,10 @@
 module UseCases
   class SaveAndNotifyDiagnosis
     class << self
-      def perform(diagnosis, selected_assistances_experts)
-        save_assistance_experts_selection_and_notify diagnosis, selected_assistances_experts[:assistances_experts]
+      def perform(diagnosis, matches)
+        save_assistance_experts_selection_and_notify diagnosis, matches[:assistances_experts]
         save_relays_selection_and_notify diagnosis,
-                                                  selected_assistances_experts[:diagnosed_needs]
+                                         matches[:diagnosed_needs]
       end
 
       private
@@ -16,7 +16,7 @@ module UseCases
         if assistance_expert_ids.empty?
           return
         end
-        UseCases::CreateSelectedAssistancesExperts.perform(diagnosis, assistance_expert_ids)
+        UseCases::CreateMatches .perform(diagnosis, assistance_expert_ids)
         ExpertMailersService.delay.send_assistances_email(advisor: diagnosis.visit.advisor,
                                                           diagnosis: diagnosis,
                                                           assistance_expert_ids: assistance_expert_ids)

@@ -5,7 +5,7 @@ class Diagnosis < ApplicationRecord
   AUTHORIZED_STEPS = (1..LAST_STEP).to_a.freeze
 
 
-  attr_accessor :diagnosed_needs_count, :selected_assistances_experts_count, :solved_needs_count
+  attr_accessor :diagnosed_needs_count, :matches_count, :solved_needs_count
 
   belongs_to :visit, validate: true
 
@@ -20,10 +20,11 @@ class Diagnosis < ApplicationRecord
   scope :reverse_chronological, (-> { order(created_at: :desc) })
   scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
   scope :completed, (-> { where(step: LAST_STEP) })
-  scope :in_territory, (->(territory) { joins(visit: :facility).merge(Facility.in_territory(territory)) })
+  scope :in_territory, (->(territory) { of_facilities(Facility.in_territory(territory))})
+  scope :of_facilities, (->(facilities) { joins(:visit).merge(Visit.where(facility: facilities))})
   scope :available_for_expert, (lambda do |expert|
-    joins(diagnosed_needs: [selected_assistance_experts: [assistance_expert: :expert]])
-      .where(diagnosed_needs: { selected_assistance_experts: { assistance_expert: { experts: { id: expert.id } } } })
+    joins(diagnosed_needs: [matches: [assistance_expert: :expert]])
+      .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
   end)
 
   scope :after_step, ( ->(minimum_step) { where('step >= ?', minimum_step) })

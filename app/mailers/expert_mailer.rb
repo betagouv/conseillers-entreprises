@@ -18,9 +18,9 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
-  def remind_involvement(expert, selected_assistances_experts_hash)
+  def remind_involvement(expert, matches_hash)
     @access_token = expert.access_token
-    @selected_assistances_experts_hash = selected_assistances_experts_hash
+    @matches_hash = matches_hash
 
     mail(
       to: "#{expert.full_name} <#{expert.email}>",

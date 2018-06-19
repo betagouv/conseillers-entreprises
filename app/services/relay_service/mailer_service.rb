@@ -14,7 +14,7 @@ module RelayService
 
       def send_statistics_email_to(user)
         associations = [visit: [:advisor, facility: [:company]],
-                        diagnosed_needs: %i[question selected_assistance_experts]]
+                        diagnosed_needs: %i[question matches]]
         not_admin_territory_diagnoses = Diagnosis.only_active
                                                  .includes(associations)
                                                  .of_user(User.not_admin)
@@ -39,7 +39,7 @@ module RelayService
         completed_diagnoses = territory_diagnoses.completed.updated_last_week
         information_hash.fill_completed_diagnoses_statistics completed_diagnoses
 
-        contacted_experts_count = SelectedAssistanceExpert.of_diagnoses(completed_diagnoses).count
+        contacted_experts_count = Match.of_diagnoses(completed_diagnoses).count
         information_hash.fill_contacted_experts_count_statistics contacted_experts_count
         information_hash
       end

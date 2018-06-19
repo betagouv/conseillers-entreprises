@@ -186,7 +186,7 @@ RSpec.describe Diagnosis, type: :model do
         let(:assistance_expert) { create :assistance_expert, expert: expert }
 
         before do
-          create :selected_assistance_expert, diagnosed_need: diagnosed_need, assistance_expert: assistance_expert
+          create :match, diagnosed_need: diagnosed_need, assistance_expert: assistance_expert
         end
 
         it { is_expected.to eq [diagnosis] }

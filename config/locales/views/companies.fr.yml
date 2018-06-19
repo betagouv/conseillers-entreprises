@@ -12,7 +12,7 @@ fr:
         zero: 0 besoin identifié
         one: 1 besoin identifié
         other: "%{count} besoins identifiés"
-      selected_assistance_experts:
+      matches:
         zero: 0 mise en relation
         one: 1 mise en relation
         other: "%{count} mises en relation"

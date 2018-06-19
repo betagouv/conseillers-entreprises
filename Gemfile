@@ -37,7 +37,6 @@ gem 'webpacker', '~> 3.2'
 # Improving models
 gem 'audited', '~> 4.5'
 gem 'devise'
-gem 'paranoia', '~> 2.2'
 gem 'user_impersonate2', require: 'user_impersonate', github: 'rcook/user_impersonate2'
 
 # Misc

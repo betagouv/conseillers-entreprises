@@ -25,3 +25,5 @@ fr:
       add_assistance: Ajouter une nouvelle aide
     institutions:
       experts: Réferents
+    matches:
+      deleted: '%{expert} (supprimé)'

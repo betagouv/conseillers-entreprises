@@ -1,7 +1,7 @@
 %td.expert-owner-button-cell{ colspan: 3 }
   :ruby
     default_url_params = { action: 'update_status',
-                           selected_assistance_expert_id: selected_assistance_expert.id,
+                           match_id: match.id,
                            access_token: params[:access_token] }
     status_quo_link_params = default_url_params.merge(status: :quo)
     taking_care_link_params = default_url_params.merge(status: :taking_care)
@@ -9,21 +9,21 @@
     not_for_me_link_params = default_url_params.merge(status: :not_for_me)
     data = { remote: true, method: :patch }
 
-  - if selected_assistance_expert.status_quo?
+  - if match.status_quo?
     = link_to t('.i_take_care'), taking_care_link_params, data: data, class: expert_button_classes(%w[green])
     = link_to t('.not_for_me'), not_for_me_link_params, data: data, class: expert_button_classes(%w[red])
 
-  - elsif selected_assistance_expert.status_taking_care?
+  - elsif match.status_taking_care?
     = link_to t('.dont_take_care_any_more'), status_quo_link_params, data: data, class: expert_button_classes(%w[basic])
     = link_to t('.done'), done_link_params, data: data, class: expert_button_classes(%w[green])
     = link_to t('.not_for_me'), not_for_me_link_params, data: data, class: expert_button_classes(%w[red])
 
-  - elsif selected_assistance_expert.status_done?
+  - elsif match.status_done?
     = link_to t('.dont_take_care_any_more'), status_quo_link_params, data: data, class: expert_button_classes(%w[basic])
     = link_to t('.ongoing'), taking_care_link_params, data: data, class: expert_button_classes(%w[basic])
     = link_to t('.not_for_me'), not_for_me_link_params, data: data, class: expert_button_classes(%w[basic red])
 
-  - elsif selected_assistance_expert.status_not_for_me?
+  - elsif match.status_not_for_me?
     = link_to t('.dont_take_care_any_more'), status_quo_link_params, data: data, class: expert_button_classes(%w[basic])
     = link_to t('.ongoing'), taking_care_link_params, data: data, class: expert_button_classes(%w[basic])
     = link_to t('.done'), done_link_params, data: data, class: expert_button_classes(%w[basic green])

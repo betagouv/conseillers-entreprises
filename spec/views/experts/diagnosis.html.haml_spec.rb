@@ -6,8 +6,8 @@ RSpec.describe 'experts/diagnosis.html.haml', type: :view do
   let(:visit) { create :visit, :with_visitee }
   let(:diagnosis) { create :diagnosis, visit: visit }
   let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
-  let!(:selected_assistance_expert) do
-    create :selected_assistance_expert,
+  let!(:match) do
+    create :match,
            :with_assistance_expert,
            diagnosed_need: diagnosed_need,
            assistance_title: 'Help companies in distress'
@@ -28,7 +28,7 @@ RSpec.describe 'experts/diagnosis.html.haml', type: :view do
   end
 
   context 'experts does not exist any more' do
-    before { selected_assistance_expert.assistance_expert.destroy }
+    before { match.assistance_expert.destroy }
 
     it do
       render

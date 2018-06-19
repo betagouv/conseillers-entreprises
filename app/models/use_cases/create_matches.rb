@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module UseCases
-  class CreateSelectedAssistancesExperts
-    class << self
+  class CreateMatches
+  class << self
       def perform(diagnosis, assistance_expert_ids)
         assistances_experts = assistances_experts_for_diagnosis(diagnosis.id, assistance_expert_ids)
         assistances_experts.each do |assistance_expert|
@@ -12,9 +12,9 @@ module UseCases
           end
           expert = assistance_expert.expert
           assistance = assistance_expert.assistance
-          SelectedAssistanceExpert.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,
-                                          expert_full_name: expert.full_name, assistance_title: assistance.title,
-                                          expert_institution_name: expert.institution.name
+          Match.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,
+                       expert_full_name: expert.full_name, assistance_title: assistance.title,
+                       expert_institution_name: expert.institution.name
         end
       end
 

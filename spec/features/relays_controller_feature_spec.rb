@@ -15,7 +15,7 @@ describe 'relays feature', type: :feature do
     relay = create :relay, user: current_user, territory: territory
     create :territory_city, city_code: facility.city_code, territory: territory
 
-    create :selected_assistance_expert, relay: relay, diagnosed_need: diagnosed_need, status: :quo
+    create :match, relay: relay, diagnosed_need: diagnosed_need, status: :quo
 
     visit diagnosis_relays_path(diagnosis_id: diagnosis.id)
   end

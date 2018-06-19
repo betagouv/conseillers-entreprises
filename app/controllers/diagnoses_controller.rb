@@ -26,16 +26,16 @@ class DiagnosesController < ApplicationController
   end
 
   def step5
-    associations = [visit: [:visitee, facility: [:company]], diagnosed_needs: [:selected_assistance_experts]]
+    associations = [visit: [:visitee, facility: [:company]], diagnosed_needs: [:matches]]
     @diagnosis = Diagnosis.includes(associations).find params[:id]
     check_current_user_access_to(@diagnosis)
   end
 
   def notify
     diagnosis = fetch_and_check_diagnosis_by_id params[:id]
-    experts = params[:selected_assistances_experts]
+    experts = params[:matches]
     if experts.present?
-      UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:selected_assistances_experts]
+      UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:matches]
       diagnosis.update step: Diagnosis::LAST_STEP
       redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
     end

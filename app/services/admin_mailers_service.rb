@@ -51,7 +51,7 @@ class AdminMailersService
     end
 
     def contacted_experts_count_statistics
-      contacted_experts_count = SelectedAssistanceExpert.of_diagnoses(@completed_diagnoses).count
+      contacted_experts_count = Match.of_diagnoses(@completed_diagnoses).count
       @information_hash[:contacted_experts_count] = contacted_experts_count
     end
   end

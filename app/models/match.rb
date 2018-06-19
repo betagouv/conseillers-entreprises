@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# TODO: Rename for ContactedExpert
-class SelectedAssistanceExpert < ApplicationRecord
+class Match < ApplicationRecord
   audited only: :status
 
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
@@ -13,7 +12,7 @@ class SelectedAssistanceExpert < ApplicationRecord
   has_many :territories, through: :expert
 
   validates :diagnosed_need, presence: true
-  validates_with SelectedAssistanceExpertValidator
+  validates_with MatchValidator
 
   after_update :update_taken_care_of_at
   after_update :update_closed_at
@@ -28,12 +27,19 @@ class SelectedAssistanceExpert < ApplicationRecord
   scope :updated_more_than_five_days_ago, (-> { where('updated_at < ?', 5.days.ago) })
   scope :needing_taking_care_update, (-> { with_status(:taking_care).updated_more_than_five_days_ago })
   scope :with_no_one_in_charge, (lambda do
-    ids = SelectedAssistanceExpert.select(:diagnosed_need_id).group(:diagnosed_need_id).having('SUM(status) = 0')
+    ids = Match.select(:diagnosed_need_id).group(:diagnosed_need_id).having('SUM(status) = 0')
     where(diagnosed_need_id: ids).updated_more_than_five_days_ago
   end)
 
+  scope :in_territory, (->(territory) { of_diagnoses(Diagnosis.in_territory(territory))})
+  scope :of_facilities, (->(facilities) { of_diagnoses(Diagnosis.of_facilities(facilities))})
+
   def status_closed?
     status_done? || status_not_for_me?
+  end
+
+  def expert_description
+    "#{expert_full_name} (#{expert_institution_name})"
   end
 
   private

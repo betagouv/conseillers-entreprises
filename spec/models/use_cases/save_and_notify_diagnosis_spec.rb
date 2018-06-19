@@ -4,13 +4,13 @@ require 'rails_helper'
 
 describe UseCases::SaveAndNotifyDiagnosis do
   describe 'perform' do
-    subject(:save_and_notify) { described_class.perform diagnosis, selected_assistances_experts }
+    subject(:save_and_notify) { described_class.perform diagnosis, matches }
 
     let(:diagnosis) { create :diagnosis }
     let(:relay) { create :relay }
 
     before do
-      allow(UseCases::CreateSelectedAssistancesExperts).to receive(:perform)
+      allow(UseCases::CreateMatches).to receive(:perform)
       allow(ExpertMailersService).to receive(:delay) { ExpertMailersService }
       allow(ExpertMailersService).to receive(:send_assistances_email)
 
@@ -21,7 +21,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
     end
 
     context 'some experts are selected' do
-      let(:selected_assistances_experts) do
+      let(:matches) do
         {
           assistances_experts: { '12' => '1', '90' => '0' },
           diagnosed_needs: { '31' => '1', '78' => '0' }
@@ -33,7 +33,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
       before { save_and_notify }
 
       it 'has called the right methods' do
-        expect(UseCases::CreateSelectedAssistancesExperts).to have_received(:perform).with diagnosis,
+        expect(UseCases::CreateMatches).to have_received(:perform).with diagnosis,
                                                                                            assistance_expert_ids
         expect(UseCases::CreateSelectedRelays).to have_received(:perform).with relay,
                                                                                diagnosed_need_ids
@@ -51,7 +51,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
     end
 
     context 'no experts are selected' do
-      let(:selected_assistances_experts) do
+      let(:matches) do
         {
           assistances_experts: { '12' => '0', '90' => '0' },
           diagnosed_needs: { '31' => '0', '78' => '0' }
@@ -61,7 +61,7 @@ describe UseCases::SaveAndNotifyDiagnosis do
       before { save_and_notify }
 
       it 'does not call the use case methods' do
-        expect(UseCases::CreateSelectedAssistancesExperts).not_to have_received(:perform)
+        expect(UseCases::CreateMatches).not_to have_received(:perform)
         expect(UseCases::CreateSelectedRelays).not_to have_received(:perform)
       end
 
@@ -72,12 +72,12 @@ describe UseCases::SaveAndNotifyDiagnosis do
     end
 
     context 'empty hash' do
-      let(:selected_assistances_experts) { {} }
+      let(:matches) { {} }
 
       before { save_and_notify }
 
       it 'does not call the use case methods' do
-        expect(UseCases::CreateSelectedAssistancesExperts).not_to have_received(:perform)
+        expect(UseCases::CreateMatches).not_to have_received(:perform)
         expect(UseCases::CreateSelectedRelays).not_to have_received(:perform)
       end
 

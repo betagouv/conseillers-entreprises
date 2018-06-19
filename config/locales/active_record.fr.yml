@@ -43,7 +43,7 @@ fr:
       diagnosed_need:
         one: Besoin analysé
         other: Besoins analysés
-      selected_assistance_expert:
+      match:
         one: Référent contacté
         other: Référents contactés
       territory:
@@ -148,7 +148,7 @@ fr:
         question_label: Nom du besoin
         question: Besoin
         content: Description du besoin
-      selected_assistance_expert:
+      match:
         diagnosed_need: Besoin analysé
         expert_full_name: Référent contacté
         expert_institution_name: Institution du référent
@@ -188,7 +188,7 @@ fr:
           attributes:
             email:
               blank: Le contact doit avoir au moins une adresse e-mail ou un numéro de téléphone.
-        selected_assistance_expert:
+        match:
           attributes:
             assistance_expert:
               can_not_be_set_with_relay: La ressource ne peut pas être liée à la fois à un référent et un relais local.
