@@ -64,15 +64,15 @@ class CompaniesController < ApplicationController
     s = str.reverse
     sum = 0
     tmp = 0
-    (0..s.size-1).step(2) do |k| # k is odd, k+1 is even
-      sum += s[k].to_i           #s1
-      tmp = s[k+1].to_i * 2
+    (0..s.size - 1).step(2) do |k| # k is odd, k+1 is even
+      sum += s[k].to_i # s1
+      tmp = s[k + 1].to_i * 2
       if tmp > 9
         tmp = tmp.to_s.split(//).map(&:to_i).reduce(:+)
       end
       sum += tmp
     end
-    (sum%10).zero?
+    (sum % 10).zero?
   end
 
   def save_search(query, label = nil)

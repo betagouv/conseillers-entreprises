@@ -76,5 +76,4 @@ Rails.application.routes.draw do
 
     resources :errors, only: %i[create]
   end
-
 end

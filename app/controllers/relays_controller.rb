@@ -2,26 +2,27 @@
 
 class RelaysController < ApplicationController
   def diagnoses
-    @relay= Relay.of_user(current_user)
+    @relay = Relay.of_user(current_user)
     @diagnoses = Diagnosis.joins(:diagnosed_needs)
-                          .merge(DiagnosedNeed.of_relay(@relay))
-                          .distinct
+      .merge(DiagnosedNeed.of_relay(@relay))
+      .distinct
   end
 
   def diagnosis
     associations = [visit: [:visitee, :advisor, facility: [:company]],
-                    diagnosed_needs: [matches: [assistance_expert: :expert]]]
+                    diagnosed_needs: [matches: [assistance_expert: :expert]]
+]
     @diagnosis = Diagnosis.includes(associations).find(params[:diagnosis_id])
     check_relay_access
     @current_user_diagnosed_needs = @diagnosis.diagnosed_needs.of_relay(@relay)
-                                              .includes(:matches)
+      .includes(:matches)
     render 'experts/diagnosis'
   end
 
   def update_status
     relay = Relay.of_user(current_user)
     @match = Match.of_relay(relay)
-                                                          .find params[:match_id]
+      .find params[:match_id]
     @match.update status: params[:status]
     render 'experts/update_status'
   end

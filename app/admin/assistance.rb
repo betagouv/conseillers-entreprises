@@ -60,9 +60,9 @@ ActiveAdmin.register Assistance do
 
     f.inputs I18n.t('active_admin.assistances.experts') do
       f.has_many :assistances_experts,
-                 heading: false,
-                 new_record: I18n.t('active_admin.assistances.add_expert'),
-                 allow_destroy: true do |assistance_expert|
+        heading: false,
+        new_record: I18n.t('active_admin.assistances.add_expert'),
+        allow_destroy: true do |assistance_expert|
         assistance_expert.input :expert, label: I18n.t('active_admin.assistances.expert')
       end
     end

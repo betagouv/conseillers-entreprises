@@ -92,7 +92,7 @@ RSpec.describe Diagnosis, type: :model do
 
       context 'two diagnoses' do
         it do
-          diagnosis1 = create :diagnosis, created_at: 3.day.ago
+          diagnosis1 = create :diagnosis, created_at: 3.days.ago
           diagnosis2 = create :diagnosis, created_at: 1.day.ago
 
           is_expected.to eq [diagnosis2, diagnosis1]

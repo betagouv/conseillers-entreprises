@@ -5,7 +5,7 @@ class Search < ApplicationRecord
 
   validates :user, presence: true
 
-  scope :of_user, (->(user) { where(user: user) })
+  scope :of_user, (-> (user) { where(user: user) })
   scope :recent, (-> { order(created_at: :desc).limit(30) })
 
   def summary

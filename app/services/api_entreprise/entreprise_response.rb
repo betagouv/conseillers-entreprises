@@ -26,6 +26,5 @@ module ApiEntreprise
     def entreprise_wrapper
       EntrepriseWrapper.new(@data)
     end
-
   end
 end

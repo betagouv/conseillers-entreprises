@@ -4,7 +4,6 @@ class Diagnosis < ApplicationRecord
   LAST_STEP = 5
   AUTHORIZED_STEPS = (1..LAST_STEP).to_a.freeze
 
-
   attr_accessor :diagnosed_needs_count, :matches_count, :solved_needs_count
 
   belongs_to :visit, validate: true
@@ -15,19 +14,19 @@ class Diagnosis < ApplicationRecord
   validates :visit, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
 
-  scope :of_siret, (->(siret) { joins(:visit).merge(Visit.of_siret(siret)) })
-  scope :of_user, (->(user) { joins(:visit).where(visits: { advisor: user }) })
+  scope :of_siret, (-> (siret) { joins(:visit).merge(Visit.of_siret(siret)) })
+  scope :of_user, (-> (user) { joins(:visit).where(visits: { advisor: user }) })
   scope :reverse_chronological, (-> { order(created_at: :desc) })
   scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
   scope :completed, (-> { where(step: LAST_STEP) })
-  scope :in_territory, (->(territory) { of_facilities(Facility.in_territory(territory))})
-  scope :of_facilities, (->(facilities) { joins(:visit).merge(Visit.where(facility: facilities))})
+  scope :in_territory, (-> (territory) { of_facilities(Facility.in_territory(territory)) })
+  scope :of_facilities, (-> (facilities) { joins(:visit).merge(Visit.where(facility: facilities)) })
   scope :available_for_expert, (lambda do |expert|
     joins(diagnosed_needs: [matches: [assistance_expert: :expert]])
       .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
   end)
 
-  scope :after_step, ( ->(minimum_step) { where('step >= ?', minimum_step) })
+  scope :after_step, (-> (minimum_step) { where('step >= ?', minimum_step) })
 
   scope :only_active, (-> { where(archived_at: nil) })
 

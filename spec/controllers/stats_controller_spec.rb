@@ -1,12 +1,12 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe StatsController, type: :controller do
-
   describe 'history_date_ranges' do
     subject { controller.instance_eval{ history_date_ranges } }
 
-    before { create :user, created_at: date_1}
+    before { create :user, created_at: date_1 }
 
     context 'with a single recent user' do
       let(:date_1) { Time.zone.now }

@@ -11,12 +11,12 @@ describe UseCases::SaveAndNotifyDiagnosis do
 
     before do
       allow(UseCases::CreateMatches).to receive(:perform)
-      allow(ExpertMailersService).to receive(:delay) { ExpertMailersService }
+      allow(ExpertMailersService).to receive(:delay).and_return(ExpertMailersService)
       allow(ExpertMailersService).to receive(:send_assistances_email)
 
       allow(Relay).to receive(:of_diagnosis_location).with(diagnosis).and_return [relay]
       allow(UseCases::CreateSelectedRelays).to receive(:perform)
-      allow(ExpertMailersService).to receive(:delay) { ExpertMailersService }
+      allow(ExpertMailersService).to receive(:delay).and_return(ExpertMailersService)
       allow(ExpertMailersService).to receive(:send_relay_assistances_email)
     end
 
@@ -34,9 +34,9 @@ describe UseCases::SaveAndNotifyDiagnosis do
 
       it 'has called the right methods' do
         expect(UseCases::CreateMatches).to have_received(:perform).with diagnosis,
-                                                                                           assistance_expert_ids
+          assistance_expert_ids
         expect(UseCases::CreateSelectedRelays).to have_received(:perform).with relay,
-                                                                               diagnosed_need_ids
+          diagnosed_need_ids
       end
 
       it 'sends emails' do
