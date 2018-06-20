@@ -42,7 +42,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     before do
       allow(User).to receive(:find).with(user.id.to_s).and_return(user)
       allow(user).to receive(:update_without_password)
-      allow(user).to receive(:update_attributes)
+      allow(user).to receive(:update)
     end
 
     let(:user) { create :user }
@@ -52,7 +52,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       it 'updates without password' do
         expect(user).to have_received(:update_without_password)
-        expect(user).not_to have_received(:update_attributes)
+        expect(user).not_to have_received(:update)
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       it 'updates all attributes' do
         expect(user).not_to have_received(:update_without_password)
-        expect(user).to have_received(:update_attributes)
+        expect(user).to have_received(:update)
       end
     end
   end
