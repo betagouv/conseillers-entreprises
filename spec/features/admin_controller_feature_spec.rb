@@ -18,7 +18,7 @@ describe 'admin panel', type: :feature do
         visit '/admin'
       end
 
-      it { expect(page).to have_content 'Tableau de bord' }
+      it { expect(page.html).to include 'Tableau de bord' }
     end
   end
 
@@ -70,7 +70,7 @@ describe 'admin panel', type: :feature do
     end
 
     it 'displays user name' do
-      expect(page).to have_content current_user.full_name
+      expect(page.html).to include current_user.full_name
     end
   end
 
@@ -86,6 +86,6 @@ describe 'admin panel', type: :feature do
       click_link 'Référents contactés'
     end
 
-    it('displays page content') { expect(page).to have_content 'Référents contactés' }
+    it('displays page content') { expect(page.html).to include 'Référents contactés' }
   end
 end
