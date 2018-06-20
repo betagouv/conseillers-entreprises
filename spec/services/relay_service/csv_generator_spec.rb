@@ -27,7 +27,7 @@ describe RelayService::CSVGenerator do
       end
 
       it 'creates the csv with the right data' do
-        csv_without_bom = described_class.generate_statistics_csv([diagnosis])[3..-1].force_encoding('UTF-8')
+        csv_without_bom = described_class.generate_statistics_csv([diagnosis]).force_encoding('UTF-8')
         expect(csv_without_bom).to eq(expected_csv)
       end
     end
