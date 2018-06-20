@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe StatsController, type: :controller do
   describe 'history_date_ranges' do
-    subject { controller.instance_eval{ history_date_ranges } }
+    subject(:date_ranges) { controller.instance_eval{ history_date_ranges } }
 
     before { create :user, created_at: date_1 }
 
@@ -20,7 +20,7 @@ RSpec.describe StatsController, type: :controller do
       let(:date_1) { Time.zone.now - 15.months }
 
       it 'returns a 15 ranges array' do
-        subject.count eq 15
+        date_ranges.count eq 15
       end
     end
   end
