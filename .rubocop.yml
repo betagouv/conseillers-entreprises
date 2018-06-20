@@ -662,6 +662,9 @@ Rails/ApplicationRecord:
 Rails/Blank:
   Enabled: true
 
+Rails/BulkChangeTable:
+  Enabled: false
+
 Rails/CreateTableWithTimestamps:
   Enabled: false
 
@@ -722,7 +725,7 @@ Rails/Output:
   Enabled: false
 
 Rails/OutputSafety:
-  Enabled: true
+  Enabled: false
 
 Rails/PluralizationGrammar:
   Enabled: true
@@ -775,8 +778,17 @@ Rails/Validation:
 Rails:
   Enabled: true
 
-RSpec/Focused:
-  Enabled: true
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
 
 Security/Eval:
   Enabled: true
