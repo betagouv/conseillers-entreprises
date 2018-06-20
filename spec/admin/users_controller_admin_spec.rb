@@ -80,7 +80,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     context 'update failed' do
       before { put :update, params: { id: user.id, user: { first_name: '' } } }
 
-      it('does not redirect') { expect(response).to have_http_status(:success) }
+      it('does not redirect') { expect(response).to be_successful }
     end
   end
 end

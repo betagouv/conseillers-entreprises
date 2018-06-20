@@ -17,14 +17,14 @@ RSpec.describe CompaniesController, type: :controller do
 
     it do
       get :show, params: { siret: siret }
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
   describe 'GET #show' do
     it do
       get :search
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
