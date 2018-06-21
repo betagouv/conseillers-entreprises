@@ -63,7 +63,6 @@ class CompaniesController < ApplicationController
   def luhn(str)
     s = str.reverse
     sum = 0
-    tmp = 0
     (0..s.size - 1).step(2) do |k| # k is odd, k+1 is even
       sum += s[k].to_i # s1
       tmp = s[k + 1].to_i * 2
