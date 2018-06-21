@@ -70,6 +70,7 @@ group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
 end
 
 group :development do

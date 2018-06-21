@@ -1,0 +1,82 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/reso
+  docker:
+    - image: circleci/ruby:2.5.1-node-browsers
+    - image: circleci/postgres:9.6
+      environment:
+        POSTGRES_USER: reso_test
+        POSTGRES_PASSWORD: reso_test
+        POSTGRES_DB: reso_test
+
+bundle_restore_cache: &bundle_restore_cache
+  restore_cache:
+    key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
+
+bundle_save_cache: &bundle_save_cache
+  save_cache:
+    key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
+    paths:
+      - ~/vendor/bundle
+
+bundle_install: &bundle_install
+  run:
+    name: Install Ruby Dependencies
+    command: bundle install --path ~/vendor/bundle
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - *bundle_restore_cache
+      - *bundle_install
+      - *bundle_save_cache
+  test:
+    <<: *defaults
+    parallelism: 3
+    steps:
+      - checkout
+      - *bundle_restore_cache
+      - *bundle_install
+      - run:
+          environment:
+            DATABASE_URL: "postgres://reso_test@localhost:5432/reso_test"
+          name: Create DB
+          command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
+      - run:
+          environment:
+            DATABASE_URL: "postgres://reso_test@localhost:5432/reso_test"
+          name: Run Tests, Split by Timings
+          command: |
+            bundle exec rspec --profile 10 \
+              --format RspecJunitFormatter \
+              --out ~/test-results/rspec/results.xml \
+              --format progress \
+              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - store_test_results:
+          path: ~/test-results
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - *bundle_restore_cache
+      - *bundle_install
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop
+      - run:
+          name: Run haml-lint
+          command: bundle exec haml-lint app/views/
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - lint:
+          requires:
+            - build
