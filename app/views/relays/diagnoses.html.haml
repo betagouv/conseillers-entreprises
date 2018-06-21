@@ -1,19 +1,29 @@
 - meta title: t('.title')
 
-%h1= t('.title')
+%h2= t('.title')
 
-- if @diagnoses.empty?
-  %p= t('.no_diagnoses')
-- else
+- @relay_diagnoses.each do |relay, diagnoses|
   %table.ui.table
     %thead
       %tr
-        %th= t('activerecord.attributes.company.name')
-        %th= t('activerecord.attributes.visit.happened_on')
         %th
+          = relay.territory.name
     %tbody
-      - @diagnoses.each do |diagnosis|
+      - if diagnoses.empty?
         %tr
-          %td= diagnosis.visit.company_name
-          %td= I18n.l diagnosis.visit.happened_on
-          %td= link_to t('.view'), action: 'diagnosis', diagnosis_id: diagnosis.id
+          %td
+            = t('.no_diagnoses')
+      - else
+        - diagnoses.each do |diagnosis|
+          %tr
+            %td.selectable
+              %a{ href: diagnosis_relays_path(diagnosis.id) }
+                .ui.text.medium
+                  = diagnosis.visit.company_description
+                - date = diagnosis.visit.happened_on || diagnosis.visit.created_at.to_date
+                .ui.text.small
+                  %i.calendar.icon
+                  = I18n.l date
+                .ui.text.small
+                  %i.user.icon
+                  = diagnosis.visit.advisor

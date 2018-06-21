@@ -2,10 +2,17 @@
 
 class RelaysController < ApplicationController
   def diagnoses
-    @relay = Relay.of_user(current_user)
-    @diagnoses = Diagnosis.joins(:diagnosed_needs)
-      .merge(DiagnosedNeed.of_relay(@relay))
-      .distinct
+    @relays = current_user.relays.joins(:territory).order('territories.name')
+    relay_diagnoses = @relays.map do |relay|
+      diagnoses = Diagnosis.only_active
+        .includes(visit: [facility: :company])
+        .joins(:diagnosed_needs)
+        .merge(DiagnosedNeed.of_relay(relay))
+        .order('visits.happened_on desc', 'visits.created_at desc')
+        .distinct
+      [relay, diagnoses]
+    end
+    @relay_diagnoses = relay_diagnoses.to_h
   end
 
   def diagnosis
