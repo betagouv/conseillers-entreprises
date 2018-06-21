@@ -105,24 +105,6 @@ describe ExpertMailersService do
 
       it { is_expected.to eq [{ expert: expert, questions_with_needs_description: expected_array }] }
     end
-
-    xcontext 'when there are several assistances experts linked to the same question' do
-      let(:expert) { create :expert }
-      let(:question) { create :question }
-      let!(:diagnosed_need) { create :diagnosed_need, question: question, diagnosis: diagnosis }
-
-      let(:assistance1) { create :assistance, question: question }
-      let(:ae1) { create :assistance_expert, expert: expert, assistance: assistance1 }
-
-      let(:assistance2) { create :assistance, question: question }
-      let(:ae2) { create :assistance_expert, expert: expert, assistance: assistance2 }
-
-      let(:assistances_experts) { [ae1, ae2] }
-
-      let(:expected_array) { [{ question: question, need_description: diagnosed_need.content }] }
-
-      it { is_expected.to eq [{ expert: expert, questions_with_needs_description: expected_array }] }
-    end
   end
 
   describe 'notify_expert' do
