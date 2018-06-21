@@ -10,29 +10,29 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.4.4'
+ruby '2.5.1'
 
-gem 'rails', '~> 5.1.6'
+gem 'rails'
 
 # Server
 gem 'foreman'
 gem 'pg'
-gem 'puma', '~> 3.0'
+gem 'puma'
 
 # Assets
-gem 'coffee-rails', '~> 4.2'
-gem 'compass-rails', '~> 3.0.2'
-gem 'haml-rails', '~> 1.0'
+gem 'coffee-rails'
+gem 'compass-rails'
+gem 'haml-rails'
 gem 'jquery-rails'
 gem 'sass-rails'
-gem 'semantic-ui-sass', '~> 2'
-gem 'uglifier', '>= 1.3.0'
+gem 'semantic-ui-sass'
+gem 'uglifier'
 
 # Parallel processes
-gem 'clockwork', '~> 2.0', '>= 2.0.2'
+gem 'clockwork'
 gem 'daemons'
 gem 'delayed_job_active_record'
-gem 'webpacker', '~> 3.2'
+gem 'webpacker'
 
 # Improving models
 gem 'audited', '~> 4.5'
@@ -42,9 +42,9 @@ gem 'user_impersonate2', require: 'user_impersonate', github: 'rcook/user_impers
 # Misc
 gem 'activeadmin'
 gem 'http'
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder'
 gem 'mailjet'
-gem 'turbolinks', '~> 5'
+gem 'turbolinks'
 
 # Notifiers
 gem 'exception_notification'
@@ -62,25 +62,25 @@ gem 'roadie-rails'
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers'
   gem 'webmock'
 end
 
 group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_bot_rails'
-  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails'
 end
 
 group :development do
   gem 'awesome_print' # IRB console on exception pages or by using <%= console %>
   gem 'haml_lint', require: false
-  gem 'i18n-tasks', '~> 0.9.18'
-  gem 'listen', '~> 3.0.5'
-  gem 'web-console', '>= 3.3.0'
+  gem 'i18n-tasks'
+  gem 'listen'
+  gem 'web-console'
 
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false

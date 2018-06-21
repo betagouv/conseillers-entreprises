@@ -15,7 +15,7 @@ RSpec.describe Api::ContactsController, type: :controller do
       it 'returns http success' do
         request
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Api::ContactsController, type: :controller do
       it 'returns http success' do
         request
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -118,7 +118,7 @@ RSpec.describe Api::ContactsController, type: :controller do
         request
       end
 
-      it('returns http success') { expect(response).to have_http_status(:success) }
+      it('returns http success') { expect(response).to be_successful }
 
       it 'updates the diagnosis s content' do
         reloaded_contact = contact.reload

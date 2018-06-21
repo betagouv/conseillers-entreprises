@@ -34,7 +34,7 @@ RSpec.describe ExpertsController, type: :controller do
           request
         end
 
-        it('returns http success') { expect(response).to have_http_status(:success) }
+        it('returns http success') { expect(response).to be_successful }
       end
 
       context 'archived diagnosis' do
@@ -45,7 +45,7 @@ RSpec.describe ExpertsController, type: :controller do
           request
         end
 
-        it('returns http success') { expect(response).to have_http_status(:success) }
+        it('returns http success') { expect(response).to be_successful }
       end
 
       context 'expert does not have access to diagnosis' do
@@ -91,7 +91,7 @@ RSpec.describe ExpertsController, type: :controller do
           params[:status] = :quo
           request
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(match.reload.status_quo?).to eq true
         end
       end
@@ -101,7 +101,7 @@ RSpec.describe ExpertsController, type: :controller do
           params[:status] = :taking_care
           request
 
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(match.reload.status_taking_care?).to eq true
         end
       end

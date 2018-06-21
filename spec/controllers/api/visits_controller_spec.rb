@@ -14,7 +14,7 @@ RSpec.describe Api::VisitsController, type: :controller do
       it 'returns http success' do
         request
 
-        expect(response).to have_http_status(:success)
+        expect(response).to be_successful
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe Api::VisitsController, type: :controller do
 
       before { request }
 
-      it('returns http success') { expect(response).to have_http_status(:success) }
+      it('returns http success') { expect(response).to be_successful }
       it 'updates the visits date' do
         expect(visit.reload.happened_on).to eq DateTime.iso8601(date_string, Date::GREGORIAN)
       end

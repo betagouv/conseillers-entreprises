@@ -11,13 +11,13 @@ RSpec.describe RelaysController, type: :controller do
     before { get :diagnoses }
 
     context 'current user is not relay' do
-      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to be_successful }
     end
 
     context 'current user is a relay' do
       before { create :relay, user: current_user }
 
-      it { expect(response).to have_http_status(:success) }
+      it { expect(response).to be_successful }
     end
   end
 
@@ -45,7 +45,7 @@ RSpec.describe RelaysController, type: :controller do
           request
         end
 
-        it('returns http success') { expect(response).to have_http_status(:success) }
+        it('returns http success') { expect(response).to be_successful }
       end
 
       context 'safe deleted diagnosis' do
@@ -56,7 +56,7 @@ RSpec.describe RelaysController, type: :controller do
           request
         end
 
-        it('returns http success') { expect(response).to have_http_status(:success) }
+        it('returns http success') { expect(response).to be_successful }
       end
     end
   end
@@ -102,7 +102,7 @@ RSpec.describe RelaysController, type: :controller do
         end
 
         it 'returns http success' do
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(match.reload.status_quo?).to eq true
         end
       end
@@ -116,7 +116,7 @@ RSpec.describe RelaysController, type: :controller do
         end
 
         it 'returns http success' do
-          expect(response).to have_http_status(:success)
+          expect(response).to be_successful
           expect(match.reload.status_taking_care?).to eq true
         end
       end
