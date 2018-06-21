@@ -52,7 +52,7 @@ class ExpertMailersService
 
     def diagnosed_need_contents_hash(diagnosis)
       diagnosed_need_contents_hash = {}
-      needs = DiagnosedNeed.of_diagnosis(diagnosis).group(:question_id, :content).select(:question_id, :content)
+      needs = diagnosis.diagnosed_needs.select(:question_id, :content)
       needs.each { |need| diagnosed_need_contents_hash[need.question_id] = need.content }
       diagnosed_need_contents_hash
     end

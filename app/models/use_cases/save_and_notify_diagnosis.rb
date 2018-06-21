@@ -6,7 +6,7 @@ module UseCases
       def perform(diagnosis, matches)
         save_assistance_experts_selection_and_notify diagnosis, matches[:assistances_experts]
         save_relays_selection_and_notify diagnosis,
-                                         matches[:diagnosed_needs]
+          matches[:diagnosed_needs]
       end
 
       private

@@ -43,11 +43,12 @@ RSpec.describe Territory, type: :model do
 
       let(:raw_codes) { 'baddata morebaddata' }
 
-      it { expect { set_city_codes }.to raise_error 'Invalid city codes'}
+      it { expect { set_city_codes }.to raise_error 'Invalid city codes' }
     end
 
     context 'with empty data' do
       let(:raw_codes) { '' }
+
       before { territory.city_codes = raw_codes }
 
       it { is_expected.to eq [] }
@@ -55,6 +56,7 @@ RSpec.describe Territory, type: :model do
 
     context 'with proper values' do
       let(:raw_codes) { '12345, 12346' }
+
       before { territory.city_codes = raw_codes }
 
       it { is_expected.to eq %w[12345 12346] }
@@ -71,6 +73,5 @@ RSpec.describe Territory, type: :model do
 
       it { is_expected.to eq %w[10002 10003] }
     end
-
   end
 end

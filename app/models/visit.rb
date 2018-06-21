@@ -10,7 +10,7 @@ class Visit < ApplicationRecord
 
   validates :advisor, :facility, presence: true
 
-  scope :of_siret, (->(siret) { joins(:facility).where(facilities: { siret: siret }) })
+  scope :of_siret, (-> (siret) { joins(:facility).where(facilities: { siret: siret }) })
 
   def to_s
     if happened_on.present?

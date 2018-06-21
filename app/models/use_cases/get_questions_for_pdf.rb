@@ -14,7 +14,7 @@ module UseCases
       def questions_array_with_categories(questions)
         questions_by_category_id = questions.group_by { |question| question.category.id }
         categories_with_questions = questions_by_category_id
-                                    .collect { |_k, v| { category: v.first.category.label, questions: v } }
+          .collect { |_k, v| { category: v.first.category.label, questions: v } }
         categories_with_questions.map! { |item| transform_category_questions item }
       end
 
@@ -31,10 +31,10 @@ module UseCases
         {
           label: question.label,
           institutions_list: question.assistances
-                                     .flat_map(&:experts)
-                                     .map(&:institution)
-                                     .map(&:name)
-                                     .uniq.join(', ')
+            .flat_map(&:experts)
+            .map(&:institution)
+            .map(&:name)
+            .uniq.join(', ')
         }
       end
     end

@@ -24,7 +24,7 @@ ActiveAdmin.register Match do
         link_to 'Page Référent', diagnosis_experts_path(diagnosis_id: diagnosis_id, access_token: access_token)
       else
         link_to 'Page Référent',
-                diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: match.relay_id)
+          diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: match.relay_id)
       end
     end
 
@@ -55,7 +55,7 @@ ActiveAdmin.register Match do
   filter :status
   filter :created_at
   filter :updated_at
-  
+
   controller do
     def update
       super

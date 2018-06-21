@@ -8,9 +8,9 @@ RSpec.describe 'experts/diagnosis.html.haml', type: :view do
   let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
   let!(:match) do
     create :match,
-           :with_assistance_expert,
-           diagnosed_need: diagnosed_need,
-           assistance_title: 'Help companies in distress'
+      :with_assistance_expert,
+      diagnosed_need: diagnosed_need,
+      assistance_title: 'Help companies in distress'
   end
 
   before do

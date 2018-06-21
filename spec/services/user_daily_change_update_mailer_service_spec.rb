@@ -9,7 +9,7 @@ describe UserDailyChangeUpdateMailerService do
     subject(:send_daily_change) { described_class.send_daily_change_updates }
 
     before do
-      allow(UserMailer).to receive(:delay) { UserMailer }
+      allow(UserMailer).to receive(:delay).and_return(UserMailer)
       allow(UserMailer).to receive(:daily_change_update)
     end
 

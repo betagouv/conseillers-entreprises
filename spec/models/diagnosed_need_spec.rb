@@ -48,15 +48,15 @@ RSpec.describe DiagnosedNeed, type: :model do
     end
 
     describe 'of_relay' do
-      subject { DiagnosedNeed.of_relay relay}
+      subject { DiagnosedNeed.of_relay relay }
 
       let(:relay) { create :relay }
       let(:diagnosed_need) { create :diagnosed_need }
 
       before do
         create :match,
-               relay: relay,
-               diagnosed_need: diagnosed_need
+          relay: relay,
+          diagnosed_need: diagnosed_need
         create :relay
         create :match
       end

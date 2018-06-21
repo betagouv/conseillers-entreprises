@@ -113,7 +113,7 @@ RSpec.describe DiagnosesController, type: :controller do
 
       it 'has called the right methods' do
         expect(UseCases::SaveAndNotifyDiagnosis).to have_received(:perform).with(diagnosis,
-                                                                                 matches)
+          matches)
       end
     end
   end

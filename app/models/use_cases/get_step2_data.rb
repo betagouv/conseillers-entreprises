@@ -14,13 +14,13 @@ module UseCases
       private
 
       def needs_grouped_by_question(diagnosed_needs)
-        diagnosed_needs.group_by { |diagnosed_need| diagnosed_need.question_id ? diagnosed_need.question_id : 0 }
+        diagnosed_needs.group_by { |diagnosed_need| diagnosed_need.question_id || 0 }
       end
 
       def questions_array_with_categories(questions, diagnosed_needs_hash)
         questions_by_category_id = questions.group_by { |question| question.category.id }
         categories_with_questions = questions_by_category_id
-                                    .collect { |_k, v| { category: v.first.category.label, questions: v } }
+          .collect { |_k, v| { category: v.first.category.label, questions: v } }
         categories_with_questions.map! { |item| transform_category_questions item, diagnosed_needs_hash }
       end
 
@@ -45,8 +45,8 @@ module UseCases
 
       def questions_array_without_category(diagnosed_needs_hash)
         diagnosed_need_items = diagnosed_needs_hash
-                               .fetch(0, [])
-                               .map { |diagnosed_need| create_item_from_diagnosed_needs(diagnosed_need) }
+          .fetch(0, [])
+          .map { |diagnosed_need| create_item_from_diagnosed_needs(diagnosed_need) }
         { category: nil, questions: diagnosed_need_items }
       end
 

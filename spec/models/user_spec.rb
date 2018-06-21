@@ -105,7 +105,6 @@ RSpec.describe User, type: :model do
         expect(User.active_answered(last_30_days, [3])).to eq []
       end
     end
-
   end
 
   describe 'full_name' do
@@ -117,10 +116,10 @@ RSpec.describe User, type: :model do
   describe 'full_name_with_role' do
     let(:user) do
       build :user,
-            first_name: 'Ivan',
-            last_name: 'Collombet',
-            role: 'Business Developer',
-            institution: 'DINSIC'
+        first_name: 'Ivan',
+        last_name: 'Collombet',
+        role: 'Business Developer',
+        institution: 'DINSIC'
     end
 
     it { expect(user.full_name_with_role).to eq 'Ivan Collombet, Business Developer, DINSIC' }

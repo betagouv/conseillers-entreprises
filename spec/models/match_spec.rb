@@ -166,7 +166,7 @@ RSpec.describe Match, type: :model do
     end
 
     describe 'of_relay' do
-      subject { Match.of_relay relay}
+      subject { Match.of_relay relay }
 
       let(:relay) { create :relay }
       let(:match) do
@@ -247,32 +247,32 @@ RSpec.describe Match, type: :model do
 
       let(:matches_with_no_one_in_charge) do
         create_list :match,
-                    2,
-                    status: :quo,
-                    diagnosed_need: abandoned_diagnosed_need,
-                    updated_at: 6.days.ago
+          2,
+          status: :quo,
+          diagnosed_need: abandoned_diagnosed_need,
+          updated_at: 6.days.ago
       end
 
       before do
         create :match,
-               status: :quo,
-               diagnosed_need: answered_diagnosed_need,
-               updated_at: 6.days.ago
+          status: :quo,
+          diagnosed_need: answered_diagnosed_need,
+          updated_at: 6.days.ago
 
         create :match,
-               status: :taking_care,
-               diagnosed_need: answered_diagnosed_need,
-               updated_at: 6.days.ago
+          status: :taking_care,
+          diagnosed_need: answered_diagnosed_need,
+          updated_at: 6.days.ago
 
         create :match,
-               status: :done,
-               diagnosed_need: other_answered_diagnosed_need,
-               updated_at: 6.days.ago
+          status: :done,
+          diagnosed_need: other_answered_diagnosed_need,
+          updated_at: 6.days.ago
 
         create :match,
-               status: :not_for_me,
-               diagnosed_need: other_answered_diagnosed_need,
-               updated_at: 6.days.ago
+          status: :not_for_me,
+          diagnosed_need: other_answered_diagnosed_need,
+          updated_at: 6.days.ago
       end
 
       it { is_expected.to match_array matches_with_no_one_in_charge }

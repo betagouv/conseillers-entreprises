@@ -29,28 +29,30 @@ describe UseCases::GetQuestionsForPdf do
 
     context 'no diagnosed_need' do
       let!(:expected_array) do
-        [{
-          category: category1.label,
-          questions: [
-            {
-              label: question1.label,
-              institutions_list: "#{institution1.name}, #{institution2.name}"
-            },
-            {
-              label: question2.label,
-              institutions_list: ''
-            }
-          ]
-        },
-         {
-           category: category2.label,
-           questions: [
-             {
-               label: question3.label,
-               institutions_list: ''
-             }
-           ]
-         }]
+        [
+          {
+            category: category1.label,
+                    questions: [
+                      {
+                        label: question1.label,
+                        institutions_list: "#{institution1.name}, #{institution2.name}"
+                      },
+                      {
+                        label: question2.label,
+                        institutions_list: ''
+                      }
+                    ]
+          },
+          {
+            category: category2.label,
+            questions: [
+              {
+                label: question3.label,
+                institutions_list: ''
+              }
+            ]
+          }
+        ]
       end
 
       it { is_expected.to match_array expected_array }

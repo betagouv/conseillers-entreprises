@@ -14,9 +14,9 @@ describe 'experts feature', type: :feature do
     assistance_expert = create :assistance_expert, expert: expert
 
     create :match,
-           assistance_expert: assistance_expert,
-           diagnosed_need: diagnosed_need,
-           status: :quo
+      assistance_expert: assistance_expert,
+      diagnosed_need: diagnosed_need,
+      status: :quo
 
     visit diagnosis_experts_path(diagnosis_id: diagnosis.id, access_token: expert.access_token)
   end

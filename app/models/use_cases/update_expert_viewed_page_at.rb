@@ -5,8 +5,8 @@ module UseCases
     class << self
       def perform(diagnosis_id:, expert_id:)
         matches = Match.of_diagnoses(diagnosis_id)
-                       .of_expert(expert_id)
-                       .not_viewed
+          .of_expert(expert_id)
+          .not_viewed
         matches.update_all expert_viewed_page_at: Time.zone.now
       end
     end

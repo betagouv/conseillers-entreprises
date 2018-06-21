@@ -29,7 +29,7 @@ class Territory < ApplicationRecord
 
     codes_to_remove = existing_codes - wanted_codes
     territory_cities.where(city_code: codes_to_remove)
-                    .destroy_all
+      .destroy_all
 
     codes_to_add = wanted_codes - existing_codes
     codes_to_add.each{ |c|
