@@ -24,6 +24,10 @@ class Visit < ApplicationRecord
     facility.company.name_short
   end
 
+  def company_description
+    facility.to_s
+  end
+
   def can_be_viewed_by?(user)
     advisor == user
   end

@@ -128,6 +128,7 @@ describe ExpertMailersService do
         visit_date: diagnosis.visit.happened_on,
         readable_locality: diagnosis.visit.facility.readable_locality,
         company_name: diagnosis.visit.company_name,
+        company_description: diagnosis.visit.company_description,
         company_contact: diagnosis.visit.visitee,
         questions_with_needs_description: questions_with_needs_description
       }
