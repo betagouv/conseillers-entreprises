@@ -84,17 +84,30 @@ You may need to install [Node.js](https://nodejs.org/en/download/) for `npm` com
 
 ## Development data
 
-You can import data in your local development database from remote staging database. Staging password will be asked, you can find it in Scalingo dashboard.
+You can import data in your local development database from remote staging database. See the [official documentation](https://doc.scalingo.com/platform/databases/access), Make sure [Scalingo CLI](http://doc.scalingo.com/app/command-line-tool.html) is installed.
 
-Make sure [Scalingo CLI](http://doc.scalingo.com/app/command-line-tool.html) is installed.
+1. Dump data from staging or production environments:
+````
+scalingo -a reso-staging db-tunnel SCALINGO_POSTGRESQL_URL
+# In another terminal
+scalingo -a reso-staging env # gives you the database password
+pg_dump --no-owner --no-acl reso_stagin_5827 > tmp/export.pgsql  -h localhost -p 10000 -U reso_stagin_5827 -o
+````
 
-1. Recreate your development database: `rake db:drop && rake db:create`
-2. Create a tunnel: `scalingo -a reso-staging db-tunnel SCALINGO_POSTGRESQL_URL`
-3. Create a database dump: `pg_dump reso_stagin_5827 > tmp/export.pgsql  -h localhost -p 10000 -U reso_stagin_5827 -o`
-4. Import the dump in your local development database: `psql reso-development -f tmp/export.pgsql -U postgres`
-5. Run migrations: `rake db:migrate && rake db:migrate RAILS_ENV=test`
+````
+scalingo -a reso-production db-tunnel SCALINGO_POSTGRESQL_URL
+# In another terminal
+scalingo -a reso-production env # gives you the database password
+pg_dump --no-owner --no-acl e_conseils_2947 > tmp/export.pgsql  -h localhost -p 10000 -U e_conseils_2947 -o
+````
 
-Make sure data is anonymous to preserve users privacy.
+2. Import the dump in the local database: 
+````
+rake db:drop db:create
+psql reso-development -f tmp/export.pgsql -U postgres
+rake db:migrate # If your local app has pending migrations
+rake db:environment:set RAILS_ENV=development # If you imported data from the production environment
+````
 
 ## Emails
 
