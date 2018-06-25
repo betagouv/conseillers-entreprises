@@ -15,7 +15,7 @@
       - results.each do |etablissement|
         %a.item{ href: company_path(etablissement.siret) }
           .ui.medium.header
-            =etablissement.nom.upcase
+            = etablissement.nom.upcase
             - if etablissement.enseigne.present?
               .ui.text.small
                 .content= etablissement.enseigne.capitalize

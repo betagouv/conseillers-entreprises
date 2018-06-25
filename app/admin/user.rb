@@ -92,7 +92,7 @@ ActiveAdmin.register User do
       if params[:user][:password].blank?
         resource.update_without_password(permitted_params.require(:user))
       else
-        resource.update_attributes(permitted_params.require(:user))
+        resource.update(permitted_params.require(:user))
       end
     end
 

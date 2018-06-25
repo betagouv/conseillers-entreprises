@@ -13,7 +13,7 @@ RSpec.describe Api::DiagnosesController, type: :controller do
     it('returns http success') do
       get :show, format: :json, params: { id: diagnosis.id }
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -54,7 +54,7 @@ RSpec.describe Api::DiagnosesController, type: :controller do
     context 'when parameters are OK' do
       before { request }
 
-      it('returns http success') { expect(response).to have_http_status(:success) }
+      it('returns http success') { expect(response).to be_successful }
       it('updates the diagnosis s content') { expect(diagnosis.reload.content).to eq(new_content) }
       it('updates the diagnosis s step') { expect(diagnosis.reload.step).to eq(new_step) }
     end

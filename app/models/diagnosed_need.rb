@@ -8,8 +8,8 @@ class DiagnosedNeed < ApplicationRecord
 
   validates :diagnosis, presence: true
 
-  scope :of_diagnosis, (->(diagnosis) { where(diagnosis: diagnosis) })
-  scope :of_question, (->(question) { where(question: question) })
+  scope :of_diagnosis, (-> (diagnosis) { where(diagnosis: diagnosis) })
+  scope :of_question, (-> (question) { where(question: question) })
   scope :of_expert, (lambda do |expert|
     joins(:matches).merge(Match.of_expert(expert))
   end)

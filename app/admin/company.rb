@@ -24,9 +24,9 @@ ActiveAdmin.register Company do
 
     panel I18n.t('active_admin.territories.contacted_experts') do
       table_for Match.of_facilities(company.facilities)
-                    .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
-                    .includes(:expert)
-                    .order(created_at: :desc) do
+        .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
+        .includes(:expert)
+        .order(created_at: :desc) do
         column(:id) do |match|
           link_to(match.id, admin_match_path(match))
         end
@@ -51,6 +51,5 @@ ActiveAdmin.register Company do
         end
       end
     end
-
   end
 end

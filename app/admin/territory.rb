@@ -3,9 +3,8 @@
 ActiveAdmin.register Territory do
   menu priority: 8
   permit_params :name,
-                :city_codes,
-                territory_cities: %i[id city_code _create _update _destroy]
-
+    :city_codes,
+    territory_cities: %i[id city_code _create _update _destroy]
 
   show do
     attributes_table do
@@ -37,9 +36,9 @@ ActiveAdmin.register Territory do
 
     panel I18n.t('active_admin.territories.contacted_experts') do
       table_for Match.in_territory(territory)
-                    .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
-                    .includes(:expert)
-                    .order(created_at: :desc) do
+        .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
+        .includes(:expert)
+        .order(created_at: :desc) do
         column(:id) do |match|
           link_to(match.id, admin_match_path(match))
         end
@@ -64,7 +63,6 @@ ActiveAdmin.register Territory do
         end
       end
     end
-
   end
 
   form do |f|

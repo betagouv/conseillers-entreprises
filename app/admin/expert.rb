@@ -68,18 +68,18 @@ ActiveAdmin.register Expert do
 
     f.inputs I18n.t('active_admin.experts.territories') do
       f.has_many :expert_territories,
-                 heading: false,
-                 new_record: I18n.t('active_admin.experts.add_territory'),
-                 allow_destroy: true do |expert_territory|
+        heading: false,
+        new_record: I18n.t('active_admin.experts.add_territory'),
+        allow_destroy: true do |expert_territory|
         expert_territory.input :territory, label: I18n.t('active_admin.experts.territory')
       end
     end
 
     f.inputs I18n.t('active_admin.experts.assistances') do
       f.has_many :assistances_experts,
-                 heading: false,
-                 new_record: I18n.t('active_admin.experts.add_assistance'),
-                 allow_destroy: true do |assistance_expert|
+        heading: false,
+        new_record: I18n.t('active_admin.experts.add_assistance'),
+        allow_destroy: true do |assistance_expert|
         assistance_expert.input :assistance, label: I18n.t('active_admin.experts.assistance')
       end
     end

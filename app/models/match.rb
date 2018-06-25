@@ -18,12 +18,12 @@ class Match < ApplicationRecord
   after_update :update_closed_at
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
-  scope :of_expert, (->(expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })
-  scope :of_relay, (->(relay) { where(relay: relay) })
+  scope :of_expert, (-> (expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })
+  scope :of_relay, (-> (relay) { where(relay: relay) })
   scope :of_diagnoses, (lambda do |diagnoses|
     joins(diagnosed_need: :diagnosis).where(diagnosed_needs: { diagnosis: diagnoses })
   end)
-  scope :with_status, (->(status) { where(status: status) })
+  scope :with_status, (-> (status) { where(status: status) })
   scope :updated_more_than_five_days_ago, (-> { where('updated_at < ?', 5.days.ago) })
   scope :needing_taking_care_update, (-> { with_status(:taking_care).updated_more_than_five_days_ago })
   scope :with_no_one_in_charge, (lambda do
@@ -31,8 +31,8 @@ class Match < ApplicationRecord
     where(diagnosed_need_id: ids).updated_more_than_five_days_ago
   end)
 
-  scope :in_territory, (->(territory) { of_diagnoses(Diagnosis.in_territory(territory))})
-  scope :of_facilities, (->(facilities) { of_diagnoses(Diagnosis.of_facilities(facilities))})
+  scope :in_territory, (-> (territory) { of_diagnoses(Diagnosis.in_territory(territory)) })
+  scope :of_facilities, (-> (facilities) { of_diagnoses(Diagnosis.of_facilities(facilities)) })
 
   def status_closed?
     status_done? || status_not_for_me?

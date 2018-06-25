@@ -14,16 +14,16 @@ describe 'experts feature', type: :feature do
     assistance_expert = create :assistance_expert, expert: expert
 
     create :match,
-           assistance_expert: assistance_expert,
-           diagnosed_need: diagnosed_need,
-           status: :quo
+      assistance_expert: assistance_expert,
+      diagnosed_need: diagnosed_need,
+      status: :quo
 
     visit diagnosis_experts_path(diagnosis_id: diagnosis.id, access_token: expert.access_token)
   end
 
   it 'displays diagnosis page' do
     expect(page).to have_content(diagnosed_need.question)
-    expect(page).to have_content(I18n.t('experts.expert_buttons.i_take_care'))
-    expect(page).to have_content(I18n.t('experts.expert_buttons.not_for_me'))
+    expect(page.html).to include(I18n.t('experts.expert_buttons.i_take_care'))
+    expect(page.html).to include(I18n.t('experts.expert_buttons.not_for_me'))
   end
 end

@@ -14,7 +14,7 @@ RSpec.describe DiagnosesController, type: :controller do
 
       get :index
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe DiagnosesController, type: :controller do
 
       get :print, format: :pdf
 
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe DiagnosesController, type: :controller do
     before { allow(UseCases::GetStep2Data).to receive(:for_diagnosis).with(diagnosis) }
 
     context 'diagnosis step < last' do
-      it('returns http success') { expect(response).to have_http_status(:success) }
+      it('returns http success') { expect(response).to be_successful }
     end
 
     context 'diagnosis step == last' do
@@ -54,7 +54,7 @@ RSpec.describe DiagnosesController, type: :controller do
     subject(:request) { get :step3, params: { id: diagnosis.id } }
 
     context 'diagnosis step < last' do
-      it('returns http success') { expect(response).to have_http_status(:success) }
+      it('returns http success') { expect(response).to be_successful }
     end
 
     context 'diagnosis step == last' do
@@ -76,7 +76,7 @@ RSpec.describe DiagnosesController, type: :controller do
     before { allow(UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts).to receive(:of_diagnosis).with(diagnosis) }
 
     context 'diagnosis step < last' do
-      it('returns http success') { expect(response).to have_http_status(:success) }
+      it('returns http success') { expect(response).to be_successful }
     end
 
     context 'diagnosis step == last' do
@@ -113,7 +113,7 @@ RSpec.describe DiagnosesController, type: :controller do
 
       it 'has called the right methods' do
         expect(UseCases::SaveAndNotifyDiagnosis).to have_received(:perform).with(diagnosis,
-                                                                                 matches)
+          matches)
       end
     end
   end
@@ -122,7 +122,7 @@ RSpec.describe DiagnosesController, type: :controller do
     subject(:request) { get :step5, params: { id: diagnosis.id } }
 
     context 'current user can access the diagnosis' do
-      it('returns http success') { expect(response).to have_http_status(:success) }
+      it('returns http success') { expect(response).to be_successful }
     end
 
     context 'current user should not access the diagnosis' do

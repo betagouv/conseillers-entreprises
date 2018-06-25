@@ -55,8 +55,8 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
 
       it 'includes the rightly filtered assistance experts' do
         returned_assistance_experts = diagnosed_needs.map(&:question)
-                                                     .flat_map(&:assistances)
-                                                     .flat_map(&:filtered_assistances_experts)
+          .flat_map(&:assistances)
+          .flat_map(&:filtered_assistances_experts)
         expect(returned_assistance_experts).to contain_exactly(assistance_expert_for_artisanry)
       end
 

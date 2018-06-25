@@ -1,8 +1,10 @@
 %td.expert-owner-button-cell{ colspan: 3 }
   :ruby
-    default_url_params = { action: 'update_status',
-                           match_id: match.id,
-                           access_token: params[:access_token] }
+    default_url_params = {
+      action: 'update_status',
+      match_id: match.id,
+      access_token: params[:access_token]
+    }
     status_quo_link_params = default_url_params.merge(status: :quo)
     taking_care_link_params = default_url_params.merge(status: :taking_care)
     done_link_params = default_url_params.merge(status: :done)

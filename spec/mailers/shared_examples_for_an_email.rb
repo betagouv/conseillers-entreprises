@@ -20,7 +20,7 @@ shared_examples_for 'an email' do
   end
 
   it 'has all i18n variables injected' do
-    expect(mail.body).not_to match(/%\{[a-z_]+\}/)
-    expect(mail.subject).not_to match(/%\{[a-z_]+\}/)
+    expect(mail.body).not_to match(/%{[a-z_]+}/)
+    expect(mail.subject).not_to match(/%{[a-z_]+}/)
   end
 end

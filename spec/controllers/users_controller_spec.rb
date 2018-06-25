@@ -8,7 +8,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET #show' do
     it do
       get :show
-      expect(response).to have_http_status(:success)
+      expect(response).to be_successful
     end
   end
 end

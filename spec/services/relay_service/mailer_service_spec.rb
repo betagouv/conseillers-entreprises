@@ -11,7 +11,7 @@ describe RelayService::MailerService do
     let(:not_admin_user) { create :user, is_admin: false }
 
     before do
-      allow(RelayMailer).to receive(:delay) { RelayMailer }
+      allow(RelayMailer).to receive(:delay).and_return(RelayMailer)
       allow(RelayMailer).to receive(:weekly_statistics).and_call_original
     end
 

@@ -44,9 +44,8 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = :debug
+  # Use a reasonable log level
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -84,18 +83,18 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.middleware.use ExceptionNotification::Rack,
-                        email: {
-                          email_prefix: '[Erreur Réso] ',
-                          sender_address: "\"Erreur Réso\" <#{ENV['DO_NOT_REPLY_EMAIL']}>",
-                          exception_recipients: [ENV['APPLICATION_EMAIL']]
-                        },
-                        slack: {
-                          webhook_url: ENV['SLACK_WEBHOOK_URL'],
-                          channel: '#startup-reso-dev',
-                          username: 'Réso Production',
-                          additional_parameters: {
-                            icon_emoji: ':boom:',
-                            mrkdwn: true
-                          }
-                        }
+    email: {
+      email_prefix: '[Erreur Réso] ',
+      sender_address: "\"Erreur Réso\" <#{ENV['DO_NOT_REPLY_EMAIL']}>",
+      exception_recipients: [ENV['APPLICATION_EMAIL']]
+    },
+    slack: {
+      webhook_url: ENV['SLACK_WEBHOOK_URL'],
+      channel: '#startup-reso-dev',
+      username: 'Réso Production',
+      additional_parameters: {
+        icon_emoji: ':boom:',
+        mrkdwn: true
+      }
+    }
 end

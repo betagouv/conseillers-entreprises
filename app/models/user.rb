@@ -16,10 +16,10 @@ class User < ApplicationRecord
 
   # Inspired by Devise validatable module
   validates :email,
-            uniqueness: true,
-            format: { with: Devise.email_regexp },
-            allow_blank: true,
-            if: :will_save_change_to_email?
+    uniqueness: true,
+    format: { with: Devise.email_regexp },
+    allow_blank: true,
+    if: :will_save_change_to_email?
 
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?
@@ -41,7 +41,7 @@ class User < ApplicationRecord
         .merge(Search.where(created_at: date))
         .uniq
   end)
-  
+
   scope :active_diagnosers, (lambda do |date, minimum_step|
     joins(visits: :diagnosis)
         .merge(Diagnosis.only_active

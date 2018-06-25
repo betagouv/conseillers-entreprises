@@ -22,7 +22,7 @@ describe 'relays feature', type: :feature do
 
   it 'displays diagnosis page' do
     expect(page).to have_content(diagnosed_need.question)
-    expect(page).to have_content(I18n.t('experts.expert_buttons.i_take_care'))
-    expect(page).to have_content(I18n.t('experts.expert_buttons.not_for_me'))
+    expect(page.html).to include(I18n.t('experts.expert_buttons.i_take_care'))
+    expect(page.html).to include(I18n.t('experts.expert_buttons.not_for_me'))
   end
 end

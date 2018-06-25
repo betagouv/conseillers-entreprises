@@ -2,7 +2,6 @@
 
 module SireneApi
   class SireneSearch
-
     def self.search(query)
       cleanquery = cleanquery(query)
       connection = HTTP
@@ -12,8 +11,8 @@ module SireneApi
 
     def self.cleanquery(query)
       query = I18n.transliterate(query, locale: :fr)
-                  .strip
-                  .squeeze(' ')
+        .strip
+        .squeeze(' ')
       ERB::Util.url_encode(query)
     end
 
