@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnoses, only: %i[index destroy] do
+  resources :diagnoses, only: %i[index show destroy] do
     collection do
       get 'print'
     end

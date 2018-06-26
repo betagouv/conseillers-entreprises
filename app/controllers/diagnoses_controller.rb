@@ -10,6 +10,12 @@ class DiagnosesController < ApplicationController
     render 'print.pdf'
   end
 
+  def show
+    diagnosis = Diagnosis.only_active.find(params[:id])
+    check_current_user_access_to(diagnosis)
+    redirect_to action: "step#{diagnosis.step}", id: diagnosis
+  end
+
   def step2
     @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
     @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
