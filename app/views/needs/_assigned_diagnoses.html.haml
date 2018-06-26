@@ -1,6 +1,6 @@
 - assigned_diagnoses = Diagnosis.of_relay_or_expert(relay_or_expert)
 - if assigned_diagnoses.present?
-  .ui.segments
+  .ui.segments.shadow-less
     %h3.ui.segment.block.header
       = title
     - assigned_diagnoses.each do |diagnosis|
