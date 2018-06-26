@@ -2,7 +2,7 @@ fr:
   layouts:
     navbar:
       diagnoses: Analyses
-      relay_dashboard: Mon tableau de bord
+      relay_dashboard: Territoires
       know_more: En savoir plus
       sign_out: Me déconnecter
       dashboard: Admin

@@ -12,4 +12,21 @@ class Relay < ApplicationRecord
     joins(territory: :territory_cities)
       .where(territories: { territory_cities: { city_code: diagnosis.visit.facility.city_code } })
   end)
+
+  def territory_diagnoses
+    Diagnosis.only_active
+      .includes(visit: [:advisor, facility: [:company]])
+      .includes(diagnosed_needs: [:question, :matches])
+      .in_territory(self.territory)
+      .reverse_chronological
+  end
+
+  def assigned_diagnoses
+    Diagnosis.only_active
+      .includes(visit: [facility: :company])
+      .joins(:diagnosed_needs)
+      .merge(DiagnosedNeed.of_relay(self))
+      .order('visits.happened_on desc', 'visits.created_at desc')
+      .distinct
+  end
 end

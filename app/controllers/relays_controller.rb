@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class RelaysController < ApplicationController
-  def diagnoses
-    @relay = Relay.of_user(current_user)
-    @diagnoses = Diagnosis.joins(:diagnosed_needs)
-      .merge(DiagnosedNeed.of_relay(@relay))
-      .distinct
+  def index
+    @relays = current_user.relays.joins(:territory).order('territories.name')
+  end
+
+  def show
+    @relay = Relay.find params[:id]
   end
 
   def diagnosis

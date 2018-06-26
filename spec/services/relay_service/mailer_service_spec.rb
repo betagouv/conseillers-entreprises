@@ -5,8 +5,8 @@ require 'rails_helper'
 describe RelayService::MailerService do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
-  describe 'send_statistics_email' do
-    subject(:send_statistics_email) { described_class.send_statistics_email }
+  describe 'send_relay_stats_emails' do
+    subject(:send_relay_stats_emails) { described_class.send_relay_stats_emails }
 
     let(:not_admin_user) { create :user, is_admin: false }
 
@@ -33,7 +33,7 @@ describe RelayService::MailerService do
       end
 
       context 'no data' do
-        before { send_statistics_email }
+        before { send_relay_stats_emails }
 
         it 'sends one email' do
           expect(RelayMailer).to have_received(:weekly_statistics).once.with(
@@ -70,7 +70,7 @@ describe RelayService::MailerService do
           create :diagnosis, step: 1, visit: visit1, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
           create_list :match, 3, diagnosed_need: diagnosed_need
 
-          send_statistics_email
+          send_relay_stats_emails
         end
 
         it 'sends one email with data' do
