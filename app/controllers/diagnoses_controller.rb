@@ -16,29 +16,30 @@ class DiagnosesController < ApplicationController
     redirect_to action: "step#{diagnosis.step}", id: diagnosis
   end
 
+  def destroy
+    diagnosis = Diagnosis.find params[:id]
+    check_current_user_access_to(diagnosis)
+    diagnosis.archive!
+    redirect_to diagnoses_path
+  end
+
   def step2
-    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
+    @diagnosis = diagnostic_in_progress(params[:id])
     @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
   end
 
   def step3
-    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
+    @diagnosis = diagnostic_in_progress(params[:id])
   end
 
   def step4
-    @diagnosis = fetch_and_check_diagnosis_by_id params[:id]
+    @diagnosis = diagnostic_in_progress(params[:id])
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
     @relays_full_names = Relay.of_diagnosis_location(@diagnosis).map(&:user).map(&:full_name)
   end
 
-  def step5
-    associations = [visit: [:visitee, facility: [:company]], diagnosed_needs: [:matches]]
-    @diagnosis = Diagnosis.includes(associations).find params[:id]
-    check_current_user_access_to(@diagnosis)
-  end
-
   def notify
-    diagnosis = fetch_and_check_diagnosis_by_id params[:id]
+    diagnosis = diagnostic_in_progress(params[:id])
     experts = params[:matches]
     if experts.present?
       UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:matches]
@@ -47,25 +48,22 @@ class DiagnosesController < ApplicationController
     end
   end
 
-  def destroy
-    diagnosis = Diagnosis.find params[:id]
-    check_current_user_access_to(diagnosis)
-    diagnosis.archive!
-    redirect_to diagnoses_path
+  def step5
+    associations = [visit: [:visitee, facility: [:company]], diagnosed_needs: [:matches]]
+    @diagnosis = Diagnosis.includes(associations).find params[:id]
+    check_current_user_access_to(@diagnosis)
   end
 
   private
 
-  def fetch_and_check_diagnosis_by_id(diagnosis_id)
-    diagnosis = Diagnosis.only_active.find diagnosis_id
-    check_availability_of_diagnosis(diagnosis)
+  def diagnostic_in_progress(diagnosis_id)
+    diagnosis = Diagnosis.only_active.find(diagnosis_id)
     check_current_user_access_to(diagnosis)
-    diagnosis
-  end
 
-  def check_availability_of_diagnosis(diagnosis)
     if diagnosis.step == Diagnosis::LAST_STEP
       not_found
     end
+
+    diagnosis
   end
 end
