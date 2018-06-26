@@ -3,16 +3,16 @@
 module RelayService
   class MailerService
     class << self
-      def send_statistics_email
+      def send_relay_stats_emails
         relays = Relay.all.includes(territory: :territory_cities)
         relays.each do |relay|
-          send_statistics_email_to relay
+          send_relay_stats_email_to(relay)
         end
       end
 
       private
 
-      def send_statistics_email_to(relay)
+      def send_relay_stats_email_to(relay)
         diagnoses = relay.territory_diagnoses
 
         information_hash = generate_statistics_hash diagnoses
