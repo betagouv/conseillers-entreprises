@@ -3,6 +3,9 @@
 class RelaysController < ApplicationController
   def index
     @relays = current_user.relays.joins(:territory).order('territories.name')
+    if @relays.count == 1
+      redirect_to relay_path(@relays.first)
+    end
   end
 
   def show
