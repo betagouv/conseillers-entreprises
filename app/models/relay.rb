@@ -20,4 +20,13 @@ class Relay < ApplicationRecord
       .in_territory(self.territory)
       .reverse_chronological
   end
+
+  def assigned_diagnoses
+    Diagnosis.only_active
+      .includes(visit: [facility: :company])
+      .joins(:diagnosed_needs)
+      .merge(DiagnosedNeed.of_relay(self))
+      .order('visits.happened_on desc', 'visits.created_at desc')
+      .distinct
+  end
 end

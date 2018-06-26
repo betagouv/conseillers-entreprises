@@ -10,7 +10,7 @@
           = t('.diagnoses')
       - if current_user.relays.present?
         .item
-          = link_to diagnoses_relays_path do
+          = link_to relays_path do
             = semantic_icon('dashboard')
             = t('.relay_dashboard')
     - else

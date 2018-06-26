@@ -1,18 +1,12 @@
 # frozen_string_literal: true
 
 class RelaysController < ApplicationController
-  def diagnoses
+  def index
     @relays = current_user.relays.joins(:territory).order('territories.name')
-    relay_diagnoses = @relays.map do |relay|
-      diagnoses = Diagnosis.only_active
-        .includes(visit: [facility: :company])
-        .joins(:diagnosed_needs)
-        .merge(DiagnosedNeed.of_relay(relay))
-        .order('visits.happened_on desc', 'visits.created_at desc')
-        .distinct
-      [relay, diagnoses]
-    end
-    @relay_diagnoses = relay_diagnoses.to_h
+  end
+
+  def show
+    @relay = Relay.find params[:id]
   end
 
   def diagnosis

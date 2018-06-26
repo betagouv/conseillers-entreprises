@@ -1,6 +1,7 @@
 fr:
   relays:
-    diagnoses:
+    index:
       title: Suivi des demandes
       no_diagnoses: Il n’y a aucune analyse sur laquelle vous êtes référent pour le moment.
       view: Afficher
+      summary: Résumé

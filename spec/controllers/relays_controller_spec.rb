@@ -5,10 +5,10 @@ require 'rails_helper'
 RSpec.describe RelaysController, type: :controller do
   login_user
 
-  describe 'GET #diagnoses' do
+  describe 'GET #index' do
     let(:diagnosis) { create :diagnosis }
 
-    before { get :diagnoses }
+    before { get :index }
 
     context 'current user is not relay' do
       it { expect(response).to be_successful }

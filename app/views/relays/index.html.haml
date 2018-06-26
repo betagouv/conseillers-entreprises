@@ -2,12 +2,15 @@
 
 %h2= t('.title')
 
-- @relay_diagnoses.each do |relay, diagnoses|
+- @relays.each do |relay|
+  - diagnoses = relay.assigned_diagnoses
   %table.ui.table
     %thead
       %tr
         %th
           = relay.territory.name
+          %a.ui.right.floated.circular{ href: relay_path(id: relay, format: 'csv') }
+            %i.download.icon.small
     %tbody
       - if diagnoses.empty?
         %tr
