@@ -18,8 +18,8 @@ class RelaysController < ApplicationController
 ]
     @diagnosis = Diagnosis.includes(associations).find(params[:diagnosis_id])
     check_relay_access
-    @current_user_diagnosed_needs = @diagnosis.diagnosed_needs.of_relay(@relay)
-      .includes(:matches)
+    @current_user_diagnosed_needs = @diagnosis.needs_for(@relay)
+
     render 'experts/diagnosis'
   end
 
