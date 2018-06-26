@@ -32,8 +32,7 @@
             %td.collapsing
               %h5.ui.header.disabled= t("diagnoses.step#{diagnosis.step}.title")
             %td.collapsing.no-left-padding
-              = link_to t('.continue_diagnosis'),
-              { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
+              = link_to t('.continue_diagnosis'), diagnosis_path(diagnosis),
               class: 'ui positive basic tiny button'
             %td.collapsing.no-left-padding
               - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
@@ -67,8 +66,7 @@
                       = t('.solved_needs', count: diagnosis.diagnosed_needs_count,
                        solved_needs_count: diagnosis.solved_needs_count)
             %td.collapsing.no-left-padding
-              = link_to t('.show_summary'),
-              { controller: 'diagnoses', action: "step#{diagnosis.step}", id: diagnosis },
+              = link_to t('.show_summary'), diagnosis_path(diagnosis),
               class: 'ui positive basic tiny button'
             %td.collapsing.no-left-padding
               - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
