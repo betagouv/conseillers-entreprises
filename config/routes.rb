@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :diagnoses, only: %i[index destroy] do
+  resources :diagnoses, only: %i[index show destroy] do
     collection do
       get 'print'
     end
@@ -53,9 +53,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :relays, only: %i[] do
+  resources :relays, only: %i[index show] do
     collection do
-      get :diagnoses
       get 'diagnoses/:diagnosis_id' => 'relays#diagnosis', as: :diagnosis
       patch :update_status
     end

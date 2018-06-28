@@ -16,8 +16,11 @@ module UseCases
         all_assistances_experts_in_scope = AssistanceExpert.of_city_code(diagnosis.visit.facility.city_code)
           .of_naf_code(diagnosis.visit.facility.naf_code)
         diagnosed_needs.each do |diagnosed_need|
-          diagnosed_need.question.assistances.each do |assistance|
-            assistance.filtered_assistances_experts = assistance.assistances_experts & all_assistances_experts_in_scope
+          question = diagnosed_need.question # the underlying question might have been deleted by admins
+          if question.present?
+            diagnosed_need.question.assistances.each do |assistance|
+              assistance.filtered_assistances_experts = assistance.assistances_experts & all_assistances_experts_in_scope
+            end
           end
         end
       end

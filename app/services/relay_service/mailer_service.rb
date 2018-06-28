@@ -3,27 +3,20 @@
 module RelayService
   class MailerService
     class << self
-      def send_statistics_email
+      def send_relay_stats_emails
         relays = Relay.all.includes(territory: :territory_cities)
         relays.each do |relay|
-          send_statistics_email_to relay
+          send_relay_stats_email_to(relay)
         end
       end
 
       private
 
-      def send_statistics_email_to(relay)
-        associations = [visit: [:advisor, facility: [:company]],
-                        diagnosed_needs: %i[question matches]
-]
-        not_admin_territory_diagnoses = Diagnosis.only_active
-          .includes(associations)
-          .of_user(User.not_admin) # remove this and send territory emails to admins?
-          .in_territory(relay.territory)
-          .reverse_chronological
+      def send_relay_stats_email_to(relay)
+        diagnoses = relay.territory_diagnoses
 
-        information_hash = generate_statistics_hash not_admin_territory_diagnoses
-        stats_csv = RelayService::CSVGenerator.generate_statistics_csv(not_admin_territory_diagnoses)
+        information_hash = generate_statistics_hash diagnoses
+        stats_csv = RelayService::CSVGenerator.generate_statistics_csv(diagnoses)
 
         RelayMailer.delay.weekly_statistics(relay, information_hash, stats_csv)
       end

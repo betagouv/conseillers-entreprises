@@ -78,6 +78,7 @@ class ExpertMailersService
         diagnosis_id: diagnosis.id,
         visit_date: diagnosis.visit.happened_on,
         company_name: diagnosis.visit.company_name,
+        company_description: diagnosis.visit.company_description,
         readable_locality: diagnosis.visit.facility.readable_locality,
         company_contact: diagnosis.visit.visitee,
         questions_with_needs_description: expert_hash[:questions_with_needs_description]
