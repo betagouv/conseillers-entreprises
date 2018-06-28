@@ -37,12 +37,17 @@ ActiveAdmin.register Territory do
     panel I18n.t('active_admin.territories.contacted_experts') do
       table_for Match.in_territory(territory)
         .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
+        .includes(diagnosed_need: [diagnosis: [visit: :advisor]])
         .includes(:expert)
         .order(created_at: :desc) do
         column(:id) do |match|
           link_to(match.id, admin_match_path(match))
         end
         column :created_at
+        column(I18n.t('activerecord.attributes.visit.advisor')) do |match|
+          advisor = match.diagnosed_need.diagnosis.visit.advisor
+          link_to(advisor.full_name_with_role, admin_user_path(advisor))
+        end
         column(I18n.t('activerecord.attributes.visit.facility')) do |match|
           match.diagnosed_need&.diagnosis&.visit&.facility
         end
