@@ -5,6 +5,7 @@ class Expert < ApplicationRecord
 
   belongs_to :institution
 
+  has_many :users
   has_many :assistances_experts, dependent: :destroy
   has_many :assistances, through: :assistances_experts
   has_many :matches, through: :assistances_experts
