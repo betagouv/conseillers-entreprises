@@ -11,6 +11,7 @@ ActiveAdmin.register Expert do
     :institution_id,
     :email,
     :phone_number,
+    user_ids: [], # [] means we can pass multiple values to user_ids.
     expert_territories_attributes: %i[id territory_id _create _update _destroy],
     assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
   ]
@@ -70,6 +71,14 @@ ActiveAdmin.register Expert do
       f.input :institution, collection: Institution.ordered_by_name
       f.input :email
       f.input :phone_number
+    end
+
+    f.inputs t('activerecord.models.user.other') do
+      f.input :users, as: :ajax_select, data: {
+        url: :filter_admin_users_path,
+        search_fields: [:first_name, :last_name, :role, :email],
+        limit: 999,
+      }
     end
 
     f.inputs I18n.t('active_admin.experts.territories') do

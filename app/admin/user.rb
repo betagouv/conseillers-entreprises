@@ -3,7 +3,7 @@
 ActiveAdmin.register User do
   menu priority: 2
   permit_params %i[
-    first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role
+    first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role expert_id
     is_admin password password_confirmation
   ]
 
@@ -39,7 +39,12 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :email
-      f.input :expert
+      f.input :expert, as: :ajax_select, data: {
+        url: :admin_experts_path,
+        search_fields: [:full_name],
+        limit: 999,
+      }
+
       f.input :institution
       f.input :role
       f.input :phone_number
