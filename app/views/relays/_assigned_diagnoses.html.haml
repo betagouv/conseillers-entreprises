@@ -1,0 +1,25 @@
+- assigned_diagnoses = relay.assigned_diagnoses
+- if assigned_diagnoses.present?
+  .ui.segments
+    %h3.ui.segment.block.header
+      = link_to(relay.territory.name, relay_path(relay))
+    - assigned_diagnoses.each do |diagnosis|
+      .ui.segments.horizontal
+        .ui.segment
+          %h4.ui.header
+            = link_to(diagnosis.visit.company_name, diagnosis_relays_path(diagnosis))
+            .sub.header
+              %i.map.marker.alternate.icon
+              - facility = diagnosis.visit.facility
+              .content= facility.readable_locality || facility.city_code
+            .sub.header
+              %i.calendar.icon
+              - date = diagnosis.visit.happened_on || diagnosis.visit.created_at.to_date
+              .content= I18n.l(date, format: '%-d %B %Y')
+        .ui.segment
+          %h4.ui.header
+            = t('relays.needs_for_me')
+            - diagnosis.needs_for(relay).each do |need|
+              .sub.header
+                = need.question_label + ' : '
+                = t("activerecord.attributes.match.statuses.#{need.matches.first.status}")

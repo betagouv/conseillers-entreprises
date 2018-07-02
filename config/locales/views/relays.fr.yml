@@ -1,5 +1,6 @@
 fr:
   relays:
     index:
-      title: Suivi des territoires
-      no_diagnoses: Aucune analyse dont vous êtes référent.
+      title: Suivi des demandes
+    assigned_diagnoses: Demandes reçues en tant que relais local
+    needs_for_me: Besoins me concernant

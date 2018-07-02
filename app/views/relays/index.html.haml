@@ -1,32 +1,7 @@
 - meta title: t('.title')
 
-%h2= t('.title')
+%h2.ui.header
+  = t('relays.assigned_diagnoses')
 
 - @relays.each do |relay|
-  - diagnoses = relay.assigned_diagnoses
-  %table.ui.table
-    %thead
-      %tr
-        %th
-          = relay.territory.name
-          %a.ui.right.floated.circular{ href: relay_path(id: relay, format: 'csv') }
-            %i.download.icon.small
-    %tbody
-      - if diagnoses.empty?
-        %tr
-          %td
-            = t('.no_diagnoses')
-      - else
-        - diagnoses.each do |diagnosis|
-          %tr
-            %td.selectable
-              %a{ href: diagnosis_relays_path(diagnosis.id) }
-                .ui.text.medium
-                  = diagnosis.visit.company_description
-                - date = diagnosis.visit.happened_on || diagnosis.visit.created_at.to_date
-                .ui.text.small
-                  %i.calendar.icon
-                  = I18n.l date
-                .ui.text.small
-                  %i.user.icon
-                  = diagnosis.visit.advisor
+  = render partial: 'assigned_diagnoses', locals: { relay: relay }
