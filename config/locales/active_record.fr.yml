@@ -140,6 +140,7 @@ fr:
         phone_number: Numéro de téléphone
         access_token: Token d’accès
         territories: Territoires
+        assistances: Champs de compétence
         users: Équipe
       diagnosis:
         visit: Visite qui a fait l’objet de l’analyse
