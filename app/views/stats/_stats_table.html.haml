@@ -11,4 +11,5 @@
         %td
           = formatted_month
         - info.each do |header, value|
-          %td{ title: t(".tooltips.#{header}", month: formatted_month) } = value
+          %td{ title: t(".tooltips.#{header}", month: formatted_month) }
+            = value
