@@ -13,7 +13,7 @@ class ExpertsController < ApplicationController
 ]
     @diagnosis = Diagnosis.available_for_expert(@expert).includes(associations).find(params[:diagnosis_id])
     UseCases::UpdateExpertViewedPageAt.perform(diagnosis_id: params[:diagnosis_id].to_i, expert_id: @expert.id)
-    @current_user_diagnosed_needs = @diagnosis.diagnosed_needs.includes(:matches).of_expert(@expert)
+    @current_user_diagnosed_needs = @diagnosis.needs_for(@expert)
   end
 
   def update_status
