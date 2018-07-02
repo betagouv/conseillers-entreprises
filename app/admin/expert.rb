@@ -24,6 +24,7 @@ ActiveAdmin.register Expert do
     column :email
     column :institution
     column t('active_admin.experts.assistances_count'), (proc { |expert| expert.assistances.length })
+    column :users, (proc { |expert| expert.users.length })
     column(:territories) do |expert|
       safe_join(expert.territories.map do |territory|
         link_to territory.name, admin_territory_path(territory)
@@ -41,6 +42,11 @@ ActiveAdmin.register Expert do
       row :email
       row :phone_number
       row :access_token
+      row(:users) do |expert|
+        safe_join(expert.users.map do |user|
+          link_to user.full_name, admin_user_path(user)
+        end, ', '.html_safe)
+      end
       row(:territories) do |expert|
         safe_join(expert.territories.map do |territory|
           link_to territory.name, admin_territory_path(territory)

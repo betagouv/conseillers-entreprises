@@ -20,6 +20,7 @@ ActiveAdmin.register User do
     selectable_column
     id_column
     column :email
+    column :expert
     column :current_sign_in_at
     column :sign_in_count
     column :created_at
@@ -38,6 +39,7 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :email
+      f.input :expert
       f.input :institution
       f.input :role
       f.input :phone_number

@@ -86,6 +86,7 @@ fr:
         contact_page_order: Ordre sur la page Contact
         contact_page_role: Role sur la page Contact
         remember_me: Se souvenir de moi
+        expert: Équipe référents
       visit:
         happened_on: Date de la visite
         advisor: Conseiller visiteur
@@ -139,6 +140,7 @@ fr:
         phone_number: Numéro de téléphone
         access_token: Token d’accès
         territories: Territoires
+        users: Équipe
       diagnosis:
         visit: Visite qui a fait l’objet de l’analyse
         content: Description
