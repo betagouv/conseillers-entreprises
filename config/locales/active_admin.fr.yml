@@ -1,19 +1,20 @@
+---
 fr:
   active_admin:
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
-    user:
-      user_info: Informations utilisateur
-      admin: Admin
-      connection: Connexion
-    territories:
-      experts: Référents
-      relais: Relais locaux
-      contacted_experts: Mises en relation
     experts:
       access: Accès
     institutions:
       experts: Réferents
     matches:
-      deleted: '%{expert} (supprimé)'
+      deleted: "%{expert} (supprimé)"
+    territories:
+      contacted_experts: Mises en relation
+      experts: Référents
+      relais: Relais locaux
+    user:
+      admin: Admin
+      connection: Connexion
+      user_info: Informations utilisateur

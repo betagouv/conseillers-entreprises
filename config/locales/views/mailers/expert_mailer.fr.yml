@@ -1,28 +1,29 @@
+---
 fr:
   mailers:
     expert_mailer:
       notify_company_needs:
-        subject: "[Réso] L’entreprise %{company_name} a besoin de vous !"
-        hello: Bonjour,
         advisor_met_this_company_html: Dans le cadre de l’expérimentation %{link_to_root}, %{advisor_name}, conseiller en entreprise au sein de l’organisme %{advisor_institution}, a rencontré l’entreprise %{company_description} le %{visit_date}.
-        needs_are_relevant_with_your_skills: "L’entreprise a exprimé des besoins qui correspondent à votre compétence :"
-        more_info: "Informations complémentaires :"
+        by_clicking_here: en cliquant ici
         company_contact_with_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l’entreprise %{company_name}, joignable au %{company_contact_phone_number} ou à l’adresse e-mail %{company_contact_email}.
         company_contact_without_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l’entreprise %{company_name}, joignable à l’adresse e-mail %{company_contact_email}.
-        information_are_available_on_app_html: Les informations concernant la visite et l’entreprise sont accessibles sur Réso %{more_info_link}.
-        by_clicking_here: en cliquant ici
         contact_advisor_for_more_info: Pour plus d’informations, vous pouvez contacter %{advisor_name} au %{advisor_phone_number} ou à l’adresse e-mail %{advisor_email}.
+        hello: Bonjour,
+        information_are_available_on_app_html: Les informations concernant la visite et l’entreprise sont accessibles sur Réso %{more_info_link}.
+        more_info: 'Informations complémentaires :'
+        needs_are_relevant_with_your_skills: 'L’entreprise a exprimé des besoins qui correspondent à votre compétence :'
         regards: Bien cordialement,
         reso_team_html: L’équipe %{link_to_root}.
+        subject: "[Réso] L’entreprise %{company_name} a besoin de vous !"
       remind_involvement:
-        subject: "[Réso] Rappel : Des entreprises ont besoin de vous !"
         hello: Bonjour,
         here_is_a_summary_email_html: Voici l’e-mail récapitulatif hebdomadaire de %{link_to_root}.
         needs_taken_care_of: Besoins pris en charge
-        you_took_care_of_needs: Vous avez indiqué prendre en charge un besoin pour ces entreprises, y a-t-il eu du nouveau ? Merci de mettre à jour leur état si tel est le cas.
         needs_without_answer: Besoins restés sans réponse
-        some_companies_are_waiting_for_you: Ces entreprises ont des besoins auxquels personne n’a su répondre pour l’instant. Pouvez-vous apporter une solution ?
         regards: Bien cordialement,
         reso_team_html: L’équipe %{link_to_root}.
+        some_companies_are_waiting_for_you: Ces entreprises ont des besoins auxquels personne n’a su répondre pour l’instant. Pouvez-vous apporter une solution ?
+        subject: "[Réso] Rappel : Des entreprises ont besoin de vous !"
+        you_took_care_of_needs: Vous avez indiqué prendre en charge un besoin pour ces entreprises, y a-t-il eu du nouveau ? Merci de mettre à jour leur état si tel est le cas.
       reminders_match:
         show_information: Voir les informations

@@ -1,15 +1,16 @@
+---
 fr:
-  app_name: Réso
-  "yes": oui
-  "no": non
-  edit: Modifier
-  update: Mettre à jour
-  back: Retour
-  search: Rechercher
-  save: Sauvegarder
-  previous_step: Précédent
-  next_step: Passer à la suite
-  sign_up: S’inscrire
-  sign_in: Se connecter
-  contact_us: Contactez-nous
   admin_authentication_failure: Vous n’avez pas accès à cette page.
+  app_name: Réso
+  back: Retour
+  contact_us: Contactez-nous
+  edit: Modifier
+  next_step: Passer à la suite
+  'no': non
+  previous_step: Précédent
+  save: Sauvegarder
+  search: Rechercher
+  sign_in: Se connecter
+  sign_up: S’inscrire
+  update: Mettre à jour
+  'yes': oui
