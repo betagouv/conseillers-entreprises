@@ -30,8 +30,9 @@ ActiveAdmin.register User do
     column :is_approved
     column :sign_in_count
     column(:relays) { |user| user.relays.count }
-    column('Impersonate') { |user| link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id)) }
-    actions
+    actions dropdown: true do |user|
+      item t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
+    end
   end
 
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
@@ -82,7 +83,7 @@ ActiveAdmin.register User do
   end
 
   action_item :impersonate, only: :show do
-    link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
+    link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
   end
 
   # Form
