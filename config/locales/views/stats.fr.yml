@@ -1,36 +1,37 @@
+---
 fr:
   stats:
     index:
-      title: Statistiques
-      users_stats: Conseillers
       activity_stats: Activité
       download: Télécharger
+      title: Statistiques
+      users_stats: Conseillers
     stats_table:
-      date_range: Période
-      users:
-        registered: Inscrits
-        searchers: Chercheurs
-        visitors: Visiteurs
-        whose_match_taken_care_of: Aux besoins répondus
-        whose_match_done: Aux besoins résolus
       activity:
-        visits: Visites
-        match_taken_care_of: Prises en charge
-        match_done: Besoins résolus
-        match_not_for_me: Rejets
         diagnosed_needs: Besoins diagnostiqués
         diagnosed_needs_notified: Besoins transmis
+        match_done: Besoins résolus
+        match_not_for_me: Rejets
+        match_taken_care_of: Prises en charge
+        visits: Visites
+      date_range: Période
       tooltips:
+        activity:
+          diagnosed_needs: Besoins diagnostiqués en %{month}
+          diagnosed_needs_notified: Besoins diagnostiqués et transmis à des référents en %{month}
+          match_done: Mises en relation marquées comment ayant résolu le besoin en %{month}
+          match_not_for_me: Mises en relation rejetées (« Pas pour moi ») en %{month}
+          match_taken_care_of: Mises en relation prises en charge en %{month}
+          visits: Visites faites en %{month}
         users:
           registered: Conseillers inscrits en %{month}
           searchers: Conseillers qui ont fait (au moins) une recherche en %{month}
           visitors: Conseillers qui ont rédigé (au moins) une analyse en %{month}
-          whose_match_taken_care_of: Conseillers dont (au moins) une mise en relation a été prise en charge en %{month}
           whose_match_done: Conseillers dont (au moins) une mise en relation a été marquée comment ayant résolu le besoin en %{month}
-        activity:
-          visits: Visites faites en %{month}
-          match_taken_care_of: Mises en relation prises en charge en %{month}
-          match_done: Mises en relation marquées comment ayant résolu le besoin en %{month}
-          match_not_for_me: Mises en relation rejetées (« Pas pour moi ») en %{month}
-          diagnosed_needs: Besoins diagnostiqués en %{month}
-          diagnosed_needs_notified: Besoins diagnostiqués et transmis à des référents en %{month}
+          whose_match_taken_care_of: Conseillers dont (au moins) une mise en relation a été prise en charge en %{month}
+      users:
+        registered: Inscrits
+        searchers: Chercheurs
+        visitors: Visiteurs
+        whose_match_done: Aux besoins résolus
+        whose_match_taken_care_of: Aux besoins répondus
