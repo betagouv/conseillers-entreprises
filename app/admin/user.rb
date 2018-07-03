@@ -156,6 +156,18 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.experts_linked')
   end
 
+  if Rails.env.development?
+    batch_action 'DEBUG: Unlink all experts' do |ids|
+      batch_action_collection.find(ids).each do |user|
+        if user.experts.present?
+          user.experts = []
+          user.save!
+        end
+      end
+      redirect_back fallback_location: collection_path, notice: 'All experts were unlinked'
+    end
+  end
+
   controller do
     def update
       send_approval_emails
