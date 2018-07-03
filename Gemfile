@@ -41,6 +41,7 @@ gem 'user_impersonate2', require: 'user_impersonate'
 
 # Misc
 gem 'activeadmin'
+gem 'activeadmin-ajax_filter'
 gem 'http'
 gem 'jbuilder'
 gem 'mailjet'

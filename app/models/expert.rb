@@ -5,6 +5,7 @@ class Expert < ApplicationRecord
 
   belongs_to :institution
 
+  has_many :users
   has_many :assistances_experts, dependent: :destroy
   has_many :assistances, through: :assistances_experts
   has_many :matches, through: :assistances_experts
@@ -14,6 +15,7 @@ class Expert < ApplicationRecord
 
   accepts_nested_attributes_for :assistances_experts, allow_destroy: true
   accepts_nested_attributes_for :expert_territories, allow_destroy: true
+  accepts_nested_attributes_for :users, allow_destroy: true
 
   validates :institution, :email, :access_token, presence: true
   validates :access_token, uniqueness: true
