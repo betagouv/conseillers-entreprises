@@ -74,6 +74,20 @@ class User < ApplicationRecord
     end
   end
 
+  def corresponding_experts
+    Expert.where(email: self.email)
+  end
+
+  def autolink_experts!
+    if self.experts.empty?
+      corresponding = self.corresponding_experts
+      if corresponding.present?
+        self.experts = corresponding
+        self.save!
+      end
+    end
+  end
+
   protected
 
   # Inspired by Devise validatable module
