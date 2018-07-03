@@ -37,7 +37,7 @@ ActiveAdmin.register Assistance do
       row :description
     end
 
-    panel I18n.t('active_admin.assistances.experts') do
+    panel I18n.t('activerecord.attributes.assistance.experts') do
       table_for assistance.experts.includes(:territories) do
         column :full_name, (proc { |expert| link_to(expert.full_name, admin_expert_path(expert)) })
         column :role
@@ -57,16 +57,6 @@ ActiveAdmin.register Assistance do
       f.input :title
       f.input :description
     end
-
-    f.inputs I18n.t('active_admin.assistances.experts') do
-      f.has_many :assistances_experts,
-        heading: false,
-        new_record: I18n.t('active_admin.assistances.add_expert'),
-        allow_destroy: true do |assistance_expert|
-        assistance_expert.input :expert, label: I18n.t('active_admin.assistances.expert')
-      end
-    end
-
     f.actions
   end
 

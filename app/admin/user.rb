@@ -3,62 +3,27 @@
 ActiveAdmin.register User do
   menu priority: 2
   permit_params %i[
-    first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role
+    first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role expert_id
     is_admin password password_confirmation
   ]
 
-  collection_action :send_invitation_emails, method: :post do
-    UserMailer.delay.send_new_user_invitation(params)
-    redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
-  end
-
-  action_item :impersonate, only: :show do
-    link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
-  end
-
+  # Index
+  #
   index do
     selectable_column
     id_column
+    column :full_name
     column :email
-    column :current_sign_in_at
-    column :sign_in_count
+    column :expert
     column :created_at
     column :is_approved
-    column(:territories) do |user|
-      safe_join(user.territories.map do |territory|
-        link_to territory.name, admin_territory_path(territory)
-      end, ', '.html_safe)
-    end
+    column :sign_in_count
+    column(:relays) { |user| user.relays.count }
     column('Impersonate') { |user| link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id)) }
     actions
   end
 
-  form do |f|
-    f.inputs I18n.t('active_admin.user.user_info') do
-      f.input :first_name
-      f.input :last_name
-      f.input :email
-      f.input :institution
-      f.input :role
-      f.input :phone_number
-      f.input :password
-      f.input :password_confirmation
-      f.input :contact_page_order
-      f.input :contact_page_role
-    end
-
-    f.inputs I18n.t('active_admin.user.user_activation') do
-      f.input :is_approved, as: :boolean
-    end
-
-    f.inputs I18n.t('active_admin.user.user_admin') do
-      f.input :is_admin, as: :boolean
-    end
-
-    f.actions
-  end
-
-  filter :territories, collection: -> { Territory.order(:name) }
+  filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :first_name
   filter :last_name
   filter :email
@@ -67,10 +32,87 @@ ActiveAdmin.register User do
   filter :phone_number
   filter :is_approved
   filter :is_admin
-  filter :contact_page_order
-  filter :current_sign_in_at
-  filter :sign_in_count
-  filter :created_at
+
+  # Show
+  #
+  show do
+    attributes_table do
+      row :full_name
+      row :institution
+      row :expert
+      row :role
+      row :email
+      row :phone_number
+    end
+    attributes_table title: I18n.t('activerecord.models.relay.one') do
+      row I18n.t('activerecord.models.territory.other') do |user|
+        safe_join(user.territories.map do |territory|
+          link_to territory.name, admin_territory_path(territory)
+        end, ', '.html_safe)
+      end
+    end
+  end
+
+  sidebar I18n.t('active_admin.user.admin'), only: :show do
+    attributes_table_for user do
+      row :is_admin
+      row :contact_page_order
+      row :contact_page_role
+    end
+  end
+
+  sidebar I18n.t('active_admin.user.connection'), only: :show do
+    attributes_table_for user do
+      row :created_at
+      row :confirmed_at
+      row :is_approved
+      row :current_sign_in_at
+      row :current_sign_in_ip
+    end
+  end
+
+  action_item :impersonate, only: :show do
+    link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
+  end
+
+  # Form
+  #
+  form do |f|
+    f.inputs I18n.t('active_admin.user.user_info') do
+      f.input :first_name
+      f.input :last_name
+      f.input :institution
+      f.input :expert, as: :ajax_select, data: {
+        url: :admin_experts_path,
+        search_fields: [:full_name],
+        limit: 999,
+      }
+      f.input :role
+      f.input :email
+      f.input :phone_number
+    end
+
+    f.inputs I18n.t('active_admin.user.connection') do
+      f.input :is_approved, as: :boolean
+      f.input :password
+      f.input :password_confirmation
+    end
+
+    f.inputs I18n.t('active_admin.user.admin') do
+      f.input :is_admin, as: :boolean
+      f.input :contact_page_order
+      f.input :contact_page_role
+    end
+
+    f.actions
+  end
+
+  # Actions
+  #
+  collection_action :send_invitation_emails, method: :post do
+    UserMailer.delay.send_new_user_invitation(params)
+    redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
+  end
 
   controller do
     def update

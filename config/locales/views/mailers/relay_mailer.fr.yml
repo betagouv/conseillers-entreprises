@@ -1,26 +1,27 @@
+---
 fr:
   mailers:
     relay_mailer:
       weekly_statistics:
-        subject: "[Réso] Statistiques hebdomadaires pour le territoire de %{territory_name}"
-        hello: "Bonjour %{first_name},"
-        here_are_weekly_statistics_html: "Voici ce qui s’est passé sur %{link_to_root} cette semaine pour le territoire de %{territory_name} :"
-        diagnosis_description: "Analyse #%{id} par %{advisor_name} pour %{company_name}"
-        created_diagnoses_count:
-          zero: Aucune analyse créée.
-          one: "Une analyse créée :"
-          other: "%{count} analyses créées :"
-        updated_diagnoses_count:
-          zero: Aucune analyse mise à jour.
-          one: "Une analyse mise à jour :"
-          other: "%{count} analyses mises à jour :"
         completed_diagnoses_count:
-          zero: Aucune analyse terminée.
-          one: "Une analyse terminée :"
+          one: 'Une analyse terminée :'
           other: "%{count} analyses terminées :"
+          zero: Aucune analyse terminée.
         contacted_experts_count:
-          zero: Aucun référent contacté.
-          one: "Un référent contacté."
+          one: Un référent contacté.
           other: "%{count} référents contactés."
+          zero: Aucun référent contacté.
+        created_diagnoses_count:
+          one: 'Une analyse créée :'
+          other: "%{count} analyses créées :"
+          zero: Aucune analyse créée.
+        diagnosis_description: 'Analyse #%{id} par %{advisor_name} pour %{company_name}'
         have_a_nice_week: Bonne semaine !
+        hello: Bonjour %{first_name},
+        here_are_weekly_statistics_html: 'Voici ce qui s’est passé sur %{link_to_root} cette semaine pour le territoire de %{territory_name} :'
         reso_team_html: L’équipe %{link_to_root}.
+        subject: "[Réso] Statistiques hebdomadaires pour le territoire de %{territory_name}"
+        updated_diagnoses_count:
+          one: 'Une analyse mise à jour :'
+          other: "%{count} analyses mises à jour :"
+          zero: Aucune analyse mise à jour.

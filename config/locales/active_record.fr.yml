@@ -1,188 +1,134 @@
+---
 fr:
-  attributes:
-    created_at: Date de création
-    updated_at: Date de mise à jour
   activerecord:
-    models:
-      user:
-        one: Utilisateur
-        other: Utilisateurs
-      visit:
-        one: Visite
-        other: Visites
-      question:
-        one: Besoin
-        other: Besoins
-      assistance:
-        one: Champ de compétence
-        other: Champs de compétence
-      comment:
-        one: Commentaire
-        other: Commentaires
-      category:
-        one: Catégorie
-        other: Catégories
-      company:
-        one: Entreprise
-        other: Entreprises
-      institution:
-        one: Institution
-        other: Institutions
-      facility:
-        one: Établissement
-        other: Établissements
-      contact:
-        one: Contact
-        other: Contacts
-      expert:
-        one: Référent
-        other: Référents
-      diagnosis:
-        one: Analyse
-        other: Analyses
-      diagnosed_need:
-        one: Besoin analysé
-        other: Besoins analysés
-      match:
-        one: Référent contacté
-        other: Référents contactés
-      territory:
-        one: Territoire
-        other: Territoires
-      territory_city:
-        one: Ville d’un territoire
-        other: Villes d’un territoire
-      relay:
-        one: Relais local
-        other: Relais locaux
-      search:
-        one: Recherche
-        other: Recherches
     attributes:
-      user:
-        email: Adresse e-mail
-        password: Mot de passe
-        password_confirmation: Confirmation du mot de passe
-        current_password: Mot de passe actuel
-        encrypted_password: Mot de passe chiffré
-        reset_password_token: Token de régénération du mot de passe
-        reset_password_sent_at: Date de régénération du mot de passe
-        current_sign_in_at: Date de connexion
-        last_sign_in_at: Date de de la dernière connexion
-        current_sign_in_ip: IP de connexion
-        last_sign_in_ip: IP lors de la dernière connexion
-        sign_in_count: Nombre de connexions
-        confirmation_token: Token de confirmation d’adresse e-mail
-        confirmed_at: Date de confirmation d’adresse e-mail
-        confirmation_sent_at: Date d’envoi du mail de confirmation
-        is_admin: Est administrateur ?
-        is_approved: Est validé ?
-        full_name: Prénom et Nom
-        first_name: Prénom
-        last_name: Nom
-        institution: Institution
-        role: Fonction
-        phone_number: Numéro de téléphone
-        contact_page_order: Ordre sur la page Contact
-        contact_page_role: Role sur la page Contact
-        remember_me: Se souvenir de moi
-      visit:
-        happened_on: Date de la visite
-        advisor: Conseiller visiteur
-        visitee: Personne rencontrée
-        facility: Établissement visité
-      visit/visitee:
-        last_name: Prénom et Nom de la personne rencontrée
-        role: Fonction de la personne rencontrée
-        email: Adresse e-mail de la personne rencontrée
-        phone_number: Numéro de téléphone de la personne rencontrée
-      question:
-        label: Intitulé
-        category: Catégorie
       assistance:
-        expert: Référent
+        description: Description
+        experts: Référents
         question: Besoin parent
         title: Titre
-        description: Description
       category:
         label: Intitulé
       company:
+        facilities: Établissements
         name: Raison sociale
         siren: SIREN
-        facilities: Établissements
-      institution:
-        name: Raison sociale
-        email: Adresse e-mail
-        phone_number: Numéro de téléphone
-        qualified_for_commerce: S’occupe des entreprises commerciales
-        qualified_for_artisanry: S’occupe des entreprises d’artisanat
-      facility:
-        company: Entreprise
-        siret: SIRET
-        city_code: Code commune
-        readable_locality: Commune
       contact:
-        first_name: Prénom
-        last_name: Nom
-        full_name: Prénom et Nom
-        role: Fonction
         company: Entreprise
         email: Adresse e-mail
-        phone_number: Numéro de téléphone
-      expert:
         first_name: Prénom
-        last_name: Nom
         full_name: Prénom et Nom
-        role: Fonction
-        institution: Institution
-        email: Adresse e-mail
+        last_name: Nom
         phone_number: Numéro de téléphone
-        access_token: Token d’accès
-        territories: Territoires
-      diagnosis:
-        visit: Visite qui a fait l’objet de l’analyse
-        content: Description
-        archived_at: Date d’archivage
+        role: Fonction
       diagnosed_need:
-        diagnosis: Analyse parente
-        question_label: Nom du besoin
-        question: Besoin
         content: Description du besoin
+        diagnosis: Analyse parente
+        question: Besoin
+        question_label: Nom du besoin
+      diagnosis:
+        archived_at: Date d’archivage
+        content: Description
+        visit: Visite qui a fait l’objet de l’analyse
+      expert:
+        access_token: Token d’accès
+        assistances: Champs de compétence
+        email: Adresse e-mail
+        first_name: Prénom
+        full_name: Prénom et Nom
+        institution: Institution
+        last_name: Nom
+        phone_number: Numéro de téléphone
+        role: Fonction
+        territories: Territoires
+        users: Équipe
+      facility:
+        city_code: Code commune
+        company: Entreprise
+        readable_locality: Commune
+        siret: SIRET
+      institution:
+        email: Adresse e-mail
+        name: Raison sociale
+        phone_number: Numéro de téléphone
+        qualified_for_artisanry: S’occupe des entreprises d’artisanat
+        qualified_for_commerce: S’occupe des entreprises commerciales
       match:
+        assistance_expert: Référent (non Relais local)
+        assistance_title: Titre de l’aide
+        closed_at: Date de résolution
         diagnosed_need: Besoin analysé
         expert_full_name: Référent contacté
         expert_institution_name: Institution du référent
-        assistance_title: Titre de l’aide
-        assistance_expert: Référent (non Relais local)
-        relay: Référent (Relais local)
         expert_viewed_page_at: Date de consultation par le référent
+        relay: Référent (Relais local)
         status: Statut
         statuses:
-          quo: En attente de prise en charge
-          taking_care: En cours de prise en charge
           done: Besoin résolu
           not_for_me: Hors champ de compétence
+          quo: En attente de prise en charge
+          taking_care: En cours de prise en charge
         taken_care_of_at: Date de prise en charge
-        closed_at: Date de résolution
+      question:
+        category: Catégorie
+        label: Intitulé
+      relay:
+        territory: Territoire
+        user: Utilisateur
+      search:
+        label: Entreprise trouvée
+        query: SIRET recherché
+        user: Utilisateur
       territory:
-        name: Nom
         city_codes: Codes commune
+        name: Nom
       territory_city:
         city_code: Code commune
         territory: Territoire
-      relay:
-        user: Utilisateur
-        territory: Territoire
-      search:
-        query: SIRET recherché
-        user: Utilisateur
-        label: Entreprise trouvée
+      user:
+        confirmation_sent_at: Date d’envoi du mail de confirmation
+        confirmation_token: Token de confirmation d’adresse e-mail
+        confirmed_at: Date de confirmation d’adresse e-mail
+        contact_page_order: Ordre sur la page Contact
+        contact_page_role: Role sur la page Contact
+        current_password: Mot de passe actuel
+        current_sign_in_at: Date de connexion
+        current_sign_in_ip: IP de connexion
+        email: Adresse e-mail
+        encrypted_password: Mot de passe chiffré
+        expert: Équipe référents
+        first_name: Prénom
+        full_name: Prénom et Nom
+        institution: Institution
+        is_admin: Est administrateur ?
+        is_approved: Est validé ?
+        last_name: Nom
+        last_sign_in_at: Date de de la dernière connexion
+        last_sign_in_ip: IP lors de la dernière connexion
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        phone_number: Numéro de téléphone
+        remember_me: Se souvenir de moi
+        reset_password_sent_at: Date de régénération du mot de passe
+        reset_password_token: Token de régénération du mot de passe
+        role: Fonction
+        sign_in_count: Nombre de connexions
+      visit:
+        advisor: Conseiller visiteur
+        facility: Établissement visité
+        happened_on: Date de la visite
+        visitee: Personne rencontrée
+      visit/visitee:
+        email: Adresse e-mail de la personne rencontrée
+        last_name: Prénom et Nom de la personne rencontrée
+        phone_number: Numéro de téléphone de la personne rencontrée
+        role: Fonction de la personne rencontrée
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          has_one: "Vous ne pouvez pas supprimer l’enregistrement car un(e) %{record} dépendant(e) existe"
-          has_many: "Vous ne pouvez pas supprimer l’enregistrement parce que les %{record} dépendants existent"
+          has_many: Vous ne pouvez pas supprimer l’enregistrement parce que les %{record} dépendants existent
+          has_one: Vous ne pouvez pas supprimer l’enregistrement car un(e) %{record} dépendant(e) existe
       models:
         contact:
           attributes:
@@ -192,3 +138,61 @@ fr:
           attributes:
             assistance_expert:
               can_not_be_set_with_relay: La ressource ne peut pas être liée à la fois à un référent et un relais local.
+    models:
+      assistance:
+        one: Champ de compétence
+        other: Champs de compétence
+      category:
+        one: Catégorie
+        other: Catégories
+      comment:
+        one: Commentaire
+        other: Commentaires
+      company:
+        one: Entreprise
+        other: Entreprises
+      contact:
+        one: Contact
+        other: Contacts
+      diagnosed_need:
+        one: Besoin analysé
+        other: Besoins analysés
+      diagnosis:
+        one: Analyse
+        other: Analyses
+      expert:
+        one: Référent
+        other: Référents
+      facility:
+        one: Établissement
+        other: Établissements
+      institution:
+        one: Institution
+        other: Institutions
+      match:
+        one: Référent contacté
+        other: Référents contactés
+      question:
+        one: Besoin
+        other: Besoins
+      relay:
+        one: Relais local
+        other: Relais locaux
+      search:
+        one: Recherche
+        other: Recherches
+      territory:
+        one: Territoire
+        other: Territoires
+      territory_city:
+        one: Ville d’un territoire
+        other: Villes d’un territoire
+      user:
+        one: Utilisateur
+        other: Utilisateurs
+      visit:
+        one: Visite
+        other: Visites
+  attributes:
+    created_at: Date de création
+    updated_at: Date de mise à jour

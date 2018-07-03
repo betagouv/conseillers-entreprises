@@ -1,29 +1,20 @@
+---
 fr:
   active_admin:
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
-    user:
-      user_info: Informations utilisateur
-      user_activation: Validation du compte
-      user_admin: A les privilèges administrateur
-    territories:
-      experts: Référents
-      relais: Relais locaux
-      contacted_experts: Mises en relation
-    assistances:
-      expert: Référent
-      experts: Les référents pour cette aide
-      add_expert: Ajouter un nouveau référent
     experts:
-      assistances_count: Nombre d’aides
-      territory: Territoire
-      territories: Les territoires d’action du référent
-      add_territory: Ajouter une nouveau territoire
-      assistance: Champ de compétence
-      assistances: Les domaines d’intervention de ce référent
-      add_assistance: Ajouter une nouvelle aide
+      access: Accès
     institutions:
       experts: Réferents
     matches:
-      deleted: '%{expert} (supprimé)'
+      deleted: "%{expert} (supprimé)"
+    territories:
+      contacted_experts: Mises en relation
+      experts: Référents
+      relais: Relais locaux
+    user:
+      admin: Admin
+      connection: Connexion
+      user_info: Informations utilisateur

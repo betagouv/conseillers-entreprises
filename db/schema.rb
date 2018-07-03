@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_114027) do
+ActiveRecord::Schema.define(version: 2018_07_02_092400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -259,8 +259,10 @@ ActiveRecord::Schema.define(version: 2018_06_19_114027) do
     t.string "phone_number"
     t.string "institution"
     t.string "role"
+    t.bigint "expert_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["expert_id"], name: "index_users_on_expert_id"
     t.index ["is_approved"], name: "index_users_on_is_approved"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -296,6 +298,7 @@ ActiveRecord::Schema.define(version: 2018_06_19_114027) do
   add_foreign_key "relays", "users"
   add_foreign_key "searches", "users"
   add_foreign_key "territory_cities", "territories"
+  add_foreign_key "users", "experts"
   add_foreign_key "visits", "contacts", column: "visitee_id"
   add_foreign_key "visits", "facilities"
   add_foreign_key "visits", "users", column: "advisor_id"

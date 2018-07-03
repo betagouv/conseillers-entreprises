@@ -1,57 +1,58 @@
+---
 fr:
   companies:
-    show:
-      information: Informations
-      facility: Établissement
-      siege_social: Siège social
-      mandataires_sociaux: Mandataires sociaux
-      diagnoses_completed: "Analyses complétées de %{company_name}"
-      visited_at: "Visitée le %{date}"
-      visited_by_html: "par %{advisor_name} </br> email : %{advisor_email}"
-      diagnosed_needs:
-        zero: 0 besoin identifié
-        one: 1 besoin identifié
-        other: "%{count} besoins identifiés"
-      matches:
-        zero: 0 mise en relation
-        one: 1 mise en relation
-        other: "%{count} mises en relation"
-      create_diagnosis: Démarrer une analyse
     company:
-      raison_sociale: Raison Sociale
-      nom_commercial: Nom Commercial
-      categorie_entreprise: Categorie de l’entreprise
-      tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
-      siren: SIREN
       capital_social: Capital social
-      numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
-      forme_juridique: Forme juridique
-      procedure_collective: En cours de procedure collective ?
+      categorie_entreprise: Categorie de l’entreprise
       date_creation: Date de création
-      nom: Nom
-      prenom: Prénom
       date_radiation: Date de radiation
-    facility:
-      siret: SIRET
-      naf: Code NAF
-      date_mise_a_jour: Date de mise à jour
-      tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
-      date_creation_etablissement: Date de création de l’établissement
-      region_implantation: Région d’implantation
-      commune_implantation: Commune d’implantation
-      pays_implantation: Pays d’implantation
-      adresse: Adresse
-    mandataire:
-      raison_sociale: Raison Sociale
-      personne_morale: Personne morale
+      forme_juridique: Forme juridique
       nom: Nom
-      fonction: Fonction
+      nom_commercial: Nom Commercial
+      numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
+      prenom: Prénom
+      procedure_collective: En cours de procedure collective ?
+      raison_sociale: Raison Sociale
+      siren: SIREN
+      tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
+    facility:
+      adresse: Adresse
+      commune_implantation: Commune d’implantation
+      date_creation_etablissement: Date de création de l’établissement
+      date_mise_a_jour: Date de mise à jour
+      naf: Code NAF
+      pays_implantation: Pays d’implantation
+      region_implantation: Région d’implantation
+      siret: SIRET
+      tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
+    mandataire:
       date_naissance: Date de naissance
       dirigeant: Est-ce un dirigeant ?
+      fonction: Fonction
       identifiant: Identifiant
+      nom: Nom
+      personne_morale: Personne morale
+      raison_sociale: Raison Sociale
     search:
-      search_company: Rechercher une entreprise
       explanation: SIRET, raison sociale, adresse, activité…
-      suggestions: Suggestions
-      last_searches: Recherches récentes
       generic_error: La recherche a échoué pour une raison inconnue. Réessayez plus tard.
+      last_searches: Recherches récentes
+      search_company: Rechercher une entreprise
+      suggestions: Suggestions
+    show:
+      create_diagnosis: Démarrer une analyse
+      diagnosed_needs:
+        one: 1 besoin identifié
+        other: "%{count} besoins identifiés"
+        zero: 0 besoin identifié
+      diagnoses_completed: Analyses complétées de %{company_name}
+      facility: Établissement
+      information: Informations
+      mandataires_sociaux: Mandataires sociaux
+      matches:
+        one: 1 mise en relation
+        other: "%{count} mises en relation"
+        zero: 0 mise en relation
+      siege_social: Siège social
+      visited_at: Visitée le %{date}
+      visited_by_html: 'par %{advisor_name} </br> email : %{advisor_email}'
