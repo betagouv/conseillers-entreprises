@@ -23,8 +23,7 @@ rubocop
 
 printf "\n${BoldRed}#4 - Launch i18n-tasks${NoFormating}\n\n"
 
-i18n-tasks unused
-i18n-tasks missing
+i18n-tasks health
 
 
 printf "\n${BoldRed}#5 - Launch haml-lint${NoFormating}\n\n"
