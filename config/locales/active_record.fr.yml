@@ -101,7 +101,7 @@ fr:
         label: Intitulé
         category: Catégorie
       assistance:
-        expert: Référent
+        experts: Référents
         question: Besoin parent
         title: Titre
         description: Description

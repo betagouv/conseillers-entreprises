@@ -11,10 +11,6 @@ fr:
       experts: Référents
       relais: Relais locaux
       contacted_experts: Mises en relation
-    assistances:
-      expert: Référent
-      experts: Les référents pour cette aide
-      add_expert: Ajouter un nouveau référent
     experts:
       access: Accès
     institutions:
