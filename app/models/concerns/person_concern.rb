@@ -10,5 +10,28 @@ module PersonConcern
     def to_s
       full_name
     end
+
+    def normalize_values!
+      normalize_name
+      normalize_phone_number
+      normalize_role
+      save!
+    end
+
+    def normalize_name
+      self.full_name = self.full_name.squish.titleize
+    end
+
+    def normalize_phone_number
+      number = self.phone_number.gsub(/[^0-9]/,'')
+      if number.length == 10
+        number = number.gsub(/(.{2})(?=.)/, '\1 \2')
+        self.phone_number = number
+      end
+    end
+
+    def normalize_role
+      self.role = self.role.squish.titleize
+    end
   end
 end
