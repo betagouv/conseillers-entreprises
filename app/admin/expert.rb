@@ -11,7 +11,9 @@ ActiveAdmin.register Expert do
     :institution_id,
     :email,
     :phone_number,
-    user_ids: [], # [] means we can pass multiple values to user_ids.
+    user_ids: [],
+    territory_ids: [],
+    assistance_ids: [],
     expert_territories_attributes: %i[id territory_id _create _update _destroy],
     assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
   ]
