@@ -16,6 +16,9 @@ fr:
       relais: Relais locaux
     user:
       admin: Admin
+      autolink_to_experts: Associer automatiquement aux référents
       connection: Connexion
+      expert_linked: Référent associé
+      experts_linked: Référents associés
       impersonate: Voir le site comme %{name}
       user_info: Informations utilisateur

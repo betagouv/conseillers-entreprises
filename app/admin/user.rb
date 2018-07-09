@@ -25,13 +25,24 @@ ActiveAdmin.register User do
     id_column
     column :full_name
     column :email
-    column(:experts) { |user| safe_join(user.experts.map{ |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe) }
+    column(:experts) do |user|
+      if user.experts.present?
+        safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
+      elsif user.corresponding_experts.present?
+        link_to(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+      else
+        '-'
+      end
+    end
     column :created_at
     column :is_approved
     column :sign_in_count
     column(:relays) { |user| user.relays.count }
     actions dropdown: true do |user|
       item t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
+      if user.experts.empty?
+        item(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+      end
     end
   end
 
@@ -49,7 +60,13 @@ ActiveAdmin.register User do
     attributes_table do
       row :full_name
       row :institution
-      row(:experts) { |user| safe_join(user.experts.map{ |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe) }
+      row(:experts) do |user|
+        if user.experts.present?
+          safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
+        elsif user.corresponding_experts.present?
+          link_to(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+        end
+      end
       row :role
       row :email
       row :phone_number
@@ -121,6 +138,16 @@ ActiveAdmin.register User do
   collection_action :send_invitation_emails, method: :post do
     UserMailer.delay.send_new_user_invitation(params)
     redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
+  end
+
+  member_action :autolink_to_experts, method: :post do
+    resource.autolink_experts!
+    redirect_to resource_path, notice: I18n.t("active_admin.user.expert_linked")
+  end
+
+  batch_action I18n.t('active_admin.user.autolink_to_experts') do |ids|
+    batch_action_collection.find(ids).each { |user| user.autolink_experts! }
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.experts_linked')
   end
 
   controller do
