@@ -135,4 +135,24 @@ RSpec.describe User, type: :model do
       it { is_expected.to be_truthy }
     end
   end
+
+  describe '#corresponding_experts' do
+    subject { user.corresponding_experts }
+
+    let(:user) { create(:user, :just_registered, email: 'user@example.com') }
+
+    before { create :expert, email: expert_email }
+
+    context ('with a corresponding email') do
+      let(:expert_email) { 'user@example.com' }
+
+      it { is_expected.not_to be_empty }
+    end
+
+    context ('with a different email') do
+      let(:expert_email) { 'lol@nope.com' }
+
+      it { is_expected.to be_empty }
+    end
+  end
 end
