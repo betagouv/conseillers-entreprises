@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_09_075825) do
+ActiveRecord::Schema.define(version: 2018_07_09_105806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_075825) do
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "full_name"
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
@@ -151,6 +152,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_075825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "access_token"
+    t.string "full_name"
     t.index ["institution_id"], name: "index_experts_on_institution_id"
   end
 
@@ -266,6 +268,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_075825) do
     t.string "phone_number"
     t.string "institution"
     t.string "role"
+    t.string "full_name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["is_approved"], name: "index_users_on_is_approved"
