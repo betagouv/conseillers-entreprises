@@ -7,14 +7,14 @@ RSpec.describe User, type: :model do
     it do
       is_expected.to have_many :relays
       is_expected.to have_many :territories
+      is_expected.to have_and_belong_to_many :experts
     end
   end
 
   describe 'validations' do
     describe 'presence' do
       it do
-        is_expected.to validate_presence_of(:first_name)
-        is_expected.to validate_presence_of(:last_name)
+        is_expected.to validate_presence_of(:full_name)
         is_expected.to validate_presence_of(:role)
         is_expected.to validate_presence_of(:phone_number)
       end
@@ -48,9 +48,9 @@ RSpec.describe User, type: :model do
 
     describe 'administrator_of_territory' do
       it do
-        user1 = create :user, first_name: 'bb', last_name: 'bb'
+        user1 = create :user, full_name: 'bb'
         create :relay, user: user1
-        user2 = create :user, first_name: 'aa', last_name: 'aa'
+        user2 = create :user, full_name: 'aa'
         create :relay, user: user2
         user3 = create :user, contact_page_order: 2
         create :relay, user: user3
@@ -107,17 +107,10 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'full_name' do
-    let(:user) { build :user, first_name: 'Ivan', last_name: 'Collombet' }
-
-    it { expect(user.full_name).to eq 'Ivan Collombet' }
-  end
-
   describe 'full_name_with_role' do
     let(:user) do
       build :user,
-        first_name: 'Ivan',
-        last_name: 'Collombet',
+        full_name: 'Ivan Collombet',
         role: 'Business Developer',
         institution: 'DINSIC'
     end
@@ -140,6 +133,26 @@ RSpec.describe User, type: :model do
       let(:email) { 'user@beta.gouv.fr' }
 
       it { is_expected.to be_truthy }
+    end
+  end
+
+  describe '#corresponding_experts' do
+    subject { user.corresponding_experts }
+
+    let(:user) { create(:user, :just_registered, email: 'user@example.com') }
+
+    before { create :expert, email: expert_email }
+
+    context ('with a corresponding email') do
+      let(:expert_email) { 'user@example.com' }
+
+      it { is_expected.not_to be_empty }
+    end
+
+    context ('with a different email') do
+      let(:expert_email) { 'lol@nope.com' }
+
+      it { is_expected.to be_empty }
     end
   end
 end

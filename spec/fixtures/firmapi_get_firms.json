@@ -12,8 +12,7 @@
         "denomination": "OCTRA",
         "commercial_name": null,
         "sigle": null,
-        "first_name": null,
-        "last_name": null
+        "full_name": null
       },
       "legal_form": "SAS",
       "address": "5 rue de Hanovre",
@@ -35,8 +34,7 @@
         "denomination": "OCTO-TECHNOLOGY",
         "commercial_name": null,
         "sigle": null,
-        "first_name": null,
-        "last_name": null
+        "full_name": null
       },
       "legal_form": "SA",
       "address": "50 avenue des Champs-Élysées",

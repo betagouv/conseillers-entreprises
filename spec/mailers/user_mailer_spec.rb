@@ -8,7 +8,7 @@ describe UserMailer do
     subject(:mail) { described_class.send_new_user_invitation(user_params).deliver_now }
 
     let(:user) { build :user }
-    let(:user_params) { { first_name: user.first_name, email: user.email } }
+    let(:user_params) { { full_name: user.full_name, email: user.email } }
 
     it_behaves_like 'an email'
 

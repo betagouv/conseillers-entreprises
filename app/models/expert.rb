@@ -5,7 +5,7 @@ class Expert < ApplicationRecord
 
   belongs_to :institution
 
-  has_many :users
+  has_and_belongs_to_many :users
   has_many :assistances_experts, dependent: :destroy
   has_many :assistances, through: :assistances_experts
   has_many :matches, through: :assistances_experts
@@ -25,7 +25,7 @@ class Expert < ApplicationRecord
   scope :of_city_code, (lambda do |city_code|
     joins(territories: :territory_cities).where(territories: { territory_cities: { city_code: city_code.to_s } })
   end)
-  scope :ordered_by_names, (-> { order(:first_name, :last_name) })
+  scope :ordered_by_names, (-> { order(:full_name) })
 
   def generate_access_token!
     self.access_token = SecureRandom.hex(32)

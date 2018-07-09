@@ -11,13 +11,14 @@ RSpec.describe Expert, type: :model do
       is_expected.to have_many(:expert_territories).dependent(:destroy)
       is_expected.to have_many :territories
       is_expected.to have_many :territory_cities
+      is_expected.to have_and_belong_to_many :users
     end
   end
 
   describe 'validations' do
     describe 'presence' do
       it do
-        is_expected.to validate_presence_of(:last_name)
+        is_expected.to validate_presence_of(:full_name)
         is_expected.to validate_presence_of(:role)
         is_expected.to validate_presence_of(:institution)
         is_expected.to validate_presence_of(:email)
@@ -68,14 +69,8 @@ RSpec.describe Expert, type: :model do
     end
   end
 
-  describe 'full_name' do
-    let(:expert) { build :expert, first_name: 'Ivan', last_name: 'Collombet' }
-
-    it { expect(expert.full_name).to eq 'Ivan Collombet' }
-  end
-
   describe 'to_s' do
-    let(:expert) { build :expert, first_name: 'Ivan', last_name: 'Collombet' }
+    let(:expert) { build :expert, full_name: 'Ivan Collombet' }
 
     it { expect(expert.to_s).to eq 'Ivan Collombet' }
   end

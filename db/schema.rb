@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_02_092400) do
+ActiveRecord::Schema.define(version: 2018_07_09_105806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2018_07_02_092400) do
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "full_name"
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
 
@@ -151,7 +152,15 @@ ActiveRecord::Schema.define(version: 2018_07_02_092400) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "access_token"
+    t.string "full_name"
     t.index ["institution_id"], name: "index_experts_on_institution_id"
+  end
+
+  create_table "experts_users", id: false, force: :cascade do |t|
+    t.bigint "expert_id"
+    t.bigint "user_id"
+    t.index ["expert_id"], name: "index_experts_users_on_expert_id"
+    t.index ["user_id"], name: "index_experts_users_on_user_id"
   end
 
   create_table "facilities", force: :cascade do |t|
@@ -259,10 +268,9 @@ ActiveRecord::Schema.define(version: 2018_07_02_092400) do
     t.string "phone_number"
     t.string "institution"
     t.string "role"
-    t.bigint "expert_id"
+    t.string "full_name"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["expert_id"], name: "index_users_on_expert_id"
     t.index ["is_approved"], name: "index_users_on_is_approved"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -298,7 +306,6 @@ ActiveRecord::Schema.define(version: 2018_07_02_092400) do
   add_foreign_key "relays", "users"
   add_foreign_key "searches", "users"
   add_foreign_key "territory_cities", "territories"
-  add_foreign_key "users", "experts"
   add_foreign_key "visits", "contacts", column: "visitee_id"
   add_foreign_key "visits", "facilities"
   add_foreign_key "visits", "users", column: "advisor_id"

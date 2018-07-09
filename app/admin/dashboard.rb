@@ -9,7 +9,7 @@ ActiveAdmin.register_page 'Dashboard' do
         panel t('active_admin.dashboard_welcome.invite_users') do
           form action: send_invitation_emails_admin_users_path, method: :post do
             table do
-              %w[email first_name last_name institution role phone_number].each do |attribute|
+              %w[email full_name institution role phone_number].each do |attribute|
                 tr do
                   td { label(for: attribute) { t("activerecord.attributes.user.#{attribute}") } }
                   td { input id: attribute, type: 'text', name: attribute }

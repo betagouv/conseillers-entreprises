@@ -2,10 +2,23 @@
 
 ActiveAdmin.register User do
   menu priority: 2
-  permit_params %i[
-    first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role expert_id
-    is_admin password password_confirmation
+
+  permit_params [
+    :full_name,
+    :email,
+    :institution,
+    :role,
+    :phone_number,
+    :is_approved,
+    :contact_page_order,
+    :contact_page_role,
+    :is_admin,
+    :password,
+    :password_confirmation,
+    expert_ids: [],
   ]
+
+  includes :experts, :relays
 
   # Index
   #
@@ -14,18 +27,30 @@ ActiveAdmin.register User do
     id_column
     column :full_name
     column :email
-    column :expert
+    column :phone_number
+    column(:experts) do |user|
+      if user.experts.present?
+        safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
+      elsif user.corresponding_experts.present?
+        link_to(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+      else
+        '-'
+      end
+    end
     column :created_at
     column :is_approved
     column :sign_in_count
-    column(:relays) { |user| user.relays.count }
-    column('Impersonate') { |user| link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id)) }
-    actions
+    column(:relays) { |user| user.relays.length }
+    actions dropdown: true do |user|
+      item t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
+      if user.experts.empty?
+        item(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+      end
+      item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
+    end
   end
 
-  filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :first_name
-  filter :last_name
+  filter :full_name
   filter :email
   filter :institution
   filter :role
@@ -39,11 +64,18 @@ ActiveAdmin.register User do
     attributes_table do
       row :full_name
       row :institution
-      row :expert
+      row(:experts) do |user|
+        if user.experts.present?
+          safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
+        elsif user.corresponding_experts.present?
+          link_to(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+        end
+      end
       row :role
       row :email
       row :phone_number
     end
+
     attributes_table title: I18n.t('activerecord.models.relay.one') do
       row I18n.t('activerecord.models.territory.other') do |user|
         safe_join(user.territories.map do |territory|
@@ -72,17 +104,20 @@ ActiveAdmin.register User do
   end
 
   action_item :impersonate, only: :show do
-    link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
+    link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
+  end
+
+  action_item :normalize_values, only: :show do
+    link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
   end
 
   # Form
   #
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
-      f.input :first_name
-      f.input :last_name
+      f.input :full_name
       f.input :institution
-      f.input :expert, as: :ajax_select, data: {
+      f.input :experts, as: :ajax_select, data: {
         url: :admin_experts_path,
         search_fields: [:full_name],
         limit: 999,
@@ -114,6 +149,42 @@ ActiveAdmin.register User do
     redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
   end
 
+  member_action :autolink_to_experts, method: :post do
+    resource.autolink_experts!
+    redirect_to resource_path, notice: I18n.t("active_admin.user.expert_linked")
+  end
+
+  member_action :normalize_values do
+    resource.normalize_values!
+    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+  end
+
+  batch_action :destroy, false
+
+  batch_action I18n.t('active_admin.user.autolink_to_experts') do |ids|
+    batch_action_collection.find(ids).each { |user| user.autolink_experts! }
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.experts_linked')
+  end
+
+  if Rails.env.development?
+    batch_action 'DEBUG: Unlink all experts' do |ids|
+      batch_action_collection.find(ids).each do |user|
+        if user.experts.present?
+          user.experts = []
+          user.save!
+        end
+      end
+      redirect_back fallback_location: collection_path, notice: 'All experts were unlinked'
+    end
+  end
+
+  batch_action I18n.t('active_admin.person.normalize_values') do |ids|
+    batch_action_collection.find(ids).each do |user|
+      user.normalize_values!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
+  end
+
   controller do
     def update
       send_approval_emails
@@ -140,7 +211,7 @@ ActiveAdmin.register User do
 
     def redirect_or_display_form
       if resource.errors.blank?
-        redirect_to admin_users_path, notice: 'User updated successfully.'
+        redirect_to resource_path, notice: I18n.t('active_admin.user.saved')
       else
         render :edit
       end

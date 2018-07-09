@@ -11,7 +11,7 @@ fr:
       confirmation_instructions:
         confirm_my_account: Confirmer mon compte
         confirm_your_email_by_clicking_on_the_link: 'Vous pouvez confirmer votre adresse e-mail en cliquant sur le lien ci-dessous :'
-        welcome: Bienvenue sur Réso, %{user_first_name} !
+        welcome: Bienvenue sur Réso, %{user_full_name} !
       email_changed:
         your_email_has_been_changed: Nous vous contactons pour vous informer que votre adresse e-mail a bien été changée pour %{new_email}.
         your_email_is_being_changed: Nous vous contactons pour vous informer que votre adresse e-mail va être changée pour %{unconfirmed_email}.
@@ -19,7 +19,7 @@ fr:
         answer_this_email_if_any_question_html: Pour toute question, répondez à cet e-mail ou %{link_to_contact_us} !
         contact_us: contactez-nous
         site_team_html: L’équipe %{link_to_root}.
-      hello: Bonjour %{user_first_name},
+      hello: Bonjour %{user_full_name},
       password_change:
         your_password_has_been_changed: Nous vous contactons pour vous informer que votre mot de passe a bien été changé.
       reset_password_instructions:
@@ -40,6 +40,10 @@ fr:
         waiting_confirmation_for: 'En attente de confirmation pour l’adresse : %{unconfirmed_email}'
         we_need_current_password: "(nécessaire pour prendre en compte les modifications)"
       new:
+        placeholders:
+          full_name: 'ex: Marie Dupont'
+          institution: Pôle emploi, Maison des Entreprises…
+          role: Conseiller entreprise, Chargé de mission…
         warning_message: L’inscription est réservé aux conseillers d’entreprise et référents des organismes publics. Merci de bien vouloir utiliser votre adresse e-mail professionnelle afin que votre compte soit validé.
     shared:
       links:

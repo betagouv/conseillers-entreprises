@@ -29,8 +29,8 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
 
     context 'previously authorized user has his name updated' do
-      let(:user) { create :user, is_approved: true, first_name: 'Bob' }
-      let(:request) { put :update, params: { id: user.id, user: { first_name: 'not Bob' } } }
+      let(:user) { create :user, is_approved: true, full_name: 'Bob' }
+      let(:request) { put :update, params: { id: user.id, user: { full_name: 'not Bob' } } }
 
       it 'does not add jobs in database' do
         expect { request }.to change { Delayed::Job.count }.by(0)
@@ -63,24 +63,6 @@ RSpec.describe Admin::UsersController, type: :controller do
         expect(user).not_to have_received(:update_without_password)
         expect(user).to have_received(:update)
       end
-    end
-  end
-
-  describe 'redirect_or_display_form' do
-    before { allow(User).to receive(:find).with(user.id.to_s).and_return(user) }
-
-    let(:user) { create :user }
-
-    context 'update worked' do
-      before { put :update, params: { id: user.id, user: { first_name: 'Jack' } } }
-
-      it('redirects') { expect(response).to have_http_status(:redirect) }
-    end
-
-    context 'update failed' do
-      before { put :update, params: { id: user.id, user: { first_name: '' } } }
-
-      it('does not redirect') { expect(response).to be_successful }
     end
   end
 end

@@ -10,11 +10,19 @@ fr:
       experts: Réferents
     matches:
       deleted: "%{expert} (supprimé)"
+    person:
+      normalize_values: Normaliser les données
+      normalize_values_done: Données normalisées
     territories:
       contacted_experts: Mises en relation
       experts: Référents
       relais: Relais locaux
     user:
       admin: Admin
+      autolink_to_experts: Associer automatiquement aux référents
       connection: Connexion
+      expert_linked: Référent associé
+      experts_linked: Référents associés
+      impersonate: Voir le site comme %{name}
+      saved: Conseiller mis à jour
       user_info: Informations utilisateur

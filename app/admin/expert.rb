@@ -5,8 +5,7 @@ ActiveAdmin.register Expert do
   includes :institution, :assistances, :territories
 
   permit_params [
-    :first_name,
-    :last_name,
+    :full_name,
     :role,
     :institution_id,
     :email,
@@ -24,21 +23,21 @@ ActiveAdmin.register Expert do
     selectable_column
     id_column
     column :full_name
-    column :last_name
     column :institution
     column(:users) { |expert| expert.users.length }
     column :role
     column :email
     column(:assistances) { |expert| expert.assistances.length }
     column(:territories) { |expert| expert.territories.length }
-    actions
+    actions dropdown: true do |expert|
+      item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
+    end
   end
 
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
-  filter :first_name
-  filter :last_name
+  filter :full_name
   filter :email
   filter :phone_number
   filter :role
@@ -84,12 +83,15 @@ ActiveAdmin.register Expert do
     end
   end
 
+  action_item :normalize_values, only: :show do
+    link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
+  end
+
   ## Form
   #
   form do |f|
     f.inputs do
-      f.input :first_name
-      f.input :last_name
+      f.input :full_name
       f.input :institution, as: :ajax_select, data: {
         url: :admin_institutions_path,
         search_fields: [:name],
@@ -125,5 +127,19 @@ ActiveAdmin.register Expert do
     end
 
     f.actions
+  end
+
+  ## Actions
+  #
+  member_action :normalize_values do
+    resource.normalize_values!
+    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+  end
+
+  batch_action I18n.t('active_admin.person.normalize_values') do |ids|
+    batch_action_collection.find(ids).each do |expert|
+      expert.normalize_values!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 end

@@ -15,10 +15,8 @@ fr:
         siren: SIREN
       contact:
         company: Entreprise
-        email: Adresse e-mail
-        first_name: Prénom
+        email: E-mail
         full_name: Prénom et Nom
-        last_name: Nom
         phone_number: Numéro de téléphone
         role: Fonction
       diagnosed_need:
@@ -33,11 +31,9 @@ fr:
       expert:
         access_token: Token d’accès
         assistances: Champs de compétence
-        email: Adresse e-mail
-        first_name: Prénom
+        email: E-mail
         full_name: Prénom et Nom
         institution: Institution
-        last_name: Nom
         phone_number: Numéro de téléphone
         role: Fonction
         territories: Territoires
@@ -48,7 +44,7 @@ fr:
         readable_locality: Commune
         siret: SIRET
       institution:
-        email: Adresse e-mail
+        email: E-mail
         name: Raison sociale
         phone_number: Numéro de téléphone
         qualified_for_artisanry: S’occupe des entreprises d’artisanat
@@ -86,23 +82,21 @@ fr:
         city_code: Code commune
         territory: Territoire
       user:
-        confirmation_sent_at: Date d’envoi du mail de confirmation
-        confirmation_token: Token de confirmation d’adresse e-mail
-        confirmed_at: Date de confirmation d’adresse e-mail
+        confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
+        confirmation_token: Token de confirmation d’e-mail
+        confirmed_at: Date de confirmation d’e-mail
         contact_page_order: Ordre sur la page Contact
         contact_page_role: Role sur la page Contact
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
-        email: Adresse e-mail
+        email: E-mail
         encrypted_password: Mot de passe chiffré
-        expert: Équipe référents
-        first_name: Prénom
+        experts: Équipe référents
         full_name: Prénom et Nom
         institution: Institution
         is_admin: Est administrateur ?
         is_approved: Est validé ?
-        last_name: Nom
         last_sign_in_at: Date de de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
@@ -112,7 +106,7 @@ fr:
         reset_password_sent_at: Date de régénération du mot de passe
         reset_password_token: Token de régénération du mot de passe
         role: Fonction
-        sign_in_count: Nombre de connexions
+        sign_in_count: Connexions
       visit:
         advisor: Conseiller visiteur
         facility: Établissement visité
@@ -120,7 +114,7 @@ fr:
         visitee: Personne rencontrée
       visit/visitee:
         email: Adresse e-mail de la personne rencontrée
-        last_name: Prénom et Nom de la personne rencontrée
+        full_name: Prénom et Nom de la personne rencontrée
         phone_number: Numéro de téléphone de la personne rencontrée
         role: Fonction de la personne rencontrée
     errors:
