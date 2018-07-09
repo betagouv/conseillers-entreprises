@@ -2,9 +2,21 @@
 
 ActiveAdmin.register User do
   menu priority: 2
-  permit_params %i[
-    first_name last_name email institution role phone_number is_approved contact_page_order contact_page_role expert_id
-    is_admin password password_confirmation
+
+  permit_params [
+    :first_name,
+    :last_name,
+    :email,
+    :institution,
+    :role,
+    :phone_number,
+    :is_approved,
+    :contact_page_order,
+    :contact_page_role,
+    :is_admin,
+    :password,
+    :password_confirmation,
+    expert_ids: [],
   ]
 
   # Index
@@ -14,7 +26,7 @@ ActiveAdmin.register User do
     id_column
     column :full_name
     column :email
-    column :expert
+    column(:experts) { |user| safe_join(user.experts.map{ |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe) }
     column :created_at
     column :is_approved
     column :sign_in_count
@@ -39,7 +51,7 @@ ActiveAdmin.register User do
     attributes_table do
       row :full_name
       row :institution
-      row :expert
+      row(:experts) { |user| safe_join(user.experts.map{ |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe) }
       row :role
       row :email
       row :phone_number
@@ -82,7 +94,7 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :institution
-      f.input :expert, as: :ajax_select, data: {
+      f.input :experts, as: :ajax_select, data: {
         url: :admin_experts_path,
         search_fields: [:full_name],
         limit: 999,

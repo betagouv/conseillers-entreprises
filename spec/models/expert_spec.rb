@@ -11,6 +11,7 @@ RSpec.describe Expert, type: :model do
       is_expected.to have_many(:expert_territories).dependent(:destroy)
       is_expected.to have_many :territories
       is_expected.to have_many :territory_cities
+      is_expected.to have_and_belong_to_many :users
     end
   end
 
