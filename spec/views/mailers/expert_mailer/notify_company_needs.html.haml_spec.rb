@@ -57,7 +57,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       end
 
       it 'does not display the date, but displays email and one list item' do
-        expect(rendered).to include "joignable à l’adresse e-mail #{contact.email}"
+        expect(rendered).to include "joignable à l’adresse #{contact.email}"
         expect(rendered).to include "relays/diagnoses/#{diagnosis.id}"
         assert_select 'li', count: 1
       end

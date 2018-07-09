@@ -15,7 +15,7 @@ fr:
         siren: SIREN
       contact:
         company: Entreprise
-        email: Adresse e-mail
+        email: E-mail
         full_name: Prénom et Nom
         phone_number: Numéro de téléphone
         role: Fonction
@@ -31,7 +31,7 @@ fr:
       expert:
         access_token: Token d’accès
         assistances: Champs de compétence
-        email: Adresse e-mail
+        email: E-mail
         full_name: Prénom et Nom
         institution: Institution
         phone_number: Numéro de téléphone
@@ -44,7 +44,7 @@ fr:
         readable_locality: Commune
         siret: SIRET
       institution:
-        email: Adresse e-mail
+        email: E-mail
         name: Raison sociale
         phone_number: Numéro de téléphone
         qualified_for_artisanry: S’occupe des entreprises d’artisanat
@@ -82,15 +82,15 @@ fr:
         city_code: Code commune
         territory: Territoire
       user:
-        confirmation_sent_at: Date d’envoi du mail de confirmation
-        confirmation_token: Token de confirmation d’adresse e-mail
-        confirmed_at: Date de confirmation d’adresse e-mail
+        confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
+        confirmation_token: Token de confirmation d’e-mail
+        confirmed_at: Date de confirmation d’e-mail
         contact_page_order: Ordre sur la page Contact
         contact_page_role: Role sur la page Contact
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
-        email: Adresse e-mail
+        email: E-mail
         encrypted_password: Mot de passe chiffré
         experts: Équipe référents
         full_name: Prénom et Nom
@@ -106,7 +106,7 @@ fr:
         reset_password_sent_at: Date de régénération du mot de passe
         reset_password_token: Token de régénération du mot de passe
         role: Fonction
-        sign_in_count: Nombre de connexions
+        sign_in_count: Connexions
       visit:
         advisor: Conseiller visiteur
         facility: Établissement visité

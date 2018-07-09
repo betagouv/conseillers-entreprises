@@ -45,7 +45,7 @@ fr:
       contact_detail: Coordonnées
       date: Date (format jj/mm/aaaa)
       date_header: Date de votre visite
-      email_address: Adresse e-mail
+      email_address: E-mail
       error_header: Erreur lors de la création
       error_message: Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l’erreur persite, contactez l’equipe Réso.
       full_name: Nom
