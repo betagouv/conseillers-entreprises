@@ -46,6 +46,7 @@ ActiveAdmin.register User do
       if user.experts.empty?
         item(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
       end
+      item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
     end
   end
 
@@ -106,6 +107,10 @@ ActiveAdmin.register User do
     link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
   end
 
+  action_item :normalize_values, only: :show do
+    link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
+  end
+
   # Form
   #
   form do |f|
@@ -149,6 +154,11 @@ ActiveAdmin.register User do
     redirect_to resource_path, notice: I18n.t("active_admin.user.expert_linked")
   end
 
+  member_action :normalize_values do
+    resource.normalize_values!
+    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+  end
+
   batch_action :destroy, false
 
   batch_action I18n.t('active_admin.user.autolink_to_experts') do |ids|
@@ -166,6 +176,13 @@ ActiveAdmin.register User do
       end
       redirect_back fallback_location: collection_path, notice: 'All experts were unlinked'
     end
+  end
+
+  batch_action I18n.t('active_admin.person.normalize_values') do |ids|
+    batch_action_collection.find(ids).each do |user|
+      user.normalize_values!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 
   controller do
