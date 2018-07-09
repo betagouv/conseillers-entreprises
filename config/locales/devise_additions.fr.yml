@@ -40,6 +40,10 @@ fr:
         waiting_confirmation_for: 'En attente de confirmation pour l’adresse : %{unconfirmed_email}'
         we_need_current_password: "(nécessaire pour prendre en compte les modifications)"
       new:
+        placeholders:
+          full_name: 'ex: Marie Dupont'
+          institution: Pôle emploi, Maison des Entreprises…
+          role: Conseiller entreprise, Chargé de mission…
         warning_message: L’inscription est réservé aux conseillers d’entreprise et référents des organismes publics. Merci de bien vouloir utiliser votre adresse e-mail professionnelle afin que votre compte soit validé.
     shared:
       links:
