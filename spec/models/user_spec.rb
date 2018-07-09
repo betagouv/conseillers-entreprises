@@ -7,6 +7,7 @@ RSpec.describe User, type: :model do
     it do
       is_expected.to have_many :relays
       is_expected.to have_many :territories
+      is_expected.to have_and_belong_to_many :experts
     end
   end
 

@@ -96,7 +96,7 @@ fr:
         current_sign_in_ip: IP de connexion
         email: Adresse e-mail
         encrypted_password: Mot de passe chiffré
-        expert: Équipe référents
+        experts: Équipe référents
         first_name: Prénom
         full_name: Prénom et Nom
         institution: Institution

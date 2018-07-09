@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :territories, through: :relays
   has_many :visits, foreign_key: 'advisor_id'
   has_many :searches
-  belongs_to :expert
+  has_and_belongs_to_many :experts
 
   validates :first_name, :email, :phone_number, presence: true
 
