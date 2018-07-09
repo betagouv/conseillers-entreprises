@@ -128,7 +128,6 @@ ActiveAdmin.register User do
     def update
       send_approval_emails
       update_params_depending_on_password
-      redirect_or_display_form
     end
 
     def send_approval_emails
@@ -145,14 +144,6 @@ ActiveAdmin.register User do
         resource.update_without_password(permitted_params.require(:user))
       else
         resource.update(permitted_params.require(:user))
-      end
-    end
-
-    def redirect_or_display_form
-      if resource.errors.blank?
-        redirect_to admin_users_path, notice: 'User updated successfully.'
-      else
-        render :edit
       end
     end
   end

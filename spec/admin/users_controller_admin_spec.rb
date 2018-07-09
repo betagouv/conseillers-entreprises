@@ -65,22 +65,4 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
   end
-
-  describe 'redirect_or_display_form' do
-    before { allow(User).to receive(:find).with(user.id.to_s).and_return(user) }
-
-    let(:user) { create :user }
-
-    context 'update worked' do
-      before { put :update, params: { id: user.id, user: { full_name: 'Jack' } } }
-
-      it('redirects') { expect(response).to have_http_status(:redirect) }
-    end
-
-    context 'update failed' do
-      before { put :update, params: { id: user.id, user: { full_name: '' } } }
-
-      it('does not redirect') { expect(response).to be_successful }
-    end
-  end
 end
