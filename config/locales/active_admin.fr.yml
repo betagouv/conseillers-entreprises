@@ -17,4 +17,5 @@ fr:
     user:
       admin: Admin
       connection: Connexion
+      impersonate: Voir le site comme %{name}
       user_info: Informations utilisateur

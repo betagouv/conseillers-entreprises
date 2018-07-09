@@ -15,7 +15,7 @@ ActiveAdmin.register Contact do
     end
   end
 
-  filter :company, collection: -> { Company.ordered_by_name }
+  filter :company_name, as: :string, label: I18n.t('activerecord.attributes.facility.company')
   filter :full_name
   filter :email
   filter :phone_number

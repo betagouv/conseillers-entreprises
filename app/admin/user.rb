@@ -30,11 +30,11 @@ ActiveAdmin.register User do
     column :is_approved
     column :sign_in_count
     column(:relays) { |user| user.relays.count }
-    column('Impersonate') { |user| link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id)) }
-    actions
+    actions dropdown: true do |user|
+      item t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
+    end
   end
 
-  filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :full_name
   filter :email
   filter :institution
@@ -82,7 +82,7 @@ ActiveAdmin.register User do
   end
 
   action_item :impersonate, only: :show do
-    link_to('Impersonate', impersonate_engine.impersonate_user_path(user.id))
+    link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
   end
 
   # Form
@@ -127,7 +127,6 @@ ActiveAdmin.register User do
     def update
       send_approval_emails
       update_params_depending_on_password
-      redirect_or_display_form
     end
 
     def send_approval_emails
@@ -144,14 +143,6 @@ ActiveAdmin.register User do
         resource.update_without_password(permitted_params.require(:user))
       else
         resource.update(permitted_params.require(:user))
-      end
-    end
-
-    def redirect_or_display_form
-      if resource.errors.blank?
-        redirect_to admin_users_path, notice: 'User updated successfully.'
-      else
-        render :edit
       end
     end
   end
