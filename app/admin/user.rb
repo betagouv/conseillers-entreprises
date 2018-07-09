@@ -4,8 +4,7 @@ ActiveAdmin.register User do
   menu priority: 2
 
   permit_params [
-    :first_name,
-    :last_name,
+    :full_name,
     :email,
     :institution,
     :role,
@@ -36,8 +35,7 @@ ActiveAdmin.register User do
   end
 
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :first_name
-  filter :last_name
+  filter :full_name
   filter :email
   filter :institution
   filter :role
@@ -91,8 +89,7 @@ ActiveAdmin.register User do
   #
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
-      f.input :first_name
-      f.input :last_name
+      f.input :full_name
       f.input :institution
       f.input :experts, as: :ajax_select, data: {
         url: :admin_experts_path,
