@@ -18,6 +18,8 @@ ActiveAdmin.register User do
     expert_ids: [],
   ]
 
+  includes :experts, :relays
+
   # Index
   #
   index do
@@ -25,6 +27,7 @@ ActiveAdmin.register User do
     id_column
     column :full_name
     column :email
+    column :phone_number
     column(:experts) do |user|
       if user.experts.present?
         safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
@@ -37,7 +40,7 @@ ActiveAdmin.register User do
     column :created_at
     column :is_approved
     column :sign_in_count
-    column(:relays) { |user| user.relays.count }
+    column(:relays) { |user| user.relays.length }
     actions dropdown: true do |user|
       item t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
       if user.experts.empty?
@@ -71,6 +74,7 @@ ActiveAdmin.register User do
       row :email
       row :phone_number
     end
+
     attributes_table title: I18n.t('activerecord.models.relay.one') do
       row I18n.t('activerecord.models.territory.other') do |user|
         safe_join(user.territories.map do |territory|
@@ -145,6 +149,8 @@ ActiveAdmin.register User do
     redirect_to resource_path, notice: I18n.t("active_admin.user.expert_linked")
   end
 
+  batch_action :destroy, false
+
   batch_action I18n.t('active_admin.user.autolink_to_experts') do |ids|
     batch_action_collection.find(ids).each { |user| user.autolink_experts! }
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.experts_linked')
@@ -154,6 +160,7 @@ ActiveAdmin.register User do
     def update
       send_approval_emails
       update_params_depending_on_password
+      redirect_or_display_form
     end
 
     def send_approval_emails
@@ -170,6 +177,14 @@ ActiveAdmin.register User do
         resource.update_without_password(permitted_params.require(:user))
       else
         resource.update(permitted_params.require(:user))
+      end
+    end
+
+    def redirect_or_display_form
+      if resource.errors.blank?
+        redirect_to resource_path, notice: I18n.t('active_admin.user.saved')
+      else
+        render :edit
       end
     end
   end
