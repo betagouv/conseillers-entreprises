@@ -35,7 +35,6 @@ ActiveAdmin.register User do
     end
   end
 
-  filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :full_name
   filter :email
   filter :institution
