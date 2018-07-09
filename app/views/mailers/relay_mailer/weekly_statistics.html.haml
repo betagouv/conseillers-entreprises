@@ -1,4 +1,4 @@
-%p= t('.hello', first_name: @user.first_name)
+%p= t('.hello', full_name: @user.full_name)
 
 - link_to_root = link_to t('app_name'), root_url
 %p= t('.here_are_weekly_statistics_html', link_to_root: link_to_root, territory_name: @territory_name)

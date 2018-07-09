@@ -15,7 +15,7 @@ module Users
     protected
 
     def configure_permitted_parameters
-      editable_attributes = %i[first_name last_name institution role phone_number]
+      editable_attributes = %i[full_name institution role phone_number]
       devise_parameter_sanitizer.permit(:sign_up, keys: editable_attributes)
       devise_parameter_sanitizer.permit(:account_update, keys: editable_attributes)
     end

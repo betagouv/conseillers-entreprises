@@ -17,7 +17,7 @@ fr:
           zero: Aucune analyse créée.
         diagnosis_description: 'Analyse #%{id} par %{advisor_name} pour %{company_name}'
         have_a_nice_week: Bonne semaine !
-        hello: Bonjour %{first_name},
+        hello: Bonjour %{full_name},
         here_are_weekly_statistics_html: 'Voici ce qui s’est passé sur %{link_to_root} cette semaine pour le territoire de %{territory_name} :'
         reso_team_html: L’équipe %{link_to_root}.
         subject: "[Réso] Statistiques hebdomadaires pour le territoire de %{territory_name}"

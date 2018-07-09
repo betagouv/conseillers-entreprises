@@ -25,7 +25,7 @@ RSpec.describe 'mailers/relay_mailer/weekly_statistics.html.haml', type: :view d
     end
 
     it 'displays a title and 4 list elements' do
-      expect(rendered).to include "Bonjour #{user.first_name},"
+      expect(rendered).to include "Bonjour #{user.full_name},"
       assert_select 'li', count: 6
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe 'mailers/relay_mailer/weekly_statistics.html.haml', type: :view d
     end
 
     it 'displays a title and no list element' do
-      expect(rendered).to include "Bonjour #{user.first_name},"
+      expect(rendered).to include "Bonjour #{user.full_name},"
       assert_select 'li', count: 0
     end
   end

@@ -13,7 +13,7 @@ module UserImpersonate
 
     # User model name attribute used for search
     # Usage: User.where('#{user_name_column} like ?', '%#{params[:search]}%')
-    config.user_name_column = 'last_name'
+    config.user_name_column = 'full_name'
 
     # User model staff attribute
     config.user_is_staff_method = 'is_admin?'

@@ -16,9 +16,7 @@ fr:
       contact:
         company: Entreprise
         email: Adresse e-mail
-        first_name: Prénom
         full_name: Prénom et Nom
-        last_name: Nom
         phone_number: Numéro de téléphone
         role: Fonction
       diagnosed_need:
@@ -34,10 +32,8 @@ fr:
         access_token: Token d’accès
         assistances: Champs de compétence
         email: Adresse e-mail
-        first_name: Prénom
         full_name: Prénom et Nom
         institution: Institution
-        last_name: Nom
         phone_number: Numéro de téléphone
         role: Fonction
         territories: Territoires
@@ -97,12 +93,10 @@ fr:
         email: Adresse e-mail
         encrypted_password: Mot de passe chiffré
         experts: Équipe référents
-        first_name: Prénom
         full_name: Prénom et Nom
         institution: Institution
         is_admin: Est administrateur ?
         is_approved: Est validé ?
-        last_name: Nom
         last_sign_in_at: Date de de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
@@ -120,7 +114,7 @@ fr:
         visitee: Personne rencontrée
       visit/visitee:
         email: Adresse e-mail de la personne rencontrée
-        last_name: Prénom et Nom de la personne rencontrée
+        full_name: Prénom et Nom de la personne rencontrée
         phone_number: Numéro de téléphone de la personne rencontrée
         role: Fonction de la personne rencontrée
     errors:

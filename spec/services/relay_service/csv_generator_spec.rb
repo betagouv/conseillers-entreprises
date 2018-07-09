@@ -5,7 +5,7 @@ require 'rails_helper'
 describe RelayService::CSVGenerator do
   describe 'generate_statistics_csv' do
     context 'one diagnosis' do
-      let(:user) { create :user, first_name: 'Jean', last_name: 'Bon', institution: 'DINSIC' }
+      let(:user) { create :user, full_name: 'Jean Bon', institution: 'DINSIC' }
       let(:company) { create :company, name: 'COMPANY NAME' }
       let(:facility) { create :facility, company: company }
       let(:visit) { create :visit, facility: facility, advisor: user, happened_on: Date.parse('2017-10-10') }

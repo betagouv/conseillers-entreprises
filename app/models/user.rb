@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :searches
   has_and_belongs_to_many :experts
 
-  validates :first_name, :email, :phone_number, presence: true
+  validates :full_name, :email, :phone_number, presence: true
 
   # Inspired by Devise validatable module
   validates :email,
@@ -32,10 +32,10 @@ class User < ApplicationRecord
     where(contact_page_order: nil)
         .joins(:relays)
         .distinct
-        .order(:first_name, :last_name)
+        .order(:full_name)
   end)
   scope :not_admin, (-> { where(is_admin: false) })
-  scope :ordered_by_names, (-> { order(:first_name, :last_name) })
+  scope :ordered_by_names, (-> { order(:full_name) })
 
   scope :active_searchers, (lambda do |date|
     joins(:searches)
@@ -64,7 +64,7 @@ class User < ApplicationRecord
   end
 
   def full_name_with_role
-    "#{first_name} #{last_name}, #{role}, #{institution}"
+    "#{full_name}, #{role}, #{institution}"
   end
 
   def auto_approve_if_whitelisted_domain

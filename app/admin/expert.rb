@@ -5,8 +5,7 @@ ActiveAdmin.register Expert do
   includes :institution, :assistances, :territories
 
   permit_params [
-    :first_name,
-    :last_name,
+    :full_name,
     :role,
     :institution_id,
     :email,
@@ -24,7 +23,6 @@ ActiveAdmin.register Expert do
     selectable_column
     id_column
     column :full_name
-    column :last_name
     column :institution
     column(:users) { |expert| expert.users.length }
     column :role
@@ -37,8 +35,7 @@ ActiveAdmin.register Expert do
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
-  filter :first_name
-  filter :last_name
+  filter :full_name
   filter :email
   filter :phone_number
   filter :role
@@ -88,8 +85,7 @@ ActiveAdmin.register Expert do
   #
   form do |f|
     f.inputs do
-      f.input :first_name
-      f.input :last_name
+      f.input :full_name
       f.input :institution, as: :ajax_select, data: {
         url: :admin_institutions_path,
         search_fields: [:name],

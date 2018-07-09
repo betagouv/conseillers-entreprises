@@ -6,8 +6,7 @@ namespace :dev do
   task sample_data: :environment do
     institution = Institution.create! name: Faker::Company.name
 
-    expert = Expert.new first_name: Faker::Name.first_name,
-                        last_name: Faker::Name.last_name,
+    expert = Expert.new full_name: Faker::Name.name,
                         email: Faker::Internet.email
     expert.assign_attributes role: Faker::Job.title, institution: institution
     expert.save!
