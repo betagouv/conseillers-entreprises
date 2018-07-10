@@ -1,8 +1,7 @@
 %td.expert-width
-  %strong= match.expert_full_name
+  %strong= match.person_full_name
   %br
-    - person = match.assistance_expert&.expert
-    - person ||= match.relay&.user
+    - person = match.person
     - if person
       - if person.phone_number.present?
         = person.phone_number
