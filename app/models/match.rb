@@ -50,6 +50,14 @@ class Match < ApplicationRecord
     person&.full_name || expert_full_name
   end
 
+  def belongs_to_user?(user)
+    relay&.user == user || expert&.users&.include?(user)
+  end
+
+  def can_be_viewed_by?(user)
+    belongs_to_user?(user)
+  end
+
   private
 
   def update_taken_care_of_at

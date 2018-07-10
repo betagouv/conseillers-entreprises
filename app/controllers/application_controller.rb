@@ -28,6 +28,14 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError, 'Not Found'
   end
 
+  def current_expert
+    Expert.find_by(access_token: params[:access_token])
+  end
+
+  def authenticate_expert!
+    current_expert.present? || redirect_to(new_user_session_path)
+  end
+
   private
 
   def render_error(exception)
@@ -60,6 +68,14 @@ class ApplicationController < ActionController::Base
   end
 
   def check_current_user_access_to(resource)
-    not_found if !resource.send(:can_be_viewed_by?, current_user)
+    expert = current_expert
+    if expert.present? && expert.users.any?{ |user| resource.send(:can_be_viewed_by?, user) }
+      return
+    end
+    if resource.send(:can_be_viewed_by?, current_user)
+      return
+    end
+    # can not be viewed:
+    not_found
   end
 end

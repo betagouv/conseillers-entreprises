@@ -12,6 +12,36 @@ RSpec.describe Match, type: :model do
     end
   end
 
+  describe '#can_be_viewed_by?' do
+    subject { match.can_be_viewed_by?(user) }
+
+    let(:match) { create :match }
+    let(:user) { create :user }
+    let(:expert) { create :expert }
+    let(:relay) { create :relay }
+
+    before do
+      user.relays = [relay]
+      user.experts = [expert]
+    end
+
+    context 'user is unrelated' do
+      it { is_expected.to be_falsey }
+    end
+
+    context 'user is relay' do
+      before { match.relay = relay }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context 'user is expert' do
+      before { match.expert = expert }
+
+      it { is_expected.to be_truthy }
+    end
+  end
+
   describe 'audited' do
     context 'create' do
       it { expect { create :match }.to change(Audited::Audit, :count).by 1 }

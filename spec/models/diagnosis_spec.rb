@@ -208,13 +208,13 @@ RSpec.describe Diagnosis, type: :model do
     let(:user) { create :user }
     let!(:diagnosis) { create :diagnosis, visit: visit }
 
-    context 'diagnosis advisor is the user' do
+    context 'user is the diagnosis advisor' do
       let(:advisor) { user }
 
       it { is_expected.to eq true }
     end
 
-    context 'diagnosis advisor is not the user' do
+    context 'user is unrelated' do
       let(:advisor) { create :user }
 
       it { is_expected.to eq false }

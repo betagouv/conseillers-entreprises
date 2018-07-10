@@ -45,7 +45,7 @@ class Diagnosis < ApplicationRecord
   end
 
   def can_be_viewed_by?(user)
-    visit.can_be_viewed_by?(user)
+    visit.can_be_viewed_by?(user) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(user) }
   end
 
   def needs_for(relay_or_expert)

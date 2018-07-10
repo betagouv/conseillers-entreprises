@@ -19,4 +19,8 @@ class DiagnosedNeed < ApplicationRecord
   scope :with_at_least_one_expert_done, (lambda do
     where(id: Match.with_status(:done).select(:diagnosed_need_id))
   end)
+
+  def can_be_viewed_by?(user)
+    diagnosis.visit.can_be_viewed_by?(user) || matches.any?{ |match| match.can_be_viewed_by?(user) }
+  end
 end
