@@ -56,6 +56,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :besoins, controller: 'needs', only: %i[index show]
+
   namespace :api do
     resources :diagnoses, only: %i[show create update] do
       resources :diagnosed_needs, only: %i[index] do
