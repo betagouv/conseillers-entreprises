@@ -20,26 +20,4 @@
   - if @user.experts.present?
     %h2= t('activerecord.models.expert.one')
     - @user.experts.each do |expert|
-      .ui.segments
-        %h3.ui.segment.block.header
-          = expert.full_name
-        .ui.segment
-          %strong Rôle et institution :
-          #{expert.role}, #{expert.institution.name}
-        - if expert.phone_number.present?
-          .ui.segment
-            %strong #{t('activerecord.attributes.expert.phone_number')} :
-            = expert.phone_number
-        .ui.segment
-          %strong #{t('activerecord.attributes.expert.email')} :
-          = expert.email
-        - if !@user.is_own_expert
-          .ui.segment
-            %strong #{t('activerecord.attributes.expert.users')} :
-            = expert.users.map(&:full_name).join(', ')
-        .ui.segment
-          %strong #{t('activerecord.attributes.expert.territories')} :
-          = expert.territories.map(&:name).join(', ')
-        .ui.segment
-          %strong #{t('activerecord.attributes.expert.assistances')} :
-          = expert.assistances.map(&:title).join(', ')
+      = render partial: 'needs/team', locals: { expert: expert, user: @user }
