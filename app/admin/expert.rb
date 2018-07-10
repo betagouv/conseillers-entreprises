@@ -67,13 +67,9 @@ ActiveAdmin.register Expert do
     end
   end
 
-  sidebar I18n.t('activerecord.models.user.other'), only: :show do
-    attributes_table do
-      row(:users) do |expert|
-        safe_join(expert.users.map do |user|
-          link_to user.full_name, admin_user_path(user)
-        end, ', '.html_safe)
-      end
+  sidebar I18n.t('activerecord.attributes.user.experts'), only: :show do
+    table_for expert.users do
+      column { |user| link_to(user.full_name, admin_user_path(user)) + "<br/> #{user.role}, #{user.institution}".html_safe }
     end
   end
 
