@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   rescue_from Exception, with: :render_error
 
   def authenticate_admin!
-    current_user.is_admin? || redirect_to(root_path, alert: t('admin_authentication_failure'))
+    current_user.is_admin? || not_found
   end
 
   # Devise parameter
