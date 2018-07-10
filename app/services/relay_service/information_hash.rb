@@ -20,8 +20,8 @@ module RelayService
       self[:completed_diagnoses][:items] = completed_diagnoses
     end
 
-    def fill_contacted_experts_count_statistics(contacted_experts_count)
-      self[:contacted_experts_count] = contacted_experts_count
+    def fill_matches_count_statistics(matches_count)
+      self[:matches_count] = matches_count
     end
   end
 end
