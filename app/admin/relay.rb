@@ -5,6 +5,15 @@ ActiveAdmin.register Relay do
   permit_params :territory_id, :user_id
   includes :territory, :user
 
+  ## Index
+  #
+  filter :territory_name, as: :string, label: I18n.t('activerecord.attributes.relay.territory')
+  filter :user_full_name, as: :string, label: I18n.t('activerecord.attributes.relay.user')
+  filter :created_at
+  filter :updated_at
+
+  ## Form
+  #
   form do |f|
     inputs do
       f.input :territory, collection: Territory.ordered_by_name
@@ -13,8 +22,4 @@ ActiveAdmin.register Relay do
     actions
   end
 
-  filter :territory, collection: -> { Territory.ordered_by_name }
-  filter :user, collection: -> { User.ordered_by_names }
-  filter :created_at
-  filter :updated_at
 end
