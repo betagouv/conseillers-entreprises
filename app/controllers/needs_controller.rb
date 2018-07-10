@@ -5,6 +5,8 @@ class NeedsController < ApplicationController
   before_action :authenticate_user!, unless: -> { params[:access_token].present? }
   before_action :authenticate_expert!, if: -> { params[:access_token].present? }
 
+  after_action :mark_expert_viewed, only: :show
+
   def index
     @relays = relays
     @experts = experts
@@ -32,5 +34,11 @@ class NeedsController < ApplicationController
   def experts
     current_user.present? ? current_user.experts.order(:full_name)
       : [current_expert]
+  end
+
+  def mark_expert_viewed
+    experts.each do |expert|
+      UseCases::UpdateExpertViewedPageAt.perform(diagnosis: params[:id].to_i, expert: expert)
+    end
   end
 end

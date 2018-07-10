@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe UseCases::UpdateExpertViewedPageAt do
   describe 'perform' do
-    subject(:perform_use_case) { described_class.perform diagnosis_id: diagnosis.id, expert_id: expert.id }
+    subject(:perform_use_case) { described_class.perform diagnosis: diagnosis, expert: expert }
 
     let(:diagnosis) { create :diagnosis }
     let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
