@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Expert do
   menu priority: 6
-  includes :institution, :assistances, :territories
+  includes :institution, :assistances, :territories, :users
 
   permit_params [
     :full_name,
@@ -66,40 +66,7 @@ ActiveAdmin.register Expert do
       end
     end
 
-    panel I18n.t('active_admin.territories.contacted_experts') do
-      table_for Match.of_expert(expert)
-                  .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
-                  .includes(diagnosed_need: [diagnosis: [visit: :advisor]])
-                  .includes(:expert)
-                  .order(created_at: :desc) do
-        column(:id) do |match|
-          link_to(match.id, admin_match_path(match))
-        end
-        column :created_at
-        column(I18n.t('activerecord.attributes.visit.advisor')) do |match|
-          advisor = match.diagnosed_need.diagnosis.visit.advisor
-          link_to(advisor.full_name_with_role, admin_user_path(advisor))
-        end
-        column(I18n.t('activerecord.attributes.visit.facility')) do |match|
-          match.diagnosed_need&.diagnosis&.visit&.facility
-        end
-        column(:diagnosed_need) do |match|
-          need = match.diagnosed_need
-          link_to(need.question_label, admin_diagnosed_need_path(need))
-        end
-        column :expert_full_name do |match|
-          expert = match.expert
-          if expert.present?
-            link_to(match.expert_description, admin_expert_path(expert))
-          else
-            I18n.t('active_admin.matches.deleted', expert: match.expert_description)
-          end
-        end
-        column :status do |match|
-          I18n.t("activerecord.attributes.match.statuses.#{match.status}")
-        end
-      end
-    end
+    render partial: 'admin/matches', locals: { matches_relation: Match.of_expert(expert) }
   end
 
   sidebar I18n.t('activerecord.attributes.user.experts'), only: :show do
