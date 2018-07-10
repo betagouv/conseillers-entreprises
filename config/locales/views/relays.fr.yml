@@ -1,7 +1,0 @@
----
-fr:
-  relays:
-    assigned_diagnoses: Demandes reçues en tant que relais local
-    index:
-      title: Suivi des demandes
-    needs_for_me: Besoins me concernant

@@ -48,12 +48,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :relays, only: %i[index show] do
-    collection do
-      get 'diagnoses/:diagnosis_id' => 'relays#diagnosis', as: :diagnosis
-    end
-  end
-
   resources :besoins, controller: 'needs', only: %i[index show]
 
   resources :matches, only: %i[update]
