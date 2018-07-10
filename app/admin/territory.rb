@@ -6,6 +6,8 @@ ActiveAdmin.register Territory do
     :city_codes,
     territory_cities: %i[id city_code _create _update _destroy]
 
+  ## Show
+  #
   show do
     attributes_table do
       row :name
@@ -15,14 +17,6 @@ ActiveAdmin.register Territory do
         safe_join(territory.territory_cities.map do |territory_city|
           link_to territory_city.city_code, admin_territory_city_path(territory_city)
         end, ', '.html_safe)
-      end
-    end
-
-    panel I18n.t('active_admin.territories.relais') do
-      table_for territory.users do
-        column :full_name, (proc { |user| link_to(user.full_name, admin_user_path(user)) })
-        column :role
-        column :institution
       end
     end
 
@@ -67,6 +61,12 @@ ActiveAdmin.register Territory do
           I18n.t("activerecord.attributes.match.statuses.#{match.status}")
         end
       end
+    end
+  end
+
+  sidebar I18n.t('active_admin.territories.relais'), only: :show do
+    table_for territory.users do
+      column { |user| link_to(user.full_name, admin_user_path(user)) + "<br/> #{user.role}, #{user.institution}".html_safe }
     end
   end
 
