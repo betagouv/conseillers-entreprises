@@ -31,7 +31,7 @@
       - if user_signed_in?
         - if current_user.is_admin?
           .item
-            = link_to admin_dashboard_path do
+            = link_to admin_root_path do
               = semantic_icon('dashboard')
               = t('.dashboard')
         .item
