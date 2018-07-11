@@ -11,7 +11,7 @@ describe 'the signin process', type: :feature do
       fill_in 'E-mail', with: 'user@example.com'
       fill_in 'Mot de passe', with: 'password'
     end
-    click_button 'Se connecter'
+    click_button 'Connexion'
     expect(page.html).to include 'Analyses en cours'
   end
 end
