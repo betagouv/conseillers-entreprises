@@ -37,7 +37,7 @@ fr:
         phone_number: Numéro de téléphone
         role: Fonction
         territories: Territoires
-        users: Équipe
+        users: Membres
       facility:
         city_code: Code commune
         company: Entreprise
@@ -92,7 +92,7 @@ fr:
         current_sign_in_ip: IP de connexion
         email: E-mail
         encrypted_password: Mot de passe chiffré
-        experts: Équipe référents
+        experts: Équipe
         full_name: Prénom et Nom
         institution: Institution
         is_admin: Est administrateur ?
