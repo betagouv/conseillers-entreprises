@@ -23,8 +23,7 @@ ActiveAdmin.register Match do
         access_token = match.assistance_expert.expert.access_token
         link_to 'Page Référent', diagnosis_experts_path(diagnosis_id: diagnosis_id, access_token: access_token)
       else
-        link_to 'Page Référent',
-          diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: match.relay_id)
+        link_to 'Page Référent', diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: match.relay_id)
       end
     end
 
