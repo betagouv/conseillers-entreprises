@@ -15,7 +15,7 @@ class AdminMailersService
       created_diagnoses_statistics
       updated_diagnoses_statistics
       completed_diagnoses_statistics
-      contacted_experts_count_statistics
+      matches_count_statistics
 
       AdminMailer.delay.weekly_statistics(@information_hash)
     end
@@ -50,9 +50,9 @@ class AdminMailersService
       @information_hash[:completed_diagnoses][:items] = @completed_diagnoses
     end
 
-    def contacted_experts_count_statistics
-      contacted_experts_count = Match.of_diagnoses(@completed_diagnoses).count
-      @information_hash[:contacted_experts_count] = contacted_experts_count
+    def matches_count_statistics
+      matches_count = Match.of_diagnoses(@completed_diagnoses).count
+      @information_hash[:matches_count] = matches_count
     end
   end
 end

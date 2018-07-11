@@ -20,10 +20,6 @@ fr:
           one: 'Une analyse terminée :'
           other: "%{count} analyses terminées :"
           zero: Aucune analyse terminée.
-        contacted_experts_count:
-          one: Un référent contacté.
-          other: "%{count} référents contactés."
-          zero: Aucun référent contacté.
         created_diagnoses_count:
           one: 'Une analyse créée :'
           other: "%{count} analyses créées :"
@@ -31,6 +27,10 @@ fr:
         diagnosis_description: 'Analyse #%{id} par %{advisor_name} pour %{company_name}'
         hello: Bonjour, chers administrateurs !
         last_week: 'La semaine dernière sur Réso, nous avons eu :'
+        matches_count:
+          one: Une mise en relation.
+          other: "%{count} mises en relation."
+          zero: Aucune mise en relation.
         see_you_next_week: A la semaine prochaine pour de nouvelles aventures !
         signed_up_users_count:
           one: 'Un nouvel inscrit :'

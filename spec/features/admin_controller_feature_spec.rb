@@ -58,7 +58,7 @@ describe 'admin panel', type: :feature do
 
       click_link 'Besoins analysés'
 
-      click_link 'Référents contactés'
+      click_link 'Mises en relation'
 
       click_link 'Territoires'
       click_link 'Créer Territoire'
@@ -83,9 +83,9 @@ describe 'admin panel', type: :feature do
 
       match.diagnosed_need.diagnosis.archive!
 
-      click_link 'Référents contactés'
+      click_link 'Mises en relation'
     end
 
-    it('displays page content') { expect(page.html).to include 'Référents contactés' }
+    it('displays page content') { expect(page.html).to include 'Mises en relation' }
   end
 end

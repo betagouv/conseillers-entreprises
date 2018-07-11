@@ -164,8 +164,8 @@ fr:
         one: Institution
         other: Institutions
       match:
-        one: Référent contacté
-        other: Référents contactés
+        one: Mise en relation
+        other: Mises en relation
       question:
         one: Besoin
         other: Besoins
