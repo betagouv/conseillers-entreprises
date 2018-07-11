@@ -15,7 +15,7 @@ RSpec.describe 'mailers/relay_mailer/weekly_statistics.html.haml', type: :view d
         created_diagnoses: { count: 2, items: diagnoses },
         updated_diagnoses: { count: 2, items: diagnoses },
         completed_diagnoses: { count: 2, items: diagnoses },
-        contacted_experts_count: 3
+        matches_count: 3
       }
 
       assign(:user, user)
@@ -37,7 +37,7 @@ RSpec.describe 'mailers/relay_mailer/weekly_statistics.html.haml', type: :view d
         created_diagnoses: { count: 0, items: [] },
         updated_diagnoses: { count: 0, items: [] },
         completed_diagnoses: { count: 0, items: [] },
-        contacted_experts_count: 0
+        matches_count: 0
       }
 
       assign(:user, user)

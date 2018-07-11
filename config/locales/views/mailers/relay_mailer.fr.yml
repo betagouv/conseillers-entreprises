@@ -7,10 +7,6 @@ fr:
           one: 'Une analyse terminée :'
           other: "%{count} analyses terminées :"
           zero: Aucune analyse terminée.
-        contacted_experts_count:
-          one: Un référent contacté.
-          other: "%{count} référents contactés."
-          zero: Aucun référent contacté.
         created_diagnoses_count:
           one: 'Une analyse créée :'
           other: "%{count} analyses créées :"
@@ -19,6 +15,10 @@ fr:
         have_a_nice_week: Bonne semaine !
         hello: Bonjour %{full_name},
         here_are_weekly_statistics_html: 'Voici ce qui s’est passé sur %{link_to_root} cette semaine pour le territoire de %{territory_name} :'
+        matches_count:
+          one: Une mise en relation.
+          other: "%{count} mises en relation."
+          zero: Aucune mise en relation.
         reso_team_html: L’équipe %{link_to_root}.
         subject: "[Réso] Statistiques hebdomadaires pour le territoire de %{territory_name}"
         updated_diagnoses_count:

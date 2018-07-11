@@ -8,11 +8,12 @@ fr:
       access: Accès
     institutions:
       experts: Réferents
+    matches:
+      deleted: "%{expert} (supprimé)"
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     territories:
-      contacted_experts: Mises en relation
       experts: Référents
       relais: Relais locaux
     user:

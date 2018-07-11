@@ -1,4 +1,4 @@
-panel "#{I18n.t('active_admin.territories.contacted_experts')} (#{matches_relation.length})" do
+panel "#{I18n.t('activerecord.models.match.other')} (#{matches_relation.length})" do
   table_for matches_relation
     .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
     .includes(diagnosed_need: [diagnosis: [visit: :advisor]])
@@ -23,8 +23,10 @@ panel "#{I18n.t('active_admin.territories.contacted_experts')} (#{matches_relati
       expert = match.expert
       if expert.present?
         link_to(match.expert_description, admin_expert_path(expert))
-      else
+      elsif match.relay.present?
         link_to(match.expert_description, admin_relay_path(match.relay))
+      else
+        I18n.t('active_admin.matches.deleted', expert: match.expert_description)
       end
     end
     column :status do |match|

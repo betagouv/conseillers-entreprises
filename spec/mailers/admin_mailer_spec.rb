@@ -38,7 +38,7 @@ describe AdminMailer do
         created_diagnoses: { count: 2, items: diagnoses },
         updated_diagnoses: { count: 2, items: diagnoses },
         completed_diagnoses: { count: 2, items: diagnoses },
-        contacted_experts_count: 3
+        matches_count: 3
       }
     end
 
