@@ -3,7 +3,7 @@ fr:
   companies:
     company:
       capital_social: Capital social
-      categorie_entreprise: Categorie de l’entreprise
+      categorie_entreprise: Catégorie de l’entreprise
       date_creation: Date de création
       date_radiation: Date de radiation
       forme_juridique: Forme juridique
