@@ -1,44 +1,40 @@
-%header.ui.stackable.menu.responsive-top-fixed
+%header.ui.menu.large.responsive-top-fixed
   .ui.container
-    .header.item
-      = link_to root_path do
-        = image_tag 'reso-logo-simple.png', style: 'width: 60px'
+    %a.item{ href: root_path }
+      = image_tag 'reso-logo-simple.png', style: 'width: 60px'
     - if user_signed_in?
-      .item
-        = link_to diagnoses_path do
-          = semantic_icon('tasks')
-          = t('.diagnoses')
+      %a.item{ href: diagnoses_path }
+        %i.tasks.icon
+        = t('.diagnoses')
       - if current_user.relays.present?
-        .item
-          = link_to relays_path do
-            = semantic_icon('dashboard')
-            = t('.relay_dashboard')
-    - else
-      .item
-        = link_to about_home_index_path do
-          = semantic_icon('question mark')
-          = t('.know_more')
-    .right.menu
-      - if !user_signed_in?
-        .item
-          = link_to new_user_session_path do
-            = semantic_icon('sign in')
-            = t('sign_in')
-        .item
-          = link_to new_user_registration_path do
-            = semantic_icon('sign in')
-            = t('sign_up')
-      - if user_signed_in?
-        - if current_user.is_admin?
-          .item
-            = link_to admin_dashboard_path do
-              = semantic_icon('dashboard')
-              = t('.dashboard')
-        .item
-          = link_to profile_path do
-            = semantic_icon('user')
-            = t('.profile')
-        .item
-          = link_to destroy_user_session_path, method: :delete do
-            = semantic_icon('sign out')
-            = t('.sign_out')
+        %a.item{ href: relays_path }
+          %i.dashboard.icon
+          = t('.relay_dashboard')
+    - else # not signed in
+      %a.item{ href: about_home_index_path }
+        %i.question.icon
+        = t('.know_more')
+    - if user_signed_in?
+      .ui.simple.dropdown.right.item#nav-menu
+        %i.user.outline.icon
+        = t('.account')
+        .menu
+          - if user_signed_in?
+            - if current_user.is_admin?
+              %a.item{ href: admin_root_path }
+                %i.gavel.icon
+                = t('.admin')
+            %a.item{ href: profile_path }
+              %i.user.circle.icon
+              = t('.profile')
+            %a.item{ href: destroy_user_session_path, 'data-method': :delete, rel: :nofollow }
+              %i.sign.out.icon
+              = t('.sign_out')
+    - else # not signed in
+      .right.menu
+        %a.item{ href: new_user_registration_path }
+          %i.handshake.outline.icon
+          = t('sign_up')
+        %a.right.item{ href: new_user_session_path }
+          %i.sign.in.icon
+          = t('sign_in')

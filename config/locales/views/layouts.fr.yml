@@ -8,9 +8,10 @@ fr:
       know_more: En savoir plus
       video: Vidéo de présentation
     navbar:
-      dashboard: Admin
+      account: Compte
+      admin: Administration
       diagnoses: Analyses
       know_more: En savoir plus
-      profile: Mon profil
+      profile: Profil
       relay_dashboard: Territoires
-      sign_out: Me déconnecter
+      sign_out: Déconnexion

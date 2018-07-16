@@ -146,7 +146,7 @@ ActiveAdmin.register User do
   #
   collection_action :send_invitation_emails, method: :post do
     UserMailer.delay.send_new_user_invitation(params)
-    redirect_to admin_dashboard_path, notice: "Utilisateur #{params[:email]} invité."
+    redirect_to admin_root_path, notice: "Utilisateur #{params[:email]} invité."
   end
 
   member_action :autolink_to_experts, method: :post do
