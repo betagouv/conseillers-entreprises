@@ -35,6 +35,12 @@ describe CompaniesHelper, type: :helper do
 
       it { is_expected.to be_nil }
     end
+
+    context '“Donnée indisponible” timestamp' do
+      let(:timestamp) { 'Donnée indisponible' }
+
+      it { is_expected.to be_nil }
+    end
   end
 
   describe 'last_searches' do
