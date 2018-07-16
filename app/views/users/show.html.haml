@@ -1,9 +1,45 @@
 #profile
-  %table.ui.padded.basic.table
-    %tbody
-      - %i[full_name institution role phone_number email].each do |attribute|
-        %tr
-          %td= User.human_attribute_name(attribute)
-          %td= @user.send(attribute)
+  .ui.segments
+    - %i[full_name institution role phone_number email].each do |attribute|
+      .ui.attached.segment
+        %strong #{User.human_attribute_name(attribute)} :
+        = @user.send(attribute)
+    %a.ui.bottom.attached.basic.green.button{ href: edit_user_registration_path }= t('edit')
 
-  = link_to t('edit'), edit_user_registration_path, class: 'ui green button'
+  // Relays
+  - if @user.relays.present?
+    %h2= t('activerecord.models.relay.one')
+    .ui.segments
+      %h3.ui.segment.block.header
+        = t('activerecord.models.territory', count: @user.relays.length)
+      - @user.relays.each do |relay|
+        .ui.attached.segment
+          = relay.territory.name
+
+  // Teams
+  - if @user.experts.present?
+    %h2= t('activerecord.models.expert.one')
+    - @user.experts.each do |expert|
+      .ui.segments
+        %h3.ui.segment.block.header
+          = expert.full_name
+        .ui.segment
+          %strong Rôle et institution :
+          #{expert.role}, #{expert.institution.name}
+        - if expert.phone_number.present?
+          .ui.segment
+            %strong #{t('activerecord.attributes.expert.phone_number')} :
+            = expert.phone_number
+        .ui.segment
+          %strong #{t('activerecord.attributes.expert.email')} :
+          = expert.email
+        - if !@user.is_own_expert
+          .ui.segment
+            %strong #{t('activerecord.attributes.expert.users')} :
+            = expert.users.map(&:full_name).join(', ')
+        .ui.segment
+          %strong #{t('activerecord.attributes.expert.territories')} :
+          = expert.territories.map(&:name).join(', ')
+        .ui.segment
+          %strong #{t('activerecord.attributes.expert.assistances')} :
+          = expert.assistances.map(&:title).join(', ')

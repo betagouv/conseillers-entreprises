@@ -88,6 +88,10 @@ class User < ApplicationRecord
     end
   end
 
+  def is_own_expert
+    self.experts.length == 1 && self.experts.first.users == [self]
+  end
+
   protected
 
   # Inspired by Devise validatable module
