@@ -10,9 +10,9 @@
         = submit_tag t('search'), class: 'ui button green'
 
   .print-diagnosis-button
-    = link_to print_diagnoses_path do
+    = link_to 'GuideEntretien.pdf' do
       %i.print.icon
-      = t('.print_questions')
+      = t('.interview_guide')
 
   - if @diagnoses[:in_progress].empty? && @diagnoses[:completed].empty?
     %p= t('.no_analysis_message')

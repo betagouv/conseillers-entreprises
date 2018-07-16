@@ -19,7 +19,7 @@ fr:
       no_diagnoses_in_progress_message_html: |
         Retrouvez ici les analyses que vous avez initiées et qui demeurent incomplètes.
         <br>Vous pouvez les compléter à tout moment en reprenant à l’étape où vous vous êtes arrêté.
-      print_questions: Imprimer le questionnaire
+      interview_guide: Guide d’entretien
       show_summary: Voir le récapitulatif
       solved_needs:
         one: "%{solved_needs_count}/1 besoin résolu"
