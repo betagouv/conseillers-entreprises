@@ -2,10 +2,10 @@
   .impersonate-info
     Vous (
     %span.admin-name<>= current_staff_user
-    ) utilisez impersonate sur
+    ) utilisez voyez le site en tant que
     %span.user-name= current_user
     = " (ID de l'utilisateur : #{current_user.id})"
 
   .impersonate-buttons
     = form_tag impersonate_engine.revert_impersonate_user_url, method: :delete, class: 'revert-form' do
-      %button.ui.button{ type: 'submit' }= 'Retour sur le panel admin'
+      %button.ui.button{ type: 'submit' }= 'Retourner a l’admin'

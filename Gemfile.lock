@@ -259,20 +259,10 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
-    pdf-core (0.7.0)
     pg (1.0.0)
     polyamorous (1.3.3)
       activerecord (>= 3.0)
     powerpack (0.1.2)
-    prawn (2.2.2)
-      pdf-core (~> 0.7.0)
-      ttfunk (~> 1.5)
-    prawn-rails (1.1.0)
-      prawn
-      prawn-table
-      rails (>= 3.1.0)
-    prawn-table (0.2.2)
-      prawn (>= 1.3.0, < 3.0.0)
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
@@ -400,7 +390,6 @@ GEM
     thread (0.2.2)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    ttfunk (1.5.1)
     turbolinks (5.1.1)
       turbolinks-source (~> 5.1)
     turbolinks-source (5.1.0)
@@ -467,7 +456,6 @@ DEPENDENCIES
   mailjet
   metamagic
   pg
-  prawn-rails
   puma
   rails
   roadie-rails
