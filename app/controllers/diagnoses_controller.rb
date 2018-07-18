@@ -5,11 +5,6 @@ class DiagnosesController < ApplicationController
     @diagnoses = UseCases::GetDiagnoses.for_user(current_user)
   end
 
-  def print
-    @categories_with_questions = UseCases::GetQuestionsForPdf.perform
-    render 'print.pdf'
-  end
-
   def show
     diagnosis = Diagnosis.only_active.find(params[:id])
     check_current_user_access_to(diagnosis)

@@ -9,11 +9,6 @@
         = text_field_tag :query, @query, autofocus: true, placeholder: t('companies.search.explanation')
         = submit_tag t('search'), class: 'ui button green'
 
-  .print-diagnosis-button
-    = link_to print_diagnoses_path do
-      %i.print.icon
-      = t('.print_questions')
-
   - if @diagnoses[:in_progress].empty? && @diagnoses[:completed].empty?
     %p= t('.no_analysis_message')
 
