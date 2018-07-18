@@ -7,7 +7,7 @@ class Expert < ApplicationRecord
 
   has_and_belongs_to_many :users
   has_many :assistances_experts, dependent: :destroy
-  has_many :assistances, through: :assistances_experts
+  has_many :assistances, through: :assistances_experts, dependent: :destroy
   has_many :matches, through: :assistances_experts
   has_many :expert_territories, dependent: :destroy
   has_many :territories, through: :expert_territories
