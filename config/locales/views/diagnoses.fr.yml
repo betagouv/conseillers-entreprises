@@ -25,10 +25,6 @@ fr:
         other: "%{solved_needs_count}/%{count} besoins résolus"
       title: Analyses
       visitee: 'Contact : %{visitee_name}'
-    print:
-      creation_date: Généré le %{date}
-      institution_example: 'Exemple d’institutions référentes : %{institution_list_string}'
-      title: Questionnaire en entreprise
     step2:
       diagnosed_need_content: 'Entrez des informations complémentaires concernant ce besoin spécifique :'
       diagnosis_content: 'Entrez des informations complémentaires concernant cette entreprise :'

@@ -57,7 +57,6 @@ gem 'faker'
 gem 'metamagic'
 gem 'wannabe_bool'
 
-gem 'prawn-rails'
 gem 'roadie-rails'
 
 group :test do
