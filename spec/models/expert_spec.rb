@@ -48,7 +48,6 @@ RSpec.describe Expert, type: :model do
       it {
         expect{ expert.assistances = [] }.not_to raise_error
         expect(expert.assistances).to eq []
-        expect(ae).to be_destroyed
       }
     end
   end
