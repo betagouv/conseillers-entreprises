@@ -16,6 +16,7 @@ class DiagnosedNeed < ApplicationRecord
   scope :of_relay, (lambda do |relay|
     joins(:matches).merge(Match.of_relay(relay))
   end)
+  scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
   scope :with_at_least_one_expert_done, (lambda do
     where(id: Match.with_status(:done).select(:diagnosed_need_id))
   end)

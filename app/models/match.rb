@@ -34,6 +34,19 @@ class Match < ApplicationRecord
   scope :in_territory, (-> (territory) { of_diagnoses(Diagnosis.in_territory(territory)) })
   scope :of_facilities, (-> (facilities) { of_diagnoses(Diagnosis.of_facilities(facilities)) })
 
+  scope :of_relay_or_expert, (lambda do |relay_or_expert|
+    if relay_or_expert.is_a?(Array)
+      relations = relay_or_expert.map{ |item| of_relay_or_expert(item) }.compact
+      relations.reduce(&:or)
+    elsif relay_or_expert.is_a?(Expert)
+      left_outer_joins(:assistance_expert).where(assistances_experts: { expert: relay_or_expert })
+    elsif relay_or_expert.is_a?(Relay)
+      left_outer_joins(:assistance_expert).where(relay: relay_or_expert)
+    else
+      left_outer_joins(:assistance_expert).where(id: -1)
+    end
+  end)
+
   def status_closed?
     status_done? || status_not_for_me?
   end

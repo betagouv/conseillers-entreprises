@@ -26,6 +26,15 @@ class Diagnosis < ApplicationRecord
       .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
   end)
 
+  scope :of_relay_or_expert, (lambda do |relay_or_expert|
+    only_active
+      .includes(visit: [facility: :company])
+      .joins(:diagnosed_needs)
+      .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
+      .order('visits.happened_on desc', 'visits.created_at desc')
+      .distinct
+  end)
+
   scope :after_step, (-> (minimum_step) { where('step >= ?', minimum_step) })
 
   scope :only_active, (-> { where(archived_at: nil) })
