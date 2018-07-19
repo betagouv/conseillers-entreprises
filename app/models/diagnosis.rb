@@ -44,8 +44,8 @@ class Diagnosis < ApplicationRecord
     I18n.l created_at.to_date
   end
 
-  def can_be_viewed_by?(user)
-    visit.can_be_viewed_by?(user) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(user) }
+  def can_be_viewed_by?(role)
+    visit.can_be_viewed_by?(role) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
   end
 
   def needs_for(relay_or_expert)

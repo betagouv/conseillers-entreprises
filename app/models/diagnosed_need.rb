@@ -20,7 +20,11 @@ class DiagnosedNeed < ApplicationRecord
     where(id: Match.with_status(:done).select(:diagnosed_need_id))
   end)
 
-  def can_be_viewed_by?(user)
-    diagnosis.visit.can_be_viewed_by?(user) || matches.any?{ |match| match.can_be_viewed_by?(user) }
+  def can_be_viewed_by?(role)
+    diagnosis.visit.can_be_viewed_by?(role) || belongs_to_relay_or_expert?(role)
+  end
+
+  def belongs_to_relay_or_expert?(role)
+    matches.any?{ |match| match.belongs_to_relay_or_expert?(role) }
   end
 end

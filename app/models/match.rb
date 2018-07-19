@@ -43,19 +43,19 @@ class Match < ApplicationRecord
   end
 
   def person
-    assistance_expert&.expert || relay&.user
+    expert || relay&.user
   end
 
   def person_full_name
     person&.full_name || expert_full_name
   end
 
-  def belongs_to_user?(user)
-    relay&.user == user || expert&.users&.include?(user)
+  def belongs_to_relay_or_expert?(role)
+    role.present? && (expert == role || relay == role)
   end
 
-  def can_be_viewed_by?(user)
-    belongs_to_user?(user)
+  def can_be_viewed_by?(role)
+    belongs_to_relay_or_expert?(role)
   end
 
   private
