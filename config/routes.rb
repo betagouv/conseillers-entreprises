@@ -45,14 +45,12 @@ Rails.application.routes.draw do
   resources :experts, only: %i[] do
     collection do
       get 'diagnoses/:diagnosis_id' => 'experts#diagnosis', as: :diagnosis
-      patch :update_status
     end
   end
 
   resources :relays, only: %i[index show] do
     collection do
       get 'diagnoses/:diagnosis_id' => 'relays#diagnosis', as: :diagnosis
-      patch :update_status
     end
   end
 

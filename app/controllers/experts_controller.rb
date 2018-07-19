@@ -16,12 +16,6 @@ class ExpertsController < ApplicationController
     @current_user_diagnosed_needs = @diagnosis.needs_for(@expert)
   end
 
-  def update_status
-    @match = Match.of_expert(@expert)
-      .find params[:match_id]
-    @match.update status: params[:status]
-  end
-
   private
 
   def find_expert

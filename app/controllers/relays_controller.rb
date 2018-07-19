@@ -23,14 +23,6 @@ class RelaysController < ApplicationController
     render 'experts/diagnosis'
   end
 
-  def update_status
-    relay = Relay.of_user(current_user)
-    @match = Match.of_relay(relay)
-      .find params[:match_id]
-    @match.update status: params[:status]
-    render 'experts/update_status'
-  end
-
   private
 
   def check_relay_access
