@@ -31,39 +31,6 @@ RSpec.describe DiagnosedNeed, type: :model do
       it { is_expected.to eq [diagnosed_need] }
     end
 
-    describe 'of_expert' do
-      subject { DiagnosedNeed.of_expert expert }
-
-      let(:expert) { create :expert }
-      let(:assistance_expert) { create :assistance_expert, expert: expert }
-      let(:diagnosed_need) { create :diagnosed_need }
-
-      before do
-        create :match, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
-        create :assistance_expert
-        create :match
-      end
-
-      it { is_expected.to eq [diagnosed_need] }
-    end
-
-    describe 'of_relay' do
-      subject { DiagnosedNeed.of_relay relay }
-
-      let(:relay) { create :relay }
-      let(:diagnosed_need) { create :diagnosed_need }
-
-      before do
-        create :match,
-          relay: relay,
-          diagnosed_need: diagnosed_need
-        create :relay
-        create :match
-      end
-
-      it { is_expected.to eq [diagnosed_need] }
-    end
-
     describe 'with_at_least_one_expert_done' do
       subject { DiagnosedNeed.with_at_least_one_expert_done }
 

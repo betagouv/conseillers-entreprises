@@ -56,13 +56,4 @@ class Diagnosis < ApplicationRecord
   def can_be_viewed_by?(role)
     visit.can_be_viewed_by?(role) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
   end
-
-  def needs_for(relay_or_expert)
-    needs = diagnosed_needs.includes(:matches)
-    if relay_or_expert.is_a?(Expert)
-      needs.of_expert(relay_or_expert)
-    elsif relay_or_expert.is_a?(Relay)
-      needs.of_relay(relay_or_expert)
-    end
-  end
 end
