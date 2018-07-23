@@ -14,7 +14,8 @@ class ExpertMailer < ApplicationMailer
     mail(
       to: "#{person.full_name} <#{person.email}>",
       cc: "#{params[:advisor].full_name} <#{params[:advisor].email}>",
-      subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: params[:company_name])
+      subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: params[:company_name]),
+      reply_to: reply_to(params),
     )
   end
 
@@ -26,5 +27,14 @@ class ExpertMailer < ApplicationMailer
       to: "#{expert.full_name} <#{expert.email}>",
       subject: t('mailers.expert_mailer.remind_involvement.subject')
     )
+  end
+
+  private
+
+  def reply_to(params)
+    [
+      "#{I18n.t('app_name')} <#{SENDER_EMAIL}>",
+      "#{params[:advisor].full_name} <#{params[:advisor].email}>"
+    ]
   end
 end
