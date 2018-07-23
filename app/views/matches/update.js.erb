@@ -1,0 +1,10 @@
+<%- locals = { match: @match } %>
+
+var match = "<%= j render(partial: 'needs/match', locals: locals) %>";
+document.getElementById('match-line-<%= @match.id %>-global').innerHTML = match;
+
+var matchOwner = "<%= j render(partial: 'needs/match_for_need_owner', locals: locals) %>";
+document.getElementById('match-line-<%= @match.id %>-owner').innerHTML = matchOwner;
+
+var expertButtons = "<%= j render(partial: 'needs/expert_buttons', locals: locals) %>";
+document.getElementById('expert-buttons-line-<%= @match.id %>').innerHTML = expertButtons;
