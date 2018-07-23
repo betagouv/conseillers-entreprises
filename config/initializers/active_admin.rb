@@ -155,7 +155,7 @@ ActiveAdmin.setup do |config|
   # To understand how to localize your app with I18n, read more at
   # https://github.com/svenfuchs/i18n/blob/master/lib%2Fi18n%2Fbackend%2Fbase.rb#L52
   #
-  config.localize_format = :long
+  config.localize_format = '%Y-%m-%d %H:%M'
 
   # == Setting a Favicon
   #

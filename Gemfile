@@ -79,6 +79,7 @@ group :development do
   gem 'i18n-tasks'
   gem 'listen'
   gem 'web-console'
+  gem 'dotenv-rails'
 
   gem 'spring'
   gem 'spring-watcher-listen'
