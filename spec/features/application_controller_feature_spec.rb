@@ -8,9 +8,9 @@ describe 'ApplicationController specific features', type: :feature do
 
     context 'user is not admin' do
       it do
-        visit '/admin'
-        expect(page).not_to have_content 'Tableau de bord'
-        expect(page.html).to include "Vous n’avez pas accès à cette page."
+        expect {
+          visit '/admin'
+        }.to raise_error(ActionController::RoutingError)
       end
     end
 

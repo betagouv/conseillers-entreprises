@@ -42,6 +42,14 @@ class Match < ApplicationRecord
     "#{expert_full_name} (#{expert_institution_name})"
   end
 
+  def person
+    assistance_expert&.expert || relay&.user
+  end
+
+  def person_full_name
+    person&.full_name || expert_full_name
+  end
+
   private
 
   def update_taken_care_of_at
