@@ -35,6 +35,23 @@ RSpec.describe Expert, type: :model do
     end
   end
 
+  describe 'associations dependencies' do
+    let(:expert) { create :expert }
+    let(:assistance) { create :assistance }
+    let(:ae) { create :assistance_expert, expert: expert, assistance: assistance }
+
+    before do
+      create :match, assistance_expert: ae
+    end
+
+    context 'when removing an assistance' do
+      it {
+        expect{ expert.assistances = [] }.not_to raise_error
+        expect(expert.assistances).to eq []
+      }
+    end
+  end
+
   describe 'scopes' do
     describe 'of_city_code' do
       subject { Expert.of_city_code city_code }
