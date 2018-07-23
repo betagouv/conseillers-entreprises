@@ -155,4 +155,37 @@ RSpec.describe User, type: :model do
       it { is_expected.to be_empty }
     end
   end
+
+  describe '#is_oneself?' do
+    subject { user.is_oneself? }
+
+    let(:user) { create(:user) }
+    let(:user2) { create(:user) }
+    let(:expert1) { create(:expert) }
+    let(:expert2) { create(:expert) }
+
+    context ('with no expert') do
+      before { user.experts = [] }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context ('with one expert') do
+      before { user.experts = [expert1] }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context ('with several experts') do
+      before { user.experts = [expert1, expert2] }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context ('with one expert, several users') do
+      before { expert1.users = [user, user2] }
+
+      it { is_expected.to be_falsey }
+    end
+  end
 end

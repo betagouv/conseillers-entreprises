@@ -11,7 +11,7 @@
   .ui.segment
     %strong #{t('activerecord.attributes.expert.email')} :
     = expert.email
-  - if !user.is_own_expert
+  - if !expert.is_oneself?
     .ui.segment
       %strong #{t('activerecord.attributes.expert.users')} :
       = expert.users.map(&:full_name).join(', ')

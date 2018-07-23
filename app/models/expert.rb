@@ -34,4 +34,8 @@ class Expert < ApplicationRecord
       generate_access_token!
     end
   end
+
+  def is_oneself?
+    self.users.length == 1 && self.users.first.experts == [self]
+  end
 end
