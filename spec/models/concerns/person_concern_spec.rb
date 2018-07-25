@@ -60,6 +60,30 @@ RSpec.describe PersonConcern do
     end
   end
 
+  describe 'normalize_email' do
+    subject { user.email }
+
+    let(:user) { create :user, email: email }
+
+    context 'Clean value' do
+      let(:email) { 'user@host.com' }
+
+      it do
+        user.normalize_email
+        is_expected.to eq 'user@host.com'
+      end
+    end
+
+    context 'Dirty value' do
+      let(:email) { ' USeR@HoST.cOm' }
+
+      it do
+        user.normalize_email
+        is_expected.to eq 'user@host.com'
+      end
+    end
+  end
+
   describe 'normalize_role' do
     subject { user.normalize_role }
 
