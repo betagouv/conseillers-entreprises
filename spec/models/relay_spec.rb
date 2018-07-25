@@ -35,6 +35,19 @@ RSpec.describe Relay, type: :model do
     end
   end
 
+  describe 'associations dependencies' do
+    let(:relay) { create :relay }
+    let(:match) { create :match }
+
+    context 'with an assigned match' do
+      before { match.relay = relay }
+
+      it {
+        expect{ relay.destroy! }.not_to raise_error
+      }
+    end
+  end
+
   describe 'scopes' do
     describe 'of_user' do
       subject { described_class.of_user user }

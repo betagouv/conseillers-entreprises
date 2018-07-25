@@ -3,6 +3,7 @@
 class Relay < ApplicationRecord
   belongs_to :territory
   belongs_to :user
+  has_many :matches, dependent: :nullify
 
   validates :territory, :user, presence: true
   validates :territory, uniqueness: { scope: :user }
