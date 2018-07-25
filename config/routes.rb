@@ -60,6 +60,10 @@ Rails.application.routes.draw do
 
   resources :matches, only: %i[update]
 
+  get '/experts/diagnoses/:diagnosis', to: (redirect do |params, request|
+    "/besoins/#{params[:diagnosis]}?#{request.params.slice(:access_token).to_query}"
+  end)
+
   namespace :api do
     resources :diagnoses, only: %i[show create update] do
       resources :diagnosed_needs, only: %i[index] do
