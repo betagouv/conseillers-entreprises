@@ -14,12 +14,17 @@ module PersonConcern
     def normalize_values!
       normalize_name
       normalize_phone_number
+      normalize_email
       normalize_role
       save!
     end
 
     def normalize_name
       self.full_name = self.full_name.squish.titleize
+    end
+
+    def normalize_email
+      self.email = self.email.strip.downcase
     end
 
     def normalize_phone_number
