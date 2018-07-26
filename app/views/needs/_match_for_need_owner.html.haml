@@ -1,0 +1,19 @@
+%td.text.tiny.bold{ colspan: 1 }
+  = t('.my_status')
+  = match.person_full_name
+%td.expert-owner-status-cell{ colspan: 2 }
+  - if match.status_quo?
+    %i.icon.clock
+    = t('.waiting_for_answer')
+
+  - elsif match.status_taking_care?
+    %i.icon.checkmark
+    = t('.ongoing')
+
+  - elsif match.status_done?
+    %i.icon.checkmark
+    = t('.done')
+
+  - elsif match.status_not_for_me?
+    %i.icon.remove
+    = t('.not_for_me')

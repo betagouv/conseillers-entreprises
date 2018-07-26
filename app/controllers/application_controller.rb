@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   rescue_from Exception, with: :render_error
 
   def authenticate_admin!
-    current_user.is_admin? || redirect_to(root_path, alert: t('admin_authentication_failure'))
+    current_user.is_admin? || not_found
   end
 
   # Devise parameter
@@ -26,6 +26,22 @@ class ApplicationController < ActionController::Base
 
   def not_found
     raise ActionController::RoutingError, 'Not Found'
+  end
+
+  def current_expert
+    Expert.find_by(access_token: params[:access_token])
+  end
+
+  def current_roles
+    current_roles = [current_user]
+    current_roles += current_user&.experts || []
+    current_roles += current_user&.relays || []
+    current_roles += [current_expert]
+    current_roles.compact
+  end
+
+  def authenticate_expert!
+    current_expert.present? || redirect_to(new_user_session_path)
   end
 
   private
@@ -60,6 +76,10 @@ class ApplicationController < ActionController::Base
   end
 
   def check_current_user_access_to(resource)
-    not_found if !resource.send(:can_be_viewed_by?, current_user)
+    if current_roles.any? { |role| resource.send(:can_be_viewed_by?, role) }
+      return
+    end
+    # can not be viewed:
+    not_found
   end
 end

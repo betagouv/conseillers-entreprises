@@ -9,21 +9,39 @@ ActiveAdmin.register Match do
   index do
     selectable_column
     id_column
-    column('Date de contact', :created_at)
-    column :diagnosed_need
-    column('Conseiller') { |match| match.diagnosed_need.diagnosis&.visit&.advisor&.full_name }
-    column :expert_full_name
-    column :expert_institution_name
-    column :assistance_title
-    column :expert_viewed_page_at
-    column(:status) { |match| t("activerecord.attributes.match.statuses.#{match.status}") }
+    column :created_at
+    column(I18n.t('activerecord.attributes.visit.advisor')) do |match|
+      advisor = match.diagnosed_need.diagnosis.visit.advisor
+      link_to(advisor.full_name_with_role, admin_user_path(advisor))
+    end
+    column(I18n.t('activerecord.attributes.visit.facility')) do |match|
+      match.diagnosed_need&.diagnosis&.visit&.facility
+    end
+    column(:diagnosed_need) do |match|
+      need = match.diagnosed_need
+      link_to(need.id, admin_diagnosed_need_path(need)) + " (#{need.question_label})".html_safe
+    end
+    column :expert_full_name do |match|
+      expert = match.expert
+      if expert.present?
+        link_to(match.expert_description, admin_expert_path(expert))
+      elsif match.relay.present?
+        link_to(match.expert_description, admin_relay_path(match.relay))
+      else
+        I18n.t('active_admin.matches.deleted', expert: match.expert_description)
+      end
+    end
+    column :status do |match|
+      I18n.t("activerecord.attributes.match.statuses.#{match.status}")
+    end
     column('Page Référent') do |match|
       diagnosis_id = match.diagnosed_need.diagnosis_id
       if match.assistance_expert
         access_token = match.assistance_expert.expert.access_token
-        link_to 'Page Référent', diagnosis_experts_path(diagnosis_id: diagnosis_id, access_token: access_token)
-      else
-        link_to 'Page Référent', diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: match.relay_id)
+        link_to 'Page Référent', besoin_path(diagnosis_id, access_token: access_token)
+      elsif match.relay
+        user = match.relay.user
+        link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
       end
     end
 

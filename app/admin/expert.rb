@@ -66,7 +66,7 @@ ActiveAdmin.register Expert do
       end
     end
 
-    render partial: 'admin/matches', locals: { matches_relation: Match.of_expert(expert) }
+    render partial: 'admin/matches', locals: { matches_relation: Match.of_relay_or_expert(expert) }
   end
 
   sidebar I18n.t('activerecord.attributes.user.experts'), only: :show do

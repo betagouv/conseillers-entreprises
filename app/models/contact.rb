@@ -11,7 +11,7 @@ class Contact < ApplicationRecord
 
   scope :ordered_by_names, (-> { order(:full_name) })
 
-  def can_be_viewed_by?(user)
-    visits.any? { |visit| visit.can_be_viewed_by?(user) }
+  def can_be_viewed_by?(role)
+    visits.any? { |visit| visit.can_be_viewed_by?(role) }
   end
 end

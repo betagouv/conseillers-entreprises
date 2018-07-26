@@ -1,0 +1,87 @@
+- meta title: t('.title')
+
+#experts-diagnosis
+  .ui.info.message
+    .text.tiny.justified
+      = t('.introduction_html')
+
+  %table.ui.table
+    %tbody
+      %tr
+        %td
+          %h2.ui.header
+            = @diagnosis.visit.facility.company.name_short
+            .sub.header
+              = @diagnosis.creation_date_localized
+        %td.collapsing
+          .ui.middle.aligned.list
+            .item
+              .middle.aligned.content
+                %h4.ui.header.disabled
+                  = t('.diagnosed_needs', count: @diagnosis.diagnosed_needs.count)
+            .item
+              .middle.aligned.content
+                %h4.ui.header.disabled
+                  = t('.matches', count: diagnosis_matches_count)
+
+  - visitee = @diagnosis.visit.visitee
+  - advisor = @diagnosis.visit.advisor
+
+  = render partial: 'people/person', locals: { person: visitee, subtitle: t('.company_contact_subtitle') }
+  = render partial: 'people/person', locals: { person: advisor, subtitle: t('.advisor_contact_subtitle') }
+
+  %h2= t('.my_needs_summary_subtitle')
+  - @current_person_diagnosed_needs.each do |diagnosed_need|
+    %table.ui.celled.table
+      %thead
+        %tr
+          %th{ colspan: 3 }= diagnosed_need.question_label
+      %tbody
+        - if diagnosed_need.content.present?
+          %tr
+            %td{ colspan: 3 }
+              .ui.form
+                .field
+                  %label= t('.diagnosed_needs_content_label')
+                  = diagnosed_need.content
+
+        - diagnosed_need.matches.each do |match|
+          - id = "match-line-#{match.id}-owner"
+          %tr.small.text.ui.tiny.table{ id: id }
+            - locals = { match: match }
+            = render partial: 'match_for_need_owner', locals: locals
+
+          %tr.small.text.ui.tiny.table{ id: "expert-buttons-line-#{match.id}" }
+            - locals = { match: match }
+            = render partial: 'expert_buttons', locals: locals
+
+  %h2= t('.need_contacts_summary_subtitle')
+  - @diagnosis.diagnosed_needs.each do |diagnosed_need|
+    %table.ui.celled.table
+      %thead
+        %tr
+          %th{ colspan: 3 }= diagnosed_need.question_label
+      %tbody
+        - if diagnosed_need.content.present?
+          %tr
+            %td{ colspan: 3 }
+              .ui.form
+                .field
+                  %label= t('.diagnosed_needs_content_label')
+                  = diagnosed_need.content
+        - if diagnosed_need.matches.empty?
+          %tr.small.text.ui.tiny.table{ colspan: 2 }
+            %td= t('.zero_contacted_expert')
+        - else
+          - diagnosed_need.matches.each do |match|
+            - id = "match-line-#{match.id}-global"
+            %tr.small.text.ui.tiny.table{ id: id }
+              - locals = { match: match }
+              = render partial: 'match', locals: locals
+
+  - if @diagnosis.content
+    %h2= t('.diagnosis_content_subtitle')
+    .ui.segment.shadow-less
+      .ui.form
+        .field
+          = @diagnosis.content

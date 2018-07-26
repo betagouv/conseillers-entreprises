@@ -36,9 +36,10 @@ panel "#{I18n.t('activerecord.models.match.other')} (#{matches_relation.length})
       diagnosis_id = match.diagnosed_need.diagnosis_id
       if match.assistance_expert
         access_token = match.assistance_expert.expert.access_token
-        link_to 'Page Référent', diagnosis_experts_path(diagnosis_id: diagnosis_id, access_token: access_token)
-      else
-        link_to 'Page Référent', diagnosis_relays_path(diagnosis_id: diagnosis_id, relay_id: match.relay_id)
+        link_to 'Page Référent', besoin_path(diagnosis_id, access_token: access_token)
+      elsif match.relay
+        user = match.relay.user
+        link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
       end
     end
   end

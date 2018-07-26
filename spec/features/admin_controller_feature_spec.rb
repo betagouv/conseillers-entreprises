@@ -6,12 +6,6 @@ describe 'admin panel', type: :feature do
   login_user
 
   describe 'user access to panel' do
-    context 'user is not admin' do
-      before { visit '/admin' }
-
-      it { expect(page).not_to have_content 'Tableau de bord' }
-    end
-
     context 'user is admin' do
       before do
         current_user.update is_admin: true
