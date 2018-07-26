@@ -1,0 +1,19 @@
+%td.expert-owner-button-cell{ colspan: 3 }
+  - if match.status_quo?
+    = link_to_patch_map t('.i_take_care'), match, :taking_care, %w[green]
+    = link_to_patch_map t('.not_for_me'), match, :not_for_me, %w[red]
+
+  - elsif match.status_taking_care?
+    = link_to_patch_map t('.dont_take_care_any_more'), match, :quo, %w[basic]
+    = link_to_patch_map t('.done'), match, :done, %w[green]
+    = link_to_patch_map t('.not_for_me'), match, :not_for_me, %w[red]
+
+  - elsif match.status_done?
+    = link_to_patch_map t('.dont_take_care_any_more'), match, :quo, %w[basic]
+    = link_to_patch_map t('.ongoing'), match, :taking_care, %w[basic]
+    = link_to_patch_map t('.not_for_me'), match, :not_for_me, %w[basic red]
+
+  - elsif match.status_not_for_me?
+    = link_to_patch_map t('.dont_take_care_any_more'), match, :quo, %w[basic]
+    = link_to_patch_map t('.ongoing'), match, :taking_care, %w[basic]
+    = link_to_patch_map t('.done'), match, :done, %w[basic green]

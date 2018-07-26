@@ -23,8 +23,8 @@ RSpec.describe ExpertsController, type: :controller do
 
       before do
         allow(UseCases::UpdateExpertViewedPageAt).to receive(:perform).with(
-          diagnosis_id: diagnosis.id,
-          expert_id: expert.id
+          diagnosis: diagnosis,
+          expert: expert
         )
       end
 

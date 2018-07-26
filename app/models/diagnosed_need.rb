@@ -16,11 +16,16 @@ class DiagnosedNeed < ApplicationRecord
   scope :of_relay, (lambda do |relay|
     joins(:matches).merge(Match.of_relay(relay))
   end)
+  scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
   scope :with_at_least_one_expert_done, (lambda do
     where(id: Match.with_status(:done).select(:diagnosed_need_id))
   end)
 
-  def can_be_viewed_by?(user)
-    diagnosis.visit.can_be_viewed_by?(user) || matches.any?{ |match| match.can_be_viewed_by?(user) }
+  def can_be_viewed_by?(role)
+    diagnosis.visit.can_be_viewed_by?(role) || belongs_to_relay_or_expert?(role)
+  end
+
+  def belongs_to_relay_or_expert?(role)
+    matches.any?{ |match| match.belongs_to_relay_or_expert?(role) }
   end
 end

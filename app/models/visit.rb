@@ -28,7 +28,7 @@ class Visit < ApplicationRecord
     facility.to_s
   end
 
-  def can_be_viewed_by?(user)
-    advisor == user
+  def can_be_viewed_by?(role)
+    role.present? && advisor == role
   end
 end
