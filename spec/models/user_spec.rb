@@ -36,6 +36,18 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'associations dependencies' do
+    let(:user) { create :user }
+
+    context 'with a search history' do
+      before { create :search, user: user }
+
+      it {
+        expect{ user.destroy! }.not_to raise_error
+      }
+    end
+  end
+
   describe 'scopes' do
     describe 'with_contact_page_order' do
       it do
