@@ -11,7 +11,7 @@ fr:
         sign_me_in: Me connecter
         subject: "[Réso] Votre compte a été validé !"
       daily_change_update:
-        context: "%{expert_name}, %{expert_institution}, contacté•e pour le besoin %{question_title} de l’entreprise %{company_name} le %{start_date},"
+        context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{question_title} de l’entreprise %{company_name} le %{start_date},"
         hello: Bonjour,
         nice_day: Bonne journée,
         reso_team_html: L’équipe %{link_to_root}.
