@@ -37,7 +37,20 @@ class DiagnosesController < ApplicationController
   end
 
   def step3
-    @diagnosis = diagnostic_in_progress(params[:id])
+    @diagnosis = diagnosis_in_progress(params[:id])
+  end
+
+  def visite
+    @diagnosis = diagnosis_in_progress(params[:id])
+    diagnosis_params = params.require(:diagnosis).permit(visit_attributes: [:id, :happened_on, visitee_attributes: [:id, :full_name, :role, :email, :phone_number]])
+    diagnosis_params[:visit_attributes][:visitee_attributes][:company_id] = @diagnosis.visit.facility.company.id
+    diagnosis_params[:step] = 4
+    if @diagnosis.update(diagnosis_params)
+      redirect_to action: :step4, id: @diagnosis
+    else
+      flash.alert = @diagnosis.visit.errors.full_messages.to_sentence
+      render action: :step3
+    end
   end
 
   def step4

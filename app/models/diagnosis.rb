@@ -13,6 +13,7 @@ class Diagnosis < ApplicationRecord
   has_many :questions, through: :diagnosed_needs
 
   validates :visit, presence: true
+  accepts_nested_attributes_for :visit
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
 
   scope :of_siret, (-> (siret) { joins(:visit).merge(Visit.of_siret(siret)) })

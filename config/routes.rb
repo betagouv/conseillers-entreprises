@@ -27,12 +27,13 @@ Rails.application.routes.draw do
 
   resources :diagnoses, only: %i[index show destroy] do
     member do
-      get 'step-3' => 'diagnoses#step3'
       get 'step-4' => 'diagnoses#step4'
       get 'step-5' => 'diagnoses#step5'
       post :notify
       get :besoins, action: :step2
       post :besoins
+      get :visite, action: :step3
+      post :visite
     end
   end
 

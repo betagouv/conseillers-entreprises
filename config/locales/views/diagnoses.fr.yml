@@ -34,19 +34,17 @@ fr:
         N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
       title: Besoins
     step3:
-      add_one_contact_mode_below: Veuillez indiquer au moins le numéro de téléphone ou l’adresse e-mail.
-      contact_detail: Coordonnées
-      date: Date (format jj/mm/aaaa)
-      date_header: Date de votre visite
+      date: Date de votre visite
+      date_placeholder: jj/mm/aaaa
       email_address: E-mail
-      error_header: Erreur lors de la création
-      error_message: Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l’erreur persite, contactez l’equipe Réso.
+      form_info: Tous les champs sont obligatoires
       full_name: Nom
-      info_about_who_you_saw_during_your_visit: Remplissez les informations suivantes concernant la personne que vous avez rencontrée durant votre visite chez %{company_name}.
+      full_name_placeholder: 'ex: Marie Dupont'
       phone_number: Numéro de télephone
       role: Fonction au sein de l’entreprise
-      title: Informations complémentaires
-      your_contact_in_the_company: Votre contact en entreprise
+      role_placeholder: Directeur, Gérant…
+      title: Détails de la visite
+      your_contact_in_the_company: 'Votre contact chez %{company_name} :'
     step4:
       add_contact_to_notify: Veuillez ajouter un contact pour pouvoir envoyer ces notifications (étape 3).
       before_sending_emails_text_html: |
