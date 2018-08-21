@@ -6,10 +6,10 @@
       %a.item{ href: diagnoses_path }
         %i.tasks.icon
         = t('.diagnoses')
-      - if current_user.relays.present?
-        %a.item{ href: relays_path }
-          %i.dashboard.icon
-          = t('.relay_dashboard')
+      - if current_user.relays.present? || current_user.experts.present?
+        %a.item{ href: besoins_path }
+          %i.bullseye.icon
+          = t('needs.index.title')
     - else # not signed in
       %a.item{ href: about_home_index_path }
         %i.question.icon

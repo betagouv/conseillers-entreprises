@@ -3,14 +3,15 @@ fr:
   mailers:
     user_mailer:
       account_approved:
-        account_was_approved: Un administrateur de Réso a validé votre compte. Vous pouvez désormais vous connecter pour découvrir la plateforme !
-        dont_hesitate_to_ask: N’hésitez pas à répondre à cet e-mail pour toute question !
+        account_was_approved_html: Votre inscription sur Réso a été validée. Vous pouvez désormais vous connecter et entrer en contact avec des référents pour aider les entreprises que vous rencontrez. Vous trouverez aussi un %{link_to_guide} et quelques astuces pour une approche globale des besoins des entreprises.
+        dont_hesitate_to_ask: N’hésitez pas à répondre à cet e-mail pour toute question.
         happy_discovery_html: Bonne découverte de %{link_to_root}.
         hello: Bonjour,
+        interview_guide: guide d’entretien
         sign_me_in: Me connecter
         subject: "[Réso] Votre compte a été validé !"
       daily_change_update:
-        context: "%{expert_name}, %{expert_institution}, contacté•e pour le besoin %{question_title} de l’entreprise %{company_name} le %{start_date},"
+        context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{question_title} de l’entreprise %{company_name} le %{start_date},"
         hello: Bonjour,
         nice_day: Bonne journée,
         reso_team_html: L’équipe %{link_to_root}.

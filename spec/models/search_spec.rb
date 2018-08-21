@@ -12,17 +12,6 @@ RSpec.describe Search, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_user' do
-      subject { Search.of_user user }
-
-      let(:user) { build :user }
-      let!(:search) { create :search, user: user }
-
-      before { create :search }
-
-      it { is_expected.to eq [search] }
-    end
-
     describe 'recent' do
       subject { Search.recent }
 

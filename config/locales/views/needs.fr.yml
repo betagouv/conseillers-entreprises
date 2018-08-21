@@ -8,6 +8,7 @@ fr:
       not_for_me: Ce n’est pas pour moi
       ongoing: En cours de résolution
     index:
+      needs_for_you: 'Ces entreprises ont besoin de vous :'
       title: Besoins
     match:
       done: Besoin résolu
