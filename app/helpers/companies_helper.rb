@@ -7,7 +7,7 @@ module CompaniesHelper
 
   def last_searches
     array = []
-    searches = Search.of_user(current_user).recent
+    searches = current_user.searches.recent
     searches.each do |search|
       if !array.map(&:query).include?(search.query)
         array << search

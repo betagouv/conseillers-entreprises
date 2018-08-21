@@ -37,10 +37,9 @@ RSpec.describe Relay, type: :model do
 
   describe 'associations dependencies' do
     let(:relay) { create :relay }
-    let(:match) { create :match }
 
     context 'with an assigned match' do
-      before { match.relay = relay }
+      before { create :match, relay: relay }
 
       it {
         expect{ relay.destroy! }.not_to raise_error
