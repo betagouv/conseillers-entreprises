@@ -19,10 +19,17 @@
                   - date = diagnosis.visit.happened_on || diagnosis.visit.created_at.to_date
                   .content= I18n.l(date, format: '%-d %B %Y')
             .column
-              %h4.ui.header
-                = t('relays.needs_for_me')
-                - diagnosis.diagnosed_needs.of_relay_or_expert(relay_or_expert).each do |need|
-                  .sub.header
-                    = need.question_label + ' : '
-                    - matches = need.matches.of_relay_or_expert(relay_or_expert)
-                    = t("activerecord.attributes.match.statuses.#{matches.first.status}")
+              - diagnosis.diagnosed_needs.of_relay_or_expert(relay_or_expert).each do |need|
+                .ui.text.small
+                  = need.question_label
+                - match = need.matches.of_relay_or_expert(relay_or_expert).first
+                .ui.text.small.bold
+                  - if match.status_quo?
+                    %i.icon.clock
+                  - elsif match.status_taking_care?
+                    %i.icon.checkmark
+                  - elsif match.status_done?
+                    %i.icon.checkmark
+                  - elsif match.status_not_for_me?
+                    %i.icon.remove
+                  = t("activerecord.attributes.match.statuses.#{match.status}")
