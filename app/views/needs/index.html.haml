@@ -3,10 +3,10 @@
 - @relays.each do |relay|
   %h2.ui.header= relay.territory.name
   // Display info about Relay/Territory : all the diagnostics, etc.
-  = render partial: 'assigned_diagnoses', locals: { relay_or_expert: relay, title: "Demandes pour le relais local" }
+  = render partial: 'assigned_diagnoses', locals: { relay_or_expert: relay, title: t('.needs_for_you') }
 
 - @experts.each do |expert|
   %h2.ui.header= expert.full_name
   = render partial: 'team', locals: { expert: expert, user: current_user }
   // Display info about Expert: the team, the old diagnoses, etc.
-  = render partial: 'assigned_diagnoses', locals: { relay_or_expert: expert, title: "Demandes pour le référent" }
+  = render partial: 'assigned_diagnoses', locals: { relay_or_expert: expert, title: t('.needs_for_you') }
