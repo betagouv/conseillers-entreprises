@@ -7,6 +7,7 @@ class DiagnosedNeed < ApplicationRecord
   has_many :matches
 
   validates :diagnosis, presence: true
+  validates :question, uniqueness: { scope: :diagnosis_id, allow_nil: true }
 
   scope :of_diagnosis, (-> (diagnosis) { where(diagnosis: diagnosis) })
   scope :of_question, (-> (question) { where(question: question) })
