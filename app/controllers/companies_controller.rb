@@ -18,7 +18,19 @@ class CompaniesController < ApplicationController
     query = params[:query]
     @facility = UseCases::SearchFacility.with_siret siret
     @company = UseCases::SearchCompany.with_siret siret
-    @diagnoses = UseCases::GetDiagnoses.for_siret siret
+    existing_facility = Facility.find_by(siret: siret)
+    if existing_facility.present?
+      @diagnoses = Facility.find_by(siret: siret).diagnoses
+        .completed
+        .distinct
+        .left_outer_joins(:matches,
+          diagnosed_needs: :matches)
+        .includes(:matches,
+          diagnosed_needs: :matches,
+          visit: :advisor)
+    else
+      @diagnoses = Diagnosis.none
+    end
     save_search(query, @company.name)
   end
 

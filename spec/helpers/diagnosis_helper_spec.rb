@@ -36,32 +36,4 @@ describe DiagnosisHelper, type: :helper do
       it { is_expected.to be_nil }
     end
   end
-
-  describe 'diagnosis_matches_count' do
-    subject { helper.diagnosis_matches_count }
-
-    let(:diagnosis) { create :diagnosis }
-
-    before do
-      create :match, diagnosed_need: diagnosed_need
-      create :match, diagnosed_need: diagnosed_need
-      create :match, diagnosed_need: diagnosed_need2
-
-      @diagnosis = diagnosis
-    end
-
-    context 'no match' do
-      let(:diagnosed_need) { create :diagnosed_need }
-      let(:diagnosed_need2) { create :diagnosed_need }
-
-      it { is_expected.to eq 0 }
-    end
-
-    context 'three matches' do
-      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
-      let(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis }
-
-      it { is_expected.to eq 3 }
-    end
-  end
 end

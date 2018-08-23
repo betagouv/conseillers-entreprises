@@ -10,8 +10,6 @@ RSpec.describe DiagnosesController, type: :controller do
 
   describe 'GET #index' do
     it 'returns http success' do
-      allow(UseCases::GetDiagnoses).to receive(:for_user).with(current_user)
-
       get :index
 
       expect(response).to be_successful

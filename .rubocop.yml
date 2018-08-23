@@ -778,6 +778,9 @@ Rails/Validation:
 Rails:
   Enabled: true
 
+RSpec/AnyInstance:
+  Enabled: false
+
 RSpec/ContextWording:
   Enabled: false
 
