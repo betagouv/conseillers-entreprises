@@ -38,7 +38,7 @@ RSpec.describe CompaniesController, type: :controller do
         post :create_diagnosis_from_siret, format: :json, params: { siret: siret }
 
         expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to step_2_diagnosis_path(Diagnosis.last)
+        expect(response).to redirect_to besoins_diagnosis_path(Diagnosis.last)
       end
     end
 

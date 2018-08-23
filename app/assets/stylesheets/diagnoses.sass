@@ -3,6 +3,19 @@
   .diagnosis-steps
     width: 100%
 
+#step2-app
+  .question.checkbox
+    display: block
+  .question
+    input[type=checkbox] + label
+      cursor: pointer
+    input[type=checkbox] ~ textarea
+      margin-top: 1em
+    input[type=checkbox]:not(checked) ~ textarea
+      display: none
+    input[type=checkbox]:checked ~ textarea
+      display: block
+
 #step4-app
   td.checkbox-width
     width: 10px

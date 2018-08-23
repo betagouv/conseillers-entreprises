@@ -26,15 +26,13 @@ fr:
       title: Analyses
       visitee: 'Contact : %{visitee_name}'
     step2:
-      diagnosed_need_content: 'Entrez des informations complémentaires concernant ce besoin spécifique :'
-      diagnosis_content: 'Entrez des informations complémentaires concernant cette entreprise :'
+      diagnosed_need_content_placeholder: Plus d’infos sur ce besoin
+      diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
       diagnosis_content_subtitle: Informations générales sur cette entreprise
       identify_needs: |
-        Sélectionnez les besoins qui ont été détectés durant votre rencontre avec %{company_name}.
-        Vous pouvez entrer des informations complémentaires qui seront par la suite transmises aux référents pertinents.
-      no_category: Besoins non désélectionnables
-      no_category_detail: Ces besoins ayant été modifiés par l’équipe Réso, ils ne sont plus disponibles ni à la création ni à la suppression. Il est toujours possible de modifier les informations complémentaires.
-      title: Besoins détectés
+        Quels besoins avez-vous détectés durant votre rencontre avec %{company_name} ?
+        N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
+      title: Besoins
     step3:
       add_one_contact_mode_below: Veuillez indiquer au moins le numéro de téléphone ou l’adresse e-mail.
       contact_detail: Coordonnées

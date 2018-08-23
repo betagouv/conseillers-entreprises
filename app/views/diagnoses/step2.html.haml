@@ -2,38 +2,37 @@
 
 = render partial: 'steps', locals: { current_page_step: 2, diagnosis_step: @diagnosis.step }
 
-%h1.ui.header
-  = t('.title')
-
-%p.small.text.justified
-  = t('.identify_needs', company_name: @diagnosis.visit.facility.company.name)
-
 #step2-app
-  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'diagnosis-content' => @diagnosis.content }
+  = form_for @diagnosis, url: besoins_diagnosis_path(@diagnosis), method: :post,
+                 html: { class: 'ui form diagnosis_form' } do |diagnosis_form|
 
-  - @categories_with_questions.each do |item|
-    - if item[:category]
-      %h2.ui.header
-        = item[:category]
-    - else
-      %h2.ui.header
-        = t('.no_category')
-        .sub.header
-          = t('.no_category_detail')
-    %table.ui.celled.table
-      %tbody
-        - item[:questions].each do |question|
-          %tr{ 'is' => 'question-selection-row', 'question-data-serialized' => question.to_json }
-          %tr{ 'is' => 'question-content-row', 'question-data-serialized' => question.to_json }
+    %h1.ui.header
+      = t('.title')
 
-  %h2.ui.header
-    = t('.diagnosis_content_subtitle')
-  %content-text-area
+    .field
+      = diagnosis_form.label t('.diagnosis_content_subtitle')
+      = diagnosis_form.text_area :content, placeholder: t('.diagnosis_content_placeholder'), rows: 2
 
-  %next-step-button{ 'v-bind:previous-step-button' => 'false',
-                     'v-bind:save-button' => 'true',
-                     'v-bind:loading' => 'isRequestInProgress',
-                     'v-on:save-click' => 'saveButtonClicked',
-                     'v-on:next-step-click' => 'nextStepButtonClicked' }
+    %p.small.text.justified
+      = t('.identify_needs', company_name: @diagnosis.visit.facility.company.name)
 
-= javascript_pack_tag 'step-2/step2App'
+    - @categories.each do |category|
+      .ui.segments.shadow-less
+        .ui.segment.secondary
+          %h3.ui.header= category.label
+        - all_needs = @diagnosis.diagnosed_needs
+        - category.questions.each do |question|
+          - diagnosed_need = all_needs.where(question: question).first_or_initialize
+          .ui.segment.checkbox.question
+            = diagnosis_form.fields_for :diagnosed_needs, diagnosed_need do |need_form|
+              = need_form.check_box :_destroy, { checked: diagnosed_need.persisted? }, '0', '1'
+              = need_form.label :_destroy, question.label
+              = need_form.text_area :content, placeholder: t('.diagnosed_need_content_placeholder'), rows: 2
+              = need_form.hidden_field :question_id
+
+    .ui.actions
+      = diagnosis_form.button :submit, class: 'ui right floated button green right labeled icon' do
+        = t('next_step')
+        %i.arrow.right.icon
+
+  .clear

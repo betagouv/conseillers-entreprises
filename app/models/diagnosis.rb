@@ -10,6 +10,7 @@ class Diagnosis < ApplicationRecord
 
   has_many :diagnosed_needs, dependent: :destroy
   accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
+  has_many :questions, through: :diagnosed_needs
 
   validates :visit, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }

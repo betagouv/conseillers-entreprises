@@ -19,8 +19,21 @@ class DiagnosesController < ApplicationController
   end
 
   def step2
-    @diagnosis = diagnostic_in_progress(params[:id])
-    @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
+    @diagnosis = diagnosis_in_progress(params[:id])
+    @categories = Category.all.includes(:questions)
+  end
+
+  def besoins
+    @diagnosis = diagnosis_in_progress(params[:id])
+    diagnosis_params = params.require(:diagnosis).permit(:content,
+      diagnosed_needs_attributes: [:_destroy, :content, :question_id, :id])
+    diagnosis_params[:step] = 3
+    if @diagnosis.update(diagnosis_params)
+      redirect_to action: :step3, id: @diagnosis
+    else
+      flash.alert = @diagnosis.errors.full_messages.to_sentence
+      render action: :step2
+    end
   end
 
   def step3
@@ -51,7 +64,7 @@ class DiagnosesController < ApplicationController
 
   private
 
-  def diagnostic_in_progress(diagnosis_id)
+  def diagnosis_in_progress(diagnosis_id)
     diagnosis = Diagnosis.only_active.find(diagnosis_id)
     check_current_user_access_to(diagnosis)
 
