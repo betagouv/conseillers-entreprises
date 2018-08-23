@@ -51,20 +51,4 @@ Rails.application.routes.draw do
   get '/experts/diagnoses/:diagnosis', to: (redirect do |params, request|
     "/besoins/#{params[:diagnosis]}?#{request.params.slice(:access_token).to_query}"
   end)
-
-  namespace :api do
-    resources :diagnoses, only: %i[show create update] do
-      resources :diagnosed_needs, only: %i[index] do
-        post :bulk, on: :collection
-      end
-    end
-
-    resources :visits, only: %i[show update] do
-      resources :contacts, only: %i[index create]
-    end
-
-    resources :contacts, only: %i[show update]
-
-    resources :errors, only: %i[create]
-  end
 end
