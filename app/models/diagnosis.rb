@@ -9,7 +9,7 @@ class Diagnosis < ApplicationRecord
   belongs_to :visit, validate: true
 
   has_many :diagnosed_needs
-  accepts_nested_attributes_for :diagnosed_needs
+  accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
 
   validates :visit, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
