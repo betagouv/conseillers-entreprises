@@ -4,7 +4,7 @@ class DiagnosedNeed < ApplicationRecord
   belongs_to :diagnosis
   belongs_to :question
 
-  has_many :matches
+  has_many :matches, dependent: :destroy
 
   validates :diagnosis, presence: true
   validates :question, uniqueness: { scope: :diagnosis_id, allow_nil: true }
