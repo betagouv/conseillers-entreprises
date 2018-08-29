@@ -51,7 +51,7 @@
           - diagnosed_need.matches.each do |match|
             %tr.small.text.ui.tiny.table
               - locals = { match: match }
-              = render partial: 'experts/match', locals: locals
+              = render partial: 'needs/match', locals: locals
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')
