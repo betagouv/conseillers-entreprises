@@ -12,14 +12,14 @@ fr:
         one: 1 mise en relation
         other: "%{count} mises en relation"
         zero: 0 mise en relation
-      no_analysis_message: Cette page vous permet de suivre l’ensemble des analyses que vous avez réalisées.
+      no_analysis_message: Les analyses que vous réalisez apparaitront ici.
       no_completed_diagnosis_message_html: |
         Retrouvez ici les analyses que vous avez complétées.
         <br>Vous pouvez retrouver toutes les informations fournies ainsi que les actions effectuées dans le récapitulatif.
       no_diagnoses_in_progress_message_html: |
         Retrouvez ici les analyses que vous avez initiées et qui demeurent incomplètes.
         <br>Vous pouvez les compléter à tout moment en reprenant à l’étape où vous vous êtes arrêté.
-      show_summary: Voir le récapitulatif
+      show_summary: Récapitulatif
       solved_needs:
         one: "%{solved_needs_count}/1 besoin résolu"
         other: "%{solved_needs_count}/%{count} besoins résolus"
@@ -59,7 +59,7 @@ fr:
       relays_role:
         one: Relais local
         other: Relais locaux
-      title: Sélection des référents
+      title: Mise en contact
       you_can_contact_relays: Vous pouvez néanmoins contacter vos relais locaux.
     step5:
       company_contact_subtitle: Contact rencontré au sein de l’entreprise

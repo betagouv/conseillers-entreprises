@@ -54,18 +54,19 @@ class DiagnosesController < ApplicationController
   end
 
   def step4
-    @diagnosis = diagnostic_in_progress(params[:id])
+    @diagnosis = diagnosis_in_progress(params[:id])
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
     @relays_full_names = Relay.of_diagnosis_location(@diagnosis).map(&:user).map(&:full_name)
   end
 
-  def notify
-    diagnosis = diagnostic_in_progress(params[:id])
+  def selection
+    diagnosis = diagnosis_in_progress(params[:id])
     experts = params[:matches]
     if experts.present?
       UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:matches]
       diagnosis.update step: Diagnosis::LAST_STEP
-      redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
+      flash.notice = I18n.t('diagnoses.step5.notifications_sent')
+      redirect_to action: :step5, id: diagnosis
     end
   end
 
