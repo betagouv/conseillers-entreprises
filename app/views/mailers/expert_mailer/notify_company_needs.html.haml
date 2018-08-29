@@ -37,9 +37,9 @@
 
 :ruby
   more_info_url = if @access_token
-    diagnosis_experts_url(diagnosis_id: @params[:diagnosis_id], access_token: @access_token)
+    besoin_url(@params[:diagnosis_id], access_token: @access_token)
   else
-    diagnosis_relays_url(diagnosis_id: @params[:diagnosis_id])
+    besoin_url(@params[:diagnosis_id])
   end
   more_info_link = link_to t('.by_clicking_here'), more_info_url
 %p= t('.information_are_available_on_app_html', more_info_link: more_info_link)

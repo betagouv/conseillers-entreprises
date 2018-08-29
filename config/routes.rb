@@ -42,20 +42,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :experts, only: %i[] do
-    collection do
-      get 'diagnoses/:diagnosis_id' => 'experts#diagnosis', as: :diagnosis
-      patch :update_status
-    end
-  end
-
-  resources :relays, only: %i[index show] do
-    collection do
-      get 'diagnoses/:diagnosis_id' => 'relays#diagnosis', as: :diagnosis
-      patch :update_status
-    end
-  end
-
   resources :besoins, controller: 'needs', only: %i[index show]
 
   resources :matches, only: %i[update]

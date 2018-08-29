@@ -150,37 +150,6 @@ RSpec.describe Match, type: :model do
       it { is_expected.to eq [match] }
     end
 
-    describe 'of_expert' do
-      subject { Match.of_expert expert }
-
-      let(:expert) { create :expert }
-      let(:assistance_expert) { create :assistance_expert, expert: expert }
-      let(:match) { create :match, assistance_expert: assistance_expert }
-
-      before do
-        create :assistance_expert
-        create :match, :with_assistance_expert
-      end
-
-      it { is_expected.to eq [match] }
-    end
-
-    describe 'of_relay' do
-      subject { Match.of_relay relay }
-
-      let(:relay) { create :relay }
-      let(:match) do
-        create :match, relay: relay
-      end
-
-      before do
-        create :relay
-        create :match, :with_relay
-      end
-
-      it { is_expected.to eq [match] }
-    end
-
     describe 'of_diagnoses' do
       subject { Match.of_diagnoses [diagnosis] }
 
