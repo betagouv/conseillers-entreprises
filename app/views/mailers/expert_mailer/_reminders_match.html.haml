@@ -6,8 +6,8 @@
       %th
   %tbody
     - matches.each do |match|
-      - diagnosis_id = match.diagnosed_need.diagnosis.id
-      - more_info_url = diagnosis_experts_url(diagnosis_id: diagnosis_id, access_token: access_token)
+      - diagnosis = match.diagnosed_need.diagnosis
+      - more_info_url = besoins_url(diagnosis, access_token: access_token)
       %tr
         %td= match.diagnosed_need.diagnosis.visit.company_name
         %td= match.diagnosed_need.question

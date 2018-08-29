@@ -12,6 +12,39 @@ RSpec.describe DiagnosedNeed, type: :model do
     end
   end
 
+  describe 'question uniqueness in the scope of a diagnosis' do
+    subject { build :diagnosed_need, diagnosis: diagnosis, question: question }
+
+    let(:diagnosis) { create :diagnosis }
+    let(:question) { create :question }
+
+    context 'unique diagnosed_need for this question' do
+      it { is_expected.to be_valid }
+    end
+
+    context 'diagnosed_need for another question' do
+      before { create :diagnosed_need, diagnosis: diagnosis, question: question2 }
+
+      let(:question2) { create :question }
+
+      it { is_expected.to be_valid }
+    end
+
+    context 'diagnosed_need for the same question' do
+      before { create :diagnosed_need, diagnosis: diagnosis, question: question }
+
+      it { is_expected.not_to be_valid }
+    end
+
+    context 'several diagnosed_needs for a nil question' do
+      before { create :diagnosed_need, diagnosis: diagnosis, question: nil }
+
+      let(:question) { nil }
+
+      it { is_expected.to be_valid }
+    end
+  end
+
   describe 'scopes' do
     describe 'of_diagnosis' do
       subject { DiagnosedNeed.of_diagnosis diagnosis }
@@ -27,39 +60,6 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       let(:question) { create :question }
       let(:diagnosed_need) { create :diagnosed_need, question: question }
-
-      it { is_expected.to eq [diagnosed_need] }
-    end
-
-    describe 'of_expert' do
-      subject { DiagnosedNeed.of_expert expert }
-
-      let(:expert) { create :expert }
-      let(:assistance_expert) { create :assistance_expert, expert: expert }
-      let(:diagnosed_need) { create :diagnosed_need }
-
-      before do
-        create :match, assistance_expert: assistance_expert, diagnosed_need: diagnosed_need
-        create :assistance_expert
-        create :match
-      end
-
-      it { is_expected.to eq [diagnosed_need] }
-    end
-
-    describe 'of_relay' do
-      subject { DiagnosedNeed.of_relay relay }
-
-      let(:relay) { create :relay }
-      let(:diagnosed_need) { create :diagnosed_need }
-
-      before do
-        create :match,
-          relay: relay,
-          diagnosed_need: diagnosed_need
-        create :relay
-        create :match
-      end
 
       it { is_expected.to eq [diagnosed_need] }
     end

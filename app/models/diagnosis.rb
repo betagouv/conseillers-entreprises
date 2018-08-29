@@ -6,10 +6,10 @@ class Diagnosis < ApplicationRecord
 
   attr_accessor :diagnosed_needs_count, :matches_count, :solved_needs_count
 
-  belongs_to :visit, validate: true
+  belongs_to :visit, validate: true, dependent: :destroy
 
-  has_many :diagnosed_needs
-  accepts_nested_attributes_for :diagnosed_needs
+  has_many :diagnosed_needs, dependent: :destroy
+  accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
 
   validates :visit, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
@@ -55,14 +55,5 @@ class Diagnosis < ApplicationRecord
 
   def can_be_viewed_by?(role)
     visit.can_be_viewed_by?(role) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
-  end
-
-  def needs_for(relay_or_expert)
-    needs = diagnosed_needs.includes(:matches)
-    if relay_or_expert.is_a?(Expert)
-      needs.of_expert(relay_or_expert)
-    elsif relay_or_expert.is_a?(Relay)
-      needs.of_relay(relay_or_expert)
-    end
   end
 end

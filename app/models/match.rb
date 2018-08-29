@@ -18,8 +18,7 @@ class Match < ApplicationRecord
   after_update :update_closed_at
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
-  scope :of_expert, (-> (expert) { joins(:assistance_expert).where(assistances_experts: { expert: expert }) })
-  scope :of_relay, (-> (relay) { where(relay: relay) })
+
   scope :of_diagnoses, (lambda do |diagnoses|
     joins(diagnosed_need: :diagnosis).where(diagnosed_needs: { diagnosis: diagnoses })
   end)

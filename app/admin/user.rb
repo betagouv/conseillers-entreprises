@@ -42,6 +42,9 @@ ActiveAdmin.register User do
     column :sign_in_count
     column(:relays) { |user| user.relays.length }
     actions dropdown: true do |user|
+      if !user.is_approved?
+        item(t('active_admin.user.approve_user'), approve_user_admin_user_path(user), method: :post)
+      end
       item t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
       if user.experts.empty?
         item(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
@@ -149,6 +152,11 @@ ActiveAdmin.register User do
     redirect_to admin_root_path, notice: "Utilisateur #{params[:email]} invité."
   end
 
+  member_action :approve_user, method: :post do
+    resource.update(is_approved: true)
+    redirect_back fallback_location: collection_path, notice: t('active_admin.user.approve_user_done')
+  end
+
   member_action :autolink_to_experts, method: :post do
     resource.autolink_experts!
     redirect_to resource_path, notice: I18n.t("active_admin.user.expert_linked")
@@ -156,7 +164,7 @@ ActiveAdmin.register User do
 
   member_action :normalize_values do
     resource.normalize_values!
-    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+    redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
   end
 
   batch_action :destroy, false

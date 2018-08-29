@@ -18,6 +18,8 @@ fr:
       relais: Relais locaux
     user:
       admin: Admin
+      approve_user: Valider le compte
+      approve_user_done: Compte approuvé
       autolink_to_experts: Associer automatiquement aux référents
       connection: Connexion
       expert_linked: Référent associé
