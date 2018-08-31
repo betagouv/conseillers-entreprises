@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_23_155356) do
+ActiveRecord::Schema.define(version: 2018_08_30_154712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2018_07_23_155356) do
     t.string "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "interview_sort_order"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
@@ -208,6 +209,7 @@ ActiveRecord::Schema.define(version: 2018_07_23_155356) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "category_id"
+    t.integer "interview_sort_order"
     t.index ["category_id"], name: "index_questions_on_category_id"
   end
 
