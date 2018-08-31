@@ -2,5 +2,5 @@
 
 ActiveAdmin.register Category do
   menu parent: :questions, priority: 1
-  permit_params :label
+  permit_params :label, :interview_sort_order
 end
