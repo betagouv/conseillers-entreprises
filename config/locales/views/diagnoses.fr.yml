@@ -32,6 +32,7 @@ fr:
       identify_needs: |
         Quels besoins avez-vous détectés durant votre rencontre avec %{company_name} ?
         N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
+      select_at_least_one_need: Cochez au minimum un besoin identifié.
       title: Besoins
     step3:
       date: Date de votre visite
