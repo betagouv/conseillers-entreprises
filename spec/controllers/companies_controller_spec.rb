@@ -6,7 +6,7 @@ RSpec.describe CompaniesController, type: :controller do
   login_user
 
   describe 'GET #show' do
-    siret = '44622002200227'
+    siret = '41816609600051'
 
     before do
       allow(UseCases::SearchFacility).to receive(:with_siret).with(siret)

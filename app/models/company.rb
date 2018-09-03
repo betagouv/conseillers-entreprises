@@ -5,6 +5,7 @@ class Company < ApplicationRecord
   has_many :facilities
 
   validates :name, presence: true
+  validates :siren, uniqueness: { allow_nil: true }
 
   scope :ordered_by_name, (-> { order(:name) })
 

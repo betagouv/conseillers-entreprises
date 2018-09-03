@@ -5,7 +5,8 @@ class Facility < ApplicationRecord
 
   belongs_to :company
 
-  validates :company, :siret, :city_code, presence: true
+  validates :company, :city_code, presence: true
+  validates :siret, uniqueness: { allow_nil: true }
 
   scope :in_territory, (-> (territory) { where(city_code: territory.city_codes) })
 
