@@ -10,7 +10,7 @@ module Clockwork
   end
 
   every(1.week, 'send_local_administrators_statistics_email', at: 'Monday 08:30') do
-    RelaysService::MailerService.delay.send_relay_stats_emails
+    RelayService::MailerService.delay.send_relay_stats_emails
   end
 
   every(1.week, 'send_experts_reminders', at: 'Monday 09:30') do
