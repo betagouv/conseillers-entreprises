@@ -21,8 +21,6 @@ RSpec.describe DiagnosesController, type: :controller do
   describe 'GET #step2' do
     subject(:request) { get :step2, params: { id: diagnosis.id } }
 
-    before { allow(UseCases::GetStep2Data).to receive(:for_diagnosis).with(diagnosis) }
-
     context 'diagnosis step < last' do
       it('returns http success') { expect(response).to be_successful }
     end
@@ -82,7 +80,7 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
-  describe 'POST #notify' do
+  describe 'POST #selection' do
     let(:matches) do
       {
         'assistances_experts' => { '12' => '1', '90' => '0' },
@@ -93,11 +91,11 @@ RSpec.describe DiagnosesController, type: :controller do
     before do
       allow(UseCases::SaveAndNotifyDiagnosis).to receive(:perform)
 
-      post :notify, params: { id: diagnosis.id, matches: matches }
+      post :selection, params: { id: diagnosis.id, matches: matches }
     end
 
     context 'some experts are selected' do
-      it('redirects to step 5') { expect(response).to redirect_to step_5_diagnosis_path(diagnosis) }
+      it('redirects to step 5') { expect(response).to redirect_to resume_diagnosis_path(diagnosis) }
 
       it('updates the diagnosis to step 5') { expect(diagnosis.reload.step).to eq 5 }
 

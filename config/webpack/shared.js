@@ -16,9 +16,7 @@ const entryPath = join(settings.source_path, settings.source_entry_path)
 const packPaths = sync(join(entryPath, extensionGlob))
 
 const acceptedEntryPointArray = [
-  'common/babel-polyfill',
-  'step-2/step2App',
-  'step-3/step3App'
+  'common/babel-polyfill'
 ]
 
 module.exports = {

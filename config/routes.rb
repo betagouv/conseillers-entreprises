@@ -27,11 +27,13 @@ Rails.application.routes.draw do
 
   resources :diagnoses, only: %i[index show destroy] do
     member do
-      get 'step-2' => 'diagnoses#step2'
-      get 'step-3' => 'diagnoses#step3'
-      get 'step-4' => 'diagnoses#step4'
-      get 'step-5' => 'diagnoses#step5'
-      post :notify
+      get :besoins, action: :step2
+      post :besoins
+      get :visite, action: :step3
+      post :visite
+      get :selection, action: :step4
+      post :selection
+      get :resume, action: :step5
     end
   end
 
@@ -49,20 +51,4 @@ Rails.application.routes.draw do
   get '/experts/diagnoses/:diagnosis', to: (redirect do |params, request|
     "/besoins/#{params[:diagnosis]}?#{request.params.slice(:access_token).to_query}"
   end)
-
-  namespace :api do
-    resources :diagnoses, only: %i[show create update] do
-      resources :diagnosed_needs, only: %i[index] do
-        post :bulk, on: :collection
-      end
-    end
-
-    resources :visits, only: %i[show update] do
-      resources :contacts, only: %i[index create]
-    end
-
-    resources :contacts, only: %i[show update]
-
-    resources :errors, only: %i[create]
-  end
 end

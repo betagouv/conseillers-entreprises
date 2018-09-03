@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Question do
   menu priority: 5
-  permit_params :category_id, :label
+  permit_params :category_id, :label, :interview_sort_order
   includes :category
 
   filter :label

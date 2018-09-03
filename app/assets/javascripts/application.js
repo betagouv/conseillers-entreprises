@@ -15,4 +15,6 @@
 // = require turbolinks
 // = require semantic-ui/transition
 // = require semantic-ui/popup
+// = require semantic-ui-calendar.min.js
+
 // = require_tree .

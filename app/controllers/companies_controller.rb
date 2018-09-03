@@ -31,7 +31,7 @@ class CompaniesController < ApplicationController
     end
 
     if diagnosis&.save
-      redirect_to step_2_diagnosis_path(diagnosis)
+      redirect_to besoins_diagnosis_path(diagnosis)
     else
       render body: nil, status: :bad_request
     end

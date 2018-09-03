@@ -19,27 +19,54 @@ class DiagnosesController < ApplicationController
   end
 
   def step2
-    @diagnosis = diagnostic_in_progress(params[:id])
-    @categories_with_questions = UseCases::GetStep2Data.for_diagnosis @diagnosis
+    @diagnosis = diagnosis_in_progress(params[:id])
+    @categories = Category.all.includes(:questions)
+  end
+
+  def besoins
+    @diagnosis = diagnosis_in_progress(params[:id])
+    diagnosis_params = params.require(:diagnosis).permit(:content,
+      diagnosed_needs_attributes: [:_destroy, :content, :question_id, :id])
+    diagnosis_params[:step] = 3
+    if @diagnosis.update(diagnosis_params)
+      redirect_to action: :step3, id: @diagnosis
+    else
+      flash.alert = @diagnosis.errors.full_messages.to_sentence
+      render action: :step2
+    end
   end
 
   def step3
-    @diagnosis = diagnostic_in_progress(params[:id])
+    @diagnosis = diagnosis_in_progress(params[:id])
+  end
+
+  def visite
+    @diagnosis = diagnosis_in_progress(params[:id])
+    diagnosis_params = params.require(:diagnosis).permit(visit_attributes: [:id, :happened_on, visitee_attributes: [:id, :full_name, :role, :email, :phone_number]])
+    diagnosis_params[:visit_attributes][:visitee_attributes][:company_id] = @diagnosis.visit.facility.company.id
+    diagnosis_params[:step] = 4
+    if @diagnosis.update(diagnosis_params)
+      redirect_to action: :step4, id: @diagnosis
+    else
+      flash.alert = @diagnosis.visit.errors.full_messages.to_sentence
+      render action: :step3
+    end
   end
 
   def step4
-    @diagnosis = diagnostic_in_progress(params[:id])
+    @diagnosis = diagnosis_in_progress(params[:id])
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
     @relays_full_names = Relay.of_diagnosis_location(@diagnosis).map(&:user).map(&:full_name)
   end
 
-  def notify
-    diagnosis = diagnostic_in_progress(params[:id])
+  def selection
+    diagnosis = diagnosis_in_progress(params[:id])
     experts = params[:matches]
     if experts.present?
       UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:matches]
       diagnosis.update step: Diagnosis::LAST_STEP
-      redirect_to step_5_diagnosis_path(diagnosis), notice: I18n.t('diagnoses.step5.notifications_sent')
+      flash.notice = I18n.t('diagnoses.step5.notifications_sent')
+      redirect_to action: :step5, id: diagnosis
     end
   end
 
@@ -51,7 +78,7 @@ class DiagnosesController < ApplicationController
 
   private
 
-  def diagnostic_in_progress(diagnosis_id)
+  def diagnosis_in_progress(diagnosis_id)
     diagnosis = Diagnosis.only_active.find(diagnosis_id)
     check_current_user_access_to(diagnosis)
 
