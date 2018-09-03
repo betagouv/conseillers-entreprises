@@ -12,43 +12,40 @@ fr:
         one: 1 mise en relation
         other: "%{count} mises en relation"
         zero: 0 mise en relation
-      no_analysis_message: Cette page vous permet de suivre l’ensemble des analyses que vous avez réalisées.
+      no_analysis_message: Les analyses que vous réalisez apparaitront ici.
       no_completed_diagnosis_message_html: |
         Retrouvez ici les analyses que vous avez complétées.
         <br>Vous pouvez retrouver toutes les informations fournies ainsi que les actions effectuées dans le récapitulatif.
       no_diagnoses_in_progress_message_html: |
         Retrouvez ici les analyses que vous avez initiées et qui demeurent incomplètes.
         <br>Vous pouvez les compléter à tout moment en reprenant à l’étape où vous vous êtes arrêté.
-      show_summary: Voir le récapitulatif
+      show_summary: Récapitulatif
       solved_needs:
         one: "%{solved_needs_count}/1 besoin résolu"
         other: "%{solved_needs_count}/%{count} besoins résolus"
       title: Analyses
       visitee: 'Contact : %{visitee_name}'
     step2:
-      diagnosed_need_content: 'Entrez des informations complémentaires concernant ce besoin spécifique :'
-      diagnosis_content: 'Entrez des informations complémentaires concernant cette entreprise :'
+      diagnosed_need_content_placeholder: Plus d’infos sur ce besoin
+      diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
       diagnosis_content_subtitle: Informations générales sur cette entreprise
       identify_needs: |
-        Sélectionnez les besoins qui ont été détectés durant votre rencontre avec %{company_name}.
-        Vous pouvez entrer des informations complémentaires qui seront par la suite transmises aux référents pertinents.
-      no_category: Besoins non désélectionnables
-      no_category_detail: Ces besoins ayant été modifiés par l’équipe Réso, ils ne sont plus disponibles ni à la création ni à la suppression. Il est toujours possible de modifier les informations complémentaires.
-      title: Besoins détectés
+        Quels besoins avez-vous détectés durant votre rencontre avec %{company_name} ?
+        N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
+      select_at_least_one_need: Cochez au minimum un besoin identifié.
+      title: Besoins
     step3:
-      add_one_contact_mode_below: Veuillez indiquer au moins le numéro de téléphone ou l’adresse e-mail.
-      contact_detail: Coordonnées
-      date: Date (format jj/mm/aaaa)
-      date_header: Date de votre visite
+      date: Date de votre visite
+      date_placeholder: jj/mm/aaaa
       email_address: E-mail
-      error_header: Erreur lors de la création
-      error_message: Il y a eu une erreur durant la création du contact. Veuillez réessayer ulterieurement. Si l’erreur persite, contactez l’equipe Réso.
+      form_info: Tous les champs sont obligatoires
       full_name: Nom
-      info_about_who_you_saw_during_your_visit: Remplissez les informations suivantes concernant la personne que vous avez rencontrée durant votre visite chez %{company_name}.
+      full_name_placeholder: 'ex: Marie Dupont'
       phone_number: Numéro de télephone
       role: Fonction au sein de l’entreprise
-      title: Informations complémentaires
-      your_contact_in_the_company: Votre contact en entreprise
+      role_placeholder: Directeur, Gérant…
+      title: Détails de la visite
+      your_contact_in_the_company: 'Votre contact chez %{company_name} :'
     step4:
       add_contact_to_notify: Veuillez ajouter un contact pour pouvoir envoyer ces notifications (étape 3).
       before_sending_emails_text_html: |
@@ -63,7 +60,7 @@ fr:
       relays_role:
         one: Relais local
         other: Relais locaux
-      title: Sélection des référents
+      title: Mise en contact
       you_can_contact_relays: Vous pouvez néanmoins contacter vos relais locaux.
     step5:
       company_contact_subtitle: Contact rencontré au sein de l’entreprise

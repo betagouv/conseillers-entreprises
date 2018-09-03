@@ -2,25 +2,65 @@
 
 = render partial: 'steps', locals: { current_page_step: 3, diagnosis_step: @diagnosis.step }
 
-
-%h1= t('.title')
-
 #step3-app
-  %app-data-setter{ 'diagnosis-id' => @diagnosis.id, 'visit-id' => @diagnosis.visit.id }
-  %form-error-message
+  = form_for @diagnosis, url: visite_diagnosis_path(@diagnosis), method: :post,
+                 html: { class: 'ui form' } do |diagnosis_form|
+    %h2.ui.header
+      .sub.header
+        = t('.form_info')
 
-  %h2= t('.date_header')
-  %visit-date-input
+    - visit = @diagnosis.visit
+    - visit.visitee ||= Contact.new
+    = diagnosis_form.fields_for :visit do |visit_form|
+      = visit_form.fields_for :visitee do |contact_form|
+        %h3.ui.header
+          = t('.your_contact_in_the_company', company_name: visit.facility.company.name)
 
-  %h2= t('.your_contact_in_the_company')
-  %p= t('.info_about_who_you_saw_during_your_visit', company_name: @diagnosis.visit.facility.company.name)
-  %contact-form
+        .field
+          = contact_form.label t('.full_name')
+          = contact_form.text_field :full_name, placeholder: t('.full_name_placeholder'), required: true
+        .field
+          = contact_form.label t('.role')
+          = contact_form.text_field :role, placeholder: t('.role_placeholder'), required: true
+        .two.fields
+          .field
+            = contact_form.label t('.email_address')
+            = contact_form.email_field :email, required: true
+          .field
+            = contact_form.label t('.phone_number')
+            = contact_form.telephone_field :phone_number, required: true
 
-  %next-step-button{ 'v-bind:previous-step-button' => 'true',
-                     'v-bind:save-button' => 'false',
-                     'v-bind:disabled' => 'isFormDisabled',
-                     'v-bind:loading' => 'isRequestInProgress',
-                     'v-on:previous-step-click' => 'previousStepButtonClicked',
-                     'v-on:next-step-click' => 'nextStepButtonClicked' }
+      %h3.ui.header
+        = t('.date')
+      .inline.field
+        .ui.calendar#datepicker
+          .ui.input.left.icon
+            %i.calendar.icon
+            = visit_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
 
-= javascript_pack_tag 'step-3/step3App'
+      %a.ui.left.floated.button.labeled.icon{ href: besoins_diagnosis_path(@diagnosis) }
+        = t('previous_step')
+        %i.arrow.left.icon
+      = diagnosis_form.button :submit, class: 'ui right floated button green right labeled icon' do
+        = t('next_step')
+        %i.arrow.right.icon
+
+  .clear
+
+:javascript
+  $('#datepicker').calendar({
+    type: 'date',
+    firstDayOfWeek: 1,
+    disableMonth: true,
+    disableYear: true,
+    formatter: {
+      date: function (date, settings) {
+        return date.toLocaleDateString();
+      }
+    },
+    text: {
+      days: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+      months: ['février', 'mars', 'avril', 'mai', 'juin', 'juillet',
+       'août', 'septembre', 'octobre', 'novembre', 'décembre']
+    }
+  })

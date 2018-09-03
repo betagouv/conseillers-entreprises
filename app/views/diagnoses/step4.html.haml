@@ -8,7 +8,7 @@
   - else
     %p= t('.explanation')
 
-    = form_for :matches, url: notify_diagnosis_path, method: :post,
+    = form_for :matches, url: selection_diagnosis_path, method: :post,
                html: { id: 'step4-form' }, data: { confirm: '' } do |f|
       - @diagnosed_needs.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
@@ -70,7 +70,7 @@
 
       .ui.two.column.stackable.grid.container
         .ui.left.aligned.column.no-left-padding.no-margin
-          = link_to step_3_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
+          = link_to visite_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
             = t('previous_step')
             %i.arrow.left.icon
 

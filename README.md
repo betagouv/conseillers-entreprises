@@ -39,12 +39,10 @@ From now on, we’re gonna switch in English.
         $ gem install bundler
         $ bundle
 
-6. Install yarn and use `yarn` command to install JS library dependencies (such as Vue.js).
+6. Install yarn and use `yarn` command to install JS library dependencies.
 
         $ brew install yarn
         $ yarn
-
-    The project uses Vue.js with Rails 5 [Webpacker](https://github.com/rails/webpacker).
 
 7. Execute database configurations for development and test environments.
 
