@@ -2,7 +2,13 @@
 
 class DiagnosesController < ApplicationController
   def index
-    @diagnoses = UseCases::GetDiagnoses.for_user(current_user)
+    @diagnoses = current_user.diagnoses.only_active.reverse_chronological
+      .distinct
+      .left_outer_joins(:matches,
+        diagnosed_needs: :matches)
+      .includes(:matches,
+        diagnosed_needs: :matches,
+        visit: [:visitee, facility: :company])
   end
 
   def show

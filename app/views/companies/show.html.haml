@@ -23,11 +23,11 @@
                 .item
                   .middle.aligned.content
                     %h5.ui.header.disabled
-                      = t('.diagnosed_needs', count: diagnosis.diagnosed_needs_count)
+                      = t('.diagnosed_needs', count: diagnosis.diagnosed_needs.size)
                 .item
                   .middle.aligned.content
                     %h5.ui.header.disabled
-                      = t('.matches', count: diagnosis.matches_count)
+                      = t('.matches', count: diagnosis.matches.size)
 
   %h2= t('.information')
   = render partial: 'company', locals: { entreprise: @company.entreprise }
