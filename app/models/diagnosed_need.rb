@@ -14,9 +14,7 @@ class DiagnosedNeed < ApplicationRecord
   scope :of_diagnosis, (-> (diagnosis) { where(diagnosis: diagnosis) })
   scope :of_question, (-> (question) { where(question: question) })
   scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
-  scope :with_at_least_one_expert_done, (lambda do
-    where(id: Match.with_status(:done).select(:diagnosed_need_id))
-  end)
+  scope :with_at_least_one_expert_done, -> { joins(:matches).where(matches: { status: :done }).distinct }
 
   def can_be_viewed_by?(role)
     diagnosis.visit.can_be_viewed_by?(role) || belongs_to_relay_or_expert?(role)
