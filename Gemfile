@@ -49,7 +49,6 @@ gem 'turbolinks'
 
 # Notifiers
 gem 'exception_notification'
-gem 'slack-notifier'
 
 # Helper gems
 gem 'browser'
