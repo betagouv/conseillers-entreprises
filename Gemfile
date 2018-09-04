@@ -48,6 +48,7 @@ gem 'mailjet'
 gem 'turbolinks'
 
 # Notifiers
+gem 'sentry-raven'
 
 # Helper gems
 gem 'browser'
