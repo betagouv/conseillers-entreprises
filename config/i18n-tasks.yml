@@ -17,6 +17,7 @@ data:
   read:
     - config/locales/**/*.%{locale}.yml
     - config/locales/*.%{locale}.yml
+    - config/locales/%{locale}.yml
     ## Another gem (replace %#= with %=):
     # - "<%#= %x[bundle show vagrant].chomp %>/templates/locales/%{locale}.yml"
 
@@ -91,6 +92,7 @@ ignore_unused:
   - 'diagnoses.steps.*'
   - 'mailers.user_mailer.daily_change_update.status.*'
   - 'stats.stats_table.*'
+  - '{date,datetime,errors,helpers,number,support,time}.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
