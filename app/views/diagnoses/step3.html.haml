@@ -59,8 +59,7 @@
       }
     },
     text: {
-      days: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-      months: ['février', 'mars', 'avril', 'mai', 'juin', 'juillet',
-       'août', 'septembre', 'octobre', 'novembre', 'décembre']
+      days: #{ t('date.abbr_day_names').compact.to_json.html_safe },
+      months: #{ t('date.month_names').compact.to_json.html_safe }
     }
   })
