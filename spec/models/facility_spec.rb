@@ -7,7 +7,7 @@ RSpec.describe Facility, type: :model do
     it do
       is_expected.to belong_to :company
       is_expected.to validate_presence_of :company
-      is_expected.to validate_presence_of :siret
+      is_expected.to validate_uniqueness_of :siret
       is_expected.to validate_presence_of :city_code
     end
   end

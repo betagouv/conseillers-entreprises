@@ -4,8 +4,11 @@ class Facility < ApplicationRecord
   NUMBER_PATTERN = '[0-9]{14}'
 
   belongs_to :company
+  has_many :visits
+  has_many :diagnoses, through: :visits
 
-  validates :company, :siret, :city_code, presence: true
+  validates :company, :city_code, presence: true
+  validates :siret, uniqueness: { allow_nil: true }
 
   scope :in_territory, (-> (territory) { where(city_code: territory.city_codes) })
 

@@ -4,13 +4,12 @@ class Diagnosis < ApplicationRecord
   LAST_STEP = 5
   AUTHORIZED_STEPS = (1..LAST_STEP).to_a.freeze
 
-  attr_accessor :diagnosed_needs_count, :matches_count, :solved_needs_count
-
   belongs_to :visit, validate: true, dependent: :destroy
 
   has_many :diagnosed_needs, dependent: :destroy
   accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
   has_many :questions, through: :diagnosed_needs
+  has_many :matches, through: :diagnosed_needs
 
   validates :visit, presence: true
   accepts_nested_attributes_for :visit

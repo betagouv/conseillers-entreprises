@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :relays
   has_many :territories, through: :relays
   has_many :visits, foreign_key: 'advisor_id'
+  has_many :diagnoses, through: :visits
   has_many :searches, dependent: :destroy
   has_and_belongs_to_many :experts
 
