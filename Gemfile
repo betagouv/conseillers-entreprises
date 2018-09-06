@@ -48,7 +48,6 @@ gem 'mailjet'
 gem 'turbolinks'
 
 # Notifiers
-gem 'exception_notification'
 
 # Helper gems
 gem 'browser'
