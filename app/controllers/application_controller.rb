@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!
+  before_action :set_raven_context
 
   respond_to :html, :json, :js
   rescue_from Exception, with: :render_error
@@ -51,9 +52,22 @@ class ApplicationController < ActionController::Base
     if NOT_FOUND_ERROR_CLASSES.include? exception.class
       respond_with_status(404)
     else
-      send_error_notifications(exception)
+      Raven.capture_exception(exception)
       respond_with_status(500)
     end
+  end
+
+  def set_raven_context
+    Raven.user_context(
+      username: current_user&.full_name,
+      email: current_user&.email,
+      id: current_user&.id,
+      ip_address: request.ip
+    )
+    Raven.extra_context(
+      params: params.to_unsafe_h,
+      url: request.url
+    )
   end
 
   def respond_with_status(status)
@@ -62,17 +76,6 @@ class ApplicationController < ActionController::Base
       format.json { render body: nil, status: status }
       format.js { render body: nil, status: status }
     end
-  end
-
-  def send_error_notifications(exception)
-    data = {
-      message: '500',
-      format: request&.format&.symbol,
-      current_user_full_name: current_user&.full_name,
-      current_user_email: current_user&.email,
-      current_user_id: current_user&.id
-    }
-    ExceptionNotifier.notify_exception exception, env: request.env, data: data
   end
 
   def check_current_user_access_to(resource)
