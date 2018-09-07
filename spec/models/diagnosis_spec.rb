@@ -194,13 +194,6 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 
-  describe 'creation_date_localized' do
-    it do
-      diagnosis = create :diagnosis, created_at: Date.new(2017, 7, 1).to_datetime
-      expect(diagnosis.creation_date_localized).to eq '01/07/2017'
-    end
-  end
-
   describe 'can_be_viewed_by?' do
     subject { diagnosis.can_be_viewed_by?(user) }
 
