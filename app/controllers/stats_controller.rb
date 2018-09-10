@@ -39,21 +39,21 @@ class StatsController < ApplicationController
 
     {
       'users.registered': users.where(created_at: date_range).count,
-        'users.searchers': users.active_searchers(date_range).count,
-        'users.visitors': users.active_diagnosers(date_range, 2).count,
-        'users.whose_match_taken_care_of': users.active_answered(date_range, [:taking_care, :done]).count,
-        'users.whose_match_done': users.active_answered(date_range, :done).count
+      'users.searchers': users.active_searchers(date_range).count,
+      'users.visitors': users.active_diagnosers(date_range, 2).count,
+      'users.whose_match_taken_care_of': users.active_answered(date_range, [:taking_care, :done]).count,
+      'users.whose_match_done': users.active_answered(date_range, :done).count
     }
   end
 
   def activity_stats_in(date_range)
     {
       "activity.visits": Diagnosis.only_active.where(created_at: date_range).after_step(2).count,
-        "activity.match_taken_care_of": Match.where(taken_care_of_at: date_range).with_status([:taking_care, :done]).count,
-        "activity.match_done": Match.where(taken_care_of_at: date_range).with_status(:done).count,
-        "activity.match_not_for_me": Match.where(taken_care_of_at: date_range).with_status(:not_for_me).count,
-        "activity.diagnosed_needs": DiagnosedNeed.where(created_at: date_range).count,
-        "activity.diagnosed_needs_notified": DiagnosedNeed.where(created_at: date_range).joins(:diagnosis).merge(Diagnosis.only_active.where(step: 5)).count
+      "activity.match_taken_care_of": Match.where(taken_care_of_at: date_range).with_status([:taking_care, :done]).count,
+      "activity.match_done": Match.where(taken_care_of_at: date_range).with_status(:done).count,
+      "activity.match_not_for_me": Match.where(taken_care_of_at: date_range).with_status(:not_for_me).count,
+      "activity.diagnosed_needs": DiagnosedNeed.where(created_at: date_range).count,
+      "activity.diagnosed_needs_notified": DiagnosedNeed.where(created_at: date_range).joins(:diagnosis).merge(Diagnosis.only_active.where(step: 5)).count,
     }
   end
 
