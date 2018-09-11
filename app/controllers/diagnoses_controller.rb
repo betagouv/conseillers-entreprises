@@ -38,6 +38,7 @@ class DiagnosesController < ApplicationController
       redirect_to action: :step3, id: @diagnosis
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
+      @categories = Category.all.includes(:questions)
       render action: :step2
     end
   end
