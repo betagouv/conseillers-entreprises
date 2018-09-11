@@ -9,13 +9,13 @@ FactoryBot.define do
     phone_number { Faker::PhoneNumber.phone_number }
     role { Faker::Job.title }
     institution { institutions.sample }
-    password 'password'
-    password_confirmation 'password'
+    password { 'password' }
+    password_confirmation { 'password' }
     confirmed_at { Time.zone.now }
-    is_approved true
+    is_approved { true }
 
     trait :just_registered do
-      is_approved false
+      is_approved { false }
     end
   end
 end
