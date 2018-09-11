@@ -55,7 +55,18 @@
     disableYear: true,
     formatter: {
       date: function (date, settings) {
-        return date.toLocaleDateString();
+        return date.toLocaleDateString('fr-FR');
+      }
+    },
+    parser: {
+      date: function (text, settings) {
+        var parts = text.split('-');
+        if(parts.length !== 3){
+          parts = text.split('/').reverse();
+        }
+        if(parts.length === 3){
+          return new Date(parts[0], parts[1] - 1, parts[2]);
+        }
       }
     },
     text: {
