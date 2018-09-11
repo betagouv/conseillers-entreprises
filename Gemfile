@@ -48,8 +48,7 @@ gem 'mailjet'
 gem 'turbolinks'
 
 # Notifiers
-gem 'exception_notification'
-gem 'slack-notifier'
+gem 'sentry-raven'
 
 # Helper gems
 gem 'browser'
