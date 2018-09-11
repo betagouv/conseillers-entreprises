@@ -2,7 +2,6 @@
 
 ActiveAdmin.register Visit do
   menu parent: :diagnoses, priority: 3
-  actions :index, :show
   permit_params :advisor_id, :visitee_id, :happened_on, :company_id, :facility_id
   includes :advisor, :visitee, :facility, facility: :company
 
@@ -14,4 +13,16 @@ ActiveAdmin.register Visit do
   filter :happened_on
   filter :created_at
   filter :updated_at
+
+  show do
+    attributes_table do
+      row :advisor
+      row :visitee
+      row :happened_on
+      row :created_at
+      row :updated_at
+      row :facility
+      row :diagnosis
+    end
+  end
 end
