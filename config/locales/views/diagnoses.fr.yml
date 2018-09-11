@@ -38,7 +38,7 @@ fr:
       date: Date de votre visite
       date_placeholder: jj/mm/aaaa
       email_address: E-mail
-      form_info: Tous les champs sont obligatoires
+      form_info: Tous les champs sont obligatoires.
       full_name: Nom
       full_name_placeholder: 'ex: Marie Dupont'
       phone_number: Numéro de télephone

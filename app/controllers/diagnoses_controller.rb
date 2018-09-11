@@ -38,6 +38,7 @@ class DiagnosesController < ApplicationController
       redirect_to action: :step3, id: @diagnosis
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
+      @categories = Category.all.includes(:questions)
       render action: :step2
     end
   end
@@ -48,7 +49,7 @@ class DiagnosesController < ApplicationController
 
   def visite
     @diagnosis = diagnosis_in_progress(params[:id])
-    diagnosis_params = params.require(:diagnosis).permit(visit_attributes: [:id, :happened_on, visitee_attributes: [:id, :full_name, :role, :email, :phone_number]])
+    diagnosis_params = params_for_visite
     diagnosis_params[:visit_attributes][:visitee_attributes][:company_id] = @diagnosis.visit.facility.company.id
     diagnosis_params[:step] = 4
     if @diagnosis.update(diagnosis_params)
@@ -83,6 +84,15 @@ class DiagnosesController < ApplicationController
   end
 
   private
+
+  def params_for_visite
+    permitted = params.require(:diagnosis).permit(visit_attributes: {})
+    visit_params = permitted.require(:visit_attributes)
+    [:id, :happened_on].each{ |key| visit_params.require(key) }
+    visitee_params = visit_params.require(:visitee_attributes)
+    [:id, :full_name, :role, :email, :phone_number].each{ |key| visitee_params.require(key) }
+    permitted
+  end
 
   def diagnosis_in_progress(diagnosis_id)
     diagnosis = Diagnosis.only_active.find(diagnosis_id)

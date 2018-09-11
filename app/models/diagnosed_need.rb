@@ -15,6 +15,11 @@ class DiagnosedNeed < ApplicationRecord
   scope :of_question, (-> (question) { where(question: question) })
   scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
   scope :with_at_least_one_expert_done, -> { joins(:matches).where(matches: { status: :done }).distinct }
+  scope :made_in, (lambda do |date_range|
+    joins(diagnosis: :visit)
+      .where(diagnoses: { visits: { happened_on: date_range } })
+      .uniq
+  end)
 
   def can_be_viewed_by?(role)
     diagnosis.visit.can_be_viewed_by?(role) || belongs_to_relay_or_expert?(role)
