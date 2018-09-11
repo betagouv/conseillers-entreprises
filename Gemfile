@@ -82,6 +82,7 @@ group :development do
 
   gem 'spring'
   gem 'spring-watcher-listen'
+  gem 'spring-commands-rspec'
 
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
