@@ -90,7 +90,8 @@ class DiagnosesController < ApplicationController
     visit_params = permitted.require(:visit_attributes)
     [:id, :happened_on].each{ |key| visit_params.require(key) }
     visitee_params = visit_params.require(:visitee_attributes)
-    [:id, :full_name, :role, :email, :phone_number].each{ |key| visitee_params.require(key) }
+    [:full_name, :role, :email, :phone_number].each{ |key| visitee_params.require(key) }
+    visitee_params.permit(:id)
     permitted
   end
 
