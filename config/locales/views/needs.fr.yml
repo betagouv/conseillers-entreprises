@@ -20,7 +20,7 @@ fr:
       waiting_for_answer: En attente d’une réponse du référent
     match_for_need_owner:
       done: Besoin résolu
-      my_status: 'Mon statut sur ce besoin :'
+      my_status: 'Votre réponse :'
       not_for_me: Ce n’est pas pour moi
       ongoing: En cours de résolution
       waiting_for_answer: En attente de votre réponse
