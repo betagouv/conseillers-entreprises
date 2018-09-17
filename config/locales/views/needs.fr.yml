@@ -7,6 +7,9 @@ fr:
       i_take_care: Je m’en charge !
       not_for_me: Ce n’est pas pour moi
       ongoing: En cours de résolution
+    expert_feedback_owner:
+      placeholder: Tenez informé le conseiller des détails sur votre prise en charge.
+      submit: Ajouter un commentaire
     index:
       needs_for_you: 'Ces entreprises ont besoin de vous :'
       title: Besoins
