@@ -76,7 +76,7 @@ class ExpertMailersService
       email_params = {
         advisor: advisor,
         diagnosis_id: diagnosis.id,
-        visit_date: diagnosis.visit.happened_on,
+        visit_date: diagnosis.visit.display_date,
         company_name: diagnosis.visit.company_name,
         company_description: diagnosis.visit.company_description,
         readable_locality: diagnosis.visit.facility.readable_locality,

@@ -12,7 +12,7 @@
           %h2.ui.header
             = @diagnosis.visit.facility.company.name_short
             .sub.header
-              = @diagnosis.creation_date_localized
+              = I18n.l(@diagnosis.visit.display_date, format: '%-d %B %Y')
         %td.collapsing
           .ui.middle.aligned.list
             .item

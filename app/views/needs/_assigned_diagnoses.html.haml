@@ -16,8 +16,7 @@
                   .content= facility.readable_locality || facility.city_code
                 .sub.header
                   %i.calendar.icon
-                  - date = diagnosis.visit.happened_on || diagnosis.visit.created_at.to_date
-                  .content= I18n.l(date, format: '%-d %B %Y')
+                  .content= I18n.l(diagnosis.visit.display_date, format: '%-d %B %Y')
             .column
               - diagnosis.diagnosed_needs.of_relay_or_expert(relay_or_expert).each do |need|
                 .ui.text.small
