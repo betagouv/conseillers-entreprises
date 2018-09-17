@@ -12,8 +12,7 @@
           %h2.ui.header
             = @diagnosis.visit.facility.company.name_short
             .sub.header
-              - date = @diagnosis.visit.happened_on || @diagnosis.visit.created_at.to_date
-              = I18n.l(date, format: '%-d %B %Y')
+              = I18n.l(@diagnosis.visit.display_date, format: '%-d %B %Y')
         %td.collapsing
           .ui.middle.aligned.list
             .item
