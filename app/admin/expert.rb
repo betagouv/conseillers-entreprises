@@ -61,8 +61,8 @@ ActiveAdmin.register Expert do
     end
     panel I18n.t('activerecord.attributes.expert.assistances') do
       table_for expert.assistances do
-        column(:title) { |assistance| link_to(assistance.title, admin_assistance_path(assistance)) }
         column :question
+        column(:title) { |assistance| link_to(assistance.title, admin_assistance_path(assistance)) }
       end
     end
 
@@ -117,11 +117,8 @@ ActiveAdmin.register Expert do
     end
 
     f.inputs t('activerecord.attributes.expert.assistances') do
-      f.input :assistances, as: :ajax_select, data: {
-        url: :admin_assistances_path,
-        search_fields: [:title, :description],
-        limit: 999,
-      }
+      collection = option_groups_from_collection_for_select(Question.all, :assistances, :label, :id, :title, expert.assistances.pluck(:id))
+      f.input :assistances, input_html: { :size => 20 }, collection: collection
     end
 
     f.actions
