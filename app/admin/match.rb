@@ -57,10 +57,11 @@ ActiveAdmin.register Match do
     f.actions
   end
 
-  filter :territories_name, as: :string, label: I18n.t('activerecord.models.territory.other')
-  filter :diagnosed_need_id, as: :string, label: I18n.t('activerecord.attributes.match.diagnosed_need')
+  filter :status
   filter :expert_full_name
   filter :expert_institution_name
+  filter :territories_name, as: :string, label: I18n.t('activerecord.models.territory.other')
+  filter :diagnosed_need_question_label, as: :string, label: I18n.t('activerecord.attributes.diagnosed_need.question_label')
+  filter :diagnosed_need_content, as: :string, label: I18n.t('activerecord.attributes.diagnosed_need.content')
   filter :assistance_title
-  filter :status
 end
