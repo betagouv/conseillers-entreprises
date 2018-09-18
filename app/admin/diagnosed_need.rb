@@ -11,4 +11,11 @@ ActiveAdmin.register DiagnosedNeed do
   filter :content
   filter :created_at
   filter :updated_at
+
+  ## Show
+  show do
+    default_main_content
+
+    render partial: 'admin/matches', locals: { matches_relation: diagnosed_need.matches }
+  end
 end
