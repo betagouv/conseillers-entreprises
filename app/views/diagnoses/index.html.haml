@@ -7,7 +7,7 @@
     .field
       .ui.action.input
         = text_field_tag :query, @query, autofocus: true, placeholder: t('companies.search.explanation')
-        = submit_tag t('search'), class: 'ui button green'
+        %button.ui.button.green{ type: 'submit' }= t('search')
 
   - diagnoses_in_progress = @diagnoses.in_progress
   - diagnoses_completed = @diagnoses.completed
