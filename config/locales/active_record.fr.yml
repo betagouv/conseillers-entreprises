@@ -51,7 +51,7 @@ fr:
         qualified_for_commerce: S’occupe des entreprises commerciales
       match:
         assistance_expert: Référent (non Relais local)
-        assistance_title: Titre de l’aide
+        assistance_title: Champ de compétence
         closed_at: Date de résolution
         diagnosed_need: Besoin analysé
         expert_full_name: Référent contacté
