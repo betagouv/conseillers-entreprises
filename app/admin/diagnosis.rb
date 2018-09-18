@@ -21,6 +21,7 @@ ActiveAdmin.register Diagnosis do
       row :step
       row :description
     end
+
     panel I18n.t('activerecord.models.diagnosed_need.other') do
       table_for diagnosis.diagnosed_needs do
         column(:id) { |n| link_to(n.id, admin_diagnosed_need_path(n)) }
@@ -29,5 +30,7 @@ ActiveAdmin.register Diagnosis do
         column(:content) { |n| link_to(n.content, admin_diagnosed_need_path(n)) }
       end
     end
+
+    render partial: 'admin/matches', locals: { matches_relation: diagnosis.matches }
   end
 end
