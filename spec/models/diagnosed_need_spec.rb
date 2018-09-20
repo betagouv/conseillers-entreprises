@@ -88,5 +88,37 @@ RSpec.describe DiagnosedNeed, type: :model do
         it { is_expected.to eq [diagnosed_need] }
       end
     end
+
+    describe 'with_no_one_in_charge' do
+      subject { DiagnosedNeed.with_no_one_in_charge }
+
+      let(:abandoned_diagnosed_need) { create :diagnosed_need }
+      let(:answered_diagnosed_need) { create :diagnosed_need }
+      let(:other_answered_diagnosed_need) { create :diagnosed_need }
+
+      before do
+        create_list :match,
+          2,
+          status: :quo,
+          diagnosed_need: abandoned_diagnosed_need
+        create :match,
+          status: :quo,
+          diagnosed_need: answered_diagnosed_need
+
+        create :match,
+          status: :taking_care,
+          diagnosed_need: answered_diagnosed_need
+
+        create :match,
+          status: :done,
+          diagnosed_need: other_answered_diagnosed_need
+
+        create :match,
+          status: :not_for_me,
+          diagnosed_need: other_answered_diagnosed_need
+      end
+
+      it { is_expected.to eq [abandoned_diagnosed_need] }
+    end
   end
 end

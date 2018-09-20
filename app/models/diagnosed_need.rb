@@ -15,6 +15,7 @@ class DiagnosedNeed < ApplicationRecord
   scope :of_question, (-> (question) { where(question: question) })
   scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
   scope :with_at_least_one_expert_done, -> { joins(:matches).where(matches: { status: :done }).distinct }
+  scope :with_no_one_in_charge, -> { where.not(matches: Match.where(status: [:done, :taking_care])) }
   scope :made_in, (lambda do |date_range|
     joins(diagnosis: :visit)
       .where(diagnoses: { visits: { happened_on: date_range } })
