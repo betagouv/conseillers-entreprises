@@ -24,6 +24,22 @@ class DiagnosedNeed < ApplicationRecord
       .uniq
   end)
 
+  def status_synthesis
+    matches_status = matches.pluck(:status).map(&:to_sym)
+
+    if matches_status.empty?
+      :quo
+    elsif matches_status.include?(:done)
+      :done
+    elsif matches_status.include?(:taking_care)
+      :taking_care
+    elsif matches_status.all?{ |o| o == :not_for_me }
+      :not_for_me
+    else
+      :quo
+    end
+  end
+
   def can_be_viewed_by?(role)
     diagnosis.visit.can_be_viewed_by?(role) || belongs_to_relay_or_expert?(role)
   end
