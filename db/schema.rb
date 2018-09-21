@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_13_145542) do
+ActiveRecord::Schema.define(version: 2018_09_20_101754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(version: 2018_09_13_145542) do
     t.index ["assistances_experts_id"], name: "index_matches_on_assistances_experts_id"
     t.index ["diagnosed_need_id"], name: "index_matches_on_diagnosed_need_id"
     t.index ["relay_id"], name: "index_matches_on_relay_id"
+    t.index ["status"], name: "index_matches_on_status"
   end
 
   create_table "questions", id: :serial, force: :cascade do |t|
