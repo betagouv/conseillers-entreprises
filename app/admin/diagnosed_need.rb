@@ -29,6 +29,7 @@ ActiveAdmin.register DiagnosedNeed do
     column :updated_at
     column :content
     column :status_synthesis
+    column t('activerecord.models.match.other'), :matches_count
 
     actions
   end

@@ -5,7 +5,7 @@ class Match < ApplicationRecord
 
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
 
-  belongs_to :diagnosed_need
+  belongs_to :diagnosed_need, counter_cache: true
   belongs_to :assistance_expert, foreign_key: :assistances_experts_id
   belongs_to :relay
   has_one :expert, through: :assistance_expert
