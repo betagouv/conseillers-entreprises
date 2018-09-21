@@ -206,46 +206,6 @@ RSpec.describe Match, type: :model do
 
       it { is_expected.to eq [match_needing_update] }
     end
-
-    describe 'with_no_one_in_charge' do
-      subject { Match.with_no_one_in_charge }
-
-      let(:abandoned_diagnosed_need) { create :diagnosed_need }
-      let(:answered_diagnosed_need) { create :diagnosed_need }
-      let(:other_answered_diagnosed_need) { create :diagnosed_need }
-
-      let(:matches_with_no_one_in_charge) do
-        create_list :match,
-          2,
-          status: :quo,
-          diagnosed_need: abandoned_diagnosed_need,
-          updated_at: 6.days.ago
-      end
-
-      before do
-        create :match,
-          status: :quo,
-          diagnosed_need: answered_diagnosed_need,
-          updated_at: 6.days.ago
-
-        create :match,
-          status: :taking_care,
-          diagnosed_need: answered_diagnosed_need,
-          updated_at: 6.days.ago
-
-        create :match,
-          status: :done,
-          diagnosed_need: other_answered_diagnosed_need,
-          updated_at: 6.days.ago
-
-        create :match,
-          status: :not_for_me,
-          diagnosed_need: other_answered_diagnosed_need,
-          updated_at: 6.days.ago
-      end
-
-      it { is_expected.to match_array matches_with_no_one_in_charge }
-    end
   end
 end
 # rubocop:enable Metrics/BlockLength

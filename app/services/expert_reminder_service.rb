@@ -31,17 +31,18 @@ class ExpertReminderService
     end
 
     def matches_with_no_one_in_charge
-      Match.includes(assistance_expert: :expert).with_no_one_in_charge.each do |match|
-        if !match.assistance_expert
-          next
-        end
+      DiagnosedNeed.with_no_one_in_charge.each do |diagnosed_need|
+        diagnosed_need.matches.each do |match|
+          if !match.assistance_expert
+            next
+          end
 
-        expert_id = match.assistance_expert.expert_id
-
-        if !@experts_hash[expert_id]
-          init_expert_hash(match)
+          expert_id = match.assistance_expert.expert_id
+          if !@experts_hash[expert_id]
+            init_expert_hash(match)
+          end
+          @experts_hash[expert_id][:matches_hash][:with_no_one_in_charge] << match
         end
-        @experts_hash[expert_id][:matches_hash][:with_no_one_in_charge] << match
       end
     end
 
