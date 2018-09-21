@@ -5,7 +5,7 @@ class Match < ApplicationRecord
 
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
 
-  belongs_to :diagnosed_need
+  belongs_to :diagnosed_need, counter_cache: true
   belongs_to :assistance_expert, foreign_key: :assistances_experts_id
   belongs_to :relay
   has_one :expert, through: :assistance_expert
@@ -17,6 +17,8 @@ class Match < ApplicationRecord
   after_update :update_taken_care_of_at
   after_update :update_closed_at
 
+  scope :ordered_by_status, -> { order(status: :desc, id: :asc) }
+
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
 
   scope :of_diagnoses, (lambda do |diagnoses|
@@ -25,10 +27,6 @@ class Match < ApplicationRecord
   scope :with_status, (-> (status) { where(status: status) })
   scope :updated_more_than_five_days_ago, (-> { where('updated_at < ?', 5.days.ago) })
   scope :needing_taking_care_update, (-> { with_status(:taking_care).updated_more_than_five_days_ago })
-  scope :with_no_one_in_charge, (lambda do
-    ids = Match.select(:diagnosed_need_id).group(:diagnosed_need_id).having('SUM(status) = 0')
-    where(diagnosed_need_id: ids).updated_more_than_five_days_ago
-  end)
 
   scope :in_territory, (-> (territory) { of_diagnoses(Diagnosis.in_territory(territory)) })
   scope :of_facilities, (-> (facilities) { of_diagnoses(Diagnosis.of_facilities(facilities)) })
