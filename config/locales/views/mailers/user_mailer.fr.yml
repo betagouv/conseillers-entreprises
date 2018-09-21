@@ -23,6 +23,15 @@ fr:
           waiting_for_answer: n’a pas pris de décision sur le besoin.
         subject: "[Réso] Hier sur Réso"
         yesterday: 'Hier sur Réso les demandes suivantes ont évolué :'
+      match_feedback:
+        expert_wrote_back: "%{author} a fait un commentaire sur le besoin « %{need} » de l’entreprise %{company}:"
+        hello: Bonjour %{name},
+        nice_day: Bonne journée,
+        reso_team_html: L’équipe %{link_to_root}.
+        subject: "[Réso] Des nouvelles de %{company_name}"
+        summary_html: Voir le %{summary_link} de l’entreprise.
+        summary_link: récapitulatif des besoins
+        thankyou: Vous pouvez le contacter pour discuter plus précisément de l’entreprise.
       send_new_user_invitation:
         application_summary: Cette application web permet de rejoindre un réseau de conseillers en entreprise et d’institutions référentes.
         click_on_following_link_to_continue: 'Cliquez sur le lien suivant pour finaliser votre inscription sur Réso :'

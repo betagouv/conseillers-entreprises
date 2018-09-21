@@ -11,6 +11,10 @@ class UserMailerPreview < AppMailerPreview
     UserMailer.daily_change_update(user, Array.new(3) { change_hash })
   end
 
+  def match_feedback
+    UserMailer.match_feedback(Feedback.last)
+  end
+
   private
 
   def user

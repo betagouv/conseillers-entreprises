@@ -23,4 +23,17 @@ class UserMailer < ApplicationMailer
     @change_updates = change_updates
     mail(to: @user.email, subject: t('mailers.user_mailer.daily_change_update.subject'))
   end
+
+  def match_feedback(feedback)
+    @feedback = feedback
+    @author = feedback.match.person
+    @diagnosed_need = feedback.match.diagnosed_need
+    @persons = @diagnosed_need.relays_and_experts - [@author]
+    @advisor = @diagnosed_need.diagnosis.visit.advisor
+    @facility = @diagnosed_need.diagnosis.visit.facility
+    mail(to: @advisor.email_with_display_name,
+         cc: @persons.map(&:email_with_display_name),
+         reply_to: @author.email_with_display_name,
+         subject: t('mailers.user_mailer.match_feedback.subject', company_name: @facility.company.name))
+  end
 end
