@@ -12,8 +12,8 @@ class ExpertMailer < ApplicationMailer
     @params = params
 
     mail(
-      to: "#{person.full_name} <#{person.email}>",
-      cc: "#{params[:advisor].full_name} <#{params[:advisor].email}>",
+      to: person.email_with_display_name,
+      cc: params[:advisor].email_with_display_name,
       subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: params[:company_name]),
       reply_to: reply_to(params),
     )
@@ -24,7 +24,7 @@ class ExpertMailer < ApplicationMailer
     @matches_hash = matches_hash
 
     mail(
-      to: "#{expert.full_name} <#{expert.email}>",
+      to: expert.email_with_display_name,
       subject: t('mailers.expert_mailer.remind_involvement.subject')
     )
   end
@@ -33,8 +33,8 @@ class ExpertMailer < ApplicationMailer
 
   def reply_to(params)
     [
-      "#{I18n.t('app_name')} <#{SENDER_EMAIL}>",
-      "#{params[:advisor].full_name} <#{params[:advisor].email}>"
+      SENDER,
+      params[:advisor].email_with_display_name
     ]
   end
 end
