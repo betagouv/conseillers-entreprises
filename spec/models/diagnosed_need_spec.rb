@@ -162,4 +162,26 @@ RSpec.describe DiagnosedNeed, type: :model do
       it { is_expected.to eq [abandoned_diagnosed_need] }
     end
   end
+
+  describe 'relays_and_experts' do
+    subject { diagnosed_need.relays_and_experts }
+
+    let(:diagnosed_need) { create :diagnosed_need, matches: matches }
+    let(:relay) { build :relay }
+    let(:expert) { build :expert }
+    let(:relay_match) { build :match, relay: relay }
+    let(:expert_match) { build :match, expert: expert }
+
+    context 'No matches' do
+      let(:matches) { [] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'Matches with both relays and experts' do
+      let(:matches) { [expert_match, relay_match] }
+
+      it { is_expected.to match_array [expert, relay] }
+    end
+  end
 end
