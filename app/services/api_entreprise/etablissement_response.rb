@@ -20,7 +20,7 @@ module ApiEntreprise
     end
 
     def error_message
-      @error&.message || @data['errors'] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
+      @error&.message || @data['errors']&.join('\n') || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
     end
 
     def etablissement_wrapper
