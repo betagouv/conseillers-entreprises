@@ -3,6 +3,8 @@ class FeedbacksController < ApplicationController
     feedback = Feedback.create!(feedback_params)
     diagnosis = feedback.match.diagnosed_need.diagnosis
 
+    UserMailer.delay.match_feedback(feedback)
+
     redirect_back fallback_location: besoin_path(diagnosis, params.permit(:access_token))
   end
 
