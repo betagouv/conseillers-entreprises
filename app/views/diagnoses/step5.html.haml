@@ -53,6 +53,9 @@
             %tr.small.text.ui.tiny.table
               - locals = { match: match }
               = render partial: 'needs/match', locals: locals
+            - match.feedbacks.each do |feedback|
+              %tr.small.text.ui.tiny.table
+                = render partial: 'needs/expert_feedback', locals: { feedback: feedback, can_delete: false }
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')
