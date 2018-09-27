@@ -9,6 +9,9 @@ class DiagnosedNeed < ApplicationRecord
   validates :diagnosis, presence: true
   validates :question, uniqueness: { scope: :diagnosis_id, allow_nil: true }
 
+  has_many :experts, through: :matches
+  has_many :relays, through: :matches
+
   before_create :copy_question_label
 
   scope :of_diagnosis, (-> (diagnosis) { where(diagnosis: diagnosis) })
@@ -46,6 +49,10 @@ class DiagnosedNeed < ApplicationRecord
 
   def belongs_to_relay_or_expert?(role)
     matches.any?{ |match| match.belongs_to_relay_or_expert?(role) }
+  end
+
+  def relays_and_experts
+    relays + experts
   end
 
   private

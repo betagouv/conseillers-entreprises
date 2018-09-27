@@ -11,6 +11,16 @@ module PersonConcern
       full_name
     end
 
+    def email_with_display_name
+      if email.nil?
+        nil
+      elsif full_name.nil?
+        email
+      else
+        "\"#{full_name}\" <#{email}>"
+      end
+    end
+
     def normalize_values!
       normalize_name
       normalize_phone_number
