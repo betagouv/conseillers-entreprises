@@ -3,6 +3,33 @@
 require 'rails_helper'
 
 RSpec.describe PersonConcern do
+  describe 'email_with_display_name' do
+    subject { user.email_with_display_name }
+
+    let(:user) { build :user, full_name: name, email: email }
+
+    context 'Clean values' do
+      let(:name) { 'Paul Mc Cartney' }
+      let(:email) { 'paul@abbey.road' }
+
+      it { is_expected.to eq '"Paul Mc Cartney" <paul@abbey.road>' }
+    end
+
+    context 'No name' do
+      let(:name) { nil }
+      let(:email) { 'paul@abbey.road' }
+
+      it { is_expected.to eq 'paul@abbey.road' }
+    end
+
+    context 'No email' do
+      let(:name) { 'Paul Mc Cartney' }
+      let(:email) { nil }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe 'normalize_name' do
     subject { user.full_name }
 

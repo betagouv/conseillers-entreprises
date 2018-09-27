@@ -46,14 +46,17 @@
                   = diagnosed_need.content
 
         - diagnosed_need.matches.each do |match|
-          - id = "match-line-#{match.id}-owner"
-          %tr.small.text.ui.tiny.table{ id: id }
-            - locals = { match: match }
+          - locals = { match: match }
+          %tr.small.text.ui.tiny.table{ id: "match-line-#{match.id}-owner" }
             = render partial: 'match_for_need_owner', locals: locals
 
           %tr.small.text.ui.tiny.table{ id: "expert-buttons-line-#{match.id}" }
-            - locals = { match: match }
             = render partial: 'expert_buttons', locals: locals
+          - match.feedbacks.each do |feedback|
+            %tr.small.text.ui.tiny.table
+              = render partial: 'expert_feedback', locals: { feedback: feedback, can_delete: true }
+          %tr.small.text.ui.tiny.table{ id: "expert-feedback-owner-line-#{match.id}" }
+            = render partial: 'expert_feedback_owner', locals: locals
 
   %h2= t('.need_contacts_summary_subtitle')
   - @diagnosis.diagnosed_needs.each do |diagnosed_need|
@@ -74,10 +77,12 @@
             %td= t('.zero_contacted_expert')
         - else
           - diagnosed_need.matches.each do |match|
-            - id = "match-line-#{match.id}-global"
-            %tr.small.text.ui.tiny.table{ id: id }
-              - locals = { match: match }
+            - locals = { match: match }
+            %tr.small.text.ui.tiny.table{ id: "match-line-#{match.id}-global" }
               = render partial: 'match', locals: locals
+            - match.feedbacks.each do |feedback|
+              %tr.small.text.ui.tiny.table
+                = render partial: 'expert_feedback', locals: { feedback: feedback, can_delete: false }
 
   - if @diagnosis.content
     %h2= t('.diagnosis_content_subtitle')

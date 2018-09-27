@@ -48,6 +48,8 @@ Rails.application.routes.draw do
 
   resources :matches, only: %i[update]
 
+  resources :feedbacks, only: %i[create destroy]
+
   get '/experts/diagnoses/:diagnosis', to: (redirect do |params, request|
     "/besoins/#{params[:diagnosis]}?#{request.params.slice(:access_token).to_query}"
   end)

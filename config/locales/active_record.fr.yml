@@ -43,6 +43,9 @@ fr:
         company: Entreprise
         readable_locality: Commune
         siret: SIRET
+      feedback:
+        description: Description
+        match: Mise en relation
       institution:
         email: E-mail
         name: Raison sociale
@@ -160,6 +163,9 @@ fr:
       facility:
         one: Établissement
         other: Établissements
+      feedback:
+        one: Commentaire
+        other: Commentaires
       institution:
         one: Institution
         other: Institutions

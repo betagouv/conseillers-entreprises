@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_25_091721) do
+ActiveRecord::Schema.define(version: 2018_09_25_131649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,14 @@ ActiveRecord::Schema.define(version: 2018_09_25_091721) do
     t.index ["company_id"], name: "index_facilities_on_company_id"
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.text "description"
+    t.bigint "match_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_feedbacks_on_match_id"
+  end
+
   create_table "institutions", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -283,6 +291,7 @@ ActiveRecord::Schema.define(version: 2018_09_25_091721) do
   add_foreign_key "expert_territories", "territories"
   add_foreign_key "experts", "institutions"
   add_foreign_key "facilities", "companies"
+  add_foreign_key "feedbacks", "matches"
   add_foreign_key "matches", "assistances_experts", column: "assistances_experts_id"
   add_foreign_key "matches", "diagnosed_needs"
   add_foreign_key "matches", "relays"
