@@ -121,7 +121,7 @@ ActiveAdmin.setup do |config|
   # This allows your users to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
-  config.comments = false
+  config.comments = false # this doesn’t seem completely disabled; also, the tables exist in the db
   #
   # You can change the name under which comments are registered:
   # config.comments_registration_name = 'AdminComment'

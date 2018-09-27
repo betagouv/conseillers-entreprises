@@ -23,7 +23,7 @@ module SireneApi
     end
 
     def suggestions
-      suggestions = @hashes[:suggestions]
+      suggestions = @hashes[:suggestions] || []
       suggestions.delete(@query)
       suggestions
     end

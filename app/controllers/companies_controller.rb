@@ -16,8 +16,13 @@ class CompaniesController < ApplicationController
   def show
     siret = params[:siret]
     query = params[:query]
-    @facility = UseCases::SearchFacility.with_siret siret
-    @company = UseCases::SearchCompany.with_siret siret
+    begin
+      @facility = UseCases::SearchFacility.with_siret siret
+      @company = UseCases::SearchCompany.with_siret siret
+    rescue ApiEntreprise::ApiEntrepriseError => error
+      redirect_back fallback_location: { action: :search }, alert: error
+      return
+    end
     existing_facility = Facility.find_by(siret: siret)
     if existing_facility.present?
       @diagnoses = Facility.find_by(siret: siret).diagnoses
