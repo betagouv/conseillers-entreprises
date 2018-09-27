@@ -1,4 +1,4 @@
-class UserMailerPreview < ActionMailer::Preview
+class UserMailerPreview < AppMailerPreview
   def send_new_user_invitation
     UserMailer.send_new_user_invitation(user)
   end
