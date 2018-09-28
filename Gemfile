@@ -27,6 +27,7 @@ gem 'jquery-rails'
 gem 'sass-rails'
 gem 'semantic-ui-sass'
 gem 'uglifier'
+gem 'premailer-rails'
 
 # Parallel processes
 gem 'clockwork'
@@ -54,8 +55,6 @@ gem 'sentry-raven'
 gem 'browser'
 gem 'metamagic'
 gem 'wannabe_bool'
-
-gem 'roadie-rails'
 
 group :test do
   gem 'capybara'
