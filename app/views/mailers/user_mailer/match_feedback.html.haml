@@ -5,11 +5,10 @@
   need: @diagnosed_need.question_label,
   company: @facility.company.name)
 
-%blockquote= @feedback.description
+%blockquote
+  %p= @feedback.description
 
 %p= t('.thankyou')
-
 %p= t('.summary_html', summary_link: link_to(t('.summary_link'), besoin_url(@diagnosed_need.diagnosis)))
-
 %p= t('.nice_day')
 %p= t('.reso_team_html', link_to_root: link_to(t('app_name'), root_url))
