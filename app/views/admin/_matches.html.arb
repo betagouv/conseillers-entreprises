@@ -9,23 +9,43 @@ panel "#{I18n.t('activerecord.models.match.other')} (#{matches_relation.length})
     column :created_at
     column(I18n.t('activerecord.attributes.visit.advisor')) do |match|
       advisor = match.diagnosed_need.diagnosis.visit.advisor
-      link_to(advisor.full_name_with_role, admin_user_path(advisor))
+      link_to(advisor.full_name, admin_user_path(advisor))
+    end
+    column(I18n.t('activerecord.attributes.user.role')) do |match|
+      advisor = match.diagnosed_need.diagnosis.visit.advisor
+      advisor.role
+    end
+    column(I18n.t('activerecord.attributes.user.institution')) do |match|
+      advisor = match.diagnosed_need.diagnosis.visit.advisor
+      advisor.institution
     end
     column(I18n.t('activerecord.attributes.visit.facility')) do |match|
       match.diagnosed_need&.diagnosis&.visit&.facility
     end
     column(:diagnosed_need) do |match|
       need = match.diagnosed_need
-      link_to(need.id, admin_diagnosed_need_path(need)) + " (#{need.question_label})".html_safe
+      link_to(need.id, admin_diagnosed_need_path(need))
+    end
+    column(I18n.t('activerecord.attributes.diagnosed_need.question_label')) do |match|
+      need = match.diagnosed_need
+      need.question_label
     end
     column :expert_full_name do |match|
       expert = match.expert
       if expert.present?
-        link_to(match.expert_description, admin_expert_path(expert))
+        link_to(match.expert_full_name, admin_expert_path(expert))
       elsif match.relay.present?
-        link_to(match.expert_description, admin_relay_path(match.relay))
+        link_to(match.expert_full_name, admin_relay_path(match.relay))
       else
         I18n.t('active_admin.matches.deleted', expert: match.expert_description)
+      end
+    end
+    column(I18n.t('activerecord.attributes.expert.institution')) do |match|
+      expert = match.expert
+      if expert.present?
+        expert.institution
+      elsif match.relay.present?
+        match.relay.user.institution
       end
     end
     column :status do |match|
