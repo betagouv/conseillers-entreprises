@@ -10,6 +10,6 @@ class DeviseMailerPreview < ActionMailer::Preview
   private
 
   def user
-    FactoryBot.build(:user)
+    User.all.sample
   end
 end

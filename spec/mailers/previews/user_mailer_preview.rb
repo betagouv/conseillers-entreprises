@@ -12,13 +12,13 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def match_feedback
-    UserMailer.match_feedback(Feedback.last)
+    UserMailer.match_feedback(Feedback.all.sample)
   end
 
   private
 
   def user
-    FactoryBot.build(:user)
+    User.all.sample
   end
 
   def change_hash
