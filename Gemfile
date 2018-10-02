@@ -38,6 +38,7 @@ gem 'webpacker'
 # Improving models
 gem 'audited', '~> 4.5'
 gem 'devise'
+gem 'devise-async'
 gem 'user_impersonate2', require: 'user_impersonate'
 
 # Misc
