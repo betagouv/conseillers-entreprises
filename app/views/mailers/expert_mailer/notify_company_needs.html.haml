@@ -1,14 +1,17 @@
-%p= t('.hello')
+%p= t('.hello', name: @person.full_name)
 
 - link_to_root = link_to t('app_name'), root_url
+- visit = @diagnosis.visit
+- advisor = visit.advisor
+- visitee = visit.visitee
 
 :ruby
   advisor_met_company_params = {
     link_to_root: link_to_root,
-    advisor_name: @params[:advisor].full_name,
-    advisor_institution: @params[:advisor].institution,
-    company_description: @params[:company_description],
-    visit_date: I18n.l(@params[:visit_date])
+    advisor_name: advisor.full_name,
+    advisor_institution: advisor.institution,
+    company_description: visit.company_description,
+    visit_date: I18n.l(visit.display_date)
   }
 
 %p= t('.advisor_met_this_company_html', advisor_met_company_params)
@@ -16,37 +19,37 @@
 %p= t('.needs_are_relevant_with_your_skills')
 
 %ul
-  - @params[:questions_with_needs_description].each do |question_with_need_description|
+  - @diagnosis.diagnosed_needs.of_relay_or_expert(@person).each do |need|
     %li
-      = question_with_need_description[:question].label
-      - if question_with_need_description[:need_description].present?
+      = need.question_label
+      - if need.content.present?
         %br
         = t('.more_info')
-        = question_with_need_description[:need_description]
+        = need.content
 
-- company_contact_params = { company_name: @params[:company_name],
-  company_contact_full_name: @params[:company_contact].full_name,
-  company_contact_role: @params[:company_contact].role,
-  company_contact_email: @params[:company_contact].email }
+- company_contact_params = { company_name: visit.company_name,
+  company_contact_full_name: visitee.full_name,
+  company_contact_role: visitee.role,
+  company_contact_email: visitee.email }
 
-- if @params[:company_contact].phone_number.present?
-  - phone_number_hash = { company_contact_phone_number: @params[:company_contact].phone_number }
+- if visitee.phone_number.present?
+  - phone_number_hash = { company_contact_phone_number: visitee.phone_number }
   %p= t('.company_contact_with_phone_number', company_contact_params.merge(phone_number_hash))
 - else
   %p= t('.company_contact_without_phone_number', company_contact_params)
 
 :ruby
   more_info_url = if @access_token
-    besoin_url(@params[:diagnosis_id], access_token: @access_token)
+    besoin_url(@diagnosis, access_token: @access_token)
   else
-    besoin_url(@params[:diagnosis_id])
+    besoin_url(@diagnosis)
   end
   more_info_link = link_to t('.by_clicking_here'), more_info_url
 %p= t('.information_are_available_on_app_html', more_info_link: more_info_link)
 
-- contact_advisor_params = { advisor_name: @params[:advisor].full_name,
-  advisor_phone_number: @params[:advisor].phone_number,
-  advisor_email: @params[:advisor].email }
+- contact_advisor_params = { advisor_name: advisor.full_name,
+  advisor_phone_number: advisor.phone_number,
+  advisor_email: advisor.email }
 
 %p= t('.contact_advisor_for_more_info', contact_advisor_params)
 %p= t('.regards')

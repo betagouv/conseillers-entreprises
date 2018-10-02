@@ -4,18 +4,21 @@ class ExpertMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/expert_mailer'
 
-  def notify_company_needs(person, params)
+  def notify_company_needs(person, diagnosis)
+    @person = person
     if person.is_a? Expert
       @access_token = person.access_token
     end
-
-    @params = params
+    @diagnosis = diagnosis
 
     mail(
-      to: person.email_with_display_name,
-      cc: params[:advisor].email_with_display_name,
-      subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: params[:company_name]),
-      reply_to: reply_to(params),
+      to: @person.email_with_display_name,
+      cc: @diagnosis.visit.advisor.email_with_display_name,
+      subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: @diagnosis.visit.company_name),
+      reply_to: [
+        SENDER,
+        @diagnosis.visit.advisor.email_with_display_name
+      ]
     )
   end
 
@@ -27,14 +30,5 @@ class ExpertMailer < ApplicationMailer
       to: expert.email_with_display_name,
       subject: t('mailers.expert_mailer.remind_involvement.subject')
     )
-  end
-
-  private
-
-  def reply_to(params)
-    [
-      SENDER,
-      params[:advisor].email_with_display_name
-    ]
   end
 end
