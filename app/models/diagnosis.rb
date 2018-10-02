@@ -55,4 +55,8 @@ class Diagnosis < ApplicationRecord
   def can_be_viewed_by?(role)
     visit.can_be_viewed_by?(role) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
   end
+
+  def contacted_persons
+    (relays.map(&:user) + experts).uniq
+  end
 end

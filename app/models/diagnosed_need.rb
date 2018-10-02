@@ -52,8 +52,8 @@ class DiagnosedNeed < ApplicationRecord
     relays.include?(role) || experts.include?(role)
   end
 
-  def relays_and_experts
-    relays + experts
+  def contacted_persons
+    (relays.map(&:user) + experts).uniq
   end
 
   private
