@@ -10,6 +10,8 @@ class Diagnosis < ApplicationRecord
   accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
   has_many :questions, through: :diagnosed_needs
   has_many :matches, -> { ordered_by_status }, through: :diagnosed_needs
+  has_many :experts, through: :matches
+  has_many :relays, through: :matches # Actually, `has_one` because all the matches of a diagnosed_need are in the same territory
 
   validates :visit, presence: true
   accepts_nested_attributes_for :visit
