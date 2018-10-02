@@ -27,6 +27,7 @@ gem 'jquery-rails'
 gem 'sass-rails'
 gem 'semantic-ui-sass'
 gem 'uglifier'
+gem 'premailer-rails'
 
 # Parallel processes
 gem 'clockwork'
@@ -37,6 +38,7 @@ gem 'webpacker'
 # Improving models
 gem 'audited', '~> 4.5'
 gem 'devise'
+gem 'devise-async'
 gem 'user_impersonate2', require: 'user_impersonate'
 
 # Misc
@@ -54,8 +56,6 @@ gem 'sentry-raven'
 gem 'browser'
 gem 'metamagic'
 gem 'wannabe_bool'
-
-gem 'roadie-rails'
 
 group :test do
   gem 'capybara'

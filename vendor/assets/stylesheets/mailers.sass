@@ -1,25 +1,55 @@
-html
-  font-family: sans-serif
+body
+  font: 14px/20px sans-serif
+  margin: 0
   padding: 0
-  background: #f7f7f7
+  background: #f2f2f2
   text-align: center
 
-body
-  width: 820px
+.wrapper
+  width: 600px
   padding: 20px
-  background: #fff
+  background: #fafafa
   margin: 40px auto
   text-align: left
+  line-height: 150%
+  font-size: 14px
+  color: #333333
+  border-radius: 6px
 
-h1
-  font-size: 20px
+a
+  color: #336699
 
 p
+  padding: 10px
+
+h1
+  font-size: 28px
+  line-height: 110%
+  margin-bottom: 20
   margin-top: 0
-  font-size: 15px
+  padding: 0
+
+h2
+  font-size: 22px
+  line-height: 28px
+  margin: 0 0 12px 0
+
+h3
+  margin: 0 0 12px 0
 
 blockquote
   font-style: italic
+  background: #eeeeee
+  border-radius: 10px
+
+@media (max-width: 620px)
+  body
+    width: 100%
+    min-width: 300px
+  .wrapper
+    width: auto
+    max-width: 600px
+    padding: 0 10px
 
 #remind-involvement-email
   table, th, td
