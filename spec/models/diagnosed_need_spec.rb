@@ -163,14 +163,15 @@ RSpec.describe DiagnosedNeed, type: :model do
     end
   end
 
-  describe 'relays_and_experts' do
-    subject { diagnosed_need.relays_and_experts }
+  describe 'contacted_persons' do
+    subject { diagnosed_need.contacted_persons }
 
     let(:diagnosed_need) { create :diagnosed_need, matches: matches }
     let(:relay) { build :relay }
     let(:expert) { build :expert }
     let(:relay_match) { build :match, relay: relay }
     let(:expert_match) { build :match, expert: expert }
+    let(:expert_match2) { build :match, expert: expert }
 
     context 'No matches' do
       let(:matches) { [] }
@@ -181,7 +182,13 @@ RSpec.describe DiagnosedNeed, type: :model do
     context 'Matches with both relays and experts' do
       let(:matches) { [expert_match, relay_match] }
 
-      it { is_expected.to match_array [expert, relay] }
+      it { is_expected.to match_array [expert, relay.user] }
+    end
+
+    context 'Matches wit the same expert' do
+      let(:matches) { [expert_match, expert_match2] }
+
+      it { is_expected.to match_array [expert] }
     end
   end
 end
