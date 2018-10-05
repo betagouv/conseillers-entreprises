@@ -14,8 +14,4 @@ class HomeController < ApplicationController
     @relays = User.contact_relays.includes(relays: :territory)
     @product_team = User.with_contact_page_order
   end
-
-  def tutorial_video
-    redirect_to ENV['TUTORIAL_VIDEO_URL'] || root_path
-  end
 end

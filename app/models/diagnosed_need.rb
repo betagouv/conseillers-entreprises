@@ -10,7 +10,7 @@ class DiagnosedNeed < ApplicationRecord
   validates :question, uniqueness: { scope: :diagnosis_id, allow_nil: true }
 
   has_many :experts, through: :matches
-  has_many :relays, through: :matches
+  has_many :relays, through: :matches # Actually, `has_one` because all the matches of a diagnosed_need are in the same territory
 
   before_create :copy_question_label
 
@@ -26,6 +26,7 @@ class DiagnosedNeed < ApplicationRecord
       .where(diagnoses: { visits: { happened_on: date_range } })
       .uniq
   end)
+  scope :by_question_order, -> { joins(:question).order('questions.interview_sort_order') }
 
   def status_synthesis
     matches_status = matches.pluck(:status).map(&:to_sym)
@@ -48,11 +49,11 @@ class DiagnosedNeed < ApplicationRecord
   end
 
   def belongs_to_relay_or_expert?(role)
-    matches.any?{ |match| match.belongs_to_relay_or_expert?(role) }
+    relays.include?(role) || experts.include?(role)
   end
 
-  def relays_and_experts
-    relays + experts
+  def contacted_persons
+    (relays.map(&:user) + experts).uniq
   end
 
   private

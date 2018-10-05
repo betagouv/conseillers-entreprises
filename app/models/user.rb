@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   include PersonConcern
 
-  devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable
+  devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
   has_many :relays
   has_many :territories, through: :relays

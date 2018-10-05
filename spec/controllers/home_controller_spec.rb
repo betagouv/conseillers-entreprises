@@ -30,11 +30,4 @@ RSpec.describe HomeController, type: :controller do
       expect(response).to be_successful
     end
   end
-
-  describe 'GET #tutorial_video' do
-    it 'returns http success' do
-      get :tutorial_video
-      is_expected.to respond_with :redirect
-    end
-  end
 end

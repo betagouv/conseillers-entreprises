@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  get 'video' => 'home#tutorial_video'
   get 'profile' => 'users#show'
 
   resources :stats, only: [:index] do
