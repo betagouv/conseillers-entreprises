@@ -3,18 +3,14 @@ fr:
   mailers:
     expert_mailer:
       notify_company_needs:
-        advisor_met_this_company_html: Dans le cadre de l’expérimentation %{link_to_root}, %{advisor_name}, conseiller en entreprise au sein de l’organisme %{advisor_institution}, a rencontré l’entreprise %{company_description} le %{visit_date}.
-        by_clicking_here: en cliquant ici
-        company_contact_with_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l’entreprise %{company_name}, joignable au %{company_contact_phone_number} ou à l’adresse %{company_contact_email}.
-        company_contact_without_phone_number: Pour prendre en charge ce besoin, vous pouvez contacter %{company_contact_full_name}, %{company_contact_role} au sein de l’entreprise %{company_name}, joignable à l’adresse %{company_contact_email}.
-        contact_advisor_for_more_info: Pour plus d’informations, vous pouvez contacter %{advisor_name} au %{advisor_phone_number} ou à l’adresse %{advisor_email}.
-        hello: Bonjour,
-        information_are_available_on_app_html: Les informations concernant la visite et l’entreprise sont accessibles sur Réso %{more_info_link}.
-        more_info: 'Informations complémentaires :'
-        needs_are_relevant_with_your_skills: 'L’entreprise a exprimé des besoins qui correspondent à votre compétence :'
-        regards: Bien cordialement,
-        reso_team_html: L’équipe %{link_to_root}.
-        subject: "[Réso] L’entreprise %{company_name} a besoin de vous !"
+        advisor_met_company: "%{advisor_name_with_role} l’a rencontrée le %{visit_date}."
+        click_here: Voir les détails de la visite
+        company_expressed_needs: 'L’entreprise a exprimé des besoins qui correspondent à vos compétences :'
+        details_on_reso: Rendez vous sur Réso pour prendre en charge ou répondre à cette mise en relation.
+        hello: Bonjour %{name},
+        see_you_on_reso_html: À très vite sur %{link_to_root}.
+        subject: "[Réso] L’entreprise %{company_name} a besoin de vous"
+        this_company_needs_you_html: L’entreprise <b>%{company_description}</b> a besoin de votre expertise.
       remind_involvement:
         hello: Bonjour,
         here_is_a_summary_email_html: Voici l’e-mail récapitulatif hebdomadaire de %{link_to_root}.

@@ -7,7 +7,7 @@ describe ExpertMailer do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
   describe '#notify_company_needs' do
-    subject(:mail) { described_class.notify_company_needs(expert, params_hash).deliver_now }
+    subject(:mail) { described_class.notify_company_needs(expert, diagnosis).deliver_now }
 
     let(:expert) { create :expert }
     let(:assistances) { create_list :assistance, 2 }
