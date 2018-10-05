@@ -6,7 +6,7 @@
   company: @facility.company.name)
 
 %blockquote
-  %p= @feedback.description
+  %p= simple_format(@feedback.description)
 
 %p= t('.thankyou')
 %p= t('.summary_html', summary_link: link_to(t('.summary_link'), besoin_url(@diagnosed_need.diagnosis)))

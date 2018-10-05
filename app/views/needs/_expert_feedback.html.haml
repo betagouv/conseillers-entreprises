@@ -3,7 +3,7 @@
     .ui.top.attached.label
       %i.calendar.icon
       = I18n.l(feedback.created_at, format: :short)
-    %p.small.text= feedback.description
+    %p.small.text= simple_format(feedback.description)
     - if can_delete
       %a.ui.bottom.right.attached.label{ href: feedback_path(feedback,
        params.permit(:access_token)),
