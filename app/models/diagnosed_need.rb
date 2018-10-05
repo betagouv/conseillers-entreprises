@@ -26,6 +26,7 @@ class DiagnosedNeed < ApplicationRecord
       .where(diagnoses: { visits: { happened_on: date_range } })
       .uniq
   end)
+  scope :by_question_order, -> { joins(:question).order('questions.interview_sort_order') }
 
   def status_synthesis
     matches_status = matches.pluck(:status).map(&:to_sym)
