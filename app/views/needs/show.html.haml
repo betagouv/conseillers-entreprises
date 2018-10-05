@@ -43,7 +43,7 @@
               .ui.form
                 .field
                   %label= t('.diagnosed_needs_content_label')
-                  = diagnosed_need.content
+                  = simple_format(diagnosed_need.content)
 
         - diagnosed_need.matches.each do |match|
           - locals = { match: match }
@@ -71,7 +71,7 @@
               .ui.form
                 .field
                   %label= t('.diagnosed_needs_content_label')
-                  = diagnosed_need.content
+                  = simple_format(diagnosed_need.content)
         - if diagnosed_need.matches.empty?
           %tr.small.text.ui.tiny.table{ colspan: 2 }
             %td= t('.zero_contacted_expert')
