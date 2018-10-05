@@ -1,4 +1,4 @@
-class Devise::MailerPreview < ActionMailer::Preview
+class DeviseMailerPreview < ActionMailer::Preview
   def confirmation_instructions
     Devise::Mailer.confirmation_instructions(user, 'faketoken')
   end
@@ -10,6 +10,6 @@ class Devise::MailerPreview < ActionMailer::Preview
   private
 
   def user
-    FactoryBot.build(:user)
+    User.all.sample
   end
 end
