@@ -4,34 +4,20 @@ require 'rails_helper'
 
 RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :view do
   context 'hash with several information' do
-    let(:expert) { create :expert }
+    let(:contact) { create :contact, :with_email }
     let(:user) { create :user }
-    let(:question) { create :question }
-    let(:diagnosis) { create :diagnosis, visit: visit }
+    let(:visit) { create :visit, :with_visitee, advisor: user, visitee: contact }
+    let(:expert) { create :expert }
+    let(:need1) { create(:diagnosed_need, matches: [create(:match, assistance_expert: create(:assistance_expert, expert: expert))]) }
+    let(:need2) { create(:diagnosed_need, matches: [create(:match, assistance_expert: create(:assistance_expert, expert: expert))]) }
 
-    let(:params_hash) do
-      {
-        visit_date: visit.happened_on,
-        diagnosis_id: diagnosis.id,
-        company_name: visit.company_name,
-        company_contact: visit.visitee,
-        questions_with_needs_description: questions_with_needs_description,
-        advisor: user
-      }
+    before do
+      assign(:person, expert)
+      assign(:diagnosis, diagnosis)
     end
 
-    before { assign(:params, params_hash) }
-
-    context 'when visit has a date, contact has phone number, there is an access token and there are two questions' do
-      let(:contact) { create :contact, :with_phone_number }
-      let(:visit) { create :visit, :with_visitee, advisor: user, visitee: contact }
-      let(:other_question) { create :question }
-      let(:questions_with_needs_description) do
-        [
-          { question: question, need_description: 'Help this company' },
-          { question: other_question, need_description: 'You can ignore this' }
-        ]
-      end
+    context 'when visit has a date, there is an access token and there are two questions' do
+      let(:diagnosis) { create :diagnosis, visit: visit, diagnosed_needs: [need1, need2] }
 
       before do
         assign(:access_token, 'random_access_token')
@@ -39,17 +25,13 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       end
 
       it 'displays the date, phone number and 2 list items' do
-        expect(rendered).to match(%r{le [0-9]{2}/[0-9]{2}/20[0-9]{2}})
-        expect(rendered).to include "joignable au #{contact.phone_number}"
         expect(rendered).to include "besoins/#{diagnosis.id}?access_token=random_access_token"
-        assert_select 'li', count: 2
+        assert_select 'h3.question_label', count: 2
       end
     end
 
-    context 'when contact has no phone number, there is no access token and there is one question' do
-      let(:contact) { create :contact, :with_email }
-      let(:visit) { create :visit, :with_visitee, advisor: user, visitee: contact }
-      let(:questions_with_needs_description) { [{ question: question, need_description: 'Help this company' }] }
+    context 'when there is no access token and there is one question' do
+      let(:diagnosis) { create :diagnosis, visit: visit, diagnosed_needs: [need1] }
 
       before do
         assign(:access_token, nil)
@@ -57,9 +39,8 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       end
 
       it 'does not display the date, but displays email and one list item' do
-        expect(rendered).to include "joignable à l’adresse #{contact.email}"
         expect(rendered).to include "besoins/#{diagnosis.id}"
-        assert_select 'li', count: 1
+        assert_select 'h3.question_label', count: 1
       end
     end
   end

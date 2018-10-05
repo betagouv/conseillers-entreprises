@@ -1,42 +1,25 @@
 %p= t('.hello', name: @person.full_name)
 
-- link_to_root = link_to t('app_name'), root_url
-- visit = @diagnosis.visit
-- advisor = visit.advisor
-- visitee = visit.visitee
-
 :ruby
-  advisor_met_company_params = {
-    link_to_root: link_to_root,
-    advisor_name: advisor.full_name,
-    advisor_institution: advisor.institution,
-    company_description: visit.company_description,
-    visit_date: I18n.l(visit.display_date)
-  }
+  link_to_root = link_to t('app_name'), root_url
+  visit = @diagnosis.visit
+  advisor = visit.advisor
 
-%p= t('.advisor_met_this_company_html', advisor_met_company_params)
+%p
+  = t('.this_company_needs_you_html', company_description: visit.company_description)
+  = t('.advisor_met_company',
+   advisor_name_with_role: advisor.full_name_with_role,
+   visit_date: I18n.l(visit.display_date))
 
-%p= t('.needs_are_relevant_with_your_skills')
+%p= t('.company_expressed_needs')
 
-%ul
-  - @diagnosis.diagnosed_needs.of_relay_or_expert(@person).each do |need|
-    %li
-      = need.question_label
-      - if need.content.present?
-        %br
-        = t('.more_info')
-        = need.content
+- @diagnosis.diagnosed_needs.by_question_order.of_relay_or_expert(@person).each do |need|
+  %h3.question_label= need.question_label
+  - if need.content.present?
+    %blockquote
+      %p= simple_format(need.content)
 
-- company_contact_params = { company_name: visit.company_name,
-  company_contact_full_name: visitee.full_name,
-  company_contact_role: visitee.role,
-  company_contact_email: visitee.email }
-
-- if visitee.phone_number.present?
-  - phone_number_hash = { company_contact_phone_number: visitee.phone_number }
-  %p= t('.company_contact_with_phone_number', company_contact_params.merge(phone_number_hash))
-- else
-  %p= t('.company_contact_without_phone_number', company_contact_params)
+%p= t('.details_on_reso')
 
 :ruby
   more_info_url = if @access_token
@@ -44,13 +27,8 @@
   else
     besoin_url(@diagnosis)
   end
-  more_info_link = link_to t('.by_clicking_here'), more_info_url
-%p= t('.information_are_available_on_app_html', more_info_link: more_info_link)
 
-- contact_advisor_params = { advisor_name: advisor.full_name,
-  advisor_phone_number: advisor.phone_number,
-  advisor_email: advisor.email }
+.button
+  %a{ href: more_info_url }= t('.click_here')
 
-%p= t('.contact_advisor_for_more_info', contact_advisor_params)
-%p= t('.regards')
-%p= t('.reso_team_html', link_to_root: link_to_root)
+%p= t('.see_you_on_reso_html', link_to_root: link_to_root)

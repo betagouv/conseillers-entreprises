@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :diagnosed_need do
     association :diagnosis
+    association :question
     question_label { Faker::Lorem.sentence }
-    question { nil }
   end
 end
