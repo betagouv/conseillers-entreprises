@@ -21,7 +21,7 @@ describe UseCases::CreateMatches do
         expect(Match.first.relay).to be_nil
         expect(Match.first.assistance_title).to eq assistance_expert.assistance.title
         expect(Match.first.expert_full_name).to eq assistance_expert.expert.full_name
-        expect(Match.first.expert_institution_name).to eq assistance_expert.expert.institution.name
+        expect(Match.first.expert_institution_name).to eq assistance_expert.expert.local_office.name
       end
     end
   end

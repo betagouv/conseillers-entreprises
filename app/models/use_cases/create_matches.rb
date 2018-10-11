@@ -14,7 +14,7 @@ module UseCases
             assistance = assistance_expert.assistance
             Match.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,
                          expert_full_name: expert.full_name, assistance_title: assistance.title,
-                         expert_institution_name: expert.institution.name
+                         expert_institution_name: expert.local_office.name
           end
         end
 
@@ -22,7 +22,7 @@ module UseCases
 
         def assistances_experts_for_diagnosis(diagnosis_id, assistance_expert_ids)
           associations = [
-            :expert, :assistance, expert: :institution, assistance: [
+            :expert, :assistance, expert: :local_office, assistance: [
               :question, question: [:diagnosed_needs, diagnosed_needs: :diagnosis]
             ]
           ]

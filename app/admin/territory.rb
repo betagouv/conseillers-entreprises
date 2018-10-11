@@ -21,10 +21,10 @@ ActiveAdmin.register Territory do
     end
 
     panel I18n.t('active_admin.territories.experts') do
-      table_for territory.experts.includes(:institution) do
+      table_for territory.experts.includes(:local_office) do
         column :full_name, (proc { |expert| link_to(expert.full_name, admin_expert_path(expert)) })
         column :role
-        column :institution
+        column :local_office
       end
     end
 

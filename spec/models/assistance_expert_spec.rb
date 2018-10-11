@@ -68,11 +68,11 @@ RSpec.describe AssistanceExpert, type: :model do
       let(:commerce_naf_code) { '6202A' }
       let(:artisanry_naf_code) { '1011Z' }
 
-      let(:commerce_institution) { create :institution, qualified_for_artisanry: false, qualified_for_commerce: true }
-      let(:artisanry_institution) { create :institution, qualified_for_artisanry: true, qualified_for_commerce: false }
+      let(:commerce_local_office) { create :local_office, qualified_for_artisanry: false, qualified_for_commerce: true }
+      let(:artisanry_local_office) { create :local_office, qualified_for_artisanry: true, qualified_for_commerce: false }
 
-      let(:artisanry_expert) { create :expert, institution: artisanry_institution }
-      let(:commerce_expert) { create :expert, institution: commerce_institution }
+      let(:artisanry_expert) { create :expert, local_office: artisanry_local_office }
+      let(:commerce_expert) { create :expert, local_office: commerce_local_office }
 
       let!(:assistance_expert_for_artisanry) { create :assistance_expert, expert: artisanry_expert }
       let!(:assistance_expert_for_commerce) { create :assistance_expert, expert: commerce_expert }

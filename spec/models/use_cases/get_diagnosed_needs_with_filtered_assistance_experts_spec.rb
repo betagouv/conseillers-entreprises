@@ -19,15 +19,15 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
     let(:artisanry_naf_code) { '1011Z' }
 
     let(:expert_territory1) { create :expert_territory, territory: territory }
-    let(:artisanry_institution) { create :institution, qualified_for_artisanry: true, qualified_for_commerce: false }
+    let(:artisanry_local_office) { create :local_office, qualified_for_artisanry: true, qualified_for_commerce: false }
     let(:artisanry_expert) do
-      create :expert, institution: artisanry_institution, expert_territories: [expert_territory1]
+      create :expert, local_office: artisanry_local_office, expert_territories: [expert_territory1]
     end
 
     let(:expert_territory2) { create :expert_territory, territory: territory }
-    let(:commerce_institution) { create :institution, qualified_for_artisanry: false, qualified_for_commerce: true }
+    let(:commerce_local_office) { create :local_office, qualified_for_artisanry: false, qualified_for_commerce: true }
     let(:commerce_expert) do
-      create :expert, institution: commerce_institution, expert_territories: [expert_territory2]
+      create :expert, local_office: commerce_local_office, expert_territories: [expert_territory2]
     end
 
     let!(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis, question: question1 }

@@ -6,7 +6,7 @@ fr:
       invite_users: Inviter des utilisateurs
     experts:
       access: Accès
-    institutions:
+    local_offices:
       experts: Réferents
     matches:
       deleted: "%{expert} (supprimé)"

@@ -3,7 +3,7 @@
 class Expert < ApplicationRecord
   include PersonConcern
 
-  belongs_to :institution
+  belongs_to :local_office
 
   has_and_belongs_to_many :users
   has_many :assistances_experts, dependent: :destroy
@@ -17,7 +17,7 @@ class Expert < ApplicationRecord
   accepts_nested_attributes_for :expert_territories, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
-  validates :institution, :email, :access_token, presence: true
+  validates :local_office, :email, :access_token, presence: true
   validates :access_token, uniqueness: true
 
   before_validation :generate_access_token!, on: :create
@@ -40,6 +40,6 @@ class Expert < ApplicationRecord
   end
 
   def full_name_with_role
-    "#{full_name}, #{role}, #{institution}"
+    "#{full_name}, #{role}, #{local_office}"
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Institution < ApplicationRecord
+class LocalOffice < ApplicationRecord
   has_many :experts
 
   validates :name, presence: true

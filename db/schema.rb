@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_11_135725) do
+ActiveRecord::Schema.define(version: 2018_10_11_142805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,13 +132,13 @@ ActiveRecord::Schema.define(version: 2018_10_11_135725) do
     t.string "email"
     t.string "phone_number"
     t.string "role"
-    t.bigint "institution_id"
+    t.bigint "local_office_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "access_token"
     t.string "full_name"
     t.index ["access_token"], name: "index_experts_on_access_token"
-    t.index ["institution_id"], name: "index_experts_on_institution_id"
+    t.index ["local_office_id"], name: "index_experts_on_local_office_id"
   end
 
   create_table "experts_users", id: false, force: :cascade do |t|
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_135725) do
     t.index ["match_id"], name: "index_feedbacks_on_match_id"
   end
 
-  create_table "institutions", force: :cascade do |t|
+  create_table "local_offices", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_135725) do
   add_foreign_key "diagnoses", "visits"
   add_foreign_key "expert_territories", "experts"
   add_foreign_key "expert_territories", "territories"
-  add_foreign_key "experts", "institutions"
+  add_foreign_key "experts", "local_offices"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
   add_foreign_key "matches", "assistances_experts", column: "assistances_experts_id"

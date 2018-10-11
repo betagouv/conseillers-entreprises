@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register Institution do
+ActiveAdmin.register LocalOffice do
   menu parent: :experts, priority: 1
   permit_params :name, :email, :phone_number
 
@@ -13,8 +13,8 @@ ActiveAdmin.register Institution do
       row :updated_at
     end
 
-    panel I18n.t('active_admin.institutions.experts') do
-      table_for institution.experts do
+    panel I18n.t('active_admin.local_offices.experts') do
+      table_for local_office.experts do
         column I18n.t('activerecord.attributes.expert.full_name'), (proc { |expert| link_to(expert, admin_expert_path(expert)) })
         column :email
       end

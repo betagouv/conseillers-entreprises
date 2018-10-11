@@ -36,7 +36,7 @@ module RelayService
           I18n.t('activerecord.models.question.one'),
           I18n.t('activerecord.attributes.diagnosed_need.content'),
           I18n.t('activerecord.models.expert.one'),
-          I18n.t('activerecord.attributes.expert.institution'),
+          I18n.t('activerecord.attributes.expert.local_office'),
           I18n.t('activerecord.attributes.match.status'),
           I18n.t('activerecord.attributes.match.taken_care_of_at'),
           I18n.t('activerecord.attributes.match.closed_at')

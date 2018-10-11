@@ -44,8 +44,8 @@ describe 'admin panel', type: :feature do
       click_link 'Établissement'
       click_link 'Créer Établissement'
 
-      click_link 'Institutions'
-      click_link 'Créer Institution'
+      click_link 'Antennes'
+      click_link 'Créer Antenne'
 
       click_link 'Référents'
       click_link 'Créer Référent'

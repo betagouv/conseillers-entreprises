@@ -2,8 +2,8 @@
   %h3.ui.segment.block.header
     = expert.full_name
   .ui.segment
-    %strong Rôle et institution :
-    #{expert.role}, #{expert.institution.name}
+    %strong Rôle et antenne :
+    #{expert.role}, #{expert.local_office.name}
   - if expert.phone_number.present?
     .ui.segment
       %strong #{t('activerecord.attributes.expert.phone_number')} :

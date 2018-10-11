@@ -33,7 +33,7 @@ fr:
         assistances: Champs de compétence
         email: E-mail
         full_name: Prénom et Nom
-        institution: Institution
+        local_office: Antenne
         phone_number: Numéro de téléphone
         role: Fonction
         territories: Territoires
@@ -46,7 +46,7 @@ fr:
       feedback:
         description: Description
         match: Mise en relation
-      institution:
+      local_office:
         email: E-mail
         name: Raison sociale
         phone_number: Numéro de téléphone
@@ -58,7 +58,7 @@ fr:
         closed_at: Date de résolution
         diagnosed_need: Besoin analysé
         expert_full_name: Référent contacté
-        expert_institution_name: Institution du référent
+        expert_institution_name: Antenne du référent
         expert_viewed_page_at: Date de consultation par le référent
         relay: Référent (Relais local)
         status: Statut
@@ -166,9 +166,9 @@ fr:
       feedback:
         one: Commentaire
         other: Commentaires
-      institution:
-        one: Institution
-        other: Institutions
+      local_office:
+        one: Antenne
+        other: Antennes
       match:
         one: Mise en relation
         other: Mises en relation

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Expert, type: :model do
   describe 'associations' do
     it do
-      is_expected.to belong_to :institution
+      is_expected.to belong_to :local_office
       is_expected.to have_many(:assistances_experts).dependent(:destroy)
       is_expected.to have_many :assistances
       is_expected.to have_many(:expert_territories).dependent(:destroy)
@@ -20,7 +20,7 @@ RSpec.describe Expert, type: :model do
       it do
         is_expected.to validate_presence_of(:full_name)
         is_expected.to validate_presence_of(:role)
-        is_expected.to validate_presence_of(:institution)
+        is_expected.to validate_presence_of(:local_office)
         is_expected.to validate_presence_of(:email)
       end
     end

@@ -2,12 +2,12 @@
 
 ActiveAdmin.register Expert do
   menu priority: 6
-  includes :institution, :assistances, :territories, :users
+  includes :local_office, :assistances, :territories, :users
 
   permit_params [
     :full_name,
     :role,
-    :institution_id,
+    :local_office_id,
     :email,
     :phone_number,
     user_ids: [],
@@ -23,7 +23,7 @@ ActiveAdmin.register Expert do
     selectable_column
     id_column
     column :full_name
-    column :institution
+    column :local_office
     column(:users) { |expert| expert.users.length }
     column :role
     column :email
@@ -35,7 +35,7 @@ ActiveAdmin.register Expert do
   end
 
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
-  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :local_office, as: :ajax_select, data: { url: :admin_local_offices_path, search_fields: [:name] }
   filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
   filter :full_name
   filter :email
@@ -47,7 +47,7 @@ ActiveAdmin.register Expert do
   show do
     attributes_table do
       row :full_name
-      row :institution
+      row :local_office
       row :role
       row :email
       row :phone_number
@@ -90,8 +90,8 @@ ActiveAdmin.register Expert do
   form do |f|
     f.inputs do
       f.input :full_name
-      f.input :institution, as: :ajax_select, data: {
-        url: :admin_institutions_path,
+      f.input :local_office, as: :ajax_select, data: {
+        url: :admin_local_offices_path,
         search_fields: [:name],
         limit: 999,
       }
