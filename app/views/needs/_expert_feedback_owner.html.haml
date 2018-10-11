@@ -1,6 +1,8 @@
 %td.no-border{ colspan: 3 }
   - feedback = match.feedbacks.new
-  = form_for feedback, html: { class: 'ui form' } do |form|
+  = form_for feedback,
+    url: feedbacks_path(feedback, params.permit(:access_token)),
+    html: { class: 'ui form' } do |form|
     = form.hidden_field :match_id
     .field
       = form.text_area :description, placeholder: t('.placeholder'), rows: 2
