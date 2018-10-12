@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_11_142805) do
+ActiveRecord::Schema.define(version: 2018_10_12_094558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,12 +167,20 @@ ActiveRecord::Schema.define(version: 2018_10_11_142805) do
     t.index ["match_id"], name: "index_feedbacks_on_match_id"
   end
 
+  create_table "institutions", force: :cascade do |t|
+    t.string "name"
+    t.boolean "qualified_for_commerce", default: true, null: false
+    t.boolean "qualified_for_artisanry", default: true, null: false
+  end
+
   create_table "local_offices", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "qualified_for_commerce", default: true, null: false
     t.boolean "qualified_for_artisanry", default: true, null: false
+    t.bigint "institution_id"
+    t.index ["institution_id"], name: "index_local_offices_on_institution_id"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -290,6 +298,7 @@ ActiveRecord::Schema.define(version: 2018_10_11_142805) do
   add_foreign_key "experts", "local_offices"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
+  add_foreign_key "local_offices", "institutions"
   add_foreign_key "matches", "assistances_experts", column: "assistances_experts_id"
   add_foreign_key "matches", "diagnosed_needs"
   add_foreign_key "matches", "relays"
