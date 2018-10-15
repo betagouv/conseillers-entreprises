@@ -50,8 +50,8 @@ fr:
         email: E-mail
         name: Raison sociale
         phone_number: Numéro de téléphone
-        qualified_for_artisanry: S’occupe des entreprises d’artisanat
-        qualified_for_commerce: S’occupe des entreprises commerciales
+        qualified_for_artisanry: Artisanat ?
+        qualified_for_commerce: Commerce ?
       match:
         assistance_expert: Référent (non Relais local)
         assistance_title: Champ de compétence
