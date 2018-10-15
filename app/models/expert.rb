@@ -38,4 +38,8 @@ class Expert < ApplicationRecord
   def is_oneself?
     self.users.length == 1 && self.users.first.experts == [self]
   end
+
+  def full_name_with_role
+    "#{full_name}, #{role}, #{institution}"
+  end
 end
