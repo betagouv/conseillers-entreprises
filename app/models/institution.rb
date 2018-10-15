@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-class LocalOffice < ApplicationRecord
-  has_many :experts
-  belongs_to :institution
+class Institution < ApplicationRecord
+  has_many :local_offices
+
+  has_many :experts, through: :local_offices
 
   validates :name, presence: true
 
