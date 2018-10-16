@@ -36,13 +36,14 @@ class User < ApplicationRecord
       .order('territories.name', :contact_page_order, :full_name)
       .distinct
   end)
+  scope :admin, (-> { where(is_admin: true) })
   scope :not_admin, (-> { where(is_admin: false) })
   scope :ordered_by_names, (-> { order(:full_name) })
 
   scope :active_searchers, (lambda do |date|
     joins(:searches)
         .merge(Search.where(created_at: date))
-        .uniq
+        .distinct
   end)
 
   scope :active_diagnosers, (lambda do |date, minimum_step|
@@ -50,7 +51,7 @@ class User < ApplicationRecord
         .merge(Diagnosis.only_active
                    .where(created_at: date)
                    .after_step(minimum_step))
-        .uniq
+        .distinct
   end)
 
   scope :active_answered, (lambda do |date, status|
@@ -58,7 +59,7 @@ class User < ApplicationRecord
         .merge(Match
                    .where(taken_care_of_at: date)
                    .with_status(status))
-        .uniq
+        .distinct
   end)
 
   def active_for_authentication?

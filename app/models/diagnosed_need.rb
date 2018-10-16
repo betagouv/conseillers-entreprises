@@ -28,7 +28,7 @@ class DiagnosedNeed < ApplicationRecord
   scope :made_in, (lambda do |date_range|
     joins(diagnosis: :visit)
       .where(diagnoses: { visits: { happened_on: date_range } })
-      .uniq
+      .distinct
   end)
   scope :ordered_by_interview, -> do
     left_outer_joins(:question, question: :category)
