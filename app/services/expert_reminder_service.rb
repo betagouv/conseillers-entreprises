@@ -1,66 +1,54 @@
 # frozen_string_literal: true
 
 class ExpertReminderService
-  attr_accessor :experts_hash
-
   class << self
     def send_reminders
-      @experts_hash = {}
-      matches_needing_taking_care_update
-      matches_with_no_one_in_charge
-      @experts_hash.each_value do |expert|
-        ExpertMailer.delay.remind_involvement(expert[:expert], expert[:matches_hash])
+      @persons_matches = {}
+      build_matches_needing_taking_care_update
+      build_matches_with_no_one_in_charge
+      @persons_matches.each do |person, person_matches|
+        ExpertMailer.delay.remind_involvement(person,
+          person_matches.needing_taking_care_update.compact,
+          person_matches.with_no_one_in_charge.compact)
       end
     end
 
     private
 
-    def matches_needing_taking_care_update
-      Match.includes(assistance_expert: :expert).needing_taking_care_update.each do |match|
-        if !match.assistance_expert
+    PersonMatches = Struct.new(:needing_taking_care_update, :with_no_one_in_charge)
+
+    def add_person_match(person, needing_taking_care_update = nil, with_no_one_in_charge = nil)
+      person_matches = @persons_matches[person] ||= PersonMatches.new([], [])
+      person_matches.needing_taking_care_update << needing_taking_care_update
+      person_matches.with_no_one_in_charge << with_no_one_in_charge
+    end
+
+    def build_matches_needing_taking_care_update
+      Match.needing_taking_care_update.each do |match|
+        person = match.person
+        if !match.person
           next
         end
 
-        expert_id = match.assistance_expert.expert_id
-
-        if !@experts_hash[expert_id]
-          init_expert_hash(match)
-        end
-        @experts_hash[expert_id][:matches_hash][:needing_taking_care_update] << match
+        add_person_match(person, needing_taking_care_update: match)
       end
     end
 
-    def matches_with_no_one_in_charge
+    def build_matches_with_no_one_in_charge
       DiagnosedNeed.with_no_one_in_charge.each do |diagnosed_need|
         diagnosed_need.matches.each do |match|
           if match.status_not_for_me? # don’t send reminders for already rejected matches
             next
           end
 
-          expert = match.assistance_expert
-          if !expert
+          person = match.person
+          if !match.person
             next
           end
 
-          expert_id = expert.expert_id
-          if !@experts_hash[expert_id]
-            init_expert_hash(match)
-          end
-
-          @experts_hash[expert_id][:matches_hash][:with_no_one_in_charge] << match
+          add_person_match(person, with_no_one_in_charge: match)
         end
       end
-    end
-
-    def init_expert_hash(match)
-      expert = match.assistance_expert.expert
-      @experts_hash[expert.id] = {
-        expert: expert,
-        matches_hash: {
-          needing_taking_care_update: [],
-          with_no_one_in_charge: []
-        }
-      }
     end
   end
 end

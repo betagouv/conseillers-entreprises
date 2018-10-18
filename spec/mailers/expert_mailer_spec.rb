@@ -34,7 +34,11 @@ describe ExpertMailer do
   end
 
   describe '#remind_involvement' do
-    subject(:mail) { described_class.remind_involvement(expert, matches_hash).deliver_now }
+    subject(:mail) do
+      described_class.remind_involvement(expert,
+        [match_needing_taking_care_update],
+        [match_with_no_one_in_charge]).deliver_now
+    end
 
     let(:expert) { create :expert }
     let(:match_needing_taking_care_update) { create :match }
