@@ -23,6 +23,7 @@ describe AdminMailersService do
             created_diagnoses: { count: 0, items: [] },
             updated_diagnoses: { count: 0, items: [] },
             completed_diagnoses: { count: 0, items: [] },
+            abandoned_needs_count: 0,
             matches_count: 0
           }
         end
@@ -50,6 +51,7 @@ describe AdminMailersService do
             created_diagnoses: { count: 1, items: created_diagnoses },
             updated_diagnoses: { count: 1, items: updated_diagnoses },
             completed_diagnoses: { count: 2, items: completed_diagnoses.reverse },
+            abandoned_needs_count: 0,
             matches_count: 3
           }
         end
