@@ -58,13 +58,13 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'administrator_of_territory' do
+    describe 'contact_relays' do
       it do
-        user1 = create :user, full_name: 'bb'
-        create :relay, user: user1
-        user2 = create :user, full_name: 'aa'
-        create :relay, user: user2
-        user3 = create :user, contact_page_order: 2
+        user1 = create :user
+        create(:relay, user: user1, territory: create(:territory, name: 'bb'))
+        user2 = create :user
+        create(:relay, user: user2, territory: create(:territory, name: 'aa'))
+        user3 = create :user, is_admin: true
         create :relay, user: user3
 
         expect(User.contact_relays).to eq [user2, user1]
