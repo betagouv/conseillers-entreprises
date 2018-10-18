@@ -15,6 +15,7 @@ class AdminMailersService
       created_diagnoses_statistics
       updated_diagnoses_statistics
       completed_diagnoses_statistics
+      abandoned_needs_statistics
       matches_count_statistics
 
       AdminMailer.delay.weekly_statistics(@information_hash)
@@ -48,6 +49,11 @@ class AdminMailersService
       @information_hash[:completed_diagnoses] = {}
       @information_hash[:completed_diagnoses][:count] = @completed_diagnoses.count
       @information_hash[:completed_diagnoses][:items] = @completed_diagnoses
+    end
+
+    def abandoned_needs_statistics
+      abandoned_needs = DiagnosedNeed.abandoned
+      @information_hash[:abandoned_needs_count] = abandoned_needs.count
     end
 
     def matches_count_statistics

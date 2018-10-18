@@ -6,9 +6,10 @@ ActiveAdmin.register DiagnosedNeed do
   includes :diagnosis, :question, :matches
 
   scope :all, default: true
-  scope :with_no_one_in_charge
-  scope :being_taken_care_of
-  scope :done
+  scopes = [:unsent, :with_no_one_in_charge, :abandoned, :being_taken_care_of, :done]
+  scopes.each do |s|
+    scope I18n.t("active_admin.diagnosed_needs.scopes.#{s}"), s
+  end
 
   ## index
   #
@@ -28,7 +29,9 @@ ActiveAdmin.register DiagnosedNeed do
     column :created_at
     column :updated_at
     column :content
-    column :status_synthesis
+    column :status_synthesis do |n|
+      t("activerecord.attributes.match.statuses_short.#{n.status_synthesis}")
+    end
     column t('activerecord.models.match.other'), :matches_count
 
     actions
