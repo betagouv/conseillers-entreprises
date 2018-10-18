@@ -24,6 +24,7 @@ fr:
         diagnosis: Analyse parente
         question: Besoin
         question_label: Nom du besoin
+        status_synthesis: Résumé
       diagnosis:
         archived_at: Date d’archivage
         content: Description
@@ -67,6 +68,11 @@ fr:
           not_for_me: Hors champ de compétence
           quo: En attente de prise en charge
           taking_care: En cours de prise en charge
+        statuses_short:
+          done: Résolu
+          not_for_me: En souffrance
+          quo: En attente
+          taking_care: En cours
         taken_care_of_at: Date de prise en charge
       question:
         category: Catégorie

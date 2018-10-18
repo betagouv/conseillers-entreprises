@@ -33,14 +33,20 @@ class ExpertReminderService
     def matches_with_no_one_in_charge
       DiagnosedNeed.with_no_one_in_charge.each do |diagnosed_need|
         diagnosed_need.matches.each do |match|
-          if !match.assistance_expert
+          if match.status_not_for_me? # don’t send reminders for already rejected matches
             next
           end
 
-          expert_id = match.assistance_expert.expert_id
+          expert = match.assistance_expert
+          if !expert
+            next
+          end
+
+          expert_id = expert.expert_id
           if !@experts_hash[expert_id]
             init_expert_hash(match)
           end
+
           @experts_hash[expert_id][:matches_hash][:with_no_one_in_charge] << match
         end
       end

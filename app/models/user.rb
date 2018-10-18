@@ -30,10 +30,11 @@ class User < ApplicationRecord
 
   scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
   scope :contact_relays, (lambda do
-    where(contact_page_order: nil)
-        .joins(:relays)
-        .distinct
-        .order(:full_name)
+    not_admin
+      .joins(:relays)
+      .includes(relays: :territory)
+      .order('territories.name', :contact_page_order, :full_name)
+      .distinct
   end)
   scope :not_admin, (-> { where(is_admin: false) })
   scope :ordered_by_names, (-> { order(:full_name) })

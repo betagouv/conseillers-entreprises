@@ -4,6 +4,13 @@ fr:
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
+    diagnosed_needs:
+      scopes:
+        abandoned: En souffrance
+        being_taken_care_of: En cours
+        done: Résolu
+        unsent: Non envoyé
+        with_no_one_in_charge: En attente
     experts:
       access: Accès
     institutions:
