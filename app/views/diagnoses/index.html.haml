@@ -1,7 +1,7 @@
 - meta title: t('.title')
 
 #diagnoses-index
-  %h2= t('.create_new_diagnosis')
+  %h2.ui.header= t('.create_new_diagnosis')
   %h3= t('.find_company')
   = form_tag(:search_companies, method: :get, class: 'ui form') do
     .field
