@@ -4,8 +4,9 @@ ActiveAdmin.register Match do
   menu parent: :diagnoses, priority: 2
   permit_params :diagnosed_need_id, :assistances_experts_id, :relay_id, :status
   includes diagnosed_need: [diagnosis: [visit: [:advisor, facility: :company]]]
-  includes assistance_expert: :expert
+  includes :expert
   includes :relay
+  includes relay: :user
 
   index do
     selectable_column
