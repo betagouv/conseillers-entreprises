@@ -12,7 +12,7 @@ class Company < ApplicationRecord
   scope :diagnosed_in, (lambda do |date_range|
     joins(facilities: [visits: :diagnosis])
     .where(facilities: { visits: { happened_on: date_range } })
-    .uniq
+    .distinct
   end)
 
   def to_s
