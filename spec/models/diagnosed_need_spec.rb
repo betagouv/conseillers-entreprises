@@ -161,6 +161,34 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       it { is_expected.to eq [abandoned_diagnosed_need] }
     end
+
+    describe 'ordered_by_interview' do
+      subject { DiagnosedNeed.ordered_by_interview }
+
+      context 'with questions and categories' do
+        let(:cat1)  { create :category, interview_sort_order: 1 }
+        let(:cat2)  { create :category, interview_sort_order: 2 }
+        let(:q1)    { create :question, interview_sort_order: 1, category: cat1 }
+        let(:q2)    { create :question, interview_sort_order: 2, category: cat1 }
+        let(:q3)    { create :question, interview_sort_order: 1, category: cat2 }
+        let(:q4)    { create :question, interview_sort_order: 2, category: cat2 }
+        let(:need1) { create  :diagnosed_need, question: q1 }
+        let(:need2) { create  :diagnosed_need, question: q2 }
+        let(:need3) { create  :diagnosed_need, question: q3 }
+        let(:need4) { create  :diagnosed_need, question: q4 }
+
+        it { is_expected.to eq [need1, need2, need3, need4] }
+      end
+
+      context 'with an orphan need' do
+        let(:cat1)  { create :category, interview_sort_order: 1 }
+        let(:q1)    { create :question, interview_sort_order: 1, category: cat1 }
+        let(:need1) { create  :diagnosed_need, question: q1 }
+        let(:need2) { create  :diagnosed_need, question: nil }
+
+        it { is_expected.to eq [need1, need2] }
+      end
+    end
   end
 
   describe 'contacted_persons' do
