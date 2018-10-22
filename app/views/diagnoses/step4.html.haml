@@ -37,7 +37,7 @@
                           = t('.expert_scope_of_work')
                         .small.text
                           = assistance_expert.assistance.title
-            - elsif @relays_full_names.present?
+            - elsif @relay_users.present?
               = f.fields_for :diagnosed_needs do |relay_form|
                 %tr
                   %td{ colspan: 3 }
@@ -52,11 +52,12 @@
                       %label
                   %td.expert-width
                     = relay_form.label checkbox_id, class: 'clickable' do
-                      = @relays_full_names.join(', ')
+                      - roles = @relay_users.map(&:full_name_with_role)
+                      = simple_format(roles.join('<br/>'))
                   %td
                     = relay_form.label checkbox_id, class: 'clickable' do
                       .small.text
-                        = t('.relays_role', count: @relays_full_names.size)
+                        = t('.relays_role', count: @relay_users.size)
             - else
               %tr
                 %td= t('.no_assistance')
