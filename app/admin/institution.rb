@@ -2,13 +2,11 @@
 
 ActiveAdmin.register Institution do
   menu parent: :experts, priority: 1
-  permit_params :name, :email, :phone_number
+  permit_params :name
 
   show do
     attributes_table do
       row :name
-      row :email
-      row :phone_number
       row :created_at
       row :updated_at
     end
@@ -23,8 +21,6 @@ ActiveAdmin.register Institution do
 
   filter :experts, collection: -> { Expert.ordered_by_names }
   filter :name
-  filter :email
-  filter :phone_number
   filter :created_at
   filter :updated_at
   filter :qualified_for_commerce
