@@ -31,7 +31,7 @@
   = render partial: 'people/person', locals: { person: advisor, subtitle: t('.advisor_contact_subtitle') }
 
   %h2= t('.my_needs_summary_subtitle')
-  - @current_person_diagnosed_needs.each do |diagnosed_need|
+  - @current_person_diagnosed_needs.ordered_by_interview.each do |diagnosed_need|
     %table.ui.celled.table
       %thead
         %tr
@@ -59,7 +59,7 @@
             = render partial: 'expert_feedback_owner', locals: locals
 
   %h2= t('.need_contacts_summary_subtitle')
-  - @diagnosis.diagnosed_needs.each do |diagnosed_need|
+  - @diagnosis.diagnosed_needs.ordered_by_interview.each do |diagnosed_need|
     %table.ui.celled.table
       %thead
         %tr

@@ -1,14 +1,10 @@
-%table
-  %thead
-    %tr
-      %th= t('activerecord.models.company.one')
-      %th= t('activerecord.models.question.one')
-      %th
-  %tbody
-    - matches.each do |match|
+%ul
+  - matches.each do |match|
+    %li
       - diagnosis = match.diagnosed_need.diagnosis
-      - more_info_url = besoins_url(diagnosis, access_token: access_token)
-      %tr
-        %td= match.diagnosed_need.diagnosis.visit.company_name
-        %td= match.diagnosed_need.question
-        %td= link_to t('.show_information'), more_info_url
+      %b= diagnosis.visit.company_name
+      —
+      = match.diagnosed_need.question_label
+      %br
+      %a{ href: besoins_url(diagnosis, access_token: access_token) }
+        = match.assistance_title

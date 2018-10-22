@@ -32,7 +32,7 @@
    target: '_blank', class: 'ui yellow basic tiny button'
 
   %h2= t('.need_contacts_summary_subtitle')
-  - @diagnosis.diagnosed_needs.each do |diagnosed_need|
+  - @diagnosis.diagnosed_needs.ordered_by_interview.each do |diagnosed_need|
     %table.ui.celled.table
       %thead
         %tr

@@ -38,24 +38,43 @@ class StatsController < ApplicationController
     users = User.not_admin
 
     {
-      'users.registered': users.where(created_at: date_range).count,
-      'users.searchers': users.active_searchers(date_range).count,
-      'users.visitors': users.active_diagnosers(date_range, 2).count,
-      'users.whose_match_taken_care_of': users.active_answered(date_range, [:taking_care, :done]).count,
-      'users.whose_match_done': users.active_answered(date_range, :done).count
+      'users.registered': users.where(created_at: date_range),
+      'users.searchers': users.active_searchers(date_range),
+      'users.visitors': users.active_diagnosers(date_range, 2),
+      'users.whose_match_taken_care_of': users.active_answered(date_range, [:taking_care, :done]),
+      'users.whose_match_done': users.active_answered(date_range, :done)
     }
   end
 
   def activity_stats_in(date_range)
+    users = User.not_admin
+    visits_in_range = Visit
+      .where(happened_on: date_range)
+      .where(advisor: users)
+    companies_diagnosed_in_range = Company
+      .diagnosed_in(date_range)
+      .where(facilities: { visits: { advisor: users } })
+    needs_in_range = DiagnosedNeed
+      .made_in(date_range)
+      .where(diagnoses: { visits: { advisor: users } })
+    matches_created_in_range = Match
+      .where(created_at: date_range)
+      .joins(diagnosis: :visit)
+      .where(diagnoses: { visits: { advisor: users } })
+    matches_taken_care_in_range = Match
+      .where(taken_care_of_at: date_range)
+      .joins(diagnosis: :visit)
+      .where(diagnoses: { visits: { advisor: users } })
+
     {
-      "activity.visits": Diagnosis.joins(:visit).where(visits: { happened_on: date_range }).count,
-      "activity.companies_diagnosed": Company.diagnosed_in(date_range).count,
-      "activity.diagnosed_needs": DiagnosedNeed.made_in(date_range).count,
-      "activity.diagnosed_needs_notified": DiagnosedNeed.where(diagnoses: { step: 5 }).made_in(date_range).count,
-      "activity.matches": Match.where(created_at: date_range).count,
-      "activity.match_taken_care_of": Match.where(taken_care_of_at: date_range).with_status([:taking_care, :done]).count,
-      "activity.match_done": Match.where(taken_care_of_at: date_range).with_status(:done).count,
-      "activity.match_not_for_me": Match.where(taken_care_of_at: date_range).with_status(:not_for_me).count,
+      "activity.visits": visits_in_range,
+      "activity.companies_diagnosed": companies_diagnosed_in_range,
+      "activity.diagnosed_needs": needs_in_range,
+      "activity.diagnosed_needs_notified": needs_in_range.where(diagnoses: { step: 5 }),
+      "activity.matches": matches_created_in_range,
+      "activity.match_taken_care_of": matches_taken_care_in_range.with_status([:taking_care, :done]),
+      "activity.match_done": matches_taken_care_in_range.with_status(:done),
+      "activity.match_not_for_me": matches_taken_care_in_range.with_status(:not_for_me),
     }
   end
 

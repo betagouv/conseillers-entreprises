@@ -28,7 +28,7 @@ ActiveAdmin.register Territory do
       end
     end
 
-    render partial: 'admin/matches', locals: { matches_relation: Match.in_territory(territory) }
+    render partial: 'admin/matches', locals: { matches_relation: Match.in_territory(territory).ordered_by_status }
   end
 
   sidebar I18n.t('active_admin.territories.relais'), only: :show do

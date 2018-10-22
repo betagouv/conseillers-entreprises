@@ -22,12 +22,16 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
-  def remind_involvement(expert, matches_hash)
-    @access_token = expert.access_token
-    @matches_hash = matches_hash
+  def remind_involvement(person, matches_needing_taking_care_update, matches_with_no_one_in_charge)
+    @person = person
+    if person.is_a? Expert
+      @access_token = person.access_token
+    end
+    @matches_needing_taking_care_update = matches_needing_taking_care_update
+    @matches_with_no_one_in_charge = matches_with_no_one_in_charge
 
     mail(
-      to: expert.email_with_display_name,
+      to: @person.email_with_display_name,
       subject: t('mailers.expert_mailer.remind_involvement.subject')
     )
   end
