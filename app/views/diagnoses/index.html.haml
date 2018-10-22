@@ -22,7 +22,7 @@
     %table.ui.table
       %tbody
         - diagnoses_in_progress.each do |diagnosis|
-          - company_name = diagnosis.visit.facility.company.name_short
+          - company_name = diagnosis.visit.company_name
           %tr
             %td
               %h3.ui.header= company_name
@@ -44,7 +44,7 @@
     %table.ui.table
       %tbody
         - diagnoses_completed.each do |diagnosis|
-          - company_name = diagnosis.visit.facility.company.name_short
+          - company_name = diagnosis.visit.company_name
           %tr
             %td
               %h3.ui.header
