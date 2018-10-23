@@ -2,6 +2,7 @@
 
 class Territory < ApplicationRecord
   has_many :territory_cities, dependent: :destroy
+  has_many :communes, through: :territory_cities
   has_many :expert_territories
   has_many :experts, through: :expert_territories
   has_many :relays
