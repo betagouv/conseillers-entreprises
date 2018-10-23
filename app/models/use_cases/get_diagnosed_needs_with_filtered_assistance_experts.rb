@@ -13,8 +13,8 @@ module UseCases
       private
 
       def select_localized_and_business_assistance_experts(diagnosed_needs, diagnosis)
-        all_assistances_experts_in_scope = AssistanceExpert.of_city_code(diagnosis.visit.facility.city_code)
-          .of_naf_code(diagnosis.visit.facility.naf_code)
+        experts_in_scope = diagnosis.visit.facility.commune.experts.of_naf_code(diagnosis.visit.facility.naf_code)
+        all_assistances_experts_in_scope = experts_in_scope.flat_map(&:assistances_experts)
         diagnosed_needs.each do |diagnosed_need|
           question = diagnosed_need.question # the underlying question might have been deleted by admins
           if question.present?

@@ -53,35 +53,32 @@ RSpec.describe Expert, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_city_code' do
-      subject { Expert.of_city_code city_code }
+    describe 'of_naf_code' do
+      subject { Expert.of_naf_code naf_code }
 
-      let(:city_code) { '59003' }
-      let(:maubeuge_expert) { create :expert }
-      let(:maubeuge_experts) { [maubeuge_expert] }
-      let(:maubeuge_territory) { create :territory, name: 'Maubeuge', experts: maubeuge_experts }
+      let(:commerce_naf_code) { '6202A' }
+      let(:artisanry_naf_code) { '1011Z' }
 
-      before do
-        create :territory, name: 'Valenciennes', experts: [maubeuge_expert]
-        create :territory_city, territory: maubeuge_territory, city_code: '59003'
-        create :territory_city, territory: maubeuge_territory, city_code: '59006'
+      let(:commerce_institution) { create :institution, qualified_for_artisanry: false, qualified_for_commerce: true }
+      let(:artisanry_institution) { create :institution, qualified_for_artisanry: true, qualified_for_commerce: false }
+
+      let(:artisanry_expert) { create :expert, institution: artisanry_institution }
+      let(:commerce_expert) { create :expert, institution: commerce_institution }
+
+      context 'naf code is for artisanry' do
+        let(:naf_code) { artisanry_naf_code }
+
+        it 'returns the expert for artisanry' do
+          is_expected.to match_array [artisanry_expert]
+        end
       end
 
-      context 'one expert' do
-        it { is_expected.to eq [maubeuge_expert] }
-      end
+      context 'naf code is for commerce' do
+        let(:naf_code) { commerce_naf_code }
 
-      context 'several experts' do
-        let(:other_maubeuge_expert) { create :expert }
-        let(:maubeuge_experts) { [maubeuge_expert, other_maubeuge_expert] }
-
-        it { is_expected.to match_array [maubeuge_expert, other_maubeuge_expert] }
-      end
-
-      context 'city code in neither' do
-        let(:city_code) { '75108' }
-
-        it { is_expected.to be_empty }
+        it 'returns the expert for commerce' do
+          is_expected.to match_array [commerce_expert]
+        end
       end
     end
   end
