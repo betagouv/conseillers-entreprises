@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_22_135726) do
+ActiveRecord::Schema.define(version: 2018_10_22_140618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "antennes", force: :cascade do |t|
+    t.string "name"
+    t.bigint "institution_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_antennes_on_institution_id"
+  end
 
   create_table "assistances", force: :cascade do |t|
     t.text "description"
@@ -144,7 +152,9 @@ ActiveRecord::Schema.define(version: 2018_10_22_135726) do
     t.datetime "updated_at", null: false
     t.string "access_token"
     t.string "full_name"
+    t.bigint "antenne_id"
     t.index ["access_token"], name: "index_experts_on_access_token"
+    t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["email"], name: "index_experts_on_email"
     t.index ["institution_id"], name: "index_experts_on_institution_id"
   end
@@ -183,6 +193,13 @@ ActiveRecord::Schema.define(version: 2018_10_22_135726) do
     t.datetime "updated_at", null: false
     t.boolean "qualified_for_commerce", default: true, null: false
     t.boolean "qualified_for_artisanry", default: true, null: false
+  end
+
+  create_table "intervention_zones", id: false, force: :cascade do |t|
+    t.bigint "antenne_id", null: false
+    t.bigint "commune_id", null: false
+    t.index ["antenne_id"], name: "index_intervention_zones_on_antenne_id"
+    t.index ["commune_id"], name: "index_intervention_zones_on_commune_id"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -272,6 +289,8 @@ ActiveRecord::Schema.define(version: 2018_10_22_135726) do
     t.string "institution"
     t.string "role"
     t.string "full_name"
+    t.bigint "antenne_id"
+    t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["is_approved"], name: "index_users_on_is_approved"
@@ -303,6 +322,8 @@ ActiveRecord::Schema.define(version: 2018_10_22_135726) do
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
+  add_foreign_key "intervention_zones", "antennes"
+  add_foreign_key "intervention_zones", "communes"
   add_foreign_key "matches", "assistances_experts", column: "assistances_experts_id"
   add_foreign_key "matches", "diagnosed_needs"
   add_foreign_key "matches", "relays"

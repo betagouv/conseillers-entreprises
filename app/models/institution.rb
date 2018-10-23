@@ -3,6 +3,8 @@
 class Institution < ApplicationRecord
   has_many :experts
 
+  has_many :antennes
+
   validates :name, presence: true
 
   scope :of_naf_code, (lambda do |naf_code|
