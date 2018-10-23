@@ -51,7 +51,7 @@ describe UseCases::SearchFacility do
         expect(Company.last.legal_form_code).to eq legal_form_code
 
         expect(Facility.last.siret).to eq siret
-        expect(Facility.last.city_code).to eq '75008'
+        expect(Facility.last.commune.insee_code).to eq '75008'
         expect(Facility.last.naf_code).to eq naf_code
       end
     end

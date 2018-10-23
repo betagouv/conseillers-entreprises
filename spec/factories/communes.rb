@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :commune do
-    insee_code { '2A024' }
+    insee_code { Faker::Number.number(5) }
   end
 end

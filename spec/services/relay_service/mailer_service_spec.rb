@@ -20,7 +20,7 @@ describe RelayService::MailerService do
       let!(:territory1_user) { create :relay, territory: territory.first }
 
       let(:territory_city1) { create :territory_city, territory: territory.first }
-      let(:facility1) { create :facility, city_code: territory_city1.city_code }
+      let(:facility1) { create :facility, commune: territory_city1.commune }
       let(:visit1) { create :visit, facility: facility1 }
 
       let(:empty_information_hash) do
@@ -47,7 +47,7 @@ describe RelayService::MailerService do
         let!(:territory2_user2) { create :relay, territory: territory.last }
 
         let(:territory_city2) { create :territory_city, territory: territory.last }
-        let(:facility2) { create :facility, city_code: territory_city2.city_code }
+        let(:facility2) { create :facility, commune: territory_city2.commune }
         let(:visit2) { create :visit, facility: facility2 }
 
         let(:created_diagnoses) { create_list :diagnosis, 1, step: 1, visit: visit1 }
