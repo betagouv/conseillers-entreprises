@@ -13,8 +13,8 @@ ActiveAdmin.register Territory do
       row :created_at
       row :updated_at
       row(:insee_codes) do |territory|
-        safe_join(territory.territory_cities.map do |territory_city|
-          link_to territory_city.commune, admin_territory_city_path(territory_city)
+        safe_join(territory.communes.map do |commune|
+          link_to commune, admin_commune_path(commune)
         end, ', '.html_safe)
       end
     end

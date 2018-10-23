@@ -57,8 +57,8 @@ describe 'admin panel', type: :feature do
       click_link 'Territoires'
       click_link 'Créer Territoire'
 
-      click_link 'Villes d’un territoire'
-      click_link 'Créer Ville d’un territoire'
+      click_link 'Communes'
+      click_link 'Créer Commune'
 
       click_link current_user.full_name
     end

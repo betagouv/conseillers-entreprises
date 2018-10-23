@@ -36,7 +36,7 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
 
     before do
       create :diagnosed_need
-      create :territory_city, territory: territory, commune: commune
+      territory.communes << commune
     end
 
     context 'with assistance experts' do

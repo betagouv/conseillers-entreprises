@@ -88,9 +88,6 @@ fr:
       territory:
         insee_codes: Codes commune
         name: Nom
-      territory_city:
-        commune: Commune
-        territory: Territoire
       user:
         confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
         confirmation_token: Token de confirmation d’e-mail
@@ -191,9 +188,6 @@ fr:
       territory:
         one: Territoire
         other: Territoires
-      territory_city:
-        one: Ville d’un territoire
-        other: Villes d’un territoire
       user:
         one: Utilisateur
         other: Utilisateurs
