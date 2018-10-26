@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     collection do
       get :users
       get :activity
+      get :cohorts
     end
   end
 

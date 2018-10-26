@@ -3,6 +3,7 @@ fr:
   stats:
     index:
       activity_stats: Activité
+      cohorts_stats: Cohortes
       download: Télécharger
       title: Statistiques
       users_stats: Conseillers

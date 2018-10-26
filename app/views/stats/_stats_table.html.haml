@@ -4,7 +4,8 @@
     %th
       %rh= t('.date_range')
       - headers.each do |header|
-        %td= t(".#{header}")
+        - header = header.is_a?(Range) ? I18n.l(header.begin, format: '%b %Y') : t(".#{header}")
+        %td= header
     - stats.reverse_each do |date_range, info|
       %tr
         - formatted_month = I18n.l(date_range.begin, format: '%b %Y')
@@ -12,4 +13,5 @@
           = formatted_month
         - info.each do |header, value|
           %td{ title: t(".tooltips.#{header}", month: formatted_month) }
-            = value.count
+            - if value > 0
+              = value
