@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
+  belongs_to :antenne
+
   has_many :relays
   has_many :territories, through: :relays
   has_many :visits, foreign_key: 'advisor_id'

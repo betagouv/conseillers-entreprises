@@ -4,6 +4,7 @@ class Facility < ApplicationRecord
   NUMBER_PATTERN = '[0-9]{14}'
 
   belongs_to :company
+  belongs_to :commune
   has_many :visits
   has_many :diagnoses, through: :visits
 
