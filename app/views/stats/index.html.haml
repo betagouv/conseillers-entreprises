@@ -12,3 +12,8 @@
     = t('.activity_stats')
     .sub.header= link_to t('.download'), activity_stats_path(format: 'csv')
   = render partial: 'stats_table', locals: { stats: @activity_stats }
+
+  %h2.ui.header
+    = t('.cohorts_stats')
+    .sub.header= link_to t('.download'), cohorts_stats_path(format: 'csv')
+  = render partial: 'stats_table', locals: { stats: @cohorts_stats }

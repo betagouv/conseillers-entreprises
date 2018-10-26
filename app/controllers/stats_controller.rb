@@ -4,12 +4,13 @@ class StatsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @users_stats = user_stats
+    @users_stats = users_stats
     @activity_stats = activity_stats
+    @cohorts_stats = cohorts_stats
   end
 
   def users
-    @stats = user_stats
+    @stats = users_stats
     render 'stats/stats'
   end
 
@@ -18,9 +19,14 @@ class StatsController < ApplicationController
     render 'stats/stats'
   end
 
+  def cohorts
+    @stats = cohorts_stats
+    render 'stats/stats'
+  end
+
   private
 
-  def user_stats
+  def users_stats
     stats_in_ranges(history_date_ranges) { |range| users_stats_in(range) }
   end
 
@@ -28,9 +34,22 @@ class StatsController < ApplicationController
     stats_in_ranges(history_date_ranges) { |range| activity_stats_in(range) }
   end
 
+  def cohorts_stats
+    stats_in_ranges(history_date_ranges) { |range| stats_for_cohort_of(range) }
+  end
+
   def stats_in_ranges(date_ranges)
     date_ranges.each_with_object({}) do |date_range, hash|
-      hash[date_range] = yield date_range
+      objects_in_range = yield date_range
+      hash[date_range] = objects_in_range.transform_values(&:count)
+    end
+  end
+
+  def stats_for_cohort_of(cohort_range)
+    cohort = User.not_admin.where(created_at: cohort_range)
+    history_date_ranges.each_with_object({}) do |activity_range, hash|
+      active = cohort.active_diagnosers(activity_range,2)
+      hash[activity_range] = active
     end
   end
 
