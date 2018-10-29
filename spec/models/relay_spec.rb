@@ -74,20 +74,5 @@ RSpec.describe Relay, type: :model do
         end
       end
     end
-
-    describe 'of_diagnosis_location' do
-      subject { described_class.of_diagnosis_location(diagnosis) }
-
-      let(:facility) { create :facility, city_code: '59123' }
-      let(:visit) { create :visit, facility: facility }
-      let(:diagnosis) { create :diagnosis, visit: visit }
-
-      let(:territory) { create :territory }
-      let!(:relay) { create :relay, territory: territory }
-
-      before { create :territory_city, territory: territory, city_code: '59123' }
-
-      it { is_expected.to eq [relay] }
-    end
   end
 end

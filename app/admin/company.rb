@@ -19,7 +19,7 @@ ActiveAdmin.register Company do
     panel I18n.t('activerecord.attributes.company.facilities') do
       table_for company.facilities do
         column :siret
-        column :city_code
+        column :commune
         column :naf_code
         column :readable_locality
       end

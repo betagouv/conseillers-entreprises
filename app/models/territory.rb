@@ -16,25 +16,20 @@ class Territory < ApplicationRecord
     "#{id} : #{name}"
   end
 
-  def city_codes
-    territory_cities.pluck(:city_code)
+  def insee_codes
+    communes.pluck(:insee_code)
   end
 
-  def city_codes=(codes_raw)
+  def insee_codes=(codes_raw)
     wanted_codes = codes_raw.split(/[,\s]/).delete_if(&:empty?)
-    if wanted_codes.any? { |code| code !~ /[0-9AB]{5}/ }
+    if wanted_codes.any? { |code| code !~ Commune::INSEE_CODE_FORMAT }
       raise 'Invalid city codes'
     end
 
-    existing_codes = city_codes
+    wanted_codes.each do |code|
+      Commune.find_or_create_by(insee_code: code)
+    end
 
-    codes_to_remove = existing_codes - wanted_codes
-    territory_cities.where(city_code: codes_to_remove)
-      .destroy_all
-
-    codes_to_add = wanted_codes - existing_codes
-    codes_to_add.each{ |c|
-      TerritoryCity.create(territory: self, city_code: c)
-    }
+    self.communes = Commune.where(insee_code: wanted_codes)
   end
 end

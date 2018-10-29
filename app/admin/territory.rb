@@ -3,8 +3,7 @@
 ActiveAdmin.register Territory do
   menu priority: 8
   permit_params :name,
-    :city_codes,
-    territory_cities: %i[id city_code _create _update _destroy]
+    :insee_codes
 
   ## Show
   #
@@ -13,9 +12,9 @@ ActiveAdmin.register Territory do
       row :name
       row :created_at
       row :updated_at
-      row(:city_codes) do |territory|
+      row(:insee_codes) do |territory|
         safe_join(territory.territory_cities.map do |territory_city|
-          link_to territory_city.city_code, admin_territory_city_path(territory_city)
+          link_to territory_city.commune, admin_territory_city_path(territory_city)
         end, ', '.html_safe)
       end
     end
@@ -42,8 +41,8 @@ ActiveAdmin.register Territory do
       f.input :name
     end
 
-    f.inputs I18n.t('activerecord.attributes.territory_city.city_code') do
-      f.input :city_codes
+    f.inputs I18n.t('activerecord.attributes.commune.insee_code') do
+      f.input :insee_codes
     end
 
     f.actions

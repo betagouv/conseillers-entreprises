@@ -27,11 +27,12 @@ module UseCases
 
       def create_or_update_facility(siret, company)
         api_entreprise_facility = with_siret(siret)
-        city_code = api_entreprise_facility.etablissement['commune_implantation']['code']
+        insee_code = api_entreprise_facility.etablissement['commune_implantation']['code']
         naf_code = api_entreprise_facility.etablissement['naf']
         readable_locality = api_entreprise_facility.etablissement.readable_locality
         facility = Facility.find_or_initialize_by siret: siret
-        facility.update! company: company, city_code: city_code, naf_code: naf_code, readable_locality: readable_locality
+        commune = Commune.find_or_create_by insee_code: insee_code
+        facility.update! company: company, commune: commune, naf_code: naf_code, readable_locality: readable_locality
         facility
       end
     end
