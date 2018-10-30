@@ -8,7 +8,7 @@ class Facility < ApplicationRecord
   has_many :visits
   has_many :diagnoses, through: :visits
 
-  validates :company, :commune, presence: true
+  validates :company, presence: true
   validates :siret, uniqueness: { allow_nil: true }
 
   scope :in_territory, (-> (territory) { where(commune: territory.communes) })
