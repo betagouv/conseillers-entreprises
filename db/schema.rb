@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_155512) do
+ActiveRecord::Schema.define(version: 2018_10_30_094510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,7 +174,7 @@ ActiveRecord::Schema.define(version: 2018_10_23_155512) do
     t.datetime "updated_at", null: false
     t.string "naf_code"
     t.string "readable_locality"
-    t.bigint "commune_id"
+    t.bigint "commune_id", null: false
     t.index ["commune_id"], name: "index_facilities_on_commune_id"
     t.index ["company_id"], name: "index_facilities_on_company_id"
   end
@@ -256,10 +256,10 @@ ActiveRecord::Schema.define(version: 2018_10_23_155512) do
 
   create_table "territory_cities", force: :cascade do |t|
     t.string "city_code"
-    t.bigint "territory_id"
+    t.bigint "territory_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "commune_id"
+    t.bigint "commune_id", null: false
     t.index ["commune_id"], name: "index_territory_cities_on_commune_id"
     t.index ["territory_id"], name: "index_territory_cities_on_territory_id"
   end
