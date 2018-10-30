@@ -14,7 +14,7 @@
     = diagnosis_form.fields_for :visit do |visit_form|
       = visit_form.fields_for :visitee do |contact_form|
         %h3.ui.header
-          = t('.your_contact_in_the_company', company_name: visit.facility.company.name)
+          = t('.your_contact_in_the_company', company_name: visit.company_name)
 
         .field
           = contact_form.label t('.full_name')

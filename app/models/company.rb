@@ -18,8 +18,4 @@ class Company < ApplicationRecord
   def to_s
     name
   end
-
-  def name_short
-    name.first(40)
-  end
 end

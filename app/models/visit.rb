@@ -21,7 +21,7 @@ class Visit < ApplicationRecord
   end
 
   def company_name
-    facility.company.name_short
+    facility.company.name
   end
 
   def company_description

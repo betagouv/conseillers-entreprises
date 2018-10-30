@@ -14,12 +14,4 @@ RSpec.describe Company, type: :model do
       expect(company.to_s).to eq 'Octo'
     end
   end
-
-  describe 'name_short' do
-    it do
-      name = 'This name is very long and should be shorter if we want to display it'
-      company = create :company, name: name
-      expect(company.name_short.length).to be < name.length
-    end
-  end
 end

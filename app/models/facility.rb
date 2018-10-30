@@ -14,6 +14,6 @@ class Facility < ApplicationRecord
   scope :in_territory, (-> (territory) { where(commune: territory.communes) })
 
   def to_s
-    "#{company.name_short} (#{readable_locality || commune.insee_code})"
+    "#{company.name} (#{readable_locality || commune.insee_code})"
   end
 end
