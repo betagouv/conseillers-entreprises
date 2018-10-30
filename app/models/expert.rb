@@ -22,9 +22,10 @@ class Expert < ApplicationRecord
 
   before_validation :generate_access_token!, on: :create
 
-  scope :of_city_code, (lambda do |city_code|
-    joins(territories: :territory_cities).where(territories: { territory_cities: { city_code: city_code.to_s } })
-  end)
+  scope :of_naf_code, -> (naf_code) do
+    joins(:institution).merge(Institution.of_naf_code(naf_code))
+  end
+
   scope :ordered_by_names, (-> { order(:full_name) })
 
   def generate_access_token!

@@ -17,13 +17,15 @@ RSpec.describe Territory, type: :model do
     it { expect(territory.to_s).to include 'Calaisis' }
   end
 
-  describe 'city_codes' do
-    subject { territory.city_codes }
+  describe 'insee_codes' do
+    subject { territory.insee_codes }
 
     let(:territory) { create :territory }
 
-    context 'with territory cities' do
-      before { create :territory_city, territory: territory, city_code: 59_001 }
+    context 'with territory communes' do
+      let(:commune) { create :commune, insee_code: '59001' }
+
+      before { territory.communes = [commune] }
 
       it { is_expected.to eq %w[59001] }
     end
@@ -33,23 +35,23 @@ RSpec.describe Territory, type: :model do
     end
   end
 
-  describe 'city_codes=' do
-    subject { territory.city_codes }
+  describe 'insee_codes=' do
+    subject { territory.insee_codes }
 
     let(:territory) { create :territory }
 
     context 'with invalid data' do
-      subject(:set_city_codes) { territory.city_codes = raw_codes }
+      subject(:set_insee_codes) { territory.insee_codes = raw_codes }
 
       let(:raw_codes) { 'baddata morebaddata' }
 
-      it { expect { set_city_codes }.to raise_error 'Invalid city codes' }
+      it { expect { set_insee_codes }.to raise_error 'Invalid city codes' }
     end
 
     context 'with empty data' do
       let(:raw_codes) { '' }
 
-      before { territory.city_codes = raw_codes }
+      before { territory.insee_codes = raw_codes }
 
       it { is_expected.to eq [] }
     end
@@ -57,16 +59,15 @@ RSpec.describe Territory, type: :model do
     context 'with proper values' do
       let(:raw_codes) { '12345, 12346' }
 
-      before { territory.city_codes = raw_codes }
+      before { territory.insee_codes = raw_codes }
 
       it { is_expected.to eq %w[12345 12346] }
     end
 
     context 'with previous values' do
       before {
-        create :territory_city, territory: territory, city_code: 10_001
-        create :territory_city, territory: territory, city_code: 10_002
-        territory.city_codes = raw_codes
+        territory.communes = [create(:commune, insee_code: '10001'), create(:commune, insee_code: '10002')]
+        territory.insee_codes = raw_codes
       }
 
       let(:raw_codes) { '10002, 10003' }

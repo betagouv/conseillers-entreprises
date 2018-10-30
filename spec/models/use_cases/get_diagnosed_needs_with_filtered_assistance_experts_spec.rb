@@ -6,7 +6,8 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
   describe 'of_diagnosis' do
     subject(:diagnosed_needs) { described_class.of_diagnosis(diagnosis) }
 
-    let(:facility) { create :facility, city_code: 75_001, naf_code: artisanry_naf_code }
+    let(:commune) { create :commune, insee_code: '75001' }
+    let(:facility) { create :facility, commune: commune, naf_code: artisanry_naf_code }
     let(:visit) { create :visit, facility: facility }
     let!(:territory) { create :territory }
 
@@ -35,7 +36,7 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
 
     before do
       create :diagnosed_need
-      create :territory_city, territory: territory, city_code: 75_001
+      create :territory_city, territory: territory, commune: commune
     end
 
     context 'with assistance experts' do

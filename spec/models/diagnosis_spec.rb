@@ -156,12 +156,13 @@ RSpec.describe Diagnosis, type: :model do
       subject { Diagnosis.in_territory territory }
 
       let(:territory) { create :territory }
-      let(:facility) { create :facility, city_code: 59_001 }
+      let(:commune) { create :commune }
+      let(:facility) { create :facility, commune: commune }
       let(:visit) { create :visit, facility: facility }
       let!(:diagnosis) { create :diagnosis, visit: visit }
 
       context 'with territory cities' do
-        before { create :territory_city, territory: territory, city_code: 59_001 }
+        before { territory.communes = [commune] }
 
         it { is_expected.to eq [diagnosis] }
       end

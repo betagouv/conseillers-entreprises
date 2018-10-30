@@ -63,7 +63,8 @@ class DiagnosesController < ApplicationController
   def step4
     @diagnosis = diagnosis_in_progress(params[:id])
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
-    @relays_full_names = Relay.of_diagnosis_location(@diagnosis).map(&:user).map(&:full_name)
+    relays = @diagnosis.visit.facility.commune.relays
+    @relays_full_names = relays.map(&:user).map(&:full_name)
   end
 
   def selection

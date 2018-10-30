@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :territory_city do
-    city_code { Random.rand(10_000..90_000).to_s }
+    association :commune
     association :territory
   end
 end

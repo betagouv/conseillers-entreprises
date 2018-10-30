@@ -8,12 +8,12 @@ class Facility < ApplicationRecord
   has_many :visits
   has_many :diagnoses, through: :visits
 
-  validates :company, :city_code, presence: true
+  validates :company, presence: true
   validates :siret, uniqueness: { allow_nil: true }
 
-  scope :in_territory, (-> (territory) { where(city_code: territory.city_codes) })
+  scope :in_territory, (-> (territory) { where(commune: territory.communes) })
 
   def to_s
-    "#{company.name_short} (#{readable_locality || city_code})"
+    "#{company.name_short} (#{readable_locality || commune.insee_code})"
   end
 end
