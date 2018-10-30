@@ -10,7 +10,6 @@ RSpec.describe Facility, type: :model do
       is_expected.to belong_to :company
       is_expected.to validate_presence_of :company
       is_expected.to validate_uniqueness_of(:siret).ignoring_case_sensitivity
-      is_expected.to validate_presence_of :commune
     end
   end
 
