@@ -4,7 +4,7 @@ module RelayService
   class MailerService
     class << self
       def send_relay_stats_emails
-        relays = Relay.all.includes(territory: :territory_cities)
+        relays = Relay.all.includes(territory: :communes)
         relays.each do |relay|
           send_relay_stats_email_to(relay)
         end

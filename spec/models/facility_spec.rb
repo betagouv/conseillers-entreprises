@@ -23,7 +23,7 @@ RSpec.describe Facility, type: :model do
       let(:commune) { create :commune, insee_code: '59001' }
 
       context 'with territory cities' do
-        before { create :territory_city, territory: territory, commune: commune }
+        before { territory.communes << commune }
 
         it { is_expected.to eq [facility] }
       end

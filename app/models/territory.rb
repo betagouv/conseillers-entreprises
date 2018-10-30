@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class Territory < ApplicationRecord
-  has_many :territory_cities, dependent: :destroy
-  has_many :communes, through: :territory_cities
+  has_and_belongs_to_many :communes
   has_many :expert_territories
   has_many :experts, through: :expert_territories
   has_many :relays
   has_many :users, through: :relays
 
-  accepts_nested_attributes_for :territory_cities
+  accepts_nested_attributes_for :communes
 
   scope :ordered_by_name, (-> { order(:name) })
 
