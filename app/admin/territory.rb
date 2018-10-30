@@ -5,6 +5,13 @@ ActiveAdmin.register Territory do
   permit_params :name,
     :insee_codes
 
+  ## index
+  #
+  filter :experts, collection: -> { Expert.ordered_by_names }
+  filter :name
+  filter :created_at
+  filter :updated_at
+
   ## Show
   #
   show do
@@ -36,6 +43,12 @@ ActiveAdmin.register Territory do
     end
   end
 
+  action_item :convert_to_antenne, only: :show do
+    link_to t('active_admin.antenne.create_antenne'), convert_to_antenne_admin_territory_path(resource)
+  end
+
+  # Form
+  #
   form do |f|
     f.inputs I18n.t('activerecord.attributes.territory.name') do
       f.input :name
@@ -48,8 +61,10 @@ ActiveAdmin.register Territory do
     f.actions
   end
 
-  filter :experts, collection: -> { Expert.ordered_by_names }
-  filter :name
-  filter :created_at
-  filter :updated_at
+  ## Actions
+  #
+  member_action :convert_to_antenne do
+    antenne = Antenne.create_from_territory!(resource)
+    redirect_to admin_antenne_path(antenne)
+  end
 end

@@ -2,6 +2,8 @@
 fr:
   activerecord:
     attributes:
+      antenne:
+        name: Nom
       assistance:
         description: Description
         experts: Référents
