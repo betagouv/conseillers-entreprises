@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_094510) do
+ActiveRecord::Schema.define(version: 2018_10_30_152530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 2018_10_30_094510) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["insee_code"], name: "index_communes_on_insee_code", unique: true
+  end
+
+  create_table "communes_territories", force: :cascade do |t|
+    t.string "city_code"
+    t.bigint "territory_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "commune_id", null: false
+    t.index ["commune_id"], name: "index_communes_territories_on_commune_id"
+    t.index ["territory_id"], name: "index_communes_territories_on_territory_id"
   end
 
   create_table "companies", id: :serial, force: :cascade do |t|
@@ -254,16 +264,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_094510) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "territory_cities", force: :cascade do |t|
-    t.string "city_code"
-    t.bigint "territory_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "commune_id", null: false
-    t.index ["commune_id"], name: "index_territory_cities_on_commune_id"
-    t.index ["territory_id"], name: "index_territory_cities_on_territory_id"
-  end
-
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -312,6 +312,8 @@ ActiveRecord::Schema.define(version: 2018_10_30_094510) do
   add_foreign_key "assistances", "questions"
   add_foreign_key "assistances_experts", "assistances"
   add_foreign_key "assistances_experts", "experts"
+  add_foreign_key "communes_territories", "communes"
+  add_foreign_key "communes_territories", "territories"
   add_foreign_key "contacts", "companies"
   add_foreign_key "diagnosed_needs", "diagnoses"
   add_foreign_key "diagnosed_needs", "questions"
@@ -331,8 +333,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_094510) do
   add_foreign_key "relays", "territories"
   add_foreign_key "relays", "users"
   add_foreign_key "searches", "users"
-  add_foreign_key "territory_cities", "communes"
-  add_foreign_key "territory_cities", "territories"
   add_foreign_key "visits", "contacts", column: "visitee_id"
   add_foreign_key "visits", "facilities"
   add_foreign_key "visits", "users", column: "advisor_id"

@@ -8,7 +8,7 @@
       %tr
         %td
           %h2.ui.header
-            = @diagnosis.visit.facility.company.name_short
+            = @diagnosis.visit.company_name
             .sub.header
               %i.calendar.icon
               .content= I18n.l(@diagnosis.visit.display_date, format: '%-d %B %Y')

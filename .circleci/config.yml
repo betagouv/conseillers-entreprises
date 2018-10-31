@@ -3,8 +3,8 @@ version: 2
 defaults: &defaults
   working_directory: ~/reso
   docker:
-    - image: circleci/ruby:2.5.1-node-browsers
-    - image: circleci/postgres:9.6
+    - image: circleci/ruby:2.5.3-node-browsers
+    - image: circleci/postgres:10.4
       environment:
         POSTGRES_USER: reso_test
         POSTGRES_PASSWORD: reso_test

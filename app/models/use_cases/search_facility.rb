@@ -21,7 +21,7 @@ module UseCases
         siren = api_entreprise_company.entreprise['siren']
         legal_form_code = api_entreprise_company.entreprise['forme_juridique_code']
         company = Company.find_or_initialize_by siren: siren
-        company.update! name: company_name.titleize, legal_form_code: legal_form_code
+        company.update! name: company_name, legal_form_code: legal_form_code
         company
       end
 

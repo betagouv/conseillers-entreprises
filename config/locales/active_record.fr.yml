@@ -52,8 +52,8 @@ fr:
         email: E-mail
         name: Raison sociale
         phone_number: Numéro de téléphone
-        qualified_for_artisanry: S’occupe des entreprises d’artisanat
-        qualified_for_commerce: S’occupe des entreprises commerciales
+        qualified_for_artisanry: Artisanat ?
+        qualified_for_commerce: Commerce ?
       match:
         assistance_expert: Référent (non Relais local)
         assistance_title: Champ de compétence
@@ -88,9 +88,6 @@ fr:
       territory:
         insee_codes: Codes commune
         name: Nom
-      territory_city:
-        commune: Commune
-        territory: Territoire
       user:
         confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
         confirmation_token: Token de confirmation d’e-mail
@@ -191,9 +188,6 @@ fr:
       territory:
         one: Territoire
         other: Territoires
-      territory_city:
-        one: Ville d’un territoire
-        other: Villes d’un territoire
       user:
         one: Utilisateur
         other: Utilisateurs

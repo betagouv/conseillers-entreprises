@@ -41,8 +41,7 @@ class UserDailyChangeUpdateMailerService
       change_hash[:expert_institution] = match.expert_institution_name
       change_hash[:question_title] = match.diagnosed_need.question_label
       change_hash[:company_name] = match.diagnosed_need
-        .diagnosis.visit
-        .facility.company.name_short
+        .diagnosis.visit.company_name
       change_hash[:start_date] = match.created_at.to_date
       change_hash
     end
