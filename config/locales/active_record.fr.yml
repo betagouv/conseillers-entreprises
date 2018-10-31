@@ -64,7 +64,13 @@ fr:
         expert_full_name: Référent contacté
         expert_institution_name: Institution du référent
         expert_viewed_page_at: Date de consultation par le référent
+        received:
+          one: Mise en relation reçue
+          other: Mises en relation reçues (%{count})
         relay: Référent (Relais local)
+        sent:
+          one: Mise en relation envoyée
+          other: Mises en relation envoyées (%{count})
         status: Statut
         statuses:
           done: Besoin résolu

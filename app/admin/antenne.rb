@@ -50,10 +50,12 @@ ActiveAdmin.register Antenne do
     end
 
     render partial: 'admin/matches', locals: {
+      table_name: I18n.t('activerecord.attributes.match.sent', count: antenne.sent_matches.size),
       matches_relation: antenne.sent_matches
     }
 
     render partial: 'admin/matches', locals: {
+      table_name: I18n.t('activerecord.attributes.match.received', count: antenne.received_matches.size),
       matches_relation: antenne.received_matches
     }
   end
