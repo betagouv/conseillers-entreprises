@@ -1,6 +1,8 @@
 ---
 fr:
   active_admin:
+    antenne:
+      create_antenne: Convertir en Antenne
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
