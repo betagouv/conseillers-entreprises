@@ -56,7 +56,7 @@
                   %td
                     = relay_form.label checkbox_id, class: 'clickable' do
                       .small.text
-                        = t('.relays_role', count: @relays_full_names.count)
+                        = t('.relays_role', count: @relays_full_names.size)
             - else
               %tr
                 %td= t('.no_assistance')

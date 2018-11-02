@@ -24,11 +24,11 @@ ActiveAdmin.register Expert do
     id_column
     column :full_name
     column :institution
-    column(:users) { |expert| expert.users.length }
+    column(:users) { |expert| expert.users.size }
     column :role
     column :email
-    column(:assistances) { |expert| expert.assistances.length }
-    column(:territories) { |expert| expert.territories.length }
+    column(:assistances) { |expert| expert.assistances.size }
+    column(:territories) { |expert| expert.territories.size }
     actions dropdown: true do |expert|
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
     end
