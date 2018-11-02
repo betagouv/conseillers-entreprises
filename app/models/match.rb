@@ -34,7 +34,7 @@ class Match < ApplicationRecord
   scope :of_facilities, (-> (facilities) { of_diagnoses(Diagnosis.of_facilities(facilities)) })
 
   scope :of_relay_or_expert, (lambda do |relay_or_expert|
-    if relay_or_expert.is_a?(Array)
+    if relay_or_expert.is_a?(Enumerable)
       relations = relay_or_expert.map{ |item| of_relay_or_expert(item) }.compact
       relations.reduce(&:or)
     elsif relay_or_expert.is_a?(Expert)
@@ -45,6 +45,11 @@ class Match < ApplicationRecord
       left_outer_joins(:assistance_expert).where(id: -1)
     end
   end)
+
+  scope :sent_by, -> (users) {
+    joins(diagnosis: [visit: :advisor])
+      .where(diagnoses: { visits: { advisor: users } })
+  }
 
   def status_closed?
     status_done? || status_not_for_me?

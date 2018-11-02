@@ -17,11 +17,11 @@
             .item
               .middle.aligned.content
                 %h4.ui.header.disabled
-                  = t('.diagnosed_needs', count: @diagnosis.diagnosed_needs.count)
+                  = t('.diagnosed_needs', count: @diagnosis.diagnosed_needs.size)
             .item
               .middle.aligned.content
                 %h4.ui.header.disabled
-                  - matches_count = Match.of_diagnoses([@diagnosis]).count
+                  - matches_count = Match.of_diagnoses([@diagnosis]).size
                   = t('.matches', count: matches_count)
 
   - visitee = @diagnosis.visit.visitee

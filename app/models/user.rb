@@ -94,7 +94,7 @@ class User < ApplicationRecord
   end
 
   def is_oneself?
-    self.experts.length == 1 && self.experts.first.users == [self]
+    self.experts.size == 1 && self.experts.first.users == [self]
   end
 
   protected

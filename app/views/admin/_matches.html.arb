@@ -1,4 +1,5 @@
-panel "#{I18n.t('activerecord.models.match.other')} (#{matches_relation.length})" do
+table_name = table_name || "#{I18n.t('activerecord.models.match', count: matches_relation.size)} (#{matches_relation.size})"
+panel table_name do
   table_for matches_relation
     .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
     .includes(diagnosed_need: [diagnosis: [visit: :advisor]])

@@ -40,7 +40,7 @@ ActiveAdmin.register User do
     column :created_at
     column :is_approved
     column :sign_in_count
-    column(:relays) { |user| user.relays.length }
+    column(:relays) { |user| user.relays.size }
     actions dropdown: true do |user|
       if !user.is_approved?
         item(t('active_admin.user.approve_user'), approve_user_admin_user_path(user), method: :post)
