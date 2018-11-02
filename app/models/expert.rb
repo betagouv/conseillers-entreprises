@@ -3,7 +3,8 @@
 class Expert < ApplicationRecord
   include PersonConcern
 
-  belongs_to :institution
+  belongs_to :antenne
+  belongs_to :institution # todo: remove and replace with has_one :institution through: :antenne
 
   has_and_belongs_to_many :users
   has_many :assistances_experts, dependent: :destroy
