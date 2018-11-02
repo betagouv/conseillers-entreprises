@@ -483,7 +483,6 @@ DEPENDENCIES
   spring-commands-rspec
   spring-watcher-listen
   turbolinks
-  tzinfo-data
   uglifier
   user_impersonate2
   wannabe_bool
