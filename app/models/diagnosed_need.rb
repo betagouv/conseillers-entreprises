@@ -10,7 +10,7 @@ class DiagnosedNeed < ApplicationRecord
   validates :question, uniqueness: { scope: :diagnosis_id, allow_nil: true }
 
   has_many :experts, through: :matches
-  has_many :relays, through: :matches # Actually, `has_one` because all the matches of a diagnosed_need are in the same territory
+  has_many :relays, through: :matches
 
   before_create :copy_question_label
 

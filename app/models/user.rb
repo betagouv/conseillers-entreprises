@@ -69,7 +69,7 @@ class User < ApplicationRecord
   end
 
   def full_name_with_role
-    "#{full_name}, #{role}, #{institution}"
+    "#{full_name} (#{role}, #{institution})"
   end
 
   def auto_approve_if_whitelisted_domain
