@@ -35,4 +35,8 @@ fr:
       experts_linked: Référents associés
       impersonate: Voir le site comme %{name}
       saved: Conseiller mis à jour
+      scopes:
+        admin: Admins
+        contact_relays: Relais locaux
+        without_antenne: Sans antenne
       user_info: Informations utilisateur

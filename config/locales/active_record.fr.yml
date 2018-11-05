@@ -107,7 +107,7 @@ fr:
         current_sign_in_ip: IP de connexion
         email: E-mail
         encrypted_password: Mot de passe chiffré
-        experts: Équipe
+        experts: Référent / Équipes
         full_name: Prénom et Nom
         institution: Institution
         is_admin: Est administrateur ?
@@ -117,6 +117,7 @@ fr:
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
         phone_number: Numéro de téléphone
+        relays: Relais
         remember_me: Se souvenir de moi
         reset_password_sent_at: Date de régénération du mot de passe
         reset_password_token: Token de régénération du mot de passe

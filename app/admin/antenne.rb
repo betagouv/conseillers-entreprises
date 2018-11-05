@@ -23,6 +23,7 @@ ActiveAdmin.register Antenne do
   show do
     attributes_table do
       row :name
+      row :institution
       row :created_at
       row :updated_at
       row(:communes) do |a|
