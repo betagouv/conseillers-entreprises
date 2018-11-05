@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_expert!
-    current_expert.present? || redirect_to(new_user_session_path)
+    current_expert.present? || not_found
   end
 
   private
