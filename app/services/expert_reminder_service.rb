@@ -17,10 +17,10 @@ class ExpertReminderService
 
     PersonMatches = Struct.new(:needing_taking_care_update, :with_no_one_in_charge)
 
-    def add_person_match(person, needing_taking_care_update = nil, with_no_one_in_charge = nil)
+    def add_person_match(person, args)
       person_matches = @persons_matches[person] ||= PersonMatches.new([], [])
-      person_matches.needing_taking_care_update << needing_taking_care_update
-      person_matches.with_no_one_in_charge << with_no_one_in_charge
+      person_matches.needing_taking_care_update << args[:needing_taking_care_update]
+      person_matches.with_no_one_in_charge << args[:with_no_one_in_charge]
     end
 
     def build_matches_needing_taking_care_update

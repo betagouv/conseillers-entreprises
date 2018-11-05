@@ -64,6 +64,10 @@ class User < ApplicationRecord
         .distinct
   end)
 
+  scope :without_antenne, -> do
+    where(antenne_id: nil)
+  end
+
   def active_for_authentication?
     super && is_approved?
   end

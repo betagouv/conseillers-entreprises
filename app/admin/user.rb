@@ -15,10 +15,17 @@ ActiveAdmin.register User do
     :is_admin,
     :password,
     :password_confirmation,
+    :antenne_id,
     expert_ids: [],
   ]
 
-  includes :experts, :relays
+  includes :experts, :relays, :territories, :experts, :antenne
+
+  scope :all, default: true
+  scopes = [:admin, :contact_relays, :without_antenne, ]
+  scopes.each do |s|
+    scope I18n.t("active_admin.user.scopes.#{s}"), s
+  end
 
   # Index
   #
@@ -37,10 +44,23 @@ ActiveAdmin.register User do
         '-'
       end
     end
+    column(:antenne) do |user|
+      if user.antenne.present?
+        link_to(user.antenne.name, admin_antenne_path(user.antenne))
+      else
+        '-'
+      end
+    end
+    column(:territories) do |user|
+      if user.territories.present?
+        safe_join(user.territories.map { |territory| link_to(territory.name, admin_territory_path(territory)) }, ', '.html_safe)
+      else
+        '-'
+      end
+    end
     column :created_at
     column :is_approved
     column :sign_in_count
-    column(:relays) { |user| user.relays.size }
     actions dropdown: true do |user|
       if !user.is_approved?
         item(t('active_admin.user.approve_user'), approve_user_admin_user_path(user), method: :post)
@@ -67,6 +87,7 @@ ActiveAdmin.register User do
     attributes_table do
       row :full_name
       row :institution
+      row :antenne
       row(:experts) do |user|
         if user.experts.present?
           safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
@@ -120,6 +141,11 @@ ActiveAdmin.register User do
     f.inputs I18n.t('active_admin.user.user_info') do
       f.input :full_name
       f.input :institution
+      f.input :antenne, as: :ajax_select, data: {
+        url: :admin_antennes_path,
+        search_fields: [:name],
+        limit: 999,
+      }
       f.input :experts, as: :ajax_select, data: {
         url: :admin_experts_path,
         search_fields: [:full_name],

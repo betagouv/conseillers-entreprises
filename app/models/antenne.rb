@@ -68,8 +68,6 @@ class Antenne < ApplicationRecord
         users: expert.users
       )
 
-      expert.update(full_name: '(antenne créée) ' + expert.full_name)
-
       a
     end
   end
