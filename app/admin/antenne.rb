@@ -2,6 +2,12 @@ ActiveAdmin.register Antenne do
   menu parent: :experts, priority: 3
   includes :institution, :communes, :experts, :users
 
+  permit_params [
+    :name,
+    :institution_id,
+    :insee_codes
+  ]
+
   ## Index
   #
   index do
@@ -33,20 +39,20 @@ ActiveAdmin.register Antenne do
       end
     end
 
+    panel I18n.t('activerecord.models.user.other') do
+      table_for antenne.users do
+        column(:full_name) { |u| link_to(u, admin_user_path(u)) }
+        column :email
+        column :phone_number
+      end
+    end
+
     panel I18n.t('activerecord.models.expert.other') do
       table_for antenne.experts do
         column(:full_name) { |e| link_to(e, admin_expert_path(e)) }
         column :email
         column :phone_number
         column(:assistances) { |e| e.assistances.size }
-      end
-    end
-
-    panel I18n.t('activerecord.models.user.other') do
-      table_for antenne.users do
-        column(:full_name) { |u| link_to(u, admin_user_path(u)) }
-        column :email
-        column :phone_number
       end
     end
 
@@ -59,5 +65,38 @@ ActiveAdmin.register Antenne do
       table_name: I18n.t('activerecord.attributes.match.received', count: antenne.received_matches.size),
       matches_relation: antenne.received_matches
     }
+  end
+
+  ## Form
+  #
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :institution, as: :ajax_select, data: {
+        url: :admin_institutions_path,
+        search_fields: [:name],
+        limit: 999,
+      }
+
+      f.input :insee_codes
+    end
+
+    f.inputs do
+      f.input :users, label: t('activerecord.attributes.antenne.users'), as: :ajax_select, data: {
+        url: :admin_users_path,
+        search_fields: [:full_name],
+        limit: 999,
+      }
+    end
+
+    f.inputs do
+      f.input :experts, label: t('activerecord.attributes.antenne.experts'), as: :ajax_select, data: {
+        url: :admin_experts_path,
+        search_fields: [:full_name],
+        limit: 999,
+      }
+    end
+
+    f.actions
   end
 end
