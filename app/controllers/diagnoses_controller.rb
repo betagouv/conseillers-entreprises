@@ -64,7 +64,8 @@ class DiagnosesController < ApplicationController
     @diagnosis = diagnosis_in_progress(params[:id])
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
     relays = @diagnosis.visit.facility.commune.relays
-    @relays_full_names = relays.map(&:user).map(&:full_name)
+    @relay_users = User.where(relays: relays)
+      .order(:contact_page_order, :full_name)
   end
 
   def selection

@@ -10,7 +10,7 @@ describe 'ApplicationController specific features', type: :feature do
       it do
         expect {
           visit '/admin'
-        }.to raise_error(ActionController::RoutingError)
+        }.to raise_error ActionController::RoutingError
       end
     end
 
