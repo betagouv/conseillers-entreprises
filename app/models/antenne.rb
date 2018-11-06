@@ -65,7 +65,7 @@ class Antenne < ApplicationRecord
 
     def create_from_institution!(institution)
       # Make sure all experts have the same territories
-      if institution.experts.map(&:territories).uniq.length > 1
+      if institution.experts.flat_map(&:territories).uniq.length > 1
         raise 'All experts from the institution must have the same territories'
       end
 
