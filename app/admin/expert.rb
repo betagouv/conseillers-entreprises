@@ -92,6 +92,10 @@ ActiveAdmin.register Expert do
     link_to t('active_admin.antenne.create_antenne'), convert_to_antenne_admin_expert_path(resource)
   end
 
+  action_item :assign_antenne_institution, only: :show do
+    link_to "Assigner l’institution de l’Antenne", assign_antenne_institution_admin_expert_path(resource)
+  end
+
   ## Form
   #
   form do |f|
@@ -146,6 +150,11 @@ ActiveAdmin.register Expert do
   member_action :convert_to_antenne do
     antenne = Antenne.create_from_expert!(resource)
     redirect_to admin_antenne_path(antenne)
+  end
+
+  member_action :assign_antenne_institution do
+    resource.update(institution: resource.antenne.institution)
+    redirect_to admin_expert_path(resource)
   end
 
   batch_action I18n.t('active_admin.person.normalize_values') do |ids|
