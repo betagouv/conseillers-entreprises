@@ -67,4 +67,9 @@ ActiveAdmin.register Territory do
     antenne = Antenne.create_from_territory!(resource)
     redirect_to admin_antenne_path(antenne)
   end
+
+  batch_action I18n.t('active_admin.antenne.create_antenne') do |ids|
+    batch_action_collection.find(ids).each { |territory| Antenne.create_from_territory!(territory) }
+    redirect_to admin_antennes_path, notice: I18n.t('active_admin.antenne.antennes_created')
+  end
 end

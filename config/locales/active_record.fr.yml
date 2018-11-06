@@ -3,7 +3,10 @@ fr:
   activerecord:
     attributes:
       antenne:
+        experts: Équipes / Référents
+        insee_codes: Zone d’intervention
         name: Nom
+        users: Conseillers
       assistance:
         description: Description
         experts: Référents
@@ -51,6 +54,7 @@ fr:
         description: Description
         match: Mise en relation
       institution:
+        antennes: Antennes
         email: E-mail
         name: Raison sociale
         phone_number: Numéro de téléphone

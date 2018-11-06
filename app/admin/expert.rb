@@ -8,6 +8,7 @@ ActiveAdmin.register Expert do
     :full_name,
     :role,
     :institution_id,
+    :antenne_id,
     :email,
     :phone_number,
     user_ids: [],
@@ -24,6 +25,7 @@ ActiveAdmin.register Expert do
     id_column
     column :full_name
     column :institution
+    column :antenne
     column(:users) { |expert| expert.users.size }
     column :role
     column :email
@@ -48,6 +50,7 @@ ActiveAdmin.register Expert do
     attributes_table do
       row :full_name
       row :institution
+      row :antenne
       row :role
       row :email
       row :phone_number
@@ -96,6 +99,11 @@ ActiveAdmin.register Expert do
       f.input :full_name
       f.input :institution, as: :ajax_select, data: {
         url: :admin_institutions_path,
+        search_fields: [:name],
+        limit: 999,
+      }
+      f.input :antenne, as: :ajax_select, data: {
+        url: :admin_antennes_path,
         search_fields: [:name],
         limit: 999,
       }

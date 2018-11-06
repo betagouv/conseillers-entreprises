@@ -2,6 +2,7 @@
 fr:
   active_admin:
     antenne:
+      antennes_created: Antennes créées
       create_antenne: Convertir en Antenne
     dashboard: Tableau de bord
     dashboard_welcome:
@@ -15,8 +16,6 @@ fr:
         with_no_one_in_charge: En attente
     experts:
       access: Accès
-    institutions:
-      experts: Réferents
     matches:
       deleted: "%{expert} (supprimé)"
     person:
