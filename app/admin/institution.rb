@@ -32,6 +32,12 @@ ActiveAdmin.register Institution do
         column(I18n.t('activerecord.attributes.antenne.name')) { |antenne| link_to(antenne, admin_antenne_path(antenne)) }
       end
     end
+
+    panel "Experts (temporaire)" do
+      table_for institution.experts do
+        column { |expert| link_to(expert, admin_expert_path(expert)) }
+      end
+    end
   end
 
   action_item :convert_to_antenne, only: :show do
