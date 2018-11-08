@@ -57,7 +57,7 @@ fr:
       institution:
         antennes: Antennes
         email: E-mail
-        name: Raison sociale
+        name: Nom
         phone_number: Numéro de téléphone
         qualified_for_artisanry: Artisanat ?
         qualified_for_commerce: Commerce ?
