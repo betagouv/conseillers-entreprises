@@ -21,14 +21,16 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
 
     let(:expert_territory1) { create :expert_territory, territory: territory }
     let(:artisanry_institution) { create :institution, qualified_for_artisanry: true, qualified_for_commerce: false }
+    let(:artisanry_antenne) { create :antenne, institution: artisanry_institution }
     let(:artisanry_expert) do
-      create :expert, institution: artisanry_institution, expert_territories: [expert_territory1]
+      create :expert, antenne: artisanry_antenne, expert_territories: [expert_territory1]
     end
 
     let(:expert_territory2) { create :expert_territory, territory: territory }
     let(:commerce_institution) { create :institution, qualified_for_artisanry: false, qualified_for_commerce: true }
+    let(:commerce_antenne) { create :antenne, institution: commerce_institution }
     let(:commerce_expert) do
-      create :expert, institution: commerce_institution, expert_territories: [expert_territory2]
+      create :expert, antenne: commerce_antenne, expert_territories: [expert_territory2]
     end
 
     let!(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis, question: question1 }

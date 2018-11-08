@@ -38,6 +38,7 @@ fr:
         visit: Visite qui a fait l’objet de l’analyse
       expert:
         access_token: Token d’accès
+        antenne: Antenne
         assistances: Champs de compétence
         email: E-mail
         full_name: Prénom et Nom
@@ -56,7 +57,7 @@ fr:
       institution:
         antennes: Antennes
         email: E-mail
-        name: Raison sociale
+        name: Nom
         phone_number: Numéro de téléphone
         qualified_for_artisanry: Artisanat ?
         qualified_for_commerce: Commerce ?

@@ -3,7 +3,7 @@
     = expert.full_name
   .ui.segment
     %strong Rôle et institution :
-    #{expert.role}, #{expert.institution.name}
+    #{expert.role}, #{expert.antenne.name}
   - if expert.phone_number.present?
     .ui.segment
       %strong #{t('activerecord.attributes.expert.phone_number')} :

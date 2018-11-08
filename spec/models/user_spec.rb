@@ -124,7 +124,7 @@ RSpec.describe User, type: :model do
       build :user,
         full_name: 'Ivan Collombet',
         role: 'Business Developer',
-        institution: 'DINSIC'
+        antenne: build(:antenne, name: 'DINSIC')
     end
 
     it { expect(user.full_name_with_role).to eq 'Ivan Collombet (Business Developer, DINSIC)' }

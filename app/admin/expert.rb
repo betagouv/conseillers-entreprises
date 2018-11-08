@@ -38,6 +38,7 @@ ActiveAdmin.register Expert do
 
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
   filter :full_name
   filter :email
@@ -88,24 +89,11 @@ ActiveAdmin.register Expert do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
   end
 
-  action_item :convert_to_antenne, only: :show do
-    link_to t('active_admin.antenne.create_antenne'), convert_to_antenne_admin_expert_path(resource)
-  end
-
-  action_item :assign_antenne_institution, only: :show do
-    link_to "Assigner l’institution de l’Antenne", assign_antenne_institution_admin_expert_path(resource)
-  end
-
   ## Form
   #
   form do |f|
     f.inputs do
       f.input :full_name
-      f.input :institution, as: :ajax_select, data: {
-        url: :admin_institutions_path,
-        search_fields: [:name],
-        limit: 999,
-      }
       f.input :antenne, as: :ajax_select, data: {
         url: :admin_antennes_path,
         search_fields: [:name],
@@ -145,16 +133,6 @@ ActiveAdmin.register Expert do
   member_action :normalize_values do
     resource.normalize_values!
     redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
-  end
-
-  member_action :convert_to_antenne do
-    antenne = Antenne.create_from_expert!(resource)
-    redirect_to admin_antenne_path(antenne)
-  end
-
-  member_action :assign_antenne_institution do
-    resource.update(institution: resource.antenne.institution)
-    redirect_to admin_expert_path(resource)
   end
 
   batch_action I18n.t('active_admin.person.normalize_values') do |ids|

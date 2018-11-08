@@ -45,10 +45,10 @@ panel table_name do
         I18n.t('active_admin.matches.deleted', expert: match.expert_description)
       end
     end
-    column(I18n.t('activerecord.attributes.expert.institution')) do |match|
+    column(I18n.t('activerecord.attributes.expert.antenne')) do |match|
       expert = match.expert
       if expert.present?
-        expert.institution
+        expert.antenne
       elsif match.relay.present?
         match.relay.user.institution
       end

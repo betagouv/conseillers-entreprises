@@ -9,12 +9,11 @@ ActiveAdmin.register Institution do
     antenne_ids: []
   ]
 
+  includes :antennes, :experts
+
   ## Index
   #
-  filter :experts, collection: -> { Expert.ordered_by_names }
   filter :name
-  filter :created_at
-  filter :updated_at
   filter :qualified_for_commerce
   filter :qualified_for_artisanry
 
@@ -30,18 +29,11 @@ ActiveAdmin.register Institution do
     panel I18n.t('activerecord.attributes.institution.antennes') do
       table_for institution.antennes do
         column(I18n.t('activerecord.attributes.antenne.name')) { |antenne| link_to(antenne, admin_antenne_path(antenne)) }
+        column(I18n.t('activerecord.attributes.antenne.experts')) do |antenne|
+          safe_join(antenne.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
+        end
       end
     end
-
-    panel "Experts (temporaire)" do
-      table_for institution.experts do
-        column { |expert| link_to(expert, admin_expert_path(expert)) }
-      end
-    end
-  end
-
-  action_item :convert_to_antenne, only: :show do
-    link_to t('active_admin.antenne.create_antenne'), convert_to_antenne_admin_institution_path(resource)
   end
 
   ## Form
@@ -61,17 +53,5 @@ ActiveAdmin.register Institution do
     end
 
     f.actions
-  end
-
-  ## Actions
-  #
-  member_action :convert_to_antenne do
-    antenne = Antenne.create_from_institution!(resource)
-    redirect_to admin_antenne_path(antenne)
-  end
-
-  batch_action I18n.t('active_admin.antenne.create_antenne') do |ids|
-    batch_action_collection.find(ids).each { |institution| Antenne.create_from_institution!(institution) }
-    redirect_to admin_antennes_path, notice: I18n.t('active_admin.antenne.antennes_created')
   end
 end

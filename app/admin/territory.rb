@@ -43,10 +43,6 @@ ActiveAdmin.register Territory do
     end
   end
 
-  action_item :convert_to_antenne, only: :show do
-    link_to t('active_admin.antenne.create_antenne'), convert_to_antenne_admin_territory_path(resource)
-  end
-
   # Form
   #
   form do |f|
@@ -59,17 +55,5 @@ ActiveAdmin.register Territory do
     end
 
     f.actions
-  end
-
-  ## Actions
-  #
-  member_action :convert_to_antenne do
-    antenne = Antenne.create_from_territory!(resource)
-    redirect_to admin_antenne_path(antenne)
-  end
-
-  batch_action I18n.t('active_admin.antenne.create_antenne') do |ids|
-    batch_action_collection.find(ids).each { |territory| Antenne.create_from_territory!(territory) }
-    redirect_to admin_antennes_path, notice: I18n.t('active_admin.antenne.antennes_created')
   end
 end

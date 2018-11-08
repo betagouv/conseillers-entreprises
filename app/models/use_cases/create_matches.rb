@@ -14,7 +14,7 @@ module UseCases
             assistance = assistance_expert.assistance
             Match.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,
                          expert_full_name: expert.full_name, assistance_title: assistance.title,
-                         expert_institution_name: expert.institution.name
+                         expert_institution_name: expert.antenne.name
           end
         end
 
