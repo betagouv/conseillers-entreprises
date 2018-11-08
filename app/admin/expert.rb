@@ -94,11 +94,6 @@ ActiveAdmin.register Expert do
   form do |f|
     f.inputs do
       f.input :full_name
-      f.input :institution, as: :ajax_select, data: {
-        url: :admin_institutions_path,
-        search_fields: [:name],
-        limit: 999,
-      }
       f.input :antenne, as: :ajax_select, data: {
         url: :admin_antennes_path,
         search_fields: [:name],

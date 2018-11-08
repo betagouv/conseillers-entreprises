@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Expert, type: :model do
   describe 'associations' do
     it do
-      is_expected.to belong_to :institution
+      is_expected.to belong_to :antenne
       is_expected.to have_many(:assistances_experts).dependent(:destroy)
       is_expected.to have_many :assistances
       is_expected.to have_many(:expert_territories).dependent(:destroy)
@@ -19,7 +19,7 @@ RSpec.describe Expert, type: :model do
       it do
         is_expected.to validate_presence_of(:full_name)
         is_expected.to validate_presence_of(:role)
-        is_expected.to validate_presence_of(:institution)
+        is_expected.to validate_presence_of(:antenne)
         is_expected.to validate_presence_of(:email)
       end
     end
@@ -61,8 +61,14 @@ RSpec.describe Expert, type: :model do
       let(:commerce_institution) { create :institution, qualified_for_artisanry: false, qualified_for_commerce: true }
       let(:artisanry_institution) { create :institution, qualified_for_artisanry: true, qualified_for_commerce: false }
 
-      let(:artisanry_expert) { create :expert, institution: artisanry_institution }
-      let(:commerce_expert) { create :expert, institution: commerce_institution }
+      let(:artisanry_expert) do
+        create(:expert,
+          antenne: create(:antenne, institution: artisanry_institution))
+      end
+      let(:commerce_expert) do
+        create(:expert,
+          antenne: create(:antenne, institution: commerce_institution))
+      end
 
       context 'naf code is for artisanry' do
         let(:naf_code) { artisanry_naf_code }

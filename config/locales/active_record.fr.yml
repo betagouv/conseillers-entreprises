@@ -38,6 +38,7 @@ fr:
         visit: Visite qui a fait l’objet de l’analyse
       expert:
         access_token: Token d’accès
+        antenne: Antenne
         assistances: Champs de compétence
         email: E-mail
         full_name: Prénom et Nom

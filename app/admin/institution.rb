@@ -9,9 +9,10 @@ ActiveAdmin.register Institution do
     antenne_ids: []
   ]
 
+  includes :antennes, :experts
+
   ## Index
   #
-  filter :experts, collection: -> { Expert.ordered_by_names }
   filter :name
   filter :created_at
   filter :updated_at
@@ -30,12 +31,9 @@ ActiveAdmin.register Institution do
     panel I18n.t('activerecord.attributes.institution.antennes') do
       table_for institution.antennes do
         column(I18n.t('activerecord.attributes.antenne.name')) { |antenne| link_to(antenne, admin_antenne_path(antenne)) }
-      end
-    end
-
-    panel "Experts (temporaire)" do
-      table_for institution.experts do
-        column { |expert| link_to(expert, admin_expert_path(expert)) }
+        column(I18n.t('activerecord.attributes.antenne.experts')) do |antenne|
+          safe_join(antenne.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
+        end
       end
     end
   end
