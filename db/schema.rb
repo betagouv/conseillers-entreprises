@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_160012) do
+ActiveRecord::Schema.define(version: 2018_11_08_165719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "antennes", force: :cascade do |t|
     t.string "name"
-    t.bigint "institution_id"
+    t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "experts_count"
@@ -163,7 +163,7 @@ ActiveRecord::Schema.define(version: 2018_11_08_160012) do
     t.datetime "updated_at", null: false
     t.string "access_token"
     t.string "full_name"
-    t.bigint "antenne_id"
+    t.bigint "antenne_id", null: false
     t.index ["access_token"], name: "index_experts_on_access_token"
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["email"], name: "index_experts_on_email"
