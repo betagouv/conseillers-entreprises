@@ -24,7 +24,6 @@ class Expert < ApplicationRecord
   ##
   #
   accepts_nested_attributes_for :assistances_experts, allow_destroy: true
-  accepts_nested_attributes_for :expert_territories, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
   ## Scopes

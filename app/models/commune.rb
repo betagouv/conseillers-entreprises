@@ -8,8 +8,6 @@ class Commune < ApplicationRecord
   has_and_belongs_to_many :territories
   has_many :facilities
   has_and_belongs_to_many :antennes
-
-  has_many :experts, through: :territories # this is the current state of data and will be `through: :antennes`
   has_and_belongs_to_many :direct_experts, class_name: 'Expert'
   has_many :antenne_experts, through: :antennes, source: :experts
   has_many :relays, through: :territories

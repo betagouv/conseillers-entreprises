@@ -7,7 +7,6 @@ ActiveAdmin.register Territory do
 
   ## index
   #
-  filter :experts, collection: -> { Expert.ordered_by_names }
   filter :name
   filter :created_at
   filter :updated_at
@@ -23,14 +22,6 @@ ActiveAdmin.register Territory do
         safe_join(territory.communes.map do |commune|
           link_to commune, admin_commune_path(commune)
         end, ', '.html_safe)
-      end
-    end
-
-    panel I18n.t('active_admin.territories.experts') do
-      table_for territory.experts.includes(:institution) do
-        column :full_name, (proc { |expert| link_to(expert.full_name, admin_expert_path(expert)) })
-        column :role
-        column :institution
       end
     end
 

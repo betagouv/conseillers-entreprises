@@ -18,6 +18,3 @@
   .ui.segment
     %strong #{t('activerecord.attributes.expert.assistances')} :
     = expert.assistances.map(&:title).join(', ')
-  .ui.segment
-    %strong #{t('activerecord.attributes.expert.territories')} :
-    = expert.territories.map(&:name).join(', ')
