@@ -1,9 +1,6 @@
 ---
 fr:
   active_admin:
-    antenne:
-      antennes_created: Antennes créées
-      create_antenne: Convertir en Antenne
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
