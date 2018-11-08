@@ -1,7 +1,7 @@
 class Antenne < ApplicationRecord
   ## Relations and Validations
   #
-  belongs_to :institution
+  belongs_to :institution, counter_cache: true
   has_and_belongs_to_many :communes, join_table: :intervention_zones
   has_many :experts
   has_many :users

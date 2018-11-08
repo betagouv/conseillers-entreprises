@@ -17,6 +17,14 @@ ActiveAdmin.register Institution do
   filter :qualified_for_commerce
   filter :qualified_for_artisanry
 
+  index do
+    selectable_column
+    id_column
+    column :name
+    column(:antennes_count)
+    column(:experts_count) { |institution| "#{institution.experts.size}" }
+  end
+
   ## Show
   #
   show do
