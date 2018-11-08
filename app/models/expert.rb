@@ -12,8 +12,6 @@ class Expert < ApplicationRecord
   has_many :assistances_experts, dependent: :destroy
   has_many :assistances, through: :assistances_experts, dependent: :destroy
   has_many :matches, -> { ordered_by_status }, through: :assistances_experts
-  has_many :expert_territories, dependent: :destroy
-  has_many :territories, through: :expert_territories
   has_and_belongs_to_many :communes
 
   validates :antenne, :email, :access_token, presence: true
