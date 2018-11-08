@@ -1,5 +1,5 @@
 ActiveAdmin.register Antenne do
-  menu parent: :experts, priority: 3
+  menu parent: :experts, priority: 2
   includes :institution, :communes, :experts, :users
 
   permit_params [
@@ -15,14 +15,17 @@ ActiveAdmin.register Antenne do
     id_column
     column :name
     column :institution
+    column :experts, :experts_count
+    column :users, :users_count
     column(:communes) { |a| a.communes.size }
-    column(:experts) { |a| a.experts.size }
-    column(:users) { |a| a.users.size }
+    # The two following lines are actually “N+1 requests” expensive
+    # We’ll probably want to remove them or use some counter at some point.
+    column(I18n.t('attributes.match_sent.other')) { |a| "#{a.sent_matches.size}" }
+    column(I18n.t('attributes.match_received.other')) { |a| "#{a.received_matches.size}" }
   end
 
   filter :name
-  filter :institution
-  filter :institution_name
+  filter :institution_name, as: :string, label: I18n.t('activerecord.models.institution.one')
 
   ## Show
   #
@@ -57,12 +60,12 @@ ActiveAdmin.register Antenne do
     end
 
     render partial: 'admin/matches', locals: {
-      table_name: I18n.t('activerecord.attributes.match.sent', count: antenne.sent_matches.size),
+      table_name: I18n.t('attributes.match_sent', count: antenne.sent_matches.size),
       matches_relation: antenne.sent_matches
     }
 
     render partial: 'admin/matches', locals: {
-      table_name: I18n.t('activerecord.attributes.match.received', count: antenne.received_matches.size),
+      table_name: I18n.t('attributes.match_received', count: antenne.received_matches.size),
       matches_relation: antenne.received_matches
     }
   end

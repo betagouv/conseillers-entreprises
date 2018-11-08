@@ -14,15 +14,26 @@ ActiveAdmin.register Institution do
   ## Index
   #
   filter :name
-  filter :qualified_for_commerce
-  filter :qualified_for_artisanry
+  filter :qualified_for_commerce, as: :check_boxes
+  filter :qualified_for_artisanry, as: :check_boxes
 
   index do
     selectable_column
     id_column
     column :name
-    column(:antennes_count)
-    column(:experts_count) { |institution| "#{institution.experts.size}" }
+    column :qualified_for_commerce
+    column :qualified_for_artisanry
+    column :antennes, :antennes_count
+    column(:experts) { |institution| "#{institution.experts.size}" }
+    column(:users) { |institution| "#{institution.users.size}" }
+    # The two following lines are actually “N+1 requests” expensive
+    # We’ll probably want to remove them or use some counter at some point.
+    column(I18n.t('attributes.match_sent.other')) do |institution|
+      "#{institution.sent_matches.size}"
+    end
+    column(I18n.t('attributes.match_received.other')) do |institution|
+      "#{institution.received_matches.size}"
+    end
   end
 
   ## Show
@@ -30,6 +41,8 @@ ActiveAdmin.register Institution do
   show do
     attributes_table do
       row :name
+      row :qualified_for_commerce
+      row :qualified_for_artisanry
       row :created_at
       row :updated_at
     end
@@ -42,6 +55,16 @@ ActiveAdmin.register Institution do
         end
       end
     end
+
+    render partial: 'admin/matches', locals: {
+      table_name: I18n.t('attributes.match_sent', count: institution.sent_matches.size),
+      matches_relation: institution.sent_matches
+    }
+
+    render partial: 'admin/matches', locals: {
+      table_name: I18n.t('attributes.match_received', count: institution.received_matches.size),
+      matches_relation: institution.received_matches
+    }
   end
 
   ## Form
