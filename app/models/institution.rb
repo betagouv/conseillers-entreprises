@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class Institution < ApplicationRecord
+  ## Relations and Validations
+  #
   has_many :antennes
   has_many :experts, through: :antennes
 
   validates :name, presence: true
 
+  ## Scopes
+  #
   scope :of_naf_code, (lambda do |naf_code|
     naf_code_for_artisan?(naf_code) ? qualified_for_artisanry : qualified_for_commerce
   end)
@@ -13,6 +17,8 @@ class Institution < ApplicationRecord
   scope :qualified_for_commerce, (-> { where(qualified_for_commerce: true) })
   scope :ordered_by_name, (-> { order(:name) })
 
+  ##
+  #
   def to_s
     name
   end

@@ -14,8 +14,6 @@ ActiveAdmin.register Institution do
   ## Index
   #
   filter :name
-  filter :created_at
-  filter :updated_at
   filter :qualified_for_commerce
   filter :qualified_for_artisanry
 

@@ -3,6 +3,8 @@
 class Expert < ApplicationRecord
   include PersonConcern
 
+  ## Relations and Validations
+  #
   belongs_to :antenne
   has_one :institution, through: :antenne
 
@@ -13,21 +15,27 @@ class Expert < ApplicationRecord
   has_many :expert_territories, dependent: :destroy
   has_many :territories, through: :expert_territories
 
-  accepts_nested_attributes_for :assistances_experts, allow_destroy: true
-  accepts_nested_attributes_for :expert_territories, allow_destroy: true
-  accepts_nested_attributes_for :users, allow_destroy: true
-
   validates :antenne, :email, :access_token, presence: true
   validates :access_token, uniqueness: true
 
   before_validation :generate_access_token!, on: :create
 
+  ##
+  #
+  accepts_nested_attributes_for :assistances_experts, allow_destroy: true
+  accepts_nested_attributes_for :expert_territories, allow_destroy: true
+  accepts_nested_attributes_for :users, allow_destroy: true
+
+  ## Scopes
+  #
   scope :of_naf_code, -> (naf_code) do
     joins(:institution).merge(Institution.of_naf_code(naf_code))
   end
 
   scope :ordered_by_names, (-> { order(:full_name) })
 
+  ##
+  #
   def generate_access_token!
     self.access_token = SecureRandom.hex(32)
 
@@ -36,6 +44,8 @@ class Expert < ApplicationRecord
     end
   end
 
+  ## Description
+  #
   def is_oneself?
     self.users.size == 1 && self.users.first.experts == [self]
   end
