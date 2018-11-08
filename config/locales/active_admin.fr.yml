@@ -11,6 +11,8 @@ fr:
         done: Résolu
         unsent: Non envoyé
         with_no_one_in_charge: En attente
+    experts:
+      custom_zone: Zone spécifique
     matches:
       deleted: "%{expert} (supprimé)"
     person:

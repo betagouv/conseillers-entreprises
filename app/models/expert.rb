@@ -35,6 +35,9 @@ class Expert < ApplicationRecord
 
   scope :ordered_by_names, (-> { order(:full_name) })
 
+  scope :with_custom_zone, -> { joins(:communes).distinct }
+  scope :without_custom_zone, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
+
   ##
   #
   def generate_access_token!

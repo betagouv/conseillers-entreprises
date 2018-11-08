@@ -30,6 +30,7 @@ ActiveAdmin.register Expert do
     column :email
     column(:assistances) { |expert| expert.assistances.size }
     column(:territories) { |expert| expert.territories.size }
+    column t('active_admin.experts.custom_zone') { |expert| expert.communes.any? }
     actions dropdown: true do |expert|
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
     end
