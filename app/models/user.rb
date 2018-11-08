@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
-  belongs_to :antenne
+  belongs_to :antenne, counter_cache: true
 
   has_many :relays
   has_many :territories, through: :relays

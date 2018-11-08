@@ -35,8 +35,12 @@ class Match < ApplicationRecord
 
   scope :of_relay_or_expert, (lambda do |relay_or_expert|
     if relay_or_expert.is_a?(Enumerable)
-      relations = relay_or_expert.map{ |item| of_relay_or_expert(item) }.compact
-      relations.reduce(&:or)
+      if relay_or_expert.empty?
+        none
+      else
+        relations = relay_or_expert.map{ |item| of_relay_or_expert(item) }.compact
+        relations.reduce(&:or)
+      end
     elsif relay_or_expert.is_a?(Expert)
       left_outer_joins(:assistance_expert).where(assistances_experts: { expert: relay_or_expert })
     elsif relay_or_expert.is_a?(Relay)

@@ -5,7 +5,7 @@ class Expert < ApplicationRecord
 
   ## Relations and Validations
   #
-  belongs_to :antenne
+  belongs_to :antenne, counter_cache: true
   has_one :institution, through: :antenne
 
   has_and_belongs_to_many :users
