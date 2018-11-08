@@ -38,6 +38,7 @@ ActiveAdmin.register Expert do
 
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
   filter :full_name
   filter :email
