@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_152530) do
+ActiveRecord::Schema.define(version: 2018_11_08_125101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,7 +157,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_152530) do
     t.string "email"
     t.string "phone_number"
     t.string "role"
-    t.bigint "institution_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "access_token"
@@ -166,7 +165,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_152530) do
     t.index ["access_token"], name: "index_experts_on_access_token"
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["email"], name: "index_experts_on_email"
-    t.index ["institution_id"], name: "index_experts_on_institution_id"
   end
 
   create_table "experts_users", id: false, force: :cascade do |t|
@@ -320,7 +318,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_152530) do
   add_foreign_key "diagnoses", "visits"
   add_foreign_key "expert_territories", "experts"
   add_foreign_key "expert_territories", "territories"
-  add_foreign_key "experts", "institutions"
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"

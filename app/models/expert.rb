@@ -4,7 +4,7 @@ class Expert < ApplicationRecord
   include PersonConcern
 
   belongs_to :antenne
-  belongs_to :institution # todo: remove and replace with has_one :institution through: :antenne
+  has_one :institution, through: :antenne
 
   has_and_belongs_to_many :users
   has_many :assistances_experts, dependent: :destroy
@@ -17,7 +17,7 @@ class Expert < ApplicationRecord
   accepts_nested_attributes_for :expert_territories, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
-  validates :institution, :email, :access_token, presence: true
+  validates :antenne, :email, :access_token, presence: true
   validates :access_token, uniqueness: true
 
   before_validation :generate_access_token!, on: :create

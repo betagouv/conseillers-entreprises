@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Institution < ApplicationRecord
-  has_many :experts
-
   has_many :antennes
+  has_many :experts, through: :antennes
 
   validates :name, presence: true
 
