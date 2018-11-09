@@ -38,6 +38,7 @@ fr:
         visit: Visite qui a fait l’objet de l’analyse
       expert:
         access_token: Token d’accès
+        antenne: Antenne
         assistances: Champs de compétence
         email: E-mail
         full_name: Prénom et Nom
@@ -56,10 +57,12 @@ fr:
       institution:
         antennes: Antennes
         email: E-mail
-        name: Raison sociale
+        experts: Référents
+        name: Nom
         phone_number: Numéro de téléphone
         qualified_for_artisanry: Artisanat ?
         qualified_for_commerce: Commerce ?
+        users: Conseillers
       match:
         assistance_expert: Référent (non Relais local)
         assistance_title: Champ de compétence
@@ -68,13 +71,7 @@ fr:
         expert_full_name: Référent contacté
         expert_institution_name: Institution du référent
         expert_viewed_page_at: Date de consultation par le référent
-        received:
-          one: Mise en relation reçue
-          other: Mises en relation reçues (%{count})
         relay: Référent (Relais local)
-        sent:
-          one: Mise en relation envoyée
-          other: Mises en relation envoyées (%{count})
         status: Statut
         statuses:
           done: Besoin résolu
@@ -209,4 +206,10 @@ fr:
         other: Visites
   attributes:
     created_at: Date de création
+    match_received:
+      one: Mise en relation reçue
+      other: Mises en relation reçues
+    match_sent:
+      one: Mise en relation envoyée
+      other: Mises en relation envoyées
     updated_at: Date de mise à jour

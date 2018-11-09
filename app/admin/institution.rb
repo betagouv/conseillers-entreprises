@@ -9,20 +9,40 @@ ActiveAdmin.register Institution do
     antenne_ids: []
   ]
 
+  includes :antennes, :experts
+
   ## Index
   #
-  filter :experts, collection: -> { Expert.ordered_by_names }
   filter :name
-  filter :created_at
-  filter :updated_at
-  filter :qualified_for_commerce
-  filter :qualified_for_artisanry
+  filter :qualified_for_commerce, as: :check_boxes
+  filter :qualified_for_artisanry, as: :check_boxes
+
+  index do
+    selectable_column
+    id_column
+    column :name
+    column :qualified_for_commerce
+    column :qualified_for_artisanry
+    column :antennes, :antennes_count
+    column(:experts) { |institution| "#{institution.experts.size}" }
+    column(:users) { |institution| "#{institution.users.size}" }
+    # The two following lines are actually “N+1 requests” expensive
+    # We’ll probably want to remove them or use some counter at some point.
+    column(I18n.t('attributes.match_sent.other')) do |institution|
+      "#{institution.sent_matches.size}"
+    end
+    column(I18n.t('attributes.match_received.other')) do |institution|
+      "#{institution.received_matches.size}"
+    end
+  end
 
   ## Show
   #
   show do
     attributes_table do
       row :name
+      row :qualified_for_commerce
+      row :qualified_for_artisanry
       row :created_at
       row :updated_at
     end
@@ -30,18 +50,21 @@ ActiveAdmin.register Institution do
     panel I18n.t('activerecord.attributes.institution.antennes') do
       table_for institution.antennes do
         column(I18n.t('activerecord.attributes.antenne.name')) { |antenne| link_to(antenne, admin_antenne_path(antenne)) }
+        column(I18n.t('activerecord.attributes.antenne.experts')) do |antenne|
+          safe_join(antenne.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
+        end
       end
     end
 
-    panel "Experts (temporaire)" do
-      table_for institution.experts do
-        column { |expert| link_to(expert, admin_expert_path(expert)) }
-      end
-    end
-  end
+    render partial: 'admin/matches', locals: {
+      table_name: I18n.t('attributes.match_sent', count: institution.sent_matches.size),
+      matches_relation: institution.sent_matches
+    }
 
-  action_item :convert_to_antenne, only: :show do
-    link_to t('active_admin.antenne.create_antenne'), convert_to_antenne_admin_institution_path(resource)
+    render partial: 'admin/matches', locals: {
+      table_name: I18n.t('attributes.match_received', count: institution.received_matches.size),
+      matches_relation: institution.received_matches
+    }
   end
 
   ## Form
@@ -61,17 +84,5 @@ ActiveAdmin.register Institution do
     end
 
     f.actions
-  end
-
-  ## Actions
-  #
-  member_action :convert_to_antenne do
-    antenne = Antenne.create_from_institution!(resource)
-    redirect_to admin_antenne_path(antenne)
-  end
-
-  batch_action I18n.t('active_admin.antenne.create_antenne') do |ids|
-    batch_action_collection.find(ids).each { |institution| Antenne.create_from_institution!(institution) }
-    redirect_to admin_antennes_path, notice: I18n.t('active_admin.antenne.antennes_created')
   end
 end

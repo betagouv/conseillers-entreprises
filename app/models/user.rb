@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
-  belongs_to :antenne
+  belongs_to :antenne, counter_cache: true
 
   has_many :relays
   has_many :territories, through: :relays
@@ -73,7 +73,11 @@ class User < ApplicationRecord
   end
 
   def full_name_with_role
-    "#{full_name} (#{role}, #{institution})"
+    if antenne.present?
+      "#{full_name} (#{role}, #{antenne.name})"
+    else
+      "#{full_name} (#{role}, #{institution})"
+    end
   end
 
   def auto_approve_if_whitelisted_domain

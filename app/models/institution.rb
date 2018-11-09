@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 class Institution < ApplicationRecord
-  has_many :experts
-
+  ## Relations and Validations
+  #
   has_many :antennes
+  has_many :experts, through: :antennes
+  has_many :users, through: :antennes
 
   validates :name, presence: true
 
+  ## Scopes
+  #
   scope :of_naf_code, (lambda do |naf_code|
     naf_code_for_artisan?(naf_code) ? qualified_for_artisanry : qualified_for_commerce
   end)
@@ -14,10 +18,24 @@ class Institution < ApplicationRecord
   scope :qualified_for_commerce, (-> { where(qualified_for_commerce: true) })
   scope :ordered_by_name, (-> { order(:name) })
 
+  ## Matches, Sent and Received
+  #
+  def sent_matches
+    Match.sent_by(users)
+  end
+
+  def received_matches
+    Match.of_relay_or_expert(experts)
+  end
+
+  ##
+  #
   def to_s
     name
   end
 
+  ##
+  #
   def self.naf_code_for_artisan?(naf_code)
     %w[
       1011Z 1012Z 1013A 1013B 1020Z 1031Z 1032Z 1039A 1039B 1041A 1041B 1042Z 1051A 1051B 1051C 1051D 1052Z 1061A 1061B

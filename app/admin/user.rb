@@ -19,7 +19,7 @@ ActiveAdmin.register User do
     expert_ids: [],
   ]
 
-  includes :experts, :relays, :territories, :experts, :antenne
+  includes :experts, :relays, :territories, :antenne
 
   scope :all, default: true
   scopes = [:admin, :contact_relays, :without_antenne, ]

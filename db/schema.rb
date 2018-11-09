@@ -10,16 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_152530) do
+ActiveRecord::Schema.define(version: 2018_11_08_165719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "antennes", force: :cascade do |t|
     t.string "name"
-    t.bigint "institution_id"
+    t.bigint "institution_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "experts_count"
+    t.integer "users_count"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
   end
 
@@ -157,16 +159,14 @@ ActiveRecord::Schema.define(version: 2018_10_30_152530) do
     t.string "email"
     t.string "phone_number"
     t.string "role"
-    t.bigint "institution_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "access_token"
     t.string "full_name"
-    t.bigint "antenne_id"
+    t.bigint "antenne_id", null: false
     t.index ["access_token"], name: "index_experts_on_access_token"
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["email"], name: "index_experts_on_email"
-    t.index ["institution_id"], name: "index_experts_on_institution_id"
   end
 
   create_table "experts_users", id: false, force: :cascade do |t|
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(version: 2018_10_30_152530) do
     t.datetime "updated_at", null: false
     t.boolean "qualified_for_commerce", default: true, null: false
     t.boolean "qualified_for_artisanry", default: true, null: false
+    t.integer "antennes_count"
   end
 
   create_table "intervention_zones", id: false, force: :cascade do |t|
@@ -320,7 +321,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_152530) do
   add_foreign_key "diagnoses", "visits"
   add_foreign_key "expert_territories", "experts"
   add_foreign_key "expert_territories", "territories"
-  add_foreign_key "experts", "institutions"
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
