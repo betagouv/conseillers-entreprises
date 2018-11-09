@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_165719) do
+ActiveRecord::Schema.define(version: 2018_11_08_170718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 2018_11_08_165719) do
     t.integer "experts_count"
     t.integer "users_count"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
+  end
+
+  create_table "antennes_communes", id: false, force: :cascade do |t|
+    t.bigint "antenne_id", null: false
+    t.bigint "commune_id", null: false
+    t.index ["antenne_id"], name: "index_antennes_communes_on_antenne_id"
+    t.index ["commune_id"], name: "index_antennes_communes_on_commune_id"
   end
 
   create_table "assistances", force: :cascade do |t|
@@ -80,10 +87,7 @@ ActiveRecord::Schema.define(version: 2018_11_08_165719) do
   end
 
   create_table "communes_territories", force: :cascade do |t|
-    t.string "city_code"
     t.bigint "territory_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "commune_id", null: false
     t.index ["commune_id"], name: "index_communes_territories_on_commune_id"
     t.index ["territory_id"], name: "index_communes_territories_on_territory_id"
@@ -179,7 +183,6 @@ ActiveRecord::Schema.define(version: 2018_11_08_165719) do
   create_table "facilities", force: :cascade do |t|
     t.bigint "company_id"
     t.string "siret"
-    t.string "city_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "naf_code"
@@ -204,13 +207,6 @@ ActiveRecord::Schema.define(version: 2018_11_08_165719) do
     t.boolean "qualified_for_commerce", default: true, null: false
     t.boolean "qualified_for_artisanry", default: true, null: false
     t.integer "antennes_count"
-  end
-
-  create_table "intervention_zones", id: false, force: :cascade do |t|
-    t.bigint "antenne_id", null: false
-    t.bigint "commune_id", null: false
-    t.index ["antenne_id"], name: "index_intervention_zones_on_antenne_id"
-    t.index ["commune_id"], name: "index_intervention_zones_on_commune_id"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -310,6 +306,8 @@ ActiveRecord::Schema.define(version: 2018_11_08_165719) do
     t.index ["visitee_id"], name: "index_visits_on_visitee_id"
   end
 
+  add_foreign_key "antennes_communes", "antennes"
+  add_foreign_key "antennes_communes", "communes"
   add_foreign_key "assistances", "questions"
   add_foreign_key "assistances_experts", "assistances"
   add_foreign_key "assistances_experts", "experts"
@@ -324,8 +322,6 @@ ActiveRecord::Schema.define(version: 2018_11_08_165719) do
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
-  add_foreign_key "intervention_zones", "antennes"
-  add_foreign_key "intervention_zones", "communes"
   add_foreign_key "matches", "assistances_experts", column: "assistances_experts_id"
   add_foreign_key "matches", "diagnosed_needs"
   add_foreign_key "matches", "relays"
