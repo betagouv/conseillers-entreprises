@@ -88,14 +88,14 @@ You can import data in your local development database from remote staging datab
 ````
 scalingo -a reso-staging db-tunnel SCALINGO_POSTGRESQL_URL
 # In another terminal
-scalingo -a reso-staging env # gives you the database password
+scalingo -a reso-staging env | grep POSTGRESQL # gives you the database password
 pg_dump --no-owner --no-acl reso_stagin_5827 > tmp/export.pgsql  -h localhost -p 10000 -U reso_stagin_5827 -o
 ````
 
 ````
 scalingo -a reso-production db-tunnel SCALINGO_POSTGRESQL_URL
 # In another terminal
-scalingo -a reso-production env # gives you the database password
+scalingo -a reso-production env | grep POSTGRESQL # gives you the database password
 pg_dump --no-owner --no-acl e_conseils_2947 > tmp/export.pgsql  -h localhost -p 10000 -U e_conseils_2947 -o
 ````
 
