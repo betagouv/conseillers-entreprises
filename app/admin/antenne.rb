@@ -5,7 +5,9 @@ ActiveAdmin.register Antenne do
   permit_params [
     :name,
     :institution_id,
-    :insee_codes
+    :insee_codes,
+    user_ids: [],
+    expert_ids: [],
   ]
 
   ## Index
