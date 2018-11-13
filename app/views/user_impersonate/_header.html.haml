@@ -4,7 +4,7 @@
     %span.admin-name<>= current_staff_user
     ) utilisez voyez le site en tant que
     %span.user-name= current_user
-    = " (ID de l'utilisateur : #{current_user.id})"
+    = " (ID de l'utilisateur : #{current_user&.id})"
 
   .impersonate-buttons
     = form_tag impersonate_engine.revert_impersonate_user_url, method: :delete, class: 'revert-form' do

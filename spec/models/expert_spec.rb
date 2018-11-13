@@ -8,8 +8,6 @@ RSpec.describe Expert, type: :model do
       is_expected.to belong_to :antenne
       is_expected.to have_many(:assistances_experts).dependent(:destroy)
       is_expected.to have_many :assistances
-      is_expected.to have_many(:expert_territories).dependent(:destroy)
-      is_expected.to have_many :territories
       is_expected.to have_and_belong_to_many :users
       is_expected.to have_and_belong_to_many :communes
     end

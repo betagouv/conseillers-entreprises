@@ -24,11 +24,11 @@ ActiveAdmin.register Expert do
     column :full_name
     column :institution
     column :antenne
+    column :custom_zone?
     column(:users) { |expert| expert.users.size }
     column :role
     column :email
     column(:assistances) { |expert| expert.assistances.size }
-    column t('active_admin.experts.custom_zone') { |expert| expert.communes.any? }
     actions dropdown: true do |expert|
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
     end

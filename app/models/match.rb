@@ -10,7 +10,6 @@ class Match < ApplicationRecord
   belongs_to :assistance_expert, foreign_key: :assistances_experts_id
   belongs_to :relay
   has_one :expert, through: :assistance_expert
-  has_many :territories, through: :expert
   has_many :feedbacks, dependent: :destroy
 
   validates :diagnosed_need, presence: true

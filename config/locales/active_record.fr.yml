@@ -3,8 +3,9 @@ fr:
   activerecord:
     attributes:
       antenne:
+        communes: Zone d’intervention
         experts: Équipes / Référents
-        insee_codes: Zone d’intervention
+        insee_codes: Codes commune
         name: Nom
         users: Conseillers
       assistance:
@@ -40,6 +41,7 @@ fr:
         access_token: Token d’accès
         antenne: Antenne
         assistances: Champs de compétence
+        custom_zone?: Zone spécifique
         email: E-mail
         full_name: Prénom et Nom
         institution: Institution
