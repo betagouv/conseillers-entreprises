@@ -12,6 +12,9 @@ ActiveAdmin.register Antenne do
 
   ## Index
   #
+
+  config.sort_order = 'name_asc'
+
   index do
     selectable_column
     id_column
