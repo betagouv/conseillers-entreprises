@@ -54,11 +54,7 @@ ActiveAdmin.register Expert do
       row :phone_number
       row :access_token
     end
-    panel I18n.t('activerecord.attributes.expert.users') do
-      table_for expert.users do
-        column { |user| link_to(user.full_name, admin_user_path(user)) + "<br/> #{user.role}, #{user.institution}".html_safe }
-      end
-    end
+
     panel I18n.t('activerecord.attributes.expert.assistances') do
       table_for expert.assistances do
         column :question
@@ -66,7 +62,12 @@ ActiveAdmin.register Expert do
       end
     end
 
-    render partial: 'admin/matches', locals: { matches_relation: expert.matches }
+    render partial: 'admin/users', locals: {
+      table_name: I18n.t('activerecord.attributes.expert.users'),
+      users: expert.users
+    }
+
+    render partial: 'admin/matches', locals: { matches: expert.matches }
   end
 
   action_item :normalize_values, only: :show do

@@ -1,0 +1,14 @@
+table_name = table_name || "#{I18n.t('activerecord.models.user', count: users.size)}"
+if users.size > 1
+  table_name = "#{table_name} (#{users.size})"
+end
+
+panel table_name do
+  table_for users do
+    column(:full_name) { |user| link_to(user, admin_user_path(user)) }
+    column :antenne
+    column :institution
+    column :email
+    column :phone_number
+  end
+end

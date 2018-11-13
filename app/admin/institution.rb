@@ -41,23 +41,29 @@ ActiveAdmin.register Institution do
       row :updated_at
     end
 
-    panel I18n.t('activerecord.attributes.institution.antennes') do
-      table_for institution.antennes do
-        column(I18n.t('activerecord.attributes.antenne.name')) { |antenne| link_to(antenne, admin_antenne_path(antenne)) }
-        column(I18n.t('activerecord.attributes.antenne.experts')) do |antenne|
-          safe_join(antenne.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
-        end
-      end
-    end
+    render partial: 'admin/antennes', locals: {
+      table_name: I18n.t('activerecord.attributes.institution.antennes'),
+      antennes: institution.antennes
+    }
+
+    render partial: 'admin/users', locals: {
+      table_name: I18n.t('activerecord.attributes.institution.users'),
+      users: institution.users
+    }
+
+    render partial: 'admin/experts', locals: {
+      table_name: I18n.t('activerecord.attributes.institution.experts'),
+      experts: institution.experts
+    }
 
     render partial: 'admin/matches', locals: {
       table_name: I18n.t('attributes.match_sent', count: institution.sent_matches.size),
-      matches_relation: institution.sent_matches
+      matches: institution.sent_matches
     }
 
     render partial: 'admin/matches', locals: {
       table_name: I18n.t('attributes.match_received', count: institution.received_matches.size),
-      matches_relation: institution.received_matches
+      matches: institution.received_matches
     }
   end
 
