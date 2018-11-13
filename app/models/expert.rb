@@ -7,12 +7,12 @@ class Expert < ApplicationRecord
   #
   belongs_to :antenne, counter_cache: true
   has_one :institution, through: :antenne
+  include ManyCommunes
 
   has_and_belongs_to_many :users
   has_many :assistances_experts, dependent: :destroy
   has_many :assistances, through: :assistances_experts, dependent: :destroy
   has_many :matches, -> { ordered_by_status }, through: :assistances_experts
-  has_and_belongs_to_many :communes
 
   validates :antenne, :email, :access_token, presence: true
   validates :access_token, uniqueness: true
@@ -49,6 +49,10 @@ class Expert < ApplicationRecord
   #
   def is_oneself?
     self.users.size == 1 && self.users.first.experts == [self]
+  end
+
+  def custom_zone?
+    communes.any?
   end
 
   def full_name_with_role
