@@ -51,6 +51,10 @@ class Expert < ApplicationRecord
     self.users.size == 1 && self.users.first.experts == [self]
   end
 
+  def custom_zone?
+    communes.any?
+  end
+
   def full_name_with_role
     "#{full_name} (#{role}, #{antenne.name})"
   end
