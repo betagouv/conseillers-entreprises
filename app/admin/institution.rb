@@ -14,15 +14,11 @@ ActiveAdmin.register Institution do
   ## Index
   #
   filter :name
-  filter :qualified_for_commerce, as: :check_boxes
-  filter :qualified_for_artisanry, as: :check_boxes
 
   index do
     selectable_column
     id_column
     column :name
-    column :qualified_for_commerce
-    column :qualified_for_artisanry
     column :antennes, :antennes_count
     column(:experts) { |institution| "#{institution.experts.size}" }
     column(:users) { |institution| "#{institution.users.size}" }
@@ -41,8 +37,6 @@ ActiveAdmin.register Institution do
   show do
     attributes_table do
       row :name
-      row :qualified_for_commerce
-      row :qualified_for_artisanry
       row :created_at
       row :updated_at
     end
@@ -72,8 +66,6 @@ ActiveAdmin.register Institution do
   form do |f|
     f.inputs do
       f.input :name
-      f.input :qualified_for_commerce
-      f.input :qualified_for_artisanry
     end
     f.inputs do
       f.input :antennes, label: t('activerecord.attributes.institution.antennes'), as: :ajax_select, data: {
