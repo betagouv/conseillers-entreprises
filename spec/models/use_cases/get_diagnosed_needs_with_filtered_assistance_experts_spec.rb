@@ -9,7 +9,6 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
     let(:commune) { create :commune, insee_code: '75001' }
     let(:facility) { create :facility, commune: commune, naf_code: artisanry_naf_code }
     let(:visit) { create :visit, facility: facility }
-    let!(:territory) { create :territory }
 
     let!(:diagnosis) { create :diagnosis, visit: visit }
     let!(:question1) { create :question }
@@ -19,26 +18,19 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
 
     let(:artisanry_naf_code) { '1011Z' }
 
-    let(:expert_territory1) { create :expert_territory, territory: territory }
     let(:artisanry_institution) { create :institution, qualified_for_artisanry: true, qualified_for_commerce: false }
     let(:artisanry_antenne) { create :antenne, institution: artisanry_institution }
-    let(:artisanry_expert) do
-      create :expert, antenne: artisanry_antenne, expert_territories: [expert_territory1]
-    end
+    let(:artisanry_expert) { create :expert, antenne: artisanry_antenne, communes: [commune] }
 
-    let(:expert_territory2) { create :expert_territory, territory: territory }
     let(:commerce_institution) { create :institution, qualified_for_artisanry: false, qualified_for_commerce: true }
     let(:commerce_antenne) { create :antenne, institution: commerce_institution }
-    let(:commerce_expert) do
-      create :expert, antenne: commerce_antenne, expert_territories: [expert_territory2]
-    end
+    let(:commerce_expert) { create :expert, antenne: commerce_antenne, communes: [commune] }
 
     let!(:diagnosed_need1) { create :diagnosed_need, diagnosis: diagnosis, question: question1 }
     let!(:diagnosed_need2) { create :diagnosed_need, diagnosis: diagnosis, question: question2 }
 
     before do
       create :diagnosed_need
-      territory.communes << commune
     end
 
     context 'with assistance experts' do

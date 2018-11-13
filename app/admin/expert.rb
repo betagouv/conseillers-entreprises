@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Expert do
   menu priority: 6
-  includes :institution, :assistances, :territories, :users
+  includes :institution, :assistances, :users
 
   permit_params [
     :full_name,
@@ -13,7 +13,6 @@ ActiveAdmin.register Expert do
     :phone_number,
     user_ids: [],
     assistance_ids: [],
-    expert_territories_attributes: %i[id territory_id _create _update _destroy],
     assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
   ]
 
@@ -29,7 +28,7 @@ ActiveAdmin.register Expert do
     column :role
     column :email
     column(:assistances) { |expert| expert.assistances.size }
-    column(:territories) { |expert| expert.territories.size }
+    column t('active_admin.experts.custom_zone') { |expert| expert.communes.any? }
     actions dropdown: true do |expert|
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
     end
@@ -54,13 +53,6 @@ ActiveAdmin.register Expert do
       row :email
       row :phone_number
       row :access_token
-    end
-    attributes_table do
-      row "Territoires (temporaire)" do |expert|
-        safe_join(expert.territories.map do |territory|
-          link_to territory.name, admin_territory_path(territory)
-        end, ', '.html_safe)
-      end
     end
     panel I18n.t('activerecord.attributes.expert.users') do
       table_for expert.users do

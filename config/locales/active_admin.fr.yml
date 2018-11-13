@@ -11,13 +11,14 @@ fr:
         done: Résolu
         unsent: Non envoyé
         with_no_one_in_charge: En attente
+    experts:
+      custom_zone: Zone spécifique
     matches:
       deleted: "%{expert} (supprimé)"
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     territories:
-      experts: Référents
       relais: Relais locaux
     user:
       admin: Admin
