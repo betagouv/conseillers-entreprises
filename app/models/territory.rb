@@ -13,11 +13,12 @@ class Territory < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_by_name, (-> { order(:name) })
+  scope :ordered_by_name, -> { order(:name) }
+  scope :bassins_emploi, -> { where(bassin_emploi: true) }
 
   ##
   #
   def to_s
-    "#{id} : #{name}"
+    name
   end
 end

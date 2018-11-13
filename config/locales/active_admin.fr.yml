@@ -16,6 +16,9 @@ fr:
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
+    territory:
+      scopes:
+        bassins_emploi: Bassins d’emploi
     user:
       admin: Admin
       approve_user: Valider le compte

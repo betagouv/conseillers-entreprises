@@ -98,6 +98,7 @@ fr:
       territory:
         advisors: Conseillers
         antennes: Antennes
+        bassin_emploi: Bassin d’emploi?
         experts: Experts
         insee_codes: Codes commune
         name: Nom
