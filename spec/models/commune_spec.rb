@@ -26,4 +26,16 @@ RSpec.describe Commune, type: :model do
       is_expected.not_to allow_value('').for :insee_code
     end
   end
+
+  describe 'all experts' do
+    subject { commune.all_experts }
+
+    let(:commune) { create :commune }
+
+    let(:expert_direct) { create :expert, communes: [commune] }
+    let(:expert_via_antenne) { create :expert, antenne: antenne }
+    let(:antenne) { create :antenne, communes: [commune] }
+
+    it { is_expected.to match_array [expert_direct, expert_via_antenne] }
+  end
 end

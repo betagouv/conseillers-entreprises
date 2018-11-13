@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_170718) do
+ActiveRecord::Schema.define(version: 2018_11_08_171440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,13 @@ ActiveRecord::Schema.define(version: 2018_11_08_170718) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["insee_code"], name: "index_communes_on_insee_code", unique: true
+  end
+
+  create_table "communes_experts", id: false, force: :cascade do |t|
+    t.bigint "commune_id", null: false
+    t.bigint "expert_id", null: false
+    t.index ["commune_id"], name: "index_communes_experts_on_commune_id"
+    t.index ["expert_id"], name: "index_communes_experts_on_expert_id"
   end
 
   create_table "communes_territories", force: :cascade do |t|
@@ -311,6 +318,8 @@ ActiveRecord::Schema.define(version: 2018_11_08_170718) do
   add_foreign_key "assistances", "questions"
   add_foreign_key "assistances_experts", "assistances"
   add_foreign_key "assistances_experts", "experts"
+  add_foreign_key "communes_experts", "communes"
+  add_foreign_key "communes_experts", "experts"
   add_foreign_key "communes_territories", "communes"
   add_foreign_key "communes_territories", "territories"
   add_foreign_key "contacts", "companies"

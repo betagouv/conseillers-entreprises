@@ -11,6 +11,7 @@ RSpec.describe Expert, type: :model do
       is_expected.to have_many(:expert_territories).dependent(:destroy)
       is_expected.to have_many :territories
       is_expected.to have_and_belong_to_many :users
+      is_expected.to have_and_belong_to_many :communes
     end
   end
 
@@ -84,6 +85,26 @@ RSpec.describe Expert, type: :model do
         it 'returns the expert for commerce' do
           is_expected.to match_array [commerce_expert]
         end
+      end
+    end
+
+    describe 'commune zone scopes' do
+      let(:expert_with_custom_zone) { create :expert, antenne: antenne, communes: [commune1] }
+      let(:expert_without_custom_zone) { create :expert, antenne: antenne }
+      let(:commune1) { create :commune }
+      let(:commune2) { create :commune }
+      let!(:antenne) { create :antenne, communes: [commune1, commune2] }
+
+      describe 'with_custom_zone' do
+        subject { Expert.with_custom_zone }
+
+        it { is_expected.to match_array [expert_with_custom_zone] }
+      end
+
+      describe 'without_custom_zone' do
+        subject { Expert.without_custom_zone }
+
+        it { is_expected.to match_array [expert_without_custom_zone] }
       end
     end
   end

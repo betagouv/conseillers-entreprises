@@ -45,7 +45,6 @@ fr:
         institution: Institution
         phone_number: Numéro de téléphone
         role: Fonction
-        territories: Territoires
         users: Membres
       facility:
         company: Entreprise
