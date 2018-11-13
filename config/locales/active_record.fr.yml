@@ -96,8 +96,12 @@ fr:
         query: SIRET recherché
         user: Utilisateur
       territory:
+        advisors: Conseillers
+        antennes: Antennes
+        experts: Experts
         insee_codes: Codes commune
         name: Nom
+        relays: Relais
       user:
         confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
         confirmation_token: Token de confirmation d’e-mail
