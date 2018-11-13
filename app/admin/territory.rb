@@ -2,8 +2,7 @@
 
 ActiveAdmin.register Territory do
   menu priority: 8
-  permit_params :name,
-    :insee_codes
+  permit_params :name, :insee_codes
 
   ## index
   #
@@ -18,8 +17,8 @@ ActiveAdmin.register Territory do
       row :name
       row :created_at
       row :updated_at
-      row(:insee_codes) do |territory|
-        safe_join(territory.communes.map do |commune|
+      row(:communes) do |t|
+        safe_join(t.communes.map do |commune|
           link_to commune, admin_commune_path(commune)
         end, ', '.html_safe)
       end
