@@ -1,5 +1,5 @@
 ActiveAdmin.register Antenne do
-  menu parent: :experts, priority: 2
+  menu parent: :experts, priority: 1
   includes :institution, :communes, :experts, :users
 
   permit_params [

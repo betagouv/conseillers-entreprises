@@ -20,7 +20,7 @@ ActiveAdmin.register Expert do
   #
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
-  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
+  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
   filter :full_name
   filter :email
   filter :phone_number

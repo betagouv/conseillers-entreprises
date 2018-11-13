@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Institution do
-  menu parent: :experts, priority: 1
+  menu parent: :experts, priority: 2
   permit_params [
     :name,
     :qualified_for_commerce,
