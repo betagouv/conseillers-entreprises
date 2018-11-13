@@ -38,7 +38,7 @@ ActiveAdmin.register Antenne do
     attributes_table do
       row :name
       row :institution
-      row(:communes) { |a| safe_join(a.communes.map { |commune| link_to commune, admin_commune_path(commune) }, ', '.html_safe) }
+      row(:communes) { |a| intervention_zone_description(a) }
     end
 
     render partial: 'admin/users', locals: {

@@ -55,8 +55,8 @@ ActiveAdmin.register Expert do
       row :full_name
       row :institution
       row :antenne
-      row(:communes) { |e| safe_join(e.communes.map { |commune| link_to commune, admin_commune_path(commune) }, ', '.html_safe) }
       row :custom_communes?
+      row(:communes) { |expert| intervention_zone_description(expert) }
       row :role
       row :email
       row :phone_number
