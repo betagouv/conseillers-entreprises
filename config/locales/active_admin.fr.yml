@@ -13,7 +13,7 @@ fr:
         with_no_one_in_charge: En attente
     experts:
       scopes:
-        with_custom_zone: Zone spécifique
+        with_custom_communes: Zone spécifique
     matches:
       deleted: "%{expert} (supprimé)"
     person:

@@ -37,8 +37,8 @@ class Expert < ApplicationRecord
       .order('institutions.name', 'antennes.name', :full_name)
   end
 
-  scope :with_custom_zone, -> { joins(:communes).distinct }
-  scope :without_custom_zone, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
+  scope :with_custom_communes, -> { joins(:communes).distinct }
+  scope :without_custom_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
 
   ##
   #
@@ -56,7 +56,7 @@ class Expert < ApplicationRecord
     self.users.size == 1 && self.users.first.experts == [self]
   end
 
-  def custom_zone?
+  def custom_communes?
     communes.any?
   end
 

@@ -87,22 +87,22 @@ RSpec.describe Expert, type: :model do
     end
 
     describe 'commune zone scopes' do
-      let(:expert_with_custom_zone) { create :expert, antenne: antenne, communes: [commune1] }
-      let(:expert_without_custom_zone) { create :expert, antenne: antenne }
+      let(:expert_with_custom_communes) { create :expert, antenne: antenne, communes: [commune1] }
+      let(:expert_without_custom_communes) { create :expert, antenne: antenne }
       let(:commune1) { create :commune }
       let(:commune2) { create :commune }
       let!(:antenne) { create :antenne, communes: [commune1, commune2] }
 
-      describe 'with_custom_zone' do
-        subject { Expert.with_custom_zone }
+      describe 'with_custom_communes' do
+        subject { Expert.with_custom_communes }
 
-        it { is_expected.to match_array [expert_with_custom_zone] }
+        it { is_expected.to match_array [expert_with_custom_communes] }
       end
 
-      describe 'without_custom_zone' do
-        subject { Expert.without_custom_zone }
+      describe 'without_custom_communes' do
+        subject { Expert.without_custom_communes }
 
-        it { is_expected.to match_array [expert_without_custom_zone] }
+        it { is_expected.to match_array [expert_without_custom_communes] }
       end
     end
   end
