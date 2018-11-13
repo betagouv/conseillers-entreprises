@@ -9,7 +9,7 @@ ActiveAdmin.register Institution do
     antenne_ids: []
   ]
 
-  includes :antennes, :experts
+  includes :antennes, :users, :experts
 
   ## Index
   #

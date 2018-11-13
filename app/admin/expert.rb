@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Expert do
   menu priority: 6
-  includes :institution, :assistances, :users
+  includes :antenne, :institution, :communes, :assistances, :users
 
   permit_params [
     :full_name,
