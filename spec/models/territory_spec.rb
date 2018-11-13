@@ -6,8 +6,6 @@ RSpec.describe Territory, type: :model do
   describe 'validations' do
     it do
       is_expected.to have_and_belong_to_many :communes
-      is_expected.to have_many :expert_territories
-      is_expected.to have_many :experts
     end
   end
 

@@ -2,8 +2,6 @@
 
 class Territory < ApplicationRecord
   has_and_belongs_to_many :communes
-  has_many :expert_territories
-  has_many :experts, through: :expert_territories
   has_many :relays
   has_many :users, through: :relays
 
