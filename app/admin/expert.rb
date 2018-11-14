@@ -26,6 +26,11 @@ ActiveAdmin.register Expert do
   filter :phone_number
   filter :role
 
+  scope :all, default: true
+  scope I18n.t("active_admin.experts.scopes.with_custom_zone"), :with_custom_zone
+
+  config.sort_order = 'full_name_asc'
+
   index do
     selectable_column
     id_column
@@ -49,6 +54,8 @@ ActiveAdmin.register Expert do
       row :full_name
       row :institution
       row :antenne
+      row :custom_zone?
+      row(:communes) { |e| safe_join(e.communes.map { |commune| link_to commune, admin_commune_path(commune) }, ', '.html_safe) }
       row :role
       row :email
       row :phone_number
