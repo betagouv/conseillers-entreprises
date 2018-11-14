@@ -1,0 +1,13 @@
+table_name = table_name || "#{I18n.t('activerecord.models.antenne', count: antennes.size)}"
+if antennes.size > 1
+  table_name = "#{table_name} (#{antennes.size})"
+end
+
+panel table_name do
+  table_for antennes do
+    column(I18n.t('activerecord.attributes.antenne.name')) { |antenne| link_to(antenne, admin_antenne_path(antenne)) }
+    column(I18n.t('activerecord.attributes.antenne.experts')) do |antenne|
+      safe_join(antenne.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
+    end
+  end
+end

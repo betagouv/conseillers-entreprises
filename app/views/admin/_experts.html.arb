@@ -1,0 +1,15 @@
+table_name = table_name || "#{I18n.t('activerecord.models.expert', count: experts.size)}"
+if experts.size > 1
+  table_name = "#{table_name} (#{experts.size})"
+end
+
+panel table_name do
+  table_for experts do
+    column(:full_name) { |expert| link_to(expert, admin_expert_path(expert)) }
+    column :antenne
+    column :institution
+    column :email
+    column :phone_number
+    column(:assistances) { |expert| expert.assistances.size }
+  end
+end

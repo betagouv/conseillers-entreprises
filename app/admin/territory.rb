@@ -4,6 +4,8 @@ ActiveAdmin.register Territory do
   menu priority: 8
   permit_params :name, :insee_codes
 
+  includes :users, :advisors, :experts
+
   ## index
   #
   filter :name
@@ -17,20 +19,30 @@ ActiveAdmin.register Territory do
       row :name
       row :created_at
       row :updated_at
-      row(:communes) do |t|
-        safe_join(t.communes.map do |commune|
-          link_to commune, admin_commune_path(commune)
-        end, ', '.html_safe)
-      end
+      row(:communes) { |t| safe_join(t.communes.map { |commune| link_to commune, admin_commune_path(commune) }, ', '.html_safe) }
     end
 
-    render partial: 'admin/matches', locals: { matches_relation: Match.in_territory(territory).ordered_by_status }
-  end
+    render partial: 'admin/antennes', locals: {
+      table_name: I18n.t('activerecord.attributes.territory.antennes'),
+      antennes: territory.antennes
+    }
 
-  sidebar I18n.t('active_admin.territories.relais'), only: :show do
-    table_for territory.users do
-      column { |user| link_to(user.full_name, admin_user_path(user)) + "<br/> #{user.role}, #{user.institution}".html_safe }
-    end
+    render partial: 'admin/users', locals: {
+      table_name: I18n.t('activerecord.attributes.territory.relays'),
+      users: territory.users.distinct
+    }
+
+    render partial: 'admin/users', locals: {
+      table_name: I18n.t('activerecord.attributes.territory.advisors'),
+      users: territory.advisors.distinct
+    }
+
+    render partial: 'admin/experts', locals: {
+      table_name: I18n.t('activerecord.attributes.territory.experts'),
+      experts: territory.experts.distinct
+    }
+
+    render partial: 'admin/matches', locals: { matches: Match.in_territory(territory).ordered_by_status }
   end
 
   # Form

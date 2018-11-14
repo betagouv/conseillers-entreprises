@@ -12,6 +12,9 @@ ActiveAdmin.register Antenne do
 
   ## Index
   #
+
+  config.sort_order = 'name_asc'
+
   index do
     selectable_column
     id_column
@@ -44,31 +47,24 @@ ActiveAdmin.register Antenne do
       end
     end
 
-    panel I18n.t('activerecord.models.user.other') do
-      table_for antenne.users do
-        column(:full_name) { |u| link_to(u, admin_user_path(u)) }
-        column :email
-        column :phone_number
-      end
-    end
+    render partial: 'admin/users', locals: {
+      table_name: I18n.t('activerecord.attributes.antenne.users'),
+      users: antenne.users
+    }
 
-    panel I18n.t('activerecord.models.expert.other') do
-      table_for antenne.experts do
-        column(:full_name) { |e| link_to(e, admin_expert_path(e)) }
-        column :email
-        column :phone_number
-        column(:assistances) { |e| e.assistances.size }
-      end
-    end
+    render partial: 'admin/experts', locals: {
+      table_name: I18n.t('activerecord.attributes.antenne.experts'),
+      experts: antenne.experts
+    }
 
     render partial: 'admin/matches', locals: {
       table_name: I18n.t('attributes.match_sent', count: antenne.sent_matches.size),
-      matches_relation: antenne.sent_matches
+      matches: antenne.sent_matches
     }
 
     render partial: 'admin/matches', locals: {
       table_name: I18n.t('attributes.match_received', count: antenne.received_matches.size),
-      matches_relation: antenne.received_matches
+      matches: antenne.received_matches
     }
   end
 

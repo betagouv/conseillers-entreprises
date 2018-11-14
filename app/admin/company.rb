@@ -25,6 +25,6 @@ ActiveAdmin.register Company do
       end
     end
 
-    render partial: 'admin/matches', locals: { matches_relation: Match.of_facilities(company.facilities) }
+    render partial: 'admin/matches', locals: { matches: Match.of_facilities(company.facilities) }
   end
 end
