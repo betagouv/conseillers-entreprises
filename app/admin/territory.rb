@@ -33,17 +33,17 @@ ActiveAdmin.register Territory do
 
     render partial: 'admin/users', locals: {
       table_name: I18n.t('activerecord.attributes.territory.relays'),
-      users: territory.users.distinct
+      users: territory.users
     }
 
     render partial: 'admin/users', locals: {
       table_name: I18n.t('activerecord.attributes.territory.advisors'),
-      users: territory.advisors.distinct
+      users: territory.advisors
     }
 
     render partial: 'admin/experts', locals: {
       table_name: I18n.t('activerecord.attributes.territory.experts'),
-      experts: territory.experts.distinct
+      experts: territory.experts
     }
 
     render partial: 'admin/matches', locals: { matches: Match.in_territory(territory).ordered_by_status }
