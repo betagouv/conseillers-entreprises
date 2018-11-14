@@ -31,6 +31,6 @@ ActiveAdmin.register Diagnosis do
       end
     end
 
-    render partial: 'admin/matches', locals: { matches_relation: diagnosis.matches }
+    render partial: 'admin/matches', locals: { matches: diagnosis.matches }
   end
 end

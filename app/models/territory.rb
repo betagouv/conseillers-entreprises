@@ -7,13 +7,18 @@ class Territory < ApplicationRecord
   has_many :relays
   has_many :users, through: :relays
 
+  has_many :antennes, -> { distinct }, through: :communes
+  has_many :advisors, -> { distinct }, through: :antennes, source: :users
+  has_many :experts, -> { distinct }, through: :antennes
+
   ## Scopes
   #
-  scope :ordered_by_name, (-> { order(:name) })
+  scope :ordered_by_name, -> { order(:name) }
+  scope :bassins_emploi, -> { where(bassin_emploi: true) }
 
   ##
   #
   def to_s
-    "#{id} : #{name}"
+    name
   end
 end

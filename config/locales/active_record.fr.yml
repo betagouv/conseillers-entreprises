@@ -9,6 +9,7 @@ fr:
         name: Nom
         users: Conseillers
       assistance:
+        category: Catégorie
         description: Description
         experts: Référents
         question: Besoin parent
@@ -41,7 +42,7 @@ fr:
         access_token: Token d’accès
         antenne: Antenne
         assistances: Champs de compétence
-        custom_zone?: Zone spécifique
+        custom_zone?: Zone spécifique ?
         email: E-mail
         full_name: Prénom et Nom
         institution: Institution
@@ -96,8 +97,13 @@ fr:
         query: SIRET recherché
         user: Utilisateur
       territory:
+        advisors: Conseillers
+        antennes: Antennes
+        bassin_emploi: Bassin d’emploi?
+        experts: Experts
         insee_codes: Codes commune
         name: Nom
+        relays: Relais
       user:
         confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
         confirmation_token: Token de confirmation d’e-mail
@@ -151,6 +157,9 @@ fr:
             assistance_expert:
               can_not_be_set_with_relay: La ressource ne peut pas être liée à la fois à un référent et un relais local.
     models:
+      antenne:
+        one: Antenne
+        other: Antennes
       assistance:
         one: Champ de compétence
         other: Champs de compétence

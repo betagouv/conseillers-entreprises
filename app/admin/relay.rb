@@ -27,6 +27,6 @@ ActiveAdmin.register Relay do
   show do
     default_main_content
 
-    render partial: 'admin/matches', locals: { matches_relation: relay.matches }
+    render partial: 'admin/matches', locals: { matches: relay.matches }
   end
 end

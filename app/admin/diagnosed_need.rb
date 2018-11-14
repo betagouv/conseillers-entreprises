@@ -42,6 +42,6 @@ ActiveAdmin.register DiagnosedNeed do
   show do
     default_main_content
 
-    render partial: 'admin/matches', locals: { matches_relation: diagnosed_need.matches }
+    render partial: 'admin/matches', locals: { matches: diagnosed_need.matches }
   end
 end

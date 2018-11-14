@@ -30,7 +30,12 @@ class Expert < ApplicationRecord
     joins(:institution).merge(Institution.of_naf_code(naf_code))
   end
 
-  scope :ordered_by_names, (-> { order(:full_name) })
+  scope :ordered_by_names, -> { order(:full_name) }
+  scope :ordered_by_institution, -> do
+    joins(:antenne, :institution)
+      .select('experts.*', 'antennes.name', 'institutions.name')
+      .order('institutions.name', 'antennes.name', :full_name)
+  end
 
   scope :with_custom_zone, -> { joins(:communes).distinct }
   scope :without_custom_zone, -> { left_outer_joins(:communes).where(communes: { id: nil }) }

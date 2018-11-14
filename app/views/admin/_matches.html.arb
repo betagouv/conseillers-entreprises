@@ -1,9 +1,10 @@
-table_name = table_name || "#{I18n.t('activerecord.models.match', count: matches_relation.size)}"
-if matches_relation.size > 1
-  table_name = "#{table_name} (#{matches_relation.size})"
+table_name = table_name || "#{I18n.t('activerecord.models.match', count: matches.size)}"
+if matches.size > 1
+  table_name = "#{table_name} (#{matches.size})"
 end
+
 panel table_name do
-  table_for matches_relation
+  table_for matches
     .includes(diagnosed_need: [diagnosis: [visit: [facility: :company]]])
     .includes(diagnosed_need: [diagnosis: [visit: :advisor]])
     .includes(:expert) do

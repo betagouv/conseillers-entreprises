@@ -11,13 +11,17 @@ fr:
         done: Résolu
         unsent: Non envoyé
         with_no_one_in_charge: En attente
+    experts:
+      scopes:
+        with_custom_zone: Zone spécifique
     matches:
       deleted: "%{expert} (supprimé)"
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
-    territories:
-      relais: Relais locaux
+    territory:
+      scopes:
+        bassins_emploi: Bassins d’emploi
     user:
       admin: Admin
       approve_user: Valider le compte

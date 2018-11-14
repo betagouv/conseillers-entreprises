@@ -8,6 +8,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
   belongs_to :antenne, counter_cache: true
+  has_one :antenne_institution, through: :antenne, source: :institution # TODO Should be named :institution when we remove the :institution text field.
 
   has_many :relays
   has_many :territories, through: :relays
@@ -40,7 +41,13 @@ class User < ApplicationRecord
   end)
   scope :admin, (-> { where(is_admin: true) })
   scope :not_admin, (-> { where(is_admin: false) })
-  scope :ordered_by_names, (-> { order(:full_name) })
+
+  scope :ordered_by_names, -> { order(:full_name) }
+  scope :ordered_by_institution, -> do
+    joins(:antenne, :antenne_institution)
+      .select('users.*', 'antennes.name', 'institutions.name')
+      .order('institutions.name', 'antennes.name', :full_name)
+  end
 
   scope :active_searchers, (lambda do |date|
     joins(:searches)
