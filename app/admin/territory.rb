@@ -13,6 +13,8 @@ ActiveAdmin.register Territory do
   #
   filter :name
 
+  config.sort_order = 'name_asc'
+
   index do
     selectable_column
     id_column
