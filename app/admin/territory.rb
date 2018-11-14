@@ -6,19 +6,27 @@ ActiveAdmin.register Territory do
 
   includes :users, :advisors, :experts
 
+  scope :all, default: true
+  scope I18n.t("active_admin.territory.scopes.bassins_emploi"), :bassins_emploi
+
   ## index
   #
   filter :name
-  filter :created_at
-  filter :updated_at
+
+  index do
+    selectable_column
+    id_column
+    column :name
+    column :bassin_emploi
+    column(:communes) { |territory| territory.communes.size }
+  end
 
   ## Show
   #
   show do
     attributes_table do
       row :name
-      row :created_at
-      row :updated_at
+      row :bassin_emploi
       row(:communes) { |t| safe_join(t.communes.map { |commune| link_to commune, admin_commune_path(commune) }, ', '.html_safe) }
     end
 
@@ -48,11 +56,11 @@ ActiveAdmin.register Territory do
   # Form
   #
   form do |f|
-    f.inputs I18n.t('activerecord.attributes.territory.name') do
+    f.inputs do
       f.input :name
+      f.input :bassin_emploi
     end
-
-    f.inputs I18n.t('activerecord.attributes.commune.insee_code') do
+    f.inputs do
       f.input :insee_codes
     end
 
