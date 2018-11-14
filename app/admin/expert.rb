@@ -57,6 +57,7 @@ ActiveAdmin.register Expert do
 
     panel I18n.t('activerecord.attributes.expert.assistances') do
       table_for expert.assistances do
+        column :category
         column :question
         column(:title) { |assistance| link_to(assistance.title, admin_assistance_path(assistance)) }
       end

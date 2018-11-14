@@ -4,6 +4,7 @@ class Assistance < ApplicationRecord
   attr_accessor :filtered_assistances_experts
 
   belongs_to :question
+  has_one :category, through: :question
 
   has_many :assistances_experts, dependent: :destroy
   has_many :experts, through: :assistances_experts

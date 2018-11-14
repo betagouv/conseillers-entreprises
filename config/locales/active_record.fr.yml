@@ -9,6 +9,7 @@ fr:
         name: Nom
         users: Conseillers
       assistance:
+        category: Catégorie
         description: Description
         experts: Référents
         question: Besoin parent
