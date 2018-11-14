@@ -6,12 +6,12 @@ ActiveAdmin.register Territory do
 
   includes :users, :advisors, :experts
 
-  scope :all, default: true
-  scope I18n.t("active_admin.territory.scopes.bassins_emploi"), :bassins_emploi
-
   ## index
   #
   filter :name
+
+  scope :all, default: true
+  scope I18n.t("active_admin.territory.scopes.bassins_emploi"), :bassins_emploi
 
   config.sort_order = 'name_asc'
 

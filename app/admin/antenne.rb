@@ -38,11 +38,7 @@ ActiveAdmin.register Antenne do
     attributes_table do
       row :name
       row :institution
-      row(:communes) do |a|
-        safe_join(a.communes.map do |commune|
-          link_to commune, admin_commune_path(commune)
-        end, ', '.html_safe)
-      end
+      row(:communes) { |a| safe_join(a.communes.map { |commune| link_to commune, admin_commune_path(commune) }, ', '.html_safe) }
     end
 
     render partial: 'admin/users', locals: {

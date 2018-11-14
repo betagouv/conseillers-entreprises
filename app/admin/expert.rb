@@ -18,6 +18,14 @@ ActiveAdmin.register Expert do
 
   # Index
   #
+  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
+  filter :full_name
+  filter :email
+  filter :phone_number
+  filter :role
+
   index do
     selectable_column
     id_column
@@ -33,14 +41,6 @@ ActiveAdmin.register Expert do
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
     end
   end
-
-  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
-  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
-  filter :full_name
-  filter :email
-  filter :phone_number
-  filter :role
 
   ## Show
   #
