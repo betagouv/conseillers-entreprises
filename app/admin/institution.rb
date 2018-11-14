@@ -39,8 +39,6 @@ ActiveAdmin.register Institution do
   show do
     attributes_table do
       row :name
-      row :created_at
-      row :updated_at
     end
 
     render partial: 'admin/antennes', locals: {

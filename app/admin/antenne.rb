@@ -38,8 +38,6 @@ ActiveAdmin.register Antenne do
     attributes_table do
       row :name
       row :institution
-      row :created_at
-      row :updated_at
       row(:communes) do |a|
         safe_join(a.communes.map do |commune|
           link_to commune, admin_commune_path(commune)
