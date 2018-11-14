@@ -1,4 +1,5 @@
 table_name = table_name || "#{I18n.t('activerecord.models.user', count: users.size)}"
+users = users.ordered_by_institution
 if users.size > 1
   table_name = "#{table_name} (#{users.size})"
 end

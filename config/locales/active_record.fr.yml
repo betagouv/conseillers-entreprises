@@ -9,6 +9,7 @@ fr:
         name: Nom
         users: Conseillers
       assistance:
+        category: Catégorie
         description: Description
         experts: Référents
         question: Besoin parent
@@ -41,7 +42,7 @@ fr:
         access_token: Token d’accès
         antenne: Antenne
         assistances: Champs de compétence
-        custom_zone?: Zone spécifique
+        custom_zone?: Zone spécifique ?
         email: E-mail
         full_name: Prénom et Nom
         institution: Institution

@@ -7,9 +7,9 @@ class Territory < ApplicationRecord
   has_many :relays
   has_many :users, through: :relays
 
-  has_many :antennes, through: :communes
-  has_many :advisors, through: :antennes, source: :users
-  has_many :experts, through: :antennes
+  has_many :antennes, -> { distinct }, through: :communes
+  has_many :advisors, -> { distinct }, through: :antennes, source: :users
+  has_many :experts, -> { distinct }, through: :antennes
 
   ## Scopes
   #

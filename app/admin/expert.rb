@@ -18,6 +18,19 @@ ActiveAdmin.register Expert do
 
   # Index
   #
+  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
+  filter :full_name
+  filter :email
+  filter :phone_number
+  filter :role
+
+  scope :all, default: true
+  scope I18n.t("active_admin.experts.scopes.with_custom_zone"), :with_custom_zone
+
+  config.sort_order = 'full_name_asc'
+
   index do
     selectable_column
     id_column
@@ -34,14 +47,6 @@ ActiveAdmin.register Expert do
     end
   end
 
-  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
-  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title, :description] }
-  filter :full_name
-  filter :email
-  filter :phone_number
-  filter :role
-
   ## Show
   #
   show do
@@ -49,6 +54,8 @@ ActiveAdmin.register Expert do
       row :full_name
       row :institution
       row :antenne
+      row :custom_zone?
+      row(:communes) { |e| safe_join(e.communes.map { |commune| link_to commune, admin_commune_path(commune) }, ', '.html_safe) }
       row :role
       row :email
       row :phone_number
@@ -57,6 +64,7 @@ ActiveAdmin.register Expert do
 
     panel I18n.t('activerecord.attributes.expert.assistances') do
       table_for expert.assistances do
+        column :category
         column :question
         column(:title) { |assistance| link_to(assistance.title, admin_assistance_path(assistance)) }
       end
