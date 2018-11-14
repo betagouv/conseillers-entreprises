@@ -39,12 +39,8 @@ ActiveAdmin.register Institution do
   show do
     attributes_table do
       row :name
+      row(:antennes) { |t| safe_join(t.antennes.map { |antenne| link_to antenne, admin_antenne_path(antenne) }, ', '.html_safe) }
     end
-
-    render partial: 'admin/antennes', locals: {
-      table_name: I18n.t('activerecord.attributes.institution.antennes'),
-      antennes: institution.antennes
-    }
 
     render partial: 'admin/users', locals: {
       table_name: I18n.t('activerecord.attributes.institution.users'),

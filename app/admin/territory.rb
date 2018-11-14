@@ -28,12 +28,8 @@ ActiveAdmin.register Territory do
       row :name
       row :bassin_emploi
       row(:communes) { |t| safe_join(t.communes.map { |commune| link_to commune, admin_commune_path(commune) }, ', '.html_safe) }
+      row(:antennes) { |t| safe_join(t.antennes.distinct.map { |antenne| link_to antenne, admin_antenne_path(antenne) }, ', '.html_safe) }
     end
-
-    render partial: 'admin/antennes', locals: {
-      table_name: I18n.t('activerecord.attributes.territory.antennes'),
-      antennes: territory.antennes
-    }
 
     render partial: 'admin/users', locals: {
       table_name: I18n.t('activerecord.attributes.territory.relays'),
