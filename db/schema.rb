@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_14_100707) do
+ActiveRecord::Schema.define(version: 2018_11_15_161951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,15 +155,6 @@ ActiveRecord::Schema.define(version: 2018_11_14_100707) do
     t.datetime "archived_at"
     t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
     t.index ["visit_id"], name: "index_diagnoses_on_visit_id"
-  end
-
-  create_table "expert_territories", force: :cascade do |t|
-    t.bigint "expert_id"
-    t.bigint "territory_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["expert_id"], name: "index_expert_territories_on_expert_id"
-    t.index ["territory_id"], name: "index_expert_territories_on_territory_id"
   end
 
   create_table "experts", force: :cascade do |t|
@@ -327,8 +318,6 @@ ActiveRecord::Schema.define(version: 2018_11_14_100707) do
   add_foreign_key "diagnosed_needs", "diagnoses"
   add_foreign_key "diagnosed_needs", "questions"
   add_foreign_key "diagnoses", "visits"
-  add_foreign_key "expert_territories", "experts"
-  add_foreign_key "expert_territories", "territories"
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
