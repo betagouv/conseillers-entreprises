@@ -170,6 +170,9 @@ fr:
       comment:
         one: Commentaire
         other: Commentaires
+      commune:
+        one: Commune
+        other: Communes
       company:
         one: Entreprise
         other: Entreprises

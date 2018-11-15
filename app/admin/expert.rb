@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Expert do
   menu priority: 6
-  includes :antenne, :institution, :communes, :assistances, :users
+  includes :antenne, :institution, :communes, :territories, :assistances, :users
 
   permit_params [
     :full_name,
@@ -38,7 +38,7 @@ ActiveAdmin.register Expert do
     column :institution
     column :antenne
     column :custom_communes?
-    column(:communes) { |expert| expert.communes.size }
+    column(:communes) { |expert| intervention_zone_short_description(expert) if expert.custom_communes? }
     column(:users) { |expert| expert.users.size }
     column :role
     column :email
