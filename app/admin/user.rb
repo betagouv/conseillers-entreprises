@@ -21,14 +21,21 @@ ActiveAdmin.register User do
 
   includes :experts, :relays, :territories, :antenne
 
+  # Index
+  #
   scope :all, default: true
   scopes = [:admin, :contact_relays, :without_antenne, ]
   scopes.each do |s|
     scope I18n.t("active_admin.user.scopes.#{s}"), s
   end
 
-  # Index
-  #
+  filter :full_name
+  filter :email
+  filter :institution
+  filter :role
+  filter :is_approved
+  filter :is_admin
+
   index do
     selectable_column
     id_column
@@ -72,14 +79,6 @@ ActiveAdmin.register User do
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
     end
   end
-
-  filter :full_name
-  filter :email
-  filter :institution
-  filter :role
-  filter :phone_number
-  filter :is_approved
-  filter :is_admin
 
   # Show
   #
