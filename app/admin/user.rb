@@ -21,14 +21,22 @@ ActiveAdmin.register User do
 
   includes :experts, :relays, :territories, :antenne
 
+  # Index
+  #
   scope :all, default: true
   scopes = [:admin, :contact_relays, :without_antenne, ]
   scopes.each do |s|
     scope I18n.t("active_admin.user.scopes.#{s}"), s
   end
 
-  # Index
-  #
+  filter :full_name
+  filter :email
+  filter :institution
+  filter :role
+  filter :confirmed_at_not_null, as: :boolean, label: "Confirmé"
+  filter :is_approved
+  filter :is_admin
+
   index do
     selectable_column
     id_column
@@ -51,7 +59,7 @@ ActiveAdmin.register User do
         '-'
       end
     end
-    column(:territories) do |user|
+    column(:relays) do |user|
       if user.territories.present?
         safe_join(user.territories.map { |territory| link_to(territory.name, admin_territory_path(territory)) }, ', '.html_safe)
       else
@@ -59,8 +67,8 @@ ActiveAdmin.register User do
       end
     end
     column :created_at
+    column :confirmed?
     column :is_approved
-    column :sign_in_count
     actions dropdown: true do |user|
       if !user.is_approved?
         item(t('active_admin.user.approve_user'), approve_user_admin_user_path(user), method: :post)
@@ -72,14 +80,6 @@ ActiveAdmin.register User do
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
     end
   end
-
-  filter :full_name
-  filter :email
-  filter :institution
-  filter :role
-  filter :phone_number
-  filter :is_approved
-  filter :is_admin
 
   # Show
   #
@@ -120,7 +120,7 @@ ActiveAdmin.register User do
   sidebar I18n.t('active_admin.user.connection'), only: :show do
     attributes_table_for user do
       row :created_at
-      row :confirmed_at
+      row :confirmed?
       row :is_approved
       row :current_sign_in_at
       row :current_sign_in_ip

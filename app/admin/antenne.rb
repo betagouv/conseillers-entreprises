@@ -1,6 +1,6 @@
 ActiveAdmin.register Antenne do
   menu parent: :experts, priority: 1
-  includes :institution, :communes, :experts, :users
+  includes :institution, :communes, :territories, :experts, :users
 
   permit_params [
     :name,
@@ -22,7 +22,7 @@ ActiveAdmin.register Antenne do
     column :institution
     column :experts, :experts_count
     column :users, :users_count
-    column(:communes) { |a| a.communes.size }
+    column(:communes) { |a| intervention_zone_short_description(a) }
     # The two following lines are actually “N+1 requests” expensive
     # We’ll probably want to remove them or use some counter at some point.
     column(I18n.t('attributes.match_sent.other')) { |a| "#{a.sent_matches.size}" }
