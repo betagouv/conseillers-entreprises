@@ -4,7 +4,7 @@ module ManyCommunes
     ## Relations and Validations
     #
     has_and_belongs_to_many :communes
-    has_many :territories, through: :communes
+    has_many :territories, -> { distinct.bassins_emploi }, through: :communes
 
     ## Insee Codes acccessors
     #
