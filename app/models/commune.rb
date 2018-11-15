@@ -19,7 +19,7 @@ class Commune < ApplicationRecord
   def all_experts
     # Direct or through Antennes; returns an ActiveRecord Relation rather than an array.
     Expert.where(id: direct_experts)
-      .or(Expert.where(id: antenne_experts).where(id: Expert.without_custom_zone)) # Experts of the antennes on this Commune, who don’t override their Antenne zone.
+      .or(Expert.where(id: antenne_experts).where(id: Expert.without_custom_communes)) # Experts of the antennes on this Commune, who don’t override their Antenne zone.
   end
 
   ##

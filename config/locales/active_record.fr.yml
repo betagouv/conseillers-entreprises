@@ -42,7 +42,8 @@ fr:
         access_token: Token d’accès
         antenne: Antenne
         assistances: Champs de compétence
-        custom_zone?: Zone spécifique ?
+        communes: Zone d’intervention
+        custom_communes?: Zone spécifique ?
         email: E-mail
         full_name: Prénom et Nom
         institution: Institution

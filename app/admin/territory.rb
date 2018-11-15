@@ -4,7 +4,7 @@ ActiveAdmin.register Territory do
   menu priority: 8
   permit_params :name, :insee_codes
 
-  includes :users, :advisors, :experts
+  includes :communes
 
   ## index
   #

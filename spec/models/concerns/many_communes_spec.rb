@@ -61,4 +61,31 @@ RSpec.describe ManyCommunes do
       end
     end
   end
+
+  describe 'intervention_zone_summary' do
+    subject { antenne.intervention_zone_summary }
+
+    let(:antenne) { create :antenne, communes: communes1 + communes2 + communes3 }
+    let(:communes1) { create_list(:commune, 4) }
+    let(:communes2) { create_list(:commune, 4) }
+    let(:communes3) { create_list(:commune, 4) }
+    let!(:territory1) { create :territory, name: "A", bassin_emploi: true, communes: communes1 }
+    let!(:territory2) { create :territory, name: "B", bassin_emploi: true, communes: communes2.take(2) }
+
+    it do
+      is_expected.to eq({
+        territories: [
+          {
+            territory: territory1,
+            included: 4,
+          },
+          {
+            territory: territory2,
+            included: 2,
+          }
+        ],
+        other: 6
+      })
+    end
+  end
 end
