@@ -4,11 +4,11 @@ class FeedbacksController < ApplicationController
   before_action :authenticate_expert!, if: -> { params[:access_token].present? }
 
   def create
-    feedback = Feedback.create!(feedback_params)
-    diagnosis = feedback.match.diagnosed_need.diagnosis
-
-    UserMailer.delay.match_feedback(feedback)
-
+    feedback = Feedback.create(feedback_params)
+    if feedback.present?
+      diagnosis = feedback.match.diagnosed_need.diagnosis
+      UserMailer.delay.match_feedback(feedback)
+    end
     redirect_back fallback_location: besoin_path(diagnosis, params.permit(:access_token))
   end
 
