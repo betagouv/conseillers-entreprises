@@ -47,7 +47,8 @@ ActiveAdmin.register User do
       if user.experts.present?
         safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
       elsif user.corresponding_experts.present?
-        link_to(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+        text = t('active_admin.user.autolink_to', what: user.corresponding_experts)
+        link_to(text, autolink_to_experts_admin_user_path(user), method: :post)
       else
         '-'
       end
@@ -55,10 +56,14 @@ ActiveAdmin.register User do
     column(:antenne) do |user|
       if user.antenne.present?
         link_to(user.antenne.name, admin_antenne_path(user.antenne))
+      elsif user.corresponding_antenne.present?
+        text = t('active_admin.user.autolink_to', what: user.corresponding_antenne)
+        link_to(text, autolink_to_antenne_admin_user_path(user), method: :post)
       else
         '-'
       end
     end
+    column :institution, label: "Institution (manuelle)"
     column(:relays) do |user|
       if user.territories.present?
         safe_join(user.territories.map { |territory| link_to(territory.name, admin_territory_path(territory)) }, ', '.html_safe)
@@ -74,8 +79,13 @@ ActiveAdmin.register User do
         item(t('active_admin.user.approve_user'), approve_user_admin_user_path(user), method: :post)
       end
       item t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
-      if user.experts.empty?
-        item(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+      if user.experts.empty? && user.corresponding_experts.present?
+        text = t('active_admin.user.autolink_to', what: user.corresponding_experts)
+        item(text, autolink_to_experts_admin_user_path(user), method: :post)
+      end
+      if user.antenne.nil?
+        text = t('active_admin.user.autolink_to', what: user.corresponding_antenne)
+        item(text, autolink_to_antenne_admin_user_path(user), method: :post)
       end
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
     end
@@ -87,12 +97,20 @@ ActiveAdmin.register User do
     attributes_table do
       row :full_name
       row :institution
-      row :antenne
+      row :antenne do |user|
+        if user.antenne.present?
+          user.antenne
+        elsif user.corresponding_antenne.present?
+          text = t('active_admin.user.autolink_to', what: user.corresponding_antenne)
+          link_to(text, autolink_to_antenne_admin_user_path(user), method: :post)
+        end
+      end
       row(:experts) do |user|
         if user.experts.present?
           safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
         elsif user.corresponding_experts.present?
-          link_to(t('active_admin.user.autolink_to_experts'), autolink_to_experts_admin_user_path(user), method: :post)
+          text = t('active_admin.user.autolink_to', what: user.corresponding_experts)
+          link_to(text, autolink_to_experts_admin_user_path(user), method: :post)
         end
       end
       row :role
@@ -185,7 +203,12 @@ ActiveAdmin.register User do
 
   member_action :autolink_to_experts, method: :post do
     resource.autolink_experts!
-    redirect_to resource_path, notice: I18n.t("active_admin.user.expert_linked")
+    redirect_back fallback_location: collection_path, notice: I18n.t("active_admin.user.experts_linked")
+  end
+
+  member_action :autolink_to_antenne, method: :post do
+    resource.autolink_antenne!
+    redirect_back fallback_location: collection_path, notice: I18n.t("active_admin.user.antenne_linked")
   end
 
   member_action :normalize_values do
