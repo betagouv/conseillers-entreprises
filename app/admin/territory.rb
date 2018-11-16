@@ -51,7 +51,7 @@ ActiveAdmin.register Territory do
     render partial: 'admin/matches', locals: { matches: Match.in_territory(territory).ordered_by_status }
   end
 
-  # Form
+  ## Form
   #
   form do |f|
     f.inputs do
@@ -63,5 +63,17 @@ ActiveAdmin.register Territory do
     end
 
     f.actions
+  end
+
+  ## Actions
+  #
+  member_action :assign_entire_territory, method: :post do
+    if params[:antenne].present?
+      many_communes = Antenne.find(params[:antenne])
+    elsif params[:expert].present?
+      many_communes = Expert.find(params[:expert])
+    end
+    many_communes.communes << resource.communes
+    redirect_back fallback_location: resource_path, notice: t('active_admin.territory.entire_territory_assigned')
   end
 end
