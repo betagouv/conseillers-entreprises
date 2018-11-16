@@ -20,6 +20,9 @@ fr:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     territory:
+      assign_entire_territory: "[compléter]"
+      confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
+      entire_territory_assigned: Territoire ajouté
       scopes:
         bassins_emploi: Bassins d’emploi
     user:

@@ -11,6 +11,7 @@ ActiveAdmin.register Expert do
     :antenne_id,
     :email,
     :phone_number,
+    :insee_codes,
     user_ids: [],
     assistance_ids: [],
     assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
@@ -96,6 +97,10 @@ ActiveAdmin.register Expert do
       f.input :role
       f.input :email
       f.input :phone_number
+    end
+
+    f.inputs t('activerecord.attributes.expert.custom_communes?') do
+      f.input :insee_codes
     end
 
     f.inputs t('activerecord.attributes.expert.users') do
