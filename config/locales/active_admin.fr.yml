@@ -24,11 +24,12 @@ fr:
         bassins_emploi: Bassins d’emploi
     user:
       admin: Admin
+      antenne_linked: Antenne associée
       approve_user: Valider le compte
       approve_user_done: Compte approuvé
-      autolink_to_experts: Associer automatiquement aux référents
+      autolink_to: Associer à %{what}
+      autolink_to_experts: Associer automatiquement aux experts
       connection: Connexion
-      expert_linked: Référent associé
       experts_linked: Référents associés
       impersonate: Voir le site comme %{name}
       saved: Conseiller mis à jour
