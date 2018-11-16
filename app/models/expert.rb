@@ -37,7 +37,10 @@ class Expert < ApplicationRecord
       .order('institutions.name', 'antennes.name', :full_name)
   end
 
-  scope :with_custom_communes, -> { joins(:communes).distinct }
+  scope :with_custom_communes, -> do
+    # The naive “joins(:communes).distinct” is way more complex.
+    where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
+  end
   scope :without_custom_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
 
   ##
