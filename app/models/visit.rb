@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class Visit < ApplicationRecord
+  # TODO merge with the Diagnosis model
   belongs_to :advisor, class_name: 'User'
   belongs_to :visitee, class_name: 'Contact'
   belongs_to :facility
+
+  has_one :company, through: :facility
 
   has_one :diagnosis, dependent: :destroy
   accepts_nested_attributes_for :visitee

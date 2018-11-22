@@ -1,23 +1,51 @@
 # frozen_string_literal: true
 
 class Match < ApplicationRecord
+  ##
+  #
   audited only: :status
 
+  ## Constants
+  #
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
 
-  belongs_to :diagnosed_need, counter_cache: true
-  has_one :diagnosis, through: :diagnosed_need
-  belongs_to :assistance_expert, foreign_key: :assistances_experts_id
-  belongs_to :relay
-  has_one :expert, through: :assistance_expert
-  has_many :feedbacks, dependent: :destroy
+  ## Associations
+  #
+  belongs_to :diagnosed_need, counter_cache: true, inverse_of: :matches
 
+  belongs_to :assistance_expert, foreign_key: :assistances_experts_id
+  has_one :expert, through: :assistance_expert, inverse_of: :received_matches # TODO: Should be direct once we remove assistance_expert and use a HABTM instead
+
+  belongs_to :relay
+
+  has_many :feedbacks, dependent: :destroy, inverse_of: :match
+
+  ## Validations
+  #
   validates :diagnosed_need, presence: true
   validates_with MatchValidator
 
+  ## Through Associations
+  #
+  # :diagnosed_need
+  has_one :diagnosis, through: :diagnosed_need, inverse_of: :matches
+  has_one :advisor, through: :diagnosed_need, inverse_of: :sent_matches
+
+  # :advisor
+  has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_matches
+  has_one :advisor_institution, through: :advisor, source: :institution, inverse_of: :sent_matches
+
+  # :expert
+  has_one :expert_antenne, through: :expert, source: :antenne, inverse_of: :received_matches
+  has_one :expert_institution, through: :expert, source: :institution, inverse_of: :received_matches
+
+  ## After Update
+  #
   after_update :update_taken_care_of_at
   after_update :update_closed_at
 
+  ## Scopes
+  #
   scope :ordered_by_date, -> { order(created_at: :desc) }
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })

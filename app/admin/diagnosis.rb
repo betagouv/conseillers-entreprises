@@ -4,6 +4,8 @@ ActiveAdmin.register Diagnosis do
   menu priority: 7
   includes visit: [:advisor, facility: :company]
 
+  permit_params :visit_id, :content, :archived_at, :step
+
   filter :visit, collection: -> { Visit.includes(facility: :company).joins(facility: :company).order('companies.name') }
   filter :content
   filter :created_at
@@ -19,7 +21,7 @@ ActiveAdmin.register Diagnosis do
       row :archived_at
       row(:advisor) { |d| d.visit.advisor }
       row :step
-      row :description
+      row :content
     end
 
     panel I18n.t('activerecord.models.diagnosed_need.other') do
