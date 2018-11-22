@@ -7,6 +7,7 @@ class Assistance < ApplicationRecord
 
   has_many :assistances_experts, dependent: :destroy
   has_many :experts, through: :assistances_experts, inverse_of: :assistances # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
+  has_many :matches, through: :assistances_experts, inverse_of: :assistance
 
   ## Validations
   #
