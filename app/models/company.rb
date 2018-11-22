@@ -1,12 +1,24 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
-  has_many :contacts
-  has_many :facilities
+  ## Relations and Validations
+  #
+  has_many :contacts, inverse_of: :company
+  has_many :facilities, inverse_of: :company
 
+  ## Validations
+  #
   validates :name, presence: true
   validates :siren, uniqueness: { allow_nil: true }
 
+  ## Through Associations
+  #
+  has_many :visits, through: :facilities # TODO: should be removed once we merge the Visit and Diagnosis models
+  has_many :diagnoses, through: :facilities, inverse_of: :company
+  has_many :diagnosed_needs, through: :facilities, inverse_of: :company
+
+  ## Scopes
+  #
   scope :ordered_by_name, (-> { order(:name) })
 
   scope :diagnosed_in, (lambda do |date_range|
@@ -15,6 +27,8 @@ class Company < ApplicationRecord
     .distinct
   end)
 
+  ##
+  #
   def to_s
     name
   end
