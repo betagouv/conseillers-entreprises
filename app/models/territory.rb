@@ -7,7 +7,7 @@ class Territory < ApplicationRecord
   include ManyCommunes
 
   has_many :relays
-  has_many :users, through: :relays, inverse_of: :territories # TODO: should be named :relays when we get rid of the Relay model and use a HABTM
+  has_many :relay_users, through: :relays, source: :user, inverse_of: :relay_territories # TODO: should be named :relays when we get rid of the Relay model and use a HABTM
 
   ## Through Associations
   #
@@ -16,6 +16,13 @@ class Territory < ApplicationRecord
   has_many :advisors, -> { distinct }, through: :communes, inverse_of: :antenne_territories
   has_many :antenne_experts, -> { distinct }, through: :communes, inverse_of: :antenne_territories
   has_many :direct_experts, -> { distinct }, through: :communes, inverse_of: :territories
+
+  has_many :facilities, through: :communes, inverse_of: :territories
+
+  # :facilities
+  has_many :diagnoses, through: :facilities, inverse_of: :facility_territories
+  has_many :diagnosed_needs, through: :facilities, inverse_of: :facility_territories
+  has_many :matches, through: :facilities, inverse_of: :facility_territories
 
   ## Scopes
   #

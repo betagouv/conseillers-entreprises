@@ -222,6 +222,7 @@ fr:
   attributes:
     created_at: Date de création
     coordinates: Coordonnées
+    community: Communauté
     match_received:
       one: Mise en relation reçue
       other: Mises en relation reçues

@@ -44,7 +44,7 @@ panel table_name do
       if expert.present?
         link_to(match.expert_full_name, admin_expert_path(expert))
       elsif match.relay.present?
-        link_to(match.expert_full_name, admin_relay_path(match.relay))
+        link_to(match.expert_full_name, admin_user_path(match.relay.user))
       else
         I18n.t('active_admin.matches.deleted', expert: match.expert_description)
       end

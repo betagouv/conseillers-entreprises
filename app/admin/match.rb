@@ -28,7 +28,7 @@ ActiveAdmin.register Match do
       if expert.present?
         link_to(match.expert_description, admin_expert_path(expert))
       elsif match.relay.present?
-        link_to(match.expert_description, admin_relay_path(match.relay))
+        link_to(match.expert_description, admin_user_path(match.relay.user))
       else
         I18n.t('active_admin.matches.deleted', expert: match.expert_description)
       end
