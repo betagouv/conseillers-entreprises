@@ -3,21 +3,37 @@
 class Expert < ApplicationRecord
   include PersonConcern
 
-  ## Relations and Validations
+  ## Associations
   #
-  belongs_to :antenne, counter_cache: true
-  has_one :institution, through: :antenne
+  has_and_belongs_to_many :communes, inverse_of: :direct_experts
   include ManyCommunes
+  has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :direct_experts
 
-  has_and_belongs_to_many :users
+  belongs_to :antenne, counter_cache: true, inverse_of: :experts
+
+  has_and_belongs_to_many :users, inverse_of: :experts
+
   has_many :assistances_experts, dependent: :destroy
-  has_many :assistances, through: :assistances_experts, dependent: :destroy
-  has_many :matches, -> { ordered_by_date }, through: :assistances_experts
+  has_many :assistances, through: :assistances_experts, dependent: :destroy, inverse_of: :experts # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
+  has_many :received_matches, -> { ordered_by_date }, through: :assistances_experts, source: :matches, inverse_of: :expert # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
 
+  ## Validations
+  #
   validates :antenne, :email, :access_token, presence: true
   validates :access_token, uniqueness: true
 
   before_validation :generate_access_token!, on: :create
+
+  ## “Through” Associations
+  #
+  # :antenne
+  has_one :institution, through: :antenne, inverse_of: :experts
+  has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
+  has_many :antenne_territories, through: :antenne, source: :territories, inverse_of: :antenne_experts
+
+  # :matches
+  has_many :received_diagnosed_needs, through: :matches, inverse_of: :experts
+  has_many :received_diagnoses, through: :matches, inverse_of: :experts
 
   ##
   #

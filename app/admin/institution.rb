@@ -9,7 +9,7 @@ ActiveAdmin.register Institution do
     antenne_ids: []
   ]
 
-  includes :antennes, :users, :experts
+  includes :antennes, :advisors, :experts
 
   ## Index
   #
@@ -23,7 +23,7 @@ ActiveAdmin.register Institution do
     column :name
     column :antennes, :antennes_count
     column(:experts) { |institution| "#{institution.experts.size}" }
-    column(:users) { |institution| "#{institution.users.size}" }
+    column(:advisors) { |institution| "#{institution.advisors.size}" }
     # The two following lines are actually “N+1 requests” expensive
     # We’ll probably want to remove them or use some counter at some point.
     column(I18n.t('attributes.match_sent.other')) do |institution|
@@ -43,8 +43,8 @@ ActiveAdmin.register Institution do
     end
 
     render partial: 'admin/users', locals: {
-      table_name: I18n.t('activerecord.attributes.institution.users'),
-      users: institution.users
+      table_name: I18n.t('activerecord.attributes.institution.advisors'),
+      users: institution.advisors
     }
 
     render partial: 'admin/experts', locals: {

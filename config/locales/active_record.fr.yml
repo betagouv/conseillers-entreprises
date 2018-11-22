@@ -3,11 +3,11 @@ fr:
   activerecord:
     attributes:
       antenne:
+        advisors: Conseillers
         communes: Zone d’intervention
         experts: Équipes / Référents
         insee_codes: Codes commune
         name: Nom
-        users: Conseillers
       assistance:
         category: Catégorie
         description: Description
@@ -58,6 +58,7 @@ fr:
         description: Description
         match: Mise en relation
       institution:
+        advisors: Conseillers
         antennes: Antennes
         email: E-mail
         experts: Référents
@@ -65,7 +66,6 @@ fr:
         phone_number: Numéro de téléphone
         qualified_for_artisanry: Artisanat ?
         qualified_for_commerce: Commerce ?
-        users: Conseillers
       match:
         assistance_expert: Référent (non Relais local)
         assistance_title: Champ de compétence

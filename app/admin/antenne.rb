@@ -1,12 +1,12 @@
 ActiveAdmin.register Antenne do
   menu parent: :experts, priority: 1
-  includes :institution, :communes, :territories, :experts, :users
+  includes :institution, :communes, :territories, :experts, :advisors
 
   permit_params [
     :name,
     :institution_id,
     :insee_codes,
-    user_ids: [],
+    advisor_ids: [],
     expert_ids: [],
   ]
 
@@ -21,7 +21,7 @@ ActiveAdmin.register Antenne do
     column :name
     column :institution
     column :experts, :experts_count
-    column :users, :users_count
+    column(:advisors) { |a| a.advisors.size }
     column(:communes) { |a| intervention_zone_short_description(a) }
     # The two following lines are actually “N+1 requests” expensive
     # We’ll probably want to remove them or use some counter at some point.
@@ -42,8 +42,8 @@ ActiveAdmin.register Antenne do
     end
 
     render partial: 'admin/users', locals: {
-      table_name: I18n.t('activerecord.attributes.antenne.users'),
-      users: antenne.users
+      table_name: I18n.t('activerecord.attributes.antenne.advisors'),
+      users: antenne.advisors
     }
 
     render partial: 'admin/experts', locals: {
@@ -77,7 +77,7 @@ ActiveAdmin.register Antenne do
     end
 
     f.inputs do
-      f.input :users, label: t('activerecord.attributes.antenne.users'), as: :ajax_select, data: {
+      f.input :advisors, label: t('activerecord.attributes.antenne.advisors'), as: :ajax_select, data: {
         url: :admin_users_path,
         search_fields: [:full_name],
         limit: 999,

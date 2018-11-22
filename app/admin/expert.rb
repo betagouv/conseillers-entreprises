@@ -77,7 +77,7 @@ ActiveAdmin.register Expert do
       users: expert.users
     }
 
-    render partial: 'admin/matches', locals: { matches: expert.matches }
+    render partial: 'admin/matches', locals: { matches: expert.received_matches }
   end
 
   action_item :normalize_values, only: :show do
