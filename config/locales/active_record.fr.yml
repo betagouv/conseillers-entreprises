@@ -20,6 +20,7 @@ fr:
         insee_code: Code commune
       company:
         facilities: Établissements
+        legal_form_code: Forme juridique
         name: Raison sociale
         siren: SIREN
       contact:
@@ -220,6 +221,7 @@ fr:
         other: Visites
   attributes:
     created_at: Date de création
+    coordinates: Coordonnées
     match_received:
       one: Mise en relation reçue
       other: Mises en relation reçues

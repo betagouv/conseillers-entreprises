@@ -18,6 +18,10 @@ class Facility < ApplicationRecord
   #
   # :diagnoses
   has_many :diagnosed_needs, through: :diagnoses, inverse_of: :facility
+  has_many :matches, through: :diagnoses, inverse_of: :facility
+
+  # :commune
+  has_many :territories, through: :commune, inverse_of: :facilities
 
   ## Scopes
   #
