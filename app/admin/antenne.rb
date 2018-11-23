@@ -34,6 +34,19 @@ ActiveAdmin.register Antenne do
   filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
+  ## CSV
+  #
+  csv do
+    column :name
+    column :institution
+    column_count :advisors
+    column_count :experts
+    column_count :territories
+    column_count :communes
+    column_count :sent_matches
+    column_count :received_matches
+  end
+
   ## Show
   #
   show do

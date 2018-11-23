@@ -26,6 +26,17 @@ ActiveAdmin.register Institution do
 
   filter :name
 
+  ## CSV
+  #
+  csv do
+    column :name
+    column_count :antennes
+    column_count :advisors
+    column_count :experts
+    column_count :sent_matches
+    column_count :received_matches
+  end
+
   ## Show
   #
   show do

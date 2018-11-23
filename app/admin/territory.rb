@@ -38,6 +38,21 @@ ActiveAdmin.register Territory do
   filter :name
   filter :communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
+  ## CSV
+  #
+  csv do
+    column :name
+    column :bassin_emploi
+    column_count :communes
+    column_list :relays
+    column_count :antennes
+    column_count :advisors
+    column_count :antenne_experts
+    column_count :diagnoses
+    column_count :diagnosed_needs
+    column_count :matches
+  end
+
   ## Show
   #
   show do

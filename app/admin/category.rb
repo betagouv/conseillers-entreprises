@@ -23,6 +23,15 @@ ActiveAdmin.register Category do
 
   filter :label
 
+  ## CSV
+  #
+  csv do
+    column :label
+    column :interview_sort_order
+    column_count :questions
+    column_count :assistances
+  end
+
   ## Show
   #
   show do

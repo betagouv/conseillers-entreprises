@@ -53,6 +53,24 @@ ActiveAdmin.register Expert do
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
   filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
 
+  ## CSV
+  #
+  csv do
+    column :full_name
+    column :role
+    column :email
+    column :phone_number
+    column :antenne_institution
+    column :antenne
+    column_count :antenne_territories
+    column_count :antenne_communes
+    column :custom_communes?
+    column_count :territories
+    column_count :communes
+    column_count :users
+    column_count :assistances
+  end
+
   ## Show
   #
   show do

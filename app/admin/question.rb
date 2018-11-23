@@ -23,6 +23,14 @@ ActiveAdmin.register Question do
   filter :label
   filter :category, as: :ajax_select, data: { url: :admin_categories_path, search_fields: [:label] }
 
+  ## CSV
+  #
+  csv do
+    column :label
+    column :category
+    column_count :assistances
+  end
+
   ## Show
   #
   show do

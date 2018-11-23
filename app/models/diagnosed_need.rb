@@ -27,6 +27,7 @@ class DiagnosedNeed < ApplicationRecord
   # :matches
   has_many :experts, through: :matches, inverse_of: :received_diagnosed_needs
   has_many :relays, through: :matches
+  has_many :feedbacks, through: :matches, inverse_of: :diagnosed_need
 
   # # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnosed_needs

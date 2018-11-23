@@ -68,4 +68,14 @@ module AdminHelper
     klass = object.class
     "#{klass.human_attribute_name(attribute)} : #{object.send(attribute)}"
   end
+
+  ::ActiveAdmin::CSVBuilder.module_eval do
+    def column_count(attribute)
+      column(attribute) { |object| object.send(attribute).size }
+    end
+
+    def column_list(association)
+      column(association) { |object| object.send(association).map(&:to_s).join('/') }
+    end
+  end
 end

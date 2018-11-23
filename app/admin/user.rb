@@ -67,6 +67,28 @@ ActiveAdmin.register User do
   filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
+  ## CSV
+  #
+  csv do
+    column :full_name
+    column :email
+    column :phone_number
+    column :confirmed?
+    column :created_at
+    column :is_approved?
+    column :role
+    column :antenne
+    column :antenne_institution do |u|
+      u.antenne_institution || "sans antenne: #{u.institution}"
+    end
+    column_list :experts
+    column_list :relay_territories
+    column_count :searches
+    column_count :sent_diagnoses
+    column_count :sent_diagnosed_needs
+    column_count :sent_matches
+  end
+
   # Show
   #
   show do

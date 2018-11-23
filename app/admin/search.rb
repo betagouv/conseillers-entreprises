@@ -19,4 +19,13 @@ ActiveAdmin.register Search do
   filter :created_at
   filter :query
   filter :label
+
+  ## CSV
+  #
+  csv do
+    column :user
+    column :created_at
+    column :query
+    column :label
+  end
 end

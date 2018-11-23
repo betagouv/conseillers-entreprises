@@ -35,6 +35,17 @@ ActiveAdmin.register Diagnosis do
   filter :archived_at
   filter :step
 
+  ## CSV
+  #
+  csv do
+    column :facility
+    column :content
+    column :advisor
+    column :created_at
+    column :step
+    column :archived?
+  end
+
   ## Show
   #
   show do
