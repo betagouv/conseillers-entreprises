@@ -18,7 +18,7 @@ class Match < ApplicationRecord
   after_update :update_taken_care_of_at
   after_update :update_closed_at
 
-  scope :ordered_by_status, -> { order(status: :desc, id: :asc) }
+  scope :ordered_by_date, -> { order(created_at: :desc) }
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
 
