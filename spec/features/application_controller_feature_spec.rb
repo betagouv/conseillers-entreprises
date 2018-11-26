@@ -43,7 +43,7 @@ describe 'ApplicationController specific features', type: :feature do
 
     before do
       ENV['TEST_ERROR_RENDERING'] = 'true'
-      allow_any_instance_of(User).to receive(:diagnoses).and_raise(raised_error)
+      allow_any_instance_of(User).to receive(:sent_diagnoses).and_raise(raised_error)
       visit diagnoses_path
     end
 

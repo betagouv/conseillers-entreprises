@@ -3,16 +3,25 @@ class Commune < ApplicationRecord
   #
   INSEE_CODE_FORMAT = /\A[0-9AB]{5}\z/
 
-  ## Relations and Validations
+  ## Associations
   #
-  has_and_belongs_to_many :territories
-  has_many :facilities
-  has_and_belongs_to_many :antennes
-  has_and_belongs_to_many :direct_experts, class_name: 'Expert'
-  has_many :antenne_experts, through: :antennes, source: :experts
-  has_many :relays, through: :territories
+  has_and_belongs_to_many :territories, inverse_of: :communes
+  has_and_belongs_to_many :bassins_emploi, -> { bassins_emploi }, class_name: 'Territory'
 
+  has_many :facilities, inverse_of: :commune
+
+  has_and_belongs_to_many :antennes, inverse_of: :communes
+  has_and_belongs_to_many :direct_experts, class_name: 'Expert', inverse_of: :communes
+
+  ## Validations
+  #
   validates :insee_code, presence: true, uniqueness: true, format: { with: INSEE_CODE_FORMAT }
+
+  ## “Through” Associations
+  #
+  has_many :antenne_experts, through: :antennes, source: :experts, inverse_of: :antenne_communes
+  has_many :advisors, through: :antennes, inverse_of: :antenne_communes
+  has_many :relays, through: :territories
 
   ##
   #
