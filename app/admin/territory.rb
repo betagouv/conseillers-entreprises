@@ -48,7 +48,7 @@ ActiveAdmin.register Territory do
       experts: territory.experts
     }
 
-    render partial: 'admin/matches', locals: { matches: Match.in_territory(territory).ordered_by_status }
+    render partial: 'admin/matches', locals: { matches: Match.in_territory(territory).ordered_by_date }
   end
 
   ## Form
