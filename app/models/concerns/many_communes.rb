@@ -1,13 +1,6 @@
 module ManyCommunes
   extend ActiveSupport::Concern
 
-  included do
-    ## Relations and Validations
-    #
-    has_and_belongs_to_many :communes
-    has_many :territories, -> { distinct.bassins_emploi }, through: :communes
-  end
-
   ## Insee Codes acccessors
   #
   def insee_codes
