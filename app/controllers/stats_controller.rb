@@ -59,7 +59,7 @@ class StatsController < ApplicationController
     {
       'users.registered': users.where(created_at: date_range),
       'users.searchers': users.active_searchers(date_range),
-      'users.visitors': users.active_diagnosers(date_range, 2),
+      'users.matchers': users.active_matchers(date_range),
       'users.whose_match_taken_care_of': users.active_answered(date_range, [:taking_care, :done]),
       'users.whose_match_done': users.active_answered(date_range, :done)
     }

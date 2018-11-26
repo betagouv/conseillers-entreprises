@@ -63,6 +63,13 @@ class User < ApplicationRecord
         .distinct
   end)
 
+  scope :active_matchers, (lambda do |date|
+    joins(visits: [diagnosis: [diagnosed_needs: :matches]])
+        .merge(Diagnosis.only_active
+               .where(created_at: date))
+        .distinct
+  end)
+
   scope :active_answered, (lambda do |date, status|
     joins(visits: [diagnosis: [diagnosed_needs: :matches]])
         .merge(Match

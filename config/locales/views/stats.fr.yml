@@ -29,14 +29,14 @@ fr:
           matches: Mises en relation lancées en %{month}
           visits: Visites faites en %{month}
         users:
+          matchers: Conseillers qui ont fait (au moins) une mise en relation en %{month}
           registered: Conseillers inscrits en %{month}
           searchers: Conseillers qui ont fait (au moins) une recherche en %{month}
-          visitors: Conseillers qui ont rédigé (au moins) une analyse en %{month}
           whose_match_done: Conseillers dont (au moins) une mise en relation a été marquée comment ayant résolu le besoin en %{month}
           whose_match_taken_care_of: Conseillers dont (au moins) une mise en relation a été prise en charge en %{month}
       users:
+        matchers: Entremetteurs
         registered: Inscrits
         searchers: Chercheurs
-        visitors: Visiteurs
         whose_match_done: Aux besoins résolus
         whose_match_taken_care_of: Aux besoins répondus
