@@ -10,7 +10,7 @@ class Diagnosis < ApplicationRecord
   #
   belongs_to :visit, validate: true, dependent: :destroy
   has_one :facility, through: :visit, inverse_of: :diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
-  has_one :advisor, through: :visit, inverse_of: :diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
+  has_one :advisor, through: :visit, inverse_of: :sent_diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
 
   has_many :diagnosed_needs, dependent: :destroy, inverse_of: :diagnosis
 
@@ -26,6 +26,7 @@ class Diagnosis < ApplicationRecord
   #
   # :facility
   has_one :company, through: :facility, inverse_of: :diagnoses
+  has_one :facility_territories, through: :facility, source: :territories, inverse_of: :diagnoses
 
   # :diagnosed_needs
   has_many :questions, through: :diagnosed_needs, inverse_of: :diagnoses
@@ -68,6 +69,12 @@ class Diagnosis < ApplicationRecord
 
   ##
   #
+  def to_s
+    "#{facility} #{visit.display_date}"
+  end
+
+  ##
+  #
   def archive!
     self.archived_at = Time.now
     self.save!
@@ -76,6 +83,10 @@ class Diagnosis < ApplicationRecord
   def unarchive!
     self.archived_at = nil
     self.save!
+  end
+
+  def archived?
+    archived_at.present?
   end
 
   ##

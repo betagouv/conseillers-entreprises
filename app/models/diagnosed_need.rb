@@ -28,6 +28,12 @@ class DiagnosedNeed < ApplicationRecord
   has_many :experts, through: :matches, inverse_of: :received_diagnosed_needs
   has_many :relays, through: :matches
 
+  # # :facility
+  has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnosed_needs
+
+  # :experts
+  has_many :experts_antennes, through: :experts, source: :antenne, inverse_of: :received_diagnosed_needs
+
   ## Scopes
   #
   scope :of_diagnosis, (-> (diagnosis) { where(diagnosis: diagnosis) })
@@ -59,6 +65,10 @@ class DiagnosedNeed < ApplicationRecord
 
   ##
   #
+  def to_s
+    "#{company} : #{question}"
+  end
+
   def status_synthesis
     matches_status = matches.pluck(:status).map(&:to_sym)
 
@@ -73,6 +83,14 @@ class DiagnosedNeed < ApplicationRecord
     else
       :quo
     end
+  end
+
+  def status_description
+    I18n.t("activerecord.attributes.match.statuses.#{status_synthesis}")
+  end
+
+  def status_short_description
+    I18n.t("activerecord.attributes.match.statuses_short.#{status_synthesis}")
   end
 
   ##
