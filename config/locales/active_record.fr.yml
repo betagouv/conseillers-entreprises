@@ -2,69 +2,33 @@
 fr:
   activerecord:
     attributes:
-      antenne:
-        advisors: Conseillers
-        communes: Zone d’intervention
-        experts: Équipes / Référents
-        insee_codes: Codes commune
-        name: Nom
+      antenne: 
       assistance:
-        category: Catégorie
-        description: Description
-        experts: Référents
         question: Besoin parent
-        title: Titre
-      category:
-        label: Intitulé
       commune:
         insee_code: Code commune
-      company:
-        facilities: Établissements
-        legal_form_code: Forme juridique
-        name: Raison sociale
-        siren: SIREN
+      company: 
       contact:
         company: Entreprise
-        email: E-mail
-        full_name: Prénom et Nom
-        phone_number: Numéro de téléphone
         role: Fonction
       diagnosed_need:
-        content: Description du besoin
         diagnosis: Analyse parente
         question: Besoin
         question_label: Nom du besoin
-        status_synthesis: Résumé
-      diagnosis:
-        archived_at: Date d’archivage
-        content: Description
-        visit: Visite qui a fait l’objet de l’analyse
+      diagnosis: 
       expert:
         access_token: Token d’accès
-        antenne: Antenne
         assistances: Champs de compétence
-        communes: Zone d’intervention
-        custom_communes?: Zone spécifique ?
-        email: E-mail
-        full_name: Prénom et Nom
-        institution: Institution
-        phone_number: Numéro de téléphone
         role: Fonction
         users: Membres
       facility:
         company: Entreprise
         readable_locality: Commune
-        siret: SIRET
       feedback:
-        description: Description
         match: Mise en relation
       institution:
         advisors: Conseillers
         antennes: Antennes
-        email: E-mail
-        experts: Référents
-        name: Nom
-        phone_number: Numéro de téléphone
         qualified_for_artisanry: Artisanat ?
         qualified_for_commerce: Commerce ?
       match:
@@ -88,15 +52,12 @@ fr:
           quo: En attente
           taking_care: En cours
         taken_care_of_at: Date de prise en charge
-      question:
-        category: Catégorie
-        label: Intitulé
       relay:
         territory: Territoire
         user: Utilisateur
       search:
         label: Entreprise trouvée
-        query: SIRET recherché
+        query: Recherché
         user: Utilisateur
       territory:
         advisors: Conseillers
@@ -104,7 +65,6 @@ fr:
         bassin_emploi: Bassin d’emploi?
         experts: Experts
         insee_codes: Codes commune
-        name: Nom
         relays: Relais
       user:
         confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
@@ -112,21 +72,20 @@ fr:
         confirmed_at: Date de confirmation d’e-mail
         contact_page_order: Ordre sur la page Contact
         contact_page_role: Role sur la page Contact
+        created_at: Date d’inscription
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
-        email: E-mail
         encrypted_password: Mot de passe chiffré
-        experts: Référent / Équipes
-        full_name: Prénom et Nom
-        institution: Institution
+        experts:
+          one: Équipe
+          other: Équipes
         is_admin: Est administrateur ?
         is_approved: Est validé ?
         last_sign_in_at: Date de de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
-        phone_number: Numéro de téléphone
         relays: Relais
         remember_me: Se souvenir de moi
         reset_password_sent_at: Date de régénération du mot de passe
@@ -134,7 +93,7 @@ fr:
         role: Fonction
         sign_in_count: Connexions
       visit:
-        advisor: Conseiller visiteur
+        advisor: Conseiller
         facility: Établissement visité
         happened_on: Date de la visite
         visitee: Personne rencontrée
@@ -220,13 +179,88 @@ fr:
         one: Visite
         other: Visites
   attributes:
-    created_at: Date de création
-    coordinates: Coordonnées
+    activity: Activité
+    advisor: Conseiller
+    advisors:
+      one: Conseiller
+      other: Conseillers
+    antenne: Antenne
+    antenne_experts:
+      one: Référent
+      other: Référents
+    antenne_institution: Institution
+    archived?: Archivé
+    archived_at: Date d’archivage
+    assistances:
+      one: Champ de compétence
+      other: Champs de compétence
+    category: Catégorie
+    communes: Communes
     community: Communauté
-    match_received:
+    contacted_expert: Référent contacté
+    contacts:
+      one: Personne rencontrée
+      other: Personnes rencontrées
+    content: Description
+    coordinates: Coordonnées
+    created_at: Date de création
+    custom_communes: Spécifique
+    description: Description
+    diagnosed_needs:
+      one: Besoin identifié
+      other: besoins identifiés
+    diagnoses:
+      one: Analyse
+      other: Analyses
+    email: E-mail
+    experts:
+      one: Référent
+      other: Référents
+    facilities:
+      one: Établissement
+      other: Établissements
+    full_name: Prénom et nom
+    insee_codes:
+      one: Code commune
+      other: Codes commune
+    institution: Institution
+    intervention_zone: Zone d’intervention
+    interview_sort_order: Ordre dans le questionnaire
+    label: Intitulé
+    legal_form_code: Forme juridique
+    matches:
+      one: Mise en relation
+      other: Mises en relation
+    naf_code: Code NAF
+    name: Nom
+    phone_number: Numéro de téléphone
+    questions:
+      one: Besoin
+      other: Besoins
+    received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues
-    match_sent:
+    relay_territories:
+      one: Territoire géré
+      other: Territoires gérés
+    relay_users:
+      one: Relais local
+      other: Relais locaux
+    searches:
+      one: Recherche
+      other: Recherches
+    sent_diagnosed_needs:
+      one: Besoin analysé
+      other: Besoins analysés
+    sent_diagnoses:
+      one: Analyse réalisée
+      other: Analyses réalisées
+    sent_matches:
       one: Mise en relation envoyée
       other: Mises en relation envoyées
+    siren: SIREN
+    siret: SIRET
+    status_description: Résumé
+    title: Titre
     updated_at: Date de mise à jour
+    visit: Visite

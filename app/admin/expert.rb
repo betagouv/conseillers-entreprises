@@ -116,7 +116,7 @@ ActiveAdmin.register Expert do
       f.input :phone_number
     end
 
-    f.inputs t('activerecord.attributes.expert.custom_communes?') do
+    f.inputs t('attributes.custom_communes') do
       f.input :insee_codes
     end
 

@@ -30,7 +30,7 @@ describe 'ApplicationController specific features', type: :feature do
 
       visit new_user_session_path
 
-      fill_in I18n.t('activerecord.attributes.user.email'), with: user.email
+      fill_in I18n.t('attributes.email'), with: user.email
       fill_in I18n.t('activerecord.attributes.user.password'), with: password
       click_button I18n.t('sign_in')
     end
