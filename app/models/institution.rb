@@ -12,7 +12,7 @@ class Institution < ApplicationRecord
   ## Through Associations
   #
   # :antennes
-  has_many :experts, through: :antennes, inverse_of: :institution
+  has_many :experts, through: :antennes, inverse_of: :antenne_institution
   has_many :advisors, through: :antennes, inverse_of: :antenne_institution
   has_many :sent_diagnoses, through: :antennes, inverse_of: :advisor_institution
   has_many :sent_diagnosed_needs, through: :antennes, inverse_of: :advisor_institution

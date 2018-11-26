@@ -4,7 +4,7 @@ module UseCases
   class GetDiagnosedNeedsWithFilteredAssistanceExperts
     class << self
       def of_diagnosis(diagnosis)
-        inclusions = [question: [assistances: [assistances_experts: [expert: :institution]]]]
+        inclusions = [question: [assistances: [assistances_experts: [expert: :antenne_institution]]]]
         diagnosed_needs = DiagnosedNeed.of_diagnosis(diagnosis).includes(inclusions)
         diagnosed_needs = diagnosed_needs.ordered_by_interview
         select_localized_and_business_assistance_experts(diagnosed_needs, diagnosis)
