@@ -293,3 +293,11 @@ ActiveAdmin.setup do |config|
   #
   # config.order_clause = MyOrderClause
 end
+
+## Monkey-patch an issue with filters for “has_many through” associations that may yield duplicate rows in ActiveAdmin
+#
+ActiveAdmin::ResourceController::DataAccess.module_eval do
+  def scoped_collection
+    end_of_association_chain.distinct
+  end
+end
