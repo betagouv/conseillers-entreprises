@@ -2,49 +2,69 @@
 
 ActiveAdmin.register Contact do
   menu parent: :companies, priority: 2
-  permit_params :full_name, :role, :company_id, :email, :phone_number
-  includes :company
-
-  ## Show
-  #
-  action_item :normalize_values, only: :show do
-    link_to t('active_admin.person.normalize_values'), normalize_values_admin_contact_path(contact)
-  end
 
   ## Index
   #
+  includes :company
+
   index do
     selectable_column
-    id_column
-    column :full_name
-    column :email
-    column :phone_number
-    column :role
-    column :company
+    column(:coordinates, sortable: :full_name) do |c|
+      div admin_link_to(c)
+      div '☞ ' + c.role
+      div '✉ ' + c.email
+      div '✆ ' + c.phone_number
+    end
+    column(:company) do |c|
+      div admin_link_to(c, :company)
+    end
     actions dropdown: true do |contact|
       item t('active_admin.person.normalize_values'), normalize_values_admin_contact_path(contact)
     end
   end
 
-  ## Form
-  #
-  form do |f|
-    f.inputs do
-      f.input :company, collection: Company.ordered_by_name
-      f.input :full_name
-      f.input :email
-      f.input :phone_number
-      f.input :role
-    end
-  end
-
-  filter :company_name, as: :string, label: I18n.t('activerecord.attributes.facility.company')
+  filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :full_name
   filter :email
   filter :phone_number
   filter :role
   filter :created_at
-  filter :updated_at
+
+  ## Show
+  #
+  show do
+    attributes_table do
+      row :full_name
+      row :role
+      row :email
+      row :phone_number
+      row :company
+    end
+  end
+
+  action_item :normalize_values, only: :show do
+    link_to t('active_admin.person.normalize_values'), normalize_values_admin_contact_path(contact)
+  end
+
+  ## Form
+  #
+  permit_params :full_name, :role, :email, :phone_number, :company_id
+
+  form do |f|
+    f.inputs do
+      f.input :full_name
+      f.input :role
+      f.input :email
+      f.input :phone_number
+
+      f.input :company, as: :ajax_select, data: {
+        url: :admin_companies_path,
+        search_fields: [:name]
+      }
+    end
+
+    actions
+  end
 
   ## Actions
   #

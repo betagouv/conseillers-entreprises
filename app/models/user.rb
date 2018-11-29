@@ -17,7 +17,8 @@ class User < ApplicationRecord
   has_and_belongs_to_many :experts, inverse_of: :users
 
   has_many :relays
-  has_many :territories, through: :relays, inverse_of: :users # TODO should be named :relay_territories when we get rid of the Relay model and use a HABTM
+  has_many :relay_territories, through: :relays, source: :territory, inverse_of: :relay_users # TODO should be named :relay_territories when we get rid of the Relay model and use a HABTM
+  has_many :relay_matches, through: :relays, source: :matches, inverse_of: :relay_user
 
   has_many :visits, foreign_key: 'advisor_id'
   has_many :sent_diagnoses, through: :visits, source: :diagnosis, inverse_of: :advisor # TODO Should be a direct association when we merge the Visit and Diagnosis models
@@ -62,6 +63,9 @@ class User < ApplicationRecord
   end)
   scope :admin, (-> { where(is_admin: true) })
   scope :not_admin, (-> { where(is_admin: false) })
+  scope :approved, -> { where(is_approved: true) }
+  scope :not_approved, -> { where(is_approved: false) }
+  scope :email_not_confirmed, -> { where(confirmed_at: nil) }
 
   scope :ordered_by_names, -> { order(:full_name) }
   scope :ordered_by_institution, -> do

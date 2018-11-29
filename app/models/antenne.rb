@@ -26,8 +26,12 @@ class Antenne < ApplicationRecord
 
   # :experts
   has_many :received_matches, through: :experts, inverse_of: :expert_antenne
-  has_many :received_diagnosed_needs, through: :experts, inverse_of: :expert_antenne
+  has_many :received_diagnosed_needs, through: :experts, inverse_of: :experts_antennes
   has_many :received_diagnoses, through: :experts, inverse_of: :expert_antenne
+
+  ##
+  #
+  scope :without_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
 
   ##
   #
