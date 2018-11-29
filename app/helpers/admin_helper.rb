@@ -30,13 +30,6 @@ module AdminHelper
     descriptions.join("<br/>").html_safe
   end
 
-  def intervention_zone_short_description(many_communes)
-    communes = many_communes.communes
-    territories = many_communes.territories
-    "#{territories.size} #{t('activerecord.models.territory', count: territories.size)} "\
-    "(#{communes.size} #{t('activerecord.models.commune', count: communes.size)})"
-  end
-
   def admin_link_to(object, association = nil, options = {})
     if association.nil?
       return link_to(object, polymorphic_path([:admin, object]))
