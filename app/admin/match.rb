@@ -60,14 +60,19 @@ ActiveAdmin.register Match do
   #
   csv do
     column :id
-    column :status_short_description
-    column :diagnosed_need
+    column(:status) { |m| m.status_short_description }
+    column :facility
+    column(:diagnosed_need) { |m| m.diagnosed_need_id }
+    column(:question) { |m| m.diagnosed_need.question }
     column :created_at
-    column(:status_short_description) { |m| m.diagnosed_need.status_short_description }
+    column(:status_description) { |m| m.diagnosed_need.status_short_description }
     column :advisor
     column :advisor_antenne
+    column :advisor_institution
     column :expert
     column :expert_antenne
+    column :expert_institution
+    column('Page Référent') { |m| besoin_url(m.diagnosis, access_token: m.expert.access_token) if m.expert.present? }
     column :relay_user
   end
 
