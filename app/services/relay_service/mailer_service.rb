@@ -10,8 +10,6 @@ module RelayService
         end
       end
 
-      private
-
       def send_relay_stats_email_to(relay)
         diagnoses = relay.territory_diagnoses
 
