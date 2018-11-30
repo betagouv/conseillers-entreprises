@@ -67,26 +67,6 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :received_matches)
       end
     end
-
-    render partial: 'admin/users', locals: {
-      table_name: I18n.t('attributes.advisors', count: antenne.advisors.size),
-      users: antenne.advisors
-    }
-
-    render partial: 'admin/experts', locals: {
-      table_name: I18n.t('attributes.experts', count: antenne.experts.size),
-      experts: antenne.experts
-    }
-
-    render partial: 'admin/matches', locals: {
-      table_name: I18n.t('attributes.sent_matches', count: antenne.sent_matches.size),
-      matches: antenne.sent_matches
-    }
-
-    render partial: 'admin/matches', locals: {
-      table_name: I18n.t('attributes.received_matches', count: antenne.received_matches.size),
-      matches: antenne.received_matches
-    }
   end
 
   ## Form

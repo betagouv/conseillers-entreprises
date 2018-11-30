@@ -77,17 +77,6 @@ ActiveAdmin.register Diagnosis do
         div admin_link_to(d, :matches, list: true)
       end
     end
-
-    panel I18n.t('activerecord.models.diagnosed_need.other') do
-      table_for diagnosis.diagnosed_needs do
-        column(:id) { |n| link_to(n.id, admin_diagnosed_need_path(n)) }
-        column(:category) { |n| n.question&.category&.label }
-        column :question_label
-        column(:content) { |n| link_to(n.content, admin_diagnosed_need_path(n)) }
-      end
-    end
-
-    render partial: 'admin/matches', locals: { matches: diagnosis.matches }
   end
 
   ## Form

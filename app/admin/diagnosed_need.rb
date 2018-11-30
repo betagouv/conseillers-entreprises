@@ -67,8 +67,6 @@ ActiveAdmin.register DiagnosedNeed do
         div admin_link_to(d, :matches, list: true)
       end
     end
-
-    render partial: 'admin/matches', locals: { matches: diagnosed_need.matches }
   end
 
   ## Form

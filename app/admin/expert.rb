@@ -105,13 +105,6 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :received_matches)
       end
     end
-
-    render partial: 'admin/users', locals: {
-      table_name: I18n.t('activerecord.attributes.expert.users'),
-      users: expert.users
-    }
-
-    render partial: 'admin/matches', locals: { matches: expert.received_matches }
   end
 
   action_item :normalize_values, only: :show do
