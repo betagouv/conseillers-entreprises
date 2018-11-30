@@ -88,6 +88,7 @@ ignore_unused:
   - 'devise.*'
   - 'errors.messages.*'
   - 'activerecord.*'
+  - 'active_admin.scopes.*'
   - 'attributes.*'
   - 'diagnoses.steps.*'
   - 'mailers.user_mailer.daily_change_update.status.*'

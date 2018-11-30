@@ -42,7 +42,7 @@
       %li= link_to description, admin_diagnosis_url(diagnosis)
 
 %p
-  %a{ href: admin_diagnosed_needs_url(scope: 'en_souffrance') }
+  %a{ href: admin_diagnosed_needs_url(scope: :abandoned) }
     %strong= t('.abandoned_needs_count', count: @information_hash[:abandoned_needs_count])
 
 %p
