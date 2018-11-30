@@ -5,12 +5,12 @@ ActiveAdmin.register Expert do
 
   # Index
   #
-  includes :antenne_institution, :antenne, :communes, :territories, :users, :assistances
+  includes :antenne_institution, :antenne, :communes, :territories, :users, :assistances, :received_matches
   includes antenne: [:communes, :territories]
   config.sort_order = 'full_name_asc'
 
   scope :all, default: true
-  scope I18n.t("active_admin.experts.scopes.with_custom_communes"), :with_custom_communes
+  scope :with_custom_communes
 
   index do
     selectable_column
@@ -37,6 +37,9 @@ ActiveAdmin.register Expert do
     end
     column(:assistances) do |e|
       div admin_link_to(e, :assistances)
+    end
+    column(:received_matches) do |e|
+      div admin_link_to(e, :received_matches)
     end
     actions dropdown: true do |expert|
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
@@ -69,6 +72,7 @@ ActiveAdmin.register Expert do
     column_count :communes
     column_count :users
     column_count :assistances
+    column_count :received_matches
   end
 
   ## Show
@@ -76,6 +80,7 @@ ActiveAdmin.register Expert do
   show do
     attributes_table do
       row :full_name
+      row :access_token
       row :role
       row :email
       row :phone_number
@@ -89,18 +94,17 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :communes)
         div intervention_zone_description(e)
       end
-      row(:assistances) do |e|
-        div admin_link_to(e, :assistances)
+      row(:users) do |e|
+        div admin_link_to(e, :users)
+        div admin_link_to(e, :users, list: true)
       end
-      row :access_token
+      row(:assistances) do |e|
+        div admin_link_to(e, :assistances, list: true)
+      end
+      row(:received_matches) do |e|
+        div admin_link_to(e, :received_matches)
+      end
     end
-
-    render partial: 'admin/users', locals: {
-      table_name: I18n.t('activerecord.attributes.expert.users'),
-      users: expert.users
-    }
-
-    render partial: 'admin/matches', locals: { matches: expert.received_matches }
   end
 
   action_item :normalize_values, only: :show do

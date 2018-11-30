@@ -30,8 +30,8 @@ module RelayService
       def csv_first_line
         [
           I18n.t('activerecord.models.company.one'),
-          I18n.t('activerecord.attributes.visit.happened_on'),
-          I18n.t('activerecord.attributes.visit.advisor'),
+          I18n.t('attributes.happened_on'),
+          I18n.t('attributes.advisor'),
           I18n.t('attributes.institution'),
           I18n.t('activerecord.models.question.one'),
           I18n.t('attributes.content'),

@@ -37,8 +37,8 @@ class Diagnosis < ApplicationRecord
   has_many :relays, through: :matches
 
   # :advisor
-  has_one :advisor_antenne, through: :advisor, inverse_of: :sent_diagnoses
-  has_one :advisor_institution, through: :advisor, inverse_of: :sent_diagnoses
+  has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_diagnoses
+  has_one :advisor_institution, through: :advisor, source: :antenne_institution, inverse_of: :sent_diagnoses
 
   ## Scopes
   #

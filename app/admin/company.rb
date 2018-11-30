@@ -65,8 +65,6 @@ ActiveAdmin.register Company do
         div admin_link_to(c, :matches)
       end
     end
-
-    render partial: 'admin/matches', locals: { matches: company.matches }
   end
 
   ## Form
