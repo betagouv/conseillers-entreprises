@@ -5,7 +5,7 @@ ActiveAdmin.register Diagnosis do
 
   ## Index
   #
-  includes :visit, :facility, :company, :advisor
+  includes :visit, :facility, :company, :advisor, :diagnosed_needs, :matches
   includes facility: :commune
 
   scope :only_active, default: true
@@ -55,10 +55,12 @@ ActiveAdmin.register Diagnosis do
   #
   show do
     attributes_table do
-      row :visit
-      row :content
-      row(:advisor)
+      row :facility
+      row(:happened_on) { |d| d.visit.display_date }
       row :created_at
+      row :advisor
+      row(:visitee) { |d| d.visit.visitee }
+      row :content
       row :step
       row :archived? do |d|
         if d.archived?
@@ -75,17 +77,6 @@ ActiveAdmin.register Diagnosis do
         div admin_link_to(d, :matches, list: true)
       end
     end
-
-    panel I18n.t('activerecord.models.diagnosed_need.other') do
-      table_for diagnosis.diagnosed_needs do
-        column(:id) { |n| link_to(n.id, admin_diagnosed_need_path(n)) }
-        column(:category) { |n| n.question&.category&.label }
-        column :question_label
-        column(:content) { |n| link_to(n.content, admin_diagnosed_need_path(n)) }
-      end
-    end
-
-    render partial: 'admin/matches', locals: { matches: diagnosis.matches }
   end
 
   ## Form

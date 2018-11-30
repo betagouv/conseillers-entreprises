@@ -78,23 +78,6 @@ ActiveAdmin.register Territory do
         div admin_link_to(c, :matches)
       end
     end
-
-    render partial: 'admin/users', locals: {
-      table_name: I18n.t('activerecord.attributes.territory.relays'),
-      users: territory.relay_users
-    }
-
-    render partial: 'admin/users', locals: {
-      table_name: I18n.t('activerecord.attributes.territory.advisors'),
-      users: territory.advisors
-    }
-
-    render partial: 'admin/experts', locals: {
-      table_name: I18n.t('activerecord.attributes.territory.experts'),
-      experts: territory.antenne_experts
-    }
-
-    render partial: 'admin/matches', locals: { matches: Match.in_territory(territory).ordered_by_date }
   end
 
   ## Form
