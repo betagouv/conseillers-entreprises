@@ -13,7 +13,7 @@ class Match < ApplicationRecord
   #
   belongs_to :diagnosed_need, counter_cache: true, inverse_of: :matches
 
-  belongs_to :assistance_expert, foreign_key: :assistances_experts_id
+  belongs_to :assistance_expert, foreign_key: :assistances_experts_id, inverse_of: :matches
   has_one :expert, through: :assistance_expert, inverse_of: :received_matches # TODO: Should be direct once we remove assistance_expert and use a HABTM instead
   has_one :assistance, through: :assistance_expert, inverse_of: :matches
 
@@ -93,7 +93,7 @@ class Match < ApplicationRecord
   ##
   #
   def to_s
-    "#{I18n.t('activerecord.models.match.one')} #{id}"
+    "#{I18n.t('activerecord.models.match.one')} avec #{person}"
   end
 
   def status_closed?
