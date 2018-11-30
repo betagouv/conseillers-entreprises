@@ -5,7 +5,7 @@ ActiveAdmin.register Diagnosis do
 
   ## Index
   #
-  includes :visit, :facility, :company, :advisor
+  includes :visit, :facility, :company, :advisor, :diagnosed_needs, :matches
   includes facility: :commune
 
   scope :only_active, default: true
@@ -55,10 +55,12 @@ ActiveAdmin.register Diagnosis do
   #
   show do
     attributes_table do
-      row :visit
-      row :content
-      row(:advisor)
+      row :facility
+      row(:happened_on) { |d| d.visit.display_date }
       row :created_at
+      row :advisor
+      row(:visitee) { |d| d.visit.visitee }
+      row :content
       row :step
       row :archived? do |d|
         if d.archived?

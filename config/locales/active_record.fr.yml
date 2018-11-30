@@ -19,7 +19,9 @@ fr:
         access_token: Token d’accès
         assistances: Champs de compétence
         role: Fonction
-        users: Membres
+        users:
+          one: Membre
+          other: Membres
       facility:
         company: Entreprise
         readable_locality: Commune
@@ -91,11 +93,6 @@ fr:
         reset_password_token: Token de régénération du mot de passe
         role: Fonction
         sign_in_count: Connexions
-      visit:
-        advisor: Conseiller
-        facility: Établissement visité
-        happened_on: Date de la visite
-        visitee: Personne rencontrée
       visit/visitee:
         email: Adresse e-mail de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée
@@ -219,7 +216,9 @@ fr:
     facilities:
       one: Établissement
       other: Établissements
+    facility: Établissement visité
     full_name: Prénom et nom
+    happened_on: Date de la visite
     insee_codes:
       one: Code commune
       other: Codes commune
@@ -264,3 +263,4 @@ fr:
     title: Titre
     updated_at: Date de mise à jour
     visit: Visite
+    visitee: Personne rencontrée
