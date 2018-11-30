@@ -33,10 +33,10 @@ ActiveAdmin.register DiagnosedNeed do
     actions dropdown: true
   end
 
+  filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :question, collection: -> { Question.order(:label) }
   filter :content
-  filter :created_at
 
   ## CSV
   #
@@ -64,6 +64,7 @@ ActiveAdmin.register DiagnosedNeed do
       end
       row(:matches) do |d|
         div admin_link_to(d, :matches)
+        div admin_link_to(d, :matches, list: true)
       end
     end
 

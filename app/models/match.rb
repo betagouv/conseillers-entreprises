@@ -93,7 +93,7 @@ class Match < ApplicationRecord
   ##
   #
   def to_s
-    "#{I18n.t('activerecord.models.match.one')} #{id}"
+    "#{I18n.t('activerecord.models.match.one')} avec #{person}"
   end
 
   def status_closed?
