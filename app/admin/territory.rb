@@ -9,7 +9,7 @@ ActiveAdmin.register Territory do
   config.sort_order = 'name_asc'
 
   scope :all, default: true
-  scope I18n.t("active_admin.territory.scopes.bassins_emploi"), :bassins_emploi
+  scope :bassins_emploi
 
   index do
     selectable_column

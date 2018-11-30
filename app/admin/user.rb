@@ -10,11 +10,11 @@ ActiveAdmin.register User do
   config.sort_order = 'created_at_desc'
 
   scope :all, default: true
-  scope I18n.t("active_admin.user.scopes.admin"), :admin
-  scope I18n.t("active_admin.user.scopes.contact_relays"), :contact_relays
-  scope I18n.t("active_admin.user.scopes.without_antenne"), :without_antenne
-  scope I18n.t("active_admin.user.scopes.not_approved"), :not_approved
-  scope I18n.t("active_admin.user.scopes.email_not_confirmed"), :email_not_confirmed
+  scope :admin
+  scope :contact_relays
+  scope :without_antenne
+  scope :not_approved
+  scope :email_not_confirmed
 
   index do
     selectable_column

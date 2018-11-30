@@ -1,32 +1,32 @@
 ---
 fr:
   active_admin:
-    scopes:
-      without_communes: Sans zone d’intervention
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
-    diagnosed_needs:
-      scopes:
-        abandoned: En souffrance
-        being_taken_care_of: En cours
-        done: Résolu
-        unsent: Non envoyé
-        with_no_one_in_charge: En attente
-    experts:
-      scopes:
-        with_custom_communes: Zone spécifique
     matches:
       deleted: "%{expert} (supprimé)"
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
+    scopes:
+      abandoned: En souffrance
+      admin: Admins
+      bassins_emploi: Bassins d’emploi
+      being_taken_care_of: En cours
+      contact_relays: Relais locaux
+      done: Résolu
+      email_not_confirmed: Email non confirmé
+      not_approved: Non validés
+      unsent: Non envoyé
+      with_custom_communes: Zone spécifique
+      with_no_one_in_charge: En attente
+      without_antenne: Sans antenne
+      without_communes: Sans zone d’intervention
     territory:
       assign_entire_territory: "[compléter]"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
       entire_territory_assigned: Territoire ajouté
-      scopes:
-        bassins_emploi: Bassins d’emploi
     user:
       admin: Admin
       antenne_linked: Antenne associée
@@ -38,10 +38,4 @@ fr:
       experts_linked: Référents associés
       impersonate: Voir le site comme %{name}
       saved: Conseiller mis à jour
-      scopes:
-        admin: Admins
-        contact_relays: Relais locaux
-        email_not_confirmed: Email non confirmé
-        not_approved: Non validés
-        without_antenne: Sans antenne
       user_info: Informations utilisateur

@@ -8,10 +8,11 @@ ActiveAdmin.register DiagnosedNeed do
   includes :diagnosis, :question, :advisor, :matches, :company
 
   scope :all, default: true
-  scopes = [:unsent, :with_no_one_in_charge, :abandoned, :being_taken_care_of, :done]
-  scopes.each do |s|
-    scope I18n.t("active_admin.diagnosed_needs.scopes.#{s}"), s
-  end
+  scope :unsent
+  scope :with_no_one_in_charge
+  scope :abandoned
+  scope :being_taken_care_of
+  scope :done
 
   index do
     selectable_column

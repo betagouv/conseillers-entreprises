@@ -10,7 +10,7 @@ ActiveAdmin.register Expert do
   config.sort_order = 'full_name_asc'
 
   scope :all, default: true
-  scope I18n.t("active_admin.experts.scopes.with_custom_communes"), :with_custom_communes
+  scope :with_custom_communes
 
   index do
     selectable_column
