@@ -15,7 +15,7 @@ class Expert < ApplicationRecord
 
   has_many :assistances_experts, dependent: :destroy
   has_many :assistances, through: :assistances_experts, dependent: :destroy, inverse_of: :experts # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
-  has_many :received_matches, -> { ordered_by_date }, through: :assistances_experts, source: :matches, inverse_of: :expert # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
+  has_many :received_matches, through: :assistances_experts, source: :matches, inverse_of: :expert # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
 
   ## Validations
   #

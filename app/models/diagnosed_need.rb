@@ -5,7 +5,7 @@ class DiagnosedNeed < ApplicationRecord
   #
   belongs_to :diagnosis, inverse_of: :diagnosed_needs
   belongs_to :question, inverse_of: :diagnosed_needs
-  has_many :matches, -> { ordered_by_date }, dependent: :destroy, inverse_of: :diagnosed_need
+  has_many :matches, dependent: :destroy, inverse_of: :diagnosed_need
 
   ## Validations
   #

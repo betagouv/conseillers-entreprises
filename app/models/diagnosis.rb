@@ -30,7 +30,7 @@ class Diagnosis < ApplicationRecord
 
   # :diagnosed_needs
   has_many :questions, through: :diagnosed_needs, inverse_of: :diagnoses
-  has_many :matches, -> { ordered_by_date }, through: :diagnosed_needs, inverse_of: :diagnosis
+  has_many :matches, through: :diagnosed_needs, inverse_of: :diagnosis
 
   # :matches
   has_many :experts, through: :matches, inverse_of: :received_diagnoses

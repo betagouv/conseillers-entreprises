@@ -54,8 +54,6 @@ class Match < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_by_date, -> { order(created_at: :desc) }
-
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
 
   scope :of_diagnoses, (lambda do |diagnoses|
