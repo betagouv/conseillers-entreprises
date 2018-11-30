@@ -47,7 +47,6 @@ class Diagnosis < ApplicationRecord
   scope :reverse_chronological, (-> { order(created_at: :desc) })
   scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
   scope :completed, (-> { where(step: LAST_STEP) })
-  scope :of_facilities, (-> (facilities) { joins(:visit).merge(Visit.where(facility: facilities)) })
   scope :available_for_expert, (lambda do |expert|
     joins(diagnosed_needs: [matches: [assistance_expert: :expert]])
       .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
