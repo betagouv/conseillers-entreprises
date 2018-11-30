@@ -1,6 +1,8 @@
 ---
 fr:
   active_admin:
+    scopes:
+      without_communes: Sans zone d’intervention
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
