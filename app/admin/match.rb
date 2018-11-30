@@ -44,6 +44,8 @@ ActiveAdmin.register Match do
 
   filter :status
 
+  filter :created_at
+
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :advisor_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :advisor_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
