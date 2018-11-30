@@ -3,18 +3,29 @@
 ActiveAdmin.register Search do
   menu parent: :users, priority: 1
   actions :index
+
+  ## Index
+  #
   includes :user
 
   index do
-    id_column
     column :user
+    column :created_at
     column :query
     column :label
-    column :created_at
   end
 
-  filter :user, collection: -> { User.ordered_by_names }
+  filter :user, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
+  filter :created_at
   filter :query
   filter :label
-  filter :created_at
+
+  ## CSV
+  #
+  csv do
+    column :user
+    column :created_at
+    column :query
+    column :label
+  end
 end

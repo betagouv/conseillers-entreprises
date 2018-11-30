@@ -1,9 +1,16 @@
 class Feedback < ApplicationRecord
-  ## Relations and Validations
+  ## Associations
   #
-  belongs_to :match
+  belongs_to :match, inverse_of: :feedbacks
 
+  ## Validations
+  #
   validates :match, :description, presence: true
+
+  ## Through Associations
+  #
+  has_one :expert, through: :match, inverse_of: :feedbacks
+  has_one :diagnosed_need, through: :match, inverse_of: :feedbacks
 
   ##
   #

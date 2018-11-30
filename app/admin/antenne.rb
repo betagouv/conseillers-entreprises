@@ -1,36 +1,51 @@
 ActiveAdmin.register Antenne do
   menu parent: :experts, priority: 1
-  includes :institution, :communes, :territories, :experts, :users
-
-  permit_params [
-    :name,
-    :institution_id,
-    :insee_codes,
-    user_ids: [],
-    expert_ids: [],
-  ]
 
   ## Index
   #
-
+  includes :institution, :advisors, :experts, :territories, :communes, :sent_matches, :received_matches
   config.sort_order = 'name_asc'
+
+  scope :all, default: true
+  scope :without_communes
 
   index do
     selectable_column
-    id_column
-    column :name
-    column :institution
-    column :experts, :experts_count
-    column :users, :users_count
-    column(:communes) { |a| intervention_zone_short_description(a) }
-    # The two following lines are actually “N+1 requests” expensive
-    # We’ll probably want to remove them or use some counter at some point.
-    column(I18n.t('attributes.match_sent.other')) { |a| "#{a.sent_matches.size}" }
-    column(I18n.t('attributes.match_received.other')) { |a| "#{a.received_matches.size}" }
+    column(:name) do |a|
+      div admin_link_to(a)
+      div admin_link_to(a, :institution)
+    end
+    column(:community) do |a|
+      div admin_link_to(a, :advisors)
+      div admin_link_to(a, :experts)
+    end
+    column(:intervention_zone) do |a|
+      div admin_link_to(a, :territories)
+      div admin_link_to(a, :communes)
+    end
+    column(:activity) do |a|
+      div admin_link_to(a, :sent_matches)
+      div admin_link_to(a, :received_matches)
+    end
   end
 
   filter :name
-  filter :institution_name, as: :string, label: I18n.t('activerecord.models.institution.one')
+  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
+
+  ## CSV
+  #
+  csv do
+    column :name
+    column :institution
+    column_count :advisors
+    column_count :experts
+    column_count :territories
+    column_count :communes
+    column_count :sent_matches
+    column_count :received_matches
+  end
 
   ## Show
   #
@@ -38,57 +53,70 @@ ActiveAdmin.register Antenne do
     attributes_table do
       row :name
       row :institution
-      row(:communes) { |a| intervention_zone_description(a) }
+      row(:intervention_zone) do |a|
+        div admin_link_to(a, :territories)
+        div admin_link_to(a, :communes)
+        div intervention_zone_description(a)
+      end
+      row(:community) do |a|
+        div admin_link_to(a, :advisors)
+        div admin_link_to(a, :experts)
+      end
+      row(:activity) do |a|
+        div admin_link_to(a, :sent_matches)
+        div admin_link_to(a, :received_matches)
+      end
     end
 
     render partial: 'admin/users', locals: {
-      table_name: I18n.t('activerecord.attributes.antenne.users'),
-      users: antenne.users
+      table_name: I18n.t('attributes.advisors', count: antenne.advisors.size),
+      users: antenne.advisors
     }
 
     render partial: 'admin/experts', locals: {
-      table_name: I18n.t('activerecord.attributes.antenne.experts'),
+      table_name: I18n.t('attributes.experts', count: antenne.experts.size),
       experts: antenne.experts
     }
 
     render partial: 'admin/matches', locals: {
-      table_name: I18n.t('attributes.match_sent', count: antenne.sent_matches.size),
+      table_name: I18n.t('attributes.sent_matches', count: antenne.sent_matches.size),
       matches: antenne.sent_matches
     }
 
     render partial: 'admin/matches', locals: {
-      table_name: I18n.t('attributes.match_received', count: antenne.received_matches.size),
+      table_name: I18n.t('attributes.received_matches', count: antenne.received_matches.size),
       matches: antenne.received_matches
     }
   end
 
   ## Form
   #
+  permit_params :name, :institution_id, :insee_codes, advisor_ids: [], expert_ids: []
+
   form do |f|
     f.inputs do
       f.input :name
       f.input :institution, as: :ajax_select, data: {
         url: :admin_institutions_path,
-        search_fields: [:name],
-        limit: 999,
+        search_fields: [:name]
       }
 
       f.input :insee_codes
     end
 
     f.inputs do
-      f.input :users, label: t('activerecord.attributes.antenne.users'), as: :ajax_select, data: {
+      f.input :advisors, label: t('attributes.advisors'), as: :ajax_select, data: {
         url: :admin_users_path,
         search_fields: [:full_name],
-        limit: 999,
+        limit: 999
       }
     end
 
     f.inputs do
-      f.input :experts, label: t('activerecord.attributes.antenne.experts'), as: :ajax_select, data: {
+      f.input :experts, label: t('attributes.experts'), as: :ajax_select, data: {
         url: :admin_experts_path,
         search_fields: [:full_name],
-        limit: 999,
+        limit: 999
       }
     end
 

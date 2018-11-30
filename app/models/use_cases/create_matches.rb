@@ -22,7 +22,7 @@ module UseCases
 
         def assistances_experts_for_diagnosis(diagnosis_id, assistance_expert_ids)
           associations = [
-            :expert, :assistance, expert: :institution, assistance: [
+            :expert, :assistance, expert: :antenne_institution, assistance: [
               :question, question: [:diagnosed_needs, diagnosed_needs: :diagnosis]
             ]
           ]

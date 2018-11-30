@@ -40,6 +40,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe 'update_params_depending_on_password' do
     before do
+      allow(controller).to receive(:scoped_collection).and_return(User)
       allow(User).to receive(:find).with(user.id.to_s).and_return(user)
       allow(user).to receive(:update_without_password)
       allow(user).to receive(:update)

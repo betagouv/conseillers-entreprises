@@ -1,22 +1,47 @@
 # frozen_string_literal: true
 
 class Diagnosis < ApplicationRecord
+  ## Constants
+  #
   LAST_STEP = 5
   AUTHORIZED_STEPS = (1..LAST_STEP).to_a.freeze
 
+  ## Associations
+  #
   belongs_to :visit, validate: true, dependent: :destroy
+  has_one :facility, through: :visit, inverse_of: :diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
+  has_one :advisor, through: :visit, inverse_of: :sent_diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
 
-  has_many :diagnosed_needs, dependent: :destroy
-  accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
-  has_many :questions, through: :diagnosed_needs
-  has_many :matches, -> { ordered_by_date }, through: :diagnosed_needs
-  has_many :experts, through: :matches
-  has_many :relays, through: :matches
+  has_many :diagnosed_needs, dependent: :destroy, inverse_of: :diagnosis
 
+  ## Validations
+  #
   validates :visit, presence: true
-  accepts_nested_attributes_for :visit
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
 
+  accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
+  accepts_nested_attributes_for :visit
+
+  ## Through Associations
+  #
+  # :facility
+  has_one :company, through: :facility, inverse_of: :diagnoses
+  has_one :facility_territories, through: :facility, source: :territories, inverse_of: :diagnoses
+
+  # :diagnosed_needs
+  has_many :questions, through: :diagnosed_needs, inverse_of: :diagnoses
+  has_many :matches, -> { ordered_by_date }, through: :diagnosed_needs, inverse_of: :diagnosis
+
+  # :matches
+  has_many :experts, through: :matches, inverse_of: :received_diagnoses
+  has_many :relays, through: :matches
+
+  # :advisor
+  has_one :advisor_antenne, through: :advisor, inverse_of: :sent_diagnoses
+  has_one :advisor_institution, through: :advisor, inverse_of: :sent_diagnoses
+
+  ## Scopes
+  #
   scope :of_siret, (-> (siret) { joins(:visit).merge(Visit.of_siret(siret)) })
   scope :of_user, (-> (user) { joins(:visit).where(visits: { advisor: user }) })
   scope :reverse_chronological, (-> { order(created_at: :desc) })
@@ -42,6 +67,14 @@ class Diagnosis < ApplicationRecord
 
   scope :only_active, (-> { where(archived_at: nil) })
 
+  ##
+  #
+  def to_s
+    "#{facility} #{visit.display_date}"
+  end
+
+  ##
+  #
   def archive!
     self.archived_at = Time.now
     self.save!
@@ -52,10 +85,18 @@ class Diagnosis < ApplicationRecord
     self.save!
   end
 
+  def archived?
+    archived_at.present?
+  end
+
+  ##
+  #
   def can_be_viewed_by?(role)
     visit.can_be_viewed_by?(role) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
   end
 
+  ##
+  #
   def contacted_persons
     (relays.map(&:user) + experts).uniq
   end

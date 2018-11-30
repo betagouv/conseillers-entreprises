@@ -1,13 +1,26 @@
 # frozen_string_literal: true
 
 class Institution < ApplicationRecord
-  ## Relations and Validations
+  ## Associations
   #
-  has_many :antennes
-  has_many :experts, through: :antennes
-  has_many :users, through: :antennes
+  has_many :antennes, inverse_of: :institution
 
+  ## Validations
+  #
   validates :name, presence: true
+
+  ## Through Associations
+  #
+  # :antennes
+  has_many :experts, through: :antennes, inverse_of: :antenne_institution
+  has_many :advisors, through: :antennes, inverse_of: :antenne_institution
+  has_many :sent_diagnoses, through: :antennes, inverse_of: :advisor_institution
+  has_many :sent_diagnosed_needs, through: :antennes, inverse_of: :advisor_institution
+  has_many :sent_matches, through: :antennes, inverse_of: :advisor_institution
+
+  has_many :received_matches, through: :antennes, inverse_of: :expert_institution
+  has_many :received_diagnosed_needs, through: :antennes, inverse_of: :expert_institution
+  has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institution
 
   ## Scopes
   #
@@ -17,16 +30,6 @@ class Institution < ApplicationRecord
   scope :qualified_for_artisanry, (-> { where(qualified_for_artisanry: true) })
   scope :qualified_for_commerce, (-> { where(qualified_for_commerce: true) })
   scope :ordered_by_name, (-> { order(:name) })
-
-  ## Matches, Sent and Received
-  #
-  def sent_matches
-    Match.sent_by(users)
-  end
-
-  def received_matches
-    Match.of_relay_or_expert(experts)
-  end
 
   ##
   #

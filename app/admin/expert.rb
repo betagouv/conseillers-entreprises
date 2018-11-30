@@ -2,12 +2,116 @@
 
 ActiveAdmin.register Expert do
   menu priority: 6
-  includes :antenne, :institution, :communes, :territories, :assistances, :users
 
+  # Index
+  #
+  includes :antenne_institution, :antenne, :communes, :territories, :users, :assistances
+  includes antenne: [:communes, :territories]
+  config.sort_order = 'full_name_asc'
+
+  scope :all, default: true
+  scope I18n.t("active_admin.experts.scopes.with_custom_communes"), :with_custom_communes
+
+  index do
+    selectable_column
+    column(:full_name) do |e|
+      div admin_link_to(e)
+      div '➜ ' + e.role
+      div '✉ ' + e.email
+      div '✆ ' + e.phone_number
+    end
+    column(:institution) do |e|
+      div admin_link_to(e, :antenne_institution)
+      div admin_link_to(e, :antenne)
+    end
+    column(:intervention_zone) do |e|
+      if e.custom_communes?
+        status_tag t('attributes.custom_communes'), class: 'yes'
+      end
+      zone = e.custom_communes? ? e : e.antenne
+      div admin_link_to(zone, :territories)
+      div admin_link_to(zone, :communes)
+    end
+    column(:users) do |e|
+      div admin_link_to(e, :users)
+    end
+    column(:assistances) do |e|
+      div admin_link_to(e, :assistances)
+    end
+    actions dropdown: true do |expert|
+      item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
+    end
+  end
+
+  filter :full_name
+  filter :role
+  filter :email
+  filter :phone_number
+  filter :antenne_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
+  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
+
+  ## CSV
+  #
+  csv do
+    column :full_name
+    column :role
+    column :email
+    column :phone_number
+    column :antenne_institution
+    column :antenne
+    column_count :antenne_territories
+    column_count :antenne_communes
+    column :custom_communes?
+    column_count :territories
+    column_count :communes
+    column_count :users
+    column_count :assistances
+  end
+
+  ## Show
+  #
+  show do
+    attributes_table do
+      row :full_name
+      row :role
+      row :email
+      row :phone_number
+      row :antenne_institution
+      row :antenne
+      row(:intervention_zone) do |e|
+        if e.custom_communes?
+          status_tag t('attributes.custom_communes'), class: 'yes'
+        end
+        div admin_link_to(e, :territories)
+        div admin_link_to(e, :communes)
+        div intervention_zone_description(e)
+      end
+      row(:assistances) do |e|
+        div admin_link_to(e, :assistances)
+      end
+      row :access_token
+    end
+
+    render partial: 'admin/users', locals: {
+      table_name: I18n.t('activerecord.attributes.expert.users'),
+      users: expert.users
+    }
+
+    render partial: 'admin/matches', locals: { matches: expert.received_matches }
+  end
+
+  action_item :normalize_values, only: :show do
+    link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
+  end
+
+  ## Form
+  #
   permit_params [
     :full_name,
     :role,
-    :institution_id,
     :antenne_id,
     :email,
     :phone_number,
@@ -17,75 +121,6 @@ ActiveAdmin.register Expert do
     assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
   ]
 
-  # Index
-  #
-  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
-  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
-  filter :full_name
-  filter :email
-  filter :phone_number
-  filter :role
-
-  scope :all, default: true
-  scope I18n.t("active_admin.experts.scopes.with_custom_communes"), :with_custom_communes
-
-  config.sort_order = 'full_name_asc'
-
-  index do
-    selectable_column
-    id_column
-    column :full_name
-    column :institution
-    column :antenne
-    column :custom_communes?
-    column(:communes) { |expert| intervention_zone_short_description(expert) if expert.custom_communes? }
-    column(:users) { |expert| expert.users.size }
-    column :role
-    column :email
-    column(:assistances) { |expert| expert.assistances.size }
-    actions dropdown: true do |expert|
-      item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
-    end
-  end
-
-  ## Show
-  #
-  show do
-    attributes_table do
-      row :full_name
-      row :institution
-      row :antenne
-      row :custom_communes?
-      row(:communes) { |expert| intervention_zone_description(expert) }
-      row :role
-      row :email
-      row :phone_number
-      row :access_token
-    end
-
-    panel I18n.t('activerecord.attributes.expert.assistances') do
-      table_for expert.assistances do
-        column :category
-        column :question
-        column(:title) { |assistance| link_to(assistance.title, admin_assistance_path(assistance)) }
-      end
-    end
-
-    render partial: 'admin/users', locals: {
-      table_name: I18n.t('activerecord.attributes.expert.users'),
-      users: expert.users
-    }
-
-    render partial: 'admin/matches', locals: { matches: expert.matches }
-  end
-
-  action_item :normalize_values, only: :show do
-    link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
-  end
-
-  ## Form
-  #
   form do |f|
     f.inputs do
       f.input :full_name
@@ -99,7 +134,7 @@ ActiveAdmin.register Expert do
       f.input :phone_number
     end
 
-    f.inputs t('activerecord.attributes.expert.custom_communes?') do
+    f.inputs t('attributes.custom_communes') do
       f.input :insee_codes
     end
 

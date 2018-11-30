@@ -3,92 +3,90 @@
 ActiveAdmin.register User do
   menu priority: 2
 
-  permit_params [
-    :full_name,
-    :email,
-    :institution,
-    :role,
-    :phone_number,
-    :is_approved,
-    :contact_page_order,
-    :contact_page_role,
-    :is_admin,
-    :password,
-    :password_confirmation,
-    :antenne_id,
-    expert_ids: [],
-  ]
-
-  includes :experts, :relays, :territories, :antenne
-
   # Index
   #
+  includes :antenne, :antenne_institution, :experts, :relay_territories, :searches,
+    :sent_diagnoses, :sent_diagnosed_needs, :sent_matches
+  config.sort_order = 'created_at_desc'
+
   scope :all, default: true
-  scopes = [:admin, :contact_relays, :without_antenne, ]
-  scopes.each do |s|
-    scope I18n.t("active_admin.user.scopes.#{s}"), s
+  scope I18n.t("active_admin.user.scopes.admin"), :admin
+  scope I18n.t("active_admin.user.scopes.contact_relays"), :contact_relays
+  scope I18n.t("active_admin.user.scopes.without_antenne"), :without_antenne
+  scope I18n.t("active_admin.user.scopes.not_approved"), :not_approved
+  scope I18n.t("active_admin.user.scopes.email_not_confirmed"), :email_not_confirmed
+
+  index do
+    selectable_column
+    column(:full_name) do |u|
+      div admin_link_to(u)
+      div '✉ ' + u.email
+      div '✆ ' + u.phone_number
+      div u.confirmed? ? status_tag('Email ok') : status_tag('Email non confirmé', class: 'warning')
+    end
+    column :created_at do |u|
+      div I18n.l(u.created_at, format: '%Y-%m-%d %H:%M')
+      div u.is_approved? ? status_tag('Validé') : status_tag('Compte Non validé', class: 'warning')
+    end
+    column :role do |u|
+      div u.role
+      if u.antenne.present?
+        div admin_link_to(u, :antenne)
+        div admin_link_to(u, :antenne_institution)
+      else
+        status_tag 'sans antenne', class: 'warning'
+        span u.institution
+      end
+    end
+    column(:experts) do |u|
+      div admin_link_to(u, :experts, list: true)
+      div admin_link_to(u, :relay_territories, list: true)
+    end
+    column(:activity) do |u|
+      div admin_link_to(u, :searches)
+      div admin_link_to(u, :sent_diagnoses)
+      div admin_link_to(u, :sent_diagnosed_needs)
+      div admin_link_to(u, :sent_matches)
+    end
+
+    actions dropdown: true do |u|
+      if !u.is_approved?
+        item(t('active_admin.user.approve_user'), approve_user_admin_user_path(u), method: :post)
+      end
+      item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
+      item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
+    end
   end
 
   filter :full_name
   filter :email
-  filter :institution
   filter :role
-  filter :confirmed_at_not_null, as: :boolean, label: "Confirmé"
-  filter :is_approved
-  filter :is_admin
+  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :antenne_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :relay_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
-  index do
-    selectable_column
-    id_column
+  ## CSV
+  #
+  csv do
     column :full_name
     column :email
     column :phone_number
-    column(:experts) do |user|
-      if user.experts.present?
-        safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
-      elsif user.corresponding_experts.present?
-        text = t('active_admin.user.autolink_to', what: user.corresponding_experts)
-        link_to(text, autolink_to_experts_admin_user_path(user), method: :post)
-      else
-        '-'
-      end
-    end
-    column(:antenne) do |user|
-      if user.antenne.present?
-        link_to(user.antenne.name, admin_antenne_path(user.antenne))
-      elsif user.corresponding_antenne.present?
-        text = t('active_admin.user.autolink_to', what: user.corresponding_antenne)
-        link_to(text, autolink_to_antenne_admin_user_path(user), method: :post)
-      else
-        '-'
-      end
-    end
-    column :institution, label: "Institution (manuelle)"
-    column(:relays) do |user|
-      if user.territories.present?
-        safe_join(user.territories.map { |territory| link_to(territory.name, admin_territory_path(territory)) }, ', '.html_safe)
-      else
-        '-'
-      end
-    end
-    column :created_at
     column :confirmed?
-    column :is_approved
-    actions dropdown: true do |user|
-      if !user.is_approved?
-        item(t('active_admin.user.approve_user'), approve_user_admin_user_path(user), method: :post)
-      end
-      item t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
-      if user.experts.empty? && user.corresponding_experts.present?
-        text = t('active_admin.user.autolink_to', what: user.corresponding_experts)
-        item(text, autolink_to_experts_admin_user_path(user), method: :post)
-      end
-      if user.antenne.nil?
-        text = t('active_admin.user.autolink_to', what: user.corresponding_antenne)
-        item(text, autolink_to_antenne_admin_user_path(user), method: :post)
-      end
-      item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
+    column :created_at
+    column :is_approved?
+    column :role
+    column :antenne
+    column :antenne_institution do |u|
+      u.antenne_institution || "sans antenne: #{u.institution}"
     end
+    column_list :experts
+    column_list :relay_territories
+    column_count :searches
+    column_count :sent_diagnoses
+    column_count :sent_diagnosed_needs
+    column_count :sent_matches
   end
 
   # Show
@@ -96,33 +94,35 @@ ActiveAdmin.register User do
   show do
     attributes_table do
       row :full_name
-      row :institution
-      row :antenne do |user|
-        if user.antenne.present?
-          user.antenne
-        elsif user.corresponding_antenne.present?
-          text = t('active_admin.user.autolink_to', what: user.corresponding_antenne)
-          link_to(text, autolink_to_antenne_admin_user_path(user), method: :post)
-        end
-      end
-      row(:experts) do |user|
-        if user.experts.present?
-          safe_join(user.experts.map { |expert| link_to(expert, admin_expert_path(expert)) }, ', '.html_safe)
-        elsif user.corresponding_experts.present?
-          text = t('active_admin.user.autolink_to', what: user.corresponding_experts)
-          link_to(text, autolink_to_experts_admin_user_path(user), method: :post)
-        end
-      end
-      row :role
       row :email
       row :phone_number
-    end
-
-    attributes_table title: I18n.t('activerecord.models.relay.one') do
-      row I18n.t('activerecord.models.territory.other') do |user|
-        safe_join(user.territories.map do |territory|
-          link_to territory.name, admin_territory_path(territory)
-        end, ', '.html_safe)
+      row :institution
+      row :role do |u|
+        div u.role
+        if u.antenne.present?
+          div admin_link_to(u, :antenne)
+          div admin_link_to(u, :antenne_institution)
+        else
+          status_tag 'sans antenne', class: 'warning'
+          span u.institution
+        end
+      end
+      row(:experts) do |u|
+        if u.experts.present?
+          div admin_link_to(u, :experts, list: true)
+        elsif u.corresponding_experts.present?
+          text = t('active_admin.user.autolink_to', what: u.corresponding_experts)
+          link_to(text, autolink_to_experts_admin_user_path(u), method: :post)
+        end
+      end
+      row :relays_territories do |u|
+        div admin_link_to(u, :relay_territories, list: true)
+      end
+      row :activity do |u|
+        div admin_link_to(u, :searches)
+        div admin_link_to(u, :sent_diagnoses)
+        div admin_link_to(u, :sent_diagnosed_needs)
+        div admin_link_to(u, :sent_matches)
       end
     end
   end
@@ -155,6 +155,11 @@ ActiveAdmin.register User do
 
   # Form
   #
+  permit_params :full_name, :email, :institution, :role, :phone_number, :is_approved,
+    :contact_page_order, :contact_page_role,
+    :is_admin, :password, :password_confirmation,
+    :antenne_id, expert_ids: []
+
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
       f.input :full_name

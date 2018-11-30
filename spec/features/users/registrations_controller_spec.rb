@@ -7,11 +7,11 @@ describe 'registrations', type: :feature do
     it 'is made faster thanks to default values' do
       visit new_user_registration_path(default_full_name: 'John')
 
-      expect(find_field('Nom').value).to eq 'John'
+      expect(find_field('Prénom et nom').value).to eq 'John'
 
       fill_in id: 'user_full_name', with: 'Joe'
 
-      expect(find_field('Nom').value).to eq 'Joe'
+      expect(find_field('Prénom et nom').value).to eq 'Joe'
     end
   end
 

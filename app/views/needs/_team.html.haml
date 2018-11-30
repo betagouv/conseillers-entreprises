@@ -6,10 +6,10 @@
     #{expert.role}, #{expert.antenne.name}
   - if expert.phone_number.present?
     .ui.segment
-      %strong #{t('activerecord.attributes.expert.phone_number')} :
+      %strong #{t('attributes.phone_number')} :
       = expert.phone_number
   .ui.segment
-    %strong #{t('activerecord.attributes.expert.email')} :
+    %strong #{t('attributes.email')} :
     = expert.email
   - if !expert.is_oneself?
     .ui.segment

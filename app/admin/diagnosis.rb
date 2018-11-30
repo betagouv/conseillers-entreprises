@@ -2,24 +2,65 @@
 
 ActiveAdmin.register Diagnosis do
   menu priority: 7
-  includes visit: [:advisor, facility: :company]
 
-  filter :visit, collection: -> { Visit.includes(facility: :company).joins(facility: :company).order('companies.name') }
-  filter :content
+  ## Index
+  #
+  includes :visit, :facility, :company, :advisor
+  includes facility: :commune
+
+  scope :only_active, default: true
+  scope :all
+
+  index do
+    selectable_column
+    column(:visit) do |d|
+      div admin_link_to(d)
+      div admin_attr(d, :content)
+    end
+    column(:advisor)
+    column :created_at
+    column :step
+    column :archived? do |d|
+      if d.archived?
+        status_tag :archived, class: 'warning'
+        span I18n.l(d.archived_at, format: '%Y-%m-%d %H:%M')
+      end
+    end
+
+    actions dropdown: true
+  end
+
+  filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :created_at
-  filter :updated_at
   filter :archived_at
   filter :step
 
+  ## CSV
+  #
+  csv do
+    column :facility
+    column :content
+    column :advisor
+    column :created_at
+    column :step
+    column :archived?
+  end
+
+  ## Show
+  #
   show do
     attributes_table do
       row :visit
+      row :content
+      row(:advisor)
       row :created_at
-      row :updated_at
-      row :archived_at
-      row(:advisor) { |d| d.visit.advisor }
       row :step
-      row :description
+      row :archived? do |d|
+        if d.archived?
+          status_tag :archived, class: 'warning'
+          span I18n.l(d.archived_at, format: '%Y-%m-%d %H:%M')
+        end
+      end
     end
 
     panel I18n.t('activerecord.models.diagnosed_need.other') do
@@ -32,5 +73,19 @@ ActiveAdmin.register Diagnosis do
     end
 
     render partial: 'admin/matches', locals: { matches: diagnosis.matches }
+  end
+
+  ## Form
+  #
+  permit_params :content, :archived_at, :step
+
+  form do |f|
+    f.inputs do
+      f.input :content
+      f.input :step
+      f.input :archived_at
+    end
+
+    actions
   end
 end

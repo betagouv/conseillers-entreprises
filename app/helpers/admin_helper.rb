@@ -30,10 +30,52 @@ module AdminHelper
     descriptions.join("<br/>").html_safe
   end
 
-  def intervention_zone_short_description(many_communes)
-    communes = many_communes.communes
-    territories = many_communes.territories
-    "#{territories.size} #{t('activerecord.models.territory', count: territories.size)} "\
-    "(#{communes.size} #{t('activerecord.models.commune', count: communes.size)})"
+  def admin_link_to(object, association = nil, options = {})
+    if association.nil?
+      return link_to(object, polymorphic_path([:admin, object]))
+    end
+
+    klass = object.class
+    association_reflection = klass.reflect_on_association(association)
+
+    if association_reflection.collection?
+      if options[:list]
+        foreign_objects = object.send(association)
+        if foreign_objects.present?
+          links = foreign_objects.map { |foreign_object| link_to(foreign_object, polymorphic_path([:admin, foreign_object])) }
+          links.join('</br>').html_safe
+        else
+          '-'
+        end
+      else # single link to list
+        count = object.send(association).size
+        text = "#{count} #{klass.human_attribute_name(association, count: count).downcase}"
+        foreign_klass = association_reflection.klass
+        inverse = association_reflection.options[:inverse_of]
+        link_to(text, polymorphic_path([:admin, foreign_klass], "q[#{inverse}_id_eq]": object))
+      end
+    else
+      foreign_object = object.send(association)
+      if foreign_object.present?
+        link_to(foreign_object, polymorphic_path([:admin, foreign_object]))
+      else
+        '-'
+      end
+    end
+  end
+
+  def admin_attr(object, attribute)
+    klass = object.class
+    "#{klass.human_attribute_name(attribute)} : #{object.send(attribute)}"
+  end
+
+  ::ActiveAdmin::CSVBuilder.module_eval do
+    def column_count(attribute)
+      column(attribute) { |object| object.send(attribute).size }
+    end
+
+    def column_list(association)
+      column(association) { |object| object.send(association).map(&:to_s).join('/') }
+    end
   end
 end

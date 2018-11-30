@@ -20,7 +20,7 @@ panel table_name do
       advisor = match.diagnosed_need.diagnosis.visit.advisor
       advisor.role
     end
-    column(I18n.t('activerecord.attributes.user.institution')) do |match|
+    column(I18n.t('attributes.institution')) do |match|
       advisor = match.diagnosed_need.diagnosis.visit.advisor
       advisor.institution
     end
@@ -44,12 +44,12 @@ panel table_name do
       if expert.present?
         link_to(match.expert_full_name, admin_expert_path(expert))
       elsif match.relay.present?
-        link_to(match.expert_full_name, admin_relay_path(match.relay))
+        link_to(match.expert_full_name, admin_user_path(match.relay.user))
       else
         I18n.t('active_admin.matches.deleted', expert: match.expert_description)
       end
     end
-    column(I18n.t('activerecord.attributes.expert.antenne')) do |match|
+    column(I18n.t('attributes.antenne')) do |match|
       expert = match.expert
       if expert.present?
         expert.antenne

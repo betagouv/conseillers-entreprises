@@ -1,23 +1,59 @@
 # frozen_string_literal: true
 
 class Match < ApplicationRecord
+  ##
+  #
   audited only: :status
 
+  ## Constants
+  #
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
 
-  belongs_to :diagnosed_need, counter_cache: true
-  has_one :diagnosis, through: :diagnosed_need
-  belongs_to :assistance_expert, foreign_key: :assistances_experts_id
-  belongs_to :relay
-  has_one :expert, through: :assistance_expert
-  has_many :feedbacks, dependent: :destroy
+  ## Associations
+  #
+  belongs_to :diagnosed_need, counter_cache: true, inverse_of: :matches
 
+  belongs_to :assistance_expert, foreign_key: :assistances_experts_id
+  has_one :expert, through: :assistance_expert, inverse_of: :received_matches # TODO: Should be direct once we remove assistance_expert and use a HABTM instead
+  has_one :assistance, through: :assistance_expert, inverse_of: :matches
+
+  belongs_to :relay
+  has_one :relay_user, through: :relay, source: :user, inverse_of: :relay_matches
+
+  has_many :feedbacks, dependent: :destroy, inverse_of: :match
+
+  ## Validations
+  #
   validates :diagnosed_need, presence: true
   validates_with MatchValidator
 
+  ## Through Associations
+  #
+  # :diagnosed_need
+  has_one :diagnosis, through: :diagnosed_need, inverse_of: :matches
+  has_one :facility, through: :diagnosed_need, inverse_of: :matches
+  has_one :company, through: :diagnosed_need, inverse_of: :matches
+  has_one :advisor, through: :diagnosed_need, inverse_of: :sent_matches
+  has_many :related_matches, through: :diagnosed_need, source: :matches, inverse_of: :related_matches
+
+  # :advisor
+  has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_matches
+  has_one :advisor_institution, through: :advisor, source: :antenne_institution, inverse_of: :sent_matches
+
+  # :expert
+  has_one :expert_antenne, through: :expert, source: :antenne, inverse_of: :received_matches
+  has_one :expert_institution, through: :expert, source: :antenne_institution, inverse_of: :received_matches
+
+  # :facility
+  has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
+
+  ## After Update
+  #
   after_update :update_taken_care_of_at
   after_update :update_closed_at
 
+  ## Scopes
+  #
   scope :ordered_by_date, -> { order(created_at: :desc) }
 
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
@@ -54,8 +90,22 @@ class Match < ApplicationRecord
       .where(diagnoses: { visits: { advisor: users } })
   }
 
+  ##
+  #
+  def to_s
+    "#{I18n.t('activerecord.models.match.one')} #{id}"
+  end
+
   def status_closed?
     status_done? || status_not_for_me?
+  end
+
+  def status_description
+    I18n.t("activerecord.attributes.match.statuses.#{status}")
+  end
+
+  def status_short_description
+    I18n.t("activerecord.attributes.match.statuses_short.#{status}")
   end
 
   def expert_description
@@ -70,6 +120,8 @@ class Match < ApplicationRecord
     person&.full_name || expert_full_name
   end
 
+  ##
+  #
   def belongs_to_relay_or_expert?(role)
     role.present? && (expert == role || relay == role)
   end

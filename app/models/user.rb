@@ -1,25 +1,34 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  ## Constants
+  #
   WHITELISTED_DOMAINS = %w[beta.gouv.fr direccte.gouv.fr pole-emploi.fr pole-emploi.net cma-hautsdefrance.fr].freeze
 
+  ##
+  #
   include PersonConcern
-
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
-  belongs_to :antenne, counter_cache: true
-  has_one :antenne_institution, through: :antenne, source: :institution # TODO Should be named :institution when we remove the :institution text field.
+  ## Associations
+  #
+  belongs_to :antenne, counter_cache: true, inverse_of: :advisors
+
+  has_and_belongs_to_many :experts, inverse_of: :users
 
   has_many :relays
-  has_many :territories, through: :relays
-  has_many :visits, foreign_key: 'advisor_id'
-  has_many :diagnoses, through: :visits
-  has_many :searches, dependent: :destroy
-  has_and_belongs_to_many :experts
+  has_many :relay_territories, through: :relays, source: :territory, inverse_of: :relay_users # TODO should be named :relay_territories when we get rid of the Relay model and use a HABTM
+  has_many :relay_matches, through: :relays, source: :matches, inverse_of: :relay_user
 
+  has_many :visits, foreign_key: 'advisor_id'
+  has_many :sent_diagnoses, through: :visits, source: :diagnosis, inverse_of: :advisor # TODO Should be a direct association when we merge the Visit and Diagnosis models
+
+  has_many :searches, dependent: :destroy, inverse_of: :user
+
+  ## Validations
+  #
   validates :full_name, :email, :phone_number, presence: true
 
-  # Inspired by Devise validatable module
   validates :email,
     uniqueness: true,
     format: { with: Devise.email_regexp },
@@ -31,6 +40,19 @@ class User < ApplicationRecord
 
   before_create :auto_approve_if_whitelisted_domain
 
+  ## “Through” Associations
+  #
+  # :antenne
+  has_one :antenne_institution, through: :antenne, source: :institution, inverse_of: :advisors # TODO Should be named :institution when we remove the :institution text field.
+  has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :advisors
+  has_many :antenne_territories, through: :antenne, source: :territories, inverse_of: :advisors
+
+  # :sent_diagnoses
+  has_many :sent_diagnosed_needs, through: :sent_diagnoses, source: :diagnosed_needs, inverse_of: :advisor
+  has_many :sent_matches, through: :sent_diagnoses, source: :matches, inverse_of: :advisor
+
+  ## Scopes
+  #
   scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
   scope :contact_relays, (lambda do
     not_admin
@@ -41,6 +63,9 @@ class User < ApplicationRecord
   end)
   scope :admin, (-> { where(is_admin: true) })
   scope :not_admin, (-> { where(is_admin: false) })
+  scope :approved, -> { where(is_approved: true) }
+  scope :not_approved, -> { where(is_approved: false) }
+  scope :email_not_confirmed, -> { where(confirmed_at: nil) }
 
   scope :ordered_by_names, -> { order(:full_name) }
   scope :ordered_by_institution, -> do
@@ -82,18 +107,14 @@ class User < ApplicationRecord
     where(antenne_id: nil)
   end
 
+  ##
+  #
   def active_for_authentication?
     super && is_approved?
   end
 
-  def full_name_with_role
-    if antenne.present?
-      "#{full_name} (#{role}, #{antenne.name})"
-    else
-      "#{full_name} (#{role}, #{institution})"
-    end
-  end
-
+  ## Administration helpers
+  #
   def auto_approve_if_whitelisted_domain
     email_domain = email.split("@").last
     if email_domain.in?(WHITELISTED_DOMAINS)
@@ -143,8 +164,18 @@ class User < ApplicationRecord
     end
   end
 
+  ##
+  #
   def is_oneself?
     self.experts.size == 1 && self.experts.first.users == [self]
+  end
+
+  def full_name_with_role
+    if antenne.present?
+      "#{full_name} (#{role}, #{antenne.name})"
+    else
+      "#{full_name} (#{role}, #{institution})"
+    end
   end
 
   protected
