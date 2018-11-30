@@ -177,6 +177,8 @@ fr:
   attributes:
     activity: Activité
     advisor: Conseiller
+    advisor_antenne: Antenne du conseiller
+    advisor_institution: Institution du conseiller
     advisors:
       one: Conseiller
       other: Conseillers
@@ -187,6 +189,7 @@ fr:
     antenne_institution: Institution
     archived?: Archivé
     archived_at: Date d’archivage
+    assistance: Champ de compétence
     assistances:
       one: Champ de compétence
       other: Champs de compétence
@@ -210,6 +213,8 @@ fr:
       other: Analyses
     diagnosis: Analyse
     email: E-mail
+    expert_antenne: Antenne du référent
+    expert_institution: Institution du référent
     experts:
       one: Référent
       other: Référents
@@ -233,6 +238,7 @@ fr:
     naf_code: Code NAF
     name: Nom
     phone_number: Numéro de téléphone
+    question: Besoin
     questions:
       one: Besoin
       other: Besoins
@@ -242,6 +248,7 @@ fr:
     relay_territories:
       one: Territoire géré
       other: Territoires gérés
+    relay_user: Relais local
     relay_users:
       one: Relais local
       other: Relais locaux
