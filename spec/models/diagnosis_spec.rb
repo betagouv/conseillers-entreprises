@@ -152,26 +152,6 @@ RSpec.describe Diagnosis, type: :model do
       end
     end
 
-    describe 'in_territory' do
-      subject { Diagnosis.in_territory territory }
-
-      let(:territory) { create :territory }
-      let(:commune) { create :commune }
-      let(:facility) { create :facility, commune: commune }
-      let(:visit) { create :visit, facility: facility }
-      let!(:diagnosis) { create :diagnosis, visit: visit }
-
-      context 'with territory cities' do
-        before { territory.communes = [commune] }
-
-        it { is_expected.to eq [diagnosis] }
-      end
-
-      context 'without territory city' do
-        it { is_expected.to eq [] }
-      end
-    end
-
     describe 'available_for_expert' do
       subject { Diagnosis.available_for_expert(expert) }
 

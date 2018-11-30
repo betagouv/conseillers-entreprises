@@ -9,12 +9,4 @@ class Relay < ApplicationRecord
   validates :territory, uniqueness: { scope: :user }
 
   scope :of_user, (-> (user) { where(user: user) })
-
-  def territory_diagnoses
-    Diagnosis.only_active
-      .includes(visit: [:advisor, facility: [:company]])
-      .includes(diagnosed_needs: [:question, :matches])
-      .in_territory(self.territory)
-      .reverse_chronological
-  end
 end
