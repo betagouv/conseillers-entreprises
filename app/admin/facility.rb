@@ -30,6 +30,20 @@ ActiveAdmin.register Facility do
   filter :commune_insee_code, as: :string
   filter :created_at
 
+  ## Index
+  #
+  csv do
+    column :company
+    column :commune
+    column :readable_locality
+    column :siret
+    column :naf_code
+    column :created_at
+    column_count :diagnoses
+    column_count :diagnosed_needs
+    column_count :matches
+  end
+
   ## Show
   #
   show do

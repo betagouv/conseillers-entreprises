@@ -54,6 +54,21 @@ ActiveAdmin.register Match do
 
   filter :assistance, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
 
+  ## CSV
+  #
+  csv do
+    column :id
+    column :status_short_description
+    column :diagnosed_need
+    column :created_at
+    column(:status_short_description) { |m| m.diagnosed_need.status_short_description }
+    column :advisor
+    column :advisor_antenne
+    column :expert
+    column :expert_antenne
+    column :relay_user
+  end
+
   ## Show
   #
   show do

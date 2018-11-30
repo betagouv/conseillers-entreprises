@@ -30,6 +30,16 @@ ActiveAdmin.register Contact do
   filter :role
   filter :created_at
 
+  ## CSV
+  #
+  csv do
+    column :full_name
+    column :role
+    column :email
+    column :phone_number
+    column :company
+  end
+
   ## Show
   #
   show do

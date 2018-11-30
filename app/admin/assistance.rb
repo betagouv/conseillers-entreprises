@@ -29,6 +29,16 @@ ActiveAdmin.register Assistance do
   filter :question, as: :ajax_select, data: { url: :admin_questions_path, search_fields: [:label] }
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
 
+  ## CSV
+  #
+  csv do
+    column :title
+    column :description
+    column :category
+    column :question
+    column_count :experts
+  end
+
   ## Show
   #
   show do

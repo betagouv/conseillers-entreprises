@@ -37,6 +37,17 @@ ActiveAdmin.register DiagnosedNeed do
   filter :content
   filter :created_at
 
+  ## CSV
+  #
+  csv do
+    column :question
+    column :content
+    column :advisor
+    column :created_at
+    column :status_short_description
+    column_count :matches
+  end
+
   ## Show
   #
   show do

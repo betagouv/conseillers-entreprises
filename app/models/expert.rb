@@ -29,7 +29,7 @@ class Expert < ApplicationRecord
   # :antenne
   has_one :antenne_institution, through: :antenne, source: :institution, inverse_of: :experts
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
-  has_many :antenne_territories, through: :antenne, source: :territories, inverse_of: :antenne_experts
+  has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
 
   # :matches
   has_many :received_diagnosed_needs, through: :received_matches, source: :diagnosed_need, inverse_of: :experts

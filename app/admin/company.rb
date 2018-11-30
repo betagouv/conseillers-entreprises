@@ -33,7 +33,22 @@ ActiveAdmin.register Company do
   filter :legal_form_code
   filter :created_at
 
+  ## CSV
+  #
+  csv do
+    column :name
+    column :siren
+    column :legal_form_code
+    column :created_at
+    column_count :facilities
+    column_list :contacts
+    column_count :diagnoses
+    column_count :diagnosed_needs
+    column_count :matches
+  end
+
   ## Show
+  #
   show do
     attributes_table do
       row :name
