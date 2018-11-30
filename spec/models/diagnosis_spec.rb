@@ -25,26 +25,6 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_siret' do
-      subject { Diagnosis.of_siret siret }
-
-      let(:visit) { build :visit, facility: facility }
-      let(:facility) { create :facility }
-      let(:siret) { facility.siret }
-
-      context 'no diagnosis' do
-        it { is_expected.to eq [] }
-      end
-
-      context 'only one diagnosis' do
-        it do
-          diagnosis = create :diagnosis, visit: visit
-
-          is_expected.to eq [diagnosis]
-        end
-      end
-    end
-
     describe 'of_user' do
       subject { Diagnosis.of_user user }
 
