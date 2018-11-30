@@ -38,10 +38,6 @@ class DiagnosedNeed < ApplicationRecord
   ## Scopes
   #
   scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
-  scope :sent_by, -> (users) {
-    joins(diagnosis: [visit: :advisor])
-      .where(diagnoses: { visits: { advisor: users } })
-  }
 
   scope :with_at_least_one_expert_done, -> { done }
 

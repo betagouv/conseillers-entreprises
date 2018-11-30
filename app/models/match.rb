@@ -80,11 +80,6 @@ class Match < ApplicationRecord
     end
   end)
 
-  scope :sent_by, -> (users) {
-    joins(diagnosis: [visit: :advisor])
-      .where(diagnoses: { visits: { advisor: users } })
-  }
-
   ##
   #
   def to_s
