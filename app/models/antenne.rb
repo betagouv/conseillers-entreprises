@@ -11,7 +11,7 @@ class Antenne < ApplicationRecord
 
   ## Validations
   #
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { scope: :institution_id }
   validates :institution, presence: true
 
   ## “Through” Associations

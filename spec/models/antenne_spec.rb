@@ -2,18 +2,29 @@ require 'rails_helper'
 
 RSpec.describe Antenne, type: :model do
   describe 'name code uniqueness' do
-    subject { build :antenne, name: name }
+    subject { build :antenne, name: name, institution: institution }
 
     let(:name) { 'Nice Company Name' }
+    let(:other_name) { 'Other Name' }
+    let(:institution) { build :institution }
+    let(:other_institution) { build :institution }
 
     context 'unique name' do
+      before { create :antenne, name: other_name, institution: institution }
+
       it { is_expected.to be_valid }
     end
 
     context 'reused name' do
-      before { create :antenne, name: name }
+      before { create :antenne, name: name, institution: institution }
 
       it { is_expected.not_to be_valid }
+    end
+
+    context 'same name, another institution' do
+      before { create :antenne, name: name, institution: other_institution }
+
+      it { is_expected.to be_valid }
     end
   end
 
