@@ -111,7 +111,7 @@ ActiveAdmin.register User do
         if u.experts.present?
           div admin_link_to(u, :experts, list: true)
         elsif u.corresponding_experts.present?
-          text = t('active_admin.user.autolink_to', what: u.corresponding_experts)
+          text = t('active_admin.user.autolink_to', what: u.corresponding_experts.to_sentence)
           link_to(text, autolink_to_experts_admin_user_path(u), method: :post)
         end
       end
