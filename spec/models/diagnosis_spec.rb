@@ -55,31 +55,6 @@ RSpec.describe Diagnosis, type: :model do
       end
     end
 
-    describe 'reverse_chronological' do
-      subject { Diagnosis.reverse_chronological }
-
-      context 'no diagnosis' do
-        it { is_expected.to eq [] }
-      end
-
-      context 'only one diagnosis' do
-        it do
-          diagnosis = create :diagnosis
-
-          is_expected.to eq [diagnosis]
-        end
-      end
-
-      context 'two diagnoses' do
-        it do
-          diagnosis1 = create :diagnosis, created_at: 3.days.ago
-          diagnosis2 = create :diagnosis, created_at: 1.day.ago
-
-          is_expected.to eq [diagnosis2, diagnosis1]
-        end
-      end
-    end
-
     describe 'in progress' do
       subject { Diagnosis.in_progress.count }
 

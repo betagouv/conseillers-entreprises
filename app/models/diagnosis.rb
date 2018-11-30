@@ -43,7 +43,6 @@ class Diagnosis < ApplicationRecord
   ## Scopes
   #
   scope :of_user, (-> (user) { joins(:visit).where(visits: { advisor: user }) })
-  scope :reverse_chronological, (-> { order(created_at: :desc) })
   scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
   scope :completed, (-> { where(step: LAST_STEP) })
   scope :available_for_expert, (lambda do |expert|
