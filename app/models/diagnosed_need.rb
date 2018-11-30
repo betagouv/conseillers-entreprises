@@ -37,7 +37,6 @@ class DiagnosedNeed < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_diagnosis, (-> (diagnosis) { where(diagnosis: diagnosis) })
   scope :of_question, (-> (question) { where(question: question) })
   scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
   scope :sent_by, -> (users) {
