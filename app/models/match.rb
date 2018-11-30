@@ -63,7 +63,6 @@ class Match < ApplicationRecord
   scope :updated_more_than_five_days_ago, (-> { where('updated_at < ?', 5.days.ago) })
   scope :needing_taking_care_update, (-> { with_status(:taking_care).updated_more_than_five_days_ago })
 
-  scope :in_territory, (-> (territory) { of_diagnoses(Diagnosis.in_territory(territory)) })
   scope :of_facilities, (-> (facilities) { of_diagnoses(Diagnosis.of_facilities(facilities)) })
 
   scope :of_relay_or_expert, (lambda do |relay_or_expert|
