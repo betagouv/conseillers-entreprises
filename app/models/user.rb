@@ -67,7 +67,6 @@ class User < ApplicationRecord
   scope :not_approved, -> { where(is_approved: false) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
 
-  scope :ordered_by_names, -> { order(:full_name) }
   scope :ordered_by_institution, -> do
     joins(:antenne, :antenne_institution)
       .select('users.*', 'antennes.name', 'institutions.name')

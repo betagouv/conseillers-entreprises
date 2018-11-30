@@ -47,7 +47,6 @@ class Expert < ApplicationRecord
     joins(:antenne_institution).merge(Institution.of_naf_code(naf_code))
   end
 
-  scope :ordered_by_names, -> { order(:full_name) }
   scope :ordered_by_institution, -> do
     joins(:antenne, :antenne_institution)
       .select('experts.*', 'antennes.name', 'institutions.name')
