@@ -14,28 +14,6 @@ RSpec.describe Visit, type: :model do
     end
   end
 
-  describe 'scopes' do
-    describe 'of_siret' do
-      subject { Visit.of_siret facility.siret }
-
-      let(:facility) { create :facility, siret: '44622002200229' }
-
-      context 'visit exists' do
-        it do
-          visit = create :visit, facility: facility
-          is_expected.to eq [visit]
-        end
-      end
-
-      context 'visit does not exist' do
-        it do
-          create :visit
-          is_expected.to be_empty
-        end
-      end
-    end
-  end
-
   describe 'company_name' do
     it do
       name = 'Octo'

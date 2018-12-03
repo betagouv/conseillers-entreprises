@@ -15,7 +15,7 @@ class Expert < ApplicationRecord
 
   has_many :assistances_experts, dependent: :destroy
   has_many :assistances, through: :assistances_experts, dependent: :destroy, inverse_of: :experts # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
-  has_many :received_matches, -> { ordered_by_date }, through: :assistances_experts, source: :matches, inverse_of: :expert # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
+  has_many :received_matches, through: :assistances_experts, source: :matches, inverse_of: :expert # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
 
   ## Validations
   #
@@ -47,7 +47,6 @@ class Expert < ApplicationRecord
     joins(:antenne_institution).merge(Institution.of_naf_code(naf_code))
   end
 
-  scope :ordered_by_names, -> { order(:full_name) }
   scope :ordered_by_institution, -> do
     joins(:antenne, :antenne_institution)
       .select('experts.*', 'antennes.name', 'institutions.name')

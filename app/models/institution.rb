@@ -29,7 +29,6 @@ class Institution < ApplicationRecord
   end)
   scope :qualified_for_artisanry, (-> { where(qualified_for_artisanry: true) })
   scope :qualified_for_commerce, (-> { where(qualified_for_commerce: true) })
-  scope :ordered_by_name, (-> { order(:name) })
 
   ##
   #

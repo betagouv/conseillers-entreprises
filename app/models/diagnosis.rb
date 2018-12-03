@@ -30,7 +30,7 @@ class Diagnosis < ApplicationRecord
 
   # :diagnosed_needs
   has_many :questions, through: :diagnosed_needs, inverse_of: :diagnoses
-  has_many :matches, -> { ordered_by_date }, through: :diagnosed_needs, inverse_of: :diagnosis
+  has_many :matches, through: :diagnosed_needs, inverse_of: :diagnosis
 
   # :matches
   has_many :experts, through: :matches, inverse_of: :received_diagnoses
@@ -42,13 +42,9 @@ class Diagnosis < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_siret, (-> (siret) { joins(:visit).merge(Visit.of_siret(siret)) })
   scope :of_user, (-> (user) { joins(:visit).where(visits: { advisor: user }) })
-  scope :reverse_chronological, (-> { order(created_at: :desc) })
   scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
   scope :completed, (-> { where(step: LAST_STEP) })
-  scope :in_territory, (-> (territory) { of_facilities(Facility.in_territory(territory)) })
-  scope :of_facilities, (-> (facilities) { joins(:visit).merge(Visit.where(facility: facilities)) })
   scope :available_for_expert, (lambda do |expert|
     joins(diagnosed_needs: [matches: [assistance_expert: :expert]])
       .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
