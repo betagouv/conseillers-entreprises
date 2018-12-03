@@ -4,8 +4,6 @@ Apporter l’ensemble des aides publiques aux entreprises qui en ont besoin. [re
 
 Créé dans le contexte de [l’incubateur des startups d’état](https://beta.gouv.fr/).
 
-From now on, we’re gonna switch in English.
-
 ## Getting started
 
 1. Clone the repository.
@@ -13,10 +11,10 @@ From now on, we’re gonna switch in English.
         $ git clone git@github.com:betagouv/reso.git
         $ cd reso
 
-2. Install Ruby using **rvm**. See `Gemfile` file to know which Ruby version is needed.
+2. Install Ruby using **rbenv**. See `.ruby-version` file to know which Ruby version is needed.
 
         $ brew install rvm
-        $ rvm install x.x.x
+        $ rbenv install
 
 3. Install PostgreSQL and create a user if you don’t have any.
 
@@ -53,12 +51,7 @@ From now on, we’re gonna switch in English.
 
         $ cp .env.example .env
 
-9. Configure Git to prepend commit messages with branch name.
-
-        $ curl https://gist.githubusercontent.com/jvenezia/57673140506ae9e330c2/raw/bff6973325b159254a3ba13c5cb9ac8fda8e382b/prepare-commit-msg.sh -o .git/hooks/prepare-commit-msg
-        $ chmod +x .git/hooks/prepare-commit-msg
-
-10. You can now start a server.
+9. You can now start a server.
 
         $ gem install foreman
         $ foreman start --procfile=Procfile.dev
