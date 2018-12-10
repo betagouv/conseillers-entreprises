@@ -18,6 +18,7 @@ gem 'rails'
 gem 'foreman'
 gem 'pg'
 gem 'puma'
+gem 'rails_12factor'
 
 # Assets
 gem 'coffee-rails'
