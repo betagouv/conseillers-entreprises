@@ -81,7 +81,7 @@ ActiveAdmin.register Antenne do
         search_fields: [:name]
       }
 
-      f.input :insee_codes
+      f.input :insee_codes, as: :text
     end
 
     f.inputs do

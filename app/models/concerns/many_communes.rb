@@ -4,7 +4,7 @@ module ManyCommunes
   ## Insee Codes acccessors
   #
   def insee_codes
-    communes.pluck(:insee_code)
+    communes.pluck(:insee_code).join(' ')
   end
 
   def insee_codes=(codes_raw)
