@@ -23,10 +23,6 @@ class Facility < ApplicationRecord
   # :commune
   has_many :territories, through: :commune, inverse_of: :facilities
 
-  ## Scopes
-  #
-  scope :in_territory, (-> (territory) { where(commune: territory.communes) })
-
   ##
   #
   def to_s

@@ -14,26 +14,6 @@ RSpec.describe Facility, type: :model do
     end
   end
 
-  describe 'scopes' do
-    describe 'in_territory' do
-      subject { Facility.in_territory territory }
-
-      let(:territory) { create :territory }
-      let(:facility) { create :facility, commune: commune }
-      let(:commune) { create :commune, insee_code: '59001' }
-
-      context 'with territory cities' do
-        before { territory.communes << commune }
-
-        it { is_expected.to eq [facility] }
-      end
-
-      context 'without territory city' do
-        it { is_expected.to eq [] }
-      end
-    end
-  end
-
   describe 'to_s' do
     subject { facility.to_s }
 

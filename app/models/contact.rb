@@ -13,10 +13,6 @@ class Contact < ApplicationRecord
   validates :company, presence: true
   validates_with ContactValidator
 
-  ## Scopes
-  #
-  scope :ordered_by_names, (-> { order(:full_name) })
-
   ##
   #
   def can_be_viewed_by?(role)

@@ -4,7 +4,7 @@ module ManyCommunes
   ## Insee Codes acccessors
   #
   def insee_codes
-    communes.pluck(:insee_code)
+    communes.pluck(:insee_code).join(' ')
   end
 
   def insee_codes=(codes_raw)
@@ -26,7 +26,7 @@ module ManyCommunes
     self_communes = communes.pluck(:id)
     territories_covered = []
     remaining_communes = self_communes.clone
-    self.territories.bassins_emploi.distinct.includes(:communes).ordered_by_name.each do |territory|
+    self.territories.bassins_emploi.distinct.includes(:communes).order(:name).each do |territory|
       territory_communes = territory.communes.pluck(:id)
       territory_communes_in_self = territory_communes & self_communes
       if territory_communes_in_self.size > 0

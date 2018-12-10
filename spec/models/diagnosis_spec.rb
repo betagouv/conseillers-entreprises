@@ -25,26 +25,6 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_siret' do
-      subject { Diagnosis.of_siret siret }
-
-      let(:visit) { build :visit, facility: facility }
-      let(:facility) { create :facility }
-      let(:siret) { facility.siret }
-
-      context 'no diagnosis' do
-        it { is_expected.to eq [] }
-      end
-
-      context 'only one diagnosis' do
-        it do
-          diagnosis = create :diagnosis, visit: visit
-
-          is_expected.to eq [diagnosis]
-        end
-      end
-    end
-
     describe 'of_user' do
       subject { Diagnosis.of_user user }
 
@@ -71,31 +51,6 @@ RSpec.describe Diagnosis, type: :model do
           diagnosis2 = create :diagnosis, visit: visit2
 
           is_expected.to match_array [diagnosis1, diagnosis2]
-        end
-      end
-    end
-
-    describe 'reverse_chronological' do
-      subject { Diagnosis.reverse_chronological }
-
-      context 'no diagnosis' do
-        it { is_expected.to eq [] }
-      end
-
-      context 'only one diagnosis' do
-        it do
-          diagnosis = create :diagnosis
-
-          is_expected.to eq [diagnosis]
-        end
-      end
-
-      context 'two diagnoses' do
-        it do
-          diagnosis1 = create :diagnosis, created_at: 3.days.ago
-          diagnosis2 = create :diagnosis, created_at: 1.day.ago
-
-          is_expected.to eq [diagnosis2, diagnosis1]
         end
       end
     end
@@ -149,26 +104,6 @@ RSpec.describe Diagnosis, type: :model do
 
           is_expected.to eq 2
         end
-      end
-    end
-
-    describe 'in_territory' do
-      subject { Diagnosis.in_territory territory }
-
-      let(:territory) { create :territory }
-      let(:commune) { create :commune }
-      let(:facility) { create :facility, commune: commune }
-      let(:visit) { create :visit, facility: facility }
-      let!(:diagnosis) { create :diagnosis, visit: visit }
-
-      context 'with territory cities' do
-        before { territory.communes = [commune] }
-
-        it { is_expected.to eq [diagnosis] }
-      end
-
-      context 'without territory city' do
-        it { is_expected.to eq [] }
       end
     end
 

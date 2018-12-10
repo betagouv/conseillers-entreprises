@@ -13,8 +13,6 @@ class Visit < ApplicationRecord
 
   validates :advisor, :facility, presence: true
 
-  scope :of_siret, (-> (siret) { joins(:facility).where(facilities: { siret: siret }) })
-
   def to_s
     "#{company_name} (#{I18n.l display_date})"
   end

@@ -17,12 +17,6 @@ class Assistance < ApplicationRecord
   #
   has_one :category, through: :question, inverse_of: :assistances
 
-  ## Scopes
-  #
-  scope :of_diagnosis, (lambda do |diagnosis|
-    joins(question: :diagnosed_needs).merge(DiagnosedNeed.of_diagnosis(diagnosis))
-  end)
-
   ##
   #
   attr_accessor :filtered_assistances_experts

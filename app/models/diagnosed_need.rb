@@ -5,7 +5,7 @@ class DiagnosedNeed < ApplicationRecord
   #
   belongs_to :diagnosis, inverse_of: :diagnosed_needs
   belongs_to :question, inverse_of: :diagnosed_needs
-  has_many :matches, -> { ordered_by_date }, dependent: :destroy, inverse_of: :diagnosed_need
+  has_many :matches, dependent: :destroy, inverse_of: :diagnosed_need
 
   ## Validations
   #
@@ -37,13 +37,7 @@ class DiagnosedNeed < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_diagnosis, (-> (diagnosis) { where(diagnosis: diagnosis) })
-  scope :of_question, (-> (question) { where(question: question) })
   scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
-  scope :sent_by, -> (users) {
-    joins(diagnosis: [visit: :advisor])
-      .where(diagnoses: { visits: { advisor: users } })
-  }
 
   scope :with_at_least_one_expert_done, -> { done }
 

@@ -10,10 +10,8 @@ module RelayService
         end
       end
 
-      private
-
       def send_relay_stats_email_to(relay)
-        diagnoses = relay.territory_diagnoses
+        diagnoses = relay.territory.diagnoses.order(created_at: :desc)
 
         information_hash = generate_statistics_hash diagnoses
         stats_csv = RelayService::CSVGenerator.generate_statistics_csv(diagnoses)

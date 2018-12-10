@@ -54,8 +54,6 @@ class Match < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_by_date, -> { order(created_at: :desc) }
-
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
 
   scope :of_diagnoses, (lambda do |diagnoses|
@@ -64,9 +62,6 @@ class Match < ApplicationRecord
   scope :with_status, (-> (status) { where(status: status) })
   scope :updated_more_than_five_days_ago, (-> { where('updated_at < ?', 5.days.ago) })
   scope :needing_taking_care_update, (-> { with_status(:taking_care).updated_more_than_five_days_ago })
-
-  scope :in_territory, (-> (territory) { of_diagnoses(Diagnosis.in_territory(territory)) })
-  scope :of_facilities, (-> (facilities) { of_diagnoses(Diagnosis.of_facilities(facilities)) })
 
   scope :of_relay_or_expert, (lambda do |relay_or_expert|
     if relay_or_expert.is_a?(Enumerable)
@@ -84,11 +79,6 @@ class Match < ApplicationRecord
       left_outer_joins(:assistance_expert).where(id: -1)
     end
   end)
-
-  scope :sent_by, -> (users) {
-    joins(diagnosis: [visit: :advisor])
-      .where(diagnoses: { visits: { advisor: users } })
-  }
 
   ##
   #

@@ -12,11 +12,11 @@ RSpec.describe ManyCommunes do
 
         before { territory.communes = [commune] }
 
-        it { is_expected.to eq %w[59001] }
+        it { is_expected.to eq '59001' }
       end
 
       context 'without territory city' do
-        it { is_expected.to eq [] }
+        it { is_expected.to eq '' }
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe ManyCommunes do
 
         before { territory.insee_codes = raw_codes }
 
-        it { is_expected.to eq [] }
+        it { is_expected.to eq '' }
       end
 
       context 'with proper values' do
@@ -46,7 +46,7 @@ RSpec.describe ManyCommunes do
 
         before { territory.insee_codes = raw_codes }
 
-        it { is_expected.to eq %w[12345 12346] }
+        it { is_expected.to eq '12345 12346' }
       end
 
       context 'with previous values' do
@@ -57,7 +57,7 @@ RSpec.describe ManyCommunes do
 
         let(:raw_codes) { '10002, 10003' }
 
-        it { is_expected.to eq %w[10002 10003] }
+        it { is_expected.to eq '10002 10003' }
       end
     end
   end

@@ -2,7 +2,7 @@
 
 class DiagnosesController < ApplicationController
   def index
-    @diagnoses = current_user.sent_diagnoses.only_active.reverse_chronological
+    @diagnoses = current_user.sent_diagnoses.only_active.order(created_at: :desc)
       .distinct
       .left_outer_joins(:matches,
         diagnosed_needs: :matches)
