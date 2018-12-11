@@ -7,7 +7,6 @@ class Expert < ApplicationRecord
   #
   has_and_belongs_to_many :communes, inverse_of: :direct_experts
   include ManyCommunes
-  has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :direct_experts
 
   belongs_to :antenne, counter_cache: true, inverse_of: :experts
 
@@ -26,6 +25,9 @@ class Expert < ApplicationRecord
 
   ## “Through” Associations
   #
+  # :communes
+  has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :direct_experts
+
   # :antenne
   has_one :antenne_institution, through: :antenne, source: :institution, inverse_of: :experts
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
