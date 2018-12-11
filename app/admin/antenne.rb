@@ -3,7 +3,7 @@ ActiveAdmin.register Antenne do
 
   ## Index
   #
-  includes :institution, :advisors, :experts, :territories, :communes, :sent_matches, :received_matches
+  includes :institution, :advisors, :experts, :sent_matches, :received_matches
   config.sort_order = 'name_asc'
 
   scope :all, default: true
@@ -18,10 +18,6 @@ ActiveAdmin.register Antenne do
     column(:community) do |a|
       div admin_link_to(a, :advisors)
       div admin_link_to(a, :experts)
-    end
-    column(:intervention_zone) do |a|
-      div admin_link_to(a, :territories)
-      div admin_link_to(a, :communes)
     end
     column(:activity) do |a|
       div admin_link_to(a, :sent_matches)
