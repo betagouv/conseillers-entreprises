@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       get :users
       get :activity
       get :cohorts
+
+      get :charts
     end
   end
 
