@@ -1,5 +1,0 @@
-vendor/**
-app/assets/**
-public/**
-karma.conf.js
-config/webpack/**
