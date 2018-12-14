@@ -13,11 +13,11 @@ class Match < ApplicationRecord
   #
   belongs_to :diagnosed_need, counter_cache: true, inverse_of: :matches
 
-  belongs_to :assistance_expert, foreign_key: :assistances_experts_id, inverse_of: :matches
+  belongs_to :assistance_expert, foreign_key: :assistances_experts_id, inverse_of: :matches, required: false
   has_one :expert, through: :assistance_expert, inverse_of: :received_matches # TODO: Should be direct once we remove assistance_expert and use a HABTM instead
   has_one :assistance, through: :assistance_expert, inverse_of: :matches
 
-  belongs_to :relay
+  belongs_to :relay, required: false
   has_one :relay_user, through: :relay, source: :user, inverse_of: :relay_matches
 
   has_many :feedbacks, dependent: :destroy, inverse_of: :match

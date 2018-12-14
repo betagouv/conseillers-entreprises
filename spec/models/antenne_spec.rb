@@ -61,7 +61,8 @@ RSpec.describe Antenne, type: :model do
 
     context 'match' do
       let(:expert) { build :expert, antenne: antenne }
-      let!(:match) { create :match, expert: expert }
+      let(:assistance_expert) { build :assistance_expert, expert: expert }
+      let!(:match) { create :match, assistance_expert: assistance_expert }
 
       it { is_expected.to eq [match] }
     end

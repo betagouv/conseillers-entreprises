@@ -4,7 +4,7 @@ class DiagnosedNeed < ApplicationRecord
   ## Associations
   #
   belongs_to :diagnosis, inverse_of: :diagnosed_needs
-  belongs_to :question, inverse_of: :diagnosed_needs
+  belongs_to :question, inverse_of: :diagnosed_needs, required: false # Orphaned diagnosed_needs are currently allowed in the DB. This leads to _bad data_, we might want to review that.
   has_many :matches, dependent: :destroy, inverse_of: :diagnosed_need
 
   ## Validations
