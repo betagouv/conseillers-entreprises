@@ -40,6 +40,10 @@ gem 'devise'
 gem 'devise-async'
 gem 'user_impersonate2', require: 'user_impersonate'
 
+# Charts
+gem 'groupdate'
+gem 'highcharts-rails'
+
 # Misc
 gem 'activeadmin'
 gem 'activeadmin-ajax_filter'
