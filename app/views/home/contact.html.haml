@@ -17,7 +17,7 @@
               %span.institution= user.institution
             .description
               = t('.responsible_of_territories', count: user.relay_territories.size)
-              %strong= user.territories.map(&:name).uniq.join(', ')
+              %strong= user.relay_territories.map(&:name).uniq.join(', ')
           .extra.content
             %span.phone-number= user.phone_number
             %br
