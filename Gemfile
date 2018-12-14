@@ -78,6 +78,7 @@ group :development do
   gem 'listen'
   gem 'web-console'
   gem 'dotenv-rails'
+  gem 'therubyracer'
 
   gem 'spring'
   gem 'spring-watcher-listen'
