@@ -3,7 +3,7 @@
 class StatsController < ApplicationController
   skip_before_action :authenticate_user!
 
-  def index
+  def show
     @users_stats = users_stats
     @activity_stats = activity_stats
     @cohorts_stats = cohorts_stats

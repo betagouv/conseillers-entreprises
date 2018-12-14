@@ -1,7 +1,7 @@
 ---
 fr:
   stats:
-    index:
+    show:
       activity_stats: Activité
       cohorts_stats: Cohortes
       download: Télécharger
