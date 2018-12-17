@@ -37,21 +37,16 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
         $ gem install bundler
         $ bundle
 
-6. Install yarn and use `yarn` command to install JS library dependencies.
-
-        $ brew install yarn
-        $ yarn
-
-7. Execute database configurations for development and test environments.
+6. Execute database configurations for development and test environments.
 
         $ rake db:create db:migrate
         $ rake db:create db:migrate RAILS_ENV=test
 
-8. Create `.env` file from `.env.example`, and ask the team to fill it in.
+7. Create `.env` file from `.env.example`, and ask the team to fill it in.
 
         $ cp .env.example .env
 
-9. You can now start a server.
+8. You can now start a server.
 
         $ gem install foreman
         $ foreman start --procfile=Procfile.dev
@@ -60,18 +55,10 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
 
 ## Tests
 
-You can run all application tests with `./meta_rake` command. It launches following tests:
-
-- `rake` : Rspec tests
-- `npm test` : Jasmine front-end tests
+- `bin/rspec` : Rspec tests
 - `rubocop` : Ruby/Rails/Rspec code style
-- `npm run linter` : JS code style
-- `haml-lint app/views/` : Haml template code style
-- `i18n-tasks unused && i18n-tasks missing` : Rails I18n usage
-
-You can run these tests individually.
-
-You may need to install [Node.js](https://nodejs.org/en/download/) for `npm` command.
+- `haml-lint` : Haml template code style
+- `i18n-tasks health` : Rails I18n usage
 
 ## Development data
 

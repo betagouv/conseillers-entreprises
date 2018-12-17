@@ -180,8 +180,9 @@ RSpec.describe DiagnosedNeed, type: :model do
     let(:relay) { build :relay }
     let(:expert) { build :expert }
     let(:relay_match) { build :match, relay: relay }
-    let(:expert_match) { build :match, expert: expert }
-    let(:expert_match2) { build :match, expert: expert }
+    let(:assistance_expert) { build :assistance_expert, expert: expert }
+    let(:expert_match) { build :match, assistance_expert: assistance_expert }
+    let(:expert_match2) { build :match, assistance_expert: assistance_expert }
 
     context 'No matches' do
       let(:matches) { [] }

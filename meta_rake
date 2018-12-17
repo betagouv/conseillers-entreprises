@@ -10,12 +10,6 @@ printf "\n${BoldRed}#1 - Launch Tests${NoFormating}\n\n"
 
 rake
 
-
-printf "${BoldRed}#2 - Launch JavaScript Tests${NoFormating}\n"
-
-npm test
-
-
 printf "${BoldRed}#3 - Launch Rubocop${NoFormating}\n\n"
 
 rubocop
@@ -29,8 +23,3 @@ i18n-tasks health
 printf "\n${BoldRed}#5 - Launch haml-lint${NoFormating}\n\n"
 
 haml-lint app/views/
-
-
-printf "\n${BoldRed}#6 - Launch eslint${NoFormating}\n"
-
-npm run linter
