@@ -3,8 +3,10 @@
 = render partial: 'steps', locals: { current_page_step: 2, diagnosis_step: @diagnosis.step }
 
 #step2-app
-  = form_for @diagnosis, url: besoins_diagnosis_path(@diagnosis), method: :post,
-                 html: { class: 'ui form diagnosis_form' } do |diagnosis_form|
+  = form_with model: @diagnosis,
+    url: besoins_diagnosis_path(@diagnosis),
+    method: :post,
+    class: 'ui form diagnosis_form' do |diagnosis_form|
 
     %h1.ui.header
       = t('.title')
