@@ -9,8 +9,6 @@
     - if current_staff_user
       = render 'user_impersonate/header'
 
-    - if !Rails.env.test?
-      = javascript_pack_tag 'common/babel-polyfill'
     %main
       .ui.main.text.container
         = render partial: 'layouts/flashes'

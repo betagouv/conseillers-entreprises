@@ -33,7 +33,6 @@ gem 'premailer-rails'
 gem 'clockwork'
 gem 'daemons'
 gem 'delayed_job_active_record'
-gem 'webpacker'
 
 # Improving models
 gem 'audited', '~> 4.5'
@@ -79,6 +78,7 @@ group :development do
   gem 'listen'
   gem 'web-console'
   gem 'dotenv-rails'
+  gem 'therubyracer'
 
   gem 'spring'
   gem 'spring-watcher-listen'
