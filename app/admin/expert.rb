@@ -23,6 +23,14 @@ ActiveAdmin.register Expert do
       div admin_link_to(e, :antenne_institution)
       div admin_link_to(e, :antenne)
     end
+    column(:intervention_zone) do |e|
+      if e.custom_communes?
+        status_tag t('attributes.custom_communes'), class: 'yes'
+      end
+      zone = e.custom_communes? ? e : e.antenne
+      div admin_link_to(zone, :territories)
+      div admin_link_to(zone, :communes)
+    end
     column(:users) do |e|
       div admin_link_to(e, :users)
     end

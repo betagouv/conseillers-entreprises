@@ -19,6 +19,10 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :advisors)
       div admin_link_to(a, :experts)
     end
+    column(:intervention_zone) do |a|
+      div admin_link_to(a, :territories)
+      div admin_link_to(a, :communes)
+    end
     column(:activity) do |a|
       div admin_link_to(a, :sent_matches)
       div admin_link_to(a, :received_matches)
