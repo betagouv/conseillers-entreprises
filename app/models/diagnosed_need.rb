@@ -29,11 +29,16 @@ class DiagnosedNeed < ApplicationRecord
   has_many :relays, through: :matches
   has_many :feedbacks, through: :matches, inverse_of: :diagnosed_need
 
-  # # :facility
+  # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnosed_needs
 
+  # :advisor
+  has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_diagnosed_needs
+  has_one :advisor_institution, through: :advisor, source: :antenne_institution, inverse_of: :sent_diagnosed_needs
+
   # :experts
-  has_many :experts_antennes, through: :experts, source: :antenne, inverse_of: :received_diagnosed_needs
+  has_many :expert_antennes, through: :experts, source: :antenne, inverse_of: :received_diagnosed_needs
+  has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_diagnosed_needs
 
   ## Scopes
   #
