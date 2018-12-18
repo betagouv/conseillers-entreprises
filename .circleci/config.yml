@@ -72,6 +72,9 @@ jobs:
       - run:
           name: Run i18n-tasks
           command: bundle exec i18n-tasks health
+      - run:
+          name: Run brakeman
+          command: bundle exec brakeman
 workflows:
   version: 2
   build_and_test:
