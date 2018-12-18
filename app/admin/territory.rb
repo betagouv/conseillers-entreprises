@@ -5,7 +5,8 @@ ActiveAdmin.register Territory do
 
   ## index
   #
-  includes :communes, :relay_users, :antennes, :advisors, :antenne_experts, :diagnoses, :diagnosed_needs, :matches
+  # Note: Don’t `includes` related tables, as this causes massive leaks in ActiveAdmin.
+  # Since we only have a few dozens entries, N+1 queries are preferred.
   config.sort_order = 'name_asc'
 
   scope :all, default: true
