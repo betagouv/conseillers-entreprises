@@ -11,7 +11,7 @@ ActiveAdmin.register User do
 
   scope :all, default: true
   scope :admin
-  scope :contact_relays
+  scope :relays
   scope :without_antenne
   scope :not_approved
   scope :email_not_confirmed

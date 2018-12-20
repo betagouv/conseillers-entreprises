@@ -49,25 +49,29 @@ RSpec.describe User, type: :model do
   end
 
   describe 'scopes' do
-    describe 'with_contact_page_order' do
+    describe 'ordered_for_contact' do
       it do
-        create :user, contact_page_order: nil
-        user_of_contact_page = create :user, contact_page_order: 1
+        user1 = create :user, contact_page_order: 1
+        create(:relay, user: user1, territory: create(:territory, name: 'aa'))
+        user2 = create :user, contact_page_order: 2
+        create(:relay, user: user2, territory: create(:territory, name: 'bb'))
+        user3 = create :user, contact_page_order: 1
+        user4 = create :user, contact_page_order: 2
 
-        expect(User.with_contact_page_order).to eq [user_of_contact_page]
+        expect(User.ordered_for_contact).to eq [user1, user2, user3, user4]
       end
     end
 
-    describe 'contact_relays' do
+    describe 'relays' do
       it do
         user1 = create :user
-        create(:relay, user: user1, territory: create(:territory, name: 'bb'))
+        create(:relay, user: user1)
         user2 = create :user
-        create(:relay, user: user2, territory: create(:territory, name: 'aa'))
+        create(:relay, user: user2)
         user3 = create :user, is_admin: true
         create :relay, user: user3
 
-        expect(User.contact_relays).to eq [user2, user1]
+        expect(User.relays).to match_array [user1, user2]
       end
     end
 

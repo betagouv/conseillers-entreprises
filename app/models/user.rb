@@ -53,20 +53,19 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :with_contact_page_order, (-> { where.not(contact_page_order: nil).order(:contact_page_order) })
-  scope :contact_relays, (lambda do
-    not_admin
-      .joins(:relays)
-      .includes(relays: :territory)
-      .order('territories.name', :contact_page_order, :full_name)
-      .distinct
-  end)
   scope :admin, (-> { where(is_admin: true) })
   scope :not_admin, (-> { where(is_admin: false) })
   scope :approved, -> { where(is_approved: true) }
   scope :not_approved, -> { where(is_approved: false) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
+  scope :project_team, -> { admin.where.not(contact_page_order: nil) }
+  scope :relays, -> { not_admin.joins(:relays).distinct }
 
+  scope :ordered_for_contact, -> {
+    left_outer_joins(:relay_territories)
+      .select('users.*, territories.name')
+      .order('territories.name', :contact_page_order, :full_name)
+  }
   scope :ordered_by_institution, -> do
     joins(:antenne, :antenne_institution)
       .select('users.*', 'antennes.name', 'institutions.name')

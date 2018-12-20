@@ -14,10 +14,10 @@ fr:
       admin: Admins
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
-      contact_relays: Relais locaux
       done: Résolu
       email_not_confirmed: Email non confirmé
       not_approved: Non validés
+      relays: Relais locaux
       unsent: Non envoyé
       with_custom_communes: Zone spécifique
       with_no_one_in_charge: En attente
