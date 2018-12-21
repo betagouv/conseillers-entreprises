@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Relay < ApplicationRecord
   belongs_to :territory
   belongs_to :user

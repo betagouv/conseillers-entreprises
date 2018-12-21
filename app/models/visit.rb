@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Visit < ApplicationRecord
   # TODO merge with the Diagnosis model
   belongs_to :advisor, class_name: 'User'
