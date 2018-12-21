@@ -27,6 +27,7 @@ class Company < ApplicationRecord
   has_many :diagnoses, through: :facilities, inverse_of: :company
   has_many :diagnosed_needs, through: :facilities, inverse_of: :company
   has_many :matches, through: :facilities, inverse_of: :company
+  has_many :territories, through: :facilities, inverse_of: :companies
 
   ## Scopes
   #

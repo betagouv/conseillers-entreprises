@@ -1,0 +1,29 @@
+- meta title: t('.title')
+
+%h1= t('.title').titleize
+
+.ui.container.form
+  = form_with(url: charts_stats_path, method: :get) do
+    .ui.fields
+      .ui.field
+        = label_tag t('activerecord.models.territory.one')
+        = collection_select(:stats,
+          :territory, Territory.bassins_emploi.order(:name), :id, :name,
+          { include_blank: t('.all') },
+          { class: 'ui dropdown', onchange: 'this.form.submit();' })
+      .ui.field
+        = label_tag t('activerecord.models.institution.one')
+        = collection_select(:stats,
+          :institution, Institution.all.order(:name), :id, :name,
+          { include_blank: t('.all') },
+          { class: 'ui dropdown', onchange: 'this.form.submit();' })
+
+.ui.cards
+  .ui.fluid.card.shadow-less
+    .content
+      .header= t('activerecord.models.diagnosed_need.other').titleize
+      .description= render partial: 'stats_chart', locals: { stats: @stats.diagnosed_needs }
+  .ui.fluid.card.shadow-less
+    .content
+      .header= t('activerecord.models.company.other').titleize
+      .description= render partial: 'stats_chart', locals: { stats: @stats.companies }
