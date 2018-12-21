@@ -79,6 +79,7 @@ group :development do
   gem 'web-console'
   gem 'dotenv-rails'
   gem 'therubyracer'
+  gem 'annotate'
 
   gem 'spring'
   gem 'spring-watcher-listen'
