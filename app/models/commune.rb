@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: communes
+#
+#  id         :bigint(8)        not null, primary key
+#  insee_code :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_communes_on_insee_code  (insee_code) UNIQUE
+#
+
 class Commune < ApplicationRecord
   ## Constants
   #

@@ -1,4 +1,34 @@
-# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: matches
+#
+#  id                      :bigint(8)        not null, primary key
+#  assistance_title        :string
+#  closed_at               :datetime
+#  expert_full_name        :string
+#  expert_institution_name :string
+#  expert_viewed_page_at   :datetime
+#  status                  :integer          default("quo"), not null
+#  taken_care_of_at        :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  assistances_experts_id  :bigint(8)
+#  diagnosed_need_id       :bigint(8)
+#  relay_id                :bigint(8)
+#
+# Indexes
+#
+#  index_matches_on_assistances_experts_id  (assistances_experts_id)
+#  index_matches_on_diagnosed_need_id       (diagnosed_need_id)
+#  index_matches_on_relay_id                (relay_id)
+#  index_matches_on_status                  (status)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (assistances_experts_id => assistances_experts.id)
+#  fk_rails_...  (diagnosed_need_id => diagnosed_needs.id)
+#  fk_rails_...  (relay_id => relays.id)
+#
 
 class Match < ApplicationRecord
   ##

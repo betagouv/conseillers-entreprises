@@ -1,4 +1,23 @@
-# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: experts
+#
+#  id           :bigint(8)        not null, primary key
+#  access_token :string
+#  email        :string
+#  full_name    :string
+#  phone_number :string
+#  role         :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  antenne_id   :bigint(8)        not null
+#
+# Indexes
+#
+#  index_experts_on_access_token  (access_token)
+#  index_experts_on_antenne_id    (antenne_id)
+#  index_experts_on_email         (email)
+#
 
 class Expert < ApplicationRecord
   include PersonConcern
