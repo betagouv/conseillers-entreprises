@@ -31,4 +31,8 @@ class Company < ApplicationRecord
   def to_s
     name
   end
+
+  def categorie_juridique
+    CategorieJuridique.description(legal_form_code)
+  end
 end
