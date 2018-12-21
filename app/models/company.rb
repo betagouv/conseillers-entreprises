@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: companies
+#
+#  id              :integer          not null, primary key
+#  legal_form_code :string
+#  name            :string
+#  siren           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class Company < ApplicationRecord
   ## Relations and Validations
   #

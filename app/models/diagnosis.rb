@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: diagnoses
+#
+#  id          :bigint(8)        not null, primary key
+#  archived_at :datetime
+#  content     :text
+#  step        :integer          default(1)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  visit_id    :bigint(8)
+#
+# Indexes
+#
+#  index_diagnoses_on_archived_at  (archived_at)
+#  index_diagnoses_on_visit_id     (visit_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (visit_id => visits.id)
+#
+
 class Diagnosis < ApplicationRecord
   ## Constants
   #

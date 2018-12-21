@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: antennes
+#
+#  id             :bigint(8)        not null, primary key
+#  experts_count  :integer
+#  name           :string
+#  users_count    :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  institution_id :bigint(8)        not null
+#
+# Indexes
+#
+#  index_antennes_on_institution_id  (institution_id)
+#
+
 class Antenne < ApplicationRecord
   ## Associations
   #

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: institutions
+#
+#  id                      :bigint(8)        not null, primary key
+#  antennes_count          :integer
+#  name                    :string
+#  qualified_for_artisanry :boolean          default(TRUE), not null
+#  qualified_for_commerce  :boolean          default(TRUE), not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
+
 class Institution < ApplicationRecord
   ## Associations
   #
