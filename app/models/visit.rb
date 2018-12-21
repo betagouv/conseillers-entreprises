@@ -1,4 +1,27 @@
-# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: visits
+#
+#  id          :bigint(8)        not null, primary key
+#  happened_on :date
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  advisor_id  :bigint(8)
+#  facility_id :bigint(8)
+#  visitee_id  :bigint(8)
+#
+# Indexes
+#
+#  index_visits_on_advisor_id   (advisor_id)
+#  index_visits_on_facility_id  (facility_id)
+#  index_visits_on_visitee_id   (visitee_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (advisor_id => users.id)
+#  fk_rails_...  (facility_id => facilities.id)
+#  fk_rails_...  (visitee_id => contacts.id)
+#
 
 class Visit < ApplicationRecord
   # TODO merge with the Diagnosis model

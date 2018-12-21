@@ -1,4 +1,13 @@
-# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: territories
+#
+#  id            :bigint(8)        not null, primary key
+#  bassin_emploi :boolean          default(FALSE), not null
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
 
 class Territory < ApplicationRecord
   ## Associations
@@ -23,6 +32,7 @@ class Territory < ApplicationRecord
   has_many :diagnoses, through: :facilities, inverse_of: :facility_territories
   has_many :diagnosed_needs, through: :facilities, inverse_of: :facility_territories
   has_many :matches, through: :facilities, inverse_of: :facility_territories
+  has_many :companies, through: :facilities, inverse_of: :territories
 
   ## Scopes
   #

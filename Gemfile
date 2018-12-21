@@ -40,6 +40,10 @@ gem 'devise'
 gem 'devise-async'
 gem 'user_impersonate2', require: 'user_impersonate'
 
+# Charts
+gem 'groupdate'
+gem 'highcharts-rails'
+
 # Misc
 gem 'activeadmin'
 gem 'activeadmin-ajax_filter'
@@ -79,6 +83,7 @@ group :development do
   gem 'web-console'
   gem 'dotenv-rails'
   gem 'therubyracer'
+  gem 'annotate'
 
   gem 'spring'
   gem 'spring-watcher-listen'
@@ -86,4 +91,5 @@ group :development do
 
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
+  gem 'brakeman', require: false
 end

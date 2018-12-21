@@ -1,4 +1,26 @@
-# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: diagnosed_needs
+#
+#  id             :bigint(8)        not null, primary key
+#  content        :text
+#  matches_count  :integer
+#  question_label :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  diagnosis_id   :bigint(8)
+#  question_id    :bigint(8)
+#
+# Indexes
+#
+#  index_diagnosed_needs_on_diagnosis_id  (diagnosis_id)
+#  index_diagnosed_needs_on_question_id   (question_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (diagnosis_id => diagnoses.id)
+#  fk_rails_...  (question_id => questions.id)
+#
 
 class DiagnosedNeed < ApplicationRecord
   ## Associations
@@ -29,11 +51,16 @@ class DiagnosedNeed < ApplicationRecord
   has_many :relays, through: :matches
   has_many :feedbacks, through: :matches, inverse_of: :diagnosed_need
 
-  # # :facility
+  # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnosed_needs
 
+  # :advisor
+  has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_diagnosed_needs
+  has_one :advisor_institution, through: :advisor, source: :antenne_institution, inverse_of: :sent_diagnosed_needs
+
   # :experts
-  has_many :experts_antennes, through: :experts, source: :antenne, inverse_of: :received_diagnosed_needs
+  has_many :expert_antennes, through: :experts, source: :antenne, inverse_of: :received_diagnosed_needs
+  has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_diagnosed_needs
 
   ## Scopes
   #

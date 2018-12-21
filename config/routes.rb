@@ -9,11 +9,13 @@ Rails.application.routes.draw do
 
   get 'profile' => 'users#show'
 
-  resources :stats, only: [:index] do
+  resource :stats, only: [:show] do
     collection do
       get :users
       get :activity
       get :cohorts
+
+      get :charts
     end
   end
 

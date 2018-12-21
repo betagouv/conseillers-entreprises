@@ -1,7 +1,10 @@
 ---
 fr:
   stats:
-    index:
+    charts:
+      all: Tous
+      title: Statistiques
+    show:
       activity_stats: Activité
       cohorts_stats: Cohortes
       download: Télécharger

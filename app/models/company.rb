@@ -1,4 +1,14 @@
-# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: companies
+#
+#  id              :integer          not null, primary key
+#  legal_form_code :string
+#  name            :string
+#  siren           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 
 class Company < ApplicationRecord
   ## Relations and Validations
@@ -17,6 +27,7 @@ class Company < ApplicationRecord
   has_many :diagnoses, through: :facilities, inverse_of: :company
   has_many :diagnosed_needs, through: :facilities, inverse_of: :company
   has_many :matches, through: :facilities, inverse_of: :company
+  has_many :territories, through: :facilities, inverse_of: :companies
 
   ## Scopes
   #
@@ -30,5 +41,9 @@ class Company < ApplicationRecord
   #
   def to_s
     name
+  end
+
+  def categorie_juridique
+    CategorieJuridique.description(legal_form_code)
   end
 end

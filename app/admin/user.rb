@@ -11,7 +11,7 @@ ActiveAdmin.register User do
 
   scope :all, default: true
   scope :admin
-  scope :contact_relays
+  scope :relays
   scope :without_antenne
   scope :not_approved
   scope :email_not_confirmed
@@ -115,7 +115,7 @@ ActiveAdmin.register User do
           link_to(text, autolink_to_experts_admin_user_path(u), method: :post)
         end
       end
-      row :relays_territories do |u|
+      row :relay_territories do |u|
         div admin_link_to(u, :relay_territories, list: true)
       end
       row :activity do |u|
@@ -158,7 +158,7 @@ ActiveAdmin.register User do
   permit_params :full_name, :email, :institution, :role, :phone_number, :is_approved,
     :contact_page_order, :contact_page_role,
     :is_admin, :password, :password_confirmation,
-    :antenne_id, expert_ids: []
+    :antenne_id, expert_ids: [], relay_territory_ids: []
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -177,6 +177,14 @@ ActiveAdmin.register User do
       f.input :role
       f.input :email
       f.input :phone_number
+    end
+
+    f.inputs do
+      f.input :relay_territories, as: :ajax_select, data: {
+        url: :admin_territories_path,
+        search_fields: [:name],
+        limit: 999
+      }
     end
 
     f.inputs I18n.t('active_admin.user.connection') do

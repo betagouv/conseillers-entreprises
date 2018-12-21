@@ -1,4 +1,15 @@
-# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: institutions
+#
+#  id                      :bigint(8)        not null, primary key
+#  antennes_count          :integer
+#  name                    :string
+#  qualified_for_artisanry :boolean          default(TRUE), not null
+#  qualified_for_commerce  :boolean          default(TRUE), not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
 
 class Institution < ApplicationRecord
   ## Associations
@@ -19,8 +30,8 @@ class Institution < ApplicationRecord
   has_many :sent_matches, through: :antennes, inverse_of: :advisor_institution
 
   has_many :received_matches, through: :antennes, inverse_of: :expert_institution
-  has_many :received_diagnosed_needs, through: :antennes, inverse_of: :expert_institution
-  has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institution
+  has_many :received_diagnosed_needs, through: :antennes, inverse_of: :expert_institutions
+  has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institutions
 
   ## Scopes
   #

@@ -62,6 +62,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    annotate (2.7.4)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
     arel (9.0.0)
@@ -71,6 +74,7 @@ GEM
     awesome_print (1.8.0)
     bcrypt (3.1.12)
     bindex (0.5.0)
+    brakeman (4.3.1)
     browser (2.5.3)
     builder (3.2.3)
     byebug (10.0.2)
@@ -158,6 +162,8 @@ GEM
     formtastic_i18n (0.6.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    groupdate (4.1.0)
+      activesupport (>= 4.2)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -177,6 +183,8 @@ GEM
       actionpack (>= 4.1)
       activesupport (>= 4.1)
     hashdiff (0.3.7)
+    highcharts-rails (6.0.3)
+      railties (>= 3.1)
     highline (2.0.0)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
@@ -440,8 +448,10 @@ PLATFORMS
 DEPENDENCIES
   activeadmin
   activeadmin-ajax_filter
+  annotate
   audited (~> 4.5)
   awesome_print
+  brakeman
   browser
   byebug
   capybara
@@ -456,8 +466,10 @@ DEPENDENCIES
   factory_bot_rails
   faker
   foreman
+  groupdate
   haml-rails
   haml_lint
+  highcharts-rails
   http
   i18n-tasks
   jbuilder

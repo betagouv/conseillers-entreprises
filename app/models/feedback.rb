@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: feedbacks
+#
+#  id          :bigint(8)        not null, primary key
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  match_id    :bigint(8)
+#
+# Indexes
+#
+#  index_feedbacks_on_match_id  (match_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (match_id => matches.id)
+#
+
 class Feedback < ApplicationRecord
   ## Associations
   #

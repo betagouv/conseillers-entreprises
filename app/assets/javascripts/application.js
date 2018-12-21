@@ -15,6 +15,9 @@
 
 // = require rails-ujs
 // = require turbolinks
+
+// = require highcharts
+
 // = require semantic-ui/transition
 // = require semantic-ui/popup
 // = require semantic-ui-calendar.min.js
