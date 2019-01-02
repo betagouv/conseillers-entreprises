@@ -2,8 +2,8 @@
   %h3.ui.segment.block.header
     = expert.full_name
   .ui.segment
-    %strong Rôle et institution :
-    #{expert.role}, #{expert.antenne.name}
+    %strong #{[t('activerecord.attributes.expert.role'), t('attributes.institution')].to_sentence} :
+    #{expert.role}, #{expert.antenne.name}, #{expert.antenne_institution.name}
   - if expert.phone_number.present?
     .ui.segment
       %strong #{t('attributes.phone_number')} :
@@ -14,7 +14,15 @@
   - if !expert.is_oneself?
     .ui.segment
       %strong #{t('activerecord.attributes.expert.users', count: expert.users.size)} :
-      = expert.users.map(&:full_name).join(', ')
+      %ul
+        - expert.users.map do |user|
+          %li= user.full_name + ', ' + user.role
   .ui.segment
     %strong #{t('activerecord.attributes.expert.assistances')} :
-    = expert.assistances.map(&:title).join(', ')
+    = expert.assistances.map(&:title).to_sentence
+  .ui.segment
+    %strong #{t('attributes.antenne')} :
+    = expert.antenne.name
+    %ul
+      - expert.antenne.experts.map do |expert|
+        %li= expert.full_name + ', ' + expert.role
