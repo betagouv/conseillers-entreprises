@@ -13,7 +13,7 @@
     = expert.email
   - if !expert.is_oneself?
     .ui.segment
-      %strong #{t('activerecord.attributes.expert.users')} :
+      %strong #{t('activerecord.attributes.expert.users', count: expert.users.size)} :
       = expert.users.map(&:full_name).join(', ')
   .ui.segment
     %strong #{t('activerecord.attributes.expert.assistances')} :
