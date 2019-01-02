@@ -13,7 +13,7 @@
     - else # not signed in
       %a.item{ href: about_home_index_path }
         %i.question.icon
-        = t('.know_more')
+        = t('find_out_more')
     %a.item{ href: '/ManuelRESO.pdf' }
       %i.clipboard.outline.icon
       = t('.interview_guide')
@@ -35,6 +35,9 @@
               = t('.sign_out')
     - else # not signed in
       .right.menu
+        %a.item{ href: contact_index_path }
+          %i.hand.point.right.outline.icon
+          = t('company_contact')
         %a.item{ href: new_user_registration_path }
           %i.handshake.outline.icon
           = t('sign_up')

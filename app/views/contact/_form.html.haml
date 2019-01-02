@@ -1,0 +1,40 @@
+%section.section.section-color.steps
+  .container
+    .row
+      .step
+        %p= image_tag 'landing/creer.svg'
+        %p= t('.steps.step1')
+      .step
+        %p= image_tag 'landing/gerer.svg'
+        %p= t('.steps.step2')
+      .step
+        %p= image_tag 'landing/collaborer.svg'
+        %p= t('.steps.step3')
+= form_with(url: '#', scope: 'contact', method: :post) do |f|
+  %section.section.section-grey
+    .container
+      .form__group
+        %fieldset
+          %h2.section__title
+            = t('.question')
+          %h3.section__subtitle= t('.select_needs')
+          .grid
+            = all_needs_cards f
+
+      .form__group
+        = f.label t('.description.label')
+        = f.text_area 'description', placeholder: t('.description.placeholder'), rows: 6, required: true
+      .form__group
+        .form__group
+          = f.label 'phone_number', t('.phone_number.label')
+          = f.telephone_field 'phone_number', placeholder: t('.phone_number.placeholder'), required: true
+        .form__group
+          = f.label 'email', t('.email.label')
+          = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
+      .form__group
+        = render 'flashes'
+        .text-center
+          .section__subtitle
+            = f.button :submit, class: 'button' do
+              = t('.button.title')
+          = f.label t('.button.label')

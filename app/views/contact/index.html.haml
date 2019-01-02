@@ -1,0 +1,18 @@
+= render 'navbar'
+
+.hero
+  .hero__container
+    %h1.hero__white-background
+      = t('.hero.title')
+    %p.hero__white-background
+      = t('.hero.subtitle1')
+      %br
+      = t('.hero.subtitle2')
+%section.section.section-white
+  .container
+    .logo-list
+      = all_institutions_images
+%main#reso-main-contact
+  = render 'form'
+
+= render 'footer'

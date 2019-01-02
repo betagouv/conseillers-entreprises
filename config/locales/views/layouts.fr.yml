@@ -4,13 +4,10 @@ fr:
     footer:
       contact_us: Contactez-nous !
       problem_or_question: Un problème ? Une question ?
-    footer_home:
-      know_more: En savoir plus
     navbar:
       account: Compte
       admin: Administration
       diagnoses: Analyses
       interview_guide: Guide d’entretien
-      know_more: En savoir plus
       profile: Profil
       sign_out: Déconnexion
