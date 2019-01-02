@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     collection do
       get :about
       get :cgu
-      get :contact
+      get :team
     end
   end
 

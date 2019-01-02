@@ -70,14 +70,6 @@ fr:
          <h3>Engagements et responsabilité</h3>
          <p>Les responsables du Services’engagent à réaliser toute formalité nécessaire à la mise en œuvre d’un éventuel traitement de données à caractère personnel dans le cadre de la réalisation du Service.</p>
          <p>Le Service est hébergé sous la responsabilité de la DINSIC. Cet hébergement n’est pas qualifié pour récolter des données sensibles au sens des articles 8 et suivants de la loi n° 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés.</p>
-    contact:
-      contact_admins_for_local_purpose: Pour toute question spécifique à un territoire, merci de contacter le relais local concerné.
-      contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37.
-      product_team: Équipe projet
-      relays: Relais locaux
-      responsible_of_territories:
-        one: Relais local
-        other: Relais locaux
     index:
       feature_find_contacts_html: 2<br><em class='feature-text-em'>Trouvez</em><br>les contacts compétents sur votre territoire
       feature_notify_and_follow_html: 3<br><em class='feature-text-em'>Notifiez-les</em><br> en un clic et suivez leur action
@@ -90,3 +82,11 @@ fr:
       tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
       tool_to_help_advisors: Un outil dédié aux conseillers d’entreprise des organismes publics
       we_help_you_and_we_want_feedbacks_html: Nous vous accompagnons dans l’utilisation de Réso<br>et recevons vos commentaires.
+    team:
+      contact_admins_for_local_purpose: Pour toute question spécifique à un territoire, merci de contacter le relais local concerné.
+      contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37.
+      product_team: Équipe projet
+      relays: Relais locaux
+      responsible_of_territories:
+        one: Relais local
+        other: Relais locaux

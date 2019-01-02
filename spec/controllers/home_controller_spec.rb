@@ -24,9 +24,9 @@ RSpec.describe HomeController, type: :controller do
     end
   end
 
-  describe 'GET #contact' do
+  describe 'GET #team' do
     it 'returns http success' do
-      get :contact
+      get :team
       expect(response).to be_successful
     end
   end
