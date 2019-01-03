@@ -27,5 +27,9 @@ module Stats
     def category_group_attribute
       'categories.label'
     end
+
+    def category_order_attribute
+      'categories.interview_sort_order'
+    end
   end
 end

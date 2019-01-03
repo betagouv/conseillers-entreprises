@@ -31,5 +31,9 @@ module Stats
     def category_name(category)
       CategorieJuridique.description(category)
     end
+
+    def category_order_attribute
+      'companies.legal_form_code'
+    end
   end
 end
