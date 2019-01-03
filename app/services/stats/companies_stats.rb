@@ -4,12 +4,12 @@ module Stats
 
     def main_query
       Company
-        .joins(:visits)
         .where.not(facilities: { visits: { advisor: User.admin } })
+        .includes(:diagnosed_needs).references(:diagnosed_needs).merge(DiagnosedNeed.where.not(id: nil))
     end
 
     def date_group_attribute
-      'visits.created_at'
+      'diagnoses.created_at'
     end
 
     def filtered(query)
@@ -21,7 +21,6 @@ module Stats
           .joins(visits: [advisor: [antenne: :institution]])
           .where(facilities: { visits: { advisor: { antennes: { institution: params.institution } } } })
       end
-
       query
     end
 
