@@ -28,7 +28,9 @@ module Stats
     end
 
     def all_categories
-      @all_categories ||= grouped_by_category(main_query).pluck(category_group_attribute)
+      @all_categories ||= grouped_by_category(main_query)
+        .group(category_order_attribute).order(category_order_attribute)
+        .pluck(category_group_attribute)
     end
 
     private
