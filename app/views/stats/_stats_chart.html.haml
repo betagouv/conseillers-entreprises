@@ -26,6 +26,12 @@
       stacking: 'normal'
     }
   },
+  tooltip: {
+     shared: true,
+     headerFormat: '<b>{point.x}</b><br>',
+     pointFormat: '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>',
+     footerFormat: 'Total : <b>{point.total}</b>'
+  },
   xAxis: {
     categories: months,
     tickInterval: 1,
