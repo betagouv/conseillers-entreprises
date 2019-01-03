@@ -4,12 +4,12 @@ module Stats
 
     def main_query
       Company
-        .joins(:visits)
         .where.not(facilities: { visits: { advisor: User.admin } })
+        .includes(:diagnosed_needs).references(:diagnosed_needs).merge(DiagnosedNeed.where.not(id: nil))
     end
 
     def date_group_attribute
-      'visits.created_at'
+      'diagnoses.created_at'
     end
 
     def filtered(query)
@@ -21,16 +21,19 @@ module Stats
           .joins(visits: [advisor: [antenne: :institution]])
           .where(facilities: { visits: { advisor: { antennes: { institution: params.institution } } } })
       end
-
       query
     end
 
     def category_group_attribute
-      'substr(companies.legal_form_code,1,1)'
+      Arel.sql('substr(companies.legal_form_code,1,1)')
     end
 
     def category_name(category)
       CategorieJuridique.description(category)
+    end
+
+    def category_order_attribute
+      'companies.legal_form_code'
     end
   end
 end
