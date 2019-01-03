@@ -25,7 +25,7 @@ module Stats
     end
 
     def category_group_attribute
-      'substr(companies.legal_form_code,1,1)'
+      Arel.sql('substr(companies.legal_form_code,1,1)')
     end
 
     def category_name(category)
