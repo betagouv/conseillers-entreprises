@@ -1,0 +1,53 @@
+---
+fr:
+  contact:
+    besoins:
+      01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?
+      02-droit-du-travail: Des questions de droit du travail ?
+      03-croissance-innovation: Le financement de votre croissance, d'un projet d’innovation ?
+      04-nouveaux-clients-produits: Le développement de votre business, la recherche de clients, le développement d'un produit ?
+      05-numerique: La recherche de solutions numériques ?
+      06-difficultes-financieres: Des difficultés financières ? Des problèmes de trésorerie ?
+      07-local-implantation: La recherche d'un local, d'un terrain ? L’implantation d'une entreprise ?
+      '08-reglementation': Des questions sur la réglementation ?
+      '09-cession-reprise': La cession ou la reprise d’une entreprise ?
+      10-autres: Ou d’autres questions sur votre entreprise ?
+    footer:
+      dinsic: DINSIC
+      startup_d_etat: Une startup d’état de beta.gouv
+    form:
+      button:
+        label: On vous recontacte rapidement.
+        title: Avertir l’équipe Réso
+      description:
+        label: Dites-nous en plus.
+        placeholder: 'Décrivez simplement votre besoin. Par exemple: « Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils. »'
+      email:
+        label: Email
+        placeholder: marie.dupont@example.com
+      phone_number:
+        label: Téléphone
+        placeholder: 06 12 34 56 78
+      question: Qu’est-ce qui vous amène ?
+      select_needs: Sélectionnez vos besoins.
+      steps:
+        step1: 1. Vous prenez contact avec nous (ici-même).
+        step2: 2. On vous rappelle pour faire un pré-diagnostic de 10 minutes.
+        step3: 3. Le spécialiste sur votre territoire vous contacte pour vous aider.
+    index:
+      hero:
+        subtitle1: Vous avez des projets, une difficulté, des questions au quotidien ?
+        subtitle2: Faites vous aider par les spécialistes des organismes publics.
+        title: 'Réso : accédez aux solutions publiques pour les entreprises'
+    thank_you:
+      description: 'On vous rappelle rapidement : vous nous expliquerez plus en détail vos besoins, et on identifiera ensemble l’organisme public le plus pertinent, qui vous contactera pour vous aider.'
+      reso_team: L’équipe Réso
+      title: Merci !
+  mailers:
+    admin_mailer:
+      company_message:
+        hello: Bonjour,
+        needs: 'Besoins sélectionnés:'
+        new_message_received: 'Une entreprise a pris contact avec Réso :'
+        reso_app_html: L’application %{link_to_root}.
+        subject: Nouveau message contact d’entreprise

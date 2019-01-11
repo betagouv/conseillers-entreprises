@@ -94,6 +94,7 @@ ignore_unused:
   - 'mailers.user_mailer.daily_change_update.status.*'
   - 'stats.stats_table.*'
   - 'categories_juridiques.*'
+  - 'contact.besoins.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
