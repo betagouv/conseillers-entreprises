@@ -47,6 +47,16 @@ class Facility < ApplicationRecord
 
   ##
   #
+  class << self
+    def siret_is_hardcoded_valid(siret)
+      # https://fr.wikipedia.org/wiki/Système_d%27identification_du_répertoire_des_établissements
+      # Pour des raisons historiques, les SIRET attribués aux établissements du groupe La Poste utilisent une autre formule de validation, et ne sont donc pas tous valides au sens de la formule de Luhn. Le groupe La Poste ayant le SIREN : 356000000, les SIRET suivant cette autre formule de validation sont de la forme 356000000XXXXX
+      siret.match?(/356000000...../)
+    end
+  end
+
+  ##
+  #
   def to_s
     "#{company.name} (#{readable_locality || commune.insee_code})"
   end

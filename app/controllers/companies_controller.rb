@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
     @query = search_query
     if @query.present?
       siret = siret(@query)
-      if siret.present? && luhn(siret)
+      if siret.present? && siret_is_valid(siret)
         redirect_to company_path(siret, query: @query)
       else
         search_results
@@ -75,6 +75,10 @@ class CompaniesController < ApplicationController
   def siret(query)
     maybe_siret = query.gsub(/\s+/, '')
     maybe_siret if maybe_siret.match?(/\d{14}/)
+  end
+
+  def siret_is_valid(siret)
+    luhn(siret) || siret_is_hardcoded_valid(siret)
   end
 
   def luhn(str)
