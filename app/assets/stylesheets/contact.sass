@@ -1,0 +1,41 @@
+@import template-data-gouv-main
+
+.section.steps
+  .row
+    align-items: baseline
+    p
+      text-align: center
+      p
+        display: inline
+.logo-list
+  width: 95%
+  margin: 0 auto
+  text-align: center
+  img
+    height: 50px
+    margin: 0.5em
+#reso-main-contact
+  form
+    max-width: none
+
+    input[type=radio], input[type=checkbox]
+      display: none
+
+      & ~ label
+        padding: 1em
+        margin: 0
+        height: 100%
+
+        &:hover
+          background: #ebeff3 //var(--lighter-grey)
+          cursor: pointer
+
+      &:checked, &:active
+        & ~ label
+          background: #b4e1fa //var(--lighter-blue)
+
+    .row .form__group
+      display: flex
+      flex: 1
+      flex-direction: column
+      margin-top: 0

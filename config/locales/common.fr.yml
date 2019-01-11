@@ -2,9 +2,13 @@
 fr:
   app_name: Réso
   back: Retour
+  cgu: CGU
+  company_contact: Chefs d’entreprises, cliquez ici
   contact_us: Contactez-nous
   delete: Supprimer
   edit: Modifier
+  experts_login: Accès conseillers
+  find_out_more: En savoir plus
   next_step: Passer à la suite
   'no': non
   other: Autre
@@ -13,4 +17,5 @@ fr:
   sign_in: Connexion
   sign_up: Inscription
   update: Mettre à jour
+  who_are_we: Qui sommes-nous ?
   'yes': oui

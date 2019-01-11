@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :contact, only: %i[index create]
+
   resources :diagnoses, only: %i[index show destroy] do
     member do
       get :besoins, action: :step2
