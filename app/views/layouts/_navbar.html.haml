@@ -35,7 +35,7 @@
               = t('.sign_out')
     - else # not signed in
       .right.menu
-        -# %a.item{ href: contact_index_path }
+        %a.item{ href: contact_index_path }
           %i.hand.point.right.outline.icon
           = t('company_contact')
         %a.item{ href: new_user_registration_path }
