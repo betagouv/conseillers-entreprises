@@ -1,14 +1,17 @@
 %section.section.section-color.steps
   .container
-    .row
-      .step
-        %p= image_tag 'landing/creer.svg'
+    %ul
+      %li
+        = image_tag 'landing/creer.svg'
+        %h4= 1
         %p= t('.steps.step1')
-      .step
-        %p= image_tag 'landing/gerer.svg'
+      %li
+        = image_tag 'landing/gerer.svg'
+        %h4= 2
         %p= t('.steps.step2')
-      .step
-        %p= image_tag 'landing/collaborer.svg'
+      %li
+        = image_tag 'landing/collaborer.svg'
+        %h4= 3
         %p= t('.steps.step3')
 = form_with(url: '#', scope: 'contact', method: :post) do |f|
   %section.section.section-grey

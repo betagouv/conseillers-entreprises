@@ -30,9 +30,9 @@ fr:
       question: Qu’est-ce qui vous amène ?
       select_needs: Sélectionnez vos besoins.
       steps:
-        step1: 1. Vous prenez contact avec nous (ici-même).
-        step2: 2. On vous rappelle pour faire un pré-diagnostic de 10 minutes.
-        step3: 3. Le spécialiste sur votre territoire vous aide.
+        step1: Vous prenez contact avec nous (ici-même)
+        step2: On vous rappelle pour faire un pré-diagnostic de 10 minutes
+        step3: Le spécialiste sur votre territoire vous aide
     index:
       hero:
         subtitle1: Vous avez des projets, une difficulté, des questions au quotidien ?
