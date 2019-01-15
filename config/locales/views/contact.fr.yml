@@ -6,7 +6,7 @@ fr:
       02-droit-du-travail: Des questions de droit du travail ?
       03-croissance-innovation: Le financement de votre croissance, d'un projet d’innovation ?
       04-nouveaux-clients-produits: Le développement de votre business, la recherche de clients, le développement d'un produit ?
-      05-numerique: La recherche de solutions numériques ?
+      05-numerique: La mise en place d’une stratégie numérique ?
       06-difficultes-financieres: Des difficultés financières ? Des problèmes de trésorerie ?
       07-local-implantation: La recherche d'un local, d'un terrain ? L’implantation d'une entreprise ?
       '08-reglementation': Des questions sur la réglementation ?
@@ -17,14 +17,13 @@ fr:
       startup_d_etat: Une startup d’état de beta.gouv
     form:
       button:
-        label: On vous recontacte rapidement.
         title: Avertir l’équipe Réso
       description:
         label: Dites-nous en plus.
         placeholder: 'Décrivez simplement votre besoin. Par exemple: « Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils. »'
       email:
         label: Email
-        placeholder: marie.dupont@example.com
+        placeholder: marie.dupont@exemple.fr
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
@@ -33,14 +32,16 @@ fr:
       steps:
         step1: 1. Vous prenez contact avec nous (ici-même).
         step2: 2. On vous rappelle pour faire un pré-diagnostic de 10 minutes.
-        step3: 3. Le spécialiste sur votre territoire vous contacte pour vous aider.
+        step3: 3. Le spécialiste sur votre territoire vous aide.
     index:
       hero:
         subtitle1: Vous avez des projets, une difficulté, des questions au quotidien ?
         subtitle2: Faites vous aider par les spécialistes des organismes publics.
-        title: 'Réso : accédez aux solutions publiques pour les entreprises'
+        title: 'Réso : accédez aux solutions publiques dédiées aux entreprises'
+      institutions:
+        title: '350 spécialistes des Hauts-de-France à votre service :'
     thank_you:
-      description: 'On vous rappelle rapidement : vous nous expliquerez plus en détail vos besoins, et on identifiera ensemble l’organisme public le plus pertinent, qui vous contactera pour vous aider.'
+      description: On vous rappelle rapidement pour le prédiagnostic.
       reso_team: L’équipe Réso
       title: Merci !
   mailers:
