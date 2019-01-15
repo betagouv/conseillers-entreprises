@@ -13,7 +13,7 @@
         = image_tag 'landing/collaborer.svg'
         %h4= 3
         %p= t('.steps.step3')
-= form_with(url: '#', scope: 'contact', method: :post) do |f|
+= form_with(model: @message, url: '#', scope: 'contact', method: :post) do |f|
   %section.section.section-grey
     .container
       .form__group
@@ -25,7 +25,7 @@
             = all_needs_cards f
 
       .form__group
-        = f.label t('.description.label')
+        = f.label 'description', t('.description.label')
         = f.text_area 'description', placeholder: t('.description.placeholder'), rows: 6, required: true
       .form__group
         .form__group

@@ -3,16 +3,18 @@
 class ContactController < ApplicationController
   skip_before_action :authenticate_user!
 
-  def index; end
+  def index
+    @message = CompanyMessage.new
+  end
 
   def create
-    message = CompanyMessage.new(contact_params)
-    if message.valid?
+    @message = CompanyMessage.new(contact_params)
+    if @message.valid?
       @partial = 'thank_you'
-      AdminMailer.delay.company_message(message)
+      AdminMailer.delay.company_message(@message)
     else
       @partial = 'form'
-      flash.alert = message.errors.full_messages.to_sentence
+      flash.alert = @message.errors.full_messages.to_sentence
     end
   end
 
