@@ -1,6 +1,9 @@
 module InstitutionsHelper
   def all_institutions_images
-    Institution.order(:name).pluck(:name).map(&method(:institution_image)).join.html_safe
+    (Institution.pluck(:name) + Antenne.pluck(:name))
+      .map(&:parameterize).sort.uniq # Sort in Rails instead of SQL because it’s easier for case- and diacritics- insensitive sorting.
+      .map(&method(:institution_image))
+      .join.html_safe
   end
 
   def institution_image(name, extra_params = {})
