@@ -34,7 +34,7 @@ class AdminMailerPreview < ActionMailer::Preview
   end
 
   def company_message
-    localized_needs_keypath = 'contact.besoins.'
+    localized_needs_keypath = 'contacts.besoins.'
     all_needs = I18n.t(localized_needs_keypath).keys
 
     params = {

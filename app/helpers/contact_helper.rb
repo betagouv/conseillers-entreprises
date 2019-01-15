@@ -1,6 +1,6 @@
 module ContactHelper
   def all_needs_cards(f)
-    localized_needs_keypath = 'contact.besoins.'
+    localized_needs_keypath = 'contacts.besoins.'
     all_needs = I18n.t(localized_needs_keypath)
     tags = all_needs.map do |value, text|
       needs_card_tag(f, value, text)
@@ -17,7 +17,7 @@ module ContactHelper
 
   def needs_description(message)
     needs_keys = message.besoins.select{ |_,v| v == 1 }.keys
-    localized_needs = needs_keys.map{ |key| I18n.t("contact.besoins.#{key}") }
+    localized_needs = needs_keys.map{ |key| I18n.t("contacts.besoins.#{key}") }
     tag.ul do
       localized_needs.map{ |need| tag.li(need) }.join.html_safe
     end

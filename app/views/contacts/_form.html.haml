@@ -13,7 +13,7 @@
         = image_tag 'landing/collaborer.svg'
         %h4= 3
         %p= t('.steps.step3')
-= form_with(model: @message, url: '#', scope: 'contact', method: :post) do |f|
+= form_with(model: @message, url: contact_path, scope: 'contact', method: :post) do |f|
   %section.section.section-grey
     .container
       .form__group
