@@ -67,7 +67,8 @@ ActiveAdmin.register Institution do
     f.inputs do
       f.input :antennes, label: t('activerecord.attributes.institution.antennes'), as: :ajax_select, data: {
         url: :admin_antennes_path,
-        search_fields: [:name]
+        search_fields: [:name],
+        limit: 999
       }
     end
 
