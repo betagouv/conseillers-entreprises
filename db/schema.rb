@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_15_161951) do
+ActiveRecord::Schema.define(version: 2019_01_17_132717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2018_11_15_161951) do
     t.datetime "updated_at", null: false
     t.integer "experts_count"
     t.integer "users_count"
+    t.boolean "show_icon", default: true
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
   end
 
@@ -205,6 +206,7 @@ ActiveRecord::Schema.define(version: 2018_11_15_161951) do
     t.boolean "qualified_for_commerce", default: true, null: false
     t.boolean "qualified_for_artisanry", default: true, null: false
     t.integer "antennes_count"
+    t.boolean "show_icon", default: true
   end
 
   create_table "matches", force: :cascade do |t|
