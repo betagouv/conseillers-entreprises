@@ -58,11 +58,12 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :qualified_for_commerce, :qualified_for_artisanry, antenne_ids: []
+  permit_params :name, :qualified_for_commerce, :qualified_for_artisanry, :show_icon, antenne_ids: []
 
   form do |f|
     f.inputs do
       f.input :name
+      f.input :show_icon
     end
     f.inputs do
       f.input :antennes, label: t('activerecord.attributes.institution.antennes'), as: :ajax_select, data: {

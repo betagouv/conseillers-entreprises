@@ -7,6 +7,7 @@
 #  name                    :string
 #  qualified_for_artisanry :boolean          default(TRUE), not null
 #  qualified_for_commerce  :boolean          default(TRUE), not null
+#  show_icon               :boolean          default(TRUE)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #
