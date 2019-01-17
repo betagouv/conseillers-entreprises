@@ -15,9 +15,9 @@ ActiveAdmin.register Diagnosis do
     selectable_column
     column(:visit) do |d|
       div admin_link_to(d)
-      div admin_attr(d, :content)
     end
-    column(:advisor)
+    column :company
+    column(:commune) { |d| d.facility.readable_locality || d.facility.commune }
     column :created_at
     column :step
     column :archived? do |d|
@@ -33,15 +33,18 @@ ActiveAdmin.register Diagnosis do
     actions dropdown: true
   end
 
-  filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
+  filter :content
+  filter :step
   filter :created_at
   filter :archived_at
-  filter :step
+  filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
+  filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
 
   ## CSV
   #
   csv do
-    column :facility
+    column :company
+    column(:commune) { |d| d.facility.readable_locality || d.facility.commune }
     column :content
     column :advisor
     column :created_at

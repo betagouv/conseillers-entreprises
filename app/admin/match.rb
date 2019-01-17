@@ -56,6 +56,8 @@ ActiveAdmin.register Match do
 
   filter :assistance, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
 
+  filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+
   ## CSV
   #
   csv do
