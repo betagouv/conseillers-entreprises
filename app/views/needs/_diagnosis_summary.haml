@@ -1,0 +1,22 @@
+%table.ui.table
+  %tbody
+    %tr
+      %td
+        %h2.ui.header
+          = diagnosis.visit.company_name
+          .sub.header
+            %i.calendar.icon
+            .content= I18n.l(diagnosis.visit.display_date, format: '%-d %B %Y')
+          .sub.header
+            = I18n.t('attributes.siret')
+            = diagnosis.visit.facility.siret
+      %td.collapsing
+        .ui.middle.aligned.list
+          .item
+            .middle.aligned.content
+              %h4.ui.header.disabled
+                = t('.diagnosed_needs', count: diagnosis.diagnosed_needs.size)
+          .item
+            .middle.aligned.content
+              %h4.ui.header.disabled
+                = t('.matches', count: diagnosis.matches.size)
