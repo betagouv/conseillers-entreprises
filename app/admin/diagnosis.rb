@@ -15,9 +15,9 @@ ActiveAdmin.register Diagnosis do
     selectable_column
     column(:visit) do |d|
       div admin_link_to(d)
-      div admin_attr(d, :content)
     end
-    column(:advisor)
+    column :company
+    column(:commune) { |d| d.facility.readable_locality || d.facility.commune }
     column :created_at
     column :step
     column :archived? do |d|
@@ -43,7 +43,8 @@ ActiveAdmin.register Diagnosis do
   ## CSV
   #
   csv do
-    column :facility
+    column :company
+    column(:commune) { |d| d.facility.readable_locality || d.facility.commune }
     column :content
     column :advisor
     column :created_at
