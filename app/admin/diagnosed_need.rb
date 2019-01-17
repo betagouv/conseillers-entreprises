@@ -37,6 +37,7 @@ ActiveAdmin.register DiagnosedNeed do
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :question, collection: -> { Question.order(:label) }
   filter :content
+  filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
 
   ## CSV
   #

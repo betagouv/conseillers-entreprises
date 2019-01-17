@@ -33,10 +33,12 @@ ActiveAdmin.register Diagnosis do
     actions dropdown: true
   end
 
-  filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
+  filter :content
+  filter :step
   filter :created_at
   filter :archived_at
-  filter :step
+  filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
+  filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
 
   ## CSV
   #

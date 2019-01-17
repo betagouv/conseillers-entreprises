@@ -46,7 +46,7 @@ class Diagnosis < ApplicationRecord
   #
   # :facility
   has_one :company, through: :facility, inverse_of: :diagnoses
-  has_one :facility_territories, through: :facility, source: :territories, inverse_of: :diagnoses
+  has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnoses
 
   # :diagnosed_needs
   has_many :questions, through: :diagnosed_needs, inverse_of: :diagnoses

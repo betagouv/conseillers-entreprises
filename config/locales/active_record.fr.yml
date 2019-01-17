@@ -222,6 +222,7 @@ fr:
       one: Établissement
       other: Établissements
     facility: Établissement visité
+    facility_territories: Territoires des établissements
     full_name: Prénom et nom
     happened_on: Date de la visite
     insee_codes:
