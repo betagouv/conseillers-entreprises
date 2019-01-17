@@ -1,6 +1,6 @@
 %header.ui.menu.large.responsive-top-fixed
   .ui.container
-    %a.item{ href: root_path }
+    %a.item{ href: home_index_path }
       = image_tag 'reso-logo-simple-dark.png', style: 'width: 60px'
     - if user_signed_in?
       %a.item{ href: diagnoses_path }
@@ -35,7 +35,7 @@
               = t('.sign_out')
     - else # not signed in
       .right.menu
-        -# %a.item{ href: contact_index_path }
+        %a.item{ href: root_path }
           %i.hand.point.right.outline.icon
           = t('company_contact')
         %a.item{ href: new_user_registration_path }
