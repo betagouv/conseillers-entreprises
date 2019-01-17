@@ -563,7 +563,7 @@ a.button.secondary {
 .hero {
   width: 100%;
   color: #fff;
-  background: #0053b3;
+  background: #555559;
 }
 
 .hero__container {
@@ -586,17 +586,16 @@ a.button.secondary {
 
 .hero__white-background {
   padding: 10px 1em;
-  background-color: white;
 }
 
 h1.hero__white-background {
-  color: #26353f;
+  color: white;
   margin: 0;
 }
 
 .hero p {
   margin: 1em auto;
-  color: #26353f;
+  color: white;
   font-size: 1.2em;
 }
 
