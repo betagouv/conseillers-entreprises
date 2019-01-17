@@ -5,6 +5,7 @@
 #  id             :bigint(8)        not null, primary key
 #  experts_count  :integer
 #  name           :string
+#  show_icon      :boolean          default(TRUE)
 #  users_count    :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
