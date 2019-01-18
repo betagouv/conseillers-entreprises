@@ -1,4 +1,6 @@
 - meta title: t('.title')
+- content_for :head do
+  - javascript_include_tag 'highcharts'
 
 %h1= t('.title').titleize
 
