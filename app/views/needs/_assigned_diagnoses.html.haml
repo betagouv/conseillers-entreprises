@@ -13,7 +13,7 @@
                 .sub.header
                   %i.map.marker.alternate.icon
                   - facility = diagnosis.visit.facility
-                  .content= facility.readable_locality || facility.commune
+                  .content= facility.commune_name
                 .sub.header
                   %i.calendar.icon
                   .content= I18n.l(diagnosis.visit.display_date, format: '%-d %B %Y')

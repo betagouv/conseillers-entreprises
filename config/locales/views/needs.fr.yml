@@ -1,6 +1,15 @@
 ---
 fr:
   needs:
+    diagnosis_summary:
+      diagnosed_needs:
+        one: 1 besoin identifié
+        other: "%{count} besoins identifiés"
+        zero: 0 besoin identifié
+      matches:
+        one: 1 mise en relation
+        other: "%{count} mises en relation"
+        zero: 0 mise en relation
     expert_buttons:
       done: Besoin résolu
       dont_take_care_any_more: Ne plus s’en charger
@@ -27,10 +36,6 @@ fr:
     show:
       advisor_contact_subtitle: Conseiller ayant effectué l’analyse des besoins de l’entreprise
       company_contact_subtitle: Contact rencontré au sein de l’entreprise
-      diagnosed_needs:
-        one: 1 besoin identifié
-        other: "%{count} besoins identifiés"
-        zero: 0 besoin identifié
       diagnosed_needs_content_label: 'Les informations complémentaires concernant ce besoin :'
       diagnosis_content_subtitle: Informations générales
       introduction_html: |
@@ -39,10 +44,6 @@ fr:
         disponibles ci-dessous.<br>
         N’oubliez pas d’indiquer votre prise en charge des besoins pour que le conseiller et autres référents puissent
         être mis au courant de votre avancée.
-      matches:
-        one: 1 mise en relation
-        other: "%{count} mises en relation"
-        zero: 0 mise en relation
       my_needs_summary_subtitle: Demandes me concernant
       need_contacts_summary_subtitle: Référents contactés classés par besoin
       title: Récapitulatif
