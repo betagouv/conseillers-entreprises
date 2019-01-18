@@ -20,9 +20,13 @@ class ApplicationController < ActionController::Base
     current_user.is_admin? || not_found
   end
 
-  # Devise parameter
-  def after_sign_in_path_for(_resource)
-    diagnoses_path
+  ## Devise overrides
+  def after_sign_in_path_for(resource_or_scope)
+    stored_location_for(resource_or_scope) || diagnoses_path
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    home_index_path
   end
 
   def not_found
