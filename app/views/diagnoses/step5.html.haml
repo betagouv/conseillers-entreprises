@@ -3,26 +3,7 @@
 #step5-app
   %h1= t('.title')
 
-  %table.ui.table
-    %tbody
-      %tr
-        %td
-          %h2.ui.header
-            = @diagnosis.visit.company_name
-            .sub.header
-              %i.calendar.icon
-              .content= I18n.l(@diagnosis.visit.display_date, format: '%-d %B %Y')
-        %td.collapsing
-          .ui.middle.aligned.list
-            .item
-              .middle.aligned.content
-                %h4.ui.header.disabled
-                  = t('.diagnosed_needs', count: @diagnosis.diagnosed_needs.size)
-            .item
-              .middle.aligned.content
-                %h4.ui.header.disabled
-                  - matches_count = Match.of_diagnoses([@diagnosis]).size
-                  = t('.matches', count: matches_count)
+  = render partial: 'needs/diagnosis_summary', locals: { diagnosis: @diagnosis }
 
   - visitee = @diagnosis.visit.visitee
 

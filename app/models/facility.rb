@@ -76,6 +76,10 @@ class Facility < ApplicationRecord
   ##
   #
   def to_s
-    "#{company.name} (#{readable_locality || commune.insee_code})"
+    "#{company.name} (#{commune_name})"
+  end
+
+  def commune_name
+    readable_locality || commune.insee_code
   end
 end
