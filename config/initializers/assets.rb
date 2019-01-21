@@ -11,5 +11,5 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w[
-  contacts.sass ie9_fixes.sass semantic-ui-calendar.min.css semantic-ui-calendar.min.js mailers.sass
+  contacts.sass contacts.js highcharts.js ie9_fixes.sass semantic-ui-calendar.min.css semantic-ui-calendar.min.js mailers.sass
 ]
