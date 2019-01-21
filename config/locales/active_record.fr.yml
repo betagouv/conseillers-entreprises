@@ -40,7 +40,7 @@ fr:
       match:
         assistance_expert: Référent (non Relais local)
         assistance_title: Champ de compétence
-        closed_at: Date de résolution
+        closed_at: Date de clôture
         diagnosed_need: Besoin analysé
         expert_full_name: Référent contacté
         expert_institution_name: Institution du référent
@@ -48,12 +48,12 @@ fr:
         relay: Référent (Relais local)
         status: Statut
         statuses:
-          done: Besoin résolu
+          done: Besoin clôturé
           not_for_me: Hors champ de compétence
           quo: En attente de prise en charge
           taking_care: En cours de prise en charge
         statuses_short:
-          done: Résolu
+          done: Clôturé
           not_for_me: En souffrance
           quo: En attente
           taking_care: En cours

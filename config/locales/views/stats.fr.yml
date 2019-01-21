@@ -15,7 +15,7 @@ fr:
         companies_diagnosed: Entreprises analysées
         diagnosed_needs: Besoins diagnostiqués
         diagnosed_needs_notified: Besoins transmis
-        match_done: Besoins résolus
+        match_done: Besoins clôturé
         match_not_for_me: Rejets
         match_taken_care_of: Prises en charge
         matches: Mises en relation
@@ -26,7 +26,7 @@ fr:
           companies_diagnosed: Entreprises analysées en %{month}
           diagnosed_needs: Besoins diagnostiqués en %{month}
           diagnosed_needs_notified: Besoins diagnostiqués et transmis à des référents en %{month}
-          match_done: Mises en relation marquées comment ayant résolu le besoin en %{month}
+          match_done: Mises en relation marquées comme ayant clôturé le besoin en %{month}
           match_not_for_me: Mises en relation rejetées (« Pas pour moi ») en %{month}
           match_taken_care_of: Mises en relation prises en charge en %{month}
           matches: Mises en relation lancées en %{month}
@@ -35,11 +35,11 @@ fr:
           matchers: Conseillers qui ont fait (au moins) une mise en relation en %{month}
           registered: Conseillers inscrits en %{month}
           searchers: Conseillers qui ont fait (au moins) une recherche en %{month}
-          whose_match_done: Conseillers dont (au moins) une mise en relation a été marquée comment ayant résolu le besoin en %{month}
+          whose_match_done: Conseillers dont (au moins) une mise en relation a été marquée comment ayant clôturé le besoin en %{month}
           whose_match_taken_care_of: Conseillers dont (au moins) une mise en relation a été prise en charge en %{month}
       users:
         matchers: Entremetteurs
         registered: Inscrits
         searchers: Chercheurs
-        whose_match_done: Aux besoins résolus
+        whose_match_done: Aux besoins clôturé
         whose_match_taken_care_of: Aux besoins répondus

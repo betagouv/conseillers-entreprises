@@ -11,7 +11,7 @@ fr:
         other: "%{count} mises en relation"
         zero: 0 mise en relation
     expert_buttons:
-      done: Besoin résolu
+      done: Besoin clôturé
       dont_take_care_any_more: Ne plus s’en charger
       i_take_care: Je m’en charge !
       not_for_me: Ce n’est pas pour moi
