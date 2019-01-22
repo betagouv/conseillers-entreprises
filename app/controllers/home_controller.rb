@@ -11,7 +11,7 @@ class HomeController < ApplicationController
   def cgu; end
 
   def team
-    @relays = User.relays.ordered_for_contact
-    @product_team = User.project_team.ordered_for_contact.uniq
+    @relays = User.approved.relays.ordered_for_contact
+    @product_team = User.approved.project_team.ordered_for_contact.uniq
   end
 end
