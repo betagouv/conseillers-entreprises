@@ -103,6 +103,7 @@ class User < ApplicationRecord
     left_outer_joins(:relay_territories)
       .select('users.*, territories.name')
       .order('territories.name', :contact_page_order, :full_name)
+      .distinct
   }
   scope :ordered_by_institution, -> do
     joins(:antenne, :antenne_institution)
