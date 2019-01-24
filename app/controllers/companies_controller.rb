@@ -4,8 +4,8 @@ class CompaniesController < ApplicationController
   def search
     @query = search_query
     if @query.present?
-      siret = siret(@query)
-      if siret.present? && Facility::siret_is_valid(siret)
+      siret = Facility::siret_from_query(@query)
+      if siret.present?
         redirect_to company_path(siret, query: @query)
       else
         search_results
@@ -70,11 +70,6 @@ class CompaniesController < ApplicationController
   def search_query
     query = params['query']
     query.present? ? query.strip : nil
-  end
-
-  def siret(query)
-    maybe_siret = query.gsub(/\s+/, '')
-    maybe_siret if maybe_siret.match?(/\d{14}/)
   end
 
   def save_search(query, label = nil)
