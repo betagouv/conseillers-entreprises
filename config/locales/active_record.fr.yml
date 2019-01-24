@@ -113,6 +113,10 @@ fr:
           attributes:
             assistance_expert:
               can_not_be_set_with_relay: La ressource ne peut pas être liée à la fois à un référent et un relais local.
+        user:
+          attributes:
+            email:
+              taken: est déjà inscrit sur Réso. Connectez-vous.
     models:
       antenne:
         one: Antenne
