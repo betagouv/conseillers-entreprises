@@ -48,8 +48,14 @@ class Facility < ApplicationRecord
   ##
   #
   class << self
+    def siret_from_query(query)
+      maybe_siret = query&.gsub(/[\W_]+/, '')
+      maybe_siret if siret_is_valid(maybe_siret)
+    end
+
     def siret_is_valid(siret)
-      luhn_valid(siret) || siret_is_hardcoded_valid(siret)
+      siret.present? && siret.match?(/^\d{14}$/) &&
+        (luhn_valid(siret) || siret_is_hardcoded_valid(siret))
     end
 
     def luhn_valid(str)
