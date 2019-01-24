@@ -10,9 +10,11 @@ class ContactsController < ApplicationController
   def create
     @message = CompanyMessage.new(contact_params)
     if @message.valid?
+      @result = 'success'
       @partial = 'thank_you'
       AdminMailer.delay.company_message(@message)
     else
+      @result = 'failure'
       @partial = 'form'
       flash.alert = @message.errors.full_messages.to_sentence
     end

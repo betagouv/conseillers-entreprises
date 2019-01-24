@@ -1,0 +1,29 @@
+:javascript
+  var _paq = _paq || [];
+  // Configure Matomo analytics
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+
+  // Load script from Matomo
+  (function() {
+    var u="//stats.data.gouv.fr/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '80']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+
+  // Send Matomo a new event when navigating to a new page using Turbolinks
+  // (see https://developer.matomo.org/guides/spa-tracking)
+  addEventListener('turbolinks:load', function(event) {
+    var isInitialLoad = (window.gMatomoPreviousPageUrl === undefined);
+    if (!isInitialLoad) {
+      var loadTimeMs = event.data.timing.visitEnd - event.data.timing.visitStart;
+      _paq.push(['setReferrerUrl', window.gMatomoPreviousPageUrl]);
+      _paq.push(['setCustomUrl', '/' + window.location.href]);
+      _paq.push(['setDocumentTitle', document.title]);
+      _paq.push(['setGenerationTimeMs', loadTimeMs]);
+      _paq.push(['trackPageView']);
+    }
+    window.gMatomoPreviousPageUrl = window.location.href;
+  });
