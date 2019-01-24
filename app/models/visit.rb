@@ -26,7 +26,7 @@
 class Visit < ApplicationRecord
   # TODO merge with the Diagnosis model
   belongs_to :advisor, class_name: 'User'
-  belongs_to :visitee, class_name: 'Contact', required: false
+  belongs_to :visitee, class_name: 'Contact', optional: true
   belongs_to :facility
 
   has_one :company, through: :facility
