@@ -34,6 +34,10 @@ class Search < ApplicationRecord
   ##
   #
   def summary
-    label || query
+    if label.present?
+      "#{label} (#{query})"
+    else
+      query
+    end
   end
 end
