@@ -25,36 +25,6 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_user' do
-      subject { Diagnosis.of_user user }
-
-      let(:user) { build :user }
-
-      context 'no diagnosis' do
-        it { is_expected.to eq [] }
-      end
-
-      context 'only one diagnosis' do
-        it do
-          visit = create :visit, advisor: user
-          diagnosis = create :diagnosis, visit: visit
-
-          is_expected.to eq [diagnosis]
-        end
-      end
-
-      context 'two diagnoses' do
-        it do
-          visit1 = create :visit, advisor: user
-          visit2 = create :visit, advisor: user
-          diagnosis1 = create :diagnosis, visit: visit1
-          diagnosis2 = create :diagnosis, visit: visit2
-
-          is_expected.to match_array [diagnosis1, diagnosis2]
-        end
-      end
-    end
-
     describe 'in progress' do
       subject { Diagnosis.in_progress.count }
 
