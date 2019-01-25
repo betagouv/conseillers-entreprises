@@ -22,6 +22,7 @@ ActiveAdmin.register DiagnosedNeed do
     end
     column :advisor
     column :created_at
+    column :archived_at
     column :status do |d|
       css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[d.status_synthesis.to_sym]
       status_tag d.status_short_description, class: css_class
@@ -58,6 +59,7 @@ ActiveAdmin.register DiagnosedNeed do
       row :question
       row :advisor
       row :created_at
+      row :archived_at
       row :content
       row :status_description do |d|
         css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[d.status_synthesis.to_sym]
@@ -72,11 +74,12 @@ ActiveAdmin.register DiagnosedNeed do
 
   ## Form
   #
-  permit_params :diagnosis_id, :question_id, :content
+  permit_params :diagnosis_id, :question_id, :archived_at, :content
 
   form do |f|
     f.inputs do
       f.input :question, as: :ajax_select, data: { url: :admin_questions_path, search_fields: [:label] }
+      f.input :archived_at
       f.input :content
     end
 
