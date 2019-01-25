@@ -4,13 +4,14 @@
 #
 #  id         :integer          not null, primary key
 #  label      :string
-#  query      :string
+#  query      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  user_id    :integer
 #
 # Indexes
 #
+#  index_searches_on_query    (query)
 #  index_searches_on_user_id  (user_id)
 #
 # Foreign Keys
@@ -26,6 +27,7 @@ class Search < ApplicationRecord
   ## Validations
   #
   validates :user, presence: true
+  validates :query, presence: true
 
   ## Scopes
   #
