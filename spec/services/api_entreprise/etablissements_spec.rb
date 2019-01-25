@@ -7,7 +7,7 @@ RSpec.describe ApiEntreprise::Etablissements do
 
   let(:base_url) { 'https://entreprise.api.gouv.fr/v2/etablissements' }
   let(:httprb_request_headers) do
-    { 'Connection' => 'close', 'Host' => 'entreprise.api.gouv.fr', 'User-Agent' => 'http.rb/4.0.0' }
+    { 'Connection' => 'close', 'Host' => 'entreprise.api.gouv.fr', 'User-Agent' => /http\.rb.*/ }
   end
 
   before { Rails.cache.clear }

@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/reso
   docker:
-    - image: circleci/ruby:2.5.3
+    - image: circleci/ruby:2.6.0
     - image: circleci/postgres:10.4
       environment:
         POSTGRES_USER: reso_test
