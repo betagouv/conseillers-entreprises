@@ -4,15 +4,4 @@ module CompaniesHelper
   def date_from_timestamp(timestamp)
     I18n.l(Time.strptime(timestamp.to_s, '%s').in_time_zone.to_date) rescue nil
   end
-
-  def last_searches
-    array = []
-    searches = current_user.searches.recent
-    searches.each do |search|
-      if !array.map(&:query).include?(search.query)
-        array << search
-      end
-    end
-    array.first(5)
-  end
 end
