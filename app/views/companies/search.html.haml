@@ -34,8 +34,8 @@
         %li
           = link_to suggestion.capitalize, search_companies_path(query: suggestion)
 
-  %h1= t('.last_searches')
-  - searches = last_searches
+  %h1= t('.latest_searches')
+  - searches = current_user.searches.recent
   - if searches.present?
     %ul
       - searches.each do |search|

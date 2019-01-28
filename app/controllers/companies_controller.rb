@@ -4,9 +4,9 @@ class CompaniesController < ApplicationController
   def search
     @query = search_query
     if @query.present?
-      siret = siret(@query)
-      if siret.present? && Facility::siret_is_valid(siret)
-        redirect_to company_path(siret, query: @query)
+      siret = Facility::siret_from_query(@query)
+      if siret.present?
+        redirect_to company_path(siret)
       else
         search_results
       end
@@ -15,7 +15,6 @@ class CompaniesController < ApplicationController
 
   def show
     siret = params[:siret]
-    query = params[:query]
     begin
       @facility = UseCases::SearchFacility.with_siret siret
       @company = UseCases::SearchCompany.with_siret siret
@@ -36,7 +35,7 @@ class CompaniesController < ApplicationController
     else
       @diagnoses = Diagnosis.none
     end
-    save_search(query, @company.name)
+    save_search(siret, @company.name)
   end
 
   def create_diagnosis_from_siret
@@ -70,11 +69,6 @@ class CompaniesController < ApplicationController
   def search_query
     query = params['query']
     query.present? ? query.strip : nil
-  end
-
-  def siret(query)
-    maybe_siret = query.gsub(/\s+/, '')
-    maybe_siret if maybe_siret.match?(/\d{14}/)
   end
 
   def save_search(query, label = nil)

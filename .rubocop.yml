@@ -334,6 +334,9 @@ Lint/EndInMethod:
 Lint/EnsureReturn:
   Enabled: false
 
+Lint/FlipFlop:
+  Enabled: false
+
 Lint/FloatOutOfRange:
   Enabled: false
 
@@ -941,9 +944,6 @@ Style/EvenOdd:
 
 Style/ExpandPathArguments:
   Enabled: true
-
-Style/FlipFlop:
-  Enabled: false
 
 Style/For:
   Enabled: false

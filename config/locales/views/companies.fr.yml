@@ -36,7 +36,7 @@ fr:
     search:
       explanation: SIRET, raison sociale, adresse, activité…
       generic_error: La recherche a échoué pour une raison inconnue. Réessayez plus tard.
-      last_searches: Recherches récentes
+      latest_searches: Recherches récentes
       search_company: Rechercher une entreprise
       suggestions: Suggestions
     show:
