@@ -120,7 +120,11 @@ class DiagnosedNeed < ApplicationRecord
   ##
   #
   def can_be_viewed_by?(role)
-    diagnosis.visit.can_be_viewed_by?(role) || belongs_to_relay_or_expert?(role)
+    if role.present? && advisor == role
+      true
+    else
+      belongs_to_relay_or_expert?(role)
+    end
   end
 
   def belongs_to_relay_or_expert?(role)

@@ -50,12 +50,12 @@ class DiagnosesController < ApplicationController
   def visite
     @diagnosis = diagnosis_in_progress(params[:id])
     diagnosis_params = params_for_visite
-    diagnosis_params[:visit_attributes][:visitee_attributes][:company_id] = @diagnosis.visit.facility.company.id
+    diagnosis_params[:visit_attributes][:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = 4
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :step4, id: @diagnosis
     else
-      flash.alert = @diagnosis.visit.errors.full_messages.to_sentence
+      flash.alert = @diagnosis.errors.full_messages.to_sentence
       render action: :step3
     end
   end
@@ -63,7 +63,7 @@ class DiagnosesController < ApplicationController
   def step4
     @diagnosis = diagnosis_in_progress(params[:id])
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
-    relays = @diagnosis.visit.facility.commune.relays
+    relays = @diagnosis.facility.commune.relays
     @relay_users = User.where(relays: relays)
       .order(:contact_page_order, :full_name)
   end

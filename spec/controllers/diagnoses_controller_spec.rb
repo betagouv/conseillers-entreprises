@@ -4,8 +4,7 @@ require 'rails_helper'
 RSpec.describe DiagnosesController, type: :controller do
   login_user
 
-  let(:diagnosis) { create :diagnosis, visit: visit }
-  let(:visit) { create :visit, advisor: advisor }
+  let(:diagnosis) { create :diagnosis, advisor: advisor }
   let(:advisor) { current_user }
 
   describe 'GET #index' do

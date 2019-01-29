@@ -24,7 +24,7 @@ module UseCases
         if diagnosed_need_ids.empty?
           return
         end
-        relays = diagnosis.visit.facility.commune.relays
+        relays = diagnosis.facility.commune.relays
         relays.each do |relay|
           UseCases::CreateSelectedRelays.perform(relay, diagnosed_need_ids)
         end

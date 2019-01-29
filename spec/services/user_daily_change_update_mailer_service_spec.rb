@@ -22,7 +22,7 @@ describe UserDailyChangeUpdateMailerService do
             expert_name: match2.expert_full_name,
             expert_institution: match2.expert_institution_name,
             question_title: match2.diagnosed_need.question_label,
-            company_name: match2.diagnosed_need.diagnosis.visit.company_name,
+            company_name: match2.diagnosed_need.diagnosis.company.name,
             start_date: match2.created_at.to_date,
             old_status: 'quo',
             current_status: 'done'
@@ -41,14 +41,13 @@ describe UserDailyChangeUpdateMailerService do
       end
 
       it 'sends only one email' do
-        user = match2.diagnosed_need.diagnosis.visit.advisor
+        user = match2.diagnosed_need.diagnosis.advisor
         expect(UserMailer).to have_received(:daily_change_update).once.with(user, expected_array)
       end
     end
 
     context 'two selected assistances for the same user modified during the last 24h' do
-      let(:visit) { create :visit }
-      let(:diagnosis) { create :diagnosis, visit: visit }
+      let(:diagnosis) { create :diagnosis }
       let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
       let(:match1) { create :match }
       let(:match2) { create :match, diagnosed_need: diagnosed_need }
@@ -59,7 +58,7 @@ describe UserDailyChangeUpdateMailerService do
             expert_name: match2.expert_full_name,
             expert_institution: match2.expert_institution_name,
             question_title: match2.diagnosed_need.question_label,
-            company_name: match2.diagnosed_need.diagnosis.visit.company_name,
+            company_name: match2.diagnosed_need.diagnosis.company.name,
             start_date: match2.created_at.to_date,
             old_status: 'quo',
             current_status: 'done'
@@ -68,7 +67,7 @@ describe UserDailyChangeUpdateMailerService do
             expert_name: match3.expert_full_name,
             expert_institution: match3.expert_institution_name,
             question_title: match2.diagnosed_need.question_label,
-            company_name: match2.diagnosed_need.diagnosis.visit.company_name,
+            company_name: match2.diagnosed_need.diagnosis.company.name,
             start_date: match3.created_at.to_date,
             old_status: 'quo',
             current_status: 'done'
@@ -88,7 +87,7 @@ describe UserDailyChangeUpdateMailerService do
       end
 
       it 'sends only one email' do
-        user = match2.diagnosed_need.diagnosis.visit.advisor
+        user = match2.diagnosed_need.diagnosis.advisor
         expect(UserMailer).to have_received(:daily_change_update).once.with(user, expected_array)
       end
     end

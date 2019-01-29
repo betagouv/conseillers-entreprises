@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe Diagnosis, type: :model do
   it do
     is_expected.to have_many :diagnosed_needs
@@ -103,9 +102,8 @@ RSpec.describe Diagnosis, type: :model do
   describe 'can_be_viewed_by?' do
     subject { diagnosis.can_be_viewed_by?(user) }
 
-    let(:visit) { create :visit, advisor: advisor }
     let(:user) { create :user }
-    let!(:diagnosis) { create :diagnosis, visit: visit }
+    let!(:diagnosis) { create :diagnosis, advisor: advisor }
 
     context 'user is the diagnosis advisor' do
       let(:advisor) { user }
@@ -120,4 +118,3 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

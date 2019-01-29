@@ -46,10 +46,10 @@ module RelayService
       # rubocop:disable Metrics/AbcSize
       def csv_line_from_data(csv_line, diagnosis, diagnosed_need, match)
         csv_line << [
-          diagnosis.visit.company_name,
-          diagnosis.visit.happened_on,
-          diagnosis.visit.advisor.full_name,
-          diagnosis.visit.advisor.institution,
+          diagnosis.company.name,
+          diagnosis.happened_on,
+          diagnosis.advisor.full_name,
+          diagnosis.advisor.institution,
           diagnosed_need.question_label,
           diagnosed_need.content,
           match.expert_full_name,

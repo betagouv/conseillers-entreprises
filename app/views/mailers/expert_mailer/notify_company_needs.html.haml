@@ -2,14 +2,12 @@
 
 :ruby
   link_to_root = link_to t('app_name'), root_url
-  visit = @diagnosis.visit
-  advisor = visit.advisor
 
 %p
-  = t('.this_company_needs_you_html', company_description: visit.company_description)
+  = t('.this_company_needs_you_html', company_description: @diagnosis.facility)
   = t('.advisor_met_company',
-   advisor_name_with_role: advisor.full_name_with_role,
-   visit_date: I18n.l(visit.display_date))
+   advisor_name_with_role: @diagnosis.advisor.full_name_with_role,
+   visit_date: I18n.l(@diagnosis.display_date))
 
 %p= t('.company_expressed_needs')
 

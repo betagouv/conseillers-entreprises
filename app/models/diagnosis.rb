@@ -31,6 +31,7 @@ class Diagnosis < ApplicationRecord
   belongs_to :visit, validate: true, dependent: :destroy
   has_one :facility, through: :visit, inverse_of: :diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
   has_one :advisor, through: :visit, inverse_of: :sent_diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
+  has_one :visitee, through: :visit, inverse_of: :diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
 
   has_many :diagnosed_needs, dependent: :destroy, inverse_of: :diagnosis
 
@@ -89,7 +90,21 @@ class Diagnosis < ApplicationRecord
   ##
   #
   def to_s
-    "#{facility} #{visit.display_date}"
+    "#{company.name} (#{I18n.l display_date})"
+  end
+
+  def display_date
+    happened_on || created_at.to_date
+  end
+
+  ## TODO: should be removed once we merge the Visit and Diagnosis models
+  #
+  def happened_on
+    visit.happened_on
+  end
+
+  def happened_on=(value)
+    visit.happened_on = value
   end
 
   ##
@@ -111,7 +126,11 @@ class Diagnosis < ApplicationRecord
   ##
   #
   def can_be_viewed_by?(role)
-    visit.can_be_viewed_by?(role) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
+    if role.present? && advisor == role
+      true
+    else
+      diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
+    end
   end
 
   ##

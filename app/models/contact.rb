@@ -27,6 +27,7 @@ class Contact < ApplicationRecord
   #
   belongs_to :company, inverse_of: :contacts
   has_many :visits, foreign_key: 'visitee_id', dependent: :restrict_with_error, inverse_of: :visitee
+  has_many :diagnoses, through: :visits, dependent: :restrict_with_error, inverse_of: :visitee # TODO: should be direct once we merge the Visit and Diagnosis models
 
   ## Validations
   #
@@ -36,6 +37,6 @@ class Contact < ApplicationRecord
   ##
   #
   def can_be_viewed_by?(role)
-    visits.any? { |visit| visit.can_be_viewed_by?(role) }
+    diagnoses.any? { |diagnosis| diagnosis.can_be_viewed_by?(role) }
   end
 end

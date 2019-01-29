@@ -5,11 +5,11 @@
 
   = render partial: 'needs/diagnosis_summary', locals: { diagnosis: @diagnosis }
 
-  - visitee = @diagnosis.visit.visitee
+  - visitee = @diagnosis.visitee
 
   = render partial: 'people/person', locals: { person: visitee, subtitle: t('.company_contact_subtitle') }
 
-  = link_to t('.show_detailed_information'), company_path(siret: @diagnosis.visit.facility.siret),
+  = link_to t('.show_detailed_information'), company_path(siret: @diagnosis.facility.siret),
    target: '_blank', rel: 'noopener', class: 'ui yellow basic tiny button'
 
   %h2= t('.need_contacts_summary_subtitle')

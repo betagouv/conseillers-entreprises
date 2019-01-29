@@ -62,7 +62,7 @@
               %tr
                 %td= t('.no_assistance')
 
-      - if @diagnosis.visit.visitee.present?
+      - if @diagnosis.visitee.present?
         .ui.info.message
           = t('.before_sending_emails_text_html')
       - else
@@ -77,7 +77,7 @@
 
         .ui.right.aligned.column.no-right-padding.no-margin
           - button_classes = []
-          - if @diagnosis.visit.visitee.blank?
+          - if @diagnosis.visitee.blank?
             - button_classes << 'disabled'
           %button.ui.green.button.no-margin#next-step-button{ class: button_classes }
             = t('.notify_matches')

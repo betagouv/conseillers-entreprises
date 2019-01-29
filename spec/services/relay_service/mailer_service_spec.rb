@@ -21,7 +21,6 @@ describe RelayService::MailerService do
 
       let(:commune1) { create :commune, territories: [territories.first] }
       let(:facility1) { create :facility, commune: commune1 }
-      let(:visit1) { create :visit, facility: facility1 }
 
       let(:empty_information_hash) do
         {
@@ -48,13 +47,12 @@ describe RelayService::MailerService do
 
         let(:commune2) { create :commune, territories: [territories.last] }
         let(:facility2) { create :facility, commune: commune2 }
-        let(:visit2) { create :visit, facility: facility2 }
 
-        let(:created_diagnoses) { create_list :diagnosis, 1, step: 1, visit: visit1 }
-        let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, visit: visit1 }
+        let(:created_diagnoses) { create_list :diagnosis, 1, step: 1, facility: facility1 }
+        let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, facility: facility1 }
         let(:diagnosed_need) { create :diagnosed_need, diagnosis: completed_diagnoses.first }
         let(:updated_diagnoses) do
-          create_list :diagnosis, 1, step: 4, visit: visit1, created_at: 2.weeks.ago, updated_at: 1.hour.ago
+          create_list :diagnosis, 1, step: 4, facility: facility1, created_at: 2.weeks.ago, updated_at: 1.hour.ago
         end
 
         let!(:information_hash_with_data) do
@@ -67,7 +65,7 @@ describe RelayService::MailerService do
         end
 
         before do
-          create :diagnosis, step: 1, visit: visit1, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
+          create :diagnosis, step: 1, facility: facility1, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
           create_list :match, 3, diagnosed_need: diagnosed_need
 
           send_relay_stats_emails

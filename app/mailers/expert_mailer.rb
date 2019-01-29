@@ -13,11 +13,11 @@ class ExpertMailer < ApplicationMailer
 
     mail(
       to: @person.email_with_display_name,
-      cc: @diagnosis.visit.advisor.email_with_display_name,
-      subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: @diagnosis.visit.company_name),
+      cc: @diagnosis.advisor.email_with_display_name,
+      subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: @diagnosis.company.name),
       reply_to: [
         SENDER,
-        @diagnosis.visit.advisor.email_with_display_name
+        @diagnosis.advisor.email_with_display_name
       ]
     )
   end

@@ -14,9 +14,9 @@
           %tr
             %td
               %h3.ui.header
-                = t('.visited_at', date: I18n.l(diagnosis.visit.display_date))
+                = t('.visited_at', date: I18n.l(diagnosis.display_date))
                 .sub.header
-                  - advisor = diagnosis.visit.advisor
+                  - advisor = diagnosis.advisor
                   = t('.visited_by_html', advisor_name: advisor.full_name_with_role, advisor_email: advisor.email)
             %td.collapsing
               .ui.middle.aligned.list
