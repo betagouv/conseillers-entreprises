@@ -50,7 +50,7 @@ class User < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :antenne, counter_cache: true, inverse_of: :advisors, optional: true
+  belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors, optional: true
 
   has_and_belongs_to_many :experts, inverse_of: :users
 
