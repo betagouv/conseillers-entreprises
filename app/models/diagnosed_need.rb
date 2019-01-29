@@ -3,6 +3,7 @@
 # Table name: diagnosed_needs
 #
 #  id             :bigint(8)        not null, primary key
+#  archived_at    :datetime
 #  content        :text
 #  matches_count  :integer
 #  question_label :string
@@ -13,6 +14,7 @@
 #
 # Indexes
 #
+#  index_diagnosed_needs_on_archived_at   (archived_at)
 #  index_diagnosed_needs_on_diagnosis_id  (diagnosis_id)
 #  index_diagnosed_needs_on_question_id   (question_id)
 #
