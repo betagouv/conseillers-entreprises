@@ -13,39 +13,38 @@
         = t('.form_info')
 
     - @diagnosis.visitee ||= Contact.new
-    = diagnosis_form.fields_for :visit do |visit_form|
-      = visit_form.fields_for :visitee do |contact_form|
-        %h3.ui.header
-          = t('.your_contact_in_the_company', company_name: @diagnosis.company.name)
-
-        .field
-          = contact_form.label t('.full_name')
-          = contact_form.text_field :full_name, placeholder: t('.full_name_placeholder'), required: true
-        .field
-          = contact_form.label t('.role')
-          = contact_form.text_field :role, placeholder: t('.role_placeholder'), required: true
-        .two.fields
-          .field
-            = contact_form.label t('.email_address')
-            = contact_form.email_field :email, required: true
-          .field
-            = contact_form.label t('.phone_number')
-            = contact_form.telephone_field :phone_number, required: true
-
+    = diagnosis_form.fields_for :visitee do |contact_form|
       %h3.ui.header
-        = t('.date')
-      .inline.field
-        .ui.calendar#datepicker
-          .ui.input.left.icon
-            %i.calendar.icon
-            = visit_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
+        = t('.your_contact_in_the_company', company_name: @diagnosis.company.name)
 
-      %a.ui.left.floated.button.labeled.icon{ href: besoins_diagnosis_path(@diagnosis) }
-        = t('previous_step')
-        %i.arrow.left.icon
-      = diagnosis_form.button :submit, class: 'ui right floated button green right labeled icon' do
-        = t('next_step')
-        %i.arrow.right.icon
+      .field
+        = contact_form.label t('.full_name')
+        = contact_form.text_field :full_name, placeholder: t('.full_name_placeholder'), required: true
+      .field
+        = contact_form.label t('.role')
+        = contact_form.text_field :role, placeholder: t('.role_placeholder'), required: true
+      .two.fields
+        .field
+          = contact_form.label t('.email_address')
+          = contact_form.email_field :email, required: true
+        .field
+          = contact_form.label t('.phone_number')
+          = contact_form.telephone_field :phone_number, required: true
+
+    %h3.ui.header
+      = t('.date')
+    .inline.field
+      .ui.calendar#datepicker
+        .ui.input.left.icon
+          %i.calendar.icon
+          = diagnosis_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
+
+    %a.ui.left.floated.button.labeled.icon{ href: besoins_diagnosis_path(@diagnosis) }
+      = t('previous_step')
+      %i.arrow.left.icon
+    = diagnosis_form.button :submit, class: 'ui right floated button green right labeled icon' do
+      = t('next_step')
+      %i.arrow.right.icon
 
   .clear
 

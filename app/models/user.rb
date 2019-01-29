@@ -118,7 +118,7 @@ class User < ApplicationRecord
   end)
 
   scope :active_diagnosers, (lambda do |date, minimum_step|
-    joins(visits: :diagnosis)
+    joins(:sent_diagnoses)
         .merge(Diagnosis.only_active
                    .where(created_at: date)
                    .after_step(minimum_step))
@@ -126,14 +126,14 @@ class User < ApplicationRecord
   end)
 
   scope :active_matchers, (lambda do |date|
-    joins(visits: [diagnosis: [diagnosed_needs: :matches]])
+    joins(sent_diagnoses: [diagnosed_needs: :matches])
         .merge(Diagnosis.only_active
                .where(created_at: date))
         .distinct
   end)
 
   scope :active_answered, (lambda do |date, status|
-    joins(visits: [diagnosis: [diagnosed_needs: :matches]])
+    joins(sent_diagnoses: [diagnosed_needs: :matches])
         .merge(Match
                    .where(taken_care_of_at: date)
                    .with_status(status))

@@ -77,8 +77,8 @@ class DiagnosedNeed < ApplicationRecord
   scope :done, -> { where(matches: Match.where(status: [:done])) }
 
   scope :made_in, (lambda do |date_range|
-    joins(diagnosis: :visit)
-      .where(diagnoses: { visits: { happened_on: date_range } })
+    joins(:diagnosis)
+      .where(diagnoses: { happened_on: date_range })
       .distinct
   end)
   scope :ordered_by_interview, -> do

@@ -7,8 +7,8 @@ class DiagnosesController < ApplicationController
       .left_outer_joins(:matches,
         diagnosed_needs: :matches)
       .includes(:matches,
-        diagnosed_needs: :matches,
-        visit: [:visitee, facility: :company])
+        :visitee, facility: :company,
+        diagnosed_needs: :matches)
   end
 
   def show
@@ -50,7 +50,7 @@ class DiagnosesController < ApplicationController
   def visite
     @diagnosis = diagnosis_in_progress(params[:id])
     diagnosis_params = params_for_visite
-    diagnosis_params[:visit_attributes][:visitee_attributes][:company_id] = @diagnosis.facility.company.id
+    diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = 4
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :step4, id: @diagnosis
@@ -80,7 +80,7 @@ class DiagnosesController < ApplicationController
   end
 
   def step5
-    associations = [visit: [:visitee, facility: [:company]], diagnosed_needs: [:matches]]
+    associations = [:visitee, facility: [:company], diagnosed_needs: [:matches]]
     @diagnosis = Diagnosis.includes(associations).find params[:id]
     check_current_user_access_to(@diagnosis)
   end
@@ -88,12 +88,13 @@ class DiagnosesController < ApplicationController
   private
 
   def params_for_visite
-    permitted = params.require(:diagnosis).permit(visit_attributes: {})
-    visit_params = permitted.require(:visit_attributes)
-    [:id, :happened_on].each{ |key| visit_params.require(key) }
-    visitee_params = visit_params.require(:visitee_attributes)
-    [:full_name, :role, :email, :phone_number].each{ |key| visitee_params.require(key) }
-    visitee_params.permit(:id)
+    permitted = params.require(:diagnosis).permit(:happened_on, visitee_attributes: [:full_name, :role, :email, :phone_number, :id])
+    permitted.require(:happened_on)
+    permitted.require(:visitee_attributes).require(:full_name)
+    permitted.require(:visitee_attributes).require(:role)
+    permitted.require(:visitee_attributes).require(:email)
+    permitted.require(:visitee_attributes).require(:phone_number)
+    puts "permitted #{permitted}"
     permitted
   end
 

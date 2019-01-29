@@ -48,10 +48,10 @@ class Diagnosis < ApplicationRecord
   ## Validations
   #
   validates :visit, presence: true
+  validates :advisor, :facility, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
-
+  accepts_nested_attributes_for :visitee
   accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
-  accepts_nested_attributes_for :visit
 
   ## Through Associations
   #
@@ -86,7 +86,7 @@ class Diagnosis < ApplicationRecord
 
   scope :of_relay_or_expert, (lambda do |relay_or_expert|
     only_active
-      .includes(visit: [facility: :company])
+      .includes(facility: :company)
       .joins(:diagnosed_needs)
       .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
       .order('visits.happened_on desc', 'visits.created_at desc')
