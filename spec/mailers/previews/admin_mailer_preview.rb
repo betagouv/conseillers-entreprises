@@ -1,7 +1,10 @@
 class AdminMailerPreview < ActionMailer::Preview
   def weekly_statistics
-    associations = [visit: [:advisor, facility: [:company]]]
-    @not_admin_diagnoses = Diagnosis.includes(associations).only_active.of_user(User.not_admin).order(created_at: :desc)
+    @not_admin_diagnoses = Diagnosis
+      .includes([visit: [:advisor, facility: [:company]]])
+      .only_active
+      .where(visits: { advisor: User.not_admin })
+      .order(created_at: :desc)
     @completed_diagnoses = @not_admin_diagnoses.completed.updated_last_week
     created_diagnoses = @not_admin_diagnoses.in_progress.created_last_week
 
