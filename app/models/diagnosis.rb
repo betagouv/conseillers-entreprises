@@ -107,16 +107,6 @@ class Diagnosis < ApplicationRecord
     happened_on || created_at.to_date
   end
 
-  ## TODO: should be removed once we merge the Visit and Diagnosis models
-  #
-  def happened_on
-    visit.happened_on
-  end
-
-  def happened_on=(value)
-    visit.happened_on = value
-  end
-
   ##
   #
   def archive!
