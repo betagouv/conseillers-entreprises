@@ -5,8 +5,11 @@ require 'rails_helper'
 RSpec.describe Diagnosis, type: :model do
   it do
     is_expected.to have_many :diagnosed_needs
-    is_expected.to belong_to :visit
-    is_expected.to validate_presence_of :visit
+    is_expected.to belong_to :advisor
+    is_expected.to belong_to :visitee
+    is_expected.to belong_to :facility
+    is_expected.to validate_presence_of :advisor
+    is_expected.to validate_presence_of :facility
     is_expected.to validate_inclusion_of(:step).in_array(Diagnosis::AUTHORIZED_STEPS)
   end
 

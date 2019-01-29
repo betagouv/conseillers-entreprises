@@ -23,7 +23,6 @@ class Company < ApplicationRecord
 
   ## Through Associations
   #
-  has_many :visits, through: :facilities # TODO: should be removed once we merge the Visit and Diagnosis models
   has_many :diagnoses, through: :facilities, inverse_of: :company
   has_many :diagnosed_needs, through: :facilities, inverse_of: :company
   has_many :matches, through: :facilities, inverse_of: :company

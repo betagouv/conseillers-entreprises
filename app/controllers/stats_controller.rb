@@ -77,7 +77,7 @@ class StatsController < ApplicationController
 
   def activity_stats_in(date_range)
     users = User.not_admin
-    visits_in_range = Visit # TODO: use Diagnosis when we merge the Visit and Diagnosis models
+    visits_in_range = Diagnosis
       .where(happened_on: date_range)
       .where(advisor: users)
     companies_diagnosed_in_range = Company

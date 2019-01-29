@@ -43,7 +43,6 @@ class DiagnosedNeed < ApplicationRecord
   ## Through Associations
   #
   # :diagnosis
-  has_one :visit, through: :diagnosis # TODO: should be removed once we merge the Visit and Diagnosis models
   has_one :facility, through: :diagnosis, inverse_of: :diagnosed_needs
   has_one :company, through: :diagnosis, inverse_of: :diagnosed_needs
   has_one :advisor, through: :diagnosis, inverse_of: :sent_diagnosed_needs

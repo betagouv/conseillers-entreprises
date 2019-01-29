@@ -28,8 +28,7 @@ class Facility < ApplicationRecord
   belongs_to :company, inverse_of: :facilities
   belongs_to :commune, inverse_of: :facilities
 
-  has_many :visits
-  has_many :diagnoses, through: :visits, inverse_of: :facility # TODO: should be direct once we merge the Visit and Diagnosis models
+  has_many :diagnoses, inverse_of: :facility
 
   ## Validations
   #

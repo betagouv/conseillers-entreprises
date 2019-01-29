@@ -26,8 +26,7 @@ class Contact < ApplicationRecord
   ## Associations
   #
   belongs_to :company, inverse_of: :contacts
-  has_many :visits, foreign_key: 'visitee_id', dependent: :restrict_with_error, inverse_of: :visitee
-  has_many :diagnoses, through: :visits, dependent: :restrict_with_error, inverse_of: :visitee # TODO: should be direct once we merge the Visit and Diagnosis models
+  has_many :diagnoses, dependent: :restrict_with_error, foreign_key: 'visitee_id', inverse_of: :visitee
 
   ## Validations
   #

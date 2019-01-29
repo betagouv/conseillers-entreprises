@@ -15,6 +15,11 @@ fr:
         question: Besoin
         question_label: Nom du besoin
       diagnosis: 
+      diagnosis/visitee:
+        email: Adresse e-mail de la personne rencontrée
+        full_name: Prénom et Nom de la personne rencontrée
+        phone_number: Numéro de téléphone de la personne rencontrée
+        role: Fonction de la personne rencontrée
       expert:
         access_token: Token d’accès
         assistances: Champs de compétence
@@ -93,11 +98,6 @@ fr:
         reset_password_token: Token de régénération du mot de passe
         role: Fonction
         sign_in_count: Connexions
-      visit/visitee:
-        email: Adresse e-mail de la personne rencontrée
-        full_name: Prénom et Nom de la personne rencontrée
-        phone_number: Numéro de téléphone de la personne rencontrée
-        role: Fonction de la personne rencontrée
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -175,9 +175,6 @@ fr:
       user:
         one: Utilisateur
         other: Utilisateurs
-      visit:
-        one: Visite
-        other: Visites
   attributes:
     activity: Activité
     advisor: Conseiller

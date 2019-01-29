@@ -23,8 +23,7 @@
 #  fk_rails_...  (visitee_id => contacts.id)
 #
 
-class Visit < ApplicationRecord
-  # TODO merge with the Diagnosis model
+class Visit < ApplicationRecord # TODO: remove after the Diagnosis and Visit models are merged
   belongs_to :advisor, class_name: 'User'
   belongs_to :visitee, class_name: 'Contact', optional: true
   belongs_to :facility

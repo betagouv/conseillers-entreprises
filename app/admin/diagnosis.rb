@@ -5,7 +5,7 @@ ActiveAdmin.register Diagnosis do
 
   ## Index
   #
-  includes :visit, :facility, :company, :advisor, :diagnosed_needs, :matches
+  includes :facility, :company, :advisor, :diagnosed_needs, :matches
   includes facility: :commune
 
   scope :only_active, default: true

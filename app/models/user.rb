@@ -58,8 +58,7 @@ class User < ApplicationRecord
   has_many :relay_territories, through: :relays, source: :territory, inverse_of: :relay_users # TODO should be named :relay_territories when we get rid of the Relay model and use a HABTM
   has_many :relay_matches, through: :relays, source: :matches, inverse_of: :relay_user
 
-  has_many :visits, foreign_key: 'advisor_id', inverse_of: :advisor
-  has_many :sent_diagnoses, through: :visits, source: :diagnosis, inverse_of: :advisor # TODO Should be a direct association when we merge the Visit and Diagnosis models
+  has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
 
   has_many :searches, dependent: :destroy, inverse_of: :user
 

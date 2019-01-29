@@ -38,20 +38,20 @@ class Diagnosis < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :visit, validate: true, dependent: :destroy
-  has_one :facility, through: :visit, inverse_of: :diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
-  has_one :advisor, through: :visit, inverse_of: :sent_diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
-  has_one :visitee, through: :visit, inverse_of: :diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
+  belongs_to :visit, optional: true # TODO: remove after the Diagnosis and Visit models are merged
+  belongs_to :facility, inverse_of: :diagnoses
+  belongs_to :advisor, class_name: 'User', inverse_of: :sent_diagnoses
+  belongs_to :visitee, class_name: 'Contact', inverse_of: :diagnoses, optional: true
 
   has_many :diagnosed_needs, dependent: :destroy, inverse_of: :diagnosis
 
   ## Validations
   #
-  validates :visit, presence: true
   validates :advisor, :facility, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
-  accepts_nested_attributes_for :visitee
+
   accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
+  accepts_nested_attributes_for :visitee
 
   ## Through Associations
   #
@@ -89,7 +89,7 @@ class Diagnosis < ApplicationRecord
       .includes(facility: :company)
       .joins(:diagnosed_needs)
       .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
-      .order('visits.happened_on desc', 'visits.created_at desc')
+      .order(happened_on: :desc, created_at: :desc)
       .distinct
   end)
 
