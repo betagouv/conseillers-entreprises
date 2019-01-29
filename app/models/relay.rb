@@ -26,6 +26,4 @@ class Relay < ApplicationRecord
 
   validates :territory, :user, presence: true
   validates :territory, uniqueness: { scope: :user }
-
-  scope :of_user, (-> (user) { where(user: user) })
 end
