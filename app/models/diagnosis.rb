@@ -5,19 +5,29 @@
 #  id          :bigint(8)        not null, primary key
 #  archived_at :datetime
 #  content     :text
+#  happened_on :date
 #  step        :integer          default(1)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  advisor_id  :bigint(8)
+#  facility_id :bigint(8)
 #  visit_id    :bigint(8)
+#  visitee_id  :bigint(8)
 #
 # Indexes
 #
+#  index_diagnoses_on_advisor_id   (advisor_id)
 #  index_diagnoses_on_archived_at  (archived_at)
+#  index_diagnoses_on_facility_id  (facility_id)
 #  index_diagnoses_on_visit_id     (visit_id)
+#  index_diagnoses_on_visitee_id   (visitee_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (advisor_id => users.id)
+#  fk_rails_...  (facility_id => facilities.id)
 #  fk_rails_...  (visit_id => visits.id)
+#  fk_rails_...  (visitee_id => contacts.id)
 #
 
 class Diagnosis < ApplicationRecord
