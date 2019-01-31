@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_25_135718) do
+ActiveRecord::Schema.define(version: 2019_01_29_182830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_01_25_135718) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "experts_count"
-    t.integer "users_count"
+    t.integer "advisors_count"
     t.boolean "show_icon", default: true
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
   end
@@ -143,6 +143,8 @@ ActiveRecord::Schema.define(version: 2019_01_25_135718) do
     t.datetime "updated_at", null: false
     t.text "content"
     t.integer "matches_count"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_diagnosed_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_diagnosed_needs_on_diagnosis_id"
     t.index ["question_id"], name: "index_diagnosed_needs_on_question_id"
   end
@@ -154,8 +156,15 @@ ActiveRecord::Schema.define(version: 2019_01_25_135718) do
     t.datetime "updated_at", null: false
     t.integer "step", default: 1
     t.datetime "archived_at"
+    t.bigint "advisor_id"
+    t.bigint "visitee_id"
+    t.bigint "facility_id"
+    t.date "happened_on"
+    t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
+    t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
     t.index ["visit_id"], name: "index_diagnoses_on_visit_id"
+    t.index ["visitee_id"], name: "index_diagnoses_on_visitee_id"
   end
 
   create_table "experts", force: :cascade do |t|
@@ -320,6 +329,9 @@ ActiveRecord::Schema.define(version: 2019_01_25_135718) do
   add_foreign_key "contacts", "companies"
   add_foreign_key "diagnosed_needs", "diagnoses"
   add_foreign_key "diagnosed_needs", "questions"
+  add_foreign_key "diagnoses", "contacts", column: "visitee_id"
+  add_foreign_key "diagnoses", "facilities"
+  add_foreign_key "diagnoses", "users", column: "advisor_id"
   add_foreign_key "diagnoses", "visits"
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"

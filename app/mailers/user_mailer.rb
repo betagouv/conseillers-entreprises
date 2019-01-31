@@ -29,8 +29,8 @@ class UserMailer < ApplicationMailer
     @author = feedback.match.person
     @diagnosed_need = feedback.match.diagnosed_need
     @persons = @diagnosed_need.contacted_persons - [@author]
-    @advisor = @diagnosed_need.diagnosis.visit.advisor
-    @facility = @diagnosed_need.diagnosis.visit.facility
+    @advisor = @diagnosed_need.diagnosis.advisor
+    @facility = @diagnosed_need.diagnosis.facility
     mail(to: @advisor.email_with_display_name,
          cc: @persons.map(&:email_with_display_name),
          reply_to: @author.email_with_display_name,

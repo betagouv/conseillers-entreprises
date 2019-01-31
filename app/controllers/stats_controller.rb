@@ -77,23 +77,23 @@ class StatsController < ApplicationController
 
   def activity_stats_in(date_range)
     users = User.not_admin
-    visits_in_range = Visit
+    visits_in_range = Diagnosis
       .where(happened_on: date_range)
       .where(advisor: users)
     companies_diagnosed_in_range = Company
       .diagnosed_in(date_range)
-      .where(facilities: { visits: { advisor: users } })
+      .where(diagnoses: { advisor: users })
     needs_in_range = DiagnosedNeed
       .made_in(date_range)
-      .where(diagnoses: { visits: { advisor: users } })
+      .where(diagnoses: { advisor: users })
     matches_created_in_range = Match
       .where(created_at: date_range)
-      .joins(diagnosis: :visit)
-      .where(diagnoses: { visits: { advisor: users } })
+      .joins(:diagnosis)
+      .where(diagnoses: { advisor: users })
     matches_taken_care_in_range = Match
       .where(taken_care_of_at: date_range)
-      .joins(diagnosis: :visit)
-      .where(diagnoses: { visits: { advisor: users } })
+      .joins(:diagnosis)
+      .where(diagnoses: { advisor: users })
 
     {
       "activity.visits": visits_in_range,

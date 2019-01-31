@@ -16,7 +16,7 @@
       = diagnosis_form.text_area :content, placeholder: t('.diagnosis_content_placeholder'), rows: 2
 
     %p.small.text.justified
-      = t('.identify_needs', company_name: @diagnosis.visit.company_name)
+      = t('.identify_needs', company_name: @diagnosis.company.name)
 
     - @categories.each do |category|
       .ui.segments.shadow-less

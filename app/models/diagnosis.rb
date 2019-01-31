@@ -5,19 +5,29 @@
 #  id          :bigint(8)        not null, primary key
 #  archived_at :datetime
 #  content     :text
+#  happened_on :date
 #  step        :integer          default(1)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  advisor_id  :bigint(8)
+#  facility_id :bigint(8)
 #  visit_id    :bigint(8)
+#  visitee_id  :bigint(8)
 #
 # Indexes
 #
+#  index_diagnoses_on_advisor_id   (advisor_id)
 #  index_diagnoses_on_archived_at  (archived_at)
+#  index_diagnoses_on_facility_id  (facility_id)
 #  index_diagnoses_on_visit_id     (visit_id)
+#  index_diagnoses_on_visitee_id   (visitee_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (advisor_id => users.id)
+#  fk_rails_...  (facility_id => facilities.id)
 #  fk_rails_...  (visit_id => visits.id)
+#  fk_rails_...  (visitee_id => contacts.id)
 #
 
 class Diagnosis < ApplicationRecord
@@ -28,19 +38,20 @@ class Diagnosis < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :visit, validate: true, dependent: :destroy
-  has_one :facility, through: :visit, inverse_of: :diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
-  has_one :advisor, through: :visit, inverse_of: :sent_diagnoses # TODO: should be direct once we merge the Visit and Diagnosis models
+  belongs_to :visit, optional: true # TODO: remove after the Diagnosis and Visit models are merged
+  belongs_to :facility, inverse_of: :diagnoses
+  belongs_to :advisor, class_name: 'User', inverse_of: :sent_diagnoses
+  belongs_to :visitee, class_name: 'Contact', inverse_of: :diagnoses, optional: true
 
   has_many :diagnosed_needs, dependent: :destroy, inverse_of: :diagnosis
 
   ## Validations
   #
-  validates :visit, presence: true
+  validates :advisor, :facility, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
 
   accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
-  accepts_nested_attributes_for :visit
+  accepts_nested_attributes_for :visitee
 
   ## Through Associations
   #
@@ -66,7 +77,6 @@ class Diagnosis < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_user, (-> (user) { joins(:visit).where(visits: { advisor: user }) })
   scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
   scope :completed, (-> { where(step: LAST_STEP) })
   scope :available_for_expert, (lambda do |expert|
@@ -76,10 +86,10 @@ class Diagnosis < ApplicationRecord
 
   scope :of_relay_or_expert, (lambda do |relay_or_expert|
     only_active
-      .includes(visit: [facility: :company])
+      .includes(facility: :company)
       .joins(:diagnosed_needs)
       .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
-      .order('visits.happened_on desc', 'visits.created_at desc')
+      .order(happened_on: :desc, created_at: :desc)
       .distinct
   end)
 
@@ -90,7 +100,11 @@ class Diagnosis < ApplicationRecord
   ##
   #
   def to_s
-    "#{facility} #{visit.display_date}"
+    "#{company.name} (#{I18n.l display_date})"
+  end
+
+  def display_date
+    happened_on || created_at.to_date
   end
 
   ##
@@ -112,7 +126,11 @@ class Diagnosis < ApplicationRecord
   ##
   #
   def can_be_viewed_by?(role)
-    visit.can_be_viewed_by?(role) || diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
+    if role.present? && advisor == role
+      true
+    else
+      diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
+    end
   end
 
   ##

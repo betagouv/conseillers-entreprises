@@ -26,7 +26,7 @@ class Contact < ApplicationRecord
   ## Associations
   #
   belongs_to :company, inverse_of: :contacts
-  has_many :visits, foreign_key: 'visitee_id', dependent: :restrict_with_error, inverse_of: :visitee
+  has_many :diagnoses, dependent: :restrict_with_error, foreign_key: 'visitee_id', inverse_of: :visitee
 
   ## Validations
   #
@@ -36,6 +36,6 @@ class Contact < ApplicationRecord
   ##
   #
   def can_be_viewed_by?(role)
-    visits.any? { |visit| visit.can_be_viewed_by?(role) }
+    diagnoses.any? { |diagnosis| diagnosis.can_be_viewed_by?(role) }
   end
 end

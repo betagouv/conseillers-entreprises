@@ -8,9 +8,8 @@ describe UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts do
 
     let(:commune) { create :commune, insee_code: '75001' }
     let(:facility) { create :facility, commune: commune, naf_code: artisanry_naf_code }
-    let(:visit) { create :visit, facility: facility }
 
-    let!(:diagnosis) { create :diagnosis, visit: visit }
+    let!(:diagnosis) { create :diagnosis, facility: facility }
     let!(:question1) { create :question }
     let!(:question2) { create :question }
     let!(:assistance1) { create :assistance, question: question1 }

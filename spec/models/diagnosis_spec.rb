@@ -2,12 +2,14 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe Diagnosis, type: :model do
   it do
     is_expected.to have_many :diagnosed_needs
-    is_expected.to belong_to :visit
-    is_expected.to validate_presence_of :visit
+    is_expected.to belong_to :advisor
+    is_expected.to belong_to :visitee
+    is_expected.to belong_to :facility
+    is_expected.to validate_presence_of :advisor
+    is_expected.to validate_presence_of :facility
     is_expected.to validate_inclusion_of(:step).in_array(Diagnosis::AUTHORIZED_STEPS)
   end
 
@@ -25,36 +27,6 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'scopes' do
-    describe 'of_user' do
-      subject { Diagnosis.of_user user }
-
-      let(:user) { build :user }
-
-      context 'no diagnosis' do
-        it { is_expected.to eq [] }
-      end
-
-      context 'only one diagnosis' do
-        it do
-          visit = create :visit, advisor: user
-          diagnosis = create :diagnosis, visit: visit
-
-          is_expected.to eq [diagnosis]
-        end
-      end
-
-      context 'two diagnoses' do
-        it do
-          visit1 = create :visit, advisor: user
-          visit2 = create :visit, advisor: user
-          diagnosis1 = create :diagnosis, visit: visit1
-          diagnosis2 = create :diagnosis, visit: visit2
-
-          is_expected.to match_array [diagnosis1, diagnosis2]
-        end
-      end
-    end
-
     describe 'in progress' do
       subject { Diagnosis.in_progress.count }
 
@@ -133,9 +105,8 @@ RSpec.describe Diagnosis, type: :model do
   describe 'can_be_viewed_by?' do
     subject { diagnosis.can_be_viewed_by?(user) }
 
-    let(:visit) { create :visit, advisor: advisor }
     let(:user) { create :user }
-    let!(:diagnosis) { create :diagnosis, visit: visit }
+    let!(:diagnosis) { create :diagnosis, advisor: advisor }
 
     context 'user is the diagnosis advisor' do
       let(:advisor) { user }
@@ -150,4 +121,3 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

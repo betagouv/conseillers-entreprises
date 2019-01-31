@@ -36,13 +36,11 @@ describe AdminMailersService do
       end
 
       context 'some data' do
-        let(:visit) { create :visit, advisor: not_admin_user }
-
-        let(:created_diagnoses) { create_list :diagnosis, 1, step: 1, visit: visit }
-        let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, visit: visit }
+        let(:created_diagnoses) { create_list :diagnosis, 1, step: 1, advisor: not_admin_user }
+        let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, advisor: not_admin_user }
         let(:diagnosed_need) { create :diagnosed_need, diagnosis: completed_diagnoses.first }
         let(:updated_diagnoses) do
-          create_list :diagnosis, 1, step: 4, visit: visit, created_at: 2.weeks.ago, updated_at: 1.hour.ago
+          create_list :diagnosis, 1, step: 4, advisor: not_admin_user, created_at: 2.weeks.ago, updated_at: 1.hour.ago
         end
 
         let!(:expected_information_hash) do
@@ -57,7 +55,7 @@ describe AdminMailersService do
         end
 
         before do
-          create :diagnosis, step: 1, visit: visit, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
+          create :diagnosis, step: 1, advisor: not_admin_user, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
           create_list :match, 3, :with_assistance_expert, diagnosed_need: diagnosed_need
         end
 

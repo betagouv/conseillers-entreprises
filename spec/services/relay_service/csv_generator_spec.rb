@@ -8,8 +8,7 @@ describe RelayService::CSVGenerator do
       let(:user) { create :user, full_name: 'Jean Bon', institution: 'DINSIC' }
       let(:company) { create :company, name: 'COMPANY NAME' }
       let(:facility) { create :facility, company: company }
-      let(:visit) { create :visit, facility: facility, advisor: user, happened_on: Date.parse('2017-10-10') }
-      let!(:diagnosis) { create :diagnosis, visit: visit }
+      let!(:diagnosis) { create :diagnosis, facility: facility, advisor: user, happened_on: Date.parse('2017-10-10') }
       let(:diagnosed_need) do
         create :diagnosed_need, diagnosis: diagnosis, question_label: 'Need money ?', content: 'Very poor, much sad'
       end

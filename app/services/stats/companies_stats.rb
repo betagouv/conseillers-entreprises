@@ -4,7 +4,7 @@ module Stats
 
     def main_query
       Company
-        .where.not(facilities: { visits: { advisor: User.admin } })
+        .where.not(facilities: { diagnoses: { advisor: User.admin } })
         .includes(:diagnosed_needs).references(:diagnosed_needs).merge(DiagnosedNeed.where.not(id: nil))
     end
 
@@ -18,8 +18,8 @@ module Stats
       end
       if params.institution.present?
         query = query
-          .joins(visits: [advisor: [antenne: :institution]])
-          .where(facilities: { visits: { advisor: { antennes: { institution: params.institution } } } })
+          .joins(diagnoses: [advisor: [antenne: :institution]])
+          .where(facilities: { diagnoses: { advisor: { antennes: { institution: params.institution } } } })
       end
       query
     end

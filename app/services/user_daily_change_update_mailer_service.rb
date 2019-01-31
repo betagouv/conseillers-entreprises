@@ -3,11 +3,11 @@
 class UserDailyChangeUpdateMailerService
   class << self
     def send_daily_change_updates
-      associations = [diagnosed_need: [diagnosis: [visit: [:advisor, facility: [:company]]]]]
+      associations = [diagnosed_need: [diagnosis: [:advisor, facility: [:company]]]]
       user_matches_hash = Match.includes(associations)
         .updated_yesterday
         .group_by do |match|
-        match.diagnosed_need.diagnosis.visit.advisor
+        match.diagnosed_need.diagnosis.advisor
       end
 
       user_matches_hash.each do |user, matches|
@@ -41,7 +41,7 @@ class UserDailyChangeUpdateMailerService
       change_hash[:expert_institution] = match.expert_institution_name
       change_hash[:question_title] = match.diagnosed_need.question_label
       change_hash[:company_name] = match.diagnosed_need
-        .diagnosis.visit.company_name
+        .diagnosis.company.name
       change_hash[:start_date] = match.created_at.to_date
       change_hash
     end

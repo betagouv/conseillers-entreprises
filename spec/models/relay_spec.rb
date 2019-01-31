@@ -46,33 +46,4 @@ RSpec.describe Relay, type: :model do
       }
     end
   end
-
-  describe 'scopes' do
-    describe 'of_user' do
-      subject { described_class.of_user user }
-
-      let(:user) { build :user }
-
-      context 'no relay' do
-        it { is_expected.to eq [] }
-      end
-
-      context 'only one relay' do
-        it do
-          relay = create :relay, user: user
-
-          is_expected.to eq [relay]
-        end
-      end
-
-      context 'two relays' do
-        it do
-          relay1 = create :relay, user: user
-          relay2 = create :relay, user: user
-
-          is_expected.to match_array [relay1, relay2]
-        end
-      end
-    end
-  end
 end

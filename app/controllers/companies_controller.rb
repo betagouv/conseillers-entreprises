@@ -30,8 +30,8 @@ class CompaniesController < ApplicationController
         .left_outer_joins(:matches,
           diagnosed_needs: :matches)
         .includes(:matches,
-          diagnosed_needs: :matches,
-          visit: :advisor)
+          :advisor,
+          diagnosed_needs: :matches)
     else
       @diagnoses = Diagnosis.none
     end
@@ -42,8 +42,7 @@ class CompaniesController < ApplicationController
     facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
 
     if facility
-      visit = Visit.new(advisor: current_user, facility: facility)
-      diagnosis = Diagnosis.new(visit: visit, step: '2')
+      diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: '2')
     end
 
     if diagnosis&.save

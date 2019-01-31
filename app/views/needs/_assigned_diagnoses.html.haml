@@ -9,14 +9,14 @@
           .row.stretched
             .column
               %h4.ui.header
-                = link_to(diagnosis.visit.company_name, besoin_path(diagnosis, params.permit(:access_token)))
+                = link_to(diagnosis.company.name, besoin_path(diagnosis, params.permit(:access_token)))
                 .sub.header
                   %i.map.marker.alternate.icon
-                  - facility = diagnosis.visit.facility
+                  - facility = diagnosis.facility
                   .content= facility.commune_name
                 .sub.header
                   %i.calendar.icon
-                  .content= I18n.l(diagnosis.visit.display_date, format: '%-d %B %Y')
+                  .content= I18n.l(diagnosis.display_date, format: '%-d %B %Y')
             .column
               - diagnosis.diagnosed_needs.of_relay_or_expert(relay_or_expert).each do |need|
                 .ui.text.small

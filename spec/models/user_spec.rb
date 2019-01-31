@@ -96,9 +96,8 @@ RSpec.describe User, type: :model do
 
     describe 'active_diagnosers' do
       it do
-        diagnosis = create :diagnosis, step: 3
-        visit = create :visit, created_at: 1.day.ago, diagnosis: diagnosis
-        diagnoser = create :user, visits: [visit]
+        diagnosis = create :diagnosis, created_at: 1.day.ago, step: 3
+        diagnoser = create :user, sent_diagnoses: [diagnosis]
 
         last_30_days = (30.days.ago)..Time.now
 
@@ -111,9 +110,8 @@ RSpec.describe User, type: :model do
       it do
         expert = create :match, status: 2
         need = create :diagnosed_need, matches: [expert]
-        diagnosis = create :diagnosis, diagnosed_needs: [need]
-        visit = create :visit, created_at: 1.day.ago, diagnosis: diagnosis
-        active_user = create :user, visits: [visit]
+        diagnosis = create :diagnosis, created_at: 1.day.ago, diagnosed_needs: [need]
+        active_user = create :user, sent_diagnoses: [diagnosis]
 
         last_30_days = (30.days.ago)..Time.now
 
