@@ -6,7 +6,7 @@ RSpec.describe Contact, type: :model do
   describe 'associations' do
     it do
       is_expected.to belong_to :company
-      is_expected.to have_many(:visits).dependent(:restrict_with_error)
+      is_expected.to have_many(:diagnoses).dependent(:restrict_with_error)
     end
   end
 
@@ -59,17 +59,17 @@ RSpec.describe Contact, type: :model do
     let(:contact) { create :contact, :with_email }
 
     before do
-      create :visit, advisor: advisor
-      create :visit, advisor: advisor, visitee: contact
+      create :diagnosis, advisor: advisor
+      create :diagnosis, advisor: advisor, visitee: contact
     end
 
-    context 'visit advisor is the user' do
+    context 'diagnosis advisor is the user' do
       let(:advisor) { user }
 
       it { is_expected.to eq true }
     end
 
-    context 'visit advisor is not the user' do
+    context 'diagnosis advisor is not the user' do
       let(:advisor) { create :user }
 
       it { is_expected.to eq false }

@@ -13,8 +13,9 @@ class NeedsController < ApplicationController
   end
 
   def show
-    associations = [visit: [:visitee, :advisor, facility: [:company]],
-                    diagnosed_needs: [matches: [assistance_expert: :expert]]
+    associations = [
+      :visitee, :advisor, facility: [:company],
+      diagnosed_needs: [matches: [assistance_expert: :expert]]
     ]
     @diagnosis = Diagnosis.includes(associations).find(params[:id])
 

@@ -23,8 +23,7 @@
 #  fk_rails_...  (visitee_id => contacts.id)
 #
 
-class Visit < ApplicationRecord
-  # TODO merge with the Diagnosis model
+class Visit < ApplicationRecord # TODO: remove after the Diagnosis and Visit models are merged
   belongs_to :advisor, class_name: 'User'
   belongs_to :visitee, class_name: 'Contact', optional: true
   belongs_to :facility
@@ -35,24 +34,4 @@ class Visit < ApplicationRecord
   accepts_nested_attributes_for :visitee
 
   validates :advisor, :facility, presence: true
-
-  def to_s
-    "#{company_name} (#{I18n.l display_date})"
-  end
-
-  def display_date
-    happened_on || created_at.to_date
-  end
-
-  def company_name
-    facility.company.name
-  end
-
-  def company_description
-    facility.to_s
-  end
-
-  def can_be_viewed_by?(role)
-    role.present? && advisor == role
-  end
 end

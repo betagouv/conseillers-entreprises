@@ -10,8 +10,8 @@
     - @information_hash[:created_diagnoses][:items].each do |diagnosis|
       - description = t('.diagnosis_description',
       id: diagnosis.id,
-      advisor_name: diagnosis.visit.advisor.full_name,
-      company_name: diagnosis.visit.company_name)
+      advisor_name: diagnosis.advisor.full_name,
+      company_name: diagnosis.company.name)
       %li= description
 
 %p
@@ -21,8 +21,8 @@
     - @information_hash[:updated_diagnoses][:items].each do |diagnosis|
       - description = t('.diagnosis_description',
       id: diagnosis.id,
-      advisor_name: diagnosis.visit.advisor.full_name,
-      company_name: diagnosis.visit.company_name)
+      advisor_name: diagnosis.advisor.full_name,
+      company_name: diagnosis.company.name)
       %li= description
 
 %p
@@ -32,8 +32,8 @@
     - @information_hash[:completed_diagnoses][:items].each do |diagnosis|
       - description = t('.diagnosis_description',
       id: diagnosis.id,
-      advisor_name: diagnosis.visit.advisor.full_name,
-      company_name: diagnosis.visit.company_name)
+      advisor_name: diagnosis.advisor.full_name,
+      company_name: diagnosis.company.name)
       %li= description
 
 %p

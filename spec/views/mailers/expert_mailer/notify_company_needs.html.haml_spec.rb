@@ -6,7 +6,6 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
   context 'hash with several information' do
     let(:contact) { create :contact, :with_email }
     let(:user) { create :user }
-    let(:visit) { create :visit, :with_visitee, advisor: user, visitee: contact }
     let(:expert) { create :expert }
     let(:need1) { create(:diagnosed_need, matches: [create(:match, assistance_expert: create(:assistance_expert, expert: expert))]) }
     let(:need2) { create(:diagnosed_need, matches: [create(:match, assistance_expert: create(:assistance_expert, expert: expert))]) }
@@ -16,8 +15,8 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       assign(:diagnosis, diagnosis)
     end
 
-    context 'when visit has a date, there is an access token and there are two questions' do
-      let(:diagnosis) { create :diagnosis, visit: visit, diagnosed_needs: [need1, need2] }
+    context 'when diagnosis has a date, there is an access token and there are two questions' do
+      let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, diagnosed_needs: [need1, need2] }
 
       before do
         assign(:access_token, 'random_access_token')
@@ -31,7 +30,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
     end
 
     context 'when there is no access token and there is one question' do
-      let(:diagnosis) { create :diagnosis, visit: visit, diagnosed_needs: [need1] }
+      let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, diagnosed_needs: [need1] }
 
       before do
         assign(:access_token, nil)

@@ -8,9 +8,9 @@ class AdminMailersService
       @information_hash = {}
 
       @not_admin_diagnoses = Diagnosis
-        .includes([visit: [:advisor, facility: [:company]]])
+        .includes([:advisor, facility: [:company]])
         .only_active
-        .where(visits: { advisor: User.not_admin })
+        .where(advisor: User.not_admin)
         .order(created_at: :desc)
       @completed_diagnoses = @not_admin_diagnoses.completed.updated_last_week
 

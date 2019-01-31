@@ -64,8 +64,7 @@ RSpec.describe MatchesController, type: :controller do
       let(:match) { create :match, :with_relay, diagnosed_need: diagnosed_need }
 
       let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
-      let(:diagnosis) { create :diagnosis, visit: visit }
-      let(:visit) { create :visit, facility: facility }
+      let(:diagnosis) { create :diagnosis, facility: facility }
       let(:facility) { create :facility }
       let(:relay) { create :relay, user: current_user }
 

@@ -23,7 +23,6 @@ class Company < ApplicationRecord
 
   ## Through Associations
   #
-  has_many :visits, through: :facilities # TODO: should be removed once we merge the Visit and Diagnosis models
   has_many :diagnoses, through: :facilities, inverse_of: :company
   has_many :diagnosed_needs, through: :facilities, inverse_of: :company
   has_many :matches, through: :facilities, inverse_of: :company
@@ -32,8 +31,8 @@ class Company < ApplicationRecord
   ## Scopes
   #
   scope :diagnosed_in, (lambda do |date_range|
-    joins(facilities: [visits: :diagnosis])
-    .where(facilities: { visits: { happened_on: date_range } })
+    joins(:diagnoses)
+    .where(diagnoses: { happened_on: date_range })
     .distinct
   end)
 

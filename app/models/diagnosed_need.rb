@@ -43,7 +43,6 @@ class DiagnosedNeed < ApplicationRecord
   ## Through Associations
   #
   # :diagnosis
-  has_one :visit, through: :diagnosis # TODO: should be removed once we merge the Visit and Diagnosis models
   has_one :facility, through: :diagnosis, inverse_of: :diagnosed_needs
   has_one :company, through: :diagnosis, inverse_of: :diagnosed_needs
   has_one :advisor, through: :diagnosis, inverse_of: :sent_diagnosed_needs
@@ -77,8 +76,8 @@ class DiagnosedNeed < ApplicationRecord
   scope :done, -> { where(matches: Match.where(status: [:done])) }
 
   scope :made_in, (lambda do |date_range|
-    joins(diagnosis: :visit)
-      .where(diagnoses: { visits: { happened_on: date_range } })
+    joins(:diagnosis)
+      .where(diagnoses: { happened_on: date_range })
       .distinct
   end)
   scope :ordered_by_interview, -> do
@@ -120,7 +119,11 @@ class DiagnosedNeed < ApplicationRecord
   ##
   #
   def can_be_viewed_by?(role)
-    diagnosis.visit.can_be_viewed_by?(role) || belongs_to_relay_or_expert?(role)
+    if role.present? && advisor == role
+      true
+    else
+      belongs_to_relay_or_expert?(role)
+    end
   end
 
   def belongs_to_relay_or_expert?(role)
