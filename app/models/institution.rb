@@ -36,11 +36,11 @@ class Institution < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_naf_code, (lambda do |naf_code|
+  scope :of_naf_code, -> (naf_code) do
     naf_code_for_artisan?(naf_code) ? qualified_for_artisanry : qualified_for_commerce
-  end)
-  scope :qualified_for_artisanry, (-> { where(qualified_for_artisanry: true) })
-  scope :qualified_for_commerce, (-> { where(qualified_for_commerce: true) })
+  end
+  scope :qualified_for_artisanry, -> { where(qualified_for_artisanry: true) }
+  scope :qualified_for_commerce, -> { where(qualified_for_commerce: true) }
 
   ##
   #

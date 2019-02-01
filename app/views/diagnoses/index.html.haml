@@ -61,7 +61,7 @@
                   .middle.aligned.content
                     %h5.ui.header.disabled
                       = t('.solved_needs', count: diagnosis.diagnosed_needs.size,
-                        solved_needs_count: diagnosis.diagnosed_needs.with_at_least_one_expert_done.size)
+                        solved_needs_count: diagnosis.diagnosed_needs.done.size)
             %td.collapsing.no-left-padding
               = link_to t('.show_summary'), diagnosis_path(diagnosis),
               class: 'ui positive basic tiny button'

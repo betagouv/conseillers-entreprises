@@ -90,8 +90,8 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :admin, (-> { where(is_admin: true) })
-  scope :not_admin, (-> { where(is_admin: false) })
+  scope :admin, -> { where(is_admin: true) }
+  scope :not_admin, -> { where(is_admin: false) }
   scope :approved, -> { where(is_approved: true) }
   scope :not_approved, -> { where(is_approved: false) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
@@ -110,34 +110,34 @@ class User < ApplicationRecord
       .order('institutions.name', 'antennes.name', :full_name)
   end
 
-  scope :active_searchers, (lambda do |date|
+  scope :active_searchers, -> (date) do
     joins(:searches)
-        .merge(Search.where(created_at: date))
-        .distinct
-  end)
+      .merge(Search.where(created_at: date))
+      .distinct
+  end
 
-  scope :active_diagnosers, (lambda do |date, minimum_step|
+  scope :active_diagnosers, -> (date, minimum_step) do
     joins(:sent_diagnoses)
-        .merge(Diagnosis.only_active
-                   .where(created_at: date)
-                   .after_step(minimum_step))
-        .distinct
-  end)
+      .merge(Diagnosis.only_active
+        .where(created_at: date)
+        .after_step(minimum_step))
+      .distinct
+  end
 
-  scope :active_matchers, (lambda do |date|
+  scope :active_matchers, -> (date) do
     joins(sent_diagnoses: [diagnosed_needs: :matches])
-        .merge(Diagnosis.only_active
-               .where(created_at: date))
-        .distinct
-  end)
+      .merge(Diagnosis.only_active
+        .where(created_at: date))
+      .distinct
+  end
 
-  scope :active_answered, (lambda do |date, status|
+  scope :active_answered, -> (date, status) do
     joins(sent_diagnoses: [diagnosed_needs: :matches])
-        .merge(Match
-                   .where(taken_care_of_at: date)
-                   .with_status(status))
-        .distinct
-  end)
+      .merge(Match
+        .where(taken_care_of_at: date)
+        .with_status(status))
+      .distinct
+  end
 
   scope :without_antenne, -> do
     where(antenne_id: nil)

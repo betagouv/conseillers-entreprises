@@ -87,8 +87,8 @@ RSpec.describe DiagnosedNeed, type: :model do
   end
 
   describe 'scopes' do
-    describe 'with_at_least_one_expert_done' do
-      subject { DiagnosedNeed.with_at_least_one_expert_done }
+    describe 'done' do
+      subject { DiagnosedNeed.done }
 
       let(:diagnosed_need) { create :diagnosed_need }
 
