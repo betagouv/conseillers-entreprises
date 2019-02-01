@@ -67,8 +67,6 @@ class DiagnosedNeed < ApplicationRecord
   #
   scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
 
-  scope :with_at_least_one_expert_done, -> { done }
-
   scope :unsent, -> { left_outer_joins(:matches).where('matches.id IS NULL').distinct }
   scope :with_no_one_in_charge, -> { joins(:matches).where.not(matches: Match.where(status: [:done, :taking_care])).distinct }
   scope :abandoned, -> { joins(:matches).where.not(matches: Match.where(status: [:quo, :done, :taking_care])).distinct }
