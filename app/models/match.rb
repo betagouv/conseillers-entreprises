@@ -85,10 +85,8 @@ class Match < ApplicationRecord
   ## Scopes
   #
   scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
+  scope :of_diagnoses, -> (diagnoses) { where(diagnosed_need: DiagnosedNeed.where(diagnosis: diagnoses)) }
 
-  scope :of_diagnoses, (lambda do |diagnoses|
-    joins(diagnosed_need: :diagnosis).where(diagnosed_needs: { diagnosis: diagnoses })
-  end)
   scope :with_status, (-> (status) { where(status: status) })
   scope :updated_more_than_five_days_ago, (-> { where('updated_at < ?', 5.days.ago) })
   scope :needing_taking_care_update, (-> { with_status(:taking_care).updated_more_than_five_days_ago })
