@@ -152,7 +152,7 @@ class Match < ApplicationRecord
 
   def update_taken_care_of_at
     if (status_taking_care? || status_closed?) && !taken_care_of_at
-      update_columns taken_care_of_at: Time.now
+      update_columns taken_care_of_at: Time.zone.now
     end
 
     if status_quo? && taken_care_of_at
@@ -162,7 +162,7 @@ class Match < ApplicationRecord
 
   def update_closed_at
     if status_closed? && !closed_at
-      update_columns closed_at: Time.now
+      update_columns closed_at: Time.zone.now
     end
 
     if (status_quo? || status_taking_care?) && closed_at
