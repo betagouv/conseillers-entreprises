@@ -77,25 +77,25 @@ class Diagnosis < ApplicationRecord
 
   ## Scopes
   #
-  scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
-  scope :completed, (-> { where(step: LAST_STEP) })
-  scope :available_for_expert, (lambda do |expert|
+  scope :in_progress, -> { where(step: [1..LAST_STEP - 1]) }
+  scope :completed, -> { where(step: LAST_STEP) }
+  scope :available_for_expert, -> (expert) do
     joins(diagnosed_needs: [matches: [assistance_expert: :expert]])
       .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
-  end)
+  end
 
-  scope :of_relay_or_expert, (lambda do |relay_or_expert|
+  scope :of_relay_or_expert, -> (relay_or_expert) do
     only_active
       .includes(facility: :company)
       .joins(:diagnosed_needs)
       .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
       .order(happened_on: :desc, created_at: :desc)
       .distinct
-  end)
+  end
 
-  scope :after_step, (-> (minimum_step) { where('step >= ?', minimum_step) })
+  scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
-  scope :only_active, (-> { where(archived_at: nil) })
+  scope :only_active, -> { where(archived_at: nil) }
 
   ##
   #

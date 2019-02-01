@@ -65,13 +65,13 @@ class DiagnosedNeed < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
+  scope :of_relay_or_expert, -> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) }
 
-  scope :made_in, (lambda do |date_range|
+  scope :made_in, -> (date_range) do
     joins(:diagnosis)
       .where(diagnoses: { happened_on: date_range })
       .distinct
-  end)
+  end
   scope :ordered_by_interview, -> do
     left_outer_joins(:question, question: :category)
       .order('categories.interview_sort_order')

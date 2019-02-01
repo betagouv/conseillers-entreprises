@@ -84,14 +84,14 @@ class Match < ApplicationRecord
 
   ## Scopes
   #
-  scope :not_viewed, (-> { where(expert_viewed_page_at: nil) })
+  scope :not_viewed, -> { where(expert_viewed_page_at: nil) }
   scope :of_diagnoses, -> (diagnoses) { where(diagnosed_need: DiagnosedNeed.where(diagnosis: diagnoses)) }
+  scope :with_status, -> (status) { where(status: status) }
 
-  scope :with_status, (-> (status) { where(status: status) })
-  scope :updated_more_than_five_days_ago, (-> { where('updated_at < ?', 5.days.ago) })
-  scope :needing_taking_care_update, (-> { with_status(:taking_care).updated_more_than_five_days_ago })
+  scope :updated_more_than_five_days_ago, -> { where('updated_at < ?', 5.days.ago) }
+  scope :needing_taking_care_update, -> { with_status(:taking_care).updated_more_than_five_days_ago }
 
-  scope :of_relay_or_expert, (lambda do |relay_or_expert|
+  scope :of_relay_or_expert, -> (relay_or_expert) do
     if relay_or_expert.is_a?(Enumerable)
       if relay_or_expert.empty?
         none
@@ -106,7 +106,7 @@ class Match < ApplicationRecord
     else
       left_outer_joins(:assistance_expert).where(id: -1)
     end
-  end)
+  end
 
   ##
   #
