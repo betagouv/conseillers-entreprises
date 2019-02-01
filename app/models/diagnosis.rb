@@ -85,7 +85,7 @@ class Diagnosis < ApplicationRecord
   end
 
   scope :of_relay_or_expert, -> (relay_or_expert) do
-    only_active
+    not_archived
       .includes(facility: :company)
       .joins(:diagnosed_needs)
       .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
@@ -95,7 +95,8 @@ class Diagnosis < ApplicationRecord
 
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
-  scope :only_active, -> { where(archived_at: nil) }
+  scope :not_archived, -> { where(archived_at: nil) }
+  scope :archived, -> { where.not(archived_at: nil) }
 
   ##
   #

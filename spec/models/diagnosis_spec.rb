@@ -22,7 +22,7 @@ RSpec.describe Diagnosis, type: :model do
 
     it('archives the diagnosis') do
       expect(Diagnosis.all.count).to eq 1
-      expect(Diagnosis.only_active.count).to eq 0
+      expect(Diagnosis.not_archived.count).to eq 0
     end
   end
 

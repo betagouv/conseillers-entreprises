@@ -121,6 +121,6 @@ RSpec.describe DiagnosesController, type: :controller do
     before { delete :destroy, params: { id: diagnosis.id } }
 
     it('redirects to index') { expect(response).to redirect_to diagnoses_path }
-    it('destroys the diagnosis') { expect(Diagnosis.only_active.count).to eq 0 }
+    it('destroys the diagnosis') { expect(Diagnosis.not_archived.count).to eq 0 }
   end
 end

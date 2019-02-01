@@ -2,7 +2,7 @@
 
 class DiagnosesController < ApplicationController
   def index
-    @diagnoses = current_user.sent_diagnoses.only_active.order(created_at: :desc)
+    @diagnoses = current_user.sent_diagnoses.not_archived.order(created_at: :desc)
       .distinct
       .left_outer_joins(:matches,
         diagnosed_needs: :matches)
@@ -12,7 +12,7 @@ class DiagnosesController < ApplicationController
   end
 
   def show
-    diagnosis = Diagnosis.only_active.find(params[:id])
+    diagnosis = Diagnosis.not_archived.find(params[:id])
     check_current_user_access_to(diagnosis)
     redirect_to action: "step#{diagnosis.step}", id: diagnosis
   end
@@ -99,7 +99,7 @@ class DiagnosesController < ApplicationController
   end
 
   def diagnosis_in_progress(diagnosis_id)
-    diagnosis = Diagnosis.only_active.find(diagnosis_id)
+    diagnosis = Diagnosis.not_archived.find(diagnosis_id)
     check_current_user_access_to(diagnosis)
 
     if diagnosis.step == Diagnosis::LAST_STEP

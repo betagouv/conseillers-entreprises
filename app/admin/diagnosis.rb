@@ -8,7 +8,7 @@ ActiveAdmin.register Diagnosis do
   includes :facility, :company, :advisor, :diagnosed_needs, :matches
   includes facility: :commune
 
-  scope :only_active, default: true
+  scope :not_archived, default: true
   scope :all
 
   index do
