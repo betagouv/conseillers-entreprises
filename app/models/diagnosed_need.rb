@@ -78,12 +78,15 @@ class DiagnosedNeed < ApplicationRecord
       .order('questions.interview_sort_order')
   end
 
+  scope :archived, -> { where(archived_at: nil) }
+  scope :not_archived, -> { where.not(archived_at: nil) }
+
   scope :unsent, -> do # no match sent (yet)
     left_outer_joins(:matches).where('matches.id IS NULL').distinct
   end
   scope :done, -> { with_some_matches_in_status(:done) }
   scope :with_no_one_in_charge, -> { with_matches_only_in_status([:quo, :not_for_me]) }
-  scope :abandoned, -> { with_matches_only_in_status(:not_for_me) }
+  scope :rejected, -> { with_matches_only_in_status(:not_for_me) }
   scope :being_taken_care_of, -> { with_some_matches_in_status(:taking_care).where.not(id: done) }
 
   scope :with_matches_only_in_status, -> (status) do # can be an array
@@ -92,6 +95,8 @@ class DiagnosedNeed < ApplicationRecord
   scope :with_some_matches_in_status, -> (status) do # can be an array
     where(matches: Match.where(status: status)).distinct
   end
+
+  scope :abandoned, -> { rejected.not_archived }
 
   ##
   #
