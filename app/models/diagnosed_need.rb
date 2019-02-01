@@ -25,6 +25,10 @@
 #
 
 class DiagnosedNeed < ApplicationRecord
+  ##
+  #
+  include Archivable
+
   ## Associations
   #
   belongs_to :diagnosis, inverse_of: :diagnosed_needs
@@ -77,9 +81,6 @@ class DiagnosedNeed < ApplicationRecord
       .order('categories.interview_sort_order')
       .order('questions.interview_sort_order')
   end
-
-  scope :archived, -> { where(archived_at: nil) }
-  scope :not_archived, -> { where.not(archived_at: nil) }
 
   scope :unsent, -> do # no match sent (yet)
     left_outer_joins(:matches).where('matches.id IS NULL').distinct
@@ -146,22 +147,6 @@ class DiagnosedNeed < ApplicationRecord
   #
   def contacted_persons
     (relays.map(&:user) + experts).uniq
-  end
-
-  ##
-  #
-  def archive!
-    self.archived_at = Time.zone.now
-    self.save!
-  end
-
-  def unarchive!
-    self.archived_at = nil
-    self.save!
-  end
-
-  def archived?
-    archived_at.present?
   end
 
   private

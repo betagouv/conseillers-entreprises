@@ -31,6 +31,10 @@
 #
 
 class Diagnosis < ApplicationRecord
+  ##
+  #
+  include Archivable
+
   ## Constants
   #
   LAST_STEP = 5
@@ -95,9 +99,6 @@ class Diagnosis < ApplicationRecord
 
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
-  scope :not_archived, -> { where(archived_at: nil) }
-  scope :archived, -> { where.not(archived_at: nil) }
-
   ##
   #
   def to_s
@@ -106,22 +107,6 @@ class Diagnosis < ApplicationRecord
 
   def display_date
     happened_on || created_at.to_date
-  end
-
-  ##
-  #
-  def archive!
-    self.archived_at = Time.zone.now
-    self.save!
-  end
-
-  def unarchive!
-    self.archived_at = nil
-    self.save!
-  end
-
-  def archived?
-    archived_at.present?
   end
 
   ##
