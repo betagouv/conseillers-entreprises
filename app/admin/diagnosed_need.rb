@@ -13,6 +13,7 @@ ActiveAdmin.register DiagnosedNeed do
   scope :abandoned
   scope :being_taken_care_of
   scope :done
+  scope :archived
 
   index do
     selectable_column
@@ -22,16 +23,23 @@ ActiveAdmin.register DiagnosedNeed do
     end
     column :advisor
     column :created_at
-    column :archived_at
     column :status do |d|
       css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[d.status_synthesis.to_sym]
       status_tag d.status_short_description, class: css_class
+
+      status_tag 'archivé' if d.archived_at
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
     end
 
-    actions dropdown: true
+    actions dropdown: true do |d|
+      if d.archived?
+        item t('active_admin.diagnosed_needs.unarchive'), unarchive_admin_diagnosed_need_path(d)
+      else
+        item t('active_admin.diagnosed_needs.archive'), archive_admin_diagnosed_need_path(d)
+      end
+    end
   end
 
   filter :created_at
@@ -72,6 +80,14 @@ ActiveAdmin.register DiagnosedNeed do
     end
   end
 
+  action_item :archive, only: :show, if: -> { !diagnosed_need.archived? } do
+    link_to t('active_admin.diagnosed_needs.archive'), archive_admin_diagnosed_need_path(diagnosed_need)
+  end
+
+  action_item :unarchive, only: :show, if: -> { diagnosed_need.archived? }  do
+    link_to t('active_admin.diagnosed_needs.unarchive'), unarchive_admin_diagnosed_need_path(diagnosed_need)
+  end
+
   ## Form
   #
   permit_params :diagnosis_id, :question_id, :archived_at, :content
@@ -79,10 +95,36 @@ ActiveAdmin.register DiagnosedNeed do
   form do |f|
     f.inputs do
       f.input :question, as: :ajax_select, data: { url: :admin_questions_path, search_fields: [:label] }
-      f.input :archived_at
       f.input :content
     end
 
     actions
+  end
+
+  ## Actions
+  #
+  #
+  member_action :archive do
+    resource.archive!
+    redirect_back fallback_location: collection_path, notice: t('active_admin.diagnosed_needs.archive_done')
+  end
+
+  member_action :unarchive do
+    resource.unarchive!
+    redirect_back fallback_location: collection_path, notice: t('active_admin.diagnosed_needs.unarchive_done')
+  end
+
+  batch_action I18n.t('active_admin.diagnosed_needs.archive') do |ids|
+    batch_action_collection.find(ids).each do |d|
+      d.archive!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.diagnosed_needs.archive_done')
+  end
+
+  batch_action I18n.t('active_admin.diagnosed_needs.unarchive') do |ids|
+    batch_action_collection.find(ids).each do |d|
+      d.unarchive!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.diagnosed_needs.unarchive_done')
   end
 end

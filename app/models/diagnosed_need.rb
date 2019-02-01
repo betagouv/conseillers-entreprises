@@ -148,6 +148,22 @@ class DiagnosedNeed < ApplicationRecord
     (relays.map(&:user) + experts).uniq
   end
 
+  ##
+  #
+  def archive!
+    self.archived_at = Time.zone.now
+    self.save!
+  end
+
+  def unarchive!
+    self.archived_at = nil
+    self.save!
+  end
+
+  def archived?
+    archived_at.present?
+  end
+
   private
 
   def copy_question_label

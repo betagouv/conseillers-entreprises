@@ -4,6 +4,11 @@ fr:
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
+    diagnosed_needs:
+      archive: Archiver
+      archive_done: Archivé
+      unarchive: Désarchiver
+      unarchive_done: Désarchivé
     matches:
       deleted: "%{expert} (supprimé)"
     person:
