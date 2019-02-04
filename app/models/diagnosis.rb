@@ -109,6 +109,14 @@ class Diagnosis < ApplicationRecord
     happened_on || created_at.to_date
   end
 
+  def completed?
+    step == LAST_STEP
+  end
+
+  def in_progress?
+    step < LAST_STEP
+  end
+
   ##
   #
   def can_be_viewed_by?(role)
