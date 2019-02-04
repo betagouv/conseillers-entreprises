@@ -89,7 +89,7 @@ RSpec.describe User, type: :model do
         searcher = create :user, searches: [(create :search, created_at: 1.day.ago)]
         create :user, searches: [(create :search, created_at: 2.months.ago)]
 
-        last_30_days = (30.days.ago)..Time.now
+        last_30_days = (30.days.ago)..Time.zone.now
         expect(User.active_searchers(last_30_days)).to eq [searcher]
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe User, type: :model do
         diagnosis = create :diagnosis, created_at: 1.day.ago, step: 3
         diagnoser = create :user, sent_diagnoses: [diagnosis]
 
-        last_30_days = (30.days.ago)..Time.now
+        last_30_days = (30.days.ago)..Time.zone.now
 
         expect(User.active_diagnosers(last_30_days, 3)).to eq [diagnoser]
         expect(User.active_diagnosers(last_30_days, 4)).to eq []
@@ -113,7 +113,7 @@ RSpec.describe User, type: :model do
         diagnosis = create :diagnosis, created_at: 1.day.ago, diagnosed_needs: [need]
         active_user = create :user, sent_diagnoses: [diagnosis]
 
-        last_30_days = (30.days.ago)..Time.now
+        last_30_days = (30.days.ago)..Time.zone.now
 
         expect(User.active_answered(last_30_days, [1,2])).to eq [active_user]
         expect(User.active_answered(last_30_days, [3])).to eq []

@@ -110,7 +110,7 @@ class Diagnosis < ApplicationRecord
   ##
   #
   def archive!
-    self.archived_at = Time.now
+    self.archived_at = Time.zone.now
     self.save!
   end
 
