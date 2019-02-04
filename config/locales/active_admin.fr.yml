@@ -1,6 +1,11 @@
 ---
 fr:
   active_admin:
+    archivable:
+      archive: Archiver
+      archive_done: Archivé
+      unarchive: Désarchiver
+      unarchive_done: Désarchivé
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
@@ -12,11 +17,14 @@ fr:
     scopes:
       abandoned: En souffrance
       admin: Admins
+      all: Tout
+      archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
-      done: Résolu
+      done: Clôturé
       email_not_confirmed: Email non confirmé
       not_approved: Non validés
+      not_archived: Actifs
       relays: Relais locaux
       unsent: Non envoyé
       with_custom_communes: Zone spécifique

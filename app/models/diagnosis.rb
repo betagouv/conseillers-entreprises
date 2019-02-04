@@ -31,6 +31,10 @@
 #
 
 class Diagnosis < ApplicationRecord
+  ##
+  #
+  include Archivable
+
   ## Constants
   #
   LAST_STEP = 5
@@ -85,7 +89,7 @@ class Diagnosis < ApplicationRecord
   end
 
   scope :of_relay_or_expert, -> (relay_or_expert) do
-    only_active
+    not_archived
       .includes(facility: :company)
       .joins(:diagnosed_needs)
       .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
@@ -95,8 +99,6 @@ class Diagnosis < ApplicationRecord
 
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
-  scope :only_active, -> { where(archived_at: nil) }
-
   ##
   #
   def to_s
@@ -105,22 +107,6 @@ class Diagnosis < ApplicationRecord
 
   def display_date
     happened_on || created_at.to_date
-  end
-
-  ##
-  #
-  def archive!
-    self.archived_at = Time.zone.now
-    self.save!
-  end
-
-  def unarchive!
-    self.archived_at = nil
-    self.save!
-  end
-
-  def archived?
-    archived_at.present?
   end
 
   ##
