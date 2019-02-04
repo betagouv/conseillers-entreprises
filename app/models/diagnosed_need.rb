@@ -25,6 +25,10 @@
 #
 
 class DiagnosedNeed < ApplicationRecord
+  ##
+  #
+  include Archivable
+
   ## Associations
   #
   belongs_to :diagnosis, inverse_of: :diagnosed_needs
@@ -65,26 +69,35 @@ class DiagnosedNeed < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_relay_or_expert, (-> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) })
+  scope :of_relay_or_expert, -> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) }
 
-  scope :with_at_least_one_expert_done, -> { done }
-
-  scope :unsent, -> { left_outer_joins(:matches).where('matches.id IS NULL').distinct }
-  scope :with_no_one_in_charge, -> { joins(:matches).where.not(matches: Match.where(status: [:done, :taking_care])).distinct }
-  scope :abandoned, -> { joins(:matches).where.not(matches: Match.where(status: [:quo, :done, :taking_care])).distinct }
-  scope :being_taken_care_of, -> { where(matches: Match.where(status: [:taking_care])).where.not(id: done) }
-  scope :done, -> { where(matches: Match.where(status: [:done])) }
-
-  scope :made_in, (lambda do |date_range|
+  scope :made_in, -> (date_range) do
     joins(:diagnosis)
       .where(diagnoses: { happened_on: date_range })
       .distinct
-  end)
+  end
   scope :ordered_by_interview, -> do
     left_outer_joins(:question, question: :category)
       .order('categories.interview_sort_order')
       .order('questions.interview_sort_order')
   end
+
+  scope :unsent, -> do # no match sent (yet)
+    left_outer_joins(:matches).where('matches.id IS NULL').distinct
+  end
+  scope :done, -> { with_some_matches_in_status(:done) }
+  scope :with_no_one_in_charge, -> { with_matches_only_in_status([:quo, :not_for_me]) }
+  scope :rejected, -> { with_matches_only_in_status(:not_for_me) }
+  scope :being_taken_care_of, -> { with_some_matches_in_status(:taking_care).where.not(id: done) }
+
+  scope :with_matches_only_in_status, -> (status) do # can be an array
+    where.not(matches: Match.where.not(status: status)).distinct
+  end
+  scope :with_some_matches_in_status, -> (status) do # can be an array
+    where(matches: Match.where(status: status)).distinct
+  end
+
+  scope :abandoned, -> { rejected.not_archived }
 
   ##
   #

@@ -30,11 +30,11 @@ class Company < ApplicationRecord
 
   ## Scopes
   #
-  scope :diagnosed_in, (lambda do |date_range|
+  scope :diagnosed_in, -> (date_range) do
     joins(:diagnoses)
-    .where(diagnoses: { happened_on: date_range })
-    .distinct
-  end)
+      .where(diagnoses: { happened_on: date_range })
+      .distinct
+  end
 
   ##
   #

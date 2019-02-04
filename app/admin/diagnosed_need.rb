@@ -3,6 +3,10 @@
 ActiveAdmin.register DiagnosedNeed do
   menu parent: :diagnoses, priority: 1
 
+  ##
+  #
+  include AdminArchivable
+
   ## index
   #
   includes :diagnosis, :question, :advisor, :matches, :company
@@ -13,6 +17,8 @@ ActiveAdmin.register DiagnosedNeed do
   scope :abandoned
   scope :being_taken_care_of
   scope :done
+  scope :not_archived
+  scope :archived
 
   index do
     selectable_column
@@ -22,16 +28,19 @@ ActiveAdmin.register DiagnosedNeed do
     end
     column :advisor
     column :created_at
-    column :archived_at
     column :status do |d|
       css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[d.status_synthesis.to_sym]
       status_tag d.status_short_description, class: css_class
+
+      status_tag t('active_admin.archivable.archive_done') if d.archived?
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
     end
 
-    actions dropdown: true
+    actions dropdown: true do |d|
+      index_row_archive_actions(d)
+    end
   end
 
   filter :created_at
@@ -48,6 +57,7 @@ ActiveAdmin.register DiagnosedNeed do
     column :advisor
     column :created_at
     column :status_short_description
+    column :archived?
     column_count :matches
   end
 
@@ -74,12 +84,11 @@ ActiveAdmin.register DiagnosedNeed do
 
   ## Form
   #
-  permit_params :diagnosis_id, :question_id, :archived_at, :content
+  permit_params :diagnosis_id, :question_id, :content
 
   form do |f|
     f.inputs do
       f.input :question, as: :ajax_select, data: { url: :admin_questions_path, search_fields: [:label] }
-      f.input :archived_at
       f.input :content
     end
 

@@ -31,6 +31,10 @@
 #
 
 class Diagnosis < ApplicationRecord
+  ##
+  #
+  include Archivable
+
   ## Constants
   #
   LAST_STEP = 5
@@ -77,25 +81,23 @@ class Diagnosis < ApplicationRecord
 
   ## Scopes
   #
-  scope :in_progress, (-> { where(step: [1..LAST_STEP - 1]) })
-  scope :completed, (-> { where(step: LAST_STEP) })
-  scope :available_for_expert, (lambda do |expert|
+  scope :in_progress, -> { where(step: [1..LAST_STEP - 1]) }
+  scope :completed, -> { where(step: LAST_STEP) }
+  scope :available_for_expert, -> (expert) do
     joins(diagnosed_needs: [matches: [assistance_expert: :expert]])
       .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
-  end)
+  end
 
-  scope :of_relay_or_expert, (lambda do |relay_or_expert|
-    only_active
+  scope :of_relay_or_expert, -> (relay_or_expert) do
+    not_archived
       .includes(facility: :company)
       .joins(:diagnosed_needs)
       .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
       .order(happened_on: :desc, created_at: :desc)
       .distinct
-  end)
+  end
 
-  scope :after_step, (-> (minimum_step) { where('step >= ?', minimum_step) })
-
-  scope :only_active, (-> { where(archived_at: nil) })
+  scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
   ##
   #
@@ -105,22 +107,6 @@ class Diagnosis < ApplicationRecord
 
   def display_date
     happened_on || created_at.to_date
-  end
-
-  ##
-  #
-  def archive!
-    self.archived_at = Time.now
-    self.save!
-  end
-
-  def unarchive!
-    self.archived_at = nil
-    self.save!
-  end
-
-  def archived?
-    archived_at.present?
   end
 
   ##

@@ -16,7 +16,7 @@ fr:
         nice_day: Bonne journée,
         reso_team_html: L’équipe %{link_to_root}.
         status:
-          done: a indiqué que le besoin a été résolu.
+          done: a indiqué que le besoin a été clôturé.
           not_finished: a indiqué que le besoin est toujours en cours de résolution.
           not_for_me: a indiqué que le besoin est hors de son champ de compétence.
           taking_care: a pris en charge la résolution du besoin.
