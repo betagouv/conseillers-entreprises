@@ -3,6 +3,10 @@
 ActiveAdmin.register DiagnosedNeed do
   menu parent: :diagnoses, priority: 1
 
+  ##
+  #
+  include AdminArchivable
+
   ## index
   #
   includes :diagnosis, :question, :advisor, :matches, :company
@@ -13,6 +17,7 @@ ActiveAdmin.register DiagnosedNeed do
   scope :abandoned
   scope :being_taken_care_of
   scope :done
+  scope :not_archived
   scope :archived
 
   index do
@@ -27,18 +32,14 @@ ActiveAdmin.register DiagnosedNeed do
       css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[d.status_synthesis.to_sym]
       status_tag d.status_short_description, class: css_class
 
-      status_tag 'archivé' if d.archived_at
+      status_tag t('active_admin.archivable.archive_done') if d.archived?
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
     end
 
     actions dropdown: true do |d|
-      if d.archived?
-        item t('active_admin.diagnosed_needs.unarchive'), unarchive_admin_diagnosed_need_path(d)
-      else
-        item t('active_admin.diagnosed_needs.archive'), archive_admin_diagnosed_need_path(d)
-      end
+      index_row_archive_actions(d)
     end
   end
 
@@ -56,6 +57,7 @@ ActiveAdmin.register DiagnosedNeed do
     column :advisor
     column :created_at
     column :status_short_description
+    column :archived?
     column_count :matches
   end
 
@@ -80,17 +82,9 @@ ActiveAdmin.register DiagnosedNeed do
     end
   end
 
-  action_item :archive, only: :show, if: -> { !diagnosed_need.archived? } do
-    link_to t('active_admin.diagnosed_needs.archive'), archive_admin_diagnosed_need_path(diagnosed_need)
-  end
-
-  action_item :unarchive, only: :show, if: -> { diagnosed_need.archived? }  do
-    link_to t('active_admin.diagnosed_needs.unarchive'), unarchive_admin_diagnosed_need_path(diagnosed_need)
-  end
-
   ## Form
   #
-  permit_params :diagnosis_id, :question_id, :archived_at, :content
+  permit_params :diagnosis_id, :question_id, :content
 
   form do |f|
     f.inputs do
@@ -99,32 +93,5 @@ ActiveAdmin.register DiagnosedNeed do
     end
 
     actions
-  end
-
-  ## Actions
-  #
-  #
-  member_action :archive do
-    resource.archive!
-    redirect_back fallback_location: collection_path, notice: t('active_admin.diagnosed_needs.archive_done')
-  end
-
-  member_action :unarchive do
-    resource.unarchive!
-    redirect_back fallback_location: collection_path, notice: t('active_admin.diagnosed_needs.unarchive_done')
-  end
-
-  batch_action I18n.t('active_admin.diagnosed_needs.archive') do |ids|
-    batch_action_collection.find(ids).each do |d|
-      d.archive!
-    end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.diagnosed_needs.archive_done')
-  end
-
-  batch_action I18n.t('active_admin.diagnosed_needs.unarchive') do |ids|
-    batch_action_collection.find(ids).each do |d|
-      d.unarchive!
-    end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.diagnosed_needs.unarchive_done')
   end
 end

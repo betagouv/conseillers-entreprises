@@ -3,13 +3,18 @@
 ActiveAdmin.register Diagnosis do
   menu priority: 7
 
+  ##
+  #
+  include AdminArchivable
+
   ## Index
   #
   includes :facility, :company, :advisor, :diagnosed_needs, :matches
   includes facility: :commune
 
-  scope :not_archived, default: true
   scope :all
+  scope :not_archived, default: true
+  scope :archived
 
   index do
     selectable_column
@@ -21,22 +26,20 @@ ActiveAdmin.register Diagnosis do
     column :created_at
     column :step
     column :archived? do |d|
-      if d.archived?
-        status_tag :archived, class: 'warning'
-        span I18n.l(d.archived_at, format: '%Y-%m-%d %H:%M')
-      end
+      status_tag t('active_admin.archivable.archive_done') if d.archived?
     end
     column :diagnosed_needs do |d|
       div admin_link_to(d, :diagnosed_needs)
       div admin_link_to(d, :matches)
     end
-    actions dropdown: true
+    actions dropdown: true do |d|
+      index_row_archive_actions(d)
+    end
   end
 
   filter :content
   filter :step
   filter :created_at
-  filter :archived_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
 
@@ -65,12 +68,7 @@ ActiveAdmin.register Diagnosis do
       row(:visitee) { |d| d.visitee }
       row :content
       row :step
-      row :archived? do |d|
-        if d.archived?
-          status_tag :archived, class: 'warning'
-          span I18n.l(d.archived_at, format: '%Y-%m-%d %H:%M')
-        end
-      end
+      row :archived_at
       row(:diagnosed_needs) do |d|
         div admin_link_to(d, :diagnosed_needs)
         div admin_link_to(d, :diagnosed_needs, list: true)
@@ -84,13 +82,12 @@ ActiveAdmin.register Diagnosis do
 
   ## Form
   #
-  permit_params :content, :archived_at, :step
+  permit_params :content, :step
 
   form do |f|
     f.inputs do
       f.input :content
       f.input :step
-      f.input :archived_at
     end
 
     actions
