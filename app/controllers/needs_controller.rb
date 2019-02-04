@@ -20,9 +20,7 @@ class NeedsController < ApplicationController
     @diagnosis = Diagnosis.includes(associations).find(params[:id])
 
     check_current_user_access_to(@diagnosis)
-
-    needs = @diagnosis.diagnosed_needs.includes(:matches)
-    @current_person_diagnosed_needs = needs.of_relay_or_expert(current_roles)
+    @current_roles = current_roles
   end
 
   private

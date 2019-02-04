@@ -63,14 +63,7 @@ fr:
       title: Mise en contact
       you_can_contact_relays: Vous pouvez néanmoins contacter vos relais locaux.
     step5:
-      company_contact_subtitle: Contact rencontré au sein de l’entreprise
-      diagnosed_needs_content_label: 'Les informations complémentaires concernant ce besoin :'
-      diagnosis_content_subtitle: Informations générales
-      need_contacts_summary_subtitle: Référents contactés classés par besoin
-      notifications_sent: Les notifications ont bien été envoyées !
-      show_detailed_information: Informations détaillées
-      title: Récapitulatif
-      zero_contacted_expert: Aucun référent n’a été contacté pour ce besoin
+      notifications_sent: Les notifications ont bien été envoyées.
     steps:
       step2_title_html: Besoins détectés
       step3_title_html: Informations complémentaires

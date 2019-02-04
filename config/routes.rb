@@ -38,7 +38,6 @@ Rails.application.routes.draw do
       post :visite
       get :selection, action: :step4
       post :selection
-      get :resume, action: :step5
     end
   end
 

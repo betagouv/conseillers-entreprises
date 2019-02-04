@@ -92,7 +92,7 @@ RSpec.describe DiagnosesController, type: :controller do
     end
 
     context 'some experts are selected' do
-      it('redirects to step 5') { expect(response).to redirect_to resume_diagnosis_path(diagnosis) }
+      it('redirects to the besoins page') { expect(response).to redirect_to besoin_path(diagnosis) }
 
       it('updates the diagnosis to step 5') { expect(diagnosis.reload.step).to eq 5 }
 
@@ -100,20 +100,6 @@ RSpec.describe DiagnosesController, type: :controller do
         expect(UseCases::SaveAndNotifyDiagnosis).to have_received(:perform).with(diagnosis,
           matches)
       end
-    end
-  end
-
-  describe 'GET #step5' do
-    subject(:request) { get :step5, params: { id: diagnosis.id } }
-
-    context 'current user can access the diagnosis' do
-      it('returns http success') { expect(response).to be_successful }
-    end
-
-    context 'current user should not access the diagnosis' do
-      let(:advisor) { create :user }
-
-      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
     end
   end
 

@@ -1,8 +1,11 @@
 %td.no-border{ colspan: 3 }
   .ui.segment.shadow-less
     .ui.top.attached.label
-      %i.calendar.icon
-      = I18n.l(feedback.created_at, format: :short)
+      .span
+        %i.calendar.icon
+        = I18n.l(feedback.created_at, format: :short)
+        %i.user.icon
+        = feedback.match.person
     %p.small.text= simple_format(feedback.description)
     - if can_delete
       %a.ui.bottom.right.attached.label{ href: feedback_path(feedback,
