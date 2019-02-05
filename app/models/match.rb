@@ -88,8 +88,13 @@ class Match < ApplicationRecord
   scope :of_diagnoses, -> (diagnoses) { where(diagnosed_need: DiagnosedNeed.where(diagnosis: diagnoses)) }
   scope :with_status, -> (status) { where(status: status) }
 
-  scope :updated_more_than_five_days_ago, -> { where('updated_at < ?', 5.days.ago) }
-  scope :needing_taking_care_update, -> { with_status(:taking_care).updated_more_than_five_days_ago }
+  scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
+  scope :needing_taking_care_update, -> do
+    with_status(:taking_care)
+      .updated_more_than_five_days_ago
+      .joins(:diagnosed_need)
+      .where(diagnosed_needs: { archived_at: nil })
+  end
 
   scope :of_relay_or_expert, -> (relay_or_expert) do
     if relay_or_expert.is_a?(Enumerable)
