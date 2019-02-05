@@ -98,6 +98,7 @@ class DiagnosedNeed < ApplicationRecord
   end
 
   scope :abandoned, -> { rejected.not_archived }
+  scope :needing_reminder, -> { with_no_one_in_charge.not_archived }
 
   ##
   #
