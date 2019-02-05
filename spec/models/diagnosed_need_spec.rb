@@ -87,14 +87,18 @@ RSpec.describe DiagnosedNeed, type: :model do
   end
 
   describe 'scopes' do
-    describe 'done' do
-      subject { DiagnosedNeed.done }
+    describe 'with_some_matches_in_status' do
+      subject { DiagnosedNeed.with_some_matches_in_status(:done) }
 
       let(:diagnosed_need) { create :diagnosed_need }
 
       before { create :diagnosed_need }
 
-      context 'no expert done' do
+      context 'with no match' do
+        it { is_expected.to eq [] }
+      end
+
+      context 'with matches, not done' do
         before do
           create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :quo
         end
@@ -102,9 +106,9 @@ RSpec.describe DiagnosedNeed, type: :model do
         it { is_expected.to eq [] }
       end
 
-      context 'two experts done for the same need' do
+      context 'with matches, done' do
         before do
-          create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+          create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :quo
           create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
         end
 
@@ -112,36 +116,28 @@ RSpec.describe DiagnosedNeed, type: :model do
       end
     end
 
-    describe 'with_no_one_in_charge' do
-      subject { DiagnosedNeed.with_no_one_in_charge }
+    describe 'with_matches_only_in_status' do
+      subject { DiagnosedNeed.with_matches_only_in_status(:quo) }
 
-      let(:abandoned_diagnosed_need) { create :diagnosed_need }
-      let(:answered_diagnosed_need) { create :diagnosed_need }
-      let(:other_answered_diagnosed_need) { create :diagnosed_need }
+      let(:need1) { create :diagnosed_need }
+      let(:need2) { create :diagnosed_need }
+      let(:need3) { create :diagnosed_need }
 
-      before do
-        create_list :match,
-          2,
-          status: :quo,
-          diagnosed_need: abandoned_diagnosed_need
-        create :match,
-          status: :quo,
-          diagnosed_need: answered_diagnosed_need
-
-        create :match,
-          status: :taking_care,
-          diagnosed_need: answered_diagnosed_need
-
-        create :match,
-          status: :done,
-          diagnosed_need: other_answered_diagnosed_need
-
-        create :match,
-          status: :not_for_me,
-          diagnosed_need: other_answered_diagnosed_need
+      context 'with no match' do
+        it { is_expected.to eq [] }
       end
 
-      it { is_expected.to eq [abandoned_diagnosed_need] }
+      context 'with various matches' do
+        before do
+          create_list :match, 2, status: :quo, diagnosed_need: need1
+          create :match, status: :quo, diagnosed_need: need2
+          create :match, status: :taking_care, diagnosed_need: need2
+          create :match, status: :done, diagnosed_need: need3
+          create :match, status: :not_for_me, diagnosed_need: need3
+        end
+
+        it { is_expected.to eq [need1] }
+      end
     end
 
     describe 'ordered_by_interview' do

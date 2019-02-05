@@ -194,17 +194,28 @@ RSpec.describe Match, type: :model do
     describe 'needing_taking_care_update' do
       subject { Match.needing_taking_care_update }
 
-      let!(:match_needing_update) do
-        create :match, status: :taking_care, updated_at: 6.days.ago
+      let(:diagnosed_need) { create :diagnosed_need, archived_at: need_archived_at }
+      let!(:old_match) do
+        create :match, diagnosed_need: diagnosed_need, status: :taking_care, updated_at: 6.days.ago
       end
 
       before do
-        create :match, status: :taking_care, updated_at: 4.days.ago
-        create :match, status: :quo, updated_at: 2.weeks.ago
-        create :match, status: :done, updated_at: 2.weeks.ago
+        create :match, diagnosed_need: diagnosed_need, status: :taking_care, updated_at: 4.days.ago
+        create :match, diagnosed_need: diagnosed_need, status: :quo, updated_at: 2.weeks.ago
+        create :match, diagnosed_need: diagnosed_need, status: :done, updated_at: 2.weeks.ago
       end
 
-      it { is_expected.to eq [match_needing_update] }
+      context 'with non archived diagnosis' do
+        let(:need_archived_at) { nil }
+
+        it { is_expected.to eq [old_match] }
+      end
+
+      context 'with archived diagnosis' do
+        let(:need_archived_at) { Time.zone.now }
+
+        it { is_expected.to eq [] }
+      end
     end
   end
 end
