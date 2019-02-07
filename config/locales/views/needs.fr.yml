@@ -36,15 +36,6 @@ fr:
     show:
       advisor_contact_subtitle: Conseiller ayant effectué l’analyse des besoins de l’entreprise
       company_contact_subtitle: Contact rencontré au sein de l’entreprise
-      diagnosed_needs_content_label: 'Les informations complémentaires concernant ce besoin :'
       diagnosis_content_subtitle: Informations générales
-      introduction_html: |
-        L’entreprise ci-dessous a exprimé des besoins qui correspondent à votre compétence. Pour prendre en charge ces
-        besoins, vous pouvez recontacter l’entreprise ou le conseiller en utilisant les informations de contact
-        disponibles ci-dessous.<br>
-        N’oubliez pas d’indiquer votre prise en charge des besoins pour que le conseiller et autres référents puissent
-        être mis au courant de votre avancée.
-      my_needs_summary_subtitle: Demandes me concernant
-      need_contacts_summary_subtitle: Référents contactés classés par besoin
-      title: Récapitulatif
+      title: Visite de l’entreprise %{company}
       zero_contacted_expert: Aucun référent n’a été contacté pour ce besoin

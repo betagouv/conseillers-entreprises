@@ -35,7 +35,7 @@ class ExpertReminderService
     end
 
     def build_matches_with_no_one_in_charge
-      DiagnosedNeed.with_no_one_in_charge.each do |diagnosed_need|
+      DiagnosedNeed.needing_reminder.each do |diagnosed_need|
         diagnosed_need.matches.each do |match|
           if match.status_not_for_me? # don’t send reminders for already rejected matches
             next

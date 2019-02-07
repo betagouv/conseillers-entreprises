@@ -14,7 +14,11 @@ class DiagnosesController < ApplicationController
   def show
     diagnosis = Diagnosis.not_archived.find(params[:id])
     check_current_user_access_to(diagnosis)
-    redirect_to action: "step#{diagnosis.step}", id: diagnosis
+    if diagnosis.completed?
+      redirect_to besoin_path(diagnosis)
+    else
+      redirect_to action: "step#{diagnosis.step}", id: diagnosis
+    end
   end
 
   def destroy
@@ -70,19 +74,13 @@ class DiagnosesController < ApplicationController
 
   def selection
     diagnosis = diagnosis_in_progress(params[:id])
-    experts = params[:matches]
-    if experts.present?
-      UseCases::SaveAndNotifyDiagnosis.perform diagnosis, params[:matches]
+    matches = params[:matches]
+    if matches.present?
+      UseCases::SaveAndNotifyDiagnosis.perform diagnosis, matches
       diagnosis.update step: Diagnosis::LAST_STEP
       flash.notice = I18n.t('diagnoses.step5.notifications_sent')
-      redirect_to action: :step5, id: diagnosis
+      redirect_to besoin_path(diagnosis)
     end
-  end
-
-  def step5
-    associations = [:visitee, facility: [:company], diagnosed_needs: [:matches]]
-    @diagnosis = Diagnosis.includes(associations).find params[:id]
-    check_current_user_access_to(@diagnosis)
   end
 
   private

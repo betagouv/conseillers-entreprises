@@ -208,7 +208,7 @@ fr:
     description: Description
     diagnosed_needs:
       one: Besoin identifié
-      other: besoins identifiés
+      other: Besoins identifiés
     diagnoses:
       one: Analyse
       other: Analyses
