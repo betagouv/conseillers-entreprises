@@ -18,7 +18,7 @@
     .ui.segment
       %h3.header= Diagnosis.human_attribute_name(:content)
       .ui.comments
-        = comment_block(@diagnosis.content)
+        = raw_feedback_block(@diagnosis.content)
 
 -# Diagnosed needs
 %h2= t('attributes.diagnosed_needs', count: @diagnosis.diagnosed_needs.count)
@@ -41,11 +41,11 @@
     -# Feedback
     .ui.segment.clearing
       %h3.header= t('.discussion')
-      .ui.comments
-        = comment_block(diagnosed_need.content, @diagnosis.advisor.full_name, @diagnosis.display_date)
+      .ui.comments{ id: 'feedbacks' }
+        = raw_feedback_block(diagnosed_need.content, @diagnosis.advisor.full_name, @diagnosis.display_date)
         - diagnosed_need.feedbacks.order(:created_at).each do |feedback|
           - is_for_me = feedback.match == match_for_me
-          = comment_feedback_block(feedback, is_for_me)
+          = feedback_block(feedback, is_for_me)
       - if match_for_me.present?
         = render partial: 'feedback_form', locals: { feedback: match_for_me.feedbacks.new }
 
