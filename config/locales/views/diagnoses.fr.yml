@@ -7,7 +7,6 @@ fr:
       create_new_diagnosis: Démarrer une analyse
       delete_diagnosis_confirmation_message: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
       diagnoses_in_progress: Analyses en cours
-      find_company: Rechercher l’entreprise
       matches:
         one: 1 mise en relation
         other: "%{count} mises en relation"

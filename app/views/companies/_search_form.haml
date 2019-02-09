@@ -1,0 +1,7 @@
+%h2.ui.header= t('companies.search.search_company')
+.ui.form
+  = form_tag(:search_companies, method: :get) do
+    .field
+      .ui.action.input
+        = text_field_tag :query, @query, autofocus: true, placeholder: t('companies.search.explanation')
+        %button.ui.button.green{ type: 'submit' }= t('search')

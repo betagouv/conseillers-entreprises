@@ -1,71 +1,64 @@
 - meta title: t('.title')
 
-#diagnoses-index
-  %h2.ui.header= t('.create_new_diagnosis')
-  %h3= t('.find_company')
-  = form_tag(:search_companies, method: :get, class: 'ui form') do
-    .field
-      .ui.action.input
-        = text_field_tag :query, @query, autofocus: true, placeholder: t('companies.search.explanation')
-        %button.ui.button.green{ type: 'submit' }= t('search')
+%h1.ui.header= t('.create_new_diagnosis')
 
-  - diagnoses_in_progress = @diagnoses.in_progress
-  - diagnoses_completed = @diagnoses.completed
-  - if @diagnoses.empty?
-    %p= t('.no_analysis_message')
+= render 'companies/search_form'
 
-  - if diagnoses_in_progress.empty?
-    %h2= t('.diagnoses_in_progress')
-    %p= t('.no_diagnoses_in_progress_message_html')
-  - else
-    %h2= t('.diagnoses_in_progress')
-    %table.ui.table
-      %tbody
-        - diagnoses_in_progress.each do |diagnosis|
-          - company_name = diagnosis.company.name
-          %tr
-            %td
-              %h3.ui.header= company_name
-            %td.collapsing
-              %h5.ui.header.disabled= t("diagnoses.step#{diagnosis.step}.title")
-            %td.collapsing.no-left-padding
-              = link_to t('.continue_diagnosis'), diagnosis_path(diagnosis),
-              class: 'ui positive basic tiny button'
-            %td.collapsing.no-left-padding
-              - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
-              = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
-                %i.ui.icon.link.trash.light.grey.no-margin
+- diagnoses_in_progress = @diagnoses.in_progress
+- diagnoses_completed = @diagnoses.completed
+- if @diagnoses.empty?
+  %p= t('.no_analysis_message')
 
-  - if diagnoses_completed.empty?
-    %h2= t('.completed_diagnoses')
-    %p= t('.no_completed_diagnosis_message_html')
-  - else
-    %h2= t('.completed_diagnoses')
-    %table.ui.table
-      %tbody
-        - diagnoses_completed.each do |diagnosis|
-          - company_name = diagnosis.company.name
-          %tr
-            %td
-              %h3.ui.header
-                = company_name
-                .sub.header
-                  = t('.visitee', visitee_name: diagnosis.visitee.full_name)
-            %td.collapsing
-              .ui.middle.aligned.list
-                .item
-                  .middle.aligned.content
-                    %h5.ui.header.disabled
-                      = t('.matches', count: diagnosis.matches.size)
-                .item
-                  .middle.aligned.content
-                    %h5.ui.header.disabled
-                      = t('.solved_needs', count: diagnosis.diagnosed_needs.size,
-                        solved_needs_count: diagnosis.diagnosed_needs.done.size)
-            %td.collapsing.no-left-padding
-              = link_to t('.show_summary'), diagnosis_path(diagnosis),
-              class: 'ui positive basic tiny button'
-            %td.collapsing.no-left-padding
-              - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
-              = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
-                %i.ui.icon.link.trash.light.grey.no-margin
+%h2.ui.header= t('.diagnoses_in_progress')
+- if diagnoses_in_progress.empty?
+  %p= t('.no_diagnoses_in_progress_message_html')
+- else
+  %table.ui.table
+    %tbody
+      - diagnoses_in_progress.each do |diagnosis|
+        - company_name = diagnosis.company.name
+        %tr
+          %td
+            %h3.ui.header= company_name
+          %td.collapsing
+            %h5.ui.header.disabled= t("diagnoses.step#{diagnosis.step}.title")
+          %td.collapsing.no-left-padding
+            = link_to t('.continue_diagnosis'), diagnosis_path(diagnosis),
+            class: 'ui positive basic tiny button'
+          %td.collapsing.no-left-padding
+            - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
+            = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
+              %i.ui.icon.link.trash.light.grey.no-margin
+
+%h2.ui.header= t('.completed_diagnoses')
+- if diagnoses_completed.empty?
+  %p= t('.no_completed_diagnosis_message_html')
+- else
+  %table.ui.table
+    %tbody
+      - diagnoses_completed.each do |diagnosis|
+        - company_name = diagnosis.company.name
+        %tr
+          %td
+            %h3.ui.header
+              = company_name
+              .sub.header
+                = t('.visitee', visitee_name: diagnosis.visitee.full_name)
+          %td.collapsing
+            .ui.middle.aligned.list
+              .item
+                .middle.aligned.content
+                  %h5.ui.header.disabled
+                    = t('.matches', count: diagnosis.matches.size)
+              .item
+                .middle.aligned.content
+                  %h5.ui.header.disabled
+                    = t('.solved_needs', count: diagnosis.diagnosed_needs.size,
+                      solved_needs_count: diagnosis.diagnosed_needs.done.size)
+          %td.collapsing.no-left-padding
+            = link_to t('.show_summary'), diagnosis_path(diagnosis),
+            class: 'ui positive basic tiny button'
+          %td.collapsing.no-left-padding
+            - confirm_delete_message = t('.delete_diagnosis_confirmation_message', company_name: company_name)
+            = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
+              %i.ui.icon.link.trash.light.grey.no-margin
