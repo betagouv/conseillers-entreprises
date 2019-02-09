@@ -1,0 +1,9 @@
+- meta title: t('.title')
+
+%h1.ui.header= t('.create_new_diagnosis')
+
+= render 'companies/search_form'
+
+= render partial: 'in_progress_diagnoses_list', locals: { diagnoses: @diagnoses.in_progress }
+
+= render partial: 'needs/diagnoses_list', locals: { diagnoses: @diagnoses.completed, relay_or_expert: nil, title: t('.completed_diagnoses') }

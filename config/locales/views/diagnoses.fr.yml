@@ -32,7 +32,7 @@ fr:
         Quels besoins avez-vous détectés durant votre rencontre avec %{company_name} ?
         N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
       select_at_least_one_need: Cochez au minimum un besoin identifié.
-      title: Besoins
+      title: Détection des besoins
     step3:
       date: Date de votre visite
       date_placeholder: jj/mm/aaaa
@@ -64,6 +64,6 @@ fr:
     step5:
       notifications_sent: Les notifications ont bien été envoyées.
     steps:
-      step2_title_html: Besoins détectés
+      step2_title_html: Détection des besoins
       step3_title_html: Informations complémentaires
       step4_title_html: Mise en contact
