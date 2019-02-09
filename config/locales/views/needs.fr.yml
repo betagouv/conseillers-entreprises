@@ -6,7 +6,7 @@ fr:
       submit: Ajouter un commentaire
     index:
       needs_for_you: 'Ces entreprises ont besoin de vous :'
-      title: Besoins
+      title: Demandes reçues
     show:
       discussion: Discussion
       person_advisor: Conseiller
