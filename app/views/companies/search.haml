@@ -1,0 +1,39 @@
+- meta title: t('.search_company')
+
+%h1.ui.header= t('.search_company')
+
+= render 'companies/search_form'
+
+- results = @etablissements
+- if results.present?
+  .ui.segments.shadow-less.selectable-list
+    - results.each do |etablissement|
+      .ui.segment
+        %a{ href: company_path(etablissement.siret) }
+          %h3.ui.header
+            = etablissement.nom.upcase
+            - if etablissement.enseigne.present?
+              .sub.header
+                = etablissement.enseigne.capitalize
+            .sub.header= etablissement.lieu.upcase
+          .small.text
+            %i.file.icon
+            = etablissement.activite.capitalize
+          .small.text
+            %i.paperclip.icon
+            = "SIRET : #{etablissement.siret}"
+
+- suggestions = @suggestions
+- if suggestions.present?
+  %h2.ui.header= t('.suggestions')
+  %ul
+    - suggestions.each do |suggestion|
+      %li
+        = link_to suggestion.capitalize, search_companies_path(query: suggestion)
+
+%h2.ui.header= t('.latest_searches')
+- searches = current_user.searches.recent
+- if searches.present?
+  %ul
+    - searches.each do |search|
+      %li= link_to search.summary, search_companies_path(query: search.query)
