@@ -1,0 +1,12 @@
+.needs-match
+  = render partial: 'people/person', locals: { person: match.person, prefix: nil, subtitle: match.assistance_title }
+
+  .match-status
+    = match_status_label(match.status)
+
+- if for_me
+  %h4.ui.header
+    = I18n.t("activerecord.attributes.match.statuses.#{match.status}")
+    .sub.header= match.status_date
+
+  = match_actions match

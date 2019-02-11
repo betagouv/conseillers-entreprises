@@ -131,6 +131,32 @@ class Match < ApplicationRecord
     I18n.t("activerecord.attributes.match.statuses_short.#{status}")
   end
 
+  DATE_PROPERTIES = {
+    quo: :created_at,
+    not_for_me: :closed_at,
+    taking_care: :taken_care_of_at,
+    done: :closed_at
+  }
+
+  def status_date
+    property = DATE_PROPERTIES[self.status.to_sym]
+    if property
+      date = self.send(property)
+      I18n.l(date, format: :short)
+    end
+  end
+
+  ALLOWED_STATUS_TRANSITIONS = {
+    quo: %i[not_for_me taking_care],
+    not_for_me: %i[quo],
+    taking_care: %i[quo done],
+    done: %i[quo]
+  }
+
+  def allowed_new_status
+    ALLOWED_STATUS_TRANSITIONS[self.status.to_sym]
+  end
+
   def expert_description
     "#{expert_full_name} (#{expert_institution_name})"
   end

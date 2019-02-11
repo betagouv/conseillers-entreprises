@@ -92,7 +92,6 @@ class DiagnosesController < ApplicationController
     permitted.require(:visitee_attributes).require(:role)
     permitted.require(:visitee_attributes).require(:email)
     permitted.require(:visitee_attributes).require(:phone_number)
-    puts "permitted #{permitted}"
     permitted
   end
 

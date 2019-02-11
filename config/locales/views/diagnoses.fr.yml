@@ -3,28 +3,10 @@ fr:
   diagnoses:
     index:
       completed_diagnoses: Analyses réalisées
-      continue_diagnosis: Poursuivre l’analyse
       create_new_diagnosis: Démarrer une analyse
       delete_diagnosis_confirmation_message: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
       diagnoses_in_progress: Analyses en cours
-      find_company: Rechercher l’entreprise
-      matches:
-        one: 1 mise en relation
-        other: "%{count} mises en relation"
-        zero: 0 mise en relation
-      no_analysis_message: Les analyses que vous réalisez apparaitront ici.
-      no_completed_diagnosis_message_html: |
-        Retrouvez ici les analyses que vous avez complétées.
-        <br>Vous pouvez retrouver toutes les informations fournies ainsi que les actions effectuées dans le récapitulatif.
-      no_diagnoses_in_progress_message_html: |
-        Retrouvez ici les analyses que vous avez initiées et qui demeurent incomplètes.
-        <br>Vous pouvez les compléter à tout moment en reprenant à l’étape où vous vous êtes arrêté.
-      show_summary: Récapitulatif
-      solved_needs:
-        one: "%{solved_needs_count}/1 besoin résolu"
-        other: "%{solved_needs_count}/%{count} besoins résolus"
       title: Analyses
-      visitee: 'Contact : %{visitee_name}'
     step2:
       diagnosed_need_content_placeholder: Plus d’infos sur ce besoin
       diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
@@ -33,7 +15,7 @@ fr:
         Quels besoins avez-vous détectés durant votre rencontre avec %{company_name} ?
         N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
       select_at_least_one_need: Cochez au minimum un besoin identifié.
-      title: Besoins
+      title: Détection des besoins
     step3:
       date: Date de votre visite
       date_placeholder: jj/mm/aaaa
@@ -65,6 +47,6 @@ fr:
     step5:
       notifications_sent: Les notifications ont bien été envoyées.
     steps:
-      step2_title_html: Besoins détectés
+      step2_title_html: Détection des besoins
       step3_title_html: Informations complémentaires
       step4_title_html: Mise en contact

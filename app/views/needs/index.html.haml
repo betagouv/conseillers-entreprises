@@ -1,12 +1,15 @@
 - meta title: t('.title')
 
+%h1.ui.header
+  = t('.title')
+  .sub.header= t('.needs_for_you')
+
 - @relays.each do |relay|
-  %h2.ui.header= relay.territory.name
-  // Display info about Relay/Territory : all the diagnostics, etc.
-  = render partial: 'assigned_diagnoses', locals: { relay_or_expert: relay, title: t('.needs_for_you') }
+  -# Display info about Relay/Territory : all the diagnostics, etc.
+  - diagnoses = Diagnosis.of_relay_or_expert(relay)
+  = render partial: 'diagnoses_list', locals: { diagnoses: diagnoses, relay_or_expert: relay, title: relay.territory.name }
 
 - @experts.each do |expert|
-  %h2.ui.header= expert.full_name
-  = render partial: 'team', locals: { expert: expert, user: current_user }
-  // Display info about Expert: the team, the old diagnoses, etc.
-  = render partial: 'assigned_diagnoses', locals: { relay_or_expert: expert, title: t('.needs_for_you') }
+  -# Display info about Expert: the team, the old diagnoses, etc.
+  - diagnoses = Diagnosis.of_relay_or_expert(expert)
+  = render partial: 'diagnoses_list', locals: { diagnoses: diagnoses, relay_or_expert: expert, title: expert.full_name }

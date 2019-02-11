@@ -93,3 +93,5 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'brakeman', require: false
 end
+
+gem "debase", "~> 0.2.2"

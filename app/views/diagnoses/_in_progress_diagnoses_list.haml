@@ -1,0 +1,19 @@
+.ui.segments.shadow-less.selectable-list
+  .ui.segment.secondary
+    .ui.header
+      = t('diagnoses.index.diagnoses_in_progress')
+      .sub.header= models_human_description(diagnoses)
+  - diagnoses.each do |diagnosis|
+    .ui.segment.selectable-item
+      %a{ href: diagnosis_path(diagnosis) }
+        %h3.ui.header
+          .sub.header= I18n.l(diagnosis.display_date, format: '%-d %B %Y')
+          = diagnosis.company.name
+          .diagnosis-step
+            .ui.label= t("diagnoses.step#{diagnosis.step}.title")
+          .sub.header= diagnosis.facility.commune_name
+        %h4.ui.header
+          .ui.basic.tiny.button.text
+            %i.trash.icon
+            - confirm_delete_message = t('diagnoses.index.delete_diagnosis_confirmation_message', company_name: diagnosis.company.name)
+            = link_to "Archiver", diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message }
