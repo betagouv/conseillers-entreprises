@@ -101,6 +101,10 @@ class Expert < ApplicationRecord
   end
 
   def full_name_with_role
-    "#{full_name} (#{role}, #{antenne.name})"
+    "#{full_name} (#{full_role})"
+  end
+
+  def full_role
+    "#{role} - #{antenne.name}"
   end
 end

@@ -207,10 +207,14 @@ class User < ApplicationRecord
   end
 
   def full_name_with_role
+    "#{full_name} (#{full_role})"
+  end
+
+  def full_role
     if antenne.present?
-      "#{full_name} (#{role}, #{antenne.name})"
+      "#{role} - #{antenne.name}"
     else
-      "#{full_name} (#{role}, #{institution})"
+      "#{role} - #{institution}"
     end
   end
 

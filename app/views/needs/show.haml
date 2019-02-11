@@ -1,0 +1,51 @@
+- meta title: t('.title', company: @diagnosis.company.name)
+
+%h1.ui.header= @diagnosis.company.name
+
+-# Summary
+.ui.segments.shadow-less
+  .ui.segment.secondary
+    .ui.header
+      = t('.visit_made_on', date: I18n.l(@diagnosis.display_date, format: '%-d %B %Y'))
+      .sub.header= models_human_description(@diagnosis.diagnosed_needs)
+  .ui.segment
+    = render partial: 'needs/company', locals: { diagnosis: @diagnosis }
+  .ui.segment
+    = render partial: 'people/person', locals: { person: @diagnosis.visitee, prefix: t('.person_company_contact'), subtitle: nil }
+  .ui.segment
+    = render partial: 'people/person', locals: { person: @diagnosis.advisor, prefix: t('.person_advisor'), subtitle: nil }
+  - if @diagnosis.content.present?
+    .ui.segment
+      %h3.header= Diagnosis.human_attribute_name(:content)
+      .ui.comments
+        = raw_feedback_block(@diagnosis.content)
+
+-# Diagnosed needs
+%h2= t('attributes.diagnosed_needs', count: @diagnosis.diagnosed_needs.count)
+- @diagnosis.diagnosed_needs.ordered_by_interview.each do |diagnosed_need|
+  .ui.segments.shadow-less.needs-diagnosis
+    .ui.segment.secondary{ id: "diagnosed_need-#{diagnosed_need.id}" }
+      = render partial: 'needs/need_header', locals: { diagnosed_need: diagnosed_need }
+
+    -# Matches, mine first
+    - matches = diagnosed_need.matches
+    - match_for_me = matches.of_relay_or_expert(@current_roles).first
+    - if match_for_me.present?
+      - matches -= [match_for_me]
+      - matches = [match_for_me] + matches
+    - matches.each do |match|
+      .ui.segment.clearing{ id: "match-#{match.id}" }
+        - is_for_me = match == match_for_me
+        = render partial: 'needs/match', locals: { match: match, for_me: is_for_me }
+
+    -# Feedback
+    .ui.segment.clearing
+      %h3.header= t('.discussion')
+      .ui.comments{ id: 'feedbacks' }
+        = raw_feedback_block(diagnosed_need.content, @diagnosis.advisor.full_name, @diagnosis.display_date)
+        - diagnosed_need.feedbacks.order(:created_at).each do |feedback|
+          - is_for_me = feedback.match == match_for_me
+          = feedback_block(feedback, is_for_me)
+      - if match_for_me.present?
+        = render partial: 'feedback_form', locals: { feedback: match_for_me.feedbacks.new }
+

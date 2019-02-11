@@ -1,41 +1,15 @@
 ---
 fr:
   needs:
-    diagnosis_summary:
-      diagnosed_needs:
-        one: 1 besoin identifié
-        other: "%{count} besoins identifiés"
-        zero: 0 besoin identifié
-      matches:
-        one: 1 mise en relation
-        other: "%{count} mises en relation"
-        zero: 0 mise en relation
-    expert_buttons:
-      done: Besoin clôturé
-      dont_take_care_any_more: Ne plus s’en charger
-      i_take_care: Je m’en charge !
-      not_for_me: Ce n’est pas pour moi
-      ongoing: En cours de résolution
-    expert_feedback_owner:
+    feedback_form:
       placeholder: Tenez informé le conseiller des détails sur votre prise en charge.
       submit: Ajouter un commentaire
     index:
       needs_for_you: 'Ces entreprises ont besoin de vous :'
-      title: Besoins
-    match:
-      done: Besoin résolu
-      he_takes_care: S’en charge
-      not_for_him: Ce n’est pas pour lui
-      waiting_for_answer: En attente d’une réponse du référent
-    match_for_need_owner:
-      done: Besoin résolu
-      my_status: 'Votre réponse :'
-      not_for_me: Ce n’est pas pour moi
-      ongoing: En cours de résolution
-      waiting_for_answer: En attente de votre réponse
+      title: Demandes reçues
     show:
-      advisor_contact_subtitle: Conseiller ayant effectué l’analyse des besoins de l’entreprise
-      company_contact_subtitle: Contact rencontré au sein de l’entreprise
-      diagnosis_content_subtitle: Informations générales
-      title: Visite de l’entreprise %{company}
-      zero_contacted_expert: Aucun référent n’a été contacté pour ce besoin
+      discussion: Discussion
+      person_advisor: Conseiller
+      person_company_contact: Personne rencontrée
+      title: Visite de la société %{company}
+      visit_made_on: Visite faite le %{date}
