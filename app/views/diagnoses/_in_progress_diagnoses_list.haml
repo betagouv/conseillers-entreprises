@@ -10,7 +10,7 @@
           .sub.header= I18n.l(diagnosis.display_date, format: '%-d %B %Y')
           = diagnosis.company.name
           .diagnosis-step
-            .ui.label=t("diagnoses.step#{diagnosis.step}.title")
+            .ui.label= t("diagnoses.step#{diagnosis.step}.title")
           .sub.header= diagnosis.facility.commune_name
         %h4.ui.header
           .ui.basic.tiny.button.text

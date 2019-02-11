@@ -1,6 +1,6 @@
 = form_for feedback,
   url: feedbacks_path(feedback, params.permit(:access_token)),
-  html: { class: 'ui form', id: 'feedback_form', data: { remote: true, method: :create }} do |form|
+  html: { class: 'ui form', id: 'feedback_form', data: { remote: true, method: :create } } do |form|
   = form.hidden_field :match_id
   .field.required
     = form.text_area :description, placeholder: t('.placeholder'), rows: 2, required: true

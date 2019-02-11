@@ -2,7 +2,7 @@
 
 %h1.ui.header= t('.search_company')
 
-= render 'companies/search_form'
+= render partial: 'companies/search_form', locals: { query: @query }
 
 - results = @etablissements
 - if results.present?
@@ -21,7 +21,7 @@
             = etablissement.activite.capitalize
           .small.text
             %i.paperclip.icon
-            = "SIRET : #{etablissement.siret}"
+            #{I18n.t("attributes.siret")} : #{etablissement.siret}
 
 - suggestions = @suggestions
 - if suggestions.present?
