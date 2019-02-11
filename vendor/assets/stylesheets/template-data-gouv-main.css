@@ -406,8 +406,7 @@ a.button.secondary {
 
 @font-face {
   font-family: "Source Sans Pro";
-  src: asset_path("")
-          url("/fonts/Source Sans Pro/SourceSansPro-Regular.otf");
+  src: url("/fonts/Source Sans Pro/SourceSansPro-Regular.otf");
   font-weight: 400;
 }
 
