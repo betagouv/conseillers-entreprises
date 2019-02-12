@@ -93,6 +93,7 @@ ignore_unused:
   - 'diagnoses.steps.*'
   - 'mailers.user_mailer.daily_change_update.status.*'
   - 'stats.stats_table.*'
+  - 'stats.series.*'
   - 'categories_juridiques.*'
   - 'contacts.besoins.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'

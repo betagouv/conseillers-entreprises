@@ -33,6 +33,10 @@ module Stats
         .pluck(category_group_attribute)
     end
 
+    def count
+      filtered(main_query).count
+    end
+
     private
 
     def grouped_by_month(query)

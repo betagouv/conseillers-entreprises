@@ -1,6 +1,9 @@
 ---
 fr:
   stats:
+    series:
+      companies: "%{count} entreprises aidées"
+      diagnosed_needs: "%{count} besoins identifiés"
     show:
       all: Tous
       title: Statistiques

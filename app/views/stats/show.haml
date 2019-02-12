@@ -2,7 +2,7 @@
 - content_for :head do
   - javascript_include_tag 'highcharts'
 
-%h1= t('.title').titleize
+%h1= t('.title')
 
 .ui.container.form
   = form_with(url: stats_path, method: :get) do
@@ -20,12 +20,7 @@
           { include_blank: t('.all') },
           { class: 'ui dropdown', onchange: 'this.form.submit();' })
 
-.ui.cards
-  .ui.fluid.card.shadow-less
-    .content
-      .header= t('activerecord.models.diagnosed_need.other').titleize
-      .description= render partial: 'stats_chart', locals: { stats: @stats.diagnosed_needs }
-  .ui.fluid.card.shadow-less
-    .content
-      .header= t('activerecord.models.company.other').titleize
-      .description= render partial: 'stats_chart', locals: { stats: @stats.companies }
+= render partial: 'stats_chart', locals: { stats: @stats, name: :diagnosed_needs }
+
+= render partial: 'stats_chart', locals: { stats: @stats, name: :companies }
+
