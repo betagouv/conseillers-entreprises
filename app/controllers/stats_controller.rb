@@ -9,6 +9,7 @@ class StatsController < ApplicationController
     @stats.companies = Stats::CompaniesStats.new(@stats)
     @stats.matches = Stats::MatchesStats.new(@stats)
     @stats.advisors = Stats::AdvisorsStats.new(@stats)
+    @stats.experts = Stats::ExpertsStats.new(@stats)
   end
 
   def users

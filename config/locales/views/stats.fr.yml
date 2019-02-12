@@ -5,6 +5,7 @@ fr:
       advisors: "%{count} conseillers inscrits"
       companies: "%{count} entreprises aidées"
       diagnosed_needs: "%{count} besoins identifiés"
+      experts: "%{count} référents"
       matches: "%{count} mises en relation"
     show:
       all: Tous
