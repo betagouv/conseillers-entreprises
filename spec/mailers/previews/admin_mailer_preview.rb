@@ -12,7 +12,9 @@ class AdminMailerPreview < ActionMailer::Preview
     updated_diagnoses = @not_admin_diagnoses.in_progress.updated_last_week
     updated_diagnoses = updated_diagnoses.where('diagnoses.created_at < ?', 1.week.ago)
 
-    abandoned_needs = DiagnosedNeed.abandoned
+    rejected_needs = DiagnosedNeed.rejected
+    needs_with_no_one_in_charge = DiagnosedNeed.with_no_one_in_charge
+
     hash = {
       signed_up_users: {
         count: recently_signed_up_users.count,
@@ -30,7 +32,8 @@ class AdminMailerPreview < ActionMailer::Preview
         count: @completed_diagnoses.count,
         items: @completed_diagnoses
       },
-      abandoned_needs_count: abandoned_needs.count,
+      rejected_needs_count: rejected_needs.count,
+      needs_with_no_one_in_charge_count: needs_with_no_one_in_charge.count,
       matches_count: 12
     }
     AdminMailer.weekly_statistics(hash)

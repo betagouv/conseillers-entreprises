@@ -84,11 +84,24 @@ class DiagnosedNeed < ApplicationRecord
 
   scope :unsent, -> do # no match sent (yet)
     left_outer_joins(:matches).where('matches.id IS NULL').distinct
+      .not_archived
   end
-  scope :done, -> { with_some_matches_in_status(:done) }
-  scope :with_no_one_in_charge, -> { with_matches_only_in_status([:quo, :not_for_me]) }
-  scope :rejected, -> { with_matches_only_in_status(:not_for_me) }
-  scope :being_taken_care_of, -> { with_some_matches_in_status(:taking_care).where.not(id: done) }
+  scope :done, -> do
+    with_some_matches_in_status(:done)
+  end
+  scope :with_no_one_in_charge, -> do
+    with_matches_only_in_status([:quo, :not_for_me])
+      .with_some_matches_in_status(:quo)
+      .not_archived
+  end
+  scope :rejected, -> do
+    with_matches_only_in_status(:not_for_me)
+      .not_archived
+  end
+  scope :being_taken_care_of, -> do
+    with_some_matches_in_status(:taking_care)
+      .where.not(id: done)
+  end
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.where(status: status)).distinct
@@ -96,9 +109,6 @@ class DiagnosedNeed < ApplicationRecord
   scope :with_matches_only_in_status, -> (status) do # can be an array
     joins(:matches).where.not(matches: Match.where.not(status: status)).distinct
   end
-
-  scope :abandoned, -> { rejected.not_archived }
-  scope :needing_reminder, -> { with_no_one_in_charge.not_archived }
 
   ##
   #

@@ -32,6 +32,7 @@
 
 %p
   %strong= t('.completed_diagnoses_count', count: @information_hash[:completed_diagnoses][:count])
+  = t('.matches_count', count: @information_hash[:matches_count])
 - if @information_hash[:completed_diagnoses][:count].positive?
   %ul
     - @information_hash[:completed_diagnoses][:items].each do |diagnosis|
@@ -42,10 +43,13 @@
       %li= link_to description, admin_diagnosis_url(diagnosis)
 
 %p
-  %a{ href: admin_diagnosed_needs_url(scope: :abandoned) }
-    %strong= t('.abandoned_needs_count', count: @information_hash[:abandoned_needs_count])
-
-%p
-  %strong= t('.matches_count', count: @information_hash[:matches_count])
+  %strong= t('.needs_maybe_abandoned')
+  %ul
+    - if @information_hash[:rejected_needs_count].positive?
+      - description = t('.rejected_needs_count', count: @information_hash[:rejected_needs_count])
+      %li= link_to description, admin_diagnosed_needs_url(scope: :rejected)
+    - if @information_hash[:needs_with_no_one_in_charge_count].positive?
+      - description = t('.needs_with_no_one_in_charge_count', count: @information_hash[:needs_with_no_one_in_charge_count])
+      %li= link_to description, admin_diagnosed_needs_url(scope: :with_no_one_in_charge)
 
 %p= t('.see_you_next_week')
