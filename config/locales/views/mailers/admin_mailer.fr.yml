@@ -16,10 +16,6 @@ fr:
         user_has_signed_up: "%{full_name} <%{email}> vient de s’inscrire."
         view_their_account_html: "%{click_here_link} pour consulter son compte."
       weekly_statistics:
-        abandoned_needs_count:
-          one: Un besoin en souffrance
-          other: "%{count} besoins en souffrance"
-          zero: Aucun besoin en souffrance
         completed_diagnoses_count:
           one: 'Une analyse terminée :'
           other: "%{count} analyses terminées :"
@@ -35,7 +31,16 @@ fr:
           one: Une mise en relation.
           other: "%{count} mises en relation."
           zero: Aucune mise en relation.
-        see_you_next_week: A la semaine prochaine pour de nouvelles aventures !
+        needs_maybe_abandoned: Besoins potentiellement en souffrance
+        needs_with_no_one_in_charge_count:
+          one: Un besoin sans réponse
+          other: "%{count} besoins sans réponse"
+          zero: Aucun besoin sans réponse
+        rejected_needs_count:
+          one: Un besoin refusé
+          other: "%{count} besoins refusés"
+          zero: Aucun besoin refusé
+        see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
         signed_up_users_count:
           one: 'Un nouvel inscrit :'
           other: "%{count} nouveaux inscrits :"

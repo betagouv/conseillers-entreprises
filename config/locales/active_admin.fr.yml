@@ -15,7 +15,6 @@ fr:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     scopes:
-      abandoned: En souffrance
       admin: Admins
       all: Tout
       archived: Archivés
@@ -24,11 +23,12 @@ fr:
       done: Clôturé
       email_not_confirmed: Email non confirmé
       not_approved: Non validés
-      not_archived: Actifs
+      not_archived: Non archivés
+      rejected: Refusés
       relays: Relais locaux
       unsent: Non envoyé
       with_custom_communes: Zone spécifique
-      with_no_one_in_charge: En attente
+      with_no_one_in_charge: Pas de réponse
       without_antenne: Sans antenne
       without_communes: Sans zone d’intervention
     territory:

@@ -54,14 +54,14 @@ class AdminMailersService
       @information_hash[:completed_diagnoses][:items] = @completed_diagnoses
     end
 
-    def abandoned_needs_statistics
-      abandoned_needs = DiagnosedNeed.abandoned
-      @information_hash[:abandoned_needs_count] = abandoned_needs.count
-    end
-
     def matches_count_statistics
       matches_count = Match.of_diagnoses(@completed_diagnoses).count
       @information_hash[:matches_count] = matches_count
+    end
+
+    def abandoned_needs_statistics
+      @information_hash[:rejected_needs_count] = DiagnosedNeed.rejected.count
+      @information_hash[:needs_with_no_one_in_charge_count] = DiagnosedNeed.with_no_one_in_charge.count
     end
   end
 end

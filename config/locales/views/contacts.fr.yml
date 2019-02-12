@@ -35,11 +35,14 @@ fr:
         step3: Le spécialiste sur votre territoire vous aide
     index:
       hero:
-        subtitle1: Vous avez des projets, une difficulté, des questions au quotidien ?
+        subtitle1: Vous avez un projet, une difficulté, une question au quotidien ?
         subtitle2: Faites vous aider par les spécialistes des organismes publics.
-        title: 'Chefs d’entreprise : toutes les solutions publiques qui vous sont dédiées'
+        title: 'Chef d’entreprise : toutes les solutions publiques en un clic'
       institutions:
         title: '350 spécialistes des Hauts-de-France à votre service :'
+      meta:
+        description: Vous avez un projet, une difficulté, des questions au quotidien ? Faites vous aider par 350 spécialistes de 40 organismes partenaires.
+        title: 'Chef d’entreprise : toutes les solutions publiques en un clic'
     thank_you:
       description: On vous rappelle rapidement pour le prédiagnostic.
       reso_team: L’équipe Réso
