@@ -10,12 +10,12 @@ describe ExpertReminderService do
 
     before do
       allow(Match).to receive(:needing_taking_care_update).and_return(matches_needing_taking_care_update)
-      allow(DiagnosedNeed).to receive(:needing_reminder).and_return(needs_needing_reminder)
+      allow(DiagnosedNeed).to receive(:with_no_one_in_charge).and_return(needs_with_no_one_in_charge)
     end
 
     context 'experts are different' do
       let(:matches_needing_taking_care_update) { create_list :match, 2, :with_assistance_expert }
-      let(:needs_needing_reminder) { [create(:diagnosed_need, matches: create_list(:match, 2, :with_assistance_expert))] }
+      let(:needs_with_no_one_in_charge) { [create(:diagnosed_need, matches: create_list(:match, 2, :with_assistance_expert))] }
 
       it { expect { send_experts_reminders }.to change { Delayed::Job.count }.by(4) }
     end
@@ -27,7 +27,7 @@ describe ExpertReminderService do
       let(:matches_needing_taking_care_update) do
         create_list :match, 2, :with_assistance_expert, assistance_expert: assistance_expert
       end
-      let(:needs_needing_reminder) do
+      let(:needs_with_no_one_in_charge) do
         [create(:diagnosed_need, matches: create_list(:match, 2, :with_assistance_expert, assistance_expert: assistance_expert))]
       end
 
@@ -39,7 +39,7 @@ describe ExpertReminderService do
       let(:assistance_expert) { create :assistance_expert, expert: expert }
 
       let(:matches_needing_taking_care_update) { [] }
-      let(:needs_needing_reminder) { [] }
+      let(:needs_with_no_one_in_charge) { [] }
 
       it { expect { send_experts_reminders }.not_to(change { Delayed::Job.count }) }
     end
