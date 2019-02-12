@@ -100,7 +100,7 @@ class DiagnosedNeed < ApplicationRecord
   end
   scope :being_taken_care_of, -> do
     with_some_matches_in_status(:taking_care)
-      .where.not(id: done)
+      .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
   end
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
