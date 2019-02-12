@@ -2,6 +2,7 @@
 fr:
   stats:
     series:
+      advisors: "%{count} conseillers inscrits"
       companies: "%{count} entreprises aidées"
       diagnosed_needs: "%{count} besoins identifiés"
       matches: "%{count} mises en relation"
