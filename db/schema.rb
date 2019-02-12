@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_29_182830) do
+ActiveRecord::Schema.define(version: 2019_02_12_093937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,7 +150,6 @@ ActiveRecord::Schema.define(version: 2019_01_29_182830) do
   end
 
   create_table "diagnoses", force: :cascade do |t|
-    t.bigint "visit_id"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -163,7 +162,6 @@ ActiveRecord::Schema.define(version: 2019_01_29_182830) do
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
-    t.index ["visit_id"], name: "index_diagnoses_on_visit_id"
     t.index ["visitee_id"], name: "index_diagnoses_on_visitee_id"
   end
 
@@ -305,18 +303,6 @@ ActiveRecord::Schema.define(version: 2019_01_29_182830) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "visits", force: :cascade do |t|
-    t.bigint "advisor_id"
-    t.bigint "visitee_id"
-    t.date "happened_on"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "facility_id"
-    t.index ["advisor_id"], name: "index_visits_on_advisor_id"
-    t.index ["facility_id"], name: "index_visits_on_facility_id"
-    t.index ["visitee_id"], name: "index_visits_on_visitee_id"
-  end
-
   add_foreign_key "antennes_communes", "antennes"
   add_foreign_key "antennes_communes", "communes"
   add_foreign_key "assistances", "questions"
@@ -332,7 +318,6 @@ ActiveRecord::Schema.define(version: 2019_01_29_182830) do
   add_foreign_key "diagnoses", "contacts", column: "visitee_id"
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "users", column: "advisor_id"
-  add_foreign_key "diagnoses", "visits"
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
@@ -343,7 +328,4 @@ ActiveRecord::Schema.define(version: 2019_01_29_182830) do
   add_foreign_key "relays", "territories"
   add_foreign_key "relays", "users"
   add_foreign_key "searches", "users"
-  add_foreign_key "visits", "contacts", column: "visitee_id"
-  add_foreign_key "visits", "facilities"
-  add_foreign_key "visits", "users", column: "advisor_id"
 end
