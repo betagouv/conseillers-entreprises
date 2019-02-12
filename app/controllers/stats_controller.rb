@@ -2,6 +2,7 @@
 
 class StatsController < ApplicationController
   skip_before_action :authenticate_user!
+  layout 'home'
 
   def show
     @stats = Stats::Stats.new(stats_params[:stats])

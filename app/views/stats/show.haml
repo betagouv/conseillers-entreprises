@@ -2,30 +2,29 @@
 - content_for :head do
   - javascript_include_tag 'highcharts'
 
-%h1= t('.title')
 
-.ui.container.form
-  = form_with(url: stats_path, method: :get) do
-    .ui.fields
-      .ui.field
-        = label_tag t('activerecord.models.territory.one')
-        = collection_select(:stats,
-          :territory, Territory.bassins_emploi.order(:name), :id, :name,
-          { include_blank: t('.all') },
-          { class: 'ui dropdown', onchange: 'this.form.submit();' })
-      .ui.field
-        = label_tag t('activerecord.models.institution.one')
-        = collection_select(:stats,
-          :institution, Institution.all.order(:name), :id, :name,
-          { include_blank: t('.all') },
-          { class: 'ui dropdown', onchange: 'this.form.submit();' })
+.ui.text.container
+  %h1.ui.header= t('.title')
+  .ui.form
+    = form_with(url: stats_path, method: :get) do
+      .ui.fields
+        .ui.field
+          = label_tag t('activerecord.models.territory.one')
+          = collection_select(:stats,
+            :territory, Territory.bassins_emploi.order(:name), :id, :name,
+            { include_blank: t('.all') },
+            { class: 'ui dropdown', onchange: 'this.form.submit();' })
+        .ui.field
+          = label_tag t('activerecord.models.institution.one')
+          = collection_select(:stats,
+            :institution, Institution.all.order(:name), :id, :name,
+            { include_blank: t('.all') },
+            { class: 'ui dropdown', onchange: 'this.form.submit();' })
 
-= render partial: 'stats_chart', locals: { stats: @stats, name: :diagnosed_needs }
 
-= render partial: 'stats_chart', locals: { stats: @stats, name: :companies }
-
-= render partial: 'stats_chart', locals: { stats: @stats, name: :matches }
-
-= render partial: 'stats_chart', locals: { stats: @stats, name: :advisors }
-
-= render partial: 'stats_chart', locals: { stats: @stats, name: :experts }
+- names = [:diagnosed_needs, :companies, :matches, :advisors, :experts]
+.ui.container
+  .ui.two.column.stackable.grid
+    - names.each do |name|
+      .ui.column
+        = render partial: 'stats_chart', locals: { stats: @stats, name: name }
