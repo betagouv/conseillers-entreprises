@@ -10,7 +10,7 @@ fr:
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
     matches:
-      deleted: "%{expert} (supprimé)"
+      deleted: Supprimé
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
@@ -28,6 +28,7 @@ fr:
       relays: Relais locaux
       unsent: Non envoyé
       with_custom_communes: Zone spécifique
+      with_deleted_expert: Référent supprimé
       with_no_one_in_charge: Pas de réponse
       without_antenne: Sans antenne
       without_communes: Sans zone d’intervention

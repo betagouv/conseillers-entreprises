@@ -7,6 +7,8 @@ fr:
     index:
       needs_for_you: 'Ces entreprises ont besoin de vous :'
       title: Demandes reçues
+    match:
+      deleted_expert: Compte supprimé
     show:
       discussion: Discussion
       person_advisor: Conseiller
