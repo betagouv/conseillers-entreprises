@@ -43,7 +43,8 @@ fr:
         assistance_title: Champ de compétence
         closed_at: Date de clôture
         diagnosed_need: Besoin identifié
-        expert_full_name: Référent contacté
+        expert: Référent
+        expert_full_name: Nom du référent
         expert_institution_name: Institution du référent
         expert_viewed_page_at: Date de consultation par le référent
         relay: Référent (Relais local)

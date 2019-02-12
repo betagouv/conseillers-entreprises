@@ -113,10 +113,15 @@ class Match < ApplicationRecord
     end
   end
 
+  scope :with_deleted_expert, -> do
+    where(assistance_expert: nil)
+      .where(relay: nil)
+  end
+
   ##
   #
   def to_s
-    "#{I18n.t('activerecord.models.match.one')} avec #{person}"
+    "#{I18n.t('activerecord.models.match.one')} avec #{person_full_name}"
   end
 
   def status_closed?
@@ -157,8 +162,8 @@ class Match < ApplicationRecord
     ALLOWED_STATUS_TRANSITIONS[self.status.to_sym]
   end
 
-  def expert_description
-    "#{expert_full_name} (#{expert_institution_name})"
+  def expert_full_role
+    "#{expert_full_name} - #{expert_institution_name}"
   end
 
   def person

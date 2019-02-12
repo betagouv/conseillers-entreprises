@@ -9,6 +9,9 @@ ActiveAdmin.register Match do
     :advisor, :advisor_antenne, :expert, :expert_antenne, :relay_user,
     diagnosed_need: :question
 
+  scope :all, default: true
+  scope :with_deleted_expert
+
   index do
     selectable_column
     column :match, sortable: :status do |m|
@@ -35,7 +38,8 @@ ActiveAdmin.register Match do
         div admin_link_to(m, :relay_user)
         div link_to(t('active_admin.user.impersonate', name: m.relay_user.full_name), impersonate_engine.impersonate_user_path(m.relay_user))
       else
-        div I18n.t('active_admin.matches.deleted', expert: m.expert_description)
+        div m.expert_full_role
+        status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
       end
     end
 
@@ -53,6 +57,8 @@ ActiveAdmin.register Match do
   filter :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
   filter :expert_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+
+  filter :expert_full_name
 
   filter :assistance, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
 
@@ -103,7 +109,8 @@ ActiveAdmin.register Match do
           div admin_link_to(m, :relay_user)
           div link_to(t('active_admin.user.impersonate', name: m.relay_user.full_name), impersonate_engine.impersonate_user_path(m.relay_user))
         else
-          div I18n.t('active_admin.matches.deleted', expert: m.expert_description)
+          div m.expert_full_role
+          status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
         end
       end
     end
