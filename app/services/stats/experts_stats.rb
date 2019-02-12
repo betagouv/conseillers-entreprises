@@ -6,6 +6,10 @@ module Stats
       Expert.all.distinct
     end
 
+    def additive_values
+      true
+    end
+
     def date_group_attribute
       'experts.created_at'
     end

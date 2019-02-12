@@ -8,6 +8,10 @@ module Stats
         .distinct
     end
 
+    def additive_values
+      true
+    end
+
     def date_group_attribute
       'users.created_at'
     end
