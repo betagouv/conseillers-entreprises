@@ -5,7 +5,7 @@
 %h1= t('.title').titleize
 
 .ui.container.form
-  = form_with(url: charts_stats_path, method: :get) do
+  = form_with(url: stats_path, method: :get) do
     .ui.fields
       .ui.field
         = label_tag t('activerecord.models.territory.one')

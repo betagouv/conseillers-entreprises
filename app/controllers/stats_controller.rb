@@ -4,9 +4,9 @@ class StatsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def show
-    @users_stats = users_stats
-    @activity_stats = activity_stats
-    @cohorts_stats = cohorts_stats
+    @stats = Stats::Stats.new(stats_params[:stats])
+    @stats.diagnosed_needs = Stats::DiagnosedNeedsStats.new(@stats)
+    @stats.companies = Stats::CompaniesStats.new(@stats)
   end
 
   def users
@@ -24,10 +24,10 @@ class StatsController < ApplicationController
     render 'stats/stats'
   end
 
-  def charts
-    @stats = Stats::Stats.new(stats_params[:stats])
-    @stats.diagnosed_needs = Stats::DiagnosedNeedsStats.new(@stats)
-    @stats.companies = Stats::CompaniesStats.new(@stats)
+  def tables
+    @users_stats = users_stats
+    @activity_stats = activity_stats
+    @cohorts_stats = cohorts_stats
   end
 
   private
