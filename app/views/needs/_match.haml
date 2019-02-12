@@ -1,5 +1,11 @@
 .needs-match
-  = render partial: 'people/person', locals: { person: match.person, prefix: nil, subtitle: match.assistance_title }
+  - if match.person.present?
+    = person_block(match.person, suffix: match.assistance&.title)
+  - else
+    = person_block_raw(prefix: t('.deleted_expert'),
+                       name: match.expert_full_name,
+                       suffix: match.assistance_title,
+                       role: match.expert_institution_name)
 
   .match-status
     = match_status_label(match.status)

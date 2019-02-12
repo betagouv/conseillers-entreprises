@@ -217,6 +217,19 @@ RSpec.describe Match, type: :model do
         it { is_expected.to eq [] }
       end
     end
+
+    describe 'with_deleted_expert' do
+      subject { Match.with_deleted_expert }
+
+      before do
+        create :match, :with_assistance_expert
+        create :match, :with_relay
+      end
+
+      let(:match1) { create :match }
+
+      it { is_expected.to eq [match1] }
+    end
   end
 end
 # rubocop:enable Metrics/BlockLength
