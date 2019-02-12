@@ -4,6 +4,7 @@ fr:
     series:
       companies: "%{count} entreprises aidées"
       diagnosed_needs: "%{count} besoins identifiés"
+      matches: "%{count} mises en relation"
     show:
       all: Tous
       title: Statistiques

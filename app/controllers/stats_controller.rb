@@ -7,6 +7,7 @@ class StatsController < ApplicationController
     @stats = Stats::Stats.new(stats_params[:stats])
     @stats.diagnosed_needs = Stats::DiagnosedNeedsStats.new(@stats)
     @stats.companies = Stats::CompaniesStats.new(@stats)
+    @stats.matches = Stats::MatchesStats.new(@stats)
   end
 
   def users
