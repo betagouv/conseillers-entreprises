@@ -1,0 +1,56 @@
+- data = stats.send(name.to_sym)
+- chart_name = "chart-#{name}"
+
+.ui.segments.shadow-less
+  .ui.segment.secondary
+    %h1.ui.header= t("stats.series.#{name}", count: data.count)
+  .ui.segment
+    .div{ id: chart_name }
+
+:javascript
+  (function() {
+    var container = "#{chart_name}"
+    var months = #{ data.all_months.map{ |d| I18n.l(d, format: '%b %y') }.to_json.html_safe }
+    var max_value = #{ data.max_value }
+    var series = #{ data.series.to_json.html_safe }
+
+    Highcharts.chart(container, {
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: null
+    },
+    credits: {
+      enabled: false
+    },
+    plotOptions: {
+      series: {
+        animation: false
+      },
+      column: {
+        stacking: 'normal'
+      }
+    },
+    tooltip: {
+       shared: true,
+       headerFormat: '<b>{point.x}</b><br>',
+       pointFormat: '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>',
+       footerFormat: 'Total : <b>{point.total}</b>'
+    },
+    xAxis: {
+      categories: months,
+      tickInterval: 1,
+      min: 0,
+      max: months.length - 1
+    },
+    yAxis: {
+      title: null,
+      max: max_value
+    },
+    legend: {
+      enabled: true
+    },
+    series: series
+    });
+  })()
