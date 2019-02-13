@@ -11,7 +11,7 @@ module Stats
 
     def build_series
       query = main_query
-      query = filtered(query) if respond_to? :filtered
+      query = filtered(query)
       query = grouped_by_month(query)
       query = grouped_by_category(query)
       results = categorized_results(query)
@@ -20,7 +20,11 @@ module Stats
     end
 
     def max_value
-      @max_value ||= grouped_by_month(main_query).count.values.max
+      if additive_values
+        count
+      else
+        @max_value ||= grouped_by_month(main_query).count.values.max
+      end
     end
 
     def all_months
@@ -31,6 +35,24 @@ module Stats
       @all_categories ||= grouped_by_category(main_query)
         .group(category_order_attribute).order(category_order_attribute)
         .pluck(category_group_attribute)
+    end
+
+    def count
+      @count ||= filtered(main_query).count
+    end
+
+    ## Overrides
+    #
+    def filtered(query)
+      query
+    end
+
+    def additive_values
+      false
+    end
+
+    def category_name(category)
+      category
     end
 
     private
@@ -112,11 +134,13 @@ module Stats
       # ]
 
       results.map do |category, month_values|
-        category = category_name(category) if respond_to? :category_name
-        {
-          name: category,
-          data: month_values.values
-        }
+        category = category_name(category)
+        values = month_values.values
+        if additive_values
+          values = values.reduce([]) { |a, v| a << v + (a.last || 0) }
+        end
+
+        { name: category, data: values }
       end
     end
   end
