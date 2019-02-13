@@ -16,6 +16,6 @@ module FeedbackHelper
       actions = nil
     end
 
-    raw_feedback_block(feedback.description, feedback.match.person.full_name, feedback.created_at, feedback.id, actions)
+    raw_feedback_block(feedback.description, feedback.match.person_full_name, feedback.created_at, feedback.id, actions)
   end
 end
