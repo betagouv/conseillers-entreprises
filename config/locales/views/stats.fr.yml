@@ -7,6 +7,7 @@ fr:
       diagnosed_needs: "%{count} besoins identifiés"
       experts: "%{count} référents"
       matches: "%{count} mises en relation"
+      transmitted_needs: "%{count} besoins transmis"
     show:
       all: Tous
       title: Statistiques
