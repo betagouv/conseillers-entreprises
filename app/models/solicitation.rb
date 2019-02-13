@@ -1,4 +1,4 @@
-class CompanyMessage
+class Solicitation < ApplicationRecord
   include ActiveModel::Model
 
   attr_accessor :description, :email, :phone_number, :besoins

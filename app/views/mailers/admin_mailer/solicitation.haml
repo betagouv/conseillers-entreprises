@@ -1,13 +1,13 @@
 %p= t('.hello')
 %p= t('.new_message_received')
 %ul
-  %li= mail_to @message.email
-  %li= @message.phone_number
+  %li= mail_to @solicitation.email
+  %li= @solicitation.phone_number
 %p= t('.needs')
-= needs_description(@message)
+= needs_description(@solicitation)
 
 %blockquote
-  %p= simple_format(@message.description)
+  %p= simple_format(@solicitation.description)
 
 - link_to_root = link_to t('app_name'), root_url
 %p= t('.reso_app_html', link_to_root: link_to_root)
