@@ -3,6 +3,10 @@ fr:
   mailers:
     admin_mailer:
       solicitation:
+        form_info:
+          alternative: 'Alternative : '
+          campaign: 'Campagne : '
+          title: Métadonnées
         hello: Bonjour,
         needs: 'Besoins sélectionnés :'
         new_message_received: 'Une entreprise a pris contact avec Réso : '

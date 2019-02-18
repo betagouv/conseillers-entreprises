@@ -3,10 +3,11 @@ class SolicitationsController < ApplicationController
 
   def index
     @solicitation = Solicitation.new
+    @solicitation.form_info = index_tracking_params
   end
 
   def create
-    @solicitation = Solicitation.new(solicitation_params)
+    @solicitation = Solicitation.create(solicitation_params)
 
     if !@solicitation.valid?
       @result = 'failure'
@@ -24,6 +25,6 @@ class SolicitationsController < ApplicationController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :phone_number, :email, needs: {})
+      .permit(:description, :phone_number, :email, form_info: {}, needs: {})
   end
 end

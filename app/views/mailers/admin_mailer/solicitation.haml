@@ -9,5 +9,10 @@
 %blockquote
   %p= simple_format(@solicitation.description)
 
+%p= t('.form_info.title')
+%ul
+  - if @solicitation.form_info["pk_campaign"]
+    %li= t('.form_info.campaign') + @solicitation.form_info["pk_campaign"]
+
 - link_to_root = link_to t('app_name'), root_url
 %p= t('.reso_app_html', link_to_root: link_to_root)
