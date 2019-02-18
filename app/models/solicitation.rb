@@ -26,4 +26,10 @@ class Solicitation < ApplicationRecord
   ## Scopes
   #
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
+  scope :of_alternative, -> (alternative) { where("form_info->>'alternative' = ?", alternative) }
+
+  ## ActiveAdmin helper
+  ransacker :alternative do |parent|
+    Arel::Nodes::InfixOperation.new('->>', parent.table[:form_info], Arel::Nodes.build_quoted('alternative'))
+  end
 end
