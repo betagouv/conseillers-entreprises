@@ -13,7 +13,9 @@
         = image_tag 'landing/collaborer.svg'
         %h4= 3
         %p= t('.steps.step3')
-= form_with(model: @message, url: contact_path, scope: 'contact', method: :post) do |f|
+= form_with(model: @solicitation, url: solicitation_path, scope: 'solicitation', method: :post) do |f|
+  - @solicitation.form_info.each do |k,v|
+    = f.hidden_field "form_info[#{k}]", value: v
   %section.section.section-grey
     .container
       .form__group

@@ -4,7 +4,7 @@ class AdminMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} Admin <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/admin_mailer'
 
-  helper :contact
+  helper :solicitation
 
   def new_user_created_notification(user)
     @user = user
@@ -27,9 +27,9 @@ class AdminMailer < ApplicationMailer
     mail(to: default_recipients, subject: t('mailers.admin_mailer.weekly_statistics.subject'))
   end
 
-  def company_message(message)
-    @message = message
-    mail(to: default_recipients, subject: t('mailers.admin_mailer.company_message.subject'))
+  def solicitation(solicitation)
+    @solicitation = solicitation
+    mail(to: default_recipients, subject: t('mailers.admin_mailer.solicitation.subject'))
   end
 
   private
