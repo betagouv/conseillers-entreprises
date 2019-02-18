@@ -1,0 +1,20 @@
+%p= t('.hello')
+%p= t('.new_message_received')
+%ul
+  %li= mail_to @solicitation.email
+  %li= @solicitation.phone_number
+%p= t('.needs')
+= needs_description(@solicitation)
+
+%blockquote
+  %p= simple_format(@solicitation.description)
+
+%p= t('.form_info.title')
+%ul
+  - if @solicitation.form_info["pk_campaign"]
+    %li= t('.form_info.campaign') + @solicitation.form_info["pk_campaign"]
+  - if @solicitation.form_info["alternative"]
+    %li= t('.form_info.alternative') + @solicitation.form_info["alternative"]
+
+- link_to_root = link_to t('app_name'), root_url
+%p= t('.reso_app_html', link_to_root: link_to_root)

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
-  root to: 'contacts#index'
+  root to: 'solicitations#index'
 
   get 'profile' => 'users#show'
 
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :contact, only: %i[create]
+  resource :solicitation, only: %i[create]
 
   resources :diagnoses, only: %i[index show destroy] do
     member do

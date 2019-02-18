@@ -39,18 +39,22 @@ class AdminMailerPreview < ActionMailer::Preview
     AdminMailer.weekly_statistics(hash)
   end
 
-  def company_message
-    localized_needs_keypath = 'contacts.besoins.'
+  def solicitation
+    localized_needs_keypath = 'solicitations.needs.'
     all_needs = I18n.t(localized_needs_keypath).keys
 
     params = {
       description: Faker::Hipster.paragraph(5),
       phone_number: Faker::PhoneNumber.phone_number,
       email: Faker::Internet.email,
-      besoins: all_needs.map{ |n| [n,rand(2)] }.to_h
+      needs: all_needs.map{ |n| [n,rand(2)] }.to_h,
+      form_info: {
+        alternative: "index_a",
+        pk_campaign: "test"
+      }
     }
-    message = CompanyMessage.new(params)
-    AdminMailer.company_message(message)
+    solicitation = Solicitation.new(params)
+    AdminMailer.solicitation(Solicitation.first)
   end
 
   private
