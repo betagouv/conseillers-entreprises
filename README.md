@@ -56,9 +56,11 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
 ## Tests
 
 - `bin/rspec` : Rspec tests
-- `rubocop` : Ruby/Rails/Rspec code style
-- `haml-lint` : Haml template code style
-- `i18n-tasks health` : Rails I18n usage
+- `rake lint`:
+  - `rake lint:rubocop` : ruby files code style
+  - `rake lint:haml` : haml files code style 
+  - `rake lint:i18n` : i18n missing/unused keys and formatting
+  - `rake lint:brakeman` : static analysis security vulnerability 
 
 ## Development data
 
