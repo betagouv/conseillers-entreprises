@@ -47,14 +47,14 @@ class AdminMailerPreview < ActionMailer::Preview
       description: Faker::Hipster.paragraph(5),
       phone_number: Faker::PhoneNumber.phone_number,
       email: Faker::Internet.email,
-      needs: all_needs.map{ |n| [n,rand(2)] }.to_h,
+      needs: all_needs.map{ |n| [n, rand(2).to_s] }.to_h,
       form_info: {
         alternative: "index_a",
         pk_campaign: "test"
       }
     }
     solicitation = Solicitation.new(params)
-    AdminMailer.solicitation(Solicitation.first)
+    AdminMailer.solicitation(solicitation)
   end
 
   private

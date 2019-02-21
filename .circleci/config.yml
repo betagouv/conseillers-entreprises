@@ -64,17 +64,8 @@ jobs:
       - *bundle_restore_cache
       - *bundle_install
       - run:
-          name: Run rubocop
-          command: bundle exec rubocop
-      - run:
-          name: Run haml-lint
-          command: bundle exec haml-lint app/views/
-      - run:
-          name: Run i18n-tasks
-          command: bundle exec i18n-tasks health
-      - run:
-          name: Run brakeman
-          command: bundle exec brakeman
+          name: Run lint tasks
+          command: rake lint
 workflows:
   version: 2
   build_and_test:
