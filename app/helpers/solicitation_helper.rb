@@ -14,8 +14,8 @@ module SolicitationHelper
     end
   end
 
-  def needs_description(message)
-    needs_keys = message.needs.select{ |_,v| v == 1 }.keys
+  def needs_description(solicitation)
+    needs_keys = solicitation.needs.select{ |_,v| v == "1" }.keys.sort
     localized_needs = needs_keys.map{ |key| I18n.t("solicitations.needs.#{key}") }
     tag.ul do
       localized_needs.map{ |need| tag.li(need) }.join.html_safe
