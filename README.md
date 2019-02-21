@@ -66,28 +66,10 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
 
 You can import data in your local development database from remote staging database. See the [official documentation](https://doc.scalingo.com/platform/databases/access), Make sure [Scalingo CLI](http://doc.scalingo.com/app/command-line-tool.html) is installed.
 
-1. Dump data from staging or production environments:
-````
-scalingo -a reso-staging db-tunnel SCALINGO_POSTGRESQL_URL
-# In another terminal
-scalingo -a reso-staging env | grep POSTGRESQL # gives you the database password
-pg_dump --no-owner --no-acl reso_stagin_5827 > tmp/export.pgsql  -h localhost -p 10000 -U reso_stagin_5827 -o
-````
-
-````
-scalingo -a reso-production db-tunnel SCALINGO_POSTGRESQL_URL
-# In another terminal
-scalingo -a reso-production env | grep POSTGRESQL # gives you the database password
-pg_dump --no-owner --no-acl e_conseils_2947 > tmp/export.pgsql  -h localhost -p 10000 -U e_conseils_2947 -o
-````
-
-2. Import the dump in the local database: 
-````
-rake db:drop db:create
-psql reso-development -f tmp/export.pgsql -U postgres
-rake db:migrate # If your local app has pending migrations
-rake db:environment:set RAILS_ENV=development # If you imported data from the production environment
-````
+- `rake import_dump`:
+ - `rake import_dump:dump` : dump data from scalingo 
+ - `rake import_dump:import` : drop local db and import
+ - `rake import_dump:anonymize` : anonymize personal information fields
 
 ## Emails
 
