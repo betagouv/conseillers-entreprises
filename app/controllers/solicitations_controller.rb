@@ -4,11 +4,10 @@ class SolicitationsController < ApplicationController
   include Alternatives
 
   def index
-    alternative = current_alternative(alternatives)
+    @alternative = current_alternative(alternatives)
     @solicitation = Solicitation.new
     @solicitation.form_info = index_tracking_params
-      .merge({ alternative: alternative })
-    render alternative
+      .merge({ alternative: @alternative })
   end
 
   def create
@@ -31,7 +30,7 @@ class SolicitationsController < ApplicationController
   private
 
   def alternatives
-    [:index_a, :index_b]
+    [:a, :b]
   end
 
   def index_tracking_params

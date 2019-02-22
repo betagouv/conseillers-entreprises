@@ -1,0 +1,15 @@
+= form_with(model: @solicitation, url: solicitation_path, scope: 'solicitation', method: :post) do |f|
+  - @solicitation.form_info.each do |k,v|
+    = f.hidden_field "form_info[#{k}]", value: v
+  %section.section.section-grey
+    .container
+      .form__group
+        .form__group
+          = f.label 'phone_number', t('.phone_number.label')
+          = f.telephone_field 'phone_number', placeholder: t('.phone_number.placeholder'), required: true
+      .form__group
+        = render 'flashes'
+        .text-center
+          .section__subtitle
+            = f.button :submit, class: 'button' do
+              = t('.button.title')
