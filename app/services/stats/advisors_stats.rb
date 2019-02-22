@@ -3,9 +3,7 @@ module Stats
     include BaseStats
 
     def main_query
-      User
-        .not_admin
-        .distinct
+      User.all.distinct
     end
 
     def additive_values

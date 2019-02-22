@@ -14,6 +14,7 @@ ActiveAdmin.register DiagnosedNeed do
   scope :all, default: true
   scope :unsent
   scope :with_no_one_in_charge
+  scope :not_taken_after_3_weeks
   scope :rejected
   scope :being_taken_care_of
   scope :done

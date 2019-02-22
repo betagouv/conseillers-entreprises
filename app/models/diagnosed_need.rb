@@ -94,6 +94,10 @@ class DiagnosedNeed < ApplicationRecord
       .with_some_matches_in_status(:quo)
       .not_archived
   end
+  scope :not_taken_after_3_weeks, -> do
+    with_no_one_in_charge
+      .where("diagnosed_needs.created_at < ?", 3.weeks.ago)
+  end
   scope :rejected, -> do
     with_matches_only_in_status(:not_for_me)
       .not_archived

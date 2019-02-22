@@ -6,7 +6,6 @@ module Stats
       DiagnosedNeed
         .joins(:advisor)
         .joins(question: :category)
-        .where.not(diagnoses: { advisor: User.admin })
     end
 
     def date_group_attribute

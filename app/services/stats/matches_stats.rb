@@ -5,7 +5,6 @@ module Stats
     def main_query
       Match
         .joins(:advisor)
-        .where.not(diagnosed_needs: { diagnoses: { advisor: User.admin } })
     end
 
     def date_group_attribute
