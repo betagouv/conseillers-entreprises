@@ -77,6 +77,14 @@ fr:
         label: Entreprise
         query: Requête
         user: Utilisateur
+      solicitation:
+        needs: Besoins sélectionnés
+        pk_campaign: Campagne
+        pk_content: Annonce
+        pk_kwd: Mots-clés
+        pk_medium: Medium
+        pk_source: Source
+        tracking: Suivi
       territory:
         advisors: Conseillers
         antennes: Antennes
@@ -181,6 +189,9 @@ fr:
       search:
         one: Recherche
         other: Recherches
+      solicitation:
+        one: Sollicitation
+        other: Sollicitations
       territory:
         one: Territoire
         other: Territoires
@@ -195,6 +206,7 @@ fr:
     advisors:
       one: Conseiller
       other: Conseillers
+    alternative: Alternative
     antenne: Antenne
     antenne_experts:
       one: Référent
