@@ -35,7 +35,7 @@ class SolicitationsController < ApplicationController
   end
 
   def index_tracking_params
-    params.permit(:pk_campaign, :pk_source, :pk_medium, :pk_kwd, :pk_content)
+    params.permit(Solicitation::TRACKING_KEYS)
   end
 
   def solicitation_params

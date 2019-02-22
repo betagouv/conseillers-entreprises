@@ -7,17 +7,22 @@ ActiveAdmin.register Solicitation do
 
   index do
     selectable_column
+    column :solicitation do |s|
+      div admin_link_to(s)
+      div admin_attr(s, :email)
+      div admin_attr(s, :phone_number)
+      div admin_attr(s, :description).truncate(200, separator: ' ')
+    end
     column :created_at
-    column :email
-    column :phone_number
-    column :description
     column(:needs) { |s| needs_description(s) }
-    column('alternative') { |s| s.form_info['alternative'] }
-    column('tracking info') { |s| s.form_info.select { |k, _| k.start_with?('pk_') } }
+    column :alternative
+    column :tracking do |s|
+      render partial: 'solicitations/tracking', locals: { solicitation: s }
+    end
     actions dropdown: true
   end
 
-  filter :alternative_eq, label: "Alternative"
+  preserve_default_filters!
 
   ## Form
   #

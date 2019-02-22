@@ -21,4 +21,12 @@ module SolicitationHelper
       localized_needs.map{ |need| tag.li(need) }.join.html_safe
     end
   end
+
+  def link_to_google_ad_content(content_id)
+    link_to content_id, "https://ads.google.com/aw/ads/versions?adId=#{content_id}"
+  end
+
+  def link_to_google_ad_campaign(campaign_id)
+    link_to campaign_id, "https://ads.google.com/aw/adgroups?campaignId=#{campaign_id}"
+  end
 end
