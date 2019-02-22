@@ -4,8 +4,8 @@ module Stats
 
     def main_query
       Company
-        .where.not(facilities: { diagnoses: { advisor: User.admin } })
         .includes(:diagnosed_needs).references(:diagnosed_needs).merge(DiagnosedNeed.where.not(id: nil))
+        .where(facilities: { diagnoses: { step: Diagnosis::LAST_STEP } })
     end
 
     def date_group_attribute

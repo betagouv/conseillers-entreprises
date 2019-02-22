@@ -6,11 +6,12 @@ class StatsController < ApplicationController
 
   def show
     @stats = Stats::Stats.new(stats_params[:stats])
-    @stats.diagnosed_needs = Stats::DiagnosedNeedsStats.new(@stats)
-    @stats.companies = Stats::CompaniesStats.new(@stats)
-    @stats.matches = Stats::MatchesStats.new(@stats)
     @stats.advisors = Stats::AdvisorsStats.new(@stats)
+    @stats.companies = Stats::CompaniesStats.new(@stats)
+    @stats.diagnosed_needs = Stats::DiagnosedNeedsStats.new(@stats)
     @stats.experts = Stats::ExpertsStats.new(@stats)
+    @stats.matches = Stats::MatchesStats.new(@stats)
+    @stats.transmitted_needs = Stats::TransmittedNeedsStats.new(@stats)
   end
 
   def users
