@@ -1,18 +1,3 @@
-%section.section.section-color.steps
-  .container
-    %ul
-      %li
-        = image_tag 'landing/creer.svg'
-        %h4= 1
-        %p= t('.steps.step1')
-      %li
-        = image_tag 'landing/gerer.svg'
-        %h4= 2
-        %p= t('.steps.step2')
-      %li
-        = image_tag 'landing/collaborer.svg'
-        %h4= 3
-        %p= t('.steps.step3')
 = form_with(model: @solicitation, url: solicitation_path, scope: 'solicitation', method: :post) do |f|
   - @solicitation.form_info.each do |k,v|
     = f.hidden_field "form_info[#{k}]", value: v

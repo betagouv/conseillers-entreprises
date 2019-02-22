@@ -40,7 +40,7 @@ class AdminMailerPreview < ActionMailer::Preview
   end
 
   def solicitation
-    localized_needs_keypath = 'solicitations.needs.'
+    localized_needs_keypath = 'solicitations.needs.short'
     all_needs = I18n.t(localized_needs_keypath).keys
 
     params = {
