@@ -16,6 +16,7 @@
     .logo-list
       = all_institutions_images
 %main#reso-main-solicitation
-  = render 'form'
+  = render 'steps'
+  = render "solicitations/#{@alternative}/form"
 
 = render 'footer'

@@ -5,9 +5,9 @@ module Alternatives
 
   def current_alternative(alternatives)
     forced_alternative = params.delete(:alternative)&.to_sym
-    if forced_alternative.present? && alternatives.include?(forced_alternative)
+    if forced_alternative.present?
       alternative = forced_alternative
-    elsif cookies[cookie_name]
+    elsif cookies[cookie_name] && alternatives.include?(forced_alternative)
       alternative = cookies[cookie_name]
     else
       alternative = alternatives.sample
