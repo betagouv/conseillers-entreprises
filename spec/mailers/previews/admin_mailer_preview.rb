@@ -44,7 +44,7 @@ class AdminMailerPreview < ActionMailer::Preview
     all_needs = I18n.t(localized_needs_keypath).keys
 
     params = {
-      description: Faker::Hipster.paragraph(5),
+      description: Faker::Hipster.paragraphs(5).join('<br/>'),
       phone_number: Faker::PhoneNumber.phone_number,
       email: Faker::Internet.email,
       needs: all_needs.map{ |n| [n, rand(2).to_s] }.to_h,
@@ -53,7 +53,8 @@ class AdminMailerPreview < ActionMailer::Preview
         pk_campaign: "test"
       }
     }
-    solicitation = Solicitation.new(params)
+    solicitation = Solicitation.last
+    solicitation.assign_attributes(params)
     AdminMailer.solicitation(solicitation)
   end
 

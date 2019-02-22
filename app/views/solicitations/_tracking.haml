@@ -1,0 +1,11 @@
+%ul
+  - if solicitation.pk_source
+    %li #{t('activerecord.attributes.solicitation.pk_source')} : #{solicitation.pk_source}
+  - if solicitation.pk_medium
+    %li #{t('activerecord.attributes.solicitation.pk_medium')} : #{solicitation.pk_medium}
+  - if solicitation.pk_campaign
+    %li #{t('activerecord.attributes.solicitation.pk_campaign')} : #{solicitation.pk_source == 'google' ? link_to_google_ad_campaign(solicitation.pk_campaign) : solicitation.pk_campaign}
+  - if solicitation.pk_content
+    %li #{t('activerecord.attributes.solicitation.pk_content')} : #{solicitation.pk_source == 'google' ? link_to_google_ad_content(solicitation.pk_content) : solicitation.pk_content}
+  - if solicitation.pk_kwd
+    %li #{t('activerecord.attributes.solicitation.pk_kwd')} : « #{solicitation.pk_kwd} »
