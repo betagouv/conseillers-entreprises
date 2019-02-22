@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'entreprise/:slug', to: 'entreprise#index'
+
   resource :solicitation, only: %i[create]
 
   resources :diagnoses, only: %i[index show destroy] do
