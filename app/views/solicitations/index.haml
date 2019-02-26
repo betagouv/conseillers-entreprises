@@ -1,22 +1,24 @@
 = render 'navbar'
 - meta title: t('.meta.title'), description: t('.meta.description')
 
-.hero
+.hero.hero__background{ style: solicitation_background_style }
   .hero__container
-    %h1
+    %h1.hero__white-background
       = t('.hero.title')
-    %p
-      = t('.hero.subtitle1')
-      %br
-      = t('.hero.subtitle2')
+    .container.container-medium
+      %h4.text-center.hero__white-background
+        = t('.hero.subtitle')
+%section.section.section-grey
+  #solicitation-form
+    .container
+      %h3.section__title= t('.description')
+    .container.container-medium
+      = render 'form'
 %section.section.section-white
   .container
     %h2.section__title
       = t('.institutions.title')
     .logo-list
       = all_institutions_images
-%main#reso-main-solicitation
-  = render 'steps'
-  = render "solicitations/#{@alternative}/form"
 
 = render 'footer'
