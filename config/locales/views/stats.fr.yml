@@ -10,7 +10,7 @@ fr:
       transmitted_needs: "%{count} besoins transmis"
     show:
       all: Tous
-      title: Statistiques
+      title: Statistiques d’utilisation
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
@@ -48,5 +48,5 @@ fr:
       activity_stats: Activité
       cohorts_stats: Cohortes
       download: Télécharger
-      title: Statistiques
+      title: Statistiques d’utilisation
       users_stats: Conseillers

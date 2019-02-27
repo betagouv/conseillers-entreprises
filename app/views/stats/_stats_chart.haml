@@ -1,11 +1,12 @@
 - data = stats.send(name.to_sym)
 - chart_name = "chart-#{name}"
 
-.ui.segments.shadow-less
-  .ui.segment.secondary
-    %h1.ui.header= t("stats.series.#{name}", count: data.count)
-  .ui.segment
-    .div{ id: chart_name }
+.card
+  .card__content
+    %h3= t("stats.series.#{name}", count: data.count)
+    .card__meta
+      <br/>
+    .p{ id: chart_name }
 
 :javascript
   (function() {

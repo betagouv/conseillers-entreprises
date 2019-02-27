@@ -2,29 +2,28 @@
 - content_for :head do
   - javascript_include_tag 'highcharts'
 
-
-.ui.text.container
-  %h1.ui.header= t('.title')
-  .ui.form
+.hero
+  .hero__container
+    %h1.hero__white-background
+      = t('.title')
     = form_with(url: stats_path, method: :get) do
-      .ui.fields
-        .ui.field
-          = label_tag t('activerecord.models.territory.one')
+      .row
+        %div
+          %h3= label_tag(t('activerecord.models.territory.one'), nil, class: 'hero__white-background')
           = collection_select(:stats,
             :territory, Territory.bassins_emploi.order(:name), :id, :name,
             { include_blank: t('.all') },
             { class: 'ui dropdown', onchange: 'this.form.submit();' })
-        .ui.field
-          = label_tag t('activerecord.models.institution.one')
+        %div
+          %h3= label_tag(t('activerecord.models.institution.one'), nil, class: 'hero__white-background')
           = collection_select(:stats,
             :institution, Institution.all.order(:name), :id, :name,
             { include_blank: t('.all') },
             { class: 'ui dropdown', onchange: 'this.form.submit();' })
 
-
-- names = [:diagnosed_needs, :transmitted_needs, :companies, :matches, :advisors, :experts]
-.ui.container
-  .ui.two.column.stackable.grid
-    - names.each do |name|
-      .ui.column
+%section.section
+  .container.container-full
+    - names = [:diagnosed_needs, :transmitted_needs, :companies, :matches, :advisors, :experts]
+    .grid
+      - names.each do |name|
         = render partial: 'stats_chart', locals: { stats: @stats, name: name }
