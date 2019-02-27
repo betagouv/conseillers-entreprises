@@ -1,17 +1,13 @@
 module SolicitationHelper
-  def all_needs_cards(f)
-    localized_needs_keypath = 'solicitations.needs.long'
-    all_needs = I18n.t(localized_needs_keypath)
-    tags = all_needs.map do |value, text|
-      needs_card_tag(f, value, text)
-    end
-    tags.join.html_safe
-  end
+  def solicitation_background_style
+    images = [
+      'background/bakery-1868925.jpg',
+      'background/construction-worker-569149.jpg',
+      'background/office-1209640.jpg'
+    ]
 
-  def needs_card_tag(f, value, text)
-    tag.div class: 'card' do
-      f.check_box("needs[#{value}]") + f.label("needs[#{value}]", text)
-    end
+    "background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                       url(#{image_path images.sample})"
   end
 
   def needs_description(solicitation)

@@ -1,24 +1,10 @@
 @import template-data-gouv-main
 
-.section.steps
-  ul
-    list-style-type: none
-    margin: 0 auto
-    padding: 0
-    display: flex
-    flex-wrap: wrap
-    align-items: baseline
-    width: 100%
-    justify-content: center
-    li
-      display: inline-block
-      width: 300px
-      padding: 30px
-      img
-        display: block
-        margin: 0 auto
-      *
-        text-align: center
+.hero__background
+  background-color: #cccccc
+  background-position: center
+  background-size: cover
+
 .logo-list
   width: 95%
   margin: 0 auto
@@ -28,28 +14,3 @@
     max-width: 100px
     margin: 8px
     vertical-align: middle
-#reso-main-solicitation
-  form
-    max-width: none
-
-    input[type=radio], input[type=checkbox]
-      display: none
-
-      & ~ label
-        padding: 1em
-        margin: 0
-        height: 100%
-
-        &:hover
-          background: #ebeff3 //var(--lighter-grey)
-          cursor: pointer
-
-      &:checked, &:active
-        & ~ label
-          background: #b4e1fa //var(--lighter-blue)
-
-    .row .form__group
-      display: flex
-      flex: 1
-      flex-direction: column
-      margin-top: 0
