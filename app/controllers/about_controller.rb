@@ -1,16 +1,12 @@
-# frozen_string_literal: true
-
-class HomeController < ApplicationController
+class AboutController < ApplicationController
   skip_before_action :authenticate_user!
-  layout 'home'
+  layout 'solicitations'
 
-  def index; end
-
-  def about; end
+  def show; end
 
   def cgu; end
 
-  def team
+  def qui_sommes_nous
     @relays = User.approved.relays.ordered_for_contact
     @product_team = User.approved.project_team.ordered_for_contact.uniq
   end

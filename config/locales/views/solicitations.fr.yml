@@ -6,40 +6,26 @@ fr:
         new_solicitation_received: Une entreprise nous sollicite !
         subject: Nouvelle sollicitation d’entreprise
   solicitations:
-    a:
-      form:
-        button:
-          title: Avertir l’équipe Réso
-        description:
-          label: Dites-nous en plus.
-          placeholder: 'Décrivez simplement votre besoin. Par exemple: « Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils. »'
-        email:
-          label: Email
-          placeholder: marie.dupont@exemple.fr
-        phone_number:
-          label: Téléphone
-          placeholder: 06 12 34 56 78
-        question: Qu’est-ce qui vous amène ?
-        select_needs: Sélectionnez vos besoins.
-    b:
-      form:
-        button:
-          title: Avertir l’équipe Réso
-        phone_number:
-          label: 'Laissez-nous simplement votre numéro de téléphone :'
-          placeholder: 06 12 34 56 78
-    footer:
-      dinsic: DINSIC
-      startup_d_etat: Une startup d’état de beta.gouv
+    form:
+      button:
+        title: Me faire rappeler par l’équipe Réso
+      description:
+        placeholder: 'Décrivez simplement votre besoin. Par exemple: « Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils. »'
+      email:
+        label: Email
+        placeholder: marie.dupont@exemple.fr
+      phone_number:
+        label: Téléphone
+        placeholder: 06 12 34 56 78
     index:
+      description: Dites-nous ce qui vous amène, le bon spécialiste public vous rappelle directement.
       hero:
-        subtitle1: Vous avez un projet, une difficulté, une question au quotidien ?
-        subtitle2: Faites vous aider par les spécialistes des organismes publics.
+        subtitle: Recrutement • Formation • Problèmes de trésorerie • Cession • Reprise • Réglementation • Financement d’un nouveau projet • Site Internet • Recherche de nouveaux clients • Développement de nouveaux produits • Diagnostic global • …
         title: 'Chef d’entreprise : toutes les solutions publiques en un clic'
       institutions:
-        title: '350 spécialistes des Hauts-de-France à votre service :'
+        title: '42 partenaires publics des Hauts-de-France à votre service :'
       meta:
-        description: Vous avez un projet, une difficulté, des questions au quotidien ? Faites vous aider par 350 spécialistes de 40 organismes partenaires.
+        description: Dites-nous ce qui vous amène, le bon spécialiste public vous rappelle directement. 42 partenaires des Hauts-de-France à votre service.
         title: 'Chef d’entreprise : toutes les solutions publiques en un clic'
     needs:
       long:
@@ -64,10 +50,6 @@ fr:
         '08-reglementation': Réglementation
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
-    steps:
-      step1: Vous prenez contact avec nous
-      step2: On vous rappelle pour faire un pré-diagnostic de 10 minutes
-      step3: Le spécialiste sur votre territoire vous aide
     thank_you:
       description: On vous rappelle rapidement pour le prédiagnostic.
       reso_team: L’équipe Réso
