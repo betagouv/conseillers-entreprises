@@ -6,9 +6,6 @@ fr:
         new_solicitation_received: Une entreprise nous sollicite !
         subject: Nouvelle sollicitation d’entreprise
   solicitations:
-    footer:
-      dinsic: DINSIC
-      startup_d_etat: Une startup d’état de beta.gouv
     form:
       button:
         title: Me faire rappeler par l’équipe Réso

@@ -1,6 +1,6 @@
 class AboutController < ApplicationController
   skip_before_action :authenticate_user!
-  layout 'home'
+  layout 'solicitations'
 
   def show; end
 
