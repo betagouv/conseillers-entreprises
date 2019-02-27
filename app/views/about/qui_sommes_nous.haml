@@ -1,0 +1,37 @@
+- meta title: t('.title')
+
+.hero
+  .hero__container
+    %h1.hero__white-background
+      = t('contact_us')
+%section.section.section-grey
+  .container.container-medium
+    %h2.section__title= t('.product_team')
+    - mailto_link = mail_to ENV['APPLICATION_EMAIL'], ENV['APPLICATION_EMAIL'], target: :_blank
+    %h4.section__subtitle= t('.contact_team_for_general_purpose_html', mailto_link: mailto_link)
+    .grid
+      - @product_team.each do |user|
+        .card
+          .card__content
+            %h4= user.full_name
+            %p= user.contact_page_role.html_safe
+
+%section.section.section-grey
+  .container.container-medium
+    %h2.section__title= t('.relays')
+    %h4.section__subtitle= t('.contact_admins_for_local_purpose')
+    .grid
+      - @relays.each do |user|
+        .card
+          .card__content
+            %h4= user.full_name
+            .card__meta
+              %span= user.role
+              %span= user.institution
+            %p
+              = t('.responsible_of_territories', count: user.relay_territories.size)
+              %strong= user.relay_territories.map(&:name).uniq.join(', ')
+          .card__extra
+            %p= user.phone_number
+            %p= user.email
+

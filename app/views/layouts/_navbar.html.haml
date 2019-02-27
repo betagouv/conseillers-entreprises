@@ -1,6 +1,6 @@
 %header.ui.menu.large.responsive-top-fixed
   .ui.container
-    %a.item{ href: home_index_path }
+    %a.item{ href: conseillers_path }
       = image_tag 'reso-logo-simple-dark.png', style: 'width: 60px'
     - if user_signed_in?
       %a.item{ href: diagnoses_path }
@@ -11,7 +11,7 @@
           %i.bullseye.icon
           = t('needs.index.title')
     - else # not signed in
-      %a.item{ href: about_home_index_path }
+      %a.item{ href: a_propos_path }
         %i.question.icon
         = t('find_out_more')
     %a.item{ href: '/ManuelRESO.pdf' }
