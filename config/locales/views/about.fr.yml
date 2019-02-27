@@ -1,7 +1,7 @@
 ---
 fr:
-  home:
-    about:
+  about:
+    show:
       explanation_html: |
         <h2>Des entrepreneurs isolés, des conseils cloisonnés</h2>
         <p>Plus de 2 000 aides publiques existent mais les chefs entreprises n’ont ni le temps, ni les moyens d’en faire la demande. De nombreux organismes publics - Chambres de Commerce, DIRECCTE, Région… - ont donc déployé sur le terrain des conseillers pour apporter directement ces aides aux entreprises.</p>
@@ -82,7 +82,7 @@ fr:
       tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
       tool_to_help_advisors: Un outil dédié aux conseillers d’entreprise des organismes publics
       we_help_you_and_we_want_feedbacks_html: Nous vous accompagnons dans l’utilisation de Réso<br>et recevons vos commentaires.
-    team:
+    qui_sommes_nous:
       contact_admins_for_local_purpose: Pour toute question spécifique à un territoire, merci de contacter le relais local concerné.
       contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37.
       product_team: Équipe projet

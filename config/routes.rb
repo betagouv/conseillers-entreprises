@@ -19,14 +19,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :home, only: %i[] do
-    collection do
-      get :about
-      get :cgu
-      get :team
-      get :index
-    end
+  resource 'a_propos', controller: 'about', only: %i[] do
+    get :show
+    get :cgu
+    get :'qui_sommes_nous'
   end
+
+  resource 'conseillers', only: %i[show]
 
   get 'entreprise/:slug', to: 'entreprise#index'
 
