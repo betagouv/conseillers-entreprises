@@ -8,7 +8,7 @@ fr:
   solicitations:
     form:
       button:
-        title: Me faire rappeler par l’équipe Réso
+        title: Rappelez-moi
       description:
         placeholder: 'Décrivez simplement votre besoin. Par exemple: « Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils. »'
       email:
