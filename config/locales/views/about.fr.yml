@@ -63,7 +63,7 @@ fr:
       title: Conditions générales d’utilisation
     qui_sommes_nous:
       contact_admins_for_local_purpose: Pour toute question spécifique à un territoire, merci de contacter le relais local concerné.
-      contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37.
+      contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37.
       product_team: Équipe projet
       relays: Relais locaux
       responsible_of_territories:
@@ -86,7 +86,7 @@ fr:
       feature_find_contacts_html: 2<br><em class='feature-text-em'>Trouvez</em><br>les contacts compétents sur votre territoire
       feature_notify_and_follow_html: 3<br><em class='feature-text-em'>Notifiez-les</em><br> en un clic et suivez leur action
       feature_spot_needs_html: 1<br><em class='feature-text-em'>Identifiez</em><br>les besoins des entreprises en quelques minutes
-      or_call_us: ou appelez-nous au 06 99 05 47 37
+      or_call_us: ou appelez-nous au 06 99 05 47 37
       public_service_from_the_north: Un service public numérique expérimenté dans les Hauts-de-France
       questions_or_suggestions: Des questions ? Des suggestions ?
       sign_up_button: Inscrivez-vous !
