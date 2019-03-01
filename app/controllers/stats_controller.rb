@@ -2,7 +2,7 @@
 
 class StatsController < ApplicationController
   skip_before_action :authenticate_user!
-  layout 'home'
+  layout 'solicitations'
 
   def show
     @stats = Stats::Stats.new(stats_params[:stats])
