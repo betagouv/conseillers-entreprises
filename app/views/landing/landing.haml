@@ -1,0 +1,14 @@
+- meta title: @landing.title, description: @landing.subtitle
+
+.hero.superhero
+  .hero__container
+    .row
+      .hero__container
+        .richtext
+          = image_tag 'landing/labyrinthe.png'
+      .hero__container
+        .text-left
+          %h1.hero_title= @landing.title
+          %h3.hero_subtitle= @landing.subtitle
+          %h4
+            %a.button{ href: @landing.url }= @landing.button
