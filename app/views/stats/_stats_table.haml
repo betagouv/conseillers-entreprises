@@ -1,15 +1,16 @@
-%table.ui.padded.basic.table
-  %tbody
-    - headers = stats.first[1].keys
-    %th
-      %rh= t('.date_range')
+%table.table
+  - headers = stats.first[1].keys
+  %thead
+    %tr
+      %th= t('.date_range')
       - headers.each do |header|
         - header = header.is_a?(Range) ? I18n.l(header.begin, format: '%b %Y') : t(".#{header}")
-        %td= header
+        %th= header
+  %tbody
     - stats.reverse_each do |date_range, info|
       %tr
         - formatted_month = I18n.l(date_range.begin, format: '%b %Y')
-        %td
+        %th{ scope: 'row' }
           = formatted_month
         - info.each do |header, value|
           %td{ title: t(".tooltips.#{header}", month: formatted_month) }

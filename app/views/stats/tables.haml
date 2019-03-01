@@ -1,19 +1,27 @@
 - meta title: t('.title')
 
-.ui.text.container#stats
-  %h1= t('.title')
+.hero
+  .hero__container
+    %h1.hero__white-background
+      = t('.title')
 
-  %h2.ui.header
-    = t('.users_stats')
-    .sub.header= link_to t('.download'), users_stats_path(format: 'csv')
-  = render partial: 'stats_table', locals: { stats: @users_stats }
+%section.section
+  .container.container-full
+    %h2.section__title= t('.users_stats')
+    %h4.section__subtitle= link_to t('.download'), users_stats_path(format: 'csv')
+    %p
+    = render partial: 'stats_table', locals: { stats: @users_stats }
 
-  %h2.ui.header
-    = t('.activity_stats')
-    .sub.header= link_to t('.download'), activity_stats_path(format: 'csv')
-  = render partial: 'stats_table', locals: { stats: @activity_stats }
+%section.section
+  .container.container-full
+    %h2.section__title= t('.activity_stats')
+    %h4.section__subtitle= link_to t('.download'), activity_stats_path(format: 'csv')
+    %p
+    = render partial: 'stats_table', locals: { stats: @activity_stats }
 
-  %h2.ui.header
-    = t('.cohorts_stats')
-    .sub.header= link_to t('.download'), cohorts_stats_path(format: 'csv')
-  = render partial: 'stats_table', locals: { stats: @cohorts_stats }
+%section.section
+  .container.container-full
+    %h2.section__title= t('.cohorts_stats')
+    %h4.section__subtitle= link_to t('.download'), cohorts_stats_path(format: 'csv')
+    %p
+    = render partial: 'stats_table', locals: { stats: @cohorts_stats }
