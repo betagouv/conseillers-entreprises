@@ -1,12 +1,19 @@
 - meta title: @landing.title, description: @landing.subtitle
 
-.hero.superhero
-  .hero__container
+%header.navbar
+  .navbar__container
+    %a.navbar__home{ href: '/' }
+      = image_tag 'logo-marianne.svg', alt: 'reso.data.gouv.fr', class: 'navbar__logo'
+      %span.navbar__domain= 'reso'
+      = image_tag 'pointbetagouvfr.svg', alt: 'beta.gouv.fr', class: 'navbar__gouvfr'
+
+.section.section-grey.landing
+  .container.container-full
     .row
-      .hero__container
+      .landingpanel
         .richtext
           = image_tag 'landing/labyrinthe.png'
-      .hero__container
+      .landingpanel
         .text-left
           %h1.hero_title= @landing.title
           %h3.hero_subtitle= @landing.subtitle
