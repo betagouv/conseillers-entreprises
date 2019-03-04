@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_14_120041) do
+ActiveRecord::Schema.define(version: 2019_03_04_100022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,13 @@ ActiveRecord::Schema.define(version: 2019_02_14_120041) do
     t.boolean "qualified_for_artisanry", default: true, null: false
     t.integer "antennes_count"
     t.boolean "show_icon", default: true
+  end
+
+  create_table "landings", force: :cascade do |t|
+    t.string "slug", null: false
+    t.jsonb "content", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "matches", force: :cascade do |t|

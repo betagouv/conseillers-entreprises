@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
   resource 'conseillers', only: %i[show]
 
-  get 'entreprise/:slug', to: 'landing#landing'
+  get 'entreprise/:slug', to: 'landing#landing', as: 'landing'
 
   resource :solicitation, only: %i[create]
 
