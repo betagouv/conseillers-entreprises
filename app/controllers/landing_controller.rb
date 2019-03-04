@@ -3,24 +3,16 @@ class LandingController < ApplicationController
 
   layout 'empty'
 
-  Landing = Struct.new(:title, :subtitle, :button, :url)
-
   def landing
     slug = params[:slug]&.to_sym
-    redirect_to root_path if !landing_slugs.include?(slug)
+    @landing = Landing.find_by(slug: slug)
 
-    @landing = Landing.new(I18n.t("landing.#{slug}.title"),
-      I18n.t("landing.#{slug}.subtitle"),
-      I18n.t("landing.#{slug}.button"),
-      url_to_root(slug))
+    redirect_to root_path if @landing.nil?
+
+    @url_to_root = url_to_root(slug)
   end
 
   private
-
-  def landing_slugs
-    landing_slugs_keypath = 'landing'
-    I18n.t(landing_slugs_keypath).keys
-  end
 
   def url_to_root(slug)
     tracking_params = { pk_source: 'landing', pk_campaign: 'entreprise', pk_content: slug }
