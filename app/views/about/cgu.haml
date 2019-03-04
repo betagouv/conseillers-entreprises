@@ -1,5 +1,14 @@
 - meta title: t('.title')
 
+.hero
+  .hero__container
+    %h1.hero__white-background
+      = t('.title')
+
 %section.section.section-grey
   .container.container-medium
     = t('.explanation_html')
+
+%section.section.section-white#suivi
+  .container.container-medium
+    = t('privacy.explanation_html')
