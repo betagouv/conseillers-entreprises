@@ -6,9 +6,11 @@
     = csrf_meta_tags
     = stylesheet_link_tag 'solicitations/index'
     = javascript_include_tag 'solicitations', data: { turbolinks_track: true }
+    = javascript_include_tag 'https://browser.sentry-cdn.com/4.6.4/bundle.min.js', crossorigin: 'anonymous'
 
     = favicon_link_tag 'reso-favicon.ico'
     = yield :head
+    = sentry_script
     = matomo_script
 
   %body
