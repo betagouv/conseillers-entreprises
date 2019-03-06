@@ -5,7 +5,7 @@ class FeedbacksController < ApplicationController
 
   def create
     @feedback = Feedback.create(feedback_params)
-    if @feedback.present?
+    if @feedback.persisted?
       UserMailer.delay.match_feedback(@feedback)
     end
   end
@@ -13,7 +13,6 @@ class FeedbacksController < ApplicationController
   def destroy
     @feedback_id = params[:id]
     feedback = Feedback.find(@feedback_id)
-    diagnosis = feedback.match.diagnosed_need.diagnosis
 
     check_current_user_access_to(feedback)
 
