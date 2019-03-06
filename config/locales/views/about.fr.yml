@@ -9,7 +9,7 @@ fr:
         <p>Incubateur des services numériques,<br>
         Direction interministérielle du numérique et du système d’information et de communication de l’État (DINSIC).</p>
         <h4>Directeur de la publication</h4>
-        <p>Monsieur Henri Verdier,<br>
+        <p>Monsieur Nadi Bou Hanna,<br>
         Directeur interministériel du numérique et du système d’information et de communication de l’État (DINSIC).</p>
         <h4>Hébergeur</h4>
         <p>Scalingo<br>
@@ -61,16 +61,8 @@ fr:
          <p>Les responsables du Services’engagent à réaliser toute formalité nécessaire à la mise en œuvre d’un éventuel traitement de données à caractère personnel dans le cadre de la réalisation du Service.</p>
          <p>Le Service est hébergé sous la responsabilité de la DINSIC. Cet hébergement n’est pas qualifié pour récolter des données sensibles au sens des articles 8 et suivants de la loi n° 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés.</p>
       title: Conditions générales d’utilisation
-    qui_sommes_nous:
-      contact_admins_for_local_purpose: Pour toute question spécifique à un territoire, merci de contacter le relais local concerné.
-      contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link} ou par téléphone au 06 99 05 47 37.
-      product_team: Équipe projet
-      relays: Relais locaux
-      responsible_of_territories:
-        one: Relais local
-        other: Relais locaux
-      title: Qui sommes-nous ?
     show:
+      contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link}.
       explanation_html: |
         <h2>Des entrepreneurs isolés, des conseils cloisonnés</h2>
         <p>Plus de 2 000 aides publiques existent mais les chefs entreprises n’ont ni le temps, ni les moyens d’en faire la demande. De nombreux organismes publics - Chambres de Commerce, DIRECCTE, Région… - ont donc déployé sur le terrain des conseillers pour apporter directement ces aides aux entreprises.</p>
@@ -80,7 +72,8 @@ fr:
         <h2>Un outil numérique au service du conseil public</h2>
         <p>Un outil numérique est au cœur de ce réseau et permet de le fédérer. Des algorithmes utilisant des bases de données publiques (activités, résultats financiers, export…) permettent de cibler la prospection : entreprises en pré-difficulté, à fort potentiel de croissance ou ayant un projet de recrutement… Un simulateur permet aux conseillers de proposer aux chefs d’entreprise un premier niveau d’information sur les aides correspondant à leurs besoins et, le cas échéant, d’identifier un contact au sein de l’administration capable de les accompagner dans leurs démarches.</p>
         <p>Réso permet ainsi à l’administration de développer un rôle de conseil à destination des entreprises en complément de son rôle régalien de contrôle.</p>
-      title: En savoir plus
+      product_team: Équipe projet
+      title: À propos
   conseillers:
     show:
       feature_find_contacts_html: 2<br><em class='feature-text-em'>Trouvez</em><br>les contacts compétents sur votre territoire
@@ -94,3 +87,5 @@ fr:
       tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
       tool_to_help_advisors: Un outil dédié aux conseillers d’entreprise des organismes publics
       we_help_you_and_we_want_feedbacks_html: Nous vous accompagnons dans l’utilisation de Réso<br>et recevons vos commentaires.
+  privacy:
+    explanation_html: '<h2>Cookies déposés et configuration du suivi</h2> <p>Ce site dépose un petit fichier texte (un « cookie ») sur votre ordinateur lorsque vous le consultez. Cela nous permet de mesurer le nombre de visites et de comprendre quelles sont les pages les plus consultées.</p> <iframe style="background:#fafbfc; border:0; width: 100%;" src="https://stats.data.gouv.fr/index.php?module=CoreAdminHome&action=optOut&language=fr&fontFamily=sans-serif"></iframe> <h3>Ce site n’affiche pas de bannière de consentement aux cookies, pourquoi ?</h3> <p>C’est vrai, vous n’avez pas eu à cliquer sur un bloc qui recouvre la moitié de la page pour dire que vous êtes d’accord avec le dépôt de cookies. <br> <br> Rien d’exceptionnel, pas de passe-droit. Nous respectons simplement la loi, qui dit que certains outils de suivi d’audience, correctement configurés pour respecter la vie privée, sont exemptés d’autorisation préalable. <br> <br> Nous utilisons pour cela <a href="https://matomo.org/" target="_blank">Matomo</a>, un outil <a href="https://matomo.org/free-software/" target="_blank">libre</a>, paramétré pour être en conformité avec la <a href="https://www.cnil.fr/fr/solutions-pour-la-mesure-daudience">recommandation « Cookies » </a>de la CNIL. Cela signifie que votre adresse IP, par exemple, est anonymisée avant d’être enregistrée. Il est donc impossible d’associer vos visites sur ce site à votre personne. </p>'
