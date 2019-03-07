@@ -80,10 +80,7 @@ fr:
       solicitation:
         needs: Besoins sélectionnés
         pk_campaign: Campagne
-        pk_content: Annonce
         pk_kwd: Mots-clés
-        pk_medium: Medium
-        pk_source: Source
         tracking: Suivi
       territory:
         advisors: Conseillers

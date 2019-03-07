@@ -18,11 +18,26 @@ module SolicitationHelper
     end
   end
 
-  def link_to_google_ad_content(content_id)
-    link_to content_id, "https://ads.google.com/aw/ads/versions?adId=#{content_id}"
+  ## Google Ads helpers
+  # Our ads params are
+  # pk_campaign=googleads-{campaignid}
+  # pk_kwd={creative}-{keyword}
+  def link_to_tracked_campaign(solicitation)
+    campaign_components = solicitation.pk_campaign.split('-', 2)
+    if campaign_components.first == 'googleads'
+      link_to solicitation.pk_campaign, "https://ads.google.com/aw/adgroups?campaignId=#{campaign_components.last}"
+    else
+      solicitation.pk_campaign
+    end
   end
 
-  def link_to_google_ad_campaign(campaign_id)
-    link_to campaign_id, "https://ads.google.com/aw/adgroups?campaignId=#{campaign_id}"
+  def link_to_tracked_ad(solicitation)
+    campaign_components = solicitation.pk_campaign.split('-', 2)
+    if campaign_components.first == 'googleads'
+      keyword_components = solicitation.pk_kwd.split('-', 2)
+      link_to solicitation.pk_kwd, "https://ads.google.com/aw/ads/versions?adId=#{keyword_components.first}"
+    else
+      solicitation.pk_kwd
+    end
   end
 end
