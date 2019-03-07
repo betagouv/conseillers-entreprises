@@ -107,6 +107,14 @@ class DiagnosedNeed < ApplicationRecord
       .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
   end
 
+  scope :no_activity_after, -> (date) do
+    where.not("diagnosed_needs.updated_at > ?", date)
+      .left_outer_joins(:matches)
+      .where.not(matches: Match.where('updated_at > ?', date))
+      .left_outer_joins(:feedbacks)
+      .where.not(feedbacks: Feedback.where('updated_at > ?', date))
+  end
+
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.where(status: status)).distinct
   end
@@ -118,6 +126,11 @@ class DiagnosedNeed < ApplicationRecord
   #
   def to_s
     "#{company} : #{question}"
+  end
+
+  def last_activity_at
+    dates = [updated_at, matches.pluck(:updated_at), feedbacks.pluck(:updated_at)].flatten
+    dates.max
   end
 
   def status_synthesis

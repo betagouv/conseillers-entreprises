@@ -167,6 +167,34 @@ RSpec.describe DiagnosedNeed, type: :model do
         it { is_expected.to eq [need1, need2] }
       end
     end
+
+    describe 'no_activity_after' do
+      subject { DiagnosedNeed.no_activity_after(today) }
+
+      let(:yesterday) { 1.day.ago.beginning_of_day }
+      let(:today) { Time.now.beginning_of_day }
+      let(:tomorroy) { 1.day.from_now.beginning_of_day }
+
+      let(:need1) { build :diagnosed_need }
+      let(:need2) { build :diagnosed_need }
+      let(:need3) { build :diagnosed_need }
+      let(:match_tomorrow) { build :match, diagnosed_need: need2 }
+      let(:feedback_tomorrow) { build(:feedback, match: build(:match, diagnosed_need: need3)) }
+
+      before do
+        Timecop.travel(yesterday) do
+          need1.save
+          need2.save
+          need3.save
+        end
+        Timecop.travel(tomorroy) do
+          match_tomorrow.save
+          feedback_tomorrow.save
+        end
+      end
+
+      it { is_expected.to eq [need1] }
+    end
   end
 
   describe 'contacted_persons' do
@@ -196,6 +224,42 @@ RSpec.describe DiagnosedNeed, type: :model do
       let(:matches) { [expert_match, expert_match2] }
 
       it { is_expected.to match_array [expert] }
+    end
+  end
+
+  describe 'last_activity_at' do
+    subject { diagnosed_need.last_activity_at.beginning_of_day }
+
+    let(:diagnosed_need) { create :diagnosed_need }
+    let(:match) { build :match, diagnosed_need: diagnosed_need }
+    let(:feedback) { build :feedback, match: match }
+
+    let(:date1) { Time.zone.now.beginning_of_day }
+    let(:date2) { date1 + 5.days }
+    let(:date3) { date1 + 10.days }
+
+    context 'with no match activity' do
+      it { is_expected.to eq date1 }
+    end
+
+    context 'with recent match activity' do
+      before do
+        Timecop.travel(date2) do
+          match.save
+        end
+      end
+
+      it { is_expected.to eq date2 }
+    end
+
+    context 'with recent feedback' do
+      before do
+        Timecop.travel(date3) do
+          feedback.save
+        end
+      end
+
+      it { is_expected.to eq date3 }
     end
   end
 end

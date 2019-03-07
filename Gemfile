@@ -65,6 +65,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webmock'
+  gem 'timecop'
 end
 
 group :development, :test do

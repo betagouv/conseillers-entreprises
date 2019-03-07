@@ -8,6 +8,7 @@ ActiveAdmin.register Feedback do
   index do
     selectable_column
     id_column
+    column :created_at
 
     column :match do |f|
       link_to(f.diagnosed_need, admin_match_path(f.match))
@@ -28,6 +29,7 @@ ActiveAdmin.register Feedback do
   #
   csv do
     column :id
+    column :created_at
     column :diagnosed_need
     column :expert
     column :description
@@ -37,6 +39,7 @@ ActiveAdmin.register Feedback do
   #
   show do
     attributes_table do
+      row :created_at
       row :match do |f|
         link_to(f.diagnosed_need, admin_match_path(f.match))
       end
