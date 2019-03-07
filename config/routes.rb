@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   resource 'a_propos', controller: 'about', only: %i[] do
     get :show
     get :cgu
-    get :'qui_sommes_nous'
   end
 
   resource 'conseillers', only: %i[show]

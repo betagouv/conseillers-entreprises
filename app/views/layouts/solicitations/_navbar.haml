@@ -7,5 +7,6 @@
     %nav
       %ul.nav__links
         %li.nav__item
-          %a{ href: new_user_session_path }
-            = t('experts_login')
+          = link_to t('find_out_more'), a_propos_path
+        %li.nav__item
+          = link_to t('experts_login'), new_user_session_path
