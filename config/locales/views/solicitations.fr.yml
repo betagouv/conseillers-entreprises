@@ -1,5 +1,9 @@
 ---
 fr:
+  landing:
+    landing:
+      institutions:
+        title: En partenariat avec
   mailers:
     admin_mailer:
       solicitation:
