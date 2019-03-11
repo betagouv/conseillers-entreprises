@@ -30,7 +30,7 @@ class SolicitationsController < ApplicationController
   private
 
   def alternatives
-    %i[phone_form form_phone]
+    %i[]
   end
 
   def index_tracking_params
