@@ -62,7 +62,7 @@ fr:
          <p>Le Service est hébergé sous la responsabilité de la DINSIC. Cet hébergement n’est pas qualifié pour récolter des données sensibles au sens des articles 8 et suivants de la loi n° 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés.</p>
       title: Conditions générales d’utilisation
     show:
-      contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link}.
+      contact_team_for_general_purpose_html: Pour toute question sur le projet Réso, contactez-nous sur %{mailto_link}.
       explanation_html: |
         <p>Avec Réso, l’État et l’ensemble des organismes publics développent leur rôle de conseil à destination des entreprises. Ils cherchent à détecter plus efficacement les besoins des entreprises et à mieux mobiliser les aides et accompagnement des organismes publics.</p>
         <p>L’objectif est simple mais ambitieux : mieux accompagner les entreprises dans leurs projets, leurs difficultés et leurs questions au quotidien - sur tous les sujets d’entreprise.</p>
@@ -84,7 +84,7 @@ fr:
         </li>
         </ul>
         <p>Cette mutualisation des moyens et des offres de services favorise des accompagnements aux entreprises plus productifs et des dispositifs d’aide qui trouvent mieux leur public.</p>
-      product_team: Équipe projet
+      product_team: L’équipe Réso
       title: À propos
   conseillers:
     show:
