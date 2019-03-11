@@ -14,10 +14,13 @@
     %h3
       %a.button{ href: @url_to_root }= @landing.button
 
-%section.section.section-white
-  .container
-    %h2.section__title
-      = t('.institutions.title')
-    .logo-list
-      - @landing.logos.split(' ').each do |logo_slug|
-        = institution_image(logo_slug)
+- if @landing.logos.present?
+  %section.section.section-white
+    .container
+      %h2.section__title
+        = t('.institutions.title')
+      .logo-list
+        - @landing.logos.split(' ').each do |logo_slug|
+          = institution_image(logo_slug)
+
+%section.section.section-grey
