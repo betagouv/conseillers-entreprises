@@ -64,14 +64,26 @@ fr:
     show:
       contact_team_for_general_purpose_html: Pour toute question relative au projet Réso, vous pouvez nous contacter par e-mail sur %{mailto_link}.
       explanation_html: |
-        <h2>Des entrepreneurs isolés, des conseils cloisonnés</h2>
-        <p>Plus de 2 000 aides publiques existent mais les chefs entreprises n’ont ni le temps, ni les moyens d’en faire la demande. De nombreux organismes publics - Chambres de Commerce, DIRECCTE, Région… - ont donc déployé sur le terrain des conseillers pour apporter directement ces aides aux entreprises.</p>
-        <p>L’activité de ces conseillers est aujourd’hui confrontée à un double problème de ciblage et de cloisonnement. D’une part, les conseillers ciblent fréquemment les mêmes entreprises qui se plaignent d’être sur-sollicitées alors que celles qui ont le plus besoin d’aide ne sont souvent pas accompagnées. D’autre part, les conseillers ne proposent que les dispositifs d’aide des institutions auxquelles ils sont rattachés et ne sont donc en mesure de répondre qu’à une fraction des besoins exprimés par les chefs d’entreprise.</p>
-        <h2>Un guichet unique à la porte des entreprises</h2>
-        <p>Avec Réso, l’État ouvre un guichet unique qu’il apporte aux entreprises en ayant le plus besoin. Les organismes publics proposant des aides les mettent à la disposition de l’ensemble des conseillers qui vont au contact des chefs d’entreprise. Cette mutualisation des moyens permet des visites d’entreprise plus productives et des dispositifs d’aide qui trouvent mieux leur public.</p>
-        <h2>Un outil numérique au service du conseil public</h2>
-        <p>Un outil numérique est au cœur de ce réseau et permet de le fédérer. Des algorithmes utilisant des bases de données publiques (activités, résultats financiers, export…) permettent de cibler la prospection : entreprises en pré-difficulté, à fort potentiel de croissance ou ayant un projet de recrutement… Un simulateur permet aux conseillers de proposer aux chefs d’entreprise un premier niveau d’information sur les aides correspondant à leurs besoins et, le cas échéant, d’identifier un contact au sein de l’administration capable de les accompagner dans leurs démarches.</p>
-        <p>Réso permet ainsi à l’administration de développer un rôle de conseil à destination des entreprises en complément de son rôle régalien de contrôle.</p>
+        <p>Avec Réso, l’État et l’ensemble des organismes publics développent leur rôle de conseil à destination des entreprises. Ils cherchent à détecter plus efficacement les besoins des entreprises et à mieux mobiliser les aides et accompagnement des organismes publics.</p>
+        <p>L’objectif est simple mais ambitieux : mieux accompagner les entreprises dans leurs projets, leurs difficultés et leurs questions au quotidien - sur tous les sujets d’entreprise.</p>
+        <h3>Des entrepreneurs isolés, des conseils cloisonnés</h2>
+        <p>Plus de 2 000 aides publiques existent mais les chefs entreprises n’ont souvent ni le temps, ni les moyens d’en faire la demande. L’activité des organismes publics chargés d’apporter ces aides aux entreprises est aujourd’hui confrontée à un double problème de ciblage et de cloisonnement.</p>
+        <p>D’une part, certaines entreprises sont ciblées de manière répétée et se plaignent d’être sur-sollicitées alors que celles qui ont le plus besoin d’aide ne sont souvent pas accompagnées.</p>
+        <p>D’autre part, les organismes publics ne proposent que leurs propres dispositifs d’aide et ne sont donc en mesure de répondre qu’à une fraction des besoins exprimés par les chefs d’entreprise.</p>
+        <h3>Un guichet unique à la porte des entreprises</h2>
+        <p>Dans le cadre du projet Réso, dès fin 2017, un outil de mise en relation a été développé. Il permet d’identifier, dans un carnet d’adresses dédié, un contact expert au sein de l’administration et des opérateurs publics capable d’accompagner l’entreprise dans sa démarche.</p>
+        <p>Réso est à la fois :
+        <ul>
+        <li><p>Un outil confié aux conseillers publics d’entreprise :</p>
+        <p>De nombreux organismes publics - Chambres de Commerce, DIRECCTE, Région… ont déployé sur le terrain des conseillers pour apporter directement ces aides aux entreprises.</p>
+        <p>Emmenés dans une dynamique de détection de tous les besoins lors des visites en entreprise, les conseillers entreprise vont détecter des besoins hors de leur champ de compétence et notifierons ainsi facilement les bons référents experts des bons organismes publics.</p>
+        </li>
+        <li>
+        <p>Et un formulaire en libre accès aux chefs d’entreprises.</p>
+        <p>Il permet ainsi aux chefs d’entreprise de solliciter plus rapidement et facilement un organisme public pour lui demander de l’accompagner.</p>
+        </li>
+        </ul>
+        <p>Cette mutualisation des moyens et des offres de services favorise des accompagnements aux entreprises plus productifs et des dispositifs d’aide qui trouvent mieux leur public.</p>
       product_team: Équipe projet
       title: À propos
   conseillers:
