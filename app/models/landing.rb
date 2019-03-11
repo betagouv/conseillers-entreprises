@@ -13,6 +13,6 @@ class Landing < ApplicationRecord
   ## JSON Accessors
   #
 
-  CONTENT_KEYS = %w[title subtitle button]
+  CONTENT_KEYS = %w[title subtitle button logos]
   store_accessor :content, CONTENT_KEYS
 end
