@@ -7,15 +7,9 @@
       %span.navbar__domain= 'reso'
       = image_tag 'pointbetagouvfr.svg', alt: 'beta.gouv.fr', class: 'navbar__gouvfr'
 
-.section.section-grey.landing
-  .container.container-full
-    .row
-      .landingpanel
-        .richtext
-          = image_tag 'landing/labyrinthe.png'
-      .landingpanel
-        .text-left
-          %h1.hero_title= @landing.title
-          %h3.hero_subtitle= @landing.subtitle
-          %h4
-            %a.button{ href: @url_to_root }= @landing.button
+.hero.landing.hero__background{ style: solicitation_background_style }
+  .hero__container.landing__container
+    %h1.hero_title= @landing.title
+    %h2.hero_subtitle= @landing.subtitle
+    %h3
+      %a.button{ href: @url_to_root }= @landing.button
