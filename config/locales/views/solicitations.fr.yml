@@ -27,7 +27,6 @@ fr:
       meta:
         description: Dites-nous ce qui vous amène, le bon spécialiste public vous rappelle directement. 42 partenaires des Hauts-de-France à votre service.
         title: 'Chef d’entreprise : toutes les solutions publiques en un clic'
-      separator: "– ou bien –"
     needs:
       long:
         01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?
@@ -51,11 +50,6 @@ fr:
         '08-reglementation': Réglementation
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
-    phone:
-      call_url: tel://0699054737
-      call_us: Appelez nous au 06 99 05 47 37
-      description: Nous contactons pour vous le bon spécialiste du service public.
-      title: Appelez-nous pour un prédiagnostic de 5 minutes.
     thank_you:
       description: On vous rappelle rapidement pour le prédiagnostic.
       reso_team: L’équipe Réso
