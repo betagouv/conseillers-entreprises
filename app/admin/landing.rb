@@ -10,6 +10,7 @@ ActiveAdmin.register Landing do
     end
     column :title
     column :subtitle
+    column :logos
     column :button
     actions dropdown: true
   end
@@ -24,6 +25,7 @@ ActiveAdmin.register Landing do
       row :title
       row :subtitle
       row :button
+      row :logos
       row :created_at
       row :updated_at
     end
@@ -31,13 +33,14 @@ ActiveAdmin.register Landing do
 
   ## Form
   #
-  permit_params :slug, :title, :subtitle, :button
+  permit_params :slug, :title, :subtitle, :button, :logos
   form do |f|
     f.inputs do
       f.input :slug
       f.input :title
       f.input :subtitle
       f.input :button
+      f.input :logos
     end
 
     f.actions
