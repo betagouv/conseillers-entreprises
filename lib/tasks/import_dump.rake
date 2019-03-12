@@ -26,7 +26,7 @@ namespace :import_dump do
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
 
-    sh 'psql reso-development -f tmp/export.pgsql -U postgres'
+    sh 'psql place-des-entreprises-development -f tmp/export.pgsql -U postgres'
 
     sh 'rm tmp/export.pgsql'
 
