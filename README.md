@@ -1,6 +1,6 @@
 # Place des Entreprises
 
-Apporter l’ensemble des aides publiques aux entreprises qui en ont besoin. [reso.beta.gouv.fr](https://reso.beta.gouv.fr/)
+Apporter l’ensemble des aides publiques aux entreprises qui en ont besoin. [place-des-entreprises.beta.gouv.fr](https://place-des-entreprises.beta.gouv.fr/)
 
 Créé dans le contexte de [l’incubateur des startups d’état](https://beta.gouv.fr/).
 
