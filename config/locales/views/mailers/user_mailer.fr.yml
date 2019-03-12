@@ -14,7 +14,7 @@ fr:
         context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{question_title} de l’entreprise %{company_name} le %{start_date},"
         hello: Bonjour,
         nice_day: Bonne journée,
-        reso_team_html: L’équipe %{link_to_root}.
+        place_des_entreprises_team_html: L’équipe %{link_to_root}.
         status:
           done: a indiqué que le besoin a été clôturé.
           not_finished: a indiqué que le besoin est toujours en cours de résolution.
@@ -27,7 +27,7 @@ fr:
         expert_wrote_back: "%{author} a fait un commentaire sur le besoin « %{need} » de l’entreprise %{company}:"
         hello: Bonjour %{name},
         nice_day: Bonne journée,
-        reso_team_html: L’équipe %{link_to_root}.
+        place_des_entreprises_team_html: L’équipe %{link_to_root}.
         subject: "[Place des Entreprises] Des nouvelles de %{company_name}"
         summary_html: Voir le %{summary_link} de l’entreprise.
         summary_link: récapitulatif des besoins

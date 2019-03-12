@@ -4,14 +4,14 @@ fr:
     admin_mailer:
       new_user_approved_notification:
         hello: Bonjour,
-        reso_app_html: L’application %{link_to_root}.
+        place_des_entreprises_app_html: L’application %{link_to_root}.
         subject: 'Re: [Place des Entreprises] %{full_name} vient de s’inscrire !'
         user_was_approved: L’utilisateur %{user_full_name} <%{user_email}> a été validé par %{admin_full_name}.
       new_user_created_notification:
         activate_their_account_html: "%{click_here_link} pour valider son compte."
         click_here: Cliquez ici
         hello: Bonjour,
-        reso_app_html: L’application %{link_to_root}.
+        place_des_entreprises_app_html: L’application %{link_to_root}.
         subject: "[Place des Entreprises] %{full_name} vient de s’inscrire"
         user_has_signed_up: "%{full_name} <%{email}> vient de s’inscrire."
         view_their_account_html: "%{click_here_link} pour consulter son compte."

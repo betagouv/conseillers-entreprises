@@ -6,9 +6,9 @@ fr:
         advisor_met_company: "%{advisor_name_with_role} l’a rencontrée le %{visit_date}."
         click_here: Voir les détails de la visite
         company_expressed_needs: 'L’entreprise a exprimé des besoins qui correspondent à vos compétences :'
-        details_on_reso: Rendez vous sur Place des Entreprises pour prendre en charge ou répondre à cette mise en relation.
+        details_on_place_des_entreprises: Rendez vous sur Place des Entreprises pour prendre en charge ou répondre à cette mise en relation.
         hello: Bonjour %{name},
-        see_you_on_reso_html: À très vite sur %{link_to_root}.
+        see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
         this_company_needs_you_html: L’entreprise <b>%{company_description}</b> a besoin de votre expertise.
       remind_involvement:
@@ -18,5 +18,5 @@ fr:
         here_is_a_summary_email_html: 'Ces entreprises ont besoin de vos compétences :'
         needs_being_taken_care_of: En cours de prise en charge
         needs_with_no_one_in_charge: Entreprises en attente
-        see_you_on_reso_html: À très vite sur %{link_to_root}.
+        see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
         subject: "[Place des Entreprises] Rappel : Des entreprises ont besoin de vous !"
