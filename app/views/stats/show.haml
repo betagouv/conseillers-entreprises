@@ -1,6 +1,6 @@
 - meta title: t('.title')
 - content_for :head do
-  - javascript_include_tag 'highcharts'
+  - javascript_include_tag 'highcharts', data: { turbolinks_track: 'reload' }
 
 .hero
   .hero__container
