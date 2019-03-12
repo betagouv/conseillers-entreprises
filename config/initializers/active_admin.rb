@@ -159,7 +159,7 @@ ActiveAdmin.setup do |config|
 
   # == Setting a Favicon
   #
-  config.favicon = 'reso-favicon-admin.ico'
+  config.favicon = 'place-des-entreprises-favicon-admin.ico'
 
   # == Meta Tags
   #
