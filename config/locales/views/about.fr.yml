@@ -16,7 +16,7 @@ fr:
         15 avenue du Rhin<br>
         67000 STRASBOURG</p>
         <h3>Objet</h3>
-        <p>« Réso », ci-après dénommé le Service, permet aux agents publics chargés de conseiller les entreprises d’identifier les problématiques rencontrées par ces entreprises et de trouver rapidement l’interlocuteur approprié pour répondre aux besoins détectés.</p>
+        <p>« Place des Entreprises », ci-après dénommé le Service, permet aux agents publics chargés de conseiller les entreprises d’identifier les problématiques rencontrées par ces entreprises et de trouver rapidement l’interlocuteur approprié pour répondre aux besoins détectés.</p>
         <p>Le Service mutualise ainsi les forces des multiples acteurs publics proposant des aides aux entreprises, en offrant à chaque conseiller l’accès à l’ensemble de l’offre publique ainsi que le ciblage de l’interlocuteur adapté au sein de cette offre.</p>
         <p>Le Service est mis en œuvre par l’Incubateur des services numériques de la Direction interministérielle du numérique et du système d’information et de communication de l’État (ci-après dénommé « la DINSIC »), rattachée au Secrétariat général pour la modernisation de l’action publique.</p>
         <p>L’utilisation du Service est facultative et gratuite.</p>
@@ -54,7 +54,7 @@ fr:
          20 avenue de Ségur<br>
          75007 Paris</p>
          <p>Le Service fait l’objet d’un traitement de données à caractère personnel déclaré auprès de la Commission nationale de l’informatique et des libertés, sous le n°2092561.</p>
-         <h3>Évolutions de Réso</h3>
+         <h3>Évolutions de Place des Entreprises</h3>
          <p>La DINSIC se réserve la liberté de faire évoluer, de modifier ou de suspendre, sans préavis, le Service pour des raisons de maintenance ou pour tout autre motif jugé nécessaire. Une page d’information est alors affichée à l’usager lui mentionnant cette indisponibilité.</p>
          <p>Les termes des présentes conditions d’utilisation peuvent être amendés à tout moment, en fonction des modifications apportées au Service, de l’évolution de la législation ou pour tout autre motif jugé nécessaire.</p>
          <h3>Engagements et responsabilité</h3>
@@ -62,17 +62,17 @@ fr:
          <p>Le Service est hébergé sous la responsabilité de la DINSIC. Cet hébergement n’est pas qualifié pour récolter des données sensibles au sens des articles 8 et suivants de la loi n° 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés.</p>
       title: Conditions générales d’utilisation
     show:
-      contact_team_for_general_purpose_html: Pour toute question sur le projet Réso, contactez-nous sur %{mailto_link}.
+      contact_team_for_general_purpose_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
       explanation_html: |
-        <p>Avec Réso, l’État et l’ensemble des organismes publics développent leur rôle de conseil à destination des entreprises. Ils cherchent à détecter plus efficacement les besoins des entreprises et à mieux mobiliser les aides et accompagnement des organismes publics.</p>
+        <p>Avec Place des Entreprises, l’État et l’ensemble des organismes publics développent leur rôle de conseil à destination des entreprises. Ils cherchent à détecter plus efficacement les besoins des entreprises et à mieux mobiliser les aides et accompagnement des organismes publics.</p>
         <p>L’objectif est simple mais ambitieux : mieux accompagner les entreprises dans leurs projets, leurs difficultés et leurs questions au quotidien - sur tous les sujets d’entreprise.</p>
         <h3>Des entrepreneurs isolés, des conseils cloisonnés</h2>
         <p>Plus de 2 000 aides publiques existent mais les chefs entreprises n’ont souvent ni le temps, ni les moyens d’en faire la demande. L’activité des organismes publics chargés d’apporter ces aides aux entreprises est aujourd’hui confrontée à un double problème de ciblage et de cloisonnement.</p>
         <p>D’une part, certaines entreprises sont ciblées de manière répétée et se plaignent d’être sur-sollicitées alors que celles qui ont le plus besoin d’aide ne sont souvent pas accompagnées.</p>
         <p>D’autre part, les organismes publics ne proposent que leurs propres dispositifs d’aide et ne sont donc en mesure de répondre qu’à une fraction des besoins exprimés par les chefs d’entreprise.</p>
         <h3>Un guichet unique à la porte des entreprises</h2>
-        <p>Dans le cadre du projet Réso, dès fin 2017, un outil de mise en relation a été développé. Il permet d’identifier, dans un carnet d’adresses dédié, un contact expert au sein de l’administration et des opérateurs publics capable d’accompagner l’entreprise dans sa démarche.</p>
-        <p>Réso est à la fois :
+        <p>Dans le cadre du projet Place des Entreprises, dès fin 2017, un outil de mise en relation a été développé. Il permet d’identifier, dans un carnet d’adresses dédié, un contact expert au sein de l’administration et des opérateurs publics capable d’accompagner l’entreprise dans sa démarche.</p>
+        <p>Place des Entreprises est à la fois :
         <ul>
         <li><p>Un outil confié aux conseillers publics d’entreprise :</p>
         <p>De nombreux organismes publics - Chambres de Commerce, DIRECCTE, Région… ont déployé sur le terrain des conseillers pour apporter directement ces aides aux entreprises.</p>
@@ -84,7 +84,7 @@ fr:
         </li>
         </ul>
         <p>Cette mutualisation des moyens et des offres de services favorise des accompagnements aux entreprises plus productifs et des dispositifs d’aide qui trouvent mieux leur public.</p>
-      product_team: L’équipe Réso
+      product_team: L’équipe Place des Entreprises
       title: À propos
   conseillers:
     show:
@@ -98,6 +98,6 @@ fr:
       start_button: Commencez !
       tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
       tool_to_help_advisors: Un outil dédié aux conseillers d’entreprise des organismes publics
-      we_help_you_and_we_want_feedbacks_html: Nous vous accompagnons dans l’utilisation de Réso<br>et recevons vos commentaires.
+      we_help_you_and_we_want_feedbacks_html: Nous vous accompagnons dans l’utilisation de Place des Entreprises<br>et recevons vos commentaires.
   privacy:
     explanation_html: '<h2>Cookies déposés et configuration du suivi</h2> <p>Ce site dépose un petit fichier texte (un « cookie ») sur votre ordinateur lorsque vous le consultez. Cela nous permet de mesurer le nombre de visites et de comprendre quelles sont les pages les plus consultées.</p> <iframe style="background:#fafbfc; border:0; width: 100%;" src="https://stats.data.gouv.fr/index.php?module=CoreAdminHome&action=optOut&language=fr&fontFamily=sans-serif"></iframe> <h3>Ce site n’affiche pas de bannière de consentement aux cookies, pourquoi ?</h3> <p>C’est vrai, vous n’avez pas eu à cliquer sur un bloc qui recouvre la moitié de la page pour dire que vous êtes d’accord avec le dépôt de cookies. <br> <br> Rien d’exceptionnel, pas de passe-droit. Nous respectons simplement la loi, qui dit que certains outils de suivi d’audience, correctement configurés pour respecter la vie privée, sont exemptés d’autorisation préalable. <br> <br> Nous utilisons pour cela <a href="https://matomo.org/" target="_blank">Matomo</a>, un outil <a href="https://matomo.org/free-software/" target="_blank">libre</a>, paramétré pour être en conformité avec la <a href="https://www.cnil.fr/fr/solutions-pour-la-mesure-daudience">recommandation « Cookies » </a>de la CNIL. Cela signifie que votre adresse IP, par exemple, est anonymisée avant d’être enregistrée. Il est donc impossible d’associer vos visites sur ce site à votre personne. </p>'

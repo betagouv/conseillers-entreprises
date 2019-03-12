@@ -11,7 +11,7 @@ fr:
       confirmation_instructions:
         confirm_my_account: Confirmer mon compte
         confirm_your_email_by_clicking_on_the_link: 'Vous pouvez confirmer votre adresse e-mail en cliquant sur le lien ci-dessous :'
-        welcome: Bienvenue sur Réso, %{user_full_name} !
+        welcome: Bienvenue sur Place des Entreprises, %{user_full_name} !
       email_changed:
         your_email_has_been_changed: Nous vous contactons pour vous informer que votre adresse e-mail a bien été changée pour %{new_email}.
         your_email_is_being_changed: Nous vous contactons pour vous informer que votre adresse e-mail va être changée pour %{unconfirmed_email}.

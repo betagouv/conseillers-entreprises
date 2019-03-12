@@ -20,7 +20,7 @@ fr:
           other: "%{count} mises en relation."
           zero: Aucune mise en relation.
         reso_team_html: L’équipe %{link_to_root}.
-        subject: "[Réso] Statistiques hebdomadaires pour le territoire de %{territory_name}"
+        subject: "[Place des Entreprises] Statistiques hebdomadaires pour le territoire de %{territory_name}"
         updated_diagnoses_count:
           one: 'Une analyse mise à jour :'
           other: "%{count} analyses mises à jour :"

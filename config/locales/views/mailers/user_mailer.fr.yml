@@ -3,13 +3,13 @@ fr:
   mailers:
     user_mailer:
       account_approved:
-        account_was_approved_html: Votre inscription sur Réso a été validée. Vous pouvez désormais vous connecter et entrer en contact avec des référents pour aider les entreprises que vous rencontrez. Vous trouverez aussi un %{link_to_guide} et quelques astuces pour une approche globale des besoins des entreprises.
+        account_was_approved_html: Votre inscription sur Place des Entreprises a été validée. Vous pouvez désormais vous connecter et entrer en contact avec des référents pour aider les entreprises que vous rencontrez. Vous trouverez aussi un %{link_to_guide} et quelques astuces pour une approche globale des besoins des entreprises.
         dont_hesitate_to_ask: N’hésitez pas à répondre à cet e-mail pour toute question.
         happy_discovery_html: Bonne découverte de %{link_to_root}.
         hello: Bonjour,
         interview_guide: guide d’entretien
         sign_me_in: Me connecter
-        subject: "[Réso] Votre compte a été validé !"
+        subject: "[Place des Entreprises] Votre compte a été validé !"
       daily_change_update:
         context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{question_title} de l’entreprise %{company_name} le %{start_date},"
         hello: Bonjour,
@@ -21,23 +21,23 @@ fr:
           not_for_me: a indiqué que le besoin est hors de son champ de compétence.
           taking_care: a pris en charge la résolution du besoin.
           waiting_for_answer: n’a pas pris de décision sur le besoin.
-        subject: "[Réso] Hier sur Réso"
-        yesterday: 'Hier sur Réso les demandes suivantes ont évolué :'
+        subject: Hier sur Place des Entreprises
+        yesterday: 'Hier sur Place des Entreprises les demandes suivantes ont évolué :'
       match_feedback:
         expert_wrote_back: "%{author} a fait un commentaire sur le besoin « %{need} » de l’entreprise %{company}:"
         hello: Bonjour %{name},
         nice_day: Bonne journée,
         reso_team_html: L’équipe %{link_to_root}.
-        subject: "[Réso] Des nouvelles de %{company_name}"
+        subject: "[Place des Entreprises] Des nouvelles de %{company_name}"
         summary_html: Voir le %{summary_link} de l’entreprise.
         summary_link: récapitulatif des besoins
         thankyou: Vous pouvez le contacter pour discuter plus précisément de l’entreprise.
       send_new_user_invitation:
         application_summary: Cette application web permet de rejoindre un réseau de conseillers en entreprise et d’institutions référentes.
-        click_on_following_link_to_continue: 'Cliquez sur le lien suivant pour finaliser votre inscription sur Réso :'
+        click_on_following_link_to_continue: 'Cliquez sur le lien suivant pour finaliser votre inscription sur Place des Entreprises :'
         dont_hesitate_to_ask: N’hésitez pas à répondre à cet e-mail pour toute question !
         finish_registration: Finaliser mon inscription
         happy_discovery_html: Bonne découverte de %{link_to_root}.
         hello: Bonjour,
-        subject: Bienvenue sur Réso !
-        you_have_been_invited: Vous avez été invité sur Réso.
+        subject: Bienvenue sur Place des Entreprises !
+        you_have_been_invited: Vous avez été invité sur Place des Entreprises.

@@ -5,14 +5,14 @@ fr:
       new_user_approved_notification:
         hello: Bonjour,
         reso_app_html: L’application %{link_to_root}.
-        subject: 'Re: [Réso] %{full_name} vient de s’inscrire !'
+        subject: 'Re: [Place des Entreprises] %{full_name} vient de s’inscrire !'
         user_was_approved: L’utilisateur %{user_full_name} <%{user_email}> a été validé par %{admin_full_name}.
       new_user_created_notification:
         activate_their_account_html: "%{click_here_link} pour valider son compte."
         click_here: Cliquez ici
         hello: Bonjour,
         reso_app_html: L’application %{link_to_root}.
-        subject: "[Réso] %{full_name} vient de s’inscrire"
+        subject: "[Place des Entreprises] %{full_name} vient de s’inscrire"
         user_has_signed_up: "%{full_name} <%{email}> vient de s’inscrire."
         view_their_account_html: "%{click_here_link} pour consulter son compte."
       weekly_statistics:
@@ -26,7 +26,7 @@ fr:
           zero: Aucune analyse créée.
         diagnosis_description: 'Analyse #%{id} par %{advisor_name} pour %{company_name}'
         hello: Bonjour, chers administrateurs !
-        last_week: 'La semaine dernière sur Réso, nous avons eu :'
+        last_week: 'La semaine dernière sur Place des Entreprises, nous avons eu :'
         matches_count:
           one: Une mise en relation.
           other: "%{count} mises en relation."
@@ -45,7 +45,7 @@ fr:
           one: 'Un nouvel inscrit :'
           other: "%{count} nouveaux inscrits :"
           zero: Aucun nouvel inscrit.
-        subject: "[Réso] Bon lundi ! Voici les statistiques d’utilisation !"
+        subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
         updated_diagnoses_count:
           one: 'Une analyse mise à jour :'
           other: "%{count} analyses mises à jour :"

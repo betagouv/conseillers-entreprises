@@ -133,7 +133,7 @@ fr:
         user:
           attributes:
             email:
-              taken: est déjà inscrit sur Réso. Connectez-vous.
+              taken: est déjà inscrit sur Place des Entreprises. Connectez-vous.
     models:
       antenne:
         one: Antenne
