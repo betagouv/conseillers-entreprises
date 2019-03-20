@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :territory do
-    name { Faker::Pokemon.location }
+    name { Faker::Address.country }
   end
 end

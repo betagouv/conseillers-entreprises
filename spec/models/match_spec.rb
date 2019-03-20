@@ -7,7 +7,7 @@ RSpec.describe Match, type: :model do
   describe 'validations' do
     it do
       is_expected.to belong_to :diagnosed_need
-      is_expected.to belong_to :assistance_expert
+      # is_expected.to belong_to :assistance_expert  # TODO: We currently have bad data in DB, and cannot validate this
       is_expected.to validate_presence_of :diagnosed_need
     end
   end
