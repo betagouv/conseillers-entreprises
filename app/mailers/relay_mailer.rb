@@ -20,7 +20,7 @@ class RelayMailer < ApplicationMailer
   def attach_csv_for_territory(stats_csv, territory_name)
     transliterated_territory_name = I18n.transliterate(territory_name).downcase
     date = Time.zone.today.iso8601
-    file_name = "reso-#{transliterated_territory_name}-statistics-#{date}.csv"
+    file_name = "place-des-entreprises-#{transliterated_territory_name}-statistics-#{date}.csv"
     attachments[file_name] = { mime_type: 'text/csv', content: stats_csv }
   end
 end

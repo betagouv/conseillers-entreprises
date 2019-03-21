@@ -12,7 +12,7 @@ fr:
   solicitations:
     form:
       button:
-        title: Rappelez-moi
+        title: Envoyer ma demande
       description:
         placeholder: 'Décrivez simplement votre besoin. Par exemple: « Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils. »'
       email:
@@ -22,15 +22,19 @@ fr:
         label: Téléphone
         placeholder: 06 12 34 56 78
     index:
-      description: Dites-nous ce qui vous amène, le bon spécialiste public vous rappelle.
+      description: Confiez votre demande, le bon interlocuteur vous rappelle sous 15 jours
+      examples_1_html: Problèmes de trésorerie<br/>Financement d’un nouveau projet<br/>Cession – Reprise
+      examples_2_html: Réglementation<br/>Site Internet<br/>Recherche de nouveaux clients
+      examples_3_html: Développement de nouveaux produits<br/>Recrutement<br/>Formation
       hero:
-        subtitle: Recrutement • Formation • Problèmes de trésorerie • Cession • Reprise • Réglementation • Financement d’un nouveau projet • Site Internet • Recherche de nouveaux clients • Développement de nouveaux produits • Diagnostic global • …
-        title: 'TPE-PME : toutes les solutions publiques en un clic'
+        pretitle_html: 'TPE, PME : plus de 2 000 aides et accompagnements publics existent pour  vous aider à grandir ou surmonter une difficulté.<br/>Vous ne savez pas à qui vous adresser ?'
+        subtitle: Le service rapide et gratuit qui vous permet d’accéder au bon interlocuteur selon votre demande.
+        title: Place des Entreprises
       institutions:
         title: '42 partenaires publics des Hauts-de-France à votre service :'
       meta:
-        description: Dites-nous ce qui vous amène, le bon spécialiste public vous rappelle directement. 42 partenaires des Hauts-de-France à votre service.
-        title: 'Chef d’entreprise : toutes les solutions publiques en un clic'
+        description: Place des Entreprises | Le service rapide et gratuit qui vous permet d’accéder au bon interlocuteur selon votre demande.
+        title: 'TPE, PME : plus de 2 000 aides et accompagnements publics existent pour  vous aider à grandir ou surmonter une difficulté. Vous ne savez pas à qui vous adresser ?'
     needs:
       long:
         01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?
@@ -56,5 +60,5 @@ fr:
         10-autres: Autres
     thank_you:
       description: On vous rappelle rapidement pour le prédiagnostic.
-      reso_team: L’équipe Réso
+      place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !

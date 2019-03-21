@@ -1,14 +1,14 @@
 version: 2
 
 defaults: &defaults
-  working_directory: ~/reso
+  working_directory: ~/place-des-entreprises
   docker:
     - image: circleci/ruby:2.6.0
     - image: circleci/postgres:10.4
       environment:
-        POSTGRES_USER: reso_test
-        POSTGRES_PASSWORD: reso_test
-        POSTGRES_DB: reso_test
+        POSTGRES_USER: place_des_entreprises_test
+        POSTGRES_PASSWORD: place_des_entreprises_test
+        POSTGRES_DB: place_des_entreprises_test
 
 bundle_restore_cache: &bundle_restore_cache
   restore_cache:
@@ -42,12 +42,12 @@ jobs:
       - *bundle_install
       - run:
           environment:
-            DATABASE_URL: "postgres://reso_test@localhost:5432/reso_test"
+            DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_entreprises_test"
           name: Create DB
           command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
       - run:
           environment:
-            DATABASE_URL: "postgres://reso_test@localhost:5432/reso_test"
+            DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_entreprises_test"
           name: Run Tests, Split by Timings
           command: |
             bundle exec rspec --profile 10 \

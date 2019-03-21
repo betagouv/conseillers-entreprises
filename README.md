@@ -1,6 +1,6 @@
-# RéSo
+# Place des Entreprises
 
-Apporter l’ensemble des aides publiques aux entreprises qui en ont besoin. [reso.beta.gouv.fr](https://reso.beta.gouv.fr/)
+Apporter l’ensemble des aides publiques aux entreprises qui en ont besoin. [place-des-entreprises.beta.gouv.fr](https://place-des-entreprises.beta.gouv.fr/)
 
 Créé dans le contexte de [l’incubateur des startups d’état](https://beta.gouv.fr/).
 
@@ -51,7 +51,7 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
         $ gem install foreman
         $ foreman start --procfile=Procfile.dev
 
-    And yay! Reso is now [running locally](http://localhost:3000)!
+    And yay! Place des Entreprises is now [running locally](http://localhost:3000)!
 
 ## Tests
 
@@ -77,7 +77,7 @@ Development and staging emails are sent on [Mailtrap](https://mailtrap.io/) in o
 
 ## Deployment
 
-Reso is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, ``reso-staging`` and `reso-production.
+Place des Entreprises is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, ``reso-staging`` and `reso-production.
 
 * `reso-staging` is served at https://reso-staging.scalingo.io.
 * ``reso-production`` is the actual https://reso.beta.gouv.fr

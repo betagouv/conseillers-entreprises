@@ -1,5 +1,3 @@
-.container
-  %h3.section__title= t('solicitations.index.description')
 .container.container-medium
   = form_with(model: @solicitation, url: solicitation_path, scope: 'solicitation', method: :post) do |f|
     - @solicitation.form_info.each do |k,v|

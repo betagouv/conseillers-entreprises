@@ -6,18 +6,18 @@ default: &default
 
 development:
   <<: *default
-  database: reso-development
+  database: place-des-entreprises-development
   host: localhost
   username: postgres
   password: postgres
 
 test:
   <<: *default
-  database: reso-test
+  database: place-des-entreprises-test
   host: localhost
   username: postgres
   password: postgres
 
 production:
   <<: *default
-  database: reso-production
+  database: place-des-entreprises-production

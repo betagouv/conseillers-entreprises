@@ -2,13 +2,19 @@
 
 .hero.hero__background{ style: solicitation_background_style }
   .hero__container
-    %h1.hero__white-background
-      = t('.hero.title')
-    .container.container-medium
-      %h4.text-center.hero__white-background
-        = t('.hero.subtitle')
+    %p.text-center= t('.hero.pretitle_html')
+    %h1= t('.hero.title')
+    %h2= t('.hero.subtitle')
 
+%section.section.section-white
+  .container
+    .row
+      %p.text-center= t('.examples_1_html')
+      %p.text-center= t('.examples_2_html')
+      %p.text-center= t('.examples_3_html')
 %section.section.section-grey
+  .container
+    %h2.section__title= t('.description')
   #solicitation-form= render 'form'
 
 %section.section.section-white

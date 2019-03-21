@@ -17,7 +17,7 @@
     %blockquote
       %p= simple_format(need.content)
 
-%p= t('.details_on_reso')
+%p= t('.details_on_place_des_entreprises')
 
 :ruby
   more_info_url = if @access_token
@@ -29,4 +29,4 @@
 .button
   %a{ href: more_info_url }= t('.click_here')
 
-%p= t('.see_you_on_reso_html', link_to_root: link_to_root)
+%p= t('.see_you_on_place_des_entreprises_html', link_to_root: link_to_root)
