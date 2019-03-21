@@ -25,6 +25,6 @@ module Alternatives
   end
 
   def cookie_name
-    "_Reso_alternative_#{controller_name}"
+    "_PlaceDesEntreprises_alternative_#{controller_name}"
   end
 end

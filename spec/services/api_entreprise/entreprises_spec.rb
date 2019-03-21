@@ -15,7 +15,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN number exists' do
     let(:token) { '1234' }
     let(:siren) { '123456789' }
-    let(:url) { "#{base_url}/123456789?token=1234&context=Reso&recipient=Reso&object=Reso" }
+    let(:url) { "#{base_url}/123456789?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
@@ -37,7 +37,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN is missing' do
     let(:token) { '1234' }
     let(:siren) { '' }
-    let(:url) { "#{base_url}/?token=1234&context=Reso&recipient=Reso&object=Reso" }
+    let(:url) { "#{base_url}/?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
@@ -53,7 +53,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN does not exist' do
     let(:token) { '1234' }
     let(:siren) { '' }
-    let(:url) { "#{base_url}/?token=1234&context=Reso&recipient=Reso&object=Reso" }
+    let(:url) { "#{base_url}/?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
@@ -70,7 +70,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'Token is unauthorized' do
     let(:token) { '' }
     let(:siren) { '123456789' }
-    let(:url) { "#{base_url}/123456789?token=&context=Reso&recipient=Reso&object=Reso" }
+    let(:url) { "#{base_url}/123456789?token=&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
     before do
       stub_request(:get, url).with(headers: httprb_request_headers).to_return(
