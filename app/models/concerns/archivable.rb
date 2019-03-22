@@ -2,8 +2,18 @@ module Archivable
   extend ActiveSupport::Concern
 
   included do
-    scope :archived, -> { where.not(archived_at: nil) }
-    scope :not_archived, -> { where(archived_at: nil) }
+    scope :archived, -> (archived) do
+      archived = ActiveModel::Type::Boolean.new.cast(archived)
+      if archived
+        where.not(archived_at: nil)
+      else
+        where(archived_at: nil)
+      end
+    end
+
+    ransacker(:archived, formatter: -> (value) {
+      archived(value).pluck(:id)
+    }) { |parent| parent.table[:id] }
   end
 
   def archive!

@@ -118,7 +118,7 @@ class User < ApplicationRecord
 
   scope :active_diagnosers, -> (date, minimum_step) do
     joins(:sent_diagnoses)
-      .merge(Diagnosis.not_archived
+      .merge(Diagnosis.archived(false)
         .where(created_at: date)
         .after_step(minimum_step))
       .distinct
@@ -126,7 +126,7 @@ class User < ApplicationRecord
 
   scope :active_matchers, -> (date) do
     joins(sent_diagnoses: [diagnosed_needs: :matches])
-      .merge(Diagnosis.not_archived
+      .merge(Diagnosis.archived(false)
         .where(created_at: date))
       .distinct
   end

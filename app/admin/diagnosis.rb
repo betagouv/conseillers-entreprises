@@ -13,8 +13,6 @@ ActiveAdmin.register Diagnosis do
   includes facility: :commune
 
   scope :all
-  scope :not_archived, default: true
-  scope :archived
 
   index do
     selectable_column
@@ -42,6 +40,8 @@ ActiveAdmin.register Diagnosis do
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+
+  filter :archived_in, as: :boolean, label: I18n.t('attributes.archived?')
 
   ## CSV
   #

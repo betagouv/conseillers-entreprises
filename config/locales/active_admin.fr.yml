@@ -23,7 +23,6 @@ fr:
       done: Clôturé
       email_not_confirmed: Email non confirmé
       not_approved: Non validés
-      not_archived: Non archivés
       not_taken_after_3_weeks: 3 semaines sans réponse
       rejected: Refusés
       relays: Relais locaux

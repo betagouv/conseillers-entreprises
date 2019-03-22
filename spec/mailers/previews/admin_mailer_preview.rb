@@ -2,7 +2,7 @@ class AdminMailerPreview < ActionMailer::Preview
   def weekly_statistics
     @not_admin_diagnoses = Diagnosis
       .includes([:advisor, facility: [:company]])
-      .not_archived
+      .archived(false)
       .where(advisor: User.not_admin)
       .order(created_at: :desc)
     @completed_diagnoses = @not_admin_diagnoses.completed.updated_last_week

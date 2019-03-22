@@ -18,8 +18,6 @@ ActiveAdmin.register DiagnosedNeed do
   scope :rejected
   scope :being_taken_care_of
   scope :done
-  scope :not_archived
-  scope :archived
 
   index do
     selectable_column
@@ -46,6 +44,9 @@ ActiveAdmin.register DiagnosedNeed do
 
   statuses = DiagnosedNeed::STATUSES.map { |s| [StatusHelper.status_description(s, :short), s] }
   filter :by_status_in, as: :select, collection: statuses, label: I18n.t('attributes.status')
+
+  filter :archived_in, as: :boolean, label: I18n.t('attributes.archived?')
+
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :question, collection: -> { Question.order(:label) }

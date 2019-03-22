@@ -14,8 +14,8 @@ RSpec.describe Archivable, type: :model do
       it('archives the diagnosis') do
         expect(diagnosis).to be_archived
         expect(Diagnosis.all.count).to eq 1
-        expect(Diagnosis.not_archived.count).to eq 0
-        expect(Diagnosis.archived.count).to eq 1
+        expect(Diagnosis.archived(false).count).to eq 0
+        expect(Diagnosis.archived(true).count).to eq 1
       end
     end
   end
