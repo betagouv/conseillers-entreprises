@@ -31,15 +31,21 @@ fr:
           one: Une mise en relation.
           other: "%{count} mises en relation."
           zero: Aucune mise en relation.
-        needs_maybe_abandoned: Besoins potentiellement en souffrance
-        needs_with_no_one_in_charge_count:
-          one: Un besoin sans réponse
-          other: "%{count} besoins sans réponse"
-          zero: Aucun besoin sans réponse
-        rejected_needs_count:
-          one: Un besoin refusé
-          other: "%{count} besoins refusés"
-          zero: Aucun besoin refusé
+        needs_abandoned:
+          scopes:
+            quo_not_taken_after_3_weeks:
+              one: Un besoin non pris en charge
+              other: "%{count} besoins non pris en charge"
+              zero: Aucun besoin non pris en charge
+            rejected:
+              one: Un besoin refusé
+              other: "%{count} besoins refusés"
+              zero: Aucun besoin refusé
+            taken_not_done_after_3_weeks:
+              one: Un besoin sans nouvelles
+              other: "%{count} besoins sans nouvelles"
+              zero: Aucun besoin sans nouvelles
+          title: Besoins en souffrance
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
         signed_up_users_count:
           one: 'Un nouvel inscrit :'
