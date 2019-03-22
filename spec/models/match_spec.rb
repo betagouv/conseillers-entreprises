@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe Match, type: :model do
   describe 'validations' do
     it do
@@ -190,46 +189,5 @@ RSpec.describe Match, type: :model do
 
       it { is_expected.to match_array [match_updated_two_weeks_ago] }
     end
-
-    describe 'needing_taking_care_update' do
-      subject { Match.needing_taking_care_update }
-
-      let(:diagnosed_need) { create :diagnosed_need, archived_at: need_archived_at }
-      let!(:old_match) do
-        create :match, diagnosed_need: diagnosed_need, status: :taking_care, updated_at: 6.days.ago
-      end
-
-      before do
-        create :match, diagnosed_need: diagnosed_need, status: :taking_care, updated_at: 4.days.ago
-        create :match, diagnosed_need: diagnosed_need, status: :quo, updated_at: 2.weeks.ago
-        create :match, diagnosed_need: diagnosed_need, status: :done, updated_at: 2.weeks.ago
-      end
-
-      context 'with non archived diagnosis' do
-        let(:need_archived_at) { nil }
-
-        it { is_expected.to eq [old_match] }
-      end
-
-      context 'with archived diagnosis' do
-        let(:need_archived_at) { Time.zone.now }
-
-        it { is_expected.to eq [] }
-      end
-    end
-
-    describe 'with_deleted_expert' do
-      subject { Match.with_deleted_expert }
-
-      before do
-        create :match, :with_assistance_expert
-        create :match, :with_relay
-      end
-
-      let(:match1) { create :match }
-
-      it { is_expected.to eq [match1] }
-    end
   end
 end
-# rubocop:enable Metrics/BlockLength

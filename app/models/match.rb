@@ -89,12 +89,6 @@ class Match < ApplicationRecord
   scope :with_status, -> (status) { where(status: status) }
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
-  scope :needing_taking_care_update, -> do
-    with_status(:taking_care)
-      .updated_more_than_five_days_ago
-      .joins(:diagnosed_need)
-      .where(diagnosed_needs: { archived_at: nil })
-  end
 
   scope :of_relay_or_expert, -> (relay_or_expert) do
     if relay_or_expert.is_a?(Enumerable)
