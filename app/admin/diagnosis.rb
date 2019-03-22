@@ -12,7 +12,8 @@ ActiveAdmin.register Diagnosis do
   includes :facility, :company, :advisor, :diagnosed_needs, :matches
   includes facility: :commune
 
-  scope :all
+  scope :completed, default: true
+  scope :all, group: :all
 
   index do
     selectable_column
@@ -35,9 +36,8 @@ ActiveAdmin.register Diagnosis do
     end
   end
 
-  filter :content
-  filter :step
   filter :created_at
+  filter :content
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
 
