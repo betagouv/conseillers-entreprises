@@ -84,7 +84,7 @@ class DiagnosedNeed < ApplicationRecord
 
   scope :unsent, -> do # no match sent (yet)
     left_outer_joins(:matches).where('matches.id IS NULL').distinct
-      .not_archived
+      .archived(false)
   end
   scope :done, -> do
     with_some_matches_in_status(:done)
@@ -96,7 +96,7 @@ class DiagnosedNeed < ApplicationRecord
   scope :with_no_one_in_charge, -> do
     with_matches_only_in_status([:quo, :not_for_me])
       .with_some_matches_in_status(:quo)
-      .not_archived
+      .archived(false)
   end
   scope :not_taken_after_3_weeks, -> do
     with_no_one_in_charge
@@ -104,7 +104,7 @@ class DiagnosedNeed < ApplicationRecord
   end
   scope :rejected, -> do
     with_matches_only_in_status(:not_for_me)
-      .not_archived
+      .archived(false)
   end
   scope :being_taken_care_of, -> do
     with_some_matches_in_status(:taking_care)
