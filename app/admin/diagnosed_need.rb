@@ -9,7 +9,7 @@ ActiveAdmin.register DiagnosedNeed do
 
   ## index
   #
-  includes :diagnosis, :question, :advisor, :matches, :company
+  includes :diagnosis, :question, :advisor, :matches, :feedbacks, :company
 
   scope :all, default: true
   scope :unsent

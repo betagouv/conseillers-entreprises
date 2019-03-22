@@ -19,6 +19,7 @@ ActiveAdmin.register Match do
       css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.status.to_sym]
       status_tag m.status_short_description, class: css_class
     end
+    column :updated_at
     column :diagnosed_need, sortable: :created_at do |m|
       div admin_link_to(m, :diagnosed_need)
       div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
@@ -73,6 +74,8 @@ ActiveAdmin.register Match do
     column(:diagnosed_need) { |m| m.diagnosed_need_id }
     column(:question) { |m| m.diagnosed_need.question }
     column :created_at
+    column :taken_care_of_at
+    column :closed_at
     column(:status_description) { |m| m.diagnosed_need.status_short_description }
     column :advisor
     column :advisor_antenne
