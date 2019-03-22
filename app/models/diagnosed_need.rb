@@ -89,6 +89,10 @@ class DiagnosedNeed < ApplicationRecord
   scope :done, -> do
     with_some_matches_in_status(:done)
   end
+  scope :diagnosis_completed, -> do
+    joins(:diagnosis)
+      .merge(Diagnosis.completed)
+  end
   scope :with_no_one_in_charge, -> do
     with_matches_only_in_status([:quo, :not_for_me])
       .with_some_matches_in_status(:quo)
@@ -119,8 +123,35 @@ class DiagnosedNeed < ApplicationRecord
     joins(:matches).where(matches: Match.where(status: status)).distinct
   end
   scope :with_matches_only_in_status, -> (status) do # can be an array
-    joins(:matches).where.not(matches: Match.where.not(status: status)).distinct
+    left_outer_joins(:matches).where.not(matches: Match.where.not(status: status)).distinct
   end
+
+  scope :by_status, -> (status) do
+    case status.to_sym
+    when :diagnosis_not_complete
+      where.not(id: diagnosis_completed)
+    when :sent_to_no_one
+      diagnosis_completed
+        .left_outer_joins(:matches).where('matches.id IS NULL').distinct
+    when :quo
+      with_matches_only_in_status([:quo, :not_for_me])
+        .with_some_matches_in_status(:quo)
+    when :taking_care
+      with_some_matches_in_status(:taking_care)
+        .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
+    when :done
+      with_some_matches_in_status(:done)
+    when :not_for_me
+      with_some_matches_in_status(:not_for_me)
+        .with_matches_only_in_status(:not_for_me)
+    end
+  end
+
+  ## ActiveAdmin/Ransacker helpers
+  #
+  ransacker(:by_status, formatter: -> (value) {
+    by_status(value).pluck(:id)
+  }) { |parent| parent.table[:id] }
 
   ##
   #
@@ -133,29 +164,36 @@ class DiagnosedNeed < ApplicationRecord
     dates.max
   end
 
-  def status_synthesis
+  ## Status
+  #
+  STATUSES = %i[
+    diagnosis_not_complete
+    sent_to_no_one
+    quo
+    taking_care
+    done
+    not_for_me
+  ]
+
+  def status
+    return :diagnosis_not_complete if !diagnosis.completed?
+
     matches_status = matches.pluck(:status).map(&:to_sym)
 
     if matches_status.empty?
-      :quo
+      :sent_to_no_one
     elsif matches_status.include?(:done)
       :done
     elsif matches_status.include?(:taking_care)
       :taking_care
-    elsif matches_status.all?{ |o| o == :not_for_me }
-      :not_for_me
-    else
+    elsif matches_status.include?(:quo)
       :quo
+    else # matches_status.all?{ |o| o == :not_for_me }
+      :not_for_me
     end
   end
 
-  def status_description
-    I18n.t("activerecord.attributes.match.statuses.#{status_synthesis}")
-  end
-
-  def status_short_description
-    I18n.t("activerecord.attributes.match.statuses_short.#{status_synthesis}")
-  end
+  include StatusHelper::StatusDescription
 
   ##
   #

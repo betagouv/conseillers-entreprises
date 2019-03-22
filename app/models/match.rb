@@ -128,13 +128,7 @@ class Match < ApplicationRecord
     status_done? || status_not_for_me?
   end
 
-  def status_description
-    I18n.t("activerecord.attributes.match.statuses.#{status}")
-  end
-
-  def status_short_description
-    I18n.t("activerecord.attributes.match.statuses_short.#{status}")
-  end
+  include StatusHelper::StatusDescription
 
   DATE_PROPERTIES = {
     quo: :created_at,

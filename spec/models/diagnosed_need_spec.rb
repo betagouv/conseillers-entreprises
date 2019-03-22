@@ -45,20 +45,29 @@ RSpec.describe DiagnosedNeed, type: :model do
     end
   end
 
-  describe 'status_synthesis' do
-    subject { diagnosed_need.status_synthesis }
+  describe 'status' do
+    subject { diagnosed_need.status }
 
-    let(:diagnosed_need) { create :diagnosed_need, matches: matches }
+    let(:diagnosed_need) { create :diagnosed_need, matches: matches, diagnosis: diagnosis }
+
+    let(:diagnosis) { create :diagnosis, step: 5 }
+    let(:matches) { [] }
 
     let(:quo_match) { build :match, status: :quo }
     let(:taking_care_match) { build :match, status: :taking_care }
     let(:done_match) { build :match, status: :done }
     let(:not_for_me_match) { build :match, status: :not_for_me }
 
+    context 'diagnosis not complete' do
+      let(:diagnosis) { create :diagnosis, step: 1 }
+
+      it { is_expected.to eq :diagnosis_not_complete }
+    end
+
     context 'with no match' do
       let(:matches) { [] }
 
-      it { is_expected.to eq :quo }
+      it { is_expected.to eq :sent_to_no_one }
     end
 
     context 'with at least a match done' do

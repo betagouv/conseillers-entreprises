@@ -16,15 +16,13 @@ ActiveAdmin.register Match do
     selectable_column
     column :match, sortable: :status do |m|
       div admin_link_to(m)
-      css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.status.to_sym]
-      status_tag m.status_short_description, class: css_class
+      status_tag(*status_tag_status_params(m.status))
     end
     column :updated_at
     column :diagnosed_need, sortable: :created_at do |m|
       div admin_link_to(m, :diagnosed_need)
       div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
-      css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.diagnosed_need.status_synthesis.to_sym]
-      status_tag m.diagnosed_need.status_short_description, class: css_class
+      status_tag(*status_tag_status_params(m.diagnosed_need.status))
     end
     column :advisor do |m|
       div admin_link_to(m, :advisor)
@@ -91,19 +89,13 @@ ActiveAdmin.register Match do
   #
   show do
     attributes_table do
-      row :status do |m|
-        css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.status.to_sym]
-        status_tag m.status_description, class: css_class
-      end
+      row(:status) { |m| status_tag(*status_tag_status_params(m.status)) }
       row :diagnosed_need
       row :created_at
       row :updated_at
       row :taken_care_of_at
       row :closed_at
-      row :status_synthesis do |m|
-        css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.diagnosed_need.status_synthesis.to_sym]
-        status_tag m.diagnosed_need.status_description, class: css_class
-      end
+      row(:diagnosed_need) { |m| status_tag(*status_tag_status_params(m.diagnosed_need.status)) }
       row :advisor
       row :advisor_antenne
       row :contacted_expert do |m|

@@ -37,7 +37,7 @@ module RelayService
           I18n.t('attributes.content'),
           I18n.t('activerecord.models.expert.one'),
           I18n.t('attributes.institution'),
-          I18n.t('activerecord.attributes.match.status'),
+          I18n.t('attributes.status'),
           I18n.t('activerecord.attributes.match.taken_care_of_at'),
           I18n.t('activerecord.attributes.match.closed_at')
         ]
@@ -54,7 +54,7 @@ module RelayService
           diagnosed_need.content,
           match.expert_full_name,
           match.expert_institution_name,
-          I18n.t("activerecord.attributes.match.statuses.#{match.status}"),
+          I18n.t("attributes.statuses.#{match.status}"),
           match.taken_care_of_at&.to_date,
           match.closed_at&.to_date
         ]
