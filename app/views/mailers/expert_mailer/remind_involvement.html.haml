@@ -3,17 +3,17 @@
 - link_to_root = link_to t('app_name'), root_url
 %p= t('.here_is_a_summary_email_html', link_to_root: link_to_root)
 
-- if @matches_with_no_one_in_charge.present?
-  %h3= t('.needs_with_no_one_in_charge')
-  %p= t('.companies_with_no_one_in_charge')
-  - locals = { matches: @matches_with_no_one_in_charge,
+- if @matches_quo_not_taken.present?
+  %h3= t('.quo_not_taken')
+  %p= t('.quo_not_taken_details')
+  - locals = { matches: @matches_quo_not_taken,
   access_token: @access_token }
   = render partial: 'mailers/expert_mailer/reminders_match', locals: locals
 
-- if @matches_needing_taking_care_update.present?
-  %h3= t('.needs_being_taken_care_of')
-  %p= t('.companies_being_taken_care_of')
-  - locals = { matches: @matches_needing_taking_care_update,
+- if @matches_taken_not_done.present?
+  %h3= t('.taken_not_done')
+  %p= t('.taken_not_done_details')
+  - locals = { matches: @matches_taken_not_done,
   access_token: @access_token }
   = render partial: 'mailers/expert_mailer/reminders_match', locals: locals
 

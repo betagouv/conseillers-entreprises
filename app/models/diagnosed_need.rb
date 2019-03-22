@@ -82,33 +82,24 @@ class DiagnosedNeed < ApplicationRecord
       .order('questions.interview_sort_order')
   end
 
-  scope :unsent, -> do # no match sent (yet)
-    left_outer_joins(:matches).where('matches.id IS NULL').distinct
-      .archived(false)
-  end
-  scope :done, -> do
-    with_some_matches_in_status(:done)
-  end
   scope :diagnosis_completed, -> do
     joins(:diagnosis)
       .merge(Diagnosis.completed)
   end
-  scope :with_no_one_in_charge, -> do
-    with_matches_only_in_status([:quo, :not_for_me])
-      .with_some_matches_in_status(:quo)
+
+  scope :quo_not_taken_after_3_weeks, -> do
+    by_status(:quo)
       .archived(false)
+      .no_activity_after(3.weeks.ago)
   end
-  scope :not_taken_after_3_weeks, -> do
-    with_no_one_in_charge
-      .where("diagnosed_needs.created_at < ?", 3.weeks.ago)
+  scope :taken_not_done_after_3_weeks, -> do
+    by_status(:taking_care)
+      .archived(false)
+      .no_activity_after(3.weeks.ago)
   end
   scope :rejected, -> do
-    with_matches_only_in_status(:not_for_me)
+    by_status(:not_for_me)
       .archived(false)
-  end
-  scope :being_taken_care_of, -> do
-    with_some_matches_in_status(:taking_care)
-      .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
   end
 
   scope :no_activity_after, -> (date) do

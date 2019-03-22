@@ -22,13 +22,13 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
-  def remind_involvement(person, matches_needing_taking_care_update, matches_with_no_one_in_charge)
+  def remind_involvement(person, matches_taken_not_done, matches_quo_not_taken)
     @person = person
     if person.is_a? Expert
       @access_token = person.access_token
     end
-    @matches_needing_taking_care_update = matches_needing_taking_care_update
-    @matches_with_no_one_in_charge = matches_with_no_one_in_charge
+    @matches_taken_not_done = matches_taken_not_done
+    @matches_quo_not_taken = matches_quo_not_taken
 
     mail(
       to: @person.email_with_display_name,

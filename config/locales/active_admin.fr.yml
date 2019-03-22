@@ -20,16 +20,23 @@ fr:
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
+      completed: Analyses terminées
+      diagnosis_completed: Analyses terminées
       done: Clôturé
       email_not_confirmed: Email non confirmé
       not_approved: Non validés
       not_taken_after_3_weeks: 3 semaines sans réponse
+      quo_not_taken_after_3_weeks: Non pris en charge
       rejected: Refusés
       relays: Relais locaux
-      unsent: Non envoyé
+      sent: Mises en relation envoyées
+      taken_not_done_after_3_weeks: Sans nouvelles
+      tooltips:
+        diagnosis_completed: Besoins identifiés dans des analyses terminées
+        quo_not_taken_after_3_weeks: Non pris en charge depuis 3 semaines
+        taken_not_done_after_3_weeks: Pas de nouvelles depuis 3 semaines
       with_custom_communes: Zone spécifique
       with_deleted_expert: Référent supprimé
-      with_no_one_in_charge: Pas de réponse
       without_antenne: Sans antenne
       without_communes: Sans zone d’intervention
     territory:

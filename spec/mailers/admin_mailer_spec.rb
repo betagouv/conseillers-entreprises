@@ -38,8 +38,9 @@ describe AdminMailer do
         created_diagnoses: { count: 2, items: diagnoses },
         updated_diagnoses: { count: 2, items: diagnoses },
         completed_diagnoses: { count: 2, items: diagnoses },
-        rejected_needs_count: 2,
-        needs_with_no_one_in_charge_count: 2,
+        quo_not_taken_after_3_weeks: 2,
+        taken_not_done_after_3_weeks: 2,
+        rejected: 2,
         matches_count: 3
       }
     end

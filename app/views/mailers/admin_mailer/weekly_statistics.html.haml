@@ -43,13 +43,13 @@
       %li= link_to description, admin_diagnosis_url(diagnosis)
 
 %p
-  %strong= t('.needs_maybe_abandoned')
+  %strong= t('.needs_abandoned.title')
   %ul
-    - if @information_hash[:rejected_needs_count].positive?
-      - description = t('.rejected_needs_count', count: @information_hash[:rejected_needs_count])
-      %li= link_to description, admin_diagnosed_needs_url(scope: :rejected)
-    - if @information_hash[:needs_with_no_one_in_charge_count].positive?
-      - description = t('.needs_with_no_one_in_charge_count', count: @information_hash[:needs_with_no_one_in_charge_count])
-      %li= link_to description, admin_diagnosed_needs_url(scope: :with_no_one_in_charge)
+    - scopes = %i[quo_not_taken_after_3_weeks taken_not_done_after_3_weeks rejected]
+    - scopes.each do |scope|
+      - if @information_hash[scope].positive?
+        - i18n_scope = 'mailers.admin_mailer.weekly_statistics.needs_abandoned.scopes'
+        - description = t(scope.to_s, scope: i18n_scope, count: @information_hash[scope])
+        %li= link_to description, admin_diagnosed_needs_url(scope: scope)
 
 %p= t('.see_you_next_week')

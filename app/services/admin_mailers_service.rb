@@ -60,8 +60,10 @@ class AdminMailersService
     end
 
     def abandoned_needs_statistics
-      @information_hash[:rejected_needs_count] = DiagnosedNeed.rejected.count
-      @information_hash[:needs_with_no_one_in_charge_count] = DiagnosedNeed.with_no_one_in_charge.count
+      scopes = %i[quo_not_taken_after_3_weeks taken_not_done_after_3_weeks rejected]
+      scopes.each do |scope|
+        @information_hash[scope] = DiagnosedNeed.send(scope).count
+      end
     end
   end
 end
