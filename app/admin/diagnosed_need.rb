@@ -9,7 +9,7 @@ ActiveAdmin.register DiagnosedNeed do
 
   ## index
   #
-  includes :diagnosis, :question, :advisor, :matches, :company
+  includes :diagnosis, :question, :advisor, :matches, :feedbacks, :company
 
   scope :all, default: true
   scope :unsent
@@ -31,9 +31,7 @@ ActiveAdmin.register DiagnosedNeed do
     column :created_at
     column :last_activity_at
     column :status do |d|
-      css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[d.status_synthesis.to_sym]
-      status_tag d.status_short_description, class: css_class
-
+      status_tag(*status_tag_status_params(d.status))
       status_tag t('active_admin.archivable.archive_done') if d.archived?
     end
     column(:matches) do |d|
@@ -46,6 +44,8 @@ ActiveAdmin.register DiagnosedNeed do
     end
   end
 
+  statuses = DiagnosedNeed::STATUSES.map { |s| [StatusHelper.status_description(s, :short), s] }
+  filter :by_status_in, as: :select, collection: statuses, label: I18n.t('attributes.status')
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :question, collection: -> { Question.order(:label) }
@@ -76,10 +76,7 @@ ActiveAdmin.register DiagnosedNeed do
       row :last_activity_at
       row :archived_at
       row :content
-      row :status_description do |d|
-        css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[d.status_synthesis.to_sym]
-        status_tag d.status_description, class: css_class
-      end
+      row(:status) { |d| status_tag(*status_tag_status_params(d.status)) }
       row(:matches) do |d|
         div admin_link_to(d, :matches)
         div admin_link_to(d, :matches, list: true)

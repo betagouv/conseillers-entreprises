@@ -48,27 +48,6 @@ fr:
         expert_institution_name: Institution du référent
         expert_viewed_page_at: Date de consultation par le référent
         relay: Référent (Relais local)
-        status: Statut
-        statuses:
-          done: Besoin clôturé
-          not_for_me: Mise en relation refusée
-          quo: En attente de réponse
-          taking_care: En cours de prise en charge
-        statuses_action:
-          done: Clôturer
-          not_for_me: Refuser
-          quo: Annuler
-          taking_care: Prendre en charge
-        statuses_short:
-          done: Clôturé
-          not_for_me: Refusé
-          quo: Pas de réponse
-          taking_care: Pris en charge
-        statuses_with_date:
-          done: Clôturé le %{date} à %{time}
-          not_for_me: Refusé le %{date} à %{time}
-          quo: Annuler
-          taking_care: Prendre en charge
         taken_care_of_at: Date de prise en charge
       relay:
         territory: Territoire
@@ -290,7 +269,27 @@ fr:
       other: Mises en relation envoyées
     siren: SIREN
     siret: SIRET
+    status: Statut
     status_description: Résumé
+    statuses:
+      diagnosis_not_complete: Analyse en cours
+      done: Besoin clôturé
+      not_for_me: Mise en relation refusée
+      quo: En attente de réponse
+      sent_to_no_one: Envoyé à personne
+      taking_care: En cours de prise en charge
+    statuses_action:
+      done: Clôturer
+      not_for_me: Refuser
+      quo: Annuler
+      taking_care: Prendre en charge
+    statuses_short:
+      diagnosis_not_complete: Analyse en cours
+      done: Clôturé
+      not_for_me: Refusé
+      quo: Pas de réponse
+      sent_to_no_one: Envoyé à personne
+      taking_care: Pris en charge
     title: Titre
     updated_at: Date de mise à jour
     visit: Visite

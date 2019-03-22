@@ -17,7 +17,7 @@
           .diagnoses-list-item-need
             %h4.ui.header
               = need.question_label
-              .match-status= match_status_label(need.status_synthesis)
+              .match-status= status_label(need.status)
               .sub.header= models_human_description(need.matches)
         - can_archive = diagnosis.advisor == current_user
         - if can_archive

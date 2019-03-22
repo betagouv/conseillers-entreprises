@@ -8,11 +8,11 @@
                        role: match.expert_institution_name)
 
   .match-status
-    = match_status_label(match.status)
+    = status_label(match.status)
 
 - if for_me
   %h4.ui.header
-    = I18n.t("activerecord.attributes.match.statuses.#{match.status}")
+    = match.status_description
     .sub.header= match.status_date
 
   = match_actions match
