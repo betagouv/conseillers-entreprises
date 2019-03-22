@@ -254,6 +254,7 @@ fr:
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire
     label: Intitulé
+    last_activity_at: Dernière activité
     legal_form_code: Forme juridique
     matches:
       one: Mise en relation

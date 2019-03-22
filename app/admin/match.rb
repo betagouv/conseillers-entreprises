@@ -48,7 +48,7 @@ ActiveAdmin.register Match do
 
   filter :status
 
-  filter :created_at
+  filter :updated_at
 
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :advisor_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
@@ -94,6 +94,9 @@ ActiveAdmin.register Match do
       end
       row :diagnosed_need
       row :created_at
+      row :updated_at
+      row :taken_care_of_at
+      row :closed_at
       row :status_synthesis do |m|
         css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.diagnosed_need.status_synthesis.to_sym]
         status_tag m.diagnosed_need.status_description, class: css_class
