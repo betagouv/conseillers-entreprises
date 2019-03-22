@@ -16,14 +16,13 @@ ActiveAdmin.register Match do
     selectable_column
     column :match, sortable: :status do |m|
       div admin_link_to(m)
-      css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.status.to_sym]
-      status_tag m.status_short_description, class: css_class
+      status_tag(*status_tag_status_params(m.status))
     end
+    column :updated_at
     column :diagnosed_need, sortable: :created_at do |m|
       div admin_link_to(m, :diagnosed_need)
       div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
-      css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.diagnosed_need.status_synthesis.to_sym]
-      status_tag m.diagnosed_need.status_short_description, class: css_class
+      status_tag(*status_tag_status_params(m.diagnosed_need.status))
     end
     column :advisor do |m|
       div admin_link_to(m, :advisor)
@@ -48,7 +47,7 @@ ActiveAdmin.register Match do
 
   filter :status
 
-  filter :created_at
+  filter :updated_at
 
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :advisor_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
@@ -73,6 +72,8 @@ ActiveAdmin.register Match do
     column(:diagnosed_need) { |m| m.diagnosed_need_id }
     column(:question) { |m| m.diagnosed_need.question }
     column :created_at
+    column :taken_care_of_at
+    column :closed_at
     column(:status_description) { |m| m.diagnosed_need.status_short_description }
     column :advisor
     column :advisor_antenne
@@ -88,16 +89,13 @@ ActiveAdmin.register Match do
   #
   show do
     attributes_table do
-      row :status do |m|
-        css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.status.to_sym]
-        status_tag m.status_description, class: css_class
-      end
+      row(:status) { |m| status_tag(*status_tag_status_params(m.status)) }
       row :diagnosed_need
       row :created_at
-      row :status_synthesis do |m|
-        css_class = { quo: '', taking_care: 'warning', done: 'ok', not_for_me: 'error' }[m.diagnosed_need.status_synthesis.to_sym]
-        status_tag m.diagnosed_need.status_description, class: css_class
-      end
+      row :updated_at
+      row :taken_care_of_at
+      row :closed_at
+      row(:diagnosed_need) { |m| status_tag(*status_tag_status_params(m.diagnosed_need.status)) }
       row :advisor
       row :advisor_antenne
       row :contacted_expert do |m|

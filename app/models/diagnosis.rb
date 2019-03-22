@@ -85,7 +85,7 @@ class Diagnosis < ApplicationRecord
   end
 
   scope :of_relay_or_expert, -> (relay_or_expert) do
-    not_archived
+    archived(false)
       .includes(facility: :company)
       .joins(:diagnosed_needs)
       .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))

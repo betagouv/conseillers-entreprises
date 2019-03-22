@@ -4,38 +4,27 @@ class ExpertReminderService
   class << self
     def send_reminders
       @persons_matches = {}
-      build_matches_needing_taking_care_update
-      build_matches_with_no_one_in_charge
+      build_matches_taken_not_done
+      build_matches_quo_not_taken
       @persons_matches.each do |person, person_matches|
         ExpertMailer.delay.remind_involvement(person,
-          person_matches.needing_taking_care_update.compact,
-          person_matches.with_no_one_in_charge.compact)
+          person_matches.taken_not_done.compact,
+          person_matches.quo_not_taken.compact)
       end
     end
 
     private
 
-    PersonMatches = Struct.new(:needing_taking_care_update, :with_no_one_in_charge)
+    PersonMatches = Struct.new(:taken_not_done, :quo_not_taken)
 
     def add_person_match(person, args)
       person_matches = @persons_matches[person] ||= PersonMatches.new([], [])
-      person_matches.needing_taking_care_update << args[:needing_taking_care_update]
-      person_matches.with_no_one_in_charge << args[:with_no_one_in_charge]
+      person_matches.taken_not_done << args[:taken_not_done]
+      person_matches.quo_not_taken << args[:quo_not_taken]
     end
 
-    def build_matches_needing_taking_care_update
-      Match.needing_taking_care_update.each do |match|
-        person = match.person
-        if !match.person
-          next
-        end
-
-        add_person_match(person, needing_taking_care_update: match)
-      end
-    end
-
-    def build_matches_with_no_one_in_charge
-      DiagnosedNeed.with_no_one_in_charge.each do |diagnosed_need|
+    def build_matches_taken_not_done
+      DiagnosedNeed.taken_not_done_after_3_weeks.each do |diagnosed_need|
         diagnosed_need.matches.each do |match|
           if match.status_not_for_me? # don’t send reminders for already rejected matches
             next
@@ -46,7 +35,24 @@ class ExpertReminderService
             next
           end
 
-          add_person_match(person, with_no_one_in_charge: match)
+          add_person_match(person, taken_not_done: match)
+        end
+      end
+    end
+
+    def build_matches_quo_not_taken
+      DiagnosedNeed.quo_not_taken_after_3_weeks.each do |diagnosed_need|
+        diagnosed_need.matches.each do |match|
+          if match.status_not_for_me? # don’t send reminders for already rejected matches
+            next
+          end
+
+          person = match.person
+          if !match.person
+            next
+          end
+
+          add_person_match(person, quo_not_taken: match)
         end
       end
     end

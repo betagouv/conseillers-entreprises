@@ -12,11 +12,11 @@ fr:
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
         this_company_needs_you_html: L’entreprise <b>%{company_description}</b> a besoin de votre expertise.
       remind_involvement:
-        companies_being_taken_care_of: Vous avez indiqué prendre en charge ces besoins. Y a-t-il du nouveau ?
-        companies_with_no_one_in_charge: Personne n’a encore répondu à ces besoins. Avez-vous une solution ?
         hello: Bonjour %{name},
         here_is_a_summary_email_html: 'Ces entreprises ont besoin de vos compétences :'
-        needs_being_taken_care_of: En cours de prise en charge
-        needs_with_no_one_in_charge: Entreprises en attente
+        quo_not_taken: Entreprises en souffrance
+        quo_not_taken_details: Personne n’a encore répondu à ces besoins. Avez-vous une solution ?
         see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
         subject: "[Place des Entreprises] Rappel : Des entreprises ont besoin de vous !"
+        taken_not_done: En cours de prise en charge
+        taken_not_done_details: Vous avez indiqué prendre en charge ces besoins. Y a-t-il du nouveau ?

@@ -82,37 +82,67 @@ class DiagnosedNeed < ApplicationRecord
       .order('questions.interview_sort_order')
   end
 
-  scope :unsent, -> do # no match sent (yet)
-    left_outer_joins(:matches).where('matches.id IS NULL').distinct
-      .not_archived
+  scope :diagnosis_completed, -> do
+    joins(:diagnosis)
+      .merge(Diagnosis.completed)
   end
-  scope :done, -> do
-    with_some_matches_in_status(:done)
+
+  scope :quo_not_taken_after_3_weeks, -> do
+    by_status(:quo)
+      .archived(false)
+      .no_activity_after(3.weeks.ago)
   end
-  scope :with_no_one_in_charge, -> do
-    with_matches_only_in_status([:quo, :not_for_me])
-      .with_some_matches_in_status(:quo)
-      .not_archived
-  end
-  scope :not_taken_after_3_weeks, -> do
-    with_no_one_in_charge
-      .where("diagnosed_needs.created_at < ?", 3.weeks.ago)
+  scope :taken_not_done_after_3_weeks, -> do
+    by_status(:taking_care)
+      .archived(false)
+      .no_activity_after(3.weeks.ago)
   end
   scope :rejected, -> do
-    with_matches_only_in_status(:not_for_me)
-      .not_archived
+    by_status(:not_for_me)
+      .archived(false)
   end
-  scope :being_taken_care_of, -> do
-    with_some_matches_in_status(:taking_care)
-      .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
+
+  scope :no_activity_after, -> (date) do
+    where.not("diagnosed_needs.updated_at > ?", date)
+      .left_outer_joins(:matches)
+      .where.not(matches: Match.where('updated_at > ?', date))
+      .left_outer_joins(:feedbacks)
+      .where.not(feedbacks: Feedback.where('updated_at > ?', date))
   end
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.where(status: status)).distinct
   end
   scope :with_matches_only_in_status, -> (status) do # can be an array
-    joins(:matches).where.not(matches: Match.where.not(status: status)).distinct
+    left_outer_joins(:matches).where.not(matches: Match.where.not(status: status)).distinct
   end
+
+  scope :by_status, -> (status) do
+    case status.to_sym
+    when :diagnosis_not_complete
+      where.not(id: diagnosis_completed)
+    when :sent_to_no_one
+      diagnosis_completed
+        .left_outer_joins(:matches).where('matches.id IS NULL').distinct
+    when :quo
+      with_matches_only_in_status([:quo, :not_for_me])
+        .with_some_matches_in_status(:quo)
+    when :taking_care
+      with_some_matches_in_status(:taking_care)
+        .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
+    when :done
+      with_some_matches_in_status(:done)
+    when :not_for_me
+      with_some_matches_in_status(:not_for_me)
+        .with_matches_only_in_status(:not_for_me)
+    end
+  end
+
+  ## ActiveAdmin/Ransacker helpers
+  #
+  ransacker(:by_status, formatter: -> (value) {
+    by_status(value).pluck(:id)
+  }) { |parent| parent.table[:id] }
 
   ##
   #
@@ -120,29 +150,41 @@ class DiagnosedNeed < ApplicationRecord
     "#{company} : #{question}"
   end
 
-  def status_synthesis
+  def last_activity_at
+    dates = [updated_at, matches.pluck(:updated_at), feedbacks.pluck(:updated_at)].flatten
+    dates.max
+  end
+
+  ## Status
+  #
+  STATUSES = %i[
+    diagnosis_not_complete
+    sent_to_no_one
+    quo
+    taking_care
+    done
+    not_for_me
+  ]
+
+  def status
+    return :diagnosis_not_complete if !diagnosis.completed?
+
     matches_status = matches.pluck(:status).map(&:to_sym)
 
     if matches_status.empty?
-      :quo
+      :sent_to_no_one
     elsif matches_status.include?(:done)
       :done
     elsif matches_status.include?(:taking_care)
       :taking_care
-    elsif matches_status.all?{ |o| o == :not_for_me }
-      :not_for_me
-    else
+    elsif matches_status.include?(:quo)
       :quo
+    else # matches_status.all?{ |o| o == :not_for_me }
+      :not_for_me
     end
   end
 
-  def status_description
-    I18n.t("activerecord.attributes.match.statuses.#{status_synthesis}")
-  end
-
-  def status_short_description
-    I18n.t("activerecord.attributes.match.statuses_short.#{status_synthesis}")
-  end
+  include StatusHelper::StatusDescription
 
   ##
   #

@@ -89,12 +89,6 @@ class Match < ApplicationRecord
   scope :with_status, -> (status) { where(status: status) }
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
-  scope :needing_taking_care_update, -> do
-    with_status(:taking_care)
-      .updated_more_than_five_days_ago
-      .joins(:diagnosed_need)
-      .where(diagnosed_needs: { archived_at: nil })
-  end
 
   scope :of_relay_or_expert, -> (relay_or_expert) do
     if relay_or_expert.is_a?(Enumerable)
@@ -128,13 +122,7 @@ class Match < ApplicationRecord
     status_done? || status_not_for_me?
   end
 
-  def status_description
-    I18n.t("activerecord.attributes.match.statuses.#{status}")
-  end
-
-  def status_short_description
-    I18n.t("activerecord.attributes.match.statuses_short.#{status}")
-  end
+  include StatusHelper::StatusDescription
 
   DATE_PROPERTIES = {
     quo: :created_at,

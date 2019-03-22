@@ -27,7 +27,7 @@ module Stats
     end
 
     def category_name(category)
-      I18n.t("activerecord.attributes.match.statuses.#{category}")
+      StatusHelper::status_description(category)
     end
 
     def category_order_attribute
