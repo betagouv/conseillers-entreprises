@@ -11,13 +11,11 @@ ActiveAdmin.register DiagnosedNeed do
   #
   includes :diagnosis, :question, :advisor, :matches, :feedbacks, :company
 
-  scope :all, default: true
-  scope :unsent
-  scope :with_no_one_in_charge
-  scope :not_taken_after_3_weeks
-  scope :rejected
-  scope :being_taken_care_of
-  scope :done
+  scope :diagnosis_completed, default: true
+  scope :quo_not_taken_after_3_weeks, group: :abandoned
+  scope :taken_not_done_after_3_weeks, group: :abandoned
+  scope :rejected, group: :abandoned
+  scope :all, group: :all
 
   index do
     selectable_column
