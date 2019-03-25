@@ -10,15 +10,5 @@
 
 %section.section.section-grey
   .container.container-medium
+    %h2.section__title= t('.who_are_we')
     = t('.explanation_html')
-
-
-%section.section.section-white#qui-sommes-nous
-  .container.container-medium
-    %h2.section__title= t('.product_team')
-    .grid
-      - @product_team.each do |user|
-        .card
-          .card__content
-            %h3= user.full_name
-            %p= user.contact_page_role.html_safe

@@ -80,8 +80,8 @@ fr:
         <h3>Une petite équipe motivée et inspirée par vous chefs d’entreprise !</h3>
         <p>Place des entreprises comprend une équipe de sept personnes. Le service a été construit pas à pas, en confrontant nos hypothèses de travail avec la réalité du terrain. Notre démarche repose sur des échanges nourris avec les chefs d’entreprises et les conseillers d’entreprises sur les difficultés rencontrées par chacun au quotidien.</p>
         <p>Si vous êtes convaincus que nous pouvons faire encore mieux, partagez vos idées et écrivez-nous !</p>
-      product_team: L’équipe Place des Entreprises
       title: À propos
+      who_are_we: Qui sommes-nous ?
   conseillers:
     show:
       feature_find_contacts_html: 2<br><em class='feature-text-em'>Trouvez</em><br>les contacts compétents sur votre territoire
