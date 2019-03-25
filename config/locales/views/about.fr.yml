@@ -64,26 +64,22 @@ fr:
     show:
       contact_team_for_general_purpose_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
       explanation_html: |
-        <p>Avec Place des Entreprises, l’État et l’ensemble des organismes publics développent leur rôle de conseil à destination des entreprises. Ils cherchent à détecter plus efficacement les besoins des entreprises et à mieux mobiliser les aides et accompagnement des organismes publics.</p>
-        <p>L’objectif est simple mais ambitieux : mieux accompagner les entreprises dans leurs projets, leurs difficultés et leurs questions au quotidien - sur tous les sujets d’entreprise.</p>
-        <h3>Des entrepreneurs isolés, des conseils cloisonnés</h2>
-        <p>Plus de 2 000 aides publiques existent mais les chefs entreprises n’ont souvent ni le temps, ni les moyens d’en faire la demande. L’activité des organismes publics chargés d’apporter ces aides aux entreprises est aujourd’hui confrontée à un double problème de ciblage et de cloisonnement.</p>
-        <p>D’une part, certaines entreprises sont ciblées de manière répétée et se plaignent d’être sur-sollicitées alors que celles qui ont le plus besoin d’aide ne sont souvent pas accompagnées.</p>
-        <p>D’autre part, les organismes publics ne proposent que leurs propres dispositifs d’aide et ne sont donc en mesure de répondre qu’à une fraction des besoins exprimés par les chefs d’entreprise.</p>
-        <h3>Un guichet unique à la porte des entreprises</h2>
-        <p>Dans le cadre du projet Place des Entreprises, dès fin 2017, un outil de mise en relation a été développé. Il permet d’identifier, dans un carnet d’adresses dédié, un contact expert au sein de l’administration et des opérateurs publics capable d’accompagner l’entreprise dans sa démarche.</p>
-        <p>Place des Entreprises est à la fois :
-        <ul>
-        <li><p>Un outil confié aux conseillers publics d’entreprise :</p>
-        <p>De nombreux organismes publics - Chambres de Commerce, DIRECCTE, Région… ont déployé sur le terrain des conseillers pour apporter directement ces aides aux entreprises.</p>
-        <p>Emmenés dans une dynamique de détection de tous les besoins lors des visites en entreprise, les conseillers entreprise vont détecter des besoins hors de leur champ de compétence et notifierons ainsi facilement les bons référents experts des bons organismes publics.</p>
-        </li>
-        <li>
-        <p>Et un formulaire en libre accès aux chefs d’entreprises.</p>
-        <p>Il permet ainsi aux chefs d’entreprise de solliciter plus rapidement et facilement un organisme public pour lui demander de l’accompagner.</p>
-        </li>
-        </ul>
-        <p>Cette mutualisation des moyens et des offres de services favorise des accompagnements aux entreprises plus productifs et des dispositifs d’aide qui trouvent mieux leur public.</p>
+        <p>Avec <strong><em>Place des entreprises</em></strong>, l’État, les Régions volontaires et l’ensemble des organismes publics et parapublics se donnent pour mission de développer leur rôle de conseil auprès des petites entreprises.</p>
+        <p>L’objectif est simple mais ambitieux : mieux accompagner les petites structures dans leur projet d’entreprise, qu’il s’agisse de s’agrandir, de surmonter une difficulté ou de répondre à des questions du quotidien.</p>
+        <h3>Des entrepreneurs isolés, des administrations et des conseillers cloisonnés</h2>
+        <p>Nous avons identifié plusieurs freins à un accompagnement efficace des TPE/PME par le service public.</p>
+        <p>Plus de 2 000 aides publiques aux entreprises existent, ainsi que de multiples accompagnements par divers organismes publics et parapublics (CCI, CMA, Direccte, Urssaf, Agefiph, Banque de France,   BPI France, Conseil régional…). Malheureusement ces dispositifs demeurent largement méconnus de leurs destinataires. </p>
+        <p>Ensuite, les chefs d’entreprises ne savent pas toujours à qui adresser leur demande face à la multiplicité des acteurs. Identifier le bon interlocuteur dans la bonne administration et parvenir à le joindre relève parfois du parcours du combattant. L’activité du dirigeant ne laisse en outre que peu de disponibilité.</p>
+        <p>Enfin, les organismes publics chargés d’accompagner les entreprises sont confrontés à un problème de cloisonnement des champs d’intervention. Seule une fraction des besoins des chefs d’entreprise sont donc détectés.</p>
+        <h3>Un carnet d’adresses partagé et un guichet unique à portée de main des entreprises</h2>
+        <p><strong><em>Place des entreprises</em></strong> est à la fois un outil dédié aux chefs d’entreprise et un outil utilisé en interne par les conseillers d’entreprises.</p>
+        <p>Le portail internet permet aux chefs de TPE/PME de déposer en toute simplicité une demande pour leur entreprise. Celle-ci est automatiquement adressée au bon interlocuteur parmi l’ensemble des partenaires publics mobilisés. Ce dernier le rappelle et l’accompagne selon la situation de l’entreprise. <strong><em>Place des entreprises</em></strong> constitue ainsi un guichet unique pour accéder facilement à un conseil de qualité et adapté.</p>
+        <p>En interne, l’outil se présente également comme un carnet d’adresses référençant les compétences de tous les spécialistes au sein des organismes publics. L’objectif du conseiller d’entreprise est désormais de détecter n’importe quel besoin d’entreprise lors de ses visites et d’en informer automatiquement sur <strong><em>Place des entreprises</em></strong> la personne compétente.</p>
+        <p>Cette nouvelle dynamique permet une prise en charge rapide et globale de tous les besoins détectés par les conseillers d’entreprise.</p>
+        <p>Ces deux approches sont éminemment complémentaires. Le portail internet permet de répondre au défi de l’isolement de nombreux chefs d’entreprises, ainsi que celui de l’accessibilité des partenaires publics et de leurs offres. La détection globale des besoins d’entreprise par les conseillers poursuit également ce dernier objectif, tout en aidant les TPE/PME à formuler leurs besoins au regard de leur situation particulière.</p>
+        <h3>Une petite équipe motivée et inspirée par vous chefs d’entreprise !</h3>
+        <p>Place des entreprises comprend une équipe de sept personnes. Le service a été construit pas à pas, en confrontant nos hypothèses de travail avec la réalité du terrain. Notre démarche repose sur des échanges nourris avec les chefs d’entreprises et les conseillers d’entreprises sur les difficultés rencontrées par chacun au quotidien.</p>
+        <p>Si vous êtes convaincus que nous pouvons faire encore mieux, partagez vos idées et écrivez-nous !</p>
       product_team: L’équipe Place des Entreprises
       title: À propos
   conseillers:
