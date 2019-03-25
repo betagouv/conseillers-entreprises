@@ -24,7 +24,9 @@ class Category < ApplicationRecord
 
   ## Scopes
   #
-  default_scope { order(:interview_sort_order, :id) }
+  default_scope { ordered_for_interview }
+
+  scope :ordered_for_interview, -> { order(:interview_sort_order, :id) }
 
   ##
   #

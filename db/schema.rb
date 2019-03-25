@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_04_100022) do
+ActiveRecord::Schema.define(version: 2019_03_25_142929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -248,6 +248,8 @@ ActiveRecord::Schema.define(version: 2019_03_04_100022) do
     t.datetime "updated_at", null: false
     t.bigint "category_id"
     t.integer "interview_sort_order"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_questions_on_archived_at"
     t.index ["category_id"], name: "index_questions_on_category_id"
   end
 

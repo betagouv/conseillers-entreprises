@@ -22,7 +22,7 @@
 
 -# Diagnosed needs
 %h2= t('attributes.diagnosed_needs', count: @diagnosis.diagnosed_needs.count)
-- @diagnosis.diagnosed_needs.ordered_by_interview.each do |diagnosed_need|
+- @diagnosis.diagnosed_needs.ordered_for_interview.each do |diagnosed_need|
   .ui.segments.shadow-less.needs-diagnosis
     .ui.segment.secondary{ id: "diagnosed_need-#{diagnosed_need.id}" }
       = render partial: 'needs/need_header', locals: { diagnosed_need: diagnosed_need }

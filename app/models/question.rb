@@ -3,6 +3,7 @@
 # Table name: questions
 #
 #  id                   :integer          not null, primary key
+#  archived_at          :datetime
 #  interview_sort_order :integer
 #  label                :string
 #  created_at           :datetime         not null
@@ -11,6 +12,7 @@
 #
 # Indexes
 #
+#  index_questions_on_archived_at  (archived_at)
 #  index_questions_on_category_id  (category_id)
 #
 # Foreign Keys
@@ -19,6 +21,10 @@
 #
 
 class Question < ApplicationRecord
+  ##
+  #
+  include Archivable
+
   ## Associations
   #
   belongs_to :category, inverse_of: :questions
@@ -37,7 +43,9 @@ class Question < ApplicationRecord
 
   ## Scopes
   #
-  default_scope { order(:interview_sort_order, :id) }
+  default_scope { ordered_for_interview.archived(false) }
+
+  scope :ordered_for_interview, -> { order(:interview_sort_order, :id) }
 
   ##
   #

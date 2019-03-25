@@ -4,7 +4,7 @@ module UseCases
       def of_diagnosis(diagnosis)
         inclusions = [question: [assistances: [assistances_experts: [expert: :antenne_institution]]]]
         diagnosed_needs = diagnosis.diagnosed_needs.includes(inclusions)
-        diagnosed_needs = diagnosed_needs.ordered_by_interview
+        diagnosed_needs = diagnosed_needs.ordered_for_interview
         select_localized_and_business_assistance_experts(diagnosed_needs, diagnosis)
       end
 
