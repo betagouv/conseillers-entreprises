@@ -14,6 +14,7 @@ ActiveAdmin.register Question do
       div admin_link_to(q)
     end
     column :category, sortable: 'categories.interview_sort_order'
+    column :interview_sort_order
     column(:assistances) do |q|
       div admin_link_to(q, :assistances)
     end
