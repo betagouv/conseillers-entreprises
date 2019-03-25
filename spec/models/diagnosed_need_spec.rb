@@ -149,8 +149,8 @@ RSpec.describe DiagnosedNeed, type: :model do
       end
     end
 
-    describe 'ordered_by_interview' do
-      subject { DiagnosedNeed.ordered_by_interview }
+    describe 'ordered_for_interview' do
+      subject { DiagnosedNeed.ordered_for_interview }
 
       context 'with questions and categories' do
         let(:cat1)  { create :category, interview_sort_order: 1 }

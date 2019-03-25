@@ -11,7 +11,7 @@
 
 %p= t('.company_expressed_needs')
 
-- @diagnosis.diagnosed_needs.ordered_by_interview.of_relay_or_expert(@person).each do |need|
+- @diagnosis.diagnosed_needs.ordered_for_interview.of_relay_or_expert(@person).each do |need|
   %h3.question_label= need.question_label
   - if need.content.present?
     %blockquote

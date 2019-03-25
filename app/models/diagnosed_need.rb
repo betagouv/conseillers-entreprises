@@ -76,7 +76,7 @@ class DiagnosedNeed < ApplicationRecord
       .where(diagnoses: { happened_on: date_range })
       .distinct
   end
-  scope :ordered_by_interview, -> do
+  scope :ordered_for_interview, -> do
     left_outer_joins(:question, question: :category)
       .order('categories.interview_sort_order')
       .order('questions.interview_sort_order')
