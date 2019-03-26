@@ -6,7 +6,7 @@ RSpec.describe DiagnosedNeed, type: :model do
   describe 'validations' do
     it do
       is_expected.to belong_to :diagnosis
-      # is_expected.to belong_to :question # TODO: We currently have bad data in DB, and cannot validate this
+      is_expected.to belong_to :question
       is_expected.to have_many :matches
       is_expected.to validate_presence_of :diagnosis
     end
@@ -34,14 +34,6 @@ RSpec.describe DiagnosedNeed, type: :model do
       before { create :diagnosed_need, diagnosis: diagnosis, question: question }
 
       it { is_expected.not_to be_valid }
-    end
-
-    context 'several diagnosed_needs for a nil question' do
-      before { create :diagnosed_need, diagnosis: diagnosis, question: nil }
-
-      let(:question) { nil }
-
-      it { is_expected.to be_valid }
     end
   end
 
@@ -166,43 +158,6 @@ RSpec.describe DiagnosedNeed, type: :model do
 
         it { is_expected.to eq [need1, need2, need3, need4] }
       end
-
-      context 'with an orphan need' do
-        let(:cat1)  { create :category, interview_sort_order: 1 }
-        let(:q1)    { create :question, interview_sort_order: 1, category: cat1 }
-        let(:need1) { create  :diagnosed_need, question: q1 }
-        let(:need2) { create  :diagnosed_need, question: nil }
-
-        it { is_expected.to eq [need1, need2] }
-      end
-    end
-
-    describe 'no_activity_after' do
-      subject { DiagnosedNeed.no_activity_after(today) }
-
-      let(:yesterday) { 1.day.ago.beginning_of_day }
-      let(:today) { Time.now.beginning_of_day }
-      let(:tomorroy) { 1.day.from_now.beginning_of_day }
-
-      let(:need1) { build :diagnosed_need }
-      let(:need2) { build :diagnosed_need }
-      let(:need3) { build :diagnosed_need }
-      let(:match_tomorrow) { build :match, diagnosed_need: need2 }
-      let(:feedback_tomorrow) { build(:feedback, match: build(:match, diagnosed_need: need3)) }
-
-      before do
-        Timecop.travel(yesterday) do
-          need1.save
-          need2.save
-          need3.save
-        end
-        Timecop.travel(tomorroy) do
-          match_tomorrow.save
-          feedback_tomorrow.save
-        end
-      end
-
-      it { is_expected.to eq [need1] }
     end
   end
 

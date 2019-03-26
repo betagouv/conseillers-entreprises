@@ -29,8 +29,8 @@ class Question < ApplicationRecord
   #
   belongs_to :category, inverse_of: :questions
 
-  has_many :assistances, dependent: :nullify, inverse_of: :question
-  has_many :diagnosed_needs, dependent: :nullify, inverse_of: :question
+  has_many :assistances, inverse_of: :question
+  has_many :diagnosed_needs, inverse_of: :question
 
   ## Validations
   #
