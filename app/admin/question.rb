@@ -13,12 +13,6 @@ ActiveAdmin.register Question do
   includes :category, :assistances
   config.sort_order = 'categories.interview_sort_order_asc'
 
-  controller do
-    def scoped_collection
-      super.unscoped
-    end
-  end
-
   index do
     selectable_column
     column(:label) do |q|
@@ -37,6 +31,7 @@ ActiveAdmin.register Question do
     end
   end
 
+  filter :archived_in, as: :boolean, label: I18n.t('attributes.archived?')
   filter :label
   filter :category, as: :ajax_select, data: { url: :admin_categories_path, search_fields: [:label] }
 

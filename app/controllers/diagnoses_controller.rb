@@ -30,7 +30,7 @@ class DiagnosesController < ApplicationController
 
   def step2
     @diagnosis = diagnosis_in_progress(params[:id])
-    @categories = Category.all.includes(:questions)
+    @categories = Category.ordered_for_interview
   end
 
   def besoins

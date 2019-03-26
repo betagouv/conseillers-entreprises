@@ -23,7 +23,7 @@
         .ui.segment.secondary
           %h3.ui.header= category
         - all_needs = @diagnosis.diagnosed_needs
-        - category.questions.each do |question|
+        - category.questions.for_interview.each do |question|
           - diagnosed_need = all_needs.where(question: question).first_or_initialize
           .ui.segment.checkbox.question
             = diagnosis_form.fields_for :diagnosed_needs, diagnosed_need do |need_form|
