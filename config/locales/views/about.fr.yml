@@ -61,7 +61,7 @@ fr:
          <p>Les responsables du Services’engagent à réaliser toute formalité nécessaire à la mise en œuvre d’un éventuel traitement de données à caractère personnel dans le cadre de la réalisation du Service.</p>
          <p>Le Service est hébergé sous la responsabilité de la DINSIC. Cet hébergement n’est pas qualifié pour récolter des données sensibles au sens des articles 8 et suivants de la loi n° 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés.</p>
       title: Conditions générales d’utilisation
-    show:
+    qui_sommes_nous:
       contact_team_for_general_purpose_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
       explanation_html: |
         <p>Avec <strong><em>Place des entreprises</em></strong>, l’État, les Régions volontaires et l’ensemble des organismes publics et parapublics se donnent pour mission de développer leur rôle de conseil auprès des petites entreprises.</p>
@@ -80,8 +80,7 @@ fr:
         <h3>Une petite équipe motivée et inspirée par vous chefs d’entreprise !</h3>
         <p>Place des entreprises comprend une équipe de sept personnes. Le service a été construit pas à pas, en confrontant nos hypothèses de travail avec la réalité du terrain. Notre démarche repose sur des échanges nourris avec les chefs d’entreprises et les conseillers d’entreprises sur les difficultés rencontrées par chacun au quotidien.</p>
         <p>Si vous êtes convaincus que nous pouvons faire encore mieux, partagez vos idées et écrivez-nous !</p>
-      title: À propos
-      who_are_we: Qui sommes-nous ?
+      title: Qui sommes-nous ?
   conseillers:
     show:
       feature_find_contacts_html: 2<br><em class='feature-text-em'>Trouvez</em><br>les contacts compétents sur votre territoire

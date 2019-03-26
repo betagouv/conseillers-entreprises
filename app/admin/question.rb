@@ -2,6 +2,7 @@
 
 ActiveAdmin.register Question do
   menu priority: 5
+  actions :all, except: :destroy
 
   ##
   #

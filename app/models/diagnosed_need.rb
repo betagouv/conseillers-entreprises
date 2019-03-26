@@ -10,7 +10,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  diagnosis_id   :bigint(8)
-#  question_id    :bigint(8)
+#  question_id    :bigint(8)        not null
 #
 # Indexes
 #
@@ -32,7 +32,7 @@ class DiagnosedNeed < ApplicationRecord
   ## Associations
   #
   belongs_to :diagnosis, inverse_of: :diagnosed_needs
-  belongs_to :question, inverse_of: :diagnosed_needs, optional: true # Orphaned diagnosed_needs are currently allowed in the DB. This leads to _bad data_, we might want to review that.
+  belongs_to :question, inverse_of: :diagnosed_needs
   has_many :matches, dependent: :destroy, inverse_of: :diagnosed_need
 
   ## Validations
