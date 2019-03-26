@@ -2,7 +2,7 @@
 
 - url = confirmation_path(resource_name)
 = form_for resource, as: resource_name, url: url, html: { method: :post, class: 'ui form' } do |f|
-  = devise_error_messages!
+  = render "devise/shared/error_messages", resource: resource
   .field
     = f.label :email
     - email_value = resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email
