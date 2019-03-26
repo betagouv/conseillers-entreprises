@@ -6,7 +6,7 @@ RSpec.describe DiagnosedNeed, type: :model do
   describe 'validations' do
     it do
       is_expected.to belong_to :diagnosis
-      # is_expected.to belong_to :question # TODO: We currently have bad data in DB, and cannot validate this
+      is_expected.to belong_to :question
       is_expected.to have_many :matches
       is_expected.to validate_presence_of :diagnosis
     end
@@ -34,14 +34,6 @@ RSpec.describe DiagnosedNeed, type: :model do
       before { create :diagnosed_need, diagnosis: diagnosis, question: question }
 
       it { is_expected.not_to be_valid }
-    end
-
-    context 'several diagnosed_needs for a nil question' do
-      before { create :diagnosed_need, diagnosis: diagnosis, question: nil }
-
-      let(:question) { nil }
-
-      it { is_expected.to be_valid }
     end
   end
 
@@ -165,15 +157,6 @@ RSpec.describe DiagnosedNeed, type: :model do
         let(:need4) { create  :diagnosed_need, question: q4 }
 
         it { is_expected.to eq [need1, need2, need3, need4] }
-      end
-
-      context 'with an orphan need' do
-        let(:cat1)  { create :category, interview_sort_order: 1 }
-        let(:q1)    { create :question, interview_sort_order: 1, category: cat1 }
-        let(:need1) { create  :diagnosed_need, question: q1 }
-        let(:need2) { create  :diagnosed_need, question: nil }
-
-        it { is_expected.to eq [need1, need2] }
       end
     end
 
