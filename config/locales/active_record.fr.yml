@@ -13,7 +13,6 @@ fr:
         role: Fonction
       diagnosed_need:
         question: Besoin
-        question_label: Nom du besoin
       diagnosis:
         content: Commentaire
       diagnosis/visitee:

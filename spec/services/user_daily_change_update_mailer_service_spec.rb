@@ -21,7 +21,7 @@ describe UserDailyChangeUpdateMailerService do
           {
             expert_name: match2.expert_full_name,
             expert_institution: match2.expert_institution_name,
-            question_title: match2.diagnosed_need.question_label,
+            question_title: match2.diagnosed_need.question,
             company_name: match2.diagnosed_need.diagnosis.company.name,
             start_date: match2.created_at.to_date,
             old_status: 'quo',
@@ -57,7 +57,7 @@ describe UserDailyChangeUpdateMailerService do
           {
             expert_name: match2.expert_full_name,
             expert_institution: match2.expert_institution_name,
-            question_title: match2.diagnosed_need.question_label,
+            question_title: match2.diagnosed_need.question,
             company_name: match2.diagnosed_need.diagnosis.company.name,
             start_date: match2.created_at.to_date,
             old_status: 'quo',
@@ -66,7 +66,7 @@ describe UserDailyChangeUpdateMailerService do
           {
             expert_name: match3.expert_full_name,
             expert_institution: match3.expert_institution_name,
-            question_title: match2.diagnosed_need.question_label,
+            question_title: match2.diagnosed_need.question,
             company_name: match2.diagnosed_need.diagnosis.company.name,
             start_date: match3.created_at.to_date,
             old_status: 'quo',

@@ -25,7 +25,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
 
       it 'displays the date, phone number and 2 list items' do
         expect(rendered).to include "besoins/#{diagnosis.id}?access_token=random_access_token"
-        assert_select 'h3.question_label', count: 2
+        assert_select 'h3.question', count: 2
       end
     end
 
@@ -39,7 +39,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
 
       it 'does not display the date, but displays email and one list item' do
         expect(rendered).to include "besoins/#{diagnosis.id}"
-        assert_select 'h3.question_label', count: 1
+        assert_select 'h3.question', count: 1
       end
     end
   end
