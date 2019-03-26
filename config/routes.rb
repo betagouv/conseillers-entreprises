@@ -19,10 +19,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resource 'a_propos', controller: 'about', only: %i[] do
-    get :show
-    get :cgu
-  end
+  get 'qui_sommes_nous', to: 'about#qui_sommes_nous'
+  get 'cgu', to: 'about#cgu'
 
   resource 'conseillers', only: %i[show]
 
