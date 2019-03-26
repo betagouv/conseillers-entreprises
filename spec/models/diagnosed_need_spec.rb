@@ -159,34 +159,6 @@ RSpec.describe DiagnosedNeed, type: :model do
         it { is_expected.to eq [need1, need2, need3, need4] }
       end
     end
-
-    describe 'no_activity_after' do
-      subject { DiagnosedNeed.no_activity_after(today) }
-
-      let(:yesterday) { 1.day.ago.beginning_of_day }
-      let(:today) { Time.now.beginning_of_day }
-      let(:tomorroy) { 1.day.from_now.beginning_of_day }
-
-      let(:need1) { build :diagnosed_need }
-      let(:need2) { build :diagnosed_need }
-      let(:need3) { build :diagnosed_need }
-      let(:match_tomorrow) { build :match, diagnosed_need: need2 }
-      let(:feedback_tomorrow) { build(:feedback, match: build(:match, diagnosed_need: need3)) }
-
-      before do
-        Timecop.travel(yesterday) do
-          need1.save
-          need2.save
-          need3.save
-        end
-        Timecop.travel(tomorroy) do
-          match_tomorrow.save
-          feedback_tomorrow.save
-        end
-      end
-
-      it { is_expected.to eq [need1] }
-    end
   end
 
   describe 'contacted_persons' do
