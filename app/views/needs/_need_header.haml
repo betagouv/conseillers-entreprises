@@ -1,7 +1,6 @@
 .ui.header
-  - if diagnosed_need.question
-    .sub.header= diagnosed_need.question.category
-  = diagnosed_need.question_label
+  .sub.header= diagnosed_need.question.category
+  = diagnosed_need.question
   .sub.header= models_human_description(diagnosed_need.matches)
   .match-status
     = status_label(diagnosed_need.status)

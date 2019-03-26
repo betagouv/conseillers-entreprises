@@ -14,11 +14,8 @@ module UseCases
         experts_in_scope = diagnosis.facility.commune.all_experts.of_naf_code(diagnosis.facility.naf_code)
         all_assistances_experts_in_scope = experts_in_scope.flat_map(&:assistances_experts)
         diagnosed_needs.each do |diagnosed_need|
-          question = diagnosed_need.question # the underlying question might have been deleted by admins
-          if question.present?
-            diagnosed_need.question.assistances.each do |assistance|
-              assistance.filtered_assistances_experts = assistance.assistances_experts & all_assistances_experts_in_scope
-            end
+          diagnosed_need.question.assistances.each do |assistance|
+            assistance.filtered_assistances_experts = assistance.assistances_experts & all_assistances_experts_in_scope
           end
         end
       end

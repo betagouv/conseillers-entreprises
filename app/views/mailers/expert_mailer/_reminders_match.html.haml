@@ -4,7 +4,7 @@
       - diagnosis = match.diagnosed_need.diagnosis
       %b= diagnosis.company.name
       —
-      = match.diagnosed_need.question_label
+      = match.diagnosed_need.question
       %br
       %a{ href: besoin_url(diagnosis, access_token: access_token) }
         = match.assistance_title
