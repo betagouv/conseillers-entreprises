@@ -62,12 +62,8 @@
               %tr
                 %td= t('.no_assistance')
 
-      - if @diagnosis.visitee.present?
-        .ui.info.message
-          = t('.before_sending_emails_text_html')
-      - else
-        .ui.error.message
-          %p= t('.add_contact_to_notify')
+      .ui.info.message
+        = t('.before_sending_emails_text_html')
 
       .ui.two.column.stackable.grid.container
         .ui.left.aligned.column.no-left-padding.no-margin
