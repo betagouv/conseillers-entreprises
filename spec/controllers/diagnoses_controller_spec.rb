@@ -46,8 +46,6 @@ RSpec.describe DiagnosesController, type: :controller do
   describe 'GET #step4' do
     subject(:request) { get :step4, params: { id: diagnosis.id } }
 
-    before { allow(UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts).to receive(:of_diagnosis).with(diagnosis) }
-
     context 'diagnosis' do
       it('returns http success') { expect(response).to be_successful }
     end

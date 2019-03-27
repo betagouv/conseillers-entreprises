@@ -12,12 +12,4 @@ RSpec.describe Assistance, type: :model do
       is_expected.to validate_presence_of :question
     end
   end
-
-  describe 'default value' do
-    let(:assistance) { create :assistance }
-
-    it 'returns nil for filtered_assistances_experts' do
-      expect(assistance.filtered_assistances_experts).to be_nil
-    end
-  end
 end

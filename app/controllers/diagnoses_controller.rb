@@ -64,7 +64,6 @@ class DiagnosesController < ApplicationController
 
   def step4
     @diagnosis = safe_diagnosis_param
-    @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
     relays = @diagnosis.facility.commune.relays
     @relay_users = User.where(relays: relays)
       .order(:contact_page_order, :full_name)
