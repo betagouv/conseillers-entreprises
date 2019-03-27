@@ -37,10 +37,6 @@ class Assistance < ApplicationRecord
 
   ##
   #
-  attr_accessor :filtered_assistances_experts
-
-  ##
-  #
   def to_s
     title
   end

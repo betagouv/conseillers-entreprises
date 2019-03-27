@@ -58,7 +58,7 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :qualified_for_commerce, :qualified_for_artisanry, :show_icon, antenne_ids: []
+  permit_params :name, :show_icon, antenne_ids: []
 
   form do |f|
     f.inputs do

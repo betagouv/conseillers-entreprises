@@ -29,7 +29,6 @@ fr:
       title: Détails de la visite
       your_contact_in_the_company: 'Votre contact chez %{company_name} :'
     step4:
-      add_contact_to_notify: Veuillez ajouter un contact pour pouvoir envoyer ces notifications (étape 3).
       before_sending_emails_text_html: |
         <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
         <p>Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires.</p>

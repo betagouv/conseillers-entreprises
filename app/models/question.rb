@@ -43,9 +43,12 @@ class Question < ApplicationRecord
 
   ## Scopes
   #
-  default_scope { ordered_for_interview.archived(false) }
-
   scope :ordered_for_interview, -> { order(:interview_sort_order, :id) }
+
+  scope :for_interview, -> do
+    ordered_for_interview
+      .archived(false)
+  end
 
   ##
   #
