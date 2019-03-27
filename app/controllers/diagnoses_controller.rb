@@ -12,8 +12,7 @@ class DiagnosesController < ApplicationController
   end
 
   def show
-    diagnosis = Diagnosis.archived(false).find(params[:id])
-    check_current_user_access_to(diagnosis)
+    diagnosis = safe_diagnosis_param
     if diagnosis.completed?
       redirect_to besoin_path(diagnosis)
     else
@@ -22,19 +21,18 @@ class DiagnosesController < ApplicationController
   end
 
   def destroy
-    diagnosis = Diagnosis.find params[:id]
-    check_current_user_access_to(diagnosis)
+    diagnosis = safe_diagnosis_param
     diagnosis.archive!
     redirect_to diagnoses_path
   end
 
   def step2
-    @diagnosis = diagnosis_in_progress(params[:id])
+    @diagnosis = safe_diagnosis_param
     @categories = Category.ordered_for_interview
   end
 
   def besoins
-    @diagnosis = diagnosis_in_progress(params[:id])
+    @diagnosis = safe_diagnosis_param
     diagnosis_params = params.require(:diagnosis).permit(:content,
       diagnosed_needs_attributes: [:_destroy, :content, :question_id, :id])
     diagnosis_params[:step] = 3
@@ -48,11 +46,11 @@ class DiagnosesController < ApplicationController
   end
 
   def step3
-    @diagnosis = diagnosis_in_progress(params[:id])
+    @diagnosis = safe_diagnosis_param
   end
 
   def visite
-    @diagnosis = diagnosis_in_progress(params[:id])
+    @diagnosis = safe_diagnosis_param
     diagnosis_params = params_for_visite
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = 4
@@ -65,7 +63,7 @@ class DiagnosesController < ApplicationController
   end
 
   def step4
-    @diagnosis = diagnosis_in_progress(params[:id])
+    @diagnosis = safe_diagnosis_param
     @diagnosed_needs = UseCases::GetDiagnosedNeedsWithFilteredAssistanceExperts.of_diagnosis(@diagnosis)
     relays = @diagnosis.facility.commune.relays
     @relay_users = User.where(relays: relays)
@@ -73,7 +71,7 @@ class DiagnosesController < ApplicationController
   end
 
   def selection
-    diagnosis = diagnosis_in_progress(params[:id])
+    diagnosis = safe_diagnosis_param
     matches = params[:matches]
     if matches.present?
       UseCases::SaveAndNotifyDiagnosis.perform diagnosis, matches
@@ -95,14 +93,10 @@ class DiagnosesController < ApplicationController
     permitted
   end
 
-  def diagnosis_in_progress(diagnosis_id)
-    diagnosis = Diagnosis.archived(false).find(diagnosis_id)
+  def safe_diagnosis_param
+    safe_params = params.permit(:id)
+    diagnosis = Diagnosis.find(safe_params[:id])
     check_current_user_access_to(diagnosis)
-
-    if diagnosis.step == Diagnosis::LAST_STEP
-      not_found
-    end
-
     diagnosis
   end
 end
