@@ -16,33 +16,33 @@
             %tr
               %th{ colspan: 3 }= diagnosed_need.question
           %tbody
-            - assistances_experts = AssistanceExpert.relevant_for(diagnosed_need)
-            - if assistances_experts.present?
-              = f.fields_for :assistances_experts do |assistance_expert_form|
-                - assistances_experts.each do |assistance_expert|
+            - experts_skills = ExpertSkill.relevant_for(diagnosed_need)
+            - if experts_skills.present?
+              = f.fields_for :experts_skills do |expert_skill_form|
+                - experts_skills.each do |expert_skill|
                   %tr
-                    - checkbox_id = assistance_expert.id.to_s.to_sym
+                    - checkbox_id = expert_skill.id.to_s.to_sym
                     %td.checkbox-width
                       .ui.fitted.checkbox
-                        = assistance_expert_form.check_box checkbox_id, checked: true
+                        = expert_skill_form.check_box checkbox_id, checked: true
                         %label
                     %td.expert-width
-                      = assistance_expert_form.label checkbox_id, class: 'clickable' do
-                        = assistance_expert.expert.full_name
+                      = expert_skill_form.label checkbox_id, class: 'clickable' do
+                        = expert_skill.expert.full_name
                         %br
-                        = assistance_expert.expert.antenne
+                        = expert_skill.expert.antenne
                     %td
-                      = assistance_expert_form.label checkbox_id, class: 'clickable' do
+                      = expert_skill_form.label checkbox_id, class: 'clickable' do
                         .tiny.text.bold
                           = t('.expert_scope_of_work')
                         .small.text
-                          = assistance_expert.assistance.title
+                          = expert_skill.skill.title
             - elsif @relay_users.present?
               = f.fields_for :diagnosed_needs do |relay_form|
                 %tr
                   %td{ colspan: 3 }
                     .ui.warning.message
-                      = t('.no_assistance')
+                      = t('.no_expert_skill')
                       = t('.you_can_contact_relays')
                 %tr
                   - checkbox_id = diagnosed_need.id.to_s
@@ -60,7 +60,7 @@
                         = t('.relays_role', count: @relay_users.size)
             - else
               %tr
-                %td= t('.no_assistance')
+                %td= t('.no_expert_skill')
 
       .ui.info.message
         = t('.before_sending_emails_text_html')

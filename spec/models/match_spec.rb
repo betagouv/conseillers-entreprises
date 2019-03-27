@@ -6,7 +6,7 @@ RSpec.describe Match, type: :model do
   describe 'validations' do
     it do
       is_expected.to belong_to :diagnosed_need
-      # is_expected.to belong_to :assistance_expert  # TODO: We currently have bad data in DB, and cannot validate this
+      # is_expected.to belong_to :expert_skill  # TODO: We currently have bad data in DB, and cannot validate this
       is_expected.to validate_presence_of :diagnosed_need
     end
   end
@@ -26,7 +26,7 @@ RSpec.describe Match, type: :model do
       let!(:match) { create :match }
 
       it do
-        expect { match.update assistance_title: 'UPDATE !!' }.not_to change Audited::Audit, :count
+        expect { match.update skill_title: 'UPDATE !!' }.not_to change Audited::Audit, :count
       end
     end
 
@@ -98,27 +98,27 @@ RSpec.describe Match, type: :model do
     end
   end
 
-  describe 'assistance expert and relay cannot both be set' do
+  describe 'skill expert and relay cannot both be set' do
     subject(:match) { build :match }
 
-    let(:assistance_expert) { create :assistance_expert }
+    let(:expert_skill) { create :expert_skill }
     let(:relay) { create :relay }
 
-    context 'assistance expert and relay cannot both be set' do
-      before { match.assistance_expert = assistance_expert }
+    context 'skill expert and relay cannot both be set' do
+      before { match.expert_skill = expert_skill }
 
       it { is_expected.to be_valid }
     end
 
-    context 'assistance expert and relay cannot both be set' do
+    context 'skill expert and relay cannot both be set' do
       before { match.relay = relay }
 
       it { is_expected.to be_valid }
     end
 
-    context 'assistance expert and relay cannot both be set' do
+    context 'skill expert and relay cannot both be set' do
       before do
-        match.assign_attributes assistance_expert: assistance_expert,
+        match.assign_attributes expert_skill: expert_skill,
                                                      relay: relay
       end
 
@@ -127,7 +127,7 @@ RSpec.describe Match, type: :model do
   end
 
   describe 'defaults' do
-    let(:match) { create :match, :with_assistance_expert }
+    let(:match) { create :match, :with_expert_skill }
 
     context 'creation' do
       it { expect(match.status).not_to be_nil }
@@ -155,12 +155,12 @@ RSpec.describe Match, type: :model do
       let(:diagnosis) { create :diagnosis }
       let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
       let(:match) do
-        create :match, :with_assistance_expert, diagnosed_need: diagnosed_need
+        create :match, :with_expert_skill, diagnosed_need: diagnosed_need
       end
 
       before do
         create :diagnosed_need, diagnosis: diagnosis
-        create :match, :with_assistance_expert
+        create :match, :with_expert_skill
       end
 
       it { is_expected.to eq [match] }

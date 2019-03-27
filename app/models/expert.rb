@@ -31,9 +31,9 @@ class Expert < ApplicationRecord
 
   has_and_belongs_to_many :users, inverse_of: :experts
 
-  has_many :assistances_experts, dependent: :destroy
-  has_many :assistances, through: :assistances_experts, dependent: :destroy, inverse_of: :experts # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
-  has_many :received_matches, through: :assistances_experts, source: :matches, inverse_of: :expert # TODO should be direct once we remove the AssistanceExpert model and use a HABTM
+  has_many :experts_skills, dependent: :destroy
+  has_many :skills, through: :experts_skills, dependent: :destroy, inverse_of: :experts # TODO should be direct once we remove the ExpertSkill model and use a HABTM
+  has_many :received_matches, through: :experts_skills, source: :matches, inverse_of: :expert # TODO should be direct once we remove the ExpertSkill model and use a HABTM
 
   ## Validations
   #
@@ -59,7 +59,7 @@ class Expert < ApplicationRecord
 
   ##
   #
-  accepts_nested_attributes_for :assistances_experts, allow_destroy: true
+  accepts_nested_attributes_for :experts_skills, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
   ## Scopes

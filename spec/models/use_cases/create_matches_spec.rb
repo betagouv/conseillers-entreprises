@@ -6,22 +6,22 @@ describe UseCases::CreateMatches do
   describe 'perform' do
     let(:diagnosis) { create :diagnosis }
     let(:question) { create :question }
-    let(:assistance) { create :assistance, question: question }
-    let(:assistance_expert) { create :assistance_expert, assistance: assistance }
+    let(:skill) { create :skill, question: question }
+    let(:expert_skill) { create :expert_skill, skill: skill }
     let!(:diagnosed_need) { create :diagnosed_need, question: question, diagnosis: diagnosis }
 
-    let(:assistance_expert_ids) { [assistance_expert.id] }
+    let(:expert_skill_ids) { [expert_skill.id] }
 
     context 'one match' do
-      before { described_class.perform(diagnosis, assistance_expert_ids) }
+      before { described_class.perform(diagnosis, expert_skill_ids) }
 
       it do
         expect(Match.first.diagnosed_need).to eq diagnosed_need
-        expect(Match.first.assistance_expert).to eq assistance_expert
+        expect(Match.first.expert_skill).to eq expert_skill
         expect(Match.first.relay).to be_nil
-        expect(Match.first.assistance_title).to eq assistance_expert.assistance.title
-        expect(Match.first.expert_full_name).to eq assistance_expert.expert.full_name
-        expect(Match.first.expert_institution_name).to eq assistance_expert.expert.antenne.name
+        expect(Match.first.skill_title).to eq expert_skill.skill.title
+        expect(Match.first.expert_full_name).to eq expert_skill.expert.full_name
+        expect(Match.first.expert_institution_name).to eq expert_skill.expert.antenne.name
       end
     end
   end

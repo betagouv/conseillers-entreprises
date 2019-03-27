@@ -20,7 +20,7 @@ class Category < ApplicationRecord
 
   ## Through Associations
   #
-  has_many :assistances, through: :questions, inverse_of: :category
+  has_many :skills, through: :questions, inverse_of: :category
 
   ## Scopes
   #

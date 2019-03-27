@@ -43,9 +43,9 @@ class Match < ApplicationRecord
   #
   belongs_to :diagnosed_need, counter_cache: true, inverse_of: :matches
 
-  belongs_to :assistance_expert, foreign_key: :assistances_experts_id, inverse_of: :matches, optional: true
-  has_one :expert, through: :assistance_expert, inverse_of: :received_matches # TODO: Should be direct once we remove assistance_expert and use a HABTM instead
-  has_one :assistance, through: :assistance_expert, inverse_of: :matches
+  belongs_to :expert_skill, foreign_key: :experts_skills_id, inverse_of: :matches, optional: true
+  has_one :expert, through: :expert_skill, inverse_of: :received_matches # TODO: Should be direct once we remove expert_skill and use a HABTM instead
+  has_one :skill, through: :expert_skill, inverse_of: :matches
 
   belongs_to :relay, optional: true
   has_one :relay_user, through: :relay, source: :user, inverse_of: :relay_matches
@@ -99,16 +99,16 @@ class Match < ApplicationRecord
         relations.reduce(&:or)
       end
     elsif relay_or_expert.is_a?(Expert)
-      left_outer_joins(:assistance_expert).where(assistances_experts: { expert: relay_or_expert })
+      left_outer_joins(:expert_skill).where(experts_skills: { expert: relay_or_expert })
     elsif relay_or_expert.is_a?(Relay)
-      left_outer_joins(:assistance_expert).where(relay: relay_or_expert)
+      left_outer_joins(:expert_skill).where(relay: relay_or_expert)
     else
-      left_outer_joins(:assistance_expert).where(id: -1)
+      left_outer_joins(:expert_skill).where(id: -1)
     end
   end
 
   scope :with_deleted_expert, -> do
-    where(assistance_expert: nil)
+    where(expert_skill: nil)
       .where(relay: nil)
   end
 

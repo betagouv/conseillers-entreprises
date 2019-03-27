@@ -17,17 +17,17 @@ describe ExpertReminderService do
     let(:need_taken_not_done) { create(:diagnosed_need, matches: matches_taken_not_done) }
 
     context 'experts are different' do
-      let(:matches_quo_not_taken) { create_list(:match, 2, :with_assistance_expert) }
-      let(:matches_taken_not_done) { create_list(:match, 2, :with_assistance_expert) }
+      let(:matches_quo_not_taken) { create_list(:match, 2, :with_expert_skill) }
+      let(:matches_taken_not_done) { create_list(:match, 2, :with_expert_skill) }
 
       it { expect { send_experts_reminders }.to change { Delayed::Job.count }.by(4) }
     end
 
     context 'expert is the same' do
-      let(:assistance_expertA) { create :assistance_expert, expert: create(:expert) }
+      let(:expert_skillA) { create :expert_skill, expert: create(:expert) }
 
-      let(:matches_quo_not_taken) { create_list(:match, 2, assistance_expert: assistance_expertA) }
-      let(:matches_taken_not_done) { create_list(:match, 2, assistance_expert: assistance_expertA) }
+      let(:matches_quo_not_taken) { create_list(:match, 2, expert_skill: expert_skillA) }
+      let(:matches_taken_not_done) { create_list(:match, 2, expert_skill: expert_skillA) }
 
       it { expect { send_experts_reminders }.to change { Delayed::Job.count }.by(1) }
     end

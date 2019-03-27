@@ -5,7 +5,7 @@ ActiveAdmin.register Expert do
 
   # Index
   #
-  includes :antenne_institution, :antenne, :users, :assistances, :received_matches
+  includes :antenne_institution, :antenne, :users, :skills, :received_matches
   config.sort_order = 'full_name_asc'
 
   scope :all, default: true
@@ -34,8 +34,8 @@ ActiveAdmin.register Expert do
     column(:users) do |e|
       div admin_link_to(e, :users)
     end
-    column(:assistances) do |e|
-      div admin_link_to(e, :assistances)
+    column(:skills) do |e|
+      div admin_link_to(e, :skills)
     end
     column(:received_matches) do |e|
       div admin_link_to(e, :received_matches)
@@ -53,7 +53,7 @@ ActiveAdmin.register Expert do
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
-  filter :assistances, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
+  filter :skills, as: :ajax_select, data: { url: :admin_skills_path, search_fields: [:title] }
 
   ## CSV
   #
@@ -70,7 +70,7 @@ ActiveAdmin.register Expert do
     column_count :territories
     column_count :communes
     column_count :users
-    column_count :assistances
+    column_count :skills
     column_count :received_matches
   end
 
@@ -97,8 +97,8 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :users)
         div admin_link_to(e, :users, list: true)
       end
-      row(:assistances) do |e|
-        div admin_link_to(e, :assistances, list: true)
+      row(:skills) do |e|
+        div admin_link_to(e, :skills, list: true)
       end
       row(:received_matches) do |e|
         div admin_link_to(e, :received_matches)
@@ -120,8 +120,8 @@ ActiveAdmin.register Expert do
     :phone_number,
     :insee_codes,
     user_ids: [],
-    assistance_ids: [],
-    assistances_experts_attributes: %i[id assistance_id _create _update _destroy]
+    skill_ids: [],
+    experts_skills_attributes: %i[id skill_id _create _update _destroy]
   ]
 
   form do |f|
@@ -149,9 +149,9 @@ ActiveAdmin.register Expert do
       }
     end
 
-    f.inputs t('activerecord.attributes.expert.assistances') do
-      collection = option_groups_from_collection_for_select(Question.all, :assistances, :label, :id, :title, expert.assistances.pluck(:id))
-      f.input :assistances, input_html: { :size => 20 }, collection: collection
+    f.inputs t('activerecord.attributes.expert.skills') do
+      collection = option_groups_from_collection_for_select(Question.all, :skills, :label, :id, :title, expert.skills.pluck(:id))
+      f.input :skills, input_html: { :size => 20 }, collection: collection
     end
 
     f.actions

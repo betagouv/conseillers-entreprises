@@ -35,8 +35,8 @@ fr:
         <p>Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.</p>
       expert_scope_of_work: 'Champ de compétence du référent :'
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
-      no_assistance: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
       no_diagnosed_needs: Pas de besoins sélectionnés.
+      no_expert_skill: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
       notify_matches: Notifier les référents sélectionnés
       relays_role:
         one: Relais local

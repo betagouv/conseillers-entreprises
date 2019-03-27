@@ -78,10 +78,10 @@ RSpec.describe Diagnosis, type: :model do
       context 'one diagnosis' do
         let(:diagnosis) { create :diagnosis }
         let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
-        let(:assistance_expert) { create :assistance_expert, expert: expert }
+        let(:expert_skill) { create :expert_skill, expert: expert }
 
         before do
-          create :match, diagnosed_need: diagnosed_need, assistance_expert: assistance_expert
+          create :match, diagnosed_need: diagnosed_need, expert_skill: expert_skill
         end
 
         it { is_expected.to eq [diagnosis] }

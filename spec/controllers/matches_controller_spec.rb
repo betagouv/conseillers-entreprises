@@ -10,7 +10,7 @@ RSpec.describe MatchesController, type: :controller do
     let(:access_token) { nil }
 
     context 'current user is not a relay' do
-      let(:match) { create :match, :with_assistance_expert }
+      let(:match) { create :match, :with_expert_skill }
 
       let(:access_token) { expert.access_token }
       let(:expert) { create :expert }
@@ -32,9 +32,9 @@ RSpec.describe MatchesController, type: :controller do
       end
 
       context 'match exists' do
-        let(:assistance_expert) { create :assistance_expert, expert: expert }
+        let(:expert_skill) { create :expert_skill, expert: expert }
 
-        before { match.update assistance_expert: assistance_expert }
+        before { match.update expert_skill: expert_skill }
 
         context 'with status quo' do
           it 'returns http success' do

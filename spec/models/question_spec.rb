@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Question, type: :model do
   describe 'validations' do
     it do
-      is_expected.to have_many(:assistances)
+      is_expected.to have_many(:skills)
       is_expected.to have_many(:diagnosed_needs)
       is_expected.to belong_to :category
       is_expected.to validate_presence_of :category

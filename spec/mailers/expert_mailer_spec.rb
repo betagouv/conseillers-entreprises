@@ -10,7 +10,7 @@ describe ExpertMailer do
     subject(:mail) { described_class.notify_company_needs(expert, diagnosis).deliver_now }
 
     let(:expert) { create :expert }
-    let(:assistances) { create_list :assistance, 2 }
+    let(:skills) { create_list :skill, 2 }
     let(:user) { create :user }
     let(:question) { create :question }
     let(:diagnosis) { create :diagnosis, advisor: user, visitee: create(:contact, :with_email) }

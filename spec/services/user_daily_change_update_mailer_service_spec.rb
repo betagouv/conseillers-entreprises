@@ -13,7 +13,7 @@ describe UserDailyChangeUpdateMailerService do
       allow(UserMailer).to receive(:daily_change_update)
     end
 
-    context 'one selected assistance modified during the last 24h' do
+    context 'one selected skill modified during the last 24h' do
       let(:match1) { create :match }
       let(:match2) { create :match }
       let(:expected_array) do
@@ -46,7 +46,7 @@ describe UserDailyChangeUpdateMailerService do
       end
     end
 
-    context 'two selected assistances for the same user modified during the last 24h' do
+    context 'two selected skills for the same user modified during the last 24h' do
       let(:diagnosis) { create :diagnosis }
       let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
       let(:match1) { create :match }
@@ -92,7 +92,7 @@ describe UserDailyChangeUpdateMailerService do
       end
     end
 
-    context 'one selected assistance modified during the last 24h but no status update' do
+    context 'one selected skill modified during the last 24h but no status update' do
       let(:match) { create :match }
 
       before do

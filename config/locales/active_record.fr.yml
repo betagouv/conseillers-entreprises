@@ -3,8 +3,6 @@ fr:
   activerecord:
     attributes:
       antenne: 
-      assistance:
-        question: Besoin parent
       commune:
         insee_code: Code commune
       company: 
@@ -22,8 +20,8 @@ fr:
         role: Fonction de la personne rencontrée
       expert:
         access_token: Token d’accès
-        assistances: Champs de compétence
         role: Fonction
+        skills: Champs de compétence
         users:
           one: Membre
           other: Membres
@@ -36,15 +34,15 @@ fr:
         advisors: Conseillers
         antennes: Antennes
       match:
-        assistance_expert: Référent (non Relais local)
-        assistance_title: Champ de compétence
         closed_at: Date de clôture
         diagnosed_need: Besoin identifié
         expert: Référent
         expert_full_name: Nom du référent
         expert_institution_name: Institution du référent
+        expert_skill: Référent (non Relais local)
         expert_viewed_page_at: Date de consultation par le référent
         relay: Référent (Relais local)
+        skill_title: Champ de compétence
         taken_care_of_at: Date de prise en charge
       relay:
         territory: Territoire
@@ -53,6 +51,8 @@ fr:
         label: Entreprise
         query: Requête
         user: Utilisateur
+      skill:
+        question: Besoin parent
       solicitation:
         needs: Besoins sélectionnés
         pk_campaign: Campagne
@@ -104,7 +104,7 @@ fr:
               blank: Le contact doit avoir au moins une adresse e-mail ou un numéro de téléphone.
         match:
           attributes:
-            assistance_expert:
+            expert_skill:
               can_not_be_set_with_relay: La ressource ne peut pas être liée à la fois à un référent et un relais local.
         user:
           attributes:
@@ -114,9 +114,6 @@ fr:
       antenne:
         one: Antenne
         other: Antennes
-      assistance:
-        one: Champ de compétence
-        other: Champs de compétence
       category:
         one: Catégorie
         other: Catégories
@@ -162,6 +159,9 @@ fr:
       search:
         one: Recherche
         other: Recherches
+      skill:
+        one: Champ de compétence
+        other: Champs de compétence
       solicitation:
         one: Sollicitation
         other: Sollicitations
@@ -187,10 +187,6 @@ fr:
     antenne_institution: Institution
     archived?: Archivé
     archived_at: Date d’archivage
-    assistance: Champ de compétence
-    assistances:
-      one: Champ de compétence
-      other: Champs de compétence
     category: Catégorie
     communes: Communes
     community: Communauté
@@ -266,6 +262,10 @@ fr:
       other: Mises en relation envoyées
     siren: SIREN
     siret: SIRET
+    skill: Champ de compétence
+    skills:
+      one: Champ de compétence
+      other: Champs de compétence
     status: Statut
     status_description: Résumé
     statuses:
