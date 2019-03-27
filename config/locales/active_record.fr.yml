@@ -35,8 +35,6 @@ fr:
       institution:
         advisors: Conseillers
         antennes: Antennes
-        qualified_for_artisanry: Artisanat ?
-        qualified_for_commerce: Commerce ?
       match:
         assistance_expert: Référent (non Relais local)
         assistance_title: Champ de compétence
