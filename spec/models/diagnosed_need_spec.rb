@@ -144,13 +144,13 @@ RSpec.describe DiagnosedNeed, type: :model do
     describe 'ordered_for_interview' do
       subject { DiagnosedNeed.ordered_for_interview }
 
-      context 'with questions and categories' do
-        let(:cat1)  { create :category, interview_sort_order: 1 }
-        let(:cat2)  { create :category, interview_sort_order: 2 }
-        let(:q1)    { create :question, interview_sort_order: 1, category: cat1 }
-        let(:q2)    { create :question, interview_sort_order: 2, category: cat1 }
-        let(:q3)    { create :question, interview_sort_order: 1, category: cat2 }
-        let(:q4)    { create :question, interview_sort_order: 2, category: cat2 }
+      context 'with questions and themes' do
+        let(:t1)    { create :theme, interview_sort_order: 1 }
+        let(:t2)    { create :theme, interview_sort_order: 2 }
+        let(:q1)    { create :question, interview_sort_order: 1, theme: t1 }
+        let(:q2)    { create :question, interview_sort_order: 2, theme: t1 }
+        let(:q3)    { create :question, interview_sort_order: 1, theme: t2 }
+        let(:q4)    { create :question, interview_sort_order: 2, theme: t2 }
         let(:need1) { create  :diagnosed_need, question: q1 }
         let(:need2) { create  :diagnosed_need, question: q2 }
         let(:need3) { create  :diagnosed_need, question: q3 }

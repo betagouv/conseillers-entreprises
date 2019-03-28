@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: categories
+# Table name: themes
 #
 #  id                   :bigint(8)        not null, primary key
 #  interview_sort_order :integer
@@ -9,10 +9,10 @@
 #  updated_at           :datetime         not null
 #
 
-class Category < ApplicationRecord
+class Theme < ApplicationRecord
   ## Associations
   #
-  has_many :questions, inverse_of: :category
+  has_many :questions, inverse_of: :Theme
 
   ## Validations
   #
@@ -20,7 +20,7 @@ class Category < ApplicationRecord
 
   ## Through Associations
   #
-  has_many :skills, through: :questions, inverse_of: :category
+  has_many :skills, through: :questions, inverse_of: :Theme
 
   ## Scopes
   #

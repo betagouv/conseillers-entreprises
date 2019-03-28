@@ -114,9 +114,6 @@ fr:
       antenne:
         one: Antenne
         other: Antennes
-      category:
-        one: Catégorie
-        other: Catégories
       comment:
         one: Commentaire
         other: Commentaires
@@ -168,6 +165,9 @@ fr:
       territory:
         one: Territoire
         other: Territoires
+      theme:
+        one: Thématique
+        other: Thématiques
       user:
         one: Utilisateur
         other: Utilisateurs
@@ -187,7 +187,6 @@ fr:
     antenne_institution: Institution
     archived?: Archivé
     archived_at: Date d’archivage
-    category: Catégorie
     communes: Communes
     community: Communauté
     contacted_expert: Référent contacté
@@ -287,6 +286,7 @@ fr:
       quo: Pas de réponse
       sent_to_no_one: Envoyé à personne
       taking_care: Pris en charge
+    theme: Thématique
     title: Titre
     updated_at: Date de mise à jour
     visit: Visite

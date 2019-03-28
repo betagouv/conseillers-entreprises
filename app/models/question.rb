@@ -8,16 +8,16 @@
 #  label                :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  category_id          :bigint(8)        not null
+#  theme_id             :bigint(8)        not null
 #
 # Indexes
 #
 #  index_questions_on_archived_at  (archived_at)
-#  index_questions_on_category_id  (category_id)
+#  index_questions_on_theme_id     (theme_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (category_id => categories.id)
+#  fk_rails_...  (theme_id => themes.id)
 #
 
 class Question < ApplicationRecord
@@ -27,14 +27,14 @@ class Question < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :category, inverse_of: :questions
+  belongs_to :theme, inverse_of: :questions
 
   has_many :skills, inverse_of: :question
   has_many :diagnosed_needs, inverse_of: :question
 
   ## Validations
   #
-  validates :category, presence: true
+  validates :theme, presence: true
 
   ## Through Associations
   #

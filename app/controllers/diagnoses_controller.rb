@@ -28,7 +28,7 @@ class DiagnosesController < ApplicationController
 
   def step2
     @diagnosis = safe_diagnosis_param
-    @categories = Category.ordered_for_interview
+    @themes = Theme.ordered_for_interview
   end
 
   def besoins
@@ -40,7 +40,7 @@ class DiagnosesController < ApplicationController
       redirect_to action: :step3, id: @diagnosis
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      @categories = Category.all.includes(:questions)
+      @themes = Theme.all.includes(:questions)
       render action: :step2
     end
   end

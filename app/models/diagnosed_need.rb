@@ -72,8 +72,8 @@ class DiagnosedNeed < ApplicationRecord
       .distinct
   end
   scope :ordered_for_interview, -> do
-    left_outer_joins(:question, question: :category)
-      .order('categories.interview_sort_order')
+    left_outer_joins(:question, question: :theme)
+      .order('themes.interview_sort_order')
       .order('questions.interview_sort_order')
   end
 
