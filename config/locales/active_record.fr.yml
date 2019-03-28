@@ -21,7 +21,7 @@ fr:
       expert:
         access_token: Token d’accès
         role: Fonction
-        skills: Champs de compétence
+        skills: Compétences
         users:
           one: Membre
           other: Membres
@@ -42,7 +42,7 @@ fr:
         expert_skill: Référent (non Relais local)
         expert_viewed_page_at: Date de consultation par le référent
         relay: Référent (Relais local)
-        skill_title: Champ de compétence
+        skill_title: Compétence
         taken_care_of_at: Date de prise en charge
       relay:
         territory: Territoire
@@ -160,8 +160,8 @@ fr:
         one: Recherche
         other: Recherches
       skill:
-        one: Champ de compétence
-        other: Champs de compétence
+        one: Compétence
+        other: Compétences
       solicitation:
         one: Sollicitation
         other: Sollicitations
@@ -262,10 +262,10 @@ fr:
       other: Mises en relation envoyées
     siren: SIREN
     siret: SIRET
-    skill: Champ de compétence
+    skill: Compétence
     skills:
-      one: Champ de compétence
-      other: Champs de compétence
+      one: Compétence
+      other: Compétences
     status: Statut
     status_description: Résumé
     statuses:
