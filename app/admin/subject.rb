@@ -23,6 +23,9 @@ ActiveAdmin.register Subject do
     column :archived? do |s|
       status_tag t('active_admin.archivable.archive_done') if s.archived?
     end
+    column :is_support do |d|
+      status_tag t('activerecord.attributes.subject.is_support') if d.is_support
+    end
     column(:skills) do |s|
       div admin_link_to(s, :skills)
     end
@@ -32,8 +35,9 @@ ActiveAdmin.register Subject do
   end
 
   filter :archived_in, as: :boolean, label: I18n.t('attributes.archived?')
-  filter :label
+  filter :is_support
   filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
+  filter :label
 
   ## CSV
   #
@@ -43,6 +47,8 @@ ActiveAdmin.register Subject do
     column :interview_sort_order
     column_count :skills
     column :archived?
+    column :is_support
+    column_count :assistances
   end
 
   ## Show
@@ -53,19 +59,21 @@ ActiveAdmin.register Subject do
       row :label
       row :interview_sort_order
       row :archived_at
+      row :is_support
       row(:skills) { |s| link_to(s.skills.size, admin_skills_path('q[subject_id_eq': s)) }
     end
   end
 
   ## Form
   #
-  permit_params :theme_id, :label, :interview_sort_order
+  permit_params :theme_id, :label, :interview_sort_order, :is_support
 
   form do |f|
     f.inputs do
       f.input :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
       f.input :label
       f.input :interview_sort_order
+      f.input :is_support
     end
 
     actions

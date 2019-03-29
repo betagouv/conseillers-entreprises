@@ -58,6 +58,8 @@ fr:
         pk_campaign: Campagne
         pk_kwd: Mots-clés
         tracking: Suivi
+      subject:
+        is_support: Support
       territory:
         advisors: Conseillers
         antennes: Antennes
