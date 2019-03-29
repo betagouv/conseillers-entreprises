@@ -10,15 +10,15 @@ ActiveAdmin.register Question do
 
   ## Index
   #
-  includes :category, :skills
-  config.sort_order = 'categories.interview_sort_order_asc'
+  includes :theme, :skills
+  config.sort_order = 'themes.interview_sort_order_asc'
 
   index do
     selectable_column
     column(:label) do |q|
       div admin_link_to(q)
     end
-    column :category, sortable: 'categories.interview_sort_order'
+    column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
     column :archived? do |d|
       status_tag t('active_admin.archivable.archive_done') if d.archived?
@@ -33,13 +33,13 @@ ActiveAdmin.register Question do
 
   filter :archived_in, as: :boolean, label: I18n.t('attributes.archived?')
   filter :label
-  filter :category, as: :ajax_select, data: { url: :admin_categories_path, search_fields: [:label] }
+  filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
 
   ## CSV
   #
   csv do
     column :label
-    column :category
+    column :theme
     column :interview_sort_order
     column_count :skills
     column :archived?
@@ -49,7 +49,7 @@ ActiveAdmin.register Question do
   #
   show do
     attributes_table do
-      row :category
+      row :theme
       row :label
       row :interview_sort_order
       row :archived_at
@@ -59,5 +59,5 @@ ActiveAdmin.register Question do
 
   ## Form
   #
-  permit_params :category_id, :label, :interview_sort_order
+  permit_params :theme_id, :label, :interview_sort_order
 end

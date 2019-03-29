@@ -5,7 +5,7 @@ ActiveAdmin.register Skill do
 
   ## Index
   #
-  includes :category, :question, :experts
+  includes :theme, :question, :experts
   config.sort_order = 'title_asc'
 
   index do
@@ -14,8 +14,8 @@ ActiveAdmin.register Skill do
       div admin_link_to(a)
       div admin_attr(a, :description)
     end
-    column(:category, sortable: 'categories.interview_sort_order') do |a|
-      div admin_link_to(a, :category)
+    column(:theme, sortable: 'themes.interview_sort_order') do |a|
+      div admin_link_to(a, :theme)
       div admin_link_to(a, :question)
     end
     column(:experts) do |a|
@@ -25,7 +25,7 @@ ActiveAdmin.register Skill do
   end
 
   filter :title
-  filter :category, as: :ajax_select, data: { url: :admin_categories_path, search_fields: [:label] }
+  filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
   filter :question, as: :ajax_select, data: { url: :admin_questions_path, search_fields: [:label] }
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
 
@@ -34,7 +34,7 @@ ActiveAdmin.register Skill do
   csv do
     column :title
     column :description
-    column :category
+    column :theme
     column :question
     column_count :experts
   end

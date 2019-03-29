@@ -7,8 +7,8 @@ RSpec.describe Question, type: :model do
     it do
       is_expected.to have_many(:skills)
       is_expected.to have_many(:diagnosed_needs)
-      is_expected.to belong_to :category
-      is_expected.to validate_presence_of :category
+      is_expected.to belong_to :theme
+      is_expected.to validate_presence_of :theme
     end
   end
 

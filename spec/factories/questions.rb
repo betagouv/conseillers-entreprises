@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :question do
     label { Faker::Lorem.sentence }
-    association :category
+    association :theme
   end
 end

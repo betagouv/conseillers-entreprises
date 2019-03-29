@@ -18,12 +18,12 @@
     %p.small.text.justified
       = t('.identify_needs', company_name: @diagnosis.company.name)
 
-    - @categories.each do |category|
+    - @themes.each do |theme|
       .ui.segments.shadow-less
         .ui.segment.secondary
-          %h3.ui.header= category
+          %h3.ui.header= theme
         - all_needs = @diagnosis.diagnosed_needs
-        - category.questions.for_interview.each do |question|
+        - theme.questions.for_interview.each do |question|
           - diagnosed_need = all_needs.where(question: question).first_or_initialize
           .ui.segment.checkbox.question
             = diagnosis_form.fields_for :diagnosed_needs, diagnosed_need do |need_form|
