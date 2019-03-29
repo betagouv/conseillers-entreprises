@@ -26,7 +26,7 @@ class ExpertSkill < ApplicationRecord
 
   scope :relevant_for, -> (diagnosed_need) do
     experts_in_commune = diagnosed_need.facility.commune.all_experts
-    relevant_skills = diagnosed_need.question.skills
+    relevant_skills = diagnosed_need.subject.skills
 
     ExpertSkill
       .where(skill: relevant_skills)

@@ -12,7 +12,7 @@
 class Theme < ApplicationRecord
   ## Associations
   #
-  has_many :questions, inverse_of: :Theme
+  has_many :subjects, inverse_of: :Theme
 
   ## Validations
   #
@@ -20,7 +20,7 @@ class Theme < ApplicationRecord
 
   ## Through Associations
   #
-  has_many :skills, through: :questions, inverse_of: :Theme
+  has_many :skills, through: :subjects, inverse_of: :Theme
 
   ## Scopes
   #

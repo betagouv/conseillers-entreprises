@@ -26,7 +26,7 @@ class UserMailerPreview < ActionMailer::Preview
     {
       expert_name: Faker::Name.name,
       expert_institution: Faker::Company.name,
-      question_title: Faker::Lorem.sentence,
+      subject_title: Faker::Lorem.sentence,
       company_name: Faker::Company.name,
       start_date: Date.yesterday,
       old_status: statuses.first,

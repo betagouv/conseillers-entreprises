@@ -150,7 +150,7 @@ ActiveAdmin.register Expert do
     end
 
     f.inputs t('activerecord.attributes.expert.skills') do
-      collection = option_groups_from_collection_for_select(Question.all, :skills, :label, :id, :title, expert.skills.pluck(:id))
+      collection = option_groups_from_collection_for_select(Subject.all, :skills, :label, :id, :title, expert.skills.pluck(:id))
       f.input :skills, input_html: { :size => 20 }, collection: collection
     end
 

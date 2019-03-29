@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_28_103125) do
+ActiveRecord::Schema.define(version: 2019_03_29_075200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2019_03_28_103125) do
 
   create_table "diagnosed_needs", force: :cascade do |t|
     t.bigint "diagnosis_id"
-    t.bigint "question_id", null: false
+    t.bigint "subject_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "content"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2019_03_28_103125) do
     t.datetime "archived_at"
     t.index ["archived_at"], name: "index_diagnosed_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_diagnosed_needs_on_diagnosis_id"
-    t.index ["question_id"], name: "index_diagnosed_needs_on_question_id"
+    t.index ["subject_id"], name: "index_diagnosed_needs_on_subject_id"
   end
 
   create_table "diagnoses", force: :cascade do |t|
@@ -223,17 +223,6 @@ ActiveRecord::Schema.define(version: 2019_03_28_103125) do
     t.index ["status"], name: "index_matches_on_status"
   end
 
-  create_table "questions", id: :serial, force: :cascade do |t|
-    t.string "label"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "theme_id", null: false
-    t.integer "interview_sort_order"
-    t.datetime "archived_at"
-    t.index ["archived_at"], name: "index_questions_on_archived_at"
-    t.index ["theme_id"], name: "index_questions_on_theme_id"
-  end
-
   create_table "relays", force: :cascade do |t|
     t.bigint "territory_id"
     t.bigint "user_id"
@@ -257,9 +246,9 @@ ActiveRecord::Schema.define(version: 2019_03_28_103125) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "question_id", null: false
+    t.bigint "subject_id", null: false
     t.string "title"
-    t.index ["question_id"], name: "index_skills_on_question_id"
+    t.index ["subject_id"], name: "index_skills_on_subject_id"
   end
 
   create_table "solicitations", force: :cascade do |t|
@@ -270,6 +259,17 @@ ActiveRecord::Schema.define(version: 2019_03_28_103125) do
     t.jsonb "form_info", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subjects", id: :serial, force: :cascade do |t|
+    t.string "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "theme_id", null: false
+    t.integer "interview_sort_order"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_subjects_on_archived_at"
+    t.index ["theme_id"], name: "index_subjects_on_theme_id"
   end
 
   create_table "territories", force: :cascade do |t|
@@ -327,7 +327,7 @@ ActiveRecord::Schema.define(version: 2019_03_28_103125) do
   add_foreign_key "communes_territories", "territories"
   add_foreign_key "contacts", "companies"
   add_foreign_key "diagnosed_needs", "diagnoses"
-  add_foreign_key "diagnosed_needs", "questions"
+  add_foreign_key "diagnosed_needs", "subjects"
   add_foreign_key "diagnoses", "contacts", column: "visitee_id"
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "users", column: "advisor_id"
@@ -339,9 +339,9 @@ ActiveRecord::Schema.define(version: 2019_03_28_103125) do
   add_foreign_key "matches", "diagnosed_needs"
   add_foreign_key "matches", "experts_skills", column: "experts_skills_id"
   add_foreign_key "matches", "relays"
-  add_foreign_key "questions", "themes"
   add_foreign_key "relays", "territories"
   add_foreign_key "relays", "users"
   add_foreign_key "searches", "users"
-  add_foreign_key "skills", "questions"
+  add_foreign_key "skills", "subjects"
+  add_foreign_key "subjects", "themes"
 end

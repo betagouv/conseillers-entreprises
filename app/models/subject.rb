@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: questions
+# Table name: subjects
 #
 #  id                   :integer          not null, primary key
 #  archived_at          :datetime
@@ -12,25 +12,25 @@
 #
 # Indexes
 #
-#  index_questions_on_archived_at  (archived_at)
-#  index_questions_on_theme_id     (theme_id)
+#  index_subjects_on_archived_at  (archived_at)
+#  index_subjects_on_theme_id     (theme_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (theme_id => themes.id)
 #
 
-class Question < ApplicationRecord
+class Subject < ApplicationRecord
   ##
   #
   include Archivable
 
   ## Associations
   #
-  belongs_to :theme, inverse_of: :questions
+  belongs_to :theme, inverse_of: :subjects
 
-  has_many :skills, inverse_of: :question
-  has_many :diagnosed_needs, inverse_of: :question
+  has_many :skills, inverse_of: :subject
+  has_many :diagnosed_needs, inverse_of: :subject
 
   ## Validations
   #
@@ -39,7 +39,7 @@ class Question < ApplicationRecord
   ## Through Associations
   #
   # :diagnosed_needs
-  has_many :diagnoses, through: :diagnosed_needs, inverse_of: :questions
+  has_many :diagnoses, through: :diagnosed_needs, inverse_of: :subjects
 
   ## Scopes
   #

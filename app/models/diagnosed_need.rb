@@ -9,18 +9,18 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  diagnosis_id  :bigint(8)
-#  question_id   :bigint(8)        not null
+#  subject_id    :bigint(8)        not null
 #
 # Indexes
 #
 #  index_diagnosed_needs_on_archived_at   (archived_at)
 #  index_diagnosed_needs_on_diagnosis_id  (diagnosis_id)
-#  index_diagnosed_needs_on_question_id   (question_id)
+#  index_diagnosed_needs_on_subject_id    (subject_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (diagnosis_id => diagnoses.id)
-#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (subject_id => subjects.id)
 #
 
 class DiagnosedNeed < ApplicationRecord
@@ -31,13 +31,13 @@ class DiagnosedNeed < ApplicationRecord
   ## Associations
   #
   belongs_to :diagnosis, inverse_of: :diagnosed_needs
-  belongs_to :question, inverse_of: :diagnosed_needs
+  belongs_to :subject, inverse_of: :diagnosed_needs
   has_many :matches, dependent: :destroy, inverse_of: :diagnosed_need
 
   ## Validations
   #
   validates :diagnosis, presence: true
-  validates :question, uniqueness: { scope: :diagnosis_id, allow_nil: true }
+  validates :subject, uniqueness: { scope: :diagnosis_id, allow_nil: true }
 
   ## Through Associations
   #
@@ -72,9 +72,9 @@ class DiagnosedNeed < ApplicationRecord
       .distinct
   end
   scope :ordered_for_interview, -> do
-    left_outer_joins(:question, question: :theme)
+    left_outer_joins(:subject, subject: :theme)
       .order('themes.interview_sort_order')
-      .order('questions.interview_sort_order')
+      .order('subjects.interview_sort_order')
   end
 
   scope :diagnosis_completed, -> do
@@ -142,7 +142,7 @@ class DiagnosedNeed < ApplicationRecord
   ##
   #
   def to_s
-    "#{company} : #{question}"
+    "#{company} : #{subject}"
   end
 
   def last_activity_at

@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :diagnosed_need do
     association :diagnosis
-    association :question
+    association :subject
   end
 end

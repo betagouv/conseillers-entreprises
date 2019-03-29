@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :skill do
     title { Faker::Lorem.sentence }
 
-    association :question
+    association :subject
 
     trait :with_expert do
       after(:create) do |skill|

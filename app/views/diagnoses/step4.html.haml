@@ -14,7 +14,7 @@
         %table.ui.compact.small.table.celled
           %thead
             %tr
-              %th{ colspan: 3 }= diagnosed_need.question
+              %th{ colspan: 3 }= diagnosed_need.subject
           %tbody
             - experts_skills = ExpertSkill.relevant_for(diagnosed_need)
             - if experts_skills.present?

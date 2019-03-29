@@ -16,7 +16,7 @@
         - needs_of_interest.each do |need|
           .diagnoses-list-item-need
             %h4.ui.header
-              = need.question
+              = need.subject
               .match-status= status_label(need.status)
               .sub.header= models_human_description(need.matches)
         - can_archive = diagnosis.advisor == current_user

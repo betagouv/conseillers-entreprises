@@ -12,9 +12,9 @@ describe ExpertMailer do
     let(:expert) { create :expert }
     let(:skills) { create_list :skill, 2 }
     let(:user) { create :user }
-    let(:question) { create :question }
+    let(:subject1) { create :subject }
     let(:diagnosis) { create :diagnosis, advisor: user, visitee: create(:contact, :with_email) }
-    let(:questions_with_needs_description) { [{ question: question, need_description: 'Help this company' }] }
+    let(:subjects_with_needs_description) { [{ subject: subject1, need_description: 'Help this company' }] }
 
     let(:params_hash) do
       {
@@ -22,7 +22,7 @@ describe ExpertMailer do
         diagnosis_id: diagnosis.id,
         company_name: diagnosis.company.name,
         company_contact: diagnosis.visitee,
-        questions_with_needs_description: questions_with_needs_description,
+        subjects_with_needs_description: subjects_with_needs_description,
         advisor: user
       }
     end

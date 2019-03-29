@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register Question do
+ActiveAdmin.register Subject do
   menu priority: 5
   actions :all, except: :destroy
 
@@ -15,16 +15,16 @@ ActiveAdmin.register Question do
 
   index do
     selectable_column
-    column(:label) do |q|
-      div admin_link_to(q)
+    column(:label) do |s|
+      div admin_link_to(s)
     end
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
-    column :archived? do |d|
-      status_tag t('active_admin.archivable.archive_done') if d.archived?
+    column :archived? do |s|
+      status_tag t('active_admin.archivable.archive_done') if s.archived?
     end
-    column(:skills) do |q|
-      div admin_link_to(q, :skills)
+    column(:skills) do |s|
+      div admin_link_to(s, :skills)
     end
     actions dropdown: true do |d|
       index_row_archive_actions(d)
@@ -53,7 +53,7 @@ ActiveAdmin.register Question do
       row :label
       row :interview_sort_order
       row :archived_at
-      row(:skills) { |q| link_to(q.skills.size, admin_skills_path('q[question_id_eq]': q)) }
+      row(:skills) { |s| link_to(s.skills.size, admin_skills_path('q[subject_id_eq': s)) }
     end
   end
 
