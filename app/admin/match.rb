@@ -59,7 +59,7 @@ ActiveAdmin.register Match do
 
   filter :expert_full_name
 
-  filter :assistance, as: :ajax_select, data: { url: :admin_assistances_path, search_fields: [:title] }
+  filter :skill, as: :ajax_select, data: { url: :admin_skills_path, search_fields: [:title] }
 
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
 
@@ -116,7 +116,7 @@ ActiveAdmin.register Match do
 
   ## Form
   #
-  permit_params :diagnosed_need_id, :assistances_experts_id, :relay_id, :status
+  permit_params :diagnosed_need_id, :experts_skills_id, :relay_id, :status
   form do |f|
     f.inputs do
       f.input :status

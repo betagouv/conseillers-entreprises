@@ -13,6 +13,6 @@ class ExpertMailerPreview < ActionMailer::Preview
   private
 
   def match_with_person
-    Match.where.not(relay: nil).or(Match.where.not(assistance_expert: nil)).sample
+    Match.where.not(relay: nil).or(Match.where.not(expert_skill: nil)).sample
   end
 end

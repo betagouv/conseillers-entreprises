@@ -4,8 +4,8 @@ FactoryBot.define do
   factory :match do
     association :diagnosed_need
 
-    trait :with_assistance_expert do
-      association :assistance_expert
+    trait :with_expert_skill do
+      association :expert_skill
     end
 
     trait :with_relay do

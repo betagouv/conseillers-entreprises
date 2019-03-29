@@ -101,7 +101,7 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       context 'with matches, not done' do
         before do
-          create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :quo
+          create :match, :with_expert_skill, diagnosed_need: diagnosed_need, status: :quo
         end
 
         it { is_expected.to eq [] }
@@ -109,8 +109,8 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       context 'with matches, done' do
         before do
-          create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :quo
-          create :match, :with_assistance_expert, diagnosed_need: diagnosed_need, status: :done
+          create :match, :with_expert_skill, diagnosed_need: diagnosed_need, status: :quo
+          create :match, :with_expert_skill, diagnosed_need: diagnosed_need, status: :done
         end
 
         it { is_expected.to eq [diagnosed_need] }
@@ -168,9 +168,9 @@ RSpec.describe DiagnosedNeed, type: :model do
     let(:relay) { build :relay }
     let(:expert) { build :expert }
     let(:relay_match) { build :match, relay: relay }
-    let(:assistance_expert) { build :assistance_expert, expert: expert }
-    let(:expert_match) { build :match, assistance_expert: assistance_expert }
-    let(:expert_match2) { build :match, assistance_expert: assistance_expert }
+    let(:expert_skill) { build :expert_skill, expert: expert }
+    let(:expert_match) { build :match, expert_skill: expert_skill }
+    let(:expert_match2) { build :match, expert_skill: expert_skill }
 
     context 'No matches' do
       let(:matches) { [] }

@@ -80,8 +80,8 @@ class Diagnosis < ApplicationRecord
   scope :in_progress, -> { where(step: [1..LAST_STEP - 1]) }
   scope :completed, -> { where(step: LAST_STEP) }
   scope :available_for_expert, -> (expert) do
-    joins(diagnosed_needs: [matches: [assistance_expert: :expert]])
-      .where(diagnosed_needs: { matches: { assistance_expert: { experts: { id: expert.id } } } })
+    joins(diagnosed_needs: [matches: [expert_skill: :expert]])
+      .where(diagnosed_needs: { matches: { expert_skill: { experts: { id: expert.id } } } })
   end
 
   scope :of_relay_or_expert, -> (relay_or_expert) do
