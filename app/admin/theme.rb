@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Theme do
-  menu parent: :questions, priority: 1
+  menu parent: :subjects, priority: 1
 
   ## Index
   #
   config.sort_order = 'interview_sort_order_asc'
-  includes :questions, :skills
+  includes :subjects, :skills
 
   index do
     selectable_column
-    column(:label) do |c|
-      div admin_link_to(c)
+    column(:label) do |t|
+      div admin_link_to(t)
     end
     column :interview_sort_order
-    column(:questions) do |c|
-      div admin_link_to(c, :questions)
-      div admin_link_to(c, :skills)
+    column(:subjects) do |t|
+      div admin_link_to(t, :subjects)
+      div admin_link_to(t, :skills)
     end
     actions dropdown: true
   end
@@ -28,7 +28,7 @@ ActiveAdmin.register Theme do
   csv do
     column :label
     column :interview_sort_order
-    column_count :questions
+    column_count :subjects
     column_count :skills
   end
 
@@ -38,8 +38,8 @@ ActiveAdmin.register Theme do
     attributes_table do
       row :label
       row :interview_sort_order
-      row(:questions) { |q| link_to(q.questions.size, admin_questions_path('q[theme_id_eq]': q)) }
-      row(:skills) { |q| link_to(q.skills.size, admin_skills_path('q[question_theme_id_eq]': q)) }
+      row(:subjects) { |t| link_to(t.subjects.size, admin_subjects_path('q[theme_id_eq]': t)) }
+      row(:skills) { |t| link_to(t.skills.size, admin_skills_path('q[subject_theme_id_eq]': t)) }
     end
   end
 

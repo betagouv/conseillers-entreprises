@@ -4,7 +4,7 @@ module UseCases
       def perform(diagnosis, expert_skill_ids)
         experts_skills = experts_skills_for_diagnosis(diagnosis.id, expert_skill_ids)
         experts_skills.each do |expert_skill|
-          diagnosed_need = expert_skill.skill.question.diagnosed_needs.first
+          diagnosed_need = expert_skill.skill.subject.diagnosed_needs.first
           if !diagnosed_need
             next
           end
@@ -21,10 +21,10 @@ module UseCases
       def experts_skills_for_diagnosis(diagnosis_id, expert_skill_ids)
         associations = [
           :expert, :skill, expert: :antenne_institution, skill: [
-            :question, question: [:diagnosed_needs, diagnosed_needs: :diagnosis]
+            :subject, subject: [:diagnosed_needs, diagnosed_needs: :diagnosis]
           ]
         ]
-        condition = { skills: { questions: { diagnosed_needs: { diagnoses: { id: diagnosis_id } } } } }
+        condition = { skills: { subjects: { diagnosed_needs: { diagnoses: { id: diagnosis_id } } } } }
         ExpertSkill.joins(associations).includes(associations).where(condition).where(id: expert_skill_ids)
       end
     end

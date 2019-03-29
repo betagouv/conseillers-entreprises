@@ -15,7 +15,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       assign(:diagnosis, diagnosis)
     end
 
-    context 'when diagnosis has a date, there is an access token and there are two questions' do
+    context 'when diagnosis has a date, there is an access token and there are two subjects' do
       let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, diagnosed_needs: [need1, need2] }
 
       before do
@@ -25,11 +25,11 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
 
       it 'displays the date, phone number and 2 list items' do
         expect(rendered).to include "besoins/#{diagnosis.id}?access_token=random_access_token"
-        assert_select 'h3.question', count: 2
+        assert_select 'h3.subject', count: 2
       end
     end
 
-    context 'when there is no access token and there is one question' do
+    context 'when there is no access token and there is one subject' do
       let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, diagnosed_needs: [need1] }
 
       before do
@@ -39,7 +39,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
 
       it 'does not display the date, but displays email and one list item' do
         expect(rendered).to include "besoins/#{diagnosis.id}"
-        assert_select 'h3.question', count: 1
+        assert_select 'h3.subject', count: 1
       end
     end
   end

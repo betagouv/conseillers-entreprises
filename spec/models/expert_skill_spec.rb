@@ -17,12 +17,12 @@ RSpec.describe ExpertSkill, type: :model do
 
       let(:diagnosed_need) do
         create :diagnosed_need,
-          question: create(:question),
+          subject: create(:subject),
           diagnosis: create(:diagnosis, facility: create(:facility, commune: create(:commune)))
       end
 
-      let(:relevant_skill) { create(:skill, question: diagnosed_need.question) }
-      let(:unrelated_skill) { create :skill, question: create(:question) }
+      let(:relevant_skill) { create(:skill, subject: diagnosed_need.subject) }
+      let(:unrelated_skill) { create :skill, subject: create(:subject) }
 
       let(:local_expert1) { create :expert, communes: [diagnosed_need.facility.commune] }
       let(:local_expert2) { create :expert, communes: [diagnosed_need.facility.commune] }

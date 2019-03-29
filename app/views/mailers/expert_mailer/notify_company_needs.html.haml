@@ -12,7 +12,7 @@
 %p= t('.company_expressed_needs')
 
 - @diagnosis.diagnosed_needs.ordered_for_interview.of_relay_or_expert(@person).each do |need|
-  %h3.question= need.question
+  %h3.subject= need.subject
   - if need.content.present?
     %blockquote
       %p= simple_format(need.content)

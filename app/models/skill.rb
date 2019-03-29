@@ -7,21 +7,21 @@
 #  title       :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  question_id :bigint(8)        not null
+#  subject_id  :bigint(8)        not null
 #
 # Indexes
 #
-#  index_skills_on_question_id  (question_id)
+#  index_skills_on_subject_id  (subject_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (subject_id => subjects.id)
 #
 
 class Skill < ApplicationRecord
   ## Associations
   #
-  belongs_to :question, inverse_of: :skills
+  belongs_to :subject, inverse_of: :skills
 
   has_many :experts_skills, dependent: :destroy
   has_many :experts, through: :experts_skills, inverse_of: :skills # TODO should be direct once we remove the ExpertSkill model and use a HABTM
@@ -29,11 +29,11 @@ class Skill < ApplicationRecord
 
   ## Validations
   #
-  validates :title, :question, presence: true
+  validates :title, :subject, presence: true
 
   ## Through Associations
   #
-  has_one :theme, through: :question, inverse_of: :skills
+  has_one :theme, through: :subject, inverse_of: :skills
 
   ##
   #
