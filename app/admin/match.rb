@@ -5,9 +5,9 @@ ActiveAdmin.register Match do
 
   ## Index
   #
-  includes :diagnosed_need, :diagnosis, :facility, :company, :related_matches,
+  includes :need, :diagnosis, :facility, :company, :related_matches,
     :advisor, :advisor_antenne, :expert, :expert_antenne, :relay_user,
-    diagnosed_need: :subject
+    need: :subject
 
   scope :all, default: true
   scope :with_deleted_expert
@@ -19,10 +19,10 @@ ActiveAdmin.register Match do
       status_tag(*status_tag_status_params(m.status))
     end
     column :updated_at
-    column :diagnosed_need, sortable: :created_at do |m|
-      div admin_link_to(m, :diagnosed_need)
+    column :need, sortable: :created_at do |m|
+      div admin_link_to(m, :need)
       div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
-      status_tag(*status_tag_status_params(m.diagnosed_need.status))
+      status_tag(*status_tag_status_params(m.need.status))
     end
     column :advisor do |m|
       div admin_link_to(m, :advisor)
@@ -69,12 +69,12 @@ ActiveAdmin.register Match do
     column :id
     column(:status) { |m| m.status_short_description }
     column :facility
-    column(:diagnosed_need) { |m| m.diagnosed_need_id }
-    column(:subject) { |m| m.diagnosed_need.subject }
+    column(:need) { |m| m.need_id }
+    column(:subject) { |m| m.need.subject }
     column :created_at
     column :taken_care_of_at
     column :closed_at
-    column(:status_description) { |m| m.diagnosed_need.status_short_description }
+    column(:status_description) { |m| m.need.status_short_description }
     column :advisor
     column :advisor_antenne
     column :advisor_institution
@@ -90,12 +90,12 @@ ActiveAdmin.register Match do
   show do
     attributes_table do
       row(:status) { |m| status_tag(*status_tag_status_params(m.status)) }
-      row :diagnosed_need
+      row :need
       row :created_at
       row :updated_at
       row :taken_care_of_at
       row :closed_at
-      row(:diagnosed_need) { |m| status_tag(*status_tag_status_params(m.diagnosed_need.status)) }
+      row(:need) { |m| status_tag(*status_tag_status_params(m.need.status)) }
       row :advisor
       row :advisor_antenne
       row :contacted_expert do |m|
@@ -116,7 +116,7 @@ ActiveAdmin.register Match do
 
   ## Form
   #
-  permit_params :diagnosed_need_id, :experts_skills_id, :relay_id, :status
+  permit_params :need_id, :experts_skills_id, :relay_id, :status
   form do |f|
     f.inputs do
       f.input :status

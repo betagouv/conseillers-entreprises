@@ -6,7 +6,7 @@ ActiveAdmin.register User do
   # Index
   #
   includes :antenne, :antenne_institution, :experts, :relay_territories, :searches,
-    :sent_diagnoses, :sent_diagnosed_needs, :sent_matches
+    :sent_diagnoses, :sent_needs, :sent_matches
   config.sort_order = 'created_at_desc'
 
   scope :all, default: true
@@ -45,7 +45,7 @@ ActiveAdmin.register User do
     column(:activity) do |u|
       div admin_link_to(u, :searches)
       div admin_link_to(u, :sent_diagnoses)
-      div admin_link_to(u, :sent_diagnosed_needs)
+      div admin_link_to(u, :sent_needs)
       div admin_link_to(u, :sent_matches)
     end
 
@@ -85,7 +85,7 @@ ActiveAdmin.register User do
     column_list :relay_territories
     column_count :searches
     column_count :sent_diagnoses
-    column_count :sent_diagnosed_needs
+    column_count :sent_needs
     column_count :sent_matches
   end
 
@@ -121,7 +121,7 @@ ActiveAdmin.register User do
       row :activity do |u|
         div admin_link_to(u, :searches)
         div admin_link_to(u, :sent_diagnoses)
-        div admin_link_to(u, :sent_diagnosed_needs)
+        div admin_link_to(u, :sent_needs)
         div admin_link_to(u, :sent_matches)
       end
     end

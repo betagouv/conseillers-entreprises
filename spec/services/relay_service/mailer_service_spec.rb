@@ -50,7 +50,7 @@ describe RelayService::MailerService do
 
         let(:created_diagnoses) { create_list :diagnosis, 1, step: 1, facility: facility1 }
         let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, facility: facility1 }
-        let(:diagnosed_need) { create :diagnosed_need, diagnosis: completed_diagnoses.first }
+        let(:need) { create :need, diagnosis: completed_diagnoses.first }
         let(:updated_diagnoses) do
           create_list :diagnosis, 1, step: 4, facility: facility1, created_at: 2.weeks.ago, updated_at: 1.hour.ago
         end
@@ -66,7 +66,7 @@ describe RelayService::MailerService do
 
         before do
           create :diagnosis, step: 1, facility: facility1, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
-          create_list :match, 3, diagnosed_need: diagnosed_need
+          create_list :match, 3, need: need
 
           send_relay_stats_emails
         end

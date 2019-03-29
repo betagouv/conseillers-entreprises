@@ -43,14 +43,14 @@ class Diagnosis < ApplicationRecord
   belongs_to :advisor, class_name: 'User', inverse_of: :sent_diagnoses
   belongs_to :visitee, class_name: 'Contact', inverse_of: :diagnoses, optional: true
 
-  has_many :diagnosed_needs, dependent: :destroy, inverse_of: :diagnosis
+  has_many :needs, dependent: :destroy, inverse_of: :diagnosis
 
   ## Validations
   #
   validates :advisor, :facility, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
 
-  accepts_nested_attributes_for :diagnosed_needs, allow_destroy: true
+  accepts_nested_attributes_for :needs, allow_destroy: true
   accepts_nested_attributes_for :visitee
 
   ## Through Associations
@@ -59,9 +59,9 @@ class Diagnosis < ApplicationRecord
   has_one :company, through: :facility, inverse_of: :diagnoses
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnoses
 
-  # :diagnosed_needs
-  has_many :subjects, through: :diagnosed_needs, inverse_of: :diagnoses
-  has_many :matches, through: :diagnosed_needs, inverse_of: :diagnosis
+  # :needs
+  has_many :subjects, through: :needs, inverse_of: :diagnoses
+  has_many :matches, through: :needs, inverse_of: :diagnosis
 
   # :matches
   has_many :experts, through: :matches, inverse_of: :received_diagnoses
@@ -80,15 +80,15 @@ class Diagnosis < ApplicationRecord
   scope :in_progress, -> { where(step: [1..LAST_STEP - 1]) }
   scope :completed, -> { where(step: LAST_STEP) }
   scope :available_for_expert, -> (expert) do
-    joins(diagnosed_needs: [matches: [expert_skill: :expert]])
-      .where(diagnosed_needs: { matches: { expert_skill: { experts: { id: expert.id } } } })
+    joins(needs: [matches: [expert_skill: :expert]])
+      .where(needs: { matches: { expert_skill: { experts: { id: expert.id } } } })
   end
 
   scope :of_relay_or_expert, -> (relay_or_expert) do
     archived(false)
       .includes(facility: :company)
-      .joins(:diagnosed_needs)
-      .merge(DiagnosedNeed.of_relay_or_expert(relay_or_expert))
+      .joins(:needs)
+      .merge(Need.of_relay_or_expert(relay_or_expert))
       .order(happened_on: :desc, created_at: :desc)
       .distinct
   end
@@ -119,7 +119,7 @@ class Diagnosis < ApplicationRecord
     if role.present? && advisor == role
       true
     else
-      diagnosed_needs.any?{ |need| need.can_be_viewed_by?(role) }
+      needs.any?{ |need| need.can_be_viewed_by?(role) }
     end
   end
 

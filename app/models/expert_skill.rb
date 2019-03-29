@@ -24,9 +24,9 @@ class ExpertSkill < ApplicationRecord
   belongs_to :expert
   has_many :matches, foreign_key: :experts_skills_id, dependent: :nullify, inverse_of: :expert_skill
 
-  scope :relevant_for, -> (diagnosed_need) do
-    experts_in_commune = diagnosed_need.facility.commune.all_experts
-    relevant_skills = diagnosed_need.subject.skills
+  scope :relevant_for, -> (need) do
+    experts_in_commune = need.facility.commune.all_experts
+    relevant_skills = need.subject.skills
 
     ExpertSkill
       .where(skill: relevant_skills)

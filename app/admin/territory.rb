@@ -31,7 +31,7 @@ ActiveAdmin.register Territory do
     end
     column(:activity) do |c|
       div admin_link_to(c, :diagnoses)
-      div admin_link_to(c, :diagnosed_needs)
+      div admin_link_to(c, :needs)
       div admin_link_to(c, :matches)
     end
   end
@@ -50,7 +50,7 @@ ActiveAdmin.register Territory do
     column_count :advisors
     column_count :antenne_experts
     column_count :diagnoses
-    column_count :diagnosed_needs
+    column_count :needs
     column_count :matches
   end
 
@@ -78,7 +78,7 @@ ActiveAdmin.register Territory do
       end
       row(:activity) do |c|
         div admin_link_to(c, :diagnoses)
-        div admin_link_to(c, :diagnosed_needs)
+        div admin_link_to(c, :needs)
         div admin_link_to(c, :matches)
       end
     end

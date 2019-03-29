@@ -25,11 +25,11 @@ class Institution < ApplicationRecord
   has_many :experts, through: :antennes, inverse_of: :antenne_institution
   has_many :advisors, through: :antennes, inverse_of: :antenne_institution
   has_many :sent_diagnoses, through: :antennes, inverse_of: :advisor_institution
-  has_many :sent_diagnosed_needs, through: :antennes, inverse_of: :advisor_institution
+  has_many :sent_needs, through: :antennes, inverse_of: :advisor_institution
   has_many :sent_matches, through: :antennes, inverse_of: :advisor_institution
 
   has_many :received_matches, through: :antennes, inverse_of: :expert_institution
-  has_many :received_diagnosed_needs, through: :antennes, inverse_of: :expert_institutions
+  has_many :received_needs, through: :antennes, inverse_of: :expert_institutions
   has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institutions
 
   ##

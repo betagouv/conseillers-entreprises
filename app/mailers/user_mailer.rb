@@ -27,10 +27,10 @@ class UserMailer < ApplicationMailer
   def match_feedback(feedback)
     @feedback = feedback
     @author = feedback.match.person
-    @diagnosed_need = feedback.match.diagnosed_need
-    @persons = @diagnosed_need.contacted_persons - [@author]
-    @advisor = @diagnosed_need.diagnosis.advisor
-    @facility = @diagnosed_need.diagnosis.facility
+    @need = feedback.match.need
+    @persons = @need.contacted_persons - [@author]
+    @advisor = @need.diagnosis.advisor
+    @facility = @need.diagnosis.facility
     mail(to: @advisor.email_with_display_name,
          cc: @persons.map(&:email_with_display_name),
          reply_to: @author.email_with_display_name,

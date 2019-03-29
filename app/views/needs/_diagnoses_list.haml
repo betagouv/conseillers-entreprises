@@ -10,7 +10,7 @@
           .sub.header= I18n.l(diagnosis.display_date, format: '%-d %B %Y')
           = diagnosis.company.name
           .sub.header= diagnosis.facility.commune_name
-        - needs_of_interest = diagnosis.diagnosed_needs
+        - needs_of_interest = diagnosis.needs
         - if relay_or_expert.present?
           - needs_of_interest = needs_of_interest.of_relay_or_expert(relay_or_expert)
         - needs_of_interest.each do |need|

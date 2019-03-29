@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :match do
-    association :diagnosed_need
+    association :need
 
     trait :with_expert_skill do
       association :expert_skill

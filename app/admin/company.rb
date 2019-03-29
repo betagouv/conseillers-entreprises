@@ -5,7 +5,7 @@ ActiveAdmin.register Company do
 
   ## Index
   #
-  includes :facilities, :contacts, :diagnoses, :diagnosed_needs, :matches
+  includes :facilities, :contacts, :diagnoses, :needs, :matches
   config.sort_order = 'created_at_desc'
 
   index do
@@ -22,7 +22,7 @@ ActiveAdmin.register Company do
     end
     column(:activity) do |c|
       div admin_link_to(c, :diagnoses)
-      div admin_link_to(c, :diagnosed_needs)
+      div admin_link_to(c, :needs)
       div admin_link_to(c, :matches)
     end
     actions dropdown: true
@@ -43,7 +43,7 @@ ActiveAdmin.register Company do
     column_count :facilities
     column_list :contacts
     column_count :diagnoses
-    column_count :diagnosed_needs
+    column_count :needs
     column_count :matches
   end
 
@@ -61,7 +61,7 @@ ActiveAdmin.register Company do
       end
       row(:activity) do |c|
         div admin_link_to(c, :diagnoses)
-        div admin_link_to(c, :diagnosed_needs)
+        div admin_link_to(c, :needs)
         div admin_link_to(c, :matches)
       end
     end

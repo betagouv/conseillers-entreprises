@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_29_075200) do
+ActiveRecord::Schema.define(version: 2019_03_29_105202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,19 +110,6 @@ ActiveRecord::Schema.define(version: 2019_03_29_075200) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "diagnosed_needs", force: :cascade do |t|
-    t.bigint "diagnosis_id"
-    t.bigint "subject_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "content"
-    t.integer "matches_count"
-    t.datetime "archived_at"
-    t.index ["archived_at"], name: "index_diagnosed_needs_on_archived_at"
-    t.index ["diagnosis_id"], name: "index_diagnosed_needs_on_diagnosis_id"
-    t.index ["subject_id"], name: "index_diagnosed_needs_on_subject_id"
-  end
-
   create_table "diagnoses", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -205,7 +192,7 @@ ActiveRecord::Schema.define(version: 2019_03_29_075200) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.bigint "diagnosed_need_id"
+    t.bigint "need_id"
     t.bigint "experts_skills_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -217,10 +204,23 @@ ActiveRecord::Schema.define(version: 2019_03_29_075200) do
     t.bigint "relay_id"
     t.datetime "taken_care_of_at"
     t.datetime "closed_at"
-    t.index ["diagnosed_need_id"], name: "index_matches_on_diagnosed_need_id"
     t.index ["experts_skills_id"], name: "index_matches_on_experts_skills_id"
+    t.index ["need_id"], name: "index_matches_on_need_id"
     t.index ["relay_id"], name: "index_matches_on_relay_id"
     t.index ["status"], name: "index_matches_on_status"
+  end
+
+  create_table "needs", force: :cascade do |t|
+    t.bigint "diagnosis_id"
+    t.bigint "subject_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "content"
+    t.integer "matches_count"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_needs_on_archived_at"
+    t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
+    t.index ["subject_id"], name: "index_needs_on_subject_id"
   end
 
   create_table "relays", force: :cascade do |t|
@@ -326,8 +326,6 @@ ActiveRecord::Schema.define(version: 2019_03_29_075200) do
   add_foreign_key "communes_territories", "communes"
   add_foreign_key "communes_territories", "territories"
   add_foreign_key "contacts", "companies"
-  add_foreign_key "diagnosed_needs", "diagnoses"
-  add_foreign_key "diagnosed_needs", "subjects"
   add_foreign_key "diagnoses", "contacts", column: "visitee_id"
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "users", column: "advisor_id"
@@ -336,9 +334,11 @@ ActiveRecord::Schema.define(version: 2019_03_29_075200) do
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
-  add_foreign_key "matches", "diagnosed_needs"
   add_foreign_key "matches", "experts_skills", column: "experts_skills_id"
+  add_foreign_key "matches", "needs"
   add_foreign_key "matches", "relays"
+  add_foreign_key "needs", "diagnoses"
+  add_foreign_key "needs", "subjects"
   add_foreign_key "relays", "territories"
   add_foreign_key "relays", "users"
   add_foreign_key "searches", "users"

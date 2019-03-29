@@ -1,5 +1,5 @@
 var match_html = "#{j render(partial: 'needs/match', locals: { match: @match, for_me: true })}";
 document.getElementById('match-#{@match.id}').innerHTML = match_html;
 
-var diagnosed_need_html = "#{j render(partial: 'needs/need_header', locals: { diagnosed_need: @match.diagnosed_need })}";
-document.getElementById('diagnosed_need-#{@match.diagnosed_need.id}').innerHTML = diagnosed_need_html;
+var need_html = "#{j render(partial: 'needs/need_header', locals: { need: @match.need })}";
+document.getElementById('need-#{@match.need.id}').innerHTML = need_html;

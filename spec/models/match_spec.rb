@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe Match, type: :model do
   describe 'validations' do
     it do
-      is_expected.to belong_to :diagnosed_need
+      is_expected.to belong_to :need
       # is_expected.to belong_to :expert_skill  # TODO: We currently have bad data in DB, and cannot validate this
-      is_expected.to validate_presence_of :diagnosed_need
+      is_expected.to validate_presence_of :need
     end
   end
 
@@ -153,13 +153,13 @@ RSpec.describe Match, type: :model do
       subject { Match.of_diagnoses [diagnosis] }
 
       let(:diagnosis) { create :diagnosis }
-      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+      let(:need) { create :need, diagnosis: diagnosis }
       let(:match) do
-        create :match, :with_expert_skill, diagnosed_need: diagnosed_need
+        create :match, :with_expert_skill, need: need
       end
 
       before do
-        create :diagnosed_need, diagnosis: diagnosis
+        create :need, diagnosis: diagnosis
         create :match, :with_expert_skill
       end
 

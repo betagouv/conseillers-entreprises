@@ -1,10 +1,10 @@
 %ul
   - matches.each do |match|
     %li
-      - diagnosis = match.diagnosed_need.diagnosis
+      - diagnosis = match.need.diagnosis
       %b= diagnosis.company.name
       —
-      = match.diagnosed_need.subject
+      = match.need.subject
       %br
       %a{ href: besoin_url(diagnosis, access_token: access_token) }
         = match.skill_title

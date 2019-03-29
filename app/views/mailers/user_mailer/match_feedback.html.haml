@@ -2,13 +2,13 @@
 
 %p= t('.expert_wrote_back',
   author: @author.full_name_with_role,
-  need: @diagnosed_need.subject,
+  need: @need.subject,
   company: @facility.company.name)
 
 %blockquote
   %p= simple_format(@feedback.description)
 
 %p= t('.thankyou')
-%p= t('.summary_html', summary_link: link_to(t('.summary_link'), besoin_url(@diagnosed_need.diagnosis)))
+%p= t('.summary_html', summary_link: link_to(t('.summary_link'), besoin_url(@need.diagnosis)))
 %p= t('.nice_day')
 %p= t('.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))

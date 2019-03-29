@@ -9,8 +9,6 @@ fr:
       contact:
         company: Entreprise
         role: Fonction
-      diagnosed_need:
-        subject: Sujet
       diagnosis:
         content: Commentaire
       diagnosis/visitee:
@@ -35,15 +33,17 @@ fr:
         antennes: Antennes
       match:
         closed_at: Date de clôture
-        diagnosed_need: Besoin identifié
         expert: Référent
         expert_full_name: Nom du référent
         expert_institution_name: Institution du référent
         expert_skill: Référent (non Relais local)
         expert_viewed_page_at: Date de consultation par le référent
+        need: Besoin identifié
         relay: Référent (Relais local)
         skill_title: Compétence
         taken_care_of_at: Date de prise en charge
+      need:
+        subject: Sujet
       relay:
         territory: Territoire
         user: Utilisateur
@@ -126,9 +126,6 @@ fr:
       contact:
         one: Contact
         other: Contacts
-      diagnosed_need:
-        one: Besoin identifié
-        other: Besoins identifiés
       diagnosis:
         one: Analyse
         other: Analyses
@@ -147,6 +144,9 @@ fr:
       match:
         one: Mise en relation
         other: Mises en relation
+      need:
+        one: Besoin identifié
+        other: Besoins identifiés
       relay:
         one: Relais local
         other: Relais locaux
@@ -198,9 +198,6 @@ fr:
     created_at: Date de création
     custom_communes: Spécifique
     description: Description
-    diagnosed_needs:
-      one: Besoin identifié
-      other: Besoins identifiés
     diagnoses:
       one: Analyse
       other: Analyses
@@ -232,6 +229,9 @@ fr:
       other: Mises en relation
     naf_code: Code NAF
     name: Nom
+    needs:
+      one: Besoin identifié
+      other: Besoins identifiés
     phone_number: Numéro de téléphone
     received_matches:
       one: Mise en relation reçue
@@ -246,15 +246,15 @@ fr:
     searches:
       one: Recherche
       other: Recherches
-    sent_diagnosed_needs:
-      one: Besoin analysé
-      other: Besoins analysés
     sent_diagnoses:
       one: Analyse réalisée
       other: Analyses réalisées
     sent_matches:
       one: Mise en relation envoyée
       other: Mises en relation envoyées
+    sent_needs:
+      one: Besoin analysé
+      other: Besoins analysés
     siren: SIREN
     siret: SIRET
     skill: Compétence

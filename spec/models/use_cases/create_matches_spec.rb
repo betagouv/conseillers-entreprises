@@ -8,7 +8,7 @@ describe UseCases::CreateMatches do
     let(:subject1) { create :subject }
     let(:skill) { create :skill, subject: subject1 }
     let(:expert_skill) { create :expert_skill, skill: skill }
-    let!(:diagnosed_need) { create :diagnosed_need, subject: subject1, diagnosis: diagnosis }
+    let!(:need) { create :need, subject: subject1, diagnosis: diagnosis }
 
     let(:expert_skill_ids) { [expert_skill.id] }
 
@@ -16,7 +16,7 @@ describe UseCases::CreateMatches do
       before { described_class.perform(diagnosis, expert_skill_ids) }
 
       it do
-        expect(Match.first.diagnosed_need).to eq diagnosed_need
+        expect(Match.first.need).to eq need
         expect(Match.first.expert_skill).to eq expert_skill
         expect(Match.first.relay).to be_nil
         expect(Match.first.skill_title).to eq expert_skill.skill.title

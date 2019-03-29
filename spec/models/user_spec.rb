@@ -109,8 +109,8 @@ RSpec.describe User, type: :model do
     describe 'active_answered' do
       it do
         expert = create :match, status: 2
-        need = create :diagnosed_need, matches: [expert]
-        diagnosis = create :diagnosis, created_at: 1.day.ago, diagnosed_needs: [need]
+        need = create :need, matches: [expert]
+        diagnosis = create :diagnosis, created_at: 1.day.ago, needs: [need]
         active_user = create :user, sent_diagnoses: [diagnosis]
 
         last_30_days = (30.days.ago)..Time.zone.now

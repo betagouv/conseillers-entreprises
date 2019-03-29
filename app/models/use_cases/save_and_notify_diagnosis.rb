@@ -3,7 +3,7 @@ module UseCases
     class << self
       def perform(diagnosis, matches)
         save_experts_skills_selection(diagnosis, matches[:experts_skills])
-        save_relays_selection(diagnosis, matches[:diagnosed_needs])
+        save_relays_selection(diagnosis, matches[:needs])
         diagnosis.contacted_persons.each do |person|
           ExpertMailer.delay.notify_company_needs(person, diagnosis)
         end
@@ -19,14 +19,14 @@ module UseCases
         UseCases::CreateMatches.perform(diagnosis, expert_skill_ids)
       end
 
-      def save_relays_selection(diagnosis, diagnosed_needs)
-        diagnosed_need_ids = ids_from_selected_checkboxes(diagnosed_needs)
-        if diagnosed_need_ids.empty?
+      def save_relays_selection(diagnosis, needs)
+        need_ids = ids_from_selected_checkboxes(needs)
+        if need_ids.empty?
           return
         end
         relays = diagnosis.facility.commune.relays
         relays.each do |relay|
-          UseCases::CreateSelectedRelays.perform(relay, diagnosed_need_ids)
+          UseCases::CreateSelectedRelays.perform(relay, need_ids)
         end
       end
 

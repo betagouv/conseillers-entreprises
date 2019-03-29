@@ -8,12 +8,12 @@ fr:
       diagnoses_in_progress: Analyses en cours
       title: Analyses
     step2:
-      diagnosed_need_content_placeholder: Plus d’infos sur ce besoin
       diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
       diagnosis_content_subtitle: Informations générales sur cette entreprise
       identify_needs: |
         Quels besoins avez-vous détectés durant votre rencontre avec %{company_name} ?
         N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
+      need_content_placeholder: Plus d’infos sur ce besoin
       select_at_least_one_need: Cochez au minimum un besoin identifié.
       title: Détection des besoins
     step3:
@@ -35,8 +35,8 @@ fr:
         <p>Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.</p>
       expert_scope_of_work: 'Compétence du référent :'
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
-      no_diagnosed_needs: Pas de besoins sélectionnés.
       no_expert_skill: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
+      no_needs: Pas de besoins sélectionnés.
       notify_matches: Notifier les référents sélectionnés
       relays_role:
         one: Relais local

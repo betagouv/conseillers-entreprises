@@ -1,5 +1,5 @@
 module Stats
-  class TransmittedNeedsStats < DiagnosedNeedsStats
+  class TransmittedNeedsStats < NeedsStats
     def main_query
       super
         .where(diagnoses: { step: Diagnosis::LAST_STEP })

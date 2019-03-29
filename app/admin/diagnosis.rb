@@ -9,7 +9,7 @@ ActiveAdmin.register Diagnosis do
 
   ## Index
   #
-  includes :facility, :company, :advisor, :diagnosed_needs, :matches
+  includes :facility, :company, :advisor, :needs, :matches
   includes facility: :commune
 
   scope :completed, default: true
@@ -27,8 +27,8 @@ ActiveAdmin.register Diagnosis do
     column :archived? do |d|
       status_tag t('active_admin.archivable.archive_done') if d.archived?
     end
-    column :diagnosed_needs do |d|
-      div admin_link_to(d, :diagnosed_needs)
+    column :needs do |d|
+      div admin_link_to(d, :needs)
       div admin_link_to(d, :matches)
     end
     actions dropdown: true do |d|
@@ -54,7 +54,7 @@ ActiveAdmin.register Diagnosis do
     column :created_at
     column :step
     column :archived?
-    column_count :diagnosed_needs
+    column_count :needs
     column_count :matches
   end
 
@@ -70,9 +70,9 @@ ActiveAdmin.register Diagnosis do
       row :content
       row :step
       row :archived_at
-      row(:diagnosed_needs) do |d|
-        div admin_link_to(d, :diagnosed_needs)
-        div admin_link_to(d, :diagnosed_needs, list: true)
+      row(:needs) do |d|
+        div admin_link_to(d, :needs)
+        div admin_link_to(d, :needs, list: true)
       end
       row(:matches) do |d|
         div admin_link_to(d, :matches)

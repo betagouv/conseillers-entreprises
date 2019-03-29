@@ -30,7 +30,7 @@ class Subject < ApplicationRecord
   belongs_to :theme, inverse_of: :subjects
 
   has_many :skills, inverse_of: :subject
-  has_many :diagnosed_needs, inverse_of: :subject
+  has_many :needs, inverse_of: :subject
 
   ## Validations
   #
@@ -38,8 +38,8 @@ class Subject < ApplicationRecord
 
   ## Through Associations
   #
-  # :diagnosed_needs
-  has_many :diagnoses, through: :diagnosed_needs, inverse_of: :subjects
+  # :needs
+  has_many :diagnoses, through: :needs, inverse_of: :subjects
 
   ## Scopes
   #

@@ -50,6 +50,6 @@
       - if @information_hash[scope].positive?
         - i18n_scope = 'mailers.admin_mailer.weekly_statistics.needs_abandoned.scopes'
         - description = t(scope.to_s, scope: i18n_scope, count: @information_hash[scope])
-        %li= link_to description, admin_diagnosed_needs_url(scope: scope)
+        %li= link_to description, admin_needs_url(scope: scope)
 
 %p= t('.see_you_next_week')
