@@ -18,9 +18,9 @@ module RelayService
       end
 
       def csv_line_from_diagnosis(csv_line, diagnosis)
-        diagnosis.diagnosed_needs.each do |diagnosed_need|
-          diagnosed_need.matches.each do |match|
-            csv_line = csv_line_from_data(csv_line, diagnosis, diagnosed_need, match)
+        diagnosis.needs.each do |need|
+          need.matches.each do |match|
+            csv_line = csv_line_from_data(csv_line, diagnosis, need, match)
           end
         end
         csv_line
@@ -44,14 +44,14 @@ module RelayService
       end
 
       # rubocop:disable Metrics/AbcSize
-      def csv_line_from_data(csv_line, diagnosis, diagnosed_need, match)
+      def csv_line_from_data(csv_line, diagnosis, need, match)
         csv_line << [
           diagnosis.company.name,
           diagnosis.happened_on,
           diagnosis.advisor.full_name,
           diagnosis.advisor.institution,
-          diagnosed_need.subject,
-          diagnosed_need.content,
+          need.subject,
+          need.content,
           match.expert_full_name,
           match.expert_institution_name,
           I18n.t("attributes.statuses.#{match.status}"),

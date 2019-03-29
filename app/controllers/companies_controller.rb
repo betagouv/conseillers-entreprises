@@ -28,10 +28,10 @@ class CompaniesController < ApplicationController
         .completed
         .distinct
         .left_outer_joins(:matches,
-          diagnosed_needs: :matches)
+          needs: :matches)
         .includes(:matches,
           :advisor,
-          diagnosed_needs: :matches)
+          needs: :matches)
     else
       @diagnoses = Diagnosis.none
     end

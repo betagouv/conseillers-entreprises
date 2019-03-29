@@ -7,25 +7,25 @@ describe UseCases::UpdateExpertViewedPageAt do
     subject(:perform_use_case) { described_class.perform diagnosis: diagnosis, expert: expert }
 
     let(:diagnosis) { create :diagnosis }
-    let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+    let(:need) { create :need, diagnosis: diagnosis }
     let(:expert) { create :expert }
     let(:expert_skill) { create :expert_skill, expert: expert }
 
     let!(:match_with_date) do
       create :match,
-        diagnosed_need: diagnosed_need,
+        need: need,
         expert_skill: expert_skill,
         expert_viewed_page_at: 1.day.ago
     end
 
     let!(:match_without_date) do
       create :match,
-        diagnosed_need: diagnosed_need,
+        need: need,
         expert_skill: expert_skill,
         expert_viewed_page_at: nil
     end
 
-    let!(:match_without_diagnosed_need) do
+    let!(:match_without_need) do
       create :match,
         expert_skill: expert_skill,
         expert_viewed_page_at: nil
@@ -33,7 +33,7 @@ describe UseCases::UpdateExpertViewedPageAt do
 
     let!(:match_without_expert_skill) do
       create :match,
-        diagnosed_need: diagnosed_need,
+        need: need,
         expert_viewed_page_at: nil
     end
 
@@ -45,7 +45,7 @@ describe UseCases::UpdateExpertViewedPageAt do
 
     it 'does not change others matches' do
       expect(match_with_date.reload.expert_viewed_page_at.to_date).to eq 1.day.ago.to_date
-      expect(match_without_diagnosed_need.reload.expert_viewed_page_at).to be_nil
+      expect(match_without_need.reload.expert_viewed_page_at).to be_nil
       expect(match_without_expert_skill.reload.expert_viewed_page_at).to be_nil
     end
   end

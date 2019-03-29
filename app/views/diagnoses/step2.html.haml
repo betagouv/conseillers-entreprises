@@ -22,14 +22,14 @@
       .ui.segments.shadow-less
         .ui.segment.secondary
           %h3.ui.header= theme
-        - all_needs = @diagnosis.diagnosed_needs
+        - all_needs = @diagnosis.needs
         - theme.subjects.for_interview.each do |subject|
-          - diagnosed_need = all_needs.where(subject: subject).first_or_initialize
+          - need = all_needs.where(subject: subject).first_or_initialize
           .ui.segment.checkbox.subject
-            = diagnosis_form.fields_for :diagnosed_needs, diagnosed_need do |need_form|
-              = need_form.check_box :_destroy, { checked: diagnosed_need.persisted? }, '0', '1'
+            = diagnosis_form.fields_for :needs, need do |need_form|
+              = need_form.check_box :_destroy, { checked: need.persisted? }, '0', '1'
               = need_form.label :_destroy, subject
-              = need_form.text_area :content, placeholder: t('.diagnosed_need_content_placeholder'), rows: 2
+              = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2
               = need_form.hidden_field :subject_id
 
     .ui.actions

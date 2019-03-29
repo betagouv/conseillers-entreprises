@@ -29,7 +29,7 @@ class Feedback < ApplicationRecord
   ## Through Associations
   #
   has_one :expert, through: :match, inverse_of: :feedbacks
-  has_one :diagnosed_need, through: :match, inverse_of: :feedbacks
+  has_one :need, through: :match, inverse_of: :feedbacks
 
   ##
   #

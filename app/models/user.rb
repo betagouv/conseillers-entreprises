@@ -85,7 +85,7 @@ class User < ApplicationRecord
   has_many :antenne_territories, through: :antenne, source: :territories, inverse_of: :advisors
 
   # :sent_diagnoses
-  has_many :sent_diagnosed_needs, through: :sent_diagnoses, source: :diagnosed_needs, inverse_of: :advisor
+  has_many :sent_needs, through: :sent_diagnoses, source: :needs, inverse_of: :advisor
   has_many :sent_matches, through: :sent_diagnoses, source: :matches, inverse_of: :advisor
 
   ## Scopes
@@ -125,14 +125,14 @@ class User < ApplicationRecord
   end
 
   scope :active_matchers, -> (date) do
-    joins(sent_diagnoses: [diagnosed_needs: :matches])
+    joins(sent_diagnoses: [needs: :matches])
       .merge(Diagnosis.archived(false)
         .where(created_at: date))
       .distinct
   end
 
   scope :active_answered, -> (date, status) do
-    joins(sent_diagnoses: [diagnosed_needs: :matches])
+    joins(sent_diagnoses: [needs: :matches])
       .merge(Match
         .where(taken_care_of_at: date)
         .with_status(status))

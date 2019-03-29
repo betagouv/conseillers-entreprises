@@ -73,7 +73,7 @@ describe 'admin panel', type: :feature do
       current_user.update is_admin: true
       visit '/admin'
 
-      match.diagnosed_need.diagnosis.archive!
+      match.need.diagnosis.archive!
 
       click_link 'Mises en relation'
     end

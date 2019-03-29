@@ -61,9 +61,9 @@ RSpec.describe MatchesController, type: :controller do
     context 'current user is a relay' do
       login_user
 
-      let(:match) { create :match, :with_relay, diagnosed_need: diagnosed_need }
+      let(:match) { create :match, :with_relay, need: need }
 
-      let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+      let(:need) { create :need, diagnosis: diagnosis }
       let(:diagnosis) { create :diagnosis, facility: facility }
       let(:facility) { create :facility }
       let(:relay) { create :relay, user: current_user }

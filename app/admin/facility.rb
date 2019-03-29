@@ -5,7 +5,7 @@ ActiveAdmin.register Facility do
 
   ## Index
   #
-  includes :company, :commune, :diagnoses, :diagnosed_needs, :matches
+  includes :company, :commune, :diagnoses, :needs, :matches
   config.sort_order = 'created_at_desc'
 
   index do
@@ -18,7 +18,7 @@ ActiveAdmin.register Facility do
     column :created_at
     column(:activity) do |f|
       div admin_link_to(f, :diagnoses)
-      div admin_link_to(f, :diagnosed_needs)
+      div admin_link_to(f, :needs)
       div admin_link_to(f, :matches)
     end
     actions dropdown: true
@@ -40,7 +40,7 @@ ActiveAdmin.register Facility do
     column :naf_code
     column :created_at
     column_count :diagnoses
-    column_count :diagnosed_needs
+    column_count :needs
     column_count :matches
   end
 
@@ -56,7 +56,7 @@ ActiveAdmin.register Facility do
       row :created_at
       row(:activity) do |f|
         div admin_link_to(f, :diagnoses)
-        div admin_link_to(f, :diagnosed_needs)
+        div admin_link_to(f, :needs)
         div admin_link_to(f, :matches)
       end
     end

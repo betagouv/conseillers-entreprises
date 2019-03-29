@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DiagnosedNeed, type: :model do
+RSpec.describe Need, type: :model do
   describe 'validations' do
     it do
       is_expected.to belong_to :diagnosis
@@ -13,34 +13,34 @@ RSpec.describe DiagnosedNeed, type: :model do
   end
 
   describe 'subject uniqueness in the scope of a diagnosis' do
-    subject { build :diagnosed_need, diagnosis: diagnosis, subject: subject1 }
+    subject { build :need, diagnosis: diagnosis, subject: subject1 }
 
     let(:diagnosis) { create :diagnosis }
     let(:subject1) { create :subject }
 
-    context 'unique diagnosed_need for this subject' do
+    context 'unique need for this subject' do
       it { is_expected.to be_valid }
     end
 
-    context 'diagnosed_need for another subject' do
-      before { create :diagnosed_need, diagnosis: diagnosis, subject: subject2 }
+    context 'need for another subject' do
+      before { create :need, diagnosis: diagnosis, subject: subject2 }
 
       let(:subject2) { create :subject }
 
       it { is_expected.to be_valid }
     end
 
-    context 'diagnosed_need for the same subject' do
-      before { create :diagnosed_need, diagnosis: diagnosis, subject: subject1 }
+    context 'need for the same subject' do
+      before { create :need, diagnosis: diagnosis, subject: subject1 }
 
       it { is_expected.not_to be_valid }
     end
   end
 
   describe 'status' do
-    subject { diagnosed_need.status }
+    subject { need.status }
 
-    let(:diagnosed_need) { create :diagnosed_need, matches: matches, diagnosis: diagnosis }
+    let(:need) { create :need, matches: matches, diagnosis: diagnosis }
 
     let(:diagnosis) { create :diagnosis, step: 5 }
     let(:matches) { [] }
@@ -89,11 +89,11 @@ RSpec.describe DiagnosedNeed, type: :model do
 
   describe 'scopes' do
     describe 'with_some_matches_in_status' do
-      subject { DiagnosedNeed.with_some_matches_in_status(:done) }
+      subject { Need.with_some_matches_in_status(:done) }
 
-      let(:diagnosed_need) { create :diagnosed_need }
+      let(:need) { create :need }
 
-      before { create :diagnosed_need }
+      before { create :need }
 
       context 'with no match' do
         it { is_expected.to eq [] }
@@ -101,7 +101,7 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       context 'with matches, not done' do
         before do
-          create :match, :with_expert_skill, diagnosed_need: diagnosed_need, status: :quo
+          create :match, :with_expert_skill, need: need, status: :quo
         end
 
         it { is_expected.to eq [] }
@@ -109,20 +109,20 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       context 'with matches, done' do
         before do
-          create :match, :with_expert_skill, diagnosed_need: diagnosed_need, status: :quo
-          create :match, :with_expert_skill, diagnosed_need: diagnosed_need, status: :done
+          create :match, :with_expert_skill, need: need, status: :quo
+          create :match, :with_expert_skill, need: need, status: :done
         end
 
-        it { is_expected.to eq [diagnosed_need] }
+        it { is_expected.to eq [need] }
       end
     end
 
     describe 'with_matches_only_in_status' do
-      subject { DiagnosedNeed.with_matches_only_in_status(:quo) }
+      subject { Need.with_matches_only_in_status(:quo) }
 
-      let(:need1) { create :diagnosed_need }
-      let(:need2) { create :diagnosed_need }
-      let(:need3) { create :diagnosed_need }
+      let(:need1) { create :need }
+      let(:need2) { create :need }
+      let(:need3) { create :need }
 
       context 'with no match' do
         it { is_expected.to eq [] }
@@ -130,11 +130,11 @@ RSpec.describe DiagnosedNeed, type: :model do
 
       context 'with various matches' do
         before do
-          create_list :match, 2, status: :quo, diagnosed_need: need1
-          create :match, status: :quo, diagnosed_need: need2
-          create :match, status: :taking_care, diagnosed_need: need2
-          create :match, status: :done, diagnosed_need: need3
-          create :match, status: :not_for_me, diagnosed_need: need3
+          create_list :match, 2, status: :quo, need: need1
+          create :match, status: :quo, need: need2
+          create :match, status: :taking_care, need: need2
+          create :match, status: :done, need: need3
+          create :match, status: :not_for_me, need: need3
         end
 
         it { is_expected.to eq [need1] }
@@ -142,7 +142,7 @@ RSpec.describe DiagnosedNeed, type: :model do
     end
 
     describe 'ordered_for_interview' do
-      subject { DiagnosedNeed.ordered_for_interview }
+      subject { Need.ordered_for_interview }
 
       context 'with subjects and themes' do
         let(:t1)    { create :theme, interview_sort_order: 1 }
@@ -151,10 +151,10 @@ RSpec.describe DiagnosedNeed, type: :model do
         let(:s2)    { create :subject, interview_sort_order: 2, theme: t1 }
         let(:s3)    { create :subject, interview_sort_order: 1, theme: t2 }
         let(:s4)    { create :subject, interview_sort_order: 2, theme: t2 }
-        let(:need1) { create  :diagnosed_need, subject: s1 }
-        let(:need2) { create  :diagnosed_need, subject: s2 }
-        let(:need3) { create  :diagnosed_need, subject: s3 }
-        let(:need4) { create  :diagnosed_need, subject: s4 }
+        let(:need1) { create  :need, subject: s1 }
+        let(:need2) { create  :need, subject: s2 }
+        let(:need3) { create  :need, subject: s3 }
+        let(:need4) { create  :need, subject: s4 }
 
         it { is_expected.to eq [need1, need2, need3, need4] }
       end
@@ -162,9 +162,9 @@ RSpec.describe DiagnosedNeed, type: :model do
   end
 
   describe 'contacted_persons' do
-    subject { diagnosed_need.contacted_persons }
+    subject { need.contacted_persons }
 
-    let(:diagnosed_need) { create :diagnosed_need, matches: matches }
+    let(:need) { create :need, matches: matches }
     let(:relay) { build :relay }
     let(:expert) { build :expert }
     let(:relay_match) { build :match, relay: relay }
@@ -192,10 +192,10 @@ RSpec.describe DiagnosedNeed, type: :model do
   end
 
   describe 'last_activity_at' do
-    subject { diagnosed_need.last_activity_at.beginning_of_day }
+    subject { need.last_activity_at.beginning_of_day }
 
-    let(:diagnosed_need) { create :diagnosed_need }
-    let(:match) { build :match, diagnosed_need: diagnosed_need }
+    let(:need) { create :need }
+    let(:match) { build :match, need: need }
     let(:feedback) { build :feedback, match: match }
 
     let(:date1) { Time.zone.now.beginning_of_day }

@@ -53,7 +53,7 @@ class Expert < ApplicationRecord
   has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
 
   # :matches
-  has_many :received_diagnosed_needs, through: :received_matches, source: :diagnosed_need, inverse_of: :experts
+  has_many :received_needs, through: :received_matches, source: :need, inverse_of: :experts
   has_many :received_diagnoses, through: :received_matches, source: :diagnosis, inverse_of: :experts
   has_many :feedbacks, through: :received_matches, inverse_of: :expert
 

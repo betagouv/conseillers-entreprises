@@ -13,19 +13,19 @@ RSpec.describe ExpertSkill, type: :model do
 
   describe 'scopes' do
     describe 'relevant_for' do
-      subject(:experts_skills) { ExpertSkill.relevant_for(diagnosed_need) }
+      subject(:experts_skills) { ExpertSkill.relevant_for(need) }
 
-      let(:diagnosed_need) do
-        create :diagnosed_need,
+      let(:need) do
+        create :need,
           subject: create(:subject),
           diagnosis: create(:diagnosis, facility: create(:facility, commune: create(:commune)))
       end
 
-      let(:relevant_skill) { create(:skill, subject: diagnosed_need.subject) }
+      let(:relevant_skill) { create(:skill, subject: need.subject) }
       let(:unrelated_skill) { create :skill, subject: create(:subject) }
 
-      let(:local_expert1) { create :expert, communes: [diagnosed_need.facility.commune] }
-      let(:local_expert2) { create :expert, communes: [diagnosed_need.facility.commune] }
+      let(:local_expert1) { create :expert, communes: [need.facility.commune] }
+      let(:local_expert2) { create :expert, communes: [need.facility.commune] }
       let(:faraway_expert) { create :expert, communes: [create(:commune)] }
 
       let(:local_relevant_ae) { create :expert_skill, expert: local_expert1, skill: relevant_skill }

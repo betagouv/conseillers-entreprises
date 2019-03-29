@@ -7,8 +7,8 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
     let(:contact) { create :contact, :with_email }
     let(:user) { create :user }
     let(:expert) { create :expert }
-    let(:need1) { create(:diagnosed_need, matches: [create(:match, expert_skill: create(:expert_skill, expert: expert))]) }
-    let(:need2) { create(:diagnosed_need, matches: [create(:match, expert_skill: create(:expert_skill, expert: expert))]) }
+    let(:need1) { create(:need, matches: [create(:match, expert_skill: create(:expert_skill, expert: expert))]) }
+    let(:need2) { create(:need, matches: [create(:match, expert_skill: create(:expert_skill, expert: expert))]) }
 
     before do
       assign(:person, expert)
@@ -16,7 +16,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
     end
 
     context 'when diagnosis has a date, there is an access token and there are two subjects' do
-      let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, diagnosed_needs: [need1, need2] }
+      let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, needs: [need1, need2] }
 
       before do
         assign(:access_token, 'random_access_token')
@@ -30,7 +30,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
     end
 
     context 'when there is no access token and there is one subject' do
-      let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, diagnosed_needs: [need1] }
+      let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, needs: [need1] }
 
       before do
         assign(:access_token, nil)

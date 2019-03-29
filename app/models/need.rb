@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: diagnosed_needs
+# Table name: needs
 #
 #  id            :bigint(8)        not null, primary key
 #  archived_at   :datetime
@@ -13,9 +13,9 @@
 #
 # Indexes
 #
-#  index_diagnosed_needs_on_archived_at   (archived_at)
-#  index_diagnosed_needs_on_diagnosis_id  (diagnosis_id)
-#  index_diagnosed_needs_on_subject_id    (subject_id)
+#  index_needs_on_archived_at   (archived_at)
+#  index_needs_on_diagnosis_id  (diagnosis_id)
+#  index_needs_on_subject_id    (subject_id)
 #
 # Foreign Keys
 #
@@ -23,16 +23,16 @@
 #  fk_rails_...  (subject_id => subjects.id)
 #
 
-class DiagnosedNeed < ApplicationRecord
+class Need < ApplicationRecord
   ##
   #
   include Archivable
 
   ## Associations
   #
-  belongs_to :diagnosis, inverse_of: :diagnosed_needs
-  belongs_to :subject, inverse_of: :diagnosed_needs
-  has_many :matches, dependent: :destroy, inverse_of: :diagnosed_need
+  belongs_to :diagnosis, inverse_of: :needs
+  belongs_to :subject, inverse_of: :needs
+  has_many :matches, dependent: :destroy, inverse_of: :need
 
   ## Validations
   #
@@ -42,25 +42,25 @@ class DiagnosedNeed < ApplicationRecord
   ## Through Associations
   #
   # :diagnosis
-  has_one :facility, through: :diagnosis, inverse_of: :diagnosed_needs
-  has_one :company, through: :diagnosis, inverse_of: :diagnosed_needs
-  has_one :advisor, through: :diagnosis, inverse_of: :sent_diagnosed_needs
+  has_one :facility, through: :diagnosis, inverse_of: :needs
+  has_one :company, through: :diagnosis, inverse_of: :needs
+  has_one :advisor, through: :diagnosis, inverse_of: :sent_needs
 
   # :matches
-  has_many :experts, through: :matches, inverse_of: :received_diagnosed_needs
+  has_many :experts, through: :matches, inverse_of: :received_needs
   has_many :relays, through: :matches
-  has_many :feedbacks, through: :matches, inverse_of: :diagnosed_need
+  has_many :feedbacks, through: :matches, inverse_of: :need
 
   # :facility
-  has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnosed_needs
+  has_many :facility_territories, through: :facility, source: :territories, inverse_of: :needs
 
   # :advisor
-  has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_diagnosed_needs
-  has_one :advisor_institution, through: :advisor, source: :antenne_institution, inverse_of: :sent_diagnosed_needs
+  has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_needs
+  has_one :advisor_institution, through: :advisor, source: :antenne_institution, inverse_of: :sent_needs
 
   # :experts
-  has_many :expert_antennes, through: :experts, source: :antenne, inverse_of: :received_diagnosed_needs
-  has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_diagnosed_needs
+  has_many :expert_antennes, through: :experts, source: :antenne, inverse_of: :received_needs
+  has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_needs
 
   ## Scopes
   #
@@ -98,7 +98,7 @@ class DiagnosedNeed < ApplicationRecord
   end
 
   scope :no_activity_after, -> (date) do
-    where.not("diagnosed_needs.updated_at > ?", date)
+    where.not("needs.updated_at > ?", date)
       .left_outer_joins(:matches)
       .where.not(matches: Match.where('updated_at > ?', date))
       .left_outer_joins(:feedbacks)

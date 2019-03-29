@@ -9,12 +9,12 @@ describe ExpertReminderService do
     subject(:send_experts_reminders) { described_class.send_reminders }
 
     before do
-      allow(DiagnosedNeed).to receive(:quo_not_taken_after_3_weeks).and_return([need_quo_not_taken])
-      allow(DiagnosedNeed).to receive(:taken_not_done_after_3_weeks).and_return([need_taken_not_done])
+      allow(Need).to receive(:quo_not_taken_after_3_weeks).and_return([need_quo_not_taken])
+      allow(Need).to receive(:taken_not_done_after_3_weeks).and_return([need_taken_not_done])
     end
 
-    let(:need_quo_not_taken) { create(:diagnosed_need, matches: matches_quo_not_taken) }
-    let(:need_taken_not_done) { create(:diagnosed_need, matches: matches_taken_not_done) }
+    let(:need_quo_not_taken) { create(:need, matches: matches_quo_not_taken) }
+    let(:need_taken_not_done) { create(:need, matches: matches_taken_not_done) }
 
     context 'experts are different' do
       let(:matches_quo_not_taken) { create_list(:match, 2, :with_expert_skill) }

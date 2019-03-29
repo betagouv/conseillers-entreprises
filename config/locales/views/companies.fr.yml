@@ -41,10 +41,6 @@ fr:
       suggestions: Suggestions
     show:
       create_diagnosis: Démarrer une analyse
-      diagnosed_needs:
-        one: 1 besoin identifié
-        other: "%{count} besoins identifiés"
-        zero: 0 besoin identifié
       diagnoses_completed: Analyses complétées de %{company_name}
       facility: Établissement
       information: Informations
@@ -53,6 +49,10 @@ fr:
         one: 1 mise en relation
         other: "%{count} mises en relation"
         zero: 0 mise en relation
+      needs:
+        one: 1 besoin identifié
+        other: "%{count} besoins identifiés"
+        zero: 0 besoin identifié
       siege_social: Siège social
       visited_at: Visitée le %{date}
       visited_by_html: 'par %{advisor_name} </br> email : %{advisor_email}'
