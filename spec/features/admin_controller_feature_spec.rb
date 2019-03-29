@@ -30,8 +30,8 @@ describe 'admin panel', type: :feature do
       click_link 'Contact'
       click_link 'Créer Contact'
 
-      click_link 'Catégories'
-      click_link 'Créer Catégorie'
+      click_link 'Thématiques'
+      click_link 'Créer Thématique'
 
       click_link 'Besoins'
       click_link 'Créer Besoin'

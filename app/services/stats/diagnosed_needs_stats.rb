@@ -5,7 +5,7 @@ module Stats
     def main_query
       DiagnosedNeed
         .joins(:advisor)
-        .joins(question: :category)
+        .joins(question: :theme)
     end
 
     def date_group_attribute
@@ -24,11 +24,11 @@ module Stats
     end
 
     def category_group_attribute
-      'categories.label'
+      'themes.label'
     end
 
     def category_order_attribute
-      'categories.interview_sort_order'
+      'themes.interview_sort_order'
     end
   end
 end

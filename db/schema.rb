@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_27_164832) do
+ActiveRecord::Schema.define(version: 2019_03_28_103125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,13 +53,6 @@ ActiveRecord::Schema.define(version: 2019_03_27_164832) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
-  end
-
-  create_table "categories", force: :cascade do |t|
-    t.string "label"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "interview_sort_order"
   end
 
   create_table "communes", force: :cascade do |t|
@@ -234,11 +227,11 @@ ActiveRecord::Schema.define(version: 2019_03_27_164832) do
     t.string "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_id", null: false
+    t.bigint "theme_id", null: false
     t.integer "interview_sort_order"
     t.datetime "archived_at"
     t.index ["archived_at"], name: "index_questions_on_archived_at"
-    t.index ["category_id"], name: "index_questions_on_category_id"
+    t.index ["theme_id"], name: "index_questions_on_theme_id"
   end
 
   create_table "relays", force: :cascade do |t|
@@ -284,6 +277,13 @@ ActiveRecord::Schema.define(version: 2019_03_27_164832) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "bassin_emploi", default: false, null: false
+  end
+
+  create_table "themes", force: :cascade do |t|
+    t.string "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "interview_sort_order"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -339,7 +339,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_164832) do
   add_foreign_key "matches", "diagnosed_needs"
   add_foreign_key "matches", "experts_skills", column: "experts_skills_id"
   add_foreign_key "matches", "relays"
-  add_foreign_key "questions", "categories"
+  add_foreign_key "questions", "themes"
   add_foreign_key "relays", "territories"
   add_foreign_key "relays", "users"
   add_foreign_key "searches", "users"

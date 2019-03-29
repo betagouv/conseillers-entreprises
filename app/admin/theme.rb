@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register Category do
+ActiveAdmin.register Theme do
   menu parent: :questions, priority: 1
 
   ## Index
@@ -38,8 +38,8 @@ ActiveAdmin.register Category do
     attributes_table do
       row :label
       row :interview_sort_order
-      row(:questions) { |q| link_to(q.questions.size, admin_questions_path('q[category_id_eq]': q)) }
-      row(:skills) { |q| link_to(q.skills.size, admin_skills_path('q[question_category_id_eq]': q)) }
+      row(:questions) { |q| link_to(q.questions.size, admin_questions_path('q[theme_id_eq]': q)) }
+      row(:skills) { |q| link_to(q.skills.size, admin_skills_path('q[question_theme_id_eq]': q)) }
     end
   end
 

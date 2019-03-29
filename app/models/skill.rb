@@ -33,7 +33,7 @@ class Skill < ApplicationRecord
 
   ## Through Associations
   #
-  has_one :category, through: :question, inverse_of: :skills
+  has_one :theme, through: :question, inverse_of: :skills
 
   ##
   #
