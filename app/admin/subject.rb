@@ -60,4 +60,14 @@ ActiveAdmin.register Subject do
   ## Form
   #
   permit_params :theme_id, :label, :interview_sort_order
+
+  form do |f|
+    f.inputs do
+      f.input :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
+      f.input :label
+      f.input :interview_sort_order
+    end
+
+    actions
+  end
 end
