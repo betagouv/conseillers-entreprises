@@ -2,15 +2,14 @@
 #
 # Table name: diagnosed_needs
 #
-#  id             :bigint(8)        not null, primary key
-#  archived_at    :datetime
-#  content        :text
-#  matches_count  :integer
-#  question_label :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  diagnosis_id   :bigint(8)
-#  question_id    :bigint(8)        not null
+#  id            :bigint(8)        not null, primary key
+#  archived_at   :datetime
+#  content       :text
+#  matches_count :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  diagnosis_id  :bigint(8)
+#  question_id   :bigint(8)        not null
 #
 # Indexes
 #
@@ -39,10 +38,6 @@ class DiagnosedNeed < ApplicationRecord
   #
   validates :diagnosis, presence: true
   validates :question, uniqueness: { scope: :diagnosis_id, allow_nil: true }
-
-  ##
-  #
-  before_create :copy_question_label
 
   ## Through Associations
   #
@@ -204,11 +199,5 @@ class DiagnosedNeed < ApplicationRecord
   #
   def contacted_persons
     (relays.map(&:user) + experts).uniq
-  end
-
-  private
-
-  def copy_question_label
-    self.question_label ||= question&.label
   end
 end

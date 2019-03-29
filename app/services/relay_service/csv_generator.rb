@@ -50,7 +50,7 @@ module RelayService
           diagnosis.happened_on,
           diagnosis.advisor.full_name,
           diagnosis.advisor.institution,
-          diagnosed_need.question_label,
+          diagnosed_need.question,
           diagnosed_need.content,
           match.expert_full_name,
           match.expert_institution_name,

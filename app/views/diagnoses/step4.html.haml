@@ -3,20 +3,20 @@
 = render partial: 'steps', locals: { current_page_step: 4, diagnosis_step: @diagnosis.step }
 
 #step4-app
-  - if @diagnosed_needs.empty?
+  - if @diagnosis.diagnosed_needs.empty?
     %p= t('.no_diagnosed_needs')
   - else
     %p= t('.explanation')
 
     = form_for :matches, url: selection_diagnosis_path, method: :post,
                html: { id: 'step4-form' }, data: { confirm: '' } do |f|
-      - @diagnosed_needs.each do |diagnosed_need|
+      - @diagnosis.diagnosed_needs.ordered_for_interview.each do |diagnosed_need|
         %table.ui.compact.small.table.celled
           %thead
             %tr
-              %th{ colspan: 3 }= diagnosed_need.question || diagnosed_need.question_label
+              %th{ colspan: 3 }= diagnosed_need.question
           %tbody
-            - assistances_experts = diagnosed_need.question&.assistances&.flat_map(&:filtered_assistances_experts)
+            - assistances_experts = AssistanceExpert.relevant_for(diagnosed_need)
             - if assistances_experts.present?
               = f.fields_for :assistances_experts do |assistance_expert_form|
                 - assistances_experts.each do |assistance_expert|
@@ -62,12 +62,8 @@
               %tr
                 %td= t('.no_assistance')
 
-      - if @diagnosis.visitee.present?
-        .ui.info.message
-          = t('.before_sending_emails_text_html')
-      - else
-        .ui.error.message
-          %p= t('.add_contact_to_notify')
+      .ui.info.message
+        = t('.before_sending_emails_text_html')
 
       .ui.two.column.stackable.grid.container
         .ui.left.aligned.column.no-left-padding.no-margin

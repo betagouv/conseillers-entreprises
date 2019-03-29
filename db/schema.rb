@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_094052) do
+ActiveRecord::Schema.define(version: 2019_03_27_145036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(version: 2019_03_26_094052) do
 
   create_table "diagnosed_needs", force: :cascade do |t|
     t.bigint "diagnosis_id"
-    t.string "question_label"
     t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -210,8 +209,6 @@ ActiveRecord::Schema.define(version: 2019_03_26_094052) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "qualified_for_commerce", default: true, null: false
-    t.boolean "qualified_for_artisanry", default: true, null: false
     t.integer "antennes_count"
     t.boolean "show_icon", default: true
   end
@@ -246,7 +243,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_094052) do
     t.string "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_id"
+    t.bigint "category_id", null: false
     t.integer "interview_sort_order"
     t.datetime "archived_at"
     t.index ["archived_at"], name: "index_questions_on_archived_at"

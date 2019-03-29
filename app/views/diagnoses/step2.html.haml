@@ -21,14 +21,14 @@
     - @categories.each do |category|
       .ui.segments.shadow-less
         .ui.segment.secondary
-          %h3.ui.header= category.label
+          %h3.ui.header= category
         - all_needs = @diagnosis.diagnosed_needs
-        - category.questions.each do |question|
+        - category.questions.for_interview.each do |question|
           - diagnosed_need = all_needs.where(question: question).first_or_initialize
           .ui.segment.checkbox.question
             = diagnosis_form.fields_for :diagnosed_needs, diagnosed_need do |need_form|
               = need_form.check_box :_destroy, { checked: diagnosed_need.persisted? }, '0', '1'
-              = need_form.label :_destroy, question.label
+              = need_form.label :_destroy, question
               = need_form.text_area :content, placeholder: t('.diagnosed_need_content_placeholder'), rows: 2
               = need_form.hidden_field :question_id
 
