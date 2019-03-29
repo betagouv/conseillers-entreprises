@@ -60,7 +60,7 @@ RSpec.describe DiagnosesController, type: :controller do
   describe 'POST #selection' do
     let(:matches) do
       {
-        'assistances_experts' => { '12' => '1', '90' => '0' },
+        'experts_skills' => { '12' => '1', '90' => '0' },
         'diagnosed_needs' => { '31' => '1', '78' => '0' }
       }
     end

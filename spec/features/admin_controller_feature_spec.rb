@@ -36,8 +36,8 @@ describe 'admin panel', type: :feature do
       click_link 'Besoins'
       click_link 'Créer Besoin'
 
-      click_link 'Champs de compétence'
-      click_link 'Créer Champ de compétence'
+      click_link 'Compétence'
+      click_link 'Créer Compétence'
 
       click_link 'Établissement'
       click_link 'Créer Établissement'

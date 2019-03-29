@@ -1,10 +1,10 @@
 .needs-match
   - if match.person.present?
-    = person_block(match.person, suffix: match.assistance&.title)
+    = person_block(match.person, suffix: match.skill&.title)
   - else
     = person_block_raw(prefix: t('.deleted_expert'),
                        name: match.expert_full_name,
-                       suffix: match.assistance_title,
+                       suffix: match.skill_title,
                        role: match.expert_institution_name)
 
   .match-status

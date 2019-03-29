@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register Assistance do
+ActiveAdmin.register Skill do
   menu parent: :questions, priority: 2
 
   ## Index
@@ -46,7 +46,7 @@ ActiveAdmin.register Assistance do
       row :question
       row :title
       row :description
-      row(:experts) { |a| link_to(a.experts.size, admin_experts_path('q[assistances_experts_assistance_id_eq]': a)) }
+      row(:experts) { |a| link_to(a.experts.size, admin_experts_path('q[experts_skills_skill_id_eq]': a)) }
     end
   end
 

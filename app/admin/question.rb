@@ -10,7 +10,7 @@ ActiveAdmin.register Question do
 
   ## Index
   #
-  includes :category, :assistances
+  includes :category, :skills
   config.sort_order = 'categories.interview_sort_order_asc'
 
   index do
@@ -23,8 +23,8 @@ ActiveAdmin.register Question do
     column :archived? do |d|
       status_tag t('active_admin.archivable.archive_done') if d.archived?
     end
-    column(:assistances) do |q|
-      div admin_link_to(q, :assistances)
+    column(:skills) do |q|
+      div admin_link_to(q, :skills)
     end
     actions dropdown: true do |d|
       index_row_archive_actions(d)
@@ -41,7 +41,7 @@ ActiveAdmin.register Question do
     column :label
     column :category
     column :interview_sort_order
-    column_count :assistances
+    column_count :skills
     column :archived?
   end
 
@@ -53,7 +53,7 @@ ActiveAdmin.register Question do
       row :label
       row :interview_sort_order
       row :archived_at
-      row(:assistances) { |q| link_to(q.assistances.size, admin_assistances_path('q[question_id_eq]': q)) }
+      row(:skills) { |q| link_to(q.skills.size, admin_skills_path('q[question_id_eq]': q)) }
     end
   end
 

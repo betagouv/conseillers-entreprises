@@ -6,7 +6,7 @@ ActiveAdmin.register Category do
   ## Index
   #
   config.sort_order = 'interview_sort_order_asc'
-  includes :questions, :assistances
+  includes :questions, :skills
 
   index do
     selectable_column
@@ -16,7 +16,7 @@ ActiveAdmin.register Category do
     column :interview_sort_order
     column(:questions) do |c|
       div admin_link_to(c, :questions)
-      div admin_link_to(c, :assistances)
+      div admin_link_to(c, :skills)
     end
     actions dropdown: true
   end
@@ -29,7 +29,7 @@ ActiveAdmin.register Category do
     column :label
     column :interview_sort_order
     column_count :questions
-    column_count :assistances
+    column_count :skills
   end
 
   ## Show
@@ -39,7 +39,7 @@ ActiveAdmin.register Category do
       row :label
       row :interview_sort_order
       row(:questions) { |q| link_to(q.questions.size, admin_questions_path('q[category_id_eq]': q)) }
-      row(:assistances) { |q| link_to(q.assistances.size, admin_assistances_path('q[question_category_id_eq]': q)) }
+      row(:skills) { |q| link_to(q.skills.size, admin_skills_path('q[question_category_id_eq]': q)) }
     end
   end
 

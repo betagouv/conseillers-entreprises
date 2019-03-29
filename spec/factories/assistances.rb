@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :assistance do
+  factory :skill do
     title { Faker::Lorem.sentence }
 
     association :question
 
     trait :with_expert do
-      after(:create) do |assistance|
-        FactoryBot.create :assistance_expert, assistance: assistance
+      after(:create) do |skill|
+        FactoryBot.create :expert_skill, skill: skill
       end
     end
   end

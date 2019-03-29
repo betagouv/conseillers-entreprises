@@ -6,8 +6,8 @@ RSpec.describe Expert, type: :model do
   describe 'associations' do
     it do
       is_expected.to belong_to :antenne
-      is_expected.to have_many(:assistances_experts).dependent(:destroy)
-      is_expected.to have_many :assistances
+      is_expected.to have_many(:experts_skills).dependent(:destroy)
+      is_expected.to have_many :skills
       is_expected.to have_and_belong_to_many :users
       is_expected.to have_and_belong_to_many :communes
     end
@@ -35,17 +35,17 @@ RSpec.describe Expert, type: :model do
 
   describe 'associations dependencies' do
     let(:expert) { create :expert }
-    let(:assistance) { create :assistance }
-    let(:ae) { create :assistance_expert, expert: expert, assistance: assistance }
+    let(:skill) { create :skill }
+    let(:ae) { create :expert_skill, expert: expert, skill: skill }
 
     before do
-      create :match, assistance_expert: ae
+      create :match, expert_skill: ae
     end
 
-    context 'when removing an assistance' do
+    context 'when removing an skill' do
       it {
-        expect{ expert.assistances = [] }.not_to raise_error
-        expect(expert.assistances).to eq []
+        expect{ expert.skills = [] }.not_to raise_error
+        expect(expert.skills).to eq []
       }
     end
   end

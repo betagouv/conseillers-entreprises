@@ -60,7 +60,7 @@ describe AdminMailersService do
 
         before do
           create :diagnosis, step: 1, advisor: not_admin_user, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
-          create_list :match, 3, :with_assistance_expert, diagnosed_need: diagnosed_need
+          create_list :match, 3, :with_expert_skill, diagnosed_need: diagnosed_need
         end
 
         it do

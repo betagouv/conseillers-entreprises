@@ -1,31 +1,31 @@
 module UseCases
   class CreateMatches
     class << self
-      def perform(diagnosis, assistance_expert_ids)
-        assistances_experts = assistances_experts_for_diagnosis(diagnosis.id, assistance_expert_ids)
-        assistances_experts.each do |assistance_expert|
-          diagnosed_need = assistance_expert.assistance.question.diagnosed_needs.first
+      def perform(diagnosis, expert_skill_ids)
+        experts_skills = experts_skills_for_diagnosis(diagnosis.id, expert_skill_ids)
+        experts_skills.each do |expert_skill|
+          diagnosed_need = expert_skill.skill.question.diagnosed_needs.first
           if !diagnosed_need
             next
           end
-          expert = assistance_expert.expert
-          assistance = assistance_expert.assistance
-          Match.create assistance_expert: assistance_expert, diagnosed_need: diagnosed_need,
-                       expert_full_name: expert.full_name, assistance_title: assistance.title,
+          expert = expert_skill.expert
+          skill = expert_skill.skill
+          Match.create expert_skill: expert_skill, diagnosed_need: diagnosed_need,
+                       expert_full_name: expert.full_name, skill_title: skill.title,
                        expert_institution_name: expert.antenne.name
         end
       end
 
       private
 
-      def assistances_experts_for_diagnosis(diagnosis_id, assistance_expert_ids)
+      def experts_skills_for_diagnosis(diagnosis_id, expert_skill_ids)
         associations = [
-          :expert, :assistance, expert: :antenne_institution, assistance: [
+          :expert, :skill, expert: :antenne_institution, skill: [
             :question, question: [:diagnosed_needs, diagnosed_needs: :diagnosis]
           ]
         ]
-        condition = { assistances: { questions: { diagnosed_needs: { diagnoses: { id: diagnosis_id } } } } }
-        AssistanceExpert.joins(associations).includes(associations).where(condition).where(id: assistance_expert_ids)
+        condition = { skills: { questions: { diagnosed_needs: { diagnoses: { id: diagnosis_id } } } } }
+        ExpertSkill.joins(associations).includes(associations).where(condition).where(id: expert_skill_ids)
       end
     end
   end

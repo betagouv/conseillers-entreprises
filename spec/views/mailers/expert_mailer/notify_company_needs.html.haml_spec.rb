@@ -7,8 +7,8 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
     let(:contact) { create :contact, :with_email }
     let(:user) { create :user }
     let(:expert) { create :expert }
-    let(:need1) { create(:diagnosed_need, matches: [create(:match, assistance_expert: create(:assistance_expert, expert: expert))]) }
-    let(:need2) { create(:diagnosed_need, matches: [create(:match, assistance_expert: create(:assistance_expert, expert: expert))]) }
+    let(:need1) { create(:diagnosed_need, matches: [create(:match, expert_skill: create(:expert_skill, expert: expert))]) }
+    let(:need2) { create(:diagnosed_need, matches: [create(:match, expert_skill: create(:expert_skill, expert: expert))]) }
 
     before do
       assign(:person, expert)
