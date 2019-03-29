@@ -4,9 +4,9 @@ fr:
     series:
       advisors: "%{count} conseillers inscrits"
       companies: "%{count} entreprises aidées"
-      diagnosed_needs: "%{count} besoins identifiés"
       experts: "%{count} référents"
       matches: "%{count} mises en relation"
+      needs: "%{count} besoins identifiés"
       transmitted_needs: "%{count} besoins transmis"
     show:
       all: Tous
@@ -14,23 +14,23 @@ fr:
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
-        diagnosed_needs: Besoins diagnostiqués
-        diagnosed_needs_notified: Besoins transmis
         match_done: Besoins clôturé
         match_not_for_me: Rejets
         match_taken_care_of: Prises en charge
         matches: Mises en relation
+        needs: Besoins diagnostiqués
+        needs_notified: Besoins transmis
         visits: Visites
       date_range: Période
       tooltips:
         activity:
           companies_diagnosed: Entreprises analysées en %{month}
-          diagnosed_needs: Besoins diagnostiqués en %{month}
-          diagnosed_needs_notified: Besoins diagnostiqués et transmis à des référents en %{month}
           match_done: Mises en relation marquées comme ayant clôturé le besoin en %{month}
           match_not_for_me: Mises en relation rejetées (« Pas pour moi ») en %{month}
           match_taken_care_of: Mises en relation prises en charge en %{month}
           matches: Mises en relation lancées en %{month}
+          needs: Besoins diagnostiqués en %{month}
+          needs_notified: Besoins diagnostiqués et transmis à des référents en %{month}
           visits: Visites faites en %{month}
         users:
           matchers: Conseillers qui ont fait (au moins) une mise en relation en %{month}

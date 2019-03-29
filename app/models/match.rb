@@ -12,21 +12,21 @@
 #  taken_care_of_at        :datetime
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  diagnosed_need_id       :bigint(8)
 #  experts_skills_id       :bigint(8)
+#  need_id                 :bigint(8)
 #  relay_id                :bigint(8)
 #
 # Indexes
 #
-#  index_matches_on_diagnosed_need_id  (diagnosed_need_id)
 #  index_matches_on_experts_skills_id  (experts_skills_id)
+#  index_matches_on_need_id            (need_id)
 #  index_matches_on_relay_id           (relay_id)
 #  index_matches_on_status             (status)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (diagnosed_need_id => diagnosed_needs.id)
 #  fk_rails_...  (experts_skills_id => experts_skills.id)
+#  fk_rails_...  (need_id => needs.id)
 #  fk_rails_...  (relay_id => relays.id)
 #
 
@@ -41,7 +41,7 @@ class Match < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :diagnosed_need, counter_cache: true, inverse_of: :matches
+  belongs_to :need, counter_cache: true, inverse_of: :matches
 
   belongs_to :expert_skill, foreign_key: :experts_skills_id, inverse_of: :matches, optional: true
   has_one :expert, through: :expert_skill, inverse_of: :received_matches # TODO: Should be direct once we remove expert_skill and use a HABTM instead
@@ -54,17 +54,17 @@ class Match < ApplicationRecord
 
   ## Validations
   #
-  validates :diagnosed_need, presence: true
+  validates :need, presence: true
   validates_with MatchValidator
 
   ## Through Associations
   #
-  # :diagnosed_need
-  has_one :diagnosis, through: :diagnosed_need, inverse_of: :matches
-  has_one :facility, through: :diagnosed_need, inverse_of: :matches
-  has_one :company, through: :diagnosed_need, inverse_of: :matches
-  has_one :advisor, through: :diagnosed_need, inverse_of: :sent_matches
-  has_many :related_matches, through: :diagnosed_need, source: :matches, inverse_of: :related_matches
+  # :need
+  has_one :diagnosis, through: :need, inverse_of: :matches
+  has_one :facility, through: :need, inverse_of: :matches
+  has_one :company, through: :need, inverse_of: :matches
+  has_one :advisor, through: :need, inverse_of: :sent_matches
+  has_many :related_matches, through: :need, source: :matches, inverse_of: :related_matches
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_matches
@@ -85,7 +85,7 @@ class Match < ApplicationRecord
   ## Scopes
   #
   scope :not_viewed, -> { where(expert_viewed_page_at: nil) }
-  scope :of_diagnoses, -> (diagnoses) { where(diagnosed_need: DiagnosedNeed.where(diagnosis: diagnoses)) }
+  scope :of_diagnoses, -> (diagnoses) { where(need: Need.where(diagnosis: diagnoses)) }
   scope :with_status, -> (status) { where(status: status) }
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }

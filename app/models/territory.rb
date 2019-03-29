@@ -30,7 +30,7 @@ class Territory < ApplicationRecord
 
   # :facilities
   has_many :diagnoses, through: :facilities, inverse_of: :facility_territories
-  has_many :diagnosed_needs, through: :facilities, inverse_of: :facility_territories
+  has_many :needs, through: :facilities, inverse_of: :facility_territories
   has_many :matches, through: :facilities, inverse_of: :facility_territories
   has_many :companies, through: :facilities, inverse_of: :territories
 

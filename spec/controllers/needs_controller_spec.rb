@@ -19,7 +19,7 @@ RSpec.describe NeedsController, type: :controller do
         before do
           create(:match,
             relay: relay,
-            diagnosed_need: create(:diagnosed_need,
+            need: create(:need,
               diagnosis: diagnosis))
         end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register DiagnosedNeed do
+ActiveAdmin.register Need do
   menu parent: :diagnoses, priority: 1
 
   ##
@@ -40,7 +40,7 @@ ActiveAdmin.register DiagnosedNeed do
     end
   end
 
-  statuses = DiagnosedNeed::STATUSES.map { |s| [StatusHelper.status_description(s, :short), s] }
+  statuses = Need::STATUSES.map { |s| [StatusHelper.status_description(s, :short), s] }
   filter :by_status_in, as: :select, collection: statuses, label: I18n.t('attributes.status')
 
   filter :archived_in, as: :boolean, label: I18n.t('attributes.archived?')

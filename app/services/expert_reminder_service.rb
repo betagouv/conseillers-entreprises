@@ -24,8 +24,8 @@ class ExpertReminderService
     end
 
     def build_matches_taken_not_done
-      DiagnosedNeed.taken_not_done_after_3_weeks.each do |diagnosed_need|
-        diagnosed_need.matches.each do |match|
+      Need.taken_not_done_after_3_weeks.each do |need|
+        need.matches.each do |match|
           if match.status_not_for_me? # don’t send reminders for already rejected matches
             next
           end
@@ -41,8 +41,8 @@ class ExpertReminderService
     end
 
     def build_matches_quo_not_taken
-      DiagnosedNeed.quo_not_taken_after_3_weeks.each do |diagnosed_need|
-        diagnosed_need.matches.each do |match|
+      Need.quo_not_taken_after_3_weeks.each do |need|
+        need.matches.each do |match|
           if match.status_not_for_me? # don’t send reminders for already rejected matches
             next
           end

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Diagnosis, type: :model do
   it do
-    is_expected.to have_many :diagnosed_needs
+    is_expected.to have_many :needs
     is_expected.to belong_to :advisor
     # is_expected.to belong_to :visitee # TODO: We currently have bad data in DB, and cannot validate this
     is_expected.to belong_to :facility
@@ -77,11 +77,11 @@ RSpec.describe Diagnosis, type: :model do
 
       context 'one diagnosis' do
         let(:diagnosis) { create :diagnosis }
-        let(:diagnosed_need) { create :diagnosed_need, diagnosis: diagnosis }
+        let(:need) { create :need, diagnosis: diagnosis }
         let(:expert_skill) { create :expert_skill, expert: expert }
 
         before do
-          create :match, diagnosed_need: diagnosed_need, expert_skill: expert_skill
+          create :match, need: need, expert_skill: expert_skill
         end
 
         it { is_expected.to eq [diagnosis] }

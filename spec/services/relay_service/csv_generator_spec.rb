@@ -10,15 +10,15 @@ describe RelayService::CSVGenerator do
       let(:facility) { create :facility, company: company }
       let(:subject1) { create :subject, label: 'Need money ?' }
       let!(:diagnosis) { create :diagnosis, facility: facility, advisor: user, happened_on: Date.parse('2017-10-10') }
-      let(:diagnosed_need) do
-        create :diagnosed_need, diagnosis: diagnosis, subject: subject1, content: 'Very poor, much sad'
+      let(:need) do
+        create :need, diagnosis: diagnosis, subject: subject1, content: 'Very poor, much sad'
       end
       let(:expected_csv) do
         File.read(Rails.root.join('spec', 'fixtures', 'relay_statistic_csv_fixture.csv'))
       end
 
       before do
-        create :match, diagnosed_need: diagnosed_need,
+        create :match, need: need,
                expert_full_name: 'Expert Joe',
                expert_institution_name: 'Educ Nat',
                status: :done,

@@ -61,7 +61,7 @@ RSpec.describe DiagnosesController, type: :controller do
     let(:matches) do
       {
         'experts_skills' => { '12' => '1', '90' => '0' },
-        'diagnosed_needs' => { '31' => '1', '78' => '0' }
+        'needs' => { '31' => '1', '78' => '0' }
       }
     end
 

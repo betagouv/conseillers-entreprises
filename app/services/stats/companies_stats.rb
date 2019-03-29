@@ -4,7 +4,7 @@ module Stats
 
     def main_query
       Company
-        .includes(:diagnosed_needs).references(:diagnosed_needs).merge(DiagnosedNeed.where.not(id: nil))
+        .includes(:needs).references(:needs).merge(Need.where.not(id: nil))
         .where(facilities: { diagnoses: { step: Diagnosis::LAST_STEP } })
     end
 

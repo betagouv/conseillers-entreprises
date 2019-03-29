@@ -40,7 +40,7 @@ describe AdminMailersService do
       context 'some data' do
         let(:created_diagnoses) { create_list :diagnosis, 1, step: 1, advisor: not_admin_user }
         let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, advisor: not_admin_user }
-        let(:diagnosed_need) { create :diagnosed_need, diagnosis: completed_diagnoses.first }
+        let(:need) { create :need, diagnosis: completed_diagnoses.first }
         let(:updated_diagnoses) do
           create_list :diagnosis, 1, step: 4, advisor: not_admin_user, created_at: 2.weeks.ago, updated_at: 1.hour.ago
         end
@@ -60,7 +60,7 @@ describe AdminMailersService do
 
         before do
           create :diagnosis, step: 1, advisor: not_admin_user, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
-          create_list :match, 3, :with_expert_skill, diagnosed_need: diagnosed_need
+          create_list :match, 3, :with_expert_skill, need: need
         end
 
         it do

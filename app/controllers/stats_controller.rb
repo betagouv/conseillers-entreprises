@@ -8,7 +8,7 @@ class StatsController < ApplicationController
     @stats = Stats::Stats.new(stats_params[:stats])
     @stats.advisors = Stats::AdvisorsStats.new(@stats)
     @stats.companies = Stats::CompaniesStats.new(@stats)
-    @stats.diagnosed_needs = Stats::DiagnosedNeedsStats.new(@stats)
+    @stats.needs = Stats::NeedsStats.new(@stats)
     @stats.experts = Stats::ExpertsStats.new(@stats)
     @stats.matches = Stats::MatchesStats.new(@stats)
     @stats.transmitted_needs = Stats::TransmittedNeedsStats.new(@stats)
@@ -88,7 +88,7 @@ class StatsController < ApplicationController
     companies_diagnosed_in_range = Company
       .diagnosed_in(date_range)
       .where(diagnoses: { advisor: users })
-    needs_in_range = DiagnosedNeed
+    needs_in_range = Need
       .made_in(date_range)
       .where(diagnoses: { advisor: users })
     matches_created_in_range = Match
@@ -103,8 +103,8 @@ class StatsController < ApplicationController
     {
       "activity.visits": visits_in_range,
       "activity.companies_diagnosed": companies_diagnosed_in_range,
-      "activity.diagnosed_needs": needs_in_range,
-      "activity.diagnosed_needs_notified": needs_in_range.where(diagnoses: { step: 5 }),
+      "activity.needs": needs_in_range,
+      "activity.needs_notified": needs_in_range.where(diagnoses: { step: 5 }),
       "activity.matches": matches_created_in_range,
       "activity.match_taken_care_of": matches_taken_care_in_range.with_status([:taking_care, :done]),
       "activity.match_done": matches_taken_care_in_range.with_status(:done),

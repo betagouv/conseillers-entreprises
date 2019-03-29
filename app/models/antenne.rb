@@ -39,12 +39,12 @@ class Antenne < ApplicationRecord
 
   # :advisors
   has_many :sent_diagnoses, through: :advisors, inverse_of: :advisor_antenne
-  has_many :sent_diagnosed_needs, through: :advisors, inverse_of: :advisor_antenne
+  has_many :sent_needs, through: :advisors, inverse_of: :advisor_antenne
   has_many :sent_matches, through: :advisors, inverse_of: :advisor_antenne
 
   # :experts
   has_many :received_matches, through: :experts, inverse_of: :expert_antenne
-  has_many :received_diagnosed_needs, through: :experts, inverse_of: :experts_antennes
+  has_many :received_needs, through: :experts, inverse_of: :experts_antennes
   has_many :received_diagnoses, through: :experts, inverse_of: :expert_antennes
 
   ##

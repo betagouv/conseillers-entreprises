@@ -38,7 +38,7 @@ class Facility < ApplicationRecord
   ## “Through” Associations
   #
   # :diagnoses
-  has_many :diagnosed_needs, through: :diagnoses, inverse_of: :facility
+  has_many :needs, through: :diagnoses, inverse_of: :facility
   has_many :matches, through: :diagnoses, inverse_of: :facility
 
   # :commune

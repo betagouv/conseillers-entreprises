@@ -7,7 +7,7 @@
   .ui.segment.secondary
     .ui.header
       = t('.visit_made_on', date: I18n.l(@diagnosis.display_date, format: '%-d %B %Y'))
-      .sub.header= models_human_description(@diagnosis.diagnosed_needs)
+      .sub.header= models_human_description(@diagnosis.needs)
   .ui.segment
     = render partial: 'needs/company', locals: { diagnosis: @diagnosis }
   .ui.segment
@@ -21,14 +21,14 @@
         = raw_feedback_block(@diagnosis.content)
 
 -# Diagnosed needs
-%h2= t('attributes.diagnosed_needs', count: @diagnosis.diagnosed_needs.count)
-- @diagnosis.diagnosed_needs.ordered_for_interview.each do |diagnosed_need|
+%h2= t('attributes.needs', count: @diagnosis.needs.count)
+- @diagnosis.needs.ordered_for_interview.each do |need|
   .ui.segments.shadow-less.needs-diagnosis
-    .ui.segment.secondary{ id: "diagnosed_need-#{diagnosed_need.id}" }
-      = render partial: 'needs/need_header', locals: { diagnosed_need: diagnosed_need }
+    .ui.segment.secondary{ id: "need-#{need.id}" }
+      = render partial: 'needs/need_header', locals: { need: need }
 
     -# Matches, mine first
-    - matches = diagnosed_need.matches
+    - matches = need.matches
     - match_for_me = matches.of_relay_or_expert(@current_roles).first
     - if match_for_me.present?
       - matches -= [match_for_me]
@@ -41,9 +41,9 @@
     -# Feedback
     .ui.segment.clearing
       %h3.header= t('.discussion')
-      .ui.comments{ id: "feedbacks-need-#{diagnosed_need.id}" }
-        = raw_feedback_block(diagnosed_need.content, @diagnosis.advisor.full_name, @diagnosis.display_date)
-        - diagnosed_need.feedbacks.order(:created_at).each do |feedback|
+      .ui.comments{ id: "feedbacks-need-#{need.id}" }
+        = raw_feedback_block(need.content, @diagnosis.advisor.full_name, @diagnosis.display_date)
+        - need.feedbacks.order(:created_at).each do |feedback|
           - is_for_me = feedback.match == match_for_me
           = feedback_block(feedback, is_for_me)
       - if match_for_me.present?
