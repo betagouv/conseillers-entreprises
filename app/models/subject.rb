@@ -5,6 +5,7 @@
 #  id                   :integer          not null, primary key
 #  archived_at          :datetime
 #  interview_sort_order :integer
+#  is_support           :boolean          default(FALSE)
 #  label                :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -35,6 +36,7 @@ class Subject < ApplicationRecord
   ## Validations
   #
   validates :theme, presence: true
+  before_save :set_support
 
   ## Through Associations
   #
@@ -48,11 +50,26 @@ class Subject < ApplicationRecord
   scope :for_interview, -> do
     ordered_for_interview
       .archived(false)
+      .where(is_support: false)
   end
 
   ##
   #
   def to_s
     label
+  end
+
+  ##
+  #
+  def self.support_subject
+    find_by(is_support: true)
+  end
+
+  private
+
+  def set_support
+    if is_support
+      Subject.where.not(id: id).update_all(is_support: false)
+    end
   end
 end
