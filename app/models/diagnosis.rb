@@ -60,7 +60,7 @@ class Diagnosis < ApplicationRecord
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :diagnoses
 
   # :diagnosed_needs
-  has_many :questions, through: :diagnosed_needs, inverse_of: :diagnoses
+  has_many :subjects, through: :diagnosed_needs, inverse_of: :diagnoses
   has_many :matches, through: :diagnosed_needs, inverse_of: :diagnosis
 
   # :matches

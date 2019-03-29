@@ -10,7 +10,7 @@ fr:
         company: Entreprise
         role: Fonction
       diagnosed_need:
-        question: Besoin
+        subject: Sujet
       diagnosis:
         content: Commentaire
       diagnosis/visitee:
@@ -52,7 +52,7 @@ fr:
         query: Requête
         user: Utilisateur
       skill:
-        question: Besoin parent
+        subject: Sujet
       solicitation:
         needs: Besoins sélectionnés
         pk_campaign: Campagne
@@ -147,9 +147,6 @@ fr:
       match:
         one: Mise en relation
         other: Mises en relation
-      question:
-        one: Besoin
-        other: Besoins
       relay:
         one: Relais local
         other: Relais locaux
@@ -162,6 +159,9 @@ fr:
       solicitation:
         one: Sollicitation
         other: Sollicitations
+      subject:
+        one: Sujet
+        other: Sujets
       territory:
         one: Territoire
         other: Territoires
@@ -233,10 +233,6 @@ fr:
     naf_code: Code NAF
     name: Nom
     phone_number: Numéro de téléphone
-    question: Besoin
-    questions:
-      one: Besoin
-      other: Besoins
     received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues
@@ -286,6 +282,10 @@ fr:
       quo: Pas de réponse
       sent_to_no_one: Envoyé à personne
       taking_care: Pris en charge
+    subject: Sujet
+    subjects:
+      one: Sujet
+      other: Sujets
     theme: Thématique
     title: Titre
     updated_at: Date de mise à jour

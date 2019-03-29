@@ -5,7 +5,7 @@ module Stats
     def main_query
       DiagnosedNeed
         .joins(:advisor)
-        .joins(question: :theme)
+        .joins(subject: :theme)
     end
 
     def date_group_attribute

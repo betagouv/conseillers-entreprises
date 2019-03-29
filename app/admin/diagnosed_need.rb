@@ -9,7 +9,7 @@ ActiveAdmin.register DiagnosedNeed do
 
   ## index
   #
-  includes :diagnosis, :question, :advisor, :matches, :feedbacks, :company
+  includes :diagnosis, :subject, :advisor, :matches, :feedbacks, :company
 
   scope :diagnosis_completed, default: true
   scope :quo_not_taken_after_3_weeks, group: :abandoned
@@ -19,7 +19,7 @@ ActiveAdmin.register DiagnosedNeed do
 
   index do
     selectable_column
-    column :question do |d|
+    column :subject do |d|
       div admin_link_to(d)
       div admin_attr(d, :content)
     end
@@ -47,7 +47,7 @@ ActiveAdmin.register DiagnosedNeed do
 
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
-  filter :question, collection: -> { Question.order(:label) }
+  filter :subject, collection: -> { Subject.order(:label) }
   filter :content
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
@@ -55,7 +55,7 @@ ActiveAdmin.register DiagnosedNeed do
   ## CSV
   #
   csv do
-    column :question
+    column :subject
     column :content
     column :advisor
     column :created_at
@@ -70,7 +70,7 @@ ActiveAdmin.register DiagnosedNeed do
   show do
     attributes_table do
       row :diagnosis
-      row :question
+      row :subject
       row :advisor
       row :created_at
       row :last_activity_at
@@ -86,11 +86,11 @@ ActiveAdmin.register DiagnosedNeed do
 
   ## Form
   #
-  permit_params :diagnosis_id, :question_id, :content
+  permit_params :diagnosis_id, :subject_id, :content
 
   form do |f|
     f.inputs do
-      f.input :question, as: :ajax_select, data: { url: :admin_questions_path, search_fields: [:label] }
+      f.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
       f.input :content
     end
 

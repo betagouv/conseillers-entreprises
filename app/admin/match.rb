@@ -7,7 +7,7 @@ ActiveAdmin.register Match do
   #
   includes :diagnosed_need, :diagnosis, :facility, :company, :related_matches,
     :advisor, :advisor_antenne, :expert, :expert_antenne, :relay_user,
-    diagnosed_need: :question
+    diagnosed_need: :subject
 
   scope :all, default: true
   scope :with_deleted_expert
@@ -70,7 +70,7 @@ ActiveAdmin.register Match do
     column(:status) { |m| m.status_short_description }
     column :facility
     column(:diagnosed_need) { |m| m.diagnosed_need_id }
-    column(:question) { |m| m.diagnosed_need.question }
+    column(:subject) { |m| m.diagnosed_need.subject }
     column :created_at
     column :taken_care_of_at
     column :closed_at

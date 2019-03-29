@@ -39,7 +39,7 @@ class UserDailyChangeUpdateMailerService
     def fill_standard_information(change_hash, match)
       change_hash[:expert_name] = match.expert_full_name
       change_hash[:expert_institution] = match.expert_institution_name
-      change_hash[:question_title] = match.diagnosed_need.question
+      change_hash[:subject_title] = match.diagnosed_need.subject
       change_hash[:company_name] = match.diagnosed_need
         .diagnosis.company.name
       change_hash[:start_date] = match.created_at.to_date

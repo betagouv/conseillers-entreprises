@@ -5,10 +5,10 @@ require 'rails_helper'
 describe UseCases::CreateMatches do
   describe 'perform' do
     let(:diagnosis) { create :diagnosis }
-    let(:question) { create :question }
-    let(:skill) { create :skill, question: question }
+    let(:subject1) { create :subject }
+    let(:skill) { create :skill, subject: subject1 }
     let(:expert_skill) { create :expert_skill, skill: skill }
-    let!(:diagnosed_need) { create :diagnosed_need, question: question, diagnosis: diagnosis }
+    let!(:diagnosed_need) { create :diagnosed_need, subject: subject1, diagnosis: diagnosis }
 
     let(:expert_skill_ids) { [expert_skill.id] }
 

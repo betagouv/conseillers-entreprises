@@ -9,7 +9,7 @@
       = t('.context',
           expert_name: change_update[:expert_name],
           expert_institution: change_update[:expert_institution],
-          question_title: change_update[:question_title],
+          subject_title: change_update[:subject_title],
           company_name: change_update[:company_name],
           start_date: I18n.l(change_update[:start_date]))
       - text_key = text_key_for_status(change_update[:old_status], change_update[:current_status])

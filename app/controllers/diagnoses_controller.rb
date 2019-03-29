@@ -34,13 +34,13 @@ class DiagnosesController < ApplicationController
   def besoins
     @diagnosis = safe_diagnosis_param
     diagnosis_params = params.require(:diagnosis).permit(:content,
-      diagnosed_needs_attributes: [:_destroy, :content, :question_id, :id])
+      diagnosed_needs_attributes: [:_destroy, :content, :subject_id, :id])
     diagnosis_params[:step] = 3
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :step3, id: @diagnosis
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      @themes = Theme.all.includes(:questions)
+      @themes = Theme.all.includes(:subjects)
       render action: :step2
     end
   end
