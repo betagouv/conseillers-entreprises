@@ -96,7 +96,7 @@ class User < ApplicationRecord
   scope :not_approved, -> { where(is_approved: false) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
   scope :project_team, -> { admin.where.not(contact_page_order: nil) }
-  scope :relays, -> { not_admin.joins(:relays).distinct }
+  scope :relays, -> { joins(:relays).distinct }
 
   scope :ordered_for_contact, -> {
     left_outer_joins(:relay_territories)

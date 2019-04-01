@@ -107,6 +107,10 @@ class Match < ApplicationRecord
     end
   end
 
+  scope :to_relays, -> { where.not(relay: nil) }
+
+  scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
+
   scope :with_deleted_expert, -> do
     where(expert_skill: nil)
       .where(relay: nil)
