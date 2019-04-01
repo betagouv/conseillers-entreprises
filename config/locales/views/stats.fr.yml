@@ -6,8 +6,7 @@ fr:
       companies: "%{count} entreprises aidées"
       experts: "%{count} référents"
       matches: "%{count} mises en relation"
-      needs: "%{count} besoins identifiés"
-      transmitted_needs: "%{count} besoins transmis"
+      needs: "%{count} besoins transmis"
     show:
       all: Tous
       title: Statistiques d’utilisation

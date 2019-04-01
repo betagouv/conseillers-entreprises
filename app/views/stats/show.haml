@@ -23,7 +23,7 @@
 
 %section.section.section-grey
   .container.container-full
-    - names = [:needs, :transmitted_needs, :companies, :matches, :advisors, :experts]
+    - names = [:companies, :needs, :matches, :advisors, :experts]
     .grid
       - names.each do |name|
         = render partial: 'stats_chart', locals: { stats: @stats, name: name }
