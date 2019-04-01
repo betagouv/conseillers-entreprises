@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def models_human_description(objects)
-    return if objects.blank?
+    return '-' if objects.blank?
     klass = objects.first.class
     count = objects.count
     "#{count} #{klass.model_name.human(count: count).downcase}"
