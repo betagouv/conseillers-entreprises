@@ -4,6 +4,7 @@ module Stats
 
     def main_query
       Need
+        .diagnosis_completed
         .joins(:advisor)
         .joins(subject: :theme)
     end
