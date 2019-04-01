@@ -1,4 +1,4 @@
-= f.fields_for :experts_skills do |expert_skill_form|
+= f.fields_for need.id.to_s do |expert_skill_form|
   - experts_skills.each do |expert_skill|
     %tr
       - checkbox_id = expert_skill.id.to_s
