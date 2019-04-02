@@ -14,20 +14,17 @@
 #  updated_at              :datetime         not null
 #  experts_skills_id       :bigint(8)
 #  need_id                 :bigint(8)
-#  relay_id                :bigint(8)
 #
 # Indexes
 #
 #  index_matches_on_experts_skills_id  (experts_skills_id)
 #  index_matches_on_need_id            (need_id)
-#  index_matches_on_relay_id           (relay_id)
 #  index_matches_on_status             (status)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (experts_skills_id => experts_skills.id)
 #  fk_rails_...  (need_id => needs.id)
-#  fk_rails_...  (relay_id => relays.id)
 #
 
 class Match < ApplicationRecord
