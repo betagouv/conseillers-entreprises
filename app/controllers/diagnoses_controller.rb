@@ -67,13 +67,13 @@ class DiagnosesController < ApplicationController
   end
 
   def selection
-    diagnosis = safe_diagnosis_param
-    matches = params[:matches]
-    if matches.present?
-      UseCases::SaveAndNotifyDiagnosis.perform diagnosis, matches
-      diagnosis.update step: Diagnosis::LAST_STEP
+    @diagnosis = safe_diagnosis_param
+    if @diagnosis.match_and_notify!(params_for_matches)
       flash.notice = I18n.t('diagnoses.step5.notifications_sent')
-      redirect_to besoin_path(diagnosis)
+      redirect_to besoin_path(@diagnosis)
+    else
+      flash.alert = @diagnosis.errors.full_messages.to_sentence
+      render action: :step4, status: :bad_request
     end
   end
 
@@ -87,6 +87,14 @@ class DiagnosesController < ApplicationController
     permitted.require(:visitee_attributes).require(:email)
     permitted.require(:visitee_attributes).require(:phone_number)
     permitted
+  end
+
+  def params_for_matches
+    matches = params.permit(matches: {}).require(:matches)
+    experts_skills_for_needs = matches.transform_values do |expert_skills_selection|
+      expert_skills_selection.select{ |_,v| v == '1' }.keys
+    end
+    experts_skills_for_needs
   end
 
   def safe_diagnosis_param
