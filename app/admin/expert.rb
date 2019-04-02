@@ -25,12 +25,16 @@ ActiveAdmin.register Expert do
       div admin_link_to(e, :antenne)
     end
     column(:intervention_zone) do |e|
-      if e.custom_communes?
-        status_tag t('attributes.custom_communes'), class: 'yes'
+      if e.is_global_zone
+        status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
+      else
+        if e.custom_communes?
+          status_tag t('attributes.custom_communes'), class: 'yes'
+        end
+        zone = e.custom_communes? ? e : e.antenne
+        div admin_link_to(zone, :territories)
+        div admin_link_to(zone, :communes)
       end
-      zone = e.custom_communes? ? e : e.antenne
-      div admin_link_to(zone, :territories)
-      div admin_link_to(zone, :communes)
     end
     column(:users) do |e|
       div admin_link_to(e, :users)
@@ -67,6 +71,7 @@ ActiveAdmin.register Expert do
     column :antenne
     column_count :antenne_territories
     column_count :antenne_communes
+    column :is_global_zone
     column :custom_communes?
     column_count :territories
     column_count :communes
@@ -87,12 +92,16 @@ ActiveAdmin.register Expert do
       row :antenne_institution
       row :antenne
       row(:intervention_zone) do |e|
-        if e.custom_communes?
-          status_tag t('attributes.custom_communes'), class: 'yes'
+        if e.is_global_zone
+          status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
+        else
+          if e.custom_communes?
+            status_tag t('attributes.custom_communes'), class: 'yes'
+          end
+          div admin_link_to(e, :territories)
+          div admin_link_to(e, :communes)
+          div intervention_zone_description(e)
         end
-        div admin_link_to(e, :territories)
-        div admin_link_to(e, :communes)
-        div intervention_zone_description(e)
       end
       row(:users) do |e|
         div admin_link_to(e, :users)
@@ -120,6 +129,7 @@ ActiveAdmin.register Expert do
     :email,
     :phone_number,
     :insee_codes,
+    :is_global_zone,
     user_ids: [],
     skill_ids: [],
     experts_skills_attributes: %i[id skill_id _create _update _destroy]
@@ -139,6 +149,7 @@ ActiveAdmin.register Expert do
     end
 
     f.inputs t('attributes.custom_communes') do
+      f.input :is_global_zone
       f.input :insee_codes
     end
 

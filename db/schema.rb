@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_094414) do
+ActiveRecord::Schema.define(version: 2019_04_02_142015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 2019_04_02_094414) do
     t.string "access_token"
     t.string "full_name"
     t.bigint "antenne_id", null: false
+    t.boolean "is_global_zone", default: false
     t.index ["access_token"], name: "index_experts_on_access_token"
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["email"], name: "index_experts_on_email"

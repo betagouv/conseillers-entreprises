@@ -2,15 +2,16 @@
 #
 # Table name: experts
 #
-#  id           :bigint(8)        not null, primary key
-#  access_token :string
-#  email        :string
-#  full_name    :string
-#  phone_number :string
-#  role         :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  antenne_id   :bigint(8)        not null
+#  id             :bigint(8)        not null, primary key
+#  access_token   :string
+#  email          :string
+#  full_name      :string
+#  is_global_zone :boolean          default(FALSE)
+#  phone_number   :string
+#  role           :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  antenne_id     :bigint(8)        not null
 #
 # Indexes
 #
@@ -80,6 +81,10 @@ class Expert < ApplicationRecord
     where('EXISTS (SELECT * FROM communes_experts WHERE communes_experts.expert_id = experts.id)')
   end
   scope :without_custom_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
+
+  scope :with_global_zone, -> do
+    where(is_global_zone: true)
+  end
 
   ##
   #
