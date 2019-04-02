@@ -32,4 +32,13 @@ class ExpertSkill < ApplicationRecord
       .where(skill: relevant_skills)
       .where(expert: experts_in_commune)
   end
+
+  scope :support_for, -> (diagnosis) do
+    experts_in_commune = diagnosis.facility.commune.all_experts
+    relevant_skills = Subject.support_subject.skills
+
+    ExpertSkill
+      .where(skill: relevant_skills)
+      .where(expert: experts_in_commune)
+  end
 end

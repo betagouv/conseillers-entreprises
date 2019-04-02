@@ -11,6 +11,8 @@ ActiveAdmin.register Match do
 
   scope :all, default: true
   scope :with_deleted_expert
+  scope :to_relays
+  scope :to_support
 
   index do
     selectable_column
