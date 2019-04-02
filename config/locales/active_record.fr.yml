@@ -19,7 +19,9 @@ fr:
       expert:
         access_token: Token d’accès
         role: Fonction
-        skills: Compétences
+        skills:
+          one: Compétence
+          other: Compétences
         users:
           one: Membre
           other: Membres
@@ -268,6 +270,9 @@ fr:
     subjects:
       one: Sujet
       other: Sujets
+    territories:
+      one: Territoire
+      other: Territoires
     theme: Thématique
     title: Titre
     updated_at: Date de mise à jour

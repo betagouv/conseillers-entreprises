@@ -35,6 +35,12 @@ class Skill < ApplicationRecord
   #
   has_one :theme, through: :subject, inverse_of: :skills
 
+  ## Scopes
+  #
+  scope :support_skills, -> do
+    where(subject: Subject.support_subject)
+  end
+
   ##
   #
   def to_s
