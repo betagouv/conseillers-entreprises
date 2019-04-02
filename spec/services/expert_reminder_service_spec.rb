@@ -17,8 +17,8 @@ describe ExpertReminderService do
     let(:need_taken_not_done) { create(:need, matches: matches_taken_not_done) }
 
     context 'experts are different' do
-      let(:matches_quo_not_taken) { create_list(:match, 2, :with_expert_skill) }
-      let(:matches_taken_not_done) { create_list(:match, 2, :with_expert_skill) }
+      let(:matches_quo_not_taken) { create_list(:match, 2) }
+      let(:matches_taken_not_done) { create_list(:match, 2) }
 
       it { expect { send_experts_reminders }.to change { Delayed::Job.count }.by(4) }
     end

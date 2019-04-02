@@ -46,9 +46,12 @@ class Match < ApplicationRecord
 
   has_many :feedbacks, dependent: :destroy, inverse_of: :match
 
-  ## Validations
+  ## Validations and Callbacks
   #
   validates :need, presence: true
+  before_create :copy_expert_info
+  after_update :update_taken_care_of_at
+  after_update :update_closed_at
 
   ## Through Associations
   #
@@ -69,11 +72,6 @@ class Match < ApplicationRecord
 
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
-
-  ## After Update
-  #
-  after_update :update_taken_care_of_at
-  after_update :update_closed_at
 
   ## Scopes
   #
@@ -165,6 +163,12 @@ class Match < ApplicationRecord
   end
 
   private
+
+  def copy_expert_info
+    self.expert_full_name = expert_skill.expert.full_name
+    self.expert_institution_name = expert_skill.expert.antenne.name
+    self.skill_title = expert_skill.skill.title
+  end
 
   def update_taken_care_of_at
     if (status_taking_care? || status_closed?) && !taken_care_of_at

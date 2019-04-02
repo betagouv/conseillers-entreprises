@@ -101,7 +101,7 @@ RSpec.describe Need, type: :model do
 
       context 'with matches, not done' do
         before do
-          create :match, :with_expert_skill, need: need, status: :quo
+          create :match, need: need, status: :quo
         end
 
         it { is_expected.to eq [] }
@@ -109,8 +109,8 @@ RSpec.describe Need, type: :model do
 
       context 'with matches, done' do
         before do
-          create :match, :with_expert_skill, need: need, status: :quo
-          create :match, :with_expert_skill, need: need, status: :done
+          create :match, need: need, status: :quo
+          create :match, need: need, status: :done
         end
 
         it { is_expected.to eq [need] }
