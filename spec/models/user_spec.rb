@@ -71,7 +71,7 @@ RSpec.describe User, type: :model do
         user3 = create :user, is_admin: true
         create :relay, user: user3
 
-        expect(User.relays).to match_array [user1, user2]
+        expect(User.relays).to match_array [user1, user2, user3]
       end
     end
 
