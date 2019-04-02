@@ -6,12 +6,11 @@ ActiveAdmin.register Match do
   ## Index
   #
   includes :need, :diagnosis, :facility, :company, :related_matches,
-    :advisor, :advisor_antenne, :expert, :expert_antenne, :relay_user,
+    :advisor, :advisor_antenne, :expert, :expert_antenne,
     need: :subject
 
   scope :all, default: true
   scope :with_deleted_expert
-  scope :to_relays
   scope :to_support
 
   index do
@@ -35,9 +34,6 @@ ActiveAdmin.register Match do
         div admin_link_to(m, :expert)
         div admin_link_to(m, :expert_antenne)
         div link_to('Page Référent', besoin_path(m.diagnosis, access_token: m.expert.access_token))
-      elsif m.relay_user.present?
-        div admin_link_to(m, :relay_user)
-        div link_to(t('active_admin.user.impersonate', name: m.relay_user.full_name), impersonate_engine.impersonate_user_path(m.relay_user))
       else
         div m.expert_full_role
         status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
@@ -84,7 +80,6 @@ ActiveAdmin.register Match do
     column :expert_antenne
     column :expert_institution
     column('Page Référent') { |m| besoin_url(m.diagnosis, access_token: m.expert.access_token) if m.expert.present? }
-    column :relay_user
   end
 
   ## Show
@@ -105,9 +100,6 @@ ActiveAdmin.register Match do
           div admin_link_to(m, :expert)
           div admin_link_to(m, :expert_antenne)
           div link_to('Page Référent', besoin_path(m.diagnosis, access_token: m.expert.access_token))
-        elsif m.relay_user.present?
-          div admin_link_to(m, :relay_user)
-          div link_to(t('active_admin.user.impersonate', name: m.relay_user.full_name), impersonate_engine.impersonate_user_path(m.relay_user))
         else
           div m.expert_full_role
           status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
@@ -118,7 +110,7 @@ ActiveAdmin.register Match do
 
   ## Form
   #
-  permit_params :need_id, :experts_skills_id, :relay_id, :status
+  permit_params :need_id, :experts_skills_id, :status
   form do |f|
     f.inputs do
       f.input :status

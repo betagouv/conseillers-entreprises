@@ -39,14 +39,10 @@ fr:
         expert_skill: Référent (non Relais local)
         expert_viewed_page_at: Date de consultation par le référent
         need: Besoin identifié
-        relay: Référent (Relais local)
         skill_title: Compétence
         taken_care_of_at: Date de prise en charge
       need:
         subject: Sujet
-      relay:
-        territory: Territoire
-        user: Utilisateur
       search:
         label: Entreprise
         query: Requête
@@ -66,7 +62,6 @@ fr:
         bassin_emploi: Bassin d’emploi?
         experts: Experts
         insee_codes: Codes commune
-        relays: Relais
       user:
         confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
         confirmation_token: Token de confirmation d’e-mail
@@ -87,7 +82,6 @@ fr:
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
-        relays: Relais
         remember_me: Se souvenir de moi
         reset_password_sent_at: Date de régénération du mot de passe
         reset_password_token: Token de régénération du mot de passe
@@ -104,10 +98,6 @@ fr:
           attributes:
             email:
               blank: Le contact doit avoir au moins une adresse e-mail ou un numéro de téléphone.
-        match:
-          attributes:
-            expert_skill:
-              can_not_be_set_with_relay: La ressource ne peut pas être liée à la fois à un référent et un relais local.
         user:
           attributes:
             email:
@@ -149,9 +139,6 @@ fr:
       need:
         one: Besoin identifié
         other: Besoins identifiés
-      relay:
-        one: Relais local
-        other: Relais locaux
       search:
         one: Recherche
         other: Recherches
@@ -238,13 +225,6 @@ fr:
     received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues
-    relay_territories:
-      one: Territoire géré
-      other: Territoires gérés
-    relay_user: Relais local
-    relay_users:
-      one: Relais local
-      other: Relais locaux
     searches:
       one: Recherche
       other: Recherches

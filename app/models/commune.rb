@@ -35,7 +35,6 @@ class Commune < ApplicationRecord
   #
   has_many :antenne_experts, through: :antennes, source: :experts, inverse_of: :antenne_communes
   has_many :advisors, through: :antennes, inverse_of: :antenne_communes
-  has_many :relays, through: :territories
 
   ##
   #

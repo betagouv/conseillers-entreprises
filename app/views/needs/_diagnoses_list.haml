@@ -11,8 +11,8 @@
           = diagnosis.company.name
           .sub.header= diagnosis.facility.commune_name
         - needs_of_interest = diagnosis.needs
-        - if relay_or_expert.present?
-          - needs_of_interest = needs_of_interest.of_relay_or_expert(relay_or_expert)
+        - if expert.present?
+          - needs_of_interest = needs_of_interest.of_expert(expert)
         - needs_of_interest.each do |need|
           .diagnoses-list-item-need
             %h4.ui.header

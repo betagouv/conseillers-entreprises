@@ -6,7 +6,7 @@
       %a.item{ href: diagnoses_path }
         %i.tasks.icon
         = t('.diagnoses')
-      - if current_user.relays.present? || current_user.experts.present?
+      - if current_user.experts.present?
         %a.item{ href: besoins_path }
           %i.bullseye.icon
           = t('needs.index.title')

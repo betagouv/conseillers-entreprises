@@ -5,8 +5,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'associations' do
     it do
-      is_expected.to have_many :relays
-      is_expected.to have_many :relay_territories
       is_expected.to have_and_belong_to_many :experts
     end
   end
@@ -52,26 +50,11 @@ RSpec.describe User, type: :model do
     describe 'ordered_for_contact' do
       it do
         user1 = create :user, contact_page_order: 1
-        create(:relay, user: user1, territory: create(:territory, name: 'aa'))
         user2 = create :user, contact_page_order: 2
-        create(:relay, user: user2, territory: create(:territory, name: 'bb'))
-        user3 = create :user, contact_page_order: 1
-        user4 = create :user, contact_page_order: 2
+        user3 = create :user, contact_page_order: 3
+        user4 = create :user, contact_page_order: 4
 
         expect(User.ordered_for_contact).to eq [user1, user2, user3, user4]
-      end
-    end
-
-    describe 'relays' do
-      it do
-        user1 = create :user
-        create(:relay, user: user1)
-        user2 = create :user
-        create(:relay, user: user2)
-        user3 = create :user, is_admin: true
-        create :relay, user: user3
-
-        expect(User.relays).to match_array [user1, user2, user3]
       end
     end
 

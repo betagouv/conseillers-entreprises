@@ -6,13 +6,13 @@ class ExpertMailerPreview < ActionMailer::Preview
 
   def remind_involvement
     match = match_with_person
-    matches = Match.of_relay_or_expert(match.person)
+    matches = Match.of_expert(match.person)
     ExpertMailer.remind_involvement(match.person, matches.sample(2), matches.sample(2))
   end
 
   private
 
   def match_with_person
-    Match.where.not(relay: nil).or(Match.where.not(expert_skill: nil)).sample
+    Match.where.not(expert_skill: nil).sample
   end
 end

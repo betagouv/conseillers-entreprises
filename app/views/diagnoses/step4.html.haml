@@ -25,29 +25,8 @@
               %td{ colspan: 3 }
                 .ui.warning.message
                   = t('.no_expert_skill')
-                  = t('.you_can_contact_relays')
+                  = t('.you_can_contact_support')
               = render partial: 'expert_skill_checkboxes', locals: { f: f, need: need, experts_skills: support_skills }
-            - elsif @relay_users.present?
-              = f.fields_for :needs do |relay_form|
-                %tr
-                  %td{ colspan: 3 }
-                    .ui.warning.message
-                      = t('.no_expert_skill')
-                      = t('.you_can_contact_relays')
-                %tr
-                  - checkbox_id = need.id.to_s
-                  %td.checkbox-width
-                    .ui.fitted.checkbox
-                      = relay_form.check_box checkbox_id, checked: true
-                      %label
-                  %td.expert-width
-                    = relay_form.label checkbox_id, class: 'clickable' do
-                      - roles = @relay_users.map(&:full_name_with_role)
-                      = simple_format(roles.join('<br/>'))
-                  %td
-                    = relay_form.label checkbox_id, class: 'clickable' do
-                      .small.text
-                        = t('.relays_role', count: @relay_users.size)
             - else
               %tr
                 %td= t('.no_expert_skill')

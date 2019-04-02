@@ -65,7 +65,6 @@ class Diagnosis < ApplicationRecord
 
   # :matches
   has_many :experts, through: :matches, inverse_of: :received_diagnoses
-  has_many :relays, through: :matches
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_diagnoses
@@ -84,11 +83,11 @@ class Diagnosis < ApplicationRecord
       .where(needs: { matches: { expert_skill: { experts: { id: expert.id } } } })
   end
 
-  scope :of_relay_or_expert, -> (relay_or_expert) do
+  scope :of_or_expert, -> (expert) do
     archived(false)
       .includes(facility: :company)
       .joins(:needs)
-      .merge(Need.of_relay_or_expert(relay_or_expert))
+      .merge(Need.of_expert(expert))
       .order(happened_on: :desc, created_at: :desc)
       .distinct
   end
@@ -126,6 +125,6 @@ class Diagnosis < ApplicationRecord
   ##
   #
   def contacted_persons
-    (relays.map(&:user) + experts).uniq
+    experts.uniq
   end
 end

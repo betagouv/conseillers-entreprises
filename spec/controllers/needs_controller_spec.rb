@@ -8,8 +8,8 @@ RSpec.describe NeedsController, type: :controller do
 
     let(:diagnosis) { create :diagnosis }
 
-    context 'current user is a relay' do
-      let!(:relay) { create :relay, user: current_user }
+    context 'current user is an expert' do
+      let!(:expert_skill) { create :expert_skill, expert: create(:expert, users: [current_user]) }
 
       context 'user is not contacted for diagnosis' do
         it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
@@ -18,7 +18,7 @@ RSpec.describe NeedsController, type: :controller do
       context 'user is contacted for diagnosis' do
         before do
           create(:match,
-            relay: relay,
+            expert_skill: expert_skill,
             need: create(:need,
               diagnosis: diagnosis))
         end
