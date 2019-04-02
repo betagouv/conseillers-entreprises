@@ -65,20 +65,21 @@ ActiveAdmin.register Match do
   #
   csv do
     column :id
-    column(:status) { |m| m.status_short_description }
-    column :facility
     column(:need) { |m| m.need_id }
-    column(:subject) { |m| m.need.subject }
+    column :facility
     column :created_at
-    column :taken_care_of_at
-    column :closed_at
-    column(:status_description) { |m| m.need.status_short_description }
     column :advisor
     column :advisor_antenne
     column :advisor_institution
+    column(:subject) { |m| m.need.subject }
+    column(:content) { |m| m.need.content }
     column :expert
     column :expert_antenne
     column :expert_institution
+    column(:status) { |m| m.status_short_description }
+    column(:status_description) { |m| m.need.status_short_description }
+    column :taken_care_of_at
+    column :closed_at
     column('Page Référent') { |m| besoin_url(m.diagnosis, access_token: m.expert.access_token) if m.expert.present? }
   end
 
