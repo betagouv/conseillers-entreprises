@@ -83,7 +83,7 @@ class Diagnosis < ApplicationRecord
       .where(needs: { matches: { expert_skill: { experts: { id: expert.id } } } })
   end
 
-  scope :of_or_expert, -> (expert) do
+  scope :of_expert, -> (expert) do
     archived(false)
       .includes(facility: :company)
       .joins(:needs)
