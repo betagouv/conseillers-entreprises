@@ -42,7 +42,7 @@ RSpec.describe Need, type: :model do
 
     let(:need) { create :need, matches: matches, diagnosis: diagnosis }
 
-    let(:diagnosis) { create :diagnosis, step: 5 }
+    let(:diagnosis) { create :diagnosis_completed }
     let(:matches) { [] }
 
     let(:quo_match) { build :match, status: :quo }

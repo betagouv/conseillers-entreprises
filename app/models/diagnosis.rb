@@ -45,10 +45,12 @@ class Diagnosis < ApplicationRecord
 
   has_many :needs, dependent: :destroy, inverse_of: :diagnosis
 
-  ## Validations
+  ## Validations and Callbacks
   #
   validates :advisor, :facility, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
+  validate :last_step_has_matches
+  after_update :last_step_notify, if: :saved_change_to_step?
 
   accepts_nested_attributes_for :needs, allow_destroy: true
   accepts_nested_attributes_for :visitee
@@ -94,6 +96,19 @@ class Diagnosis < ApplicationRecord
 
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
+  def match_and_notify!(experts_skills_for_needs)
+    self.transaction do
+      experts_skills_for_needs.each do |need_id, expert_skills_selection|
+        need = self.needs.find(need_id)
+        expert_skills_selection.each do |expert_skill_id|
+          expert_skill = ExpertSkill.find(expert_skill_id)
+          Match.create(expert_skill: expert_skill, need: need)
+        end
+      end
+      self.update!(step: Diagnosis::LAST_STEP)
+    end
+  end
+
   ##
   #
   def to_s
@@ -126,5 +141,25 @@ class Diagnosis < ApplicationRecord
   #
   def contacted_persons
     experts.uniq
+  end
+
+  private
+
+  def last_step_has_matches
+    if step == 5 && needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
+      errors.add(:step, 'can’t be step 5 with no matches')
+    end
+  end
+
+  def last_step_notify
+    if step == LAST_STEP
+      notify_experts!
+    end
+  end
+
+  def notify_experts!
+    contacted_persons.each do |person|
+      ExpertMailer.delay.notify_company_needs(person, self)
+    end
   end
 end
