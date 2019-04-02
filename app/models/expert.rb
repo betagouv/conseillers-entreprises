@@ -64,6 +64,11 @@ class Expert < ApplicationRecord
 
   ## Scopes
   #
+  scope :support_experts, -> do
+    joins(:skills)
+      .merge(Skill.support_skills)
+  end
+
   scope :ordered_by_institution, -> do
     joins(:antenne, :antenne_institution)
       .select('experts.*', 'antennes.name', 'institutions.name')

@@ -165,9 +165,7 @@ RSpec.describe Need, type: :model do
     subject { need.contacted_persons }
 
     let(:need) { create :need, matches: matches }
-    let(:relay) { build :relay }
     let(:expert) { build :expert }
-    let(:relay_match) { build :match, relay: relay }
     let(:expert_skill) { build :expert_skill, expert: expert }
     let(:expert_match) { build :match, expert_skill: expert_skill }
     let(:expert_match2) { build :match, expert_skill: expert_skill }
@@ -178,13 +176,7 @@ RSpec.describe Need, type: :model do
       it { is_expected.to be_empty }
     end
 
-    context 'Matches with both relays and experts' do
-      let(:matches) { [expert_match, relay_match] }
-
-      it { is_expected.to match_array [expert, relay.user] }
-    end
-
-    context 'Matches wit the same expert' do
+    context 'Matches with the same expert' do
       let(:matches) { [expert_match, expert_match2] }
 
       it { is_expected.to match_array [expert] }

@@ -8,7 +8,6 @@ class NeedsController < ApplicationController
   after_action :mark_expert_viewed, only: :show
 
   def index
-    @relays = relays
     @experts = experts
   end
 
@@ -24,11 +23,6 @@ class NeedsController < ApplicationController
   end
 
   private
-
-  def relays
-    current_user.present? ? current_user.relays.joins(:territory).order('territories.name')
-      : []
-  end
 
   def experts
     current_user.present? ? current_user.experts.order(:full_name)

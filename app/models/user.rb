@@ -54,10 +54,6 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :experts, inverse_of: :users
 
-  has_many :relays
-  has_many :relay_territories, through: :relays, source: :territory, inverse_of: :relay_users # TODO should be named :relay_territories when we get rid of the Relay model and use a HABTM
-  has_many :relay_matches, through: :relays, source: :matches, inverse_of: :relay_user
-
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
 
   has_many :searches, dependent: :destroy, inverse_of: :user
@@ -96,12 +92,9 @@ class User < ApplicationRecord
   scope :not_approved, -> { where(is_approved: false) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
   scope :project_team, -> { admin.where.not(contact_page_order: nil) }
-  scope :relays, -> { joins(:relays).distinct }
 
   scope :ordered_for_contact, -> {
-    left_outer_joins(:relay_territories)
-      .select('users.*, territories.name')
-      .order('territories.name', :contact_page_order, :full_name)
+    order(:contact_page_order, :full_name)
       .distinct
   }
   scope :ordered_by_institution, -> do

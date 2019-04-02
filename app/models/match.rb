@@ -14,20 +14,17 @@
 #  updated_at              :datetime         not null
 #  experts_skills_id       :bigint(8)
 #  need_id                 :bigint(8)
-#  relay_id                :bigint(8)
 #
 # Indexes
 #
 #  index_matches_on_experts_skills_id  (experts_skills_id)
 #  index_matches_on_need_id            (need_id)
-#  index_matches_on_relay_id           (relay_id)
 #  index_matches_on_status             (status)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (experts_skills_id => experts_skills.id)
 #  fk_rails_...  (need_id => needs.id)
-#  fk_rails_...  (relay_id => relays.id)
 #
 
 class Match < ApplicationRecord
@@ -47,15 +44,11 @@ class Match < ApplicationRecord
   has_one :expert, through: :expert_skill, inverse_of: :received_matches # TODO: Should be direct once we remove expert_skill and use a HABTM instead
   has_one :skill, through: :expert_skill, inverse_of: :matches
 
-  belongs_to :relay, optional: true
-  has_one :relay_user, through: :relay, source: :user, inverse_of: :relay_matches
-
   has_many :feedbacks, dependent: :destroy, inverse_of: :match
 
   ## Validations
   #
   validates :need, presence: true
-  validates_with MatchValidator
 
   ## Through Associations
   #
@@ -90,30 +83,25 @@ class Match < ApplicationRecord
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
-  scope :of_relay_or_expert, -> (relay_or_expert) do
-    if relay_or_expert.is_a?(Enumerable)
-      if relay_or_expert.empty?
+  scope :of_expert, -> (expert) do
+    if expert.is_a?(Enumerable)
+      if expert.empty?
         none
       else
-        relations = relay_or_expert.map{ |item| of_relay_or_expert(item) }.compact
+        relations = expert.map{ |item| of_expert(item) }.compact
         relations.reduce(&:or)
       end
-    elsif relay_or_expert.is_a?(Expert)
-      left_outer_joins(:expert_skill).where(experts_skills: { expert: relay_or_expert })
-    elsif relay_or_expert.is_a?(Relay)
-      left_outer_joins(:expert_skill).where(relay: relay_or_expert)
+    elsif expert.is_a?(Expert)
+      left_outer_joins(:expert_skill).where(experts_skills: { expert: expert })
     else
       left_outer_joins(:expert_skill).where(id: -1)
     end
   end
 
-  scope :to_relays, -> { where.not(relay: nil) }
-
   scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
 
   scope :with_deleted_expert, -> do
     where(expert_skill: nil)
-      .where(relay: nil)
   end
 
   ##
@@ -159,7 +147,7 @@ class Match < ApplicationRecord
   end
 
   def person
-    expert || relay&.user
+    expert
   end
 
   def person_full_name
@@ -168,12 +156,12 @@ class Match < ApplicationRecord
 
   ##
   #
-  def belongs_to_relay_or_expert?(role)
-    role.present? && (expert == role || relay == role)
+  def belongs_to_expert?(role)
+    role.present? && expert == role
   end
 
   def can_be_viewed_by?(role)
-    belongs_to_relay_or_expert?(role)
+    belongs_to_expert?(role)
   end
 
   private

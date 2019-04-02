@@ -9,7 +9,7 @@ RSpec.describe MatchesController, type: :controller do
     let(:match_id) { match.id }
     let(:access_token) { nil }
 
-    context 'current user is not a relay' do
+    context 'current user is an expert' do
       let(:match) { create :match, :with_expert_skill }
 
       let(:access_token) { expert.access_token }
@@ -54,53 +54,6 @@ RSpec.describe MatchesController, type: :controller do
             expect(response).to be_successful
             expect(match.reload.status_taking_care?).to eq true
           end
-        end
-      end
-    end
-
-    context 'current user is a relay' do
-      login_user
-
-      let(:match) { create :match, :with_relay, need: need }
-
-      let(:need) { create :need, diagnosis: diagnosis }
-      let(:diagnosis) { create :diagnosis, facility: facility }
-      let(:facility) { create :facility }
-      let(:relay) { create :relay, user: current_user }
-
-      context 'match does not exist' do
-        let(:match_id) { 'nonexisting' }
-
-        it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
-      end
-
-      context 'match is not available to expert' do
-        it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
-      end
-
-      context 'with status quo' do
-        before do
-          match.update relay: relay
-          params[:status] = :quo
-          request
-        end
-
-        it 'returns http success' do
-          expect(response).to be_successful
-          expect(match.reload.status_quo?).to eq true
-        end
-      end
-
-      context 'with status taking_care' do
-        before do
-          match.update relay: relay
-          params[:status] = :taking_care
-          request
-        end
-
-        it 'returns http success' do
-          expect(response).to be_successful
-          expect(match.reload.status_taking_care?).to eq true
         end
       end
     end

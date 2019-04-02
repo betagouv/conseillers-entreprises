@@ -4,12 +4,7 @@
   = t('.title')
   .sub.header= t('.needs_for_you')
 
-- @relays.each do |relay|
-  -# Display info about Relay/Territory : all the diagnostics, etc.
-  - diagnoses = Diagnosis.of_relay_or_expert(relay)
-  = render partial: 'diagnoses_list', locals: { diagnoses: diagnoses, relay_or_expert: relay, title: relay.territory.name }
-
 - @experts.each do |expert|
   -# Display info about Expert: the team, the old diagnoses, etc.
-  - diagnoses = Diagnosis.of_relay_or_expert(expert)
-  = render partial: 'diagnoses_list', locals: { diagnoses: diagnoses, relay_or_expert: expert, title: expert.full_name }
+  - diagnoses = Diagnosis.of_expert(expert)
+  = render partial: 'diagnoses_list', locals: { diagnoses: diagnoses, expert: expert, title: expert.full_name }
