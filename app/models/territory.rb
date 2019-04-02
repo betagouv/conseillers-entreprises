@@ -15,9 +15,6 @@ class Territory < ApplicationRecord
   has_and_belongs_to_many :communes, inverse_of: :territories
   include ManyCommunes
 
-  has_many :relays
-  has_many :relay_users, through: :relays, source: :user, inverse_of: :relay_territories # TODO: should be named :relays when we get rid of the Relay model and use a HABTM
-
   ## Through Associations
   #
   # :communes

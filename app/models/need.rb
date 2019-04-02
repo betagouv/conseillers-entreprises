@@ -48,7 +48,6 @@ class Need < ApplicationRecord
 
   # :matches
   has_many :experts, through: :matches, inverse_of: :received_needs
-  has_many :relays, through: :matches
   has_many :feedbacks, through: :matches, inverse_of: :need
 
   # :facility
@@ -64,7 +63,7 @@ class Need < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_relay_or_expert, -> (relay_or_expert) { joins(:matches).merge(Match.of_relay_or_expert(relay_or_expert)) }
+  scope :of_expert, -> (expert) { joins(:matches).merge(Match.of_expert(expert)) }
 
   scope :made_in, -> (date_range) do
     joins(:diagnosis)
@@ -187,17 +186,17 @@ class Need < ApplicationRecord
     if role.present? && advisor == role
       true
     else
-      belongs_to_relay_or_expert?(role)
+      belongs_to_expert?(role)
     end
   end
 
-  def belongs_to_relay_or_expert?(role)
-    relays.include?(role) || experts.include?(role)
+  def belongs_to_expert?(role)
+    experts.include?(role)
   end
 
   ##
   #
   def contacted_persons
-    (relays.map(&:user) + experts).uniq
+    experts.uniq
   end
 end

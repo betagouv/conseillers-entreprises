@@ -3,7 +3,7 @@ module UseCases
     class << self
       def perform(diagnosis:, expert:)
         matches = Match.of_diagnoses(diagnosis)
-          .of_relay_or_expert(expert)
+          .of_expert(expert)
           .not_viewed
         matches.update_all expert_viewed_page_at: Time.zone.now
       end

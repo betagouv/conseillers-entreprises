@@ -6,16 +6,6 @@
         = @user.send(attribute)
     %a.ui.bottom.attached.basic.green.button{ href: edit_user_registration_path }= t('edit')
 
-  // Relays
-  - if @user.relays.present?
-    %h2= t('activerecord.models.relay.one')
-    .ui.segments
-      %h3.ui.segment.block.header
-        = t('activerecord.models.territory', count: @user.relays.size)
-      - @user.relays.each do |relay|
-        .ui.attached.segment
-          = relay.territory.name
-
   // Teams
   - if @user.experts.present?
     %h2= t('activerecord.models.expert.one')

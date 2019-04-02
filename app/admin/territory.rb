@@ -24,7 +24,6 @@ ActiveAdmin.register Territory do
       div admin_link_to(t, :communes)
     end
     column(:community) do |t|
-      div admin_link_to(t, :relay_users)
       div admin_link_to(t, :antennes)
       div admin_link_to(t, :advisors)
       div admin_link_to(t, :antenne_experts)
@@ -45,7 +44,6 @@ ActiveAdmin.register Territory do
     column :name
     column :bassin_emploi
     column_count :communes
-    column_list :relays
     column_count :antennes
     column_count :advisors
     column_count :antenne_experts
@@ -63,10 +61,6 @@ ActiveAdmin.register Territory do
       row(:communes) do |t|
         div admin_link_to(t, :communes)
         div safe_join(t.communes.map { |c| admin_link_to c }, ', '.html_safe)
-      end
-      row(:relay_users) do |t|
-        div admin_link_to(t, :relay_users)
-        div admin_link_to(t, :relay_users, list: true)
       end
       row(:antennes) do |t|
         div admin_link_to(t, :antennes)
@@ -86,7 +80,7 @@ ActiveAdmin.register Territory do
 
   ## Form
   #
-  permit_params :name, :insee_codes, :bassin_emploi, relay_user_ids: []
+  permit_params :name, :insee_codes, :bassin_emploi
 
   form do |f|
     f.inputs do
@@ -95,9 +89,6 @@ ActiveAdmin.register Territory do
     end
     f.inputs do
       f.input :insee_codes
-    end
-    f.inputs do
-      f.input :relay_users, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name], limit: 999 }
     end
 
     f.actions

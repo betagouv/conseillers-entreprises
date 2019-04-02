@@ -28,9 +28,10 @@ fr:
       not_taken_after_3_weeks: 3 semaines sans réponse
       quo_not_taken_after_3_weeks: Non pris en charge
       rejected: Refusés
-      relays: Relais locaux
       sent: Mises en relation envoyées
+      support_experts: Support
       taken_not_done_after_3_weeks: Sans nouvelles
+      to_support: Support
       tooltips:
         diagnosis_completed: Besoins identifiés dans des analyses terminées
         quo_not_taken_after_3_weeks: Non pris en charge depuis 3 semaines

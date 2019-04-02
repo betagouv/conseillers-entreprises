@@ -59,6 +59,6 @@ class AdminMailerPreview < ActionMailer::Preview
   private
 
   def match_with_person
-    Match.where.not(relay: nil).or(Match.where.not(expert_skill: nil)).sample
+    Match.where.not(expert_skill: nil).sample
   end
 end

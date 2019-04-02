@@ -40,7 +40,6 @@ class ApplicationController < ActionController::Base
   def current_roles
     current_roles = [current_user]
     current_roles += current_user&.experts || []
-    current_roles += current_user&.relays || []
     current_roles += [current_expert]
     current_roles.compact
   end

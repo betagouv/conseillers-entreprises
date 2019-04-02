@@ -5,13 +5,12 @@ ActiveAdmin.register User do
 
   # Index
   #
-  includes :antenne, :antenne_institution, :experts, :relay_territories, :searches,
+  includes :antenne, :antenne_institution, :experts, :searches,
     :sent_diagnoses, :sent_needs, :sent_matches
   config.sort_order = 'created_at_desc'
 
   scope :all, default: true
   scope :admin
-  scope :relays
   scope :without_antenne
   scope :not_approved
   scope :email_not_confirmed
@@ -40,7 +39,6 @@ ActiveAdmin.register User do
     end
     column(:experts) do |u|
       div admin_link_to(u, :experts, list: true)
-      div admin_link_to(u, :relay_territories, list: true)
     end
     column(:activity) do |u|
       div admin_link_to(u, :searches)
@@ -63,7 +61,6 @@ ActiveAdmin.register User do
   filter :role
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :antenne_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :relay_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
@@ -82,7 +79,6 @@ ActiveAdmin.register User do
       u.antenne_institution || "sans antenne: #{u.institution}"
     end
     column_list :experts
-    column_list :relay_territories
     column_count :searches
     column_count :sent_diagnoses
     column_count :sent_needs
@@ -114,9 +110,6 @@ ActiveAdmin.register User do
           text = t('active_admin.user.autolink_to', what: u.corresponding_experts.to_sentence)
           link_to(text, autolink_to_experts_admin_user_path(u), method: :post)
         end
-      end
-      row :relay_territories do |u|
-        div admin_link_to(u, :relay_territories, list: true)
       end
       row :activity do |u|
         div admin_link_to(u, :searches)
@@ -158,7 +151,7 @@ ActiveAdmin.register User do
   permit_params :full_name, :email, :institution, :role, :phone_number, :is_approved,
     :contact_page_order, :contact_page_role,
     :is_admin, :password, :password_confirmation,
-    :antenne_id, expert_ids: [], relay_territory_ids: []
+    :antenne_id, expert_ids: []
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -177,14 +170,6 @@ ActiveAdmin.register User do
       f.input :role
       f.input :email
       f.input :phone_number
-    end
-
-    f.inputs do
-      f.input :relay_territories, as: :ajax_select, data: {
-        url: :admin_territories_path,
-        search_fields: [:name],
-        limit: 999
-      }
     end
 
     f.inputs I18n.t('active_admin.user.connection') do

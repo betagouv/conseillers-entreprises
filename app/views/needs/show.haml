@@ -29,7 +29,7 @@
 
     -# Matches, mine first
     - matches = need.matches
-    - match_for_me = matches.of_relay_or_expert(@current_roles).first
+    - match_for_me = matches.of_expert(@current_roles).first
     - if match_for_me.present?
       - matches -= [match_for_me]
       - matches = [match_for_me] + matches

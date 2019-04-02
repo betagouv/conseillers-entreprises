@@ -98,34 +98,6 @@ RSpec.describe Match, type: :model do
     end
   end
 
-  describe 'skill expert and relay cannot both be set' do
-    subject(:match) { build :match }
-
-    let(:expert_skill) { create :expert_skill }
-    let(:relay) { create :relay }
-
-    context 'skill expert and relay cannot both be set' do
-      before { match.expert_skill = expert_skill }
-
-      it { is_expected.to be_valid }
-    end
-
-    context 'skill expert and relay cannot both be set' do
-      before { match.relay = relay }
-
-      it { is_expected.to be_valid }
-    end
-
-    context 'skill expert and relay cannot both be set' do
-      before do
-        match.assign_attributes expert_skill: expert_skill,
-                                                     relay: relay
-      end
-
-      it { is_expected.not_to be_valid }
-    end
-  end
-
   describe 'defaults' do
     let(:match) { create :match, :with_expert_skill }
 
