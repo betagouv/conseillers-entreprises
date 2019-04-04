@@ -28,7 +28,7 @@ ActiveAdmin.register Need do
     column :last_activity_at
     column :status do |d|
       status_tag(*status_tag_status_params(d.status))
-      status_tag t('active_admin.archivable.archive_done') if d.archived?
+      status_tag t('archivable.archive_done') if d.archived?
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)

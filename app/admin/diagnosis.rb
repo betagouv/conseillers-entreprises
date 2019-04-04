@@ -25,7 +25,7 @@ ActiveAdmin.register Diagnosis do
     column :created_at
     column :step
     column :archived? do |d|
-      status_tag t('active_admin.archivable.archive_done') if d.archived?
+      status_tag t('archivable.archive_done') if d.archived?
     end
     column :needs do |d|
       div admin_link_to(d, :needs)

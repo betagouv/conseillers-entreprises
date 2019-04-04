@@ -21,7 +21,7 @@ ActiveAdmin.register Subject do
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
     column :archived? do |s|
-      status_tag t('active_admin.archivable.archive_done') if s.archived?
+      status_tag t('archivable.archive_done') if s.archived?
     end
     column :is_support do |d|
       status_tag t('activerecord.attributes.subject.is_support') if d.is_support
