@@ -98,12 +98,9 @@ class Diagnosis < ApplicationRecord
 
   def match_and_notify!(experts_skills_for_needs)
     self.transaction do
-      experts_skills_for_needs.each do |need_id, expert_skills_selection|
+      experts_skills_for_needs.each do |need_id, experts_skills_ids|
         need = self.needs.find(need_id)
-        expert_skills_selection.each do |expert_skill_id|
-          expert_skill = ExpertSkill.find(expert_skill_id)
-          Match.create(expert_skill: expert_skill, need: need)
-        end
+        need.create_matches!(experts_skills_ids)
       end
       self.update!(step: Diagnosis::LAST_STEP)
     end
