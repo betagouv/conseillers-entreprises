@@ -26,19 +26,16 @@ class ExpertSkill < ApplicationRecord
 
   scope :relevant_for, -> (need) do
     experts_in_commune = need.facility.commune.all_experts
-    relevant_skills = need.subject.skills
 
-    ExpertSkill
-      .where(skill: relevant_skills)
+    where(skill: need.subject.skills)
       .where(expert: experts_in_commune)
   end
 
   scope :support_for, -> (diagnosis) do
     experts_in_commune = diagnosis.facility.commune.all_experts
-    relevant_skills = Subject.support_subject.skills
 
-    ExpertSkill
-      .where(skill: relevant_skills)
-      .where(expert: experts_in_commune)
+    support.where(expert: experts_in_commune)
   end
+
+  scope :support, -> { where(skill: Skill.support_skills) }
 end

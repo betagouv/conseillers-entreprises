@@ -35,8 +35,9 @@ ActiveAdmin.register Need do
       div admin_link_to(d, :feedbacks)
     end
 
-    actions dropdown: true do |d|
-      index_row_archive_actions(d)
+    actions dropdown: true do |need|
+      index_row_archive_actions(need)
+      item t('active_admin.need.match_with_support_team'), match_with_support_team_admin_need_path(need)
     end
   end
 
@@ -85,6 +86,10 @@ ActiveAdmin.register Need do
     end
   end
 
+  action_item :match_with_support_team, only: :show do
+    link_to t('active_admin.need.match_with_support_team'), match_with_support_team_admin_need_path(need)
+  end
+
   ## Form
   #
   permit_params :diagnosis_id, :subject_id, :content
@@ -96,5 +101,19 @@ ActiveAdmin.register Need do
     end
 
     actions
+  end
+
+  ## Actions
+  #
+  member_action :match_with_support_team do
+    resource.create_matches!(current_user.support_expert_skill.id)
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.match_with_support_team_done')
+  end
+
+  batch_action I18n.t('active_admin.need.match_with_support_team') do |ids|
+    batch_action_collection.find(ids).each do |need|
+      need.create_matches!(current_user.support_expert_skill.id)
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.match_with_support_team_done')
   end
 end
