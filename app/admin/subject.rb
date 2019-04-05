@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Subject do
-  menu priority: 5
+  menu parent: :themes, priority: 1
   actions :all, except: :destroy
 
   ##

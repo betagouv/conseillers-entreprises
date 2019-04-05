@@ -1,5 +1,5 @@
 ActiveAdmin.register Solicitation do
-  menu priority: 1
+  menu priority: 7
 
   ## Index
   #

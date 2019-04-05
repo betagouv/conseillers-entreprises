@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Theme do
-  menu parent: :subjects, priority: 1
+  menu priority: 6
 
   ## Index
   #

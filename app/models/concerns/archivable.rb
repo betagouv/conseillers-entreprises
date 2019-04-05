@@ -13,6 +13,7 @@ module Archivable
 
     ransacker(:archived, formatter: -> (value) {
       archived(value).pluck(:id)
+        .presence
     }) { |parent| parent.table[:id] }
   end
 

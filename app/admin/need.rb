@@ -3,10 +3,6 @@
 ActiveAdmin.register Need do
   menu parent: :diagnoses, priority: 1
 
-  ##
-  #
-  include AdminArchivable
-
   ## index
   #
   includes :diagnosis, :subject, :advisor, :matches, :feedbacks, :company
@@ -28,7 +24,7 @@ ActiveAdmin.register Need do
     column :last_activity_at
     column :status do |d|
       status_tag(*status_tag_status_params(d.status))
-      status_tag t('archivable.archive_done') if d.archived?
+      status_tag t('activerecord.attributes.need.archived?') if d.archived?
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
@@ -36,7 +32,12 @@ ActiveAdmin.register Need do
     end
 
     actions dropdown: true do |need|
-      index_row_archive_actions(need)
+      if need.archived?
+        item t('active_admin.need.unarchive'), polymorphic_path([:unarchive, :admin, need])
+      else
+        item t('active_admin.need.archive'), polymorphic_path([:archive, :admin, need])
+      end
+
       item t('active_admin.need.match_with_support_team'), match_with_support_team_admin_need_path(need)
     end
   end
@@ -44,7 +45,7 @@ ActiveAdmin.register Need do
   statuses = Need::STATUSES.map { |s| [StatusHelper.status_description(s, :short), s] }
   filter :by_status_in, as: :select, collection: statuses, label: I18n.t('attributes.status')
 
-  filter :archived_in, as: :boolean, label: I18n.t('attributes.archived?')
+  filter :archived_in, as: :boolean, label: I18n.t('activerecord.attributes.need.archived?')
 
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
@@ -90,6 +91,14 @@ ActiveAdmin.register Need do
     link_to t('active_admin.need.match_with_support_team'), match_with_support_team_admin_need_path(need)
   end
 
+  action_item :archive, only: :show, if: -> { !resource.archived? } do
+    link_to t('active_admin.need.archive'), polymorphic_path([:archive, :admin, resource])
+  end
+
+  action_item :unarchive, only: :show, if: -> { resource.archived? } do
+    link_to t('active_admin.need.unarchive'), polymorphic_path([:unarchive, :admin, resource])
+  end
+
   ## Form
   #
   permit_params :diagnosis_id, :subject_id, :content
@@ -108,6 +117,30 @@ ActiveAdmin.register Need do
   member_action :match_with_support_team do
     resource.create_matches!(current_user.support_expert_skill.id)
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.match_with_support_team_done')
+  end
+
+  member_action :archive do
+    resource.archive!
+    redirect_back fallback_location: collection_path, notice: t('active_admin.need.archive_done')
+  end
+
+  member_action :unarchive do
+    resource.unarchive!
+    redirect_back fallback_location: collection_path, notice: t('active_admin.need.unarchive_done')
+  end
+
+  batch_action(I18n.t('active_admin.need.archive')) do |ids|
+    batch_action_collection.find(ids).each do |resource|
+      resource.archive!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.archive_done')
+  end
+
+  batch_action(I18n.t('active_admin.need.unarchive')) do |ids|
+    batch_action_collection.find(ids).each do |resource|
+      resource.unarchive!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.unarchive_done')
   end
 
   batch_action I18n.t('active_admin.need.match_with_support_team') do |ids|
