@@ -45,6 +45,8 @@ fr:
         skill_title: Compétence
         taken_care_of_at: Date de prise en charge
       need:
+        archived?: En échec
+        archived_at: Mis en échec
         subject: Sujet
       search:
         label: Entreprise
