@@ -1,5 +1,5 @@
 ActiveAdmin.register Landing do
-  menu parent: :solicitations, priority: 1
+  menu parent: :themes, priority: 3
 
   ## Index
   #

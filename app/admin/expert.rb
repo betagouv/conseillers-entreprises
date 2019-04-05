@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Expert do
-  menu priority: 6
+  menu priority: 4
 
   # Index
   #

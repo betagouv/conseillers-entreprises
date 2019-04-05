@@ -1,4 +1,5 @@
 ActiveAdmin.register Delayed::Job, as: 'Jobs' do
+  menu priority: 2
   actions :index, :show, :destroy
 
   # Index

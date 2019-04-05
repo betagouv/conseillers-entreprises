@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Company do
-  menu priority: 4
+  menu priority: 9
 
   ## Index
   #
