@@ -3,11 +3,23 @@
 require 'rails_helper'
 
 RSpec.describe Match, type: :model do
-  describe 'validations' do
-    it do
-      is_expected.to belong_to :need
-      # is_expected.to belong_to :expert_skill  # TODO: We currently have bad data in DB, and cannot validate this
-      is_expected.to validate_presence_of :need
+  describe 'expert uniqueness for each need' do
+    subject(:match) { build :match, need: need, expert_skill: expert }
+
+    let(:need) { create :need }
+    let(:expert) { create :expert_skill }
+    let(:other_expert) { create :expert_skill }
+
+    context '' do
+      before { create(:match, need: need, expert_skill: other_expert) }
+
+      it { is_expected.to be_valid }
+    end
+
+    context '' do
+      before { create(:match, need: need, expert_skill: expert) }
+
+      it { is_expected.not_to be_valid }
     end
   end
 
