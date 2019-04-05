@@ -136,6 +136,7 @@ class Need < ApplicationRecord
   #
   ransacker(:by_status, formatter: -> (value) {
     by_status(value).pluck(:id)
+      .presence
   }) { |parent| parent.table[:id] }
 
   ##
