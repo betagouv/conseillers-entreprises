@@ -7,8 +7,12 @@ fr:
     matches:
       deleted: Supprimé
     need:
+      archive: Marquer “En échec”
+      archive_done: Marqué “En échec”
       match_with_support_team: Mettre en relation avec l’équipe Support
       match_with_support_team_done: Mis en relation avec l’équipe Support
+      unarchive: Retirer “En échec”
+      unarchive_done: "“En échec” retiré"
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
