@@ -42,21 +42,23 @@
   .clear
 
 :javascript
-  $checkboxes = $(".diagnosis_form .checkbox input:checkbox");
-  function setBoxesValidity() {
-    if ($checkboxes.is(":checked")) {
-      $checkboxes.each(function() {
-        this.setCustomValidity("");
-      });
-    } else {
-      $checkboxes.each(function() {
-        this.setCustomValidity("#{ t('.select_at_least_one_need') }");
-      });
+  (function() {
+    var checkboxes = $(".diagnosis_form .checkbox input:checkbox");
+    function setBoxesValidity() {
+      if (checkboxes.is(":checked")) {
+        checkboxes.each(function() {
+          this.setCustomValidity("");
+        });
+      } else {
+        checkboxes.each(function() {
+          this.setCustomValidity("#{ t('.select_at_least_one_need') }");
+        });
+      }
     }
-  }
-  $checkboxes.on("click", function() {
-    setBoxesValidity();
-  });
-  $(document).ready(function(){
-    setBoxesValidity();
-  });
+    checkboxes.on("click", function() {
+      setBoxesValidity();
+    });
+    $(document).ready(function(){
+      setBoxesValidity();
+    });
+  }) ()

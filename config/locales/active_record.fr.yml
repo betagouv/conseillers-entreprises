@@ -18,6 +18,7 @@ fr:
         role: Fonction de la personne rencontrée
       expert:
         access_token: Token d’accès
+        is_global_zone: Global
         role: Fonction
         skills:
           one: Compétence

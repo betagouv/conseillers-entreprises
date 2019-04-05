@@ -1,6 +1,11 @@
 ---
 fr:
   app_name: Place des Entreprises
+  archivable:
+    archive: Archiver
+    archive_done: Archivé
+    unarchive: Désarchiver
+    unarchive_done: Désarchivé
   back: Retour
   cgu: Conditions d’utilisation
   company_contact: Chefs d’entreprises, cliquez ici

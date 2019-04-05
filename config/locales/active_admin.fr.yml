@@ -1,11 +1,6 @@
 ---
 fr:
   active_admin:
-    archivable:
-      archive: Archiver
-      archive_done: Archivé
-      unarchive: Désarchiver
-      unarchive_done: Désarchivé
     dashboard: Tableau de bord
     dashboard_welcome:
       invite_users: Inviter des utilisateurs
