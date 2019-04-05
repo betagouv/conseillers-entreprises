@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Territory do
-  menu priority: 8
+  menu priority: 5
 
   ## index
   #

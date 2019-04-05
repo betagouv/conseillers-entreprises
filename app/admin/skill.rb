@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Skill do
-  menu parent: :subjects, priority: 2
+  menu parent: :themes, priority: 2
 
   ## Index
   #

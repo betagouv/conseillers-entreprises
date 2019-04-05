@@ -18,7 +18,7 @@ describe 'ApplicationController specific features', type: :feature do
       it do
         current_user.update is_admin: true
         visit '/admin'
-        expect(page.html).to include 'Tableau de bord'
+        expect(page.html).to include 'Sollicitations'
       end
     end
   end

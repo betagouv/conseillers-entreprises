@@ -12,7 +12,7 @@ describe 'admin panel', type: :feature do
         visit '/admin'
       end
 
-      it { expect(page.html).to include 'Tableau de bord' }
+      it { expect(page.html).to include 'Sollicitations' }
     end
   end
 
