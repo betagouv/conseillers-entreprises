@@ -211,6 +211,10 @@ class User < ApplicationRecord
     end
   end
 
+  def support_expert_skill
+    ExpertSkill.support.find_by(expert: self.experts)
+  end
+
   protected
 
   # Inspired by Devise validatable module

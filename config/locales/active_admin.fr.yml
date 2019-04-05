@@ -6,6 +6,9 @@ fr:
       invite_users: Inviter des utilisateurs
     matches:
       deleted: Supprimé
+    need:
+      match_with_support_team: Mettre en relation avec l’équipe Support
+      match_with_support_team_done: Mis en relation avec l’équipe Support
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées

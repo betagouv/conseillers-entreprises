@@ -199,4 +199,12 @@ class Need < ApplicationRecord
   def contacted_persons
     experts.uniq
   end
+
+  def create_matches!(expert_skills)
+    if expert_skills.is_a?(Array)
+      self.matches.create(expert_skills.map{ |id| { experts_skills_id: id } })
+    else
+      self.matches.create(experts_skills_id: expert_skills)
+    end
+  end
 end
