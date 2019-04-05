@@ -58,28 +58,21 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'POST #selection' do
-    let(:matches) do
-      {
-        'experts_skills' => { '12' => '1', '90' => '0' },
-        'needs' => { '31' => '1', '78' => '0' }
-      }
-    end
-
     before do
-      allow(UseCases::SaveAndNotifyDiagnosis).to receive(:perform)
-
-      post :selection, params: { id: diagnosis.id, matches: matches }
+      allow_any_instance_of(Diagnosis).to receive(:match_and_notify!).and_return(result)
+      post :selection, params: { id: diagnosis.id, matches: { 'a': { 'a': '1' } } }
     end
 
-    context 'some experts are selected' do
+    context 'match_and_notify! succeeds' do
+      let(:result) { true }
+
       it('redirects to the besoins page') { expect(response).to redirect_to besoin_path(diagnosis) }
+    end
 
-      it('updates the diagnosis to step 5') { expect(diagnosis.reload.step).to eq 5 }
+    context 'match_and_notify! fails' do
+      let(:result) { false }
 
-      it 'has called the right methods' do
-        expect(UseCases::SaveAndNotifyDiagnosis).to have_received(:perform).with(diagnosis,
-          matches)
-      end
+      it('fails') { expect(response).not_to be_successful }
     end
   end
 

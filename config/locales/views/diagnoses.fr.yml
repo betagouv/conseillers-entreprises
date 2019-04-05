@@ -38,6 +38,7 @@ fr:
       no_expert_skill: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
       no_needs: Pas de besoins sélectionnés.
       notify_matches: Notifier les référents sélectionnés
+      select_at_least_one_expert: Cochez au minimum un référent à contacter.
       title: Mise en contact
       you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
     step5:

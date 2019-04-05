@@ -37,6 +37,18 @@ RSpec.describe Match, type: :model do
     end
   end
 
+  describe 'before create' do
+    describe 'copy_expert_info' do
+      let(:match) { create :match }
+
+      it do
+        expect(match.expert_full_name).not_to be_nil
+        expect(match.expert_institution_name).not_to be_nil
+        expect(match.skill_title).not_to be_nil
+      end
+    end
+  end
+
   describe 'after_update' do
     let(:match) { create :match }
 
@@ -99,7 +111,7 @@ RSpec.describe Match, type: :model do
   end
 
   describe 'defaults' do
-    let(:match) { create :match, :with_expert_skill }
+    let(:match) { create :match }
 
     context 'creation' do
       it { expect(match.status).not_to be_nil }
@@ -127,12 +139,12 @@ RSpec.describe Match, type: :model do
       let(:diagnosis) { create :diagnosis }
       let(:need) { create :need, diagnosis: diagnosis }
       let(:match) do
-        create :match, :with_expert_skill, need: need
+        create :match, need: need
       end
 
       before do
         create :need, diagnosis: diagnosis
-        create :match, :with_expert_skill
+        create :match
       end
 
       it { is_expected.to eq [match] }

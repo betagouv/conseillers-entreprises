@@ -10,7 +10,7 @@ RSpec.describe MatchesController, type: :controller do
     let(:access_token) { nil }
 
     context 'current user is an expert' do
-      let(:match) { create :match, :with_expert_skill }
+      let(:match) { create :match }
 
       let(:access_token) { expert.access_token }
       let(:expert) { create :expert }

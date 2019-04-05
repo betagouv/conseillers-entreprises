@@ -33,9 +33,9 @@ RSpec.describe Commune, type: :model do
     let(:commune) { create :commune }
 
     let(:expert_direct) { create :expert, communes: [commune] }
-    let(:expert_via_antenne) { create :expert, antenne: antenne }
-    let(:antenne) { create :antenne, communes: [commune] }
+    let(:expert_via_antenne) { create :expert, antenne: create(:antenne, communes: [commune]) }
+    let(:global_expert) { create :expert, is_global_zone: true }
 
-    it { is_expected.to match_array [expert_direct, expert_via_antenne] }
+    it { is_expected.to match_array [expert_direct, expert_via_antenne, global_expert] }
   end
 end
