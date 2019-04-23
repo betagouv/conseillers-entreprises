@@ -8,12 +8,12 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
 
 1. Clone the repository.
 
-        $ git clone git@github.com:betagouv/reso.git
-        $ cd reso
+        $ git clone git@github.com:betagouv/place-des-entreprises.git
+        $ cd place-des-entreprises
 
 2. Install Ruby using **rbenv**. See `.ruby-version` file to know which Ruby version is needed.
 
-        $ brew install rvm
+        $ brew install rbenv
         $ rbenv install
 
 3. Install PostgreSQL and create a user if you don’t have any.
@@ -39,8 +39,8 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
 
 6. Execute database configurations for development and test environments.
 
-        $ rake db:create db:migrate
-        $ rake db:create db:migrate RAILS_ENV=test
+        $ rake db:create db:schema:load
+        $ rake db:create db:schema:load RAILS_ENV=test
 
 7. Create `.env` file from `.env.example`, and ask the team to fill it in.
 
