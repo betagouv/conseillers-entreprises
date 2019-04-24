@@ -8,6 +8,6 @@
 
 = render partial: 'needs/diagnoses_list', locals: { diagnoses: @diagnoses.completed, expert: nil, title: t('.completed_diagnoses') }
 
-= link_to archives_diagnoses_path, class: 'diagnoses__archives-link' do
+= link_to archives_diagnoses_path do
   %i.archive.icon
   = t('.browse_archived_diagnoses')
