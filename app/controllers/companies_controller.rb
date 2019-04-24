@@ -18,8 +18,8 @@ class CompaniesController < ApplicationController
     begin
       @facility = UseCases::SearchFacility.with_siret siret
       @company = UseCases::SearchCompany.with_siret siret
-    rescue ApiEntreprise::ApiEntrepriseError => error
-      redirect_back fallback_location: { action: :search }, alert: error
+    rescue ApiEntreprise::ApiEntrepriseError => e
+      redirect_back fallback_location: { action: :search }, alert: e
       return
     end
     existing_facility = Facility.find_by(siret: siret)

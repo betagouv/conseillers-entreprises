@@ -1,5 +1,6 @@
-require: rubocop-rspec
-require: rubocop-performance
+require:
+  - rubocop-rspec
+  - rubocop-performance
 
 AllCops:
   TargetRubyVersion: 2.4
@@ -602,9 +603,6 @@ Performance/FixedSize:
 Performance/FlatMap:
   Enabled: true
 
-Performance/LstripRstrip:
-  Enabled: true
-
 Performance/RangeInclude:
   Enabled: true
 
@@ -617,16 +615,10 @@ Performance/RedundantMatch:
 Performance/RedundantMerge:
   Enabled: true
 
-Performance/RedundantSortBy:
-  Enabled: true
-
 Performance/RegexpMatch:
   Enabled: true
 
 Performance/ReverseEach:
-  Enabled: true
-
-Performance/Sample:
   Enabled: true
 
 Performance/Size:
@@ -1153,6 +1145,9 @@ Style/RedundantReturn:
 Style/RedundantSelf:
   Enabled: false
 
+Style/RedundantSortBy:
+  Enabled: true
+
 Style/RegexpLiteral:
   Enabled: false
 
@@ -1164,6 +1159,9 @@ Style/RescueStandardError:
 
 Style/ReturnNil:
   Enabled: false
+
+Style/Sample:
+  Enabled: true
 
 Style/SafeNavigation:
   Enabled: false
@@ -1206,6 +1204,9 @@ Style/StringLiteralsInInterpolation:
 
 Style/StringMethods:
   Enabled: false
+
+Style/Strip:
+  Enabled: true
 
 Style/StructInheritance:
   Enabled: false

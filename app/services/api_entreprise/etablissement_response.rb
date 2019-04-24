@@ -10,8 +10,8 @@ module ApiEntreprise
       @http_response = http_response
       begin
         @data = http_response.parse(:json)
-      rescue StandardError => error
-        @error = error
+      rescue StandardError => e
+        @error = e
       end
     end
 

@@ -7,8 +7,8 @@ module SireneApi
       @response = http_response
       begin
         @hashes = http_response.parse(:json)&.deep_symbolize_keys
-      rescue StandardError => error
-        @error = error
+      rescue StandardError => e
+        @error = e
       end
     end
 
