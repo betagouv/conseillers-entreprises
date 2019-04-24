@@ -2,4 +2,6 @@
 
 = render partial: 'needs/diagnoses_list', locals: { diagnoses: @diagnoses, expert: nil, title: t('.title') }
 
-= link_to t('.browse_active_diagnoses'), diagnoses_path
+= link_to diagnoses_path do
+  %i.tasks.icon
+  = t('.browse_active_diagnoses')
