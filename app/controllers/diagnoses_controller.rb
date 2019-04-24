@@ -2,13 +2,11 @@
 
 class DiagnosesController < ApplicationController
   def index
-    @diagnoses = current_user.sent_diagnoses.archived(false).order(created_at: :desc)
-      .distinct
-      .left_outer_joins(:matches,
-        needs: :matches)
-      .includes(:matches,
-        :visitee, facility: :company,
-        needs: :matches)
+    @diagnoses = sent_diagnoses(archived: false)
+  end
+
+  def archives
+    @diagnoses = sent_diagnoses(archived: true)
   end
 
   def show
@@ -78,6 +76,16 @@ class DiagnosesController < ApplicationController
   end
 
   private
+
+  def sent_diagnoses(archived:)
+    current_user.sent_diagnoses.archived(archived).order(created_at: :desc)
+      .distinct
+      .left_outer_joins(:matches,
+        needs: :matches)
+      .includes(:matches,
+        :visitee, facility: :company,
+        needs: :matches)
+  end
 
   def params_for_visite
     permitted = params.require(:diagnosis).permit(:happened_on, visitee_attributes: [:full_name, :role, :email, :phone_number, :id])

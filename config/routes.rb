@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   resource :solicitation, only: %i[create]
 
   resources :diagnoses, only: %i[index show destroy] do
+    collection do
+      get :archives
+    end
+
     member do
       get :besoins, action: :step2
       post :besoins
