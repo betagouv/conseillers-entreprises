@@ -1,7 +1,11 @@
 ---
 fr:
   diagnoses:
+    archives:
+      browse_active_diagnoses: Voir les analyses en cours
+      title: Analyses archivées
     index:
+      browse_archived_diagnoses: Voir les analyses archivées
       completed_diagnoses: Analyses réalisées
       create_new_diagnosis: Démarrer une analyse
       delete_diagnosis_confirmation_message: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?

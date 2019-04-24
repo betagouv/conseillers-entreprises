@@ -14,5 +14,9 @@ FactoryBot.define do
         diagnosis.needs = create_list(:need_with_matches, 1, diagnosis: diagnosis)
       end
     end
+
+    trait :archived do
+      archived_at { Time.now }
+    end
   end
 end
