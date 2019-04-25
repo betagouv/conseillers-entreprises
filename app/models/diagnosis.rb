@@ -146,8 +146,8 @@ class Diagnosis < ApplicationRecord
   end
 
   def notify_experts!
-    contacted_persons.each do |person|
-      ExpertMailer.delay.notify_company_needs(person, self)
+    contacted_persons.each do |expert|
+      ExpertMailer.delay.notify_company_needs(expert, self)
     end
   end
 end

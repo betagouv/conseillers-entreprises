@@ -94,7 +94,7 @@ class Match < ApplicationRecord
   ##
   #
   def to_s
-    "#{I18n.t('activerecord.models.match.one')} avec #{person_full_name}"
+    "#{I18n.t('activerecord.models.match.one')} avec #{expert_full_name}"
   end
 
   def status_closed?
@@ -131,14 +131,6 @@ class Match < ApplicationRecord
 
   def expert_full_role
     "#{expert_full_name} - #{expert_institution_name}"
-  end
-
-  def person
-    expert
-  end
-
-  def person_full_name
-    person&.full_name || expert_full_name
   end
 
   ##

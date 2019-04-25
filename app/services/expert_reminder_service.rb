@@ -3,24 +3,24 @@
 class ExpertReminderService
   class << self
     def send_reminders
-      @persons_matches = {}
+      @experts_matches = {}
       build_matches_taken_not_done
       build_matches_quo_not_taken
-      @persons_matches.each do |person, person_matches|
-        ExpertMailer.delay.remind_involvement(person,
-          person_matches.taken_not_done.compact,
-          person_matches.quo_not_taken.compact)
+      @experts_matches.each do |expert, expert_matches|
+        ExpertMailer.delay.remind_involvement(expert,
+          expert_matches.taken_not_done.compact,
+          expert_matches.quo_not_taken.compact)
       end
     end
 
     private
 
-    PersonMatches = Struct.new(:taken_not_done, :quo_not_taken)
+    ExpertMatches = Struct.new(:taken_not_done, :quo_not_taken)
 
-    def add_person_match(person, args)
-      person_matches = @persons_matches[person] ||= PersonMatches.new([], [])
-      person_matches.taken_not_done << args[:taken_not_done]
-      person_matches.quo_not_taken << args[:quo_not_taken]
+    def add_expert_match(expert, args)
+      expert_matches = @experts_matches[expert] ||= ExpertMatches.new([], [])
+      expert_matches.taken_not_done << args[:taken_not_done]
+      expert_matches.quo_not_taken << args[:quo_not_taken]
     end
 
     def build_matches_taken_not_done
@@ -30,12 +30,12 @@ class ExpertReminderService
             next
           end
 
-          person = match.person
-          if !match.person
+          expert = match.expert
+          if !match.expert
             next
           end
 
-          add_person_match(person, taken_not_done: match)
+          add_expert_match(expert, taken_not_done: match)
         end
       end
     end
@@ -47,12 +47,12 @@ class ExpertReminderService
             next
           end
 
-          person = match.person
-          if !match.person
+          expert = match.expert
+          if !match.expert
             next
           end
 
-          add_person_match(person, quo_not_taken: match)
+          add_expert_match(expert, quo_not_taken: match)
         end
       end
     end
