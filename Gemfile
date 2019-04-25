@@ -59,6 +59,7 @@ gem 'sentry-raven'
 gem 'browser'
 gem 'metamagic'
 gem 'wannabe_bool'
+gem 'active_link_to'
 
 group :test do
   gem 'capybara'

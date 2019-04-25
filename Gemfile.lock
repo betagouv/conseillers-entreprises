@@ -24,6 +24,9 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_link_to (1.0.5)
+      actionpack
+      addressable
     activeadmin (1.4.3)
       arbre (>= 1.1.1)
       coffee-rails
@@ -456,6 +459,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_link_to
   activeadmin
   activeadmin-ajax_filter
   annotate
