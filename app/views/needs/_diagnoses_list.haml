@@ -12,7 +12,7 @@
           .sub.header= diagnosis.facility.commune_name
         - needs_of_interest = diagnosis.needs
         - if expert.present?
-          - needs_of_interest = needs_of_interest.of_expert(expert)
+          - needs_of_interest = needs_of_interest.merge(expert.received_needs)
         - needs_of_interest.each do |need|
           .diagnoses-list-item-need
             %h4.ui.header

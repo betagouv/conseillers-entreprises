@@ -6,7 +6,7 @@ class ExpertMailerPreview < ActionMailer::Preview
 
   def remind_involvement
     match = match_with_person
-    matches = Match.of_expert(match.person)
+    matches = match.expert.received_matches
     ExpertMailer.remind_involvement(match.person, matches.sample(2), matches.sample(2))
   end
 

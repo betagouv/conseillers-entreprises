@@ -81,20 +81,9 @@ class Match < ApplicationRecord
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
-  scope :of_expert, -> (expert) do
-    if expert.is_a?(Enumerable)
-      if expert.empty?
-        none
-      else
-        relations = expert.map{ |item| of_expert(item) }.compact
-        relations.reduce(&:or)
-      end
-    elsif expert.is_a?(Expert)
-      left_outer_joins(:expert_skill).where(experts_skills: { expert: expert })
-    else
-      left_outer_joins(:expert_skill).where(id: -1)
-    end
-  end
+  scope :of_expert, -> (expert) { # TODO: remove when we get rid of :expert_skill
+    joins(:expert_skill).where(experts_skills: { expert: expert })
+  }
 
   scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
 
