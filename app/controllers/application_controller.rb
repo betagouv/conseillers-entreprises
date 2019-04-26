@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   ## Devise overrides
+  # See also RegistrationsController::after_sign_up_path_for
   def after_sign_in_path_for(resource_or_scope)
     stored_location_for(resource_or_scope) || diagnoses_path
   end

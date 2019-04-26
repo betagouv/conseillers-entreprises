@@ -12,6 +12,15 @@ module Users
       end
     end
 
+    # See also ApplicationController::after_sign_in_path_for
+    def after_sign_up_path_for(resource)
+      diagnoses_path
+    end
+
+    def after_inactive_sign_up_path_for(resource)
+      conseillers_path
+    end
+
     protected
 
     def configure_permitted_parameters
