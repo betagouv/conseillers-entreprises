@@ -77,7 +77,6 @@ class Match < ApplicationRecord
   ## Scopes
   #
   scope :not_viewed, -> { where(expert_viewed_page_at: nil) }
-  scope :of_diagnoses, -> (diagnoses) { where(need: Need.where(diagnosis: diagnoses)) }
   scope :with_status, -> (status) { where(status: status) }
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }

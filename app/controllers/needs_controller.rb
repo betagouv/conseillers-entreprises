@@ -12,12 +12,7 @@ class NeedsController < ApplicationController
   end
 
   def show
-    associations = [
-      :visitee, :advisor, facility: [:company],
-      needs: [matches: [expert_skill: :expert]]
-    ]
-    @diagnosis = Diagnosis.includes(associations).find(params[:id])
-
+    @diagnosis = diagnosis
     check_current_user_access_to(@diagnosis)
     @current_roles = current_roles
   end
@@ -29,9 +24,13 @@ class NeedsController < ApplicationController
       : [current_expert]
   end
 
+  def diagnosis
+    Diagnosis.find(params[:id])
+  end
+
   def mark_expert_viewed
     experts.each do |expert|
-      UseCases::UpdateExpertViewedPageAt.perform(diagnosis: params[:id].to_i, expert: expert)
+      UseCases::UpdateExpertViewedPageAt.perform(diagnosis: diagnosis, expert: expert)
     end
   end
 end
