@@ -10,7 +10,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.6.0'
+ruby '2.6.2'
 
 gem 'rails'
 
@@ -59,9 +59,11 @@ gem 'sentry-raven'
 gem 'browser'
 gem 'metamagic'
 gem 'wannabe_bool'
+gem 'active_link_to'
 
 group :test do
   gem 'capybara'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webmock'
@@ -92,6 +94,7 @@ group :development do
 
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-performance', require: false
   gem 'brakeman', require: false
 end
 

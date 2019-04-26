@@ -1,22 +1,24 @@
 %header.ui.menu.large.responsive-top-fixed
   .ui.container
-    %a.item{ href: conseillers_path }
+    = active_link_to conseillers_path, class: 'item' do
       = image_tag 'place-des-entreprises-logo.png', style: 'width: 24px'
     - if user_signed_in?
-      %a.item{ href: diagnoses_path }
+      = active_link_to diagnoses_path, class: 'item' do
         %i.tasks.icon
         = t('.diagnoses')
       - if current_user.experts.present?
-        %a.item{ href: besoins_path }
+        = active_link_to besoins_path, class: 'item' do
           %i.bullseye.icon
           = t('needs.index.title')
+
     - else # not signed in
-      %a.item{ href: qui_sommes_nous_path }
+      = active_link_to qui_sommes_nous_path, class: 'item' do
         %i.subject.icon
         = t('about.qui_sommes_nous.title')
-    %a.item{ href: '/Guide_entretien_Place_des_entreprises.pdf' }
+    = link_to '/Guide_entretien_Place_des_entreprises.pdf', class: 'item' do
       %i.clipboard.outline.icon
       = t('.interview_guide')
+
     - if user_signed_in?
       .ui.simple.dropdown.right.item#nav-menu
         %i.user.outline.icon
@@ -24,23 +26,24 @@
         .menu
           - if user_signed_in?
             - if current_user.is_admin?
-              %a.item{ href: admin_root_path }
+              = active_link_to admin_root_path, class: 'item' do
                 %i.gavel.icon
                 = t('.admin')
-            %a.item{ href: profile_path }
+            = active_link_to profile_path, class: 'item' do
               %i.user.circle.icon
               = t('.profile')
-            %a.item{ href: destroy_user_session_path, 'data-method': :delete, rel: :nofollow }
+            = link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'item' do
               %i.sign.out.icon
               = t('.sign_out')
+
     - else # not signed in
       .right.menu
-        %a.item{ href: root_path }
+        = link_to root_path, class: 'item' do
           %i.hand.point.right.outline.icon
           = t('company_contact')
-        %a.item{ href: new_user_registration_path }
+        = active_link_to new_user_registration_path, class: 'item' do
           %i.handshake.outline.icon
           = t('sign_up')
-        %a.right.item{ href: new_user_session_path }
+        = active_link_to new_user_session_path, class: 'item' do
           %i.sign.in.icon
           = t('sign_in')

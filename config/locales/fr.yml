@@ -1,5 +1,10 @@
 ---
 fr:
+  app_name: Place des Entreprises
+  back: Retour
+  cgu: Conditions d’utilisation
+  company_contact: Chefs d’entreprises, cliquez ici
+  contact_us: Contactez-nous
   date:
     abbr_day_names:
     - dim
@@ -98,16 +103,21 @@ fr:
       month: Mois
       second: Seconde
       year: Année
+  delete: Supprimer
+  edit: Modifier
   errors:
     format: "%{attribute} %{message}"
     messages:
       accepted: doit être accepté(e)
+      already_confirmed: a déjà été validé(e), veuillez essayer de vous connecter.
       blank: doit être rempli(e)
       confirmation: ne concorde pas avec %{attribute}
+      confirmation_period_expired: à confirmer dans les %{period}, merci de faire une nouvelle demande.
       empty: doit être rempli(e)
       equal_to: doit être égal à %{count}
       even: doit être pair
       exclusion: n'est pas disponible
+      expired: a expiré, merci d’en faire une nouvelle demande.
       greater_than: doit être supérieur à %{count}
       greater_than_or_equal_to: doit être supérieur ou égal à %{count}
       inclusion: n'est pas inclus(e) dans la liste
@@ -117,6 +127,11 @@ fr:
       model_invalid: 'Validation échouée: %{errors}'
       not_a_number: n'est pas un nombre
       not_an_integer: doit être un nombre entier
+      not_found: n’a pas été trouvé(e).
+      not_locked: n’était pas verrouillé(e).
+      not_saved:
+        one: 'Une erreur a empêché ce(tte) %{resource} d’être sauvegardé(e) :'
+        other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e) :"
       odd: doit être impair
       other_than: doit être différent de %{count}
       present: doit être vide
@@ -136,6 +151,7 @@ fr:
       header:
         one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
         other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
+  experts_login: Accès conseillers
   helpers:
     select:
       prompt: Veuillez sélectionner
@@ -143,6 +159,12 @@ fr:
       create: Créer un(e) %{model}
       submit: Enregistrer ce(tte) %{model}
       update: Modifier ce(tte) %{model}
+  landing:
+    landing:
+      institutions:
+        title: En partenariat avec
+  next_step: Passer à la suite
+  'no': non
   number:
     currency:
       format:
@@ -191,6 +213,13 @@ fr:
     precision:
       format:
         delimiter: ''
+  other: Autre
+  previous_step: Précédent
+  privacy:
+    explanation_html: '<h2>Cookies déposés et configuration du suivi</h2> <p>Ce site dépose un petit fichier texte (un « cookie ») sur votre ordinateur lorsque vous le consultez. Cela nous permet de mesurer le nombre de visites et de comprendre quelles sont les pages les plus consultées.</p> <iframe style="background:#fafbfc; border:0; width: 100%;" src="https://stats.data.gouv.fr/index.php?module=CoreAdminHome&action=optOut&language=fr&fontFamily=sans-serif"></iframe> <h3>Ce site n’affiche pas de bannière de consentement aux cookies, pourquoi ?</h3> <p>C’est vrai, vous n’avez pas eu à cliquer sur un bloc qui recouvre la moitié de la page pour dire que vous êtes d’accord avec le dépôt de cookies. <br> <br> Rien d’exceptionnel, pas de passe-droit. Nous respectons simplement la loi, qui dit que certains outils de suivi d’audience, correctement configurés pour respecter la vie privée, sont exemptés d’autorisation préalable. <br> <br> Nous utilisons pour cela <a href="https://matomo.org/" target="_blank">Matomo</a>, un outil <a href="https://matomo.org/free-software/" target="_blank">libre</a>, paramétré pour être en conformité avec la <a href="https://www.cnil.fr/fr/solutions-pour-la-mesure-daudience">recommandation « Cookies » </a>de la CNIL. Cela signifie que votre adresse IP, par exemple, est anonymisée avant d’être enregistrée. Il est donc impossible d’associer vos visites sur ce site à votre personne. </p>'
+  search: Rechercher
+  sign_in: Connexion
+  sign_up: Inscription
   support:
     array:
       last_word_connector: " et "
@@ -203,3 +232,6 @@ fr:
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm
+  update: Mettre à jour
+  usage_stats: Statistiques
+  'yes': oui

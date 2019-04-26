@@ -5,13 +5,42 @@ RSpec.describe DiagnosesController, type: :controller do
   login_user
 
   let(:diagnosis) { create :diagnosis, advisor: advisor }
+  let(:archived_diagnosis) { create :diagnosis, :archived, advisor: advisor }
   let(:advisor) { current_user }
 
   describe 'GET #index' do
-    it 'returns http success' do
-      get :index
+    subject(:request) { get :index }
 
+    before do
+      diagnosis
+      archived_diagnosis
+    end
+
+    it 'returns http success' do
       expect(response).to be_successful
+    end
+
+    it 'generates the active diagnoses list' do
+      request
+      expect(assigns(:diagnoses)).to contain_exactly(diagnosis)
+    end
+  end
+
+  describe 'GET #archived' do
+    subject(:request) { get :archives }
+
+    before do
+      diagnosis
+      archived_diagnosis
+    end
+
+    it 'returns http success' do
+      expect(response).to be_successful
+    end
+
+    it 'generates the archived diagnoses list' do
+      request
+      expect(assigns(:diagnoses)).to contain_exactly(archived_diagnosis)
     end
   end
 

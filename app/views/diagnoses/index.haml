@@ -7,3 +7,7 @@
 = render partial: 'in_progress_diagnoses_list', locals: { diagnoses: @diagnoses.in_progress }
 
 = render partial: 'needs/diagnoses_list', locals: { diagnoses: @diagnoses.completed, expert: nil, title: t('.completed_diagnoses') }
+
+= link_to archives_diagnoses_path do
+  %i.archive.icon
+  = t('.browse_archived_diagnoses')
