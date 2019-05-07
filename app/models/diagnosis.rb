@@ -85,15 +85,6 @@ class Diagnosis < ApplicationRecord
       .where(needs: { matches: { expert_skill: { experts: { id: expert.id } } } })
   end
 
-  scope :of_expert, -> (expert) do
-    archived(false)
-      .includes(facility: :company)
-      .joins(:needs)
-      .merge(Need.of_expert(expert))
-      .order(happened_on: :desc, created_at: :desc)
-      .distinct
-  end
-
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
   def match_and_notify!(experts_skills_for_needs)
@@ -155,8 +146,8 @@ class Diagnosis < ApplicationRecord
   end
 
   def notify_experts!
-    contacted_persons.each do |person|
-      ExpertMailer.delay.notify_company_needs(person, self)
+    contacted_persons.each do |expert|
+      ExpertMailer.delay.notify_company_needs(expert, self)
     end
   end
 end

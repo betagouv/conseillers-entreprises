@@ -11,7 +11,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
     let(:need2) { create(:need, matches: [create(:match, expert_skill: create(:expert_skill, expert: expert))]) }
 
     before do
-      assign(:person, expert)
+      assign(:expert, expert)
       assign(:diagnosis, diagnosis)
     end
 

@@ -9,25 +9,24 @@ describe UseCases::UpdateExpertViewedPageAt do
     let(:diagnosis) { create :diagnosis }
     let(:need) { create :need, diagnosis: diagnosis }
     let(:expert) { create :expert }
-    let(:expert_skill) { create :expert_skill, expert: expert }
 
     let!(:match_with_date) do
       create :match,
         need: need,
-        expert_skill: expert_skill,
+        expert_skill: create(:expert_skill, expert: expert),
         expert_viewed_page_at: 1.day.ago
     end
 
     let!(:match_without_date) do
       create :match,
         need: need,
-        expert_skill: expert_skill,
+        expert_skill: create(:expert_skill, expert: expert),
         expert_viewed_page_at: nil
     end
 
     let!(:match_without_need) do
       create :match,
-        expert_skill: expert_skill,
+        expert_skill: create(:expert_skill, expert: expert),
         expert_viewed_page_at: nil
     end
 

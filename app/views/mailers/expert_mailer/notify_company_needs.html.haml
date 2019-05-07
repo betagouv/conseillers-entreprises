@@ -1,4 +1,4 @@
-%p= t('.hello', name: @person.full_name)
+%p= t('.hello', name: @expert.full_name)
 
 :ruby
   link_to_root = link_to t('app_name'), root_url
@@ -11,7 +11,7 @@
 
 %p= t('.company_expressed_needs')
 
-- @diagnosis.needs.ordered_for_interview.of_expert(@person).each do |need|
+- @diagnosis.needs.merge(@expert.received_needs).ordered_for_interview.each do |need|
   %h3.subject= need.subject
   - if need.content.present?
     %blockquote

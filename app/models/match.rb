@@ -49,6 +49,7 @@ class Match < ApplicationRecord
   ## Validations and Callbacks
   #
   validates :need, presence: true
+  validates :expert_skill, uniqueness: { scope: :need_id, allow_nil: true }
   before_create :copy_expert_info
   after_update :update_taken_care_of_at
   after_update :update_closed_at
@@ -76,25 +77,13 @@ class Match < ApplicationRecord
   ## Scopes
   #
   scope :not_viewed, -> { where(expert_viewed_page_at: nil) }
-  scope :of_diagnoses, -> (diagnoses) { where(need: Need.where(diagnosis: diagnoses)) }
   scope :with_status, -> (status) { where(status: status) }
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
-  scope :of_expert, -> (expert) do
-    if expert.is_a?(Enumerable)
-      if expert.empty?
-        none
-      else
-        relations = expert.map{ |item| of_expert(item) }.compact
-        relations.reduce(&:or)
-      end
-    elsif expert.is_a?(Expert)
-      left_outer_joins(:expert_skill).where(experts_skills: { expert: expert })
-    else
-      left_outer_joins(:expert_skill).where(id: -1)
-    end
-  end
+  scope :of_expert, -> (expert) { # TODO: remove when we get rid of :expert_skill
+    joins(:expert_skill).where(experts_skills: { expert: expert })
+  }
 
   scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
 
@@ -105,7 +94,7 @@ class Match < ApplicationRecord
   ##
   #
   def to_s
-    "#{I18n.t('activerecord.models.match.one')} avec #{person_full_name}"
+    "#{I18n.t('activerecord.models.match.one')} avec #{expert_full_name}"
   end
 
   def status_closed?
@@ -142,14 +131,6 @@ class Match < ApplicationRecord
 
   def expert_full_role
     "#{expert_full_name} - #{expert_institution_name}"
-  end
-
-  def person
-    expert
-  end
-
-  def person_full_name
-    person&.full_name || expert_full_name
   end
 
   ##
