@@ -136,7 +136,7 @@ class User < ApplicationRecord
     where(antenne_id: nil)
   end
 
-  ##
+  ## Devise overrides
   #
   def active_for_authentication?
     super && is_approved?
