@@ -63,8 +63,6 @@ class Need < ApplicationRecord
 
   ## Scopes
   #
-  scope :of_expert, -> (expert) { joins(:matches).merge(Match.of_expert(expert)) }
-
   scope :made_in, -> (date_range) do
     joins(:diagnosis)
       .where(diagnoses: { happened_on: date_range })

@@ -55,7 +55,7 @@ class AdminMailersService
     end
 
     def matches_count_statistics
-      matches_count = Match.of_diagnoses(@completed_diagnoses).count
+      matches_count = Match.joins(:need).where(needs: { diagnosis: @completed_diagnoses }).count
       @information_hash[:matches_count] = matches_count
     end
 

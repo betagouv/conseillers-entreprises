@@ -145,23 +145,6 @@ RSpec.describe Match, type: :model do
       it { is_expected.to eq [match] }
     end
 
-    describe 'of_diagnoses' do
-      subject { Match.of_diagnoses [diagnosis] }
-
-      let(:diagnosis) { create :diagnosis }
-      let(:need) { create :need, diagnosis: diagnosis }
-      let(:match) do
-        create :match, need: need
-      end
-
-      before do
-        create :need, diagnosis: diagnosis
-        create :match
-      end
-
-      it { is_expected.to eq [match] }
-    end
-
     describe 'with_status' do
       let!(:match_with_status_quo) { create :match, status: :quo }
       let!(:match_taken_care_of) { create :match, status: :taking_care }
