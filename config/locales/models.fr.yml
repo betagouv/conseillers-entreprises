@@ -97,7 +97,6 @@ fr:
         expert: Référent
         expert_full_name: Nom du référent
         expert_institution_name: Institution du référent
-        expert_skill: Référent (non Relais local)
         expert_viewed_page_at: Date de consultation par le référent
         need: Besoin identifié
         skill_title: Compétence

@@ -49,6 +49,7 @@ class Match < ApplicationRecord
   ## Validations and Callbacks
   #
   validates :need, presence: true
+  validates :expert_skill, uniqueness: { scope: :need_id, allow_nil: true }
   before_create :copy_expert_info
   after_update :update_taken_care_of_at
   after_update :update_closed_at

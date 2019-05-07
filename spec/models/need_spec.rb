@@ -165,10 +165,6 @@ RSpec.describe Need, type: :model do
     subject { need.contacted_persons }
 
     let(:need) { create :need, matches: matches }
-    let(:expert) { build :expert }
-    let(:expert_skill) { build :expert_skill, expert: expert }
-    let(:expert_match) { build :match, expert_skill: expert_skill }
-    let(:expert_match2) { build :match, expert_skill: expert_skill }
 
     context 'No matches' do
       let(:matches) { [] }
@@ -176,10 +172,17 @@ RSpec.describe Need, type: :model do
       it { is_expected.to be_empty }
     end
 
-    context 'Matches with the same expert' do
-      let(:matches) { [expert_match, expert_match2] }
+    context 'Several experts' do
+      let(:expert1) { build :expert }
+      let(:expert2) { build :expert }
+      let(:matches) do
+        [
+          build(:match, expert_skill: build(:expert_skill, expert: expert1)),
+          build(:match, expert_skill: build(:expert_skill, expert: expert2))
+        ]
+      end
 
-      it { is_expected.to match_array [expert] }
+      it { is_expected.to match_array [expert1, expert2] }
     end
   end
 
