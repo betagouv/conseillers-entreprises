@@ -2,7 +2,7 @@
   .ui.segment.secondary
     .ui.header
       = t('diagnoses.index.diagnoses_in_progress')
-      .sub.header= models_human_description(diagnoses)
+      .sub.header= diagnoses.human_count
   - diagnoses.each do |diagnosis|
     .ui.segment.selectable-item
       %a{ href: diagnosis_path(diagnosis) }
