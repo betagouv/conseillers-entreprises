@@ -247,8 +247,8 @@ fr:
     index:
       browse_archived_diagnoses: Voir les analyses archivées
       completed_diagnoses: Analyses réalisées
+      confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
       create_new_diagnosis: Démarrer une analyse
-      delete_diagnosis_confirmation_message: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
       diagnoses_in_progress: Analyses en cours
       title: Analyses
     step2:

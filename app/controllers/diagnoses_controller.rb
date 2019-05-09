@@ -18,7 +18,7 @@ class DiagnosesController < ApplicationController
     end
   end
 
-  def destroy
+  def archive
     diagnosis = safe_diagnosis_param
     diagnosis.archive!
     redirect_to diagnoses_path
