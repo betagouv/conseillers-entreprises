@@ -7,7 +7,7 @@
   .ui.segment.secondary
     .ui.header
       = t('.visit_made_on', date: I18n.l(@diagnosis.display_date, format: '%-d %B %Y'))
-      .sub.header= models_human_description(@diagnosis.needs)
+      .sub.header= @diagnosis.needs.human_count
   .ui.segment
     = render partial: 'needs/company', locals: { diagnosis: @diagnosis }
   .ui.segment
