@@ -20,8 +20,8 @@ ActiveAdmin.register Subject do
     end
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
-    column :archived? do |s|
-      status_tag t('archivable.archive_done') if s.archived?
+    column :is_archived do |s|
+      status_tag t('archivable.archive_done') if s.is_archived
     end
     column :is_support do |d|
       status_tag t('activerecord.attributes.subject.is_support') if d.is_support
@@ -34,7 +34,7 @@ ActiveAdmin.register Subject do
     end
   end
 
-  filter :archived_in, as: :boolean, label: I18n.t('attributes.archived?')
+  filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
   filter :is_support
   filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
   filter :label
@@ -46,7 +46,7 @@ ActiveAdmin.register Subject do
     column :theme
     column :interview_sort_order
     column_count :skills
-    column :archived?
+    column :is_archived
     column :is_support
     column_count :assistances
   end

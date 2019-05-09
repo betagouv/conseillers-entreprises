@@ -14,11 +14,11 @@ module AdminArchivable
       redirect_back fallback_location: collection_path, notice: t('archivable.unarchive_done')
     end
 
-    dsl.action_item(:archive, only: :show, if: -> { !resource.archived? }) do
+    dsl.action_item(:archive, only: :show, if: -> { !resource.is_archived }) do
       link_to t('archivable.archive'), polymorphic_path([:archive, :admin, resource])
     end
 
-    dsl.action_item(:unarchive, only: :show, if: -> { resource.archived? }) do
+    dsl.action_item(:unarchive, only: :show, if: -> { resource.is_archived }) do
       link_to t('archivable.unarchive'), polymorphic_path([:unarchive, :admin, resource])
     end
 
@@ -39,7 +39,7 @@ module AdminArchivable
 
   ::ActiveAdmin::Views::IndexAsTable::IndexTableFor.module_eval do
     def index_row_archive_actions(resource)
-      if resource.archived?
+      if resource.is_archived
         item t('archivable.unarchive'), polymorphic_path([:unarchive, :admin, resource])
       else
         item t('archivable.archive'), polymorphic_path([:archive, :admin, resource])
