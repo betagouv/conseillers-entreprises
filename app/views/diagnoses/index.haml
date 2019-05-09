@@ -4,7 +4,7 @@
 
 = render partial: 'companies/search_form', locals: { query: @query }
 
-= render partial: 'in_progress_diagnoses_list', locals: { diagnoses: @diagnoses.in_progress }
+= render partial: 'needs/diagnoses_list', locals: { diagnoses: @diagnoses.in_progress, expert: nil, title: t('.diagnoses_in_progress') }
 
 = render partial: 'needs/diagnoses_list', locals: { diagnoses: @diagnoses.completed, expert: nil, title: t('.completed_diagnoses') }
 

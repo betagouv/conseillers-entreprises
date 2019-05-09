@@ -5,18 +5,23 @@
       .sub.header= diagnoses.human_count
   - diagnoses.each do |diagnosis|
     .ui.segment.selectable-item
-      %a{ href: besoin_path(diagnosis, params.permit(:access_token)) }
+      - path = diagnosis.completed? ? besoin_path(diagnosis, params.permit(:access_token)) : diagnosis_path(diagnosis)
+      %a{ href: path }
         %h3.ui.header
           .sub.header= I18n.l(diagnosis.display_date, format: '%-d %B %Y')
+          - if !diagnosis.completed?
+            .diagnosis-step
+              .ui.label= t("diagnoses.step#{diagnosis.step}.title")
           = diagnosis.company.name
           .sub.header= diagnosis.facility.commune_name
-        - needs_of_interest = diagnosis.needs
-        - if expert.present?
-          - needs_of_interest = needs_of_interest.merge(expert.received_needs)
-        - needs_of_interest.each do |need|
-          .diagnoses-list-item-need
-            %h4.ui.header
-              = need.subject
-              .match-status= status_label(need.status)
-              .sub.header= need.matches.human_count
+        - if diagnosis.completed?
+          - needs_of_interest = diagnosis.needs
+          - if expert.present?
+            - needs_of_interest = needs_of_interest.merge(expert.received_needs)
+          - needs_of_interest.each do |need|
+            .diagnoses-list-item-need
+              %h4.ui.header
+                = need.subject
+                .match-status= status_label(need.status)
+                .sub.header= need.matches.human_count
         = render partial: 'needs/archive_action', locals: { diagnosis: diagnosis }
