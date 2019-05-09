@@ -110,8 +110,8 @@ fr:
         skill_title: Compétence
         taken_care_of_at: Date de prise en charge
       need:
-        archived?: En échec
         archived_at: Mis en échec
+        is_archived: En échec
         subject: Sujet
       search:
         label: Entreprise
@@ -249,7 +249,6 @@ fr:
       one: Référent
       other: Référents
     antenne_institution: Institution
-    archived?: Archivé
     archived_at: Date d’archivage
     communes: Communes
     community: Communauté
@@ -285,6 +284,7 @@ fr:
     institution: Institution
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire
+    is_archived: Archivé
     label: Intitulé
     last_activity_at: Dernière activité
     legal_form_code: Forme juridique

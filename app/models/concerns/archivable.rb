@@ -27,7 +27,7 @@ module Archivable
     self.save!
   end
 
-  def archived?
+  def is_archived
     archived_at.present?
   end
 end
