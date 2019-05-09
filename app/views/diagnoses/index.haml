@@ -4,9 +4,9 @@
 
 = render partial: 'companies/search_form', locals: { query: @query }
 
-= render partial: 'list', locals: { diagnoses: @diagnoses.in_progress, expert: nil, title: t('.diagnoses_in_progress') }
+= render 'diagnoses', diagnoses: @diagnoses.in_progress, title: t('.diagnoses_in_progress')
 
-= render partial: 'list', locals: { diagnoses: @diagnoses.completed, expert: nil, title: t('.completed_diagnoses') }
+= render 'diagnoses', diagnoses: @diagnoses.completed, title: t('.completed_diagnoses')
 
 = link_to archives_diagnoses_path do
   %i.archive.icon

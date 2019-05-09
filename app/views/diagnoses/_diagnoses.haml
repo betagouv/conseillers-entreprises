@@ -3,5 +3,4 @@
     .ui.header
       = title
       .sub.header= diagnoses.human_count
-  - diagnoses.each do |diagnosis|
-    = render partial: 'diagnoses/diagnosis', locals: { diagnosis: diagnosis, expert: expert }
+  = render diagnoses, expert: local_assigns[:expert]
