@@ -1,8 +1,7 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
+require 'core_extensions/active_record/created_within'
 
-RSpec.describe CreatedWithin, type: :model do
+describe CoreExtensions::ActiveRecord::CreatedWithin, type: :lib do
   describe 'scopes' do
     describe 'created_last_week' do
       it do
