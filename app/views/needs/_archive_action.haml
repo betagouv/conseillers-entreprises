@@ -1,0 +1,8 @@
+- can_archive = diagnosis.advisor == current_user
+- if can_archive
+  %h4.ui.header
+  - confirm_delete_message = t('diagnoses.index.delete_diagnosis_confirmation_message', company_name: diagnosis.company.name)
+  = link_to diagnosis_path(diagnosis), method: :delete, data: { confirm: confirm_delete_message } do
+    .ui.basic.tiny.button.text
+      %i.archive.icon
+      = t('archivable.archive')
