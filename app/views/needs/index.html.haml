@@ -7,4 +7,4 @@
 - @experts.each do |expert|
   -# Display info about Expert: the team, the old diagnoses, etc.
   - diagnoses = expert.received_diagnoses.archived(false).distinct.order(happened_on: :desc, created_at: :desc)
-  = render partial: 'diagnoses_list', locals: { diagnoses: diagnoses, expert: expert, title: expert.full_name }
+  = render 'diagnoses/diagnoses', diagnoses: diagnoses, title: expert.full_name, expert: expert

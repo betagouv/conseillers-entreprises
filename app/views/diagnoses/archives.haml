@@ -1,6 +1,6 @@
 - meta title: t('.title')
 
-= render partial: 'needs/diagnoses_list', locals: { diagnoses: @diagnoses, expert: nil, title: t('.title') }
+= render 'diagnoses', diagnoses: @diagnoses, title: t('.title')
 
 = link_to diagnoses_path do
   %i.tasks.icon
