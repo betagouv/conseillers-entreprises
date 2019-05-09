@@ -105,10 +105,19 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
-  describe 'DELETE #destroy' do
-    before { delete :destroy, params: { id: diagnosis.id } }
+  describe 'archival' do
+    describe 'POST #archive' do
+      before { post :archive, params: { id: diagnosis.id } }
 
-    it('redirects to index') { expect(response).to redirect_to diagnoses_path }
-    it('destroys the diagnosis') { expect(Diagnosis.archived(false).count).to eq 0 }
+      it('archives the diagnosis') { expect(diagnosis.reload.is_archived).to be_truthy }
+      it('redirects to index') { expect(response).to redirect_to diagnoses_path }
+    end
+
+    describe 'POST #unarchive' do
+      before { post :unarchive, params: { id: archived_diagnosis.id } }
+
+      it('unarchives the diagnosis') { expect(archived_diagnosis.reload.is_archived).to be_falsey }
+      it('redirects to index') { expect(response).to redirect_to diagnoses_path }
+    end
   end
 end
