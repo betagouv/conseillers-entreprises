@@ -86,6 +86,8 @@ class Expert < ApplicationRecord
     where(is_global_zone: true)
   end
 
+  scope :without_users, -> { left_outer_joins(:users).where(users: { id: nil }) }
+
   ##
   #
   def generate_access_token!
@@ -112,5 +114,28 @@ class Expert < ApplicationRecord
 
   def full_role
     "#{role} - #{antenne.name}"
+  end
+
+  ##
+  #
+  def create_matching_user!
+    if !users.empty?
+      return
+    end
+
+    params = {
+      experts: [self],
+      email: email,
+      full_name: full_name,
+      phone_number: phone_number,
+      antenne: antenne,
+      role: role
+    }
+    params[:password] = SecureRandom.base64(8)
+    params[:is_approved] = true
+
+    user = User.new(params)
+    user.skip_confirmation_notification!
+    user.save!
   end
 end
