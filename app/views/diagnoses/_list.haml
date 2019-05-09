@@ -24,4 +24,4 @@
                 = need.subject
                 .match-status= status_label(need.status)
                 .sub.header= need.matches.human_count
-        = render partial: 'needs/archive_action', locals: { diagnosis: diagnosis }
+        = render partial: 'archive_action', locals: { diagnosis: diagnosis }
