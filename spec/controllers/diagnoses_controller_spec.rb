@@ -112,5 +112,12 @@ RSpec.describe DiagnosesController, type: :controller do
       it('archives the diagnosis') { expect(diagnosis.reload.is_archived).to be_truthy }
       it('redirects to index') { expect(response).to redirect_to diagnoses_path }
     end
+
+    describe 'POST #unarchive' do
+      before { post :unarchive, params: { id: archived_diagnosis.id } }
+
+      it('unarchives the diagnosis') { expect(archived_diagnosis.reload.is_archived).to be_falsey }
+      it('redirects to index') { expect(response).to redirect_to diagnoses_path }
+    end
   end
 end

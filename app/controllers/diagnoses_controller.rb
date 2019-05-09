@@ -24,6 +24,12 @@ class DiagnosesController < ApplicationController
     redirect_to diagnoses_path
   end
 
+  def unarchive
+    diagnosis = safe_diagnosis_param
+    diagnosis.unarchive!
+    redirect_to diagnoses_path
+  end
+
   def step2
     @diagnosis = safe_diagnosis_param
     @themes = Theme.ordered_for_interview
