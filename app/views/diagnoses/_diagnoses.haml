@@ -1,0 +1,6 @@
+.ui.segments.shadow-less.selectable-list
+  .ui.segment.secondary
+    .ui.header
+      = title
+      .sub.header= diagnoses.human_count
+  = render diagnoses, expert: local_assigns[:expert]

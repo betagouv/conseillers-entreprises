@@ -1,6 +1,6 @@
 .ui.header
   .sub.header= need.subject.theme
   = need.subject
-  .sub.header= models_human_description(need.matches)
+  .sub.header= need.matches.human_count
   .match-status
     = status_label(need.status)

@@ -51,6 +51,7 @@ gem 'http'
 gem 'jbuilder'
 gem 'mailjet'
 gem 'turbolinks'
+gem 'rails-i18n'
 
 # Notifiers
 gem 'sentry-raven'

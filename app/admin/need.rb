@@ -24,7 +24,7 @@ ActiveAdmin.register Need do
     column :last_activity_at
     column :status do |d|
       status_tag(*status_tag_status_params(d.status))
-      status_tag t('activerecord.attributes.need.archived?') if d.archived?
+      status_tag t('activerecord.attributes.need.is_archived') if d.is_archived
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
@@ -32,7 +32,7 @@ ActiveAdmin.register Need do
     end
 
     actions dropdown: true do |need|
-      if need.archived?
+      if need.is_archived
         item t('active_admin.need.unarchive'), polymorphic_path([:unarchive, :admin, need])
       else
         item t('active_admin.need.archive'), polymorphic_path([:archive, :admin, need])
@@ -45,7 +45,7 @@ ActiveAdmin.register Need do
   statuses = Need::STATUSES.map { |s| [StatusHelper.status_description(s, :short), s] }
   filter :by_status_in, as: :select, collection: statuses, label: I18n.t('attributes.status')
 
-  filter :archived_in, as: :boolean, label: I18n.t('activerecord.attributes.need.archived?')
+  filter :archived_in, as: :boolean, label: I18n.t('activerecord.attributes.need.is_archived')
 
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
@@ -64,7 +64,7 @@ ActiveAdmin.register Need do
     column :created_at
     column :last_activity_at
     column :status_short_description
-    column :archived?
+    column :is_archived
     column_count :matches
   end
 
@@ -91,11 +91,11 @@ ActiveAdmin.register Need do
     link_to t('active_admin.need.match_with_support_team'), match_with_support_team_admin_need_path(need)
   end
 
-  action_item :archive, only: :show, if: -> { !resource.archived? } do
+  action_item :archive, only: :show, if: -> { !resource.is_archived } do
     link_to t('active_admin.need.archive'), polymorphic_path([:archive, :admin, resource])
   end
 
-  action_item :unarchive, only: :show, if: -> { resource.archived? } do
+  action_item :unarchive, only: :show, if: -> { resource.is_archived } do
     link_to t('active_admin.need.unarchive'), polymorphic_path([:unarchive, :admin, resource])
   end
 
