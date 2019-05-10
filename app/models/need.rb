@@ -60,6 +60,7 @@ class Need < ApplicationRecord
   # :experts
   has_many :expert_antennes, through: :experts, source: :antenne, inverse_of: :received_needs
   has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_needs
+  has_many :contacted_users, through: :experts, source: :users, inverse_of: :received_needs
 
   ## Scopes
   #

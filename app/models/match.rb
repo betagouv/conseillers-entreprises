@@ -70,6 +70,7 @@ class Match < ApplicationRecord
   # :expert
   has_one :expert_antenne, through: :expert, source: :antenne, inverse_of: :received_matches
   has_one :expert_institution, through: :expert, source: :antenne_institution, inverse_of: :received_matches
+  has_many :contacted_users, through: :expert, source: :users, inverse_of: :received_matches
 
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
