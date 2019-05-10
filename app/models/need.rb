@@ -47,7 +47,7 @@ class Need < ApplicationRecord
   has_one :advisor, through: :diagnosis, inverse_of: :sent_needs
 
   # :matches
-  has_many :experts, through: :matches, inverse_of: :received_needs
+  has_many :experts, -> { distinct }, through: :matches, inverse_of: :received_needs
   has_many :feedbacks, through: :matches, inverse_of: :need
 
   # :facility
@@ -195,10 +195,6 @@ class Need < ApplicationRecord
 
   ##
   #
-  def contacted_persons
-    experts.uniq
-  end
-
   def create_matches!(expert_skills)
     if expert_skills.is_a?(Array)
       self.matches.create(expert_skills.map{ |id| { experts_skills_id: id } })
