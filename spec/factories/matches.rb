@@ -2,7 +2,11 @@
 
 FactoryBot.define do
   factory :match do
-    association :need
-    association :expert_skill
+    transient do
+      expert { create :expert }
+    end
+
+    need
+    expert_skill { create(:expert_skill, expert: expert) }
   end
 end
