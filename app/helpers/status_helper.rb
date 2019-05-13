@@ -39,7 +39,7 @@ module StatusHelper
       title = StatusHelper::status_description(new_status, :action)
       path = match_path(match.id, status: new_status, access_token: params[:access_token])
       classes = %w[ui small button] + STATUS_COLORS[new_status]
-      link_to path, data: { remote: true, method: :patch }, class: classes.join(' ') do
+      link_to path, data: { remote: true, method: :put }, class: classes.join(' ') do
         status_icon(new_status) + title
       end
     end

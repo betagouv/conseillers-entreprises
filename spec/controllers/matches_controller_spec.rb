@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe MatchesController, type: :controller do
-  describe 'PATCH #update' do
-    subject(:request) { patch :update, xhr: true, params: params }
+  describe 'PUT #update' do
+    subject(:request) { put :update, xhr: true, params: params }
 
     let(:params) { { id: match_id, access_token: access_token } }
 
