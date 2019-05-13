@@ -9,6 +9,6 @@ class LandingController < ApplicationController
 
     redirect_to root_path if @landing.nil?
 
-    @url_to_root = root_path
+    @url_to_root = root_path(params.permit(Solicitation::TRACKING_KEYS))
   end
 end
