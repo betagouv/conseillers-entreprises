@@ -499,6 +499,7 @@ fr:
       experts: "%{count} référents"
       matches: "%{count} mises en relation"
       needs: "%{count} besoins transmis"
+      solicitations: "%{count} sollicitations directes"
     show:
       all: Tous
       title: Statistiques d’utilisation
