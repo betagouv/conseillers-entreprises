@@ -11,6 +11,7 @@ class StatsController < ApplicationController
     @stats.needs = Stats::NeedsStats.new(@stats)
     @stats.experts = Stats::ExpertsStats.new(@stats)
     @stats.matches = Stats::MatchesStats.new(@stats)
+    @stats.solicitations = Stats::SolicitationsStats.new(@stats)
   end
 
   def users
