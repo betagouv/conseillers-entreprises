@@ -35,15 +35,15 @@ module StatusHelper
   def match_actions(match)
     allowed_actions = match.allowed_new_status
 
-    links = allowed_actions.map do |new_status|
-      title = StatusHelper::status_description(new_status, :action)
-      path = match_path(match.id, status: new_status, access_token: params[:access_token])
-      classes = %w[ui small button] + STATUS_COLORS[new_status]
-      link_to path, data: { remote: true, method: :put }, class: classes.join(' ') do
-        status_icon(new_status) + title
-      end
+    form_with(model: match, url: match_path(match, access_token: params[:access_token])) do |f|
+      allowed_actions.map do |new_status|
+        title = StatusHelper::status_description(new_status, :action)
+        classes = %w[ui small button] + STATUS_COLORS[new_status]
+        f.button :submit, name: :status, value: new_status, class: classes.join(' ') do
+          status_icon(new_status) + title
+        end
+      end.join.html_safe
     end
-    links.join.html_safe
   end
 
   def status_label(status)
