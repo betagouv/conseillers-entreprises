@@ -1,7 +1,7 @@
 class LandingController < ApplicationController
   skip_before_action :authenticate_user!
 
-  layout 'empty'
+  layout 'solicitations'
 
   def landing
     slug = params[:slug]&.to_sym
