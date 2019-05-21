@@ -69,9 +69,8 @@ class Need < ApplicationRecord
       .distinct
   end
   scope :ordered_for_interview, -> do
-    left_outer_joins(:subject, subject: :theme)
-      .order('themes.interview_sort_order')
-      .order('subjects.interview_sort_order')
+    left_outer_joins(:subject)
+      .merge(Subject.ordered_for_interview)
   end
 
   scope :diagnosis_completed, -> do

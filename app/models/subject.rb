@@ -45,7 +45,11 @@ class Subject < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_for_interview, -> { order(:interview_sort_order, :id) }
+  scope :ordered_for_interview, -> do
+    left_outer_joins(:theme)
+      .merge(Theme.ordered_for_interview)
+      .order(:interview_sort_order, :id)
+  end
 
   scope :for_interview, -> do
     ordered_for_interview
