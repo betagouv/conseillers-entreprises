@@ -7,6 +7,12 @@
     %h3
       %a.button{ href: @url_to_root }= @landing.button
 
+- if @landing.landing_topics.present?
+  %section.section.section-grey.landing-topics-section
+    .container
+      .row
+        = render @landing.landing_topics.ordered_for_landing
+
 - if @landing.logos.present?
   %section.section.section-white
     .container
