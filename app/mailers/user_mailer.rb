@@ -28,7 +28,7 @@ class UserMailer < ApplicationMailer
     @feedback = feedback
     @author = feedback.match.expert
     @need = feedback.match.need
-    @persons = @need.contacted_persons - [@author]
+    @persons = @need.experts - [@author]
     @advisor = @need.diagnosis.advisor
     @facility = @need.diagnosis.facility
     mail(to: @advisor.email_with_display_name,

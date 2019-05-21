@@ -125,12 +125,6 @@ class Diagnosis < ApplicationRecord
     end
   end
 
-  ##
-  #
-  def contacted_persons
-    experts.uniq
-  end
-
   private
 
   def last_step_has_matches
@@ -146,7 +140,7 @@ class Diagnosis < ApplicationRecord
   end
 
   def notify_experts!
-    contacted_persons.each do |expert|
+    experts.each do |expert|
       ExpertMailer.delay.notify_company_needs(expert, self)
     end
   end
