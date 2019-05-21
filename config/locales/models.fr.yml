@@ -13,6 +13,7 @@ fr:
         other: Utilisateurs créés
     matches:
       deleted: Supprimé
+    move: Déplacer
     need:
       archive: Marquer “En échec”
       archive_done: Marqué “En échec”
@@ -100,6 +101,9 @@ fr:
       institution:
         advisors: Conseillers
         antennes: Antennes
+      landing:
+        landing_topics: Exemples
+        slug: Slug
       match:
         closed_at: Date de clôture
         expert: Référent
@@ -203,6 +207,9 @@ fr:
       institution:
         one: Institution
         other: Institutions
+      landing_topic:
+        one: Exemple
+        other: Exemples
       match:
         one: Mise en relation
         other: Mises en relation
@@ -343,6 +350,7 @@ fr:
     subjects:
       one: Sujet
       other: Sujets
+    subtitle: Sous-titre
     territories:
       one: Territoire
       other: Territoires
