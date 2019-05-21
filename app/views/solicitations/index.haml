@@ -13,11 +13,6 @@
         - row.each do |landing|
           = render partial: 'solicitations/landing', locals: { landing: landing }
 
-%section.section.section-grey
-  .container
-    %h2.section__title= t('.description')
-  #solicitation-form= render 'form'
-
 %section.section.section-white#institutions
   .container
     %h2.section__title
@@ -25,7 +20,7 @@
     .logo-list
       = all_institutions_images
 
-%section.section.section-grey#testimonials
+%section.section.section-white#testimonials
   .container
     %h2.section__title
       Témoignages

@@ -5,7 +5,7 @@
     %h1.hero__title= @landing.title
     %h2.hero__subtitle= @landing.subtitle
     .hero__call-to-action
-      %a.button{ href: @url_to_root }= @landing.button
+      %a.button{ href: '#envoyer-une-demande', data: { turbolinks: "false" } }= @landing.button
 
 - if @landing.landing_topics.present?
   %section.section.section-grey.landing-topics-section
@@ -13,8 +13,15 @@
       .row
         = render @landing.landing_topics.ordered_for_landing
 
+%section.section.section-white#envoyer-une-demande
+  .container
+    %h2.section__title= t('.solicitation.description')
+    %p.section__subtitle= t('.solicitation.experimental_html')
+
+  #solicitation-form= render 'solicitations/form'
+
 - if @landing.logos.present?
-  %section.section.section-white
+  %section.section.section-grey
     .container
       %h2.section__title
         = t('.institutions.title')

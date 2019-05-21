@@ -9,6 +9,13 @@ class LandingController < ApplicationController
 
     redirect_to root_path if @landing.nil?
 
-    @url_to_root = root_path(params.permit(Solicitation::TRACKING_KEYS))
+    @solicitation = Solicitation.new
+    @solicitation.form_info = index_tracking_params
+  end
+
+  private
+
+  def index_tracking_params
+    params.permit(Solicitation::TRACKING_KEYS)
   end
 end

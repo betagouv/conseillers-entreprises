@@ -12,7 +12,7 @@
         = f.label 'email', t('.email.label')
         = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
     .form__group
-      = render 'flashes'
+      = render 'solicitations/flashes'
       .text-center
         %h3
           = f.button :submit, class: 'button' do

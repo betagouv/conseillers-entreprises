@@ -12,13 +12,13 @@ class SolicitationsController < ApplicationController
 
     if !@solicitation.valid?
       @result = 'failure'
-      @partial = 'form'
+      @partial = 'solicitations/form'
       flash.alert = @solicitation.errors.full_messages.to_sentence
       return
     end
 
     @result = 'success'
-    @partial = 'thank_you'
+    @partial = 'solicitations/thank_you'
     AdminMailer.delay.solicitation(@solicitation)
   end
 

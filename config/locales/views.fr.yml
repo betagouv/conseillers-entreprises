@@ -291,6 +291,11 @@ fr:
       step2_title_html: Détection des besoins
       step3_title_html: Informations complémentaires
       step4_title_html: Mise en contact
+  landing:
+    landing:
+      solicitation:
+        description: Échangez gratuitement avec le bon interlocuteur pour votre demande
+        experimental_html: Notre service est encore en phase d’expérimentation, nous répondons généralement <u>sous 15 jours</u> à votre demande.
   layouts:
     footer:
       contact_us: Contactez-nous !
