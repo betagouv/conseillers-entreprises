@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_142015) do
+ActiveRecord::Schema.define(version: 2019_05_20_144211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,11 +185,25 @@ ActiveRecord::Schema.define(version: 2019_04_02_142015) do
     t.boolean "show_icon", default: true
   end
 
+  create_table "landing_topics", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "landing_sort_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "landing_id"
+    t.index ["landing_id"], name: "index_landing_topics_on_landing_id"
+  end
+
   create_table "landings", force: :cascade do |t|
     t.string "slug", null: false
     t.jsonb "content", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "featured_on_home", default: false
+    t.string "home_title", default: "f"
+    t.text "home_description", default: "f"
+    t.integer "home_sort_order"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -325,6 +339,7 @@ ActiveRecord::Schema.define(version: 2019_04_02_142015) do
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
+  add_foreign_key "landing_topics", "landings"
   add_foreign_key "matches", "experts_skills", column: "experts_skills_id"
   add_foreign_key "matches", "needs"
   add_foreign_key "needs", "diagnoses"
