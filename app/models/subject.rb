@@ -63,6 +63,10 @@ class Subject < ApplicationRecord
     label
   end
 
+  def full_label
+    "#{theme.label} : #{label}"
+  end
+
   ##
   #
   def self.support_subject
