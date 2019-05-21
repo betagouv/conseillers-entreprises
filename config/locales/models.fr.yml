@@ -102,6 +102,10 @@ fr:
         advisors: Conseillers
         antennes: Antennes
       landing:
+        featured_on_home: Afficher sur la page d’accueil
+        home_description: Description sur la page d’accueil
+        home_sort_order: Position sur la page d’accueil
+        home_title: Titre sur la page d’accueil
         landing_topics: Exemples
         slug: Slug
       match:

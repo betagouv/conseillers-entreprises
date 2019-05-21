@@ -2,11 +2,15 @@
 #
 # Table name: landings
 #
-#  id         :bigint(8)        not null, primary key
-#  content    :jsonb
-#  slug       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id               :bigint(8)        not null, primary key
+#  content          :jsonb
+#  featured_on_home :boolean          default(FALSE)
+#  home_description :text             default("f")
+#  home_sort_order  :integer
+#  home_title       :string           default("f")
+#  slug             :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 
 class Landing < ApplicationRecord
@@ -19,4 +23,7 @@ class Landing < ApplicationRecord
   store_accessor :content, CONTENT_KEYS
 
   accepts_nested_attributes_for :landing_topics, allow_destroy: true
+
+  scope :featured, -> { where(featured_on_home: true) }
+  scope :ordered_for_home, -> { order(:home_sort_order, :id) }
 end
