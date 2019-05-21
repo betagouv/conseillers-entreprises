@@ -2,12 +2,12 @@
 
 .hero.hero__background{ style: solicitation_background_style }
   .hero__container
-    %p.text-center= t('.hero.pretitle_html')
-    %h1= t('.hero.title')
-    %h2= t('.hero.subtitle')
+    %h1.hero__title= t('.hero.title')
+    %h2.hero__subtitle= t('.hero.subtitle')
 
 %section.section.section-grey
   .container
+    %h3.section__subtitle= t('.featured_landings.title')
     - @featured_landings.each_slice(4) do |row|
       .row
         - row.each do |landing|

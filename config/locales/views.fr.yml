@@ -462,11 +462,11 @@ fr:
         label: Téléphone
         placeholder: 06 12 34 56 78
     index:
-      description: Confiez votre demande, le bon interlocuteur vous rappelle sous 15 jours
+      featured_landings:
+        title: 'Nous proposons un accompagnement gratuit et personnalisé pour :'
       hero:
-        pretitle_html: 'TPE, PME : plus de 2 000 aides et accompagnements publics existent pour  vous aider à grandir ou surmonter une difficulté.<br/>Vous ne savez pas à qui vous adresser ?'
-        subtitle: Le service rapide et gratuit qui vous permet d’accéder au bon interlocuteur selon votre demande.
-        title: Place des Entreprises
+        subtitle: Échangez gratuitement avec le bon interlocuteur public selon votre demande.
+        title: Patrons de TPE et PME, plus de 2 000 aides et accompagnements publics existent pour vous aider à grandir ou surmonter une difficulté.
       institutions:
         title: '42 partenaires publics des Hauts-de-France à votre service :'
       meta:

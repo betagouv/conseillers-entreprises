@@ -2,9 +2,9 @@
 
 .hero.hero__background{ style: solicitation_background_style }
   .hero__container
-    %h1.hero_title= @landing.title
-    %h2.hero_subtitle= @landing.subtitle
-    %h3
+    %h1.hero__title= @landing.title
+    %h2.hero__subtitle= @landing.subtitle
+    .hero__call-to-action
       %a.button{ href: @url_to_root }= @landing.button
 
 - if @landing.landing_topics.present?
