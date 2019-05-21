@@ -9,7 +9,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Populate the Home page
-
 Landing.create({
   slug: 'recrutement-formation',
   title: 'Recruter ou former vos salariés',
@@ -31,7 +30,6 @@ Landing.create({
     }
   ]
 })
-
 Landing.create({
   slug: 'developpement-commercial',
   title: 'Patrons de TPE et PME, vous souhaitez développer votre activité commerciale ?',
@@ -56,4 +54,18 @@ Landing.create({
       description: 'Evaluer votre capacité à exporter, sélectionner des marchés cibles, initier un volontariat international en entreprise,  accompagnement pour les formalités administratives…'
     }
   ]
+})
+
+# Fallback landing page
+Landing.create({
+  slug: 'contactez-nous',
+  title: 'Patrons de TPE et PME, plus de 2 000 aides et accompagnements publics existent pour vous aider à grandir ou surmonter une difficulté.',
+  subtitle: 'Échangez gratuitement avec le bon interlocuteur public selon votre demande.',
+  button: 'Échanger avec le bon interlocuteur',
+  logos: 'dirrecte, cci, cma, agefiph, cap-emploi',
+  featured_on_home: false,
+  home_title: nil,
+  home_description: nil,
+  home_sort_order: nil,
+  landing_topics_attributes: []
 })
