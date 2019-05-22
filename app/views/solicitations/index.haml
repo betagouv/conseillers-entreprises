@@ -6,12 +6,13 @@
     %h1= t('.hero.title')
     %h2= t('.hero.subtitle')
 
-%section.section.section-white
+%section.section.section-grey
   .container
-    .row
-      %p.text-center= t('.examples_1_html')
-      %p.text-center= t('.examples_2_html')
-      %p.text-center= t('.examples_3_html')
+    - @featured_landings.each_slice(4) do |row|
+      .row
+        - row.each do |landing|
+          = render partial: 'solicitations/landing', locals: { landing: landing }
+
 %section.section.section-grey
   .container
     %h2.section__title= t('.description')

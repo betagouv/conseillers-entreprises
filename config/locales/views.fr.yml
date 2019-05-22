@@ -463,9 +463,6 @@ fr:
         placeholder: 06 12 34 56 78
     index:
       description: Confiez votre demande, le bon interlocuteur vous rappelle sous 15 jours
-      examples_1_html: Problèmes de trésorerie<br/>Financement d’un nouveau projet<br/>Cession – Reprise
-      examples_2_html: Réglementation<br/>Site Internet<br/>Recherche de nouveaux clients
-      examples_3_html: Développement de nouveaux produits<br/>Recrutement<br/>Formation
       hero:
         pretitle_html: 'TPE, PME : plus de 2 000 aides et accompagnements publics existent pour  vous aider à grandir ou surmonter une difficulté.<br/>Vous ne savez pas à qui vous adresser ?'
         subtitle: Le service rapide et gratuit qui vous permet d’accéder au bon interlocuteur selon votre demande.

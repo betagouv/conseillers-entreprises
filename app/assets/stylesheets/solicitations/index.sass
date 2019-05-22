@@ -6,6 +6,27 @@
   background-position: center
   background-size: cover
 
+// To align landings better, flexbox isn’t enough: we would need CSS-grid.
+// But some massaging would be required for CSS-grid to work on IE 11.
+.landing
+  flex: 1
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  margin: 1em
+  padding: 1em
+  background: white
+  border-radius: 7px
+
+.landing__title
+  margin: 0 0 0.5em 0
+
+.landing__description
+  margin: 0 0 1em 0
+
+.landing__button
+  margin-top: auto
+
 .section.landing-topics-section
   padding: 4em 0 2.5em 0
 

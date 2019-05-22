@@ -2,6 +2,7 @@ class SolicitationsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
+    @featured_landings = Landing.featured.ordered_for_home
     @solicitation = Solicitation.new
     @solicitation.form_info = index_tracking_params
   end

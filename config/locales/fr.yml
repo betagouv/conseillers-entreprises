@@ -161,6 +161,7 @@ fr:
       update: Modifier ce(tte) %{model}
   landing:
     landing:
+      discover: Découvrir
       institutions:
         title: En partenariat avec
   next_step: Passer à la suite
