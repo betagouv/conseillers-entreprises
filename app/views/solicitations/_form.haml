@@ -1,8 +1,9 @@
-.container.container-medium
+.panel
   = form_with(model: @solicitation, url: solicitation_path, scope: 'solicitation', method: :post) do |f|
     - @solicitation.form_info.each do |k,v|
       = f.hidden_field "form_info[#{k}]", value: v
     .form__group
+      = f.label 'description', t('.description.label')
       = f.text_area 'description', placeholder: t('.description.placeholder'), rows: 6, required: true
     .form__group
       .form__group
@@ -13,7 +14,5 @@
         = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
     .form__group
       = render 'solicitations/flashes'
-      .text-center
-        %h3
-          = f.button :submit, class: 'button' do
-            = t('.button.title')
+      = f.button :submit, class: 'button large' do
+        = t('.button.title')

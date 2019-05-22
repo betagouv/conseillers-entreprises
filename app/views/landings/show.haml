@@ -8,20 +8,22 @@
       %a.button{ href: '#envoyer-une-demande', data: { turbolinks: "false" } }= @landing.button
 
 - if @landing.landing_topics.present?
-  %section.section.section-grey.landing-topics-section
+  %section.section.section-color.landing-topics-section
     .container
       .row
         = render @landing.landing_topics.ordered_for_landing
+    #envoyer-une-demande
 
-%section.section.section-white#envoyer-une-demande
-  .container
-    %h2.section__title= t('.solicitation.description')
-    %p.section__subtitle= t('.solicitation.experimental_html')
+%section.section.section-grey
+  .container.solicitation__container
+    .solicitation__aside
+      %h5= t('.solicitation.description')
+      %p= t('.solicitation.experimental_html')
 
-  #solicitation-form= render 'solicitations/form'
+    .solicitation__form#solicitation-form= render 'solicitations/form'
 
 - if @landing.logos.present?
-  %section.section.section-grey
+  %section.section.section-white
     .container
       %h2.section__title
         = t('.institutions.title')
