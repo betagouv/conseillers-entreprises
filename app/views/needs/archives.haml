@@ -1,0 +1,14 @@
+- meta title: t('.title')
+
+%h1.ui.header
+  = t('.title')
+
+= render 'received_needs', received_needs: @needs_rejected, title: t('.needs_rejected')
+
+= render 'received_needs', received_needs: @needs_done, title: t('.needs_done')
+
+= render 'received_needs', received_needs: @needs_archived, title: t('.needs_archived')
+
+= link_to besoins_path do
+  %i.tasks.icon
+  = t('.browse_active_needs')

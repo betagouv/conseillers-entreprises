@@ -425,11 +425,21 @@ fr:
         subject: Bienvenue sur Place des Entreprises !
         you_have_been_invited: Vous avez été invité sur Place des Entreprises.
   needs:
+    archives:
+      browse_active_needs: Voir les demandes reçues
+      needs_archived: Besoins marqués en échec
+      needs_done: Besoins clôturés
+      needs_rejected: Besoins refusés
+      title: Demandes archivées
     feedback_form:
       placeholder: Tenez informé le conseiller des détails sur votre prise en charge.
       submit: Ajouter un commentaire
     index:
+      browse_archived_needs: Voir les demandes archivées
       needs_for_you: 'Ces entreprises ont besoin de vous :'
+      needs_others_taking_care: Besoins pris en charge par d’autres référents
+      needs_quo: Besoins en attente de réponse
+      needs_taking_care: Besoins pris en charge
       title: Demandes reçues
     match:
       deleted_expert: Compte supprimé
