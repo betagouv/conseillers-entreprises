@@ -8,10 +8,10 @@
 %section.section.section-grey
   .container
     %h3.section__subtitle= t('.featured_landings.title')
-    - @featured_landings.each_slice(4) do |row|
+    - @featured_landings.each_slice(4) do |landings|
       .row
-        - row.each do |landing|
-          = render partial: 'solicitations/landing', locals: { landing: landing }
+        = render landings
+
   %p.text-center
     Votre question n’est pas dans cette liste ?
     = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')

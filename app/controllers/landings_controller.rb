@@ -1,9 +1,13 @@
-class LandingController < ApplicationController
+class LandingsController < ApplicationController
   skip_before_action :authenticate_user!
 
   layout 'solicitations'
 
-  def landing
+  def index
+    @featured_landings = Landing.featured.ordered_for_home
+  end
+
+  def show
     slug = params[:slug]&.to_sym
     @landing = Landing.find_by(slug: slug)
 
