@@ -1,13 +1,9 @@
 class SolicitationsController < ApplicationController
   skip_before_action :authenticate_user!
 
-  include Alternatives
-
   def index
-    @alternative = current_alternative(alternatives)
     @solicitation = Solicitation.new
     @solicitation.form_info = index_tracking_params
-      .merge({ alternative: @alternative })
   end
 
   def create
@@ -23,15 +19,9 @@ class SolicitationsController < ApplicationController
     @result = 'success'
     @partial = 'thank_you'
     AdminMailer.delay.solicitation(@solicitation)
-
-    reset_alternative
   end
 
   private
-
-  def alternatives
-    %i[]
-  end
 
   def index_tracking_params
     params.permit(Solicitation::TRACKING_KEYS)
