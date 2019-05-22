@@ -306,6 +306,8 @@ fr:
     landing:
       discover: Découvrir
     show:
+      hero:
+        other_landings: Découvrez nos autres thématiques
       institutions:
         title: 'En partenariat avec :'
       solicitation:
