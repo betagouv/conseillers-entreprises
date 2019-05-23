@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
-  root to: 'solicitations#index'
+  root to: 'landings#index'
 
   get 'profile' => 'users#show'
 
@@ -24,7 +24,8 @@ Rails.application.routes.draw do
 
   resource 'conseillers', only: %i[show]
 
-  get 'entreprise/:slug', to: 'landing#landing', as: 'landing'
+  get 'entreprise/:slug', to: 'landings#show', as: 'landing'
+  get 'aide/:slug', to: 'landings#show', as: 'featured_landing'
 
   resource :solicitation, only: %i[create]
 

@@ -1,10 +1,57 @@
 @import template-data-gouv-main
 
 // For /
+
 .hero__background
   background-color: #cccccc
   background-position: center
   background-size: cover
+
+.hero__title
+  text-align: center
+
+.hero__subtitle
+  font-size: 1.2em
+  font-weight: normal
+  text-align: center
+
+.hero__call-to-action
+  margin: 50px 0 10px 0
+
+  .button.secondary
+    font-weight: normal
+
+// To align landings better, flexbox isn’t enough: we would need CSS-grid.
+// But some massaging would be required for CSS-grid to work on IE 11.
+.landing
+  flex: 1
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  margin: 1em
+  padding: 1em
+  background: white
+  border-radius: 7px
+
+.landing__title
+  margin: 0 0 0.5em 0
+
+.landing__description
+  margin: 0 0 1em 0
+
+.landing__button
+  margin-top: auto
+
+.section.landing-topics-section
+  padding: 4em 0 5em 0
+
+.landing-topic
+  display: flex
+  flex-direction: column
+  flex: 1
+
+.landing-topic__title
+  margin: 0
 
 .logo-list
   width: 95%
@@ -19,6 +66,23 @@
 .testimony
   font-style: italic
   quotes: "« " " »" "“" "”"
+
+// For /aide/*
+.solicitation__container
+  display: flex
+  flex-wrap: wrap
+  margin-top: -8em
+
+.solicitation__aside
+  flex: 1
+  min-width: 300px
+  margin: 4em 3em 0 0
+
+.solicitation__form
+  flex: 2
+  min-width: 500px
+  .panel
+    border: none
 
 // For /stats
 

@@ -2,20 +2,19 @@
 
 .hero.hero__background{ style: solicitation_background_style }
   .hero__container
-    %p.text-center= t('.hero.pretitle_html')
-    %h1= t('.hero.title')
-    %h2= t('.hero.subtitle')
+    %h1.hero__title= t('.hero.title')
+    %h2.hero__subtitle= t('.hero.subtitle')
 
-%section.section.section-white
-  .container
-    .row
-      %p.text-center= t('.examples_1_html')
-      %p.text-center= t('.examples_2_html')
-      %p.text-center= t('.examples_3_html')
 %section.section.section-grey
   .container
-    %h2.section__title= t('.description')
-  #solicitation-form= render 'form'
+    %h3.section__subtitle= t('.featured_landings.title')
+    - @featured_landings.each_slice(4) do |landings|
+      .row
+        = render landings
+
+  %p.text-center
+    = t('.featured_landings.other_questions')
+    = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
 
 %section.section.section-white#institutions
   .container
@@ -24,7 +23,7 @@
     .logo-list
       = all_institutions_images
 
-%section.section.section-grey#testimonials
+%section.section.section-white#testimonials
   .container
     %h2.section__title
       Témoignages

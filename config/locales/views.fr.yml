@@ -291,6 +291,29 @@ fr:
       step2_title_html: Détection des besoins
       step3_title_html: Informations complémentaires
       step4_title_html: Mise en contact
+  landings:
+    index:
+      featured_landings:
+        other_questions: Votre question n’est pas dans cette liste ?
+        title: 'Nous proposons un accompagnement gratuit et personnalisé pour :'
+      hero:
+        subtitle: Échangez gratuitement avec le bon interlocuteur public selon votre demande.
+        title: Patrons de TPE et PME, plus de 2 000 aides et accompagnements publics existent pour vous aider à grandir ou surmonter une difficulté.
+      institutions:
+        title: '42 partenaires publics des Hauts-de-France à votre service :'
+      meta:
+        description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon interlocuteur.
+        title: Place des entreprises, le guichet public d’accompagnement des TPE et PME
+    landing:
+      discover: Découvrir
+    show:
+      hero:
+        other_landings: Découvrez nos autres thématiques
+      institutions:
+        title: 'En partenariat avec :'
+      solicitation:
+        description: Échangez gratuitement avec le bon interlocuteur pour votre demande
+        experimental_html: Notre service est encore en phase d’expérimentation, nous répondons généralement <u>sous 15 jours</u> à votre demande.
   layouts:
     footer:
       contact_us: Contactez-nous !
@@ -454,6 +477,7 @@ fr:
       button:
         title: Envoyer ma demande
       description:
+        label: Quel est votre besoin ?
         placeholder: 'Décrivez simplement votre besoin. Par exemple: « Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils. »'
       email:
         label: Email
@@ -461,20 +485,6 @@ fr:
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
-    index:
-      description: Confiez votre demande, le bon interlocuteur vous rappelle sous 15 jours
-      examples_1_html: Problèmes de trésorerie<br/>Financement d’un nouveau projet<br/>Cession – Reprise
-      examples_2_html: Réglementation<br/>Site Internet<br/>Recherche de nouveaux clients
-      examples_3_html: Développement de nouveaux produits<br/>Recrutement<br/>Formation
-      hero:
-        pretitle_html: 'TPE, PME : plus de 2 000 aides et accompagnements publics existent pour  vous aider à grandir ou surmonter une difficulté.<br/>Vous ne savez pas à qui vous adresser ?'
-        subtitle: Le service rapide et gratuit qui vous permet d’accéder au bon interlocuteur selon votre demande.
-        title: Place des Entreprises
-      institutions:
-        title: '42 partenaires publics des Hauts-de-France à votre service :'
-      meta:
-        description: Financemend de projets, difficultés financières, cession reprise, formation, recrutement… service public rapide et gratuit pour accéder au bon interlocuteur.
-        title: Place des entreprises, le guichet public d’accompagnement des TPE et PME
     needs:
       long:
         01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?

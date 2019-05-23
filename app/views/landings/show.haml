@@ -1,0 +1,33 @@
+- meta title: @landing.title, description: @landing.subtitle
+
+.hero.hero__background{ style: solicitation_background_style }
+  .hero__container
+    %h1.hero__title= @landing.title
+    %h2.hero__subtitle= @landing.subtitle
+    %h4.hero__call-to-action
+      = link_to @landing.button, '#envoyer-une-demande', { class: 'button', data: { turbolinks: "false" } }
+      = link_to t('.hero.other_landings'), root_path, { class: 'button secondary' }
+
+- if @landing.landing_topics.present?
+  %section.section.section-color.landing-topics-section
+    .container
+      .row
+        = render @landing.landing_topics.ordered_for_landing
+    #envoyer-une-demande
+
+%section.section.section-grey
+  .container.solicitation__container
+    .solicitation__aside
+      %h5= t('.solicitation.description')
+      %p= t('.solicitation.experimental_html')
+
+    .solicitation__form#solicitation-form= render 'solicitations/form'
+
+- if @landing.logos.present?
+  %section.section.section-white
+    .container
+      %h2.section__title
+        = t('.institutions.title')
+      .logo-list
+        - @landing.logos.split(' ').each do |logo_slug|
+          = institution_image(logo_slug)
