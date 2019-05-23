@@ -61,7 +61,7 @@ Landing.create({
   slug: 'contactez-nous',
   title: 'Patrons de TPE et PME, plus de 2 000 aides et accompagnements publics existent pour vous aider à grandir ou surmonter une difficulté.',
   subtitle: 'Échangez gratuitement avec le bon interlocuteur public selon votre demande.',
-  button: 'Échanger avec le bon interlocuteur',
+  button: nil,
   logos: 'dirrecte, cci, cma, agefiph, cap-emploi',
   featured_on_home: false,
   home_title: nil,

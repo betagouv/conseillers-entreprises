@@ -4,9 +4,10 @@
   .hero__container
     %h1.hero__title.hero__white-background= @landing.title
     %h4.hero__subtitle.white-on-dark= @landing.subtitle
-    %h4.hero__call-to-action
-      = link_to @landing.button, '#envoyer-une-demande', { class: 'button', data: { turbolinks: "false" } }
-      = link_to t('.hero.other_landings'), root_path, { class: 'button secondary' }
+    - if @landing.button.present?
+      %h4.hero__call-to-action
+        = link_to @landing.button, '#envoyer-une-demande', { class: 'button', data: { turbolinks: "false" } }
+        = link_to t('.hero.other_landings'), root_path, { class: 'button secondary' }
 
 - if @landing.landing_topics.present?
   %section.section.section-color.landing-topics-section
