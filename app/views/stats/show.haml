@@ -6,16 +6,16 @@
   .hero__container
     %h1.hero__white-background
       = t('.title')
-    = form_with(url: stats_path, method: :get) do
+    = form_with(url: stats_path, method: :get, class: 'hero__white-background') do
       .row
         %div
-          %h3= label_tag(t('activerecord.models.territory.one'), nil, class: 'hero__white-background')
+          %h3= label_tag(t('activerecord.models.territory.one'))
           = collection_select(:stats,
             :territory, Territory.bassins_emploi.order(:name), :id, :name,
             { include_blank: t('.all') },
             { class: 'ui dropdown', onchange: 'this.form.submit();' })
         %div
-          %h3= label_tag(t('activerecord.models.institution.one'), nil, class: 'hero__white-background')
+          %h3= label_tag(t('activerecord.models.institution.one'))
           = collection_select(:stats,
             :institution, Institution.all.order(:name), :id, :name,
             { include_blank: t('.all') },
