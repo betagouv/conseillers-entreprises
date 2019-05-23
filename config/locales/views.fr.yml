@@ -294,6 +294,7 @@ fr:
   landings:
     index:
       featured_landings:
+        other_questions: Votre question n’est pas dans cette liste ?
         title: 'Nous proposons un accompagnement gratuit et personnalisé pour :'
       hero:
         subtitle: Échangez gratuitement avec le bon interlocuteur public selon votre demande.

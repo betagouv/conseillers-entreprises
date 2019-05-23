@@ -13,7 +13,7 @@
         = render landings
 
   %p.text-center
-    Votre question n’est pas dans cette liste ?
+    = t('.featured_landings.other_questions')
     = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
 
 %section.section.section-white#institutions
