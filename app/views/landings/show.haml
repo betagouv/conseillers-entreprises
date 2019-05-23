@@ -21,7 +21,9 @@
       %h5= t('.solicitation.description')
       %p= t('.solicitation.experimental_html')
 
-    .solicitation__form#solicitation-form= render 'solicitations/form'
+    .solicitation__form
+      .panel
+        #solicitation-form= render 'solicitations/form'
 
   .container
     = render partial: 'stats', locals: { stats: @stats }
