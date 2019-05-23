@@ -519,12 +519,12 @@ fr:
       title: Merci !
   stats:
     series:
-      advisors: "%{count} conseillers inscrits"
-      companies: "%{count} entreprises aidées"
-      experts: "%{count} référents"
-      matches: "%{count} mises en relation"
-      needs: "%{count} besoins transmis"
-      solicitations: "%{count} sollicitations directes"
+      advisor_html: <span class="count">%{count}</span> conseillers inscrits
+      companies_html: <span class="count">%{count}</span> entreprises aidées
+      experts_html: <span class="count">%{count}</span> référents
+      matches_html: <span class="count">%{count}</span> mises en relation
+      needs_html: <span class="count">%{count}</span> besoins transmis
+      solicitations_html: <span class="count">%{count}</span> sollicitations directes
     show:
       all: Tous
       title: Statistiques d’utilisation
