@@ -8,7 +8,32 @@ class NeedsController < ApplicationController
   after_action :mark_expert_viewed, only: :show
 
   def index
-    @experts = experts
+    @needs_taking_care = received_needs
+      .where(matches: received_matches.status_taking_care)
+      .archived(false)
+
+    @needs_quo = received_needs
+      .by_status(:quo)
+      .where.not(matches: received_matches.status_not_for_me)
+      .archived(false)
+
+    @needs_others_taking_care = received_needs
+      .by_status(:taking_care)
+      .where.not(matches: received_matches.status_taking_care)
+      .archived(false)
+  end
+
+  def archives
+    @needs_rejected = received_needs
+      .where(matches: received_matches.status_not_for_me)
+      .archived(false)
+
+    @needs_done = received_needs
+      .by_status(:done)
+      .archived(false)
+
+    @needs_archived = received_needs
+      .archived(true)
   end
 
   def show
@@ -22,6 +47,14 @@ class NeedsController < ApplicationController
   def experts
     current_user.present? ? current_user.experts.order(:full_name)
       : [current_expert]
+  end
+
+  def received_needs
+    current_user.present? ? current_user.received_needs : current_expert.received_needs
+  end
+
+  def received_matches
+    current_user.present? ? current_user.received_matches : current_expert.received_matches
   end
 
   def diagnosis

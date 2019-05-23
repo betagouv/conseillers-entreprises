@@ -161,31 +161,6 @@ RSpec.describe Need, type: :model do
     end
   end
 
-  describe 'contacted_persons' do
-    subject { need.contacted_persons }
-
-    let(:need) { create :need, matches: matches }
-
-    context 'No matches' do
-      let(:matches) { [] }
-
-      it { is_expected.to be_empty }
-    end
-
-    context 'Several experts' do
-      let(:expert1) { build :expert }
-      let(:expert2) { build :expert }
-      let(:matches) do
-        [
-          build(:match, expert_skill: build(:expert_skill, expert: expert1)),
-          build(:match, expert_skill: build(:expert_skill, expert: expert2))
-        ]
-      end
-
-      it { is_expected.to match_array [expert1, expert2] }
-    end
-  end
-
   describe 'last_activity_at' do
     subject { need.last_activity_at.beginning_of_day }
 

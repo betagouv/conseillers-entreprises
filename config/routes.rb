@@ -53,7 +53,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :besoins, controller: 'needs', only: %i[index show]
+  resources :besoins, controller: 'needs', only: %i[index show] do
+    collection do
+      get :archives
+    end
+  end
 
   resources :matches, only: %i[update]
 

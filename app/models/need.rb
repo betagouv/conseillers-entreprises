@@ -47,7 +47,7 @@ class Need < ApplicationRecord
   has_one :advisor, through: :diagnosis, inverse_of: :sent_needs
 
   # :matches
-  has_many :experts, through: :matches, inverse_of: :received_needs
+  has_many :experts, -> { distinct }, through: :matches, inverse_of: :received_needs
   has_many :feedbacks, through: :matches, inverse_of: :need
 
   # :facility
@@ -60,6 +60,7 @@ class Need < ApplicationRecord
   # :experts
   has_many :expert_antennes, through: :experts, source: :antenne, inverse_of: :received_needs
   has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_needs
+  has_many :contacted_users, through: :experts, source: :users, inverse_of: :received_needs
 
   ## Scopes
   #
@@ -69,9 +70,8 @@ class Need < ApplicationRecord
       .distinct
   end
   scope :ordered_for_interview, -> do
-    left_outer_joins(:subject, subject: :theme)
-      .order('themes.interview_sort_order')
-      .order('subjects.interview_sort_order')
+    left_outer_joins(:subject)
+      .merge(Subject.ordered_for_interview)
   end
 
   scope :diagnosis_completed, -> do
@@ -195,10 +195,6 @@ class Need < ApplicationRecord
 
   ##
   #
-  def contacted_persons
-    experts.uniq
-  end
-
   def create_matches!(expert_skills)
     if expert_skills.is_a?(Array)
       self.matches.create(expert_skills.map{ |id| { experts_skills_id: id } })

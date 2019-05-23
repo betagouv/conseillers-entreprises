@@ -43,6 +43,7 @@ ActiveAdmin.register Skill do
   #
   show do
     attributes_table do
+      row :theme
       row :subject
       row :title
       row :description
@@ -53,4 +54,14 @@ ActiveAdmin.register Skill do
   ## Form
   #
   permit_params :subject_id, :title, :description
+
+  form do |f|
+    f.semantic_errors
+    f.inputs do
+      f.input :subject, as: :select, collection: Subject.archived(false).ordered_for_interview.map{ |s| [s.full_label, s.id] }
+      f.input :title, :input_html => { :style => 'width:50%' }
+      f.input :description, :input_html => { :style => 'width:50%', :rows => 3 }
+    end
+    f.actions
+  end
 end

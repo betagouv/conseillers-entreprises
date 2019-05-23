@@ -75,6 +75,7 @@ class Diagnosis < ApplicationRecord
   # :expert
   has_many :expert_antennes, through: :experts, source: :antenne, inverse_of: :received_diagnoses
   has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_diagnoses
+  has_many :contacted_users, through: :experts, source: :users, inverse_of: :received_diagnoses
 
   ## Scopes
   #
@@ -125,12 +126,6 @@ class Diagnosis < ApplicationRecord
     end
   end
 
-  ##
-  #
-  def contacted_persons
-    experts.uniq
-  end
-
   private
 
   def last_step_has_matches
@@ -146,7 +141,7 @@ class Diagnosis < ApplicationRecord
   end
 
   def notify_experts!
-    contacted_persons.each do |expert|
+    experts.each do |expert|
       ExpertMailer.delay.notify_company_needs(expert, self)
     end
   end

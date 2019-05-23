@@ -84,6 +84,11 @@ class User < ApplicationRecord
   has_many :sent_needs, through: :sent_diagnoses, source: :needs, inverse_of: :advisor
   has_many :sent_matches, through: :sent_diagnoses, source: :matches, inverse_of: :advisor
 
+  # :experts
+  has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
+  has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
+  has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
+
   ## Scopes
   #
   scope :admin, -> { where(is_admin: true) }
