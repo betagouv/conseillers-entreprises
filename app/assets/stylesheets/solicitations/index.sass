@@ -2,24 +2,39 @@
 
 // For /
 
-.hero__background
-  background-color: #cccccc
-  background-position: center
+.heading-background
   background-size: cover
+  background-color: #6a625c
+
+  .hero,
+  .section
+    background-color: transparent
 
 .hero__title
   text-align: center
 
-.hero__subtitle
-  font-size: 1.2em
-  font-weight: normal
-  text-align: center
+p.hero__subtitle
+  margin-bottom: 0
 
 .hero__call-to-action
   margin: 50px 0 10px 0
 
   .button.secondary
     font-weight: normal
+
+.section#featured-landings
+  padding-top: 0
+
+  .section__subtitle
+    margin-bottom: -1em
+
+
+.white-on-dark
+  color: white
+  font-weight: bold
+
+  a
+    color: var(--lighter-blue)
 
 // To align landings better, flexbox isn’t enough: we would need CSS-grid.
 // But some massaging would be required for CSS-grid to work on IE 11.

@@ -1,20 +1,21 @@
 - meta title: t('.meta.title'), description: t('.meta.description')
 
-.hero.hero__background{ style: solicitation_background_style }
-  .hero__container
-    %h1.hero__title= t('.hero.title')
-    %h2.hero__subtitle= t('.hero.subtitle')
+.heading-background{ style: solicitation_background_style }
+  .hero
+    .hero__container
+      %h1.hero__title.hero__white-background= t('.hero.title')
+      %p.hero__subtitle.hero__white-background= t('.hero.subtitle')
 
-%section.section.section-grey
-  .container
-    %h3.section__subtitle= t('.featured_landings.title')
-    - @featured_landings.each_slice(4) do |landings|
-      .row
-        = render landings
+  %section.section.section-grey#featured-landings
+    .container
+      %h3.section__subtitle.white-on-dark= t('.featured_landings.title')
+      - @featured_landings.each_slice(4) do |landings|
+        .row
+          = render landings
 
-  %p.text-center
-    = t('.featured_landings.other_questions')
-    = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
+      %p.text-center.white-on-dark
+        = t('.featured_landings.other_questions')
+        = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
 
 %section.section.section-white#steps
   .container
