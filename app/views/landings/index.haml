@@ -16,7 +16,21 @@
     = t('.featured_landings.other_questions')
     = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
 
-%section.section.section-white#institutions
+%section.section.section-white#steps
+  .container
+    %h2.section__title= t('.steps.title')
+    .row
+      .step
+        = image_tag 'landing/creer-blue.svg', height: 96
+        %p.step__label= t('.steps.label_1')
+      .step
+        = image_tag 'landing/gerer-blue.svg', height: 96
+        %p.step__label= t('.steps.label_2')
+      .step
+        = image_tag 'landing/collaborer-blue.svg', height: 96
+        %p.step__label= t('.steps.label_3')
+
+%section.section.section-grey#institutions
   .container
     %h2.section__title
       = t('.institutions.title')
