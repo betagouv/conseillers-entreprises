@@ -8,7 +8,7 @@ ActiveAdmin.register Landing do
   index do
     selectable_column
     column :slug do |l|
-      link_to l.slug, landing_path(l.slug)
+      link_to l.slug, landing_path(l.slug) if l.slug.present?
     end
     column :title
     column :subtitle
@@ -39,7 +39,7 @@ ActiveAdmin.register Landing do
   show do
     attributes_table do
       row :slug do |l|
-        link_to l.slug, landing_path(l.slug)
+        link_to l.slug, landing_path(l.slug) if l.slug.present?
       end
       row :title
       row :subtitle
