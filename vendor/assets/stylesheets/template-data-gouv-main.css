@@ -2,31 +2,31 @@
 
 @font-face {
   font-family: "Source Sans Pro";
-  src: url("fonts/Source Sans Pro/SourceSansPro-Regular.otf");
+  src: url(font_path("SourceSansPro-Regular.otf"));
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Source Sans Pro";
-  src: url("fonts/Source Sans Pro/SourceSansPro-Bold.otf");
+  src: url(font_path("SourceSansPro-Bold.otf"));
   font-weight: 800;
 }
 
 @font-face {
   font-family: "Source Sans Pro";
-  src: url("fonts/Source Sans Pro/SourceSansPro-It.otf");
+  src: url(font_path("SourceSansPro-It.otf"));
   font-style: italic;
 }
 
 @font-face {
   font-family: "Evolventa";
-  src: url("fonts/Evolventa/Evolventa-Regular.ttf");
+  src: url(font_path("Evolventa-Regular.ttf"));
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Evolventa";
-  src: url("fonts/Evolventa/Evolventa-Bold.ttf");
+  src: url(font_path("Evolventa-Bold.ttf"));
   font-weight: 800;
 }
 
