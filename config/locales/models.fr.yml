@@ -211,6 +211,9 @@ fr:
       institution:
         one: Institution
         other: Institutions
+      landing:
+        one: Page thématique
+        other: Pages thématiques
       landing_topic:
         one: Exemple
         other: Exemples
