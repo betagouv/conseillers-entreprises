@@ -304,6 +304,11 @@ fr:
       meta:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon interlocuteur.
         title: Place des entreprises, le guichet public d’accompagnement des TPE et PME
+      steps:
+        label_1: Complétez le formulaire en ligne.
+        label_2: L’équipe Place des entreprises oriente votre demande vers le bon interlocuteur public.
+        label_3: L’interlocuteur public vous rappelle et vous accompagne selon votre situation.
+        title: Comment ça se passe ?
     landing:
       discover: Découvrir
     show:
@@ -514,12 +519,12 @@ fr:
       title: Merci !
   stats:
     series:
-      advisors: "%{count} conseillers inscrits"
-      companies: "%{count} entreprises aidées"
-      experts: "%{count} référents"
-      matches: "%{count} mises en relation"
-      needs: "%{count} besoins transmis"
-      solicitations: "%{count} sollicitations directes"
+      advisor_html: <span class="count">%{count}</span> conseillers inscrits
+      companies_html: <span class="count">%{count}</span> entreprises aidées
+      experts_html: <span class="count">%{count}</span> référents
+      matches_html: <span class="count">%{count}</span> mises en relation
+      needs_html: <span class="count">%{count}</span> besoins transmis
+      solicitations_html: <span class="count">%{count}</span> sollicitations directes
     show:
       all: Tous
       title: Statistiques d’utilisation
