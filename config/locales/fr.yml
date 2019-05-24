@@ -159,10 +159,6 @@ fr:
       create: Créer un(e) %{model}
       submit: Enregistrer ce(tte) %{model}
       update: Modifier ce(tte) %{model}
-  landing:
-    landing:
-      institutions:
-        title: En partenariat avec
   next_step: Passer à la suite
   'no': non
   number:

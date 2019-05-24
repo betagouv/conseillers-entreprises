@@ -1,10 +1,76 @@
 @import template-data-gouv-main
 
 // For /
-.hero__background
-  background-color: #cccccc
-  background-position: center
+
+.heading-background
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), image-url('background/bakery-1868925.jpg')
   background-size: cover
+  background-color: #6a625c
+
+  .hero,
+  .section
+    background-color: transparent
+
+.hero__title
+  text-align: center
+
+.hero__subtitle
+  margin-top: 1.5em
+  text-align: center
+
+p.hero__subtitle
+  margin-bottom: 0
+
+.hero__call-to-action
+  margin: 50px 0 10px 0
+
+  .button.secondary
+    font-weight: normal
+
+.section#featured-landings
+  padding-top: 0
+
+  .section__subtitle
+    margin-bottom: -1em
+
+.white-on-dark
+  color: white
+  font-weight: bold
+
+  a
+    color: var(--lighter-blue)
+
+// To align landings better, flexbox isn’t enough: we would need CSS-grid.
+// But some massaging would be required for CSS-grid to work on IE 11.
+.landing
+  flex: 1
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  margin: 1em
+  padding: 1em
+  background: white
+  border-radius: 7px
+
+.landing__title
+  margin: 0 0 0.5em 0
+
+.landing__description
+  margin: 0 0 1em 0
+
+.landing__button
+  margin-top: auto
+
+.section.landing-topics-section
+  padding: 4em 0 5em 0
+
+.landing-topic
+  display: flex
+  flex-direction: column
+  flex: 1
+
+.landing-topic__title
+  margin: 0
 
 .logo-list
   width: 95%
@@ -16,14 +82,51 @@
     margin: 8px
     vertical-align: middle
 
+.step
+  display: flex
+  flex-direction: column
+  flex: 1
+
+.step__label
+  margin: 2em 0 0 0
+  font-weight: bold
+  color: var(--darker-grey)
+  text-align: center
+
+.stats__row
+  margin-top: 4em
+  justify-content: space-around
+
+.stats__item
+  font-size: 1.2em
+
+  .count
+    margin-right: 0.2em
+    font-size: 1.6em
+    vertical-align: text-top
+
 .testimony
   font-style: italic
   quotes: "« " " »" "“" "”"
 
-// For /stats
+// For /aide/*
+.solicitation__container
+  display: flex
+  flex-wrap: wrap
+  margin-top: -8em
 
-label.hero__white-background
-  color: white
+.solicitation__aside
+  flex: 1
+  min-width: 300px
+  margin: 6em 3em 0 0
+
+.solicitation__form
+  flex: 2
+  min-width: 500px
+  .panel
+    border: none
+
+// For /stats
 
 .hero form
   max-width: 100%

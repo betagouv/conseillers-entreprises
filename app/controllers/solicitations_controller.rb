@@ -1,37 +1,22 @@
 class SolicitationsController < ApplicationController
   skip_before_action :authenticate_user!
 
-  include Alternatives
-
-  def index
-    @alternative = current_alternative(alternatives)
-    @solicitation = Solicitation.new
-    @solicitation.form_info = index_tracking_params
-      .merge({ alternative: @alternative })
-  end
-
   def create
     @solicitation = Solicitation.create(solicitation_params)
 
     if !@solicitation.valid?
       @result = 'failure'
-      @partial = 'form'
+      @partial = 'solicitations/form'
       flash.alert = @solicitation.errors.full_messages.to_sentence
       return
     end
 
     @result = 'success'
-    @partial = 'thank_you'
+    @partial = 'solicitations/thank_you'
     AdminMailer.delay.solicitation(@solicitation)
-
-    reset_alternative
   end
 
   private
-
-  def alternatives
-    %i[]
-  end
 
   def index_tracking_params
     params.permit(Solicitation::TRACKING_KEYS)

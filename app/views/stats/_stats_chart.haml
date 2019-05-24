@@ -3,7 +3,7 @@
 
 .card
   .card__content
-    %h3= t("stats.series.#{name}", count: data.count)
+    %h3= t("stats.series.#{name}_html", count: data.count)
     .card__meta
       <br/>
     %p{ id: chart_name }
