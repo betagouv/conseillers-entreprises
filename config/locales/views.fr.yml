@@ -519,7 +519,7 @@ fr:
       title: Merci !
   stats:
     series:
-      advisor_html: <span class="count">%{count}</span> conseillers inscrits
+      advisors_html: <span class="count">%{count}</span> conseillers inscrits
       companies_html: <span class="count">%{count}</span> entreprises aidées
       experts_html: <span class="count">%{count}</span> référents
       matches_html: <span class="count">%{count}</span> mises en relation
