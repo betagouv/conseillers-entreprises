@@ -26,4 +26,8 @@ class Landing < ApplicationRecord
 
   scope :featured, -> { where(featured_on_home: true) }
   scope :ordered_for_home, -> { order(:home_sort_order, :id) }
+
+  def to_s
+    slug
+  end
 end

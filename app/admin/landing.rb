@@ -23,13 +23,13 @@ ActiveAdmin.register Landing do
     column :featured_on_home do |l|
       if l.featured_on_home
         div do
-          status_tag('yes', :ok)
+          status_tag('yes', class: :ok)
           span "(position : #{l.home_sort_order})"
         end
         div l.home_title
         div l.home_description, style: 'color: gray'
       else
-        status_tag('no', :ok)
+        status_tag('no', class: :ok)
       end
     end
     column :landing_topics do |l|
