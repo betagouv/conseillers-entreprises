@@ -1,6 +1,6 @@
 @import template-data-gouv-main
 
-// For /
+// template overrides
 
 .hero__container
   min-height: 0px
@@ -11,17 +11,31 @@
     background: image-url('marianne-cover.svg') no-repeat
     background-size: auto 100%
 
-.grid
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
-  grid-gap: 2em
+section.section
+  padding: 4em 0
 
-a.button-outline
-  background: #fff
-  align-items: flex-start
-  text-align: center
+//  landings index and show
 
-.button-outline + .button-outline
-  margin-left: 0em
+section.section#featured-landings
+  background: linear-gradient(45deg,var(--blue), var(--light-blue))
+  a:hover
+    background: transparent
+  .grid
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
+    grid-gap: 2em
+    .tile
+      padding: 2em 1em
+      border-radius: 3px
+      &:hover
+        transform: none
+      a
+        text-decoration: none
+        color: var(--blue)
+      a:hover
+        background: transparent
+        color: var(--dark-blue)
+      h5
+        margin: 0
 
 .section.landing-topics-section
   padding: 4em 0 5em 0
