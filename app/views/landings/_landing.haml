@@ -1,4 +1,2 @@
-.landing
-  %h6.landing__title= landing.home_title
-  %p.landing__description= landing.home_description
-  = link_to t('.discover'), featured_landing_path(slug: landing.slug), class: 'button-outline primary landing__button'
+= link_to featured_landing_path(slug: landing.slug), class: 'button-outline large primary' do
+  = landing.home_title

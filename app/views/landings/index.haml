@@ -1,51 +1,41 @@
 - meta title: t('.meta.title'), description: t('.meta.description')
 
-.heading-background
-  .hero
-    .hero__container
-      %h1.hero__title.hero__white-background= t('.hero.title')
-      %p.hero__subtitle.hero__white-background= t('.hero.subtitle')
+.hero
+  .hero__container
+    %h1.hero__title= t('.hero.title')
 
-  %section.section.section-grey#featured-landings
-    .container
-      %h3.section__subtitle.white-on-dark= t('.featured_landings.title')
-      - @featured_landings.each_slice(4) do |landings|
-        .row
-          = render landings
-
-      %p.text-center.white-on-dark
-        = t('.featured_landings.other_questions')
-        = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
-
-%section.section.section-white#steps
-  .container
-    %h2.section__title= t('.steps.title')
-    .row
-      .step
-        = image_tag 'landing/creer-blue.svg', height: 96
-        %p.step__label= t('.steps.label_1')
-      .step
-        = image_tag 'landing/gerer-blue.svg', height: 96
-        %p.step__label= t('.steps.label_2')
-      .step
-        = image_tag 'landing/collaborer-blue.svg', height: 96
-        %p.step__label= t('.steps.label_3')
-
+%section.section.section-white#description
   .container.container-medium
-    = render partial: 'stats', locals: { stats: @stats }
+    .lead-text
+      = t('.long_description_html')
 
-%section.section.section-grey#institutions
+%section.section.section-grey#steps
+  .container
+    = render 'steps'
+
+%section.section.section-color#featured-landings
+  .container
+    %h3.section__title= t('.featured_landings.title')
+    .grid
+      - @featured_landings.each_slice(4) do |landings|
+        = render landings
+
+    %p.text-center.white-on-dark
+      = t('.featured_landings.other_questions')
+      = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
+
+%section.section.section-white#institutions
   .container
     %h2.section__title
       = t('.institutions.title')
     .logo-list
       = all_institutions_images
 
-%section.section.section-white#testimonials
+%section.section.section-grey#testimonials
   .container
     %h2.section__title
       Témoignages
-    .grid
+    .row
       .card
         .card__content
           %p.testimony
@@ -70,5 +60,9 @@
             Christophe B.
             %br
             %strong Dirigeant de SOS Impact 02
+
+%section.section.section-grey#stats
+  .container.container-medium
+    = render partial: 'stats', locals: { stats: @stats }
 
 

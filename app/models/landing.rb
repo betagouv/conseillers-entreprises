@@ -25,5 +25,9 @@ class Landing < ApplicationRecord
   accepts_nested_attributes_for :landing_topics, allow_destroy: true
 
   scope :featured, -> { where(featured_on_home: true) }
-  scope :ordered_for_home, -> { order(:home_sort_order, :id) }
+  scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
+
+  def to_s
+    slug
+  end
 end
