@@ -295,30 +295,26 @@ fr:
     index:
       featured_landings:
         other_questions: Votre question n’est pas dans cette liste ?
-        title: 'Nous proposons un accompagnement gratuit et personnalisé pour :'
+        title: 'Sélectionnez votre demande :'
       hero:
-        subtitle: Échangez gratuitement avec le bon interlocuteur public selon votre demande.
-        title: Patrons de TPE et PME, plus de 2 000 aides et accompagnements publics existent pour vous aider à grandir ou surmonter une difficulté.
+        title: 'Place des entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
       institutions:
         title: '42 partenaires publics des Hauts-de-France à votre service :'
+      long_description_html: "<p>Patrons de TPE et PME, <strong>plus de 2 000 aides et accompagnements publics</strong> existent pour vous aider à grandir ou surmonter une difficulté.</p><p>Comment s’y retrouver parmi tous les organismes publics qui gèrent ces aides ? À quoi avez-vous droit ?</p><p><strong>Place des entreprises</strong> trouve pour vous <strong>le bon interlocuteur public</strong> pour une aide personnalisée.</p>"
       meta:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon interlocuteur.
         title: Place des entreprises, le guichet public d’accompagnement des TPE et PME
-      steps:
-        label_1: Complétez le formulaire en ligne.
-        label_2: L’équipe Place des entreprises oriente votre demande vers le bon interlocuteur public.
-        label_3: L’interlocuteur public vous rappelle et vous accompagne selon votre situation.
-        title: Comment ça se passe ?
-    landing:
-      discover: Découvrir
     show:
-      hero:
-        other_landings: Découvrez nos autres thématiques
+      description: Place des entreprises trouve pour vous le bon interlocuteur public pour une aide personnalisée.
+      experimental_html: Notre service est encore en phase d’expérimentation, nous répondons généralement <u>sous 15 jours</u> à votre demande.
       institutions:
         title: 'En partenariat avec :'
-      solicitation:
-        description: Échangez gratuitement avec le bon interlocuteur pour votre demande
-        experimental_html: Notre service est encore en phase d’expérimentation, nous répondons généralement <u>sous 15 jours</u> à votre demande.
+      other_landings: Plus de domaines d’aides aux entreprises
+    steps:
+      label_1: Précisez votre demande en ligne.
+      label_2: L’équipe Place des entreprises trouve pour vous le bon interlocuteur public.
+      label_3: L’interlocuteur public vous rappelle et vous accompagne selon votre situation.
+      title: Comment ça marche ?
   layouts:
     footer:
       contact_us: Contactez-nous !

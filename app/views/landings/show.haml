@@ -1,39 +1,55 @@
 - meta title: @landing.meta_title || @landing.title, description: @landing.meta_description || @landing.subtitle
 
-.hero.heading-background
-  .hero__container
-    %h1.hero__title.hero__white-background= @landing.title
-    %h4.hero__subtitle.white-on-dark= @landing.subtitle
-    - if @landing.button.present?
-      %h4.hero__call-to-action
-        = link_to @landing.button, '#envoyer-une-demande', { class: 'button', data: { turbolinks: "false" } }
-        = link_to t('.hero.other_landings'), root_path, { class: 'button secondary' }
-
-- if @landing.landing_topics.present?
-  %section.section.section-color.landing-topics-section
+- if @landing.featured_on_home
+  .hero
+    .hero__container
+      %h1.hero__title
+        = t('landings.index.hero.title')
+  - if @landing.landing_topics.present?
+    %section.section.section-white.landing-topics-section
+      .container
+        %h1.section__title
+          = @landing.title
+        %h3.section__subtitle
+          = t('.description')
+        .row
+          = render @landing.landing_topics.ordered_for_landing
+        %p.text-right
+          = link_to t('.other_landings'), root_path
+  - else
+    %section.section.section-white#description
+      .container.container-medium
+        .lead-text
+          = t('landings.index.long_description_html')
+  %section.section.section-grey#steps
     .container
-      .row
-        = render @landing.landing_topics.ordered_for_landing
-    #envoyer-une-demande
+      = render 'steps'
 
-%section.section.section-grey
-  .container.solicitation__container
-    .solicitation__aside
-      %h5= t('.solicitation.description')
-      %p= t('.solicitation.experimental_html')
-
-    .solicitation__form
-      .panel
-        #solicitation-form= render 'solicitations/form'
-
-  .container
-    = render partial: 'stats', locals: { stats: @stats }
+  %section.section.section-white
+    .container.container-small
+      = render 'solicitations/form'
+      %p
+        = t('.experimental_html')
+- else
+  .hero
+    .hero__container
+      %h1.hero__title
+        = @landing.title
+      %h3.hero__subtitle
+        = @landing.subtitle
+      .text-center
+        = link_to @url_to_root, class: 'button-outline primary large' do
+          = @landing.button
 
 - if @landing.logos.present?
-  %section.section.section-white
+  %section.section.section-white#institutions
     .container
       %h2.section__title
         = t('.institutions.title')
       .logo-list
         - @landing.logos.split(' ').each do |logo_slug|
           = institution_image(logo_slug)
+
+%section.section.section-grey#stats
+  .container.container-medium
+    = render partial: 'stats', locals: { stats: @stats }

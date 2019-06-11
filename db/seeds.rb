@@ -63,7 +63,7 @@ Landing.create({
   subtitle: 'Échangez gratuitement avec le bon interlocuteur public selon votre demande.',
   button: nil,
   logos: 'dirrecte, cci, cma, agefiph, cap-emploi',
-  featured_on_home: false,
+  featured_on_home: true,
   home_title: nil,
   home_description: nil,
   home_sort_order: nil,
