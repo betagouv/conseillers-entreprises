@@ -1,7 +1,7 @@
 - meta title: @landing.meta_title || @landing.title, description: @landing.meta_description || @landing.subtitle
 
 - if @landing.featured_on_home
-  .hero
+  .hero.hero-color
     .hero__container
       %h1.hero__title
         = t('landings.index.hero.title')
@@ -31,7 +31,7 @@
       %p
         = t('.experimental_html')
 - else
-  .hero
+  .hero.hero-color
     .hero__container
       %h1.hero__title
         = @landing.title
