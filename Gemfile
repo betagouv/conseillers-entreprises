@@ -20,8 +20,6 @@ gem 'pg'
 gem 'puma'
 
 # Assets
-gem 'coffee-rails'
-gem 'compass-rails'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'sass-rails'
