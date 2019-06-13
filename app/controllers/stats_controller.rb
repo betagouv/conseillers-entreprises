@@ -5,13 +5,7 @@ class StatsController < ApplicationController
   layout 'solicitations'
 
   def show
-    @stats = Stats::Stats.new(stats_params[:stats])
-    @stats.advisors = Stats::AdvisorsStats.new(@stats)
-    @stats.companies = Stats::CompaniesStats.new(@stats)
-    @stats.needs = Stats::NeedsStats.new(@stats)
-    @stats.experts = Stats::ExpertsStats.new(@stats)
-    @stats.matches = Stats::MatchesStats.new(@stats)
-    @stats.solicitations = Stats::SolicitationsStats.new(@stats)
+    @stats = Stats::Stats.new(stats_params)
   end
 
   def users
@@ -38,7 +32,7 @@ class StatsController < ApplicationController
   private
 
   def stats_params
-    params.permit(stats: [:territory, :institution])
+    params.permit(:territory, :institution)
   end
 
   def users_stats
