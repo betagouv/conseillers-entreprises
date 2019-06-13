@@ -33,10 +33,6 @@ class LandingsController < ApplicationController
   end
 
   def stats
-    stats = Stats::Stats.new
-    stats.companies = Stats::CompaniesStats.new(stats)
-    stats.needs = Stats::NeedsStats.new(stats)
-    stats.experts = Stats::ExpertsStats.new(stats)
-    stats
+    Stats::Stats.new
   end
 end
