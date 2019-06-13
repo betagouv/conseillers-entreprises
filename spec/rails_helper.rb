@@ -50,3 +50,4 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.javascript_driver = :chrome
+WebMock.disable_net_connect!(allow_localhost: true)
