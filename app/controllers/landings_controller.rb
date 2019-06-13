@@ -9,8 +9,7 @@ class LandingsController < ApplicationController
   end
 
   def show
-    slug = params[:slug]&.to_sym
-    @landing = Landing.find_by(slug: slug)
+    @landing = retrieve_landing
 
     redirect_to root_path if @landing.nil?
 
@@ -23,6 +22,11 @@ class LandingsController < ApplicationController
   end
 
   private
+
+  def retrieve_landing
+    slug = params.require(:slug)&.to_sym
+    Landing.find_by(slug: slug)
+  end
 
   def index_tracking_params
     params.permit(Solicitation::TRACKING_KEYS)
