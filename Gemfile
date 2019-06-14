@@ -10,7 +10,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.6.2'
+ruby '2.6.3'
 
 gem 'rails'
 
@@ -20,8 +20,6 @@ gem 'pg'
 gem 'puma'
 
 # Assets
-gem 'coffee-rails'
-gem 'compass-rails'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'sass-rails'
@@ -96,6 +94,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
   gem 'brakeman', require: false
 end
 

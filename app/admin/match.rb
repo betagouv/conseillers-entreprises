@@ -6,8 +6,8 @@ ActiveAdmin.register Match do
   ## Index
   #
   includes :need, :diagnosis, :facility, :company, :related_matches,
-    :advisor, :advisor_antenne, :expert, :expert_antenne,
-    need: :subject
+           :advisor, :advisor_antenne, :expert, :expert_antenne,
+           need: :subject
 
   scope :all, default: true
   scope :with_deleted_expert

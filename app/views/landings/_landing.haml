@@ -1,3 +1,7 @@
-.tile.text-center
+.card
   = link_to featured_landing_path(slug: landing.slug), class: '' do
-    %h5= landing.home_title
+    .card__content
+      %h3.landing-title= landing.home_title
+      %p.landing-description= landing.home_description
+
+

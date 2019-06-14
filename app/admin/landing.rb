@@ -54,6 +54,7 @@ ActiveAdmin.register Landing do
       row :subtitle
       row :button
       row :logos
+      row :description_example
       row :created_at
       row :updated_at
     end
@@ -75,8 +76,8 @@ ActiveAdmin.register Landing do
 
   ## Form
   #
-  permit_params :slug, :meta_title, :meta_description, :title, :subtitle, :button, :logos, :featured_on_home, :home_title, :home_description, :home_sort_order,
-    landing_topics_attributes: [:id, :title, :description, :landing_sort_order, :_destroy]
+  permit_params :slug, :meta_title, :meta_description, :title, :subtitle, :button, :logos, :description_example, :featured_on_home, :home_title, :home_description, :home_sort_order,
+                landing_topics_attributes: [:id, :title, :description, :landing_sort_order, :_destroy]
 
   form title: :slug do |f|
     f.inputs do
@@ -90,6 +91,7 @@ ActiveAdmin.register Landing do
       f.input :subtitle
       f.input :button
       f.input :logos
+      f.input :description_example
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do

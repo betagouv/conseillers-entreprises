@@ -4,8 +4,11 @@
 
 .hero__container
   min-height: 0px
+  h1.hero__title
+    font-size: 1.7em
 
 .hero
+  background: linear-gradient(45deg, #0053b3, #006be6)
   background: linear-gradient(45deg,var(--blue), var(--light-blue))
   .hero__container
     background: image-url('marianne-cover.svg') no-repeat
@@ -14,39 +17,50 @@
 section.section
   padding: 4em 0
 
+span.navbar__domain
+  white-space: nowrap // for IE11
+
 //  landings index and show
 
 section.section#featured-landings
+  background: linear-gradient(45deg, #0053b3, #006be6)
   background: linear-gradient(45deg,var(--blue), var(--light-blue))
   a:hover
     background: transparent
-  .grid
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))
-    grid-gap: 2em
-    .tile
-      padding: 2em 1em
-      border-radius: 3px
+  .row + .row
+    margin-top: 1.5em
+    margin-top: var(--space-m)
+  .card
+    overflow: visible
+    .card__content
+      padding: 1em
+    a
+      .landing-auto-description-container // unused for now
+        .landing-title
+          margin-bottom: 2em
+        .landing-description
+          margin: 0
+          display: none
+        &:hover
+          .landing-title
+            display: none
+          .landing-description
+            display: block
+      text-decoration: none
+      color: #0053b3
+      color: var(--blue)
       &:hover
-        transform: none
-      a
-        text-decoration: none
-        color: var(--blue)
-      a:hover
-        background: transparent
-        color: var(--dark-blue)
-      h5
-        margin: 0
+        color: #00234d
+        color: var(--darker-blue)
+        .landing-description
+          text-decoration: underline
 
-.section.landing-topics-section
-  padding: 4em 0 5em 0
-
-.landing-topic
+.step, .landing-topic
   display: flex
   flex-direction: column
   flex: 1
-
-.landing-topic__title
-  margin: 0
+  h5
+    margin-bottom: 0
 
 .logo-list
   width: 95%
@@ -57,17 +71,6 @@ section.section#featured-landings
     max-width: 140px
     margin: 8px
     vertical-align: middle
-
-.step
-  display: flex
-  flex-direction: column
-  flex: 1
-
-.step__label
-  margin: 2em 0 0 0
-  font-weight: bold
-  color: var(--darker-grey)
-  text-align: center
 
 .section#stats
   padding: 2em
@@ -80,10 +83,15 @@ section.section#featured-landings
     font-size: 1.6em
     vertical-align: text-top
 
-.testimony
-  font-style: italic
-  quotes: "« " " »" "“" "”"
+.section#testimonials
+  q
+    font-style: italic
+    quotes: "« " " »" "“" "”"
+  .article__author
+    padding: 0
 
-// For /stats
-.hero form
-  max-width: 100%
+// IE fixes
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
+  img[src*=".svg"]
+    width: 100%

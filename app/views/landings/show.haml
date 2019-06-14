@@ -1,45 +1,19 @@
 - meta title: @landing.meta_title || @landing.title, description: @landing.meta_description || @landing.subtitle
 
+= render 'hero'
+
+%section.section.section-white#landing-topics
+  .container
+    = render 'landing_details', landing: @landing, url_to_root: @url_to_root
+
 - if @landing.featured_on_home
-  .hero
-    .hero__container
-      %h1.hero__title
-        = t('landings.index.hero.title')
-  - if @landing.landing_topics.present?
-    %section.section.section-white.landing-topics-section
-      .container
-        %h1.section__title
-          = @landing.title
-        %h3.section__subtitle
-          = t('.description')
-        .row
-          = render @landing.landing_topics.ordered_for_landing
-        %p.text-right
-          = link_to t('.other_landings'), root_path
-  - else
-    %section.section.section-white#description
-      .container.container-medium
-        .lead-text
-          = t('landings.index.long_description_html')
   %section.section.section-grey#steps
     .container
       = render 'steps'
 
   %section.section.section-white
     .container.container-small
-      = render 'solicitations/form'
-      %p
-        = t('.experimental_html')
-- else
-  .hero
-    .hero__container
-      %h1.hero__title
-        = @landing.title
-      %h3.hero__subtitle
-        = @landing.subtitle
-      .text-center
-        = link_to @url_to_root, class: 'button-outline primary large' do
-          = @landing.button
+      = render 'solicitations/form', description_example: @landing.description_example
 
 - if @landing.logos.present?
   %section.section.section-white#institutions
@@ -52,4 +26,4 @@
 
 %section.section.section-grey#stats
   .container.container-medium
-    = render partial: 'stats', locals: { stats: @stats }
+    = render 'stats/ministats'

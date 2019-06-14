@@ -75,9 +75,9 @@ RSpec.describe NeedsController, type: :controller do
       context 'user is contacted for diagnosis' do
         before do
           create(:match,
-            expert_skill: expert_skill,
-            need: create(:need,
-              diagnosis: diagnosis))
+                 expert_skill: expert_skill,
+                 need: create(:need,
+                              diagnosis: diagnosis))
         end
 
         it('returns http success') { expect(response).to be_successful }

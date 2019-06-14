@@ -8,8 +8,8 @@ class ExpertReminderService
       build_matches_quo_not_taken
       @experts_matches.each do |expert, expert_matches|
         ExpertMailer.delay.remind_involvement(expert,
-          expert_matches.taken_not_done.compact,
-          expert_matches.quo_not_taken.compact)
+                                              expert_matches.taken_not_done.compact,
+                                              expert_matches.quo_not_taken.compact)
       end
     end
 

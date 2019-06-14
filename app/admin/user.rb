@@ -6,7 +6,7 @@ ActiveAdmin.register User do
   # Index
   #
   includes :antenne, :antenne_institution, :experts, :searches,
-    :sent_diagnoses, :sent_needs, :sent_matches
+           :sent_diagnoses, :sent_needs, :sent_matches
   config.sort_order = 'created_at_desc'
 
   scope :all, default: true
@@ -149,9 +149,9 @@ ActiveAdmin.register User do
   # Form
   #
   permit_params :full_name, :email, :institution, :role, :phone_number, :is_approved,
-    :contact_page_order, :contact_page_role,
-    :is_admin, :password, :password_confirmation,
-    :antenne_id, expert_ids: []
+                :contact_page_order, :contact_page_role,
+                :is_admin, :password, :password_confirmation,
+                :antenne_id, expert_ids: []
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
