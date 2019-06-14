@@ -1,6 +1,7 @@
 require:
   - rubocop-rspec
   - rubocop-performance
+  - rubocop-rails
 
 AllCops:
   TargetRubyVersion: 2.4
@@ -134,17 +135,17 @@ Layout/FirstMethodArgumentLineBreak:
 Layout/FirstMethodParameterLineBreak:
   Enabled: false
 
-Layout/FirstParameterIndentation:
-  Enabled: true
-
-Layout/IndentArray:
-  Enabled: true
-  EnforcedStyle: consistent
-
 Layout/IndentAssignment:
   Enabled: true
 
-Layout/IndentHash:
+Layout/IndentFirstArgument:
+  Enabled: true
+
+Layout/IndentFirstArrayElement:
+  Enabled: true
+  EnforcedStyle: consistent
+
+Layout/IndentFirstHashElement:
   Enabled: true
   EnforcedStyle: consistent
 

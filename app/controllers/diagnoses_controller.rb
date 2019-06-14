@@ -38,7 +38,7 @@ class DiagnosesController < ApplicationController
   def besoins
     @diagnosis = safe_diagnosis_param
     diagnosis_params = params.require(:diagnosis).permit(:content,
-      needs_attributes: [:_destroy, :content, :subject_id, :id])
+                                                         needs_attributes: [:_destroy, :content, :subject_id, :id])
     diagnosis_params[:step] = 3
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :step3, id: @diagnosis
@@ -87,9 +87,9 @@ class DiagnosesController < ApplicationController
     current_user.sent_diagnoses.archived(archived).order(created_at: :desc)
       .distinct
       .left_outer_joins(:matches,
-        needs: :matches)
+                        needs: :matches)
       .includes(:matches,
-        :visitee, facility: :company,
+                :visitee, facility: :company,
         needs: :matches)
   end
 

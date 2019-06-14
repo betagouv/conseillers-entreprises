@@ -41,8 +41,8 @@ RSpec.describe Antenne, type: :model do
       let(:user) { build :user, antenne: antenne }
       let!(:match) do
         create :match,
-          need: build(:need,
-            diagnosis: build(:diagnosis, advisor: user))
+               need: build(:need,
+                           diagnosis: build(:diagnosis, advisor: user))
       end
 
       it { is_expected.to eq [match] }

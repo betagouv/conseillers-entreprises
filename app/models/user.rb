@@ -63,10 +63,10 @@ class User < ApplicationRecord
   validates :full_name, :email, :phone_number, presence: true
 
   validates :email,
-    uniqueness: true,
-    format: { with: Devise.email_regexp },
-    allow_blank: true,
-    if: :will_save_change_to_email?
+            uniqueness: true,
+            format: { with: Devise.email_regexp },
+            allow_blank: true,
+            if: :will_save_change_to_email?
 
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?

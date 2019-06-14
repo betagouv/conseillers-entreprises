@@ -13,8 +13,4 @@ module DiagnosisHelper
       'completed'
     end
   end
-
-  def diagnosis_matches_count
-    @diagnosis.needs.flat_map(&:matches).count
-  end
 end
