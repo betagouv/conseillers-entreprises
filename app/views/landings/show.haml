@@ -3,8 +3,7 @@
 - if @landing.featured_on_home
   .hero.hero-color
     .hero__container
-      %h1.hero__title
-        = t('landings.index.hero.title')
+      %h1.hero__title= t('landings.index.hero.title')
   - if @landing.landing_topics.present?
     %section.section.section-white
       .container
@@ -12,10 +11,13 @@
           = @landing.title
         %h3.section__subtitle
           = t('.description')
+        %h3
+          = t('.exemple_topics')
         .row
           = render @landing.landing_topics.ordered_for_landing
-        %p.text-right
-          = link_to t('.other_landings'), root_path
+        %p
+          = t('.not_in_topics')
+          = link_to t('.not_in_topics_more'), root_path
   - else
     %section.section.section-white#description
       .container.container-medium

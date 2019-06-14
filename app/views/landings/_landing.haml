@@ -1,5 +1,7 @@
 .card
-  .card__content
-    = link_to featured_landing_path(slug: landing.slug), class: '' do
-      .text-center
-        %h6= landing.home_title
+  = link_to featured_landing_path(slug: landing.slug), class: '' do
+    .card__content
+      %h3.landing-title= landing.home_title
+      %p.landing-description= landing.home_description
+
+

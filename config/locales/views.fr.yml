@@ -306,10 +306,12 @@ fr:
         title: Place des entreprises, le guichet public d’accompagnement des TPE et PME
     show:
       description: Place des entreprises trouve pour vous le bon interlocuteur public pour une aide personnalisée.
+      exemple_topics: 'Exemples d’aides :'
       experimental_html: Notre service est encore en phase d’expérimentation, nous répondons généralement <u>sous 15 jours</u> à votre demande.
       institutions:
         title: 'En partenariat avec :'
-      other_landings: Plus de domaines d’aides aux entreprises
+      not_in_topics: Votre question n’est pas dans cette liste ?
+      not_in_topics_more: Voir tous les domaines d’aides aux entreprises
     steps:
       label_1_html: 1. Précisez votre demande en ligne.
       label_2_html: 2. L’équipe <em>Place des entreprises</em> trouve pour vous le bon interlocuteur public.

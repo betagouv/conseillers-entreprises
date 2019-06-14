@@ -4,6 +4,8 @@
 
 .hero__container
   min-height: 0px
+  h1.hero__title
+    font-size: 1.7em
 
 .hero
   background: linear-gradient(45deg, #0053b3, #006be6)
@@ -29,14 +31,29 @@ section.section#featured-landings
     margin-top: 1.5em
     margin-top: var(--space-m)
   .card
+    overflow: visible
+    .card__content
+      padding: 1em
     a
+      .landing-auto-description-container // unused for now
+        .landing-title
+          margin-bottom: 2em
+        .landing-description
+          margin: 0
+          display: none
+        &:hover
+          .landing-title
+            display: none
+          .landing-description
+            display: block
       text-decoration: none
       color: #0053b3
       color: var(--blue)
-    a:hover
-      background: transparent
-      color: #003b80
-      color: var(--dark-blue)
+      &:hover
+        color: #00234d
+        color: var(--darker-blue)
+        .landing-description
+          text-decoration: underline
 
 .step, .landing-topic
   display: flex
@@ -54,7 +71,6 @@ section.section#featured-landings
     max-width: 140px
     margin: 8px
     vertical-align: middle
-
 
 .section#stats
   padding: 2em
