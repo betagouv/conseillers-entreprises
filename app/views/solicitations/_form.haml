@@ -4,7 +4,8 @@
       = f.hidden_field "form_info[#{k}]", value: v
     .form__group
       = f.label 'description', t('.description.label')
-      = f.text_area 'description', placeholder: t('.description.placeholder'), rows: 6, required: true
+      - example = local_assigns[:description_example] || t('.description.default_example')
+      = f.text_area 'description', placeholder: t('.description.placeholder', example: example), rows: 6, required: true
     .form__group
       .form__group
         = f.label 'phone_number', t('.phone_number.label')
