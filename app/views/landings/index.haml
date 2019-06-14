@@ -15,7 +15,7 @@
 
 %section.section.section-color#featured-landings
   .container
-    %h3.section__title= t('.featured_landings.title')
+    %h2.section__title= t('.featured_landings.title')
     - @featured_landings.each_slice(4) do |landings|
       .row
         = render landings
