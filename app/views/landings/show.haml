@@ -13,7 +13,7 @@
 
   %section.section.section-white
     .container.container-small
-      = render 'solicitations/form'
+      = render 'solicitations/form', description_example: @landing.description_example
 
 - if @landing.logos.present?
   %section.section.section-white#institutions
