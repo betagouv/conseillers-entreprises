@@ -15,7 +15,7 @@
 
 %section.section.section-color#featured-landings
   .container
-    %h3.section__title= t('.featured_landings.title')
+    %h2.section__title= t('.featured_landings.title')
     - @featured_landings.each_slice(4) do |landings|
       .row
         = render landings
@@ -38,11 +38,10 @@
     .row
       .card
         .card__content
-          %p.testimony
-            %q
-              Place des entreprises est très réactive et pratique ! Ils nous ont permis une mise en relation rapide avec les bonnes personnes quand nous en avions besoin.
-              %br
-              Nous avons donc pu clôturer notre dossier dans les délais.
+          %q
+            Place des entreprises est très réactive et pratique ! Ils nous ont permis une mise en relation rapide avec les bonnes personnes quand nous en avions besoin.
+            %br
+            Nous avons donc pu clôturer notre dossier dans les délais.
         .card__extra
           .article__author
             Clément Francomme
@@ -50,11 +49,10 @@
             %strong CEO de UTOCAT
       .card
         .card__content
-          %p.testimony
-            %q
-              J’ai découvert qu’il existait des partenaires publics experts de mes besoins d’entreprise. Ils m’ont accompagné sur des questions de ressources humaines, de développement commercial et de réglementation.
-              %br
-              Ils font un super job.
+          %q
+            J’ai découvert qu’il existait des partenaires publics experts de mes besoins d’entreprise. Ils m’ont accompagné sur des questions de ressources humaines, de développement commercial et de réglementation.
+            %br
+            Ils font un super job.
         .card__extra
           .article__author
             Christophe B.
