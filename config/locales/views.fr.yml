@@ -519,9 +519,9 @@ fr:
     series:
       advisors_html: <span class="count">%{count}</span> conseillers inscrits
       companies_html: <span class="count">%{count}</span> entreprises aidées
-      experts_html: <span class="count">%{count}</span> référents
+      experts_html: <span class="count">%{count}</span> interlocuteurs publics
       matches_html: <span class="count">%{count}</span> mises en relation
-      needs_html: <span class="count">%{count}</span> besoins transmis
+      needs_html: <span class="count">%{count}</span> demandes transmises
       solicitations_html: <span class="count">%{count}</span> sollicitations directes
     show:
       all: Tous
