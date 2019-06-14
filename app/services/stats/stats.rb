@@ -1,5 +1,7 @@
 module Stats
   class Stats
+    attr_reader :params
+
     def initialize(params = {})
       @params = OpenStruct.new(params)
     end

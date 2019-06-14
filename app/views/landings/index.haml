@@ -1,8 +1,6 @@
 - meta title: t('.meta.title'), description: t('.meta.description')
 
-.hero.hero-color
-  .hero__container
-    %h1.hero__title= t('.hero.title')
+= render 'hero'
 
 %section.section.section-white#description
   .container.container-medium
@@ -15,52 +13,18 @@
 
 %section.section.section-color#featured-landings
   .container
-    %h2.section__title= t('.featured_landings.title')
-    - @featured_landings.each_slice(4) do |landings|
-      .row
-        = render landings
-
-    %p.text-center.white-on-dark
-      = t('.featured_landings.other_questions')
-      = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
+    = render 'landings', landings: @featured_landings
 
 %section.section.section-white#institutions
   .container
-    %h2.section__title
-      = t('.institutions.title')
-    .logo-list
-      = all_institutions_images
+    = render 'institutions'
 
 %section.section.section-grey#testimonials
   .container
-    %h2.section__title
-      Témoignages
-    .row
-      .card
-        .card__content
-          %q
-            Place des entreprises est très réactive et pratique ! Ils nous ont permis une mise en relation rapide avec les bonnes personnes quand nous en avions besoin.
-            %br
-            Nous avons donc pu clôturer notre dossier dans les délais.
-        .card__extra
-          .article__author
-            Clément Francomme
-            %br
-            %strong CEO de UTOCAT
-      .card
-        .card__content
-          %q
-            J’ai découvert qu’il existait des partenaires publics experts de mes besoins d’entreprise. Ils m’ont accompagné sur des questions de ressources humaines, de développement commercial et de réglementation.
-            %br
-            Ils font un super job.
-        .card__extra
-          .article__author
-            Christophe B.
-            %br
-            %strong Dirigeant de SOS Impact 02
+    = render 'testimonials'
 
 %section.section.section-grey#stats
   .container.container-medium
-    = render partial: 'stats', locals: { stats: @stats }
+    = render 'stats/ministats'
 
 

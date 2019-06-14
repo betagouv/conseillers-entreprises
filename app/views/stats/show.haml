@@ -9,22 +9,5 @@
 
 %section.section.section-grey
   .container.container-full
-    .panel
-      = form_with(url: stats_path, method: :get, skip_enforcing_utf8: true) do
-        .row.form__group
-          - options = { include_blank: t('.all'), class: 'ui dropdown', onchange: 'this.form.submit();' }
-          %div
-            = label_tag(t('activerecord.models.territory.one'))
-            = select_tag(:territory,
-              options_from_collection_for_select(Territory.bassins_emploi.order(:name), :id, :name, params[:territory]),
-              options.dup)
-          %div
-            = label_tag(t('activerecord.models.institution.one'))
-            = select_tag(:institution,
-              options_from_collection_for_select(Institution.all.order(:name), :id, :name, params[:institution]),
-              options.dup)
-
-    - names = [:companies, :needs, :matches, :advisors, :experts, :solicitations]
-    .grid
-      - names.each do |name|
-        = render partial: 'stats_chart', locals: { stats: @stats, name: name }
+    = render 'stats_params'
+    = render 'stats/stats_charts', stats: @stats
