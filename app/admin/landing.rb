@@ -76,7 +76,7 @@ ActiveAdmin.register Landing do
   ## Form
   #
   permit_params :slug, :meta_title, :meta_description, :title, :subtitle, :button, :logos, :featured_on_home, :home_title, :home_description, :home_sort_order,
-    landing_topics_attributes: [:id, :title, :description, :landing_sort_order, :_destroy]
+                landing_topics_attributes: [:id, :title, :description, :landing_sort_order, :_destroy]
 
   form title: :slug do |f|
     f.inputs do

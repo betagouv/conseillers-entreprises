@@ -12,28 +12,28 @@ describe UseCases::UpdateExpertViewedPageAt do
 
     let!(:match_with_date) do
       create :match,
-        need: need,
-        expert_skill: create(:expert_skill, expert: expert),
-        expert_viewed_page_at: 1.day.ago
+             need: need,
+             expert_skill: create(:expert_skill, expert: expert),
+             expert_viewed_page_at: 1.day.ago
     end
 
     let!(:match_without_date) do
       create :match,
-        need: need,
-        expert_skill: create(:expert_skill, expert: expert),
-        expert_viewed_page_at: nil
+             need: need,
+             expert_skill: create(:expert_skill, expert: expert),
+             expert_viewed_page_at: nil
     end
 
     let!(:match_without_need) do
       create :match,
-        expert_skill: create(:expert_skill, expert: expert),
-        expert_viewed_page_at: nil
+             expert_skill: create(:expert_skill, expert: expert),
+             expert_viewed_page_at: nil
     end
 
     let!(:match_without_expert_skill) do
       create :match,
-        need: need,
-        expert_viewed_page_at: nil
+             need: need,
+             expert_viewed_page_at: nil
     end
 
     before { perform_use_case }

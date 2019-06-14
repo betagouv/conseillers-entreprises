@@ -17,8 +17,8 @@ RSpec.describe ExpertSkill, type: :model do
 
       let(:need) do
         create :need,
-          subject: create(:subject),
-          diagnosis: create(:diagnosis, facility: create(:facility, commune: create(:commune)))
+               subject: create(:subject),
+               diagnosis: create(:diagnosis, facility: create(:facility, commune: create(:commune)))
       end
 
       let(:relevant_skill) { create(:skill, subject: need.subject) }
