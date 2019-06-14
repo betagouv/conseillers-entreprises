@@ -293,9 +293,6 @@ fr:
       step4_title_html: Mise en contact
   landings:
     index:
-      featured_landings:
-        other_questions: Votre question n’est pas dans cette liste ?
-        title: 'Sélectionnez votre demande :'
       hero:
         title: 'Place des entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
       institutions:
@@ -304,6 +301,10 @@ fr:
       meta:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon interlocuteur.
         title: Place des entreprises, le guichet public d’accompagnement des TPE et PME
+    landings:
+      other_questions: Votre question n’est pas dans cette liste ?
+      title: 'Sélectionnez votre demande :'
+      contact_us: Contactez-nous directement
     show:
       description: Place des entreprises trouve pour vous le bon interlocuteur public pour une aide personnalisée.
       exemple_topics: 'Exemples d’aides :'

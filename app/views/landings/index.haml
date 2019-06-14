@@ -15,14 +15,7 @@
 
 %section.section.section-color#featured-landings
   .container
-    %h2.section__title= t('.featured_landings.title')
-    - @featured_landings.each_slice(4) do |landings|
-      .row
-        = render landings
-
-    %p.text-center.white-on-dark
-      = t('.featured_landings.other_questions')
-      = link_to "Contactez-nous directement", featured_landing_path(slug: 'contactez-nous')
+    = render 'landings', landings: @featured_landings
 
 %section.section.section-white#institutions
   .container
