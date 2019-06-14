@@ -16,8 +16,8 @@
 %section.section.section-color#featured-landings
   .container
     %h3.section__title= t('.featured_landings.title')
-    .grid
-      - @featured_landings.each_slice(4) do |landings|
+    - @featured_landings.each_slice(4) do |landings|
+      .row
         = render landings
 
     %p.text-center.white-on-dark
