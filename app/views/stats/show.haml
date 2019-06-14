@@ -10,8 +10,4 @@
 %section.section.section-grey
   .container.container-full
     = render 'stats_params'
-
-    .grid#stats
-      - names = [:companies, :needs, :matches, :advisors, :experts, :solicitations]
-      - names.each do |name|
-        = render 'stats_chart', stats: @stats, name: name
+    = render 'stats/stats_charts', stats: @stats
