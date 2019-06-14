@@ -38,16 +38,12 @@ section.section#featured-landings
       color: #003b80
       color: var(--dark-blue)
 
-.section.landing-topics-section
-  padding: 4em 0 5em 0
-
-.landing-topic
+.step, .landing-topic
   display: flex
   flex-direction: column
   flex: 1
-
-.landing-topic__title
-  margin: 0
+  h5
+    margin-bottom: 0
 
 .logo-list
   width: 95%
@@ -59,10 +55,6 @@ section.section#featured-landings
     margin: 8px
     vertical-align: middle
 
-.step
-  display: flex
-  flex-direction: column
-  flex: 1
 
 .section#stats
   padding: 2em
@@ -75,13 +67,12 @@ section.section#featured-landings
     font-size: 1.6em
     vertical-align: text-top
 
-.testimony
-  font-style: italic
-  quotes: "« " " »" "“" "”"
-
-// For /stats
-.hero form
-  max-width: 100%
+.section#testimonials
+  q
+    font-style: italic
+    quotes: "« " " »" "“" "”"
+  .article__author
+    padding: 0
 
 // IE fixes
 
