@@ -5,7 +5,6 @@ class LandingsController < ApplicationController
 
   def index
     @featured_landings = Landing.featured.ordered_for_home
-    @stats = stats
   end
 
   def show
@@ -17,8 +16,6 @@ class LandingsController < ApplicationController
 
     @solicitation = Solicitation.new
     @solicitation.form_info = index_tracking_params
-
-    @stats = stats
   end
 
   private
@@ -30,9 +27,5 @@ class LandingsController < ApplicationController
 
   def index_tracking_params
     params.permit(Solicitation::TRACKING_KEYS)
-  end
-
-  def stats
-    Stats::Stats.new
   end
 end
