@@ -1,10 +1,10 @@
-- cache(landing) do
-  %h1.section__title
-    = landing.title
-  %h3.section__subtitle
-    = landing.subtitle
+%h1.section__title
+  = landing.title
+%h3.section__subtitle
+  = landing.subtitle
 
-  - if landing.featured_on_home
+- if landing.featured_on_home
+  - cache(landing) do
     - if landing.landing_topics.present?
       %h3
         = t('.exemple_topics')
@@ -14,7 +14,7 @@
         = t('.not_in_topics')
         = link_to t('.not_in_topics_more'), root_path
 
-  - else
-    %p.text-center
-      = link_to url_to_root, class: 'button primary large' do
-        = landing.button
+- else
+  %p.text-center
+    = link_to url_to_root, class: 'button primary large' do # !!! the cache breaks the url_to_root params
+      = landing.button
