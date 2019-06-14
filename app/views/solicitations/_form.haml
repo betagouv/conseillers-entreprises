@@ -15,6 +15,5 @@
         = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
     .form__group
       = render 'solicitations/flashes'
-      = f.button :submit, class: 'button large' do
-        = t('.button.title')
+      = f.submit t('.button.title'), class: 'button large'
   %p= t('.experimental_html')
