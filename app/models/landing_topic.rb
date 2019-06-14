@@ -20,7 +20,7 @@
 #
 
 class LandingTopic < ApplicationRecord
-  belongs_to :landing, inverse_of: :landing_topics
+  belongs_to :landing, inverse_of: :landing_topics, touch: true
 
   scope :ordered_for_landing, -> { order(:landing_sort_order, :id) }
 end

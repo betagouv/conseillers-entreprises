@@ -12,7 +12,7 @@ class LandingsController < ApplicationController
 
     redirect_to root_path if @landing.nil?
 
-    @url_to_root = root_path(params.permit(Solicitation::TRACKING_KEYS))
+    @url_to_root = root_path(index_tracking_params)
 
     @solicitation = Solicitation.new
     @solicitation.form_info = index_tracking_params
@@ -21,11 +21,15 @@ class LandingsController < ApplicationController
   private
 
   def retrieve_landing
-    slug = params.require(:slug)&.to_sym
+    slug = safe_params[:slug]&.to_sym
     Landing.find_by(slug: slug)
   end
 
   def index_tracking_params
-    params.permit(Solicitation::TRACKING_KEYS)
+    safe_params.slice(*Solicitation::TRACKING_KEYS)
+  end
+
+  def safe_params
+    params.permit(:slug, *Solicitation::TRACKING_KEYS)
   end
 end

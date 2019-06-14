@@ -292,27 +292,26 @@ fr:
       step3_title_html: Informations complémentaires
       step4_title_html: Mise en contact
   landings:
+    hero:
+      title: 'Place des entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
     index:
-      hero:
-        title: 'Place des entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
       long_description_html: "<p>Patrons de TPE et PME, <strong>plus de 2 000 aides et accompagnements publics</strong> existent pour vous aider à grandir ou surmonter une difficulté.</p><p>Comment s’y retrouver parmi tous les organismes publics qui gèrent ces aides ? À quoi avez-vous droit ?</p><p><strong>Place des entreprises</strong> trouve pour vous <strong>le bon interlocuteur public</strong> pour une aide personnalisée.</p>"
       meta:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon interlocuteur.
         title: Place des entreprises, le guichet public d’accompagnement des TPE et PME
     institutions:
       title: '42 partenaires publics des Hauts-de-France à votre service :'
-    landings:
-      other_questions: Votre question n’est pas dans cette liste ?
-      title: 'Sélectionnez votre demande :'
-      contact_us: Contactez-nous directement
-    show:
-      description: Place des entreprises trouve pour vous le bon interlocuteur public pour une aide personnalisée.
+    landing_details:
       exemple_topics: 'Exemples d’aides :'
-      experimental_html: Notre service est encore en phase d’expérimentation, nous répondons généralement <u>sous 15 jours</u> à votre demande.
-      institutions:
-        title: 'En partenariat avec :'
       not_in_topics: Votre question n’est pas dans cette liste ?
       not_in_topics_more: Voir tous les domaines d’aides aux entreprises
+    landings:
+      contact_us: Contactez-nous directement
+      other_questions: Votre question n’est pas dans cette liste ?
+      title: 'Sélectionnez votre demande :'
+    show:
+      institutions:
+        title: 'En partenariat avec :'
     steps:
       label_1_html: 1. Précisez votre demande en ligne.
       label_2_html: 2. L’équipe <em>Place des entreprises</em> trouve pour vous le bon interlocuteur public.
@@ -486,6 +485,7 @@ fr:
       email:
         label: Email
         placeholder: marie.dupont@exemple.fr
+      experimental_html: Notre service est encore en phase d’expérimentation, nous répondons généralement <u>sous 15 jours</u> à votre demande.
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
@@ -525,8 +525,9 @@ fr:
       needs_html: <span class="count">%{count}</span> demandes transmises
       solicitations_html: <span class="count">%{count}</span> sollicitations directes
     show:
-      all: Tous
       title: Statistiques d’utilisation
+    stats_params:
+      all: Tous
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
