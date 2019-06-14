@@ -311,9 +311,9 @@ fr:
         title: 'En partenariat avec :'
       other_landings: Plus de domaines d’aides aux entreprises
     steps:
-      label_1: Précisez votre demande en ligne.
-      label_2: L’équipe Place des entreprises trouve pour vous le bon interlocuteur public.
-      label_3: L’interlocuteur public vous rappelle et vous accompagne selon votre situation.
+      label_1: 1. Précisez votre demande en ligne.
+      label_2: 2. L’équipe Place des entreprises trouve pour vous le bon interlocuteur public.
+      label_3: 3. L’interlocuteur public vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
   layouts:
     footer:
