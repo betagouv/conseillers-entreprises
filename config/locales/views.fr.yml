@@ -295,9 +295,9 @@ fr:
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME'
     index:
-      long_description_html: "<p>Patrons de TPE et PME, <strong>plus de 2 000 aides et accompagnements publics</strong> existent pour vous aider à grandir ou surmonter une difficulté.</p><p>Comment s’y retrouver parmi tous les organismes publics qui gèrent ces aides ? À quoi avez-vous droit ?</p><p><strong>Place des Entreprises</strong> trouve pour vous <strong>le bon interlocuteur public</strong> pour une aide personnalisée.</p>"
+      long_description_html: "<p>Patrons de TPE et PME, <strong>plus de 2 000 aides et accompagnements publics</strong> existent pour vous aider à grandir ou surmonter une difficulté.</p><p>Comment s’y retrouver parmi tous les organismes publics qui gèrent ces aides ? À quoi avez-vous droit ?</p><p><strong>Place des Entreprises</strong> trouve pour vous <strong>le bon conseiller public</strong> pour une aide personnalisée.</p>"
       meta:
-        description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon interlocuteur.
+        description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
         title: Place des Entreprises, le guichet public d’accompagnement des TPE et PME
     institutions:
       title: '42 partenaires publics des Hauts-de-France à votre service :'
@@ -314,8 +314,8 @@ fr:
         title: 'En partenariat avec :'
     steps:
       label_1_html: 1. Précisez votre demande en ligne.
-      label_2_html: 2. L’équipe <em>Place des Entreprises</em> trouve pour vous le bon interlocuteur public.
-      label_3_html: 3. L’interlocuteur public vous rappelle et vous accompagne selon votre situation.
+      label_2_html: 2. L’équipe <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
+      label_3_html: 3. Le conseiller vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
   layouts:
     footer:
@@ -521,7 +521,7 @@ fr:
     series:
       advisors_html: <span class="count">%{count}</span> conseillers inscrits
       companies_html: <span class="count">%{count}</span> entreprises aidées
-      experts_html: <span class="count">%{count}</span> interlocuteurs publics
+      experts_html: <span class="count">%{count}</span> conseillers publics
       matches_html: <span class="count">%{count}</span> mises en relation
       needs_html: <span class="count">%{count}</span> demandes transmises
       solicitations_html: <span class="count">%{count}</span> sollicitations directes
