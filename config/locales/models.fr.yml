@@ -132,6 +132,7 @@ fr:
         needs: Besoins sélectionnés
         pk_campaign: Campagne
         pk_kwd: Mots-clés
+        slug: Page thématique
         tracking: Suivi
       subject:
         is_support: Support

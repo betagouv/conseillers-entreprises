@@ -27,10 +27,11 @@ class Solicitation < ApplicationRecord
   #
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
   scope :of_alternative, -> (alternative) { where("form_info->>'alternative' = ?", alternative) }
+  scope :of_slug, -> (slug) { where("form_info->>'slug' = ?", slug) }
 
   ## JSON Accessors
   #
-  TRACKING_KEYS = %i[pk_campaign pk_kwd]
+  TRACKING_KEYS = %i[pk_campaign pk_kwd slug]
   FORM_INFO_KEYS = [:alternative] + TRACKING_KEYS
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
