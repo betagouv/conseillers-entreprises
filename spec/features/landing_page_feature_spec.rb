@@ -13,6 +13,6 @@ describe 'Landing Page Feature', type: :feature do
       click_link 'Go to Home'
     end
 
-    it { expect(page).to have_current_path '/?pk_campaign=foo&pk_kwd=bar' }
+    it { expect(page).to have_current_path '/?pk_campaign=foo&pk_kwd=bar&slug=landing' }
   end
 end
