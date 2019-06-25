@@ -9,7 +9,7 @@
 :javascript
   (function() {
     var container = "#{chart_name}"
-    var months = #{ data.all_months.map{ |d| I18n.l(d, format: '%b %y') }.to_json.html_safe }
+    var months = #{ data.all_months.map{ |d| I18n.l(d, format: :month) }.to_json.html_safe }
     var max_value = #{ data.max_value }
     var series = #{ data.series.to_json.html_safe }
 

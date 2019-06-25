@@ -6,7 +6,7 @@
 .ui.segments.shadow-less
   .ui.segment.secondary
     .ui.header
-      = t('.visit_made_on', date: I18n.l(@diagnosis.display_date, format: '%-d %B %Y'))
+      = t('.visit_made_on', date: I18n.l(@diagnosis.display_date, format: :long))
       .sub.header= @diagnosis.needs.human_count
   .ui.segment
     = render partial: 'needs/company', locals: { diagnosis: @diagnosis }

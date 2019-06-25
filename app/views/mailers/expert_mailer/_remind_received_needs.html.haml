@@ -10,7 +10,7 @@
       %strong
         %a{ href: path }= diagnosis.company.name
       —
-      = t('mailers.expert_mailer.remind_involvement.visited_at', date: I18n.l(diagnosis.display_date, format: '%-d %B %Y'))
+      = t('mailers.expert_mailer.remind_involvement.visited_at', date: I18n.l(diagnosis.display_date, format: :long))
       %ul
         - diagnosis.needs.merge(received_needs).each do |need|
           %li
