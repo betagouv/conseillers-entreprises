@@ -2,7 +2,7 @@
   .panel#stats-params
     = form_with(url: stats_path, method: :get, skip_enforcing_utf8: true) do
       .row.form__group
-        - options = { include_blank: t('.all'), class: 'ui dropdown', onchange: 'this.form.submit();' }
+        - options = { include_blank: t('.all'), onchange: 'this.form.submit();' }
         %div
           = label_tag(t('activerecord.models.territory.one'))
           = select_tag(:territory,

@@ -11,9 +11,9 @@
     - if diagnosis.completed?
       - diagnosis.needs.each do |need|
         - if needs_of_interest.blank? || needs_of_interest.include?(need)
-          .diagnoses-list-item-need
-            %h4.ui.header
-              = need.subject
-              .match-status= status_label(need.status)
-              .sub.header= need.matches.human_count
+          %h4.ui.header
+            = need.subject
+            .match-status= status_label(need.status)
+            .sub.header
+              = need.matches.human_count
     = render 'diagnoses/archive_action', diagnosis: diagnosis
