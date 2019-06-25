@@ -244,6 +244,8 @@ fr:
     archives:
       browse_active_diagnoses: Voir les analyses en cours
       title: Analyses archivées
+    diagnosis:
+      last_activity_date: dernière activité le %{l}
     index:
       browse_archived_diagnoses: Voir les analyses archivées
       completed_diagnoses: Analyses réalisées
