@@ -10,6 +10,10 @@
         = active_link_to besoins_path, class: 'item' do
           %i.bullseye.icon
           = t('needs.index.title')
+      - if current_user.is_admin?
+        = active_link_to reminders_path, class: 'item' do
+          %i.ambulance.icon
+          = t('reminders.index.title')
 
     - else # not signed in
       = active_link_to qui_sommes_nous_path, class: 'item' do
