@@ -14,8 +14,8 @@ RSpec.describe 'mailers/admin_mailer/weekly_statistics.html.haml', type: :view d
         updated_diagnoses: { count: 2, items: diagnoses },
         completed_diagnoses: { count: 2, items: diagnoses },
         matches_count: 3,
-        quo_not_taken_after_3_weeks: 2,
-        taken_not_done_after_3_weeks: 2,
+        abandoned_quo_not_taken: 2,
+        abandoned_taken_not_done: 2,
         rejected: 2
       }
 
@@ -37,8 +37,8 @@ RSpec.describe 'mailers/admin_mailer/weekly_statistics.html.haml', type: :view d
         updated_diagnoses: { count: 0, items: [] },
         completed_diagnoses: { count: 0, items: [] },
         matches_count: 0,
-        quo_not_taken_after_3_weeks: 0,
-        taken_not_done_after_3_weeks: 0,
+        abandoned_quo_not_taken: 0,
+        abandoned_taken_not_done: 0,
         rejected: 0
       }
 

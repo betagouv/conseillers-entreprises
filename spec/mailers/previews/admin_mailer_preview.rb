@@ -29,8 +29,8 @@ class AdminMailerPreview < ActionMailer::Preview
         count: @completed_diagnoses.count,
         items: @completed_diagnoses
       },
-      quo_not_taken_after_3_weeks: Need.quo_not_taken_after_3_weeks.count,
-      taken_not_done_after_3_weeks: Need.taken_not_done_after_3_weeks.count,
+      abandoned_quo_not_taken: Need.abandoned_quo_not_taken.count,
+      abandoned_taken_not_done: Need.abandoned_taken_not_done.count,
       rejected: Need.rejected.count,
       matches_count: 12
     }
