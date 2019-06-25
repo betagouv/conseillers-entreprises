@@ -1,20 +1,23 @@
 %p= t('mailers.hello_name', name: @expert.full_name)
 
 - link_to_root = link_to t('app_name'), root_url
-%p= t('.here_is_a_summary_email_html', link_to_root: link_to_root)
+%p= t('.needs_for_you', link_to_root: link_to_root)
 
-- if @matches_quo_not_taken.present?
-  %h3= t('.quo_not_taken')
-  %p= t('.quo_not_taken_details')
-  - locals = { matches: @matches_quo_not_taken,
-  access_token: @access_token }
-  = render partial: 'mailers/expert_mailer/reminders_match', locals: locals
+= render 'mailers/expert_mailer/remind_received_needs',
+  received_needs: @needs_quo,
+  access_token: @access_token,
+  title: t('.needs_quo'),
+  subtitle: t('.needs_quo_details')
 
-- if @matches_taken_not_done.present?
-  %h3= t('.taken_not_done')
-  %p= t('.taken_not_done_details')
-  - locals = { matches: @matches_taken_not_done,
-  access_token: @access_token }
-  = render partial: 'mailers/expert_mailer/reminders_match', locals: locals
+= render 'mailers/expert_mailer/remind_received_needs',
+  received_needs: @needs_taking_care,
+  access_token: @access_token,
+  title: t('.needs_taking_care'),
+  subtitle: t('.needs_taking_care_details')
+
+= render 'mailers/expert_mailer/remind_received_needs',
+  received_needs: @needs_others_taking_care,
+  access_token: @access_token,
+  title: t('.needs_others_taking_care')
 
 %p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to_root)
