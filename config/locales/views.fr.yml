@@ -335,14 +335,12 @@ fr:
   mailers:
     admin_mailer:
       new_user_approved_notification:
-        hello: Bonjour,
         place_des_entreprises_app_html: L’application %{link_to_root}.
         subject: 'Re: [Place des Entreprises] %{full_name} vient de s’inscrire !'
         user_was_approved: L’utilisateur %{user_full_name} <%{user_email}> a été validé par %{admin_full_name}.
       new_user_created_notification:
         activate_their_account_html: "%{click_here_link} pour valider son compte."
         click_here: Cliquez ici
-        hello: Bonjour,
         place_des_entreprises_app_html: L’application %{link_to_root}.
         subject: "[Place des Entreprises] %{full_name} vient de s’inscrire"
         user_has_signed_up: "%{full_name} <%{email}> vient de s’inscrire."
@@ -397,12 +395,9 @@ fr:
         click_here: Voir les détails de la visite
         company_expressed_needs: 'L’entreprise a exprimé des besoins qui correspondent à vos compétences :'
         details_on_place_des_entreprises: Rendez vous sur Place des Entreprises pour prendre en charge ou répondre à cette mise en relation.
-        hello: Bonjour %{name},
-        see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
         this_company_needs_you_html: L’entreprise <b>%{company_description}</b> a besoin de votre expertise.
       remind_involvement:
-        hello: Bonjour %{name},
         here_is_a_summary_email_html: 'Ces entreprises ont besoin de vos compétences :'
         quo_not_taken: Entreprises en souffrance
         quo_not_taken_details: Personne n’a encore répondu à ces besoins. Avez-vous une solution ?
@@ -410,20 +405,21 @@ fr:
         subject: "[Place des Entreprises] Rappel : Des entreprises ont besoin de vous !"
         taken_not_done: En cours de prise en charge
         taken_not_done_details: Vous avez indiqué prendre en charge ces besoins. Y a-t-il du nouveau ?
+    happy_discovery_html: Bonne découverte de %{link_to_root}.
+    hello: Bonjour,
+    hello_name: Bonjour %{name},
+    place_des_entreprises_team_html: L’équipe %{link_to_root}.
+    see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
     user_mailer:
       account_approved:
         account_was_approved_html: Votre inscription sur Place des Entreprises a été validée. Vous pouvez désormais vous connecter et entrer en contact avec des référents pour aider les entreprises que vous rencontrez. Vous trouverez aussi un %{link_to_guide} et quelques astuces pour une approche globale des besoins des entreprises.
         dont_hesitate_to_ask: N’hésitez pas à répondre à cet e-mail pour toute question.
-        happy_discovery_html: Bonne découverte de %{link_to_root}.
-        hello: Bonjour,
         interview_guide: guide d’entretien
         sign_me_in: Me connecter
         subject: "[Place des Entreprises] Votre compte a été validé !"
       daily_change_update:
         context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{subject_title} de l’entreprise %{company_name} le %{start_date},"
-        hello: Bonjour,
         nice_day: Bonne journée,
-        place_des_entreprises_team_html: L’équipe %{link_to_root}.
         status:
           done: a indiqué que le besoin a été clôturé.
           not_finished: a indiqué que le besoin est toujours en cours de résolution.
@@ -434,9 +430,7 @@ fr:
         yesterday: 'Hier sur Place des Entreprises les demandes suivantes ont évolué :'
       match_feedback:
         expert_wrote_back: "%{author} a fait un commentaire sur le besoin « %{need} » de l’entreprise %{company}:"
-        hello: Bonjour %{name},
         nice_day: Bonne journée,
-        place_des_entreprises_team_html: L’équipe %{link_to_root}.
         subject: "[Place des Entreprises] Des nouvelles de %{company_name}"
         summary_html: Voir le %{summary_link} de l’entreprise.
         summary_link: récapitulatif des besoins
@@ -446,8 +440,6 @@ fr:
         click_on_following_link_to_continue: 'Cliquez sur le lien suivant pour finaliser votre inscription sur Place des Entreprises :'
         dont_hesitate_to_ask: N’hésitez pas à répondre à cet e-mail pour toute question !
         finish_registration: Finaliser mon inscription
-        happy_discovery_html: Bonne découverte de %{link_to_root}.
-        hello: Bonjour,
         subject: Bienvenue sur Place des Entreprises !
         you_have_been_invited: Vous avez été invité sur Place des Entreprises.
   needs:

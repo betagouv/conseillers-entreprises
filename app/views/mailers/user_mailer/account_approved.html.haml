@@ -1,7 +1,7 @@
-%p= t('.hello')
+%p= t('mailers.hello')
 - link_to_guide = link_to(t('.interview_guide'), root_url + 'Guide_entretien_Place_des_entreprises.pdf')
 %p= t('.account_was_approved_html', link_to_guide: link_to_guide)
 %p= link_to t('.sign_me_in'), new_user_session_url
 %p= t('.dont_hesitate_to_ask')
 - link_to_root = link_to(t('app_name'), root_url)
-%p= t('.happy_discovery_html', link_to_root: link_to_root)
+%p= t('mailers.happy_discovery_html', link_to_root: link_to_root)
