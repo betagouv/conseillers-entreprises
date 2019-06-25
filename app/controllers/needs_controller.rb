@@ -8,8 +8,8 @@ class NeedsController < ApplicationController
   after_action :mark_expert_viewed, only: :show
 
   def index
-    @needs_taking_care = current_involved.needs_taking_care
     @needs_quo = current_involved.needs_quo
+    @needs_taking_care = current_involved.needs_taking_care
     @needs_others_taking_care = current_involved.needs_others_taking_care
   end
 
