@@ -45,17 +45,15 @@ class Match < ApplicationRecord
   ## Associations
   #
   belongs_to :need, counter_cache: true, inverse_of: :matches
-
-  belongs_to :expert_skill, foreign_key: :experts_skills_id, inverse_of: :matches, optional: true
-  has_one :expert, through: :expert_skill, inverse_of: :received_matches # TODO: Should be direct once we remove expert_skill and use a HABTM instead
-  has_one :skill, through: :expert_skill, inverse_of: :matches
+  belongs_to :expert, inverse_of: :received_matches
+  belongs_to :skill, inverse_of: :matches
 
   has_many :feedbacks, dependent: :destroy, inverse_of: :match
 
   ## Validations and Callbacks
   #
   validates :need, presence: true
-  validates :expert_skill, uniqueness: { scope: :need_id, allow_nil: true }
+  validates :expert, uniqueness: { scope: :need_id, allow_nil: true }
   before_create :copy_expert_info
   after_update :update_taken_care_of_at
   after_update :update_closed_at
@@ -88,15 +86,9 @@ class Match < ApplicationRecord
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
-  scope :of_expert, -> (expert) { # TODO: remove when we get rid of :expert_skill
-    joins(:expert_skill).where(experts_skills: { expert: expert })
-  }
-
   scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
 
-  scope :with_deleted_expert, -> do
-    where(expert_skill: nil)
-  end
+  scope :with_deleted_expert, ->{ where(expert: nil) }
 
   ##
   #
@@ -153,9 +145,9 @@ class Match < ApplicationRecord
   private
 
   def copy_expert_info
-    self.expert_full_name = expert_skill.expert.full_name
-    self.expert_institution_name = expert_skill.expert.antenne.name
-    self.skill_title = expert_skill.skill.title
+    self.expert_full_name = expert.full_name
+    self.expert_institution_name = expert.antenne.name
+    self.skill_title = skill.title
   end
 
   def update_taken_care_of_at

@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.describe ExpertSkill, type: :model do
   describe 'validations' do
     it do
-      is_expected.to have_many(:matches).dependent(:nullify)
       is_expected.to belong_to :skill
       is_expected.to belong_to :expert
     end

@@ -195,11 +195,8 @@ class Need < ApplicationRecord
 
   ##
   #
-  def create_matches!(expert_skills)
-    if expert_skills.is_a?(Array)
-      self.matches.create(expert_skills.map{ |id| { experts_skills_id: id } })
-    else
-      self.matches.create(experts_skills_id: expert_skills)
-    end
+  def create_matches!(expert_skill_ids)
+    expert_skills = ExpertSkill.where(id: expert_skill_ids)
+    self.matches.create(expert_skills.map{ |es| es.slice(:expert, :skill) })
   end
 end

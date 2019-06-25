@@ -82,8 +82,8 @@ class Diagnosis < ApplicationRecord
   scope :in_progress, -> { where(step: [1..LAST_STEP - 1]) }
   scope :completed, -> { where(step: LAST_STEP) }
   scope :available_for_expert, -> (expert) do
-    joins(needs: [matches: [expert_skill: :expert]])
-      .where(needs: { matches: { expert_skill: { experts: { id: expert.id } } } })
+    joins(needs: [matches: [:expert]])
+      .where(needs: { matches: { experts: { id: expert.id } } })
   end
 
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }

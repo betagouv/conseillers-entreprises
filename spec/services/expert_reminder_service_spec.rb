@@ -27,10 +27,10 @@ describe ExpertReminderService do
     end
 
     context 'expert is the same' do
-      let(:expert_skillA) { create :expert_skill, expert: create(:expert) }
+      let(:expert) { create(:expert) }
 
-      let(:matches_quo_not_taken) { create_list(:match, 2, expert_skill: expert_skillA) }
-      let(:matches_taken_not_done) { create_list(:match, 2, expert_skill: expert_skillA) }
+      let(:matches_quo_not_taken) { create_list(:match, 2, expert: expert) }
+      let(:matches_taken_not_done) { create_list(:match, 2, expert: expert) }
 
       it do
         expect(reminders.count).to eq 1

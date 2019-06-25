@@ -4,20 +4,20 @@ require 'rails_helper'
 
 RSpec.describe Match, type: :model do
   describe 'expert uniqueness for each need' do
-    subject(:match) { build :match, need: need, expert_skill: expert }
+    subject(:match) { build :match, need: need, expert: expert }
 
     let(:need) { create :need }
-    let(:expert) { create :expert_skill }
-    let(:other_expert) { create :expert_skill }
+    let(:expert) { create :expert }
+    let(:other_expert) { create :expert }
 
     context '' do
-      before { create(:match, need: need, expert_skill: other_expert) }
+      before { create(:match, need: need, expert: other_expert) }
 
       it { is_expected.to be_valid }
     end
 
     context '' do
-      before { create(:match, need: need, expert_skill: expert) }
+      before { create(:match, need: need, expert: expert) }
 
       it { is_expected.not_to be_valid }
     end

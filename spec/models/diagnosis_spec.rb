@@ -101,10 +101,10 @@ RSpec.describe Diagnosis, type: :model do
       context 'one diagnosis' do
         let(:diagnosis) { create :diagnosis }
         let(:need) { create :need, diagnosis: diagnosis }
-        let(:expert_skill) { create :expert_skill, expert: expert }
+        let(:skill) { create :skill }
 
         before do
-          create :match, need: need, expert_skill: expert_skill
+          create :match, need: need, expert: expert, skill: skill
         end
 
         it { is_expected.to eq [diagnosis] }
@@ -141,8 +141,9 @@ RSpec.describe Diagnosis, type: :model do
 
     context 'selected skills for related needs' do
       it do
-        expect{ match_and_notify }.to change { Match.count }.by(1)
-        expect(Match.last.expert_skill).to eq expert_skill
+        expect{ match_and_notify }.to change(Match, :count).by(1)
+        expect(Match.last.expert).to eq expert_skill.expert
+        expect(Match.last.skill).to eq expert_skill.skill
         expect(diagnosis.step).to eq Diagnosis::LAST_STEP
       end
     end
