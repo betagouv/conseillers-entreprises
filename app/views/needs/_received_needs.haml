@@ -1,2 +1,2 @@
 - diagnoses = Diagnosis.where(needs: received_needs).distinct
-= render 'diagnoses/diagnoses', diagnoses: diagnoses, needs_of_interest: received_needs, title: title
+= render 'diagnoses/diagnoses', diagnoses: diagnoses, needs_of_interest: received_needs, title: title, highlighted_expert: local_assigns[:highlighted_expert]
