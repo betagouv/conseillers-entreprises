@@ -131,17 +131,18 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 
-  describe 'match_and_notif!y' do
+  describe 'match_and_notify!' do
     subject(:match_and_notify) { diagnosis.match_and_notify!(matches) }
 
     let(:diagnosis) { create :diagnosis, step: 4 }
     let(:need) { create :need, diagnosis: diagnosis }
-    let(:skill) { create(:expert_skill, skill: create(:skill), expert: create(:expert)) }
-    let(:matches) { { need.id => [skill.id] } }
+    let(:expert_skill) { create(:expert_skill, skill: create(:skill), expert: create(:expert)) }
+    let(:matches) { { need.id => [expert_skill.id] } }
 
     context 'selected skills for related needs' do
       it do
-        expect{ match_and_notify }.not_to raise_error
+        expect{ match_and_notify }.to change { Match.count }.by(1)
+        expect(Match.last.expert_skill).to eq expert_skill
         expect(diagnosis.step).to eq Diagnosis::LAST_STEP
       end
     end
