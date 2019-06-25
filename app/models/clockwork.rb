@@ -7,11 +7,11 @@ module Clockwork
     AdminMailersService.delay.send_statistics_email
   end
 
-  every(1.week, 'send_experts_reminders', at: 'Monday 09:30') do
+  every(1.week, 'send_experts_reminders', at: 'Tuesday 9:00') do
     ExpertReminderService.delay.send_reminders
   end
 
-  every(1.day, 'send_daily_change_updates', at: '07:00') do
+  every(1.day, 'send_daily_change_updates', at: '9:00') do
     UserDailyChangeUpdateMailerService.delay.send_daily_change_updates
   end
 end
