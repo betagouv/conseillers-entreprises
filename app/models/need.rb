@@ -130,6 +130,12 @@ class Need < ApplicationRecord
     end
   end
 
+  scope :all_active_needs, -> do
+    archived(false)
+      .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
+      .with_some_matches_in_status([:quo, :taking_care])
+  end
+
   ## ActiveAdmin/Ransacker helpers
   #
   ransacker(:by_status, formatter: -> (value) {
