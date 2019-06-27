@@ -780,6 +780,10 @@ RSpec/AnyInstance:
 RSpec/ContextWording:
   Enabled: false
 
+RSpec/DescribeClass:
+  Exclude:
+    - spec/lib/tasks/**/*
+
 RSpec/ExampleLength:
   Enabled: false
 
