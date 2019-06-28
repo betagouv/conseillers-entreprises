@@ -22,6 +22,7 @@
 
 class Expert < ApplicationRecord
   include PersonConcern
+  include InvolvementConcern
 
   ## Associations
   #
