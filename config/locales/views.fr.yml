@@ -313,9 +313,9 @@ fr:
       institutions:
         title: 'En partenariat avec :'
     steps:
-      label_1_html: 1. Précisez votre demande en ligne.
-      label_2_html: 2. L’équipe <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
-      label_3_html: 3. Le conseiller vous rappelle et vous accompagne selon votre situation.
+      label_1_html: Précisez votre demande en ligne.
+      label_2_html: L’équipe <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
+      label_3_html: Le conseiller vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
   layouts:
     footer:

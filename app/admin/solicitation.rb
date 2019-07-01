@@ -14,15 +14,14 @@ ActiveAdmin.register Solicitation do
       div admin_attr(s, :description).truncate(200, separator: ' ')
     end
     column :created_at
-    column(:needs) { |s| needs_description(s) }
-    column :alternative
     column :tracking do |s|
-      render partial: 'solicitations/tracking', locals: { solicitation: s }
+      render 'solicitations/tracking', solicitation: s
+    end
+    column :slug do |s|
+      link_to s.slug, landing_path(s.slug) if s.slug
     end
     actions dropdown: true
   end
-
-  preserve_default_filters!
 
   ## Form
   #
