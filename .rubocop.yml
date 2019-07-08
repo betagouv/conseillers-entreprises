@@ -780,10 +780,17 @@ RSpec/AnyInstance:
 RSpec/ContextWording:
   Enabled: false
 
+RSpec/DescribeClass:
+  Exclude:
+    - spec/lib/tasks/**/*
+
 RSpec/ExampleLength:
   Enabled: false
 
 RSpec/ImplicitSubject:
+  Enabled: false
+
+RSpec/LeadingSubject:
   Enabled: false
 
 RSpec/MultipleExpectations:

@@ -32,9 +32,7 @@ RSpec.describe MatchesController, type: :controller do
       end
 
       context 'match exists' do
-        let(:expert_skill) { create :expert_skill, expert: expert }
-
-        before { match.update expert_skill: expert_skill }
+        before { match.update expert: expert }
 
         context 'with status quo' do
           it 'returns http success' do

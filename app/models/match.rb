@@ -12,19 +12,25 @@
 #  taken_care_of_at        :datetime
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  expert_id               :bigint(8)
 #  experts_skills_id       :bigint(8)
 #  need_id                 :bigint(8)
+#  skill_id                :bigint(8)
 #
 # Indexes
 #
+#  index_matches_on_expert_id          (expert_id)
 #  index_matches_on_experts_skills_id  (experts_skills_id)
 #  index_matches_on_need_id            (need_id)
+#  index_matches_on_skill_id           (skill_id)
 #  index_matches_on_status             (status)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (expert_id => experts.id)
 #  fk_rails_...  (experts_skills_id => experts_skills.id)
 #  fk_rails_...  (need_id => needs.id)
+#  fk_rails_...  (skill_id => skills.id)
 #
 
 class Match < ApplicationRecord
@@ -39,17 +45,15 @@ class Match < ApplicationRecord
   ## Associations
   #
   belongs_to :need, counter_cache: true, inverse_of: :matches
-
-  belongs_to :expert_skill, foreign_key: :experts_skills_id, inverse_of: :matches, optional: true
-  has_one :expert, through: :expert_skill, inverse_of: :received_matches # TODO: Should be direct once we remove expert_skill and use a HABTM instead
-  has_one :skill, through: :expert_skill, inverse_of: :matches
+  belongs_to :expert, inverse_of: :received_matches
+  belongs_to :skill, inverse_of: :matches
 
   has_many :feedbacks, dependent: :destroy, inverse_of: :match
 
   ## Validations and Callbacks
   #
   validates :need, presence: true
-  validates :expert_skill, uniqueness: { scope: :need_id, allow_nil: true }
+  validates :expert, uniqueness: { scope: :need_id, allow_nil: true }
   before_create :copy_expert_info
   after_update :update_taken_care_of_at
   after_update :update_closed_at
@@ -82,15 +86,9 @@ class Match < ApplicationRecord
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
-  scope :of_expert, -> (expert) { # TODO: remove when we get rid of :expert_skill
-    joins(:expert_skill).where(experts_skills: { expert: expert })
-  }
-
   scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
 
-  scope :with_deleted_expert, -> do
-    where(expert_skill: nil)
-  end
+  scope :with_deleted_expert, ->{ where(expert: nil) }
 
   ##
   #
@@ -147,9 +145,9 @@ class Match < ApplicationRecord
   private
 
   def copy_expert_info
-    self.expert_full_name = expert_skill.expert.full_name
-    self.expert_institution_name = expert_skill.expert.antenne.name
-    self.skill_title = expert_skill.skill.title
+    self.expert_full_name = expert.full_name
+    self.expert_institution_name = expert.antenne.name
+    self.skill_title = skill.title
   end
 
   def update_taken_care_of_at
