@@ -123,6 +123,10 @@ class Diagnosis < ApplicationRecord
     if role.present? && advisor == role
       return true
     end
+
+    # support team
+    if role.is_a?(Expert) && role.experts_skills.support_for(self).present?
+      return true
     end
 
     # contacted experts

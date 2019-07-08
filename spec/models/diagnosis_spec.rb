@@ -141,6 +141,14 @@ RSpec.describe Diagnosis, type: :model do
       it { is_expected.to eq true }
     end
 
+    context 'expert has a relevant support skill' do
+      let(:role) { create :expert, is_global_zone: true, skills: [skill] }
+      let(:skill) { create :skill, subject: help_subject }
+      let(:help_subject) { create :subject, is_support: true }
+
+      it { is_expected.to eq true }
+    end
+
     context 'expert is unrelated' do
       let(:role) { create :expert }
 
