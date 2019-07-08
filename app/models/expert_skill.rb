@@ -22,7 +22,6 @@
 class ExpertSkill < ApplicationRecord
   belongs_to :skill
   belongs_to :expert
-  has_many :matches, foreign_key: :experts_skills_id, dependent: :nullify, inverse_of: :expert_skill
 
   scope :relevant_for, -> (need) do
     experts_in_commune = need.facility.commune.all_experts
