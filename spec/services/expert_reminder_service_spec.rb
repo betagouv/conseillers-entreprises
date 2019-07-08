@@ -5,8 +5,8 @@ require 'rails_helper'
 describe ExpertReminderService do
   before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
 
-  describe 'send_reminders' do
-    subject(:send_experts_reminders) { described_class.send_reminders }
+  describe 'reminders' do
+    subject(:reminders) { described_class.reminders }
 
     before do
       allow(Need).to receive(:quo_not_taken_after_3_weeks).and_return([need_quo_not_taken])
@@ -20,7 +20,10 @@ describe ExpertReminderService do
       let(:matches_quo_not_taken) { create_list(:match, 2) }
       let(:matches_taken_not_done) { create_list(:match, 2) }
 
-      it { expect { send_experts_reminders }.to change { Delayed::Job.count }.by(4) }
+      it do
+        expect(reminders.count).to eq 4
+        expect(reminders.values.flat_map(&:values).flatten.count).to eq 4
+      end
     end
 
     context 'expert is the same' do
@@ -29,14 +32,17 @@ describe ExpertReminderService do
       let(:matches_quo_not_taken) { create_list(:match, 2, expert_skill: expert_skillA) }
       let(:matches_taken_not_done) { create_list(:match, 2, expert_skill: expert_skillA) }
 
-      it { expect { send_experts_reminders }.to change { Delayed::Job.count }.by(1) }
+      it do
+        expect(reminders.count).to eq 1
+        expect(reminders.values.flat_map(&:values).flatten.count).to eq 4
+      end
     end
 
     context 'there are no matches' do
       let(:matches_quo_not_taken) { [] }
       let(:matches_taken_not_done) { [] }
 
-      it { expect { send_experts_reminders }.not_to(change { Delayed::Job.count }) }
+      it { expect(reminders).to be_empty }
     end
   end
 end
