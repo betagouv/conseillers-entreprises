@@ -113,19 +113,36 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'can_be_viewed_by?' do
-    subject { diagnosis.can_be_viewed_by?(user) }
+    subject { diagnosis.can_be_viewed_by?(role) }
 
-    let(:user) { create :user }
-    let!(:diagnosis) { create :diagnosis, advisor: advisor }
+    let(:diagnosis) { create :diagnosis, advisor: advisor }
+    let(:advisor) { create :user }
 
     context 'user is the diagnosis advisor' do
-      let(:advisor) { user }
+      let(:role) { advisor }
 
       it { is_expected.to eq true }
     end
 
     context 'user is unrelated' do
-      let(:advisor) { create :user }
+      let(:role) { create :user }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'expert is contacted for this diagnosis' do
+      let(:role) { create :expert }
+
+      before do
+        need = create :need, diagnosis: diagnosis
+        create :match, expert: role, need: need
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'expert is unrelated' do
+      let(:role) { create :expert }
 
       it { is_expected.to eq false }
     end

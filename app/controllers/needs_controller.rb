@@ -37,8 +37,7 @@ class NeedsController < ApplicationController
   end
 
   def show
-    @diagnosis = diagnosis
-    check_current_user_access_to(@diagnosis)
+    @diagnosis = retrieve_diagnosis
     @current_roles = current_roles
   end
 
@@ -57,11 +56,15 @@ class NeedsController < ApplicationController
     current_user.present? ? current_user.received_matches : current_expert.received_matches
   end
 
-  def diagnosis
-    Diagnosis.find(params[:id])
+  def retrieve_diagnosis
+    safe_params = params.permit(:id)
+    diagnosis = Diagnosis.find(safe_params[:id])
+    check_current_user_access_to(diagnosis, :read)
+    diagnosis
   end
 
   def mark_expert_viewed
+    diagnosis = retrieve_diagnosis
     experts.each do |expert|
       UseCases::UpdateExpertViewedPageAt.perform(diagnosis: diagnosis, expert: expert)
     end
