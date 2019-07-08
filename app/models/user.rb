@@ -133,7 +133,7 @@ class User < ApplicationRecord
     joins(sent_diagnoses: [needs: :matches])
       .merge(Match
         .where(taken_care_of_at: date)
-        .with_status(status))
+        .where(status: status))
       .distinct
   end
 

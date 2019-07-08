@@ -145,20 +145,6 @@ RSpec.describe Match, type: :model do
       it { is_expected.to eq [match] }
     end
 
-    describe 'with_status' do
-      let!(:match_with_status_quo) { create :match, status: :quo }
-      let!(:match_taken_care_of) { create :match, status: :taking_care }
-      let!(:match_with_status_done) { create :match, status: :done }
-      let!(:match_not_for_expert) { create :match, status: :not_for_me }
-
-      it do
-        expect(Match.with_status(:quo)).to eq [match_with_status_quo]
-        expect(Match.with_status(:taking_care)).to eq [match_taken_care_of]
-        expect(Match.with_status(:done)).to eq [match_with_status_done]
-        expect(Match.with_status(:not_for_me)).to eq [match_not_for_expert]
-      end
-    end
-
     describe 'updated_more_than_five_days_ago' do
       subject { Match.updated_more_than_five_days_ago }
 
