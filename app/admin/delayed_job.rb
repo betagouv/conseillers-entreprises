@@ -11,13 +11,13 @@ ActiveAdmin.register Delayed::Job, as: 'Jobs' do
     column :attempts
     column :status do |job|
       if job.failed_at.present?
-        status_tag 'Failed:', :error
+        status_tag('Failed:', class: :no)
         span "#{job.last_error[0..100]}"
       elsif job.locked_at.present?
-        status_tag :Running, :warning
+        status_tag(:Running, class: :no)
         span "Depuis #{time_ago_in_words(job.locked_at)} @ #{job.locked_by}"
       elsif job.run_at > job.created_at
-        status_tag :Scheduled, :ok
+        status_tag(:Scheduled, class: :yes)
         span "Dans #{time_ago_in_words(job.run_at)}"
       else
         status_tag :Queued
