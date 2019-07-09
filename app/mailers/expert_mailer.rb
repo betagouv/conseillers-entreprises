@@ -20,11 +20,15 @@ class ExpertMailer < ApplicationMailer
     )
   end
 
-  def remind_involvement(expert, matches_taken_not_done, matches_quo_not_taken)
+  def remind_involvement(expert)
     @expert = expert
     @access_token = expert.access_token
-    @matches_taken_not_done = matches_taken_not_done
-    @matches_quo_not_taken = matches_quo_not_taken
+
+    @needs_quo = expert.needs_quo
+    @needs_taking_care = expert.needs_taking_care
+    @needs_others_taking_care = expert.needs_others_taking_care
+
+    return if @needs_taking_care.empty? && @needs_quo.empty? && @needs_others_taking_care.empty?
 
     mail(
       to: @expert.email_with_display_name,

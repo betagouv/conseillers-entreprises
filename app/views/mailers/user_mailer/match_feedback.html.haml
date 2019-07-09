@@ -1,4 +1,4 @@
-%p= t('.hello', name: @advisor.full_name)
+%p= t('mailers.hello_name', name: @advisor.full_name)
 
 %p= t('.expert_wrote_back',
   author: @author.full_name_with_role,
@@ -11,4 +11,4 @@
 %p= t('.thankyou')
 %p= t('.summary_html', summary_link: link_to(t('.summary_link'), besoin_url(@need.diagnosis)))
 %p= t('.nice_day')
-%p= t('.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))
+%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))

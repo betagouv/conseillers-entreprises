@@ -1,18 +1,17 @@
 class ExpertMailerPreview < ActionMailer::Preview
   def notify_company_needs
-    match = match_with_expert
-    ExpertMailer.notify_company_needs(match.expert, match.diagnosis)
+    expert = active_expert
+    ExpertMailer.notify_company_needs(expert, expert.received_diagnoses.sample)
   end
 
   def remind_involvement
-    match = match_with_expert
-    matches = match.expert.received_matches
-    ExpertMailer.remind_involvement(match.expert, matches.sample(2), matches.sample(2))
+    expert = active_expert
+    ExpertMailer.remind_involvement(expert)
   end
 
   private
 
-  def match_with_expert
-    Match.where.not(expert_skill: nil).sample
+  def active_expert
+    Expert.with_active_matches.sample
   end
 end

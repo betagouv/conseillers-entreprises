@@ -159,6 +159,35 @@ RSpec.describe Need, type: :model do
         it { is_expected.to eq [need1, need2, need3, need4] }
       end
     end
+
+    describe 'all_active_needs' do
+      subject { Need.all_active_needs }
+
+      let!(:need1) do
+        create :need, matches: [
+          create(:match, status: :quo),
+          create(:match, status: :not_for_me),
+        ]
+      end
+      let!(:need2) do
+        create :need, matches: [
+          create(:match, status: :taking_care),
+          create(:match, status: :quo),
+        ]
+      end
+
+      before do
+        create :need, matches: [
+          create(:match, status: :quo),
+          create(:match, status: :done),
+        ]
+        create :need, matches: [
+          create(:match, status: :not_for_me)
+        ]
+      end
+
+      it { is_expected.to match_array [need1, need2] }
+    end
   end
 
   describe 'last_activity_at' do

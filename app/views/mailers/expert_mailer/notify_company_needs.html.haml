@@ -1,4 +1,4 @@
-%p= t('.hello', name: @expert.full_name)
+%p= t('mailers.hello_name', name: @expert.full_name)
 
 :ruby
   link_to_root = link_to t('app_name'), root_url
@@ -29,4 +29,4 @@
 .button
   %a{ href: more_info_url }= t('.click_here')
 
-%p= t('.see_you_on_place_des_entreprises_html', link_to_root: link_to_root)
+%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to_root)
