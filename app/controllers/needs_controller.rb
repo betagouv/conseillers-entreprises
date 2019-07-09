@@ -8,32 +8,15 @@ class NeedsController < ApplicationController
   after_action :mark_expert_viewed, only: :show
 
   def index
-    @needs_taking_care = received_needs
-      .where(matches: received_matches.status_taking_care)
-      .archived(false)
-
-    @needs_quo = received_needs
-      .by_status(:quo)
-      .where.not(matches: received_matches.status_not_for_me)
-      .archived(false)
-
-    @needs_others_taking_care = received_needs
-      .by_status(:taking_care)
-      .where.not(matches: received_matches.status_taking_care)
-      .archived(false)
+    @needs_taking_care = current_involved.needs_taking_care
+    @needs_quo = current_involved.needs_quo
+    @needs_others_taking_care = current_involved.needs_others_taking_care
   end
 
   def archives
-    @needs_rejected = received_needs
-      .where(matches: received_matches.status_not_for_me)
-      .archived(false)
-
-    @needs_done = received_needs
-      .by_status(:done)
-      .archived(false)
-
-    @needs_archived = received_needs
-      .archived(true)
+    @needs_rejected = current_involved.needs_rejected
+    @needs_done = current_involved.needs_done
+    @needs_archived = current_involved.needs_archived
   end
 
   def show
@@ -48,12 +31,8 @@ class NeedsController < ApplicationController
       : [current_expert]
   end
 
-  def received_needs
-    current_user.present? ? current_user.received_needs : current_expert.received_needs
-  end
-
-  def received_matches
-    current_user.present? ? current_user.received_matches : current_expert.received_matches
+  def current_involved
+    current_user || current_expert
   end
 
   def retrieve_diagnosis
