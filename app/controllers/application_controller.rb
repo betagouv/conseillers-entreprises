@@ -82,8 +82,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_current_user_access_to(resource)
-    if current_roles.any? { |role| resource.send(:can_be_viewed_by?, role) }
+  def check_current_user_access_to(resource, mode)
+    http_method = request.request_method
+    access_method = if %w[GET HEAD].include?(http_method)
+      :can_be_viewed_by?
+    elsif %w[PATCH POST PUT DELETE].include?(http_method)
+      :can_be_modified_by?
+    end
+
+    if current_roles.any? { |role| resource.send(access_method, role) }
       return
     end
     # can not be viewed:

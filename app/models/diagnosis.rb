@@ -119,11 +119,22 @@ class Diagnosis < ApplicationRecord
   ##
   #
   def can_be_viewed_by?(role)
+    # diagnosis advisor
     if role.present? && advisor == role
-      true
-    else
-      needs.any?{ |need| need.can_be_viewed_by?(role) }
+      return true
     end
+
+    # support team
+    if role.is_a?(Expert) && role.experts_skills.support_for(self).present?
+      return true
+    end
+
+    # contacted experts
+    needs.any? { |need| need.experts.include?(role) }
+  end
+
+  def can_be_modified_by?(role)
+    return role.present? && advisor == role
   end
 
   private

@@ -52,30 +52,6 @@ RSpec.describe Contact, type: :model do
     end
   end
 
-  describe 'can_be_viewed_by?' do
-    subject { contact.can_be_viewed_by?(user) }
-
-    let(:user) { create :user }
-    let(:contact) { create :contact, :with_email }
-
-    before do
-      create :diagnosis, advisor: advisor
-      create :diagnosis, advisor: advisor, visitee: contact
-    end
-
-    context 'diagnosis advisor is the user' do
-      let(:advisor) { user }
-
-      it { is_expected.to eq true }
-    end
-
-    context 'diagnosis advisor is not the user' do
-      let(:advisor) { create :user }
-
-      it { is_expected.to eq false }
-    end
-  end
-
   describe 'to_s' do
     let(:contact) { build :contact, full_name: 'Ivan Collombet' }
 

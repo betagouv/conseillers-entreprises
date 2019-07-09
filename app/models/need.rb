@@ -181,20 +181,6 @@ class Need < ApplicationRecord
 
   ##
   #
-  def can_be_viewed_by?(role)
-    if role.present? && advisor == role
-      true
-    else
-      belongs_to_expert?(role)
-    end
-  end
-
-  def belongs_to_expert?(role)
-    experts.include?(role)
-  end
-
-  ##
-  #
   def create_matches!(expert_skill_ids)
     expert_skills = ExpertSkill.where(id: expert_skill_ids)
     self.matches.create(expert_skills.map{ |es| es.slice(:expert, :skill) })

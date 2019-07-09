@@ -34,6 +34,10 @@ class Feedback < ApplicationRecord
   ##
   #
   def can_be_viewed_by?(role)
-    self.match.can_be_viewed_by?(role)
+    match.can_be_viewed_by?(role)
+  end
+
+  def can_be_modified_by?(role)
+    expert == role
   end
 end
