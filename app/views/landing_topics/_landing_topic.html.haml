@@ -1,4 +1,4 @@
 .card
   .card__content
-    %h3= landing_topic.title
-    %p= landing_topic.description
+    %h3= simple_format(landing_topic.title, {}, wrapper_tag: 'span')
+    %p= simple_format(landing_topic.description, {}, wrapper_tag: 'span')
