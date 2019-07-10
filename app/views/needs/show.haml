@@ -6,7 +6,7 @@
 .ui.segments.shadow-less
   .ui.segment.secondary
     .ui.header
-      = t('.visit_made_on', date: I18n.l(@diagnosis.display_date, format: '%-d %B %Y'))
+      = t('.visit_made_on', date: I18n.l(@diagnosis.display_date, format: :long))
       .sub.header= @diagnosis.needs.human_count
   .ui.segment
     = render partial: 'needs/company', locals: { diagnosis: @diagnosis }
@@ -25,7 +25,7 @@
 - @diagnosis.needs.ordered_for_interview.each do |need|
   .ui.segments.shadow-less.needs-diagnosis
     .ui.segment.secondary{ id: "need-#{need.id}" }
-      = render partial: 'needs/need_header', locals: { need: need }
+      = render 'needs/need_header', need: need
 
     -# Matches, mine first
     - matches = need.matches
@@ -36,7 +36,7 @@
     - matches.each do |match|
       .ui.segment.clearing{ id: "match-#{match.id}" }
         - is_for_me = match == match_for_me
-        = render partial: 'needs/match', locals: { match: match, for_me: is_for_me }
+        = render 'needs/match', match: match, for_me: is_for_me
 
     -# Feedback
     .ui.segment.clearing
@@ -47,5 +47,5 @@
           - is_for_me = feedback.match == match_for_me
           = feedback_block(feedback, is_for_me)
       - if match_for_me.present?
-        = render partial: 'feedback_form', locals: { feedback: match_for_me.feedbacks.new }
+        = render 'feedback_form', feedback: match_for_me.feedbacks.new
 

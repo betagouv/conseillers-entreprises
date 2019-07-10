@@ -4,12 +4,12 @@
     %tr
       %th= t('.date_range')
       - headers.each do |header|
-        - header = header.is_a?(Range) ? I18n.l(header.begin, format: '%b %Y') : t(".#{header}")
+        - header = header.is_a?(Range) ? I18n.l(header.begin.to_date, format: :month) : t(".#{header}")
         %th= header
   %tbody
     - stats.reverse_each do |date_range, info|
       %tr
-        - formatted_month = I18n.l(date_range.begin, format: '%b %Y')
+        - formatted_month = I18n.l(date_range.begin.to_date, format: :month)
         %th{ scope: 'row' }
           = formatted_month
         - info.each do |header, value|
