@@ -23,8 +23,8 @@ describe AdminMailersService do
             created_diagnoses: { count: 0, items: [] },
             updated_diagnoses: { count: 0, items: [] },
             completed_diagnoses: { count: 0, items: [] },
-            quo_not_taken_after_3_weeks: 0,
-            taken_not_done_after_3_weeks: 0,
+            abandoned_quo_not_taken: 0,
+            abandoned_taken_not_done: 0,
             rejected: 0,
             matches_count: 0
           }
@@ -51,8 +51,8 @@ describe AdminMailersService do
             created_diagnoses: { count: 1, items: created_diagnoses },
             updated_diagnoses: { count: 1, items: updated_diagnoses },
             completed_diagnoses: { count: 2, items: completed_diagnoses.reverse },
-            quo_not_taken_after_3_weeks: 0,
-            taken_not_done_after_3_weeks: 0,
+            abandoned_quo_not_taken: 0,
+            abandoned_taken_not_done: 0,
             rejected: 0,
             matches_count: 4
           }
