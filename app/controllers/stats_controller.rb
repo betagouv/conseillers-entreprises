@@ -100,9 +100,9 @@ class StatsController < ApplicationController
       "activity.needs": needs_in_range,
       "activity.needs_notified": needs_in_range.where(diagnoses: { step: 5 }),
       "activity.matches": matches_created_in_range,
-      "activity.match_taken_care_of": matches_taken_care_in_range.with_status([:taking_care, :done]),
-      "activity.match_done": matches_taken_care_in_range.with_status(:done),
-      "activity.match_not_for_me": matches_taken_care_in_range.with_status(:not_for_me),
+      "activity.match_taken_care_of": matches_taken_care_in_range.where(status: [:taking_care, :done]),
+      "activity.match_done": matches_taken_care_in_range.where(status: :done),
+      "activity.match_not_for_me": matches_taken_care_in_range.where(status: :not_for_me),
     }
   end
 

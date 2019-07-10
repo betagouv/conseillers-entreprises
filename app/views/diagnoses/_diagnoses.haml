@@ -4,4 +4,6 @@
     .ui.header
       = title
       .sub.header= diagnoses.human_count
-  = render diagnoses, needs_of_interest: local_assigns[:needs_of_interest]
+  = render diagnoses,
+    needs_of_interest: local_assigns[:needs_of_interest],
+    highlighted_expert: local_assigns[:highlighted_expert]

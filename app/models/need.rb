@@ -79,15 +79,15 @@ class Need < ApplicationRecord
       .merge(Diagnosis.completed)
   end
 
-  scope :quo_not_taken_after_3_weeks, -> do
+  scope :abandoned_quo_not_taken, -> do
     by_status(:quo)
       .archived(false)
-      .no_activity_after(3.weeks.ago)
+      .abandoned
   end
-  scope :taken_not_done_after_3_weeks, -> do
+  scope :abandoned_taken_not_done, -> do
     by_status(:taking_care)
       .archived(false)
-      .no_activity_after(3.weeks.ago)
+      .abandoned
   end
   scope :rejected, -> do
     by_status(:not_for_me)
@@ -100,7 +100,10 @@ class Need < ApplicationRecord
       .where.not(matches: Match.where('updated_at > ?', date))
       .left_outer_joins(:feedbacks)
       .where.not(feedbacks: Feedback.where('updated_at > ?', date))
+      .distinct
   end
+
+  scope :abandoned, -> { no_activity_after(3.weeks.ago) }
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.where(status: status)).distinct
@@ -130,6 +133,12 @@ class Need < ApplicationRecord
     end
   end
 
+  scope :all_active_needs, -> do
+    archived(false)
+      .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
+      .with_some_matches_in_status([:quo, :taking_care])
+  end
+
   ## ActiveAdmin/Ransacker helpers
   #
   ransacker(:by_status, formatter: -> (value) {
@@ -146,6 +155,10 @@ class Need < ApplicationRecord
   def last_activity_at
     dates = [updated_at, matches.pluck(:updated_at), feedbacks.pluck(:updated_at)].flatten
     dates.max
+  end
+
+  def abandoned?
+    last_activity_at < 3.weeks.ago
   end
 
   ## Status
@@ -178,20 +191,6 @@ class Need < ApplicationRecord
   end
 
   include StatusHelper::StatusDescription
-
-  ##
-  #
-  def can_be_viewed_by?(role)
-    if role.present? && advisor == role
-      true
-    else
-      belongs_to_expert?(role)
-    end
-  end
-
-  def belongs_to_expert?(role)
-    experts.include?(role)
-  end
 
   ##
   #

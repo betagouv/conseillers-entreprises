@@ -8,8 +8,8 @@ ActiveAdmin.register Need do
   includes :diagnosis, :subject, :advisor, :matches, :feedbacks, :company
 
   scope :diagnosis_completed, default: true
-  scope :quo_not_taken_after_3_weeks, group: :abandoned
-  scope :taken_not_done_after_3_weeks, group: :abandoned
+  scope :abandoned_quo_not_taken, group: :abandoned
+  scope :abandoned_taken_not_done, group: :abandoned
   scope :rejected, group: :abandoned
   scope :all, group: :all
 

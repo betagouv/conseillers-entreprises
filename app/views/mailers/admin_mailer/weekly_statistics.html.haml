@@ -45,7 +45,7 @@
 %p
   %strong= t('.needs_abandoned.title')
   %ul
-    - scopes = %i[quo_not_taken_after_3_weeks taken_not_done_after_3_weeks rejected]
+    - scopes = %i[abandoned_quo_not_taken abandoned_taken_not_done rejected]
     - scopes.each do |scope|
       - if @information_hash[scope].positive?
         - i18n_scope = 'mailers.admin_mailer.weekly_statistics.needs_abandoned.scopes'

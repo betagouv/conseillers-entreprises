@@ -35,12 +35,6 @@ class Contact < ApplicationRecord
 
   ##
   #
-  def can_be_viewed_by?(role)
-    diagnoses.any? { |diagnosis| diagnosis.can_be_viewed_by?(role) }
-  end
-
-  ##
-  #
   def full_role
     "#{role} - #{company.name}"
   end

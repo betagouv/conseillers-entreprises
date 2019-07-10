@@ -1,0 +1,20 @@
+- meta title: t('.title')
+
+%h1.ui.header
+  = t('.title')
+
+= form_with(url: reminders_path, method: :get, skip_enforcing_utf8: true, class: 'ui large form') do
+  - options = { include_blank: t('.all'), class: 'ui search selection dropdown', onchange: 'this.form.submit();' }
+  .inline.field
+    = label_tag(t('activerecord.models.territory.one'))
+    = select_tag(:territory,
+      options_from_collection_for_select(@territories, :id, :name, params[:territory]),
+      options.dup)
+
+
+.ui.segments.shadow-less.selectable-list
+  = render partial: 'expert', collection: @active_experts
+
+
+:javascript
+  $('select.dropdown').dropdown();

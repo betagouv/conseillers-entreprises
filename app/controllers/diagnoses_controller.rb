@@ -10,7 +10,7 @@ class DiagnosesController < ApplicationController
   end
 
   def show
-    diagnosis = safe_diagnosis_param
+    diagnosis = retrieve_diagnosis
     if diagnosis.completed?
       redirect_to besoin_path(diagnosis)
     else
@@ -19,24 +19,24 @@ class DiagnosesController < ApplicationController
   end
 
   def archive
-    diagnosis = safe_diagnosis_param
+    diagnosis = retrieve_diagnosis
     diagnosis.archive!
     redirect_to diagnoses_path
   end
 
   def unarchive
-    diagnosis = safe_diagnosis_param
+    diagnosis = retrieve_diagnosis
     diagnosis.unarchive!
     redirect_to diagnoses_path
   end
 
   def step2
-    @diagnosis = safe_diagnosis_param
+    @diagnosis = retrieve_diagnosis
     @themes = Theme.ordered_for_interview
   end
 
   def besoins
-    @diagnosis = safe_diagnosis_param
+    @diagnosis = retrieve_diagnosis
     diagnosis_params = params.require(:diagnosis).permit(:content,
                                                          needs_attributes: [:_destroy, :content, :subject_id, :id])
     diagnosis_params[:step] = 3
@@ -50,11 +50,11 @@ class DiagnosesController < ApplicationController
   end
 
   def step3
-    @diagnosis = safe_diagnosis_param
+    @diagnosis = retrieve_diagnosis
   end
 
   def visite
-    @diagnosis = safe_diagnosis_param
+    @diagnosis = retrieve_diagnosis
     diagnosis_params = params_for_visite
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = 4
@@ -67,11 +67,11 @@ class DiagnosesController < ApplicationController
   end
 
   def step4
-    @diagnosis = safe_diagnosis_param
+    @diagnosis = retrieve_diagnosis
   end
 
   def selection
-    @diagnosis = safe_diagnosis_param
+    @diagnosis = retrieve_diagnosis
     if @diagnosis.match_and_notify!(params_for_matches)
       flash.notice = I18n.t('diagnoses.step5.notifications_sent')
       redirect_to besoin_path(@diagnosis)
@@ -111,10 +111,10 @@ class DiagnosesController < ApplicationController
     experts_skills_for_needs
   end
 
-  def safe_diagnosis_param
+  def retrieve_diagnosis
     safe_params = params.permit(:id)
     diagnosis = Diagnosis.find(safe_params[:id])
-    check_current_user_access_to(diagnosis)
+    check_current_user_access_to(diagnosis, :read_sometimes_write)
     diagnosis
   end
 end

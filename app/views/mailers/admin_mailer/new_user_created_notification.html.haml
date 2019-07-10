@@ -1,4 +1,4 @@
-%p= t('.hello')
+%p= t('mailers.hello')
 %p= t('.user_has_signed_up', full_name: @user.full_name, email: @user.email)
 - if @user.is_approved?
   - link_to_account = link_to t('.click_here'), admin_user_url(@user)

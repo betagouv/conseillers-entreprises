@@ -46,6 +46,7 @@ class User < ApplicationRecord
   ##
   #
   include PersonConcern
+  include InvolvementConcern
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
   ## Associations
@@ -133,7 +134,7 @@ class User < ApplicationRecord
     joins(sent_diagnoses: [needs: :matches])
       .merge(Match
         .where(taken_care_of_at: date)
-        .with_status(status))
+        .where(status: status))
       .distinct
   end
 

@@ -1,4 +1,4 @@
-%p= t('.hello')
+%p= t('mailers.hello')
 %p= t('.user_was_approved', user_full_name: @user.full_name, user_email: @user.email, admin_full_name: @admin.full_name)
 - link_to_root = link_to t('app_name'), root_url
 %p= t('.place_des_entreprises_app_html', link_to_root: link_to_root)

@@ -34,14 +34,14 @@ describe ExpertMailer do
 
   describe '#remind_involvement' do
     subject(:mail) do
-      described_class.remind_involvement(expert,
-                                         [match_taken_not_done],
-                                         [match_quo_not_taken]).deliver_now
+      described_class.remind_involvement(expert).deliver_now
     end
 
     let(:expert) { create :expert }
-    let(:match_taken_not_done) { create :match }
-    let(:match_quo_not_taken) { create :match }
+
+    before do
+      create :match, expert: expert
+    end
 
     it_behaves_like 'an email'
 

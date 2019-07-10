@@ -22,6 +22,7 @@
 
 class Expert < ApplicationRecord
   include PersonConcern
+  include InvolvementConcern
 
   ## Associations
   #
@@ -68,6 +69,12 @@ class Expert < ApplicationRecord
   scope :support_experts, -> do
     joins(:skills)
       .merge(Skill.support_skills)
+  end
+
+  scope :with_active_matches, -> do
+    joins(:received_matches)
+      .merge(Match.all_active_matches)
+      .distinct
   end
 
   scope :ordered_by_institution, -> do

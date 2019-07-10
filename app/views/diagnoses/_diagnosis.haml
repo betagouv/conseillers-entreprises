@@ -1,8 +1,8 @@
 .ui.segment.selectable-item
-  - path = diagnosis.completed? ? besoin_path(diagnosis, params.permit(:access_token)) : diagnosis_path(diagnosis)
+  - path = diagnosis.completed? ? besoin_path(diagnosis, params.permit(:access_token), highlighted_expert: local_assigns[:highlighted_expert]) : diagnosis_path(diagnosis)
   %a{ href: path }
     %h3.ui.header
-      .sub.header= I18n.l(diagnosis.display_date, format: '%-d %B %Y')
+      .sub.header= I18n.l(diagnosis.display_date, format: :long)
       - if !diagnosis.completed?
         .diagnosis-step
           .ui.label= t("diagnoses.step#{diagnosis.step}.title")
@@ -11,9 +11,11 @@
     - if diagnosis.completed?
       - diagnosis.needs.each do |need|
         - if needs_of_interest.blank? || needs_of_interest.include?(need)
-          .diagnoses-list-item-need
-            %h4.ui.header
-              = need.subject
-              .match-status= status_label(need.status)
-              .sub.header= need.matches.human_count
+          %h4.ui.header
+            = need.subject
+            .match-status= status_label(need.status)
+            .sub.header
+              = need.matches.human_count
+              - if need.abandoned?
+                .ui.label.basic.orange= t('.last_activity_date', l: l(need.last_activity_at.to_date, format: :long))
     = render 'diagnoses/archive_action', diagnosis: diagnosis

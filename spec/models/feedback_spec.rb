@@ -16,25 +16,19 @@ RSpec.describe Feedback, type: :model do
     end
   end
 
-  describe 'can_be_viewed_by?' do
-    subject { feedback.can_be_viewed_by?(expert) }
+  describe 'can_be_modified_by?' do
+    subject { feedback.can_be_modified_by?(expert) }
 
     let(:feedback) { create :feedback }
     let(:expert) { create :expert }
 
     context 'expert is the expert of the match' do
-      before do
-        feedback.match.expert = expert
-      end
+      before { feedback.expert = expert }
 
       it { is_expected.to eq true }
     end
 
     context 'expert is unrelated' do
-      before do
-        feedback.match.expert = create :expert
-      end
-
       it { is_expected.to eq false }
     end
   end

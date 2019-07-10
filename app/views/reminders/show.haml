@@ -1,0 +1,15 @@
+- title = t('.title', full_name: @expert.full_name)
+
+- meta title: title
+
+%h1.ui.header
+  = title
+.ui.segments.shadow-less
+  .ui.segment
+    = person_block(@expert)
+
+= render 'needs/received_needs', received_needs: @needs_quo, title: t('needs.index.needs_quo'), highlighted_expert: @expert
+
+= render 'needs/received_needs', received_needs: @needs_taking_care, title: t('needs.index.needs_taking_care'), highlighted_expert: @expert
+
+= render 'needs/received_needs', received_needs: @needs_others_taking_care, title: t('needs.index.needs_others_taking_care'), highlighted_expert: @expert

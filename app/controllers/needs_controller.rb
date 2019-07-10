@@ -8,38 +8,21 @@ class NeedsController < ApplicationController
   after_action :mark_expert_viewed, only: :show
 
   def index
-    @needs_taking_care = received_needs
-      .where(matches: received_matches.status_taking_care)
-      .archived(false)
-
-    @needs_quo = received_needs
-      .by_status(:quo)
-      .where.not(matches: received_matches.status_not_for_me)
-      .archived(false)
-
-    @needs_others_taking_care = received_needs
-      .by_status(:taking_care)
-      .where.not(matches: received_matches.status_taking_care)
-      .archived(false)
+    @needs_quo = current_involved.needs_quo
+    @needs_taking_care = current_involved.needs_taking_care
+    @needs_others_taking_care = current_involved.needs_others_taking_care
   end
 
   def archives
-    @needs_rejected = received_needs
-      .where(matches: received_matches.status_not_for_me)
-      .archived(false)
-
-    @needs_done = received_needs
-      .by_status(:done)
-      .archived(false)
-
-    @needs_archived = received_needs
-      .archived(true)
+    @needs_rejected = current_involved.needs_rejected
+    @needs_done = current_involved.needs_done
+    @needs_archived = current_involved.needs_archived
   end
 
   def show
-    @diagnosis = diagnosis
-    check_current_user_access_to(@diagnosis)
+    @diagnosis = retrieve_diagnosis
     @current_roles = current_roles
+    @highlighted_experts = highlighted_experts
   end
 
   private
@@ -49,19 +32,28 @@ class NeedsController < ApplicationController
       : [current_expert]
   end
 
-  def received_needs
-    current_user.present? ? current_user.received_needs : current_expert.received_needs
+  def current_involved
+    current_user || current_expert
   end
 
-  def received_matches
-    current_user.present? ? current_user.received_matches : current_expert.received_matches
+  def highlighted_experts
+    safe_params = params.permit(:highlighted_expert)
+    if safe_params[:highlighted_expert].present?
+      [Expert.find(safe_params[:highlighted_expert])]
+    else
+      current_roles
+    end
   end
 
-  def diagnosis
-    Diagnosis.find(params[:id])
+  def retrieve_diagnosis
+    safe_params = params.permit(:id)
+    diagnosis = Diagnosis.find(safe_params[:id])
+    check_current_user_access_to(diagnosis, :read)
+    diagnosis
   end
 
   def mark_expert_viewed
+    diagnosis = retrieve_diagnosis
     experts.each do |expert|
       UseCases::UpdateExpertViewedPageAt.perform(diagnosis: diagnosis, expert: expert)
     end

@@ -82,13 +82,18 @@ class Match < ApplicationRecord
   ## Scopes
   #
   scope :not_viewed, -> { where(expert_viewed_page_at: nil) }
-  scope :with_status, -> (status) { where(status: status) }
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
   scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
+
+  scope :all_active_matches, -> do
+    joins(:need)
+      .merge(Need.all_active_needs)
+      .where.not(status: :not_for_me)
+  end
 
   ##
   #
@@ -134,12 +139,12 @@ class Match < ApplicationRecord
 
   ##
   #
-  def belongs_to_expert?(role)
-    role.present? && expert == role
+  def can_be_viewed_by?(role)
+    diagnosis.can_be_viewed_by?(role)
   end
 
-  def can_be_viewed_by?(role)
-    belongs_to_expert?(role)
+  def can_be_modified_by?(role)
+    role.present? && expert == role
   end
 
   private

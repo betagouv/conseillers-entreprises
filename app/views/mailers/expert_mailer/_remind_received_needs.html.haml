@@ -1,0 +1,18 @@
+- return if received_needs.blank?
+
+%h2= title
+= local_assigns[:subtitle]
+- diagnoses = Diagnosis.where(needs: received_needs).distinct.order!(happened_on: :desc)
+%ul
+  - diagnoses.each do |diagnosis|
+    %li
+      - path = besoin_url(diagnosis, access_token: access_token)
+      %strong
+        %a{ href: path }= diagnosis.company.name
+      —
+      = t('mailers.expert_mailer.remind_involvement.visited_at', date: I18n.l(diagnosis.display_date, format: :long))
+      %ul
+        - diagnosis.needs.merge(received_needs).each do |need|
+          %li
+            %strong= need.subject
+            = "(#{need.matches.human_count})"

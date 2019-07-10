@@ -145,20 +145,6 @@ RSpec.describe Match, type: :model do
       it { is_expected.to eq [match] }
     end
 
-    describe 'with_status' do
-      let!(:match_with_status_quo) { create :match, status: :quo }
-      let!(:match_taken_care_of) { create :match, status: :taking_care }
-      let!(:match_with_status_done) { create :match, status: :done }
-      let!(:match_not_for_expert) { create :match, status: :not_for_me }
-
-      it do
-        expect(Match.with_status(:quo)).to eq [match_with_status_quo]
-        expect(Match.with_status(:taking_care)).to eq [match_taken_care_of]
-        expect(Match.with_status(:done)).to eq [match_with_status_done]
-        expect(Match.with_status(:not_for_me)).to eq [match_not_for_expert]
-      end
-    end
-
     describe 'updated_more_than_five_days_ago' do
       subject { Match.updated_more_than_five_days_ago }
 
@@ -167,6 +153,22 @@ RSpec.describe Match, type: :model do
       before { create :match, updated_at: 4.days.ago }
 
       it { is_expected.to match_array [match_updated_two_weeks_ago] }
+    end
+
+    describe 'all_active_matches' do
+      subject { Match.all_active_matches }
+
+      let!(:match1) { create :match, status: :quo }
+      let!(:match2) { create :match, status: :quo }
+      let!(:match3) { create :match, status: :quo }
+
+      before do
+        match2.need.matches << create(:match, status: :not_for_me)
+        match3.need.matches << create(:match, status: :done)
+        create :match, status: :not_for_me
+      end
+
+      it { is_expected.to match_array [match1, match2] }
     end
   end
 end
