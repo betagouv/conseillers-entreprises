@@ -303,6 +303,8 @@ fr:
         title: Place des Entreprises, le guichet public d’accompagnement des TPE et PME
     institutions:
       title: '42 partenaires publics des Hauts-de-France à votre service :'
+    landing:
+      discover: Découvrir
     landing_details:
       exemple_topics: 'Exemples d’aides :'
       not_in_topics: Votre question n’est pas dans cette liste ?
