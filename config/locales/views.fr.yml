@@ -470,6 +470,18 @@ fr:
       person_company_contact: Personne rencontrée
       title: Visite de la société %{company}
       visit_made_on: Visite faite le %{date}
+  reminders:
+    expert:
+      expert_creation_date: Inscription le %{date}
+      received_needs_abandoned_quo_not_taken: Sans réponse
+      received_needs_abandoned_taking_care: Sans nouvelles
+      received_needs_quo_not_taken: Demandes reçues
+      received_needs_taking_care: Prises en charge
+    index:
+      all: Tous
+      title: Relances
+    show:
+      title: Demandes reçues par %{full_name}
   solicitations:
     form:
       button:

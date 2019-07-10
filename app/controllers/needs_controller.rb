@@ -22,6 +22,7 @@ class NeedsController < ApplicationController
   def show
     @diagnosis = retrieve_diagnosis
     @current_roles = current_roles
+    @highlighted_experts = highlighted_experts
   end
 
   private
@@ -33,6 +34,15 @@ class NeedsController < ApplicationController
 
   def current_involved
     current_user || current_expert
+  end
+
+  def highlighted_experts
+    safe_params = params.permit(:highlighted_expert)
+    if safe_params[:highlighted_expert].present?
+      [Expert.find(safe_params[:highlighted_expert])]
+    else
+      current_roles
+    end
   end
 
   def retrieve_diagnosis
