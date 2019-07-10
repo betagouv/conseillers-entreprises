@@ -1,4 +1,5 @@
 #solicitation-form
+  %h2.section__title= t('.title')
   = form_with(model: @solicitation, url: solicitation_path, scope: 'solicitation', method: :post) do |f|
     - @solicitation.form_info.each do |k,v|
       = f.hidden_field "form_info[#{k}]", value: v

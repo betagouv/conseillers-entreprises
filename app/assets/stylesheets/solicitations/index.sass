@@ -33,9 +33,13 @@ section.section#featured-landings
     margin-top: 1.5em
     margin-top: var(--space-m)
   .card
-    overflow: visible
+    display: flex
+    flex-direction: column
     .card__content
       padding: 1em
+    .discover_button
+      margin-top: auto
+      padding: 0 1em 1em
     a
       .landing-auto-description-container // unused for now
         .landing-title
@@ -61,9 +65,13 @@ section.section#featured-landings
   display: flex
   flex-direction: column
   flex: 1
-  h3, h5
+  h5
     margin-top: 0.5em
     margin-bottom: 0
+  h3
+    color: #006be6
+    img
+      vertical-align: middle
 
 .logo-list
   width: 95%
