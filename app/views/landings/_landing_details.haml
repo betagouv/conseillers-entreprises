@@ -1,7 +1,7 @@
 %h1.section__title
-  = landing.title
+  = simple_format(landing.title, {}, wrapper_tag: 'span')
 %h3.section__subtitle
-  = landing.subtitle
+  = simple_format(landing.subtitle, {}, wrapper_tag: 'span')
 
 - if landing.featured_on_home
   - cache(landing) do

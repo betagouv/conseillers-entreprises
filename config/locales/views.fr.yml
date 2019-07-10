@@ -303,6 +303,8 @@ fr:
         title: Place des Entreprises, le guichet public d’accompagnement des TPE et PME
     institutions:
       title: '42 partenaires publics des Hauts-de-France à votre service :'
+    landing:
+      discover: Découvrir
     landing_details:
       exemple_topics: 'Exemples d’aides :'
       not_in_topics: Votre question n’est pas dans cette liste ?
@@ -488,7 +490,7 @@ fr:
         title: Envoyer ma demande
       description:
         default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
-        label: Quelle est votre demande ?
+        label: Description
         placeholder: 'Décrivez simplement votre demande. Par exemple : « %{example} »'
       email:
         label: Email
@@ -497,6 +499,7 @@ fr:
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
+      title: Quelle est votre demande ?
     needs:
       long:
         01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?

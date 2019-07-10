@@ -11,7 +11,7 @@ describe 'New Solicitation Feature', type: :feature, js: true do
     before do
       visit '/aide/landing'
 
-      fill_in 'Quelle est votre demande ?', with: 'Ceci est un test'
+      fill_in 'Description', with: 'Ceci est un test'
       fill_in 'Téléphone', with: '0123456789'
       fill_in 'Email', with: 'user@exemple.com'
       click_button 'Envoyer ma demande'
