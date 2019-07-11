@@ -49,14 +49,32 @@ RSpec.describe Match, type: :model do
     end
   end
 
-  describe 'before create' do
-    describe 'copy_expert_info' do
-      let(:match) { create :match }
+  describe 'copy_expert_info' do
+    let(:match) { create :match }
 
+    describe 'before create' do
       it do
         expect(match.expert_full_name).not_to be_nil
         expect(match.expert_institution_name).not_to be_nil
         expect(match.skill_title).not_to be_nil
+      end
+    end
+
+    describe 'before update' do
+      context 'new expert is nil' do
+        before do
+          match.update expert: nil
+        end
+
+        it { expect(match.expert_full_name).not_to be_nil }
+      end
+
+      context 'new expert is not nil' do
+        before do
+          match.update expert: create(:expert)
+        end
+
+        it { expect(match.expert_full_name).to eq match.expert.full_name }
       end
     end
   end

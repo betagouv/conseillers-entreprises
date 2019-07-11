@@ -54,7 +54,7 @@ class Match < ApplicationRecord
   #
   validates :need, presence: true
   validates :expert, uniqueness: { scope: :need_id, allow_nil: true }
-  before_create :copy_expert_info
+  before_save :copy_expert_info
   after_update :update_taken_care_of_at
   after_update :update_closed_at
 
@@ -150,9 +150,13 @@ class Match < ApplicationRecord
   private
 
   def copy_expert_info
-    self.expert_full_name = expert.full_name
-    self.expert_institution_name = expert.antenne.name
-    self.skill_title = skill.title
+    if expert
+      self.expert_full_name = expert.full_name
+      self.expert_institution_name = expert.antenne.name
+    end
+    if skill
+      self.skill_title = skill.title
+    end
   end
 
   def update_taken_care_of_at
