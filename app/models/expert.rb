@@ -73,7 +73,7 @@ class Expert < ApplicationRecord
 
   scope :with_active_matches, -> do
     joins(:received_matches)
-      .merge(Match.all_active_matches)
+      .merge(Match.active)
       .distinct
   end
 

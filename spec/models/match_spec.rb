@@ -173,8 +173,8 @@ RSpec.describe Match, type: :model do
       it { is_expected.to match_array [match_updated_two_weeks_ago] }
     end
 
-    describe 'all_active_matches' do
-      subject { Match.all_active_matches }
+    describe 'active' do
+      subject { Match.active }
 
       let!(:match1) { create :match, status: :quo }
       let!(:match2) { create :match, status: :quo }
