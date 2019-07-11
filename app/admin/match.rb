@@ -111,10 +111,11 @@ ActiveAdmin.register Match do
 
   ## Form
   #
-  permit_params :need_id, :experts_skills_id, :status
+  permit_params :expert_id, :status
   form do |f|
     f.inputs do
       f.input :status
+      f.input :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
     end
 
     f.actions
