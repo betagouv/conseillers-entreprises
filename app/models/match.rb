@@ -95,6 +95,12 @@ class Match < ApplicationRecord
       .where.not(status: :not_for_me)
   end
 
+  scope :active_abandoned, -> do
+    joins(:need)
+      .merge(Need.active.abandoned)
+      .where.not(status: :not_for_me)
+  end
+
   ##
   #
   def to_s

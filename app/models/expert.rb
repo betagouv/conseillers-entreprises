@@ -77,6 +77,12 @@ class Expert < ApplicationRecord
       .distinct
   end
 
+  scope :with_active_abandoned_matches, -> do
+    joins(:received_matches)
+      .merge(Match.active_abandoned)
+      .distinct
+  end
+
   scope :ordered_by_institution, -> do
     joins(:antenne, :antenne_institution)
       .select('experts.*', 'antennes.name', 'institutions.name')
