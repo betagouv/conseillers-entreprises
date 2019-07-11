@@ -43,7 +43,7 @@
     .ui.segment.clearing
       %h3.header= t('.discussion')
       .ui.comments{ id: "feedbacks-need-#{need.id}" }
-        = raw_feedback_block(need.content, @diagnosis.advisor.full_name, @diagnosis.display_date)
+        = raw_feedback_block(need.content, @diagnosis.advisor.full_name, @diagnosis.completed_at)
         - need.feedbacks.order(:created_at).each do |feedback|
           - is_for_me = feedback.match == match_for_me
           = feedback_block(feedback, is_for_me)
