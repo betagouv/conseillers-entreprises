@@ -133,7 +133,7 @@ class Need < ApplicationRecord
     end
   end
 
-  scope :all_active_needs, -> do
+  scope :active, -> do
     archived(false)
       .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
       .with_some_matches_in_status([:quo, :taking_care])

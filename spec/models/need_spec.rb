@@ -160,8 +160,8 @@ RSpec.describe Need, type: :model do
       end
     end
 
-    describe 'all_active_needs' do
-      subject { Need.all_active_needs }
+    describe 'active' do
+      subject { Need.active }
 
       let!(:need1) do
         create :need, matches: [
