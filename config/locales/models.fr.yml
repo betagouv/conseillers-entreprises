@@ -86,6 +86,7 @@ fr:
       expert:
         access_token: Token d’accès
         is_global_zone: Global
+        reminders_notes: Suivi des relances
         role: Fonction
         skills:
           one: Compétence

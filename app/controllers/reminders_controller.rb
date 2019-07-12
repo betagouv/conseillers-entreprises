@@ -23,6 +23,11 @@ class RemindersController < ApplicationController
     @needs_others_taking_care = @expert.needs_others_taking_care
   end
 
+  def reminders_notes
+    @expert = retrieve_expert
+    @expert.update(safe_params[:expert])
+  end
+
   private
 
   def retrieve_territory
@@ -32,9 +37,11 @@ class RemindersController < ApplicationController
     end
   end
 
+  def safe_params
+    params.permit(:id, expert: :reminders_notes)
+  end
+
   def retrieve_expert
-    safe_params = params.permit(:id)
-    expert = Expert.find(safe_params[:id])
-    expert
+    Expert.find(safe_params[:id])
   end
 end

@@ -64,7 +64,11 @@ Rails.application.routes.draw do
 
   resources :feedbacks, only: %i[create destroy]
 
-  resources :relances, as: 'reminders', controller: 'reminders', only: %i[index show]
+  resources :relances, as: 'reminders', controller: 'reminders', only: %i[index show] do
+    member do
+      post :reminders_notes
+    end
+  end
 
   get '/experts/diagnoses/:diagnosis', to: (redirect do |params, request|
     "/besoins/#{params[:diagnosis]}?#{request.params.slice(:access_token).to_query}"
