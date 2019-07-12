@@ -89,9 +89,15 @@ class Match < ApplicationRecord
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
 
-  scope :all_active_matches, -> do
+  scope :active, -> do
     joins(:need)
-      .merge(Need.all_active_needs)
+      .merge(Need.active)
+      .where.not(status: :not_for_me)
+  end
+
+  scope :active_abandoned, -> do
+    joins(:need)
+      .merge(Need.active.abandoned)
       .where.not(status: :not_for_me)
   end
 

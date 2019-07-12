@@ -473,17 +473,20 @@ fr:
       title: Visite de la société %{company}
       visit_made_on: Visite faite le %{date}
   reminders:
-    expert:
+    expert_contents:
       expert_creation_date: Inscription le %{date}
-      received_needs_abandoned_quo_not_taken: Sans réponse
-      received_needs_abandoned_taking_care: Sans nouvelles
-      received_needs_quo_not_taken: Demandes reçues
-      received_needs_taking_care: Prises en charge
+      matches_total: Demandes depuis le début
+      matches_total_done: clôturées
+      matches_total_received: reçues
+      matches_total_taken_care_of: prises en charge
+      received_needs_abandoned: Actuellement en souffrance
+      received_needs_abandoned_quo_not_taken: sans réponse
+      received_needs_abandoned_taking_care: pris en charge
     index:
       all: Tous
       title: Relances
     show:
-      title: Demandes reçues par %{full_name}
+      title: Relances / %{full_name}
   solicitations:
     form:
       button:
