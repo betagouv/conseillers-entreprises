@@ -482,6 +482,8 @@ fr:
       received_needs_abandoned: Actuellement en souffrance
       received_needs_abandoned_quo_not_taken: sans réponse
       received_needs_abandoned_taking_care: pris en charge
+    expert_reminders_notes:
+      placeholder: Restez factuel :)
     index:
       all: Tous
       title: Relances

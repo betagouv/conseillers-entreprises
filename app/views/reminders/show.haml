@@ -7,6 +7,8 @@
 .ui.segments.shadow-less
   .ui.segment
     = render 'expert_contents', expert: @expert
+    %div{ id: "expert_reminders_notes-#{@expert.id}" }
+      = render 'expert_reminders_notes', expert: @expert
 
 = render 'needs/received_needs', received_needs: @needs_quo, title: t('needs.index.needs_quo'), highlighted_expert: @expert
 
