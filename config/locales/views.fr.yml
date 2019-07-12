@@ -473,7 +473,7 @@ fr:
       title: Visite de la société %{company}
       visit_made_on: Visite faite le %{date}
   reminders:
-    expert:
+    expert_contents:
       expert_creation_date: Inscription le %{date}
       matches_total: Demandes depuis le début
       matches_total_done: clôturées
@@ -486,7 +486,7 @@ fr:
       all: Tous
       title: Relances
     show:
-      title: Demandes reçues par %{full_name}
+      title: Relances / %{full_name}
   solicitations:
     form:
       button:

@@ -6,7 +6,7 @@
   = title
 .ui.segments.shadow-less
   .ui.segment
-    = person_block(@expert)
+    = render 'expert_contents', expert: @expert
 
 = render 'needs/received_needs', received_needs: @needs_quo, title: t('needs.index.needs_quo'), highlighted_expert: @expert
 
