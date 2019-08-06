@@ -13,22 +13,19 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  expert_id               :bigint(8)
-#  experts_skills_id       :bigint(8)
 #  need_id                 :bigint(8)
 #  skill_id                :bigint(8)
 #
 # Indexes
 #
-#  index_matches_on_expert_id          (expert_id)
-#  index_matches_on_experts_skills_id  (experts_skills_id)
-#  index_matches_on_need_id            (need_id)
-#  index_matches_on_skill_id           (skill_id)
-#  index_matches_on_status             (status)
+#  index_matches_on_expert_id  (expert_id)
+#  index_matches_on_need_id    (need_id)
+#  index_matches_on_skill_id   (skill_id)
+#  index_matches_on_status     (status)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (expert_id => experts.id)
-#  fk_rails_...  (experts_skills_id => experts_skills.id)
 #  fk_rails_...  (need_id => needs.id)
 #  fk_rails_...  (skill_id => skills.id)
 #
