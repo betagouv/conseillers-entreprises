@@ -17,7 +17,7 @@ module SireneApi
     end
 
     def self.url(query)
-      "https://sirene.entreprise.api.gouv.fr/v1/full_text/#{query}"
+      "https://entreprise.data.gouv.fr/api/sirene/v1/full_text/#{query}"
     end
   end
 end
