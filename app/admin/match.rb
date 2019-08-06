@@ -39,6 +39,7 @@ ActiveAdmin.register Match do
         status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
       end
     end
+    column :skill
 
     actions dropdown: true
   end
@@ -76,6 +77,7 @@ ActiveAdmin.register Match do
     column :expert
     column :expert_antenne
     column :expert_institution
+    column :skill
     column(:status) { |m| m.status_short_description }
     column(:status_description) { |m| m.need.status_short_description }
     column :taken_care_of_at
@@ -106,16 +108,20 @@ ActiveAdmin.register Match do
           status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
         end
       end
+      row :skill
     end
   end
 
   ## Form
   #
-  permit_params :expert_id, :status
+  permit_params :expert_id, :skill_id, :status
   form do |f|
     f.inputs do
       f.input :status
       f.input :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
+      subjects = Subject.archived(false).includes(:skills)
+      collection = option_groups_from_collection_for_select(subjects, :skills, :label, :id, :title)
+      f.input :skill, input_html: { :size => 20 }, collection: collection
     end
 
     f.actions
