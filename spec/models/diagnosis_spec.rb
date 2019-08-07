@@ -29,6 +29,27 @@ RSpec.describe Diagnosis, type: :model do
         it { is_expected.to be_valid }
       end
     end
+
+    describe 'step_4_has_visit_attributes' do
+      subject(:diagnosis) { build :diagnosis, step: 4, visitee: visitee, happened_on: happened_on }
+
+      context 'missing attributes' do
+        let(:visitee) { nil }
+        let(:happened_on) { nil }
+
+        before { diagnosis.validate }
+
+        it { is_expected.not_to be_valid }
+        it { expect(diagnosis.errors.details.keys).to match_array [:visitee, :happened_on] }
+      end
+
+      context 'with matches' do
+        let(:visitee) { build :contact_with_email }
+        let(:happened_on) { Date.today }
+
+        it { is_expected.to be_valid }
+      end
+    end
   end
 
   describe 'callbacks' do

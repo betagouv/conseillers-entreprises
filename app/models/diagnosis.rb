@@ -49,6 +49,7 @@ class Diagnosis < ApplicationRecord
   #
   validates :advisor, :facility, presence: true
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
+  validate :step_4_has_visit_attributes
   validate :last_step_has_matches
   after_update :last_step_notify, if: :saved_change_to_step?
 
@@ -148,8 +149,19 @@ class Diagnosis < ApplicationRecord
 
   private
 
+  def step_4_has_visit_attributes
+    if step == 4
+      if visitee.nil?
+        errors.add(:visitee, :blank)
+      end
+      if happened_on.nil?
+        errors.add(:happened_on, :blank)
+      end
+    end
+  end
+
   def last_step_has_matches
-    if step == 5 && needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
+    if step == LAST_STEP && needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
       errors.add(:step, 'can’t be step 5 with no matches')
     end
   end
