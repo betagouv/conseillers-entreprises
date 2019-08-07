@@ -21,12 +21,15 @@ ActiveAdmin.register Skill do
     column(:experts) do |a|
       admin_link_to(a, :experts)
     end
+    column(:matches) do |a|
+      admin_link_to(a, :matches)
+    end
     actions dropdown: true
   end
 
   filter :title
-  filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
-  filter :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
+  filter :theme, collection: -> { Theme.ordered_for_interview }
+  filter :subject, collection: -> { Subject.order(:interview_sort_order) }
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
 
   ## CSV
@@ -47,7 +50,12 @@ ActiveAdmin.register Skill do
       row :subject
       row :title
       row :description
-      row(:experts) { |a| link_to(a.experts.size, admin_experts_path('q[experts_skills_skill_id_eq]': a)) }
+    end
+    attributes_table do
+      row(:experts) { |a| admin_link_to(a, :experts) }
+    end
+    attributes_table do
+      row(:matches) { |a| admin_link_to(a, :matches) }
     end
   end
 
