@@ -25,7 +25,7 @@ class Skill < ApplicationRecord
 
   has_many :experts_skills, dependent: :destroy
   has_many :experts, through: :experts_skills, inverse_of: :skills # TODO should be direct once we remove the ExpertSkill model and use a HABTM
-  has_many :matches, through: :experts_skills, inverse_of: :skill
+  has_many :matches, inverse_of: :skill
 
   ## Validations
   #
