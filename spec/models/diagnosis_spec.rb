@@ -6,7 +6,6 @@ RSpec.describe Diagnosis, type: :model do
   it do
     is_expected.to have_many :needs
     is_expected.to belong_to :advisor
-    # is_expected.to belong_to :visitee # TODO: We currently have bad data in DB, and cannot validate this
     is_expected.to belong_to :facility
     is_expected.to validate_presence_of :advisor
     is_expected.to validate_presence_of :facility
