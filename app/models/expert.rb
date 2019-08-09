@@ -20,6 +20,10 @@
 #  index_experts_on_antenne_id    (antenne_id)
 #  index_experts_on_email         (email)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (antenne_id => antennes.id)
+#
 
 class Expert < ApplicationRecord
   include PersonConcern

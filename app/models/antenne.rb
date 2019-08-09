@@ -15,6 +15,10 @@
 #
 #  index_antennes_on_institution_id  (institution_id)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (institution_id => institutions.id)
+#
 
 class Antenne < ApplicationRecord
   ## Associations
