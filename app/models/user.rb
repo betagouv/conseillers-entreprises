@@ -13,7 +13,6 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  full_name              :string
-#  institution            :string
 #  is_admin               :boolean          default(FALSE), not null
 #  is_approved            :boolean          default(FALSE), not null
 #  last_sign_in_at        :datetime
@@ -180,11 +179,6 @@ class User < ApplicationRecord
       return self.experts.first.antenne
     end
 
-    antennes = Antenne.where('name ILIKE ?', "%#{self.institution}%")
-    if antennes.one?
-      return antennes.first
-    end
-
     antennes = Antenne.joins(:experts)
       .distinct
       .where('experts.email ILIKE ?', "%#{self.email.split('@').last}")
@@ -217,7 +211,7 @@ class User < ApplicationRecord
     if antenne.present?
       "#{role} - #{antenne.name}"
     else
-      "#{role} - #{institution}"
+      "#{role}"
     end
   end
 

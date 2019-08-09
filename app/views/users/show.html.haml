@@ -1,6 +1,6 @@
 #profile
   .ui.segments
-    - %i[full_name institution role phone_number email].each do |attribute|
+    - %i[full_name role phone_number email].each do |attribute|
       .ui.attached.segment
         %strong #{User.human_attribute_name(attribute)} :
         = @user.send(attribute)

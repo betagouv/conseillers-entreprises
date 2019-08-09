@@ -34,7 +34,6 @@ ActiveAdmin.register User do
         div admin_link_to(u, :antenne_institution)
       else
         status_tag 'sans antenne', class: 'warning'
-        span u.institution
       end
     end
     column(:experts) do |u|
@@ -76,7 +75,7 @@ ActiveAdmin.register User do
     column :role
     column :antenne
     column :antenne_institution do |u|
-      u.antenne_institution || "sans antenne: #{u.institution}"
+      u.antenne_institution || "(sans antenne)"
     end
     column_list :experts
     column_count :searches
@@ -100,7 +99,6 @@ ActiveAdmin.register User do
           div admin_link_to(u, :antenne_institution)
         else
           status_tag 'sans antenne', class: 'warning'
-          span u.institution
         end
       end
       row(:experts) do |u|
@@ -156,7 +154,6 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
       f.input :full_name
-      f.input :institution
       f.input :antenne, as: :ajax_select, data: {
         url: :admin_antennes_path,
         search_fields: [:name],
