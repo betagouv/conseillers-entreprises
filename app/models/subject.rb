@@ -43,6 +43,9 @@ class Subject < ApplicationRecord
   # :needs
   has_many :diagnoses, through: :needs, inverse_of: :subjects
 
+  # :skills
+  has_many :matches, through: :skills, inverse_of: :subject
+
   ## Scopes
   #
   scope :ordered_for_interview, -> do

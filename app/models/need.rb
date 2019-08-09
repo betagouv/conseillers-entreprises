@@ -62,6 +62,9 @@ class Need < ApplicationRecord
   has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_needs
   has_many :contacted_users, through: :experts, source: :users, inverse_of: :received_needs
 
+  # :subject
+  has_one :theme, through: :subject, inverse_of: :needs
+
   ## Scopes
   #
   scope :made_in, -> (date_range) do

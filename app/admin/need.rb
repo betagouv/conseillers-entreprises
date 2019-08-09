@@ -49,7 +49,8 @@ ActiveAdmin.register Need do
 
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
-  filter :subject, collection: -> { Subject.order(:label) }
+  filter :theme, collection: -> { Theme.ordered_for_interview }
+  filter :subject, collection: -> { Subject.order(:interview_sort_order) }
   filter :content
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
   filter :experts, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }

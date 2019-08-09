@@ -20,8 +20,8 @@
 #
 
 class ExpertSkill < ApplicationRecord
-  belongs_to :skill
-  belongs_to :expert
+  belongs_to :skill, inverse_of: :experts_skills
+  belongs_to :expert, inverse_of: :experts_skills
 
   scope :relevant_for, -> (need) do
     experts_in_commune = need.facility.commune.all_experts

@@ -36,9 +36,9 @@ module AdminHelper
     end
 
     klass = object.class
-    association_reflection = klass.reflect_on_association(association)
+    reflection = klass.reflect_on_association(association)
 
-    if association_reflection.collection?
+    if reflection.collection?
       if options[:list]
         foreign_objects = object.send(association)
         if foreign_objects.present?
@@ -50,9 +50,20 @@ module AdminHelper
       else # single link to list
         count = object.send(association).size
         text = "#{count} #{klass.human_attribute_name(association, count: count).downcase}"
-        foreign_klass = association_reflection.klass
-        inverse = association_reflection.options[:inverse_of]
-        link_to(text, polymorphic_path([:admin, foreign_klass], "q[#{inverse}_id_eq]": object))
+        foreign_klass = reflection.klass
+        if reflection.options[:through].present?
+          # I’m not using `reflection.through_reflection` on purpose:
+          # when the through association is a HABTM, the reflectio returned by
+          # `reflection.through_reflection` is missing the :inverse_of option that we need.
+          # If we query the original klass for the reflection on the through association,
+          # we get all the declared options.
+          through_reflection = klass.reflect_on_association(reflection.options[:through])
+          names = [reflection.inverse_of.options[:through], through_reflection.options[:inverse_of]]
+          inverse_path = names.compact.join('_')
+        else
+          inverse_path = reflection.inverse_of.name
+        end
+        link_to(text, polymorphic_path([:admin, foreign_klass], "q[#{inverse_path}_id_eq]": object))
       end
     else
       foreign_object = object.send(association)
