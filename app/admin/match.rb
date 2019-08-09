@@ -39,7 +39,11 @@ ActiveAdmin.register Match do
         status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
       end
     end
-    column :skill
+    column(:skill) do |m|
+      div admin_link_to(m, :theme)
+      div admin_link_to(m, :subject)
+      div admin_link_to(m, :skill)
+    end
 
     actions dropdown: true
   end
@@ -58,6 +62,8 @@ ActiveAdmin.register Match do
 
   filter :expert_full_name
 
+  filter :theme, collection: -> { Theme.ordered_for_interview }
+  filter :subject, collection: -> { Subject.order(:interview_sort_order) }
   filter :skill, as: :ajax_select, data: { url: :admin_skills_path, search_fields: [:title] }
 
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }

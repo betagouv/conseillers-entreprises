@@ -76,6 +76,12 @@ class Match < ApplicationRecord
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
 
+  # :skill
+  has_one :subject, through: :skill, inverse_of: :matches
+
+  # :subject
+  has_one :theme, through: :subject, inverse_of: :matches
+
   ## Scopes
   #
   scope :not_viewed, -> { where(expert_viewed_page_at: nil) }

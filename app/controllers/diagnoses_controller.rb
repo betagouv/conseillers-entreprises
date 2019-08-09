@@ -44,8 +44,13 @@ class DiagnosesController < ApplicationController
       redirect_to action: :step3, id: @diagnosis
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      @themes = Theme.all.includes(:subjects)
-      render action: :step2
+      respond_to do |format|
+        format.js { render 'application/flashes' }
+        format.html do
+          @themes = Theme.all.includes(:subjects)
+          render action: :step2
+        end
+      end
     end
   end
 
@@ -62,7 +67,10 @@ class DiagnosesController < ApplicationController
       redirect_to action: :step4, id: @diagnosis
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      render action: :step3
+      respond_to do |format|
+        format.js { render 'application/flashes' }
+        format.html { render action: :step3 }
+      end
     end
   end
 
@@ -77,7 +85,10 @@ class DiagnosesController < ApplicationController
       redirect_to besoin_path(@diagnosis)
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      render action: :step4, status: :bad_request
+      respond_to do |format|
+        format.js { render 'application/flashes' }
+        format.html { render action: :step4, status: :bad_request }
+      end
     end
   end
 
@@ -95,11 +106,6 @@ class DiagnosesController < ApplicationController
 
   def params_for_visite
     permitted = params.require(:diagnosis).permit(:happened_on, visitee_attributes: [:full_name, :role, :email, :phone_number, :id])
-    permitted.require(:happened_on)
-    permitted.require(:visitee_attributes).require(:full_name)
-    permitted.require(:visitee_attributes).require(:role)
-    permitted.require(:visitee_attributes).require(:email)
-    permitted.require(:visitee_attributes).require(:phone_number)
     permitted
   end
 

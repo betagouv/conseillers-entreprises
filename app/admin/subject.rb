@@ -29,6 +29,10 @@ ActiveAdmin.register Subject do
     column(:skills) do |s|
       div admin_link_to(s, :skills)
     end
+    column(:needs) do |s|
+      div admin_link_to(s, :needs)
+      div admin_link_to(s, :matches)
+    end
     actions dropdown: true do |d|
       index_row_archive_actions(d)
     end
@@ -36,7 +40,7 @@ ActiveAdmin.register Subject do
 
   filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
   filter :is_support
-  filter :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
+  filter :theme, collection: -> { Theme.ordered_for_interview }
   filter :label
 
   ## CSV
@@ -60,7 +64,11 @@ ActiveAdmin.register Subject do
       row :interview_sort_order
       row :archived_at
       row :is_support
-      row(:skills) { |s| link_to(s.skills.size, admin_skills_path('q[subject_id_eq': s)) }
+      row(:skills) { |s| admin_link_to(s, :skills) }
+    end
+    attributes_table do
+      row(:needs) { |s| admin_link_to(s, :needs) }
+      row(:matches) { |s| admin_link_to(s, :matches) }
     end
   end
 

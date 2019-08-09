@@ -18,6 +18,10 @@ ActiveAdmin.register Theme do
       div admin_link_to(t, :subjects)
       div admin_link_to(t, :skills)
     end
+    column(:needs) do |t|
+      div admin_link_to(t, :needs)
+      div admin_link_to(t, :matches)
+    end
     actions dropdown: true
   end
 
@@ -38,8 +42,12 @@ ActiveAdmin.register Theme do
     attributes_table do
       row :label
       row :interview_sort_order
-      row(:subjects) { |t| link_to(t.subjects.size, admin_subjects_path('q[theme_id_eq]': t)) }
-      row(:skills) { |t| link_to(t.skills.size, admin_skills_path('q[subject_theme_id_eq]': t)) }
+      row(:subjects) { |t| admin_link_to(t, :subjects) }
+      row(:skills) { |t| admin_link_to(t, :skills) }
+    end
+    attributes_table do
+      row(:needs) { |t| admin_link_to(t, :needs) }
+      row(:matches) { |t| admin_link_to(t, :matches) }
     end
   end
 
