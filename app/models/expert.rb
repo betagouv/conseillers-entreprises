@@ -34,7 +34,7 @@ class Expert < ApplicationRecord
 
   has_and_belongs_to_many :users, inverse_of: :experts
 
-  has_many :experts_skills, dependent: :destroy
+  has_many :experts_skills, dependent: :destroy, inverse_of: :expert
   has_many :skills, through: :experts_skills, dependent: :destroy, inverse_of: :experts # TODO should be direct once we remove the ExpertSkill model and use a HABTM
   has_many :received_matches, class_name: 'Match', inverse_of: :expert
 
