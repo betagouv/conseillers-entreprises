@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Facility, type: :model do
   describe 'validations' do
-    subject { build(:facility) }
+    subject { create(:facility) }
 
     it do
       is_expected.to belong_to :company

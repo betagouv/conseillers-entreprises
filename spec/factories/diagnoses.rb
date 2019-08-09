@@ -10,9 +10,10 @@ FactoryBot.define do
     happened_on { 3.days.from_now }
 
     factory :diagnosis_completed do
-      step { 5 }
-      before(:create) do |diagnosis, _|
+      after(:create) do |diagnosis, _|
+        diagnosis.step = 5
         diagnosis.needs = create_list(:need_with_matches, 1, diagnosis: diagnosis)
+        diagnosis.save!
       end
     end
 
