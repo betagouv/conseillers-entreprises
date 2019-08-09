@@ -265,7 +265,6 @@ fr:
     antenne_experts:
       one: Référent
       other: Référents
-    antenne_institution: Institution
     archived_at: Date d’archivage
     communes: Communes
     community: Communauté

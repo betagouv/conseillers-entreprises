@@ -66,11 +66,11 @@ class Match < ApplicationRecord
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_matches
-  has_one :advisor_institution, through: :advisor, source: :antenne_institution, inverse_of: :sent_matches
+  has_one :advisor_institution, through: :advisor, source: :institution, inverse_of: :sent_matches
 
   # :expert
   has_one :expert_antenne, through: :expert, source: :antenne, inverse_of: :received_matches
-  has_one :expert_institution, through: :expert, source: :antenne_institution, inverse_of: :received_matches
+  has_one :expert_institution, through: :expert, source: :institution, inverse_of: :received_matches
   has_many :contacted_users, through: :expert, source: :users, inverse_of: :received_matches
 
   # :facility

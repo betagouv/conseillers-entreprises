@@ -55,11 +55,11 @@ class Need < ApplicationRecord
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_needs
-  has_one :advisor_institution, through: :advisor, source: :antenne_institution, inverse_of: :sent_needs
+  has_one :advisor_institution, through: :advisor, source: :institution, inverse_of: :sent_needs
 
   # :experts
   has_many :expert_antennes, through: :experts, source: :antenne, inverse_of: :received_needs
-  has_many :expert_institutions, through: :experts, source: :antenne_institution, inverse_of: :received_needs
+  has_many :expert_institutions, through: :experts, source: :institution, inverse_of: :received_needs
   has_many :contacted_users, through: :experts, source: :users, inverse_of: :received_needs
 
   # :subject

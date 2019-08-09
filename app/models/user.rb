@@ -80,7 +80,7 @@ class User < ApplicationRecord
   ## “Through” Associations
   #
   # :antenne
-  has_one :antenne_institution, through: :antenne, source: :institution, inverse_of: :advisors # TODO Should be named :institution when we remove the :institution text field.
+  has_one :institution, through: :antenne, source: :institution, inverse_of: :advisors
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :advisors
   has_many :antenne_territories, through: :antenne, source: :territories, inverse_of: :advisors
 
@@ -107,7 +107,7 @@ class User < ApplicationRecord
       .distinct
   }
   scope :ordered_by_institution, -> do
-    joins(:antenne, :antenne_institution)
+    joins(:antenne, :institution)
       .select('users.*', 'antennes.name', 'institutions.name')
       .order('institutions.name', 'antennes.name', :full_name)
   end

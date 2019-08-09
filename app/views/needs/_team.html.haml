@@ -3,8 +3,8 @@
     = expert.full_name
   .ui.segment
     %strong #{[t('activerecord.attributes.expert.role'), t('attributes.institution')].to_sentence} :
-    = institution_image(expert.antenne_institution.name, class: 'ui mini right spaced image')
-    #{expert.role}, #{expert.antenne.name}, #{expert.antenne_institution.name}
+    = institution_image(expert.institution.name, class: 'ui mini right spaced image')
+    #{expert.role}, #{expert.antenne.name}, #{expert.institution.name}
   - if expert.phone_number.present?
     .ui.segment
       %strong #{t('attributes.phone_number')} :
