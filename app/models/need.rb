@@ -8,7 +8,7 @@
 #  matches_count :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  diagnosis_id  :bigint(8)
+#  diagnosis_id  :bigint(8)        not null
 #  subject_id    :bigint(8)        not null
 #
 # Indexes

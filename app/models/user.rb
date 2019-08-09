@@ -37,6 +37,10 @@
 #  index_users_on_is_approved           (is_approved)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (antenne_id => antennes.id)
+#
 
 class User < ApplicationRecord
   ## Constants

@@ -8,7 +8,7 @@
 #  title              :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  landing_id         :bigint(8)
+#  landing_id         :bigint(8)        not null
 #
 # Indexes
 #
