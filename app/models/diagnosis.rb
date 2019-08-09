@@ -9,7 +9,7 @@
 #  step        :integer          default(1)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  advisor_id  :bigint(8)
+#  advisor_id  :bigint(8)        not null
 #  facility_id :bigint(8)
 #  visitee_id  :bigint(8)
 #

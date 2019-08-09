@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_06_092008) do
+ActiveRecord::Schema.define(version: 2019_08_09_124307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
     t.string "email"
     t.string "phone_number"
     t.string "role"
-    t.bigint "company_id"
+    t.bigint "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
     t.datetime "updated_at", null: false
     t.integer "step", default: 1
     t.datetime "archived_at"
-    t.bigint "advisor_id"
+    t.bigint "advisor_id", null: false
     t.bigint "visitee_id"
     t.bigint "facility_id"
     t.date "happened_on"
@@ -143,8 +143,8 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
   end
 
   create_table "experts_skills", force: :cascade do |t|
-    t.bigint "skill_id"
-    t.bigint "expert_id"
+    t.bigint "skill_id", null: false
+    t.bigint "expert_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["expert_id"], name: "index_experts_skills_on_expert_id"
@@ -152,14 +152,14 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
   end
 
   create_table "experts_users", id: false, force: :cascade do |t|
-    t.bigint "expert_id"
-    t.bigint "user_id"
+    t.bigint "expert_id", null: false
+    t.bigint "user_id", null: false
     t.index ["expert_id"], name: "index_experts_users_on_expert_id"
     t.index ["user_id"], name: "index_experts_users_on_user_id"
   end
 
   create_table "facilities", force: :cascade do |t|
-    t.bigint "company_id"
+    t.bigint "company_id", null: false
     t.string "siret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.text "description"
-    t.bigint "match_id"
+    t.bigint "match_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["match_id"], name: "index_feedbacks_on_match_id"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
     t.integer "landing_sort_order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "landing_id"
+    t.bigint "landing_id", null: false
     t.index ["landing_id"], name: "index_landing_topics_on_landing_id"
   end
 
@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
   end
 
   create_table "matches", force: :cascade do |t|
-    t.bigint "need_id"
+    t.bigint "need_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "expert_full_name"
@@ -227,7 +227,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
   end
 
   create_table "needs", force: :cascade do |t|
-    t.bigint "diagnosis_id"
+    t.bigint "diagnosis_id", null: false
     t.bigint "subject_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -241,7 +241,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
 
   create_table "searches", id: :serial, force: :cascade do |t|
     t.string "query", null: false
-    t.integer "user_id"
+    t.bigint "user_id", null: false
     t.string "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -327,6 +327,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "antennes", "institutions"
   add_foreign_key "antennes_communes", "antennes"
   add_foreign_key "antennes_communes", "communes"
   add_foreign_key "communes_experts", "communes"
@@ -337,8 +338,11 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
   add_foreign_key "diagnoses", "contacts", column: "visitee_id"
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "users", column: "advisor_id"
+  add_foreign_key "experts", "antennes"
   add_foreign_key "experts_skills", "experts"
   add_foreign_key "experts_skills", "skills"
+  add_foreign_key "experts_users", "experts"
+  add_foreign_key "experts_users", "users"
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "matches"
@@ -351,4 +355,5 @@ ActiveRecord::Schema.define(version: 2019_08_06_092008) do
   add_foreign_key "searches", "users"
   add_foreign_key "skills", "subjects"
   add_foreign_key "subjects", "themes"
+  add_foreign_key "users", "antennes"
 end

@@ -13,7 +13,7 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  expert_id               :bigint(8)
-#  need_id                 :bigint(8)
+#  need_id                 :bigint(8)        not null
 #  skill_id                :bigint(8)
 #
 # Indexes

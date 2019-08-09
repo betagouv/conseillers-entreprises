@@ -6,7 +6,7 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  match_id    :bigint(8)
+#  match_id    :bigint(8)        not null
 #
 # Indexes
 #
