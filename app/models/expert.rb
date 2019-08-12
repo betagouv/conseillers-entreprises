@@ -55,7 +55,7 @@ class Expert < ApplicationRecord
   has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :direct_experts
 
   # :antenne
-  has_one :antenne_institution, through: :antenne, source: :institution, inverse_of: :experts
+  has_one :institution, through: :antenne, source: :institution, inverse_of: :experts
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
   has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
 
@@ -89,7 +89,7 @@ class Expert < ApplicationRecord
   end
 
   scope :ordered_by_institution, -> do
-    joins(:antenne, :antenne_institution)
+    joins(:antenne, :institution)
       .select('experts.*', 'antennes.name', 'institutions.name')
       .order('institutions.name', 'antennes.name', :full_name)
   end

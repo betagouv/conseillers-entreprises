@@ -5,7 +5,7 @@ ActiveAdmin.register Expert do
 
   # Index
   #
-  includes :antenne_institution, :antenne, :users, :skills, :received_matches
+  includes :institution, :antenne, :users, :skills, :received_matches
   config.sort_order = 'full_name_asc'
 
   scope :all, default: true
@@ -22,7 +22,7 @@ ActiveAdmin.register Expert do
       div '✆ ' + e.phone_number
     end
     column(:institution) do |e|
-      div admin_link_to(e, :antenne_institution)
+      div admin_link_to(e, :institution)
       div admin_link_to(e, :antenne)
     end
     column(:intervention_zone) do |e|
@@ -58,7 +58,7 @@ ActiveAdmin.register Expert do
   filter :role
   filter :email
   filter :phone_number
-  filter :antenne_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
@@ -71,7 +71,7 @@ ActiveAdmin.register Expert do
     column :role
     column :email
     column :phone_number
-    column :antenne_institution
+    column :institution
     column :antenne
     column_count :antenne_territories
     column_count :antenne_communes
@@ -93,7 +93,7 @@ ActiveAdmin.register Expert do
       row :role
       row :email
       row :phone_number
-      row :antenne_institution
+      row :institution
       row :antenne
       row :reminders_notes
       row(:intervention_zone) do |e|

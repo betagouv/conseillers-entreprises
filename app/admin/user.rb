@@ -5,7 +5,7 @@ ActiveAdmin.register User do
 
   # Index
   #
-  includes :antenne, :antenne_institution, :experts, :searches,
+  includes :antenne, :institution, :experts, :searches,
            :sent_diagnoses, :sent_needs, :sent_matches
   config.sort_order = 'created_at_desc'
 
@@ -31,10 +31,9 @@ ActiveAdmin.register User do
       div u.role
       if u.antenne.present?
         div admin_link_to(u, :antenne)
-        div admin_link_to(u, :antenne_institution)
+        div admin_link_to(u, :institution)
       else
         status_tag 'sans antenne', class: 'warning'
-        span u.institution
       end
     end
     column(:experts) do |u|
@@ -60,7 +59,7 @@ ActiveAdmin.register User do
   filter :email
   filter :role
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
-  filter :antenne_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
   filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
@@ -75,9 +74,7 @@ ActiveAdmin.register User do
     column :is_approved?
     column :role
     column :antenne
-    column :antenne_institution do |u|
-      u.antenne_institution || "sans antenne: #{u.institution}"
-    end
+    column :institution
     column_list :experts
     column_count :searches
     column_count :sent_diagnoses
@@ -97,10 +94,9 @@ ActiveAdmin.register User do
         div u.role
         if u.antenne.present?
           div admin_link_to(u, :antenne)
-          div admin_link_to(u, :antenne_institution)
+          div admin_link_to(u, :institution)
         else
           status_tag 'sans antenne', class: 'warning'
-          span u.institution
         end
       end
       row(:experts) do |u|
@@ -156,7 +152,6 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
       f.input :full_name
-      f.input :institution
       f.input :antenne, as: :ajax_select, data: {
         url: :admin_antennes_path,
         search_fields: [:name],
