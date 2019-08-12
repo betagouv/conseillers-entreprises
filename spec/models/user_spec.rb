@@ -156,7 +156,7 @@ RSpec.describe User, type: :model do
   describe '#corresponding_antenne' do
     subject { user.corresponding_antenne }
 
-    let(:user) { create(:user, email: 'user@example.com', institution: 'DINSIC') }
+    let(:user) { create(:user, email: 'user@example.com') }
     let!(:antenne) { create :antenne, name: antenne_name }
 
     context ('matching by experts email') do
@@ -180,34 +180,6 @@ RSpec.describe User, type: :model do
         let(:expert_email) { 'user@example.com' }
 
         before { create(:expert, email: expert_email, antenne: create(:antenne)) }
-
-        it { is_expected.to be_nil }
-      end
-    end
-
-    context ('matching by antenne name') do
-      context ('with a corresponding name') do
-        let(:antenne_name) { 'DINSIC' }
-
-        it { is_expected.to eq antenne }
-      end
-
-      context ('with a partially matching name') do
-        let(:antenne_name) { 'DINSIC (Services du PM)' }
-
-        it { is_expected.to eq antenne }
-      end
-
-      context ('with a different name') do
-        let(:antenne_name) { 'other' }
-
-        it { is_expected.to be_nil }
-      end
-
-      context ('with several matching names') do
-        let(:antenne_name) { 'DINSIC' }
-
-        before { create :antenne, name: 'DINSIC 2' }
 
         it { is_expected.to be_nil }
       end
