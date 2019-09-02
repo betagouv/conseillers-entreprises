@@ -33,7 +33,7 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 
 # Improving models
-gem 'audited', '~> 4.5'
+gem 'audited'
 gem 'devise'
 gem 'devise-async'
 gem 'user_impersonate2', require: 'user_impersonate'
@@ -97,4 +97,4 @@ group :development do
   gem 'brakeman', require: false
 end
 
-gem "debase", "~> 0.2.2"
+gem "debase"

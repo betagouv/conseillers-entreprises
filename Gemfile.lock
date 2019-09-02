@@ -481,7 +481,7 @@ DEPENDENCIES
   activeadmin
   activeadmin-ajax_filter
   annotate
-  audited (~> 4.5)
+  audited
   awesome_print
   brakeman
   browser
@@ -489,7 +489,7 @@ DEPENDENCIES
   capybara
   clockwork
   daemons
-  debase (~> 0.2.2)
+  debase
   delayed_job_active_record
   devise
   devise-async
