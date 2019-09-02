@@ -78,10 +78,9 @@ group :development, :test do
 end
 
 group :development do
-  gem 'awesome_print' # IRB console on exception pages or by using <%= console %>
+  gem 'awesome_print'
   gem 'haml_lint', require: false
   gem 'i18n-tasks'
-  gem 'listen'
   gem 'web-console'
   gem 'dotenv-rails'
   gem 'therubyracer'

@@ -486,7 +486,6 @@ DEPENDENCIES
   i18n-tasks
   jbuilder
   jquery-rails
-  listen
   mailjet
   metamagic
   pg
