@@ -22,7 +22,7 @@ gem 'puma'
 # Assets
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'semantic-ui-sass'
 gem 'uglifier'
 gem 'premailer-rails'
