@@ -1,6 +1,6 @@
 %h2.ui.header= t('companies.search.search_company')
 .ui.form
-  = form_tag(:search_companies, method: :get) do
+  = form_with url: search_companies_path, method: :get, skip_enforcing_utf8: true, local: true do
     .field
       .ui.action.input
         = text_field_tag :query, query, autofocus: true, placeholder: t('companies.search.explanation')
