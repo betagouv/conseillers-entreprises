@@ -34,10 +34,9 @@
       - matches -= [match_for_me]
       - matches = [match_for_me] + matches
     - matches.each do |match|
-      - highlight_class = @highlighted_experts.include?(match.expert) ? 'match-highlighted' : ''
-      .ui.segment.clearing{ id: "match-#{match.id}", class: highlight_class }
-        - is_for_me = match == match_for_me
-        = render 'needs/match', match: match, for_me: is_for_me
+      - highlight = @highlighted_experts.include?(match.expert)
+      - is_for_me = match == match_for_me
+      = render 'needs/match', match: match, for_me: is_for_me, highlight: highlight
 
     -# Feedback
     .ui.segment.clearing
