@@ -51,17 +51,15 @@ class NeedsController < ApplicationController
   end
 
   def highlighted_experts
-    safe_params = params.permit(:highlighted_expert)
-    if safe_params[:highlighted_expert].present?
-      [Expert.find(safe_params[:highlighted_expert])]
-    else
+    begin
+      [Expert.find(params.require(:highlighted_expert))]
+    rescue
       current_roles
     end
   end
 
   def retrieve_diagnosis
-    safe_params = params.permit(:id)
-    diagnosis = Diagnosis.find(safe_params[:id])
+    diagnosis = Diagnosis.find(params.require(:id))
     check_current_user_access_to(diagnosis, :read)
     diagnosis
   end
