@@ -10,7 +10,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.6.4'
+ruby '2.6.3'
 
 gem 'rails'
 
@@ -22,7 +22,7 @@ gem 'puma'
 # Assets
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'sassc-rails'
+gem 'sass-rails'
 gem 'semantic-ui-sass'
 gem 'uglifier'
 gem 'premailer-rails'
@@ -33,7 +33,7 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 
 # Improving models
-gem 'audited'
+gem 'audited', '~> 4.5'
 gem 'devise'
 gem 'devise-async'
 gem 'user_impersonate2', require: 'user_impersonate'
@@ -73,14 +73,15 @@ group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'rspec-rails', "~> 4.0.0.beta2"
+  gem 'rspec-rails'
   gem 'rspec_junit_formatter', require: false
 end
 
 group :development do
-  gem 'awesome_print'
+  gem 'awesome_print' # IRB console on exception pages or by using <%= console %>
   gem 'haml_lint', require: false
   gem 'i18n-tasks'
+  gem 'listen'
   gem 'web-console'
   gem 'dotenv-rails'
   gem 'therubyracer'
@@ -97,4 +98,4 @@ group :development do
   gem 'brakeman', require: false
 end
 
-gem "debase"
+gem "debase", "~> 0.2.2"

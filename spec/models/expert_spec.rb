@@ -59,13 +59,13 @@ RSpec.describe Expert, type: :model do
       let!(:antenne) { create :antenne, communes: [commune1, commune2] }
 
       describe 'with_custom_communes' do
-        subject { described_class.with_custom_communes }
+        subject { Expert.with_custom_communes }
 
         it { is_expected.to match_array [expert_with_custom_communes] }
       end
 
       describe 'without_custom_communes' do
-        subject { described_class.without_custom_communes }
+        subject { Expert.without_custom_communes }
 
         it { is_expected.to match_array [expert_without_custom_communes] }
       end
