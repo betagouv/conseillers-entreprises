@@ -12,7 +12,7 @@ RSpec.describe ExpertSkill, type: :model do
 
   describe 'scopes' do
     describe 'relevant_for' do
-      subject(:experts_skills) { described_class.relevant_for(need) }
+      subject(:experts_skills) { ExpertSkill.relevant_for(need) }
 
       let(:need) do
         create :need,

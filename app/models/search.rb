@@ -32,7 +32,7 @@ class Search < ApplicationRecord
   ## Scopes
   #
   scope :recent, -> do
-    where(id: Search.unscoped.select('DISTINCT ON (query) id').order(:query, created_at: :desc))
+    where(id: Search.select('DISTINCT ON (query) id').order(:query, created_at: :desc))
       .order(created_at: :desc)
       .limit(10)
   end
