@@ -25,6 +25,20 @@ class NeedsController < ApplicationController
     @highlighted_experts = highlighted_experts
   end
 
+  def add_more_matches
+    @diagnosis = retrieve_diagnosis
+    @current_roles = current_roles
+    @highlighted_experts = highlighted_experts
+
+    @need = Need.find(params.require(:need_id))
+    expert_skill = ExpertSkill.find(params.require(:expert_skill_id))
+    @match = Match.create(need: @need, expert: expert_skill.expert, skill: expert_skill.skill)
+    if @match.invalid?
+      flash.alert = @match.errors.full_messages.to_sentence
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
   private
 
   def experts
