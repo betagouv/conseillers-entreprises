@@ -86,7 +86,7 @@ RSpec.describe Diagnosis, type: :model do
 
   describe 'scopes' do
     describe 'in progress' do
-      subject { Diagnosis.in_progress.count }
+      subject { described_class.in_progress.count }
 
       it do
         create :diagnosis_completed
@@ -98,7 +98,7 @@ RSpec.describe Diagnosis, type: :model do
     end
 
     describe 'completed' do
-      subject { Diagnosis.completed.count }
+      subject { described_class.completed.count }
 
       it do
         create :diagnosis_completed
@@ -110,7 +110,7 @@ RSpec.describe Diagnosis, type: :model do
     end
 
     describe 'available_for_expert' do
-      subject { Diagnosis.available_for_expert(expert) }
+      subject { described_class.available_for_expert(expert) }
 
       let(:expert) { create :expert }
 
