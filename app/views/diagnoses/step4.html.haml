@@ -8,8 +8,8 @@
   - else
     %p= t('.explanation')
 
-    = form_for :matches, url: selection_diagnosis_path, method: :post,
-               html: { id: 'step4-form' }, data: { confirm: '' } do |f|
+    = form_with scope: :matches, url: selection_diagnosis_path,
+               id: 'step4-form' do |f|
       - @diagnosis.needs.ordered_for_interview.each do |need|
         %table.ui.compact.small.table.celled
           %thead
