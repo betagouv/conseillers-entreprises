@@ -14,7 +14,7 @@ RSpec.describe Subject, type: :model do
 
   describe 'scopes' do
     describe 'ordered_for_interview' do
-      subject { described_class.ordered_for_interview }
+      subject { Subject.ordered_for_interview }
 
       let(:q1) { create :subject, interview_sort_order: 1 }
       let(:q3) { create :subject, interview_sort_order: 3 }
@@ -26,7 +26,7 @@ RSpec.describe Subject, type: :model do
     end
 
     describe 'for_interview' do
-      subject { described_class.for_interview }
+      subject { Subject.for_interview }
 
       let(:q) { create :subject }
 
@@ -41,7 +41,7 @@ RSpec.describe Subject, type: :model do
 
   describe 'support' do
     describe 'unicity' do
-      subject { described_class.where(is_support: true) }
+      subject { Subject.where(is_support: true) }
 
       before { create :subject, is_support: true }
 

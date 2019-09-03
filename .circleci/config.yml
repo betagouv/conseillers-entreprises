@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/place-des-entreprises
   docker:
-    - image: circleci/ruby:2.6.4-browsers
+    - image: circleci/ruby:2.6.3-browsers
     - image: circleci/postgres:10.4
       environment:
         POSTGRES_USER: place_des_entreprises_test
@@ -65,7 +65,7 @@ jobs:
       - *bundle_install
       - run:
           name: Run lint tasks
-          command: bundle exec rake lint
+          command: rake lint
 workflows:
   version: 2
   build_and_test:
