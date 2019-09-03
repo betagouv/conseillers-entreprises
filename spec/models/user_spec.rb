@@ -54,7 +54,7 @@ RSpec.describe User, type: :model do
         user3 = create :user, contact_page_order: 3
         user4 = create :user, contact_page_order: 4
 
-        expect(User.ordered_for_contact).to eq [user1, user2, user3, user4]
+        expect(described_class.ordered_for_contact).to eq [user1, user2, user3, user4]
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe User, type: :model do
         create :user, is_admin: true
         regular_user = create :user, is_admin: false
 
-        expect(User.not_admin).to eq [regular_user]
+        expect(described_class.not_admin).to eq [regular_user]
       end
     end
 
@@ -73,7 +73,7 @@ RSpec.describe User, type: :model do
         create :user, searches: [(create :search, created_at: 2.months.ago)]
 
         last_30_days = (30.days.ago)..Time.zone.now
-        expect(User.active_searchers(last_30_days)).to eq [searcher]
+        expect(described_class.active_searchers(last_30_days)).to eq [searcher]
       end
     end
 
@@ -84,8 +84,8 @@ RSpec.describe User, type: :model do
 
         last_30_days = (30.days.ago)..Time.zone.now
 
-        expect(User.active_diagnosers(last_30_days, 3)).to eq [diagnoser]
-        expect(User.active_diagnosers(last_30_days, 4)).to eq []
+        expect(described_class.active_diagnosers(last_30_days, 3)).to eq [diagnoser]
+        expect(described_class.active_diagnosers(last_30_days, 4)).to eq []
       end
     end
 
@@ -98,8 +98,8 @@ RSpec.describe User, type: :model do
 
         last_30_days = (30.days.ago)..Time.zone.now
 
-        expect(User.active_answered(last_30_days, [1,2])).to eq [active_user]
-        expect(User.active_answered(last_30_days, [3])).to eq []
+        expect(described_class.active_answered(last_30_days, [1,2])).to eq [active_user]
+        expect(described_class.active_answered(last_30_days, [3])).to eq []
       end
     end
   end
