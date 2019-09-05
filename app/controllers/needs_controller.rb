@@ -25,6 +25,20 @@ class NeedsController < ApplicationController
     @highlighted_experts = highlighted_experts
   end
 
+  def add_more_matches
+    @diagnosis = retrieve_diagnosis
+    @current_roles = current_roles
+    @highlighted_experts = highlighted_experts
+
+    @need = Need.find(params.require(:need_id))
+    expert_skill = ExpertSkill.find(params.require(:expert_skill_id))
+    @match = Match.create(need: @need, expert: expert_skill.expert, skill: expert_skill.skill)
+    if @match.invalid?
+      flash.alert = @match.errors.full_messages.to_sentence
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
   private
 
   def experts
@@ -37,17 +51,15 @@ class NeedsController < ApplicationController
   end
 
   def highlighted_experts
-    safe_params = params.permit(:highlighted_expert)
-    if safe_params[:highlighted_expert].present?
-      [Expert.find(safe_params[:highlighted_expert])]
-    else
+    begin
+      [Expert.find(params.require(:highlighted_expert))]
+    rescue
       current_roles
     end
   end
 
   def retrieve_diagnosis
-    safe_params = params.permit(:id)
-    diagnosis = Diagnosis.find(safe_params[:id])
+    diagnosis = Diagnosis.find(params.require(:id))
     check_current_user_access_to(diagnosis, :read)
     diagnosis
   end
