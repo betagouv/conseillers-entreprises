@@ -28,16 +28,18 @@
       = render 'needs/need_header', need: need
 
     -# Matches, mine first
-    - matches = need.matches
+    - matches = need.matches.order(:created_at)
     - match_for_me = matches.where(expert: @current_roles).first
     - if match_for_me.present?
       - matches -= [match_for_me]
       - matches = [match_for_me] + matches
     - matches.each do |match|
-      - highlight_class = @highlighted_experts.include?(match.expert) ? 'match-highlighted' : ''
-      .ui.segment.clearing{ id: "match-#{match.id}", class: highlight_class }
-        - is_for_me = match == match_for_me
-        = render 'needs/match', match: match, for_me: is_for_me
+      - highlight = @highlighted_experts.include?(match.expert)
+      - is_for_me = match == match_for_me
+      = render 'needs/match', match: match, for_me: is_for_me, highlight: highlight
+
+    -# Additional matches
+    = render 'more_matches', need: need, highlighted_expert: params[:highlighted_expert]
 
     -# Feedback
     .ui.segment.clearing
@@ -49,4 +51,3 @@
           = feedback_block(feedback, is_for_me)
       - if match_for_me.present?
         = render 'feedback_form', feedback: match_for_me.feedbacks.new
-

@@ -1,18 +1,19 @@
-.needs-match
-  - if match.expert.present?
-    = person_block(match.expert, suffix: match.skill&.title)
-  - else
-    = person_block_raw(prefix: t('.deleted_expert'),
-                       name: match.expert_full_name,
-                       suffix: match.skill_title,
-                       role: match.expert_institution_name)
+.ui.segment.clearing{ id: "match-#{match.id}", class: highlight ? 'match-highlighted' : '' }
+  .needs-match
+    - if match.expert.present?
+      = person_block(match.expert, suffix: match.skill&.title)
+    - else
+      = person_block_raw(prefix: t('.deleted_expert'),
+                         name: match.expert_full_name,
+                         suffix: match.skill_title,
+                         role: match.expert_institution_name)
 
-  .match-status
-    = status_label(match.status)
+    .match-status
+      = status_label(match.status)
 
-- if for_me
-  %h4.ui.header
-    = match.status_description
-    .sub.header= match.status_date
+  - if for_me
+    %h4.ui.header
+      = match.status_description
+      .sub.header= match.status_date
 
-  = match_actions match
+    = match_actions match

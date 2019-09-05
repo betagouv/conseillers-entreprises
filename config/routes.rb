@@ -58,6 +58,9 @@ Rails.application.routes.draw do
     collection do
       get :archives
     end
+    member do
+      post :add_more_matches
+    end
   end
 
   resources :matches, only: %i[update]
