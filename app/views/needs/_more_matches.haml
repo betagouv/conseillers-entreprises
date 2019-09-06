@@ -1,5 +1,5 @@
 :ruby
-  return unless current_user.is_admin?
+  return unless current_user&.is_admin?
 
 :ruby
   additional_skills = ExpertSkill.additional_for(need)
