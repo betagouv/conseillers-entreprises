@@ -4,6 +4,7 @@ module InvolvementConcern
   def needs_taking_care
     received_needs
       .where(matches: received_matches.status_taking_care)
+      .active
       .archived(false)
   end
 
