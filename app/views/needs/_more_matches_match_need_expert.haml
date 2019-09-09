@@ -1,9 +1,0 @@
-.ui.segment.clearing.more-matches-content{ id: "more-matches-match-need-#{need.id}-expert-#{expert_skill.expert.id}" }
-  .needs-match
-    = form_with url: add_more_matches_besoin_path do |f|
-      = f.hidden_field :need_id, value: need.id
-      = f.hidden_field :expert_skill_id, value: expert_skill.id
-      = f.hidden_field :highlighted_expert, value: highlighted_expert
-      = person_block(expert_skill.expert, suffix: expert_skill.skill&.title, prefix: t('.other_expert'))
-      .match-button
-        = f.submit t('.contact_this_expert'), class: 'ui small basic green button'

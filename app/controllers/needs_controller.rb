@@ -25,15 +25,25 @@ class NeedsController < ApplicationController
     @highlighted_experts = highlighted_experts
   end
 
-  def add_more_matches
+  def additional_experts
+    @need = Need.find(params.require(:need))
+    @query = params.require('query')&.strip
+
+    @experts = Expert.omnisearch(@query)
+      .where.not(id: @need.experts)
+      .includes(:antenne, experts_skills: :skill)
+  end
+
+  def add_match
     @diagnosis = retrieve_diagnosis
     @current_roles = current_roles
-    @highlighted_experts = highlighted_experts
 
-    @need = Need.find(params.require(:need_id))
-    expert_skill = ExpertSkill.find(params.require(:expert_skill_id))
+    @need = Need.find(params.require(:need))
+    expert_skill = ExpertSkill.find(params.require(:expert_skill))
     @match = Match.create(need: @need, expert: expert_skill.expert, skill: expert_skill.skill)
-    if @match.invalid?
+    if @match.valid?
+      ExpertMailer.delay.notify_company_needs(expert_skill.expert, @diagnosis)
+    else
       flash.alert = @match.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
     end

@@ -61,7 +61,8 @@ Rails.application.routes.draw do
       get :archives
     end
     member do
-      post :add_more_matches
+      get :additional_experts
+      post :add_match
     end
   end
 

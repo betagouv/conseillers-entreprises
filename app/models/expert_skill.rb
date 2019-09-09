@@ -36,11 +36,5 @@ class ExpertSkill < ApplicationRecord
     support.where(expert: experts_in_commune)
   end
 
-  scope :additional_for, -> (need) do
-    relevant_for(need)
-      .or(support_for(need.diagnosis))
-      .where.not(expert: need.experts)
-  end
-
   scope :support, -> { where(skill: Skill.support_skills) }
 end
