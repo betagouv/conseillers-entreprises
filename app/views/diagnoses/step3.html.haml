@@ -56,7 +56,10 @@
     disableYear: true,
     formatter: {
       date: function (date, settings) {
-        return date.toLocaleDateString('fr-FR');
+        var d = date.getDate();
+        var m = date.getMonth() + 1;
+        var y = date.getFullYear();
+        return ("0"+d).slice(-2) + "/" + ("0"+m).slice(-2) + "/" + y;
       }
     },
     parser: {
