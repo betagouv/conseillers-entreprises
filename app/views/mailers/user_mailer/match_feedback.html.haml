@@ -9,6 +9,6 @@
   %p= simple_format(@feedback.description)
 
 %p= t('.thankyou')
-%p= t('.summary_html', summary_link: link_to(t('.summary_link'), besoin_url(@need.diagnosis)))
+%p= t('.summary_html', summary_link: link_to(t('.summary_link'), need_url(@need.diagnosis)))
 %p= t('.nice_day')
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))

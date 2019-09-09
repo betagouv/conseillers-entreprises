@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :besoins, controller: 'needs', only: %i[index show] do
+  resources :besoins, as: 'needs', controller: 'needs', only: %i[index show] do
     collection do
       get :archives
     end

@@ -12,7 +12,7 @@ class DiagnosesController < ApplicationController
   def show
     diagnosis = retrieve_diagnosis
     if diagnosis.completed?
-      redirect_to besoin_path(diagnosis)
+      redirect_to need_path(diagnosis)
     else
       redirect_to action: "step#{diagnosis.step}", id: diagnosis
     end
@@ -82,7 +82,7 @@ class DiagnosesController < ApplicationController
     @diagnosis = retrieve_diagnosis
     if @diagnosis.match_and_notify!(params_for_matches)
       flash.notice = I18n.t('diagnoses.step5.notifications_sent')
-      redirect_to besoin_path(@diagnosis)
+      redirect_to need_path(@diagnosis)
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
       respond_to do |format|

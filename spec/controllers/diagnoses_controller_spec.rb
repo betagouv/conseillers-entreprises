@@ -95,7 +95,7 @@ RSpec.describe DiagnosesController, type: :controller do
     context 'match_and_notify! succeeds' do
       let(:result) { true }
 
-      it('redirects to the besoins page') { expect(response).to redirect_to besoin_path(diagnosis) }
+      it('redirects to the besoins page') { expect(response).to redirect_to need_path(diagnosis) }
     end
 
     context 'match_and_notify! fails' do
