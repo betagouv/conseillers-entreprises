@@ -80,7 +80,7 @@ Development and staging emails are sent on [Mailtrap](https://mailtrap.io/) in o
 Place des Entreprises is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, ``reso-staging`` and `reso-production.
 
 * `reso-staging` is served at https://reso-staging.scalingo.io.
-* ``reso-production`` is the actual https://reso.beta.gouv.fr
+* ``reso-production`` is the actual https://place-des-entreprises.beta.gouv.fr
 
 GitHub->Scalingo hooks are setup for auto-deployment:
 * The `master` branch is automatically deployed to the `reso-staging` env.
