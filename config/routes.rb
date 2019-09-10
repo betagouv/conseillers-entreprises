@@ -2,6 +2,8 @@
 
 Rails.application.routes.draw do
   mount UserImpersonate::Engine => '/impersonate', as: 'impersonate_engine'
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { registrations: 'users/registrations' }
 

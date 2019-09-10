@@ -73,7 +73,8 @@ You can import data in your local development database from remote staging datab
 
 ## Emails
 
-Development and staging emails are sent on [Mailtrap](https://mailtrap.io/) in order to test email notifications without sending them to the real users. Ask the team for credentials.
+Development emails are visible locally via [letter_opener_web](http://localhost:3000/letter_opener) 
+Staging emails are sent on [Mailtrap](https://mailtrap.io/) in order to test email notifications without sending them to the real users.
 
 ## Deployment
 
