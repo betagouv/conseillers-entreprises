@@ -164,6 +164,7 @@ fr:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
       add_other_experts: Rechercher d’autres référents à mettre en relation
+      no_expert_found: Aucun résultat
   next_step: Passer à la suite
   'no': non
   number:

@@ -1,5 +1,7 @@
 .ui.segment.clearing{ id: "match-#{match.id}", class: highlight ? 'match-highlighted' : '' }
   .needs-match
+    - if match.additional_match?
+      %h5= t('.additional_match', date: l(match.created_at.to_date, format: :long))
     - if match.expert.present?
       = person_block(match.expert, suffix: match.skill&.title)
     - else

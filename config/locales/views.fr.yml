@@ -464,6 +464,7 @@ fr:
       needs_taking_care: Besoins pris en charge
       title: Demandes reçues
     match:
+      additional_match: Mise en relation ultérieure (%{date})
       deleted_expert: Compte supprimé
     show:
       discussion: Discussion
