@@ -142,6 +142,11 @@ class Match < ApplicationRecord
     ALLOWED_STATUS_TRANSITIONS[self.status.to_sym]
   end
 
+  def additional_match?
+    delay_after_first_match = (created_at - need.initial_matches_at)
+    delay_after_first_match > 5.minutes
+  end
+
   def expert_full_role
     "#{expert_full_name} - #{expert_institution_name}"
   end

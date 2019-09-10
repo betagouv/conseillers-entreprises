@@ -106,6 +106,12 @@ class Expert < ApplicationRecord
 
   scope :without_users, -> { left_outer_joins(:users).where(users: { id: nil }) }
 
+  scope :omnisearch, -> (query) do
+    joins(:antenne)
+      .where('experts.full_name ILIKE ?', "%#{query}%")
+      .or(Expert.joins(:antenne).where('antennes.name ILIKE ?', "%#{query}%"))
+  end
+
   ##
   #
   def generate_access_token!

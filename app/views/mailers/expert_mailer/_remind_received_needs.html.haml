@@ -6,7 +6,7 @@
 %ul
   - diagnoses.each do |diagnosis|
     %li
-      - path = besoin_url(diagnosis, access_token: access_token)
+      - path = need_url(diagnosis, access_token: access_token)
       %strong
         %a{ href: path }= diagnosis.company.name
       —

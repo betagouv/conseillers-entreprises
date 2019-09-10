@@ -1,0 +1,5 @@
+- match_html = render 'needs/match', match: @match, for_me: @match.expert.in?(@current_roles), highlight: true
+document.getElementById('additional_experts-#{@need.id}').insertAdjacentHTML('beforebegin', "#{j match_html}");
+
+- need_header_html = render 'needs/need_header', need: @need
+document.getElementById('need-#{@need.id}').innerHTML = "#{j need_header_html}";

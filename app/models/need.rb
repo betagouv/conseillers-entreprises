@@ -155,6 +155,10 @@ class Need < ApplicationRecord
     "#{company} : #{subject}"
   end
 
+  def initial_matches_at
+    matches.pluck(:created_at).min
+  end
+
   def last_activity_at
     dates = [updated_at, matches.pluck(:updated_at), feedbacks.pluck(:updated_at)].flatten
     dates.max
