@@ -28,20 +28,10 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Use LetterOpener
   config.action_mailer.default_url_options = { host: ENV['HOST_NAME'], port: ENV['PORT'] }
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_caching = false
-
-  # Using Mailtrap
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    user_name: ENV['MAILTRAP_USER_NAME'],
-    password: ENV['MAILTRAP_PASSWORD'],
-    address: 'smtp.mailtrap.io',
-    domain: 'smtp.mailtrap.io',
-    port: '2525',
-    authentication: :cram_md5
-  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -58,7 +48,7 @@ Rails.application.configure do
   config.assets.quiet = true
 
   # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.action_view.raise_on_missing_translations = false
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
