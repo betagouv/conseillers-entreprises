@@ -31,6 +31,7 @@ class NeedsController < ApplicationController
 
     @experts = Expert.omnisearch(@query)
       .where.not(id: @need.experts)
+      .limit(15)
       .includes(:antenne, experts_skills: :skill)
   end
 
