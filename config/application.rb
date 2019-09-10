@@ -25,13 +25,13 @@ module PlaceDesEntreprises
 
     config.time_zone = 'Paris'
 
-    config.i18n.enforce_available_locales = false
     config.i18n.available_locales = [:fr]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = :fr
+    config.i18n.fallbacks = true
 
     config.action_mailer.default_url_options = { host: ENV['HOST_NAME'] }
-    config.action_mailer.delivery_method = :mailjet
+
     config.active_job.queue_adapter = :delayed_job
   end
 end

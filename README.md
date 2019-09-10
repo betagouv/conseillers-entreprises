@@ -73,14 +73,15 @@ You can import data in your local development database from remote staging datab
 
 ## Emails
 
-Development and staging emails are sent on [Mailtrap](https://mailtrap.io/) in order to test email notifications without sending them to the real users. Ask the team for credentials.
+Development emails are visible locally via [letter_opener_web](http://localhost:3000/letter_opener) 
+Staging emails are sent on [Mailtrap](https://mailtrap.io/) in order to test email notifications without sending them to the real users.
 
 ## Deployment
 
 Place des Entreprises is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, ``reso-staging`` and `reso-production.
 
 * `reso-staging` is served at https://reso-staging.scalingo.io.
-* ``reso-production`` is the actual https://reso.beta.gouv.fr
+* ``reso-production`` is the actual https://place-des-entreprises.beta.gouv.fr
 
 GitHub->Scalingo hooks are setup for auto-deployment:
 * The `master` branch is automatically deployed to the `reso-staging` env.

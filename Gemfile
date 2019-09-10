@@ -86,6 +86,7 @@ group :development do
   gem 'dotenv-rails'
   gem 'therubyracer'
   gem 'annotate'
+  gem 'letter_opener_web'
 
   gem 'spring'
   gem 'spring-watcher-listen'
