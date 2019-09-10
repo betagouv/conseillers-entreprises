@@ -161,11 +161,9 @@ fr:
       submit: Enregistrer ce(tte) %{model}
       update: Modifier ce(tte) %{model}
   needs:
-    more_matches:
-      see_other_experts: Voir les autres référents compétents pour ce besoin
-    more_matches_match_need_expert:
-      contact_this_expert: Contacter ce référent
-      other_expert: Référent non contacté
+    additional_experts:
+      add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
+      add_other_experts: Rechercher d’autres référents à mettre en relation
   next_step: Passer à la suite
   'no': non
   number:

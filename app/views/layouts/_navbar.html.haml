@@ -7,7 +7,7 @@
         %i.tasks.icon
         = t('.diagnoses')
       - if current_user.experts.present?
-        = active_link_to besoins_path, class: 'item' do
+        = active_link_to needs_path, class: 'item' do
           %i.bullseye.icon
           = t('needs.index.title')
       - if current_user.is_admin?

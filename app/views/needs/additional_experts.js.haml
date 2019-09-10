@@ -1,0 +1,2 @@
+- html = render 'additional_experts', need: @need, query: @query, experts: @experts
+document.getElementById('additional_experts-#{@need.id}').outerHTML = "#{j html}";

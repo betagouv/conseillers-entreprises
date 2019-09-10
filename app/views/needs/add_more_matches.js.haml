@@ -1,9 +1,0 @@
-- is_for_me = @current_roles.include?(@match.expert)
-- highlight = @highlighted_experts.include?(@match.expert)
-var match_html = "#{j render('needs/match', match: @match, for_me: is_for_me, highlight: highlight)}";
-document.getElementById('more-matches-#{@need.id}').insertAdjacentHTML('beforebegin', match_html);
-
-document.getElementById('more-matches-match-need-#{@need.id}-expert-#{@match.expert.id}').outerHTML = ''
-
-var need_header_html = "#{j render('needs/need_header', need: @need)}";
-document.getElementById('need-#{@need.id}').innerHTML = need_header_html;

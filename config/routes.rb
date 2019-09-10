@@ -56,12 +56,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :besoins, controller: 'needs', only: %i[index show] do
+  resources :besoins, as: 'needs', controller: 'needs', only: %i[index show] do
     collection do
       get :archives
     end
     member do
-      post :add_more_matches
+      get :additional_experts
+      post :add_match
     end
   end
 
