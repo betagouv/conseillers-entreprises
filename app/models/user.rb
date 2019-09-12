@@ -204,7 +204,7 @@ class User < ApplicationRecord
   end
 
   def full_name_with_role
-    "#{full_name} (#{full_role})"
+    "#{full_name} - #{full_role}"
   end
 
   def full_role

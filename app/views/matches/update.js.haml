@@ -1,5 +1,5 @@
-var match_html = "#{j render('needs/match', match: @match, for_me: true, highlight: false)}";
-document.getElementById('match-#{@match.id}').outerHTML = match_html;
+- match_html = render @match, current_roles: @current_roles, highlighted_experts: []
+document.getElementById('match-#{@match.id}').outerHTML = "#{j match_html}";
 
-var need_html = "#{j render('needs/need_header', need: @match.need)}";
-document.getElementById('need-#{@match.need.id}').innerHTML = need_html;
+- need_header_html = render 'needs/need_header', need: @match.need
+document.getElementById('need_header-#{@match.need.id}').outerHTML = "#{j need_header_html}";

@@ -1,0 +1,35 @@
+.ui.grid.stackable
+  .row.center.aligned
+    .column
+      %h1.ui.header
+        .content
+          = diagnosis.company.name
+        .sub.header
+          = diagnosis.facility.commune_name
+        .sub.header
+          = link_to "SIRET : #{diagnosis.facility.siret}", company_path(diagnosis.facility.siret)
+  .ui.divider
+  .row.center.aligned
+    .column
+      %h5.ui.header
+        = t('.visit_made_on', date: I18n.l(diagnosis.display_date, format: :long))
+  .row.two.column
+    .column
+      .ui.fluid.card.blue
+        .content= person_block(diagnosis.advisor, prefix: t('.person_advisor'))
+    .column
+      .ui.fluid.card.blue
+        .content= person_block(diagnosis.visitee, prefix: t('.person_company_contact'))
+  .row
+    .column
+      .ui.feed
+        .event
+          .label
+            %i.clipboard.outline.icon
+          .content
+            .date= I18n.l(diagnosis.completed_at, format: :long)
+            .summary
+              = t('.advisor_has_diagnosed_n_needs', advisor: diagnosis.advisor, count: diagnosis.needs.count)
+            - if diagnosis.content
+              .extra.text= diagnosis.content
+

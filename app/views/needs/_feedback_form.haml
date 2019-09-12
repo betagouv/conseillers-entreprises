@@ -1,9 +1,20 @@
-= form_with scope: feedback,
-  url: feedbacks_path(feedback, params.permit(:access_token)),
-  class: 'ui form', id: "feedback-form-#{feedback.need.id}" do |form|
-  = form.hidden_field :match_id
-  .field.required
-    = form.text_area :description, placeholder: t('.placeholder'), rows: 2, required: true
-  .actions
-    = form.button :submit, class: 'ui green button' do
-      = t('.submit')
+- match_for_me = need.matches.where(expert: current_roles).first
+- return if match_for_me.nil?
+
+- feedback = match_for_me.feedbacks.new
+.event{ id: "feedback_form-#{need.id}" }
+  .label
+  .content
+    .summary= t('.title')
+    .extra
+    = form_with scope: feedback,
+      url: feedbacks_path(feedback, params.permit(:access_token)),
+      class: 'ui form' do |form|
+      = form.hidden_field :match_id
+      .field
+        = form.text_area :description, placeholder: t('.placeholder'),
+          class: 'top attached',
+          rows: 2, required: true
+      = form.button :submit, class: 'ui green basic small button' do
+        = t('.submit')
+
