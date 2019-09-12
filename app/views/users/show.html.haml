@@ -10,4 +10,4 @@
   - if @user.experts.present?
     %h2= t('activerecord.models.expert.one')
     - @user.experts.each do |expert|
-      = render partial: 'needs/team', locals: { expert: expert, user: @user }
+      = render 'team', expert: expert, user: @user
