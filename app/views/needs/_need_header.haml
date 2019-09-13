@@ -1,6 +1,7 @@
-.ui.header
-  .sub.header= need.subject.theme
-  = need.subject
-  .sub.header= need.matches.human_count
-  .match-status
-    = status_label(need.status)
+%div{ id: "need_header-#{need.id}" }
+  .ui.horizontal.divider.sub.header= need.subject.theme
+  %h2.ui.header.center.aligned
+    %a{ href: "#need-#{need.id}", data: { turbolinks: 'false' } }
+      = need.subject
+    .need-status
+      = status_label(need.status)

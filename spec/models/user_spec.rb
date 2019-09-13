@@ -112,7 +112,7 @@ RSpec.describe User, type: :model do
             antenne: build(:antenne, name: 'DINSIC')
     end
 
-    it { expect(user.full_name_with_role).to eq 'Ivan Collombet (Business Developer - DINSIC)' }
+    it { expect(user.full_name_with_role).to eq 'Ivan Collombet - Business Developer - DINSIC' }
   end
 
   describe '#auto_approve_if_whitelisted_domain callback' do

@@ -292,6 +292,9 @@ fr:
       step2_title_html: Détection des besoins
       step3_title_html: Informations complémentaires
       step4_title_html: Mise en contact
+  feedbacks:
+    feedback:
+      delete: Supprimer ce commentaire ?
   landings:
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME'
@@ -446,6 +449,11 @@ fr:
         finish_registration: Finaliser mon inscription
         subject: Bienvenue sur Place des Entreprises !
         you_have_been_invited: Vous avez été invité sur Place des Entreprises.
+  matches:
+    match:
+      additional_match: Mise en relation ultérieure (%{date})
+      match_with: 'Mise en relation avec :'
+      thats_you: C’est vous !
   needs:
     archives:
       browse_active_needs: Voir les demandes reçues
@@ -454,8 +462,9 @@ fr:
       needs_rejected: Besoins refusés
       title: Demandes archivées
     feedback_form:
-      placeholder: Tenez informé le conseiller des détails sur votre prise en charge.
-      submit: Ajouter un commentaire
+      placeholder: Tenez le conseiller et les autres référents au courant de votre action.
+      submit: Envoyer
+      title: Nouveau commentaire
     index:
       browse_archived_needs: Voir les demandes archivées
       needs_for_you: 'Ces entreprises ont besoin de vous :'
@@ -463,15 +472,17 @@ fr:
       needs_quo: Besoins en attente de réponse
       needs_taking_care: Besoins pris en charge
       title: Demandes reçues
-    match:
-      additional_match: Mise en relation ultérieure (%{date})
-      deleted_expert: Compte supprimé
     show:
-      discussion: Discussion
+      title: Visite de la société « %{company} »
+    visit_summary:
+      advisor_has_diagnosed_n_needs:
+        one: "%{advisor} a identifié un besoin."
+        other: "%{advisor} a identifié %{count} besoins."
       person_advisor: Conseiller
       person_company_contact: Personne rencontrée
-      title: Visite de la société %{company}
       visit_made_on: Visite faite le %{date}
+  person:
+    deleted_person: Compte supprimé
   reminders:
     expert_contents:
       expert_creation_date: Inscription le %{date}

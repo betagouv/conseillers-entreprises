@@ -1,3 +1,4 @@
-var comment_html = "#{j feedback_block(@feedback, true)}";
-document.getElementById("feedbacks-need-#{@feedback.need.id}").insertAdjacentHTML('beforeend', comment_html);
-document.getElementById('feedback-form-#{@feedback.need.id}').reset()
+- feedback_html = render @feedback, current_roles: @current_roles, highlighted_experts: []
+document.getElementById('feedback_form-#{@feedback.need.id}').insertAdjacentHTML('beforebegin', "#{j feedback_html}");
+
+document.querySelector('#feedback_form-#{@feedback.need.id} .form').reset()

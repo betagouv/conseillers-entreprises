@@ -7,6 +7,7 @@ class MatchesController < ApplicationController
 
   def update
     @match = retrieve_match
+    @current_roles = current_roles
     @match.update status: params[:status]
   end
 

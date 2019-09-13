@@ -6,6 +6,8 @@ module PersonHelper
   end
 
   def person_block(person, extra_params = {})
+    return t('person.deleted_person') if person.nil?
+
     params = {
       name: person.full_name,
       role: person.full_role,

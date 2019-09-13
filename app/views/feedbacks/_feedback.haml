@@ -1,0 +1,18 @@
+- for_me = feedback.match.expert.in? current_roles
+- highlight = feedback.match.expert.in? highlighted_experts
+.event{ id: "feedback-#{feedback.id}" }
+  .label
+    %a{ href: "#feedback-#{feedback.id}", data: { turbolinks: 'false' } }
+      %i.comment.outline.icon{ class: ('blue' if for_me) }
+  .content
+    .summary
+      .user{ class: ('expert-highlighted' if highlight) }
+        = feedback.match.expert_full_name
+      .ui.popup= person_block(feedback.match.expert)
+      .date= I18n.l(feedback.created_at, format: :long)
+    .extra.text= simple_format(feedback.description)
+    - if for_me
+      .meta= link_to(t('delete'),
+        feedback_path(feedback,
+          params.permit(:access_token)),
+          data: { confirm: t('.delete'), remote: true, method: :delete })
