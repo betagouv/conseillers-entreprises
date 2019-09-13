@@ -1,8 +1,9 @@
-%p#flashes
-  - if alert
-    .ui.warning.message
-      %p= alert
+- if alert || notice
+  %p#flashes
+    - if alert
+      .ui.warning.message
+        %p= alert
 
-  - if notice
-    .ui.info.message
-      %p= notice
+    - if notice
+      .ui.info.message
+        %p= notice
