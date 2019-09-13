@@ -65,7 +65,7 @@ jobs:
       - *bundle_install
       - run:
           name: Run lint tasks
-          command: rake lint
+          command: bundle exec rake lint
 workflows:
   version: 2
   build_and_test:
