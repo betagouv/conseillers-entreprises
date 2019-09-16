@@ -5,6 +5,7 @@ class FeedbacksController < ApplicationController
 
   def create
     @feedback = Feedback.create(feedback_params)
+    @current_roles = current_roles
     if @feedback.persisted?
       UserMailer.delay.match_feedback(@feedback)
     end

@@ -65,7 +65,7 @@ class NeedsController < ApplicationController
     begin
       [Expert.find(params.require(:highlighted_expert))]
     rescue
-      current_roles
+      []
     end
   end
 

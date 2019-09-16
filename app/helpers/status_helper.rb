@@ -19,7 +19,7 @@ module StatusHelper
     sent_to_no_one: %w[lightgrey],
     quo: %w[lightgrey],
     not_for_me: %w[red],
-    taking_care: %w[green],
+    taking_care: %w[blue],
     done: %w[green]
   }
 
@@ -38,7 +38,7 @@ module StatusHelper
     form_with(model: match, url: match_path(match, access_token: params[:access_token])) do |f|
       allowed_actions.map do |new_status|
         title = StatusHelper::status_description(new_status, :action)
-        classes = %w[ui small button] + STATUS_COLORS[new_status]
+        classes = %w[ui small basic button] + STATUS_COLORS[new_status]
         f.button :submit, name: :status, value: new_status, class: classes.join(' ') do
           status_icon(new_status) + title
         end

@@ -4,11 +4,12 @@
 .ui.segments.shadow-less
   box-shadow: none
 
-.card.shadow-less
-  @extend .card
-
-i.icon.light.grey
-  color: rgba(0, 0, 0, 0.50) !important
-
-.ui.tiny.table td
-  padding: 0.5em 1em
+.ui.feed > .event > .content
+  .extra.text
+    max-width: 100%
+    border-left: 1px solid lightgrey
+    padding-left: 1em
+  .user
+    color: #1678c2
+  .user + .ui.popup
+    max-width: 400px

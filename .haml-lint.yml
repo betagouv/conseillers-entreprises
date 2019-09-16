@@ -1,5 +1,6 @@
 linters:
   LineLength:
     enabled: false
-  InlineStyles:
-    enabled: false
+  ConsecutiveSilentScripts:
+    enabled: true
+    max_consecutive: 3

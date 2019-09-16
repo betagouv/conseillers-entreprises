@@ -1,0 +1,26 @@
+- for_me = match.expert.in? current_roles
+- highlight = match.expert.in? highlighted_experts
+.event{ id: "match-#{match.id}" }
+  .label
+    %a{ href: "#match-#{match.id}", data: { turbolinks: 'false' } }
+      - if match.additional_match?
+        %i.ambulance.icon{ class: ('blue' if for_me) }
+      - else
+        %i.handshake.outline.icon{ class: ('blue' if for_me) }
+      - if for_me
+        .ui.mini.basic.blue.label= t('.thats_you')
+  .content.match-summary
+    .date
+      - if match.additional_match?
+        = t('.additional_match', date: l(match.created_at, format: :long))
+      - else
+        = t('.match_with')
+    .summary
+      .user{ class: ('expert-highlighted' if highlight) }
+        = match.expert_full_role
+      .ui.popup= person_block(match.expert)
+    - if for_me
+      .meta
+        = match_actions match
+  .match-status
+    = status_label(match.status)
