@@ -8,6 +8,9 @@ class FeedbacksController < ApplicationController
     @current_roles = current_roles
     if @feedback.persisted?
       UserMailer.delay.match_feedback(@feedback)
+    else
+      flash.alert = @feedback.errors.full_messages.to_sentence
+      redirect_back(fallback_location: root_path)
     end
   end
 
