@@ -1,5 +1,5 @@
-- for_me = feedback.match.expert.in? current_roles
-- highlight = feedback.match.expert.in? highlighted_experts
+- for_me = feedback.author.in? current_roles
+- highlight = feedback.author.in? highlighted_experts
 .event{ id: "feedback-#{feedback.id}" }
   .label
     %a{ href: "#feedback-#{feedback.id}", data: { turbolinks: 'false' } }
@@ -7,8 +7,8 @@
   .content
     .summary
       .user{ class: ('expert-highlighted' if highlight) }
-        = feedback.match.expert_full_name
-      .ui.popup= person_block(feedback.match.expert)
+        = feedback.author.full_name
+      .ui.popup= person_block(feedback.author)
       .date= I18n.l(feedback.created_at, format: :long)
     .extra.text= simple_format(feedback.description)
     - if for_me

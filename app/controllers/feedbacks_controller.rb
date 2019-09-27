@@ -20,7 +20,7 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:match_id, :description)
+    params.require(:feedback).permit(:need_id, :expert_id, :user_id, :description)
   end
 
   def retrieve_feedback
