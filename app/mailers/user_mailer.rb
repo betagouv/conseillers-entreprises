@@ -26,8 +26,8 @@ class UserMailer < ApplicationMailer
 
   def match_feedback(feedback)
     @feedback = feedback
-    @author = feedback.match.expert
-    @need = feedback.match.need
+    @author = feedback.author
+    @need = feedback.need
     @persons = @need.experts - [@author]
     @advisor = @need.diagnosis.advisor
     @facility = @need.diagnosis.facility

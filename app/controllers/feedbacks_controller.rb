@@ -8,6 +8,9 @@ class FeedbacksController < ApplicationController
     @current_roles = current_roles
     if @feedback.persisted?
       UserMailer.delay.match_feedback(@feedback)
+    else
+      flash.alert = @feedback.errors.full_messages.to_sentence
+      redirect_back(fallback_location: root_path)
     end
   end
 
@@ -20,7 +23,7 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:match_id, :description)
+    params.require(:feedback).permit(:need_id, :expert_id, :user_id, :description)
   end
 
   def retrieve_feedback
