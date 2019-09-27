@@ -62,6 +62,8 @@ class User < ApplicationRecord
 
   has_many :searches, dependent: :destroy, inverse_of: :user
 
+  has_many :feedbacks, dependent: :destroy, inverse_of: :user
+
   ## Validations
   #
   validates :full_name, :email, :phone_number, presence: true
