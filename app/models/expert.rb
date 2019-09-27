@@ -42,6 +42,8 @@ class Expert < ApplicationRecord
   has_many :skills, through: :experts_skills, dependent: :destroy, inverse_of: :experts # TODO should be direct once we remove the ExpertSkill model and use a HABTM
   has_many :received_matches, class_name: 'Match', inverse_of: :expert
 
+  has_many :feedbacks, dependent: :destroy, inverse_of: :expert
+
   ## Validations
   #
   validates :antenne, :email, :access_token, presence: true
@@ -62,7 +64,6 @@ class Expert < ApplicationRecord
   # :matches
   has_many :received_needs, through: :received_matches, source: :need, inverse_of: :experts
   has_many :received_diagnoses, through: :received_matches, source: :diagnosis, inverse_of: :experts
-  has_many :feedbacks, through: :received_matches, inverse_of: :expert
 
   ##
   #

@@ -45,8 +45,6 @@ class Match < ApplicationRecord
   belongs_to :expert, inverse_of: :received_matches
   belongs_to :skill, inverse_of: :matches
 
-  has_many :feedbacks, dependent: :destroy, inverse_of: :match
-
   ## Validations and Callbacks
   #
   validates :need, presence: true

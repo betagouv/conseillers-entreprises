@@ -1,7 +1,7 @@
-- match_for_me = need.matches.where(expert: current_roles).first
-- return if match_for_me.nil?
+- author_field_params = need_feedback_author_hidden_field(need, current_roles)
+- return if author_field_params.nil?
 
-- feedback = match_for_me.feedbacks.new
+- feedback = need.feedbacks.new
 .event{ id: "feedback_form-#{need.id}" }
   .label
   .content
@@ -10,7 +10,8 @@
     = form_with scope: feedback,
       url: feedbacks_path(feedback, params.permit(:access_token)),
       class: 'ui form' do |form|
-      = form.hidden_field :match_id
+      = form.hidden_field :need_id
+      = form.hidden_field(*author_field_params)
       .field
         = form.text_area :description, placeholder: t('.placeholder'),
           class: 'top attached',

@@ -97,8 +97,6 @@ fr:
       facility:
         company: Entreprise
         readable_locality: Commune
-      feedback:
-        match: Mise en relation
       institution:
         advisors: Conseillers
         antennes: Antennes

@@ -195,7 +195,7 @@ RSpec.describe Need, type: :model do
 
     let(:need) { create :need }
     let(:match) { build :match, need: need }
-    let(:feedback) { build :feedback, match: match }
+    let(:feedback) { build :feedback, need: need }
 
     let(:date1) { Time.zone.now.beginning_of_day }
     let(:date2) { date1 + 5.days }

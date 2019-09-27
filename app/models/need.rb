@@ -33,6 +33,7 @@ class Need < ApplicationRecord
   belongs_to :diagnosis, inverse_of: :needs
   belongs_to :subject, inverse_of: :needs
   has_many :matches, dependent: :destroy, inverse_of: :need
+  has_many :feedbacks, dependent: :destroy, inverse_of: :need
 
   ## Validations
   #
@@ -48,7 +49,6 @@ class Need < ApplicationRecord
 
   # :matches
   has_many :experts, -> { distinct }, through: :matches, inverse_of: :received_needs
-  has_many :feedbacks, through: :matches, inverse_of: :need
 
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :needs
