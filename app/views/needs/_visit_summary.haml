@@ -7,6 +7,8 @@
         .sub.header
           = diagnosis.facility.commune_name
         .sub.header
+          #{t('attributes.naf_code')} : #{diagnosis.facility.naf_code}
+        .sub.header
           = link_to "SIRET : #{diagnosis.facility.siret}", company_path(diagnosis.facility.siret)
   .ui.divider
   .row.center.aligned
