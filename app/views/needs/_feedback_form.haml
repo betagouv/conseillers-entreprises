@@ -5,7 +5,9 @@
 .event{ id: "feedback_form-#{need.id}" }
   .label
   .content
-    .summary= t('.title')
+    .summary
+      = t('.title')
+      .date= t('.subtitle')
     .extra
     = form_with scope: feedback,
       url: feedbacks_path(feedback, params.permit(:access_token)),
