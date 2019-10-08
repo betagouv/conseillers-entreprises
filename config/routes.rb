@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get 'qui_sommes_nous', to: 'about#qui_sommes_nous'
   get 'cgu', to: 'about#cgu'
+  get 'top_5', to: 'about#top_5'
 
   resource 'conseillers', only: %i[show]
 
