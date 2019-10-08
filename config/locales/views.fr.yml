@@ -462,9 +462,10 @@ fr:
       needs_rejected: Besoins refusés
       title: Demandes archivées
     feedback_form:
-      placeholder: Tenez le conseiller et les autres référents au courant de votre action.
+      placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
       submit: Envoyer
-      title: Nouveau commentaire
+      subtitle: à destination des autres conseillers intervenant sur ce besoin
+      title: Nouveau message
     index:
       browse_archived_needs: Voir les demandes archivées
       needs_for_you: 'Ces entreprises ont besoin de vous :'
