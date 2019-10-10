@@ -15,6 +15,10 @@ module Users
       new_user_invitation_path
     end
 
+    def after_accept_path_for(inviter)
+      after_sign_in_path_for(inviter)
+    end
+
     def configure_permitted_parameters
       editable_attributes = %i[email full_name role phone_number antenne_id]
       devise_parameter_sanitizer.permit(:invite, keys: editable_attributes)

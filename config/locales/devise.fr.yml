@@ -20,11 +20,19 @@ fr:
       unconfirmed: Vous devez valider votre adresse e-mail pour continuer.
     forgot_password: Mot de passe oublié ?
     invitations:
+      edit:
+        header: Bienvenue sur Place des Entreprises
+        password_description: 'Choisissez un mot de passe pour créer votre compte :'
+        prefilled_description: 'Certaines informations ont été préremplies; vous pouvez les corriger si nécessaire :'
+        submit_button: Enregistrer
+      invitation_removed: Votre invitation a été annulée.
+      invitation_token_invalid: Ce token d’invitation est invalide.
       new:
         description: 'L’inscription est réservé aux conseillers d’organismes publics : préférez une adresse mail professionnelles fournie par votre organisme.'
         header: Inviter un conseiller sur Place des Entreprises
         submit_button: Envoyer l’invitation
       send_instructions: Un email d’invitation a été envoyé à %{email}.
+      updated: Mot de passe enregistré. Vous êtes maintenant connecté.
     mailer:
       confirmation_instructions:
         confirm_my_account: Confirmer mon compte

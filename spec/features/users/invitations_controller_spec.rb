@@ -30,4 +30,25 @@ describe 'invitations', type: :feature do
       expect(last_user.antenne).to eq antenne
     end
   end
+
+  describe 'accept invitation' do
+    let!(:user) { create :user, full_name: "John Doe" }
+
+    before do
+      user.invite!
+      visit accept_user_invitation_url(invitation_token: user.raw_invitation_token)
+      fill_in id: 'user_full_name', with: 'Jane Doe'
+
+      fill_in id: 'user_password', with: 'fakepassword'
+      fill_in id: 'user_password_confirmation', with: 'fakepassword'
+
+      click_button 'Enregistrer'
+    end
+
+    it 'marks the invitation as accepted, and takes modifications into account' do
+      user.reload
+      expect(user).to be_invitation_accepted
+      expect(user.full_name).to eq 'Jane Doe'
+    end
+  end
 end
