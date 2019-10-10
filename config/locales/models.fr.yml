@@ -145,8 +145,6 @@ fr:
         confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
         confirmation_token: Token de confirmation d’e-mail
         confirmed_at: Date de confirmation d’e-mail
-        contact_page_order: Ordre sur la page Contact
-        contact_page_role: Role sur la page Contact
         created_at: Date d’inscription
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion

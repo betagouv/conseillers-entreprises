@@ -47,17 +47,6 @@ RSpec.describe User, type: :model do
   end
 
   describe 'scopes' do
-    describe 'ordered_for_contact' do
-      it do
-        user1 = create :user, contact_page_order: 1
-        user2 = create :user, contact_page_order: 2
-        user3 = create :user, contact_page_order: 3
-        user4 = create :user, contact_page_order: 4
-
-        expect(User.ordered_for_contact).to eq [user1, user2, user3, user4]
-      end
-    end
-
     describe 'not_admin' do
       it do
         create :user, is_admin: true

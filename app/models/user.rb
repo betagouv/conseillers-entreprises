@@ -6,8 +6,6 @@
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
-#  contact_page_order     :integer
-#  contact_page_role      :string
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
@@ -102,12 +100,7 @@ class User < ApplicationRecord
   scope :approved, -> { where(is_approved: true) }
   scope :not_approved, -> { where(is_approved: false) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
-  scope :project_team, -> { admin.where.not(contact_page_order: nil) }
 
-  scope :ordered_for_contact, -> {
-    order(:contact_page_order, :full_name)
-      .distinct
-  }
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
       .select('users.*', 'antennes.name', 'institutions.name')

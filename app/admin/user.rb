@@ -119,8 +119,6 @@ ActiveAdmin.register User do
   sidebar I18n.t('active_admin.user.admin'), only: :show do
     attributes_table_for user do
       row :is_admin
-      row :contact_page_order
-      row :contact_page_role
     end
   end
 
@@ -145,7 +143,6 @@ ActiveAdmin.register User do
   # Form
   #
   permit_params :full_name, :email, :institution, :role, :phone_number, :is_approved,
-                :contact_page_order, :contact_page_role,
                 :is_admin, :password, :password_confirmation,
                 :antenne_id, expert_ids: []
 
@@ -175,8 +172,6 @@ ActiveAdmin.register User do
 
     f.inputs I18n.t('active_admin.user.admin') do
       f.input :is_admin, as: :boolean
-      f.input :contact_page_order
-      f.input :contact_page_role
     end
 
     f.actions
