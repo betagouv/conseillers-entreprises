@@ -19,6 +19,12 @@ fr:
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
       unconfirmed: Vous devez valider votre adresse e-mail pour continuer.
     forgot_password: Mot de passe oublié ?
+    invitations:
+      new:
+        description: 'L’inscription est réservé aux conseillers d’organismes publics : préférez une adresse mail professionnelles fournie par votre organisme.'
+        header: Inviter un conseiller sur Place des Entreprises
+        submit_button: Envoyer l’invitation
+      send_instructions: Un email d’invitation a été envoyé à %{email}.
     mailer:
       confirmation_instructions:
         confirm_my_account: Confirmer mon compte
