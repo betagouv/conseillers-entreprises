@@ -145,7 +145,6 @@ fr:
       or_call_us: ou appelez-nous au 06 99 05 47 37
       public_service_from_the_north: Un service public numérique expérimenté dans les Hauts-de-France
       questions_or_suggestions: Des questions ? Des suggestions ?
-      sign_up_button: Inscrivez-vous !
       start_button: Commencez !
       tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
       tool_to_help_advisors: Un outil dédié aux conseillers d’entreprise des organismes publics
@@ -462,9 +461,10 @@ fr:
       needs_rejected: Besoins refusés
       title: Demandes archivées
     feedback_form:
-      placeholder: Tenez le conseiller et les autres référents au courant de votre action.
+      placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
       submit: Envoyer
-      title: Nouveau commentaire
+      subtitle: à destination des autres conseillers intervenant sur ce besoin
+      title: Nouveau message
     index:
       browse_archived_needs: Voir les demandes archivées
       needs_for_you: 'Ces entreprises ont besoin de vous :'
