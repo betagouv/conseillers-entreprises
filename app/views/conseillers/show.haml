@@ -7,8 +7,6 @@
             = t('.tagline_html')
           - if current_user
             = link_to t('.start_button'), diagnoses_path, class: 'hero-button'
-          - else
-            = link_to t('.sign_up_button'), new_user_registration_path, class: 'hero-button'
 
           %p.hero-phone-cta= t('.or_call_us')
 

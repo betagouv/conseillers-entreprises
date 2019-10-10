@@ -4,7 +4,7 @@
       .ui.attached.segment
         %strong #{User.human_attribute_name(attribute)} :
         = @user.send(attribute)
-    %a.ui.bottom.attached.basic.green.button{ href: edit_user_registration_path }= t('edit')
+    -# %a.ui.bottom.attached.basic.green.button{ href: edit_user_registration_path }= t('edit')
 
   // Teams
   - if @user.experts.present?
