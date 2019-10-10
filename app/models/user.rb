@@ -48,18 +48,14 @@ class User < ApplicationRecord
   #
   include PersonConcern
   include InvolvementConcern
-  devise :database_authenticatable, :confirmable, :recoverable, :rememberable, :trackable, :async
+  devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
   ## Associations
   #
   belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors, optional: true
-
   has_and_belongs_to_many :experts, inverse_of: :users
-
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
-
   has_many :searches, dependent: :destroy, inverse_of: :user
-
   has_many :feedbacks, dependent: :destroy, inverse_of: :user
 
   ## Validations
