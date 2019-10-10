@@ -35,6 +35,13 @@ fr:
         your_email_has_been_changed: Nous vous contactons pour vous informer que votre adresse e-mail a bien été changée pour %{new_email}.
         your_email_is_being_changed: Nous vous contactons pour vous informer que votre adresse e-mail va être changée pour %{unconfirmed_email}.
       hello: Bonjour %{user_full_name},
+      invitation_instructions:
+        accept: Accepter l’invitation
+        activate_your_account: 'Vous pouvez activer votre compte en cliquant ici :'
+        hello: Bonjour %{name},
+        ignore: Si vous ne souhaitez pas accepter l’invitation, ne tenez pas compte de cet email. Votre compte ne sera pas créé.
+        someone_invited_you_html: Vous êtes invité·e par %{inviter} (%{mail_to_inviter}) à rejoindre %{link_to_root}, au sein de l’équipe de %{antenne_name}.
+        subject: Invitation sur Place des Entreprises
       password_change:
         subject: Votre mot de passe a été modifié avec succés.
         your_password_has_been_changed: Nous vous contactons pour vous informer que votre mot de passe a bien été changé.
