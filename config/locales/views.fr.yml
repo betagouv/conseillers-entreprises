@@ -61,8 +61,9 @@ fr:
          <p>Les responsables du Services’engagent à réaliser toute formalité nécessaire à la mise en œuvre d’un éventuel traitement de données à caractère personnel dans le cadre de la réalisation du Service.</p>
          <p>Le Service est hébergé sous la responsabilité de la DINSIC. Cet hébergement n’est pas qualifié pour récolter des données sensibles au sens des articles 8 et suivants de la loi n° 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés.</p>
       title: Conditions générales d’utilisation
+    contact_us:
+      contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
     qui_sommes_nous:
-      contact_team_for_general_purpose_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
       explanation_html: |
         <p>Avec <strong><em>Place des Entreprises</em></strong>, l’État, les Régions volontaires et l’ensemble des organismes publics et parapublics se donnent pour mission de développer leur rôle de conseil auprès des petites entreprises.</p>
         <p>L’objectif est simple mais ambitieux : mieux accompagner les petites structures dans leur projet d’entreprise, qu’il s’agisse de s’agrandir, de surmonter une difficulté ou de répondre à des questions du quotidien.</p>
@@ -81,6 +82,69 @@ fr:
         <p><strong><em>Place des Entreprises</em></strong> comprend une équipe de sept personnes. Le service a été construit pas à pas, en confrontant nos hypothèses de travail avec la réalité du terrain. Notre démarche repose sur des échanges nourris avec les chefs d’entreprises et les conseillers d’entreprises sur les difficultés rencontrées par chacun au quotidien.</p>
         <p>Si vous êtes convaincus que nous pouvons faire encore mieux, partagez vos idées et écrivez-nous !</p>
       title: Qui sommes-nous ?
+    top_5:
+      short_title: Top 5 des aides
+      title: Top 5 des aides & accompagnements
+      top_1_html: |
+        <h3>1 - Le Prêt croissance TPE de Bpifrance</h3>
+        <p>Sans garantie exigée, ce prêt vous permet de financer une grande variété d’investissements. Le remboursement sur 4 ans est différé d’un an.<p>
+        <p>Pour être éligible à ce prêt de 10 000 à 50 000 euros, il faut :</p>
+        <ul>
+          <li>avoir 3 ans d’existence en tant que société commerciale</li>
+          <li>avoir entre 3 et 50 salariés</li>
+          <li>un dernier résultat du bilan positif</li>
+          <li>avoir des fonds propres d’un montant équivalent au prêt envisagé</li>
+        </ul>
+        <p>En savoir plus : <a href="https://www.bpifrance.fr/Toutes-nos-solutions/Prets/Prets-regionaux/Pret-Croissance-TPE-Hauts-de-France">www.bpifrance.fr</a>.</p>
+      top_2_html: |
+        <h3>2 - Diagnostic & recherche de solutions pour vos difficultés financières, par les correspondants TPE de la Banque de France</h3>
+        <p>Les correspondants TPE de la Banque de France vous conseillent et accompagnent gratuitement dans la gestion de votre entreprise.</p>
+        <p>Ces experts analysent avec vous la situation économique et financière de l’entreprise, notamment en cas de difficultés (baisse d’activité, besoin de trésorerie, endettement…).</p>
+        <p>Après un diagnostic, ils recherchent une solution adaptée au sein du réseau de partenaires de la Banque de France : organismes de financement ou de cautionnement, assureurs-crédits, associations, fédérations patronales… Ne restez pas seul, on peut vous aider !</p>
+        <p>En savoir plus : <a href="https://entreprises.banque-france.fr/accompagnement-des-entreprises/mon-correspondant-tpe-dans-chaque-departement/le-role-des-correspondants-tpe">banque-france.fr</a>.</p>
+      top_3_html: |
+        <h3>3 - Le Booster numérique de la CCI pour augmenter votre chiffre d’affaire grâce au numérique</h3>
+        <p>Après évaluation de vos besoins, un conseiller spécialisé vous accompagne pour :</p>
+        <ul>
+          <li>la création ou l’amélioration de votre site internet, votre présence sur les réseaux sociaux</li>
+          <li>la création de contenus adaptés aux médias numériques (écriture, photos, vidéos)</li>
+          <li>la maîtrise des fondamentaux de la sécurité informatique</li>
+          <li>l’identification de vos besoins d’équipements informatiques (software, hardware…)</li>
+        </ul>
+        <p>Destiné aux entreprises de 20 salariés maximum, cet accompagnement est adapté à votre secteur d’activité (commerce, TPE industrielles, tourisme…). Financé par le Conseil régional des Hauts-de-France, il est gratuit pour les entreprises de moins de 3 ans, et s’élève à 180 euros pour les autres.</p>
+        <p>
+          En savoir plus :
+          <ul>
+            <li><a href="https://hautsdefrance.cci.fr/solutions/starter-numerique-programme-starter">Société de moins de 3 ans</a></li>
+            <li><a href="https://hautsdefrance.cci.fr/solutions/booster-numerique">Société de plus de 3 ans</a></li>
+          </ul>
+        </p>
+      top_4_html: |
+        <h3>4 - L’accompagnement <i>TPE & PME gagnantes sur tous les coûts !</i> de l’ADEME pour une meilleure rentabilité, tout en réduisant votre impact environnemental</h3>
+        <p>L’objectif est de réaliser rapidement des économies et d’améliorer votre rentabilité, en réduisant vos pertes en énergie, matière, eau et déchets. Pour y parvenir, vous êtes accompagné par un expert sélectionné, formé et outillé par l’ADEME.</p>
+        <p>
+          L’accompagnement en 4 étapes :
+          <ul>
+            <li>l’expert analyse vos sources d’économies et vous propose un plan d’actions personnalisé et chiffré</li>
+            <li>vous validez les préconisations que vous souhaitez et pouvez mettre en œuvre</li>
+            <li>l’expert vous accompagne pendant une année dans la réalisation de ces préconisations</li>
+            <li>à l’issue des 12 mois, une évaluation finale vous est proposée</li>
+          </ul>
+        </p>
+        <p>Après avoir choisi et validé vos préconisations, si votre objectif d’économies prévisionnelles est supérieur ou égal au seuil minimal prédéfini, vous réglez à l’ADEME un forfait. Si ce seuil d’économies n’est pas atteint, l’accompagnement est gratuit pour vous !</p>
+        <p>Le seuil et le forfait sont fonction de votre effectif.</p>
+        <quote>Exemple : pour une entreprise de 20 à 49 salariés, le seuil minimum d’économies prévisionnelles est de 6000 € (HT/an). Si ce seuil est atteint ou dépassé, le prix forfaitaire est de 3000 €.</quote>
+        <p>En savoir plus : <a href="https://www.gagnantessurtouslescouts.fr/comment">gagnantessurtouslescouts.fr</a></p>
+      top_5_html: |
+        <h3>5 - Les emplois francs si vous recrutez</h3>
+        <p>Si vous embauchez un demandeur d’emploi résidant dans un quartier prioritaire de la ville, vous bénéficiez d'une prime.</p>
+        <p>Le montant de l'aide financière accordée est de :</p>
+        <ul>
+          <li>15 000 euros sur 3 ans pour un contrat à durée indéterminée (CDI)</li>
+          <li>5 000 euros sur 2 ans pour un recrutement en durée déterminée (CDD) d’au moins 6 mois.</li>
+        </ul>
+        <p>L’aide financière est à demander auprès de Pôle emploi dans les 2 mois suivants la date de signature du contrat de travail.</p>
+        <p>En savoir plus : <a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F34547">service-public.fr</a></p>
   companies:
     company:
       capital_social: Capital social
