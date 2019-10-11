@@ -62,6 +62,13 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
   - `rake lint:i18n` : i18n missing/unused keys and formatting
   - `rake lint:brakeman` : static analysis security vulnerability 
 
+## Browser compatibility
+
+Supported browsers: recent versions of Firefox, Chrome, Safari, Edge or IE11.
+
+Compatibility is tested with Browserstack.<br/>
+[<img src="doc/browserstack-logo-600x315.png" width="200">](https://www.browserstack.com/)
+
 ## Development data
 
 You can import data in your local development database from remote staging database. See the [official documentation](https://doc.scalingo.com/platform/databases/access), Make sure [Scalingo CLI](http://doc.scalingo.com/app/command-line-tool.html) is installed.
