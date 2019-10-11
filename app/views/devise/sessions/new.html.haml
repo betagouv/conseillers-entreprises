@@ -15,4 +15,7 @@
   .actions
     = f.submit t('sign_in'), class: 'ui button green'
 
+  %h4= t('.how_to_sign_up_title')
+  %p= t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL']))
+
 = render 'devise/shared/links'
