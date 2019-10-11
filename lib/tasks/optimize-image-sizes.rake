@@ -3,5 +3,4 @@ task :optimize_image_sizes do
   sh "mogrify -resize 'x140' #{institutions_images_path}*.png #{institutions_images_path}*.jpg"
   sh "optipng #{institutions_images_path}*.png"
   sh "jpegoptim -s #{institutions_images_path}*.jpg"
-  sh "svgo --multipass -f #{institutions_images_path}"
 end

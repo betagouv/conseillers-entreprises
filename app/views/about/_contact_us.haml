@@ -1,0 +1,5 @@
+%section.section.section-white
+  .container.container-medium
+    %h2.section__title= t('contact_us')
+    - mailto_link = mail_to ENV['APPLICATION_EMAIL'], ENV['APPLICATION_EMAIL'], target: :_blank
+    %p= t('.contact_us_html', mailto_link: mailto_link)

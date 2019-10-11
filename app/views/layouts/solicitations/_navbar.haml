@@ -7,6 +7,8 @@
     %nav
       %ul.nav__links
         %li.nav__item
+          = active_link_to t('about.top_5.short_title'), top_5_path
+        %li.nav__item
           = active_link_to t('about.qui_sommes_nous.title'), qui_sommes_nous_path
         %li.nav__item
           .dropdown
