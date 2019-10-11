@@ -291,6 +291,9 @@ fr:
       updated: Votre compte a été modifié avec succès.
     sessions:
       already_signed_out: Déconnecté.
+      new:
+        how_to_sign_up_html: Écrivez-nous simplement à %{email}.<br/>Place des Entreprises est ouvert aux agents des administrations chargés de conseiller et d’accompagner les entreprises dans leur développement ou le maintien de leur activité.
+        how_to_sign_up_title: Comment s’inscrire ?
       signed_in: ''
       signed_out: Déconnecté.
     shared:
