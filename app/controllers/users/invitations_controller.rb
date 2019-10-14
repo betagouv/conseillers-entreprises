@@ -4,6 +4,13 @@ module Users
   class InvitationsController < Devise::InvitationsController
     before_action :configure_permitted_parameters, only: %i[create update]
 
+    def create
+      super do |user|
+        # Automatically approve invited users; we’ll probably get rid of approval altogether.
+        user.update_attribute(:is_approved, true)
+      end
+    end
+
     def after_invite_path_for(inviter, invitee = nil)
       new_user_invitation_path
     end
