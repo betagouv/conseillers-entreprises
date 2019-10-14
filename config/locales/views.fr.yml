@@ -474,7 +474,6 @@ fr:
     expert_reminders_notes:
       placeholder: Restez factuel :)
     index:
-      all: Tous
       title: Relances
     show:
       title: Relances / %{full_name}
@@ -531,8 +530,6 @@ fr:
       solicitations_html: <span class="count">%{count}</span> sollicitations directes
     show:
       title: Statistiques d’utilisation
-    stats_params:
-      all: Tous
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
