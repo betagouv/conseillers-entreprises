@@ -153,6 +153,8 @@ fr:
         experts:
           one: Équipe
           other: Équipes
+        invitees: Invités
+        inviter: Invité par
         is_admin: Est administrateur ?
         is_approved: Est validé ?
         last_sign_in_at: Date de de la dernière connexion

@@ -6,7 +6,8 @@ ActiveAdmin.register User do
   # Index
   #
   includes :antenne, :institution, :experts, :searches,
-           :sent_diagnoses, :sent_needs, :sent_matches
+           :sent_diagnoses, :sent_needs, :sent_matches,
+           :invitees
   config.sort_order = 'created_at_desc'
 
   scope :all, default: true
@@ -114,6 +115,9 @@ ActiveAdmin.register User do
         div admin_link_to(u, :sent_matches)
       end
     end
+    attributes_table title: t('activerecord.attributes.user.invitees') do
+      row :invitees
+    end
   end
 
   sidebar I18n.t('active_admin.user.admin'), only: :show do
@@ -125,10 +129,9 @@ ActiveAdmin.register User do
   sidebar I18n.t('active_admin.user.connection'), only: :show do
     attributes_table_for user do
       row :created_at
+      row :inviter
       row :confirmed?
       row :is_approved
-      row :current_sign_in_at
-      row :current_sign_in_ip
     end
   end
 
