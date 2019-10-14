@@ -4,14 +4,6 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :configure_permitted_parameters, only: %i[create update]
 
-    def create
-      super
-
-      if @user.persisted?
-        AdminMailer.delay.new_user_created_notification(@user)
-      end
-    end
-
     # See also ApplicationController::after_sign_in_path_for
     def after_sign_up_path_for(resource)
       diagnoses_path
