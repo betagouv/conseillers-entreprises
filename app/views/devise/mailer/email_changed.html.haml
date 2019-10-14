@@ -3,4 +3,3 @@
   %p= t('.your_email_is_being_changed', unconfirmed_email: @resource.unconfirmed_email)
 - else
   %p= t('.your_email_has_been_changed', new_email: @resource.email)
-= render partial: 'emails_footer'
