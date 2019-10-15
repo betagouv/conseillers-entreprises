@@ -4,7 +4,7 @@
   = t('.title')
 
 = form_with url: reminders_path, method: :get, skip_enforcing_utf8: true, class: 'ui large form' do
-  - options = { include_blank: t('.all'), class: 'ui search selection dropdown', onchange: 'this.form.submit();' }
+  - options = { include_blank: t('all_choices'), class: 'ui search selection dropdown', onchange: 'this.form.submit();' }
   .inline.field
     = label_tag(t('activerecord.models.territory.one'))
     = select_tag(:territory,
@@ -14,7 +14,3 @@
 
 .ui.segments.shadow-less.selectable-list
   = render partial: 'expert', collection: @active_experts
-
-
-:javascript
-  $('select.dropdown').dropdown();

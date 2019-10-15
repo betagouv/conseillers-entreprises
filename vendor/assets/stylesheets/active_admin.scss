@@ -19,3 +19,9 @@
 @import "selectize";
 @import "selectize.default";
 @import "activeadmin-ajax_filter";
+
+.status_tag {
+  &.ok { background: #03bd5b }
+  &.warning { background: #ff9947 }
+  &.error { background: #932419 }
+}

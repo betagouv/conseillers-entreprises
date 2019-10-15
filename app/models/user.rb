@@ -6,8 +6,6 @@
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
-#  contact_page_order     :integer
-#  contact_page_role      :string
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
@@ -50,18 +48,14 @@ class User < ApplicationRecord
   #
   include PersonConcern
   include InvolvementConcern
-  devise :database_authenticatable, :confirmable, :recoverable, :rememberable, :trackable, :async
+  devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
 
   ## Associations
   #
   belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors, optional: true
-
   has_and_belongs_to_many :experts, inverse_of: :users
-
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
-
   has_many :searches, dependent: :destroy, inverse_of: :user
-
   has_many :feedbacks, dependent: :destroy, inverse_of: :user
 
   ## Validations
@@ -102,12 +96,7 @@ class User < ApplicationRecord
   scope :approved, -> { where(is_approved: true) }
   scope :not_approved, -> { where(is_approved: false) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
-  scope :project_team, -> { admin.where.not(contact_page_order: nil) }
 
-  scope :ordered_for_contact, -> {
-    order(:contact_page_order, :full_name)
-      .distinct
-  }
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
       .select('users.*', 'antennes.name', 'institutions.name')
