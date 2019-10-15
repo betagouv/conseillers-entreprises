@@ -28,10 +28,6 @@ fr:
       email_changed:
         your_email_has_been_changed: Nous vous contactons pour vous informer que votre adresse e-mail a bien été changée pour %{new_email}.
         your_email_is_being_changed: Nous vous contactons pour vous informer que votre adresse e-mail va être changée pour %{unconfirmed_email}.
-      emails_footer:
-        answer_this_email_if_any_question_html: Pour toute question, répondez à cet e-mail ou %{link_to_contact_us} !
-        contact_us: contactez-nous
-        site_team_html: L’équipe %{link_to_root}.
       hello: Bonjour %{user_full_name},
       password_change:
         subject: Votre mot de passe a été modifié avec succés.

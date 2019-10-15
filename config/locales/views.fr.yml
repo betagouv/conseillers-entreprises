@@ -391,6 +391,10 @@ fr:
     hello_name: Bonjour %{name},
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
+    shared:
+      footer:
+        blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
+        contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
     user_mailer:
       account_approved:
         account_was_approved_html: Votre inscription sur Place des Entreprises a été validée. Vous pouvez désormais vous connecter et entrer en contact avec des référents pour aider les entreprises que vous rencontrez. Vous trouverez aussi un %{link_to_guide} et quelques astuces pour une approche globale des besoins des entreprises.
