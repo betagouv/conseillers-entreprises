@@ -213,98 +213,6 @@ fr:
       tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
       tool_to_help_advisors: Un outil dédié aux conseillers d’entreprise des organismes publics
       we_help_you_and_we_want_feedbacks_html: Nous vous accompagnons dans l’utilisation de Place des Entreprises<br>et recevons vos commentaires.
-  devise:
-    confirmations:
-      confirmed: Votre compte a été validé.
-      new:
-        resend_confirmation_instructions: Renvoyer l’e-mail de confirmation
-      send_instructions: Vous allez recevoir les instructions nécessaires à la confirmation de votre compte dans quelques minutes.
-      send_paranoid_instructions: Si votre adresse e-mail existe dans notre base de données, vous allez bientôt recevoir un e-mail contenant les instructions de confirmation de votre compte.
-    failure:
-      already_authenticated: Vous êtes déjà connecté
-      inactive: Votre compte n’est pas encore activé. Les administrateurs ont été prévenus et activeront votre compte très bientôt.
-      invalid: E-mail ou mot de passe incorrect.
-      last_attempt: Vous avez droit à une tentative avant que votre compte ne soit verrouillé.
-      locked: Votre compte est verrouillé.
-      not_approved: Votre compte n’a pas encore été validé par un administateur.
-      not_found_in_database: E-mail ou mot de passe invalide.
-      timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
-      unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-      unconfirmed: Vous devez valider votre adresse e-mail pour continuer.
-    forgot_password: Mot de passe oublié ?
-    mailer:
-      confirmation_instructions:
-        confirm_my_account: Confirmer mon compte
-        confirm_your_email_by_clicking_on_the_link: 'Vous pouvez confirmer votre adresse e-mail en cliquant sur le lien ci-dessous :'
-        subject: Instructions de confirmation
-        welcome: Bienvenue sur Place des Entreprises, %{user_full_name} !
-      email_changed:
-        your_email_has_been_changed: Nous vous contactons pour vous informer que votre adresse e-mail a bien été changée pour %{new_email}.
-        your_email_is_being_changed: Nous vous contactons pour vous informer que votre adresse e-mail va être changée pour %{unconfirmed_email}.
-      emails_footer:
-        answer_this_email_if_any_question_html: Pour toute question, répondez à cet e-mail ou %{link_to_contact_us} !
-        contact_us: contactez-nous
-        site_team_html: L’équipe %{link_to_root}.
-      hello: Bonjour %{user_full_name},
-      password_change:
-        subject: Votre mot de passe a été modifié avec succés.
-        your_password_has_been_changed: Nous vous contactons pour vous informer que votre mot de passe a bien été changé.
-      reset_password_instructions:
-        change_my_password: Changer mon mot de passe
-        please_ignore_this_mail: Si vous n’êtes pas l’auteur de cette demande, merci d’ignorer cet e-mail.
-        someone_has_requested_a_link: Quelqu’un a fait une demande pour changer le mot de passe associé à votre adresse e-mail. Pour ce faire, cliquez sur le lien ci-dessous.
-        subject: Instructions pour changer le mot de passe
-        your_password_wont_change_for_now: Votre mot de passe ne sera pas modifié tant que vous ne remplirez pas le formulaire qui se trouve en cliquant sur le précédent lien.
-      unlock_instructions:
-        subject: Instructions pour déverrouiller le compte
-    omniauth_callbacks:
-      failure: 'Nous n’avons pas pu vous authentifier via %{kind} : ''%{reason}''.'
-      success: Authentifié avec succès via %{kind}.
-    password_minimum_characters: "(%{count} caractères minimum)"
-    passwords:
-      edit:
-        change_own_password: Changer son mot de passe
-        new_password: Nouveau mot de passe
-      new:
-        send_me_reset_password_instructions: Envoyer les instructions de réinitialisation
-      no_token: Vous ne pouvez accéder à cette page sans passer par un e-mail de réinitialisation de mot de passe. Si vous êtes passé par un e-mail de ce type, assurez-vous d’utiliser l’URL complète.
-      send_instructions: Vous allez recevoir les instructions de réinitialisation du mot de passe dans quelques instants.
-      send_paranoid_instructions: Si votre e-mail existe dans notre base de données, vous allez recevoir un lien de réinitialisation par e-mail
-      updated: Votre mot de passe a été édité avec succès, vous êtes maintenant connecté.
-      updated_not_active: Votre mot de passe a été changé avec succès.
-    registrations:
-      destroyed: Votre compte a été supprimé avec succès. Nous espérons vous revoir bientôt.
-      edit:
-        leave_blank_to_change_it: "(laisser vide si pas de changement)"
-        waiting_confirmation_for: 'En attente de confirmation pour l’adresse : %{unconfirmed_email}'
-        we_need_current_password: "(nécessaire pour prendre en compte les modifications)"
-      new:
-        placeholders:
-          full_name: 'ex: Marie Dupont'
-          role: Conseiller entreprise, Chargé de mission…
-        warning_message: L’inscription est réservé aux conseillers d’entreprise et référents des organismes publics. Merci de bien vouloir utiliser votre adresse e-mail professionnelle afin que votre compte soit validé.
-      signed_up: Bienvenue, vous êtes connecté.
-      signed_up_but_inactive: Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte n’est pas encore activé.
-      signed_up_but_locked: Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte est verrouillé.
-      signed_up_but_unconfirmed: Un e-mail contenant un lien de confirmation vous a été envoyé. Ouvrez ce lien pour activer votre compte.
-      update_needs_confirmation: Votre compte a bien été mis à jour mais nous devons vérifier votre nouvelle adresse e-mail. Merci de vérifier vos e-mails et de cliquer sur le lien de confirmation.
-      updated: Votre compte a été modifié avec succès.
-    sessions:
-      already_signed_out: Déconnecté.
-      new:
-        how_to_sign_up_html: Écrivez-nous simplement à %{email}.<br/>Place des Entreprises est ouvert aux agents des administrations chargés de conseiller et d’accompagner les entreprises dans leur développement ou le maintien de leur activité.
-        how_to_sign_up_title: Comment s’inscrire ?
-      signed_in: ''
-      signed_out: Déconnecté.
-    shared:
-      links:
-        not_received_confirmation: Vous n’avez pas reçu l’e-mail de confirmation ?
-        not_received_unlocked: Vous n’avez pas reçu l’e-mail pour débloquer votre compte ?
-        sign_in_with: Se connecter avec %{provider_name}
-    unlocks:
-      send_instructions: Vous allez recevoir les instructions nécessaires au déverrouillage de votre compte dans quelques instants.
-      send_paranoid_instructions: Si votre compte existe, vous allez bientôt recevoir un e-mail contenant les instructions pour le déverrouiller.
-      unlocked: Votre compte a été déverrouillé avec succès, vous êtes maintenant connecté.
   diagnoses:
     archives:
       browse_active_diagnoses: Voir les analyses en cours
@@ -566,7 +474,6 @@ fr:
     expert_reminders_notes:
       placeholder: Restez factuel :)
     index:
-      all: Tous
       title: Relances
     show:
       title: Relances / %{full_name}
@@ -623,8 +530,6 @@ fr:
       solicitations_html: <span class="count">%{count}</span> sollicitations directes
     show:
       title: Statistiques d’utilisation
-    stats_params:
-      all: Tous
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
