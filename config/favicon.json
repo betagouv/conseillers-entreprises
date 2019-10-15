@@ -43,11 +43,6 @@
         "legacy_icon": false,
         "low_resolution_icons": false
       }
-    },
-    "safari_pinned_tab": {
-      "picture_aspect": "black_and_white",
-      "threshold": 64.0625,
-      "theme_color": "#0053b3"
     }
   },
   "settings": {
