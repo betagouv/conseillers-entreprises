@@ -10,10 +10,7 @@
     %div
       = t('.waiting_confirmation_for', unconfirmed_email: resource.unconfirmed_email)
 
-  - %i[full_name role phone_number].each do |attribute|
-    .field
-      = f.label attribute
-      = f.text_field attribute
+  = render 'devise/shared/user_fields', form: f
 
   .field
     = f.label :password
@@ -32,6 +29,3 @@
     = f.password_field :current_password, autocomplete: 'off'
   .actions
     = f.submit t('update'), class: 'ui green button'
-
-.devise-links
-  = link_to t('back'), :back

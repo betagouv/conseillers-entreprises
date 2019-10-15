@@ -11,6 +11,12 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  full_name              :string
+#  invitation_accepted_at :datetime
+#  invitation_created_at  :datetime
+#  invitation_limit       :integer
+#  invitation_sent_at     :datetime
+#  invitation_token       :string
+#  invitations_count      :integer          default(0)
 #  is_admin               :boolean          default(FALSE), not null
 #  is_approved            :boolean          default(FALSE), not null
 #  last_sign_in_at        :datetime
@@ -25,18 +31,23 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  antenne_id             :bigint(8)
+#  inviter_id             :bigint(8)
 #
 # Indexes
 #
 #  index_users_on_antenne_id            (antenne_id)
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_invitation_token      (invitation_token) UNIQUE
+#  index_users_on_invitations_count     (invitations_count)
+#  index_users_on_inviter_id            (inviter_id)
 #  index_users_on_is_approved           (is_approved)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (antenne_id => antennes.id)
+#  fk_rails_...  (inviter_id => users.id)
 #
 
 class User < ApplicationRecord
@@ -48,7 +59,8 @@ class User < ApplicationRecord
   #
   include PersonConcern
   include InvolvementConcern
-  devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async
+  devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async,
+         :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
   ## Associations
   #
@@ -57,6 +69,8 @@ class User < ApplicationRecord
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :searches, dependent: :destroy, inverse_of: :user
   has_many :feedbacks, dependent: :destroy, inverse_of: :user
+  belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
+  has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter
 
   ## Validations
   #
