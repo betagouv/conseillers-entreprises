@@ -1,0 +1,14 @@
+%p= t('.hello', name: @resource.full_name)
+
+- options = { link_to_root: link_to(t('app_name'), root_url),
+  inviter: @resource.inviter.full_name,
+  mail_to_inviter: mail_to(@resource.inviter.email),
+  antenne_name: @resource.antenne.name }
+%p= t(".someone_invited_you_html", options)
+
+%p= t(".activate_your_account")
+
+.button
+  %a{ href: accept_user_invitation_url(invitation_token: @token) }= t('.accept')
+
+%p= t(".ignore")

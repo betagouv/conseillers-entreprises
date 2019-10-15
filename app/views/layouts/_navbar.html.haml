@@ -33,6 +33,9 @@
               = active_link_to admin_root_path, class: 'item' do
                 %i.gavel.icon
                 = t('.admin')
+              = active_link_to new_user_invitation_path, class: 'item' do
+                %i.gift.icon
+                = t('.invite')
             = active_link_to profile_path, class: 'item' do
               %i.user.circle.icon
               = t('.profile')

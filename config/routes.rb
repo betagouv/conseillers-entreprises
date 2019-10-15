@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   ActiveAdmin.routes(self)
-  devise_for :users, controllers: { registrations: 'users/registrations' }, skip: [:registrations]
+  devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations' }, skip: [:registrations]
   devise_scope :user do
     get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
     put 'users' => 'users/registrations#update', :as => 'user_registration'

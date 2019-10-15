@@ -36,6 +36,7 @@ gem 'delayed_job_active_record'
 gem 'audited', '~> 4.5'
 gem 'devise'
 gem 'devise-async'
+gem 'devise_invitable'
 gem 'user_impersonate2', require: 'user_impersonate'
 
 # Charts

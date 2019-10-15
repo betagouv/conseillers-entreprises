@@ -1,4 +1,10 @@
 class DeviseMailerPreview < ActionMailer::Preview
+  def invitation_instructions
+    user = User.all.sample
+    user.inviter = User.all.sample
+    Devise::Mailer::invitation_instructions(user, 'faketoken')
+  end
+
   def confirmation_instructions
     Devise::Mailer.confirmation_instructions(user, 'faketoken')
   end
