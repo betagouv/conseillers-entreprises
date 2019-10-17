@@ -10,6 +10,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w[
-  solicitations.sass solicitations.js highcharts.js semantic-ui-calendar.min.css semantic-ui-calendar.min.js mailers.sass
-]
+Rails.application.config.assets.precompile += ["manifest.js"]
