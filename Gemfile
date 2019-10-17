@@ -88,6 +88,7 @@ group :development do
   gem 'therubyracer'
   gem 'annotate'
   gem 'letter_opener_web'
+  gem 'rails_real_favicon'
 
   gem 'spring'
   gem 'spring-watcher-listen'
