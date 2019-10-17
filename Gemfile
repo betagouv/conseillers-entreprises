@@ -98,6 +98,7 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-faker', require: false
   gem 'brakeman', require: false
 end
 

@@ -42,7 +42,7 @@ class AdminMailerPreview < ActionMailer::Preview
     all_needs = I18n.t(localized_needs_keypath).keys
 
     params = {
-      description: Faker::Hipster.paragraphs(5).join('<br/>'),
+      description: Faker::Hipster.paragraphs(number: 5).join('<br/>'),
       phone_number: Faker::PhoneNumber.phone_number,
       email: Faker::Internet.email,
       needs: all_needs.map{ |n| [n, rand(2).to_s] }.to_h,

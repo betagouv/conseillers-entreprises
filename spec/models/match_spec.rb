@@ -154,7 +154,7 @@ RSpec.describe Match, type: :model do
 
   describe 'scopes' do
     describe 'not_viewed' do
-      subject { Match.not_viewed }
+      subject { described_class.not_viewed }
 
       let(:match) { create :match, expert_viewed_page_at: nil }
 
@@ -164,7 +164,7 @@ RSpec.describe Match, type: :model do
     end
 
     describe 'updated_more_than_five_days_ago' do
-      subject { Match.updated_more_than_five_days_ago }
+      subject { described_class.updated_more_than_five_days_ago }
 
       let!(:match_updated_two_weeks_ago) { create :match, updated_at: 2.weeks.ago }
 
@@ -174,7 +174,7 @@ RSpec.describe Match, type: :model do
     end
 
     describe 'active' do
-      subject { Match.active }
+      subject { described_class.active }
 
       let!(:match1) { create :match, status: :quo }
       let!(:match2) { create :match, status: :quo }
