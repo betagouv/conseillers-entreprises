@@ -150,10 +150,12 @@ class User < ApplicationRecord
     where(antenne_id: nil)
   end
 
+  scope :deactivated, -> { where.not(:deactivated_at, nil) }
+
   ## Devise overrides
   #
   def active_for_authentication?
-    super && is_approved?
+    super && is_approved? && !deactivated?
   end
 
   ## Administration helpers
@@ -204,6 +206,10 @@ class User < ApplicationRecord
 
   ##
   #
+  def deactivated?
+    deactivated_at.present?
+  end
+
   def is_oneself?
     self.experts.size == 1 && self.experts.first.users == [self]
   end
