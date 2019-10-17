@@ -62,6 +62,13 @@ fr:
       deactivate_user_done: Utilisateur désactivé
       experts_linked: Référents associés
       impersonate: Voir le site comme %{name}
+      import:
+        button: Importer
+        button_disabled: Importation en cours
+        example_label: Exemple
+        example_title: Format du CSV
+        label: Fichier csv
+        title: Importer des utilisateurs
       reactivate_user: Réactiver cet utilisateur
       reactivate_user_done: Utilisateur réactivé
       saved: Conseiller mis à jour
