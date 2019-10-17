@@ -147,6 +147,16 @@ class User < ApplicationRecord
     where(antenne_id: nil)
   end
 
+  ## Password
+  #
+  # We only require a password if the invitation is (being) accepted;
+  # until then, the password can (and in fact should) be nil.
+  # See devise_invitable/models.rb.
+  # (Devise::validatable has a similar method but we don’t use :validatable)
+  def password_required?
+    accepting_invitation? || invitation_accepted?
+  end
+
   ## Deactivation
   #
   def active_for_authentication?
@@ -228,15 +238,5 @@ class User < ApplicationRecord
 
   def support_expert_skill
     ExpertSkill.support.find_by(expert: self.experts)
-  end
-
-  protected
-
-  # Inspired by Devise validatable module
-  # Checks whether a password is needed or not. For validations only.
-  # Passwords are always required if it's a new record, or if the password
-  # or confirmation are being set somewhere.
-  def password_required?
-    !persisted? || !password.nil? || !password_confirmation.nil?
   end
 end
