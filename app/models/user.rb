@@ -50,10 +50,6 @@
 #
 
 class User < ApplicationRecord
-  ## Constants
-  #
-  WHITELISTED_DOMAINS = %w[beta.gouv.fr direccte.gouv.fr pole-emploi.fr pole-emploi.net cma-hautsdefrance.fr].freeze
-
   ##
   #
   include PersonConcern
