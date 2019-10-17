@@ -12,7 +12,7 @@ end
 
 ruby '2.6.5'
 
-gem 'rails'
+gem 'rails', '~> 5'
 
 # Server
 gem 'foreman'
@@ -33,7 +33,7 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 
 # Improving models
-gem 'audited', '~> 4.5'
+gem 'audited'
 gem 'devise'
 gem 'devise-async'
 gem 'devise_invitable'
@@ -101,4 +101,4 @@ group :development do
   gem 'brakeman', require: false
 end
 
-gem "debase", "~> 0.2.2"
+gem "debase"
