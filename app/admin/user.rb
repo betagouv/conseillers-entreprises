@@ -17,6 +17,8 @@ ActiveAdmin.register User do
   scope :without_antenne
   scope :deactivated
   scope :email_not_confirmed
+  scope :not_invited_yet, group: :invitations
+  scope :invitation_not_accepted, group: :invitations
 
   index do
     selectable_column
@@ -55,6 +57,7 @@ ActiveAdmin.register User do
 
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
+      item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
     end
   end
 
@@ -147,6 +150,10 @@ ActiveAdmin.register User do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
   end
 
+  action_item :invite_user, only: :show do
+    link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user)
+  end
+
   action_item :deactivate, only: :show do
     if user.deactivated?
       link_to t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(user), method: :post
@@ -218,7 +225,10 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
   end
 
-  batch_action :destroy, false
+  member_action :invite_user do
+    resource.invite!
+    redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
+  end
 
   batch_action I18n.t('active_admin.user.autolink_to_experts') do |ids|
     batch_action_collection.find(ids).each { |user| user.autolink_experts! }
@@ -237,11 +247,16 @@ ActiveAdmin.register User do
     end
   end
 
-  batch_action I18n.t('active_admin.person.normalize_values') do |ids|
+  unless Rails.env.development?
+    # Disable mass-destroy in production
+    batch_action :destroy, false
+  end
+
+  batch_action I18n.t('active_admin.user.do_invite') do |ids|
     batch_action_collection.find(ids).each do |user|
-      user.normalize_values!
+      user.invite!(current_user)
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
   end
 
   controller do

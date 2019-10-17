@@ -108,6 +108,14 @@ class User < ApplicationRecord
   scope :deactivated, -> { where.not(deactivated_at: nil) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
 
+  # Invitations scopes: TODO: `confirmable` is to be removed, related queries will be adjusted
+  scope :not_invited_yet, -> do
+    where(invitation_created_at: nil)
+      .where(confirmation_sent_at: nil) # This will be removed
+      .where(confirmed_at: nil)         # This will be removed
+  end
+  # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
+
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
       .select('users.*', 'antennes.name', 'institutions.name')
