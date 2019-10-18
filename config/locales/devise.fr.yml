@@ -45,10 +45,13 @@ fr:
       hello: Bonjour %{user_full_name},
       invitation_instructions:
         accept: Accepter l’invitation
-        activate_your_account: 'Vous pouvez activer votre compte en cliquant ici :'
+        activate_your_account: 'Activez votre compte en cliquant ici :'
+        description_html: Vous êtes invité·e à rejoindre le nouveau service public %{link_to_root}, dédié à l’accompagnement des TPE et PME.
+        details_html: Place des Entreprises permet de mettre en relation un nombre inédit d’administrations et d’organismes publics. Les besoins d’entreprises, déposés en ligne ou détectés par un conseiller, vous sont automatiquement adressés selon votre champ d’intervention. Vous pouvez aussi adresser facilement des besoin d’entreprises à l’ensemble des partenaires de Place des Entreprises.
+        details_title: Qu’est-ce que c’est ?
         hello: Bonjour %{name},
         ignore: Si vous ne souhaitez pas accepter l’invitation, ne tenez pas compte de cet email. Votre compte ne sera pas créé.
-        someone_invited_you_html: Vous êtes invité·e par %{inviter} (%{mail_to_inviter}) à rejoindre %{link_to_root}, au sein de l’équipe de %{antenne_name}.
+        someone_invited_you_html: "%{inviter} (%{mail_to_inviter}) vous invite à rejoindre l’équipe de <b>%{antenne_name}</b>."
         subject: Invitation sur Place des Entreprises
       password_change:
         subject: Votre mot de passe a été modifié avec succés.
