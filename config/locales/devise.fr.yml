@@ -5,8 +5,6 @@ fr:
       already_authenticated: Vous êtes déjà connecté
       inactive: Votre compte n’est pas encore activé. Les administrateurs ont été prévenus et activeront votre compte très bientôt.
       invalid: E-mail ou mot de passe incorrect.
-      last_attempt: Vous avez droit à une tentative avant que votre compte ne soit verrouillé.
-      locked: Votre compte est verrouillé.
       not_approved: Votre compte n’a pas encore été validé par un administateur.
       not_found_in_database: E-mail ou mot de passe invalide.
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
@@ -56,11 +54,9 @@ fr:
         send_me_reset_password_instructions: Envoyer les instructions de réinitialisation
       no_token: Vous ne pouvez accéder à cette page sans passer par un e-mail de réinitialisation de mot de passe. Si vous êtes passé par un e-mail de ce type, assurez-vous d’utiliser l’URL complète.
       send_instructions: Vous allez recevoir les instructions de réinitialisation du mot de passe dans quelques instants.
-      send_paranoid_instructions: Si votre e-mail existe dans notre base de données, vous allez recevoir un lien de réinitialisation par e-mail
-      updated: Votre mot de passe a été édité avec succès, vous êtes maintenant connecté.
-      updated_not_active: Votre mot de passe a été changé avec succès.
+      updated: Votre nouveau mot de passe a bien été enregistré, vous êtes maintenant connecté.
+      updated_not_active: Votre nouveau mot de passe a bien été enregistré.
     registrations:
-      destroyed: Votre compte a été supprimé avec succès. Nous espérons vous revoir bientôt.
       edit:
         leave_blank_to_change_it: "(laisser vide si pas de changement)"
         we_need_current_password: "(nécessaire pour prendre en compte les modifications)"
@@ -70,9 +66,8 @@ fr:
           role: Conseiller entreprise, Chargé de mission…
         warning_message: L’inscription est réservé aux conseillers d’entreprise et référents des organismes publics. Merci de bien vouloir utiliser votre adresse e-mail professionnelle afin que votre compte soit validé.
       signed_up: Bienvenue, vous êtes connecté.
-      signed_up_but_inactive: Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte n’est pas encore activé.
-      signed_up_but_locked: Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte est verrouillé.
-      updated: Votre compte a été modifié avec succès.
+      signed_up_but_inactive: Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte n’est pas activé.
+      updated: Votre compte a bien été modifié.
     sessions:
       already_signed_out: Déconnecté.
       new:
@@ -80,11 +75,3 @@ fr:
         how_to_sign_up_title: Comment s’inscrire ?
       signed_in: ''
       signed_out: Déconnecté.
-    shared:
-      links:
-        not_received_unlocked: Vous n’avez pas reçu l’e-mail pour débloquer votre compte ?
-        sign_in_with: Se connecter avec %{provider_name}
-    unlocks:
-      send_instructions: Vous allez recevoir les instructions nécessaires au déverrouillage de votre compte dans quelques instants.
-      send_paranoid_instructions: Si votre compte existe, vous allez bientôt recevoir un e-mail contenant les instructions pour le déverrouiller.
-      unlocked: Votre compte a été déverrouillé avec succès, vous êtes maintenant connecté.
