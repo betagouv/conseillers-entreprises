@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_142119) do
+ActiveRecord::Schema.define(version: 2019_10_18_143155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -318,7 +318,6 @@ ActiveRecord::Schema.define(version: 2019_10_17_142119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_admin", default: false, null: false
-    t.boolean "is_approved", default: false, null: false
     t.string "phone_number"
     t.string "role"
     t.string "full_name"
@@ -337,7 +336,6 @@ ActiveRecord::Schema.define(version: 2019_10_17_142119) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["inviter_id"], name: "index_users_on_inviter_id"
-    t.index ["is_approved"], name: "index_users_on_is_approved"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
