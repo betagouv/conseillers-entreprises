@@ -47,6 +47,10 @@ describe 'ApplicationController specific features', type: :feature do
       visit diagnoses_path
     end
 
+    after do
+      ENV['TEST_ERROR_RENDERING'] = 'false'
+    end
+
     describe '404 error' do
       let(:raised_error) { ActiveRecord::RecordNotFound }
 
