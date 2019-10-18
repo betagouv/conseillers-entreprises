@@ -39,9 +39,6 @@ fr:
         confirm_your_email_by_clicking_on_the_link: 'Vous pouvez confirmer votre adresse e-mail en cliquant sur le lien ci-dessous :'
         subject: Instructions de confirmation
         welcome: Bienvenue sur Place des Entreprises, %{user_full_name} !
-      email_changed:
-        your_email_has_been_changed: Nous vous contactons pour vous informer que votre adresse e-mail a bien été changée pour %{new_email}.
-        your_email_is_being_changed: Nous vous contactons pour vous informer que votre adresse e-mail va être changée pour %{unconfirmed_email}.
       hello: Bonjour %{user_full_name},
       invitation_instructions:
         accept: Accepter l’invitation
@@ -53,17 +50,12 @@ fr:
         ignore: Si vous ne souhaitez pas accepter l’invitation, ne tenez pas compte de cet email. Votre compte ne sera pas créé.
         someone_invited_you_html: "%{inviter} (%{mail_to_inviter}) vous invite à rejoindre l’équipe de <b>%{antenne_name}</b>."
         subject: Invitation sur Place des Entreprises
-      password_change:
-        subject: Votre mot de passe a été modifié avec succés.
-        your_password_has_been_changed: Nous vous contactons pour vous informer que votre mot de passe a bien été changé.
       reset_password_instructions:
         change_my_password: Changer mon mot de passe
         please_ignore_this_mail: Si vous n’êtes pas l’auteur de cette demande, merci d’ignorer cet e-mail.
         someone_has_requested_a_link: Quelqu’un a fait une demande pour changer le mot de passe associé à votre adresse e-mail. Pour ce faire, cliquez sur le lien ci-dessous.
         subject: Instructions pour changer le mot de passe
         your_password_wont_change_for_now: Votre mot de passe ne sera pas modifié tant que vous ne remplirez pas le formulaire qui se trouve en cliquant sur le précédent lien.
-      unlock_instructions:
-        subject: Instructions pour déverrouiller le compte
     omniauth_callbacks:
       failure: 'Nous n’avons pas pu vous authentifier via %{kind} : ''%{reason}''.'
       success: Authentifié avec succès via %{kind}.
