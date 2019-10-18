@@ -3,6 +3,7 @@ fr:
   devise:
     failure:
       already_authenticated: Vous êtes déjà connecté
+      deactivated: Votre compte a été désactivé. Envoyez-nous un mail si vous pensez que c’est une erreur.
       inactive: Votre compte n’est pas encore activé. Les administrateurs ont été prévenus et activeront votre compte très bientôt.
       invalid: E-mail ou mot de passe incorrect.
       not_approved: Votre compte n’a pas encore été validé par un administateur.

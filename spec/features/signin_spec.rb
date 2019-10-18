@@ -3,15 +3,31 @@
 require 'rails_helper'
 
 describe 'the signin process', type: :feature do
-  before { create :user, email: 'user@example.com', password: 'password' }
+  let!(:user) { create :user, email: 'user@example.com', password: 'password' }
 
-  it 'signs me in' do
+  before do
     visit new_user_session_path
     within('#new_user') do
       fill_in 'E-mail', with: 'user@example.com'
       fill_in 'Mot de passe', with: 'password'
     end
-    click_button 'Connexion'
-    expect(page.html).to include 'Analyses en cours'
+  end
+
+  context 'active user' do
+    it do
+      click_button 'Connexion'
+
+      expect(page.html).to include 'Analyses en cours'
+    end
+  end
+
+  context 'deactivated user' do
+    before { user.deactivate! }
+
+    it do
+      click_button 'Connexion'
+
+      expect(page.html).to include 'Votre compte a été désactivé'
+    end
   end
 end

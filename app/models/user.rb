@@ -150,10 +150,28 @@ class User < ApplicationRecord
     where(antenne_id: nil)
   end
 
-  ## Devise overrides
+  scope :deactivated, -> { where.not(:deactivated_at, nil) }
+
+  ## Deactivation
   #
   def active_for_authentication?
-    super && is_approved?
+    super && is_approved? && !deactivated?
+  end
+
+  def inactive_message
+    deactivated_at.present? ? :deactivated : super
+  end
+
+  def deactivated?
+    deactivated_at.present?
+  end
+
+  def deactivate!
+    update(deactivated_at: Time.zone.now)
+  end
+
+  def reactivate!
+    update(deactivated_at: nil)
   end
 
   ## Administration helpers
