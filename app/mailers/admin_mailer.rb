@@ -6,14 +6,6 @@ class AdminMailer < ApplicationMailer
 
   helper :solicitation
 
-  def new_user_approved_notification(user, admin)
-    @user = user
-    @admin = admin
-
-    subject = t('mailers.admin_mailer.new_user_approved_notification.subject', full_name: @user.full_name)
-    mail(to: default_recipients, subject: subject)
-  end
-
   def weekly_statistics(information_hash)
     @information_hash = information_hash
 

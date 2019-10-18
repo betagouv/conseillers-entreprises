@@ -30,10 +30,10 @@ fr:
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
       completed: Analyses terminées
+      deactivated: Désactivés
       diagnosis_completed: Analyses terminées
       done: Clôturé
       email_not_confirmed: Email non confirmé
-      not_approved: Non validés
       not_taken_after_3_weeks: 3 semaines sans réponse
       rejected: Refusés
       sent: Mises en relation envoyées
@@ -55,8 +55,6 @@ fr:
     user:
       admin: Admin
       antenne_linked: Antenne associée
-      approve_user: Valider le compte
-      approve_user_done: Compte approuvé
       autolink_to: Associer à %{what}
       autolink_to_experts: Associer automatiquement aux experts
       connection: Connexion
@@ -159,7 +157,6 @@ fr:
         invitees: Invités
         inviter: Invité par
         is_admin: Est administrateur ?
-        is_approved: Est validé ?
         last_sign_in_at: Date de de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe

@@ -85,8 +85,6 @@ class User < ApplicationRecord
   validates :password, length: { within: Devise.password_length }, allow_blank: true
   validates :password, presence: true, confirmation: true, if: :password_required?
 
-  before_create :auto_approve_if_whitelisted_domain
-
   ## “Through” Associations
   #
   # :antenne
@@ -107,8 +105,7 @@ class User < ApplicationRecord
   #
   scope :admin, -> { where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
-  scope :approved, -> { where(is_approved: true) }
-  scope :not_approved, -> { where(is_approved: false) }
+  scope :deactivated, -> { where.not(deactivated_at: nil) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
 
   scope :ordered_by_institution, -> do
@@ -150,12 +147,10 @@ class User < ApplicationRecord
     where(antenne_id: nil)
   end
 
-  scope :deactivated, -> { where.not(:deactivated_at, nil) }
-
   ## Deactivation
   #
   def active_for_authentication?
-    super && is_approved? && !deactivated?
+    super && !deactivated?
   end
 
   def inactive_message
@@ -176,13 +171,6 @@ class User < ApplicationRecord
 
   ## Administration helpers
   #
-  def auto_approve_if_whitelisted_domain
-    email_domain = email.split("@").last
-    if email_domain.in?(WHITELISTED_DOMAINS)
-      self.is_approved = true
-    end
-  end
-
   def corresponding_experts
     Expert.where(email: self.email)
   end

@@ -13,7 +13,7 @@ ActiveAdmin.register User do
   scope :all, default: true
   scope :admin
   scope :without_antenne
-  scope :not_approved
+  scope :deactivated
   scope :email_not_confirmed
 
   index do
@@ -22,13 +22,9 @@ ActiveAdmin.register User do
       div admin_link_to(u)
       div '✉ ' + u.email
       div '✆ ' + u.phone_number
-      div u.confirmed? ? status_tag('Email ok') : status_tag('Email non confirmé', class: 'warning')
       div status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error') if u.deactivated?
     end
-    column :created_at do |u|
-      div I18n.l(u.created_at, format: '%Y-%m-%d %H:%M')
-      div u.is_approved? ? status_tag('Validé') : status_tag('Compte Non validé', class: 'warning')
-    end
+    column :created_at
     column :role do |u|
       div u.role
       if u.antenne.present?
@@ -49,10 +45,6 @@ ActiveAdmin.register User do
     end
 
     actions dropdown: true do |u|
-      if !u.is_approved?
-        item(t('active_admin.user.approve_user'), approve_user_admin_user_path(u), method: :post)
-      end
-
       if u.deactivated?
         item(t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(u), method: :post)
       else
@@ -80,7 +72,7 @@ ActiveAdmin.register User do
     column :phone_number
     column :confirmed?
     column :created_at
-    column :is_approved?
+    column :deactivated_at
     column :role
     column :antenne
     column :institution
@@ -138,8 +130,6 @@ ActiveAdmin.register User do
     attributes_table_for user do
       row :created_at
       row :inviter
-      row :confirmed?
-      row :is_approved
       row :deactivated? do
         status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error')
       end if user.deactivated?
@@ -165,7 +155,7 @@ ActiveAdmin.register User do
 
   # Form
   #
-  permit_params :full_name, :email, :institution, :role, :phone_number, :is_approved,
+  permit_params :full_name, :email, :institution, :role, :phone_number,
                 :is_admin, :password, :password_confirmation,
                 :antenne_id, expert_ids: []
 
@@ -188,7 +178,6 @@ ActiveAdmin.register User do
     end
 
     f.inputs I18n.t('active_admin.user.connection') do
-      f.input :is_approved, as: :boolean
       f.input :password
       f.input :password_confirmation
     end
@@ -202,11 +191,6 @@ ActiveAdmin.register User do
 
   # Actions
   #
-  member_action :approve_user, method: :post do
-    resource.update(is_approved: true)
-    redirect_back fallback_location: collection_path, notice: t('active_admin.user.approve_user_done')
-  end
-
   member_action :deactivate_user, method: :post do
     resource.deactivate!
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.deactivate_user_done')
@@ -260,18 +244,8 @@ ActiveAdmin.register User do
 
   controller do
     def update
-      send_approval_emails
       update_params_depending_on_password
       redirect_or_display_form
-    end
-
-    def send_approval_emails
-      if resource.is_approved? || !params[:user][:is_approved].to_b
-        return
-      end
-
-      UserMailer.delay.account_approved(resource)
-      AdminMailer.delay.new_user_approved_notification(resource, current_user)
     end
 
     def update_params_depending_on_password
