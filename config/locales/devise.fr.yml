@@ -1,12 +1,6 @@
 ---
 fr:
   devise:
-    confirmations:
-      confirmed: Votre compte a été validé.
-      new:
-        resend_confirmation_instructions: Renvoyer l’e-mail de confirmation
-      send_instructions: Vous allez recevoir les instructions nécessaires à la confirmation de votre compte dans quelques minutes.
-      send_paranoid_instructions: Si votre adresse e-mail existe dans notre base de données, vous allez bientôt recevoir un e-mail contenant les instructions de confirmation de votre compte.
     failure:
       already_authenticated: Vous êtes déjà connecté
       inactive: Votre compte n’est pas encore activé. Les administrateurs ont été prévenus et activeront votre compte très bientôt.
@@ -17,7 +11,6 @@ fr:
       not_found_in_database: E-mail ou mot de passe invalide.
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-      unconfirmed: Vous devez valider votre adresse e-mail pour continuer.
     forgot_password: Mot de passe oublié ?
     invitations:
       edit:
@@ -34,11 +27,6 @@ fr:
       send_instructions: Un email d’invitation a été envoyé à %{email}.
       updated: Mot de passe enregistré. Vous êtes maintenant connecté.
     mailer:
-      confirmation_instructions:
-        confirm_my_account: Confirmer mon compte
-        confirm_your_email_by_clicking_on_the_link: 'Vous pouvez confirmer votre adresse e-mail en cliquant sur le lien ci-dessous :'
-        subject: Instructions de confirmation
-        welcome: Bienvenue sur Place des Entreprises, %{user_full_name} !
       hello: Bonjour %{user_full_name},
       invitation_instructions:
         accept: Accepter l’invitation
@@ -75,7 +63,6 @@ fr:
       destroyed: Votre compte a été supprimé avec succès. Nous espérons vous revoir bientôt.
       edit:
         leave_blank_to_change_it: "(laisser vide si pas de changement)"
-        waiting_confirmation_for: 'En attente de confirmation pour l’adresse : %{unconfirmed_email}'
         we_need_current_password: "(nécessaire pour prendre en compte les modifications)"
       new:
         placeholders:
@@ -85,8 +72,6 @@ fr:
       signed_up: Bienvenue, vous êtes connecté.
       signed_up_but_inactive: Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte n’est pas encore activé.
       signed_up_but_locked: Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte est verrouillé.
-      signed_up_but_unconfirmed: Un e-mail contenant un lien de confirmation vous a été envoyé. Ouvrez ce lien pour activer votre compte.
-      update_needs_confirmation: Votre compte a bien été mis à jour mais nous devons vérifier votre nouvelle adresse e-mail. Merci de vérifier vos e-mails et de cliquer sur le lien de confirmation.
       updated: Votre compte a été modifié avec succès.
     sessions:
       already_signed_out: Déconnecté.
@@ -97,7 +82,6 @@ fr:
       signed_out: Déconnecté.
     shared:
       links:
-        not_received_confirmation: Vous n’avez pas reçu l’e-mail de confirmation ?
         not_received_unlocked: Vous n’avez pas reçu l’e-mail pour débloquer votre compte ?
         sign_in_with: Se connecter avec %{provider_name}
     unlocks:

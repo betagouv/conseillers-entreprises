@@ -5,10 +5,6 @@ class DeviseMailerPreview < ActionMailer::Preview
     Devise::Mailer::invitation_instructions(user, 'faketoken')
   end
 
-  def confirmation_instructions
-    Devise::Mailer.confirmation_instructions(user, 'faketoken')
-  end
-
   def reset_password_instructions
     Devise::Mailer.reset_password_instructions(user, 'faketoken')
   end

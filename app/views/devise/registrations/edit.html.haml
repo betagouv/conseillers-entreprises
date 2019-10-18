@@ -6,9 +6,6 @@
   .field
     = f.label :email
     = f.email_field :email, autofocus: true, disabled: true
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      = t('.waiting_confirmation_for', unconfirmed_email: resource.unconfirmed_email)
 
   = render 'devise/shared/user_fields', form: f
 
