@@ -12,7 +12,7 @@ describe UserMailer do
   #
   #   it_behaves_like 'an email'
   #
-  #   it { expect(mail.from).to eq UserMailer::SENDER }
+  #   it { expect(mail.header[:from].value).to eq UserMailer::SENDER }
   # end
 
   describe '#account_approved' do
@@ -22,7 +22,7 @@ describe UserMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.from).to eq UserMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq UserMailer::SENDER }
   end
 
   describe '#daily_change_update' do
@@ -33,6 +33,6 @@ describe UserMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.from).to eq UserMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq UserMailer::SENDER }
   end
 end

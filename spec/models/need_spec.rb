@@ -89,7 +89,7 @@ RSpec.describe Need, type: :model do
 
   describe 'scopes' do
     describe 'with_some_matches_in_status' do
-      subject { Need.with_some_matches_in_status(:done) }
+      subject { described_class.with_some_matches_in_status(:done) }
 
       let(:need) { create :need }
 
@@ -118,7 +118,7 @@ RSpec.describe Need, type: :model do
     end
 
     describe 'with_matches_only_in_status' do
-      subject { Need.with_matches_only_in_status(:quo) }
+      subject { described_class.with_matches_only_in_status(:quo) }
 
       let(:need1) { create :need }
       let(:need2) { create :need }
@@ -142,7 +142,7 @@ RSpec.describe Need, type: :model do
     end
 
     describe 'ordered_for_interview' do
-      subject { Need.ordered_for_interview }
+      subject { described_class.ordered_for_interview }
 
       context 'with subjects and themes' do
         let(:t1)    { create :theme, interview_sort_order: 1 }
@@ -161,7 +161,7 @@ RSpec.describe Need, type: :model do
     end
 
     describe 'active' do
-      subject { Need.active }
+      subject { described_class.active }
 
       let!(:need1) do
         create :need, matches: [

@@ -10,9 +10,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.6.3'
+ruby '2.6.5'
 
-gem 'rails'
+gem 'rails', '~> 5'
 
 # Server
 gem 'foreman'
@@ -33,7 +33,7 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 
 # Improving models
-gem 'audited', '~> 4.5'
+gem 'audited'
 gem 'devise'
 gem 'devise-async'
 gem 'devise_invitable'
@@ -88,6 +88,7 @@ group :development do
   gem 'therubyracer'
   gem 'annotate'
   gem 'letter_opener_web'
+  gem 'rails_real_favicon'
 
   gem 'spring'
   gem 'spring-watcher-listen'
@@ -97,7 +98,8 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  gem 'rubocop-faker', require: false
   gem 'brakeman', require: false
 end
 
-gem "debase", "~> 0.2.2"
+gem "debase"

@@ -14,7 +14,7 @@ RSpec.describe Search, type: :model do
 
   describe 'scopes' do
     describe 'recent' do
-      subject { Search.recent }
+      subject { described_class.recent }
 
       context 'sorts by creation date' do
         let!(:search1) { create :search, query: 'query' }

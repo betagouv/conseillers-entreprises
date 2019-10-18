@@ -34,6 +34,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Make sure tests pass in any env configuration: rake spec loads .env, bin/rspec doesn’t.
+  ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr'
+  ENV['TEST_ERROR_RENDERING'] = 'false'
 end
 
 Shoulda::Matchers.configure do |config|
