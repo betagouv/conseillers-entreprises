@@ -319,13 +319,6 @@ fr:
         place_des_entreprises_app_html: L’application %{link_to_root}.
         subject: 'Re: [Place des Entreprises] %{full_name} vient de s’inscrire !'
         user_was_approved: L’utilisateur %{user_full_name} <%{user_email}> a été validé par %{admin_full_name}.
-      new_user_created_notification:
-        activate_their_account_html: "%{click_here_link} pour valider son compte."
-        click_here: Cliquez ici
-        place_des_entreprises_app_html: L’application %{link_to_root}.
-        subject: "[Place des Entreprises] %{full_name} vient de s’inscrire"
-        user_has_signed_up: "%{full_name} <%{email}> vient de s’inscrire."
-        view_their_account_html: "%{click_here_link} pour consulter son compte."
       solicitation:
         new_solicitation_received: Une entreprise nous sollicite !
         subject: Nouvelle sollicitation d’entreprise
@@ -421,13 +414,6 @@ fr:
         summary_html: Voir le %{summary_link} de l’entreprise.
         summary_link: récapitulatif des besoins
         thankyou: Vous pouvez le contacter pour discuter plus précisément de l’entreprise.
-      send_new_user_invitation:
-        application_summary: Cette application web permet de rejoindre un réseau de conseillers en entreprise et d’institutions référentes.
-        click_on_following_link_to_continue: 'Cliquez sur le lien suivant pour finaliser votre inscription sur Place des Entreprises :'
-        dont_hesitate_to_ask: N’hésitez pas à répondre à cet e-mail pour toute question !
-        finish_registration: Finaliser mon inscription
-        subject: Bienvenue sur Place des Entreprises !
-        you_have_been_invited: Vous avez été invité sur Place des Entreprises.
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})

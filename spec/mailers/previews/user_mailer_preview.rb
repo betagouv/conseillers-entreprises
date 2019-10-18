@@ -1,8 +1,4 @@
 class UserMailerPreview < ActionMailer::Preview
-  def send_new_user_invitation
-    UserMailer.send_new_user_invitation(user)
-  end
-
   def account_approved
     UserMailer.account_approved(user)
   end

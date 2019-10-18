@@ -6,12 +6,6 @@ class UserMailer < ApplicationMailer
   add_template_helper(Users::RegistrationsHelper)
   add_template_helper(UserMailerHelper)
 
-  def send_new_user_invitation(user_params)
-    @user_params = user_params
-
-    mail(to: @user_params[:email], subject: t('mailers.user_mailer.send_new_user_invitation.subject'))
-  end
-
   def account_approved(user)
     @user = user
 

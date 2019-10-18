@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_10_151113) do
+ActiveRecord::Schema.define(version: 2019_10_17_142119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -330,6 +330,7 @@ ActiveRecord::Schema.define(version: 2019_10_10_151113) do
     t.integer "invitation_limit"
     t.bigint "inviter_id"
     t.integer "invitations_count", default: 0
+    t.datetime "deactivated_at"
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true

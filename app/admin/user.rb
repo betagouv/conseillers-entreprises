@@ -23,6 +23,7 @@ ActiveAdmin.register User do
       div '✉ ' + u.email
       div '✆ ' + u.phone_number
       div u.confirmed? ? status_tag('Email ok') : status_tag('Email non confirmé', class: 'warning')
+      div status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error') if u.deactivated?
     end
     column :created_at do |u|
       div I18n.l(u.created_at, format: '%Y-%m-%d %H:%M')
@@ -51,6 +52,13 @@ ActiveAdmin.register User do
       if !u.is_approved?
         item(t('active_admin.user.approve_user'), approve_user_admin_user_path(u), method: :post)
       end
+
+      if u.deactivated?
+        item(t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(u), method: :post)
+      else
+        item(t('active_admin.user.deactivate_user'), deactivate_user_admin_user_path(u), method: :post)
+      end
+
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
     end
@@ -132,6 +140,10 @@ ActiveAdmin.register User do
       row :inviter
       row :confirmed?
       row :is_approved
+      row :deactivated? do
+        status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error')
+      end if user.deactivated?
+      row :deactivated_at if user.deactivated?
     end
   end
 
@@ -141,6 +153,14 @@ ActiveAdmin.register User do
 
   action_item :normalize_values, only: :show do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
+  end
+
+  action_item :deactivate, only: :show do
+    link_to t('active_admin.user.deactivate_user'), deactivate_user_admin_user_path(user), method: :post
+  end
+
+  action_item :reactivate, only: :show do
+    link_to t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(user), method: :post
   end
 
   # Form
@@ -182,14 +202,19 @@ ActiveAdmin.register User do
 
   # Actions
   #
-  collection_action :send_invitation_emails, method: :post do
-    UserMailer.delay.send_new_user_invitation(params)
-    redirect_to admin_root_path, notice: "Utilisateur #{params[:email]} invité."
-  end
-
   member_action :approve_user, method: :post do
     resource.update(is_approved: true)
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.approve_user_done')
+  end
+
+  member_action :deactivate_user, method: :post do
+    resource.deactivate!
+    redirect_back fallback_location: collection_path, notice: t('active_admin.user.deactivate_user_done')
+  end
+
+  member_action :reactivate_user, method: :post do
+    resource.reactivate!
+    redirect_back fallback_location: collection_path, notice: t('active_admin.user.reactivate_user_done')
   end
 
   member_action :autolink_to_experts, method: :post do
