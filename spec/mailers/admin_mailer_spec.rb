@@ -4,8 +4,6 @@ require 'rails_helper'
 require 'mailers/shared_examples_for_an_email'
 
 describe AdminMailer do
-  before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
-
   describe '#new_user_created_notification' do
     subject(:mail) { described_class.new_user_created_notification(user).deliver_now }
 
@@ -13,7 +11,7 @@ describe AdminMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.from).to eq AdminMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq AdminMailer::SENDER }
   end
 
   describe '#new_user_approved_notification' do
@@ -24,7 +22,7 @@ describe AdminMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.from).to eq AdminMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq AdminMailer::SENDER }
   end
 
   describe '#weekly_statistics' do
@@ -47,6 +45,6 @@ describe AdminMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.from).to eq AdminMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq AdminMailer::SENDER }
   end
 end

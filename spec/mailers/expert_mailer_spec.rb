@@ -4,8 +4,6 @@ require 'rails_helper'
 require 'mailers/shared_examples_for_an_email'
 
 describe ExpertMailer do
-  before { ENV['APPLICATION_EMAIL'] = 'contact@mailrandom.fr' }
-
   describe '#notify_company_needs' do
     subject(:mail) { described_class.notify_company_needs(expert, diagnosis).deliver_now }
 
@@ -29,7 +27,7 @@ describe ExpertMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.from).to eq ExpertMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
   end
 
   describe '#remind_involvement' do
@@ -45,6 +43,6 @@ describe ExpertMailer do
 
     it_behaves_like 'an email'
 
-    it { expect(mail.from).to eq ExpertMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
   end
 end
