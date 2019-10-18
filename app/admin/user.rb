@@ -182,11 +182,6 @@ ActiveAdmin.register User do
 
   # Actions
   #
-  collection_action :send_invitation_emails, method: :post do
-    UserMailer.delay.send_new_user_invitation(params)
-    redirect_to admin_root_path, notice: "Utilisateur #{params[:email]} invité."
-  end
-
   member_action :approve_user, method: :post do
     resource.update(is_approved: true)
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.approve_user_done')

@@ -1,9 +1,6 @@
 ---
 fr:
   active_admin:
-    dashboard: Tableau de bord
-    dashboard_welcome:
-      invite_users: Inviter des utilisateurs
     expert:
       create_matching_user:
         one: Créer un utilisateur

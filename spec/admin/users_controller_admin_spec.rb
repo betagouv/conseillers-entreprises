@@ -6,18 +6,6 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   before { current_user.update is_admin: true }
 
-  describe 'POST send_invitation_emails' do
-    let(:request) { post :send_invitation_emails, params: { email: 'inviteme@randmail.com' } }
-
-    it('add one job in database') { expect { request }.to change { Delayed::Job.count }.by(1) }
-
-    it('redirects') do
-      request
-
-      expect(response).to have_http_status(:redirect)
-    end
-  end
-
   describe 'send_approval_emails' do
     context 'previously unauthorized user is authorized' do
       let(:user) { create :user, is_approved: false }
