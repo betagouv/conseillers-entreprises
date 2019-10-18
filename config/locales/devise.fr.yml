@@ -6,7 +6,6 @@ fr:
       deactivated: Votre compte a été désactivé. Envoyez-nous un mail si vous pensez que c’est une erreur.
       inactive: Votre compte n’est pas encore activé. Les administrateurs ont été prévenus et activeront votre compte très bientôt.
       invalid: E-mail ou mot de passe incorrect.
-      not_approved: Votre compte n’a pas encore été validé par un administateur.
       not_found_in_database: E-mail ou mot de passe invalide.
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.

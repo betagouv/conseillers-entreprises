@@ -104,28 +104,10 @@ RSpec.describe User, type: :model do
     it { expect(user.full_name_with_role).to eq 'Ivan Collombet - Business Developer - DINSIC' }
   end
 
-  describe '#auto_approve_if_whitelisted_domain callback' do
-    subject { user.is_approved? }
-
-    let(:user) { create(:user, :just_registered, email: email) }
-
-    context 'with an unkown email domain' do
-      let(:email) { 'user@example.com' }
-
-      it { is_expected.to be_falsey }
-    end
-
-    context 'with a kown email domain' do
-      let(:email) { 'user@beta.gouv.fr' }
-
-      it { is_expected.to be_truthy }
-    end
-  end
-
   describe '#corresponding_experts' do
     subject { user.corresponding_experts }
 
-    let(:user) { create(:user, :just_registered, email: 'user@example.com') }
+    let(:user) { create(:user, email: 'user@example.com') }
 
     before { create :expert, email: expert_email }
 

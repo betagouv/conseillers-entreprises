@@ -6,12 +6,6 @@ class UserMailer < ApplicationMailer
   add_template_helper(Users::RegistrationsHelper)
   add_template_helper(UserMailerHelper)
 
-  def account_approved(user)
-    @user = user
-
-    mail(to: @user.email, subject: t('mailers.user_mailer.account_approved.subject'))
-  end
-
   def daily_change_update(user, change_updates)
     @user = user
     @change_updates = change_updates
