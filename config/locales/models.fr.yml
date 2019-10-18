@@ -60,8 +60,12 @@ fr:
       autolink_to: Associer à %{what}
       autolink_to_experts: Associer automatiquement aux experts
       connection: Connexion
+      deactivate_user: Désactiver cet utilisateur
+      deactivate_user_done: Utilisateur désactivé
       experts_linked: Référents associés
       impersonate: Voir le site comme %{name}
+      reactivate_user: Réactiver cet utilisateur
+      reactivate_user_done: Utilisateur réactivé
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
   activerecord:
@@ -146,6 +150,8 @@ fr:
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
+        deactivated?: Désactivé
+        deactivated_at: Désactivation
         encrypted_password: Mot de passe chiffré
         experts:
           one: Équipe
