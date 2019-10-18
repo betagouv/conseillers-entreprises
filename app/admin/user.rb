@@ -146,11 +146,11 @@ ActiveAdmin.register User do
   end
 
   action_item :deactivate, only: :show do
-    link_to t('active_admin.user.deactivate_user'), deactivate_user_admin_user_path(user), method: :post
-  end
-
-  action_item :reactivate, only: :show do
-    link_to t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(user), method: :post
+    if user.deactivated?
+      link_to t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(user), method: :post
+    else
+      link_to t('active_admin.user.deactivate_user'), deactivate_user_admin_user_path(user), method: :post
+    end
   end
 
   # Form
