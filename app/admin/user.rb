@@ -14,6 +14,7 @@ ActiveAdmin.register User do
   scope :admin
   scope :without_antenne
   scope :not_approved
+  scope :deactivated
   scope :email_not_confirmed
 
   index do
@@ -81,6 +82,7 @@ ActiveAdmin.register User do
     column :confirmed?
     column :created_at
     column :is_approved?
+    column :deactivated_at
     column :role
     column :antenne
     column :institution

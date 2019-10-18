@@ -109,6 +109,7 @@ class User < ApplicationRecord
   scope :not_admin, -> { where(is_admin: false) }
   scope :approved, -> { where(is_approved: true) }
   scope :not_approved, -> { where(is_approved: false) }
+  scope :deactivated, -> { where.not(deactivated_at: nil) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
 
   scope :ordered_by_institution, -> do
@@ -149,8 +150,6 @@ class User < ApplicationRecord
   scope :without_antenne, -> do
     where(antenne_id: nil)
   end
-
-  scope :deactivated, -> { where.not(:deactivated_at, nil) }
 
   ## Deactivation
   #
