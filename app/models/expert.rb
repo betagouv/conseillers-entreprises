@@ -157,7 +157,6 @@ class Expert < ApplicationRecord
       role: role
     }
     params[:password] = SecureRandom.base64(8)
-    params[:is_approved] = true
 
     user = User.new(params)
     user.skip_confirmation_notification!

@@ -1,8 +1,4 @@
 class UserMailerPreview < ActionMailer::Preview
-  def account_approved
-    UserMailer.account_approved(user)
-  end
-
   def daily_change_update
     UserMailer.daily_change_update(user, Array.new(3) { change_hash })
   end

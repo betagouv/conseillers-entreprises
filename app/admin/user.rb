@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'admin/user_importer.rb'
+
 ActiveAdmin.register User do
   menu priority: 3
 
@@ -13,8 +15,10 @@ ActiveAdmin.register User do
   scope :all, default: true
   scope :admin
   scope :without_antenne
-  scope :not_approved
+  scope :deactivated
   scope :email_not_confirmed
+  scope :not_invited_yet, group: :invitations
+  scope :invitation_not_accepted, group: :invitations
 
   index do
     selectable_column
@@ -22,13 +26,9 @@ ActiveAdmin.register User do
       div admin_link_to(u)
       div '✉ ' + u.email
       div '✆ ' + u.phone_number
-      div u.confirmed? ? status_tag('Email ok') : status_tag('Email non confirmé', class: 'warning')
       div status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error') if u.deactivated?
     end
-    column :created_at do |u|
-      div I18n.l(u.created_at, format: '%Y-%m-%d %H:%M')
-      div u.is_approved? ? status_tag('Validé') : status_tag('Compte Non validé', class: 'warning')
-    end
+    column :created_at
     column :role do |u|
       div u.role
       if u.antenne.present?
@@ -49,10 +49,6 @@ ActiveAdmin.register User do
     end
 
     actions dropdown: true do |u|
-      if !u.is_approved?
-        item(t('active_admin.user.approve_user'), approve_user_admin_user_path(u), method: :post)
-      end
-
       if u.deactivated?
         item(t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(u), method: :post)
       else
@@ -61,6 +57,7 @@ ActiveAdmin.register User do
 
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
+      item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
     end
   end
 
@@ -80,7 +77,7 @@ ActiveAdmin.register User do
     column :phone_number
     column :confirmed?
     column :created_at
-    column :is_approved?
+    column :deactivated_at
     column :role
     column :antenne
     column :institution
@@ -138,8 +135,6 @@ ActiveAdmin.register User do
     attributes_table_for user do
       row :created_at
       row :inviter
-      row :confirmed?
-      row :is_approved
       row :deactivated? do
         status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error')
       end if user.deactivated?
@@ -155,17 +150,21 @@ ActiveAdmin.register User do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
   end
 
-  action_item :deactivate, only: :show do
-    link_to t('active_admin.user.deactivate_user'), deactivate_user_admin_user_path(user), method: :post
+  action_item :invite_user, only: :show do
+    link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user)
   end
 
-  action_item :reactivate, only: :show do
-    link_to t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(user), method: :post
+  action_item :deactivate, only: :show do
+    if user.deactivated?
+      link_to t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(user), method: :post
+    else
+      link_to t('active_admin.user.deactivate_user'), deactivate_user_admin_user_path(user), method: :post
+    end
   end
 
   # Form
   #
-  permit_params :full_name, :email, :institution, :role, :phone_number, :is_approved,
+  permit_params :full_name, :email, :institution, :role, :phone_number,
                 :is_admin, :password, :password_confirmation,
                 :antenne_id, expert_ids: []
 
@@ -188,7 +187,6 @@ ActiveAdmin.register User do
     end
 
     f.inputs I18n.t('active_admin.user.connection') do
-      f.input :is_approved, as: :boolean
       f.input :password
       f.input :password_confirmation
     end
@@ -202,11 +200,6 @@ ActiveAdmin.register User do
 
   # Actions
   #
-  member_action :approve_user, method: :post do
-    resource.update(is_approved: true)
-    redirect_back fallback_location: collection_path, notice: t('active_admin.user.approve_user_done')
-  end
-
   member_action :deactivate_user, method: :post do
     resource.deactivate!
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.deactivate_user_done')
@@ -232,7 +225,10 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
   end
 
-  batch_action :destroy, false
+  member_action :invite_user do
+    resource.invite!
+    redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
+  end
 
   batch_action I18n.t('active_admin.user.autolink_to_experts') do |ids|
     batch_action_collection.find(ids).each { |user| user.autolink_experts! }
@@ -251,27 +247,22 @@ ActiveAdmin.register User do
     end
   end
 
-  batch_action I18n.t('active_admin.person.normalize_values') do |ids|
+  unless Rails.env.development?
+    # Disable mass-destroy in production
+    batch_action :destroy, false
+  end
+
+  batch_action I18n.t('active_admin.user.do_invite') do |ids|
     batch_action_collection.find(ids).each do |user|
-      user.normalize_values!
+      user.invite!(current_user)
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
   end
 
   controller do
     def update
-      send_approval_emails
       update_params_depending_on_password
       redirect_or_display_form
-    end
-
-    def send_approval_emails
-      if resource.is_approved? || !params[:user][:is_approved].to_b
-        return
-      end
-
-      UserMailer.delay.account_approved(resource)
-      AdminMailer.delay.new_user_approved_notification(resource, current_user)
     end
 
     def update_params_depending_on_password
@@ -290,4 +281,12 @@ ActiveAdmin.register User do
       end
     end
   end
+
+  ## Import
+  #
+  active_admin_import validate: true,
+                      csv_options: ActiveAdmin.application.csv_options,
+                      headers_rewrites: Admin::UserImporter::header_rewrites,
+                      before_batch_import: -> (importer) { Admin::UserImporter::before_batch_import(importer) },
+                      back: :admin_users
 end

@@ -73,7 +73,7 @@ namespace :import_dump do
       end
     end
 
-    User.first.update_columns(email: 'a@a.a', is_admin: true, is_approved: true)
+    User.first.update_columns(email: 'a@a.a', is_admin: true)
     User.first.update_attribute(:password,'1234567')
   end
 
