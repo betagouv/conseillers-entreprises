@@ -17,7 +17,7 @@ class Institution < ApplicationRecord
 
   ## Validations
   #
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   ## Through Associations
   #

@@ -108,6 +108,14 @@ class User < ApplicationRecord
   scope :deactivated, -> { where.not(deactivated_at: nil) }
   scope :email_not_confirmed, -> { where(confirmed_at: nil) }
 
+  # Invitations scopes: TODO: `confirmable` is to be removed, related queries will be adjusted
+  scope :not_invited_yet, -> do
+    where(invitation_created_at: nil)
+      .where(confirmation_sent_at: nil) # This will be removed
+      .where(confirmed_at: nil)         # This will be removed
+  end
+  # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
+
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
       .select('users.*', 'antennes.name', 'institutions.name')
@@ -145,6 +153,16 @@ class User < ApplicationRecord
 
   scope :without_antenne, -> do
     where(antenne_id: nil)
+  end
+
+  ## Password
+  #
+  # We only require a password if the invitation is (being) accepted;
+  # until then, the password can (and in fact should) be nil.
+  # See devise_invitable/models.rb.
+  # (Devise::validatable has a similar method but we don’t use :validatable)
+  def password_required?
+    accepting_invitation? || invitation_accepted?
   end
 
   ## Deactivation
@@ -228,15 +246,5 @@ class User < ApplicationRecord
 
   def support_expert_skill
     ExpertSkill.support.find_by(expert: self.experts)
-  end
-
-  protected
-
-  # Inspired by Devise validatable module
-  # Checks whether a password is needed or not. For validations only.
-  # Passwords are always required if it's a new record, or if the password
-  # or confirmation are being set somewhere.
-  def password_required?
-    !persisted? || !password.nil? || !password_confirmation.nil?
   end
 end

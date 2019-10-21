@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_143155) do
+ActiveRecord::Schema.define(version: 2019_10_18_152834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_143155) do
     t.integer "advisors_count"
     t.boolean "show_icon", default: true
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
+    t.index ["name", "institution_id"], name: "index_antennes_on_name_and_institution_id", unique: true
   end
 
   create_table "antennes_communes", id: false, force: :cascade do |t|
@@ -190,6 +191,7 @@ ActiveRecord::Schema.define(version: 2019_10_18_143155) do
     t.datetime "updated_at", null: false
     t.integer "antennes_count"
     t.boolean "show_icon", default: true
+    t.index ["name"], name: "index_institutions_on_name", unique: true
   end
 
   create_table "landing_topics", force: :cascade do |t|

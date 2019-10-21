@@ -46,6 +46,7 @@ gem 'highcharts-rails'
 # Misc
 gem 'activeadmin'
 gem 'activeadmin-ajax_filter'
+gem "active_admin_import"
 gem 'http'
 gem 'jbuilder'
 gem 'mailjet'

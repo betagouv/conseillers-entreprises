@@ -25,13 +25,6 @@ RSpec.describe User, type: :model do
         is_expected.not_to allow_value('test').for(:email)
       end
     end
-
-    describe 'passwords' do
-      it do
-        is_expected.to validate_presence_of(:password)
-        is_expected.not_to allow_value('short').for(:password)
-      end
-    end
   end
 
   describe 'associations dependencies' do
@@ -90,6 +83,22 @@ RSpec.describe User, type: :model do
         expect(described_class.active_answered(last_30_days, [1,2])).to eq [active_user]
         expect(described_class.active_answered(last_30_days, [3])).to eq []
       end
+    end
+  end
+
+  describe '#password_required?' do
+    subject { user.password_required? }
+
+    context 'new user' do
+      let(:user) { create :user }
+
+      it { is_expected.to be_falsey }
+    end
+
+    context 'invitation accepted user' do
+      let(:user) { create :user, :invitation_accepted }
+
+      it { is_expected.to be_truthy }
     end
   end
 

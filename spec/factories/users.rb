@@ -9,5 +9,9 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
     confirmed_at { Time.zone.now }
+
+    trait :invitation_accepted do
+      invitation_accepted_at { Time.zone.now }
+    end
   end
 end

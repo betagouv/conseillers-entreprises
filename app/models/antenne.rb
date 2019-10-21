@@ -55,6 +55,13 @@ class Antenne < ApplicationRecord
   #
   scope :without_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
 
+  scope :by_antenne_and_institution_names, -> (antennes_and_institutions_names) do
+    tuples_array = antennes_and_institutions_names
+    # AFAICT, expanding the tuples_array as a single `IN (?)` parameter is unsupported in ActiveRecord
+    # Instead, build as many `IN ((?),(?),…)` as needed, and splat the array.
+    joins(:institution)
+      .where("(antennes.name, institutions.name) IN (#{(['(?)'] * tuples_array.size).join(', ')})", *tuples_array)
+  end
   ##
   #
   def to_s

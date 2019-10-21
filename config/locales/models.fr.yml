@@ -34,6 +34,8 @@ fr:
       diagnosis_completed: Analyses terminées
       done: Clôturé
       email_not_confirmed: Email non confirmé
+      invitation_not_accepted: Invitations pas encore acceptées
+      not_invited_yet: Invitations à envoyer
       not_taken_after_3_weeks: 3 semaines sans réponse
       rejected: Refusés
       sent: Mises en relation envoyées
@@ -60,8 +62,17 @@ fr:
       connection: Connexion
       deactivate_user: Désactiver cet utilisateur
       deactivate_user_done: Utilisateur désactivé
+      do_invite: Envoyer l(es) invitation(s)
+      do_invite_done: Invitation(s) envoyée(s)
       experts_linked: Référents associés
       impersonate: Voir le site comme %{name}
+      import:
+        button: Importer
+        button_disabled: Importation en cours
+        example_label: Exemple
+        example_title: Format du CSV
+        label: Fichier csv
+        title: Importer des utilisateurs
       reactivate_user: Réactiver cet utilisateur
       reactivate_user_done: Utilisateur réactivé
       saved: Conseiller mis à jour
