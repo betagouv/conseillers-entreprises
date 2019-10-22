@@ -31,7 +31,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  TRACKING_KEYS = %i[pk_campaign pk_kwd slug]
+  TRACKING_KEYS = %i[pk_campaign pk_kwd gclid slug]
   FORM_INFO_KEYS = [:alternative] + TRACKING_KEYS
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
