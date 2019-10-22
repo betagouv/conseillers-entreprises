@@ -187,6 +187,7 @@ GEM
     highcharts-rails (6.0.3)
       railties (>= 3.1)
     highline (2.0.3)
+    honeypot-captcha (1.0.1)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -510,6 +511,7 @@ DEPENDENCIES
   haml-rails
   haml_lint
   highcharts-rails
+  honeypot-captcha
   http
   i18n-tasks
   jbuilder
