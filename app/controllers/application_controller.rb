@@ -49,6 +49,12 @@ class ApplicationController < ActionController::Base
     current_expert.present? || not_found
   end
 
+  ## Configuration for honeypot-captcha
+  #
+  def honeypot_fields
+    { :commentaire => 'Laissez ce champ vide !' }
+  end
+
   private
 
   def render_error(exception)

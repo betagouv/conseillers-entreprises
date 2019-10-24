@@ -135,6 +135,8 @@ ActiveAdmin.register User do
     attributes_table_for user do
       row :created_at
       row :inviter
+      row :invitation_sent_at
+      row :invitation_accepted_at
       row :deactivated? do
         status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error')
       end if user.deactivated?
@@ -165,7 +167,7 @@ ActiveAdmin.register User do
   # Form
   #
   permit_params :full_name, :email, :institution, :role, :phone_number,
-                :is_admin, :password, :password_confirmation,
+                :is_admin,
                 :antenne_id, expert_ids: []
 
   form do |f|
@@ -184,11 +186,6 @@ ActiveAdmin.register User do
       f.input :role
       f.input :email
       f.input :phone_number
-    end
-
-    f.inputs I18n.t('active_admin.user.connection') do
-      f.input :password
-      f.input :password_confirmation
     end
 
     f.inputs I18n.t('active_admin.user.admin') do
@@ -226,7 +223,7 @@ ActiveAdmin.register User do
   end
 
   member_action :invite_user do
-    resource.invite!
+    resource.invite!(current_user)
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
   end
 
@@ -261,16 +258,8 @@ ActiveAdmin.register User do
 
   controller do
     def update
-      update_params_depending_on_password
+      resource.update_without_password(permitted_params.require(:user))
       redirect_or_display_form
-    end
-
-    def update_params_depending_on_password
-      if params[:user][:password].blank?
-        resource.update_without_password(permitted_params.require(:user))
-      else
-        resource.update(permitted_params.require(:user))
-      end
     end
 
     def redirect_or_display_form

@@ -52,6 +52,7 @@ gem 'jbuilder'
 gem 'mailjet'
 gem 'turbolinks'
 gem 'rails-i18n'
+gem 'honeypot-captcha'
 
 # Notifiers
 gem 'sentry-raven'
