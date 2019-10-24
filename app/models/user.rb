@@ -60,6 +60,7 @@ class User < ApplicationRecord
   include PersonConcern
   include InvolvementConcern
   devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async,
+         :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
   ## Associations
@@ -74,16 +75,7 @@ class User < ApplicationRecord
 
   ## Validations
   #
-  validates :full_name, :email, :phone_number, presence: true
-
-  validates :email,
-            uniqueness: true,
-            format: { with: Devise.email_regexp },
-            allow_blank: true,
-            if: :will_save_change_to_email?
-
-  validates :password, length: { within: Devise.password_length }, allow_blank: true
-  validates :password, presence: true, confirmation: true, if: :password_required?
+  validates :full_name, :phone_number, presence: true
 
   ## “Through” Associations
   #
@@ -157,12 +149,13 @@ class User < ApplicationRecord
 
   ## Password
   #
-  # We only require a password if the invitation is (being) accepted;
-  # until then, the password can (and in fact should) be nil.
-  # See devise_invitable/models.rb.
-  # (Devise::validatable has a similar method but we don’t use :validatable)
+  # Before the invitation is (being) accepted, the password can (and in fact should) be nil.
   def password_required?
-    accepting_invitation? || invitation_accepted?
+    if !accepting_invitation? && !invitation_accepted?
+      false
+    else
+      super
+    end
   end
 
   ## Deactivation
