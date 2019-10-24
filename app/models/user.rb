@@ -66,7 +66,7 @@ class User < ApplicationRecord
   has_many :searches, dependent: :destroy, inverse_of: :user
   has_many :feedbacks, dependent: :destroy, inverse_of: :user
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
-  has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter
+  has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
 
   ## Validations
   #
