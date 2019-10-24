@@ -53,7 +53,7 @@ fr:
       new:
         send_me_reset_password_instructions: Envoyer les instructions de réinitialisation
       no_token: Vous ne pouvez accéder à cette page sans passer par un e-mail de réinitialisation de mot de passe. Si vous êtes passé par un e-mail de ce type, assurez-vous d’utiliser l’URL complète.
-      send_instructions: Vous allez recevoir les instructions de réinitialisation du mot de passe dans quelques instants.
+      send_paranoid_instructions: Si votre adresse est présente dans notre système, vous allez recevoir les instructions de réinitialisation du mot de passe dans quelques instants.
       updated: Votre nouveau mot de passe a bien été enregistré, vous êtes maintenant connecté.
       updated_not_active: Votre nouveau mot de passe a bien été enregistré.
     registrations:
