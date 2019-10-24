@@ -221,7 +221,7 @@ ActiveAdmin.register User do
   end
 
   member_action :invite_user do
-    resource.invite!
+    resource.invite!(current_user)
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
   end
 
