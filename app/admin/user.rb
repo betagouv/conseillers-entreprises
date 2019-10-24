@@ -135,6 +135,8 @@ ActiveAdmin.register User do
     attributes_table_for user do
       row :created_at
       row :inviter
+      row :invitation_sent_at
+      row :invitation_accepted_at
       row :deactivated? do
         status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error')
       end if user.deactivated?

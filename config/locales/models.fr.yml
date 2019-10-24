@@ -155,7 +155,7 @@ fr:
         confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
         confirmation_token: Token de confirmation d’e-mail
         confirmed_at: Confirmation d’e-mail
-        created_at: Inscription
+        created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
@@ -165,6 +165,8 @@ fr:
         experts:
           one: Équipe
           other: Équipes
+        invitation_accepted_at: Invitation acceptée
+        invitation_sent_at: Invitation envoyée
         invitees: Invités
         inviter: Invité par
         is_admin: Est administrateur ?
