@@ -19,7 +19,8 @@ class CompaniesController < ApplicationController
       @facility = UseCases::SearchFacility.with_siret siret
       @company = UseCases::SearchCompany.with_siret siret
     rescue ApiEntreprise::ApiEntrepriseError => e
-      redirect_back fallback_location: { action: :search }, alert: e
+      message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
+      redirect_back fallback_location: { action: :search }, alert: message
       return
     end
     existing_facility = Facility.find_by(siret: siret)
