@@ -8,6 +8,7 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
+#  deactivated_at         :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  full_name              :string
@@ -18,7 +19,6 @@
 #  invitation_token       :string
 #  invitations_count      :integer          default(0)
 #  is_admin               :boolean          default(FALSE), not null
-#  is_approved            :boolean          default(FALSE), not null
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  phone_number           :string
@@ -41,7 +41,6 @@
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invitations_count     (invitations_count)
 #  index_users_on_inviter_id            (inviter_id)
-#  index_users_on_is_approved           (is_approved)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 # Foreign Keys
@@ -51,15 +50,11 @@
 #
 
 class User < ApplicationRecord
-  ## Constants
-  #
-  WHITELISTED_DOMAINS = %w[beta.gouv.fr direccte.gouv.fr pole-emploi.fr pole-emploi.net cma-hautsdefrance.fr].freeze
-
   ##
   #
   include PersonConcern
   include InvolvementConcern
-  devise :database_authenticatable, :confirmable, :registerable, :recoverable, :rememberable, :trackable, :async,
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
@@ -71,7 +66,7 @@ class User < ApplicationRecord
   has_many :searches, dependent: :destroy, inverse_of: :user
   has_many :feedbacks, dependent: :destroy, inverse_of: :user
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
-  has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter
+  has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
 
   ## Validations
   #
@@ -98,14 +93,8 @@ class User < ApplicationRecord
   scope :admin, -> { where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
   scope :deactivated, -> { where.not(deactivated_at: nil) }
-  scope :email_not_confirmed, -> { where(confirmed_at: nil) }
 
-  # Invitations scopes: TODO: `confirmable` is to be removed, related queries will be adjusted
-  scope :not_invited_yet, -> do
-    where(invitation_created_at: nil)
-      .where(confirmation_sent_at: nil) # This will be removed
-      .where(confirmed_at: nil)         # This will be removed
-  end
+  scope :not_invited_yet, -> { where(invitation_sent_at: nil) }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
 
   scope :ordered_by_institution, -> do

@@ -13,7 +13,8 @@
 #
 # Indexes
 #
-#  index_antennes_on_institution_id  (institution_id)
+#  index_antennes_on_institution_id           (institution_id)
+#  index_antennes_on_name_and_institution_id  (name,institution_id) UNIQUE
 #
 # Foreign Keys
 #
