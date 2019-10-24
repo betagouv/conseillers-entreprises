@@ -9,6 +9,10 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
+# Indexes
+#
+#  index_institutions_on_name  (name) UNIQUE
+#
 
 class Institution < ApplicationRecord
   ## Associations
