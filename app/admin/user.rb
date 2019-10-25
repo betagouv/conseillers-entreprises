@@ -74,7 +74,6 @@ ActiveAdmin.register User do
     column :full_name
     column :email
     column :phone_number
-    column :confirmed?
     column :created_at
     column :deactivated_at
     column :role
