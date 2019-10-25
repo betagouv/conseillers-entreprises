@@ -47,7 +47,7 @@ namespace :import_dump do
     'phone_number' => -> { Faker::PhoneNumber.phone_number },
     'expert_institution_name' => -> { Faker::Company.name },
     'institution' => -> { Faker::Company.name },
-    'name' => -> { Faker::Company.name },
+    'name' => -> { Faker::Company.name + ' ' + Faker::Company.industry }, # institution and antenne names must be unique
     'role' => -> { Faker::Job.title },
     'label' => -> { Faker::Lorem.word },
     'current_sign_in_ip' => -> { Faker::Internet.ip_v4_address },
