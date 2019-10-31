@@ -7,7 +7,7 @@
 
 %section.section.section-white#landing-topics
   .container
-    = render 'landing_details', landing: @landing, url_to_root: @url_to_root
+    = render 'landing_details', landing: @landing, landing_topics: @landing_topics, links_tracking_params: @links_tracking_params
 
 - if @landing.featured_on_home
   %section.section.section-grey#steps

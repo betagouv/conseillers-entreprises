@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe 'New Solicitation Feature', type: :feature, js: true do
   before do
+    Rails.cache.clear
     create :landing, :featured, slug: 'landing'
   end
 

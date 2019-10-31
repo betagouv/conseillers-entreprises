@@ -1,9 +1,8 @@
-- cache('landings', expires_in: 1.hour) do
-  %h2.section__title= t('.title')
-  - landings.each_slice(4) do |landings|
-    .row
-      = render landings
+%h2.section__title= t('.title')
+- landings.each_slice(4) do |landings|
+  .row
+    = render landings, links_tracking_params: links_tracking_params
 
-  %p.text-center.white-on-dark
-    = t('.other_questions')
-    = link_to t('.contact_us'), featured_landing_path(slug: 'contactez-nous')
+%p.text-center.white-on-dark
+  = t('.other_questions')
+  = link_to t('.contact_us'), featured_landing_path({ slug: 'contactez-nous' }.merge(links_tracking_params))
