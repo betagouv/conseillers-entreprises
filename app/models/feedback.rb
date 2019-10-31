@@ -45,7 +45,7 @@ class Feedback < ApplicationRecord
   end
 
   def can_be_viewed_by?(role)
-    match.can_be_viewed_by?(role)
+    need.can_be_viewed_by?(role)
   end
 
   def can_be_modified_by?(role)

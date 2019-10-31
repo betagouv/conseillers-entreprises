@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_18_152834) do
+ActiveRecord::Schema.define(version: 2019_10_25_150441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,14 +173,12 @@ ActiveRecord::Schema.define(version: 2019_10_18_152834) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.text "description"
-    t.bigint "match_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "need_id"
     t.bigint "expert_id"
     t.bigint "user_id"
     t.index ["expert_id"], name: "index_feedbacks_on_expert_id"
-    t.index ["match_id"], name: "index_feedbacks_on_match_id"
     t.index ["need_id"], name: "index_feedbacks_on_need_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
@@ -360,7 +358,6 @@ ActiveRecord::Schema.define(version: 2019_10_18_152834) do
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
   add_foreign_key "feedbacks", "experts"
-  add_foreign_key "feedbacks", "matches"
   add_foreign_key "feedbacks", "needs"
   add_foreign_key "feedbacks", "users"
   add_foreign_key "landing_topics", "landings"

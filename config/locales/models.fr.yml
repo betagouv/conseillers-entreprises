@@ -78,10 +78,10 @@ fr:
       user_info: Informations utilisateur
   activerecord:
     attributes:
-      antenne: 
+      antenne:
       commune:
         insee_code: Code commune
-      company: 
+      company:
       contact:
         company: Entreprise
         role: Fonction
@@ -292,6 +292,7 @@ fr:
       other: Analyses
     diagnosis: Analyse
     email: E-mail
+    expert: Référent
     expert_antenne: Antenne du référent
     expert_institution: Institution du référent
     experts:
@@ -319,6 +320,7 @@ fr:
       other: Mises en relation
     naf_code: Code NAF
     name: Nom
+    need: Besoin identifié
     needs:
       one: Besoin identifié
       other: Besoins identifiés
@@ -343,6 +345,7 @@ fr:
     sent_needs:
       one: Besoin analysé
       other: Besoins analysés
+    show_icon: Logo sur la page d’accueil
     siren: SIREN
     siret: SIRET
     skill: Compétence
@@ -381,5 +384,6 @@ fr:
     theme: Thématique
     title: Titre
     updated_at: Date de mise à jour
+    user: Conseiller
     visit: Visite
     visitee: Personne rencontrée

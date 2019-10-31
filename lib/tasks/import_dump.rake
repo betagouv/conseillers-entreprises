@@ -26,7 +26,9 @@ namespace :import_dump do
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
 
-    sh 'psql place-des-entreprises-development -f tmp/export.pgsql -U postgres'
+    dbuser = YAML.load_file('config/database.yml').dig('development', 'username')
+
+    sh "psql place-des-entreprises-development -f tmp/export.pgsql -U #{dbuser}"
 
     sh 'rm tmp/export.pgsql'
 
@@ -45,7 +47,7 @@ namespace :import_dump do
     'phone_number' => -> { Faker::PhoneNumber.phone_number },
     'expert_institution_name' => -> { Faker::Company.name },
     'institution' => -> { Faker::Company.name },
-    'name' => -> { Faker::Company.name },
+    'name' => -> { Faker::Company.name + ' ' + Faker::Company.industry }, # institution and antenne names must be unique
     'role' => -> { Faker::Job.title },
     'label' => -> { Faker::Lorem.word },
     'current_sign_in_ip' => -> { Faker::Internet.ip_v4_address },
@@ -73,7 +75,7 @@ namespace :import_dump do
       end
     end
 
-    User.first.update_columns(email: 'a@a.a', is_admin: true)
+    User.first.update_columns(email: 'a@a.a', is_admin: true, deactivated_at: nil)
     User.first.update_attribute(:password,'1234567')
   end
 
