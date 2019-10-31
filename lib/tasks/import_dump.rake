@@ -37,6 +37,16 @@ namespace :import_dump do
     Rake::Task['db:environment:set'].invoke('RAILS_ENV=development')
   end
 
+  WHITELISTED_MODELS = %w[
+    Territory
+    Antenne
+    Institution
+    Commune
+    Landing
+    Theme
+    Skill
+  ]
+
   ANONYMIZED_ATTRIBUTES = {
     'access_token' => -> { SecureRandom.hex(32) },
     'content' => -> { Faker::Lorem.paragraph },
@@ -63,6 +73,8 @@ namespace :import_dump do
 
   task anonymize: :environment do
     ApplicationRecord.descendants.each do |klass|
+      next if WHITELISTED_MODELS.include?(klass.to_s)
+
       attributes = klass.attribute_names & ANONYMIZED_ATTRIBUTES.keys
       puts "#{klass} #{klass.all.count} #{attributes}"
       if attributes.present?
