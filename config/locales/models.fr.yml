@@ -343,6 +343,7 @@ fr:
     sent_needs:
       one: Besoin analysé
       other: Besoins analysés
+    show_icon: Logo sur la page d’accueil
     siren: SIREN
     siret: SIRET
     skill: Compétence

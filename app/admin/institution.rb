@@ -53,6 +53,7 @@ ActiveAdmin.register Institution do
         div admin_link_to(i, :sent_matches)
         div admin_link_to(i, :received_matches)
       end
+      row :show_icon
     end
   end
 

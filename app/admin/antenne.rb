@@ -66,6 +66,7 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :sent_matches)
         div admin_link_to(a, :received_matches)
       end
+      row :show_icon
     end
   end
 
