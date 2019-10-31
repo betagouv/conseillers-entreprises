@@ -3,19 +3,16 @@ ActiveAdmin.register Feedback do
 
   ## Index
   #
-  includes :match, :expert, :need
+  includes :need, :expert, :user
 
   index do
     selectable_column
     id_column
     column :created_at
 
-    column :match do |f|
-      link_to(f.need, admin_match_path(f.match))
-    end
-    column :expert do |f|
-      admin_link_to(f, :expert)
-    end
+    column :need
+    column :expert
+    column :user
     column :description
 
     actions dropdown: true
@@ -32,6 +29,7 @@ ActiveAdmin.register Feedback do
     column :created_at
     column :need
     column :expert
+    column :user
     column :description
   end
 
@@ -40,12 +38,9 @@ ActiveAdmin.register Feedback do
   show do
     attributes_table do
       row :created_at
-      row :match do |f|
-        link_to(f.need, admin_match_path(f.match))
-      end
-      row :expert do |f|
-        admin_link_to(f, :expert)
-      end
+      row :need
+      row :expert
+      row :user
       row :description
     end
   end
