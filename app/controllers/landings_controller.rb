@@ -4,29 +4,43 @@ class LandingsController < ApplicationController
   layout 'solicitations'
 
   def index
-    @featured_landings = Landing.featured.ordered_for_home
+    @featured_landings = Rails.cache.fetch('featured_landings', expires_in: 1.hour) do
+      Landing.featured.ordered_for_home.to_a
+    end
+    @links_tracking_params = links_tracking_params
   end
 
   def show
     @landing = retrieve_landing
+    if @landing.nil?
+      redirect_to root_path
+      return
+    end
 
-    redirect_to root_path if @landing.nil?
+    @landing_topics = Rails.cache.fetch("landing_topics-#{@landing.id}", expires_in: 1.hour) do
+      @landing.landing_topics.ordered_for_landing.to_a
+    end
 
-    @url_to_root = root_path(index_tracking_params)
-
+    @links_tracking_params = links_tracking_params
     @solicitation = Solicitation.new
-    @solicitation.form_info = index_tracking_params
+    @solicitation.form_info = tracking_params
   end
 
   private
 
   def retrieve_landing
     slug = safe_params[:slug]&.to_sym
-    Landing.find_by(slug: slug)
+    Rails.cache.fetch("landing-#{slug}", expires_in: 1.hour) do
+      Landing.find_by(slug: slug)
+    end
   end
 
-  def index_tracking_params
+  def tracking_params
     safe_params.slice(*Solicitation::TRACKING_KEYS)
+  end
+
+  def links_tracking_params
+    tracking_params.except(:slug)
   end
 
   def safe_params
