@@ -83,6 +83,7 @@ fr:
         <p>Si vous êtes convaincus que nous pouvons faire encore mieux, partagez vos idées et écrivez-nous !</p>
       title: Qui sommes-nous ?
     top_5:
+      get_help: Faire une demande
       short_title: Top 5 des aides
       title: Top 5 des aides & accompagnements
       top_1_html: |
@@ -146,6 +147,7 @@ fr:
         </ul>
         <p>L’aide financière est à demander auprès de Pôle emploi dans les 2 mois suivants la date de signature du contrat de travail.</p>
         <p>En savoir plus : <a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F34547">service-public.fr</a></p>
+      whats_your_question: Et vous, quel est votre besoin ?
   companies:
     company:
       capital_social: Capital social
