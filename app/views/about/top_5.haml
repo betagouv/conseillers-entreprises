@@ -13,4 +13,10 @@
     = t('.top_4_html')
     = t('.top_5_html')
 
-= render 'contact_us'
+%section.section.section-white
+  .container.container-medium
+    %h3.section__title
+      = t('.whats_your_question')
+    %p.text-center
+      = link_to root_path, class: 'button primary large' do
+        = t('about.top_5.get_help')
