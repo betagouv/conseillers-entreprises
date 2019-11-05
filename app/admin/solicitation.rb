@@ -23,6 +23,16 @@ ActiveAdmin.register Solicitation do
     actions dropdown: true
   end
 
+  ## CSV
+  #
+  csv do
+    column :email
+    column :phone_number
+    column :description
+    column :created_at
+    Solicitation::TRACKING_KEYS.each{ |k| column k }
+  end
+
   ## Form
   #
   permit_params :description, :email, :phone_number
