@@ -45,6 +45,7 @@ namespace :import_dump do
     Landing
     Theme
     Skill
+    Subject
   ]
 
   ANONYMIZED_ATTRIBUTES = {
