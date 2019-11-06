@@ -10,6 +10,10 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   # inflect.uncountable %w( fish sheep )
   inflect.irregular 'expert_skill', 'experts_skills'
   inflect.irregular 'ExpertSkill', 'ExpertsSkills'
+  inflect.irregular 'InstitutionSubject', 'InstitutionsSubjects'
+  inflect.irregular 'institution_subject', 'institutions_subjects'
+  inflect.irregular 'ExpertSubject', 'ExpertsSubjects'
+  inflect.irregular 'expert_subject', 'experts_subjects'
   inflect.irregular 'match', 'matches'
   inflect.irregular 'Match', 'Matches'
 end
