@@ -5,4 +5,8 @@ FactoryBot.define do
     label { Faker::Lorem.sentence }
     association :theme
   end
+
+  trait :default do
+    label { "Autre besoin non référencé" }
+  end
 end
