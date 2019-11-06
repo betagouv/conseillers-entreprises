@@ -18,6 +18,7 @@ class Institution < ApplicationRecord
   ## Associations
   #
   has_many :antennes, inverse_of: :institution
+  has_many :institutions_subjects, inverse_of: :institution
 
   ## Validations
   #
@@ -26,6 +27,7 @@ class Institution < ApplicationRecord
   ## Through Associations
   #
   # :antennes
+  has_many :subjects, through: :institutions_subjects, inverse_of: :institutions, dependent: :destroy
   has_many :experts, through: :antennes, inverse_of: :institution
   has_many :advisors, through: :antennes, inverse_of: :institution
   has_many :sent_diagnoses, through: :antennes, inverse_of: :advisor_institution
