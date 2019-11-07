@@ -312,10 +312,6 @@ ActiveRecord::Schema.define(version: 2019_11_05_094826) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_admin", default: false, null: false
@@ -331,8 +327,12 @@ ActiveRecord::Schema.define(version: 2019_11_05_094826) do
     t.bigint "inviter_id"
     t.integer "invitations_count", default: 0
     t.datetime "deactivated_at"
+    t.string "unconfirmed_email"
+    t.datetime "confirmed_at"
+    t.string "confirmation_token"
+    t.datetime "confirmation_sent_at"
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

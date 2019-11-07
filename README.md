@@ -92,7 +92,7 @@ Place des Entreprises is deployed on [Scalingo](http://doc.scalingo.com/language
 
 GitHub->Scalingo hooks are setup for auto-deployment:
 * The `master` branch is automatically deployed to the `reso-staging` env.
-* The `production` branch is automatically deployed to the `reso-staging` env.  
+* The `production` branch is automatically deployed to the `reso-production` env.  
 
 Additionally, a `postdeploy` hook [is setup in the Procfile](https://doc.scalingo.com/platform/app/postdeploy-hook#applying-migrations) so that Rails migrations are run automatically.  
 
