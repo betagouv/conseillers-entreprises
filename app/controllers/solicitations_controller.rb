@@ -24,6 +24,6 @@ class SolicitationsController < ApplicationController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :phone_number, :email, form_info: {}, needs: {})
+      .permit(:description, :siret, :phone_number, :email, form_info: {}, needs: {})
   end
 end

@@ -83,6 +83,7 @@ fr:
         <p>Si vous êtes convaincus que nous pouvons faire encore mieux, partagez vos idées et écrivez-nous !</p>
       title: Qui sommes-nous ?
     top_5:
+      get_help: Faire une demande
       short_title: Top 5 des aides
       title: Top 5 des aides & accompagnements
       top_1_html: |
@@ -103,7 +104,7 @@ fr:
         <p>Après un diagnostic, ils recherchent une solution adaptée au sein du réseau de partenaires de la Banque de France : organismes de financement ou de cautionnement, assureurs-crédits, associations, fédérations patronales… Ne restez pas seul, on peut vous aider !</p>
         <p>En savoir plus : <a href="https://entreprises.banque-france.fr/accompagnement-des-entreprises/mon-correspondant-tpe-dans-chaque-departement/le-role-des-correspondants-tpe">banque-france.fr</a>.</p>
       top_3_html: |
-        <h3>3 - Le Booster numérique de la CCI pour augmenter votre chiffre d’affaire grâce au numérique</h3>
+        <h3>3 - Le Booster numérique de la CCI et de la CMA pour augmenter votre chiffre d’affaire grâce au numérique</h3>
         <p>Après évaluation de vos besoins, un conseiller spécialisé vous accompagne pour :</p>
         <ul>
           <li>la création ou l’amélioration de votre site internet, votre présence sur les réseaux sociaux</li>
@@ -111,12 +112,13 @@ fr:
           <li>la maîtrise des fondamentaux de la sécurité informatique</li>
           <li>l’identification de vos besoins d’équipements informatiques (software, hardware…)</li>
         </ul>
-        <p>Destiné aux entreprises de 20 salariés maximum, cet accompagnement est adapté à votre secteur d’activité (commerce, TPE industrielles, tourisme…). Financé par le Conseil régional des Hauts-de-France, il est gratuit pour les entreprises de moins de 3 ans, et s’élève à 180 euros pour les autres.</p>
+        <p>Destiné aux entreprises de 20 salariés maximum, cet accompagnement est adapté à votre secteur d’activité : commerce, TPE industrielles, tourisme… Financé par le Conseil régional des Hauts-de-France, il est gratuit pour les entreprises de moins de 3 ans, et s’élève à 150 euros (artisanat) ou 180 euros (commerce & industrie) pour les autres.</p>
         <p>
           En savoir plus :
           <ul>
             <li><a href="https://hautsdefrance.cci.fr/solutions/starter-numerique-programme-starter">Société de moins de 3 ans</a></li>
             <li><a href="https://hautsdefrance.cci.fr/solutions/booster-numerique">Société de plus de 3 ans</a></li>
+            <li><a href="https://www.cma-hautsdefrance.fr/gerer/developper-son-activite/developper-son-activite-grace-au-numerique/">Artisanat</a></li>
           </ul>
         </p>
       top_4_html: |
@@ -145,6 +147,7 @@ fr:
         </ul>
         <p>L’aide financière est à demander auprès de Pôle emploi dans les 2 mois suivants la date de signature du contrat de travail.</p>
         <p>En savoir plus : <a href="https://www.service-public.fr/professionnels-entreprises/vosdroits/F34547">service-public.fr</a></p>
+      whats_your_question: Et vous, quel est votre besoin ?
   companies:
     company:
       capital_social: Capital social
@@ -472,6 +475,9 @@ fr:
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
+      siret:
+        label: SIRET
+        placeholder: 123 456 789 00010 (pas nécessaire pour la reprise)
       title: Quelle est votre demande ?
     needs:
       long:
