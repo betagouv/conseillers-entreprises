@@ -36,7 +36,7 @@
 # Indexes
 #
 #  index_users_on_antenne_id            (antenne_id)
-#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_confirmation_token    (confirmation_token)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invitations_count     (invitations_count)

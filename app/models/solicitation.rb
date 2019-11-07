@@ -8,6 +8,7 @@
 #  form_info    :jsonb
 #  needs        :jsonb
 #  phone_number :string
+#  siret        :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
