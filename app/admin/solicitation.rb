@@ -9,6 +9,7 @@ ActiveAdmin.register Solicitation do
     selectable_column
     column :solicitation do |s|
       div admin_link_to(s)
+      div admin_attr(s, :siret)
       div admin_attr(s, :email)
       div admin_attr(s, :phone_number)
       div admin_attr(s, :description).truncate(200, separator: ' ')
@@ -33,12 +34,26 @@ ActiveAdmin.register Solicitation do
     Solicitation::TRACKING_KEYS.each{ |k| column k }
   end
 
+  ## Show
+  #
+  show do
+    attributes_table do
+      row :siret
+      row :email
+      row :phone_number
+      row :description
+      row :created_at
+      row :updated_at
+    end
+  end
+
   ## Form
   #
-  permit_params :description, :email, :phone_number
+  permit_params :description, :email, :phone_number, :siret
   form do |f|
     f.inputs do
       f.input :description
+      f.input :siret
       f.input :email
       f.input :phone_number
     end
