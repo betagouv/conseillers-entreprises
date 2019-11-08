@@ -27,15 +27,55 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'associations dependencies' do
-    let(:user) { create :user }
+  describe 'soft deletion' do
+    subject(:user) { create :user }
 
-    context 'with a search history' do
-      before { create :search, user: user }
+    before { user.destroy }
 
-      it {
-        expect{ user.destroy! }.not_to raise_error
-      }
+    describe 'deleting user does not really destroy' do
+      it { is_expected.to be_deleted }
+      it { is_expected.to be_persisted }
+      it { is_expected.not_to be_destroyed }
+    end
+
+    describe 'deleted users can’t login' do
+      it { is_expected.not_to be_active_for_authentication }
+    end
+
+    describe 'deleted users get their attributes nilled, and full_name masked' do
+      it do
+        expect(user[:full_name]).to be_nil
+        expect(user[:email]).to be_nil
+        expect(user[:phone_number]).to be_nil
+
+        expect(user.full_name).not_to be_nil
+      end
+    end
+
+    describe 'feedbacks and diagnoses of deleted users still have their author / advisor' do
+      let(:feedback) { create :feedback, user: user }
+      let(:diagnosis) { create :diagnosis, advisor: user }
+
+      it do
+        expect(feedback.user).to be user
+        expect(diagnosis.advisor).to be user
+      end
+    end
+  end
+
+  describe 'deactivation' do
+    subject(:user) { create :user }
+
+    before { user.deactivate! }
+
+    describe 'deactivated users can’t login' do
+      it { is_expected.not_to be_active_for_authentication }
+    end
+
+    describe 'reactivated users can login' do
+      before { user.reactivate! }
+
+      it { is_expected.to be_active_for_authentication }
     end
   end
 
