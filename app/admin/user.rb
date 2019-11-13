@@ -5,6 +5,18 @@ require 'admin/user_importer.rb'
 ActiveAdmin.register User do
   menu priority: 3
 
+  controller do
+    def scoped_collection
+      # We don’t use a default_scope in User, but do we want to hide delete users in /admin/users …
+      User.not_deleted
+    end
+
+    def find_resource
+      # … however, when clicking the advisor of a diagnosis, we want to see it even if it is soft-deleted.
+      User.where(id: params[:id]).first!
+    end
+  end
+
   # Index
   #
   includes :antenne, :institution, :experts, :searches,
