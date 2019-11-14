@@ -19,7 +19,7 @@ RSpec.describe Feedback, type: :model do
   describe 'can_be_modified_by?' do
     subject { feedback.can_be_modified_by?(expert) }
 
-    let(:feedback) { create :feedback }
+    let(:feedback) { create :feedback, :of_expert }
     let(:expert) { create :expert }
 
     context 'expert is the expert of the match' do

@@ -9,7 +9,8 @@
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  deactivated_at         :datetime
-#  email                  :string           default(""), not null
+#  deleted_at             :datetime
+#  email                  :string           default("")
 #  encrypted_password     :string           default(""), not null
 #  full_name              :string
 #  invitation_accepted_at :datetime
@@ -37,7 +38,8 @@
 #
 #  index_users_on_antenne_id            (antenne_id)
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
-#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_deleted_at            (deleted_at)
+#  index_users_on_email                 (email) UNIQUE WHERE ((email)::text <> NULL::text)
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invitations_count     (invitations_count)
 #  index_users_on_inviter_id            (inviter_id)
@@ -63,14 +65,14 @@ class User < ApplicationRecord
   belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors, optional: true
   has_and_belongs_to_many :experts, inverse_of: :users
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
-  has_many :searches, dependent: :destroy, inverse_of: :user
-  has_many :feedbacks, dependent: :destroy, inverse_of: :user
+  has_many :searches, inverse_of: :user
+  has_many :feedbacks, inverse_of: :user
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
   has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
 
   ## Validations
   #
-  validates :full_name, :phone_number, presence: true
+  validates :full_name, :phone_number, presence: true, unless: :deleted?
 
   ## “Through” Associations
   #
@@ -90,9 +92,11 @@ class User < ApplicationRecord
 
   ## Scopes
   #
+  scope :not_deleted, -> { where(deleted_at: nil) }
+  scope :deactivated, -> { where.not(deactivated_at: nil) }
+
   scope :admin, -> { where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
-  scope :deactivated, -> { where.not(deactivated_at: nil) }
 
   scope :not_invited_yet, -> { where(invitation_sent_at: nil) }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
@@ -161,13 +165,13 @@ class User < ApplicationRecord
     end
   end
 
-  ## Deactivation
+  ## Deactivation and soft deletion
   #
   def active_for_authentication?
-    super && !deactivated?
+    super && !deactivated? && !deleted?
   end
 
-  def inactive_message
+  def inactive_message # override for Devise::Authenticatable
     deactivated_at.present? ? :deactivated : super
   end
 
@@ -181,6 +185,33 @@ class User < ApplicationRecord
 
   def reactivate!
     update(deactivated_at: nil)
+  end
+
+  def delete
+    update(deleted_at: Time.zone.now,
+      email: nil,
+      full_name: nil,
+      phone_number: nil)
+  end
+
+  def destroy
+    # Don’t really destroy!
+    # callbacks for :destroy are not run
+    delete
+  end
+
+  def deleted?
+    deleted_at.present?
+  end
+
+  def email_required? # Override from Devise::Validatable
+    !deleted?
+  end
+
+  def full_name
+    # Overriding this getter has a side-effect: :full_name is required to be present by PersonConcern.
+    # In #delete we set it to nil, but the result of this getter is used for the validation, which then passes.
+    deleted? ? I18n.t('deleted_user.full_name') : self[:full_name]
   end
 
   ## Administration helpers

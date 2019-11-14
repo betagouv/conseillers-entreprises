@@ -387,3 +387,5 @@ fr:
     user: Conseiller
     visit: Visite
     visitee: Personne rencontrée
+  deleted_user:
+    full_name: "(Compte supprimé)"

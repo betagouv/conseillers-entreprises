@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_094826) do
+ActiveRecord::Schema.define(version: 2019_11_08_085610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 2019_11_05_094826) do
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
-    t.string "email", default: "", null: false
+    t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -331,9 +331,11 @@ ActiveRecord::Schema.define(version: 2019_11_05_094826) do
     t.bigint "inviter_id"
     t.integer "invitations_count", default: 0
     t.datetime "deactivated_at"
+    t.datetime "deleted_at"
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["email"], name: "index_users_on_email", unique: true, where: "((email)::text <> NULL::text)"
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["inviter_id"], name: "index_users_on_inviter_id"
