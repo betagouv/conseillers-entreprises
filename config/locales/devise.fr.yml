@@ -9,7 +9,7 @@ fr:
       not_found_in_database: E-mail ou mot de passe invalide.
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-    forgot_password: Mot de passe oublié ?
+    forgot_password: Mot de passe oublié ou inconnu ?
     invitations:
       edit:
         header: Bienvenue sur Place des Entreprises
@@ -44,13 +44,16 @@ fr:
     omniauth_callbacks:
       failure: 'Nous n’avons pas pu vous authentifier via %{kind} : ''%{reason}''.'
       success: Authentifié avec succès via %{kind}.
-    password_minimum_characters: "(%{count} caractères minimum)"
+    password_minimum_characters: "%{count} caractères minimum"
     passwords:
       edit:
-        change_own_password: Changer son mot de passe
+        change_own_password: Enregistrer le mot de passe
         new_password: Nouveau mot de passe
+        password_reset: Choix du mot de passe
+        password_reset_description: 'Choisissez le nouveau mot de passe pour votre compte Place des Entreprises :'
       new:
-        send_me_reset_password_instructions: Envoyer les instructions de réinitialisation
+        password_unknown_description: Si vous ne connaissez pas ou plus votre mot de passe, saisissez l’e-mail de votre compte pour recevoir les instructions de choix de mot de passe.
+        send_me_reset_password_instructions: Envoyer les instructions
       no_token: Vous ne pouvez accéder à cette page sans passer par un e-mail de réinitialisation de mot de passe. Si vous êtes passé par un e-mail de ce type, assurez-vous d’utiliser l’URL complète.
       send_paranoid_instructions: Si votre adresse est présente dans notre système, vous allez recevoir les instructions de réinitialisation du mot de passe dans quelques instants.
       updated: Votre nouveau mot de passe a bien été enregistré, vous êtes maintenant connecté.

@@ -1,5 +1,6 @@
 .devise-links
-  - if controller_name != 'sessions'
-    %p= link_to t('sign_in'), new_session_path(resource_name)
   - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
-    %p= link_to t('devise.forgot_password'), new_password_path(resource_name)
+    %p
+      = link_to new_password_path(resource_name) do
+        %i.icon.question.circle.outline
+        = t('devise.forgot_password')
