@@ -71,6 +71,16 @@ RSpec.describe Expert, type: :model do
         it { is_expected.to match_array [expert_without_custom_communes] }
       end
     end
+
+    describe 'without_user' do
+      subject { described_class.without_users }
+
+      let!(:experts_without_users) { create_list :expert, 2 }
+
+      before { create_list :expert, 4, :with_user }
+
+      it { is_expected.to match_array experts_without_users }
+    end
   end
 
   describe 'to_s' do
@@ -108,6 +118,27 @@ RSpec.describe Expert, type: :model do
       end
 
       it { expect(expert.access_token).to eq 'access_token' }
+    end
+  end
+
+  describe 'create_matching_user!' do
+    context 'expert with no existing user' do
+      let(:expert) { create :expert }
+
+      it do
+        expect { expert.create_matching_user! }.to change(User, :count).by(1)
+        expect(expert.users).not_to be_empty
+        expect(expert.users.first).to be_placeholder_for_expert
+      end
+    end
+
+    context 'expert with preexisting user' do
+      let(:expert) { create :expert, :with_user }
+
+      it do
+        expect(expert.users).not_to be_empty
+        expect { expert.create_matching_user! }.not_to change(User, :count)
+      end
     end
   end
 end

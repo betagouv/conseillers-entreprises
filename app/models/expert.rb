@@ -156,7 +156,6 @@ class Expert < ApplicationRecord
       antenne: antenne,
       role: role
     }
-    params[:password] = SecureRandom.base64(8)
 
     User.create!(params)
   end

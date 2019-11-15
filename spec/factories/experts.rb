@@ -7,5 +7,9 @@ FactoryBot.define do
     phone_number { Faker::PhoneNumber.phone_number }
     role { Faker::Job.title }
     association :antenne
+
+    trait :with_user do
+      users { [create(:user)] }
+    end
   end
 end

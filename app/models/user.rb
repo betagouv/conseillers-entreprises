@@ -160,6 +160,10 @@ class User < ApplicationRecord
     end
   end
 
+  def placeholder_for_expert?
+    invitation_sent_at.nil? && encrypted_password.blank?
+  end
+
   ## Deactivation and soft deletion
   #
   def active_for_authentication?
