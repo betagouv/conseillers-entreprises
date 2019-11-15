@@ -21,8 +21,7 @@ Bundler.require(*Rails.groups)
 
 module PlaceDesEntreprises
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
 
     config.time_zone = 'Paris'
 
