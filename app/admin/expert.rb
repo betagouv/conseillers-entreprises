@@ -48,9 +48,6 @@ ActiveAdmin.register Expert do
     end
     actions dropdown: true do |expert|
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
-      if expert.users.empty?
-        item t('active_admin.expert.create_matching_user', count: 1), create_matching_user_admin_expert_path(expert)
-      end
     end
   end
 
@@ -125,10 +122,6 @@ ActiveAdmin.register Expert do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
   end
 
-  action_item :create_matching_user, only: :show, if: -> { expert.users.empty? } do
-    link_to t('active_admin.expert.create_matching_user', count: 1), create_matching_user_admin_expert_path(expert)
-  end
-
   ## Form
   #
   permit_params [
@@ -190,22 +183,10 @@ ActiveAdmin.register Expert do
     redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
   end
 
-  member_action :create_matching_user do
-    resource.create_matching_user!
-    redirect_back fallback_location: collection_path, alert: t('active_admin.expert.create_matching_user_done', count: 1)
-  end
-
   batch_action I18n.t('active_admin.person.normalize_values') do |ids|
     batch_action_collection.find(ids).each do |expert|
       expert.normalize_values!
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
-  end
-
-  batch_action I18n.t('active_admin.expert.create_matching_user', count: 2) do |ids|
-    batch_action_collection.find(ids).each do |expert|
-      expert.create_matching_user!
-    end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.expert.create_matching_user_done', count: 2)
   end
 end
