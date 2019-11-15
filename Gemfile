@@ -53,6 +53,7 @@ gem 'mailjet'
 gem 'turbolinks'
 gem 'rails-i18n'
 gem 'honeypot-captcha'
+gem 'bootsnap', require: false
 
 # Notifiers
 gem 'sentry-raven'
