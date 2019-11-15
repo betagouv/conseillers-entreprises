@@ -7,7 +7,7 @@
 #  email           :string
 #  full_name       :string
 #  is_global_zone  :boolean          default(FALSE)
-#  phone_number    :string
+#  phone_number    :string           not null
 #  reminders_notes :text
 #  role            :string
 #  created_at      :datetime         not null
@@ -46,7 +46,7 @@ class Expert < ApplicationRecord
 
   ## Validations
   #
-  validates :antenne, :email, :access_token, presence: true
+  validates :antenne, :email, :phone_number, :access_token, presence: true
   validates :access_token, uniqueness: true
 
   before_validation :generate_access_token!, on: :create
