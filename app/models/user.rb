@@ -147,13 +147,11 @@ class User < ApplicationRecord
   end
 
   # Override from Devise::Models::Recoverable:
-  # * Prevent sending reset emails to users that were imported, but not even invited yet
   # * If the user has been invited, but hasn’t clicked the invitation link yet, resend them the invitation.
-  # We also want Devise.paranoid to be true to prevent user enumeration.
+  # * Otherwise just send a password reset email.
+  # (We also want Devise.paranoid to be true to prevent user enumeration.)
   def send_reset_password_instructions
-    if invitation_sent_at.nil?
-      return
-    elsif invitation_accepted_at.nil?
+    if invitation_sent_at.present? && invitation_accepted_at.nil?
       invite!
     else
       super

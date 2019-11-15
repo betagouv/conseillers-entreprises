@@ -11,6 +11,13 @@ class DeviseMailerPreview < ActionMailer::Preview
     Devise::Mailer.reset_password_instructions(user, 'faketoken')
   end
 
+  def reset_password_instructions_placeholder
+    user = User.all.sample
+    user.invitation_sent_at = nil
+    user.encrypted_password = nil
+    Devise::Mailer.reset_password_instructions(user, 'faketoken')
+  end
+
   # Other Devise emails never used:
   # confirmation_instructions: Signup is invite-only, and we don’t let users change their email themselves. If we allow it, we’ll use send_reconfirmation_instructions.
   # email_changed: config.send_email_change_notification is false

@@ -35,10 +35,12 @@ fr:
         someone_invited_you_html: "%{inviter} (%{mail_to_inviter}) vous invite à rejoindre l’équipe de <b>%{antenne_name}</b>."
         subject: Invitation sur Place des Entreprises
       reset_password_instructions:
+        account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté.</p><p>Pour définir votre mot de passe et activer votre compte, cliquez sur ce bouton.</p><p>Une fois connecté, vous pourrez accéder à toutes les demandes qui vous ont été transmises; vous pourrez aussi faire vous même des mises en relation.</p>"
         change_my_password: Changer de mot de passe
+        choose_my_password: Choisir mon mot de passe
         ignore: Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail. Votre mot de passe ne sera pas modifié.
-        someone_has_requested_a_link_html: Le %{date}, une demande de réinitalisation du mot de passe a été faite pour votre compte (<code>%{email}</code>). Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe.
-        subject: Instructions pour changer le mot de passe
+        someone_has_requested_a_link_html: "<p>Le %{date}, une demande de réinitalisation du mot de passe a été faite pour votre compte (<code>%{email}</code>).</p><p>Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe.</p>"
+        subject: 'Place des Entreprises : choisissez un mot de passe pour votre compte'
     omniauth_callbacks:
       failure: 'Nous n’avons pas pu vous authentifier via %{kind} : ''%{reason}''.'
       success: Authentifié avec succès via %{kind}.
