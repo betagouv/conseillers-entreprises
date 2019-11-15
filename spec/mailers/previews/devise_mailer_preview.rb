@@ -6,6 +6,8 @@ class DeviseMailerPreview < ActionMailer::Preview
   end
 
   def reset_password_instructions
+    user = User.all.sample
+    user.reset_password_sent_at = Time.now.utc
     Devise::Mailer.reset_password_instructions(user, 'faketoken')
   end
 
@@ -14,10 +16,4 @@ class DeviseMailerPreview < ActionMailer::Preview
   # email_changed: config.send_email_change_notification is false
   # password_change: config.send_password_change_notification is false
   # unlock_instructions: User is not :lockable.
-
-  private
-
-  def user
-    User.all.sample
-  end
 end
