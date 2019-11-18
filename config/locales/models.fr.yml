@@ -151,9 +151,6 @@ fr:
         experts: Experts
         insee_codes: Codes commune
       user:
-        confirmation_sent_at: Date d’envoi de l’e-mail de confirmation
-        confirmation_token: Token de confirmation d’e-mail
-        confirmed_at: Confirmation d’e-mail
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion

@@ -158,8 +158,6 @@ class Expert < ApplicationRecord
     }
     params[:password] = SecureRandom.base64(8)
 
-    user = User.new(params)
-    user.skip_confirmation_notification!
-    user.save!
+    User.create!(params)
   end
 end
