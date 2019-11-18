@@ -4,11 +4,12 @@ FactoryBot.define do
   factory :expert do
     full_name { Faker::Name.name }
     email { Faker::Internet.email }
+    phone_number { Faker::PhoneNumber.phone_number }
     role { Faker::Job.title }
     association :antenne
 
-    trait :with_phone_number do
-      phone_number { Faker::PhoneNumber.phone_number }
+    trait :with_user do
+      users { [create(:user)] }
     end
   end
 end

@@ -1,13 +1,6 @@
 ---
 fr:
   active_admin:
-    expert:
-      create_matching_user:
-        one: Créer un utilisateur
-        other: Créer les utilisateurs
-      create_matching_user_done:
-        one: Utilisateur créé
-        other: Utilisateurs créés
     matches:
       deleted: Supprimé
     move: Déplacer
