@@ -9,7 +9,7 @@ fr:
       not_found_in_database: E-mail ou mot de passe invalide.
       timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
       unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-    forgot_password: Mot de passe oublié ?
+    forgot_password: Mot de passe oublié ou inconnu ?
     invitations:
       edit:
         header: Bienvenue sur Place des Entreprises
@@ -28,30 +28,32 @@ fr:
       hello: Bonjour %{user_full_name},
       invitation_instructions:
         accept: Accepter l’invitation
-        activate_your_account: 'Activez votre compte en cliquant ici :'
         description_html: Vous êtes invité·e à rejoindre le nouveau service public %{link_to_root}, dédié à l’accompagnement des TPE et PME.
         details_html: Place des Entreprises permet de mettre en relation un nombre inédit d’administrations et d’organismes publics. Les besoins d’entreprises, déposés en ligne ou détectés par un conseiller, vous sont automatiquement adressés selon votre champ d’intervention. Vous pouvez aussi adresser facilement des besoin d’entreprises à l’ensemble des partenaires de Place des Entreprises.
         details_title: Qu’est-ce que c’est ?
-        hello: Bonjour %{name},
         ignore: Si vous ne souhaitez pas accepter l’invitation, ne tenez pas compte de cet email. Votre compte ne sera pas créé.
         someone_invited_you_html: "%{inviter} (%{mail_to_inviter}) vous invite à rejoindre l’équipe de <b>%{antenne_name}</b>."
         subject: Invitation sur Place des Entreprises
       reset_password_instructions:
-        change_my_password: Changer mon mot de passe
-        please_ignore_this_mail: Si vous n’êtes pas l’auteur de cette demande, merci d’ignorer cet e-mail.
-        someone_has_requested_a_link: Quelqu’un a fait une demande pour changer le mot de passe associé à votre adresse e-mail. Pour ce faire, cliquez sur le lien ci-dessous.
-        subject: Instructions pour changer le mot de passe
-        your_password_wont_change_for_now: Votre mot de passe ne sera pas modifié tant que vous ne remplirez pas le formulaire qui se trouve en cliquant sur le précédent lien.
+        account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté.</p><p>Pour définir votre mot de passe et activer votre compte, cliquez sur ce bouton.</p><p>Une fois connecté, vous pourrez accéder à toutes les demandes qui vous ont été transmises; vous pourrez aussi faire vous même des mises en relation.</p>"
+        change_my_password: Changer de mot de passe
+        choose_my_password: Choisir mon mot de passe
+        ignore: Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail. Votre mot de passe ne sera pas modifié.
+        someone_has_requested_a_link_html: "<p>Le %{date}, une demande de réinitalisation du mot de passe a été faite pour votre compte (<code>%{email}</code>).</p><p>Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe.</p>"
+        subject: 'Place des Entreprises : choisissez un mot de passe pour votre compte'
     omniauth_callbacks:
       failure: 'Nous n’avons pas pu vous authentifier via %{kind} : ''%{reason}''.'
       success: Authentifié avec succès via %{kind}.
-    password_minimum_characters: "(%{count} caractères minimum)"
+    password_minimum_characters: "%{count} caractères minimum"
     passwords:
       edit:
-        change_own_password: Changer son mot de passe
+        change_own_password: Enregistrer le mot de passe
         new_password: Nouveau mot de passe
+        password_reset: Choix du mot de passe
+        password_reset_description: 'Choisissez le nouveau mot de passe pour votre compte Place des Entreprises :'
       new:
-        send_me_reset_password_instructions: Envoyer les instructions de réinitialisation
+        password_unknown_description: Si vous ne connaissez pas ou plus votre mot de passe, saisissez l’e-mail de votre compte pour recevoir les instructions de choix de mot de passe.
+        send_me_reset_password_instructions: Envoyer les instructions
       no_token: Vous ne pouvez accéder à cette page sans passer par un e-mail de réinitialisation de mot de passe. Si vous êtes passé par un e-mail de ce type, assurez-vous d’utiliser l’URL complète.
       send_paranoid_instructions: Si votre adresse est présente dans notre système, vous allez recevoir les instructions de réinitialisation du mot de passe dans quelques instants.
       updated: Votre nouveau mot de passe a bien été enregistré, vous êtes maintenant connecté.

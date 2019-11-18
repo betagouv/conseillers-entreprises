@@ -3,9 +3,6 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  confirmation_sent_at   :datetime
-#  confirmation_token     :string
-#  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  deactivated_at         :datetime
@@ -28,7 +25,6 @@
 #  reset_password_token   :string
 #  role                   :string
 #  sign_in_count          :integer          default(0), not null
-#  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  antenne_id             :bigint(8)
@@ -37,7 +33,6 @@
 # Indexes
 #
 #  index_users_on_antenne_id            (antenne_id)
-#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_deleted_at            (deleted_at)
 #  index_users_on_email                 (email) UNIQUE WHERE ((email)::text <> NULL::text)
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
@@ -152,17 +147,19 @@ class User < ApplicationRecord
   end
 
   # Override from Devise::Models::Recoverable:
-  # * Prevent sending reset emails to users that were imported, but not even invited yet
   # * If the user has been invited, but hasn’t clicked the invitation link yet, resend them the invitation.
-  # We also want Devise.paranoid to be true to prevent user enumeration.
+  # * Otherwise just send a password reset email.
+  # (We also want Devise.paranoid to be true to prevent user enumeration.)
   def send_reset_password_instructions
-    if invitation_sent_at.nil?
-      return
-    elsif invitation_accepted_at.nil?
+    if invitation_sent_at.present? && invitation_accepted_at.nil?
       invite!
     else
       super
     end
+  end
+
+  def placeholder_for_expert?
+    invitation_sent_at.nil? && encrypted_password.blank?
   end
 
   ## Deactivation and soft deletion

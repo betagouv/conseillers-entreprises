@@ -232,6 +232,7 @@ fr:
     formats:
       default: "%d %B %Y %Hh %Mmin %Ss"
       long: "%A %d %B %Y %Hh%M"
+      long_sentence: "%A %d %B %Y à %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm
   update: Mettre à jour
