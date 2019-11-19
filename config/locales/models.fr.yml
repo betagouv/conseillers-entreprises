@@ -41,7 +41,6 @@ fr:
       with_deleted_expert: Référent supprimé
       without_antenne: Sans antenne
       without_communes: Sans zone d’intervention
-      without_users: Sans équipe
     territory:
       assign_entire_territory: "[compléter]"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
