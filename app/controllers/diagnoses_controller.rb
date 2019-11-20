@@ -120,7 +120,7 @@ class DiagnosesController < ApplicationController
   def retrieve_diagnosis
     safe_params = params.permit(:id)
     diagnosis = Diagnosis.find(safe_params[:id])
-    check_current_user_access_to(diagnosis, :read_sometimes_write)
+    check_current_user_access_to(diagnosis)
     diagnosis
   end
 end
