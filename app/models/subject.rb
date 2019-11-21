@@ -32,8 +32,7 @@ class Subject < ApplicationRecord
 
   has_many :skills, inverse_of: :subject
   has_many :needs, inverse_of: :subject
-  has_many :institutions_subjects, inverse_of: :subjects
-  has_many :institutions, through: :institutions_subject, inverse_of: :subjects
+  has_many :institutions_subjects, inverse_of: :subject
 
   ## Validations
   #
@@ -49,7 +48,10 @@ class Subject < ApplicationRecord
   has_many :matches, inverse_of: :subject
 
   # :institutions_subjects
-  has_many :experts, through: :institutions_subjects, inverse_of: :experts
+  #
+  has_many :institutions, through: :institutions_subjects, inverse_of: :subjects
+  has_many :experts_subjects, through: :institutions_subjects, inverse_of: :subject
+  has_many :experts, through: :institutions_subjects, inverse_of: :subjects
 
   ## Scopes
   #

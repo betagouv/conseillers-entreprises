@@ -26,8 +26,10 @@ class Institution < ApplicationRecord
 
   ## Through Associations
   #
-  # :antennes
+  # :institutions_subjects
   has_many :subjects, through: :institutions_subjects, inverse_of: :institutions, dependent: :destroy
+
+  # :antennes
   has_many :experts, through: :antennes, inverse_of: :institution
   has_many :advisors, through: :antennes, inverse_of: :institution
   has_many :sent_diagnoses, through: :antennes, inverse_of: :advisor_institution
