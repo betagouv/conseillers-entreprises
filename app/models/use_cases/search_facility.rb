@@ -18,8 +18,9 @@ module UseCases
         company_name = api_entreprise_company.name
         siren = api_entreprise_company.entreprise['siren']
         legal_form_code = api_entreprise_company.entreprise['forme_juridique_code']
+        code_effectif = api_entreprise_company.entreprise.dig('tranche_effectif_salarie_entreprise', 'code')
         company = Company.find_or_initialize_by siren: siren
-        company.update! name: company_name, legal_form_code: legal_form_code
+        company.update! name: company_name, legal_form_code: legal_form_code, code_effectif: code_effectif
         company
       end
 
@@ -27,10 +28,11 @@ module UseCases
         api_entreprise_facility = with_siret(siret)
         insee_code = api_entreprise_facility.etablissement['commune_implantation']['code']
         naf_code = api_entreprise_facility.etablissement['naf']
+        code_effectif = api_entreprise_facility.etablissement.dig('tranche_effectif_salarie_etablissement', 'code')
         readable_locality = api_entreprise_facility.etablissement.readable_locality
         facility = Facility.find_or_initialize_by siret: siret
         commune = Commune.find_or_create_by insee_code: insee_code
-        facility.update! company: company, commune: commune, naf_code: naf_code, readable_locality: readable_locality
+        facility.update! company: company, commune: commune, naf_code: naf_code, readable_locality: readable_locality, code_effectif: code_effectif
         facility
       end
     end
