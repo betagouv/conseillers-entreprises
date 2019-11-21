@@ -24,6 +24,8 @@
 #
 
 class Facility < ApplicationRecord
+  include Effectif
+
   ## Associations
   #
   belongs_to :company, inverse_of: :facilities

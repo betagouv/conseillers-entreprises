@@ -12,6 +12,8 @@
 #
 
 class Company < ApplicationRecord
+  include Effectif
+
   ## Relations and Validations
   #
   has_many :contacts, inverse_of: :company
