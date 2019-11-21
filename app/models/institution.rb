@@ -40,6 +40,8 @@ class Institution < ApplicationRecord
   has_many :received_needs, through: :antennes, inverse_of: :expert_institutions
   has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institutions
 
+  accepts_nested_attributes_for :institutions_subjects, :allow_destroy => true
+
   ##
   #
   def to_s
