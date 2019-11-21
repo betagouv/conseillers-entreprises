@@ -38,8 +38,14 @@ describe AdminMailersService do
       end
 
       context 'some data' do
+        # Create experts with an already existing user
+        let(:another_user) { create :user }
+        let(:expert1) { create :expert, users: [another_user] }
+        let(:expert2) { create :expert, users: [another_user] }
+        let(:expert3) { create :expert, users: [another_user] }
+        let(:expert4) { create :expert, users: [another_user] }
         let(:created_diagnoses) { create_list :diagnosis, 1, step: 1, advisor: not_admin_user }
-        let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, advisor: not_admin_user, needs: [build(:need, matches: [build(:match)])] }
+        let(:completed_diagnoses) { create_list :diagnosis, 2, step: 5, advisor: not_admin_user, needs: [build(:need, matches: [build(:match, expert: expert1)])] }
         let(:need) { create :need, diagnosis: completed_diagnoses.first }
         let(:updated_diagnoses) do
           create_list :diagnosis, 1, step: 4, advisor: not_admin_user, created_at: 2.weeks.ago, updated_at: 1.hour.ago
@@ -47,7 +53,7 @@ describe AdminMailersService do
 
         let!(:expected_information_hash) do
           {
-            signed_up_users: { count: 1, items: [not_admin_user] },
+            signed_up_users: { count: 2, items: [not_admin_user, another_user] },
             created_diagnoses: { count: 1, items: created_diagnoses },
             updated_diagnoses: { count: 1, items: updated_diagnoses },
             completed_diagnoses: { count: 2, items: completed_diagnoses.reverse },
@@ -60,7 +66,9 @@ describe AdminMailersService do
 
         before do
           create :diagnosis, step: 1, advisor: not_admin_user, created_at: 2.weeks.ago, updated_at: 2.weeks.ago
-          create_list :match, 3, need: need
+          create :match, need: need, expert: expert1
+          create :match, need: need, expert: expert2
+          create :match, need: need, expert: expert3
         end
 
         it do
