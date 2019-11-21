@@ -101,6 +101,7 @@ fr:
       institution:
         advisors: Conseillers
         antennes: Antennes
+        subjects: Compétences
       landing:
         description_example: Exemple de description
         featured_on_home: Afficher sur la page d’accueil
