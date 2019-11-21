@@ -3,6 +3,7 @@
 # Table name: companies
 #
 #  id              :integer          not null, primary key
+#  code_effectif   :string
 #  legal_form_code :string
 #  name            :string
 #  siren           :string
