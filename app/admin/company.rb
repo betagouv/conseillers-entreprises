@@ -14,6 +14,9 @@ ActiveAdmin.register Company do
       div admin_link_to(c)
       div admin_attr(c, :siren)
       div admin_attr(c, :legal_form_code)
+      if c.code_effectif?
+        div admin_attr(c, :code_effectif), title: c.effectif
+      end
     end
     column :created_at
     column(:facilities) do |c|
@@ -31,6 +34,7 @@ ActiveAdmin.register Company do
   filter :name
   filter :siren
   filter :legal_form_code
+  filter :code_effectif
   filter :created_at
 
   ## CSV
@@ -39,6 +43,7 @@ ActiveAdmin.register Company do
     column :name
     column :siren
     column :legal_form_code
+    column :code_effectif
     column :created_at
     column_count :facilities
     column_list :contacts
@@ -54,6 +59,7 @@ ActiveAdmin.register Company do
       row :name
       row :siren
       row :legal_form_code
+      row :code_effectif
       row :created_at
       row(:facilities) do |c|
         div admin_link_to(c, :facilities)
@@ -69,5 +75,5 @@ ActiveAdmin.register Company do
 
   ## Form
   #
-  permit_params :name, :siren, :legal_form_code
+  permit_params :name, :siren, :legal_form_code, :code_effectif
 end
