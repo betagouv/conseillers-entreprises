@@ -13,7 +13,7 @@ ActiveAdmin.register Company do
     column(:name) do |c|
       div admin_link_to(c)
       div admin_attr(c, :siren)
-      div admin_attr(c, :legal_form_code)
+      div admin_attr(c, :legal_form_code), title: c.categorie_juridique
       if c.code_effectif?
         div admin_attr(c, :code_effectif), title: c.effectif
       end
