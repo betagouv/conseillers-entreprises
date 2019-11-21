@@ -183,16 +183,18 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
       f.input :full_name
-      f.input :antenne, as: :ajax_select, data: {
-        url: :admin_antennes_path,
-        search_fields: [:name],
-        limit: 999,
-      }
-      f.input :experts, as: :ajax_select, data: {
-        url: :admin_experts_path,
-        search_fields: [:full_name],
-        limit: 999,
-      }
+      f.input :antenne, as: :ajax_select,
+              collection: [],
+              data: {
+                url: :admin_antennes_path,
+                search_fields: [:name]
+              }
+      f.input :experts, as: :ajax_select,
+              collection: [],
+              data: {
+                url: :admin_experts_path,
+                search_fields: [:full_name]
+              }
       f.input :role
       f.input :email
       f.input :phone_number

@@ -140,22 +140,26 @@ ActiveAdmin.register Expert do
   form do |f|
     f.inputs do
       f.input :full_name
-      f.input :antenne, as: :ajax_select, data: {
-        url: :admin_antennes_path,
-        search_fields: [:name],
-        limit: 999,
-      }
+      f.input :antenne,
+              as: :ajax_select,
+              collection: [],
+              data: {
+                url: :admin_antennes_path,
+                search_fields: [:name]
+              }
       f.input :role
       f.input :email
       f.input :phone_number
     end
 
     f.inputs t('activerecord.attributes.expert.users') do
-      f.input :users, label: t('activerecord.models.user.other'), as: :ajax_select, data: {
-        url: :admin_users_path,
-        search_fields: [:full_name],
-        limit: 999,
-      }
+      f.input :users, label: t('activerecord.models.user.other'),
+              as: :ajax_select,
+              collection: [],
+              data: {
+                url: :admin_users_path,
+                search_fields: [:full_name],
+              }
     end
 
     f.inputs t('attributes.custom_communes') do
