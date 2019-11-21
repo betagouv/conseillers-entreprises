@@ -71,7 +71,7 @@ class NeedsController < ApplicationController
 
   def retrieve_diagnosis
     diagnosis = Diagnosis.find(params.require(:id))
-    check_current_user_access_to(diagnosis, :read)
+    check_current_user_access_to(diagnosis)
     diagnosis
   end
 

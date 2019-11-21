@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_current_user_access_to(resource, mode)
+  def check_current_user_access_to(resource)
     http_method = request.request_method
     access_method = if %w[GET HEAD].include?(http_method)
       :can_be_viewed_by?
