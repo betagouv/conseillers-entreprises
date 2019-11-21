@@ -87,19 +87,23 @@ ActiveAdmin.register Antenne do
     end
 
     f.inputs do
-      f.input :advisors, label: t('attributes.advisors'), as: :ajax_select, data: {
-        url: :admin_users_path,
-        search_fields: [:full_name],
-        limit: 999
-      }
+      f.input :advisors,
+              as: :ajax_select,
+              collection: [],
+              data: {
+                url: :admin_users_path,
+                search_fields: [:full_name]
+              }
     end
 
     f.inputs do
-      f.input :experts, label: t('attributes.experts'), as: :ajax_select, data: {
-        url: :admin_experts_path,
-        search_fields: [:full_name],
-        limit: 999
-      }
+      f.input :experts,
+              as: :ajax_select,
+              collection: [],
+              data: {
+                url: :admin_experts_path,
+                search_fields: [:full_name]
+              }
     end
 
     f.actions
