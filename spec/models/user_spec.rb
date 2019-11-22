@@ -15,14 +15,7 @@ RSpec.describe User, type: :model do
         is_expected.to validate_presence_of(:full_name)
         is_expected.to validate_presence_of(:role)
         is_expected.to validate_presence_of(:phone_number)
-      end
-    end
-
-    describe 'emails' do
-      it do
         is_expected.to validate_presence_of(:email)
-        is_expected.to allow_value('test@beta.gouv.fr').for(:email)
-        is_expected.not_to allow_value('test').for(:email)
       end
     end
   end

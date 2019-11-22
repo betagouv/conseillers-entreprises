@@ -12,7 +12,7 @@ end
 
 ruby '2.6.5'
 
-gem 'rails', '~> 5'
+gem 'rails'
 
 # Server
 gem 'foreman'
@@ -53,6 +53,7 @@ gem 'mailjet'
 gem 'turbolinks'
 gem 'rails-i18n'
 gem 'honeypot-captcha'
+gem 'bootsnap', require: false
 
 # Notifiers
 gem 'sentry-raven'
@@ -76,7 +77,7 @@ group :development, :test do
   gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'rspec-rails'
+  gem 'rspec-rails', git: 'https://github.com/rspec/rspec-rails', branch: '4-0-maintenance'
   gem 'rspec_junit_formatter', require: false
 end
 

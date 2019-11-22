@@ -24,15 +24,6 @@ RSpec.describe Expert, type: :model do
         is_expected.to validate_presence_of(:phone_number)
       end
     end
-
-    describe 'email format' do
-      it do
-        is_expected.to allow_value('test@beta.gouv.fr').for(:email)
-        is_expected.to allow_value('0_@1-.2').for(:email)
-        is_expected.not_to allow_value('test').for(:email)
-        is_expected.not_to allow_value('te@st').for(:email)
-      end
-    end
   end
 
   describe 'associations dependencies' do
