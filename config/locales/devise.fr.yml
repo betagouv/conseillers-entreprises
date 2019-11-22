@@ -73,8 +73,12 @@ fr:
     sessions:
       already_signed_out: Déconnecté.
       new:
-        how_to_sign_up_details: Place des Entreprises est ouvert aux agents des administrations chargés de conseiller et d’accompagner les entreprises dans leur développement ou le maintien de leur activité.
-        how_to_sign_up_html: Envoyez-nous un email à %{email}.
-        how_to_sign_up_title: Comment s’inscrire ?
+        how_to_sign_up_html: |
+          <h2>Qui sont les conseillers utilisant Place des Entreprises ?</h2>
+          <p>Les conseillers de Place des Entreprises sont des agents des organismes publics et parapublics chargés de la relation entreprise. Le service compte aujourd’hui plus de 900 conseillers au sein de 50 partenaires public.</p>
+          <p>Chaque conseiller est référencé comme expert sur un champ de compétences précis. Le service lui permet de recevoir des besoins d’entreprises correspondant à son champ d’intervention et de partager des besoins relevant d’autres organismes. Le conseiller utilisant Place des Entreprises devient ainsi un interlocuteur privilégié pour les chefs d’entreprises : il accède en 2 minutes à tous les partenaires publics proposant une grande diversité d'accompagnements.</p>
+          <p>Si vous êtes agent d’un acteur public porteur de solutions, rejoignez-nous !</p>
+          <h2>Comment s’inscrire ?</h2>
+          <p>Envoyez-nous un email à %{email}.</p>
       signed_in: ''
       signed_out: Déconnecté.
