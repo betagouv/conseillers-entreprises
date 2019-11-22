@@ -1,10 +1,9 @@
 module PersonConcern
   extend ActiveSupport::Concern
-  EMAIL_REGEXP = /\A.+@.+\..+\z/
 
   included do
     validates :full_name, :role, presence: true
-    validates :email, format: { with: PersonConcern::EMAIL_REGEXP }, allow_blank: true
+    validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   end
 
   def to_s
