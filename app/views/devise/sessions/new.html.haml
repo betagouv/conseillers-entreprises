@@ -17,6 +17,4 @@
       = f.submit t('sign_in'), class: 'ui button green'
   = render 'devise/shared/links'
 
-%h2= t('.how_to_sign_up_title')
-%p= t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL']))
-%p= t('.how_to_sign_up_details')
+= t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL']))
