@@ -11,7 +11,6 @@ ActiveAdmin.register Expert do
   scope :all, default: true
   scope :support_experts
   scope :with_custom_communes, group: :special
-  scope :without_users, group: :special
 
   index do
     selectable_column
@@ -141,18 +140,26 @@ ActiveAdmin.register Expert do
   form do |f|
     f.inputs do
       f.input :full_name
-      f.input :antenne, as: :ajax_select, data: {
-        url: :admin_antennes_path,
-        search_fields: [:name],
-        limit: 999,
-      }
+      f.input :antenne,
+              as: :ajax_select,
+              collection: [],
+              data: {
+                url: :admin_antennes_path,
+                search_fields: [:name]
+              }
       f.input :role
       f.input :email
       f.input :phone_number
     end
 
-    f.inputs do
-      f.input :reminders_notes
+    f.inputs t('activerecord.attributes.expert.users') do
+      f.input :users, label: t('activerecord.models.user.other'),
+              as: :ajax_select,
+              collection: [],
+              data: {
+                url: :admin_users_path,
+                search_fields: [:full_name],
+              }
     end
 
     f.inputs t('attributes.custom_communes') do
@@ -160,17 +167,13 @@ ActiveAdmin.register Expert do
       f.input :insee_codes
     end
 
-    f.inputs t('activerecord.attributes.expert.users') do
-      f.input :users, label: t('activerecord.models.user.other'), as: :ajax_select, data: {
-        url: :admin_users_path,
-        search_fields: [:full_name],
-        limit: 999,
-      }
-    end
-
     f.inputs t('activerecord.attributes.expert.skills') do
       collection = option_groups_from_collection_for_select(Subject.all, :skills, :label, :id, :title, expert.skills.pluck(:id))
       f.input :skills, input_html: { :size => 20 }, collection: collection
+    end
+
+    f.inputs do
+      f.input :reminders_notes
     end
 
     f.actions

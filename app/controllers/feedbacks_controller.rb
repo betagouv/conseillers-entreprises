@@ -29,7 +29,7 @@ class FeedbacksController < ApplicationController
   def retrieve_feedback
     safe_params = params.permit(:id)
     feedback = Feedback.find(safe_params[:id])
-    check_current_user_access_to(feedback, :write)
+    check_current_user_access_to(feedback)
     feedback
   end
 end

@@ -47,6 +47,7 @@ class Expert < ApplicationRecord
   ## Validations
   #
   validates :antenne, :email, :phone_number, :access_token, presence: true
+  validates :users, presence: true
   validates :access_token, uniqueness: true
 
   before_validation :generate_access_token!, on: :create
@@ -105,8 +106,6 @@ class Expert < ApplicationRecord
     where(is_global_zone: true)
   end
 
-  scope :without_users, -> { left_outer_joins(:users).where(users: { id: nil }) }
-
   scope :omnisearch, -> (query) do
     joins(:antenne)
       .where('experts.full_name ILIKE ?', "%#{query}%")
@@ -139,24 +138,5 @@ class Expert < ApplicationRecord
 
   def full_role
     "#{role} - #{antenne.name}"
-  end
-
-  ##
-  #
-  def create_matching_user!
-    if !users.empty?
-      return
-    end
-
-    params = {
-      experts: [self],
-      email: email,
-      full_name: full_name,
-      phone_number: phone_number,
-      antenne: antenne,
-      role: role
-    }
-
-    User.create!(params)
   end
 end

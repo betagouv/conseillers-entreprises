@@ -16,7 +16,7 @@ class MatchesController < ApplicationController
   def retrieve_match
     safe_params = params.permit(:id)
     match = Match.find(safe_params[:id])
-    check_current_user_access_to(match, :write)
+    check_current_user_access_to(match)
     match
   end
 end

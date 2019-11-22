@@ -221,7 +221,7 @@ RSpec.describe User, type: :model do
     end
 
     context ('with one expert') do
-      before { user.experts = [expert1] }
+      before { expert1.users = [user] }
 
       it { is_expected.to be_truthy }
     end
