@@ -360,9 +360,9 @@ fr:
       title: Merci !
   stats:
     series:
-      advisors_html: <span class="count">%{count}</span> conseillers inscrits
+      advisors_html: <span class="count">%{count}</span> conseillers publics
       companies_html: <span class="count">%{count}</span> entreprises aidées
-      experts_html: <span class="count">%{count}</span> conseillers publics
+      experts_html: <span class="count">%{count}</span> référents
       matches_html: <span class="count">%{count}</span> mises en relation
       needs_html: <span class="count">%{count}</span> demandes transmises
       solicitations_html: <span class="count">%{count}</span> sollicitations directes
