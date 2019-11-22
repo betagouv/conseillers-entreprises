@@ -68,18 +68,6 @@ fr:
       siege_social: Siège social
       visited_at: Visitée le %{date}
       visited_by_html: 'par %{advisor_name} </br> email : %{advisor_email}'
-  conseillers:
-    show:
-      feature_find_contacts_html: 2<br><em class='feature-text-em'>Trouvez</em><br>les contacts compétents sur votre territoire
-      feature_notify_and_follow_html: 3<br><em class='feature-text-em'>Notifiez-les</em><br> en un clic et suivez leur action
-      feature_spot_needs_html: 1<br><em class='feature-text-em'>Identifiez</em><br>les besoins des entreprises en quelques minutes
-      or_call_us: ou appelez-nous au 06 99 05 47 37
-      public_service_from_the_north: Un service public numérique expérimenté dans les Hauts-de-France
-      questions_or_suggestions: Des questions ? Des suggestions ?
-      start_button: Commencez !
-      tagline_html: "<em class='hero-tagline-em'>Aidez les entreprises</em><br>à trouver des solutions<br>à leurs besoins"
-      tool_to_help_advisors: Un outil dédié aux conseillers d’entreprise des organismes publics
-      we_help_you_and_we_want_feedbacks_html: Nous vous accompagnons dans l’utilisation de Place des Entreprises<br>et recevons vos commentaires.
   diagnoses:
     archives:
       browse_active_diagnoses: Voir les analyses en cours
