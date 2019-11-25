@@ -3,6 +3,7 @@
 # Table name: companies
 #
 #  id              :integer          not null, primary key
+#  code_effectif   :string
 #  legal_form_code :string
 #  name            :string
 #  siren           :string
@@ -11,6 +12,8 @@
 #
 
 class Company < ApplicationRecord
+  include Effectif
+
   ## Relations and Validations
   #
   has_many :contacts, inverse_of: :company

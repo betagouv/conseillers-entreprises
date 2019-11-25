@@ -89,7 +89,7 @@ ActiveAdmin.register Antenne do
     f.inputs do
       f.input :advisors,
               as: :ajax_select,
-              collection: [],
+              collection: resource.advisors,
               data: {
                 url: :admin_users_path,
                 search_fields: [:full_name]
@@ -99,7 +99,7 @@ ActiveAdmin.register Antenne do
     f.inputs do
       f.input :experts,
               as: :ajax_select,
-              collection: [],
+              collection: resource.experts,
               data: {
                 url: :admin_experts_path,
                 search_fields: [:full_name]

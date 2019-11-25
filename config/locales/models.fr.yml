@@ -265,6 +265,7 @@ fr:
       one: Référent
       other: Référents
     archived_at: Date d’archivage
+    code_effectif: Tranche d’effectif
     communes: Communes
     community: Communauté
     contacted_expert: Référent contacté
@@ -280,6 +281,7 @@ fr:
       one: Analyse
       other: Analyses
     diagnosis: Analyse
+    effectif: Effectif
     email: E-mail
     expert: Référent
     expert_antenne: Antenne du référent

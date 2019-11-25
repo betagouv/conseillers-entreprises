@@ -142,7 +142,7 @@ ActiveAdmin.register Expert do
       f.input :full_name
       f.input :antenne,
               as: :ajax_select,
-              collection: [],
+              collection: [resource.antenne],
               data: {
                 url: :admin_antennes_path,
                 search_fields: [:name]
@@ -155,7 +155,7 @@ ActiveAdmin.register Expert do
     f.inputs t('activerecord.attributes.expert.users') do
       f.input :users, label: t('activerecord.models.user.other'),
               as: :ajax_select,
-              collection: [],
+              collection: resource.users,
               data: {
                 url: :admin_users_path,
                 search_fields: [:full_name],
