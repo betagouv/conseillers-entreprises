@@ -90,4 +90,18 @@ class Facility < ApplicationRecord
   def commune_name
     readable_locality || commune.insee_code
   end
+
+  ##
+  #
+  attr_accessor :details
+  def self.with_sirene_details(details)
+    facility = Facility.find_or_initialize_by(siret: details[:siret])
+    facility.naf_code = details[:activite_principale]
+    facility.code_effectif = details[:tranche_effectifs]
+    facility.readable_locality = details[:libelle_commune]
+    facility.company = Company.with_sirene_details(details[:unite_legale])
+    facility.commune = Commune.find_or_initialize_by(insee_code: details[:code_commune])
+    facility.details = details
+    facility
+  end
 end

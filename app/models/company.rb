@@ -48,4 +48,16 @@ class Company < ApplicationRecord
   def categorie_juridique
     CategorieJuridique.description(legal_form_code)
   end
+
+  ##
+  #
+  attr_accessor :details
+  def self.with_sirene_details(details)
+    company = Company.find_or_initialize_by(siren: details[:siren])
+    company.name = details[:denomination] || [details[:prenom_usuel], details[:nom], details[:nom_usage]].compact.join(' ')
+    company.legal_form_code = details[:categorie_juridique]
+    company.code_effectif = details[:tranche_effectifs]
+    company.details = details
+    company
+  end
 end

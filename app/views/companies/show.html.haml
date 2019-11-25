@@ -30,15 +30,15 @@
                       = t('.matches', count: diagnosis.matches.size)
 
   %h2= t('.information')
-  = render partial: 'company', locals: { entreprise: @company.entreprise }
+  = render partial: 'company', locals: { entreprise: @company }
 
   %h2= t('.facility')
-  = render partial: 'facility', locals: { etablissement: @facility.etablissement }
+  = render partial: 'facility', locals: { etablissement: @facility }
 
-  - if !@facility.etablissement['siege_social'].to_b
-    %h2= t('.siege_social')
-    = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
+  -#- if !@facility.etablissement['siege_social'].to_b
+  -#  %h2= t('.siege_social')
+  -#  = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
 
-  %h2= t('.mandataires_sociaux')
-  - @company.entreprise.mandataires_sociaux.each do |person|
-    = render partial: 'mandataire', locals: { person: person }
+  -#%h2= t('.mandataires_sociaux')
+  -#- @company.entreprise.mandataires_sociaux.each do |person|
+  -#  = render partial: 'mandataire', locals: { person: person }

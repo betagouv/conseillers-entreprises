@@ -15,14 +15,10 @@ class CompaniesController < ApplicationController
 
   def show
     siret = params[:siret]
-    begin
-      @facility = UseCases::SearchFacility.with_siret siret
-      @company = UseCases::SearchCompany.with_siret siret
-    rescue ApiEntreprise::ApiEntrepriseError => e
-      message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
-      redirect_back fallback_location: { action: :search }, alert: message
-      return
-    end
+    details = SireneApi::SireneDetails.details(siret)
+    @facility = Facility.with_sirene_details(details)
+    @company = @facility.company
+
     existing_facility = Facility.find_by(siret: siret)
     if existing_facility.present?
       @diagnoses = Facility.find_by(siret: siret).diagnoses
@@ -40,7 +36,9 @@ class CompaniesController < ApplicationController
   end
 
   def create_diagnosis_from_siret
-    facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
+    details = SireneApi::SireneDetails.details(siret)
+    facility = Facility.with_sirene_details(details)
+    facility.save!
 
     if facility
       diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: '2')
