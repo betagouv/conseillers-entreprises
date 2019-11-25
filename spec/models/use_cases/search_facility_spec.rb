@@ -5,6 +5,7 @@ require 'rails_helper'
 describe UseCases::SearchFacility do
   let(:legal_form_code) { '5699' }
   let(:naf_code) { '6202A' }
+  let(:code_effectif) { '31' }
   let(:siret) { '41816609600051' }
   let(:siren) { '418166096' }
   let(:token) { '1234' }
@@ -49,10 +50,12 @@ describe UseCases::SearchFacility do
       it 'sets company and facility' do
         expect(Company.last.siren).to eq siren
         expect(Company.last.legal_form_code).to eq legal_form_code
+        expect(Company.last.code_effectif).to eq code_effectif
 
         expect(Facility.last.siret).to eq siret
         expect(Facility.last.commune.insee_code).to eq '75008'
         expect(Facility.last.naf_code).to eq naf_code
+        expect(Facility.last.code_effectif).to eq code_effectif
       end
     end
 

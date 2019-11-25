@@ -3,6 +3,7 @@
 # Table name: facilities
 #
 #  id                :bigint(8)        not null, primary key
+#  code_effectif     :string
 #  naf_code          :string
 #  readable_locality :string
 #  siret             :string
@@ -23,6 +24,8 @@
 #
 
 class Facility < ApplicationRecord
+  include Effectif
+
   ## Associations
   #
   belongs_to :company, inverse_of: :facilities

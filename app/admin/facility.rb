@@ -14,6 +14,9 @@ ActiveAdmin.register Facility do
       div admin_link_to(f)
       div admin_attr(f, :siret)
       div admin_attr(f, :naf_code)
+      if f.code_effectif?
+        div admin_attr(f, :code_effectif), title: f.effectif
+      end
     end
     column :created_at
     column(:activity) do |f|
@@ -26,6 +29,7 @@ ActiveAdmin.register Facility do
 
   filter :siret
   filter :naf_code
+  filter :code_effectif
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
   filter :commune_insee_code, as: :string
   filter :created_at
@@ -38,6 +42,7 @@ ActiveAdmin.register Facility do
     column :readable_locality
     column :siret
     column :naf_code
+    column :code_effectif
     column :created_at
     column_count :diagnoses
     column_count :needs
@@ -50,6 +55,7 @@ ActiveAdmin.register Facility do
     attributes_table do
       row :siret
       row :naf_code
+      row :code_effectif
       row :company
       row :commune
       row :readable_locality
@@ -64,12 +70,13 @@ ActiveAdmin.register Facility do
 
   ## Form
   #
-  permit_params :siret, :naf_code, :company_id, :commune_id, :readable_locality
+  permit_params :siret, :naf_code, :code_effectif, :company_id, :commune_id, :readable_locality
 
   form do |f|
     f.inputs do
       f.input :siret
       f.input :naf_code
+      f.input :code_effectif
       f.input :company, as: :ajax_select, data: {
         url: :admin_companies_path,
         search_fields: [:name]
