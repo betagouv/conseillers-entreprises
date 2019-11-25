@@ -69,7 +69,7 @@ ActiveAdmin.register Institution do
     f.inputs do
       f.input :antennes,
               as: :ajax_select,
-              collection: [],
+              collection: resource.antennes,
               data: {
                 url: :admin_antennes_path,
                 search_fields: [:name]
