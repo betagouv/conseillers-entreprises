@@ -32,7 +32,7 @@ class NeedsController < ApplicationController
     @experts = Expert.omnisearch(@query)
       .where.not(id: @need.experts)
       .limit(15)
-      .includes(:antenne, experts_skills: :skill)
+      .includes(:antenne, experts_subjects: :institution_subject)
   end
 
   def add_match
@@ -40,10 +40,10 @@ class NeedsController < ApplicationController
     @current_roles = current_roles
 
     @need = Need.find(params.require(:need))
-    expert_skill = ExpertSkill.find(params.require(:expert_skill))
-    @match = Match.create(need: @need, expert: expert_skill.expert, skill: expert_skill.skill)
+    expert_subject = ExpertSubject.find(params.require(:expert_subject))
+    @match = Match.create(need: @need, expert: expert_subject.expert, subject: @need.subject)
     if @match.valid?
-      ExpertMailer.delay.notify_company_needs(expert_skill.expert, @diagnosis)
+      ExpertMailer.delay.notify_company_needs(expert_subject.expert, @diagnosis)
     else
       flash.alert = @match.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
