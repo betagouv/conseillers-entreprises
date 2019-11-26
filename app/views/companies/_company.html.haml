@@ -3,10 +3,10 @@
     %tr
       %td= t('.raison_sociale')
       %td= entreprise.name
-    -#- if entreprise.nom_commercial != entreprise.raison_sociale
-    -#  %tr
-    -#    %td= t('.nom_commercial')
-    -#    %td= entreprise.nom_commercial
+    -# - if entreprise.nom_commercial != entreprise.raison_sociale
+      %tr
+        %td= t('.nom_commercial')
+        %td= entreprise.nom_commercial
     %tr
       %td= t('.categorie_entreprise')
       %td= entreprise.details[:categorie_entreprise]
@@ -16,21 +16,21 @@
     %tr
       %td= t('.siren')
       %td= entreprise.siren
-    -#%tr
-    -#  %td= t('.capital_social')
-    -#  %td #{entreprise.capital_social} €
-    -#%tr
-    -#  %td= t('.numero_tva_intracommunautaire')
-    -#  %td= entreprise.numero_tva_intracommunautaire
+    -# %tr
+        %td= t('.capital_social')
+        %td #{entreprise.capital_social} €
+      %tr
+        %td= t('.numero_tva_intracommunautaire')
+        %td= entreprise.numero_tva_intracommunautaire
     %tr
       %td= t('.forme_juridique')
       %td= entreprise.categorie_juridique
-    -#%tr
-    -#  %td= t('.procedure_collective')
-    -#  %td= entreprise.procedure_collective.to_b ? t('yes') : t('no')
+    -# %tr
+      %td= t('.procedure_collective')
+      %td= entreprise.procedure_collective.to_b ? t('yes') : t('no')
     %tr
       %td= t('.date_creation')
       %td= I18n.l(Date.parse(entreprise.details[:date_creation]))
-    -#%tr
-    -#  %td= t('.date_radiation')
-    -#  %td= date_from_timestamp(entreprise.date_radiation)
+    -# %tr
+      %td= t('.date_radiation')
+      %td= date_from_timestamp(entreprise.date_radiation)

@@ -5,7 +5,7 @@
       %td= etablissement.siret
     %tr
       %td= t('.naf')
-      %td #{etablissement.naf_code}
+      %td= etablissement.naf_code
     %tr
       %td= t('.date_mise_a_jour')
       %td= I18n.l(Date.parse(etablissement.details[:date_dernier_traitement]))

@@ -19,22 +19,17 @@ fr:
       date_creation: Date de création
       date_radiation: Date de radiation
       forme_juridique: Forme juridique
-      nom: Nom
       nom_commercial: Nom Commercial
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
-      prenom: Prénom
       procedure_collective: En cours de procedure collective ?
       raison_sociale: Raison Sociale
       siren: SIREN
       tranche_effectif_salarie_entreprise: Tranche d’effectif de salariés de l’entreprise
     facility:
       adresse: Adresse
-      commune_implantation: Commune d’implantation
       date_creation_etablissement: Date de création de l’établissement
       date_mise_a_jour: Date de mise à jour
       naf: Code NAF
-      pays_implantation: Pays d’implantation
-      region_implantation: Région d’implantation
       siret: SIRET
       tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
     mandataire:
