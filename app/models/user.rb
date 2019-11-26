@@ -268,7 +268,7 @@ class User < ApplicationRecord
     end
   end
 
-  def support_expert_skill
-    ExpertSkill.support.find_by(expert: self.experts)
+  def support_expert_subject
+    ExpertSubject.support.find_by(expert: self.experts)
   end
 end

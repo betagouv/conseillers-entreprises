@@ -87,9 +87,11 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'POST #selection' do
+    let(:expert_subject) { create(:expert_subject) }
+    let!(:need) { create(:need, diagnosis: diagnosis) }
+
     before do
-      allow_any_instance_of(Diagnosis).to receive(:match_and_notify!).and_return(result)
-      post :selection, params: { id: diagnosis.id, matches: { 'a': { 'a': '1' } } }
+      post :selection, params: { id: diagnosis.id, matches: { need.id => { expert_subject.id => '1' } } }
     end
 
     context 'match_and_notify! succeeds' do

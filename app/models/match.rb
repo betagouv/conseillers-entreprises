@@ -89,7 +89,7 @@ class Match < ApplicationRecord
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
-  scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
+  scope :to_support, -> { joins(:need).where(subject: Subject.support_subject) }
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
 
@@ -168,9 +168,6 @@ class Match < ApplicationRecord
     if expert
       self.expert_full_name = expert.full_name
       self.expert_institution_name = expert.antenne.name
-    end
-    if skill
-      self.skill_title = skill.title
     end
   end
 
