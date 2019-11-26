@@ -63,6 +63,7 @@ class Antenne < ApplicationRecord
     joins(:institution)
       .where("(antennes.name, institutions.name) IN (#{(['(?)'] * tuples_array.size).join(', ')})", *tuples_array)
   end
+
   ##
   #
   def to_s
