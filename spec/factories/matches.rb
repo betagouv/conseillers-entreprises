@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   factory :match do
-    need
-    expert
-    skill
+    association :need
+    association :expert
+    association :subject
+    association :skill
   end
 end

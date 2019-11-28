@@ -27,9 +27,13 @@
               .header
                 = expert.full_name_with_role
               .list
-                - expert.experts_skills.each do |expert_skill|
+                - expert.experts_subjects.each do |expert_subject|
                   .item
                     %i.angle.right.icon
                     .content
                       - confirm_message = t('.add_match_with', name: expert.full_name, subject: need.subject)
-                      = link_to expert_skill.skill.title, add_match_need_path(expert_skill: expert_skill, need: need), method: :post, remote: true, data: { confirm: confirm_message }
+                      = link_to add_match_need_path(expert_subject: expert_subject, need: need), method: :post, remote: true, data: { confirm: confirm_message } do
+                        = expert_subject.institution_subject.description
+                        - if expert_subject.description.present?
+                          %br
+                          = expert_subject.description

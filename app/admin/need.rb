@@ -116,7 +116,7 @@ ActiveAdmin.register Need do
   ## Actions
   #
   member_action :match_with_support_team do
-    resource.create_matches!(current_user.support_expert_skill.id)
+    resource.create_matches!(current_user.support_expert_subject.id)
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.match_with_support_team_done')
   end
 
@@ -146,7 +146,7 @@ ActiveAdmin.register Need do
 
   batch_action I18n.t('active_admin.need.match_with_support_team') do |ids|
     batch_action_collection.find(ids).each do |need|
-      need.create_matches!(current_user.support_expert_skill.id)
+      need.create_matches!(current_user.support_expert_subject.id)
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.match_with_support_team_done')
   end

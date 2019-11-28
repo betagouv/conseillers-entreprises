@@ -89,11 +89,11 @@ class Diagnosis < ApplicationRecord
 
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
-  def match_and_notify!(experts_skills_for_needs)
+  def match_and_notify!(experts_and_subjects_for_needs)
     self.transaction do
-      experts_skills_for_needs.each do |need_id, experts_skills_ids|
+      experts_and_subjects_for_needs.each do |need_id, experts_and_subjects_ids|
         need = self.needs.find(need_id)
-        need.create_matches!(experts_skills_ids)
+        need.create_matches!(experts_and_subjects_ids)
       end
       self.update!(step: Diagnosis::LAST_STEP)
     end
@@ -135,7 +135,7 @@ class Diagnosis < ApplicationRecord
     end
 
     # support team
-    if role.is_a?(Expert) && role.experts_skills.support_for(self).present?
+    if role.is_a?(Expert) && role.experts_subjects.support_for(self).present?
       return true
     end
 
@@ -150,7 +150,7 @@ class Diagnosis < ApplicationRecord
     end
 
     # support team
-    if role.is_a?(Expert) && role.experts_skills.support_for(self).present?
+    if role.is_a?(Expert) && role.experts_subjects.support_for(self).present?
       return true
     end
 

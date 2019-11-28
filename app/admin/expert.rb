@@ -5,7 +5,7 @@ ActiveAdmin.register Expert do
 
   # Index
   #
-  includes :institution, :antenne, :users, :skills, :received_matches
+  includes :institution, :antenne, :users, :experts_subjects, :received_matches
   config.sort_order = 'full_name_asc'
 
   scope :all, default: true
@@ -39,8 +39,8 @@ ActiveAdmin.register Expert do
     column(:users) do |e|
       div admin_link_to(e, :users)
     end
-    column(:skills) do |e|
-      div admin_link_to(e, :skills)
+    column(:subjects) do |e|
+      div admin_link_to(e, :subjects)
     end
     column(:received_matches) do |e|
       div admin_link_to(e, :received_matches)
@@ -108,8 +108,10 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :users)
         div admin_link_to(e, :users, list: true)
       end
-      row(:skills) do |e|
-        div admin_link_to(e, :skills, list: true)
+      row(:subjects) do |e|
+        safe_join(e.experts_subjects.map do |es|
+          link_to "#{es.subject} (#{es.description}) (#{es.institution_subject.description})", admin_subject_path(es.subject)
+        end, '<br /> '.html_safe)
       end
       row(:received_matches) do |e|
         div admin_link_to(e, :received_matches)
@@ -119,6 +121,10 @@ ActiveAdmin.register Expert do
 
   action_item :normalize_values, only: :show do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
+  end
+
+  action_item :modify_subjects, only: :show do
+    link_to t('active_admin.expert.modify_subjects'), edit_expert_path(expert)
   end
 
   ## Form
@@ -133,8 +139,8 @@ ActiveAdmin.register Expert do
     :is_global_zone,
     :reminders_notes,
     user_ids: [],
-    skill_ids: [],
-    experts_skills_attributes: %i[id skill_id _create _update _destroy]
+    experts_subjects_ids: [],
+    experts_subjects_attributes: %i[id description institution_subject_id _create _update _destroy]
   ]
 
   form do |f|
@@ -167,9 +173,14 @@ ActiveAdmin.register Expert do
       f.input :insee_codes
     end
 
-    f.inputs t('activerecord.attributes.expert.skills') do
-      collection = option_groups_from_collection_for_select(Subject.all, :skills, :label, :id, :title, expert.skills.pluck(:id))
-      f.input :skills, input_html: { :size => 20 }, collection: collection
+    if resource.institution.present?
+      f.inputs t('activerecord.attributes.expert.skills') do
+        f.has_many :experts_subjects, allow_destroy: true do |sub_f|
+          collection = resource.institution.institutions_subjects.map { |is| [is.subject.to_s, is.id] }
+          sub_f.input :institution_subject, collection: collection
+          sub_f.input :description
+        end
+      end
     end
 
     f.inputs do

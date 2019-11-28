@@ -1,0 +1,22 @@
+%h1.ui.header
+  = t('.title', name: @expert.full_name)
+  .sub.header= t('.subtitle', institution: @expert.institution)
+
+.ui.info.message
+  = t('.description')
+
+= form_with model: @expert, class: 'ui form margin-top-2' do |f|
+  - @es_by_theme.each do |theme, institutions_subjects|
+    %h3.ui.header= theme.label
+    - institutions_subjects.each do |institution_subject|
+      - expert_subject = ExpertSubject.where(expert: @expert, institution_subject: institution_subject).first_or_initialize
+      .ui.field.institution-subject
+        .ui.checkbox
+          = f.fields_for :experts_subjects, expert_subject do |i|
+            = i.check_box :_destroy, { checked: expert_subject.persisted? }, '0', '1'
+            = i.label :_destroy, institution_subject.subject, class: "is-subject"
+            .is-description= institution_subject.description
+            = i.text_area :description, placeholder: t('.placeholder'), rows: 2
+            = i.hidden_field :institution_subject_id
+
+  = f.submit t('update'), class: 'ui green button margin-top-2'

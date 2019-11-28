@@ -109,6 +109,7 @@ fr:
         <p>Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.</p>
       expert_scope_of_work: 'Compétence du référent :'
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
+      more_informations: Informations complémentaires
       no_expert_skill: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
       no_needs: Pas de besoins sélectionnés.
       notify_matches: Notifier les référents sélectionnés
@@ -121,6 +122,12 @@ fr:
       step2_title_html: Détection des besoins
       step3_title_html: Informations complémentaires
       step4_title_html: Mise en contact
+  experts:
+    edit:
+      description: Cochez les domaines d’intervention correspondant à votre activité. Vous pouvez préciser et ajouter des détails en commentaire.
+      placeholder: N’hésitez pas à détailler, notamment les conditions selon lesquelles vous intervenez.
+      subtitle: Au sein de « %{institution} »
+      title: Compétences de %{name}
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
@@ -407,3 +414,6 @@ fr:
       download: Télécharger
       title: Statistiques d’utilisation
       users_stats: Conseillers
+  users:
+    team:
+      edit_subjects: Modifier

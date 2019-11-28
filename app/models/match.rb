@@ -15,19 +15,22 @@
 #  expert_id               :bigint(8)
 #  need_id                 :bigint(8)        not null
 #  skill_id                :bigint(8)
+#  subject_id              :bigint(8)
 #
 # Indexes
 #
-#  index_matches_on_expert_id  (expert_id)
-#  index_matches_on_need_id    (need_id)
-#  index_matches_on_skill_id   (skill_id)
-#  index_matches_on_status     (status)
+#  index_matches_on_expert_id   (expert_id)
+#  index_matches_on_need_id     (need_id)
+#  index_matches_on_skill_id    (skill_id)
+#  index_matches_on_status      (status)
+#  index_matches_on_subject_id  (subject_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (expert_id => experts.id)
 #  fk_rails_...  (need_id => needs.id)
 #  fk_rails_...  (skill_id => skills.id)
+#  fk_rails_...  (subject_id => subjects.id)
 #
 
 class Match < ApplicationRecord
@@ -42,8 +45,9 @@ class Match < ApplicationRecord
   ## Associations
   #
   belongs_to :need, counter_cache: true, inverse_of: :matches
-  belongs_to :expert, inverse_of: :received_matches
-  belongs_to :skill, inverse_of: :matches
+  belongs_to :expert, inverse_of: :received_matches, optional: true
+  belongs_to :subject, inverse_of: :matches, optional: true
+  belongs_to :skill, inverse_of: :matches, optional: true
 
   ## Validations and Callbacks
   #
@@ -74,11 +78,10 @@ class Match < ApplicationRecord
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
 
-  # :skill
-  has_one :subject, through: :skill, inverse_of: :matches
-
   # :subject
   has_one :theme, through: :subject, inverse_of: :matches
+
+  # has_one :institution_subject, through: :expert_subject
 
   ## Scopes
   #
@@ -86,7 +89,7 @@ class Match < ApplicationRecord
 
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
-  scope :to_support, -> { joins(:skill).where(skills: { subject: Subject.support_subject }) }
+  scope :to_support, -> { joins(:need).where(subject: Subject.support_subject) }
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
 
@@ -165,9 +168,6 @@ class Match < ApplicationRecord
     if expert
       self.expert_full_name = expert.full_name
       self.expert_institution_name = expert.antenne.name
-    end
-    if skill
-      self.skill_title = skill.title
     end
   end
 

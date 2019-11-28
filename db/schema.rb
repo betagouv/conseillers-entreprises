@@ -153,6 +153,14 @@ ActiveRecord::Schema.define(version: 2019_11_21_101634) do
     t.index ["skill_id"], name: "index_experts_skills_on_skill_id"
   end
 
+  create_table "experts_subjects", force: :cascade do |t|
+    t.string "description"
+    t.bigint "expert_id"
+    t.bigint "institution_subject_id"
+    t.index ["expert_id"], name: "index_experts_subjects_on_expert_id"
+    t.index ["institution_subject_id"], name: "index_experts_subjects_on_institution_subject_id"
+  end
+
   create_table "experts_users", id: false, force: :cascade do |t|
     t.bigint "expert_id", null: false
     t.bigint "user_id", null: false
@@ -194,6 +202,16 @@ ActiveRecord::Schema.define(version: 2019_11_21_101634) do
     t.index ["name"], name: "index_institutions_on_name", unique: true
   end
 
+  create_table "institutions_subjects", force: :cascade do |t|
+    t.string "description"
+    t.bigint "institution_id"
+    t.bigint "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_institutions_subjects_on_institution_id"
+    t.index ["subject_id"], name: "index_institutions_subjects_on_subject_id"
+  end
+
   create_table "landing_topics", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -228,10 +246,12 @@ ActiveRecord::Schema.define(version: 2019_11_21_101634) do
     t.datetime "closed_at"
     t.bigint "expert_id"
     t.bigint "skill_id"
+    t.bigint "subject_id"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
     t.index ["skill_id"], name: "index_matches_on_skill_id"
     t.index ["status"], name: "index_matches_on_status"
+    t.index ["subject_id"], name: "index_matches_on_subject_id"
   end
 
   create_table "needs", force: :cascade do |t|
@@ -353,6 +373,8 @@ ActiveRecord::Schema.define(version: 2019_11_21_101634) do
   add_foreign_key "experts", "antennes"
   add_foreign_key "experts_skills", "experts"
   add_foreign_key "experts_skills", "skills"
+  add_foreign_key "experts_subjects", "experts"
+  add_foreign_key "experts_subjects", "institutions_subjects"
   add_foreign_key "experts_users", "experts"
   add_foreign_key "experts_users", "users"
   add_foreign_key "facilities", "communes"
@@ -360,10 +382,13 @@ ActiveRecord::Schema.define(version: 2019_11_21_101634) do
   add_foreign_key "feedbacks", "experts"
   add_foreign_key "feedbacks", "needs"
   add_foreign_key "feedbacks", "users"
+  add_foreign_key "institutions_subjects", "institutions"
+  add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_topics", "landings"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
   add_foreign_key "matches", "skills"
+  add_foreign_key "matches", "subjects"
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "searches", "users"
