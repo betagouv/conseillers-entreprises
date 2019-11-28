@@ -123,6 +123,10 @@ ActiveAdmin.register Expert do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
   end
 
+  action_item :modify_subjects, only: :show do
+    link_to t('active_admin.expert.modify_subjects'), edit_expert_path(expert)
+  end
+
   ## Form
   #
   permit_params [

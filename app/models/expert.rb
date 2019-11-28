@@ -142,4 +142,22 @@ class Expert < ApplicationRecord
   def full_role
     "#{role} - #{antenne.name}"
   end
+
+  ##
+  #
+  def can_be_viewed_by?(role)
+    if role.is_a?(User) && role.is_admin
+      return true
+    end
+
+    if role.is_a?(Expert) && self == role
+      return true
+    end
+
+    false
+  end
+
+  def can_be_modified_by?(role)
+    can_be_viewed_by?(role)
+  end
 end
