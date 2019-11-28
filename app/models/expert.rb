@@ -71,8 +71,8 @@ class Expert < ApplicationRecord
   has_many :subjects, through: :experts_subjects, inverse_of: :experts
   ##
   #
-  accepts_nested_attributes_for :experts_skills, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
+  accepts_nested_attributes_for :experts_subjects, allow_destroy: true
 
   ## Scopes
   #

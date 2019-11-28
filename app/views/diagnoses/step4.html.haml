@@ -16,17 +16,17 @@
             %tr
               %th{ colspan: 3 }= need.subject
           %tbody
-            - experts_skills = ExpertSkill.relevant_for(need)
-            - support_skills = ExpertSkill.support_for(@diagnosis)
-            - if experts_skills.present?
-              = render partial: 'expert_skill_checkboxes', locals: { f: f, need: need, experts_skills: experts_skills }
-            - elsif support_skills.present?
+            - experts_subjects = ExpertSubject.relevant_for(need)
+            - support_subject = ExpertSubject.support_for(@diagnosis)
+            - if experts_subjects.present?
+              = render partial: 'expert_skill_checkboxes', locals: { f: f, need: need, experts_subjects: experts_subjects }
+            - elsif support_subject.present?
               %tr
               %td{ colspan: 3 }
                 .ui.warning.message
                   = t('.no_expert_skill')
                   = t('.you_can_contact_support')
-              = render partial: 'expert_skill_checkboxes', locals: { f: f, need: need, experts_skills: support_skills }
+              = render partial: 'expert_skill_checkboxes', locals: { f: f, need: need, experts_subjects: support_subject }
             - else
               %tr
                 %td= t('.no_expert_skill')

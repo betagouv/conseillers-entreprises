@@ -26,8 +26,10 @@ class Institution < ApplicationRecord
 
   ## Through Associations
   #
-  # :antennes
+  # :institutions_subjects
   has_many :subjects, through: :institutions_subjects, inverse_of: :institutions, dependent: :destroy
+
+  # :antennes
   has_many :experts, through: :antennes, inverse_of: :institution
   has_many :advisors, through: :antennes, inverse_of: :institution
   has_many :sent_diagnoses, through: :antennes, inverse_of: :advisor_institution
@@ -37,6 +39,8 @@ class Institution < ApplicationRecord
   has_many :received_matches, through: :antennes, inverse_of: :expert_institution
   has_many :received_needs, through: :antennes, inverse_of: :expert_institutions
   has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institutions
+
+  accepts_nested_attributes_for :institutions_subjects, :allow_destroy => true
 
   ##
   #

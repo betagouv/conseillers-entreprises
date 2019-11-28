@@ -111,10 +111,9 @@ class DiagnosesController < ApplicationController
 
   def params_for_matches
     matches = params.permit(matches: {}).require(:matches)
-    experts_skills_for_needs = matches.transform_values do |expert_skills_selection|
-      expert_skills_selection.select{ |_,v| v == '1' }.keys
+    matches.transform_values do |expert_subjects_selection|
+      expert_subjects_selection.select{ |_,v| v == '1' }.keys
     end
-    experts_skills_for_needs
   end
 
   def retrieve_diagnosis

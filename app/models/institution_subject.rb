@@ -29,4 +29,8 @@ class InstitutionSubject < ApplicationRecord
   # :experts_subjects
   #
   has_many :experts, through: :experts_subjects, inverse_of: :experts
+
+  scope :support_subjects, -> do
+    where(subject: Subject.support_subject)
+  end
 end
