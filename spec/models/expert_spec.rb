@@ -26,22 +26,6 @@ RSpec.describe Expert, type: :model do
     end
   end
 
-  describe 'associations dependencies' do
-    let(:expert) { create :expert }
-    let(:skill) { create :skill }
-
-    before do
-      create :match, expert: expert, skill: skill
-    end
-
-    context 'when removing an skill' do
-      it {
-        expect{ expert.skills = [] }.not_to raise_error
-        expect(expert.skills).to eq []
-      }
-    end
-  end
-
   describe 'scopes' do
     describe 'commune zone scopes' do
       let(:expert_with_custom_communes) { create :expert, antenne: antenne, communes: [commune1] }

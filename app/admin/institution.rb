@@ -13,6 +13,7 @@ ActiveAdmin.register Institution do
     column(:name) do |i|
       div admin_link_to(i)
       div admin_link_to(i, :antennes)
+      div admin_link_to(i, :subjects)
     end
     column(:community) do |i|
       div admin_link_to(i, :advisors)
@@ -54,12 +55,19 @@ ActiveAdmin.register Institution do
         div admin_link_to(i, :received_matches)
       end
       row :show_icon
+      row(:subjects) do |i|
+        safe_join(i.institutions_subjects.map do |is|
+          link_to "#{is.subject} (#{is.description})", admin_subject_path(is.subject)
+        end, '<br /> '.html_safe)
+      end
     end
   end
 
   ## Form
   #
-  permit_params :name, :show_icon, antenne_ids: []
+  permit_params :name, :show_icon,
+                antenne_ids: [],
+                institutions_subjects_attributes: %i[id description subject_id _create _update _destroy]
 
   form do |f|
     f.inputs do
@@ -74,6 +82,12 @@ ActiveAdmin.register Institution do
                 url: :admin_antennes_path,
                 search_fields: [:name]
               }
+    end
+    f.has_many :institutions_subjects, heading: t('activerecord.attributes.institution.subjects'), allow_destroy: true do |sub_f|
+      themes = Theme.all
+      collection = option_groups_from_collection_for_select(themes, :subjects, :label, :id, :label, sub_f.object&.subject&.id)
+      sub_f.input :subject, collection: collection
+      sub_f.input :description
     end
 
     f.actions

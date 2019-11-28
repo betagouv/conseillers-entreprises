@@ -201,8 +201,8 @@ class Need < ApplicationRecord
 
   ##
   #
-  def create_matches!(expert_skill_ids)
-    expert_skills = ExpertSkill.where(id: expert_skill_ids)
-    self.matches.create(expert_skills.map{ |es| es.slice(:expert, :skill) })
+  def create_matches!(experts_subjects_ids)
+    expert_skills = ExpertSubject.where(id: experts_subjects_ids)
+    self.matches.create(expert_skills.map{ |es| es.slice(:expert, :subject) })
   end
 end

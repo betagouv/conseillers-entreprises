@@ -39,7 +39,8 @@ class Expert < ApplicationRecord
   has_and_belongs_to_many :users, inverse_of: :experts
 
   has_many :experts_skills, dependent: :destroy, inverse_of: :expert
-  has_many :skills, through: :experts_skills, dependent: :destroy, inverse_of: :experts # TODO should be direct once we remove the ExpertSkill model and use a HABTM
+  has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
+  has_many :skills, through: :experts_skills, dependent: :destroy, inverse_of: :experts
   has_many :received_matches, class_name: 'Match', inverse_of: :expert
 
   has_many :feedbacks, dependent: :destroy, inverse_of: :expert
@@ -66,10 +67,12 @@ class Expert < ApplicationRecord
   has_many :received_needs, through: :received_matches, source: :need, inverse_of: :experts
   has_many :received_diagnoses, through: :received_matches, source: :diagnosis, inverse_of: :experts
 
+  # :subjects
+  has_many :subjects, through: :experts_subjects, inverse_of: :experts
   ##
   #
-  accepts_nested_attributes_for :experts_skills, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
+  accepts_nested_attributes_for :experts_subjects, allow_destroy: true
 
   ## Scopes
   #
@@ -138,5 +141,23 @@ class Expert < ApplicationRecord
 
   def full_role
     "#{role} - #{antenne.name}"
+  end
+
+  ##
+  #
+  def can_be_viewed_by?(role)
+    if role.is_a?(User) && role.is_admin
+      return true
+    end
+
+    if role.is_a?(Expert) && self == role
+      return true
+    end
+
+    false
+  end
+
+  def can_be_modified_by?(role)
+    can_be_viewed_by?(role)
   end
 end

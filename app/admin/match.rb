@@ -39,10 +39,9 @@ ActiveAdmin.register Match do
         status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
       end
     end
-    column(:skill) do |m|
+    column(:subject) do |m|
       div admin_link_to(m, :theme)
       div admin_link_to(m, :subject)
-      div admin_link_to(m, :skill)
     end
 
     actions dropdown: true
@@ -64,7 +63,6 @@ ActiveAdmin.register Match do
 
   filter :theme, collection: -> { Theme.ordered_for_interview }
   filter :subject, collection: -> { Subject.order(:interview_sort_order) }
-  filter :skill, as: :ajax_select, data: { url: :admin_skills_path, search_fields: [:title] }
 
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
 
@@ -83,7 +81,7 @@ ActiveAdmin.register Match do
     column :expert
     column :expert_antenne
     column :expert_institution
-    column :skill
+    column :subject
     column(:status) { |m| m.status_short_description }
     column(:status_description) { |m| m.need.status_short_description }
     column :taken_care_of_at
@@ -114,20 +112,20 @@ ActiveAdmin.register Match do
           status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
         end
       end
-      row :skill
+      row :subject
     end
   end
 
   ## Form
   #
-  permit_params :expert_id, :skill_id, :status
+  permit_params :expert_id, :subject_id, :status
   form do |f|
     f.inputs do
       f.input :status
       f.input :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
-      subjects = Subject.archived(false).includes(:skills)
-      collection = option_groups_from_collection_for_select(subjects, :skills, :label, :id, :title)
-      f.input :skill, input_html: { :size => 20 }, collection: collection
+      themes = Theme.all
+      collection = option_groups_from_collection_for_select(themes, :subjects, :label, :id, :label, resource.subject_id)
+      f.input :subject, input_html: { :size => 20 }, collection: collection
     end
 
     f.actions

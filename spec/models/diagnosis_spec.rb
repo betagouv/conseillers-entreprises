@@ -121,10 +121,10 @@ RSpec.describe Diagnosis, type: :model do
       context 'one diagnosis' do
         let(:diagnosis) { create :diagnosis }
         let(:need) { create :need, diagnosis: diagnosis }
-        let(:skill) { create :skill }
+        let(:expert) { create(:expert) }
 
         before do
-          create :match, need: need, expert: expert, skill: skill
+          create :match, need: need, expert: expert, subject: need.subject
         end
 
         it { is_expected.to eq [diagnosis] }
@@ -161,10 +161,11 @@ RSpec.describe Diagnosis, type: :model do
       it { is_expected.to eq true }
     end
 
-    context 'expert has a relevant support skill' do
-      let(:role) { create :expert, is_global_zone: true, skills: [skill] }
-      let(:skill) { create :skill, subject: help_subject }
+    context 'expert has a relevant support expert_subject' do
+      let(:role) { create :expert, is_global_zone: true, experts_subjects: [expert_subject] }
       let(:help_subject) { create :subject, is_support: true }
+      let(:institution_subject) { create :institution_subject, subject: help_subject }
+      let(:expert_subject) { create :expert_subject, institution_subject: institution_subject, expert: create(:expert) }
 
       it { is_expected.to eq true }
     end
@@ -181,14 +182,15 @@ RSpec.describe Diagnosis, type: :model do
 
     let(:diagnosis) { create :diagnosis, step: 4 }
     let(:need) { create :need, diagnosis: diagnosis }
-    let(:expert_skill) { create(:expert_skill, skill: create(:skill), expert: create(:expert)) }
-    let(:matches) { { need.id => [expert_skill.id] } }
+    let(:expert) { create :expert }
+    let(:experts_subjects) { create :expert_subject, expert: expert, subject: need.subject }
+    let(:matches) { { need.id => [experts_subjects.id] } }
 
     context 'selected skills for related needs' do
       it do
         expect{ match_and_notify }.to change(Match, :count).by(1)
-        expect(Match.last.expert).to eq expert_skill.expert
-        expect(Match.last.skill).to eq expert_skill.skill
+        expect(Match.last.expert).to eq expert
+        expect(Match.last.subject).to eq need.subject
         expect(diagnosis.step).to eq Diagnosis::LAST_STEP
       end
     end

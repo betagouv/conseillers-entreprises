@@ -82,4 +82,6 @@ Rails.application.routes.draw do
   get '/experts/diagnoses/:diagnosis', to: (redirect do |params, request|
     "/besoins/#{params[:diagnosis]}?#{request.params.slice(:access_token).to_query}"
   end)
+
+  resources :experts, only: %i[edit update]
 end

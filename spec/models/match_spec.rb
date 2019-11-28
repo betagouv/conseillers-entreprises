@@ -56,7 +56,6 @@ RSpec.describe Match, type: :model do
       it do
         expect(match.expert_full_name).not_to be_nil
         expect(match.expert_institution_name).not_to be_nil
-        expect(match.skill_title).not_to be_nil
       end
     end
 
