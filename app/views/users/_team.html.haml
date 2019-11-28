@@ -19,8 +19,15 @@
         - expert.users.map do |user|
           %li= user.full_name + ', ' + user.role
   .ui.segment
-    %strong #{t('activerecord.attributes.expert.skills.other')} :
-    = expert.skills.map(&:title).to_sentence
+    %strong #{t('activerecord.attributes.expert.skills.other')} : #{link_to t('.edit_subjects'), edit_expert_path(expert)}
+    %ul
+      - expert.experts_subjects.each do |expert_subject|
+        %li
+          %strong= expert_subject.institution_subject.subject.label
+          %br
+          = expert_subject.institution_subject.description
+          %br
+          = expert_subject.description
   .ui.segment
     %strong #{t('attributes.antenne')} :
     = expert.antenne.name

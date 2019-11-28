@@ -1,6 +1,8 @@
 ---
 fr:
   active_admin:
+    expert:
+      modify_subjects: Modifier les compétences
     matches:
       deleted: Supprimé
     move: Déplacer
