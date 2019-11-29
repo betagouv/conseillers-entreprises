@@ -373,6 +373,10 @@ fr:
       matches_html: <span class="count">%{count}</span> mises en relation
       needs_html: <span class="count">%{count}</span> demandes transmises
       solicitations_html: <span class="count">%{count}</span> sollicitations directes
+      source:
+        direct: Sollicitations d’entreprises
+        visits: Visites par un conseiller
+      source_html: <span class="count">%{count}</span> analyses d’entreprises
     show:
       title: Statistiques d’utilisation
     stats_table:
