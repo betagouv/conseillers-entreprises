@@ -25,15 +25,15 @@ module Stats
     end
 
     def category_group_attribute
-      Arel.sql('substr(companies.legal_form_code,1,1)')
+      :code_effectif
     end
 
     def category_name(category)
-      CategorieJuridique.description(category)
+      Effectif::effectif(category)
     end
 
     def category_order_attribute
-      'companies.legal_form_code'
+      :code_effectif
     end
   end
 end
