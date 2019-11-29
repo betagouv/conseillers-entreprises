@@ -173,7 +173,7 @@ fr:
       sign_out: Déconnexion
     solicitations:
       footer:
-        dinsic: DINSIC
+        dinum: DINUM
         startup_d_etat: Une startup d’État de beta.gouv
   mailers:
     admin_mailer:
