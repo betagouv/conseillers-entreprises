@@ -11,5 +11,6 @@
         %li.nav__item
           = active_link_to t('about.qui_sommes_nous.title'), qui_sommes_nous_path
         %li.nav__item
-          = active_link_to t('experts_login'), new_user_session_path
-
+          = active_link_to t('experts_login'),
+           user_signed_in? ? diagnoses_path : new_user_session_path,
+           id: 'experts_login'
