@@ -2,8 +2,6 @@
 = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: 'ui form' }) do |f|
   = render "devise/shared/error_messages", resource: resource
 
-
-
   .required.field
     = f.label :email
     %p= t('.description')
