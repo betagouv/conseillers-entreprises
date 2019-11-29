@@ -1,6 +1,6 @@
 .ui.fixed.menu
   .ui.container
-    = active_link_to root_path, class: 'item' do
+    = link_to root_path, class: 'item' do
       = image_tag 'place-des-entreprises-logo.png', style: 'width: 24px'
     - if user_signed_in?
       = active_link_to diagnoses_path, class: 'item' do
