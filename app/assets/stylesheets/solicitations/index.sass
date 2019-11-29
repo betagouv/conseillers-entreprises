@@ -14,7 +14,7 @@
 
 .hero
   background: linear-gradient(45deg, #0053b3, #006be6)
-  background: linear-gradient(45deg,var(--blue), var(--light-blue))
+  background: linear-gradient(45deg,var(--theme-primary), var(--theme-primary-light))
   .hero__container
     background: image-url('marianne-cover.svg') no-repeat
     background-size: auto 100%
@@ -29,7 +29,7 @@ span.navbar__domain
 
 section.section#featured-landings
   background: linear-gradient(45deg, #0053b3, #006be6)
-  background: linear-gradient(45deg,var(--blue), var(--light-blue))
+  background: linear-gradient(45deg,var(--theme-primary), var(--theme-primary-light))
   a:hover
     background: transparent
   .row + .row
@@ -57,10 +57,10 @@ section.section#featured-landings
             display: block
       text-decoration: none
       color: #0053b3
-      color: var(--blue)
+      color: var(--theme-primary)
       &:hover
         color: #00234d
-        color: var(--darker-blue)
+        color: var(--theme-primary-dark)
         .landing-description
           text-decoration: underline
 
