@@ -140,10 +140,10 @@ RSpec.describe User, type: :model do
       build :user,
             full_name: 'Ivan Collombet',
             role: 'Business Developer',
-            antenne: build(:antenne, name: 'DINSIC')
+            antenne: build(:antenne, name: 'DINUM')
     end
 
-    it { expect(user.full_name_with_role).to eq 'Ivan Collombet - Business Developer - DINSIC' }
+    it { expect(user.full_name_with_role).to eq 'Ivan Collombet - Business Developer - DINUM' }
   end
 
   describe '#corresponding_experts' do
