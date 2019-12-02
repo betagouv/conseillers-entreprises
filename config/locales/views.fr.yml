@@ -110,7 +110,7 @@ fr:
       expert_scope_of_work: 'Compétence du référent :'
       explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
       more_informations: Informations complémentaires
-      no_expert_skill: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
+      no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
       no_needs: Pas de besoins sélectionnés.
       notify_matches: Notifier les référents sélectionnés
       select_at_least_one_expert: Cochez au minimum un référent à contacter.

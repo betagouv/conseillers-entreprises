@@ -44,7 +44,6 @@ namespace :import_dump do
     Commune
     Landing
     Theme
-    Skill
     Subject
   ]
 

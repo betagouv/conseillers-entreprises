@@ -20,7 +20,6 @@ class Theme < ApplicationRecord
 
   ## Through Associations
   #
-  has_many :skills, through: :subjects, inverse_of: :theme
   has_many :needs, through: :subjects, inverse_of: :theme
   has_many :matches, through: :subjects, inverse_of: :theme
   has_many :institutions_subjects, through: :subjects, inverse_of: :theme

@@ -38,9 +38,7 @@ class Expert < ApplicationRecord
 
   has_and_belongs_to_many :users, inverse_of: :experts
 
-  has_many :experts_skills, dependent: :destroy, inverse_of: :expert
   has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
-  has_many :skills, through: :experts_skills, dependent: :destroy, inverse_of: :experts
   has_many :received_matches, class_name: 'Match', inverse_of: :expert
 
   has_many :feedbacks, dependent: :destroy, inverse_of: :expert
@@ -77,8 +75,8 @@ class Expert < ApplicationRecord
   ## Scopes
   #
   scope :support_experts, -> do
-    joins(:skills)
-      .merge(Skill.support_skills)
+    joins(:subjects)
+      .where({ subjects: { is_support: true } })
   end
 
   scope :with_active_matches, -> do
