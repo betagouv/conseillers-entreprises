@@ -21,4 +21,6 @@ module CategorieJuridique
 
     I18n.t("categories_juridiques.niveau#{niveau}.#{legal_form_code}", default: I18n.t('other'))
   end
+
+  ENTREPRENEUR_INDIVIDUEL = '1000'
 end
