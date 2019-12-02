@@ -29,5 +29,9 @@ module Stats
     def solicitations
       SolicitationsStats.new(@params)
     end
+
+    def source
+      SourceStats.new(@params)
+    end
   end
 end
