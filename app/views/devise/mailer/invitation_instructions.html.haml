@@ -1,15 +1,17 @@
 %p= t('devise.mailer.hello', user_full_name: @resource.full_name)
 
-
 %p= t('.description_html', link_to_root: link_to(t('app_name'), root_url))
 
 %h3= t('.details_title')
 %p= t('.details_html')
 
-- someone_invited_you_html_params = { inviter: @resource.inviter.full_name,
-  mail_to_inviter: mail_to(@resource.inviter.email),
-  antenne_name: @resource.antenne.name }
-%p= t(".someone_invited_you_html", someone_invited_you_html_params)
+- if @resource.inviter.present?
+  %p= t(".someone_invited_you_html",
+    inviter: @resource.inviter.full_name,
+    mail_to_inviter: mail_to(@resource.inviter.email),
+    antenne_name: @resource.antenne.name)
+- else
+  %p= t(".anonymous_invited_you_html", antenne_name: @resource.antenne.name)
 
 %p
   .button
