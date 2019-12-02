@@ -88,12 +88,12 @@ fr:
         role: Fonction de la personne rencontrée
       expert:
         access_token: Token d’accès
+        experts_subjects:
+          one: Compétence
+          other: Compétences
         is_global_zone: Global
         reminders_notes: Suivi des relances
         role: Fonction
-        skills:
-          one: Compétence
-          other: Compétences
         users:
           one: Membre
           other: Membres
@@ -138,6 +138,7 @@ fr:
         slug: Page thématique
         tracking: Suivi
       subject:
+        institutions_subjects: Compétences d'institutions
         is_support: Support
       territory:
         advisors: Conseillers
@@ -145,6 +146,8 @@ fr:
         bassin_emploi: Bassin d’emploi?
         experts: Experts
         insee_codes: Codes commune
+      theme:
+        institutions_subjects: Compétences d'institutions
       user:
         created_at: Création
         current_password: Mot de passe actuel
@@ -207,6 +210,9 @@ fr:
       expert:
         one: Référent
         other: Référents
+      expert_subject:
+        one: Compétence de référent
+        other: Compétences de référents
       facility:
         one: Établissement
         other: Établissements
@@ -216,6 +222,9 @@ fr:
       institution:
         one: Institution
         other: Institutions
+      institution_subject:
+        one: Compétence d'institution
+        other: Compétences d'institutions
       landing:
         one: Page thématique
         other: Pages thématiques

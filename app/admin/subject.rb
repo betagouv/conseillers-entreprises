@@ -10,7 +10,7 @@ ActiveAdmin.register Subject do
 
   ## Index
   #
-  includes :theme, :skills
+  includes :theme, :institutions_subjects
   config.sort_order = 'themes.interview_sort_order_asc'
 
   index do
@@ -25,9 +25,6 @@ ActiveAdmin.register Subject do
     end
     column :is_support do |d|
       status_tag t('activerecord.attributes.subject.is_support') if d.is_support
-    end
-    column(:skills) do |s|
-      div admin_link_to(s, :skills)
     end
     column(:needs) do |s|
       div admin_link_to(s, :needs)
@@ -49,7 +46,7 @@ ActiveAdmin.register Subject do
     column :label
     column :theme
     column :interview_sort_order
-    column_count :skills
+    column_count :institutions_subjects
     column :is_archived
     column :is_support
     column_count :assistances
@@ -64,7 +61,7 @@ ActiveAdmin.register Subject do
       row :interview_sort_order
       row :archived_at
       row :is_support
-      row(:skills) { |s| admin_link_to(s, :skills) }
+      row(:institutions_subjects) { |s| admin_link_to(s, :institutions_subjects) }
     end
     attributes_table do
       row(:needs) { |s| admin_link_to(s, :needs) }

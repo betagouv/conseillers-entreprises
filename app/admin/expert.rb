@@ -58,7 +58,7 @@ ActiveAdmin.register Expert do
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :antenne_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
-  filter :skills, as: :ajax_select, data: { url: :admin_skills_path, search_fields: [:title] }
+  filter :subjects, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
 
   ## CSV
   #
@@ -76,7 +76,7 @@ ActiveAdmin.register Expert do
     column_count :territories
     column_count :communes
     column_count :users
-    column_count :skills
+    column_count :subjects
     column_count :received_matches
   end
 
@@ -110,7 +110,7 @@ ActiveAdmin.register Expert do
       end
       row(:subjects) do |e|
         safe_join(e.experts_subjects.map do |es|
-          link_to "#{es.subject} (#{es.description}) (#{es.institution_subject.description})", admin_subject_path(es.subject)
+          link_to "#{es.subject} / #{es.institution_subject.description} / #{es.description}", admin_subject_path(es.subject)
         end, '<br /> '.html_safe)
       end
       row(:received_matches) do |e|
@@ -174,7 +174,7 @@ ActiveAdmin.register Expert do
     end
 
     if resource.institution.present?
-      f.inputs t('activerecord.attributes.expert.skills') do
+      f.inputs t('activerecord.attributes.expert.experts_subjects') do
         f.has_many :experts_subjects, allow_destroy: true do |sub_f|
           collection = resource.institution.institutions_subjects.map { |is| [is.subject.to_s, is.id] }
           sub_f.input :institution_subject, collection: collection

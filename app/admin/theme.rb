@@ -6,7 +6,7 @@ ActiveAdmin.register Theme do
   ## Index
   #
   config.sort_order = 'interview_sort_order_asc'
-  includes :subjects, :skills
+  includes :subjects, :institutions_subjects
 
   index do
     selectable_column
@@ -16,7 +16,7 @@ ActiveAdmin.register Theme do
     column :interview_sort_order
     column(:subjects) do |t|
       div admin_link_to(t, :subjects)
-      div admin_link_to(t, :skills)
+      div admin_link_to(t, :institutions_subjects)
     end
     column(:needs) do |t|
       div admin_link_to(t, :needs)
@@ -33,7 +33,7 @@ ActiveAdmin.register Theme do
     column :label
     column :interview_sort_order
     column_count :subjects
-    column_count :skills
+    column_count :institutions_subjects
   end
 
   ## Show
@@ -43,7 +43,7 @@ ActiveAdmin.register Theme do
       row :label
       row :interview_sort_order
       row(:subjects) { |t| admin_link_to(t, :subjects) }
-      row(:skills) { |t| admin_link_to(t, :skills) }
+      row(:institutions_subjects) { |t| admin_link_to(t, :institutions_subjects) }
     end
     attributes_table do
       row(:needs) { |t| admin_link_to(t, :needs) }
