@@ -2,7 +2,7 @@ desc 'Fetch missing code_effectif for Companies and Facilities'
 task fetch_companies_effectifs: :environment do
   Company.where(code_effectif: nil)
     .where.not(legal_form_code: CategorieJuridique::ENTREPRENEUR_INDIVIDUEL)
-    .limit(100)
+    .limit(400)
     .find_each do |company|
     puts "Fetching #{company.siren}"
 
