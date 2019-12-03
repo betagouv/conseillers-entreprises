@@ -50,14 +50,11 @@ fr:
     user:
       admin: Admin
       antenne_linked: Antenne associée
-      autolink_to: Associer à %{what}
-      autolink_to_experts: Associer automatiquement aux experts
       connection: Connexion
       deactivate_user: Désactiver cet utilisateur
       deactivate_user_done: Utilisateur désactivé
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
-      experts_linked: Référents associés
       impersonate: Voir le site comme %{name}
       import:
         button: Importer
