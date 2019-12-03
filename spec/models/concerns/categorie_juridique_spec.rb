@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-describe CategorieJuridique do
+RSpec.describe CategorieJuridique, type: :model do
   describe 'description' do
-    subject { described_class.description(legal_form_code, niveau) }
+    subject { described_class::description(legal_form_code, niveau) }
 
     let(:niveau) { 1 }
     let(:legal_form_code) { '6316' }

@@ -6,8 +6,7 @@ RSpec.describe Expert, type: :model do
   describe 'associations' do
     it do
       is_expected.to belong_to :antenne
-      is_expected.to have_many(:experts_skills).dependent(:destroy)
-      is_expected.to have_many :skills
+      is_expected.to have_many(:experts_subjects)
       is_expected.to have_many :received_matches
       is_expected.to have_and_belong_to_many :users
       is_expected.to have_and_belong_to_many :communes

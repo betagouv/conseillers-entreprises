@@ -28,6 +28,7 @@ fr:
       hello: Bonjour %{user_full_name},
       invitation_instructions:
         accept: Accepter l’invitation
+        anonymous_invited_you_html: Vous êtes invité à rejoindre l’équipe de <b>%{antenne_name}</b>.
         description_html: Vous êtes invité·e à rejoindre le nouveau service public %{link_to_root}, dédié à l’accompagnement des TPE et PME.
         details_html: Place des Entreprises permet de mettre en relation un nombre inédit d’administrations et d’organismes publics. Les besoins d’entreprises, déposés en ligne ou détectés par un conseiller, vous sont automatiquement adressés selon votre champ d’intervention. Vous pouvez aussi adresser facilement des besoin d’entreprises à l’ensemble des partenaires de Place des Entreprises.
         details_title: Qu’est-ce que c’est ?

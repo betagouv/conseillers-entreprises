@@ -47,7 +47,6 @@ class Match < ApplicationRecord
   belongs_to :need, counter_cache: true, inverse_of: :matches
   belongs_to :expert, inverse_of: :received_matches, optional: true
   belongs_to :subject, inverse_of: :matches, optional: true
-  belongs_to :skill, inverse_of: :matches, optional: true
 
   ## Validations and Callbacks
   #

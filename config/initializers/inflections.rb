@@ -8,8 +8,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   # inflect.singular /^(ox)en/i, '\1'
   # inflect.irregular 'person', 'people'
   # inflect.uncountable %w( fish sheep )
-  inflect.irregular 'expert_skill', 'experts_skills'
-  inflect.irregular 'ExpertSkill', 'ExpertsSkills'
   inflect.irregular 'InstitutionSubject', 'InstitutionsSubjects'
   inflect.irregular 'institution_subject', 'institutions_subjects'
   inflect.irregular 'ExpertSubject', 'ExpertsSubjects'

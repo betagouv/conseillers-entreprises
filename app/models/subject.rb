@@ -30,7 +30,6 @@ class Subject < ApplicationRecord
   #
   belongs_to :theme, inverse_of: :subjects
 
-  has_many :skills, inverse_of: :subject
   has_many :needs, inverse_of: :subject
   has_many :institutions_subjects, inverse_of: :subject
 

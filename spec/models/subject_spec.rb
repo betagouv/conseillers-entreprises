@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Subject, type: :model do
   describe 'validations' do
     it do
-      is_expected.to have_many(:skills)
+      is_expected.to have_many(:institutions_subjects)
       is_expected.to have_many(:needs)
       is_expected.to belong_to :theme
       is_expected.to validate_presence_of :theme
