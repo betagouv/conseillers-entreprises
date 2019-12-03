@@ -1,4 +1,6 @@
 module Effectif
+  # https://www.sirene.fr/sirene/public/variable/tefen
+  #
   extend ActiveSupport::Concern
 
   def effectif

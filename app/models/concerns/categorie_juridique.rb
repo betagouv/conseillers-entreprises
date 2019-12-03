@@ -1,6 +1,12 @@
-class CategorieJuridique
+module CategorieJuridique
   # https://www.insee.fr/fr/information/2028129
   #
+  extend ActiveSupport::Concern
+
+  def categorie_juridique
+    CategorieJuridique::description(self.legal_form_code)
+  end
+
   def self.description(legal_form_code, niveau = 1)
     return I18n.t('other') if legal_form_code.blank?
 
@@ -15,4 +21,6 @@ class CategorieJuridique
 
     I18n.t("categories_juridiques.niveau#{niveau}.#{legal_form_code}", default: I18n.t('other'))
   end
+
+  ENTREPRENEUR_INDIVIDUEL = '1000'
 end
