@@ -5,6 +5,11 @@ class DeviseMailerPreview < ActionMailer::Preview
     Devise::Mailer::invitation_instructions(user, 'faketoken')
   end
 
+  def invitation_instructions_anonymous
+    user = User.all.sample
+    Devise::Mailer::invitation_instructions(user, 'faketoken')
+  end
+
   def reset_password_instructions
     user = User.all.sample
     user.reset_password_sent_at = Time.now.utc
