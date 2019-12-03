@@ -51,39 +51,6 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 
-  describe 'callbacks' do
-    describe 'last_step_notify' do
-      let(:diagnosis) { create :diagnosis, step: old_step, needs: [build(:need, matches: [build(:match)])] }
-
-      before do
-        allow(diagnosis).to receive(:notify_experts!)
-        diagnosis.step = new_step
-        diagnosis.save!
-      end
-
-      context 'previous step' do
-        let(:old_step) { Diagnosis::LAST_STEP - 2 }
-        let(:new_step) { Diagnosis::LAST_STEP - 1 }
-
-        it { expect(diagnosis).not_to have_received(:notify_experts!) }
-      end
-
-      context 'set last step' do
-        let(:old_step) { Diagnosis::LAST_STEP - 1 }
-        let(:new_step) { Diagnosis::LAST_STEP }
-
-        it { expect(diagnosis).to have_received(:notify_experts!) }
-      end
-
-      context 'set last step again' do
-        let(:old_step) { Diagnosis::LAST_STEP }
-        let(:new_step) { Diagnosis::LAST_STEP }
-
-        it { expect(diagnosis).not_to have_received(:notify_experts!) }
-      end
-    end
-  end
-
   describe 'scopes' do
     describe 'in progress' do
       subject { described_class.in_progress.count }

@@ -51,7 +51,6 @@ class Diagnosis < ApplicationRecord
   validates :step, inclusion: { in: AUTHORIZED_STEPS }
   validate :step_4_has_visit_attributes
   validate :last_step_has_matches
-  after_update :last_step_notify, if: :saved_change_to_step?
 
   accepts_nested_attributes_for :needs, allow_destroy: true
   accepts_nested_attributes_for :visitee
@@ -89,16 +88,6 @@ class Diagnosis < ApplicationRecord
 
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
-  def match_and_notify!(experts_and_subjects_for_needs)
-    self.transaction do
-      experts_and_subjects_for_needs.each do |need_id, experts_and_subjects_ids|
-        need = self.needs.find(need_id)
-        need.create_matches!(experts_and_subjects_ids)
-      end
-      self.update!(step: Diagnosis::LAST_STEP)
-    end
-  end
-
   ##
   #
   def to_s
@@ -124,6 +113,26 @@ class Diagnosis < ApplicationRecord
     # We could also add a diagnoses.completed_at column;
     # if we ever want to use completed_at for queries, that’ll be necessary.
     matches&.first&.created_at
+  end
+
+  ## Matching
+  #
+  def match_and_notify!(experts_and_subjects_for_needs)
+    update_result = self.transaction do
+      experts_and_subjects_for_needs.each do |need_id, experts_and_subjects_ids|
+        need = self.needs.find(need_id)
+        need.create_matches!(experts_and_subjects_ids)
+      end
+      self.update!(step: Diagnosis::LAST_STEP)
+    end
+    notify_experts!
+    update_result
+  end
+
+  def notify_experts!
+    experts.each do |expert|
+      ExpertMailer.delay.notify_company_needs(expert, self)
+    end
   end
 
   ##
@@ -173,18 +182,6 @@ class Diagnosis < ApplicationRecord
   def last_step_has_matches
     if step == LAST_STEP && needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
       errors.add(:step, 'can’t be step 5 with no matches')
-    end
-  end
-
-  def last_step_notify
-    if step == LAST_STEP
-      notify_experts!
-    end
-  end
-
-  def notify_experts!
-    experts.each do |expert|
-      ExpertMailer.delay.notify_company_needs(expert, self)
     end
   end
 end
