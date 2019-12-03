@@ -1,9 +1,12 @@
 function stats_charts(container, months, max_value, series) {
   Highcharts.chart(container, {
-    colors: ['#0053b3', '#006be6', '#003b80', '#b4e1fa',
-      '#ff9947', '#cc5c00', '#d63626', '#ab2b1e',
-      '#ebeff3', '#c9d3df', '#adb9c9', '#8393a7',
-      '#53657d', '#26353f', '#03bd5b', '#daf5e7',
+    colors: [
+      '#60bbff',
+      '#208bff', '#006be6', '#0033e4', '#0500e2',
+      '#3b00e0', '#7000dd', '#a400db', '#d700d9',
+      '#d700a4', '#d5006f', '#d3003b', '#d00007',
+      '#ce2b00', '#cc5c00', '#ab2b1e',
+      '#56656f'
     ],
     chart: {
       type: 'column'
