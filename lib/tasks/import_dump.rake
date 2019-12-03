@@ -64,7 +64,6 @@ namespace :import_dump do
     'last_sign_in_ip' => -> { Faker::Internet.ip_v4_address },
     'email' => -> { Faker::Internet.email },
     'unconfirmed_email' => -> { Faker::Internet.email },
-    'legal_form_code' => -> { rand(1_000..9_999).to_s },
     'query' => -> { Faker::Lorem.word },
     'readable_locality' => -> { Faker::Address.city },
     'siren' => -> { Faker::Company.french_siren_number },
