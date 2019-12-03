@@ -5,19 +5,18 @@
 
 = render 'mailers/expert_mailer/remind_received_needs',
   received_needs: @needs_quo,
-  access_token: @access_token,
   title: t('.needs_quo'),
   subtitle: t('.needs_quo_details')
 
 = render 'mailers/expert_mailer/remind_received_needs',
   received_needs: @needs_taking_care,
-  access_token: @access_token,
   title: t('.needs_taking_care'),
   subtitle: t('.needs_taking_care_details')
 
 = render 'mailers/expert_mailer/remind_received_needs',
   received_needs: @needs_others_taking_care,
-  access_token: @access_token,
   title: t('.needs_others_taking_care')
+
+= render 'mailers/expert_mailer/never_used_solo_account_warning'
 
 %p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to_root)
