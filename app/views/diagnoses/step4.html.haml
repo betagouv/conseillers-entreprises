@@ -19,17 +19,17 @@
             - experts_subjects = ExpertSubject.relevant_for(need)
             - support_subject = ExpertSubject.support_for(@diagnosis)
             - if experts_subjects.present?
-              = render partial: 'expert_skill_checkboxes', locals: { f: f, need: need, experts_subjects: experts_subjects }
+              = render partial: 'expert_subject_checkboxes', locals: { f: f, need: need, experts_subjects: experts_subjects }
             - elsif support_subject.present?
               %tr
               %td{ colspan: 3 }
                 .ui.warning.message
-                  = t('.no_expert_skill')
+                  = t('.no_expert_subject')
                   = t('.you_can_contact_support')
-              = render partial: 'expert_skill_checkboxes', locals: { f: f, need: need, experts_subjects: support_subject }
+              = render partial: 'expert_subject_checkboxes', locals: { f: f, need: need, experts_subjects: support_subject }
             - else
               %tr
-                %td= t('.no_expert_skill')
+                %td= t('.no_expert_subject')
 
       .ui.info.message
         = t('.before_sending_emails_text_html')

@@ -5,6 +5,5 @@ FactoryBot.define do
     association :need
     association :expert
     association :subject
-    association :skill
   end
 end

@@ -34,14 +34,6 @@ RSpec.describe Match, type: :model do
       it { expect { match.update status: :done }.to change(Audited::Audit, :count).by 1 }
     end
 
-    context 'update attribute other than status' do
-      let!(:match) { create :match }
-
-      it do
-        expect { match.update skill_title: 'UPDATE !!' }.not_to change Audited::Audit, :count
-      end
-    end
-
     context 'destroy' do
       let!(:match) { create :match }
 

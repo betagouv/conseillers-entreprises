@@ -26,6 +26,10 @@ class InstitutionSubject < ApplicationRecord
 
   has_many :experts_subjects, dependent: :destroy
 
+  # :theme
+  #
+  has_one :theme, through: :subject, inverse_of: :institution_subject
+
   # :experts_subjects
   #
   has_many :experts, through: :experts_subjects, inverse_of: :experts

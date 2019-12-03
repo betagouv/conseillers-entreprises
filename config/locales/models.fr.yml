@@ -88,12 +88,12 @@ fr:
         role: Fonction de la personne rencontrée
       expert:
         access_token: Token d’accès
+        experts_subjects:
+          one: Compétence
+          other: Compétences
         is_global_zone: Global
         reminders_notes: Suivi des relances
         role: Fonction
-        skills:
-          one: Compétence
-          other: Compétences
         users:
           one: Membre
           other: Membres
@@ -119,7 +119,6 @@ fr:
         expert_institution_name: Institution du référent
         expert_viewed_page_at: Date de consultation par le référent
         need: Besoin identifié
-        skill_title: Compétence
         taken_care_of_at: Date de prise en charge
       need:
         archived_at: Mis en échec
@@ -129,8 +128,6 @@ fr:
         label: Entreprise
         query: Requête
         user: Utilisateur
-      skill:
-        subject: Sujet
       solicitation:
         needs: Besoins sélectionnés
         pk_campaign: Campagne
@@ -138,6 +135,7 @@ fr:
         slug: Page thématique
         tracking: Suivi
       subject:
+        institutions_subjects: Compétences d'institutions
         is_support: Support
       territory:
         advisors: Conseillers
@@ -145,6 +143,8 @@ fr:
         bassin_emploi: Bassin d’emploi?
         experts: Experts
         insee_codes: Codes commune
+      theme:
+        institutions_subjects: Compétences d'institutions
       user:
         created_at: Création
         current_password: Mot de passe actuel
@@ -207,6 +207,9 @@ fr:
       expert:
         one: Référent
         other: Référents
+      expert_subject:
+        one: Compétence de référent
+        other: Compétences de référents
       facility:
         one: Établissement
         other: Établissements
@@ -216,6 +219,9 @@ fr:
       institution:
         one: Institution
         other: Institutions
+      institution_subject:
+        one: Compétence d'institution
+        other: Compétences d'institutions
       landing:
         one: Page thématique
         other: Pages thématiques
@@ -231,9 +237,6 @@ fr:
       search:
         one: Recherche
         other: Recherches
-      skill:
-        one: Compétence
-        other: Compétences
       solicitation:
         one: Sollicitation
         other: Sollicitations
@@ -342,10 +345,6 @@ fr:
     show_icon: Logo sur la page d’accueil
     siren: SIREN
     siret: SIRET
-    skill: Compétence
-    skills:
-      one: Compétence
-      other: Compétences
     status: Statut
     status_description: Résumé
     statuses:

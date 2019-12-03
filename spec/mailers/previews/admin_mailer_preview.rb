@@ -55,10 +55,4 @@ class AdminMailerPreview < ActionMailer::Preview
     solicitation.assign_attributes(params)
     AdminMailer.solicitation(solicitation)
   end
-
-  private
-
-  def match_with_person
-    Match.where.not(expert_skill: nil).sample
-  end
 end

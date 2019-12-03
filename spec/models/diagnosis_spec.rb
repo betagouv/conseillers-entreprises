@@ -186,7 +186,7 @@ RSpec.describe Diagnosis, type: :model do
     let(:experts_subjects) { create :expert_subject, expert: expert, subject: need.subject }
     let(:matches) { { need.id => [experts_subjects.id] } }
 
-    context 'selected skills for related needs' do
+    context 'selected experts_subjects for related needs' do
       it do
         expect{ match_and_notify }.to change(Match, :count).by(1)
         expect(Match.last.expert).to eq expert
@@ -195,7 +195,7 @@ RSpec.describe Diagnosis, type: :model do
       end
     end
 
-    context 'no selected skills' do
+    context 'no selected expert_subjects' do
       let(:matches) { { need.id => [] } }
 
       it { expect{ match_and_notify }.to raise_error ActiveRecord::RecordInvalid }

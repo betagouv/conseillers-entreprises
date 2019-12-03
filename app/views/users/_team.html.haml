@@ -19,7 +19,7 @@
         - expert.users.map do |user|
           %li= user.full_name + ', ' + user.role
   .ui.segment
-    %strong #{t('activerecord.attributes.expert.skills.other')} : #{link_to t('.edit_subjects'), edit_expert_path(expert)}
+    %strong #{t('activerecord.attributes.expert.experts_subjects.other')} : #{link_to t('.edit_subjects'), edit_expert_path(expert)}
     %ul
       - expert.experts_subjects.each do |expert_subject|
         %li
