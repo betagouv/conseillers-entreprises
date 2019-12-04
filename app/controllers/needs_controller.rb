@@ -13,10 +13,22 @@ class NeedsController < ApplicationController
     @needs_others_taking_care = current_involved.needs_others_taking_care
   end
 
+  def index_antenne
+    @needs_quo = current_user.antenne.needs_quo
+    @needs_taking_care = current_user.antenne.needs_taking_care
+    @needs_others_taking_care = current_user.antenne.needs_others_taking_care
+  end
+
   def archives
     @needs_rejected = current_involved.needs_rejected
     @needs_done = current_involved.needs_done
     @needs_archived = current_involved.needs_archived
+  end
+
+  def archives_antenne
+    @needs_rejected = current_user.antenne.needs_rejected
+    @needs_done = current_user.antenne.needs_done
+    @needs_archived = current_user.antenne.needs_archived
   end
 
   def show

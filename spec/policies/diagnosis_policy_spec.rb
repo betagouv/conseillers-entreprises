@@ -4,7 +4,8 @@ RSpec.describe DiagnosisPolicy, type: :policy do
   let(:user) { create :user }
   let(:diagnosis) { create :diagnosis, advisor: user }
   let(:admin) { create :user, is_admin: true }
-  let(:another_user) { create :user }
+  let(:another_user) { create :user, antenne: create(:antenne) }
+  let(:user_same_antenne) { create :user, antenne: user.antenne }
 
   let(:support_subject) { create :subject, is_support: true }
   let(:institution_subject) { create :institution_subject, subject: support_subject }
@@ -13,7 +14,7 @@ RSpec.describe DiagnosisPolicy, type: :policy do
   let!(:expert_subject) { create :expert_subject, expert: expert, institution_subject: institution_subject }
   let(:diagnosis2) { create :diagnosis }
 
-  let(:another_support_user) { create :user }
+  let(:another_support_user) { create :user, antenne: create(:antenne) }
   let(:another_expert) { create :expert, users: [another_support_user] }
   let!(:expert_subject2) { create :expert_subject, expert: another_expert, institution_subject: institution_subject }
 
@@ -22,6 +23,9 @@ RSpec.describe DiagnosisPolicy, type: :policy do
   permissions :show? do
     it "grants access if user is diagnosis advisor" do
       expect(subject).to permit(user, diagnosis)
+    end
+    it "grants access if user in the same antenne" do
+      expect(subject).to permit(user_same_antenne, diagnosis)
     end
     it "grants access if user is admin" do
       expect(subject).to permit(admin, diagnosis)
