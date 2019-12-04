@@ -16,6 +16,7 @@ class FeedbacksController < ApplicationController
 
   def destroy
     feedback = retrieve_feedback
+    authorize feedback
     @feedback_id = feedback.id
     feedback.destroy!
   end
@@ -28,8 +29,6 @@ class FeedbacksController < ApplicationController
 
   def retrieve_feedback
     safe_params = params.permit(:id)
-    feedback = Feedback.find(safe_params[:id])
-    check_current_user_access_to(feedback)
-    feedback
+    Feedback.find(safe_params[:id])
   end
 end

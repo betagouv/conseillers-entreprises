@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class DiagnosesController < ApplicationController
+  before_action :retrieve_diagnosis, only: %i[show archive unarchive step2 besoins step3 visite step4 selection]
+
   def index
     @diagnoses = sent_diagnoses(archived: false)
   end
@@ -10,36 +12,33 @@ class DiagnosesController < ApplicationController
   end
 
   def show
-    diagnosis = retrieve_diagnosis
-    if diagnosis.completed?
-      redirect_to need_path(diagnosis)
+    authorize @diagnosis
+    if @diagnosis.completed?
+      redirect_to need_path(@diagnosis)
     else
-      redirect_to action: "step#{diagnosis.step}", id: diagnosis
+      redirect_to action: "step#{@diagnosis.step}", id: @diagnosis
     end
   end
 
   def archive
-    diagnosis = retrieve_diagnosis
-    diagnosis.archive!
+    @diagnosis.archive!
     redirect_to diagnoses_path
   end
 
   def unarchive
-    diagnosis = retrieve_diagnosis
-    diagnosis.unarchive!
+    @diagnosis.unarchive!
     redirect_to diagnoses_path
   end
 
   def step2
-    @diagnosis = retrieve_diagnosis
     @themes = Theme.ordered_for_interview
   end
 
   def besoins
-    @diagnosis = retrieve_diagnosis
     diagnosis_params = params.require(:diagnosis).permit(:content,
                                                          needs_attributes: [:_destroy, :content, :subject_id, :id])
     diagnosis_params[:step] = 3
+    authorize @diagnosis, :update?
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :step3, id: @diagnosis
     else
@@ -54,15 +53,13 @@ class DiagnosesController < ApplicationController
     end
   end
 
-  def step3
-    @diagnosis = retrieve_diagnosis
-  end
+  def step3; end
 
   def visite
-    @diagnosis = retrieve_diagnosis
     diagnosis_params = params_for_visite
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = 4
+    authorize @diagnosis, :update?
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :step4, id: @diagnosis
     else
@@ -74,12 +71,9 @@ class DiagnosesController < ApplicationController
     end
   end
 
-  def step4
-    @diagnosis = retrieve_diagnosis
-  end
+  def step4; end
 
   def selection
-    @diagnosis = retrieve_diagnosis
     if @diagnosis.match_and_notify!(params_for_matches)
       flash.notice = I18n.t('diagnoses.step5.notifications_sent')
       redirect_to need_path(@diagnosis)
@@ -118,8 +112,6 @@ class DiagnosesController < ApplicationController
 
   def retrieve_diagnosis
     safe_params = params.permit(:id)
-    diagnosis = Diagnosis.find(safe_params[:id])
-    check_current_user_access_to(diagnosis)
-    diagnosis
+    @diagnosis = Diagnosis.find(safe_params[:id])
   end
 end

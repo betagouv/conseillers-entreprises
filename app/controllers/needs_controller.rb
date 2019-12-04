@@ -21,6 +21,7 @@ class NeedsController < ApplicationController
 
   def show
     @diagnosis = retrieve_diagnosis
+    authorize @diagnosis
     @current_roles = current_roles
     @highlighted_experts = highlighted_experts
   end
@@ -70,9 +71,7 @@ class NeedsController < ApplicationController
   end
 
   def retrieve_diagnosis
-    diagnosis = Diagnosis.find(params.require(:id))
-    check_current_user_access_to(diagnosis)
-    diagnosis
+    Diagnosis.find(params.require(:id))
   end
 
   def mark_expert_viewed
