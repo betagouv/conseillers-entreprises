@@ -4,11 +4,19 @@ class DiagnosesController < ApplicationController
   before_action :retrieve_diagnosis, only: %i[show archive unarchive step2 besoins step3 visite step4 selection]
 
   def index
-    @diagnoses = sent_diagnoses(archived: false)
+    @diagnoses = sent_diagnoses(current_user, archived: false)
+  end
+
+  def index_antenne
+    @diagnoses = sent_diagnoses(current_user.antenne, archived: false)
   end
 
   def archives
-    @diagnoses = sent_diagnoses(archived: true)
+    @diagnoses = sent_diagnoses(current_user, archived: true)
+  end
+
+  def archives_antenne
+    @diagnoses = sent_diagnoses(current_user.antenne, archived: true)
   end
 
   def show
@@ -88,8 +96,8 @@ class DiagnosesController < ApplicationController
 
   private
 
-  def sent_diagnoses(archived:)
-    current_user.sent_diagnoses.archived(archived).order(created_at: :desc)
+  def sent_diagnoses(model, archived:)
+    model.sent_diagnoses.archived(archived).order(created_at: :desc)
       .distinct
       .left_outer_joins(:matches,
                         needs: :matches)

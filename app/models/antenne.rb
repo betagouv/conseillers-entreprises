@@ -26,6 +26,7 @@ class Antenne < ApplicationRecord
   #
   has_and_belongs_to_many :communes, inverse_of: :antennes
   include ManyCommunes
+  include InvolvementConcern
 
   belongs_to :institution, counter_cache: true, inverse_of: :antennes
 
@@ -49,7 +50,7 @@ class Antenne < ApplicationRecord
 
   # :experts
   has_many :received_matches, through: :experts, inverse_of: :expert_antenne
-  has_many :received_needs, through: :experts, inverse_of: :experts_antennes
+  has_many :received_needs, through: :experts, inverse_of: :expert_antennes
   has_many :received_diagnoses, through: :experts, inverse_of: :expert_antennes
 
   ##
