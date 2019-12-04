@@ -50,12 +50,6 @@ RSpec.describe DiagnosesController, type: :controller do
     context 'diagnosis' do
       it('returns http success') { expect(response).to be_successful }
     end
-
-    context 'current user should not access the diagnosis' do
-      let(:advisor) { create :user }
-
-      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
-    end
   end
 
   describe 'GET #step3' do
@@ -64,12 +58,6 @@ RSpec.describe DiagnosesController, type: :controller do
     context 'diagnosis step < last' do
       it('returns http success') { expect(response).to be_successful }
     end
-
-    context 'current user should not access the diagnosis' do
-      let(:advisor) { create :user }
-
-      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
-    end
   end
 
   describe 'GET #step4' do
@@ -77,12 +65,6 @@ RSpec.describe DiagnosesController, type: :controller do
 
     context 'diagnosis' do
       it('returns http success') { expect(response).to be_successful }
-    end
-
-    context 'current user should not access the diagnosis' do
-      let(:advisor) { create :user }
-
-      it('returns not found') { expect { request }.to raise_error ActionController::RoutingError }
     end
   end
 

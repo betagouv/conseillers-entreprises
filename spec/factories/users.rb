@@ -8,6 +8,7 @@ FactoryBot.define do
     role { Faker::Job.title }
     password { 'password' }
     password_confirmation { 'password' }
+    association :antenne
 
     trait :invitation_accepted do
       invitation_accepted_at { Time.zone.now }

@@ -41,14 +41,6 @@ class Feedback < ApplicationRecord
     expert || user
   end
 
-  def can_be_viewed_by?(role)
-    need.can_be_viewed_by?(role)
-  end
-
-  def can_be_modified_by?(role)
-    role == author
-  end
-
   private
 
   def expert_or_user_author
