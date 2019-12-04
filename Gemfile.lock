@@ -330,6 +330,8 @@ GEM
     public_suffix (4.0.1)
     puma (4.3.0)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -553,6 +555,7 @@ DEPENDENCIES
   pg
   premailer-rails
   puma
+  pundit
   rails
   rails-controller-testing
   rails-i18n
