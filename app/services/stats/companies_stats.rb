@@ -33,7 +33,8 @@ module Stats
     end
 
     def category_order_attribute
-      :code_effectif
+      # Tweak SQL ordering: display 'NN' in the first position, before '00'
+      "REPLACE(companies.code_effectif, '#{Effectif::UNITE_NON_EMPLOYEUSE}', '  ')"
     end
   end
 end
