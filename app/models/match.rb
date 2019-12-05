@@ -7,7 +7,6 @@
 #  expert_full_name        :string
 #  expert_institution_name :string
 #  expert_viewed_page_at   :datetime
-#  skill_title             :string
 #  status                  :integer          default("quo"), not null
 #  taken_care_of_at        :datetime
 #  created_at              :datetime         not null
