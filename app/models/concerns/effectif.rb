@@ -14,4 +14,6 @@ module Effectif
 
     I18n.t("codes_effectif.#{code}", default: I18n.t('other'))
   end
+
+  UNITE_NON_EMPLOYEUSE = 'NN'
 end
