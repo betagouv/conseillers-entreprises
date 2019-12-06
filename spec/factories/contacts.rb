@@ -2,12 +2,12 @@
 
 FactoryBot.define do
   factory :contact do
-    full_name { Faker::Name.name }
+    full_name { Faker::Name.unique.name }
     role { Faker::Job.title }
     association :company
 
     trait :with_email do
-      email { Faker::Internet.email }
+      email { Faker::Internet.unique.email }
     end
 
     trait :with_phone_number do
