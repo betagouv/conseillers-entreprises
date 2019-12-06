@@ -21,14 +21,15 @@
 #
 
 class InstitutionSubject < ApplicationRecord
+  ## Associations
+  #
   belongs_to :institution, inverse_of: :institutions_subjects
   belongs_to :subject, inverse_of: :institutions_subjects
-
   has_many :experts_subjects, dependent: :destroy
 
-  # :theme
+  # :subject
   #
-  has_one :theme, through: :subject, inverse_of: :institution_subject
+  has_one :theme, through: :subject, inverse_of: :institutions_subjects
 
   # :experts_subjects
   #

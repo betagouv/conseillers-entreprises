@@ -28,6 +28,7 @@ class Institution < ApplicationRecord
   #
   # :institutions_subjects
   has_many :subjects, through: :institutions_subjects, inverse_of: :institutions, dependent: :destroy
+  has_many :themes, through: :institutions_subjects, inverse_of: :institutions
 
   # :antennes
   has_many :experts, through: :antennes, inverse_of: :institution
