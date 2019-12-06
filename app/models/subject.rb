@@ -33,6 +33,9 @@ class Subject < ApplicationRecord
   has_many :needs, inverse_of: :subject
   has_many :institutions_subjects, inverse_of: :subject
 
+  # :institutions_subjects
+  has_many :institutions, through: :institutions_subjects, inverse_of: :subjects
+
   ## Validations
   #
   validates :theme, presence: true
