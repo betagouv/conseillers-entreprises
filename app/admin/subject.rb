@@ -61,7 +61,6 @@ ActiveAdmin.register Subject do
       row :interview_sort_order
       row :archived_at
       row :is_support
-      row(:institutions_subjects) { |s| admin_link_to(s, :institutions_subjects) }
     end
     attributes_table do
       row(:needs) { |s| admin_link_to(s, :needs) }
