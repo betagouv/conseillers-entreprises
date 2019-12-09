@@ -17,13 +17,13 @@ ActiveAdmin.register Match do
     selectable_column
     column :match, sortable: :status do |m|
       div admin_link_to(m)
-      status_tag(*status_tag_status_params(m.status))
+      status_status_tag(m.status)
     end
     column :updated_at
     column :need, sortable: :created_at do |m|
       div admin_link_to(m, :need)
       div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
-      status_tag(*status_tag_status_params(m.need.status))
+      status_status_tag(m.need.status)
     end
     column :advisor do |m|
       div admin_link_to(m, :advisor)
@@ -93,13 +93,13 @@ ActiveAdmin.register Match do
   #
   show do
     attributes_table do
-      row(:status) { |m| status_tag(*status_tag_status_params(m.status)) }
+      row(:status) { |m| status_status_tag(m.status) }
       row :need
       row :created_at
       row :updated_at
       row :taken_care_of_at
       row :closed_at
-      row(:need) { |m| status_tag(*status_tag_status_params(m.need.status)) }
+      row(:need) { |m| status_status_tag(m.need.status) }
       row :advisor
       row :advisor_antenne
       row :contacted_expert do |m|
