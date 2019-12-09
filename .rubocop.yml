@@ -8,6 +8,7 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'tmp/**/*'
+    - 'spec/policies/*'
 
 Bundler/DuplicatedGem:
   Enabled: true

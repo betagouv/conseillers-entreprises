@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   resources :diagnoses, only: %i[index show] do
     collection do
       get :archives
+      get :index_antenne
+      get :archives_antenne
     end
 
     member do
@@ -62,6 +64,8 @@ Rails.application.routes.draw do
   resources :besoins, as: 'needs', controller: 'needs', only: %i[index show] do
     collection do
       get :archives
+      get :index_antenne
+      get :archives_antenne
     end
     member do
       get :additional_experts
