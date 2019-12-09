@@ -1,6 +1,8 @@
-module ActiveAdmin
-  module LayoutHacks
-    module ScopesWithTooltips
+module Admin
+  module Patches
+    module Scopes
+      ## !! Monkey-patch override !!
+      # Add a :title html attribute to the top-level scopes
       def build_scope(scope, options)
         element = super
 
@@ -11,6 +13,6 @@ module ActiveAdmin
       end
     end
 
-    ActiveAdmin::Views::Scopes.prepend ScopesWithTooltips
+    ActiveAdmin::Views::Scopes.prepend Scopes
   end
 end
