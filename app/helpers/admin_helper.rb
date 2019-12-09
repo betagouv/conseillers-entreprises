@@ -86,14 +86,4 @@ module AdminHelper
     title = StatusHelper::status_description(status, :short)
     [title, class: css_class]
   end
-
-  ::ActiveAdmin::CSVBuilder.module_eval do
-    def column_count(attribute)
-      column(attribute) { |object| object.send(attribute).size }
-    end
-
-    def column_list(association)
-      column(association) { |object| object.send(association).map(&:to_s).join('/') }
-    end
-  end
 end
