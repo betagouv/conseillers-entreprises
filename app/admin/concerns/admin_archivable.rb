@@ -1,7 +1,7 @@
+## Support for :archive and :unarchive actions in /admin
+#
 module AdminArchivable
   def self.included(dsl)
-    ## Actions
-    #
     ## Using `.send` because the ResourceDSL methods are (wrongly) private
     # See https://github.com/activeadmin/activeadmin/issues/3673#issuecomment-291267819
     dsl.send(:member_action, :archive) do
@@ -37,7 +37,7 @@ module AdminArchivable
     end
   end
 
-  ::ActiveAdmin::Views::IndexAsTable::IndexTableFor.module_eval do
+  module ArchivableIndexActions
     def index_row_archive_actions(resource)
       if resource.is_archived
         item t('archivable.unarchive'), polymorphic_path([:unarchive, :admin, resource])
@@ -46,4 +46,5 @@ module AdminArchivable
       end
     end
   end
+  ActiveAdmin::Views::IndexAsTable::IndexTableFor.include ArchivableIndexActions
 end
