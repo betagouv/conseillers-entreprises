@@ -328,8 +328,10 @@ GEM
       actionmailer (>= 3)
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (4.0.1)
-    puma (4.3.0)
+    puma (4.3.1)
       nio4r (~> 2.0)
+    pundit (2.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -553,6 +555,7 @@ DEPENDENCIES
   pg
   premailer-rails
   puma
+  pundit
   rails
   rails-controller-testing
   rails-i18n

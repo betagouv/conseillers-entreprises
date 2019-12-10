@@ -8,7 +8,7 @@ ActiveAdmin.register User do
   controller do
     def scoped_collection
       # We don’t use a default_scope in User, but do we want to hide delete users in /admin/users …
-      User.not_deleted
+      super.merge(User.not_deleted)
     end
 
     def find_resource
