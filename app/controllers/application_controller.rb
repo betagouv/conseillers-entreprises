@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include Pundit
-
   NOT_FOUND_ERROR_CLASSES = [
     ActionController::RoutingError,
     ActionController::UrlGenerationError,

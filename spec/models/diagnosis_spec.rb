@@ -132,6 +132,51 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 
+  describe 'can_be_viewed_by?' do
+    subject { diagnosis.can_be_viewed_by?(role) }
+
+    let(:diagnosis) { create :diagnosis, advisor: advisor }
+    let(:advisor) { create :user }
+
+    context 'user is the diagnosis advisor' do
+      let(:role) { advisor }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'user is unrelated' do
+      let(:role) { create :user }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'expert is contacted for this diagnosis' do
+      let(:role) { create :expert }
+
+      before do
+        need = create :need, diagnosis: diagnosis
+        create :match, expert: role, need: need
+      end
+
+      it { is_expected.to eq true }
+    end
+
+    context 'expert has a relevant support expert_subject' do
+      let(:role) { create :expert, is_global_zone: true, experts_subjects: [expert_subject] }
+      let(:help_subject) { create :subject, is_support: true }
+      let(:institution_subject) { create :institution_subject, subject: help_subject }
+      let(:expert_subject) { create :expert_subject, institution_subject: institution_subject, expert: create(:expert) }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'expert is unrelated' do
+      let(:role) { create :expert }
+
+      it { is_expected.to eq false }
+    end
+  end
+
   describe 'match_and_notify!' do
     subject(:match_and_notify) { diagnosis.match_and_notify!(matches) }
 
