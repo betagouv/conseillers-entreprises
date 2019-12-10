@@ -382,6 +382,3 @@ fr:
     visitee: Personne rencontrée
   deleted_user:
     full_name: "(Compte supprimé)"
-  diagnoses:
-    archives_antenne:
-      title: Analyses archivées de %{antenne}

@@ -1,7 +1,0 @@
-- meta title: t('diagnoses.archives.title')
-
-= render 'diagnoses', diagnoses: @diagnoses, title: t('.title', antenne: current_user.antenne.name)
-
-= link_to index_antenne_diagnoses_path do
-  %i.tasks.icon
-  = t('.browse_active_diagnoses')
