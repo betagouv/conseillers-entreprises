@@ -1,27 +1,38 @@
 require 'rails_helper'
 
 RSpec.describe FeedbackPolicy, type: :policy do
-  let(:user) { create :user }
-  let(:expert) { create :expert, users: [user] }
-  let(:user_feedback) { create :feedback, :of_user, user: user }
-  let(:expert_feedback) { create :feedback, :of_expert, expert: expert }
-  let(:admin) { create :user, is_admin: true }
-  let(:another_user) { create :user }
+  let(:context) { UserContext.new(user, expert) }
+  let(:user) { nil }
+  let(:expert) { nil }
+  let(:diagnosis) { create :diagnosis }
 
   subject { described_class }
 
   permissions :destroy? do
-    it "grants access if expert is feedback creator" do
-      expect(subject).to permit(user, expert_feedback)
+    context "grants access if expert is feedback creator" do
+      let(:user) { diagnosis.advisor }
+      let(:expert) { create :expert, users: [user] }
+      let(:feedback) { create :feedback, expert: expert }
+
+      it { expect(subject).to permit(context, feedback) }
     end
-    it "grants access if user is feedback creator" do
-      expect(subject).to permit(user, user_feedback)
+    context "grants access if user is feedback creator" do
+      let(:feedback) { create :feedback, user: user }
+      let(:user) { diagnosis.advisor }
+
+      it { expect(subject).to permit(context, feedback) }
     end
-    it "grants access if user is admin" do
-      expect(subject).to permit(admin, user_feedback)
+    context "grants access if user is admin" do
+      let(:feedback) { create :feedback, :of_user }
+      let(:user) { create :user, is_admin: true }
+
+      it { expect(subject).to permit(context, feedback) }
     end
-    it "denies access if user is another user" do
-      expect(subject).not_to permit(another_user, user_feedback)
+    context "denies access if user is another user" do
+      let(:feedback) { create :feedback, :of_user }
+      let(:user) { create :user }
+
+      it { expect(subject).not_to permit(context, feedback) }
     end
   end
 end

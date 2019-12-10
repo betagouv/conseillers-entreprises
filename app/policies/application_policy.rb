@@ -1,10 +1,13 @@
 class ApplicationPolicy
-  attr_reader :user, :record
+  attr_reader :context, :params
 
-  def initialize(user, record)
-    @user = user
+  def initialize(context, record)
+    @context = context
     @record = record
   end
+
+  delegate :user, to: :context
+  delegate :expert, to: :context
 
   def index?
     true
@@ -35,18 +38,13 @@ class ApplicationPolicy
   end
 
   def support?(user, diagnosis)
-    user.experts.each do |expert|
+    user&.experts.any? do |expert|
       return true if expert.experts_subjects.support_for(diagnosis).present?
     end
-    false
   end
 
   def admin?
-    @user.is_admin
-  end
-
-  def creator?
-    @record.user_id == @user.id
+    user&.is_admin
   end
 
   class Scope

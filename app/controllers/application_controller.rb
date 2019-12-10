@@ -57,6 +57,10 @@ class ApplicationController < ActionController::Base
     { :commentaire => 'Laissez ce champ vide !' }
   end
 
+  def pundit_user
+    UserContext.new(current_user, current_expert)
+  end
+
   private
 
   def render_error(exception)

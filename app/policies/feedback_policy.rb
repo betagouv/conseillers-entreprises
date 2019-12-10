@@ -1,6 +1,20 @@
 class FeedbackPolicy < ApplicationPolicy
   def destroy?
-    admin? || creator? || @user.experts.pluck(:id).include?(@record.expert_id)
+    if user.present?
+      admin? ||
+        creator? ||
+        @record.expert.in?(user.experts)
+    else
+      creator?
+    end
+  end
+
+  def creator?
+    if user.present?
+      @record.user == user
+    else
+      @record.expert == user
+    end
   end
 
   class Scope < Scope
