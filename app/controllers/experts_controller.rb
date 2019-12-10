@@ -13,6 +13,7 @@ class ExpertsController < ApplicationController
 
   def update
     @expert.update(expert_params)
+    @expert.mark_subjects_reviewed!
     redirect_to profile_path
   end
 
