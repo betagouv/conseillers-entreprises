@@ -38,7 +38,6 @@ gem 'devise'
 gem 'devise-async'
 gem 'devise_invitable'
 gem 'user_impersonate2', require: 'user_impersonate'
-gem 'pundit'
 
 # Charts
 gem 'groupdate'

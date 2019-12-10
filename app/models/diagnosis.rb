@@ -126,6 +126,37 @@ class Diagnosis < ApplicationRecord
     matches&.first&.created_at
   end
 
+  ##
+  #
+  def can_be_viewed_by?(role)
+    # diagnosis advisor
+    if role.present? && advisor == role
+      return true
+    end
+
+    # support team
+    if role.is_a?(Expert) && role.experts_subjects.support_for(self).present?
+      return true
+    end
+
+    # contacted experts
+    needs.any? { |need| need.experts.include?(role) }
+  end
+
+  def can_be_modified_by?(role)
+    # diagnosis advisor
+    if role.present? && advisor == role
+      return true
+    end
+
+    # support team
+    if role.is_a?(Expert) && role.experts_subjects.support_for(self).present?
+      return true
+    end
+
+    false
+  end
+
   private
 
   def step_4_has_visit_attributes

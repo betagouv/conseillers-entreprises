@@ -29,6 +29,10 @@ RSpec.describe NeedsController, type: :controller do
     context 'current user is an expert' do
       let!(:expert) { create :expert, users: [current_user] }
 
+      context 'user is not contacted for diagnosis' do
+        it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
+      end
+
       context 'user is contacted for diagnosis' do
         before do
           create(:match,
