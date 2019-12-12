@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_05_104145) do
+ActiveRecord::Schema.define(version: 2019_12_12_094740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,15 +144,6 @@ ActiveRecord::Schema.define(version: 2019_12_05_104145) do
     t.index ["email"], name: "index_experts_on_email"
   end
 
-  create_table "experts_skills", force: :cascade do |t|
-    t.bigint "skill_id", null: false
-    t.bigint "expert_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["expert_id"], name: "index_experts_skills_on_expert_id"
-    t.index ["skill_id"], name: "index_experts_skills_on_skill_id"
-  end
-
   create_table "experts_subjects", force: :cascade do |t|
     t.string "description"
     t.bigint "expert_id"
@@ -244,11 +235,9 @@ ActiveRecord::Schema.define(version: 2019_12_05_104145) do
     t.datetime "taken_care_of_at"
     t.datetime "closed_at"
     t.bigint "expert_id"
-    t.bigint "skill_id"
     t.bigint "subject_id"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
-    t.index ["skill_id"], name: "index_matches_on_skill_id"
     t.index ["status"], name: "index_matches_on_status"
     t.index ["subject_id"], name: "index_matches_on_subject_id"
   end
@@ -274,15 +263,6 @@ ActiveRecord::Schema.define(version: 2019_12_05_104145) do
     t.datetime "updated_at", null: false
     t.index ["query"], name: "index_searches_on_query"
     t.index ["user_id"], name: "index_searches_on_user_id"
-  end
-
-  create_table "skills", force: :cascade do |t|
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "subject_id", null: false
-    t.string "title"
-    t.index ["subject_id"], name: "index_skills_on_subject_id"
   end
 
   create_table "solicitations", force: :cascade do |t|
@@ -370,8 +350,6 @@ ActiveRecord::Schema.define(version: 2019_12_05_104145) do
   add_foreign_key "diagnoses", "facilities"
   add_foreign_key "diagnoses", "users", column: "advisor_id"
   add_foreign_key "experts", "antennes"
-  add_foreign_key "experts_skills", "experts"
-  add_foreign_key "experts_skills", "skills"
   add_foreign_key "experts_subjects", "experts"
   add_foreign_key "experts_subjects", "institutions_subjects"
   add_foreign_key "experts_users", "experts"
@@ -386,12 +364,10 @@ ActiveRecord::Schema.define(version: 2019_12_05_104145) do
   add_foreign_key "landing_topics", "landings"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
-  add_foreign_key "matches", "skills"
   add_foreign_key "matches", "subjects"
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "searches", "users"
-  add_foreign_key "skills", "subjects"
   add_foreign_key "subjects", "themes"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"
