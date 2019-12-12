@@ -13,14 +13,27 @@ class NeedsController < ApplicationController
     @needs_others_taking_care = current_involved.needs_others_taking_care
   end
 
+  def index_antenne
+    @needs_quo = current_user.antenne.needs_quo
+    @needs_taking_care = current_user.antenne.needs_taking_care
+    @needs_others_taking_care = current_user.antenne.needs_others_taking_care
+  end
+
   def archives
     @needs_rejected = current_involved.needs_rejected
     @needs_done = current_involved.needs_done
     @needs_archived = current_involved.needs_archived
   end
 
+  def archives_antenne
+    @needs_rejected = current_user.antenne.needs_rejected
+    @needs_done = current_user.antenne.needs_done
+    @needs_archived = current_user.antenne.needs_archived
+  end
+
   def show
     @diagnosis = retrieve_diagnosis
+    authorize @diagnosis
     @current_roles = current_roles
     @highlighted_experts = highlighted_experts
   end
@@ -70,9 +83,7 @@ class NeedsController < ApplicationController
   end
 
   def retrieve_diagnosis
-    diagnosis = Diagnosis.find(params.require(:id))
-    check_current_user_access_to(diagnosis)
-    diagnosis
+    Diagnosis.find(params.require(:id))
   end
 
   def mark_expert_viewed

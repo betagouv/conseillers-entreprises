@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pundit
+
   NOT_FOUND_ERROR_CLASSES = [
     ActionController::RoutingError,
     ActionController::UrlGenerationError,
@@ -53,6 +55,10 @@ class ApplicationController < ActionController::Base
   #
   def honeypot_fields
     { :commentaire => 'Laissez ce champ vide !' }
+  end
+
+  def pundit_user
+    UserContext.new(current_user, current_expert)
   end
 
   private

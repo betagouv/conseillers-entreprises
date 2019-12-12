@@ -11,7 +11,7 @@
       .ui.popup= person_block(feedback.author)
       .date= I18n.l(feedback.created_at, format: :long)
     .extra.text= simple_format(feedback.description)
-    - if for_me
+    - if policy(feedback).destroy?
       .meta= link_to(t('delete'),
         feedback_path(feedback,
           params.permit(:access_token)),

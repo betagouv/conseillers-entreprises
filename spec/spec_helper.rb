@@ -2,6 +2,7 @@
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'webmock/rspec'
+require "pundit/rspec"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
