@@ -72,15 +72,21 @@ fr:
     archives:
       browse_active_diagnoses: Voir les analyses en cours
       title: Analyses archivées
+    archives_antenne:
+      browse_active_diagnoses: Voir les analyses en cours pour l'antenne
     diagnosis:
       last_activity_date: dernière activité le %{l}
     index:
-      browse_archived_diagnoses: Voir les analyses archivées
+      browse_antenne_diagnoses: Voir les analyses de mon antenne
+      browse_archived_diagnoses: Voir mes analyses archivées
       completed_diagnoses: Analyses réalisées
       confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
       create_new_diagnosis: Démarrer une analyse
       diagnoses_in_progress: Analyses en cours
       title: Analyses
+    index_antenne:
+      browse_archived_diagnoses: Voir les analyses archivées
+      title: Analyses de %{antenne}
     step2:
       diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
       diagnosis_content_subtitle: Informations générales sur cette entreprise
@@ -277,18 +283,25 @@ fr:
       needs_done: Besoins clôturés
       needs_rejected: Besoins refusés
       title: Demandes archivées
+    archives_antenne:
+      browse_active_needs: Voir les demandes reçu pour l'antenne
+      title: Demandes archivée de %{antenne}
     feedback_form:
       placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
       submit: Envoyer
       subtitle: à destination des autres conseillers intervenant sur ce besoin
       title: Nouveau message
     index:
-      browse_archived_needs: Voir les demandes archivées
+      browse_antenne_needs: Voir les demandes de mon antenne
+      browse_archived_needs: Voir mes demandes archivées
       needs_for_you: 'Ces entreprises ont besoin de vous :'
       needs_others_taking_care: Besoins pris en charge par d’autres référents
       needs_quo: Besoins en attente de réponse
       needs_taking_care: Besoins pris en charge
       title: Demandes reçues
+    index_antenne:
+      browse_archived_needs: Voir les demandes archivées
+      title: Demandes reçues pour %{antenne}
     show:
       title: Visite de la société « %{company} »
     visit_summary:

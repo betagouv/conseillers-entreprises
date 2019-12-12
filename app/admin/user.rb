@@ -116,12 +116,7 @@ ActiveAdmin.register User do
         end
       end
       row(:experts) do |u|
-        if u.experts.present?
-          div admin_link_to(u, :experts, list: true)
-        elsif u.corresponding_experts.present?
-          text = t('active_admin.user.autolink_to', what: u.corresponding_experts.to_sentence)
-          link_to(text, autolink_to_experts_admin_user_path(u), method: :post)
-        end
+        div admin_link_to(u, :experts, list: true)
       end
       row :activity do |u|
         div admin_link_to(u, :searches)
@@ -219,11 +214,6 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.reactivate_user_done')
   end
 
-  member_action :autolink_to_experts, method: :post do
-    resource.autolink_experts!
-    redirect_back fallback_location: collection_path, notice: I18n.t("active_admin.user.experts_linked")
-  end
-
   member_action :autolink_to_antenne, method: :post do
     resource.autolink_antenne!
     redirect_back fallback_location: collection_path, notice: I18n.t("active_admin.user.antenne_linked")
@@ -237,23 +227,6 @@ ActiveAdmin.register User do
   member_action :invite_user do
     resource.invite!(current_user)
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
-  end
-
-  batch_action I18n.t('active_admin.user.autolink_to_experts') do |ids|
-    batch_action_collection.find(ids).each { |user| user.autolink_experts! }
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.experts_linked')
-  end
-
-  if Rails.env.development?
-    batch_action 'DEBUG: Unlink all experts' do |ids|
-      batch_action_collection.find(ids).each do |user|
-        if user.experts.present?
-          user.experts = []
-          user.save!
-        end
-      end
-      redirect_back fallback_location: collection_path, notice: 'All experts were unlinked'
-    end
   end
 
   unless Rails.env.development?

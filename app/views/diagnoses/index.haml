@@ -8,6 +8,12 @@
 
 = render 'diagnoses', diagnoses: @diagnoses.completed, title: t('.completed_diagnoses')
 
+- if current_user.antenne.advisors.count > 1
+  = link_to index_antenne_diagnoses_path do
+    %i.folder.open.icon
+    = t('.browse_antenne_diagnoses')
+    %br
+
 = link_to archives_diagnoses_path do
   %i.archive.icon
   = t('.browse_archived_diagnoses')

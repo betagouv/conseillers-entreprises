@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get 'cgu', to: 'about#cgu'
   get 'top_5', to: 'about#top_5'
 
-  resource 'conseillers', only: %i[show]
+  resource 'conseillers', only: %i[show] # what is it
 
   get 'entreprise/:slug', to: 'landings#show', as: 'landing'
   get 'aide/:slug', to: 'landings#show', as: 'featured_landing'
@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   resources :diagnoses, only: %i[index show] do
     collection do
       get :archives
+      get :index_antenne
+      get :archives_antenne
     end
 
     member do
@@ -62,6 +64,8 @@ Rails.application.routes.draw do
   resources :besoins, as: 'needs', controller: 'needs', only: %i[index show] do
     collection do
       get :archives
+      get :index_antenne
+      get :archives_antenne
     end
     member do
       get :additional_experts

@@ -1,6 +1,3 @@
-- author_field_params = need_feedback_author_hidden_field(need, current_roles)
-- return if author_field_params.nil?
-
 - feedback = need.feedbacks.new
 .event{ id: "feedback_form-#{need.id}" }
   .label
@@ -13,7 +10,6 @@
       url: feedbacks_path(feedback, params.permit(:access_token)),
       class: 'ui form' do |form|
       = form.hidden_field :need_id
-      = form.hidden_field(*author_field_params)
       .field
         = form.text_area :description, placeholder: t('.placeholder'),
           class: 'top attached',

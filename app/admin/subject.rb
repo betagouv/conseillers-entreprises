@@ -30,6 +30,10 @@ ActiveAdmin.register Subject do
       div admin_link_to(s, :needs)
       div admin_link_to(s, :matches)
     end
+    column(:institutions) do |s|
+      div admin_link_to(s, :institutions)
+      div admin_link_to(s, :experts)
+    end
     actions dropdown: true do |d|
       index_row_archive_actions(d)
     end
@@ -65,6 +69,8 @@ ActiveAdmin.register Subject do
     attributes_table do
       row(:needs) { |s| admin_link_to(s, :needs) }
       row(:matches) { |s| admin_link_to(s, :matches) }
+      row(:institutions) { |s| admin_link_to(s, :institutions) }
+      row(:experts) { |s| admin_link_to(s, :experts) }
     end
   end
 

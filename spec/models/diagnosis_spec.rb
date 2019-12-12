@@ -51,39 +51,6 @@ RSpec.describe Diagnosis, type: :model do
     end
   end
 
-  describe 'callbacks' do
-    describe 'last_step_notify' do
-      let(:diagnosis) { create :diagnosis, step: old_step, needs: [build(:need, matches: [build(:match)])] }
-
-      before do
-        allow(diagnosis).to receive(:notify_experts!)
-        diagnosis.step = new_step
-        diagnosis.save!
-      end
-
-      context 'previous step' do
-        let(:old_step) { Diagnosis::LAST_STEP - 2 }
-        let(:new_step) { Diagnosis::LAST_STEP - 1 }
-
-        it { expect(diagnosis).not_to have_received(:notify_experts!) }
-      end
-
-      context 'set last step' do
-        let(:old_step) { Diagnosis::LAST_STEP - 1 }
-        let(:new_step) { Diagnosis::LAST_STEP }
-
-        it { expect(diagnosis).to have_received(:notify_experts!) }
-      end
-
-      context 'set last step again' do
-        let(:old_step) { Diagnosis::LAST_STEP }
-        let(:new_step) { Diagnosis::LAST_STEP }
-
-        it { expect(diagnosis).not_to have_received(:notify_experts!) }
-      end
-    end
-  end
-
   describe 'scopes' do
     describe 'in progress' do
       subject { described_class.in_progress.count }
@@ -129,51 +96,6 @@ RSpec.describe Diagnosis, type: :model do
 
         it { is_expected.to eq [diagnosis] }
       end
-    end
-  end
-
-  describe 'can_be_viewed_by?' do
-    subject { diagnosis.can_be_viewed_by?(role) }
-
-    let(:diagnosis) { create :diagnosis, advisor: advisor }
-    let(:advisor) { create :user }
-
-    context 'user is the diagnosis advisor' do
-      let(:role) { advisor }
-
-      it { is_expected.to eq true }
-    end
-
-    context 'user is unrelated' do
-      let(:role) { create :user }
-
-      it { is_expected.to eq false }
-    end
-
-    context 'expert is contacted for this diagnosis' do
-      let(:role) { create :expert }
-
-      before do
-        need = create :need, diagnosis: diagnosis
-        create :match, expert: role, need: need
-      end
-
-      it { is_expected.to eq true }
-    end
-
-    context 'expert has a relevant support expert_subject' do
-      let(:role) { create :expert, is_global_zone: true, experts_subjects: [expert_subject] }
-      let(:help_subject) { create :subject, is_support: true }
-      let(:institution_subject) { create :institution_subject, subject: help_subject }
-      let(:expert_subject) { create :expert_subject, institution_subject: institution_subject, expert: create(:expert) }
-
-      it { is_expected.to eq true }
-    end
-
-    context 'expert is unrelated' do
-      let(:role) { create :expert }
-
-      it { is_expected.to eq false }
     end
   end
 

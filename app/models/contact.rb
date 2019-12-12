@@ -31,11 +31,17 @@ class Contact < ApplicationRecord
   ## Validations
   #
   validates :company, presence: true
-  validates_with ContactValidator
+  validate :at_least_email_or_phone_number
 
   ##
   #
   def full_role
     "#{role} - #{company.name}"
+  end
+
+  def at_least_email_or_phone_number
+    if email.blank? && phone_number.blank?
+      errors.add(:base, "Contact must have at least email or phone_number")
+    end
   end
 end
