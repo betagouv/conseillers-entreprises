@@ -13,14 +13,12 @@
 #  updated_at              :datetime         not null
 #  expert_id               :bigint(8)
 #  need_id                 :bigint(8)        not null
-#  skill_id                :bigint(8)
 #  subject_id              :bigint(8)
 #
 # Indexes
 #
 #  index_matches_on_expert_id   (expert_id)
 #  index_matches_on_need_id     (need_id)
-#  index_matches_on_skill_id    (skill_id)
 #  index_matches_on_status      (status)
 #  index_matches_on_subject_id  (subject_id)
 #
@@ -28,7 +26,6 @@
 #
 #  fk_rails_...  (expert_id => experts.id)
 #  fk_rails_...  (need_id => needs.id)
-#  fk_rails_...  (skill_id => skills.id)
 #  fk_rails_...  (subject_id => subjects.id)
 #
 
