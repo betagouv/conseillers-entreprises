@@ -23,7 +23,7 @@ ActiveAdmin.register Need do
     column :created_at
     column :last_activity_at
     column :status do |d|
-      status_tag(*status_tag_status_params(d.status))
+      status_status_tag(d.status)
       status_tag t('activerecord.attributes.need.is_archived') if d.is_archived
     end
     column(:matches) do |d|
@@ -80,7 +80,7 @@ ActiveAdmin.register Need do
       row :last_activity_at
       row :archived_at
       row :content
-      row(:status) { |d| status_tag(*status_tag_status_params(d.status)) }
+      row(:status) { |d| status_status_tag(d.status) }
       row(:matches) do |d|
         div admin_link_to(d, :matches)
         div admin_link_to(d, :matches, list: true)
