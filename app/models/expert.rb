@@ -2,17 +2,18 @@
 #
 # Table name: experts
 #
-#  id              :bigint(8)        not null, primary key
-#  access_token    :string
-#  email           :string
-#  full_name       :string
-#  is_global_zone  :boolean          default(FALSE)
-#  phone_number    :string           not null
-#  reminders_notes :text
-#  role            :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  antenne_id      :bigint(8)        not null
+#  id                   :bigint(8)        not null, primary key
+#  access_token         :string
+#  email                :string
+#  full_name            :string
+#  is_global_zone       :boolean          default(FALSE)
+#  phone_number         :string           not null
+#  reminders_notes      :text
+#  role                 :string
+#  subjects_reviewed_at :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  antenne_id           :bigint(8)        not null
 #
 # Indexes
 #
