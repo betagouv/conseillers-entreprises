@@ -238,7 +238,7 @@ class User < ApplicationRecord
 
   ##
   #
-  def is_oneself?
+  def solo?
     self.experts.size == 1 && self.experts.first.users == [self]
   end
 
