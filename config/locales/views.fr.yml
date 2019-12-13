@@ -282,12 +282,9 @@ fr:
         subject: Hier sur Place des Entreprises
         yesterday: 'Hier sur Place des Entreprises les demandes suivantes ont évolué :'
       match_feedback:
-        expert_wrote_back: "%{author} a fait un commentaire sur le besoin « %{need} » de l’entreprise %{company}:"
-        nice_day: Bonne journée,
-        subject: "[Place des Entreprises] Des nouvelles de %{company_name}"
-        summary_html: Voir le %{summary_link} de l’entreprise.
-        summary_link: récapitulatif des besoins
-        thankyou: Vous pouvez le contacter pour discuter plus précisément de l’entreprise.
+        new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
+        reply: Répondre
+        subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company}"
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})
