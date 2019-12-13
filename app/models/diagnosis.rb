@@ -133,6 +133,7 @@ class Diagnosis < ApplicationRecord
     experts.each do |expert|
       ExpertMailer.delay.notify_company_needs(expert, self)
     end
+    UserMailer.delay.confirm_notifications_sent(self)
   end
 
   private

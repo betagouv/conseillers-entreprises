@@ -3,6 +3,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.daily_change_update(user, Array.new(3) { change_hash })
   end
 
+  def confirm_notifications_sent
+    UserMailer.confirm_notifications_sent(Diagnosis.completed.sample)
+  end
+
   def match_feedback
     UserMailer.match_feedback(Feedback.all.sample)
   end
