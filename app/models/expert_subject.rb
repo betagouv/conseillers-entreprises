@@ -4,6 +4,7 @@
 #
 #  id                     :bigint(8)        not null, primary key
 #  description            :string
+#  role                   :integer          default("specialist"), not null
 #  expert_id              :bigint(8)
 #  institution_subject_id :bigint(8)
 #
@@ -11,6 +12,7 @@
 #
 #  index_experts_subjects_on_expert_id               (expert_id)
 #  index_experts_subjects_on_institution_subject_id  (institution_subject_id)
+#  index_experts_subjects_on_role                    (role)
 #
 # Foreign Keys
 #
@@ -19,6 +21,8 @@
 #
 
 class ExpertSubject < ApplicationRecord
+  enum role: { specialist: 0, fallback: 1 }
+
   ## Associations
   #
   belongs_to :expert

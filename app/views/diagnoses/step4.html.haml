@@ -8,7 +8,7 @@
   - else
     %p= t('.explanation')
 
-    = form_with scope: :matches, url: selection_diagnosis_path,
+    = form_with scope: :matches, url: selection_diagnosis_path(@diagnosis),
                id: 'step4-form' do |f|
       - @diagnosis.needs.ordered_for_interview.each do |need|
         %table.ui.compact.small.table.celled
@@ -16,10 +16,13 @@
             %tr
               %th{ colspan: 3 }= need.subject
           %tbody
-            - experts_subjects = ExpertSubject.relevant_for(need)
+            - experts_subjects_specialists = ExpertSubject.relevant_for(need).specialist
+            - experts_subjects_fallback = ExpertSubject.relevant_for(need).fallback
             - support_subject = ExpertSubject.support_for(@diagnosis)
-            - if experts_subjects.present?
-              = render partial: 'expert_subject_checkboxes', locals: { f: f, need: need, experts_subjects: experts_subjects }
+            - if experts_subjects_specialists.present?
+              = render partial: 'expert_subject_checkboxes', locals: { f: f, need: need, experts_subjects: experts_subjects_specialists }
+            - elsif experts_subjects_fallback.present?
+              = render partial: 'expert_subject_checkboxes', locals: { f: f, need: need, experts_subjects: experts_subjects_fallback }
             - elsif support_subject.present?
               %tr
               %td{ colspan: 3 }

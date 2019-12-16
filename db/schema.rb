@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_094740) do
+ActiveRecord::Schema.define(version: 2019_12_12_153012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_094740) do
     t.bigint "antenne_id", null: false
     t.boolean "is_global_zone", default: false
     t.text "reminders_notes"
+    t.datetime "subjects_reviewed_at"
     t.index ["access_token"], name: "index_experts_on_access_token"
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["email"], name: "index_experts_on_email"
@@ -148,8 +149,10 @@ ActiveRecord::Schema.define(version: 2019_12_12_094740) do
     t.string "description"
     t.bigint "expert_id"
     t.bigint "institution_subject_id"
+    t.integer "role", default: 0, null: false
     t.index ["expert_id"], name: "index_experts_subjects_on_expert_id"
     t.index ["institution_subject_id"], name: "index_experts_subjects_on_institution_subject_id"
+    t.index ["role"], name: "index_experts_subjects_on_role"
   end
 
   create_table "experts_users", id: false, force: :cascade do |t|

@@ -54,7 +54,7 @@ describe 'ApplicationController specific features', type: :feature do
     describe '404 error' do
       let(:raised_error) { ActiveRecord::RecordNotFound }
 
-      it { expect(page.html).to include('Vous n’avez pas accès à cette page !') }
+      it { expect(page.html).to include('Cette page n’existe pas, ou vous n’y avez pas accès.') }
     end
 
     describe '500 error' do

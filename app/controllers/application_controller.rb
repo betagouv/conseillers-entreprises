@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
     ActionController::RoutingError,
     ActionController::UrlGenerationError,
     ActiveRecord::RecordNotFound,
-    ActionView::MissingTemplate
+    ActionView::MissingTemplate,
+    Pundit::NotAuthorizedError
   ].freeze
 
   protect_from_forgery with: :exception

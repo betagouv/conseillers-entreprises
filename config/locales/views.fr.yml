@@ -130,10 +130,14 @@ fr:
       step4_title_html: Mise en contact
   experts:
     edit:
-      description: Cochez les domaines d’intervention correspondant à votre activité. Vous pouvez préciser et ajouter des détails en commentaire.
+      description_html: "<p>Cochez les domaines d’intervention correspondant à votre activité. Vous pouvez apporter les précisions que vous jugez utiles pour les autres conseillers.</p><p>Si vous indiquez être suppléant sur un sujet vous apparaitrez dans les recherches uniquement si aucun spécialiste n’a été trouvé.<p>"
+      fallback: Suppléant
       placeholder: N’hésitez pas à détailler, notamment les conditions selon lesquelles vous intervenez.
+      specialist: Spécialiste
       subtitle: Au sein de « %{institution} »
       title: Compétences de %{name}
+    flash:
+      review_your_subjects_html: En tant que référent sur Place des entreprises et membre de %{antenne}, vous pouvez être contacté sur vos domaines d’expertise.<br/> Prenez le temps de vérifier vos domaines d’intervention <a href='%{edit_expert_path}'>en cliquant ici</a>.
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
