@@ -4,6 +4,7 @@
 #
 #  id                     :bigint(8)        not null, primary key
 #  description            :string
+#  role                   :integer          default(0)
 #  expert_id              :bigint(8)
 #  institution_subject_id :bigint(8)
 #
@@ -19,6 +20,8 @@
 #
 
 class ExpertSubject < ApplicationRecord
+  enum role: { specialist: 0, fallback: 1 }
+
   ## Associations
   #
   belongs_to :expert

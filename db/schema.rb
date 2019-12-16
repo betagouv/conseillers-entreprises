@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 2019_12_12_094740) do
     t.string "description"
     t.bigint "expert_id"
     t.bigint "institution_subject_id"
+    t.integer "role", default: 0
     t.index ["expert_id"], name: "index_experts_subjects_on_expert_id"
     t.index ["institution_subject_id"], name: "index_experts_subjects_on_institution_subject_id"
   end
