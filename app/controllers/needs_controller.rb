@@ -5,6 +5,8 @@ class NeedsController < ApplicationController
   before_action :authenticate_user!, unless: -> { params[:access_token].present? }
   before_action :authenticate_expert!, if: -> { params[:access_token].present? }
 
+  include FlashToReviewSubjects
+
   after_action :mark_expert_viewed, only: :show
 
   def index

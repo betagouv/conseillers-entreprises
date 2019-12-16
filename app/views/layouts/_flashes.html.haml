@@ -1,9 +1,13 @@
 - if alert || notice
   %p#flashes
     - if alert
-      .ui.warning.message
+      .ui.icon.error.message
+        .icon.inbox
         %p= alert
 
     - if notice
-      .ui.info.message
-        %p= notice
+      .ui.icon.warning.message
+        %i.warning.icon
+        .content
+          .header
+          %p= notice

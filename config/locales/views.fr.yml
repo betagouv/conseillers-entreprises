@@ -136,6 +136,8 @@ fr:
       specialist: Spécialiste
       subtitle: Au sein de « %{institution} »
       title: Compétences de %{name}
+    flash:
+      review_your_subjects_html: En tant que référent sur Place des entreprises et membre de %{antenne}, vous pouvez être contacté sur vos domaines d’expertise.<br/> Prenez le temps de vérifier vos domaines d’intervention <a href='%{edit_expert_path}'>en cliquant ici</a>.
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?

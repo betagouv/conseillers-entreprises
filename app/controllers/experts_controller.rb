@@ -6,6 +6,8 @@ class ExpertsController < ApplicationController
   before_action :check_user
 
   def edit
+    @expert.mark_subjects_reviewed!
+
     @institutions_subjects = @expert.antenne.institution.institutions_subjects
     @es_by_theme = @institutions_subjects.group_by { |is| is.subject.theme }
     @themes = Theme.all.ordered_for_interview
