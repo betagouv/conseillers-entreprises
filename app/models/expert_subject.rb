@@ -4,7 +4,7 @@
 #
 #  id                     :bigint(8)        not null, primary key
 #  description            :string
-#  role                   :integer          default(0)
+#  role                   :integer          default("specialist"), not null
 #  expert_id              :bigint(8)
 #  institution_subject_id :bigint(8)
 #
@@ -12,6 +12,7 @@
 #
 #  index_experts_subjects_on_expert_id               (expert_id)
 #  index_experts_subjects_on_institution_subject_id  (institution_subject_id)
+#  index_experts_subjects_on_role                    (role)
 #
 # Foreign Keys
 #
