@@ -9,7 +9,7 @@
     = t('.description_html')
 
 = form_with model: @expert, class: 'ui form margin-top-2' do |f|
-  - @es_by_theme.each do |theme, institutions_subjects|
+  - @is_by_theme.each do |theme, institutions_subjects|
     %h3.ui.header= theme.label
     - institutions_subjects.each do |institution_subject|
       - expert_subject = ExpertSubject.where(expert: @expert, institution_subject: institution_subject).first_or_initialize
