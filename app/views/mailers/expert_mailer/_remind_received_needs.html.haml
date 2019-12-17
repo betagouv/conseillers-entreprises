@@ -6,7 +6,10 @@
 - diagnoses.each do |diagnosis|
   %h3
     %a{ href: need_url(diagnosis) }= diagnosis.company.name
-  = t('mailers.expert_mailer.remind_involvement.visited_at', date: I18n.l(diagnosis.display_date, format: :long))
+    - if visited_at
+      = t('mailers.expert_mailer.remind_involvement.visited_on', date: I18n.l(diagnosis.display_date, format: :long))
+    - else
+      = t('mailers.expert_mailer.remind_involvement.visited_days_ago', days: distance_of_time_in_words(Time.now.to_date, diagnosis.display_date), advisor: diagnosis.advisor.full_name)
   %ul
     - diagnosis.needs.merge(received_needs).each do |need|
       %li

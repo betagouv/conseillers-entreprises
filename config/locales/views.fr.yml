@@ -253,15 +253,13 @@ fr:
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
         this_company: L’entreprise
       remind_involvement:
-        needs_for_you: 'Voici la liste des demandes reçues sur Place des Entreprises :'
-        needs_others_taking_care: Besoins pris en charge par d’autres référents
-        needs_quo: Besoins en attente de réponse
-        needs_quo_details: Personne n’a encore répondu à ces besoins. Avez-vous une solution ?
-        needs_taking_care: Besoins pris en charge
-        needs_taking_care_details: Vous avez indiqué prendre en charge ces besoins. Y a-t-il du nouveau ?
+        needs_for_you: 'Ces entreprises ont besoin de vous :'
+        needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
+        needs_taking_care: 'Besoins pris en charge : est ce qu’il y a du nouveau ?'
         reply: Répondre sur Place des entreprises
         subject: "[Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
-        visited_at: Visitée le %{date}
+        visited_days_ago: Visitée il y a %{days} par %{advisor}
+        visited_on: Visitée le %{date}
     hello: Bonjour,
     hello_name: Bonjour %{name},
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
