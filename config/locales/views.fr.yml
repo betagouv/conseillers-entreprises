@@ -257,6 +257,19 @@ fr:
         blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
         contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
     user_mailer:
+      confirm_notifications_sent:
+        company_expressed_needs:
+          one: qui a exprimé un besoin.
+          other: qui a exprimé %{count} besoins.
+        contacted_experts:
+          one: 'Mise en relation :'
+          other: 'Mises en relations :'
+        show_details: Afficher les détails
+        subject:
+          one: "[Place des Entreprises] Confirmation de notification du besoin de l’entreprise %{company}"
+          other: "[Place des Entreprises] Confirmation de notification des besoins de l’entreprise %{company}"
+        thank_you: "Merci ! \U0001F44D"
+        you_met_company_html: Le %{visit_date}, vous avez rencontré
       daily_change_update:
         context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{subject_title} de l’entreprise %{company_name} le %{start_date},"
         nice_day: Bonne journée,
