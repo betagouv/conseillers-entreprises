@@ -2,22 +2,38 @@ body
   font: 14px/20px sans-serif
   margin: 0
   padding: 0
-  background: #f2f2f2
   text-align: center
 
 .wrapper
-  width: 600px
-  padding: 0.1em 1.5em
-  background: #fafafa
-  margin: 40px auto
+  max-width: 700px
+  margin: 20px auto
   text-align: left
   line-height: 150%
   font-size: 14px
   color: #000
-  border-radius: 6px
+  border-bottom: 1px solid lightgrey
 
 .text-grey
   color: #666
+
+.text-center
+  text-align: center
+
+ul
+  list-style: none
+  margin-left: 1em
+  padding: 0
+li
+  margin-left: -1em
+li::before
+  content: "\25CF "
+  color: lightgrey
+
+.warning
+  background: #fff0e4
+  border-left: 1px solid #a65c00
+  padding: 1em
+  color: #A65C00
 
 .footer
   color: #888
@@ -32,32 +48,28 @@ p
 h1
   font-size: 22px
   line-height: 110%
-  margin-bottom: 1em
+  margin-bottom: 0em
   margin-top: 0
   padding: 0
 
 h2
   font-size: 18px
   line-height: 28px
-  margin: 1.5em 0 0 0
 
 h3
   font-size: 16px
   margin: 1.2em 0 0 0
 
 blockquote
-  font-style: italic
-  background: #eeeeee
-  border-radius: 10px
-  padding: 1em 1em
-  margin: 1em 0 1.5em 0
-  p
-    margin: 0
+  margin: 0
+  max-width: 100%
+  border-left: 1px solid lightgrey
+  padding-left: 1em
 
 .button
   background: #003b80
   text-align: center
-  border-radius: 3px
+  border-radius: 2px
   padding: 15px 15px
   margin: 0 20%
   a
