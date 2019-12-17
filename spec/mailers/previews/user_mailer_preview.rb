@@ -8,7 +8,8 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def match_feedback
-    UserMailer.match_feedback(Feedback.all.sample)
+    feedback = Feedback.all.sample
+    UserMailer.match_feedback(feedback, feedback.need.advisor)
   end
 
   private

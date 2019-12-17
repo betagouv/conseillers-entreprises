@@ -12,7 +12,7 @@
   .ui.segment
     %strong #{t('attributes.email')} :
     = expert.email
-  - if !expert.is_oneself?
+  - if !expert.solo?
     .ui.segment
       %strong #{t('activerecord.attributes.expert.users', count: expert.users.size)} :
       %ul

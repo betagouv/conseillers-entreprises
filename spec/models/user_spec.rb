@@ -179,8 +179,8 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#is_oneself?' do
-    subject { user.is_oneself? }
+  describe '#solo?' do
+    subject { user.solo? }
 
     let(:user) { create(:user) }
     let(:user2) { create(:user) }
