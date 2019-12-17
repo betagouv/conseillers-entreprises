@@ -8,8 +8,10 @@
         = t('.diagnoses')
       - if current_user.experts.present?
         = active_link_to needs_path, class: 'item' do
-          %i.bullseye.icon
+          %i.inbox.icon
           = t('needs.index.title')
+          - if current_user.needs_quo.exists?
+            .ui.orange.empty.circular.horizontal.label
       - if current_user.is_admin?
         = active_link_to reminders_path, class: 'item' do
           %i.ambulance.icon
