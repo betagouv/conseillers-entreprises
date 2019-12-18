@@ -14,7 +14,7 @@
   .row.center.aligned
     .column
       %h5.ui.header
-        = t('.visit_made_on', date: I18n.l(diagnosis.display_date, format: :long))
+        = t('.visit_made_on', date: I18n.l(diagnosis.completed_at.to_date, format: :long))
   .row.two.column
     .column
       .ui.fluid.card.blue

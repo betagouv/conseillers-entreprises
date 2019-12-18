@@ -324,7 +324,7 @@ fr:
         other: "%{advisor} a identifié %{count} besoins."
       person_advisor: Conseiller
       person_company_contact: Personne rencontrée
-      visit_made_on: Visite faite le %{date}
+      visit_made_on: Mise en relation faite le %{date}
   person:
     deleted_person: Compte supprimé
   reminders:
