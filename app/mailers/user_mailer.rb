@@ -18,11 +18,11 @@ class UserMailer < ApplicationMailer
       subject: t('mailers.user_mailer.confirm_notifications_sent.subject', company: @diagnosis.company.name, count: @diagnosis.needs.size))
   end
 
-  def match_feedback(feedback, person)
+  def match_feedback(feedback)
     @feedback = feedback
-    @person = person
+    @advisor = feedback.need.diagnosis.advisor
     @author = feedback.author
-    mail(to: @person.email_with_display_name,
+    mail(to: @advisor.email_with_display_name,
          reply_to: @author.email_with_display_name,
          subject: t('mailers.user_mailer.match_feedback.subject', company: feedback.need.company))
   end
