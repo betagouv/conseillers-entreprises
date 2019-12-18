@@ -95,6 +95,8 @@ ignore_unused:
   - 'diagnoses.steps.*'
   - 'mailers.user_mailer.daily_change_update.status.*'
   - 'mailers.admin_mailer.weekly_statistics.needs_abandoned.scopes.*'
+  - 'mailers.user_mailer.match_feedback.*'
+  - 'mailers.user_mailer.update_match_notify.*'
   - 'stats.stats_table.*'
   - 'stats.series.*'
   - 'categories_juridiques.*'
