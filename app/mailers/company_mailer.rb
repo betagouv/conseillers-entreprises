@@ -7,8 +7,7 @@ class CompanyMailer < ApplicationMailer
   def confirmation_solicitation(email)
     mail(
       to: email,
-      subject: t('mailers.company_mailer.confirmation_solicitation.subject'),
-      reply_to: SENDER
+      subject: t('mailers.company_mailer.confirmation_solicitation.subject')
     )
   end
 
@@ -19,8 +18,17 @@ class CompanyMailer < ApplicationMailer
     @expert = match.expert
     mail(
       to: @match.diagnosis.visitee.email,
-      subject: t('mailers.company_mailer.taking_care_by_expert.subject'),
-      reply_to: SENDER
+      subject: t('mailers.company_mailer.taking_care_by_expert.subject')
+    )
+  end
+
+  def taking_care_by_support(match)
+    @match = match
+    @need = match.need
+    @expert = match.expert
+    mail(
+      to: @match.diagnosis.visitee.email,
+      subject: t('mailers.company_mailer.taking_care_by_expert.subject')
     )
   end
 end

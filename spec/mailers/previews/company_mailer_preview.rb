@@ -7,6 +7,10 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.taking_care_by_expert(match)
   end
 
+  def taking_care_by_support
+    CompanyMailer.taking_care_by_support(match)
+  end
+
   private
 
   def email

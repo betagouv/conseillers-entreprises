@@ -233,11 +233,13 @@ fr:
           zero: Aucune analyse mise à jour.
     company_mailer:
       confirmation_solicitation:
-        content_html: "<p>Votre demande a bien été prise en compte sur le site Place des Entreprises. Si un complément d’informations est nécessaire, nous revenons vers vous dans les 72 heures.</p><p>Vous serez ensuite contacté par les partenaires publics susceptibles de vous aider.</p><p>L’Equipe Place des Entreprises assure un suivi qualité pour qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
+        content_html: "<p>Votre demande a bien été prise en compte sur le site Place des Entreprises. Si un complément d’informations est nécessaire, nous revenons vers vous dans les 72 heures.</p><p>Vous serez ensuite contacté par les partenaires publics susceptibles de vous aider.</p><p>L’équipe Place des Entreprises assure un suivi qualité pour qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
         subject: Bonne réception de votre demande sur Place des Entreprises
       taking_care_by_expert:
-        content_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises. Ce nouveau service réunit en effet <strong>tous les partenaires publics pouvant aider les TPE &amp; PME</strong>.</p><p>Nous vous informons que votre demande - %{subject} - vient d’être pris en charge par <strong>%{expert_antenne}</strong>.</p><p>Un conseiller va prendre contact avec vous pour vous accompagner. Vérifiez également vos mails.</p><p>Bonne journée,</p>"
+        content_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises. Ce nouveau service réunit en effet <strong>tous les partenaires publics pouvant aider les TPE &amp; PME</strong>.</p><p>Nous vous informons que votre demande - %{subject} - vient d’être prise en charge par <strong>%{expert_antenne}</strong>.</p><p>Un conseiller va prendre contact avec vous pour vous accompagner. Vérifiez également vos mails.</p><p>Bonne journée,</p>"
         subject: Prise en charge de votre demande sur Place des Entreprise
+      taking_care_by_support:
+        content_html: Votre demande sur Place des Entreprise - %{subject} - vient d’être prise en charge par %{expert_antenne}.
     expert_mailer:
       never_used_solo_account_warning:
         you_need_to_use_your_user_account: Attention ! Place des entreprises nécessite désormais de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.

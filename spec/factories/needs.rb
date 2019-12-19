@@ -4,7 +4,6 @@ FactoryBot.define do
   factory :need do
     association :diagnosis
     association :subject
-    advisor { create :user }
 
     factory :need_with_matches do
       before(:create) do |need, _|
