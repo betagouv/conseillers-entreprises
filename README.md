@@ -85,6 +85,8 @@ Staging emails are sent on [Mailtrap](https://mailtrap.io/) in order to test ema
 
 ## Deployment
 
+### Branches and setup
+
 Place des Entreprises is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, ``reso-staging`` and `reso-production.
 
 * `reso-staging` is served at https://reso-staging.scalingo.io.
@@ -100,6 +102,26 @@ In case of emergency, you can always run rails migrations manually using the `sc
     
     $ scalingo -a reso-staging run rails db:migrate
     $ scalingo -a reso-production run rails db:migrate 
+
+### rake push_to_production`
+``
+Use `rake push_to_production` to review the changed before pushing to production:
+```
+$ rake push_to_production
+Updating master and production…
+Last production commit is ebe7d79c4149c3ae64af917e0ccd09bb7c473cc8
+About to merge 5 PRs and push to production:
+🚀 
+* [#718](https://github.com/betagouv/place-des-entreprises/pull/718) display created_at date instead of visit date
+* [#720](https://github.com/betagouv/place-des-entreprises/pull/720) Bump rack from 2.0.7 to 2.0.8
+* [#714](https://github.com/betagouv/place-des-entreprises/pull/714) Do not cc everyone in UserMailer#match_feedback
+* [#710](https://github.com/betagouv/place-des-entreprises/pull/710) Send a distinct email to the advisor when sending notifications
+* [#713](https://github.com/betagouv/place-des-entreprises/pull/713) Redesign email css
+Proceed?
+y
+Basculement sur la branche 'production'
+Done!
+```
 
 ## Contributing
 
