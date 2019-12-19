@@ -11,7 +11,10 @@ class MatchesController < ApplicationController
     previous_status = @match.status
     @match.update status: params[:status]
     UserMailer.update_match_notify(@match, current_user, previous_status).deliver_later
+    if @match.status_taking_care?
+      CompanyMailer.taking_care_by_expert(@match).deliver_later
     end
+  end
 
   private
 

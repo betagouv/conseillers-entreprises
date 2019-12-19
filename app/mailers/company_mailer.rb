@@ -11,4 +11,16 @@ class CompanyMailer < ApplicationMailer
       reply_to: SENDER
     )
   end
+
+  def taking_care_by_expert(match)
+    @match = match
+    @need = match.need
+    @advisor = match.advisor
+    @expert = match.expert
+    mail(
+      to: @match.diagnosis.visitee.email,
+      subject: t('mailers.company_mailer.taking_care_by_expert.subject'),
+      reply_to: SENDER
+    )
+  end
 end
