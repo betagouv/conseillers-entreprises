@@ -22,6 +22,7 @@ ActiveAdmin.register Match do
     column :updated_at
     column :need, sortable: :created_at do |m|
       div admin_link_to(m, :need)
+      div admin_attr(m.facility, :commune)
       div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
       status_status_tag(m.need.status)
     end
@@ -72,6 +73,7 @@ ActiveAdmin.register Match do
     column :id
     column(:need) { |m| m.need_id }
     column :facility
+    column(:commune) { |m| m.facility.commune }
     column :created_at
     column :advisor
     column :advisor_antenne
