@@ -282,9 +282,22 @@ fr:
         subject: Hier sur Place des Entreprises
         yesterday: 'Hier sur Place des Entreprises les demandes suivantes ont évolué :'
       match_feedback:
+        expert_wrote_back: "%{author} a fait un commentaire sur le besoin « %{need} » de l’entreprise %{company}:"
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
+        nice_day: Bonne journée,
         reply: Répondre
-        subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company}"
+        subject: "[Place des Entreprises] Des nouvelles de %{company_name}"
+        summary_html: Voir le %{summary_link} de l’entreprise.
+        summary_link: récapitulatif des besoins
+        thankyou: Vous pouvez le contacter pour discuter plus précisément de l’entreprise.
+      update_match_notify:
+        expert_and_status_done_html: "<p>%{user} (%{antenne}) a clôturé ce besoin.</p>"
+        expert_and_status_not_for_me_html: "<p>%{user} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Equipe Place des Entreprises prendra le relai.</p>"
+        expert_and_status_quo_html: "<p>%{user} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
+        expert_and_status_taking_care_html: "<p>%{user} (%{antenne}) a pris en charge ce besoin.</p>"
+        need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
+        nice_day: Bonne journée,
+        subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})

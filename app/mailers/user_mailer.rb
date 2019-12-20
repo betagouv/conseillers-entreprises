@@ -26,4 +26,17 @@ class UserMailer < ApplicationMailer
          reply_to: @author.email_with_display_name,
          subject: t('mailers.user_mailer.match_feedback.subject', company: feedback.need.company))
   end
+
+  def update_match_notify(match, user, previous_status)
+    @status = {}
+    @match = match
+    @expert = match.expert
+    @previous_status = previous_status
+    @user = user
+    @advisor = match.advisor
+    @company = match.company
+    @need = match.need
+    @subject = match.subject
+    mail(to: @advisor.email, subject: t('mailers.user_mailer.update_match_notify.subject', company_name: @company.name))
+  end
 end

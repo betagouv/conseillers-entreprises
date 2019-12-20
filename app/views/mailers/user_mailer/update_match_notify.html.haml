@@ -1,0 +1,16 @@
+%p= t('mailers.hello_name', name: @advisor.full_name)
+
+%p= t('.need_description_html',
+  company_name: @company.name,
+  date: I18n.l(@need.diagnosis.display_date, format: :long),
+  subject: @subject,
+  path: diagnosis_url(@match.diagnosis))
+
+%blockquote
+  = t(".expert_and_status_#{@match.status}_html",
+    user: @user.full_name,
+    antenne: @user.antenne.name,
+    previous_status: t("attributes.statuses_action.#{@previous_status}"))
+
+%p= t('.nice_day')
+%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))
