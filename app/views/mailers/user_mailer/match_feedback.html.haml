@@ -1,4 +1,4 @@
-%p= t('mailers.hello_name', name: @person.full_name)
+%p= t('mailers.hello_name', name: @advisor.full_name)
 
 %p= t('.new_comment_html', author: @author.full_name, antenne: @author.antenne, company: @feedback.need.company, date: I18n.l(@feedback.need.diagnosis.display_date))
 

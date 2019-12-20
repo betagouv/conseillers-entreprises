@@ -7,7 +7,7 @@ class FeedbacksController < ApplicationController
     @feedback = Feedback.create(feedback_params.merge(user: current_user, expert: current_expert))
     @current_roles = current_roles
     if @feedback.persisted?
-      @feedback.notify!
+      UserMailer.delay.match_feedback(@feedback)
     else
       flash.alert = @feedback.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
