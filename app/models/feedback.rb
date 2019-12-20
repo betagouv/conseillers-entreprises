@@ -41,6 +41,16 @@ class Feedback < ApplicationRecord
     expert || user
   end
 
+  def notify!
+    persons_to_notify.each do |person|
+      UserMailer.delay.match_feedback(self, person)
+    end
+  end
+
+  def persons_to_notify
+    need.experts + [need.advisor] - [author]
+  end
+
   private
 
   def expert_or_user_author
