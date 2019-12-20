@@ -4,14 +4,20 @@ require 'rails_helper'
 require 'mailers/shared_examples_for_an_email'
 
 describe UserMailer do
-  describe '#daily_change_update' do
-    subject(:mail) { described_class.daily_change_update(user, change_updates).deliver_now }
+  describe '#update_match_notify' do
+    subject(:mail) { described_class.update_match_notify(match, user, previous_status).deliver_now }
 
+    let(:match) { create :match }
     let(:user) { create :user }
-    let(:change_updates) { [] }
+    let(:previous_status) { 'taking_care' }
 
-    it_behaves_like 'an email'
+    it 'has no empty fields' do
+      expect(mail.to).not_to be_nil
+      expect(mail.from).not_to be_nil
+      expect(mail.body).not_to be_nil
+      expect(mail.subject).not_to be_nil
+    end
 
-    it { expect(mail.header[:from].value).to eq UserMailer::SENDER }
+    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
   end
 end

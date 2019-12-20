@@ -1,14 +1,12 @@
-%p= t('mailers.hello_name', name: @advisor.full_name)
+%p= t('mailers.hello_name', name: @person.full_name)
 
-%p= t('.expert_wrote_back',
-  author: @author.full_name_with_role,
-  need: @need.subject,
-  company: @facility.company.name)
+%p= t('.new_comment_html', author: @author.full_name, antenne: @author.antenne, company: @feedback.need.company, date: I18n.l(@feedback.need.diagnosis.display_date))
 
+%h4= @feedback.need.subject
 %blockquote
   %p= simple_format(@feedback.description)
 
-%p= t('.thankyou')
-%p= t('.summary_html', summary_link: link_to(t('.summary_link'), need_url(@need.diagnosis)))
-%p= t('.nice_day')
-%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))
+.button
+  %a{ href: need_url(@feedback.need.diagnosis) }= t('.reply')
+
+%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))

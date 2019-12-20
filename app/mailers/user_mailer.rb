@@ -11,16 +11,32 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: t('mailers.user_mailer.daily_change_update.subject'))
   end
 
-  def match_feedback(feedback)
+  def confirm_notifications_sent(diagnosis)
+    @diagnosis = diagnosis
+    @user = @diagnosis.advisor
+    mail(to: @user.email_with_display_name,
+      subject: t('mailers.user_mailer.confirm_notifications_sent.subject', company: @diagnosis.company.name, count: @diagnosis.needs.size))
+  end
+
+  def match_feedback(feedback, person)
     @feedback = feedback
+    @person = person
     @author = feedback.author
-    @need = feedback.need
-    @persons = @need.experts - [@author]
-    @advisor = @need.diagnosis.advisor
-    @facility = @need.diagnosis.facility
-    mail(to: @advisor.email_with_display_name,
-         cc: @persons.map(&:email_with_display_name),
+    mail(to: @person.email_with_display_name,
          reply_to: @author.email_with_display_name,
-         subject: t('mailers.user_mailer.match_feedback.subject', company_name: @facility.company.name))
+         subject: t('mailers.user_mailer.match_feedback.subject', company_name: feedback.need.company))
+  end
+
+  def update_match_notify(match, user, previous_status)
+    @status = {}
+    @match = match
+    @expert = match.expert
+    @previous_status = previous_status
+    @user = user
+    @advisor = match.advisor
+    @company = match.company
+    @need = match.need
+    @subject = match.subject
+    mail(to: @advisor.email, subject: t('mailers.user_mailer.update_match_notify.subject', company_name: @company.name))
   end
 end

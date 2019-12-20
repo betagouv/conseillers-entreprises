@@ -11,7 +11,6 @@ class ExpertMailer < ApplicationMailer
 
     mail(
       to: @expert.email_with_display_name,
-      cc: @diagnosis.advisor.email_with_display_name,
       subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: @diagnosis.company.name),
       reply_to: [
         SENDER,

@@ -8,7 +8,9 @@ class MatchesController < ApplicationController
   def update
     @match = retrieve_match
     @current_roles = current_roles
+    previous_status = @match.status
     @match.update status: params[:status]
+    UserMailer.delay.update_match_notify(@match, current_user, previous_status)
   end
 
   private

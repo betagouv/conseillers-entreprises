@@ -126,7 +126,7 @@ class Expert < ApplicationRecord
 
   ## Description
   #
-  def is_oneself?
+  def solo?
     self.users.size == 1 && self.users.first.experts == [self]
   end
 

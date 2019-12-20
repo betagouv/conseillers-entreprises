@@ -257,6 +257,19 @@ fr:
         blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
         contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
     user_mailer:
+      confirm_notifications_sent:
+        company_expressed_needs:
+          one: qui a exprimé un besoin.
+          other: qui a exprimé %{count} besoins.
+        contacted_experts:
+          one: 'Mise en relation :'
+          other: 'Mises en relations :'
+        show_details: Afficher les détails
+        subject:
+          one: "[Place des Entreprises] Confirmation de notification du besoin de l’entreprise %{company}"
+          other: "[Place des Entreprises] Confirmation de notification des besoins de l’entreprise %{company}"
+        thank_you: "Merci ! \U0001F44D"
+        you_met_company_html: Le %{visit_date}, vous avez rencontré
       daily_change_update:
         context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{subject_title} de l’entreprise %{company_name} le %{start_date},"
         nice_day: Bonne journée,
@@ -269,12 +282,18 @@ fr:
         subject: Hier sur Place des Entreprises
         yesterday: 'Hier sur Place des Entreprises les demandes suivantes ont évolué :'
       match_feedback:
-        expert_wrote_back: "%{author} a fait un commentaire sur le besoin « %{need} » de l’entreprise %{company}:"
+        new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
+        reply: Répondre
+        subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
+      update_match_notify:
+        expert_and_status:
+          care_html: "<p>%{user} (%{antenne}) a pris en charge ce besoin.</p>"
+          done_html: "<p>%{user} (%{antenne}) a clôturé ce besoin.</p>"
+          not_for_me_html: "<p>%{user} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Equipe Place des Entreprises prendra le relai.</p>"
+          quo_html: "<p>%{user} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
+        need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         nice_day: Bonne journée,
-        subject: "[Place des Entreprises] Des nouvelles de %{company_name}"
-        summary_html: Voir le %{summary_link} de l’entreprise.
-        summary_link: récapitulatif des besoins
-        thankyou: Vous pouvez le contacter pour discuter plus précisément de l’entreprise.
+        subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})
@@ -314,7 +333,7 @@ fr:
         other: "%{advisor} a identifié %{count} besoins."
       person_advisor: Conseiller
       person_company_contact: Personne rencontrée
-      visit_made_on: Visite faite le %{date}
+      visit_made_on: Mise en relation faite le %{date}
   person:
     deleted_person: Compte supprimé
   reminders:
