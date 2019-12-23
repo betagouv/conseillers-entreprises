@@ -21,6 +21,7 @@ ActiveAdmin.register Feedback do
   filter :description
   filter :created_at
   filter :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
+  filter :user, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
 
   ## CSV
   #

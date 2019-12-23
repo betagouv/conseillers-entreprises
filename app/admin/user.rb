@@ -19,7 +19,7 @@ ActiveAdmin.register User do
 
   # Index
   #
-  includes :antenne, :institution, :experts, :searches,
+  includes :antenne, :institution, :experts, :searches, :feedbacks,
            :sent_diagnoses, :sent_needs, :sent_matches,
            :invitees
   config.sort_order = 'created_at_desc'
@@ -57,6 +57,7 @@ ActiveAdmin.register User do
       div admin_link_to(u, :sent_diagnoses)
       div admin_link_to(u, :sent_needs)
       div admin_link_to(u, :sent_matches)
+      div admin_link_to(u, :feedbacks)
     end
 
     actions dropdown: true do |u|
@@ -96,6 +97,7 @@ ActiveAdmin.register User do
     column_count :sent_diagnoses
     column_count :sent_needs
     column_count :sent_matches
+    column_count :feedbacks
   end
 
   # Show
@@ -123,6 +125,7 @@ ActiveAdmin.register User do
         div admin_link_to(u, :sent_diagnoses)
         div admin_link_to(u, :sent_needs)
         div admin_link_to(u, :sent_matches)
+        div admin_link_to(u, :feedbacks)
       end
     end
     attributes_table title: t('activerecord.attributes.user.invitees') do

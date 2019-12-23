@@ -5,7 +5,7 @@ ActiveAdmin.register Expert do
 
   # Index
   #
-  includes :institution, :antenne, :users, :experts_subjects, :received_matches
+  includes :institution, :antenne, :users, :experts_subjects, :received_matches, :feedbacks
   config.sort_order = 'full_name_asc'
 
   scope :all, default: true
@@ -42,8 +42,9 @@ ActiveAdmin.register Expert do
     column(:subjects) do |e|
       div admin_link_to(e, :subjects)
     end
-    column(:received_matches) do |e|
+    column(:activity) do |e|
       div admin_link_to(e, :received_matches)
+      div admin_link_to(e, :feedbacks)
     end
     actions dropdown: true do |expert|
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
@@ -78,6 +79,7 @@ ActiveAdmin.register Expert do
     column_count :users
     column_count :subjects
     column_count :received_matches
+    column_count :feedbacks
   end
 
   ## Show
@@ -113,8 +115,9 @@ ActiveAdmin.register Expert do
           link_to "#{es.subject} / #{es.institution_subject.description} / #{es.description}", admin_subject_path(es.subject)
         end, '<br /> '.html_safe)
       end
-      row(:received_matches) do |e|
+      row(:activity) do |e|
         div admin_link_to(e, :received_matches)
+        div admin_link_to(e, :feedbacks)
       end
     end
   end
