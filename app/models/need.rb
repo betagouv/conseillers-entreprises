@@ -100,9 +100,9 @@ class Need < ApplicationRecord
   scope :no_activity_after, -> (date) do
     where.not("needs.updated_at > ?", date)
       .left_outer_joins(:matches)
-      .where.not(matches: Match.where(created_at: date..)
-                          .or(Match.where(taken_care_of_at: date..))
-                          .or(Match.where(closed_at: date..)))
+      .where.not(matches: Match.unscoped.where(created_at: date..)
+                          .or(Match.unscoped.where(taken_care_of_at: date..))
+                          .or(Match.unscoped.where(closed_at: date..)))
       .left_outer_joins(:feedbacks)
       .where.not(feedbacks: Feedback.where(created_at: date..))
       .distinct
