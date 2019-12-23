@@ -1,7 +1,4 @@
-class AboutController < ApplicationController
-  skip_before_action :authenticate_user!
-  layout 'solicitations'
-
+class AboutController < PagesController
   def cgu; end
 
   def qui_sommes_nous; end

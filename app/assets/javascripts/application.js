@@ -21,4 +21,4 @@
 // = require semantic-ui/dropdown
 // = require semantic-ui-calendar.min.js
 
-// = require_tree .
+// = require_tree ./application

@@ -1,13 +1,13 @@
 module ScriptsSnippetsHelper
   def matomo_script
     if Rails.env.production?
-      render partial: 'scripts_snippets/matomo'
+      render 'shared/matomo'
     end
   end
 
   def sentry_script
     if Rails.env.production?
-      render partial: 'scripts_snippets/sentry'
+      render 'shared/sentry'
     end
   end
 end
