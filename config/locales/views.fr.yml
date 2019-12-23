@@ -358,6 +358,8 @@ fr:
       matches_total_received: reçues
       matches_total_taken_care_of: prises en charge
       received_needs_abandoned: Actuellement en souffrance
+      received_needs_abandoned_others_taking_care: pris en charge par d’autres
+      received_needs_abandoned_others_taking_care_tooltip: Besoins indiqués comme pris en charge par d’autres référents il y a plus de 3 semaines, sans autre nouvelle depuis.
       received_needs_abandoned_quo_not_taken: sans réponse
       received_needs_abandoned_quo_not_taken_tooltip: Besoins mis en relation il y a plus de 3 semaines, restés sans réponse depuis.
       received_needs_abandoned_taking_care: pris en charge
