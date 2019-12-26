@@ -7,7 +7,7 @@
       .date= t('.subtitle')
     .extra
     = form_with scope: feedback,
-      url: feedbacks_path(feedback, params.permit(:access_token)),
+      url: feedbacks_path(feedback),
       class: 'ui form' do |form|
       = form.hidden_field :need_id
       .field
