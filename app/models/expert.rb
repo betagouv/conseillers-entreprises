@@ -46,11 +46,8 @@ class Expert < ApplicationRecord
 
   ## Validations
   #
-  validates :antenne, :email, :phone_number, :access_token, presence: true
+  validates :antenne, :email, :phone_number, presence: true
   validates :users, presence: true
-  validates :access_token, uniqueness: true
-
-  before_validation :generate_access_token!, on: :create
 
   ## “Through” Associations
   #
@@ -112,16 +109,6 @@ class Expert < ApplicationRecord
     joins(:antenne)
       .where('experts.full_name ILIKE ?', "%#{query}%")
       .or(Expert.joins(:antenne).where('antennes.name ILIKE ?', "%#{query}%"))
-  end
-
-  ##
-  #
-  def generate_access_token!
-    self.access_token = SecureRandom.hex(32)
-
-    if Expert.exists?(access_token: access_token)
-      generate_access_token!
-    end
   end
 
   ## Description
