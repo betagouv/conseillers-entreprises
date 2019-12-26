@@ -5,9 +5,7 @@
   %body
     = render 'navbar'
     = render 'environment_ribbon'
-
-    - if current_staff_user
-      = render 'user_impersonate'
+    = render 'user_impersonate'
 
     %main
       .ui.main.text.container
