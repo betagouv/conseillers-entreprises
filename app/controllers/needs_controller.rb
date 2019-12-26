@@ -30,7 +30,6 @@ class NeedsController < ApplicationController
   def show
     @diagnosis = retrieve_diagnosis
     authorize @diagnosis
-    @current_roles = current_roles
     @highlighted_experts = highlighted_experts
   end
 
@@ -46,7 +45,6 @@ class NeedsController < ApplicationController
 
   def add_match
     @diagnosis = retrieve_diagnosis
-    @current_roles = current_roles
 
     @need = Need.find(params.require(:need))
     expert_subject = ExpertSubject.find(params.require(:expert_subject))

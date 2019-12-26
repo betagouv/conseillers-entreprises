@@ -1,4 +1,4 @@
-- match_html = render @match, current_roles: @current_roles, highlighted_experts: []
+- match_html = render @match, highlighted_experts: []
 document.getElementById('additional_experts-#{@need.id}').insertAdjacentHTML('beforebegin', "#{j match_html}");
 
 - html = render 'additional_experts', need: @need

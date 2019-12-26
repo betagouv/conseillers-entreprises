@@ -2,8 +2,8 @@
   = render 'need_header', need: need
 
   .ui.feed
-    = render 'need_content', need: need, current_roles: current_roles, highlighted_experts: highlighted_experts
-    = render need.feedbacks.order(:created_at), current_roles: current_roles, highlighted_experts: highlighted_experts
-    = render 'feedback_form', need: need, current_roles: current_roles
-    = render need.matches.order(:created_at), current_roles: current_roles, highlighted_experts: highlighted_experts
+    = render 'need_content', need: need, highlighted_experts: highlighted_experts
+    = render need.feedbacks.order(:created_at), highlighted_experts: highlighted_experts
+    = render 'feedback_form', need: need
+    = render need.matches.order(:created_at), highlighted_experts: highlighted_experts
     = render 'additional_experts', need: need
