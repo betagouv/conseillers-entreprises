@@ -28,6 +28,11 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Perform delayed jobs synchronously
+  if ENV['DEVELOPMENT_INLINE_JOBS'].to_b
+    config.active_job.queue_adapter = :inline
+  end
+
   # Use LetterOpener
   config.action_mailer.default_url_options = { host: ENV['HOST_NAME'], port: ENV['PORT'] }
   config.action_mailer.delivery_method = :letter_opener_web
