@@ -51,7 +51,7 @@ class Feedback < ApplicationRecord
 
   def notify!
     persons_to_notify.each do |person|
-      UserMailer.delay.match_feedback(self, person)
+      UserMailer.match_feedback(self, person).deliver_later
     end
   end
 

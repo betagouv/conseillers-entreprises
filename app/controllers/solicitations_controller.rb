@@ -13,7 +13,7 @@ class SolicitationsController < ApplicationController
 
     @result = 'success'
     @partial = 'solicitations/thank_you'
-    AdminMailer.delay.solicitation(@solicitation)
+    AdminMailer.solicitation(@solicitation).deliver_later
   end
 
   private
