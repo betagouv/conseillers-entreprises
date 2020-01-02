@@ -158,7 +158,7 @@ class User < ApplicationRecord
     end
   end
 
-  def placeholder_for_expert?
+  def never_used_account?
     invitation_sent_at.nil? && encrypted_password.blank?
   end
 
