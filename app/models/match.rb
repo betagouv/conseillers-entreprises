@@ -6,7 +6,6 @@
 #  closed_at               :datetime
 #  expert_full_name        :string
 #  expert_institution_name :string
-#  expert_viewed_page_at   :datetime
 #  status                  :integer          default("quo"), not null
 #  taken_care_of_at        :datetime
 #  created_at              :datetime         not null
@@ -80,8 +79,6 @@ class Match < ApplicationRecord
 
   ## Scopes
   #
-  scope :not_viewed, -> { where(expert_viewed_page_at: nil) }
-
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }
 
   scope :to_support, -> { joins(:need).where(subject: Subject.support_subject) }

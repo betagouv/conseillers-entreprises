@@ -114,7 +114,6 @@ fr:
         expert: Référent
         expert_full_name: Nom du référent
         expert_institution_name: Institution du référent
-        expert_viewed_page_at: Date de consultation par le référent
         need: Besoin identifié
         taken_care_of_at: Date de prise en charge
       need:

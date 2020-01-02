@@ -7,8 +7,6 @@ class NeedsController < ApplicationController
 
   include FlashToReviewSubjects
 
-  after_action :mark_expert_viewed, only: :show
-
   def index
     @needs_quo = current_involved.needs_quo
     @needs_taking_care = current_involved.needs_taking_care
@@ -67,11 +65,6 @@ class NeedsController < ApplicationController
 
   private
 
-  def experts
-    current_user.present? ? current_user.experts.order(:full_name)
-      : [current_expert]
-  end
-
   def current_involved
     current_user || current_expert
   end
@@ -86,12 +79,5 @@ class NeedsController < ApplicationController
 
   def retrieve_diagnosis
     Diagnosis.find(params.require(:id))
-  end
-
-  def mark_expert_viewed
-    diagnosis = retrieve_diagnosis
-    experts.each do |expert|
-      UseCases::UpdateExpertViewedPageAt.perform(diagnosis: diagnosis, expert: expert)
-    end
   end
 end

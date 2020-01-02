@@ -144,16 +144,6 @@ RSpec.describe Match, type: :model do
   end
 
   describe 'scopes' do
-    describe 'not_viewed' do
-      subject { described_class.not_viewed }
-
-      let(:match) { create :match, expert_viewed_page_at: nil }
-
-      before { create :match, expert_viewed_page_at: 2.days.ago }
-
-      it { is_expected.to eq [match] }
-    end
-
     describe 'updated_more_than_five_days_ago' do
       subject { described_class.updated_more_than_five_days_ago }
 
