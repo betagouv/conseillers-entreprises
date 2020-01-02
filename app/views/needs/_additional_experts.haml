@@ -13,7 +13,7 @@
           = f.text_field :query, value: local_assigns[:query],
             autofocus: local_assigns[:query].present?,
             required: true, minlength: 3, placeholder: t('.add_other_experts')
-          = f.button t('search'), data: { disable_with: t('search') }, class: 'ui button blue basic small'
+          = f.button t('search'), data: { disable_with: t('search') }, class: 'ui button blue small'
 
     - if !local_assigns[:experts].nil?
       - if local_assigns[:experts].empty?
