@@ -11,8 +11,9 @@ describe AdminMailersService do
     let!(:not_admin_user) { create :user, is_admin: false }
 
     before do
-      allow(AdminMailer).to receive(:delay).and_return(AdminMailer)
-      allow(AdminMailer).to receive(:weekly_statistics).and_call_original
+      mail_instance = instance_double(ActionMailer::MessageDelivery, deliver_later: nil)
+
+      allow(AdminMailer).to receive(:weekly_statistics).and_return(mail_instance)
     end
 
     describe 'email method parameters' do

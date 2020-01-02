@@ -131,13 +131,13 @@ class Diagnosis < ApplicationRecord
 
   def notify_experts!
     experts.each do |expert|
-      ExpertMailer.delay.notify_company_needs(expert, self)
+      ExpertMailer.notify_company_needs(expert, self).deliver_later
       # also send a reset link if the expert is solo and has never used his user account
       if expert.solo? && expert.users.first.never_used_account?
         expert.send_reset_password_instructions
       end
     end
-    UserMailer.delay.confirm_notifications_sent(self)
+    UserMailer.confirm_notifications_sent(self).deliver_later
   end
 
   private
