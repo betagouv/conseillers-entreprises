@@ -1,0 +1,7 @@
+%p= t('mailers.hello')
+
+- link_to_root = link_to t('app_name'), root_url
+
+= t('.content_html')
+
+%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)

@@ -1,0 +1,15 @@
+%p= t('mailers.hello')
+
+- link_to_root = link_to t('app_name'), root_url
+
+= t('.content_html',
+  advisor: @advisor.full_name,
+  advisor_antenne: @advisor.antenne.name,
+  subject: @need.subject.label,
+  expert_antenne: @expert.antenne.name)
+
+%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
+
+%p= t('mailers.withdraw_request_html')
+
+
