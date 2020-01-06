@@ -67,7 +67,7 @@ class Feedback < ApplicationRecord
 
   def expert_or_user_author
     unless expert.blank? ^ user.blank?
-      errors.add(:base, "Author can be Expert or User, not both")
+      self.expert = nil
     end
   end
 end
