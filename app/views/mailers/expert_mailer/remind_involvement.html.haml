@@ -5,17 +5,15 @@
 
 = render 'mailers/expert_mailer/remind_received_needs',
   received_needs: @needs_quo,
+  access_token: @access_token,
   title: t('.needs_quo'),
-  subtitle: t('.needs_quo_details')
+  visited_at: false
 
 = render 'mailers/expert_mailer/remind_received_needs',
   received_needs: @needs_taking_care,
+  access_token: @access_token,
   title: t('.needs_taking_care'),
-  subtitle: t('.needs_taking_care_details')
-
-= render 'mailers/expert_mailer/remind_received_needs',
-  received_needs: @needs_others_taking_care,
-  title: t('.needs_others_taking_care')
+  visited_at: true
 
 = render 'mailers/expert_mailer/never_used_solo_account_warning'
 
