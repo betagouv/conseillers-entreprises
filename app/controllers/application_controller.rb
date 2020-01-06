@@ -47,7 +47,7 @@ class ApplicationController < SharedController
       :can_be_modified_by?
     end
 
-    if current_roles.any? { |role| resource.send(access_method, role) }
+    if resource.send(access_method, current_user)
       return
     end
     # can not be viewed:

@@ -1,4 +1,4 @@
-- for_me = match.expert.in? current_roles
+- for_me = match.in?(current_user.received_matches)
 - highlight = match.expert.in? highlighted_experts
 .event{ id: "match-#{match.id}" }
   .label

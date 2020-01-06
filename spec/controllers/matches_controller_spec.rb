@@ -1,58 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe MatchesController, type: :controller do
+  login_user
+
   describe 'PUT #update' do
     subject(:request) { put :update, xhr: true, params: params }
 
-    let(:params) { { id: match_id, access_token: access_token } }
+    let(:params) { { id: match.id, status: :taking_care } }
+    let(:match) { create :match }
 
-    let(:match_id) { match.id }
-    let(:access_token) { nil }
+    context 'match does not exist' do
+      let(:params) { { id: 'nonexisting' } }
 
-    context 'current user is an expert' do
-      let(:match) { create :match }
+      it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
+    end
 
-      let(:access_token) { expert.access_token }
-      let(:expert) { create :expert }
+    context 'match is not available to expert' do
+      it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
+    end
 
-      context 'access token is empty' do
-        let(:access_token) { 'nil' }
+    context 'match is available to expert' do
+      before { current_user.update experts: [match.expert] }
 
-        it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
-      end
+      it 'returns http success' do
+        request
 
-      context 'match does not exist' do
-        let(:match_id) { 'nonexisting' }
-
-        it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
-      end
-
-      context 'match is not available to expert' do
-        it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
-      end
-
-      context 'match exists' do
-        before { match.update expert: expert }
-
-        context 'with status quo' do
-          it 'returns http success' do
-            params[:status] = :quo
-            request
-
-            expect(response).to be_successful
-            expect(match.reload.status_quo?).to eq true
-          end
-        end
-
-        context 'with status taking_care' do
-          it 'returns http success' do
-            params[:status] = :taking_care
-            request
-
-            expect(response).to be_successful
-            expect(match.reload.status_taking_care?).to eq true
-          end
-        end
+        expect(response).to be_successful
+        expect(match.reload.status_taking_care?).to eq true
       end
     end
   end
