@@ -32,7 +32,7 @@ class UserMailer < ApplicationMailer
     @match = match
     @expert = match.expert
     @previous_status = previous_status
-    @user = user
+    @person = user || match.expert
     @advisor = match.advisor
     @company = match.company
     @need = match.need
