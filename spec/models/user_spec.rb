@@ -117,6 +117,15 @@ RSpec.describe User, type: :model do
         expect(described_class.active_answered(last_30_days, [3])).to eq []
       end
     end
+
+    describe 'never_used' do
+      subject { described_class.never_used }
+
+      let!(:user1) { create :user, invitation_sent_at: nil, encrypted_password: '' }
+      let!(:user2) { create :user, invitation_sent_at: DateTime.now, encrypted_password: 'password' }
+
+      it{ is_expected.to match_array user1 }
+    end
   end
 
   describe '#password_required?' do
@@ -209,6 +218,22 @@ RSpec.describe User, type: :model do
       before { expert1.users = [user, user2] }
 
       it { is_expected.to be_falsey }
+    end
+  end
+
+  describe '#never_used_account?' do
+    subject { user.never_used_account? }
+
+    context 'blank user' do
+      let(:user) { build :user, invitation_sent_at: nil, encrypted_password: '' }
+
+      it{ is_expected.to be_truthy }
+    end
+
+    context 'active user' do
+      let(:user) { build :user, invitation_sent_at: DateTime.now, encrypted_password: 'password' }
+
+      it{ is_expected.to be_falsey }
     end
   end
 end

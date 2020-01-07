@@ -28,7 +28,7 @@ ActiveAdmin.register User do
   scope :admin
   scope :without_antenne
   scope :deactivated
-  scope :not_invited_yet, group: :invitations
+  scope :never_used, group: :invitations
   scope :invitation_not_accepted, group: :invitations
 
   index do
