@@ -299,10 +299,10 @@ fr:
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
       update_match_notify:
         expert_and_status:
-          care_html: "<p>%{user} (%{antenne}) a pris en charge ce besoin.</p>"
           done_html: "<p>%{user} (%{antenne}) a clôturé ce besoin.</p>"
           not_for_me_html: "<p>%{user} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Equipe Place des Entreprises prendra le relai.</p>"
           quo_html: "<p>%{user} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
+          taking_care_html: "<p>%{user} (%{antenne}) a pris en charge ce besoin.</p>"
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         nice_day: Bonne journée,
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
