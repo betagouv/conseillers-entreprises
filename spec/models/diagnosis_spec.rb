@@ -129,4 +129,45 @@ RSpec.describe Diagnosis, type: :model do
       it { expect{ match_and_notify }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
+
+  describe 'notify_experts!' do
+    subject(:notify_experts!) { diagnosis.notify_experts! }
+
+    let(:diagnosis) do
+      expert = build :expert, users: users
+      match = build :match, expert: expert
+      need = build :need, matches: [match]
+      create :diagnosis, needs: [need]
+    end
+
+    context 'solo expert, never used' do
+      let(:users) { [build(:user, invitation_sent_at: nil, encrypted_password: '')] }
+
+      it do
+        expect_any_instance_of(User).to receive(:send_reset_password_instructions).once
+
+        notify_experts!
+      end
+    end
+
+    context 'solo expert, used account' do
+      let(:users) { [build(:user, invitation_sent_at: DateTime.now, encrypted_password: 'password')] }
+
+      it do
+        expect_any_instance_of(User).not_to receive(:send_reset_password_instructions)
+
+        notify_experts!
+      end
+    end
+
+    context 'expert with several users' do
+      let(:users) { build_list :user, 2 }
+
+      it do
+        expect_any_instance_of(User).not_to receive(:send_reset_password_instructions)
+
+        notify_experts!
+      end
+    end
+  end
 end
