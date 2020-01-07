@@ -9,6 +9,7 @@
 #  deleted_at             :datetime
 #  email                  :string           default("")
 #  encrypted_password     :string           default(""), not null
+#  flags                  :jsonb
 #  full_name              :string
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -134,6 +135,12 @@ class User < ApplicationRecord
   scope :without_antenne, -> do
     where(antenne_id: nil)
   end
+
+  ## Keys for flags preferences
+  #
+  FLAGS = %i[
+  ]
+  store_accessor :flags, FLAGS.map(&:to_s)
 
   ## Password
   #
