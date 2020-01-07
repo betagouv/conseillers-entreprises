@@ -5,5 +5,5 @@ class ApplicationMailer < ActionMailer::Base
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER
 
-  layout 'mailer'
+  layout 'mailers'
 end

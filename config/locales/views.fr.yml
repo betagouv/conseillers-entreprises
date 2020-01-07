@@ -256,14 +256,13 @@ fr:
         subject: "[Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
         visited_days_ago: Visitée il y a %{days} par %{advisor}
         visited_on: Visitée le %{date}
+    footer:
+      blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
+      contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
     hello: Bonjour,
     hello_name: Bonjour %{name},
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
-    shared:
-      footer:
-        blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
-        contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
     user_mailer:
       confirm_notifications_sent:
         company_expressed_needs:
