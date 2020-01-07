@@ -51,7 +51,7 @@ class Feedback < ApplicationRecord
 
   def notify!
     persons_to_notify.each do |person|
-      UserMailer.delay.match_feedback(self, person)
+      UserMailer.match_feedback(self, person).deliver_later
     end
   end
 
@@ -67,7 +67,7 @@ class Feedback < ApplicationRecord
 
   def expert_or_user_author
     unless expert.blank? ^ user.blank?
-      errors.add(:base, "Author can be Expert or User, not both")
+      self.expert = nil
     end
   end
 end

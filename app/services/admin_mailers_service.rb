@@ -21,7 +21,7 @@ class AdminMailersService
       abandoned_needs_statistics
       matches_count_statistics
 
-      AdminMailer.delay.weekly_statistics(@information_hash)
+      AdminMailer.weekly_statistics(@information_hash).deliver_later
     end
 
     private

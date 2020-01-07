@@ -93,7 +93,7 @@ class User < ApplicationRecord
   scope :admin, -> { where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
 
-  scope :not_invited_yet, -> { where(invitation_sent_at: nil) }
+  scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
 
   scope :ordered_by_institution, -> do
@@ -158,7 +158,7 @@ class User < ApplicationRecord
     end
   end
 
-  def placeholder_for_expert?
+  def never_used_account?
     invitation_sent_at.nil? && encrypted_password.blank?
   end
 

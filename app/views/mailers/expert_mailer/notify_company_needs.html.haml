@@ -1,32 +1,28 @@
 %p= t('mailers.hello_name', name: @expert.full_name)
 
-:ruby
-  link_to_root = link_to t('app_name'), root_url
+- needs = @diagnosis.needs.merge(@expert.received_needs)
+
+%p= t('.this_company')
+%blockquote
+  %h1= @diagnosis.company
+  .text-grey= @diagnosis.facility.commune_name
+%p= t('.needs_you')
 
 %p
-  = t('.this_company_needs_you_html', company_description: @diagnosis.facility)
   = t('.advisor_met_company',
    advisor_name_with_role: @diagnosis.advisor.full_name_with_role,
-   visit_date: I18n.l(@diagnosis.display_date))
+   visit_date: I18n.l(@diagnosis.display_date, format: :long))
+  = t('.company_expressed_needs', count: needs.size)
 
-%p= t('.company_expressed_needs')
-
-- @diagnosis.needs.merge(@expert.received_needs).ordered_for_interview.each do |need|
-  %h3.subject= need.subject
+- needs.ordered_for_interview.each do |need|
+  %h2.subject= need.subject
   - if need.content.present?
     %blockquote
       %p= simple_format(need.content)
 
-%p= t('.details_on_place_des_entreprises')
-
-:ruby
-  more_info_url = if @access_token
-    need_url(@diagnosis, access_token: @access_token)
-  else
-    need_url(@diagnosis)
-  end
-
 .button
-  %a{ href: more_info_url }= t('.click_here')
+  %a{ href: need_url(@diagnosis) }= t('.reply')
 
-%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to_root)
+= render 'mailers/expert_mailer/never_used_solo_account_warning'
+
+%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))

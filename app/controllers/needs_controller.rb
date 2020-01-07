@@ -7,8 +7,6 @@ class NeedsController < ApplicationController
 
   include FlashToReviewSubjects
 
-  after_action :mark_expert_viewed, only: :show
-
   def index
     @needs_quo = current_involved.needs_quo
     @needs_taking_care = current_involved.needs_taking_care
@@ -58,7 +56,7 @@ class NeedsController < ApplicationController
     expert_subject = ExpertSubject.find(params.require(:expert_subject))
     @match = Match.create(need: @need, expert: expert_subject.expert, subject: @need.subject)
     if @match.valid?
-      ExpertMailer.delay.notify_company_needs(expert_subject.expert, @diagnosis)
+      ExpertMailer.notify_company_needs(expert_subject.expert, @diagnosis).deliver_later
     else
       flash.alert = @match.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
@@ -66,11 +64,6 @@ class NeedsController < ApplicationController
   end
 
   private
-
-  def experts
-    current_user.present? ? current_user.experts.order(:full_name)
-      : [current_expert]
-  end
 
   def current_involved
     current_user || current_expert
@@ -86,12 +79,5 @@ class NeedsController < ApplicationController
 
   def retrieve_diagnosis
     Diagnosis.find(params.require(:id))
-  end
-
-  def mark_expert_viewed
-    diagnosis = retrieve_diagnosis
-    experts.each do |expert|
-      UseCases::UpdateExpertViewedPageAt.perform(diagnosis: diagnosis, expert: expert)
-    end
   end
 end

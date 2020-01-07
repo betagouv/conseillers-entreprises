@@ -8,9 +8,10 @@ class ExpertsController < ApplicationController
   def edit
     @expert.mark_subjects_reviewed!
 
-    @institutions_subjects = @expert.antenne.institution.institutions_subjects
-    @es_by_theme = @institutions_subjects.group_by { |is| is.subject.theme }
-    @themes = Theme.all.ordered_for_interview
+    @is_by_theme = @expert.institution.institutions_subjects
+      .ordered_for_interview
+      .includes(:theme)
+      .group_by { |is| is.theme } # Enumerable#group_by maintains ordering
   end
 
   def update

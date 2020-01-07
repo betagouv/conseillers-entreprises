@@ -5,7 +5,7 @@
       .sub.header= I18n.l(diagnosis.display_date, format: :long)
       - if !diagnosis.completed?
         .diagnosis-step
-          .ui.label= t("diagnoses.step#{diagnosis.step}.title")
+          .ui.grey.basic.label= t("diagnoses.step#{diagnosis.step}.title")
       = diagnosis.company.name
       .sub.header= diagnosis.facility.commune_name
     - if diagnosis.completed?

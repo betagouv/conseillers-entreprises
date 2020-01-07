@@ -28,14 +28,19 @@ class InstitutionSubject < ApplicationRecord
   has_many :experts_subjects, dependent: :destroy
 
   # :subject
-  #
   has_one :theme, through: :subject, inverse_of: :institutions_subjects
 
   # :experts_subjects
-  #
   has_many :experts, through: :experts_subjects, inverse_of: :experts
 
+  ## Scopes
+  #
   scope :support_subjects, -> do
     where(subject: Subject.support_subject)
+  end
+
+  scope :ordered_for_interview, -> do
+    joins(:subject)
+      .merge(Subject.ordered_for_interview)
   end
 end

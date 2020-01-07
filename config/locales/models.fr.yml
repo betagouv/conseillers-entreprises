@@ -9,8 +9,6 @@ fr:
     need:
       archive: Marquer “En échec”
       archive_done: Marqué “En échec”
-      match_with_support_team: Mettre en relation avec l’équipe Support
-      match_with_support_team_done: Mis en relation avec l’équipe Support
       unarchive: Retirer “En échec”
       unarchive_done: "“En échec” retiré"
     person:
@@ -29,7 +27,7 @@ fr:
       diagnosis_completed: Analyses terminées
       done: Clôturé
       invitation_not_accepted: Invitations pas encore acceptées
-      not_invited_yet: Invitations à envoyer
+      never_used: Non connectable
       not_taken_after_3_weeks: 3 semaines sans réponse
       rejected: Refusés
       sent: Mises en relation envoyées
@@ -39,6 +37,7 @@ fr:
         abandoned_quo_not_taken: Non pris en charge depuis 3 semaines
         abandoned_taken_not_done: Pas de nouvelles depuis 3 semaines
         diagnosis_completed: Besoins identifiés dans des analyses terminées
+        never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
       with_custom_communes: Zone spécifique
       with_deleted_expert: Référent supprimé
       without_antenne: Sans antenne
@@ -114,7 +113,6 @@ fr:
         expert: Référent
         expert_full_name: Nom du référent
         expert_institution_name: Institution du référent
-        expert_viewed_page_at: Date de consultation par le référent
         need: Besoin identifié
         taken_care_of_at: Date de prise en charge
       need:
@@ -186,9 +184,6 @@ fr:
       antenne:
         one: Antenne
         other: Antennes
-      comment:
-        one: Commentaire
-        other: Commentaires
       commune:
         one: Commune
         other: Communes
@@ -297,6 +292,9 @@ fr:
       other: Établissements
     facility: Établissement visité
     facility_territories: Territoires des établissements
+    feedbacks:
+      one: Commentaire
+      other: Commentaires
     full_name: Prénom et nom
     happened_on: Date de la visite
     insee_codes:

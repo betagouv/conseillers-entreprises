@@ -15,9 +15,9 @@ module StatusHelper
   end
 
   STATUS_COLORS = {
-    diagnosis_not_complete: %w[lightgrey],
-    sent_to_no_one: %w[lightgrey],
-    quo: %w[lightgrey],
+    diagnosis_not_complete: %w[grey],
+    sent_to_no_one: %w[grey],
+    quo: %w[grey],
     not_for_me: %w[red],
     taking_care: %w[blue],
     done: %w[green]
@@ -32,13 +32,13 @@ module StatusHelper
     done: %w[icon checkmark]
   }
 
-  def match_actions(match)
+  def match_actions_buttons(match)
     allowed_actions = match.allowed_new_status
 
     form_with(model: match, url: match_path(match, access_token: params[:access_token])) do |f|
       allowed_actions.map do |new_status|
         title = StatusHelper::status_description(new_status, :action)
-        classes = %w[ui small basic button] + STATUS_COLORS[new_status]
+        classes = %w[ui small button] + STATUS_COLORS[new_status]
         f.button :submit, name: :status, value: new_status, class: classes.join(' ') do
           status_icon(new_status) + title
         end
@@ -49,7 +49,7 @@ module StatusHelper
   def status_label(status)
     status = status.to_sym
     title = StatusHelper::status_description(status, :short)
-    classes = %w[ui label] + STATUS_COLORS[status]
+    classes = %w[ui basic label] + STATUS_COLORS[status]
     content_tag(:div, class: classes.join(' ')) do
       status_icon(status) + title
     end

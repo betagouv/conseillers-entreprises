@@ -37,8 +37,6 @@ ActiveAdmin.register Need do
       else
         item t('active_admin.need.archive'), polymorphic_path([:archive, :admin, need])
       end
-
-      item t('active_admin.need.match_with_support_team'), match_with_support_team_admin_need_path(need)
     end
   end
 
@@ -88,10 +86,6 @@ ActiveAdmin.register Need do
     end
   end
 
-  action_item :match_with_support_team, only: :show do
-    link_to t('active_admin.need.match_with_support_team'), match_with_support_team_admin_need_path(need)
-  end
-
   action_item :archive, only: :show, if: -> { !resource.is_archived } do
     link_to t('active_admin.need.archive'), polymorphic_path([:archive, :admin, resource])
   end
@@ -115,11 +109,6 @@ ActiveAdmin.register Need do
 
   ## Actions
   #
-  member_action :match_with_support_team do
-    resource.create_matches!(current_user.support_expert_subject.id)
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.match_with_support_team_done')
-  end
-
   member_action :archive do
     resource.archive!
     redirect_back fallback_location: collection_path, notice: t('active_admin.need.archive_done')
@@ -142,12 +131,5 @@ ActiveAdmin.register Need do
       resource.unarchive!
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.unarchive_done')
-  end
-
-  batch_action I18n.t('active_admin.need.match_with_support_team') do |ids|
-    batch_action_collection.find(ids).each do |need|
-      need.create_matches!(current_user.support_expert_subject.id)
-    end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.match_with_support_team_done')
   end
 end

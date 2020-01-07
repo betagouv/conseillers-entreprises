@@ -6,22 +6,16 @@ class ExpertMailer < ApplicationMailer
 
   def notify_company_needs(expert, diagnosis)
     @expert = expert
-    @access_token = expert.access_token
     @diagnosis = diagnosis
 
     mail(
       to: @expert.email_with_display_name,
-      subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: @diagnosis.company.name),
-      reply_to: [
-        SENDER,
-        @diagnosis.advisor.email_with_display_name
-      ]
+      subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: @diagnosis.company.name)
     )
   end
 
   def remind_involvement(expert)
     @expert = expert
-    @access_token = expert.access_token
 
     @needs_quo = expert.needs_quo
     @needs_taking_care = expert.needs_taking_care
