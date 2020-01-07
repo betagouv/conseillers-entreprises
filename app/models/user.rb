@@ -139,6 +139,7 @@ class User < ApplicationRecord
   ## Keys for flags preferences
   #
   FLAGS = %i[
+    can_view_review_subjects_flash
   ]
   store_accessor :flags, FLAGS.map(&:to_s)
 
