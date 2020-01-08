@@ -79,6 +79,15 @@ fr:
   activerecord:
     attributes:
       antenne: 
+      audited:
+        action:
+          create: création
+          destroy: suppression
+          update: mise à jour
+      audited/audit/action:
+        create: création
+        destroy: suppression
+        update: mise à jour
       commune:
         insee_code: Code commune
       company: 
@@ -103,6 +112,11 @@ fr:
         users:
           one: Membre
           other: Membres
+      expert_subject:
+        role: rôle
+      expert_subject/role:
+        fallback: suppléant
+        specialist: spécialiste
       facility:
         company: Entreprise
         readable_locality: Commune
@@ -196,6 +210,9 @@ fr:
       antenne:
         one: Antenne
         other: Antennes
+      audited/audit:
+        one: Évènement
+        other: Journal
       commune:
         one: Commune
         other: Communes
@@ -275,6 +292,7 @@ fr:
       one: Référent
       other: Référents
     archived_at: Date d’archivage
+    auditable_type: Évènement
     code_effectif: Tranche d’effectif
     communes: Communes
     community: Communauté
