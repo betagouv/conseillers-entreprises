@@ -410,4 +410,5 @@ fr:
     full_name: "(Compte supprimé)"
   diagnoses:
     archives_antenne:
-      title: Analyses archivées de %{antenne}
+      subtitle: Réalisées par %{antenne}
+      title: Analyses archivées

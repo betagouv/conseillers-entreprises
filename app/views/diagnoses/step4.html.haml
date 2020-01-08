@@ -1,6 +1,6 @@
 - meta title: t('.title')
 
-= render partial: 'steps', locals: { current_page_step: 4, diagnosis_step: @diagnosis.step }
+= render 'header', diagnosis: @diagnosis, current_page_step: 4
 
 #step4-app
   - if @diagnosis.needs.empty?

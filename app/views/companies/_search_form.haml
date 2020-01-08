@@ -1,4 +1,7 @@
 %h2.ui.header= t('companies.search.search_company')
+
+%p= t('.subtitle')
+
 .ui.form
   = form_with url: search_companies_path, method: :get, skip_enforcing_utf8: true, local: true do
     .field

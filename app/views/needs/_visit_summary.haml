@@ -1,15 +1,7 @@
 .ui.grid.stackable
   .row.center.aligned
     .column
-      %h1.ui.header
-        .content
-          = diagnosis.company.name
-        .sub.header
-          = diagnosis.facility.commune_name
-        .sub.header
-          #{t('attributes.naf_code')} : #{diagnosis.facility.naf_code}
-        .sub.header
-          = link_to "SIRET : #{diagnosis.facility.siret}", company_path(diagnosis.facility.siret)
+      = render 'diagnoses/company_details', diagnosis: diagnosis
   .ui.divider
   .row.center.aligned
     .column

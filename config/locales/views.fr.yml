@@ -58,11 +58,13 @@ fr:
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
     search:
-      explanation: SIRET, raison sociale, adresse, activité…
+      explanation: 20005494800019, La Poste Lille
       generic_error: La recherche a échoué pour une raison inconnue. Réessayez plus tard.
       latest_searches: Recherches récentes
-      search_company: Rechercher une entreprise
+      search_company: Recherche d’une entreprise existante
       suggestions: Suggestions
+    search_form:
+      subtitle: Par SIRET, raison sociale, adresse, activité
     show:
       create_diagnosis: Démarrer une analyse
       diagnoses_completed: Analyses complétées de %{company_name}
@@ -83,9 +85,14 @@ fr:
   diagnoses:
     archives:
       browse_active_diagnoses: Voir les analyses en cours
+      subtitle: Par %{name}
       title: Analyses archivées
     archives_antenne:
       browse_active_diagnoses: Voir les analyses en cours pour l'antenne
+    company_details:
+      need_without_siret: Analyse sans SIRET
+    create_diagnosis_without_siret:
+      no_result: Nous n'avons pas trouvé de ville correspondant à ces informations
     diagnosis:
       last_activity_date: dernière activité le %{l}
     index:
@@ -95,10 +102,21 @@ fr:
       confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
       create_new_diagnosis: Démarrer une analyse
       diagnoses_in_progress: Analyses en cours
+      subtitle: Par %{name}
       title: Analyses
     index_antenne:
       browse_archived_diagnoses: Voir les analyses archivées
-      title: Analyses de %{antenne}
+      subtitle: Réalisées par %{antenne}
+      title: Analyses
+    new:
+      city: Ville
+      create_new_diagnosis: Démarrer une analyse
+      find_company: Rechercher une entreprise
+      name: Nom
+      postal_code: Code postal
+      search_manually: Entrer les informations manuellement
+      sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation.
+      title: Saisie manuelle
     step2:
       diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
       diagnosis_content_subtitle: Informations générales sur cette entreprise

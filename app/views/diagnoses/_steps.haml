@@ -1,8 +1,7 @@
-.diagnosis-steps-wrapper
-  .ui.mini.ordered.steps.diagnosis-steps
-    - (2..4).each do |displayed_step|
-      - class_for_step = html_classes_for_step(displayed_step, current_page_step, diagnosis_step)
-      .step{ class: class_for_step }
-        .content
-          .title
-            = t("diagnoses.step#{displayed_step}.title")
+.ui.mini.ordered.steps.fluid
+  - (2..4).each do |displayed_step|
+    - class_for_step = html_classes_for_step(displayed_step, current_page_step, diagnosis_step)
+    .step{ class: class_for_step }
+      .content
+        .title
+          = t("diagnoses.step#{displayed_step}.title")

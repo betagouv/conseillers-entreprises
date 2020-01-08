@@ -1,5 +1,9 @@
 - meta title: t('.title')
 
+%h1.ui.header
+  = t('.title')
+  .sub.header= t('.subtitle', name: current_user.full_name)
+
 = render 'diagnoses', diagnoses: @diagnoses, title: t('.title')
 
 = link_to diagnoses_path do
