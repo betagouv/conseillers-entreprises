@@ -20,21 +20,6 @@ class ApplicationController < SharedController
     root_path
   end
 
-  def current_expert
-    Expert.find_by(access_token: params[:access_token])
-  end
-
-  def current_roles
-    current_roles = [current_user]
-    current_roles += current_user&.experts || []
-    current_roles += [current_expert]
-    current_roles.compact
-  end
-
-  def authenticate_expert!
-    current_expert.present? || not_found
-  end
-
   def check_current_user_access_to(resource)
     http_method = request.request_method
     access_method = if %w[GET HEAD].include?(http_method)
