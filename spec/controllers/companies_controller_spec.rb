@@ -21,7 +21,7 @@ RSpec.describe CompaniesController, type: :controller do
     end
   end
 
-  describe 'GET #show' do
+  describe 'GET #searchmatch_spec.rb' do
     it do
       get :search
       expect(response).to be_successful
