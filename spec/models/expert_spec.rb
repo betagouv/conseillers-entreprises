@@ -76,36 +76,4 @@ RSpec.describe Expert, type: :model do
       it{ is_expected.to be_falsey }
     end
   end
-
-  describe 'generate_access_token' do
-    let(:expert) { create :expert }
-
-    context 'it is a new expert' do
-      context 'there is no expert with this access_token' do
-        before { allow(SecureRandom).to receive(:hex).once.and_return('access_token') }
-
-        it { expect(expert.access_token).to eq 'access_token' }
-      end
-
-      context 'there is already a expert with this access_token' do
-        let!(:expert_with_same_access_token) { create :expert }
-
-        before do
-          expert_with_same_access_token.update access_token: 'access_token'
-          allow(SecureRandom).to receive(:hex).at_least(:once).and_return('access_token', 'other_access_token')
-        end
-
-        it { expect(expert.access_token).to eq 'other_access_token' }
-      end
-    end
-
-    context 'expert is already created' do
-      before do
-        allow(SecureRandom).to receive(:hex).once.and_return('access_token')
-        expert.save
-      end
-
-      it { expect(expert.access_token).to eq 'access_token' }
-    end
-  end
 end

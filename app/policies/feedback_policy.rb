@@ -1,20 +1,10 @@
 class FeedbackPolicy < ApplicationPolicy
   def destroy?
-    if user.present?
-      admin? ||
-        creator? ||
-        @record.expert.in?(user.experts)
-    else
-      creator?
-    end
+    admin? || creator?
   end
 
   def creator?
-    if user.present?
-      @record.user == user
-    else
-      @record.expert == user
-    end
+    @record.user == @user || @record.expert.in?(@user.experts)
   end
 
   class Scope < Scope

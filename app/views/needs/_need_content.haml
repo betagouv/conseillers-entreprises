@@ -1,6 +1,6 @@
 - return if need.content.empty?
 
-- for_me = need.advisor.in? current_roles
+- for_me = need.advisor == current_user
 - highlight = need.advisor.in? highlighted_experts
 .event{ id: "need_content-#{need.id}" }
   .label

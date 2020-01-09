@@ -1,13 +1,8 @@
 class ApplicationPolicy
-  attr_reader :context, :params
-
-  def initialize(context, record)
-    @context = context
+  def initialize(user, record)
+    @user = user
     @record = record
   end
-
-  delegate :user, to: :context
-  delegate :expert, to: :context
 
   def index?
     true
@@ -44,7 +39,7 @@ class ApplicationPolicy
   end
 
   def admin?
-    user&.is_admin
+    @user&.is_admin
   end
 
   class Scope

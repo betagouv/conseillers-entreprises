@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
 class MatchesController < ApplicationController
-  skip_before_action :authenticate_user!
-  before_action :authenticate_user!, unless: -> { params[:access_token].present? }
-  before_action :authenticate_expert!, if: -> { params[:access_token].present? }
-
   def update
     @match = retrieve_match
-    @current_roles = current_roles
     previous_status = @match.status
     @match.update status: params[:status]
     UserMailer.update_match_notify(@match, current_user, previous_status).deliver_later

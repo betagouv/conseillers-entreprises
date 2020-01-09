@@ -46,11 +46,8 @@ class Expert < ApplicationRecord
 
   ## Validations
   #
-  validates :antenne, :email, :phone_number, :access_token, presence: true
+  validates :antenne, :email, :phone_number, presence: true
   validates :users, presence: true
-  validates :access_token, uniqueness: true
-
-  before_validation :generate_access_token!, on: :create
 
   ## “Through” Associations
   #
@@ -114,16 +111,6 @@ class Expert < ApplicationRecord
       .or(Expert.joins(:antenne).where('antennes.name ILIKE ?', "%#{query}%"))
   end
 
-  ##
-  #
-  def generate_access_token!
-    self.access_token = SecureRandom.hex(32)
-
-    if Expert.exists?(access_token: access_token)
-      generate_access_token!
-    end
-  end
-
   ## Description
   #
   def solo?
@@ -152,19 +139,19 @@ class Expert < ApplicationRecord
 
   ##
   #
-  def can_be_viewed_by?(role)
-    if role.is_a?(User) && role.is_admin
+  def can_be_viewed_by?(user)
+    if user.is_admin
       return true
     end
 
-    if role.is_a?(Expert) && self == role
+    if self.in?(user.experts)
       return true
     end
 
     false
   end
 
-  def can_be_modified_by?(role)
-    can_be_viewed_by?(role)
+  def can_be_modified_by?(user)
+    can_be_viewed_by?(user)
   end
 end

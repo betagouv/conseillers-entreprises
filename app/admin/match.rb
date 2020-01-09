@@ -34,7 +34,7 @@ ActiveAdmin.register Match do
       if m.expert.present?
         div admin_link_to(m, :expert)
         div admin_link_to(m, :expert_antenne)
-        div link_to('Page Référent', need_path(m.diagnosis, access_token: m.expert.access_token))
+        div link_to('Page Analyse', need_path(m.diagnosis))
       else
         div m.expert_full_role
         status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
@@ -88,7 +88,7 @@ ActiveAdmin.register Match do
     column(:status_description) { |m| m.need.status_short_description }
     column :taken_care_of_at
     column :closed_at
-    column('Page Référent') { |m| need_url(m.diagnosis, access_token: m.expert.access_token) if m.expert.present? }
+    column('Page Analyse') { |m| need_url(m.diagnosis) if m.expert.present? }
   end
 
   ## Show
@@ -108,7 +108,7 @@ ActiveAdmin.register Match do
         if m.expert.present?
           div admin_link_to(m, :expert)
           div admin_link_to(m, :expert_antenne)
-          div link_to('Page Référent', need_path(m.diagnosis, access_token: m.expert.access_token))
+          div link_to('Page Analyse', need_path(m.diagnosis))
         else
           div m.expert_full_role
           status_tag I18n.t('active_admin.matches.deleted'), class: 'error'

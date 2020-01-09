@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
 class NeedsController < ApplicationController
-  skip_before_action :authenticate_user!
-  before_action :authenticate_user!, unless: -> { params[:access_token].present? }
-  before_action :authenticate_expert!, if: -> { params[:access_token].present? }
-
   include FlashToReviewSubjects
 
   def index
-    @needs_quo = current_involved.needs_quo
-    @needs_taking_care = current_involved.needs_taking_care
-    @needs_others_taking_care = current_involved.needs_others_taking_care
+    @needs_quo = current_user.needs_quo
+    @needs_taking_care = current_user.needs_taking_care
+    @needs_others_taking_care = current_user.needs_others_taking_care
   end
 
   def index_antenne
@@ -20,9 +16,9 @@ class NeedsController < ApplicationController
   end
 
   def archives
-    @needs_rejected = current_involved.needs_rejected
-    @needs_done = current_involved.needs_done
-    @needs_archived = current_involved.needs_archived
+    @needs_rejected = current_user.needs_rejected
+    @needs_done = current_user.needs_done
+    @needs_archived = current_user.needs_archived
   end
 
   def archives_antenne
@@ -34,7 +30,6 @@ class NeedsController < ApplicationController
   def show
     @diagnosis = retrieve_diagnosis
     authorize @diagnosis
-    @current_roles = current_roles
     @highlighted_experts = highlighted_experts
   end
 
@@ -50,7 +45,6 @@ class NeedsController < ApplicationController
 
   def add_match
     @diagnosis = retrieve_diagnosis
-    @current_roles = current_roles
 
     @need = Need.find(params.require(:need))
     expert_subject = ExpertSubject.find(params.require(:expert_subject))
@@ -64,10 +58,6 @@ class NeedsController < ApplicationController
   end
 
   private
-
-  def current_involved
-    current_user || current_expert
-  end
 
   def highlighted_experts
     begin

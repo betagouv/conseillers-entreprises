@@ -1,4 +1,4 @@
-- for_me = feedback.author.in? current_roles
+- for_me = feedback.user == current_user || feedback.expert.in?(user.experts)
 - highlight = feedback.author.in? highlighted_experts
 .event{ id: "feedback-#{feedback.id}" }
   .label
@@ -13,6 +13,5 @@
     .extra.text= simple_format(feedback.description)
     - if policy(feedback).destroy?
       .meta= link_to(t('delete'),
-        feedback_path(feedback,
-          params.permit(:access_token)),
+        feedback_path(feedback),
           data: { confirm: t('.delete'), remote: true, method: :delete })

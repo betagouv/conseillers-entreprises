@@ -83,7 +83,6 @@ fr:
         phone_number: Numéro de téléphone de la personne rencontrée
         role: Fonction de la personne rencontrée
       expert:
-        access_token: Token d’accès
         experts_subjects:
           one: Compétence
           other: Compétences

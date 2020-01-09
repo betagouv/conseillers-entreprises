@@ -20,25 +20,6 @@ class ApplicationController < SharedController
     root_path
   end
 
-  def current_expert
-    Expert.find_by(access_token: params[:access_token])
-  end
-
-  def current_roles
-    current_roles = [current_user]
-    current_roles += current_user&.experts || []
-    current_roles += [current_expert]
-    current_roles.compact
-  end
-
-  def authenticate_expert!
-    current_expert.present? || not_found
-  end
-
-  def pundit_user
-    UserContext.new(current_user, current_expert)
-  end
-
   def check_current_user_access_to(resource)
     http_method = request.request_method
     access_method = if %w[GET HEAD].include?(http_method)
@@ -47,7 +28,7 @@ class ApplicationController < SharedController
       :can_be_modified_by?
     end
 
-    if current_roles.any? { |role| resource.send(access_method, role) }
+    if resource.send(access_method, current_user)
       return
     end
     # can not be viewed:
