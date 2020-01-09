@@ -1,4 +1,4 @@
-- for_me = feedback.user == current_user || feedback.expert.in?(user.experts)
+- for_me = policy(feedback).creator?
 - highlight = feedback.author.in? highlighted_experts
 .event{ id: "feedback-#{feedback.id}" }
   .label
