@@ -1,9 +1,4 @@
-# frozen_string_literal: true
-
-class StatsController < ApplicationController
-  skip_before_action :authenticate_user!
-  layout 'solicitations'
-
+class StatsController < PagesController
   def show
     @stats = Stats::Stats.new(stats_params)
   end

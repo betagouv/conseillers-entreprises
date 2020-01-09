@@ -1,7 +1,5 @@
 desc 'Setup and push reviewed code to production'
 task :push_to_production do
-  require 'json'
-  require 'rest-client'
   require 'highline/import'
 
   def fetch_master_and_production

@@ -1,6 +1,4 @@
-class SolicitationsController < ApplicationController
-  skip_before_action :authenticate_user!
-
+class SolicitationsController < PagesController
   def create
     @solicitation = Solicitation.create(solicitation_params)
 

@@ -18,6 +18,6 @@
         = f.label 'email', t('.email.label')
         = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
     .form__group
-      = render 'solicitations/flashes'
+      = render 'flashes'
       = f.submit t('.button.title'), class: 'button large'
   %p= t('.experimental_html')

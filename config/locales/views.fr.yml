@@ -12,6 +12,18 @@ fr:
       short_title: Top 5 des aides
       title: Top 5 des aides & accompagnements
       whats_your_question: Et vous, quel est votre besoin ?
+  application:
+    footer:
+      contact_us: Contactez-nous !
+      problem_or_question: Un problème ? Une question ?
+    navbar:
+      account: Compte
+      admin: Administration
+      diagnoses: Analyses
+      interview_guide: Guide d’entretien
+      invite: Inviter des utilisateurs
+      profile: Profil
+      sign_out: Déconnexion
   companies:
     company:
       capital_social: Capital social
@@ -169,22 +181,6 @@ fr:
       label_2_html: Le service <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
       label_3_html: Le conseiller vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
-  layouts:
-    footer:
-      contact_us: Contactez-nous !
-      problem_or_question: Un problème ? Une question ?
-    navbar:
-      account: Compte
-      admin: Administration
-      diagnoses: Analyses
-      interview_guide: Guide d’entretien
-      invite: Inviter des utilisateurs
-      profile: Profil
-      sign_out: Déconnexion
-    solicitations:
-      footer:
-        dinum: DINUM
-        startup_d_etat: Une startup d’État de beta.gouv
   mailers:
     admin_mailer:
       solicitation:
@@ -260,14 +256,13 @@ fr:
         subject: "[Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
         visited_days_ago: Visitée il y a %{days} par %{advisor}
         visited_on: Visitée le %{date}
+    footer:
+      blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
+      contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
     hello: Bonjour,
     hello_name: Bonjour %{name},
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
-    shared:
-      footer:
-        blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
-        contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
     user_mailer:
       confirm_notifications_sent:
         company_expressed_needs:
@@ -347,6 +342,10 @@ fr:
       person_advisor: Conseiller
       person_company_contact: Personne rencontrée
       visit_made_on: Mise en relation faite le %{date}
+  pages:
+    footer:
+      dinum: DINUM
+      startup_d_etat: Une startup d’État de beta.gouv
   person:
     deleted_person: Compte supprimé
   reminders:
