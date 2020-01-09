@@ -35,10 +35,6 @@ class ApplicationController < SharedController
     current_expert.present? || not_found
   end
 
-  def pundit_user
-    UserContext.new(current_user, current_expert)
-  end
-
   def check_current_user_access_to(resource)
     http_method = request.request_method
     access_method = if %w[GET HEAD].include?(http_method)
