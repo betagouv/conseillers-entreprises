@@ -1,8 +1,4 @@
-class LandingsController < ApplicationController
-  skip_before_action :authenticate_user!
-
-  layout 'solicitations'
-
+class LandingsController < PagesController
   def index
     @featured_landings = Rails.cache.fetch('featured_landings', expires_in: 1.hour) do
       Landing.featured.ordered_for_home.to_a

@@ -6,4 +6,5 @@
 
 // = require rails-ujs
 // = require turbolinks
-// = require stats_charts
+
+// = require_tree ./pages

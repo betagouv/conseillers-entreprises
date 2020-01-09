@@ -300,5 +300,5 @@ Devise.setup do |config|
 end
 
 Rails.application.config.to_prepare do
-  Devise::Mailer.layout 'mailer'
+  Devise::Mailer.layout 'mailers'
 end

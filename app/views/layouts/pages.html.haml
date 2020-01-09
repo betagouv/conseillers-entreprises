@@ -4,17 +4,19 @@
     = metamagic site: t('app_name'), title: %i[title site], separator: ' | '
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     = csrf_meta_tags
-    = stylesheet_link_tag 'solicitations/index'
-    = javascript_include_tag 'solicitations', data: { turbolinks_track: 'reload' }
+    = stylesheet_link_tag 'pages'
+    = javascript_include_tag 'pages', data: { turbolinks_track: 'reload' }
     = javascript_include_tag 'https://browser.sentry-cdn.com/4.6.4/bundle.min.js', crossorigin: 'anonymous'
 
-    = render 'application/favicon'
+    = render 'favicon'
     = yield :head
     = sentry_script
     = matomo_script
 
   %body
-    = render 'layouts/solicitations/navbar'
+    = render 'navbar'
+    = render 'environment_ribbon'
+    = render 'user_impersonate'
     = yield
-    = render 'layouts/solicitations/footer'
+    = render 'footer'
 
