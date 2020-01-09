@@ -4,11 +4,10 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
   Exclude:
     - 'db/schema.rb'
     - 'tmp/**/*'
-    - 'spec/policies/*'
 
 Bundler/DuplicatedGem:
   Enabled: true
@@ -31,13 +30,13 @@ Gemspec/RequiredRubyVersion:
 Layout/AccessModifierIndentation:
   Enabled: true
 
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Enabled: true
 
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: true
   EnforcedStyle: with_fixed_indentation
 
@@ -136,21 +135,21 @@ Layout/FirstMethodArgumentLineBreak:
 Layout/FirstMethodParameterLineBreak:
   Enabled: false
 
-Layout/IndentAssignment:
+Layout/AssignmentIndentation:
   Enabled: true
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   Enabled: true
 
-Layout/IndentFirstArrayElement:
-  Enabled: true
-  EnforcedStyle: consistent
-
-Layout/IndentFirstHashElement:
+Layout/FirstArrayElementIndentation:
   Enabled: true
   EnforcedStyle: consistent
 
-Layout/IndentHeredoc:
+Layout/FirstHashElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
+
+Layout/HeredocIndentation:
   Enabled: true
 
 Layout/IndentationConsistency:
@@ -272,7 +271,7 @@ Layout/SpaceInsideStringInterpolation:
 Layout/Tab:
   Enabled: true
 
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Enabled: true
 
 Layout/TrailingWhitespace:
@@ -311,7 +310,7 @@ Lint/DuplicateCaseCondition:
 Lint/DuplicateMethods:
   Enabled: true
 
-Lint/DuplicatedKey:
+Lint/DuplicateHashKey:
   Enabled: true
 
 Lint/EachWithObjectArgument:
@@ -347,7 +346,7 @@ Lint/FloatOutOfRange:
 Lint/FormatParameterMismatch:
   Enabled: false
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: false
 
 Lint/ImplicitStringConcatenation:
@@ -374,7 +373,7 @@ Lint/Loop:
 Lint/MissingCopEnableDirective:
   Enabled: true
 
-Lint/MultipleCompare:
+Lint/MultipleComparison:
   Enabled: false
 
 Lint/NestedMethodDefinition:
@@ -443,7 +442,7 @@ Lint/ShadowedException:
 Lint/ShadowingOuterLocalVariable:
   Enabled: false
 
-Lint/StringConversionInInterpolation:
+Lint/RedundantStringCoercion:
   Enabled: false
 
 Lint/Syntax:
@@ -515,7 +514,7 @@ Metrics/ClassLength:
 Metrics/CyclomaticComplexity:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Metrics/MethodLength:
@@ -563,10 +562,10 @@ Naming/MethodName:
 Naming/PredicateName:
   Enabled: false
 
-Naming/UncommunicativeBlockParamName:
+Naming/BlockParameterName:
   Enabled: true
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
 Naming/VariableName:
@@ -656,6 +655,9 @@ Rails/ApplicationJob:
 Rails/ApplicationRecord:
   Enabled: true
 
+Rails/ApplicationController:
+  Enabled: false
+
 Rails/Blank:
   Enabled: true
 
@@ -690,6 +692,7 @@ Rails/Exit:
 
 Rails/FilePath:
   Enabled: true
+  EnforcedStyle: arguments
 
 Rails/FindBy:
   Enabled: true
@@ -732,6 +735,9 @@ Rails/Presence:
 
 Rails/Present:
   Enabled: true
+
+Rails/RakeEnvironment:
+  Enabled: false
 
 Rails/ReadWriteAttribute:
   Enabled: false
