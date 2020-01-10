@@ -87,7 +87,6 @@ ActiveAdmin.register Expert do
   show do
     attributes_table do
       row :full_name
-      row :access_token
       row :role
       row :email
       row :phone_number

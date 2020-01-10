@@ -1,4 +1,4 @@
-- match_html = render @match, current_roles: @current_roles, highlighted_experts: []
+- match_html = render @match, highlighted_experts: []
 document.getElementById('match-#{@match.id}').outerHTML = "#{j match_html}";
 
 - need_header_html = render 'needs/need_header', need: @match.need

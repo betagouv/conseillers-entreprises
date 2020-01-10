@@ -48,7 +48,6 @@ namespace :import_dump do
   ]
 
   ANONYMIZED_ATTRIBUTES = {
-    'access_token' => -> { SecureRandom.hex(32) },
     'content' => -> { Faker::Lorem.paragraph },
     'description' => -> { Faker::Lorem.paragraph },
     'title' => -> { Faker::Lorem.sentence },

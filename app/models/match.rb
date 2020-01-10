@@ -146,12 +146,12 @@ class Match < ApplicationRecord
 
   ##
   #
-  def can_be_viewed_by?(role)
-    diagnosis.can_be_viewed_by?(role)
+  def can_be_viewed_by?(user)
+    diagnosis.can_be_viewed_by?(user)
   end
 
-  def can_be_modified_by?(role)
-    role.present? && expert == role
+  def can_be_modified_by?(user)
+    expert.in?(user.experts)
   end
 
   private

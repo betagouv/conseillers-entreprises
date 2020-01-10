@@ -35,7 +35,7 @@ module StatusHelper
   def match_actions_buttons(match)
     allowed_actions = match.allowed_new_status
 
-    form_with(model: match, url: match_path(match, access_token: params[:access_token])) do |f|
+    form_with(model: match, url: match_path(match)) do |f|
       allowed_actions.map do |new_status|
         title = StatusHelper::status_description(new_status, :action)
         classes = %w[ui small button] + STATUS_COLORS[new_status]
