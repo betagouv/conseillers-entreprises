@@ -9,9 +9,15 @@ ActiveAdmin.register Solicitation do
     selectable_column
     column :solicitation do |s|
       div admin_link_to(s)
-      div admin_attr(s, :siret)
       div admin_attr(s, :email)
       div admin_attr(s, :phone_number)
+      div do
+        span admin_attr(s, :siret)
+        if s.siret.present?
+          span ' — '
+          span link_to t('active_admin.solicitations.show_company_page'), company_path(s.siret)
+        end
+      end
       div admin_attr(s, :description).truncate(200, separator: ' ')
     end
     column :created_at
@@ -38,9 +44,15 @@ ActiveAdmin.register Solicitation do
   #
   show do
     attributes_table do
-      row :siret
       row :email
       row :phone_number
+      row :siret do |s|
+        span s.siret
+        if s.siret.present?
+          span ' — '
+          span link_to t('active_admin.solicitations.show_company_page'), company_path(s.siret)
+        end
+      end
       row :description
       row :created_at
       row :updated_at
