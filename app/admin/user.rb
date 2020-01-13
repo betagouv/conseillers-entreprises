@@ -71,6 +71,7 @@ ActiveAdmin.register User do
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
       item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
 
+      # Dynamically create a menu item to activate and deactivate each User::FLAGS
       User::FLAGS.each do |flag|
         [true, false].each do |value|
           localized_flag = I18n.t("activerecord.attributes.user.#{flag}")
@@ -137,6 +138,7 @@ ActiveAdmin.register User do
       end
     end
 
+    # Dynamically create a status tag for each User::FLAGS
     attributes_table title: I18n.t('activerecord.attributes.user.flags') do
       User::FLAGS.each do |flag|
         row(flag) { |u| status_tag u.send(flag).to_b }
@@ -220,6 +222,7 @@ ActiveAdmin.register User do
     end
 
     f.inputs I18n.t('activerecord.attributes.user.flags') do
+      # Dynamically create a checkbox for each User::FLAGS
       User::FLAGS.each do |flag|
         f.input flag, as: :boolean
       end
@@ -267,7 +270,7 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
   end
 
-  ## Flags
+  # Dynamically create a member_action and a batch_action to activate and deactivate each User::FLAGS
   User::FLAGS.each do |flag|
     [true, false].each do |value|
       localized_flag = I18n.t("activerecord.attributes.user.#{flag}")
