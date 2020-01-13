@@ -6,8 +6,6 @@ class ExpertsController < ApplicationController
   before_action :check_user
 
   def edit
-    @expert.mark_subjects_reviewed!
-
     @is_by_theme = @expert.institution.institutions_subjects
       .ordered_for_interview
       .includes(:theme)
@@ -15,6 +13,7 @@ class ExpertsController < ApplicationController
   end
 
   def update
+    @expert.mark_subjects_reviewed!
     @expert.update(expert_params)
     redirect_to profile_path
   end
