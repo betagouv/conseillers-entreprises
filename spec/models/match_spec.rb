@@ -23,24 +23,6 @@ RSpec.describe Match, type: :model do
     end
   end
 
-  describe 'audited' do
-    context 'create' do
-      it { expect { create :match }.to change(Audited::Audit, :count).by 1 }
-    end
-
-    context 'update status' do
-      let!(:match) { create :match }
-
-      it { expect { match.update status: :done }.to change(Audited::Audit, :count).by 1 }
-    end
-
-    context 'destroy' do
-      let!(:match) { create :match }
-
-      it { expect { match.destroy }.to change(Audited::Audit, :count).by 1 }
-    end
-  end
-
   describe 'copy_expert_info' do
     let(:match) { create :match }
 
