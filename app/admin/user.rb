@@ -70,6 +70,15 @@ ActiveAdmin.register User do
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
       item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
+
+      # Dynamically create a menu item to activate and deactivate each User::FLAGS
+      User::FLAGS.each do |flag|
+        [true, false].each do |value|
+          localized_flag = I18n.t("activerecord.attributes.user.#{flag}")
+          title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
+          item title, polymorphic_path([flag, :admin, u])
+        end
+      end
     end
   end
 
@@ -128,6 +137,14 @@ ActiveAdmin.register User do
         div admin_link_to(u, :feedbacks)
       end
     end
+
+    # Dynamically create a status tag for each User::FLAGS
+    attributes_table title: I18n.t('activerecord.attributes.user.flags') do
+      User::FLAGS.each do |flag|
+        row(flag) { |u| status_tag u.send(flag).to_b }
+      end
+    end
+
     attributes_table title: t('activerecord.attributes.user.invitees') do
       row :invitees
     end
@@ -176,7 +193,9 @@ ActiveAdmin.register User do
   #
   permit_params :full_name, :email, :institution, :role, :phone_number,
                 :is_admin,
-                :antenne_id, expert_ids: []
+                :antenne_id,
+                *User::FLAGS,
+                expert_ids: []
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -200,6 +219,13 @@ ActiveAdmin.register User do
 
     f.inputs I18n.t('active_admin.user.admin') do
       f.input :is_admin, as: :boolean
+    end
+
+    f.inputs I18n.t('activerecord.attributes.user.flags') do
+      # Dynamically create a checkbox for each User::FLAGS
+      User::FLAGS.each do |flag|
+        f.input flag, as: :boolean
+      end
     end
 
     f.actions
@@ -242,6 +268,27 @@ ActiveAdmin.register User do
       user.invite!(current_user)
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
+  end
+
+  # Dynamically create a member_action and a batch_action to activate and deactivate each User::FLAGS
+  User::FLAGS.each do |flag|
+    [true, false].each do |value|
+      localized_flag = I18n.t("activerecord.attributes.user.#{flag}")
+      title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
+      message = I18n.t("active_admin.user.flag.done.#{value}", flag: localized_flag)
+
+      # member_action
+      member_action flag do
+        resource.update({ flag => value })
+        redirect_back fallback_location: collection_path, notice: message
+      end
+
+      # batch_action
+      batch_action title do |ids|
+        batch_action_collection.where(id: ids).update({ flag => value })
+        redirect_back fallback_location: collection_path, notice: message
+      end
+    end
   end
 
   controller do
