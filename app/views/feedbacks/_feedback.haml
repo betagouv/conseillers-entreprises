@@ -6,7 +6,7 @@
       %i.comment.outline.icon{ class: ('blue' if for_me) }
   .content
     .summary
-      .user{ class: ('expert-highlighted' if highlight) }
+      .user.popup-hover{ class: ('expert-highlighted' if highlight) }
         = feedback.author.full_name
       .ui.popup= person_block(feedback.author)
       .date= I18n.l(feedback.created_at, format: :long)
