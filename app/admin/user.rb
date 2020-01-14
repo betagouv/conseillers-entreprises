@@ -55,6 +55,10 @@ ActiveAdmin.register User do
       div admin_link_to(u, :feedbacks)
     end
 
+    column(:flags) do |u|
+      u.flags.filter{ |_, v| !!v }.map{ |k, _| User.human_attribute_name(k) }.to_sentence
+    end
+
     actions dropdown: true do |u|
       if u.deactivated?
         item(t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(u), method: :post)
@@ -69,9 +73,11 @@ ActiveAdmin.register User do
       # Dynamically create a menu item to activate and deactivate each User::FLAGS
       User::FLAGS.each do |flag|
         [true, false].each do |value|
-          localized_flag = I18n.t("activerecord.attributes.user.#{flag}")
+          localized_flag = User.human_attribute_name(flag)
           title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
-          item title, polymorphic_path([flag, :admin, u])
+          if !!u.send(flag) != value # Only add a menu item to change to the other value.
+            item title, polymorphic_path(["#{flag}_#{value}", :admin, u])
+          end
         end
       end
     end
@@ -264,12 +270,12 @@ ActiveAdmin.register User do
   # Dynamically create a member_action and a batch_action to activate and deactivate each User::FLAGS
   User::FLAGS.each do |flag|
     [true, false].each do |value|
-      localized_flag = I18n.t("activerecord.attributes.user.#{flag}")
+      localized_flag = User.human_attribute_name(flag)
       title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
       message = I18n.t("active_admin.user.flag.done.#{value}", flag: localized_flag)
 
       # member_action
-      member_action flag do
+      member_action "#{flag}_#{value}" do
         resource.update({ flag => value })
         redirect_back fallback_location: collection_path, notice: message
       end

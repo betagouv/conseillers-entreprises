@@ -97,6 +97,7 @@ fr:
         is_global_zone: Global
         reminders_notes: Suivi des relances
         role: Fonction
+        subjects_reviewed_at: Revue des compétences
         users:
           one: Membre
           other: Membres
@@ -148,7 +149,7 @@ fr:
       theme:
         institutions_subjects: Compétences d'institutions
       user:
-        can_view_review_subjects_flash: Rappeler la revue des compétences
+        can_view_review_subjects_flash: Rappel de la revue des compétences
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
