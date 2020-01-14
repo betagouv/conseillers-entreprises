@@ -40,7 +40,6 @@ fr:
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
       with_custom_communes: Zone spécifique
       with_deleted_expert: Référent supprimé
-      without_antenne: Sans antenne
       without_communes: Sans zone d’intervention
     solicitations:
       show_company_page: Page de la société

@@ -28,7 +28,7 @@
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  antenne_id             :bigint(8)
+#  antenne_id             :bigint(8)        not null
 #  inviter_id             :bigint(8)
 #
 # Indexes
@@ -58,7 +58,7 @@ class User < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors, optional: true
+  belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors
   has_and_belongs_to_many :experts, inverse_of: :users
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :searches, inverse_of: :user
@@ -130,10 +130,6 @@ class User < ApplicationRecord
         .where(taken_care_of_at: date)
         .where(status: status))
       .distinct
-  end
-
-  scope :without_antenne, -> do
-    where(antenne_id: nil)
   end
 
   ## Keys for flags preferences
