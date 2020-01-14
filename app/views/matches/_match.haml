@@ -16,7 +16,7 @@
       - else
         = t('.match_with')
     .summary
-      .user{ class: ('expert-highlighted' if highlight) }
+      .user.popup-hover{ class: ('expert-highlighted' if highlight) }
         = match.expert_full_role
       .ui.popup= person_block(match.expert)
     - if for_me
