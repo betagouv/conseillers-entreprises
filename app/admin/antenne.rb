@@ -24,8 +24,8 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :communes)
     end
     column(:activity) do |a|
-      div admin_link_to(a, :sent_matches)
-      div admin_link_to(a, :received_matches)
+      div admin_link_to(a, :sent_matches, blank_if_empty: true)
+      div admin_link_to(a, :received_matches, blank_if_empty: true)
     end
   end
 

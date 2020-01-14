@@ -29,9 +29,9 @@ ActiveAdmin.register Territory do
       div admin_link_to(t, :antenne_experts)
     end
     column(:activity) do |c|
-      div admin_link_to(c, :diagnoses)
-      div admin_link_to(c, :needs)
-      div admin_link_to(c, :matches)
+      div admin_link_to(c, :diagnoses, blank_if_empty: true)
+      div admin_link_to(c, :needs, blank_if_empty: true)
+      div admin_link_to(c, :matches, blank_if_empty: true)
     end
   end
 

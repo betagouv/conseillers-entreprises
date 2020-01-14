@@ -43,8 +43,8 @@ ActiveAdmin.register Expert do
       div admin_link_to(e, :subjects)
     end
     column(:activity) do |e|
-      div admin_link_to(e, :received_matches)
-      div admin_link_to(e, :feedbacks)
+      div admin_link_to(e, :received_matches, blank_if_empty: true)
+      div admin_link_to(e, :feedbacks, blank_if_empty: true)
     end
     actions dropdown: true do |expert|
       item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)

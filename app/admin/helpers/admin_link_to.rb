@@ -8,20 +8,23 @@ module Admin
           return link_to(object, polymorphic_path([:admin, object]))
         end
 
+        empty_result = options[:blank_if_empty] ? '' : '-'
         klass = object.class
         reflection = klass.reflect_on_association(association)
 
-        if reflection.collection?
-          if options[:list]
+        if reflection.collection? # `has_many` association
+          if options[:list] # List of objects
             foreign_objects = object.send(association)
             if foreign_objects.present?
               links = foreign_objects.map { |foreign_object| link_to(foreign_object, polymorphic_path([:admin, foreign_object])) }
               links.join('</br>').html_safe
             else
-              '-'
+              empty_result
             end
-          else # single link to list
+          else # Single link with count
             count = object.send(association).size
+            return empty_result if count == 0
+
             text = "#{count} #{klass.human_attribute_name(association, count: count).downcase}"
             foreign_klass = reflection.klass
             if reflection.options[:through].present?
@@ -38,12 +41,12 @@ module Admin
             end
             link_to(text, polymorphic_path([:admin, foreign_klass], "q[#{inverse_path}_id_eq]": object))
           end
-        else
+        else # `has_one` association
           foreign_object = object.send(association)
           if foreign_object.present?
             link_to(foreign_object, polymorphic_path([:admin, foreign_object]))
           else
-            '-'
+            empty_result
           end
         end
       end

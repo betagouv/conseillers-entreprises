@@ -48,11 +48,11 @@ ActiveAdmin.register User do
       div admin_link_to(u, :experts, list: true)
     end
     column(:activity) do |u|
-      div admin_link_to(u, :searches)
-      div admin_link_to(u, :sent_diagnoses)
-      div admin_link_to(u, :sent_needs)
-      div admin_link_to(u, :sent_matches)
-      div admin_link_to(u, :feedbacks)
+      div admin_link_to(u, :searches, blank_if_empty: true)
+      div admin_link_to(u, :sent_diagnoses, blank_if_empty: true)
+      div admin_link_to(u, :sent_needs, blank_if_empty: true)
+      div admin_link_to(u, :sent_matches, blank_if_empty: true)
+      div admin_link_to(u, :feedbacks, blank_if_empty: true)
     end
 
     column(:flags) do |u|
