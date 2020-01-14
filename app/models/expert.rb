@@ -34,6 +34,8 @@ class Expert < ApplicationRecord
   #
   has_and_belongs_to_many :communes, inverse_of: :direct_experts
   include ManyCommunes
+
+  audited only: :subjects_reviewed_at
   has_associated_audits
 
   belongs_to :antenne, counter_cache: true, inverse_of: :experts

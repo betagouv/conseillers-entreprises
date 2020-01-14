@@ -1,6 +1,12 @@
 module Admin
   module Helpers
-    module AuditedDescriptionExpertSubject
+    module AuditedExpert
+      def admin_description
+        Expert.human_attribute_name(:subjects_reviewed_at)
+      end
+    end
+
+    module AuditedExpertSubject
       def admin_description
         "<div><a href='subjects/#{subject.id}'>#{subject}</a></div>
          <div>#{institution_subject.description}</div>
@@ -8,6 +14,7 @@ module Admin
       end
     end
 
-    ExpertSubject.include AuditedDescriptionExpertSubject
+    Expert.include AuditedExpert
+    ExpertSubject.include AuditedExpertSubject
   end
 end
