@@ -26,7 +26,6 @@ ActiveAdmin.register User do
 
   scope :all, default: true
   scope :admin
-  scope :without_antenne
   scope :deactivated
   scope :never_used, group: :invitations
   scope :invitation_not_accepted, group: :invitations
@@ -42,12 +41,8 @@ ActiveAdmin.register User do
     column :created_at
     column :role do |u|
       div u.role
-      if u.antenne.present?
-        div admin_link_to(u, :antenne)
-        div admin_link_to(u, :institution)
-      else
-        status_tag 'sans antenne', class: 'warning'
-      end
+      div admin_link_to(u, :antenne)
+      div admin_link_to(u, :institution)
     end
     column(:experts) do |u|
       div admin_link_to(u, :experts, list: true)
@@ -119,12 +114,8 @@ ActiveAdmin.register User do
       row :institution
       row :role do |u|
         div u.role
-        if u.antenne.present?
-          div admin_link_to(u, :antenne)
-          div admin_link_to(u, :institution)
-        else
-          status_tag 'sans antenne', class: 'warning'
-        end
+        div admin_link_to(u, :antenne)
+        div admin_link_to(u, :institution)
       end
       row(:experts) do |u|
         div admin_link_to(u, :experts, list: true)
