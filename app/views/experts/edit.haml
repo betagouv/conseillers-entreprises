@@ -6,7 +6,7 @@
   %i.info.icon
   .content
     .header
-    = t('.description_html')
+    = t('.description')
 
 = form_with model: @expert, class: 'ui form margin-top-2' do |f|
   - @is_by_theme.each do |theme, institutions_subjects|
@@ -19,13 +19,17 @@
             = i.check_box :_destroy, { checked: expert_subject.persisted? }, '0', '1'
             = i.label :_destroy, institution_subject.subject, class: "is-subject"
             .is-description= institution_subject.description
-            .ui.radio.checkbox.expert-subject-role
+            .ui.radio.checkbox.expert-subject-role.popup-hover
               = i.radio_button :role, "specialist", checked: expert_subject.specialist?
               = i.label :role, t('.specialist'), value: "specialist"
-            .ui.radio.checkbox.expert-subject-role
+            .ui.popup
+              %p= t('.specialist_description')
+            .ui.radio.checkbox.expert-subject-role.popup-hover
               = i.radio_button :role, "fallback", checked: expert_subject.fallback?
               = i.label :role, t('.fallback'), value: "fallback"
+            .ui.popup
+              %p= t('.fallback_description')
             = i.text_area :description, placeholder: t('.placeholder'), rows: 2
             = i.hidden_field :institution_subject_id
 
-  = f.submit t('update'), class: 'ui green button margin-top-2'
+  = f.submit t('confirm'), class: 'ui green button margin-top-2'

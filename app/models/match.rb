@@ -29,10 +29,6 @@
 #
 
 class Match < ApplicationRecord
-  ##
-  #
-  audited only: :status
-
   ## Constants
   #
   enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true

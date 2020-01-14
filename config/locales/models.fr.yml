@@ -42,6 +42,8 @@ fr:
       with_deleted_expert: Référent supprimé
       without_antenne: Sans antenne
       without_communes: Sans zone d’intervention
+    solicitations:
+      show_company_page: Page de la société
     territory:
       assign_entire_territory: "[compléter]"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
@@ -54,6 +56,13 @@ fr:
       deactivate_user_done: Utilisateur désactivé
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
+      flag:
+        change:
+          'false': Désactiver « %{flag} »
+          'true': Activer « %{flag} »
+        done:
+          'false': "« %{flag} » désactivé"
+          'true': "« %{flag} » activé"
       impersonate: Voir le site comme %{name}
       import:
         button: Importer
@@ -140,6 +149,7 @@ fr:
       theme:
         institutions_subjects: Compétences d'institutions
       user:
+        can_view_review_subjects_flash: Rappeler la revue des compétences
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
@@ -150,6 +160,7 @@ fr:
         experts:
           one: Équipe
           other: Équipes
+        flags: Options
         invitation_accepted_at: Invitation acceptée
         invitation_sent_at: Invitation envoyée
         invitees: Invités

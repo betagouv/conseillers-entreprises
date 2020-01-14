@@ -51,8 +51,12 @@ class Facility < ApplicationRecord
   #
   class << self
     def siret_from_query(query)
-      maybe_siret = query&.gsub(/[\W_]+/, '')
+      maybe_siret = clean_siret(query)
       maybe_siret if siret_is_valid(maybe_siret)
+    end
+
+    def clean_siret(maybe_siret)
+      maybe_siret&.gsub(/[\W_]+/, '')
     end
 
     def siret_is_valid(siret)

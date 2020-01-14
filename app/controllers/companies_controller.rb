@@ -15,6 +15,12 @@ class CompaniesController < ApplicationController
 
   def show
     siret = params[:siret]
+    clean_siret = Facility::clean_siret(siret)
+    if clean_siret != siret
+      redirect_to company_path(clean_siret)
+      return
+    end
+
     begin
       @facility = UseCases::SearchFacility.with_siret siret
       @company = UseCases::SearchCompany.with_siret siret

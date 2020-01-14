@@ -114,6 +114,7 @@ ActiveAdmin.register Expert do
           link_to "#{es.subject} / #{es.institution_subject.description} / #{es.description}", admin_subject_path(es.subject)
         end, '<br /> '.html_safe)
       end
+      row :subjects_reviewed_at
       row(:activity) do |e|
         div admin_link_to(e, :received_matches)
         div admin_link_to(e, :feedbacks)
