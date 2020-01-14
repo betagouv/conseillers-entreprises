@@ -20,8 +20,8 @@ ActiveAdmin.register Institution do
       div admin_link_to(i, :experts)
     end
     column(:activity) do |i|
-      div admin_link_to(i, :sent_matches)
-      div admin_link_to(i, :received_matches)
+      div admin_link_to(i, :sent_matches, blank_if_empty: true)
+      div admin_link_to(i, :received_matches, blank_if_empty: true)
     end
   end
 

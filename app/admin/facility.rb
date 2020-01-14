@@ -20,9 +20,9 @@ ActiveAdmin.register Facility do
     end
     column :created_at
     column(:activity) do |f|
-      div admin_link_to(f, :diagnoses)
-      div admin_link_to(f, :needs)
-      div admin_link_to(f, :matches)
+      div admin_link_to(f, :diagnoses, blank_if_empty: true)
+      div admin_link_to(f, :needs, blank_if_empty: true)
+      div admin_link_to(f, :matches, blank_if_empty: true)
     end
     actions dropdown: true
   end
