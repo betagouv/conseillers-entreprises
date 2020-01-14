@@ -69,6 +69,11 @@ class User < ApplicationRecord
   ## Validations
   #
   validates :full_name, :phone_number, presence: true, unless: :deleted?
+  after_create :create_personal_skillset_if_needed
+
+  def ensure_has_expert
+    create_matching_expert
+  end
 
   ## “Through” Associations
   #
@@ -238,5 +243,16 @@ class User < ApplicationRecord
 
   def support_expert_subject
     ExpertSubject.support.find_by(expert: self.experts)
+  end
+
+  def personal_skillsets
+    experts.personal_skillsets
+  end
+
+  def create_personal_skillset_if_needed
+    return if personal_skillsets.present?
+
+    attributes = self.attributes.slice('email', 'full_name', 'phone_number', 'role', 'antenne_id')
+    experts.create!(attributes)
   end
 end
