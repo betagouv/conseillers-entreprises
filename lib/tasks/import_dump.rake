@@ -90,4 +90,4 @@ namespace :import_dump do
 end
 
 desc 'import anonymized production data in development db'
-task import_dump: %w[import_dump:all]
+task import_dump: %w[import_dump:all db:seed]
