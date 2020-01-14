@@ -240,11 +240,6 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.reactivate_user_done')
   end
 
-  member_action :autolink_to_antenne, method: :post do
-    resource.autolink_antenne!
-    redirect_back fallback_location: collection_path, notice: I18n.t("active_admin.user.antenne_linked")
-  end
-
   member_action :normalize_values do
     resource.normalize_values!
     redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')

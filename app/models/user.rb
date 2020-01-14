@@ -215,33 +215,6 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_user.full_name') : self[:full_name]
   end
 
-  ## Administration helpers
-  #
-  def corresponding_antenne
-    if self.experts.present?
-      return self.experts.first.antenne
-    end
-
-    antennes = Antenne.joins(:experts)
-      .distinct
-      .where('experts.email ILIKE ?', "%#{self.email.split('@').last}")
-    if antennes.one?
-      return antennes.first
-    end
-  end
-
-  def autolink_antenne!
-    if self.antenne.nil?
-      corresponding = self.corresponding_antenne
-      if corresponding.present?
-        self.antenne = corresponding
-        self.save!
-      end
-    end
-  end
-
-  ##
-  #
   def solo?
     self.experts.size == 1 && self.experts.first.users == [self]
   end

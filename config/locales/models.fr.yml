@@ -49,7 +49,6 @@ fr:
       entire_territory_assigned: Territoire ajouté
     user:
       admin: Admin
-      antenne_linked: Antenne associée
       connection: Connexion
       deactivate_user: Désactiver cet utilisateur
       deactivate_user_done: Utilisateur désactivé
