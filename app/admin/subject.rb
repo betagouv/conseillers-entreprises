@@ -76,16 +76,25 @@ ActiveAdmin.register Subject do
 
   ## Form
   #
-  permit_params :theme_id, :label, :interview_sort_order, :is_support
+  permit_params :theme_id, :label, :interview_sort_order
 
   form do |f|
     f.inputs do
       f.input :theme, as: :ajax_select, data: { url: :admin_themes_path, search_fields: [:label] }
       f.input :label
       f.input :interview_sort_order
-      f.input :is_support
     end
 
     actions
+  end
+
+  ## Actions
+  #
+  action_item :define_as_support, only: :show do
+    link_to t('active_admin.subject.define_as_support'), define_as_support_admin_subject_path(resource), method: :put
+  end
+  member_action :define_as_support, method: :put do
+    resource.define_as_support!
+    redirect_to resource_path, alert: t('active_admin.subject.done')
   end
 end

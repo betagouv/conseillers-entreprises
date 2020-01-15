@@ -85,6 +85,10 @@ class Subject < ApplicationRecord
     find_by(is_support: true)
   end
 
+  def define_as_support!
+    update(is_support: true)
+  end
+
   private
 
   def set_support
