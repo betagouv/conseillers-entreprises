@@ -19,19 +19,4 @@ class ApplicationController < SharedController
   def after_sign_out_path_for(resource_or_scope)
     root_path
   end
-
-  def check_current_user_access_to(resource)
-    http_method = request.request_method
-    access_method = if %w[GET HEAD].include?(http_method)
-      :can_be_viewed_by?
-    elsif %w[PATCH POST PUT DELETE].include?(http_method)
-      :can_be_modified_by?
-    end
-
-    if resource.send(access_method, current_user)
-      return
-    end
-    # can not be viewed:
-    not_found
-  end
 end
