@@ -26,7 +26,6 @@ ActiveAdmin.register User do
 
   scope :all, default: true
   scope :admin
-  scope :without_antenne
   scope :deactivated
   scope :never_used, group: :invitations
   scope :invitation_not_accepted, group: :invitations
@@ -42,22 +41,22 @@ ActiveAdmin.register User do
     column :created_at
     column :role do |u|
       div u.role
-      if u.antenne.present?
-        div admin_link_to(u, :antenne)
-        div admin_link_to(u, :institution)
-      else
-        status_tag 'sans antenne', class: 'warning'
-      end
+      div admin_link_to(u, :antenne)
+      div admin_link_to(u, :institution)
     end
     column(:experts) do |u|
       div admin_link_to(u, :experts, list: true)
     end
     column(:activity) do |u|
-      div admin_link_to(u, :searches)
-      div admin_link_to(u, :sent_diagnoses)
-      div admin_link_to(u, :sent_needs)
-      div admin_link_to(u, :sent_matches)
-      div admin_link_to(u, :feedbacks)
+      div admin_link_to(u, :searches, blank_if_empty: true)
+      div admin_link_to(u, :sent_diagnoses, blank_if_empty: true)
+      div admin_link_to(u, :sent_needs, blank_if_empty: true)
+      div admin_link_to(u, :sent_matches, blank_if_empty: true)
+      div admin_link_to(u, :feedbacks, blank_if_empty: true)
+    end
+
+    column(:flags) do |u|
+      u.flags.filter{ |_, v| !!v }.map{ |k, _| User.human_attribute_name(k) }.to_sentence
     end
 
     actions dropdown: true do |u|
@@ -74,9 +73,11 @@ ActiveAdmin.register User do
       # Dynamically create a menu item to activate and deactivate each User::FLAGS
       User::FLAGS.each do |flag|
         [true, false].each do |value|
-          localized_flag = I18n.t("activerecord.attributes.user.#{flag}")
+          localized_flag = User.human_attribute_name(flag)
           title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
-          item title, polymorphic_path([flag, :admin, u])
+          if !!u.send(flag) != value # Only add a menu item to change to the other value.
+            item title, polymorphic_path(["#{flag}_#{value}", :admin, u])
+          end
         end
       end
     end
@@ -119,12 +120,8 @@ ActiveAdmin.register User do
       row :institution
       row :role do |u|
         div u.role
-        if u.antenne.present?
-          div admin_link_to(u, :antenne)
-          div admin_link_to(u, :institution)
-        else
-          status_tag 'sans antenne', class: 'warning'
-        end
+        div admin_link_to(u, :antenne)
+        div admin_link_to(u, :institution)
       end
       row(:experts) do |u|
         div admin_link_to(u, :experts, list: true)
@@ -243,11 +240,6 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.reactivate_user_done')
   end
 
-  member_action :autolink_to_antenne, method: :post do
-    resource.autolink_antenne!
-    redirect_back fallback_location: collection_path, notice: I18n.t("active_admin.user.antenne_linked")
-  end
-
   member_action :normalize_values do
     resource.normalize_values!
     redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
@@ -273,12 +265,12 @@ ActiveAdmin.register User do
   # Dynamically create a member_action and a batch_action to activate and deactivate each User::FLAGS
   User::FLAGS.each do |flag|
     [true, false].each do |value|
-      localized_flag = I18n.t("activerecord.attributes.user.#{flag}")
+      localized_flag = User.human_attribute_name(flag)
       title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
       message = I18n.t("active_admin.user.flag.done.#{value}", flag: localized_flag)
 
       # member_action
-      member_action flag do
+      member_action "#{flag}_#{value}" do
         resource.update({ flag => value })
         redirect_back fallback_location: collection_path, notice: message
       end

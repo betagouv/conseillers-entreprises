@@ -28,7 +28,7 @@
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  antenne_id             :bigint(8)
+#  antenne_id             :bigint(8)        not null
 #  inviter_id             :bigint(8)
 #
 # Indexes
@@ -58,7 +58,7 @@ class User < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors, optional: true
+  belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors
   has_and_belongs_to_many :experts, inverse_of: :users
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :searches, inverse_of: :user
@@ -130,10 +130,6 @@ class User < ApplicationRecord
         .where(taken_care_of_at: date)
         .where(status: status))
       .distinct
-  end
-
-  scope :without_antenne, -> do
-    where(antenne_id: nil)
   end
 
   ## Keys for flags preferences
@@ -219,33 +215,6 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_user.full_name') : self[:full_name]
   end
 
-  ## Administration helpers
-  #
-  def corresponding_antenne
-    if self.experts.present?
-      return self.experts.first.antenne
-    end
-
-    antennes = Antenne.joins(:experts)
-      .distinct
-      .where('experts.email ILIKE ?', "%#{self.email.split('@').last}")
-    if antennes.one?
-      return antennes.first
-    end
-  end
-
-  def autolink_antenne!
-    if self.antenne.nil?
-      corresponding = self.corresponding_antenne
-      if corresponding.present?
-        self.antenne = corresponding
-        self.save!
-      end
-    end
-  end
-
-  ##
-  #
   def solo?
     self.experts.size == 1 && self.experts.first.users == [self]
   end

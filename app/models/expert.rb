@@ -136,22 +136,4 @@ class Expert < ApplicationRecord
   def mark_subjects_reviewed!
     update subjects_reviewed_at: Time.zone.now
   end
-
-  ##
-  #
-  def can_be_viewed_by?(user)
-    if user.is_admin
-      return true
-    end
-
-    if self.in?(user.experts)
-      return true
-    end
-
-    false
-  end
-
-  def can_be_modified_by?(user)
-    can_be_viewed_by?(user)
-  end
 end

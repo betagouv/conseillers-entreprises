@@ -144,7 +144,7 @@ fr:
     edit:
       description: Cochez les domaines d’intervention correspondant à votre activité. Vous pouvez apporter les précisions que vous jugez utiles pour les autres conseillers.
       fallback: Suppléant
-      fallback_description: "« Suppliéant » signifie que ce domaine fait partie de vos compétences, sans être votre activité principale. Vous pourrez être contacté si aucun spécialiste n’est disponible sur votre zone d’intervention."
+      fallback_description: "« Suppliéant » signifie que vous pouvez apporter un premier niveau d'informations dans ce domaine. Vous serez contacté si aucun spécialiste n’est référencé sur votre zone d’intervention."
       placeholder: N’hésitez pas à détailler, notamment les conditions selon lesquelles vous intervenez.
       specialist: Spécialiste
       specialist_description: "« Spécialiste » indique que ce domaine est votre cœur d’activité. Vous serez contacté en priorité par les entreprises sur votre zone d’intervention."

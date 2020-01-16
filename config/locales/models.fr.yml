@@ -40,17 +40,18 @@ fr:
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
       with_custom_communes: Zone spécifique
       with_deleted_expert: Référent supprimé
-      without_antenne: Sans antenne
       without_communes: Sans zone d’intervention
     solicitations:
       show_company_page: Page de la société
+    subject:
+      define_as_support: Définir comme sujet support
+      done: Ce sujet est maintenant le seul sujet support
     territory:
       assign_entire_territory: "[compléter]"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
       entire_territory_assigned: Territoire ajouté
     user:
       admin: Admin
-      antenne_linked: Antenne associée
       connection: Connexion
       deactivate_user: Désactiver cet utilisateur
       deactivate_user_done: Utilisateur désactivé
@@ -98,6 +99,7 @@ fr:
         is_global_zone: Global
         reminders_notes: Suivi des relances
         role: Fonction
+        subjects_reviewed_at: Revue des compétences
         users:
           one: Membre
           other: Membres
@@ -149,7 +151,7 @@ fr:
       theme:
         institutions_subjects: Compétences d'institutions
       user:
-        can_view_review_subjects_flash: Rappeler la revue des compétences
+        can_view_review_subjects_flash: Rappel de la revue des compétences
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion

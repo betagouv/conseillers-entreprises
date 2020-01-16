@@ -140,16 +140,6 @@ class Match < ApplicationRecord
     "#{expert_full_name} - #{expert_institution_name}"
   end
 
-  ##
-  #
-  def can_be_viewed_by?(user)
-    diagnosis.can_be_viewed_by?(user)
-  end
-
-  def can_be_modified_by?(user)
-    expert.in?(user.experts)
-  end
-
   private
 
   def copy_expert_info
