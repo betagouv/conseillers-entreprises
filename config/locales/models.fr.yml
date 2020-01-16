@@ -43,6 +43,9 @@ fr:
       without_communes: Sans zone d’intervention
     solicitations:
       show_company_page: Page de la société
+    subject:
+      define_as_support: Définir comme sujet support
+      done: Ce sujet est maintenant le seul sujet support
     territory:
       assign_entire_territory: "[compléter]"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
