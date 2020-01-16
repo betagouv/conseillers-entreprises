@@ -3,7 +3,6 @@
 class ExpertsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_expert
-  before_action :check_user
 
   def edit
     @is_by_theme = @expert.institution.institutions_subjects
@@ -26,9 +25,6 @@ class ExpertsController < ApplicationController
 
   def find_expert
     @expert = Expert.find(params[:id])
-  end
-
-  def check_user
-    check_current_user_access_to(@expert)
+    authorize @expert
   end
 end

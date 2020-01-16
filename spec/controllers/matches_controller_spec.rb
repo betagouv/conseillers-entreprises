@@ -15,10 +15,6 @@ RSpec.describe MatchesController, type: :controller do
       it('raises error') { expect { request }.to raise_error ActiveRecord::RecordNotFound }
     end
 
-    context 'match is not available to expert' do
-      it('raises error') { expect { request }.to raise_error ActionController::RoutingError }
-    end
-
     context 'match is available to expert' do
       before { current_user.update experts: [match.expert] }
 
