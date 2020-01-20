@@ -27,6 +27,9 @@ ActiveAdmin.register User do
   scope :all, default: true
   scope :admin
   scope :deactivated
+
+  scope :without_team, group: :without_team
+
   scope :never_used, group: :invitations
   scope :invitation_not_accepted, group: :invitations
 
