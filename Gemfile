@@ -23,7 +23,7 @@ gem 'puma'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'sassc-rails'
-gem 'fomantic-ui-sass', git: 'https://github.com/n-b/Fomantic-UI-SASS.git', branch: 'sassc'
+gem 'fomantic-ui-sass'
 gem 'uglifier'
 gem 'premailer-rails'
 
