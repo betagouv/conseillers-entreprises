@@ -27,8 +27,6 @@ Rails.application.routes.draw do
   get 'cgu', to: 'about#cgu'
   get 'top_5', to: 'about#top_5'
 
-  resource 'conseillers', only: %i[show] # what is it
-
   get 'entreprise/:slug', to: 'landings#show', as: 'landing'
   get 'aide/:slug', to: 'landings#show', as: 'featured_landing'
 
