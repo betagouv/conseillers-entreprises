@@ -1,6 +1,18 @@
 Rails.application.routes.draw do
   # Pages
-  root to: 'landings#index'
+  controller :landings do
+    root action: :index
+    get 'entreprise/:slug', action: :show, as: :landing
+    get 'aide/:slug', action: :show, as: :featured_landing
+  end
+
+  resource :solicitation, only: %i[create]
+
+  controller :about do
+    get :qui_sommes_nous
+    get :cgu
+    get :top_5
+  end
 
   resource :stats, only: [:show] do
     collection do
@@ -11,15 +23,6 @@ Rails.application.routes.draw do
       get :tables
     end
   end
-
-  get 'qui_sommes_nous', to: 'about#qui_sommes_nous'
-  get 'cgu', to: 'about#cgu'
-  get 'top_5', to: 'about#top_5'
-
-  get 'entreprise/:slug', to: 'landings#show', as: 'landing'
-  get 'aide/:slug', to: 'landings#show', as: 'featured_landing'
-
-  resource :solicitation, only: %i[create]
 
   # Application
   resources :diagnoses, only: %i[index new show], path: 'analyses' do
@@ -51,7 +54,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :besoins, as: 'needs', controller: 'needs', only: %i[index show] do
+  resources :needs, only: %i[index show], path: 'besoins' do
     collection do
       get :archives
       get :index_antenne
@@ -67,12 +70,13 @@ Rails.application.routes.draw do
   resources :feedbacks, only: %i[create destroy]
   resources :experts, only: %i[edit update]
 
-  resources :relances, as: 'reminders', controller: 'reminders', only: %i[index show] do
+  resources :reminders, only: %i[index show], path: 'relances' do
     member do
       post :reminders_notes
     end
   end
 
+  ## Redirection for compatibility
   get '/diagnoses', to: redirect('/analyses')
 
   # Devise
@@ -93,8 +97,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   # Impersonate
-  mount UserImpersonate::Engine => '/impersonate', as: 'impersonate_engine'
+  mount UserImpersonate::Engine, at: '/impersonate', as: 'impersonate_engine'
 
   # LetterOpener
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end
