@@ -41,6 +41,7 @@ fr:
       with_custom_communes: Zone spécifique
       with_deleted_expert: Référent supprimé
       without_communes: Sans zone d’intervention
+      without_team: Sans équipe/référent
     solicitations:
       show_company_page: Page de la société
     subject:
