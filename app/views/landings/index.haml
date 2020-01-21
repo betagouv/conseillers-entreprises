@@ -3,21 +3,18 @@
 = render 'hero'
 
 %section.section.section-white#description
-  .container.container-medium
-    .lead-text
-      = t('.long_description_html')
-
-%section.section.section-grey#steps
   .container
-    = render 'steps'
+    = image_tag('place-des-entreprises-logo.png', alt: "logo Place des Entreprises", id: 'logo-pde')
+    %h2.lead-text
+      = t('.question')
+    %h2.lead-text
+      = t('.answere')
+    = link_to t('.submit_request'), '#featured-landings', class: 'button blue'
+    = render 'institutions'
 
 %section.section.section-color#featured-landings
   .container
     = render 'landings', landings: @featured_landings, links_tracking_params: @links_tracking_params
-
-%section.section.section-white#institutions
-  .container
-    = render 'institutions'
 
 %section.section.section-grey#testimonials
   .container
