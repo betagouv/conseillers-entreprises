@@ -97,6 +97,8 @@ class User < ApplicationRecord
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
 
+  scope :without_team, -> { left_outer_joins(:experts).where(experts: { id: nil }) }
+
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
       .select('users.*', 'antennes.name', 'institutions.name')

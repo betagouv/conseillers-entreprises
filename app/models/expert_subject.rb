@@ -22,6 +22,8 @@
 
 class ExpertSubject < ApplicationRecord
   enum role: { specialist: 0, fallback: 1 }
+  audited associated_with: :expert
+  audited max_audits: 10
 
   ## Associations
   #
