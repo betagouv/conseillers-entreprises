@@ -16,6 +16,7 @@
 // = require rails-ujs
 // = require turbolinks
 
+// = require semantic-ui/tab
 // = require semantic-ui/transition
 // = require semantic-ui/popup
 // = require semantic-ui/dropdown

@@ -34,11 +34,13 @@ Rails.application.routes.draw do
 
   resource :solicitation, only: %i[create]
 
-  resources :diagnoses, only: %i[index show] do
+  resources :diagnoses, only: %i[index new show], path: 'analyses' do
     collection do
       get :archives
       get :index_antenne
       get :archives_antenne
+      post :create_diagnosis_without_siret
+      get :find_cities
     end
 
     member do
@@ -84,4 +86,6 @@ Rails.application.routes.draw do
   end
 
   resources :experts, only: %i[edit update]
+
+  get '/diagnoses', to: redirect('/analyses')
 end

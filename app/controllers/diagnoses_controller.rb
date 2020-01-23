@@ -9,6 +9,10 @@ class DiagnosesController < ApplicationController
     @diagnoses = sent_diagnoses(current_user, archived: false)
   end
 
+  def new
+    @params = {}
+  end
+
   def index_antenne
     @diagnoses = sent_diagnoses(current_user.antenne, archived: false)
   end
@@ -19,6 +23,30 @@ class DiagnosesController < ApplicationController
 
   def archives_antenne
     @diagnoses = sent_diagnoses(current_user.antenne, archived: true)
+  end
+
+  def new_without_siret
+    @params = {}
+  end
+
+  def create_diagnosis_without_siret
+    insee_code = ApiAdresse::Query.insee_code_for_city(params[:city].strip, params[:postal_code].strip)
+
+    if insee_code.nil?
+      @params = params
+      flash.now.alert = t('.no_result')
+      @manually = true
+      render :new and return
+    end
+
+    facility = Diagnosis.create_without_siret(insee_code, params)
+    diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: '2')
+
+    if diagnosis.save
+      redirect_to besoins_diagnosis_path(diagnosis)
+    else
+      render body: nil, status: :bad_request
+    end
   end
 
   def show
@@ -94,6 +122,10 @@ class DiagnosesController < ApplicationController
         format.html { render action: :step4, status: :bad_request }
       end
     end
+  end
+
+  def find_cities
+    @cities = ApiAdresse::Query.cities_of_postcode(params[:postal_code].strip).to_json.html_safe
   end
 
   private

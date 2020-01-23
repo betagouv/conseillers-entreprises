@@ -1,8 +1,10 @@
 - meta title: t('.title')
 
-%h1.ui.header= t('.create_new_diagnosis')
-
-= render partial: 'companies/search_form', locals: { query: @query }
+%h1.ui.header
+  = t('.title')
+  = link_to t('.create_new_diagnosis'), new_diagnosis_path, class: 'ui button green right floated large new-diagnosis'
+  .sub.header
+    = t('.subtitle', name: current_user.full_name)
 
 = render 'diagnoses', diagnoses: @diagnoses.in_progress, title: t('.diagnoses_in_progress')
 

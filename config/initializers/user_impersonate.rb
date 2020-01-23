@@ -19,7 +19,7 @@ module UserImpersonate
     config.user_is_staff_method = 'is_admin?'
 
     # Redirect to this path when entering impersonate mode
-    config.redirect_on_impersonate = '/diagnoses'
+    config.redirect_on_impersonate = '/analyses'
 
     # Redirect to this path when leaving impersonate mode
     config.redirect_on_revert = '/admin/users'
