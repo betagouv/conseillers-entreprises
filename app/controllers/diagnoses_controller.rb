@@ -30,7 +30,7 @@ class DiagnosesController < ApplicationController
   end
 
   def create_diagnosis_without_siret
-    insee_code = ApiAdresse::InseeCode.new.fetch_from_api(params[:city].strip, params[:postal_code].strip)
+    insee_code = ApiAdresse::Query.insee_code_for_city(params[:city].strip, params[:postal_code].strip)
 
     if insee_code.nil?
       @params = params
@@ -125,10 +125,7 @@ class DiagnosesController < ApplicationController
   end
 
   def find_cities
-    @cities = ApiAdresse::Cities.new.find(params[:postal_code].strip).to_json.html_safe
-    respond_to do |format|
-      format.js
-    end
+    @cities = ApiAdresse::Query.cities_of_postcode(params[:postal_code].strip).to_json.html_safe
   end
 
   private
