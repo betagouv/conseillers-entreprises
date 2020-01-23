@@ -1,19 +1,14 @@
-%h1.section__title
-  = simple_format(landing.title, {}, wrapper_tag: 'span')
-%h3.section__subtitle
-  = simple_format(landing.subtitle, {}, wrapper_tag: 'span')
+.landing-details
+  %h2.section__title
+    = simple_format(landing.title, {}, wrapper_tag: 'span')
+  %h2.section__title
+    = t('.subtitle')
 
-- if landing.featured_on_home
-  - if landing_topics.present?
-    %h3
-      = t('.exemple_topics')
-    .row
-      = render partial: 'landing_topics/landing_topic', collection: landing_topics
+  = link_to t('.submit_request'), '#solicitation-form', class: 'button blue'
+
+  - if @landing.logos.present?
     %p
-      = t('.not_in_topics')
-      = link_to t('.not_in_topics_more'), root_path(links_tracking_params)
-
-- else
-  %p.text-center
-    = link_to root_path(links_tracking_params), class: 'button primary large' do
-      = landing.button
+      = t('.institutions')
+    .logo-list
+      - @landing.logos.split(' ').each do |logo_slug|
+        = institution_image(logo_slug)

@@ -1,0 +1,13 @@
+- if landing.featured_on_home
+  - if landing_topics.present?
+    %h3
+      = t('.exemple_topics')
+    .row
+      = render partial: 'landing_topics/landing_topic', collection: landing_topics
+    %p
+      = t('.not_in_topics')
+      = link_to t('.not_in_topics_more'), root_path(links_tracking_params)
+
+  - else
+    %p.text-center
+      = link_to landing.button, root_path(links_tracking_params), class: 'button primary large'
