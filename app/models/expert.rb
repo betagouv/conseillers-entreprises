@@ -43,7 +43,7 @@ class Expert < ApplicationRecord
   has_and_belongs_to_many :users, inverse_of: :experts
 
   has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
-  has_many :received_matches, class_name: 'Match', inverse_of: :expert
+  has_many :received_matches, class_name: 'Match', inverse_of: :expert, dependent: :nullify
 
   has_many :feedbacks, dependent: :destroy, inverse_of: :expert
 
