@@ -1,17 +1,39 @@
 Rails.application.routes.draw do
-  mount UserImpersonate::Engine => '/impersonate', as: 'impersonate_engine'
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
-
+  # ActiveAdmin
   ActiveAdmin.routes(self)
-  devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations' }, skip: [:registrations]
+
+  # Impersonate
+  mount UserImpersonate::Engine, at: '/impersonate', as: 'impersonate_engine'
+
+  # LetterOpener
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+
+  # Devise
+  devise_for :users,
+             controllers: {
+               registrations: 'users/registrations',
+               invitations: 'users/invitations'
+             },
+             skip: [:registrations]
   devise_scope :user do
     get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
     put 'users' => 'users/registrations#update', :as => 'user_registration'
   end
 
-  root to: 'landings#index'
+  # Pages
+  controller :landings do
+    root action: :index
+    get 'entreprise/:slug', action: :show, as: :landing
+    get 'aide/:slug', action: :show, as: :featured_landing
+  end
 
-  get 'profile' => 'users#show'
+  resource :solicitation, only: %i[create]
+
+  controller :about do
+    get :qui_sommes_nous
+    get :cgu
+    get :top_5
+  end
 
   resource :stats, only: [:show] do
     collection do
@@ -23,17 +45,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'qui_sommes_nous', to: 'about#qui_sommes_nous'
-  get 'cgu', to: 'about#cgu'
-  get 'top_5', to: 'about#top_5'
-
-  resource 'conseillers', only: %i[show] # what is it
-
-  get 'entreprise/:slug', to: 'landings#show', as: 'landing'
-  get 'aide/:slug', to: 'landings#show', as: 'featured_landing'
-
-  resource :solicitation, only: %i[create]
-
+  # Application
   resources :diagnoses, only: %i[index new show], path: 'analyses' do
     collection do
       get :archives
@@ -63,7 +75,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :besoins, as: 'needs', controller: 'needs', only: %i[index show] do
+  resources :needs, only: %i[index show], path: 'besoins' do
     collection do
       get :archives
       get :index_antenne
@@ -76,16 +88,17 @@ Rails.application.routes.draw do
   end
 
   resources :matches, only: %i[update]
-
   resources :feedbacks, only: %i[create destroy]
+  resources :experts, only: %i[edit update]
 
-  resources :relances, as: 'reminders', controller: 'reminders', only: %i[index show] do
+  resources :reminders, only: %i[index show], path: 'relances' do
     member do
       post :reminders_notes
     end
   end
 
-  resources :experts, only: %i[edit update]
+  get 'profile' => 'users#show'
 
+  ## Redirection for compatibility
   get '/diagnoses', to: redirect('/analyses')
 end
