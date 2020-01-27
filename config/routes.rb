@@ -1,4 +1,25 @@
 Rails.application.routes.draw do
+  # ActiveAdmin
+  ActiveAdmin.routes(self)
+
+  # Impersonate
+  mount UserImpersonate::Engine, at: '/impersonate', as: 'impersonate_engine'
+
+  # LetterOpener
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+
+  # Devise
+  devise_for :users,
+             controllers: {
+               registrations: 'users/registrations',
+               invitations: 'users/invitations'
+             },
+             skip: [:registrations]
+  devise_scope :user do
+    get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'users/registrations#update', :as => 'user_registration'
+  end
+
   # Pages
   controller :landings do
     root action: :index
@@ -76,29 +97,8 @@ Rails.application.routes.draw do
     end
   end
 
-  ## Redirection for compatibility
-  get '/diagnoses', to: redirect('/analyses')
-
-  # Devise
-  devise_for :users,
-             controllers: {
-               registrations: 'users/registrations',
-               invitations: 'users/invitations'
-             },
-             skip: [:registrations]
-  devise_scope :user do
-    get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
-    put 'users' => 'users/registrations#update', :as => 'user_registration'
-  end
-
   get 'profile' => 'users#show'
 
-  # ActiveAdmin
-  ActiveAdmin.routes(self)
-
-  # Impersonate
-  mount UserImpersonate::Engine, at: '/impersonate', as: 'impersonate_engine'
-
-  # LetterOpener
-  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+  ## Redirection for compatibility
+  get '/diagnoses', to: redirect('/analyses')
 end
