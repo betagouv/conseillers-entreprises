@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'Landing Page Feature', type: :feature do
   before do
     Rails.cache.clear
-    create :landing, slug: 'landing', button: 'Go to Home', featured_on_home: true
+    create :landing, slug: 'landing', button: 'Go to Home'
   end
 
   describe 'get solicitation with pk params' do
