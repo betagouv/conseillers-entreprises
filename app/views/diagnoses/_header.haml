@@ -1,0 +1,6 @@
+.ui.grid.stackable
+  .row.center.aligned
+    .column
+      = render 'company_details', diagnosis: diagnosis
+  .row
+    = render 'steps', current_page_step: current_page_step, diagnosis_step: diagnosis.step

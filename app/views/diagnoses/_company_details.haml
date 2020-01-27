@@ -1,0 +1,13 @@
+%h1.ui.header
+  .content
+    = diagnosis.company.name
+  .sub.header
+    = diagnosis.facility.commune_name
+  - if diagnosis.facility.siret.present?
+    .sub.header
+      #{t('attributes.naf_code')} : #{diagnosis.facility.naf_code}
+    .sub.header
+      = link_to "SIRET : #{diagnosis.facility.siret}", company_path(diagnosis.facility.siret)
+  - else
+    .sub.header
+      = t('.need_without_siret')

@@ -2,7 +2,7 @@
   %h2.section__title
     = simple_format(landing.title, {}, wrapper_tag: 'span')
   %h2.section__title
-    = t('.subtitle')
+    = simple_format(landing.subtitle, {}, wrapper_tag: 'span')
 
   = link_to t('.submit_request'), '#solicitation-form', class: 'button blue'
 

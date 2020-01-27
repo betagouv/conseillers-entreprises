@@ -6,12 +6,12 @@
 = render 'hero'
 
 %section.section.section-white#landing-topics
-  .container
+  .container.text-center
     = render 'landing_details', landing: @landing
 
 %section.section.section-grey
   .container
-    = render 'landing_topics/exemple_topics', landing: @landing, landing_topics: @landing_topics, links_tracking_params: @links_tracking_params
+    = render 'landing_topics/example_topics', landing: @landing, landing_topics: @landing_topics, links_tracking_params: @links_tracking_params
 
 - if @landing.featured_on_home
   %section.section.section-white

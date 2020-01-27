@@ -3,12 +3,12 @@
 = render 'hero'
 
 %section.section.section-white#description
-  .container
+  .container.text-center
     = image_tag('place-des-entreprises-logo.png', alt: "logo Place des Entreprises", id: 'logo-pde')
     %h2.lead-text
       = t('.question')
     %h2.lead-text
-      = t('.answere')
+      = t('.answer')
     = link_to t('.submit_request'), '#featured-landings', class: 'button blue'
     = render 'institutions'
 

@@ -104,4 +104,23 @@ RSpec.describe DiagnosesController, type: :controller do
       it('redirects to index') { expect(response).to redirect_to diagnoses_path }
     end
   end
+
+  describe 'POST #create_diagnosis_without_siret' do
+    let(:params) { { city: 'Sartrouville', postal_code: '78500', name: 'annalyse sans siret' } }
+    let(:url) { "https://api-adresse.data.gouv.fr/search/?postcode=78500&q=Sartrouville&type=municipality" }
+    let(:headers) { { 'Connection': 'close', 'Host': 'api-adresse.data.gouv.fr', 'User-Agent': 'http.rb/4.2.0' } }
+
+    before do
+      stub_request(:get, url).with(headers: headers).to_return(
+        status: 200, headers: {},
+        body: File.read(Rails.root.join('spec', 'fixtures', 'api_adresse_200.json'))
+      )
+    end
+
+    it "creates a new diagnosis without siret" do
+      post :create_diagnosis_without_siret, params: params
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to besoins_diagnosis_path(Diagnosis.last)
+    end
+  end
 end

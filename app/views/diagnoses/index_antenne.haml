@@ -1,6 +1,8 @@
-- meta title: t('.title', antenne: current_user.antenne.name)
+- meta title: t('.title')
 
-%h1.ui.header= t('.title', antenne: current_user.antenne.name)
+%h1.ui.header
+  = t('.title')
+  .sub.header= t('.subtitle', antenne: current_user.antenne.name)
 
 = render 'diagnoses', diagnoses: @diagnoses.in_progress, title: t('diagnoses.index.diagnoses_in_progress')
 

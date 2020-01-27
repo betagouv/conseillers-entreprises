@@ -1,0 +1,39 @@
+{
+  "type": "FeatureCollection",
+  "version": "draft",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.174718,
+          48.937841
+        ]
+      },
+      "properties": {
+        "label": "Sartrouville",
+        "score": 0.9535128555548452,
+        "id": "78586",
+        "type": "municipality",
+        "name": "Sartrouville",
+        "postcode": "78500",
+        "citycode": "78586",
+        "x": 639541.49,
+        "y": 6871190.16,
+        "population": 52648,
+        "city": "Sartrouville",
+        "context": "78, Yvelines, Île-de-France",
+        "importance": 0.4886414111032984
+      }
+    }
+  ],
+  "attribution": "BAN",
+  "licence": "ETALAB-2.0",
+  "query": "Sartrouville",
+  "filters": {
+    "type": "municipality",
+    "postcode": "78500"
+  },
+  "limit": 5
+}
