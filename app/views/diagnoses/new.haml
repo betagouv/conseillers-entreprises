@@ -1,25 +1,16 @@
 - meta title: t('.title')
 
-:ruby
-  if defined?(@manually) && @manually
-    first_tab_class = ''
-    second_tab_classes = 'active'
-  else
-    first_tab_class = 'active'
-    second_tab_classes = ''
-  end
-
 %h1.ui.header= t('.create_new_diagnosis')
 
 .ui.attached.tabular.menu.head-tab.new-diagnosis
-  %a.item{ "data-tab" => "first", class: first_tab_class }
+  %a.item.active{ "data-tab" => "first" }
     = t('.find_company')
-  %a.item{ "data-tab" => "second", class: second_tab_classes }
+  %a.item{ "data-tab" => "second" }
     = t('.search_manually')
-.ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "first", class: first_tab_class }
+.ui.bottom.attached.tab.new-diagnosis.segment.active{ "data-tab" => "first" }
   = render partial: 'companies/search_form', locals: { query: @query }
 
-.ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second", class: second_tab_classes }
+.ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second" }
   %h2.ui.header
     = t('.title')
 

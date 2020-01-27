@@ -26,13 +26,11 @@ class DiagnosesController < ApplicationController
   end
 
   def create_diagnosis_without_siret
-    insee_code = ApiAdresse::Query.insee_code_for_city(params[:city].strip, params[:postal_code].strip)
+    insee_code = ApiAdresse::Query.insee_code_for_city(params[:city]&.strip, params[:postal_code]&.strip)
 
     if insee_code.nil?
-      @params = params
-      flash.now.alert = t('.no_result')
-      @manually = true
-      render :new and return
+      flash.alert = t('.no_result')
+      render 'flashes' and return
     end
 
     facility = Diagnosis.create_without_siret(insee_code, params)
