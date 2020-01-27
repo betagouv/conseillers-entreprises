@@ -13,13 +13,13 @@ module Stats
     end
 
     def filtered(query)
-      if params.territory.present?
-        query = query.merge(Territory.find(params.territory).companies)
+      if territory.present?
+        query = query.merge(territory.companies)
       end
-      if params.institution.present?
+      if institution.present?
         query = query
           .joins(diagnoses: [advisor: [antenne: :institution]])
-          .where(facilities: { diagnoses: { advisor: { antennes: { institution: params.institution } } } })
+          .where(facilities: { diagnoses: { advisor: { antennes: { institution: institution } } } })
       end
       query
     end
