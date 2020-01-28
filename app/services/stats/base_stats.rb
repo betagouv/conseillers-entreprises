@@ -1,8 +1,15 @@
 module Stats
   module BaseStats
-    attr_reader :params
+    attr_reader :territory
+    attr_reader :institution
+
     def initialize(params)
-      @params = params
+      if params.territory.present?
+        @territory = Territory.find_by(id: params.territory)
+      end
+      if params.institution.present?
+        @institution = Institution.find_by(id: params.institution)
+      end
     end
 
     def series

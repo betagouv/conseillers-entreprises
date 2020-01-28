@@ -15,11 +15,11 @@ module Stats
     end
 
     def filtered(query)
-      if params.territory.present?
-        query.merge! Territory.find(params.territory).advisors
+      if territory.present?
+        query.merge! territory.advisors
       end
-      if params.institution.present?
-        query.merge! Institution.find(params.institution).advisors
+      if institution.present?
+        query.merge! institution.advisors
       end
 
       query
