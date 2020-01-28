@@ -1,13 +1,16 @@
-- if alert || notice
-  %p#flashes
-    - if alert
-      .ui.icon.error.message
-        .icon.inbox
+#flashes
+  - if alert
+    .ui.icon.error.message
+      %i.icon.exclamation.triangle
+      .content
+        .header
         %p= alert
+    .ui.hidden.divider
 
-    - if notice
-      .ui.icon.success.message
-        %i.success.icon
-        .content
-          .header
-          %p= notice
+  - if notice
+    .ui.icon.success.message
+      %i.success.icon
+      .content
+        .header
+        %p= notice
+    .ui.hidden.divider

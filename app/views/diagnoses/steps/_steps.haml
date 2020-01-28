@@ -4,4 +4,4 @@
     .step{ class: class_for_step }
       .content
         .title
-          = t("diagnoses.step#{displayed_step}.title")
+          = t("diagnoses.steps.#{Diagnosis::STEPS[displayed_step]}.title")

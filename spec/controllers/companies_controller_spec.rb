@@ -30,7 +30,7 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'POST #create_diagnosis_from_siret' do
     context 'save worked' do
-      it 'redirects to the created diagnosis step2 page' do
+      it 'redirects to the created diagnosis besoins page' do
         siret = '12345678901234'
         facility = create :facility, siret: siret
         allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { facility }

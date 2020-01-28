@@ -117,47 +117,43 @@ fr:
       search_manually: Entrer les informations manuellement
       sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation.
       title: Saisie manuelle
-    step2:
-      diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
-      diagnosis_content_subtitle: Informations générales sur cette entreprise
-      identify_needs: |
-        Quels besoins avez-vous détectés durant votre rencontre avec %{company_name} ?
-        N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
-      need_content_placeholder: Plus d’infos sur ce besoin
-      select_at_least_one_need: Cochez au minimum un besoin identifié.
-      title: Détection des besoins
-    step3:
-      date: Date de votre visite
-      date_placeholder: jj/mm/aaaa
-      email_address: E-mail
-      form_info: Tous les champs sont obligatoires.
-      full_name: Nom
-      full_name_placeholder: 'ex: Marie Dupont'
-      phone_number: Numéro de télephone
-      role: Fonction au sein de l’entreprise
-      role_placeholder: Directeur, Gérant…
-      title: Détails de la visite
-      your_contact_in_the_company: 'Votre contact chez %{company_name} :'
-    step4:
-      before_sending_emails_text_html: |
-        <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
-        <p>Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires.</p>
-        <p>Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.</p>
-      expert_scope_of_work: 'Compétence du référent :'
-      explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
-      more_informations: Informations complémentaires
-      no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-      no_needs: Pas de besoins sélectionnés.
-      notify_matches: Notifier les référents sélectionnés
-      select_at_least_one_expert: Cochez au minimum un référent à contacter.
-      title: Mise en contact
-      you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
-    step5:
-      notifications_sent: Les notifications ont bien été envoyées.
     steps:
-      step2_title_html: Détection des besoins
-      step3_title_html: Informations complémentaires
-      step4_title_html: Mise en contact
+      besoins:
+        diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
+        diagnosis_content_subtitle: Informations générales sur cette entreprise
+        identify_needs: |
+          Quels besoins avez-vous détectés durant votre rencontre avec %{company_name} ?
+          N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
+        need_content_placeholder: Plus d’infos sur ce besoin
+        select_at_least_one_need: Cochez au minimum un besoin identifié.
+        title: Détection des besoins
+      selection:
+        before_sending_emails_text_html: |
+          <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
+          <p>Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires.</p>
+          <p>Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.</p>
+        expert_scope_of_work: 'Compétence du référent :'
+        explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
+        more_informations: Informations complémentaires
+        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
+        no_needs: Pas de besoins sélectionnés.
+        notifications_sent: Les notifications ont bien été envoyées.
+        notify_matches: Notifier les référents sélectionnés
+        select_at_least_one_expert: Cochez au minimum un référent à contacter.
+        title: Mise en contact
+        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
+      visite:
+        date: Date de votre visite
+        date_placeholder: jj/mm/aaaa
+        email_address: E-mail
+        form_info: Tous les champs sont obligatoires.
+        full_name: Nom
+        full_name_placeholder: 'ex: Marie Dupont'
+        phone_number: Numéro de télephone
+        role: Fonction au sein de l’entreprise
+        role_placeholder: Directeur, Gérant…
+        title: Détails de la visite
+        your_contact_in_the_company: 'Votre contact chez %{company_name} :'
   experts:
     edit:
       description: Cochez les domaines d’intervention correspondant à votre activité. Vous pouvez apporter les précisions que vous jugez utiles pour les autres conseillers.
