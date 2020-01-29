@@ -44,7 +44,7 @@ class CompaniesController < ApplicationController
     facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
 
     if facility
-      diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: '2')
+      diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :besoins)
     end
 
     if diagnosis&.save

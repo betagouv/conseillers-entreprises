@@ -1,7 +1,7 @@
 .ui.mini.ordered.steps.fluid
-  - (2..4).each do |displayed_step|
-    - class_for_step = html_classes_for_step(displayed_step, current_page_step, diagnosis_step)
+  - Diagnosis.steps.except(:not_started, :completed).each do |key, value|
+    - class_for_step = html_classes_for_step(value, current_page_step, diagnosis_step)
     .step{ class: class_for_step }
       .content
         .title
-          = t("diagnoses.steps.#{Diagnosis::STEPS[displayed_step]}.title")
+          = t("diagnoses.steps.#{key}.title")

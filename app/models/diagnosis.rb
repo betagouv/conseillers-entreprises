@@ -35,9 +35,7 @@ class Diagnosis < ApplicationRecord
 
   ## Constants
   #
-  LAST_STEP = 5
-  AUTHORIZED_STEPS = (1..LAST_STEP).to_a.freeze
-  STEPS = { 2 => :besoins, 3 => :visite, 4 => :selection }
+  enum step: { not_started: 1, besoins: 2, visite: 3, selection: 4, completed: 5 }, _prefix: true
 
   ## Associations
   #
@@ -50,7 +48,6 @@ class Diagnosis < ApplicationRecord
   ## Validations and Callbacks
   #
   validates :advisor, :facility, presence: true
-  validates :step, inclusion: { in: AUTHORIZED_STEPS }
   validate :step_4_has_visit_attributes
   validate :last_step_has_matches
 
@@ -81,8 +78,8 @@ class Diagnosis < ApplicationRecord
 
   ## Scopes
   #
-  scope :in_progress, -> { where(step: [1..LAST_STEP - 1]) }
-  scope :completed, -> { where(step: LAST_STEP) }
+  scope :in_progress, -> { where.not(step: :completed) }
+  scope :completed, -> { where(step: :completed) }
   scope :available_for_expert, -> (expert) do
     joins(needs: [matches: [:expert]])
       .where(needs: { matches: { experts: { id: expert.id } } })
@@ -98,14 +95,6 @@ class Diagnosis < ApplicationRecord
 
   def display_date
     happened_on || created_at.to_date
-  end
-
-  def completed?
-    step == LAST_STEP
-  end
-
-  def in_progress?
-    step < LAST_STEP
   end
 
   def completed_at
@@ -125,7 +114,7 @@ class Diagnosis < ApplicationRecord
         need = self.needs.find(need_id)
         need.create_matches!(experts_and_subjects_ids)
       end
-      self.update!(step: Diagnosis::LAST_STEP)
+      self.update!(step: Diagnosis.steps[:completed])
     end
     notify_experts!
     update_result
@@ -145,7 +134,7 @@ class Diagnosis < ApplicationRecord
   private
 
   def step_4_has_visit_attributes
-    if step == 4
+    if Diagnosis.steps[step] == 4
       if visitee.nil?
         errors.add(:visitee, :blank)
       end
@@ -156,7 +145,7 @@ class Diagnosis < ApplicationRecord
   end
 
   def last_step_has_matches
-    if step == LAST_STEP && needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
+    if step_completed? && needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
       errors.add(:step, 'can’t be step 5 with no matches')
     end
   end

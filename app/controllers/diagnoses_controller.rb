@@ -34,7 +34,7 @@ class DiagnosesController < ApplicationController
     end
 
     facility = Diagnosis.create_without_siret(insee_code, params)
-    diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: '2')
+    diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :besoins)
 
     if diagnosis.save
       redirect_to besoins_diagnosis_path(diagnosis)
@@ -45,10 +45,10 @@ class DiagnosesController < ApplicationController
 
   def show
     authorize @diagnosis
-    if @diagnosis.completed?
+    if @diagnosis.step_completed?
       redirect_to need_path(@diagnosis)
     else
-      redirect_to controller: 'diagnoses/steps', action: Diagnosis::STEPS[@diagnosis.step], id: @diagnosis
+      redirect_to controller: 'diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     end
   end
 

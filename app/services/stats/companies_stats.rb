@@ -5,7 +5,7 @@ module Stats
     def main_query
       Company
         .includes(:needs).references(:needs).merge(Need.where.not(id: nil))
-        .where(facilities: { diagnoses: { step: Diagnosis::LAST_STEP } })
+        .where(facilities: { diagnoses: { step: Diagnosis.steps[:completed] } })
     end
 
     def date_group_attribute
