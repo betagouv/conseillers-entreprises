@@ -2,7 +2,7 @@
 
 = render 'header', diagnosis: @diagnosis, current_page_step: 3
 
-#step3-app
+#visite-app
   = form_with model: @diagnosis,
     url: visite_diagnosis_path(@diagnosis),
     method: :post,
