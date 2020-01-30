@@ -35,7 +35,9 @@
       = label_tag t('.postal_code')
       = text_field_tag :postal_code, @params['postal_code'], required: true, pattern: '[0-9]{5}'
     .field
-      = label_tag t('.city')
+      = label_tag do
+        = t('.city')
+        .ui.loader.inline.mini#city-loader
       = select_tag :city, raw("<option></option>"), required: true, class: 'ui fluid dropdown selection'
 
     = button_tag :submit, class: 'ui right floated button green right labeled icon' do
@@ -46,11 +48,15 @@
 
 :javascript
   $("input[name='postal_code']").keyup( function() {
-    if ($(this).val().length <= 5) {
+    if ($(this).val().length === 5) {
+      $('#city-loader').addClass('active')
       Rails.ajax({
         url: '#{find_cities_diagnoses_path}',
         type: "get",
-        data: 'postal_code=' + $(this).val()
+        data: 'postal_code=' + $(this).val(),
+        success: function() {
+          $('#city-loader').removeClass('active')
+        }
       })
     }
   })
