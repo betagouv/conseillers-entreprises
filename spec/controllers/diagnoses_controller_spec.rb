@@ -44,51 +44,6 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
-  describe 'GET #step2' do
-    subject(:request) { get :step2, params: { id: diagnosis.id } }
-
-    context 'diagnosis' do
-      it('returns http success') { expect(response).to be_successful }
-    end
-  end
-
-  describe 'GET #step3' do
-    subject(:request) { get :step3, params: { id: diagnosis.id } }
-
-    context 'diagnosis step < last' do
-      it('returns http success') { expect(response).to be_successful }
-    end
-  end
-
-  describe 'GET #step4' do
-    subject(:request) { get :step4, params: { id: diagnosis.id } }
-
-    context 'diagnosis' do
-      it('returns http success') { expect(response).to be_successful }
-    end
-  end
-
-  describe 'POST #selection' do
-    let(:expert_subject) { create(:expert_subject) }
-    let!(:need) { create(:need, diagnosis: diagnosis) }
-
-    before do
-      post :selection, params: { id: diagnosis.id, matches: { need.id => { expert_subject.id => '1' } } }
-    end
-
-    context 'match_and_notify! succeeds' do
-      let(:result) { true }
-
-      it('redirects to the besoins page') { expect(response).to redirect_to need_path(diagnosis) }
-    end
-
-    context 'match_and_notify! fails' do
-      let(:result) { false }
-
-      it('fails') { expect(response).not_to be_successful }
-    end
-  end
-
   describe 'archival' do
     describe 'POST #archive' do
       before { post :archive, params: { id: diagnosis.id } }

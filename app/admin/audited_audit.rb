@@ -8,8 +8,10 @@ ActiveAdmin.register Audited::Audit do
     column(:user) do |i|
       div admin_link_to(i.user) if i.user.present?
       expert = i.revision.is_a?(Expert) ? i.revision : i.revision.expert
-      div admin_link_to(expert)
-      div admin_link_to(expert.antenne)
+      if expert&.persisted?
+        div admin_link_to(expert)
+        div admin_link_to(expert.antenne)
+      end
     end
     column(:action) do |i|
       status_tag t("activerecord.attributes.audited.action.#{i.action}"), class: i.action

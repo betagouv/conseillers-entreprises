@@ -59,12 +59,14 @@ Rails.application.routes.draw do
       post :archive
       post :unarchive
 
-      get :besoins, action: :step2
-      post :besoins
-      get :visite, action: :step3
-      post :visite
-      get :selection, action: :step4
-      post :selection
+      controller 'diagnoses/steps' do
+        get :besoins
+        post :besoins
+        get :visite
+        post :visite
+        get :selection
+        post :selection
+      end
     end
   end
 

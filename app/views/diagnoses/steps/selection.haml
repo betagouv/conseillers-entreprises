@@ -2,14 +2,14 @@
 
 = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
-#step4-app
+#selection-app
   - if @diagnosis.needs.empty?
     %p= t('.no_needs')
   - else
     %p= t('.explanation')
 
     = form_with scope: :matches, url: selection_diagnosis_path(@diagnosis),
-               id: 'step4-form' do |f|
+               id: 'selection-form' do |f|
       - @diagnosis.needs.ordered_for_interview.each do |need|
         %table.ui.compact.small.table.celled
           %thead
@@ -54,7 +54,7 @@
 
 :javascript
   (function() {
-    var checkboxes = $("#step4-form input:checkbox");
+    var checkboxes = $("#selection-form input:checkbox");
     function setBoxesValidity() {
       if (checkboxes.is(":checked")) {
         checkboxes.each(function() {

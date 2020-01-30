@@ -37,6 +37,7 @@ class Diagnosis < ApplicationRecord
   #
   LAST_STEP = 5
   AUTHORIZED_STEPS = (1..LAST_STEP).to_a.freeze
+  STEPS = { 2 => :besoins, 3 => :visite, 4 => :selection }
 
   ## Associations
   #
