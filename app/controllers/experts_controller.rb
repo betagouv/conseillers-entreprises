@@ -2,7 +2,15 @@
 
 class ExpertsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_expert
+  before_action :find_expert, except: %i[mes_competences]
+
+  def mes_competences
+    if current_user.experts.present?
+      redirect_to edit_expert_path(current_user.experts.first)
+    else
+      redirect_to profile_path
+    end
+  end
 
   def edit
     @is_by_theme = @expert.institution.institutions_subjects
