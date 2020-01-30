@@ -92,6 +92,7 @@ Rails.application.routes.draw do
   resources :matches, only: %i[update]
   resources :feedbacks, only: %i[create destroy]
   resources :experts, only: %i[edit update]
+  get 'mes_competences' => 'experts#mes_competences'
 
   resources :reminders, only: %i[index show], path: 'relances' do
     member do
