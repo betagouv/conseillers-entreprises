@@ -6,5 +6,3 @@
 //= link_tree ../stylesheets .css
 
 //= link highcharts.js
-//= link semantic-ui-calendar.min.css
-//= link semantic-ui-calendar.min.js
