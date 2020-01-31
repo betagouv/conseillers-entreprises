@@ -63,7 +63,7 @@ RSpec.describe DiagnosesController, type: :controller do
   describe 'POST #create_diagnosis_without_siret' do
     let(:params) { { city: 'Sartrouville', postal_code: '78500', name: 'annalyse sans siret' } }
     let(:url) { "https://api-adresse.data.gouv.fr/search/?postcode=78500&q=Sartrouville&type=municipality" }
-    let(:headers) { { 'Connection': 'close', 'Host': 'api-adresse.data.gouv.fr', 'User-Agent': 'http.rb/4.2.0' } }
+    let(:headers) { { 'Connection': 'close', 'Host': 'api-adresse.data.gouv.fr', 'User-Agent': /http\.rb.*/ } }
 
     before do
       stub_request(:get, url).with(headers: headers).to_return(
