@@ -35,6 +35,6 @@ describe 'ApplicationController specific features', type: :feature do
       click_button I18n.t('sign_in')
     end
 
-    it('redirects to diagnoses page') { expect(current_url).to eq diagnoses_url }
+    it('redirects to diagnoses page') { expect(current_url).to eq needs_url }
   end
 end

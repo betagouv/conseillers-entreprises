@@ -6,6 +6,20 @@ RSpec.describe DiagnosisPolicy, type: :policy do
 
   subject { described_class }
 
+  permissions :index? do
+    context "user is can_view_diagnoses_tab" do
+      let(:user) { create :user, can_view_diagnoses_tab: true }
+
+      it { is_expected.to permit(user, Diagnosis) }
+    end
+
+    context "denies access has not can_view_diagnoses_tab" do
+      let(:user) { create :user, can_view_diagnoses_tab: false }
+
+      it { expect(subject).not_to permit(user, Diagnosis) }
+    end
+  end
+
   permissions :show? do
     context "user is diagnosis advisor" do
       let(:user) { diagnosis.advisor }

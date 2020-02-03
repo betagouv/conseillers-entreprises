@@ -2,6 +2,7 @@ class DeviseMailerPreview < ActionMailer::Preview
   def invitation_instructions
     user = User.all.sample
     user.inviter = User.all.sample
+    user.can_view_diagnoses_tab = [true, false].sample
     Devise::Mailer::invitation_instructions(user, 'faketoken')
   end
 
