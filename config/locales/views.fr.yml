@@ -127,6 +127,11 @@ fr:
         need_content_placeholder: Plus d’infos sur ce besoin
         select_at_least_one_need: Cochez au minimum un besoin identifié.
         title: Détection des besoins
+      new_locality:
+        city: Ville
+        new_city: Rechercher pour une autre localité que %{locality}
+        postal_code: Code postal
+        title: Nouvelle localité
       selection:
         before_sending_emails_text_html: |
           <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
@@ -149,6 +154,7 @@ fr:
         form_info: Tous les champs sont obligatoires.
         full_name: Nom
         full_name_placeholder: 'ex: Marie Dupont'
+        no_result: Aucune ville n’a été trouvé avec ce code postal
         phone_number: Numéro de télephone
         role: Fonction au sein de l’entreprise
         role_placeholder: Directeur, Gérant…

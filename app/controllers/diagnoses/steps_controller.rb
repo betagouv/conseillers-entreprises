@@ -29,6 +29,20 @@ class Diagnoses::StepsController < ApplicationController
       diagnosis_params = params_for_visite
       diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
       diagnosis_params[:step] = 4
+
+      if params[:postal_code].present?
+        insee_code = ApiAdresse::Query.insee_code_for_city(params[:city]&.strip, params[:postal_code]&.strip)
+        if insee_code.nil?
+          @postal_code = params[:postal_code]
+          flash.now.alert = t('.no_result')
+          render 'flashes' and return
+        end
+        facility = @diagnosis.facility
+        commune = Commune.find_or_create_by insee_code: insee_code
+        facility.commune = commune
+        facility.update(readable_locality: "#{params[:postal_code]} #{params[:city]}")
+      end
+
       if @diagnosis.update(diagnosis_params)
         redirect_to action: :selection, id: @diagnosis and return
       end

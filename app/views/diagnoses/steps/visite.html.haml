@@ -39,6 +39,9 @@
           %i.calendar.icon
           = diagnosis_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
 
+    - if ENV['FEATURE_NEW_LOCALITY_FOR_DIAGNOSIS'].to_b
+      = render 'new_locality', postal_code: @postal_code, diagnosis: @diagnosis
+
     %a.ui.left.floated.button.labeled.icon{ href: besoins_diagnosis_path(@diagnosis) }
       = t('previous_step')
       %i.arrow.left.icon

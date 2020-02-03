@@ -186,7 +186,7 @@ class Need < ApplicationRecord
   ]
 
   def status
-    return :diagnosis_not_complete if !diagnosis.completed?
+    return :diagnosis_not_complete unless diagnosis.step_completed?
 
     matches_status = matches.pluck(:status).map(&:to_sym)
 
