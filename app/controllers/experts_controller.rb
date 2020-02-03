@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ExpertsController < ApplicationController
-  before_action :authenticate_user!
   before_action :find_expert, except: %i[mes_competences]
 
   def mes_competences
