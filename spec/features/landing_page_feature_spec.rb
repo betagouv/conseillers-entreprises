@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'Landing Page Feature', type: :feature do
   before do
     Rails.cache.clear
-    create :landing, slug: 'landing', button: 'Go to Home'
+    create :landing, :featured, slug: 'landing', button: 'Go to Home'
   end
 
   describe 'get solicitation with pk params' do
@@ -14,6 +14,6 @@ describe 'Landing Page Feature', type: :feature do
       click_link 'Go to Home'
     end
 
-    it { expect(page).to have_current_path '/?pk_campaign=foo&pk_kwd=bar' }
+    it { expect(page).to have_current_path '/aide/landing?pk_campaign=foo&pk_kwd=bar' }
   end
 end
