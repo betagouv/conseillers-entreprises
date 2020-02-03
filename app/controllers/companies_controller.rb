@@ -33,12 +33,7 @@ class CompaniesController < ApplicationController
     if existing_facility.present?
       @diagnoses = Facility.find_by(siret: siret).diagnoses
         .completed
-        .distinct
-        .left_outer_joins(:matches,
-                          needs: :matches)
-        .includes(:matches,
-                  :advisor,
-                  needs: :matches)
+        .includes(:matches, :advisor, :needs)
     else
       @diagnoses = Diagnosis.none
     end
