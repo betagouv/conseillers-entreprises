@@ -22,9 +22,6 @@
       = active_link_to qui_sommes_nous_path, class: 'item' do
         %i.subject.icon
         = t('about.qui_sommes_nous.title')
-    = link_to '/Guide_entretien_Place_des_entreprises.pdf', class: 'item' do
-      %i.clipboard.outline.icon
-      = t('.interview_guide')
 
     - if user_signed_in?
       .ui.simple.dropdown.right.item#nav-menu
