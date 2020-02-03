@@ -347,13 +347,27 @@ fr:
       subtitle: à destination des autres conseillers intervenant sur ce besoin
       title: Nouveau message
     index:
+      all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
       browse_archived_needs: Voir mes demandes archivées
       needs_for_you: 'Ces entreprises ont besoin de vous :'
-      needs_others_taking_care: Besoins pris en charge par d’autres référents
-      needs_quo: Besoins en attente de réponse
-      needs_taking_care: Besoins pris en charge
+      needs_others_taking_care:
+        one: 1 demande prise en charge par d’autres référents
+        other: "%{count} demandes prises en charge par d’autres référents"
+        zero: 0 demande prise en charge par d’autres référents
+      needs_quo:
+        one: 1 demande en attente de réponse
+        other: "%{count} demandes en attentes de réponse"
+        zero: 0 demande en attente de réponse
+      needs_taking_care:
+        one: 1 demande prise en charge
+        other: "%{count} demandes prises en charge"
+        zero: 0 demande prise en charge
+      no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? <a href='mailto:%{application_email}'>Contactez-nous !</a></p>"
+      no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? <a href='mailto:%{application_email}'>Contactez-nous !</a></p>"
       title: Demandes reçues
+      title_no_needs: Félicitations, vous êtes à jour.
+      title_welcome: Bienvenue sur Place des Entreprises
     index_antenne:
       browse_archived_needs: Voir les demandes archivées
       title: Demandes reçues pour %{antenne}

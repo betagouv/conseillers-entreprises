@@ -4,6 +4,7 @@ class NeedsController < ApplicationController
   include FlashToReviewSubjects
 
   def index
+    @experts_emails = current_user.experts.distinct.pluck(:email)
     @needs_quo = current_user.needs_quo
     @needs_taking_care = current_user.needs_taking_care
     @needs_others_taking_care = current_user.needs_others_taking_care
