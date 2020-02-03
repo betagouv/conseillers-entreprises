@@ -6,7 +6,7 @@
 #  archived_at :datetime
 #  content     :text
 #  happened_on :date
-#  step        :integer          default(1)
+#  step        :integer          default("not_started")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  advisor_id  :bigint(8)        not null
