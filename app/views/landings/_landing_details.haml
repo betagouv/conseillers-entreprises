@@ -4,7 +4,7 @@
   %h2.section__title
     = simple_format(landing.subtitle, {}, wrapper_tag: 'span')
 
-  = link_to t('.submit_request'), '#solicitation-form', class: 'button blue'
+  = link_to landing.button, '#solicitation-form', class: 'button blue'
 
   - if @landing.logos.present?
     %p
