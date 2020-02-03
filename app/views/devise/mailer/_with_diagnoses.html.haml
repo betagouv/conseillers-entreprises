@@ -1,0 +1,12 @@
+%p
+  = t('devise.mailer.invitation_instructions.details')
+  = t('.details')
+
+- if resource.inviter.present?
+  %p= t("devise.mailer.invitation_instructions.someone_invited_you_html",
+      inviter: resource.inviter.full_name,
+      mail_to_inviter: mail_to(resource.inviter.email),
+      antenne_name: resource.antenne.name)
+
+- else
+  %p= t("devise.mailer.invitation_instructions.anonymous_invited_you_html", antenne_name: resource.antenne.name)
