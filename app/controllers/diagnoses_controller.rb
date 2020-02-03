@@ -25,10 +25,6 @@ class DiagnosesController < ApplicationController
     @diagnoses = sent_diagnoses(current_user.antenne, archived: true)
   end
 
-  def new_without_siret
-    @params = {}
-  end
-
   def create_diagnosis_without_siret
     insee_code = ApiAdresse::Query.insee_code_for_city(params[:city].strip, params[:postal_code].strip)
 
