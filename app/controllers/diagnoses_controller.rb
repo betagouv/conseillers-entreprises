@@ -25,22 +25,16 @@ class DiagnosesController < ApplicationController
     @diagnoses = sent_diagnoses(current_user.antenne, archived: true)
   end
 
-  def new_without_siret
-    @params = {}
-  end
-
   def create_diagnosis_without_siret
-    insee_code = ApiAdresse::Query.insee_code_for_city(params[:city].strip, params[:postal_code].strip)
+    insee_code = ApiAdresse::Query.insee_code_for_city(params[:city]&.strip, params[:postal_code]&.strip)
 
     if insee_code.nil?
-      @params = params
-      flash.now.alert = t('.no_result')
-      @manually = true
-      render :new and return
+      flash.alert = t('.no_result')
+      render 'flashes' and return
     end
 
     facility = Diagnosis.create_without_siret(insee_code, params)
-    diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: '2')
+    diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :besoins)
 
     if diagnosis.save
       redirect_to besoins_diagnosis_path(diagnosis)
@@ -51,10 +45,10 @@ class DiagnosesController < ApplicationController
 
   def show
     authorize @diagnosis
-    if @diagnosis.completed?
+    if @diagnosis.step_completed?
       redirect_to need_path(@diagnosis)
     else
-      redirect_to controller: 'diagnoses/steps', action: Diagnosis::STEPS[@diagnosis.step], id: @diagnosis
+      redirect_to controller: 'diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     end
   end
 

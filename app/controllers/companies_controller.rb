@@ -33,12 +33,7 @@ class CompaniesController < ApplicationController
     if existing_facility.present?
       @diagnoses = Facility.find_by(siret: siret).diagnoses
         .completed
-        .distinct
-        .left_outer_joins(:matches,
-                          needs: :matches)
-        .includes(:matches,
-                  :advisor,
-                  needs: :matches)
+        .includes(:matches, :advisor, :needs)
     else
       @diagnoses = Diagnosis.none
     end
@@ -49,7 +44,7 @@ class CompaniesController < ApplicationController
     facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
 
     if facility
-      diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: '2')
+      diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :besoins)
     end
 
     if diagnosis&.save

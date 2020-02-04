@@ -20,6 +20,6 @@
 // = require semantic-ui/transition
 // = require semantic-ui/popup
 // = require semantic-ui/dropdown
-// = require semantic-ui-calendar.min.js
+// = require semantic-ui/calendar
 
 // = require_tree ./application

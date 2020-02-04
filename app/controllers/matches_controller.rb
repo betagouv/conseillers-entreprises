@@ -6,7 +6,7 @@ class MatchesController < ApplicationController
     authorize @match
     previous_status = @match.status
     @match.update status: params[:status]
-    UserMailer.update_match_notify(@match, current_user, previous_status).deliver_later
+    UserMailer.deduplicated_send_match_notify(@match, current_user, previous_status)
     if @match.status_taking_care?
       if @match.advisor.support_expert_subject.nil?
         CompanyMailer.taking_care_by_expert(@match).deliver_later

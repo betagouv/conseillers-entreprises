@@ -9,12 +9,11 @@ RSpec.describe Diagnosis, type: :model do
     is_expected.to belong_to :facility
     is_expected.to validate_presence_of :advisor
     is_expected.to validate_presence_of :facility
-    is_expected.to validate_inclusion_of(:step).in_array(Diagnosis::AUTHORIZED_STEPS)
   end
 
   describe 'custom validations' do
     describe 'last_step_has_matches' do
-      subject(:diagnosis) { build :diagnosis, step: Diagnosis::LAST_STEP }
+      subject(:diagnosis) { build :diagnosis, step: described_class.steps[:completed] }
 
       context 'no matches' do
         it { is_expected.not_to be_valid }
@@ -113,7 +112,7 @@ RSpec.describe Diagnosis, type: :model do
         expect{ match_and_notify }.to change(Match, :count).by(1)
         expect(Match.last.expert).to eq expert
         expect(Match.last.subject).to eq need.subject
-        expect(diagnosis.step).to eq Diagnosis::LAST_STEP
+        expect(diagnosis.step_completed?).to be true
       end
     end
 

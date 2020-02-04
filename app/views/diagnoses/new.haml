@@ -1,25 +1,16 @@
 - meta title: t('.title')
 
-:ruby
-  if defined?(@manually) && @manually
-    first_tab_class = ''
-    second_tab_classes = 'active'
-  else
-    first_tab_class = 'active'
-    second_tab_classes = ''
-  end
-
 %h1.ui.header= t('.create_new_diagnosis')
 
 .ui.attached.tabular.menu.head-tab.new-diagnosis
-  %a.item{ "data-tab" => "first", class: first_tab_class }
+  %a.item.active{ "data-tab" => "first" }
     = t('.find_company')
-  %a.item{ "data-tab" => "second", class: second_tab_classes }
+  %a.item{ "data-tab" => "second" }
     = t('.search_manually')
-.ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "first", class: first_tab_class }
+.ui.bottom.attached.tab.new-diagnosis.segment.active{ "data-tab" => "first" }
   = render partial: 'companies/search_form', locals: { query: @query }
 
-.ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second", class: second_tab_classes }
+.ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second" }
   %h2.ui.header
     = t('.title')
 
@@ -35,7 +26,9 @@
       = label_tag t('.postal_code')
       = text_field_tag :postal_code, @params['postal_code'], required: true, pattern: '[0-9]{5}'
     .field
-      = label_tag t('.city')
+      = label_tag do
+        = t('.city')
+        .ui.loader.inline.mini#city-loader
       = select_tag :city, raw("<option></option>"), required: true, class: 'ui fluid dropdown selection'
 
     = button_tag :submit, class: 'ui right floated button green right labeled icon' do
@@ -46,11 +39,15 @@
 
 :javascript
   $("input[name='postal_code']").keyup( function() {
-    if ($(this).val().length <= 5) {
+    if ($(this).val().length === 5) {
+      $('#city-loader').addClass('active')
       Rails.ajax({
         url: '#{find_cities_diagnoses_path}',
         type: "get",
-        data: 'postal_code=' + $(this).val()
+        data: 'postal_code=' + $(this).val(),
+        success: function() {
+          $('#city-loader').removeClass('active')
+        }
       })
     }
   })

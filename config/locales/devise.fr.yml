@@ -19,7 +19,7 @@ fr:
       invitation_removed: Votre invitation a été annulée.
       invitation_token_invalid: Ce token d’invitation est invalide.
       new:
-        description: 'L’inscription est réservé aux conseillers d’organismes publics : préférez une adresse mail professionnelles fournie par votre organisme.'
+        description: 'L’inscription est réservée aux conseillers d’organismes publics : préférez une adresse mail professionnelle fournie par votre organisme.'
         header: Inviter un conseiller sur Place des Entreprises
         submit_button: Envoyer l’invitation
       send_instructions: Un email d’invitation a été envoyé à %{email}.
