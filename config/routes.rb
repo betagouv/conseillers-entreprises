@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   controller :landings do
     root action: :index
     get 'entreprise/:slug', action: :show, as: :landing
-    get 'aide/:slug', action: :show, as: :featured_landing
   end
 
   resource :solicitation, only: %i[create]
