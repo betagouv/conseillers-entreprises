@@ -59,7 +59,7 @@ ActiveAdmin.register User do
     end
 
     column(:flags) do |u|
-      u.flags.filter{ |_, v| !!v }.map{ |k, _| User.human_attribute_name(k) }.to_sentence
+      u.flags.filter{ |_, v| v.to_b }.map{ |k, _| User.human_attribute_name(k) }.to_sentence
     end
 
     actions dropdown: true do |u|
@@ -78,7 +78,7 @@ ActiveAdmin.register User do
         [true, false].each do |value|
           localized_flag = User.human_attribute_name(flag)
           title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
-          if !!u.send(flag) != value # Only add a menu item to change to the other value.
+          if u.send(flag).to_b != value # Only add a menu item to change to the other value.
             item title, polymorphic_path(["#{flag}_#{value}", :admin, u])
           end
         end
