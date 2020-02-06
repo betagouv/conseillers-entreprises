@@ -13,10 +13,9 @@
   .container
     = render 'landing_topics/example_topics', landing: @landing, landing_topics: @landing_topics, links_tracking_params: @links_tracking_params
 
-- if @landing.featured_on_home
-  %section.section.section-white
-    .container.container-small
-      = render 'solicitations/form', description_example: @landing.description_example
+%section.section.section-white
+  .container.container-small
+    = render 'solicitations/form', description_example: @landing.description_example
 
 %section.section.section-grey#stats
   .container.container-medium

@@ -112,10 +112,10 @@ fr:
       city: Ville
       create_new_diagnosis: Démarrer une analyse
       find_company: Rechercher une entreprise
-      name: Nom
+      name: Nom de l’entreprise ou du dirigeant
       postal_code: Code postal
-      search_manually: Entrer les informations manuellement
-      sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation.
+      search_manually: Cas particulier (sans SIRET)
+      sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
       title: Saisie manuelle
     steps:
       besoins:

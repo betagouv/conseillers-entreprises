@@ -1,7 +1,7 @@
 class LandingsController < PagesController
   def index
-    @featured_landings = Rails.cache.fetch('featured_landings', expires_in: 1.hour) do
-      Landing.featured.ordered_for_home.to_a
+    @landings = Rails.cache.fetch('landings', expires_in: 1.hour) do
+      Landing.ordered_for_home.to_a
     end
     @links_tracking_params = links_tracking_params
   end
