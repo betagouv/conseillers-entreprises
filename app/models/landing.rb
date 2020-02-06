@@ -4,7 +4,6 @@
 #
 #  id               :bigint(8)        not null, primary key
 #  content          :jsonb
-#  featured_on_home :boolean          default(FALSE)
 #  home_description :text             default("f")
 #  home_sort_order  :integer
 #  home_title       :string           default("f")
@@ -24,7 +23,6 @@ class Landing < ApplicationRecord
 
   accepts_nested_attributes_for :landing_topics, allow_destroy: true
 
-  scope :featured, -> { where(featured_on_home: true) }
   scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
 
   def to_s

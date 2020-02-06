@@ -5,12 +5,12 @@ require 'rails_helper'
 describe 'New Solicitation Feature', type: :feature, js: true do
   before do
     Rails.cache.clear
-    create :landing, :featured, slug: 'landing'
+    create :landing, slug: 'landing'
   end
 
   describe 'post solicitation' do
     before do
-      visit '/aide/landing'
+      visit '/entreprise/landing'
 
       fill_in 'Description', with: 'Ceci est un test'
       fill_in 'SIRET', with: '123 456 789 00010'

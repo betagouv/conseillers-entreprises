@@ -20,18 +20,6 @@ ActiveAdmin.register Landing do
       div l.meta_title
       div l.meta_description, style: 'color: gray'
     end
-    column :featured_on_home do |l|
-      if l.featured_on_home
-        div do
-          status_tag('yes', class: :ok)
-          span "(position : #{l.home_sort_order})"
-        end
-        div l.home_title
-        div l.home_description, style: 'color: gray'
-      else
-        status_tag('no', class: :ok)
-      end
-    end
     column :landing_topics do |l|
       l.landing_topics.present? ? l.landing_topics.length : '-'
     end
@@ -60,7 +48,6 @@ ActiveAdmin.register Landing do
     end
 
     attributes_table title: I18n.t("activerecord.attributes.landing.featured_on_home") do
-      row :featured_on_home
       row :home_title
       row :home_description
       row :home_sort_order
@@ -76,7 +63,7 @@ ActiveAdmin.register Landing do
 
   ## Form
   #
-  permit_params :slug, :meta_title, :meta_description, :title, :subtitle, :button, :logos, :description_example, :featured_on_home, :home_title, :home_description, :home_sort_order,
+  permit_params :slug, :meta_title, :meta_description, :title, :subtitle, :button, :logos, :description_example, :home_title, :home_description, :home_sort_order,
                 landing_topics_attributes: [:id, :title, :description, :landing_sort_order, :_destroy]
 
   form title: :slug do |f|
@@ -95,7 +82,6 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
-      f.input :featured_on_home
       f.input :home_title, :input_html => { :style => 'width:50%' }
       f.input :home_description, :input_html => { :style => 'width:50%', :rows => 3 }
       f.input :home_sort_order, :input_html => { :style => 'width:50%' }

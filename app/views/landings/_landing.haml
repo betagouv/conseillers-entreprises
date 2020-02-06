@@ -1,5 +1,5 @@
 .card
-  - path = featured_landing_path({ slug: landing.slug }.merge(links_tracking_params))
+  - path = landing_path({ slug: landing.slug }.merge(links_tracking_params))
   = link_to path do
     .card__content
       %h3.landing-title= simple_format(landing.home_title, {}, wrapper_tag: 'span')
