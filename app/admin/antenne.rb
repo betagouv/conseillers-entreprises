@@ -27,6 +27,11 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :sent_matches, blank_if_empty: true)
       div admin_link_to(a, :received_matches, blank_if_empty: true)
     end
+    column :logo do |i|
+      if i.logo.attached?
+        image_tag i.logo, style: 'max-height:40px'
+      end
+    end
   end
 
   filter :name
@@ -52,6 +57,11 @@ ActiveAdmin.register Antenne do
   show do
     attributes_table do
       row :name
+      row :logo do |i|
+        if i.logo.attached?
+          image_tag i.logo
+        end
+      end
       row :institution
       row(:intervention_zone) do |a|
         div admin_link_to(a, :territories)
@@ -72,11 +82,12 @@ ActiveAdmin.register Antenne do
 
   ## Form
   #
-  permit_params :name, :institution_id, :insee_codes, :show_icon, advisor_ids: [], expert_ids: []
+  permit_params :name, :institution_id, :insee_codes, :show_icon, :logo, advisor_ids: [], expert_ids: []
 
   form do |f|
     f.inputs do
       f.input :name
+      f.input :logo, as: :file
       f.input :show_icon
       f.input :institution, as: :ajax_select, data: {
         url: :admin_institutions_path,

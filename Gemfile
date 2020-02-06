@@ -65,6 +65,8 @@ gem 'metamagic'
 gem 'wannabe_bool'
 gem 'active_link_to'
 
+gem 'active_storage-postgresql'
+
 group :test do
   gem 'capybara'
   gem 'rails-controller-testing'

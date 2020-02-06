@@ -59,6 +59,9 @@ GEM
     active_link_to (1.0.5)
       actionpack
       addressable
+    active_storage-postgresql (0.2.1)
+      pg (>= 1.0)
+      rails (>= 5.2)
     activeadmin (2.4.0)
       arbre (~> 1.2, >= 1.2.1)
       formtastic (~> 3.1)
@@ -517,6 +520,7 @@ PLATFORMS
 DEPENDENCIES
   active_admin_import
   active_link_to
+  active_storage-postgresql
   activeadmin
   activeadmin-ajax_filter
   annotate

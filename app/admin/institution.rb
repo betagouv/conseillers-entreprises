@@ -23,6 +23,11 @@ ActiveAdmin.register Institution do
       div admin_link_to(i, :sent_matches, blank_if_empty: true)
       div admin_link_to(i, :received_matches, blank_if_empty: true)
     end
+    column :logo do |i|
+      if i.logo.attached?
+        image_tag i.logo, style: 'max-height:40px'
+      end
+    end
   end
 
   filter :name
@@ -65,8 +70,7 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :show_icon,
-                antenne_ids: [],
+  permit_params :name, :show_icon, :logo, antenne_ids: [],
                 institutions_subjects_attributes: %i[id description subject_id _create _update _destroy]
 
   form do |f|

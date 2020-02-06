@@ -2,4 +2,6 @@
   %p.section__title
     = t('.title')
   .logo-list
-    = all_institutions_images
+    - (Institution.where(show_icon: true) + Antenne.where(show_icon: true)).each do |entity|
+      - if entity.logo.attached?
+        = image_tag entity.logo

@@ -28,6 +28,7 @@ class Antenne < ApplicationRecord
   include ManyCommunes
   include InvolvementConcern
 
+  has_one_attached :logo
   belongs_to :institution, counter_cache: true, inverse_of: :antennes
 
   has_many :experts, inverse_of: :antenne
