@@ -217,10 +217,6 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_user.full_name') : self[:full_name]
   end
 
-  def solo?
-    self.experts.size == 1 && self.experts.first.users == [self]
-  end
-
   def full_name_with_role
     "#{full_name} - #{full_role}"
   end

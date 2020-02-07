@@ -115,10 +115,6 @@ class Expert < ApplicationRecord
 
   ## Description
   #
-  def solo?
-    self.users.size == 1 && self.users.first.experts == [self]
-  end
-
   def custom_communes?
     communes.any?
   end
