@@ -261,7 +261,7 @@ fr:
       taking_care_by_support:
         content_html: Votre demande sur Place des Entreprise - %{subject} - vient d’être prise en charge par %{expert_antenne}.
     expert_mailer:
-      never_used_solo_account_warning:
+      never_used_account_warning:
         you_need_to_use_your_user_account: Attention ! Place des entreprises nécessite désormais de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
       notify_company_needs:
         advisor_met_company: "%{advisor_name_with_role} l’a rencontrée le %{visit_date}."
