@@ -97,14 +97,20 @@ class User < ApplicationRecord
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
 
-  scope :without_team, -> { left_outer_joins(:experts).where(experts: { id: nil }) }
-
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
       .select('users.*', 'antennes.name', 'institutions.name')
       .order('institutions.name', 'antennes.name', :full_name)
   end
 
+  # Team stuff
+  scope :without_experts, -> { left_outer_joins(:experts).where(experts: { id: nil }) }
+  scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
+  scope :single_team, -> { single_expert.merge(Expert.teams) }
+  scope :single_personal_skillset, -> { single_expert.merge(Expert.personal_skillsets) }
+  scope :multiple_experts, -> { joins(:experts).group(:id).having('COUNT(experts.id)>1') }
+
+  # Activity
   scope :active_searchers, -> (date) do
     joins(:searches)
       .merge(Search.where(created_at: date))
