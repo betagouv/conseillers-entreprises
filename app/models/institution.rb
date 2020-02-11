@@ -43,6 +43,13 @@ class Institution < ApplicationRecord
 
   accepts_nested_attributes_for :institutions_subjects, :allow_destroy => true
 
+  def available_subjects
+    institutions_subjects
+      .ordered_for_interview
+      .includes(:theme)
+      .group_by { |is| is.theme } # Enumerable#group_by maintains ordering
+  end
+
   ##
   #
   def to_s
