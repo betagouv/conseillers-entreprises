@@ -260,6 +260,7 @@ GEM
       rails-i18n
       rainbow (>= 2.2.2, < 4.0)
       terminal-table (>= 1.5.1)
+    image_optimizer (1.8.0)
     inherited_resources (1.11.0)
       actionpack (>= 5.0, < 6.1)
       has_scope (~> 0.6)
@@ -315,6 +316,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.1009)
     mimemagic (0.3.3)
+    mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.13.0)
@@ -550,12 +552,14 @@ DEPENDENCIES
   honeypot-captcha
   http
   i18n-tasks
+  image_optimizer
   jbuilder
   jquery-rails
   letter_opener_web
   listen
   mailjet
   metamagic
+  mini_magick
   pg
   premailer-rails
   puma

@@ -22,6 +22,8 @@
 #
 
 class Antenne < ApplicationRecord
+  include LogoHelper
+
   ## Associations
   #
   has_and_belongs_to_many :communes, inverse_of: :antennes

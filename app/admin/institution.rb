@@ -48,6 +48,11 @@ ActiveAdmin.register Institution do
   show do
     attributes_table do
       row :name
+      row :logo do |i|
+        if i.logo.attached?
+          image_tag i.logo
+        end
+      end
       row(:antennes) do |i|
         div admin_link_to(i, :antennes)
       end
@@ -76,6 +81,7 @@ ActiveAdmin.register Institution do
   form do |f|
     f.inputs do
       f.input :name
+      f.input :logo, as: :file
       f.input :show_icon
     end
     f.inputs do

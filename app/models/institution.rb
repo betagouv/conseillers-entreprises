@@ -15,7 +15,9 @@
 #
 
 class Institution < ApplicationRecord
+  include LogoHelper
   has_one_attached :logo
+
   ## Associations
   #
   has_many :antennes, inverse_of: :institution

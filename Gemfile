@@ -66,6 +66,8 @@ gem 'wannabe_bool'
 gem 'active_link_to'
 
 gem 'active_storage-postgresql'
+gem "mini_magick"
+gem 'image_optimizer'
 
 group :test do
   gem 'capybara'
