@@ -25,7 +25,74 @@ RSpec.describe Expert, type: :model do
     end
   end
 
-  describe 'scopes' do
+  describe 'team notions' do
+    describe 'personal_skillset scope' do
+      let(:user) { create :user, email: 'user@example' }
+      let(:user2) { create :user, email: 'otheruser@example' }
+
+      subject(:expert) { create :expert, email: 'user@example', users: expert_users }
+
+      context 'an expert with a single user with the same email is a personal_skillset' do
+        let(:expert_users) { [user] }
+
+        it do
+          is_expected.to be_personal_skillset
+          is_expected.not_to be_team
+          is_expected.not_to be_without_users
+          expect(described_class.personal_skillsets).to eq [expert]
+          expect(described_class.teams).to eq []
+          expect(described_class.without_users).to eq []
+        end
+      end
+
+      context 'an expert with a single user with a different email is a team' do
+        let(:expert_users) { [user2] }
+
+        it do
+          is_expected.not_to be_personal_skillset
+          is_expected.to be_team
+          is_expected.not_to be_without_users
+          expect(described_class.personal_skillsets).to eq []
+          expect(described_class.teams).to eq [expert]
+          expect(described_class.without_users).to eq []
+        end
+      end
+
+      context 'an expert with several users is a team' do
+        let(:expert_users) { [user, user2] }
+
+        it do
+          is_expected.not_to be_personal_skillset
+          is_expected.to be_team
+          is_expected.not_to be_without_users
+          expect(described_class.personal_skillsets).to eq []
+          expect(described_class.teams).to eq [expert]
+          expect(described_class.without_users).to eq []
+        end
+      end
+
+      context 'an expert with no user is neither a team nor a personal_skillset' do
+        let(:expert_users) { [] }
+
+        it do
+          is_expected.not_to be_personal_skillset
+          is_expected.not_to be_team
+          is_expected.to be_without_users
+          expect(described_class.personal_skillsets).to eq []
+          expect(described_class.teams).to eq []
+          expect(described_class.without_users).to eq [expert]
+        end
+      end
+    end
+  end
+
+  describe 'to_s' do
+    let(:expert) { build :expert, full_name: 'Ivan Collombet' }
+
+    it { expect(expert.to_s).to eq 'Ivan Collombet' }
+  end
+
+  describe 'referencing' do
     describe 'commune zone scopes' do
       let(:expert_with_custom_communes) { create :expert, antenne: antenne, communes: [commune1] }
       let(:expert_without_custom_communes) { create :expert, antenne: antenne }
@@ -45,35 +112,51 @@ RSpec.describe Expert, type: :model do
         it { is_expected.to match_array [expert_without_custom_communes] }
       end
     end
-  end
 
-  describe 'to_s' do
-    let(:expert) { build :expert, full_name: 'Ivan Collombet' }
+    describe 'without_subjects' do
+      subject(:expert) { create :expert, experts_subjects: expert_subjects }
 
-    it { expect(expert.to_s).to eq 'Ivan Collombet' }
-  end
+      context 'without subject' do
+        let(:expert_subjects) { [] }
 
-  describe 'should_review_subjects?' do
-    subject { expert.should_review_subjects? }
+        it {
+          is_expected.to be_without_subjects
+          expect(described_class.without_subjects).to include expert
+        }
+      end
 
-    let(:expert) { create :expert, subjects_reviewed_at: reviewed_at }
+      context 'with subject' do
+        let(:expert_subjects) { create_list :expert_subject, 2 }
 
-    context 'subjects never reviewed' do
-      let(:reviewed_at) { nil }
-
-      it{ is_expected.to be_truthy }
+        it {
+          is_expected.not_to be_without_subjects
+          expect(described_class.without_subjects).not_to include expert
+        }
+      end
     end
 
-    context 'subjects reviewed long ago' do
-      let(:reviewed_at) { 10.years.ago }
+    describe 'should_review_subjects?' do
+      subject { expert.should_review_subjects? }
 
-      it{ is_expected.to be_truthy }
-    end
+      let(:expert) { create :expert, subjects_reviewed_at: reviewed_at }
 
-    context 'subjects reviewed recently' do
-      let(:reviewed_at) { 2.days.ago }
+      context 'subjects never reviewed' do
+        let(:reviewed_at) { nil }
 
-      it{ is_expected.to be_falsey }
+        it{ is_expected.to be_truthy }
+      end
+
+      context 'subjects reviewed long ago' do
+        let(:reviewed_at) { 10.years.ago }
+
+        it{ is_expected.to be_truthy }
+      end
+
+      context 'subjects reviewed recently' do
+        let(:reviewed_at) { 2.days.ago }
+
+        it{ is_expected.to be_falsey }
+      end
     end
   end
 end

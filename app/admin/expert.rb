@@ -10,7 +10,12 @@ ActiveAdmin.register Expert do
 
   scope :all, default: true
   scope :support_experts
-  scope :with_custom_communes, group: :special
+  scope :with_custom_communes, group: :referencing
+  scope :without_subjects, group: :referencing
+
+  scope :teams, group: :members
+  scope :personal_skillsets, group: :members
+  scope :without_users, group: :members
 
   index do
     selectable_column

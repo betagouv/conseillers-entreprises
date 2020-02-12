@@ -36,7 +36,7 @@ fr:
         someone_invited_you_html: "%{inviter} (%{mail_to_inviter}) vous invite à rejoindre l’équipe de <b>%{antenne_name}</b>."
         subject: Invitation sur Place des Entreprises
       reset_password_instructions:
-        account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté. Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
+        account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté·e. Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
         change_my_password: Changer de mot de passe
         choose_my_password: Choisir mon mot de passe
         ignore: Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail. Votre mot de passe ne sera pas modifié.
