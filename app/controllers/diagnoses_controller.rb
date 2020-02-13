@@ -6,6 +6,7 @@ class DiagnosesController < ApplicationController
   include FlashToReviewSubjects
 
   def index
+    authorize Diagnosis
     @diagnoses = sent_diagnoses(current_user, archived: false)
   end
 

@@ -178,6 +178,7 @@ fr:
       theme:
         institutions_subjects: Compétences d'institutions
       user:
+        can_view_diagnoses_tab: Peut voir l’onglet analyses
         can_view_review_subjects_flash: Rappel de la revue des compétences
         created_at: Création
         current_password: Mot de passe actuel

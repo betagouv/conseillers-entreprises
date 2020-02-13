@@ -1,4 +1,8 @@
 class DiagnosisPolicy < ApplicationPolicy
+  def index?
+    @user.can_view_diagnoses_tab
+  end
+
   def show?
     admin? ||
         @record.advisor == @user ||

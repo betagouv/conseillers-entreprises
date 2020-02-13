@@ -17,7 +17,7 @@ describe 'the signin process', type: :feature do
     it do
       click_button 'Connexion'
 
-      expect(page.html).to include 'Analyses en cours'
+      expect(page.html).to include 'Demandes reçues'
     end
   end
 
