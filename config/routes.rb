@@ -23,8 +23,7 @@ Rails.application.routes.draw do
   # Pages
   controller :landings do
     root action: :index
-    get 'entreprise/:slug', action: :show, as: :landing
-    get 'aide/:slug', action: :show
+    get 'aide-entreprises/:slug', action: :show, as: :landing
   end
 
   resource :solicitation, only: %i[create]
@@ -103,5 +102,7 @@ Rails.application.routes.draw do
   get 'profile' => 'users#show'
 
   ## Redirection for compatibility
+  get '/entreprise/:slug', to: redirect('/aide-entreprises/%{slug}')
+  get '/aide/:slug', to: redirect('/aide-entreprises/%{slug}')
   get '/diagnoses', to: redirect('/analyses')
 end
