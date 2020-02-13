@@ -56,11 +56,7 @@ class Feedback < ApplicationRecord
   end
 
   def persons_to_notify
-    if author == need.advisor
-      need.experts
-    else
-      [need.advisor]
-    end
+    need.experts + [need.advisor] - [author]
   end
 
   private
