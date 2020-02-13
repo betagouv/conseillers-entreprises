@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ExpertsController < ApplicationController
-  before_action :authenticate_user!
   before_action :find_expert, except: %i[mes_competences]
 
   def mes_competences
@@ -13,10 +12,7 @@ class ExpertsController < ApplicationController
   end
 
   def edit
-    @is_by_theme = @expert.institution.institutions_subjects
-      .ordered_for_interview
-      .includes(:theme)
-      .group_by { |is| is.theme } # Enumerable#group_by maintains ordering
+    @is_by_theme = @expert.institution.available_subjects
   end
 
   def update

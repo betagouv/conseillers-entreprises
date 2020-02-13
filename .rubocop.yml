@@ -800,6 +800,9 @@ RSpec/LetSetup:
 RSpec/MultipleExpectations:
   Enabled: false
 
+RSpec/MessageSpies:
+  Enabled: false
+
 RSpec/NestedGroups:
   Enabled: false
 

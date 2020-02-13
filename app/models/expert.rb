@@ -49,7 +49,6 @@ class Expert < ApplicationRecord
   ## Validations
   #
   validates :antenne, :email, :phone_number, presence: true
-  validates :users, presence: true
 
   ## “Through” Associations
   #
@@ -79,6 +78,35 @@ class Expert < ApplicationRecord
       .where({ subjects: { is_support: true } })
   end
 
+  # Team stuff
+  scope :personal_skillsets, -> do
+    # Experts with only one member only represent this user’s skills.
+    single_member = Expert.unscoped.joins(:users)
+      .merge(User.unscoped.not_deleted)
+      .group(:id)
+      .having("COUNT(users.id)=1")
+
+    joins(:users)
+      .where(id: single_member)
+      .where("users.email = experts.email")
+  end
+
+  scope :without_users, -> do
+    # Experts without members can’t connect to the app.
+    # This is not a normal state, but can happen during referencing
+    # before users are actually registered, or when a user is removed.
+    left_outer_joins(:users)
+      .merge(User.unscoped.not_deleted)
+      .where(users: { id: nil })
+  end
+
+  scope :teams, -> do
+    # Experts (with members) that are not personal_skillsets are proper teams
+    where.not(id: Expert.unscoped.without_users)
+      .where.not(id: Expert.unscoped.personal_skillsets)
+  end
+
+  # Activity stuff
   scope :with_active_matches, -> do
     joins(:received_matches)
       .merge(Match.active)
@@ -91,6 +119,7 @@ class Expert < ApplicationRecord
       .distinct
   end
 
+  # Referencing
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
       .select('experts.*', 'antennes.name', 'institutions.name')
@@ -107,6 +136,11 @@ class Expert < ApplicationRecord
     where(is_global_zone: true)
   end
 
+  scope :without_subjects, -> do
+    left_outer_joins(:experts_subjects)
+      .where(experts_subjects: { id: nil })
+  end
+
   scope :omnisearch, -> (query) do
     joins(:antenne)
       .where('experts.full_name ILIKE ?', "%#{query}%")
@@ -115,20 +149,35 @@ class Expert < ApplicationRecord
 
   ## Description
   #
-  def solo?
-    self.users.size == 1 && self.users.first.experts == [self]
-  end
-
-  def custom_communes?
-    communes.any?
-  end
-
   def full_name_with_role
     "#{full_name} #{full_role}"
   end
 
   def full_role
     "#{role} - #{antenne.name}"
+  end
+
+  ## Team stuff
+  def personal_skillset?
+    users.not_deleted.size == 1 &&
+      users.not_deleted.first.email == self.email
+  end
+
+  def without_users?
+    users.not_deleted.empty?
+  end
+
+  def team?
+    !without_users? && !personal_skillset?
+  end
+
+  ## Referencing
+  def custom_communes?
+    communes.any?
+  end
+
+  def without_subjects?
+    experts_subjects.empty?
   end
 
   def should_review_subjects?

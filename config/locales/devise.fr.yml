@@ -30,19 +30,26 @@ fr:
         accept: Accepter l’invitation
         anonymous_invited_you_html: Vous êtes invité à rejoindre l’équipe de <b>%{antenne_name}</b>.
         description_html: Vous êtes invité·e à rejoindre le nouveau service public %{link_to_root}, dédié à l’accompagnement des TPE et PME.
-        details_html: Place des Entreprises permet de mettre en relation un nombre inédit d’administrations et d’organismes publics. Les besoins d’entreprises, déposés en ligne ou détectés par un conseiller, vous sont automatiquement adressés selon votre champ d’intervention. Vous pouvez aussi adresser facilement des besoin d’entreprises à l’ensemble des partenaires de Place des Entreprises.
+        details: Place des Entreprises permet aux chefs d’entreprise d’être très facilement mis en relation avec les administrations, les organismes publics et parapublics chargés de les accompagner.
         details_title: Qu’est-ce que c’est ?
+        details_without_diagnoses: Les besoins d’entreprises, déposés sur le portail ligne par le dirigeant ou détectés par un conseiller vous sont automatiquement adressés sur vos champs d’intervention.
         ignore: Si vous ne souhaitez pas accepter l’invitation, ne tenez pas compte de cet email. Votre compte ne sera pas créé.
         someone_invited_you_html: "%{inviter} (%{mail_to_inviter}) vous invite à rejoindre l’équipe de <b>%{antenne_name}</b>."
+        someone_invited_you_partner_html: "%{inviter} (%{mail_to_inviter}) vous invite à rejoindre l’équipe de <b>%{antenne_name}, partenaire de Place des Entreprises.</b>"
         subject: Invitation sur Place des Entreprises
       reset_password_instructions:
-        account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté. Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
+        account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté·e. Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
         change_my_password: Changer de mot de passe
         choose_my_password: Choisir mon mot de passe
         ignore: Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail. Votre mot de passe ne sera pas modifié.
         once_connected: Une fois connecté, vous pourrez accéder à toutes les demandes qui vous ont été transmises; vous pourrez aussi faire vous même des mises en relation.
         someone_has_requested_a_link_html: "<p>Le %{date}, une demande de réinitalisation du mot de passe a été faite pour votre compte (<code>%{email}</code>).</p><p>Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe.</p>"
         subject: 'Place des Entreprises : choisissez un mot de passe pour votre compte'
+      with_diagnoses:
+        details: Les besoins d’entreprises, déposés sur le site par le dirigeant ou détectés par un conseiller, vous sont automatiquement adressés sur vos champs d’intervention.
+      without_diagnoses:
+        details: Lorsque vous rencontrez un dirigeant qui a des besoins, vous pouvez les transmettre en temps réel aux conseillers compétents pour y répondre.
+        details_without_diagnoses_after: Ce nouveau service couvre toutes les thématiques d’entreprises, n’hésitez pas à regarder le site !
     omniauth_callbacks:
       failure: 'Nous n’avons pas pu vous authentifier via %{kind} : ''%{reason}''.'
       success: Authentifié avec succès via %{kind}.

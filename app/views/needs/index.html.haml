@@ -1,14 +1,37 @@
 - meta title: t('.title')
 
-%h1.ui.header
-  = t('.title')
-  .sub.header= t('.needs_for_you')
+- if @needs_quo.empty? && @needs_taking_care.empty? && @needs_others_taking_care.empty?
+  %h1.ui.header
+    = t('.title_welcome')
 
-= render 'received_needs', received_needs: @needs_quo, title: t('.needs_quo')
+  .ui.icon.info.message
+    %i.info.icon
+    .content
+      - if @experts_emails.count > 1
+        = t('.no_requests_many_emails_html', emails: @experts_emails.join(", "), application_email: ENV['APPLICATION_EMAIL'])
+      - else
+        = t('.no_requests_html', email: @experts_emails.first, application_email: ENV['APPLICATION_EMAIL'])
 
-= render 'received_needs', received_needs: @needs_taking_care, title: t('.needs_taking_care')
+- elsif current_user.needs_archived.any?
+  %h1.ui.header
+    = t('.title_no_needs')
 
-= render 'received_needs', received_needs: @needs_others_taking_care, title: t('.needs_others_taking_care')
+  .ui.icon.positive.message
+    %i.ui.icon.thumbs.up.outline
+    .content
+      = t('.all_needs_solved')
+  .ui.divider.section.hidden
+
+- else
+  %h1.ui.header
+    = t('.title')
+    .sub.header= t('.needs_for_you')
+
+  = render 'received_needs', received_needs: @needs_quo, title: t('.needs_quo', count: @needs_quo.count)
+
+  = render 'received_needs', received_needs: @needs_taking_care, title: t('.needs_taking_care', count: @needs_taking_care.count)
+
+  = render 'received_needs', received_needs: @needs_others_taking_care, title: t('.needs_others_taking_care', count: @needs_others_taking_care.count)
 
 - if current_user.antenne.advisors.count > 1
   = link_to index_antenne_needs_path do

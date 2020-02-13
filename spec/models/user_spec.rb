@@ -155,39 +155,6 @@ RSpec.describe User, type: :model do
     it { expect(user.full_name_with_role).to eq 'Ivan Collombet - Business Developer - DINUM' }
   end
 
-  describe '#solo?' do
-    subject { user.solo? }
-
-    let(:user) { create(:user) }
-    let(:user2) { create(:user) }
-    let(:expert1) { create(:expert) }
-    let(:expert2) { create(:expert) }
-
-    context ('with no expert') do
-      before { user.experts = [] }
-
-      it { is_expected.to be_falsey }
-    end
-
-    context ('with one expert') do
-      before { expert1.users = [user] }
-
-      it { is_expected.to be_truthy }
-    end
-
-    context ('with several experts') do
-      before { user.experts = [expert1, expert2] }
-
-      it { is_expected.to be_falsey }
-    end
-
-    context ('with one expert, several users') do
-      before { expert1.users = [user, user2] }
-
-      it { is_expected.to be_falsey }
-    end
-  end
-
   describe '#never_used_account?' do
     subject { user.never_used_account? }
 

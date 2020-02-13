@@ -7,9 +7,8 @@
     = render 'environment_ribbon'
     = render 'user_impersonate'
 
-    %main
-      .ui.main.text.container
-        = render 'flashes'
-        = yield
+    %main.ui.application.container
+      = render 'flashes'
+      = yield
 
     = render 'footer'

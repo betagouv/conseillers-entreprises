@@ -19,7 +19,7 @@ ActiveAdmin.register User do
 
   # Index
   #
-  includes :antenne, :institution, :experts, :searches, :feedbacks,
+  includes :antenne, :institution, :searches, :feedbacks,
            :sent_diagnoses, :sent_needs, :sent_matches,
            :invitees
   config.sort_order = 'created_at_desc'
@@ -28,7 +28,10 @@ ActiveAdmin.register User do
   scope :admin
   scope :deactivated
 
-  scope :without_team, group: :without_team
+  scope :without_experts, group: :teams
+  scope :single_personal_skillset, group: :teams
+  scope :single_team, group: :teams
+  scope :multiple_experts, group: :teams
 
   scope :never_used, group: :invitations
   scope :invitation_not_accepted, group: :invitations

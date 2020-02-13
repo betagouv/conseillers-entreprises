@@ -97,14 +97,20 @@ class User < ApplicationRecord
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
 
-  scope :without_team, -> { left_outer_joins(:experts).where(experts: { id: nil }) }
-
   scope :ordered_by_institution, -> do
     joins(:antenne, :institution)
       .select('users.*', 'antennes.name', 'institutions.name')
       .order('institutions.name', 'antennes.name', :full_name)
   end
 
+  # Team stuff
+  scope :without_experts, -> { left_outer_joins(:experts).where(experts: { id: nil }) }
+  scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
+  scope :single_team, -> { single_expert.merge(Expert.teams) }
+  scope :single_personal_skillset, -> { single_expert.merge(Expert.personal_skillsets) }
+  scope :multiple_experts, -> { joins(:experts).group(:id).having('COUNT(experts.id)>1') }
+
+  # Activity
   scope :active_searchers, -> (date) do
     joins(:searches)
       .merge(Search.where(created_at: date))
@@ -138,6 +144,7 @@ class User < ApplicationRecord
   #
   FLAGS = %i[
     can_view_review_subjects_flash
+    can_view_diagnoses_tab
   ]
   store_accessor :flags, FLAGS.map(&:to_s)
 
@@ -215,10 +222,6 @@ class User < ApplicationRecord
     # Overriding this getter has a side-effect: :full_name is required to be present by PersonConcern.
     # In #delete we set it to nil, but the result of this getter is used for the validation, which then passes.
     deleted? ? I18n.t('deleted_user.full_name') : self[:full_name]
-  end
-
-  def solo?
-    self.experts.size == 1 && self.experts.first.users == [self]
   end
 
   def full_name_with_role

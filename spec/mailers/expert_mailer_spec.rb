@@ -24,9 +24,48 @@ describe ExpertMailer do
       }
     end
 
-    it_behaves_like 'an email'
+    describe 'email behavior' do
+      it_behaves_like 'an email'
 
-    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+    end
+
+    describe 'password instructions reminder' do
+      let(:expert) { create :expert, users: expert_members }
+
+      context 'solo expert, never use' do
+        let(:expert_members) { [build(:user, invitation_sent_at: nil, encrypted_password: '')] }
+
+        it do
+          expect_any_instance_of(User).to receive(:send_reset_password_instructions).once
+
+          mail
+        end
+      end
+
+      context 'solo expert, used account' do
+        let(:expert_members) { [build(:user, invitation_sent_at: DateTime.now, encrypted_password: 'password')] }
+
+        it do
+          expect_any_instance_of(User).not_to receive(:send_reset_password_instructions)
+
+          mail
+        end
+      end
+
+      context 'expert with several users' do
+        let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
+        let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '' }
+        let(:expert_members) { [user1, user2] }
+
+        it do
+          expect(user1).to receive(:send_reset_password_instructions).once
+          expect(user2).to receive(:send_reset_password_instructions).once
+
+          mail
+        end
+      end
+    end
   end
 
   describe '#remind_involvement' do

@@ -20,7 +20,6 @@ fr:
       account: Compte
       admin: Administration
       diagnoses: Analyses
-      interview_guide: Guide d’entretien
       invite: Inviter des utilisateurs
       profile: Profil
       sign_out: Déconnexion
@@ -189,7 +188,7 @@ fr:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
         title: Place des Entreprises, le guichet public des TPE et PME
       question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
-      submit_request: Déposer votre demande
+      submit_request: Déposez votre demande
     institutions:
       title: 'Un service du Ministère de l’Economie et du Ministère du Travail, avec plus de 50 partenaires publics :'
     landing:
@@ -261,7 +260,7 @@ fr:
       taking_care_by_support:
         content_html: Votre demande sur Place des Entreprise - %{subject} - vient d’être prise en charge par %{expert_antenne}.
     expert_mailer:
-      never_used_solo_account_warning:
+      never_used_account_warning:
         you_need_to_use_your_user_account: Attention ! Place des entreprises nécessite désormais de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
       notify_company_needs:
         advisor_met_company: "%{advisor_name_with_role} l’a rencontrée le %{visit_date}."
@@ -347,13 +346,27 @@ fr:
       subtitle: à destination des autres conseillers intervenant sur ce besoin
       title: Nouveau message
     index:
+      all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
       browse_archived_needs: Voir mes demandes archivées
       needs_for_you: 'Ces entreprises ont besoin de vous :'
-      needs_others_taking_care: Besoins pris en charge par d’autres référents
-      needs_quo: Besoins en attente de réponse
-      needs_taking_care: Besoins pris en charge
+      needs_others_taking_care:
+        one: 1 demande prise en charge par d’autres référents
+        other: "%{count} demandes prises en charge par d’autres référents"
+        zero: 0 demande prise en charge par d’autres référents
+      needs_quo:
+        one: 1 demande en attente de réponse
+        other: "%{count} demandes en attentes de réponse"
+        zero: 0 demande en attente de réponse
+      needs_taking_care:
+        one: 1 demande prise en charge
+        other: "%{count} demandes prises en charge"
+        zero: 0 demande prise en charge
+      no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? <a href='mailto:%{application_email}'>Contactez-nous !</a></p>"
+      no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? <a href='mailto:%{application_email}'>Contactez-nous !</a></p>"
       title: Demandes reçues
+      title_no_needs: Félicitations, vous êtes à jour.
+      title_welcome: Bienvenue sur Place des Entreprises
     index_antenne:
       browse_archived_needs: Voir les demandes archivées
       title: Demandes reçues pour %{antenne}

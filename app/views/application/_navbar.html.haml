@@ -3,15 +3,16 @@
     = link_to root_path, class: 'item' do
       = image_tag 'place-des-entreprises-logo.png', style: 'width: 24px'
     - if user_signed_in?
-      = active_link_to diagnoses_path, class: 'item' do
-        %i.tasks.icon
-        = t('.diagnoses')
       - if current_user.experts.present?
         = active_link_to needs_path, class: 'item' do
           %i.inbox.icon
           = t('needs.index.title')
           - if current_user.needs_quo.exists?
             .ui.orange.empty.circular.horizontal.label
+      - if policy(Diagnosis).index?
+        = active_link_to diagnoses_path, class: 'item' do
+          %i.tasks.icon
+          = t('.diagnoses')
       - if current_user.is_admin?
         = active_link_to reminders_path, class: 'item' do
           %i.ambulance.icon
@@ -21,9 +22,6 @@
       = active_link_to qui_sommes_nous_path, class: 'item' do
         %i.subject.icon
         = t('about.qui_sommes_nous.title')
-    = link_to '/Guide_entretien_Place_des_entreprises.pdf', class: 'item' do
-      %i.clipboard.outline.icon
-      = t('.interview_guide')
 
     - if user_signed_in?
       .ui.simple.dropdown.right.item#nav-menu
