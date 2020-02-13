@@ -10,8 +10,8 @@
     %div{ id: "expert_reminders_notes-#{@expert.id}" }
       = render 'expert_reminders_notes', expert: @expert
 
-= render 'needs/received_needs', received_needs: @needs_quo, title: t('needs.index.needs_quo'), highlighted_expert: @expert
+= render 'needs/received_needs', received_needs: @needs_quo, title: t('needs.index.needs_quo', count: @needs_quo.count), highlighted_expert: @expert
 
-= render 'needs/received_needs', received_needs: @needs_taking_care, title: t('needs.index.needs_taking_care'), highlighted_expert: @expert
+= render 'needs/received_needs', received_needs: @needs_taking_care, title: t('needs.index.needs_taking_care', count: @needs_taking_care.count), highlighted_expert: @expert
 
-= render 'needs/received_needs', received_needs: @needs_others_taking_care, title: t('needs.index.needs_others_taking_care'), highlighted_expert: @expert
+= render 'needs/received_needs', received_needs: @needs_others_taking_care, title: t('needs.index.needs_others_taking_care', count: @needs_others_taking_care.count), highlighted_expert: @expert
