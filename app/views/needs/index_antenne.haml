@@ -3,11 +3,11 @@
 %h1.ui.header
   = t('.title', antenne: current_user.antenne.name)
 
-= render 'received_needs', received_needs: @needs_quo, title: t('needs.index.needs_quo')
+= render 'received_needs', received_needs: @needs_quo, title: t('needs.index.needs_quo', count: @needs_quo.count)
 
-= render 'received_needs', received_needs: @needs_taking_care, title: t('needs.index.needs_taking_care')
+= render 'received_needs', received_needs: @needs_taking_care, title: t('needs.index.needs_taking_care', count: @needs_taking_care.count)
 
-= render 'received_needs', received_needs: @needs_others_taking_care, title: t('needs.index.needs_others_taking_care')
+= render 'received_needs', received_needs: @needs_others_taking_care, title: t('needs.index.needs_others_taking_care', count: @needs_others_taking_care.count)
 
 = link_to archives_antenne_needs_path do
   %i.archive.icon

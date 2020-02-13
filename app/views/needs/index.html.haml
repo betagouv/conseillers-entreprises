@@ -1,27 +1,26 @@
 - meta title: t('.title')
 
 - if @needs_quo.empty? && @needs_taking_care.empty? && @needs_others_taking_care.empty?
-  %h1.ui.header
-    = t('.title_welcome')
+  - if current_user.needs_rejected.any? || current_user.needs_done.any? || current_user.needs_archived.any?
+    %h1.ui.header
+      = t('.title_no_needs')
 
-  .ui.icon.info.message
-    %i.info.icon
-    .content
-      - if @experts_emails.count > 1
-        = t('.no_requests_many_emails_html', emails: @experts_emails.join(", "), application_email: ENV['APPLICATION_EMAIL'])
-      - else
-        = t('.no_requests_html', email: @experts_emails.first, application_email: ENV['APPLICATION_EMAIL'])
+    .ui.icon.positive.message
+      %i.ui.icon.thumbs.up.outline
+      .content
+        = t('.all_needs_solved')
+    .ui.divider.section.hidden
+  - else
+    %h1.ui.header
+      = t('.title_welcome')
 
-- elsif current_user.needs_archived.any?
-  %h1.ui.header
-    = t('.title_no_needs')
-
-  .ui.icon.positive.message
-    %i.ui.icon.thumbs.up.outline
-    .content
-      = t('.all_needs_solved')
-  .ui.divider.section.hidden
-
+    .ui.icon.info.message
+      %i.info.icon
+      .content
+        - if @experts_emails.count > 1
+          = t('.no_requests_many_emails_html', emails: @experts_emails.join(", "), application_email: ENV['APPLICATION_EMAIL'])
+        - else
+          = t('.no_requests_html', email: @experts_emails.first, application_email: ENV['APPLICATION_EMAIL'])
 - else
   %h1.ui.header
     = t('.title')

@@ -333,9 +333,18 @@ fr:
   needs:
     archives:
       browse_active_needs: Voir les demandes reçues
-      needs_archived: Besoins marqués en échec
-      needs_done: Besoins clôturés
-      needs_rejected: Besoins refusés
+      needs_archived:
+        one: 1 demande marquée en échec
+        other: "%{count} marquées en échec"
+        zero: 0 demande marquée en échec
+      needs_done:
+        one: 1 demande clôturée
+        other: "%{count} demandes clôturées"
+        zero: 0 demande clôturée
+      needs_rejected:
+        one: 1 demande refusée
+        other: "%{count} demande refusées"
+        zero: 0 demande refusé
       title: Demandes archivées
     archives_antenne:
       browse_active_needs: Voir les demandes reçu pour l'antenne
