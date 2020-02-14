@@ -28,10 +28,8 @@ ActiveAdmin.register User do
   scope :admin
   scope :deactivated
 
-  scope :without_experts, group: :teams
-  scope :single_personal_skillset, group: :teams
-  scope :single_team, group: :teams
-  scope :multiple_experts, group: :teams
+  scope :team_members, group: :teams
+  scope :no_team, group: :teams
 
   scope :never_used, group: :invitations
   scope :invitation_not_accepted, group: :invitations

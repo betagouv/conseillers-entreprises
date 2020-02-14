@@ -27,31 +27,30 @@ fr:
       diagnosis_completed: Analyses terminées
       done: Clôturé
       invitation_not_accepted: Invitations pas encore acceptées
-      multiple_experts: Multi-référents
       never_used: Non connectable
+      no_team: Solo
       not_taken_after_3_weeks: 3 semaines sans réponse
       personal_skillsets: Individuel
       rejected: Refusés
+      relevant_for_skills: Compétences visibles
       sent: Mises en relation envoyées
-      single_personal_skillset: Solos
-      single_team: Équipiers
       support_experts: Support
+      team_members: Équipiers
       teams: Équipes
       to_support: Support
       tooltips:
         abandoned_quo_not_taken: Non pris en charge depuis 3 semaines
         abandoned_taken_not_done: Pas de nouvelles depuis 3 semaines
         diagnosis_completed: Besoins identifiés dans des analyses terminées
-        multiple_experts: Membres de plusieurs équipes, ou avec des domaines de compétences séparés
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
+        no_team: Utilisateurs non membres d’une équipe. Ils n’ont qu’un seul référent, qui correspond à leur domaine de compétence personnel.
         personal_skillsets: 'Domaine de compétences d’un seul utilisateur: référents avec un seul utilisateur dont l’adresse email est identique au référent.'
-        single_personal_skillset: Utilisateurs qui n’ont qu’un seul référent, qui correspond à leur domaine de compétence personnel.
-        single_team: Membres d’une équipe (et d’une seule)
+        relevant_for_skills: 'Tous les experts utiles à afficher pour le choix des domaines d’intervention : toutes les équipes (plusieurs membres), tous les experts ayant des compétences, ainsi que les experts qui sont le seul expert d’un utilisateur.'
+        team_members: Utilisateurs membres d’une équipe
         teams: 'Équipes: plusieurs membres, ou un seul mais dont l’adresse email diffère de celle du référent'
       with_custom_communes: Zone spécifique
       with_deleted_expert: Référent supprimé
       without_communes: Sans zone d’intervention
-      without_experts: Sans référent
       without_subjects: Sans compétence
       without_users: Aucun membre
     solicitations:

@@ -90,6 +90,7 @@ class User < ApplicationRecord
   has_many :received_matches, through: :experts, source: :received_matches, inverse_of: :contacted_users
   has_many :received_needs, through: :experts, source: :received_needs, inverse_of: :contacted_users
   has_many :received_diagnoses, through: :experts, source: :received_diagnoses, inverse_of: :contacted_users
+  has_and_belongs_to_many :relevant_experts, -> { relevant_for_skills }, class_name: 'Expert'
 
   ## Scopes
   #
@@ -109,11 +110,14 @@ class User < ApplicationRecord
   end
 
   # Team stuff
-  scope :without_experts, -> { left_outer_joins(:experts).where(experts: { id: nil }) }
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
-  scope :single_team, -> { single_expert.merge(Expert.teams) }
-  scope :single_personal_skillset, -> { single_expert.merge(Expert.personal_skillsets) }
-  scope :multiple_experts, -> { joins(:experts).group(:id).having('COUNT(experts.id)>1') }
+  scope :team_members, -> { not_deleted.joins(:experts).merge(Expert.teams) }
+  scope :no_team, -> { not_deleted.where.not(id: unscoped.team_members) }
+  # A user without experts is not supposed to happen:
+  # `create_personal_skillset_if_needed` makes sure there is one after a user is created.
+  # However there is nothing preventing an expert to be removed afterwards.
+  # This can reasonably happen when expert teams are reorganized.
+  scope :without_experts, -> { left_outer_joins(:experts).where(experts: { id: nil }) }
 
   # Activity
   scope :active_searchers, -> (date) do
