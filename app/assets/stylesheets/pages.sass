@@ -7,12 +7,37 @@
   color: var(--theme-dark-text)
   border: 1px solid var(--theme-dark-text)
 
-@media (max-width: 549px)
-  .nav__item
-    display: -webkit-flex
-    display: -ms-flexbox
-    display: flex
+.navbar__domain
+  display: flex
+  justify-content: center
+  flex-wrap: nowrap
+  align-items: center
+  span
+    -webkit-padding-after: 3px
+    padding-bottom: 1px
+  img
+    height: 40px
 
+@media (max-width: 549px)
+  .footer__links h2
+    font-size: 1.5rem
+  .nav__item
+    margin-bottom: 1rem
+  .nav__links
+    text-align: center
+  .navbar__logo
+    margin: 0
+    height: 3rem
+  .navbar__home
+    height: auto
+    display: flex
+    flex-direction: column
+    width: 100%
+  .navbar__domain
+    span
+      font-size: 14px
+    img
+      height: 32px
 
 .hero__container
   min-height: 0px
