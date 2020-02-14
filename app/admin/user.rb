@@ -49,7 +49,7 @@ ActiveAdmin.register User do
       div admin_link_to(u, :institution)
     end
     column(:experts) do |u|
-      div admin_link_to(u, :experts, list: true)
+      div admin_link_to(u, :relevant_experts, list: true)
     end
     column(:activity) do |u|
       div admin_link_to(u, :searches, blank_if_empty: true)
