@@ -16,6 +16,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.update_match_notify(Match.all.sample, User.all.sample, Match.all.sample.status)
   end
 
+  def notify_other_experts
+    UserMailer.notify_other_experts(Match.all.sample, User.all.sample)
+  end
+
   private
 
   def user

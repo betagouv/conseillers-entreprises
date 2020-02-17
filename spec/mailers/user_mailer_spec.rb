@@ -16,6 +16,17 @@ describe UserMailer do
     it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
   end
 
+  describe '#notify_other_experts' do
+    subject(:mail) { described_class.notify_other_experts(a_match, user).deliver_now }
+
+    let(:a_match) { create :match }
+    let(:user) { create :user }
+
+    it_behaves_like 'an email'
+
+    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+  end
+
   describe '#deduplicated_send_match_notify' do
     def notify_change(new_status)
       previous_status = a_match.status

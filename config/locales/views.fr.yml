@@ -315,6 +315,10 @@ fr:
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
         reply: Répondre
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
+      nice_day: Bonne journée,
+      notify_other_experts:
+        need_description_html: "Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> - %{subject} - a été pris en charge par %{user} (%{antenne})."
+        complementary_help: "Il correspond à votre champ d'intervention. Avez-vous une solution complémentaire à proposer ?"
       update_match_notify:
         expert_and_status:
           done_html: "<p>%{user} (%{antenne}) a clôturé ce besoin.</p>"
@@ -322,7 +326,6 @@ fr:
           quo_html: "<p>%{user} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
           taking_care_html: "<p>%{user} (%{antenne}) a pris en charge ce besoin.</p>"
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
-        nice_day: Bonne journée,
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
     withdraw_request_html: Si vous souhaitez retirer votre demande, contactez-nous <a href='mailto:contact@place-des-entreprises.beta.gouv.fr'>contact@place-des-entreprises.beta.gouv.fr</a>
   matches:

@@ -1,0 +1,13 @@
+%p= t('mailers.hello')
+
+%p= t('.need_description_html',
+  company_name: @company.name,
+  subject: @subject,
+  path: diagnosis_url(@match.diagnosis),
+  user: @user.full_name,
+  antenne: @user.antenne.name)
+
+%p= t('.complementary_help')
+
+%p= t('mailers.user_mailer.nice_day')
+%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))

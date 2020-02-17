@@ -40,6 +40,16 @@ class UserMailer < ApplicationMailer
     mail(to: @advisor.email, subject: t('mailers.user_mailer.update_match_notify.subject', company_name: @company.name))
   end
 
+  def notify_other_experts(match, user)
+    @match = match
+    @user = user
+    @company = match.company
+    @subject = match.subject
+    @need = @match.need
+    emails = (@need.matches.where(status: :quo).map(&:expert) - @user.experts).pluck(:email)
+    mail(to: emails, subject: t('mailers.user_mailer.update_match_notify.subject', company_name: @company.name))
+  end
+
   def self.deduplicated_send_match_notify(match, user, previous_status)
     if ENV['DEVELOPMENT_INLINE_JOBS'].to_b
       update_match_notify(match, user, previous_status).deliver_later
