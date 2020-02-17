@@ -7,7 +7,7 @@ class ExternalSolicitationsController < PagesController
 
   def new
     @solicitation = Solicitation.new(form_info: { slug: params[:slug], partner_token: params[:partner_token] })
-    @style = { bg_color: "##{params[:bg_color]}", color: "##{params[:color]}" }
+    @style = { bg_color: "##{params[:bg_color]}", color: "##{params[:color]}", branding: "#{params[:logo]}" }
   end
 
   def create

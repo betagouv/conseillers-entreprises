@@ -1,4 +1,11 @@
 #solicitation-form
+  - if @style[:branding].to_b
+    .branding
+      = image_tag 'place-des-entreprises-logo.png', id: 'logo-pde'
+      .url
+        %span place-des-entreprises
+        = image_tag 'pointbetagouvfr.svg', alt: 'beta.gouv.fr', class: 'logo-beta'
+
   %h2.section__title= t('.title')
   = form_with(model: @solicitation, url: external_solicitations_path, scope: 'solicitation', method: :post, html: { honeypot: true }) do |f|
     - @solicitation.form_info.each do |k,v|
