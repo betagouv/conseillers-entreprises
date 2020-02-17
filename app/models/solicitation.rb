@@ -46,6 +46,10 @@ class Solicitation < ApplicationRecord
 
   ##
   #
+  def institution
+    Institution.find_by(partner_token: partner_token) if partner_token.present?
+  end
+
   def to_s
     "#{self.class.model_name.human} #{id}"
   end
