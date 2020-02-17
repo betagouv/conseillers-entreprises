@@ -116,6 +116,8 @@ Rails.application.routes.draw do
 
   get 'profile' => 'users#show'
 
+  resources :external_solicitations, only: %i[new create]
+
   ## Redirection for compatibility
   get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
   get '/entreprise/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')

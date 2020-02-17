@@ -173,6 +173,26 @@ fr:
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a>.
     subjects_modal:
       title: Domaines d’intervention
+  external_solicitations:
+    new:
+      button:
+        title: Envoyer ma demande
+      description:
+        label: Description
+        placeholder: Décrivez simplement votre demande
+      email:
+        label: Email
+        placeholder: marie.dupont@exemple.fr
+      phone_number:
+        label: Téléphone
+        placeholder: 06 12 34 56 78
+      siret:
+        label: SIRET
+        placeholder: 123 456 789 00010
+      title: Quelle est votre demande ?
+    thank_you:
+      description: Votre message a bien été envoyé
+      title: Merci !
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
