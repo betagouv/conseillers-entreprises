@@ -12,7 +12,7 @@
   .ui.segment
     %strong #{t('attributes.email')} :
     = expert.email
-  - if !expert.users.count > 1
+  - if expert.users.count > 1
     .ui.segment
       %strong #{t('activerecord.attributes.expert.users', count: expert.users.size)} :
       %ul
