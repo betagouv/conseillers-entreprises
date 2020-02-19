@@ -78,12 +78,12 @@ ActiveAdmin.register Match do
     column :advisor
     column :advisor_antenne
     column :advisor_institution
-    column(:subject) { |m| m.need.subject }
+    column :theme
+    column :subject
     column(:content) { |m| m.need.content }
     column :expert
     column :expert_antenne
     column :expert_institution
-    column :subject
     column(:status) { |m| m.status_short_description }
     column(:status_description) { |m| m.need.status_short_description }
     column :taken_care_of_at

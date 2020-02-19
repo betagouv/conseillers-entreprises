@@ -10,13 +10,13 @@ RSpec.describe Match, type: :model do
     let(:expert) { create :expert }
     let(:other_expert) { create :expert }
 
-    context '' do
+    context 'another expert matched for the same need' do
       before { create(:match, need: need, expert: other_expert) }
 
       it { is_expected.to be_valid }
     end
 
-    context '' do
+    context 'the same expert matched for the same need' do
       before { create(:match, need: need, expert: expert) }
 
       it { is_expected.not_to be_valid }
