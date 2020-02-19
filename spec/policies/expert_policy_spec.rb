@@ -6,43 +6,43 @@ RSpec.describe ExpertPolicy, type: :policy do
 
   subject { described_class }
 
-   permissions :edit? do
-     context "grants access if user is an admin" do
-       let(:user) { create :user, is_admin: true }
+  permissions :edit? do
+    context "grants access if user is an admin" do
+      let(:user) { create :user, is_admin: true }
 
-       it { is_expected.to permit(user, expert) }
-     end
+      it { is_expected.to permit(user, expert) }
+    end
 
-     context "grants access if user is in expert.users" do
-       let(:user) { expert.users.first }
+    context "grants access if user is in expert.users" do
+      let(:user) { expert.users.first }
 
-       it { is_expected.to permit(user, expert) }
-     end
+      it { is_expected.to permit(user, expert) }
+    end
 
-     context "denies access if user is another user" do
-       let(:user) { create :user }
+    context "denies access if user is another user" do
+      let(:user) { create :user }
 
-       it { expect(subject).not_to permit(user, expert) }
-     end
-   end
+      it { is_expected.not_to permit(user, expert) }
+    end
+  end
 
-   permissions :update? do
-     context "grants access if user is an admin" do
-       let(:user) { create :user, is_admin: true }
+  permissions :update? do
+    context "grants access if user is an admin" do
+      let(:user) { create :user, is_admin: true }
 
-       it { is_expected.to permit(user, expert) }
-     end
+      it { is_expected.to permit(user, expert) }
+    end
 
-     context "grants access if user is in expert.users" do
-       let(:user) { expert.users.first }
+    context "grants access if user is in expert.users" do
+      let(:user) { expert.users.first }
 
-       it { is_expected.to permit(user, expert) }
-     end
+      it { is_expected.to permit(user, expert) }
+    end
 
-     context "denies access if user is another user" do
-       let(:user) { create :user }
+    context "denies access if user is another user" do
+      let(:user) { create :user }
 
-       it { expect(subject).not_to permit(user, expert) }
-     end
-   end
+      it { is_expected.not_to permit(user, expert) }
+    end
+  end
 end
