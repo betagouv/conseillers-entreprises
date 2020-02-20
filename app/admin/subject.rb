@@ -53,7 +53,8 @@ ActiveAdmin.register Subject do
     column_count :institutions_subjects
     column :is_archived
     column :is_support
-    column_count :assistances
+    column_count :institutions
+    column_count :experts
   end
 
   ## Show
