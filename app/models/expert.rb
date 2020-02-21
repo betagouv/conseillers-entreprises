@@ -171,7 +171,7 @@ class Expert < ApplicationRecord
   end
 
   def full_role
-    "#{role} - #{antenne.name}"
+    [role, antenne.name].filter(&:present?).join(' — ')
   end
 
   ## Team stuff
