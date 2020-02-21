@@ -22,4 +22,22 @@ describe 'registrations', type: :feature do
       expect(current_user.reload.phone_number).to eq '0987654321'
     end
   end
+
+  describe 'password update' do
+    login_user
+
+    before do
+      visit password_user_path
+
+      fill_in id: 'user_current_password', with: 'password'
+      fill_in id: 'user_password', with: 'new_password'
+      fill_in id: 'user_password_confirmation', with: 'new_password'
+
+      click_button 'Enregistrer le mot de passe'
+    end
+
+    it 'updates the password' do
+      expect(current_user.reload).to be_valid_password('new_password')
+    end
+  end
 end
