@@ -91,6 +91,11 @@ class Expert < ApplicationRecord
       .where("users.email = experts.email")
   end
 
+  scope :only_expert_of_user, -> do
+    joins(:users)
+      .where(users: { id: User.single_expert })
+  end
+
   scope :without_users, -> do
     # Experts without members can’t connect to the app.
     # This is not a normal state, but can happen during referencing
@@ -139,6 +144,18 @@ class Expert < ApplicationRecord
   scope :without_subjects, -> do
     left_outer_joins(:experts_subjects)
       .where(experts_subjects: { id: nil })
+  end
+
+  scope :with_subjects, -> do
+    left_outer_joins(:experts_subjects)
+      .where.not(experts_subjects: { id: nil })
+      .distinct
+  end
+
+  scope :relevant_for_skills, -> do
+    where(id: unscoped.teams)
+      .or(where(id: unscoped.only_expert_of_user))
+      .or(where(id: unscoped.with_subjects))
   end
 
   scope :omnisearch, -> (query) do

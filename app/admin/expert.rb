@@ -15,6 +15,7 @@ ActiveAdmin.register Expert do
 
   scope :teams, group: :members
   scope :personal_skillsets, group: :members
+  scope :relevant_for_skills, group: :members
   scope :without_users, group: :members
 
   index do

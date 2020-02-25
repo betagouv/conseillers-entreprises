@@ -28,10 +28,8 @@ ActiveAdmin.register User do
   scope :admin
   scope :deactivated
 
-  scope :without_experts, group: :teams
-  scope :single_personal_skillset, group: :teams
-  scope :single_team, group: :teams
-  scope :multiple_experts, group: :teams
+  scope :team_members, group: :teams
+  scope :no_team, group: :teams
 
   scope :never_used, group: :invitations
   scope :invitation_not_accepted, group: :invitations
@@ -51,7 +49,7 @@ ActiveAdmin.register User do
       div admin_link_to(u, :institution)
     end
     column(:experts) do |u|
-      div admin_link_to(u, :experts, list: true)
+      div admin_link_to(u, :relevant_experts, list: true)
     end
     column(:activity) do |u|
       div admin_link_to(u, :searches, blank_if_empty: true)

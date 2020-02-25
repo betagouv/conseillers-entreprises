@@ -8,6 +8,6 @@ FactoryBot.define do
     role { Faker::Job.title }
     association :antenne
 
-    users { [create(:user)] }
+    users { [build(:user, email: email)] }
   end
 end

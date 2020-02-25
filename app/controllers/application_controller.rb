@@ -13,7 +13,14 @@ class ApplicationController < SharedController
   ## Devise overrides
   # See also RegistrationsController::after_sign_up_path_for
   def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || needs_path
+    if resource_or_scope.relevant_experts.with_subjects.present?
+      path = needs_path
+    elsif resource_or_scope.can_view_diagnoses_tab
+      path = diagnoses_path
+    else
+      path = profile_path
+    end
+    stored_location_for(resource_or_scope) || path
   end
 
   def after_sign_out_path_for(resource_or_scope)

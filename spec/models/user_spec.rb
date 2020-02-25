@@ -170,4 +170,34 @@ RSpec.describe User, type: :model do
       it{ is_expected.to be_falsey }
     end
   end
+
+  describe '#create_personal_skillset_if_needed' do
+    context 'new user creation' do
+      let(:user) { create :user }
+
+      it 'automatically adds a personal skillset' do
+        expect(user.experts).not_to be_empty
+        expect(user.experts.first).to be_without_subjects
+        expect(user.experts.first).to be_personal_skillset
+      end
+    end
+
+    context 'user part of a team' do
+      let(:team) { create :expert }
+      let(:user) { create :user, experts: [team] }
+
+      it 'automaticallys adds a personal skillset' do
+        expect(user.experts.count).to eq 2
+      end
+    end
+
+    context 'user already with a personal skillset' do
+      let(:skillset) { create :expert, email: 'user@email.com', users: [] }
+      let(:user) { create :user, email: 'user@email.com', experts: [skillset] }
+
+      it 'does not automatically add a personal skillset' do
+        expect(user.experts.count).to eq 1
+      end
+    end
+  end
 end

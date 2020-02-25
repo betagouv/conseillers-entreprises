@@ -1,11 +1,14 @@
 %footer.footer
   .container
-    .footer__logo
-      = image_tag 'place-des-entreprises-logo.png'
+    %ul.footer__links.social
+      %li.social-network
+        = link_to 'https://www.linkedin.com/company/place-des-entreprises', target: '_blank', rel: 'noopener' do
+          = image_tag 'linkedin.png', alt: 'logo linkedin'
     %ul.footer__links
-      %li
+      %li.title
+        = image_tag 'place-des-entreprises-logo.png', alt: 'logo Place des Entreprises', class: 'logo-footer'
         %h2= 'place-des-entreprises.beta.gouv.fr'
-      %li= link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises'
+      %li.beta-link= link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises'
     %ul.footer__links
       %li= link_to t('cgu'), cgu_path
       %li= link_to t('usage_stats'), stats_path
