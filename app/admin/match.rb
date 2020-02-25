@@ -6,7 +6,10 @@ ActiveAdmin.register Match do
   ## Index
   #
   includes :need, :diagnosis, :facility, :company, :related_matches,
-           :advisor, :advisor_antenne, :expert, :expert_antenne,
+           :advisor, :advisor_antenne, :advisor_institution,
+           :expert, :expert_antenne, :expert_institution,
+           :subject, :theme,
+           facility: :commune,
            need: :subject
 
   scope :all, default: true
@@ -72,7 +75,7 @@ ActiveAdmin.register Match do
   csv do
     column :id
     column(:need) { |m| m.need_id }
-    column :facility
+    column :company
     column(:commune) { |m| m.facility.commune }
     column :created_at
     column :advisor
@@ -88,7 +91,7 @@ ActiveAdmin.register Match do
     column(:status_description) { |m| m.need.status_short_description }
     column :taken_care_of_at
     column :closed_at
-    column('Page Analyse') { |m| need_url(m.diagnosis) if m.expert.present? }
+    column('Page Analyse') { |m| need_url(m.diagnosis) }
   end
 
   ## Show
