@@ -5,6 +5,5 @@
 // This is hopefully a workaround until we migrate the rest of the app to the datagouv template
 
 // = require rails-ujs
-// = require turbolinks
 
 // = require_tree ./pages

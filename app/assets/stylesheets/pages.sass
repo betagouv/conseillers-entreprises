@@ -80,7 +80,7 @@ span.navbar__domain
 
 //  landings index and show
 
-section.section#featured-landings
+section.section#section-thematiques
   background: linear-gradient(45deg, #0053b3, #006be6)
   background: linear-gradient(45deg,var(--theme-primary), var(--theme-primary-light))
   a:hover
@@ -192,3 +192,12 @@ section.section#landing-topics
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
   img[src*=".svg"]
     width: 100%
+
+// General settings
+
+html
+  scroll-behavior: smooth
+
+@media (prefers-reduced-motion: reduce)
+  html
+    scroll-behavior: auto
