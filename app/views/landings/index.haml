@@ -9,10 +9,10 @@
       = t('.question')
     %h2.lead-text
       = t('.answer')
-    = link_to t('.submit_request'), '#featured-landings', class: 'button blue'
+    = link_to t('.submit_request'), '#section-thematiques', class: 'button blue'
     = render 'institutions'
 
-%section.section.section-color#featured-landings
+%section.section.section-color#section-thematiques
   .container
     = render 'landings', landings: @landings, links_tracking_params: @links_tracking_params
 
