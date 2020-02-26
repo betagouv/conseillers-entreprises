@@ -18,9 +18,9 @@
       %i.info.icon
       .content
         - if @experts_emails.count > 1
-          = t('.no_requests_many_emails_html', emails: @experts_emails.join(", "), application_email: ENV['APPLICATION_EMAIL'])
+          = t('.no_requests_many_emails_html', emails: @experts_emails.join(", "), mailto_link: mailto_contact_us(t('.contact_us_mailto_text')))
         - else
-          = t('.no_requests_html', email: @experts_emails.first, application_email: ENV['APPLICATION_EMAIL'])
+          = t('.no_requests_html', email: @experts_emails.first, mailto_link: mailto_contact_us(t('.contact_us_mailto_text')))
 - else
   %h1.ui.header
     = t('.title')

@@ -1,4 +1,4 @@
-%p= t('.contact_us_html', email: ENV['APPLICATION_EMAIL'])
+%p= t('.contact_us_html', mailto_link: mailto_contact_us(t('.contact_us_mailto_text')))
 = link_to qui_sommes_nous_url do
   %p= image_tag(root_url + 'place-des-entreprises-logo-48w.png', height: 24)
 %p= t('.blurb')
