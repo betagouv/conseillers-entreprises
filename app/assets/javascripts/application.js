@@ -21,5 +21,6 @@
 // = require semantic-ui/popup
 // = require semantic-ui/dropdown
 // = require semantic-ui/calendar
+// = require semantic-ui/accordion
 
 // = require_tree ./application

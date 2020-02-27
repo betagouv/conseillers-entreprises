@@ -110,8 +110,14 @@ Rails.application.routes.draw do
     end
   end
 
-  ## Redirections for compatibility
-  get '/entreprise/:slug', to: redirect('/aide-entreprises/%{slug}')
+  controller :user_pages do
+    get :tutoriels
+  end
+
+  get 'profile' => 'users#show'
+
+  ## Redirection for compatibility
+  get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
   get '/entreprise/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
   get '/aide/:slug', to: redirect('/aide-entreprises/%{slug}')
   get '/aide/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
