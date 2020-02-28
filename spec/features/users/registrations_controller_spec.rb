@@ -7,12 +7,11 @@ describe 'registrations', type: :feature do
     login_user
 
     before do
-      visit edit_user_registration_path
+      visit edit_user_path
 
       fill_in id: 'user_full_name', with: 'John Doe'
       fill_in id: 'user_role', with: 'Detective'
       fill_in id: 'user_phone_number', with: '0987654321'
-      fill_in id: 'user_current_password', with: 'password'
 
       click_button 'Mettre à jour'
     end

@@ -69,8 +69,7 @@ fr:
       updated_not_active: Votre nouveau mot de passe a bien été enregistré.
     registrations:
       edit:
-        leave_blank_to_change_it: "(laisser vide si pas de changement)"
-        we_need_current_password: "(nécessaire pour prendre en compte les modifications)"
+        contact_us_to_change_email_html: Pour mettre à jour votre adresse email, <a href="mailto:%{email}">contactez-nous</a>.
       new:
         placeholders:
           full_name: 'ex: Marie Dupont'

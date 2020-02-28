@@ -1,0 +1,28 @@
+-# Custom layout (for Users::RegistrationsController)
+  Based on the main application layout
+
+- content_for :content do
+  %h2.ui.header
+    = t('.title')
+    .ui.sub.header= @user.full_name
+
+  .ui.divider
+
+  .ui.grid
+    .five.wide.column
+      .ui.secondary.pointing.vertical.fluid.menu
+        -# User settings
+        = active_link_to t('.informations'), edit_user_path, { class: 'item' }
+        -# More User settings (password)
+        = active_link_to t('.password'), password_user_path, { class: 'item' }
+        -# More User settings (Antenne)
+        = active_link_to t('.antenne'), antenne_user_path, { class: 'item' }
+        -# Expert teams info
+        = experts_items_in_section(@user.experts.teams, :edit, t('.team'))
+        -# Expert skills (teams and non-empty personal skillsets)
+        = experts_items_in_section(@user.experts.relevant_for_skills, :skills, t('.skills'))
+
+    .eleven.wide.column
+      = yield
+
+= render template: 'layouts/application'

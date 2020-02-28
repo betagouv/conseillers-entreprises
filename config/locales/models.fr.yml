@@ -117,6 +117,7 @@ fr:
         experts_subjects:
           one: Compétence
           other: Compétences
+        full_name: Nom de l’équipe
         is_global_zone: Global
         reminders_notes: Suivi des relances
         role: Fonction
@@ -365,6 +366,7 @@ fr:
       full_name: 'ex: Marie Dupont'
       phone_number: 06 12 34 56 78
       role: Conseiller entreprise, Chargé de mission…
+      team_name: Équipe formation, Cellule-conseil aux entreprises…
     received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues
@@ -409,6 +411,9 @@ fr:
       one: Sujet
       other: Sujets
     subtitle: Sous-titre
+    teams:
+      one: Équipe
+      other: Équipes
     territories:
       one: Territoire
       other: Territoires

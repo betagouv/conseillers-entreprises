@@ -161,16 +161,24 @@ fr:
         your_contact_in_the_company: 'Votre contact chez %{company_name} :'
   experts:
     edit:
-      description: Cochez les domaines d’intervention correspondant à votre activité. Vous pouvez apporter les précisions que vous jugez utiles pour les autres conseillers.
+      antenne_and_institution: Structure
+      different_antenne_warning_html: 'Attention : cette antenne est différente de l’antenne à laquelle est rattachée votre compte utilisateur.<br/> C’est peut-être une erreur ; <a href="mailto:%{email}">contactez-nous</a> pour la modifier.'
+      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Place des Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
+      team_members: Membres de l’équipe
+      team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
+    skills:
+      description_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
       fallback: Suppléant
-      fallback_description: "« Suppliéant » signifie que vous pouvez apporter un premier niveau d'informations dans ce domaine. Vous serez contacté si aucun spécialiste n’est référencé sur votre zone d’intervention."
-      placeholder: N’hésitez pas à détailler, notamment les conditions selon lesquelles vous intervenez.
+      fallback_description: "« Suppléant » signifie que vous pouvez apporter un premier niveau d'informations dans ce domaine. Vous serez contacté si aucun spécialiste n’est référencé sur votre zone d’intervention."
+      instructions_pick_within_institution_subjects_html: Sélectionnez les sujets sur lesquels vous intervenez, parmi les domaines de compétences de <strong>%{institution}</strong>.
+      others_members_warning_details: Les modifications apportées ici s’appliqueront aux %{count} membres de l’équipe.
+      others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <strong>%{name}</strong>.
       specialist: Spécialiste
       specialist_description: "« Spécialiste » indique que ce domaine est votre cœur d’activité. Vous serez contacté en priorité par les entreprises sur votre zone d’intervention."
-      subtitle: Au sein de « %{institution} »
-      title: Compétences de %{name}
-    flash:
-      review_your_subjects_html: En tant que référent sur Place des entreprises et membre de %{antenne}, vous pouvez être contacté sur vos domaines d’expertise.<br/> Prenez le temps de vérifier vos domaines d’intervention <a href='%{edit_expert_path}'>en cliquant ici</a>.
+    subjects_review:
+      confirm: Si ces sujets correspondent à vos domaines d’intervention, cliquez sur Valider.
+      flash_html: En tant que référent sur Place des entreprises, vous pouvez être contacté sur vos domaines d’intervention.<br/> Prenez le temps de les vérifier périodiquement <a href='%{path}'>en cliquant ici</a>.
+      flash_team_html: En tant que référent sur Place des entreprises et membre de %{team}, vous pouvez être contacté sur vos domaines d’intervention.<br/> Prenez le temps de les vérifier périodiquement <a href='%{path}'>en cliquant ici</a>.
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
@@ -204,6 +212,14 @@ fr:
       label_2_html: Le service <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
       label_3_html: Le conseiller vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
+  layouts:
+    user_tabs:
+      antenne: Antenne
+      informations: Informations
+      password: Mot de passe
+      skills: Domaines d’intervention
+      team: Équipe
+      title: Mon compte
   mailers:
     admin_mailer:
       solicitation:
@@ -515,5 +531,8 @@ fr:
       title: Statistiques d’utilisation
       users_stats: Conseillers
   users:
-    team:
-      edit_subjects: Modifier
+    registrations:
+      antenne:
+        antenne_within_institution: Antenne (au sein de %{institution})
+        contact_us_for_missing_antenne_html: Si vous ne trouvez pas votre antenne, <a href="mailto:%{email}">contactez-nous</a>.
+    thats_you: C’est vous !
