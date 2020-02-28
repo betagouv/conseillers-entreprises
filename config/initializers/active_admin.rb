@@ -159,7 +159,7 @@ ActiveAdmin.setup do |config|
 
   # == Setting a Favicon
   #
-  # config.favicon =
+  config.favicon = 'favicon/favicon.ico'
 
   # == Meta Tags
   #
