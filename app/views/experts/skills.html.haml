@@ -9,6 +9,9 @@
           = t('.others_members_warning_header_html', name: @expert.full_name)
         = t('.others_members_warning_details', count: @expert.users.size)
 
+    - if @expert.should_review_subjects?
+      %p= t('experts.subjects_review.confirm')
+
 = form_with model: @expert, class: 'ui form' do |f|
   - @is_by_theme.each do |theme, institutions_subjects|
     %h3.ui.header= theme.label

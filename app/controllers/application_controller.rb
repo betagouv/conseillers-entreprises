@@ -3,6 +3,7 @@ class ApplicationController < SharedController
   # implicitly uses the 'application' layout
 
   include Pundit
+  include FlashToReviewSubjects
 
   before_action :authenticate_user!
 
