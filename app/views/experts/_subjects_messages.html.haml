@@ -1,12 +1,10 @@
-%p
-  %label
-    = t('.instructions_pick_within_institution_subjects_html', institution: expert.institution)
+.ui.field
+  %p
+    = t('.instructions_html', institution: expert.institution)
 
-- if expert.users.size > 1
-  .ui.field.info
-    .ui.info.message
-      .content
-        .header
-          %i.icon.exclamation.triangle
-          = t('.others_members_warning_header_html', name: expert.full_name)
-        = t('.others_members_warning_details', count: expert.users.size)
+  - if expert.users.size > 1
+    .p
+      %i.icon.orange.circle.warning
+      %strong= t('.others_members_warning_header_html', name: expert.full_name, path: edit_expert_path(expert))
+      %br
+      = t('.others_members_warning_details', count: expert.users.size)
