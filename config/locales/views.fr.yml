@@ -132,15 +132,10 @@ fr:
         postal_code: Code postal
         title: Nouvelle localité
       selection:
-        before_sending_emails_text_html: |
-          <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
-          <p>Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires.</p>
-          <p>Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.</p>
-        expert_scope_of_work: 'Compétence du référent :'
+        before_sending_emails_1: En cliquant sur le bouton ci-dessous, les référents sélectionnés seront contactés par e-mail.
+        before_sending_emails_2: Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires. Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.
         explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
-        more_informations: Informations complémentaires
         no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-        no_needs: Pas de besoins sélectionnés.
         notifications_sent: Les notifications ont bien été envoyées.
         notify_matches: Notifier les référents sélectionnés
         select_at_least_one_expert: Cochez au minimum un référent à contacter.
