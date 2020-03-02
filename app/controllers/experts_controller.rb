@@ -23,8 +23,11 @@ class ExpertsController < ApplicationController
   def update
     @expert.mark_subjects_reviewed!
     @expert.update(expert_params)
-    if expert_params.include?(:experts_subjects_attributes)
+    case params[:update_context]&.to_sym
+    when :subjects
       redirect_to subjects_expert_path(@expert)
+    when :subjects_modal
+      head :no_content
     else
       redirect_to edit_expert_path(@expert)
     end
