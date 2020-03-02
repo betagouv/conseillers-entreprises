@@ -11,7 +11,7 @@ module FlashToReviewSubjects
     return unless current_user.relevant_experts.any?(&:should_review_subjects?)
 
     expert_to_review = current_user.relevant_experts.find(&:should_review_subjects?)
-    path = skills_expert_path(expert_to_review)
+    path = subjects_expert_path(expert_to_review)
     return if path == self.request.path
 
     if expert_to_review.team?

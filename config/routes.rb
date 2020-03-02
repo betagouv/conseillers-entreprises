@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   scope 'mon_compte', as: '' do
     resources :experts, only: %i[index edit update], path: 'referents' do
       member do
-        get :skills, path: 'domaines'
+        get :subjects, path: 'domaines'
       end
     end
   end

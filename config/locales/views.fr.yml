@@ -161,19 +161,21 @@ fr:
       team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Place des Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
       team_members: Membres de l’équipe
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
-    skills:
-      description_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
-      fallback: Suppléant
-      fallback_description: "« Suppléant » signifie que vous pouvez apporter un premier niveau d'informations dans ce domaine. Vous serez contacté si aucun spécialiste n’est référencé sur votre zone d’intervention."
+    subjects_messages:
       instructions_pick_within_institution_subjects_html: Sélectionnez les sujets sur lesquels vous intervenez, parmi les domaines de compétences de <strong>%{institution}</strong>.
       others_members_warning_details: Les modifications apportées ici s’appliqueront aux %{count} membres de l’équipe.
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <strong>%{name}</strong>.
+    subjects_fields:
+      description_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
+      fallback: Suppléant
+      fallback_description: "« Suppléant » signifie que vous pouvez apporter un premier niveau d'informations dans ce domaine. Vous serez contacté si aucun spécialiste n’est référencé sur votre zone d’intervention."
       specialist: Spécialiste
       specialist_description: "« Spécialiste » indique que ce domaine est votre cœur d’activité. Vous serez contacté en priorité par les entreprises sur votre zone d’intervention."
+    subjects_modal:
+      title: Vos domaines d’intervention sur Place des Entreprises
     subjects_review:
-      confirm: Si ces sujets correspondent à vos domaines d’intervention, cliquez sur Valider.
-      flash_html: En tant que référent sur Place des entreprises, vous pouvez être contacté sur vos domaines d’intervention.<br/> Prenez le temps de les vérifier périodiquement <a href='%{path}'>en cliquant ici</a>.
-      flash_team_html: En tant que référent sur Place des entreprises et membre de %{team}, vous pouvez être contacté sur vos domaines d’intervention.<br/> Prenez le temps de les vérifier périodiquement <a href='%{path}'>en cliquant ici</a>.
+      flash: En tant que référent sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention.
+      flash_team: En tant que référent sur Place des entreprises et membre de %{team}, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention.
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
@@ -212,7 +214,7 @@ fr:
       antenne: Antenne
       informations: Informations
       password: Mot de passe
-      skills: Domaines d’intervention
+      subjects: Domaines d’intervention
       team: Équipe
       title: Mon compte
   mailers:

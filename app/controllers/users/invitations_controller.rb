@@ -9,7 +9,7 @@ module Users
     end
 
     def after_accept_path_for(inviter)
-      experts_path # experts#index itself redirects to the skills of the first expert of the user.
+      experts_path # experts#index itself redirects to the subjects of the first expert of the user.
     end
 
     def configure_permitted_parameters
