@@ -3,8 +3,6 @@
 class DiagnosesController < ApplicationController
   before_action :retrieve_diagnosis, only: %i[show archive unarchive]
 
-  include FlashToReviewSubjects
-
   def index
     authorize Diagnosis
     @diagnoses = sent_diagnoses(current_user, archived: false)

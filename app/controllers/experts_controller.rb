@@ -1,34 +1,44 @@
 # frozen_string_literal: true
 
 class ExpertsController < ApplicationController
-  before_action :find_expert, except: %i[mes_competences]
+  before_action :find_expert, except: :index
 
-  def mes_competences
-    if current_user.experts.present?
-      redirect_to edit_expert_path(current_user.experts.first)
-    else
-      redirect_to profile_path
-    end
+  layout 'user_tabs'
+
+  def index
+    redirect_to skills_expert_path(current_user.experts.relevant_for_skills.first)
   end
 
   def edit
+    if !@expert.team?
+      redirect_to skills_expert_path(@expert)
+    end
+    @user = current_user
+  end
+
+  def skills
     @is_by_theme = @expert.institution.available_subjects
+    @user = current_user
   end
 
   def update
     @expert.mark_subjects_reviewed!
     @expert.update(expert_params)
-    redirect_to profile_path
+    if expert_params.include?(:experts_subjects_attributes)
+      redirect_to skills_expert_path(@expert)
+    else
+      redirect_to edit_expert_path(@expert)
+    end
   end
 
   private
 
   def expert_params
-    params.require(:expert).permit(:experts_subjects_attributes => {})
+    params.require(:expert).permit(:full_name, :phone_number, :role, :experts_subjects_attributes => {})
   end
 
   def find_expert
     @expert = Expert.find(params[:id])
-    authorize @expert
+    authorize @expert, :update?
   end
 end

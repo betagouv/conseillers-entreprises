@@ -169,6 +169,12 @@ class User < ApplicationRecord
     end
   end
 
+  # Override from Devise::Models::DatabaseAuthenticatable
+  def update_without_password(params, *options)
+    params.delete(:email)
+    super(params)
+  end
+
   # Override from Devise::Models::Recoverable:
   # * If the user has been invited, but hasn’t clicked the invitation link yet, resend them the invitation.
   # * Otherwise just send a password reset email.

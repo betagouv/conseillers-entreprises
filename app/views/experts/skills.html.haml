@@ -1,12 +1,16 @@
-%h1.ui.header
-  = t('.title', name: @expert.full_name)
-  .sub.header= t('.subtitle', institution: @expert.institution)
-
-.ui.icon.info.message
-  %i.info.icon
+.ui.info.message
   .content
-    .header
-    = t('.description')
+    %p= t('.instructions_pick_within_institution_subjects_html', institution: @expert.institution)
+
+    - if @expert.users.size > 1
+      %p
+        .header
+          %i.icon.exclamation.triangle
+          = t('.others_members_warning_header_html', name: @expert.full_name)
+        = t('.others_members_warning_details', count: @expert.users.size)
+
+    - if @expert.should_review_subjects?
+      %p= t('experts.subjects_review.confirm')
 
 = form_with model: @expert, class: 'ui form' do |f|
   - @is_by_theme.each do |theme, institutions_subjects|
@@ -38,7 +42,6 @@
                   %sup= '?'
               .ui.popup
                 %p= t('.fallback_description')
-
-              = i.text_area :description, placeholder: t('.placeholder'), rows: 2
+              = i.text_area :description, placeholder: t('.description_placeholder'), rows: 3
 
   = f.submit t('confirm'), class: 'ui green button'

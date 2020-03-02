@@ -1,13 +1,33 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "8c0cf3dade4441e78ad5e8f205c8b119a75fd588ae9cab646729864072d6853c",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/experts_controller.rb",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:expert).permit(:full_name, :phone_number, :role, :experts_subjects_attributes => ({}))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ExpertsController",
+        "method": "expert_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "note": "“role” is considered suspicious by brakeman, but it’s actually not an issue here."
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "a848f2ec57900fe0a8e2cc8aeab00277657870582bef079fa2f2d539a0b7d060",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 63,
+      "line": 65,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -21,6 +41,6 @@
       "note": "The crafted SQL query is a list of \"(?)\" placeholders; it is essentially a workaround for a limitation of ActiveRecord."
     }
   ],
-  "updated": "2019-10-21 14:36:42 +0200",
-  "brakeman_version": "4.7.0"
+  "updated": "2020-02-20 14:57:39 +0100",
+  "brakeman_version": "4.7.2"
 }

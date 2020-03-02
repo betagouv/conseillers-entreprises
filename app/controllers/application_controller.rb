@@ -3,6 +3,7 @@ class ApplicationController < SharedController
   # implicitly uses the 'application' layout
 
   include Pundit
+  include FlashToReviewSubjects
 
   before_action :authenticate_user!
 
@@ -18,7 +19,7 @@ class ApplicationController < SharedController
     elsif resource_or_scope.can_view_diagnoses_tab
       path = diagnoses_path
     else
-      path = profile_path
+      path = user_path
     end
     stored_location_for(resource_or_scope) || path
   end

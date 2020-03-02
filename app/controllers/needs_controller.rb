@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class NeedsController < ApplicationController
-  include FlashToReviewSubjects
-
   def index
     @experts_emails = current_user.experts.distinct.pluck(:email)
     @needs_quo = current_user.needs_quo
