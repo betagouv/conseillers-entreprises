@@ -527,6 +527,30 @@ fr:
       download: Télécharger
       title: Statistiques d’utilisation
       users_stats: Conseillers
+  user_pages:
+    tutoriels:
+      create_acount: Créer mon compte
+      create_diagnosis: Transmettre un besoin
+      download_guide: Télécharger le guide d'entretien (PDF)
+      download_tuto: Télécharger le tutoriel (PDF)
+      emails: Réceptionner les emails
+      expert_first_item: 'Avec la liste des besoins en support (détails ci-dessous), vous pouvez balayer les différentes typologies de besoins afin de questionner le dirigeant :'
+      expert_second_item: 'Autrement, vous pouvez privilégier une ouverture du dialogue du type :'
+      explanation_emails: Je glisse l'email de Place des Entreprises dans ma boîte de réception. Les prochains emails @beta.gouv.fr arriveront ainsi directement dans ma boite de réception !
+      find_need: Déceler des besoins
+      methods: Vous trouverez la méthode qui vous convient le mieux.
+      other_cases: 'Dans tous les cas vous pouvez rassurer votre interlocuteur en lui indiquant que :'
+      question_account: A quoi sert le compte Place des entreprises ? Comment le créer ?
+      question_diagnosis: Je veux transmettre un besoin à un partenaire, comment faire ?
+      question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
+      question_expert: Comment procéder ? Quelle question poser ?
+      question_take_care: Je reçois un besoin via Place des entreprises, comment agir ?
+      quote_first_item: "« Avez-vous un projet particulier d’investissement ? Oui, et de quelle nature est-il : foncier - immobilier ; innovation ou recherche de financement ? »"
+      quote_other_cases: "« Nous disposons, au sein du service public, d’un outil permettant de solliciter sur vos besoins les partenaires compétents. Un expert vous contactera alors pour vous proposer des solutions adaptées. »"
+      quote_second_item: "« Parallèlement aux questions que nous venons de traiter, avez-vous d’autres besoins liés à des projets à venir ou des difficultés ? »"
+      subjects-list: Liste des besoins
+      take_care_diagnosis: Prendre en charge un besoin
+      title: Kit utilisateur
   users:
     registrations:
       antenne:
