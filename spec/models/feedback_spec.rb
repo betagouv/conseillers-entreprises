@@ -34,7 +34,7 @@ RSpec.describe Feedback, type: :model do
       let!(:feedback3) { create :feedback, need: need, author: user3 }
       let(:author) { user3 }
 
-      it{ is_expected.to match_array [expert1, expert2, user2, expert3, advisor] }
+      it{ is_expected.to match_array [expert1, expert2, user2, advisor] }
     end
 
     context 'when the author is the diagnosis advisor' do
