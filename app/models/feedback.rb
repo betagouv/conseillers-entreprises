@@ -55,12 +55,13 @@ class Feedback < ApplicationRecord
     end
   end
 
+  # Notify experts of this need and other feedbacks authors, but if the author's expert is in need experts,
+  # don't send an email at this personal address
   def persons_to_notify
-    if author == need.advisor
-      need.experts
-    else
-      [need.advisor]
-    end
+    experts_users = self.need.experts.flat_map(&:users)
+    feedback_users = need.feedbacks.map(&:user)
+    feedback_users.filter! { |user| !experts_users.include?(user) }
+    need.experts + [need.advisor] + feedback_users - [author]
   end
 
   private
