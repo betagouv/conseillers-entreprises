@@ -104,6 +104,7 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-faker', require: false
+  gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
 end
 

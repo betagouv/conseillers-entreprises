@@ -416,6 +416,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     rubocop-faker (0.2.0)
       rubocop (>= 0.74)
+    rubocop-i18n (2.0.1)
+      rubocop (~> 0.51)
     rubocop-performance (1.5.2)
       rubocop (>= 0.71.0)
     rubocop-rails (2.4.2)
@@ -555,6 +557,7 @@ DEPENDENCIES
   rspec_junit_formatter
   rubocop
   rubocop-faker
+  rubocop-i18n
   rubocop-performance
   rubocop-rails
   rubocop-rspec
