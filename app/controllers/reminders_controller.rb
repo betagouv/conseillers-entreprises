@@ -1,5 +1,6 @@
 class RemindersController < ApplicationController
   before_action :authenticate_admin!
+  before_action :maybe_review_expert_subjects
 
   def index
     @territories = Territory.all.order(:bassin_emploi, :name)

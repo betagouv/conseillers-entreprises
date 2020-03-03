@@ -9,6 +9,8 @@
 
     %main.ui.application.container
       = render 'flashes'
+      = render 'app_modal'
+
       = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. user_tabs)
 
     = render 'footer'

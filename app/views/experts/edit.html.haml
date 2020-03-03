@@ -2,6 +2,7 @@
   Used only for Teams; personal skillsets are not displayed with this view.
 
 = form_with model: @expert, class: 'ui form' do |f|
+  = hidden_field_tag :update_context, :edit
   .field
     %label= t('attributes.email')
     .ui.segment.secondary.shadow-less

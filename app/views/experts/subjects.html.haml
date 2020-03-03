@@ -1,0 +1,5 @@
+= form_with model: @expert, class: 'ui form' do |f|
+  = hidden_field_tag :update_context, :subjects
+  = render 'subjects_messages', expert: @expert
+  = render 'subjects_fields', f: f, expert: @expert
+  = f.submit t('confirm'), class: 'ui green approve button'
