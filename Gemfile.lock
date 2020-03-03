@@ -518,6 +518,7 @@ DEPENDENCIES
   byebug
   capybara
   clockwork
+  css_parser
   daemons
   debase
   delayed_job_active_record
