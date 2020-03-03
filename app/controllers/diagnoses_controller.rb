@@ -2,8 +2,7 @@
 
 class DiagnosesController < ApplicationController
   before_action :retrieve_diagnosis, only: %i[show archive unarchive]
-
-  include FlashToReviewSubjects
+  before_action :maybe_review_expert_subjects
 
   def index
     authorize Diagnosis

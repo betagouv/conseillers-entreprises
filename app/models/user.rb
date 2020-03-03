@@ -70,6 +70,7 @@ class User < ApplicationRecord
   #
   validates :full_name, :phone_number, presence: true, unless: :deleted?
   after_create :create_personal_skillset_if_needed
+  after_update :synchronize_personal_skillsets
 
   def ensure_has_expert
     create_matching_expert
@@ -168,6 +169,12 @@ class User < ApplicationRecord
     end
   end
 
+  # Override from Devise::Models::DatabaseAuthenticatable
+  def update_without_password(params, *options)
+    params.delete(:email)
+    super(params)
+  end
+
   # Override from Devise::Models::Recoverable:
   # * If the user has been invited, but hasn’t clicked the invitation link yet, resend them the invitation.
   # * Otherwise just send a password reset email.
@@ -253,10 +260,18 @@ class User < ApplicationRecord
     experts.personal_skillsets
   end
 
+  def attributes_shared_with_personal_skills
+    shared_attributes = %w[email full_name phone_number role antenne_id]
+    self.attributes.slice(*shared_attributes)
+  end
+
   def create_personal_skillset_if_needed
     return if personal_skillsets.present?
 
-    attributes = self.attributes.slice('email', 'full_name', 'phone_number', 'role', 'antenne_id')
-    experts.create!(attributes)
+    self.experts.create!(self.attributes_shared_with_personal_skills)
+  end
+
+  def synchronize_personal_skillsets
+    self.personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
   end
 end

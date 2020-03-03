@@ -3,54 +3,51 @@
 = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
 #selection-app
-  - if @diagnosis.needs.empty?
-    %p= t('.no_needs')
-  - else
-    %p= t('.explanation')
+  .ui.info.message
+    = t('.explanation')
 
-    = form_with scope: :matches, url: selection_diagnosis_path(@diagnosis),
-               id: 'selection-form' do |f|
-      - @diagnosis.needs.ordered_for_interview.each do |need|
-        %table.ui.compact.small.table.celled
-          %thead
-            %tr
-              %th{ colspan: 3 }= need.subject
-          %tbody
-            - experts_subjects_specialists = ExpertSubject.relevant_for(need).specialist
-            - experts_subjects_fallback = ExpertSubject.relevant_for(need).fallback
-            - support_subject = ExpertSubject.support_for(@diagnosis)
-            - if experts_subjects_specialists.present?
-              = render partial: 'expert_subject_checkboxes', locals: { f: f, need: need, experts_subjects: experts_subjects_specialists }
-            - elsif experts_subjects_fallback.present?
-              = render partial: 'expert_subject_checkboxes', locals: { f: f, need: need, experts_subjects: experts_subjects_fallback }
-            - elsif support_subject.present?
-              %tr
-              %td{ colspan: 3 }
-                .ui.warning.message
-                  = t('.no_expert_subject')
-                  = t('.you_can_contact_support')
-              = render partial: 'expert_subject_checkboxes', locals: { f: f, need: need, experts_subjects: support_subject }
-            - else
-              %tr
-                %td= t('.no_expert_subject')
+  = form_with scope: :matches, url: selection_diagnosis_path(@diagnosis),
+             id: 'selection-form', class: 'ui form' do |f|
+    - @diagnosis.needs.ordered_for_interview.each do |need|
+      .ui.segment.shadow-less
+        %h3.ui.header= need.subject
+        - experts_subjects_specialists = ExpertSubject.relevant_for(need).specialist
+        - experts_subjects_fallback = ExpertSubject.relevant_for(need).fallback
+        - support_subject = ExpertSubject.support_for(@diagnosis)
+        - if experts_subjects_specialists.present?
+          = render 'expert_subject_checkboxes', f: f, need: need, experts_subjects: experts_subjects_specialists
+        - elsif experts_subjects_fallback.present?
+          = render 'expert_subject_checkboxes', f: f, need: need, experts_subjects: experts_subjects_fallback
+        - elsif support_subject.present?
+          .field.warning
+            .ui.warning.message
+              = t('.no_expert_subject')
+              = t('.you_can_contact_support')
+          = render 'expert_subject_checkboxes', f: f, need: need, experts_subjects: support_subject
+        - else
+          %p= t('.no_expert_subject')
 
+    .ui.hidden.divider
+    .field.info
       .ui.info.message
-        = t('.before_sending_emails_text_html')
+        .content
+          .header= t('.before_sending_emails_1')
+          %p= t('.before_sending_emails_2')
 
-      .ui.two.column.stackable.grid.container
-        .ui.left.aligned.column.no-left-padding.no-margin
-          = link_to visite_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
-            = t('previous_step')
-            %i.arrow.left.icon
+    .ui.two.column.stackable.grid.container
+      .ui.left.aligned.column.no-left-padding.no-margin
+        = link_to visite_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
+          = t('previous_step')
+          %i.arrow.left.icon
 
-        .ui.right.aligned.column.no-right-padding.no-margin
-          - button_classes = []
-          - if @diagnosis.visitee.blank?
-            - button_classes << 'disabled'
-          %button.ui.green.button.no-margin#next-step-button{ class: button_classes }
-            = t('.notify_matches')
+      .ui.right.aligned.column.no-right-padding.no-margin
+        - button_classes = []
+        - if @diagnosis.visitee.blank?
+          - button_classes << 'disabled'
+        %button.ui.green.button.no-margin#next-step-button{ class: button_classes }
+          = t('.notify_matches')
 
-      .clear
+    .clear
 
 :javascript
   (function() {

@@ -132,15 +132,10 @@ fr:
         postal_code: Code postal
         title: Nouvelle localité
       selection:
-        before_sending_emails_text_html: |
-          <p>En cliquant sur le bouton ci-dessous, les référents sélectionnés ci-dessus seront contactés par e-mail (vous serez en copie).</p>
-          <p>Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires.</p>
-          <p>Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.</p>
-        expert_scope_of_work: 'Compétence du référent :'
+        before_sending_emails_1: En cliquant sur le bouton ci-dessous, les référents sélectionnés seront contactés par e-mail.
+        before_sending_emails_2: Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires. Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.
         explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
-        more_informations: Informations complémentaires
         no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-        no_needs: Pas de besoins sélectionnés.
         notifications_sent: Les notifications ont bien été envoyées.
         notify_matches: Notifier les référents sélectionnés
         select_at_least_one_expert: Cochez au minimum un référent à contacter.
@@ -161,16 +156,23 @@ fr:
         your_contact_in_the_company: 'Votre contact chez %{company_name} :'
   experts:
     edit:
-      description: Cochez les domaines d’intervention correspondant à votre activité. Vous pouvez apporter les précisions que vous jugez utiles pour les autres conseillers.
+      antenne_and_institution: Structure
+      different_antenne_warning_html: 'Attention : cette antenne est différente de l’antenne à laquelle est rattachée votre compte utilisateur.<br/> C’est peut-être une erreur ; <a href="mailto:%{email}">contactez-nous</a> pour la modifier.'
+      team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Place des Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
+      team_members: Membres de l’équipe
+      team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
+    subjects_fields:
+      description_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
       fallback: Suppléant
-      fallback_description: "« Suppliéant » signifie que vous pouvez apporter un premier niveau d'informations dans ce domaine. Vous serez contacté si aucun spécialiste n’est référencé sur votre zone d’intervention."
-      placeholder: N’hésitez pas à détailler, notamment les conditions selon lesquelles vous intervenez.
+      fallback_description: "« Suppléant » signifie que vous pouvez apporter un premier niveau d'informations dans ce domaine. Vous serez contacté si aucun spécialiste n’est référencé sur votre zone d’intervention."
       specialist: Spécialiste
       specialist_description: "« Spécialiste » indique que ce domaine est votre cœur d’activité. Vous serez contacté en priorité par les entreprises sur votre zone d’intervention."
-      subtitle: Au sein de « %{institution} »
-      title: Compétences de %{name}
-    flash:
-      review_your_subjects_html: En tant que référent sur Place des entreprises et membre de %{antenne}, vous pouvez être contacté sur vos domaines d’expertise.<br/> Prenez le temps de vérifier vos domaines d’intervention <a href='%{edit_expert_path}'>en cliquant ici</a>.
+    subjects_messages:
+      instructions_html: En tant que référent sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention. Sélectionnez les sujets sur lesquels vous intervenez, parmi les domaines de compétences de <strong>%{institution}</strong>.
+      others_members_warning_details: Les modifications apportées ici s’appliqueront aux %{count} membres de l’équipe.
+      others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a>.
+    subjects_modal:
+      title: Domaines d’intervention
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
@@ -204,6 +206,14 @@ fr:
       label_2_html: Le service <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
       label_3_html: Le conseiller vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
+  layouts:
+    user_tabs:
+      antenne: Antenne
+      informations: Informations
+      password: Mot de passe
+      subjects: Domaines d’intervention
+      team: Équipe
+      title: Mon compte
   mailers:
     admin_mailer:
       solicitation:
@@ -281,7 +291,8 @@ fr:
         visited_on: Visitée le %{date}
     footer:
       blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
-      contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
+      contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
+      contact_us_mailto_text: nous contacter
     hello: Bonjour,
     hello_name: Bonjour %{name},
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
@@ -324,7 +335,7 @@ fr:
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         nice_day: Bonne journée,
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-    withdraw_request_html: Si vous souhaitez retirer votre demande, contactez-nous <a href='mailto:contact@place-des-entreprises.beta.gouv.fr'>contact@place-des-entreprises.beta.gouv.fr</a>
+    withdraw_request_html: Si vous souhaitez retirer votre demande, contactez-nous %{mailto_link}
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})
@@ -358,6 +369,7 @@ fr:
       all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
       browse_archived_needs: Voir mes demandes archivées
+      contact_us_mailto_text: Contactez-nous !
       needs_for_you: 'Ces entreprises ont besoin de vous :'
       needs_others_taking_care:
         one: 1 demande prise en charge par d’autres référents
@@ -371,8 +383,8 @@ fr:
         one: 1 demande prise en charge
         other: "%{count} demandes prises en charge"
         zero: 0 demande prise en charge
-      no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? <a href='mailto:%{application_email}'>Contactez-nous !</a></p>"
-      no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? <a href='mailto:%{application_email}'>Contactez-nous !</a></p>"
+      no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
+      no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       title: Demandes reçues
       title_no_needs: Félicitations, vous êtes à jour.
       title_welcome: Bienvenue sur Place des Entreprises
@@ -514,6 +526,33 @@ fr:
       download: Télécharger
       title: Statistiques d’utilisation
       users_stats: Conseillers
+  user_pages:
+    tutoriels:
+      create_acount: Créer mon compte
+      create_diagnosis: Transmettre un besoin
+      download_guide: Télécharger le guide d'entretien (PDF)
+      download_tuto: Télécharger le tutoriel (PDF)
+      emails: Réceptionner les emails
+      expert_first_item: 'Avec la liste des besoins en support (détails ci-dessous), vous pouvez balayer les différentes typologies de besoins afin de questionner le dirigeant :'
+      expert_second_item: 'Autrement, vous pouvez privilégier une ouverture du dialogue du type :'
+      explanation_emails: Je glisse l'email de Place des Entreprises dans ma boîte de réception. Les prochains emails @beta.gouv.fr arriveront ainsi directement dans ma boite de réception !
+      find_need: Déceler des besoins
+      methods: Vous trouverez la méthode qui vous convient le mieux.
+      other_cases: 'Dans tous les cas vous pouvez rassurer votre interlocuteur en lui indiquant que :'
+      question_account: A quoi sert le compte Place des entreprises ? Comment le créer ?
+      question_diagnosis: Je veux transmettre un besoin à un partenaire, comment faire ?
+      question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
+      question_expert: Comment procéder ? Quelle question poser ?
+      question_take_care: Je reçois un besoin via Place des entreprises, comment agir ?
+      quote_first_item: "« Avez-vous un projet particulier d’investissement ? Oui, et de quelle nature est-il : foncier - immobilier ; innovation ou recherche de financement ? »"
+      quote_other_cases: "« Nous disposons, au sein du service public, d’un outil permettant de solliciter sur vos besoins les partenaires compétents. Un expert vous contactera alors pour vous proposer des solutions adaptées. »"
+      quote_second_item: "« Parallèlement aux questions que nous venons de traiter, avez-vous d’autres besoins liés à des projets à venir ou des difficultés ? »"
+      subjects-list: Liste des besoins
+      take_care_diagnosis: Prendre en charge un besoin
+      title: Kit utilisateur
   users:
-    team:
-      edit_subjects: Modifier
+    registrations:
+      antenne:
+        antenne_within_institution: Antenne (au sein de %{institution})
+        contact_us_for_missing_antenne_html: Si vous ne trouvez pas votre antenne, <a href="mailto:%{email}">contactez-nous</a>.
+    thats_you: C’est vous !

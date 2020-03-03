@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NeedsController < ApplicationController
-  include FlashToReviewSubjects
+  before_action :maybe_review_expert_subjects
 
   def index
     @experts_emails = current_user.experts.distinct.pluck(:email)

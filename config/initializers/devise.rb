@@ -301,4 +301,5 @@ end
 
 Rails.application.config.to_prepare do
   Devise::Mailer.layout 'mailers'
+  Devise::Mailer.helper :mailto
 end

@@ -32,6 +32,7 @@ class Theme < ApplicationRecord
   #
   scope :ordered_for_interview, -> { order(:interview_sort_order, :id) }
 
+  scope :for_interview, -> { ordered_for_interview.where.not(label: "Support") }
   ##
   #
   def to_s

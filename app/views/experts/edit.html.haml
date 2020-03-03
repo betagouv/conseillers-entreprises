@@ -1,0 +1,66 @@
+-# Teams Parameters
+  Used only for Teams; personal skillsets are not displayed with this view.
+
+= form_with model: @expert, class: 'ui form' do |f|
+  = hidden_field_tag :update_context, :edit
+  .field
+    %label= t('attributes.email')
+    .ui.segment.secondary.shadow-less
+      %p= @expert.email
+  - if @expert.team?
+    %p
+      %i.blue.icon.info.circle
+      = t('.team_email_explanation_html', email: ENV['APPLICATION_EMAIL'])
+
+  .required.field
+    = f.label :phone_number
+    = f.text_field :phone_number, placeholder: t('attributes.placeholder.phone_number'), autocomplete: 'off', required: true
+
+  .ui.divider
+
+  .required.field
+    = f.label :full_name, t('activerecord.attributes.expert.full_name')
+    = f.text_field :full_name, placeholder: t('attributes.placeholder.team_name'), autocomplete: 'off', required: true
+  %p
+    %i.blue.icon.info.circle
+    = t('.team_name_explanation')
+
+  .field
+    %label= t('.antenne_and_institution')
+    .ui.shadow-less.secondary.segment
+      = link_to antenne_user_path do
+        %p
+          #{t('activerecord.models.antenne.one')} :
+          %b= @expert.antenne.name
+        %p
+          #{t('activerecord.models.institution.one')} :
+          %b= @expert.institution.name
+  - if @expert.antenne != @user.antenne
+    %p
+      %i.orange.icon.circle.warning
+      = t('.different_antenne_warning_html', email: ENV['APPLICATION_EMAIL'])
+
+  .required.field
+    = f.label :role
+    = f.text_field :role, placeholder: t('attributes.placeholder.role'), autocomplete: 'off', required: true
+
+  .ui.divider
+
+  .field
+    %label= t('.team_members')
+    .ui.shadow-less.secondary.segment
+      .ui.list
+        - @expert.users.not_deleted.each do |member|
+          .item
+            - if member == @user
+              %i.user.blue.icon{ title: t('users.thats_you') }
+            - else
+              %i.user.icon
+            .content
+              .user.popup-hover
+                = member.full_name
+              .ui.popup= person_block(member)
+
+  .actions
+    = f.submit t('update'), class: 'ui green button'
+

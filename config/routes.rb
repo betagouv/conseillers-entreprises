@@ -10,14 +10,27 @@ Rails.application.routes.draw do
 
   # Devise
   devise_for :users,
+             path: 'mon_compte',
              controllers: {
                registrations: 'users/registrations',
                invitations: 'users/invitations'
              },
              skip: [:registrations]
+
   devise_scope :user do
-    get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
-    put 'users' => 'users/registrations#update', :as => 'user_registration'
+    resource :'user', only: %i[show update], path: 'mon_compte', controller: 'users/registrations' do
+      get :edit, path: 'informations'
+      get :password, path: 'mot_de_passe'
+      get :antenne
+    end
+  end
+
+  scope 'mon_compte', as: '' do
+    resources :experts, only: %i[index edit update], path: 'referents' do
+      member do
+        get :subjects, path: 'domaines'
+      end
+    end
   end
 
   # Pages
@@ -90,8 +103,6 @@ Rails.application.routes.draw do
 
   resources :matches, only: %i[update]
   resources :feedbacks, only: %i[create destroy]
-  resources :experts, only: %i[edit update]
-  get 'mes_competences' => 'experts#mes_competences'
 
   resources :reminders, only: %i[index show], path: 'relances' do
     member do
@@ -99,12 +110,18 @@ Rails.application.routes.draw do
     end
   end
 
+  controller :user_pages do
+    get :tutoriels
+  end
+
   get 'profile' => 'users#show'
 
   ## Redirection for compatibility
   get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
   get '/entreprise/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
-  get '/aide/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
+  get '/aide/:slug', to: redirect('/aide-entreprises/%{slug}')
   get '/aide/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
+  get '/profile', to: redirect('/mon_compte')
+  get '/mes_competences', to: redirect('/mon_compte/referents')
   get '/diagnoses', to: redirect('/analyses')
 end

@@ -1,24 +1,18 @@
-= f.fields_for need.id.to_s do |expert_subject_form|
-  - experts_subjects.each do |expert_subject|
-    %tr
-      - checkbox_id = expert_subject.id.to_s
-      %td.checkbox-width
-        .ui.fitted.checkbox
-          = expert_subject_form.check_box checkbox_id, checked: true
-          %label
-      %td.expert-width
-        = expert_subject_form.label checkbox_id, class: 'clickable' do
-          = expert_subject.expert.full_name
-          %br
-          = expert_subject.expert.antenne
-      %td
-        = expert_subject_form.label checkbox_id, class: 'clickable' do
-          .tiny.text.bold
-            = t('diagnoses.steps.selection.expert_scope_of_work')
-          .small.text
-            = expert_subject.institution_subject.description
-          - if expert_subject.description.present?
-            .tiny.text.bold
-              = t('diagnoses.steps.selection.more_informations')
-            .small.text
-              = expert_subject.description
+.experts_subject_checkbox
+  = f.fields_for need.id.to_s do |fields|
+    - experts_subjects.each do |expert_subject|
+      - expert = expert_subject.expert
+      .ui.field
+        .ui.checkbox
+          = fields.check_box expert_subject.id, checked: true
+          = fields.label expert_subject.id do
+            .ui.equal.width.grid
+              .row
+                .column
+                  %h4.ui.header
+                    = expert.full_name
+                    .sub.header= expert.role
+                    .sub.header= expert.antenne
+                .column
+                  .sub.header
+                    = expert_subject.full_user_description

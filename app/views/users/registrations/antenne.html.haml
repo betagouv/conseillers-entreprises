@@ -1,0 +1,43 @@
+-# Antenne informations
+  This is read-only for now; users have to go through us to change this.
+
+.ui.form
+  .field
+    %label= t('.antenne_within_institution', institution: @user.institution.name)
+    .ui.segment.secondary.shadow-less
+      = @user.antenne.name
+  %p
+    %i.blue.icon.info.circle
+    = t('.contact_us_for_missing_antenne_html', institution: @user.institution.name, email: ENV['APPLICATION_EMAIL'])
+
+  .field
+    %label= t('attributes.advisors.other')
+    .ui.shadow-less.secondary.segment
+      .ui.list
+        - @user.antenne.advisors.not_deleted.each do |advisor|
+          .item
+            - if advisor == @user
+              %i.user.blue.icon{ title: t('users.thats_you') }
+            - else
+              %i.user.icon
+            .content
+              .user.popup-hover
+                = advisor.full_name
+              .ui.popup= person_block(advisor)
+
+  .field
+    %label= t('attributes.teams.other')
+    .ui.shadow-less.secondary.segment
+      .ui.list
+        - @user.antenne.experts.teams.each do |team|
+          - members = team.users.not_deleted
+          .item
+            - if @user.in?(members)
+              %i.users.blue.icon
+            - else
+              %i.users.icon
+            .content
+              .header
+                = team.full_name
+              .ui.list
+                = members.pluck(:full_name).to_sentence

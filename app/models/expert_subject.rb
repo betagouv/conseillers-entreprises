@@ -50,4 +50,10 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :support, -> { where(institution_subject: InstitutionSubject.support_subjects) }
+
+  ##
+  #
+  def full_user_description
+    [institution_subject.description, description].filter(&:present?).join(' — ')
+  end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
+  before_action :maybe_review_expert_subjects
+
   def search
     @query = search_query
     if @query.present?

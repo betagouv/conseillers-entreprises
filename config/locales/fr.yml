@@ -106,7 +106,6 @@ fr:
       second: Seconde
       year: Année
   delete: Supprimer
-  edit: Modifier
   errors:
     format: "%{attribute} %{message}"
     messages:

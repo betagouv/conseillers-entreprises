@@ -1,28 +1,13 @@
-%h2 #{t('edit')} #{resource.model_name.human}
-
-- url = registration_path(resource_name)
-= form_for resource, as: resource_name, url: url, html: { method: :put, class: 'ui form' } do |f|
-  = render "devise/shared/error_messages", resource: resource
+= form_with model: @user, url: user_path, local: true, class: 'ui form' do |f|
+  = render "devise/shared/error_messages", resource: @user
   .field
     = f.label :email
-    = f.email_field :email, autofocus: true, disabled: true
+    = f.email_field :email, disabled: true
+  %p
+    %i.blue.icon.info.circle
+    = t('.contact_us_to_change_email_html', email: ENV['APPLICATION_EMAIL'])
 
   = render 'devise/shared/user_fields', form: f
 
-  .field
-    = f.label :password
-    - minimum_password_length = Devise.password_length.min
-    - if minimum_password_length
-      %em= t('devise.password_minimum_characters', count: minimum_password_length)
-    %i= t('.leave_blank_to_change_it')
-    = f.password_field :password, autocomplete: 'off', pattern: ".{#{minimum_password_length},}"
-  .field
-    = f.label :password_confirmation
-    %i= t('.leave_blank_to_change_it')
-    = f.password_field :password_confirmation, autocomplete: 'off'
-  .field
-    = f.label :current_password
-    %i= t('.we_need_current_password')
-    = f.password_field :current_password, autocomplete: 'off'
   .actions
     = f.submit t('update'), class: 'ui green button'
