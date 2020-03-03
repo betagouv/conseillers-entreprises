@@ -292,7 +292,8 @@ fr:
         visited_on: Visitée le %{date}
     footer:
       blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
-      contact_us_html: N’hésitez pas à <a href="mailto:%{email}">nous contacter</a> pour toute question, nous sommes à votre service.
+      contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
+      contact_us_mailto_text: nous contacter
     hello: Bonjour,
     hello_name: Bonjour %{name},
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
@@ -335,7 +336,7 @@ fr:
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         nice_day: Bonne journée,
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-    withdraw_request_html: Si vous souhaitez retirer votre demande, contactez-nous <a href='mailto:contact@place-des-entreprises.beta.gouv.fr'>contact@place-des-entreprises.beta.gouv.fr</a>
+    withdraw_request_html: Si vous souhaitez retirer votre demande, contactez-nous %{mailto_link}
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})
@@ -369,6 +370,7 @@ fr:
       all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
       browse_archived_needs: Voir mes demandes archivées
+      contact_us_mailto_text: Contactez-nous !
       needs_for_you: 'Ces entreprises ont besoin de vous :'
       needs_others_taking_care:
         one: 1 demande prise en charge par d’autres référents
@@ -382,8 +384,8 @@ fr:
         one: 1 demande prise en charge
         other: "%{count} demandes prises en charge"
         zero: 0 demande prise en charge
-      no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? <a href='mailto:%{application_email}'>Contactez-nous !</a></p>"
-      no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? <a href='mailto:%{application_email}'>Contactez-nous !</a></p>"
+      no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
+      no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       title: Demandes reçues
       title_no_needs: Félicitations, vous êtes à jour.
       title_welcome: Bienvenue sur Place des Entreprises
