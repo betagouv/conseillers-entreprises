@@ -85,6 +85,9 @@ ActiveAdmin.register Match do
     column :subject
     column(:content) { |m| m.need.content }
     column :expert
+    column 'Champs d’intervention' do |m|
+      m.expert&.experts_subjects&.find { |x| x.subject == m.subject }&.description
+    end
     column :expert_antenne
     column :expert_institution
     column(:status) { |m| m.status_short_description }
