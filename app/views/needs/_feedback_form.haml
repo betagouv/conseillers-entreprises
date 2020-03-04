@@ -4,7 +4,7 @@
   .content
     .summary
       = t('.title')
-      .date= t('.subtitle')
+      .date.diagnosis= t('.subtitle')
     .extra
     = form_with scope: feedback,
       url: feedbacks_path(feedback),
