@@ -183,7 +183,7 @@ ActiveAdmin.register Expert do
     end
 
     if resource.institution.present?
-      f.inputs t('activerecord.attributes.expert.experts_subjects') do
+      f.inputs t('attributes.experts_subjects.other') do
         f.has_many :experts_subjects, allow_destroy: true do |sub_f|
           collection = resource.institution.institutions_subjects.map do |is|
             ["#{is.subject.to_s} - #{is.description}", is.id]

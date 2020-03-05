@@ -2,7 +2,7 @@
 fr:
   active_admin:
     expert:
-      modify_subjects: Modifier les compétences
+      modify_subjects: Modifier les domaines d’intervention
     matches:
       deleted: Supprimé
     move: Déplacer
@@ -114,9 +114,6 @@ fr:
         phone_number: Numéro de téléphone de la personne rencontrée
         role: Fonction de la personne rencontrée
       expert:
-        experts_subjects:
-          one: Compétence
-          other: Compétences
         full_name: Nom de l’équipe
         is_global_zone: Global
         reminders_notes: Suivi des relances
@@ -167,7 +164,7 @@ fr:
         slug: Page thématique
         tracking: Suivi
       subject:
-        institutions_subjects: Compétences d'institutions
+        institutions_subjects: Compétences d’institutions
         is_support: Support
       territory:
         advisors: Conseillers
@@ -176,7 +173,7 @@ fr:
         experts: Experts
         insee_codes: Codes commune
       theme:
-        institutions_subjects: Compétences d'institutions
+        institutions_subjects: Compétences d’institutions
       user:
         can_view_diagnoses_tab: Peut voir l’onglet analyses
         can_view_review_subjects_flash: Rappel de la revue des compétences
@@ -243,8 +240,8 @@ fr:
         one: Référent
         other: Référents
       expert_subject:
-        one: Compétence de référent
-        other: Compétences de référents
+        one: Domaine d’intervention
+        other: Domaines d’intervention
       facility:
         one: Établissement
         other: Établissements
@@ -255,8 +252,8 @@ fr:
         one: Institution
         other: Institutions
       institution_subject:
-        one: Compétence d'institution
-        other: Compétences d'institutions
+        one: Compétence d’institution
+        other: Compétences d’institutions
       landing:
         one: Page thématique
         other: Pages thématiques
@@ -328,9 +325,13 @@ fr:
     expert: Référent
     expert_antenne: Antenne du référent
     expert_institution: Institution du référent
+    expert_subject: Domaine d’intervention
     experts:
       one: Référent
       other: Référents
+    experts_subjects:
+      one: Domaine d’intervention
+      other: Domaines d’intervention
     facilities:
       one: Établissement
       other: Établissements
