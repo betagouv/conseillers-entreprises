@@ -53,7 +53,13 @@ ActiveAdmin.register Solicitation do
           span link_to t('active_admin.solicitations.show_company_page'), company_path(s.siret)
         end
       end
+      row :slug do |s|
+        link_to s.slug, landing_path(s.slug) if s.slug
+      end
       row :description
+      row :tracking do |s|
+        render 'solicitations/tracking', solicitation: s
+      end
       row :created_at
       row :updated_at
     end
