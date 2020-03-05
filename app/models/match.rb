@@ -140,6 +140,12 @@ class Match < ApplicationRecord
     "#{expert_full_name} - #{expert_institution_name}"
   end
 
+  def expert_subject
+    # The subject of the expert that was used for matching;
+    # it might be nil: it can be removed, or the match can be created without it.
+    expert&.experts_subjects&.find { |es| es.subject == self.subject }
+  end
+
   private
 
   def copy_expert_info
