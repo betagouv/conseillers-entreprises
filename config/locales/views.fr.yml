@@ -362,9 +362,9 @@ fr:
       title: Demandes archivée de %{antenne}
     feedback_form:
       placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
-      submit: Envoyer
-      subtitle: à destination des autres conseillers intervenant sur ce besoin
-      title: Nouveau message
+      submit: Commenter
+      subtitle: Ce message n’est pas adressé au chef d’entreprise, pour transmettre l’information au dirigeant veuillez l’appeler.
+      title: Nouveau commentaire
     index:
       all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
@@ -549,7 +549,7 @@ fr:
       quote_second_item: "« Parallèlement aux questions que nous venons de traiter, avez-vous d’autres besoins liés à des projets à venir ou des difficultés ? »"
       subjects-list: Liste des besoins
       take_care_diagnosis: Prendre en charge un besoin
-      title: Kit utilisateur
+      title: Tutoriels
   users:
     registrations:
       antenne:

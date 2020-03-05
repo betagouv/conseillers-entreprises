@@ -12,11 +12,13 @@
       %i.blue.icon.info.circle
       = t('.team_email_explanation_html', email: ENV['APPLICATION_EMAIL'])
 
+  .ui.divider.hidden
+
   .required.field
     = f.label :phone_number
     = f.text_field :phone_number, placeholder: t('attributes.placeholder.phone_number'), autocomplete: 'off', required: true
 
-  .ui.divider
+  .ui.divider.hidden
 
   .required.field
     = f.label :full_name, t('activerecord.attributes.expert.full_name')
@@ -24,6 +26,8 @@
   %p
     %i.blue.icon.info.circle
     = t('.team_name_explanation')
+
+  .ui.divider.hidden
 
   .field
     %label= t('.antenne_and_institution')
@@ -40,11 +44,13 @@
       %i.orange.icon.circle.warning
       = t('.different_antenne_warning_html', email: ENV['APPLICATION_EMAIL'])
 
+  .ui.divider.hidden
+
   .required.field
     = f.label :role
     = f.text_field :role, placeholder: t('attributes.placeholder.role'), autocomplete: 'off', required: true
 
-  .ui.divider
+  .ui.divider.hidden
 
   .field
     %label= t('.team_members')
