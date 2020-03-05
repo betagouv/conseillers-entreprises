@@ -10,6 +10,8 @@
     %i.blue.icon.info.circle
     = t('.contact_us_for_missing_antenne_html', institution: @user.institution.name, email: ENV['APPLICATION_EMAIL'])
 
+  .ui.hidden.divider
+
   .field
     %label= t('attributes.advisors.other')
     .ui.shadow-less.secondary.segment
@@ -24,6 +26,8 @@
               .user.popup-hover
                 = advisor.full_name
               .ui.popup= person_block(advisor)
+
+  .ui.hidden.divider
 
   .field
     %label= t('attributes.teams.other')
