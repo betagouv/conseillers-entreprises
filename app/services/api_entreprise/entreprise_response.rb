@@ -4,7 +4,7 @@ module ApiEntreprise
   class EntrepriseResponse
     attr_reader :http_response
 
-    DEFAULT_ERROR_MESSAGE = 'There was an error retrieving entreprise details.'
+    DEFAULT_ERROR_MESSAGE = I18n.t('api_entreprise.default_error_message.entreprise')
 
     def initialize(http_response)
       @http_response = http_response

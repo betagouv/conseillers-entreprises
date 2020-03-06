@@ -1,6 +1,10 @@
 ---
 fr:
   all_choices: Tous
+  api_entreprise:
+    default_error_message:
+      entreprise: Erreur lors de la récupération des détails de l’entreprise.
+      etablissement: Erreur lors de la récupération des détails de l’établissement.
   app_name: Place des Entreprises
   cgu: Conditions d’utilisation
   company_contact: Chefs d’entreprises, cliquez ici
@@ -160,6 +164,8 @@ fr:
       create: Créer un(e) %{model}
       submit: Enregistrer ce(tte) %{model}
       update: Modifier ce(tte) %{model}
+  honeypot_captcha:
+    comment: Laissez ce champ vide !
   needs:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
@@ -221,6 +227,14 @@ fr:
   privacy:
     explanation_html: '<h2>Cookies déposés et configuration du suivi</h2> <p>Ce site dépose un petit fichier texte (un « cookie ») sur votre ordinateur lorsque vous le consultez. Cela nous permet de mesurer le nombre de visites et de comprendre quelles sont les pages les plus consultées.</p> <iframe style="background:#fafbfc; border:0; width: 100%;" src="https://stats.data.gouv.fr/index.php?module=CoreAdminHome&action=optOut&language=fr&fontFamily=sans-serif"></iframe> <h3>Ce site n’affiche pas de bannière de consentement aux cookies, pourquoi ?</h3> <p>C’est vrai, vous n’avez pas eu à cliquer sur un bloc qui recouvre la moitié de la page pour dire que vous êtes d’accord avec le dépôt de cookies. <br> <br> Rien d’exceptionnel, pas de passe-droit. Nous respectons simplement la loi, qui dit que certains outils de suivi d’audience, correctement configurés pour respecter la vie privée, sont exemptés d’autorisation préalable. <br> <br> Nous utilisons pour cela <a href="https://matomo.org/" target="_blank">Matomo</a>, un outil <a href="https://matomo.org/free-software/" target="_blank">libre</a>, paramétré pour être en conformité avec la <a href="https://www.cnil.fr/fr/solutions-pour-la-mesure-daudience">recommandation « Cookies » </a>de la CNIL. Cela signifie que votre adresse IP, par exemple, est anonymisée avant d’être enregistrée. Il est donc impossible d’associer vos visites sur ce site à votre personne. </p>'
   search: Rechercher
+  shared:
+    errors:
+      '404':
+        message: Cette page n’existe pas, ou vous n’y avez pas accès.
+        title: Erreur !
+      '500':
+        message_html: Cette erreur était inattendue…</br>Nous avons été prévenus de son apparition et nous allons la réparer dès que possible !
+        title: Erreur !
   sign_in: Connexion
   support:
     array:
