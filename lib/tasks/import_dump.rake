@@ -66,6 +66,26 @@ namespace :import_dump do
       Antenne => { 'name' => -> { Faker::Company.name + ' ' + Faker::Number(digits: 3) } },
       # ExpertSubject role must be kept; don’t set this in default
       ExpertSubject => { 'role' => -> (record) { record.role } },
+      Expert => {
+        'email' => -> (record) do
+          # Match single user names with their expert name
+          email = Faker::Internet.email
+          record.users.where(email: record.email).update_all(email: email)
+          email
+        end,
+        'full_name' => -> (record) do
+          # Give cool names to teams
+          full_name = record.team? ? Faker::Team.name : Faker::Name.name
+          record.users.where(email: record.email).update_all(full_name: full_name)
+          full_name
+        end,
+      },
+      User => {
+        # Users’ emails and full_names are changed with their experts
+        # (each user has a personal_skillset expert)
+        'email' => -> (record) { record.email },
+        'full_name' => -> (record) { record.full_name }
+      }
     }
 
     models = ApplicationRecord.descendants - whitelisted_models
