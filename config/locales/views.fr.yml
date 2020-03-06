@@ -428,6 +428,8 @@ fr:
     show:
       title: Relances / %{full_name}
   solicitations:
+    create:
+      thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
     form:
       button:
         title: Envoyer ma demande
@@ -470,7 +472,7 @@ fr:
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
     thank_you:
-      description: On vous rappelle rapidement pour le prédiagnostic.
+      description: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
   stats:
