@@ -126,4 +126,7 @@ Rails.application.routes.draw do
   get '/profile', to: redirect('/mon_compte')
   get '/mes_competences', to: redirect('/mon_compte/referents')
   get '/diagnoses', to: redirect('/analyses')
+
+  ## Handle 404 properly
+  get '*unmatched_route', :to => 'shared#not_found'
 end
