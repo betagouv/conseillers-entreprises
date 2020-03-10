@@ -5,13 +5,15 @@
 #  id             :bigint(8)        not null, primary key
 #  antennes_count :integer
 #  name           :string
+#  partner_token  :string
 #  show_icon      :boolean          default(TRUE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
 # Indexes
 #
-#  index_institutions_on_name  (name) UNIQUE
+#  index_institutions_on_name           (name) UNIQUE
+#  index_institutions_on_partner_token  (partner_token)
 #
 
 class Institution < ApplicationRecord

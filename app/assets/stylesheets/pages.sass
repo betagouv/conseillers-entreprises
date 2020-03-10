@@ -187,6 +187,35 @@ section.section#landing-topics
 .grid#stats-charts
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
 
+.branding
+  display: flex
+  align-items: center
+  justify-content: center
+  #logo-pde
+    width: 3rem
+    margin-right: 1rem
+  .url
+    -webkit-padding-after: 3px
+    display: flex
+    align-items: center
+    flex-wrap: nowrap
+    white-space: nowrap
+  .logo-beta
+    height: 43px
+  span
+    font-size: 19px
+    margin-bottom: 4px
+    font-family: 'Evolventa', 'lato', 'sans-serif' !important
+    font-weight: 400
+
+@media (max-width: 549px)
+  .branding
+    flex-direction: column
+    span
+      font-size: 15px
+    .logo-beta
+      height: 36px
+
 // IE fixes
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)

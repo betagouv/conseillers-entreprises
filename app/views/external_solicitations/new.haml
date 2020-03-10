@@ -1,0 +1,37 @@
+#solicitation-form
+  - if @style[:branding].to_b
+    .branding
+      = image_tag 'place-des-entreprises-logo.png', id: 'logo-pde'
+      .url
+        %span place-des-entreprises
+        = image_tag 'pointbetagouvfr.svg', alt: 'beta.gouv.fr', class: 'logo-beta'
+
+  %h2.section__title= t('.title')
+  = form_with(model: @solicitation, url: external_solicitations_path, scope: 'solicitation', method: :post, html: { honeypot: true }) do |f|
+    - @solicitation.form_info.each do |k,v|
+      = f.hidden_field "form_info[#{k}]", value: v
+    .form__group
+      = f.label 'description', t('.description.label')
+      = f.text_area 'description', placeholder: t('.description.placeholder'), rows: 6, required: true
+    .form__group
+      .form__group
+        = f.label 'siret', t('.siret.label')
+        = f.text_field 'siret', placeholder: t('.siret.placeholder'), required: false
+      .form__group
+        = f.label 'phone_number', t('.phone_number.label')
+        = f.telephone_field 'phone_number', placeholder: t('.phone_number.placeholder'), required: true
+      .form__group
+        = f.label 'email', t('.email.label')
+        = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
+    .form__group
+      = render 'flashes'
+      = f.submit t('.button.title'), class: 'button large'
+
+:css
+  body {
+    background-color: #{@style[:bg_color]};
+    color: #{@style[:color]} !important;
+    }
+  #solicitation-form label {
+    color: #{@style[:color]} !important;
+    }
