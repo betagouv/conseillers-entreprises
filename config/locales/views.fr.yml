@@ -366,17 +366,6 @@ fr:
           other: "[Place des Entreprises] Confirmation de notification des besoins de l’entreprise %{company}"
         thank_you: "Merci ! \U0001F44D"
         you_met_company_html: Le %{visit_date}, vous avez rencontré
-      daily_change_update:
-        context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{subject_title} de l’entreprise %{company_name} le %{start_date},"
-        nice_day: Bonne journée,
-        status:
-          done: a indiqué que le besoin a été clôturé.
-          not_finished: a indiqué que le besoin est toujours en cours de résolution.
-          not_for_me: a indiqué que le besoin est hors de son champ de compétence.
-          taking_care: a pris en charge la résolution du besoin.
-          waiting_for_answer: n’a pas pris de décision sur le besoin.
-        subject: Hier sur Place des Entreprises
-        yesterday: 'Hier sur Place des Entreprises les demandes suivantes ont évolué :'
       match_feedback:
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
         reply: Répondre
