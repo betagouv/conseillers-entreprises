@@ -11,24 +11,14 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def taking_care_by_expert(match)
+  def notify_taking_care(match)
     @match = match
     @need = match.need
     @advisor = match.advisor
     @expert = match.expert
     mail(
       to: @match.diagnosis.visitee.email,
-      subject: t('mailers.company_mailer.taking_care_by_expert.subject')
-    )
-  end
-
-  def taking_care_by_support(match)
-    @match = match
-    @need = match.need
-    @expert = match.expert
-    mail(
-      to: @match.diagnosis.visitee.email,
-      subject: t('mailers.company_mailer.taking_care_by_expert.subject')
+      subject: t('mailers.company_mailer.notify_taking_care.subject')
     )
   end
 end

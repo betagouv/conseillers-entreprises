@@ -1,0 +1,21 @@
+%p= t('mailers.hello')
+
+- link_to_root = link_to t('app_name'), root_url
+
+- if @match.advisor.is_support_user?
+  = t('.content_by_support_html',
+    subject: @need.subject.label,
+    expert_antenne: @expert.antenne.name)
+- else
+  = t('.content_by_expert_html',
+    advisor: @advisor.full_name,
+    advisor_antenne: @advisor.antenne.name,
+    subject: @need.subject.label,
+    expert_antenne: @expert.antenne.name,
+    company: @need.company.name)
+
+%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
+
+%p= t('mailers.withdraw_request_html', mailto_link: mailto_contact_us)
+
+
