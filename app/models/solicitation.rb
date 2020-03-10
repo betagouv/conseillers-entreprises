@@ -16,6 +16,7 @@
 class Solicitation < ApplicationRecord
   ## Associations
   #
+  has_many :diagnoses
 
   ## Validations
   #

@@ -2,28 +2,31 @@
 #
 # Table name: diagnoses
 #
-#  id          :bigint(8)        not null, primary key
-#  archived_at :datetime
-#  content     :text
-#  happened_on :date
-#  step        :integer          default("not_started")
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  advisor_id  :bigint(8)        not null
-#  facility_id :bigint(8)
-#  visitee_id  :bigint(8)
+#  id              :bigint(8)        not null, primary key
+#  archived_at     :datetime
+#  content         :text
+#  happened_on     :date
+#  step            :integer          default("not_started")
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  advisor_id      :bigint(8)        not null
+#  facility_id     :bigint(8)
+#  solicitation_id :bigint(8)
+#  visitee_id      :bigint(8)
 #
 # Indexes
 #
-#  index_diagnoses_on_advisor_id   (advisor_id)
-#  index_diagnoses_on_archived_at  (archived_at)
-#  index_diagnoses_on_facility_id  (facility_id)
-#  index_diagnoses_on_visitee_id   (visitee_id)
+#  index_diagnoses_on_advisor_id       (advisor_id)
+#  index_diagnoses_on_archived_at      (archived_at)
+#  index_diagnoses_on_facility_id      (facility_id)
+#  index_diagnoses_on_solicitation_id  (solicitation_id)
+#  index_diagnoses_on_visitee_id       (visitee_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (advisor_id => users.id)
 #  fk_rails_...  (facility_id => facilities.id)
+#  fk_rails_...  (solicitation_id => solicitations.id)
 #  fk_rails_...  (visitee_id => contacts.id)
 #
 
