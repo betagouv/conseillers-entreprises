@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     post :solicitation
   end
 
-  resource :solicitation, only: %i[]
+  resource :solicitations, only: %i[]
 
   controller :about do
     get :qui_sommes_nous
