@@ -2,6 +2,7 @@ require:
   - rubocop-rspec
   - rubocop-performance
   - rubocop-rails
+  - rubocop-i18n
 
 AllCops:
   TargetRubyVersion: 2.6
@@ -1302,4 +1303,13 @@ Style/YodaCondition:
   Enabled: false
 
 Style/ZeroLengthPredicate:
+  Enabled: false
+
+RailsI18n:
+  Enabled: true
+  Exclude:
+    - 'lib/tasks/*.rake'
+    - 'spec/**/*'
+
+GetText:
   Enabled: false

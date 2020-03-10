@@ -5,6 +5,6 @@ class PagesController < SharedController
   ## Configuration for honeypot-captcha
   #
   def honeypot_fields
-    { :commentaire => 'Laissez ce champ vide !' }
+    { :commentaire => t('honeypot_captcha.comment') }
   end
 end
