@@ -13,6 +13,11 @@ class SolicitationsController < PagesController
     @partial = 'solicitations/thank_you'
     CompanyMailer.confirmation_solicitation(@solicitation.email).deliver_later
     AdminMailer.solicitation(@solicitation).deliver_later
+
+    respond_to do |format|
+      format.html { redirect_to landing_path(@solicitation.slug, anchor: "section-formulaire"), notice: t('.thanks') }
+      format.js
+    end
   end
 
   private

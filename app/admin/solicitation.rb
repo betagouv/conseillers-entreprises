@@ -27,6 +27,7 @@ ActiveAdmin.register Solicitation do
     column :slug do |s|
       link_to s.slug, landing_path(s.slug) if s.slug
     end
+    column :institution
     actions dropdown: true
   end
 
@@ -57,6 +58,7 @@ ActiveAdmin.register Solicitation do
         link_to s.slug, landing_path(s.slug) if s.slug
       end
       row :description
+      row :institution
       row :tracking do |s|
         render 'solicitations/tracking', solicitation: s
       end

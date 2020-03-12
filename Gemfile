@@ -26,6 +26,7 @@ gem 'sassc-rails'
 gem 'fomantic-ui-sass'
 gem 'uglifier'
 gem 'premailer-rails'
+gem 'css_parser'
 
 # Parallel processes
 gem 'clockwork'
@@ -103,6 +104,7 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-faker', require: false
+  gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
 end
 
