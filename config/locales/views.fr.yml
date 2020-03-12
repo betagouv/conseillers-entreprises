@@ -466,7 +466,7 @@ fr:
         placeholder: 06 12 34 56 78
       siret:
         label: SIRET
-        placeholder: 123 456 789 00010 (Nécessaire sauf pour la Reprise d'entreprise)
+        placeholder: 123 456 789 00010 (Nécessaire sauf pour la reprise d’entreprise)
       title: Quelle est votre demande ?
     needs:
       long:
