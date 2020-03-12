@@ -1,6 +1,6 @@
 class SolicitationsController < PagesController
   def create
-    @solicitation = Solicitation.create(solicitation_params)
+    @solicitation = Solicitation.create(solicitation_params.merge(retrieve_form_info))
 
     if !@solicitation.valid?
       @result = 'failure'
@@ -22,12 +22,13 @@ class SolicitationsController < PagesController
 
   private
 
-  def index_tracking_params
-    params.permit(Solicitation::TRACKING_KEYS)
-  end
-
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :siret, :phone_number, :email, form_info: {}, needs: {})
+      .permit(:description, :siret, :phone_number, :email, needs: {})
+  end
+
+  def retrieve_form_info
+    form_info = session.delete(:solicitation_form_info)
+    { form_info: form_info }
   end
 end

@@ -1,9 +1,10 @@
 class LandingsController < PagesController
+  before_action :save_form_info
+
   def index
     @landings = Rails.cache.fetch('landings', expires_in: 1.hour) do
       Landing.ordered_for_home.to_a
     end
-    @links_tracking_params = links_tracking_params
   end
 
   def show
@@ -17,12 +18,14 @@ class LandingsController < PagesController
       @landing.landing_topics.ordered_for_landing.to_a
     end
 
-    @links_tracking_params = links_tracking_params
     @solicitation = Solicitation.new
-    @solicitation.form_info = tracking_params
   end
 
   private
+
+  def safe_params
+    params.permit(*Solicitation::FORM_INFO_KEYS)
+  end
 
   def retrieve_landing
     slug = safe_params[:slug]&.to_sym
@@ -31,15 +34,9 @@ class LandingsController < PagesController
     end
   end
 
-  def tracking_params
-    safe_params.slice(*Solicitation::TRACKING_KEYS)
-  end
-
-  def links_tracking_params
-    tracking_params.except(:slug)
-  end
-
-  def safe_params
-    params.permit(:slug, *Solicitation::TRACKING_KEYS)
+  def save_form_info
+    form_info = session[:solicitation_form_info] || {}
+    form_info.merge!(safe_params)
+    session[:solicitation_form_info] = form_info if form_info.present?
   end
 end

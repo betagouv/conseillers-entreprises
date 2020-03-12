@@ -1,6 +1,5 @@
 .card
   - link_params = { slug: landing.slug, anchor: 'section-formulaire' }
-  - link_params.merge!(links_tracking_params)
   - path = landing_path(link_params)
   = link_to path do
     .card__content
