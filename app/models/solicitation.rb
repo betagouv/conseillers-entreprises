@@ -27,7 +27,6 @@ class Solicitation < ApplicationRecord
   ## Scopes
   #
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
-  scope :of_alternative, -> (alternative) { where("form_info->>'alternative' = ?", alternative) }
   scope :of_slug, -> (slug) { where("form_info->>'slug' = ?", slug) }
 
   ## JSON Accessors

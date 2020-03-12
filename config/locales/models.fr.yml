@@ -298,7 +298,6 @@ fr:
     advisors:
       one: Conseiller
       other: Conseillers
-    alternative: Alternative
     antenne: Antenne
     antenne_experts:
       one: Référent
