@@ -378,14 +378,14 @@ fr:
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
         reply: Répondre
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-      update_match_notify:
+      nice_day: Bonne journée,
+      notify_match_status:
         expert_and_status:
-          done_html: "<p>%{user} (%{antenne}) a clôturé ce besoin.</p>"
-          not_for_me_html: "<p>%{user} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Equipe Place des Entreprises prendra le relai.</p>"
-          quo_html: "<p>%{user} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
-          taking_care_html: "<p>%{user} (%{antenne}) a pris en charge ce besoin.</p>"
+          done_html: "<p>%{expert} (%{antenne}) a clôturé ce besoin.</p>"
+          not_for_me_html: "<p>%{expert} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Equipe Place des Entreprises prendra le relai.</p>"
+          quo_html: "<p>%{expert} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
+          taking_care_html: "<p>%{expert} (%{antenne}) a pris en charge ce besoin.</p>"
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
-        nice_day: Bonne journée,
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
   matches:

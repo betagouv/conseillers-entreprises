@@ -4,11 +4,10 @@ require 'rails_helper'
 require 'mailers/shared_examples_for_an_email'
 
 describe UserMailer do
-  describe '#update_match_notify' do
-    subject(:mail) { described_class.update_match_notify(a_match, user, previous_status).deliver_now }
+  describe '#notify_match_status' do
+    subject(:mail) { described_class.notify_match_status(a_match, previous_status).deliver_now }
 
     let(:a_match) { create :match }
-    let(:user) { create :user }
     let(:previous_status) { 'taking_care' }
 
     it_behaves_like 'an email'
@@ -20,7 +19,7 @@ describe UserMailer do
     def notify_change(new_status)
       previous_status = a_match.status
       a_match.status = new_status
-      described_class.deduplicated_send_match_notify(a_match, user, previous_status)
+      described_class.deduplicated_send_match_notify(a_match, previous_status)
     end
 
     let(:a_match) { create :match, status: :quo }
