@@ -2,7 +2,7 @@
   .row.center.aligned
     .column
       %h1.ui.header
-        .content= @solicitation.id
+        .content #{@solicitation.id} - #{@solicitation.full_name}
         .sub.header= I18n.l(@solicitation.created_at, format: :long)
   .ui.divider
   .row.ui.two.column.centered.grid

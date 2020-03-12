@@ -15,6 +15,7 @@ describe 'New Solicitation Feature', type: :feature, js: true do
       fill_in 'Description', with: 'Ceci est un test'
       fill_in 'SIRET', with: '123 456 789 00010'
       fill_in 'Téléphone', with: '0123456789'
+      fill_in 'Prénom et nom', with: 'User Name'
       fill_in 'Email', with: 'user@exemple.com'
       click_button 'Envoyer ma demande'
     end

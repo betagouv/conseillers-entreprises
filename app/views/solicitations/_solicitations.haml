@@ -2,7 +2,7 @@
   .ui.segments.shadow-less.selectable-list.solicitation{ 'data-id': solicitation.id }
     .ui.segment.secondary
       .ui.header
-        = solicitation.id
+        #{solicitation.id} - #{solicitation.full_name}
         .sub.header= I18n.l(solicitation.created_at, format: :long)
     .ui.segment.selectable-item
       %a{ href: solicitation_path(solicitation) }

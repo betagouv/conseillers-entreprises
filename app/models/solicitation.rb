@@ -6,6 +6,7 @@
 #  description  :string
 #  email        :string
 #  form_info    :jsonb
+#  full_name    :string
 #  needs        :jsonb
 #  phone_number :string
 #  siret        :string
