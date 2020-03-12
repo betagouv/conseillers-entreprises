@@ -202,6 +202,24 @@ fr:
       not_in_topics: Votre question n’est pas dans cette liste ?
       not_in_topics_more: Voir tous les domaines d’aides aux entreprises
   landings:
+    form:
+      button:
+        title: Envoyer ma demande
+      description:
+        default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
+        label: Description
+        placeholder: 'Décrivez simplement votre demande. Par exemple : « %{example} »'
+      email:
+        label: Email
+        placeholder: marie.dupont@exemple.fr
+      experimental_html: Nous vous recontactons dans les <u>72 heures</u>.
+      phone_number:
+        label: Téléphone
+        placeholder: 06 12 34 56 78
+      siret:
+        label: SIRET
+        placeholder: 123 456 789 00010 (Nécessaire sauf pour la reprise d’entreprise)
+      title: Quelle est votre demande ?
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME'
     index:
@@ -221,11 +239,17 @@ fr:
       contact_us: Contactez-nous directement
       other_questions: Votre question n’est pas dans cette liste ?
       title: 'Sélectionnez votre demande :'
+    solicitation:
+      thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
     steps:
       label_1_html: Précisez votre demande en ligne.
       label_2_html: Le service <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
       label_3_html: Le conseiller vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
+    thank_you:
+      description: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
+      place_des_entreprises_team: L’équipe Place des Entreprises
+      title: Merci !
   layouts:
     user_tabs:
       antenne: Antenne
@@ -448,26 +472,6 @@ fr:
     show:
       title: Relances / %{full_name}
   solicitations:
-    create:
-      thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
-    form:
-      button:
-        title: Envoyer ma demande
-      description:
-        default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
-        label: Description
-        placeholder: 'Décrivez simplement votre demande. Par exemple : « %{example} »'
-      email:
-        label: Email
-        placeholder: marie.dupont@exemple.fr
-      experimental_html: Nous vous recontactons dans les <u>72 heures</u>.
-      phone_number:
-        label: Téléphone
-        placeholder: 06 12 34 56 78
-      siret:
-        label: SIRET
-        placeholder: 123 456 789 00010 (Nécessaire sauf pour la reprise d’entreprise)
-      title: Quelle est votre demande ?
     needs:
       long:
         01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?
@@ -491,10 +495,6 @@ fr:
         '08-reglementation': Réglementation
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
-    thank_you:
-      description: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
-      place_des_entreprises_team: L’équipe Place des Entreprises
-      title: Merci !
   stats:
     series:
       advisors_html: <span class="count">%{count}</span> conseillers publics
