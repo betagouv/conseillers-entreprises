@@ -7,8 +7,5 @@ class MatchesController < ApplicationController
     previous_status = @match.status
     @match.update status: params[:status]
     MatchMailerService.deduplicated_notify_status(@match, previous_status)
-    if @match.status_taking_care?
-      CompanyMailer.notify_taking_care(@match).deliver_later
-    end
   end
 end

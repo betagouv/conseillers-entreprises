@@ -37,4 +37,46 @@ describe MatchMailerService do
       end
     end
   end
+
+  describe '#notify_status' do
+    before do
+      mailer_double = double().as_null_object
+      allow(UserMailer).to receive(:notify_match_status) { mailer_double }
+      allow(CompanyMailer).to receive(:notify_taking_care) { mailer_double }
+
+      described_class.notify_status(a_match, previous_status)
+    end
+
+    let(:a_match) { create :match, status: new_status }
+
+    context 'taken care of now' do
+      let(:previous_status) { 'quo' }
+      let(:new_status) { 'taking_care' }
+
+      it do
+        expect(UserMailer).to have_received(:notify_match_status)
+        expect(CompanyMailer).to have_received(:notify_taking_care)
+      end
+    end
+
+    context 'already taken care of' do
+      let(:previous_status) { 'done' }
+      let(:new_status) { 'taking_care' }
+
+      it do
+        expect(UserMailer).to have_received(:notify_match_status)
+        expect(CompanyMailer).not_to have_received(:notify_taking_care)
+      end
+    end
+
+    context 'not taken care of' do
+      let(:previous_status) { 'quo' }
+      let(:new_status) { 'not_for_me' }
+
+      it do
+        expect(UserMailer).to have_received(:notify_match_status)
+        expect(CompanyMailer).not_to have_received(:notify_taking_care)
+      end
+    end
+  end
 end
