@@ -38,7 +38,7 @@ ActiveAdmin.register Solicitation do
     column :phone_number
     column :description
     column :created_at
-    Solicitation::TRACKING_KEYS.each{ |k| column k }
+    Solicitation::FORM_INFO_KEYS.each{ |k| column k }
   end
 
   ## Show

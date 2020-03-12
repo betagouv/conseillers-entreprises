@@ -3,7 +3,7 @@ class LandingsController < PagesController
     @landings = Rails.cache.fetch('landings', expires_in: 1.hour) do
       Landing.ordered_for_home.to_a
     end
-    @links_tracking_params = links_tracking_params
+    @tracking_params = info_params.except(:slug)
   end
 
   def show
@@ -17,29 +17,21 @@ class LandingsController < PagesController
       @landing.landing_topics.ordered_for_landing.to_a
     end
 
-    @links_tracking_params = links_tracking_params
+    @tracking_params = info_params.except(:slug)
     @solicitation = Solicitation.new
-    @solicitation.form_info = tracking_params
+    @solicitation.form_info = info_params
   end
 
   private
 
   def retrieve_landing
-    slug = safe_params[:slug]&.to_sym
+    slug = params[:slug]&.to_sym
     Rails.cache.fetch("landing-#{slug}", expires_in: 1.hour) do
       Landing.find_by(slug: slug)
     end
   end
 
-  def tracking_params
-    safe_params.slice(*Solicitation::TRACKING_KEYS)
-  end
-
-  def links_tracking_params
-    tracking_params.except(:slug)
-  end
-
-  def safe_params
-    params.permit(:slug, *Solicitation::TRACKING_KEYS)
+  def info_params
+    params.permit(*Solicitation::FORM_INFO_KEYS)
   end
 end
