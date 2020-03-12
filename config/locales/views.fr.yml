@@ -343,6 +343,9 @@ fr:
         reply: Répondre sur Place des entreprises
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
         this_company: L’entreprise
+      notify_other_taking_care:
+        complementary_help: Il correspond à votre champ d'intervention. Avez-vous une solution complémentaire à proposer ?
+        need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> - %{subject} - a été pris en charge par %{expert} (%{antenne}).
       remind_involvement:
         needs_for_you: 'Ces entreprises ont besoin de vous :'
         needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'

@@ -9,6 +9,10 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.remind_involvement(expert)
   end
 
+  def notify_other_taking_care
+    ExpertMailer.notify_other_taking_care(Expert.sample, Match.sample)
+  end
+
   private
 
   def active_expert
