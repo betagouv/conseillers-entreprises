@@ -40,6 +40,7 @@ ActiveAdmin.register Landing do
       row :meta_description
       row :title
       row :subtitle
+      row :landing_topic_title
       row :button
       row :logos
       row :description_example
@@ -63,7 +64,8 @@ ActiveAdmin.register Landing do
 
   ## Form
   #
-  permit_params :slug, :meta_title, :meta_description, :title, :subtitle, :button, :logos, :description_example, :home_title, :home_description, :home_sort_order,
+  permit_params :slug, :meta_title, :meta_description, :title, :subtitle, :button, :logos, :description_example,
+                :home_title, :home_description, :home_sort_order, :landing_topic_title,
                 landing_topics_attributes: [:id, :title, :description, :landing_sort_order, :_destroy]
 
   form title: :slug do |f|
@@ -76,6 +78,7 @@ ActiveAdmin.register Landing do
       f.input :meta_description
       f.input :title
       f.input :subtitle
+      f.input :landing_topic_title
       f.input :button
       f.input :logos
       f.input :description_example
