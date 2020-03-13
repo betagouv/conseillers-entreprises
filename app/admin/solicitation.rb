@@ -18,7 +18,7 @@ ActiveAdmin.register Solicitation do
           span link_to t('active_admin.solicitations.show_company_page'), company_path(s.siret)
         end
       end
-      div admin_attr(s, :description).truncate(200, separator: ' ')
+      div admin_attr(s, :description).truncate(20000, separator: ' ')
     end
     column :created_at
     column :tracking do |s|
