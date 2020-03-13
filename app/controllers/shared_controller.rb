@@ -13,7 +13,6 @@ class SharedController < ActionController::Base
 
   before_action :set_raven_context
 
-  respond_to :html, :js
   rescue_from Exception, with: :render_error
 
   def not_found
@@ -23,7 +22,7 @@ class SharedController < ActionController::Base
   private
 
   def render_error(exception)
-    raise exception if Rails.env.development? || (Rails.env.test? && !ENV['TEST_ERROR_RENDERING'].to_b)
+    raise exception if (Rails.env.development? || Rails.env.test?) && !ENV['TEST_ERROR_RENDERING'].to_b
     if NOT_FOUND_ERROR_CLASSES.include? exception.class
       respond_with_status(404)
     else
@@ -46,9 +45,9 @@ class SharedController < ActionController::Base
   end
 
   def respond_with_status(status)
-    respond_with do |format|
-      format.html { render "shared/errors/#{status}" }
-      format.js { render body: nil, status: status }
+    respond_to do |format|
+      format.html { render "shared/errors/#{status}", status: status }
+      format.any { head status }
     end
   end
 end
