@@ -14,7 +14,7 @@ ActiveAdmin.register Landing do
       div link_to l.title, landing_path(l.slug) if l.slug.present?
       div l.subtitle
       div l.button, style: 'color: gray'
-      div l.logos.truncate(50, separator: ', '), style: 'color: gray'
+      div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
     end
     column :meta do |l|
       div l.meta_title
