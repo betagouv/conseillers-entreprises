@@ -197,7 +197,7 @@ fr:
     feedback:
       delete: Supprimer ce commentaire ?
   landing_topics:
-    example_topics:
+    landing_topics:
       not_in_topics: Votre question n’est pas dans cette liste ?
       not_in_topics_more: Voir tous les domaines d’aides aux entreprises
   landings:
