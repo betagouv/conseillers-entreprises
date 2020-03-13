@@ -1,11 +1,13 @@
 #solicitation-form
-  %h2.section__title= t('.title')
+  %h2.section__title= landing.form_title.presence || t('.default_title')
+  - if landing.form_top_message.present?
+    %p= landing.form_top_message
   = form_with(model: @solicitation, url: solicitation_path, scope: 'solicitation', method: :post, html: { honeypot: true }) do |f|
     - @solicitation.form_info.each do |k,v|
       = f.hidden_field "form_info[#{k}]", value: v
     .form__group
       = f.label 'description', t('.description.label')
-      - example = local_assigns[:description_example] || t('.description.default_example')
+      - example = landing.description_example.presence || t('.description.default_example')
       = f.text_area 'description', placeholder: t('.description.placeholder', example: example), rows: 6, required: true
     .form__group
       .form__group
@@ -18,6 +20,8 @@
         = f.label 'email', t('.email.label')
         = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
     .form__group
+      - if landing.form_bottom_message.present?
+        %p= landing.form_bottom_message
       = render 'flashes'
       = f.submit t('.button.title'), class: 'button large'
-  %p= t('.experimental_html')
+  %p= landing.form_promise_message.presence || t('.default_promise_message')

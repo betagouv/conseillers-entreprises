@@ -47,7 +47,6 @@ class AdminMailerPreview < ActionMailer::Preview
       email: Faker::Internet.email,
       needs: all_needs.map{ |n| [n, rand(2).to_s] }.to_h,
       form_info: {
-        alternative: "index_a",
         pk_campaign: "test"
       }
     }

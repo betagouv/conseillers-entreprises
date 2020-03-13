@@ -18,7 +18,7 @@ ActiveAdmin.register Solicitation do
           span link_to t('active_admin.solicitations.show_company_page'), company_path(s.siret)
         end
       end
-      div admin_attr(s, :description).truncate(200, separator: ' ')
+      div admin_attr(s, :description).truncate(20000, separator: ' ')
     end
     column :created_at
     column :tracking do |s|
@@ -38,7 +38,7 @@ ActiveAdmin.register Solicitation do
     column :phone_number
     column :description
     column :created_at
-    Solicitation::TRACKING_KEYS.each{ |k| column k }
+    Solicitation::FORM_INFO_KEYS.each{ |k| column k }
   end
 
   ## Show

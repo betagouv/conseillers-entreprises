@@ -1,9 +1,9 @@
 class LandingsController < PagesController
   def index
-    @landings = Rails.cache.fetch('landings', expires_in: 1.hour) do
+    @landings = Rails.cache.fetch('landings', expires_in: 3.minutes) do
       Landing.ordered_for_home.to_a
     end
-    @links_tracking_params = links_tracking_params
+    @tracking_params = info_params.except(:slug)
   end
 
   def show
@@ -13,33 +13,52 @@ class LandingsController < PagesController
       return
     end
 
-    @landing_topics = Rails.cache.fetch("landing_topics-#{@landing.id}", expires_in: 1.hour) do
+    @landing_topics = Rails.cache.fetch("landing_topics-#{@landing.id}", expires_in: 3.minutes) do
       @landing.landing_topics.ordered_for_landing.to_a
     end
 
-    @links_tracking_params = links_tracking_params
+    @tracking_params = info_params.except(:slug)
     @solicitation = Solicitation.new
-    @solicitation.form_info = tracking_params
+    @solicitation.form_info = info_params
+  end
+
+  def solicitation
+    @solicitation = Solicitation.create(solicitation_params)
+    @landing = Landing.find_by(slug: @solicitation.slug)
+
+    if !@solicitation.valid?
+      @result = 'failure'
+      @partial = 'form'
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+      return
+    end
+
+    @result = 'success'
+    @partial = 'thank_you'
+    CompanyMailer.confirmation_solicitation(@solicitation.email).deliver_later
+    AdminMailer.solicitation(@solicitation).deliver_later
+
+    respond_to do |format|
+      format.html { redirect_to landing_path(@solicitation.slug, anchor: 'section-formulaire'), notice: t('.thanks') }
+      format.js
+    end
   end
 
   private
 
   def retrieve_landing
-    slug = safe_params[:slug]&.to_sym
-    Rails.cache.fetch("landing-#{slug}", expires_in: 1.hour) do
+    slug = params[:slug]&.to_sym
+    Rails.cache.fetch("landing-#{slug}", expires_in: 3.minutes) do
       Landing.find_by(slug: slug)
     end
   end
 
-  def tracking_params
-    safe_params.slice(*Solicitation::TRACKING_KEYS)
+  def info_params
+    params.permit(*Solicitation::FORM_INFO_KEYS)
   end
 
-  def links_tracking_params
-    tracking_params.except(:slug)
-  end
-
-  def safe_params
-    params.permit(:slug, *Solicitation::TRACKING_KEYS)
+  def solicitation_params
+    params.require(:solicitation)
+      .permit(:description, :siret, :phone_number, :email, form_info: {}, needs: {})
   end
 end

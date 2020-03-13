@@ -135,14 +135,20 @@ fr:
         antennes: Antennes
         subjects: Compétences
       landing:
+        button: Bouton “call to action”
         description_example: Exemple de description
         featured_on_home: Afficher sur la page d’accueil
+        form_bottom_message: Pied du formulaire
+        form_promise_message: Promesse de fin du formulaire
+        form_title: Titre du formulaire
+        form_top_message: En-tête du formulaire
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
         landing_topic_title: Titre des exemples
         landing_topics: Exemples
         slug: Slug
+        thank_you_message: Remerciement post-formulaire
       match:
         closed_at: Date de clôture
         expert: Référent
@@ -298,7 +304,6 @@ fr:
     advisors:
       one: Conseiller
       other: Conseillers
-    alternative: Alternative
     antenne: Antenne
     antenne_experts:
       one: Référent
