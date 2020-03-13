@@ -19,6 +19,7 @@ class Landing < ApplicationRecord
   #
   CONTENT_KEYS = %i[
     meta_title meta_description
+    emphasis
     title subtitle button logos
     landing_topic_title
     form_title form_top_message description_example form_bottom_message
