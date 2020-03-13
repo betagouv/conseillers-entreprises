@@ -21,7 +21,8 @@ class Landing < ApplicationRecord
     meta_title meta_description
     title subtitle button logos
     landing_topic_title
-    description_example
+    form_title form_top_message description_example form_bottom_message
+    form_promise_message thank_you_message
   ]
   store_accessor :content, CONTENT_KEYS
 
