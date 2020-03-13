@@ -9,59 +9,72 @@ ActiveAdmin.register Solicitation do
     selectable_column
     column :solicitation do |s|
       div admin_link_to(s)
-      div admin_attr(s, :email)
-      div admin_attr(s, :phone_number)
+      div l(s.created_at, format: '%Y-%m-%d %H:%M')
+    end
+    column :description do |s|
+      div link_to s.slug, landing_path(s.slug) if s.slug
+      blockquote simple_format(s.description&.truncate(20000, separator: ' '))
+    end
+
+    column "#{t('attributes.coordinates')} | #{t('activerecord.attributes.solicitation.tracking')}" do |s|
+      div mail_to(s.email)
+      div s.normalized_phone_number
       div do
-        span admin_attr(s, :siret)
         if s.siret.present?
-          span ' — '
-          span link_to t('active_admin.solicitations.show_company_page'), company_path(s.siret)
+          link_to s.siret, company_path(s.siret)
+        else
+          t('active_admin.solicitations.no_siret')
         end
       end
-      div admin_attr(s, :description).truncate(20000, separator: ' ')
-    end
-    column :created_at
-    column :tracking do |s|
+      hr
       render 'solicitations/tracking', solicitation: s
+      if s.partner_token.present?
+        admin_attr(s, :institution)
+      end
     end
-    column :slug do |s|
-      link_to s.slug, landing_path(s.slug) if s.slug
-    end
-    column :institution
-    actions dropdown: true
   end
 
   ## CSV
   #
   csv do
-    column :email
-    column :phone_number
-    column :description
     column :created_at
+    column :description
+    column :siret
+    column :phone_number
+    column :email
     Solicitation::FORM_INFO_KEYS.each{ |k| column k }
   end
 
   ## Show
   #
-  show do
-    attributes_table do
-      row :email
-      row :phone_number
+  show title: :to_s do
+    panel I18n.t('attributes.description') do
+      if solicitation.slug
+        div link_to solicitation.slug, landing_path(solicitation.slug)
+      end
+      blockquote simple_format(solicitation.description)
+    end
+
+    attributes_table title: t('attributes.coordinates') do
       row :siret do |s|
-        span s.siret
         if s.siret.present?
-          span ' — '
-          span link_to t('active_admin.solicitations.show_company_page'), company_path(s.siret)
+          div link_to s.siret, company_path(s.siret)
         end
       end
-      row :slug do |s|
-        link_to s.slug, landing_path(s.slug) if s.slug
-      end
-      row :description
-      row :institution
+      row :phone_number
+      row :email
+    end
+
+    attributes_table title: t('activerecord.attributes.solicitation.tracking') do
       row :tracking do |s|
         render 'solicitations/tracking', solicitation: s
       end
+      row :institution
+    end
+  end
+
+  sidebar I18n.t('activerecord.models.solicitation.one'), only: :show do
+    attributes_table_for solicitation do
       row :created_at
       row :updated_at
     end
@@ -72,7 +85,7 @@ ActiveAdmin.register Solicitation do
   permit_params :description, :email, :phone_number, :siret
   form do |f|
     f.inputs do
-      f.input :description
+      f.input :description, as: :text
       f.input :siret
       f.input :email
       f.input :phone_number
