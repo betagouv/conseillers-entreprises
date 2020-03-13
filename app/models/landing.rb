@@ -17,8 +17,12 @@ class Landing < ApplicationRecord
 
   ## JSON Accessors
   #
-
-  CONTENT_KEYS = %w[meta_title meta_description title subtitle button logos description_example landing_topic_title]
+  CONTENT_KEYS = %i[
+    meta_title meta_description
+    title subtitle button logos
+    landing_topic_title
+    description_example
+  ]
   store_accessor :content, CONTENT_KEYS
 
   accepts_nested_attributes_for :landing_topics, allow_destroy: true
