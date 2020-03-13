@@ -24,6 +24,7 @@ class LandingsController < PagesController
 
   def solicitation
     @solicitation = Solicitation.create(solicitation_params)
+    @landing = Landing.find_by(slug: @solicitation.slug)
 
     if !@solicitation.valid?
       @result = 'failure'

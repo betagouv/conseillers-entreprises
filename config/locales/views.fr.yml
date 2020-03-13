@@ -198,13 +198,16 @@ fr:
       delete: Supprimer ce commentaire ?
   landing_topics:
     example_topics:
-      example_topics: 'Exemples d’aides :'
       not_in_topics: Votre question n’est pas dans cette liste ?
       not_in_topics_more: Voir tous les domaines d’aides aux entreprises
   landings:
     form:
       button:
         title: Envoyer ma demande
+      default_landing_topic_title: 'Exemples d’aides :'
+      default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
+      default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
+      default_title: Quelle est votre demande ?
       description:
         default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
         label: Description
@@ -212,14 +215,12 @@ fr:
       email:
         label: Email
         placeholder: marie.dupont@exemple.fr
-      experimental_html: Nous vous recontactons dans les <u>72 heures</u>.
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
       siret:
         label: SIRET
         placeholder: 123 456 789 00010 (Nécessaire sauf pour la reprise d’entreprise)
-      title: Quelle est votre demande ?
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME'
     index:
@@ -247,7 +248,6 @@ fr:
       label_3_html: Le conseiller vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
     thank_you:
-      description: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
   layouts:
