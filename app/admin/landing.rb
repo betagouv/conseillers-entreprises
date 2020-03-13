@@ -14,7 +14,7 @@ ActiveAdmin.register Landing do
       div link_to l.title, landing_path(l.slug) if l.slug.present?
       div l.subtitle
       div l.button, style: 'color: gray'
-      div l.logos.truncate(50, separator: ', '), style: 'color: gray'
+      div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
     end
     column :meta do |l|
       div l.meta_title
@@ -41,6 +41,9 @@ ActiveAdmin.register Landing do
       row :home_title
       row :home_description
       row :home_sort_order
+      row :emphasis do |l|
+        status_tag l.emphasis.to_bool
+      end
     end
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_topics') do
@@ -92,6 +95,7 @@ ActiveAdmin.register Landing do
       f.input :home_title, :input_html => { :style => 'width:50%' }
       f.input :home_description, :input_html => { :style => 'width:50%', :rows => 3 }
       f.input :home_sort_order, :input_html => { :style => 'width:50%' }
+      f.input :emphasis, as: :boolean
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do

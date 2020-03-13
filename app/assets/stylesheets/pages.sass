@@ -89,6 +89,15 @@ section.section#section-thematiques
     margin-top: 1.5em
     margin-top: var(--space-m)
   .card
+    &.emphasis
+      border: 1px solid #ab2b1e
+      border: 1px solid var(--dark-red)
+      .landing-title, .landing-description, .discover_button
+        color: #ab2b1e
+      button.primary
+        border-color: #ab2b1e
+        color: #ab2b1e
+
     display: flex
     flex-direction: column
     .card__content
@@ -111,6 +120,7 @@ section.section#section-thematiques
       text-decoration: none
       color: #0053b3
       color: var(--theme-primary)
+
       &:hover
         color: #00234d
         color: var(--theme-primary-dark)

@@ -36,7 +36,9 @@ class LandingsController < PagesController
     @result = 'success'
     @partial = 'thank_you'
     CompanyMailer.confirmation_solicitation(@solicitation.email).deliver_later
-    AdminMailer.solicitation(@solicitation).deliver_later
+    if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
+      AdminMailer.solicitation(@solicitation).deliver_later
+    end
 
     respond_to do |format|
       format.html { redirect_to landing_path(@solicitation.slug, anchor: 'section-formulaire'), notice: t('.thanks') }

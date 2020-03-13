@@ -1,4 +1,4 @@
-.card
+.card{ class: (landing.emphasis.to_bool ? 'emphasis' : '') }
   - path = landing_path({ slug: landing.slug, anchor: 'section-formulaire' }.merge(tracking_params))
   = link_to path do
     .card__content

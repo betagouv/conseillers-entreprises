@@ -137,6 +137,7 @@ fr:
       landing:
         button: Bouton “call to action”
         description_example: Exemple de description
+        emphasis: Mettre en avant sur la page d’accueil
         featured_on_home: Afficher sur la page d’accueil
         form_bottom_message: Pied du formulaire
         form_promise_message: Promesse de fin du formulaire
@@ -190,6 +191,7 @@ fr:
         current_sign_in_ip: IP de connexion
         deactivated?: Désactivé
         deactivated_at: Désactivation
+        disable_email_confirm_notifications_sent: Ne veut pas recevoir les email de confirmation de mise en relation
         encrypted_password: Mot de passe chiffré
         experts:
           one: Équipe
