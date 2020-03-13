@@ -2,8 +2,11 @@
   %h3
     = landing.landing_topic_title.presence || t('landings.form.default_landing_topic_title')
 
-  .row
-    = render partial: 'landing_topics/landing_topic', collection: landing_topics
+  - slice_size = landing_topics.size == 4 ? 2 : 3 # avoid an orphan if there are 4 topics
+  - landing_topics.each_slice(slice_size) do |topics_slice|
+    .row
+      = render topics_slice
+
   %p
     = t('.not_in_topics')
     = link_to t('.not_in_topics_more'), root_path(tracking_params)
