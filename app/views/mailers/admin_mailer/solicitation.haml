@@ -17,8 +17,3 @@
 %h3= t('activerecord.attributes.solicitation.tracking')
 = render partial: 'solicitations/tracking', locals: { solicitation: @solicitation }
 
-- if @solicitation.alternative
-  %h3= t('attributes.alternative')
-  %ul
-    %li= @solicitation.alternative
-

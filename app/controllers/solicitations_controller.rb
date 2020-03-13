@@ -22,10 +22,6 @@ class SolicitationsController < PagesController
 
   private
 
-  def index_tracking_params
-    params.permit(Solicitation::TRACKING_KEYS)
-  end
-
   def solicitation_params
     params.require(:solicitation)
       .permit(:description, :siret, :phone_number, :email, form_info: {}, needs: {})

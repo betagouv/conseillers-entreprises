@@ -1,8 +1,8 @@
 %h2.section__title= t('.title')
 - landings.each_slice(3) do |landings|
   .row
-    = render landings, links_tracking_params: links_tracking_params
+    = render landings, tracking_params: tracking_params
 
 %p.text-center.white-on-dark
   = t('.other_questions')
-  = link_to t('.contact_us'), landing_path({ slug: 'contactez-nous' }.merge(links_tracking_params))
+  = link_to t('.contact_us'), landing_path({ slug: 'contactez-nous' }.merge(tracking_params))
