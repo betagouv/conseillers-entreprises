@@ -1,13 +1,16 @@
 %h2= t('.new_solicitation_received')
 %p= link_to @solicitation, admin_solicitation_url(@solicitation)
 
+
 %blockquote
+  - if @solicitation.slug
+    %p= link_to @solicitation.slug, landing_url(@solicitation.slug)
   %p= simple_format(@solicitation.description)
 
 %h3= t('attributes.coordinates')
 %ul
   %li= mail_to @solicitation.email
-  %li= @solicitation.phone_number
+  %li= @solicitation.normalized_phone_number
   - if @solicitation.siret.present?
     %li= link_to "SIRET : #{@solicitation.siret}", company_url(@solicitation.siret)
 

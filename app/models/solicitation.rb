@@ -48,7 +48,16 @@ class Solicitation < ApplicationRecord
     Institution.find_by(partner_token: partner_token) if partner_token.present?
   end
 
+  def normalized_phone_number
+    number = phone_number&.gsub(/[^0-9]/,'')
+    if number.present? && number.length == 10
+      number.gsub(/(.{2})(?=.)/, '\1 \2')
+    else
+      phone_number
+    end
+  end
+
   def to_s
-    "#{self.class.model_name.human} #{id}"
+    "#{self.class.model_name.human} #{id}"
   end
 end
