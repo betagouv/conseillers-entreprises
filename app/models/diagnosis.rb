@@ -124,7 +124,9 @@ class Diagnosis < ApplicationRecord
     experts.each do |expert|
       ExpertMailer.notify_company_needs(expert, self).deliver_later
     end
-    UserMailer.confirm_notifications_sent(self).deliver_later
+    unless advisor.disable_email_confirm_notifications_sent.to_bool
+      UserMailer.confirm_notifications_sent(self).deliver_later
+    end
   end
 
   private

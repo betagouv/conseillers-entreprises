@@ -155,6 +155,7 @@ class User < ApplicationRecord
   FLAGS = %i[
     can_view_review_subjects_flash
     can_view_diagnoses_tab
+    disable_email_confirm_notifications_sent
   ]
   store_accessor :flags, FLAGS.map(&:to_s)
 
