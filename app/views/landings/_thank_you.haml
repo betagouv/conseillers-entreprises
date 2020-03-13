@@ -3,6 +3,6 @@
     %panel__header
       %h3= t('.title')
     %h5
-      = landing.thank_you_message.presence || t('landings.form.default_thank_you_message')
+      = (landing.thank_you_message.presence || t('landings.form.default_thank_you_message')).html_safe
     %p
       = t('.place_des_entreprises_team')
