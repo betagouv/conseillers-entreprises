@@ -47,7 +47,8 @@ class AdminMailerPreview < ActionMailer::Preview
       email: Faker::Internet.email,
       needs: all_needs.map{ |n| [n, rand(2).to_s] }.to_h,
       form_info: {
-        pk_campaign: "test"
+        pk_campaign: "test",
+        slug: 'brexit',
       }
     }
     solicitation = Solicitation.last

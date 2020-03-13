@@ -54,7 +54,7 @@ fr:
       without_subjects: Sans compétence
       without_users: Aucun membre
     solicitations:
-      show_company_page: Page de la société
+      no_siret: SIRET non fourni
     subject:
       define_as_support: Définir comme sujet support
       done: Ce sujet est maintenant le seul sujet support
@@ -367,7 +367,7 @@ fr:
     needs:
       one: Besoin identifié
       other: Besoins identifiés
-    phone_number: Numéro de téléphone
+    phone_number: Téléphone
     placeholder:
       email: marie.dupont@exemple.fr
       full_name: 'ex: Marie Dupont'
