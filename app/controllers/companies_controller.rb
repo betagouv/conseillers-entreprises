@@ -8,7 +8,7 @@ class CompaniesController < ApplicationController
     if @query.present?
       siret = Facility::siret_from_query(@query)
       if siret.present?
-        redirect_to company_path(siret)
+        redirect_to company_path(siret, params.permit(:solicitation).slice(:solicitation))
       else
         search_results
       end
@@ -19,7 +19,7 @@ class CompaniesController < ApplicationController
     siret = params[:siret]
     clean_siret = Facility::clean_siret(siret)
     if clean_siret != siret
-      redirect_to company_path(clean_siret)
+      redirect_to company_path(clean_siret, params.permit(:solicitation).slice(:solicitation))
       return
     end
 
@@ -44,9 +44,12 @@ class CompaniesController < ApplicationController
 
   def create_diagnosis_from_siret
     facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
-
     if facility
       diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :besoins)
+      if params[:solicitation].present?
+        solicitation = Solicitation.find_by(id: params[:solicitation])
+        diagnosis.solicitation = solicitation
+      end
     end
 
     if diagnosis&.save

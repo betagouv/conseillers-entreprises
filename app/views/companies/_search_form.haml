@@ -5,6 +5,9 @@
 .ui.form
   = form_with url: search_companies_path, method: :get, skip_enforcing_utf8: true, local: true do
     .field
+      - if local_assigns[:solicitation].present?
+        = hidden_field_tag :solicitation, solicitation.id
+      - siret = defined?(solicitation) ? solicitation&.siret : ''
       .ui.action.input
-        = text_field_tag :query, query, autofocus: true, placeholder: t('companies.search.explanation')
+        = text_field_tag :query, query || siret, autofocus: true, placeholder: t('companies.search.explanation')
         %button.ui.button.green{ type: 'submit' }= t('search')

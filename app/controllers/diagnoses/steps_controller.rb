@@ -44,9 +44,15 @@ class Diagnoses::StepsController < ApplicationController
       end
 
       if @diagnosis.update(diagnosis_params)
+        @diagnosis.solicitation&.status_processed!
         redirect_to action: :selection, id: @diagnosis and return
       end
       flash.alert = @diagnosis.errors.full_messages.to_sentence
+    end
+
+    if @diagnosis.solicitation.present?
+      @diagnosis.visitee = Contact.new(full_name:  @diagnosis.solicitation.full_name,email: @diagnosis.solicitation.email,
+                            phone_number: @diagnosis.solicitation.phone_number)
     end
 
     respond_to do |format|

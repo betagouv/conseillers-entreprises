@@ -443,6 +443,8 @@ fr:
         other: "%{advisor} a identifié %{count} besoins."
       person_advisor: Conseiller
       person_company_contact: Personne rencontrée
+      solicitation: Sollicitation %{id}
+      solicitation_link: Lien vers la sollicitation
       visit_made_on: Mise en relation faite le %{date}
   pages:
     footer:
@@ -511,6 +513,7 @@ fr:
       title: solicitations traitées
     solicitation:
       cancel: Annuler
+      create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'
       mark_as_processed: Clôturer
