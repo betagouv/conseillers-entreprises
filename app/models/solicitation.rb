@@ -68,6 +68,6 @@ class Solicitation < ApplicationRecord
   end
 
   def display_attributes
-    %i[siret email phone_number slug institution pk_campaign pk_kwd]
+    %i[siret email phone_number institution pk_campaign pk_kwd slug]
   end
 end
