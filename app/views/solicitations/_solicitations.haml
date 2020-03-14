@@ -12,10 +12,9 @@
               .item
                 %strong= t("activerecord.attributes.solicitation.#{attribut}") + ' : '
                 = solicitation.send(attribut)
-        .solicitation-description
-          %i.icon.small.quote.left.grey
-          %span= solicitation.description
-          %i.icon.small.quote.right.grey
+          .item
+            %strong Description :
+            %p= simple_format solicitation.description
     .ui.segment.right.aligned
       - unless solicitation.status_in_progress?
         = link_to t('.re_open'), mark_as_in_progress_solicitation_path(solicitation), method: :post, remote: true, class: 'ui yellow button compact'
