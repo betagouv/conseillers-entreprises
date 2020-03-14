@@ -514,7 +514,6 @@ fr:
       title: solicitations traitées
     solicitations:
       cancel: Annuler
-      create_diagnosis: créer une analyse
       mark_as_processed: Clôturer
       re_open: Rouvrir
   stats:
