@@ -28,7 +28,7 @@ class Landing < ApplicationRecord
   ]
   store_accessor :content, CONTENT_KEYS
 
-  accepts_nested_attributes_for :landing_topics, allow_destroy: true
+  accepts_nested_attributes_for :landing_topics, :landing_options, allow_destroy: true
 
   scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
 

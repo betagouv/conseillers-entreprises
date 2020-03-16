@@ -1,7 +1,7 @@
 ActiveAdmin.register Landing do
   menu parent: :themes, priority: 3
 
-  includes :landing_topics
+  includes :landing_topics, :landing_options
 
   ## Index
   #
@@ -22,6 +22,9 @@ ActiveAdmin.register Landing do
     end
     column :landing_topics do |l|
       l.landing_topics.present? ? l.landing_topics.length : '-'
+    end
+    column :landing_options do |l|
+      l.landing_options.present? ? l.landing_options.length : '-'
     end
     actions dropdown: true
   end
@@ -69,6 +72,13 @@ ActiveAdmin.register Landing do
       end
     end
 
+    attributes_table title: I18n.t('activerecord.attributes.landing.landing_options') do
+      table_for landing.landing_options.ordered_for_landing do
+        column :slug
+        column :description
+      end
+    end
+
     attributes_table title: I18n.t("landings.form.form") do
       row :form_title
       row :form_top_message
@@ -84,6 +94,7 @@ ActiveAdmin.register Landing do
   permit_params :slug,
                 :home_title, :home_description, :home_sort_order,
                 *Landing::CONTENT_KEYS,
+                landing_options_attributes: [:id, :slug, :description, :landing_sort_order, :_destroy],
                 landing_topics_attributes: [:id, :title, :description, :landing_sort_order, :_destroy]
 
   form title: :slug do |f|
@@ -117,6 +128,13 @@ ActiveAdmin.register Landing do
 
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |a|
         a.input :title,       :input_html => { :style => 'width:50%' }
+        a.input :description, :input_html => { :style => 'width:50%', :rows => 3 }
+      end
+    end
+
+    f.inputs I18n.t('activerecord.attributes.landing.landing_options') do
+      f.has_many :landing_options, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |a|
+        a.input :slug, :input_html => { :style => 'width:50%' }
         a.input :description, :input_html => { :style => 'width:50%', :rows => 3 }
       end
     end
