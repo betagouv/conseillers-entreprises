@@ -69,6 +69,10 @@ class Solicitation < ApplicationRecord
     Institution.find_by(partner_token: partner_token) if partner_token.present?
   end
 
+  def selected_options
+    options.select{ |_, v| v.to_bool }.keys
+  end
+
   def normalized_phone_number
     number = phone_number&.gsub(/[^0-9]/,'')
     if number.present? && number.length == 10

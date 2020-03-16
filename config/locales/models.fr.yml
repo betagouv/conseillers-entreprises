@@ -169,6 +169,7 @@ fr:
       solicitation:
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
+        options: Aides demandées
         pk_campaign: Campagne
         pk_kwd: Mots-clés
         selected_options: Aides demandées
