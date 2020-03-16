@@ -1,0 +1,8 @@
+- meta title: t('.title')
+
+%h1.ui.header
+  %span.ui.red.text= @solicitations.human_count
+  = link_to t('.canceled'), canceled_solicitations_path, class: 'compact ui button right floated'
+  = link_to t('.processed'), processed_solicitations_path, class: 'compact ui button right floated'
+
+= render 'solicitations', solicitations: @solicitations

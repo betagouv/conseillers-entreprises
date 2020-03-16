@@ -40,7 +40,17 @@ Rails.application.routes.draw do
     post :solicitation
   end
 
-  resource :solicitation, only: %i[]
+  resources :solicitations, only: %i[index show] do
+    member do
+      post :mark_as_processed
+      post :mark_as_canceled
+      post :mark_as_in_progress
+    end
+    collection do
+      get :processed
+      get :canceled
+    end
+  end
 
   controller :about do
     get :qui_sommes_nous

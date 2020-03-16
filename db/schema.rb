@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_09_150119) do
+ActiveRecord::Schema.define(version: 2020_03_12_145536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,9 +122,11 @@ ActiveRecord::Schema.define(version: 2020_03_09_150119) do
     t.bigint "visitee_id"
     t.bigint "facility_id"
     t.date "happened_on"
+    t.bigint "solicitation_id"
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
+    t.index ["solicitation_id"], name: "index_diagnoses_on_solicitation_id"
     t.index ["visitee_id"], name: "index_diagnoses_on_visitee_id"
   end
 
@@ -277,6 +279,8 @@ ActiveRecord::Schema.define(version: 2020_03_09_150119) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "siret"
+    t.integer "status", default: 0
+    t.string "full_name"
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|
@@ -352,6 +356,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_150119) do
   add_foreign_key "contacts", "companies"
   add_foreign_key "diagnoses", "contacts", column: "visitee_id"
   add_foreign_key "diagnoses", "facilities"
+  add_foreign_key "diagnoses", "solicitations"
   add_foreign_key "diagnoses", "users", column: "advisor_id"
   add_foreign_key "experts", "antennes"
   add_foreign_key "experts_subjects", "experts"
