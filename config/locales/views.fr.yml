@@ -519,6 +519,7 @@ fr:
       email: 'Email :'
       mark_as_processed: Clôturer
       re_open: Rouvrir
+      selected_options: 'Cases cochées :'
       siret: 'Siret :'
       slug: 'Page thématique :'
   stats:
