@@ -61,6 +61,6 @@ class LandingsController < PagesController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :siret, :phone_number, :email, form_info: {}, needs: {})
+      .permit(:description, :siret, :full_name, :phone_number, :email, form_info: {}, needs: {})
   end
 end
