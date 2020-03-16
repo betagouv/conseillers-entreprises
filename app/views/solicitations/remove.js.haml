@@ -1,4 +1,4 @@
-$('.solicitation[data-id="#{@solicitation.id}"]').remove()
+$('.solicitation[id="#{@solicitation.id}"]').remove()
 
 var flashes = "#{j render('flashes')}";
 document.getElementById('flashes').innerHTML = flashes;

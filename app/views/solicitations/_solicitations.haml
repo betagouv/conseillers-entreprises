@@ -1,20 +1,19 @@
 - solicitations.each do |solicitation|
-  .ui.segments.shadow-less.selectable-list.solicitation{ 'data-id': solicitation.id }
+  .ui.segments.shadow-less.selectable-list.solicitation{ 'id': solicitation.id }
     .ui.segment.secondary
       .ui.header
         #{solicitation.id} - #{solicitation.full_name}
         .sub.header= I18n.l(solicitation.created_at, format: :long)
     .ui.segment.selectable-item
-      %a{ href: solicitation_path(solicitation) }
-        .ui.list
-          - solicitation.display_attributes.each do |attribut|
-            - if solicitation.send(attribut).present?
-              .item
-                %strong= t("activerecord.attributes.solicitation.#{attribut}") + ' : '
-                = solicitation.send(attribut)
-          .item
-            %strong Description :
-            %p= simple_format solicitation.description
+      .ui.list
+        - solicitation.display_attributes.each do |attribut|
+          - if solicitation.send(attribut).present?
+            .item
+              %strong= t("activerecord.attributes.solicitation.#{attribut}") + ' : '
+              = solicitation.send(attribut)
+        .item
+          %strong Description :
+          %p= simple_format solicitation.description
     .ui.segment.right.aligned
       - unless solicitation.status_in_progress?
         = link_to t('.re_open'), mark_as_in_progress_solicitation_path(solicitation), method: :post, remote: true, class: 'ui yellow button compact'
