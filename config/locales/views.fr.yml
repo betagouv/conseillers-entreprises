@@ -217,6 +217,7 @@ fr:
       email:
         label: Email
         placeholder: marie.dupont@exemple.fr
+      form: Formulaire
       full_name:
         label: Prénom et nom
         placeholder: Marie Dupont
