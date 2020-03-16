@@ -31,7 +31,6 @@ class Solicitation < ApplicationRecord
 
   ## Scopes
   #
-  default_scope { order(updated_at: :desc) }
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
   scope :of_slug, -> (slug) { where("form_info->>'slug' = ?", slug) }
 
