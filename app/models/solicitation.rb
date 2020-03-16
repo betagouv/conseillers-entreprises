@@ -48,6 +48,22 @@ class Solicitation < ApplicationRecord
   end
 
   ##
+  # Development helper
+  def self.new(attributes = nil, &block)
+    record = super
+    if Rails.env.development? && ENV['DEVELOPMENT_PREFILL_SOLICITATION_FORM']
+      record.assign_attributes(
+        description: 'Ceci est un test',
+        siret: '200 054 948 00019',
+        full_name: 'Marie Dupont',
+        phone_number: '01 23 46 78 90',
+        email: 'marie.dupont@exemple.fr'
+      )
+    end
+    record
+  end
+
+  ##
   #
   def institution
     Institution.find_by(partner_token: partner_token) if partner_token.present?
