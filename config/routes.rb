@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     post :create_solicitation
   end
 
-  resources :solicitations, only: %i[index show] do
+  resources :solicitations, only: %i[index show], path: 'sollicitations' do
     member do
       post :mark_as_processed
       post :mark_as_canceled
