@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   controller :landings do
     root action: :index
     get 'aide-entreprises/:slug', action: :show, as: :landing
-    post :solicitation
+    post :create_solicitation
   end
 
   resources :solicitations, only: %i[index show] do
