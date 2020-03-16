@@ -22,7 +22,7 @@ class LandingsController < PagesController
     @solicitation.form_info = info_params
   end
 
-  def solicitation
+  def create_solicitation
     @solicitation = Solicitation.create(solicitation_params)
     @landing = Landing.find_by(slug: @solicitation.slug)
 

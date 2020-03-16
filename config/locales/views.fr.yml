@@ -201,6 +201,8 @@ fr:
       not_in_topics: Votre question n’est pas dans cette liste ?
       not_in_topics_more: Voir tous les domaines d’aides aux entreprises
   landings:
+    create_solicitation:
+      thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
     form:
       button:
         title: Envoyer ma demande
@@ -243,8 +245,6 @@ fr:
       contact_us: Contactez-nous directement
       other_questions: Votre question n’est pas dans cette liste ?
       title: 'Sélectionnez votre demande :'
-    solicitation:
-      thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
     steps:
       label_1_html: Précisez votre demande en ligne.
       label_2_html: Le service <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
