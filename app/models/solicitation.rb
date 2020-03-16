@@ -6,16 +6,21 @@
 #  description  :string
 #  email        :string
 #  form_info    :jsonb
+#  full_name    :string
 #  needs        :jsonb
 #  phone_number :string
 #  siret        :string
+#  status       :integer          default("in_progress")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
 
 class Solicitation < ApplicationRecord
+  enum status: { in_progress: 0, processed: 1, canceled: 2 }, _prefix: true
+
   ## Associations
   #
+  has_many :diagnoses
 
   ## Validations
   #
@@ -26,6 +31,7 @@ class Solicitation < ApplicationRecord
 
   ## Scopes
   #
+  default_scope { order(updated_at: :desc) }
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
   scope :of_slug, -> (slug) { where("form_info->>'slug' = ?", slug) }
 
@@ -59,5 +65,9 @@ class Solicitation < ApplicationRecord
 
   def to_s
     "#{self.class.model_name.human} #{id}"
+  end
+
+  def display_attributes
+    %i[siret email phone_number institution pk_campaign pk_kwd slug]
   end
 end

@@ -167,6 +167,7 @@ fr:
         user: Utilisateur
       solicitation:
         needs: Besoins sélectionnés
+        phone_number: Téléphone
         pk_campaign: Campagne
         pk_kwd: Mots-clés
         slug: Page thématique

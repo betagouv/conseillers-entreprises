@@ -215,6 +215,9 @@ fr:
       email:
         label: Email
         placeholder: marie.dupont@exemple.fr
+      full_name:
+        label: Prénom et nom
+        placeholder: Marie Dupont
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
@@ -472,6 +475,18 @@ fr:
     show:
       title: Relances / %{full_name}
   solicitations:
+    canceled:
+      title: solicitations annulées
+    index:
+      canceled: Annulées
+      processed: Traitées
+      title: Solicitations
+    mark_as_canceled:
+      done: La sollicitation a été annulée
+    mark_as_in_progress:
+      done: La sollicitation a été rouverte
+    mark_as_processed:
+      done: La sollicitation a été traitée
     needs:
       long:
         01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?
@@ -495,6 +510,12 @@ fr:
         '08-reglementation': Réglementation
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
+    processed:
+      title: solicitations traitées
+    solicitations:
+      cancel: Annuler
+      mark_as_processed: Clôturer
+      re_open: Rouvrir
   stats:
     series:
       advisors_html: <span class="count">%{count}</span> conseillers publics

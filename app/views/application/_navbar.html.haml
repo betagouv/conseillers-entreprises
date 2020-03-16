@@ -14,6 +14,9 @@
           %i.tasks.icon
           = t('.diagnoses')
       - if current_user.is_admin?
+        = active_link_to solicitations_path, class: 'item' do
+          %i.comment.dots.outline.icon
+          = t('solicitations.index.title')
         = active_link_to reminders_path, class: 'item' do
           %i.ambulance.icon
           = t('reminders.index.title')

@@ -14,6 +14,9 @@
         = f.label 'siret', t('.siret.label')
         = f.text_field 'siret', placeholder: t('.siret.placeholder'), required: false
       .form__group
+        = f.label 'full_name', t('.full_name.label')
+        = f.text_field 'full_name', placeholder: t('.full_name.placeholder'), required: true
+      .form__group
         = f.label 'phone_number', t('.phone_number.label')
         = f.telephone_field 'phone_number', placeholder: t('.phone_number.placeholder'), required: true
       .form__group
