@@ -1,0 +1,33 @@
+.ui.segments.shadow-less.solicitation{ 'id': solicitation.id }
+  .ui.segment.secondary
+    .ui.header
+      #{solicitation.to_s} - #{solicitation.full_name}
+      .sub.header= I18n.l(solicitation.created_at, format: :long)
+  .ui.segment
+    .ui.list
+      - if solicitation.siret.present?
+        .item
+          %strong= t('.siret')
+          = link_to(solicitation.normalized_siret, company_path(solicitation.siret))
+      .item
+        %strong= t('.email')
+        = mail_to(solicitation.email, solicitation.email, target: '_blank')
+      - solicitation.display_attributes.each do |attribut|
+        - if solicitation.send(attribut).present?
+          .item
+            %strong= Solicitation.human_attribute_name(attribut) + ' : '
+            = solicitation.send(attribut)
+      - if solicitation.slug.present?
+        .item
+          %strong= t('.slug')
+          = link_to(solicitation.slug, landing_path(solicitation.slug))
+      .item
+        %strong= t('.description')
+        %p= simple_format solicitation.description
+  .ui.segment.right.aligned
+    - unless solicitation.status_in_progress?
+      = link_to t('.re_open'), mark_as_in_progress_solicitation_path(solicitation), method: :post, remote: true, class: 'ui yellow button compact'
+    - unless solicitation.status_processed?
+      = link_to t('.mark_as_processed'), mark_as_processed_solicitation_path(solicitation), method: :post, remote: true, class: 'ui grey button compact'
+    - unless solicitation.status_canceled?
+      = link_to t('.cancel'), mark_as_canceled_solicitation_path(solicitation), method: :post, remote: true, class: 'ui red button compact'
