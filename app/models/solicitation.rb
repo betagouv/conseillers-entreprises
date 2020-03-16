@@ -67,6 +67,10 @@ class Solicitation < ApplicationRecord
   end
 
   def display_attributes
-    %i[siret email phone_number institution pk_campaign pk_kwd slug]
+    %i[normalized_phone_number institution pk_campaign pk_kwd]
+  end
+
+  def normalized_siret
+    siret.gsub(/(\d{3})(\d{3})(\d{3})(\d*)/, '\1 \2 \3 \4')
   end
 end
