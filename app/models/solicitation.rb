@@ -7,7 +7,7 @@
 #  email        :string
 #  form_info    :jsonb
 #  full_name    :string
-#  needs        :jsonb
+#  options      :jsonb
 #  phone_number :string
 #  siret        :string
 #  status       :integer          default("in_progress")

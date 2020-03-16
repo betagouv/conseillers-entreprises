@@ -14,6 +14,7 @@
 
 class Landing < ApplicationRecord
   has_many :landing_topics, inverse_of: :landing, :dependent => :destroy
+  has_many :landing_options, inverse_of: :landing, :dependent => :destroy
 
   ## JSON Accessors
   #
