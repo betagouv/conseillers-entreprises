@@ -171,6 +171,7 @@ fr:
         normalized_phone_number: Téléphone
         pk_campaign: Campagne
         pk_kwd: Mots-clés
+        selected_options: Aides demandées
         slug: Page thématique
         tracking: Suivi
       subject:

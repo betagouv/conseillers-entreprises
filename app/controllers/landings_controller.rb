@@ -17,6 +17,10 @@ class LandingsController < PagesController
       @landing.landing_topics.ordered_for_landing.to_a
     end
 
+    @landing_options = Rails.cache.fetch("landing_options-#{@landing.id}", expires_in: 3.minutes) do
+      @landing.landing_options.ordered_for_landing.to_a
+    end
+
     @tracking_params = info_params.except(:slug)
     @solicitation = Solicitation.new
     @solicitation.form_info = info_params
@@ -61,6 +65,6 @@ class LandingsController < PagesController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :siret, :full_name, :phone_number, :email, form_info: {}, needs: {})
+      .permit(:description, :siret, :full_name, :phone_number, :email, form_info: {}, options: {})
   end
 end

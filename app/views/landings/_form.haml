@@ -5,6 +5,16 @@
   = form_with(model: @solicitation, url: create_solicitation_path, scope: 'solicitation', method: :post, html: { honeypot: true }) do |f|
     - @solicitation.form_info.each do |k,v|
       = f.hidden_field "form_info[#{k}]", value: v
+    - if landing_options.present?
+      .form__group
+        = f.label :options
+        .panel
+          = f.fields_for :options do |fields|
+            - landing_options.each do |option|
+              .p
+                = fields.check_box option.slug
+                = fields.label option.slug, class: 'label-inline' do
+                  = option.description.html_safe
     .form__group
       = f.label 'description', t('.description.label')
       - example = landing.description_example.presence || t('.description.default_example')
