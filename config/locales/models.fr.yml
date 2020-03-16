@@ -146,6 +146,7 @@ fr:
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
+        landing_options: Cases à cocher
         landing_topic_title: Titre des exemples
         landing_topics: Exemples
         slug: Slug
@@ -168,8 +169,10 @@ fr:
       solicitation:
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
+        options: Aides demandées
         pk_campaign: Campagne
         pk_kwd: Mots-clés
+        selected_options: Aides demandées
         slug: Page thématique
         tracking: Suivi
       subject:
@@ -267,6 +270,9 @@ fr:
       landing:
         one: Page thématique
         other: Pages thématiques
+      landing_option:
+        one: Case à cocher
+        other: Cases à cocher
       landing_topic:
         one: Exemple
         other: Exemples

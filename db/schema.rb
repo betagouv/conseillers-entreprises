@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_145536) do
+ActiveRecord::Schema.define(version: 2020_03_16_145816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +210,14 @@ ActiveRecord::Schema.define(version: 2020_03_12_145536) do
     t.index ["subject_id"], name: "index_institutions_subjects_on_subject_id"
   end
 
+  create_table "landing_options", force: :cascade do |t|
+    t.string "slug"
+    t.text "description"
+    t.integer "landing_sort_order"
+    t.bigint "landing_id"
+    t.index ["landing_id"], name: "index_landing_options_on_landing_id"
+  end
+
   create_table "landing_topics", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -274,7 +282,7 @@ ActiveRecord::Schema.define(version: 2020_03_12_145536) do
     t.string "description"
     t.string "email"
     t.string "phone_number"
-    t.jsonb "needs", default: {}
+    t.jsonb "options", default: {}
     t.jsonb "form_info", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -370,6 +378,7 @@ ActiveRecord::Schema.define(version: 2020_03_12_145536) do
   add_foreign_key "feedbacks", "users"
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"
+  add_foreign_key "landing_options", "landings"
   add_foreign_key "landing_topics", "landings"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"

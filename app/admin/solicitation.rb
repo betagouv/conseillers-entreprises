@@ -13,6 +13,10 @@ ActiveAdmin.register Solicitation do
     end
     column :description do |s|
       div link_to s.slug, landing_path(s.slug) if s.slug
+      options = s.selected_options
+      if options.present?
+        div t('activerecord.attributes.solicitation.selected_options') + ' : ' + options.map { |option| status_tag option }.join('')
+      end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
     end
 
