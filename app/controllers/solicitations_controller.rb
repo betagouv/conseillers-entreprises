@@ -4,7 +4,7 @@ class SolicitationsController < ApplicationController
   before_action :authorize_update_solicitation, only: [:mark_as_processed, :mark_as_canceled, :mark_as_in_progress]
 
   def index
-    @solicitations = Solicitation.where(status: 'in_progress')
+    @solicitations = ordered_solicitations.status_in_progress
   end
 
   def show
@@ -12,11 +12,11 @@ class SolicitationsController < ApplicationController
   end
 
   def processed
-    @solicitations = Solicitation.where(status: 'processed')
+    @solicitations = ordered_solicitations.status_processed
   end
 
   def canceled
-    @solicitations = Solicitation.where(status: 'canceled')
+    @solicitations = ordered_solicitations.status_canceled
   end
 
   def mark_as_processed
@@ -38,6 +38,10 @@ class SolicitationsController < ApplicationController
   end
 
   private
+
+  def ordered_solicitations
+    Solicitation.order(updated_at: :desc)
+  end
 
   def authorize_index_solicitation
     authorize Solicitation, :index?

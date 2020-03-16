@@ -513,10 +513,14 @@ fr:
         10-autres: Autres
     processed:
       title: solicitations traitées
-    solicitations:
+    solicitation:
       cancel: Annuler
+      description: 'Description :'
+      email: 'Email :'
       mark_as_processed: Clôturer
       re_open: Rouvrir
+      siret: 'Siret :'
+      slug: 'Page thématique :'
   stats:
     series:
       advisors_html: <span class="count">%{count}</span> conseillers publics

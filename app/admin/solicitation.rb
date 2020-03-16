@@ -17,8 +17,6 @@ ActiveAdmin.register Solicitation do
     end
 
     column "#{t('attributes.coordinates')} | #{t('activerecord.attributes.solicitation.tracking')}" do |s|
-      div mail_to(s.email)
-      div s.normalized_phone_number
       div do
         if s.siret.present?
           link_to s.siret, company_path(s.siret)
@@ -26,6 +24,9 @@ ActiveAdmin.register Solicitation do
           t('active_admin.solicitations.no_siret')
         end
       end
+      div s.full_name
+      div s.normalized_phone_number
+      div mail_to(s.email)
       hr
       render 'solicitations/tracking', solicitation: s
       if s.partner_token.present?
@@ -40,6 +41,7 @@ ActiveAdmin.register Solicitation do
     column :created_at
     column :description
     column :siret
+    column :full_name
     column :phone_number
     column :email
     Solicitation::FORM_INFO_KEYS.each{ |k| column k }
@@ -61,6 +63,7 @@ ActiveAdmin.register Solicitation do
           div link_to s.siret, company_path(s.siret)
         end
       end
+      row :full_name
       row :phone_number
       row :email
     end
@@ -82,13 +85,14 @@ ActiveAdmin.register Solicitation do
 
   ## Form
   #
-  permit_params :description, :email, :phone_number, :siret
+  permit_params :description, :siret, :full_name, :phone_number, :email
   form do |f|
     f.inputs do
       f.input :description, as: :text
       f.input :siret
-      f.input :email
+      f.input :full_name
       f.input :phone_number
+      f.input :email
     end
 
     f.actions
