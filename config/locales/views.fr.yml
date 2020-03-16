@@ -225,7 +225,7 @@ fr:
         label: SIRET
         placeholder: 123 456 789 00010 (Nécessaire sauf pour la reprise d’entreprise)
     hero:
-      title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME'
+      title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
     index:
       answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
       meta:
