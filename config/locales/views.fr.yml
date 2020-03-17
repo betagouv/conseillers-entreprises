@@ -222,7 +222,7 @@ fr:
         placeholder: 06 12 34 56 78
       siret:
         label: SIRET
-        placeholder: 123 456 789 00010 (Nécessaire sauf pour la reprise d’entreprise)
+        placeholder: 123 456 789 00010
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
     index:
