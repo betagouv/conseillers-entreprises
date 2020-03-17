@@ -5,11 +5,11 @@
 
 = render 'hero'
 
-%section.section.section-white#landing-topics
+%section.section.section-white#section-details
   .container.text-center
     = render 'landing_details', landing: @landing
 
-%section.section.section-grey
+%section.section.section-grey#section-exemples
   .container
     = render 'landing_topics/landing_topics', landing: @landing, landing_topics: @landing_topics, tracking_params: @tracking_params
 
