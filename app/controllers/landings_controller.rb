@@ -13,13 +13,8 @@ class LandingsController < PagesController
       return
     end
 
-    @landing_topics = Rails.cache.fetch("landing_topics-#{@landing.id}", expires_in: 3.minutes) do
-      @landing.landing_topics.ordered_for_landing.to_a
-    end
-
-    @landing_options = Rails.cache.fetch("landing_options-#{@landing.id}", expires_in: 3.minutes) do
-      @landing.landing_options.ordered_for_landing.to_a
-    end
+    @landing_topics = @landing.landing_topics.ordered_for_landing
+    @landing_options = @landing.landing_options.ordered_for_landing
 
     @tracking_params = info_params.except(:slug)
     @solicitation = Solicitation.new
@@ -54,7 +49,7 @@ class LandingsController < PagesController
 
   def retrieve_landing
     slug = params[:slug]&.to_sym
-    Rails.cache.fetch("landing-#{slug}", expires_in: 3.minutes) do
+    Rails.cache.fetch("landing-#{slug}", expires_in: 1.minute) do
       Landing.find_by(slug: slug)
     end
   end

@@ -1,22 +1,24 @@
-:ruby
-  meta_title = @landing.meta_title.presence || @landing.title
-  meta_description = @landing.meta_description.presence || @landing.subtitle
-  meta title: meta_title, description: meta_description
+- cache @landing do
+  :ruby
+    meta_title = @landing.meta_title.presence || @landing.title
+    meta_description = @landing.meta_description.presence || @landing.subtitle
+    meta title: meta_title, description: meta_description
 
-= render 'hero'
+  = render 'hero'
 
-%section.section.section-white#section-details
-  .container.text-center
-    = render 'landing_details', landing: @landing
+  %section.section.section-white#section-details
+    .container.text-center
+      = render 'landing_details', landing: @landing
 
-%section.section.section-grey#section-exemples
-  .container.container-medium
-    = render 'landing_topics/landing_topics', landing: @landing, landing_topics: @landing_topics, tracking_params: @tracking_params
+  %section.section.section-grey#section-exemples
+    .container.container-medium
+      = render 'landing_topics/landing_topics', landing: @landing, landing_topics: @landing_topics, tracking_params: @tracking_params
 
-%section.section.section-white#section-formulaire
-  .container.container-small
-    = render 'form', landing: @landing, landing_options: @landing_options
+  %section.section.section-white#section-formulaire
+    .container.container-small
+      = render 'form', landing: @landing, landing_options: @landing_options
 
 %section.section.section-grey#stats
   .container.container-medium
-    = render 'stats/ministats'
+    - cache('ministats', expires_in: 1.hour) do
+      = render 'stats/ministats'
