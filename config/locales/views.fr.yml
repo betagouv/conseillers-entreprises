@@ -477,8 +477,6 @@ fr:
     canceled:
       title: solicitations annulées
     index:
-      canceled: Annulées
-      processed: Traitées
       title: Solicitations
     mark_as_canceled:
       done: La sollicitation a été annulée
@@ -521,6 +519,10 @@ fr:
       selected_options: 'Cases cochées :'
       siret: 'Siret :'
       slug: 'Page thématique :'
+    solicitations_tabs:
+      canceled: Annulées
+      in_progress: À traiter
+      processed: Traitées
   stats:
     series:
       advisors_html: <span class="count">%{count}</span> conseillers publics
