@@ -10,9 +10,14 @@
 #  options      :jsonb
 #  phone_number :string
 #  siret        :string
+#  slug         :string
 #  status       :integer          default("in_progress")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_solicitations_on_slug  (slug)
 #
 
 class Solicitation < ApplicationRecord
@@ -21,6 +26,7 @@ class Solicitation < ApplicationRecord
   ## Associations
   #
   has_many :diagnoses, inverse_of: :solicitation
+  belongs_to :landing, primary_key: :slug, foreign_key: :slug, inverse_of: :solicitations, optional: true
 
   ## Validations
   #

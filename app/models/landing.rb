@@ -11,10 +11,16 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
+# Indexes
+#
+#  index_landings_on_slug  (slug) UNIQUE
+#
 
 class Landing < ApplicationRecord
   has_many :landing_topics, inverse_of: :landing, :dependent => :destroy
   has_many :landing_options, inverse_of: :landing, :dependent => :destroy
+
+  has_many :solicitations, primary_key: :slug, foreign_key: :slug, inverse_of: :landing
 
   ## JSON Accessors
   #

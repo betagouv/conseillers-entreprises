@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_145816) do
+ActiveRecord::Schema.define(version: 2020_03_23_133834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,6 +236,7 @@ ActiveRecord::Schema.define(version: 2020_03_16_145816) do
     t.string "home_title", default: "f"
     t.text "home_description", default: "f"
     t.integer "home_sort_order"
+    t.index ["slug"], name: "index_landings_on_slug", unique: true
   end
 
   create_table "matches", force: :cascade do |t|
@@ -289,6 +290,8 @@ ActiveRecord::Schema.define(version: 2020_03_16_145816) do
     t.string "siret"
     t.integer "status", default: 0
     t.string "full_name"
+    t.string "slug"
+    t.index ["slug"], name: "index_solicitations_on_slug"
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|
