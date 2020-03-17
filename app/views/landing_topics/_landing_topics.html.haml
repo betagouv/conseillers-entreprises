@@ -6,7 +6,3 @@
   - landing_topics.each_slice(slice_size) do |topics_slice|
     .row
       = render topics_slice
-
-  %p
-    = t('.not_in_topics')
-    = link_to t('.not_in_topics_more'), root_path(tracking_params)

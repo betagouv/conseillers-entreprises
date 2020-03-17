@@ -196,10 +196,6 @@ fr:
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
-  landing_topics:
-    landing_topics:
-      not_in_topics: Votre question n’est pas dans cette liste ?
-      not_in_topics_more: Voir tous les domaines d’aides aux entreprises
   landings:
     create_solicitation:
       thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
