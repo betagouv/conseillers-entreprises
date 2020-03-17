@@ -47,8 +47,8 @@ Rails.application.routes.draw do
       post :mark_as_in_progress
     end
     collection do
-      get :processed
-      get :canceled
+      get :processed, path: 'traitees'
+      get :canceled, path: 'annulees'
     end
   end
 

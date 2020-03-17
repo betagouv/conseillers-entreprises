@@ -11,6 +11,7 @@ class DiagnosesController < ApplicationController
 
   def new
     @params = {}
+    @solicitation = Solicitation.find_by(id: params[:solicitation])
   end
 
   def index_antenne
@@ -35,6 +36,10 @@ class DiagnosesController < ApplicationController
 
     facility = Diagnosis.create_without_siret(insee_code, params)
     diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :besoins)
+    if params[:solicitation].present?
+      solicitation = Solicitation.find_by(id: params[:solicitation])
+      diagnosis.solicitation = solicitation
+    end
 
     if diagnosis.save
       redirect_to besoins_diagnosis_path(diagnosis)

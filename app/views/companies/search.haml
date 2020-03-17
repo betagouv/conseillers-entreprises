@@ -7,7 +7,7 @@
   .ui.segments.shadow-less.selectable-list
     - results.each do |etablissement|
       .ui.segment
-        %a{ href: company_path(etablissement.siret) }
+        %a{ href: company_path(etablissement.siret, params.permit(:solicitation).slice(:solicitation)) }
           %h3.ui.header
             = etablissement.nom.upcase
             - if etablissement.enseigne.present?

@@ -21,14 +21,16 @@
         .item
           %strong= t('.slug')
           = link_to(solicitation.slug, landing_path(solicitation.slug))
-      .item
-        %strong= t('.selected_options')
-        - solicitation.selected_options.each do |option|
-          .ui.small.label= option
+      - if solicitation.selected_options.present?
+        .item
+          %strong= t('.selected_options')
+          - solicitation.selected_options.each do |option|
+            .ui.small.label= option
       .item
         %strong= t('.description')
         %p= simple_format solicitation.description
   .ui.segment.right.aligned
+    = link_to t('.create_diagnosis'), new_diagnosis_path(solicitation: solicitation.id), class: 'ui green button compact'
     - unless solicitation.status_in_progress?
       = link_to t('.re_open'), mark_as_in_progress_solicitation_path(solicitation), method: :post, remote: true, class: 'ui yellow button compact'
     - unless solicitation.status_processed?
