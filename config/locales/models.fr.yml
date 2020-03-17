@@ -175,6 +175,10 @@ fr:
         selected_options: Aides demandées
         slug: Page thématique
         tracking: Suivi
+      solicitation/statuses:
+        canceled: Annulée
+        in_progress: Reçue
+        processed: Clôturée
       subject:
         institutions_subjects: Compétences d’institutions
         is_support: Support

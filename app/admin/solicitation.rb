@@ -10,12 +10,17 @@ ActiveAdmin.register Solicitation do
     column :solicitation do |s|
       div admin_link_to(s)
       div l(s.created_at, format: '%Y-%m-%d %H:%M')
+      unless s.status_in_progress?
+        status_tag Solicitation.human_attribute_name("statuses.#{s.status}"), class: s.status
+      end
     end
     column :description do |s|
       div link_to s.slug, landing_path(s.slug) if s.slug
       options = s.selected_options
       if options.present?
-        div t('activerecord.attributes.solicitation.selected_options') + ' : ' + options.map { |option| status_tag option }.join('')
+        div t('activerecord.attributes.solicitation.selected_options') + ' : ' do
+          options.each { |option| status_tag option }.join('')
+        end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
     end
@@ -39,11 +44,34 @@ ActiveAdmin.register Solicitation do
     end
   end
 
+  ## Filters
+  #
+  preserve_default_filters!
+  remove_filter :diagnoses
+  filter :status, as: :select, collection: -> { Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] } }
+  remove_filter :with_selected_option
+  filter :with_selected_option_in, as: :select, label: I18n.t('solicitations.solicitation.selected_options'), collection: -> { LandingOption.all.pluck(:slug) }
+
+  batch_action I18n.t('solicitations.solicitation.cancel') do |ids|
+    batch_action_collection.find(ids).each do |solicitation|
+      solicitation.status_canceled!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('solicitations.mark_as_canceled.done')
+  end
+
+  batch_action I18n.t('solicitations.solicitation.mark_as_processed') do |ids|
+    batch_action_collection.find(ids).each do |solicitation|
+      solicitation.status_processed!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('solicitations.mark_as_processed.done')
+  end
+
   ## CSV
   #
   csv do
     column :id
     column :created_at
+    column :status
     column :description
     column :siret
     column :full_name
@@ -83,6 +111,9 @@ ActiveAdmin.register Solicitation do
 
   sidebar I18n.t('activerecord.models.solicitation.one'), only: :show do
     attributes_table_for solicitation do
+      row :status do
+        status_tag Solicitation.human_attribute_name("statuses.#{solicitation.status}"), class: solicitation.status
+      end
       row :created_at
       row :updated_at
     end
@@ -90,10 +121,12 @@ ActiveAdmin.register Solicitation do
 
   ## Form
   #
-  permit_params :description, :siret, :full_name, :phone_number, :email
+  permit_params :description, :status, :siret, :full_name, :phone_number, :email
   form do |f|
     f.inputs do
       f.input :description, as: :text
+      collection = Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), status] }
+      f.input :status, collection: collection
       f.input :siret
       f.input :full_name
       f.input :phone_number

@@ -27,6 +27,8 @@
   &.create { background: #03bd5b }
   &.update { background: #ff9947 }
   &.destroy { background: #932419 }
+  &.processed { background: #03bd5b }
+  &.canceled { background: #932419 }
 }
 
 .textarea-monospace {
