@@ -44,10 +44,13 @@ ActiveAdmin.register Solicitation do
     end
   end
 
+  ## Filters
+  #
   preserve_default_filters!
   remove_filter :diagnoses
-  collection = Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] }
-  filter :status, as: :select, collection: collection
+  filter :status, as: :select, collection: -> { Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] } }
+  remove_filter :with_selected_option
+  filter :with_selected_option_in, as: :select, label: I18n.t('solicitations.solicitation.selected_options'), collection: -> { LandingOption.all.pluck(:slug) }
 
   batch_action I18n.t('solicitations.solicitation.cancel') do |ids|
     batch_action_collection.find(ids).each do |solicitation|

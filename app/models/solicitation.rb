@@ -33,6 +33,7 @@ class Solicitation < ApplicationRecord
   #
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
   scope :of_slug, -> (slug) { where("form_info->>'slug' = ?", slug) }
+  scope :with_selected_option, -> (option) { where("options->>? = '1'", option) }
 
   ## JSON Accessors
   #
@@ -46,6 +47,10 @@ class Solicitation < ApplicationRecord
       Arel::Nodes::InfixOperation.new('->>', parent.table[:form_info], Arel::Nodes.build_quoted(key.to_s))
     end
   end
+  ransacker(:with_selected_option, formatter: -> (value) {
+    with_selected_option(value).pluck(:id)
+      .presence
+  }) { |parent| parent.table[:id] }
 
   ##
   # Development helper
