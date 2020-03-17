@@ -10,6 +10,9 @@ ActiveAdmin.register Solicitation do
     column :solicitation do |s|
       div admin_link_to(s)
       div l(s.created_at, format: '%Y-%m-%d %H:%M')
+      unless s.status_in_progress?
+        status_tag Solicitation.human_attribute_name("statuses.#{s.status}"), class: s.status
+      end
     end
     column :description do |s|
       div link_to s.slug, landing_path(s.slug) if s.slug
@@ -41,11 +44,17 @@ ActiveAdmin.register Solicitation do
     end
   end
 
+  preserve_default_filters!
+  remove_filter :diagnoses
+  collection = Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] }
+  filter :status, as: :select, collection: collection
+
   ## CSV
   #
   csv do
     column :id
     column :created_at
+    column :status
     column :description
     column :siret
     column :full_name
@@ -85,6 +94,9 @@ ActiveAdmin.register Solicitation do
 
   sidebar I18n.t('activerecord.models.solicitation.one'), only: :show do
     attributes_table_for solicitation do
+      row :status do
+        status_tag Solicitation.human_attribute_name("statuses.#{solicitation.status}"), class: solicitation.status
+      end
       row :created_at
       row :updated_at
     end
@@ -92,10 +104,12 @@ ActiveAdmin.register Solicitation do
 
   ## Form
   #
-  permit_params :description, :siret, :full_name, :phone_number, :email
+  permit_params :description, :status, :siret, :full_name, :phone_number, :email
   form do |f|
     f.inputs do
       f.input :description, as: :text
+      collection = Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), status] }
+      f.input :status, collection: collection
       f.input :siret
       f.input :full_name
       f.input :phone_number
