@@ -196,10 +196,6 @@ fr:
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
-  landing_topics:
-    landing_topics:
-      not_in_topics: Votre question n’est pas dans cette liste ?
-      not_in_topics_more: Voir tous les domaines d’aides aux entreprises
   landings:
     create_solicitation:
       thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
@@ -226,7 +222,7 @@ fr:
         placeholder: 06 12 34 56 78
       siret:
         label: SIRET
-        placeholder: 123 456 789 00010 (Nécessaire sauf pour la reprise d’entreprise)
+        placeholder: 123 456 789 00010
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
     index:

@@ -3,4 +3,5 @@
 %h1.ui.header
   #{@solicitations.count} #{t('.title')}
 
-= render @solicitations
+= render partial: 'solicitations/solicitation', collection: @solicitations, cached: true
+
