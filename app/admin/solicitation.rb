@@ -49,6 +49,20 @@ ActiveAdmin.register Solicitation do
   collection = Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] }
   filter :status, as: :select, collection: collection
 
+  batch_action I18n.t('solicitations.solicitation.cancel') do |ids|
+    batch_action_collection.find(ids).each do |solicitation|
+      solicitation.status_canceled!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('solicitations.mark_as_canceled.done')
+  end
+
+  batch_action I18n.t('solicitations.solicitation.mark_as_processed') do |ids|
+    batch_action_collection.find(ids).each do |solicitation|
+      solicitation.status_processed!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('solicitations.mark_as_processed.done')
+  end
+
   ## CSV
   #
   csv do
