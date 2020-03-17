@@ -5,4 +5,4 @@
   = link_to t('.canceled'), canceled_solicitations_path, class: 'compact ui button right floated'
   = link_to t('.processed'), processed_solicitations_path, class: 'compact ui button right floated'
 
-= render @solicitations
+= render partial: 'solicitations/solicitation', collection: @solicitations, cached: true
