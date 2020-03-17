@@ -42,6 +42,7 @@ ActiveAdmin.register Solicitation do
   ## CSV
   #
   csv do
+    column :id
     column :created_at
     column :description
     column :siret
