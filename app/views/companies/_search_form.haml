@@ -7,7 +7,7 @@
     .field
       - if local_assigns[:solicitation].present?
         = hidden_field_tag :solicitation, solicitation.id
-      - siret = defined?(solicitation) ? solicitation&.siret : ''
+      - siret = local_assigns[:solicitation]&.siret
       .ui.action.input
         = text_field_tag :query, query || siret, autofocus: true, placeholder: t('companies.search.explanation')
         %button.ui.button.green{ type: 'submit' }= t('search')
