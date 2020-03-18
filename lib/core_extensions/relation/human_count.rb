@@ -7,7 +7,7 @@ module CoreExtensions
       # > user.last.searches.human_count
       # => "12 recherches"
       def human_count
-        "#{count} #{@klass.model_name.human(count: count).downcase}"
+        "#{size} #{@klass.model_name.human(count: size).downcase}"
       end
     end
   end

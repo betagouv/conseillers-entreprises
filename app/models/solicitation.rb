@@ -20,7 +20,7 @@ class Solicitation < ApplicationRecord
 
   ## Associations
   #
-  has_many :diagnoses
+  has_many :diagnoses, inverse_of: :solicitation
 
   ## Validations
   #
