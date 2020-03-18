@@ -3,7 +3,7 @@
 #company-show
   %h1
     = @company.name
-    = link_to t('.create_diagnosis'), create_diagnosis_from_siret_companies_path(siret: params[:siret]),
+    = link_to t('.create_diagnosis'), create_diagnosis_from_siret_companies_path(params.permit(:siret, :solicitation).slice(:siret, :solicitation)),
     method: :post, class: 'ui right floated positive basic button'
 
   - if @diagnoses.present?

@@ -8,7 +8,7 @@
   %a.item{ "data-tab" => "second" }
     = t('.search_manually')
 .ui.bottom.attached.tab.new-diagnosis.segment.active{ "data-tab" => "first" }
-  = render partial: 'companies/search_form', locals: { query: @query }
+  = render partial: 'companies/search_form', locals: { query: @query, solicitation: @solicitation }
 
 .ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second" }
   %h2.ui.header
@@ -19,9 +19,11 @@
 
   = form_with url: create_diagnosis_without_siret_diagnoses_url, method: :post, class: 'ui form' do
 
+    - if @solicitation.present?
+      = hidden_field_tag :solicitation, @solicitation.id
     .field
       = label_tag t('.name')
-      = text_field_tag :name, @params['name'], required: true
+      = text_field_tag :name, @params['name'] || defined?(@solicitation) ? @solicitation.full_name : '', required: true
     .field
       = label_tag t('.postal_code')
       = text_field_tag :postal_code, @params['postal_code'], required: true, pattern: '[0-9]{5}'

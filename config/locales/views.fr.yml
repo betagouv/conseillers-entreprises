@@ -443,6 +443,8 @@ fr:
         other: "%{advisor} a identifié %{count} besoins."
       person_advisor: Conseiller
       person_company_contact: Personne rencontrée
+      solicitation: Sollicitation %{id}
+      solicitation_link: Lien vers la sollicitation
       visit_made_on: Mise en relation faite le %{date}
   pages:
     footer:
@@ -475,8 +477,6 @@ fr:
     canceled:
       title: solicitations annulées
     index:
-      canceled: Annulées
-      processed: Traitées
       title: Solicitations
     mark_as_canceled:
       done: La sollicitation a été annulée
@@ -511,6 +511,7 @@ fr:
       title: solicitations traitées
     solicitation:
       cancel: Annuler
+      create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'
       mark_as_processed: Clôturer
@@ -518,6 +519,10 @@ fr:
       selected_options: 'Cases cochées :'
       siret: 'Siret :'
       slug: 'Page thématique :'
+    solicitations_tabs:
+      canceled: Annulées
+      in_progress: À traiter
+      processed: Traitées
   stats:
     series:
       advisors_html: <span class="count">%{count}</span> conseillers publics

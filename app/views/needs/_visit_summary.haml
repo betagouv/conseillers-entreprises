@@ -27,3 +27,11 @@
             - if diagnosis.content
               .extra.text= diagnosis.content
 
+  - if diagnosis.solicitation.present?
+    .ui.horizontal.divider.sub.header
+      = t('.solicitation', id: diagnosis.solicitation.id)
+    .row
+      .column
+        = simple_format diagnosis.solicitation.description
+        = link_to(t('.solicitation_link'), processed_solicitations_path(anchor: diagnosis.solicitation.id))
+
