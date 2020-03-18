@@ -1,0 +1,16 @@
+.event{ id: "feedback_form-#{feedback.feedbackable_type}-#{feedback.feedbackable_id}" }
+  .label
+  .content
+    .summary
+      = t('.title')
+      .date.diagnosis= t("feedbacks.form.#{feedback.feedbackable_type.underscore}.subtitle")
+    .extra
+    = form_with model: feedback, class: 'ui form' do |form|
+      = form.hidden_field :feedbackable_id
+      = form.hidden_field :feedbackable_type
+      .field
+        = form.text_area :description, placeholder: t("feedbacks.form.#{feedback.feedbackable_type.underscore}.placeholder"),
+          class: 'top attached',
+          rows: 2, required: true
+      = form.button :submit, class: 'ui green small button' do
+        = t('.submit')

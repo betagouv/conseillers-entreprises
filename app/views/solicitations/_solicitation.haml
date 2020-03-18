@@ -32,6 +32,10 @@
         %strong= t('.description')
         %p= simple_format solicitation.description
 
+  .ui.segment.feed
+    = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks.order(:created_at)
+    = render 'feedbacks/form', feedback: solicitation.feedbacks.new
+
   .ui.aligned.grid.segment
     .right.floated.right.aligned.column
       = render 'solicitation_actions', solicitation: solicitation
