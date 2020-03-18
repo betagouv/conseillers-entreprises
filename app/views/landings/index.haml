@@ -10,7 +10,8 @@
     %h2.lead-text
       = t('.answer')
     = link_to t('.submit_request'), '#section-thematiques', class: 'button blue'
-    = render 'institutions'
+    - cache('institutions', expires_in: 1.hour) do
+      = render 'institutions'
 
 %section.section.section-color#section-thematiques
   .container
@@ -22,6 +23,7 @@
 
 %section.section.section-grey#stats
   .container.container-medium
-    = render 'stats/ministats'
+    - cache('ministats', expires_in: 1.hour) do
+      = render 'stats/ministats'
 
 
