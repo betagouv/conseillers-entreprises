@@ -26,3 +26,4 @@
 // = require semantic-ui/dimmer
 
 // = require_tree ./application
+// = require_tree ./shared

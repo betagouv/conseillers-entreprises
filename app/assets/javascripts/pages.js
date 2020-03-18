@@ -7,3 +7,4 @@
 // = require rails-ujs
 
 // = require_tree ./pages
+// = require_tree ./shared
