@@ -23,7 +23,8 @@
       = hidden_field_tag :solicitation, @solicitation.id
     .field
       = label_tag t('.name')
-      = text_field_tag :name, @params['name'] || defined?(@solicitation) ? @solicitation.full_name : '', required: true
+      - name = local_assigns[:solicitation]&.full_name
+      = text_field_tag :name, name, required: true
     .field
       = label_tag t('.postal_code')
       = text_field_tag :postal_code, @params['postal_code'], required: true, pattern: '[0-9]{5}'
