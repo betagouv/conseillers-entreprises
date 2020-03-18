@@ -1,5 +1,5 @@
 %ul
-  - if solicitation.pk_campaign
+  - if solicitation.pk_campaign.present?
     %li #{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(solicitation)}
-  - if solicitation.pk_kwd
+  - if solicitation.pk_kwd.present?
     %li #{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(solicitation)} »
