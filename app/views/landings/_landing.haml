@@ -1,5 +1,5 @@
 .card{ class: (landing.emphasis.to_bool ? 'emphasis' : '') }
-  - path = landing_path({ slug: landing.slug, anchor: 'section-exemples' }.merge(tracking_params))
+  - path = landing_path({ slug: landing.slug, anchor: 'section-newsletter-covid' }.merge(tracking_params))
   = link_to path do
     .card__content
       %h3.landing-title= simple_format(landing.home_title, {}, wrapper_tag: 'span')
