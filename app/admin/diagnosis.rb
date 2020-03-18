@@ -9,7 +9,7 @@ ActiveAdmin.register Diagnosis do
 
   ## Index
   #
-  includes :facility, :company, :advisor, :needs, :matches
+  includes :facility, :company, :advisor, :needs, :matches, :solicitation
   includes facility: :commune
 
   scope :completed, default: true
@@ -19,6 +19,7 @@ ActiveAdmin.register Diagnosis do
     selectable_column
     column(:visit) do |d|
       div admin_link_to(d)
+      div admin_link_to(d, :solicitation)
     end
     column :company
     column(:commune) { |d| d.facility.readable_locality || d.facility.commune }
@@ -62,6 +63,7 @@ ActiveAdmin.register Diagnosis do
   #
   show do
     attributes_table do
+      row :solicitation
       row :facility
       row(:happened_on) { |d| d.display_date }
       row :created_at

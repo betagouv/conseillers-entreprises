@@ -5,6 +5,8 @@ ActiveAdmin.register Solicitation do
   #
   scope :all, default: true
 
+  includes :diagnoses, diagnoses: :company
+
   index do
     selectable_column
     column :solicitation do |s|
@@ -23,6 +25,9 @@ ActiveAdmin.register Solicitation do
         end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
+      if s.diagnoses.size > 0
+        div "#{s.diagnoses.human_count} :<br/>".html_safe + admin_link_to(s, :diagnoses, list: true)
+      end
     end
 
     column "#{t('attributes.coordinates')} | #{t('activerecord.attributes.solicitation.tracking')}" do |s|
@@ -114,6 +119,7 @@ ActiveAdmin.register Solicitation do
       row :status do
         status_tag Solicitation.human_attribute_name("statuses.#{solicitation.status}"), class: solicitation.status
       end
+      row :diagnoses
       row :created_at
       row :updated_at
     end
