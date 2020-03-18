@@ -48,25 +48,5 @@
           = t('.notify_matches')
 
     .clear
-
-:javascript
-  (function() {
-    var checkboxes = $("#selection-form input:checkbox");
-    function setBoxesValidity() {
-      if (checkboxes.is(":checked")) {
-        checkboxes.each(function() {
-          this.setCustomValidity("");
-        });
-      } else {
-        checkboxes.each(function() {
-          this.setCustomValidity("#{ t('.select_at_least_one_expert') }");
-        });
-      }
-    }
-    checkboxes.on("click", function() {
-      setBoxesValidity();
-    });
-    $(document).ready(function(){
-      setBoxesValidity();
-    });
-  }) ()
+    :javascript
+        checkboxes_require_one("#selection-form", "#{ t(".select_at_least_one_expert") }");
