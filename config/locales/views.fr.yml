@@ -220,6 +220,8 @@ fr:
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
+      select_at_least_one_option: Sélectionnez au moins une case
+      select_options: 'Sélectionnez les cases qui correspondent à votre situation :'
       siret:
         label: SIRET
         placeholder: 123 456 789 00010
