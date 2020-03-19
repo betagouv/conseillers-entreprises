@@ -5,4 +5,7 @@
 
 = render 'solicitations_tabs'
 
+= paginate @solicitations#, remote: true
+= page_entries_info @solicitations
+
 = render partial: 'solicitations/solicitation', collection: @solicitations, cached: true

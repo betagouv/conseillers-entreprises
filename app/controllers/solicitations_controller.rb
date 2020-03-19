@@ -32,7 +32,7 @@ class SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations
-    Solicitation.order(updated_at: :desc)
+    Solicitation.order(updated_at: :desc).page params[:page]
   end
 
   def authorize_index_solicitation
