@@ -82,6 +82,9 @@ ActiveAdmin.register Solicitation do
     column :full_name
     column :phone_number
     column :email
+    column :selected_options do |s|
+      s.selected_options.join("\n")
+    end
     Solicitation::FORM_INFO_KEYS.each{ |k| column k }
   end
 
