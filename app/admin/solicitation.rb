@@ -62,18 +62,16 @@ ActiveAdmin.register Solicitation do
   remove_filter :with_selected_option
   filter :with_selected_option_in, as: :select, label: I18n.t('solicitations.solicitation.selected_options'), collection: -> { LandingOption.all.pluck(:slug) }
 
-  batch_action I18n.t('solicitations.solicitation.cancel') do |ids|
-    batch_action_collection.find(ids).each do |solicitation|
-      solicitation.status_canceled!
+  ## Batch actions
+  # Statuses
+  Solicitation.statuses.keys.each do |status|
+    batch_action Solicitation.human_attribute_name("statuses_actions.#{status}") do |ids|
+      solicitations = batch_action_collection.where(id: ids)
+      solicitations.update(status: status)
+      model = Solicitation.model_name.human(count: solicitations.size)
+      done = Solicitation.human_attribute_name("statuses_done.#{status}", count: solicitations.size)
+      redirect_back fallback_location: collection_path, notice: "#{model} #{done}"
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('solicitations.mark_as_canceled.done')
-  end
-
-  batch_action I18n.t('solicitations.solicitation.mark_as_processed') do |ids|
-    batch_action_collection.find(ids).each do |solicitation|
-      solicitation.status_processed!
-    end
-    redirect_back fallback_location: collection_path, notice: I18n.t('solicitations.mark_as_processed.done')
   end
 
   ## CSV
