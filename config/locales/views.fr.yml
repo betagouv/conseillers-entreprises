@@ -476,8 +476,6 @@ fr:
     show:
       title: Relances / %{full_name}
   solicitations:
-    canceled:
-      title: solicitations annulées
     index:
       title: Solicitations
     needs:
@@ -503,8 +501,6 @@ fr:
         '08-reglementation': Réglementation
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
-    processed:
-      title: solicitations traitées
     solicitation:
       create_diagnosis: Démarrer une analyse
       description: 'Description :'
