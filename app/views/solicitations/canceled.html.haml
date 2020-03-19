@@ -1,9 +1,0 @@
-- meta title: t('.title')
-
-%h1.ui.header
-  = @solicitations.human_count
-
-= render 'solicitations_tabs'
-
-= render partial: 'solicitations/solicitation', collection: @solicitations, cached: true
-

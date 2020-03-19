@@ -196,6 +196,15 @@ fr:
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: "<b>%{total}</b> %{entry_name} (affichage de %{first} à %{last})"
+      one_page:
+        display_entries:
+          one: "<b>1</b> %{entry_name}"
+          other: "<b>all %{count}</b> %{entry_name}"
+          zero: Aucune %{entry_name}
   landings:
     create_solicitation:
       thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
@@ -476,16 +485,8 @@ fr:
     show:
       title: Relances / %{full_name}
   solicitations:
-    canceled:
-      title: solicitations annulées
     index:
       title: Solicitations
-    mark_as_canceled:
-      done: La sollicitation a été annulée
-    mark_as_in_progress:
-      done: La sollicitation a été rouverte
-    mark_as_processed:
-      done: La sollicitation a été traitée
     needs:
       long:
         01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?
@@ -509,15 +510,10 @@ fr:
         '08-reglementation': Réglementation
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
-    processed:
-      title: solicitations traitées
     solicitation:
-      cancel: Annuler
       create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'
-      mark_as_processed: Clôturer
-      re_open: Rouvrir
       selected_options: 'Cases cochées :'
       siret: 'Siret :'
       slug: 'Page thématique :'
@@ -608,3 +604,10 @@ fr:
         antenne_within_institution: Antenne (au sein de %{institution})
         contact_us_for_missing_antenne_html: Si vous ne trouvez pas votre antenne, <a href="mailto:%{email}">contactez-nous</a>.
     thats_you: C’est vous !
+  views:
+    pagination:
+      first: Première page
+      last: Dernière page
+      next: Page suivante
+      previous: Page précédente
+      truncate: "&hellip;"

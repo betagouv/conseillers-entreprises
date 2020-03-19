@@ -29,4 +29,17 @@ module SolicitationHelper
       solicitation.pk_kwd
     end
   end
+
+  STATUS_ACTION_COLORS = {
+    in_progress: %w[yellow],
+    processed: %w[grey],
+    canceled: %w[red]
+  }
+
+  def status_action_link(solicitation, new_status, classes = %w[])
+    name = Solicitation.human_attribute_name("statuses_actions.#{new_status}")
+    path = update_status_solicitation_path(solicitation, status: new_status)
+    classes += STATUS_ACTION_COLORS[new_status.to_sym]
+    link_to name, path, method: :post, remote: true, class: classes.join(' ')
+  end
 end

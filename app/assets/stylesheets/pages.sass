@@ -18,6 +18,9 @@
   img
     height: 40px
 
+input[type=submit].button
+  -webkit-appearance: none
+
 footer
   .title
     display: flex
@@ -183,6 +186,9 @@ section.section#section-formulaire
   #solicitation-options .panel
     padding: 1em
     padding: var(--space-s)
+    input[type=checkbox]:-moz-ui-invalid
+      // Firefox adds a red outline before the user clicks a checkbox, remove it.
+      box-shadow: none
 
 .section#stats
   padding: 2em
