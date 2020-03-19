@@ -55,6 +55,7 @@ gem 'mailjet'
 gem 'turbolinks'
 gem 'rails-i18n'
 gem 'honeypot-captcha'
+gem 'kaminari'
 gem 'bootsnap', require: false
 
 # Notifiers

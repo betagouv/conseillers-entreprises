@@ -7,16 +7,18 @@ class SolicitationsController < ApplicationController
     @solicitations = ordered_solicitations.status_in_progress
   end
 
-  def show
-    authorize @solicitation
-  end
-
   def processed
     @solicitations = ordered_solicitations.status_processed
+    render :index
   end
 
   def canceled
     @solicitations = ordered_solicitations.status_canceled
+    render :index
+  end
+
+  def show
+    authorize @solicitation
   end
 
   def update_status
@@ -30,7 +32,7 @@ class SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations
-    Solicitation.order(updated_at: :desc)
+    Solicitation.order(updated_at: :desc).page params[:page]
   end
 
   def authorize_index_solicitation

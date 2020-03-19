@@ -48,6 +48,11 @@ Rails.application.routes.draw do
       get :processed, path: 'traitees'
       get :canceled, path: 'annulees'
     end
+    collection do # Nice pagination paths instead of the ?page= parameter (for kaminari)
+      get 'page/:page', action: :index
+      get 'traitees/page/:page', action: :processed
+      get 'annulees/page/:page', action: :canceled
+    end
   end
 
   controller :about do
