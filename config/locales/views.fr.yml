@@ -480,12 +480,6 @@ fr:
       title: solicitations annulées
     index:
       title: Solicitations
-    mark_as_canceled:
-      done: La sollicitation a été annulée
-    mark_as_in_progress:
-      done: La sollicitation a été rouverte
-    mark_as_processed:
-      done: La sollicitation a été traitée
     needs:
       long:
         01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?
@@ -512,12 +506,9 @@ fr:
     processed:
       title: solicitations traitées
     solicitation:
-      cancel: Annuler
       create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'
-      mark_as_processed: Clôturer
-      re_open: Rouvrir
       selected_options: 'Cases cochées :'
       siret: 'Siret :'
       slug: 'Page thématique :'

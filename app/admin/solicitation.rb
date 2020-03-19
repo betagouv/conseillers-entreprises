@@ -42,7 +42,12 @@ ActiveAdmin.register Solicitation do
       div s.normalized_phone_number
       div mail_to(s.email)
       hr
-      render 'solicitations/tracking', solicitation: s
+      if s.pk_campaign.present?
+        div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}"
+      end
+      if s.pk_kwd.present?
+        div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s)} »"
+      end
       if s.partner_token.present?
         admin_attr(s, :institution)
       end
@@ -57,18 +62,16 @@ ActiveAdmin.register Solicitation do
   remove_filter :with_selected_option
   filter :with_selected_option_in, as: :select, label: I18n.t('solicitations.solicitation.selected_options'), collection: -> { LandingOption.all.pluck(:slug) }
 
-  batch_action I18n.t('solicitations.solicitation.cancel') do |ids|
-    batch_action_collection.find(ids).each do |solicitation|
-      solicitation.status_canceled!
+  ## Batch actions
+  # Statuses
+  Solicitation.statuses.keys.each do |status|
+    batch_action Solicitation.human_attribute_name("statuses_actions.#{status}") do |ids|
+      solicitations = batch_action_collection.where(id: ids)
+      solicitations.update(status: status)
+      model = Solicitation.model_name.human(count: solicitations.size)
+      done = Solicitation.human_attribute_name("statuses_done.#{status}", count: solicitations.size)
+      redirect_back fallback_location: collection_path, notice: "#{model} #{done}"
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('solicitations.mark_as_canceled.done')
-  end
-
-  batch_action I18n.t('solicitations.solicitation.mark_as_processed') do |ids|
-    batch_action_collection.find(ids).each do |solicitation|
-      solicitation.status_processed!
-    end
-    redirect_back fallback_location: collection_path, notice: I18n.t('solicitations.mark_as_processed.done')
   end
 
   ## CSV

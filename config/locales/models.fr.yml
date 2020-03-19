@@ -179,6 +179,20 @@ fr:
         canceled: Annulée
         in_progress: Reçue
         processed: Clôturée
+      solicitation/statuses_actions:
+        canceled: Annuler
+        in_progress: Réouvrir
+        processed: Clôturer
+      solicitation/statuses_done:
+        canceled:
+          one: annulée
+          other: annulées
+        in_progress:
+          one: réouverte
+          other: réouvertes
+        processed:
+          one: clôturée
+          other: clôturées
       subject:
         institutions_subjects: Compétences d’institutions
         is_support: Support

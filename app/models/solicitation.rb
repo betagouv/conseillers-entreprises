@@ -98,4 +98,10 @@ class Solicitation < ApplicationRecord
   def normalized_siret
     siret.gsub(/(\d{3})(\d{3})(\d{3})(\d*)/, '\1 \2 \3 \4')
   end
+
+  ##
+  #
+  def allowed_new_statuses
+    self.class.statuses.keys - [self.status]
+  end
 end
