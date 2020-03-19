@@ -541,6 +541,7 @@ DEPENDENCIES
   i18n-tasks
   jbuilder
   jquery-rails
+  kaminari
   letter_opener_web
   listen
   mailjet
