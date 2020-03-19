@@ -31,9 +31,5 @@
         %p= simple_format solicitation.description
   .ui.segment.right.aligned
     = link_to t('.create_diagnosis'), new_diagnosis_path(solicitation: solicitation.id), class: 'ui green button compact'
-    - unless solicitation.status_in_progress?
-      = link_to t('.re_open'), mark_as_in_progress_solicitation_path(solicitation), method: :post, remote: true, class: 'ui yellow button compact'
-    - unless solicitation.status_processed?
-      = link_to t('.mark_as_processed'), mark_as_processed_solicitation_path(solicitation), method: :post, remote: true, class: 'ui grey button compact'
-    - unless solicitation.status_canceled?
-      = link_to t('.cancel'), mark_as_canceled_solicitation_path(solicitation), method: :post, remote: true, class: 'ui red button compact'
+    - solicitation.allowed_new_statuses.each do |status|
+      = status_action_link(solicitation, status, %w[ui button compact])

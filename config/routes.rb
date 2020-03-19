@@ -42,9 +42,7 @@ Rails.application.routes.draw do
 
   resources :solicitations, only: %i[index show], path: 'sollicitations' do
     member do
-      post :mark_as_processed
-      post :mark_as_canceled
-      post :mark_as_in_progress
+      post :update_status
     end
     collection do
       get :processed, path: 'traitees'
