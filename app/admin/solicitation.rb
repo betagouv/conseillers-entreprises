@@ -42,7 +42,12 @@ ActiveAdmin.register Solicitation do
       div s.normalized_phone_number
       div mail_to(s.email)
       hr
-      render 'solicitations/tracking', solicitation: s
+      if s.pk_campaign.present?
+        div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}"
+      end
+      if s.pk_kwd.present?
+        div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s)} »"
+      end
       if s.partner_token.present?
         admin_attr(s, :institution)
       end
