@@ -1,11 +1,10 @@
 - meta title: t('.title')
 
-%h1.ui.header
-  = @solicitations.human_count
-
 = render 'solicitations_tabs'
+%p= page_entries_info @solicitations
+= paginate @solicitations
 
-= paginate @solicitations#, remote: true
-= page_entries_info @solicitations
 
 = render partial: 'solicitations/solicitation', collection: @solicitations, cached: true
+
+= paginate @solicitations
