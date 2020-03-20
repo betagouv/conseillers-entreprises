@@ -25,11 +25,9 @@ class CompanyMailer < ApplicationMailer
 
   def notify_taking_care(match)
     @match = match
-    @need = match.need
-    @advisor = match.advisor
-    @expert = match.expert
+    @diagnosis = match.diagnosis
     mail(
-      to: @match.diagnosis.visitee.email_with_display_name,
+      to: @diagnosis.visitee.email_with_display_name,
       subject: t('mailers.company_mailer.notify_taking_care.subject')
     )
   end

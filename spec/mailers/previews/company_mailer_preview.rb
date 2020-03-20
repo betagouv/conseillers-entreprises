@@ -11,20 +11,12 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.notify_matches_made(Diagnosis.completed.from_visit.sample)
   end
 
-  def taking_care_by_expert
-    match = Match.joins(:diagnosis)
-      .where.not(id: Match.with_deleted_expert)
-      .where.not(diagnoses: { advisor: User.not_deleted.support_users })
-      .sample
-    CompanyMailer.notify_taking_care(match)
+  def taking_care_solicitation
+    CompanyMailer.notify_taking_care(Diagnosis.completed.from_solicitation.sample.matches.sample)
   end
 
-  def taking_care_by_support
-    match = Match.joins(:diagnosis)
-      .where.not(id: Match.with_deleted_expert)
-      .where(diagnoses: { advisor: User.not_deleted.support_users })
-      .sample
-    CompanyMailer.notify_taking_care(match)
+  def taking_care_visit
+    CompanyMailer.notify_taking_care(Diagnosis.completed.from_visit.sample.matches.sample)
   end
 
   private

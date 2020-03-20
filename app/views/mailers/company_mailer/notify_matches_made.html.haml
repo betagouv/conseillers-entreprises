@@ -1,8 +1,7 @@
 %p= t('mailers.hello')
 
-- if @diagnosis.solicitation.present?
-  = t('mailers.company_mailer.intro_from_solicitation_html',
-  company: @diagnosis.company.name)
+- if @diagnosis.from_solicitation?
+  = t('mailers.company_mailer.intro_from_solicitation_html', company: @diagnosis.company.name)
 - else
   = t('mailers.company_mailer.intro_from_visit_html',
    company: @diagnosis.company.name,
@@ -16,9 +15,11 @@
     %li
       %strong= subject.label
 
-- institutions_names = @diagnosis.expert_institutions.map(&:name)
-- institutions_names.map! { |name| content_tag('strong', name) }
-= t('.transmitted_to_institutions_html', institutions: institutions_names.to_sentence.html_safe)
+- antennes_names = @diagnosis.expert_antennes.map(&:name)
+- antennes_names.map! { |name| content_tag('strong', name) }
+= t('.transmitted_to_antennes_html', antennes: antennes_names.to_sentence.html_safe)
+
+%p= t('mailers.nice_day')
 
 - link_to_root = link_to t('app_name'), root_url
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)

@@ -327,10 +327,9 @@ fr:
           other: 'Votre demande portait sur ces sujets :'
         subject_from_solicitation: Transmission de votre demande sur Place des Entreprises
         subject_from_visit: Transmission des besoins de votre entreprise sur Place des Entreprises
-        transmitted_to_institutions_html: "<p>Elle a été transmise aux conseillers de %{institutions}. Ces conseillers vont analyser votre situation et ceux qui peuvent vous aider vous recontacteront.</p>"
+        transmitted_to_antennes_html: "<p>Elle a été transmise aux conseillers de %{antennes}. Ces conseillers vont analyser votre situation et ceux qui peuvent vous aider vous recontacteront.</p>"
       notify_taking_care:
-        content_by_expert_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise %{company}. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises. Ce nouveau service réunit en effet <strong>tous les partenaires publics pouvant aider les TPE &amp; PME</strong>.</p><p>Nous vous informons que votre demande - %{subject} - vient d’être prise en charge par <strong>%{expert_antenne}</strong>.</p><p>Un conseiller va prendre contact avec vous pour vous accompagner. Vérifiez également vos mails.</p><p>Bonne journée,</p>"
-        content_by_support_html: Votre demande sur Place des Entreprise - %{subject} - vient d’être prise en charge par %{expert_antenne}.
+        content_by_expert_html: "<p>Nous vous informons que votre demande - <strong>%{subject}</strong> - vient d’être prise en charge par <strong>%{expert_antenne}</strong>.</p><p>Un conseiller va prendre contact avec vous pour vous accompagner. Vérifiez également vos mails.</p>"
         subject: Prise en charge de votre demande sur Place des Entreprises
     expert_mailer:
       never_used_account_warning:
@@ -358,6 +357,7 @@ fr:
       contact_us_mailto_text: nous contacter
     hello: Bonjour,
     hello_name: Bonjour %{name},
+    nice_day: Bonne journée,
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
     user_mailer:
