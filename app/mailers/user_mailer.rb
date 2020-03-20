@@ -3,13 +3,6 @@
 class UserMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/user_mailer'
-  add_template_helper(UserMailerHelper)
-
-  def daily_change_update(user, change_updates)
-    @user = user
-    @change_updates = change_updates
-    mail(to: @user.email, subject: t('mailers.user_mailer.daily_change_update.subject'))
-  end
 
   def confirm_notifications_sent(diagnosis)
     @diagnosis = diagnosis

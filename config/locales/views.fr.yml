@@ -319,11 +319,18 @@ fr:
       confirmation_solicitation:
         content_html: "<p>Votre demande a bien été prise en compte sur le site Place des Entreprises. Si un complément d’informations est nécessaire, nous revenons vers vous dans les 72 heures.</p><p>Vous serez ensuite contacté par les partenaires publics susceptibles de vous aider.</p><p>L’équipe Place des Entreprises assure un suivi qualité pour qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
         subject: Bonne réception de votre demande sur Place des Entreprises
-      taking_care_by_expert:
-        content_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise %{company}. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises. Ce nouveau service réunit en effet <strong>tous les partenaires publics pouvant aider les TPE &amp; PME</strong>.</p><p>Nous vous informons que votre demande - %{subject} - vient d’être prise en charge par <strong>%{expert_antenne}</strong>.</p><p>Un conseiller va prendre contact avec vous pour vous accompagner. Vérifiez également vos mails.</p><p>Bonne journée,</p>"
-        subject: Prise en charge de votre demande sur Place des Entreprise
-      taking_care_by_support:
-        content_html: Votre demande sur Place des Entreprise - %{subject} - vient d’être prise en charge par %{expert_antenne}.
+      intro_from_solicitation_html: Vous avez contacté Place des Entreprises au sujet de votre entreprise <strong>%{company}</strong>.
+      intro_from_visit_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise <strong>%{company}</strong>. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises, qui réunit tous les partenaires publics pouvant aider les TPE &amp; PME.</p>"
+      notify_matches_made:
+        needs_summary:
+          one: 'Votre demande portait sur ce sujet :'
+          other: 'Votre demande portait sur ces sujets :'
+        subject_from_solicitation: Transmission de votre demande sur Place des Entreprises
+        subject_from_visit: Transmission des besoins de votre entreprise sur Place des Entreprises
+        transmitted_to_antennes_html: "<p>Elle a été transmise aux conseillers de %{antennes}. Ces conseillers vont analyser votre situation et ceux qui peuvent vous aider vous recontacteront.</p>"
+      notify_taking_care:
+        content_by_expert_html: "<p>Nous vous informons que votre demande - <strong>%{subject}</strong> - vient d’être prise en charge par <strong>%{expert_antenne}</strong>.</p><p>Un conseiller va prendre contact avec vous pour vous accompagner. Vérifiez également vos mails.</p>"
+        subject: Prise en charge de votre demande sur Place des Entreprises
     expert_mailer:
       never_used_account_warning:
         you_need_to_use_your_user_account: Attention ! Place des entreprises nécessite désormais de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
@@ -350,6 +357,7 @@ fr:
       contact_us_mailto_text: nous contacter
     hello: Bonjour,
     hello_name: Bonjour %{name},
+    nice_day: Bonne journée,
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
     user_mailer:
@@ -366,17 +374,6 @@ fr:
           other: "[Place des Entreprises] Confirmation de notification des besoins de l’entreprise %{company}"
         thank_you: "Merci ! \U0001F44D"
         you_met_company_html: Le %{visit_date}, vous avez rencontré
-      daily_change_update:
-        context: "%{expert_name}, %{expert_institution}, contacté·e pour le besoin %{subject_title} de l’entreprise %{company_name} le %{start_date},"
-        nice_day: Bonne journée,
-        status:
-          done: a indiqué que le besoin a été clôturé.
-          not_finished: a indiqué que le besoin est toujours en cours de résolution.
-          not_for_me: a indiqué que le besoin est hors de son champ de compétence.
-          taking_care: a pris en charge la résolution du besoin.
-          waiting_for_answer: n’a pas pris de décision sur le besoin.
-        subject: Hier sur Place des Entreprises
-        yesterday: 'Hier sur Place des Entreprises les demandes suivantes ont évolué :'
       match_feedback:
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
         reply: Répondre
@@ -390,7 +387,7 @@ fr:
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         nice_day: Bonne journée,
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-    withdraw_request_html: Si vous souhaitez retirer votre demande, contactez-nous %{mailto_link}
+    withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})

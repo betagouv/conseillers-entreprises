@@ -24,10 +24,7 @@ module Stats
     end
 
     def category_group_attribute
-      # Once we actually join the Solicitation and Diagnosis,
-      # we’ll be able to properly query if a Diagnosis came from a Solicitation.
-      # In the meantime, we’ll just see if the advisor was from the DINUM.
-      Arel.sql("institutions.name = 'DINUM'")
+      Diagnosis.arel_table[:solicitation_id].not_eq(nil)
     end
 
     def category_name(category)

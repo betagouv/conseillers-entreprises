@@ -82,6 +82,8 @@ class Diagnosis < ApplicationRecord
 
   ## Scopes
   #
+  scope :from_solicitation, -> { where.not(solicitation: nil) }
+  scope :from_visit, -> { where(solicitation: nil) }
   scope :in_progress, -> { where.not(step: :completed) }
   scope :completed, -> { where(step: :completed) }
   scope :available_for_expert, -> (expert) do
@@ -110,6 +112,14 @@ class Diagnosis < ApplicationRecord
     matches&.first&.created_at
   end
 
+  def from_solicitation?
+    solicitation_id.present?
+  end
+
+  def from_visit?
+    solicitation_id.nil?
+  end
+
   ## Matching
   #
   def match_and_notify!(experts_and_subjects_for_needs)
@@ -120,17 +130,21 @@ class Diagnosis < ApplicationRecord
       end
       self.update!(step: Diagnosis.steps[:completed])
     end
-    notify_experts!
+    notify_matches_made!
     update_result
   end
 
-  def notify_experts!
+  def notify_matches_made!
+    # Notify experts
     experts.each do |expert|
       ExpertMailer.notify_company_needs(expert, self).deliver_later
     end
+    # Notify Advisor
     unless advisor.disable_email_confirm_notifications_sent.to_bool
       UserMailer.confirm_notifications_sent(self).deliver_later
     end
+    # Notify Company
+    CompanyMailer.notify_matches_made(self).deliver_later
   end
 
   private

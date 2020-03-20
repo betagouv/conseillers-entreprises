@@ -3,12 +3,20 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.confirmation_solicitation(email)
   end
 
-  def taking_care_by_expert
-    CompanyMailer.taking_care_by_expert(match)
+  def notify_matches_made_solicitation
+    CompanyMailer.notify_matches_made(Diagnosis.completed.from_solicitation.sample)
   end
 
-  def taking_care_by_support
-    CompanyMailer.taking_care_by_support(match)
+  def notify_matches_made_visit
+    CompanyMailer.notify_matches_made(Diagnosis.completed.from_visit.sample)
+  end
+
+  def taking_care_solicitation
+    CompanyMailer.notify_taking_care(Diagnosis.completed.from_solicitation.sample.matches.sample)
+  end
+
+  def taking_care_visit
+    CompanyMailer.notify_taking_care(Diagnosis.completed.from_visit.sample.matches.sample)
   end
 
   private
