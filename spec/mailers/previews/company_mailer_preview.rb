@@ -3,6 +3,14 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.confirmation_solicitation(email)
   end
 
+  def notify_matches_made_solicitation
+    CompanyMailer.notify_matches_made(Diagnosis.completed.from_solicitation.sample)
+  end
+
+  def notify_matches_made_visit
+    CompanyMailer.notify_matches_made(Diagnosis.completed.from_visit.sample)
+  end
+
   def taking_care_by_expert
     match = Match.joins(:diagnosis)
       .where.not(id: Match.with_deleted_expert)

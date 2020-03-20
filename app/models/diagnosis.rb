@@ -130,17 +130,21 @@ class Diagnosis < ApplicationRecord
       end
       self.update!(step: Diagnosis.steps[:completed])
     end
-    notify_experts!
+    notify_matches_made!
     update_result
   end
 
-  def notify_experts!
+  def notify_matches_made!
+    # Notify experts
     experts.each do |expert|
       ExpertMailer.notify_company_needs(expert, self).deliver_later
     end
+    # Notify Advisor
     unless advisor.disable_email_confirm_notifications_sent.to_bool
       UserMailer.confirm_notifications_sent(self).deliver_later
     end
+    # Notify Company
+    CompanyMailer.notify_matches_made(self).deliver_later
   end
 
   private

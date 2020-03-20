@@ -11,6 +11,18 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
+  def notify_matches_made(diagnosis)
+    @diagnosis = diagnosis
+
+    subject = @diagnosis.from_solicitation? ?
+      t('mailers.company_mailer.notify_matches_made.subject_from_solicitation') :
+      t('mailers.company_mailer.notify_matches_made.subject_from_visit')
+    mail(
+      to: @diagnosis.visitee.email_with_display_name,
+      subject: subject
+    )
+  end
+
   def notify_taking_care(match)
     @match = match
     @need = match.need
