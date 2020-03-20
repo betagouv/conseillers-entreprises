@@ -82,6 +82,8 @@ class Diagnosis < ApplicationRecord
 
   ## Scopes
   #
+  scope :from_solicitation, -> { where.not(solicitation: nil) }
+  scope :from_visit, -> { where(solicitation: nil) }
   scope :in_progress, -> { where.not(step: :completed) }
   scope :completed, -> { where(step: :completed) }
   scope :available_for_expert, -> (expert) do
@@ -108,6 +110,14 @@ class Diagnosis < ApplicationRecord
     # We could also add a diagnoses.completed_at column;
     # if we ever want to use completed_at for queries, that’ll be necessary.
     matches&.first&.created_at
+  end
+
+  def from_solicitation?
+    solicitation_id.present?
+  end
+
+  def from_visit?
+    solicitation_id.nil?
   end
 
   ## Matching
