@@ -8,11 +8,7 @@ class MatchesController < ApplicationController
     @match.update status: params[:status]
     UserMailer.deduplicated_send_match_notify(@match, current_user, previous_status)
     if @match.status_taking_care?
-      if @match.advisor.support_expert_subject.nil?
-        CompanyMailer.taking_care_by_expert(@match).deliver_later
-      else
-        CompanyMailer.taking_care_by_support(@match).deliver_later
-      end
+      CompanyMailer.notify_taking_care(@match).deliver_later
     end
   end
 end

@@ -26,6 +26,8 @@ fr:
       deactivated: Désactivés
       diagnosis_completed: Analyses terminées
       done: Clôturé
+      from_solicitation: Sollicitations
+      from_visit: Visites
       invitation_not_accepted: Invitations pas encore acceptées
       never_used: Non connectable
       no_team: Solo
@@ -42,6 +44,8 @@ fr:
         abandoned_quo_not_taken: Non pris en charge depuis 3 semaines
         abandoned_taken_not_done: Pas de nouvelles depuis 3 semaines
         diagnosis_completed: Besoins identifiés dans des analyses terminées
+        from_solicitation: Analyses à partir d’une sollicitation directe
+        from_visit: Analyses faites par des conesillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
         no_team: Utilisateurs non membres d’une équipe. Ils n’ont qu’un seul référent, qui correspond à leur domaine de compétence personnel.
         personal_skillsets: 'Domaine de compétences d’un seul utilisateur: référents avec un seul utilisateur dont l’adresse email est identique au référent.'

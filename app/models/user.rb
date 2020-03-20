@@ -110,6 +110,11 @@ class User < ApplicationRecord
       .order('institutions.name', 'antennes.name', :full_name)
   end
 
+  scope :support_users, -> do
+    joins(:experts)
+      .merge(Expert.support_experts)
+  end
+
   # Team stuff
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
   scope :team_members, -> { not_deleted.joins(:experts).merge(Expert.teams) }
@@ -253,8 +258,8 @@ class User < ApplicationRecord
     end
   end
 
-  def support_expert_subject
-    ExpertSubject.support.find_by(expert: self.experts)
+  def is_support_user?
+    ExpertSubject.where(expert: self.experts).support.present?
   end
 
   def personal_skillsets
