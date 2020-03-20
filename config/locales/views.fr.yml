@@ -378,7 +378,7 @@ fr:
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         nice_day: Bonne journée,
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-    withdraw_request_html: Si vous souhaitez retirer votre demande, contactez-nous %{mailto_link}
+    withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})
