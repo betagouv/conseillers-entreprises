@@ -13,10 +13,6 @@ class LandingsController < PagesController
       return
     end
 
-    @landing_topics = @landing.landing_topics.ordered_for_landing
-    @landing_options = @landing.landing_options.ordered_for_landing
-
-    @tracking_params = info_params
     @solicitation = Solicitation.new(landing: @landing)
     @solicitation.form_info = info_params
   end

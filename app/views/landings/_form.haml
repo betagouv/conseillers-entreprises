@@ -6,6 +6,7 @@
     = f.hidden_field :slug
     - @solicitation.form_info.each do |k,v|
       = f.hidden_field "form_info[#{k}]", value: v
+    - landing_options = landing.landing_options.ordered_for_landing
     - if landing_options.present?
       .form__group#solicitation-options{ data: { checkboxes_require_one_with: t(".select_at_least_one_option") } }
         = f.label :options, t('.select_options')
