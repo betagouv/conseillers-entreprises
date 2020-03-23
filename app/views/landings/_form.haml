@@ -3,6 +3,7 @@
   - if landing.form_top_message.present?
     %p= landing.form_top_message.html_safe
   = form_with(model: @solicitation, url: create_solicitation_path, scope: 'solicitation', method: :post, html: { honeypot: true }) do |f|
+    = f.hidden_field :slug
     - @solicitation.form_info.each do |k,v|
       = f.hidden_field "form_info[#{k}]", value: v
     - if landing_options.present?

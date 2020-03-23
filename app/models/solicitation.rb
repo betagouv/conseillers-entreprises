@@ -38,12 +38,11 @@ class Solicitation < ApplicationRecord
   ## Scopes
   #
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
-  scope :of_slug, -> (slug) { where("form_info->>'slug' = ?", slug) }
   scope :with_selected_option, -> (option) { where("options->>? = '1'", option) }
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[slug partner_token pk_campaign pk_kwd gclid]
+  FORM_INFO_KEYS = %i[partner_token pk_campaign pk_kwd gclid]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ## ActiveAdmin/Ransacker helpers
