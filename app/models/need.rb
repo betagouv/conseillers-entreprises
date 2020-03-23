@@ -174,6 +174,10 @@ class Need < ApplicationRecord
     last_activity_at < 3.weeks.ago
   end
 
+  def quo_experts
+    Expert.joins(:received_matches).merge(matches.status_quo)
+  end
+
   ## Status
   #
   STATUSES = %i[
