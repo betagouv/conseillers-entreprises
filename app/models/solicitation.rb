@@ -30,7 +30,9 @@ class Solicitation < ApplicationRecord
 
   ## Validations
   #
-  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
+  validates :slug, :description, :full_name, :phone_number, :email, presence: true, allow_blank: false
+  validate :validate_selected_options
+  validates :email, format: { with: Devise.email_regexp }
 
   ## “Through” Associations
   #
@@ -108,5 +110,13 @@ class Solicitation < ApplicationRecord
   #
   def allowed_new_statuses
     self.class.statuses.keys - [self.status]
+  end
+
+  ## Validations
+  #
+  def validate_selected_options
+    if landing&.landing_options.present? && selected_options.empty?
+      errors.add(:options, :blank)
+    end
   end
 end
