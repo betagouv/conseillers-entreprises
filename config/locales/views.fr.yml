@@ -496,6 +496,7 @@ fr:
       title: Relances / %{full_name}
   solicitations:
     index:
+      manage_badges: Gérer les tags
       title: Solicitations
     needs:
       long:
@@ -521,6 +522,7 @@ fr:
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
     solicitation:
+      add_remove_badges: Ajouter / enlever des tags
       create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'

@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :solicitations, only: %i[index show], path: 'sollicitations' do
     member do
       post :update_status
+      post :update_badges
     end
     collection do
       get :processed, path: 'traitees'

@@ -1,8 +1,18 @@
 .ui.segments.shadow-less.solicitation{ 'id': solicitation.id }
   .ui.segment.secondary
-    .ui.header
-      #{solicitation.to_s} - #{solicitation.full_name}
-      .sub.header= I18n.l(solicitation.created_at, format: :long)
+    .ui.header.grid.aligned
+      .eight.wide.column
+        #{solicitation.to_s} - #{solicitation.full_name}
+        .sub.header= I18n.l(solicitation.created_at, format: :long)
+      .ui.eight.wide.column.row-tags
+        %div{ id: "solicitation-#{solicitation.id}-badges" }
+          - solicitation.badges.each do |badge|
+            = badge_label(badge)
+        = form_with model: solicitation, url: update_badges_solicitation_path(solicitation), method: :post, class: 'hide', id: "solicitation-#{solicitation.id}-form-badges" do |f|
+          = f.select(:badge_ids, options_from_collection_for_select(Badge.all, :id, :title, solicitation.badge_ids), {}, { multiple: true, class: 'clearable ui search selection dropdown badges' })
+
+          = f.submit t('ok'), class: 'ui button green mini'
+        %i.ui.icon.tags.modify-badges{ 'data-id': "#{solicitation.id}", title: t('.add_remove_badges') }
   .ui.segment
     .ui.list
       - if solicitation.siret.present?
@@ -29,7 +39,9 @@
       .item
         %strong= t('.description')
         %p= simple_format solicitation.description
-  .ui.segment.right.aligned
-    = link_to t('.create_diagnosis'), new_diagnosis_path(solicitation: solicitation.id), class: 'ui green button compact'
-    - solicitation.allowed_new_statuses.each do |status|
-      = status_action_link(solicitation, status, %w[ui button compact])
+
+  .ui.aligned.grid.segment
+    .right.floated.right.aligned.column
+      = link_to t('.create_diagnosis'), new_diagnosis_path(solicitation: solicitation.id), class: 'ui green button compact'
+      - solicitation.allowed_new_statuses.each do |status|
+        = status_action_link(solicitation, status, %w[ui button compact])
