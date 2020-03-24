@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_23_133834) do
+ActiveRecord::Schema.define(version: 2020_03_24_095649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(version: 2020_03_23_133834) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
+  end
+
+  create_table "badges", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "color", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "badges_solicitations", id: false, force: :cascade do |t|
+    t.bigint "badge_id", null: false
+    t.bigint "solicitation_id", null: false
   end
 
   create_table "communes", force: :cascade do |t|

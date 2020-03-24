@@ -19,10 +19,22 @@ fr:
     navbar:
       account: Compte
       admin: Administration
+      badges: Tags
       diagnoses: Analyses
       invite: Inviter des utilisateurs
       profile: Profil
       sign_out: Déconnexion
+  badges:
+    index:
+      add_badge: Ajouter un tag
+      button:
+        title: Ajouter
+      color: Couleur
+      confirm_delete: Voulez-vous supprimer ce tag ?
+      delete: Supprimer
+      no_badges: Il n'y a aucun tag pour le moment
+      title: Tags
+      title_label: Titre
   companies:
     company:
       capital_social: Capital social

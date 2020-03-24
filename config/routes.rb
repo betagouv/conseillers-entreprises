@@ -125,6 +125,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :badges, only: %i[index create destroy]
+
   controller :user_pages do
     get :tutoriels
   end
