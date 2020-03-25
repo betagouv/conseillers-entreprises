@@ -29,7 +29,9 @@ ActiveAdmin.register Solicitation do
         div "#{s.diagnoses.human_count} :<br/>".html_safe + admin_link_to(s, :diagnoses, list: true)
       end
     end
-
+    column I18n.t('attributes.badges.other') do |s|
+      render 'badges', badges: s.badges
+    end
     column "#{t('attributes.coordinates')} | #{t('activerecord.attributes.solicitation.tracking')}" do |s|
       div do
         if s.siret.present?
@@ -112,6 +114,9 @@ ActiveAdmin.register Solicitation do
     end
 
     attributes_table title: t('activerecord.attributes.solicitation.tracking') do
+      row I18n.t('attributes.badges.other') do |s|
+        render 'badges', badges: s.badges
+      end
       row :tracking do |s|
         render 'solicitations/tracking', solicitation: s
       end
@@ -132,7 +137,7 @@ ActiveAdmin.register Solicitation do
 
   ## Form
   #
-  permit_params :description, :status, :siret, :full_name, :phone_number, :email
+  permit_params :description, :status, :siret, :full_name, :phone_number, :email, badge_ids: []
   form do |f|
     f.inputs do
       f.input :description, as: :text
@@ -142,6 +147,7 @@ ActiveAdmin.register Solicitation do
       f.input :full_name
       f.input :phone_number
       f.input :email
+      f.input :badges, collection: Badge.all
     end
 
     f.actions
