@@ -18,26 +18,31 @@
               = fields.check_box option.slug
               = fields.label option.slug, class: 'label-inline' do
                 = option.description.html_safe
+      .notification.error= solicitation.errors.full_messages_for(:options).to_sentence
   .form__group
     = f.label 'description', t('.description.label')
     - example = landing.description_example.presence || t('.description.default_example')
     = f.text_area 'description', placeholder: t('.description.placeholder', example: example), rows: 6, required: true
+    .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
   .form__group
     .form__group
       = f.label 'siret', t('.siret.label')
       = f.text_field 'siret', placeholder: t('.siret.placeholder'), required: false
+      .notification.error= solicitation.errors.full_messages_for(:siret).to_sentence
     .form__group
       = f.label 'full_name', t('.full_name.label')
       = f.text_field 'full_name', placeholder: t('.full_name.placeholder'), required: true
+      .notification.error= solicitation.errors.full_messages_for(:full_name).to_sentence
     .form__group
       = f.label 'phone_number', t('.phone_number.label')
       = f.telephone_field 'phone_number', placeholder: t('.phone_number.placeholder'), required: true
+      .notification.error= solicitation.errors.full_messages_for(:phone_number).to_sentence
     .form__group
       = f.label 'email', t('.email.label')
       = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
+      .notification.error= solicitation.errors.full_messages_for(:email).to_sentence
   .form__group
     - if landing.form_bottom_message.present?
       %p= landing.form_bottom_message.html_safe
-    = render 'flashes'
     = f.submit t('.button.title'), class: 'button large'
 %p= (landing.form_promise_message.presence || t('.default_promise_message')).html_safe
