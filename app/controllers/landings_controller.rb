@@ -15,24 +15,14 @@ class LandingsController < PagesController
   def create_solicitation
     @solicitation = @landing.solicitations.create(solicitation_params)
 
-    if !@solicitation.valid?
-      @result = 'failure'
-      @partial = 'form'
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-      return
+    if @solicitation.persisted?
+      CompanyMailer.confirmation_solicitation(@solicitation.email).deliver_later
+      if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
+        AdminMailer.solicitation(@solicitation).deliver_later
+      end
     end
 
-    @result = 'success'
-    @partial = 'thank_you'
-    CompanyMailer.confirmation_solicitation(@solicitation.email).deliver_later
-    if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
-      AdminMailer.solicitation(@solicitation).deliver_later
-    end
-
-    respond_to do |format|
-      format.html { redirect_to landing_path(@solicitation.landing, anchor: 'section-formulaire'), notice: t('.thanks') }
-      format.js
-    end
+    render :show # rerender the form on error, render the thankyou partial on success
   end
 
   private
