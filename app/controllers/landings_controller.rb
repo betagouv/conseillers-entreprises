@@ -1,4 +1,6 @@
 class LandingsController < PagesController
+  before_action :retrieve_landing, only: %i[show create_solicitation]
+
   def index
     @landings = Rails.cache.fetch('landings', expires_in: 3.minutes) do
       Landing.ordered_for_home.to_a
@@ -7,19 +9,11 @@ class LandingsController < PagesController
   end
 
   def show
-    @landing = retrieve_landing
-    if @landing.nil?
-      redirect_to root_path
-      return
-    end
-
-    @solicitation = Solicitation.new(landing: @landing)
-    @solicitation.form_info = info_params
+    @solicitation = @landing.solicitations.new(form_info: info_params)
   end
 
   def create_solicitation
-    @solicitation = Solicitation.create(solicitation_params)
-    @landing = Landing.find_by(slug: @solicitation.slug)
+    @solicitation = @landing.solicitations.create(solicitation_params)
 
     if !@solicitation.valid?
       @result = 'failure'
@@ -45,9 +39,11 @@ class LandingsController < PagesController
 
   def retrieve_landing
     slug = params[:slug]&.to_sym
-    Rails.cache.fetch("landing-#{slug}", expires_in: 1.minute) do
+    @landing = Rails.cache.fetch("landing-#{slug}", expires_in: 1.minute) do
       Landing.find_by(slug: slug)
     end
+
+    redirect_to root_path if @landing.nil?
   end
 
   def show_params
