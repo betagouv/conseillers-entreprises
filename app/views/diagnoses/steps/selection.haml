@@ -7,7 +7,8 @@
     = t('.explanation')
 
   = form_with scope: :matches, url: selection_diagnosis_path(@diagnosis),
-             id: 'selection-form', class: 'ui form' do |f|
+             id: 'selection-form', class: 'ui form',
+             data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |f|
     - @diagnosis.needs.ordered_for_interview.each do |need|
       .ui.segment.shadow-less
         %h3.ui.header= need.subject
@@ -48,5 +49,3 @@
           = t('.notify_matches')
 
     .clear
-    :javascript
-        checkboxes_require_one("#selection-form", "#{ t(".select_at_least_one_expert") }");
