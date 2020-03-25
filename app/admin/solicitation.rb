@@ -5,7 +5,7 @@ ActiveAdmin.register Solicitation do
   #
   scope :all, default: true
 
-  includes :diagnoses, diagnoses: :company
+  includes :diagnoses, :landing, diagnoses: :company
 
   index do
     selectable_column
@@ -17,7 +17,7 @@ ActiveAdmin.register Solicitation do
       end
     end
     column :description do |s|
-      div link_to s.slug, landing_path(s.slug) if s.slug
+      div(admin_link_to(s.landing) || s.slug)
       options = s.selected_options
       if options.present?
         div t('activerecord.attributes.solicitation.selected_options') + ' : ' do
@@ -58,6 +58,7 @@ ActiveAdmin.register Solicitation do
   #
   preserve_default_filters!
   remove_filter :diagnoses
+  filter :slug
   filter :status, as: :select, collection: -> { Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] } }
   remove_filter :with_selected_option
   filter :with_selected_option_in, as: :select, label: I18n.t('solicitations.solicitation.selected_options'), collection: -> { LandingOption.all.pluck(:slug) }
@@ -95,9 +96,7 @@ ActiveAdmin.register Solicitation do
   #
   show title: :to_s do
     panel I18n.t('attributes.description') do
-      if solicitation.slug
-        div link_to solicitation.slug, landing_path(solicitation.slug)
-      end
+      div(admin_link_to(solicitation.landing) || solicitation.slug)
       blockquote simple_format(solicitation.description)
     end
 

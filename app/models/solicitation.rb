@@ -10,9 +10,14 @@
 #  options      :jsonb
 #  phone_number :string
 #  siret        :string
+#  slug         :string
 #  status       :integer          default("in_progress")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#
+# Indexes
+#
+#  index_solicitations_on_slug  (slug)
 #
 
 class Solicitation < ApplicationRecord
@@ -21,6 +26,7 @@ class Solicitation < ApplicationRecord
   ## Associations
   #
   has_many :diagnoses, inverse_of: :solicitation
+  belongs_to :landing, primary_key: :slug, foreign_key: :slug, inverse_of: :solicitations, optional: true
 
   ## Validations
   #
@@ -32,12 +38,11 @@ class Solicitation < ApplicationRecord
   ## Scopes
   #
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
-  scope :of_slug, -> (slug) { where("form_info->>'slug' = ?", slug) }
   scope :with_selected_option, -> (option) { where("options->>? = '1'", option) }
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[slug partner_token pk_campaign pk_kwd gclid]
+  FORM_INFO_KEYS = %i[partner_token pk_campaign pk_kwd gclid]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ## ActiveAdmin/Ransacker helpers
