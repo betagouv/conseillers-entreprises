@@ -1,44 +1,43 @@
-#solicitation-form
-  %h2.section__title= (landing.form_title.presence || t('.default_title')).html_safe
-  - if landing.form_top_message.present?
-    %p= landing.form_top_message.html_safe
-  = form_with(model: solicitation, url: create_solicitation_landing_path(anchor: 'section-formulaire'), local: true, html: { honeypot: true }) do |f|
-    - solicitation.form_info.each do |k,v|
-      = f.hidden_field "form_info[#{k}]", value: v
-    - if solicitation.errors.present?
-      :javascript
-        _paq.push(['trackEvent', 'contact-entreprise', 'failure']);
-    - landing_options = landing.landing_options.ordered_for_landing
-    - if landing_options.present?
-      .form__group#solicitation-options{ data: { checkboxes_require_one_with: t(".select_at_least_one_option") } }
-        = f.label :options, t('.select_options')
-        .panel
-          = f.fields_for :options do |fields|
-            - landing_options.each do |option|
-              .p
-                = fields.check_box option.slug
-                = fields.label option.slug, class: 'label-inline' do
-                  = option.description.html_safe
+%h2.section__title= (landing.form_title.presence || t('.default_title')).html_safe
+- if landing.form_top_message.present?
+  %p= landing.form_top_message.html_safe
+= form_with(model: solicitation, url: create_solicitation_landing_path(anchor: 'section-formulaire'), local: true, html: { honeypot: true }) do |f|
+  - solicitation.form_info.each do |k,v|
+    = f.hidden_field "form_info[#{k}]", value: v
+  - if solicitation.errors.present?
+    :javascript
+      _paq.push(['trackEvent', 'contact-entreprise', 'failure']);
+  - landing_options = landing.landing_options.ordered_for_landing
+  - if landing_options.present?
+    .form__group#solicitation-options{ data: { checkboxes_require_one_with: t(".select_at_least_one_option") } }
+      = f.label :options, t('.select_options')
+      .panel
+        = f.fields_for :options do |fields|
+          - landing_options.each do |option|
+            .p
+              = fields.check_box option.slug
+              = fields.label option.slug, class: 'label-inline' do
+                = option.description.html_safe
+  .form__group
+    = f.label 'description', t('.description.label')
+    - example = landing.description_example.presence || t('.description.default_example')
+    = f.text_area 'description', placeholder: t('.description.placeholder', example: example), rows: 6, required: true
+  .form__group
     .form__group
-      = f.label 'description', t('.description.label')
-      - example = landing.description_example.presence || t('.description.default_example')
-      = f.text_area 'description', placeholder: t('.description.placeholder', example: example), rows: 6, required: true
+      = f.label 'siret', t('.siret.label')
+      = f.text_field 'siret', placeholder: t('.siret.placeholder'), required: false
     .form__group
-      .form__group
-        = f.label 'siret', t('.siret.label')
-        = f.text_field 'siret', placeholder: t('.siret.placeholder'), required: false
-      .form__group
-        = f.label 'full_name', t('.full_name.label')
-        = f.text_field 'full_name', placeholder: t('.full_name.placeholder'), required: true
-      .form__group
-        = f.label 'phone_number', t('.phone_number.label')
-        = f.telephone_field 'phone_number', placeholder: t('.phone_number.placeholder'), required: true
-      .form__group
-        = f.label 'email', t('.email.label')
-        = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
+      = f.label 'full_name', t('.full_name.label')
+      = f.text_field 'full_name', placeholder: t('.full_name.placeholder'), required: true
     .form__group
-      - if landing.form_bottom_message.present?
-        %p= landing.form_bottom_message.html_safe
-      = render 'flashes'
-      = f.submit t('.button.title'), class: 'button large'
-  %p= (landing.form_promise_message.presence || t('.default_promise_message')).html_safe
+      = f.label 'phone_number', t('.phone_number.label')
+      = f.telephone_field 'phone_number', placeholder: t('.phone_number.placeholder'), required: true
+    .form__group
+      = f.label 'email', t('.email.label')
+      = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
+  .form__group
+    - if landing.form_bottom_message.present?
+      %p= landing.form_bottom_message.html_safe
+    = render 'flashes'
+    = f.submit t('.button.title'), class: 'button large'
+%p= (landing.form_promise_message.presence || t('.default_promise_message')).html_safe
