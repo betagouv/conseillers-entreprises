@@ -1,16 +1,25 @@
-function checkboxes_require_one(selector, message) {
-  let boxes_parent = document.querySelector(selector);
+(function(){
+  addEventListener("turbolinks:load", setupCheckboxesGroups);
+  addEventListener("DOMContentLoaded", setupCheckboxesGroups);
 
-  function updateBoxesValidity() {
-    let at_least_one_checked = !!boxes_parent.querySelector("input[type=checkbox]:checked");
-    let validity = at_least_one_checked ? "" : message;
-    let boxes = boxes_parent.querySelectorAll("input[type=checkbox]");
-    for (let i = 0; i < boxes.length; ++i) {
-      boxes[i].setCustomValidity(validity);
-    }
+  const checkboxes_attribute = "data-checkboxes-require-one-with";
+  function setupCheckboxesGroups(event) {
+    var groups = document.querySelectorAll(`[${checkboxes_attribute}]:not([${checkboxes_attribute}=""])`);
+    for (var i = 0; i < groups.length; ++i) { checkboxesRequireOne(groups[i]); }
   }
 
-  boxes_parent.addEventListener("click", function(event) { if (event.target.matches("input[type=checkbox]")) { updateBoxesValidity(); } });
+  function checkboxesRequireOne(group) {
+    group.addEventListener("click", function (event) {
+      if (event.target.matches("input[type=checkbox]")) { updateCheckboxesValidity(group); }
+    });
 
-  updateBoxesValidity();
-}
+    updateCheckboxesValidity(group);
+  }
+
+  function updateCheckboxesValidity(group) {
+    var at_least_one_checked = !!group.querySelector("input[type=checkbox]:checked");
+    var validity = at_least_one_checked ? "" : group.attributes[checkboxes_attribute].value;
+    var boxes = group.querySelectorAll("input[type=checkbox]");
+    for (var i = 0; i < boxes.length; ++i) { boxes[i].setCustomValidity(validity); }
+  }
+})();

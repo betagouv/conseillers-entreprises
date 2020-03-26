@@ -94,7 +94,7 @@ ignore_unused:
   - 'attributes.*'
   - 'diagnoses.steps.*.title'
   - 'mailers.admin_mailer.weekly_statistics.needs_abandoned.scopes.*'
-  - 'mailers.user_mailer.update_match_notify.expert_and_status.*'
+  - 'mailers.user_mailer.notify_match_status.expert_and_status.*'
   - 'stats.stats_table.*'
   - 'stats.series.*'
   - 'categories_juridiques.*'

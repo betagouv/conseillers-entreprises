@@ -3,7 +3,7 @@ class LandingsController < PagesController
     @landings = Rails.cache.fetch('landings', expires_in: 3.minutes) do
       Landing.ordered_for_home.to_a
     end
-    @tracking_params = info_params.except(:slug)
+    @tracking_params = info_params
   end
 
   def show
@@ -16,8 +16,8 @@ class LandingsController < PagesController
     @landing_topics = @landing.landing_topics.ordered_for_landing
     @landing_options = @landing.landing_options.ordered_for_landing
 
-    @tracking_params = info_params.except(:slug)
-    @solicitation = Solicitation.new
+    @tracking_params = info_params
+    @solicitation = Solicitation.new(landing: @landing)
     @solicitation.form_info = info_params
   end
 
@@ -40,7 +40,7 @@ class LandingsController < PagesController
     end
 
     respond_to do |format|
-      format.html { redirect_to landing_path(@solicitation.slug, anchor: 'section-formulaire'), notice: t('.thanks') }
+      format.html { redirect_to landing_path(@solicitation.landing, anchor: 'section-formulaire'), notice: t('.thanks') }
       format.js
     end
   end
@@ -54,12 +54,16 @@ class LandingsController < PagesController
     end
   end
 
+  def show_params
+    params.permit(:slug, *Solicitation::FORM_INFO_KEYS)
+  end
+
   def info_params
-    params.permit(*Solicitation::FORM_INFO_KEYS)
+    show_params.slice(*Solicitation::FORM_INFO_KEYS)
   end
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :siret, :full_name, :phone_number, :email, form_info: {}, options: {})
+      .permit(:description, :siret, :full_name, :phone_number, :email, :slug, form_info: {}, options: {})
   end
 end

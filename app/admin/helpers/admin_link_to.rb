@@ -5,6 +5,7 @@ module Admin
     module AdminLinkTo
       def admin_link_to(object, association = nil, options = {})
         if association.nil?
+          return nil if object.nil?
           return link_to(object, polymorphic_path([:admin, object]))
         end
 
