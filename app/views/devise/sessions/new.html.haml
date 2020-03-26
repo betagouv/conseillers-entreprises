@@ -11,7 +11,6 @@
     - if devise_mapping.rememberable?
       .field
         .ui.checkbox
-          = f.check_box :remember_me, tabindex: 0, class: 'hidden'
           = f.label :remember_me
     .actions
       = f.submit t('sign_in'), class: 'ui button green'
