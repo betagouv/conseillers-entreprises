@@ -14,6 +14,7 @@
   %section.section.section-white#section-details
     .container.text-center
       = render 'show_landing_details', landing: landing
+      = render 'show_landing_institutions', landing: landing
 
 %section.section-white#section-newsletter-covid
   .container.container-medium
@@ -23,7 +24,7 @@
 - if solicitation.new_record?
   %section.section.section-grey#section-exemples
     .container.container-medium
-      = render 'landing_topics/landing_topics', landing: landing
+      = render 'show_landing_topics', landing: landing
   %section.section.section-white#section-formulaire
     .container.container-small
       = render 'show_solicitation_form', landing: landing, solicitation: solicitation
