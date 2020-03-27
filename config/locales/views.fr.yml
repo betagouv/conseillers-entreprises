@@ -268,11 +268,6 @@ fr:
       siret:
         label: SIRET
         placeholder: 123 456 789 00010
-    steps:
-      label_1_html: Précisez votre demande en ligne.
-      label_2_html: Le service <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
-      label_3_html: Le conseiller vous rappelle et vous accompagne selon votre situation.
-      title: Comment ça marche ?
     show_thank_you:
       default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
