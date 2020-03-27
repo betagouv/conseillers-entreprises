@@ -1,0 +1,4 @@
+-# haml-lint:disable InlineStyles
+- badges.each do |badge|
+  %div{ style: "color: #{badge.color}" }
+    = badge.title.tr(' ', "\u00A0")

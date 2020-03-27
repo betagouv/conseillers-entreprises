@@ -19,10 +19,22 @@ fr:
     navbar:
       account: Compte
       admin: Administration
+      badges: Tags
       diagnoses: Analyses
       invite: Inviter des utilisateurs
       profile: Profil
       sign_out: Déconnexion
+  badges:
+    index:
+      add_badge: Ajouter un tag
+      button:
+        title: Ajouter
+      color: Couleur
+      confirm_delete: Voulez-vous supprimer ce tag ?
+      delete: Supprimer
+      no_badges: Il n'y a aucun tag pour le moment
+      title: Tags
+      title_label: Titre
   companies:
     company:
       capital_social: Capital social
@@ -484,6 +496,7 @@ fr:
       title: Relances / %{full_name}
   solicitations:
     index:
+      manage_badges: Gérer les tags
       title: Solicitations
     needs:
       long:
@@ -509,6 +522,7 @@ fr:
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
     solicitation:
+      add_remove_badges: Ajouter / enlever des tags
       create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'

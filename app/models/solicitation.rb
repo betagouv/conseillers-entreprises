@@ -27,6 +27,7 @@ class Solicitation < ApplicationRecord
   #
   has_many :diagnoses, inverse_of: :solicitation
   belongs_to :landing, primary_key: :slug, foreign_key: :slug, inverse_of: :solicitations, optional: true
+  has_and_belongs_to_many :badges, -> { distinct }
 
   ## Validations
   #

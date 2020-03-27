@@ -341,6 +341,9 @@ fr:
       other: Référents
     archived_at: Date d’archivage
     auditable_type: Évènement
+    badges:
+      one: Tag
+      other: Tags
     code_effectif: Tranche d’effectif
     communes: Communes
     community: Communauté
