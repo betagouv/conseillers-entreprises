@@ -7,6 +7,11 @@ class FeedbacksController < ApplicationController
       flash.alert = @feedback.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
     end
+
+    respond_to do |format|
+      format.js
+      format.html { redirect_to need_path(@feedback.need.diagnosis, anchor: "feedback-#{@feedback.id}") }
+    end
   end
 
   def destroy
