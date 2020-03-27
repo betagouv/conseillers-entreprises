@@ -1,6 +1,5 @@
 - if landing.logos.present?
-  %p
-    = t('.institutions')
+  %h2.section__subtitle= t('.institutions')
   .logo-list
     - landing.logos.split(' ').each do |logo_slug|
       = institution_image(logo_slug)
