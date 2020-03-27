@@ -141,13 +141,28 @@ section.section#section-thematiques
     margin: 8px
     vertical-align: middle
 
-.landing-topic
-  li + li
-    margin-top: 1em
-    margin-top: var(--space-s)
-  .title
-    margin-top: 1em
-    margin-top: var(--space-s)
+section.section#section-exemples
+  h4
+    font-size: 1.25rem
+  ul
+    list-style: none
+    padding-inline-start: 1rem
+  .landing-topic
+    li
+      margin-bottom: 1rem
+      &.emoji
+        list-style: none
+        margin-left: 2rem
+        position: relative
+        &:before
+          position: absolute
+          left: -2rem
+        &.right-index:before
+          content: "👉"
+        &.warning:before
+          content: "⚠️"
+        &.person-tipping-hand:before
+          content: "💁️"
 
 section.section#section-formulaire
   #solicitation-options .panel
