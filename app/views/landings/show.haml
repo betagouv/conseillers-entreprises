@@ -1,4 +1,4 @@
-- cache @landing do
+- cache_if (action_name == 'show'), @landing do
   :ruby
     meta_title = @landing.meta_title.presence || @landing.title
     meta_description = @landing.meta_description.presence || @landing.subtitle
