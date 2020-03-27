@@ -152,4 +152,18 @@ ActiveAdmin.register Solicitation do
 
     f.actions
   end
+
+  form_options = -> do
+    { action: %w[ajouter enlever], badge: Badge.all.map { |b| [b.title, b.id] } }
+  end
+  batch_action I18n.t('active_admin.badges.add_remove'), form: form_options do |ids, inputs|
+    badge = Badge.find(inputs[:badge])
+    case inputs[:action]
+    when 'ajouter'
+      Solicitation.where(id: ids).each { |s| s.badges << badge }
+    when 'enlever'
+      Solicitation.where(id: ids).each { |s| s.badges.delete(badge) }
+    end
+    redirect_to collection_path, notice: I18n.t('active_admin.badges.modified', action: inputs[:action].gsub('er', 'é'))
+  end
 end
