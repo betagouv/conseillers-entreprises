@@ -12,6 +12,10 @@ fr:
       short_title: Top 5 des aides
       title: Top 5 des aides & accompagnements
       whats_your_question: Et vous, quel est votre besoin ?
+  active_admin:
+    badges:
+      add_remove: Ajouter / supprimer un tag sur
+      modified: Le tag a été %{action}
   application:
     footer:
       contact_us: Contactez-nous !
