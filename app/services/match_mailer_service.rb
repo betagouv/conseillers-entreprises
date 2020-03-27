@@ -2,7 +2,7 @@
 
 class MatchMailerService
   def self.deduplicated_notify_status(match, previous_status)
-    if ENV['DEVELOPMENT_INLINE_JOBS'].to_b
+    if Rails.env.development? && ENV['DEVELOPMENT_INLINE_JOBS'].to_b
       notify_status(match, previous_status).perform_later
       return
     end

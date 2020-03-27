@@ -34,10 +34,11 @@ Rails.application.routes.draw do
   end
 
   # Pages
-  controller :landings do
-    root action: :index
-    get 'aide-entreprises/:slug', action: :show, as: :landing
-    post :create_solicitation
+  root controller: :landings, action: :index
+  resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do
+    # as the form to create solicitations is on the landings show page,
+    # we’re using the same path the show landings and to view solicitations.
+    post :create_solicitation, on: :member, path: ''
   end
 
   resources :solicitations, only: %i[index show], path: 'sollicitations' do

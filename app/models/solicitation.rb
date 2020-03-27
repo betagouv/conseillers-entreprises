@@ -30,7 +30,9 @@ class Solicitation < ApplicationRecord
 
   ## Validations
   #
-  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
+  validates :slug, :description, :full_name, :phone_number, :email, presence: true, allow_blank: false
+  validate :validate_selected_options
+  validates :email, format: { with: Devise.email_regexp }
 
   ## “Through” Associations
   #
@@ -61,7 +63,7 @@ class Solicitation < ApplicationRecord
   # Development helper
   def self.new(attributes = nil, &block)
     record = super
-    if Rails.env.development? && ENV['DEVELOPMENT_PREFILL_SOLICITATION_FORM']
+    if Rails.env.development? && ENV['DEVELOPMENT_PREFILL_SOLICITATION_FORM'].to_b
       record.assign_attributes(
         description: 'Ceci est un test',
         siret: '200 054 948 00019',
@@ -108,5 +110,13 @@ class Solicitation < ApplicationRecord
   #
   def allowed_new_statuses
     self.class.statuses.keys - [self.status]
+  end
+
+  ## Validations
+  #
+  def validate_selected_options
+    if landing&.landing_options.present? && selected_options.empty?
+      errors.add(:options, :blank)
+    end
   end
 end
