@@ -206,8 +206,6 @@ fr:
           other: "<b>all %{count}</b> %{entry_name}"
           zero: Aucune %{entry_name}
   landings:
-    create_solicitation:
-      thanks: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
     form:
       button:
         title: Envoyer ma demande

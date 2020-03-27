@@ -189,6 +189,8 @@ section.section#section-formulaire
     input[type=checkbox]:-moz-ui-invalid
       // Firefox adds a red outline before the user clicks a checkbox, remove it.
       box-shadow: none
+  .notification.error:empty
+    display: none
 
 .section#stats
   padding: 2em
@@ -251,12 +253,3 @@ section.section#section-formulaire
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
   img[src*=".svg"]
     width: 100%
-
-// General settings
-
-html
-  scroll-behavior: smooth
-
-@media (prefers-reduced-motion: reduce)
-  html
-    scroll-behavior: auto
