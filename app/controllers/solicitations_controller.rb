@@ -1,5 +1,5 @@
 class SolicitationsController < ApplicationController
-  before_action :find_solicitation, only: [:show, :update_status]
+  before_action :find_solicitation, only: [:show, :update_status, :update_badges]
   before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
 
@@ -27,6 +27,10 @@ class SolicitationsController < ApplicationController
     done = Solicitation.human_attribute_name("statuses_done.#{status}", count: 1)
     flash.notice = "#{@solicitation} #{done}"
     render 'remove'
+  end
+
+  def update_badges
+    @solicitation.update(params.require(:solicitation).permit(badge_ids: []))
   end
 
   private
