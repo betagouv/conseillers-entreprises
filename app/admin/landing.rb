@@ -79,7 +79,7 @@ ActiveAdmin.register Landing do
       end
     end
 
-    attributes_table title: I18n.t("landings.form.form") do
+    attributes_table title: I18n.t("landings.show_solicitation_form.form") do
       row :form_title
       row :form_top_message
       row :description_example
@@ -124,7 +124,7 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
-      f.input :landing_topic_title, placeholder: t('landings.form.default_landing_topic_title').html_safe
+      f.input :landing_topic_title, placeholder: t('landing_topics.landing_topics.default_landing_topic_title').html_safe
 
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |a|
         a.input :title,       :input_html => { :style => 'width:50%' }
@@ -139,13 +139,13 @@ ActiveAdmin.register Landing do
       end
     end
 
-    f.inputs I18n.t("landings.form.form") do
-      f.input :form_title, placeholder: t('landings.form.default_title').html_safe
+    f.inputs I18n.t("landings.show_solicitation_form.form") do
+      f.input :form_title, placeholder: t('landings.show_solicitation_form.default_title').html_safe
       f.input :form_top_message
-      f.input :description_example, placeholder: t('landings.form.description.default_example').html_safe
+      f.input :description_example, placeholder: t('landings.show_solicitation_form.description.default_example').html_safe
       f.input :form_bottom_message
-      f.input :form_promise_message, placeholder: t('landings.form.default_promise_message').html_safe
-      f.input :thank_you_message, placeholder: t('landings.form.default_thank_you_message').html_safe
+      f.input :form_promise_message, placeholder: t('landings.show_solicitation_form.default_promise_message').html_safe
+      f.input :thank_you_message, placeholder: t('landings.show_thank_you.default_thank_you_message').html_safe
     end
 
     f.actions

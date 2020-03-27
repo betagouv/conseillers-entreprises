@@ -11,15 +11,15 @@
       = t('.answer')
     = link_to t('.submit_request'), '#section-thematiques', class: 'button blue'
     - cache('institutions', expires_in: 1.hour) do
-      = render 'institutions'
+      = render 'index_institutions'
 
 %section.section.section-color#section-thematiques
   .container
-    = render 'landings', landings: @landings, tracking_params: @tracking_params
+    = render 'index_landing_cards', landings: @landings, tracking_params: @tracking_params
 
 %section.section.section-grey#testimonials
   .container
-    = render 'testimonials'
+    = render 'index_testimonials'
 
 %section.section.section-grey#stats
   .container.container-medium

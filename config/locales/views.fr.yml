@@ -221,13 +221,33 @@ fr:
           one: "<b>1</b> %{entry_name}"
           other: "<b>all %{count}</b> %{entry_name}"
           zero: Aucune %{entry_name}
+  landing_topics:
+    landing_topics:
+      default_landing_topic_title: 'Exemples d’aides :'
   landings:
-    form:
+    hero:
+      title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
+    index:
+      answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
+      meta:
+        description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
+        title: Place des Entreprises, le guichet public des TPE et PME
+      question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
+      submit_request: Déposez votre demande
+    index_institutions:
+      title: 'Un service du Ministère de l’Economie et du Ministère du Travail, avec plus de 50 partenaires publics :'
+    index_landing_card:
+      discover: Découvrir
+    index_landing_cards:
+      contact_us: Contactez-nous directement
+      other_questions: Votre question n’est pas dans cette liste ?
+      title: 'Sélectionnez votre demande :'
+    show_landing_details:
+      institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
+    show_solicitation_form:
       button:
         title: Envoyer ma demande
-      default_landing_topic_title: 'Exemples d’aides :'
       default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
-      default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       default_title: Quelle est votre demande ?
       description:
         default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
@@ -248,31 +268,13 @@ fr:
       siret:
         label: SIRET
         placeholder: 123 456 789 00010
-    hero:
-      title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
-    index:
-      answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
-      meta:
-        description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
-        title: Place des Entreprises, le guichet public des TPE et PME
-      question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
-      submit_request: Déposez votre demande
-    institutions:
-      title: 'Un service du Ministère de l’Economie et du Ministère du Travail, avec plus de 50 partenaires publics :'
-    landing:
-      discover: Découvrir
-    landing_details:
-      institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
-    landings:
-      contact_us: Contactez-nous directement
-      other_questions: Votre question n’est pas dans cette liste ?
-      title: 'Sélectionnez votre demande :'
     steps:
       label_1_html: Précisez votre demande en ligne.
       label_2_html: Le service <em>Place des Entreprises</em> trouve pour vous le bon conseiller public.
       label_3_html: Le conseiller vous rappelle et vous accompagne selon votre situation.
       title: Comment ça marche ?
-    thank_you:
+    show_thank_you:
+      default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
   layouts:

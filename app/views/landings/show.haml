@@ -9,12 +9,12 @@
   - if @solicitation.persisted?
     %section.section.section-grey#section-thankyou
       .container.container-medium
-        = render 'thank_you', landing: @landing
+        = render 'show_thank_you', landing: @landing
 
   - if @solicitation.new_record?
     %section.section.section-white#section-details
       .container.text-center
-        = render 'landing_details', landing: @landing
+        = render 'show_landing_details', landing: @landing
 
   %section.section-white#section-newsletter-covid
     .container.container-medium
@@ -26,7 +26,7 @@
         = render 'landing_topics/landing_topics', landing: @landing
     %section.section.section-white#section-formulaire
       .container.container-small
-        = render 'form', landing: @landing, solicitation: @solicitation
+        = render 'show_solicitation_form', landing: @landing, solicitation: @solicitation
 
 %section.section.section-grey#stats
   .container.container-medium
