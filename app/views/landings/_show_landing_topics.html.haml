@@ -2,5 +2,5 @@
 - if landing_topics.present?
   %h2.section__title
     = landing.landing_topic_title.presence || t('.default_landing_topic_title')
-
-  = render landing_topics
+  %ul.landing-topics
+    = render landing_topics
