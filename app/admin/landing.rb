@@ -124,7 +124,7 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
-      f.input :landing_topic_title, placeholder: t('landing_topics.landing_topics.default_landing_topic_title').html_safe
+      f.input :landing_topic_title, placeholder: t('landings.show_landing_topics.default_landing_topic_title').html_safe
 
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |a|
         a.input :title,       :input_html => { :style => 'width:50%' }

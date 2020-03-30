@@ -1,3 +1,6 @@
-.landing-topic
-  %h4.title= simple_format(landing_topic.title, {}, wrapper_tag: 'span')
+%li.panel.landing-topic
+  %input{ :checked => "checked", :type => "checkbox" }
+  %i
+  .panel__header
+    %h3= simple_format(landing_topic.title, {}, wrapper_tag: 'span')
   .lead-text= landing_topic.description.html_safe
