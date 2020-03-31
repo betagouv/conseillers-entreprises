@@ -62,8 +62,6 @@ ActiveAdmin.register Solicitation do
   remove_filter :diagnoses
   filter :landing_slug
   filter :status, as: :select, collection: -> { Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] } }
-  remove_filter :with_selected_option
-  filter :with_selected_option_in, as: :select, label: I18n.t('solicitations.solicitation.selected_options'), collection: -> { LandingOption.all.pluck(:slug) }
 
   ## Batch actions
   # Statuses

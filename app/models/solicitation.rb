@@ -53,18 +53,6 @@ class Solicitation < ApplicationRecord
   FORM_INFO_KEYS = %i[partner_token pk_campaign pk_kwd gclid]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
-  ## ActiveAdmin/Ransacker helpers
-  #
-  FORM_INFO_KEYS.each do |key|
-    ransacker key do |parent|
-      Arel::Nodes::InfixOperation.new('->>', parent.table[:form_info], Arel::Nodes.build_quoted(key.to_s))
-    end
-  end
-  ransacker(:with_selected_option, formatter: -> (value) {
-    with_selected_option(value).pluck(:id)
-      .presence
-  }) { |parent| parent.table[:id] }
-
   ##
   # Development helper
   def self.new(attributes = nil, &block)
