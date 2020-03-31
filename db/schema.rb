@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_24_095649) do
+ActiveRecord::Schema.define(version: 2020_03_31_125244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,10 +223,11 @@ ActiveRecord::Schema.define(version: 2020_03_24_095649) do
   end
 
   create_table "landing_options", force: :cascade do |t|
-    t.string "slug"
+    t.string "title"
     t.text "description"
     t.integer "landing_sort_order"
     t.bigint "landing_id"
+    t.string "slug", null: false
     t.index ["landing_id"], name: "index_landing_options_on_landing_id"
   end
 

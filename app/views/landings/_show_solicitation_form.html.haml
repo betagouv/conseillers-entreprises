@@ -14,7 +14,7 @@
           - landing_options.each do |option|
             .p
               = fields.check_box option.slug
-              = fields.label option.slug, class: 'label-inline' do
+              = fields.label option.slug, option.title, class: 'label-inline' do
                 = option.description.html_safe
       .notification.error= solicitation.errors.full_messages_for(:options).to_sentence
   .form__group
