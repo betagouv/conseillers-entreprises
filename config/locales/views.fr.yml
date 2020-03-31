@@ -221,9 +221,6 @@ fr:
           one: "<b>1</b> %{entry_name}"
           other: "<b>all %{count}</b> %{entry_name}"
           zero: Aucune %{entry_name}
-  landing_topics:
-    landing_topics:
-      default_landing_topic_title: 'Exemples d’aides :'
   landings:
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
@@ -242,8 +239,10 @@ fr:
       contact_us: Contactez-nous directement
       other_questions: Votre question n’est pas dans cette liste ?
       title: 'Sélectionnez votre demande :'
-    show_landing_details:
+    show_landing_institutions:
       institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
+    show_landing_topics:
+      default_landing_topic_title: 'Exemples d’aides :'
     show_solicitation_form:
       button:
         title: Envoyer ma demande

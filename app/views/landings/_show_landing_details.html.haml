@@ -4,11 +4,3 @@
   %h2.section__title
     = simple_format(landing.subtitle, {}, wrapper_tag: 'span')
 
-  = link_to landing.button, '#section-exemples', class: 'button blue'
-
-  - if @landing.logos.present?
-    %p
-      = t('.institutions')
-    .logo-list
-      - @landing.logos.split(' ').each do |logo_slug|
-        = institution_image(logo_slug)
