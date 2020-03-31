@@ -4,8 +4,8 @@
 %p= page_entries_info @solicitations
 = paginate @solicitations
 
-
-= render partial: 'solicitations/solicitation', collection: @solicitations, cached: true
+- max_badge_updated_at = Badge.maximum(:updated_at)
+= render partial: 'solicitations/solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, max_badge_updated_at] }
 
 = paginate @solicitations
 
