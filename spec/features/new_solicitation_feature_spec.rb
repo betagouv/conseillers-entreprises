@@ -25,7 +25,7 @@ describe 'New Solicitation Feature', type: :feature, js: true do
 
     it do
       expect(page).to have_content('Merci')
-      expect(solicitation.slug).to eq 'test-landing'
+      expect(solicitation.landing_slug).to eq 'test-landing'
       expect(solicitation.siret).to eq '123 456 789 00010'
       expect(solicitation.pk_campaign).to eq 'FOO'
       expect(solicitation.pk_kwd).to eq 'BAR'

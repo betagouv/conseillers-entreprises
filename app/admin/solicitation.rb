@@ -17,11 +17,11 @@ ActiveAdmin.register Solicitation do
       end
     end
     column :description do |s|
-      div(admin_link_to(s.landing) || s.slug)
-      options = s.selected_options
-      if options.present?
-        div t('activerecord.attributes.solicitation.selected_options') + ' : ' do
-          options.each { |option| status_tag option }.join('')
+      div(admin_link_to(s.landing) || s.landing_slug)
+      options_slugs = s.landing_options_slugs
+      if options_slugs.present?
+        div t('activerecord.attributes.solicitation.landing_options') + ' : ' do
+          options_slugs.each { |option| div status_tag option }.join
         end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
@@ -60,7 +60,7 @@ ActiveAdmin.register Solicitation do
   #
   preserve_default_filters!
   remove_filter :diagnoses
-  filter :slug
+  filter :landing_slug
   filter :status, as: :select, collection: -> { Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] } }
   remove_filter :with_selected_option
   filter :with_selected_option_in, as: :select, label: I18n.t('solicitations.solicitation.selected_options'), collection: -> { LandingOption.all.pluck(:slug) }
@@ -88,8 +88,9 @@ ActiveAdmin.register Solicitation do
     column :full_name
     column :phone_number
     column :email
-    column :selected_options do |s|
-      s.selected_options.join("\n")
+    column :options do |s|
+      s.landing_options_slugs.join("\n")
+    end
     end
     Solicitation::FORM_INFO_KEYS.each{ |k| column k }
   end
@@ -98,7 +99,7 @@ ActiveAdmin.register Solicitation do
   #
   show title: :to_s do
     panel I18n.t('attributes.description') do
-      div(admin_link_to(solicitation.landing) || solicitation.slug)
+      div(admin_link_to(solicitation.landing) || solicitation.landing_slug)
       blockquote simple_format(solicitation.description)
     end
 

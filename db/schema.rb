@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_125244) do
+ActiveRecord::Schema.define(version: 2020_03_31_132751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -296,15 +296,16 @@ ActiveRecord::Schema.define(version: 2020_03_31_125244) do
     t.string "description"
     t.string "email"
     t.string "phone_number"
-    t.jsonb "options", default: {}
+    t.jsonb "options_deprecated", default: {}
     t.jsonb "form_info", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "siret"
     t.integer "status", default: 0
     t.string "full_name"
-    t.string "slug"
-    t.index ["slug"], name: "index_solicitations_on_slug"
+    t.string "landing_slug", null: false
+    t.string "landing_options_slugs", array: true
+    t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|

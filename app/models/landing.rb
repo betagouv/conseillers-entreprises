@@ -22,7 +22,7 @@ class Landing < ApplicationRecord
   has_many :landing_topics, inverse_of: :landing, :dependent => :destroy
   has_many :landing_options, inverse_of: :landing, :dependent => :destroy
 
-  has_many :solicitations, primary_key: :slug, foreign_key: :slug, inverse_of: :landing
+  has_many :solicitations, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :landing
   accepts_nested_attributes_for :landing_topics, :landing_options, allow_destroy: true
 
   ## Scopes

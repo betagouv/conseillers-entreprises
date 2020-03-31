@@ -526,7 +526,7 @@ fr:
       create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'
-      selected_options: 'Cases cochées :'
+      landing_options: 'Aides demandées :'
       siret: 'Siret :'
       slug: 'Page thématique :'
     solicitations_tabs:
