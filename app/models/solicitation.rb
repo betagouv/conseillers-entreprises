@@ -88,6 +88,10 @@ class Solicitation < ApplicationRecord
     self.landing_options_slugs = options_hash.select{ |_, v| v.to_bool }.keys
   end
 
+  def self.all_past_landing_options_slugs
+    self.distinct.pluck("unnest(#{:landing_options_slugs})")
+  end
+
   ##
   #
   def institution

@@ -89,6 +89,10 @@ ActiveAdmin.register Solicitation do
     column :options do |s|
       s.landing_options_slugs.join("\n")
     end
+    Solicitation.all_past_landing_options_slugs.each do |landing|
+      column landing do |s|
+        s.landing_options_slugs.include?(landing) ? I18n.t('yes') : ''
+      end
     end
     Solicitation::FORM_INFO_KEYS.each{ |k| column k }
   end
