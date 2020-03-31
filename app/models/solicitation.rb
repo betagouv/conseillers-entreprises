@@ -37,6 +37,11 @@ class Solicitation < ApplicationRecord
   validates :email, format: { with: Devise.email_regexp }
 
   def validate_landing_options_on_create
+    # landing can not be nil on creation
+    # later, landing_slug can refer to a removed Landing
+    if landing.nil?
+      errors.add(:landing, :blank)
+    end
     # if the landing has options, landing_options should refer to existing options on creation
     # later, landing_options_slugs may refer to removed LandingOptions
     if landing&.landing_options.present? && landing_options.empty?
