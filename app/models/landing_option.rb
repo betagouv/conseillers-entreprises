@@ -19,7 +19,11 @@
 #
 
 class LandingOption < ApplicationRecord
+  ## Associations
+  #
   belongs_to :landing, inverse_of: :landing_options, touch: true
 
+  ## Scopes
+  #
   scope :ordered_for_landing, -> { order(:landing_sort_order, :id) }
 end

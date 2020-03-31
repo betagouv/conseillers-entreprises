@@ -35,8 +35,6 @@ class Solicitation < ApplicationRecord
   validate :validate_selected_options
   validates :email, format: { with: Devise.email_regexp }
 
-  ## “Through” Associations
-  #
 
   ## Scopes
   #

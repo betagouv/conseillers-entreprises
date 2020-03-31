@@ -17,10 +17,17 @@
 #
 
 class Landing < ApplicationRecord
+  ## Associations
+  #
   has_many :landing_topics, inverse_of: :landing, :dependent => :destroy
   has_many :landing_options, inverse_of: :landing, :dependent => :destroy
 
   has_many :solicitations, primary_key: :slug, foreign_key: :slug, inverse_of: :landing
+  accepts_nested_attributes_for :landing_topics, :landing_options, allow_destroy: true
+
+  ## Scopes
+  #
+  scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
 
   ## JSON Accessors
   #
@@ -33,10 +40,6 @@ class Landing < ApplicationRecord
     form_promise_message thank_you_message
   ]
   store_accessor :content, CONTENT_KEYS
-
-  accepts_nested_attributes_for :landing_topics, :landing_options, allow_destroy: true
-
-  scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
 
   def to_s
     slug
