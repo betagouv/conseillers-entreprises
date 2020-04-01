@@ -132,6 +132,27 @@ section.section#section-thematiques
         .landing-description
           text-decoration: underline
 
+section.section#section-description
+  h2
+    font-size: 1.75rem
+  p, a
+    font-size: 1.5rem
+  a
+    margin: 1rem 0
+  #logo-pde
+    width: 7rem
+  .button
+    font-weight: bold
+
+section.section#section-details
+  a
+    margin: 2rem 0
+    font-weight: bold
+  p, a
+    font-size: 1.5rem
+  h2
+    font-size: 1.75rem
+
 .logo-list
   width: 95%
   margin: 0 auto
@@ -152,18 +173,7 @@ section.section#section-formulaire
   .notification.error:empty
     display: none
 
-.section#stats
-  padding: 2em
-
-.stats__item
-  font-size: 1.2em
-
-  .count
-    margin-right: 0.2em
-    font-size: 1.6em
-    vertical-align: text-top
-
-.section#testimonials
+.section#section-testimonials
   q
     font-style: italic
     quotes: "« " " »" "“" "”"
@@ -174,6 +184,17 @@ section.section#section-formulaire
     margin-top: var(--space-m)
   .row .card
     max-width: 100%
+
+.section#section-stats
+  padding: 2em
+
+.stats__item
+  font-size: 1.2em
+
+  .count
+    margin-right: 0.2em
+    font-size: 1.6em
+    vertical-align: text-top
 
 .grid#stats-charts
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
