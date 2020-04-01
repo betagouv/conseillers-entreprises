@@ -2,7 +2,7 @@
 
 = render 'hero'
 
-%section.section.section-white#description
+%section.section.section-white#section-description
   .container.text-center
     = image_tag('place-des-entreprises-logo.png', alt: "logo Place des Entreprises", id: 'logo-pde')
     %h2.lead-text
@@ -17,11 +17,11 @@
   .container
     = render 'index_landing_cards', landings: @landings, tracking_params: @tracking_params
 
-%section.section.section-grey#testimonials
+%section.section.section-grey#section-testimonials
   .container
     = render 'index_testimonials'
 
-%section.section.section-grey#stats
+%section.section.section-grey#section-stats
   .container.container-medium
     - cache('ministats', expires_in: 1.hour) do
       = render 'stats/ministats'
