@@ -43,11 +43,15 @@ class Diagnoses::StepsController < ApplicationController
         facility.update(readable_locality: "#{params[:postal_code]} #{params[:city]}")
       end
 
-      if @diagnosis.update(diagnosis_params)
-        @diagnosis.solicitation&.status_processed!
-        redirect_to action: :selection, id: @diagnosis and return
+      begin
+        @diagnosis.transaction do
+          @diagnosis.update!(diagnosis_params)
+          @diagnosis.solicitation&.status_processed!
+          redirect_to action: :selection, id: @diagnosis and return
+        end
+      rescue ActiveRecord::ActiveRecordError => e
+        flash.alert = e.message
       end
-      flash.alert = @diagnosis.errors.full_messages.to_sentence
     end
 
     if @diagnosis.solicitation.present?
