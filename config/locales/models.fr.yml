@@ -176,7 +176,7 @@ fr:
         options: Aides demandées
         pk_campaign: Campagne
         pk_kwd: Mots-clés
-        selected_options: Aides sélectionnées
+        selected_options: Aides demandées
         slug: Page thématique
         tracking: Suivi
       solicitation/statuses:

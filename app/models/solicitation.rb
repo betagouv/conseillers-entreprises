@@ -116,7 +116,7 @@ class Solicitation < ApplicationRecord
   ## Validations
   #
   def validate_selected_options
-    if options.present? && selected_options.empty?
+    if landing&.landing_options.present? && selected_options.empty?
       errors.add(:options, :blank)
     end
   end

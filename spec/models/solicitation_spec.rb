@@ -17,27 +17,32 @@ RSpec.describe Solicitation, type: :model do
 
   describe 'custom validations' do
     describe 'validate_selected_options' do
-      subject(:solicitation) { build :solicitation, options: options }
+      subject(:solicitation) { build :solicitation, landing: landing, options: options }
 
       before { solicitation.validate }
 
-      context 'no option' do
+      context 'no option in landing' do
+        let(:landing) { build :landing }
         let(:options) { {} }
 
         it { is_expected.to be_valid }
       end
 
-      context 'with a chosen option' do
-        let(:options) { { first_option: 1, second_option: 0 } }
+      context 'with options in landing' do
+        let(:landing) { build :landing, :with_options }
 
-        it { is_expected.to be_valid }
-      end
+        context 'with a chosen option' do
+          let(:options) { { landing.landing_options.first => '0', landing.landing_options.last => '1' } }
 
-      context 'with no chosen option' do
-        let(:options) { { first_option: 0, second_option: 0 } }
+          it { is_expected.to be_valid }
+        end
 
-        it { is_expected.not_to be_valid }
-        it { expect(solicitation.errors.details).to eq({ options: [{ error: :blank }] }) }
+        context 'with no chosen option' do
+          let(:options) { { landing.landing_options.first => '0', landing.landing_options.last => '0' } }
+
+          it { is_expected.not_to be_valid }
+          it { expect(solicitation.errors.details).to eq({ options: [{ error: :blank }] }) }
+        end
       end
     end
   end
