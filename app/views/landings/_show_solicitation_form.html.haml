@@ -2,8 +2,6 @@
 - if landing.form_top_message.present?
   %p= landing.form_top_message.html_safe
 = form_with(model: solicitation, url: create_solicitation_landing_path(anchor: 'section-formulaire'), local: true, html: { honeypot: true }) do |f|
-  - solicitation.form_info.each do |k,v|
-    = f.hidden_field "form_info[#{k}]", value: v
   - if solicitation.errors.present?
     :javascript
       _paq.push(['trackEvent', 'contact-entreprise', 'failure']);
