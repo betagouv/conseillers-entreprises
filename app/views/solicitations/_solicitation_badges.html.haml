@@ -1,0 +1,8 @@
+%div{ id: "solicitation-#{solicitation.id}-badges" }
+  - solicitation.badges.each do |badge|
+    = badge_label(badge)
+= form_with model: solicitation, url: update_badges_solicitation_path(solicitation), method: :post, class: 'hide', id: "solicitation-#{solicitation.id}-form-badges" do |f|
+  = f.select(:badge_ids, options_from_collection_for_select(Badge.all, :id, :title, solicitation.badge_ids), {}, { multiple: true, class: 'clearable ui search selection dropdown badges' })
+
+  = f.submit t('ok'), class: 'ui button green mini'
+%i.ui.icon.tags.modify-badges{ 'data-id': "#{solicitation.id}", title: t('.add_remove_badges') }

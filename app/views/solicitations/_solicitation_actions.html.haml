@@ -1,0 +1,3 @@
+= link_to t('.create_diagnosis'), new_diagnosis_path(solicitation: solicitation.id), class: 'ui green button compact'
+- solicitation.allowed_new_statuses.each do |status|
+  = status_action_link(solicitation, status, %w[ui button compact])

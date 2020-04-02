@@ -522,13 +522,15 @@ fr:
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
     solicitation:
-      add_remove_badges: Ajouter / enlever des tags
-      create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'
       landing_options: 'Aides demandées :'
       siret: 'Siret :'
       slug: 'Page thématique :'
+    solicitation_actions:
+      create_diagnosis: Démarrer une analyse
+    solicitation_badges:
+      add_remove_badges: Ajouter / Enlever des tags
     solicitations_tabs:
       canceled: Annulées
       in_progress: À traiter
