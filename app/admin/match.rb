@@ -85,7 +85,6 @@ ActiveAdmin.register Match do
     column :subject
     column(:content) { |m| m.need.content }
     column :expert
-    column(:expert_subject) { |m| m.expert_subject&.description }
     column :expert_antenne
     column :expert_institution
     column(:status) { |m| m.status_short_description }
