@@ -2,22 +2,23 @@
 #
 # Table name: solicitations
 #
-#  id           :bigint(8)        not null, primary key
-#  description  :string
-#  email        :string
-#  form_info    :jsonb
-#  full_name    :string
-#  options      :jsonb
-#  phone_number :string
-#  siret        :string
-#  slug         :string
-#  status       :integer          default("in_progress")
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                    :bigint(8)        not null, primary key
+#  description           :string
+#  email                 :string
+#  form_info             :jsonb
+#  full_name             :string
+#  landing_options_slugs :string           is an Array
+#  landing_slug          :string           not null
+#  options_deprecated    :jsonb
+#  phone_number          :string
+#  siret                 :string
+#  status                :integer          default("in_progress")
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #
 # Indexes
 #
-#  index_solicitations_on_slug  (slug)
+#  index_solicitations_on_landing_slug  (landing_slug)
 #
 
 class Solicitation < ApplicationRecord
@@ -25,40 +26,37 @@ class Solicitation < ApplicationRecord
 
   ## Associations
   #
+  belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
   has_many :diagnoses, inverse_of: :solicitation
-  belongs_to :landing, primary_key: :slug, foreign_key: :slug, inverse_of: :solicitations, optional: true
   has_and_belongs_to_many :badges, -> { distinct }
 
   ## Validations
   #
-  validates :slug, :description, :full_name, :phone_number, :email, presence: true, allow_blank: false
-  validate :validate_selected_options
+  validates :landing_slug, :description, :full_name, :phone_number, :email, presence: true, allow_blank: false
+  validate :validate_landing_options_on_create, on: :create
   validates :email, format: { with: Devise.email_regexp }
 
-  ## “Through” Associations
-  #
+  def validate_landing_options_on_create
+    # landing can not be nil on creation
+    # later, landing_slug can refer to a removed Landing
+    if landing.nil?
+      errors.add(:landing, :blank)
+    end
+    # if the landing has options, landing_options should refer to existing options on creation
+    # later, landing_options_slugs may refer to removed LandingOptions
+    if landing&.landing_options.present? && landing_options.empty?
+      errors.add(:landing_options, :blank)
+    end
+  end
 
   ## Scopes
   #
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
-  scope :with_selected_option, -> (option) { where("options->>? = '1'", option) }
 
   ## JSON Accessors
   #
   FORM_INFO_KEYS = %i[partner_token pk_campaign pk_kwd gclid]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
-
-  ## ActiveAdmin/Ransacker helpers
-  #
-  FORM_INFO_KEYS.each do |key|
-    ransacker key do |parent|
-      Arel::Nodes::InfixOperation.new('->>', parent.table[:form_info], Arel::Nodes.build_quoted(key.to_s))
-    end
-  end
-  ransacker(:with_selected_option, formatter: -> (value) {
-    with_selected_option(value).pluck(:id)
-      .presence
-  }) { |parent| parent.table[:id] }
 
   ##
   # Development helper
@@ -76,14 +74,32 @@ class Solicitation < ApplicationRecord
     record
   end
 
+  ## Options
+  # I would love to use a has_many relation, but Rails doesn’t (yet?) support backing relations with postgresql arrays.
+  def landing_options=(landing_options)
+    self.landing_options_slugs = landing_options.pluck(:slug)
+  end
+
+  def landing_options
+    LandingOption.where(slug: landing_options_slugs)
+  end
+
+  def options=(options_hash) # Support for old-style solicitation form. TODO: Remove this
+    self.landing_options_slugs = options_hash.select{ |_, v| v.to_bool }.keys
+  end
+
+  # * Retrieve all the landing options slugs used in the past;
+  #   LandingOptions may have been removed, but the slug remains here.
+  # * :landing_options_slugs is a postgresql array; we could use unnest() to flatten it
+  #   but let’s keep it easier to understand. It’s not performance-critical.
+  def self.all_past_landing_options_slugs
+    self.pluck(:landing_options_slugs).flatten.uniq
+  end
+
   ##
   #
   def institution
     Institution.find_by(partner_token: partner_token) if partner_token.present?
-  end
-
-  def selected_options
-    options.select{ |_, v| v.to_bool }.keys
   end
 
   def normalized_phone_number
@@ -111,13 +127,5 @@ class Solicitation < ApplicationRecord
   #
   def allowed_new_statuses
     self.class.statuses.keys - [self.status]
-  end
-
-  ## Validations
-  #
-  def validate_selected_options
-    if options.present? && selected_options.empty?
-      errors.add(:options, :blank)
-    end
   end
 end

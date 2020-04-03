@@ -27,14 +27,14 @@
           .item
             %strong= Solicitation.human_attribute_name(attribut) + ' : '
             = solicitation.send(attribut)
-      - if solicitation.slug.present?
+      - if solicitation.landing_slug.present?
         .item
           %strong= t('.slug')
-          = link_to(solicitation.slug, landing_path(solicitation.slug))
-      - if solicitation.selected_options.present?
+          = link_to(solicitation.landing_slug, solicitation.landing)
+      - if solicitation.landing_options_slugs.present?
         .item
-          %strong= t('.selected_options')
-          - solicitation.selected_options.each do |option|
+          %strong= t('.landing_options')
+          - solicitation.landing_options_slugs.each do |option|
             .ui.small.label= option
       .item
         %strong= t('.description')

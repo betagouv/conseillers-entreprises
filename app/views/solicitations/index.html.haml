@@ -5,7 +5,10 @@
 = paginate @solicitations
 
 - max_badge_updated_at = Badge.maximum(:updated_at)
-= render partial: 'solicitations/solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, max_badge_updated_at] }
+- if @solicitations.present?
+  = render(partial: 'solicitations/solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, max_badge_updated_at] })
+- else
+  .ui.fluid.image= image_tag('no-solicitation.gif')
 
 = paginate @solicitations
 
