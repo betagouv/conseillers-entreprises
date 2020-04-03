@@ -528,7 +528,10 @@ fr:
       siret: 'Siret :'
       slug: 'Page thématique :'
     solicitation_actions:
+      create_another_diagnosis: Démarrer une autre analyse
       create_diagnosis: Démarrer une analyse
+      view_diagnoses: "%{count} analyses"
+      view_diagnosis: Voir l’analyse de %{name}
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags
     solicitations_tabs:
