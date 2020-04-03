@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_24_095649) do
+ActiveRecord::Schema.define(version: 2020_03_31_132751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -223,10 +223,11 @@ ActiveRecord::Schema.define(version: 2020_03_24_095649) do
   end
 
   create_table "landing_options", force: :cascade do |t|
-    t.string "slug"
+    t.string "title"
     t.text "description"
     t.integer "landing_sort_order"
     t.bigint "landing_id"
+    t.string "slug", null: false
     t.index ["landing_id"], name: "index_landing_options_on_landing_id"
   end
 
@@ -295,15 +296,16 @@ ActiveRecord::Schema.define(version: 2020_03_24_095649) do
     t.string "description"
     t.string "email"
     t.string "phone_number"
-    t.jsonb "options", default: {}
+    t.jsonb "options_deprecated", default: {}
     t.jsonb "form_info", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "siret"
     t.integer "status", default: 0
     t.string "full_name"
-    t.string "slug"
-    t.index ["slug"], name: "index_solicitations_on_slug"
+    t.string "landing_slug", null: false
+    t.string "landing_options_slugs", array: true
+    t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|

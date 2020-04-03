@@ -5,7 +5,8 @@
 #  id                 :bigint(8)        not null, primary key
 #  description        :text
 #  landing_sort_order :integer
-#  slug               :string
+#  slug               :string           not null
+#  title              :string
 #  landing_id         :bigint(8)
 #
 # Indexes
@@ -18,7 +19,11 @@
 #
 
 class LandingOption < ApplicationRecord
+  ## Associations
+  #
   belongs_to :landing, inverse_of: :landing_options, touch: true
 
+  ## Scopes
+  #
   scope :ordered_for_landing, -> { order(:landing_sort_order, :id) }
 end
