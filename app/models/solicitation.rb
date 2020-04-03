@@ -88,8 +88,12 @@ class Solicitation < ApplicationRecord
     self.landing_options_slugs = options_hash.select{ |_, v| v.to_bool }.keys
   end
 
+  # * Retrieve all the landing options slugs used in the past;
+  #   LandingOptions may have been removed, but the slug remains here.
+  # * :landing_options_slugs is a postgresql array; we could use unnest() to flatten it
+  #   but let’s keep it easier to understand. It’s not performance-critical.
   def self.all_past_landing_options_slugs
-    self.distinct.pluck("unnest(#{:landing_options_slugs})")
+    self.pluck(:landing_options_slugs).flatten.uniq
   end
 
   ##
