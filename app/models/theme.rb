@@ -4,7 +4,7 @@
 #
 #  id                   :bigint(8)        not null, primary key
 #  interview_sort_order :integer
-#  label                :string
+#  label                :string           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
@@ -17,6 +17,7 @@ class Theme < ApplicationRecord
   ## Validations
   #
   validates :label, presence: true, uniqueness: true
+  after_save :refresh_subjects_slugs
 
   ## Through Associations
   #
@@ -37,5 +38,13 @@ class Theme < ApplicationRecord
   #
   def to_s
     label
+  end
+
+  private
+
+  def refresh_subjects_slugs
+    self.subjects.each do |subject|
+      subject.compute_slug && subject.save!
+    end
   end
 end

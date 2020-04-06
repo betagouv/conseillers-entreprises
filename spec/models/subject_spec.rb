@@ -12,6 +12,40 @@ RSpec.describe Subject, type: :model do
     end
   end
 
+  describe 'compute_slug' do
+    let(:theme) { create :theme, label: "My Theme" }
+    let(:the_subject) { build :subject, label: "My Subject", theme: theme }
+
+    context 'manual call' do
+      before { the_subject.compute_slug }
+
+      it { expect(the_subject.slug).to eq 'my_theme_my_subject' }
+    end
+
+    context 'before_validation hook' do
+      before { the_subject.save }
+
+      it do
+        expect(the_subject.slug).to eq 'my_theme_my_subject'
+        expect(the_subject).to be_valid
+      end
+    end
+
+    context 'after_save hook in theme' do
+      before do
+        the_subject.save
+        theme.reload
+        theme.update label: "My Theme Renamed"
+        the_subject.reload
+      end
+
+      it do
+        expect(the_subject.slug).to eq 'my_theme_renamed_my_subject'
+        expect(the_subject).to be_valid
+      end
+    end
+  end
+
   describe 'scopes' do
     describe 'ordered_for_interview' do
       subject { described_class.ordered_for_interview }
