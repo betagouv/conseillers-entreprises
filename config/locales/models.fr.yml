@@ -153,6 +153,9 @@ fr:
         landing_topics: Exemples
         slug: Slug
         thank_you_message: Remerciement post-formulaire
+      landing_option:
+        preselected_institution_slug: Institution pré-sélectionnée
+        preselected_subject_slug: Sujet pré-sélectionné
       match:
         closed_at: Date de clôture
         expert: Référent

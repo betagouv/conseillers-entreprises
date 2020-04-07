@@ -4,9 +4,10 @@
 #
 #  id             :bigint(8)        not null, primary key
 #  antennes_count :integer
-#  name           :string
+#  name           :string           not null
 #  partner_token  :string
 #  show_icon      :boolean          default(TRUE)
+#  slug           :string           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
@@ -14,6 +15,7 @@
 #
 #  index_institutions_on_name           (name) UNIQUE
 #  index_institutions_on_partner_token  (partner_token)
+#  index_institutions_on_slug           (slug) UNIQUE
 #
 
 class Institution < ApplicationRecord
@@ -24,7 +26,8 @@ class Institution < ApplicationRecord
 
   ## Validations
   #
-  validates :name, presence: true, uniqueness: true
+  validates :name, :slug, presence: true, uniqueness: true
+  before_validation :compute_slug
 
   ## Through Associations
   #
@@ -56,5 +59,11 @@ class Institution < ApplicationRecord
   #
   def to_s
     name
+  end
+
+  def compute_slug
+    if name.present?
+      self.slug = name.parameterize.underscore
+    end
   end
 end

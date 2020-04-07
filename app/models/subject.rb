@@ -6,7 +6,8 @@
 #  archived_at          :datetime
 #  interview_sort_order :integer
 #  is_support           :boolean          default(FALSE)
-#  label                :string
+#  label                :string           not null
+#  slug                 :string           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  theme_id             :bigint(8)        not null
@@ -14,6 +15,7 @@
 # Indexes
 #
 #  index_subjects_on_archived_at  (archived_at)
+#  index_subjects_on_slug         (slug) UNIQUE
 #  index_subjects_on_theme_id     (theme_id)
 #
 # Foreign Keys
@@ -38,7 +40,8 @@ class Subject < ApplicationRecord
 
   ## Validations
   #
-  validates :theme, presence: true
+  validates :theme, :slug, presence: true
+  before_validation :compute_slug
   before_save :set_support
 
   ## Through Associations
@@ -87,6 +90,12 @@ class Subject < ApplicationRecord
 
   def define_as_support!
     update(is_support: true)
+  end
+
+  def compute_slug
+    if theme&.label.present? && label.present?
+      self.slug = [self.theme.label.parameterize.underscore, label.parameterize.underscore].join('_')
+    end
   end
 
   private
