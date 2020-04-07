@@ -14,6 +14,7 @@ describe 'New Solicitation Feature', type: :feature, js: true do
     before do
       visit '/?pk_campaign=FOO&pk_kwd=BAR'
       click_link 'Test Landing'
+      click_link 'Déposer votre demande'
 
       fill_in 'Description', with: 'Ceci est un test'
       fill_in 'SIRET', with: '123 456 789 00010'

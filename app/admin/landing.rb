@@ -80,8 +80,6 @@ ActiveAdmin.register Landing do
     end
 
     attributes_table title: I18n.t("landings.show_solicitation_form.form") do
-      row :form_title
-      row :form_top_message
       row :description_example
       row :form_bottom_message
       row :form_promise_message
@@ -140,8 +138,6 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t("landings.show_solicitation_form.form") do
-      f.input :form_title, placeholder: t('landings.show_solicitation_form.default_title').html_safe
-      f.input :form_top_message
       f.input :description_example, placeholder: t('landings.show_solicitation_form.description.default_example').html_safe
       f.input :form_bottom_message
       f.input :form_promise_message, placeholder: t('landings.show_solicitation_form.default_promise_message').html_safe

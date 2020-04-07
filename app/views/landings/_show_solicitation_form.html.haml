@@ -1,22 +1,11 @@
-%h2.section__title= (landing.form_title.presence || t('.default_title')).html_safe
-- if landing.form_top_message.present?
-  %p= landing.form_top_message.html_safe
-= form_with(model: solicitation, url: create_solicitation_landing_path(anchor: 'section-formulaire'), local: true, html: { honeypot: true }) do |f|
+%h2.section__title= t('.default_title')
+= form_with(model: solicitation, url: create_solicitation_landing_path, local: true, html: { honeypot: true }) do |f|
   - if solicitation.errors.present?
     :javascript
       _paq.push(['trackEvent', 'contact-entreprise', 'failure']);
-  - landing_options = landing.landing_options.ordered_for_landing
-  - if landing_options.present?
-    .form__group#solicitation-options{ data: { checkboxes_require_one_with: t(".select_at_least_one_option") } }
-      = f.label :options, t('.select_options')
-      .panel
-        = f.fields_for :options do |fields|
-          - landing_options.each do |option|
-            .p
-              = fields.check_box option.slug
-              = fields.label option.slug, option.title, class: 'label-inline' do
-                = option.description.html_safe
-      .notification.error= solicitation.errors.full_messages_for(:options).to_sentence
+  - if solicitation.landing_options_slugs.present?
+    = f.hidden_field :landing_options_slugs, multiple: true, value: solicitation.landing_options_slugs
+  = f.hidden_field :landing_slug, value: solicitation.landing_slug
   .form__group
     = f.label 'description', t('.description.label')
     - example = landing.description_example.presence || t('.description.default_example')
