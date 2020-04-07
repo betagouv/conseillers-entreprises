@@ -91,7 +91,7 @@ ActiveAdmin.register Solicitation do
     end
     Solicitation.all_past_landing_options_slugs.each do |landing|
       column landing, humanize_name: false do |s|
-        s.landing_options_slugs.include?(landing) ? I18n.t('yes') : ''
+        s.landing_options_slugs&.include?(landing) ? I18n.t('yes') : ''
       end
     end
     Solicitation::FORM_INFO_KEYS.each{ |k| column k, humanize_name: false }
