@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_132751) do
+ActiveRecord::Schema.define(version: 2020_04_06_075437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,14 +202,16 @@ ActiveRecord::Schema.define(version: 2020_03_31_132751) do
   end
 
   create_table "institutions", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "antennes_count"
     t.boolean "show_icon", default: true
     t.string "partner_token"
+    t.string "slug", null: false
     t.index ["name"], name: "index_institutions_on_name", unique: true
     t.index ["partner_token"], name: "index_institutions_on_partner_token"
+    t.index ["slug"], name: "index_institutions_on_slug", unique: true
   end
 
   create_table "institutions_subjects", force: :cascade do |t|
@@ -228,7 +230,10 @@ ActiveRecord::Schema.define(version: 2020_03_31_132751) do
     t.integer "landing_sort_order"
     t.bigint "landing_id"
     t.string "slug", null: false
+    t.string "preselected_subject_slug"
+    t.string "preselected_institution_slug"
     t.index ["landing_id"], name: "index_landing_options_on_landing_id"
+    t.index ["slug"], name: "index_landing_options_on_slug", unique: true
   end
 
   create_table "landing_topics", force: :cascade do |t|
@@ -309,14 +314,16 @@ ActiveRecord::Schema.define(version: 2020_03_31_132751) do
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|
-    t.string "label"
+    t.string "label", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "theme_id", null: false
     t.integer "interview_sort_order"
     t.datetime "archived_at"
     t.boolean "is_support", default: false
+    t.string "slug", null: false
     t.index ["archived_at"], name: "index_subjects_on_archived_at"
+    t.index ["slug"], name: "index_subjects_on_slug", unique: true
     t.index ["theme_id"], name: "index_subjects_on_theme_id"
   end
 
@@ -328,7 +335,7 @@ ActiveRecord::Schema.define(version: 2020_03_31_132751) do
   end
 
   create_table "themes", force: :cascade do |t|
-    t.string "label"
+    t.string "label", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "interview_sort_order"

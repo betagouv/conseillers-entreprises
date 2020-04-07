@@ -1,6 +1,6 @@
 class LandingsController < PagesController
   before_action :save_form_info, only: %i[index show]
-  before_action :retrieve_landing, only: %i[show create_solicitation]
+  before_action :retrieve_landing, except: :index
 
   def index
     @landings = Rails.cache.fetch('landings', expires_in: 3.minutes) do
@@ -8,13 +8,14 @@ class LandingsController < PagesController
     end
   end
 
-  def show
-    @solicitation = @landing.solicitations.new
+  def show; end
+
+  def new_solicitation
+    @solicitation = @landing.solicitations.new(landing_options_slugs: [params[:option_slug]].compact)
   end
 
   def create_solicitation
-    @solicitation = @landing.solicitations.create(solicitation_params.merge(retrieve_form_info))
-
+    @solicitation = Solicitation.create(solicitation_params.merge(retrieve_form_info))
     if @solicitation.persisted?
       CompanyMailer.confirmation_solicitation(@solicitation.email).deliver_later
       if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
@@ -22,7 +23,7 @@ class LandingsController < PagesController
       end
     end
 
-    render :show # rerender the form on error, render the thankyou partial on success
+    render :new_solicitation # rerender the form on error, render the thankyou partial on success
   end
 
   private
@@ -54,6 +55,6 @@ class LandingsController < PagesController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :siret, :full_name, :phone_number, :email, form_info: {}, options: {})
+      .permit(:description, :siret, :full_name, :phone_number, :email, :landing_slug, landing_options_slugs: [])
   end
 end

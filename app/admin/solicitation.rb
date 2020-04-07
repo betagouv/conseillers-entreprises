@@ -87,7 +87,7 @@ ActiveAdmin.register Solicitation do
     column :phone_number
     column :email
     column :options do |s|
-      s.landing_options_slugs.join("\n")
+      s.landing_options_slugs&.join("\n")
     end
     Solicitation.all_past_landing_options_slugs.each do |landing|
       column landing, humanize_name: false do |s|

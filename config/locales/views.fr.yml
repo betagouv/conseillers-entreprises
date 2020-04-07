@@ -239,6 +239,8 @@ fr:
       contact_us: Contactez-nous directement
       other_questions: Votre question n’est pas dans cette liste ?
       title: 'Sélectionnez votre demande :'
+    show_landing:
+      submit_request: Déposer votre demande
     show_landing_institutions:
       institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
     show_landing_topics:
@@ -262,8 +264,6 @@ fr:
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
-      select_at_least_one_option: Sélectionnez au moins une case
-      select_options: 'Sélectionnez les cases qui correspondent à votre situation :'
       siret:
         label: SIRET
         placeholder: 123 456 789 00010
@@ -522,13 +522,18 @@ fr:
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
     solicitation:
-      add_remove_badges: Ajouter / enlever des tags
-      create_diagnosis: Démarrer une analyse
       description: 'Description :'
       email: 'Email :'
       landing_options: 'Aides demandées :'
       siret: 'Siret :'
       slug: 'Page thématique :'
+    solicitation_actions:
+      create_another_diagnosis: Démarrer une autre analyse
+      create_diagnosis: Démarrer une analyse
+      view_diagnoses: "%{count} analyses"
+      view_diagnosis: Voir l’analyse de %{name}
+    solicitation_badges:
+      add_remove_badges: Ajouter / Enlever des tags
     solicitations_tabs:
       canceled: Annulées
       in_progress: À traiter
