@@ -22,7 +22,10 @@ person_params = {
   phone_number: '0612345678',
   role: 'Test User',
   full_name: 'Edith Piaf',
-  antenne: antenne
+  antenne: antenne,
+  flags: {
+    can_view_diagnoses_tab: true
+  }
 }
 
 ## User and Expert
