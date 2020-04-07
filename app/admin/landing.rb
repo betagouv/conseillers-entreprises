@@ -69,7 +69,7 @@ ActiveAdmin.register Landing do
       table_for landing.landing_topics.ordered_for_landing do
         column :title
         column :description do |topic|
-          simple_format(topic.description)
+          topic.description.html_safe
         end
       end
     end
