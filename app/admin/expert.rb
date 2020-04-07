@@ -23,8 +23,8 @@ ActiveAdmin.register Expert do
     column(:full_name) do |e|
       div admin_link_to(e)
       div '➜ ' + e.role
-      div '✉ ' + e.email
-      div '✆ ' + e.phone_number
+      div '✉ ' + (e.email || '')
+      div '✆ ' + (e.phone_number || '')
     end
     column(:institution) do |e|
       div admin_link_to(e, :institution)
