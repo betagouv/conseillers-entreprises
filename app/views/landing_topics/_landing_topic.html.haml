@@ -1,5 +1,5 @@
-%li.panel.landing-topic{ onclick: "_paq.push(['trackEvent', 'landing-topic', '#{landing_topic.title}']);" }
-  %input{ :checked => "checked", :type => "checkbox" }
+%li.panel.landing-topic
+  %input{ :checked => "checked", :type => "checkbox", onchange: "sendLandingTopicEvent('#{landing_topic.title}')" }
   %i
   .panel__header
     %h3= simple_format(landing_topic.title, {}, wrapper_tag: 'span')
