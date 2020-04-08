@@ -65,7 +65,7 @@ ActiveAdmin.register Solicitation do
 
   ## Batch actions
   # Statuses
-  Solicitation.statuses.keys.each do |status|
+  Solicitation.statuses.each_key do |status|
     batch_action Solicitation.human_attribute_name("statuses_actions.#{status}") do |ids|
       solicitations = batch_action_collection.where(id: ids)
       solicitations.update(status: status)

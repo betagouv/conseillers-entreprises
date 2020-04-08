@@ -332,9 +332,6 @@ Lint/EmptyInterpolation:
 Lint/EmptyWhen:
   Enabled: true
 
-Lint/EndInMethod:
-  Enabled: true
-
 Lint/EnsureReturn:
   Enabled: false
 
@@ -404,6 +401,9 @@ Lint/PercentStringArray:
 Lint/PercentSymbolArray:
   Enabled: false
 
+Lint/RaiseException:
+  Enabled: true
+
 Lint/RandOne:
   Enabled: false
 
@@ -442,6 +442,9 @@ Lint/ShadowedException:
 
 Lint/ShadowingOuterLocalVariable:
   Enabled: false
+
+Lint/StructNewOverride:
+  Enabled: true
 
 Lint/RedundantStringCoercion:
   Enabled: false
@@ -858,9 +861,6 @@ Style/BlockComments:
 Style/BlockDelimiters:
   Enabled: false
 
-Style/BracesAroundHashParameters:
-  Enabled: false
-
 Style/CaseEquality:
   Enabled: false
 
@@ -949,7 +949,7 @@ Style/Encoding:
   Enabled: false
 
 Style/EndBlock:
-  Enabled: false
+  Enabled: true
 
 Style/EvalWithLocation:
   Enabled: false
@@ -978,8 +978,17 @@ Style/GlobalVars:
 Style/GuardClause:
   Enabled: false
 
+Style/HashEachMethods:
+  Enabled: true
+
 Style/HashSyntax:
   Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
 
 Style/IdenticalConditionalBranches:
   Enabled: false
