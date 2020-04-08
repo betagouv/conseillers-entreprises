@@ -4,3 +4,10 @@
     = landing.landing_topic_title.presence || t('.default_landing_topic_title')
   %ul.landing-topics
     = render landing_topics
+
+:javascript
+   function sendLandingTopicEvent(landingTopic) {
+    if (!this.event.target.checked) {
+      _paq.push(['trackEvent', 'landing-topic', landingTopic]);
+    }
+  }
