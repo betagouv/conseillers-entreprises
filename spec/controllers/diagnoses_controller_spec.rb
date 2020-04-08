@@ -75,7 +75,7 @@ RSpec.describe DiagnosesController, type: :controller do
     it "creates a new diagnosis without siret" do
       post :create_diagnosis_without_siret, params: params
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to besoins_diagnosis_path(Diagnosis.last)
+      expect(response).to redirect_to needs_diagnosis_path(Diagnosis.last)
     end
   end
 end

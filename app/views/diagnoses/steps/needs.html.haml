@@ -2,9 +2,9 @@
 
 = render 'header', diagnosis: @diagnosis, current_page_step: 2
 
-#besoins-app
+#needs-app
   = form_with model: @diagnosis,
-    url: besoins_diagnosis_path(@diagnosis),
+    url: update_needs_diagnosis_path,
     method: :post,
     class: 'ui form diagnosis_form' do |diagnosis_form|
 

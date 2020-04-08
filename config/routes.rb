@@ -91,12 +91,12 @@ Rails.application.routes.draw do
       post :unarchive
 
       controller 'diagnoses/steps' do
-        get :besoins
-        post :besoins
-        get :visite
-        post :visite
-        get :selection
-        post :selection
+        get :needs, path: 'besoins'
+        post :update_needs
+        get :visit, path: 'visite'
+        post :update_visit
+        get :matches, path: 'selection'
+        post :update_matches
       end
     end
   end

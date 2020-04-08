@@ -2,13 +2,14 @@
 
 = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
-#selection-app
+#matches-app
   .ui.info.message
     = t('.explanation')
 
-  = form_with scope: :matches, url: selection_diagnosis_path(@diagnosis),
-             id: 'selection-form', class: 'ui form',
-             data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |f|
+  = form_with scope: :matches, url: update_matches_diagnosis_path(@diagnosis),
+    method: :post,
+    class: 'ui form',
+    data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |f|
     - @diagnosis.needs.ordered_for_interview.each do |need|
       .ui.segment.shadow-less
         %h3.ui.header= need.subject
@@ -37,7 +38,7 @@
 
     .ui.two.column.stackable.grid.container
       .ui.left.aligned.column.no-left-padding.no-margin
-        = link_to visite_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
+        = link_to visit_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
           = t('previous_step')
           %i.arrow.left.icon
 

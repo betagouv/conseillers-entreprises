@@ -45,7 +45,7 @@ class CompaniesController < ApplicationController
   def create_diagnosis_from_siret
     facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
     if facility
-      diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :besoins)
+      diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :needs)
       if params[:solicitation].present?
         solicitation = Solicitation.find_by(id: params[:solicitation])
         diagnosis.solicitation = solicitation
@@ -53,7 +53,7 @@ class CompaniesController < ApplicationController
     end
 
     if diagnosis&.save
-      redirect_to besoins_diagnosis_path(diagnosis)
+      redirect_to needs_diagnosis_path(diagnosis)
     else
       render body: nil, status: :bad_request
     end
