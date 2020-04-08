@@ -39,7 +39,7 @@ class Diagnoses::StepsController < ApplicationController
     diagnosis_params[:step] = :matches
 
     if params[:postal_code].present?
-      insee_code = ApiAdresse::Query.insee_code_for_city(params[:city]&.strip, params[:postal_code]&.strip)
+      insee_code = ApiAdresse::Query.insee_code_for_city(params[:city], params[:postal_code])
       if insee_code.nil?
         @postal_code = params[:postal_code]
         flash.now.alert = t('diagnoses.steps.visit.no_result')

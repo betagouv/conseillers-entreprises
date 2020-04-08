@@ -70,7 +70,7 @@ class DiagnosesController < ApplicationController
   end
 
   def find_cities
-    @cities = ApiAdresse::Query.cities_of_postcode(params[:postal_code].strip).to_json.html_safe
+    @cities = ApiAdresse::Query.cities_of_postcode(params[:postal_code]).to_json.html_safe
   end
 
   private
