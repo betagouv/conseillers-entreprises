@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_06_075437) do
+ActiveRecord::Schema.define(version: 2020_04_08_095342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 2020_04_06_075437) do
     t.string "slug", null: false
     t.string "preselected_subject_slug"
     t.string "preselected_institution_slug"
+    t.jsonb "content", default: {}
     t.index ["landing_id"], name: "index_landing_options_on_landing_id"
     t.index ["slug"], name: "index_landing_options_on_slug", unique: true
   end
