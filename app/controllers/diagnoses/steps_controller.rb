@@ -19,8 +19,8 @@ class Diagnoses::StepsController < ApplicationController
   end
 
   def visit
-    if @diagnosis.solicitation.present?
-      @diagnosis.visitee = Contact.new(full_name:  @diagnosis.solicitation.full_name,email: @diagnosis.solicitation.email,
+    if @diagnosis.visitee.nil? && @diagnosis.solicitation.present?
+      @diagnosis.visitee = Contact.new(full_name:  @diagnosis.solicitation.full_name, email: @diagnosis.solicitation.email,
                             phone_number: @diagnosis.solicitation.phone_number)
     end
   end
