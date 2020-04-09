@@ -65,6 +65,9 @@ ActiveAdmin.register Landing do
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_topics') do
       row :landing_topic_title
+      row :message_under_landing_topics do |l|
+        l.message_under_landing_topics.html_safe
+      end
 
       table_for landing.landing_topics.ordered_for_landing do
         column :title
@@ -135,6 +138,7 @@ ActiveAdmin.register Landing do
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
       f.input :landing_topic_title, placeholder: t('landings.show_landing_topics.default_landing_topic_title').html_safe
+      f.input :message_under_landing_topics, placeholder: t('landings.show_landing_topics.default_message_under_landing_topics').html_safe
 
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
         t.input :title,       :input_html => { :style => 'width:50%' }

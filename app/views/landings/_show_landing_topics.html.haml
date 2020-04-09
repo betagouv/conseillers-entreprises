@@ -4,6 +4,9 @@
     = landing.landing_topic_title.presence || t('.default_landing_topic_title')
   %ul.landing-topics
     = render landing_topics
+  - if landing.message_under_landing_topics.present?
+    .ui.text-center
+      = landing.message_under_landing_topics.html_safe
 
 :javascript
    function sendLandingTopicEvent(landingTopic) {
