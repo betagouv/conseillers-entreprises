@@ -16,10 +16,11 @@
 #
 # Indexes
 #
-#  index_matches_on_expert_id   (expert_id)
-#  index_matches_on_need_id     (need_id)
-#  index_matches_on_status      (status)
-#  index_matches_on_subject_id  (subject_id)
+#  index_matches_on_expert_id              (expert_id)
+#  index_matches_on_expert_id_and_need_id  (expert_id,need_id) UNIQUE WHERE (expert_id <> NULL::bigint)
+#  index_matches_on_need_id                (need_id)
+#  index_matches_on_status                 (status)
+#  index_matches_on_subject_id             (subject_id)
 #
 # Foreign Keys
 #

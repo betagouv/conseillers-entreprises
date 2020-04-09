@@ -13,9 +13,10 @@
 #
 # Indexes
 #
-#  index_needs_on_archived_at   (archived_at)
-#  index_needs_on_diagnosis_id  (diagnosis_id)
-#  index_needs_on_subject_id    (subject_id)
+#  index_needs_on_archived_at                  (archived_at)
+#  index_needs_on_diagnosis_id                 (diagnosis_id)
+#  index_needs_on_subject_id                   (subject_id)
+#  index_needs_on_subject_id_and_diagnosis_id  (subject_id,diagnosis_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -38,7 +39,7 @@ class Need < ApplicationRecord
   ## Validations
   #
   validates :diagnosis, presence: true
-  validates :subject, uniqueness: { scope: :diagnosis_id, allow_nil: true }
+  validates :subject, uniqueness: { scope: :diagnosis_id }
 
   ## Through Associations
   #
