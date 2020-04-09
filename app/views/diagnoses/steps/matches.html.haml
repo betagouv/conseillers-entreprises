@@ -6,8 +6,9 @@
   .ui.info.message
     = t('.explanation')
 
-  = form_with scope: :matches, url: update_matches_diagnosis_path(@diagnosis),
-    method: :post,
+  = form_with model: @diagnosis,
+    url: update_matches_diagnosis_path(@diagnosis),
+    scope: :matches,
     class: 'ui form',
     data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |f|
     - @diagnosis.needs.ordered_for_interview.each do |need|

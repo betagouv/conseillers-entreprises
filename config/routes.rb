@@ -92,11 +92,11 @@ Rails.application.routes.draw do
 
       controller 'diagnoses/steps' do
         get :needs, path: 'besoins'
-        post :update_needs
+        patch :update_needs
         get :visit, path: 'visite'
-        post :update_visit
+        patch :update_visit
         get :matches, path: 'selection'
-        post :update_matches
+        patch :update_matches
       end
     end
   end
