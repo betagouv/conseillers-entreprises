@@ -3,7 +3,7 @@ ActiveAdmin.register Feedback do
 
   ## Index
   #
-  includes :need, :expert, :user
+  includes :expert, user: [:institution, :antenne], need: [:facility]
 
   index do
     selectable_column
@@ -32,6 +32,9 @@ ActiveAdmin.register Feedback do
     column :expert
     column :user
     column :description
+    column(:siret) { |f| f.need.facility.siret }
+    column(:institution) { |f| f.user&.institution || f.expert.institution }
+    column(:antenne) { |f| f.user&.antenne || f.expert.antenne }
   end
 
   ## Show
