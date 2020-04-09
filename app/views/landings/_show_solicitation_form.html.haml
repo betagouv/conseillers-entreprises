@@ -1,4 +1,7 @@
-%h2.section__title= t('.default_title')
+- landing_option = solicitation.landing_options.first
+%h2.section__title=  landing_option&.form_title || t('.default_title')
+- if landing_option&.form_description.present?
+  %p= landing_option.form_description.html_safe
 = form_with(model: solicitation, url: create_solicitation_landing_path, local: true, html: { honeypot: true }) do |f|
   - if solicitation.errors.present?
     :javascript

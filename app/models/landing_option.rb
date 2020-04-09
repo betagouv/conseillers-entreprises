@@ -3,6 +3,7 @@
 # Table name: landing_options
 #
 #  id                           :bigint(8)        not null, primary key
+#  content                      :jsonb
 #  description                  :text
 #  landing_sort_order           :integer
 #  preselected_institution_slug :string
@@ -38,4 +39,9 @@ class LandingOption < ApplicationRecord
   ## Scopes
   #
   scope :ordered_for_landing, -> { order(:landing_sort_order, :id) }
+
+  ## JSON Accessors
+  #
+  CONTENT_KEYS = %i[form_title form_description]
+  store_accessor :content, CONTENT_KEYS
 end

@@ -11,7 +11,7 @@ module Admin
     def self.header_rewrites
       # Additionally, the CSV, since it’s used by humans, uses human attributes names for headers.
       # We have to map back to the actual attributes names.
-      @header_rewrites ||= IMPORTED_COLUMNS.map { |a| [User.human_attribute_name(a), a] }.to_h
+      @header_rewrites ||= IMPORTED_COLUMNS.index_by { |a| User.human_attribute_name(a) }
     end
 
     def self.before_batch_import(importer)

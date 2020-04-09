@@ -154,6 +154,8 @@ fr:
         slug: Slug
         thank_you_message: Remerciement post-formulaire
       landing_option:
+        form_description: Description du formulaire
+        form_title: Titre du formulaire
         preselected_institution_slug: Institution pré-sélectionnée
         preselected_subject_slug: Sujet pré-sélectionné
       match:

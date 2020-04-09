@@ -76,6 +76,7 @@ ActiveAdmin.register Match do
     column :id
     column(:need) { |m| m.need_id }
     column :company
+    column(:siret) { |m| m.facility.siret }
     column(:commune) { |m| m.facility.commune }
     column :created_at
     column :advisor

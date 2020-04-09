@@ -45,7 +45,7 @@ class AdminMailerPreview < ActionMailer::Preview
       description: Faker::Hipster.paragraphs(number: 5).join('<br/>'),
       phone_number: Faker::PhoneNumber.phone_number,
       email: Faker::Internet.email,
-      needs: all_needs.map{ |n| [n, rand(2).to_s] }.to_h,
+      needs: all_needs.index_with{ |n| rand(2).to_s },
       form_info: {
         pk_campaign: "test",
         slug: 'brexit',

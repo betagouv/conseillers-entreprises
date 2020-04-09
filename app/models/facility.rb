@@ -16,6 +16,7 @@
 #
 #  index_facilities_on_commune_id  (commune_id)
 #  index_facilities_on_company_id  (company_id)
+#  index_facilities_on_siret       (siret) UNIQUE WHERE ((siret)::text <> NULL::text)
 #
 # Foreign Keys
 #

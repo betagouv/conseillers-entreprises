@@ -112,8 +112,8 @@ module Stats
       #  ...
       # ]
 
-      all_months_zero = all_months.map { |m| [m, 0] }.to_h
-      all_categories_results = all_categories.map { |c| [c, all_months_zero.dup] }.to_h
+      all_months_zero = all_months.index_with { |m| 0 }
+      all_categories_results = all_categories.index_with { |c| all_months_zero.dup }
 
       results.each do |category, month_values|
         all_categories_results[category].merge! month_values
