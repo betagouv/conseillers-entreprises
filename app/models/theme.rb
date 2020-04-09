@@ -8,6 +8,10 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
+# Indexes
+#
+#  index_themes_on_label  (label) UNIQUE
+#
 
 class Theme < ApplicationRecord
   ## Associations

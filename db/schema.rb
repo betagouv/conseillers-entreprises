@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_095342) do
     t.datetime "updated_at", null: false
     t.string "legal_form_code"
     t.string "code_effectif"
+    t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -187,6 +188,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_095342) do
     t.string "code_effectif"
     t.index ["commune_id"], name: "index_facilities_on_commune_id"
     t.index ["company_id"], name: "index_facilities_on_company_id"
+    t.index ["siret"], name: "index_facilities_on_siret", unique: true, where: "((siret)::text <> NULL::text)"
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -269,6 +271,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_095342) do
     t.datetime "closed_at"
     t.bigint "expert_id"
     t.bigint "subject_id"
+    t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
     t.index ["status"], name: "index_matches_on_status"
@@ -285,6 +288,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_095342) do
     t.datetime "archived_at"
     t.index ["archived_at"], name: "index_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
+    t.index ["subject_id", "diagnosis_id"], name: "index_needs_on_subject_id_and_diagnosis_id", unique: true
     t.index ["subject_id"], name: "index_needs_on_subject_id"
   end
 
@@ -340,6 +344,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_095342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "interview_sort_order"
+    t.index ["label"], name: "index_themes_on_label", unique: true
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

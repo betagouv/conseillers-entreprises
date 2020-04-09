@@ -10,6 +10,10 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+# Indexes
+#
+#  index_companies_on_siren  (siren) UNIQUE WHERE ((siren)::text <> NULL::text)
+#
 
 class Company < ApplicationRecord
   include Effectif
