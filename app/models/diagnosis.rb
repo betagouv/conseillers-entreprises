@@ -38,7 +38,7 @@ class Diagnosis < ApplicationRecord
 
   ## Constants
   #
-  enum step: { not_started: 1, besoins: 2, visite: 3, selection: 4, completed: 5 }, _prefix: true
+  enum step: { not_started: 1, needs: 2, visit: 3, matches: 4, completed: 5 }, _prefix: true
 
   ## Associations
   #
@@ -52,8 +52,8 @@ class Diagnosis < ApplicationRecord
   ## Validations and Callbacks
   #
   validates :advisor, :facility, presence: true
-  validate :step_4_has_visit_attributes
-  validate :last_step_has_matches
+  validate :step_matches_has_visit_attributes
+  validate :step_completed_has_matches
 
   accepts_nested_attributes_for :needs, allow_destroy: true
   accepts_nested_attributes_for :visitee
@@ -149,8 +149,8 @@ class Diagnosis < ApplicationRecord
 
   private
 
-  def step_4_has_visit_attributes
-    if Diagnosis.steps[step] == 4
+  def step_matches_has_visit_attributes
+    if step_matches?
       if visitee.nil?
         errors.add(:visitee, :blank)
       end
@@ -160,9 +160,11 @@ class Diagnosis < ApplicationRecord
     end
   end
 
-  def last_step_has_matches
-    if step_completed? && needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
-      errors.add(:step, 'can’t be step 5 with no matches')
+  def step_completed_has_matches
+    if step_completed?
+      if needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
+        errors.add(:step, 'can’t be step 5 with no matches')
+      end
     end
   end
 end

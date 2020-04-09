@@ -9,7 +9,7 @@ class Diagnoses::StepsController < ApplicationController
     authorize @diagnosis, :update?
 
     diagnosis_params = params_for_needs
-    diagnosis_params[:step] = 3
+    diagnosis_params[:step] = :visit
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :visit
     else
@@ -39,7 +39,7 @@ class Diagnoses::StepsController < ApplicationController
 
     diagnosis_params = params_for_visit
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
-    diagnosis_params[:step] = 4
+    diagnosis_params[:step] = :matches
 
     if params[:postal_code].present?
       insee_code = ApiAdresse::Query.insee_code_for_city(params[:city]&.strip, params[:postal_code]&.strip)

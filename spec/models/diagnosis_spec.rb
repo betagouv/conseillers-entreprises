@@ -29,7 +29,7 @@ RSpec.describe Diagnosis, type: :model do
     end
 
     describe 'step_4_has_visit_attributes' do
-      subject(:diagnosis) { build :diagnosis, step: 4, visitee: visitee, happened_on: happened_on }
+      subject(:diagnosis) { build :diagnosis, step: :matches, visitee: visitee, happened_on: happened_on }
 
       context 'missing attributes' do
         let(:visitee) { nil }
@@ -56,8 +56,8 @@ RSpec.describe Diagnosis, type: :model do
 
       it do
         create :diagnosis_completed
-        create :diagnosis, step: 2
-        create :diagnosis, step: 4
+        create :diagnosis, step: :needs
+        create :diagnosis, step: :matches
 
         is_expected.to eq 2
       end
@@ -69,7 +69,7 @@ RSpec.describe Diagnosis, type: :model do
       it do
         create :diagnosis_completed
         create :diagnosis_completed
-        create :diagnosis, step: 4
+        create :diagnosis, step: :matches
 
         is_expected.to eq 2
       end
@@ -101,7 +101,7 @@ RSpec.describe Diagnosis, type: :model do
   describe 'match_and_notify!' do
     subject(:match_and_notify) { diagnosis.match_and_notify!(matches) }
 
-    let(:diagnosis) { create :diagnosis, step: 4 }
+    let(:diagnosis) { create :diagnosis, step: :matches }
     let(:need) { create :need, diagnosis: diagnosis }
     let(:expert) { create :expert }
     let(:experts_subjects) { create :expert_subject, expert: expert, subject: need.subject }
