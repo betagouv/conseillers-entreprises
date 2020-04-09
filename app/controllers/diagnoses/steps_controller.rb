@@ -18,15 +18,6 @@ class Diagnoses::StepsController < ApplicationController
     end
   end
 
-  private
-
-  def params_for_needs
-    params.require(:diagnosis)
-      .permit(:content, needs_attributes: [:_destroy, :content, :subject_id, :id])
-  end
-
-  public
-
   def visit
     if @diagnosis.solicitation.present?
       @diagnosis.visitee = Contact.new(full_name:  @diagnosis.solicitation.full_name,email: @diagnosis.solicitation.email,
@@ -66,15 +57,6 @@ class Diagnoses::StepsController < ApplicationController
     end
   end
 
-  private
-
-  def params_for_visit
-    params.require(:diagnosis)
-      .permit(:happened_on, visitee_attributes: [:full_name, :role, :email, :phone_number, :id])
-  end
-
-  public
-
   def matches
   end
 
@@ -94,6 +76,16 @@ class Diagnoses::StepsController < ApplicationController
   def retrieve_diagnosis
     safe_params = params.permit(:id)
     @diagnosis = Diagnosis.find(safe_params[:id])
+  end
+
+  def params_for_needs
+    params.require(:diagnosis)
+      .permit(:content, needs_attributes: [:_destroy, :content, :subject_id, :id])
+  end
+
+  def params_for_visit
+    params.require(:diagnosis)
+      .permit(:happened_on, visitee_attributes: [:full_name, :role, :email, :phone_number, :id])
   end
 
   def params_for_matches
