@@ -1,6 +1,9 @@
 %li.panel.landing-topic
-  %input{ :checked => "checked", :type => "checkbox", onchange: "sendLandingTopicEvent('#{landing_topic.title}')" }
-  %i
+  - topic_sanitized_name = sanitize(landing_topic.title, tags: [], attributes: [])
+  - tracking_event_value = topic_sanitized_name.parameterize.underscore
+  - script = "if (!this.checked) { _paq.push(['trackEvent', 'landing-topic', #{tracking_event_value}]); }"
+  = check_box_tag(nil, nil, true, onchange: script)
+  .chevron
   .panel__header
-    %h3= simple_format(landing_topic.title, {}, wrapper_tag: 'span')
+    %h3= landing_topic.title.html_safe
   .lead-text= landing_topic.description.html_safe

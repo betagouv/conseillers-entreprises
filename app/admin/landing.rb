@@ -13,7 +13,6 @@ ActiveAdmin.register Landing do
     column I18n.t("activerecord.models.landing.one") do |l|
       div link_to l.title, landing_path(l.slug) if l.slug.present?
       div l.subtitle
-      div l.button, style: 'color: gray'
       div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
     end
     column :meta do |l|
@@ -58,26 +57,30 @@ ActiveAdmin.register Landing do
       attributes_table_for landing do
         row :title
         row :subtitle
-        row :button
         row :logos
       end
     end
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_topics') do
       row :landing_topic_title
+      row :message_under_landing_topics do |l|
+        l.message_under_landing_topics&.html_safe
+      end
 
       table_for landing.landing_topics.ordered_for_landing do
         column :title
         column :description do |topic|
-          topic.description.html_safe
+          topic.description&.html_safe
         end
       end
     end
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_options') do
       table_for landing.landing_options.ordered_for_landing do
+        column I18n.t("landings.new_solicitation_form.form") do |option|
+          link_to option.slug, new_solicitation_landing_path(landing.slug, option.slug)
+        end
         column :slug
-        column :description
         column :preselected_subject_slug
         column :preselected_institution_slug
         column :form_title
@@ -85,7 +88,7 @@ ActiveAdmin.register Landing do
       end
     end
 
-    attributes_table title: I18n.t("landings.show_solicitation_form.form") do
+    attributes_table title: I18n.t("landings.new_solicitation_form.form") do
       row :description_example
       row :form_bottom_message
       row :form_promise_message
@@ -96,7 +99,7 @@ ActiveAdmin.register Landing do
   ## Form
   #
   landing_options_attributes = [
-    :id, :slug, :description, :landing_sort_order,
+    :id, :slug, :landing_sort_order,
     :preselected_institution_slug, :preselected_subject_slug,
     :_destroy, :form_description, :form_title
   ]
@@ -113,9 +116,9 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
-      f.input :home_title, :input_html => { :style => 'width:50%' }
-      f.input :home_description, :input_html => { :style => 'width:50%', :rows => 3 }
-      f.input :home_sort_order, :input_html => { :style => 'width:50%' }
+      f.input :home_title
+      f.input :home_description, input_html: { rows: 2 }
+      f.input :home_sort_order, input_html: { style: 'width:80px' }
       f.input :emphasis, as: :boolean
     end
 
@@ -128,36 +131,36 @@ ActiveAdmin.register Landing do
       f.inputs do
         f.input :title
         f.input :subtitle
-        f.input :button
         f.input :logos
       end
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
       f.input :landing_topic_title, placeholder: t('landings.show_landing_topics.default_landing_topic_title').html_safe
+      f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 },
+              placeholder: t('landings.show_landing_topics.default_message_under_landing_topics').html_safe
 
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
-        t.input :title,       :input_html => { :style => 'width:50%' }
-        t.input :description, :input_html => { :style => 'width:50%', :rows => 3 }
+        t.input :title, input_html: { style: 'width:70%' }
+        t.input :description, input_html: { style: 'width:70%', rows: 10 }
       end
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_options') do
       f.has_many :landing_options, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |o|
-        o.input :slug, :input_html => { :style => 'width:50%' }
-        o.input :description, :input_html => { :style => 'width:50%', :rows => 3 }
-        o.input :preselected_subject_slug, :input_html => { :style => 'width:50%' }, as: :datalist, collection: Subject.pluck(:slug)
-        o.input :preselected_institution_slug, :input_html => { :style => 'width:50%' }, as: :datalist, collection: Institution.pluck(:slug)
-        o.input :form_title, :input_html => { :style => 'width:50%' }
-        o.input :form_description, :input_html => { :style => 'width:50%', :rows => 3 }
+        o.input :slug, input_html: { style: 'width:70%' }
+        o.input :preselected_subject_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Subject.pluck(:slug)
+        o.input :preselected_institution_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Institution.pluck(:slug)
+        o.input :form_title, input_html: { style: 'width:70%' }
+        o.input :form_description, as: :text, input_html: { style: 'width:70%', rows: 10 }
       end
     end
 
-    f.inputs I18n.t("landings.show_solicitation_form.form") do
-      f.input :description_example, placeholder: t('landings.show_solicitation_form.description.default_example').html_safe
+    f.inputs I18n.t("landings.new_solicitation_form.form") do
+      f.input :description_example, placeholder: t('landings.new_solicitation_form.description.default_example').html_safe
       f.input :form_bottom_message
-      f.input :form_promise_message, placeholder: t('landings.show_solicitation_form.default_promise_message').html_safe
-      f.input :thank_you_message, placeholder: t('landings.show_thank_you.default_thank_you_message').html_safe
+      f.input :form_promise_message, placeholder: t('landings.new_solicitation_form.default_promise_message').html_safe
+      f.input :thank_you_message, placeholder: t('landings.new_solicitation_thank_you.default_thank_you_message').html_safe
     end
 
     f.actions

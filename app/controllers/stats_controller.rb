@@ -93,7 +93,7 @@ class StatsController < PagesController
       "activity.visits": visits_in_range,
       "activity.companies_diagnosed": companies_diagnosed_in_range,
       "activity.needs": needs_in_range,
-      "activity.needs_notified": needs_in_range.where(diagnoses: { step: 5 }),
+      "activity.needs_notified": needs_in_range.where(diagnoses: { step: :completed }),
       "activity.matches": matches_created_in_range,
       "activity.match_taken_care_of": matches_taken_care_in_range.where(status: [:taking_care, :done]),
       "activity.match_done": matches_taken_care_in_range.where(status: :done),

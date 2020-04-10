@@ -133,7 +133,17 @@ fr:
       sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
       title: Saisie manuelle
     steps:
-      besoins:
+      matches:
+        before_sending_emails_1: En cliquant sur le bouton ci-dessous, les référents sélectionnés seront contactés par e-mail.
+        before_sending_emails_2: Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires. Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.
+        explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
+        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
+        notifications_sent: Les notifications ont bien été envoyées.
+        notify_matches: Notifier les référents sélectionnés
+        select_at_least_one_expert: Cochez au minimum un référent à contacter.
+        title: Mise en contact
+        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
+      needs:
         diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
         diagnosis_content_subtitle: Informations générales sur cette entreprise
         identify_needs: |
@@ -147,17 +157,7 @@ fr:
         new_city: Rechercher pour une autre localité que %{locality}
         postal_code: Code postal
         title: Nouvelle localité
-      selection:
-        before_sending_emails_1: En cliquant sur le bouton ci-dessous, les référents sélectionnés seront contactés par e-mail.
-        before_sending_emails_2: Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires. Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.
-        explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
-        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-        notifications_sent: Les notifications ont bien été envoyées.
-        notify_matches: Notifier les référents sélectionnés
-        select_at_least_one_expert: Cochez au minimum un référent à contacter.
-        title: Mise en contact
-        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
-      visite:
+      visit:
         date: Date de votre visite
         date_placeholder: jj/mm/aaaa
         email_address: E-mail
@@ -239,13 +239,9 @@ fr:
       contact_us: Contactez-nous directement
       other_questions: Votre question n’est pas dans cette liste ?
       title: 'Sélectionnez votre demande :'
-    show_landing:
-      submit_request: Déposer votre demande
-    show_landing_institutions:
-      institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
-    show_landing_topics:
-      default_landing_topic_title: 'Exemples d’aides :'
-    show_solicitation_form:
+    new_solicitation:
+      back_to_landing: Revenir à la liste de mesures
+    new_solicitation_form:
       button:
         title: Envoyer ma demande
       default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
@@ -267,10 +263,17 @@ fr:
       siret:
         label: SIRET
         placeholder: 123 456 789 00010
-    show_thank_you:
+    new_solicitation_thank_you:
       default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
+    show_landing:
+      submit_request: Déposer votre demande
+    show_landing_institutions:
+      institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
+    show_landing_topics:
+      default_landing_topic_title: 'Exemples d’aides :'
+      default_message_under_landing_topics: "<a href='/'>Vous songez à la bonne reprise de vos activités...</a>"
   layouts:
     user_tabs:
       antenne: Antenne

@@ -1,9 +1,20 @@
+:ruby
+  meta_title = @landing.meta_title.presence || @landing.title
+  meta_description = @landing.meta_description.presence || @landing.subtitle
+  meta title: meta_title, description: meta_description
+
+= render 'hero'
+
 - if @solicitation.persisted?
   %section.section.section-grey#section-thankyou
     .container.container-medium
-      = render 'show_thank_you', landing: @landing
+      = render 'new_solicitation_thank_you', landing: @landing
 
 - if @solicitation.new_record?
+  %section.section.section-white#section-retour
+    .container.container-medium
+      %h3
+        = link_to t('.back_to_landing'), landing_path(@landing.slug)
   %section.section.section-grey#section-formulaire
-    .container.container-small
-      = render 'show_solicitation_form', landing: @landing, solicitation: @solicitation
+    .container.container-medium
+      = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation
