@@ -113,9 +113,9 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
-      f.input :home_title, :input_html => { :style => 'width:50%' }
-      f.input :home_description, :input_html => { :style => 'width:50%', :rows => 3 }
-      f.input :home_sort_order, :input_html => { :style => 'width:50%' }
+      f.input :home_title
+      f.input :home_description, input_html: { rows: 2 }
+      f.input :home_sort_order, input_html: { style: 'width:80px' }
       f.input :emphasis, as: :boolean
     end
 
@@ -134,21 +134,22 @@ ActiveAdmin.register Landing do
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
       f.input :landing_topic_title, placeholder: t('landings.show_landing_topics.default_landing_topic_title').html_safe
-      f.input :message_under_landing_topics, placeholder: t('landings.show_landing_topics.default_message_under_landing_topics').html_safe
+      f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 },
+              placeholder: t('landings.show_landing_topics.default_message_under_landing_topics').html_safe
 
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
-        t.input :title,       :input_html => { :style => 'width:50%' }
-        t.input :description, :input_html => { :style => 'width:50%', :rows => 3 }
+        t.input :title, input_html: { style: 'width:70%' }
+        t.input :description, input_html: { style: 'width:70%', rows: 10 }
       end
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_options') do
       f.has_many :landing_options, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |o|
-        o.input :slug, :input_html => { :style => 'width:50%' }
-        o.input :preselected_subject_slug, :input_html => { :style => 'width:50%' }, as: :datalist, collection: Subject.pluck(:slug)
-        o.input :preselected_institution_slug, :input_html => { :style => 'width:50%' }, as: :datalist, collection: Institution.pluck(:slug)
-        o.input :form_title, :input_html => { :style => 'width:50%' }
-        o.input :form_description, :input_html => { :style => 'width:50%', :rows => 3 }
+        o.input :slug, input_html: { style: 'width:70%' }
+        o.input :preselected_subject_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Subject.pluck(:slug)
+        o.input :preselected_institution_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Institution.pluck(:slug)
+        o.input :form_title, input_html: { style: 'width:70%' }
+        o.input :form_description, as: :text, input_html: { style: 'width:70%', rows: 10 }
       end
     end
 
