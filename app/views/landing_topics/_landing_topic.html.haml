@@ -1,7 +1,7 @@
 %li.panel.landing-topic
   - topic_sanitized_name = sanitize(landing_topic.title, tags: [], attributes: [])
   - tracking_event_value = topic_sanitized_name.parameterize.underscore
-  - script = "if (!this.checked) { _paq.push(['trackEvent', 'landing-topic', #{tracking_event_value}]); }"
+  - script = "if (!this.checked) { _paq.push(['trackEvent', 'landing-topic', '#{tracking_event_value}']); }"
   = check_box_tag(nil, nil, true, onchange: script)
   .chevron
   .panel__header
