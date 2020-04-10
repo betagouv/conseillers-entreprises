@@ -77,6 +77,9 @@ ActiveAdmin.register Landing do
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_options') do
       table_for landing.landing_options.ordered_for_landing do
+        column I18n.t("landings.show_solicitation_form.form") do |option|
+          link_to option.slug, new_solicitation_landing_path(landing.slug, option.slug)
+        end
         column :slug
         column :preselected_subject_slug
         column :preselected_institution_slug
