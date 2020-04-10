@@ -13,7 +13,6 @@ ActiveAdmin.register Landing do
     column I18n.t("activerecord.models.landing.one") do |l|
       div link_to l.title, landing_path(l.slug) if l.slug.present?
       div l.subtitle
-      div l.button, style: 'color: gray'
       div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
     end
     column :meta do |l|
@@ -58,7 +57,6 @@ ActiveAdmin.register Landing do
       attributes_table_for landing do
         row :title
         row :subtitle
-        row :button
         row :logos
       end
     end
@@ -80,7 +78,6 @@ ActiveAdmin.register Landing do
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_options') do
       table_for landing.landing_options.ordered_for_landing do
         column :slug
-        column :description
         column :preselected_subject_slug
         column :preselected_institution_slug
         column :form_title
@@ -99,7 +96,7 @@ ActiveAdmin.register Landing do
   ## Form
   #
   landing_options_attributes = [
-    :id, :slug, :description, :landing_sort_order,
+    :id, :slug, :landing_sort_order,
     :preselected_institution_slug, :preselected_subject_slug,
     :_destroy, :form_description, :form_title
   ]
@@ -131,7 +128,6 @@ ActiveAdmin.register Landing do
       f.inputs do
         f.input :title
         f.input :subtitle
-        f.input :button
         f.input :logos
       end
     end
@@ -149,7 +145,6 @@ ActiveAdmin.register Landing do
     f.inputs I18n.t('activerecord.attributes.landing.landing_options') do
       f.has_many :landing_options, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |o|
         o.input :slug, :input_html => { :style => 'width:50%' }
-        o.input :description, :input_html => { :style => 'width:50%', :rows => 3 }
         o.input :preselected_subject_slug, :input_html => { :style => 'width:50%' }, as: :datalist, collection: Subject.pluck(:slug)
         o.input :preselected_institution_slug, :input_html => { :style => 'width:50%' }, as: :datalist, collection: Institution.pluck(:slug)
         o.input :form_title, :input_html => { :style => 'width:50%' }

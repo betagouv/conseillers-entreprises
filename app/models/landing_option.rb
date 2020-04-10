@@ -4,7 +4,6 @@
 #
 #  id                           :bigint(8)        not null, primary key
 #  content                      :jsonb
-#  description                  :text
 #  landing_sort_order           :integer
 #  preselected_institution_slug :string
 #  preselected_subject_slug     :string
