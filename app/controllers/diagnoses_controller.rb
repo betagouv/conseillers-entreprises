@@ -35,14 +35,14 @@ class DiagnosesController < ApplicationController
     end
 
     facility = Diagnosis.create_without_siret(insee_code, params)
-    diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :besoins)
+    diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :needs)
     if params[:solicitation].present?
       solicitation = Solicitation.find_by(id: params[:solicitation])
       diagnosis.solicitation = solicitation
     end
 
     if diagnosis.save
-      redirect_to besoins_diagnosis_path(diagnosis)
+      redirect_to needs_diagnosis_path(diagnosis)
     else
       render body: nil, status: :bad_request
     end

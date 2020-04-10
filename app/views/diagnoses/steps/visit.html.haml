@@ -2,10 +2,9 @@
 
 = render 'header', diagnosis: @diagnosis, current_page_step: 3
 
-#visite-app
+#visit-app
   = form_with model: @diagnosis,
-    url: visite_diagnosis_path(@diagnosis),
-    method: :post,
+    url: update_visit_diagnosis_path,
     class: 'ui form' do |diagnosis_form|
 
     %h2.ui.header
@@ -42,7 +41,7 @@
     - if ENV['FEATURE_NEW_LOCALITY_FOR_DIAGNOSIS'].to_b
       = render 'new_locality', postal_code: @postal_code, diagnosis: @diagnosis
 
-    %a.ui.left.floated.button.labeled.icon{ href: besoins_diagnosis_path(@diagnosis) }
+    %a.ui.left.floated.button.labeled.icon{ href: needs_diagnosis_path }
       = t('previous_step')
       %i.arrow.left.icon
     = diagnosis_form.button :submit, class: 'ui right floated button green right labeled icon' do

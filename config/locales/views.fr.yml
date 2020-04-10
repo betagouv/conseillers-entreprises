@@ -133,7 +133,17 @@ fr:
       sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
       title: Saisie manuelle
     steps:
-      besoins:
+      matches:
+        before_sending_emails_1: En cliquant sur le bouton ci-dessous, les référents sélectionnés seront contactés par e-mail.
+        before_sending_emails_2: Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires. Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.
+        explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
+        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
+        notifications_sent: Les notifications ont bien été envoyées.
+        notify_matches: Notifier les référents sélectionnés
+        select_at_least_one_expert: Cochez au minimum un référent à contacter.
+        title: Mise en contact
+        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
+      needs:
         diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
         diagnosis_content_subtitle: Informations générales sur cette entreprise
         identify_needs: |
@@ -147,17 +157,7 @@ fr:
         new_city: Rechercher pour une autre localité que %{locality}
         postal_code: Code postal
         title: Nouvelle localité
-      selection:
-        before_sending_emails_1: En cliquant sur le bouton ci-dessous, les référents sélectionnés seront contactés par e-mail.
-        before_sending_emails_2: Ils auront accès aux coordonnées de l’entreprise et à l’analyse que vous avez réalisée, y compris vos commentaires. Ils pourront recontacter directement l’entreprise pour répondre à ses besoins ou revenir vers vous pour un complément d’information.
-        explanation: Ces aides répondent aux besoins identifiés. Vous pouvez sélectionner les référents que vous souhaitez contacter par e-mail.
-        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-        notifications_sent: Les notifications ont bien été envoyées.
-        notify_matches: Notifier les référents sélectionnés
-        select_at_least_one_expert: Cochez au minimum un référent à contacter.
-        title: Mise en contact
-        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
-      visite:
+      visit:
         date: Date de votre visite
         date_placeholder: jj/mm/aaaa
         email_address: E-mail

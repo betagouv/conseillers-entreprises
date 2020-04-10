@@ -51,7 +51,7 @@ RSpec.describe Need, type: :model do
     let(:not_for_me_match) { build :match, status: :not_for_me }
 
     context 'diagnosis not complete' do
-      let(:diagnosis) { create :diagnosis, step: 1 }
+      let(:diagnosis) { create :diagnosis, step: :not_started }
 
       it { is_expected.to eq :diagnosis_not_complete }
     end
