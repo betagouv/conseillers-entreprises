@@ -9,5 +9,5 @@
       %h3
         = link_to t('.back_to_landing'), landing_path(@landing.slug)
   %section.section.section-grey#section-formulaire
-    .container.container-small
+    .container.container-medium
       = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation
