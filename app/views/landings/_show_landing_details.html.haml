@@ -1,6 +1,6 @@
 .landing-details
   %h2.section__title
-    = simple_format(landing.title, {}, wrapper_tag: 'span')
+    = landing.title&.html_safe
   %h2.section__title
-    = simple_format(landing.subtitle, {}, wrapper_tag: 'span')
+    = landing.subtitle&.html_safe
 

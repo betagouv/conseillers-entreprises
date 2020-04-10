@@ -1,7 +1,7 @@
 - landing_topics = landing.landing_topics.ordered_for_landing
 - if landing_topics.present?
   %h2.section__title
-    = landing.landing_topic_title.presence || t('.default_landing_topic_title')
+    = landing.landing_topic_title.presence&.html_safe || t('.default_landing_topic_title')
   %ul.landing-topics
     = render landing_topics
   - if landing.message_under_landing_topics.present?
