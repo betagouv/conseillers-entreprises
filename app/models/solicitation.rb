@@ -28,7 +28,13 @@ class Solicitation < ApplicationRecord
   #
   belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
   has_many :diagnoses, inverse_of: :solicitation
-  has_and_belongs_to_many :badges, -> { distinct }
+  has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
+
+  ## Callbacks
+  #
+  def touch_after_badges_update(_badge)
+    touch if persisted?
+  end
 
   ## Validations
   #
