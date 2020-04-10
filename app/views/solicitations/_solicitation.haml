@@ -27,8 +27,7 @@
       - if solicitation.landing_options_slugs.present?
         .item
           %strong= t('.landing_options')
-          - solicitation.landing_options_slugs.each do |option|
-            .ui.small.label= option
+          = selected_options_tags(solicitation, "ui small label")
       .item
         %strong= t('.description')
         %p= simple_format solicitation.description
