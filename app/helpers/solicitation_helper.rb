@@ -42,4 +42,29 @@ module SolicitationHelper
     classes += STATUS_ACTION_COLORS[new_status.to_sym]
     link_to name, path, method: :post, remote: true, class: classes.join(' ')
   end
+
+  def selected_options_tags(solicitation, classes = %[])
+    tags = solicitation.landing_options_slugs.map do |slug|
+      option = LandingOption.find_by(slug: slug)
+      if option.present?
+        title_components = {}
+        if option.preselected_institution_slug.present?
+          institution = option.preselected_institution&.name || option.preselected_institution_slug
+          title_components[t('attributes.institution')] = institution
+        end
+        if option.preselected_subject_slug.present?
+          subject = option.preselected_subject&.label || option.preselected_subject_slug
+          title_components[t('attributes.subject')] = subject
+        end
+
+        title = title_components.map{ |k,v| "#{k} : #{v}" }.join("\n")
+
+        content_tag(:div, option.title, class: classes, title: title)
+      else
+        content_tag(:div, slug, class: classes)
+      end
+    end
+
+    tags.join.html_safe
+  end
 end
