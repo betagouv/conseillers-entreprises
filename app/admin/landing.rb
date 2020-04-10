@@ -77,7 +77,7 @@ ActiveAdmin.register Landing do
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_options') do
       table_for landing.landing_options.ordered_for_landing do
-        column I18n.t("landings.show_solicitation_form.form") do |option|
+        column I18n.t("landings.new_solicitation_form.form") do |option|
           link_to option.slug, new_solicitation_landing_path(landing.slug, option.slug)
         end
         column :slug
@@ -88,7 +88,7 @@ ActiveAdmin.register Landing do
       end
     end
 
-    attributes_table title: I18n.t("landings.show_solicitation_form.form") do
+    attributes_table title: I18n.t("landings.new_solicitation_form.form") do
       row :description_example
       row :form_bottom_message
       row :form_promise_message
@@ -156,11 +156,11 @@ ActiveAdmin.register Landing do
       end
     end
 
-    f.inputs I18n.t("landings.show_solicitation_form.form") do
-      f.input :description_example, placeholder: t('landings.show_solicitation_form.description.default_example').html_safe
+    f.inputs I18n.t("landings.new_solicitation_form.form") do
+      f.input :description_example, placeholder: t('landings.new_solicitation_form.description.default_example').html_safe
       f.input :form_bottom_message
-      f.input :form_promise_message, placeholder: t('landings.show_solicitation_form.default_promise_message').html_safe
-      f.input :thank_you_message, placeholder: t('landings.show_thank_you.default_thank_you_message').html_safe
+      f.input :form_promise_message, placeholder: t('landings.new_solicitation_form.default_promise_message').html_safe
+      f.input :thank_you_message, placeholder: t('landings.new_solicitation_thank_you.default_thank_you_message').html_safe
     end
 
     f.actions

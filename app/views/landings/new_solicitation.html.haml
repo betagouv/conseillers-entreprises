@@ -1,9 +1,9 @@
 - if @solicitation.persisted?
   %section.section.section-grey#section-thankyou
     .container.container-medium
-      = render 'show_thank_you', landing: @landing
+      = render 'new_solicitation_thank_you', landing: @landing
 
 - if @solicitation.new_record?
   %section.section.section-grey#section-formulaire
     .container.container-small
-      = render 'show_solicitation_form', landing: @landing, solicitation: @solicitation
+      = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation

@@ -239,14 +239,7 @@ fr:
       contact_us: Contactez-nous directement
       other_questions: Votre question n’est pas dans cette liste ?
       title: 'Sélectionnez votre demande :'
-    show_landing:
-      submit_request: Déposer votre demande
-    show_landing_institutions:
-      institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
-    show_landing_topics:
-      default_landing_topic_title: 'Exemples d’aides :'
-      default_message_under_landing_topics: "<a href='/'>Vous songez à la bonne reprise de vos activités...</a>"
-    show_solicitation_form:
+    new_solicitation_form:
       button:
         title: Envoyer ma demande
       default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
@@ -268,10 +261,17 @@ fr:
       siret:
         label: SIRET
         placeholder: 123 456 789 00010
-    show_thank_you:
+    new_solicitation_thank_you:
       default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
+    show_landing:
+      submit_request: Déposer votre demande
+    show_landing_institutions:
+      institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
+    show_landing_topics:
+      default_landing_topic_title: 'Exemples d’aides :'
+      default_message_under_landing_topics: "<a href='/'>Vous songez à la bonne reprise de vos activités...</a>"
   layouts:
     user_tabs:
       antenne: Antenne
