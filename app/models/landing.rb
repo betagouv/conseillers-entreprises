@@ -35,7 +35,7 @@ class Landing < ApplicationRecord
     meta_title meta_description
     emphasis
     title subtitle button logos
-    landing_topic_title
+    landing_topic_title message_under_landing_topics
     description_example form_bottom_message
     form_promise_message thank_you_message
   ]

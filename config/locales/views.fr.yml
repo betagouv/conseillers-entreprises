@@ -245,6 +245,7 @@ fr:
       institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
     show_landing_topics:
       default_landing_topic_title: 'Exemples d’aides :'
+      default_message_under_landing_topics: "<a href='/'>Vous songez à la bonne reprise de vos activités...</a>"
     show_solicitation_form:
       button:
         title: Envoyer ma demande
