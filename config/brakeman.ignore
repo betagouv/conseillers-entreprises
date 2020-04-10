@@ -39,37 +39,6 @@
       "user_input": "([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")",
       "confidence": "Weak",
       "note": "The crafted SQL query is a list of \"(?)\" placeholders; it is essentially a workaround for a limitation of ActiveRecord."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "c5ef9b94727832f50907f81dec6614a893c2ecc7d5032f0a7565a62518d1d2ff",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped parameter value",
-      "file": "app/views/landings/thank_you.haml",
-      "line": 6,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Rails.cache.fetch(\"landing-#{params[:slug].to_sym}\", :expires_in => 1.minute) do\n Landing.find_by(:slug => params[:slug].to_sym)\n end.thank_you_message.presence",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "LandingsController",
-          "method": "create_solicitation",
-          "line": 23,
-          "file": "app/controllers/landings_controller.rb",
-          "rendered": {
-            "name": "landings/thank_you",
-            "file": "app/views/landings/thank_you.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "landings/thank_you"
-      },
-      "user_input": "params[:slug].to_sym",
-      "confidence": "Weak",
-      "note": "brakeman is confused with the model attribute being named like the input parameter."
     }
   ],
   "updated": "2020-03-25 18:51:10 +0100",
