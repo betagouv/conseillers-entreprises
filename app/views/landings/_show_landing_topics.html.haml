@@ -7,10 +7,3 @@
   - if landing.message_under_landing_topics.present?
     .ui.text-center
       = landing.message_under_landing_topics.html_safe
-
-:javascript
-   function sendLandingTopicEvent(landingTopic) {
-    if (!this.event.target.checked) {
-      _paq.push(['trackEvent', 'landing-topic', landingTopic]);
-    }
-  }

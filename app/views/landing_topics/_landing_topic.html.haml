@@ -1,5 +1,8 @@
 %li.panel.landing-topic
-  %input{ :checked => "checked", :type => "checkbox", onchange: "sendLandingTopicEvent('#{landing_topic.title}')" }
+  - topic_sanitized_name = sanitize(landing_topic.title, tags: [], attributes: [])
+  - tracking_event_value = topic_sanitized_name.parameterize.underscore
+  - script = "if (!this.checked) { _paq.push(['trackEvent', 'landing-topic', #{tracking_event_value}]); }"
+  = check_box_tag(nil, nil, true, onchange: script)
   %i
   .panel__header
     %h3= landing_topic.title.html_safe
