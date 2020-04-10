@@ -4,6 +4,10 @@
       = render 'new_solicitation_thank_you', landing: @landing
 
 - if @solicitation.new_record?
+  %section.section.section-white#section-retour
+    .container.container-medium
+      %h3
+        = link_to t('.back_to_landing'), landing_path(@landing.slug)
   %section.section.section-grey#section-formulaire
     .container.container-small
       = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation

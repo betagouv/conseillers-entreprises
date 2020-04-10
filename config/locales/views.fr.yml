@@ -239,6 +239,8 @@ fr:
       contact_us: Contactez-nous directement
       other_questions: Votre question n’est pas dans cette liste ?
       title: 'Sélectionnez votre demande :'
+    new_solicitation:
+      back_to_landing: Revenir à la liste de mesures
     new_solicitation_form:
       button:
         title: Envoyer ma demande
