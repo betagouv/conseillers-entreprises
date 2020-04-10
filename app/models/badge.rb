@@ -14,6 +14,12 @@ class Badge < ApplicationRecord
   #
   has_and_belongs_to_many :solicitations
 
+  ## Callbacks
+  #
+  after_update -> do
+    solicitations.each(&:touch)
+  end
+
   ## Validations
   #
   validates :title, :color, presence: true, allow_blank: false
