@@ -64,13 +64,13 @@ ActiveAdmin.register Landing do
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_topics') do
       row :landing_topic_title
       row :message_under_landing_topics do |l|
-        l.message_under_landing_topics.html_safe
+        l.message_under_landing_topics&.html_safe
       end
 
       table_for landing.landing_topics.ordered_for_landing do
         column :title
         column :description do |topic|
-          topic.description.html_safe
+          topic.description&.html_safe
         end
       end
     end
