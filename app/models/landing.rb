@@ -4,9 +4,9 @@
 #
 #  id               :bigint(8)        not null, primary key
 #  content          :jsonb
-#  home_description :text             default("f")
+#  home_description :text             default("")
 #  home_sort_order  :integer
-#  home_title       :string           default("f")
+#  home_title       :string           default("")
 #  slug             :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -34,7 +34,7 @@ class Landing < ApplicationRecord
   CONTENT_KEYS = %i[
     meta_title meta_description
     emphasis
-    title subtitle button logos
+    title subtitle logos
     landing_topic_title message_under_landing_topics
     description_example form_bottom_message
     form_promise_message thank_you_message

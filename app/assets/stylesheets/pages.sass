@@ -163,9 +163,27 @@ section.section#section-details
     margin: 8px
     vertical-align: middle
 
+section.section#section-retour
+  padding: 1em 0
+  h3
+    margin: 0
+    a
+      color: initial
+      background-color: initial
+      text-decoration: none
+      margin-left: 1rem
+      &:before
+        position: absolute
+        left: -1rem
+        content: "←"
+
 section.section#section-formulaire
-  .notification.error:empty
-    display: none
+  .section__title
+    text-align: initial
+  form
+    margin: initial
+    .notification.error:empty
+      display: none
 
 .section#section-testimonials
   q
