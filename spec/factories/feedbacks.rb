@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :feedback do
     description { Faker::Lorem.paragraph }
-    association :need
 
     trait :of_expert do
       association :expert
@@ -9,6 +8,10 @@ FactoryBot.define do
 
     trait :of_user do
       association :user
+    end
+
+    trait :for_need do
+      association :feedbackable, factory: :need
     end
   end
 end

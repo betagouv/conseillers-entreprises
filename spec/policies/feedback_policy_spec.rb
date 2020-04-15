@@ -8,21 +8,21 @@ RSpec.describe FeedbackPolicy, type: :policy do
 
   permissions :destroy? do
     context "grants access if user is feedback creator" do
-      let(:feedback) { create :feedback, user: user }
+      let(:feedback) { create :feedback, :for_need, user: user }
       let(:user) { diagnosis.advisor }
 
       it { is_expected.to permit(user, feedback) }
     end
 
-    context "grants access if user is admin" do
-      let(:feedback) { create :feedback, :of_user }
+    context "denies access if user is admin" do
+      let(:feedback) { create :feedback, :for_need, :of_user }
       let(:user) { create :user, is_admin: true }
 
-      it { is_expected.to permit(user, feedback) }
+      it { is_expected.not_to permit(user, feedback) }
     end
 
     context "denies access if user is another user" do
-      let(:feedback) { create :feedback, :of_user }
+      let(:feedback) { create :feedback, :for_need, :of_user }
       let(:user) { create :user }
 
       it { is_expected.not_to permit(user, feedback) }
