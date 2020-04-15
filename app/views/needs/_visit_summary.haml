@@ -33,5 +33,6 @@
     .row
       .column
         = simple_format diagnosis.solicitation.description
-        = link_to(t('.solicitation_link'), processed_solicitations_path(anchor: diagnosis.solicitation.id))
+        - if policy(diagnosis.solicitation).show?
+          = link_to(t('.solicitation_link'), processed_solicitations_path(anchor: diagnosis.solicitation.id))
 
