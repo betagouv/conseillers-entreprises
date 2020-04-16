@@ -15,6 +15,7 @@ class UserMailer < ApplicationMailer
     @feedback = feedback
     @person = person
     @author = feedback.author
+    return if @person.deleted?
     mail(to: @person.email_with_display_name,
          reply_to: @author.email_with_display_name,
          subject: t('mailers.user_mailer.match_feedback.subject', company_name: feedback.need.company))
@@ -29,6 +30,7 @@ class UserMailer < ApplicationMailer
     @company = match.company
     @need = match.need
     @subject = match.subject
+    return if @advisor.deleted?
     mail(to: @advisor.email, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @company.name))
   end
 end
