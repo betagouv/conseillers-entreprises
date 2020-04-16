@@ -3,9 +3,11 @@
 TEST_PASSWORD = '1234567'
 TEST_EMAIL = 'a@a.a'
 
-## Landing pages
-landing = Landing.find_or_create_by!(slug: 'test-landing', home_sort_order: 0)
-topic = LandingTopic.find_or_create_by!(title: 'Test Topic', landing: landing)
+if Landing.none?
+  ## Landing pages
+  landing = Landing.find_or_create_by!(slug: 'test-landing', home_sort_order: 0)
+  topic = LandingTopic.find_or_create_by!(title: 'Test Topic', landing: landing)
+end
 
 ## Theme and Subject
 theme = Theme.find_or_create_by!(label: 'Test Theme')
