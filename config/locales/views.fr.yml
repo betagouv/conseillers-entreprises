@@ -249,7 +249,6 @@ fr:
       description:
         default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
         label: Description
-        placeholder: 'Décrivez simplement votre demande. Par exemple : « %{example} »'
       email:
         label: Email
         placeholder: marie.dupont@exemple.fr
