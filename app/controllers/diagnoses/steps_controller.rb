@@ -74,8 +74,7 @@ class Diagnoses::StepsController < ApplicationController
   private
 
   def retrieve_diagnosis
-    safe_params = params.permit(:id)
-    @diagnosis = Diagnosis.find(safe_params[:id])
+    @diagnosis = Diagnosis.find(params.require(:id))
   end
 
   def params_for_needs
