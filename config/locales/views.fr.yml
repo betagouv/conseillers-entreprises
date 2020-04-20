@@ -534,6 +534,7 @@ fr:
       siret: 'Siret :'
       slug: 'Page thématique :'
     solicitation_actions:
+      add_feedback: Ajouter un commentaire
       create_another_diagnosis: Démarrer une autre analyse
       create_diagnosis: Démarrer une analyse
       view_diagnoses: "%{count} analyses"
