@@ -32,7 +32,7 @@
     for ( let feedbackLink of feedbackLinks ) {
       feedbackLink.onclick = function() {
         let solicitationId = feedbackLink.dataset.solicitation
-        let form = document.getElementById("feedback_form-Solicitation-" + solicitationId)
+        let form = document.getElementById("feedback-form-solicitation-" + solicitationId)
         form.style.display = 'block'
       }
     }
