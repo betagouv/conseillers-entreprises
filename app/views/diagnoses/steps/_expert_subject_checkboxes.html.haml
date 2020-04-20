@@ -4,7 +4,16 @@
       - expert = expert_subject.expert
       .ui.field
         .ui.checkbox
-          = fields.check_box expert_subject.id, checked: true
+          :ruby
+            # TODO: experimental/preliminary support for automatic diagnoses #940
+            if need.diagnosis.solicitation.present?
+              institutions = need.diagnosis.solicitation.preselected_institutions || []
+              checked = expert_subject.institution_subject.institution.in? institutions
+            else
+              checked = true
+            end
+
+          = fields.check_box expert_subject.id, checked: checked
           = fields.label expert_subject.id do
             .ui.equal.width.grid
               .row

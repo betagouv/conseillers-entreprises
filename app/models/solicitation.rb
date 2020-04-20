@@ -81,6 +81,10 @@ class Solicitation < ApplicationRecord
     landing_options.map(&:preselected_subject).compact
   end
 
+  def preselected_institutions
+    landing_options.map(&:preselected_institution).compact
+  end
+
   # * Retrieve all the landing options slugs used in the past;
   #   LandingOptions may have been removed, but the slug remains here.
   # * :landing_options_slugs is a postgresql array; we could use unnest() to flatten it
