@@ -27,14 +27,12 @@ class DiagnosesController < ApplicationController
   end
 
   def create_diagnosis_without_siret
-    insee_code = ApiAdresse::Query.insee_code_for_city(params[:city]&.strip, params[:postal_code]&.strip)
+    insee_code = params[:insee_code]
+    facility = Facility.new(company: Company.new(name: params[:name]))
+    city_params = ApiAdresse::Query.city_with_code(insee_code)
+    facility.readable_locality = "#{city_params['codesPostaux']&.first} #{city_params['nom']}"
+    facility.commune = Commune.find_or_initialize_by(insee_code: insee_code)
 
-    if insee_code.nil?
-      flash.alert = t('.no_result')
-      render 'flashes' and return
-    end
-
-    facility = Diagnosis.create_without_siret(insee_code, params)
     diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :needs)
     if params[:solicitation].present?
       solicitation = Solicitation.find_by(id: params[:solicitation])

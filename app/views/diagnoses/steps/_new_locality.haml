@@ -13,7 +13,7 @@
     = label_tag do
       = t('.city')
       .ui.loader.inline.mini#city-loader
-    = select_tag :city, raw("<option></option>"), class: 'ui fluid dropdown selection'
+    = select_tag :insee_code, raw("<option></option>"), class: 'ui fluid dropdown selection'
 
 :javascript
   $("input[name='postal_code']").keyup( function() {

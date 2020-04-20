@@ -1,5 +1,5 @@
-var $el = $("select[name='city']").first()
+var $el = $("select[name='insee_code']").first()
 $el.empty()
 $.each(<%= @cities %>, function(key,value) {
-  $el.append($("<option></option>").attr("value", value).text(value))
+  $el.append($("<option></option>").attr("value", value['citycode']).text(value['name']))
 })

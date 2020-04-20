@@ -40,14 +40,14 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
     end
 
     describe 'with custom address' do
-      let(:params) { { diagnosis: { visitee_attributes: { full_name: "Edith Piaf", role: "directrice", email: "edith@piaf.fr", phone_number: "0606060606" }, happened_on: "27/01/2020" }, id: diagnosis.id, postal_code: '78500', city: 'Sartrouville' } }
-      let(:url) { "https://api-adresse.data.gouv.fr/search/?postcode=78500&q=Sartrouville&type=municipality" }
-      let(:headers) { { 'Connection': 'close', 'Host': 'api-adresse.data.gouv.fr', 'User-Agent': /http\.rb.*/ } }
+      let(:params) { { diagnosis: { visitee_attributes: { full_name: "Edith Piaf", role: "directrice", email: "edith@piaf.fr", phone_number: "0606060606" }, happened_on: "27/01/2020" }, id: diagnosis.id, insee_code: '78586' } }
+      let(:url) { "https://geo.api.gouv.fr/communes/78586?fields=nom,codesPostaux" }
+      let(:headers) { { 'Connection': 'close', 'Host': 'geo.api.gouv.fr', 'User-Agent': /http\.rb.*/ } }
 
       before do
         stub_request(:get, url).with(headers: headers).to_return(
           status: 200, headers: {},
-          body: File.read(Rails.root.join('spec', 'fixtures', 'api_adresse_200.json'))
+          body: File.read(Rails.root.join('spec', 'fixtures', 'geo_api_communes_78586.json'))
         )
       end
 
