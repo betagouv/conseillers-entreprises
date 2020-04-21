@@ -1,7 +1,7 @@
 .ui.two.fields
   .three.wide.field
     = label_tag t('.postal_code')
-    = text_field_tag :postal_code, '', required: required, pattern: '[0-9]{5}'
+    = text_field_tag :postal_code, '', name: nil, required: required, pattern: '[0-9]{5}'
   .thirteen.wide.field
     = label_tag do
       = t('.city')
@@ -9,7 +9,7 @@
     = select_tag :insee_code, raw("<option></option>"), required: required, class: 'ui fluid dropdown selection'
 
 :javascript
-  $("input[name='postal_code']").keyup( function() {
+  $("input[id='postal_code']").keyup( function() {
     if ($(this).val().length === 5) {
       $('#city-loader').addClass('active')
       Rails.ajax({
