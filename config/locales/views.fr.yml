@@ -101,29 +101,31 @@ fr:
       visited_at: Visitée le %{date}
       visited_by_html: 'par %{advisor_name} </br> email : %{advisor_email}'
   diagnoses:
+    antenne_diagnoses_tabs:
+      archived: Archivées
+      processed: Traitées
     archives:
       browse_active_diagnoses: Voir les analyses en cours
       subtitle: Par %{name}
       title: Analyses archivées
-    archives_antenne:
-      browse_active_diagnoses: Voir les analyses en cours pour l'antenne
     company_details:
       need_without_siret: Analyse sans SIRET
+    diagnoses_tabs:
+      archived: Archivées
+      in_progress: En cours
+      processed: Traitées
     diagnosis:
       last_activity_date: dernière activité le %{l}
     index:
       browse_antenne_diagnoses: Voir les analyses de mon antenne
-      browse_archived_diagnoses: Voir mes analyses archivées
-      completed_diagnoses: Analyses réalisées
       confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
       create_new_diagnosis: Démarrer une analyse
-      diagnoses_in_progress: Analyses en cours
       subtitle: Par %{name}
       title: Analyses
     index_antenne:
-      browse_archived_diagnoses: Voir les analyses archivées
       subtitle: Réalisées par %{antenne}
       title: Analyses
+      browse_active_diagnoses: "Voir mes analyses"
     new:
       create_new_diagnosis: Démarrer une analyse
       find_company: Rechercher une entreprise

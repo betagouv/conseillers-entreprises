@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   # Application
   resources :diagnoses, only: %i[index new show], path: 'analyses' do
     collection do
+      get :processed, path: 'traitees'
       get :archives
       get :index_antenne
       get :archives_antenne
