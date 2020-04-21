@@ -26,7 +26,8 @@
       success: function(json) {
         loader.classList.remove('active')
         select.length = 0
-        json.forEach(hash => select.add(new Option(hash['name'], hash['citycode'])))
+        var cities = json['features']
+        cities.forEach(hash => select.add(new Option(hash['properties']['name'], hash['properties']['citycode'])))
       }
     })
   }

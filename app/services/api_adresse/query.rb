@@ -7,8 +7,7 @@ module ApiAdresse
       url = "https://api-adresse.data.gouv.fr/search/?q=#{postcode}&type=municipality"
 
       http_response = HTTP.get(url)
-      data = http_response.parse(:json)
-      data.dig('features')&.map{ |h| h['properties']&.slice('citycode', 'name') }
+      http_response.parse(:json)
     end
 
     def self.city_with_code(citycode)
