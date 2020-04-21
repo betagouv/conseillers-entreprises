@@ -1,11 +1,12 @@
-.field
-  = label_tag t('.postal_code')
-  = text_field_tag :postal_code, '', required: required, pattern: '[0-9]{5}'
-.field
-  = label_tag do
-    = t('.city')
-    .ui.loader.inline.mini#city-loader
-  = select_tag :insee_code, raw("<option></option>"), required: required, class: 'ui fluid dropdown selection'
+.ui.two.fields
+  .three.wide.field
+    = label_tag t('.postal_code')
+    = text_field_tag :postal_code, '', required: required, pattern: '[0-9]{5}'
+  .thirteen.wide.field
+    = label_tag do
+      = t('.city')
+      .ui.loader.inline.mini#city-loader
+    = select_tag :insee_code, raw("<option></option>"), required: required, class: 'ui fluid dropdown selection'
 
 :javascript
   $("input[name='postal_code']").keyup( function() {
