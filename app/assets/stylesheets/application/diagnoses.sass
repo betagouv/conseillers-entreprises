@@ -11,6 +11,19 @@
     input[type=checkbox]:checked ~ textarea
       display: block
 
+#visit-app
+  #insee-code-section
+    input[type=checkbox]
+      display: none
+      &:not(checked)
+        &~ #insee-code-row
+          display: none
+      &:checked
+        &~ #insee-code-row
+          display: block
+        &~ #insee-code-section-button
+          display: none
+
 .experts_subject_checkbox
   .ui.checkbox
     display: block
@@ -43,10 +56,6 @@
 
 .ui.button.new-diagnosis
   margin-top: 1em
-
-#form-commune
-  margin: 2rem 0
-  display: none
 
 .ui.feed > .event > .content .summary > .date.diagnosis
   margin: 0
