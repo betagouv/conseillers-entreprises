@@ -6,7 +6,7 @@
         .ui.checkbox
           :ruby
             # TODO: experimental/preliminary support for automatic diagnoses #940
-            if need.diagnosis.solicitation.present?
+            if ENV['FEATURE_PRESELECT_DIAGNOSIS'].to_b && need.diagnosis.solicitation.present?
               institutions = need.diagnosis.solicitation.preselected_institutions || []
               checked = expert_subject.institution_subject.institution.in? institutions
             else
