@@ -1,6 +1,6 @@
 class FeedbackPolicy < ApplicationPolicy
   def destroy?
-    admin? || creator?
+    creator?
   end
 
   def creator?

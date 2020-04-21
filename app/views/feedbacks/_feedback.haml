@@ -1,5 +1,8 @@
-- for_me = policy(feedback).creator?
-- highlight = feedback.author.in? highlighted_experts
+:ruby
+  for_me = policy(feedback).creator?
+  highlighted_experts = highlighted_experts || []
+  highlight = feedback.author.in? highlighted_experts
+
 .event{ id: "feedback-#{feedback.id}" }
   .label
     %a{ href: "#feedback-#{feedback.id}", data: { turbolinks: 'false' } }
