@@ -1,29 +1,32 @@
-.ui.two.fields
+.ui.two.fields#insee-code-field
   .three.wide.field
     = label_tag t('.postal_code')
-    = text_field_tag :postal_code, '', name: nil, required: required, pattern: '[0-9]{5}'
+    = text_field_tag :postal_code, '', name: nil, required: required, pattern: '[0-9]{5}', oninput: "loadInseeCodes(event)"
   .thirteen.wide.field
     = label_tag do
       = t('.city')
       .ui.loader.inline.mini#city-loader
-    = select_tag :insee_code, raw("<option></option>"), required: required, class: 'ui fluid dropdown selection'
+    = select_tag :insee_code, [], required: required, class: 'ui fluid dropdown selection'
 
 :javascript
-  $("input[id='postal_code']").keyup( function() {
-    if ($(this).val().length === 5) {
-      $('#city-loader').addClass('active')
-      Rails.ajax({
-        url: '#{find_cities_communes_path}',
-        type: "get",
-        data: 'postal_code=' + $(this).val(),
-        success: function(result) {
-          $('#city-loader').removeClass('active')
-          var $el = $("select[name='insee_code']").first();
-          $el.empty();
-          $.each(result, function(key,value) {
-            $el.append($("<option></option>").attr("value", value['citycode']).text(value['name']))
-          })
-        }
-      })
+  function loadInseeCodes(event) {
+    if (!event.target.validity.valid) {
+      return
     }
-  })
+
+    var container = event.target.closest('#insee-code-field')
+    var loader = container.querySelector('#city-loader')
+    var select = container.querySelector('select#insee_code')
+
+    loader.classList.add("active");
+    Rails.ajax({
+      url: '#{find_cities_communes_path}',
+      type: "get",
+      data: 'postal_code=' + event.target.value,
+      success: function(json) {
+        loader.classList.remove('active')
+        select.length = 0
+        json.forEach(hash => select.add(new Option(hash['name'], hash['citycode'])))
+      }
+    })
+  }
