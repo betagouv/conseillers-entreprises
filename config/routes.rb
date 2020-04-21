@@ -83,7 +83,6 @@ Rails.application.routes.draw do
       get :index_antenne
       get :archives_antenne
       post :create_diagnosis_without_siret
-      get :find_cities
     end
 
     member do
@@ -126,6 +125,12 @@ Rails.application.routes.draw do
   resources :reminders, only: %i[index show], path: 'relances' do
     member do
       post :reminders_notes
+    end
+  end
+
+  resources :communes, only: %i[] do
+    collection do
+      get :find_cities
     end
   end
 

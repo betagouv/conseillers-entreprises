@@ -6,29 +6,9 @@
 #form-commune
   %h3.ui.header
     = t('.title')
-  .field
-    = label_tag t('.postal_code')
-    = text_field_tag :postal_code, postal_code, pattern: '[0-9]{5}'
-  .field
-    = label_tag do
-      = t('.city')
-      .ui.loader.inline.mini#city-loader
-    = select_tag :insee_code, raw("<option></option>"), class: 'ui fluid dropdown selection'
+  = render 'communes/insee_code_field', required: false
 
 :javascript
-  $("input[name='postal_code']").keyup( function() {
-    if ($(this).val().length === 5) {
-      $('#city-loader').addClass('active')
-      Rails.ajax({
-        url: '#{find_cities_diagnoses_path}',
-        type: "get",
-        data: 'postal_code=' + $(this).val(),
-        success: function() {
-          $('#city-loader').removeClass('active')
-        }
-      })
-    }
-  })
   $('.button-new-city').click(function() {
     $(this).hide()
     $('#form-commune').show()

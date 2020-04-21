@@ -39,6 +39,10 @@ fr:
       no_badges: Il n'y a aucun tag pour le moment
       title: Tags
       title_label: Titre
+  communes:
+    insee_code_field:
+      city: Ville
+      postal_code: Code postal
   companies:
     company:
       capital_social: Capital social
@@ -122,11 +126,9 @@ fr:
       subtitle: Réalisées par %{antenne}
       title: Analyses
     new:
-      city: Ville
       create_new_diagnosis: Démarrer une analyse
       find_company: Rechercher une entreprise
       name: Nom de l’entreprise ou du dirigeant
-      postal_code: Code postal
       search_manually: Cas particulier (sans SIRET)
       sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
       title: Saisie manuelle
@@ -151,9 +153,7 @@ fr:
         select_at_least_one_need: Cochez au minimum un besoin identifié.
         title: Détection des besoins
       new_locality:
-        city: Ville
         new_city: Rechercher pour une autre localité que %{locality}
-        postal_code: Code postal
         title: Nouvelle localité
       visit:
         date: Date de votre visite

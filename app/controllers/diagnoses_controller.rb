@@ -67,10 +67,6 @@ class DiagnosesController < ApplicationController
     redirect_to diagnoses_path
   end
 
-  def find_cities
-    @cities = ApiAdresse::Query.cities_of_postcode(params[:postal_code]).to_json.html_safe
-  end
-
   private
 
   def sent_diagnoses(model, archived:)
