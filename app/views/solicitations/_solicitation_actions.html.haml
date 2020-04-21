@@ -21,6 +21,7 @@
     .ui.menu
       - solicitation.allowed_new_statuses.each do |status|
         = status_action_link(solicitation, status, %w[item])
+      .item.show-feedbacks-form{ 'data-solicitation': "#{solicitation.id}" }= t('.add_feedback')
       - if diagnoses.present?
         = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item' do
           = t('.create_another_diagnosis')

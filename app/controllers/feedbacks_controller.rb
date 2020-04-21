@@ -2,7 +2,7 @@ class FeedbacksController < ApplicationController
   def create
     @feedback = Feedback.create(feedback_params.merge(user: current_user))
     if @feedback.persisted?
-      @feedback.notify!
+      @feedback.notify_for_need!
     else
       flash.alert = @feedback.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
@@ -24,7 +24,7 @@ class FeedbacksController < ApplicationController
   private
 
   def feedback_params
-    params.require(:feedback).permit(:need_id, :description)
+    params.require(:feedback).permit(:description, :feedbackable_id, :feedbackable_type)
   end
 
   def retrieve_feedback

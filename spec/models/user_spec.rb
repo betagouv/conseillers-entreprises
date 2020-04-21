@@ -46,7 +46,7 @@ RSpec.describe User, type: :model do
     end
 
     describe 'feedbacks and diagnoses of deleted users still have their author / advisor' do
-      let(:feedback) { create :feedback, user: user }
+      let(:feedback) { create :feedback, :for_need, user: user }
       let(:diagnosis) { create :diagnosis, advisor: user }
 
       it do
