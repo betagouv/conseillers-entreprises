@@ -34,4 +34,24 @@ RSpec.describe Solicitation, type: :model do
       it { is_expected.to be_empty }
     end
   end
+
+  describe '#preselected_subjects' do
+    let(:solicitation) { create :solicitation, landing_options: [option] }
+    let(:option) { create :landing_option, preselected_subject_slug: preselected_subject_slug }
+    let!(:subject1) { create :subject }
+
+    subject { solicitation.preselected_subjects }
+
+    context 'subject is known' do
+      let(:preselected_subject_slug) { subject1.slug }
+
+      it { is_expected.to eq [subject1] }
+    end
+
+    context 'subject is unknown' do
+      let(:preselected_subject_slug) { 'some_slug' }
+
+      it { is_expected.to be_empty }
+    end
+  end
 end

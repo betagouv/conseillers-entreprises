@@ -3,6 +3,12 @@ class Diagnoses::StepsController < ApplicationController
 
   def needs
     @themes = Theme.ordered_for_interview
+
+    # TODO: experimental/preliminary support for automatic diagnoses #940
+    if @diagnosis.needs.blank? && @diagnosis.solicitation.present?
+      subjects = @diagnosis.solicitation.preselected_subjects
+      @diagnosis.needs = subjects.map { |subject| Need.new(subject: subject) }
+    end
   end
 
   def update_needs
