@@ -77,10 +77,6 @@ class Solicitation < ApplicationRecord
     LandingOption.where(slug: landing_options_slugs)
   end
 
-  def options=(options_hash) # Support for old-style solicitation form. TODO: Remove this
-    self.landing_options_slugs = options_hash.select{ |_, v| v.to_bool }.keys
-  end
-
   # * Retrieve all the landing options slugs used in the past;
   #   LandingOptions may have been removed, but the slug remains here.
   # * :landing_options_slugs is a postgresql array; we could use unnest() to flatten it
