@@ -1,7 +1,0 @@
-#insee-code-section
-  = check_box_tag :view_insee_code_section, nil, false, { name: nil }
-  %p#insee-code-section-button= label_tag :view_insee_code_section, t('.new_city', locality: @diagnosis.facility.readable_locality), { class: 'ui button basic blue' }
-
-  #insee-code-row
-    %h3.ui.header= t('.title')
-    = render 'communes/insee_code_field', required: false

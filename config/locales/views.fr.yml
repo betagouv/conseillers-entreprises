@@ -152,9 +152,6 @@ fr:
         need_content_placeholder: Plus d’infos sur ce besoin
         select_at_least_one_need: Cochez au minimum un besoin identifié.
         title: Détection des besoins
-      new_locality:
-        new_city: Rechercher pour une autre localité que %{locality}
-        title: Nouvelle localité
       visit:
         date: Date de votre visite
         date_placeholder: jj/mm/aaaa
@@ -162,6 +159,8 @@ fr:
         form_info: Tous les champs sont obligatoires.
         full_name: Nom
         full_name_placeholder: 'ex: Marie Dupont'
+        new_city: Rechercher pour une autre localité que %{locality}
+        new_city_title: Nouvelle localité
         phone_number: Numéro de télephone
         role: Fonction au sein de l’entreprise
         role_placeholder: Directeur, Gérant…
