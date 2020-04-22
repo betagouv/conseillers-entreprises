@@ -417,22 +417,10 @@ fr:
   needs:
     archives:
       browse_active_needs: Voir les demandes reçues
-      needs_archived:
-        one: 1 demande marquée en échec
-        other: "%{count} marquées en échec"
-        zero: 0 demande marquée en échec
-      needs_done:
-        one: 1 demande clôturée
-        other: "%{count} demandes clôturées"
-        zero: 0 demande clôturée
-      needs_rejected:
-        one: 1 demande refusée
-        other: "%{count} demande refusées"
-        zero: 0 demande refusé
       title: Demandes archivées
     archives_antenne:
-      browse_active_needs: Voir les demandes reçu pour l'antenne
-      title: Demandes archivée de %{antenne}
+      browse_active_needs: Voir les demandes reçues pour l'antenne
+      title: Demandes archivées de %{antenne}
     index:
       all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
@@ -459,6 +447,13 @@ fr:
     index_antenne:
       browse_archived_needs: Voir les demandes archivées
       title: Demandes reçues pour %{antenne}
+    needs_archived_tabs:
+      done: Clôturées
+      failed: Marquées en échec
+      rejected: Refusées
+    needs_tabs:
+      supported: Prises en charge
+      waiting_for_response: En attente de réponse
     show:
       title: Visite de la société « %{company} »
     visit_summary:

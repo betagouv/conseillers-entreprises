@@ -1,0 +1,4 @@
+.ui.top.large.secondary.pointing.menu
+  = active_link_to(t('.done'), archives_needs_path, class: 'item')
+  = active_link_to(t('.rejected'), archives_rejected_needs_path, class: 'item')
+  = active_link_to(t('.failed'), archives_failed_needs_path, class: 'item')
