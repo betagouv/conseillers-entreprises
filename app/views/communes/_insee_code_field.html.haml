@@ -1,11 +1,11 @@
-.ui.two.fields#insee-code-field
+.ui.two.fields.insee-code-field
   .three.wide.field
     = label_tag t('.postal_code')
     = text_field_tag :postal_code, '', name: nil, required: required, pattern: '[0-9]{5}', oninput: "loadInseeCodes(event)"
   .thirteen.wide.field
     = label_tag do
       = t('.city')
-      .ui.loader.inline.mini#city-loader
+      .ui.loader.inline.mini.city-loader
     = select_tag :insee_code, [], required: required, class: 'ui fluid dropdown selection'
 
 :javascript
@@ -14,8 +14,8 @@
       return
     }
 
-    var container = event.target.closest('#insee-code-field')
-    var loader = container.querySelector('#city-loader')
+    var container = event.target.closest('.insee-code-field')
+    var loader = container.querySelector('.city-loader')
     var select = container.querySelector('select#insee_code')
 
     loader.classList.add('active');
