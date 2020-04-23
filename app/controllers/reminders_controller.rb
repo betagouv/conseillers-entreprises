@@ -18,10 +18,17 @@ class RemindersController < ApplicationController
   end
 
   def show
-    @expert = retrieve_expert
-    @needs_quo = @expert.needs_quo
-    @needs_taking_care = @expert.needs_taking_care
-    @needs_others_taking_care = @expert.needs_others_taking_care
+    retrieve_needs(:needs_quo)
+  end
+
+  def needs_taking_care
+    retrieve_needs(:needs_taking_care)
+    render :show
+  end
+
+  def needs_taking_care_by_others
+    retrieve_needs(:needs_others_taking_care)
+    render :show
   end
 
   def reminders_notes
@@ -44,5 +51,10 @@ class RemindersController < ApplicationController
 
   def retrieve_expert
     Expert.find(safe_params[:id])
+  end
+
+  def retrieve_needs(status)
+    @expert = retrieve_expert
+    @needs = @expert.send(status).page params[:page]
   end
 end

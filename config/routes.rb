@@ -132,6 +132,8 @@ Rails.application.routes.draw do
   resources :reminders, only: %i[index show], path: 'relances' do
     member do
       post :reminders_notes
+      get :needs_taking_care
+      get :needs_taking_care_by_others
     end
   end
 
