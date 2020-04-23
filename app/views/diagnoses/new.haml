@@ -26,7 +26,7 @@
       - name = local_assigns[:solicitation]&.full_name
       = text_field_tag :name, name, required: true
 
-    = render 'communes/insee_code_field', required: true
+    = render 'insee_code_field', required: true
 
     = button_tag :submit, class: 'ui right floated button green right labeled icon' do
       = t('next_step')

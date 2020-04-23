@@ -45,7 +45,7 @@
 
         #insee-code-row
           %h3.ui.header= t('.new_city_title')
-          = render 'communes/insee_code_field', required: false
+          = render 'insee_code_field', required: false
 
     %a.ui.left.floated.button.labeled.icon{ href: needs_diagnosis_path }
       = t('previous_step')
