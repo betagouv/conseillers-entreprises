@@ -104,7 +104,7 @@ namespace :import_dump do
           record[attribute] = new_value
         end
 
-        record.save!(validate: false) # We will always have some baddata in production
+        record.save!(touch: false, validate: false) # Don’t change timestamps; don’t validate because there can only be some baddata in production
       end
     end
   end
