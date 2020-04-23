@@ -128,12 +128,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :communes, only: %i[] do
-    collection do
-      get :find_cities
-    end
-  end
-
   resources :badges, only: %i[index create destroy]
 
   controller :user_pages do

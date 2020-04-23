@@ -19,10 +19,12 @@
     var select = container.querySelector('select#insee_code')
 
     loader.classList.add("active");
-    Rails.ajax({
-      url: '#{find_cities_communes_path}',
+
+    $.ajax({
+      url: 'https://api-adresse.data.gouv.fr/search/',
+      crossDomain: true,
       type: "get",
-      data: 'postal_code=' + event.target.value,
+      data: 'type=municipality&q=' + event.target.value,
       success: function(json) {
         loader.classList.remove('active')
         select.length = 0
