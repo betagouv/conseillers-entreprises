@@ -18,18 +18,17 @@
     var loader = container.querySelector('#city-loader')
     var select = container.querySelector('select#insee_code')
 
-    loader.classList.add("active");
+    loader.classList.add('active');
 
-    $.ajax({
-      url: 'https://api-adresse.data.gouv.fr/search/',
-      crossDomain: true,
-      type: "get",
-      data: 'type=municipality&q=' + event.target.value,
-      success: function(json) {
-        loader.classList.remove('active')
-        select.length = 0
-        var cities = json['features']
-        cities.forEach(hash => select.add(new Option(hash['properties']['name'], hash['properties']['citycode'])))
-      }
-    })
+    var url = `https://api-adresse.data.gouv.fr/search/?type=municipality&q=${event.target.value}`;
+    var request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.addEventListener('load', function () {
+      loader.classList.remove('active')
+      select.length = 0
+      var json = JSON.parse(this.response)
+      var cities = json['features']
+      cities.forEach(hash => select.add(new Option(hash['properties']['name'], hash['properties']['citycode'])))
+    });
+    request.send();
   }
