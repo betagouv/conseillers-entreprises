@@ -7,6 +7,5 @@ FactoryBot.define do
     full_name { Faker::Name.unique.name }
     phone_number { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email }
-    options { { 'First option' => '1', 'Second option' => '0' } }
   end
 end

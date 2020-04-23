@@ -77,8 +77,12 @@ class Solicitation < ApplicationRecord
     LandingOption.where(slug: landing_options_slugs)
   end
 
-  def options=(options_hash) # Support for old-style solicitation form. TODO: Remove this
-    self.landing_options_slugs = options_hash.select{ |_, v| v.to_bool }.keys
+  def preselected_subjects
+    landing_options.map(&:preselected_subject).compact
+  end
+
+  def preselected_institutions
+    landing_options.map(&:preselected_institution).compact
   end
 
   # * Retrieve all the landing options slugs used in the past;
