@@ -7,6 +7,7 @@ RSpec.describe DiagnosesController, type: :controller do
   let(:diagnosis) { create :diagnosis, advisor: advisor }
   let(:archived_diagnosis) { create :diagnosis, :archived, advisor: advisor }
   let(:advisor) { current_user }
+  let(:diagnosis_another_advisor) { create :diagnosis }
 
   describe 'GET #index' do
     subject(:request) { get :index }
@@ -14,6 +15,7 @@ RSpec.describe DiagnosesController, type: :controller do
     before do
       diagnosis
       archived_diagnosis
+      diagnosis_another_advisor
     end
 
     it 'returns http success' do
@@ -23,6 +25,28 @@ RSpec.describe DiagnosesController, type: :controller do
     it 'generates the active diagnoses list' do
       request
       expect(assigns(:diagnoses)).to contain_exactly(diagnosis)
+    end
+  end
+
+  describe 'GET #processed' do
+    let(:processed_diagnoses) { create :diagnosis_completed, advisor: advisor }
+
+    subject(:request) { get :processed }
+
+    before do
+      diagnosis
+      processed_diagnoses
+      archived_diagnosis
+      diagnosis_another_advisor
+    end
+
+    it 'returns http success' do
+      expect(response).to be_successful
+    end
+
+    it 'generates the active diagnoses list' do
+      request
+      expect(assigns(:diagnoses)).to contain_exactly(processed_diagnoses)
     end
   end
 

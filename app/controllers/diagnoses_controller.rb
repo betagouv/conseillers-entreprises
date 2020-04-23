@@ -75,22 +75,18 @@ class DiagnosesController < ApplicationController
 
   private
 
-  def sent_diagnoses(model, archived:)
-    model.sent_diagnoses.archived(archived).order(created_at: :desc)
-      .distinct
-      .left_outer_joins(:matches,
-                        needs: :matches)
-      .includes(:matches,
-                :visitee, facility: :company,
-        needs: :matches)
-  end
-
   def retrieve_diagnosis
     @diagnosis = Diagnosis.find(params.require(:id))
   end
 
   def retrieve_diagnoses(scope, archived, status = :all)
     authorize Diagnosis, :index?
-    @diagnoses = sent_diagnoses(scope, archived: archived).send(status).order!(happened_on: :desc).page params[:page]
+    @diagnoses = scope.sent_diagnoses.archived(archived)
+      .distinct
+      .left_outer_joins(:matches, needs: :matches)
+      .includes(:matches, :visitee, facility: :company, needs: :matches)
+      .send(status)
+      .order(happened_on: :desc)
+      .page(params[:page])
   end
 end
