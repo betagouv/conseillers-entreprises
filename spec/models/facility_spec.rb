@@ -23,6 +23,21 @@ RSpec.describe Facility, type: :model do
     it { is_expected.to eq 'Mc Donalds (59600 Maubeuge)' }
   end
 
+  describe '#insee_code=' do
+    let(:facility) { build :facility }
+
+    before do
+      stub_request(:get, "https://geo.api.gouv.fr/communes/78586?fields=nom,codesPostaux")
+        .to_return(body: File.read(Rails.root.join('spec', 'fixtures', 'geo_api_communes_78586.json')))
+    end
+
+    it do
+      facility.insee_code = '78586'
+
+      expect(facility.readable_locality).to eq '78500 Sartrouville'
+    end
+  end
+
   describe 'siret validation' do
     describe 'siret_from_query' do
       subject { described_class.siret_from_query(query) }
