@@ -10,8 +10,40 @@ describe UserMailer do
     let(:a_match) { create :match }
     let(:previous_status) { 'taking_care' }
 
-    it_behaves_like 'an email'
+    describe 'when the recipient is not deleted' do
+      it_behaves_like 'an email'
 
-    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+    end
+
+    describe 'when the recipient is deleted' do
+      before { a_match.advisor.delete }
+
+      let(:mail) { subject }
+
+      it { expect(mail).to be_nil }
+    end
+  end
+
+  describe '#match_feedback' do
+    subject(:mail) { described_class.match_feedback(feedback, user).deliver_now }
+
+    let(:feedback) { create :feedback, :for_need, :of_user }
+    let(:advisor) { create :user }
+    let(:user) { create :user }
+
+    describe 'when the recipient is not deleted' do
+      it_behaves_like 'an email'
+
+      it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
+    end
+
+    describe 'when the recipient is deleted' do
+      before { user.delete }
+
+      let(:mail) { subject }
+
+      it { expect(mail).to be_nil }
+    end
   end
 end

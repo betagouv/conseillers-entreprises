@@ -52,7 +52,7 @@ class Feedback < ApplicationRecord
   def notify_for_need!
     return if feedbackable_type != "Need"
     persons_to_notify.each do |person|
-      UserMailer.match_feedback(self, person).deliver_later
+      UserMailer.match_feedback(self, person)&.deliver_later
     end
   end
 
