@@ -20,6 +20,9 @@ fr:
     footer:
       contact_us: Contactez-nous !
       problem_or_question: Un problème ? Une question ?
+    insee_code_field:
+      city: Ville
+      postal_code: Code postal
     navbar:
       account: Compte
       admin: Administration
@@ -106,8 +109,6 @@ fr:
       browse_active_diagnoses: Voir les analyses en cours pour l'antenne
     company_details:
       need_without_siret: Analyse sans SIRET
-    create_diagnosis_without_siret:
-      no_result: Nous n'avons pas trouvé de ville correspondant à ces informations
     diagnosis:
       last_activity_date: dernière activité le %{l}
     index:
@@ -124,11 +125,9 @@ fr:
       subtitle: Réalisées par %{antenne}
       title: Analyses
     new:
-      city: Ville
       create_new_diagnosis: Démarrer une analyse
       find_company: Rechercher une entreprise
       name: Nom de l’entreprise ou du dirigeant
-      postal_code: Code postal
       search_manually: Cas particulier (sans SIRET)
       sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
       title: Saisie manuelle
@@ -152,11 +151,6 @@ fr:
         need_content_placeholder: Plus d’infos sur ce besoin
         select_at_least_one_need: Cochez au minimum un besoin identifié.
         title: Détection des besoins
-      new_locality:
-        city: Ville
-        new_city: Rechercher pour une autre localité que %{locality}
-        postal_code: Code postal
-        title: Nouvelle localité
       visit:
         date: Date de votre visite
         date_placeholder: jj/mm/aaaa
@@ -164,7 +158,8 @@ fr:
         form_info: Tous les champs sont obligatoires.
         full_name: Nom
         full_name_placeholder: 'ex: Marie Dupont'
-        no_result: Aucune ville n’a été trouvé avec ce code postal
+        new_city: Rechercher pour une autre localité que %{locality}
+        new_city_title: Nouvelle localité
         phone_number: Numéro de télephone
         role: Fonction au sein de l’entreprise
         role_placeholder: Directeur, Gérant…

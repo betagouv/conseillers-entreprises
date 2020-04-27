@@ -83,7 +83,6 @@ Rails.application.routes.draw do
       get :index_antenne
       get :archives_antenne
       post :create_diagnosis_without_siret
-      get :find_cities
     end
 
     member do

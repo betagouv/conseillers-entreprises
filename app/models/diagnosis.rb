@@ -34,7 +34,6 @@ class Diagnosis < ApplicationRecord
   ##
   #
   include Archivable
-  include DiagnosisCreation
 
   ## Constants
   #

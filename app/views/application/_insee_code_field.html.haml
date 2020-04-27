@@ -1,0 +1,10 @@
+-# See also insee_code_field.js
+.ui.two.fields.insee-code-field
+  .three.wide.field
+    = label_tag t('.postal_code')
+    = text_field_tag :postal_code, '', name: nil, required: required, pattern: '[0-9]{5}' # setting name to nil prevents this field to be submitted with the enclosing form; postal_code is only used to fill the insee_code options.
+  .thirteen.wide.field
+    = label_tag do
+      = t('.city')
+      .ui.loader.inline.mini.insee-code-loader
+    = select_tag :insee_code, [], required: required, class: 'ui fluid dropdown selection'
