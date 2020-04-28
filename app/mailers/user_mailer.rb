@@ -15,7 +15,7 @@ class UserMailer < ApplicationMailer
     @feedback = feedback
     @person = person
     @author = feedback.author
-    return if @person.deleted?
+    return if @person.is_a?(User) && @person.deleted? # TODO remove the is_a? after #991
     mail(to: @person.email_with_display_name,
          reply_to: @author.email_with_display_name,
          subject: t('mailers.user_mailer.match_feedback.subject', company_name: feedback.need.company))
