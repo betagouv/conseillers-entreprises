@@ -87,11 +87,9 @@ RSpec.describe DiagnosesController, type: :controller do
   describe 'POST #create_diagnosis_without_siret' do
     let(:params) { { insee_code: '78586', name: 'analyse sans siret' } }
     let(:url) { "https://geo.api.gouv.fr/communes/78586?fields=nom,codesPostaux" }
-    let(:headers) { { 'Connection': 'close', 'Host': 'geo.api.gouv.fr', 'User-Agent': /http\.rb.*/ } }
 
     before do
-      stub_request(:get, url).with(headers: headers).to_return(
-        status: 200, headers: {},
+      stub_request(:get, url).to_return(
         body: file_fixture('geo_api_communes_78586.json')
       )
     end
