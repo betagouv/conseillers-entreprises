@@ -4,7 +4,7 @@
 
 %h4= @feedback.need.subject
 %blockquote
-  %p= simple_format(@feedback.description)
+  %p= simple_format(auto_link(@feedback.description))
 
 .button
   %a{ href: need_url(@feedback.need.diagnosis) }= t('.reply')

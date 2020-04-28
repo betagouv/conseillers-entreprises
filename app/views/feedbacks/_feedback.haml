@@ -13,7 +13,7 @@
         = feedback.author.full_name
       .ui.popup= person_block(feedback.author)
       .date= I18n.l(feedback.created_at, format: :long)
-    .extra.text= simple_format(feedback.description)
+    .extra.text= simple_format(auto_link(feedback.description))
     - if policy(feedback).destroy?
       .meta= link_to(t('delete'),
         feedback_path(feedback),

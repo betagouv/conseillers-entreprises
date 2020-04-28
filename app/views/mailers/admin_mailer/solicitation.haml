@@ -5,7 +5,7 @@
 %blockquote
   - if @solicitation.slug
     %p= link_to @solicitation.slug, landing_url(@solicitation.slug)
-  %p= simple_format(@solicitation.description)
+  %p= simple_format(auto_link(@solicitation.description))
 
 %h3= t('attributes.coordinates')
 %ul
