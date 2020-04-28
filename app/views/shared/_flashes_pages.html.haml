@@ -1,0 +1,6 @@
+- if flash.present?
+  %section.section
+    .container
+      - flash.each do |type, message|
+        .notification{ class: "#{type}" }
+          = message

@@ -268,6 +268,11 @@ fr:
       default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
+    newsletter:
+      newsletter_informations: Nous vous tenons informés des mesures d’accompagnement mises en place par l’État, la Région et les partenaires publics.
+      placeholder_email: Votre adresse email
+      received_news: Recevez par email les nouvelles mesures proposées
+      subscribe: S’abonner
     show_landing:
       submit_request: Déposer votre demande
     show_landing_institutions:
@@ -275,6 +280,9 @@ fr:
     show_landing_topics:
       default_landing_topic_title: 'Exemples d’aides :'
       default_message_under_landing_topics: "<a href='/'>Vous songez à la bonne reprise de vos activités...</a>"
+    subscribe_newsletter:
+      error_mailjet: Une erreur s'est produite, merci de réessayer.
+      success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   layouts:
     user_tabs:
       antenne: Antenne

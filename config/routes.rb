@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post :subscribe_newsletter, to: 'landings#subscribe_newsletter'
+
   resources :solicitations, only: %i[index show], path: 'sollicitations' do
     member do
       post :update_status
