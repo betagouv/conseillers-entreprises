@@ -57,6 +57,7 @@ gem 'rails-i18n'
 gem 'honeypot-captcha'
 gem 'kaminari'
 gem 'bootsnap', require: false
+gem 'rails_autolink'
 
 # Notifiers
 gem 'sentry-raven'
