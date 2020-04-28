@@ -92,7 +92,7 @@ RSpec.describe DiagnosesController, type: :controller do
     before do
       stub_request(:get, url).with(headers: headers).to_return(
         status: 200, headers: {},
-        body: File.read(Rails.root.join('spec', 'fixtures', 'geo_api_communes_78586.json'))
+        body: file_fixture('geo_api_communes_78586.json')
       )
     end
 
