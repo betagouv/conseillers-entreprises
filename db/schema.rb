@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_123944) do
+ActiveRecord::Schema.define(version: 2020_04_30_082448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,11 +195,9 @@ ActiveRecord::Schema.define(version: 2020_04_14_123944) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "expert_id"
     t.bigint "user_id"
     t.string "feedbackable_type"
     t.bigint "feedbackable_id"
-    t.index ["expert_id"], name: "index_feedbacks_on_expert_id"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
@@ -403,7 +401,6 @@ ActiveRecord::Schema.define(version: 2020_04_14_123944) do
   add_foreign_key "experts_users", "users"
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
-  add_foreign_key "feedbacks", "experts"
   add_foreign_key "feedbacks", "users"
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"

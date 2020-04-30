@@ -15,14 +15,14 @@ RSpec.describe FeedbackPolicy, type: :policy do
     end
 
     context "denies access if user is admin" do
-      let(:feedback) { create :feedback, :for_need, :of_user }
+      let(:feedback) { create :feedback, :for_need }
       let(:user) { create :user, is_admin: true }
 
       it { is_expected.not_to permit(user, feedback) }
     end
 
     context "denies access if user is another user" do
-      let(:feedback) { create :feedback, :for_need, :of_user }
+      let(:feedback) { create :feedback, :for_need }
       let(:user) { create :user }
 
       it { is_expected.not_to permit(user, feedback) }

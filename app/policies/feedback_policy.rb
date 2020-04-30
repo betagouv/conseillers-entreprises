@@ -4,7 +4,7 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def creator?
-    @record.user == @user || @record.expert.in?(@user.experts)
+    @record.user == @user
   end
 
   class Scope < Scope
