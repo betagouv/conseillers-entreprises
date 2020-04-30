@@ -38,21 +38,16 @@ class Diagnoses::StepsController < ApplicationController
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = :matches
 
-    if params[:postal_code].present?
-      insee_code = ApiAdresse::Query.insee_code_for_city(params[:city]&.strip, params[:postal_code]&.strip)
-      if insee_code.nil?
-        @postal_code = params[:postal_code]
-        flash.now.alert = t('diagnoses.steps.visit.no_result')
-        render 'flashes' and return
-      end
-      facility = @diagnosis.facility
-      commune = Commune.find_or_create_by insee_code: insee_code
-      facility.commune = commune
-      facility.update(readable_locality: "#{params[:postal_code]} #{params[:city]}")
-    end
-
     begin
       @diagnosis.transaction do
+        if params[:insee_code].present?
+          insee_code = params[:insee_code]
+          facility = @diagnosis.facility
+          city_params = ApiAdresse::Query.city_with_code(insee_code)
+          facility.readable_locality = "#{city_params['codesPostaux']&.first} #{city_params['nom']}"
+          facility.commune = Commune.find_or_initialize_by(insee_code: insee_code)
+          facility.save!
+        end
         @diagnosis.update!(diagnosis_params)
         @diagnosis.solicitation&.status_processed!
         redirect_to action: :matches

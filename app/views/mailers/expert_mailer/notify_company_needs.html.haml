@@ -18,7 +18,7 @@
   %h2.subject= need.subject
   - if need.content.present?
     %blockquote
-      %p= simple_format(need.content)
+      %p= simple_format(auto_link(need.content))
 
 .button
   %a{ href: need_url(@diagnosis) }= t('.reply')

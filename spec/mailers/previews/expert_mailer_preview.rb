@@ -10,7 +10,7 @@ class ExpertMailerPreview < ActionMailer::Preview
   end
 
   def notify_other_taking_care
-    ExpertMailer.notify_other_taking_care(Expert.sample, Match.sample)
+    ExpertMailer.notify_other_taking_care(Expert.all.sample, Match.all.sample)
   end
 
   private

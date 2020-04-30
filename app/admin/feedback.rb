@@ -3,14 +3,14 @@ ActiveAdmin.register Feedback do
 
   ## Index
   #
-  includes :expert, user: [:institution, :antenne], need: [:facility]
+  includes :expert, :feedbackable, user: [:institution, :antenne]
 
   index do
     selectable_column
     id_column
     column :created_at
 
-    column :need
+    column :feedbackable
     column :expert
     column :user
     column :description
@@ -28,11 +28,11 @@ ActiveAdmin.register Feedback do
   csv do
     column :id
     column :created_at
-    column :need
+    column :feedbackable
     column :expert
     column :user
     column :description
-    column(:siret) { |f| f.need.facility.siret }
+    column(:siret) { |f| f.need&.facility&.siret }
     column(:institution) { |f| f.user&.institution || f.expert.institution }
     column(:antenne) { |f| f.user&.antenne || f.expert.antenne }
   end
@@ -42,7 +42,7 @@ ActiveAdmin.register Feedback do
   show do
     attributes_table do
       row :created_at
-      row :need
+      row :feedbackable
       row :expert
       row :user
       row :description

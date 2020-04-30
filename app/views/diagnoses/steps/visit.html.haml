@@ -39,7 +39,13 @@
           = diagnosis_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
 
     - if ENV['FEATURE_NEW_LOCALITY_FOR_DIAGNOSIS'].to_b
-      = render 'new_locality', postal_code: @postal_code, diagnosis: @diagnosis
+      #insee-code-section
+        = check_box_tag :view_insee_code_section, nil, false, { name: nil }
+        %p#insee-code-section-button= label_tag :view_insee_code_section, t('.new_city', locality: @diagnosis.facility.readable_locality), { class: 'ui button basic blue' }
+
+        #insee-code-row
+          %h3.ui.header= t('.new_city_title')
+          = render 'insee_code_field', required: false
 
     %a.ui.left.floated.button.labeled.icon{ href: needs_diagnosis_path }
       = t('previous_step')

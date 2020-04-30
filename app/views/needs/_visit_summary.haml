@@ -25,14 +25,14 @@
             .summary
               = t('.advisor_has_diagnosed_n_needs', advisor: diagnosis.advisor, count: diagnosis.needs.count)
             - if diagnosis.content
-              .extra.text= diagnosis.content
+              .extra.text= simple_format(auto_link(diagnosis.content))
 
   - if diagnosis.solicitation.present?
     .ui.horizontal.divider.sub.header
       = t('.solicitation', id: diagnosis.solicitation.id)
     .row
       .column
-        = simple_format diagnosis.solicitation.description
+        = simple_format(auto_link(diagnosis.solicitation.description))
         - if policy(diagnosis.solicitation).show?
           = link_to(t('.solicitation_link'), processed_solicitations_path(anchor: diagnosis.solicitation.id))
 
