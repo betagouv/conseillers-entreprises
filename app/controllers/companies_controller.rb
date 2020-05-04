@@ -16,6 +16,8 @@ class CompaniesController < ApplicationController
   end
 
   def show
+    @diagnosis = DiagnosisCreation.new_diagnosis(Solicitation.find_by(id: params[:solicitation]))
+
     siret = params[:siret]
     clean_siret = Facility::clean_siret(siret)
     if clean_siret != siret
@@ -40,23 +42,6 @@ class CompaniesController < ApplicationController
       @diagnoses = Diagnosis.none
     end
     save_search(siret, @company.name)
-  end
-
-  def create_diagnosis_from_siret
-    facility = UseCases::SearchFacility.with_siret_and_save(params[:siret])
-    if facility
-      diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :needs)
-      if params[:solicitation].present?
-        solicitation = Solicitation.find_by(id: params[:solicitation])
-        diagnosis.solicitation = solicitation
-      end
-    end
-
-    if diagnosis&.save
-      redirect_to needs_diagnosis_path(diagnosis)
-    else
-      render body: nil, status: :bad_request
-    end
   end
 
   private

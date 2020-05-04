@@ -40,14 +40,6 @@ class Diagnoses::StepsController < ApplicationController
 
     begin
       @diagnosis.transaction do
-        if params[:insee_code].present?
-          insee_code = params[:insee_code]
-          facility = @diagnosis.facility
-          city_params = ApiAdresse::Query.city_with_code(insee_code)
-          facility.readable_locality = "#{city_params['codesPostaux']&.first} #{city_params['nom']}"
-          facility.commune = Commune.find_or_initialize_by(insee_code: insee_code)
-          facility.save!
-        end
         @diagnosis.update!(diagnosis_params)
         @diagnosis.solicitation&.status_processed!
         redirect_to action: :matches
@@ -85,7 +77,9 @@ class Diagnoses::StepsController < ApplicationController
 
   def params_for_visit
     params.require(:diagnosis)
-      .permit(:happened_on, visitee_attributes: [:full_name, :role, :email, :phone_number, :id])
+      .permit(:happened_on,
+              visitee_attributes: [:full_name, :role, :email, :phone_number, :id],
+              facility_attributes: [:insee_code, :id])
   end
 
   def params_for_matches

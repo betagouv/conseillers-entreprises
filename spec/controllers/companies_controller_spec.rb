@@ -27,29 +27,4 @@ RSpec.describe CompaniesController, type: :controller do
       expect(response).to be_successful
     end
   end
-
-  describe 'POST #create_diagnosis_from_siret' do
-    context 'save worked' do
-      it 'redirects to the created diagnosis needs page' do
-        siret = '12345678901234'
-        facility = create :facility, siret: siret
-        allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { facility }
-
-        post :create_diagnosis_from_siret, format: :json, params: { siret: siret }
-
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to needs_diagnosis_path(Diagnosis.last)
-      end
-    end
-
-    context 'saved failed' do
-      it 'does not redirect' do
-        allow(UseCases::SearchFacility).to receive(:with_siret_and_save)
-
-        post :create_diagnosis_from_siret, format: :json, params: {}
-
-        expect(response).to have_http_status(:bad_request)
-      end
-    end
-  end
 end

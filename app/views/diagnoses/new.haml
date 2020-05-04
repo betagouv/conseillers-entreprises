@@ -8,7 +8,7 @@
   %a.item{ "data-tab" => "second" }
     = t('.search_manually')
 .ui.bottom.attached.tab.new-diagnosis.segment.active{ "data-tab" => "first" }
-  = render partial: 'companies/search_form', locals: { query: @query, solicitation: @solicitation }
+  = render partial: 'companies/search_form', locals: { query: @query, solicitation: @diagnosis.solicitation }
 
 .ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second" }
   %h2.ui.header
@@ -17,18 +17,21 @@
   %p
     = t('.sub_title')
 
-  = form_with url: create_diagnosis_without_siret_diagnoses_url, method: :post, class: 'ui form' do
+  = form_with model: @diagnosis, class: 'ui form', local: true do |form|
+    - if @diagnosis.errors.present?
+      .field.error
+        .ui.error.message= @diagnosis.errors.full_messages.to_sentence
+    - if @diagnosis.solicitation.present?
+      = form.hidden_field :solicitation_id
+    = form.fields_for :facility do |facility_form|
+      .field.required
+        = facility_form.fields_for :company do |company_form|
+          = label_tag t('.name')
+          = company_form.text_field :name, required: true
 
-    - if @solicitation.present?
-      = hidden_field_tag :solicitation, @solicitation.id
-    .field
-      = label_tag t('.name')
-      - name = local_assigns[:solicitation]&.full_name
-      = text_field_tag :name, name, required: true
+      = render 'insee_code_field', form: facility_form, required: true
 
-    = render 'insee_code_field', required: true
-
-    = button_tag :submit, class: 'ui right floated button green right labeled icon' do
+    = form.button :submit, class: 'ui right floated button green right labeled icon' do
       = t('next_step')
       %i.arrow.right.icon
 

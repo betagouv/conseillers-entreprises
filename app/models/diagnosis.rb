@@ -55,6 +55,7 @@ class Diagnosis < ApplicationRecord
   validate :step_matches_has_visit_attributes
   validate :step_completed_has_matches
 
+  accepts_nested_attributes_for :facility
   accepts_nested_attributes_for :needs, allow_destroy: true
   accepts_nested_attributes_for :visitee
 
