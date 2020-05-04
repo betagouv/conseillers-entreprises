@@ -14,8 +14,7 @@ class DiagnosesController < ApplicationController
   end
 
   def new
-    @params = {}
-    @solicitation = Solicitation.find_by(id: params[:solicitation])
+    @diagnosis = DiagnosisCreation.new_diagnosis(Solicitation.find_by(id: params[:solicitation]))
   end
 
   def index_antenne
@@ -32,23 +31,13 @@ class DiagnosesController < ApplicationController
     render :index_antenne
   end
 
-  def create_diagnosis_without_siret
-    insee_code = params[:insee_code]
-    facility = Facility.new(company: Company.new(name: params[:name]))
-    city_params = ApiAdresse::Query.city_with_code(insee_code)
-    facility.readable_locality = "#{city_params['codesPostaux']&.first} #{city_params['nom']}"
-    facility.commune = Commune.find_or_initialize_by(insee_code: insee_code)
+  def create
+    @diagnosis = DiagnosisCreation.create_diagnosis(diagnosis_params.merge(advisor: current_user))
 
-    diagnosis = Diagnosis.new(advisor: current_user, facility: facility, step: :needs)
-    if params[:solicitation].present?
-      solicitation = Solicitation.find_by(id: params[:solicitation])
-      diagnosis.solicitation = solicitation
-    end
-
-    if diagnosis.save
-      redirect_to needs_diagnosis_path(diagnosis)
+    if @diagnosis.persisted?
+      redirect_to needs_diagnosis_path(@diagnosis)
     else
-      render body: nil, status: :bad_request
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -88,5 +77,14 @@ class DiagnosesController < ApplicationController
       .send(status)
       .order(happened_on: :desc)
       .page(params[:page])
+  end
+
+  def diagnosis_params
+    params.require(:diagnosis)
+      .permit(:solicitation_id,
+              facility_attributes: [
+                :siret, :insee_code,
+                company_attributes: :name
+              ])
   end
 end

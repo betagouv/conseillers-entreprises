@@ -84,20 +84,52 @@ RSpec.describe DiagnosesController, type: :controller do
     end
   end
 
-  describe 'POST #create_diagnosis_without_siret' do
-    let(:params) { { insee_code: '78586', name: 'analyse sans siret' } }
-    let(:url) { "https://geo.api.gouv.fr/communes/78586?fields=nom,codesPostaux" }
+  describe 'POST #create' do
+    let(:params) { { diagnosis: { facility_attributes: facility_params } } }
 
-    before do
-      stub_request(:get, url).to_return(
-        body: file_fixture('geo_api_communes_78586.json')
-      )
+    context 'with no facility data' do
+      let(:facility_params) { { invalid: 'value' } }
+
+      it 'returns an error' do
+        post :create, params: params
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
 
-    it "creates a new diagnosis without siret" do
-      post :create_diagnosis_without_siret, params: params
-      expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to needs_diagnosis_path(Diagnosis.last)
+    context 'with a facility siret' do
+      let(:siret) { '12345678901234' }
+      let(:facility_params) { { siret: siret } }
+      let(:facility) { create(:facility, siret: siret) }
+
+      before do
+        allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { facility }
+      end
+
+      it 'fetches info for ApiEntreprise and creates the diagnosis' do
+        post :create, params: params
+
+        expect(UseCases::SearchFacility).to have_received(:with_siret_and_save).with(siret)
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(needs_diagnosis_path(Diagnosis.last))
+      end
+    end
+
+    context 'with manual facility info' do
+      let(:insee_code) { '78586' }
+      let(:facility_params) { { insee_code: insee_code, company_attributes: { name: 'analyse sans siret' } } }
+
+      before do
+        city_json = JSON.parse(file_fixture('geo_api_communes_78586.json').read)
+        allow(ApiAdresse::Query).to receive(:city_with_code).with(insee_code) { city_json }
+      end
+
+      it "creates a new diagnosis without siret" do
+        post :create, params: params
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to needs_diagnosis_path(Diagnosis.last)
+      end
     end
   end
 end

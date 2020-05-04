@@ -28,7 +28,7 @@ RSpec.describe Facility, type: :model do
 
     before do
       stub_request(:get, "https://geo.api.gouv.fr/communes/78586?fields=nom,codesPostaux")
-        .to_return(body: File.read(Rails.root.join('spec', 'fixtures', 'geo_api_communes_78586.json')))
+        .to_return(body: file_fixture('geo_api_communes_78586.json'))
     end
 
     it do

@@ -77,13 +77,12 @@ Rails.application.routes.draw do
   end
 
   # Application
-  resources :diagnoses, only: %i[index new show], path: 'analyses' do
+  resources :diagnoses, only: %i[index new show create], path: 'analyses' do
     collection do
       get :processed, path: 'traitees'
       get :archives
       get :index_antenne
       get :archives_antenne
-      post :create_diagnosis_without_siret
     end
 
     member do
@@ -104,7 +103,6 @@ Rails.application.routes.draw do
   resources :companies, only: %i[show], param: :siret do
     collection do
       get :search
-      post :create_diagnosis_from_siret
     end
   end
 

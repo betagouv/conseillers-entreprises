@@ -7,4 +7,4 @@
     = label_tag do
       = t('.city')
       .ui.loader.inline.mini.insee-code-loader
-    = select_tag :insee_code, [], required: required, class: 'ui fluid dropdown selection'
+    = form.select :insee_code, [], {}, { required: required, class: 'ui fluid dropdown selection', id: :insee_code }

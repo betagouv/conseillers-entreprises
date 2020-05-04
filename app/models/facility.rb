@@ -48,6 +48,8 @@ class Facility < ApplicationRecord
   # :commune
   has_many :territories, through: :commune, inverse_of: :facilities
 
+  accepts_nested_attributes_for :company
+
   ##
   #
   class << self

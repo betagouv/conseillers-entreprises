@@ -53,12 +53,15 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
       let(:params) do
         {
           id: diagnosis.id,
-          insee_code: '78586',
           diagnosis: {
             happened_on: "27/01/2020",
             visitee_attributes: {
               full_name: "Edith Piaf", role: "directrice", email: "edith@piaf.fr", phone_number: "0606060606",
             },
+            facility_attributes: {
+              id: diagnosis.facility_id,
+              insee_code: '78586'
+            }
           }
         }
       end
