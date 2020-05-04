@@ -97,35 +97,4 @@ RSpec.describe Diagnosis, type: :model do
       end
     end
   end
-
-  describe 'match_and_notify!' do
-    subject(:match_and_notify) { diagnosis.match_and_notify!(matches) }
-
-    let(:diagnosis) { create :diagnosis, step: :matches }
-    let(:need) { create :need, diagnosis: diagnosis }
-    let(:expert) { create :expert }
-    let(:experts_subjects) { create :expert_subject, expert: expert, subject: need.subject }
-    let(:matches) { { need.id => [experts_subjects.id] } }
-
-    context 'selected experts_subjects for related needs' do
-      it do
-        expect{ match_and_notify }.to change(Match, :count).by(1)
-        expect(Match.last.expert).to eq expert
-        expect(Match.last.subject).to eq need.subject
-        expect(diagnosis.step_completed?).to be true
-      end
-    end
-
-    context 'no selected expert_subjects' do
-      let(:matches) { { need.id => [] } }
-
-      it { expect{ match_and_notify }.to raise_error ActiveRecord::RecordInvalid }
-    end
-
-    context 'unrelated need' do
-      let(:need) { create :need }
-
-      it { expect{ match_and_notify }.to raise_error ActiveRecord::RecordNotFound }
-    end
-  end
 end

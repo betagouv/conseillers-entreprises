@@ -55,7 +55,12 @@ class Diagnoses::StepsController < ApplicationController
 
   def update_matches
     authorize @diagnosis, :update?
-    if @diagnosis.match_and_notify!(params_for_matches)
+
+    diagnosis_params = params_for_matches
+    diagnosis_params[:step] = :completed
+
+    if @diagnosis.update(diagnosis_params)
+      @diagnosis.notify_matches_made!
       flash.notice = I18n.t('diagnoses.steps.matches.notifications_sent')
       redirect_to need_path(@diagnosis)
     else
@@ -83,9 +88,7 @@ class Diagnoses::StepsController < ApplicationController
   end
 
   def params_for_matches
-    matches = params.permit(matches: {}).require('matches')
-    matches.transform_values do |expert_subjects_selection|
-      expert_subjects_selection.select{ |_,v| v == '1' }.keys
-    end
+    params.require(:diagnosis)
+      .permit(needs_attributes: [:id, matches_attributes: [:_destroy, :id, :subject_id, :expert_id]])
   end
 end
