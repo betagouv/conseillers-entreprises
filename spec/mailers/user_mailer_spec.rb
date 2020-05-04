@@ -28,7 +28,7 @@ describe UserMailer do
   describe '#match_feedback' do
     subject(:mail) { described_class.match_feedback(feedback, user).deliver_now }
 
-    let(:feedback) { create :feedback, :for_need, :of_user }
+    let(:feedback) { create :feedback, :for_need }
     let(:advisor) { create :user }
     let(:user) { create :user }
 
