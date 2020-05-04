@@ -14,7 +14,7 @@ class UserMailer < ApplicationMailer
   def match_feedback(feedback, person)
     @feedback = feedback
     @person = person
-    @author = feedback.author
+    @author = feedback.user
     return if @person.is_a?(User) && @person.deleted? # TODO remove the is_a? after #991
     mail(to: @person.email_with_display_name,
          reply_to: @author.email_with_display_name,

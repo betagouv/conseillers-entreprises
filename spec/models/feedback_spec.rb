@@ -15,14 +15,14 @@ RSpec.describe Feedback, type: :model do
     let(:expert3) { create :expert, users: [user3] }
     let(:matches) { [create(:match, expert: expert1), create(:match, expert: expert2), create(:match, expert: expert3)] }
     let(:need) { create :need, advisor: advisor, matches: matches }
-    let(:feedback) { create :feedback, feedbackable: need, author: author }
+    let(:feedback) { create :feedback, feedbackable: need, user: author }
 
     subject { feedback.persons_to_notify }
 
     context 'when the author is the one of the contacted experts' do
       let(:user2) { create :user }
-      let!(:feedback2) { create :feedback, feedbackable: need, author: user2 }
-      let!(:feedback3) { create :feedback, feedbackable: need, author: user3 }
+      let!(:feedback2) { create :feedback, feedbackable: need, user: user2 }
+      let!(:feedback3) { create :feedback, feedbackable: need, user: user3 }
       let(:author) { user3 }
 
       it{ is_expected.to match_array [expert1, expert2, user2, advisor] }

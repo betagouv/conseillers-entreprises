@@ -48,6 +48,8 @@ class Facility < ApplicationRecord
   # :commune
   has_many :territories, through: :commune, inverse_of: :facilities
 
+  accepts_nested_attributes_for :company
+
   ##
   #
   class << self
@@ -86,13 +88,23 @@ class Facility < ApplicationRecord
     end
   end
 
+  ## insee_code / commune helpers
+  # TODO: insee_code should be just a column in facility, and we should drop the Commune model entirely.
+  #   In the meantime, fake it by delegating to commune.
+  delegate :insee_code, to: :commune, allow_nil: true # commune can be nil in new facility models.
+  def insee_code=(insee_code)
+    self.commune = Commune.find_or_initialize_by(insee_code: insee_code)
+    city_params = ApiAdresse::Query.city_with_code(insee_code)
+    self.readable_locality = "#{city_params['codesPostaux']&.first} #{city_params['nom']}"
+  end
+
+  def commune_name
+    readable_locality || insee_code
+  end
+
   ##
   #
   def to_s
     "#{company.name} (#{commune_name})"
-  end
-
-  def commune_name
-    readable_locality || commune.insee_code
   end
 end

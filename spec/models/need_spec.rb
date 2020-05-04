@@ -225,4 +225,40 @@ RSpec.describe Need, type: :model do
       it { is_expected.to eq date3 }
     end
   end
+
+  describe 'touch diagnosis' do
+    let(:date1) { Time.zone.now.beginning_of_day }
+    let(:date2) { date1 + 1.minute }
+    let(:date3) { date1 + 2.minutes }
+
+    let(:diagnosis) { Timecop.freeze(date1) { create :diagnosis } }
+
+    before { diagnosis }
+
+    subject { diagnosis.reload.updated_at }
+
+    context 'when a need is added to a diagnosis' do
+      let(:need) { Timecop.freeze(date3) { create :need, diagnosis: diagnosis } }
+
+      before { Timecop.freeze(date3) { diagnosis.needs = [need] } }
+
+      it { is_expected.to eq date3 }
+    end
+
+    context 'when a need is removed from a diagnosis' do
+      let(:need) { Timecop.freeze(date1) { create :need, diagnosis: diagnosis } }
+
+      before { Timecop.freeze(date3) { need.destroy } }
+
+      it { is_expected.to eq date3 }
+    end
+
+    context 'when a need is updated' do
+      let(:need) { Timecop.freeze(date1) { create :need, diagnosis: diagnosis } }
+
+      before { Timecop.freeze(date3) { need.update(content: 'New content') } }
+
+      it { is_expected.to eq date3 }
+    end
+  end
 end

@@ -6,9 +6,6 @@ RSpec.describe ApiEntreprise::Entreprises do
   let(:company) { described_class.new(token).fetch(siren) }
 
   let(:base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises' }
-  let(:httprb_request_headers) do
-    { 'Connection' => 'close', 'Host' => 'entreprise.api.gouv.fr', 'User-Agent' => /http\.rb.*/ }
-  end
 
   before { Rails.cache.clear }
 
@@ -18,9 +15,8 @@ RSpec.describe ApiEntreprise::Entreprises do
     let(:url) { "#{base_url}/123456789?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
     before do
-      stub_request(:get, url).with(headers: httprb_request_headers).to_return(
-        status: 200, headers: {},
-        body: File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_entreprise.json'))
+      stub_request(:get, url).to_return(
+        body: file_fixture('api_entreprise_get_entreprise.json')
       )
     end
 
@@ -40,8 +36,8 @@ RSpec.describe ApiEntreprise::Entreprises do
     let(:url) { "#{base_url}/?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
     before do
-      stub_request(:get, url).with(headers: httprb_request_headers).to_return(
-        status: 500, headers: {}, body: '{}'
+      stub_request(:get, url).to_return(
+        status: 500, body: '{}'
       )
     end
 
@@ -56,9 +52,9 @@ RSpec.describe ApiEntreprise::Entreprises do
     let(:url) { "#{base_url}/?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
     before do
-      stub_request(:get, url).with(headers: httprb_request_headers).to_return(
-        status: 500, headers: {},
-        body: File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_get_entreprise_422.json'))
+      stub_request(:get, url).to_return(
+        status: 500,
+        body: file_fixture('api_entreprise_get_entreprise_422.json')
       )
     end
 
@@ -73,9 +69,9 @@ RSpec.describe ApiEntreprise::Entreprises do
     let(:url) { "#{base_url}/123456789?token=&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
     before do
-      stub_request(:get, url).with(headers: httprb_request_headers).to_return(
-        status: 401, headers: {},
-        body: File.read(Rails.root.join('spec', 'fixtures', 'api_entreprise_401.json'))
+      stub_request(:get, url).to_return(
+        status: 401,
+        body: file_fixture('api_entreprise_401.json')
       )
     end
 

@@ -2,30 +2,52 @@
 
 class NeedsController < ApplicationController
   before_action :maybe_review_expert_subjects
+  before_action :retrieve_variables_for_index, only: %i[index taking_care]
 
   def index
-    @experts_emails = current_user.experts.distinct.pluck(:email)
-    @needs_quo = current_user.needs_quo
-    @needs_taking_care = current_user.needs_taking_care
-    @needs_others_taking_care = current_user.needs_others_taking_care
+    @needs = current_user.needs_quo.or(current_user.needs_others_taking_care).page params[:page]
+  end
+
+  def taking_care
+    retrieve_needs(current_user, :needs_taking_care)
+    render :index
   end
 
   def index_antenne
-    @needs_quo = current_user.antenne.needs_quo
-    @needs_taking_care = current_user.antenne.needs_taking_care
-    @needs_others_taking_care = current_user.antenne.needs_others_taking_care
+    @needs = current_user.antenne.needs_quo.or(current_user.antenne.needs_others_taking_care).page params[:page]
+  end
+
+  def taking_care_antenne
+    retrieve_needs(current_user.antenne, :needs_taking_care)
+    render :index_antenne
   end
 
   def archives
-    @needs_rejected = current_user.needs_rejected
-    @needs_done = current_user.needs_done
-    @needs_archived = current_user.needs_archived
+    retrieve_needs(current_user, :needs_done)
+  end
+
+  def archives_rejected
+    retrieve_needs(current_user, :needs_rejected)
+    render :archives
+  end
+
+  def archives_failed
+    retrieve_needs(current_user, :needs_archived)
+    render :archives
   end
 
   def archives_antenne
-    @needs_rejected = current_user.antenne.needs_rejected
-    @needs_done = current_user.antenne.needs_done
-    @needs_archived = current_user.antenne.needs_archived
+    retrieve_needs(current_user.antenne, :needs_done)
+  end
+
+  def archives_antenne_rejected
+    retrieve_needs(current_user.antenne, :needs_rejected)
+    render :archives_antenne
+  end
+
+  def archives_antenne_failed
+    retrieve_needs(current_user.antenne, :needs_archived)
+    render :archives_antenne
   end
 
   def show
@@ -70,5 +92,16 @@ class NeedsController < ApplicationController
 
   def retrieve_diagnosis
     Diagnosis.find(params.require(:id))
+  end
+
+  def retrieve_variables_for_index
+    @experts_emails = current_user.experts.distinct.pluck(:email)
+    @no_needs = current_user.needs_taking_care.empty? &&
+        current_user.needs_others_taking_care.empty? &&
+        current_user.needs_quo.empty?
+  end
+
+  def retrieve_needs(scope, status)
+    @needs = scope.send(status).page params[:page]
   end
 end

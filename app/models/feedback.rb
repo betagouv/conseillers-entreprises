@@ -7,19 +7,16 @@
 #  feedbackable_type :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  expert_id         :bigint(8)
 #  feedbackable_id   :bigint(8)
 #  user_id           :bigint(8)
 #
 # Indexes
 #
-#  index_feedbacks_on_expert_id                              (expert_id)
 #  index_feedbacks_on_feedbackable_type_and_feedbackable_id  (feedbackable_type,feedbackable_id)
 #  index_feedbacks_on_user_id                                (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (expert_id => experts.id)
 #  fk_rails_...  (user_id => users.id)
 #
 
@@ -27,27 +24,14 @@ class Feedback < ApplicationRecord
   ## Associations
   #
   belongs_to :feedbackable, polymorphic: true, touch: true
-  belongs_to :expert, inverse_of: :feedbacks, optional: true
-  belongs_to :user, inverse_of: :feedbacks, optional: true
+  belongs_to :user, inverse_of: :feedbacks
 
   ## Validations
   #
-  validate :expert_or_user_author
   validates :description, presence: true
 
   ##
   #
-  def author
-    expert || user
-  end
-
-  def author=(person)
-    if person.is_a? User
-      self.user = person
-    elsif person.is_a? Expert
-      self.expert = person
-    end
-  end
 
   def notify_for_need!
     return if feedbackable_type != "Need"
@@ -64,7 +48,7 @@ class Feedback < ApplicationRecord
     # remove users if their experts are already present in feedbacks authors
     feedback_users.filter! { |user| !experts_users.include?(user) }
     persons = (need.experts + [need.advisor] + feedback_users).uniq
-    persons - [author] - author.experts
+    persons - [user] - user.experts
   end
 
   def need
@@ -73,13 +57,5 @@ class Feedback < ApplicationRecord
 
   def solicitation
     feedbackable if feedbackable_type == "Solicitation"
-  end
-
-  private
-
-  def expert_or_user_author
-    unless expert.blank? ^ user.blank?
-      self.expert = nil
-    end
   end
 end

@@ -1,6 +1,6 @@
 - meta title: t('.title')
 
-- if @needs_quo.empty? && @needs_taking_care.empty? && @needs_others_taking_care.empty?
+- if @no_needs
   - if current_user.needs_rejected.any? || current_user.needs_done.any? || current_user.needs_archived.any?
     %h1.ui.header
       = t('.title_no_needs')
@@ -26,18 +26,19 @@
     = t('.title')
     .sub.header= t('.needs_for_you')
 
-  = render 'received_needs', received_needs: @needs_quo, title: t('.needs_quo', count: @needs_quo.count)
+  = render 'needs_tabs'
 
-  = render 'received_needs', received_needs: @needs_taking_care, title: t('.needs_taking_care', count: @needs_taking_care.count)
+  .ui.aligned.grid.padded
+    .aligned.eight.wide.column
+      %p= page_entries_info @needs
+    .right.aligned.eight.wide.column
+      - if current_user.antenne.advisors.count > 1
+        = link_to index_antenne_needs_path do
+          %i.folder.open.icon
+          = t('.browse_antenne_needs')
+          %br
+      = link_to archives_needs_path do
+        %i.archive.icon
+        = t('.browse_archived_needs')
 
-  = render 'received_needs', received_needs: @needs_others_taking_care, title: t('.needs_others_taking_care', count: @needs_others_taking_care.count)
-
-- if current_user.antenne.advisors.count > 1
-  = link_to index_antenne_needs_path do
-    %i.folder.open.icon
-    = t('.browse_antenne_needs')
-    %br
-
-= link_to archives_needs_path do
-  %i.archive.icon
-  = t('.browse_archived_needs')
+  = render 'received_needs', received_needs: @needs

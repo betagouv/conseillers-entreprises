@@ -468,7 +468,3 @@ fr:
     visitee: Personne rencontrée
   deleted_user:
     full_name: "(Compte supprimé)"
-  diagnoses:
-    archives_antenne:
-      subtitle: Réalisées par %{antenne}
-      title: Analyses archivées

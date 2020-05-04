@@ -3,12 +3,14 @@
 %h1.ui.header
   = t('.title', antenne: current_user.antenne.name)
 
-= render 'received_needs', received_needs: @needs_quo, title: t('needs.index.needs_quo', count: @needs_quo.count)
+= render 'needs_antenne_tabs'
 
-= render 'received_needs', received_needs: @needs_taking_care, title: t('needs.index.needs_taking_care', count: @needs_taking_care.count)
+.ui.aligned.grid.padded
+  .aligned.eight.wide.column
+    %p= page_entries_info @needs
+  .right.aligned.eight.wide.column
+    = link_to archives_antenne_needs_path do
+      %i.archive.icon
+      = t('.browse_archived_needs')
 
-= render 'received_needs', received_needs: @needs_others_taking_care, title: t('needs.index.needs_others_taking_care', count: @needs_others_taking_care.count)
-
-= link_to archives_antenne_needs_path do
-  %i.archive.icon
-  = t('.browse_archived_needs')
+= render 'received_needs', received_needs: @needs

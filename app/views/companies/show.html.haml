@@ -3,8 +3,13 @@
 #company-show
   %h1
     = @company.name
-    = link_to t('.create_diagnosis'), create_diagnosis_from_siret_companies_path(params.permit(:siret, :solicitation).slice(:siret, :solicitation)),
-    method: :post, class: 'ui right floated positive basic button'
+
+    = form_with model: @diagnosis, local: true do |form|
+      = form.hidden_field :solicitation_id
+      = form.fields_for :facility do |facility_form|
+        = facility_form.hidden_field :siret, value: @facility.etablissement.siret
+      = form.button :submit, class: 'ui right floated positive basic button' do
+        = t('.create_diagnosis')
 
   - if @diagnoses.present?
     %h2= t('.diagnoses_completed', company_name: @company.name)

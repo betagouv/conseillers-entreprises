@@ -44,6 +44,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post :subscribe_newsletter, to: 'landings#subscribe_newsletter'
+
   resources :solicitations, only: %i[index show], path: 'sollicitations' do
     member do
       post :update_status
@@ -77,12 +79,12 @@ Rails.application.routes.draw do
   end
 
   # Application
-  resources :diagnoses, only: %i[index new show], path: 'analyses' do
+  resources :diagnoses, only: %i[index new show create], path: 'analyses' do
     collection do
+      get :processed, path: 'traitees'
       get :archives
       get :index_antenne
       get :archives_antenne
-      post :create_diagnosis_without_siret
     end
 
     member do
@@ -103,15 +105,20 @@ Rails.application.routes.draw do
   resources :companies, only: %i[show], param: :siret do
     collection do
       get :search
-      post :create_diagnosis_from_siret
     end
   end
 
   resources :needs, only: %i[index show], path: 'besoins' do
     collection do
+      get :taking_care, path: 'pris_en_charges'
       get :archives
+      get :archives_rejected, path: 'archives_rejetes'
+      get :archives_failed, path: 'archives_en_echec'
       get :index_antenne
+      get :taking_care_antenne, path: 'pris_en_charges_par_antenne'
       get :archives_antenne
+      get :archives_antenne_rejected, path: 'archives_antenne_rejetes'
+      get :archives_antenne_failed, path: 'archives_antenne_en_echec'
     end
     member do
       get :additional_experts
@@ -125,6 +132,8 @@ Rails.application.routes.draw do
   resources :reminders, only: %i[index show], path: 'relances' do
     member do
       post :reminders_notes
+      get :needs_taking_care
+      get :needs_taking_care_by_others
     end
   end
 

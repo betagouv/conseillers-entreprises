@@ -1,6 +1,6 @@
 class LandingsController < PagesController
   before_action :save_form_info, only: %i[index show]
-  before_action :retrieve_landing, except: :index
+  before_action :retrieve_landing, except: %i[index subscribe_newsletter]
 
   def index
     @landings = Rails.cache.fetch('landings', expires_in: 3.minutes) do
@@ -24,6 +24,16 @@ class LandingsController < PagesController
     end
 
     render :new_solicitation # rerender the form on error, render the thankyou partial on success
+  end
+
+  def subscribe_newsletter
+    begin
+      Mailjet::Contactslist_managecontact.create(id: ENV['MAILJET_NEWSLETTER_ID'], action: "addforce", email: params[:email])
+      flash[:success] = t('.success_newsletter')
+    rescue StandardError => e
+      flash[:warning] = t('.error_mailjet')
+    end
+    redirect_back fallback_location: root_path
   end
 
   private
