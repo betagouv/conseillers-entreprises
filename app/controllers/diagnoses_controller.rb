@@ -5,8 +5,12 @@ class DiagnosesController < ApplicationController
   before_action :maybe_review_expert_subjects
 
   def index
-    authorize Diagnosis
-    @diagnoses = sent_diagnoses(current_user, archived: false)
+    retrieve_diagnoses(current_user, false, :in_progress)
+  end
+
+  def processed
+    retrieve_diagnoses(current_user, false, :completed)
+    render :index
   end
 
   def new
@@ -15,15 +19,17 @@ class DiagnosesController < ApplicationController
   end
 
   def index_antenne
-    @diagnoses = sent_diagnoses(current_user.antenne, archived: false)
+    retrieve_diagnoses(current_user.antenne, false)
   end
 
   def archives
-    @diagnoses = sent_diagnoses(current_user, archived: true)
+    retrieve_diagnoses(current_user, true)
+    render :index
   end
 
   def archives_antenne
-    @diagnoses = sent_diagnoses(current_user.antenne, archived: true)
+    retrieve_diagnoses(current_user.antenne, true)
+    render :index_antenne
   end
 
   def create_diagnosis_without_siret
@@ -69,17 +75,18 @@ class DiagnosesController < ApplicationController
 
   private
 
-  def sent_diagnoses(model, archived:)
-    model.sent_diagnoses.archived(archived).order(created_at: :desc)
-      .distinct
-      .left_outer_joins(:matches,
-                        needs: :matches)
-      .includes(:matches,
-                :visitee, facility: :company,
-        needs: :matches)
-  end
-
   def retrieve_diagnosis
     @diagnosis = Diagnosis.find(params.require(:id))
+  end
+
+  def retrieve_diagnoses(scope, archived, status = :all)
+    authorize Diagnosis, :index?
+    @diagnoses = scope.sent_diagnoses.archived(archived)
+      .distinct
+      .left_outer_joins(:matches, needs: :matches)
+      .includes(:matches, :visitee, facility: :company, needs: :matches)
+      .send(status)
+      .order(happened_on: :desc)
+      .page(params[:page])
   end
 end

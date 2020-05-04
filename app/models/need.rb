@@ -31,7 +31,7 @@ class Need < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :diagnosis, inverse_of: :needs
+  belongs_to :diagnosis, inverse_of: :needs, touch: true
   belongs_to :subject, inverse_of: :needs
   has_many :matches, dependent: :destroy, inverse_of: :need
   has_many :feedbacks, dependent: :destroy, as: :feedbackable

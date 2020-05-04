@@ -1,2 +1,8 @@
 - diagnoses = Diagnosis.where(needs: received_needs).distinct
-= render 'diagnoses/diagnoses', diagnoses: diagnoses, needs_of_interest: received_needs, title: title, highlighted_expert: local_assigns[:highlighted_expert]
+= paginate received_needs
+
+.ui.segments.shadow-less.selectable-list
+  = render partial: 'diagnoses/diagnosis', collection: diagnoses, locals: { needs_of_interest: received_needs,
+    highlighted_expert: local_assigns[:highlighted_expert] }, cached: true
+
+= paginate received_needs

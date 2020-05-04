@@ -10,17 +10,21 @@
   %h1.ui.header= t('.create_new_diagnosis')
   = render partial: 'companies/search_form', locals: { query: @query }
 
+= render 'diagnoses_tabs'
 
-= render 'diagnoses', diagnoses: @diagnoses.in_progress, title: t('.diagnoses_in_progress')
+.ui.aligned.grid.padded
+  .aligned.eight.wide.column
+    %p= page_entries_info @diagnoses
+  .right.aligned.eight.wide.column
+    - if current_user.antenne.advisors.count > 1
+      = link_to index_antenne_diagnoses_path do
+        %i.folder.open.icon
+        = t('.browse_antenne_diagnoses')
 
-= render 'diagnoses', diagnoses: @diagnoses.completed, title: t('.completed_diagnoses')
+= paginate @diagnoses
 
-- if current_user.antenne.advisors.count > 1
-  = link_to index_antenne_diagnoses_path do
-    %i.folder.open.icon
-    = t('.browse_antenne_diagnoses')
-    %br
+.ui.segments.shadow-less.selectable-list
+  = render partial: 'diagnosis', collection: @diagnoses, locals: { needs_of_interest: local_assigns[:needs_of_interest],
+    highlighted_expert: local_assigns[:highlighted_expert] }, cached: true
 
-= link_to archives_diagnoses_path do
-  %i.archive.icon
-  = t('.browse_archived_diagnoses')
+= paginate @diagnoses

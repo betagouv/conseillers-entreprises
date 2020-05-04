@@ -79,6 +79,7 @@ Rails.application.routes.draw do
   # Application
   resources :diagnoses, only: %i[index new show], path: 'analyses' do
     collection do
+      get :processed, path: 'traitees'
       get :archives
       get :index_antenne
       get :archives_antenne
@@ -109,9 +110,15 @@ Rails.application.routes.draw do
 
   resources :needs, only: %i[index show], path: 'besoins' do
     collection do
+      get :taking_care, path: 'pris_en_charges'
       get :archives
+      get :archives_rejected, path: 'archives_rejetes'
+      get :archives_failed, path: 'archives_en_echec'
       get :index_antenne
+      get :taking_care_antenne, path: 'pris_en_charges_par_antenne'
       get :archives_antenne
+      get :archives_antenne_rejected, path: 'archives_antenne_rejetes'
+      get :archives_antenne_failed, path: 'archives_antenne_en_echec'
     end
     member do
       get :additional_experts
@@ -125,6 +132,8 @@ Rails.application.routes.draw do
   resources :reminders, only: %i[index show], path: 'relances' do
     member do
       post :reminders_notes
+      get :needs_taking_care
+      get :needs_taking_care_by_others
     end
   end
 

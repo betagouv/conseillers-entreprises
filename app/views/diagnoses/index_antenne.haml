@@ -4,10 +4,20 @@
   = t('.title')
   .sub.header= t('.subtitle', antenne: current_user.antenne.name)
 
-= render 'diagnoses', diagnoses: @diagnoses.in_progress, title: t('diagnoses.index.diagnoses_in_progress')
+= render 'antenne_diagnoses_tabs'
 
-= render 'diagnoses', diagnoses: @diagnoses.completed, title: t('diagnoses.index.completed_diagnoses')
+.ui.aligned.grid.padded
+  .aligned.eight.wide.column
+    %p= page_entries_info @diagnoses
+  .right.aligned.eight.wide.column
+    = link_to diagnoses_path do
+      %i.tasks.icon
+      = t('.browse_active_diagnoses')
 
-= link_to archives_antenne_diagnoses_path do
-  %i.archive.icon
-  = t('.browse_archived_diagnoses')
+= paginate @diagnoses
+
+.ui.segments.shadow-less.selectable-list
+  = render partial: 'diagnosis', collection: @diagnoses, locals: { needs_of_interest: local_assigns[:needs_of_interest],
+    highlighted_expert: local_assigns[:highlighted_expert] }, cached: true
+
+= paginate @diagnoses

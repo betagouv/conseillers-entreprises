@@ -1,0 +1,4 @@
+.ui.top.large.secondary.pointing.menu
+  = active_link_to(t('needs.index.needs_quo'), reminder_path(expert), active: [reminders: :show], class: 'item')
+  = active_link_to(t('needs.index.needs_taking_care'), needs_taking_care_reminder_path(expert), class: 'item')
+  = active_link_to(t('needs.index.needs_others_taking_care'), needs_taking_care_by_others_reminder_path(expert), class: 'item')

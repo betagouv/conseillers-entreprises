@@ -1,8 +1,3 @@
-- diagnoses.order!(happened_on: :desc)
 .ui.segments.shadow-less.selectable-list
-  .ui.segment.secondary
-    .ui.header
-      = title
-  = render diagnoses,
-    needs_of_interest: local_assigns[:needs_of_interest],
-    highlighted_expert: local_assigns[:highlighted_expert]
+  = render partial: 'diagnoses/diagnosis', collection: diagnoses, locals: { needs_of_interest: local_assigns[:needs_of_interest],
+    highlighted_expert: local_assigns[:highlighted_expert] }, cached: true
