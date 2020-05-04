@@ -1,4 +1,4 @@
-- cache @landing do
+- cache_unless(flash.present?, @landing) do
   = render 'show_landing', landing: @landing
 
 %section.section.section-grey#stats
