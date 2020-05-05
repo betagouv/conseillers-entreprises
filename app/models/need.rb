@@ -109,7 +109,7 @@ class Need < ApplicationRecord
       .distinct
   end
 
-  scope :abandoned, -> { no_activity_after(2.weeks.ago) }
+  scope :abandoned, -> { no_activity_after(ABANDONED_DELAY.ago) }
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
@@ -171,8 +171,10 @@ class Need < ApplicationRecord
     dates.compact.max
   end
 
+  ABANDONED_DELAY = 2.weeks
+
   def abandoned?
-    last_activity_at < 3.weeks.ago
+    last_activity_at < ABANDONED_DELAY.ago
   end
 
   def quo_experts
