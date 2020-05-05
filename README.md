@@ -41,6 +41,7 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
 
         $ rake db:create db:schema:load
         $ rake db:create db:schema:load RAILS_ENV=test
+        $ rake parallel:create # for parallel
 
 7. Create `.env` file from `.env.example`, and ask the team to fill it in.
 
@@ -53,14 +54,18 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
 
     And yay! Place des Entreprises is now [running locally](http://localhost:3000)!
 
-## Tests
+## Tests and lint
 
-- `bin/rspec` : Rspec tests
+- `rake spec` : Unit and features tests
+  - `bin/rspec`: … with spring
+  - `RAILS_ENV=test rake parallel:spec`: parallel workers
+  - `bin/parallel_rspec spec`: … with spring 
 - `rake lint`:
   - `rake lint:rubocop` : ruby files code style
   - `rake lint:haml` : haml files code style 
   - `rake lint:i18n` : i18n missing/unused keys and formatting
   - `rake lint:brakeman` : static analysis security vulnerability 
+- `rake lint_fix`: rubocop and i18n automatic codestyle fixes
 
 ## Browser compatibility
 
@@ -90,7 +95,7 @@ Staging emails are sent on [Mailtrap](https://mailtrap.io/) in order to test ema
 Place des Entreprises is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, ``reso-staging`` and `reso-production.
 
 * `reso-staging` is served at https://reso-staging.scalingo.io.
-* ``reso-production`` is the actual https://place-des-entreprises.beta.gouv.fr
+* `reso-production` is the actual https://place-des-entreprises.beta.gouv.fr
 
 GitHub->Scalingo hooks are setup for auto-deployment:
 * The `master` branch is automatically deployed to the `reso-staging` env.
@@ -103,9 +108,10 @@ In case of emergency, you can always run rails migrations manually using the `sc
     $ scalingo -a reso-staging run rails db:migrate
     $ scalingo -a reso-production run rails db:migrate 
 
-### rake push_to_production`
-``
-Use `rake push_to_production` to review the changed before pushing to production:
+### rake push_to_production
+
+> Use `rake push_to_production` to review the changed before pushing to production:
+
 ```
 $ rake push_to_production
 Updating master and production…

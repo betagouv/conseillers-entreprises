@@ -83,6 +83,8 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter', require: false
+  gem 'parallel_tests'
+  gem 'spring-commands-parallel-tests'
   gem "dotenv-rails"
   gem "debase"
 end
