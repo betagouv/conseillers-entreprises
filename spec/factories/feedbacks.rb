@@ -6,5 +6,9 @@ FactoryBot.define do
     trait :for_need do
       association :feedbackable, factory: :need
     end
+
+    trait :for_solicitation do
+      association :feedbackable, factory: :solicitation
+    end
   end
 end
