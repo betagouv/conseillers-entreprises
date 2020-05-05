@@ -17,5 +17,5 @@
             .sub.header
               = need.matches.human_count
               - if need.abandoned?
-                .ui.label.basic.orange= t('.last_activity_date', l: l(need.last_activity_at.to_date, format: :long))
+                .ui.label.basic.orange= t('.last_activity_date', l: l(need.updated_at.to_date, format: :long))
     = render 'diagnoses/archive_action', diagnosis: diagnosis
