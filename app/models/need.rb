@@ -109,7 +109,7 @@ class Need < ApplicationRecord
       .distinct
   end
 
-  scope :abandoned, -> { no_activity_after(3.weeks.ago) }
+  scope :abandoned, -> { no_activity_after(2.weeks.ago) }
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
