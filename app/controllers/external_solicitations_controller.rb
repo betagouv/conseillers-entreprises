@@ -6,21 +6,21 @@ class ExternalSolicitationsController < PagesController
   after_action :allow_iframe
 
   def new
-    @solicitation = Solicitation.new(form_info: { slug: params[:slug], partner_token: params[:partner_token] })
-    @style = { bg_color: "##{params[:bg_color]}", color: "##{params[:color]}", branding: "#{params[:logo]}" }
+    @solicitation = Solicitation.new(form_info: {
+      partner_token: params[:partner_token], bg_color: "##{params[:bg_color]}", color: "##{params[:color]}",
+      branding: "#{params[:logo]}"
+    }, landing_options_slugs: [[params[:option]]], landing_slug: params[:slug])
   end
 
   def create
     @solicitation = Solicitation.create(solicitation_params)
 
-    if !@solicitation.valid?
+    unless @solicitation.valid?
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render 'flashes' and return
     end
 
-    @result = 'success'
-    @partial = 'thank_you'
-    render 'solicitations/create'
+    render :new
   end
 
   private
@@ -31,6 +31,7 @@ class ExternalSolicitationsController < PagesController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :siret, :phone_number, :email, form_info: {}, needs: {})
+      .permit(:description, :siret, :phone_number, :email, :landing_slug, :full_name,
+              landing_options_slugs: [], form_info: {}, needs: {})
   end
 end

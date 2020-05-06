@@ -48,7 +48,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[partner_token pk_campaign pk_kwd gclid]
+  FORM_INFO_KEYS = %i[partner_token pk_campaign pk_kwd gclid bg_color color branding]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##

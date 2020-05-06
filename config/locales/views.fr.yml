@@ -192,6 +192,9 @@ fr:
       email:
         label: Email
         placeholder: marie.dupont@exemple.fr
+      full_name:
+        label: Prénom et nom
+        placeholder: Marie Dupont
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
