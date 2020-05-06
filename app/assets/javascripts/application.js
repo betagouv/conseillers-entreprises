@@ -24,6 +24,7 @@
 // = require semantic-ui/accordion
 // = require semantic-ui/modal
 // = require semantic-ui/dimmer
+// = require semantic-ui/search
 
 // = require_tree ./application
 // = require_tree ./shared

@@ -74,4 +74,59 @@ RSpec.describe Solicitation, type: :model do
       it { is_expected.to be_empty }
     end
   end
+
+  describe '#have_badge' do
+    let(:badge) { create :badge, title: 'test' }
+    let(:solicitation) { create :solicitation, badges: [badge] }
+    let!(:solicitation_without_badge) { create :solicitation }
+
+    subject { described_class.have_badge('test') }
+
+    it { is_expected.to eq [solicitation] }
+  end
+
+  describe '#have_landing_option' do
+    let(:solicitation) { create :solicitation, landing_options_slugs: ['landing_test_slug'] }
+    let!(:solicitation_without_slug) { create :solicitation }
+
+    subject { described_class.have_landing_option('landing_test_slug') }
+
+    it { is_expected.to eq [solicitation] }
+  end
+
+  describe '#description_contains' do
+    let(:solicitation) { create :solicitation, description: 'Description de test' }
+    let!(:solicitation2) { create :solicitation, description: 'Une autre description' }
+
+    subject { described_class.description_contains('test') }
+
+    it { is_expected.to eq [solicitation] }
+  end
+
+  describe '#have_landing_slug' do
+    let(:solicitation) { create :solicitation, landing_slug: 'landing_test' }
+    let!(:solicitation_without_landing) { create :solicitation }
+
+    subject { described_class.have_landing('test') }
+
+    it { is_expected.to eq [solicitation] }
+  end
+
+  describe '#name_contains' do
+    let(:solicitation) { create :solicitation, full_name: 'Pink Floyd' }
+    let!(:solicitation2) { create :solicitation, full_name: 'Edith Piaf' }
+
+    subject { described_class.name_contains('Pink') }
+
+    it { is_expected.to eq [solicitation] }
+  end
+
+  describe '#email_contains' do
+    let(:solicitation) { create :solicitation, email: 'kingju@wanadoo.fr' }
+    let!(:solicitation2) { create :solicitation, email: 'edith@piaf.fr' }
+
+    subject { described_class.email_contains('kingju') }
+
+    it { is_expected.to eq [solicitation] }
+  end
 end
