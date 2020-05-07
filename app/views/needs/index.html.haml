@@ -26,19 +26,19 @@
     = t('.title')
     .sub.header= t('.needs_for_you')
 
-  = render 'needs_tabs'
+= render 'needs_tabs'
 
-  .ui.aligned.grid.padded
-    .aligned.eight.wide.column
-      %p= page_entries_info @needs
-    .right.aligned.eight.wide.column
-      - if current_user.antenne.advisors.count > 1
-        = link_to index_antenne_needs_path do
-          %i.folder.open.icon
-          = t('.browse_antenne_needs')
-          %br
-      = link_to archives_needs_path do
-        %i.archive.icon
-        = t('.browse_archived_needs')
+.ui.aligned.grid.padded
+  .aligned.eight.wide.column
+    %p= page_entries_info @needs
+  .right.aligned.eight.wide.column
+    - if current_user.antenne.advisors.count > 1
+      = link_to index_antenne_needs_path do
+        %i.folder.open.icon
+        = t('.browse_antenne_needs')
+        %br
+    = link_to archives_needs_path do
+      %i.archive.icon
+      = t('.browse_archived_needs')
 
-  = render 'received_needs', received_needs: @needs
+= render 'received_needs', received_needs: @needs
