@@ -26,8 +26,12 @@ class Diagnoses::StepsController < ApplicationController
 
   def visit
     if @diagnosis.visitee.nil? && @diagnosis.solicitation.present?
-      @diagnosis.visitee = Contact.new(full_name:  @diagnosis.solicitation.full_name, email: @diagnosis.solicitation.email,
-                            phone_number: @diagnosis.solicitation.phone_number)
+      visitee = Contact.create(full_name: @diagnosis.solicitation.full_name,
+                               email: @diagnosis.solicitation.email,
+                               phone_number: @diagnosis.solicitation.phone_number,
+                               company: @diagnosis.facility.company,
+                               role: t('contact.default_role_from_solicitation'))
+      @diagnosis.update(visitee: visitee)
     end
   end
 
