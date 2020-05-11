@@ -17,4 +17,9 @@
         = link_to t('.back_to_landing'), landing_path(@landing.slug)
   %section.section.section-grey#section-formulaire
     .container.container-medium
-      = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation
+      - landing_option = @solicitation.landing_options.first
+      %h2.section__title=  landing_option&.form_title&.html_safe || t('.default_title')
+      - if landing_option&.form_description.present?
+        %p= landing_option.form_description.html_safe
+      = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
+      %p= (@landing.form_promise_message.presence || t('.default_promise_message')).html_safe

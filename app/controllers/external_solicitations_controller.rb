@@ -6,9 +6,10 @@ class ExternalSolicitationsController < PagesController
   after_action :allow_iframe
 
   def new
-    @solicitation = Solicitation.new(form_info: {
-      partner_token: params[:partner_token], bg_color: "##{params[:bg_color]}", color: "##{params[:color]}",
-      branding: "#{params[:logo]}"
+    @landing = Landing.find_by(slug: params[:slug])
+    @solicitation = Solicitation.new(landing: @landing, form_info: {
+      institution_slug: params[:institution_slug], partner_token: params[:partner_token],
+        bg_color: "##{params[:bg_color]}", color: "##{params[:color]}", branding: "#{params[:logo]}"
     }, landing_options_slugs: [[params[:option]]], landing_slug: params[:slug])
   end
 

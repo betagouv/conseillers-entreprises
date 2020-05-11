@@ -1,14 +1,11 @@
-- landing_option = solicitation.landing_options.first
-%h2.section__title=  landing_option&.form_title&.html_safe || t('.default_title')
-- if landing_option&.form_description.present?
-  %p= landing_option.form_description.html_safe
-= form_with(model: solicitation, url: create_solicitation_landing_path, local: true, html: { honeypot: true }) do |f|
+= form_with(model: solicitation, url: path, local: true, html: { honeypot: true }) do |f|
   - if solicitation.errors.present?
     :javascript
       _paq.push(['trackEvent', 'contact-entreprise', 'failure']);
-  - if solicitation.landing_options_slugs.present?
-    = f.hidden_field :landing_options_slugs, multiple: true, value: solicitation.landing_options_slugs
-  = f.hidden_field :landing_slug, value: solicitation.landing_slug
+  - solicitation.form_info.each do |k,v|
+    = f.hidden_field "form_info[#{k}]", value: v
+  = f.hidden_field :landing_options_slugs, multiple: true
+  = f.hidden_field :landing_slug
   .form__group
     = f.label 'description', t('.description.label')
     - example = landing.description_example.presence || t('.description.default_example')
@@ -32,7 +29,6 @@
       = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
       .notification.error= solicitation.errors.full_messages_for(:email).to_sentence
   .form__group
-    - if landing.form_bottom_message.present?
+    - if landing.form_bottom_message.present? && solicitation.partner_token.blank? && solicitation.institution_slug.blank?
       %p= landing.form_bottom_message.html_safe
     = f.submit t('.button.title'), class: 'button large'
-%p= (landing.form_promise_message.presence || t('.default_promise_message')).html_safe
