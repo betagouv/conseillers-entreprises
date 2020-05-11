@@ -95,7 +95,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[partner_token pk_campaign pk_kwd gclid bg_color color branding]
+  FORM_INFO_KEYS = %i[partner_token institution_slug pk_campaign pk_kwd gclid]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
@@ -143,7 +143,11 @@ class Solicitation < ApplicationRecord
   ##
   #
   def institution
-    Institution.find_by(partner_token: partner_token) if partner_token.present?
+    if institution_slug.present?
+      Institution.find_by(slug: institution_slug)
+    elsif partner_token.present?
+      Institution.find_by(partner_token: partner_token)
+    end
   end
 
   def normalized_phone_number

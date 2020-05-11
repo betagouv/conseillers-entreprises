@@ -189,23 +189,6 @@ fr:
       title: Domaines d’intervention
   external_solicitations:
     new:
-      button:
-        title: Envoyer ma demande
-      description:
-        label: Description
-        placeholder: Décrivez simplement votre demande
-      email:
-        label: Email
-        placeholder: marie.dupont@exemple.fr
-      full_name:
-        label: Prénom et nom
-        placeholder: Marie Dupont
-      phone_number:
-        label: Téléphone
-        placeholder: 06 12 34 56 78
-      siret:
-        label: SIRET
-        placeholder: 123 456 789 00010
       title: Quelle est votre demande ?
     thank_you:
       description: Votre message a bien été envoyé
@@ -251,11 +234,11 @@ fr:
       title: 'Sélectionnez votre demande :'
     new_solicitation:
       back_to_landing: Revenir à la liste de mesures
+      default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
+      default_title: Quelle est votre demande ?
     new_solicitation_form:
       button:
         title: Envoyer ma demande
-      default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
-      default_title: Quelle est votre demande ?
       description:
         default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
         label: Description
