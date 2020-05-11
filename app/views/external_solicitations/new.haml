@@ -37,6 +37,10 @@
         = render 'flashes'
         = f.submit t('.button.title'), class: 'button large'
 
+  :javascript
+    _paq.push(['trackEvent', 'affichage-formulaire-partenaire', "success"]);
+
+
 :css
   body {
     background-color: #{@solicitation.bg_color};
