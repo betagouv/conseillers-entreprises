@@ -392,7 +392,6 @@ fr:
     interview_sort_order: Ordre dans le questionnaire
     is_archived: Archivé
     label: Intitulé
-    last_activity_at: Dernière activité
     legal_form_code: Forme juridique
     matches:
       one: Mise en relation

@@ -51,11 +51,28 @@ class Diagnoses::StepsController < ApplicationController
   end
 
   def matches
+    # TODO: experimental/preliminary support for automatic diagnoses #940
+    if ENV['FEATURE_PRESELECT_DIAGNOSIS'].to_b && @diagnosis.matches.blank? && @diagnosis.solicitation.present?
+      institutions = @diagnosis.solicitation.preselected_institutions
+      @diagnosis.needs.each do |need|
+        relevant_expert_subjects = ExpertSubject.relevant_for(need)
+        relevant_expert_subjects = relevant_expert_subjects
+          .joins(institution_subject: :institution)
+          .where(institutions_subjects: { institution: institutions })
+        # do not filter with specialist/fallback here, the institution selection overrides this
+        need.matches = relevant_expert_subjects.map { |expert_subject| Match.new(expert: expert_subject.expert, subject: expert_subject.subject) }
+      end
+    end
   end
 
   def update_matches
     authorize @diagnosis, :update?
-    if @diagnosis.match_and_notify!(params_for_matches)
+
+    diagnosis_params = params_for_matches
+    diagnosis_params[:step] = :completed
+
+    if @diagnosis.update(diagnosis_params)
+      @diagnosis.notify_matches_made!
       flash.notice = I18n.t('diagnoses.steps.matches.notifications_sent')
       redirect_to need_path(@diagnosis)
     else
@@ -83,9 +100,7 @@ class Diagnoses::StepsController < ApplicationController
   end
 
   def params_for_matches
-    matches = params.permit(matches: {}).require('matches')
-    matches.transform_values do |expert_subjects_selection|
-      expert_subjects_selection.select{ |_,v| v == '1' }.keys
-    end
+    params.require(:diagnosis)
+      .permit(needs_attributes: [:id, matches_attributes: [:_destroy, :id, :subject_id, :expert_id]])
   end
 end

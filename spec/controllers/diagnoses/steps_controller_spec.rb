@@ -92,22 +92,50 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
 
   describe 'POST #update_matches' do
     let(:expert_subject) { create(:expert_subject) }
-    let!(:need) { create(:need, diagnosis: diagnosis) }
+    let(:need) { create(:need, diagnosis: diagnosis) }
 
-    before do
-      post :update_matches, params: { id: diagnosis.id, matches: { need.id => { expert_subject.id => '1' } } }
+    let(:params) do
+      {
+        id: diagnosis.id,
+        diagnosis: {
+          needs_attributes: [
+            {
+              id: need.id,
+              matches_attributes: [
+                {
+                  _destroy: selected ? '0' : '1',
+                  subject_id: expert_subject.subject.id,
+                  expert_id: expert_subject.expert.id,
+                }
+              ]
+            }
+          ]
+        }
+      }
     end
 
-    context 'match_and_notify! succeeds' do
-      let(:result) { true }
+    context 'one match selected' do
+      let(:selected) { true }
 
-      it('redirects to the besoins page') { expect(response).to redirect_to need_path(diagnosis) }
+      it('redirects to the besoins page') {
+        post :update_matches, params: params
+
+        diagnosis.reload
+        expect(diagnosis.matches.count).to eq 1
+        expect(response).to redirect_to need_path(diagnosis)
+      }
     end
 
-    context 'match_and_notify! fails' do
-      let(:result) { false }
+    context 'no match selected' do
+      let(:selected) { false }
 
-      it('fails') { expect(response).not_to be_successful }
+      it('redirects to the besoins page') {
+        post :update_matches, params: params
+
+        diagnosis.reload
+        expect(diagnosis.matches.count).to eq 0
+        expect(response).to redirect_to matches_diagnosis_path(diagnosis)
+      }
     end
   end
 end

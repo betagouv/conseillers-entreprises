@@ -492,7 +492,11 @@ fr:
       title: Relances / %{full_name}
   solicitations:
     index:
+      clear_search: Réinitialiser la recherche
       manage_badges: Gérer les tags
+      no_result: Il n'y a pas de résultat pour cette recherche.
+      search: Rechercher
+      search_placeholder: Tag, aide demandée…
       title: Solicitations
     needs:
       long:
@@ -517,6 +521,10 @@ fr:
         '08-reglementation': Réglementation
         '09-cession-reprise': Cession / Reprise
         10-autres: Autres
+    set_category_content:
+      landings: Landings
+      options: Options
+      tags: Tags
     solicitation:
       description: 'Description :'
       email: 'Email :'

@@ -41,6 +41,8 @@ class Need < ApplicationRecord
   validates :diagnosis, presence: true
   validates :subject, uniqueness: { scope: :diagnosis_id }
 
+  accepts_nested_attributes_for :matches, allow_destroy: true
+
   ## Through Associations
   #
   # :diagnosis
@@ -98,18 +100,7 @@ class Need < ApplicationRecord
       .archived(false)
   end
 
-  scope :no_activity_after, -> (date) do
-    where.not("needs.updated_at > ?", date)
-      .left_outer_joins(:matches)
-      .where.not(matches: Match.unscoped.where(created_at: date..)
-                          .or(Match.unscoped.where(taken_care_of_at: date..))
-                          .or(Match.unscoped.where(closed_at: date..)))
-      .left_outer_joins(:feedbacks)
-      .where.not(feedbacks: Feedback.where(created_at: date..))
-      .distinct
-  end
-
-  scope :abandoned, -> { no_activity_after(2.weeks.ago) }
+  scope :abandoned, -> { where("needs.updated_at < ?", ABANDONED_DELAY.ago) }
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
@@ -162,17 +153,10 @@ class Need < ApplicationRecord
     matches.pluck(:created_at).min
   end
 
-  def last_activity_at
-    dates = [
-      updated_at,
-      matches.pluck(:created_at, :taken_care_of_at, :closed_at),
-      feedbacks.pluck(:created_at)
-    ].flatten
-    dates.compact.max
-  end
+  ABANDONED_DELAY = 2.weeks
 
   def abandoned?
-    last_activity_at < 3.weeks.ago
+    updated_at < ABANDONED_DELAY.ago
   end
 
   def quo_experts
@@ -209,11 +193,4 @@ class Need < ApplicationRecord
   end
 
   include StatusHelper::StatusDescription
-
-  ##
-  #
-  def create_matches!(experts_subjects_ids)
-    experts_subjects = ExpertSubject.where(id: experts_subjects_ids)
-    self.matches.create(experts_subjects.map{ |es| es.slice(:expert, :subject) })
-  end
 end
