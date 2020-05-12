@@ -41,6 +41,8 @@ class Need < ApplicationRecord
   validates :diagnosis, presence: true
   validates :subject, uniqueness: { scope: :diagnosis_id }
 
+  accepts_nested_attributes_for :matches, allow_destroy: true
+
   ## Through Associations
   #
   # :diagnosis
@@ -191,11 +193,4 @@ class Need < ApplicationRecord
   end
 
   include StatusHelper::StatusDescription
-
-  ##
-  #
-  def create_matches!(experts_subjects_ids)
-    experts_subjects = ExpertSubject.where(id: experts_subjects_ids)
-    self.matches.create(experts_subjects.map{ |es| es.slice(:expert, :subject) })
-  end
 end

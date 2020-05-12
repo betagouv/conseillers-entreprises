@@ -123,18 +123,6 @@ class Diagnosis < ApplicationRecord
 
   ## Matching
   #
-  def match_and_notify!(experts_and_subjects_for_needs)
-    update_result = self.transaction do
-      experts_and_subjects_for_needs.each do |need_id, experts_and_subjects_ids|
-        need = self.needs.find(need_id)
-        need.create_matches!(experts_and_subjects_ids)
-      end
-      self.update!(step: Diagnosis.steps[:completed])
-    end
-    notify_matches_made!
-    update_result
-  end
-
   def notify_matches_made!
     # Notify experts
     experts.each do |expert|
