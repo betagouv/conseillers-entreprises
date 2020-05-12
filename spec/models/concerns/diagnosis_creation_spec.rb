@@ -72,4 +72,31 @@ RSpec.describe DiagnosisCreation do
       end
     end
   end
+
+  describe 'prepare_needs_from_solicitation' do
+    let(:diagnosis) { create :diagnosis, solicitation: solicitation }
+    let(:solicitation) { create :solicitation }
+
+    before do
+      allow(solicitation).to receive(:preselected_subjects).and_return(subjects)
+      diagnosis.prepare_needs_from_solicitation
+    end
+
+    context 'solicitation has preselected subjects' do
+      let(:subjects) { create_list :subject, 2 }
+
+      it 'creates needs' do
+        expect(diagnosis.needs.count).to eq 2
+      end
+    end
+
+    context 'solicitation has no preselected subjects' do
+      let(:subjects) { [] }
+
+      it 'sets an error' do
+        expect(diagnosis.needs).to be_empty
+        expect(diagnosis.errors.details).to eq({ needs: [{ error: :solicitation_has_no_preselected_subjects }] })
+      end
+    end
+  end
 end

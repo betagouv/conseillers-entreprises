@@ -27,5 +27,19 @@ module DiagnosisCreation
   end
 
   module DiagnosisMethods
+    def prepare_needs_from_solicitation
+      return unless solicitation.present? && needs.blank?
+
+      subjects = solicitation.preselected_subjects
+      if subjects.empty?
+        self.errors.add(:needs, :solicitation_has_no_preselected_subjects)
+        return self
+      end
+
+      needs_params = subjects.map{ |s| { subject: s } }
+      self.needs.create(needs_params)
+
+      self
+    end
   end
 end

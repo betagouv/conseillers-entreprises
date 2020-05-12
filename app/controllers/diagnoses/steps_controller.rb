@@ -4,11 +4,7 @@ class Diagnoses::StepsController < ApplicationController
   def needs
     @themes = Theme.ordered_for_interview
 
-    # TODO: experimental/preliminary support for automatic diagnoses #940
-    if ENV['FEATURE_PRESELECT_DIAGNOSIS'].to_b && @diagnosis.needs.blank? && @diagnosis.solicitation.present?
-      subjects = @diagnosis.solicitation.preselected_subjects
-      @diagnosis.needs = subjects.map { |subject| Need.new(subject: subject) }
-    end
+    @diagnosis.prepare_needs_from_solicitation
   end
 
   def update_needs
