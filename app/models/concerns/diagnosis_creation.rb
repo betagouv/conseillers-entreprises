@@ -25,4 +25,7 @@ module DiagnosisCreation
       Diagnosis.create(params)
     end
   end
+
+  module DiagnosisMethods
+  end
 end

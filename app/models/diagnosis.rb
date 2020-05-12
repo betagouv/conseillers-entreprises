@@ -34,6 +34,7 @@ class Diagnosis < ApplicationRecord
   ##
   #
   include Archivable
+  include DiagnosisCreation::DiagnosisMethods
 
   ## Constants
   #
