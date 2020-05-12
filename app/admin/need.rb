@@ -21,7 +21,7 @@ ActiveAdmin.register Need do
     end
     column :advisor
     column :created_at
-    column :last_activity_at
+    column :updated_at
     column :status do |d|
       status_status_tag(d.status)
       status_tag t('activerecord.attributes.need.is_archived') if d.is_archived
@@ -61,7 +61,7 @@ ActiveAdmin.register Need do
     column :content
     column :advisor
     column :created_at
-    column :last_activity_at
+    column :updated_at
     column :status_short_description
     column :is_archived
     column_count :matches
@@ -75,7 +75,7 @@ ActiveAdmin.register Need do
       row :subject
       row :advisor
       row :created_at
-      row :last_activity_at
+      row :updated_at
       row :archived_at
       row :content
       row(:status) { |d| status_status_tag(d.status) }

@@ -190,39 +190,20 @@ RSpec.describe Need, type: :model do
     end
   end
 
-  describe 'last_activity_at' do
-    subject { need.last_activity_at.beginning_of_day }
-
+  describe 'abandoned' do
     let(:need) { create :need }
-    let(:match) { build :match, need: need }
-    let(:feedback) { build :feedback, feedbackable: need }
+    let(:old_need) { Timecop.freeze(2.months.ago) { create :need } }
 
-    let(:date1) { Time.zone.now.beginning_of_day }
-    let(:date2) { date1 + 5.days }
-    let(:date3) { date1 + 10.days }
+    it do
+      expect(need).not_to be_abandoned
+      expect(old_need).to be_abandoned
+      expect(described_class.abandoned).to match_array([old_need])
 
-    context 'with no match activity' do
-      it { is_expected.to eq date1 }
-    end
-
-    context 'with recent match activity' do
-      before do
-        Timecop.travel(date2) do
-          match.save
-        end
+      Timecop.freeze(2.months.from_now) do
+        expect(need).to be_abandoned
+        expect(old_need).to be_abandoned
+        expect(described_class.abandoned).to match_array([need, old_need])
       end
-
-      it { is_expected.to eq date2 }
-    end
-
-    context 'with recent feedback' do
-      before do
-        Timecop.travel(date3) do
-          feedback.save
-        end
-      end
-
-      it { is_expected.to eq date3 }
     end
   end
 
