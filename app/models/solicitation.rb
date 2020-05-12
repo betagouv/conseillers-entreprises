@@ -31,6 +31,43 @@ class Solicitation < ApplicationRecord
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
 
+  ## Scopes
+  #
+  scope :omnisearch, -> (query) do
+    if query.present?
+      where(id: have_badge(query))
+        .or(have_landing_option(query))
+        .or(description_contains(query))
+        .or(have_landing(query))
+        .or(name_contains(query))
+        .or(email_contains(query))
+    end
+  end
+
+  scope :have_badge, -> (query) do
+    joins(:badges).where('badges.title ILIKE ?', "%#{query}%")
+  end
+
+  scope :have_landing_option, -> (query) do
+    where('? = ANY(landing_options_slugs)', query)
+  end
+
+  scope :have_landing, -> (query) do
+    where('landing_slug ILIKE ?', "%#{query}%")
+  end
+
+  scope :description_contains, -> (query) do
+    where('description ILIKE ?', "%#{query}%")
+  end
+
+  scope :name_contains, -> (query) do
+    where('full_name ILIKE ?', "%#{query}%")
+  end
+
+  scope :email_contains, -> (query) do
+    where('email ILIKE ?', "%#{query}%")
+  end
+
   ## Callbacks
   #
   def touch_after_badges_update(_badge)

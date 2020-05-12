@@ -4,10 +4,25 @@
 %p= page_entries_info @solicitations
 = paginate @solicitations
 
+.ui.divider.hidden
+= form_with url: request.fullpath, method: :get, local: true do |f|
+  .ui.search.solicitation
+    .ui.input.left.icon.fluid.action
+      %i.search.icon
+      = f.text_field :query, value: params[:query], class: 'prompt', placeholder: t('.search_placeholder')
+      %button.ui.button.primary{ type: 'submit' }= t('.search')
+    .results
+  - if params[:query].present?
+    = link_to t('.clear_search'), request.fullpath.split('?').first, id: 'clear-search'
+
 - max_badge_updated_at = Badge.maximum(:updated_at)
 - if @solicitations.present?
   = render(partial: 'solicitations/solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, max_badge_updated_at] })
+- elsif params[:query].present?
+  .ui.divider.hidden
+  = t('.no_result')
 - else
+  .ui.divider.hidden
   .ui.fluid.image= image_tag('no-solicitation.gif')
 
 = paginate @solicitations
@@ -36,4 +51,9 @@
         form.style.display = 'block'
       }
     }
+    $('.ui.search').search({
+      type: 'category',
+      showNoResults: false,
+      source: #{@category_content.to_json.html_safe}
+    })
   })
