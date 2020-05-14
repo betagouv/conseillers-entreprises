@@ -157,4 +157,26 @@ RSpec.describe Expert, type: :model do
       end
     end
   end
+
+  describe 'soft deletion' do
+    subject(:expert) { create :expert }
+
+    before { expert.destroy }
+
+    describe 'deleting user does not really destroy' do
+      it { is_expected.to be_deleted }
+      it { is_expected.to be_persisted }
+      it { is_expected.not_to be_destroyed }
+    end
+
+    describe 'deleted experts get their attributes nilled, and full_name masked' do
+      it do
+        expect(expert[:full_name]).to be_nil
+        expect(expert[:email]).to be_nil
+        expect(expert[:phone_number]).to be_nil
+
+        expect(expert.full_name).not_to be_nil
+      end
+    end
+  end
 end

@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_125019) do
 
   create_table "experts", force: :cascade do |t|
     t.string "email"
-    t.string "phone_number", null: false
+    t.string "phone_number"
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_125019) do
     t.boolean "is_global_zone", default: false
     t.text "reminders_notes"
     t.datetime "subjects_reviewed_at"
+    t.datetime "deleted_at"
     t.index ["access_token"], name: "index_experts_on_access_token"
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["email"], name: "index_experts_on_email"

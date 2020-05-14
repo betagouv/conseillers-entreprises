@@ -54,6 +54,13 @@ RSpec.describe User, type: :model do
         expect(diagnosis.advisor).to be user
       end
     end
+
+    describe 'soft delete skillset if user is deleted' do
+      let(:skillset) { create :expert, email: 'user@email.com', users: [] }
+      let!(:user) { create :user, email: 'user@email.com', experts: [skillset] }
+
+      it { expect(skillset.reload).to be_deleted }
+    end
   end
 
   describe 'deactivation' do

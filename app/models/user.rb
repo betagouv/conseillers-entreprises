@@ -220,10 +220,13 @@ class User < ApplicationRecord
   end
 
   def delete
-    update(deleted_at: Time.zone.now,
-      email: nil,
-      full_name: nil,
-      phone_number: nil)
+    self.transaction do
+      personal_skillsets.each { |expert| expert.delete }
+      update(deleted_at: Time.zone.now,
+        email: nil,
+        full_name: nil,
+        phone_number: nil)
+    end
   end
 
   def destroy
@@ -243,7 +246,7 @@ class User < ApplicationRecord
   def full_name
     # Overriding this getter has a side-effect: :full_name is required to be present by PersonConcern.
     # In #delete we set it to nil, but the result of this getter is used for the validation, which then passes.
-    deleted? ? I18n.t('deleted_user.full_name') : self[:full_name]
+    deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
   def full_name_with_role
