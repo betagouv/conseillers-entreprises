@@ -147,7 +147,7 @@ fr:
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
-        landing_options: Cases à cocher
+        landing_options: Options
         landing_topic_title: Titre des exemples
         landing_topics: Exemples
         message_under_landing_topics: Message sous les exemples
@@ -174,7 +174,7 @@ fr:
         query: Requête
         user: Utilisateur
       solicitation:
-        landing_options: Aides demandées
+        landing_options: Options choisies
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
         pk_campaign: Campagne
@@ -295,8 +295,8 @@ fr:
         one: Page thématique
         other: Pages thématiques
       landing_option:
-        one: Case à cocher
-        other: Cases à cocher
+        one: Option
+        other: Options
       landing_topic:
         one: Exemple
         other: Exemples
