@@ -26,8 +26,12 @@ class Diagnoses::StepsController < ApplicationController
 
   def visit
     if @diagnosis.visitee.nil? && @diagnosis.solicitation.present?
-      @diagnosis.visitee = Contact.new(full_name:  @diagnosis.solicitation.full_name, email: @diagnosis.solicitation.email,
-                            phone_number: @diagnosis.solicitation.phone_number)
+      visitee = Contact.create(full_name: @diagnosis.solicitation.full_name,
+                               email: @diagnosis.solicitation.email,
+                               phone_number: @diagnosis.solicitation.phone_number,
+                               company: @diagnosis.facility.company,
+                               role: t('contact.default_role_from_solicitation'))
+      @diagnosis.update(visitee: visitee)
     end
   end
 
@@ -38,14 +42,10 @@ class Diagnoses::StepsController < ApplicationController
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = :matches
 
-    begin
-      @diagnosis.transaction do
-        @diagnosis.update!(diagnosis_params)
-        @diagnosis.solicitation&.status_processed!
-        redirect_to action: :matches
-      end
-    rescue ActiveRecord::ActiveRecordError => e
-      flash.alert = e.message
+    if @diagnosis.update(diagnosis_params)
+      redirect_to action: :matches
+    else
+      flash.alert = @diagnosis.errors.full_messages.to_sentence
       redirect_to action: :visit
     end
   end
@@ -73,6 +73,7 @@ class Diagnoses::StepsController < ApplicationController
 
     if @diagnosis.update(diagnosis_params)
       @diagnosis.notify_matches_made!
+      @diagnosis.solicitation&.status_processed!
       flash.notice = I18n.t('diagnoses.steps.matches.notifications_sent')
       redirect_to need_path(@diagnosis)
     else

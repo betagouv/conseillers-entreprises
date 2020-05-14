@@ -85,47 +85,26 @@ RSpec.describe DiagnosesController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:params) { { diagnosis: { facility_attributes: facility_params } } }
+    let(:some_params) { { facility_attributes: { siret: '12345678901234' } } }
 
-    context 'with no facility data' do
-      let(:facility_params) { { invalid: 'value' } }
+    before do
+      allow(DiagnosisCreation).to receive(:create_diagnosis) { result }
+    end
+
+    context 'when creation fails' do
+      let(:result) { build :diagnosis, facility: nil }
 
       it 'returns an error' do
-        post :create, params: params
-
+        post :create, params: { diagnosis: some_params }
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
-    context 'with a facility siret' do
-      let(:siret) { '12345678901234' }
-      let(:facility_params) { { siret: siret } }
-      let(:facility) { create(:facility, siret: siret) }
+    context 'when creation succeeds' do
+      let(:result) { create :diagnosis }
 
-      before do
-        allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { facility }
-      end
-
-      it 'fetches info for ApiEntreprise and creates the diagnosis' do
-        post :create, params: params
-
-        expect(UseCases::SearchFacility).to have_received(:with_siret_and_save).with(siret)
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to(needs_diagnosis_path(Diagnosis.last))
-      end
-    end
-
-    context 'with manual facility info' do
-      let(:insee_code) { '78586' }
-      let(:facility_params) { { insee_code: insee_code, company_attributes: { name: 'analyse sans siret' } } }
-
-      before do
-        city_json = JSON.parse(file_fixture('geo_api_communes_78586.json').read)
-        allow(ApiAdresse::Query).to receive(:city_with_code).with(insee_code) { city_json }
-      end
-
-      it "creates a new diagnosis without siret" do
-        post :create, params: params
+      it 'redirects to the diagnosis page' do
+        post :create, params: { diagnosis: some_params }
 
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to needs_diagnosis_path(Diagnosis.last)

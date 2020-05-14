@@ -465,5 +465,7 @@ fr:
     user: Conseiller
     visit: Visite
     visitee: Personne rencontrée
+  contact:
+    default_role_from_solicitation: "(Solicitation déposée sur Place des entreprises)"
   deleted_user:
     full_name: "(Compte supprimé)"
