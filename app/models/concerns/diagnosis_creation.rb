@@ -67,11 +67,7 @@ module DiagnosisCreation
     def prepare_matches_from_solicitation
       return unless solicitation.present? && matches.blank?
 
-      institutions = solicitation.preselected_institutions
-      if institutions.empty?
-        self.errors.add(:matches, :solicitation_has_no_preselected_institution)
-        return self
-      end
+      institutions = solicitation.preselected_institutions || Institution.all
 
       self.needs.each do |need|
         expert_subjects = ExpertSubject
