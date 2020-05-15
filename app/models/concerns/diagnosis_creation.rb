@@ -63,5 +63,34 @@ module DiagnosisCreation
 
       self
     end
+
+    def prepare_matches_from_solicitation
+      return unless solicitation.present? && matches.blank?
+
+      institutions = solicitation.preselected_institutions
+      if institutions.empty?
+        self.errors.add(:matches, :solicitation_has_no_preselected_institution)
+        return self
+      end
+
+      self.needs.each do |need|
+        expert_subjects = ExpertSubject
+          .in_commune(need.facility.commune)
+          .of_subject(need.subject)
+          .of_institution(institutions)
+        # do not filter with specialist/fallback here, the institution selection overrides this
+
+        if expert_subjects.present?
+          matches_params = expert_subjects.map{ |es| { expert: es.expert, subject: es.subject } }
+          need.matches.create(matches_params)
+        else
+          self.errors.add(:matches, :preselected_institution_has_no_relevant_experts)
+        end
+      end
+
+      self.matches.reload # self.matches is a through relationship; make sure it’s up to date.
+
+      self
+    end
   end
 end

@@ -41,18 +41,7 @@ class Diagnoses::StepsController < ApplicationController
   end
 
   def matches
-    # TODO: experimental/preliminary support for automatic diagnoses #940
-    if ENV['FEATURE_PRESELECT_DIAGNOSIS'].to_b && @diagnosis.matches.blank? && @diagnosis.solicitation.present?
-      institutions = @diagnosis.solicitation.preselected_institutions
-      @diagnosis.needs.each do |need|
-        relevant_expert_subjects = ExpertSubject.relevant_for(need)
-        relevant_expert_subjects = relevant_expert_subjects
-          .joins(institution_subject: :institution)
-          .where(institutions_subjects: { institution: institutions })
-        # do not filter with specialist/fallback here, the institution selection overrides this
-        need.matches = relevant_expert_subjects.map { |expert_subject| Match.new(expert: expert_subject.expert, subject: expert_subject.subject) }
-      end
-    end
+    @diagnosis.prepare_matches_from_solicitation
   end
 
   def update_matches
