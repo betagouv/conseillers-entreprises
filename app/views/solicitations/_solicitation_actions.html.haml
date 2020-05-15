@@ -6,16 +6,14 @@
       %i.right.chevron.icon
   - elsif diagnoses.size == 1
     - diagnosis = diagnoses.first
-    = link_to need_path(diagnosis), class: 'ui item' do
-      = t('.view_diagnosis', name: diagnosis)
+    = link_to_diagnosis(diagnosis)
   - else
     .ui.item.dropdown
       = t('.view_diagnoses', count: diagnoses.size)
       %i.dropdown.icon
       .ui.menu
         - diagnoses.each do |diagnosis|
-          = link_to need_path(diagnosis), class: 'ui item' do
-            = t('.view_diagnosis', name: diagnosis)
+          = link_to_diagnosis(diagnosis)
   .ui.item.dropdown
     %i.settings.icon
     .ui.menu
