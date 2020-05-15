@@ -248,6 +248,14 @@ fr:
           attributes:
             email:
               blank: Le contact doit avoir au moins une adresse e-mail ou un numéro de téléphone.
+        diagnosis:
+          attributes:
+            matches:
+              format: 'Mises en relation : %{message}.'
+              preselected_institution_has_no_relevant_experts: aucun référent de l’institution préselectionnée ne peut prendre en charge cette entreprise
+            needs:
+              format: 'Besoins : %{message}.'
+              solicitation_has_no_preselected_subjects: il n’y a pas de sujet préselectionné
         user:
           attributes:
             email:
