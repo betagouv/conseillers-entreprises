@@ -41,5 +41,19 @@ module DiagnosisCreation
 
       self
     end
+
+    def prepare_visitee_from_solicitation
+      return unless solicitation.present? && visitee.blank?
+
+      self.create_visitee(full_name: solicitation.full_name,
+                          email: solicitation.email,
+                          phone_number: solicitation.phone_number,
+                          company: facility.company,
+                          role: I18n.t('contact.default_role_from_solicitation'))
+
+      self.validate # If create failed, make the error go up from the visitee to the diagnosis
+
+      self
+    end
   end
 end

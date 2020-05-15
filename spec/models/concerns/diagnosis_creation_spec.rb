@@ -99,4 +99,29 @@ RSpec.describe DiagnosisCreation do
       end
     end
   end
+
+  describe 'prepare_visitee_from_solicitation' do
+    let(:diagnosis) { create :diagnosis, solicitation: solicitation, visitee: nil }
+
+    before do
+      diagnosis.prepare_visitee_from_solicitation
+    end
+
+    context 'solicitation has all details' do
+      let(:solicitation) { create :solicitation }
+
+      it 'creates the visitee' do
+        expect(diagnosis.visitee).to be_persisted
+      end
+    end
+
+    context 'solicitation is missing some details' do
+      let(:solicitation) { build :solicitation, full_name: nil }
+
+      it 'sets an error' do
+        expect(diagnosis.visitee).not_to be_persisted
+        expect(diagnosis.errors.details).to eq({ :"visitee.full_name" => [{ error: :blank }] })
+      end
+    end
+  end
 end
