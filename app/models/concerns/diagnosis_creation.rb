@@ -42,6 +42,14 @@ module DiagnosisCreation
       self
     end
 
+    def prepare_happened_on_from_solicitation
+      return unless solicitation.present? && happened_on.blank?
+
+      self.update(happened_on: solicitation.created_at)
+
+      self
+    end
+
     def prepare_visitee_from_solicitation
       return unless solicitation.present? && visitee.blank?
 

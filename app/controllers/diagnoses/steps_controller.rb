@@ -21,6 +21,7 @@ class Diagnoses::StepsController < ApplicationController
   end
 
   def visit
+    @diagnosis.prepare_happened_on_from_solicitation
     @diagnosis.prepare_visitee_from_solicitation
   end
 
