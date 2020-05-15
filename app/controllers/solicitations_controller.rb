@@ -1,5 +1,5 @@
 class SolicitationsController < ApplicationController
-  before_action :find_solicitation, only: [:show, :update_status, :update_badges]
+  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
   before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
   before_action :set_category_content, only: %i[index processed canceled]
@@ -44,6 +44,16 @@ class SolicitationsController < ApplicationController
 
   def update_badges
     @solicitation.update(params.require(:solicitation).permit(badge_ids: []))
+  end
+
+  def prepare_diagnosis
+    diagnosis = @solicitation.prepare_diagnosis(current_user)
+    if diagnosis
+      redirect_to diagnosis
+    else
+      # TODO: redirect to @solicitation. See discussion in #1089
+      redirect_to action: :index
+    end
   end
 
   private

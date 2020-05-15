@@ -1,9 +1,25 @@
 .ui.compact.inverted.green.menu
   - diagnoses = solicitation.diagnoses
   - if diagnoses.blank?
-    = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do
-      = t('.create_diagnosis')
-      %i.right.chevron.icon
+    - if solicitation.may_prepare_diagnosis?
+      - if solicitation.prepare_diagnosis_errors.present?
+        .ui.item
+          - error_text = solicitation.prepare_diagnosis_errors.full_messages.to_sentence
+          .ui.icon{ data: { tooltip: error_text, variation: 'fixed' } }
+            %i.warning.sign.icon
+            = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
+        = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'ui item', method: :post do
+          = t('.prepare_diagnosis_retry')
+          %i.right.chevron.icon
+      - else
+        = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'ui item', method: :post do
+          %i.rocket.icon
+          = t('.prepare_diagnosis')
+          %i.right.chevron.icon
+    - else
+      = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do
+        = t('.start_diagnosis')
+        %i.right.chevron.icon
   - elsif diagnoses.size == 1
     - diagnosis = diagnoses.first
     = link_to_diagnosis(diagnosis)
@@ -22,4 +38,4 @@
       .item.show-feedbacks-form{ 'data-solicitation': "#{solicitation.id}" }= t('.add_feedback')
       - if diagnoses.present?
         = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item' do
-          = t('.create_another_diagnosis')
+          = t('.start_another_diagnosis')

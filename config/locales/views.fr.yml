@@ -505,8 +505,13 @@ fr:
       slug: 'Page thématique :'
     solicitation_actions:
       add_feedback: Ajouter un commentaire
-      create_another_diagnosis: Démarrer une autre analyse
-      create_diagnosis: Démarrer une analyse
+      prepare_diagnosis: Préparer l’analyse
+      prepare_diagnosis_errors:
+        one: Erreur à la préparation
+        other: "%{count} erreurs à préparation"
+      prepare_diagnosis_retry: Réessayer
+      start_another_diagnosis: Démarrer une autre analyse
+      start_diagnosis: Démarrer une analyse
       view_diagnoses: "%{count} analyses"
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags

@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     member do
       post :update_status
       post :update_badges
+      post :prepare_diagnosis
     end
     collection do
       get :processed, path: 'traitees'
