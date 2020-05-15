@@ -51,7 +51,6 @@ class Diagnosis < ApplicationRecord
 
   ## Validations and Callbacks
   #
-  validates :advisor, :facility, presence: true
   validate :step_visit_has_needs
   validate :step_matches_has_visit_attributes
   validate :step_completed_has_matches

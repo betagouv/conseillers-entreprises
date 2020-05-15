@@ -7,8 +7,6 @@ RSpec.describe Diagnosis, type: :model do
     is_expected.to have_many :needs
     is_expected.to belong_to :advisor
     is_expected.to belong_to :facility
-    is_expected.to validate_presence_of :advisor
-    is_expected.to validate_presence_of :facility
   end
 
   describe 'custom validations' do
