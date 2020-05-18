@@ -8,7 +8,6 @@
 #  preselected_institution_slug :string
 #  preselected_subject_slug     :string
 #  slug                         :string           not null
-#  title                        :string
 #  landing_id                   :bigint(8)
 #
 # Indexes
