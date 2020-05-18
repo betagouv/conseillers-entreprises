@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.describe Diagnosis, type: :model do
   it do
     is_expected.to have_many :needs
-    is_expected.to belong_to :advisor
     is_expected.to belong_to :facility
   end
 
@@ -59,6 +58,25 @@ RSpec.describe Diagnosis, type: :model do
 
       context 'with matches' do
         before { diagnosis.needs << build(:need, matches: [build(:match)]) }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    describe 'step_completed_has_advisor' do
+      subject(:diagnosis) { build :diagnosis, step: :completed, needs: [build(:need, matches: [build(:match)])], advisor: advisor }
+
+      before { diagnosis.validate }
+
+      context 'without advisor' do
+        let(:advisor) { nil }
+
+        it { is_expected.not_to be_valid }
+        it { expect(diagnosis.errors.details).to eq({ advisor: [{ error: :blank }] }) }
+      end
+
+      context 'with advisor' do
+        let(:advisor) { build :user }
 
         it { is_expected.to be_valid }
       end
