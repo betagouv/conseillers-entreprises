@@ -36,11 +36,25 @@ class ExpertSubject < ApplicationRecord
   #
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
 
+  ## Scopes
+  #
   scope :relevant_for, -> (need) do
-    experts_in_commune = need.facility.commune.all_experts
-    institutions_subject = InstitutionSubject.where(subject: need.subject)
-    where(institution_subject: institutions_subject)
-      .where(expert: experts_in_commune)
+    of_subject(need.subject)
+      .in_commune(need.facility.commune)
+  end
+
+  scope :of_subject, -> (subject) do
+    joins(:institution_subject)
+      .where(institutions_subjects: { subject: subject })
+  end
+
+  scope :in_commune, -> (commune) do
+    where(expert: commune.all_experts)
+  end
+
+  scope :of_institution, -> (institution) do
+    joins(institution_subject: :institution)
+      .where(institutions_subjects: { institution: institution })
   end
 
   scope :support_for, -> (diagnosis) do
