@@ -10,38 +10,55 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'custom validations' do
-    describe 'last_step_has_matches' do
-      subject(:diagnosis) { build :diagnosis, step: described_class.steps[:completed] }
+    describe 'step_visit_has_needs' do
+      subject(:diagnosis) { build :diagnosis, step: :visit, needs: needs }
+
+      before { diagnosis.validate }
+
+      context 'without needs' do
+        let(:needs) { [] }
+
+        it { is_expected.not_to be_valid }
+        it { expect(diagnosis.errors.details).to eq({ needs: [{ error: :blank }] }) }
+      end
+
+      context 'with needs' do
+        let(:needs) { build_list :need, 2 }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    describe 'step_matches_has_visit_attributes' do
+      subject(:diagnosis) { build :diagnosis, step: :matches, visitee: visitee, happened_on: happened_on }
+
+      before { diagnosis.validate }
+
+      context 'missing attributes' do
+        let(:visitee) { nil }
+        let(:happened_on) { nil }
+
+        it { is_expected.not_to be_valid }
+        it { expect(diagnosis.errors.details).to eq({ visitee: [{ error: :blank }], happened_on: [{ error: :blank }] }) }
+      end
+
+      context 'with matches' do
+        let(:visitee) { build :contact_with_email }
+        let(:happened_on) { Date.today }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    describe 'step_completed_has_matches' do
+      subject(:diagnosis) { build :diagnosis, step: :completed }
 
       context 'no matches' do
         it { is_expected.not_to be_valid }
       end
 
       context 'with matches' do
-        before do
-          diagnosis.needs << build(:need, matches: [build(:match)])
-        end
-
-        it { is_expected.to be_valid }
-      end
-    end
-
-    describe 'step_4_has_visit_attributes' do
-      subject(:diagnosis) { build :diagnosis, step: :matches, visitee: visitee, happened_on: happened_on }
-
-      context 'missing attributes' do
-        let(:visitee) { nil }
-        let(:happened_on) { nil }
-
-        before { diagnosis.validate }
-
-        it { is_expected.not_to be_valid }
-        it { expect(diagnosis.errors.details.keys).to match_array [:visitee, :happened_on] }
-      end
-
-      context 'with matches' do
-        let(:visitee) { build :contact_with_email }
-        let(:happened_on) { Date.today }
+        before { diagnosis.needs << build(:need, matches: [build(:match)]) }
 
         it { is_expected.to be_valid }
       end
