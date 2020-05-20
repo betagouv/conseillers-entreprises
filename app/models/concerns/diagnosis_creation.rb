@@ -25,4 +25,72 @@ module DiagnosisCreation
       Diagnosis.create(params)
     end
   end
+
+  module DiagnosisMethods
+    def prepare_needs_from_solicitation
+      return unless solicitation.present? && needs.blank?
+
+      subjects = solicitation.preselected_subjects
+      if subjects.empty?
+        self.errors.add(:needs, :solicitation_has_no_preselected_subjects)
+        return self
+      end
+
+      needs_params = subjects.map{ |s| { subject: s } }
+      self.needs.create(needs_params)
+
+      self
+    end
+
+    def prepare_happened_on_from_solicitation
+      return unless solicitation.present? && happened_on.blank?
+
+      self.update(happened_on: solicitation.created_at)
+
+      self
+    end
+
+    def prepare_visitee_from_solicitation
+      return unless solicitation.present? && visitee.blank?
+
+      self.create_visitee(full_name: solicitation.full_name,
+                          email: solicitation.email,
+                          phone_number: solicitation.phone_number,
+                          company: facility.company,
+                          role: I18n.t('contact.default_role_from_solicitation'))
+
+      self.validate # If create failed, make the error go up from the visitee to the diagnosis
+
+      self
+    end
+
+    def prepare_matches_from_solicitation
+      return unless solicitation.present? && matches.blank?
+
+      institutions = solicitation.preselected_institutions
+      if institutions.empty?
+        self.errors.add(:matches, :solicitation_has_no_preselected_institution)
+        return self
+      end
+
+      self.needs.each do |need|
+        expert_subjects = ExpertSubject
+          .in_commune(need.facility.commune)
+          .of_subject(need.subject)
+          .of_institution(institutions)
+        # do not filter with specialist/fallback here, the institution selection overrides this
+
+        if expert_subjects.present?
+          matches_params = expert_subjects.map{ |es| { expert: es.expert, subject: es.subject } }
+          need.matches.create(matches_params)
+        else
+          self.errors.add(:matches, :preselected_institution_has_no_relevant_experts)
+        end
+      end
+
+      self.matches.reload # self.matches is a through relationship; make sure it’s up to date.
+
+      self
+    end
+  end
 end

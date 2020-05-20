@@ -4,10 +4,11 @@
 #
 #  id                   :bigint(8)        not null, primary key
 #  access_token         :string
+#  deleted_at           :datetime
 #  email                :string
 #  full_name            :string
 #  is_global_zone       :boolean          default(FALSE)
-#  phone_number         :string           not null
+#  phone_number         :string
 #  reminders_notes      :text
 #  role                 :string
 #  subjects_reviewed_at :datetime
@@ -47,7 +48,8 @@ class Expert < ApplicationRecord
 
   ## Validations
   #
-  validates :antenne, :email, :phone_number, presence: true
+  validates :antenne, presence: true
+  validates :email, :phone_number, presence: true, unless: :deleted?
 
   ## “Through” Associations
   #
@@ -202,5 +204,29 @@ class Expert < ApplicationRecord
 
   def mark_subjects_reviewed!
     update subjects_reviewed_at: Time.zone.now
+  end
+
+  ## Soft deletion
+  #
+
+  def full_name
+    deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
+  end
+
+  def delete
+    update(deleted_at: Time.zone.now,
+           email: nil,
+           full_name: nil,
+           phone_number: nil)
+  end
+
+  def destroy
+    # Don’t really destroy!
+    # callbacks for :destroy are not run
+    delete
+  end
+
+  def deleted?
+    deleted_at.present?
   end
 end

@@ -4,11 +4,7 @@ class Diagnoses::StepsController < ApplicationController
   def needs
     @themes = Theme.ordered_for_interview
 
-    # TODO: experimental/preliminary support for automatic diagnoses #940
-    if ENV['FEATURE_PRESELECT_DIAGNOSIS'].to_b && @diagnosis.needs.blank? && @diagnosis.solicitation.present?
-      subjects = @diagnosis.solicitation.preselected_subjects
-      @diagnosis.needs = subjects.map { |subject| Need.new(subject: subject) }
-    end
+    @diagnosis.prepare_needs_from_solicitation
   end
 
   def update_needs
@@ -25,14 +21,8 @@ class Diagnoses::StepsController < ApplicationController
   end
 
   def visit
-    if @diagnosis.visitee.nil? && @diagnosis.solicitation.present?
-      visitee = Contact.create(full_name: @diagnosis.solicitation.full_name,
-                               email: @diagnosis.solicitation.email,
-                               phone_number: @diagnosis.solicitation.phone_number,
-                               company: @diagnosis.facility.company,
-                               role: t('contact.default_role_from_solicitation'))
-      @diagnosis.update(visitee: visitee)
-    end
+    @diagnosis.prepare_happened_on_from_solicitation
+    @diagnosis.prepare_visitee_from_solicitation
   end
 
   def update_visit
@@ -51,18 +41,7 @@ class Diagnoses::StepsController < ApplicationController
   end
 
   def matches
-    # TODO: experimental/preliminary support for automatic diagnoses #940
-    if ENV['FEATURE_PRESELECT_DIAGNOSIS'].to_b && @diagnosis.matches.blank? && @diagnosis.solicitation.present?
-      institutions = @diagnosis.solicitation.preselected_institutions
-      @diagnosis.needs.each do |need|
-        relevant_expert_subjects = ExpertSubject.relevant_for(need)
-        relevant_expert_subjects = relevant_expert_subjects
-          .joins(institution_subject: :institution)
-          .where(institutions_subjects: { institution: institutions })
-        # do not filter with specialist/fallback here, the institution selection overrides this
-        need.matches = relevant_expert_subjects.map { |expert_subject| Match.new(expert: expert_subject.expert, subject: expert_subject.subject) }
-      end
-    end
+    @diagnosis.prepare_matches_from_solicitation
   end
 
   def update_matches
