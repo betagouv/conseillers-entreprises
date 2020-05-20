@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_125019) do
+ActiveRecord::Schema.define(version: 2020_05_20_154032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,8 +262,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_125019) do
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "expert_full_name"
-    t.string "expert_institution_name"
     t.integer "status", default: 0, null: false
     t.datetime "taken_care_of_at"
     t.datetime "closed_at"

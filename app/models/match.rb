@@ -2,17 +2,15 @@
 #
 # Table name: matches
 #
-#  id                      :bigint(8)        not null, primary key
-#  closed_at               :datetime
-#  expert_full_name        :string
-#  expert_institution_name :string
-#  status                  :integer          default("quo"), not null
-#  taken_care_of_at        :datetime
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  expert_id               :bigint(8)
-#  need_id                 :bigint(8)        not null
-#  subject_id              :bigint(8)
+#  id               :bigint(8)        not null, primary key
+#  closed_at        :datetime
+#  status           :integer          default("quo"), not null
+#  taken_care_of_at :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  expert_id        :bigint(8)
+#  need_id          :bigint(8)        not null
+#  subject_id       :bigint(8)
 #
 # Indexes
 #
@@ -44,7 +42,6 @@ class Match < ApplicationRecord
   #
   validates :need, presence: true
   validates :expert, uniqueness: { scope: :need_id, allow_nil: true }
-  before_save :copy_expert_info
   after_update :update_taken_care_of_at
   after_update :update_closed_at
 
@@ -97,7 +94,7 @@ class Match < ApplicationRecord
   ##
   #
   def to_s
-    "#{I18n.t('activerecord.models.match.one')} avec #{expert_full_name}"
+    "#{I18n.t('activerecord.models.match.one')} avec #{expert.full_name}"
   end
 
   def status_closed?
@@ -138,7 +135,7 @@ class Match < ApplicationRecord
   end
 
   def expert_full_role
-    "#{expert_full_name} - #{expert_institution_name}"
+    "#{expert.full_name} - #{expert.institution.name}"
   end
 
   def expert_subject
@@ -148,13 +145,6 @@ class Match < ApplicationRecord
   end
 
   private
-
-  def copy_expert_info
-    if expert
-      self.expert_full_name = expert.full_name
-      self.expert_institution_name = expert.antenne.name
-    end
-  end
 
   def update_taken_care_of_at
     if (status_taking_care? || status_closed?) && !taken_care_of_at
