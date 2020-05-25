@@ -55,6 +55,7 @@ class Diagnosis < ApplicationRecord
   validate :step_matches_has_visit_attributes
   validate :step_completed_has_matches
   validate :step_completed_has_advisor
+  validate :without_solicitation_has_advisor
 
   accepts_nested_attributes_for :facility
   accepts_nested_attributes_for :needs, allow_destroy: true
@@ -168,6 +169,14 @@ class Diagnosis < ApplicationRecord
 
   def step_completed_has_advisor
     if step_completed?
+      if advisor.nil?
+        errors.add(:advisor, :blank)
+      end
+    end
+  end
+
+  def without_solicitation_has_advisor
+    if solicitation.nil?
       if advisor.nil?
         errors.add(:advisor, :blank)
       end

@@ -64,7 +64,28 @@ RSpec.describe Diagnosis, type: :model do
     end
 
     describe 'step_completed_has_advisor' do
-      subject(:diagnosis) { build :diagnosis, step: :completed, needs: [build(:need, matches: [build(:match)])], advisor: advisor }
+      subject(:diagnosis) { build :diagnosis, solicitation: solicitation, step: :completed, needs: [build(:need, matches: [build(:match)])], advisor: advisor }
+
+      let(:solicitation) { build :solicitation }
+
+      before { diagnosis.validate }
+
+      context 'without advisor' do
+        let(:advisor) { nil }
+
+        it { is_expected.not_to be_valid }
+        it { expect(diagnosis.errors.details).to eq({ advisor: [{ error: :blank }] }) }
+      end
+
+      context 'with advisor' do
+        let(:advisor) { build :user }
+
+        it { is_expected.to be_valid }
+      end
+    end
+
+    describe 'without_solicitation_has_advisor' do
+      subject(:diagnosis) { build :diagnosis, solicitation: nil, advisor: advisor }
 
       before { diagnosis.validate }
 
