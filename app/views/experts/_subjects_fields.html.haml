@@ -1,9 +1,16 @@
+- if !expert.can_edit_own_subjects
+  %p
+    %i.blue.icon.info.circle
+    = t('.contact_us_to_change_subjects_html', email: ENV['APPLICATION_EMAIL'])
+
+- additional_field_class = expert.can_edit_own_subjects ? '' : 'disabled'
+
 - institution_subjects = expert.institution.available_subjects
 - institution_subjects.each do |theme, institutions_subjects|
   %h3.ui.header= theme.label
   - institutions_subjects.each do |institution_subject|
     - expert_subject = ExpertSubject.where(expert: expert, institution_subject: institution_subject).first_or_initialize
-    .ui.field.institution-subject
+    .ui.field.institution-subject{ class: additional_field_class }
       .ui.checkbox
         = f.fields_for :experts_subjects, expert_subject do |i|
           = i.hidden_field :institution_subject_id

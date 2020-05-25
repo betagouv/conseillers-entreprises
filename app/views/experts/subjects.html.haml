@@ -2,4 +2,5 @@
   = hidden_field_tag :update_context, :subjects
   = render 'subjects_messages', expert: @expert
   = render 'subjects_fields', f: f, expert: @expert
-  = f.submit t('confirm'), class: 'ui green approve button'
+  - if @expert.can_edit_own_subjects
+    = f.submit t('confirm'), class: 'ui green approve button'
