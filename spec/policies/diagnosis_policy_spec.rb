@@ -27,8 +27,15 @@ RSpec.describe DiagnosisPolicy, type: :policy do
       it { is_expected.to permit(user, diagnosis) }
     end
 
-    context "user in the same antenne" do
+    context "advisor in the same antenne" do
       let(:user) { create :user, antenne: diagnosis.advisor.antenne }
+
+      it { is_expected.to permit(user, diagnosis) }
+    end
+
+    context "expert in the same antenne" do
+      let(:diagnosis) { create :diagnosis_completed }
+      let(:user) { create :user, antenne: diagnosis.expert_antennes.first }
 
       it { is_expected.to permit(user, diagnosis) }
     end
