@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_154032) do
+ActiveRecord::Schema.define(version: 2020_05_25_134347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_154032) do
     t.text "reminders_notes"
     t.datetime "subjects_reviewed_at"
     t.datetime "deleted_at"
+    t.jsonb "flags", default: {}
     t.index ["access_token"], name: "index_experts_on_access_token"
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["email"], name: "index_experts_on_email"

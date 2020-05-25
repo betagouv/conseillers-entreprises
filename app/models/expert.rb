@@ -6,6 +6,7 @@
 #  access_token         :string
 #  deleted_at           :datetime
 #  email                :string
+#  flags                :jsonb
 #  full_name            :string
 #  is_global_zone       :boolean          default(FALSE)
 #  phone_number         :string
