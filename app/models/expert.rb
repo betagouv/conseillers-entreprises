@@ -80,6 +80,12 @@ class Expert < ApplicationRecord
       .where({ subjects: { is_support: true } })
   end
 
+  ## Keys for flags
+  #
+  FLAGS = %i[
+  ]
+  store_accessor :flags, FLAGS.map(&:to_s)
+
   # Team stuff
   scope :personal_skillsets, -> do
     # Experts with only one member only represent this user’s skills.
