@@ -83,6 +83,7 @@ class Expert < ApplicationRecord
   ## Keys for flags
   #
   FLAGS = %i[
+    can_edit_own_subjects
   ]
   store_accessor :flags, FLAGS.map(&:to_s)
 
