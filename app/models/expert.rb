@@ -6,6 +6,7 @@
 #  access_token         :string
 #  deleted_at           :datetime
 #  email                :string
+#  flags                :jsonb
 #  full_name            :string
 #  is_global_zone       :boolean          default(FALSE)
 #  phone_number         :string
@@ -78,6 +79,13 @@ class Expert < ApplicationRecord
     joins(:subjects)
       .where({ subjects: { is_support: true } })
   end
+
+  ## Keys for flags
+  #
+  FLAGS = %i[
+    can_edit_own_subjects
+  ]
+  store_accessor :flags, FLAGS.map(&:to_s)
 
   # Team stuff
   scope :personal_skillsets, -> do

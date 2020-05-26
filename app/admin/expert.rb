@@ -51,8 +51,24 @@ ActiveAdmin.register Expert do
     column(:activity) do |e|
       div admin_link_to(e, :received_matches, blank_if_empty: true)
     end
-    actions dropdown: true do |expert|
-      item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
+
+    column(:flags) do |e|
+      e.flags.filter{ |_, v| v.to_b }.map{ |k, _| Expert.human_attribute_name(k) }.to_sentence
+    end
+
+    actions dropdown: true do |e|
+      item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(e)
+
+      # Dynamically create a menu item to activate and deactivate each Expert::FLAGS
+      Expert::FLAGS.each do |flag|
+        [true, false].each do |value|
+          localized_flag = Expert.human_attribute_name(flag)
+          title = I18n.t("active_admin.flag.change.#{value}", flag: localized_flag)
+          if e.send(flag).to_b != value # Only add a menu item to change to the other value.
+            item title, polymorphic_path(["#{flag}_#{value}", :admin, e])
+          end
+        end
+      end
     end
   end
 
@@ -122,6 +138,13 @@ ActiveAdmin.register Expert do
       row(:activity) do |e|
         div admin_link_to(e, :received_matches)
       end
+
+      # Dynamically create a status tag for each Expert::FLAGS
+      attributes_table title: I18n.t('attributes.flags') do
+        Expert::FLAGS.each do |flag|
+          row(flag) { |e| status_tag e.send(flag).to_b }
+        end
+      end
     end
   end
 
@@ -144,6 +167,7 @@ ActiveAdmin.register Expert do
     :insee_codes,
     :is_global_zone,
     :reminders_notes,
+    *Expert::FLAGS,
     user_ids: [],
     experts_subjects_ids: [],
     experts_subjects_attributes: %i[id description institution_subject_id _create _update _destroy]
@@ -195,6 +219,13 @@ ActiveAdmin.register Expert do
       f.input :reminders_notes
     end
 
+    f.inputs I18n.t('attributes.flags') do
+      # Dynamically create a checkbox for each Expert::FLAGS
+      Expert::FLAGS.each do |flag|
+        f.input flag, as: :boolean
+      end
+    end
+
     f.actions
   end
 
@@ -210,5 +241,26 @@ ActiveAdmin.register Expert do
       expert.normalize_values!
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
+  end
+
+  # Dynamically create a member_action and a batch_action to activate and deactivate each Expert::FLAGS
+  Expert::FLAGS.each do |flag|
+    [true, false].each do |value|
+      localized_flag = Expert.human_attribute_name(flag)
+      title = I18n.t("active_admin.flag.change.#{value}", flag: localized_flag)
+      message = I18n.t("active_admin.flag.done.#{value}", flag: localized_flag)
+
+      # member_action
+      member_action "#{flag}_#{value}" do
+        resource.update({ flag => value })
+        redirect_back fallback_location: collection_path, notice: message
+      end
+
+      # batch_action
+      batch_action title do |ids|
+        batch_action_collection.where(id: ids).update({ flag => value })
+        redirect_back fallback_location: collection_path, notice: message
+      end
+    end
   end
 end

@@ -78,7 +78,7 @@ ActiveAdmin.register User do
       User::FLAGS.each do |flag|
         [true, false].each do |value|
           localized_flag = User.human_attribute_name(flag)
-          title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
+          title = I18n.t("active_admin.flag.change.#{value}", flag: localized_flag)
           if u.send(flag).to_b != value # Only add a menu item to change to the other value.
             item title, polymorphic_path(["#{flag}_#{value}", :admin, u])
           end
@@ -140,7 +140,7 @@ ActiveAdmin.register User do
     end
 
     # Dynamically create a status tag for each User::FLAGS
-    attributes_table title: I18n.t('activerecord.attributes.user.flags') do
+    attributes_table title: I18n.t('attributes.flags') do
       User::FLAGS.each do |flag|
         row(flag) { |u| status_tag u.send(flag).to_b }
       end
@@ -222,7 +222,7 @@ ActiveAdmin.register User do
       f.input :is_admin, as: :boolean
     end
 
-    f.inputs I18n.t('activerecord.attributes.user.flags') do
+    f.inputs I18n.t('attributes.flags') do
       # Dynamically create a checkbox for each User::FLAGS
       User::FLAGS.each do |flag|
         f.input flag, as: :boolean
@@ -270,8 +270,8 @@ ActiveAdmin.register User do
   User::FLAGS.each do |flag|
     [true, false].each do |value|
       localized_flag = User.human_attribute_name(flag)
-      title = I18n.t("active_admin.user.flag.change.#{value}", flag: localized_flag)
-      message = I18n.t("active_admin.user.flag.done.#{value}", flag: localized_flag)
+      title = I18n.t("active_admin.flag.change.#{value}", flag: localized_flag)
+      message = I18n.t("active_admin.flag.done.#{value}", flag: localized_flag)
 
       # member_action
       member_action "#{flag}_#{value}" do
