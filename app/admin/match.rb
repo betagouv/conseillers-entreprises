@@ -63,8 +63,6 @@ ActiveAdmin.register Match do
   filter :expert_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
 
-  filter :expert_full_name
-
   filter :theme, collection: -> { Theme.ordered_for_interview }
   filter :subject, collection: -> { Subject.order(:interview_sort_order) }
 

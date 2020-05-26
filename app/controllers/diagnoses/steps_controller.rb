@@ -31,10 +31,6 @@ class Diagnoses::StepsController < ApplicationController
     diagnosis_params = params_for_visit
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
     diagnosis_params[:step] = :matches
-    visitee = Contact.find_by(id: params[:diagnosis][:visitee_attributes][:id]) || Contact.new
-    visitee_params = params.require(:diagnosis).permit(visitee_attributes: [:full_name, :role, :email, :phone_number])[:visitee_attributes]
-    visitee.update(visitee_params)
-    @diagnosis.visitee = visitee
 
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :matches

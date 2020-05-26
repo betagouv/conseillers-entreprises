@@ -7,29 +7,31 @@
       .ui.eight.wide.column.row-tags
         = render 'solicitation_badges', solicitation: solicitation
   .ui.segment
+    - if solicitation.institution.present?
+      .logo-institution= institution_image(solicitation.institution.name)
     .ui.list
       - if solicitation.siret.present?
         .item
-          %strong= t('.siret')
-          = link_to(solicitation.normalized_siret, company_path(solicitation.siret))
+          = t('.siret')
+          %strong= link_to(solicitation.normalized_siret, company_path(solicitation.siret))
       .item
-        %strong= t('.email')
-        = mail_to(solicitation.email, solicitation.email, target: '_blank')
+        = t('.email')
+        %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
       - solicitation.display_attributes.each do |attribut|
         - if solicitation.send(attribut).present?
           .item
-            %strong= Solicitation.human_attribute_name(attribut) + ' : '
-            = solicitation.send(attribut)
+            = Solicitation.human_attribute_name(attribut) + ' : '
+            %strong= solicitation.send(attribut)
       - if solicitation.landing_slug.present?
         .item
-          %strong= t('.slug')
-          = link_to(solicitation.landing_slug, solicitation.landing)
+          = t('.slug')
+          %strong= link_to(solicitation.landing_slug, solicitation.landing)
       - if solicitation.landing_options_slugs.present?
         .item
-          %strong= t('.landing_options')
+          = t('.landing_options')
           = selected_options_tags(solicitation, "ui small label")
       .item
-        %strong= t('.description')
+        = t('.description')
         %p= simple_format(auto_link(solicitation.description))
 
   .ui.segment.feed.feedbacks
