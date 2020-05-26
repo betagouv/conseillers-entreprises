@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     get :qui_sommes_nous
     get :cgu
     get :top_5
+    get :politique_de_confidentialite
   end
 
   resource :stats, only: [:show] do
