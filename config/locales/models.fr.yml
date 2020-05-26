@@ -3,6 +3,13 @@ fr:
   active_admin:
     expert:
       modify_subjects: Modifier les domaines d’intervention
+    flag:
+      change:
+        'false': Désactiver « %{flag} »
+        'true': Activer « %{flag} »
+      done:
+        'false': "« %{flag} » désactivé"
+        'true': "« %{flag} » activé"
     matches:
       deleted: Supprimé
     move: Déplacer
@@ -73,13 +80,6 @@ fr:
       deactivate_user_done: Utilisateur désactivé
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
-      flag:
-        change:
-          'false': Désactiver « %{flag} »
-          'true': Activer « %{flag} »
-        done:
-          'false': "« %{flag} » désactivé"
-          'true': "« %{flag} » activé"
       impersonate: Voir le site comme %{name}
       import:
         button: Importer
@@ -118,6 +118,7 @@ fr:
         phone_number: Numéro de téléphone de la personne rencontrée
         role: Fonction de la personne rencontrée
       expert:
+        can_edit_own_subjects: Peut modifier ses compétences
         full_name: Nom de l’équipe
         is_global_zone: Global
         reminders_notes: Suivi des relances
@@ -222,7 +223,6 @@ fr:
         experts:
           one: Équipe
           other: Équipes
-        flags: Options
         invitation_accepted_at: Invitation acceptée
         invitation_sent_at: Invitation envoyée
         invitees: Invités
@@ -380,6 +380,7 @@ fr:
     feedbacks:
       one: Commentaire
       other: Commentaires
+    flags: Options
     full_name: Prénom et nom
     happened_on: Date de la visite
     insee_codes:
