@@ -14,7 +14,7 @@ ActiveAdmin.register Audited::Audit do
       end
     end
     column(:action) do |i|
-      status_tag t("activerecord.attributes.audited.action.#{i.action}"), class: i.action
+      status_tag t(i.action, scope: 'activerecord.attributes.audited.action'), class: i.action
     end
     column(:auditable_type) do |i|
       div i.auditable_type.constantize.model_name.human

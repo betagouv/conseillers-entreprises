@@ -44,6 +44,7 @@ class DiagnosesController < ApplicationController
   def show
     authorize @diagnosis
     if @diagnosis.step_completed?
+      # let needs_controller handle completed diagnoses
       redirect_to need_path(@diagnosis)
     else
       redirect_to controller: 'diagnoses/steps', action: @diagnosis.step, id: @diagnosis

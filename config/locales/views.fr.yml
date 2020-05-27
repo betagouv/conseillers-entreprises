@@ -2,9 +2,13 @@
 fr:
   about:
     cgu:
-      title: Conditions générales d’utilisation
+      title: Conditions d’utilisation du service numérique Place des Entreprises
     contact_us:
       contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
+    mentions_legales:
+      title: Mentions légales
+    politique_de_confidentialite:
+      title: Politique de confidentialité
     qui_sommes_nous:
       title: Qui sommes-nous ?
     top_5:
@@ -499,29 +503,6 @@ fr:
       search: Rechercher
       search_placeholder: Tag, aide demandée…
       title: Solicitations
-    needs:
-      long:
-        01-recrutement-formation-rh: Un projet de recrutement, de formation ? Des questions de ressources humaines ?
-        02-droit-du-travail: Des questions de droit du travail ?
-        03-croissance-innovation: Le financement de votre croissance, d'un projet d’innovation ?
-        04-nouveaux-clients-produits: Le développement de votre business, la recherche de clients, le développement d'un produit ?
-        05-numerique: La mise en place d’une stratégie numérique ?
-        06-difficultes-financieres: Des difficultés financières ? Des problèmes de trésorerie ?
-        07-local-implantation: La recherche d'un local, d'un terrain ? L’implantation d'une entreprise ?
-        '08-reglementation': Des questions sur la réglementation ?
-        '09-cession-reprise': La cession ou la reprise d’une entreprise ?
-        10-autres: Ou d’autres questions sur votre entreprise ?
-      short:
-        01-recrutement-formation-rh: Recrutement / Formation / RH
-        02-droit-du-travail: Droit du travail
-        03-croissance-innovation: Croissance / Innovation
-        04-nouveaux-clients-produits: Nouveaux clients / Produits
-        05-numerique: Numérique
-        06-difficultes-financieres: Difficultés financières
-        07-local-implantation: Local / Implantation
-        '08-reglementation': Réglementation
-        '09-cession-reprise': Cession / Reprise
-        10-autres: Autres
     set_category_content:
       landings: Landings
       options: Options

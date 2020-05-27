@@ -19,7 +19,8 @@ module CategorieJuridique
       legal_form_code = legal_form_code.first(4)
     end
 
-    I18n.t("categories_juridiques.niveau#{niveau}.#{legal_form_code}", default: I18n.t('other'))
+    scope = "categories_juridiques.niveau#{niveau}"
+    I18n.t(legal_form_code, scope: scope, default: I18n.t('other'))
   end
 
   ENTREPRENEUR_INDIVIDUEL = '1000'
