@@ -2,6 +2,9 @@
 
 %h1.ui.header= t('.create_new_diagnosis')
 
+- if @diagnoses.present?
+  = render 'diagnoses/related_diagnoses', diagnoses: @diagnoses
+
 .ui.attached.tabular.menu.head-tab.new-diagnosis
   %a.item.active{ "data-tab" => "first" }
     = t('.find_company')

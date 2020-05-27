@@ -18,6 +18,7 @@
 #
 # Indexes
 #
+#  index_solicitations_on_email         (email)
 #  index_solicitations_on_landing_slug  (landing_slug)
 #
 
