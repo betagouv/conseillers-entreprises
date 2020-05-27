@@ -9,8 +9,8 @@
 #  step            :integer          default("not_started")
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  advisor_id      :bigint(8)        not null
-#  facility_id     :bigint(8)
+#  advisor_id      :bigint(8)
+#  facility_id     :bigint(8)        not null
 #  solicitation_id :bigint(8)
 #  visitee_id      :bigint(8)
 #
@@ -43,7 +43,7 @@ class Diagnosis < ApplicationRecord
   ## Associations
   #
   belongs_to :facility, inverse_of: :diagnoses
-  belongs_to :advisor, class_name: 'User', inverse_of: :sent_diagnoses
+  belongs_to :advisor, class_name: 'User', inverse_of: :sent_diagnoses, optional: true
   belongs_to :visitee, class_name: 'Contact', inverse_of: :diagnoses, optional: true
   belongs_to :solicitation, optional: true, inverse_of: :diagnoses, touch: true
 
@@ -51,10 +51,11 @@ class Diagnosis < ApplicationRecord
 
   ## Validations and Callbacks
   #
-  validates :advisor, :facility, presence: true
   validate :step_visit_has_needs
   validate :step_matches_has_visit_attributes
   validate :step_completed_has_matches
+  validate :step_completed_has_advisor
+  validate :without_solicitation_has_advisor
 
   accepts_nested_attributes_for :facility
   accepts_nested_attributes_for :needs, allow_destroy: true
@@ -162,6 +163,22 @@ class Diagnosis < ApplicationRecord
     if step_completed?
       if needs&.flat_map(&:matches)&.empty? # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
         errors.add(:step, 'can’t be step 5 with no matches')
+      end
+    end
+  end
+
+  def step_completed_has_advisor
+    if step_completed?
+      if advisor.nil?
+        errors.add(:advisor, :blank)
+      end
+    end
+  end
+
+  def without_solicitation_has_advisor
+    if solicitation.nil?
+      if advisor.nil?
+        errors.add(:advisor, :blank)
       end
     end
   end

@@ -53,6 +53,11 @@ class NeedsController < ApplicationController
   def show
     @diagnosis = retrieve_diagnosis
     authorize @diagnosis
+    unless @diagnosis.step_completed?
+      # let diagnoses_controller (and steps_controller) handle incomplete diagnoses
+      redirect_to @diagnosis and return
+    end
+
     @highlighted_experts = highlighted_experts
   end
 
