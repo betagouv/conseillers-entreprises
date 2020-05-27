@@ -2,9 +2,13 @@
 fr:
   about:
     cgu:
-      title: Conditions générales d’utilisation
+      title: Conditions d’utilisation du service numérique Place des Entreprises
     contact_us:
       contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
+    mentions_legales:
+      title: Mentions légales
+    politique_de_confidentialite:
+      title: Politique de confidentialité
     qui_sommes_nous:
       title: Qui sommes-nous ?
     top_5:
