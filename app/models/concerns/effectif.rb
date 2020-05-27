@@ -12,7 +12,7 @@ module Effectif
       return I18n.t('other')
     end
 
-    I18n.t("codes_effectif.#{code}", default: I18n.t('other'))
+    I18n.t(code, scope: 'codes_effectif', default: I18n.t('other'))
   end
 
   UNITE_NON_EMPLOYEUSE = 'NN'

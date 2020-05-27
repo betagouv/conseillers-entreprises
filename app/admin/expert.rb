@@ -63,7 +63,7 @@ ActiveAdmin.register Expert do
       Expert::FLAGS.each do |flag|
         [true, false].each do |value|
           localized_flag = Expert.human_attribute_name(flag)
-          title = I18n.t("active_admin.flag.change.#{value}", flag: localized_flag)
+          title = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.change')
           if e.send(flag).to_b != value # Only add a menu item to change to the other value.
             item title, polymorphic_path(["#{flag}_#{value}", :admin, e])
           end
@@ -247,8 +247,8 @@ ActiveAdmin.register Expert do
   Expert::FLAGS.each do |flag|
     [true, false].each do |value|
       localized_flag = Expert.human_attribute_name(flag)
-      title = I18n.t("active_admin.flag.change.#{value}", flag: localized_flag)
-      message = I18n.t("active_admin.flag.done.#{value}", flag: localized_flag)
+      title = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.change')
+      message = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.done')
 
       # member_action
       member_action "#{flag}_#{value}" do
