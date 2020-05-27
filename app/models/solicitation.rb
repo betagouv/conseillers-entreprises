@@ -41,6 +41,8 @@ class Solicitation < ApplicationRecord
         .or(have_landing(query))
         .or(name_contains(query))
         .or(email_contains(query))
+        .or(pk_kwd_contains(query))
+        .or(pk_campaign_contains(query))
     end
   end
 
@@ -67,6 +69,14 @@ class Solicitation < ApplicationRecord
   scope :email_contains, -> (query) do
     where('email ILIKE ?', "%#{query}%")
   end
+
+  scope :pk_kwd_contains, -> (query) {
+    where("form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%")
+  }
+
+  scope :pk_campaign_contains, -> (query) {
+    where("form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
+  }
 
   ## Callbacks
   #
