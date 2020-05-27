@@ -78,6 +78,9 @@ Layout/EmptyComment:
 Layout/EmptyLineAfterMagicComment:
   Enabled: true
 
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
 Layout/EmptyLineBetweenDefs:
   Enabled: true
 
@@ -306,6 +309,9 @@ Lint/Debugger:
   Enabled: true
 
 Lint/DeprecatedClassMethods:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
   Enabled: true
 
 Lint/DuplicateCaseCondition:
@@ -1221,6 +1227,9 @@ Style/SingleLineBlockParams:
 Style/SingleLineMethods:
   Enabled: false
 
+Style/SlicingWithRange:
+  Enabled: true
+
 Style/SpecialGlobalVars:
   Enabled: false
 
@@ -1325,6 +1334,9 @@ RailsI18n:
   Exclude:
     - 'lib/tasks/*.rake'
     - 'spec/**/*'
+
+RailsI18n/DecorateStringFormattingUsingInterpolation:
+  Enabled: false
 
 GetText:
   Enabled: false
