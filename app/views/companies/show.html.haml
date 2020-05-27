@@ -12,27 +12,7 @@
         = t('.create_diagnosis')
 
   - if @diagnoses.present?
-    %h2= t('.diagnoses_completed', company_name: @company.name)
-    %table.ui.table
-      %tbody
-        - @diagnoses.each do |diagnosis|
-          %tr
-            %td
-              %h3.ui.header
-                = t('.visited_at', date: I18n.l(diagnosis.display_date))
-                .sub.header
-                  - advisor = diagnosis.advisor
-                  = t('.visited_by_html', advisor_name: advisor.full_name_with_role, advisor_email: advisor.email)
-            %td.collapsing
-              .ui.middle.aligned.list
-                .item
-                  .middle.aligned.content
-                    %h5.ui.header.disabled
-                      = t('.needs', count: diagnosis.needs.size)
-                .item
-                  .middle.aligned.content
-                    %h5.ui.header.disabled
-                      = t('.matches', count: diagnosis.matches.size)
+    = render 'diagnoses/related_diagnoses', diagnoses: @diagnoses
 
   %h2= t('.information')
   = render partial: 'company', locals: { entreprise: @company.entreprise }

@@ -20,6 +20,18 @@ class SolicitationsController < ApplicationController
 
   def show
     authorize @solicitation
+    nb_per_page = Solicitation.page(1).limit_value
+    case @solicitation.status
+    when 'canceled'
+      page = Solicitation.status_canceled.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
+      redirect_to canceled_solicitations_path(anchor: @solicitation.id, page: page)
+    when 'processed'
+      page = Solicitation.status_processed.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
+      redirect_to processed_solicitations_path(anchor: @solicitation.id, page: page)
+    else
+      page = Solicitation.status_in_progress.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
+      redirect_to solicitations_path(anchor: @solicitation.id, page: page)
+    end
   end
 
   def update_status
