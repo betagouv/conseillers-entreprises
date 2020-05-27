@@ -14,9 +14,6 @@
   - if @solicitation.siret.present?
     %li= link_to "SIRET : #{@solicitation.siret}", company_url(@solicitation.siret)
 
-%h3= t('activerecord.attributes.solicitation.needs')
-= needs_description(@solicitation)
-
 %h3= t('activerecord.attributes.solicitation.tracking')
 = render partial: 'solicitations/tracking', locals: { solicitation: @solicitation }
 
