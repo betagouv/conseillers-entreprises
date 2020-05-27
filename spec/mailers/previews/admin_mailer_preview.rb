@@ -38,14 +38,10 @@ class AdminMailerPreview < ActionMailer::Preview
   end
 
   def solicitation
-    localized_needs_keypath = 'solicitations.needs.short'
-    all_needs = I18n.t(localized_needs_keypath).keys
-
     params = {
       description: Faker::Hipster.paragraphs(number: 5).join('<br/>'),
       phone_number: Faker::PhoneNumber.phone_number,
       email: Faker::Internet.email,
-      needs: all_needs.index_with{ |n| rand(2).to_s },
       form_info: {
         pk_campaign: "test",
         slug: 'brexit',

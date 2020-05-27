@@ -98,7 +98,6 @@ ignore_unused:
   - 'stats.stats_table.*'
   - 'stats.series.*'
   - 'categories_juridiques.*'
-  - 'solicitations.needs.long.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
