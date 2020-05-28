@@ -50,7 +50,7 @@ ActiveAdmin.register Solicitation do
       if s.pk_kwd.present?
         div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s)} »"
       end
-      if s.partner_token.present?
+      if s.partner_token.present? || s.institution_slug.present?
         admin_attr(s, :institution)
       end
     end
