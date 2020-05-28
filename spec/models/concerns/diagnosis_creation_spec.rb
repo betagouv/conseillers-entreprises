@@ -34,24 +34,23 @@ RSpec.describe DiagnosisCreation do
       let(:siret) { '12345678901234' }
       let(:facility_params) { { siret: siret } }
 
-      context 'when the siret is valid' do
+      context 'when ApiEntreprise accepts the SIRET' do
         before do
           allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { create(:facility, siret: siret) }
         end
 
         it 'fetches info for ApiEntreprise and creates the diagnosis' do
-          expect{ create_diagnosis }.not_to raise_error
           expect(create_diagnosis).to be_valid
         end
       end
 
-      context 'when the siret is unknown' do
+      context 'when ApiEntreprise returns an error' do
         before do
           allow(UseCases::SearchFacility).to receive(:with_siret_and_save).with(siret) { raise ApiEntreprise::ApiEntrepriseError, 'some error message' }
         end
 
-        it 'fetches info for ApiEntreprise and creates the diagnosis' do
-          expect{ create_diagnosis }.to raise_error ApiEntreprise::ApiEntrepriseError
+        it 'returns the message in the errors' do
+          expect(create_diagnosis.errors.details).to eq({ facility: [{ error: 'some error message' }] })
         end
       end
     end
@@ -66,7 +65,6 @@ RSpec.describe DiagnosisCreation do
       end
 
       it 'creates a new diagnosis without siret' do
-        expect{ create_diagnosis }.not_to raise_error
         expect(create_diagnosis).to be_valid
         expect(create_diagnosis.company.name).to eq 'Boucherie Sanzot'
       end

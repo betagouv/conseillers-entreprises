@@ -15,10 +15,21 @@ module DiagnosisCreation
         params = params.dup # avoid modifying the params hash at the call site
         # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
         # In particular, the facility.insee_code= setter will fetch the readable locality name from the geo api.
-        # TODO: Get rid of UseCases::SearchFacility and handle implicitely in `facility#siret=`,
-        # This would let us use the params hash as provided.
         facility_params = params.delete(:facility_attributes)
-        params[:facility] = UseCases::SearchFacility.with_siret_and_save(facility_params[:siret])
+        begin
+          # TODO: Get rid of UseCases::SearchFacility and build it implicitely in `facility#siret=`
+          #   This would be somewhat magic, but:
+          #   * would let us use the params hash as provided.
+          #   * remove a lot of machinery
+          #   * would just set an error instead of raising an exception.
+          #   Related to #622
+          params[:facility] = UseCases::SearchFacility.with_siret_and_save(facility_params[:siret])
+        rescue ApiEntreprise::ApiEntrepriseError => e
+          # Eat the exception and build a Diagnosis object just to hold the error
+          diagnosis = Diagnosis.new
+          diagnosis.errors.add(:facility, e.message)
+          return diagnosis
+        end
       end
 
       params[:step] = :needs
