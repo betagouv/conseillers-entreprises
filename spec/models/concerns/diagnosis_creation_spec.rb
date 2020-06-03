@@ -71,6 +71,52 @@ RSpec.describe DiagnosisCreation do
     end
   end
 
+  describe 'prepare_diagnosis' do
+    let(:solicitation) { create :solicitation }
+    let(:user) { create :user }
+
+    before do
+      allow(solicitation).to receive(:may_prepare_diagnosis?).and_return(true)
+      allow(described_class).to receive(:create_diagnosis) { diagnosis }
+      allow_any_instance_of(Diagnosis).to(receive(:prepare_needs_from_solicitation)) { prepare_needs }
+      allow_any_instance_of(Diagnosis).to receive(:prepare_happened_on_from_solicitation)
+      allow_any_instance_of(Diagnosis).to receive(:prepare_visitee_from_solicitation)
+      allow_any_instance_of(Diagnosis).to receive(:prepare_matches_from_solicitation)
+
+      solicitation.prepare_diagnosis(user)
+    end
+
+    context 'all is well' do
+      let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+      let(:prepare_needs) {}
+
+      it do
+        expect(solicitation.diagnoses).not_to be_empty
+        expect(solicitation.prepare_diagnosis_errors).to be_empty
+      end
+    end
+
+    context 'creation fails' do
+      let(:diagnosis) { Diagnosis.create(facility: nil, advisor: user) }
+      let(:prepare_needs) {}
+
+      it do
+        expect(solicitation.diagnoses).to be_empty
+        expect(solicitation.prepare_diagnosis_errors.details).to eq({ facility: [{ error: :blank }] })
+      end
+    end
+
+    context 'preparation fails' do
+      let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
+      let(:prepare_needs) { diagnosis.errors.add(:needs, :some_failure) }
+
+      it do
+        expect(solicitation.diagnoses).to be_empty
+        expect(solicitation.prepare_diagnosis_errors.details).to eq({ needs: [{ error: :some_failure }] })
+      end
+    end
+  end
+
   describe 'prepare_needs_from_solicitation' do
     let(:diagnosis) { create :diagnosis, solicitation: solicitation }
     let(:solicitation) { create :solicitation }
