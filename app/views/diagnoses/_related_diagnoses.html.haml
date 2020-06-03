@@ -1,0 +1,32 @@
+%h2= t('.diagnoses_completed')
+%table.ui.table
+  %tbody
+    - diagnoses.each do |diagnosis|
+      - solicitation = diagnosis.solicitation
+      %tr
+        %td
+          = link_to diagnosis_path(diagnosis), target: '_blank', rel: 'noopener' do
+            %h3.ui.header
+              - if solicitation.present?
+                = t('.solicited_at', date: I18n.l(diagnosis.display_date))
+              - else
+                = t('.visited_at', date: I18n.l(diagnosis.display_date))
+              .sub.header
+                - if solicitation.present?
+                  = t('.solicited_by_html', name: solicitation.full_name, email: solicitation.email)
+                - else
+                  - advisor = diagnosis.advisor
+                  = t('.visited_by_html', advisor_name: advisor.full_name_with_role, advisor_email: advisor.email)
+          .diagnosis-links
+            - if solicitation.present?
+              = link_to t('.solicitation_related'), solicitation, class: 'ui basic blue label'
+        %td.collapsing
+          .ui.middle.aligned.list
+            .item
+              .middle.aligned.content
+                %h5.ui.header.disabled
+                  = t('.needs', count: diagnosis.needs.size)
+            .item
+              .middle.aligned.content
+                %h5.ui.header.disabled
+                  = t('.matches', count: diagnosis.matches.size)
