@@ -218,6 +218,9 @@ fr:
           one: "<b>1</b> %{entry_name}"
           other: "<b>%{count}</b> %{entry_name}"
           zero: Aucune %{entry_name}
+    solicitation:
+      analysis_in_progress: Analyse en cours (%{step})
+      view_completed_analysis: Voir l’analyse réalisée
   landings:
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
@@ -502,10 +505,14 @@ fr:
       slug: 'Page thématique :'
     solicitation_actions:
       add_feedback: Ajouter un commentaire
-      create_another_diagnosis: Démarrer une autre analyse
-      create_diagnosis: Démarrer une analyse
+      prepare_diagnosis: Préparer l’analyse
+      prepare_diagnosis_errors:
+        one: Erreur à la préparation
+        other: "%{count} erreurs à préparation"
+      prepare_diagnosis_retry: Réessayer
+      start_another_diagnosis: Démarrer une autre analyse
+      start_diagnosis: Démarrer une analyse
       view_diagnoses: "%{count} analyses"
-      view_diagnosis: Voir l’analyse de %{name}
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags
     solicitations_tabs:

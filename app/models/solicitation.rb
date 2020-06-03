@@ -2,19 +2,20 @@
 #
 # Table name: solicitations
 #
-#  id                    :bigint(8)        not null, primary key
-#  description           :string
-#  email                 :string
-#  form_info             :jsonb
-#  full_name             :string
-#  landing_options_slugs :string           is an Array
-#  landing_slug          :string           not null
-#  options_deprecated    :jsonb
-#  phone_number          :string
-#  siret                 :string
-#  status                :integer          default("in_progress")
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
+#  id                               :bigint(8)        not null, primary key
+#  description                      :string
+#  email                            :string
+#  form_info                        :jsonb
+#  full_name                        :string
+#  landing_options_slugs            :string           is an Array
+#  landing_slug                     :string           not null
+#  options_deprecated               :jsonb
+#  phone_number                     :string
+#  prepare_diagnosis_errors_details :jsonb
+#  siret                            :string
+#  status                           :integer          default("in_progress")
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
 #
 # Indexes
 #
@@ -23,6 +24,8 @@
 #
 
 class Solicitation < ApplicationRecord
+  include DiagnosisCreation::SolicitationMethods
+
   enum status: { in_progress: 0, processed: 1, canceled: 2 }, _prefix: true
 
   ## Associations
