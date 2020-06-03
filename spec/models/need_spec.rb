@@ -45,10 +45,10 @@ RSpec.describe Need, type: :model do
     let(:diagnosis) { create :diagnosis_completed }
     let(:matches) { [] }
 
-    let(:quo_match) { build :match, status: :quo }
-    let(:taking_care_match) { build :match, status: :taking_care }
-    let(:done_match) { build :match, status: :done }
-    let(:not_for_me_match) { build :match, status: :not_for_me }
+    let(:quo_match) { create :match, status: :quo }
+    let(:taking_care_match) { create :match, status: :taking_care }
+    let(:done_match) { create :match, status: :done }
+    let(:not_for_me_match) { create :match, status: :not_for_me }
 
     context 'diagnosis not complete' do
       let(:diagnosis) { create :diagnosis, step: :not_started }
@@ -192,7 +192,8 @@ RSpec.describe Need, type: :model do
 
   describe 'abandoned' do
     let(:need) { create :need }
-    let(:old_need) { Timecop.freeze(2.months.ago) { create :need } }
+    let(:date1) { Time.zone.now - 2.months }
+    let(:old_need) { Timecop.freeze(date1) { create :need, last_activity_at: date1 } }
 
     it do
       expect(need).not_to be_abandoned
@@ -240,6 +241,33 @@ RSpec.describe Need, type: :model do
       before { Timecop.freeze(date3) { need.update(content: 'New content') } }
 
       it { is_expected.to eq date3 }
+    end
+  end
+
+  describe 'update_last_activity_at' do
+    let(:date1) { Time.zone.now.beginning_of_day }
+    let(:date2) { date1 + 1.minute }
+    let(:date3) { date1 + 2.minutes }
+
+    let(:need) { Timecop.freeze(date1) { create :need } }
+    let(:match) { Timecop.freeze(date2) { create :match, need: need } }
+
+    before { match }
+
+    subject { need.reload.last_activity_at }
+
+    context 'when a match is updated' do
+      before { Timecop.freeze(date3) { match.update(status: :done) } }
+
+      it { is_expected.to eq date3 }
+    end
+
+    context 'when a feedback is added to a match' do
+      let(:feedback) { Timecop.freeze(date3) { create :feedback, feedbackable: need } }
+
+      before { feedback }
+
+      it { is_expected.to eq date2 }
     end
   end
 end

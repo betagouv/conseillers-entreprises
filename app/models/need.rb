@@ -2,14 +2,15 @@
 #
 # Table name: needs
 #
-#  id            :bigint(8)        not null, primary key
-#  archived_at   :datetime
-#  content       :text
-#  matches_count :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  diagnosis_id  :bigint(8)        not null
-#  subject_id    :bigint(8)        not null
+#  id               :bigint(8)        not null, primary key
+#  archived_at      :datetime
+#  content          :text
+#  last_activity_at :datetime         not null
+#  matches_count    :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  diagnosis_id     :bigint(8)        not null
+#  subject_id       :bigint(8)        not null
 #
 # Indexes
 #
@@ -42,6 +43,10 @@ class Need < ApplicationRecord
   validates :subject, uniqueness: { scope: :diagnosis_id }
 
   accepts_nested_attributes_for :matches, allow_destroy: true
+
+  ## Callbacks
+  #
+  after_touch :update_last_activity_at
 
   ## Through Associations
   #
@@ -100,7 +105,7 @@ class Need < ApplicationRecord
       .archived(false)
   end
 
-  scope :abandoned, -> { where("needs.updated_at < ?", ABANDONED_DELAY.ago) }
+  scope :abandoned, -> { where("needs.last_activity_at < ?", ABANDONED_DELAY.ago) }
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
@@ -193,4 +198,11 @@ class Need < ApplicationRecord
   end
 
   include StatusHelper::StatusDescription
+
+  private
+
+  def update_last_activity_at
+    last_activity = matches.pluck(:updated_at).max || updated_at
+    update_columns last_activity_at: last_activity
+  end
 end
