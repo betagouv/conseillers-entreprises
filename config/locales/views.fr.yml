@@ -20,6 +20,10 @@ fr:
     badges:
       add_remove: Ajouter / supprimer un tag sur
       modified: Le tag a été %{action}
+    cvs_export: Export CSV
+  admin:
+    export_csv:
+      job_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
   application:
     footer:
       contact_us: Contactez-nous !
@@ -291,6 +295,10 @@ fr:
       title: Mon compte
   mailers:
     admin_mailer:
+      csv_export: Export CSV des %{model}
+      send_csv:
+        content: L’export des %{model} est terminé, vous le trouverez en pièce jointe.
+        title: Export CSV
       solicitation:
         new_solicitation_received: Une entreprise nous sollicite !
         subject: Nouvelle sollicitation d’entreprise

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register Match do
+  include CsvExportable
+
   menu parent: :diagnoses, priority: 2
 
   ## Index
@@ -67,31 +69,6 @@ ActiveAdmin.register Match do
   filter :subject, collection: -> { Subject.order(:interview_sort_order) }
 
   filter :facility_territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
-
-  ## CSV
-  #
-  csv do
-    column :id
-    column(:need) { |m| m.need_id }
-    column :company
-    column(:siret) { |m| m.facility.siret }
-    column(:commune) { |m| m.facility.commune }
-    column :created_at
-    column :advisor
-    column :advisor_antenne
-    column :advisor_institution
-    column :theme
-    column :subject
-    column(:content) { |m| m.need.content }
-    column :expert
-    column :expert_antenne
-    column :expert_institution
-    column(:status) { |m| m.status_short_description }
-    column(:status_description) { |m| m.need.status_short_description }
-    column :taken_care_of_at
-    column :closed_at
-    column('Page Analyse') { |m| need_url(m.diagnosis) }
-  end
 
   ## Show
   #
