@@ -1,10 +1,9 @@
 .card{ class: (landing.emphasis.to_bool ? 'emphasis' : '') }
-  - path = landing_path({ slug: landing.slug })
-  = link_to path do
+  = link_to landing do
     .card__content
       %h3.landing-title= simple_format(landing.home_title, {}, wrapper_tag: 'span')
       %p.landing-description= simple_format(landing.home_description, {}, wrapper_tag: 'span')
   .discover_button
-    = link_to path do
+    = link_to landing do
       .text-right
         %button.button-outline.small.primary= t('.discover')
