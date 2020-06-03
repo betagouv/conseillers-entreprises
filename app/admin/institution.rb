@@ -43,6 +43,7 @@ ActiveAdmin.register Institution do
   show do
     attributes_table do
       row :name
+      row :slug
       row :partner_token
       row(:antennes) do |i|
         div admin_link_to(i, :antennes)
@@ -66,7 +67,7 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :show_icon, :partner_token,
+  permit_params :name, :show_icon, :partner_token, :slug,
                 antenne_ids: [],
                 institutions_subjects_attributes: %i[id description subject_id _create _update _destroy]
 
@@ -74,6 +75,7 @@ ActiveAdmin.register Institution do
     f.inputs do
       f.input :name
       f.input :partner_token
+      f.input :slug
       f.input :show_icon
     end
     f.inputs do

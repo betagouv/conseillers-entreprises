@@ -14,7 +14,9 @@ class DiagnosesController < ApplicationController
   end
 
   def new
-    @diagnosis = DiagnosisCreation.new_diagnosis(Solicitation.find_by(id: params[:solicitation]))
+    solicitation = Solicitation.find_by(id: params[:solicitation])
+    @diagnosis = DiagnosisCreation.new_diagnosis(solicitation)
+    @diagnoses = Diagnosis.joins(:solicitation).where(solicitations: { email: solicitation&.email })
   end
 
   def index_antenne

@@ -1,5 +1,5 @@
 class SolicitationsController < ApplicationController
-  before_action :find_solicitation, only: [:show, :update_status, :update_badges]
+  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
   before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
   before_action :set_category_content, only: %i[index processed canceled]
@@ -20,6 +20,18 @@ class SolicitationsController < ApplicationController
 
   def show
     authorize @solicitation
+    nb_per_page = Solicitation.page(1).limit_value
+    case @solicitation.status
+    when 'canceled'
+      page = Solicitation.status_canceled.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
+      redirect_to canceled_solicitations_path(anchor: @solicitation.id, page: page)
+    when 'processed'
+      page = Solicitation.status_processed.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
+      redirect_to processed_solicitations_path(anchor: @solicitation.id, page: page)
+    else
+      page = Solicitation.status_in_progress.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
+      redirect_to solicitations_path(anchor: @solicitation.id, page: page)
+    end
   end
 
   def update_status
@@ -32,6 +44,16 @@ class SolicitationsController < ApplicationController
 
   def update_badges
     @solicitation.update(params.require(:solicitation).permit(badge_ids: []))
+  end
+
+  def prepare_diagnosis
+    diagnosis = @solicitation.prepare_diagnosis(current_user)
+    if diagnosis
+      redirect_to diagnosis
+    else
+      # TODO: redirect to @solicitation. See discussion in #1089
+      redirect_to action: :index
+    end
   end
 
   private

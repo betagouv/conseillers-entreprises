@@ -21,6 +21,7 @@ class LandingsController < PagesController
       if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
         AdminMailer.solicitation(@solicitation).deliver_later
       end
+      @solicitation.delay.prepare_diagnosis(nil)
     end
 
     render :new_solicitation # rerender the form on error, render the thankyou partial on success

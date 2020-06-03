@@ -59,4 +59,14 @@ module SolicitationHelper
 
     tags.join.html_safe
   end
+
+  def link_to_diagnosis(diagnosis)
+    if diagnosis.step_completed?
+      text = t('helpers.solicitation.view_completed_analysis')
+    else
+      text = t('helpers.solicitation.analysis_in_progress', step: t("diagnoses.steps.#{diagnosis.step}.title"))
+    end
+
+    link_to text, diagnosis, class: 'ui item'
+  end
 end

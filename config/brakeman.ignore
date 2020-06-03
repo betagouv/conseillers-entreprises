@@ -1,13 +1,33 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "1f1b672745ecf49a2432f8d852d69e16a72c48c9612aad5b19cd5eee424845f0",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/solicitations_controller.rb",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Solicitation.find(params[:id]).prepare_diagnosis(current_user))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SolicitationsController",
+        "method": "prepare_diagnosis"
+      },
+      "user_input": "Solicitation.find(params[:id]).prepare_diagnosis(current_user)",
+      "confidence": "High",
+      "note": ""
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "8c0cf3dade4441e78ad5e8f205c8b119a75fd588ae9cab646729864072d6853c",
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/experts_controller.rb",
-      "line": 39,
+      "line": 43,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:expert).permit(:full_name, :phone_number, :role, :experts_subjects_attributes => ({}))",
       "render_path": null,
@@ -41,6 +61,6 @@
       "note": "The crafted SQL query is a list of \"(?)\" placeholders; it is essentially a workaround for a limitation of ActiveRecord."
     }
   ],
-  "updated": "2020-03-25 18:51:10 +0100",
-  "brakeman_version": "4.8.0"
+  "updated": "2020-05-29 17:11:11 +0200",
+  "brakeman_version": "4.8.2"
 }

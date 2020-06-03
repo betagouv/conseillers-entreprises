@@ -15,14 +15,93 @@ module DiagnosisCreation
         params = params.dup # avoid modifying the params hash at the call site
         # Facility attributes are nested in the hash; if there is no siret, we use the insee_code.
         # In particular, the facility.insee_code= setter will fetch the readable locality name from the geo api.
-        # TODO: Get rid of UseCases::SearchFacility and handle implicitely in `facility#siret=`,
-        # This would let us use the params hash as provided.
         facility_params = params.delete(:facility_attributes)
-        params[:facility] = UseCases::SearchFacility.with_siret_and_save(facility_params[:siret])
+        begin
+          # TODO: Get rid of UseCases::SearchFacility and build it implicitely in `facility#siret=`
+          #   This would be somewhat magic, but:
+          #   * would let us use the params hash as provided.
+          #   * remove a lot of machinery
+          #   * would just set an error instead of raising an exception.
+          #   Related to #622
+          params[:facility] = UseCases::SearchFacility.with_siret_and_save(facility_params[:siret])
+        rescue ApiEntreprise::ApiEntrepriseError => e
+          # Eat the exception and build a Diagnosis object just to hold the error
+          diagnosis = Diagnosis.new
+          diagnosis.errors.add(:facility, e.message)
+          return diagnosis
+        end
       end
 
       params[:step] = :needs
       Diagnosis.create(params)
+    end
+  end
+
+  module SolicitationMethods
+    # Some preconditions can be verified without actually trying to create the Diagnosis
+    def may_prepare_diagnosis?
+      self.preselected_subjects.present? &&
+        self.preselected_institutions.present? &&
+        Facility.siret_is_valid(Facility.clean_siret(self.siret)) # TODO: unify the SIRET validation methods
+    end
+
+    # Attempt to create a diagnosis up to the last step with the information from the solicitation.
+    # Use the landing_option preselected attributes to create the needs and matches.
+    #
+    # returns nil and sets self.prepare_diagnosis_errors on error.
+    # returns the diagnosis on success
+    def prepare_diagnosis(advisor)
+      return unless may_prepare_diagnosis?
+
+      prepare_diagnosis_errors = nil
+      diagnosis = nil
+      Diagnosis.transaction do
+        # Step 0: create with the facility
+        diagnosis = DiagnosisCreation.create_diagnosis(
+          advisor: advisor,
+          solicitation: self,
+          facility_attributes: { siret: Facility.clean_siret(self.siret) }
+        )
+
+        # Steps 1, 2, 3: fill in with the solicitation data and the landing_option preselections
+        methods = [
+          :prepare_needs_from_solicitation,
+          :prepare_happened_on_from_solicitation,
+          :prepare_visitee_from_solicitation,
+          :prepare_matches_from_solicitation
+        ]
+        methods.each { |method| diagnosis.public_send(method) if diagnosis.errors.empty? }
+
+        # Rollback on error!
+        if diagnosis.errors.present?
+          prepare_diagnosis_errors = diagnosis.errors
+          diagnosis = nil
+          raise ActiveRecord::Rollback
+        end
+      end
+
+      # Save or clear the error
+      self.update(prepare_diagnosis_errors: prepare_diagnosis_errors)
+
+      diagnosis
+    end
+
+    ## Store ActiveModel::Errors details as json…
+    #
+    def prepare_diagnosis_errors=(diagnosis_errors)
+      self.prepare_diagnosis_errors_details = diagnosis_errors&.details
+    end
+
+    ## … and build a temporary Diagnosis to recreate Errors.
+    # This lets us call use the errors in the UI just like regular ActiveModel errors.
+    def prepare_diagnosis_errors
+      diagnosis_errors = Diagnosis.new.errors
+
+      self.prepare_diagnosis_errors_details&.each do |attr, errors|
+        errors.each { |h| h.each { |_, error| diagnosis_errors.add(attr, error.to_sym) } }
+      end
+
+      diagnosis_errors
     end
   end
 
@@ -67,11 +146,7 @@ module DiagnosisCreation
     def prepare_matches_from_solicitation
       return unless solicitation.present? && matches.blank?
 
-      institutions = solicitation.preselected_institutions
-      if institutions.empty?
-        self.errors.add(:matches, :solicitation_has_no_preselected_institution)
-        return self
-      end
+      institutions = solicitation.preselected_institutions || Institution.all
 
       self.needs.each do |need|
         expert_subjects = ExpertSubject

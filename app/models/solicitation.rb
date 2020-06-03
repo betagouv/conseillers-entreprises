@@ -2,26 +2,30 @@
 #
 # Table name: solicitations
 #
-#  id                    :bigint(8)        not null, primary key
-#  description           :string
-#  email                 :string
-#  form_info             :jsonb
-#  full_name             :string
-#  landing_options_slugs :string           is an Array
-#  landing_slug          :string           not null
-#  options_deprecated    :jsonb
-#  phone_number          :string
-#  siret                 :string
-#  status                :integer          default("in_progress")
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
+#  id                               :bigint(8)        not null, primary key
+#  description                      :string
+#  email                            :string
+#  form_info                        :jsonb
+#  full_name                        :string
+#  landing_options_slugs            :string           is an Array
+#  landing_slug                     :string           not null
+#  options_deprecated               :jsonb
+#  phone_number                     :string
+#  prepare_diagnosis_errors_details :jsonb
+#  siret                            :string
+#  status                           :integer          default("in_progress")
+#  created_at                       :datetime         not null
+#  updated_at                       :datetime         not null
 #
 # Indexes
 #
+#  index_solicitations_on_email         (email)
 #  index_solicitations_on_landing_slug  (landing_slug)
 #
 
 class Solicitation < ApplicationRecord
+  include DiagnosisCreation::SolicitationMethods
+
   enum status: { in_progress: 0, processed: 1, canceled: 2 }, _prefix: true
 
   ## Associations
@@ -95,7 +99,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[partner_token pk_campaign pk_kwd gclid bg_color color branding]
+  FORM_INFO_KEYS = %i[partner_token institution_slug pk_campaign pk_kwd gclid]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
@@ -143,7 +147,11 @@ class Solicitation < ApplicationRecord
   ##
   #
   def institution
-    Institution.find_by(partner_token: partner_token) if partner_token.present?
+    if institution_slug.present?
+      Institution.find_by(slug: institution_slug)
+    elsif partner_token.present?
+      Institution.find_by(partner_token: partner_token)
+    end
   end
 
   def normalized_phone_number

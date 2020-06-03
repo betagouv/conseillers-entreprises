@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_114540) do
+ActiveRecord::Schema.define(version: 2020_05_28_151220) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,6 +312,8 @@ ActiveRecord::Schema.define(version: 2020_05_27_114540) do
     t.string "full_name"
     t.string "landing_slug", null: false
     t.string "landing_options_slugs", array: true
+    t.index ["email"], name: "index_solicitations_on_email"
+    t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
   end
 
