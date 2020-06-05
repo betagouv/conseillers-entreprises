@@ -26,7 +26,6 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
   describe 'POST #update_visit' do
     let(:diagnosis) { create :diagnosis, advisor: advisor, visitee: nil }
     let(:locality) { diagnosis.facility.readable_locality }
-    let(:advisor) { current_user }
 
     describe 'with the original address' do
       let(:params) do
@@ -114,28 +113,59 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
       }
     end
 
-    context 'one match selected' do
-      let(:selected) { true }
+    describe 'matches must be selected' do
+      context 'one match selected' do
+        let(:selected) { true }
 
-      it('redirects to the besoins page') {
-        post :update_matches, params: params
+        it('redirects to the besoins page') {
+          post :update_matches, params: params
 
-        diagnosis.reload
-        expect(diagnosis.matches.count).to eq 1
-        expect(response).to redirect_to need_path(diagnosis)
-      }
+          diagnosis.reload
+          expect(diagnosis.matches.count).to eq 1
+          expect(response).to redirect_to need_path(diagnosis)
+        }
+      end
+
+      context 'no match selected' do
+        let(:selected) { false }
+
+        it('redirects back to the matches page') {
+          post :update_matches, params: params
+
+          diagnosis.reload
+          expect(diagnosis.matches.count).to eq 0
+          expect(response).to redirect_to matches_diagnosis_path(diagnosis)
+        }
+      end
     end
 
-    context 'no match selected' do
-      let(:selected) { false }
+    describe 'the current admin should become the advisor if needed' do
+      let(:solicitation) { create :solicitation }
+      let(:diagnosis) { create :diagnosis, advisor: advisor, solicitation: solicitation }
+      let(:current_user) { create :user, is_admin: true }
+      let(:selected) { true }
 
-      it('redirects to the besoins page') {
-        post :update_matches, params: params
+      context 'advisor is previously nil' do
+        let(:advisor) { nil }
 
-        diagnosis.reload
-        expect(diagnosis.matches.count).to eq 0
-        expect(response).to redirect_to matches_diagnosis_path(diagnosis)
-      }
+        it 'assigns the diagnosis to the current user' do
+          post :update_matches, params: params
+
+          diagnosis.reload
+          expect(diagnosis.advisor).to eq current_user
+        end
+      end
+
+      context 'advisor is previously another user' do
+        let(:advisor) { create :user }
+
+        it 'keeps the existing advisor' do
+          post :update_matches, params: params
+
+          diagnosis.reload
+          expect(diagnosis.advisor).to eq advisor
+        end
+      end
     end
   end
 end
