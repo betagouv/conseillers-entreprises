@@ -8,13 +8,20 @@
           .ui.icon{ data: { tooltip: error_text, variation: 'fixed' } }
             %i.warning.sign.icon
             = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
-        = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'ui item', method: :post do
+        .ui.item.dropdown
           = t('.prepare_diagnosis_retry')
-          %i.right.chevron.icon
+          %i.dropdown.icon
+          .ui.menu
+            = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'item', method: :post do
+              = t('.start_auto_diagnosis')
+              %i.right.chevron.icon
+            = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item' do
+              = t('.start_manual_diagnosis')
+              %i.right.chevron.icon
       - else
         = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'ui item', method: :post do
           %i.rocket.icon
-          = t('.prepare_diagnosis')
+          = t('.start_auto_diagnosis')
           %i.right.chevron.icon
     - else
       = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do

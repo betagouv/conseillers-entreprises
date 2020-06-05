@@ -49,6 +49,8 @@ class Diagnoses::StepsController < ApplicationController
 
     diagnosis_params = params_for_matches
     diagnosis_params[:step] = :completed
+    # Automated diagnoses have no advisor: assign the current_user now.
+    diagnosis_params[:advisor] = current_user if @diagnosis.advisor.nil?
 
     if @diagnosis.update(diagnosis_params)
       @diagnosis.notify_matches_made!
