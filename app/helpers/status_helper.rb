@@ -50,7 +50,7 @@ module StatusHelper
     status = status.to_sym
     title = StatusHelper::status_description(status, :short)
     classes = %w[ui basic label] + STATUS_COLORS[status]
-    content_tag(:div, class: classes.join(' ')) do
+    tag.div(class: classes.join(' ')) do
       status_icon(status) + title
     end
   end

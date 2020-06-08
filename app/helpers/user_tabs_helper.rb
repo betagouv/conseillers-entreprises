@@ -10,7 +10,7 @@ module UserTabsHelper
       active_link_to section_title, polymorphic_path([path_component, expert]), { class: 'item' }
     elsif experts.size > 1
       html = ''.html_safe
-      html << content_tag(:div, section_title, class: %w[ui sub header])
+      html << tag.div(section_title, class: %w[ui sub header])
       experts.each do |expert|
         html << active_link_to(expert.full_name, polymorphic_path([path_component, expert]), { class: 'item' })
       end
