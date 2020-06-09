@@ -9,7 +9,6 @@
 #  full_name                        :string
 #  landing_options_slugs            :string           is an Array
 #  landing_slug                     :string           not null
-#  options_deprecated               :jsonb
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
 #  siret                            :string
