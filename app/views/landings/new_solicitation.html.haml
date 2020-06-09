@@ -14,7 +14,7 @@
   %section.section.section-white#section-retour
     .container.container-medium
       %h3
-        = link_to t('.back_to_landing'), landing_path(@landing.slug)
+        = link_to t('.back_to_landing'), @landing
   %section.section.section-grey#section-formulaire
     .container.container-medium
       - landing_option = @solicitation.landing_options.first

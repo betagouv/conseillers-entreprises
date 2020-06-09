@@ -81,6 +81,10 @@ Rails.application.routes.draw do
     end
   end
 
+  controller :sitemap do
+    get :sitemap
+  end
+
   # Application
   resources :diagnoses, only: %i[index new show create], path: 'analyses' do
     collection do

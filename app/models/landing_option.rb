@@ -42,4 +42,8 @@ class LandingOption < ApplicationRecord
   #
   CONTENT_KEYS = %i[form_title form_description]
   store_accessor :content, CONTENT_KEYS
+
+  def to_param
+    slug
+  end
 end
