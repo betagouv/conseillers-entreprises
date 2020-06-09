@@ -222,19 +222,22 @@ fr:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
     index:
       answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
+      how-it-works: Comment ça marche
       meta:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
         title: Place des Entreprises, le guichet public des TPE et PME
-      question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
+      question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
       submit_request: Déposez votre demande
     index_institutions:
-      title: 'Un service du Ministère de l’Economie et du Ministère du Travail, avec plus de 50 partenaires publics :'
+      more_partners_html: Et <a href='/comment_ca_marche#liste-partenaires'>plus de 50 partenaires</a> à votre service.
+      title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
+      more_partners_html: "Et <a href='/qui_sommes_nous'>plus de 50 partenaires</a> prêts à vous accompagner et vous conseiller."
     index_landing_card:
       discover: Découvrir
     index_landing_cards:
-      contact_us: Contactez-nous directement
-      other_questions: Votre question n’est pas dans cette liste ?
-      title: 'Sélectionnez votre demande :'
+      contact_us: contactez-nous !
+      discover_measures: Découvrir les mesures
+      other_questions: Pour toute autre demande,
     new_solicitation:
       back_to_landing: Revenir à la liste de mesures
       default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
@@ -263,10 +266,8 @@ fr:
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
     newsletter:
-      newsletter_informations: Nous vous tenons informés des mesures d’accompagnement mises en place par l’État, la Région et les partenaires publics.
       newsletter_informations: Ce service évolue chaque jour avec vos retours. Recevez ses nouveautés et participez à son amélioration en recevant nos newsletters mensuelles.
       placeholder_email: Votre adresse email
-      received_news: Recevez par email les nouvelles mesures proposées
       received_news_html: Recevez nos nouveautés chaque mois <span class='text-blue'>par email</span>
       subscribe: S’abonner
     show_landing:

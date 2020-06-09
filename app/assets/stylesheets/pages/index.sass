@@ -1,0 +1,101 @@
+#image-home
+  max-width: 40%
+  display: flex
+  align-items: center
+  img
+    width: 100%
+
+.home-title
+  h1
+    font-size: 1.5rem
+  p
+    font-size: 1.3rem
+  .links
+    font-weight: bold
+    font-size: 1.3rem
+    display: flex
+    align-items: center
+    justify-content: space-around
+    margin-top: 2rem
+    .button
+      padding: 0.7em 2.1em
+
+section.section.section-light-grey
+  background-color: #FAFBFC
+  background-color: var(--lightest-grey)
+  padding: 2.5rem 0
+
+section.section#section-thematiques
+  .row + .row
+    margin-top: 1.5em
+    margin-top: var(--space-m)
+  .card
+    border: none
+    display: flex
+    flex-direction: column
+    .card__content
+      padding: 1em
+    .discover_button
+      margin-top: auto
+      padding: 0 1em 1em
+    a
+      text-decoration: none
+      display: flex
+      flex-direction: column
+      height: 100%
+      color: #000
+      color: var(--black)
+      &:hover
+        background: transparent
+        color: #000
+        color: var(--black)
+    h2
+      font-size: 1.3rem
+      margin: 0
+  .contact-us
+    font-size: 1.2rem
+    margin: 2rem 0 0 0
+
+.emphasis
+  margin-top: -5.9rem
+  margin-bottom: 3rem
+  background-color: #E8F7C8
+  background-color: var(--light-green)
+  padding: 1rem
+  display: flex
+  align-items: center
+  h2
+    font-size: 1rem
+    margin: 0
+  #button-discover
+    display: flex
+    flex: 1 1 auto
+    justify-content: flex-end
+    a
+      background-color: #fff
+      background-color: var(--white)
+
+@media(max-width: 750px)
+  .home-title
+    .links
+      display: flex
+      flex-direction: column
+      text-align: center
+      a
+        &:first-child
+          margin-bottom: 1rem
+  #image-home
+    max-width: 100%
+    justify-content: center
+    img
+      max-height: 10rem
+  .emphasis
+    flex-direction: column
+    align-items: baseline
+    margin-top: -6.7rem
+    #button-discover
+      margin-top: 1rem
+
+.section-partners
+  .title
+    font-size: 1.3rem

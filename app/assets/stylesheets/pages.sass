@@ -10,6 +10,13 @@
   --lighter-grey: #F2F5F8
   --light-green: #E8F7C8
 
+html
+  scroll-behavior: smooth
+
+@media (prefers-reduced-motion: reduce)
+  html
+    scroll-behavior: auto
+
 // template overrides
 header
   &.section
@@ -106,53 +113,6 @@ span.navbar__domain
 
 //  landings index and show
 
-section.section#section-thematiques
-  background: linear-gradient(45deg, #0053b3, #006be6)
-  background: linear-gradient(45deg,var(--theme-primary), var(--theme-primary-light))
-  a:hover
-    background: transparent
-  .row + .row
-    margin-top: 1.5em
-    margin-top: var(--space-m)
-  .card
-    &.emphasis
-      border: 1px solid #ab2b1e
-      border: 1px solid var(--dark-red)
-      .landing-title, .landing-description, .discover_button
-        color: #ab2b1e
-      button.primary
-        border-color: #ab2b1e
-        color: #ab2b1e
-
-    display: flex
-    flex-direction: column
-    .card__content
-      padding: 1em
-    .discover_button
-      margin-top: auto
-      padding: 0 1em 1em
-    a
-      .landing-auto-description-container // unused for now
-        .landing-title
-          margin-bottom: 2em
-        .landing-description
-          margin: 0
-          display: none
-        &:hover
-          .landing-title
-            display: none
-          .landing-description
-            display: block
-      text-decoration: none
-      color: #0053b3
-      color: var(--theme-primary)
-
-      &:hover
-        color: #00234d
-        color: var(--theme-primary-dark)
-        .landing-description
-          text-decoration: underline
-
 section.section#section-description
   h2
     font-size: 1.75rem
@@ -183,6 +143,9 @@ section.section#section-details
     max-width: 140px
     margin: 8px
     vertical-align: middle
+#more-partner
+  font-weight: bold
+  font-size: 1.1rem
 
 section.section#section-retour
   padding: 1em 0
@@ -268,6 +231,8 @@ form
     width: 100%
 
 #container-newsletter
+  h2
+    font-size: 1.4rem
   form
     margin: 2rem auto
   .notification
@@ -281,6 +246,13 @@ form
     display: flex
     justify-content: space-between
     align-items: center
-    @media (max-width: 850px)
-      p
-        padding: 0.5rem
+
+.bold
+  font-weight: bold
+
+.section-lightest-grey
+  background-color: #FAFBFC
+  background-color: var(--lightest-grey)
+
+a:hover
+  background-color: transparent
