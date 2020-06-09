@@ -202,7 +202,7 @@ class Need < ApplicationRecord
   private
 
   def update_last_activity_at
-    last_activity = matches.pluck(:updated_at).max || updated_at
+    last_activity = matches.pluck(:updated_at).compact.max || updated_at
     update_columns last_activity_at: last_activity
   end
 end
