@@ -264,8 +264,10 @@ fr:
       title: Merci !
     newsletter:
       newsletter_informations: Nous vous tenons informés des mesures d’accompagnement mises en place par l’État, la Région et les partenaires publics.
+      newsletter_informations: Ce service évolue chaque jour avec vos retours. Recevez ses nouveautés et participez à son amélioration en recevant nos newsletters mensuelles.
       placeholder_email: Votre adresse email
       received_news: Recevez par email les nouvelles mesures proposées
+      received_news_html: Recevez nos nouveautés chaque mois <span class='text-blue'>par email</span>
       subscribe: S’abonner
     show_landing:
       submit_request: Déposer votre demande
@@ -465,6 +467,14 @@ fr:
     footer:
       dinum: DINUM
       startup_d_etat: Une startup d’État de beta.gouv
+    newsletter:
+      newsletter_informations: Nous vous proposons un focus sur un accompagnement public chaque mois. Découvrez concrètement comment les partenaires de Place des Entreprises peuvent vous aider.
+      placeholder_email: Votre adresse email
+      received_news_html: Recevez les nouveaux accompagnements publics chaque mois <span class='text-blue'>par email</span>.
+      subscribe: S’abonner
+  how_it_works:
+    learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
+    submit_request: Déposer votre demande
   person:
     deleted_person: Compte supprimé
   reminders:
