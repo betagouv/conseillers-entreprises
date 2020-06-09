@@ -4,9 +4,39 @@
 @import pages/*
 
 // template overrides
-.nav__item a#experts_login
-  color: var(--theme-dark-text)
-  border: 1px solid var(--theme-dark-text)
+header
+  &.section
+    padding: 0
+  .navbar__container
+    padding: 0
+  .navbar__home
+    height: 150px
+  .nav__item a.active
+    background: none
+    color: black
+    font-weight: bold
+  @media (max-width: 1160px)
+    .navbar__home
+      height: 110px
+    nav
+      padding: 1rem 0
+  @media (max-width: 565px)
+    .navbar__container
+      align-items: center
+    .navbar__home
+      display: flex
+      flex-direction: column
+    nav
+      text-align: center
+      margin-top: 1rem
+    .nav__links
+      padding: 1rem
+    .navbar__domain
+      span
+        font-size: 14px
+        padding-bottom: 2px
+      img
+        height: 32px
 
 .navbar__domain
   display: flex
@@ -46,23 +76,6 @@ footer
     margin-bottom: 1rem
     h2
       font-size: 1.2rem
-  .nav__item
-    margin-bottom: 1rem
-  .nav__links
-    text-align: center
-  .navbar__logo
-    margin: 0
-    height: 3rem
-  .navbar__home
-    height: auto
-    display: flex
-    flex-direction: column
-    width: 100%
-  .navbar__domain
-    span
-      font-size: 14px
-    img
-      height: 32px
 
 .hero__container
   min-height: 0px
