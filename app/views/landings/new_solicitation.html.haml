@@ -14,12 +14,12 @@
   %section.section.section-white#section-retour
     .container.container-medium
       %h3
-        = link_to t('.back_to_landing'), landing_path(@landing.slug)
+        = link_to t('.back_to_landing'), @landing
   %section.section.section-grey#section-formulaire
     .container.container-medium
       - landing_option = @solicitation.landing_options.first
-      = content_tag(:h2, landing_option&.form_title&.html_safe || t('.default_title'), class: 'section__title')
+      = tag.h2(landing_option&.form_title&.html_safe || t('.default_title'), class: 'section__title')
       - if landing_option&.form_description.present?
-        = content_tag(:p, landing_option.form_description.html_safe)
+        = tag.p(landing_option.form_description.html_safe)
       = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
-      = content_tag(:p, (@landing.form_promise_message.presence || t('.default_promise_message')).html_safe)
+      = tag.p((@landing.form_promise_message.presence || t('.default_promise_message')).html_safe)

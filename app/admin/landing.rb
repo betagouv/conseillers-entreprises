@@ -3,6 +3,10 @@ ActiveAdmin.register Landing do
 
   includes :landing_topics, :landing_options
 
+  controller do
+    defaults :finder => :find_by_slug
+  end
+
   ## Index
   #
   index do
@@ -11,7 +15,7 @@ ActiveAdmin.register Landing do
       div admin_link_to l
     end
     column I18n.t("activerecord.models.landing.one") do |l|
-      div link_to l.title, landing_path(l.slug) if l.slug.present?
+      div link_to l.title, l if l.slug.present?
       div l.subtitle
       div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
     end
@@ -33,7 +37,7 @@ ActiveAdmin.register Landing do
   show title: :slug do
     attributes_table do
       row :slug do |l|
-        div link_to l.slug, landing_path(l.slug) if l.slug.present?
+        div link_to l.slug, l if l.slug.present?
       end
       row :created_at
       row :updated_at
@@ -78,7 +82,7 @@ ActiveAdmin.register Landing do
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_options') do
       table_for landing.landing_options.ordered_for_landing do
         column I18n.t("landings.new_solicitation_form.form") do |option|
-          link_to option.slug, new_solicitation_landing_path(landing.slug, option.slug)
+          link_to option.slug, new_solicitation_landing_path(landing, option)
         end
         column :slug
         column :preselected_subject_slug

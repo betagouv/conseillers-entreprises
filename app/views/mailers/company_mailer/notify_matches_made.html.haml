@@ -16,7 +16,7 @@
       %strong= subject.label
 
 - antennes_names = @diagnosis.expert_antennes.map(&:name)
-- antennes_names.map! { |name| content_tag('strong', name) }
+- antennes_names.map! { |name| tag.strong(name) }
 = t('.transmitted_to_antennes_html', antennes: antennes_names.to_sentence.html_safe)
 
 %p= t('mailers.nice_day')

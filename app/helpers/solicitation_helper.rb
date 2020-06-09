@@ -51,9 +51,9 @@ module SolicitationHelper
 
         title = title_components.map{ |k,v| "#{k} : #{v}" }.join("\n")
 
-        content_tag(:div, slug, class: classes, title: title)
+        tag.div(slug, class: classes, title: title)
       else
-        content_tag(:div, slug, class: classes)
+        tag.div(slug, class: classes)
       end
     end
 

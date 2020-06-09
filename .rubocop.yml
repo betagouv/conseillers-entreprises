@@ -9,6 +9,7 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'tmp/**/*'
+  NewCops: enable
 
 Bundler/DuplicatedGem:
   Enabled: true

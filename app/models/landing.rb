@@ -44,4 +44,8 @@ class Landing < ApplicationRecord
   def to_s
     slug
   end
+
+  def to_param
+    slug
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_03_115449) do
+ActiveRecord::Schema.define(version: 2020_06_09_083917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,7 +304,6 @@ ActiveRecord::Schema.define(version: 2020_06_03_115449) do
     t.string "description"
     t.string "email"
     t.string "phone_number"
-    t.jsonb "options_deprecated", default: {}
     t.jsonb "form_info", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
