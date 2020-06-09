@@ -22,7 +22,7 @@ module UserImpersonate
     config.redirect_on_impersonate = '/mon_compte'
 
     # Redirect to this path when leaving impersonate mode
-    config.redirect_on_revert = '/admin/users'
+    config.redirect_on_revert = -> (env) { "/admin/users/#{current_user.id}" }
 
     # Devise filter method used to protect impersonation controller
     # For Active Admin "AdminUser" model, change to 'authenticate_admin_user!'
