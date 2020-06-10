@@ -79,6 +79,8 @@ class Match < ApplicationRecord
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
 
+  scope :sent, -> { where(id: joins(:diagnosis).merge(Diagnosis.step_completed)) }
+
   scope :active, -> do
     joins(:need)
       .merge(Need.active)
