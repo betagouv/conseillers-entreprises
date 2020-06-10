@@ -122,5 +122,19 @@ RSpec.describe Match, type: :model do
 
       it { is_expected.to match_array [match1, match2] }
     end
+
+    describe 'sent' do
+      let(:match1) { create :match }
+      let(:match2) { create :match }
+
+      subject { described_class.sent }
+
+      before do
+        match1.diagnosis.update(step: :completed)
+        match2.diagnosis.update(step: :needs)
+      end
+
+      it { is_expected.to match_array [match1] }
+    end
   end
 end

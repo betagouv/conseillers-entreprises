@@ -3,14 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe InvolvementConcern do
+  let(:diagnosis) { create :diagnosis_completed }
   let!(:need_taking_care) do
-    create(:need, matches: [create(:match, expert: current_expert, status: :taking_care)])
+    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :taking_care)])
   end
   let!(:need_quo) do
     create(:need, matches: [create(:match, expert: current_expert, status: :quo)])
   end
   let!(:need_rejected) do
-    create(:need, matches: [create(:match, expert: current_expert, status: :not_for_me)])
+    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :not_for_me)])
   end
   let!(:need_done) do
     create(:need, matches: [create(:match, expert: current_expert, status: :done)])
