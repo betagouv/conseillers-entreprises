@@ -81,6 +81,13 @@ Rails.application.routes.draw do
     end
   end
 
+  controller :user_pages do
+    get :tutoriels
+  end
+
+  resources :external_solicitations, only: %i[new create]
+
+
   controller :sitemap do
     get :sitemap
   end
@@ -146,13 +153,8 @@ Rails.application.routes.draw do
 
   resources :badges, only: %i[index create destroy]
 
-  controller :user_pages do
-    get :tutoriels
-  end
-
   get 'profile' => 'users#show'
 
-  resources :external_solicitations, only: %i[new create]
 
   ## Redirection for compatibility
   get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
