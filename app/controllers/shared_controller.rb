@@ -4,6 +4,7 @@ class SharedController < ActionController::Base
   NOT_FOUND_ERROR_CLASSES = [
     ActionController::RoutingError,
     ActionController::UrlGenerationError,
+    ActionController::UnknownFormat,
     ActiveRecord::RecordNotFound,
     ActionView::MissingTemplate,
     Pundit::NotAuthorizedError
