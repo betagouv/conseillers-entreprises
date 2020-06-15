@@ -10,5 +10,11 @@ FactoryBot.define do
         need.matches = create_list(:match, 1, need: need)
       end
     end
+
+    after(:create) do |need, _|
+      if need.matches.present?
+        need.diagnosis.update_columns(step: :completed)
+      end
+    end
   end
 end
