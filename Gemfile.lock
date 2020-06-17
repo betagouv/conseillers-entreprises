@@ -85,6 +85,7 @@ GEM
       zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    anbt-sql-formatter (0.0.7)
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
@@ -310,6 +311,9 @@ GEM
     pg (1.2.3)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
+    pp_sql (1.1.0)
+      activerecord
+      anbt-sql-formatter (~> 0.0.6)
     premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
@@ -553,6 +557,7 @@ DEPENDENCIES
   metamagic
   parallel_tests
   pg
+  pp_sql
   premailer-rails
   puma
   pundit

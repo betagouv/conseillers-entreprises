@@ -11,7 +11,7 @@
       %li
         = f.submit t('active_admin.user.import.button'), data: { :disable_with => t("active_admin.user.import.button_disabled") }
 
-- users = current_user.antenne.advisors.order(created_at: :desc)
+- users = current_user.antenne.advisors.not_deleted.order(created_at: :desc)
 
 %form
   %fieldset.inputs

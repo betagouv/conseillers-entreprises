@@ -252,7 +252,7 @@ RSpec.describe Need, type: :model do
     let(:need) { Timecop.freeze(date1) { create :need } }
     let(:match) { Timecop.freeze(date2) { create :match, need: need } }
 
-    before { match }
+    before { need.reload; match }
 
     subject { need.reload.last_activity_at }
 
@@ -265,7 +265,7 @@ RSpec.describe Need, type: :model do
     context 'when a feedback is added to a match' do
       let(:feedback) { Timecop.freeze(date3) { create :feedback, feedbackable: need } }
 
-      before { feedback }
+      before { need.reload; feedback }
 
       it { is_expected.to eq date2 }
     end

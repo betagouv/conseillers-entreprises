@@ -5,5 +5,9 @@ FactoryBot.define do
     association :need
     association :expert
     association :subject
+
+    after(:create) do |match, _|
+      match.diagnosis.update_columns(step: :completed)
+    end
   end
 end

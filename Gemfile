@@ -99,6 +99,7 @@ group :development do
   gem 'annotate'
   gem 'letter_opener_web'
   gem 'rails_real_favicon'
+  gem 'pp_sql'
 
   gem 'spring'
   gem 'spring-watcher-listen'
