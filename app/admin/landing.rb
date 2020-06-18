@@ -123,7 +123,7 @@ ActiveAdmin.register Landing do
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
       f.input :home_title
       f.input :home_description, input_html: { rows: 2 }
-      f.input :home_sort_order, input_html: { style: 'width:80px' }
+      f.input :home_sort_order, input_html: { style: 'width:300px', placeholder: I18n.t('active_admin.landings.home_sort_order_placeholder') }
       f.input :emphasis, as: :boolean
     end
 
