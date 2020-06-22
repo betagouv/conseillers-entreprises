@@ -58,6 +58,7 @@ gem 'honeypot-captcha'
 gem 'kaminari'
 gem 'bootsnap', require: false
 gem 'rails_autolink'
+gem 'geocoder'
 
 # Notifiers
 gem 'sentry-raven'

@@ -251,3 +251,15 @@ form
     margin: 2rem auto
   .notification
     text-align: center
+
+.notification
+  padding: 0
+  &.error
+    color: var(--red)
+  .container
+    display: flex
+    justify-content: space-between
+    align-items: center
+    @media (max-width: 850px)
+      p
+        padding: 0.5rem

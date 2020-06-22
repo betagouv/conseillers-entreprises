@@ -17,6 +17,13 @@ class AdminMailer < ApplicationMailer
     mail(to: default_recipients, subject: t('mailers.admin_mailer.solicitation.subject'))
   end
 
+  def send_csv(model, file, user)
+    @model_name = model.constantize.model_name.human.pluralize
+    file_name = file.path.split('/').last
+    attachments[file_name] = File.read(file.path)
+    mail(to: user.email, subject: t('mailers.admin_mailer.csv_export', model: @model_name), attachments: attachments)
+  end
+
   private
 
   def default_recipients
