@@ -467,6 +467,9 @@ fr:
       solicitation_link: Lien vers la sollicitation
       visit_made_on: Mise en relation faite le %{date}
   pages:
+    alert_region:
+      alert_region_html: "<b>Place des Entreprises</b> est un service ouvert en Hauts de France et Ile-de-France uniquement"
+      learn_more: En savoir plus
     footer:
       dinum: DINUM
       startup_d_etat: Une startup d’État de beta.gouv
