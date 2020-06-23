@@ -56,6 +56,7 @@ ActiveAdmin.register Institution do
         div admin_link_to(i, :received_matches)
       end
       row :show_icon
+      row :show_on_list
       row(:subjects) do |i|
         safe_join(i.institutions_subjects.map do |is|
           link_to "#{is.subject} (#{is.description})", admin_subject_path(is.subject)
@@ -66,7 +67,7 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :show_icon, :slug,
+  permit_params :name, :show_icon, :slug, :show_on_list,
                 antenne_ids: [],
                 institutions_subjects_attributes: %i[id description subject_id _create _update _destroy]
 
@@ -75,6 +76,7 @@ ActiveAdmin.register Institution do
       f.input :name
       f.input :slug
       f.input :show_icon
+      f.input :show_on_list
     end
     f.inputs do
       f.input :antennes,

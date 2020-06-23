@@ -211,6 +211,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_114456) do
     t.integer "antennes_count"
     t.boolean "show_icon", default: true
     t.string "slug", null: false
+    t.boolean "show_on_list", default: false
     t.index ["name"], name: "index_institutions_on_name", unique: true
     t.index ["slug"], name: "index_institutions_on_slug", unique: true
   end
