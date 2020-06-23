@@ -45,6 +45,8 @@ header
       margin-top: 1rem
     .nav__links
       padding: 1rem
+    .nav__item
+      margin: 0.5rem 0
     .navbar__domain
       span
         font-size: 14px
@@ -107,6 +109,8 @@ footer
 
 section.section
   padding: 4em 0
+  @media (max-width: 549px)
+    padding: 2.5em 0
 
 span.navbar__domain
   white-space: nowrap // for IE11
@@ -136,7 +140,7 @@ section.section#section-details
 
 .logo-list
   width: 95%
-  margin: 0 auto
+  margin: 2rem auto
   text-align: center
   img
     max-height: 70px
@@ -183,14 +187,6 @@ form
 
 .section#section-stats
   padding: 2em
-
-.stats__item
-  font-size: 1.2em
-
-  .count
-    margin-right: 0.2em
-    font-size: 1.6em
-    vertical-align: text-top
 
 .grid#stats-charts
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
@@ -256,3 +252,10 @@ form
 
 a:hover
   background-color: transparent
+
+.blue
+  color: var(--blue)
+
+.asterisk
+  font-size: 0.8rem
+  font-style: italic

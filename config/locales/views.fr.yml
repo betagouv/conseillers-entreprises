@@ -4,9 +4,8 @@ fr:
     cgu:
       title: Conditions d’utilisation du service numérique Place des Entreprises
     comment_ca_marche:
-      title: Comment ça marche ?
-    contact_us:
       contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
+      title: Comment ça marche ?
     mentions_legales:
       title: Mentions légales
     politique_de_confidentialite:
@@ -462,14 +461,14 @@ fr:
     footer:
       dinum: DINUM
       startup_d_etat: Une startup d’État de beta.gouv
+    how_it_works:
+      learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
+      submit_request: Déposez votre demande
     newsletter:
       newsletter_informations: Nous vous proposons un focus sur un accompagnement public chaque mois. Découvrez concrètement comment les partenaires de Place des Entreprises peuvent vous aider.
       placeholder_email: Votre adresse email
       received_news_html: Recevez les nouveaux accompagnements publics chaque mois <span class='text-blue'>par email</span>.
       subscribe: S’abonner
-  how_it_works:
-    learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
-    submit_request: Déposer votre demande
   person:
     deleted_person: Compte supprimé
   reminders:

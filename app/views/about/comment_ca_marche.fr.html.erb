@@ -1,0 +1,66 @@
+<% meta title: t('.title') %>
+<section class="section section-white landing">
+  <div class="container container">
+    <h1>Place des Entreprises, comment ça marche ?</h1>
+    <p class="subtitle">Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.</p>
+  </div>
+</section>
+<section class="section section-grey landing small-padding">
+  <div class="container file-ariane">
+    <%= link_to 'Déposer une demande', root_path %>
+    <span> > </span>
+    <span>Comment ça marche ?</span>
+  </div>
+</section>
+
+<section class="section section-white landing">
+  <%= render 'pages/how_it_works' %>
+</section>
+
+<section class="section section-grey" id="liste-partenaires">
+  <div class="container">
+    <h2>Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 50 partenaires publics et parapublics : </h2>
+    <div class="logo-list">
+      <%= all_institutions_images %>
+    </div>
+    <div class="row partners-list">
+      <% @institutions.each do |institutions_column| %>
+        <ul>
+          <% institutions_column.each do |institution| %>
+            <li><%= institution %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<section class="section section-color">
+  <div class="container">
+    <%= render 'stats/ministats' %>
+  </div>
+</section>
+
+<section class="section section-grey" id="section-testimonials">
+  <div class="container">
+    <%= render 'index_testimonials'  %>
+  </div>
+</section>
+
+<section class="section section-white">
+  <div class="container" id="container-newsletter">
+    <%= render 'pages/newsletter' %>
+  </div>
+</section>
+
+<section class="section section-grey">
+  <div class="container container" id="container-contact-us">
+    <h2 class="section__title">
+      <%= t('contact_us').titleize %>
+    </h2>
+    <p>
+      <%= t('.contact_us_html', mailto_link: mailto_contact_us(ENV['APPLICATION_EMAIL'])) %>
+    </p>
+  </div>
+</section>
+
