@@ -2,7 +2,7 @@
 
 require 'csv_export/models/match'
 
-Match.include CsvExport::Match
+Match.include CsvExport::Models::Match
 
 class CsvExportService
   def self.build(model)
