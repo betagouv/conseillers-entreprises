@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   end
 
   # Pages
-  scope path: "(:iframe_prefix)", iframe_prefix: /w?/, defaults: { iframe_prefix: nil } do
+  scope path: "(:iframe_prefix)", iframe_prefix: /e?/, defaults: { iframe_prefix: nil } do
     root controller: :landings, action: :index
     resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do
       member do
