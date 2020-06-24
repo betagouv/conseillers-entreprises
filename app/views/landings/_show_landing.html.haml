@@ -1,10 +1,13 @@
-= render 'hero'
+%style= landing.custom_css
+
+= render 'hero' unless in_iframe?
 
 = render 'shared/flashes_pages'
 
-%section.section.section-white#section-details
-  .container.text-center
-    = render 'show_landing_details', landing: landing
+- unless in_iframe?
+  %section.section.section-white#section-details
+    .container.text-center
+      = render 'show_landing_details', landing: landing
 
 %section.section.section-grey#section-exemples
   .container
@@ -15,10 +18,11 @@
     %h2
       = link_to t('.submit_request'), new_solicitation_landing_path, class: 'button blue'
 
-%section.section.section-white
-  .container#container-newsletter
-    = render 'newsletter'
+- unless in_iframe?
+  %section.section.section-white
+    .container#container-newsletter
+      = render 'newsletter'
 
-%section.section.section-white#section-institutions
-  .container
-    = render 'show_landing_institutions', landing: landing
+  %section.section.section-white#section-institutions
+    .container
+      = render 'show_landing_institutions', landing: landing

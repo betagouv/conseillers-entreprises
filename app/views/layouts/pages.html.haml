@@ -14,9 +14,9 @@
     = matomo_script
 
   %body
-    = render 'navbar'
-    = render 'environment_ribbon'
-    = render 'user_impersonate'
+    = render 'navbar' unless in_iframe?
+    = render 'environment_ribbon' unless in_iframe?
+    = render 'user_impersonate' unless in_iframe?
     = yield
-    = render 'footer'
+    = render 'footer' unless in_iframe?
 
