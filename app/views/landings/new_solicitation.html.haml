@@ -3,6 +3,8 @@
   meta_description = @landing.meta_description.presence || @landing.subtitle
   meta title: meta_title, description: meta_description
 
+%style= @landing.custom_css
+
 = render 'hero' unless in_iframe?
 
 - if @solicitation.persisted?
