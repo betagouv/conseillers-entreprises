@@ -6,8 +6,9 @@
 - cache_unless(flash.present?, @landing) do
   = render 'show_landing', landing: @landing
 
-%section.section.section-grey#stats
-  .container.container-medium
-    - cache('ministats', expires_in: 1.hour) do
-      = render 'stats/ministats'
+- unless in_iframe?
+  %section.section.section-grey#stats
+    .container.container-medium
+      - cache('ministats', expires_in: 1.hour) do
+        = render 'stats/ministats'
 

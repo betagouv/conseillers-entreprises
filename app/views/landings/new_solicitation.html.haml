@@ -3,7 +3,7 @@
   meta_description = @landing.meta_description.presence || @landing.subtitle
   meta title: meta_title, description: meta_description
 
-= render 'hero'
+= render 'hero' unless in_iframe?
 
 - if @solicitation.persisted?
   %section.section.section-grey#section-thankyou
@@ -11,15 +11,17 @@
       = render 'new_solicitation_thank_you', landing: @landing
 
 - if @solicitation.new_record?
-  %section.section.section-white#section-retour
-    .container.container-medium
-      %h3
-        = link_to t('.back_to_landing'), @landing
-  %section.section.section-grey#section-formulaire
+  - if @landing.landing_options.present?
+    %section.section.section-white#section-retour
+      .container.container-medium
+        %h3
+          = link_to t('.back_to_landing'), @landing
+  %section.section.section-grey{ id: in_iframe? ? '' : 'section-formulaire' }
     .container.container-medium
       - landing_option = @solicitation.landing_options.first
       = tag.h2(landing_option&.form_title&.html_safe || t('.default_title'), class: 'section__title')
       - if landing_option&.form_description.present?
         = tag.p(landing_option.form_description.html_safe)
       = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
-      = tag.p((@landing.form_promise_message.presence || t('.default_promise_message')).html_safe)
+      - unless in_iframe?
+        = tag.p((@landing.form_promise_message.presence || t('.default_promise_message')).html_safe)
