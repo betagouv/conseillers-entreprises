@@ -1,8 +1,14 @@
-- cache_unless(flash.present?, @landing) do
+:ruby
+  meta_title = @landing.meta_title.presence || @landing.title
+  meta_description = @landing.meta_description.presence || @landing.subtitle
+  meta title: meta_title, description: meta_description
+
+- cache_unless(flash.present?, [@landing, in_iframe?]) do
   = render 'show_landing', landing: @landing
 
-%section.section.section-grey#stats
-  .container.container-medium
-    - cache('ministats', expires_in: 1.hour) do
-      = render 'stats/ministats'
+- unless in_iframe?
+  %section.section.section-grey#stats
+    .container.container-medium
+      - cache('ministats', expires_in: 1.hour) do
+        = render 'stats/ministats'
 

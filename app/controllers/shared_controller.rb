@@ -20,6 +20,8 @@ class SharedController < ActionController::Base
     raise ActionController::RoutingError, 'Not Found'
   end
 
+  include IframePrefix::InIframe
+
   private
 
   def render_error(exception)

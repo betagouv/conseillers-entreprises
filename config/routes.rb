@@ -34,13 +34,15 @@ Rails.application.routes.draw do
   end
 
   # Pages
-  root controller: :landings, action: :index
-  resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do
-    member do
-      get 'demande(/:option_slug)', action: :new_solicitation, as: :new_solicitation
-      # as the form to create solicitations is on the landings show page,
-      # we’re using the same path the show landings and to view solicitations.
-      post :create_solicitation, path: ''
+  scope path: "(:iframe_prefix)", iframe_prefix: /e?/, defaults: { iframe_prefix: nil } do
+    root controller: :landings, action: :index
+    resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do
+      member do
+        get 'demande(/:option_slug)', action: :new_solicitation, as: :new_solicitation
+        # as the form to create solicitations is on the landings show page,
+        # we’re using the same path the show landings and to view solicitations.
+        post :create_solicitation, path: ''
+      end
     end
   end
 
@@ -80,6 +82,12 @@ Rails.application.routes.draw do
       get :tables
     end
   end
+
+  controller :user_pages do
+    get :tutoriels
+  end
+
+  resources :external_solicitations, only: %i[new create]
 
   controller :sitemap do
     get :sitemap
@@ -146,13 +154,7 @@ Rails.application.routes.draw do
 
   resources :badges, only: %i[index create destroy]
 
-  controller :user_pages do
-    get :tutoriels
-  end
-
   get 'profile' => 'users#show'
-
-  resources :external_solicitations, only: %i[new create]
 
   ## Redirection for compatibility
   get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
