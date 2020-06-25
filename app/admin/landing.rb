@@ -143,8 +143,7 @@ ActiveAdmin.register Landing do
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
       f.input :landing_topic_title, placeholder: t('landings.show_landing_topics.default_landing_topic_title').html_safe
-      f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 },
-              placeholder: t('landings.show_landing_topics.default_message_under_landing_topics').html_safe
+      f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 }
 
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
         t.input :title, input_html: { style: 'width:70%' }
