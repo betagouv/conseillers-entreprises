@@ -47,6 +47,9 @@ fr:
       no_badges: Il n'y a aucun tag pour le moment
       title: Tags
       title_label: Titre
+  breadcrumbs_helper:
+    home_link:
+      home: Déposer une demande
   companies:
     company:
       capital_social: Capital social
