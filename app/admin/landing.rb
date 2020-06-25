@@ -93,6 +93,7 @@ ActiveAdmin.register Landing do
         column :preselected_institution_slug
         column :form_title
         column :form_description
+        column :description_explanation
       end
     end
 
@@ -109,7 +110,7 @@ ActiveAdmin.register Landing do
   landing_options_attributes = [
     :id, :slug, :landing_sort_order,
     :preselected_institution_slug, :preselected_subject_slug,
-    :_destroy, :form_description, :form_title
+    :_destroy, :form_description, :form_title, :description_explanation
   ]
   landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :_destroy]
   permit_params :slug,
@@ -164,6 +165,7 @@ ActiveAdmin.register Landing do
         o.input :preselected_institution_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Institution.pluck(:slug)
         o.input :form_title, input_html: { style: 'width:70%' }
         o.input :form_description, as: :text, input_html: { style: 'width:70%', rows: 10 }
+        o.input :description_explanation, as: :text, input_html: { style: 'width:70%', rows: 5 }
       end
     end
 

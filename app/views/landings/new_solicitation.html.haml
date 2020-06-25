@@ -29,7 +29,10 @@
         .description
           - landing_option = @solicitation.landing_options.first
           - if landing_option&.form_description.present?
-            = tag.p(landing_option.form_description.html_safe)
+            = tag.div(landing_option.form_description.html_safe)
+          - if landing_option&.description_explanation.present?
+            #description-explanation
+              = tag.div(landing_option.description_explanation.html_safe)
 
   - unless in_iframe?
     %section.section.section-white.landing

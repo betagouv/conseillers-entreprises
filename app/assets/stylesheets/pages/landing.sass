@@ -37,11 +37,21 @@ section#section-formulaire .solicitation-form
     label
       font-weight: bold
   .description
-    padding: 0 2rem
+    display: flex
+    flex-direction: column
+    padding: 0 2rem 4rem 2rem
+    #description-explanation
+      flex: 1 1 auto
+      align-items: flex-end
+      display: flex
+      div
+        height: 14.3rem
   @media(max-width: 750px)
     flex-wrap: wrap
     flex-direction: column-reverse
     .description
       padding: 0 0.5rem
       margin-bottom: 2rem
-
+      #description-explanation
+        div
+          height: auto
