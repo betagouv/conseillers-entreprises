@@ -15,8 +15,8 @@
 
   %body
     = render 'navbar' unless in_iframe?
-    = render 'environment_ribbon' unless in_iframe?
-    = render 'user_impersonate' unless in_iframe?
+    = render 'environment_ribbon'
+    = render 'user_impersonate'
     = yield
     = render 'footer' unless in_iframe?
 
