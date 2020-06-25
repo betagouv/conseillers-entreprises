@@ -76,6 +76,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webmock'
   gem 'timecop'
+  gem 'axe-matchers', require: false
 end
 
 group :development, :test do
