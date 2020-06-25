@@ -235,13 +235,24 @@ form
     text-align: center
 
 .notification
-  padding: 0
   &.error
     color: var(--red)
   .container
     display: flex
     justify-content: space-between
     align-items: center
+  &.full-width .container
+    justify-content: center
+
+.notification.region-alerte
+  .container
+    display: flex
+    justify-content: space-between
+    align-items: center
+  padding: 0
+  @media (max-width: 549px)
+    p
+      padding: 0 0.5rem
 
 .bold
   font-weight: bold

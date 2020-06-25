@@ -467,7 +467,7 @@ fr:
       visit_made_on: Mise en relation faite le %{date}
   pages:
     alert_region:
-      alert_region_html: "<b>Place des Entreprises</b> est un service ouvert en Hauts-de-France uniquement."
+      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France."
       learn_more: En savoir plus
     footer:
       dinum: DINUM

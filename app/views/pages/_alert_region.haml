@@ -1,5 +1,5 @@
 - if session[:region_in_territory].present?
-  .notification.full-width.error
+  .notification.full-width.error.region-alerte
     .container
       %p= session[:region_in_territory].html_safe
       = link_to t('.learn_more'), comment_ca_marche_path, class: 'button small warning'
