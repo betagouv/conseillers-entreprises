@@ -5,7 +5,6 @@
 #  id             :bigint(8)        not null, primary key
 #  antennes_count :integer
 #  name           :string           not null
-#  partner_token  :string
 #  show_icon      :boolean          default(TRUE)
 #  slug           :string           not null
 #  created_at     :datetime         not null
@@ -13,9 +12,8 @@
 #
 # Indexes
 #
-#  index_institutions_on_name           (name) UNIQUE
-#  index_institutions_on_partner_token  (partner_token)
-#  index_institutions_on_slug           (slug) UNIQUE
+#  index_institutions_on_name  (name) UNIQUE
+#  index_institutions_on_slug  (slug) UNIQUE
 #
 
 class Institution < ApplicationRecord
@@ -23,6 +21,7 @@ class Institution < ApplicationRecord
   #
   has_many :antennes, inverse_of: :institution
   has_many :institutions_subjects, inverse_of: :institution
+  has_many :landings, inverse_of: :institution
 
   ## Validations
   #
@@ -45,6 +44,9 @@ class Institution < ApplicationRecord
   has_many :received_matches, through: :antennes, inverse_of: :expert_institution
   has_many :received_needs, through: :antennes, inverse_of: :expert_institutions
   has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institutions
+
+  # :landings
+  has_many :solicitations, through: :landings, inverse_of: :institution
 
   accepts_nested_attributes_for :institutions_subjects, :allow_destroy => true
 
