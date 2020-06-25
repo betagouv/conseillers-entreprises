@@ -244,9 +244,8 @@ fr:
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
     new_solicitation:
-      back_to_landing: Revenir à la liste de mesures
+      72h_contact_html: Déposez votre demande, un conseiller vous contactera <b>sous 72 heures</b>.
       default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
-      default_title: Quelle est votre demande ?
     new_solicitation_form:
       button:
         title: Envoyer ma demande
@@ -270,12 +269,8 @@ fr:
       default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
-    show:
-      submit_request: Déposer votre demande
-    show_landing:
-      submit_request: Déposer votre demande
     show_landing_institutions:
-      institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec  : 
+      institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
     show_landing_topics:
       default_landing_topic_title: 'Exemples d’aides :'
       other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href='/' class='blue'>Découvrez les autres sujets</a>

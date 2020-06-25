@@ -1,4 +1,4 @@
-= form_with(model: solicitation, url: path, local: true, html: { honeypot: true }) do |f|
+= form_with(model: solicitation, url: path, local: true, html: { honeypot: true, class: "#{'in-iframe' if in_iframe?}" }) do |f|
   - if solicitation.errors.present?
     :javascript
       _paq.push(['trackEvent', 'contact-entreprise', 'failure']);
@@ -7,15 +7,6 @@
   = f.hidden_field :institution_slug
   = f.hidden_field :landing_slug
   .form__group
-    = f.label 'description', t('.description.label')
-    - example = landing.description_example.presence || t('.description.default_example')
-    = f.text_area 'description', placeholder: example, rows: 6, required: true
-    .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
-  .form__group
-    .form__group
-      = f.label 'siret', t('.siret.label')
-      = f.text_field 'siret', placeholder: t('.siret.placeholder'), required: false
-      .notification.error= solicitation.errors.full_messages_for(:siret).to_sentence
     .form__group
       = f.label 'full_name', t('.full_name.label')
       = f.text_field 'full_name', placeholder: t('.full_name.placeholder'), required: true
@@ -28,6 +19,15 @@
       = f.label 'email', t('.email.label')
       = f.email_field 'email', placeholder: t('.email.placeholder'), required: true
       .notification.error= solicitation.errors.full_messages_for(:email).to_sentence
+    .form__group
+      = f.label 'siret', t('.siret.label')
+      = f.text_field 'siret', placeholder: t('.siret.placeholder'), required: false
+      .notification.error= solicitation.errors.full_messages_for(:siret).to_sentence
+  .form__group
+    = f.label 'description', t('.description.label')
+    - example = landing.description_example.presence || t('.description.default_example')
+    = f.text_area 'description', placeholder: example, rows: 6, required: true
+    .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
   .form__group
     - if landing.form_bottom_message.present? && in_iframe?
       %p= landing.form_bottom_message.html_safe

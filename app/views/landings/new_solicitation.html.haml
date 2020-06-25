@@ -5,7 +5,13 @@
 
 %style= @landing.custom_css
 
-= render 'hero' unless in_iframe?
+- unless in_iframe?
+  %section.section.section-white.landing
+    .container.container
+      %h1= @landing.home_title
+      %p.subtitle= @landing.subtitle
+
+  = render 'pages/breadcrumbs', landing: @landing, landing_option: @solicitation.landing_options&.first
 
 - if @solicitation.persisted?
   %section.section.section-grey#section-thankyou
@@ -13,17 +19,22 @@
       = render 'new_solicitation_thank_you', landing: @landing
 
 - if @solicitation.new_record?
-  - if @landing.landing_options.present?
-    %section.section.section-white#section-retour
-      .container.container-medium
-        %h3
-          = link_to t('.back_to_landing'), @landing
-  %section.section.section-grey{ id: in_iframe? ? '' : 'section-formulaire' }
-    .container.container-medium
-      - landing_option = @solicitation.landing_options.first
-      = tag.h2(landing_option&.form_title&.html_safe || t('.default_title'), class: 'section__title')
-      - if landing_option&.form_description.present?
-        = tag.p(landing_option.form_description.html_safe)
-      = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
+  %section.section.section-grey.landing#section-formulaire
+    .container
       - unless in_iframe?
-        = tag.p((@landing.form_promise_message.presence || t('.default_promise_message')).html_safe)
+        .notification.success
+          = t('.72h_contact_html')
+      .solicitation-form
+        = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
+        .description
+          - landing_option = @solicitation.landing_options.first
+          - if landing_option&.form_description.present?
+            = tag.p(landing_option.form_description.html_safe)
+
+  - unless in_iframe?
+    %section.section.section-white.landing
+      = render 'pages/how_it_works'
+
+    %section.section.section-grey
+      .container
+        = render 'show_landing_institutions', landing: @landing

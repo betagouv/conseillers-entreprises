@@ -65,7 +65,7 @@ class Landing < ApplicationRecord
 
   def set_emphasis
     if emphasis
-      Landing.where.not(id: id).each { |l| l.update(emphasis: false) }
+      Landing.where.not(id: id).find_each { |l| l.update(emphasis: false) }
     end
   end
 end
