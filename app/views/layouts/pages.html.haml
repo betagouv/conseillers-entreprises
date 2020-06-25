@@ -1,5 +1,5 @@
 !!!
-%html
+%html{ lang: 'fr' }
   %head
     = metamagic site: t('app_name'), title: %i[title site], separator: ' | '
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
@@ -17,6 +17,7 @@
     = render 'navbar' unless in_iframe?
     = render 'environment_ribbon'
     = render 'user_impersonate'
-    = yield
+    %main
+      = yield
     = render 'footer' unless in_iframe?
 
