@@ -224,8 +224,6 @@ fr:
       aria_label_landing_topic: Choisir %{title}
       choose: Choisir
   landings:
-    hero:
-      title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
     index:
       answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
       how-it-works: Comment ça marche

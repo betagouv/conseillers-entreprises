@@ -3,7 +3,6 @@ section.section#section-exemples
     font-size: 1.25rem
     margin-top: 2rem
     margin-bottom: 1rem
-    @extend .no-select
     &:first-child
       margin-top: 0
   ul
@@ -38,53 +37,14 @@ section.section#section-exemples
           &.person-tipping-hand:before
             content: "💁️"
 
-  .transition
-    transition: all 0.25s ease
-  .flipIn
-    animation: flipdown 0.5s ease both
-
-  .no-select
-    -webkit-tap-highlight-color: rgba(0,0,0,0)
-    -webkit-touch-callout: none
-    -webkit-user-select: none
-    -khtml-user-select: none
-    -moz-user-select: none
-    -ms-user-select: none
-    user-select: none
-
   .panel__header
     cursor: pointer
     padding-right: 1rem
-    @extend .no-select
     h3
       font-weight: normal
       font-size: 1.3rem
     &:after
       display: block
-
-  .lead-text
-    position: relative
-    overflow: hidden
-    transform: translate( 0 , 0 )
-    z-index: 2
-    @extend .transition
-
-  @keyframes flipdown
-    0%
-      opacity: 0
-      transform-origin: top center
-      transform: rotateX(-90deg)
-    5%
-      opacity: 1
-    80%
-      transform: rotateX(8deg)
-    83%
-      transform: rotateX(6deg)
-    92%
-      transform: rotateX(-3deg)
-    100%
-      transform-origin: top center
-      transform: rotateX(0deg)
 
   @media (max-width: 549px)
     .container

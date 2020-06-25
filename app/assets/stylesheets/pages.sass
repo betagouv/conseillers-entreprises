@@ -94,19 +94,6 @@ footer
     h2
       font-size: 1.2rem
 
-.hero__container
-  min-height: 0px
-  h1.hero__title
-    font-size: 1.7em
-    text-align: center
-
-.hero
-  background: linear-gradient(45deg, #0053b3, #006be6)
-  background: linear-gradient(45deg,var(--theme-primary), var(--theme-primary-light))
-  .hero__container
-    background: image-url('marianne-cover.svg') no-repeat
-    background-size: auto 100%
-
 section.section
   padding: 4em 0
   @media (max-width: 549px)
@@ -151,18 +138,6 @@ section.section#section-details
   font-weight: bold
   font-size: 1.1rem
 
-section.section#section-retour
-  padding: 1em 0
-  h3
-    margin: 0
-    a
-      color: initial
-      background-color: initial
-      text-decoration: none
-      &:before
-        padding-right: 1rem
-        content: "←"
-
 section.section#section-formulaire
   .section__title
     text-align: initial
@@ -184,9 +159,6 @@ form
     margin-top: var(--space-m)
   .row .card
     max-width: 100%
-
-.section#section-stats
-  padding: 2em
 
 .grid#stats-charts
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
