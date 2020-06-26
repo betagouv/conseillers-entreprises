@@ -5,8 +5,8 @@ require 'csv_export/models/match'
 Match.include CsvExport::Models::Match
 
 class CsvExportService
-  def self.build(model)
-    klass = model.constantize
+  def self.build(relation)
+    klass = relation.klass
     attributes = klass.csv_fields
     if attributes.empty?
       klass.column_names.map { |name| [name] }
@@ -15,7 +15,7 @@ class CsvExportService
     csv_string = CSV.generate do |csv|
       csv << attributes.keys.map(&klass.method(:human_attribute_name))
       row = attributes.values
-      klass.includes(*klass.csv_included_associations).find_each do |object|
+      relation.includes(*klass.csv_included_associations).find_each do |object|
         csv << row.map do |val|
           if val.respond_to? :call
             lambda = val
