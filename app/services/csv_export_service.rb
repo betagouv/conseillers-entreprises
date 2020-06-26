@@ -15,7 +15,7 @@ class CsvExportService
     csv_string = CSV.generate do |csv|
       csv << attributes.keys.map(&klass.method(:human_attribute_name))
       row = attributes.values
-      klass.includes(*klass.csv_included_associations).each do |object|
+      klass.includes(*klass.csv_included_associations).find_each do |object|
         csv << row.map do |val|
           if val.respond_to? :call
             lambda = val
@@ -28,7 +28,7 @@ class CsvExportService
     end
 
     model_name = klass.model_name.human.pluralize.parameterize
-    file = Tempfile.new(["#{model_name}-#{Time.zone.now.iso8601}", ".csv"])
+    file = Tempfile.new(["#{model_name}-#{Time.zone.now.iso8601}-", ".csv"])
     begin
       file.write(csv_string)
     ensure
