@@ -296,6 +296,7 @@ fr:
       csv_export: Export CSV des %{model}
       send_csv:
         content: L’export des %{model} est terminé, vous le trouverez en pièce jointe.
+        ransack_params: Paramètres de recherche
         title: Export CSV
       solicitation:
         new_solicitation_received: Une entreprise nous sollicite !

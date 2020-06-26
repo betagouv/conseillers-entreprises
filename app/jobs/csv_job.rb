@@ -5,7 +5,7 @@ class CsvJob < ApplicationJob
     klass = model.constantize
     relation = klass.ransack(ransack_params).result
     file = CsvExportService.build(relation)
-    AdminMailer.send_csv(model, file, user).deliver_now
+    AdminMailer.send_csv(model, ransack_params, file, user).deliver_now
     file.unlink
   end
 end
