@@ -20,10 +20,8 @@ fr:
     badges:
       add_remove: Ajouter / supprimer un tag sur
       modified: Le tag a été %{action}
-    cvs_export: Export CSV
-  admin:
-    export_csv:
-      job_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
+    csv_export: Export CSV
+    csv_export_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
   application:
     footer:
       contact_us: Contactez-nous !
@@ -195,12 +193,6 @@ fr:
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a>.
     subjects_modal:
       title: Domaines d’intervention
-  external_solicitations:
-    new:
-      title: Quelle est votre demande ?
-    thank_you:
-      description: Votre message a bien été envoyé
-      title: Merci !
   feedbacks:
     feedback:
       delete: Supprimer ce commentaire ?
@@ -281,7 +273,6 @@ fr:
       institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
     show_landing_topics:
       default_landing_topic_title: 'Exemples d’aides :'
-      default_message_under_landing_topics: "<a href='/'>Vous songez à la bonne reprise de vos activités...</a>"
     subscribe_newsletter:
       error_mailjet: Une erreur s'est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
@@ -298,6 +289,7 @@ fr:
       csv_export: Export CSV des %{model}
       send_csv:
         content: L’export des %{model} est terminé, vous le trouverez en pièce jointe.
+        ransack_params: Paramètres de recherche
         title: Export CSV
       solicitation:
         new_solicitation_received: Une entreprise nous sollicite !

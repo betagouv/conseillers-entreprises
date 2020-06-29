@@ -15,6 +15,7 @@ ActiveAdmin.register Landing do
       div admin_link_to l
     end
     column I18n.t("activerecord.models.landing.one") do |l|
+      div admin_link_to l.institution if l.institution.present?
       div link_to l.title, l if l.slug.present?
       div l.subtitle
       div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
@@ -36,6 +37,7 @@ ActiveAdmin.register Landing do
   #
   show title: :slug do
     attributes_table do
+      row :institution
       row :slug do |l|
         div link_to l.slug, l if l.slug.present?
       end
@@ -110,6 +112,7 @@ ActiveAdmin.register Landing do
   ]
   landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :_destroy]
   permit_params :slug,
+                :institution_id,
                 :home_title, :home_description, :home_sort_order,
                 *Landing::CONTENT_KEYS,
                 landing_options_attributes: landing_options_attributes,
@@ -118,12 +121,13 @@ ActiveAdmin.register Landing do
   form title: :slug do |f|
     f.inputs do
       f.input :slug
+      f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
       f.input :home_title
       f.input :home_description, input_html: { rows: 2 }
-      f.input :home_sort_order, input_html: { style: 'width:80px' }
+      f.input :home_sort_order, input_html: { style: 'width:300px', placeholder: I18n.t('active_admin.landings.home_sort_order_placeholder') }
       f.input :emphasis, as: :boolean
     end
 
@@ -137,14 +141,13 @@ ActiveAdmin.register Landing do
         f.input :title
         f.input :subtitle
         f.input :logos
-        f.input :custom_css, as: :text, input_html: { style: 'width:70%', rows: 10 }
+        f.input :custom_css, as: :text, input_html: { style: 'width:70%; font-family:monospace', rows: 10 }
       end
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
       f.input :landing_topic_title, placeholder: t('landings.show_landing_topics.default_landing_topic_title').html_safe
-      f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 },
-              placeholder: t('landings.show_landing_topics.default_message_under_landing_topics').html_safe
+      f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 }
 
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
         t.input :title, input_html: { style: 'width:70%' }

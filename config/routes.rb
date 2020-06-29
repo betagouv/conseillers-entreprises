@@ -87,8 +87,6 @@ Rails.application.routes.draw do
     get :tutoriels
   end
 
-  resources :external_solicitations, only: %i[new create]
-
   controller :sitemap do
     get :sitemap
   end

@@ -34,6 +34,11 @@ class Solicitation < ApplicationRecord
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
 
+  ## Through Associations
+  #
+  # :landing
+  has_one :institution, inverse_of: :solicitations, through: :landing
+
   ## Scopes
   #
   scope :omnisearch, -> (query) do
@@ -98,7 +103,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[partner_token institution_slug pk_campaign pk_kwd gclid]
+  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
@@ -141,16 +146,6 @@ class Solicitation < ApplicationRecord
   #   but let’s keep it easier to understand. It’s not performance-critical.
   def self.all_past_landing_options_slugs
     self.pluck(:landing_options_slugs).flatten.uniq
-  end
-
-  ##
-  #
-  def institution
-    if institution_slug.present?
-      Institution.find_by(slug: institution_slug)
-    elsif partner_token.present?
-      Institution.find_by(partner_token: partner_token)
-    end
   end
 
   def normalized_phone_number
