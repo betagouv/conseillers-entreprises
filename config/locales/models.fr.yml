@@ -10,6 +10,8 @@ fr:
       done:
         'false': "« %{flag} » désactivé"
         'true': "« %{flag} » activé"
+    landings:
+      home_sort_order_placeholder: Laisser vide pour ne pas afficher sur l’accueil.
     matches:
       deleted: Supprimé
     move: Déplacer
@@ -140,6 +142,7 @@ fr:
         antennes: Antennes
         subjects: Compétences
       landing:
+        custom_css: CSS personnalisé
         description_example: Exemple de description
         emphasis: Mettre en avant sur la page d’accueil
         featured_on_home: Afficher sur la page d’accueil
