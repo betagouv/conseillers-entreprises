@@ -10,15 +10,22 @@
 #  slug             :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  institution_id   :bigint(8)
 #
 # Indexes
 #
-#  index_landings_on_slug  (slug) UNIQUE
+#  index_landings_on_institution_id  (institution_id)
+#  index_landings_on_slug            (slug) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (institution_id => institutions.id)
 #
 
 class Landing < ApplicationRecord
   ## Associations
   #
+  belongs_to :institution, inverse_of: :landings, optional: true
   has_many :landing_topics, inverse_of: :landing, :dependent => :destroy
   has_many :landing_options, inverse_of: :landing, :dependent => :destroy
 

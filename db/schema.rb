@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_09_083917) do
+ActiveRecord::Schema.define(version: 2020_06_25_114456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,10 +210,8 @@ ActiveRecord::Schema.define(version: 2020_06_09_083917) do
     t.datetime "updated_at", null: false
     t.integer "antennes_count"
     t.boolean "show_icon", default: true
-    t.string "partner_token"
     t.string "slug", null: false
     t.index ["name"], name: "index_institutions_on_name", unique: true
-    t.index ["partner_token"], name: "index_institutions_on_partner_token"
     t.index ["slug"], name: "index_institutions_on_slug", unique: true
   end
 
@@ -256,6 +254,8 @@ ActiveRecord::Schema.define(version: 2020_06_09_083917) do
     t.string "home_title", default: ""
     t.text "home_description", default: ""
     t.integer "home_sort_order"
+    t.bigint "institution_id"
+    t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end
 
@@ -407,6 +407,7 @@ ActiveRecord::Schema.define(version: 2020_06_09_083917) do
   add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_options", "landings"
   add_foreign_key "landing_topics", "landings"
+  add_foreign_key "landings", "institutions"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
   add_foreign_key "matches", "subjects"

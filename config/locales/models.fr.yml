@@ -151,6 +151,7 @@ fr:
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
+        institution: Institution partenaire (pour iframe)
         landing_options: Options
         landing_topic_title: Titre des exemples
         landing_topics: Exemples
