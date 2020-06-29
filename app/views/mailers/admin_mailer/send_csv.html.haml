@@ -1,3 +1,8 @@
 %h2= t('.title')
 
 %p= t('.content', model: @model_name)
+
+- if @ransack_params.present?
+  %h3= t('.ransack_params')
+  %p
+    %code= @ransack_params
