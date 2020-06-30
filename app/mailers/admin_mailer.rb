@@ -22,7 +22,7 @@ class AdminMailer < ApplicationMailer
     @ransack_params = ransack_params
     file_name = file.path.split('/').last
     attachments[file_name] = File.read(file.path)
-    mail(to: user.email, subject: t('mailers.admin_mailer.csv_export', model: @model_name), attachments: attachments)
+    mail(to: user.email, subject: t('mailers.admin_mailer.csv_export', model: @model_name))
   end
 
   private
