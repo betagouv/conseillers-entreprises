@@ -6,7 +6,6 @@
 #  advisors_count :integer
 #  experts_count  :integer
 #  name           :string
-#  show_icon      :boolean          default(TRUE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  institution_id :bigint(8)        not null

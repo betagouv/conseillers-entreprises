@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_134352) do
+ActiveRecord::Schema.define(version: 2020_07_01_150933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2020_07_01_134352) do
     t.datetime "updated_at", null: false
     t.integer "experts_count"
     t.integer "advisors_count"
-    t.boolean "show_icon", default: true
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
     t.index ["name", "institution_id"], name: "index_antennes_on_name_and_institution_id", unique: true
   end
