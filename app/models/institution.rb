@@ -2,14 +2,14 @@
 #
 # Table name: institutions
 #
-#  id             :bigint(8)        not null, primary key
-#  antennes_count :integer
-#  name           :string           not null
-#  show_icon      :boolean          default(TRUE)
-#  show_on_list   :boolean          default(FALSE)
-#  slug           :string           not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  id              :bigint(8)        not null, primary key
+#  antennes_count  :integer
+#  logo_sort_order :integer
+#  name            :string           not null
+#  show_on_list    :boolean          default(FALSE)
+#  slug            :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 # Indexes
 #
@@ -50,6 +50,10 @@ class Institution < ApplicationRecord
   has_many :solicitations, through: :landings, inverse_of: :institution
 
   accepts_nested_attributes_for :institutions_subjects, :allow_destroy => true
+
+  ## Scopes
+  #
+  scope :ordered_logos, -> { where.not(logo_sort_order: nil).order(:logo_sort_order) }
 
   def available_subjects
     institutions_subjects
