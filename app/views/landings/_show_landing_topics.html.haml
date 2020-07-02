@@ -1,9 +1,12 @@
 - landing_topics = landing.landing_topics.ordered_for_landing
 - if landing_topics.present?
-  %h2.section__title
-    = landing.landing_topic_title.presence&.html_safe || t('.default_landing_topic_title')
-  %ul.landing-topics
+  %h2
+    = t('.you_wish')
+  .landing-topics
     = render landing_topics
   - if landing.message_under_landing_topics.present?
-    .ui.text-center
-      = landing.message_under_landing_topics.html_safe
+    .ui.text-center.other
+      %b= landing.message_under_landing_topics.html_safe
+  - else
+    .ui.text-center.other
+      %b= t('.other_subjects_html')

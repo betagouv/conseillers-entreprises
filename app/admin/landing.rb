@@ -79,6 +79,7 @@ ActiveAdmin.register Landing do
         column :description do |topic|
           topic.description&.html_safe
         end
+        column :landing_option_slug
       end
     end
 
@@ -110,7 +111,7 @@ ActiveAdmin.register Landing do
     :preselected_institution_slug, :preselected_subject_slug,
     :_destroy, :form_description, :form_title
   ]
-  landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :_destroy]
+  landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :_destroy]
   permit_params :slug,
                 :institution_id,
                 :home_title, :home_description, :home_sort_order,
@@ -152,6 +153,7 @@ ActiveAdmin.register Landing do
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
         t.input :title, input_html: { style: 'width:70%' }
         t.input :description, input_html: { style: 'width:70%', rows: 10 }
+        t.input :landing_option_slug, input_html: { style: 'width:70%' }
       end
     end
 

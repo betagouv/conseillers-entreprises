@@ -5,13 +5,8 @@
     <p class="subtitle">Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.</p>
   </div>
 </section>
-<section class="section section-grey landing small-padding">
-  <div class="container file-ariane">
-    <%= link_to 'Déposer une demande', root_path %>
-    <span> > </span>
-    <span>Comment ça marche ?</span>
-  </div>
-</section>
+
+<%= render 'pages/file_ariane', title: t('.title') %>
 
 <section class="section section-white landing">
   <%= render 'pages/how_it_works' %>

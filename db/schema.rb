@@ -244,6 +244,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_114456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "landing_id", null: false
+    t.string "landing_option_slug"
     t.index ["landing_id"], name: "index_landing_topics_on_landing_id"
   end
 

@@ -219,6 +219,10 @@ fr:
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       view_completed_analysis: Voir l’analyse réalisée
+  landing_topics:
+    landing_topic:
+      aria_label_landing_topic: Choisir %{title}
+      choose: Choisir
   landings:
     hero:
       title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
@@ -266,12 +270,16 @@ fr:
       default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
+    show:
+      submit_request: Déposer votre demande
     show_landing:
       submit_request: Déposer votre demande
     show_landing_institutions:
-      institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
+      institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec  : 
     show_landing_topics:
       default_landing_topic_title: 'Exemples d’aides :'
+      other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href='/' class='blue'>Découvrez les autres sujets</a>
+      you_wish: Vous souhaitez
     subscribe_newsletter:
       error_mailjet: Une erreur s'est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.

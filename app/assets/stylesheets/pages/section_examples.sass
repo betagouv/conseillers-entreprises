@@ -9,66 +9,34 @@ section.section#section-exemples
   ul
     list-style: none
     padding-inline-start: 1rem
-  ul.landing-topics
-    li
-      position: relative
-      .chevron
-        position: absolute
-        transform: translate( -6px , 0 )
-        right: 2rem
-        top: 2.5rem
-        @extend .flipIn
-        &:before , &:after
-          content: ""
-          background-color: black
-          position: absolute
-          width: 3px
-          height: 9px
-          display: inline
-          @extend .transition
-        &:before
-          transform: translate( -2px , 0 ) rotate( 45deg )
-        &:after
-          transform: translate( 2px , 0 ) rotate( -45deg )
-      input[type=checkbox]
-        position: absolute
-        cursor: pointer
-        width: 100%
-        height: 100%
-        z-index: 1
-        opacity: 0
-        left: 0
-        &:checked
-          &~.panel__header
-            &:after
-              display: contents
-          &~.lead-text
-            margin-top: 0
-            max-height: 0
-            opacity: 0
-            transform: translate( 0 , 50% )
-          &~.chevron
-            &:before
-              transform: translate( 2px , 0 ) rotate( 45deg )
-            &:after
-              transform: translate( -2px , 0 ) rotate( -45deg )
-
-  .landing-topic
-    li
-      margin-bottom: 1rem
-      &.emoji
-        list-style: none
-        margin-left: 2rem
-        position: relative
-        &:before
-          position: absolute
-          left: -2rem
-        &.right-index:before
-          content: "👉"
-        &.warning:before
-          content: "⚠️"
-        &.person-tipping-hand:before
-          content: "💁️"
+  .landing-topics
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 2rem
+    .landing-topic
+      padding-right: 9rem
+      margin-top: 2rem
+      flex: 0 0 50%
+      a
+        font-weight: bold
+        padding: 0.25rem 1.5rem
+      h3
+        font-size: 1.1rem
+      li
+        margin-bottom: 1rem
+        &.emoji
+          list-style: none
+          margin-left: 2rem
+          position: relative
+          &:before
+            position: absolute
+            left: -2rem
+          &.right-index:before
+            content: "👉"
+          &.warning:before
+            content: "⚠️"
+          &.person-tipping-hand:before
+            content: "💁️"
 
   .transition
     transition: all 0.25s ease
@@ -121,5 +89,8 @@ section.section#section-exemples
   @media (max-width: 549px)
     .container
       padding: 0 0.5rem
-    .landing-topics
-      padding: 0
+    .landing-topics .landing-topic
+      flex: 0 0 100%
+      padding-right: 0
+      a
+        width: auto
