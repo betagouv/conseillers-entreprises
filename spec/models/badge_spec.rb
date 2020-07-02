@@ -11,17 +11,20 @@ RSpec.describe Badge, type: :model do
     let(:date2) { date1 + 1.minute }
     let(:date3) { date1 + 2.minutes }
 
-    let(:solicitation) { Timecop.freeze(date1) { create :solicitation, badges: initial_badges } }
-    let(:badge) { Timecop.freeze(date2) { create :badge } }
+    let(:solicitation) { travel_to(date1) { create :solicitation, badges: initial_badges } }
+    let(:badge) { travel_to(date2) { create :badge } }
 
-    before { solicitation }
+    before do
+      badge
+      solicitation
+    end
 
     subject { solicitation.reload.updated_at }
 
     context 'when a badge is added to a solicitation' do
       let(:initial_badges) { [] }
 
-      before { Timecop.freeze(date3) { solicitation.badges = [badge] } }
+      before { travel_to(date3) { solicitation.badges = [badge] } }
 
       it { is_expected.to eq date3 }
     end
@@ -29,7 +32,7 @@ RSpec.describe Badge, type: :model do
     context 'when a badge is removed from a solicitation' do
       let(:initial_badges) { [badge] }
 
-      before { Timecop.freeze(date3) { solicitation.badges = [] } }
+      before { travel_to(date3) { solicitation.badges = [] } }
 
       it { is_expected.to eq date3 }
     end
@@ -37,7 +40,7 @@ RSpec.describe Badge, type: :model do
     context 'when a badge is updated' do
       let(:initial_badges) { [badge] }
 
-      before { Timecop.freeze(date3) { badge.update(title: 'New title') } }
+      before { travel_to(date3) { badge.update(title: 'New title') } }
 
       it { is_expected.to eq date3 }
     end
