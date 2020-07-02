@@ -56,6 +56,7 @@ ActiveAdmin.register Institution do
         div admin_link_to(i, :received_matches)
       end
       row :logo_sort_order
+      row :region_name
       row :show_on_list
       row(:subjects) do |i|
         safe_join(i.institutions_subjects.map do |is|
@@ -67,7 +68,7 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :logo_sort_order, :slug, :show_on_list,
+  permit_params :name, :logo_sort_order, :slug, :show_on_list, :region_name,
                 antenne_ids: [],
                 institutions_subjects_attributes: %i[id description subject_id _create _update _destroy]
 
@@ -76,6 +77,7 @@ ActiveAdmin.register Institution do
       f.input :name
       f.input :slug
       f.input :logo_sort_order, input_html: { style: 'width:300px', placeholder: I18n.t('active_admin.landings.home_sort_order_placeholder') }
+      f.input :region_name, input_html: { placeholder: I18n.t('active_admin.landings.region_name_placeholder') }
       f.input :show_on_list
     end
     f.inputs do

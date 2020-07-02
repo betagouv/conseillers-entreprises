@@ -6,6 +6,7 @@
 #  antennes_count  :integer
 #  logo_sort_order :integer
 #  name            :string           not null
+#  region_name     :string
 #  show_on_list    :boolean          default(FALSE)
 #  slug            :string           not null
 #  created_at      :datetime         not null

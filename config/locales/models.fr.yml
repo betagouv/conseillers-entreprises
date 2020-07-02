@@ -425,6 +425,7 @@ fr:
     received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues
+    region_name: Institution de la région
     searches:
       one: Recherche
       other: Recherches

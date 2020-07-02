@@ -1,6 +1,8 @@
 module InstitutionsHelper
-  def all_institutions_images
-    Institution.ordered_logos
+  def all_institutions_images(region)
+    Institution
+      .where(region_name: region).or(Institution.where(region_name: nil))
+      .ordered_logos
       .pluck(:name)
       .map(&:parameterize).uniq
       .map(&method(:institution_image))

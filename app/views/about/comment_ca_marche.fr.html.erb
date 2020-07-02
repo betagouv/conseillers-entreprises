@@ -16,7 +16,7 @@
   <div class="container">
     <h2>Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 50 partenaires publics et parapublics : </h2>
     <div class="logo-list">
-      <%= all_institutions_images %>
+      <%= all_institutions_images(session[:region]) %>
     </div>
     <div class="row partners-list">
       <% @institutions.each do |institutions_column| %>
