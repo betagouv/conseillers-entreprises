@@ -24,6 +24,9 @@
   &.ok { background: #03bd5b }
   &.warning { background: #ff9947 }
   &.error { background: #932419 }
+  &.done { background: #03bd5b }
+  &.taking_care { background: #ff9947 }
+  &.not_for_me { background: #932419 }
   &.create { background: #03bd5b }
   &.update { background: #ff9947 }
   &.destroy { background: #932419 }

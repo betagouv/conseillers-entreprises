@@ -22,9 +22,9 @@ ActiveAdmin.register Need do
     column :advisor
     column :created_at
     column :updated_at
-    column :status do |d|
-      status_status_tag(d.status)
-      status_tag t('activerecord.attributes.need.is_archived') if d.is_archived
+    column :status do |need|
+      human_attribute_status_tag need, :status
+      status_tag t('activerecord.attributes.need.is_archived') if need.is_archived
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
@@ -40,8 +40,8 @@ ActiveAdmin.register Need do
     end
   end
 
-  statuses = Need::STATUSES.map { |s| [StatusHelper.status_description(s, :short), s] }
-  filter :by_status_in, as: :select, collection: statuses, label: I18n.t('attributes.status')
+  collection = -> { Need.human_attribute_values(:status, context: :short).invert.to_a }
+  filter :by_status_in, as: :select, collection: collection, label: I18n.t('attributes.status')
 
   filter :archived_in, as: :boolean, label: I18n.t('activerecord.attributes.need.is_archived')
 
@@ -62,7 +62,7 @@ ActiveAdmin.register Need do
     column :advisor
     column :created_at
     column :updated_at
-    column :status_short_description
+    column(:status) { |need| need.human_attribute_value(:status, context: :short) }
     column :is_archived
     column_count :matches
   end
@@ -78,7 +78,7 @@ ActiveAdmin.register Need do
       row :updated_at
       row :archived_at
       row :content
-      row(:status) { |d| status_status_tag(d.status) }
+      row(:status) { |need| human_attribute_status_tag need, :status }
       row(:matches) do |d|
         div admin_link_to(d, :matches)
         div admin_link_to(d, :matches, list: true)

@@ -178,10 +178,39 @@ fr:
         expert: Référent
         need: Besoin identifié
         taken_care_of_at: Date de prise en charge
+      match/statuses:
+        done: Besoin clôturé
+        not_for_me: Mise en relation refusée
+        quo: En attente de réponse
+        taking_care: En cours de prise en charge
+      match/statuses/action:
+        done: Clôturer
+        not_for_me: Refuser
+        quo: Annuler
+        taking_care: Prendre en charge
+      match/statuses/short:
+        done: Clôturé
+        not_for_me: Refusé
+        quo: Pas de réponse
+        taking_care: Pris en charge
       need:
         archived_at: Mis en échec
         is_archived: En échec
         subject: Sujet
+      need/statuses:
+        diagnosis_not_complete: Analyse en cours
+        done: Besoin clôturé
+        not_for_me: Mise en relation refusée
+        quo: En attente de réponse
+        sent_to_no_one: Envoyé à personne
+        taking_care: En cours de prise en charge
+      need/statuses/short:
+        diagnosis_not_complete: Analyse en cours
+        done: Clôturé
+        not_for_me: Refusé
+        quo: Pas de réponse
+        sent_to_no_one: Envoyé à personne
+        taking_care: Pris en charge
       search:
         label: Entreprise
         query: Requête
@@ -453,26 +482,6 @@ fr:
     siren: SIREN
     siret: SIRET
     status: Statut
-    status_description: Résumé
-    statuses:
-      diagnosis_not_complete: Analyse en cours
-      done: Besoin clôturé
-      not_for_me: Mise en relation refusée
-      quo: En attente de réponse
-      sent_to_no_one: Envoyé à personne
-      taking_care: En cours de prise en charge
-    statuses_action:
-      done: Clôturer
-      not_for_me: Refuser
-      quo: Annuler
-      taking_care: Prendre en charge
-    statuses_short:
-      diagnosis_not_complete: Analyse en cours
-      done: Clôturé
-      not_for_me: Refusé
-      quo: Pas de réponse
-      sent_to_no_one: Envoyé à personne
-      taking_care: Pris en charge
     subject: Sujet
     subjects:
       one: Sujet

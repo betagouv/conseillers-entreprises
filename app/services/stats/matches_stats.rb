@@ -27,7 +27,7 @@ module Stats
     end
 
     def category_name(category)
-      StatusHelper::status_description(category)
+      Match.human_attribute_value(:status, category)
     end
 
     def category_order_attribute

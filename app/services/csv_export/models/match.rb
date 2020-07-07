@@ -20,7 +20,7 @@ module CsvExport
             expert: :expert,
             expert_antenne: :expert_antenne,
             expert_institution: :expert_institution,
-            status: -> { need.status_short_description },
+            status: -> { need.human_attribute_value(:status, context: :short) },
             taken_care_of_at: :taken_care_of_at,
             closed_at: :closed_at,
             page_analyse: :need_url_route

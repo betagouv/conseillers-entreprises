@@ -1,19 +1,4 @@
 module StatusHelper
-  ##
-  #
-  def self.status_description(status, variant = '')
-    namespace = 'attributes.statuses'
-    case variant
-    when :short
-      namespace = 'attributes.statuses_short'
-    when :action
-      namespace = 'attributes.statuses_action'
-    when nil
-      namespace = 'attributes.statuses'
-    end
-    I18n.t(status, scope: namespace)
-  end
-
   STATUS_COLORS = {
     diagnosis_not_complete: %w[grey],
     sent_to_no_one: %w[grey],
@@ -37,7 +22,7 @@ module StatusHelper
 
     form_with(model: match, url: match_path(match)) do |f|
       allowed_actions.map do |new_status|
-        title = StatusHelper::status_description(new_status, :action)
+        title = Match.human_attribute_value(:status, new_status, context: :action)
         classes = %w[ui small button] + STATUS_COLORS[new_status]
         f.button :submit, name: :status, value: new_status, class: classes.join(' ') do
           status_icon(new_status) + title
@@ -46,10 +31,10 @@ module StatusHelper
     end
   end
 
-  def status_label(status)
-    status = status.to_sym
-    title = StatusHelper::status_description(status, :short)
-    classes = %w[ui basic label] + STATUS_COLORS[status]
+  def status_label(need_or_match)
+    status = need_or_match.status
+    title = need_or_match.human_attribute_value(:status, context: :short)
+    classes = %w[ui basic label] + STATUS_COLORS[status.to_sym]
     tag.div(class: classes.join(' ')) do
       status_icon(status) + title
     end
@@ -58,15 +43,5 @@ module StatusHelper
   def status_icon(status)
     classes = STATUS_ICONS[status.to_sym]
     tag.i(class: classes.join(' '))
-  end
-
-  module StatusDescription
-    def status_description
-      StatusHelper.status_description(status)
-    end
-
-    def status_short_description
-      StatusHelper.status_description(status, :short)
-    end
   end
 end
