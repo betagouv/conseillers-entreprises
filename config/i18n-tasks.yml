@@ -93,7 +93,6 @@ ignore_unused:
   - 'active_admin.flag.*'
   - 'active_admin.move'
   - 'attributes.*'
-  - 'diagnoses.steps.*.title'
   - 'mailers.admin_mailer.weekly_statistics.needs_abandoned.scopes.*'
   - 'mailers.user_mailer.notify_match_status.expert_and_status.*'
   - 'stats.stats_table.*'

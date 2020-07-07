@@ -4,4 +4,4 @@
     .step{ class: class_for_step }
       .content
         .title
-          = t("diagnoses.steps.#{key}.title")
+          = Diagnosis.human_attribute_value(:status, key)
