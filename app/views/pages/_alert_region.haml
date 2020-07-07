@@ -1,5 +1,5 @@
-- if session[:region_in_territory].present?
+- if defined?ENV['DEPLOYED_REGIONS'] && !ENV['DEPLOYED_REGIONS'].include?(session[:region])
   .notification.full-width.error.region-alerte
     .container
-      %p= session[:region_in_territory].html_safe
+      %p= t('pages.alert_region.alert_region_html')
       = link_to t('.learn_more'), comment_ca_marche_path, class: 'button small warning'
