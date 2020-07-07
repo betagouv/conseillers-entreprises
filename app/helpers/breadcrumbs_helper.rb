@@ -6,11 +6,11 @@ module BreadcrumbsHelper
   def breadcrumbs_landing(landing, landing_option = nil)
     html = home_link
     if landing_option.present?
-      html << link_to(landing.home_title, landing)
+      html << link_to(landing.title, landing)
       html << arrow
       html << landing_option.form_title
     else
-      html << landing.home_title
+      html << landing.title
     end
     html
   end
