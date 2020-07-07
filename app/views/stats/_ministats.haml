@@ -1,5 +1,17 @@
 .row
   - stats = Stats::Stats.new
-  %p.stats__item= t('stats.series.companies_html', count: stats.companies.count)
-  %p.stats__item= t('stats.series.needs_html', count: stats.needs.count)
-  %p.stats__item= t('stats.series.advisors_html', count: stats.advisors.count)
+  .stats-item
+    %div
+      = stats.companies.count
+    .text
+      = t('stats.series.companies')
+  .stats-item
+    %div
+      = stats.needs.count
+    .text
+      = t('stats.series.needs')
+  .stats-item
+    %div
+      = stats.advisors.count
+    .text
+      = t('stats.series.advisors')

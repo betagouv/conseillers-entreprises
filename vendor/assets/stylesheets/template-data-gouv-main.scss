@@ -448,6 +448,7 @@ label.required::before {
   transform: translateX(-100%);
 }
 
+.button,
 a.button,
 a.button:focus,
 a.button:active,
@@ -590,6 +591,7 @@ a.button-outline.secondary {
   color: var(--theme-dark-text);
 }
 
+.button.small,
 a.button.small,
 button.button.small,
 input[type="submit"].small,

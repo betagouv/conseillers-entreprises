@@ -66,18 +66,16 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :sent_matches)
         div admin_link_to(a, :received_matches)
       end
-      row :show_icon
     end
   end
 
   ## Form
   #
-  permit_params :name, :institution_id, :insee_codes, :show_icon, advisor_ids: [], expert_ids: []
+  permit_params :name, :institution_id, :insee_codes, advisor_ids: [], expert_ids: []
 
   form do |f|
     f.inputs do
       f.input :name
-      f.input :show_icon
       f.input :institution, as: :ajax_select, data: {
         url: :admin_institutions_path,
         search_fields: [:name]

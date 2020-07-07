@@ -1,9 +1,10 @@
 - meta title: t('.title')
 
-.hero.hero-color
-  .hero__container
-    %h1
-      = t('.title')
+%section.section.section-white.landing
+  .container.container
+    %h1= t('.title')
+
+= render 'pages/breadcrumbs', title: t('.title')
 
 %section.section
   .container.container-full

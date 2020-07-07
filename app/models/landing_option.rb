@@ -40,7 +40,7 @@ class LandingOption < ApplicationRecord
 
   ## JSON Accessors
   #
-  CONTENT_KEYS = %i[form_title form_description]
+  CONTENT_KEYS = %i[form_title form_description description_explanation]
   store_accessor :content, CONTENT_KEYS
 
   def to_param

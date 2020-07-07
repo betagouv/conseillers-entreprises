@@ -1,5 +1,5 @@
 %h2.section__title
-  = t('.received_news')
+  = t('.received_news_html')
 %p.section__subtitle
   = t('.newsletter_informations')
 
@@ -7,4 +7,4 @@
   .form__group
     .input__group
       = f.email_field :email, placeholder: t('.placeholder_email'), 'aria-label': t('.placeholder_email'), required: 'required'
-      = f.submit t('.subscribe'), class: 'button'
+      = f.submit t('.subscribe'), class: 'button bold'

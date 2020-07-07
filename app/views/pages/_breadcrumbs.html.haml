@@ -1,0 +1,7 @@
+%section.section.section-light-grey.landing.small-padding
+  .container.file-ariane
+    - if defined? landing
+      - landing_option ||= nil
+      = breadcrumbs_landing(landing, landing_option)
+    - else
+      = breadcrumbs_page(title)

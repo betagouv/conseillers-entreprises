@@ -1,4 +1,6 @@
-%p.section__title
+%p.title
   = t('.title')
 .logo-list
-  = all_institutions_images
+  = all_institutions_images(session[:region])
+%p#more-partner
+  = t('.more_partners_html')

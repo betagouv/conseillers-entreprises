@@ -1,9 +1,4 @@
-%li.panel.landing-topic
-  - topic_sanitized_name = sanitize(landing_topic.title, tags: [], attributes: [])
-  - tracking_event_value = topic_sanitized_name.parameterize.underscore
-  - script = "if (!this.checked) { _paq.push(['trackEvent', 'landing-topic', '#{tracking_event_value}']); }"
-  = check_box_tag(nil, nil, true, onchange: script)
-  .chevron
-  .panel__header
-    %h3= landing_topic.title.html_safe
-  .lead-text= landing_topic.description.html_safe
+.landing-topic
+  %h3= landing_topic.title.html_safe
+  %p= landing_topic.description.html_safe
+  = link_to t('.choose'), "#{landing_topic.landing.slug}/demande/#{landing_topic.landing_option_slug}", class: 'button small', 'aria-label': t('.aria_label_landing_topic', title: landing_topic.title.downcase)

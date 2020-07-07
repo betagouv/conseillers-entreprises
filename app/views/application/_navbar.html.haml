@@ -30,9 +30,9 @@
         = t('user_pages.tutoriels.title')
 
     - else # not signed in
-      = active_link_to qui_sommes_nous_path, class: 'item' do
+      = active_link_to comment_ca_marche_path, class: 'item' do
         %i.subject.icon
-        = t('about.qui_sommes_nous.title')
+        = t('about.comment_ca_marche.title')
       = link_to root_path, class: 'item' do
         %i.hand.point.right.outline.icon
         = t('company_contact')

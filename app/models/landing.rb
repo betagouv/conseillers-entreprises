@@ -32,9 +32,13 @@ class Landing < ApplicationRecord
   has_many :solicitations, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :landing
   accepts_nested_attributes_for :landing_topics, :landing_options, allow_destroy: true
 
+  before_save :set_emphasis
+
   ## Scopes
   #
   scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
+
+  scope :emphasis, -> { where("content->>'emphasis' = '1'") }
 
   ## JSON Accessors
   #
@@ -55,5 +59,13 @@ class Landing < ApplicationRecord
 
   def to_param
     slug
+  end
+
+  private
+
+  def set_emphasis
+    if emphasis
+      Landing.where.not(id: id).find_each { |l| l.update(emphasis: false) }
+    end
   end
 end

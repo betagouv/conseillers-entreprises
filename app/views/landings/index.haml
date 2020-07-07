@@ -1,32 +1,33 @@
 - meta title: t('.meta.title'), description: t('.meta.description')
 
-= render 'hero' unless in_iframe?
-
 - unless in_iframe?
-  %section.section.section-white#section-description
-    .container.text-center
-      = image_tag('place-des-entreprises-logo.png', alt: "logo Place des Entreprises", id: 'logo-pde')
-      %h2.lead-text
-        = t('.question')
-      %h2.lead-text
-        = t('.answer')
-      = link_to t('.submit_request'), '#section-thematiques', class: 'button blue'
-      - cache('institutions', expires_in: 1.hour) do
-        = render 'index_institutions'
+  %section.section.section-white
+    .container
+      .row
+        .home-title
+          %h1
+            = t('.question')
+          %p
+            = t('.answer')
+          .links
+            = link_to t('.submit_request'), '#scroll-thematiques', class: 'button blue'
+            = link_to t('.how-it-works')
 
-%section.section.section-color#section-thematiques
+        #image-home
+          = image_tag('home.png', alt: "")
+
+%section.section.section-light-grey.blank-section#scroll-thematiques
+
+%section.section.section-grey#section-thematiques
   .container
     = render 'index_landing_cards', landings: @landings
 
 - unless in_iframe?
-  %section.section.section-grey#section-testimonials
-    .container
-      = render 'index_testimonials'
+  %section.section.section-white
+    .container#container-newsletter
+      = render 'newsletter'
 
-- unless in_iframe?
-  %section.section.section-grey#section-stats
-    .container.container-medium
-      - cache('ministats', expires_in: 1.hour) do
-        = render 'stats/ministats'
-
-
+  %section.section.section-lightest-grey.section-partners
+    .container.text-center
+      - cache('institutions', expires_in: 1.hour) do
+        = render 'index_institutions'

@@ -3,10 +3,56 @@
 @import shared/*
 @import pages/*
 
+\:root
+  /* Colors
+  --dark-grey: #69788C
+  --lightest-grey: #FAFBFC
+  --lighter-grey: #F2F5F8
+  --light-green: #E8F7C8
+
+html
+  scroll-behavior: smooth
+
+@media (prefers-reduced-motion: reduce)
+  html
+    scroll-behavior: auto
+
 // template overrides
-.nav__item a#experts_login
-  color: var(--theme-dark-text)
-  border: 1px solid var(--theme-dark-text)
+header
+  &.section
+    padding: 0
+  .navbar__container
+    padding: 0
+  .navbar__home
+    height: 150px
+  .nav__item a.active
+    background: none
+    color: black
+    font-weight: bold
+  @media (max-width: 1160px)
+    .navbar__home
+      height: 110px
+    nav
+      padding: 1rem 0
+  @media (max-width: 565px)
+    .navbar__container
+      align-items: center
+    .navbar__home
+      display: flex
+      flex-direction: column
+    nav
+      text-align: center
+      margin-top: 1rem
+    .nav__links
+      padding: 1rem
+    .nav__item
+      margin: 0.5rem 0
+    .navbar__domain
+      span
+        font-size: 14px
+        padding-bottom: 2px
+      img
+        height: 32px
 
 .navbar__domain
   display: flex
@@ -23,114 +69,40 @@ input[type=submit].button
   -webkit-appearance: none
 
 footer
+  .marianne
+    img
+      width: 8rem
   .title
     display: flex
     align-content: center
+    font-size: 1.3rem
   .logo-footer
     height: 3rem
     margin-right: 1rem
   .beta-link
     margin-left: 4rem
   .social-network
-    display: flex
+    margin-top: 1.5rem
     img
       width: 2.5rem
     a:hover
       background: none
-  .footer__links.social
-    display: flex
-    align-items: center
 
 @media (max-width: 549px)
   .footer__links
     margin-bottom: 1rem
     h2
       font-size: 1.2rem
-  .nav__item
-    margin-bottom: 1rem
-  .nav__links
-    text-align: center
-  .navbar__logo
-    margin: 0
-    height: 3rem
-  .navbar__home
-    height: auto
-    display: flex
-    flex-direction: column
-    width: 100%
-  .navbar__domain
-    span
-      font-size: 14px
-    img
-      height: 32px
-
-.hero__container
-  min-height: 0px
-  h1.hero__title
-    font-size: 1.7em
-    text-align: center
-
-.hero
-  background: linear-gradient(45deg, #0053b3, #006be6)
-  background: linear-gradient(45deg,var(--theme-primary), var(--theme-primary-light))
-  .hero__container
-    background: image-url('marianne-cover.svg') no-repeat
-    background-size: auto 100%
 
 section.section
   padding: 4em 0
+  @media (max-width: 549px)
+    padding: 2.5em 0
 
 span.navbar__domain
   white-space: nowrap // for IE11
 
 //  landings index and show
-
-section.section#section-thematiques
-  background: linear-gradient(45deg, #0053b3, #006be6)
-  background: linear-gradient(45deg,var(--theme-primary), var(--theme-primary-light))
-  a:hover
-    background: transparent
-  .row + .row
-    margin-top: 1.5em
-    margin-top: var(--space-m)
-  .card
-    &.emphasis
-      border: 1px solid #ab2b1e
-      border: 1px solid var(--dark-red)
-      .landing-title, .landing-description, .discover_button
-        color: #ab2b1e
-      button.primary
-        border-color: #ab2b1e
-        color: #ab2b1e
-
-    display: flex
-    flex-direction: column
-    .card__content
-      padding: 1em
-    .discover_button
-      margin-top: auto
-      padding: 0 1em 1em
-    a
-      .landing-auto-description-container // unused for now
-        .landing-title
-          margin-bottom: 2em
-        .landing-description
-          margin: 0
-          display: none
-        &:hover
-          .landing-title
-            display: none
-          .landing-description
-            display: block
-      text-decoration: none
-      color: #0053b3
-      color: var(--theme-primary)
-
-      &:hover
-        color: #00234d
-        color: var(--theme-primary-dark)
-        .landing-description
-          text-decoration: underline
 
 section.section#section-description
   h2
@@ -155,25 +127,16 @@ section.section#section-details
 
 .logo-list
   width: 95%
-  margin: 0 auto
+  margin: 2rem auto
   text-align: center
   img
     max-height: 70px
     max-width: 140px
     margin: 8px
     vertical-align: middle
-
-section.section#section-retour
-  padding: 1em 0
-  h3
-    margin: 0
-    a
-      color: initial
-      background-color: initial
-      text-decoration: none
-      &:before
-        padding-right: 1rem
-        content: "←"
+#more-partner
+  font-weight: bold
+  font-size: 1.1rem
 
 section.section#section-formulaire
   .section__title
@@ -196,17 +159,6 @@ form
     margin-top: var(--space-m)
   .row .card
     max-width: 100%
-
-.section#section-stats
-  padding: 2em
-
-.stats__item
-  font-size: 1.2em
-
-  .count
-    margin-right: 0.2em
-    font-size: 1.6em
-    vertical-align: text-top
 
 .grid#stats-charts
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
@@ -247,19 +199,46 @@ form
     width: 100%
 
 #container-newsletter
+  h2
+    font-size: 1.4rem
   form
     margin: 2rem auto
   .notification
     text-align: center
 
 .notification
-  padding: 0
   &.error
     color: var(--red)
   .container
     display: flex
     justify-content: space-between
     align-items: center
-    @media (max-width: 850px)
-      p
-        padding: 0.5rem
+  &.full-width .container
+    justify-content: center
+
+.notification.region-alerte
+  .container
+    display: flex
+    justify-content: space-between
+    align-items: center
+  padding: 0
+  @media (max-width: 549px)
+    p
+      padding: 0 0.5rem
+
+.bold
+  font-weight: bold
+
+.section-lightest-grey
+  background-color: #FAFBFC
+  background-color: var(--lightest-grey)
+
+a:hover
+  background-color: transparent
+
+.blue
+  color: var(--blue)
+
+.asterisk
+  font-size: 0.8rem
+  font-style: italic
