@@ -27,6 +27,8 @@ class InstitutionSubject < ApplicationRecord
   belongs_to :subject, inverse_of: :institutions_subjects
   has_many :experts_subjects, dependent: :destroy
 
+  accepts_nested_attributes_for :experts_subjects
+
   # :subject
   has_one :theme, through: :subject, inverse_of: :institutions_subjects
 
