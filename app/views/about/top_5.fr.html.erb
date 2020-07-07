@@ -1,12 +1,12 @@
 <% meta title: t('.title') %>
 
-<div class="hero hero-color">
-  <div class="hero__container">
-    <h1>
-      <%= t('.title') %>
-    </h1>
+<section class="section section-white landing">
+  <div class="container container">
+    <h1><%= t('.title') %></h1>
   </div>
-</div>
+</section>
+
+<%= render 'pages/breadcrumbs', title: t('.title') %>
 
 <section class="section section-grey">
   <div class="container container-medium">
