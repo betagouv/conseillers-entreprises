@@ -114,6 +114,7 @@ fr:
         role: Fonction
       diagnosis:
         content: Commentaire
+        step: Étape
       diagnosis/visitee:
         email: Adresse e-mail de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée
