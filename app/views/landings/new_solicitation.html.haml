@@ -2,16 +2,17 @@
   meta_title = @landing.meta_title.presence || @landing.title
   meta_description = @landing.meta_description.presence || @landing.subtitle
   meta title: meta_title, description: meta_description
+  landing_option = @solicitation.landing_options&.first
 
 %style= @landing.custom_css
 
 - unless in_iframe?
   %section.section.section-white.landing
     .container.container
-      %h1= @landing.home_title
+      %h1= landing_option&.form_title
       %p.subtitle= @landing.subtitle
 
-  = render 'pages/breadcrumbs', landing: @landing, landing_option: @solicitation.landing_options&.first
+  = render 'pages/breadcrumbs', landing: @landing, landing_option: landing_option
 
 - if @solicitation.persisted?
   %section.section.section-grey#section-thankyou
@@ -27,7 +28,6 @@
       .solicitation-form
         = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
         .description
-          - landing_option = @solicitation.landing_options.first
           - if landing_option&.form_description.present?
             = tag.div(landing_option.form_description.html_safe)
           - if landing_option&.description_explanation.present?
