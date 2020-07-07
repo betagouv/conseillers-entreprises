@@ -1,4 +1,4 @@
-- if defined?ENV['DEPLOYED_REGIONS'] && !ENV['DEPLOYED_REGIONS'].include?(session[:region])
+- if defined? ENV['DEPLOYED_REGIONS'] && !ENV['DEPLOYED_REGIONS'].include?(session[:region])
   .notification.full-width.error.region-alerte
     .container
       %p= t('pages.alert_region.alert_region_html')
