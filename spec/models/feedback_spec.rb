@@ -40,32 +40,41 @@ RSpec.describe Feedback, type: :model do
     let(:date2) { date1 + 1.minute }
     let(:date3) { date1 + 2.minutes }
 
-    let(:solicitation) { Timecop.freeze(date1) { create :solicitation } }
+    let(:solicitation) { travel_to(date1) { create :solicitation } }
 
     before { solicitation }
 
     subject { solicitation.reload.updated_at }
 
     context 'when a feedback is added to a solicitation' do
-      let(:feedback) { Timecop.freeze(date3) { create :feedback, feedbackable: solicitation } }
+      let(:feedback) { travel_to(date3) { create :feedback, feedbackable: solicitation } }
 
-      before { Timecop.freeze(date3) { solicitation.feedbacks = [feedback] } }
+      before do
+        feedback
+        travel_to(date3) { solicitation.feedbacks = [feedback] }
+      end
 
       it { is_expected.to eq date3 }
     end
 
     context 'when a feedback is removed from a solicitation' do
-      let(:feedback) { Timecop.freeze(date1) { create :feedback, feedbackable: solicitation } }
+      let(:feedback) { travel_to(date1) { create :feedback, feedbackable: solicitation } }
 
-      before { Timecop.freeze(date3) { feedback.destroy } }
+      before do
+        feedback
+        travel_to(date3) { feedback.destroy }
+      end
 
       it { is_expected.to eq date3 }
     end
 
     context 'when a feedback is updated' do
-      let(:feedback) { Timecop.freeze(date1) { create :feedback, feedbackable: solicitation } }
+      let(:feedback) { travel_to(date1) { create :feedback, feedbackable: solicitation } }
 
-      before { Timecop.freeze(date3) { feedback.update(description: 'New description') } }
+      before do
+        feedback
+        travel_to(date3) { feedback.update(description: 'New description') }
+      end
 
       it { is_expected.to eq date3 }
     end

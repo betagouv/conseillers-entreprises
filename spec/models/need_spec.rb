@@ -193,14 +193,14 @@ RSpec.describe Need, type: :model do
   describe 'abandoned' do
     let(:need) { create :need }
     let(:date1) { Time.zone.now - 2.months }
-    let(:old_need) { Timecop.freeze(date1) { create :need, last_activity_at: date1 } }
+    let(:old_need) { travel_to(date1) { create :need, last_activity_at: date1 } }
 
     it do
       expect(need).not_to be_abandoned
       expect(old_need).to be_abandoned
       expect(described_class.abandoned).to match_array([old_need])
 
-      Timecop.freeze(2.months.from_now) do
+      travel_to(2.months.from_now) do
         expect(need).to be_abandoned
         expect(old_need).to be_abandoned
         expect(described_class.abandoned).to match_array([need, old_need])
@@ -213,32 +213,41 @@ RSpec.describe Need, type: :model do
     let(:date2) { date1 + 1.minute }
     let(:date3) { date1 + 2.minutes }
 
-    let(:diagnosis) { Timecop.freeze(date1) { create :diagnosis } }
+    let(:diagnosis) { travel_to(date1) { create :diagnosis } }
 
     before { diagnosis }
 
     subject { diagnosis.reload.updated_at }
 
     context 'when a need is added to a diagnosis' do
-      let(:need) { Timecop.freeze(date3) { create :need, diagnosis: diagnosis } }
+      let(:need) { travel_to(date3) { create :need, diagnosis: diagnosis } }
 
-      before { Timecop.freeze(date3) { diagnosis.needs = [need] } }
+      before do
+        need
+        travel_to(date3) { diagnosis.needs = [need] }
+      end
 
       it { is_expected.to eq date3 }
     end
 
     context 'when a need is removed from a diagnosis' do
-      let(:need) { Timecop.freeze(date1) { create :need, diagnosis: diagnosis } }
+      let(:need) { travel_to(date1) { create :need, diagnosis: diagnosis } }
 
-      before { Timecop.freeze(date3) { need.destroy } }
+      before do
+        need
+        travel_to(date3) { need.destroy }
+      end
 
       it { is_expected.to eq date3 }
     end
 
     context 'when a need is updated' do
-      let(:need) { Timecop.freeze(date1) { create :need, diagnosis: diagnosis } }
+      let(:need) { travel_to(date1) { create :need, diagnosis: diagnosis } }
 
-      before { Timecop.freeze(date3) { need.update(content: 'New content') } }
+      before do
+        need
+        travel_to(date3) { need.update(content: 'New content') }
+      end
 
       it { is_expected.to eq date3 }
     end
@@ -249,21 +258,21 @@ RSpec.describe Need, type: :model do
     let(:date2) { date1 + 1.minute }
     let(:date3) { date1 + 2.minutes }
 
-    let(:need) { Timecop.freeze(date1) { create :need } }
-    let(:match) { Timecop.freeze(date2) { create :match, need: need } }
+    let(:need) { travel_to(date1) { create :need } }
+    let(:match) { travel_to(date2) { create :match, need: need } }
 
     before { need.reload; match }
 
     subject { need.reload.last_activity_at }
 
     context 'when a match is updated' do
-      before { Timecop.freeze(date3) { match.update(status: :done) } }
+      before { travel_to(date3) { match.update(status: :done) } }
 
       it { is_expected.to eq date3 }
     end
 
     context 'when a feedback is added to a match' do
-      let(:feedback) { Timecop.freeze(date3) { create :feedback, feedbackable: need } }
+      let(:feedback) { travel_to(date3) { create :feedback, feedbackable: need } }
 
       before { need.reload; feedback }
 
