@@ -244,8 +244,9 @@ fr:
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
     new_solicitation:
-      72h_contact_html: Déposez votre demande, un conseiller vous contactera <b>sous 72 heures</b>.
       default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
+      five_days_asterisk: "* Délai moyen de prise en charge."
+      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours*</b>.
     new_solicitation_form:
       button:
         title: Envoyer ma demande
