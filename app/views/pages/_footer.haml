@@ -1,14 +1,16 @@
 %footer.footer
   .container
-    %ul.footer__links.social
+    %ul.footer__links
+      %li.marianne
+        = image_tag 'Republique_Francaise_blanc.png', alt: 'Logo Marianne République Française'
+    %ul.footer__links
+      %li.title
+        = image_tag 'place-des-entreprises-logo.png', alt: 'Logo Place des Entreprises', class: 'logo-footer'
+        %span= 'place-des-entreprises.beta.gouv.fr'
+      %li.beta-link= link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises'
       %li.social-network
         = link_to 'https://www.linkedin.com/company/place-des-entreprises', target: '_blank', rel: 'noopener' do
           = image_tag 'linkedin.png', alt: 'logo linkedin'
-    %ul.footer__links
-      %li.title
-        = image_tag 'place-des-entreprises-logo.png', alt: 'logo Place des Entreprises', class: 'logo-footer'
-        %h2= 'place-des-entreprises.beta.gouv.fr'
-      %li.beta-link= link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises'
     %ul.footer__links
       %li= link_to t('cgu'), cgu_path
       %li= link_to t('about.politique_de_confidentialite.title'), politique_de_confidentialite_path

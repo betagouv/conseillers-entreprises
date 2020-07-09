@@ -114,6 +114,7 @@ fr:
         role: Fonction
       diagnosis:
         content: Commentaire
+        step: Étape
       diagnosis/visitee:
         email: Adresse e-mail de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée
@@ -159,6 +160,7 @@ fr:
         slug: Slug
         thank_you_message: Remerciement post-formulaire
       landing_option:
+        description_explanation: Explications de la description
         form_description: Description du formulaire
         form_title: Titre du formulaire
         preselected_institution_slug: Institution pré-sélectionnée
@@ -404,6 +406,7 @@ fr:
     is_archived: Archivé
     label: Intitulé
     legal_form_code: Forme juridique
+    logo_sort_order: Position du logo sur la page d'accueil
     matches:
       one: Mise en relation
       other: Mises en relation
@@ -423,6 +426,7 @@ fr:
     received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues
+    region_name: Institution de la région
     searches:
       one: Recherche
       other: Recherches
@@ -435,7 +439,7 @@ fr:
     sent_needs:
       one: Besoin analysé
       other: Besoins analysés
-    show_icon: Logo sur la page d’accueil
+    show_on_list: Afficher sur la liste des partenaires
     siren: SIREN
     siret: SIRET
     status: Statut

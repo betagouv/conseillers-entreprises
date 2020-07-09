@@ -8,6 +8,7 @@ class LandingsController < PagesController
     @landings = Rails.cache.fetch('landings', expires_in: 3.minutes) do
       Landing.ordered_for_home.to_a
     end
+    @landing_emphasis = Landing.emphasis
   end
 
   def show; end

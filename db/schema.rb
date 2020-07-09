@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_114456) do
+ActiveRecord::Schema.define(version: 2020_07_02_083225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2020_06_25_114456) do
     t.datetime "updated_at", null: false
     t.integer "experts_count"
     t.integer "advisors_count"
-    t.boolean "show_icon", default: true
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
     t.index ["name", "institution_id"], name: "index_antennes_on_name_and_institution_id", unique: true
   end
@@ -209,8 +208,10 @@ ActiveRecord::Schema.define(version: 2020_06_25_114456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "antennes_count"
-    t.boolean "show_icon", default: true
     t.string "slug", null: false
+    t.boolean "show_on_list", default: false
+    t.integer "logo_sort_order"
+    t.string "region_name"
     t.index ["name"], name: "index_institutions_on_name", unique: true
     t.index ["slug"], name: "index_institutions_on_slug", unique: true
   end
@@ -243,6 +244,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_114456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "landing_id", null: false
+    t.string "landing_option_slug"
     t.index ["landing_id"], name: "index_landing_topics_on_landing_id"
   end
 

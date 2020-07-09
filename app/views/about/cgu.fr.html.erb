@@ -1,11 +1,13 @@
 <% meta title: t('.title') %>
-<div class="hero hero-color">
-  <div class="hero__container">
-    <h1>
-      <%= t('.title') %>
-    </h1>
+
+<section class="section section-white landing">
+  <div class="container container">
+    <h1><%= t('.title') %></h1>
   </div>
-</div>
+</section>
+
+<%= render 'pages/breadcrumbs', title: t('.title') %>
+
 <section class="section section-grey">
   <div class="container container-medium cgu">
     <p>Les présentes conditions générales d’utilisation (dites « CGU ») fixent le cadre juridique du service numérique « Place des Entreprises » et définissent les conditions d’accès et d’utilisation des services par les utilisateurs.<p>

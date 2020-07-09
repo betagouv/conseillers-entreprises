@@ -1,0 +1,38 @@
+.container.explanations
+  .row
+    .col
+      .icon
+        = image_tag('picto1.png', alt: '')
+      %h2
+        Choisissez un sujet et
+        %span.blue
+          déposez votre demande
+      %p
+        Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
+    .col
+      .icon
+        = image_tag('picto3.png', alt: '')
+      %h2
+        Nous identifions
+        %span.blue
+          le bon conseiller
+        sur votre territoire.
+      %p
+        Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
+    .col
+      .icon
+        = image_tag('picto2.png', alt: '')
+      %h2
+        %span.blue
+          Le conseiller vous contacte
+        directement pour vous aider sous 5 jours*.
+      %p
+        Le conseiller compétent pour votre demande vous contacte et vous accompagne en fonction de votre situation.
+      %p.asterisk
+        * Délai moyen de prise en charge
+
+  #learn-more
+    - if request.path == comment_ca_marche_path
+      = link_to t('.submit_request'), root_path(anchor: 'section-thematiques'), class: 'button large'
+    - else
+      = t('.learn_more_html')

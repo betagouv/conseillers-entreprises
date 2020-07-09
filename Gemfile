@@ -75,7 +75,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'webmock'
-  gem 'timecop'
   gem 'axe-matchers', require: false
 end
 

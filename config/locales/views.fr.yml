@@ -3,14 +3,13 @@ fr:
   about:
     cgu:
       title: Conditions d’utilisation du service numérique Place des Entreprises
-    contact_us:
+    comment_ca_marche:
       contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
+      title: Comment ça marche ?
     mentions_legales:
       title: Mentions légales
     politique_de_confidentialite:
       title: Politique de confidentialité
-    qui_sommes_nous:
-      title: Qui sommes-nous ?
     top_5:
       get_help: Faire une demande
       short_title: Top 5 des aides
@@ -22,6 +21,8 @@ fr:
       modified: Le tag a été %{action}
     csv_export: Export CSV
     csv_export_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
+    landings:
+      region_name_placeholder: Indiquez si l’institution est présente uniquement dans une région
   application:
     footer:
       contact_us: Contactez-nous !
@@ -48,6 +49,9 @@ fr:
       no_badges: Il n'y a aucun tag pour le moment
       title: Tags
       title_label: Titre
+  breadcrumbs_helper:
+    home_link:
+      home: Déposer une demande
   companies:
     company:
       capital_social: Capital social
@@ -217,28 +221,32 @@ fr:
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       view_completed_analysis: Voir l’analyse réalisée
+  landing_topics:
+    landing_topic:
+      aria_label_landing_topic: Choisir %{title}
+      choose: Choisir
   landings:
-    hero:
-      title: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME en Hauts-de-France'
     index:
       answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
+      how-it-works: Comment ça marche
       meta:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
         title: Place des Entreprises, le guichet public des TPE et PME
-      question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
+      question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
       submit_request: Déposez votre demande
     index_institutions:
-      title: 'Un service du Ministère de l’Economie et du Ministère du Travail, avec plus de 50 partenaires publics :'
+      more_partners_html: Et <a href='/comment_ca_marche#liste-partenaires'>plus de 50 partenaires</a> à votre service.
+      title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
     index_landing_card:
       discover: Découvrir
     index_landing_cards:
-      contact_us: Contactez-nous directement
-      other_questions: Votre question n’est pas dans cette liste ?
-      title: 'Sélectionnez votre demande :'
+      contact_us: contactez-nous !
+      discover_measures: Découvrir les mesures
+      other_questions: Pour toute autre demande,
     new_solicitation:
-      back_to_landing: Revenir à la liste de mesures
       default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
-      default_title: Quelle est votre demande ?
+      five_days_asterisk: "* Délai moyen de prise en charge."
+      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours*</b>.
     new_solicitation_form:
       button:
         title: Envoyer ma demande
@@ -262,17 +270,12 @@ fr:
       default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
-    newsletter:
-      newsletter_informations: Nous vous tenons informés des mesures d’accompagnement mises en place par l’État, la Région et les partenaires publics.
-      placeholder_email: Votre adresse email
-      received_news: Recevez par email les nouvelles mesures proposées
-      subscribe: S’abonner
-    show_landing:
-      submit_request: Déposer votre demande
     show_landing_institutions:
-      institutions: 'Un service du Ministère de l''Economie et du Ministère du Travail, en partenariat avec :'
+      institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
     show_landing_topics:
       default_landing_topic_title: 'Exemples d’aides :'
+      other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href='/' class='blue'>Découvrez les autres sujets</a>
+      you_wish: Vous souhaitez
     subscribe_newsletter:
       error_mailjet: Une erreur s'est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
@@ -460,11 +463,19 @@ fr:
       visit_made_on: Mise en relation faite le %{date}
   pages:
     alert_region:
-      alert_region_html: "<b>Place des Entreprises</b> est un service ouvert en Hauts-de-France uniquement."
+      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France."
       learn_more: En savoir plus
     footer:
       dinum: DINUM
       startup_d_etat: Une startup d’État de beta.gouv
+    how_it_works:
+      learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
+      submit_request: Déposez votre demande
+    newsletter:
+      newsletter_informations: Nous vous proposons un focus sur un accompagnement public chaque mois. Découvrez concrètement comment les partenaires de Place des Entreprises peuvent vous aider.
+      placeholder_email: Votre adresse email
+      received_news_html: Recevez les nouveaux accompagnements publics chaque mois <span class='text-blue'>par email</span>.
+      subscribe: S’abonner
   person:
     deleted_person: Compte supprimé
   reminders:
@@ -525,11 +536,11 @@ fr:
       processed: Traitées
   stats:
     series:
-      advisors_html: <span class="count">%{count}</span> conseillers publics
-      companies_html: <span class="count">%{count}</span> entreprises aidées
+      advisors: conseillers publics
+      companies: entreprises aidées
       experts_html: <span class="count">%{count}</span> référents
       matches_html: <span class="count">%{count}</span> mises en relation
-      needs_html: <span class="count">%{count}</span> demandes transmises
+      needs: demandes transmises
       solicitations_html: <span class="count">%{count}</span> sollicitations directes
       source:
         direct: Sollicitations d’entreprises

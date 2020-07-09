@@ -1,6 +1,5 @@
 - if flash.present?
-  %section.section
-    .container
-      - flash.each do |type, message|
-        .notification{ class: "#{type}" }
-          = message
+  - flash.each do |type, message|
+    .notification.full-width{ class: "#{type}" }
+      .container
+        = message

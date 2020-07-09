@@ -1,19 +1,20 @@
-%header.navbar
+%header.section
   = render 'alert_region'
+  .container
 
-  .navbar__container
-    %a.navbar__home{ href: '/' }
-      = image_tag 'logo-marianne.svg', alt: 'place-des-entreprises.data.gouv.fr', class: 'navbar__logo'
-      %span.navbar__domain
-        %span place-des-entreprises
-        = image_tag 'pointbetagouvfr.svg', alt: 'beta.gouv.fr', class: 'navbar__gouvfr'
-    %nav
-      %ul.nav__links
-        %li.nav__item
-          = active_link_to t('about.top_5.short_title'), top_5_path
-        %li.nav__item
-          = active_link_to t('about.qui_sommes_nous.title'), qui_sommes_nous_path
-        %li.nav__item
-          = active_link_to t('experts_login'),
-           user_signed_in? ? needs_path : new_user_session_path,
-           id: 'experts_login'
+    .navbar__container
+      %a.navbar__home{ href: '/' }
+        = image_tag 'Republique_Francaise_RVB.png', alt: 'république française', class: 'navbar__logo'
+        %span.navbar__domain
+          %span place-des-entreprises
+          = image_tag 'pointbetagouvfr.svg', alt: 'beta.gouv.fr', class: 'navbar__gouvfr'
+      %nav
+        %ul.nav__links
+          %li.nav__item
+            = active_link_to t('about.top_5.short_title'), top_5_path
+          %li.nav__item
+            = active_link_to t('about.comment_ca_marche.title'), comment_ca_marche_path
+          %li.nav__item
+            = active_link_to t('experts_login'),
+             user_signed_in? ? needs_path : new_user_session_path,
+             id: 'experts_login'

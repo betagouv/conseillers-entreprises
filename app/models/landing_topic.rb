@@ -2,13 +2,14 @@
 #
 # Table name: landing_topics
 #
-#  id                 :bigint(8)        not null, primary key
-#  description        :text
-#  landing_sort_order :integer
-#  title              :string
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  landing_id         :bigint(8)        not null
+#  id                  :bigint(8)        not null, primary key
+#  description         :text
+#  landing_option_slug :string
+#  landing_sort_order  :integer
+#  title               :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  landing_id          :bigint(8)        not null
 #
 # Indexes
 #
