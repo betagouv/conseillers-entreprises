@@ -23,8 +23,9 @@
   %section.section.section-grey.landing#section-formulaire
     .container
       - unless in_iframe?
-        .notification.success
-          = t('.five_days_contact_html')
+        .notification.success.delay
+          %span
+            = t('.five_days_contact_html')
           .asterisk
             = t('.five_days_asterisk')
       .solicitation-form
