@@ -19,7 +19,7 @@
       <%= all_institutions_images(session[:region]) %>
     </div>
     <div class="row partners-list">
-      <% @institutions.each do |institutions_column| %>
+      <% @institutions&.each do |institutions_column| %>
         <ul>
           <% institutions_column.each do |institution| %>
             <li><%= institution %></li>
