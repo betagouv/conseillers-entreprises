@@ -8,9 +8,11 @@
 
 - unless in_iframe?
   %section.section.section-white.landing
-    .container.container
-      %h1= landing_option&.form_title
-      %p.subtitle= @landing.subtitle
+    .container
+      .landing-header
+        .title
+          %h1= landing_option&.form_title
+          %p.subtitle= @landing.subtitle
 
   = render 'pages/breadcrumbs', landing: @landing, landing_option: landing_option
 
