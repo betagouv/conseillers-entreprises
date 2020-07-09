@@ -29,5 +29,5 @@
 
   %section.section.section-lightest-grey.section-partners
     .container.text-center
-      - cache('institutions', expires_in: 1.hour) do
+      - cache('institutions', expires_in: 1.minute) do
         = render 'index_institutions'
