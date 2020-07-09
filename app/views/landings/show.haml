@@ -8,9 +8,13 @@
 
   - unless in_iframe?
     %section.section.section-white.landing
-      .container.container
-        %h1= @landing.title
-        %p.subtitle= @landing.subtitle
+      .container
+        .row.landing-header
+          .title
+            %h1= @landing.title
+            %p.subtitle= @landing.subtitle
+          .image
+            = image_tag('home.png', alt: "")
 
     = render 'pages/breadcrumbs', landing: @landing
 

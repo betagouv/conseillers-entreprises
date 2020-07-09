@@ -24,7 +24,9 @@
     .container
       - unless in_iframe?
         .notification.success
-          = t('.72h_contact_html')
+          = t('.five_days_contact_html')
+          .asterisk
+            = t('.five_days_asterisk')
       .solicitation-form
         = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
         .description
