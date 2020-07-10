@@ -84,4 +84,63 @@ RSpec.describe Subject, type: :model do
       it { is_expected.to eq [q2] }
     end
   end
+
+  describe 'copy_experts_from_other' do
+    let(:s1) { create :subject }
+    let(:s2) { create :subject }
+
+    let(:i1) { build :institution }
+    let(:i2) { build :institution }
+
+    let(:is1) { build :institution_subject, subject: s1, institution: i1 }
+
+    let(:experts1) do
+      create_list :expert, 3, antenne: build(:antenne, institution: i1)
+    end
+
+    let(:experts2) do
+      create_list :expert, 3, antenne: build(:antenne, institution: i2)
+    end
+
+    before do
+      experts1.each do |e|
+        e.experts_subjects = [build(:expert_subject, institution_subject: is1)]
+      end
+    end
+
+    context 'when there was no existing experts' do
+      it do
+        expect(s2.experts).to be_empty
+
+        s2.copy_experts_from_other s1
+        s2.reload
+
+        expect(s1.experts).to eq(experts1)
+        expect(s2.experts).to eq(experts1)
+      end
+    end
+
+    context 'when there were already experts' do
+      let(:is2) { build :institution_subject, subject: s2, institution: i2 }
+
+      before do
+        experts2.each do |e|
+          e.experts_subjects = [build(:expert_subject, institution_subject: is2)]
+        end
+      end
+
+      it do
+        expect(s2.experts).to eq(experts2)
+
+        s2.copy_experts_from_other s1
+        s2.reload
+
+        expect(s1.experts).to eq(experts1)
+        expect(s2.experts).to eq(experts1)
+
+        experts2.each(&:reload)
+        expect(experts2.flat_map(&:experts_subjects)).to be_empty
+      end
+    end
+  end
 end

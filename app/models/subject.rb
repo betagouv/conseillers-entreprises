@@ -72,6 +72,21 @@ class Subject < ApplicationRecord
       .where(is_support: false)
   end
 
+  def copy_experts_from_other(other)
+    self.transaction do
+      self.institutions_subjects.destroy_all
+      other.institutions_subjects.each do |other_institutions_subjects|
+        experts_subjects_attributes =  other_institutions_subjects.experts_subjects.map{ |es| es.attributes.symbolize_keys.slice(:description, :role, :expert_id) }
+        i = InstitutionSubject.new(
+          description: other_institutions_subjects.description,
+          institution: other_institutions_subjects.institution,
+          experts_subjects_attributes: experts_subjects_attributes
+        )
+        self.institutions_subjects << i
+      end
+    end
+  end
+
   ##
   #
   def to_s
