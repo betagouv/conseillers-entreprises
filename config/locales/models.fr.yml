@@ -69,6 +69,11 @@ fr:
     solicitations:
       no_siret: SIRET non fourni
     subject:
+      copy_experts_button: Copier le référencement
+      copy_experts_confirm: Copier le référencement ? Vous ne pourrez pas annuler.
+      copy_experts_details: Copier le référencement depuis un autre sujet. Les institutions et experts de ce sujet remplaceront ceux du sujet courant. Le référencement du sujet copié ne sera pas modifié.
+      copy_experts_done: Référencement copié.
+      copy_experts_title: Référencement
       define_as_support: Définir comme sujet support
       done: Ce sujet est maintenant le seul sujet support
     territory:

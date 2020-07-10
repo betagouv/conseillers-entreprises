@@ -75,6 +75,15 @@ ActiveAdmin.register Subject do
     end
   end
 
+  sidebar I18n.t('active_admin.subject.copy_experts_title'), only: :show do
+    div p I18n.t('active_admin.subject.copy_experts_details')
+    form_for :copy_from_other, url: { action: :copy_from_other }, method: :put do |f|
+      f.select :subject_to_copy_from, options_from_collection_for_select(Subject.archived(false), :id, :label)
+
+      f.submit I18n.t('active_admin.subject.copy_experts_button'), data: { confirm: I18n.t('active_admin.subject.copy_experts_confirm') }
+    end
+  end
+
   ## Form
   #
   permit_params :theme_id, :label, :interview_sort_order
@@ -97,5 +106,11 @@ ActiveAdmin.register Subject do
   member_action :define_as_support, method: :put do
     resource.define_as_support!
     redirect_to resource_path, alert: t('active_admin.subject.done')
+  end
+
+  member_action :copy_from_other, method: :put do
+    other = Subject.find(params[:copy_from_other][:subject_to_copy_from])
+    resource.copy_experts_from_other(other)
+    redirect_to resource_path(resource), alert: I18n.t('active_admin.subject.copy_experts_done')
   end
 end
