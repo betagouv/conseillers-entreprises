@@ -166,12 +166,12 @@ ActiveAdmin.register Landing do
         o.input :preselected_institution_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Institution.pluck(:slug)
         o.input :form_title, input_html: { style: 'width:70%' }
         o.input :form_description, as: :text, input_html: { style: 'width:70%', rows: 10 }
-        o.input :description_explanation, as: :text, input_html: { style: 'width:70%', rows: 5 }
+        o.input :description_explanation, as: :text, input_html: { style: 'width:70%', rows: 10 }
       end
     end
 
     f.inputs I18n.t("landings.new_solicitation_form.form") do
-      f.input :description_example, placeholder: t('landings.new_solicitation_form.description.default_example').html_safe
+      f.input :description_example, placeholder: t('landings.new_solicitation_form.description.default_example').html_safe, as: :text, input_html: { rows: 3 }
       f.input :form_bottom_message
       f.input :form_promise_message, placeholder: t('landings.new_solicitation.default_promise_message').html_safe
       f.input :thank_you_message, placeholder: t('landings.new_solicitation_thank_you.default_thank_you_message').html_safe
