@@ -382,7 +382,6 @@ fr:
         visited_days_ago: Visitée il y a %{days} par %{advisor}
         visited_on: Visitée le %{date}
     footer:
-      blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
       contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
       contact_us_mailto_text: nous contacter
     hello: Bonjour,
