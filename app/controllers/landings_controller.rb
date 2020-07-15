@@ -20,7 +20,7 @@ class LandingsController < PagesController
   def create_solicitation
     @solicitation = Solicitation.create(solicitation_params.merge(retrieve_form_info))
     if @solicitation.persisted?
-      CompanyMailer.confirmation_solicitation(@solicitation.email).deliver_later
+      CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
         AdminMailer.solicitation(@solicitation).deliver_later
       end

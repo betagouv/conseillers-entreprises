@@ -1,6 +1,6 @@
 class CompanyMailerPreview < ActionMailer::Preview
   def confirmation_solicitation
-    CompanyMailer.confirmation_solicitation(email)
+    CompanyMailer.confirmation_solicitation(Solicitation.all.sample)
   end
 
   def notify_matches_made_solicitation
@@ -17,15 +17,5 @@ class CompanyMailerPreview < ActionMailer::Preview
 
   def taking_care_visit
     CompanyMailer.notify_taking_care(Diagnosis.completed.from_visit.sample.matches.sample)
-  end
-
-  private
-
-  def email
-    Solicitation.all.sample.email
-  end
-
-  def match
-    Match.all.sample
   end
 end

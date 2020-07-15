@@ -4,9 +4,10 @@ class CompanyMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/company_mailer'
 
-  def confirmation_solicitation(email)
+  def confirmation_solicitation(solicitation)
+    @solicitation = solicitation
     mail(
-      to: email,
+      to: @solicitation.email,
       subject: t('mailers.company_mailer.confirmation_solicitation.subject')
     )
   end

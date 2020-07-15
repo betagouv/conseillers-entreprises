@@ -342,8 +342,8 @@ fr:
           zero: Aucune analyse mise à jour.
     company_mailer:
       confirmation_solicitation:
-        content_html: "<p>Votre demande a bien été prise en compte sur le site Place des Entreprises. Si un complément d’informations est nécessaire, nous revenons vers vous dans les 72 heures.</p><p>Vous serez ensuite contacté par les partenaires publics susceptibles de vous aider.</p><p>L’équipe Place des Entreprises assure un suivi qualité pour qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
-        subject: Bonne réception de votre demande sur Place des Entreprises
+        content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise aux partenaires publics susceptibles de vous aider.</p><p>Un suivi qualité est assuré afin qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
+        subject: Bonne réception de votre demande par Place des Entreprises
       intro_from_solicitation_html: Vous avez contacté Place des Entreprises au sujet de votre entreprise <strong>%{company}</strong>.
       intro_from_visit_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise <strong>%{company}</strong>. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises, qui réunit tous les partenaires publics pouvant aider les TPE &amp; PME.</p>"
       notify_matches_made:
