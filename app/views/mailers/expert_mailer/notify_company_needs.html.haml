@@ -9,9 +9,15 @@
 %p= t('.needs_you')
 
 %p
-  = t('.advisor_met_company',
-   advisor_name_with_role: @diagnosis.advisor.full_name_with_role,
-   visit_date: I18n.l(@diagnosis.display_date, format: :long))
+  - if @solicitation.present?
+    - if @solicitation.landing.partner_url.present?
+      = t('.via_partner_html', date: I18n.l(@solicitation.created_at, format: :long), url: @solicitation.landing.partner_url)
+    - else
+      = t('.via_solicitation', date: I18n.l(@solicitation.created_at, format: :long))
+  - else
+    = t('.advisor_met_company',
+     advisor_name_with_role: @diagnosis.advisor.full_name_with_role,
+     visit_date: I18n.l(@diagnosis.display_date, format: :long))
   = t('.company_expressed_needs', count: needs.size)
 
 - needs.ordered_for_interview.each do |need|
