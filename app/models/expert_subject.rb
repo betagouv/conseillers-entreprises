@@ -30,8 +30,6 @@ class ExpertSubject < ApplicationRecord
   belongs_to :expert
   belongs_to :institution_subject
 
-  has_many :matches, inverse_of: :expert_subject
-
   ## "Through" associations
   #
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
