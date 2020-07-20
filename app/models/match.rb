@@ -69,8 +69,6 @@ class Match < ApplicationRecord
   # :subject
   has_one :theme, through: :subject, inverse_of: :matches
 
-  # has_one :institution_subject, through: :expert_subject
-
   ## Scopes
   #
   scope :updated_more_than_five_days_ago, -> { where('matches.updated_at < ?', 5.days.ago) }

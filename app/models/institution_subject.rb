@@ -33,7 +33,7 @@ class InstitutionSubject < ApplicationRecord
   has_one :theme, through: :subject, inverse_of: :institutions_subjects
 
   # :experts_subjects
-  has_many :experts, through: :experts_subjects, inverse_of: :experts
+  has_many :experts, through: :experts_subjects, inverse_of: :institution_subjects
 
   ## Scopes
   #
