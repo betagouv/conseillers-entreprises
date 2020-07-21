@@ -11,7 +11,7 @@
     .container
       .landing-header
         .title
-          %h1= landing_option&.form_title
+          %h1= landing_option&.form_title.presence || @landing.title
           %p.subtitle= @landing.subtitle
 
   = render 'pages/breadcrumbs', landing: @landing, landing_option: landing_option
@@ -30,7 +30,7 @@
             = t('.five_days_contact_html')
           .asterisk
             = t('.five_days_asterisk')
-      .solicitation-form
+      .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
         = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
         .description
           - if landing_option&.form_description.present?

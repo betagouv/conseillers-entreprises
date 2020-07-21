@@ -113,4 +113,5 @@ group :development do
   gem 'rubocop-faker', require: false
   gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
+  gem "rails-erd"
 end

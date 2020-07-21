@@ -62,12 +62,14 @@ class Expert < ApplicationRecord
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
   has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
 
-  # :matches
+  # :received_matches
   has_many :received_needs, through: :received_matches, source: :need, inverse_of: :experts
   has_many :received_diagnoses, through: :received_matches, source: :diagnosis, inverse_of: :experts
 
-  # :subjects
+  # :experts_subjects
+  has_many :institution_subjects, through: :experts_subjects, inverse_of: :experts
   has_many :subjects, through: :experts_subjects, inverse_of: :experts
+
   ##
   #
   accepts_nested_attributes_for :users, allow_destroy: true

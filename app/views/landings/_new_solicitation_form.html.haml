@@ -1,4 +1,4 @@
-= form_with(model: solicitation, url: path, local: true, html: { honeypot: true, class: "#{'in-iframe' if in_iframe?}" }) do |f|
+= form_with(model: solicitation, url: path, local: true, html: { honeypot: true }) do |f|
   - if solicitation.errors.present?
     :javascript
       _paq.push(['trackEvent', 'contact-entreprise', 'failure']);
