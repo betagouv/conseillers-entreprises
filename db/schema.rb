@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_083225) do
+ActiveRecord::Schema.define(version: 2020_07_22_122049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(version: 2020_07_02_083225) do
     t.bigint "facility_id", null: false
     t.date "happened_on"
     t.bigint "solicitation_id"
+    t.boolean "newsletter_subscription_email_sent", default: false, null: false
+    t.boolean "satisfaction_email_sent", default: false, null: false
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
