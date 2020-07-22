@@ -253,6 +253,7 @@ fr:
       description:
         default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
         label: Description
+        partner_url: URL de la page où se situe l’iframe
       email:
         label: Email
         placeholder: marie.dupont@exemple.fr
@@ -268,6 +269,7 @@ fr:
         placeholder: 123 456 789 00010
     new_solicitation_thank_you:
       default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
+      description: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
     show_landing_institutions:
@@ -360,12 +362,14 @@ fr:
       notify_company_needs:
         advisor_met_company: "%{advisor_name_with_role} l’a rencontrée le %{visit_date}."
         company_expressed_needs:
-          one: 'L’entreprise a exprimé un besoin qui correspond à vos compétences :'
-          other: 'L’entreprise a exprimé des besoins qui correspondent à vos compétences :'
+          one: 'Elle a exprimé un besoin qui correspond à vos compétences :'
+          other: 'Elle a exprimé des besoins qui correspondent à vos compétences :'
         needs_you: a besoin de votre expertise.
         reply: Répondre sur Place des entreprises
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
         this_company: L’entreprise
+        via_partner_html: Elle a sollicité Place des entreprises via le formulaire sur <a href='%{url}' target='_blank'>%{url}</a> le %{date}.
+        via_solicitation: Elle a sollicité Place des entreprises le %{date}.
       notify_other_taking_care:
         complementary_help: Il correspond à votre champ d'intervention. Avez-vous une solution complémentaire à proposer ?
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> - %{subject} - a été pris en charge par %{expert} (%{antenne}).

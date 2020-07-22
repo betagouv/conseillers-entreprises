@@ -102,6 +102,7 @@ ActiveAdmin.register Landing do
       row :form_bottom_message
       row :form_promise_message
       row :thank_you_message
+      row :partner_url
     end
   end
 
@@ -115,7 +116,7 @@ ActiveAdmin.register Landing do
   landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :_destroy]
   permit_params :slug,
                 :institution_id,
-                :home_title, :home_description, :home_sort_order,
+                :home_title, :home_description, :home_sort_order, :partner_url,
                 *Landing::CONTENT_KEYS,
                 landing_options_attributes: landing_options_attributes,
                 landing_topics_attributes: landing_topics_attributes
@@ -174,6 +175,7 @@ ActiveAdmin.register Landing do
       f.input :form_bottom_message
       f.input :form_promise_message, placeholder: t('landings.new_solicitation.default_promise_message').html_safe
       f.input :thank_you_message, placeholder: t('landings.new_solicitation_thank_you.default_thank_you_message').html_safe
+      f.input :partner_url, placeholder: t('landings.new_solicitation_form.description.partner_url').html_safe
     end
 
     f.actions

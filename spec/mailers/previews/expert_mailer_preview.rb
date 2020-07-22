@@ -4,6 +4,22 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.notify_company_needs(expert, expert.received_diagnoses.sample)
   end
 
+  def notify_company_needs_from_pde
+    expert = active_expert
+    diagnosis = expert.received_diagnoses.sample
+    diagnosis.solicitation = Solicitation.all.sample
+    ExpertMailer.notify_company_needs(expert, diagnosis)
+  end
+
+  def notify_company_needs_from_partner
+    expert = active_expert
+    diagnosis = expert.received_diagnoses.sample
+    solicitation = Solicitation.all.sample
+    diagnosis.solicitation = solicitation
+    solicitation.landing.update(partner_url: 'https://test.com/formulaire')
+    ExpertMailer.notify_company_needs(expert, diagnosis)
+  end
+
   def remind_involvement
     expert = active_expert
     ExpertMailer.remind_involvement(expert)
