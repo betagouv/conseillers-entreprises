@@ -67,6 +67,30 @@ Créé dans le contexte de [l’incubateur des startups d’état](https://beta.
   - `rake lint:brakeman` : static analysis security vulnerability 
 - `rake lint_fix`: rubocop and i18n automatic codestyle fixes
 
+## SSL on localhost
+
+To run locally using https, you’ll need specify a certificate and a key. The easiest is to use [mkcert](https://github.com/FiloSottile/mkcert)
+
+```
+# install a root certificate on your machine
+brew install mkcert
+# generate a cert for localhost (and synonyms)
+mkcert localhost 127.0.0.1 ::1 0.0.0.0
+```
+
+Don’t add the certificate and the key to git. You can put them in tmp. Then set `DEVELOPMENT_PUMA_SSL` to `1` and set the paths in `DEVELOPMENT_PUMA_SSL_KEY` in `DEVELOPMENT_PUMA_SSL_CERT`. It enables SSL for development. You can check that when runnings `rails s` it now should look like this:
+
+```
+* Min threads: 5, max threads: 5
+* Environment: development
+* Listening on ssl://0.0.0.0:3000?cert=...&key=...
+```
+
+There’s an additional step for Rubymine, because it overrides the settings in puma.rb and we need to over-override the _IP address_ and _port_ set in the Run Configuration window. The easiest seems to add this to _Server arguments_:
+```
+-b ssl://0.0.0.0:3000?cert=<path/to/cert>&key=<path/to/key>&verify_mode=none
+```
+
 ## Browser compatibility
 
 Supported browsers: recent versions of Firefox, Chrome, Safari, Edge or IE11.
