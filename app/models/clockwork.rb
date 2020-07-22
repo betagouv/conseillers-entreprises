@@ -14,4 +14,8 @@ module Clockwork
   every(1.day, 'send_newsletter_subscription_emails', at: ('9:41')) do
     CompanyMailerService.delay.send_newsletter_subscription_emails
   end
+
+  every(1.day, 'send_satisfaction_emails', at: ('10:41')) do
+    CompanyMailerService.delay.send_satisfaction_emails
+  end
 end

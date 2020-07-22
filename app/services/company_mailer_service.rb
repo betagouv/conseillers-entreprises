@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class CompanyMailerService
+  def self.send_satisfaction_emails
+    diagnoses = Diagnosis
+      .min_closed_at(11.days.ago..10.days.ago)
+    diagnoses.each do |diagnosis|
+      CompanyMailer.satisfaction(diagnosis).deliver_later
+      diagnosis.update(satisfaction_email_sent: true)
+    end
+  end
+
   def self.send_newsletter_subscription_emails
     diagnoses = Diagnosis
       .min_closed_at(13.days.ago..12.days.ago)

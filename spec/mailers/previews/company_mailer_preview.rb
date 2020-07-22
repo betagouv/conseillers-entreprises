@@ -19,6 +19,10 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.notify_taking_care(Diagnosis.completed.from_visit.sample.matches.sample)
   end
 
+  def satisfaction
+    CompanyMailer.satisfaction(Diagnosis.completed.sample)
+  end
+
   def newsletter_subscription
     CompanyMailer.newsletter_subscription(Diagnosis.completed.sample)
   end

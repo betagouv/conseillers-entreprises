@@ -33,6 +33,15 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
+  def satisfaction(diagnosis)
+    @diagnosis = diagnosis
+
+    mail(
+      to: @diagnosis.visitee.email_with_display_name,
+      subject: t('mailers.company_mailer.satisfaction.subject')
+    )
+  end
+
   def newsletter_subscription(diagnosis)
     @diagnosis = diagnosis
 
