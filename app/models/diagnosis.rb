@@ -96,6 +96,13 @@ class Diagnosis < ApplicationRecord
 
   scope :after_step, -> (minimum_step) { where('step >= ?', minimum_step) }
 
+  scope :min_closed_at, -> (range) do
+    joins(:matches)
+      .merge(Match.status_done)
+      .group(:id)
+      .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
+  end
+
   ##
   #
   def to_s
