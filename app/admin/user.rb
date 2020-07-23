@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'admin/user_importer.rb'
+require 'admin/user_importer'
 
 ActiveAdmin.register User do
   menu priority: 3

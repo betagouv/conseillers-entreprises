@@ -46,7 +46,7 @@ class Feedback < ApplicationRecord
     experts_users = self.need.experts.flat_map(&:users)
     feedback_users = need.feedbacks.map(&:user)
     # remove users if their experts are already present in feedbacks authors
-    feedback_users.filter! { |user| !experts_users.include?(user) }
+    feedback_users.filter! { |user| experts_users.exclude?(user) }
     persons = (need.experts + [need.advisor] + feedback_users).uniq
     persons - [user] - user.experts
   end
