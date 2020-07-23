@@ -6,6 +6,7 @@ class NewslettersController < PagesController
       Mailjet::Contactslist_managecontact.create(id: ENV['MAILJET_NEWSLETTER_ID'], action: "addforce", email: params[:email])
       flash[:success] = t('.success_newsletter')
     rescue StandardError => e
+      Raven.capture_exception(e)
       flash[:warning] = t('.error_mailjet')
     end
     redirect_back fallback_location: root_path
