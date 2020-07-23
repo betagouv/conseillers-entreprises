@@ -144,8 +144,7 @@ class Need < ApplicationRecord
   ## ActiveAdmin/Ransacker helpers
   #
   ransacker(:by_status, formatter: -> (value) {
-    by_status(value).pluck(:id)
-      .presence
+    by_status(value).ids.presence
   }) { |parent| parent.table[:id] }
 
   ##

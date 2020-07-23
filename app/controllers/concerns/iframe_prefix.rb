@@ -62,7 +62,7 @@ module IframePrefix
       # Only prefix urls to routes compatible with iframes
       controller = Rails.application.routes.recognize_path(url.path)[:controller]
       klass = (controller.camelize + 'Controller').constantize
-      return raw_url unless klass.ancestors.include?(IframePrefix)
+      return raw_url unless klass <= IframePrefix
 
       url.path = "/#{@iframe_prefix}" + url.path
       url.to_s

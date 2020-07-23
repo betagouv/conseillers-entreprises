@@ -1,7 +1,6 @@
 module Stats
   module BaseStats
-    attr_reader :territory
-    attr_reader :institution
+    attr_reader :territory, :institution
 
     def initialize(params)
       if params.territory.present?
