@@ -18,4 +18,8 @@ class CompanyMailerPreview < ActionMailer::Preview
   def taking_care_visit
     CompanyMailer.notify_taking_care(Diagnosis.completed.from_visit.sample.matches.sample)
   end
+
+  def newsletter_subscription
+    CompanyMailer.newsletter_subscription(Diagnosis.completed.sample)
+  end
 end
