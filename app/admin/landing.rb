@@ -102,6 +102,7 @@ ActiveAdmin.register Landing do
       row :form_bottom_message
       row :form_promise_message
       row :thank_you_message
+      row :partner_url
     end
   end
 
@@ -115,7 +116,7 @@ ActiveAdmin.register Landing do
   landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :_destroy]
   permit_params :slug,
                 :institution_id,
-                :home_title, :home_description, :home_sort_order,
+                :home_title, :home_description, :home_sort_order, :partner_url,
                 *Landing::CONTENT_KEYS,
                 landing_options_attributes: landing_options_attributes,
                 landing_topics_attributes: landing_topics_attributes
@@ -165,15 +166,16 @@ ActiveAdmin.register Landing do
         o.input :preselected_institution_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Institution.pluck(:slug)
         o.input :form_title, input_html: { style: 'width:70%' }
         o.input :form_description, as: :text, input_html: { style: 'width:70%', rows: 10 }
-        o.input :description_explanation, as: :text, input_html: { style: 'width:70%', rows: 5 }
+        o.input :description_explanation, as: :text, input_html: { style: 'width:70%', rows: 10 }
       end
     end
 
     f.inputs I18n.t("landings.new_solicitation_form.form") do
-      f.input :description_example, placeholder: t('landings.new_solicitation_form.description.default_example').html_safe
+      f.input :description_example, placeholder: t('landings.new_solicitation_form.description.default_example').html_safe, as: :text, input_html: { rows: 3 }
       f.input :form_bottom_message
       f.input :form_promise_message, placeholder: t('landings.new_solicitation.default_promise_message').html_safe
       f.input :thank_you_message, placeholder: t('landings.new_solicitation_thank_you.default_thank_you_message').html_safe
+      f.input :partner_url, placeholder: t('landings.new_solicitation_form.description.partner_url').html_safe
     end
 
     f.actions

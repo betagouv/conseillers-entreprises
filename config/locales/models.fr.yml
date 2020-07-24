@@ -162,6 +162,7 @@ fr:
         landing_topic_title: Titre des exemples
         landing_topics: Exemples
         message_under_landing_topics: Message sous les exemples
+        partner_url: Url du site partenaire
         slug: Slug
         thank_you_message: Remerciement post-formulaire
       landing_option:

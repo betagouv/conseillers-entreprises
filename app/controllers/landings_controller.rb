@@ -1,6 +1,6 @@
 class LandingsController < PagesController
   before_action :save_form_info, only: %i[index show]
-  before_action :retrieve_landing, except: %i[index subscribe_newsletter]
+  before_action :retrieve_landing, except: %i[index]
 
   include IframePrefix
 
@@ -20,7 +20,7 @@ class LandingsController < PagesController
   def create_solicitation
     @solicitation = Solicitation.create(solicitation_params.merge(retrieve_form_info))
     if @solicitation.persisted?
-      CompanyMailer.confirmation_solicitation(@solicitation.email).deliver_later
+      CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
         AdminMailer.solicitation(@solicitation).deliver_later
       end
@@ -28,16 +28,6 @@ class LandingsController < PagesController
     end
 
     render :new_solicitation # rerender the form on error, render the thankyou partial on success
-  end
-
-  def subscribe_newsletter
-    begin
-      Mailjet::Contactslist_managecontact.create(id: ENV['MAILJET_NEWSLETTER_ID'], action: "addforce", email: params[:email])
-      flash[:success] = t('.success_newsletter')
-    rescue StandardError => e
-      flash[:warning] = t('.error_mailjet')
-    end
-    redirect_back fallback_location: root_path
   end
 
   private

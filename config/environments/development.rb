@@ -3,6 +3,11 @@ Rails.application.configure do
 
   Rails.application.routes.default_url_options = { host: ENV['HOST_NAME'], port: ENV['PORT'] }
 
+  if ENV['DEVELOPMENT_PUMA_SSL'].to_b
+    # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+    config.force_ssl = true
+  end
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -66,3 +71,5 @@ Rails.application.configure do
   # Let Faker load its :en text
   config.i18n.enforce_available_locales = false
 end
+
+PpSql.add_rails_logger_formatting = false

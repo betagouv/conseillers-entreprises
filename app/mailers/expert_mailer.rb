@@ -7,6 +7,7 @@ class ExpertMailer < ApplicationMailer
   def notify_company_needs(expert, diagnosis)
     @expert = expert
     @diagnosis = diagnosis
+    @solicitation = diagnosis.solicitation
 
     mail(
       to: @expert.email_with_display_name,

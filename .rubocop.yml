@@ -991,6 +991,9 @@ Style/GlobalVars:
 Style/GuardClause:
   Enabled: false
 
+Style/HashAsLastArrayItem:
+  Enabled: false
+
 Style/HashEachMethods:
   Enabled: true
 

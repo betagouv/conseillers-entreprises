@@ -28,7 +28,7 @@ module PlaceDesEntreprises
     config.i18n.available_locales = [:fr]
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.default_locale = :fr
-    config.i18n.fallbacks = true
+    config.i18n.fallbacks = [I18n.default_locale]
     config.active_model.i18n_customize_full_message = true
 
     config.action_mailer.default_url_options = { host: ENV['HOST_NAME'] }

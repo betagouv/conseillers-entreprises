@@ -46,7 +46,10 @@ Rails.application.routes.draw do
     end
   end
 
-  post :subscribe_newsletter, to: 'landings#subscribe_newsletter'
+  resource :newsletters, only: %i[] do
+    post :create
+    get :new, path: 'abonnement'
+  end
 
   resources :solicitations, only: %i[index show], path: 'sollicitations' do
     member do
@@ -71,6 +74,7 @@ Rails.application.routes.draw do
     get :top_5
     get :politique_de_confidentialite
     get :mentions_legales
+    get :satisfaction
   end
 
   resource :stats, only: [:show] do

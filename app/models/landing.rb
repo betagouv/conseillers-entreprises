@@ -49,7 +49,7 @@ class Landing < ApplicationRecord
     custom_css
     landing_topic_title message_under_landing_topics
     description_example form_bottom_message
-    form_promise_message thank_you_message
+    form_promise_message thank_you_message partner_url
   ]
   store_accessor :content, CONTENT_KEYS
 
