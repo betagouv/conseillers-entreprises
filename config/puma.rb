@@ -9,10 +9,10 @@ min_threads_count = ENV.fetch("RAILS_MIN_THREADS", max_threads_count)
 threads min_threads_count, max_threads_count
 
 # Specify SSL in local development
-if ENV.fetch("DEVELOPMENT_PUMA_SSL").to_b
+if ENV.fetch("RACK_ENV") == "development" && ENV['DEVELOPMENT_PUMA_SSL']&.to_b
   ssl_bind '0.0.0.0', ENV.fetch("PORT"), {
-    key: ENV['DEVELOPMENT_PUMA_SSL_KEY'],
-    cert: ENV['DEVELOPMENT_PUMA_SSL_CERT']
+    key: ENV.fetch('DEVELOPMENT_PUMA_SSL_KEY'),
+    cert: ENV.fetch('DEVELOPMENT_PUMA_SSL_CERT')
   }
 else
   # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
