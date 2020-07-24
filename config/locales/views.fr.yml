@@ -10,6 +10,8 @@ fr:
       title: Mentions légales
     politique_de_confidentialite:
       title: Politique de confidentialité
+    satisfaction:
+      title: Je donne mon avis sur Place des Entreprises
     top_5:
       get_help: Faire une demande
       short_title: Top 5 des aides
@@ -278,9 +280,6 @@ fr:
       default_landing_topic_title: 'Exemples d’aides :'
       other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href='/' class='blue'>Découvrez les autres sujets</a>
       you_wish: Vous souhaitez
-    subscribe_newsletter:
-      error_mailjet: Une erreur s'est produite, merci de réessayer.
-      success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   layouts:
     user_tabs:
       antenne: Antenne
@@ -342,10 +341,15 @@ fr:
           zero: Aucune analyse mise à jour.
     company_mailer:
       confirmation_solicitation:
-        content_html: "<p>Votre demande a bien été prise en compte sur le site Place des Entreprises. Si un complément d’informations est nécessaire, nous revenons vers vous dans les 72 heures.</p><p>Vous serez ensuite contacté par les partenaires publics susceptibles de vous aider.</p><p>L’équipe Place des Entreprises assure un suivi qualité pour qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
-        subject: Bonne réception de votre demande sur Place des Entreprises
+        content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise aux partenaires publics susceptibles de vous aider.</p><p>Un suivi qualité est assuré afin qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
+        subject: Bonne réception de votre demande par Place des Entreprises
       intro_from_solicitation_html: Vous avez contacté Place des Entreprises au sujet de votre entreprise <strong>%{company}</strong>.
       intro_from_visit_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise <strong>%{company}</strong>. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises, qui réunit tous les partenaires publics pouvant aider les TPE &amp; PME.</p>"
+      newsletter_subscription:
+        discover: Découvrez chaque mois un accompagnement public susceptible de vous aider !
+        intro_html: Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>.
+        subject: Découvrez les accompagnements publics pour votre entreprise avec la newsletter Place des Entreprises
+        subscribe: S’abonner à la newsletter
       notify_matches_made:
         needs_summary:
           one: 'Votre demande portait sur ce sujet :'
@@ -354,8 +358,17 @@ fr:
         subject_from_visit: Transmission des besoins de votre entreprise sur Place des Entreprises
         transmitted_to_antennes_html: "<p>Elle a été transmise aux conseillers de %{antennes}. Ces conseillers vont analyser votre situation et ceux qui peuvent vous aider vous recontacteront.</p>"
       notify_taking_care:
-        content_by_expert_html: "<p>Nous vous informons que votre demande - <strong>%{subject}</strong> - vient d’être prise en charge par <strong>%{expert_antenne}</strong>.</p><p>Un conseiller va prendre contact avec vous pour vous accompagner. Vérifiez également vos mails.</p>"
-        subject: Prise en charge de votre demande sur Place des Entreprises
+        content_by_expert_html: "<p>Elle a été transmise à un conseiller de <strong>%{expert_antenne}</strong>, qui va prendre contact avec vous. N’oubliez pas de consulter vos mails ou votre messagerie vocale. </p>"
+        intro_from_solicitation_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
+        intro_from_visit_html: "<p>Vous avez rencontré <strong>%{advisor}</strong> (%{advisor_antenne}), qui a utilisé le service public Place des Entreprises pour aider votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
+        subject: Transmission de votre demande Place des Entreprises à un partenaire public
+      satisfaction:
+        intro_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
+        outro: Votre avis est important pour nous aider à améliorer ce nouveau service public !
+        question_one_html: "<p>Est-ce que vous avez bien été recontacté par un conseiller ? <a href='%{link}' target='_blank' class='button green'>Oui</a> <a href='%{link}' target='_blank' class='button red'>Non</a></p>"
+        question_two_html: "<p>Est-ce que cet échange a été utile pour vous ? <a href='%{link}' target='_blank' class='button green'>Oui</a> <a href='%{link}' target='_blank' class='button red'>Non</a></p>"
+        subject: Clôture de votre demande sur Place des Entreprises
+        tank_you: Merci pour votre confiance,
     expert_mailer:
       never_used_account_warning:
         you_need_to_use_your_user_account: Attention ! Place des entreprises nécessite désormais de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
@@ -382,7 +395,6 @@ fr:
         visited_days_ago: Visitée il y a %{days} par %{advisor}
         visited_on: Visitée le %{date}
     footer:
-      blurb: 'Place des Entreprises : le guichet public et gratuit d’accompagnement des TPE & PME.'
       contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
       contact_us_mailto_text: nous contacter
     hello: Bonjour,
@@ -465,6 +477,10 @@ fr:
       solicitation: Sollicitation %{id}
       solicitation_link: Lien vers la sollicitation
       visit_made_on: Mise en relation faite le %{date}
+  newsletters:
+    create:
+      error_mailjet: Une erreur s’est produite, merci de réessayer.
+      success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
     alert_region:
       alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France."

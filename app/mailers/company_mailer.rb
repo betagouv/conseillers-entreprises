@@ -4,9 +4,10 @@ class CompanyMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/company_mailer'
 
-  def confirmation_solicitation(email)
+  def confirmation_solicitation(solicitation)
+    @solicitation = solicitation
     mail(
-      to: email,
+      to: @solicitation.email,
       subject: t('mailers.company_mailer.confirmation_solicitation.subject')
     )
   end
@@ -29,6 +30,24 @@ class CompanyMailer < ApplicationMailer
     mail(
       to: @diagnosis.visitee.email_with_display_name,
       subject: t('mailers.company_mailer.notify_taking_care.subject')
+    )
+  end
+
+  def satisfaction(diagnosis)
+    @diagnosis = diagnosis
+
+    mail(
+      to: @diagnosis.visitee.email_with_display_name,
+      subject: t('mailers.company_mailer.satisfaction.subject')
+    )
+  end
+
+  def newsletter_subscription(diagnosis)
+    @diagnosis = diagnosis
+
+    mail(
+      to: @diagnosis.visitee.email_with_display_name,
+      subject: t('mailers.company_mailer.newsletter_subscription.subject')
     )
   end
 end

@@ -1,14 +1,17 @@
 %p= t('mailers.hello')
 
 - if @diagnosis.from_solicitation?
-  = t('mailers.company_mailer.intro_from_solicitation_html', company: @diagnosis.company.name)
+  = t('.intro_from_solicitation_html', company: @diagnosis.company.name)
 - else
-  = t('mailers.company_mailer.intro_from_visit_html',
+  = t('.intro_from_visit_html',
    company: @diagnosis.company.name,
    advisor_antenne: @diagnosis.advisor.antenne.name,
    advisor: @diagnosis.advisor.full_name)
 
-= t('.content_by_expert_html', subject: @match.need.subject.label, expert_antenne: @match.expert.antenne.name)
+%blockquote
+  %strong= @match.need.subject.label
+
+= t('.content_by_expert_html', expert_antenne: @match.expert.antenne.name)
 
 %p= t('mailers.nice_day')
 

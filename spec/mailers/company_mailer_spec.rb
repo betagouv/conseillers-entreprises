@@ -5,7 +5,7 @@ require 'mailers/shared_examples_for_an_email'
 
 describe CompanyMailer do
   describe '#confirmation_solicitation' do
-    subject(:mail) { described_class.confirmation_solicitation(solicitation.email).deliver_now }
+    subject(:mail) { described_class.confirmation_solicitation(solicitation).deliver_now }
 
     let(:solicitation) { create :solicitation }
 

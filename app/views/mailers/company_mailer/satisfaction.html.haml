@@ -1,0 +1,31 @@
+:css
+  .button {
+    padding: 0.25em 1em;
+    color: #fff;
+    margin: 0 0.6em;
+  }
+  .red {
+    background-color: #d63626;
+  }
+  .green {
+    background-color: #007639;
+  }
+
+
+%p= t('mailers.hello')
+
+= t('.intro_html', company: @diagnosis.company.name)
+
+%blockquote
+  %strong= @diagnosis.subjects.first.label
+
+= t('.question_one_html', link: satisfaction_url)
+
+= t('.question_two_html', link: satisfaction_url)
+
+%p= t('.outro')
+
+%p= t('.tank_you')
+
+- link_to_root = link_to t('app_name'), root_url
+%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)

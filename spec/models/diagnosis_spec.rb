@@ -149,6 +149,23 @@ RSpec.describe Diagnosis, type: :model do
 
         it { is_expected.to eq [diagnosis] }
       end
+
+      describe 'min_closed_at' do
+        subject { described_class.min_closed_at(date_range) }
+
+        let(:date_range) { 12.days.ago..8.days.ago }
+        let(:closed_10_days_ago) { create :diagnosis_completed }
+        let(:not_closed_10_days_ago) { create :diagnosis_completed }
+        let(:closed_20_days_ago) { create :diagnosis_completed }
+
+        before do
+          travel_to(10.days.ago) { closed_10_days_ago.reload.matches.first.update(status: :done) }
+          travel_to(10.days.ago) { not_closed_10_days_ago.reload.matches.first.update(status: :not_for_me) }
+          travel_to(20.days.ago) { closed_20_days_ago.reload.matches.first.update(status: :done) }
+        end
+
+        it { is_expected.to eq [closed_10_days_ago] }
+      end
     end
   end
 end
