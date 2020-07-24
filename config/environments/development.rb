@@ -3,7 +3,7 @@ Rails.application.configure do
 
   Rails.application.routes.default_url_options = { host: ENV['HOST_NAME'], port: ENV['PORT'] }
 
-  if ENV.fetch("DEVELOPMENT_PUMA_SSL").to_b
+  if ENV['DEVELOPMENT_PUMA_SSL'].to_b
     # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
     config.force_ssl = true
   end
