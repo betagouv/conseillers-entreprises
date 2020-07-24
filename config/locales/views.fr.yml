@@ -263,9 +263,15 @@ fr:
       full_name:
         label: Prénom et nom
         placeholder: Marie Dupont
+      location:
+        label: Localisation
+        placeholder: Hauts-de-France; région de Milly-la-forêt; 91260…
       phone_number:
         label: Téléphone
         placeholder: 06 12 34 56 78
+      requested_help_amount:
+        label: Montant de l’aide demandée
+        placeholder: 8 000 €
       siret:
         label: SIRET
         placeholder: 123 456 789 00010

@@ -171,6 +171,12 @@ fr:
         form_title: Titre du formulaire
         preselected_institution_slug: Institution pré-sélectionnée
         preselected_subject_slug: Sujet pré-sélectionné
+        requires_email: Champ email
+        requires_full_name: Champ Nom
+        requires_location: Champ Localisation
+        requires_phone_number: Champ Téléphone
+        requires_requested_help_amount: Champ Montant de l’aide
+        requires_siret: Champ SIRET
       match:
         closed_at: Date de clôture
         expert: Référent
@@ -186,10 +192,12 @@ fr:
         user: Utilisateur
       solicitation:
         landing_options: Options choisies
+        location: Localisation
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
         pk_campaign: Campagne
         pk_kwd: Mots-clés
+        requested_help_amount: Montant de l’aide demandée
         slug: Page thématique
         tracking: Suivi
       solicitation/statuses:

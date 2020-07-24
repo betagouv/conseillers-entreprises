@@ -9,8 +9,10 @@
 #  full_name                        :string
 #  landing_options_slugs            :string           is an Array
 #  landing_slug                     :string           not null
+#  location                         :string
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
+#  requested_help_amount            :string
 #  siret                            :string
 #  status                           :integer          default("in_progress")
 #  created_at                       :datetime         not null
@@ -94,8 +96,14 @@ class Solicitation < ApplicationRecord
 
   ## Validations
   #
-  validates :landing_slug, :description, :full_name, :phone_number, :email, presence: true, allow_blank: false
-  validates :email, format: { with: Devise.email_regexp }
+  validates :landing_slug, :description, presence: true, allow_blank: false
+  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
+  validate do
+    # All visible fields are required
+    required_fields.each do |attr|
+      errors.add(attr, :blank) if self.public_send(attr).blank?
+    end
+  end
 
   ## Scopes
   #
@@ -132,6 +140,31 @@ class Solicitation < ApplicationRecord
     LandingOption.where(slug: landing_options_slugs)
   end
 
+  def landing_option
+    # Technically, a solicitation can have many landing_options; however, we currently limit it to 1 in the UI.
+    landing_options&.first
+  end
+
+  ## Visible fields in form
+  #
+  # Used \when a solicitation is made without a landing_option
+  DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
+
+  def required_fields
+    landing_option&.required_fields || DEFAULT_REQUIRED_FIELDS
+  end
+
+  FIELD_TYPES = {
+    full_name: 'text',
+    phone_number: 'tel',
+    email: 'email',
+    siret: 'text',
+    requested_help_amount: 'text',
+    location: 'text'
+  }
+
+  ## Preselection
+  #
   def preselected_subjects
     landing_options.map(&:preselected_subject).compact
   end
@@ -162,7 +195,7 @@ class Solicitation < ApplicationRecord
   end
 
   def display_attributes
-    %i[normalized_phone_number institution pk_campaign pk_kwd]
+    %i[normalized_phone_number institution requested_help_amount location pk_campaign pk_kwd]
   end
 
   def normalized_siret
