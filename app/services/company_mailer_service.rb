@@ -2,6 +2,8 @@
 
 class CompanyMailerService
   def self.send_satisfaction_emails
+    return unless ENV['FEATURE_SEND_SATISFACTION_EMAILS'].to_b
+
     diagnoses = Diagnosis
       .min_closed_at(11.days.ago..10.days.ago)
       .not_satisfaction_email_sent
@@ -12,6 +14,8 @@ class CompanyMailerService
   end
 
   def self.send_newsletter_subscription_emails
+    return unless ENV['FEATURE_SEND_NEWSLETTER_SUBSCRIPTION_EMAILS'].to_b
+
     diagnoses = Diagnosis
       .min_closed_at(13.days.ago..12.days.ago)
       .not_newsletter_subscription_email_sent
