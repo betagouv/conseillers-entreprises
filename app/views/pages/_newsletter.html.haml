@@ -6,5 +6,5 @@
 = form_with url: newsletters_path, method: :post, local: true do |f|
   .form__group
     .input__group
-      = f.email_field :email, placeholder: t('.placeholder_email'), 'aria-label': t('.placeholder_email'), required: 'required'
+      = f.email_field :email, placeholder: t('.placeholder_email'), 'aria-label': t('.placeholder_email'), required: true, value: local_assigns[:email]
       = f.submit t('.subscribe'), class: 'button bold'
