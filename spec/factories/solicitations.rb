@@ -7,5 +7,6 @@ FactoryBot.define do
     full_name { Faker::Name.unique.name }
     phone_number { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email }
+    siret { Faker::Company.french_siret_number }
   end
 end

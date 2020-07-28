@@ -94,6 +94,9 @@ ActiveAdmin.register Landing do
         column :form_title
         column :form_description
         column :description_explanation
+        LandingOption::REQUIRED_FIELDS_FLAGS.each do |attr|
+          column attr
+        end
       end
     end
 
@@ -111,7 +114,8 @@ ActiveAdmin.register Landing do
   landing_options_attributes = [
     :id, :slug, :landing_sort_order,
     :preselected_institution_slug, :preselected_subject_slug,
-    :_destroy, :form_description, :form_title, :description_explanation
+    :_destroy, :form_description, :form_title, :description_explanation,
+    *LandingOption::REQUIRED_FIELDS_FLAGS,
   ]
   landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :_destroy]
   permit_params :slug,
@@ -167,6 +171,9 @@ ActiveAdmin.register Landing do
         o.input :form_title, input_html: { style: 'width:70%' }
         o.input :form_description, as: :text, input_html: { style: 'width:70%', rows: 10 }
         o.input :description_explanation, as: :text, input_html: { style: 'width:70%', rows: 10 }
+        LandingOption::REQUIRED_FIELDS_FLAGS.each do |flag|
+          o.input flag
+        end
       end
     end
 

@@ -44,6 +44,9 @@ ActiveAdmin.register Solicitation do
       div s.normalized_phone_number
       div mail_to(s.email)
       hr
+      div admin_attr(s, :requested_help_amount)
+      div admin_attr(s, :location)
+      hr
       if s.pk_campaign.present?
         div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}"
       end
