@@ -131,7 +131,7 @@ ActiveAdmin.register Expert do
       end
       row(:subjects) do |e|
         safe_join(e.experts_subjects.map do |es|
-          link_to "#{es.subject} / #{es.institution_subject.description} / #{es.description}", admin_subject_path(es.subject)
+          link_to "#{es.subject} / #{es.institution_subject.description} / #{es.description} (#{es.human_attribute_value(:role)})", admin_subject_path(es.subject)
         end, '<br /> '.html_safe)
       end
       row :subjects_reviewed_at
@@ -170,7 +170,7 @@ ActiveAdmin.register Expert do
     *Expert::FLAGS,
     user_ids: [],
     experts_subjects_ids: [],
-    experts_subjects_attributes: %i[id description institution_subject_id _create _update _destroy]
+    experts_subjects_attributes: %i[id description institution_subject_id role _create _update _destroy]
   ]
 
   form do |f|
@@ -210,6 +210,7 @@ ActiveAdmin.register Expert do
             ["#{is.subject.to_s} - #{is.description}", is.id]
           end
           sub_f.input :institution_subject, collection: collection
+          sub_f.input :role, collection: ExpertSubject.human_attribute_values(:role).invert.to_a
           sub_f.input :description
         end
       end

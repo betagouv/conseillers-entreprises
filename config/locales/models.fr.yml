@@ -138,8 +138,9 @@ fr:
           one: Membre
           other: Membres
       expert_subject:
+        institution_subject: Compétence d’institution
         role: rôle
-      expert_subject/role:
+      expert_subject/roles:
         fallback: suppléant
         specialist: spécialiste
       facility:
