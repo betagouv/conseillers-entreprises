@@ -114,6 +114,10 @@ Staging emails are sent on [Mailtrap](https://mailtrap.io/) in order to test ema
 
 ## Deployment
 
+### HSTS
+
+HTTP Strict Transport Security is enabled in the app config (`config.force_ssl = true`) ; it’s disabled in the Scalingo settings, otherwise it duplicates the value in the header, which is invalid. Although browsers seem to tolerate it, security checks like [Mozilla Observatory](https://observatory.mozilla.org/analyze/place-des-entreprises.beta.gouv.fr) complain about it.
+
 ### Branches and setup
 
 Place des Entreprises is deployed on [Scalingo](http://doc.scalingo.com/languages/ruby/getting-started-with-rails/), with two distinct environment, ``reso-staging`` and `reso-production.
