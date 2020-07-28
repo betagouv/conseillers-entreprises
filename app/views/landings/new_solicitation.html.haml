@@ -2,7 +2,7 @@
   meta_title = @landing.meta_title.presence || @landing.title
   meta_description = @landing.meta_description.presence || @landing.subtitle
   meta title: meta_title, description: meta_description
-  landing_option = @solicitation.landing_options&.first
+  landing_option = @solicitation.landing_option
 
 %style= @landing.custom_css
 

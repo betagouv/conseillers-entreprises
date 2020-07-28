@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_122049) do
+ActiveRecord::Schema.define(version: 2020_07_24_145645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,12 @@ ActiveRecord::Schema.define(version: 2020_07_22_122049) do
     t.string "preselected_subject_slug"
     t.string "preselected_institution_slug"
     t.jsonb "content", default: {}
+    t.boolean "requires_full_name", default: false, null: false
+    t.boolean "requires_phone_number", default: false, null: false
+    t.boolean "requires_email", default: false, null: false
+    t.boolean "requires_siret", default: false, null: false
+    t.boolean "requires_requested_help_amount", default: false, null: false
+    t.boolean "requires_location", default: false, null: false
     t.index ["landing_id"], name: "index_landing_options_on_landing_id"
     t.index ["slug"], name: "index_landing_options_on_slug", unique: true
   end
@@ -317,6 +323,8 @@ ActiveRecord::Schema.define(version: 2020_07_22_122049) do
     t.string "landing_slug", null: false
     t.string "landing_options_slugs", array: true
     t.jsonb "prepare_diagnosis_errors_details", default: {}
+    t.string "requested_help_amount"
+    t.string "location"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
   end
