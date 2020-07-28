@@ -13,9 +13,7 @@ ActiveAdmin.register Audited::Audit do
         div admin_link_to(expert.antenne)
       end
     end
-    column(:action) do |i|
-      status_tag t(i.action, scope: 'activerecord.attributes.audited.action'), class: i.action
-    end
+    column(:action) { |i| human_attribute_status_tag i, :action }
     column(:auditable_type) do |i|
       div i.auditable_type.constantize.model_name.human
     end
@@ -27,8 +25,8 @@ ActiveAdmin.register Audited::Audit do
     end
     column(:created_at)
   end
-  actions = ['update', 'destroy', 'create'].map { |s| Audited::Audit.human_attribute_name("action.#{s}") }
+  actions = -> { ['update', 'destroy', 'create'].map { |s| Audited::Audit.human_attribute_value(:action, s) } }
   filter :created_at
-  filter :action, as: :select, collection: -> { actions }
+  filter :action, as: :select, collection: actions
   filter :auditable_type
 end

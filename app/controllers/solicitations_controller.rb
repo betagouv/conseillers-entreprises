@@ -37,7 +37,7 @@ class SolicitationsController < ApplicationController
   def update_status
     status = params[:status]
     @solicitation.update(status: status)
-    done = Solicitation.human_attribute_name("statuses_done.#{status}", count: 1)
+    done = Solicitation.human_attribute_value(:status, status, context: :done, count: 1)
     flash.notice = "#{@solicitation} #{done}"
     render 'remove'
   end

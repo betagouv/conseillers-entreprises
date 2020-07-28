@@ -102,12 +102,8 @@ fr:
   activerecord:
     attributes:
       antenne: 
-      audited:
-        action:
-          create: création
-          destroy: suppression
-          update: mise à jour
-      audited/audit/action:
+      audited: 
+      audited/audit/actions:
         create: création
         destroy: suppression
         update: mise à jour
@@ -204,11 +200,11 @@ fr:
         canceled: Annulée
         in_progress: Reçue
         processed: Clôturée
-      solicitation/statuses_actions:
+      solicitation/statuses/action:
         canceled: Annuler
         in_progress: Réouvrir
         processed: Clôturer
-      solicitation/statuses_done:
+      solicitation/statuses/done:
         canceled:
           one: annulée
           other: annulées

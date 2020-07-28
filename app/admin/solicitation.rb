@@ -13,7 +13,7 @@ ActiveAdmin.register Solicitation do
       div admin_link_to(s)
       div l(s.created_at, format: '%Y-%m-%d %H:%M')
       unless s.status_in_progress?
-        status_tag Solicitation.human_attribute_name("statuses.#{s.status}"), class: s.status
+        human_attribute_status_tag s, :status
       end
     end
     column :description do |s|
@@ -64,16 +64,16 @@ ActiveAdmin.register Solicitation do
   preserve_default_filters!
   remove_filter :diagnoses
   filter :landing_slug
-  filter :status, as: :select, collection: -> { Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), value] } }
+  filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
 
   ## Batch actions
   # Statuses
   Solicitation.statuses.each_key do |status|
-    batch_action Solicitation.human_attribute_name("statuses_actions.#{status}") do |ids|
+    batch_action Solicitation.human_attribute_value(:status, status, context: :action, disable_cast: true) do |ids|
       solicitations = batch_action_collection.where(id: ids)
       solicitations.update(status: status)
       model = Solicitation.model_name.human(count: solicitations.size)
-      done = Solicitation.human_attribute_name("statuses_done.#{status}", count: solicitations.size)
+      done = Solicitation.human_attribute_value(:status, status, context: :done, count: solicitations.size)
       redirect_back fallback_location: collection_path, notice: "#{model} #{done}"
     end
   end
@@ -132,9 +132,7 @@ ActiveAdmin.register Solicitation do
 
   sidebar I18n.t('activerecord.models.solicitation.one'), only: :show do
     attributes_table_for solicitation do
-      row :status do
-        status_tag Solicitation.human_attribute_name("statuses.#{solicitation.status}"), class: solicitation.status
-      end
+      row(:status) { human_attribute_status_tag solicitation, :status }
       row :diagnoses
       row :created_at
       row :updated_at
@@ -147,8 +145,7 @@ ActiveAdmin.register Solicitation do
   form do |f|
     f.inputs do
       f.input :description, as: :text
-      collection = Solicitation.statuses.map { |status, value| [Solicitation.human_attribute_name("statuses.#{status}"), status] }
-      f.input :status, collection: collection
+      f.input :status, collection: Solicitation.human_attribute_values(:status).invert.to_a
       f.input :siret
       f.input :full_name
       f.input :phone_number
