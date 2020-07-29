@@ -101,8 +101,6 @@ class Match < ApplicationRecord
     status_done? || status_not_for_me?
   end
 
-  include StatusHelper::StatusDescription
-
   DATE_PROPERTIES = {
     quo: :created_at,
     not_for_me: :closed_at,

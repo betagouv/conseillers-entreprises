@@ -4,14 +4,18 @@ module Admin
       def admin_changes
         klass = self.auditable_type.constantize
         changes = self.audited_changes
-        changes.map do |k, v|
-          next unless v.is_a?(Array) && !v.is_a?(Integer)
-          [
-            klass.human_attribute_name(k) + ' : ' +
-            klass.human_attribute_name(k + '.' + klass.attribute_types[k].cast(v.first).to_s) + ' ➔ ' +
-            klass.human_attribute_name(k + '.' + klass.attribute_types[k].cast(v.last).to_s)
-          ]
+        summary = changes.map do |attribute, value|
+          # klass is the class, e.g. ExpertSubject
+          # value is value (old, new, or array of both, e.g. `[0, 1]`)
+          # attr is the attribute, e.g. "role"
+          if value.is_a? Array
+            "#{klass.human_attribute_name(attribute)} : #{klass.human_attribute_value(attribute, value.first)} ➔ #{klass.human_attribute_value(attribute, value.last)}"
+          else
+            "#{klass.human_attribute_name(attribute)} : #{klass.human_attribute_value(attribute, value)}"
+          end
         end
+
+        summary.compact
       end
     end
 

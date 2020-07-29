@@ -102,12 +102,8 @@ fr:
   activerecord:
     attributes:
       antenne: 
-      audited:
-        action:
-          create: création
-          destroy: suppression
-          update: mise à jour
-      audited/audit/action:
+      audited: 
+      audited/audit/actions:
         create: création
         destroy: suppression
         update: mise à jour
@@ -120,6 +116,12 @@ fr:
       diagnosis:
         content: Commentaire
         step: Étape
+      diagnosis/steps:
+        completed: Terminée
+        matches: Mise en contact
+        needs: Détection des besoins
+        not_started: Pas démarrée
+        visit: Détails de la visite
       diagnosis/visitee:
         email: Adresse e-mail de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée
@@ -136,8 +138,9 @@ fr:
           one: Membre
           other: Membres
       expert_subject:
+        institution_subject: Compétence d’institution
         role: rôle
-      expert_subject/role:
+      expert_subject/roles:
         fallback: suppléant
         specialist: spécialiste
       facility:
@@ -182,10 +185,39 @@ fr:
         expert: Référent
         need: Besoin identifié
         taken_care_of_at: Date de prise en charge
+      match/statuses:
+        done: Besoin clôturé
+        not_for_me: Mise en relation refusée
+        quo: En attente de réponse
+        taking_care: En cours de prise en charge
+      match/statuses/action:
+        done: Clôturer
+        not_for_me: Refuser
+        quo: Annuler
+        taking_care: Prendre en charge
+      match/statuses/short:
+        done: Clôturé
+        not_for_me: Refusé
+        quo: Pas de réponse
+        taking_care: Pris en charge
       need:
         archived_at: Mis en échec
         is_archived: En échec
         subject: Sujet
+      need/statuses:
+        diagnosis_not_complete: Analyse en cours
+        done: Besoin clôturé
+        not_for_me: Mise en relation refusée
+        quo: En attente de réponse
+        sent_to_no_one: Envoyé à personne
+        taking_care: En cours de prise en charge
+      need/statuses/short:
+        diagnosis_not_complete: Analyse en cours
+        done: Clôturé
+        not_for_me: Refusé
+        quo: Pas de réponse
+        sent_to_no_one: Envoyé à personne
+        taking_care: Pris en charge
       search:
         label: Entreprise
         query: Requête
@@ -204,11 +236,11 @@ fr:
         canceled: Annulée
         in_progress: Reçue
         processed: Clôturée
-      solicitation/statuses_actions:
+      solicitation/statuses/action:
         canceled: Annuler
         in_progress: Réouvrir
         processed: Clôturer
-      solicitation/statuses_done:
+      solicitation/statuses/done:
         canceled:
           one: annulée
           other: annulées
@@ -457,26 +489,6 @@ fr:
     siren: SIREN
     siret: SIRET
     status: Statut
-    status_description: Résumé
-    statuses:
-      diagnosis_not_complete: Analyse en cours
-      done: Besoin clôturé
-      not_for_me: Mise en relation refusée
-      quo: En attente de réponse
-      sent_to_no_one: Envoyé à personne
-      taking_care: En cours de prise en charge
-    statuses_action:
-      done: Clôturer
-      not_for_me: Refuser
-      quo: Annuler
-      taking_care: Prendre en charge
-    statuses_short:
-      diagnosis_not_complete: Analyse en cours
-      done: Clôturé
-      not_for_me: Refusé
-      quo: Pas de réponse
-      sent_to_no_one: Envoyé à personne
-      taking_care: Pris en charge
     subject: Sujet
     subjects:
       one: Sujet

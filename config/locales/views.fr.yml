@@ -154,7 +154,6 @@ fr:
         notifications_sent: Les notifications ont bien été envoyées.
         notify_matches: Notifier les référents sélectionnés
         select_at_least_one_expert: Cochez au minimum un référent à contacter.
-        title: Mise en contact
         you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
       needs:
         diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
@@ -164,7 +163,6 @@ fr:
           N’hésitez pas à ajouter les détails à destination des référents sur ces domaines.
         need_content_placeholder: Plus d’infos sur ce besoin
         select_at_least_one_need: Cochez au minimum un besoin identifié.
-        title: Détection des besoins
       visit:
         date: Date de votre visite
         date_placeholder: jj/mm/aaaa
@@ -177,7 +175,6 @@ fr:
         phone_number: Numéro de télephone
         role: Fonction au sein de l’entreprise
         role_placeholder: Directeur, Gérant…
-        title: Détails de la visite
         your_contact_in_the_company: 'Votre contact chez %{company_name} :'
   experts:
     edit:

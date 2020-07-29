@@ -22,14 +22,14 @@ ActiveAdmin.register Match do
     selectable_column
     column :match, sortable: :status do |m|
       div admin_link_to(m)
-      status_status_tag(m.status)
+      human_attribute_status_tag m, :status
     end
     column :updated_at
     column :need, sortable: :created_at do |m|
       div admin_link_to(m, :need)
       div admin_attr(m.facility, :commune)
       div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
-      status_status_tag(m.need.status)
+      human_attribute_status_tag m.need, :status
     end
     column :advisor do |m|
       div admin_link_to(m, :advisor)
@@ -53,7 +53,8 @@ ActiveAdmin.register Match do
     actions dropdown: true
   end
 
-  filter :status
+  collection = -> { Match.human_attribute_values(:status, raw_values: true, context: :short).invert.to_a }
+  filter :status, as: :select, collection: collection, label: I18n.t('attributes.status')
 
   filter :updated_at
 
@@ -74,13 +75,13 @@ ActiveAdmin.register Match do
   #
   show do
     attributes_table do
-      row(:status) { |m| status_status_tag(m.status) }
+      row(:status) { |m| human_attribute_status_tag m, :status }
       row :need
       row :created_at
       row :updated_at
       row :taken_care_of_at
       row :closed_at
-      row(:need) { |m| status_status_tag(m.need.status) }
+      row(:need) { |m| human_attribute_status_tag m.need, :status }
       row :advisor
       row :advisor_antenne
       row :contacted_expert do |m|

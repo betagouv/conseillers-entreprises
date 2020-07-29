@@ -10,7 +10,7 @@
   = t(".expert_and_status.#{@match.status}_html",
     expert: @expert.full_name,
     antenne: @expert.antenne.name,
-    previous_status: t(@previous_status, scope: 'attributes.statuses_action'))
+    previous_status: Match.human_attribute_value(:status, @previous_status, context: :action))
 
 %p= t('mailers.user_mailer.nice_day')
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))
