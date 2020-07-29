@@ -169,14 +169,10 @@ class Need < ApplicationRecord
 
   ## Status
   #
-  STATUSES = %i[
-    diagnosis_not_complete
-    sent_to_no_one
-    quo
-    taking_care
-    done
-    not_for_me
-  ]
+  # Need.status isn't an enum, but we want human_attribute_values and friends to work the same.
+  def self.statuses
+    { "diagnosis_not_complete" => -2, "sent_to_no_one" => -1, "quo" => 0, "taking_care" => 1, "done" => 2, "not_for_me" => 3, }
+  end
 
   def status
     return :diagnosis_not_complete unless diagnosis.step_completed?
@@ -195,8 +191,6 @@ class Need < ApplicationRecord
       :not_for_me
     end
   end
-
-  include StatusHelper::StatusDescription
 
   private
 
