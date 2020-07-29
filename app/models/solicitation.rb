@@ -98,8 +98,8 @@ class Solicitation < ApplicationRecord
   #
   validates :landing_slug, :description, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate do
-    # All visible fields are required
+  validate on: :create do
+    # All visible fields are required on creation
     required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
