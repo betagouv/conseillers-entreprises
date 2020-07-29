@@ -1,9 +1,9 @@
-- cache_unless(flash.present?, [@landing, in_iframe?]) do
-  :ruby
-    meta_title = @landing.meta_title.presence || @landing.title
-    meta_description = @landing.meta_description.presence || @landing.subtitle
-    meta title: meta_title, description: meta_description
+:ruby
+  meta_title = @landing.meta_title.presence || @landing.title
+  meta_description = @landing.meta_description.presence || @landing.subtitle
+  meta title: meta_title, description: meta_description
 
+- cache_unless(flash.present?, [@landing, in_iframe?]) do
   %style= @landing.custom_css
 
   - unless in_iframe?
