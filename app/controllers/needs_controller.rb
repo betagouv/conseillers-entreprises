@@ -66,6 +66,7 @@ class NeedsController < ApplicationController
     @query = params.require('query')&.strip
 
     @experts = Expert.omnisearch(@query)
+      .with_subjects
       .where.not(id: @need.experts)
       .limit(15)
       .includes(:antenne, experts_subjects: :institution_subject)
