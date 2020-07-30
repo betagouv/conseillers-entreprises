@@ -37,13 +37,24 @@ class SolicitationsController < ApplicationController
   def update_status
     status = params[:status]
     @solicitation.update(status: status)
-    done = Solicitation.human_attribute_value(:status, status, context: :done, count: 1)
-    flash.notice = "#{@solicitation} #{done}"
-    render 'remove'
+    if @solicitation.valid?
+      done = Solicitation.human_attribute_value(:status, status, context: :done, count: 1)
+      flash.notice = "#{@solicitation} #{done}"
+      render 'remove'
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+      redirect_to @solicitation
+    end
   end
 
   def update_badges
-    @solicitation.update(params.require(:solicitation).permit(badge_ids: []))
+    badges_params = params.require(:solicitation).permit(badge_ids: [])
+    if @solicitation.valid?
+      @solicitation.update(badges_params)
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+      redirect_to @solicitation
+    end
   end
 
   def prepare_diagnosis
@@ -51,8 +62,8 @@ class SolicitationsController < ApplicationController
     if diagnosis
       redirect_to diagnosis
     else
-      # TODO: redirect to @solicitation. See discussion in #1089
-      redirect_to action: :index
+      flash.alert = @solicitation.prepare_diagnosis_errors.full_messages.to_sentence
+      redirect_to @solicitation
     end
   end
 
