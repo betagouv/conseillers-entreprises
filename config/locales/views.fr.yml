@@ -350,7 +350,7 @@ fr:
       intro_from_visit_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise <strong>%{company}</strong>. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises, qui réunit tous les partenaires publics pouvant aider les TPE &amp; PME.</p>"
       newsletter_subscription:
         discover: Découvrez chaque mois un accompagnement public susceptible de vous aider !
-        intro_html: Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>.
+        intro_html: Vous avez utilisé <strong>le service public Place des Entreprises</strong> pour votre entreprise <strong>%{company}</strong>.
         subject: Découvrez les accompagnements publics pour votre entreprise avec la newsletter Place des Entreprises
         subscribe: S’abonner à la newsletter
       notify_matches_made:
