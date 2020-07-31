@@ -225,7 +225,6 @@ fr:
       view_completed_analysis: Voir l’analyse réalisée
   landing_topics:
     landing_topic:
-      aria_label_landing_topic: Choisir %{title}
       choose: Choisir
   landings:
     index:
