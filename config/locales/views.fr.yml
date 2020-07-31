@@ -251,27 +251,8 @@ fr:
       button:
         title: Envoyer ma demande
       description:
-        label: Description
         partner_url: URL de la page où se situe l’iframe
-      email:
-        label: Email
-        placeholder: marie.dupont@exemple.fr
       form: Formulaire
-      full_name:
-        label: Prénom et nom
-        placeholder: Marie Dupont
-      location:
-        label: Localisation
-        placeholder: Hauts-de-France; région de Milly-la-forêt; 91260…
-      phone_number:
-        label: Téléphone
-        placeholder: 06 12 34 56 78
-      requested_help_amount:
-        label: Montant de l’aide demandée
-        placeholder: 8 000 €
-      siret:
-        label: SIRET
-        placeholder: 123 456 789 00010
     new_solicitation_thank_you:
       message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
       message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
