@@ -25,7 +25,6 @@
       .container
         = render 'newsletter', email: @solicitation.email
 
-
 - if @solicitation.new_record?
   %section.section.section-grey.landing#section-formulaire
     .container
@@ -38,11 +37,9 @@
       .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
         = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
         .description
-          - if landing_option&.form_description.present?
-            = tag.div(landing_option.form_description.html_safe)
-          - if landing_option&.description_explanation.present?
-            #description-explanation
-              = tag.div(landing_option.description_explanation.html_safe)
+          %div= landing_option&.form_description&.html_safe
+          .explanation
+            %div= landing_option&.description_explanation&.html_safe
 
   - unless in_iframe?
     %section.section.section-white.landing
