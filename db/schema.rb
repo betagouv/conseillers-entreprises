@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_24_145645) do
+ActiveRecord::Schema.define(version: 2020_07_30_155744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,6 +241,9 @@ ActiveRecord::Schema.define(version: 2020_07_24_145645) do
     t.boolean "requires_siret", default: false, null: false
     t.boolean "requires_requested_help_amount", default: false, null: false
     t.boolean "requires_location", default: false, null: false
+    t.string "form_title"
+    t.string "form_description"
+    t.string "description_explanation"
     t.index ["landing_id"], name: "index_landing_options_on_landing_id"
     t.index ["slug"], name: "index_landing_options_on_slug", unique: true
   end
@@ -265,6 +268,15 @@ ActiveRecord::Schema.define(version: 2020_07_24_145645) do
     t.text "home_description", default: ""
     t.integer "home_sort_order"
     t.bigint "institution_id"
+    t.string "meta_title"
+    t.string "meta_description"
+    t.string "title"
+    t.string "subtitle"
+    t.string "logos"
+    t.string "custom_css"
+    t.string "message_under_landing_topics"
+    t.string "partner_url"
+    t.boolean "emphasis", default: false
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end

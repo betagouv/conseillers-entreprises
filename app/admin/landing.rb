@@ -115,8 +115,13 @@ ActiveAdmin.register Landing do
   landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :_destroy]
   permit_params :slug,
                 :institution_id,
-                :home_title, :home_description, :home_sort_order, :partner_url,
-                *Landing::CONTENT_KEYS,
+                :home_title, :home_description, :home_sort_order,
+                :meta_title, :meta_description,
+                :emphasis,
+                :title, :subtitle, :logos,
+                :custom_css,
+                :message_under_landing_topics,
+                :thank_you_message, :partner_url,
                 landing_options_attributes: landing_options_attributes,
                 landing_topics_attributes: landing_topics_attributes
 
