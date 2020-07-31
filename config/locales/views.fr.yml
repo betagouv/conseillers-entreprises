@@ -250,8 +250,6 @@ fr:
     new_solicitation_form:
       button:
         title: Envoyer ma demande
-      description:
-        partner_url: URL de la page où se situe l’iframe
       form: Formulaire
     new_solicitation_thank_you:
       message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !

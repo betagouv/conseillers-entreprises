@@ -37,12 +37,16 @@ ActiveAdmin.register Landing do
   #
   show title: :slug do
     attributes_table do
-      row :institution
       row :slug do |l|
         div link_to l.slug, l if l.slug.present?
       end
       row :created_at
       row :updated_at
+    end
+
+    attributes_table title: I18n.t("landings.new_solicitation_form.form") do
+      row :institution
+      row :partner_url
     end
 
     attributes_table title: I18n.t("activerecord.attributes.landing.featured_on_home") do
@@ -97,10 +101,6 @@ ActiveAdmin.register Landing do
         end
       end
     end
-
-    attributes_table title: I18n.t("landings.new_solicitation_form.form") do
-      row :partner_url
-    end
   end
 
   ## Form
@@ -127,7 +127,11 @@ ActiveAdmin.register Landing do
   form title: :slug do |f|
     f.inputs do
       f.input :slug
+    end
+
+    f.inputs I18n.t("landings.new_solicitation_form.form") do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+      f.input :partner_url
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
@@ -172,10 +176,6 @@ ActiveAdmin.register Landing do
           o.input flag
         end
       end
-    end
-
-    f.inputs I18n.t("landings.new_solicitation_form.form") do
-      f.input :partner_url, placeholder: t('landings.new_solicitation_form.description.partner_url').html_safe
     end
 
     f.actions
