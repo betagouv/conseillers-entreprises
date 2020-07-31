@@ -246,14 +246,12 @@ fr:
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
     new_solicitation:
-      default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
       five_days_asterisk: "* Délai moyen de prise en charge."
       five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours*</b>.
     new_solicitation_form:
       button:
         title: Envoyer ma demande
       description:
-        default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
         label: Description
         partner_url: URL de la page où se situe l’iframe
       email:
@@ -276,14 +274,13 @@ fr:
         label: SIRET
         placeholder: 123 456 789 00010
     new_solicitation_thank_you:
-      default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
-      description: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
+      message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
+      message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
     show_landing_institutions:
       institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
     show_landing_topics:
-      default_landing_topic_title: 'Exemples d’aides :'
       other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href='/' class='blue'>Découvrez les autres sujets</a>
       you_wish: Vous souhaitez
   layouts:

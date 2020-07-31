@@ -152,22 +152,17 @@ fr:
         subjects: Compétences
       landing:
         custom_css: CSS personnalisé
-        description_example: Exemple de description
         emphasis: Mettre en avant sur la page d’accueil
         featured_on_home: Afficher sur la page d’accueil
-        form_bottom_message: Pied du formulaire
-        form_promise_message: Promesse de fin du formulaire
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
         institution: Institution partenaire (pour iframe)
         landing_options: Options
-        landing_topic_title: Titre des exemples
         landing_topics: Exemples
         message_under_landing_topics: Message sous les exemples
         partner_url: Url du site partenaire
         slug: Slug
-        thank_you_message: Remerciement post-formulaire
       landing_option:
         description_explanation: Explications de la description
         form_description: Description du formulaire
@@ -464,6 +459,7 @@ fr:
       other: Besoins identifiés
     phone_number: Téléphone
     placeholder:
+      description: Décrivez votre demande.
       email: marie.dupont@exemple.fr
       full_name: 'ex: Marie Dupont'
       phone_number: 06 12 34 56 78
