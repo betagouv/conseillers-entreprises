@@ -160,7 +160,7 @@ ActiveAdmin.register Landing do
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
         t.input :title, input_html: { style: 'width:70%' }
         t.input :description, input_html: { style: 'width:70%', rows: 10 }
-        t.input :landing_option_slug, input_html: { style: 'width:70%' }
+        t.input :landing_option_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: landing.landing_options.pluck(:slug)
       end
     end
 

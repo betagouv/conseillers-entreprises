@@ -175,6 +175,8 @@ fr:
         requires_phone_number: Champ Téléphone
         requires_requested_help_amount: Champ Montant de l’aide
         requires_siret: Champ SIRET
+      landing_topic:
+        landing_option_slug: Option (pour le bouton “Choisir”)
       match:
         closed_at: Date de clôture
         expert: Référent

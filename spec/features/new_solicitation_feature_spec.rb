@@ -4,7 +4,8 @@ require 'rails_helper'
 
 describe 'New Solicitation Feature', type: :feature, js: true do
   let(:landing) { create :landing, slug: 'test-landing', home_sort_order: 0, home_title: 'Test Landing' }
-  let(:landing_topic) { create :landing_topic, title: 'landing topic test', landing: landing }
+  let(:landing_option) { create :landing_option, landing: landing, requires_siret: true, requires_email: true }
+  let(:landing_topic) { create :landing_topic, title: 'landing topic test', landing: landing, landing_option_slug: landing_option.slug }
 
   before do
     Rails.cache.clear
@@ -17,14 +18,12 @@ describe 'New Solicitation Feature', type: :feature, js: true do
     before do
       visit '/?pk_campaign=FOO&pk_kwd=BAR'
       click_link 'Test Landing'
-      # Find 'Choice' link
+      # Find 'Choose' link
       find("#section-exemples > div > div.landing-topics > div > a").click
 
       fill_in 'Description', with: 'Ceci est un test'
       fill_in 'SIRET', with: '123 456 789 00010'
-      fill_in 'Téléphone', with: '0123456789'
-      fill_in 'Prénom et nom', with: 'User Name'
-      fill_in 'Email', with: 'user@exemple.com'
+      fill_in 'E-mail', with: 'user@exemple.com'
       click_button 'Envoyer ma demande'
     end
 
