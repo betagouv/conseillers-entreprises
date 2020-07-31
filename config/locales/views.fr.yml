@@ -261,7 +261,6 @@ fr:
     show_landing_institutions:
       institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
     show_landing_topics:
-      other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href='/' class='blue'>Découvrez les autres sujets</a>
       you_wish: Vous souhaitez
   layouts:
     user_tabs:

@@ -65,14 +65,13 @@ ActiveAdmin.register Landing do
         row :subtitle
         row :logos
         row :custom_css
+        row :message_under_landing_topics do |l|
+          l.message_under_landing_topics&.html_safe
+        end
       end
     end
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_topics') do
-      row :message_under_landing_topics do |l|
-        l.message_under_landing_topics&.html_safe
-      end
-
       table_for landing.landing_topics.ordered_for_landing do
         column :title
         column :description do |topic|
@@ -149,12 +148,11 @@ ActiveAdmin.register Landing do
         f.input :subtitle
         f.input :logos
         f.input :custom_css, as: :text, input_html: { style: 'width:70%; font-family:monospace', rows: 10 }
+        f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 }
       end
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
-      f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 }
-
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
         t.input :title, input_html: { style: 'width:70%' }
         t.input :description, input_html: { style: 'width:70%', rows: 10 }
