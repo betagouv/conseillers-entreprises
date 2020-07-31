@@ -151,7 +151,7 @@ ActiveAdmin.register Landing do
         f.input :title
         f.input :subtitle
         f.input :logos
-        f.input :custom_css, as: :text, input_html: { style: 'width:70%; font-family:monospace', rows: 10 }
+        f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
         f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 }
       end
     end
