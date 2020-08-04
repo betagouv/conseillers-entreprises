@@ -536,16 +536,16 @@ fr:
       processed: Traitées
   stats:
     series:
-      advisors: conseillers publics
-      companies: entreprises aidées
-      experts_html: <span class="count">%{count}</span> référents
-      matches_html: <span class="count">%{count}</span> mises en relation
-      needs: demandes transmises
-      solicitations_html: <span class="count">%{count}</span> sollicitations directes
-      source:
+      advisors: Conseillers publics
+      companies: Entreprises aidées
+      experts: Référents
+      matches: Mises en relation
+      needs: Demandes transmises
+      solicitations: Sollicitations directes
+      source: Analyses d’entreprises
+      source_category:
         direct: Sollicitations d’entreprises
         visits: Visites par un conseiller
-      source_html: <span class="count">%{count}</span> analyses d’entreprises
     show:
       title: Statistiques d’utilisation
     stats_table:
