@@ -14,7 +14,7 @@
 
 <section class="section section-grey" id="liste-partenaires">
   <div class="container">
-    <h2>Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 50 partenaires publics et parapublics : </h2>
+    <h2>Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 50 partenaires publics et parapublics :</h2>
     <div class="logo-list">
       <%= all_institutions_images(session[:region]) %>
     </div>
@@ -58,7 +58,7 @@
 <section class="section section-grey" id="section-contact-us">
   <div class="container">
     <h2 class="section__title">
-      <%= t('contact_us').titleize %>
+      <%= t('contact_us').capitalize %>
     </h2>
     <p>
       <%= t('.contact_us_html', mailto_link: mailto_contact_us(ENV['APPLICATION_EMAIL'])) %>
