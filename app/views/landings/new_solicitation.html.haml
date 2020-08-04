@@ -21,8 +21,8 @@
     .container.container-medium
       = render 'new_solicitation_thank_you', landing: @landing
   - unless in_iframe?
-    %section.section.section-white
-      .container#container-newsletter
+    %section.section.section-white#container-newsletter
+      .container
         = render 'newsletter', email: @solicitation.email
 
 
