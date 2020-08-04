@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Antenne do
   menu parent: :experts, priority: 1
 
@@ -106,4 +108,13 @@ ActiveAdmin.register Antenne do
 
     f.actions
   end
+
+  ## Import
+  #
+  active_admin_import validate: true,
+                      csv_options: ActiveAdmin.application.csv_options,
+                      headers_rewrites: Antenne.csv_header_rewrites,
+                      before_batch_import: -> (importer) { Antenne.csv_before_batch_import(importer) },
+                      template: 'admin/csv_import',
+                      back: :admin_antennes
 end

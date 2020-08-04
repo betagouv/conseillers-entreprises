@@ -249,6 +249,8 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
+  ## Expert associations helpers
+  #
   def personal_skillsets
     experts.personal_skillsets
   end

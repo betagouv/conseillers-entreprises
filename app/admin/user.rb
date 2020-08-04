@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'admin/user_importer'
-
 ActiveAdmin.register User do
   menu priority: 3
 
@@ -306,7 +304,8 @@ ActiveAdmin.register User do
   #
   active_admin_import validate: true,
                       csv_options: ActiveAdmin.application.csv_options,
-                      headers_rewrites: Admin::UserImporter::header_rewrites,
-                      before_batch_import: -> (importer) { Admin::UserImporter::before_batch_import(importer) },
+                      headers_rewrites: User.csv_header_rewrites,
+                      before_batch_import: -> (importer) { User.csv_before_batch_import(importer) },
+                      template: 'admin/csv_import',
                       back: :admin_users
 end
