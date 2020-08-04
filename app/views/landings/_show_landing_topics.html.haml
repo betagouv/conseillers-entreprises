@@ -5,4 +5,4 @@
   .landing-topics
     = render landing_topics
   .ui.text-center.other
-    %b= landing.message_under_landing_topics
+    %b= landing.message_under_landing_topics&.html_safe
