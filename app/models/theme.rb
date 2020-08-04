@@ -32,14 +32,21 @@ class Theme < ApplicationRecord
 
   # :institutions_subjects
   has_many :institutions, through: :institutions_subjects, inverse_of: :themes
+  has_many :experts_subjects, through: :institutions_subjects, inverse_of: :theme
 
   ## Scopes
   #
   scope :ordered_for_interview, -> { order(:interview_sort_order, :id) }
 
   scope :for_interview, -> { ordered_for_interview.where.not(label: "Support") }
+
   ##
   #
+  def subjects_ordered_for_interview
+    # useful for option_groups_from_collection_for_select
+    subjects.ordered_for_interview
+  end
+
   def to_s
     label
   end
