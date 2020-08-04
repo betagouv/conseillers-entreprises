@@ -1,4 +1,8 @@
 .landing-topic
   %h3= landing_topic.title.html_safe
   %p= landing_topic.description.html_safe
-  = link_to t('.choose'), "#{landing_topic.landing.slug}/demande/#{landing_topic.landing_option_slug}", class: 'button small', 'aria-label': t('.aria_label_landing_topic', title: landing_topic.title.downcase)
+  - if landing_topic.landing_option_slug.present?
+    = link_to t('.choose'),
+      new_solicitation_landing_path(landing_topic.landing, landing_topic.landing_option_slug),
+      class: 'button small',
+      'aria-label': "#{t('.choose')} #{landing_topic.title.downcase}"

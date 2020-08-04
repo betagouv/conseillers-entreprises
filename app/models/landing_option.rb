@@ -4,6 +4,9 @@
 #
 #  id                             :bigint(8)        not null, primary key
 #  content                        :jsonb
+#  description_explanation        :string
+#  form_description               :string
+#  form_title                     :string
 #  landing_sort_order             :integer
 #  preselected_institution_slug   :string
 #  preselected_subject_slug       :string
@@ -43,11 +46,6 @@ class LandingOption < ApplicationRecord
   ## Scopes
   #
   scope :ordered_for_landing, -> { order(:landing_sort_order, :id) }
-
-  ## JSON Accessors
-  #
-  CONTENT_KEYS = %i[form_title form_description description_explanation]
-  store_accessor :content, CONTENT_KEYS
 
   def to_param
     slug

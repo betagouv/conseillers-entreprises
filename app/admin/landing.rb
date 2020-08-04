@@ -37,12 +37,16 @@ ActiveAdmin.register Landing do
   #
   show title: :slug do
     attributes_table do
-      row :institution
       row :slug do |l|
         div link_to l.slug, l if l.slug.present?
       end
       row :created_at
       row :updated_at
+    end
+
+    attributes_table title: I18n.t("landings.new_solicitation_form.form") do
+      row :institution
+      row :partner_url
     end
 
     attributes_table title: I18n.t("activerecord.attributes.landing.featured_on_home") do
@@ -65,15 +69,13 @@ ActiveAdmin.register Landing do
         row :subtitle
         row :logos
         row :custom_css
+        row :message_under_landing_topics do |l|
+          l.message_under_landing_topics&.html_safe
+        end
       end
     end
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_topics') do
-      row :landing_topic_title
-      row :message_under_landing_topics do |l|
-        l.message_under_landing_topics&.html_safe
-      end
-
       table_for landing.landing_topics.ordered_for_landing do
         column :title
         column :description do |topic|
@@ -99,14 +101,6 @@ ActiveAdmin.register Landing do
         end
       end
     end
-
-    attributes_table title: I18n.t("landings.new_solicitation_form.form") do
-      row :description_example
-      row :form_bottom_message
-      row :form_promise_message
-      row :thank_you_message
-      row :partner_url
-    end
   end
 
   ## Form
@@ -120,15 +114,24 @@ ActiveAdmin.register Landing do
   landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :_destroy]
   permit_params :slug,
                 :institution_id,
-                :home_title, :home_description, :home_sort_order, :partner_url,
-                *Landing::CONTENT_KEYS,
+                :home_title, :home_description, :home_sort_order,
+                :meta_title, :meta_description,
+                :emphasis,
+                :title, :subtitle, :logos,
+                :custom_css,
+                :message_under_landing_topics,
+                :thank_you_message, :partner_url,
                 landing_options_attributes: landing_options_attributes,
                 landing_topics_attributes: landing_topics_attributes
 
   form title: :slug do |f|
     f.inputs do
       f.input :slug
+    end
+
+    f.inputs I18n.t("landings.new_solicitation_form.form") do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+      f.input :partner_url
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
@@ -148,18 +151,16 @@ ActiveAdmin.register Landing do
         f.input :title
         f.input :subtitle
         f.input :logos
-        f.input :custom_css, as: :text, input_html: { style: 'width:70%; font-family:monospace', rows: 10 }
+        f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
+        f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 }
       end
     end
 
     f.inputs I18n.t('activerecord.attributes.landing.landing_topics') do
-      f.input :landing_topic_title, placeholder: t('landings.show_landing_topics.default_landing_topic_title').html_safe
-      f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 }
-
       f.has_many :landing_topics, sortable: :landing_sort_order, sortable_start: 1, allow_destroy: true, new_record: true do |t|
         t.input :title, input_html: { style: 'width:70%' }
         t.input :description, input_html: { style: 'width:70%', rows: 10 }
-        t.input :landing_option_slug, input_html: { style: 'width:70%' }
+        t.input :landing_option_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: landing.landing_options.pluck(:slug)
       end
     end
 
@@ -175,14 +176,6 @@ ActiveAdmin.register Landing do
           o.input flag
         end
       end
-    end
-
-    f.inputs I18n.t("landings.new_solicitation_form.form") do
-      f.input :description_example, placeholder: t('landings.new_solicitation_form.description.default_example').html_safe, as: :text, input_html: { rows: 3 }
-      f.input :form_bottom_message
-      f.input :form_promise_message, placeholder: t('landings.new_solicitation.default_promise_message').html_safe
-      f.input :thank_you_message, placeholder: t('landings.new_solicitation_thank_you.default_thank_you_message').html_safe
-      f.input :partner_url, placeholder: t('landings.new_solicitation_form.description.partner_url').html_safe
     end
 
     f.actions

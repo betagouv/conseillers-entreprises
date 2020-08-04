@@ -7,7 +7,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/solicitations_controller.rb",
-      "line": 40,
+      "line": 63,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Solicitation.find(params[:id]).prepare_diagnosis(current_user))",
       "render_path": null,
@@ -19,6 +19,37 @@
       "user_input": "Solicitation.find(params[:id]).prepare_diagnosis(current_user)",
       "confidence": "High",
       "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "4d2d3e12d147e9d89fe1ed1a21101d894d0fa7adfbcb002428c1e2a8a3ddfd96",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/landings/new_solicitation.html.haml",
+      "line": 38,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Solicitation.create(solicitation_params.merge(retrieve_form_info)).landing_option.form_description",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "LandingsController",
+          "method": "create_solicitation",
+          "line": 30,
+          "file": "app/controllers/landings_controller.rb",
+          "rendered": {
+            "name": "landings/new_solicitation",
+            "file": "app/views/landings/new_solicitation.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "landings/new_solicitation"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "The unescaped data is meant to be used as raw html, and edited only by the team admins."
     },
     {
       "warning_type": "Mass Assignment",
@@ -41,13 +72,44 @@
       "note": "“role” is considered suspicious by brakeman, but it’s actually not an issue here."
     },
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "9a75a3be0641d406aaf450f3c0793e5d8d00a629f4951778a8f0daf319823743",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/landings/new_solicitation.html.haml",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Solicitation.create(solicitation_params.merge(retrieve_form_info)).landing_option.description_explanation",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "LandingsController",
+          "method": "create_solicitation",
+          "line": 30,
+          "file": "app/controllers/landings_controller.rb",
+          "rendered": {
+            "name": "landings/new_solicitation",
+            "file": "app/views/landings/new_solicitation.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "landings/new_solicitation"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "The unescaped data is meant to be used as raw html, and edited only by the team admins."
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "a848f2ec57900fe0a8e2cc8aeab00277657870582bef079fa2f2d539a0b7d060",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 65,
+      "line": 64,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -61,6 +123,6 @@
       "note": "The crafted SQL query is a list of \"(?)\" placeholders; it is essentially a workaround for a limitation of ActiveRecord."
     }
   ],
-  "updated": "2020-05-29 17:11:11 +0200",
+  "updated": "2020-08-04 12:08:27 +0200",
   "brakeman_version": "4.8.2"
 }

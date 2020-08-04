@@ -3,4 +3,4 @@
 .logo-list
   = all_institutions_images(session[:region])
 %p#more-partner
-  = t('.more_partners_html')
+  = t('.more_partners_html', path: comment_ca_marche_path(anchor: 'liste-partenaires'))
