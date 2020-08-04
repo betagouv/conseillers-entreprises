@@ -1,0 +1,40 @@
+- meta title: t('.title')
+%section.section.section-white.landing
+  .container.container
+    %h1= t('.long_title')
+    %p.subtitle= t('.subtitle')
+
+= render 'pages/breadcrumbs', title: t('.title')
+
+%section.section.section-white.landing
+  = render 'pages/how_it_works'
+
+%section.section.section-grey#liste-partenaires
+  .container
+    %h2 Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 50 partenaires publics et parapublics :
+    .logo-list
+      = all_institutions_images(session[:region])
+    .row.partners-list
+      - @institutions.each do |institutions_column|
+        %ul
+          - institutions_column.each do |institution|
+            %li= institution
+
+%section.section.section-color
+  .container
+    = render 'stats/ministats'
+
+%section.section.section-grey#section-testimonials
+  .container
+    = render 'index_testimonials'
+
+%section.section.section-white#section-newsletter
+  .container
+    = render 'pages/newsletter'
+    .notification.error
+      %p= t('.deployment_html')
+
+%section.section.section-grey#section-contact-us
+  .container
+    %h2.section__title= t('contact_us').capitalize
+    %p= t('.contact_us_html', mailto_link: mailto_contact_us(ENV['APPLICATION_EMAIL']))

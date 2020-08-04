@@ -23,8 +23,8 @@
     = render 'index_landing_cards', landings: @landings
 
 - unless in_iframe?
-  %section.section.section-white
-    .container#container-newsletter
+  %section.section.section-white#container-newsletter
+    .container
       = render 'newsletter'
 
   %section.section.section-lightest-grey.section-partners
