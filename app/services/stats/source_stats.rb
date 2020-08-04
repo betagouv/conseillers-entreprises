@@ -29,7 +29,7 @@ module Stats
 
     def category_name(category)
       # category is a bool, result of the category_group_attribute comparison
-      category ? I18n.t('stats.series.source.direct') : I18n.t('stats.series.source.visits')
+      category ? I18n.t('stats.series.source_category.direct') : I18n.t('stats.series.source_category.visits')
     end
 
     def category_order_attribute

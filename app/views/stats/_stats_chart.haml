@@ -3,7 +3,9 @@
 
 .card
   .card__content
-    %h3= t("stats.series.#{name}_html", count: data.count)
+    %h3
+      %span= data.count
+      %span= t("stats.series.#{name}")
     %p{ id: chart_name }
 
 :javascript
