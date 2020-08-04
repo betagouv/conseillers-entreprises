@@ -5,6 +5,9 @@ fr:
       title: Conditions d’utilisation du service numérique Place des Entreprises
     comment_ca_marche:
       contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
+      deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Île-de-France.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous inscrire à la newsletter !
+      long_title: Place des Entreprises, comment ça marche ?
+      subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     mentions_legales:
       title: Mentions légales
@@ -222,7 +225,6 @@ fr:
       view_completed_analysis: Voir l’analyse réalisée
   landing_topics:
     landing_topic:
-      aria_label_landing_topic: Choisir %{title}
       choose: Choisir
   landings:
     index:
@@ -234,7 +236,7 @@ fr:
       question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
       submit_request: Déposez votre demande
     index_institutions:
-      more_partners_html: Et <a href='/comment_ca_marche#liste-partenaires'>plus de 50 partenaires</a> à votre service.
+      more_partners_html: Et <a href='%{path}'>plus de 50 partenaires</a> à votre service.
       title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
     index_landing_card:
       discover: Découvrir
@@ -243,45 +245,20 @@ fr:
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
     new_solicitation:
-      default_promise_message: Nous vous recontactons dans les <u>72 heures</u>.
       five_days_asterisk: "* Délai moyen de prise en charge."
       five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours*</b>.
     new_solicitation_form:
       button:
         title: Envoyer ma demande
-      description:
-        default_example: Je cherche à faire un site web pour mon magasin, j’ai besoin de conseils.
-        label: Description
-        partner_url: URL de la page où se situe l’iframe
-      email:
-        label: Email
-        placeholder: marie.dupont@exemple.fr
       form: Formulaire
-      full_name:
-        label: Prénom et nom
-        placeholder: Marie Dupont
-      location:
-        label: Localisation
-        placeholder: Hauts-de-France; région de Milly-la-forêt; 91260…
-      phone_number:
-        label: Téléphone
-        placeholder: 06 12 34 56 78
-      requested_help_amount:
-        label: Montant de l’aide demandée
-        placeholder: 8 000 €
-      siret:
-        label: SIRET
-        placeholder: 123 456 789 00010
     new_solicitation_thank_you:
-      default_thank_you_message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
-      description: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
+      message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
+      message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
       place_des_entreprises_team: L’équipe Place des Entreprises
       title: Merci !
     show_landing_institutions:
       institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
     show_landing_topics:
-      default_landing_topic_title: 'Exemples d’aides :'
-      other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href='/' class='blue'>Découvrez les autres sujets</a>
       you_wish: Vous souhaitez
   layouts:
     user_tabs:

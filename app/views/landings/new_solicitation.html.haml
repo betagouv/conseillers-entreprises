@@ -1,7 +1,5 @@
 :ruby
-  meta_title = @landing.meta_title.presence || @landing.title
-  meta_description = @landing.meta_description.presence || @landing.subtitle
-  meta title: meta_title, description: meta_description
+  meta title: @landing.meta_title, description: @landing.meta_description
   landing_option = @solicitation.landing_option
 
 %style= @landing.custom_css
@@ -21,10 +19,9 @@
     .container.container-medium
       = render 'new_solicitation_thank_you', landing: @landing
   - unless in_iframe?
-    %section.section.section-white
-      .container#container-newsletter
+    %section.section.section-white#container-newsletter
+      .container
         = render 'newsletter', email: @solicitation.email
-
 
 - if @solicitation.new_record?
   %section.section.section-grey.landing#section-formulaire
@@ -38,11 +35,9 @@
       .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
         = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
         .description
-          - if landing_option&.form_description.present?
-            = tag.div(landing_option.form_description.html_safe)
-          - if landing_option&.description_explanation.present?
-            #description-explanation
-              = tag.div(landing_option.description_explanation.html_safe)
+          %div= landing_option&.form_description&.html_safe
+          .explanation
+            %div= landing_option&.description_explanation&.html_safe
 
   - unless in_iframe?
     %section.section.section-white.landing

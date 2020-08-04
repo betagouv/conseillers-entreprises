@@ -2,15 +2,24 @@
 #
 # Table name: landings
 #
-#  id               :bigint(8)        not null, primary key
-#  content          :jsonb
-#  home_description :text             default("")
-#  home_sort_order  :integer
-#  home_title       :string           default("")
-#  slug             :string           not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  institution_id   :bigint(8)
+#  id                           :bigint(8)        not null, primary key
+#  content                      :jsonb
+#  custom_css                   :string
+#  emphasis                     :boolean          default(FALSE)
+#  home_description             :text             default("")
+#  home_sort_order              :integer
+#  home_title                   :string           default("")
+#  logos                        :string
+#  message_under_landing_topics :string
+#  meta_description             :string
+#  meta_title                   :string
+#  partner_url                  :string
+#  slug                         :string           not null
+#  subtitle                     :string
+#  title                        :string
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  institution_id               :bigint(8)
 #
 # Indexes
 #
@@ -37,21 +46,7 @@ class Landing < ApplicationRecord
   ## Scopes
   #
   scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
-
-  scope :emphasis, -> { where("content->>'emphasis' = '1'") }
-
-  ## JSON Accessors
-  #
-  CONTENT_KEYS = %i[
-    meta_title meta_description
-    emphasis
-    title subtitle logos
-    custom_css
-    landing_topic_title message_under_landing_topics
-    description_example form_bottom_message
-    form_promise_message thank_you_message partner_url
-  ]
-  store_accessor :content, CONTENT_KEYS
+  scope :emphasis, -> { where(emphasis: true) }
 
   def to_s
     slug
@@ -64,8 +59,8 @@ class Landing < ApplicationRecord
   private
 
   def set_emphasis
-    if emphasis.to_b
-      Landing.where.not(id: id).find_each { |l| l.update(emphasis: false) }
+    if emphasis
+      Landing.where.not(id: id).update_all(emphasis: false)
     end
   end
 end
