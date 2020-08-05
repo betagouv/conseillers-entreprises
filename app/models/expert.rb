@@ -175,12 +175,6 @@ class Expert < ApplicationRecord
       .or(Expert.joins(:antenne).where('antennes.name ILIKE ?', "%#{query}%"))
   end
 
-  ## Description
-  #
-  def full_role
-    [role, antenne.name].filter(&:present?).join(' — ')
-  end
-
   ## Team stuff
   def personal_skillset?
     users.not_deleted.size == 1 &&

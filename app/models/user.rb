@@ -249,14 +249,6 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
-  def full_role
-    if antenne.present?
-      "#{role} - #{antenne.name}"
-    else
-      "#{role}"
-    end
-  end
-
   def personal_skillsets
     experts.personal_skillsets
   end
