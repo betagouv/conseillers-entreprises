@@ -33,7 +33,7 @@ class InstitutionSubject < ApplicationRecord
   has_one :theme, through: :subject, inverse_of: :institutions_subjects
 
   # :experts_subjects
-  has_many :experts, through: :experts_subjects, inverse_of: :institution_subjects
+  has_many :experts, through: :experts_subjects, inverse_of: :institutions_subjects
 
   ## Scopes
   #
@@ -44,5 +44,11 @@ class InstitutionSubject < ApplicationRecord
   scope :ordered_for_interview, -> do
     joins(:subject)
       .merge(Subject.ordered_for_interview)
+  end
+
+  ##
+  #
+  def to_s
+    description
   end
 end

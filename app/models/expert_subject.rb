@@ -33,6 +33,7 @@ class ExpertSubject < ApplicationRecord
   ## "Through" associations
   #
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
+  has_one :theme, through: :subject, inverse_of: :experts_subjects
 
   ## Scopes
   #
@@ -62,6 +63,11 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :support, -> { where(institution_subject: InstitutionSubject.support_subjects) }
+
+  scope :ordered_for_interview, -> do
+    joins(:subject)
+      .merge(Subject.ordered_for_interview)
+  end
 
   ##
   #

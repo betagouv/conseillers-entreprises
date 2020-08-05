@@ -129,12 +129,6 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :users)
         div admin_link_to(e, :users, list: true)
       end
-      row(:subjects) do |e|
-        safe_join(e.experts_subjects.map do |es|
-          link_to "#{es.subject} / #{es.institution_subject.description} / #{es.description} (#{es.human_attribute_value(:role)})", admin_subject_path(es.subject)
-        end, '<br /> '.html_safe)
-      end
-      row :subjects_reviewed_at
       row(:activity) do |e|
         div admin_link_to(e, :received_matches)
       end
@@ -145,6 +139,18 @@ ActiveAdmin.register Expert do
           row(flag) { |e| status_tag e.send(flag).to_b }
         end
       end
+
+      attributes_table title: I18n.t('activerecord.models.institution_subject.other') do
+        row :subjects_reviewed_at
+        table_for expert.experts_subjects.ordered_for_interview do
+          column(:theme)
+          column(:subject)
+          column(:institution_subject)
+          column(:description)
+          column(:role) { |es| es.human_attribute_value(:role) }
+          column(:archived_at) { |es| es.subject.archived_at }
+        end
+      end
     end
   end
 
@@ -153,7 +159,7 @@ ActiveAdmin.register Expert do
   end
 
   action_item :modify_subjects, only: :show do
-    link_to t('active_admin.expert.modify_subjects'), edit_expert_path(expert)
+    link_to t('active_admin.expert.modify_subjects'), subjects_expert_path(expert)
   end
 
   ## Form
@@ -203,12 +209,26 @@ ActiveAdmin.register Expert do
       f.input :insee_codes
     end
 
+    f.inputs I18n.t('attributes.flags') do
+      # Dynamically create a checkbox for each Expert::FLAGS
+      Expert::FLAGS.each do |flag|
+        f.input flag, as: :boolean
+      end
+    end
+
     if resource.institution.present?
       f.inputs t('attributes.experts_subjects.other') do
         f.has_many :experts_subjects, allow_destroy: true do |sub_f|
-          collection = resource.institution.institutions_subjects.map do |is|
-            ["#{is.subject.to_s} - #{is.description}", is.id]
-          end
+          collection = resource.institutions_subjects.ordered_for_interview
+            .includes(:theme).group_by(&:theme)
+            .map do |t, s|
+              [t.label, s.map { |s| ["#{s.subject.label}: #{s.description}", s.id] }]
+            end
+            .to_h
+          # collection = resource.institution.institutions_subjects.ordered_for_interview.map do |is|
+          #   ["#{is.subject.to_s} - #{is.description}", is.id]
+          # end
+
           sub_f.input :institution_subject, collection: collection
           sub_f.input :role, collection: ExpertSubject.human_attribute_values(:role).invert.to_a
           sub_f.input :description
@@ -218,13 +238,6 @@ ActiveAdmin.register Expert do
 
     f.inputs do
       f.input :reminders_notes
-    end
-
-    f.inputs I18n.t('attributes.flags') do
-      # Dynamically create a checkbox for each Expert::FLAGS
-      Expert::FLAGS.each do |flag|
-        f.input flag, as: :boolean
-      end
     end
 
     f.actions
