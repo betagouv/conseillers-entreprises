@@ -249,10 +249,6 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
-  def full_name_with_role
-    "#{full_name} - #{full_role}"
-  end
-
   def full_role
     if antenne.present?
       "#{role} - #{antenne.name}"

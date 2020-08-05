@@ -16,7 +16,7 @@
                   = t('.solicited_by_html', name: solicitation.full_name, email: solicitation.email)
                 - else
                   - advisor = diagnosis.advisor
-                  = t('.visited_by_html', advisor_name: advisor.full_name_with_role, advisor_email: advisor.email)
+                  = t('.visited_by_html', name: advisor.full_name, role: advisor.role, antenne: advisor.antenne.name, email: advisor.email)
           .diagnosis-links
             - if solicitation.present?
               = link_to t('.solicitation_related'), solicitation, class: 'ui basic blue label'

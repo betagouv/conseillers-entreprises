@@ -177,10 +177,6 @@ class Expert < ApplicationRecord
 
   ## Description
   #
-  def full_name_with_role
-    "#{full_name} #{full_role}"
-  end
-
   def full_role
     [role, antenne.name].filter(&:present?).join(' — ')
   end

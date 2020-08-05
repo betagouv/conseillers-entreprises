@@ -15,8 +15,11 @@
     - else
       = t('.via_solicitation', date: I18n.l(@solicitation.created_at, format: :long))
   - else
+    - advisor = @diagnosis.advisor
     = t('.advisor_met_company',
-     advisor_name_with_role: @diagnosis.advisor.full_name_with_role,
+     name: advisor.full_name,
+     role: advisor.role,
+     antenne: advisor.antenne.name,
      visit_date: I18n.l(@diagnosis.display_date, format: :long))
   = t('.company_expressed_needs', count: needs.size)
 

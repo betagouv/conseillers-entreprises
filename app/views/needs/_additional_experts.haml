@@ -25,7 +25,7 @@
           - local_assigns[:experts].each do |expert|
             .item
               .header
-                = expert.full_name_with_role
+                #{expert.full_name} (#{expert.role} - #{expert.antenne.name})
               .list
                 - expert.experts_subjects.each do |expert_subject|
                   .item
