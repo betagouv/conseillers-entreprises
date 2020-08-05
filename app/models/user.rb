@@ -261,10 +261,6 @@ class User < ApplicationRecord
     end
   end
 
-  def is_support_user?
-    ExpertSubject.where(expert: self.experts).support.present?
-  end
-
   def personal_skillsets
     experts.personal_skillsets
   end
