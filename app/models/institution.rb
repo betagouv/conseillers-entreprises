@@ -60,6 +60,7 @@ class Institution < ApplicationRecord
     institutions_subjects
       .ordered_for_interview
       .includes(:theme)
+      .merge(Subject.archived(false))
       .group_by { |is| is.theme } # Enumerable#group_by maintains ordering
   end
 

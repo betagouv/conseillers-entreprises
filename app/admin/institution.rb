@@ -58,10 +58,14 @@ ActiveAdmin.register Institution do
       row :logo_sort_order
       row :region_name
       row :show_on_list
-      row(:subjects) do |i|
-        safe_join(i.institutions_subjects.map do |is|
-          link_to "#{is.subject} (#{is.description})", admin_subject_path(is.subject)
-        end, '<br /> '.html_safe)
+    end
+
+    attributes_table title: I18n.t('activerecord.models.institution_subject.other') do
+      table_for institution.institutions_subjects.ordered_for_interview do
+        column(:theme)
+        column(:subject)
+        column(:description)
+        column(:archived_at) { |is| is.subject.archived_at }
       end
     end
   end
@@ -90,8 +94,8 @@ ActiveAdmin.register Institution do
               }
     end
     f.has_many :institutions_subjects, heading: t('activerecord.attributes.institution.subjects'), allow_destroy: true do |sub_f|
-      themes = Theme.all
-      collection = option_groups_from_collection_for_select(themes, :subjects, :label, :id, :label, sub_f.object&.subject&.id)
+      themes = Theme.all.ordered_for_interview
+      collection = option_groups_from_collection_for_select(themes, :subjects_ordered_for_interview, :label, :id, :label, sub_f.object&.subject&.id)
       sub_f.input :subject, collection: collection
       sub_f.input :description
     end
