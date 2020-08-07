@@ -10,7 +10,7 @@ module PersonHelper
 
     params = {
       name: person.full_name,
-      role: person.full_role,
+      role: "#{person.role} - #{person.antenne.name}",
       email: person.email,
       phone_number: person.phone_number
     }

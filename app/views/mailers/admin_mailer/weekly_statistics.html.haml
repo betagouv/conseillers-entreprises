@@ -6,7 +6,8 @@
 - if @information_hash[:signed_up_users][:count].positive?
   %ul
     - @information_hash[:signed_up_users][:items].each do |user|
-      %li= link_to user.full_name_with_role, admin_user_url(user)
+      - title = "#{user.full_name} (#{user.role} - #{user.antenne.name})"
+      %li= link_to title, admin_user_url(user)
 
 %p
   %strong= t('.created_diagnoses_count', count: @information_hash[:created_diagnoses][:count])

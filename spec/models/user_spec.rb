@@ -151,17 +151,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'full_name_with_role' do
-    let(:user) do
-      build :user,
-            full_name: 'Ivan Collombet',
-            role: 'Business Developer',
-            antenne: build(:antenne, name: 'DINUM')
-    end
-
-    it { expect(user.full_name_with_role).to eq 'Ivan Collombet - Business Developer - DINUM' }
-  end
-
   describe '#never_used_account?' do
     subject { user.never_used_account? }
 

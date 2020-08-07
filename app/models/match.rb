@@ -132,10 +132,6 @@ class Match < ApplicationRecord
     delay_after_first_match > 5.minutes
   end
 
-  def expert_full_role
-    "#{expert.full_name} - #{expert.institution.name}"
-  end
-
   def expert_subject
     # The subject of the expert that was used for matching;
     # it might be nil: it can be removed, or the match can be created without it.

@@ -41,7 +41,7 @@ ActiveAdmin.register Match do
         div admin_link_to(m, :expert_antenne)
         div link_to('Page Analyse', need_path(m.diagnosis))
       else
-        div m.expert_full_role
+        div "#{m.expert.full_name} - #{m.expert.institution.name}"
         status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
       end
     end
@@ -90,7 +90,7 @@ ActiveAdmin.register Match do
           div admin_link_to(m, :expert_antenne)
           div link_to('Page Analyse', need_path(m.diagnosis))
         else
-          div m.expert_full_role
+          div "#{m.expert.full_name} - #{m.expert.institution.name}"
           status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
         end
       end
