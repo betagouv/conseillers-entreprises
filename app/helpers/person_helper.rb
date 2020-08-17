@@ -10,10 +10,20 @@ module PersonHelper
 
     params = {
       name: person.full_name,
-      role: "#{person.role} - #{person.antenne.name}",
+      role: detailed_role(person),
       email: person.email,
       phone_number: person.phone_number
     }
     person_block_raw(params.merge(extra_params))
+  end
+
+  private
+
+  def detailed_role(person)
+    if defined? person.antenne
+      "#{person.role} - #{person.antenne.name}"
+    else
+      person.role
+    end
   end
 end

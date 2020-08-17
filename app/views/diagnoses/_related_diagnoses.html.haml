@@ -5,21 +5,21 @@
       - solicitation = diagnosis.solicitation
       %tr
         %td
-          = link_to diagnosis_path(diagnosis), target: '_blank', rel: 'noopener' do
-            %h3.ui.header
-              - if solicitation.present?
-                = t('.solicited_at', date: I18n.l(diagnosis.display_date))
-              - else
-                = t('.visited_at', date: I18n.l(diagnosis.display_date))
-              .sub.header
-                - if solicitation.present?
-                  = t('.solicited_by_html', name: solicitation.full_name, email: solicitation.email)
-                - else
-                  - advisor = diagnosis.advisor
-                  = t('.visited_by_html', name: advisor.full_name, role: advisor.role, antenne: advisor.antenne.name, email: advisor.email)
-          .diagnosis-links
+          %h3.ui.header
             - if solicitation.present?
-              = link_to t('.solicitation_related'), solicitation, class: 'ui basic blue label'
+              = t('.solicited_at', date: I18n.l(diagnosis.display_date))
+            - else
+              = t('.visited_at', date: I18n.l(diagnosis.display_date))
+            .sub.header
+              - if solicitation.present?
+                = t('.solicited_by_html', name: solicitation.full_name, email: solicitation.email)
+              - else
+                - advisor = diagnosis.advisor
+                = t('.visited_by_html', name: advisor.full_name, role: advisor.role, antenne: advisor.antenne.name, email: advisor.email)
+          .diagnosis-links
+            = link_to t('.diagnosis_related'), diagnosis_path(diagnosis), target: '_blank', rel: 'noopener', class: 'ui basic blue label'
+            - if solicitation.present?
+              = link_to t('.solicitation_related'), solicitation, class: 'ui basic teal label'
         %td.collapsing
           .ui.middle.aligned.list
             .item

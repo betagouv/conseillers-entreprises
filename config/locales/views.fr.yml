@@ -135,6 +135,7 @@ fr:
       title: Saisie manuelle
     related_diagnoses:
       diagnoses_completed: Analyses completées
+      diagnosis_related: Analyse associée
       matches:
         one: 1 mise en relation
         other: "%{count} mises en relation"
