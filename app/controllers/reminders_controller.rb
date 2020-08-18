@@ -13,7 +13,7 @@ class RemindersController < ApplicationController
       # * russian-doll cache each expert partial.
       # As this is currently only used by admins, and loads in a second or two,
       # let’s optimize it later.
-      expert.needs_quo.abandoned.count + expert.needs_taking_care.abandoned.count
+      expert.needs_quo.abandoned.count
     end.reverse
   end
 
