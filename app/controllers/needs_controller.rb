@@ -6,10 +6,18 @@ class NeedsController < ApplicationController
 
   def index
     @needs = current_user.needs_quo.or(current_user.needs_others_taking_care).page params[:page]
+    @count_needs = {
+      quo: @needs.size,
+      taking_care: current_user.needs_taking_care.size
+    }
   end
 
   def taking_care
     retrieve_needs(current_user, :needs_taking_care)
+    @count_needs = {
+      quo: current_user.needs_quo.or(current_user.needs_others_taking_care).size,
+      taking_care: @needs.size
+    }
     render :index
   end
 

@@ -1,3 +1,4 @@
-.ui.top.large.secondary.pointing.menu
-  = active_link_to(t('.waiting_for_response'), needs_path, active: [needs: :index], class: 'item')
-  = active_link_to(t('.supported'), taking_care_needs_path, class: 'item')
+- cache(Need.maximum(:updated_at)) do
+  .ui.top.large.secondary.pointing.menu
+    = active_link_to(t('.waiting_for_response_html', count: count_needs[:quo]), needs_path, active: [needs: :index], class: 'item')
+    = active_link_to(t('.supported_html', count: count_needs[:taking_care]), taking_care_needs_path, class: 'item')
