@@ -262,14 +262,6 @@ fr:
       institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
     show_landing_topics:
       you_wish: Vous souhaitez
-  layouts:
-    user_tabs:
-      antenne: Antenne
-      informations: Informations
-      password: Mot de passe
-      subjects: Domaines d’intervention
-      team: Équipe
-      title: Mon compte
   mailers:
     admin_mailer:
       csv_export: Export CSV des %{model}
@@ -626,6 +618,14 @@ fr:
       take_care_diagnosis: Prendre en charge un besoin
       title: Tutoriels
   users:
+    header:
+      title: Mon compte
+    menu:
+      antenne: Antenne
+      informations: Informations
+      password: Mot de passe
+      subjects: Domaines d’intervention
+      team: Équipe
     registrations:
       antenne:
         antenne_within_institution: Antenne (au sein de %{institution})
