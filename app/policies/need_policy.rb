@@ -4,4 +4,8 @@ class NeedPolicy < ApplicationPolicy
       scope.all
     end
   end
+
+  def archive?
+    admin?
+  end
 end
