@@ -1,0 +1,6 @@
+- meta title: @institution.name
+- content_for :header, render('header', institution: @institution, action: action_name)
+- content_for :menu, render('menu', institution: @institution)
+
+= render 'subjects_table', institutions_subjects: @institutions_subjects
+

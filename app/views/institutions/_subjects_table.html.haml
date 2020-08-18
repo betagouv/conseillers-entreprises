@@ -1,0 +1,21 @@
+%table.ui.definition.celled.table
+  %thead
+    %tr
+      %th
+      %th= InstitutionSubject.human_attribute_name(:subject)
+      %th= InstitutionSubject.human_attribute_name(:description)
+  %tbody
+    - grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
+    - grouped_subjects.each do |theme, subjects|
+      - subjects.each_with_index do |(subject, institutions_subjects), subject_index|
+        - institutions_subjects.each_with_index do |institution_subject, institution_subject_index|
+          %tr
+            - if subject_index == 0 && institution_subject_index == 0
+              %td{ rowspan: subjects.values.sum(&:size) }= theme.label
+            - else
+              %td.rowspanned
+            - if institution_subject_index == 0
+              %td{ rowspan: institutions_subjects.size }= subject.label
+            - else
+              %td.rowspanned
+            %td= institution_subject.description

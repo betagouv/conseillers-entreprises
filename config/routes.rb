@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   resources :institutions, param: :slug, only: %i[index show] do
     member do
+      get :subjects, path: 'competences'
     end
   end
 

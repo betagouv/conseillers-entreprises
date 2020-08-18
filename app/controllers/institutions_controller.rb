@@ -14,6 +14,10 @@ class InstitutionsController < ApplicationController
   end
 
   def show
+    redirect_to action: :subjects
+  end
+
+  def subjects
   end
 
   private
