@@ -11,6 +11,10 @@ class InstitutionPolicy < ApplicationPolicy
     show?
   end
 
+  def antennes?
+    show?
+  end
+
   def update?
     admin?
   end

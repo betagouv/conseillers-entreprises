@@ -20,6 +20,9 @@ class InstitutionsController < ApplicationController
   def subjects
   end
 
+  def antennes
+  end
+
   private
 
   def retrieve_institution
@@ -29,5 +32,9 @@ class InstitutionsController < ApplicationController
     @institutions_subjects = @institution.institutions_subjects
       .ordered_for_interview
       .preload(:subject, :theme, :experts_subjects)
+
+    @antennes = @institution.antennes
+      .order(:name)
+      .preload(:communes)
   end
 end

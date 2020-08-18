@@ -1,0 +1,16 @@
+%table.ui.definition.celled.table
+  %thead
+    %tr
+      %th
+      %th= Antenne.human_attribute_name(:intervention_zone)
+  %tbody
+    - antennes.each do |antenne|
+      %tr
+        %td= antenne.name
+        %td
+          %ul
+            - summary = antenne.intervention_zone_summary
+            - summary[:territories].each do |hash|
+              %li #{hash[:territory].name} (#{hash[:included]})
+            - if summary[:other] > 0
+              %li #{I18n.t('other')} (#{summary[:other]})
