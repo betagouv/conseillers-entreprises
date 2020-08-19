@@ -5,7 +5,7 @@ ActiveAdmin.register Solicitation do
   #
   scope :all, default: true
 
-  includes :diagnoses, :landing, :institution, diagnoses: :company
+  includes :diagnoses, :landing, :institution, :badges, diagnoses: :company
 
   index do
     selectable_column
@@ -92,6 +92,8 @@ ActiveAdmin.register Solicitation do
     column :options do |s|
       s.landing_options_slugs&.join("\n")
     end
+    column(:diagnoses) { |s| s.diagnoses.ids.join(",") }
+    column(:badges) { |s| s.badges.map(&:to_s).join(",") }
     Solicitation.all_past_landing_options_slugs.each do |landing|
       column landing, humanize_name: false do |s|
         s.landing_options_slugs&.include?(landing) ? I18n.t('yes') : ''

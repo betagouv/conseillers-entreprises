@@ -23,4 +23,10 @@ class Badge < ApplicationRecord
   ## Validations
   #
   validates :title, :color, presence: true, allow_blank: false
+
+  ##
+  #
+  def to_s
+    title
+  end
 end
