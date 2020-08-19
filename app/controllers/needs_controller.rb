@@ -3,6 +3,7 @@
 class NeedsController < ApplicationController
   before_action :maybe_review_expert_subjects
   before_action :retrieve_variables_for_index, only: %i[index taking_care]
+  before_action :retrieve_need, only: %i[archive unarchive]
 
   def index
     @needs = current_user.needs_quo.or(current_user.needs_others_taking_care).page params[:page]
@@ -94,6 +95,20 @@ class NeedsController < ApplicationController
     end
   end
 
+  def archive
+    authorize @need, :archive?
+    @need.archive!
+    flash[:notice] = t('.subjet_achived')
+    redirect_to need_path(@need.diagnosis)
+  end
+
+  def unarchive
+    authorize @need, :archive?
+    @need.update(archived_at: nil)
+    flash[:notice] = t('.subjet_unachived')
+    redirect_to need_path(@need.diagnosis)
+  end
+
   private
 
   def highlighted_experts
@@ -106,6 +121,10 @@ class NeedsController < ApplicationController
 
   def retrieve_diagnosis
     Diagnosis.find(params.require(:id))
+  end
+
+  def retrieve_need
+    @need = Need.find(params.require(:id))
   end
 
   def retrieve_variables_for_index

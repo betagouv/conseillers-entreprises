@@ -140,6 +140,8 @@ Rails.application.routes.draw do
     member do
       get :additional_experts
       post :add_match
+      post :archive
+      post :unarchive
     end
   end
 
