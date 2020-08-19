@@ -48,10 +48,10 @@ ActiveAdmin.register Solicitation do
       div admin_attr(s, :location)
       hr
       if s.pk_campaign.present?
-        div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}"
+        div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}".html_safe
       end
       if s.pk_kwd.present?
-        div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s)} »"
+        div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s)} »".html_safe
       end
       if s.institution.present?
         admin_attr(s, :institution)
