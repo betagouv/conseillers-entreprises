@@ -5,7 +5,7 @@ ActiveAdmin.register Solicitation do
   #
   scope :all, default: true
 
-  includes :diagnoses, :landing, :institution, diagnoses: :company
+  includes :diagnoses, :landing, :institution, :badges, diagnoses: :company
 
   index do
     selectable_column
@@ -48,10 +48,10 @@ ActiveAdmin.register Solicitation do
       div admin_attr(s, :location)
       hr
       if s.pk_campaign.present?
-        div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}"
+        div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}".html_safe
       end
       if s.pk_kwd.present?
-        div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s)} »"
+        div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s)} »".html_safe
       end
       if s.institution.present?
         admin_attr(s, :institution)
@@ -92,6 +92,8 @@ ActiveAdmin.register Solicitation do
     column :options do |s|
       s.landing_options_slugs&.join("\n")
     end
+    column(:diagnoses) { |s| s.diagnoses.ids.join(",") }
+    column(:badges) { |s| s.badges.map(&:to_s).join(",") }
     Solicitation.all_past_landing_options_slugs.each do |landing|
       column landing, humanize_name: false do |s|
         s.landing_options_slugs&.include?(landing) ? I18n.t('yes') : ''
