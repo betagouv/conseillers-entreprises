@@ -109,6 +109,7 @@ fr:
       archived: Archivées
       processed: Traitées
     company_details:
+      company_details: Voir le detail de l’entreprise
       need_without_siret: Analyse sans SIRET
     diagnoses_tabs:
       archived: Archivées

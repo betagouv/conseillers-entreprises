@@ -2,13 +2,14 @@
 #
 # Table name: companies
 #
-#  id              :integer          not null, primary key
-#  code_effectif   :string
-#  legal_form_code :string
-#  name            :string
-#  siren           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id               :integer          not null, primary key
+#  code_effectif    :string
+#  date_de_creation :date
+#  legal_form_code  :string
+#  name             :string
+#  siren            :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 # Indexes
 #
