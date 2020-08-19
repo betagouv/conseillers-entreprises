@@ -13,7 +13,6 @@
         - if needs_of_interest.blank? || needs_of_interest.include?(need)
           %h4.ui.header
             = need.subject
-            .match-status= status_label(need)
             .sub.header
               = need.matches.human_count
               - if need.abandoned?

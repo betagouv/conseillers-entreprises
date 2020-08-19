@@ -26,12 +26,10 @@
     = t('.title')
     .sub.header= t('.needs_for_you')
 
-= render 'needs_tabs'
+= render 'needs_tabs', count_needs: @count_needs
 
 .ui.aligned.grid.padded
-  .aligned.eight.wide.column
-    %p= page_entries_info @needs
-  .right.aligned.eight.wide.column
+  .right.aligned.wide.column
     - if current_user.antenne.advisors.count > 1
       = link_to index_antenne_needs_path do
         %i.folder.open.icon
