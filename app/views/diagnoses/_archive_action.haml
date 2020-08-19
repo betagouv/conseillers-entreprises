@@ -11,7 +11,7 @@
   - if diagnosis.is_archived
     %p
       %object
-        = link_to unarchive_diagnosis_path(diagnosis), method: :post! do
+        = link_to unarchive_diagnosis_path(diagnosis), method: :post do
           .ui.tiny.button.text
             %i.undo.icon
             = t('archivable.unarchive')
