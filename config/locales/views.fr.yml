@@ -445,16 +445,14 @@ fr:
       failed: Marquées en échec
       rejected: Refusées
     needs_tabs:
-      supported: Prises en charge
-      supported_html:
-        one: "<span class='ui orange circular label horizontal'>1</span> Prise en charge"
-        other: "<span class='ui orange circular label horizontal'>%{count}</span> Prises en charge"
-        zero: "<span class='ui green circular label horizontal'>0</span> Prise en charge"
-      waiting_for_response: En attentes de réponse
-      waiting_for_response_html:
-        one: "<span class='ui orange circular label horizontal'>1</span> En attente de réponse"
-        other: "<span class='ui orange circular label horizontal'>%{count}</span> En attentes de réponse"
-        zero: "<span class='ui green circular label horizontal'>0</span> En attente de réponse"
+      supported:
+        one: Prise en charge
+        other: Prises en charge
+        zero: Prise en charge
+      waiting_for_response:
+        one: En attente de réponse
+        other: En attentes de réponse
+        zero: En attente de réponse
     show:
       title: Visite de la société « %{company} »
     visit_summary:
