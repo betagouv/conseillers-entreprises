@@ -417,6 +417,10 @@ fr:
       match_with: 'Mise en relation avec :'
       thats_you: C’est vous !
   needs:
+    archive:
+      archive: Mettre en échec
+      subjet_achived: Le sujet a été mis en échec
+      unarchive: Annuler la mise en échec
     archives:
       browse_active_needs: Voir les demandes reçues
       title: Demandes archivées
@@ -445,10 +449,18 @@ fr:
       failed: Marquées en échec
       rejected: Refusées
     needs_tabs:
-      supported: Prises en charge
-      waiting_for_response: En attente de réponse
+      supported:
+        one: Prise en charge
+        other: Prises en charge
+        zero: Prise en charge
+      waiting_for_response:
+        one: En attente de réponse
+        other: En attentes de réponse
+        zero: En attente de réponse
     show:
       title: Visite de la société « %{company} »
+    unarchive:
+      subjet_unachived: Le sujet n’est plus en échec
     visit_summary:
       advisor_has_diagnosed_n_needs:
         one: "%{advisor} a identifié un besoin."
