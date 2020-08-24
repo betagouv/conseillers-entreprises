@@ -20,4 +20,4 @@
                       .sub.header= expert.antenne
                   .column
                     .sub.header
-                      = expert_subject.full_user_description
+                      = [expert_subject.institution_subject, expert_subject.description].compact.join(' — ')

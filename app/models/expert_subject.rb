@@ -68,10 +68,4 @@ class ExpertSubject < ApplicationRecord
     joins(:subject)
       .merge(Subject.ordered_for_interview)
   end
-
-  ##
-  #
-  def full_user_description
-    [institution_subject.description, description].filter(&:present?).join(' — ')
-  end
 end
