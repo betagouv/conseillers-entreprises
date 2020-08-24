@@ -8,26 +8,22 @@
   .text-grey= @diagnosis.facility.commune_name
 %p= t('.needs_you')
 
-%p
-  - if @solicitation.present?
-    - if @solicitation.landing.partner_url.present?
-      = t('.via_partner_html', date: I18n.l(@solicitation.created_at, format: :long), url: @solicitation.landing.partner_url)
-    - else
-      = t('.via_solicitation', date: I18n.l(@solicitation.created_at, format: :long))
-  - else
-    - advisor = @diagnosis.advisor
-    = t('.advisor_met_company',
-     name: advisor.full_name,
-     role: advisor.role,
-     antenne: advisor.antenne.name,
-     visit_date: I18n.l(@diagnosis.display_date, format: :long))
-  = t('.company_expressed_needs', count: needs.size)
-
 - needs.ordered_for_interview.each do |need|
   %h2.subject= need.subject
   - if need.content.present?
     %blockquote
       %p= simple_format(auto_link(need.content))
+
+%p
+  - if @solicitation.present? && @solicitation.landing&.partner_url.present?
+    = t('.via_partner_html', date: I18n.l(@solicitation.created_at, format: :long), url: @solicitation.landing.partner_url)
+  - else
+    - advisor = @diagnosis.advisor
+    = t('.advisor_met_company_html',
+     name: advisor.full_name,
+     antenne: advisor.antenne.name,
+     visit_date: I18n.l(@diagnosis.display_date, format: :long))
+
 
 .button
   %a{ href: need_url(@diagnosis) }= t('.reply')

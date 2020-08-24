@@ -4,13 +4,6 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.notify_company_needs(expert, expert.received_diagnoses.sample)
   end
 
-  def notify_company_needs_from_pde
-    expert = active_expert
-    diagnosis = expert.received_diagnoses.sample
-    diagnosis.solicitation = Solicitation.all.sample
-    ExpertMailer.notify_company_needs(expert, diagnosis)
-  end
-
   def notify_company_needs_from_partner
     expert = active_expert
     diagnosis = expert.received_diagnoses.sample
