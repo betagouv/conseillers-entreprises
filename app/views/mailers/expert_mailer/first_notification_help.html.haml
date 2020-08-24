@@ -1,0 +1,25 @@
+%p= t('mailers.hello_name', name: @expert.full_name)
+
+%p= t('.received_need')
+
+%strong= t('.what_is_pde')
+
+%p= t('.answer')
+
+%p= t('.answer_continuation')
+
+%p= t('.response_delay')
+
+%strong= t('.need_help')
+
+%p= t('.pde_contact')
+
+= @support_user.full_name
+%br
+= @support_user.phone_number
+%br
+= mail_to @support_user.email, @support_user.email, target: '_blank'
+
+%p= t('.watch_videos_html')
+
+%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))

@@ -13,6 +13,11 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.notify_company_needs(expert, diagnosis)
   end
 
+  def first_notification_help
+    expert = active_expert
+    ExpertMailer.first_notification_help(expert)
+  end
+
   def remind_involvement
     expert = active_expert
     ExpertMailer.remind_involvement(expert)

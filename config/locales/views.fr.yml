@@ -345,6 +345,16 @@ fr:
         subject: Clôture de votre demande sur Place des Entreprises
         tank_you: Merci pour votre confiance,
     expert_mailer:
+      first_notification_help:
+        answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
+        answer_continuation: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics chargés de les accompagner.
+        need_help: Besoin d’aide ?
+        pde_contact: 'Votre contact pour vous aider au sein de l’équipe Place des Entreprises :'
+        received_need: Vous venez de recevoir votre premier besoin d’entreprise sur Place des Entreprises.
+        response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
+        subject: Place des Entreprises - Besoin d’aide ?
+        watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
+        what_is_pde: Qu’est ce que Place des Entreprises ?
       never_used_account_warning:
         you_need_to_use_your_user_account: Attention ! Place des entreprises nécessite désormais de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
       notify_company_needs:
