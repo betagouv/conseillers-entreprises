@@ -437,6 +437,8 @@ fr:
     index_antenne:
       browse_archived_needs: Voir les demandes archivées
       title: Demandes reçues pour %{antenne}
+    need_header:
+      need_abandoned: Besoin mis en échec
     needs_archived_tabs:
       done: Clôturées
       failed: Marquées en échec
