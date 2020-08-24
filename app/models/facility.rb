@@ -5,6 +5,7 @@
 #  id                :bigint(8)        not null, primary key
 #  code_effectif     :string
 #  naf_code          :string
+#  naf_libelle       :string
 #  readable_locality :string
 #  siret             :string
 #  created_at        :datetime         not null
