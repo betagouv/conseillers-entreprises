@@ -396,7 +396,6 @@ fr:
       match_feedback:
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-      nice_day: Bonne journée,
       notify_match_status:
         expert_and_status:
           done_html: "<p>%{expert} (%{antenne}) a clôturé ce besoin.</p>"
