@@ -412,6 +412,7 @@ fr:
     coordinates: Coordonnées
     created_at: Date de création
     custom_communes: Spécifique
+    date_de_creation: Date de création
     description: Description
     diagnoses:
       one: Analyse
