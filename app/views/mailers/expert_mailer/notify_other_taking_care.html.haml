@@ -9,5 +9,7 @@
 
 %p= t('.complementary_help')
 
-%p= t('mailers.user_mailer.nice_day')
-%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))
+.button
+  %a{ href: need_url(@match.diagnosis) }= t('.reply')
+
+%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))
