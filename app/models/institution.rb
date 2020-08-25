@@ -4,6 +4,7 @@
 #
 #  id              :bigint(8)        not null, primary key
 #  antennes_count  :integer
+#  deleted_at      :datetime
 #  logo_sort_order :integer
 #  name            :string           not null
 #  region_name     :string
@@ -14,8 +15,9 @@
 #
 # Indexes
 #
-#  index_institutions_on_name  (name) UNIQUE
-#  index_institutions_on_slug  (slug) UNIQUE
+#  index_institutions_on_deleted_at  (deleted_at)
+#  index_institutions_on_name        (name) UNIQUE
+#  index_institutions_on_slug        (slug) UNIQUE
 #
 
 class Institution < ApplicationRecord

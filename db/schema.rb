@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_154123) do
+ActiveRecord::Schema.define(version: 2020_08_25_160855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2020_08_25_154123) do
     t.datetime "updated_at", null: false
     t.integer "experts_count"
     t.integer "advisors_count"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
     t.index ["name", "institution_id"], name: "index_antennes_on_name_and_institution_id", unique: true
   end
@@ -161,6 +163,7 @@ ActiveRecord::Schema.define(version: 2020_08_25_154123) do
     t.jsonb "flags", default: {}
     t.index ["access_token"], name: "index_experts_on_access_token"
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
+    t.index ["deleted_at"], name: "index_experts_on_deleted_at"
     t.index ["email"], name: "index_experts_on_email"
   end
 
@@ -216,6 +219,8 @@ ActiveRecord::Schema.define(version: 2020_08_25_154123) do
     t.boolean "show_on_list", default: false
     t.integer "logo_sort_order"
     t.string "region_name"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
     t.index ["name"], name: "index_institutions_on_name", unique: true
     t.index ["slug"], name: "index_institutions_on_slug", unique: true
   end

@@ -21,6 +21,7 @@
 #
 #  index_experts_on_access_token  (access_token)
 #  index_experts_on_antenne_id    (antenne_id)
+#  index_experts_on_deleted_at    (deleted_at)
 #  index_experts_on_email         (email)
 #
 # Foreign Keys

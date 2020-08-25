@@ -4,6 +4,7 @@
 #
 #  id             :bigint(8)        not null, primary key
 #  advisors_count :integer
+#  deleted_at     :datetime
 #  experts_count  :integer
 #  name           :string
 #  created_at     :datetime         not null
@@ -12,6 +13,7 @@
 #
 # Indexes
 #
+#  index_antennes_on_deleted_at               (deleted_at)
 #  index_antennes_on_institution_id           (institution_id)
 #  index_antennes_on_name_and_institution_id  (name,institution_id) UNIQUE
 #
