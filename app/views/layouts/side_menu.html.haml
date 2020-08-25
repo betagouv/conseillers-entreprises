@@ -1,0 +1,18 @@
+-# Custom Title / Side Menu / Content layout
+  Based on the main application layout
+
+- content_for :content do
+  = yield :header
+
+  .ui.divider
+
+  .ui.grid
+    .four.wide.column
+      .ui.secondary.pointing.vertical.fluid.menu
+        = yield :menu
+
+    .twelve.wide.column
+      = yield
+
+- @wide_layout = true
+= render template: 'layouts/application'

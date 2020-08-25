@@ -50,7 +50,7 @@
               = active_link_to new_user_invitation_path, class: 'item' do
                 %i.gift.icon
                 = t('.invite')
-            = active_link_to edit_user_path, class: 'item' do
+            = active_link_to user_path, class: 'item' do
               %i.user.circle.icon
               = t('.profile')
             = link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'item' do

@@ -7,10 +7,14 @@
     = render 'environment_ribbon'
     = render 'user_impersonate'
 
-    %main.ui.application.container
+    %main.ui.container{ class: @wide_layout ? 'wide-container' : 'narrow-container' }
+      -# TODO: @wide_layout is a bit of a hack.
+        We should just use the “wide” (in fact, “regular”) container everywhere
+        and get rid of 'narrow-container'.
+
       = render 'flashes'
       = render 'app_modal'
 
-      = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. user_tabs)
+      = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. side_menu)
 
     = render 'footer'
