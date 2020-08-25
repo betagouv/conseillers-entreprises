@@ -181,7 +181,7 @@ fr:
         done: Aide proposée
         done_no_help: Pas d’aide disponible
         done_not_reachable: Entreprise non joignable
-        not_for_me: Refuser
+        not_for_me: Ce n’est pas pour moi
         quo: Annuler
         taking_care: Prendre en charge
       match/statuses/content:
