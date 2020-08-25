@@ -21,6 +21,8 @@
 #
 
 class Institution < ApplicationRecord
+  include SoftDeletable
+
   ## Associations
   #
   has_many :antennes, inverse_of: :institution

@@ -32,6 +32,7 @@
 class Expert < ApplicationRecord
   include PersonConcern
   include InvolvementConcern
+  include SoftDeletable
 
   ## Associations
   #
@@ -209,25 +210,14 @@ class Expert < ApplicationRecord
 
   ## Soft deletion
   #
-
   def full_name
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
   def delete
-    update(deleted_at: Time.zone.now,
-           email: nil,
-           full_name: nil,
-           phone_number: nil)
-  end
-
-  def destroy
-    # Don’t really destroy!
-    # callbacks for :destroy are not run
-    delete
-  end
-
-  def deleted?
-    deleted_at.present?
+    update_columns(deleted_at: Time.zone.now,
+                   email: nil,
+                   full_name: nil,
+                   phone_number: nil)
   end
 end

@@ -51,6 +51,7 @@ class User < ApplicationRecord
   #
   include PersonConcern
   include InvolvementConcern
+  include SoftDeletable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
@@ -94,8 +95,6 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :not_deleted, -> { where(deleted_at: nil) }
-
   scope :admin, -> { where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
 
@@ -204,21 +203,11 @@ class User < ApplicationRecord
   def delete
     self.transaction do
       personal_skillsets.each { |expert| expert.delete }
-      update(deleted_at: Time.zone.now,
-        email: nil,
-        full_name: nil,
-        phone_number: nil)
+      update_columns(deleted_at: Time.zone.now,
+                     email: nil,
+                     full_name: nil,
+                     phone_number: nil)
     end
-  end
-
-  def destroy
-    # Don’t really destroy!
-    # callbacks for :destroy are not run
-    delete
-  end
-
-  def deleted?
-    deleted_at.present?
   end
 
   def email_required? # Override from Devise::Validatable
