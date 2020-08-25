@@ -58,7 +58,7 @@ class Institution < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_logos, -> { where.not(logo_sort_order: nil).order(:logo_sort_order) }
+  scope :ordered_logos, -> { not_deleted.where.not(logo_sort_order: nil).order(:logo_sort_order) }
 
   def available_subjects
     institutions_subjects
