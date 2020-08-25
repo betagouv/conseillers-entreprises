@@ -3,9 +3,7 @@
 # Table name: antennes
 #
 #  id             :bigint(8)        not null, primary key
-#  advisors_count :integer
 #  deleted_at     :datetime
-#  experts_count  :integer
 #  name           :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -31,7 +29,7 @@ class Antenne < ApplicationRecord
   include ManyCommunes
   include InvolvementConcern
 
-  belongs_to :institution, counter_cache: true, inverse_of: :antennes
+  belongs_to :institution, inverse_of: :antennes
 
   has_many :experts, inverse_of: :antenne
   has_many :advisors, class_name: 'User', inverse_of: :antenne

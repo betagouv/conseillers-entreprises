@@ -3,7 +3,6 @@
 # Table name: institutions
 #
 #  id              :bigint(8)        not null, primary key
-#  antennes_count  :integer
 #  deleted_at      :datetime
 #  logo_sort_order :integer
 #  name            :string           not null
