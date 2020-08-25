@@ -172,16 +172,26 @@ fr:
         taken_care_of_at: Date de prise en charge
       match/statuses:
         done: Besoin clôturé
+        done_no_help: Pas d’aide disponible
+        done_not_reachable: Entreprise non joignable
         not_for_me: Mise en relation refusée
         quo: En attente de réponse
         taking_care: En cours de prise en charge
       match/statuses/action:
-        done: Clôturer
+        done: Aide proposée
+        done_no_help: Pas d’aide disponible
+        done_not_reachable: Entreprise non joignable
         not_for_me: Refuser
         quo: Annuler
         taking_care: Prendre en charge
+      match/statuses/content:
+        done: J’ai proposé un accompagnement possible. Je partage un commentaire aux autres experts.
+        done_no_help: Après échange, je n’ai pas d'accompagnement à proposer. Si j’ai des infos, je les partage aux autres experts.
+        done_not_reachable: J’ai tenté de joindre l’entreprise à plusieurs reprises sans succès. J’ai laissé un message.
       match/statuses/short:
         done: Clôturé
+        done_no_help: Pas d’aide
+        done_not_reachable: Non joignable
         not_for_me: Refusé
         quo: Pas de réponse
         taking_care: Pris en charge

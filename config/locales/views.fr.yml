@@ -399,6 +399,8 @@ fr:
       notify_match_status:
         expert_and_status:
           done_html: "<p>%{expert} (%{antenne}) a clôturé ce besoin.</p>"
+          done_no_help_html: "<p>%{expert} (%{antenne}) a échangé avec l'entreprise mais n'a pas d'accompagnement adapté à sa situation.</p>"
+          done_not_reachable_html: "<p>%{expert} (%{antenne}) a clôturé le besoin, après avoir tenté de joindre l'entreprise sans succès à plusieurs reprises.</p>"
           not_for_me_html: "<p>%{expert} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Equipe Place des Entreprises prendra le relai.</p>"
           quo_html: "<p>%{expert} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
           taking_care_html: "<p>%{expert} (%{antenne}) a pris en charge ce besoin.</p>"

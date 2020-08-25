@@ -4,8 +4,10 @@ module StatusHelper
     sent_to_no_one: %w[grey],
     quo: %w[grey],
     not_for_me: %w[red],
-    taking_care: %w[blue],
-    done: %w[green]
+    taking_care: %w[green],
+    done: %w[green],
+    done_no_help: %w[yellow],
+    done_not_reachable: %w[teal]
   }
 
   STATUS_ICONS = {
@@ -14,8 +16,12 @@ module StatusHelper
     quo: %w[],
     not_for_me: %w[icon remove],
     taking_care: %w[icon handshake outline],
-    done: %w[icon checkmark]
+    done: %w[icon checkmark],
+    done_no_help: %w[icon checkmark],
+    done_not_reachable: %w[icon checkmark]
   }
+
+  STATUS_CONTENT = %i[done done_no_help done_not_reachable]
 
   def match_actions_buttons(match)
     allowed_actions = match.allowed_new_status
@@ -23,8 +29,11 @@ module StatusHelper
     form_with(model: match, url: match_path(match)) do |f|
       allowed_actions.map do |new_status|
         title = Match.human_attribute_value(:status, new_status, context: :action)
-        classes = %w[ui small button] + STATUS_COLORS[new_status]
-        f.button :submit, name: :status, value: new_status, class: classes.join(' ') do
+        if STATUS_CONTENT.include?(new_status)
+          content = { content: Match.human_attribute_value(:status, new_status, context: :content) }
+        end
+        classes = %w[ui small button match popup-hover] + STATUS_COLORS[new_status]
+        f.button :submit, name: :status, value: new_status, class: classes.join(' '), data: (content if defined?(content)) do
           status_icon(new_status) + title
         end
       end.join.html_safe

@@ -97,15 +97,15 @@ RSpec.describe User, type: :model do
 
     describe 'active_answered' do
       it do
-        expert = create :match, status: 2
+        expert = create :match, status: 'done'
         need = create :need, matches: [expert]
         diagnosis = create :diagnosis, created_at: 1.day.ago, needs: [need]
         active_user = create :user, sent_diagnoses: [diagnosis]
 
         last_30_days = (30.days.ago)..Time.zone.now
 
-        expect(described_class.active_answered(last_30_days, [1,2])).to eq [active_user]
-        expect(described_class.active_answered(last_30_days, [3])).to eq []
+        expect(described_class.active_answered(last_30_days, ['taking_care','done'])).to eq [active_user]
+        expect(described_class.active_answered(last_30_days, ['not_for_me'])).to eq []
       end
     end
 

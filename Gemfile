@@ -40,6 +40,7 @@ gem 'devise-async'
 gem 'devise_invitable'
 gem 'user_impersonate2', require: 'user_impersonate'
 gem 'pundit'
+gem 'activerecord-postgres_enum'
 
 # Charts
 gem 'groupdate'

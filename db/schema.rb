@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_29_075626) do
+ActiveRecord::Schema.define(version: 2020_08_31_095725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_enum :match_status, [
+    "quo",
+    "taking_care",
+    "done",
+    "done_no_help",
+    "done_not_reachable",
+    "not_for_me",
+  ], force: :cascade
 
   create_table "antennes", force: :cascade do |t|
     t.string "name"
@@ -286,14 +295,16 @@ ActiveRecord::Schema.define(version: 2020_08_29_075626) do
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 0, null: false
+    t.integer "old_status", default: 0, null: false
     t.datetime "taken_care_of_at"
     t.datetime "closed_at"
     t.bigint "expert_id"
     t.bigint "subject_id"
+    t.enum "status", default: "quo", null: false, enum_name: "match_status"
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
+    t.index ["old_status"], name: "index_matches_on_old_status"
     t.index ["status"], name: "index_matches_on_status"
     t.index ["subject_id"], name: "index_matches_on_subject_id"
   end
