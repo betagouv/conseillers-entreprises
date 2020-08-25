@@ -405,6 +405,7 @@ fr:
     created_at: Date de création
     custom_communes: Spécifique
     date_de_creation: Date de création
+    deleted_at: Suppression
     description: Description
     diagnoses:
       one: Analyse
