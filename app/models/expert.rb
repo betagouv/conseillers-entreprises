@@ -107,7 +107,7 @@ class Expert < ApplicationRecord
 
   scope :only_expert_of_user, -> do
     joins(:users)
-      .where(users: { id: User.single_expert })
+      .where(users: { id: User.unscoped.single_expert })
   end
 
   scope :without_users, -> do
