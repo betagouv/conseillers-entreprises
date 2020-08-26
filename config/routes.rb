@@ -82,7 +82,6 @@ Rails.application.routes.draw do
     get :top_5
     get :politique_de_confidentialite
     get :mentions_legales
-    get :satisfaction
   end
 
   resource :stats, only: [:show] do
