@@ -261,13 +261,4 @@ ActiveAdmin.register User do
       end
     end
   end
-
-  ## Import
-  #
-  active_admin_import validate: true,
-                      csv_options: ActiveAdmin.application.csv_options,
-                      headers_rewrites: User.csv_header_rewrites,
-                      before_batch_import: -> (importer) { User.csv_before_batch_import(importer) },
-                      template: 'admin/csv_import',
-                      back: :admin_users
 end

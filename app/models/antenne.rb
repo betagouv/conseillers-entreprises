@@ -22,7 +22,6 @@
 
 class Antenne < ApplicationRecord
   include SoftDeletable
-  include Admin::Importers::AntenneImporter
 
   ## Associations
   #

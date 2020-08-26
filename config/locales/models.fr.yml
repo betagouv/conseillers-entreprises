@@ -1,13 +1,6 @@
 ---
 fr:
   active_admin:
-    csv_import:
-      button: Importer
-      button_disabled: Importation en cours
-      example_label: Exemple
-      example_title: Format du CSV
-      label: Fichier csv
-      title: Importer des %{model_name}
     expert:
       modify_subjects: Modifier les domaines d’intervention
     flag:
