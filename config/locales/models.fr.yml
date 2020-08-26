@@ -268,6 +268,10 @@ fr:
         reset_password_token: Token de régénération du mot de passe
         role: Fonction
         sign_in_count: Connexions
+        team_email: E-mail de l’équipe
+        team_full_name: Nom de l’équipe
+        team_phone_number: Téléphone de l’équipe
+        team_role: Fonction de l’équipe
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

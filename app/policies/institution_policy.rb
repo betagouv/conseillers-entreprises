@@ -15,6 +15,10 @@ class InstitutionPolicy < ApplicationPolicy
     show?
   end
 
+  def advisors?
+    show?
+  end
+
   def update?
     admin?
   end

@@ -23,6 +23,9 @@ class InstitutionsController < ApplicationController
   def antennes
   end
 
+  def advisors
+  end
+
   private
 
   def retrieve_institution
@@ -36,5 +39,12 @@ class InstitutionsController < ApplicationController
     @antennes = @institution.antennes
       .order(:name)
       .preload(:communes)
+
+    @advisors = @institution.advisors
+      .not_deleted
+      .relevant_for_skills
+      .joins(:antenne)
+      .order('antennes.name', 'team_name', 'users.full_name')
+      .preload(:antenne, relevant_expert: [:not_deleted_users, :antenne, :experts_subjects])
   end
 end

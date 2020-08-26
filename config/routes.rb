@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     member do
       get :subjects, path: 'competences'
       get :antennes
+      get :advisors, path: 'conseillers'
     end
   end
 

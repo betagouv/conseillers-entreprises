@@ -1,0 +1,65 @@
+%table.ui.definition.celled.table
+  %thead
+    - grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
+    %tr
+      %th{ rowspan: 3 }
+      %th{ rowspan: 3 }= User.human_attribute_name(:team_full_name)
+      %th{ rowspan: 3 }= User.human_attribute_name(:user)
+
+      - grouped_subjects.each do |theme, subjects|
+        %th{ colspan: subjects.values.sum(&:size) }= theme.label
+    %tr
+      %th.rowspanned
+      %th.rowspanned
+      %th.rowspanned
+      - grouped_subjects.each do |_, subjects|
+        - subjects.each do |subject, institutions_subjects|
+          %th{ colspan: institutions_subjects.size }= subject.label
+    %tr
+      %th.rowspanned
+      %th.rowspanned
+      %th.rowspanned
+      - grouped_subjects.each do |_, subjects|
+        - subjects.each do |_, institutions_subjects|
+          - institutions_subjects.each do |institution_subject|
+            %th= institution_subject.description
+  %tbody
+    - grouped_advisors = advisors.group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
+    - grouped_advisors.each do |antenne, teams|
+      - teams.each_with_index do |h, index_in_antenne|
+        - relevant_expert, advisors = h.first, h.last
+        - advisors.each_with_index do |user, index_in_team|
+          %tr
+            - if index_in_antenne == 0 && index_in_team == 0
+              %td{ rowspan: teams.values.sum(&:size) }= antenne
+            - else
+              %td.rowspanned
+            - if index_in_team == 0
+              %td{ rowspan: advisors.size }
+                - if user.relevant_expert.team?
+                  .popup-hover
+                    = user.relevant_expert.full_name
+                  .ui.popup= person_block(user.relevant_expert)
+            - else
+              %td.rowspanned
+            %td
+              .popup-hover
+                = user.full_name
+              .ui.popup= person_block(user)
+            - if index_in_team == 0
+              - institutions_subjects.each do |institution_subject|
+                -# Take the intersection of the expert and institution subjects
+                - experts_subjects = user.relevant_expert.experts_subjects & institution_subject.experts_subjects
+                %td{ rowspan: advisors.size }
+                  - experts_subjects.each do |expert_subject|
+                    - role = expert_subject.human_attribute_value(:role).capitalize
+                    - description = expert_subject.description
+                    - if description.present?
+                      .popup-hover
+                        = role
+                        %sup ?
+                      .ui.popup= description
+                    - else
+                      = role
+            - else
+              %td.rowspanned
