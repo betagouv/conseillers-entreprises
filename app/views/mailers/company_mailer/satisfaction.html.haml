@@ -4,11 +4,11 @@
     color: #fff;
     margin: 0 0.6em;
   }
-  .red {
-    background-color: #d63626;
+  .no {
+    background-color: #b92a1c;
   }
-  .green {
-    background-color: #007639;
+  .yes {
+    background-color: rgb(0, 83, 179);
   }
 
 
@@ -19,9 +19,9 @@
 %blockquote
   %strong= @need.subject.label
 
-= t('.question_one_html', link: satisfaction_url)
+= t('.question_one_html', link: new_company_satisfactions_url(besoin: @need.id, token: @email_token))
 
-= t('.question_two_html', link: satisfaction_url)
+= t('.question_two_html', link: new_company_satisfactions_url(besoin: @need.id, token: @email_token))
 
 %p= t('.outro')
 

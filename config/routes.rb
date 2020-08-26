@@ -102,6 +102,12 @@ Rails.application.routes.draw do
     get :sitemap
   end
 
+  resource :company_satisfactions, only: %i[new create], path: 'satisfaction' do
+    collection do
+      get :thank_you, path: 'merci'
+    end
+  end
+
   # Application
   resources :diagnoses, only: %i[index new show create], path: 'analyses' do
     collection do

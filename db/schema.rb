@@ -106,6 +106,16 @@ ActiveRecord::Schema.define(version: 2020_08_31_095725) do
     t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 
+  create_table "company_satisfactions", force: :cascade do |t|
+    t.boolean "contacted_by_expert"
+    t.boolean "useful_exchange"
+    t.text "comment"
+    t.bigint "need_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["need_id"], name: "index_company_satisfactions_on_need_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "email"
     t.string "phone_number"

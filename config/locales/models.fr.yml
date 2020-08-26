@@ -98,6 +98,10 @@ fr:
       commune:
         insee_code: Code commune
       company: 
+      company_satisfaction:
+        comment: Commentaire
+        contacted_by_expert: Contacté par un expert
+        useful_exchange: Échange utile
       contact:
         company: Entreprise
         role: Fonction
