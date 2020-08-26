@@ -236,15 +236,12 @@ fr:
           one: clôturée
           other: clôturées
       subject:
-        institutions_subjects: Compétences d’institutions
         is_support: Support
       territory:
         advisors: Conseillers
         antennes: Antennes
         bassin_emploi: Bassin d’emploi?
         experts: Experts
-      theme:
-        institutions_subjects: Compétences d’institutions
       user:
         can_view_diagnoses_tab: Peut voir l’onglet analyses
         can_view_review_subjects_flash: Rappel de la revue des compétences

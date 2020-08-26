@@ -1,0 +1,27 @@
+%table.ui.definition.selectable.celled.table
+  %thead
+    %tr
+      %th
+      %th= Institution.human_attribute_name(:subjects)
+      %th= Institution.human_attribute_name(:antennes)
+      %th= Institution.human_attribute_name(:advisors)
+  %tbody
+    - institutions.each do |institution|
+      %tr
+        - url = url_for(institution)
+        %td.selectable
+          %a{ href: url }
+            %h4.ui.image.header
+              .ui.mini.image= institution_image institution.name
+              .content
+                = institution.name
+        %td
+          = link_to [:subjects, institution] do
+            - institution.institutions_subjects.group_by(&:theme).each do |theme, institutions_subjects|
+              %li #{theme.label} (#{institutions_subjects.size})
+        %td
+          = link_to [:antennes, institution] do
+            = institution.antennes.human_count
+        %td
+          = link_to [:advisors, institution] do
+            = institution.advisors.human_count
