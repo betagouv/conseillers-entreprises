@@ -40,7 +40,5 @@ module Admin
         end
       end
     end
-
-    Antenne.include AntenneImporter
   end
 end

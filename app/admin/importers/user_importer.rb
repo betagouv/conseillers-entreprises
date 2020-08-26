@@ -59,7 +59,5 @@ module Admin
         end
       end
     end
-
-    User.include UserImporter
   end
 end
