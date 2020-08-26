@@ -32,7 +32,6 @@ fr:
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
       completed: Analyses terminées
-      deactivated: Désactivés
       diagnosis_completed: Analyses terminées
       done: Clôturé
       from_solicitation: Sollicitations
@@ -83,20 +82,9 @@ fr:
     user:
       admin: Admin
       connection: Connexion
-      deactivate_user: Désactiver cet utilisateur
-      deactivate_user_done: Utilisateur désactivé
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
       impersonate: Voir le site comme %{name}
-      import:
-        button: Importer
-        button_disabled: Importation en cours
-        example_label: Exemple
-        example_title: Format du CSV
-        label: Fichier csv
-        title: Importer des utilisateurs
-      reactivate_user: Réactiver cet utilisateur
-      reactivate_user_done: Utilisateur réactivé
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
   activerecord:
@@ -255,7 +243,6 @@ fr:
         antennes: Antennes
         bassin_emploi: Bassin d’emploi?
         experts: Experts
-        insee_codes: Codes commune
       theme:
         institutions_subjects: Compétences d’institutions
       user:
@@ -265,8 +252,6 @@ fr:
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
-        deactivated?: Désactivé
-        deactivated_at: Désactivation
         disable_email_confirm_notifications_sent: Ne veut pas recevoir les email de confirmation de mise en relation
         encrypted_password: Mot de passe chiffré
         experts:
@@ -413,6 +398,7 @@ fr:
     created_at: Date de création
     custom_communes: Spécifique
     date_de_creation: Date de création
+    deleted_at: Suppression
     description: Description
     diagnoses:
       one: Analyse
@@ -441,9 +427,7 @@ fr:
     flags: Options
     full_name: Prénom et nom
     happened_on: Date de la visite
-    insee_codes:
-      one: Code commune
-      other: Codes commune
+    insee_codes: Codes commune
     institution: Institution
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire

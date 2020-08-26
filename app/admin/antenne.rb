@@ -1,5 +1,11 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Antenne do
   menu parent: :experts, priority: 1
+
+  controller do
+    include SoftDeletable::ActiveAdminResourceController
+  end
 
   ## Index
   #
@@ -51,6 +57,7 @@ ActiveAdmin.register Antenne do
   #
   show do
     attributes_table do
+      row(:deleted_at) if resource.deleted?
       row :name
       row :institution
       row(:intervention_zone) do |a|

@@ -20,14 +20,4 @@ describe 'the signin process', type: :feature do
       expect(page.html).to include 'Demandes reçues'
     end
   end
-
-  context 'deactivated user' do
-    before { user.deactivate! }
-
-    it do
-      click_button 'Connexion'
-
-      expect(page.html).to include 'Votre compte a été désactivé'
-    end
-  end
 end

@@ -3,8 +3,7 @@
 # Table name: antennes
 #
 #  id             :bigint(8)        not null, primary key
-#  advisors_count :integer
-#  experts_count  :integer
+#  deleted_at     :datetime
 #  name           :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -12,6 +11,7 @@
 #
 # Indexes
 #
+#  index_antennes_on_deleted_at               (deleted_at)
 #  index_antennes_on_institution_id           (institution_id)
 #  index_antennes_on_name_and_institution_id  (name,institution_id) UNIQUE
 #
@@ -21,13 +21,15 @@
 #
 
 class Antenne < ApplicationRecord
+  include SoftDeletable
+
   ## Associations
   #
   has_and_belongs_to_many :communes, inverse_of: :antennes
   include ManyCommunes
   include InvolvementConcern
 
-  belongs_to :institution, counter_cache: true, inverse_of: :antennes
+  belongs_to :institution, inverse_of: :antennes
 
   has_many :experts, inverse_of: :antenne
   has_many :advisors, class_name: 'User', inverse_of: :antenne

@@ -3,6 +3,10 @@
 ActiveAdmin.register Expert do
   menu priority: 4
 
+  controller do
+    include SoftDeletable::ActiveAdminResourceController
+  end
+
   # Index
   #
   includes :institution, :antenne, :users, :experts_subjects, :received_matches
@@ -106,6 +110,7 @@ ActiveAdmin.register Expert do
   #
   show do
     attributes_table do
+      row(:deleted_at) if resource.deleted?
       row :full_name
       row :role
       row :email

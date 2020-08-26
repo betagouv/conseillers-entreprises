@@ -5,7 +5,6 @@
 #  id                     :integer          not null, primary key
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
-#  deactivated_at         :datetime
 #  deleted_at             :datetime
 #  email                  :string           default("")
 #  encrypted_password     :string           default(""), not null
@@ -52,13 +51,15 @@ class User < ApplicationRecord
   #
   include PersonConcern
   include InvolvementConcern
+  include SoftDeletable
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
   ## Associations
   #
-  belongs_to :antenne, counter_cache: :advisors_count, inverse_of: :advisors
+  belongs_to :antenne, inverse_of: :advisors
   has_and_belongs_to_many :experts, inverse_of: :users
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :searches, inverse_of: :user
@@ -95,9 +96,6 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :not_deleted, -> { where(deleted_at: nil) }
-  scope :deactivated, -> { where.not(deactivated_at: nil) }
-
   scope :admin, -> { where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
 
@@ -200,43 +198,17 @@ class User < ApplicationRecord
   ## Deactivation and soft deletion
   #
   def active_for_authentication?
-    super && !deactivated? && !deleted?
-  end
-
-  def inactive_message # override for Devise::Authenticatable
-    deactivated_at.present? ? :deactivated : super
-  end
-
-  def deactivated?
-    deactivated_at.present?
-  end
-
-  def deactivate!
-    update(deactivated_at: Time.zone.now)
-  end
-
-  def reactivate!
-    update(deactivated_at: nil)
+    super && !deleted?
   end
 
   def delete
     self.transaction do
       personal_skillsets.each { |expert| expert.delete }
-      update(deleted_at: Time.zone.now,
-        email: nil,
-        full_name: nil,
-        phone_number: nil)
+      update_columns(deleted_at: Time.zone.now,
+                     email: nil,
+                     full_name: nil,
+                     phone_number: nil)
     end
-  end
-
-  def destroy
-    # Don’t really destroy!
-    # callbacks for :destroy are not run
-    delete
-  end
-
-  def deleted?
-    deleted_at.present?
   end
 
   def email_required? # Override from Devise::Validatable
@@ -249,6 +221,8 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
+  ## Expert associations helpers
+  #
   def personal_skillsets
     experts.personal_skillsets
   end

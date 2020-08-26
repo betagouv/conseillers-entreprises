@@ -63,22 +63,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'deactivation' do
-    subject(:user) { create :user }
-
-    before { user.deactivate! }
-
-    describe 'deactivated users can’t login' do
-      it { is_expected.not_to be_active_for_authentication }
-    end
-
-    describe 'reactivated users can login' do
-      before { user.reactivate! }
-
-      it { is_expected.to be_active_for_authentication }
-    end
-  end
-
   describe 'scopes' do
     describe 'not_admin' do
       it do

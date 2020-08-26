@@ -17,7 +17,7 @@
         = t('.match_with')
     .summary
       .user.popup-hover{ class: ('expert-highlighted' if highlight) }
-        #{match.expert.full_name} - #{match.expert.institution.name}
+        #{match.expert.full_name} - #{match.expert.antenne.name}
       .ui.popup= person_block(match.expert)
     - if for_me
       .meta

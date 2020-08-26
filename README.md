@@ -157,6 +157,10 @@ Basculement sur la branche 'production'
 Done!
 ```
 
+### Domain name
+
+The domain name is managed on AlwaysData, as well as the contact email adress. See the developer team to access the AlwaysData account. 
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our git and coding conventions, and the process for submitting pull requests to us.
