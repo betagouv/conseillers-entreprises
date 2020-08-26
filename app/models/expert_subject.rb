@@ -68,4 +68,10 @@ class ExpertSubject < ApplicationRecord
     joins(:subject)
       .merge(Subject.ordered_for_interview)
   end
+
+  ## used for serialization in advisors csv
+  #
+  def csv_description
+    [human_attribute_value(:role), description].to_csv(col_sep: ':').strip
+  end
 end

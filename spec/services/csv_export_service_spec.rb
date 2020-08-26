@@ -36,5 +36,43 @@ describe CsvExportService do
         is_expected.to eq csv
       end
     end
+
+    describe 'with teams' do
+      let!(:expert) { create :expert, antenne: antenne, users: [user], full_name: 'Team 1', email: 'team@team.com', phone_number: '0987654321', role: 'Team Role' }
+
+      subject do
+        additional_fields = User.csv_fields_for_relevant_expert_team
+        described_class.csv User.relevant_for_skills, additional_fields
+      end
+
+      it do
+        csv = <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+          Test Institution,Test Antenne,User 1,user@user.com,0123456789,User Role,Team 1,team@team.com,0987654321,Team Role
+        CSV
+        is_expected.to eq csv
+      end
+    end
+
+    describe 'with subjects' do
+      let(:theme) { create :theme, label: 'Test Theme' }
+      let(:the_subject) { create :subject, theme: theme, label: 'Test Subject' }
+      let(:institution_subject) { create :institution_subject, institution: institution, subject: the_subject, description: 'Description for institution' }
+      let!(:expert_subject) { create :expert_subject, expert: user.personal_skillsets.first, institution_subject: institution_subject, role: :specialist, description: 'Description for expert' }
+
+      subject do
+        institution.reload
+        additional_fields = User.csv_fields_for_relevant_expert_subjects(institution.institutions_subjects)
+        described_class.csv User.relevant_for_skills, additional_fields
+      end
+
+      it do
+        csv = <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Test Theme:Test Subject:Description for institution
+          Test Institution,Test Antenne,User 1,user@user.com,0123456789,User Role,spécialiste:Description for expert
+        CSV
+        is_expected.to eq csv
+      end
+    end
   end
 end
