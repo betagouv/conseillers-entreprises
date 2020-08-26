@@ -52,7 +52,6 @@ class User < ApplicationRecord
   include PersonConcern
   include InvolvementConcern
   include SoftDeletable
-  include Admin::Importers::UserImporter
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
