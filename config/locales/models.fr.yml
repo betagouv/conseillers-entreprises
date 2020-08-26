@@ -1,6 +1,13 @@
 ---
 fr:
   active_admin:
+    csv_import:
+      button: Importer
+      button_disabled: Importation en cours
+      example_label: Exemple
+      example_title: Format du CSV
+      label: Fichier csv
+      title: Importer des %{model_name}
     expert:
       modify_subjects: Modifier les domaines d’intervention
     flag:
@@ -88,13 +95,6 @@ fr:
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
       impersonate: Voir le site comme %{name}
-      import:
-        button: Importer
-        button_disabled: Importation en cours
-        example_label: Exemple
-        example_title: Format du CSV
-        label: Fichier csv
-        title: Importer des utilisateurs
       reactivate_user: Réactiver cet utilisateur
       reactivate_user_done: Utilisateur réactivé
       saved: Conseiller mis à jour
@@ -255,7 +255,6 @@ fr:
         antennes: Antennes
         bassin_emploi: Bassin d’emploi?
         experts: Experts
-        insee_codes: Codes commune
       theme:
         institutions_subjects: Compétences d’institutions
       user:
@@ -441,9 +440,7 @@ fr:
     flags: Options
     full_name: Prénom et nom
     happened_on: Date de la visite
-    insee_codes:
-      one: Code commune
-      other: Codes commune
+    insee_codes: Codes commune
     institution: Institution
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire
