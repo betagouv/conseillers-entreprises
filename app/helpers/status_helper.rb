@@ -41,14 +41,16 @@ module StatusHelper
   end
 
   def admin_match_actions_buttons(match)
-    if match.allowed_new_status.include? :done
-      form_with(model: match, url: match_path(match)) do |f|
-        title = Match.human_attribute_value(:status, :done, context: :action)
-        classes = %w[ui small button] + STATUS_COLORS[:done]
-        f.button :submit, name: :status, value: :done, class: classes.join(' ') do
+    allowed_actions = match.allowed_new_status
+
+    form_with(model: match, url: match_path(match), class: 'menu') do |f|
+      allowed_actions.map do |new_status|
+        title = Match.human_attribute_value(:status, new_status, context: :action)
+        classes = %w[ui small button item] + STATUS_COLORS[new_status]
+        f.button :submit, name: :status, value: new_status, class: classes.join(' ') do
           status_icon(:done) + title
         end
-      end
+      end.join.html_safe
     end
   end
 

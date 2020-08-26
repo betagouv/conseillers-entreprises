@@ -410,6 +410,7 @@ fr:
   matches:
     match:
       additional_match: Mise en relation ultérieure (%{date})
+      mark_as_done: Clôturer
       match_with: 'Mise en relation avec :'
       thats_you: C’est vous !
   needs:
