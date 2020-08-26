@@ -3,6 +3,10 @@
 ActiveAdmin.register Institution do
   menu parent: :experts, priority: 2
 
+  controller do
+    include SoftDeletable::ActiveAdminResourceController
+  end
+
   ## Index
   #
   includes :antennes, :advisors, :experts, :sent_matches, :received_matches
@@ -42,6 +46,7 @@ ActiveAdmin.register Institution do
   #
   show do
     attributes_table do
+      row(:deleted_at) if resource.deleted?
       row :name
       row :slug
       row(:antennes) do |i|

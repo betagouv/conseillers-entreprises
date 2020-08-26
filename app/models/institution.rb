@@ -3,7 +3,7 @@
 # Table name: institutions
 #
 #  id              :bigint(8)        not null, primary key
-#  antennes_count  :integer
+#  deleted_at      :datetime
 #  logo_sort_order :integer
 #  name            :string           not null
 #  region_name     :string
@@ -14,11 +14,14 @@
 #
 # Indexes
 #
-#  index_institutions_on_name  (name) UNIQUE
-#  index_institutions_on_slug  (slug) UNIQUE
+#  index_institutions_on_deleted_at  (deleted_at)
+#  index_institutions_on_name        (name) UNIQUE
+#  index_institutions_on_slug        (slug) UNIQUE
 #
 
 class Institution < ApplicationRecord
+  include SoftDeletable
+
   ## Associations
   #
   has_many :antennes, inverse_of: :institution
@@ -54,7 +57,7 @@ class Institution < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_logos, -> { where.not(logo_sort_order: nil).order(:logo_sort_order) }
+  scope :ordered_logos, -> { not_deleted.where.not(logo_sort_order: nil).order(:logo_sort_order) }
 
   def available_subjects
     institutions_subjects

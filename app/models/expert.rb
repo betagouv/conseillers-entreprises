@@ -21,6 +21,7 @@
 #
 #  index_experts_on_access_token  (access_token)
 #  index_experts_on_antenne_id    (antenne_id)
+#  index_experts_on_deleted_at    (deleted_at)
 #  index_experts_on_email         (email)
 #
 # Foreign Keys
@@ -31,6 +32,7 @@
 class Expert < ApplicationRecord
   include PersonConcern
   include InvolvementConcern
+  include SoftDeletable
 
   ## Associations
   #
@@ -40,7 +42,7 @@ class Expert < ApplicationRecord
   audited only: :subjects_reviewed_at
   has_associated_audits
 
-  belongs_to :antenne, counter_cache: true, inverse_of: :experts
+  belongs_to :antenne, inverse_of: :experts
 
   has_and_belongs_to_many :users, inverse_of: :experts
 
@@ -208,25 +210,14 @@ class Expert < ApplicationRecord
 
   ## Soft deletion
   #
-
   def full_name
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
   def delete
-    update(deleted_at: Time.zone.now,
-           email: nil,
-           full_name: nil,
-           phone_number: nil)
-  end
-
-  def destroy
-    # Don’t really destroy!
-    # callbacks for :destroy are not run
-    delete
-  end
-
-  def deleted?
-    deleted_at.present?
+    update_columns(deleted_at: Time.zone.now,
+                   email: nil,
+                   full_name: nil,
+                   phone_number: nil)
   end
 end

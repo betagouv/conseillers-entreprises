@@ -11,5 +11,5 @@
         %div
           = label_tag(t('activerecord.models.institution.one'))
           = select_tag(:institution,
-            options_from_collection_for_select(Institution.all.order(:name), :id, :name, stats.params.institution),
+            options_from_collection_for_select(Institution.not_deleted.order(:name), :id, :name, stats.params.institution),
             options.dup)

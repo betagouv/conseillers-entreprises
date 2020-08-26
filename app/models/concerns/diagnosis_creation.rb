@@ -146,7 +146,7 @@ module DiagnosisCreation
     def prepare_matches_from_solicitation
       return unless solicitation.present? && matches.blank?
 
-      institutions = solicitation.preselected_institutions || Institution.all
+      institutions = solicitation.preselected_institutions || Institution.not_deleted
 
       self.needs.each do |need|
         expert_subjects = ExpertSubject

@@ -11,7 +11,7 @@
 
   .required.field
     = f.label :antenne
-    = f.select(:antenne_id, options_from_collection_for_select(Antenne.all.order(:name), :id, :name), { include_blank: t('all_choices') }, { class: 'ui search selection dropdown' })
+    = f.select(:antenne_id, options_from_collection_for_select(Antenne.not_deleted.order(:name), :id, :name), { include_blank: t('all_choices') }, { class: 'ui search selection dropdown' })
 
   .actions
     = f.submit t(".submit_button"), class: 'ui green button'
