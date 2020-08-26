@@ -5,7 +5,6 @@
 #  id                     :integer          not null, primary key
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
-#  deactivated_at         :datetime
 #  deleted_at             :datetime
 #  email                  :string           default("")
 #  encrypted_password     :string           default(""), not null
@@ -96,7 +95,6 @@ class User < ApplicationRecord
   ## Scopes
   #
   scope :not_deleted, -> { where(deleted_at: nil) }
-  scope :deactivated, -> { where.not(deactivated_at: nil) }
 
   scope :admin, -> { where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
@@ -200,23 +198,7 @@ class User < ApplicationRecord
   ## Deactivation and soft deletion
   #
   def active_for_authentication?
-    super && !deactivated? && !deleted?
-  end
-
-  def inactive_message # override for Devise::Authenticatable
-    deactivated_at.present? ? :deactivated : super
-  end
-
-  def deactivated?
-    deactivated_at.present?
-  end
-
-  def deactivate!
-    update(deactivated_at: Time.zone.now)
-  end
-
-  def reactivate!
-    update(deactivated_at: nil)
+    super && !deleted?
   end
 
   def delete

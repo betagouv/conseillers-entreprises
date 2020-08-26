@@ -24,7 +24,6 @@ ActiveAdmin.register User do
 
   scope :all, default: true
   scope :admin
-  scope :deactivated
 
   scope :team_members, group: :teams
   scope :no_team, group: :teams
@@ -38,7 +37,6 @@ ActiveAdmin.register User do
       div admin_link_to(u)
       div '✉ ' + u.email
       div '✆ ' + u.phone_number
-      div status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error') if u.deactivated?
     end
     column :created_at
     column :role do |u|
@@ -62,12 +60,6 @@ ActiveAdmin.register User do
     end
 
     actions dropdown: true do |u|
-      if u.deactivated?
-        item(t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(u), method: :post)
-      else
-        item(t('active_admin.user.deactivate_user'), deactivate_user_admin_user_path(u), method: :post)
-      end
-
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
       item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
@@ -100,7 +92,6 @@ ActiveAdmin.register User do
     column :email
     column :phone_number
     column :created_at
-    column :deactivated_at
     column :role
     column :antenne
     column :institution
@@ -161,10 +152,6 @@ ActiveAdmin.register User do
       row :inviter
       row :invitation_sent_at
       row :invitation_accepted_at
-      row :deactivated? do
-        status_tag(t('activerecord.attributes.user.deactivated?'), class: 'error')
-      end if user.deactivated?
-      row :deactivated_at if user.deactivated?
     end
   end
 
@@ -178,14 +165,6 @@ ActiveAdmin.register User do
 
   action_item :invite_user, only: :show do
     link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user)
-  end
-
-  action_item :deactivate, only: :show do
-    if user.deactivated?
-      link_to t('active_admin.user.reactivate_user'), reactivate_user_admin_user_path(user), method: :post
-    else
-      link_to t('active_admin.user.deactivate_user'), deactivate_user_admin_user_path(user), method: :post
-    end
   end
 
   # Form
@@ -232,16 +211,6 @@ ActiveAdmin.register User do
 
   # Actions
   #
-  member_action :deactivate_user, method: :post do
-    resource.deactivate!
-    redirect_back fallback_location: collection_path, notice: t('active_admin.user.deactivate_user_done')
-  end
-
-  member_action :reactivate_user, method: :post do
-    resource.reactivate!
-    redirect_back fallback_location: collection_path, notice: t('active_admin.user.reactivate_user_done')
-  end
-
   member_action :normalize_values do
     resource.normalize_values!
     redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
