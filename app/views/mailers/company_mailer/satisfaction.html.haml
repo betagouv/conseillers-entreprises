@@ -14,10 +14,10 @@
 
 %p= t('mailers.hello')
 
-= t('.intro_html', company: @diagnosis.company.name)
+= t('.intro_html', company: @need.company.name)
 
 %blockquote
-  %strong= @diagnosis.subjects.first.label
+  %strong= @need.subject.label
 
 = t('.question_one_html', link: satisfaction_url)
 
