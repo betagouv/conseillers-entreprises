@@ -3,7 +3,6 @@
 # Table name: experts
 #
 #  id                   :bigint(8)        not null, primary key
-#  access_token         :string
 #  deleted_at           :datetime
 #  email                :string
 #  flags                :jsonb
@@ -19,10 +18,9 @@
 #
 # Indexes
 #
-#  index_experts_on_access_token  (access_token)
-#  index_experts_on_antenne_id    (antenne_id)
-#  index_experts_on_deleted_at    (deleted_at)
-#  index_experts_on_email         (email)
+#  index_experts_on_antenne_id  (antenne_id)
+#  index_experts_on_deleted_at  (deleted_at)
+#  index_experts_on_email       (email)
 #
 # Foreign Keys
 #
