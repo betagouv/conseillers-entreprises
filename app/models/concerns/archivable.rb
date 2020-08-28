@@ -29,4 +29,8 @@ module Archivable
   def is_archived
     archived_at.present?
   end
+
+  def not_archived?
+    archived_at.blank?
+  end
 end

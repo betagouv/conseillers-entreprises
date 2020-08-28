@@ -4,4 +4,8 @@
     %a{ href: "#need-#{need.id}", data: { turbolinks: 'false' } }
       = need.subject
     .need-status
-      = status_label(need)
+      - if need.not_archived?
+        = status_label(need)
+      - else
+        .ui.basic.label.red
+          = t('.need_abandoned')

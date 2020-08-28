@@ -19,11 +19,12 @@
       .user.popup-hover{ class: ('expert-highlighted' if highlight) }
         #{match.expert.full_name} - #{match.expert.antenne.name}
       .ui.popup= person_block(match.expert)
-    - if for_me
-      .meta
-        = match_actions_buttons match
-    - elsif policy(match).mark_as_done?
-      .meta
-        = admin_match_actions_buttons match
+    - if match.need.not_archived?
+      - if for_me
+        .meta
+          = match_actions_buttons match
+      - elsif policy(match).mark_as_done?
+        .meta
+          = admin_match_actions_buttons match
   .match-status
     = status_label(match)
