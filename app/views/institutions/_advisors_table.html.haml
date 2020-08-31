@@ -1,33 +1,39 @@
 %table.ui.definition.celled.table
   %thead
+    -# For the subjects columns, we'll build our header on 3 rows: theme, subject and institutions_subject.
     - grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
     %tr
+      -# The first 3 columns are for the antenne, team, and user names, spanning the 3 header rows.
       %th{ rowspan: 3 }
       %th{ rowspan: 3 }= User.human_attribute_name(:team_full_name)
       %th{ rowspan: 3 }= User.human_attribute_name(:user)
-
+      -# Subjects columns, first row: the themes, column-spanned for the two remaining header rows
       - grouped_subjects.each do |theme, subjects|
         %th{ colspan: subjects.values.sum(&:size) }= theme.label
     %tr
       %th.rowspanned
       %th.rowspanned
       %th.rowspanned
-      - grouped_subjects.each do |_, subjects|
+      -# Subjects columns, first row: the subjects, column-spanned for the remaining header row
+      - grouped_subjects.each_value do |subjects|
         - subjects.each do |subject, institutions_subjects|
           %th{ colspan: institutions_subjects.size }= subject.label
     %tr
       %th.rowspanned
       %th.rowspanned
       %th.rowspanned
-      - grouped_subjects.each do |_, subjects|
-        - subjects.each do |_, institutions_subjects|
+      -# Subjects columns, third and last row: the institutions_subjects.
+      - grouped_subjects.each_value do |subjects|
+        - subjects.each_value do |institutions_subjects|
           - institutions_subjects.each do |institution_subject|
             %th= institution_subject.description
   %tbody
+    -# `advisors` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
+      We’ll group by Antenne and by Expert team, and span the first two columns as needed.
     - grouped_advisors = advisors.group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
     - grouped_advisors.each do |antenne, teams|
-      - teams.each_with_index do |h, index_in_antenne|
-        - relevant_expert, advisors = h.first, h.last
+      - teams.each_with_index do |key_and_value, index_in_antenne|
+        - advisors = key_and_value.last
         - advisors.each_with_index do |user, index_in_team|
           %tr
             - if index_in_antenne == 0 && index_in_team == 0
@@ -37,29 +43,32 @@
             - if index_in_team == 0
               %td{ rowspan: advisors.size }
                 - if user.relevant_expert.team?
-                  .popup-hover
-                    = user.relevant_expert.full_name
+                  %a.popup-hover.dashed= user.relevant_expert.full_name
                   .ui.popup= person_block(user.relevant_expert)
             - else
               %td.rowspanned
             %td
-              .popup-hover
-                = user.full_name
+              %a.popup-hover.dashed= user.full_name
               .ui.popup= person_block(user)
             - if index_in_team == 0
               - institutions_subjects.each do |institution_subject|
-                -# Take the intersection of the expert and institution subjects
+                -# Finally, inside an InstitutionSubject cell, there may be several expert subjects.
+                  Take the intersection of the expert and institution subjects instead of using `.merge` on the two relations.
+                  In InstitutionsController#retrieve_institution, we’re trying hard to preload relations to avoid N+1 queries.
+                  If we used `.merge`, the new relation would be impossible to preload.
                 - experts_subjects = user.relevant_expert.experts_subjects & institution_subject.experts_subjects
-                %td{ rowspan: advisors.size }
+                - roles = experts_subjects.map(&:role).uniq
+                - colors = { "specialist" => 'yellow', "fallback" => 'grey' }.slice(*roles).values
+                -# The InstitutionSubjects cells themselves are spanned on all the rows of the members of the expert team.
+                %td{ rowspan: advisors.size, class: colors.join(" ") }
                   - experts_subjects.each do |expert_subject|
                     - role = expert_subject.human_attribute_value(:role).capitalize
                     - description = expert_subject.description
                     - if description.present?
-                      .popup-hover
-                        = role
-                        %sup ?
+                      %a.popup-hover.dashed= role
                       .ui.popup= description
                     - else
                       = role
             - else
-              %td.rowspanned
+              - institutions_subjects.size.times do
+                %td.rowspanned
