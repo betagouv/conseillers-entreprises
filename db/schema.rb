@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_28_131413) do
+ActiveRecord::Schema.define(version: 2020_08_29_075626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,8 +69,6 @@ ActiveRecord::Schema.define(version: 2020_08_28_131413) do
 
   create_table "communes", force: :cascade do |t|
     t.string "insee_code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["insee_code"], name: "index_communes_on_insee_code", unique: true
   end
 

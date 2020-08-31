@@ -13,8 +13,10 @@ module ManyCommunes
       raise 'Invalid city codes'
     end
 
-    wanted_codes.each do |code|
-      Commune.find_or_create_by(insee_code: code)
+    if wanted_codes.present?
+      # Make a single query to insert missing communes.
+      # insert_all skips duplicates, so maybe we're not doing anything but we don't care.
+      Commune.insert_all wanted_codes.map{ |code| { insee_code: code } }
     end
 
     self.communes = Commune.where(insee_code: wanted_codes)
