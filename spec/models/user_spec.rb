@@ -119,6 +119,19 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "relevant_for_skills" do
+    let!(:expert1) { create :expert, users: [user] }
+    let!(:expert2) { create :expert, users: [user] }
+    let!(:user) { create :user }
+
+    subject(:relevant_users_for_skills) { described_class.relevant_for_skills }
+
+    it {
+      expect(relevant_users_for_skills.ids).to eq [user.id, user.id]
+      expect(relevant_users_for_skills.map(&:relevant_expert)).to match_array [expert1, expert2]
+    }
+  end
+
   describe '#password_required?' do
     subject { user.password_required? }
 

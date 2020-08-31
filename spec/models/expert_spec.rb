@@ -84,6 +84,19 @@ RSpec.describe Expert, type: :model do
     end
   end
 
+  describe 'a user cannot be member of the same team twice' do
+    let(:user) { build :user }
+    let(:expert) { build :expert }
+
+    let(:expert_double_user) { create :expert, users: [user, user] }
+    let(:user_double_expert) { create :user, experts: [expert, expert] }
+
+    it do
+      expect{ expert_double_user }.to raise_error ActiveRecord::RecordNotUnique
+      expect{ user_double_expert }.to raise_error ActiveRecord::RecordNotUnique
+    end
+  end
+
   describe 'to_s' do
     let(:expert) { build :expert, full_name: 'Ivan Collombet' }
 

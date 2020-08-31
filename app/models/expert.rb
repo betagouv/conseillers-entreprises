@@ -44,6 +44,9 @@ class Expert < ApplicationRecord
 
   has_and_belongs_to_many :users, inverse_of: :experts
 
+  # Same as :users, but excluding deleted users; this makes it possible to preload not_deleted users in views.
+  has_and_belongs_to_many :not_deleted_users, -> { not_deleted }, class_name: 'User'
+
   has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
   has_many :received_matches, -> { sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
 
@@ -104,7 +107,7 @@ class Expert < ApplicationRecord
 
   scope :only_expert_of_user, -> do
     joins(:users)
-      .where(users: { id: User.single_expert })
+      .where(users: { id: User.unscoped.single_expert })
   end
 
   scope :without_users, -> do
@@ -177,12 +180,12 @@ class Expert < ApplicationRecord
 
   ## Team stuff
   def personal_skillset?
-    users.not_deleted.size == 1 &&
-      users.not_deleted.first.email == self.email
+    not_deleted_users.size == 1 &&
+      not_deleted_users.first.email == self.email
   end
 
   def without_users?
-    users.not_deleted.empty?
+    not_deleted_users.empty?
   end
 
   def team?

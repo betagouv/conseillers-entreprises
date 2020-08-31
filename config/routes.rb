@@ -33,6 +33,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :institutions, param: :slug, only: %i[index show] do
+    member do
+      get :subjects, path: 'competences'
+      get :antennes
+      get :advisors, path: 'conseillers'
+    end
+  end
+
   # Pages
   scope path: "(:iframe_prefix)", iframe_prefix: /e?/, defaults: { iframe_prefix: nil } do
     root controller: :landings, action: :index
