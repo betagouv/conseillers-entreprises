@@ -153,6 +153,17 @@ class User < ApplicationRecord
       .distinct
   end
 
+  ## Relevant Experts stuff
+  # User objects fetched through this scope have an additional attribute :relevant_expert_id
+  # (This scope will return several rows for the same user, if there are several relevant experts.)
+  scope :relevant_for_skills, -> do
+    joins(:relevant_experts)
+      .select('users.*', 'experts.id as relevant_expert_id', 'experts.full_name as team_name')
+  end
+  # User objects fetched through relevant_for_skills have an addition association to a single expert.
+  # This makes it possible to preload it in views.
+  belongs_to :relevant_expert, class_name: 'Expert', optional: true
+
   ## Keys for flags preferences
   #
   FLAGS = %i[
