@@ -1,8 +1,6 @@
-%h1.ui.header.breadcrumb
+%h1.ui.header= institution.name
+
+.ui.breadcrumb
   = link_to Institution.model_name.human.pluralize, institutions_path, class: 'section'
-  - if local_assigns[:institution]
-    %i.right.chevron.icon.divider
-    = link_to institution.name, institution, class: 'section'
-  - if local_assigns[:action]
-    %i.right.chevron.icon.divider
-    = link_to Institution.human_attribute_name(action), url_for([action, institution]), class: 'section'
+  %i.right.chevron.icon.divider
+  = link_to institution.name, institution, class: 'section'

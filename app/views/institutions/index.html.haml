@@ -1,5 +1,5 @@
-- meta title: Institution.model_name.human.pluralize
-
-= render 'header'
+- title = Institution.model_name.human.pluralize
+- meta title: title
+%h1.ui.header= title
 
 = render 'institutions_table', institutions: @institutions
