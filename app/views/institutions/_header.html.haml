@@ -1,0 +1,6 @@
+%h1.ui.header= institution.name
+
+.ui.breadcrumb
+  = link_to Institution.model_name.human.pluralize, institutions_path, class: 'section'
+  %i.right.chevron.icon.divider
+  = link_to institution.name, institution, class: 'section'

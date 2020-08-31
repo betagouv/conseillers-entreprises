@@ -10,7 +10,11 @@ ActiveAdmin.register Institution do
   ## Index
   #
   includes :antennes, :advisors, :experts, :sent_matches, :received_matches
-  config.sort_order = 'name_asc'
+  config.sort_order = 'slug_asc'
+
+  controller do
+    defaults :finder => :find_by_slug
+  end
 
   index do
     selectable_column

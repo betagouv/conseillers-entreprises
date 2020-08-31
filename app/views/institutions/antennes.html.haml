@@ -1,0 +1,5 @@
+- meta title: @institution.name
+- content_for :header, render('header', institution: @institution)
+- content_for :menu, render('menu', institution: @institution)
+
+= render 'antennes_table', antennes: @antennes

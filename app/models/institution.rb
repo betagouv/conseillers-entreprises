@@ -69,6 +69,10 @@ class Institution < ApplicationRecord
 
   ##
   #
+  def to_param
+    slug
+  end
+
   def to_s
     name
   end

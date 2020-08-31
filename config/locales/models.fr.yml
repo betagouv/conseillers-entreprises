@@ -236,15 +236,12 @@ fr:
           one: clôturée
           other: clôturées
       subject:
-        institutions_subjects: Compétences d’institutions
         is_support: Support
       territory:
         advisors: Conseillers
         antennes: Antennes
         bassin_emploi: Bassin d’emploi?
         experts: Experts
-      theme:
-        institutions_subjects: Compétences d’institutions
       user:
         can_view_diagnoses_tab: Peut voir l’onglet analyses
         can_view_review_subjects_flash: Rappel de la revue des compétences
@@ -271,6 +268,10 @@ fr:
         reset_password_token: Token de régénération du mot de passe
         role: Fonction
         sign_in_count: Connexions
+        team_email: E-mail de l’équipe
+        team_full_name: Nom de l’équipe
+        team_phone_number: Téléphone de l’équipe
+        team_role: Fonction de l’équipe
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -429,6 +430,7 @@ fr:
     happened_on: Date de la visite
     insee_codes: Codes commune
     institution: Institution
+    institutions_subjects: Compétences d’institutions
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire
     is_archived: Archivé
