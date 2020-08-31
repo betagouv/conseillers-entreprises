@@ -8,7 +8,7 @@ class InstitutionsController < ApplicationController
 
     @institutions = Institution.all
       .order(:slug)
-      .preload([institutions_subjects: :theme], [antennes: :communes], :advisors)
+      .preload([institutions_subjects: :theme], :antennes, :advisors)
 
     @wide_layout = true
   end
