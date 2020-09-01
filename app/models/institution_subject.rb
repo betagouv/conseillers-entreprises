@@ -55,6 +55,6 @@ class InstitutionSubject < ApplicationRecord
   ## used for serialization in advisors csv
   #
   def csv_identifier
-    [theme, subject, description].to_csv(col_sep: ':').strip
+    [theme, subject, description.presence].compact.to_csv(col_sep: ':').strip
   end
 end
