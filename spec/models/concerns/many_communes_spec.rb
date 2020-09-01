@@ -26,11 +26,14 @@ RSpec.describe ManyCommunes do
       let(:territory) { create :territory }
 
       context 'with invalid data' do
-        subject(:set_insee_codes) { territory.insee_codes = raw_codes }
-
         let(:raw_codes) { 'baddata morebaddata' }
 
-        it { expect { set_insee_codes }.to raise_error 'Invalid city codes' }
+        before { territory.insee_codes = raw_codes }
+
+        it do
+          expect(territory).to be_invalid
+          expect(territory.errors.details).to eq({ insee_codes: [{ error: :invalid_insee_codes }] })
+        end
       end
 
       context 'with empty data' do
