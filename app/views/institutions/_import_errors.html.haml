@@ -1,0 +1,31 @@
+- unless result.success?
+  .ui.icon.error.message
+    %i.icon.exclamation.triangle
+    .content
+      .header= t('.import_failed')
+      - result.header_errors.each do |error|
+        %p= error.message
+
+- if result.rows.present?
+  .wide-scrolling
+    %table.sticky-left.ui.definition.celled.table
+      %thead
+        %tr
+          %th
+          - result.rows.first.each_key do |header|
+            %th= header
+      %tbody
+        - result.rows.each_with_index do |row, index|
+          - object = result.objects[index]
+          %tr
+            %td{ rowspan: object.invalid? ? 2 : 1 }
+              #{index + 1}
+            - row.each_value do |value|
+              %td= value
+          - if object.invalid?
+            %tr.red
+              %td.rowspanned
+              %td{ colspan: row.count + 1 }
+                = object.errors.full_messages.to_sentence
+
+

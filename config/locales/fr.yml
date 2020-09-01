@@ -167,6 +167,7 @@ fr:
       update: Modifier ce(tte) %{model}
   honeypot_captcha:
     comment: Laissez ce champ vide !
+  import: Importer
   needs:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
@@ -235,6 +236,7 @@ fr:
         message_html: Cette erreur était inattendue…</br>Nous avons été prévenus de son apparition et nous allons la réparer dès que possible !
         title: Erreur !
   sign_in: Connexion
+  submit: Envoyer
   support:
     array:
       last_word_connector: " et "

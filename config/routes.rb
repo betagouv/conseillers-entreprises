@@ -35,9 +35,11 @@ Rails.application.routes.draw do
 
   resources :institutions, param: :slug, only: %i[index show] do
     member do
-      get :subjects, path: 'competences'
+      get :subjects, path: 'domaines'
       get :antennes
       get :advisors, path: 'conseillers'
+      post :import_antennes, path: 'antennes/import'
+      post :import_advisors, path: 'conseillers/import'
     end
   end
 
