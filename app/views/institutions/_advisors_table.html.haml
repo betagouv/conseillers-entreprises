@@ -1,4 +1,4 @@
-%table.ui.definition.celled.table
+%table.sticky-left.ui.definition.celled.table
   %thead
     -# For the subjects columns, we'll build our header on 3 rows: theme, subject and institutions_subject.
     - grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }

@@ -32,3 +32,13 @@
 
 .ui.popup
   max-width: 400px
+
+.ui
+  .wide-scrolling  // Make sure very wide tables can scroll
+    overflow-x: auto
+  table.ui.table.sticky-left // And try to keep the first column visible
+    thead tr th:first-of-type, tbody tr td:first-of-type
+      position: sticky
+      left: 0
+    tbody tr td:first-of-type
+      background: rgb(248, 248, 248) // Default is rgba(0, 0, 0, 0.03): we want the same grey, but opaque.
