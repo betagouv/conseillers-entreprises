@@ -28,7 +28,7 @@ module CsvExport
           }
         end
 
-        def csv_included_associations
+        def csv_preloaded_associations
           [
             :need, :diagnosis, :facility, :company, :related_matches,
             :advisor, :advisor_antenne, :advisor_institution,
