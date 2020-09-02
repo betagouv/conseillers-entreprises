@@ -146,6 +146,7 @@ class Diagnosis < ApplicationRecord
     # Notify experts
     experts.each do |expert|
       ExpertMailer.notify_company_needs(expert, self).deliver_later
+      expert.first_notification_help_email
     end
     # Notify Advisor
     unless advisor.disable_email_confirm_notifications_sent.to_bool

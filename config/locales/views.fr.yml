@@ -345,27 +345,31 @@ fr:
         subject: Clôture de votre demande sur Place des Entreprises
         tank_you: Merci pour votre confiance,
     expert_mailer:
+      first_notification_help:
+        answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
+        answer_continuation: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics chargés de les accompagner.
+        need_help: Besoin d’aide ?
+        pde_contact: 'Votre contact pour vous aider au sein de l’équipe Place des Entreprises :'
+        received_need: Vous venez de recevoir votre premier besoin d’entreprise sur Place des Entreprises.
+        response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
+        subject: Place des Entreprises - Besoin d’aide ?
+        watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
+        what_is_pde: Qu’est ce que Place des Entreprises ?
       never_used_account_warning:
         you_need_to_use_your_user_account: Attention ! Place des entreprises nécessite désormais de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
       notify_company_needs:
-        advisor_met_company: "%{name} (%{role} - %{antenne}) l’a rencontrée le %{visit_date}."
-        company_expressed_needs:
-          one: 'Elle a exprimé un besoin qui correspond à vos compétences :'
-          other: 'Elle a exprimé des besoins qui correspondent à vos compétences :'
-        needs_you: a besoin de votre expertise.
-        reply: Répondre sur Place des entreprises
+        advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
+        needs_you: 'a besoin de votre expertise pour :'
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
         this_company: L’entreprise
-        via_partner_html: Elle a sollicité Place des entreprises via le formulaire sur <a href='%{url}' target='_blank'>%{url}</a> le %{date}.
-        via_solicitation: Elle a sollicité Place des entreprises le %{date}.
+        via_partner_html: Cette demande a été déposée sur le site <a href='%{url}' target='_blank'>%{url}</a> avec lequel le service Place des Entreprises est en partenariat.
       notify_other_taking_care:
-        complementary_help: Il correspond à votre champ d'intervention. Avez-vous une solution complémentaire à proposer ?
+        complementary_help: Il correspond à votre champ d’intervention. Avez-vous une solution complémentaire à proposer ?
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> - %{subject} - a été pris en charge par %{expert} (%{antenne}).
       remind_involvement:
         needs_for_you: 'Ces entreprises ont besoin de vous :'
         needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
         needs_taking_care: 'Besoins pris en charge : est ce qu’il y a du nouveau ?'
-        reply: Répondre sur Place des entreprises
         subject: "[Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
         visited_days_ago: Visitée il y a %{days} par %{advisor}
         visited_on: Visitée le %{date}
@@ -376,26 +380,22 @@ fr:
     hello_name: Bonjour %{name},
     nice_day: Bonne journée,
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
+    see_diagnosis: Voir la fiche entreprise
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
     user_mailer:
       confirm_notifications_sent:
-        company_expressed_needs:
-          one: qui a exprimé un besoin.
-          other: qui a exprimé %{count} besoins.
         contacted_experts:
           one: 'Mise en relation :'
           other: 'Mises en relations :'
-        show_details: Afficher les détails
+        show_details: Voir la fiche entreprise
         subject:
           one: "[Place des Entreprises] Confirmation de notification du besoin de l’entreprise %{company}"
           other: "[Place des Entreprises] Confirmation de notification des besoins de l’entreprise %{company}"
         thank_you: "Merci ! \U0001F44D"
-        you_met_company_html: Le %{visit_date}, vous avez rencontré
+        you_met_company_html: 'Le %{visit_date}, vous avez partagé un de besoin de l’entreprise :'
       match_feedback:
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
-        reply: Répondre
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-      nice_day: Bonne journée,
       notify_match_status:
         expert_and_status:
           done_html: "<p>%{expert} (%{antenne}) a clôturé ce besoin.</p>"

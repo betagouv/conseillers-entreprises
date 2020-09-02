@@ -209,6 +209,11 @@ class Expert < ApplicationRecord
     update subjects_reviewed_at: Time.zone.now
   end
 
+  def first_notification_help_email
+    return unless received_matches.count == 1
+    ExpertMailer.first_notification_help(self).deliver_later
+  end
+
   ## Soft deletion
   #
   def full_name

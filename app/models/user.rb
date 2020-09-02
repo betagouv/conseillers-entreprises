@@ -234,6 +234,10 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
+  def self.support_contact
+    User.find_by(email: ENV['SUPPORT_CONTACT_EMAIL'])
+  end
+
   ## Expert associations helpers
   #
   def personal_skillsets

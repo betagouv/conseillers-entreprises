@@ -81,6 +81,24 @@ blockquote
     text-decoration: none
     color: #ffffff
 
+.logo-container
+  position: relative
+  text-align: center
+  display: block
+  height: 125px
+  img
+    max-height: 75px
+  .institution_logo
+    margin-right: 2rem
+  &::before,
+  .logos
+    display: inline-block
+    vertical-align: middle
+  &::before
+    content: ''
+    width: 0
+    height: 100%
+
 @media (max-width: 620px)
   body
     width: 100%

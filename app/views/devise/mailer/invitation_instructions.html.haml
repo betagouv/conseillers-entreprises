@@ -1,14 +1,19 @@
+.logo-container
+  .logos
+    = institution_image @resource.institution.name
+    = image_tag 'place-des-entreprises-logo.png'
+
 %p= t('devise.mailer.hello', user_full_name: @resource.full_name)
 
-%p= t('.description_html', link_to_root: link_to(t('app_name'), root_url))
+%p= t('.description_html', link_to_root: link_to(t('app_name'), root_url), antenne: @resource.antenne.name)
 
-%h3= t('.details_title')
+%h3= t('.details_question')
 
-- if @resource.can_view_diagnoses_tab
-  = render 'with_diagnoses', resource: @resource
-- else
-  = render 'without_diagnoses', resource: @resource
+%p= t('.details_answer')
 
+%p= t('.insitution_engagment', institution: @resource.institution.name)
+
+%p= t('.discover_partners_html', link: link_to(t('app_name'), comment_ca_marche_url(anchor: 'liste-partenaires')))
 %p
   .button
     %a{ href: accept_user_invitation_url(invitation_token: @token) }= t('.accept')

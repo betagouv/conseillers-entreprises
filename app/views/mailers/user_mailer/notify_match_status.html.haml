@@ -12,5 +12,7 @@
     antenne: @expert.antenne.name,
     previous_status: Match.human_attribute_value(:status, @previous_status, context: :action))
 
-%p= t('mailers.user_mailer.nice_day')
-%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))
+.button
+  %a{ href: need_url(@match.diagnosis) }= t('mailers.see_diagnosis')
+
+%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))
