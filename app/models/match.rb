@@ -4,7 +4,8 @@
 #
 #  id               :bigint(8)        not null, primary key
 #  closed_at        :datetime
-#  status           :integer          default("quo"), not null
+#  old_status       :integer          default("quo"), not null
+#  status           :enum             default("quo"), not null
 #  taken_care_of_at :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -17,6 +18,7 @@
 #  index_matches_on_expert_id              (expert_id)
 #  index_matches_on_expert_id_and_need_id  (expert_id,need_id) UNIQUE WHERE (expert_id <> NULL::bigint)
 #  index_matches_on_need_id                (need_id)
+#  index_matches_on_old_status             (old_status)
 #  index_matches_on_status                 (status)
 #  index_matches_on_subject_id             (subject_id)
 #
@@ -28,9 +30,27 @@
 #
 
 class Match < ApplicationRecord
+  include CsvExport::Models::Match
+
   ## Constants
   #
-  enum status: { quo: 0, taking_care: 1, done: 2, not_for_me: 3 }, _prefix: true
+  enum old_status: {
+    quo: 0,
+    taking_care: 1,
+    done: 2,
+    done_no_help: 4,
+    done_not_reachable: 5,
+    not_for_me: 3
+  }, _prefix: true
+
+  enum status: {
+    quo: 'quo',
+    taking_care: 'taking_care',
+    done: 'done',
+    done_no_help: 'done_no_help',
+    done_not_reachable: 'done_not_reachable',
+    not_for_me: 'not_for_me'
+  }, _prefix: true
 
   ## Associations
   #
@@ -98,14 +118,16 @@ class Match < ApplicationRecord
   end
 
   def status_closed?
-    status_done? || status_not_for_me?
+    status_done? || status_not_for_me? || status_done_no_help? || status_done_not_reachable?
   end
 
   DATE_PROPERTIES = {
     quo: :created_at,
     not_for_me: :closed_at,
     taking_care: :taken_care_of_at,
-    done: :closed_at
+    done: :closed_at,
+    done_no_help: :closed_at,
+    done_not_reachable: :closed_at
   }
 
   def status_date
@@ -119,8 +141,10 @@ class Match < ApplicationRecord
   ALLOWED_STATUS_TRANSITIONS = {
     quo: %i[not_for_me taking_care],
     not_for_me: %i[quo],
-    taking_care: %i[quo done],
-    done: %i[quo]
+    taking_care: %i[done done_no_help done_not_reachable quo],
+    done: %i[quo],
+    done_no_help: %i[quo],
+    done_not_reachable: %i[quo]
   }
 
   def allowed_new_status

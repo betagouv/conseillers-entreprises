@@ -22,6 +22,15 @@ class ExpertMailer < ApplicationMailer
     end
   end
 
+  def first_notification_help(expert)
+    @expert = expert
+    @support_user = User.support_contact
+    mail(
+      to: @expert.email_with_display_name,
+      subject: t('mailers.expert_mailer.first_notification_help.subject')
+    )
+  end
+
   def remind_involvement(expert)
     @expert = expert
 
@@ -31,6 +40,7 @@ class ExpertMailer < ApplicationMailer
 
     return if @needs_taking_care.empty? && @needs_quo.empty? && @needs_others_taking_care.empty?
 
+    return if @expert.deleted?
     mail(
       to: @expert.email_with_display_name,
       subject: t('mailers.expert_mailer.remind_involvement.subject')
@@ -41,6 +51,7 @@ class ExpertMailer < ApplicationMailer
     @expert = expert
     @match = match
 
+    return if @expert.deleted?
     mail(to: @expert.email_with_display_name, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @match.company.name))
   end
 end

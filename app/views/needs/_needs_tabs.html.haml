@@ -1,12 +1,11 @@
-- cache(Need.maximum(:updated_at)) do
-  .ui.top.large.secondary.pointing.menu
-    = active_link_to needs_path, active: [needs: :index], class: 'item' do
-      - color_quo = count_needs[:quo] > 0 ? 'orange' : 'green'
-      %span.ui.circular.label.horizontal{ class: color_quo }
-        = count_needs[:quo]
-      = t('.waiting_for_response', count: count_needs[:quo])
-    = active_link_to taking_care_needs_path, class: 'item' do
-      - color_taking_care = count_needs[:taking_care] > 0 ? 'orange' : 'green'
-      %span.ui.circular.label.horizontal{ class: color_taking_care }
-        = count_needs[:taking_care]
-      = t('.supported', count: count_needs[:taking_care])
+.ui.top.large.secondary.pointing.menu
+  = active_link_to needs_path, active: [needs: :index], class: 'item' do
+    - color_quo = count_needs[:quo] > 0 ? 'orange' : 'green'
+    %span.ui.circular.label.horizontal{ class: color_quo }
+      = count_needs[:quo]
+    = t('.waiting_for_response', count: count_needs[:quo])
+  = active_link_to taking_care_needs_path, class: 'item' do
+    - color_taking_care = count_needs[:taking_care] > 0 ? 'orange' : 'green'
+    %span.ui.circular.label.horizontal{ class: color_taking_care }
+      = count_needs[:taking_care]
+    = t('.supported', count: count_needs[:taking_care])

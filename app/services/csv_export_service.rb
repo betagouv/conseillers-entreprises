@@ -1,21 +1,14 @@
 # frozen_string_literal: true
 
-require 'csv_export/models/match'
-
-Match.include CsvExport::Models::Match
-
 class CsvExportService
-  def self.build(relation)
+  def self.csv(relation, additional_fields = {})
     klass = relation.klass
-    attributes = klass.csv_fields
-    if attributes.empty?
-      klass.column_names.map { |name| [name] }
-    end
+    attributes = klass.csv_fields.merge additional_fields
 
-    csv_string = CSV.generate do |csv|
-      csv << attributes.keys.map(&klass.method(:human_attribute_name))
+    CSV.generate do |csv|
+      csv << attributes.keys.map{ |attr| klass.human_attribute_name(attr, default: attr) }
       row = attributes.values
-      relation.includes(*klass.csv_included_associations).find_each do |object|
+      relation.preload(*klass.csv_preloaded_associations).find_each do |object|
         csv << row.map do |val|
           if val.respond_to? :call
             lambda = val
@@ -26,11 +19,17 @@ class CsvExportService
         end
       end
     end
+  end
 
-    model_name = klass.model_name.human.pluralize.parameterize
-    file = Tempfile.new(["#{model_name}-#{Time.zone.now.iso8601}-", ".csv"])
+  def self.filename(relation)
+    model_name = relation.klass.model_name.human.pluralize.parameterize
+    "#{model_name}-#{Time.zone.now.iso8601}"
+  end
+
+  def self.build_file(relation, additional_fields = {})
+    file = Tempfile.new(["#{filename(relation)}-", ".csv"])
     begin
-      file.write(csv_string)
+      file.write(csv(relation, additional_fields))
     ensure
       file.close
     end

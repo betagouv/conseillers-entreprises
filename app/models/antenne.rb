@@ -22,6 +22,7 @@
 
 class Antenne < ApplicationRecord
   include SoftDeletable
+  include CsvExport::Models::Antenne
 
   ## Associations
   #

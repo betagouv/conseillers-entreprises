@@ -1,4 +1,4 @@
-%table.ui.definition.celled.table
+%table.sticky-left.ui.definition.celled.table
   %thead
     -# For the subjects columns, we'll build our header on 3 rows: theme, subject and institutions_subject.
     - grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
@@ -72,3 +72,10 @@
             - else
               - institutions_subjects.size.times do
                 %td.rowspanned
+  %tfoot.full-width
+    %tr
+      %th
+      %th{ colspan: 2 + institutions_subjects.size }
+        %a.ui.right.floated.small.labeled.icon.button{ href: advisors_institution_path(format: 'csv') }
+          %i.download.icon
+          = t('export')

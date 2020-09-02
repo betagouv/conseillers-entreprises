@@ -69,9 +69,9 @@ class ExpertSubject < ApplicationRecord
       .merge(Subject.ordered_for_interview)
   end
 
-  ##
+  ## used for serialization in advisors csv
   #
-  def full_user_description
-    [institution_subject.description, description].filter(&:present?).join(' — ')
+  def csv_description
+    [human_attribute_value(:role), description].to_csv(col_sep: ':').strip
   end
 end

@@ -14,3 +14,10 @@
               %li #{hash[:territory].name} (#{hash[:included]})
             - if summary[:other] > 0
               %li #{I18n.t('other')} (#{summary[:other]})
+  %tfoot.full-width
+    %tr
+      %th
+      %th
+        %a.ui.right.floated.small.labeled.icon.button{ href: antennes_institution_path(format: 'csv') }
+          %i.download.icon
+          = t('export')

@@ -7,18 +7,22 @@ class NeedsController < ApplicationController
 
   def index
     @needs = current_user.needs_quo.or(current_user.needs_others_taking_care).page params[:page]
-    @count_needs = {
-      quo: @needs.size,
-      taking_care: current_user.needs_taking_care.size
-    }
+    @count_needs = Rails.cache.fetch([current_user.received_needs]) do
+      {
+        quo: @needs.size,
+        taking_care: current_user.needs_taking_care.size
+      }
+    end
   end
 
   def taking_care
     retrieve_needs(current_user, :needs_taking_care)
-    @count_needs = {
-      quo: current_user.needs_quo.or(current_user.needs_others_taking_care).size,
-      taking_care: @needs.size
-    }
+    @count_needs = Rails.cache.fetch([current_user.received_needs]) do
+      {
+        quo: current_user.needs_quo.or(current_user.needs_others_taking_care).size,
+        taking_care: @needs.size
+      }
+    end
     render :index
   end
 
@@ -86,9 +90,11 @@ class NeedsController < ApplicationController
 
     @need = Need.find(params.require(:need))
     expert_subject = ExpertSubject.find(params.require(:expert_subject))
-    @match = Match.create(need: @need, expert: expert_subject.expert, subject: @need.subject)
+    expert = expert_subject.expert
+    @match = Match.create(need: @need, expert: expert, subject: @need.subject)
     if @match.valid?
-      ExpertMailer.notify_company_needs(expert_subject.expert, @diagnosis).deliver_later
+      ExpertMailer.notify_company_needs(expert, @diagnosis).deliver_later
+      expert.first_notification_help_email
     else
       flash.alert = @match.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
