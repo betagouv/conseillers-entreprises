@@ -322,6 +322,9 @@ fr:
       company:
         one: Entreprise
         other: Entreprises
+      company_satisfaction:
+        one: Satisfaction
+        other: Satisfactions
       contact:
         one: Contact
         other: Contacts
@@ -404,6 +407,7 @@ fr:
     code_effectif: Tranche d’effectif
     communes: Communes
     community: Communauté
+    company_satisfaction: Satisfaction
     contacted_expert: Référent contacté
     contacts:
       one: Personne rencontrée
