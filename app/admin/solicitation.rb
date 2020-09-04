@@ -63,7 +63,7 @@ ActiveAdmin.register Solicitation do
   #
   preserve_default_filters!
   remove_filter :diagnoses
-  filter :landing_slug
+  filter :landing, as: :select, collection: -> { Landing.pluck(:title, :slug) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
 
   ## Batch actions
