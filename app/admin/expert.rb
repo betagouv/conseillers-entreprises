@@ -224,15 +224,12 @@ ActiveAdmin.register Expert do
     if resource.institution.present?
       f.inputs t('attributes.experts_subjects.other') do
         f.has_many :experts_subjects, allow_destroy: true do |sub_f|
-          collection = resource.institutions_subjects.ordered_for_interview
+          collection = resource.institution.institutions_subjects.ordered_for_interview
             .includes(:theme).group_by(&:theme)
             .map do |t, s|
               [t.label, s.map { |s| ["#{s.subject.label}: #{s.description}", s.id] }]
             end
             .to_h
-          # collection = resource.institution.institutions_subjects.ordered_for_interview.map do |is|
-          #   ["#{is.subject.to_s} - #{is.description}", is.id]
-          # end
 
           sub_f.input :institution_subject, collection: collection
           sub_f.input :role, collection: ExpertSubject.human_attribute_values(:role).invert.to_a
