@@ -103,7 +103,7 @@ ActiveAdmin.register Match do
   permit_params :expert_id, :subject_id, :status
   form do |f|
     f.inputs do
-      f.input :status
+      f.input :status, as: :select, collection: Match.human_attribute_values(:status).invert
       f.input :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
       themes = Theme.all
       collection = option_groups_from_collection_for_select(themes, :subjects, :label, :id, :label, resource.subject_id)
