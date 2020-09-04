@@ -40,7 +40,10 @@ module Admin
             else
               inverse_path = reflection.inverse_of.name
             end
-            link_to(text, polymorphic_path([:admin, foreign_klass], "q[#{inverse_path}_id_eq]": object))
+            # Note: we always use `object.id` here, instead of relying on :to_param,
+            # to make sure the Ransacker query makes sense. Maybe we could improve it by looking
+            # at the reflection foreign key.
+            link_to(text, polymorphic_path([:admin, foreign_klass], "q[#{inverse_path}_id_eq]": object.id))
           end
         else # `has_one` association
           foreign_object = object.send(association)
