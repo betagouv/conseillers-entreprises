@@ -433,6 +433,7 @@ fr:
       needs_others_taking_care: prises en charge par d’autres référents
       needs_quo: En attentes
       needs_taking_care: Prises en charge
+      no_needs: Il n’y a aucune demande.
       no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       title: Demandes reçues
