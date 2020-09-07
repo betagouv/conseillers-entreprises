@@ -39,4 +39,9 @@
       %i.archive.icon
       = t('.browse_archived_needs')
 
-= render 'received_needs', received_needs: @needs
+- if @needs.blank?
+  .ui.segment.placeholder.shadow-less.center.aligned
+    .ui.header
+      = t('.no_needs')
+- else
+  = render 'received_needs', received_needs: @needs
