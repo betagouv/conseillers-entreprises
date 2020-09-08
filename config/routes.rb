@@ -171,6 +171,12 @@ Rails.application.routes.draw do
 
   resources :badges, only: %i[index create destroy]
 
+  resources :partner_tools, only: %i[], path: 'outils-partenaires' do
+    collection do
+      get :inserts, path: 'encarts'
+    end
+  end
+
   get 'profile' => 'users#show'
 
   ## Redirection for compatibility

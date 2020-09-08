@@ -1,0 +1,34 @@
+- meta title: t('.title')
+- content_for :header, render('header', title: t('.title'))
+- content_for :menu, render('menu')
+
+- if @insert[:code].present?
+  %strong= t('.code')
+  .ui.segment.shadow-less
+    = @insert[:code]
+
+  %p
+    %strong= t('.preview')
+  = @insert[:code].html_safe
+  .ui.divider.hidden
+
+= form_with url: inserts_partner_tools_path, local: true, method: :get, class: 'ui form' do |f|
+
+  .field
+    = f.label :pk_campaign
+    = f.text_field :pk_campaign, value: @insert[:pk_campaign]
+
+  .field
+    = f.label :pk_kwd
+    = f.text_field :pk_kwd, value: @insert[:pk_kwd]
+
+  .field
+    = f.label :width, t('.width')
+    = f.select :width, [200, 250, 300], selected: @insert[:width]
+
+  .field
+    = f.label :color, t('.color')
+    = f.select :color, ['blanc', 'bleu'], selected: @insert[:color]
+
+  .field
+    = f.submit t('.generate'), class: 'ui button blue'

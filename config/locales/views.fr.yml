@@ -40,6 +40,7 @@ fr:
       diagnoses: Analyses
       institutions: Institutions et déploiement
       invite: Inviter des utilisateurs
+      partner_tools: Outils partenaires
       profile: Profil
       sign_out: Déconnexion
   badges:
@@ -496,6 +497,17 @@ fr:
       placeholder_email: Votre adresse email
       received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner
+  partner_tools:
+    inserts:
+      alt: 'Place des Entreprises ; TPE et PME : accédez gratuitement à tous les accompagnements publics. Déposez votre demande, le bon conseiller vous appelle.'
+      code: Code à copier
+      color: Couleur
+      generate: Générer
+      preview: Aperçu
+      title: Générer un encart
+      width: Largeur en pixels
+    menu:
+      inserts: Encarts
   person:
     deleted_person: Compte supprimé
   reminders:
