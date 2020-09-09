@@ -11,6 +11,10 @@
       %li.social-network
         = link_to 'https://www.linkedin.com/company/place-des-entreprises', target: '_blank', rel: 'noopener' do
           = image_tag 'linkedin.png', alt: 'logo linkedin'
+        = link_to 'https://twitter.com/place_des_ets', target: '_blank', rel: 'noopener' do
+          = image_tag 'twitter.png', alt: 'logo twitter'
+        = link_to 'https://github.com/betagouv/place-des-entreprises', target: '_blank', rel: 'noopener' do
+          = image_tag 'github.png', alt: 'logo github'
     %ul.footer__links
       %li= link_to t('cgu'), cgu_path
       %li= link_to t('about.politique_de_confidentialite.title'), politique_de_confidentialite_path
