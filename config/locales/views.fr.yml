@@ -484,9 +484,9 @@ fr:
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
       submit_request: Déposez votre demande
     newsletter:
-      newsletter_informations: Nous vous proposons un focus sur un accompagnement public chaque mois. Découvrez concrètement comment les partenaires de Place des Entreprises peuvent vous aider.
+      newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
       placeholder_email: Votre adresse email
-      received_news_html: Recevez les nouveaux accompagnements publics chaque mois <span class='text-blue'>par email</span>.
+      received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner
   person:
     deleted_person: Compte supprimé
