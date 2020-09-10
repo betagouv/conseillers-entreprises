@@ -173,6 +173,9 @@ Rails.application.routes.draw do
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do
+      collection do
+        get :in_progress, path: 'en_cours'
+      end
     end
   end
 

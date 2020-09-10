@@ -212,6 +212,27 @@ RSpec.describe Need, type: :model do
         is_expected.to eq [need2]
       end
     end
+
+    describe 'reminder_in_progress' do
+      let(:date1) { Time.zone.now.beginning_of_day }
+      let(:date2) { date1 - 11.days }
+      let(:need1) { travel_to(date1) { create :need_with_matches } }
+      let(:need2) { travel_to(date2) { create :need_with_matches } }
+      let(:need3) { travel_to(date2) { create :need_with_matches } }
+      let!(:feedback1) { create :feedback, :for_need, feedbackable: need2 }
+
+      before do
+        need1
+        feedback1
+        need3
+      end
+
+      subject { described_class.reminder_in_progress }
+
+      it 'expected to have needs quo with comments' do
+        is_expected.to eq [need2]
+      end
+    end
   end
 
   describe 'abandoned' do

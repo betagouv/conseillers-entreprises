@@ -107,6 +107,12 @@ class Need < ApplicationRecord
       .having('feedbacks.count < ?', 1)
   end
 
+  scope :reminder_in_progress, -> do
+    by_status(:quo)
+      .archived(false)
+      .joins(:feedbacks)
+  end
+
   scope :abandoned_taken_not_done, -> do
     by_status(:taking_care)
       .archived(false)

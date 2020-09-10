@@ -9,5 +9,11 @@ module Reminders
       @needs = Need.reminder_quo_not_taken.page params[:page]
       @status = t('reminders.needs.menu.treat').downcase
     end
+
+    def in_progress
+      @needs = Need.reminder_quo_not_taken_in_progress.page params[:page]
+      @status = t('reminders.needs.menu.in_progress').downcase
+      render :index
+    end
   end
 end
