@@ -1,0 +1,12 @@
+%h1.ui.header
+  - if defined? status
+    = t('.needs_status', status: status)
+  - else
+    = expert
+
+.ui.breadcrumb
+  = link_to t('reminders.index.title'), reminders_needs_path, class: 'section'
+  %i.right.chevron.icon.divider
+  = link_to t('reminders.experts.menu.experts'), reminders_experts_path, class: 'section'
+  %i.right.chevron.icon.divider
+  = link_to expert, reminders_expert_path(expert), class: 'section'

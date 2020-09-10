@@ -443,9 +443,9 @@ fr:
       browse_archived_needs: Voir mes demandes archivées
       contact_us_mailto_text: Contactez-nous !
       needs_for_you: 'Ces entreprises ont besoin de vous :'
-      needs_others_taking_care: prises en charge par d’autres référents
+      needs_others_taking_care: Pris en charge par d’autres référents
       needs_quo: En attentes
-      needs_taking_care: Prises en charge
+      needs_taking_care: Pris en charges
       no_needs: Il n’y a aucune demande.
       no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
@@ -516,26 +516,32 @@ fr:
   person:
     deleted_person: Compte supprimé
   reminders:
-    expert_contents:
-      expert_creation_date: Inscription le %{date}
-      matches_total: Demandes depuis le début
-      matches_total_done: clôturées
-      matches_total_not_for_me: refusées
-      matches_total_received: reçues
-      matches_total_taken_care_of: prises en charge
-      received_needs_abandoned: Actuellement en souffrance
-      received_needs_abandoned_others_taking_care: pris en charge par d’autres
-      received_needs_abandoned_others_taking_care_tooltip: Besoins indiqués comme pris en charge par d’autres référents il y a plus de 3 semaines, sans autre nouvelle depuis.
-      received_needs_abandoned_quo_not_taken: sans réponse
-      received_needs_abandoned_quo_not_taken_tooltip: Besoins mis en relation il y a plus de 3 semaines, restés sans réponse depuis.
-      received_needs_abandoned_taking_care: pris en charge
-      received_needs_abandoned_taking_care_tooltip: Besoins indiqués comme pris en charge il y a plus de 3 semaines, sans autre nouvelle depuis.
-    expert_reminders_notes:
-      placeholder: Restez factuel :)
+    experts:
+      expert_contents:
+        expert_creation_date: Inscription le %{date}
+        matches_total: Demandes depuis le début
+        matches_total_done: clôturées
+        matches_total_not_for_me: refusées
+        matches_total_received: reçues
+        matches_total_taken_care_of: prises en charge
+        received_needs_abandoned: Actuellement en souffrance
+        received_needs_abandoned_others_taking_care: pris en charge par d’autres
+        received_needs_abandoned_others_taking_care_tooltip: Besoins indiqués comme pris en charge par d’autres référents il y a plus de 3 semaines, sans autre nouvelle depuis.
+        received_needs_abandoned_quo_not_taken: sans réponse
+        received_needs_abandoned_quo_not_taken_tooltip: Besoins mis en relation il y a plus de 3 semaines, restés sans réponse depuis.
+        received_needs_abandoned_taking_care: pris en charge
+        received_needs_abandoned_taking_care_tooltip: Besoins indiqués comme pris en charge il y a plus de 3 semaines, sans autre nouvelle depuis.
+      expert_reminders_notes:
+        placeholder: Restez factuel :)
+      header:
+        needs_status: Besoins %{status}
+      index:
+        title: Relances par experts
+      menu:
+        experts: Experts
+        summary: Résumé
     index:
       title: Relances
-    show:
-      title: Relances / %{full_name}
   solicitations:
     index:
       clear_search: Réinitialiser la recherche

@@ -1,5 +1,5 @@
 .ui.segment.selectable-item
-  %a{ href: reminder_path(expert) }
+  %a{ href: reminders_expert_path(expert) }
     = render 'expert_contents', expert: expert
   %div{ id: "expert_reminders_notes-#{expert.id}" }
     = render 'expert_reminders_notes', expert: expert

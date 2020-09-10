@@ -2,10 +2,10 @@
   .one.wide.row
     .column
       = form_with(model: expert,
-        url: reminders_notes_reminder_path(id: expert),
+        url: reminders_notes_reminders_expert_path(id: expert),
         class: 'ui form',
         method: :post) do |f|
         .field
           %h5= f.label :reminders_notes, t('activerecord.attributes.expert.reminders_notes')
-          = f.text_area :reminders_notes, placeholder: t('.placeholder'), rows: 2
+          = f.text_area :reminders_notes, placeholder: t('.placeholder'), rows: 5
         = f.submit t('ok'), class: 'ui basic tiny button'
