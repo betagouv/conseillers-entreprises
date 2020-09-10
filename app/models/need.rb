@@ -2,15 +2,16 @@
 #
 # Table name: needs
 #
-#  id               :bigint(8)        not null, primary key
-#  archived_at      :datetime
-#  content          :text
-#  last_activity_at :datetime         not null
-#  matches_count    :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  diagnosis_id     :bigint(8)        not null
-#  subject_id       :bigint(8)        not null
+#  id                      :bigint(8)        not null, primary key
+#  archived_at             :datetime
+#  content                 :text
+#  last_activity_at        :datetime         not null
+#  matches_count           :integer
+#  satisfaction_email_sent :boolean
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  diagnosis_id            :bigint(8)        not null
+#  subject_id              :bigint(8)        not null
 #
 # Indexes
 #
@@ -36,6 +37,7 @@ class Need < ApplicationRecord
   belongs_to :subject, inverse_of: :needs
   has_many :matches, dependent: :destroy, inverse_of: :need
   has_many :feedbacks, dependent: :destroy, as: :feedbackable
+  has_one :company_satisfaction, dependent: :destroy, inverse_of: :need
 
   ## Validations
   #
@@ -103,6 +105,13 @@ class Need < ApplicationRecord
   scope :rejected, -> do
     by_status(:not_for_me)
       .archived(false)
+  end
+
+  scope :min_closed_at, -> (range) do
+    joins(:matches)
+      .merge(Match.status_done)
+      .group(:id)
+      .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
   scope :abandoned, -> { where("needs.last_activity_at < ?", ABANDONED_DELAY.ago) }

@@ -7,7 +7,6 @@
 #  content                            :text
 #  happened_on                        :date
 #  newsletter_subscription_email_sent :boolean          default(FALSE), not null
-#  satisfaction_email_sent            :boolean          default(FALSE), not null
 #  step                               :integer          default("not_started")
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null

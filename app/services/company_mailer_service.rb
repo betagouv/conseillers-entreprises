@@ -4,12 +4,12 @@ class CompanyMailerService
   def self.send_satisfaction_emails
     return unless ENV['FEATURE_SEND_SATISFACTION_EMAILS'].to_b
 
-    diagnoses = Diagnosis
+    needs = Need
       .min_closed_at(11.days.ago..10.days.ago)
       .not_satisfaction_email_sent
-    diagnoses.each do |diagnosis|
-      CompanyMailer.satisfaction(diagnosis).deliver_later
-      diagnosis.update(satisfaction_email_sent: true)
+    needs.each do |need|
+      CompanyMailer.satisfaction(need).deliver_later
+      need.update(satisfaction_email_sent: true)
     end
   end
 

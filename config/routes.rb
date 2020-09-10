@@ -82,7 +82,6 @@ Rails.application.routes.draw do
     get :top_5
     get :politique_de_confidentialite
     get :mentions_legales
-    get :satisfaction
   end
 
   resource :stats, only: [:show] do
@@ -101,6 +100,12 @@ Rails.application.routes.draw do
 
   controller :sitemap do
     get :sitemap
+  end
+
+  resource :company_satisfactions, only: %i[new create], path: 'satisfaction' do
+    collection do
+      get :thank_you, path: 'merci'
+    end
   end
 
   # Application

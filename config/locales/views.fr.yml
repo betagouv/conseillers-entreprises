@@ -13,8 +13,6 @@ fr:
       title: Mentions légales
     politique_de_confidentialite:
       title: Politique de confidentialité
-    satisfaction:
-      title: Je donne mon avis sur Place des Entreprises
     top_5:
       get_help: Faire une demande
       short_title: Top 5 des aides
@@ -105,6 +103,16 @@ fr:
       information: Informations
       mandataires_sociaux: Mandataires sociaux
       siege_social: Siège social
+  company_satisfactions:
+    new:
+      comment: Un commentaire ? Une suggestion ? Nous sommes à votre écoute.
+      company_satisfaction_exist: Vous avez déjà répondu pour ce besoin.
+      contacted_by_expert: Est-ce que vous avez bien été recontacté par un conseiller ?
+      send: Envoyer
+      title: Donnez votre avis sur Place des Entreprises
+      useful_exchange: Est-ce que cet échange a été utile pour vous ?
+    thank_you:
+      title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   diagnoses:
     antenne_diagnoses_tabs:
       archived: Archivées
@@ -338,9 +346,9 @@ fr:
         subject: Transmission de votre demande Place des Entreprises à un partenaire public
       satisfaction:
         intro_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
-        outro: Votre avis est important pour nous aider à améliorer ce nouveau service public !
-        question_one_html: "<p>Est-ce que vous avez bien été recontacté par un conseiller ? <a href='%{link}' target='_blank' class='button green'>Oui</a> <a href='%{link}' target='_blank' class='button red'>Non</a></p>"
-        question_two_html: "<p>Est-ce que cet échange a été utile pour vous ? <a href='%{link}' target='_blank' class='button green'>Oui</a> <a href='%{link}' target='_blank' class='button red'>Non</a></p>"
+        outro: Votre avis est important pour nous aider à améliorer ce nouveau service public.
+        question_one_html: "<p>Est-ce que vous avez bien été recontacté par un conseiller ? <a href='%{link}' target='_blank' class='button yes'>Oui</a> <a href='%{link}' target='_blank' class='button no'>Non</a></p>"
+        question_two_html: "<p>Est-ce que cet échange a été utile pour vous ? <a href='%{link}' target='_blank' class='button yes'>Oui</a> <a href='%{link}' target='_blank' class='button no'>Non</a></p>"
         subject: Clôture de votre demande sur Place des Entreprises
         tank_you: Merci pour votre confiance,
     expert_mailer:
