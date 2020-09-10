@@ -5,7 +5,7 @@
 %style= @landing.custom_css
 
 - unless in_iframe?
-  %section.section.section-white.landing
+  %section.section.section-white.landing.less-padding
     .container
       .landing-header
         .title
@@ -30,8 +30,6 @@
         .notification.success.delay
           %span
             = t('.five_days_contact_html')
-          .asterisk
-            = t('.five_days_asterisk')
       .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
         = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
         .description
