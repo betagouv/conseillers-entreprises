@@ -20,7 +20,7 @@ class CompanyMailerPreview < ActionMailer::Preview
   end
 
   def satisfaction
-    CompanyMailer.satisfaction(Diagnosis.completed.sample)
+    CompanyMailer.satisfaction(Need.by_status(:done).sample)
   end
 
   def newsletter_subscription

@@ -5,7 +5,7 @@ fr:
       title: Conditions d’utilisation du service numérique Place des Entreprises
     comment_ca_marche:
       contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
-      deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Île-de-France.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous inscrire à la newsletter !
+      deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Île-de-France.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
       long_title: Place des Entreprises, comment ça marche ?
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
@@ -13,8 +13,6 @@ fr:
       title: Mentions légales
     politique_de_confidentialite:
       title: Politique de confidentialité
-    satisfaction:
-      title: Je donne mon avis sur Place des Entreprises
     top_5:
       get_help: Faire une demande
       short_title: Top 5 des aides
@@ -42,6 +40,7 @@ fr:
       diagnoses: Analyses
       institutions: Institutions et déploiement
       invite: Inviter des utilisateurs
+      partner_tools: Outils partenaires
       profile: Profil
       sign_out: Déconnexion
   badges:
@@ -57,7 +56,7 @@ fr:
       title_label: Titre
   breadcrumbs_helper:
     home_link:
-      home: Déposer une demande
+      home: Accueil
   companies:
     company:
       capital_social: Capital social
@@ -105,6 +104,16 @@ fr:
       information: Informations
       mandataires_sociaux: Mandataires sociaux
       siege_social: Siège social
+  company_satisfactions:
+    new:
+      comment: Un commentaire ? Une suggestion ? Nous sommes à votre écoute.
+      company_satisfaction_exist: Vous avez déjà répondu pour ce besoin.
+      contacted_by_expert: Est-ce que vous avez bien été recontacté par un conseiller ?
+      send: Envoyer
+      title: Donnez votre avis sur Place des Entreprises
+      useful_exchange: Est-ce que cet échange a été utile pour vous ?
+    thank_you:
+      title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   diagnoses:
     antenne_diagnoses_tabs:
       archived: Archivées
@@ -237,19 +246,20 @@ fr:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
         title: Place des Entreprises
       question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
-      submit_request: Déposez votre demande
+      submit_request: Découvrir les accompagnements
     index_institutions:
       more_partners_html: Et <a href='%{path}'>plus de 50 partenaires</a> à votre service.
       title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
     index_landing_card:
-      discover: Découvrir
+      discover: Choisir
     index_landing_cards:
       contact_us: contactez-nous !
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
     new_solicitation:
-      five_days_asterisk: "* Délai moyen de prise en charge."
-      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours*</b>.
+      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours*</b> (Délai moyen de prise en charge).
+      give_my_opinion_alt: Je donne mon avis
+      give_my_opinion_title: Je donne mon avis sur cette démarche
     new_solicitation_form:
       button:
         title: Envoyer ma demande
@@ -339,9 +349,9 @@ fr:
         subject: Transmission de votre demande Place des Entreprises à un partenaire public
       satisfaction:
         intro_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
-        outro: Votre avis est important pour nous aider à améliorer ce nouveau service public !
-        question_one_html: "<p>Est-ce que vous avez bien été recontacté par un conseiller ? <a href='%{link}' target='_blank' class='button green'>Oui</a> <a href='%{link}' target='_blank' class='button red'>Non</a></p>"
-        question_two_html: "<p>Est-ce que cet échange a été utile pour vous ? <a href='%{link}' target='_blank' class='button green'>Oui</a> <a href='%{link}' target='_blank' class='button red'>Non</a></p>"
+        outro: Votre avis est important pour nous aider à améliorer ce nouveau service public.
+        question_one_html: "<p>Est-ce que vous avez bien été recontacté par un conseiller ? <a href='%{link}' target='_blank' class='button yes'>Oui</a> <a href='%{link}' target='_blank' class='button no'>Non</a></p>"
+        question_two_html: "<p>Est-ce que cet échange a été utile pour vous ? <a href='%{link}' target='_blank' class='button yes'>Oui</a> <a href='%{link}' target='_blank' class='button no'>Non</a></p>"
         subject: Clôture de votre demande sur Place des Entreprises
         tank_you: Merci pour votre confiance,
     expert_mailer:
@@ -485,10 +495,21 @@ fr:
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
       submit_request: Déposez votre demande
     newsletter:
-      newsletter_informations: Nous vous proposons un focus sur un accompagnement public chaque mois. Découvrez concrètement comment les partenaires de Place des Entreprises peuvent vous aider.
+      newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
       placeholder_email: Votre adresse email
-      received_news_html: Recevez les nouveaux accompagnements publics chaque mois <span class='text-blue'>par email</span>.
+      received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner
+  partner_tools:
+    inserts:
+      alt: 'Place des Entreprises ; TPE et PME : accédez gratuitement à tous les accompagnements publics. Déposez votre demande, le bon conseiller vous appelle.'
+      code: Code à copier
+      color: Couleur
+      generate: Générer
+      preview: Aperçu
+      title: Générer un encart
+      width: Largeur en pixels
+    menu:
+      inserts: Encarts
   person:
     deleted_person: Compte supprimé
   reminders:

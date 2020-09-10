@@ -106,6 +106,16 @@ ActiveRecord::Schema.define(version: 2020_08_31_095725) do
     t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 
+  create_table "company_satisfactions", force: :cascade do |t|
+    t.boolean "contacted_by_expert"
+    t.boolean "useful_exchange"
+    t.text "comment"
+    t.bigint "need_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["need_id"], name: "index_company_satisfactions_on_need_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "email"
     t.string "phone_number"
@@ -144,7 +154,6 @@ ActiveRecord::Schema.define(version: 2020_08_31_095725) do
     t.date "happened_on"
     t.bigint "solicitation_id"
     t.boolean "newsletter_subscription_email_sent", default: false, null: false
-    t.boolean "satisfaction_email_sent", default: false, null: false
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"
@@ -318,6 +327,7 @@ ActiveRecord::Schema.define(version: 2020_08_31_095725) do
     t.integer "matches_count"
     t.datetime "archived_at"
     t.datetime "last_activity_at", default: -> { "now()" }, null: false
+    t.boolean "satisfaction_email_sent"
     t.index ["archived_at"], name: "index_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
     t.index ["subject_id", "diagnosis_id"], name: "index_needs_on_subject_id_and_diagnosis_id", unique: true
@@ -425,6 +435,7 @@ ActiveRecord::Schema.define(version: 2020_08_31_095725) do
   add_foreign_key "communes_experts", "experts"
   add_foreign_key "communes_territories", "communes"
   add_foreign_key "communes_territories", "territories"
+  add_foreign_key "company_satisfactions", "needs"
   add_foreign_key "contacts", "companies"
   add_foreign_key "diagnoses", "contacts", column: "visitee_id"
   add_foreign_key "diagnoses", "facilities"

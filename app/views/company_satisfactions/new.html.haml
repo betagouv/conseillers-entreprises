@@ -1,0 +1,34 @@
+%section.section.section-white.landing
+  .container
+    %h1= t('.title')
+
+%section.section.section-grey
+  .container
+    %span= t('mailers.company_mailer.satisfaction.intro_html', company: @company_satisfaction.need.company.name)
+    %strong= @company_satisfaction.need.subject.label
+
+    = form_with model: @company_satisfaction, class: 'satisfaction-form', local: true do |f|
+      = f.hidden_field :need_id
+
+      .form__group.radios
+        %legend= t('.contacted_by_expert')
+        %span
+          = f.radio_button :contacted_by_expert, true, required: true
+          = f.label t('yes'), for: 'company_satisfaction_contacted_by_expert_true', class: 'label-inline'
+          = f.radio_button :contacted_by_expert, false, cheched: true
+          = f.label t('no'), for: 'company_satisfaction_contacted_by_expert_false', class: 'label-inline'
+
+      .form__group.radios
+        %legend= t('.useful_exchange')
+        %span
+          = f.radio_button :useful_exchange, true, required: true
+          = f.label t('yes'), for: 'company_satisfaction_useful_exchange_true', class: 'label-inline'
+          = f.radio_button :useful_exchange, false, required: true
+          = f.label t('no'), for: 'company_satisfaction_useful_exchange_false', class: 'label-inline'
+
+      .form__group
+        = f.label t('.comment')
+        = f.text_area :comment
+
+      .form__group
+        = f.submit t(".send"), class: 'button'

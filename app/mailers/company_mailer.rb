@@ -33,11 +33,11 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def satisfaction(diagnosis)
-    @diagnosis = diagnosis
-
+  def satisfaction(need)
+    @need = need
+    @email_token = Digest::SHA256.hexdigest(@need.diagnosis.visitee.email)
     mail(
-      to: @diagnosis.visitee.email_with_display_name,
+      to: @need.diagnosis.visitee.email_with_display_name,
       subject: t('mailers.company_mailer.satisfaction.subject')
     )
   end

@@ -1,7 +1,8 @@
 %h2.section__title
-  = t('.received_news_html')
+  = t('.received_news')
 %p.section__subtitle
   = t('.newsletter_informations')
+  .ui.divider.hidden
 
 = form_with url: newsletters_path, method: :post, local: true do |f|
   .form__group

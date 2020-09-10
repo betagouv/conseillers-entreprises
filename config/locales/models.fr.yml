@@ -98,6 +98,10 @@ fr:
       commune:
         insee_code: Code commune
       company: 
+      company_satisfaction:
+        comment: Commentaire
+        contacted_by_expert: Contacté par un expert
+        useful_exchange: Échange utile
       contact:
         company: Entreprise
         role: Fonction
@@ -318,6 +322,9 @@ fr:
       company:
         one: Entreprise
         other: Entreprises
+      company_satisfaction:
+        one: Satisfaction
+        other: Satisfactions
       contact:
         one: Contact
         other: Contacts
@@ -400,6 +407,7 @@ fr:
     code_effectif: Tranche d’effectif
     communes: Communes
     community: Communauté
+    company_satisfaction: Satisfaction
     contacted_expert: Référent contacté
     contacts:
       one: Personne rencontrée

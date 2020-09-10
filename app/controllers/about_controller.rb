@@ -13,6 +13,4 @@ class AboutController < PagesController
   end
 
   def top_5; end
-
-  def satisfaction; end
 end
