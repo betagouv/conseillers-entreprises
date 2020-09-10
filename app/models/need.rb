@@ -97,6 +97,16 @@ class Need < ApplicationRecord
       .archived(false)
       .abandoned
   end
+
+  scope :reminder_quo_not_taken, -> do
+    by_status(:quo)
+      .archived(false)
+      .reminder
+      .left_outer_joins(:feedbacks)
+      .group('needs.id')
+      .having('feedbacks.count < ?', 1)
+  end
+
   scope :abandoned_taken_not_done, -> do
     by_status(:taking_care)
       .archived(false)
@@ -113,6 +123,8 @@ class Need < ApplicationRecord
       .group(:id)
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
+
+  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_DELAY.ago) }
 
   scope :abandoned, -> { where("needs.last_activity_at < ?", ABANDONED_DELAY.ago) }
 

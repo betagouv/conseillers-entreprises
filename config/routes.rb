@@ -172,6 +172,8 @@ Rails.application.routes.draw do
         get :needs_taking_care_by_others
       end
     end
+    resources :needs, path: 'besoins', only: %i[index] do
+    end
   end
 
   resources :badges, only: %i[index create destroy]

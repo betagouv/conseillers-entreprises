@@ -188,6 +188,30 @@ RSpec.describe Need, type: :model do
 
       it { is_expected.to match_array [need1, need2] }
     end
+
+    describe 'reminder_quo_not_taken' do
+      let(:date1) { Time.zone.now.beginning_of_day }
+      let(:date2) { date1 - 11.days }
+
+      let(:need1) { travel_to(date1) { create :need_with_matches } }
+      let(:need2) { travel_to(date2) { create :need_with_matches } }
+      let(:need3) { travel_to(date2) { create :need_with_matches, archived_at: date2 } }
+      let(:need4) { travel_to(date2) { create :need_with_matches } }
+      let(:feedback1) { create :feedback, :for_need, feedbackable: need4 }
+
+      before do
+        need1
+        need2
+        need3
+        feedback1
+      end
+
+      subject { described_class.reminder_quo_not_taken }
+
+      it 'expect to have needs not updated without comment for more than 10 days' do
+        is_expected.to eq [need2]
+      end
+    end
   end
 
   describe 'abandoned' do

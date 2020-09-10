@@ -22,7 +22,7 @@
             = active_link_to badges_path, class: 'item' do
               %i.tags.icon
               = t('.badges')
-        = active_link_to reminders_experts_path, class: 'item' do
+        = active_link_to reminders_needs_path, active: [['reminders/experts', 'reminders/needs'], [] ], class: 'item' do
           %i.ambulance.icon
           = t('reminders.index.title')
       = active_link_to tutoriels_path, class: 'item' do

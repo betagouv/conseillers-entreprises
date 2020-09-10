@@ -542,6 +542,13 @@ fr:
         summary: Résumé
     index:
       title: Relances
+    needs:
+      index:
+        title: Besoins %{status}
+      menu:
+        abandoned_quo_not_taken: À traiter
+        abandoned_without_taking_care: Abandonnés
+        reminder_in_progress: En cours
   solicitations:
     index:
       clear_search: Réinitialiser la recherche
