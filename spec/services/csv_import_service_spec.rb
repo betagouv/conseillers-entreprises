@@ -1,6 +1,68 @@
 require 'rails_helper'
 
 describe CsvImport do
+  describe 'automatic column separator detection' do
+    subject(:result) { CsvImport::AntenneImporter.import(csv) }
+
+    before do
+      create :institution, name: 'Test Institution'
+    end
+
+    context 'no error' do
+      context 'commas' do
+        let(:csv) do
+          <<~CSV
+            Institution,Nom,Codes commune
+            Test Institution,Antenne1,12345
+          CSV
+        end
+
+        it { is_expected.to be_success }
+      end
+
+      context 'semicolons' do
+        let(:csv) do
+          <<~CSV
+            Institution;Nom;Codes commune
+            Test Institution;Antenne1;12345
+          CSV
+        end
+
+        it { is_expected.to be_success }
+      end
+    end
+
+    context 'header errors' do
+      context 'commas' do
+        let(:csv) do
+          <<~CSV
+            Institution,Nom,Codes commune,Foo
+            Test Institution,Antenne1,12345
+          CSV
+        end
+
+        it do
+          expect(result).not_to be_success
+          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « Foo »']
+        end
+      end
+
+      context 'semicolons' do
+        let(:csv) do
+          <<~CSV
+            Institution;Nom;Codes commune;Foo
+            Test Institution;Antenne1;12345
+          CSV
+        end
+
+        it do
+          expect(result).not_to be_success
+          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « Foo »']
+        end
+      end
+    end
+  end
+
   describe 'import antennes' do
     subject(:result) { CsvImport::AntenneImporter.import(csv) }
 
