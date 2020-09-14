@@ -258,6 +258,42 @@ describe CsvImport do
       end
     end
 
+    context 'tolerant subject matching' do
+      context 'no error' do
+        let(:csv) do
+          <<~CSV
+            Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,First IS
+            The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,spécialiste
+          CSV
+        end
+
+        it do
+          expect(result).to be_success
+          marie = result.objects.first
+          expect(marie.personal_skillsets.count).to eq 1
+          expect(marie.experts.teams.count).to eq 0
+          skillet = marie.personal_skillsets.first
+          expect(skillet.experts_subjects.count).to eq 1
+          expect(skillet.experts_subjects.first.description).to be_blank
+          expect(skillet.experts_subjects.first.subject).to eq the_subject
+        end
+      end
+
+      context 'imprecise match label' do
+        let(:csv) do
+          <<~CSV
+            Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Subject
+            The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,spécialiste
+          CSV
+        end
+
+        it do
+          expect(result).not_to be_success
+          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « The Subject »']
+        end
+      end
+    end
+
     context 'overwrite existing user' do
       let(:other_antenne) { create :antenne, name: 'Other' }
       let!(:existing_user) { create :user, full_name: 'TestUser', email: 'test@test.com', phone_number: '4321', antenne: other_antenne }

@@ -12,9 +12,11 @@ module CsvImport
     end
 
     def check_headers(headers)
-      all_known_headers = mapping.keys + team_mapping.keys + several_subjects_mapping.keys + one_subject_mapping.keys
+      static_headers = mapping.keys + team_mapping.keys + one_subject_mapping.keys
+      build_several_subjects_mapping(headers, static_headers)
+      known_headers = static_headers + several_subjects_mapping.keys
       headers.map do |header|
-        UnknownHeaderError.new(header) unless all_known_headers.include? header
+        UnknownHeaderError.new(header) unless known_headers.include? header
       end.compact
     end
 
@@ -35,6 +37,11 @@ module CsvImport
       if expert.present?
         import_several_subjects(expert, attributes)
         import_one_subject(expert, attributes)
+        # Force-trigger validations in User
+        # Removing and Adding the same object to the relation _works_: ActiveRecords remove the object of the same id,
+        # then add the new in-memory object.
+        other_experts = user.experts - [expert]
+        user.experts = other_experts + [expert]
       end
     end
 
@@ -63,10 +70,16 @@ module CsvImport
       end
     end
 
+    def build_several_subjects_mapping(headers, other_known_headers)
+      @several_subjects_mapping =
+        headers
+          .without(other_known_headers)
+          .index_with { |header| @institution.find_institution_subject(header) }
+          .compact
+    end
+
     def several_subjects_mapping
-      @several_subjects_mapping ||=
-        @institution.institutions_subjects
-          .index_by(&:csv_identifier)
+      @several_subjects_mapping
     end
 
     def import_several_subjects(expert, all_attributes)
@@ -94,16 +107,17 @@ module CsvImport
 
     def import_one_subject(expert, all_attributes)
       identifier = all_attributes[Expert.human_attribute_name('subject')]
-      if identifier.present?
-        institution_subject = expert.institution.institutions_subjects.find{ |is| is.csv_identifier == identifier }
+      return if identifier.blank?
 
-        expert_subject_attributes = {
-          institution_subject: institution_subject,
-          role: :specialist
-        }
-        expert_subject = ExpertSubject.new(expert_subject_attributes)
-        expert.experts_subjects = [expert_subject]
-      end
+      institution_subject = expert.institution.institutions_subjects.find{ |is| is.csv_identifier == identifier }
+
+      expert_subject_attributes = {
+        institution_subject: institution_subject,
+        role: :specialist
+      }
+      expert.experts_subjects.clear
+      expert.experts_subjects.create(expert_subject_attributes)
+      expert.save
     end
   end
 end

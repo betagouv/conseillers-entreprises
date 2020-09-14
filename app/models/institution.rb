@@ -59,12 +59,25 @@ class Institution < ApplicationRecord
   #
   scope :ordered_logos, -> { not_deleted.where.not(logo_sort_order: nil).order(:logo_sort_order) }
 
+  ## Institution subjects helpers
+  #
+
+  # All the subjects that can be assigned to an expert of this institution
   def available_subjects
     institutions_subjects
       .ordered_for_interview
       .includes(:theme)
       .merge(Subject.archived(false))
       .group_by { |is| is.theme } # Enumerable#group_by maintains ordering
+  end
+
+  # Find the one subject that matches the passed label
+  # return nil if there’s an ambiguity
+  def find_institution_subject(label)
+    matches = institutions_subjects.filter do |is|
+      label.in? [is.description, is.subject.label, is.theme.label, is.csv_identifier]
+    end
+    matches.first if matches.count == 1
   end
 
   ##
