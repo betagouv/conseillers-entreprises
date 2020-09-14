@@ -96,22 +96,22 @@ describe CsvImport do
   describe 'import advisors' do
     subject(:result) { CsvImport::UserImporter.import(csv, institution) }
 
-    let(:institution) { create :institution, name: 'Institution0' }
-    let(:theme) { create :theme, label: 'Theme0' }
-    let(:the_subject) { create :subject, label: 'Subject0', theme: theme }
+    let(:institution) { create :institution, name: 'The Institution' }
+    let(:theme) { create :theme, label: 'The Theme' }
+    let(:the_subject) { create :subject, label: 'The Subject', theme: theme }
 
     before do
-      create :antenne, name: 'Antenne0', institution: institution
-      create :institution_subject, institution: institution, subject: the_subject, description: 'Description1'
-      create :institution_subject, institution: institution, subject: the_subject, description: 'Description2'
+      create :antenne, name: 'The Antenne', institution: institution
+      create :institution_subject, institution: institution, subject: the_subject, description: 'First IS'
+      create :institution_subject, institution: institution, subject: the_subject, description: 'Second IS'
     end
 
     context 'two users, no team' do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
-          Institution0,Antenne0,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe
-          Institution0,Antenne0,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe
+          The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef
         CSV
       end
 
@@ -125,8 +125,8 @@ describe CsvImport do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-          Institution0,Antenne0,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
-          Institution0,Antenne0,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
+          The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
         CSV
       end
 
@@ -143,8 +143,8 @@ describe CsvImport do
     context 'set subjects' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Theme0:Subject0:Description1,Theme0:Subject0:Description2
-          Institution0,Antenne0,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,spécialiste:description1,
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Theme:The Subject:First IS,The Theme:The Subject:Second IS
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,spécialiste:First IS,
         CSV
       end
 
@@ -155,7 +155,7 @@ describe CsvImport do
         expect(marie.experts.teams.count).to eq 0
         skillet = marie.personal_skillsets.first
         expect(skillet.experts_subjects.count).to eq 1
-        expect(skillet.experts_subjects.first.description).to eq 'description1'
+        expect(skillet.experts_subjects.first.description).to eq 'First IS'
         expect(skillet.experts_subjects.first.subject).to eq the_subject
       end
     end
@@ -167,7 +167,7 @@ describe CsvImport do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
-          Institution0,Antenne0,Marie Dupont,test@test.com,0123456789,Cheffe
+          The Institution,The Antenne,Marie Dupont,test@test.com,0123456789,Cheffe
         CSV
       end
 
