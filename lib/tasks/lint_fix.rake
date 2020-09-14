@@ -1,6 +1,6 @@
 namespace :lint_fix do
   desc 'run rubocop linter'
-  task(:rubocop) { sh 'rubocop -a' }
+  task(:rubocop) { sh 'rubocop -A' }
 
   desc 'run i18n normalize'
   task(:i18n) { sh 'i18n-tasks normalize' }
