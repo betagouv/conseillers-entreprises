@@ -202,7 +202,7 @@ describe CsvImport do
       end
     end
 
-    context 'set subjects' do
+    context 'set subjects with subject-specific columns' do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Theme:The Subject:First IS,The Theme:The Subject:Second IS
@@ -219,6 +219,42 @@ describe CsvImport do
         expect(skillet.experts_subjects.count).to eq 1
         expect(skillet.experts_subjects.first.description).to eq 'First IS'
         expect(skillet.experts_subjects.first.subject).to eq the_subject
+      end
+    end
+
+    context 'set subjects with one single column' do
+      context 'no error' do
+        let(:csv) do
+          <<~CSV
+            Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Sujet
+            The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,The Theme:The Subject:First IS
+          CSV
+        end
+
+        it do
+          expect(result).to be_success
+          marie = result.objects.first
+          expect(marie.personal_skillsets.count).to eq 1
+          expect(marie.experts.teams.count).to eq 0
+          skillet = marie.personal_skillsets.first
+          expect(skillet.experts_subjects.count).to eq 1
+          expect(skillet.experts_subjects.first.description).to be_blank
+          expect(skillet.experts_subjects.first.subject).to eq the_subject
+        end
+      end
+
+      context 'subject not found' do
+        let(:csv) do
+          <<~CSV
+            Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Sujet
+            The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Inconnu
+          CSV
+        end
+
+        it do
+          expect(result).not_to be_success
+          expect(result.objects.first.errors.details).to eq({ experts: [{ error: :invalid }, { error: { :"experts_subjects.institution_subject" => [{ error: :blank }] } }] })
+        end
       end
     end
 

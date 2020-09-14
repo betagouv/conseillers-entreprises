@@ -12,7 +12,7 @@ module CsvImport
     end
 
     def check_headers(headers)
-      all_known_headers = mapping.keys + team_mapping.keys + subjects_mapping.keys
+      all_known_headers = mapping.keys + team_mapping.keys + several_subjects_mapping.keys + one_subject_mapping.keys
       headers.map do |header|
         UnknownHeaderError.new(header) unless all_known_headers.include? header
       end.compact
@@ -33,7 +33,8 @@ module CsvImport
       team = import_team(user, attributes)
       expert = team || user.personal_skillsets.first
       if expert.present?
-        import_subjects(expert, attributes)
+        import_several_subjects(expert, attributes)
+        import_one_subject(expert, attributes)
       end
     end
 
@@ -62,15 +63,15 @@ module CsvImport
       end
     end
 
-    def subjects_mapping
-      @subjects_mapping ||=
+    def several_subjects_mapping
+      @several_subjects_mapping ||=
         @institution.institutions_subjects
           .index_by(&:csv_identifier)
     end
 
-    def import_subjects(expert, all_attributes)
-      attributes = all_attributes.slice(*subjects_mapping.keys)
-        .transform_keys{ |k| subjects_mapping[k] }
+    def import_several_subjects(expert, all_attributes)
+      attributes = all_attributes.slice(*several_subjects_mapping.keys)
+        .transform_keys{ |k| several_subjects_mapping[k] }
 
       experts_subjects = attributes.map do |institution_subject, serialized_description|
         # TODO: serialized_description may be an array of hashes
@@ -85,6 +86,24 @@ module CsvImport
       end
 
       expert.experts_subjects = experts_subjects.compact
+    end
+
+    def one_subject_mapping
+      { Expert.human_attribute_name(:subject) => :subject }
+    end
+
+    def import_one_subject(expert, all_attributes)
+      identifier = all_attributes[Expert.human_attribute_name('subject')]
+      if identifier.present?
+        institution_subject = expert.institution.institutions_subjects.find{ |is| is.csv_identifier == identifier }
+
+        expert_subject_attributes = {
+          institution_subject: institution_subject,
+          role: :specialist
+        }
+        expert_subject = ExpertSubject.new(expert_subject_attributes)
+        expert.experts_subjects = [expert_subject]
+      end
     end
   end
 end
