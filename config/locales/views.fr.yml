@@ -235,6 +235,9 @@ fr:
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       view_completed_analysis: Voir l’analyse réalisée
+  institutions:
+    import_errors:
+      import_failed: Échec de l’import
   landing_topics:
     landing_topic:
       choose: Choisir

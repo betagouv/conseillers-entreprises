@@ -6,7 +6,9 @@
   %tbody
     - antennes.each do |antenne|
       %tr
-        %td= antenne.name
+        - highlighted_ids = flash[:table_highlighted_ids]
+        %td{ class: ('left marked blue' if highlighted_ids&.include?(antenne.id)) }
+          = antenne.name
         %td
           %ul
             - summary = antenne.intervention_zone_summary
@@ -18,6 +20,14 @@
     %tr
       %th
       %th
-        %a.ui.right.floated.small.labeled.icon.button{ href: antennes_institution_path(format: 'csv') }
+        %a.ui.left.floated.small.labeled.icon.button{ href: antennes_institution_path(format: 'csv') }
           %i.download.icon
           = t('export')
+        .ui.left.floated.small.labeled.icon.button.popup-click
+          %i.upload.icon
+          = t('import')
+        .ui.popup
+          = form_with url: import_antennes_institution_path, local: true, class: 'ui form' do |f|
+            .ui.inline.field
+              = f.file_field :file, accept: 'text/csv', required: true
+            = f.submit t('submit'), class: 'ui right floated button'
