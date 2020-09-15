@@ -7,7 +7,7 @@ module CsvImport
     end
 
     def success?
-      @header_errors.blank? && @objects.all?(&:valid?)
+      @header_errors.blank? && @objects.all?{ |object| object.valid?(:import) }
     end
   end
 
@@ -30,18 +30,9 @@ module CsvImport
     end
 
     def import
-      begin
-        if @input.respond_to?(:open)
-          # Unfortunately, CSV::read only takes files…
-          # … and CSV::new takes strings or IO, but the IO needs to be already open.
-          # @input is a file:
-          csv = CSV.read(@input, headers: true)
-        else
-          # @input is a string:
-          csv = CSV.new(@input, headers: true).read
-        end
-      rescue CSV::MalformedCSVError => e
-        return Result.new(rows: [], header_errors: [e], objects: [])
+      csv = open_with_best_separator(@input)
+      if csv.is_a? CSV::MalformedCSVError
+        return Result.new(rows: [], header_errors: [csv], objects: [])
       end
 
       header_errors = check_headers(csv.headers)
@@ -67,7 +58,7 @@ module CsvImport
         end
 
         # Build all objects to collect errors, but rollback everything on error
-        if objects.any?(&:invalid?)
+        if objects.any?{ |object| object.invalid?(:import) }
           raise ActiveRecord::Rollback
         end
       end
@@ -75,8 +66,40 @@ module CsvImport
       Result.new(rows: rows, header_errors: header_errors, objects: objects)
     end
 
+    private
+
+    def open_with_separator(input, col_sep)
+      begin
+        if input.respond_to?(:open)
+          # Unfortunately, CSV::read only takes files…
+          # … and CSV::new takes strings or IO, but the IO needs to be already open.
+          # @input is a file:
+          CSV.read(input, headers: true, col_sep: col_sep)
+        else
+          # @input is a string:
+          CSV.new(input, headers: true, col_sep: col_sep).read
+        end
+      rescue CSV::MalformedCSVError => e
+        return e
+      end
+    end
+
+    def open_with_best_separator(input)
+      separators = %w[, ;]
+      attempted = separators.map { |separator| open_with_separator(input, separator) }
+
+      opened_files = attempted.filter { |csv| !csv.is_a? CSV::MalformedCSVError }
+      return attempted.first if opened_files.empty?
+
+      # Find the separator that find the most headers
+      best_index = opened_files.map(&:headers).map(&:count).each_with_index.max.second
+      opened_files[best_index]
+    end
+
     ## subclasses override points
     #
+    public
+
     def mapping; end
 
     def check_headers(headers); end
