@@ -39,8 +39,25 @@ class InstitutionsController < ApplicationController
           .merge(User.csv_fields_for_relevant_expert_subjects(@institutions_subjects))
         csv = CsvExportService.csv(@advisors, additional_fields)
         filename = CsvExportService.filename(@advisors)
+
         send_data csv, type: 'text/csv; charset=utf-8', disposition: "filename=#{filename}.csv"
       end
+    end
+  end
+
+  def import_antennes
+    @result = CsvImport::AntenneImporter.import(params.require(:file))
+    if @result.success?
+      flash[:table_highlighted_ids] = @result.objects.map(&:id)
+      redirect_to action: :antennes
+    end
+  end
+
+  def import_advisors
+    @result = CsvImport::UserImporter.import(params.require(:file), @institution)
+    if @result.success?
+      flash[:table_highlighted_ids] = @result.objects.map(&:id)
+      redirect_to action: :advisors
     end
   end
 

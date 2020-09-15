@@ -10,7 +10,10 @@ module ManyCommunes
   def insee_codes=(codes_raw)
     wanted_codes = codes_raw.split(/[,\s]/).delete_if(&:empty?)
     if wanted_codes.any? { |code| code !~ Commune::INSEE_CODE_FORMAT }
-      raise 'Invalid city codes'
+      self.insee_codes_error = :invalid_insee_codes
+      return
+    else
+      self.insee_codes_error = nil
     end
 
     if wanted_codes.present?
@@ -20,6 +23,18 @@ module ManyCommunes
     end
 
     self.communes = Commune.where(insee_code: wanted_codes)
+  end
+
+  ## Validation Support
+  # The error is set in the insee_codes= setter, and checked in the validation method
+  included do
+    attr_accessor :insee_codes_error
+
+    validate do
+      if insee_codes_error.present?
+        errors.add(:insee_codes, insee_codes_error)
+      end
+    end
   end
 
   ## Territories description

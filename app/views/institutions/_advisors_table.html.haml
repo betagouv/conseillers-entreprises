@@ -35,7 +35,8 @@
       - teams.each_with_index do |key_and_value, index_in_antenne|
         - advisors = key_and_value.last
         - advisors.each_with_index do |user, index_in_team|
-          %tr
+          - highlighted_ids = flash[:table_highlighted_ids]
+          %tr{ class: highlighted_ids&.include?(user.id) ? 'blue' : '' }
             - if index_in_antenne == 0 && index_in_team == 0
               %td{ rowspan: teams.values.sum(&:size) }= antenne
             - else
@@ -76,6 +77,15 @@
     %tr
       %th
       %th{ colspan: 2 + institutions_subjects.size }
-        %a.ui.right.floated.small.labeled.icon.button{ href: advisors_institution_path(format: 'csv') }
+        %a.ui.left.floated.small.labeled.icon.button{ href: advisors_institution_path(format: 'csv') }
           %i.download.icon
           = t('export')
+        .ui.left.floated.small.labeled.icon.button.popup-click
+          %i.upload.icon
+          = t('import')
+        .ui.popup
+          = form_with url: import_advisors_institution_path, local: true, class: 'ui form' do |f|
+            .ui.inline.field
+              = f.file_field :file, accept: 'text/csv', required: true
+            = f.submit t('submit'), class: 'ui right floated button'
+

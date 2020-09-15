@@ -72,6 +72,14 @@ class ExpertSubject < ApplicationRecord
   ## used for serialization in advisors csv
   #
   def csv_description
-    [human_attribute_value(:role), description].to_csv(col_sep: ':').strip
+    [human_attribute_value(:role), description.presence].compact.to_csv(col_sep: ':').strip
+  end
+
+  def csv_description=(csv)
+    role, description = CSV.parse_line(csv, col_sep: ':').to_a
+    role = ExpertSubject.human_attribute_values(:role).key(role)
+    description = "" if description.nil?
+
+    self.assign_attributes(role: role, description: description)
   end
 end

@@ -8,18 +8,22 @@ class InstitutionPolicy < ApplicationPolicy
   end
 
   def subjects?
-    show?
+    admin?
   end
 
   def antennes?
-    show?
+    admin?
   end
 
   def advisors?
-    show?
+    admin?
   end
 
-  def update?
+  def import_antennes?
+    admin?
+  end
+
+  def import_advisors?
     admin?
   end
 end

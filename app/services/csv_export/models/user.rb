@@ -40,7 +40,7 @@ module CsvExport
               # See `object.instance_exec(&lambda)` in CsvExportService.
               # We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
               experts_subjects = relevant_expert.experts_subjects & institution_subject.experts_subjects
-              experts_subjects.map(&:csv_description).to_csv.strip
+              experts_subjects.map(&:csv_description).to_csv.strip.presence
             }
             [title, lambda]
           end.to_h
