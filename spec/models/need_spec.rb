@@ -233,6 +233,33 @@ RSpec.describe Need, type: :model do
         is_expected.to eq [need2]
       end
     end
+
+    describe 'abandoned_without_taking_care' do
+      let(:date1) { Time.zone.now.beginning_of_day }
+      let(:date2) { date1 - 31.days }
+      let(:recent_need) { travel_to(date1) { create :need_with_matches } }
+      let(:need_quo) { travel_to(date2) { create :need_with_matches } }
+      let(:need_recent_match) { travel_to(date2) { create :need, matches: [recent_match] } }
+      let(:recent_match) { travel_to(date1) { create :match } }
+      let(:need_done_no_help) { travel_to(date2) { create :need, matches: [create(:match, status: :done_no_help)] } }
+      let(:need_done_not_reachable) { travel_to(date2) { create :need, matches: [create(:match, status: :done_not_reachable)] } }
+      let(:need_need_not_for_me) { travel_to(date2) { create :need, matches: [create(:match, status: :not_for_me)] } }
+
+      before do
+        recent_need
+        need_quo
+        recent_match
+        need_done_no_help
+        need_done_not_reachable
+        need_need_not_for_me
+      end
+
+      subject { described_class.abandoned_without_taking_care }
+
+      it 'expect to have needs without taking care in 30 last days' do
+        is_expected.to eq [need_quo, need_done_no_help, need_done_not_reachable, need_need_not_for_me]
+      end
+    end
   end
 
   describe 'abandoned' do

@@ -15,5 +15,11 @@ module Reminders
       @status = t('reminders.needs.menu.in_progress').downcase
       render :index
     end
+
+    def abandoned
+      @needs = Need.abandoned_without_taking_care.page params[:page]
+      @status = t('reminders.needs.menu.abandoned').downcase
+      render :index
+    end
   end
 end

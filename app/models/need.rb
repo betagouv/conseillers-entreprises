@@ -77,6 +77,10 @@ class Need < ApplicationRecord
 
   ## Scopes
   #
+  ABANDONED_DELAY = 2.weeks
+  REMINDER_DELAY = 10.days
+  REMINDER_ABANDONED_DELAY = 30.days
+
   scope :made_in, -> (date_range) do
     joins(:diagnosis)
       .where(diagnoses: { happened_on: date_range })
@@ -111,6 +115,12 @@ class Need < ApplicationRecord
     by_status(:quo)
       .archived(false)
       .joins(:feedbacks)
+  end
+
+  scope :abandoned_without_taking_care, -> do
+    with_matches_only_in_status([:quo, :done_no_help, :done_not_reachable, :not_for_me])
+      .archived(false)
+      .reminder
   end
 
   scope :abandoned_taken_not_done, -> do
@@ -183,8 +193,6 @@ class Need < ApplicationRecord
   def initial_matches_at
     matches.pluck(:created_at).min
   end
-
-  ABANDONED_DELAY = 2.weeks
 
   def abandoned?
     updated_at < ABANDONED_DELAY.ago
