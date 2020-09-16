@@ -16,7 +16,7 @@ module CoreExtensions
             # Find which jobs to strike
             locked_jobs = self.where(locked_by: lock_name)
             if block.present?
-              removed_jobs = locked_jobs.filter { |job| yield(job) }
+              removed_jobs = locked_jobs.filter(&block)
             else
               removed_jobs = locked_jobs
             end

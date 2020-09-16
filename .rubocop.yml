@@ -300,6 +300,9 @@ Lint/AssignmentInCondition:
 Lint/BigDecimalNew:
   Enabled: true
 
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: false
+
 Lint/BooleanSymbol:
   Enabled: true
 
@@ -380,6 +383,9 @@ Lint/Loop:
 
 Lint/MissingCopEnableDirective:
   Enabled: true
+
+Lint/MissingSuper:
+  Enabled: false
 
 Lint/MultipleComparison:
   Enabled: false
@@ -501,9 +507,6 @@ Lint/UselessAccessModifier:
 Lint/UselessAssignment:
   Enabled: false
 
-Lint/UselessComparison:
-  Enabled: false
-
 Lint/UselessElseWithoutRescue:
   Enabled: false
 
@@ -596,6 +599,9 @@ Performance/CaseWhenSplat:
 
 Performance/Casecmp:
   Enabled: true
+
+Performance/CollectionLiteralInLoop:
+  Enabled: false
 
 Performance/CompareWithBlock:
   Enabled: true
@@ -818,6 +824,9 @@ RSpec/LetSetup:
   Enabled: false
 
 RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 RSpec/MessageSpies:
@@ -1054,9 +1063,6 @@ Style/MethodCalledOnDoEndBlock:
 Style/MethodDefParentheses:
   Enabled: true
 
-Style/MethodMissingSuper:
-  Enabled: false
-
 Style/MinMax:
   Enabled: true
 
@@ -1234,10 +1240,16 @@ Style/SingleLineMethods:
 Style/SlicingWithRange:
   Enabled: true
 
+Style/SoleNestedConditional:
+  Enabled: false
+
 Style/SpecialGlobalVars:
   Enabled: false
 
 Style/StabbyLambdaParentheses:
+  Enabled: false
+
+Style/StringConcatenation:
   Enabled: false
 
 Style/StderrPuts:
