@@ -23,11 +23,12 @@
     = render 'index_landing_cards', landings: @landings
 
 - unless in_iframe?
-  %section.section.section-white#container-newsletter
-    .container
-      = render 'newsletter'
-
   %section.section.section-lightest-grey.section-partners
     .container.text-center
       - cache('institutions', expires_in: 1.minute) do
         = render 'index_institutions'
+
+  %section.section.section-white#container-newsletter
+    .container
+      = render 'newsletter'
+
