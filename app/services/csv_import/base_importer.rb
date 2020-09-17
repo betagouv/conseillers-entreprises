@@ -7,7 +7,7 @@ module CsvImport
     end
 
     def success?
-      @header_errors.blank? && @objects.all?{ |object| object.valid?(:import) }
+      @success ||= @header_errors.blank? && @objects.all?{ |object| object.valid?(:import) }
     end
   end
 
@@ -57,8 +57,9 @@ module CsvImport
           object
         end
 
-        # Build all objects to collect errors, but rollback everything on error
-        if objects.any?{ |object| object.invalid?(:import) }
+        # Validate all objects to collect errors, but rollback everything if there is one error
+        all_valid = objects.map{ |object| object.validate(:import) }
+        if all_valid.include? false
           raise ActiveRecord::Rollback
         end
       end

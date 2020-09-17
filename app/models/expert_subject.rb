@@ -35,6 +35,10 @@ class ExpertSubject < ApplicationRecord
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
   has_one :theme, through: :subject, inverse_of: :experts_subjects
 
+  ## Validations
+  #
+  validates :role, presence: true
+
   ## Scopes
   #
   scope :relevant_for, -> (need) do
