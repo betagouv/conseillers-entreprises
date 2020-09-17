@@ -1,6 +1,7 @@
 %p.title
   = t('.title')
 .logo-list
+  = region_image(session[:region])
   = all_institutions_images(session[:region])
 %p#more-partner
   = t('.more_partners_html', path: comment_ca_marche_path(anchor: 'liste-partenaires'))
