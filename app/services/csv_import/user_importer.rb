@@ -59,12 +59,8 @@ module CsvImport
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
-        team = Expert.find_or_initialize_by(email: attributes[:email])
+        team = user.institution.experts.find_or_initialize_by(email: attributes[:email])
         team.update(attributes)
-
-        unless user.experts.include? team
-          user.experts << team
-        end
 
         team
       end
