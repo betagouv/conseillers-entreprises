@@ -1,0 +1,8 @@
+- meta title: @expert.full_name
+
+- content_for :header, render('header', expert: @expert, status: @status)
+- content_for :menu, render('menu', expert: @expert)
+
+%p= page_entries_info @needs
+
+= render 'needs/received_needs', received_needs: @needs, highlighted_expert: @expert, cached: true

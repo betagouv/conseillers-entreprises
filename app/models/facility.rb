@@ -75,7 +75,7 @@ class Facility < ApplicationRecord
         sum += s[k].to_i # s1
         tmp = s[k + 1].to_i * 2
         if tmp > 9
-          tmp = tmp.to_s.split(//).map(&:to_i).reduce(:+)
+          tmp = tmp.to_s.split(//).map(&:to_i).sum
         end
         sum += tmp
       end
