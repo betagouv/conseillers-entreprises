@@ -21,7 +21,7 @@ module CsvImport
     end
 
     def preprocess(attributes)
-      institution = Institution.find_by(name: attributes[:institution])
+      institution = Institution.find_by(name: attributes[:institution]) || @institution
       antenne = Antenne.find_by(institution: institution, name: attributes[:antenne])
       attributes.delete(:institution)
       attributes[:antenne] = antenne
