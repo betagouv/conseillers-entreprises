@@ -1,4 +1,9 @@
-- diagnoses = Diagnosis.where(needs: received_needs).distinct.order(updated_at: :desc)
+- diagnoses = Diagnosis.completed.where(needs: received_needs).distinct.order(updated_at: :desc)
+
+.ui.aligned.grid.padded
+  .aligned.eight.wide.column
+    %p= page_entries_info received_needs
+
 = paginate received_needs
 
 .ui.segments.shadow-less.selectable-list

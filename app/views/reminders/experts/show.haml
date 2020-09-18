@@ -1,0 +1,10 @@
+- meta title: @expert.full_name
+
+- content_for :header, render('header', expert: @expert)
+- content_for :menu, render('menu', expert: @expert)
+
+.ui.segments.shadow-less
+  .ui.segment
+    = render 'expert_contents', expert: @expert
+    %div{ id: "expert_reminders_notes-#{@expert.id}" }
+      = render 'expert_reminders_notes', expert: @expert

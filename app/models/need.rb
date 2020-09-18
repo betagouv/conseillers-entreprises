@@ -77,6 +77,10 @@ class Need < ApplicationRecord
 
   ## Scopes
   #
+  ABANDONED_DELAY = 2.weeks
+  REMINDER_DELAY = 10.days
+  REMINDER_ABANDONED_DELAY = 30.days
+
   scope :made_in, -> (date_range) do
     joins(:diagnosis)
       .where(diagnoses: { happened_on: date_range })
@@ -97,6 +101,28 @@ class Need < ApplicationRecord
       .archived(false)
       .abandoned
   end
+
+  scope :reminder_quo_not_taken, -> do
+    by_status(:quo)
+      .archived(false)
+      .reminder
+      .left_outer_joins(:feedbacks)
+      .group('needs.id')
+      .having('feedbacks.count < ?', 1)
+  end
+
+  scope :reminder_in_progress, -> do
+    by_status(:quo)
+      .archived(false)
+      .joins(:feedbacks)
+  end
+
+  scope :abandoned_without_taking_care, -> do
+    with_matches_only_in_status([:quo, :done_no_help, :done_not_reachable, :not_for_me])
+      .archived(false)
+      .reminder
+  end
+
   scope :abandoned_taken_not_done, -> do
     by_status(:taking_care)
       .archived(false)
@@ -113,6 +139,8 @@ class Need < ApplicationRecord
       .group(:id)
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
+
+  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_DELAY.ago) }
 
   scope :abandoned, -> { where("needs.last_activity_at < ?", ABANDONED_DELAY.ago) }
 
@@ -165,8 +193,6 @@ class Need < ApplicationRecord
   def initial_matches_at
     matches.pluck(:created_at).min
   end
-
-  ABANDONED_DELAY = 2.weeks
 
   def abandoned?
     updated_at < ABANDONED_DELAY.ago

@@ -163,11 +163,20 @@ Rails.application.routes.draw do
   resources :matches, only: %i[update]
   resources :feedbacks, only: %i[create destroy]
 
-  resources :reminders, only: %i[index show], path: 'relances' do
-    member do
-      post :reminders_notes
-      get :needs_taking_care
-      get :needs_taking_care_by_others
+  namespace :reminders, path: 'relances' do
+    resources :experts, only: %i[index show] do
+      member do
+        post :reminders_notes
+        get :needs
+        get :needs_taking_care
+        get :needs_taking_care_by_others
+      end
+    end
+    resources :needs, path: 'besoins', only: %i[index] do
+      collection do
+        get :in_progress, path: 'en_cours'
+        get :abandoned, path: 'abandonnes'
+      end
     end
   end
 
