@@ -3,8 +3,11 @@
     %i.icon.exclamation.triangle
     .content
       .header= t('.import_failed')
-      - result.header_errors.each do |error|
-        %p= error.message
+      - if result.header_errors.present?
+        %p= t(".unknown_headers", count: result.header_errors.count)
+        %ul
+          - result.header_errors.each do |error|
+            %li= error.message
 
 - if result.rows.present?
   .wide-scrolling

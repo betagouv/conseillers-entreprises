@@ -43,7 +43,7 @@ describe CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « Foo »']
+          expect(result.header_errors.map(&:message)).to eq ['Foo']
         end
       end
 
@@ -57,7 +57,7 @@ describe CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « Foo »']
+          expect(result.header_errors.map(&:message)).to eq ['Foo']
         end
       end
     end
@@ -88,10 +88,7 @@ describe CsvImport do
 
       it do
         expect(result).not_to be_success
-        expect(result.header_errors.map(&:message)).to eq [
-          'En-tête non reconnu: « Foo »',
-          'En-tête non reconnu: « Bar »'
-        ]
+        expect(result.header_errors.map(&:message)).to eq %w[Foo Bar]
       end
     end
 
@@ -294,7 +291,7 @@ describe CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « The Subject »']
+          expect(result.header_errors.map(&:message)).to eq ['The Subject']
         end
       end
     end

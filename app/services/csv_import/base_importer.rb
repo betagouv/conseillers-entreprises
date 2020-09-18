@@ -12,12 +12,6 @@ module CsvImport
   end
 
   class UnknownHeaderError < StandardError
-    attr_reader :header
-
-    def initialize(header)
-      @header = header
-      super("En-tête non reconnu: « #{header} »")
-    end
   end
 
   class BaseImporter
