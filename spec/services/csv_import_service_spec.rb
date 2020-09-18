@@ -2,11 +2,9 @@ require 'rails_helper'
 
 describe CsvImport do
   describe 'automatic column separator detection' do
-    subject(:result) { CsvImport::AntenneImporter.import(csv) }
+    subject(:result) { CsvImport::AntenneImporter.import(csv, institution) }
 
-    before do
-      create :institution, name: 'Test Institution'
-    end
+    let(:institution) { create :institution, name: 'Test Institution' }
 
     context 'no error' do
       context 'commas' do
@@ -64,7 +62,9 @@ describe CsvImport do
   end
 
   describe 'import antennes' do
-    subject(:result) { CsvImport::AntenneImporter.import(csv) }
+    subject(:result) { CsvImport::AntenneImporter.import(csv, institution) }
+
+    let(:institution) { create :institution, name: 'Test Institution' }
 
     context 'malformed file' do
       let(:csv) do
@@ -93,10 +93,6 @@ describe CsvImport do
     end
 
     context 'invalid rows' do
-      before do
-        create :institution, name: 'Test Institution'
-      end
-
       let(:csv) do
         <<~CSV
           Institution,Nom,Codes commune
@@ -112,10 +108,6 @@ describe CsvImport do
     end
 
     context 'two antennes' do
-      before do
-        create :institution, name: 'Test Institution'
-      end
-
       let(:csv) do
         <<~CSV
           Institution,Nom,Codes commune
@@ -134,7 +126,6 @@ describe CsvImport do
 
     context 'existing antenne overwrite' do
       before do
-        institution = create :institution, name: 'Test Institution'
         create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
       end
 

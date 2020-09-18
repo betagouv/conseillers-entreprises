@@ -46,7 +46,7 @@ class InstitutionsController < ApplicationController
   end
 
   def import_antennes
-    @result = CsvImport::AntenneImporter.import(params.require(:file))
+    @result = CsvImport::AntenneImporter.import(params.require(:file), @institution)
     if @result.success?
       flash[:table_highlighted_ids] = @result.objects.map(&:id)
       redirect_to action: :antennes
