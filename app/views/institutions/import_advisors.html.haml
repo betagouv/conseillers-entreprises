@@ -2,5 +2,4 @@
 - content_for :header, render('header', institution: @institution)
 - content_for :menu, render('menu', institution: @institution)
 
-.wide-scrolling
-  = render 'import_errors', result: @result
+= render 'import_errors', result: @result

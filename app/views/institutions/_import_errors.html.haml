@@ -10,24 +10,23 @@
             %li= error.message
 
 - if result.rows.present?
-  .wide-scrolling
-    %table.sticky-left.ui.definition.celled.table
-      %thead
+  %table.ui.definition.celled.table
+    %thead
+      %tr
+        %th
+        - result.rows.first.each_key do |header|
+          %th= header
+    %tbody
+      - result.rows.each_with_index do |row, index|
+        - object = result.objects[index]
         %tr
-          %th
-          - result.rows.first.each_key do |header|
-            %th= header
-      %tbody
-        - result.rows.each_with_index do |row, index|
-          - object = result.objects[index]
-          %tr
-            - has_errors = object.invalid?(:import)
-            %td{ rowspan: has_errors ? 2 : 1 }
-              #{index + 1}
-            - row.each_value do |value|
-              %td= value
-          - if has_errors
-            %tr.red
-              %td.rowspanned
-              %td{ colspan: row.count + 1 }
-                = simple_format(nested_errors_messages(object))
+          - has_errors = object.invalid?(:import)
+          %td{ rowspan: has_errors ? 2 : 1 }
+            #{index + 1}
+          - row.each_value do |value|
+            %td= value
+        - if has_errors
+          %tr.red
+            %td.rowspanned
+            %td{ colspan: row.count + 1 }
+              = simple_format(nested_errors_messages(object))

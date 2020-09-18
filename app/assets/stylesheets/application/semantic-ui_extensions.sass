@@ -1,3 +1,8 @@
+body
+  // Set to hidden by fomantic-ui in _site.scss; this doesn’t seem to be 100% expected.
+  // We want to allow very large tables to scroll: the margin and the layout are wrong, but the contents must be accessible still.
+  overflow-x: revert
+
 .ui.container.narrow-container
   max-width: 700px
 
@@ -32,13 +37,3 @@
 
 .ui.popup
   max-width: 400px
-
-.ui
-  .wide-scrolling  // Make sure very wide tables can scroll
-    overflow-x: auto
-  table.ui.table.sticky-left // And try to keep the first column visible
-    thead tr th:first-of-type, tbody tr td:first-of-type
-      position: sticky
-      left: 0
-    tbody tr td:first-of-type
-      background: rgb(248, 248, 248) // Default is rgba(0, 0, 0, 0.03): we want the same grey, but opaque.
