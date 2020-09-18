@@ -29,7 +29,7 @@ module CsvImport
         return Result.new(rows: [], header_errors: [csv], objects: [])
       end
 
-      header_errors = check_headers(csv.headers)
+      header_errors = check_headers(csv.headers.compact)
 
       rows = csv.map(&:to_h)
       objects = []
