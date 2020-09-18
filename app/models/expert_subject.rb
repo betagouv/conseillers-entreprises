@@ -79,10 +79,20 @@ class ExpertSubject < ApplicationRecord
     [human_attribute_value(:role), description.presence].compact.to_csv(col_sep: ':').strip
   end
 
-  def csv_description=(csv)
-    role, description = CSV.parse_line(csv, col_sep: ':').to_a
-    role = ExpertSubject.human_attribute_values(:role).key(role)
-    description = "" if description.nil?
+  def csv_description=(value)
+    values = CSV.parse_line(value, col_sep: ':').to_a
+    role_value = values[0]
+    description = values[1] || ''
+
+    clean_role_value = role_value.downcase.strip
+    if clean_role_value.in? [
+      'fallback',
+      ExpertSubject.human_attribute_value(:role, :fallback).downcase.strip
+    ]
+      role = :fallback
+    else
+      role = :specialist
+    end
 
     self.assign_attributes(role: role, description: description)
   end
