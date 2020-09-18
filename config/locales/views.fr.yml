@@ -251,8 +251,8 @@ fr:
       question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
       submit_request: Découvrir les accompagnements
     index_institutions:
-      more_partners_html: Et <a href='%{path}'>plus de 50 partenaires</a> à votre service.
-      title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
+      more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
+      title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
     index_landing_card:
       discover: Choisir
     index_landing_cards:
