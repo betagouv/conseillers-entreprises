@@ -40,7 +40,7 @@ module Reminders
       else
         Need.send(scope).page(params[:page])
       end
-      @status = t("reminders.needs.menu.#{scope}").downcase
+      @status = t("reminders.needs.header.#{scope}").downcase
     end
   end
 end
