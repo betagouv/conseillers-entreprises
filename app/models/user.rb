@@ -74,7 +74,7 @@ class User < ApplicationRecord
   validates :full_name, :phone_number, presence: true, unless: :deleted?
   after_create :create_personal_skillset_if_needed
   after_update :synchronize_personal_skillsets
-  validate :validate_experts_are_valid, on: :import
+  validates_associated :experts, on: :import
 
   ## “Through” Associations
   #
@@ -254,15 +254,5 @@ class User < ApplicationRecord
 
   def synchronize_personal_skillsets
     self.personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
-  end
-
-  ## Support for validation on import
-  #
-
-  def validate_experts_are_valid
-    # I somewhat expected it to be implicit. I’m not entirely sure why it’s needed.
-    experts.filter(&:invalid?).each do |expert|
-      errors.add(:experts, expert.errors.details)
-    end
   end
 end

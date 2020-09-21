@@ -21,7 +21,7 @@ module CsvImport
     end
 
     def preprocess(attributes)
-      institution = Institution.find_by(name: attributes[:institution])
+      institution = Institution.find_by(name: attributes[:institution]) || @institution
       antenne = Antenne.find_by(institution: institution, name: attributes[:antenne])
       attributes.delete(:institution)
       attributes[:antenne] = antenne
@@ -59,12 +59,8 @@ module CsvImport
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
-        team = Expert.find_or_initialize_by(email: attributes[:email])
+        team = user.institution.experts.find_or_initialize_by(email: attributes[:email])
         team.update(attributes)
-
-        unless user.experts.include? team
-          user.experts << team
-        end
 
         team
       end
@@ -86,19 +82,19 @@ module CsvImport
       attributes = all_attributes.slice(*several_subjects_mapping.keys)
         .transform_keys{ |k| several_subjects_mapping[k] }
 
-      experts_subjects = attributes.map do |institution_subject, serialized_description|
+      experts_subjects_attributes = attributes.map do |institution_subject, serialized_description|
         # TODO: serialized_description may be an array of hashes
         if serialized_description.present?
-          expert_subject_attributes = {
+          {
             institution_subject: institution_subject,
             csv_description: serialized_description
           }
-
-          ExpertSubject.new(expert_subject_attributes)
         end
-      end
+      end.compact
 
-      expert.experts_subjects = experts_subjects.compact
+      expert.experts_subjects.clear
+      expert.experts_subjects.new(experts_subjects_attributes)
+      expert.save
     end
 
     def one_subject_mapping
@@ -116,7 +112,7 @@ module CsvImport
         role: :specialist
       }
       expert.experts_subjects.clear
-      expert.experts_subjects.create(expert_subject_attributes)
+      expert.experts_subjects.new(expert_subject_attributes)
       expert.save
     end
   end

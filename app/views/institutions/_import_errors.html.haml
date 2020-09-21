@@ -3,8 +3,11 @@
     %i.icon.exclamation.triangle
     .content
       .header= t('.import_failed')
-      - result.header_errors.each do |error|
-        %p= error.message
+      - if result.header_errors.present?
+        %p= t(".unknown_headers", count: result.header_errors.count)
+        %ul
+          - result.header_errors.each do |error|
+            %li= error.message
 
 - if result.rows.present?
   .wide-scrolling
@@ -18,14 +21,13 @@
         - result.rows.each_with_index do |row, index|
           - object = result.objects[index]
           %tr
-            %td{ rowspan: object.invalid? ? 2 : 1 }
+            - has_errors = object.invalid?(:import)
+            %td{ rowspan: has_errors ? 2 : 1 }
               #{index + 1}
             - row.each_value do |value|
               %td= value
-          - if object.invalid?
+          - if has_errors
             %tr.red
               %td.rowspanned
               %td{ colspan: row.count + 1 }
-                = object.errors.full_messages.to_sentence
-
-
+                = simple_format(nested_errors_messages(object))
