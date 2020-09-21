@@ -103,7 +103,7 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_quo_not_taken, -> do
-    by_status(:quo)
+    by_status(:no_help)
       .archived(false)
       .reminder
       .left_outer_joins(:feedbacks)
@@ -112,8 +112,9 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_in_progress, -> do
-    by_status(:quo)
+    by_status(:no_help)
       .archived(false)
+      .reminder
       .joins(:feedbacks)
   end
 
@@ -171,6 +172,8 @@ class Need < ApplicationRecord
     when :not_for_me
       with_some_matches_in_status(:not_for_me)
         .with_matches_only_in_status(:not_for_me)
+    when :no_help
+      with_matches_only_in_status([:quo, :not_for_me, :done_no_help, :done_not_reachable])
     end
   end
 

@@ -260,6 +260,28 @@ RSpec.describe Need, type: :model do
         is_expected.to eq [need_quo, need_done_no_help, need_done_not_reachable, need_need_not_for_me]
       end
     end
+
+    describe 'by_status_no_help' do
+      let(:match_taking_care) { create(:match, status: :taking_care) }
+      let(:match_done) { create(:match, status: :done) }
+      let(:match_quo) { create(:match, status: :quo) }
+      let(:match_done_no_help) { create(:match, status: :done_no_help) }
+      let(:match_done_not_reachable) { create(:match, status: :done_not_reachable) }
+      let(:match_not_for_me) { create(:match, status: :not_for_me) }
+
+      before do
+        match_taking_care
+        match_done
+        match_quo
+        match_done_no_help
+        match_done_not_reachable
+        match_not_for_me
+      end
+
+      subject { described_class.by_status(:no_help).order(:id) }
+
+      it { is_expected.to eq [match_quo.need, match_done_no_help.need, match_done_not_reachable.need, match_not_for_me.need] }
+    end
   end
 
   describe 'abandoned' do
