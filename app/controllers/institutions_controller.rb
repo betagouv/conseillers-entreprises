@@ -26,7 +26,7 @@ class InstitutionsController < ApplicationController
       format.csv do
         csv = CsvExportService.csv(@antennes)
         filename = CsvExportService.filename(@antennes)
-        send_data csv, type: 'text/csv; charset=utf-8', disposition: "filename=#{filename}.csv"
+        send_data csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{filename}.csv"
       end
     end
   end
@@ -40,7 +40,7 @@ class InstitutionsController < ApplicationController
         csv = CsvExportService.csv(@advisors, additional_fields)
         filename = CsvExportService.filename(@advisors)
 
-        send_data csv, type: 'text/csv; charset=utf-8', disposition: "filename=#{filename}.csv"
+        send_data csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{filename}.csv"
       end
     end
   end
