@@ -120,7 +120,7 @@ class Need < ApplicationRecord
   scope :abandoned_without_taking_care, -> do
     with_matches_only_in_status([:quo, :done_no_help, :done_not_reachable, :not_for_me])
       .archived(false)
-      .reminder
+      .reminder_abandoned
   end
 
   scope :abandoned_taken_not_done, -> do
@@ -141,6 +141,8 @@ class Need < ApplicationRecord
   end
 
   scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_DELAY.ago) }
+
+  scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_ABANDONED_DELAY.ago) }
 
   scope :abandoned, -> { where("needs.last_activity_at < ?", ABANDONED_DELAY.ago) }
 
