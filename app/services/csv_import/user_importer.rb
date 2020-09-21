@@ -44,7 +44,7 @@ module CsvImport
           other_experts = user.experts - [expert]
           user.experts = other_experts + [expert]
         else
-          user.experts.create(expert.attributes)
+          user.experts.build(expert.attributes)
         end
       end
     end
@@ -63,7 +63,7 @@ module CsvImport
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
-        team = user.institution.experts.find_or_initialize_by(email: attributes[:email])
+        team = @institution.experts.find_or_initialize_by(email: attributes[:email])
         team.update(attributes)
 
         team
