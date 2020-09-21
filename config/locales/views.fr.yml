@@ -539,9 +539,8 @@ fr:
       header:
         needs_status: Besoins %{status}
       index:
-        title: Relances par experts
+        title: Relances par référents
       menu:
-        experts: Experts
         summary: Résumé
     index:
       title: Relances
