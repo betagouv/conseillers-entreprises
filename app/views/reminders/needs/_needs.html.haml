@@ -1,4 +1,4 @@
-- diagnoses = Diagnosis.completed.where(needs: received_needs).distinct.order(updated_at: :desc)
+- diagnoses = Diagnosis.completed.where(needs: received_needs).distinct.order(happened_on: :desc)
 
 .ui.aligned.grid.padded
   .aligned.eight.wide.column
