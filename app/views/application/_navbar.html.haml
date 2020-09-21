@@ -25,7 +25,7 @@
         = active_link_to reminders_needs_path, active: [['reminders/experts', 'reminders/needs'], [] ], class: 'item' do
           %i.ambulance.icon
           = t('reminders.index.title')
-          - cache "reminders-alert-#{Need.maximum(:updated_at)}" do
+          - cache ['reminders-alert', Need.all] do
             - if Need.abandoned_without_taking_care.present?
               .ui.red.empty.circular.horizontal.label
             - elsif Need.abandoned_quo_not_taken.present?

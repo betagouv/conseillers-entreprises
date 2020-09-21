@@ -4,7 +4,7 @@
       = person_block(expert, suffix: t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long)))
 .ui.grid
   .row
-    - cache "expert_received_matches_#{expert.id}_#{expert.received_matches.maximum(:updated_at)}" do
+    - cache ["received_matches", expert, expert.received_matches] do
       .nine.wide.column
         %h5.ui.header= t('.matches_total')
         .ui.labels
@@ -20,7 +20,7 @@
           .ui.basic.label
             = expert.received_matches.where(status: :not_for_me).count
             .detail= t('.matches_total_not_for_me')
-    - cache "expert_received_needs_#{expert.id}_#{expert.received_needs.maximum(:updated_at)}" do
+    - cache ["received_needs", expert, expert.received_needs] do
       .seven.wide.column
         %h5.ui.header= t('.received_needs_abandoned')
         .ui.labels
