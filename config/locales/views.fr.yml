@@ -572,7 +572,8 @@ fr:
       title: Solicitations
     menu:
       canceled: Annulées
-      in_progress: À traiter
+      in_progress: Relancées
+      index: À traiter
       processed: Traitées
     set_category_content:
       landings: Landings

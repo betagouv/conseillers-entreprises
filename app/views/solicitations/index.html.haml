@@ -3,7 +3,7 @@
 - content_for :header, render('header', title: t('.header', status: @status))
 - content_for :menu, render('menu')
 
-%p= page_entries_info @solicitations
+%p= collection_count @solicitations
 
 .ui.divider.hidden
 = form_with url: request.fullpath, method: :get, local: true do |f|

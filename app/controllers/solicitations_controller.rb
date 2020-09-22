@@ -8,7 +8,13 @@ class SolicitationsController < ApplicationController
 
   def index
     @solicitations = ordered_solicitations.status_in_progress
+    @status = t('solicitations.menu.index').downcase
+  end
+
+  def in_progress
+    @solicitations = ordered_solicitations.status_in_progress.joins(:feedbacks)
     @status = t('solicitations.menu.in_progress').downcase
+    render :index
   end
 
   def processed

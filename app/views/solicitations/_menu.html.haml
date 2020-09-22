@@ -1,3 +1,4 @@
-= active_link_to(t('.in_progress'), solicitations_path, active: [solicitations: :index], class: 'item')
+= active_link_to(t('.index'), solicitations_path, active: [solicitations: :index], class: 'item')
+= active_link_to(t('.in_progress'), in_progress_solicitations_path, class: 'item')
 = active_link_to(t('.processed'), processed_solicitations_path, class: 'item')
 = active_link_to(t('.canceled'), canceled_solicitations_path, class: 'item')
