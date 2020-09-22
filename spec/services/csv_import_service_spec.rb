@@ -190,6 +190,25 @@ describe CsvImport do
       end
     end
 
+    context 'failing teams' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,,Equipe des chefs
+        CSV
+      end
+
+      it do
+        expect(result).not_to be_success
+        first_error = result.objects.first.errors.details.dig(:experts, -1)
+        expect(first_error).not_to be_nil
+        expect(first_error[:error]).to eq :invalid
+        invalid_experts = first_error[:value]
+        expect(invalid_experts).not_to be_nil
+        expect(invalid_experts.flat_map{ |e| e.errors.details }).to eq [{}, { :"phone_number" => [{ error: :blank }] }]
+      end
+    end
+
     context 'set subjects with subject-specific columns' do
       let(:csv) do
         <<~CSV

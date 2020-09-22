@@ -37,11 +37,15 @@ module CsvImport
       if expert.present?
         import_several_subjects(expert, attributes)
         import_one_subject(expert, attributes)
-        # Force-trigger validations in User
-        # Removing and Adding the same object to the relation _works_: ActiveRecords remove the object of the same id,
-        # then add the new in-memory object.
-        other_experts = user.experts - [expert]
-        user.experts = other_experts + [expert]
+
+        # Force-trigger validations in User: expert can be already in the user experts, not in the experts but saved, or not saved at all.
+        # Setting .experts = to a failing object raises an error, and we don‘t want that
+        if expert.persisted?
+          other_experts = user.experts - [expert]
+          user.experts = other_experts + [expert]
+        else
+          user.experts.build(expert.attributes)
+        end
       end
     end
 
@@ -59,7 +63,7 @@ module CsvImport
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
-        team = user.institution.experts.find_or_initialize_by(email: attributes[:email])
+        team = @institution.experts.find_or_initialize_by(email: attributes[:email])
         team.update(attributes)
 
         team

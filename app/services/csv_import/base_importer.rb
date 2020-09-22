@@ -39,6 +39,7 @@ module CsvImport
           # Convert row to user attributes
           attributes = row.slice(*mapping.keys)
             .transform_keys{ |k| mapping[k] }
+            .compact
 
           preprocess(attributes)
 
