@@ -10,33 +10,16 @@ describe "diagnoses/steps/matches.html.haml", type: :view do
   let(:expert_support) { create :expert, communes: [diagnosis.facility.commune] }
   let!(:expert_subject_support) { create :expert_subject, expert: expert_support, institution_subject: institution_subject_support }
 
-  describe "diagnosis with specialist" do
-    let(:expert_specialist) { create :expert, communes: [diagnosis.facility.commune] }
-    let!(:expert_subject_specialist) { create :expert_subject, expert: expert_specialist, institution_subject: institution_subject, role: 'specialist' }
-    let(:expert_fallback) { create :expert, communes: [diagnosis.facility.commune] }
-    let!(:expert_subject_fallback) { create :expert_subject, expert: expert_fallback, institution_subject: institution_subject, role: 'fallback' }
+  describe "diagnosis with experts" do
+    let(:expert) { create :expert, communes: [diagnosis.facility.commune] }
+    let!(:expert_subject) { create :expert_subject, expert: expert, institution_subject: institution_subject }
 
-    it "display only specialists" do
+    it "displays experts" do
       assign(:diagnosis, diagnosis)
 
       render
 
-      expect(response.body).to match expert_specialist.full_name
-      expect(response.body).not_to match expert_fallback.full_name
-      expect(response.body).not_to match expert_support.full_name
-    end
-  end
-
-  describe "diagnosis with fallback only" do
-    let(:expert_fallback) { create :expert, communes: [diagnosis.facility.commune] }
-    let!(:expert_subject_fallback) { create :expert_subject, expert: expert_fallback, institution_subject: institution_subject, role: 'fallback' }
-
-    it "display fallback expert only" do
-      assign(:diagnosis, diagnosis)
-
-      render
-
-      expect(response.body).to match expert_fallback.full_name
+      expect(response.body).to match expert.full_name
       expect(response.body).not_to match expert_support.full_name
     end
   end
