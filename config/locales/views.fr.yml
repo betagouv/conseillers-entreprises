@@ -239,6 +239,8 @@ fr:
       analysis_in_progress: Analyse en cours (%{step})
       view_completed_analysis: Voir l’analyse réalisée
   institutions:
+    advisors_table:
+      experts_on_subject: "%{count} référents sur ce sujet"
     import_errors:
       import_failed: Échec de l’import
       unknown_headers:

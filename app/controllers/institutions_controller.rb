@@ -69,7 +69,7 @@ class InstitutionsController < ApplicationController
 
     @institutions_subjects = @institution.institutions_subjects
       .ordered_for_interview
-      .preload(:subject, :theme, :experts_subjects)
+      .preload(:subject, :theme, :experts_subjects, :experts)
 
     @antennes = @institution.antennes
       .order(:name)

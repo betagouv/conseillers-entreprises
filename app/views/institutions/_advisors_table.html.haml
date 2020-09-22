@@ -3,10 +3,10 @@
     -# For the subjects columns, we'll build our header on 3 rows: theme, subject and institutions_subject.
     - grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
     %tr
-      -# The first 3 columns are for the antenne, team, and user names, spanning the 3 header rows.
-      %th{ rowspan: 3 }
-      %th{ rowspan: 3 }= User.human_attribute_name(:team_full_name)
-      %th{ rowspan: 3 }= User.human_attribute_name(:user)
+      -# The first 3 columns are for the antenne, team, and user names, spanning the 4 header rows.
+      %th{ rowspan: 4 }
+      %th{ rowspan: 4 }= User.human_attribute_name(:team_full_name)
+      %th{ rowspan: 4 }= User.human_attribute_name(:user)
       -# Subjects columns, first row: the themes, column-spanned for the two remaining header rows
       - grouped_subjects.each do |theme, subjects|
         %th{ colspan: subjects.values.sum(&:size) }= theme.label
@@ -27,6 +27,16 @@
         - subjects.each_value do |institutions_subjects|
           - institutions_subjects.each do |institution_subject|
             %th= institution_subject.description
+    %tr.advisors-count
+      %th.rowspanned
+      %th.rowspanned
+      %th.rowspanned
+      - institutions_subjects.each do |institution_subject|
+        - count = institution_subject.experts.size
+        %th.right.aligned{ title: t('.experts_on_subject', count: count) }
+          - if count.zero?
+            %i.ui.red.icon.exclamation.triangle
+          = count
   %tbody
     -# `advisors` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
       We’ll group by Antenne and by Expert team, and span the first two columns as needed.
