@@ -70,7 +70,7 @@ class SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations
-    Solicitation.order(updated_at: :desc).page(params[:page]).omnisearch(params[:query])
+    Solicitation.order(created_at: :desc).page(params[:page]).omnisearch(params[:query])
   end
 
   def authorize_index_solicitation
