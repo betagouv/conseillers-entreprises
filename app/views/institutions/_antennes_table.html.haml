@@ -5,9 +5,9 @@
       %th= Antenne.human_attribute_name(:intervention_zone)
   %tbody
     - antennes.each do |antenne|
-      %tr
-        - highlighted_ids = flash[:table_highlighted_ids]
-        %td{ class: ('left marked blue' if highlighted_ids&.include?(antenne.id)) }
+      - highlighted_ids = flash[:table_highlighted_ids]
+      %tr{ class: highlighted_ids&.include?(antenne.id) ? 'blue' : '' }
+        %td
           = antenne.name
         %td
           %ul

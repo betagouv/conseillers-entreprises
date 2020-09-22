@@ -54,6 +54,7 @@ class Expert < ApplicationRecord
   #
   validates :antenne, presence: true
   validates :email, :phone_number, presence: true, unless: :deleted?
+  validates_associated :experts_subjects, on: :import
 
   ## “Through” Associations
   #

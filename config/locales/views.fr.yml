@@ -238,6 +238,9 @@ fr:
   institutions:
     import_errors:
       import_failed: Échec de l’import
+      unknown_headers:
+        one: En-tête non reconnu
+        other: En-têtes non reconnus
   landing_topics:
     landing_topic:
       choose: Choisir

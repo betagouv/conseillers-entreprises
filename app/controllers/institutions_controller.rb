@@ -26,7 +26,7 @@ class InstitutionsController < ApplicationController
       format.csv do
         csv = CsvExportService.csv(@antennes)
         filename = CsvExportService.filename(@antennes)
-        send_data csv, type: 'text/csv; charset=utf-8', disposition: "filename=#{filename}.csv"
+        send_data csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{filename}.csv"
       end
     end
   end
@@ -40,13 +40,13 @@ class InstitutionsController < ApplicationController
         csv = CsvExportService.csv(@advisors, additional_fields)
         filename = CsvExportService.filename(@advisors)
 
-        send_data csv, type: 'text/csv; charset=utf-8', disposition: "filename=#{filename}.csv"
+        send_data csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{filename}.csv"
       end
     end
   end
 
   def import_antennes
-    @result = CsvImport::AntenneImporter.import(params.require(:file))
+    @result = CsvImport::AntenneImporter.import(params.require(:file), @institution)
     if @result.success?
       flash[:table_highlighted_ids] = @result.objects.map(&:id)
       redirect_to action: :antennes

@@ -2,11 +2,9 @@ require 'rails_helper'
 
 describe CsvImport do
   describe 'automatic column separator detection' do
-    subject(:result) { CsvImport::AntenneImporter.import(csv) }
+    subject(:result) { CsvImport::AntenneImporter.import(csv, institution) }
 
-    before do
-      create :institution, name: 'Test Institution'
-    end
+    let(:institution) { create :institution, name: 'Test Institution' }
 
     context 'no error' do
       context 'commas' do
@@ -43,7 +41,7 @@ describe CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « Foo »']
+          expect(result.header_errors.map(&:message)).to eq ['Foo']
         end
       end
 
@@ -57,14 +55,16 @@ describe CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « Foo »']
+          expect(result.header_errors.map(&:message)).to eq ['Foo']
         end
       end
     end
   end
 
   describe 'import antennes' do
-    subject(:result) { CsvImport::AntenneImporter.import(csv) }
+    subject(:result) { CsvImport::AntenneImporter.import(csv, institution) }
+
+    let(:institution) { create :institution, name: 'Test Institution' }
 
     context 'malformed file' do
       let(:csv) do
@@ -88,18 +88,11 @@ describe CsvImport do
 
       it do
         expect(result).not_to be_success
-        expect(result.header_errors.map(&:message)).to eq [
-          'En-tête non reconnu: « Foo »',
-          'En-tête non reconnu: « Bar »'
-        ]
+        expect(result.header_errors.map(&:message)).to eq %w[Foo Bar]
       end
     end
 
     context 'invalid rows' do
-      before do
-        create :institution, name: 'Test Institution'
-      end
-
       let(:csv) do
         <<~CSV
           Institution,Nom,Codes commune
@@ -115,10 +108,6 @@ describe CsvImport do
     end
 
     context 'two antennes' do
-      before do
-        create :institution, name: 'Test Institution'
-      end
-
       let(:csv) do
         <<~CSV
           Institution,Nom,Codes commune
@@ -137,7 +126,6 @@ describe CsvImport do
 
     context 'existing antenne overwrite' do
       before do
-        institution = create :institution, name: 'Test Institution'
         create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
       end
 
@@ -202,6 +190,25 @@ describe CsvImport do
       end
     end
 
+    context 'failing teams' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,,Equipe des chefs
+        CSV
+      end
+
+      it do
+        expect(result).not_to be_success
+        first_error = result.objects.first.errors.details.dig(:experts, -1)
+        expect(first_error).not_to be_nil
+        expect(first_error[:error]).to eq :invalid
+        invalid_experts = first_error[:value]
+        expect(invalid_experts).not_to be_nil
+        expect(invalid_experts.flat_map{ |e| e.errors.details }).to eq [{}, { :"phone_number" => [{ error: :blank }] }]
+      end
+    end
+
     context 'set subjects with subject-specific columns' do
       let(:csv) do
         <<~CSV
@@ -253,7 +260,12 @@ describe CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.objects.first.errors.details).to eq({ experts: [{ error: :invalid }, { error: { :"experts_subjects.institution_subject" => [{ error: :blank }] } }] })
+          first_error = result.objects.first.errors.details.dig(:experts, -1)
+          expect(first_error).not_to be_nil
+          expect(first_error[:error]).to eq :invalid
+          invalid_experts = first_error[:value]
+          expect(invalid_experts).not_to be_nil
+          expect(invalid_experts.flat_map{ |e| e.errors.details }).to eq [{ :"experts_subjects.institution_subject" => [{ error: :blank }] }]
         end
       end
     end
@@ -289,7 +301,7 @@ describe CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.header_errors.map(&:message)).to eq ['En-tête non reconnu: « The Subject »']
+          expect(result.header_errors.map(&:message)).to eq ['The Subject']
         end
       end
     end

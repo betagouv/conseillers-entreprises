@@ -7,17 +7,11 @@ module CsvImport
     end
 
     def success?
-      @header_errors.blank? && @objects.all?{ |object| object.valid?(:import) }
+      @success ||= @header_errors.blank? && @objects.all?{ |object| object.valid?(:import) }
     end
   end
 
   class UnknownHeaderError < StandardError
-    attr_reader :header
-
-    def initialize(header)
-      @header = header
-      super("En-tête non reconnu: « #{header} »")
-    end
   end
 
   class BaseImporter
@@ -35,7 +29,7 @@ module CsvImport
         return Result.new(rows: [], header_errors: [csv], objects: [])
       end
 
-      header_errors = check_headers(csv.headers)
+      header_errors = check_headers(csv.headers.compact)
 
       rows = csv.map(&:to_h)
       objects = []
@@ -45,6 +39,7 @@ module CsvImport
           # Convert row to user attributes
           attributes = row.slice(*mapping.keys)
             .transform_keys{ |k| mapping[k] }
+            .compact
 
           preprocess(attributes)
 
@@ -57,8 +52,9 @@ module CsvImport
           object
         end
 
-        # Build all objects to collect errors, but rollback everything on error
-        if objects.any?{ |object| object.invalid?(:import) }
+        # Validate all objects to collect errors, but rollback everything if there is one error
+        all_valid = objects.map{ |object| object.validate(:import) }
+        if all_valid.include? false
           raise ActiveRecord::Rollback
         end
       end

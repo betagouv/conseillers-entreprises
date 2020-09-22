@@ -2,5 +2,4 @@
 - content_for :header, render('header', institution: @institution)
 - content_for :menu, render('menu', institution: @institution)
 
-.wide-scrolling
-  = render 'advisors_table', institutions_subjects: @institutions_subjects, advisors: @advisors
+= render 'advisors_table', institutions_subjects: @institutions_subjects, advisors: @advisors

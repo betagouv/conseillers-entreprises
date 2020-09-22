@@ -21,7 +21,7 @@ module CsvImport
     end
 
     def preprocess(attributes)
-      institution = Institution.find_by(name: attributes[:institution])
+      institution = Institution.find_by(name: attributes[:institution]) || @institution
       antenne = Antenne.find_by(institution: institution, name: attributes[:antenne])
       attributes.delete(:institution)
       attributes[:antenne] = antenne
@@ -37,11 +37,15 @@ module CsvImport
       if expert.present?
         import_several_subjects(expert, attributes)
         import_one_subject(expert, attributes)
-        # Force-trigger validations in User
-        # Removing and Adding the same object to the relation _works_: ActiveRecords remove the object of the same id,
-        # then add the new in-memory object.
-        other_experts = user.experts - [expert]
-        user.experts = other_experts + [expert]
+
+        # Force-trigger validations in User: expert can be already in the user experts, not in the experts but saved, or not saved at all.
+        # Setting .experts = to a failing object raises an error, and we don‘t want that
+        if expert.persisted?
+          other_experts = user.experts - [expert]
+          user.experts = other_experts + [expert]
+        else
+          user.experts.build(expert.attributes)
+        end
       end
     end
 
@@ -59,12 +63,8 @@ module CsvImport
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
-        team = Expert.find_or_initialize_by(email: attributes[:email])
+        team = @institution.experts.find_or_initialize_by(email: attributes[:email])
         team.update(attributes)
-
-        unless user.experts.include? team
-          user.experts << team
-        end
 
         team
       end
@@ -86,19 +86,19 @@ module CsvImport
       attributes = all_attributes.slice(*several_subjects_mapping.keys)
         .transform_keys{ |k| several_subjects_mapping[k] }
 
-      experts_subjects = attributes.map do |institution_subject, serialized_description|
+      experts_subjects_attributes = attributes.map do |institution_subject, serialized_description|
         # TODO: serialized_description may be an array of hashes
         if serialized_description.present?
-          expert_subject_attributes = {
+          {
             institution_subject: institution_subject,
             csv_description: serialized_description
           }
-
-          ExpertSubject.new(expert_subject_attributes)
         end
-      end
+      end.compact
 
-      expert.experts_subjects = experts_subjects.compact
+      expert.experts_subjects.clear
+      expert.experts_subjects.new(experts_subjects_attributes)
+      expert.save
     end
 
     def one_subject_mapping
@@ -116,7 +116,7 @@ module CsvImport
         role: :specialist
       }
       expert.experts_subjects.clear
-      expert.experts_subjects.create(expert_subject_attributes)
+      expert.experts_subjects.new(expert_subject_attributes)
       expert.save
     end
   end
