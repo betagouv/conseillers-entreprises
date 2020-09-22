@@ -261,6 +261,27 @@ RSpec.describe Need, type: :model do
       end
     end
 
+    describe 'reminder' do
+      let(:date1) { Time.zone.now.beginning_of_day }
+      let(:date2) { date1 - 11.days }
+      let(:date3) { date1 - 31.days }
+      let(:new_need) { travel_to(date1) { create :need_with_matches } }
+      let(:mid_need) { travel_to(date2) { create :need_with_matches } }
+      let(:old_need) { travel_to(date3) { create :need_with_matches } }
+
+      before do
+        new_need
+        mid_need
+        old_need
+      end
+
+      subject { described_class.reminder }
+
+      it 'expect to have needs between 10 and 30 days' do
+        is_expected.to eq [mid_need]
+      end
+    end
+
     describe 'by_status_no_help' do
       let(:match_taking_care) { create(:match, status: :taking_care) }
       let(:match_done) { create(:match, status: :done) }

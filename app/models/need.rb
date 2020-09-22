@@ -102,6 +102,12 @@ class Need < ApplicationRecord
       .abandoned
   end
 
+  scope :reminders_to_process, -> do
+    by_status(:no_help)
+      .archived(false)
+      .reminder
+  end
+
   scope :reminder_quo_not_taken, -> do
     by_status(:no_help)
       .archived(false)
@@ -141,7 +147,7 @@ class Need < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_DELAY.ago) }
+  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDER_DELAY.ago) }
 
   scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_ABANDONED_DELAY.ago) }
 

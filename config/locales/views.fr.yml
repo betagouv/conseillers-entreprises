@@ -546,14 +546,12 @@ fr:
       title: Relances
     needs:
       header:
-        abandoned_quo_not_taken: À traiter
         abandoned_without_taking_care: Abandonnés
         reminder_in_progress: En cours
         reminder_quo_not_taken: À traiter
       index:
         title: Besoins %{status}
       menu:
-        abandoned_quo_not_taken_html: À traiter <i>(+10 jours)</i>
         abandoned_without_taking_care_html: Abandonnés <i>(+30 jours)</i>
         reminder_in_progress_html: En cours <i>(relancés)</i>
         reminder_quo_not_taken_html: À traiter <i>(+10 jours)</i>

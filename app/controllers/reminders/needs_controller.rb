@@ -7,7 +7,7 @@ module Reminders
     layout 'side_menu'
 
     def index
-      retrieve_needs :abandoned_quo_not_taken
+      retrieve_needs :reminder_quo_not_taken
     end
 
     def in_progress
