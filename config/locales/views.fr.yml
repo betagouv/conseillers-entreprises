@@ -564,11 +564,16 @@ fr:
   solicitations:
     index:
       clear_search: Réinitialiser la recherche
+      header: Solicitations %{status}
       manage_badges: Gérer les tags
       no_result: Il n'y a pas de résultat pour cette recherche.
       search: Rechercher
       search_placeholder: Tag, aide demandée…
       title: Solicitations
+    menu:
+      canceled: Annulées
+      in_progress: À traiter
+      processed: Traitées
     set_category_content:
       landings: Landings
       options: Options
@@ -592,10 +597,6 @@ fr:
       view_diagnoses: "%{count} analyses"
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags
-    solicitations_tabs:
-      canceled: Annulées
-      in_progress: À traiter
-      processed: Traitées
   stats:
     series:
       advisors: Conseillers publics

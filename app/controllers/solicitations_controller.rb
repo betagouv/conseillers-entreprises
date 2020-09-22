@@ -4,17 +4,22 @@ class SolicitationsController < ApplicationController
   before_action :authorize_update_solicitation, only: [:update_status]
   before_action :set_category_content, only: %i[index processed canceled]
 
+  layout 'side_menu'
+
   def index
     @solicitations = ordered_solicitations.status_in_progress
+    @status = t('solicitations.menu.in_progress').downcase
   end
 
   def processed
     @solicitations = ordered_solicitations.status_processed
+    @status = t('solicitations.menu.processed').downcase
     render :index
   end
 
   def canceled
     @solicitations = ordered_solicitations.status_canceled
+    @status = t('solicitations.menu.canceled').downcase
     render :index
   end
 

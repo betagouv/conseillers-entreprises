@@ -1,8 +1,9 @@
 - meta title: t('.title')
 
-= render 'solicitations_tabs'
+- content_for :header, render('header', title: t('.header', status: @status))
+- content_for :menu, render('menu')
+
 %p= page_entries_info @solicitations
-= paginate @solicitations
 
 .ui.divider.hidden
 = form_with url: request.fullpath, method: :get, local: true do |f|
@@ -14,6 +15,8 @@
     .results
   - if params[:query].present?
     = link_to t('.clear_search'), request.fullpath.split('?').first, id: 'clear-search'
+
+= paginate @solicitations
 
 - max_badge_updated_at = Badge.maximum(:updated_at)
 - if @solicitations.present?
