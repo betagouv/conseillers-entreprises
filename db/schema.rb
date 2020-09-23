@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_31_095725) do
+ActiveRecord::Schema.define(version: 2020_09_23_105152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 2020_08_31_095725) do
     t.bigint "expert_id"
     t.bigint "institution_subject_id"
     t.integer "role", default: 0, null: false
+    t.index ["expert_id", "institution_subject_id"], name: "index_experts_subjects_on_expert_id_and_institution_subject_id", unique: true
     t.index ["expert_id"], name: "index_experts_subjects_on_expert_id"
     t.index ["institution_subject_id"], name: "index_experts_subjects_on_institution_subject_id"
     t.index ["role"], name: "index_experts_subjects_on_role"
