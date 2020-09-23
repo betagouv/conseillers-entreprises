@@ -1,5 +1,8 @@
 module Reminders
   class ExpertsController < RemindersController
+    before_action :retrieve_expert, except: :index
+    before_action :count_expert_needs, except: %i[index reminders_notes]
+
     def index
       @territories = Territory.all.order(:bassin_emploi, :name)
       @territory = retrieve_territory
@@ -10,11 +13,11 @@ module Reminders
     end
 
     def show
-      @expert = retrieve_expert
     end
 
     def needs
-      retrieve_needs :needs_quo
+      retrieve_needs(:needs_quo)
+      @needs = @needs.abandoned
     end
 
     def needs_taking_care
@@ -28,7 +31,6 @@ module Reminders
     end
 
     def reminders_notes
-      @expert = retrieve_expert
       @expert.update(safe_params[:expert])
     end
 
@@ -39,13 +41,22 @@ module Reminders
     end
 
     def retrieve_expert
-      Expert.find(safe_params[:id])
+      @expert = Expert.find(safe_params[:id])
     end
 
     def retrieve_needs(status)
-      @expert = retrieve_expert
       @needs = @expert.send(status).page params[:page]
-      @status = t("needs.index.#{status}").downcase
+      @status = t("needs.header.#{status}")
+    end
+
+    def count_expert_needs
+      @count_expert_needs = Rails.cache.fetch(["reminders_expert_need", @expert.received_needs]) do
+        {
+          quo_abandonned: @expert.needs_quo.abandoned.size,
+            needs_taking_care: @expert.needs_taking_care.size,
+            needs_others_taking_care: @expert.needs_others_taking_care.size
+        }
+      end
     end
   end
 end

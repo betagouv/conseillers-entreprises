@@ -442,15 +442,19 @@ fr:
     archives_antenne:
       browse_active_needs: Voir les demandes reçues pour l'antenne
       title: Demandes archivées de %{antenne}
+    header:
+      needs_others_taking_care: pris en charge par d'autres référents
+      needs_quo: en attentes
+      needs_taking_care: pris en charges
     index:
       all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
       browse_archived_needs: Voir mes demandes archivées
       contact_us_mailto_text: Contactez-nous !
       needs_for_you: 'Ces entreprises ont besoin de vous :'
-      needs_others_taking_care: Pris en charge par d’autres référents
-      needs_quo: En attentes
-      needs_taking_care: Pris en charges
+      needs_others_taking_care_html: "%{label} Pris en charge par d’autres référents"
+      needs_quo_html: "%{label} Sans réponse <i>(+15 jours)</i>"
+      needs_taking_care_html: "%{label} Pris en charge"
       no_needs: Il n’y a aucune demande.
       no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
