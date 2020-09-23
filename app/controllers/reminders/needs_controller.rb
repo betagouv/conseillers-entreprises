@@ -1,10 +1,6 @@
 module Reminders
-  class NeedsController < ApplicationController
-    before_action :authenticate_admin!
-    before_action :maybe_review_expert_subjects
+  class NeedsController < RemindersController
     before_action :find_territories
-
-    layout 'side_menu'
 
     def index
       retrieve_needs :reminder_quo_not_taken
@@ -25,13 +21,6 @@ module Reminders
     def find_territories
       @territories = Territory.regions.order(:name)
       @territory = retrieve_territory
-    end
-
-    def retrieve_territory
-      safe_params = params.permit(:territory)
-      if safe_params[:territory].present?
-        Territory.find(safe_params[:territory])
-      end
     end
 
     def retrieve_needs(scope)

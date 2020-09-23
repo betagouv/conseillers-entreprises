@@ -1,10 +1,5 @@
 module Reminders
-  class ExpertsController < ApplicationController
-    before_action :authenticate_admin!
-    before_action :maybe_review_expert_subjects
-
-    layout 'side_menu'
-
+  class ExpertsController < RemindersController
     def index
       @territories = Territory.all.order(:bassin_emploi, :name)
       @territory = retrieve_territory
@@ -38,13 +33,6 @@ module Reminders
     end
 
     private
-
-    def retrieve_territory
-      safe_params = params.permit(:territory)
-      if safe_params[:territory].present?
-        Territory.find(safe_params[:territory])
-      end
-    end
 
     def safe_params
       params.permit(:id, expert: :reminders_notes)
