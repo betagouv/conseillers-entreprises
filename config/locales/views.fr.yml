@@ -232,6 +232,8 @@ fr:
           one: "<b>1</b> %{entry_name}"
           other: "<b>%{count}</b> %{entry_name}"
           zero: Aucune %{entry_name}
+    page_infos:
+      collection_count_html: "<strong>%{size}</strong> %{name}"
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       view_completed_analysis: Voir l’analyse réalisée
