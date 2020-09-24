@@ -39,6 +39,7 @@ class ExpertSubject < ApplicationRecord
   ## Validations
   #
   validates :role, presence: true
+  validates :expert, uniqueness: { scope: :institution_subject_id }
 
   ## Scopes
   #
