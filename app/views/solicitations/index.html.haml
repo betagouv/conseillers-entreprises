@@ -1,7 +1,7 @@
 - meta title: t('.title')
 
 - content_for :header, render('header', title: t('.header', status: @status))
-- content_for :menu, render('menu')
+- content_for :menu, render('menu', count: @count_solicitations)
 
 %p= collection_count @solicitations
 

@@ -3,29 +3,30 @@ class SolicitationsController < ApplicationController
   before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
   before_action :set_category_content, only: %i[index processed canceled]
+  before_action :count_solicitations, only: %i[index in_progress processed canceled]
 
   layout 'side_menu'
 
   def index
     @solicitations = ordered_solicitations.without_feedbacks
-    @status = t('solicitations.menu.index').downcase
+    @status = t('solicitations.header.index')
   end
 
   def in_progress
     @solicitations = ordered_solicitations.with_feedbacks
-    @status = t('solicitations.menu.in_progress').downcase
+    @status = t('solicitations.header.in_progress')
     render :index
   end
 
   def processed
     @solicitations = ordered_solicitations.status_processed
-    @status = t('solicitations.menu.processed').downcase
+    @status = t('solicitations.header.processed')
     render :index
   end
 
   def canceled
     @solicitations = ordered_solicitations.status_canceled
-    @status = t('solicitations.menu.canceled').downcase
+    @status = t('solicitations.header.canceled')
     render :index
   end
 
@@ -106,5 +107,14 @@ class SolicitationsController < ApplicationController
       .pluck(:title).map { |title| { category: t('solicitations.set_category_content.tags'), title: title } }
       .concat Solicitation.all_past_landing_options_slugs.map { |slug| { category: t('solicitations.set_category_content.options'), title: slug } }
       .concat Landing.pluck(:slug).map { |slug| { category: t('solicitations.set_category_content.landings'), title: slug } }
+  end
+
+  def count_solicitations
+    @count_solicitations = Rails.cache.fetch(["count-solicitations", Solicitation.all]) do
+      {
+        without_feedbacks: ordered_solicitations.without_feedbacks.total_count,
+          with_feedbacks: ordered_solicitations.with_feedbacks.total_count
+      }
+    end
   end
 end

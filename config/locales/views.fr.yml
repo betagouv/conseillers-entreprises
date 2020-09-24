@@ -563,6 +563,11 @@ fr:
         reminder_in_progress_html: "%{label} Relancés"
         reminder_quo_not_taken_html: "%{label} À traiter <i>(+10 jours)</i>"
   solicitations:
+    header:
+      canceled: annulées
+      in_progress: relancées
+      index: à traiter
+      processed: traitées
     index:
       clear_search: Réinitialiser la recherche
       header: Solicitations %{status}
@@ -573,8 +578,8 @@ fr:
       title: Solicitations
     menu:
       canceled: Annulées
-      in_progress: Relancées
-      index: À traiter
+      in_progress_html: "%{label} Relancées"
+      index_html: "%{label} À traiter"
       processed: Traitées
     set_category_content:
       landings: Landings
