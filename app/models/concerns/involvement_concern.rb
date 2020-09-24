@@ -18,7 +18,7 @@ module InvolvementConcern
   def needs_others_taking_care
     received_needs
       .by_status(:taking_care)
-      .where.not(matches: received_matches.status_taking_care)
+      .where(matches: received_matches.status_quo)
       .archived(false)
   end
 

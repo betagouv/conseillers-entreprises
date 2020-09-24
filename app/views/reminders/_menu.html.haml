@@ -1,5 +1,5 @@
-= active_link_to(t('reminders.needs.menu.abandoned_quo_not_taken'), reminders_needs_path, active: ['reminders/needs': :index], class: 'item')
-= active_link_to(t('reminders.needs.menu.reminder_in_progress'), in_progress_reminders_needs_path, active: ['reminders/needs': :in_progress], class: 'item')
-= active_link_to(t('reminders.needs.menu.abandoned_without_taking_care'), abandoned_reminders_needs_path, active: ['reminders/needs': :abandoned], class: 'item')
+= active_link_to(t('reminders.needs.menu.reminder_quo_not_taken_html', label: colored_label(count_needs[:reminder_quo_not_taken])), reminders_needs_path, active: ['reminders/needs': :index], class: 'item')
+= active_link_to(t('reminders.needs.menu.reminder_in_progress_html', label: colored_label(count_needs[:reminder_in_progress])), in_progress_reminders_needs_path, active: ['reminders/needs': :in_progress], class: 'item')
+= active_link_to(t('reminders.needs.menu.abandoned_without_taking_care_html', label: colored_label(count_needs[:abandoned_without_taking_care])), abandoned_reminders_needs_path, active: ['reminders/needs': :abandoned], class: 'item')
 .ui.divider
-= active_link_to t('reminders.experts.menu.experts'), reminders_experts_path, { class: 'item' }
+= active_link_to Expert.model_name.human.pluralize, reminders_experts_path, { class: 'item' }

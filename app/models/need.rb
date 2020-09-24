@@ -102,8 +102,14 @@ class Need < ApplicationRecord
       .abandoned
   end
 
+  scope :reminders_to_process, -> do
+    by_status(:no_help)
+      .archived(false)
+      .reminder
+  end
+
   scope :reminder_quo_not_taken, -> do
-    by_status(:quo)
+    by_status(:no_help)
       .archived(false)
       .reminder
       .left_outer_joins(:feedbacks)
@@ -112,15 +118,16 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_in_progress, -> do
-    by_status(:quo)
+    by_status(:no_help)
       .archived(false)
+      .reminder
       .joins(:feedbacks)
   end
 
   scope :abandoned_without_taking_care, -> do
     with_matches_only_in_status([:quo, :done_no_help, :done_not_reachable, :not_for_me])
       .archived(false)
-      .reminder
+      .reminder_abandoned
   end
 
   scope :abandoned_taken_not_done, -> do
@@ -140,7 +147,9 @@ class Need < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_DELAY.ago) }
+  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDER_DELAY.ago) }
+
+  scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_ABANDONED_DELAY.ago) }
 
   scope :abandoned, -> { where("needs.last_activity_at < ?", ABANDONED_DELAY.ago) }
 
@@ -159,16 +168,18 @@ class Need < ApplicationRecord
       diagnosis_completed
         .left_outer_joins(:matches).where('matches.id IS NULL').distinct
     when :quo
-      with_matches_only_in_status([:quo, :not_for_me])
+      with_matches_only_in_status([:quo, :not_for_me, :done_no_help, :done_not_reachable])
         .with_some_matches_in_status(:quo)
     when :taking_care
       with_some_matches_in_status(:taking_care)
-        .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
+        .with_matches_only_in_status([:quo, :taking_care, :not_for_me, :done_no_help, :done_not_reachable])
     when :done
       with_some_matches_in_status(:done)
     when :not_for_me
       with_some_matches_in_status(:not_for_me)
         .with_matches_only_in_status(:not_for_me)
+    when :no_help
+      with_matches_only_in_status([:quo, :not_for_me, :done_no_help, :done_not_reachable])
     end
   end
 
@@ -206,7 +217,10 @@ class Need < ApplicationRecord
   #
   # Need.status isn't an enum, but we want human_attribute_values and friends to work the same.
   def self.statuses
-    { "diagnosis_not_complete" => -2, "sent_to_no_one" => -1, "quo" => 0, "taking_care" => 1, "done" => 2, "not_for_me" => 3, }
+    {
+      "diagnosis_not_complete" => -2, "sent_to_no_one" => -1, "quo" => 0, "taking_care" => 1, "done" => 2,
+      "not_for_me" => 3, "done_no_help" => 4, "done_not_reachable" => 5
+    }
   end
 
   def status
@@ -222,6 +236,10 @@ class Need < ApplicationRecord
       :taking_care
     elsif matches_status.include?(:quo)
       :quo
+    elsif matches_status.include?(:done_no_help)
+      :done_no_help
+    elsif matches_status.include?(:done_not_reachable)
+      :done_not_reachable
     else # matches_status.all?{ |o| o == :not_for_me }
       :not_for_me
     end
