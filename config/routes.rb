@@ -164,12 +164,12 @@ Rails.application.routes.draw do
   resources :feedbacks, only: %i[create destroy]
 
   namespace :reminders, path: 'relances' do
-    resources :experts, only: %i[index show] do
+    resources :experts, only: %i[index show], path: 'referents' do
       member do
         post :reminders_notes
-        get :needs
-        get :needs_taking_care
-        get :needs_taking_care_by_others
+        get :needs, path: 'besoins_en_attentes'
+        get :needs_taking_care, path: 'besoins_pris_en_charges'
+        get :needs_taking_care_by_others, path: 'besoins_pris_en_charges_par_dautres'
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do

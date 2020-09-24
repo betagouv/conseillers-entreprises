@@ -4,7 +4,7 @@
       = person_block(expert, suffix: t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long)))
 .ui.grid
   .row
-    - cache "expert_received_matches_#{expert.id}_#{expert.received_matches.maximum(:updated_at)}" do
+    - cache ["received_matches", expert, expert.received_matches] do
       .nine.wide.column
         %h5.ui.header= t('.matches_total')
         .ui.labels
@@ -20,22 +20,22 @@
           .ui.basic.label
             = expert.received_matches.where(status: :not_for_me).count
             .detail= t('.matches_total_not_for_me')
-    - cache "expert_received_needs_#{expert.id}_#{expert.received_needs.maximum(:updated_at)}" do
+    - cache ["received_needs", expert, expert.received_needs] do
       .seven.wide.column
         %h5.ui.header= t('.received_needs_abandoned')
         .ui.labels
           - abandoned_count = expert.needs_quo.abandoned.count
-          .ui.label{ class: abandoned_count > 0 ? 'orange' : 'basic' }
+          = link_to needs_reminders_expert_path(expert), class: "ui label #{abandoned_count > 0 ? 'orange' : 'basic'}" do
             = abandoned_count
             .detail{ title: t('.received_needs_abandoned_quo_not_taken_tooltip') }
               = t('.received_needs_abandoned_quo_not_taken')
           - abandoned_count = expert.needs_taking_care.abandoned.count
-          .ui.label{ class: abandoned_count > 0 ? 'yellow' : 'basic' }
+          = link_to needs_taking_care_reminders_expert_path(expert), class: "ui label #{abandoned_count > 0 ? 'yellow' : 'basic'}" do
             = abandoned_count
             .detail{ title: t('.received_needs_abandoned_taking_care_tooltip') }
               = t('.received_needs_abandoned_taking_care')
           - abandoned_count = expert.needs_others_taking_care.abandoned.count
-          .ui.label{ class: abandoned_count > 0 ? 'yellow' : 'basic' }
+          = link_to needs_taking_care_by_others_reminders_expert_path(expert), class: "ui label #{abandoned_count > 0 ? 'yellow' : 'basic'}" do
             = abandoned_count
             .detail{ title: t('.received_needs_abandoned_others_taking_care_tooltip') }
               = t('.received_needs_abandoned_others_taking_care')

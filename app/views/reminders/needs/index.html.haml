@@ -1,5 +1,5 @@
 - content_for :header, render('reminders/header', title: t('.title', status: @status))
-- content_for :menu, render('reminders/menu')
+- content_for :menu, render('reminders/menu', count_needs: @count_needs)
 
 = form_with url: request.path, method: :get, skip_enforcing_utf8: true, class: 'ui large form' do
   - options = { include_blank: t('all_choices'), class: 'ui search selection dropdown', onchange: 'this.form.submit();' }
@@ -10,4 +10,4 @@
         options_from_collection_for_select(@territories, :id, :name, params[:territory]),
         options.dup)
 
-= render 'needs', received_needs: @needs, cached: true
+= render 'needs', received_needs: @needs

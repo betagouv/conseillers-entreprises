@@ -232,6 +232,8 @@ fr:
           one: "<b>1</b> %{entry_name}"
           other: "<b>%{count}</b> %{entry_name}"
           zero: Aucune %{entry_name}
+    page_infos:
+      collection_count_html: "<strong>%{size}</strong> %{name}"
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       view_completed_analysis: Voir l’analyse réalisée
@@ -440,15 +442,19 @@ fr:
     archives_antenne:
       browse_active_needs: Voir les demandes reçues pour l'antenne
       title: Demandes archivées de %{antenne}
+    header:
+      needs_others_taking_care: pris en charge par d'autres référents
+      needs_quo: en attentes
+      needs_taking_care: pris en charges
     index:
       all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
       browse_archived_needs: Voir mes demandes archivées
       contact_us_mailto_text: Contactez-nous !
       needs_for_you: 'Ces entreprises ont besoin de vous :'
-      needs_others_taking_care: Pris en charge par d’autres référents
-      needs_quo: En attentes
-      needs_taking_care: Pris en charges
+      needs_others_taking_care_html: "%{label} Pris en charge par d’autres référents"
+      needs_quo_html: "%{label} Sans réponse <i>(+15 jours)</i>"
+      needs_taking_care_html: "%{label} Pris en charge"
       no_needs: Il n’y a aucune demande.
       no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
@@ -529,29 +535,32 @@ fr:
         matches_total_taken_care_of: prises en charge
         received_needs_abandoned: Actuellement en souffrance
         received_needs_abandoned_others_taking_care: pris en charge par d’autres
-        received_needs_abandoned_others_taking_care_tooltip: Besoins indiqués comme pris en charge par d’autres référents il y a plus de 3 semaines, sans autre nouvelle depuis.
+        received_needs_abandoned_others_taking_care_tooltip: Besoins indiqués comme pris en charge par d’autres référents il y a plus de 2 semaines, sans autre nouvelle depuis.
         received_needs_abandoned_quo_not_taken: sans réponse
-        received_needs_abandoned_quo_not_taken_tooltip: Besoins mis en relation il y a plus de 3 semaines, restés sans réponse depuis.
+        received_needs_abandoned_quo_not_taken_tooltip: Besoins mis en relation il y a plus de 2 semaines, restés sans réponse depuis.
         received_needs_abandoned_taking_care: pris en charge
-        received_needs_abandoned_taking_care_tooltip: Besoins indiqués comme pris en charge il y a plus de 3 semaines, sans autre nouvelle depuis.
+        received_needs_abandoned_taking_care_tooltip: Besoins indiqués comme pris en charge il y a plus de 2 semaines, sans autre nouvelle depuis.
       expert_reminders_notes:
         placeholder: Restez factuel :)
       header:
         needs_status: Besoins %{status}
       index:
-        title: Relances par experts
+        title: Relances par référents
       menu:
-        experts: Experts
         summary: Résumé
     index:
       title: Relances
     needs:
+      header:
+        abandoned_without_taking_care: Abandonnés
+        reminder_in_progress: En cours
+        reminder_quo_not_taken: À traiter
       index:
         title: Besoins %{status}
       menu:
-        abandoned_quo_not_taken: À traiter
-        abandoned_without_taking_care: Abandonnés
-        reminder_in_progress: En cours
+        abandoned_without_taking_care_html: "%{label} Abandonnés <i>(+30 jours)</i>"
+        reminder_in_progress_html: "%{label} Relancés"
+        reminder_quo_not_taken_html: "%{label} À traiter <i>(+10 jours)</i>"
   solicitations:
     index:
       clear_search: Réinitialiser la recherche

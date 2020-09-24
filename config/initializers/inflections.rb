@@ -14,6 +14,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'expert_subject', 'experts_subjects'
   inflect.irregular 'match', 'matches'
   inflect.irregular 'Match', 'Matches'
+  inflect.irregular 'Besoin identifié', 'Besoins identifiés'
 end
 
 # These inflection rules are supported but not enabled by default:
