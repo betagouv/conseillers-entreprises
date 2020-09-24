@@ -225,6 +225,7 @@ fr:
       title: Nouveau commentaire
   helpers:
     page_entries_info:
+      many_pages_html: "<strong>%{total}</strong> %{name} (affichage de %{start} à %{end})"
       more_pages:
         display_entries: "<b>%{total}</b> %{entry_name} (affichage de %{first} à %{last})"
       one_page:
