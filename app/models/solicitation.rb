@@ -88,6 +88,18 @@ class Solicitation < ApplicationRecord
     where("form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
   }
 
+  scope :with_feedbacks, -> do
+    status_in_progress
+      .joins(:feedbacks)
+  end
+
+  scope :without_feedbacks, -> do
+    status_in_progress
+      .left_outer_joins(:feedbacks)
+      .group('solicitations.id')
+      .having('feedbacks.count < ?', 1)
+  end
+
   ## Callbacks
   #
   def touch_after_badges_update(_badge)

@@ -7,12 +7,12 @@ class SolicitationsController < ApplicationController
   layout 'side_menu'
 
   def index
-    @solicitations = ordered_solicitations.status_in_progress
+    @solicitations = ordered_solicitations.without_feedbacks
     @status = t('solicitations.menu.index').downcase
   end
 
   def in_progress
-    @solicitations = ordered_solicitations.status_in_progress.joins(:feedbacks)
+    @solicitations = ordered_solicitations.with_feedbacks
     @status = t('solicitations.menu.in_progress').downcase
     render :index
   end
