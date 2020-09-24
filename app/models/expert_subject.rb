@@ -10,9 +10,10 @@
 #
 # Indexes
 #
-#  index_experts_subjects_on_expert_id               (expert_id)
-#  index_experts_subjects_on_institution_subject_id  (institution_subject_id)
-#  index_experts_subjects_on_role                    (role)
+#  index_experts_subjects_on_expert_id                             (expert_id)
+#  index_experts_subjects_on_expert_id_and_institution_subject_id  (expert_id,institution_subject_id) UNIQUE
+#  index_experts_subjects_on_institution_subject_id                (institution_subject_id)
+#  index_experts_subjects_on_role                                  (role)
 #
 # Foreign Keys
 #
