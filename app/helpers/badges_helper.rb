@@ -6,7 +6,7 @@ module BadgesHelper
                 style: "border: 1px solid #{badge.color}; color: #{badge.color}")
   end
 
-  def simple_label(content, color = '')
+  def colored_label(content, color = '')
     tag.div(content, class: "ui label #{color}")
   end
 end

@@ -225,6 +225,7 @@ fr:
       title: Nouveau commentaire
   helpers:
     page_entries_info:
+      many_pages_html: "<strong>%{total}</strong> %{name} (affichage de %{start} à %{end})"
       more_pages:
         display_entries: "<b>%{total}</b> %{entry_name} (affichage de %{first} à %{last})"
       one_page:
@@ -562,13 +563,24 @@ fr:
         reminder_in_progress_html: "%{label} Relancés"
         reminder_quo_not_taken_html: "%{label} À traiter <i>(+10 jours)</i>"
   solicitations:
+    header:
+      canceled: annulées
+      in_progress: relancées
+      index: à traiter
+      processed: traitées
     index:
       clear_search: Réinitialiser la recherche
+      header: Solicitations %{status}
       manage_badges: Gérer les tags
       no_result: Il n'y a pas de résultat pour cette recherche.
       search: Rechercher
       search_placeholder: Tag, aide demandée…
       title: Solicitations
+    menu:
+      canceled: Annulées
+      in_progress_html: "%{label} Relancées"
+      index_html: "%{label} À traiter"
+      processed: Traitées
     set_category_content:
       landings: Landings
       options: Options
@@ -592,10 +604,6 @@ fr:
       view_diagnoses: "%{count} analyses"
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags
-    solicitations_tabs:
-      canceled: Annulées
-      in_progress: À traiter
-      processed: Traitées
   stats:
     series:
       advisors: Conseillers publics
