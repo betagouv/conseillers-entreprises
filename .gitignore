@@ -5,7 +5,9 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # rubymine files
-*.idea
+.idea/
+# Nova files
+.nova/
 
 *.rbc
 capybara-*.html
