@@ -168,9 +168,9 @@ class Expert < ApplicationRecord
   end
 
   scope :relevant_for_skills, -> do
-    where(id: unscoped.teams)
-      .or(where(id: unscoped.only_expert_of_user))
-      .or(where(id: unscoped.with_subjects))
+    not_deleted.where(id: unscoped.teams)
+      .or(not_deleted.where(id: unscoped.only_expert_of_user))
+      .or(not_deleted.where(id: unscoped.with_subjects))
   end
 
   scope :omnisearch, -> (query) do

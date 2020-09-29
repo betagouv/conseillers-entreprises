@@ -21,7 +21,7 @@
               %li #{theme.label} (#{institutions_subjects.size})
         %td
           = link_to [:antennes, institution] do
-            = institution.antennes.human_count
+            = institution.not_deleted_antennes.human_count
         %td
           = link_to [:advisors, institution] do
-            = institution.advisors.human_count
+            = institution.not_deleted_advisors.human_count

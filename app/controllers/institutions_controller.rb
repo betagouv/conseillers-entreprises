@@ -8,7 +8,7 @@ class InstitutionsController < ApplicationController
 
     @institutions = Institution.all
       .order(:slug)
-      .preload([institutions_subjects: :theme], :antennes, :advisors)
+      .preload([institutions_subjects: :theme], :not_deleted_antennes, :not_deleted_advisors)
 
     @wide_layout = true
   end
@@ -69,9 +69,10 @@ class InstitutionsController < ApplicationController
 
     @institutions_subjects = @institution.institutions_subjects
       .ordered_for_interview
-      .preload(:subject, :theme, :experts_subjects)
+      .preload(:subject, :theme, :experts_subjects, :experts)
 
     @antennes = @institution.antennes
+      .not_deleted
       .order(:name)
       .preload(:communes)
 
