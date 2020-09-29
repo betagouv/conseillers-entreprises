@@ -13,9 +13,9 @@
       .form__group.radios
         %legend= t('.contacted_by_expert')
         %span
-          = f.radio_button :contacted_by_expert, true, required: true
+          = f.radio_button :contacted_by_expert, true, required: true, checked: (params[:response] == 'yes')
           = f.label t('yes'), for: 'company_satisfaction_contacted_by_expert_true', class: 'label-inline'
-          = f.radio_button :contacted_by_expert, false, cheched: true
+          = f.radio_button :contacted_by_expert, false, required: true, checked: (params[:response] == 'no')
           = f.label t('no'), for: 'company_satisfaction_contacted_by_expert_false', class: 'label-inline'
 
       .form__group.radios
