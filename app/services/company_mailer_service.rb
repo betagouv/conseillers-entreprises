@@ -6,7 +6,7 @@ class CompanyMailerService
 
     needs = Need
       .min_closed_at(11.days.ago..10.days.ago)
-      .not_satisfaction_email_sent
+      .where(satisfaction_email_sent: [nil, false])
     needs.each do |need|
       CompanyMailer.satisfaction(need).deliver_later
       need.update(satisfaction_email_sent: true)
