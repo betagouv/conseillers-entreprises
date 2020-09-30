@@ -61,31 +61,31 @@ class Solicitation < ApplicationRecord
   end
 
   scope :have_landing_option, -> (query) do
-    where('? = ANY(landing_options_slugs)', query)
+    where('? = ANY(solicitations.landing_options_slugs)', query)
   end
 
   scope :have_landing, -> (query) do
-    where('landing_slug ILIKE ?', "%#{query}%")
+    where('solicitations.landing_slug ILIKE ?', "%#{query}%")
   end
 
   scope :description_contains, -> (query) do
-    where('description ILIKE ?', "%#{query}%")
+    where('solicitations.description ILIKE ?', "%#{query}%")
   end
 
   scope :name_contains, -> (query) do
-    where('full_name ILIKE ?', "%#{query}%")
+    where('solicitations.full_name ILIKE ?', "%#{query}%")
   end
 
   scope :email_contains, -> (query) do
-    where('email ILIKE ?', "%#{query}%")
+    where('solicitations.email ILIKE ?', "%#{query}%")
   end
 
   scope :pk_kwd_contains, -> (query) {
-    where("form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%")
+    where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%")
   }
 
   scope :pk_campaign_contains, -> (query) {
-    where("form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
+    where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
   }
 
   scope :with_feedbacks, -> do

@@ -53,6 +53,10 @@ class Institution < ApplicationRecord
   # :landings
   has_many :solicitations, through: :landings, inverse_of: :institution
 
+  # Same as :advisors and :antennes, but excluding deleted items; this makes it possible to preload not_deleted items in views.
+  has_many :not_deleted_antennes, -> { not_deleted }, class_name: "Antenne", inverse_of: :institution
+  has_many :not_deleted_advisors, through: :antennes
+
   accepts_nested_attributes_for :institutions_subjects, :allow_destroy => true
 
   ## Scopes

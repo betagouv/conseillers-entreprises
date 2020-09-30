@@ -92,6 +92,7 @@ ActiveAdmin.register Diagnosis do
 
   form do |f|
     f.inputs do
+      f.input :solicitation_id
       f.input :content
       f.input :step
     end
