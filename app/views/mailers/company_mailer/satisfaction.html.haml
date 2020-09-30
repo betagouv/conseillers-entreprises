@@ -19,9 +19,9 @@
 %blockquote
   %strong= @need.subject.label
 
-= t('.question_one_html', link: new_company_satisfactions_url(besoin: @need.id, token: @email_token))
-
-= t('.question_two_html', link: new_company_satisfactions_url(besoin: @need.id, token: @email_token))
+= t('.question_one_html',
+  link_yes: new_company_satisfactions_url(besoin: @need.id, token: @email_token, response: 'yes'),
+  link_no: new_company_satisfactions_url(besoin: @need.id, token: @email_token, response: 'no'))
 
 %p= t('.outro')
 
