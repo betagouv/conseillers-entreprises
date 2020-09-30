@@ -111,7 +111,7 @@ class NeedsController < ApplicationController
   def unarchive
     authorize @need, :archive?
     @need.update(archived_at: nil)
-    flash[:notice] = t('.subjet_unachived')
+    flash[:notice] = t('.subject_unarchived')
     redirect_to need_path(@need.diagnosis)
   end
 
