@@ -18,8 +18,15 @@
           required: true
         .notification.error= solicitation.errors.full_messages_for(field).to_sentence
   .form__group
-    = f.label 'description'
-    = f.text_area 'description', placeholder: t(".attributes.placeholder.description"), rows: 6, required: true
+    = f.label 'description', t('.description')
+    - if solicitation.landing_option&.description_explanation.present?
+      .explanation
+        %div
+          = image_tag('info-alert.png', alt: '')
+          %span
+            = t('.better_taking_care')
+        %div= solicitation.landing_option&.description_explanation&.html_safe
+    = f.text_area 'description', placeholder: t("landings.new_solicitation_form.attributes.placeholder.description"), rows: 6, required: true
     .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
   .form__group
     = f.submit t('.button.title'), class: 'button large'

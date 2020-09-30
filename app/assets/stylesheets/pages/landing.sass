@@ -33,6 +33,11 @@
     .subtitle
       max-width: 100%
 
+section#section-formulaire
+  .description
+    margin-bottom: 3rem
+    max-width: 35rem
+
 section#section-formulaire .solicitation-form
   form label
     font-weight: bold
@@ -42,16 +47,6 @@ section#section-formulaire .solicitation-form
     form
       margin: 0
       flex: 1 0 60%
-    .description
-      display: flex
-      flex-direction: column
-      padding: 0 2rem 4rem 2rem
-      .explanation
-        flex: 1 1 auto
-        align-items: flex-end
-        display: flex
-        div
-          height: 14.3rem
     @media(max-width: 750px)
       flex-wrap: wrap
       flex-direction: column-reverse
@@ -61,3 +56,19 @@ section#section-formulaire .solicitation-form
         .explanation
           div
             height: auto
+
+.notification.contact-delay
+  display: flex
+  img
+    margin-right: 0.5rem
+    width: 25px
+    height: 25px
+
+.explanation
+  margin-top: 1rem
+  div
+    display: flex
+  img
+    margin-right: 0.5rem
+    width: 25px
+    height: 25px

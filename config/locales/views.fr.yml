@@ -261,7 +261,7 @@ fr:
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
     new_solicitation:
-      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours*</b> (Délai moyen de prise en charge).
+      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours</b> (Délai moyen de prise en charge).
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
     new_solicitation_form:
@@ -278,8 +278,10 @@ fr:
           role: Conseiller entreprise, Chargé de mission…
           siret: 123 456 789 00010
           team_name: Équipe formation, Cellule-conseil aux entreprises…
+      better_taking_care: 'Pour une meilleur prise en charge de votre demande, indiquez :'
       button:
         title: Envoyer ma demande
+      description: Description de votre demande
       form: Formulaire
     new_solicitation_thank_you:
       message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
