@@ -1,10 +1,13 @@
 class StatsController < PagesController
+  include Pundit
+
   def show
     @stats = Stats::Stats.new(stats_params)
   end
 
   def team
     @stats = Stats::Stats.new(stats_params)
+    authorize @stats, :team?
   end
 
   def users

@@ -619,12 +619,15 @@ fr:
       companies: Entreprises aidées
       experts: Référents
       matches: Mises en relation
-      needs: Demandes transmises
+      needs: Besoins identifiés
       solicitations: Sollicitations directes
+      solicitations_diagnoses: Sollicitations avec et sans analyse
       source: Analyses d’entreprises
       source_category:
         direct: Sollicitations d’entreprises
         visits: Visites par un conseiller
+      taking_care: Sollicitations prises en charge
+      themes: Besoins par thèmes
     show:
       title: Statistiques d’utilisation
     stats_params:
@@ -677,7 +680,10 @@ fr:
       end_date: "Date de fin"
       search: "Chercher"
     team:
-      title: "Stats équipe"
+      title: Statistiques équipe
+    with_diagnoses: Avec analyse
+    without_diagnoses: Sans analyse
+  usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:
       create_acount: Créer mon compte

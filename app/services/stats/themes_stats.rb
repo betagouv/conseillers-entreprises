@@ -1,9 +1,12 @@
 module Stats
-  class NeedsStats
+  class ThemesStats
     include BaseStats
 
     def main_query
-      Need.diagnosis_completed
+      Need
+        .diagnosis_completed
+        .joins(:advisor)
+        .joins(subject: :theme)
     end
 
     def date_group_attribute
@@ -17,22 +20,16 @@ module Stats
       if institution.present?
         query.merge! institution.sent_needs
       end
-      if @start_date.present?
-        query.merge!.where(needs: { created_at: @start_date..@end_date })
-      end
+
       query
     end
 
-    def category_name(category)
-      I18n.t('activerecord.models.need.other')
-    end
-
     def category_group_attribute
-      Arel.sql('true')
+      'themes.label'
     end
 
     def category_order_attribute
-      Arel.sql('true')
+      'themes.interview_sort_order'
     end
   end
 end
