@@ -10,10 +10,5 @@
 
 %section.section.section-grey#section-stats
   .container.container-full
-    - cache("stats_charts-#{@stats.params}", expires_in: 1.hour) do
-      = render 'stats_params', stats: @stats, route: stats_path
-      #stats-charts
-        - names = [:public_companies]
-        -# - names = [:taking_care]
-        - names.each do |name|
-          = render 'stats_chart', stats: @stats, name: name
+    = render 'stats_params', stats: @stats, route: team_stats_path
+    = render 'stats/stats_charts', stats: @stats

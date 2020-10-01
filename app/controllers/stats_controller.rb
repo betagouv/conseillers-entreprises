@@ -3,6 +3,10 @@ class StatsController < PagesController
     @stats = Stats::Stats.new(stats_params)
   end
 
+  def team
+    @stats = Stats::Stats.new(stats_params)
+  end
+
   def users
     @stats = users_stats
     render 'stats/stats'

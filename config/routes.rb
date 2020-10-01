@@ -93,6 +93,7 @@ Rails.application.routes.draw do
 
   resource :stats, only: [:show] do
     collection do
+      get :team
       get :users
       get :activity
       get :cohorts

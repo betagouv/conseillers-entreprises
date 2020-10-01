@@ -666,6 +666,8 @@ fr:
       download: Télécharger
       title: Statistiques d’utilisation
       users_stats: Conseillers
+    team:
+      title: "Stats équipe"
   user_pages:
     tutoriels:
       create_acount: Créer mon compte
