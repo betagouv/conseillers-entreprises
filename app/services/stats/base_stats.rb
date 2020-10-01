@@ -29,12 +29,12 @@ module Stats
       if additive_values
         count
       else
-        @max_value ||= grouped_by_month(main_query).count.values.max
+        @max_value ||= grouped_by_month(filtered(main_query)).count.values.max
       end
     end
 
     def all_months
-      @all_months ||= grouped_by_month(main_query).count.keys
+      @all_months ||= grouped_by_month(filtered(main_query)).count.keys
     end
 
     def all_categories
