@@ -7,8 +7,9 @@
         = active_link_to needs_path, class: 'item' do
           %i.inbox.icon
           = t('needs.index.title')
-          - if current_user.needs_quo.exists?
-            .ui.orange.empty.circular.horizontal.label
+          - cache([current_user, Need.all]) do
+            - if current_user.needs_quo.exists?
+              .ui.orange.empty.circular.horizontal.label
       - if policy(Diagnosis).index?
         = active_link_to diagnoses_path, class: 'item' do
           %i.tasks.icon
