@@ -435,9 +435,9 @@ fr:
       thats_you: C’est vous !
   needs:
     archive:
-      archive: Mettre en échec
-      subjet_achived: Le sujet a été mis en échec
-      unarchive: Annuler la mise en échec
+      archive: Archiver
+      subjet_achived: Le besoin a été archivé
+      unarchive: Désarchiver
     archives:
       browse_active_needs: Voir les demandes reçues
       title: Demandes archivées
@@ -467,7 +467,7 @@ fr:
       browse_archived_needs: Voir les demandes archivées
       title: Demandes reçues pour %{antenne}
     need_header:
-      need_abandoned: Besoin mis en échec
+      need_archived: Besoin archivé
     needs_archived_tabs:
       done: Clôturées
       failed: Marquées en échec
@@ -484,7 +484,7 @@ fr:
     show:
       title: Visite de la société « %{company} »
     unarchive:
-      subjet_unachived: Le sujet n’est plus en échec
+      subject_unarchived: Besoin désarchivé
     visit_summary:
       advisor_has_diagnosed_n_needs:
         one: "%{advisor} a identifié un besoin."
