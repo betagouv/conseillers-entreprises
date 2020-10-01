@@ -27,9 +27,8 @@
 
 = paginate @solicitations
 
-- max_badge_updated_at = Badge.maximum(:updated_at)
 - if @solicitations.present?
-  = render(partial: 'solicitations/solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, max_badge_updated_at] })
+  = render(partial: 'solicitations/solicitation', collection: @solicitations, cached: -> (solicitation) { [solicitation, Badge.all] })
 - elsif params[:query].present?
   .ui.divider.hidden
   = t('.no_result')
