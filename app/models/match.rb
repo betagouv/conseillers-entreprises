@@ -4,7 +4,6 @@
 #
 #  id               :bigint(8)        not null, primary key
 #  closed_at        :datetime
-#  old_status       :integer          default("quo"), not null
 #  status           :enum             default("quo"), not null
 #  taken_care_of_at :datetime
 #  created_at       :datetime         not null
@@ -18,7 +17,6 @@
 #  index_matches_on_expert_id              (expert_id)
 #  index_matches_on_expert_id_and_need_id  (expert_id,need_id) UNIQUE WHERE (expert_id <> NULL::bigint)
 #  index_matches_on_need_id                (need_id)
-#  index_matches_on_old_status             (old_status)
 #  index_matches_on_status                 (status)
 #  index_matches_on_subject_id             (subject_id)
 #
