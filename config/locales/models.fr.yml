@@ -132,9 +132,6 @@ fr:
       expert_subject:
         institution_subject: Compétence d’institution
         role: rôle
-      expert_subject/roles:
-        fallback: suppléant
-        specialist: spécialiste
       facility:
         company: Entreprise
         readable_locality: Commune

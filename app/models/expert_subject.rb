@@ -4,7 +4,6 @@
 #
 #  id                     :bigint(8)        not null, primary key
 #  description            :string
-#  role                   :integer          default("specialist"), not null
 #  expert_id              :bigint(8)
 #  institution_subject_id :bigint(8)
 #
@@ -13,7 +12,6 @@
 #  index_experts_subjects_on_expert_id                             (expert_id)
 #  index_experts_subjects_on_expert_id_and_institution_subject_id  (expert_id,institution_subject_id) UNIQUE
 #  index_experts_subjects_on_institution_subject_id                (institution_subject_id)
-#  index_experts_subjects_on_role                                  (role)
 #
 # Foreign Keys
 #
@@ -24,7 +22,6 @@
 class ExpertSubject < ApplicationRecord
   self.table_name = 'experts_subjects' # Workaround a rubocop bug in UniqueValidationWithoutIndex. The rubocop `table_name` helper seems to fail with join tables.
 
-  enum role: { specialist: 0, fallback: 1 }
   audited associated_with: :expert
   audited max_audits: 10
 
@@ -40,7 +37,6 @@ class ExpertSubject < ApplicationRecord
 
   ## Validations
   #
-  validates :role, presence: true
   validates :expert, uniqueness: { scope: :institution_subject_id }
 
   ## Scopes
