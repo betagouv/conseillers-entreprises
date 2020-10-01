@@ -7,7 +7,7 @@
 #  content                 :text
 #  last_activity_at        :datetime         not null
 #  matches_count           :integer
-#  satisfaction_email_sent :boolean
+#  satisfaction_email_sent :boolean          default(FALSE), not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  diagnosis_id            :bigint(8)        not null
