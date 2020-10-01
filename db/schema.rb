@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_23_105152) do
+ActiveRecord::Schema.define(version: 2020_10_01_141249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -328,7 +328,7 @@ ActiveRecord::Schema.define(version: 2020_09_23_105152) do
     t.integer "matches_count"
     t.datetime "archived_at"
     t.datetime "last_activity_at", default: -> { "now()" }, null: false
-    t.boolean "satisfaction_email_sent"
+    t.boolean "satisfaction_email_sent", default: false, null: false
     t.index ["archived_at"], name: "index_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
     t.index ["subject_id", "diagnosis_id"], name: "index_needs_on_subject_id_and_diagnosis_id", unique: true
