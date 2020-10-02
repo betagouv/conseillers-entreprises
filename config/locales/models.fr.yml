@@ -138,7 +138,7 @@ fr:
       institution:
         advisors: Conseillers
         antennes: Antennes
-        subjects: Compétences
+        subjects: Domaines
       landing:
         custom_css: CSS personnalisé
         emphasis: Mettre en avant sur la page d’accueil
@@ -445,7 +445,7 @@ fr:
     happened_on: Date de la visite
     insee_codes: Codes commune
     institution: Institution
-    institutions_subjects: Compétences d’institutions
+    institutions_subjects: Domaines de l’institution
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire
     is_archived: Archivé
