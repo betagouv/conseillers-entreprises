@@ -75,22 +75,6 @@ class Institution < ApplicationRecord
       .group_by { |is| is.theme } # Enumerable#group_by maintains ordering
   end
 
-  # Find the one subject that matches the passed label
-  # return nil if there’s an ambiguity
-  def find_institution_subject(label)
-    return nil if label.nil?
-
-    clean_label = label.downcase.strip
-    matches = institutions_subjects.filter do |is|
-      label == is.csv_identifier || clean_label.in?([
-        is.description.downcase.strip,
-        is.subject.label.downcase.strip,
-        is.theme.label.downcase.strip
-      ])
-    end
-    matches.first if matches.count == 1
-  end
-
   ##
   #
   def to_param

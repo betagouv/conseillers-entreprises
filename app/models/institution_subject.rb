@@ -77,7 +77,34 @@ class InstitutionSubject < ApplicationRecord
 
   ## used for serialization in advisors csv
   #
-  def csv_identifier
-    [theme, subject, description.presence].compact.to_csv(col_sep: ':').strip
+  def unique_name
+    if similar_institutions_subjects.present?
+      "#{subject.label}:#{description}" # We know description isn‘t blank, see :validate_description_presence
+    else
+      subject.label
+    end
+  end
+
+  def self.find_with_name(institution, name)
+    return nil if name.nil?
+
+    clean_name = name.downcase.strip
+
+    matches = institution.institutions_subjects.preload(:subject, :theme).filter do |institution_subject|
+      institution_subject.possible_names.include? clean_name
+    end
+
+    # return nil if there’s an ambiguity
+    matches.first if matches.count == 1
+  end
+
+  def possible_names
+    [
+      "#{theme.label}:#{subject.label}:#{description}".downcase.strip,
+      "#{subject.label}:#{description}".downcase.strip,
+      description&.downcase.strip,
+      subject.label.downcase.strip,
+      theme.label.downcase.strip
+    ]
   end
 end

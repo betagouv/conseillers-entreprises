@@ -33,32 +33,4 @@ RSpec.describe Institution, type: :model do
       end
     end
   end
-
-  describe 'find_institution_subject' do
-    subject { institution.find_institution_subject(label) }
-
-    let(:institution) { create :institution, name: 'The Institution' }
-    let(:theme) { create :theme, label: 'The Theme' }
-    let(:the_subject) { create :subject, label: 'The Subject', theme: theme }
-    let!(:is1) { create :institution_subject, institution: institution, subject: the_subject, description: 'First IS' }
-    let!(:is2) { create :institution_subject, institution: institution, subject: the_subject, description: 'Second IS' }
-
-    context 'label is not found' do
-      let(:label) { 'other' }
-
-      it{ is_expected.to be_nil }
-    end
-
-    context 'label is found and unique' do
-      let(:label) { 'First IS' }
-
-      it{ is_expected.to eq is1 }
-    end
-
-    context 'label is found but not unique' do
-      let(:label) { 'The Subject' }
-
-      it{ is_expected.to be_nil }
-    end
-  end
 end
