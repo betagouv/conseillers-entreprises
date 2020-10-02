@@ -13,11 +13,6 @@ fr:
       title: Mentions légales
     politique_de_confidentialite:
       title: Politique de confidentialité
-    top_5:
-      get_help: Faire une demande
-      short_title: Top 5 des aides
-      title: Top 5 des aides & accompagnements
-      whats_your_question: Et vous, quel est votre besoin ?
   active_admin:
     badges:
       add_remove: Ajouter / supprimer un tag sur
