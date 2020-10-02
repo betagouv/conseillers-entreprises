@@ -110,6 +110,7 @@ fr:
       second: Seconde
       year: Année
   delete: Supprimer
+  download: Télécharger
   errors:
     format: "%{attribute} %{message}"
     messages:
@@ -157,7 +158,6 @@ fr:
         one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
         other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
   experts_login: Accès conseillers
-  export: Exporter
   helpers:
     select:
       prompt: Veuillez sélectionner

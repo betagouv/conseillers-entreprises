@@ -46,18 +46,27 @@ class InstitutionsController < ApplicationController
   end
 
   def import_antennes
+  end
+
+  def import_antennes_create
     @result = CsvImport::AntenneImporter.import(params.require(:file), @institution)
     if @result.success?
       flash[:table_highlighted_ids] = @result.objects.map(&:id)
       redirect_to action: :antennes
+    else
+      render :import_antennes
     end
   end
 
-  def import_advisors
+  def import_advisors; end
+
+  def import_advisors_create
     @result = CsvImport::UserImporter.import(params.require(:file), @institution)
     if @result.success?
       flash[:table_highlighted_ids] = @result.objects.map(&:id)
       redirect_to action: :advisors
+    else
+      render :import_advisors
     end
   end
 
