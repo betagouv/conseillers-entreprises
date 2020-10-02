@@ -3,7 +3,7 @@
 # Table name: experts_subjects
 #
 #  id                     :bigint(8)        not null, primary key
-#  description            :string
+#  intervention_criteria  :string
 #  expert_id              :bigint(8)
 #  institution_subject_id :bigint(8)
 #
@@ -76,14 +76,14 @@ class ExpertSubject < ApplicationRecord
   ## used for serialization in advisors csv
   #
   def csv_description
-    description.presence || I18n.t('yes')
+    intervention_criteria.presence || I18n.t('yes')
   end
 
   def csv_description=(value)
     if value.downcase.in? ['x', I18n.t('yes')]
-      self.description = ''
+      self.intervention_criteria = ''
     else
-      self.description = value
+      self.intervention_criteria = value
     end
   end
 end

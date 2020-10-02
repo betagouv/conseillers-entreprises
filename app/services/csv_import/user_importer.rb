@@ -87,7 +87,6 @@ module CsvImport
         .transform_keys{ |k| several_subjects_mapping[k] }
 
       experts_subjects_attributes = attributes.map do |institution_subject, serialized_description|
-        # TODO: serialized_description may be an array of hashes
         if serialized_description.present?
           {
             institution_subject: institution_subject,

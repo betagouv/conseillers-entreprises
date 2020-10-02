@@ -224,7 +224,7 @@ describe CsvImport do
         expect(marie.experts.teams.count).to eq 0
         skillet = marie.personal_skillsets.first
         expect(skillet.experts_subjects.count).to eq 1
-        expect(skillet.experts_subjects.first.description).to eq 'First ES'
+        expect(skillet.experts_subjects.first.intervention_criteria).to eq 'First ES'
         expect(skillet.experts_subjects.first.subject).to eq the_subject
       end
     end
@@ -245,7 +245,7 @@ describe CsvImport do
           expect(marie.experts.teams.count).to eq 0
           skillet = marie.personal_skillsets.first
           expect(skillet.experts_subjects.count).to eq 1
-          expect(skillet.experts_subjects.first.description).to be_blank
+          expect(skillet.experts_subjects.first.intervention_criteria).to be_blank
           expect(skillet.experts_subjects.first.subject).to eq the_subject
         end
       end
@@ -286,7 +286,7 @@ describe CsvImport do
           expect(marie.experts.teams.count).to eq 0
           skillet = marie.personal_skillsets.first
           expect(skillet.experts_subjects.count).to eq 1
-          expect(skillet.experts_subjects.first.description).to be_blank
+          expect(skillet.experts_subjects.first.intervention_criteria).to be_blank
           expect(skillet.experts_subjects.first.subject).to eq the_subject
         end
       end

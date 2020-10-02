@@ -70,10 +70,10 @@
                 -# The InstitutionSubjects cells themselves are spanned on all the rows of the members of the expert team.
                 %td{ rowspan: advisors.size, class: ('yellow' if expert_subject.present?) }
                   - if expert_subject.present?
-                    - description = expert_subject.description
-                    - if description.present?
+                    - intervention_criteria = expert_subject.intervention_criteria
+                    - if intervention_criteria.present?
                       %a.popup-hover.dashed= t('yes')
-                      .ui.popup= description
+                      .ui.popup= intervention_criteria
                     - else
                       = t('yes')
             - else

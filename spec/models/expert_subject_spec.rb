@@ -45,16 +45,16 @@ RSpec.describe ExpertSubject, type: :model do
   describe 'csv_description' do
     subject { expert_subject.csv_description }
 
-    let(:expert_subject) { build :expert_subject, description: description }
+    let(:expert_subject) { build :expert_subject, intervention_criteria: intervention_criteria }
 
-    context 'with description' do
-      let(:description) { 'Longue description du rôle' }
+    context 'with criteria' do
+      let(:intervention_criteria) { 'Intervention criteria' }
 
-      it { is_expected.to eq 'Longue description du rôle' }
+      it { is_expected.to eq 'Intervention criteria' }
     end
 
-    context 'empty description' do
-      let(:description) { '' }
+    context 'empty criteria' do
+      let(:intervention_criteria) { '' }
 
       it { is_expected.to eq 'oui' }
     end
@@ -63,21 +63,21 @@ RSpec.describe ExpertSubject, type: :model do
   describe 'csv_description=' do
     before { expert_subject.csv_description = csv }
 
-    let(:expert_subject) { build :expert_subject, description: nil }
+    let(:expert_subject) { build :expert_subject, intervention_criteria: nil }
 
-    context 'with description' do
-      let(:csv) { 'Longue description du rôle' }
+    context 'with criteria' do
+      let(:csv) { 'Intervention criteria' }
 
       it do
-        expect(expert_subject.description).to eq 'Longue description du rôle'
+        expect(expert_subject.intervention_criteria).to eq 'Intervention criteria'
       end
     end
 
-    context 'empty description' do
+    context 'empty criteria' do
       let(:csv) { 'X' }
 
       it do
-        expect(expert_subject.description).to eq ''
+        expect(expert_subject.intervention_criteria).to eq ''
       end
     end
   end

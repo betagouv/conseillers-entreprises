@@ -197,7 +197,7 @@ fr:
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
     subjects_fields:
       contact_us_to_change_subjects_html: Pour changer vos domaines d’intervention, <a href="mailto:%{email}">contactez-nous</a>.
-      description_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
+      intervention_criteria_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
     subjects_messages:
       instructions_html: En tant que référent sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention. Sélectionnez les sujets sur lesquels vous intervenez, parmi les domaines de compétences de <strong>%{institution}</strong>.
       others_members_warning_details: Les modifications apportées ici s’appliqueront aux %{count} membres de l’équipe.

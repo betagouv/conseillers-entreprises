@@ -58,7 +58,7 @@ describe CsvExportService do
       let(:theme) { create :theme, label: 'Test Theme' }
       let(:the_subject) { create :subject, theme: theme, label: 'Test Subject' }
       let(:institution_subject) { create :institution_subject, institution: institution, subject: the_subject, description: 'Description for institution' }
-      let!(:expert_subject) { create :expert_subject, expert: user.personal_skillsets.first, institution_subject: institution_subject, description: 'Description for expert' }
+      let!(:expert_subject) { create :expert_subject, expert: user.personal_skillsets.first, institution_subject: institution_subject, intervention_criteria: 'Intervention criteria' }
 
       subject do
         institution.reload
@@ -69,7 +69,7 @@ describe CsvExportService do
       it do
         csv = <<~CSV
           Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Test Theme:Test Subject:Description for institution
-          Test Institution,Test Antenne,User 1,user@user.com,0123456789,User Role,Description for expert
+          Test Institution,Test Antenne,User 1,user@user.com,0123456789,User Role,Intervention criteria
         CSV
         is_expected.to eq csv
       end
