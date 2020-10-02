@@ -70,13 +70,12 @@
                 -# The InstitutionSubjects cells themselves are spanned on all the rows of the members of the expert team.
                 %td{ rowspan: advisors.size, class: ('yellow' if expert_subject.present?) }
                   - if expert_subject.present?
-                    - role = expert_subject.human_attribute_value(:role).capitalize
                     - description = expert_subject.description
                     - if description.present?
-                      %a.popup-hover.dashed= role
+                      %a.popup-hover.dashed= t('yes')
                       .ui.popup= description
                     - else
-                      = role
+                      = t('yes')
             - else
               - institutions_subjects.size.times do
                 %td.rowspanned

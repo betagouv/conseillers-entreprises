@@ -45,42 +45,38 @@ RSpec.describe ExpertSubject, type: :model do
   describe 'csv_description' do
     subject { expert_subject.csv_description }
 
-    let(:expert_subject) { build :expert_subject, role: role, description: description }
+    let(:expert_subject) { build :expert_subject, description: description }
 
     context 'with description' do
-      let(:role) { 'specialist' }
       let(:description) { 'Longue description du rôle' }
 
-      it { is_expected.to eq 'spécialiste:Longue description du rôle' }
+      it { is_expected.to eq 'Longue description du rôle' }
     end
 
     context 'empty description' do
-      let(:role) { 'fallback' }
       let(:description) { '' }
 
-      it { is_expected.to eq 'suppléant' }
+      it { is_expected.to eq 'oui' }
     end
   end
 
   describe 'csv_description=' do
     before { expert_subject.csv_description = csv }
 
-    let(:expert_subject) { build :expert_subject, role: nil, description: nil }
+    let(:expert_subject) { build :expert_subject, description: nil }
 
     context 'with description' do
-      let(:csv) { 'spécialiste:Longue description du rôle' }
+      let(:csv) { 'Longue description du rôle' }
 
       it do
-        expect(expert_subject.role).to eq 'specialist'
         expect(expert_subject.description).to eq 'Longue description du rôle'
       end
     end
 
     context 'empty description' do
-      let(:csv) { 'suppléant' }
+      let(:csv) { 'X' }
 
       it do
-        expect(expert_subject.role).to eq 'fallback'
         expect(expert_subject.description).to eq ''
       end
     end

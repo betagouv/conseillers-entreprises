@@ -80,24 +80,14 @@ class ExpertSubject < ApplicationRecord
   ## used for serialization in advisors csv
   #
   def csv_description
-    [human_attribute_value(:role), description.presence].compact.to_csv(col_sep: ':').strip
+    description.presence || I18n.t('yes')
   end
 
   def csv_description=(value)
-    values = CSV.parse_line(value, col_sep: ':').to_a
-    role_value = values[0]
-    description = values[1] || ''
-
-    clean_role_value = role_value.downcase.strip
-    if clean_role_value.in? [
-      'fallback',
-      ExpertSubject.human_attribute_value(:role, :fallback).downcase.strip
-    ]
-      role = :fallback
+    if value.downcase.in? ['x', I18n.t('yes')]
+      self.description = ''
     else
-      role = :specialist
+      self.description = value
     end
-
-    self.assign_attributes(role: role, description: description)
   end
 end
