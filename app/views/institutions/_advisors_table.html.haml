@@ -32,7 +32,7 @@
       %th.rowspanned
       %th.rowspanned
       - institutions_subjects.each do |institution_subject|
-        - count = institution_subject.experts.size
+        - count = institution_subject.not_deleted_experts.size
         %th.right.aligned{ title: t('.experts_on_subject', count: count) }
           - if count.zero?
             %i.ui.red.icon.exclamation.triangle
