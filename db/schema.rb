@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_071333) do
+ActiveRecord::Schema.define(version: 2020_10_02_163301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(version: 2020_10_02_071333) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["institution_id"], name: "index_institutions_subjects_on_institution_id"
+    t.index ["subject_id", "institution_id", "description"], name: "unique_institution_subject_in_institution", unique: true
     t.index ["subject_id"], name: "index_institutions_subjects_on_subject_id"
   end
 
@@ -370,6 +371,7 @@ ActiveRecord::Schema.define(version: 2020_10_02_071333) do
     t.boolean "is_support", default: false
     t.string "slug", null: false
     t.index ["archived_at"], name: "index_subjects_on_archived_at"
+    t.index ["label"], name: "index_subjects_on_label", unique: true
     t.index ["slug"], name: "index_subjects_on_slug", unique: true
     t.index ["theme_id"], name: "index_subjects_on_theme_id"
   end
