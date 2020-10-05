@@ -82,7 +82,6 @@ Rails.application.routes.draw do
   controller :about do
     get :comment_ca_marche
     get :cgu
-    get :top_5
     get :politique_de_confidentialite
     get :mentions_legales
   end

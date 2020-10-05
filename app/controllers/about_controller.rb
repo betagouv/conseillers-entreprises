@@ -11,6 +11,4 @@ class AboutController < PagesController
       institutions.each_slice((institutions.count.to_f / 4).ceil).to_a
     end
   end
-
-  def top_5; end
 end
