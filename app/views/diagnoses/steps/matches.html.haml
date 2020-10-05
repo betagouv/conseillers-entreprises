@@ -13,13 +13,10 @@
     - @diagnosis.needs.ordered_for_interview.each do |need|
       .ui.segment.shadow-less
         %h3.ui.header= need.subject
-        - experts_subjects_specialists = ExpertSubject.relevant_for(need).specialist
-        - experts_subjects_fallback = ExpertSubject.relevant_for(need).fallback
+        - experts_subjects = ExpertSubject.relevant_for(need)
         - support_subject = ExpertSubject.support_for(@diagnosis)
-        - if experts_subjects_specialists.present?
-          = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects_specialists
-        - elsif experts_subjects_fallback.present?
-          = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects_fallback
+        - if experts_subjects.present?
+          = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
         - elsif support_subject.present?
           .field.warning
             .ui.warning.message

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_155319) do
+ActiveRecord::Schema.define(version: 2020_10_02_071333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,7 +180,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_155319) do
   end
 
   create_table "experts_subjects", force: :cascade do |t|
-    t.string "description"
+    t.string "intervention_criteria"
     t.bigint "expert_id"
     t.bigint "institution_subject_id"
     t.integer "role", default: 0, null: false
@@ -305,6 +305,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_155319) do
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "old_status", default: 0, null: false
     t.datetime "taken_care_of_at"
     t.datetime "closed_at"
     t.bigint "expert_id"
@@ -313,6 +314,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_155319) do
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
+    t.index ["old_status"], name: "index_matches_on_old_status"
     t.index ["status"], name: "index_matches_on_status"
     t.index ["subject_id"], name: "index_matches_on_subject_id"
   end

@@ -34,6 +34,6 @@
                       - confirm_message = t('.add_match_with', name: expert.full_name, subject: need.subject)
                       = link_to add_match_need_path(expert_subject: expert_subject, need: need), method: :post, remote: true, data: { confirm: confirm_message } do
                         = expert_subject.institution_subject.description
-                        - if expert_subject.description.present?
+                        - if expert_subject.intervention_criteria.present?
                           %br
-                          = expert_subject.description
+                          = expert_subject.intervention_criteria

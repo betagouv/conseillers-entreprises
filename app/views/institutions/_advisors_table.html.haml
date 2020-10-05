@@ -63,23 +63,19 @@
               .ui.popup= person_block(user)
             - if index_in_team == 0
               - institutions_subjects.each do |institution_subject|
-                -# Finally, inside an InstitutionSubject cell, there may be several expert subjects.
-                  Take the intersection of the expert and institution subjects instead of using `.merge` on the two relations.
-                  In InstitutionsController#retrieve_institution, we’re trying hard to preload relations to avoid N+1 queries.
-                  If we used `.merge`, the new relation would be impossible to preload.
+                -# We’re using `&` instead of .merge to use the preloaded relations instead of doing a new DB query.
                 - experts_subjects = user.relevant_expert.experts_subjects & institution_subject.experts_subjects
-                - roles = experts_subjects.map(&:role).uniq
-                - colors = { "specialist" => 'yellow', "fallback" => 'grey' }.slice(*roles).values
+                - raise 'There should only be one ExpertSubject' if experts_subjects.size > 1
+                - expert_subject = experts_subjects.first
                 -# The InstitutionSubjects cells themselves are spanned on all the rows of the members of the expert team.
-                %td{ rowspan: advisors.size, class: colors.join(" ") }
-                  - experts_subjects.each do |expert_subject|
-                    - role = expert_subject.human_attribute_value(:role).capitalize
-                    - description = expert_subject.description
-                    - if description.present?
-                      %a.popup-hover.dashed= role
-                      .ui.popup= description
+                %td{ rowspan: advisors.size, class: ('yellow' if expert_subject.present?) }
+                  - if expert_subject.present?
+                    - intervention_criteria = expert_subject.intervention_criteria
+                    - if intervention_criteria.present?
+                      %a.popup-hover.dashed= t('yes')
+                      .ui.popup= intervention_criteria
                     - else
-                      = role
+                      = t('yes')
             - else
               - institutions_subjects.size.times do
                 %td.rowspanned
