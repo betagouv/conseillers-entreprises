@@ -32,7 +32,7 @@
       %th.rowspanned
       %th.rowspanned
       - institutions_subjects.each do |institution_subject|
-        - count = institution_subject.experts.size
+        - count = institution_subject.not_deleted_experts.size
         %th.right.aligned{ title: t('.experts_on_subject', count: count) }
           - if count.zero?
             %i.ui.red.icon.exclamation.triangle
@@ -79,19 +79,3 @@
             - else
               - institutions_subjects.size.times do
                 %td.rowspanned
-  %tfoot.full-width
-    %tr
-      %th
-      %th{ colspan: 2 + institutions_subjects.size }
-        %a.ui.left.floated.small.labeled.icon.button{ href: advisors_institution_path(format: 'csv') }
-          %i.download.icon
-          = t('export')
-        .ui.left.floated.small.labeled.icon.button.popup-click
-          %i.upload.icon
-          = t('import')
-        .ui.popup
-          = form_with url: import_advisors_institution_path, local: true, class: 'ui form' do |f|
-            .ui.inline.field
-              = f.file_field :file, accept: 'text/csv', required: true
-            = f.submit t('submit'), class: 'ui right floated button'
-
