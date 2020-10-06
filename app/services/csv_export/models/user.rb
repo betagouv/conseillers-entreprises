@@ -29,11 +29,11 @@ module CsvExport
           }
         end
 
-        def csv_fields_for_relevant_expert_subjects(subjects)
-          subjects.map do |institution_subject|
+        def csv_fields_for_relevant_expert_subjects(institutions_subjects)
+          institutions_subjects.map do |institution_subject|
             # We build a hash of <institution subject>: <expert subject>
             # * There can be only one expert_subject for an (expert, institution_subject) pair.
-            title = institution_subject.csv_identifier
+            title = institution_subject.unique_name
             lambda = -> {
               # This block is executed in the context of a User
               # (`self` is a User; See `object.instance_exec(&lambda)` in CsvExportService.)

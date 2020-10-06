@@ -68,7 +68,7 @@ describe CsvExportService do
 
       it do
         csv = <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Test Theme:Test Subject:Description for institution
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Test Subject
           Test Institution,Test Antenne,User 1,user@user.com,0123456789,User Role,Intervention criteria
         CSV
         is_expected.to eq csv

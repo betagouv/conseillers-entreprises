@@ -15,6 +15,7 @@
 # Indexes
 #
 #  index_subjects_on_archived_at  (archived_at)
+#  index_subjects_on_label        (label) UNIQUE
 #  index_subjects_on_slug         (slug) UNIQUE
 #  index_subjects_on_theme_id     (theme_id)
 #
@@ -38,6 +39,7 @@ class Subject < ApplicationRecord
   ## Validations
   #
   validates :theme, :slug, presence: true
+  validates :label, presence: true, uniqueness: true
   before_validation :compute_slug
   before_save :set_support
 
