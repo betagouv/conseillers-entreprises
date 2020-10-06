@@ -87,7 +87,6 @@ module CsvImport
         .transform_keys{ |k| several_subjects_mapping[k] }
 
       experts_subjects_attributes = attributes.map do |institution_subject, serialized_description|
-        # TODO: serialized_description may be an array of hashes
         if serialized_description.present?
           {
             institution_subject: institution_subject,
@@ -111,12 +110,8 @@ module CsvImport
 
       institution_subject = expert.institution.institutions_subjects.find{ |is| is.csv_identifier == identifier }
 
-      expert_subject_attributes = {
-        institution_subject: institution_subject,
-        role: :specialist
-      }
       expert.experts_subjects.clear
-      expert.experts_subjects.new(expert_subject_attributes)
+      expert.experts_subjects.new(institution_subject: institution_subject)
       expert.save
     end
   end

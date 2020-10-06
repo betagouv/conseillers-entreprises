@@ -153,7 +153,6 @@ module DiagnosisCreation
           .in_commune(need.facility.commune)
           .of_subject(need.subject)
           .of_institution(institutions)
-        # do not filter with specialist/fallback here, the institution selection overrides this
 
         if expert_subjects.present?
           matches_params = expert_subjects.map{ |es| { expert: es.expert, subject: es.subject } }

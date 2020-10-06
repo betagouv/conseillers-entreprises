@@ -3,8 +3,7 @@
 # Table name: experts_subjects
 #
 #  id                     :bigint(8)        not null, primary key
-#  description            :string
-#  role                   :integer          default("specialist"), not null
+#  intervention_criteria  :string
 #  expert_id              :bigint(8)
 #  institution_subject_id :bigint(8)
 #
@@ -13,7 +12,6 @@
 #  index_experts_subjects_on_expert_id                             (expert_id)
 #  index_experts_subjects_on_expert_id_and_institution_subject_id  (expert_id,institution_subject_id) UNIQUE
 #  index_experts_subjects_on_institution_subject_id                (institution_subject_id)
-#  index_experts_subjects_on_role                                  (role)
 #
 # Foreign Keys
 #
@@ -24,23 +22,23 @@
 class ExpertSubject < ApplicationRecord
   self.table_name = 'experts_subjects' # Workaround a rubocop bug in UniqueValidationWithoutIndex. The rubocop `table_name` helper seems to fail with join tables.
 
-  enum role: { specialist: 0, fallback: 1 }
   audited associated_with: :expert
   audited max_audits: 10
 
   ## Associations
   #
-  belongs_to :expert
-  belongs_to :institution_subject
+  belongs_to :expert, inverse_of: :experts_subjects
+  belongs_to :institution_subject, inverse_of: :experts_subjects
 
   ## "Through" associations
   #
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
   has_one :theme, through: :subject, inverse_of: :experts_subjects
 
+  belongs_to :not_deleted_expert, -> { not_deleted }, class_name: 'Expert', foreign_key: 'expert_id', optional: true, inverse_of: :experts_subjects
+
   ## Validations
   #
-  validates :role, presence: true
   validates :expert, uniqueness: { scope: :institution_subject_id }
 
   ## Scopes
@@ -80,24 +78,14 @@ class ExpertSubject < ApplicationRecord
   ## used for serialization in advisors csv
   #
   def csv_description
-    [human_attribute_value(:role), description.presence].compact.to_csv(col_sep: ':').strip
+    intervention_criteria.presence || I18n.t('yes')
   end
 
   def csv_description=(value)
-    values = CSV.parse_line(value, col_sep: ':').to_a
-    role_value = values[0]
-    description = values[1] || ''
-
-    clean_role_value = role_value.downcase.strip
-    if clean_role_value.in? [
-      'fallback',
-      ExpertSubject.human_attribute_value(:role, :fallback).downcase.strip
-    ]
-      role = :fallback
+    if value.downcase.in? ['x', I18n.t('yes')]
+      self.intervention_criteria = ''
     else
-      role = :specialist
+      self.intervention_criteria = value
     end
-
-    self.assign_attributes(role: role, description: description)
   end
 end

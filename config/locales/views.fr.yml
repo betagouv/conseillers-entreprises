@@ -1,6 +1,8 @@
 ---
 fr:
   about:
+    blog:
+      title: Actu aides
     cgu:
       title: Conditions d’utilisation du service numérique Place des Entreprises
     comment_ca_marche:
@@ -13,11 +15,6 @@ fr:
       title: Mentions légales
     politique_de_confidentialite:
       title: Politique de confidentialité
-    top_5:
-      get_help: Faire une demande
-      short_title: Top 5 des aides
-      title: Top 5 des aides & accompagnements
-      whats_your_question: Et vous, quel est votre besoin ?
   active_admin:
     badges:
       add_remove: Ajouter / supprimer un tag sur
@@ -200,11 +197,7 @@ fr:
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
     subjects_fields:
       contact_us_to_change_subjects_html: Pour changer vos domaines d’intervention, <a href="mailto:%{email}">contactez-nous</a>.
-      description_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
-      fallback: Suppléant
-      fallback_description: "« Suppléant » signifie que vous pouvez apporter un premier niveau d'informations dans ce domaine. Vous serez contacté si aucun spécialiste n’est référencé sur votre zone d’intervention."
-      specialist: Spécialiste
-      specialist_description: "« Spécialiste » indique que ce domaine est votre cœur d’activité. Vous serez contacté en priorité par les entreprises sur votre zone d’intervention."
+      intervention_criteria_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
     subjects_messages:
       instructions_html: En tant que référent sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention. Sélectionnez les sujets sur lesquels vous intervenez, parmi les domaines de compétences de <strong>%{institution}</strong>.
       others_members_warning_details: Les modifications apportées ici s’appliqueront aux %{count} membres de l’équipe.
@@ -268,12 +261,27 @@ fr:
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
     new_solicitation:
-      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours*</b> (Délai moyen de prise en charge).
+      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours</b> (Délai moyen de prise en charge).
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
     new_solicitation_form:
+      attributes:
+        help:
+          siret_html: Vous ne le connaissez pas par cœur ? Retrouvez-le sur <a href='https://entreprise.data.gouv.fr'>entreprise.data.gouv.fr</a>.
+        placeholder:
+          description: Décrivez votre demande.
+          email: marie.dupont@exemple.fr
+          full_name: 'ex: Marie Dupont'
+          location: Hauts-de-France; région de Milly-la-forêt; 91260…
+          phone_number: 06 12 34 56 78
+          requested_help_amount: 8 000 €
+          role: Conseiller entreprise, Chargé de mission…
+          siret: 123 456 789 00010
+          team_name: Équipe formation, Cellule-conseil aux entreprises…
+      better_taking_care: 'Pour une meilleur prise en charge de votre demande, indiquez :'
       button:
         title: Envoyer ma demande
+      description: Description de votre demande
       form: Formulaire
     new_solicitation_thank_you:
       message: Votre demande a bien été envoyée. Le conseiller qui peut vous aider va vous appeler. Merci de votre confiance !
@@ -435,9 +443,9 @@ fr:
       thats_you: C’est vous !
   needs:
     archive:
-      archive: Mettre en échec
-      subjet_achived: Le sujet a été mis en échec
-      unarchive: Annuler la mise en échec
+      archive: Archiver
+      subjet_achived: Le besoin a été archivé
+      unarchive: Désarchiver
     archives:
       browse_active_needs: Voir les demandes reçues
       title: Demandes archivées
@@ -467,7 +475,7 @@ fr:
       browse_archived_needs: Voir les demandes archivées
       title: Demandes reçues pour %{antenne}
     need_header:
-      need_abandoned: Besoin mis en échec
+      need_archived: Besoin archivé
     needs_archived_tabs:
       done: Clôturées
       failed: Marquées en échec
@@ -484,7 +492,7 @@ fr:
     show:
       title: Visite de la société « %{company} »
     unarchive:
-      subjet_unachived: Le sujet n’est plus en échec
+      subject_unarchived: Besoin désarchivé
     visit_summary:
       advisor_has_diagnosed_n_needs:
         one: "%{advisor} a identifié un besoin."

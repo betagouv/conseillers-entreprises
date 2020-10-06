@@ -213,7 +213,7 @@ describe CsvImport do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Theme:The Subject:First IS,The Theme:The Subject:Second IS
-          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,spécialiste:First IS,
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,First ES,
         CSV
       end
 
@@ -224,7 +224,7 @@ describe CsvImport do
         expect(marie.experts.teams.count).to eq 0
         skillet = marie.personal_skillsets.first
         expect(skillet.experts_subjects.count).to eq 1
-        expect(skillet.experts_subjects.first.description).to eq 'First IS'
+        expect(skillet.experts_subjects.first.intervention_criteria).to eq 'First ES'
         expect(skillet.experts_subjects.first.subject).to eq the_subject
       end
     end
@@ -245,7 +245,7 @@ describe CsvImport do
           expect(marie.experts.teams.count).to eq 0
           skillet = marie.personal_skillsets.first
           expect(skillet.experts_subjects.count).to eq 1
-          expect(skillet.experts_subjects.first.description).to be_blank
+          expect(skillet.experts_subjects.first.intervention_criteria).to be_blank
           expect(skillet.experts_subjects.first.subject).to eq the_subject
         end
       end
@@ -275,7 +275,7 @@ describe CsvImport do
         let(:csv) do
           <<~CSV
             Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,First IS
-            The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,spécialiste
+            The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Oui
           CSV
         end
 
@@ -286,7 +286,7 @@ describe CsvImport do
           expect(marie.experts.teams.count).to eq 0
           skillet = marie.personal_skillsets.first
           expect(skillet.experts_subjects.count).to eq 1
-          expect(skillet.experts_subjects.first.description).to be_blank
+          expect(skillet.experts_subjects.first.intervention_criteria).to be_blank
           expect(skillet.experts_subjects.first.subject).to eq the_subject
         end
       end
@@ -295,7 +295,7 @@ describe CsvImport do
         let(:csv) do
           <<~CSV
             Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Subject
-            The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,spécialiste
+            The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Oui
           CSV
         end
 

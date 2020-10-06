@@ -132,16 +132,13 @@ fr:
       expert_subject:
         institution_subject: Compétence d’institution
         role: rôle
-      expert_subject/roles:
-        fallback: suppléant
-        specialist: spécialiste
       facility:
         company: Entreprise
         readable_locality: Commune
       institution:
         advisors: Conseillers
         antennes: Antennes
-        subjects: Compétences
+        subjects: Domaines
       landing:
         custom_css: CSS personnalisé
         emphasis: Mettre en avant sur la page d’accueil
@@ -448,7 +445,7 @@ fr:
     happened_on: Date de la visite
     insee_codes: Codes commune
     institution: Institution
-    institutions_subjects: Compétences d’institutions
+    institutions_subjects: Domaines de l’institution
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire
     is_archived: Archivé
@@ -466,14 +463,10 @@ fr:
       other: Besoins identifiés
     phone_number: Téléphone
     placeholder:
-      description: Décrivez votre demande.
       email: marie.dupont@exemple.fr
       full_name: 'ex: Marie Dupont'
-      location: Hauts-de-France; région de Milly-la-forêt; 91260…
       phone_number: 06 12 34 56 78
-      requested_help_amount: 8 000 €
       role: Conseiller entreprise, Chargé de mission…
-      siret: 123 456 789 00010
       team_name: Équipe formation, Cellule-conseil aux entreprises…
     received_matches:
       one: Mise en relation reçue

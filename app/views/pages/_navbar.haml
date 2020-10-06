@@ -11,7 +11,7 @@
       %nav
         %ul.nav__links
           %li.nav__item
-            = active_link_to t('about.top_5.short_title'), top_5_path
+            = link_to t('about.blog.title'), ENV['BLOG_URL']
           %li.nav__item
             = active_link_to t('about.comment_ca_marche.title'), comment_ca_marche_path
           %li.nav__item

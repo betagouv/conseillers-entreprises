@@ -26,4 +26,12 @@ class InstitutionPolicy < ApplicationPolicy
   def import_advisors?
     admin?
   end
+
+  def import_antennes_create?
+    admin?
+  end
+
+  def import_advisors_create?
+    admin?
+  end
 end

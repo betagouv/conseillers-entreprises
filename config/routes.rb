@@ -38,8 +38,10 @@ Rails.application.routes.draw do
       get :subjects, path: 'domaines'
       get :antennes
       get :advisors, path: 'conseillers'
-      post :import_antennes, path: 'antennes/import'
-      post :import_advisors, path: 'conseillers/import'
+      get :import_antennes, path: 'antennes/import'
+      post :import_antennes_create, path: 'antennes/import'
+      get :import_advisors, path: 'conseillers/import'
+      post :import_advisors_create, path: 'conseillers/import'
     end
   end
 
@@ -82,7 +84,6 @@ Rails.application.routes.draw do
   controller :about do
     get :comment_ca_marche
     get :cgu
-    get :top_5
     get :politique_de_confidentialite
     get :mentions_legales
   end

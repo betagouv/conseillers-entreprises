@@ -21,19 +21,5 @@
               .sub.header= institution_subject.description
 
           .subject_container
-            .ui.radio.checkbox.expert-subject-role.popup-hover
-              = i.radio_button :role, "specialist", checked: expert_subject.specialist?
-              = i.label :role, value: "specialist" do
-                = t('.specialist')
-                %sup= '?'
-            .ui.popup
-              %p= t('.specialist_description')
-            .ui.radio.checkbox.expert-subject-role.popup-hover
-              = i.radio_button :role, "fallback", checked: expert_subject.fallback?
-              = i.label :role, value: "fallback" do
-                = t('.fallback')
-                %sup= '?'
-            .ui.popup
-              %p= t('.fallback_description')
-            = i.text_area :description, placeholder: t('.description_placeholder'), rows: 3
+            = i.text_area :intervention_criteria, placeholder: t('.intervention_criteria_placeholder'), rows: 3
 
