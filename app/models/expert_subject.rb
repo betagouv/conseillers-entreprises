@@ -20,8 +20,6 @@
 #
 
 class ExpertSubject < ApplicationRecord
-  self.table_name = 'experts_subjects' # Workaround a rubocop bug in UniqueValidationWithoutIndex. The rubocop `table_name` helper seems to fail with join tables.
-
   audited associated_with: :expert
   audited max_audits: 10
 
