@@ -74,7 +74,7 @@ module CsvImport
       @several_subjects_mapping =
         headers
           .without(other_known_headers)
-          .index_with { |header| @institution.find_institution_subject(header) }
+          .index_with { |header| InstitutionSubject.find_with_name(@institution, header) }
           .compact
     end
 
@@ -105,10 +105,10 @@ module CsvImport
     end
 
     def import_one_subject(expert, all_attributes)
-      identifier = all_attributes[Expert.human_attribute_name('subject')]
-      return if identifier.blank?
+      name = all_attributes[Expert.human_attribute_name('subject')]
+      return if name.blank?
 
-      institution_subject = expert.institution.institutions_subjects.find{ |is| is.csv_identifier == identifier }
+      institution_subject = InstitutionSubject.find_with_name(expert.institution, name)
 
       expert.experts_subjects.clear
       expert.experts_subjects.new(institution_subject: institution_subject)
