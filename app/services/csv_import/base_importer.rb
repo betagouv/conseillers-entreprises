@@ -1,26 +1,9 @@
 module CsvImport
-  class Result
-    attr_reader :rows, :objects, :header_errors
-
-    def initialize(rows:, header_errors:, objects:)
-      @rows, @header_errors, @objects = rows, header_errors, objects
-    end
-
-    def success?
-      @success ||= @header_errors.blank? && @objects.all?{ |object| object.valid?(:import) }
-    end
-  end
-
-  class UnknownHeaderError < StandardError
-  end
-
+  # Model-specific importer inherit from this and override methods as needed.
   class BaseImporter
-    def self.import(input, *args)
-      self.new(input, *args).import
-    end
-
-    def initialize(input, *args)
+    def initialize(input, options = {})
       @input = input
+      @options = options
     end
 
     def import

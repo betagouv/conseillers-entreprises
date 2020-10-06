@@ -47,8 +47,6 @@
 #
 
 class User < ApplicationRecord
-  include CsvExport::Models::User
-
   ##
   #
   include PersonConcern
