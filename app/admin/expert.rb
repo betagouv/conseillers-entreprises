@@ -151,8 +151,7 @@ ActiveAdmin.register Expert do
           column(:theme)
           column(:subject)
           column(:institution_subject)
-          column(:description)
-          column(:role) { |es| es.human_attribute_value(:role) }
+          column(:intervention_criteria)
           column(:archived_at) { |es| es.subject.archived_at }
         end
       end
@@ -181,7 +180,7 @@ ActiveAdmin.register Expert do
     *Expert::FLAGS,
     user_ids: [],
     experts_subjects_ids: [],
-    experts_subjects_attributes: %i[id description institution_subject_id _create _update _destroy]
+    experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy]
   ]
 
   form do |f|
@@ -231,7 +230,7 @@ ActiveAdmin.register Expert do
             .to_h
 
           sub_f.input :institution_subject, collection: collection
-          sub_f.input :description
+          sub_f.input :intervention_criteria
         end
       end
     end
