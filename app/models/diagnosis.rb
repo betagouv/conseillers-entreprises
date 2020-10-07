@@ -151,8 +151,6 @@ class Diagnosis < ApplicationRecord
     unless advisor.disable_email_confirm_notifications_sent.to_bool
       UserMailer.confirm_notifications_sent(self).deliver_later
     end
-    # Notify Company
-    CompanyMailer.notify_matches_made(self).deliver_later
   end
 
   private

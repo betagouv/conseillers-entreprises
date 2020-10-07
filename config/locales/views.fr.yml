@@ -347,20 +347,11 @@ fr:
       confirmation_solicitation:
         content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise aux partenaires publics susceptibles de vous aider.</p><p>Un suivi qualité est assuré afin qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
         subject: Bonne réception de votre demande par Place des Entreprises
-      intro_from_solicitation_html: Vous avez contacté Place des Entreprises au sujet de votre entreprise <strong>%{company}</strong>.
-      intro_from_visit_html: "<p>Vous avez rencontré le conseiller <strong>%{advisor}</strong> (%{advisor_antenne}) pour votre entreprise <strong>%{company}</strong>. Afin de répondre au mieux à vos besoins, il a utilisé le service public Place des Entreprises, qui réunit tous les partenaires publics pouvant aider les TPE &amp; PME.</p>"
       newsletter_subscription:
         discover: Découvrez chaque mois un accompagnement public susceptible de vous aider !
         intro_html: Vous avez utilisé <strong>le service public Place des Entreprises</strong> pour votre entreprise <strong>%{company}</strong>.
         subject: Découvrez les accompagnements publics pour votre entreprise avec la newsletter Place des Entreprises
         subscribe: S’abonner à la newsletter
-      notify_matches_made:
-        needs_summary:
-          one: 'Votre demande portait sur ce sujet :'
-          other: 'Votre demande portait sur ces sujets :'
-        subject_from_solicitation: Transmission de votre demande sur Place des Entreprises
-        subject_from_visit: Transmission des besoins de votre entreprise sur Place des Entreprises
-        transmitted_to_antennes_html: "<p>Elle a été transmise aux conseillers de %{antennes}. Ces conseillers vont analyser votre situation et ceux qui peuvent vous aider vous recontacteront.</p>"
       notify_taking_care:
         content_by_expert_html: "<p>Elle a été transmise à un conseiller de <strong>%{expert_antenne}</strong>, qui va prendre contact avec vous. N’oubliez pas de consulter vos mails ou votre messagerie vocale. </p>"
         intro_from_solicitation_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
