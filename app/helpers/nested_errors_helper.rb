@@ -1,10 +1,25 @@
 module NestedErrorsHelper
+  # :nested_errors_messages
+  # Build a full error message for an ActiveRecord object and its relations
+  # It works best when using validates_associated.
+  # In that case, object.errors contains the associated object,
+  # e.g. in the case of user.experts with errors
+  # $ user.errors.details
+  # =>
+  # {
+  #   experts: [
+  #     {
+  #       error: :invalid,
+  #       value: [#<Expert>] # <- We can recurse into the Expert object errors.
+  #     }
+  #   ]
+  # }
   def nested_errors_messages(object, level = 0)
     errors = object.errors
     return if errors.empty?
 
     main_message = errors.full_messages.to_sentence || object.to_s
-    main_message = '• ' * level + main_message
+    main_message = '• ' * level + main_message + "\n"
 
     sub_messages = errors.details.values.flatten.flat_map do |hash|
       case value = hash[:value]
@@ -17,6 +32,6 @@ module NestedErrorsHelper
     end
       .compact
 
-    [main_message, sub_messages].flatten.join("\n")
+    [main_message, sub_messages].flatten.join
   end
 end
