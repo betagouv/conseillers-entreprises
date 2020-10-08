@@ -13,7 +13,7 @@ ActiveAdmin.register Institution do
   config.sort_order = 'slug_asc'
 
   controller do
-    defaults :finder => :find_by_slug
+    defaults :finder => :find_by_slug!
   end
 
   index do
