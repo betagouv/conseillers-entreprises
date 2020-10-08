@@ -3,13 +3,29 @@ module Stats
     include BaseStats
 
     def main_query
-      Solicitation.status_processed
-      Match.where.not(taken_care_of_at: nil).group_by { |m| m.diagnosis.solicitation }
-      Match.group_by { |m| m.taken_care_of_at.between?(m.created_at, m.created_at + 7.days ) }
+      Solicitation
+        .status_processed
+        .joins(diagnoses: [needs: :matches])
     end
 
     def date_group_attribute
       'solicitations.created_at'
+    end
+
+    def group_by_date(query)
+      query.group_by do |solicitation|
+        solicitation.matches.pluck(:taken_care_of_at).compact.min&.between?(solicitation.created_at, solicitation.created_at + 5.days)
+      end
+    end
+
+    def taken_care_before(query)
+      return if query[true].nil?
+      query[true].group_by_month(&:created_at).map { |_, v| v.size }
+    end
+
+    def taken_care_after(query)
+      return if query[false].nil?
+      query[false].group_by_month(&:created_at).map { |_, v| v.size }
     end
 
     def filtered(query)

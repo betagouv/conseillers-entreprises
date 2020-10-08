@@ -674,11 +674,8 @@ fr:
       download: Télécharger
       title: Statistiques d’utilisation
       users_stats: Conseillers
-    stats_params:
-      region: "Région"
-      start_date: "Date de début"
-      end_date: "Date de fin"
-      search: "Chercher"
+    taken_care_after: Plus de 5 jours
+    taken_care_before: Moins de 5 jours
     team:
       title: Statistiques équipe
     with_diagnoses: Avec analyse
