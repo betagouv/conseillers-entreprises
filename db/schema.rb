@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_02_163301) do
+ActiveRecord::Schema.define(version: 2020_10_08_151124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -275,6 +275,7 @@ ActiveRecord::Schema.define(version: 2020_10_02_163301) do
     t.datetime "updated_at", null: false
     t.bigint "landing_id", null: false
     t.string "landing_option_slug"
+    t.string "group_name"
     t.index ["landing_id"], name: "index_landing_topics_on_landing_id"
   end
 
