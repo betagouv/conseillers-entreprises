@@ -3,14 +3,6 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.confirmation_solicitation(Solicitation.all.sample)
   end
 
-  def notify_matches_made_solicitation
-    CompanyMailer.notify_matches_made(Diagnosis.completed.from_solicitation.sample)
-  end
-
-  def notify_matches_made_visit
-    CompanyMailer.notify_matches_made(Diagnosis.completed.from_visit.sample)
-  end
-
   def taking_care_solicitation
     CompanyMailer.notify_taking_care(Diagnosis.completed.from_solicitation.sample.matches.sample)
   end
