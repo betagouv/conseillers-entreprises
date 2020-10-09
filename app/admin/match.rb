@@ -30,6 +30,7 @@ ActiveAdmin.register Match do
       div admin_attr(m.facility, :commune)
       div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
       human_attribute_status_tag m.need, :status
+      status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
     end
     column :advisor do |m|
       div admin_link_to(m, :advisor)
@@ -81,7 +82,10 @@ ActiveAdmin.register Match do
       row :updated_at
       row :taken_care_of_at
       row :closed_at
-      row(:need) { |m| human_attribute_status_tag m.need, :status }
+      row(:need) do |m|
+        human_attribute_status_tag m.need, :status
+        status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
+      end
       row :advisor
       row :advisor_antenne
       row :contacted_expert do |m|
