@@ -16,7 +16,8 @@
         #image-home
           = image_tag('home.png', alt: "")
 
-%section.section.section-light-grey.blank-section#scroll-thematiques
+- unless in_iframe?
+  %section.section.section-light-grey.blank-section#scroll-thematiques
 
 %section.section.section-grey#section-thematiques
   .container

@@ -12,6 +12,7 @@
           %h1= landing_option&.form_title.presence || @landing.title
           %p.subtitle= @landing.subtitle
 
+- if @landing.home_sort_order.present?
   = render 'pages/breadcrumbs', landing: @landing, landing_option: landing_option
 
 - if @solicitation.persisted?
