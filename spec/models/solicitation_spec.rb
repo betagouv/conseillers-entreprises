@@ -19,7 +19,7 @@ RSpec.describe Solicitation, type: :model do
     describe 'set_institution_from_landing' do
       subject { solicitation.institution }
 
-      context 'with a landing page' do
+      context 'with institution from a landing page' do
         let(:institution) { build :institution }
         let(:landing) { build :landing, institution: institution }
         let(:solicitation) { create :solicitation, landing: landing }
@@ -27,8 +27,16 @@ RSpec.describe Solicitation, type: :model do
         it { is_expected.to eq institution }
       end
 
-      context 'with no landing page' do
-        let(:solicitation) { build :solicitation, landing: nil }
+      context 'with a solicitation slug in the form_info' do
+        let(:institution) { create :institution }
+        let(:solicitation) { create :solicitation, form_info: { institution: institution.slug } }
+
+        it { is_expected.to eq institution }
+      end
+
+      context 'with no institution' do
+        let(:landing) { build :landing, institution: nil }
+        let(:solicitation) { create :solicitation, landing: landing, form_info: {} }
 
         it { is_expected.to be_nil }
       end

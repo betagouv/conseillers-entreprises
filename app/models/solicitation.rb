@@ -107,7 +107,7 @@ class Solicitation < ApplicationRecord
   ## Callbacks
   #
   def set_institution_from_landing
-    self.institution ||= landing&.institution
+    self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
   end
 
   def touch_after_badges_update(_badge)
@@ -131,8 +131,9 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid]
-  store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
+  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid institution]
+  FORM_INFO_KEYS_WITH_ACCESSORS = %i[pk_campaign pk_kwd gclid] # We want :institution as a form_info parameter, but we don’t want accessors for it that would conflict with the belongs_to relation.
+  store_accessor :form_info, FORM_INFO_KEYS_WITH_ACCESSORS.map(&:to_s)
 
   ##
   # Development helper
