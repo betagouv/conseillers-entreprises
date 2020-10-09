@@ -10,8 +10,8 @@ ActiveAdmin.register Subject do
 
   ## Index
   #
-  includes :theme, :institutions_subjects
-  config.sort_order = 'themes.interview_sort_order_asc'
+  includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions
+  config.sort_order = 'interview_sort_order_asc'
 
   index do
     selectable_column

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_08_151124) do
+ActiveRecord::Schema.define(version: 2020_10_09_093731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -372,6 +372,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_151124) do
     t.boolean "is_support", default: false
     t.string "slug", null: false
     t.index ["archived_at"], name: "index_subjects_on_archived_at"
+    t.index ["interview_sort_order"], name: "index_subjects_on_interview_sort_order"
     t.index ["label"], name: "index_subjects_on_label", unique: true
     t.index ["slug"], name: "index_subjects_on_slug", unique: true
     t.index ["theme_id"], name: "index_subjects_on_theme_id"
@@ -389,6 +390,7 @@ ActiveRecord::Schema.define(version: 2020_10_08_151124) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "interview_sort_order"
+    t.index ["interview_sort_order"], name: "index_themes_on_interview_sort_order"
     t.index ["label"], name: "index_themes_on_label", unique: true
   end
 

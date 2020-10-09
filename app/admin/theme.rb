@@ -6,7 +6,7 @@ ActiveAdmin.register Theme do
   ## Index
   #
   config.sort_order = 'interview_sort_order_asc'
-  includes :subjects, :institutions
+  includes :subjects, :institutions, :needs, :matches
 
   index do
     selectable_column
