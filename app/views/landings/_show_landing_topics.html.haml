@@ -1,8 +1,11 @@
-- landing_topics = landing.landing_topics.ordered_for_landing
-- if landing_topics.present?
-  %h2
-    = t('.you_wish')
-  .landing-topics
-    = render landing_topics
+- topics_groups = landing.landing_topics.grouped_for_landing
+
+- if topics_groups.present?
+  - topics_groups.each do |name, topics|
+    %h2= name.presence || t('.you_wish')
+    .landing-topics
+      = render topics
+
   .ui.text-center.other
     %b= landing.message_under_landing_topics&.html_safe
+
