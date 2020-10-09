@@ -91,7 +91,6 @@ module CsvImport
         end
       end.compact
 
-      expert.experts_subjects.clear
       expert.experts_subjects.new(experts_subjects_attributes)
       expert.save
     end
@@ -106,7 +105,6 @@ module CsvImport
 
       institution_subject = InstitutionSubject.find_with_name(expert.institution, name)
 
-      expert.experts_subjects.clear
       expert.experts_subjects.new(institution_subject: institution_subject)
       expert.save
     end

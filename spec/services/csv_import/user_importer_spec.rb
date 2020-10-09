@@ -67,22 +67,42 @@ describe CsvImport::UserImporter, CsvImport do
   end
 
   context 'set subjects with subject-specific columns' do
-    let(:csv) do
-      <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Theme:The Subject:First IS,The Theme:The Subject:Second IS
-        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,First ES,
-      CSV
+    context 'single user' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,The Theme:The Subject:First IS,The Theme:The Subject:Second IS
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,First ES,
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        marie = result.objects.first
+        expect(marie.personal_skillsets.count).to eq 1
+        expect(marie.experts.teams.count).to eq 0
+        skillet = marie.personal_skillsets.first
+        expect(skillet.experts_subjects.count).to eq 1
+        expect(skillet.experts_subjects.first.intervention_criteria).to eq 'First ES'
+        expect(skillet.experts_subjects.first.subject).to eq the_subject
+      end
     end
 
-    it do
-      expect(result).to be_success
-      marie = result.objects.first
-      expect(marie.personal_skillsets.count).to eq 1
-      expect(marie.experts.teams.count).to eq 0
-      skillet = marie.personal_skillsets.first
-      expect(skillet.experts_subjects.count).to eq 1
-      expect(skillet.experts_subjects.first.intervention_criteria).to eq 'First ES'
-      expect(skillet.experts_subjects.first.subject).to eq the_subject
+    context 'merge the subjects of two users in the same team' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe,First IS,Second IS
+          The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,Equipe,oui,
+          The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,Equipe,,oui
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        team = Expert.teams.first
+        expect(team.users.count).to eq 2
+        expect(team.experts_subjects.count).to eq 2
+        expect(team.institutions_subjects.pluck(:description)).to eq ['First IS', 'Second IS']
+      end
     end
   end
 
