@@ -16,11 +16,6 @@ fr:
     matches:
       deleted: Supprimé
     move: Déplacer
-    need:
-      archive: Marquer “En échec”
-      archive_done: Marqué “En échec”
-      unarchive: Retirer “En échec”
-      unarchive_done: "“En échec” retiré"
     person:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
@@ -199,8 +194,6 @@ fr:
         quo: Pas de réponse
         taking_care: Pris en charge
       need:
-        archived_at: Mis en échec
-        is_archived: En échec
         subject: Sujet
       need/statuses:
         diagnosis_not_complete: Analyse en cours
