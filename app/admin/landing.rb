@@ -81,6 +81,7 @@ ActiveAdmin.register Landing do
         column :description do |topic|
           topic.description&.html_safe
         end
+        column :group_name
         column :landing_option_slug
       end
     end
@@ -111,7 +112,7 @@ ActiveAdmin.register Landing do
     :_destroy, :form_description, :form_title, :description_explanation,
     *LandingOption::REQUIRED_FIELDS_FLAGS,
   ]
-  landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :_destroy]
+  landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :group_name, :_destroy]
   permit_params :slug,
                 :institution_id,
                 :home_title, :home_description, :home_sort_order,
@@ -161,6 +162,7 @@ ActiveAdmin.register Landing do
         t.input :title, input_html: { style: 'width:70%' }
         t.input :description, input_html: { style: 'width:70%', rows: 10 }
         t.input :landing_option_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: landing.landing_options.pluck(:slug)
+        t.input :group_name, input_html: { style: 'width:70%' }
       end
     end
 
