@@ -10,14 +10,21 @@ section.section#section-exemples
     flex-wrap: wrap
     margin-bottom: 2rem
     .landing-topic
+      h3
+        font-size: 1.1rem
       padding-right: 9rem
       margin-top: 2rem
       flex: 0 0 50%
       .button
         font-weight: bold
         padding: 0.25rem 1.5rem
-      h3
-        font-size: 1.1rem
+      @media (max-width: 1160px)
+        padding-right: 3rem
+      @media (max-width: 750px)
+        flex: 0 0 100%
+        padding-right: 0
+        .button
+          width: auto
 
   .panel__header
     cursor: pointer
@@ -31,8 +38,3 @@ section.section#section-exemples
   @media (max-width: 549px)
     .container
       padding: 0 0.5rem
-    .landing-topics .landing-topic
-      flex: 0 0 100%
-      padding-right: 0
-      .button
-        width: auto
