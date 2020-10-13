@@ -1,0 +1,63 @@
+require 'rails_helper'
+
+describe CsvImport::BaseImporter, CsvImport do
+  describe 'automatic column separator detection' do
+    subject(:result) { Antenne.import_csv(csv, institution: institution) }
+
+    let(:institution) { create :institution, name: 'Test Institution' }
+
+    context 'no error' do
+      context 'commas' do
+        let(:csv) do
+          <<~CSV
+            Institution,Nom,Codes commune
+            Test Institution,Antenne1,12345
+          CSV
+        end
+
+        it { is_expected.to be_success }
+      end
+
+      context 'semicolons' do
+        let(:csv) do
+          <<~CSV
+            Institution;Nom;Codes commune
+            Test Institution;Antenne1;12345
+          CSV
+        end
+
+        it { is_expected.to be_success }
+      end
+    end
+
+    context 'header errors' do
+      context 'commas' do
+        let(:csv) do
+          <<~CSV
+            Institution,Nom,Codes commune,Foo
+            Test Institution,Antenne1,12345
+          CSV
+        end
+
+        it do
+          expect(result).not_to be_success
+          expect(result.header_errors.map(&:message)).to eq ['Foo']
+        end
+      end
+
+      context 'semicolons' do
+        let(:csv) do
+          <<~CSV
+            Institution;Nom;Codes commune;Foo
+            Test Institution;Antenne1;12345
+          CSV
+        end
+
+        it do
+          expect(result).not_to be_success
+          expect(result.header_errors.map(&:message)).to eq ['Foo']
+        end
+      end
+    end
+  end
+end

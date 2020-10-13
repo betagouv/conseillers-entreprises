@@ -1,10 +1,6 @@
 module CsvImport
+  ## UserImporter needs an :institution to be passed in the options
   class UserImporter < BaseImporter
-    def initialize(file, institution)
-      @institution = institution
-      super(file)
-    end
-
     def mapping
       @mapping ||=
         %i[institution antenne full_name email phone_number role]
@@ -21,7 +17,7 @@ module CsvImport
     end
 
     def preprocess(attributes)
-      institution = Institution.find_by(name: attributes[:institution]) || @institution
+      institution = Institution.find_by(name: attributes[:institution]) || @options[:institution]
       antenne = Antenne.find_by(institution: institution, name: attributes[:antenne])
       attributes.delete(:institution)
       attributes[:antenne] = antenne
@@ -63,7 +59,7 @@ module CsvImport
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
-        team = @institution.experts.find_or_initialize_by(email: attributes[:email])
+        team = @options[:institution].experts.find_or_initialize_by(email: attributes[:email])
         team.update(attributes)
 
         team
@@ -74,7 +70,7 @@ module CsvImport
       @several_subjects_mapping =
         headers
           .without(other_known_headers)
-          .index_with { |header| InstitutionSubject.find_with_name(@institution, header) }
+          .index_with { |header| InstitutionSubject.find_with_name(@options[:institution], header) }
           .compact
     end
 
