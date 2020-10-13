@@ -9,7 +9,8 @@ ActiveAdmin.register Antenne do
 
   ## Index
   #
-  includes :institution, :advisors, :experts, :sent_matches, :received_matches
+  includes :institution, :advisors, :experts, :sent_matches, :received_matches,
+           :communes, :territories
   config.sort_order = 'name_asc'
 
   scope :all, default: true
