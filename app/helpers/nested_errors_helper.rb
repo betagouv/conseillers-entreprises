@@ -18,6 +18,8 @@ module NestedErrorsHelper
     errors = object.errors
     return if errors.empty?
 
+    return if level > 3 # safety net: relationships may indefinitely nest errors
+
     main_message = errors.full_messages.to_sentence || object.to_s
     main_message = '• ' * level + main_message + "\n"
 
