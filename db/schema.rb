@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_093731) do
+ActiveRecord::Schema.define(version: 2020_10_09_155354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -358,7 +358,9 @@ ActiveRecord::Schema.define(version: 2020_10_09_093731) do
     t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.string "requested_help_amount"
     t.string "location"
+    t.bigint "institution_id"
     t.index ["email"], name: "index_solicitations_on_email"
+    t.index ["institution_id"], name: "index_solicitations_on_institution_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
   end
 
@@ -462,6 +464,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_093731) do
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
   add_foreign_key "searches", "users"
+  add_foreign_key "solicitations", "institutions"
   add_foreign_key "subjects", "themes"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"

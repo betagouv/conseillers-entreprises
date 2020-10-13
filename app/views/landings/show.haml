@@ -14,6 +14,7 @@
           .image
             = image_tag('home.png', alt: "")
 
+  - if @landing.home_sort_order.present?
     = render 'pages/breadcrumbs', landing: @landing
 
   %section.section.section-grey#section-exemples

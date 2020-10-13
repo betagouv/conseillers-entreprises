@@ -17,11 +17,17 @@
 #  status                           :integer          default("in_progress")
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
+#  institution_id                   :bigint(8)
 #
 # Indexes
 #
-#  index_solicitations_on_email         (email)
-#  index_solicitations_on_landing_slug  (landing_slug)
+#  index_solicitations_on_email           (email)
+#  index_solicitations_on_institution_id  (institution_id)
+#  index_solicitations_on_landing_slug    (landing_slug)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (institution_id => institutions.id)
 #
 
 class Solicitation < ApplicationRecord
@@ -35,11 +41,9 @@ class Solicitation < ApplicationRecord
   has_many :diagnoses, inverse_of: :solicitation
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
+  belongs_to :institution, inverse_of: :solicitations, optional: true
 
-  ## Through Associations
-  #
-  # :landing
-  has_one :institution, inverse_of: :solicitations, through: :landing
+  before_create :set_institution_from_landing
 
   ## Scopes
   #
@@ -102,6 +106,10 @@ class Solicitation < ApplicationRecord
 
   ## Callbacks
   #
+  def set_institution_from_landing
+    self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
+  end
+
   def touch_after_badges_update(_badge)
     touch if persisted?
   end
@@ -123,8 +131,9 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid]
-  store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
+  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid institution]
+  FORM_INFO_KEYS_WITH_ACCESSORS = %i[pk_campaign pk_kwd gclid] # We want :institution as a form_info parameter, but we don’t want accessors for it that would conflict with the belongs_to relation.
+  store_accessor :form_info, FORM_INFO_KEYS_WITH_ACCESSORS.map(&:to_s)
 
   ##
   # Development helper

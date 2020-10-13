@@ -27,6 +27,7 @@ class Institution < ApplicationRecord
   has_many :antennes, inverse_of: :institution
   has_many :institutions_subjects, inverse_of: :institution
   has_many :landings, inverse_of: :institution
+  has_many :solicitations, inverse_of: :institution
 
   ## Validations
   #
@@ -49,9 +50,6 @@ class Institution < ApplicationRecord
   has_many :received_matches, through: :antennes, inverse_of: :expert_institution
   has_many :received_needs, through: :antennes, inverse_of: :expert_institutions
   has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institutions
-
-  # :landings
-  has_many :solicitations, through: :landings, inverse_of: :institution
 
   # Same as :advisors and :antennes, but excluding deleted items; this makes it possible to preload not_deleted items in views.
   has_many :not_deleted_antennes, -> { not_deleted }, class_name: "Antenne", inverse_of: :institution

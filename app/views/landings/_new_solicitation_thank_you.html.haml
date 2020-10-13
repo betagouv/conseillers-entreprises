@@ -1,8 +1,8 @@
 %h2.section__title{ class: "#{'text-left' unless in_iframe?}" }= t('.title')
 
-- if in_iframe?
+- if solicitation.institution
   %p.section__subtitle
-    = t('.message_with_institution', institution: landing.institution.name)
+    = t('.message_with_institution', institution: solicitation.institution.name)
 
   :javascript
     _paq.push(['trackEvent', 'contact-formulaire-partenaire', "success"]);
