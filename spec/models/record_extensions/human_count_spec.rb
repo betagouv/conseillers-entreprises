@@ -1,7 +1,6 @@
 require 'rails_helper'
-require 'core_extensions/relation/human_count'
 
-describe CoreExtensions::Relation::HumanCount, type: :lib do
+describe RecordExtensions::HumanCount do
   describe 'human_count' do
     subject { user.searches.human_count }
 

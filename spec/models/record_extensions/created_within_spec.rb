@@ -1,7 +1,6 @@
 require 'rails_helper'
-require 'core_extensions/active_record/created_within'
 
-describe CoreExtensions::ActiveRecord::CreatedWithin, type: :lib do
+describe RecordExtensions::CreatedWithin do
   describe 'scopes' do
     describe 'created_last_week' do
       it do
