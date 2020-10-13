@@ -1,7 +1,6 @@
 require 'rails_helper'
-require 'core_extensions/delayed/job/remove_jobs'
 
-describe CoreExtensions::Delayed::Job::RemoveJobs, type: :lib do
+describe JobExtensions::RemoveDelayedJobs do
   describe 'remove_jobs' do
     before do
       stub_const('SomeClass', Class.new do
@@ -11,7 +10,7 @@ describe CoreExtensions::Delayed::Job::RemoveJobs, type: :lib do
       end)
     end
 
-    subject(:remove_jobs) { Delayed::Job.remove_jobs(queue, &block) }
+    subject(:remove_delayed_jobs) { ApplicationJob.remove_delayed_jobs(queue, &block) }
 
     let(:queue) { 'queue' }
     let(:block) { -> (job) { job.payload_object.method_name == :a_method } }
@@ -20,26 +19,26 @@ describe CoreExtensions::Delayed::Job::RemoveJobs, type: :lib do
       before { SomeClass.delay(queue: 'queue').a_method }
 
       context 'one job, matching' do
-        it { expect{ remove_jobs }.to change(Delayed::Job, :count).by(-1) }
+        it { expect{ remove_delayed_jobs }.to change(Delayed::Job, :count).by(-1) }
       end
 
       context 'no queue or block specified' do
         let(:queue) { nil }
         let(:block) { nil }
 
-        it { expect{ remove_jobs }.to change(Delayed::Job, :count).by(-1) }
+        it { expect{ remove_delayed_jobs }.to change(Delayed::Job, :count).by(-1) }
       end
 
       context 'one job, other queue' do
         let(:queue) { 'another_queue' }
 
-        it { expect{ remove_jobs }.not_to change(Delayed::Job, :count) }
+        it { expect{ remove_delayed_jobs }.not_to change(Delayed::Job, :count) }
       end
 
       context 'one job, not matching block' do
         let(:block) { -> (job) { job.payload_object.method_name == 'another_method' } }
 
-        it { expect{ remove_jobs }.not_to change(Delayed::Job, :count) }
+        it { expect{ remove_delayed_jobs }.not_to change(Delayed::Job, :count) }
       end
     end
 
@@ -55,7 +54,7 @@ describe CoreExtensions::Delayed::Job::RemoveJobs, type: :lib do
         SomeClass.delay(queue: 'another_queue').another_method
       end
 
-      it { expect{ remove_jobs }.to change(Delayed::Job, :count).by(-2) }
+      it { expect{ remove_delayed_jobs }.to change(Delayed::Job, :count).by(-2) }
     end
   end
 end
