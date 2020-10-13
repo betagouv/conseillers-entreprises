@@ -4,7 +4,7 @@ ActiveAdmin.register Landing do
   includes :landing_topics, :landing_options
 
   controller do
-    defaults :finder => :find_by_slug
+    defaults :finder => :find_by_slug!
   end
 
   ## Index
