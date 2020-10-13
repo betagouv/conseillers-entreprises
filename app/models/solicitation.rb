@@ -17,11 +17,17 @@
 #  status                           :integer          default("in_progress")
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
+#  institution_id                   :bigint(8)
 #
 # Indexes
 #
-#  index_solicitations_on_email         (email)
-#  index_solicitations_on_landing_slug  (landing_slug)
+#  index_solicitations_on_email           (email)
+#  index_solicitations_on_institution_id  (institution_id)
+#  index_solicitations_on_landing_slug    (landing_slug)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (institution_id => institutions.id)
 #
 
 class Solicitation < ApplicationRecord
@@ -35,11 +41,9 @@ class Solicitation < ApplicationRecord
   has_many :diagnoses, inverse_of: :solicitation
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
+  belongs_to :institution, inverse_of: :solicitations, optional: true
 
-  ## Through Associations
-  #
-  # :landing
-  has_one :institution, inverse_of: :solicitations, through: :landing
+  before_create :set_institution_from_landing
 
   ## Scopes
   #
@@ -102,6 +106,10 @@ class Solicitation < ApplicationRecord
 
   ## Callbacks
   #
+  def set_institution_from_landing
+    self.institution ||= landing&.institution
+  end
+
   def touch_after_badges_update(_badge)
     touch if persisted?
   end
