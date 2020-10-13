@@ -10,7 +10,7 @@ class MatchMailerService
     # Kill similar jobs that are not run yet (or being run).
     # Disable DEVELOPMENT_INLINE_JOBS to debug :)
     queue = 'match_notify'
-    previous_jobs = Delayed::Job.remove_jobs queue do |job|
+    previous_jobs = ApplicationJob.remove_delayed_jobs queue do |job|
       payload = job.payload_object
       # Remove the similar emails about to be sent
       [payload.object, payload.method_name] == [MatchMailerService, :notify_status] &&

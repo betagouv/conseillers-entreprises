@@ -12,12 +12,13 @@
           %h1= landing_option&.form_title.presence || @landing.title
           %p.subtitle= @landing.subtitle
 
+- if @landing.home_sort_order.present?
   = render 'pages/breadcrumbs', landing: @landing, landing_option: landing_option
 
 - if @solicitation.persisted?
   %section.section.section-grey#section-thankyou
     .container.container-medium
-      = render 'new_solicitation_thank_you', landing: @landing
+      = render 'new_solicitation_thank_you', solicitation: @solicitation
   - unless in_iframe?
     %section.section.section-white#container-newsletter
       .container

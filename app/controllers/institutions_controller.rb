@@ -24,9 +24,8 @@ class InstitutionsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        csv = CsvExportService.csv(@antennes)
-        filename = CsvExportService.filename(@antennes)
-        send_data csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{filename}.csv"
+        result = @antennes.export_csv
+        send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
       end
     end
   end
@@ -35,12 +34,8 @@ class InstitutionsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        additional_fields = User.csv_fields_for_relevant_expert_team
-          .merge(User.csv_fields_for_relevant_expert_subjects(@institutions_subjects))
-        csv = CsvExportService.csv(@advisors, additional_fields)
-        filename = CsvExportService.filename(@advisors)
-
-        send_data csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{filename}.csv"
+        result = @advisors.export_csv(institutions_subjects: @institutions_subjects)
+        send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
       end
     end
   end
@@ -49,7 +44,7 @@ class InstitutionsController < ApplicationController
   end
 
   def import_antennes_create
-    @result = CsvImport::AntenneImporter.import(params.require(:file), @institution)
+    @result = Antenne.import_csv(params.require(:file), institution: @institution)
     if @result.success?
       flash[:table_highlighted_ids] = @result.objects.map(&:id)
       redirect_to action: :antennes
@@ -61,7 +56,7 @@ class InstitutionsController < ApplicationController
   def import_advisors; end
 
   def import_advisors_create
-    @result = CsvImport::UserImporter.import(params.require(:file), @institution)
+    @result = User.import_csv(params.require(:file), institution: @institution)
     if @result.success?
       flash[:table_highlighted_ids] = @result.objects.map(&:id)
       redirect_to action: :advisors

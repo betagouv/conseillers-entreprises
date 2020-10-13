@@ -10,7 +10,8 @@
 #
 # Indexes
 #
-#  index_themes_on_label  (label) UNIQUE
+#  index_themes_on_interview_sort_order  (interview_sort_order)
+#  index_themes_on_label                 (label) UNIQUE
 #
 
 class Theme < ApplicationRecord

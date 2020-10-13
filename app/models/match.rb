@@ -28,8 +28,6 @@
 #
 
 class Match < ApplicationRecord
-  include CsvExport::Models::Match
-
   ## Constants
   #
   enum old_status: {

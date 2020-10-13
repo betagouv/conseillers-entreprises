@@ -15,6 +15,34 @@ RSpec.describe Solicitation, type: :model do
     it { is_expected.to validate_presence_of :email }
   end
 
+  describe 'callbacks' do
+    describe 'set_institution_from_landing' do
+      subject { solicitation.institution }
+
+      context 'with institution from a landing page' do
+        let(:institution) { build :institution }
+        let(:landing) { build :landing, institution: institution }
+        let(:solicitation) { create :solicitation, landing: landing }
+
+        it { is_expected.to eq institution }
+      end
+
+      context 'with a solicitation slug in the form_info' do
+        let(:institution) { create :institution }
+        let(:solicitation) { create :solicitation, form_info: { institution: institution.slug } }
+
+        it { is_expected.to eq institution }
+      end
+
+      context 'with no institution' do
+        let(:landing) { build :landing, institution: nil }
+        let(:solicitation) { create :solicitation, landing: landing, form_info: {} }
+
+        it { is_expected.to be_nil }
+      end
+    end
+  end
+
   describe '#landing_options' do
     let(:solicitation) { create :solicitation, landing_options_slugs: slugs }
     let!(:option1) { create :landing_option, slug: 'option1' }

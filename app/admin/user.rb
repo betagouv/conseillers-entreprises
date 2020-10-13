@@ -11,6 +11,7 @@ ActiveAdmin.register User do
   #
   includes :antenne, :institution, :searches, :feedbacks,
            :sent_diagnoses, :sent_needs, :sent_matches,
+           :relevant_experts,
            :invitees
   config.sort_order = 'created_at_desc'
 

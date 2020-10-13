@@ -14,10 +14,11 @@
 #
 # Indexes
 #
-#  index_subjects_on_archived_at  (archived_at)
-#  index_subjects_on_label        (label) UNIQUE
-#  index_subjects_on_slug         (slug) UNIQUE
-#  index_subjects_on_theme_id     (theme_id)
+#  index_subjects_on_archived_at           (archived_at)
+#  index_subjects_on_interview_sort_order  (interview_sort_order)
+#  index_subjects_on_label                 (label) UNIQUE
+#  index_subjects_on_slug                  (slug) UNIQUE
+#  index_subjects_on_theme_id              (theme_id)
 #
 # Foreign Keys
 #

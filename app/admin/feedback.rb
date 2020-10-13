@@ -3,7 +3,8 @@ ActiveAdmin.register Feedback do
 
   ## Index
   #
-  includes :feedbackable, user: [:institution, :antenne]
+  includes [feedbackable: [:facility, :company, :subject]], # feedbackable is either a Need or a Solicitation; ActiveRecord’s magic does the right thing here.
+           user: [:institution, :antenne]
 
   index do
     selectable_column

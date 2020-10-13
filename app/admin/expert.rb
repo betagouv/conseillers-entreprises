@@ -9,7 +9,9 @@ ActiveAdmin.register Expert do
 
   # Index
   #
-  includes :institution, :antenne, :users, :experts_subjects, :received_matches
+  includes :institution, :antenne, :users,
+           :communes, :territories, { antenne: [:territories, :communes] },
+           :subjects, :received_matches
   config.sort_order = 'full_name_asc'
 
   scope :all, default: true
