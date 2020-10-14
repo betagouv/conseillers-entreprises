@@ -5,4 +5,5 @@
     = link_to t('.choose'),
       new_solicitation_landing_path(landing_topic.landing, landing_topic.landing_option_slug),
       class: 'button small',
-      'aria-label': "#{t('.choose')} #{landing_topic.title.downcase}"
+      'aria-label': "#{t('.choose')} #{landing_topic.title.downcase}",
+      onclick: 'click_on_landing_option()'
