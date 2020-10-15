@@ -43,12 +43,15 @@ class Feedback < ApplicationRecord
   # Notify experts of this need and other feedbacks authors, but if the author's expert is in need experts,
   # don't send an email to their personal address
   def persons_to_notify
-    experts_users = self.need.experts.flat_map(&:users)
+    need_experts = self.need.experts
+    # remove experts if they have rejected the match
+    rejected_experts = need_experts.select { |e| e.received_matches.find_by(need: self.need).status_not_for_me? }
+    experts_users = need_experts.flat_map(&:users)
     feedback_users = need.feedbacks.map(&:user)
     # remove users if their experts are already present in feedbacks authors
     feedback_users.filter! { |user| experts_users.exclude?(user) }
     persons = (need.experts + [need.advisor] + feedback_users).uniq
-    persons - [user] - user.experts
+    persons - [user] - user.experts - rejected_experts
   end
 
   def need
