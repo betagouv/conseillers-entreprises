@@ -79,4 +79,3 @@ Rails.application.configure do
 end
 
 PpSql.add_rails_logger_formatting = false
-
