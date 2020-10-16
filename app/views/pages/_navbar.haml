@@ -11,12 +11,12 @@
             Place des
             %br
             Entreprises
-        %button.burger-btn{ "data-action"=>"toggle-nav"}
+        %button.burger-btn{ "data-action" => "toggle-nav" }
           %span.sr-only Déplier menu
           %span.burger-btn__bar
           %span.burger-btn__bar
           %span.burger-btn__bar
-      %nav{ "data-target"=>"toggle-nav"}
+      %nav{ "data-target" => "toggle-nav" }
         %ul.nav__links
           %li.nav__item
             = link_to t('about.blog.title'), ENV['BLOG_URL']
