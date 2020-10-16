@@ -41,6 +41,21 @@ header
     background: none
     color: black
     font-weight: bold
+  .burger-btn
+    display: none
+    text-shadow: none
+    border: 0
+    background: 0 0
+    box-shadow: none
+    .burger-btn__bar
+      display: block
+      width: 33px
+      height: 4px
+      margin-bottom: 8px
+      position: relative
+      background: #cdcdcd
+      border-radius: 3px
+      z-index: 1
   @media (max-width: 1160px)
     .navbar__home
       height: 120px
@@ -51,11 +66,19 @@ header
       align-items: center
     .navbar__home
       display: flex
-      flex-direction: column
+      flex-direction: row
+    .burger-btn
+      display: block
     nav
+      display: none
+      width: 100%
       text-align: center
-      margin-top: 1rem
+      background-color: var(--theme-background-grey)
+      &.active
+        display: block
     .nav__links
+      display: flex
+      flex-direction: column
       padding: 1rem
     .nav__item
       margin: 0.5rem 0
@@ -242,6 +265,8 @@ form
     p
       padding: 0 0.5rem
 
+
+// Generic helpers -----------------
 .bold
   font-weight: bold
 
@@ -261,3 +286,13 @@ a:hover
 
 .section.less-padding
   padding: 2em 0
+
+.sr-only
+  position: absolute
+  width: 1px
+  height: 1px
+  padding: 0
+  margin: -1px
+  overflow: hidden
+  clip: rect(0,0,0,0)
+  border: 0
