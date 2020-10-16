@@ -141,6 +141,6 @@ class NeedsController < ApplicationController
   end
 
   def retrieve_needs(scope, status)
-    @needs = scope.send(status).page params[:page]
+    @needs = scope.send(status).includes(:company, :advisor, :subject).page params[:page]
   end
 end
