@@ -7,7 +7,7 @@ module Reminders
       @territories = Territory.all.order(:bassin_emploi, :name)
       @territory = retrieve_territory
       experts_pool = @territory&.all_experts || Expert.all
-      @active_experts = experts_pool.with_active_abandoned_matches.sort_by do |expert|
+      @active_experts = experts_pool.with_active_abandoned_matches.includes(:antenne).sort_by do |expert|
         expert.needs_quo.abandoned.count
       end.reverse
     end
