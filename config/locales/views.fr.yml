@@ -498,6 +498,11 @@ fr:
       error_mailjet: Une erreur s’est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
+    menu:
+     unfold: Déplier menu
+     logo:
+      fr: logo République française
+      pde: logo Place des Entreprises
     alert_region:
       alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France."
       learn_more: En savoir plus

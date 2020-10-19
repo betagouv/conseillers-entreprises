@@ -4,19 +4,13 @@
 
     .navbar__container
       %a.navbar__home{ href: '/' }
-        = image_tag 'Republique_Francaise_RVB.png', alt: 'république française', class: 'navbar__logo'
-        %span.navbar__domain
-          = image_tag 'logo-pde-250.png', alt: 'logo Place des Entreprises'
-          %span
-            Place des
-            %br
-            Entreprises
-        %button.burger-btn{ "data-action" => "toggle-nav" }
-          %span.sr-only Déplier menu
+        = image_tag 'Republique_Francaise_RVB.png', alt: t('pages.menu.logo.fr'), class: 'navbar__logo'
+        = image_tag 'logo-PDE.svg', alt: t('pages.menu.logo.pde'), class: 'navbar__domain'
+        %button.burger-btn{ "data-action": "toggle-nav", "aria-label": t('pages.menu.unfold')} 
           %span.burger-btn__bar
           %span.burger-btn__bar
           %span.burger-btn__bar
-      %nav{ "data-target" => "toggle-nav" }
+      %nav{ "data-target": "toggle-nav" }
         %ul.nav__links
           %li.nav__item
             = link_to t('about.blog.title'), ENV['BLOG_URL']

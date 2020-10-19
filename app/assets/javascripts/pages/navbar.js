@@ -6,11 +6,7 @@
     let nav = document.querySelector("[data-target='toggle-nav']")
     ToggleNavButton.addEventListener("click", (event) => {
       event.preventDefault();
-      if (!nav.classList.contains('active')) {
-        nav.classList.add('active');
-      } else {
-        nav.classList.remove('active');
-      }
+      nav.classList.toggle('active');
     }, false);
   }
 })();
