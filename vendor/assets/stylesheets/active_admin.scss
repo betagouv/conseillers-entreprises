@@ -25,6 +25,8 @@
   &.warning { background: #ff9947 }
   &.error { background: #932419 }
   &.done { background: #03bd5b }
+  &.done_no_help { background: yellow }
+  &.done_not_reachable { background: teal }
   &.taking_care { background: #ff9947 }
   &.not_for_me { background: #932419 }
   &.create { background: #03bd5b }

@@ -203,6 +203,8 @@ fr:
       need/statuses:
         diagnosis_not_complete: Analyse en cours
         done: Besoin clôturé
+        done_no_help: Pas d’aide disponible
+        done_not_reachable: Entreprise non joignable
         not_for_me: Mise en relation refusée
         quo: En attente de réponse
         sent_to_no_one: Envoyé à personne
