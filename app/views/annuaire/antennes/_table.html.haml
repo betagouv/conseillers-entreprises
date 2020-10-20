@@ -8,7 +8,7 @@
       - highlighted_ids = flash[:table_highlighted_ids]
       %tr{ class: highlighted_ids&.include?(antenne.id) ? 'blue' : '' }
         %td
-          = antenne.name
+          = link_to antenne, institution_antenne_advisors_path(antenne_id: antenne)
         %td
           %ul
             - summary = antenne.intervention_zone_summary
