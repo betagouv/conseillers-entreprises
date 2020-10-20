@@ -1,6 +1,11 @@
 module  Annuaire
   class AntennesController < BaseController
     def index
+      @antennes = @institution.antennes
+        .not_deleted
+        .order(:name)
+        .preload(:communes)
+
       respond_to do |format|
         format.html
         format.csv do

@@ -1,6 +1,16 @@
 module  Annuaire
   class AdvisorsController < BaseController
     def index
+      @advisors = @institution.advisors
+        .not_deleted
+        .relevant_for_skills
+        .joins(:antenne)
+        .order('antennes.name', 'team_name', 'users.full_name')
+        .preload(:antenne, relevant_expert: [:not_deleted_users, :antenne, :experts_subjects])
+
+      @institutions_subjects = @institution.institutions_subjects
+        .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
+
       respond_to do |format|
         format.html
         format.csv do
