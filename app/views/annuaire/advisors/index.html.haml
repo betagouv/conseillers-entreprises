@@ -2,5 +2,6 @@
 - content_for :header, render('header', institution: @institution)
 - content_for :menu, render('menu', institution: @institution)
 
-= render 'subjects_table', institutions_subjects: @institutions_subjects
+= render 'import_buttons'
 
+= render 'table', institutions_subjects: @institutions_subjects, advisors: @advisors
