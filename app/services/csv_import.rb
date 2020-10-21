@@ -21,7 +21,7 @@ module CsvImport
     end
 
     def success?
-      @success ||= @header_errors.blank? && @objects.all?{ |object| object.valid?(:import) }
+      @success ||= @header_errors.blank? && @objects.none?{ |object| object.errors.present? }
     end
   end
 

@@ -82,7 +82,12 @@ module CsvImport
       attributes = all_attributes.slice(*several_subjects_mapping.keys)
         .transform_keys{ |k| several_subjects_mapping[k] }
 
-      experts_subjects_attributes = attributes.map do |institution_subject, serialized_description|
+      # Avoid duplicate ExpertsSubjects
+      filtered_attributes = attributes.reject do |institution_subject, _|
+        expert.institutions_subjects.include? institution_subject
+      end
+
+      experts_subjects_attributes = filtered_attributes.map do |institution_subject, serialized_description|
         if serialized_description.present?
           {
             institution_subject: institution_subject,
@@ -104,6 +109,9 @@ module CsvImport
       return if name.blank?
 
       institution_subject = InstitutionSubject.find_with_name(expert.institution, name)
+
+      # Avoid duplicate ExpertsSubjects
+      return if expert.institutions_subjects.include? institution_subject
 
       expert.experts_subjects.new(institution_subject: institution_subject)
       expert.save
