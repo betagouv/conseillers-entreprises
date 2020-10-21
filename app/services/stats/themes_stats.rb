@@ -17,8 +17,8 @@ module Stats
       if territory.present?
         query.merge! territory.needs
       end
-      if institution.present?
-        query.merge! institution.sent_needs
+      if @start_date.present?
+        query = query.where("needs.created_at >= ? AND needs.created_at <= ?", @start_date, @end_date)
       end
 
       query

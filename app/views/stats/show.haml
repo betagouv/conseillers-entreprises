@@ -16,3 +16,7 @@
         - names = [:companies, :taking_care]
         - names.each do |name|
           = render 'stats_chart', stats: @stats, name: name
+
+        - names_basic_columns_chart = [:themes]
+        - names_basic_columns_chart.each do |name|
+          = render 'basic_columns_chart', stats: @stats, name: name
