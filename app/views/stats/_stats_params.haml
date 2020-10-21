@@ -1,15 +1,26 @@
 - cache("stats_params-#{stats.params}", expires_in: 1.hour) do
   .panel#stats-params
-    = form_with url: stats_path, method: :get, skip_enforcing_utf8: true do
-      .row.form__group
-        - options = { include_blank: t('all_choices'), onchange: 'this.form.submit();' }
-        %div
-          = label_tag(t('activerecord.models.territory.one'))
-          = select_tag(:territory,
-            options_from_collection_for_select(Territory.bassins_emploi.order(:name), :id, :name, stats.params.territory),
-            options.dup)
-        %div
+    = form_with url: route, method: :get, skip_enforcing_utf8: true, local: true do
+      .form__group
+        - options = { include_blank: t('all_choices') }
+        = label_tag(t('.region'))
+        = select_tag(:territory,
+          options_from_collection_for_select(Territory.regions.order(:name), :id, :name, stats.params.territory),
+          options.dup)
+      - if policy(stats).team?
+        .form__group
           = label_tag(t('activerecord.models.institution.one'))
           = select_tag(:institution,
             options_from_collection_for_select(Institution.not_deleted.order(:name), :id, :name, stats.params.institution),
             options.dup)
+      .form__group
+        .datepicker
+          = label_tag(t('.start_date'))
+          = date_field_tag(:start_date, stats.params.start_date)
+        .datepicker
+          = label_tag(t('.end_date'))
+          = date_field_tag(:end_date, stats.params.end_date)
+
+      .form__group
+        = submit_tag t('.search')
+

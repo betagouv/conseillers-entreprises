@@ -627,6 +627,11 @@ fr:
         visits: Visites par un conseiller
     show:
       title: Statistiques d’utilisation
+    stats_params:
+      end_date: Date de fin
+      region: Région
+      search: Chercher
+      start_date: Date de début
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
@@ -666,6 +671,11 @@ fr:
       download: Télécharger
       title: Statistiques d’utilisation
       users_stats: Conseillers
+    stats_params:
+      region: "Région"
+      start_date: "Date de début"
+      end_date: "Date de fin"
+      search: "Chercher"
     team:
       title: "Stats équipe"
   user_pages:

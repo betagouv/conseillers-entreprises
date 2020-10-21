@@ -9,6 +9,10 @@ module Stats
       if params.institution.present?
         @institution = Institution.find_by(id: params.institution)
       end
+      if params.start_date.present?
+        @start_date = params.start_date.to_date
+        @end_date = params.end_date.to_date || Date.today
+      end
     end
 
     def series

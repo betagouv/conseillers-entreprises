@@ -31,7 +31,7 @@ class StatsController < PagesController
   private
 
   def stats_params
-    params.permit(:territory, :institution)
+    params.permit(:territory, :institution, :start_date, :end_date)
   end
 
   def users_stats
