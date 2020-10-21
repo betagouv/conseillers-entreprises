@@ -20,7 +20,7 @@
       - result.rows.each_with_index do |row, index|
         - object = result.objects[index]
         %tr
-          - has_errors = object.invalid?(:import)
+          - has_errors = object.errors.present?
           %td{ rowspan: has_errors ? 2 : 1 }
             #{index + 1}
           - row.each_value do |value|

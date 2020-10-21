@@ -1,5 +1,5 @@
 .card
-  = link_to landing do
+  = link_to landing, onclick: 'click_on_landing()' do
     .card__content
       = simple_format(landing.home_title, {}, wrapper_tag: 'h2')
       = simple_format(landing.home_description, {}, wrapper_tag: 'p')

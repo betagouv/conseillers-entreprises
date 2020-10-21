@@ -25,9 +25,9 @@ module Reminders
 
     def retrieve_needs(scope)
       @needs = if @territory.present?
-        Need.send(scope).joins(:diagnosis).where(diagnoses: { facility: @territory&.facilities }).page(params[:page])
+        Need.diagnosis_completed.send(scope).joins(:diagnosis).where(diagnoses: { facility: @territory&.facilities }).includes(:subject).page(params[:page])
       else
-        Need.send(scope).page(params[:page])
+        Need.diagnosis_completed.send(scope).includes(:subject).page(params[:page])
       end
       @status = t("reminders.needs.header.#{scope}").downcase
     end

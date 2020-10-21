@@ -83,6 +83,7 @@ class SolicitationsController < ApplicationController
 
   def ordered_solicitations
     Solicitation.order(created_at: :desc).page(params[:page]).omnisearch(params[:query])
+      .includes(:badges_solicitations, :badges, :institution, :landing, :diagnoses)
   end
 
   def authorize_index_solicitation

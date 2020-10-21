@@ -507,6 +507,10 @@ fr:
     how_it_works:
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
       submit_request: Déposez votre demande
+    menu:
+      logo_fr: logo République française
+      logo_pde: logo Place des Entreprises
+      unfold: Déplier menu
     newsletter:
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
       placeholder_email: Votre adresse email

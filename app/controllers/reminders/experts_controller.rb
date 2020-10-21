@@ -7,7 +7,7 @@ module Reminders
       @territories = Territory.all.order(:bassin_emploi, :name)
       @territory = retrieve_territory
       experts_pool = @territory&.all_experts || Expert.all
-      @active_experts = experts_pool.with_active_abandoned_matches.sort_by do |expert|
+      @active_experts = experts_pool.with_active_abandoned_matches.includes(:antenne).sort_by do |expert|
         expert.needs_quo.abandoned.count
       end.reverse
     end
@@ -45,16 +45,16 @@ module Reminders
     end
 
     def retrieve_needs(status)
-      @needs = @expert.send(status).page params[:page]
+      @needs = @expert.send(status).diagnosis_completed.page params[:page]
       @status = t("needs.header.#{status}")
     end
 
     def count_expert_needs
       @count_expert_needs = Rails.cache.fetch(["reminders_expert_need", @expert.received_needs]) do
         {
-          quo_abandonned: @expert.needs_quo.abandoned.size,
-            needs_taking_care: @expert.needs_taking_care.size,
-            needs_others_taking_care: @expert.needs_others_taking_care.size
+          quo_abandonned: @expert.needs_quo.diagnosis_completed.abandoned.size,
+            needs_taking_care: @expert.needs_taking_care.diagnosis_completed.size,
+            needs_others_taking_care: @expert.needs_others_taking_care.diagnosis_completed.size
         }
       end
     end

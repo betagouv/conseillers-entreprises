@@ -70,6 +70,12 @@ Rails.application.configure do
 
   # Let Faker load its :en text
   config.i18n.enforce_available_locales = false
+
+  # Bullet configuration. Other options : https://github.com/flyerhzm/bullet#configuration
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.add_footer = true
+  end
 end
 
 PpSql.add_rails_logger_formatting = false

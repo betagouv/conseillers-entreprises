@@ -34,7 +34,7 @@ class InstitutionsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        result = @advisors.export_csv(institutions_subjects: @institutions_subjects)
+        result = @advisors.export_csv(include_expert_team: true, institutions_subjects: @institutions_subjects)
         send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
       end
     end
