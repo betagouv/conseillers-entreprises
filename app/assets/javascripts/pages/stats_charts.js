@@ -26,7 +26,7 @@ function stats_charts(container, months, max_value, series) {
       }
     },
     tooltip: {
-      pointFormat: '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>',
+      pointFormat: '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}',
     },
     xAxis: {
       categories: months,

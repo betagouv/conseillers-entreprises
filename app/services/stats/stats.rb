@@ -42,6 +42,10 @@ module Stats
       SourceStats.new(@params)
     end
 
+    def public_companies
+      PublicCompaniesStats.new(@params)
+    end
+
     def taking_care
       PublicTakingCareStats.new(@params)
     end
