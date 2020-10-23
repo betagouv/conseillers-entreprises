@@ -62,7 +62,7 @@ describe ExpertMailer do
           count = 0
           allow_any_instance_of(User).to receive(:send_reset_password_instructions) do |user|
             expect(expert_members).to include user
-            count +=1
+            count += 1
           end
 
           mail
@@ -72,14 +72,14 @@ describe ExpertMailer do
 
       context 'expert with deleted user ' do
         let(:user1) { create :user, invitation_sent_at: nil, encrypted_password: '' }
-        let(:user2) { create :user, invitation_sent_at: nil, encrypted_password: '',  deleted_at: Time.zone.now}
+        let(:user2) { create :user, invitation_sent_at: nil, encrypted_password: '', deleted_at: Time.zone.now }
         let(:expert_members) { [user1, user2] }
 
         it do
           count = 0
           allow_any_instance_of(User).to receive(:send_reset_password_instructions) do |user|
             expect(user2).not_to eq(user)
-            count +=1
+            count += 1
           end
 
           mail
