@@ -33,6 +33,20 @@ RSpec.describe Feedback, type: :model do
 
       it{ is_expected.to match_array [expert1, expert2, expert3] }
     end
+
+    context 'when an expert refuse the match' do
+      let(:author) { advisor }
+      let(:expert_refuse) { create :expert }
+      let!(:refused_match) { create :match, expert: expert_refuse, need: need, status: 'not_for_me' }
+
+      before do
+        need.matches << refused_match
+      end
+
+      it 'don’t notify expert_refuse' do
+        is_expected.to match_array [expert1, expert2, expert3]
+      end
+    end
   end
 
   describe 'touch solicitations' do
