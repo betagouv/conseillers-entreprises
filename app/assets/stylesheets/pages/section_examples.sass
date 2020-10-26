@@ -10,14 +10,21 @@ section.section#section-exemples
     flex-wrap: wrap
     margin-bottom: 2rem
     .landing-topic
+      text-decoration: none
+      color: var(--black)
+      display: flex
+      flex-direction: column
+      p
+        flex: 1 1 auto
       h3
         font-size: 1.1rem
       padding-right: 9rem
       margin-top: 2rem
       flex: 0 0 50%
       .button
+        align-self: baseline
         font-weight: bold
-        padding: 0.25rem 1.5rem
+        padding: 0.5rem 1.5rem
       @media (max-width: 1160px)
         padding-right: 3rem
       @media (max-width: 750px)

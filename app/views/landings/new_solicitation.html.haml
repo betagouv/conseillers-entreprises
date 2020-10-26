@@ -42,6 +42,11 @@
             = t('.five_days_contact_html')
       .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
         = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
+        - if in_iframe?
+          .legal-notice
+            = t('.legal_notice_html',
+            mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
+            informations: link_to('mentions d’information', politique_de_confidentialite_url))
 
   - unless in_iframe?
     %section.section.section-white.landing
