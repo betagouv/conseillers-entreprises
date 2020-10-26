@@ -59,10 +59,31 @@ describe ExpertMailer do
         let(:expert_members) { [user1, user2] }
 
         it do
-          expect(user1).to receive(:send_reset_password_instructions).once
-          expect(user2).to receive(:send_reset_password_instructions).once
+          count = 0
+          allow_any_instance_of(User).to receive(:send_reset_password_instructions) do |user|
+            expect(expert_members).to include user
+            count += 1
+          end
 
           mail
+          expect(count).to eq(2)
+        end
+      end
+
+      context 'expert with deleted user ' do
+        let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
+        let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '', deleted_at: Time.zone.now }
+        let(:expert_members) { [user1, user2] }
+
+        it do
+          count = 0
+          allow_any_instance_of(User).to receive(:send_reset_password_instructions) do |user|
+            expect(user2).not_to eq(user)
+            count += 1
+          end
+
+          mail
+          expect(count).to eq(1)
         end
       end
     end
