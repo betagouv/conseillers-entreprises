@@ -170,6 +170,7 @@ fr:
         closed_at: Date de clôture
         expert: Référent
         need: Besoin identifié
+        need_status: Statut du besoin
         taken_care_of_at: Date de prise en charge
       match/statuses:
         done: Besoin clôturé
