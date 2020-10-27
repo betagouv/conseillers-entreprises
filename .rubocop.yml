@@ -9,6 +9,9 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'tmp/**/*'
+    - 'node_modules/**/*'
+    - 'bin/webpack'
+    - 'bin/webpack-dev-server'
   NewCops: enable
 
 Bundler/DuplicatedGem:

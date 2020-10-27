@@ -7,15 +7,25 @@
   .form__group
     - solicitation.required_fields.each do |field|
       .form__group
-        = f.label field
         - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
-        - if help.present?
-          %span= help
 
-        = f.text_field field,
-          placeholder: t(".attributes.placeholder.#{field}"),
-          type: Solicitation::FIELD_TYPES[field],
-          required: true
+        - if field == :siret
+          // Duplication pour respecter l'accessibilité (id unique, field avec label...)
+          = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
+          - if help.present?
+            %span= help
+          %div{ "data-action": 'siret-autocomplete' }
+          = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
+
+        - else
+          = f.label field
+          - if help.present?
+            %span= help
+          = f.text_field field,
+            placeholder: t(".attributes.placeholder.#{field}"),
+            type: Solicitation::FIELD_TYPES[field],
+            required: true
+
         .notification.error= solicitation.errors.full_messages_for(field).to_sentence
   .form__group
     = f.label 'description', t('.description')
