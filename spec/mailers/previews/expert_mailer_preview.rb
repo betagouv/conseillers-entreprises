@@ -9,6 +9,7 @@ class ExpertMailerPreview < ActionMailer::Preview
     diagnosis = expert.received_diagnoses.sample
     solicitation = Solicitation.all.sample
     diagnosis.solicitation = solicitation
+    solicitation.landing = Landing.all.sample
     solicitation.landing.update(partner_url: 'https://test.com/formulaire')
     ExpertMailer.notify_company_needs(expert, diagnosis)
   end

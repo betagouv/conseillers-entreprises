@@ -36,8 +36,12 @@ header
   .navbar__container
     padding: 0
     justify-content: space-between
+  .navbar__domain
+    height: 60px
+    margin-bottom: 19px
   .navbar__home
     height: 120px
+    margin-top: 15px
   .nav__item a.active
     background: none
     color: black
@@ -58,8 +62,6 @@ header
       border-radius: 3px
       z-index: 1
   @media (max-width: 1160px)
-    .navbar__home
-      height: 120px
     nav
       padding: 1rem 0
   @media (max-width: 565px)
@@ -67,7 +69,8 @@ header
       height: 65px
       margin-right: 0
     .navbar__domain
-      height: 75px
+      height: 50px
+      margin: 0
     .navbar__container
       align-items: center
     .navbar__home
@@ -92,9 +95,6 @@ header
       margin: 0.5rem 0
       img
         height: 60px
-
-.navbar__domain
-  height: 150px
 
 input[type=submit].button
   -webkit-appearance: none
