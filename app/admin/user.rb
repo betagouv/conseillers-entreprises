@@ -215,11 +215,6 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
   end
 
-  unless Rails.env.development?
-    # Disable mass-destroy in production
-    batch_action :destroy, false
-  end
-
   batch_action I18n.t('active_admin.user.do_invite') do |ids|
     batch_action_collection.find(ids).each do |user|
       user.invite!(current_user)
