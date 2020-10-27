@@ -1,13 +1,6 @@
-function stats_charts(container, months, max_value, series) {
+function stats_charts(container, months, max_value, series, colors) {
   Highcharts.chart(container, {
-    colors: [
-      '#60bbff',
-      '#208bff', '#006be6', '#0033e4', '#0500e2',
-      '#3b00e0', '#7000dd', '#a400db', '#d700d9',
-      '#d700a4', '#d5006f', '#d3003b', '#d00007',
-      '#ce2b00', '#cc5c00', '#ab2b1e',
-      '#56656f'
-    ],
+    colors: colors,
     chart: {
       type: 'column'
     },
