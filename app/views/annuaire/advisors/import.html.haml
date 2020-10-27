@@ -2,12 +2,12 @@
 - content_for :header, render('header', institution: @institution)
 - content_for :menu, render('menu', institution: @institution)
 
-= render 'advisors_import_buttons'
+= render 'import_buttons'
 
 - if @result.present?
   = render 'import_errors', result: @result
 
-= form_with url: import_advisors_create_institution_path, local: true, class: 'ui form' do |f|
+= form_with url: import_institution_advisors_path, local: true, class: 'ui form' do |f|
   .ui.inline.field
     = f.file_field :file, accept: 'text/csv', required: true
   = f.submit t('submit'), class: 'ui right floated button'

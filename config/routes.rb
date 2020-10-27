@@ -33,15 +33,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :institutions, param: :slug, only: %i[index show] do
-    member do
-      get :subjects, path: 'domaines'
-      get :antennes
-      get :advisors, path: 'conseillers'
-      get :import_antennes, path: 'antennes/import'
-      post :import_antennes_create, path: 'antennes/import'
-      get :import_advisors, path: 'conseillers/import'
-      post :import_advisors_create, path: 'conseillers/import'
+  scope :annuaire, module: :annuaire do
+    get '/', to: redirect('/annuaire/institutions')
+
+    concern :importable do
+      get :import, on: :collection
+      post :import, action: :import_create, on: :collection
+    end
+
+    resources :institutions, param: :slug, only: %i[index show] do
+      resources :subjects, path: 'domaines', only: :index
+      resources :advisors, path: 'conseillers', only: :index, concerns: :importable
+      resources :antennes, only: :index, concerns: :importable
     end
   end
 

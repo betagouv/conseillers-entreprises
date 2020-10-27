@@ -23,6 +23,16 @@ fr:
     csv_export_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
     landings:
       region_name_placeholder: Indiquez si l’institution est présente uniquement dans une région
+  annuaire:
+    advisors:
+      table:
+        experts_on_subject: "%{count} référents sur ce sujet"
+    base:
+      import_errors:
+        import_failed: Échec de l’import
+        unknown_headers:
+          one: En-tête non reconnu
+          other: En-têtes non reconnus
   application:
     footer:
       contact_us: Contactez-nous !
@@ -33,9 +43,9 @@ fr:
     navbar:
       account: Compte
       admin: Administration
+      annuaire: Annuaire
       badges: Tags
       diagnoses: Analyses
-      institutions: Institutions et déploiement
       invite: Inviter des utilisateurs
       partner_tools: Outils partenaires
       profile: Profil
@@ -231,14 +241,6 @@ fr:
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
       view_completed_analysis: Voir l’analyse réalisée
-  institutions:
-    advisors_table:
-      experts_on_subject: "%{count} référents sur ce sujet"
-    import_errors:
-      import_failed: Échec de l’import
-      unknown_headers:
-        one: En-tête non reconnu
-        other: En-têtes non reconnus
   landing_topics:
     landing_topic:
       choose: Choisir
