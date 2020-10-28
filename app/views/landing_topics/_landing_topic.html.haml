@@ -1,5 +1,5 @@
-= link_to new_solicitation_landing_path(landing_topic.landing, landing_topic.landing_option_slug), class: 'landing-topic', 'aria-label': "#{t('.choose')} #{landing_topic.title.downcase}", onclick: 'click_on_landing_option()' do
-  %h3= landing_topic.title.html_safe
+.landing-topic.block-link
+  %h3= link_to landing_topic.title.html_safe, new_solicitation_landing_path(landing_topic.landing, landing_topic.landing_option_slug), onclick: 'click_on_landing_option()'
   %p= landing_topic.description.html_safe
   - if landing_topic.landing_option_slug.present?
     %button.button.small{ tabindex: '-1' }
