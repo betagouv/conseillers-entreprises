@@ -61,21 +61,6 @@ ActiveAdmin.register Expert do
     column(:flags) do |e|
       e.flags.filter{ |_, v| v.to_b }.map{ |k, _| Expert.human_attribute_name(k) }.to_sentence
     end
-
-    actions dropdown: true do |e|
-      item t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(e)
-
-      # Dynamically create a menu item to activate and deactivate each Expert::FLAGS
-      Expert::FLAGS.each do |flag|
-        [true, false].each do |value|
-          localized_flag = Expert.human_attribute_name(flag)
-          title = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.change')
-          if e.send(flag).to_b != value # Only add a menu item to change to the other value.
-            item title, polymorphic_path(["#{flag}_#{value}", :admin, e])
-          end
-        end
-      end
-    end
   end
 
   filter :full_name
@@ -258,24 +243,16 @@ ActiveAdmin.register Expert do
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 
-  # Dynamically create a member_action and a batch_action to activate and deactivate each Expert::FLAGS
-  Expert::FLAGS.each do |flag|
-    [true, false].each do |value|
-      localized_flag = Expert.human_attribute_name(flag)
-      title = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.change')
-      message = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.done')
+  form_options = {
+    action: [[I18n.t('active_admin.flag.action.add'), :add], [I18n.t('active_admin.flag.action.remove'), :remove]],
+    flag: Expert::FLAGS.map { |f| [Expert.human_attribute_name(f), f] }
+  }
+  batch_action I18n.t('active_admin.flag.add_remove'), form: form_options do |ids, inputs|
+    flag = inputs[:flag]
+    value = inputs[:action] == 'add'
+    Expert.where(id: ids).each { |u| u.update(flag => value) }
 
-      # member_action
-      member_action "#{flag}_#{value}" do
-        resource.update({ flag => value })
-        redirect_back fallback_location: collection_path, notice: message
-      end
-
-      # batch_action
-      batch_action title do |ids|
-        batch_action_collection.where(id: ids).update({ flag => value })
-        redirect_back fallback_location: collection_path, notice: message
-      end
-    end
+    message = I18n.t("active_admin.flag.done.#{inputs[:action]}", flag: User.human_attribute_name(flag))
+    redirect_to collection_path, notice: message
   end
 end

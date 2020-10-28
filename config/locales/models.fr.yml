@@ -4,12 +4,13 @@ fr:
     expert:
       modify_subjects: Modifier les domaines d’intervention
     flag:
-      change:
-        'false': Désactiver « %{flag} »
-        'true': Activer « %{flag} »
+      action:
+        add: Activer une option
+        remove: Supprimer une option
+      add_remove: Activer / désactiver des options sur
       done:
-        'false': "« %{flag} » désactivé"
-        'true': "« %{flag} » activé"
+        add: Option « %{flag} » activée
+        remove: Option « %{flag} » désactivée
     landings:
       home_sort_order_placeholder: Laisser vide pour ne pas afficher sur l’accueil.
     matches:
