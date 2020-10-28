@@ -180,6 +180,7 @@ Rails.application.routes.draw do
     resources :needs, path: 'besoins', only: %i[index] do
       collection do
         get :in_progress, path: 'en_cours'
+        get :institutions, path: 'institutions_a_prevenir'
         get :abandoned, path: 'abandonnes'
       end
     end
