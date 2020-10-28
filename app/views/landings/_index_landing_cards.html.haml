@@ -1,6 +1,6 @@
 - unless in_iframe?
   - @landing_emphasis.each do |landing|
-    .emphasis
+    .emphasis.notification.warning
       = simple_format("#{landing.home_title} : ", {}, wrapper_tag: 'h2')
       = simple_format(landing.home_description, {}, wrapper_tag: 'span')
       #button-discover= link_to t('.discover_measures'), landing, class: 'button-outline small primary'
