@@ -11,10 +11,10 @@ fr:
       long_title: Place des Entreprises, comment ça marche ?
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
+    mentions_d_information:
+      title: Mentions d'information
     mentions_legales:
       title: Mentions légales
-    politique_de_confidentialite:
-      title: Politique de confidentialité
   active_admin:
     badges:
       add_remove: Ajouter / supprimer un tag sur
