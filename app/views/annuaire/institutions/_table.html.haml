@@ -16,12 +16,12 @@
               .content
                 = institution.name
         %td
-          = link_to [:subjects, institution] do
+          = link_to [institution, :subjects] do
             - institution.institutions_subjects.group_by(&:theme).each do |theme, institutions_subjects|
               %li #{theme.label} (#{institutions_subjects.size})
         %td
-          = link_to [:antennes, institution] do
+          = link_to [institution, :antennes] do
             = institution.not_deleted_antennes.human_count
         %td
-          = link_to [:advisors, institution] do
+          = link_to [institution, :advisors] do
             = institution.not_deleted_advisors.human_count

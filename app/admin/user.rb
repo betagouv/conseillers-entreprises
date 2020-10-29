@@ -56,17 +56,6 @@ ActiveAdmin.register User do
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
       item t('active_admin.user.do_invite'), invite_user_admin_user_path(u)
-
-      # Dynamically create a menu item to activate and deactivate each User::FLAGS
-      User::FLAGS.each do |flag|
-        [true, false].each do |value|
-          localized_flag = User.human_attribute_name(flag)
-          title = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.change')
-          if u.send(flag).to_b != value # Only add a menu item to change to the other value.
-            item title, polymorphic_path(["#{flag}_#{value}", :admin, u])
-          end
-        end
-      end
     end
   end
 
@@ -215,11 +204,6 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
   end
 
-  unless Rails.env.development?
-    # Disable mass-destroy in production
-    batch_action :destroy, false
-  end
-
   batch_action I18n.t('active_admin.user.do_invite') do |ids|
     batch_action_collection.find(ids).each do |user|
       user.invite!(current_user)
@@ -227,25 +211,17 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
   end
 
-  # Dynamically create a member_action and a batch_action to activate and deactivate each User::FLAGS
-  User::FLAGS.each do |flag|
-    [true, false].each do |value|
-      localized_flag = User.human_attribute_name(flag)
-      title = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.change')
-      message = I18n.t(value, flag: localized_flag, scope: 'active_admin.flag.done')
+  form_options = {
+    action: [[I18n.t('active_admin.flag.action.add'), :add], [I18n.t('active_admin.flag.action.remove'), :remove]],
+      flag: User::FLAGS.map { |f| [User.human_attribute_name(f), f] }
+  }
+  batch_action I18n.t('active_admin.flag.add_remove'), form: form_options do |ids, inputs|
+    flag = inputs[:flag]
+    value = inputs[:action] == 'add'
+    User.where(id: ids).each { |u| u.update(flag => value) }
 
-      # member_action
-      member_action "#{flag}_#{value}" do
-        resource.update({ flag => value })
-        redirect_back fallback_location: collection_path, notice: message
-      end
-
-      # batch_action
-      batch_action title do |ids|
-        batch_action_collection.where(id: ids).update({ flag => value })
-        redirect_back fallback_location: collection_path, notice: message
-      end
-    end
+    message = I18n.t("active_admin.flag.done.#{inputs[:action]}", flag: User.human_attribute_name(flag))
+    redirect_to collection_path, notice: message
   end
 
   controller do

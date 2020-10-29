@@ -1,0 +1,9 @@
+.ui.secondary.fitted.menu
+  .item
+    = link_to institution_advisors_path(format: 'csv'), class: 'ui labeled icon' do
+      %i.download.icon
+      = t('download')
+  .item
+    = link_to import_institution_advisors_path, class: 'ui labeled icon' do
+      %i.upload.icon
+      = t('import')
