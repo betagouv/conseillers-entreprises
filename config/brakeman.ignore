@@ -72,37 +72,6 @@
       "note": "“role” is considered suspicious by brakeman, but it’s actually not an issue here."
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "9a75a3be0641d406aaf450f3c0793e5d8d00a629f4951778a8f0daf319823743",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/landings/new_solicitation.html.haml",
-      "line": 40,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Solicitation.create(solicitation_params.merge(retrieve_form_info)).landing_option.description_explanation",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "LandingsController",
-          "method": "create_solicitation",
-          "line": 30,
-          "file": "app/controllers/landings_controller.rb",
-          "rendered": {
-            "name": "landings/new_solicitation",
-            "file": "app/views/landings/new_solicitation.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "landings/new_solicitation"
-      },
-      "user_input": null,
-      "confidence": "Medium",
-      "note": "The unescaped data is meant to be used as raw html, and edited only by the team admins."
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "a848f2ec57900fe0a8e2cc8aeab00277657870582bef079fa2f2d539a0b7d060",
