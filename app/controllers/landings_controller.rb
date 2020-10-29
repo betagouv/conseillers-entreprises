@@ -50,7 +50,7 @@ class LandingsController < PagesController
       Landing.find_by(slug: slug)
     end
 
-    redirect_to root_path if @landing.nil?
+    redirect_to root_path, status: :moved_permanently if @landing.nil?
   end
 
   def show_params
