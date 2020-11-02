@@ -569,7 +569,7 @@ fr:
       menu:
         abandoned_without_taking_care_html: "%{label} Abandonnés <i>(+30 jours)</i>"
         reminder_in_progress_html: "%{label} Relancés"
-        reminder_institutions_html: "%{label} Prévenir l'institution<i><br/>(+20 jours)</i>"
+        reminder_institutions_html: "%{label} Prévenir l’institution<i><br/>(+20 jours)</i>"
         reminder_quo_not_taken_html: "%{label} À relancer <i>(+10 jours)</i>"
   solicitations:
     header:
