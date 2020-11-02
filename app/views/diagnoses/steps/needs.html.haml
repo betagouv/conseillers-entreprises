@@ -21,22 +21,26 @@
     - @themes.each do |theme|
       - subjects = theme.subjects.for_interview
       - if subjects.present?
-        .ui.segments.shadow-less
-          .ui.segment.secondary
-            %h3.ui.header= theme
-          - all_needs = @diagnosis.needs
-          - subjects.each do |subject|
-            - need = all_needs.where(subject: subject).first_or_initialize
-            .ui.segment.checkbox.subject
-              = diagnosis_form.fields_for :needs, need do |need_form|
-                = need_form.check_box :_destroy, { checked: need.persisted? }, '0', '1'
-                = need_form.label :_destroy, subject
-                = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2
-                = need_form.hidden_field :subject_id
+        - active_class = 'active' if @diagnosis.themes.include?(theme)
+        .ui.segments.shadow-less.accordion.theme
+          .ui.segment.secondary.title{ class: active_class }
+            %h3.ui.header
+              = theme
+              %i.dropdown.icon
+          .ui.content.subjects.basic.segments{ class: active_class }
+            - all_needs = @diagnosis.needs
+            - subjects.each do |subject|
+              - need = all_needs.where(subject: subject).first_or_initialize
+              .ui.checkbox.subject.segment
+                = diagnosis_form.fields_for :needs, need do |need_form|
+                  = need_form.check_box :_destroy, { checked: need.persisted? }, '0', '1'
+                  = need_form.label :_destroy, subject
+                  = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2
+                  = need_form.hidden_field :subject_id
+            .ui.subject.actions
+              = render 'next_step', diagnosis_form: diagnosis_form
 
     .ui.actions
-      = diagnosis_form.button :submit, class: 'ui right floated button green right labeled icon' do
-        = t('next_step')
-        %i.arrow.right.icon
+      = render 'next_step', diagnosis_form: diagnosis_form
 
   .clear

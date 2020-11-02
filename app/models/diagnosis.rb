@@ -70,6 +70,7 @@ class Diagnosis < ApplicationRecord
 
   # :needs
   has_many :subjects, through: :needs, inverse_of: :diagnoses
+  has_many :themes, through: :subjects, inverse_of: :diagnoses
   has_many :matches, through: :needs, inverse_of: :diagnosis
 
   # :matches

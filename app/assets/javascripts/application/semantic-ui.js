@@ -4,5 +4,5 @@ addEventListener('turbolinks:load', function(event) {
   $('select.ui.selection.search.dropdown').dropdown({ fullTextSearch: 'exact', ignoreDiacritics: true });
   $('.ui.dropdown').not('.simple').dropdown();
   $('.tabular.menu .item').tab();
-  $('.ui.accordion').accordion();
+  $('.ui.accordion').accordion({exclusive: false});
 });
