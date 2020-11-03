@@ -87,7 +87,7 @@ Rails.application.routes.draw do
   controller :about do
     get :comment_ca_marche
     get :cgu
-    get :politique_de_confidentialite
+    get :mentions_d_information
     get :mentions_legales
   end
 
@@ -205,6 +205,7 @@ Rails.application.routes.draw do
   get '/mes_competences', to: redirect('/mon_compte/referents')
   get '/diagnoses', to: redirect('/analyses')
   get '/qui_sommes_nous', to: redirect('/comment_ca_marche')
+  get '/politique_de_confidentialite', to: redirect('/mentions_d_information')
 
   ## Handle 404 properly
   get '*unmatched_route', :to => 'shared#not_found'
