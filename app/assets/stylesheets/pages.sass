@@ -225,7 +225,12 @@ form
 
 .block-link
   position: relative
+  &:hover
+    button
+      background: #003B80
+      background: var(--theme-secondary-darken)
   a::after
+    z-index: 1
     position: absolute
     content: ""
     top: 0
@@ -281,6 +286,7 @@ a:hover
   background-color: transparent
 
 .blue
+  color: #0053b3
   color: var(--blue)
 
 .asterisk
