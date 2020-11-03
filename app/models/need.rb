@@ -160,7 +160,8 @@ class Need < ApplicationRecord
 
   scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_ABANDONED_DELAY.ago) }
 
-  scope :abandoned, -> { where("needs.last_activity_at < ?", ABANDONED_DELAY.ago) }
+  # For Reminders, find Needs without taking care since ABANDONED_DELAY
+  scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", ABANDONED_DELAY.ago) }
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
