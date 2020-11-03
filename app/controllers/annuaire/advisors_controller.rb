@@ -1,5 +1,7 @@
 module  Annuaire
   class AdvisorsController < BaseController
+    include AutoFullscreenLayout
+
     def index
       @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
 
