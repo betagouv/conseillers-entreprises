@@ -11,6 +11,11 @@ module Reminders
       render :index
     end
 
+    def institutions
+      retrieve_needs :reminder_institutions
+      render :index
+    end
+
     def abandoned
       retrieve_needs :abandoned_without_taking_care
       render :index

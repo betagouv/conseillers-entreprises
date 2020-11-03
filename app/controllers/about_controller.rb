@@ -1,7 +1,7 @@
 class AboutController < PagesController
   def cgu; end
 
-  def politique_de_confidentialite; end
+  def mentions_d_information; end
 
   def mentions_legales; end
 

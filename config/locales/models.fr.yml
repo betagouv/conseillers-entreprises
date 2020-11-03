@@ -214,6 +214,8 @@ fr:
       need/statuses/short:
         diagnosis_not_complete: Analyse en cours
         done: Clôturé
+        done_no_help: Pas d’aide disponible
+        done_not_reachable: Non joignable
         not_for_me: Refusé
         quo: Pas de réponse
         sent_to_no_one: Envoyé à personne

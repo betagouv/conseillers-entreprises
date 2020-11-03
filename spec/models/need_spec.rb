@@ -306,9 +306,9 @@ RSpec.describe Need, type: :model do
   end
 
   describe 'abandoned' do
-    let(:need) { create :need }
+    let(:need) { create :need_with_matches }
     let(:date1) { Time.zone.now - 2.months }
-    let(:old_need) { travel_to(date1) { create :need, last_activity_at: date1 } }
+    let(:old_need) { travel_to(date1) { create :need_with_matches } }
 
     it do
       expect(need).not_to be_abandoned

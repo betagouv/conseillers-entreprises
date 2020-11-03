@@ -79,6 +79,7 @@ class Need < ApplicationRecord
   #
   ABANDONED_DELAY = 2.weeks
   REMINDER_DELAY = 10.days
+  REMINDER_INSTITUTIONS_DELAY = 20.days
   REMINDER_ABANDONED_DELAY = 30.days
 
   scope :made_in, -> (date_range) do
@@ -124,6 +125,12 @@ class Need < ApplicationRecord
       .joins(:feedbacks)
   end
 
+  scope :reminder_institutions, -> do
+    by_status(:no_help)
+      .archived(false)
+      .reminder_institutions_delay
+  end
+
   scope :abandoned_without_taking_care, -> do
     with_matches_only_in_status([:quo, :done_no_help, :done_not_reachable, :not_for_me])
       .archived(false)
@@ -147,11 +154,14 @@ class Need < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDER_DELAY.ago) }
+  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_DELAY.ago) }
+
+  scope :reminder_institutions_delay, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDER_INSTITUTIONS_DELAY.ago) }
 
   scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_ABANDONED_DELAY.ago) }
 
-  scope :abandoned, -> { where("needs.last_activity_at < ?", ABANDONED_DELAY.ago) }
+  # For Reminders, find Needs without taking care since ABANDONED_DELAY
+  scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", ABANDONED_DELAY.ago) }
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
