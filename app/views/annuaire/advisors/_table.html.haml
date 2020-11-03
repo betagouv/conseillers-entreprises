@@ -52,7 +52,7 @@
           %tr{ class: highlighted_ids&.include?(user.id) ? 'blue' : '' }
             - if index_in_antenne == 0 && index_in_team == 0
               %td{ rowspan: teams.values.sum(&:size) }
-                = link_to antenne, institution_antenne_advisors_path(antenne_id: antenne)
+                = link_to antenne, institution_antenne_advisors_path(antenne_id: antenne, params: (application_fullscreen ? { fullscreen: true } : {}))
             - else
               %td.rowspanned
             - if index_in_team == 0

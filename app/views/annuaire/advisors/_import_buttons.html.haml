@@ -7,3 +7,8 @@
     = link_to import_institution_advisors_path, class: 'ui labeled icon' do
       %i.upload.icon
       = t('import')
+  .item
+    -# By default, link_to uses the current request path; we just add the fullscreen param. See also AutoFullScreenLayout.
+    = link_to({ fullscreen: true }, { class: 'ui labeled icon' }) do
+      %i.desktop.icon
+      = t('fullscreen')
