@@ -1,10 +1,9 @@
 - unless in_iframe?
   - @landing_emphasis.each do |landing|
-    .block-link
-      .emphasis.notification.warning
-        = simple_format("#{landing.home_title} : ", {}, wrapper_tag: 'h2')
-        = simple_format(landing.home_description, {}, wrapper_tag: 'span')
-        #button-discover= link_to t('.discover_measures'), landing, class: 'button-outline small primary'
+    .emphasis
+      = simple_format("#{landing.home_title} : ", {}, wrapper_tag: 'h2')
+      = simple_format(landing.home_description, {}, wrapper_tag: 'span')
+      #button-discover= link_to t('.discover_measures'), landing, class: 'button-outline small primary'
 
 - landings.each_slice(3) do |landings_slice|
   .row

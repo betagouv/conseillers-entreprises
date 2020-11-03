@@ -1,6 +1,7 @@
-.card.block-link
-  .card__content
-    %h2= link_to landing.home_title, landing_path(landing), onclick: 'click_on_landing()'
-    = simple_format(landing.home_description, {}, wrapper_tag: 'p')
-  .discover_button
-    %button.button.small.primary= t('.discover')
+.card
+  = link_to landing, onclick: 'click_on_landing()' do
+    .card__content
+      = simple_format(landing.home_title, {}, wrapper_tag: 'h2')
+      = simple_format(landing.home_description, {}, wrapper_tag: 'p')
+    .discover_button
+      .button.small.primary= t('.discover')
