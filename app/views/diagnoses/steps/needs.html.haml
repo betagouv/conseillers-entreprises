@@ -2,6 +2,9 @@
 
 = render 'header', diagnosis: @diagnosis, current_page_step: 2
 
+- if @diagnosis.solicitation.present? && @diagnosis.facility.diagnoses.many?
+  = render 'diagnoses/related_diagnoses', diagnoses: @diagnosis.facility.diagnoses
+
 #needs-app
   = form_with model: @diagnosis,
     url: update_needs_diagnosis_path,
