@@ -7,12 +7,13 @@ ActiveAdmin.register Match do
 
   ## Index
   #
-  includes :need, :diagnosis, :facility, :company, :related_matches,
+  includes :need, :facility, :company, :related_matches,
            :advisor, :advisor_antenne, :advisor_institution,
            :expert, :expert_antenne, :expert_institution,
            :subject, :theme,
            facility: :commune,
-           need: :subject
+           need: :subject,
+           diagnosis: :solicitation
 
   scope :all, default: true
   scope :with_deleted_expert

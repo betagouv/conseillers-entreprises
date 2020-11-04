@@ -14,7 +14,7 @@ module CsvExport
         advisor_institution: :advisor_institution,
         theme: :theme,
         subject: :subject,
-        content: -> { need.content },
+        content: -> { diagnosis.solicitation&.description || need.content },
         expert: :expert,
         expert_antenne: :expert_antenne,
         expert_institution: :expert_institution,
