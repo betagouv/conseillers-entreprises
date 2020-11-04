@@ -9,3 +9,9 @@
       - else
         .ui.basic.label.red
           = t('.need_archived')
+
+- if need.diagnosis.solicitation.present?
+  .solicitation-description
+    %p= simple_format(auto_link(need.diagnosis.solicitation.description))
+    - if policy(need.diagnosis.solicitation).show?
+      = link_to(t('.solicitation_link'), need.diagnosis.solicitation)
