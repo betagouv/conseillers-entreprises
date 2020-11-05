@@ -37,8 +37,15 @@ section.section#section-thematiques
     border: none
     display: flex
     flex-direction: column
+    padding: 2px
+    &:hover
+      border: 2px solid #0053b3
+      border: 2px solid var(--blue)
+      padding: 0
+    button
+      padding: 0.4rem 0.8rem
     .card__content
-      padding: 1em
+      padding: 14px
     .discover_button
       margin-top: auto
       padding: 0 1em 1em
@@ -63,22 +70,25 @@ section.section#section-thematiques
 .emphasis
   margin-top: -6.5rem
   margin-bottom: 3rem
-  background-color: #FFEFE3
-  background-color: var(--light-orange)
-  padding: 1rem
   display: flex
   align-items: center
+  &:hover
+    border: 2px solid #CC5C00
+    border: 2px solid var(--dark-orange)
+    padding: calc(var(--space-s) - 1px)
   h2
     font-size: 1rem
     margin: 0
+  span
+    margin: 0 0.5rem
   #button-discover
     display: flex
     flex: 1 1 auto
     justify-content: flex-end
-    margin-left: 0.5rem
     a
       background-color: #fff
       background-color: var(--white)
+      position: static
 
 @media(max-width: 750px)
   .home-title

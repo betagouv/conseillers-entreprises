@@ -19,7 +19,7 @@ describe 'New Solicitation Feature', type: :feature, js: true do
       visit '/?pk_campaign=FOO&pk_kwd=BAR'
       click_link 'Test Landing'
       # Find 'Choose' link
-      find("#section-exemples > div > div.landing-topics > a").click
+      find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
 
       fill_in 'Description', with: 'Ceci est un test'
       fill_in 'SIRET', with: '123 456 789 00010'

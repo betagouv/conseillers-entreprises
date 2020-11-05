@@ -223,6 +223,21 @@ form
     .logo-beta
       height: 36px
 
+.block-link
+  position: relative
+  &:hover
+    button
+      background: #003B80
+      background: var(--theme-secondary-darken)
+  a::after
+    z-index: 1
+    position: absolute
+    content: ""
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+
 // IE fixes
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
@@ -271,6 +286,7 @@ a:hover
   background-color: transparent
 
 .blue
+  color: #0053b3
   color: var(--blue)
 
 .asterisk
