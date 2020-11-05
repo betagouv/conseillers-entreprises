@@ -10,27 +10,6 @@ class StatsController < PagesController
     authorize @stats, :team?
   end
 
-  def users
-    @stats = users_stats
-    render 'stats/stats'
-  end
-
-  def activity
-    @stats = activity_stats
-    render 'stats/stats'
-  end
-
-  def cohorts
-    @stats = cohorts_stats
-    render 'stats/stats'
-  end
-
-  def tables
-    @users_stats = users_stats
-    @activity_stats = activity_stats
-    @cohorts_stats = cohorts_stats
-  end
-
   private
 
   def stats_params
