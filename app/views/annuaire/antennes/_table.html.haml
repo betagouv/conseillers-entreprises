@@ -2,6 +2,7 @@
   %thead
     %tr
       %th
+      %th= Antenne.human_attribute_name(:advisors, count: 2)
       %th= Antenne.human_attribute_name(:intervention_zone)
   %tbody
     - antennes.each do |antenne|
@@ -9,6 +10,10 @@
       %tr{ class: highlighted_ids&.include?(antenne.id) ? 'blue' : '' }
         %td
           = link_to antenne, institution_antenne_advisors_path(antenne_id: antenne)
+        %td
+          %ul
+            %li= antenne.experts.human_count
+            %li= antenne.advisors.human_count
         %td
           %ul
             - summary = antenne.intervention_zone_summary
