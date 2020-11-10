@@ -24,7 +24,7 @@ module Stats
           .where(facilities: { diagnoses: { advisor: { antennes: { institution: institution } } } })
       end
       if @start_date.present?
-        query.merge!.where(needs: { created_at: @start_date..@end_date })
+        query.where!(needs: { created_at: @start_date..@end_date })
       end
       query
     end
