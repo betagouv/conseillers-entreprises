@@ -1,7 +1,11 @@
 module  Annuaire
   class AdvisorsController < BaseController
+    include AutoFullscreenLayout
+
     def index
-      @advisors = @institution.advisors
+      @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
+
+      @advisors = (@antenne || @institution).advisors
         .not_deleted
         .relevant_for_skills
         .joins(:antenne)

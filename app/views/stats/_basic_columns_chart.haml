@@ -16,5 +16,5 @@
     var series = #{ data.series.to_json.html_safe }
     var colors = #{ data.colors.to_json.html_safe }
 
-    stats_charts(container, months, max_value, series, colors);
+    basic_columns_chart(container, months, max_value, series, colors);
   })()

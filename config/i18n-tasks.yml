@@ -99,6 +99,8 @@ ignore_unused:
   - 'stats.stats_table.*'
   - 'stats.series.*'
   - 'categories_juridiques.*'
+  - 'code_to_range.*'
+  - 'simple_effectif.*'
   - 'codes_effectif.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
 # - '{devise,kaminari,will_paginate}.*'

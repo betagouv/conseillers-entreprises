@@ -1,7 +1,15 @@
 class ExpertMailerPreview < ActionMailer::Preview
-  def notify_company_needs
+  def notify_company_needs_without_solicitation
+    diagnosis = Diagnosis.completed.where(solicitation: nil).joins(:experts).where(experts: { deleted_at: nil }).sample
+    expert = diagnosis.experts.not_deleted.sample
+    ExpertMailer.notify_company_needs(expert, diagnosis)
+  end
+
+  def notify_company_needs_with_solicitation
     expert = active_expert
-    ExpertMailer.notify_company_needs(expert, expert.received_diagnoses.sample)
+    diagnosis = expert.received_diagnoses.sample
+    diagnosis.solicitation = Solicitation.all.sample
+    ExpertMailer.notify_company_needs(expert, diagnosis)
   end
 
   def notify_company_needs_from_partner
@@ -31,6 +39,6 @@ class ExpertMailerPreview < ActionMailer::Preview
   private
 
   def active_expert
-    Expert.with_active_matches.sample
+    Expert.not_deleted.with_active_matches.sample
   end
 end

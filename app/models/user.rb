@@ -69,6 +69,7 @@ class User < ApplicationRecord
 
   ## Validations
   #
+  before_validation :fix_flag_values
   validates :full_name, :phone_number, presence: true, unless: :deleted?
   after_create :create_personal_skillset_if_needed
   after_update :synchronize_personal_skillsets
@@ -170,6 +171,10 @@ class User < ApplicationRecord
     disable_email_confirm_notifications_sent
   ]
   store_accessor :flags, FLAGS.map(&:to_s)
+
+  def fix_flag_values
+    self.flags.transform_values!(&:to_b)
+  end
 
   ## Password
   #

@@ -1,7 +1,7 @@
 - meta title: @institution.name
-- content_for :header, render('header', institution: @institution)
+- content_for :header, render('header', institution: @institution, antenne: @antenne)
 - content_for :menu, render('menu', institution: @institution)
 
-= render 'import_buttons'
+= render 'import_buttons' unless application_fullscreen
 
-= render 'table', institutions_subjects: @institutions_subjects, advisors: @advisors
+= render 'table', institutions_subjects: @institutions_subjects, advisors: @advisors, antenne: @antenne

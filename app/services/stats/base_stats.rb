@@ -9,6 +9,14 @@ module Stats
       if params.institution.present?
         @institution = Institution.find_by(id: params.institution)
       end
+      if params.start_date.present?
+        @start_date = params.start_date.to_date
+        @end_date = params.end_date.to_date || Date.today
+      end
+    end
+
+    def colors
+      %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a]
     end
 
     def series
@@ -29,12 +37,12 @@ module Stats
       if additive_values
         count
       else
-        @max_value ||= grouped_by_month(main_query).count.values.max
+        @max_value ||= grouped_by_month(filtered(main_query)).count.values.max
       end
     end
 
     def all_months
-      @all_months ||= grouped_by_month(main_query).count.keys
+      @all_months ||= grouped_by_month(filtered(main_query)).count.keys
     end
 
     def all_categories

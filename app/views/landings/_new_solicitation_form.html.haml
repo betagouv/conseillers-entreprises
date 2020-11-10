@@ -30,3 +30,7 @@
     .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
   .form__group
     = f.submit t('.button.title'), class: 'button large'
+  .legal-notice
+    = t('.legal_notice_html',
+      mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
+      informations: link_to('mentions d’information', mentions_d_information_url))

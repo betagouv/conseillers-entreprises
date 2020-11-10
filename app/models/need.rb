@@ -55,6 +55,7 @@ class Need < ApplicationRecord
   # :diagnosis
   has_one :facility, through: :diagnosis, inverse_of: :needs
   has_one :company, through: :diagnosis, inverse_of: :needs
+  has_one :solicitation, through: :diagnosis, inverse_of: :needs
   has_one :advisor, through: :diagnosis, inverse_of: :sent_needs
 
   # :matches

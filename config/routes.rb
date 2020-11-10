@@ -44,7 +44,9 @@ Rails.application.routes.draw do
     resources :institutions, param: :slug, only: %i[index show] do
       resources :subjects, path: 'domaines', only: :index
       resources :advisors, path: 'conseillers', only: :index, concerns: :importable
-      resources :antennes, only: :index, concerns: :importable
+      resources :antennes, only: :index, concerns: :importable do
+        resources :advisors, path: 'conseillers', only: :index
+      end
     end
   end
 
@@ -63,7 +65,8 @@ Rails.application.routes.draw do
 
   resource :newsletters, only: %i[] do
     post :create
-    get :new, path: 'abonnement'
+    get :new, path: 'abonnement', as: :new
+    get :index, to: redirect('/newsletters/abonnement')
   end
 
   resources :solicitations, only: %i[index show], path: 'sollicitations' do
@@ -93,11 +96,7 @@ Rails.application.routes.draw do
 
   resource :stats, only: [:show] do
     collection do
-      get :users
-      get :activity
-      get :cohorts
-
-      get :tables
+      get :team
     end
   end
 

@@ -1,0 +1,14 @@
+- meta title: t('.title')
+- content_for :head do
+  - javascript_include_tag 'highcharts', data: { turbolinks_track: 'reload' }
+
+%section.section.section-white.landing
+  .container.container
+    %h1= t('.title')
+
+= render 'pages/breadcrumbs', title: t('.title')
+
+%section.section.section-grey#section-stats
+  .container.container-full
+    = render 'stats_params', stats: @stats, route: team_stats_path
+    = render 'stats/stats_charts', stats: @stats

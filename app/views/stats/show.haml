@@ -10,5 +10,13 @@
 
 %section.section.section-grey#section-stats
   .container.container-full
-    = render 'stats_params', stats: @stats
-    = render 'stats/stats_charts', stats: @stats
+    - cache("stats_charts-#{@stats.params}", expires_in: 1.hour) do
+      = render 'stats_params', stats: @stats, route: stats_path
+      #stats-charts
+        - names = [:companies, :taking_care]
+        - names.each do |name|
+          = render 'stats_chart', stats: @stats, name: name
+
+        - names_basic_columns_chart = [:themes]
+        - names_basic_columns_chart.each do |name|
+          = render 'basic_columns_chart', stats: @stats, name: name

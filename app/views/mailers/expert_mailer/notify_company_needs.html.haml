@@ -10,6 +10,9 @@
 
 - needs.ordered_for_interview.each do |need|
   %h2.subject= need.subject
+  - if @diagnosis.content.present?
+    %blockquote
+      %p= simple_format(auto_link(@diagnosis.content))
   - if need.content.present?
     %blockquote
       %p= simple_format(auto_link(need.content))
