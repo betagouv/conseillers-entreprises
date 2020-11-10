@@ -53,37 +53,37 @@ RSpec.describe Need, type: :model do
     context 'diagnosis not complete' do
       let(:diagnosis) { create :diagnosis, step: :not_started }
 
-      it { is_expected.to eq :diagnosis_not_complete }
+      it { is_expected.to eq 'diagnosis_not_complete' }
     end
 
     context 'with no match' do
       let(:matches) { [] }
 
-      it { is_expected.to eq :sent_to_no_one }
+      it { is_expected.to eq 'diagnosis_not_complete' }
     end
 
     context 'with at least a match done' do
       let(:matches) { [quo_match, taking_care_match, not_for_me_match, done_match] }
 
-      it { is_expected.to eq :done }
+      it { is_expected.to eq 'done' }
     end
 
     context 'with at least a match taking_care' do
       let(:matches) { [quo_match, taking_care_match, not_for_me_match] }
 
-      it { is_expected.to eq :taking_care }
+      it { is_expected.to eq 'taking_care' }
     end
 
     context 'with all matches not_for_me' do
       let(:matches) { [not_for_me_match, not_for_me_match] }
 
-      it { is_expected.to eq :not_for_me }
+      it { is_expected.to eq 'not_for_me' }
     end
 
     context 'with matches still quo' do
       let(:matches) { [quo_match, quo_match, not_for_me_match] }
 
-      it { is_expected.to eq :quo }
+      it { is_expected.to eq 'quo' }
     end
   end
 

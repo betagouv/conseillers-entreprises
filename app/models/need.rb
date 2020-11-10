@@ -8,6 +8,7 @@
 #  last_activity_at        :datetime         not null
 #  matches_count           :integer
 #  satisfaction_email_sent :boolean          default(FALSE), not null
+#  status                  :enum             default("diagnosis_not_complete"), not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  diagnosis_id            :bigint(8)        not null
@@ -17,6 +18,7 @@
 #
 #  index_needs_on_archived_at                  (archived_at)
 #  index_needs_on_diagnosis_id                 (diagnosis_id)
+#  index_needs_on_status                       (status)
 #  index_needs_on_subject_id                   (subject_id)
 #  index_needs_on_subject_id_and_diagnosis_id  (subject_id,diagnosis_id) UNIQUE
 #
@@ -30,6 +32,17 @@ class Need < ApplicationRecord
   ##
   #
   include Archivable
+
+  enum status: {
+    diagnosis_not_complete: 'diagnosis_not_complete',
+      sent_to_no_one: 'sent_to_no_one',
+      quo: 'quo',
+      taking_care: 'taking_care',
+      done: 'done',
+      done_no_help: 'done_no_help',
+      done_not_reachable: 'done_not_reachable',
+      not_for_me: 'not_for_me'
+  }, _prefix: true
 
   ## Associations
   #
@@ -189,6 +202,12 @@ class Need < ApplicationRecord
     when :not_for_me
       with_some_matches_in_status(:not_for_me)
         .with_matches_only_in_status(:not_for_me)
+    when :done_no_help
+      with_some_matches_in_status(:done_no_help)
+        .with_matches_only_in_status([:quo, :taking_care, :not_for_me, :done_no_help, :done_not_reachable])
+    when :done_not_reachable
+      with_some_matches_in_status(:done_not_reachable)
+        .with_matches_only_in_status([:quo, :taking_care, :not_for_me, :done_no_help, :done_not_reachable])
     when :no_help
       with_matches_only_in_status([:quo, :not_for_me, :done_no_help, :done_not_reachable])
     end
