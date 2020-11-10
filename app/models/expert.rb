@@ -52,6 +52,7 @@ class Expert < ApplicationRecord
 
   ## Validations
   #
+  before_validation :fix_flag_values
   validates :antenne, presence: true
   validates :email, :phone_number, presence: true, unless: :deleted?
   validates_associated :experts_subjects, on: :import
@@ -92,6 +93,10 @@ class Expert < ApplicationRecord
     can_edit_own_subjects
   ]
   store_accessor :flags, FLAGS.map(&:to_s)
+
+  def fix_flag_values
+    self.flags.transform_values!(&:to_b)
+  end
 
   # Team stuff
   scope :personal_skillsets, -> do
@@ -203,7 +208,8 @@ class Expert < ApplicationRecord
   end
 
   def should_review_subjects?
-    subjects_reviewed_at.nil? || subjects_reviewed_at < 6.months.ago
+    can_edit_own_subjects &&
+      (subjects_reviewed_at.nil? || subjects_reviewed_at < 6.months.ago)
   end
 
   def mark_subjects_reviewed!

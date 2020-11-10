@@ -149,7 +149,7 @@ RSpec.describe Expert, type: :model do
     describe 'should_review_subjects?' do
       subject { expert.should_review_subjects? }
 
-      let(:expert) { create :expert, subjects_reviewed_at: reviewed_at }
+      let(:expert) { create :expert, subjects_reviewed_at: reviewed_at, can_edit_own_subjects: true }
 
       context 'subjects never reviewed' do
         let(:reviewed_at) { nil }
