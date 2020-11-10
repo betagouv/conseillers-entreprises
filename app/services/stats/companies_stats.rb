@@ -16,7 +16,7 @@ module Stats
 
     def filtered(query)
       if territory.present?
-        query = query.merge(territory.companies)
+        query.merge!(territory.companies)
       end
       if institution.present?
         query = query
