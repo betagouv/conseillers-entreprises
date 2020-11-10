@@ -14,7 +14,13 @@ module CsvExport
         advisor_institution: :advisor_institution,
         theme: :theme,
         subject: :subject,
-        content: -> { diagnosis.solicitation&.description || need.content },
+        content: -> do
+          if diagnosis.content.present? && need.content.present?
+            "#{diagnosis.content} / #{need.content}"
+          else
+            diagnosis.content.presence || need.content.presence
+          end
+        end,
         expert: :expert,
         expert_antenne: :expert_antenne,
         expert_institution: :expert_institution,

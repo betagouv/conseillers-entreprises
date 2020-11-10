@@ -10,8 +10,13 @@
         .ui.basic.label.red
           = t('.need_archived')
 
-- if need.diagnosis.solicitation.present?
+- if need.diagnosis.content.present?
   .solicitation-description
-    %p= simple_format(auto_link(need.diagnosis.solicitation.description))
-    - if policy(need.diagnosis.solicitation).show?
+    - if need.solicitation.present?
+      %p= t('.company_message')
+    %i.quote.left.icon
+    = simple_format(auto_link(need.diagnosis.content), class: 'content')
+    %i.quote.right.icon
+
+    - if need.diagnosis.solicitation.present? && policy(need.diagnosis.solicitation).show?
       = link_to(t('.solicitation_link'), need.diagnosis.solicitation)

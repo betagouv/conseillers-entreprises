@@ -469,6 +469,7 @@ fr:
       browse_archived_needs: Voir les demandes archivées
       title: Demandes reçues pour %{antenne}
     need_header:
+      company_message: 'Message de l''entreprise :'
       need_archived: Besoin archivé
       solicitation_link: Lien vers la sollicitation
     needs_archived_tabs:

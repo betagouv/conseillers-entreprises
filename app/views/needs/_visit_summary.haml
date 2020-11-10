@@ -24,5 +24,3 @@
             .date= I18n.l(diagnosis.completed_at, format: :long)
             .summary
               = t('.advisor_has_diagnosed_n_needs', advisor: diagnosis.advisor, count: diagnosis.needs.count)
-            - if diagnosis.content
-              .extra.text= simple_format(auto_link(diagnosis.content))

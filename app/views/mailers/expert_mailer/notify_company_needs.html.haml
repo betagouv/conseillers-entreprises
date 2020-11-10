@@ -10,9 +10,12 @@
 
 - needs.ordered_for_interview.each do |need|
   %h2.subject= need.subject
-  - if need.solicitation&.description.present? || need.content.present?
+  - if @diagnosis.content.present?
     %blockquote
-      %p= simple_format(auto_link(need.solicitation&.description || need.content))
+      %p= simple_format(auto_link(@diagnosis.content))
+  - if need.content.present?
+    %blockquote
+      %p= simple_format(auto_link(need.content))
 
 %p
   - if @solicitation.present? && @solicitation.landing&.partner_url.present?
