@@ -19,9 +19,7 @@ module Stats
         query.merge!(territory.companies)
       end
       if institution.present?
-        query = query
-          .joins(diagnoses: [advisor: [antenne: :institution]])
-          .where(facilities: { diagnoses: { advisor: { antennes: { institution: institution } } } })
+        query = query.where(diagnoses: institution.received_diagnoses)
       end
       if @start_date.present?
         query.where!(needs: { created_at: @start_date..@end_date })
