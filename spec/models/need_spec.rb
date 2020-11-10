@@ -394,4 +394,14 @@ RSpec.describe Need, type: :model do
       it { is_expected.to eq date2 }
     end
   end
+
+  describe 'update_status' do
+    let(:need) { create :need_with_matches }
+
+    before { need.matches.first.update(status: :taking_care) }
+
+    subject { need.reload.status }
+
+    it { is_expected.to eq 'taking_care' }
+  end
 end

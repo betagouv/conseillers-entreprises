@@ -62,6 +62,7 @@ class Need < ApplicationRecord
   ## Callbacks
   #
   after_touch :update_last_activity_at
+  after_touch :update_status
 
   ## Through Associations
   #
@@ -253,7 +254,28 @@ class Need < ApplicationRecord
     }
   end
 
-  def status
+  def update_status
+    matches_status = matches.pluck(:status).map(&:to_sym)
+
+    if !diagnosis.step_completed?
+      status = :diagnosis_not_complete
+    elsif matches_status.include?(:done)
+      status = :done
+    elsif matches_status.include?(:taking_care)
+      status = :taking_care
+    elsif matches_status.include?(:done_not_reachable)
+      status = :done_not_reachable
+    elsif matches_status.include?(:done_no_help)
+      status = :done_no_help
+    elsif matches_status.include?(:quo)
+      status = :quo
+    else
+      status = :not_for_me
+    end
+    self.update(status: status)
+  end
+
+  def old_status
     return :diagnosis_not_complete unless diagnosis.step_completed?
 
     matches_status = matches.pluck(:status).map(&:to_sym)
