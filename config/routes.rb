@@ -44,7 +44,9 @@ Rails.application.routes.draw do
     resources :institutions, param: :slug, only: %i[index show] do
       resources :subjects, path: 'domaines', only: :index
       resources :advisors, path: 'conseillers', only: :index, concerns: :importable
-      resources :antennes, only: :index, concerns: :importable
+      resources :antennes, only: :index, concerns: :importable do
+        resources :advisors, path: 'conseillers', only: :index
+      end
     end
   end
 
