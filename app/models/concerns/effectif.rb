@@ -16,4 +16,8 @@ module Effectif
   end
 
   UNITE_NON_EMPLOYEUSE = 'NN'
+
+  def self.simple_effectif(code)
+    I18n.t(code, scope: 'simple_effectif', default: I18n.t('other'))
+  end
 end

@@ -1,33 +1,22 @@
 class StatsController < PagesController
+  include Pundit
+
   def show
     @stats = Stats::Stats.new(stats_params)
   end
 
-  def users
-    @stats = users_stats
-    render 'stats/stats'
-  end
-
-  def activity
-    @stats = activity_stats
-    render 'stats/stats'
-  end
-
-  def cohorts
-    @stats = cohorts_stats
-    render 'stats/stats'
-  end
-
-  def tables
-    @users_stats = users_stats
-    @activity_stats = activity_stats
-    @cohorts_stats = cohorts_stats
+  def team
+    @stats = Stats::Stats.new(stats_params)
+    authorize @stats, :team?
   end
 
   private
 
   def stats_params
-    params.permit(:territory, :institution)
+    permit_params = params.permit(:territory, :institution, :start_date, :end_date)
+    permit_params[:start_date] ||= 6.months.ago.beginning_of_month.to_date
+    permit_params[:end_date] ||= Date.today
+    permit_params
   end
 
   def users_stats
