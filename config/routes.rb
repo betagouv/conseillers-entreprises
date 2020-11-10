@@ -65,7 +65,8 @@ Rails.application.routes.draw do
 
   resource :newsletters, only: %i[] do
     post :create
-    get :new, path: 'abonnement'
+    get :new, path: 'abonnement', as: :new
+    get :index, to: redirect('/newsletters/abonnement')
   end
 
   resources :solicitations, only: %i[index show], path: 'sollicitations' do
