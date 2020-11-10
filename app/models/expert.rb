@@ -203,7 +203,8 @@ class Expert < ApplicationRecord
   end
 
   def should_review_subjects?
-    subjects_reviewed_at.nil? || subjects_reviewed_at < 6.months.ago
+    can_edit_own_subjects &&
+      (subjects_reviewed_at.nil? || subjects_reviewed_at < 6.months.ago)
   end
 
   def mark_subjects_reviewed!
