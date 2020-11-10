@@ -51,9 +51,7 @@
     %a.ui.left.floated.button.labeled.icon{ href: needs_diagnosis_path }
       = t('previous_step')
       %i.arrow.left.icon
-    = diagnosis_form.button :submit, class: 'ui right floated button green right labeled icon' do
-      = t('next_step')
-      %i.arrow.right.icon
+    = render 'next_step', diagnosis_form: diagnosis_form
 
   .clear
 

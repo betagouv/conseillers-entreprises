@@ -469,7 +469,9 @@ fr:
       browse_archived_needs: Voir les demandes archivées
       title: Demandes reçues pour %{antenne}
     need_header:
+      company_message: 'Message de l''entreprise :'
       need_archived: Besoin archivé
+      solicitation_link: Lien vers la sollicitation
     needs_archived_tabs:
       done: Clôturées
       failed: Marquées en échec
@@ -493,8 +495,6 @@ fr:
         other: "%{advisor} a identifié %{count} besoins."
       person_advisor: Conseiller
       person_company_contact: Personne rencontrée
-      solicitation: Sollicitation %{id}
-      solicitation_link: Lien vers la sollicitation
       visit_made_on: Mise en relation faite le %{date}
   newsletters:
     create:

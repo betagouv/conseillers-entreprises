@@ -33,6 +33,7 @@ module DiagnosisCreation
       end
 
       params[:step] = :needs
+      params[:content] = get_solicitation_description(params)
       Diagnosis.create(params)
     end
   end
@@ -41,7 +42,6 @@ module DiagnosisCreation
     # Some preconditions can be verified without actually trying to create the Diagnosis
     def may_prepare_diagnosis?
       self.preselected_subjects.present? &&
-        self.preselected_institutions.present? &&
         Facility.siret_is_valid(Facility.clean_siret(self.siret)) # TODO: unify the SIRET validation methods
     end
 
@@ -64,13 +64,13 @@ module DiagnosisCreation
         )
 
         # Steps 1, 2, 3: fill in with the solicitation data and the landing_option preselections
-        methods = [
-          :prepare_needs_from_solicitation,
-          :prepare_happened_on_from_solicitation,
-          :prepare_visitee_from_solicitation,
-          :prepare_matches_from_solicitation
-        ]
-        methods.each { |method| diagnosis.public_send(method) if diagnosis.errors.empty? }
+        diagnosis.prepare_needs_from_solicitation if diagnosis.errors.empty?
+        diagnosis.prepare_happened_on_from_solicitation if diagnosis.errors.empty?
+        diagnosis.prepare_visitee_from_solicitation if diagnosis.errors.empty?
+
+        if self.preselected_institutions.present?
+          diagnosis.prepare_matches_from_solicitation if diagnosis.errors.empty?
+        end
 
         # Rollback on error!
         if diagnosis.errors.present?
@@ -166,5 +166,13 @@ module DiagnosisCreation
 
       self
     end
+  end
+end
+
+def get_solicitation_description(params)
+  if params[:solicitation].present?
+    params[:solicitation].description
+  elsif params[:solicitation_id].present?
+    Solicitation.find(params[:solicitation_id])&.description
   end
 end

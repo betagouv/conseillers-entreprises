@@ -13,7 +13,12 @@ class Diagnoses::StepsController < ApplicationController
     diagnosis_params = params_for_needs
     diagnosis_params[:step] = :visit
     if @diagnosis.update(diagnosis_params)
-      redirect_to action: :visit
+      if @diagnosis.solicitation.present? && @diagnosis.visitee.present?
+        @diagnosis.update(step: :matches)
+        redirect_to action: :matches
+      else
+        redirect_to action: :visit
+      end
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
       redirect_to action: :needs
