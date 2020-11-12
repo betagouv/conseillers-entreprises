@@ -15,7 +15,7 @@
       - if need.solicitation.present?
         %p= t('.company_message')
       %i.quote.left.icon
-      = simple_format(auto_link(need.diagnosis.content || need.solicitation&.description), class: 'content')
+      = simple_format(auto_link(need.diagnosis.content.presence || need.solicitation&.description), class: 'content')
       %i.quote.right.icon
 
       - if need.solicitation.present? && policy(need.solicitation).show?
