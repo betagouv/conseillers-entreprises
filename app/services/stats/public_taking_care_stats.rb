@@ -6,6 +6,7 @@ module Stats
       Solicitation
         .status_processed
         .joins(diagnoses: [needs: :matches])
+        .distinct
     end
 
     def date_group_attribute
