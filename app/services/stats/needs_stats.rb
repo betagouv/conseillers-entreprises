@@ -15,10 +15,10 @@ module Stats
         query.merge! territory.needs
       end
       if institution.present?
-        query.merge! institution.sent_needs
+        query.merge! institution.received_needs
       end
       if @start_date.present?
-        query.merge!.where(needs: { created_at: @start_date..@end_date })
+        query.where!(needs: { created_at: @start_date..@end_date })
       end
       query
     end

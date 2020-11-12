@@ -30,10 +30,10 @@ module Stats
 
     def filtered(query)
       if territory.present?
-        query = query.merge(territory.companies)
+        query.where!(diagnoses: territory.diagnoses)
       end
       if @start_date.present?
-        query = query.where("solicitations.created_at >= ? AND solicitations.created_at <= ?", @start_date, @end_date)
+        query.where!("solicitations.created_at >= ? AND solicitations.created_at <= ?", @start_date, @end_date)
       end
       query
     end
