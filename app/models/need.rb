@@ -100,6 +100,7 @@ class Need < ApplicationRecord
       .where(diagnoses: { happened_on: date_range })
       .distinct
   end
+
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
       .merge(Subject.ordered_for_interview)
@@ -155,6 +156,7 @@ class Need < ApplicationRecord
       .archived(false)
       .abandoned
   end
+
   scope :rejected, -> do
     status_not_for_me
       .archived(false)
@@ -179,6 +181,7 @@ class Need < ApplicationRecord
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
   end
+
   scope :with_matches_only_in_status, -> (status) do # can be an array
     left_outer_joins(:matches).where.not(matches: Match.unscoped.where.not(status: status)).distinct
   end
