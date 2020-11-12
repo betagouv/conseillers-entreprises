@@ -10,14 +10,14 @@ module InvolvementConcern
 
   def needs_quo
     received_needs
-      .by_status(:quo)
+      .where(status: :quo)
       .where.not(matches: received_matches.status_not_for_me)
       .archived(false)
   end
 
   def needs_others_taking_care
     received_needs
-      .by_status(:taking_care)
+      .where(status: :taking_care)
       .where(matches: received_matches.status_quo)
       .archived(false)
   end
@@ -30,7 +30,7 @@ module InvolvementConcern
 
   def needs_done
     received_needs
-      .by_status(:done)
+      .where(status: :done)
       .archived(false)
   end
 

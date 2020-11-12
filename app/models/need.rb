@@ -113,19 +113,19 @@ class Need < ApplicationRecord
   end
 
   scope :abandoned_quo_not_taken, -> do
-    by_status(:quo)
+    where(status: :quo)
       .archived(false)
       .abandoned
   end
 
   scope :reminders_to_process, -> do
-    by_status(:no_help)
+    no_help_provided
       .archived(false)
       .reminder
   end
 
   scope :reminder_quo_not_taken, -> do
-    by_status(:no_help)
+    no_help_provided
       .archived(false)
       .reminder
       .left_outer_joins(:feedbacks)
@@ -134,14 +134,14 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_in_progress, -> do
-    by_status(:no_help)
+    no_help_provided
       .archived(false)
       .reminder
       .joins(:feedbacks)
   end
 
   scope :reminder_institutions, -> do
-    by_status(:no_help)
+    no_help_provided
       .archived(false)
       .reminder_institutions_delay
   end
@@ -153,12 +153,12 @@ class Need < ApplicationRecord
   end
 
   scope :abandoned_taken_not_done, -> do
-    by_status(:taking_care)
+    where(status: :taking_care)
       .archived(false)
       .abandoned
   end
   scope :rejected, -> do
-    by_status(:not_for_me)
+    where(status: :not_for_me)
       .archived(false)
   end
 
@@ -214,6 +214,8 @@ class Need < ApplicationRecord
     end
   end
 
+  scope :no_help_provided, -> { where(status: %w[quo not_for_me done_no_help done_not_reachable]) }
+
   scope :active, -> do
     archived(false)
       .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
@@ -223,7 +225,7 @@ class Need < ApplicationRecord
   ## ActiveAdmin/Ransacker helpers
   #
   ransacker(:by_status, formatter: -> (value) {
-    by_status(value).ids.presence
+    where(status: value).ids.presence
   }) { |parent| parent.table[:id] }
 
   ##

@@ -299,7 +299,7 @@ RSpec.describe Need, type: :model do
         match_not_for_me
       end
 
-      subject { described_class.by_status(:no_help).order(:id) }
+      subject { described_class.no_help_provided.order(:id) }
 
       it { is_expected.to eq [match_quo.need, match_done_no_help.need, match_done_not_reachable.need, match_not_for_me.need] }
     end
