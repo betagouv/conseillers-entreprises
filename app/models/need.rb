@@ -113,7 +113,7 @@ class Need < ApplicationRecord
   end
 
   scope :abandoned_quo_not_taken, -> do
-    where(status: :quo)
+    status_quo
       .archived(false)
       .abandoned
   end
@@ -153,12 +153,12 @@ class Need < ApplicationRecord
   end
 
   scope :abandoned_taken_not_done, -> do
-    where(status: :taking_care)
+    status_taking_care
       .archived(false)
       .abandoned
   end
   scope :rejected, -> do
-    where(status: :not_for_me)
+    status_not_for_me
       .archived(false)
   end
 
@@ -246,16 +246,6 @@ class Need < ApplicationRecord
     Expert.joins(:received_matches).merge(matches.status_quo)
   end
 
-  ## Status
-  #
-  # Need.status isn't an enum, but we want human_attribute_values and friends to work the same.
-  def self.statuses
-    {
-      "diagnosis_not_complete" => -2, "sent_to_no_one" => -1, "quo" => 0, "taking_care" => 1, "done" => 2,
-      "not_for_me" => 3, "done_no_help" => 4, "done_not_reachable" => 5
-    }
-  end
-
   def update_status
     matches_status = matches.pluck(:status).map(&:to_sym)
 
@@ -275,28 +265,6 @@ class Need < ApplicationRecord
       status = :not_for_me
     end
     self.update(status: status)
-  end
-
-  def old_status
-    return :diagnosis_not_complete unless diagnosis.step_completed?
-
-    matches_status = matches.pluck(:status).map(&:to_sym)
-
-    if matches_status.empty?
-      :sent_to_no_one
-    elsif matches_status.include?(:done)
-      :done
-    elsif matches_status.include?(:taking_care)
-      :taking_care
-    elsif matches_status.include?(:quo)
-      :quo
-    elsif matches_status.include?(:done_no_help)
-      :done_no_help
-    elsif matches_status.include?(:done_not_reachable)
-      :done_not_reachable
-    else # matches_status.all?{ |o| o == :not_for_me }
-      :not_for_me
-    end
   end
 
   private
