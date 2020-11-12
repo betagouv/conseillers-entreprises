@@ -368,33 +368,6 @@ RSpec.describe Need, type: :model do
     end
   end
 
-  describe 'update_last_activity_at' do
-    let(:date1) { Time.zone.now.beginning_of_day }
-    let(:date2) { date1 + 1.minute }
-    let(:date3) { date1 + 2.minutes }
-
-    let(:need) { travel_to(date1) { create :need } }
-    let(:match) { travel_to(date2) { create :match, need: need } }
-
-    before { need.reload; match }
-
-    subject { need.reload.last_activity_at }
-
-    context 'when a match is updated' do
-      before { travel_to(date3) { match.update(status: :done) } }
-
-      it { is_expected.to eq date3 }
-    end
-
-    context 'when a feedback is added to a match' do
-      let(:feedback) { travel_to(date3) { create :feedback, feedbackable: need } }
-
-      before { need.reload; feedback }
-
-      it { is_expected.to eq date2 }
-    end
-  end
-
   describe 'update_status' do
     let(:need) { create :need_with_matches }
 

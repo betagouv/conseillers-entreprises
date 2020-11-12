@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_10_154643) do
+ActiveRecord::Schema.define(version: 2020_11_12_135830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,7 +335,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_154643) do
     t.text "content"
     t.integer "matches_count"
     t.datetime "archived_at"
-    t.datetime "last_activity_at", default: -> { "now()" }, null: false
     t.boolean "satisfaction_email_sent", default: false, null: false
     t.enum "status", default: "diagnosis_not_complete", null: false, enum_name: "need_status"
     t.index ["archived_at"], name: "index_needs_on_archived_at"

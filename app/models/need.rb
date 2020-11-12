@@ -5,7 +5,6 @@
 #  id                      :bigint(8)        not null, primary key
 #  archived_at             :datetime
 #  content                 :text
-#  last_activity_at        :datetime         not null
 #  matches_count           :integer
 #  satisfaction_email_sent :boolean          default(FALSE), not null
 #  status                  :enum             default("diagnosis_not_complete"), not null
@@ -61,7 +60,6 @@ class Need < ApplicationRecord
 
   ## Callbacks
   #
-  after_touch :update_last_activity_at
   after_touch :update_status
 
   ## Through Associations
@@ -265,12 +263,5 @@ class Need < ApplicationRecord
       status = :not_for_me
     end
     self.update(status: status)
-  end
-
-  private
-
-  def update_last_activity_at
-    last_activity = matches.pluck(:updated_at).compact.max || updated_at
-    update_columns last_activity_at: last_activity
   end
 end
