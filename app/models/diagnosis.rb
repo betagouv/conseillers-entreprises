@@ -47,8 +47,9 @@ class Diagnosis < ApplicationRecord
   belongs_to :advisor, class_name: 'User', inverse_of: :sent_diagnoses, optional: true
   belongs_to :visitee, class_name: 'Contact', inverse_of: :diagnoses, optional: true
   belongs_to :solicitation, optional: true, inverse_of: :diagnoses, touch: true
-
   has_many :needs, dependent: :destroy, inverse_of: :diagnosis
+
+  has_many :themes, through: :needs, inverse_of: :diagnoses
 
   ## Validations and Callbacks
   #
