@@ -13,6 +13,7 @@
 #
 #  index_institutions_subjects_on_institution_id  (institution_id)
 #  index_institutions_subjects_on_subject_id      (subject_id)
+#  index_institutions_subjects_on_updated_at      (updated_at)
 #  unique_institution_subject_in_institution      (subject_id,institution_id,description) UNIQUE
 #
 # Foreign Keys

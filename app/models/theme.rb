@@ -12,6 +12,7 @@
 #
 #  index_themes_on_interview_sort_order  (interview_sort_order)
 #  index_themes_on_label                 (label) UNIQUE
+#  index_themes_on_updated_at            (updated_at)
 #
 
 class Theme < ApplicationRecord

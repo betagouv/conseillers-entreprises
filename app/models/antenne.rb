@@ -14,6 +14,7 @@
 #  index_antennes_on_deleted_at               (deleted_at)
 #  index_antennes_on_institution_id           (institution_id)
 #  index_antennes_on_name_and_institution_id  (name,institution_id) UNIQUE
+#  index_antennes_on_updated_at               (updated_at)
 #
 # Foreign Keys
 #
