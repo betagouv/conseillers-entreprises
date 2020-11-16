@@ -269,7 +269,8 @@ fr:
     new_solicitation_form:
       attributes:
         help:
-          siret_html: Vous ne le connaissez pas par cœur ? Retrouvez-le sur <a id="find-siret" href='https://annuaire-entreprises.data.gouv.fr/' target='_blank' onclick="click_on_find_siret()">annuaire-entreprises.data.gouv.fr</a>.
+          siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
+          siret_html: Recherche libre possible (nom, activité, ville...)
         placeholder:
           description: Décrivez votre demande.
           email: marie.dupont@exemple.fr
@@ -457,7 +458,7 @@ fr:
       contact_us_mailto_text: Contactez-nous !
       needs_for_you: 'Ces entreprises ont besoin de vous :'
       needs_others_taking_care_html: "%{label} Pris en charge par d’autres référents"
-      needs_quo_html: "%{label} Sans réponse <i>(+15 jours)</i>"
+      needs_quo_html: "%{label} À rappeler <i>(J+14)</i>"
       needs_taking_care_html: "%{label} Pris en charge"
       no_needs: Il n’y a aucune demande.
       no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
@@ -567,10 +568,10 @@ fr:
       index:
         title: Besoins %{status}
       menu:
-        abandoned_without_taking_care_html: "%{label} Abandonnés <i>(+30 jours)</i>"
+        abandoned_without_taking_care_html: "%{label} Abandonnés <i>(J+30)</i>"
         reminder_in_progress_html: "%{label} Relancés"
-        reminder_institutions_html: "%{label} Prévenir l’institution<i><br/>(+20 jours)</i>"
-        reminder_quo_not_taken_html: "%{label} À relancer <i>(+10 jours)</i>"
+        reminder_institutions_html: "%{label} Prévenir l‘institution<i><br/>(J+21)</i>"
+        reminder_quo_not_taken_html: "%{label} À relancer <i>(J+7)</i>"
   solicitations:
     header:
       canceled: annulées

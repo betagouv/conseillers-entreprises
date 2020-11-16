@@ -53,37 +53,37 @@ RSpec.describe Need, type: :model do
     context 'diagnosis not complete' do
       let(:diagnosis) { create :diagnosis, step: :not_started }
 
-      it { is_expected.to eq :diagnosis_not_complete }
+      it { is_expected.to eq 'diagnosis_not_complete' }
     end
 
     context 'with no match' do
       let(:matches) { [] }
 
-      it { is_expected.to eq :sent_to_no_one }
+      it { is_expected.to eq 'diagnosis_not_complete' }
     end
 
     context 'with at least a match done' do
       let(:matches) { [quo_match, taking_care_match, not_for_me_match, done_match] }
 
-      it { is_expected.to eq :done }
+      it { is_expected.to eq 'done' }
     end
 
     context 'with at least a match taking_care' do
       let(:matches) { [quo_match, taking_care_match, not_for_me_match] }
 
-      it { is_expected.to eq :taking_care }
+      it { is_expected.to eq 'taking_care' }
     end
 
     context 'with all matches not_for_me' do
       let(:matches) { [not_for_me_match, not_for_me_match] }
 
-      it { is_expected.to eq :not_for_me }
+      it { is_expected.to eq 'not_for_me' }
     end
 
     context 'with matches still quo' do
       let(:matches) { [quo_match, quo_match, not_for_me_match] }
 
-      it { is_expected.to eq :quo }
+      it { is_expected.to eq 'quo' }
     end
   end
 
@@ -299,7 +299,7 @@ RSpec.describe Need, type: :model do
         match_not_for_me
       end
 
-      subject { described_class.by_status(:no_help).order(:id) }
+      subject { described_class.no_help_provided.order(:id) }
 
       it { is_expected.to eq [match_quo.need, match_done_no_help.need, match_done_not_reachable.need, match_not_for_me.need] }
     end
@@ -368,30 +368,13 @@ RSpec.describe Need, type: :model do
     end
   end
 
-  describe 'update_last_activity_at' do
-    let(:date1) { Time.zone.now.beginning_of_day }
-    let(:date2) { date1 + 1.minute }
-    let(:date3) { date1 + 2.minutes }
+  describe 'update_status' do
+    let(:need) { create :need_with_matches }
 
-    let(:need) { travel_to(date1) { create :need } }
-    let(:match) { travel_to(date2) { create :match, need: need } }
+    before { need.matches.first.update(status: :taking_care) }
 
-    before { need.reload; match }
+    subject { need.reload.status }
 
-    subject { need.reload.last_activity_at }
-
-    context 'when a match is updated' do
-      before { travel_to(date3) { match.update(status: :done) } }
-
-      it { is_expected.to eq date3 }
-    end
-
-    context 'when a feedback is added to a match' do
-      let(:feedback) { travel_to(date3) { create :feedback, feedbackable: need } }
-
-      before { need.reload; feedback }
-
-      it { is_expected.to eq date2 }
-    end
+    it { is_expected.to eq 'taking_care' }
   end
 end

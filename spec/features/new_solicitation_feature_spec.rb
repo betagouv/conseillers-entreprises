@@ -22,7 +22,7 @@ describe 'New Solicitation Feature', type: :feature, js: true do
       find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
 
       fill_in 'Description', with: 'Ceci est un test'
-      fill_in 'SIRET', with: '123 456 789 00010'
+      find('#solicitation_siret_autocomplete').set("123 456 789 00010")
       fill_in 'E-mail', with: 'user@exemple.com'
       click_button 'Envoyer ma demande'
     end

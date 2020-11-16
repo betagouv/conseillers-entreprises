@@ -20,7 +20,7 @@ RSpec.describe InvolvementConcern do
     create(:need, matches: [create(:match, expert: current_expert, status: :quo)], archived_at: Time.zone.now)
   end
   let!(:need_other_taking_care) do
-    create(:need, matches: [
+    create(:need, diagnosis: diagnosis, matches: [
       create(:match, expert: current_expert, status: :quo),
       create(:match, expert: other_expert, status: :taking_care)
     ])

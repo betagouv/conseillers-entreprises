@@ -8,3 +8,5 @@
 
 // = require_tree ./pages
 // = require_tree ./shared
+
+//= require autocomplete.min
