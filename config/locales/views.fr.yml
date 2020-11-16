@@ -269,6 +269,7 @@ fr:
     new_solicitation_form:
       attributes:
         help:
+          siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
           siret_html: Recherche libre possible (nom, activité, ville...)
         placeholder:
           description: Décrivez votre demande.

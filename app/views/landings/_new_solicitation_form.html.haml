@@ -14,7 +14,7 @@
           = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
           - if help.present?
             %span= help
-          %div{ "data-action": 'siret-autocomplete' }
+          %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint") }
           = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
 
         - else
