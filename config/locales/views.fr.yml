@@ -269,8 +269,8 @@ fr:
     new_solicitation_form:
       attributes:
         help:
+          siret_assistive_hint: Lorsque les résultats de l'auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et entrer pour sélectionner une option. Les utilisateurs d'appareils tactiles peuvent explorer par le toucher ou avec des gestes de glissement.
           siret_html: Recherche libre possible (nom, activité, ville...)
-          siret_assistive_hint: "Lorsque les résultats de l'auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et entrer pour sélectionner une option. Les utilisateurs d'appareils tactiles peuvent explorer par le toucher ou avec des gestes de glissement."
         placeholder:
           description: Décrivez votre demande.
           email: marie.dupont@exemple.fr
