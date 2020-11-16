@@ -2,4 +2,5 @@
 - meta title: title
 %h1.ui.header= title
 
-= render 'table', institutions: @institutions
+- cache([@institutions, Theme.all]) do
+  = render 'table', institutions: @institutions

@@ -24,7 +24,7 @@
 class InstitutionSubject < ApplicationRecord
   ## Associations
   #
-  belongs_to :institution, inverse_of: :institutions_subjects
+  belongs_to :institution, inverse_of: :institutions_subjects, touch: true
   belongs_to :subject, inverse_of: :institutions_subjects
   has_many :experts_subjects, dependent: :destroy
 

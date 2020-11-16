@@ -4,4 +4,5 @@
 
 = render 'import_buttons'
 
-= render 'table', antennes: @antennes
+- cache(@antennes) do
+  = render 'table', antennes: @antennes

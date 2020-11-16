@@ -59,7 +59,7 @@ class User < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :antenne, inverse_of: :advisors
+  belongs_to :antenne, inverse_of: :advisors, touch: true
   has_and_belongs_to_many :experts, inverse_of: :users
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :searches, inverse_of: :user

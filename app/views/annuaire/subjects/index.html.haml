@@ -2,5 +2,6 @@
 - content_for :header, render('header', institution: @institution)
 - content_for :menu, render('menu', institution: @institution)
 
-= render 'table', institutions_subjects: @institutions_subjects
+- cache([@institutions_subjects, Theme.all]) do
+  = render 'table', institutions_subjects: @institutions_subjects
 

@@ -4,4 +4,5 @@
 
 = render 'import_buttons' unless application_fullscreen
 
-= render 'table', institutions_subjects: @institutions_subjects, advisors: @advisors, antenne: @antenne
+- cache([@institutions_subjects, @advisors, Theme.all]) do
+  = render 'table', institutions_subjects: @institutions_subjects, advisors: @advisors, antenne: @antenne
