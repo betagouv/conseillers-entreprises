@@ -7,7 +7,8 @@ FactoryBot.define do
     association :subject
 
     after(:create) do |match, _|
-      match.diagnosis.update_columns(step: :completed)
+      match.diagnosis.update(step: :completed)
+      Need.find_each(&:update_status)
     end
   end
 end

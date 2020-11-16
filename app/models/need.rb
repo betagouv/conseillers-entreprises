@@ -5,9 +5,9 @@
 #  id                      :bigint(8)        not null, primary key
 #  archived_at             :datetime
 #  content                 :text
-#  last_activity_at        :datetime         not null
 #  matches_count           :integer
 #  satisfaction_email_sent :boolean          default(FALSE), not null
+#  status                  :enum             default("diagnosis_not_complete"), not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  diagnosis_id            :bigint(8)        not null
@@ -17,6 +17,7 @@
 #
 #  index_needs_on_archived_at                  (archived_at)
 #  index_needs_on_diagnosis_id                 (diagnosis_id)
+#  index_needs_on_status                       (status)
 #  index_needs_on_subject_id                   (subject_id)
 #  index_needs_on_subject_id_and_diagnosis_id  (subject_id,diagnosis_id) UNIQUE
 #
@@ -30,6 +31,17 @@ class Need < ApplicationRecord
   ##
   #
   include Archivable
+
+  enum status: {
+    diagnosis_not_complete: 'diagnosis_not_complete',
+      sent_to_no_one: 'sent_to_no_one',
+      quo: 'quo',
+      taking_care: 'taking_care',
+      done: 'done',
+      done_no_help: 'done_no_help',
+      done_not_reachable: 'done_not_reachable',
+      not_for_me: 'not_for_me'
+  }, _prefix: true
 
   ## Associations
   #
@@ -48,7 +60,7 @@ class Need < ApplicationRecord
 
   ## Callbacks
   #
-  after_touch :update_last_activity_at
+  after_touch :update_status
 
   ## Through Associations
   #
@@ -88,6 +100,7 @@ class Need < ApplicationRecord
       .where(diagnoses: { happened_on: date_range })
       .distinct
   end
+
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
       .merge(Subject.ordered_for_interview)
@@ -99,19 +112,19 @@ class Need < ApplicationRecord
   end
 
   scope :abandoned_quo_not_taken, -> do
-    by_status(:quo)
+    status_quo
       .archived(false)
       .abandoned
   end
 
   scope :reminders_to_process, -> do
-    by_status(:no_help)
+    no_help_provided
       .archived(false)
       .reminder
   end
 
   scope :reminder_quo_not_taken, -> do
-    by_status(:no_help)
+    no_help_provided
       .archived(false)
       .reminder
       .left_outer_joins(:feedbacks)
@@ -120,14 +133,14 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_in_progress, -> do
-    by_status(:no_help)
+    no_help_provided
       .archived(false)
       .reminder
       .joins(:feedbacks)
   end
 
   scope :reminder_institutions, -> do
-    by_status(:no_help)
+    no_help_provided
       .archived(false)
       .reminder_institutions_delay
   end
@@ -139,12 +152,13 @@ class Need < ApplicationRecord
   end
 
   scope :abandoned_taken_not_done, -> do
-    by_status(:taking_care)
+    status_taking_care
       .archived(false)
       .abandoned
   end
+
   scope :rejected, -> do
-    by_status(:not_for_me)
+    status_not_for_me
       .archived(false)
   end
 
@@ -167,6 +181,7 @@ class Need < ApplicationRecord
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
   end
+
   scope :with_matches_only_in_status, -> (status) do # can be an array
     left_outer_joins(:matches).where.not(matches: Match.unscoped.where.not(status: status)).distinct
   end
@@ -189,10 +204,18 @@ class Need < ApplicationRecord
     when :not_for_me
       with_some_matches_in_status(:not_for_me)
         .with_matches_only_in_status(:not_for_me)
+    when :done_no_help
+      with_some_matches_in_status(:done_no_help)
+        .with_matches_only_in_status([:quo, :taking_care, :not_for_me, :done_no_help, :done_not_reachable])
+    when :done_not_reachable
+      with_some_matches_in_status(:done_not_reachable)
+        .with_matches_only_in_status([:quo, :taking_care, :not_for_me, :done_no_help, :done_not_reachable])
     when :no_help
       with_matches_only_in_status([:quo, :not_for_me, :done_no_help, :done_not_reachable])
     end
   end
+
+  scope :no_help_provided, -> { where(status: %w[quo not_for_me done_no_help done_not_reachable]) }
 
   scope :active, -> do
     archived(false)
@@ -203,7 +226,7 @@ class Need < ApplicationRecord
   ## ActiveAdmin/Ransacker helpers
   #
   ransacker(:by_status, formatter: -> (value) {
-    by_status(value).ids.presence
+    where(status: value).ids.presence
   }) { |parent| parent.table[:id] }
 
   ##
@@ -224,42 +247,24 @@ class Need < ApplicationRecord
     Expert.joins(:received_matches).merge(matches.status_quo)
   end
 
-  ## Status
-  #
-  # Need.status isn't an enum, but we want human_attribute_values and friends to work the same.
-  def self.statuses
-    {
-      "diagnosis_not_complete" => -2, "sent_to_no_one" => -1, "quo" => 0, "taking_care" => 1, "done" => 2,
-      "not_for_me" => 3, "done_no_help" => 4, "done_not_reachable" => 5
-    }
-  end
-
-  def status
-    return :diagnosis_not_complete unless diagnosis.step_completed?
-
+  def update_status
     matches_status = matches.pluck(:status).map(&:to_sym)
 
-    if matches_status.empty?
-      :sent_to_no_one
+    if !diagnosis.step_completed?
+      status = :diagnosis_not_complete
     elsif matches_status.include?(:done)
-      :done
+      status = :done
     elsif matches_status.include?(:taking_care)
-      :taking_care
-    elsif matches_status.include?(:quo)
-      :quo
-    elsif matches_status.include?(:done_no_help)
-      :done_no_help
+      status = :taking_care
     elsif matches_status.include?(:done_not_reachable)
-      :done_not_reachable
-    else # matches_status.all?{ |o| o == :not_for_me }
-      :not_for_me
+      status = :done_not_reachable
+    elsif matches_status.include?(:done_no_help)
+      status = :done_no_help
+    elsif matches_status.include?(:quo)
+      status = :quo
+    else
+      status = :not_for_me
     end
-  end
-
-  private
-
-  def update_last_activity_at
-    last_activity = matches.pluck(:updated_at).compact.max || updated_at
-    update_columns last_activity_at: last_activity
+    self.update(status: status)
   end
 end
