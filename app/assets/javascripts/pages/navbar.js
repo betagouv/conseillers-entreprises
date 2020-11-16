@@ -11,8 +11,4 @@
       }, false);
     }
   }
-
-  function exists(element) {
-    return (typeof element != "undefined" && element != null);
-  }
 })();

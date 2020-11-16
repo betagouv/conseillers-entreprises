@@ -54,3 +54,10 @@ pickle-email-*.html
 
 # oh-my-zsh rake autocompletion
 .rake_tasks
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

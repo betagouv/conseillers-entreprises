@@ -269,7 +269,7 @@ fr:
     new_solicitation_form:
       attributes:
         help:
-          siret_html: Vous ne le connaissez pas par cœur ? Retrouvez-le sur <a id="find-siret" href='https://annuaire-entreprises.data.gouv.fr/' target='_blank' onclick="click_on_find_siret()">annuaire-entreprises.data.gouv.fr</a>.
+          siret_html: Recherche libre possible (nom, activité, ville...)
         placeholder:
           description: Décrivez votre demande.
           email: marie.dupont@exemple.fr
