@@ -90,9 +90,9 @@ class Need < ApplicationRecord
 
   ## Scopes
   #
-  ABANDONED_DELAY = 2.weeks
-  REMINDER_DELAY = 10.days
-  REMINDER_INSTITUTIONS_DELAY = 20.days
+  REMINDER_DELAY = 7.days
+  ABANDONED_DELAY = 14.days
+  REMINDER_INSTITUTIONS_DELAY = 21.days
   REMINDER_ABANDONED_DELAY = 30.days
 
   scope :made_in, -> (date_range) do
