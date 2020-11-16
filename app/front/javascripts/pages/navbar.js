@@ -1,3 +1,5 @@
+import { exists } from "../shared/utils.js";
+
 (function () {
   addEventListener("DOMContentLoaded", setupToggleNavButton);
 
