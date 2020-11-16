@@ -1,0 +1,26 @@
+.ui.segments.shadow-less.diagnosis{ 'id': diagnosis.id }
+  = link_to diagnosis do
+    .ui.segment.secondary
+      .ui.header.grid.aligned
+        .eight.wide.column
+          %h2= diagnosis.company.name
+          .sub.header= I18n.l(diagnosis.display_date, format: :long)
+  .ui.segment
+    - if diagnosis.step_completed?
+      - diagnosis.needs.each do |need|
+        - if needs_of_interest.blank? || needs_of_interest.include?(need)
+          %h3.ui.header
+            = need.subject
+            .sub.header
+              = need.matches.human_count
+              - if need.abandoned?
+                .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
+
+          .ui.list
+            - need.matches.each do |match|
+              .item
+                ⁃ #{match.expert.antenne.to_s}
+
+  .ui.aligned.grid.segment
+    .right.floated.right.aligned.column
+      =reminders_action(action_name, diagnosis)

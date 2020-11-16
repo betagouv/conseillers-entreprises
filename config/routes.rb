@@ -167,6 +167,14 @@ Rails.application.routes.draw do
   resources :matches, only: %i[update]
   resources :feedbacks, only: %i[create destroy]
 
+  resources :reminders_actions, only: [] do
+    member do
+      post :poke
+      post :recall
+      post :warn
+    end
+  end
+
   namespace :reminders, path: 'relances' do
     resources :experts, only: %i[index show], path: 'referents' do
       member do
