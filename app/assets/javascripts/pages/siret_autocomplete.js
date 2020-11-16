@@ -17,6 +17,7 @@
           inputValue: inputValueTemplate,
           suggestion: suggestionTemplate,
         },
+        tAssistiveHint: () => autocompleteField.dataset["assistiveHint"],
         source: debounce(async (query, populateResults) => {
           // fill hidden field in case autocomplete gives no result
           targetField.value = query;
