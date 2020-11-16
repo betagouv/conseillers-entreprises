@@ -4,7 +4,7 @@ When contributing to this repository, please first make sure you follow the foll
 
 ## Git Conventions
 
-Everything is done on feature branches; everything is merged on master through pull requests; pull requests must be rebased.
+Everything is done on feature branches; everything is merged on main through pull requests; pull requests must be rebased.
 
 ## Coding Conventions
 
