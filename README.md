@@ -126,7 +126,7 @@ Place des Entreprises is deployed on [Scalingo](http://doc.scalingo.com/language
 * `reso-production` is the actual https://place-des-entreprises.beta.gouv.fr
 
 GitHub->Scalingo hooks are setup for auto-deployment:
-* The `master` branch is automatically deployed to the `reso-staging` env.
+* The `main` branch is automatically deployed to the `reso-staging` env.
 * The `production` branch is automatically deployed to the `reso-production` env.  
 
 Additionally, a `postdeploy` hook [is setup in the Procfile](https://doc.scalingo.com/platform/app/postdeploy-hook#applying-migrations) so that Rails migrations are run automatically.  
@@ -142,7 +142,7 @@ In case of emergency, you can always run rails migrations manually using the `sc
 
 ```
 $ rake push_to_production
-Updating master and production…
+Updating main and production…
 Last production commit is ebe7d79c4149c3ae64af917e0ccd09bb7c473cc8
 About to merge 5 PRs and push to production:
 🚀 

@@ -2,13 +2,13 @@ desc 'Setup and push reviewed code to production'
 task :push_to_production do
   require 'highline/import'
 
-  def fetch_master_and_production
-    puts 'Updating master and production…'
-    `git fetch origin -u master:master production:production`
+  def fetch_main_and_production
+    puts 'Updating main and production…'
+    `git fetch origin -u main:main production:production`
     exit unless $?.success?
   end
 
-  def find_last_production_commit_on_master
+  def find_last_production_commit_on_main
     commit = `git show -s --pretty=%P production | cut -d " " -f 2`.strip
     exit unless $?.success?
     puts "Last production commit is #{commit}"
@@ -17,7 +17,7 @@ task :push_to_production do
 
   def retrieve_merge_commits_messages(last_commit)
     separator = '--------'
-    messages = `git log --merges --pretty=%B#{separator} #{last_commit}..master`
+    messages = `git log --merges --pretty=%B#{separator} #{last_commit}..main`
     messages.split(separator)
   end
 
@@ -54,8 +54,8 @@ task :push_to_production do
     end
   end
 
-  def merge_master_to_production
-    `git checkout production && git merge master --no-edit`
+  def merge_main_to_production
+    `git checkout production && git merge main --no-edit`
     exit unless $?.success?
   end
 
@@ -66,14 +66,14 @@ task :push_to_production do
   end
 
   ensure_clean_working_tree
-  fetch_master_and_production
+  fetch_main_and_production
 
-  last_commit = find_last_production_commit_on_master
+  last_commit = find_last_production_commit_on_main
   merge_messages = retrieve_merge_commits_messages(last_commit)
   formatted = format_commit_messages(merge_messages)
   prompt_for_confirmation(formatted)
 
   ensure_clean_working_tree
-  merge_master_to_production
+  merge_main_to_production
   push_to_production
 end

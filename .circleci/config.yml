@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/place-des-entreprises
   docker:
-    - image: circleci/ruby:2.6.6-browsers
+    - image: circleci/ruby:2.6.6-node-browsers
     - image: circleci/postgres:11.5
       environment:
         POSTGRES_USER: place_des_entreprises_test
@@ -14,16 +14,36 @@ bundle_restore_cache: &bundle_restore_cache
   restore_cache:
     key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
 
+yarn_restore_cache: &yarn_restore_cache
+  restore_cache:
+    key: v1-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
+
 bundle_save_cache: &bundle_save_cache
   save_cache:
     key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
     paths:
       - ~/vendor/bundle
 
+yarn_save_cache: &yarn_save_cache
+  save_cache:
+    key: v1-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
+    paths:
+      - ~/.cache/yarn
+
 bundle_install: &bundle_install
   run:
     name: Install Ruby Dependencies
     command: bundle install --path ~/vendor/bundle
+
+yarn_install: &yarn_install
+  run:
+    name: Install Yarn Dependencies
+    command: yarn install --ignore-engines --frozen-lockfile
+
+precompile_assets: &precompile_assets
+  run:
+    name: Precompile assets
+    command: bundle exec rails webpacker:compile
 
 jobs:
   build:
@@ -31,20 +51,26 @@ jobs:
     steps:
       - checkout
       - *bundle_restore_cache
+      - *yarn_restore_cache
       - *bundle_install
+      - *yarn_install
       - *bundle_save_cache
+      - *yarn_save_cache
   test:
     <<: *defaults
     parallelism: 1
     steps:
       - checkout
       - *bundle_restore_cache
+      - *yarn_restore_cache
       - *bundle_install
+      - *yarn_install
       - run:
           environment:
             DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_entreprises_test"
           name: Create DB
           command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
+      # - *precompile_assets
       - run:
           environment:
             DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_entreprises_test"
@@ -64,7 +90,9 @@ jobs:
     steps:
       - checkout
       - *bundle_restore_cache
+      - *yarn_restore_cache
       - *bundle_install
+      - *yarn_install
       - run:
           name: Run lint tasks
           command: bundle exec rake lint
