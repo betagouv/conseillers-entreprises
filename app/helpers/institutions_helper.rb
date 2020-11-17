@@ -5,7 +5,7 @@ module InstitutionsHelper
       .ordered_logos
       .pluck(:name)
       .map(&:parameterize).uniq
-      .map(&method(:institution_image))
+      .map { institution_image(_1) }
       .join.html_safe
   end
 
