@@ -1,3 +1,6 @@
+import { exists, debounce } from "../shared/utils.js";
+import accessibleAutocomplete from "accessible-autocomplete";
+
 (function () {
   addEventListener("DOMContentLoaded", setupSiretAutocomplete);
 
@@ -65,10 +68,11 @@
   function filterResults(results) {
     if (results["message"] == "no results found") return;
     // Recherche par SIRET
-    if (unite_legale = results["unite_legale"]) {
-      etablissement = unite_legale["etablissement_siege"];
+    if (results["unite_legale"]) {
+      let uniteLegale = results["unite_legale"]
+      etablissement = uniteLegale["etablissement_siege"];
       return [{
-        label: `${etablissement["siret"]} (${unite_legale["denomination"]})`,
+        label: `${etablissement["siret"]} (${uniteLegale["denomination"]})`,
         address: etablissement["geo_adresse"]
       }];
     }

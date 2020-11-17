@@ -27,6 +27,7 @@ gem 'fomantic-ui-sass'
 gem 'uglifier'
 gem 'premailer-rails'
 gem 'css_parser'
+gem 'webpacker'
 
 # Parallel processes
 gem 'clockwork'

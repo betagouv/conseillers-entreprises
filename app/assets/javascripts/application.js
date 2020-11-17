@@ -11,10 +11,6 @@
 // about supported directives.
 
 
-// = require jquery
-
-// = require rails-ujs
-// = require turbolinks
 
 // = require semantic-ui/tab
 // = require semantic-ui/transition
@@ -26,5 +22,4 @@
 // = require semantic-ui/dimmer
 // = require semantic-ui/search
 
-// = require_tree ./application
-// = require_tree ./shared
+// = require ./application/semantic-ui
