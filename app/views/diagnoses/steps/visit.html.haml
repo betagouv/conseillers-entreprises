@@ -33,7 +33,7 @@
     %h3.ui.header
       = t('.date')
     .inline.field
-      .ui.calendar#datepicker
+      .ui.calendar#datepicker{ "data-calendar": 'semantic-ui', "data-days": t('date.abbr_day_names').compact.to_json.html_safe, "data-months": t('date.month_names').compact.to_json.html_safe }
         .ui.input.left.icon
           %i.calendar.icon
           = diagnosis_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
@@ -54,13 +54,3 @@
     = render 'next_step', diagnosis_form: diagnosis_form
 
   .clear
-
-:javascript
-  (function() {
-    var params = semantic_ui_calendar_datepicker_params()
-    params['text'] = {
-        days: #{ t('date.abbr_day_names').compact.to_json.html_safe },
-        months: #{ t('date.month_names').compact.to_json.html_safe }
-      }
-    $('.ui.calendar#datepicker').calendar(params)
-  }) ()
