@@ -125,12 +125,11 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_quo_not_taken, -> do
-    no_help_provided
+    query = no_help_provided
       .archived(false)
       .reminder
-      .left_outer_joins(:feedbacks)
-      .group('needs.id')
-      .having('feedbacks.count < ?', 1)
+      .left_outer_joins(:reminders_actions)
+    query.exclude_needs_with_reminders_action(:poke).distinct
   end
 
   scope :reminder_to_recall, -> do
@@ -140,9 +139,16 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_institutions, -> do
-    no_help_provided
+    query = no_help_provided
       .archived(false)
       .reminder_institutions_delay
+      .left_outer_joins(:reminders_actions)
+    query.exclude_needs_with_reminders_action(:warn).distinct
+  end
+
+  scope :exclude_needs_with_reminders_action, -> (category) do
+    where.not(reminders_actions: { category: category })
+      .or(self.where(reminders_actions: { id: nil }))
   end
 
   scope :abandoned_without_taking_care, -> do
