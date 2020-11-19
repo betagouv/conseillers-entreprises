@@ -233,4 +233,16 @@ class Expert < ApplicationRecord
                    full_name: nil,
                    phone_number: nil)
   end
+
+  ## Reminders
+  #
+  def reminders_needs_to_call_back
+    query = self.received_needs
+      .status_quo
+      .where.not(matches: received_matches.status_not_for_me)
+      .archived(false)
+      .left_outer_joins(:reminders_actions)
+      .distinct
+    query.exclude_needs_with_reminders_action(:recall)
+  end
 end

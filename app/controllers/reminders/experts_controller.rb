@@ -16,8 +16,8 @@ module Reminders
     end
 
     def needs
-      retrieve_needs :needs_quo
-      @needs = @needs.abandoned
+      retrieve_needs :reminders_needs_to_call_back
+      @action_path = [:recall, :reminders_actions]
     end
 
     def needs_taking_care
@@ -52,7 +52,7 @@ module Reminders
     def count_expert_needs
       @count_expert_needs = Rails.cache.fetch(["reminders_expert_need", @expert.received_needs]) do
         {
-          quo_abandonned: @expert.needs_quo.diagnosis_completed.abandoned.size,
+          reminders_needs_to_call_back: @expert.reminders_needs_to_call_back.diagnosis_completed.size,
             needs_taking_care: @expert.needs_taking_care.diagnosis_completed.size,
             needs_others_taking_care: @expert.needs_others_taking_care.diagnosis_completed.size
         }
