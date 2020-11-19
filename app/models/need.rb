@@ -34,7 +34,6 @@ class Need < ApplicationRecord
 
   enum status: {
     diagnosis_not_complete: 'diagnosis_not_complete',
-      sent_to_no_one: 'sent_to_no_one',
       quo: 'quo',
       taking_care: 'taking_care',
       done: 'done',

@@ -209,7 +209,6 @@ fr:
         done_not_reachable: Entreprise non joignable
         not_for_me: Mise en relation refusée
         quo: En attente de réponse
-        sent_to_no_one: Envoyé à personne
         taking_care: En cours de prise en charge
       need/statuses/short:
         diagnosis_not_complete: Analyse en cours
@@ -218,7 +217,6 @@ fr:
         done_not_reachable: Non joignable
         not_for_me: Refusé
         quo: Pas de réponse
-        sent_to_no_one: Envoyé à personne
         taking_care: Pris en charge
       search:
         label: Entreprise
