@@ -186,35 +186,6 @@ class Need < ApplicationRecord
     left_outer_joins(:matches).where.not(matches: Match.unscoped.where.not(status: status)).distinct
   end
 
-  scope :by_status, -> (status) do
-    case status.to_sym
-    when :diagnosis_not_complete
-      where.not(id: diagnosis_completed)
-    when :sent_to_no_one
-      diagnosis_completed
-        .left_outer_joins(:matches).where('matches.id IS NULL').distinct
-    when :quo
-      with_matches_only_in_status([:quo, :not_for_me, :done_no_help, :done_not_reachable])
-        .with_some_matches_in_status(:quo)
-    when :taking_care
-      with_some_matches_in_status(:taking_care)
-        .with_matches_only_in_status([:quo, :taking_care, :not_for_me, :done_no_help, :done_not_reachable])
-    when :done
-      with_some_matches_in_status(:done)
-    when :not_for_me
-      with_some_matches_in_status(:not_for_me)
-        .with_matches_only_in_status(:not_for_me)
-    when :done_no_help
-      with_some_matches_in_status(:done_no_help)
-        .with_matches_only_in_status([:quo, :taking_care, :not_for_me, :done_no_help, :done_not_reachable])
-    when :done_not_reachable
-      with_some_matches_in_status(:done_not_reachable)
-        .with_matches_only_in_status([:quo, :taking_care, :not_for_me, :done_no_help, :done_not_reachable])
-    when :no_help
-      with_matches_only_in_status([:quo, :not_for_me, :done_no_help, :done_not_reachable])
-    end
-  end
-
   scope :no_help_provided, -> { where(status: %w[quo not_for_me done_no_help done_not_reachable]) }
 
   scope :active, -> do
@@ -222,12 +193,6 @@ class Need < ApplicationRecord
       .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
       .with_some_matches_in_status([:quo, :taking_care])
   end
-
-  ## ActiveAdmin/Ransacker helpers
-  #
-  ransacker(:by_status, formatter: -> (value) {
-    where(status: value).ids.presence
-  }) { |parent| parent.table[:id] }
 
   ##
   #
