@@ -570,7 +570,7 @@ fr:
       menu:
         abandoned_without_taking_care_html: "%{label} Abandonnés <i>(J+30)</i>"
         reminder_in_progress_html: "%{label} Relancés"
-        reminder_institutions_html: "%{label} Prévenir l‘institution<i><br/>(J+21)</i>"
+        reminder_institutions_html: "%{label} Prévenir l‘institution <i>(J+21)</i>"
         reminder_quo_not_taken_html: "%{label} À relancer <i>(J+7)</i>"
   solicitations:
     header:
