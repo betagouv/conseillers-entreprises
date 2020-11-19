@@ -452,6 +452,7 @@ fr:
       needs_others_taking_care: pris en charge par d'autres référents
       needs_quo: en attentes
       needs_taking_care: pris en charges
+      reminders_needs_to_call_back: à rappeler
     index:
       all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
