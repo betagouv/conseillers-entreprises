@@ -34,11 +34,11 @@ module Reminders
     private
 
     def retrieve_needs(scope)
-      @needs = if @territory.present?
-        Need.diagnosis_completed.send(scope).by_territory(@territory).includes(:subject).page(params[:page])
-      else
-        Need.diagnosis_completed.send(scope).includes(:subject).page(params[:page])
+      @needs = Need.diagnosis_completed.send(scope)
+      if @territory.present?
+        @needs = @needs.by_territory(@territory)
       end
+      @needs = @needs.includes(:subject).page(params[:page])
       @status = t("reminders.needs.header.#{scope}").downcase
     end
   end
