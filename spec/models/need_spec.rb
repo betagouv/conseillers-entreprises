@@ -285,10 +285,9 @@ RSpec.describe Need, type: :model do
     it { is_expected.to eq 'taking_care' }
   end
 
-    describe 'paniers relance' do
-
+  describe 'paniers relance' do
     describe 'besoins à relancer (J+7)' do
-      # - besoins restés sans réponse (=sans positionnement, personne a cliqué sur les boutons "je prends en charge" ou "je refuse") à plus 7 jours après les mises en relation ; 
+      # - besoins restés sans réponse (=sans positionnement, personne a cliqué sur les boutons "je prends en charge" ou "je refuse") à plus 7 jours après les mises en relation ;
       # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ou refusés ET pour lesquels des experts n’ont toujours pas répondu à plus de 7 jours.
 
       describe 'contraintes de délais' do
@@ -313,7 +312,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'displays needs in correct time_range' do
-          expect(Need.reminder_quo_not_taken).to eq [need2, need3]
+          expect(described_class.reminder_quo_not_taken).to eq [need2, need3]
         end
       end
 
@@ -326,7 +325,7 @@ RSpec.describe Need, type: :model do
         let(:date) { Time.zone.now.beginning_of_day - 7.days }
 
         xit 'displays needs witout Reminder Action' do
-          # expect(Need.reminder_quo_not_taken).to eq [need2, need3]
+          # expect(described_class.reminder_quo_not_taken).to eq [need2, need3]
         end
       end
 
@@ -340,20 +339,20 @@ RSpec.describe Need, type: :model do
         let(:date) { Time.zone.now.beginning_of_day - 7.days }
 
         xit 'displays needs with certain relations' do
-          # expect(Need.reminder_quo_not_taken).to eq [need2, need3]
+          # expect(described_class.reminder_quo_not_taken).to eq [need2, need3]
         end
       end
     end
 
     describe 'besoins à rappeler (J+14)' do
-      # - besoins restés sans réponse à plus 14 jours après les mises en relation ; 
+      # - besoins restés sans réponse à plus 14 jours après les mises en relation ;
       # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ou refusés ET pour lesquels des experts n’ont toujours pas répondu à plus de 14 jours.
 
       describe 'contraintes de délais' do
-      # - besoin créé il y a 13 jours, sans positionnement     ko
-      # - besoin créé il y a 14 jours, sans positionnement     ok
-      # - besoin créé il y a 20 jours, sans positionnement     ok
-      # - besoin créé il y a 21 jours, sans positionnement     ko
+        # - besoin créé il y a 13 jours, sans positionnement     ko
+        # - besoin créé il y a 14 jours, sans positionnement     ok
+        # - besoin créé il y a 20 jours, sans positionnement     ok
+        # - besoin créé il y a 21 jours, sans positionnement     ko
 
         let(:reference_date) { Time.zone.now.beginning_of_day }
 
@@ -370,7 +369,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'displays needs in correct time_range' do
-          expect(Need.reminder_to_recall).to eq [need2, need3]
+          expect(described_class.reminder_to_recall).to eq [need2, need3]
         end
       end
 
@@ -388,11 +387,10 @@ RSpec.describe Need, type: :model do
     end
 
     describe 'besoins prévenir l\'institution (J+21)' do
-      # - besoins restés sans réponse à plus 21 jours après les mises en relation ; 
-      # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ou refusés ET pour lesquels des experts n’ont toujours pas répondu à plus de 21 jours.
+      # - besoins restés sans réponse à plus 21 jours après les mises en relation ;
+      # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ou refusés ET pour lesquels des experts n’ont toujours pas répondu à plus de 21 jours.
 
       describe 'contraintes de délais' do
-
         let(:reference_date) { Time.zone.now.beginning_of_day }
 
         let(:need1) { travel_to(reference_date - 20.days) { create :need_with_matches } }
@@ -408,45 +406,44 @@ RSpec.describe Need, type: :model do
         end
 
         it 'displays needs in correct time_range' do
-          expect(Need.reminder_institutions).to eq [need2, need3]
+          expect(described_class.reminder_institutions).to eq [need2, need3]
         end
       end
-
     end
 
-    describe 'Besoins abandonnés (J+30)' do
-      # - besoins restés sans réponse de tous les experts à plus 30 jours après les mises en relation
-      # - besoins avec une mise en relation refusée ET pour lesquels des experts n’ont toujours pas répondu à plus de 30 jours. 
-      # - besoins refusés de tous les experts
+    # describe 'Besoins abandonnés (J+30)' do
+    #   # - besoins restés sans réponse de tous les experts à plus 30 jours après les mises en relation
+    #   # - besoins avec une mise en relation refusée ET pour lesquels des experts n’ont toujours pas répondu à plus de 30 jours.
+    #   # - besoins refusés de tous les experts
 
-      # DELAIS
-      # - besoin créé il y a 29 jours, sans prise en charge     ko
-      # - besoin créé il y a 30 jours, sans prise en charge     ok
-      # - besoin créé il y a 100 jours, sans prise en charge    ok
+    #   # DELAIS
+    #   # - besoin créé il y a 29 jours, sans prise en charge     ko
+    #   # - besoin créé il y a 30 jours, sans prise en charge     ok
+    #   # - besoin créé il y a 100 jours, sans prise en charge    ok
 
-      # REMINDER ACTIONS
-      # - besoin créé il y a 30 jours, sans prise en charge, pas marqué "traité J+30"   ok
-      # - besoin créé il y a 30 jours, sans prise en charge, marqué "traité J+30"       ko
-      # - besoin créé il y a 30 jours, avec prise en charge, pas marqué "traité J+30"   ko
-      # - besoin créé il y a 30 jours, avec prise en charge, marqué "traité J+30"       ko
+    #   # REMINDER ACTIONS
+    #   # - besoin créé il y a 30 jours, sans prise en charge, pas marqué "traité J+30"   ok
+    #   # - besoin créé il y a 30 jours, sans prise en charge, marqué "traité J+30"       ko
+    #   # - besoin créé il y a 30 jours, avec prise en charge, pas marqué "traité J+30"   ko
+    #   # - besoin créé il y a 30 jours, avec prise en charge, marqué "traité J+30"       ko
 
-      # STATUT
-      # - besoin créé il y a 14 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
-      # - besoin créé il y a 14 jours, avec tous les positionnement « refusé »                                ok
-      # - besoin créé il y a 14 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
-      # - besoin créé il y a 14 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ko
-    end
+    #   # STATUT
+    #   # - besoin créé il y a 14 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
+    #   # - besoin créé il y a 14 jours, avec tous les positionnement « refusé »                                ok
+    #   # - besoin créé il y a 14 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
+    #   # - besoin créé il y a 14 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ko
+    # end
 
-    describe 'Besoins pris en charge sans cloture' do
-      # - besoins pris en charge mais n’ayant aucune mise en relation de clôturée depuis + 7 jours de la prise en charge.
-      # DELAIS
-      # - besoin avec un positionnement « prise en charge  » il y a 6 jours    ko
-      # - besoin avec un positionnement « prise en charge  » il y a 7 jours    ok
+    # describe 'Besoins pris en charge sans cloture' do
+    #   # - besoins pris en charge mais n’ayant aucune mise en relation de clôturée depuis + 7 jours de la prise en charge.
+    #   # DELAIS
+    #   # - besoin avec un positionnement « prise en charge  » il y a 6 jours    ko
+    #   # - besoin avec un positionnement « prise en charge  » il y a 7 jours    ok
 
-      # STATUT
-      # - besoin avec un positionnement « prise en charge  » il y a 7 jours et une cloture                ko
-      # - besoin avec un positionnement « prise en charge  » il y a 7 jours et un autre il y a 2 jours    ok
-    end
+    #   # STATUT
+    #   # - besoin avec un positionnement « prise en charge  » il y a 7 jours et une cloture                ko
+    #   # - besoin avec un positionnement « prise en charge  » il y a 7 jours et un autre il y a 2 jours    ok
+    # end
 
     describe 'abandoned_without_taking_care' do
       let(:date1) { Time.zone.now.beginning_of_day }
@@ -495,6 +492,5 @@ RSpec.describe Need, type: :model do
         is_expected.to eq [mid_need]
       end
     end
-
   end
 end
