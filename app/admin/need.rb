@@ -40,8 +40,7 @@ ActiveAdmin.register Need do
     end
   end
 
-  collection = -> { Need.human_attribute_values(:status, context: :short).invert.to_a }
-  filter :by_status_in, as: :select, collection: collection, label: I18n.t('attributes.status')
+  filter :status, as: :select, collection: -> { Need.human_attribute_values(:status, raw_values: true).invert.to_a }
 
   filter :archived_in, as: :boolean, label: I18n.t('activerecord.attributes.need.is_archived')
 
