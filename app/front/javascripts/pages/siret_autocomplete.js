@@ -70,7 +70,7 @@ import accessibleAutocomplete from "accessible-autocomplete";
     // Recherche par SIRET
     if (results["unite_legale"]) {
       let uniteLegale = results["unite_legale"]
-      etablissement = uniteLegale["etablissement_siege"];
+      let etablissement = uniteLegale["etablissement_siege"];
       return [{
         label: `${etablissement["siret"]} (${uniteLegale["denomination"]})`,
         address: etablissement["geo_adresse"]
