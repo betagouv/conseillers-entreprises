@@ -89,8 +89,9 @@ class Need < ApplicationRecord
 
   ## Scopes
   #
+  EXPERT_ABANDONED_DELAY = 14.days
   REMINDER_DELAY = 7.days
-  ABANDONED_DELAY = 14.days
+  REMINDER_TO_RECALL_DELAY = 14.days
   REMINDER_INSTITUTIONS_DELAY = 21.days
   REMINDER_ABANDONED_DELAY = 30.days
 
@@ -131,11 +132,10 @@ class Need < ApplicationRecord
       .having('feedbacks.count < ?', 1)
   end
 
-  scope :reminder_in_progress, -> do
+  scope :reminder_to_recall, -> do
     no_help_provided
       .archived(false)
-      .reminder
-      .joins(:feedbacks)
+      .in_reminder_to_recall_time_range
   end
 
   scope :reminder_institutions, -> do
@@ -168,14 +168,16 @@ class Need < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_DELAY.ago) }
+  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_TO_RECALL_DELAY.ago, REMINDER_DELAY.ago) }
+
+  scope :in_reminder_to_recall_time_range, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?',REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_TO_RECALL_DELAY.ago) }
 
   scope :reminder_institutions_delay, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDER_INSTITUTIONS_DELAY.ago) }
 
   scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_ABANDONED_DELAY.ago) }
 
-  # For Reminders, find Needs without taking care since ABANDONED_DELAY
-  scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", ABANDONED_DELAY.ago) }
+  # For Reminders, find Needs without taking care since EXPERT_ABANDONED_DELAY
+  scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
 
   scope :with_some_matches_in_status, -> (status) do # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
@@ -204,7 +206,7 @@ class Need < ApplicationRecord
   end
 
   def abandoned?
-    updated_at < ABANDONED_DELAY.ago
+    updated_at < EXPERT_ABANDONED_DELAY.ago
   end
 
   def quo_experts

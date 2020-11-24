@@ -6,8 +6,8 @@ module Reminders
       retrieve_needs :reminder_quo_not_taken
     end
 
-    def in_progress
-      retrieve_needs :reminder_in_progress
+    def to_recall
+      retrieve_needs :reminder_to_recall
       render :index
     end
 

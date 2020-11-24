@@ -16,7 +16,7 @@ module Reminders
     end
 
     def needs
-      retrieve_needs(:needs_quo)
+      retrieve_needs :needs_quo
       @needs = @needs.abandoned
     end
 
