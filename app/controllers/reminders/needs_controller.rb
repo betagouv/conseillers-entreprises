@@ -21,6 +21,11 @@ module Reminders
       render :index
     end
 
+    def rejected
+      retrieve_needs :rejected
+      render :index
+    end
+
     private
 
     def find_territories
