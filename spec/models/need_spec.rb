@@ -311,7 +311,7 @@ RSpec.describe Need, type: :model do
           need4
         end
 
-        it 'displays needs in correct time_range' do
+        it 'retourne les besoins dans la bonne période' do
           expect(described_class.reminder_quo_not_taken).to eq [need2, need3]
         end
       end
@@ -324,7 +324,7 @@ RSpec.describe Need, type: :model do
 
         let(:date) { Time.zone.now.beginning_of_day - 7.days }
 
-        xit 'displays needs witout Reminder Action' do
+        xit 'retourne les besoins sans Reminder Action' do
           # expect(described_class.reminder_quo_not_taken).to eq [need2, need3]
         end
       end
@@ -338,7 +338,7 @@ RSpec.describe Need, type: :model do
 
         let(:date) { Time.zone.now.beginning_of_day - 7.days }
 
-        xit 'displays needs with certain relations' do
+        xit 'retourne les besoins avec certaines relations' do
           # expect(described_class.reminder_quo_not_taken).to eq [need2, need3]
         end
       end
@@ -368,7 +368,7 @@ RSpec.describe Need, type: :model do
           need4
         end
 
-        it 'displays needs in correct time_range' do
+        it 'retourne les besoins dans la bonne période' do
           expect(described_class.reminder_to_recall).to eq [need2, need3]
         end
       end
@@ -405,7 +405,7 @@ RSpec.describe Need, type: :model do
           need4
         end
 
-        it 'displays needs in correct time_range' do
+        it 'retourne les besoins dans la bonne période' do
           expect(described_class.reminder_institutions).to eq [need2, need3]
         end
       end
