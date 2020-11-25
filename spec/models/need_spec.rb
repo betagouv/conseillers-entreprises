@@ -322,24 +322,56 @@ RSpec.describe Need, type: :model do
         # - besoin créé il y a 07 jours, avec positionnement, pas marqué "traité"                    ko
         # - besoin créé il y a 07 jours, avec positionnement, marqué "traité"                        ko
 
-        let(:date) { Time.zone.now.beginning_of_day - 7.days }
+        let(:seven_days_ago) { Time.zone.now.beginning_of_day - 7.days }
 
-        xit 'retourne les besoins sans Reminder Action' do
-          # expect(described_class.reminder_quo_not_taken).to eq [need2, need3]
+        let!(:need1) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:feedback1) { create :feedback, feedbackable: need1 }
+        let!(:need2) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
+        let!(:need3) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:need3_match) { travel_to(seven_days_ago) { create :match, need: need3, status: :taking_care } }
+        let!(:need4) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:need4_match) { travel_to(seven_days_ago) { create :match, need: need4, status: :taking_care } }
+        let!(:reminders_action4) { create :reminders_action, category: :poke, need: need4 }
+
+        before do
+          need1.reload
+          need2.reload
+          need3.reload
+          need4.reload
+        end
+
+        it 'retourne les besoins sans Reminder Action' do
+          expect(described_class.reminder_quo_not_taken).to eq [need1]
         end
       end
 
       describe 'contraintes de relations' do
-        # RELATIONS
         # - besoin créé il y a 07 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
         # - besoin créé il y a 07 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ok
         # - besoin créé il y a 07 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
         # - besoin créé il y a 07 jours, avec 1 commentaire                                                     ok
 
-        let(:date) { Time.zone.now.beginning_of_day - 7.days }
+        let(:seven_days_ago) { Time.zone.now.beginning_of_day - 7.days }
 
-        xit 'retourne les besoins avec certaines relations' do
-          # expect(described_class.reminder_quo_not_taken).to eq [need2, need3]
+        let!(:need1) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:need1_match) { travel_to(seven_days_ago) { create :match, need: need1, status: :not_for_me } }
+        let!(:need2) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:need2_match) { travel_to(seven_days_ago) { create :match, need: need2, status: :done_no_help } }
+        let!(:need3) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:need3_match) { travel_to(seven_days_ago) { create :match, need: need3, status: :done_not_reachable } }
+        let!(:need4) { travel_to(seven_days_ago) { create :need_with_matches } }
+        let!(:feedback4) { create :feedback, feedbackable: need4 }
+
+        before do
+          need1.reload
+          need2.reload
+          need3.reload
+          need4.reload
+        end
+
+        it 'retourne les besoins avec certaines relations' do
+          expect(described_class.reminder_quo_not_taken).to match_array [need1, need2, need3, need4]
         end
       end
     end
@@ -373,17 +405,53 @@ RSpec.describe Need, type: :model do
         end
       end
 
-      # REMINDER ACTIONS
-      # - besoin créé il y a 14 jours, sans positionnement, pas marqué "traité J+14"   ok
-      # - besoin créé il y a 14 jours, sans positionnement, que marqué "traité J+7"    ok
-      # - besoin créé il y a 14 jours, sans positionnement, marqué "traité J+14"       ko
-      # - besoin créé il y a 14 jours, avec positionnement, pas marqué "traité J+14"   ko
-      # - besoin créé il y a 14 jours, avec positionnement, marqué "traité J+14"       ko
+      describe 'contraintes de Reminder Action' do
+        # REMINDER ACTIONS
+        # - besoin créé il y a 14 jours, sans positionnement, pas marqué "traité J+14"   ok
+        # - besoin créé il y a 14 jours, sans positionnement, que marqué "traité J+7"    ok
+        # - besoin créé il y a 14 jours, sans positionnement, marqué "traité J+14"       ko
+        # - besoin créé il y a 14 jours, avec positionnement, pas marqué "traité J+14"   ko
+        # - besoin créé il y a 14 jours, avec positionnement, marqué "traité J+14"       ko
 
-      # STATUT
-      # - besoin créé il y a 14 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
-      # - besoin créé il y a 14 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ok
-      # - besoin créé il y a 14 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
+        let(:fourteen_days_ago) { Time.zone.now.beginning_of_day - 14.days }
+        let(:need1) { travel_to(fourteen_days_ago) { create :need_with_matches } }
+        let(:need2) { travel_to(fourteen_days_ago) { create :need_with_matches } }
+        let(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
+        let(:need3) { travel_to(fourteen_days_ago) { create :need_with_matches } }
+        let(:reminders_action3) { create :reminders_action, category: :recall, need: need3 }
+        let(:need4) { travel_to(fourteen_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
+        let(:need5) { travel_to(fourteen_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
+        let(:reminders_action5) { create :reminders_action, category: :recall, need: need5 }
+
+        it 'retourne les besoins sans Reminder Action' do
+          expect(described_class.reminder_to_recall).to match_array [need1, need2]
+        end
+      end
+
+      describe 'contraintes de status' do
+        # - besoin créé il y a 14 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
+        # - besoin créé il y a 14 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ok
+        # - besoin créé il y a 14 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
+
+        let(:fourteen_days_ago) { Time.zone.now.beginning_of_day - 14.days }
+
+        let!(:need1) { travel_to(fourteen_days_ago) { create :need_with_matches } }
+        let!(:need1_match) { travel_to(fourteen_days_ago) { create :match, need: need1, status: :not_for_me } }
+        let!(:need2) { travel_to(fourteen_days_ago) { create :need_with_matches } }
+        let!(:need2_match) { travel_to(fourteen_days_ago) { create :match, need: need2, status: :done_no_help } }
+        let!(:need3) { travel_to(fourteen_days_ago) { create :need_with_matches } }
+        let!(:need3_match) { travel_to(fourteen_days_ago) { create :match, need: need3, status: :done_not_reachable } }
+
+        before do
+          need1.reload
+          need2.reload
+          need3.reload
+        end
+
+        it 'retourne les besoins avec certains status' do
+          expect(described_class.reminder_to_recall).to match_array [need1, need2, need3]
+        end
+      end
     end
 
     describe 'besoins prévenir l’institution (J+21)' do
