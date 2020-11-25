@@ -565,15 +565,13 @@ fr:
     needs:
       header:
         abandoned_without_taking_care: Abandonnés
-        rejected: Refusés
         reminder_institutions: Institution à prévenir
         reminder_quo_not_taken: À relancer
         reminder_to_recall: À rappeler
       index:
         title: Besoins %{status}
       menu:
-        abandoned_without_taking_care_html: "%{label} Abandonnés <i>(J+30)</i>"
-        rejected_html: "%{label} Refusés"
+        abandoned_without_taking_care_html: "%{label} Abandonnés <i>(J+30 et refusés)</i>"
         reminder_institutions_html: "%{label} Prévenir l‘institution <i>(J+21)</i>"
         reminder_quo_not_taken_html: "%{label} À relancer <i>(J+7)</i>"
         reminder_to_recall_html: "%{label} À rappeler<i>(J+14)</i>"

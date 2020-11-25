@@ -156,6 +156,7 @@ class Need < ApplicationRecord
       .archived(false)
       .reminder_abandoned
       .distinct
+      .or(left_outer_joins(:matches).rejected.distinct)
   end
 
   scope :abandoned_taken_not_done, -> do

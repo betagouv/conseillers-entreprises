@@ -25,12 +25,6 @@ module Reminders
       render :index
     end
 
-    def rejected
-      retrieve_needs :rejected
-      @action_path = [:archive, :need]
-      render :index
-    end
-
     private
 
     def retrieve_needs(scope)
