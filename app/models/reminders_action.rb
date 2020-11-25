@@ -18,9 +18,9 @@
 #
 class RemindersAction < ApplicationRecord
   enum category: {
-    poke: 'poke',
-    recall: 'recall',
-    warn: 'warn',
+    poke: 'poke', # J+7
+    recall: 'recall', # J+14
+    warn: 'warn', # J+21
   }, _prefix: true
 
   ## Associations

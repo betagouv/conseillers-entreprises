@@ -133,9 +133,11 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_to_recall, -> do
-    no_help_provided
+    query = no_help_provided
       .archived(false)
       .in_reminder_to_recall_time_range
+      .left_outer_joins(:reminders_actions)
+    query.exclude_needs_with_reminders_action(:recall).distinct
   end
 
   scope :reminder_institutions, -> do
