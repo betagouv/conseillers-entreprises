@@ -38,7 +38,7 @@ bundle_install: &bundle_install
 yarn_install: &yarn_install
   run:
     name: Install Yarn Dependencies
-    command: yarn install --ignore-engines --frozen-lockfile
+    command: yarn install --ignore-engines
 
 precompile_assets: &precompile_assets
   run:
