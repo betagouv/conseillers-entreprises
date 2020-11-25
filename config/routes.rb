@@ -189,7 +189,6 @@ Rails.application.routes.draw do
         get :to_recall, path: 'a-rappeler'
         get :institutions, path: 'institutions_a_prevenir'
         get :abandoned, path: 'abandonnes'
-        get :rejected, path: 'refuses'
       end
     end
   end
