@@ -578,6 +578,7 @@ fr:
     territory_choice:
       region: Région
   reminders_actions:
+    archive: Archiver
     processed_need: Besoin de l‘entreprise %{company} traité
     to_do: Traiter
   solicitations:
