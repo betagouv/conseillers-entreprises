@@ -1,5 +1,5 @@
 = active_link_to(t('reminders.needs.menu.reminder_quo_not_taken_html', label: colored_label(count_needs[:reminder_quo_not_taken])), reminders_needs_path, active: ['reminders/needs': :index], class: 'item')
-= active_link_to(t('reminders.needs.menu.reminder_in_progress_html', label: colored_label(count_needs[:reminder_in_progress])), in_progress_reminders_needs_path, active: ['reminders/needs': :in_progress], class: 'item')
+= active_link_to(t('reminders.needs.menu.reminder_to_recall_html', label: colored_label(count_needs[:reminder_to_recall])), to_recall_reminders_needs_path, active: ['reminders/needs': :to_recall], class: 'item')
 = active_link_to(t('reminders.needs.menu.reminder_institutions_html', label: colored_label(count_needs[:reminder_institutions])), institutions_reminders_needs_path, active: ['reminders/needs': :institutions], class: 'item')
 = active_link_to(t('reminders.needs.menu.abandoned_without_taking_care_html', label: colored_label(count_needs[:abandoned_without_taking_care])), abandoned_reminders_needs_path, active: ['reminders/needs': :abandoned], class: 'item')
 = active_link_to(t('reminders.needs.menu.rejected_html', label: colored_label(count_needs[:rejected])), rejected_reminders_needs_path, active: ['reminders/needs': :rejected], class: 'item')

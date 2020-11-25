@@ -12,9 +12,9 @@ module Reminders
       @count_needs = Rails.cache.fetch(["reminders_need", Need.all]) do
         {
           reminder_quo_not_taken: Need.diagnosis_completed.reminder_quo_not_taken.size.keys.size,
-            reminder_in_progress: Need.diagnosis_completed.reminder_in_progress.size,
-            reminder_institutions: Need.diagnosis_completed.reminder_institutions.size,
-            abandoned_without_taking_care: Need.diagnosis_completed.abandoned_without_taking_care.size,
+          reminder_to_recall: Need.diagnosis_completed.reminder_to_recall.size,
+          reminder_institutions: Need.diagnosis_completed.reminder_institutions.size,
+          abandoned_without_taking_care: Need.diagnosis_completed.abandoned_without_taking_care.size,
           rejected: Need.diagnosis_completed.rejected.size
         }
       end
