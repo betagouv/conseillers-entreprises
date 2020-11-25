@@ -66,18 +66,29 @@ import accessibleAutocomplete from 'accessible-autocomplete';
   // Traitement des résultats --------------------------------------------
 
   function filterResults (results) {
+    const indifusibleSiretHelp = document.querySelector("[data-error='indiffusible-siret']")
+    
     if (results.message == 'no results found') return
     // Recherche par SIRET
     if (results.unite_legale) {
+      indifusibleSiretHelp.style.display = "none";
       const uniteLegale = results.unite_legale
       const etablissement = uniteLegale.etablissement_siege
-      return [{
-        label: `${etablissement.siret} (${uniteLegale.denomination})`,
-        address: etablissement.geo_adresse
-      }]
+      // les siret indiffusiblse ne sortent aucun résultat
+      if (!exists(etablissement)) {
+        indifusibleSiretHelp.style.display = 'block'
+        return
+      }
+      return [
+        {
+          label: `${etablissement.siret} (${uniteLegale.denomination})`,
+          address: etablissement.geo_adresse,
+        },
+      ];
     }
     // Recherche par nom
     if (results.etablissement) {
+      indifusibleSiretHelp.style.display = "none";
       return results.etablissement
         .filter((etablissement) => {
           // remove Administrations from suggestions

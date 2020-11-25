@@ -5,7 +5,9 @@
 
   function setupInseeCodeFields () {
     const containers = document.querySelectorAll('.insee-code-field')
-    containers.forEach(container => setupInseeCodeField(container))
+    for (let i = 0; i < containers.length; i++) {
+      setupInseeCodeField(containers[i])
+    }
   }
 
   function setupInseeCodeField (container) {

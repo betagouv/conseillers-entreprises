@@ -16,6 +16,7 @@
             %span= help
           %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint") }
           = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
+          %small.siret-warn{ "data-error": "indiffusible-siret" }= t(".attributes.help.indiffusible_siret_html")
 
         - else
           = f.label field

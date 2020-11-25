@@ -4,7 +4,8 @@
   function setupBasicColumnsCharts () {
     const statCharts = document.querySelectorAll("[data-chart='basic-columns-chart']")
 
-    for (const chart of statCharts) {
+    for (let i = 0; i < statCharts.length; i++) {
+      const chart = statCharts[i]
       const container = chart.id
       const months = JSON.parse(chart.dataset.months)
       const maxValue = chart.dataset.maxValue

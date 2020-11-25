@@ -4,13 +4,14 @@
   function setupStatsCharts () {
     const statCharts = document.querySelectorAll("[data-chart='stats-chart']")
 
-    for (const chart of statCharts) {
-      const container = chart.id
-      const months = JSON.parse(chart.dataset.months)
-      const maxValue = chart.dataset.maxValue
-      const series = JSON.parse(chart.dataset.series)
-      const colors = JSON.parse(chart.dataset.colors)
-      statsCharts(container, months, maxValue, series, colors)
+    for (let i = 0; i < statCharts.length; i++) {
+      const chart = statCharts[i];
+      const container = chart.id;
+      const months = JSON.parse(chart.dataset.months);
+      const maxValue = chart.dataset.maxValue;
+      const series = JSON.parse(chart.dataset.series);
+      const colors = JSON.parse(chart.dataset.colors);
+      statsCharts(container, months, maxValue, series, colors);
     }
   }
 
