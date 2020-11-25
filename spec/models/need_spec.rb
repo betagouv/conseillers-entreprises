@@ -386,7 +386,7 @@ RSpec.describe Need, type: :model do
       # - besoin créé il y a 14 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
     end
 
-    describe 'besoins prévenir l\'institution (J+21)' do
+    describe 'besoins prévenir l’institution (J+21)' do
       # - besoins restés sans réponse à plus 21 jours après les mises en relation ;
       # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ou refusés ET pour lesquels des experts n’ont toujours pas répondu à plus de 21 jours.
 
