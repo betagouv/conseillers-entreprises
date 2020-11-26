@@ -154,7 +154,7 @@ class Need < ApplicationRecord
   end
 
   scope :abandoned_without_taking_care, -> do
-    with_matches_only_in_status([:quo, :done_no_help, :done_not_reachable, :not_for_me])
+    with_matches_only_in_status([:quo, :not_for_me])
       .archived(false)
       .reminder_abandoned
       .distinct
