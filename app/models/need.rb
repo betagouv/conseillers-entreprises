@@ -198,7 +198,15 @@ class Need < ApplicationRecord
     left_outer_joins(:matches).where.not(matches: Match.unscoped.where.not(status: status)).distinct
   end
 
-  scope :no_help_provided, -> { where(status: %w[quo not_for_me done_no_help done_not_reachable]) }
+  scope :no_help_provided, -> do
+    joins(:matches)
+      .where(status: %w[quo not_for_me])
+      .distinct
+      .or(
+        where(status: %w[done_no_help done_not_reachable])
+          .with_some_matches_in_status(:quo)
+      )
+  end
 
   scope :active, -> do
     archived(false)

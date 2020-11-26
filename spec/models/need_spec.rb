@@ -189,26 +189,40 @@ RSpec.describe Need, type: :model do
       it { is_expected.to match_array [need1, need2] }
     end
 
-    describe 'by_status_no_help' do
-      let(:match_taking_care) { create(:match, status: :taking_care) }
-      let(:match_done) { create(:match, status: :done) }
-      let(:match_quo) { create(:match, status: :quo) }
-      let(:match_done_no_help) { create(:match, status: :done_no_help) }
-      let(:match_done_not_reachable) { create(:match, status: :done_not_reachable) }
-      let(:match_not_for_me) { create(:match, status: :not_for_me) }
+    describe 'no_help_provided' do
+      # Base des scopes pour les relances il défini quand un besoin n'a pas reçu d'aide
+      # 1 - besoin sans positionnement ok
+      # 2 - besoin avec que des refus ok
+      # 3 - besoin avec un positionnement et un refus ko
+      # 4 - besoin avec un refus et un 'pas d'aide disponible' ko
+      # 5 - besoin avec un refus et un 'pas joignable' ko
+      # 6 - besoin sans positionnement et un 'pas d'aide disponible' ok
+      # 7 - besoin sans positionnement et un 'pas joignable' ok
+      # 8 - besoin avec le statut diagnosis_not_complete ko
+      # 9 - besoin avec tous les positionnements en 'pas joignable' ko
 
-      before do
-        match_taking_care
-        match_done
-        match_quo
-        match_done_no_help
-        match_done_not_reachable
-        match_not_for_me
-      end
+      let!(:need1) { create :need_with_matches }
+      let(:need2) { create :need }
+      let!(:need2_match) { create :match, status: :not_for_me, need: need2 }
+      let(:need3) { create :need }
+      let!(:need3_match1) { create :match, status: :taking_care, need: need3 }
+      let!(:need3_match2) { create :match, status: :not_for_me, need: need3 }
+      let(:need4) { create :need }
+      let!(:need4_match1) { create :match, status: :done_no_help, need: need4 }
+      let!(:need4_match2) { create :match, status: :not_for_me, need: need4 }
+      let(:need5) { create :need }
+      let!(:need5_match1) { create :match, status: :done_not_reachable, need: need5 }
+      let!(:need5_match2) { create :match, status: :not_for_me, need: need5 }
+      let!(:need6) { create :need_with_matches }
+      let!(:need6_match) { create :match, status: :done_no_help, need: need6 }
+      let!(:need7) { create :need_with_matches }
+      let!(:need7_match) { create :match, status: :done_not_reachable, need: need7 }
+      let!(:need8) { create :need }
+      let!(:need9) { create :need }
+      let!(:need9_match1) { create :match, status: :done_not_reachable, need: need9 }
+      let!(:need9_match2) { create :match, status: :done_not_reachable, need: need9 }
 
-      subject { described_class.no_help_provided.order(:id) }
-
-      it { is_expected.to eq [match_quo.need, match_done_no_help.need, match_done_not_reachable.need, match_not_for_me.need] }
+      it { expect(described_class.no_help_provided).to match_array [need1, need2, need6, need7] }
     end
 
     describe 'exclude_needs_with_reminders_action' do
