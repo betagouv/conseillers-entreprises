@@ -181,7 +181,7 @@ class Need < ApplicationRecord
 
   scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_TO_RECALL_DELAY.ago, REMINDER_DELAY.ago) }
 
-  scope :in_reminder_to_recall_time_range, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?',REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_TO_RECALL_DELAY.ago) }
+  scope :in_reminder_to_recall_time_range, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_TO_RECALL_DELAY.ago) }
 
   scope :reminder_institutions_delay, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDER_INSTITUTIONS_DELAY.ago) }
 
@@ -190,11 +190,13 @@ class Need < ApplicationRecord
   # For Reminders, find Needs without taking care since EXPERT_ABANDONED_DELAY
   scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
 
-  scope :with_some_matches_in_status, -> (status) do # can be an array
+  scope :with_some_matches_in_status, -> (status) do
+    # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
   end
 
-  scope :with_matches_only_in_status, -> (status) do # can be an array
+  scope :with_matches_only_in_status, -> (status) do
+    # can be an array
     left_outer_joins(:matches).where.not(matches: Match.unscoped.where.not(status: status)).distinct
   end
 
