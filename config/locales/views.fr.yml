@@ -7,7 +7,7 @@ fr:
       title: Conditions d’utilisation du service numérique Place des Entreprises
     comment_ca_marche:
       contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
-      deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Île-de-France.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
+      deployment_html: Le service est progressivement déployé dans les régions volontaires.<br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
       long_title: Place des Entreprises, comment ça marche ?
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
@@ -503,7 +503,7 @@ fr:
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
     alert_region:
-      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France."
+      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France et en Île-de-France."
       learn_more: En savoir plus
     footer:
       dinum: DINUM
