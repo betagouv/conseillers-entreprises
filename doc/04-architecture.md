@@ -9,17 +9,18 @@
 
 Contrairement au reste de la documentation, ce chapitre est rédigé en français. Il s’adresse non seulement aux nouveaux membres rejoignant l’équipe, mais aussi aux administrations et services publics partenaires qui souhaiteraient mieux comprendre le fonctionnement de Place des Entreprises. 
 
-## Classes d’utilisateurs
+## Types d’utilisateurs
 
 Place des Entreprises s’adresse a plusieurs classes d’utilisateurs :
 1. En premier lieu, les entrepreneurs qui font appel au service via le formulaire en ligne. Ce sont les cibles premières du service.
-2. En second lieu, les agents des services publics et parapublics enregistrés sur Place des Entreprises. Il leur est fourni un compte grâce auquel il peuvent se connecter et voir les demandes des entreprises qui ont besoin de leur aide.
+2. En second lieu, les agents des services publics et parapublics enregistrés sur Place des Entreprises. Il disposent d’un compte grâce auquel il peuvent se connecter et voir les demandes des entreprises qui ont besoin de leur aide.
 3. Enfin, les membres de l’équipe Place des Entreprises, qui ont un double rôle: 
     * l’administration des comptes utilisateurs des agents,
     * et le suivi des mises en relation entre les entrepreneurs et les agents.
 
 ## Données 
 
+### Entrepreneurs
 Les entrepreneurs, quand ils déposent une sollicitation sur `https://place-des-entreprises.beta.gouv.fr` fournissent ces informations :
 * Informations de contact: prénom et nom, adresse email, téléphone ;
 * Identitié de l’entreprise: numéro SIRET ;
@@ -32,7 +33,9 @@ Une fois la sollicitation de l’entrepreneur reçue et validée, les informatio
 
 Cette liste n’est pas exhaustive: d’autres informations disponibles dans les bases administratives sont appelées à être utilisées. Ces informations vont servir à sélectionner automatiquement les agents partenaires les plus susceptibles de venir à l’aide de l’entreprise. En particulier, l’adresse de l’établissement permet de choisir, par exemple, la bonne agence Pôle-Emploi. 
 
-De l’autre côté, on trouve donc les informations des agents recensées auprès des partenaires. Elles sont ajoutées à la main par l’équipe Place des Entreprises, à mesure du déploiement géographique de Place des Entreprises, et tenues à jour au fil des échanges avec les partenaires. C’est en fait une grande partie de notre travail. Cet « annuaire » comporte notamment :
+### Agents publics et parapublics
+
+De l’autre côté, on trouve donc les informations des agents recensées auprès des partenaires. Elles sont fournies par les organismes partenaires et ajoutées à la main par l’équipe Place des Entreprises, à mesure du déploiement géographique de Place des Entreprises, et tenues à jour au fil des échanges avec les partenaires. C’est en fait une grande partie de notre travail. Cet « annuaire » comporte notamment :
 * Les coordonnées professionelles des agents : nom, fonction, email et téléphone de contact ;
 * Leurs champs de compétence, classée selon les mêmes sujets et catégories que les besoins des entreprises,
 * Leur zone géographique d’intervention, à la commune près.
@@ -50,7 +53,7 @@ Les statistiques publiques sont disponibles en temps réel [sur notre page /stat
 
 ## Modèle de données
 
-Le diagramme du [modèle de données](domain_model.pdf) est tenu à jour automatiquement à mesure des migrations du code. Les principales classes sont:
+Le diagramme du [modèle de données](domain_model.pdf) est tenu à jour automatiquement à mesure des évolutions du code. Les principales classes sont:
 
 * `User` : le compte utilisateur d’un agent enregistré sur le site ;
 * `Expert` : un agent, ou une équipe de plusieurs agents, compétents sur des sujets ;
@@ -107,7 +110,7 @@ Nous utilisons aussi des outils propres à la communauté betagouv et etalab:
 ### Services tiers
 
 * [Mailjet](https://www.mailjet.com) nous sert à envoyer les emails de confirmation, d’inscription, de notification… aux différents utilisateurs du service.
-* [ipinfo.io](https://ipinfo.io/) est utilisé de façon annexe. La géolocalisation IP est utilisée uniquement pour afficher une alerte si l’utilisateur semble se situer dans une région où Place des Entreprises n’est pas encore déployé.
+* [ipinfo.io](https://ipinfo.io/) est utilisé de façon annexe. La géolocalisation IP est utilisée uniquement pour afficher une alerte si l’utilisateur semble se situer dans une région où Place des Entreprises n’est pas encore déployé. 
 
 ### Contrôle des accès
 

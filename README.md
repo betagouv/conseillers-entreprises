@@ -6,7 +6,7 @@ Le service public Place des Entreprises permet à l’État, aux Régions volont
 
 ## Documentation
 
-Place des Entreprises est une application web écrite en Ruby on Rails, avec une base de données PostgreSQL. Le développement (code source, issues et pull requests) est organisé sur github. Place des Entreprises est déployé sur `place-des-entreprises.beta.gouv.fr` chez Scalingo, hébergé par Outscale.
+Place des Entreprises est une application web écrite en ruby et utilisant le framework Ruby on Rails, avec une base de données PostgreSQL. Le développement (code source, issues et pull requests) est organisé sur github. Place des Entreprises est déployé sur `place-des-entreprises.beta.gouv.fr` chez Scalingo, hébergé par Outscale.
 
 Le développement logiciel de Place des Entreprises est réalisé de façon ouverte et transparente. Le code source est publié sous [la licence libre AGPL](LICENSE.AGPL.txt).
 
