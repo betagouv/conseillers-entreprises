@@ -10,17 +10,17 @@
       - diagnosis.needs.each do |need|
         - if needs_of_interest.blank? || needs_of_interest.include?(need)
           %h3.ui.header
-            = need.subject
-            .sub.header
-              = need.matches.human_count
-              - if need.abandoned?
-                .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
+            %span
+              = need.subject
+              .sub.header
+                = need.matches.human_count
+                - if need.abandoned?
+                  .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
+            - if action_path.present?
+              = link_to t('reminders_actions.to_do'), polymorphic_path(action_path, { id: need.id }),
+                method: :post, class: 'ui button green'
 
           .ui.list
             - need.matches.each do |match|
               .item
                 ⁃ #{match.expert.antenne.to_s}
-
-  .ui.aligned.grid.segment
-    .right.floated.right.aligned.column
-      =reminders_action(action_name, diagnosis)
