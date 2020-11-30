@@ -2,10 +2,10 @@ module Reminders
   class ExpertsController < RemindersController
     before_action :retrieve_expert, except: :index
     before_action :count_expert_needs, except: %i[index reminders_notes]
+    before_action :find_territories, only: %i[index]
+    before_action :count_needs, only: %i[index]
 
     def index
-      @territories = Territory.all.order(:bassin_emploi, :name)
-      @territory = retrieve_territory
       experts_pool = @territory&.all_experts || Expert.all
       @active_experts = experts_pool.with_active_abandoned_matches.includes(:antenne).sort_by do |expert|
         expert.needs_quo.abandoned.count

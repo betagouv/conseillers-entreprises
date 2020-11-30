@@ -1,6 +1,7 @@
 module Reminders
   class NeedsController < RemindersController
     before_action :find_territories
+    before_action :count_needs
 
     def index
       retrieve_needs :reminder_quo_not_taken
@@ -28,14 +29,9 @@ module Reminders
 
     private
 
-    def find_territories
-      @territories = Territory.regions.order(:name)
-      @territory = retrieve_territory
-    end
-
     def retrieve_needs(scope)
       @needs = if @territory.present?
-        Need.diagnosis_completed.send(scope).joins(:diagnosis).where(diagnoses: { facility: @territory&.facilities }).includes(:subject).page(params[:page])
+        Need.diagnosis_completed.send(scope).by_territory(@territory).includes(:subject).page(params[:page])
       else
         Need.diagnosis_completed.send(scope).includes(:subject).page(params[:page])
       end
