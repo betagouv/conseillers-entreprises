@@ -210,6 +210,34 @@ RSpec.describe Need, type: :model do
 
       it { is_expected.to eq [match_quo.need, match_done_no_help.need, match_done_not_reachable.need, match_not_for_me.need] }
     end
+
+    describe 'exclude_needs_with_reminders_action' do
+      # Exclue les besoins qui ont des reminders_action d'une catégorie en particulier
+      # besoin sans reminders_action
+      # besoin avec une action poke
+      # besoin avec une action recall
+      # besoin avec une action warn
+
+      let!(:need1) { create :need }
+      let(:need2) { create :need }
+      let!(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
+      let(:need3) { create :need }
+      let!(:reminders_action3) { create :reminders_action, category: :recall, need: need3 }
+      let(:need4) { create :need }
+      let!(:reminders_action4) { create :reminders_action, category: :warn, need: need4 }
+
+      it 'expect to have needs without poke action' do
+        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:poke)).to match_array [need1, need3, need4]
+      end
+
+      it 'expect to have needs without recall action' do
+        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:recall)).to match_array [need1, need2, need4]
+      end
+
+      it 'expect to have needs without warn action' do
+        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:warn)).to match_array [need1, need2, need3]
+      end
+    end
   end
 
   describe 'abandoned' do
