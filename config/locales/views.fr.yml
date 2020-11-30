@@ -7,7 +7,7 @@ fr:
       title: Conditions d’utilisation du service numérique Place des Entreprises
     comment_ca_marche:
       contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
-      deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Île-de-France.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
+      deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Bretagne.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
       long_title: Place des Entreprises, comment ça marche ?
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
@@ -269,6 +269,7 @@ fr:
     new_solicitation_form:
       attributes:
         help:
+          indiffusible_siret_html: Nous ne trouvons pas votre SIRET. Peut-être est-il non-diffusible ? <br>Pour que nous puissions bien vous orienter, veuillez préciser la ville de votre établissement dans la description de votre demande.
           siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
           siret_html: Recherche libre possible (nom, activité, ville...)
         placeholder:
@@ -503,7 +504,7 @@ fr:
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
     alert_region:
-      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France."
+      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France et en Île-de-France."
       learn_more: En savoir plus
     footer:
       dinum: DINUM
@@ -562,16 +563,20 @@ fr:
     needs:
       header:
         abandoned_without_taking_care: Abandonnés
-        reminder_in_progress: En cours
+        rejected: Refusés
         reminder_institutions: Institution à prévenir
         reminder_quo_not_taken: À relancer
+        reminder_to_recall: À rappeler
       index:
         title: Besoins %{status}
       menu:
         abandoned_without_taking_care_html: "%{label} Abandonnés <i>(J+30)</i>"
-        reminder_in_progress_html: "%{label} Relancés"
-        reminder_institutions_html: "%{label} Prévenir l‘institution<i><br/>(J+21)</i>"
+        rejected_html: "%{label} Refusés"
+        reminder_institutions_html: "%{label} Prévenir l‘institution <i>(J+21)</i>"
         reminder_quo_not_taken_html: "%{label} À relancer <i>(J+7)</i>"
+        reminder_to_recall_html: "%{label} À rappeler<i>(J+14)</i>"
+    territory_choice:
+      region: Région
   solicitations:
     header:
       canceled: annulées

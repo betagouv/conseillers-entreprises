@@ -10,8 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 
-
-
 // = require semantic-ui/tab
 // = require semantic-ui/transition
 // = require semantic-ui/popup

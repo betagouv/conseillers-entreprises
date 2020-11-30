@@ -1,13 +1,14 @@
 module Reminders
   class NeedsController < RemindersController
     before_action :find_territories
+    before_action :count_needs
 
     def index
       retrieve_needs :reminder_quo_not_taken
     end
 
-    def in_progress
-      retrieve_needs :reminder_in_progress
+    def to_recall
+      retrieve_needs :reminder_to_recall
       render :index
     end
 
@@ -21,16 +22,16 @@ module Reminders
       render :index
     end
 
-    private
-
-    def find_territories
-      @territories = Territory.regions.order(:name)
-      @territory = retrieve_territory
+    def rejected
+      retrieve_needs :rejected
+      render :index
     end
+
+    private
 
     def retrieve_needs(scope)
       @needs = if @territory.present?
-        Need.diagnosis_completed.send(scope).joins(:diagnosis).where(diagnoses: { facility: @territory&.facilities }).includes(:subject).page(params[:page])
+        Need.diagnosis_completed.send(scope).by_territory(@territory).includes(:subject).page(params[:page])
       else
         Need.diagnosis_completed.send(scope).includes(:subject).page(params[:page])
       end
