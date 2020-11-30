@@ -113,6 +113,20 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
       }
     end
 
+    describe 'statuses are correctly updated' do
+      let(:selected) { true }
+
+      it('updates matches, needs and diagnoses statuses') {
+        post :update_matches, params: params
+
+        diagnosis.reload
+        need.reload
+        expect(diagnosis.step).to eq 'completed'
+        expect(need.status).to eq 'quo'
+        expect(diagnosis.matches.pluck(:status)).to eq ['quo']
+      }
+    end
+
     describe 'matches must be selected' do
       context 'one match selected' do
         let(:selected) { true }
