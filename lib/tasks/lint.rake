@@ -11,7 +11,10 @@ namespace :lint do
   desc 'run brakeman linter'
   task(:brakeman) { sh 'brakeman --quiet' }
 
-  task all: %i[rubocop haml i18n brakeman]
+  desc 'run js linter'
+  task(:eslint) { sh "yarn lint:js" }
+
+  task all: %i[rubocop haml i18n brakeman eslint]
 end
 
 desc 'run all linters'

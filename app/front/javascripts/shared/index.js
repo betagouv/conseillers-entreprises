@@ -1,2 +1,2 @@
-import "./utils";
-import "./checkboxes_require_one";
+import './utils'
+import './checkboxes_require_one'
