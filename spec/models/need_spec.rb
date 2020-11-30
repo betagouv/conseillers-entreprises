@@ -468,7 +468,7 @@ RSpec.describe Need, type: :model do
       subject { described_class.abandoned_without_taking_care }
 
       it 'expect to have needs without taking care in 30 last days' do
-        is_expected.to eq [need_quo, need_done_no_help, need_done_not_reachable, need_need_not_for_me]
+        is_expected.to match_array [need_quo, need_done_no_help, need_done_not_reachable, need_need_not_for_me]
       end
     end
 
