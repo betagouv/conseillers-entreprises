@@ -37,21 +37,23 @@ RSpec.describe Need, type: :model do
     end
   end
 
+  describe 'update_status' do
+    let(:need) { create :need_with_matches }
+
+    before { need.matches.first.update(status: :taking_care) }
+
+    subject { need.reload.status }
+
+    it { is_expected.to eq 'taking_care' }
+  end
+
   describe 'status' do
     subject { need.status }
 
-    let(:need) { create :need, matches: matches, diagnosis: diagnosis }
-
-    let(:diagnosis) { create :diagnosis_completed }
-    let(:matches) { [] }
-
-    let(:quo_match) { create :match, status: :quo }
-    let(:taking_care_match) { create :match, status: :taking_care }
-    let(:done_match) { create :match, status: :done }
-    let(:not_for_me_match) { create :match, status: :not_for_me }
+    let(:need) { create :need, matches: matches, diagnosis: create(:diagnosis_completed) }
 
     context 'diagnosis not complete' do
-      let(:diagnosis) { create :diagnosis, step: :not_started }
+      let(:need) { create :need, diagnosis: create(:diagnosis, step: :not_started) }
 
       it { is_expected.to eq 'diagnosis_not_complete' }
     end
@@ -59,31 +61,32 @@ RSpec.describe Need, type: :model do
     context 'with no match' do
       let(:matches) { [] }
 
-      it { is_expected.to eq 'diagnosis_not_complete' }
+      it{ is_expected.to eq 'diagnosis_not_complete' }
     end
 
-    context 'with at least a match done' do
-      let(:matches) { [quo_match, taking_care_match, not_for_me_match, done_match] }
+    context 'diagnosis complete' do
+      rules = {
+        %i[quo quo] => 'quo',
+        %i[quo done_not_reachable not_for_me] => 'quo',
+        %i[quo not_for_me] => 'quo',
+        %i[quo taking_care] => 'taking_care',
+        %i[quo taking_care not_for_me] => 'taking_care',
+        %i[quo done] => 'done',
+        %i[quo taking_care not_for_me done] => 'done',
+        %i[done done_no_help] => 'done',
+        %i[done done_not_reachable done_no_help] => 'done',
+        %i[done_not_reachable done_no_help] => 'done_no_help',
+        %i[done_not_reachable not_for_me] => 'done_not_reachable',
+        %i[not_for_me not_for_me] => 'not_for_me',
+      }
+      rules.each do |matches_statuses, need_status|
+        # Building test dynamically for each rule
+        context "#{matches_statuses.join(', ')} => #{need_status}" do
+          let(:matches) { matches_statuses.map{ |status| build(:match, status: status) } }
 
-      it { is_expected.to eq 'done' }
-    end
-
-    context 'with at least a match taking_care' do
-      let(:matches) { [quo_match, taking_care_match, not_for_me_match] }
-
-      it { is_expected.to eq 'taking_care' }
-    end
-
-    context 'with all matches not_for_me' do
-      let(:matches) { [not_for_me_match, not_for_me_match] }
-
-      it { is_expected.to eq 'not_for_me' }
-    end
-
-    context 'with matches still quo' do
-      let(:matches) { [quo_match, quo_match, not_for_me_match] }
-
-      it { is_expected.to eq 'quo' }
+          it{ is_expected.to eq need_status }
+        end
+      end
     end
   end
 
@@ -326,16 +329,6 @@ RSpec.describe Need, type: :model do
 
       it { is_expected.to eq date3 }
     end
-  end
-
-  describe 'update_status' do
-    let(:need) { create :need_with_matches }
-
-    before { need.matches.first.update(status: :taking_care) }
-
-    subject { need.reload.status }
-
-    it { is_expected.to eq 'taking_care' }
   end
 
   describe 'paniers relance' do

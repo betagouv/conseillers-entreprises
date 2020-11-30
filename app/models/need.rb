@@ -240,23 +240,36 @@ class Need < ApplicationRecord
 
   def update_status
     self.matches.reload # Make sure the matches are fresh from DB; see #1421
+    new_status = computed_status
+    self.update(status: new_status)
+  end
+
+  def computed_status
     matches_status = matches.pluck(:status).map(&:to_sym)
 
-    if !diagnosis.step_completed?
-      status = :diagnosis_not_complete
+    # no matches yet
+    if matches.empty? || !diagnosis.step_completed?
+      result = :diagnosis_not_complete
+
+    # at least one match done:
     elsif matches_status.include?(:done)
-      status = :done
+      result = :done
+
+    # at least one match not closed
     elsif matches_status.include?(:taking_care)
-      status = :taking_care
-    elsif matches_status.include?(:done_not_reachable)
-      status = :done_not_reachable
-    elsif matches_status.include?(:done_no_help)
-      status = :done_no_help
+      result = :taking_care
     elsif matches_status.include?(:quo)
-      status = :quo
+      result = :quo
+
+    # all matches closed
+    elsif matches_status.include?(:done_no_help)
+      result = :done_no_help
+    elsif matches_status.include?(:done_not_reachable)
+      result = :done_not_reachable
     else
-      status = :not_for_me
+      result = :not_for_me
     end
-    self.update(status: status)
+
+    result
   end
 end
