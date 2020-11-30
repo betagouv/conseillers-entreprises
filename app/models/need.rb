@@ -218,6 +218,7 @@ class Need < ApplicationRecord
   end
 
   def update_status
+    self.matches.reload # Make sure the matches are fresh from DB; see #1421
     matches_status = matches.pluck(:status).map(&:to_sym)
 
     if !diagnosis.step_completed?
