@@ -1,8 +1,10 @@
 class SolicitationsController < ApplicationController
+  include TerritoryFiltrable
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
   before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
   before_action :set_category_content, only: %i[index processed canceled]
+  before_action :find_territories, only: %i[index in_progress processed canceled]
   before_action :count_solicitations, only: %i[index in_progress processed canceled]
 
   layout 'side_menu'
@@ -82,7 +84,9 @@ class SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations
-    Solicitation.order(created_at: :desc).page(params[:page]).omnisearch(params[:query])
+    solicitations = Solicitation.order(created_at: :desc)
+    solicitations = solicitations.by_territory(@territory) if @territory.present?
+    solicitations.page(params[:page]).omnisearch(params[:query])
       .includes(:badges_solicitations, :badges, :institution, :landing, :diagnoses)
   end
 
