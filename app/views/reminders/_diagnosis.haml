@@ -16,7 +16,7 @@
                 = need.matches.human_count
                 - if need.abandoned?
                   .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
-            - if action_path.present? && action_path.include?(:archive)
+            - if (action_path.present? && action_path.include?(:archive)) || need.status_not_for_me?
               = link_to t('reminders_actions.archive'), polymorphic_path(action_path, { id: need.id }),
                 method: :post, class: 'ui button red'
             - elsif action_path.present?
