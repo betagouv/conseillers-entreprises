@@ -48,8 +48,8 @@ namespace :import_prod_to_staging do
     dbname = 'reso_stagin_5607'
     db_url = "postgres://#{username}:#{pw}@127.0.0.1:10000/#{dbname}?sslmode=require"
 
-    # not working yet
-    # sh "echo \"DROP SCHEMA public CASCADE; CREATE SCHEMA public;\" | psql -d #{db_url}"
+    # solution non pérenne mais on n'a pas mieux pour le moment
+    sh "echo \"DROP TABLE public.needs CASCADE;\" | psql -d #{db_url}"
     sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{db_url} #{EXPORT_FILENAME}"
 
     kill_staging_tunnel
