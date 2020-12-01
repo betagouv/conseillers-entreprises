@@ -26,9 +26,11 @@ module Reminders
       territory_id = safe_params[:territory] || session[:territory]
       if territory_id.present?
         session[:territory] = territory_id
+        clear_needs_count_cache
         Territory.find(territory_id)
       else
         session.delete(:territory)
+        clear_needs_count_cache
         nil
       end
     end
@@ -36,6 +38,10 @@ module Reminders
     def find_territories
       @territories = Territory.regions.order(:name)
       @territory = retrieve_territory
+    end
+
+    def clear_needs_count_cache
+      Rails.cache.delete(["reminders_need", Need.all])
     end
   end
 end
