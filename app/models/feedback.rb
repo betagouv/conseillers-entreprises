@@ -3,6 +3,7 @@
 # Table name: feedbacks
 #
 #  id                :bigint(8)        not null, primary key
+#  category          :enum             not null
 #  description       :text
 #  feedbackable_type :string
 #  created_at        :datetime         not null
@@ -12,6 +13,7 @@
 #
 # Indexes
 #
+#  index_feedbacks_on_category                               (category)
 #  index_feedbacks_on_feedbackable_type_and_feedbackable_id  (feedbackable_type,feedbackable_id)
 #  index_feedbacks_on_user_id                                (user_id)
 #
@@ -21,6 +23,12 @@
 #
 
 class Feedback < ApplicationRecord
+  enum category: {
+    need: 'need',
+    reminder: 'reminder',
+    solicitation: 'solicitation'
+  }, _prefix: true
+
   ## Associations
   #
   belongs_to :feedbackable, polymorphic: true, touch: true
