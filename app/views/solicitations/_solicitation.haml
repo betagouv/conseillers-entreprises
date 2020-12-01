@@ -35,8 +35,8 @@
         %p= simple_format(auto_link(solicitation.description))
 
   .ui.segment.feed.feedbacks
-    = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks.order(:created_at)
-    = render 'feedbacks/form', feedback: solicitation.feedbacks.new
+    = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks
+    = render 'feedbacks/form', feedback: solicitation.feedbacks.new(category: :solicitation)
 
   .ui.aligned.grid.segment
     .right.floated.right.aligned.column

@@ -614,7 +614,6 @@ fr:
       siret: 'Siret :'
       slug: 'Page thématique :'
     solicitation_actions:
-      add_feedback: Ajouter un commentaire
       prepare_diagnosis_errors:
         one: Erreur à la préparation
         other: "%{count} erreurs à préparation"
