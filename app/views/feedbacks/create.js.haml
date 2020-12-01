@@ -1,4 +1,4 @@
 - feedback_html = render 'feedbacks/feedback', feedback: @feedback, highlighted_experts: []
-document.getElementById('feedback-form-#{@feedback.feedbackable_type.parameterize}-#{@feedback.feedbackable_id}').insertAdjacentHTML('beforebegin', "#{j feedback_html}");
+document.getElementById('feedback-form-#{@feedback.feedbackable_id}').insertAdjacentHTML('beforebegin', "#{j feedback_html}");
 
-document.querySelector('#feedback-form-#{@feedback.feedbackable_type.parameterize}-#{@feedback.feedbackable_id} .form').reset()
+document.querySelector('#feedback-form-#{@feedback.feedbackable_id} .form').reset()

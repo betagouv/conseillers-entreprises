@@ -48,14 +48,6 @@
       $div.toggleClass('hide')
       $form.toggleClass('hide')
     })
-    let feedbackLinks = document.getElementsByClassName( 'show-feedbacks-form' );
-    for ( let feedbackLink of feedbackLinks ) {
-      feedbackLink.onclick = function() {
-        let solicitationId = feedbackLink.dataset.solicitation
-        let form = document.getElementById("feedback-form-solicitation-" + solicitationId)
-        form.style.display = 'block'
-      }
-    }
     $('.ui.search').search({
       type: 'category',
       showNoResults: false,
