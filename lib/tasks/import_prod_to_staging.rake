@@ -1,5 +1,7 @@
 namespace :import_prod_to_staging do
-  EXPORT_FILENAME = 'tmp/export_prod.dump'
+  def export_filename
+    @export_filename ||= 'tmp/export_prod.dump'
+  end
 
   def setup_prod_tunnel
     tunnel_command = 'scalingo -a reso-production db-tunnel SCALINGO_POSTGRESQL_URL'
@@ -32,7 +34,7 @@ namespace :import_prod_to_staging do
     sh "#{pg_url}"
     db_url = "postgres://#{username}:#{pw}@127.0.0.1:10000/#{dbname}?sslmode=require"
 
-    sh "pg_dump --clean --if-exists --format c --dbname #{db_url} --file #{EXPORT_FILENAME}"
+    sh "pg_dump --clean --if-exists --format c --dbname #{db_url} --file #{export_filename}"
     kill_prod_tunnel
   end
 
@@ -50,7 +52,7 @@ namespace :import_prod_to_staging do
 
     # solution non pérenne mais on n'a pas mieux pour le moment
     sh "echo \"DROP TABLE public.needs CASCADE;\" | psql -d #{db_url}"
-    sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{db_url} #{EXPORT_FILENAME}"
+    sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{db_url} #{export_filename}"
 
     kill_staging_tunnel
   end
