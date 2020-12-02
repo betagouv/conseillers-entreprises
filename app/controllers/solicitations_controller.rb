@@ -115,7 +115,7 @@ class SolicitationsController < ApplicationController
   end
 
   def count_solicitations
-    @count_solicitations = Rails.cache.fetch(["count-solicitations", Solicitation.all]) do
+    @count_solicitations = Rails.cache.fetch(["count-solicitations", Solicitation.all, @territory]) do
       {
         without_feedbacks: ordered_solicitations.without_feedbacks.total_count,
           with_feedbacks: ordered_solicitations.with_feedbacks.total_count
