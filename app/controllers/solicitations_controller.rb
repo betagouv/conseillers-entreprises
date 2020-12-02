@@ -1,8 +1,10 @@
 class SolicitationsController < ApplicationController
+  include TerritoryFiltrable
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
   before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
   before_action :set_category_content, only: %i[index processed canceled]
+  before_action :find_territories, only: %i[index in_progress processed canceled]
   before_action :count_solicitations, only: %i[index in_progress processed canceled]
 
   layout 'side_menu'
@@ -82,7 +84,9 @@ class SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations
-    Solicitation.order(created_at: :desc).page(params[:page]).omnisearch(params[:query])
+    solicitations = Solicitation.order(created_at: :desc)
+    solicitations = solicitations.by_territory(@territory) if @territory.present?
+    solicitations.page(params[:page]).omnisearch(params[:query])
       .includes(:badges_solicitations, :badges, :institution, :landing, :diagnoses)
   end
 
@@ -111,7 +115,7 @@ class SolicitationsController < ApplicationController
   end
 
   def count_solicitations
-    @count_solicitations = Rails.cache.fetch(["count-solicitations", Solicitation.all]) do
+    @count_solicitations = Rails.cache.fetch(["count-solicitations", Solicitation.all, @territory]) do
       {
         without_feedbacks: ordered_solicitations.without_feedbacks.total_count,
           with_feedbacks: ordered_solicitations.with_feedbacks.total_count

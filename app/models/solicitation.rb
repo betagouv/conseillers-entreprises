@@ -102,8 +102,11 @@ class Solicitation < ApplicationRecord
   scope :without_feedbacks, -> do
     status_in_progress
       .left_outer_joins(:feedbacks)
-      .group('solicitations.id')
-      .having('feedbacks.count < ?', 1)
+      .where(feedbacks: { id: nil })
+  end
+
+  scope :by_territory, -> (territory) do
+    joins(:diagnoses).where(diagnoses: { facility: territory&.facilities })
   end
 
   ## Callbacks
