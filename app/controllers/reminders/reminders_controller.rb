@@ -10,7 +10,7 @@ module Reminders
     def count_needs
       needs = Need.diagnosis_completed
       needs = needs.by_territory(@territory) if @territory.present?
-      @count_needs = Rails.cache.fetch(["reminders_need", Need.all]) do
+      @count_needs = Rails.cache.fetch(["reminders_need", Need.all, @territory]) do
         {
           reminder_quo_not_taken: needs.diagnosis_completed.reminder_quo_not_taken.size,
           reminder_to_recall: needs.diagnosis_completed.reminder_to_recall.size,
@@ -26,11 +26,9 @@ module Reminders
       territory_id = safe_params[:territory] || session[:territory]
       if territory_id.present?
         session[:territory] = territory_id
-        clear_needs_count_cache
         Territory.find(territory_id)
       else
         session.delete(:territory)
-        clear_needs_count_cache
         nil
       end
     end
@@ -38,10 +36,6 @@ module Reminders
     def find_territories
       @territories = Territory.regions.order(:name)
       @territory = retrieve_territory
-    end
-
-    def clear_needs_count_cache
-      Rails.cache.delete(["reminders_need", Need.all])
     end
   end
 end
