@@ -3,6 +3,8 @@
 - content_for :header, render('header', title: t('.header', status: @status))
 - content_for :menu, render('menu', count: @count_solicitations)
 
+= render 'shared/territory_choice', territories: @territories
+
 %p= collection_count @solicitations
 
 .ui.divider.hidden

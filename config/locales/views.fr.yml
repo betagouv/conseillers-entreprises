@@ -440,6 +440,7 @@ fr:
   needs:
     archive:
       archive: Archiver
+      archive_done: Besoin de l’entreprise %{company} archivé
       subjet_achived: Le besoin a été archivé
       unarchive: Désarchiver
     archives:
@@ -452,6 +453,7 @@ fr:
       needs_others_taking_care: pris en charge par d'autres référents
       needs_quo: en attentes
       needs_taking_care: pris en charges
+      reminders_needs_to_call_back: à rappeler
     index:
       all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
       browse_antenne_needs: Voir les demandes de mon antenne
@@ -563,20 +565,20 @@ fr:
     needs:
       header:
         abandoned_without_taking_care: Abandonnés
-        rejected: Refusés
         reminder_institutions: Institution à prévenir
         reminder_quo_not_taken: À relancer
         reminder_to_recall: À rappeler
       index:
         title: Besoins %{status}
       menu:
-        abandoned_without_taking_care_html: "%{label} Abandonnés <i>(J+30)</i>"
-        rejected_html: "%{label} Refusés"
+        abandoned_without_taking_care_html: "%{label} Abandonnés <i>(J+30 et refusés)</i>"
         reminder_institutions_html: "%{label} Prévenir l‘institution <i>(J+21)</i>"
         reminder_quo_not_taken_html: "%{label} À relancer <i>(J+7)</i>"
         reminder_to_recall_html: "%{label} À rappeler<i>(J+14)</i>"
-    territory_choice:
-      region: Région
+  reminders_actions:
+    archive: Archiver
+    processed_need: Besoin de l‘entreprise %{company} traité
+    to_do: Traiter
   solicitations:
     header:
       canceled: annulées

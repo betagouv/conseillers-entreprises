@@ -6,6 +6,7 @@ module InvolvementConcern
       .where(matches: received_matches.status_taking_care)
       .active
       .archived(false)
+      .distinct
   end
 
   def needs_quo
@@ -13,6 +14,7 @@ module InvolvementConcern
       .status_quo
       .where.not(matches: received_matches.status_not_for_me)
       .archived(false)
+      .distinct
   end
 
   def needs_others_taking_care
@@ -20,6 +22,7 @@ module InvolvementConcern
       .status_taking_care
       .where(matches: received_matches.status_quo)
       .archived(false)
+      .distinct
   end
 
   def needs_rejected

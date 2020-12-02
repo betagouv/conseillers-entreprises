@@ -48,6 +48,7 @@ class Need < ApplicationRecord
   belongs_to :subject, inverse_of: :needs
   has_many :matches, dependent: :destroy, inverse_of: :need
   has_many :feedbacks, dependent: :destroy, as: :feedbackable
+  has_many :reminders_actions, inverse_of: :need, dependent: :destroy
   has_one :company_satisfaction, dependent: :destroy, inverse_of: :need
 
   ## Validations
@@ -124,30 +125,40 @@ class Need < ApplicationRecord
   end
 
   scope :reminder_quo_not_taken, -> do
-    no_help_provided
+    query = no_help_provided
       .archived(false)
       .reminder
-      .left_outer_joins(:feedbacks)
-      .group('needs.id')
-      .having('feedbacks.count < ?', 1)
+      .left_outer_joins(:reminders_actions)
+    query.exclude_needs_with_reminders_action(:poke).distinct
   end
 
   scope :reminder_to_recall, -> do
-    no_help_provided
+    query = no_help_provided
       .archived(false)
       .in_reminder_to_recall_time_range
+      .left_outer_joins(:reminders_actions)
+    query.exclude_needs_with_reminders_action(:recall).distinct
   end
 
   scope :reminder_institutions, -> do
-    no_help_provided
+    query = no_help_provided
       .archived(false)
       .reminder_institutions_delay
+      .left_outer_joins(:reminders_actions)
+    query.exclude_needs_with_reminders_action(:warn).distinct
+  end
+
+  scope :exclude_needs_with_reminders_action, -> (category) do
+    where.not(reminders_actions: { category: category })
+      .or(self.where(reminders_actions: { id: nil }))
   end
 
   scope :abandoned_without_taking_care, -> do
-    with_matches_only_in_status([:quo, :done_no_help, :done_not_reachable, :not_for_me])
+    with_matches_only_in_status([:quo, :not_for_me])
       .archived(false)
       .reminder_abandoned
+      .distinct
+      .or(left_outer_joins(:matches).rejected.distinct)
   end
 
   scope :abandoned_taken_not_done, -> do
@@ -170,7 +181,7 @@ class Need < ApplicationRecord
 
   scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_TO_RECALL_DELAY.ago, REMINDER_DELAY.ago) }
 
-  scope :in_reminder_to_recall_time_range, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?',REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_TO_RECALL_DELAY.ago) }
+  scope :in_reminder_to_recall_time_range, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_TO_RECALL_DELAY.ago) }
 
   scope :reminder_institutions_delay, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDER_INSTITUTIONS_DELAY.ago) }
 
@@ -179,15 +190,25 @@ class Need < ApplicationRecord
   # For Reminders, find Needs without taking care since EXPERT_ABANDONED_DELAY
   scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
 
-  scope :with_some_matches_in_status, -> (status) do # can be an array
+  scope :with_some_matches_in_status, -> (status) do
+    # can be an array
     joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
   end
 
-  scope :with_matches_only_in_status, -> (status) do # can be an array
+  scope :with_matches_only_in_status, -> (status) do
+    # can be an array
     left_outer_joins(:matches).where.not(matches: Match.unscoped.where.not(status: status)).distinct
   end
 
-  scope :no_help_provided, -> { where(status: %w[quo not_for_me done_no_help done_not_reachable]) }
+  scope :no_help_provided, -> do
+    joins(:matches)
+      .where(status: %w[quo not_for_me])
+      .distinct
+      .or(
+        where(status: %w[done_no_help done_not_reachable])
+          .with_some_matches_in_status(:quo)
+      )
+  end
 
   scope :active, -> do
     archived(false)

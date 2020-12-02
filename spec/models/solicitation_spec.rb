@@ -157,4 +157,25 @@ RSpec.describe Solicitation, type: :model do
 
     it { is_expected.to eq [solicitation] }
   end
+
+  describe '#by_territory' do
+    let(:territory1) { create :territory }
+    let(:territory2) { create :territory }
+    let(:solicitation1) { create :solicitation }
+    let(:solicitation2) { create :solicitation }
+    let(:solicitation3) { create :solicitation }
+    let(:facility1) { create :facility }
+    let(:facility2) { create :facility }
+    let!(:diagnosis1) { create :diagnosis, solicitation: solicitation1, facility: facility1 }
+    let!(:diagnosis2) { create :diagnosis, solicitation: solicitation2, facility: facility2 }
+
+    before {
+      territory1.communes = [facility1.commune]
+      territory2.communes = [facility2.commune]
+    }
+
+    subject { described_class.by_territory(territory2) }
+
+    it { is_expected.to eq [solicitation2] }
+  end
 end

@@ -63,6 +63,15 @@ You can import data in your local development database from remote staging datab
  - `rake import_dump:import` : drop local db and import
  - `rake import_dump:anonymize` : anonymize personal information fields
 
+## Staging data
+
+You can import production data in staging application, if you want to test features in almost real condition. You need to install the [Scalingo CLI](http://doc.scalingo.com/app/command-line-tool.html) first.
+
+- `rake import_prod_to_staging`:
+ - `rake import_dump:dump` : dump data from production db 
+ - `rake import_dump:import_to_staging` : import prod db in staging db
+
+You may encounter dependencies problems. If so, you may have to change `/lib/tasks/import_prod_to_staging.rake` in order to drop a few problematic tables in staging before restoring database.
 ---
 
 Next: [Deployment](03-deployment.md)
