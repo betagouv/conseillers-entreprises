@@ -6,8 +6,6 @@
 
 = paginate received_needs
 
-.ui.segments.shadow-less.selectable-list
-  = render partial: 'diagnoses/diagnosis', collection: diagnoses, locals: { needs_of_interest: received_needs,
-    highlighted_expert: local_assigns[:highlighted_expert] }, cached: true
+= render partial: 'reminders/diagnosis', collection: diagnoses, locals: { needs_of_interest: received_needs, action_path: action_path }, cached: true
 
 = paginate received_needs

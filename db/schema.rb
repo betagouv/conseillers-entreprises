@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_135830) do
+ActiveRecord::Schema.define(version: 2020_11_16_141908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_enum :actions_categories, [
+    "poke",
+    "recall",
+    "warn",
+  ], force: :cascade
 
   create_enum :match_status, [
     "quo",
@@ -344,6 +350,14 @@ ActiveRecord::Schema.define(version: 2020_11_12_135830) do
     t.index ["subject_id"], name: "index_needs_on_subject_id"
   end
 
+  create_table "reminders_actions", force: :cascade do |t|
+    t.bigint "need_id", null: false
+    t.enum "category", null: false, enum_name: "actions_categories"
+    t.index ["category"], name: "index_reminders_actions_on_category"
+    t.index ["need_id", "category"], name: "index_reminders_actions_on_need_id_and_category", unique: true
+    t.index ["need_id"], name: "index_reminders_actions_on_need_id"
+  end
+
   create_table "searches", id: :serial, force: :cascade do |t|
     t.string "query", null: false
     t.bigint "user_id", null: false
@@ -474,6 +488,7 @@ ActiveRecord::Schema.define(version: 2020_11_12_135830) do
   add_foreign_key "matches", "subjects"
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
+  add_foreign_key "reminders_actions", "needs"
   add_foreign_key "searches", "users"
   add_foreign_key "solicitations", "institutions"
   add_foreign_key "subjects", "themes"

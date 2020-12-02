@@ -105,7 +105,8 @@ class NeedsController < ApplicationController
     authorize @need, :archive?
     @need.archive!
     flash[:notice] = t('.subjet_achived')
-    redirect_to need_path(@need.diagnosis)
+    redirect_back fallback_location: need_path(@need.diagnosis),
+                  notice: t('needs.archive.archive_done', company: @need.company.name)
   end
 
   def unarchive
