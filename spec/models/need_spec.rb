@@ -227,10 +227,12 @@ RSpec.describe Need, type: :model do
 
     describe 'exclude_needs_with_reminders_action' do
       # Exclue les besoins qui ont des reminders_action d'une catégorie en particulier
-      # besoin sans reminders_action
-      # besoin avec une action poke
-      # besoin avec une action recall
-      # besoin avec une action warn
+      # 1- besoin sans reminders_action
+      # 2- besoin avec une action poke
+      # 3- besoin avec une action recall
+      # 4- besoin avec une action recall et une poke
+      # 5- besoin avec une action warn
+      # 6- besoin avec une action warn et une recall
 
       let!(:need1) { create :need }
       let(:need2) { create :need }
@@ -238,18 +240,27 @@ RSpec.describe Need, type: :model do
       let(:need3) { create :need }
       let!(:reminders_action3) { create :reminders_action, category: :recall, need: need3 }
       let(:need4) { create :need }
-      let!(:reminders_action4) { create :reminders_action, category: :warn, need: need4 }
+      let!(:reminders_action4) { create :reminders_action, category: :recall, need: need4 }
+      let!(:reminders_action4_2) { create :reminders_action, category: :poke, need: need4 }
+      let(:need5) { create :need }
+      let!(:reminders_action5) { create :reminders_action, category: :warn, need: need5 }
+      let(:need6) { create :need }
+      let!(:reminders_action6) { create :reminders_action, category: :warn, need: need6 }
+      let!(:reminders_action6_2) { create :reminders_action, category: :recall, need: need6 }
 
       it 'expect to have needs without poke action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:poke)).to match_array [need1, need3, need4]
+        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:poke))
+          .to match_array [need1, need3, need5, need6]
       end
 
       it 'expect to have needs without recall action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:recall)).to match_array [need1, need2, need4]
+        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:recall))
+          .to match_array [need1, need2, need5]
       end
 
       it 'expect to have needs without warn action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:warn)).to match_array [need1, need2, need3]
+        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:warn))
+          .to match_array [need1, need2, need3, need4]
       end
     end
   end
@@ -449,21 +460,25 @@ RSpec.describe Need, type: :model do
 
       describe 'contraintes de Reminder Action' do
         # REMINDER ACTIONS
-        # - besoin créé il y a 14 jours, sans positionnement, pas marqué "traité J+14"   ok
-        # - besoin créé il y a 14 jours, sans positionnement, que marqué "traité J+7"    ok
-        # - besoin créé il y a 14 jours, sans positionnement, marqué "traité J+14"       ko
-        # - besoin créé il y a 14 jours, avec positionnement, pas marqué "traité J+14"   ko
-        # - besoin créé il y a 14 jours, avec positionnement, marqué "traité J+14"       ko
+        # - besoin créé il y a 14 jours, sans positionnement, pas marqué "traité J+14"             ok
+        # - besoin créé il y a 14 jours, sans positionnement, que marqué "traité J+7"              ok
+        # - besoin créé il y a 14 jours, sans positionnement, marqué "traité J+14"                 ko
+        # - besoin créé il y a 14 jours, avec positionnement, pas marqué "traité J+14"             ko
+        # - besoin créé il y a 14 jours, avec positionnement, marqué "traité J+14"                 ko
+        # - besoin créé il y a 14 jours, sans positionnement, marqué "traité J+7" et "traité J+14" ko
 
         let(:fourteen_days_ago) { Time.zone.now.beginning_of_day - 14.days }
-        let(:need1) { travel_to(fourteen_days_ago) { create :need_with_matches } }
+        let!(:need1) { travel_to(fourteen_days_ago) { create :need_with_matches } }
         let(:need2) { travel_to(fourteen_days_ago) { create :need_with_matches } }
-        let(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
+        let!(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
         let(:need3) { travel_to(fourteen_days_ago) { create :need_with_matches } }
-        let(:reminders_action3) { create :reminders_action, category: :recall, need: need3 }
-        let(:need4) { travel_to(fourteen_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
+        let!(:reminders_action3) { create :reminders_action, category: :recall, need: need3 }
+        let!(:need4) { travel_to(fourteen_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
         let(:need5) { travel_to(fourteen_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
-        let(:reminders_action5) { create :reminders_action, category: :recall, need: need5 }
+        let!(:reminders_action5) { create :reminders_action, category: :recall, need: need5 }
+        let(:need6) { travel_to(fourteen_days_ago) { create :need_with_matches } }
+        let!(:reminders_action6) { create :reminders_action, category: :poke, need: need6 }
+        let!(:reminders_action7) { create :reminders_action, category: :recall, need: need6 }
 
         it 'retourne les besoins sans Reminder Action' do
           expect(described_class.reminder_to_recall).to match_array [need1, need2]
@@ -517,6 +532,34 @@ RSpec.describe Need, type: :model do
 
         it 'retourne les besoins dans la bonne période' do
           expect(described_class.reminder_institutions).to match_array [need2, need3]
+        end
+      end
+
+      describe 'contraintes de Reminder Action' do
+        # REMINDER ACTIONS
+        # - besoin créé il y a 21 jours, sans positionnement, pas marqué "traité J+21"              ok
+        # - besoin créé il y a 21 jours, sans positionnement, que marqué "traité J+7"               ok
+        # - besoin créé il y a 21 jours, sans positionnement, marqué "traité J+21"                  ko
+        # - besoin créé il y a 21 jours, avec positionnement, pas marqué "traité J+21"              ko
+        # - besoin créé il y a 21 jours, avec positionnement, marqué "traité J+21"                  ko
+        # - besoin créé il y a 21 jours, sans positionnement, marqué "traité J+7", "J+14" et "J+21" ko
+
+        let(:twenty_one_days_ago) { Time.zone.now.beginning_of_day - 21.days }
+        let!(:need1) { travel_to(twenty_one_days_ago) { create :need_with_matches } }
+        let(:need2) { travel_to(twenty_one_days_ago) { create :need_with_matches } }
+        let!(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
+        let(:need3) { travel_to(twenty_one_days_ago) { create :need_with_matches } }
+        let!(:reminders_action3) { create :reminders_action, category: :warn, need: need3 }
+        let!(:need4) { travel_to(twenty_one_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
+        let(:need5) { travel_to(twenty_one_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
+        let!(:reminders_action5) { create :reminders_action, category: :warn, need: need5 }
+        let(:need6) { travel_to(twenty_one_days_ago) { create :need_with_matches } }
+        let!(:reminders_action6) { create :reminders_action, category: :poke, need: need6 }
+        let!(:reminders_action7) { create :reminders_action, category: :recall, need: need6 }
+        let!(:reminders_action8) { create :reminders_action, category: :warn, need: need6 }
+
+        it 'retourne les besoins sans Reminder Action' do
+          expect(described_class.reminder_institutions).to match_array [need1, need2]
         end
       end
     end

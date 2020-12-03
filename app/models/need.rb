@@ -149,8 +149,8 @@ class Need < ApplicationRecord
   end
 
   scope :exclude_needs_with_reminders_action, -> (category) do
-    where.not(reminders_actions: { category: category })
-      .or(self.where(reminders_actions: { id: nil }))
+    where.not(reminders_actions: RemindersAction.unscoped.where(category: category))
+      .or(self.where(reminders_actions: { id: nil })).distinct
   end
 
   scope :abandoned_without_taking_care, -> do
