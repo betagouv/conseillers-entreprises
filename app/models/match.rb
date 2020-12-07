@@ -30,15 +30,6 @@
 class Match < ApplicationRecord
   ## Constants
   #
-  enum old_status: {
-    quo: 0,
-    taking_care: 1,
-    done: 2,
-    done_no_help: 4,
-    done_not_reachable: 5,
-    not_for_me: 3
-  }, _prefix: true
-
   enum status: {
     quo: 'quo',
     taking_care: 'taking_care',
