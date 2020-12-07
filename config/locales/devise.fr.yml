@@ -29,11 +29,11 @@ fr:
       invitation_instructions:
         accept: Choisir mon mot de passe
         description_html: Vous êtes invité·e à rejoindre le service public %{link_to_root}, au sein de l’antenne %{antenne}.
-        details_question: Qu’est ce que Place des Entreprises ?
+        details_answer: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
         details_answer_service: C’est un nouveau service public porté par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
-        details_answer: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics chargés de les accompagner.
-        insitution_engagment: Au regard de ses missions, %{institution} est pleinement engagé(e) dans cette nouvelle dynamique collective.
+        details_question: Qu’est ce que Place des Entreprises ?
         discover_partners_html: Découvrez tous les partenaires du service sur le site %{link} !
+        insitution_engagment: Au regard de ses missions, %{institution} est pleinement engagé(e) dans cette nouvelle dynamique collective.
         subject: Invitation sur Place des Entreprises
       reset_password_instructions:
         account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté·e. Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
