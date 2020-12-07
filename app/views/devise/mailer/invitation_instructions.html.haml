@@ -9,6 +9,8 @@
 
 %h3= t('.details_question')
 
+%p= t('.details_answer_service')
+
 %p= t('.details_answer')
 
 %p= t('.insitution_engagment', institution: @resource.institution.name)
@@ -17,5 +19,3 @@
 %p
   .button
     %a{ href: accept_user_invitation_url(invitation_token: @token) }= t('.accept')
-
-%p.text-grey= t(".ignore")
