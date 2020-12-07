@@ -6,6 +6,14 @@
   .ui.info.message
     = t('.explanation')
 
+  .ui.segment
+    %details{ open: true}
+      %summary
+        %strong Rappel de la sollicitation
+      - if @diagnosis.content.present?
+        %blockquote
+          %span= simple_format(auto_link(@diagnosis.content))
+
   = form_with model: @diagnosis,
     url: update_matches_diagnosis_path(@diagnosis),
     class: 'ui form',
