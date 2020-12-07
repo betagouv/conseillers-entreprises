@@ -10,7 +10,7 @@ RSpec.describe InvolvementConcern do
   let!(:need_quo) do
     create(:need, matches: [create(:match, expert: current_expert, status: :quo)])
   end
-  let!(:need_rejected) do
+  let!(:need_not_for_me) do
     create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :not_for_me)])
   end
   let!(:need_done) do
@@ -23,6 +23,12 @@ RSpec.describe InvolvementConcern do
     create(:need, diagnosis: diagnosis, matches: [
       create(:match, expert: current_expert, status: :quo),
       create(:match, expert: other_expert, status: :taking_care)
+    ])
+  end
+  let!(:need_other_done) do
+    create(:need, diagnosis: diagnosis, matches: [
+      create(:match, expert: current_expert, status: :quo),
+      create(:match, expert: other_expert, status: :done)
     ])
   end
 
@@ -39,7 +45,7 @@ RSpec.describe InvolvementConcern do
   describe 'needs_quo' do
     subject { user.needs_quo }
 
-    it { is_expected.to contain_exactly(need_quo) }
+    it { is_expected.to contain_exactly(need_quo, need_other_taking_care, need_other_done) }
   end
 
   describe 'needs_others_taking_care' do
@@ -48,10 +54,10 @@ RSpec.describe InvolvementConcern do
     it { is_expected.to contain_exactly(need_other_taking_care) }
   end
 
-  describe 'needs_rejected' do
-    subject { user.needs_rejected }
+  describe 'needs_not_for_me' do
+    subject { user.needs_not_for_me }
 
-    it { is_expected.to contain_exactly(need_rejected) }
+    it { is_expected.to contain_exactly(need_not_for_me) }
   end
 
   describe 'needs_done' do
