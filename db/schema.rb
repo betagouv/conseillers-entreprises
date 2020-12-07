@@ -408,6 +408,8 @@ ActiveRecord::Schema.define(version: 2020_12_09_113057) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "bassin_emploi", default: false, null: false
+    t.bigint "support_contact_id"
+    t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
 
   create_table "themes", force: :cascade do |t|

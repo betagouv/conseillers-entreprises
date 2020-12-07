@@ -373,7 +373,7 @@ fr:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
         answer_continuation: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
         need_help: Besoin d’aide ?
-        pde_contact: 'Votre contact pour vous aider au sein de l’équipe Place des Entreprises :'
+        pde_contact: 'Vos contacts pour vous aider au sein de l’équipe Place des Entreprises :'
         received_need: Vous venez de recevoir votre premier besoin d’entreprise sur Place des Entreprises.
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
         subject: Place des Entreprises - Besoin d’aide ?
@@ -385,6 +385,7 @@ fr:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
         needs_you: 'a besoin de votre expertise pour :'
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
+        support_contact_label: 'Si vous n''arrivez pas à accéder à la fiche entreprise, contactez :'
         this_company: L’entreprise
         via_partner_html: Cette demande a été déposée sur le site <a href='%{url}' target='_blank'>%{url}</a> avec lequel le service Place des Entreprises est en partenariat.
       notify_other_taking_care:
@@ -397,6 +398,8 @@ fr:
         subject: "[Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
         visited_days_ago: Visitée il y a %{days} par %{advisor}
         visited_on: Visitée le %{date}
+      support_contacts:
+        support_contact_html: en %{region}, %{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>
     footer:
       contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
       contact_us_mailto_text: nous contacter
