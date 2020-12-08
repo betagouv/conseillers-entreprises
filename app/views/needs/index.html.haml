@@ -1,7 +1,7 @@
 - meta title: t('.title')
 
 - if @no_needs
-  - if current_user.needs_rejected.any? || current_user.needs_done.any? || current_user.needs_archived.any?
+  - if current_user.needs_not_for_me.any? || current_user.needs_done.any? || current_user.needs_archived.any?
     %h1.ui.header
       = t('.title_no_needs')
 

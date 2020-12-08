@@ -1,20 +1,33 @@
 module InvolvementConcern
   extend ActiveSupport::Concern
 
+  def needs_quo
+    received_needs
+      .where(matches: received_matches.status_quo)
+      .archived(false)
+  end
+
   def needs_taking_care
     received_needs
       .where(matches: received_matches.status_taking_care)
-      .active
       .archived(false)
-      .distinct
   end
 
-  def needs_quo
+  def needs_done
     received_needs
-      .status_quo
-      .where.not(matches: received_matches.status_not_for_me)
+      .where(matches: received_matches.status_done)
       .archived(false)
-      .distinct
+  end
+
+  def needs_not_for_me
+    received_needs
+      .where(matches: received_matches.status_not_for_me)
+      .archived(false)
+  end
+
+  def needs_archived
+    received_needs
+      .archived(true)
   end
 
   def needs_others_taking_care
@@ -23,22 +36,5 @@ module InvolvementConcern
       .where(matches: received_matches.status_quo)
       .archived(false)
       .distinct
-  end
-
-  def needs_rejected
-    received_needs
-      .where(matches: received_matches.status_not_for_me)
-      .archived(false)
-  end
-
-  def needs_done
-    received_needs
-      .status_done
-      .archived(false)
-  end
-
-  def needs_archived
-    received_needs
-      .archived(true)
   end
 end
