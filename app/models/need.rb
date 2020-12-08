@@ -254,6 +254,10 @@ class Need < ApplicationRecord
     # at least one match done:
     elsif matches_status.include?(:done)
       result = :done
+    elsif matches_status.include?(:done_no_help)
+      result = :done_no_help
+    elsif matches_status.include?(:done_not_reachable)
+      result = :done_not_reachable
 
     # at least one match not closed
     elsif matches_status.include?(:taking_care)
@@ -261,11 +265,7 @@ class Need < ApplicationRecord
     elsif matches_status.include?(:quo)
       result = :quo
 
-    # all matches closed
-    elsif matches_status.include?(:done_no_help)
-      result = :done_no_help
-    elsif matches_status.include?(:done_not_reachable)
-      result = :done_not_reachable
+    # all matches rejected
     else
       result = :not_for_me
     end
