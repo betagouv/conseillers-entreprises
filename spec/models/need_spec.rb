@@ -193,10 +193,10 @@ RSpec.describe Need, type: :model do
       it { is_expected.to match_array [need1, need2] }
     end
 
-    describe 'no_help_provided' do
+    describe 'reminding_may_help' do
       # Base des scopes pour les relances il défini quand un besoin n'a pas reçu d'aide
       # 1 - besoin sans positionnement ok
-      # 2 - besoin avec que des refus ok
+      # 2 - besoin avec que des refus ko
       # 3 - besoin avec un positionnement et un refus ko
       # 4 - besoin avec un refus et un 'pas d'aide disponible' ko
       # 5 - besoin avec un refus et un 'pas joignable' ko
@@ -226,7 +226,7 @@ RSpec.describe Need, type: :model do
       let!(:need9_match1) { create :match, status: :done_not_reachable, need: need9 }
       let!(:need9_match2) { create :match, status: :done_not_reachable, need: need9 }
 
-      it { expect(described_class.no_help_provided).to match_array [need1, need2, need6, need7] }
+      it { expect(described_class.reminding_may_help).to match_array [need1, need6, need7] }
     end
 
     describe 'without_action' do

@@ -110,24 +110,29 @@ class Need < ApplicationRecord
   end
 
   scope :reminders_to_poke, -> do
-    no_help_provided
+    action_may_help
       .archived(false)
       .in_reminders_range(:poke)
       .without_action(:poke)
   end
 
   scope :reminders_to_recall, -> do
-    no_help_provided
+    action_may_help
       .archived(false)
       .in_reminders_range(:recall)
       .without_action(:recall)
   end
 
   scope :reminders_to_warn, -> do
-    no_help_provided
+    action_may_help
       .archived(false)
       .in_reminders_range(:warn)
       .without_action(:warn)
+  end
+
+  scope :reminding_may_help, -> do
+    where(status: %i[quo done_no_help done_not_reachable])
+      .with_some_matches_in_status(:quo)
   end
 
   scope :without_action, -> (category) do
@@ -207,16 +212,6 @@ class Need < ApplicationRecord
       .where.not(matches: Match.unscoped.where.not(status: status))
     # put it in a subquery to avoid duplicate rows, or requiring the join if this scope is composed with others
     where(id: needs_with_matches)
-  end
-
-  scope :no_help_provided, -> do
-    joins(:matches)
-      .where(status: %w[quo not_for_me])
-      .distinct
-      .or(
-        where(status: %w[done_no_help done_not_reachable])
-          .with_some_matches_in_status(:quo)
-      )
   end
 
   scope :active, -> do
