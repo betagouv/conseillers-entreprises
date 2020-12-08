@@ -109,32 +109,31 @@ class Need < ApplicationRecord
   end
 
   scope :reminders_to_poke, -> do
-    query = no_help_provided
+    no_help_provided
       .archived(false)
       .in_reminders_range(:poke)
-      .left_outer_joins(:reminders_actions)
-    query.exclude_needs_with_reminders_action(:poke).distinct
+      .without_action(:poke)
   end
 
   scope :reminders_to_recall, -> do
-    query = no_help_provided
+    no_help_provided
       .archived(false)
       .in_reminders_range(:recall)
-      .left_outer_joins(:reminders_actions)
-    query.exclude_needs_with_reminders_action(:recall).distinct
+      .without_action(:recall)
   end
 
   scope :reminders_to_warn, -> do
-    query = no_help_provided
+    no_help_provided
       .archived(false)
       .in_reminders_range(:warn)
-      .left_outer_joins(:reminders_actions)
-    query.exclude_needs_with_reminders_action(:warn).distinct
+      .without_action(:warn)
   end
 
-  scope :exclude_needs_with_reminders_action, -> (category) do
-    where.not(reminders_actions: RemindersAction.unscoped.where(category: category))
-      .or(self.where(reminders_actions: { id: nil })).distinct
+  scope :without_action, -> (category) do
+    subquery = Need.unscoped
+      .joins(:reminders_actions)
+      .where(reminders_actions: { category: category })
+    where.not(id: subquery)
   end
 
   scope :reminders_to_archive, -> do

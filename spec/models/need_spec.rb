@@ -229,7 +229,7 @@ RSpec.describe Need, type: :model do
       it { expect(described_class.no_help_provided).to match_array [need1, need2, need6, need7] }
     end
 
-    describe 'exclude_needs_with_reminders_action' do
+    describe 'without_action' do
       # Exclue les besoins qui ont des reminders_action d'une catégorie en particulier
       # 1- besoin sans reminders_action
       # 2- besoin avec une action poke
@@ -253,17 +253,17 @@ RSpec.describe Need, type: :model do
       let!(:reminders_action6_2) { create :reminders_action, category: :recall, need: need6 }
 
       it 'expect to have needs without poke action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:poke))
+        expect(described_class.without_action(:poke))
           .to match_array [need1, need3, need5, need6]
       end
 
       it 'expect to have needs without recall action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:recall))
+        expect(described_class.without_action(:recall))
           .to match_array [need1, need2, need5]
       end
 
       it 'expect to have needs without warn action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:warn))
+        expect(described_class.without_action(:warn))
           .to match_array [need1, need2, need3, need4]
       end
     end
