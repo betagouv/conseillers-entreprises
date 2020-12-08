@@ -6,8 +6,9 @@ fr:
     cgu:
       title: Conditions d’utilisation du service numérique Place des Entreprises
     comment_ca_marche:
-      contact_us_html: Pour toute question sur le projet Place des Entreprises, contactez-nous sur %{mailto_link}.
+      contact_us_html: Contactez-nous à %{mailto_link}.
       deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Bretagne.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
+      join_us: Vous souhaitez rejoindre le partenariat ?
       long_title: Place des Entreprises, comment ça marche ?
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
@@ -252,18 +253,17 @@ fr:
         description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
         title: Place des Entreprises
       question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
-      submit_request: Découvrir les accompagnements
     index_institutions:
       more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
       title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
     index_landing_card:
       discover: Choisir
     index_landing_cards:
-      contact_us: contactez-nous !
+      contact_us: cliquez ici !
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
     new_solicitation:
-      five_days_contact_html: Déposez votre demande, un conseiller vous contactera <b>dans les 5 jours</b> (Délai moyen de prise en charge).
+      five_days_contact_html: Déposez votre demande, un conseiller vous rappelle <b>dans les 5 jours</b> (Délai moyen de prise en charge).
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
     new_solicitation_form:
@@ -295,8 +295,6 @@ fr:
       title: Merci !
     show_landing_institutions:
       institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
-    show_landing_topics:
-      you_wish: Vous souhaitez
   mailers:
     admin_mailer:
       csv_export: Export CSV des %{model}

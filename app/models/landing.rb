@@ -9,6 +9,7 @@
 #  home_sort_order              :integer
 #  home_title                   :string           default("")
 #  logos                        :string
+#  main_logo                    :string
 #  message_under_landing_topics :string
 #  meta_description             :string
 #  meta_title                   :string

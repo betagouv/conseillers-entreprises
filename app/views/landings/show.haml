@@ -9,13 +9,21 @@
       .container
         .row.landing-header
           .title
-            %h1= @landing.title
+            .heading
+              - if @landing.main_logo
+                = display_image(name: @landing.main_logo)
+              %h1= @landing.title
             %p.subtitle= @landing.subtitle
+            .links
+              = render 'pages/cta_button'
           .image
             = image_tag('home.png', alt: "")
 
   - if @landing.home_sort_order.present?
     = render 'pages/breadcrumbs', landing: @landing
+
+  - unless in_iframe?
+    %section#scroll-section
 
   %section.section.section-grey#section-exemples
     .container

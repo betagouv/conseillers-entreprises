@@ -10,11 +10,7 @@ module InstitutionsHelper
   end
 
   def institution_image(name, extra_params = {})
-    slug = name.parameterize
-    possible_paths = "institutions/#{slug}.png", "institutions/#{slug}.svg", "institutions/#{slug}.jpg"
-    path = possible_paths.find{ |path| resolve_asset_path(path, true) }
-    params = { alt: name, title: name, class: 'institution_logo' }
-    params.merge! extra_params
-    image_tag(path, params) if path
+    params = { class: 'institution_logo' }
+    display_image({ name: name, path: "institutions/", extra_params: params })
   end
 end
