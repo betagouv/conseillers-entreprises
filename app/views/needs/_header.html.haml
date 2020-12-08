@@ -1,0 +1,7 @@
+%h1.ui.header= t('needs.index.title')
+
+.ui.breadcrumb
+  .section= recipient.to_s
+  %i.right.chevron.icon.divider
+  -# By default, link_to uses the current request path. We only set the name here.
+  = link_to t(collection_name, scope: 'needs.collections'), {}, class: 'section'

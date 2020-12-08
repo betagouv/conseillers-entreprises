@@ -448,52 +448,32 @@ fr:
       archive_done: Besoin de l’entreprise %{company} archivé
       subjet_achived: Le besoin a été archivé
       unarchive: Désarchiver
-    archives:
-      browse_active_needs: Voir les demandes reçues
-      title: Demandes archivées
-    archives_antenne:
-      browse_active_needs: Voir les demandes reçues pour l'antenne
-      title: Demandes archivées de %{antenne}
+    empty_placeholder:
+      title: Aucune demande
+      welcome_help_html: Un problème ? Une question ? %{mailto_link}.
+      welcome_subtitle_emails:
+        one: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{emails}.
+        other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
+      welcome_title: Bienvenue sur Place des Entreprises
     header:
       needs_others_taking_care: pris en charge par d'autres référents
       needs_quo: en attentes
       needs_taking_care: pris en charges
       reminders_needs_to_call_back: à rappeler
     index:
-      all_needs_solved: Vous avez traité toutes vos demandes. Merci beaucoup !
-      browse_antenne_needs: Voir les demandes de mon antenne
-      browse_archived_needs: Voir mes demandes archivées
-      contact_us_mailto_text: Contactez-nous !
-      needs_for_you: 'Ces entreprises ont besoin de vous :'
       needs_others_taking_care_html: Pris en charge par d’autres référents
       needs_quo_html: À rappeler <i>(J+14)</i>
       needs_taking_care_html: Pris en charge
-      no_needs: Il n’y a aucune demande.
-      no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
-      no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       title: Demandes reçues
-      title_no_needs: Félicitations, vous êtes à jour.
-      title_welcome: Bienvenue sur Place des Entreprises
-    index_antenne:
-      browse_archived_needs: Voir les demandes archivées
-      title: Demandes reçues pour %{antenne}
+    menu:
+      for_other_antenne: Toutes les demandes pour %{antenne}
+      for_other_header: Voir aussi
+      for_other_user: Uniquement les demandes pour %{user}
+      for_recipient: Pour %{recipient}
     need_header:
       company_message: 'Message de l''entreprise :'
       need_archived: Besoin archivé
       solicitation_link: Lien vers la sollicitation
-    needs_archived_tabs:
-      done: Clôturées
-      failed: Marquées en échec
-      rejected: Refusées
-    needs_tabs:
-      supported:
-        one: Prise en charge
-        other: Prises en charge
-        zero: Prise en charge
-      waiting_for_response:
-        one: En attente de réponse
-        other: En attentes de réponse
-        zero: En attente de réponse
     show:
       title: Visite de la société « %{company} »
     unarchive:

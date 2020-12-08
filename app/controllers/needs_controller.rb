@@ -2,66 +2,92 @@
 
 class NeedsController < ApplicationController
   before_action :maybe_review_expert_subjects
-  before_action :retrieve_variables_for_index, only: %i[index taking_care]
   before_action :retrieve_need, only: %i[archive unarchive]
 
+  layout 'side_menu', except: :show
+
+  ## Collection actions
+  # (aka “index pages”)
+  # TODO: The collections rely on InvolvementConcern being used on User and Antenne.
+  # We could simply have one route and get the name of the collection as a parameter, like this;
+  # /besoins(/antenne)/:collection_name
+  # However, Needs#show is already used to display the _completed diagnoses_, like this:
+  # /besoins/:diagnosis_id
+  # This is… sub-optimal. We might want to use Diagnoses#show for this; it is already used for in-progress diagnoses.
+  # Note: We would still need to handle redirections, because the diagnoses paths are the ones sent by email to experts.
+  # TODO: Another issue is that the collections in /besoins/ are actually collections of diagnoses.
+  # All of this is #1278.
   def index
-    @needs = current_user.needs_quo.page params[:page]
-    @count_needs = Rails.cache.fetch([current_user.received_needs]) do
-      {
-        quo: @needs.size,
-        taking_care: current_user.needs_taking_care.size
-      }
-    end
+    redirect_to action: :quo
+  end
+
+  def quo
+    retrieve_needs(current_user, :quo)
   end
 
   def taking_care
-    retrieve_needs(current_user, :needs_taking_care)
-    @count_needs = Rails.cache.fetch([current_user.received_needs]) do
-      {
-        quo: current_user.needs_quo.size,
-        taking_care: @needs.size
-      }
+    retrieve_needs(current_user, :taking_care)
+  end
+
+  def done
+    retrieve_needs(current_user, :done)
+  end
+
+  def not_for_me
+    retrieve_needs(current_user, :not_for_me)
+  end
+
+  def archived
+    retrieve_needs(current_user, :archived)
+  end
+
+  def antenne_quo
+    retrieve_needs(current_user.antenne, :quo)
+  end
+
+  def antenne_taking_care
+    retrieve_needs(current_user.antenne, :taking_care)
+  end
+
+  def antenne_done
+    retrieve_needs(current_user.antenne, :done)
+  end
+
+  def antenne_not_for_me
+    retrieve_needs(current_user.antenne, :not_for_me)
+  end
+
+  def antenne_archived
+    retrieve_needs(current_user.antenne, :archived)
+  end
+
+  private
+
+  def collection_names
+    %i[quo taking_care done not_for_me archived]
+  end
+
+  # Common render method for collection actions
+  def retrieve_needs(recipient, collection_name)
+    @user = current_user
+    @antenne = current_user.antenne
+    @recipient = recipient
+
+    @collections_counts = Rails.cache.fetch(recipient.received_needs) do
+      collection_names.index_with { |name| recipient.send("needs_#{name}").size }
     end
+    @collection_name = collection_name
+
+    @needs = recipient
+      .send("needs_#{collection_name}") # See InvolvementConcern
+      .includes(:company, :advisor, :subject)
+      .page params[:page]
     render :index
   end
 
-  def index_antenne
-    @needs = current_user.antenne.needs_quo.page params[:page]
-  end
-
-  def taking_care_antenne
-    retrieve_needs(current_user.antenne, :needs_taking_care)
-    render :index_antenne
-  end
-
-  def archives
-    retrieve_needs(current_user, :needs_done)
-  end
-
-  def archives_rejected
-    retrieve_needs(current_user, :needs_not_for_me)
-    render :archives
-  end
-
-  def archives_failed
-    retrieve_needs(current_user, :needs_archived)
-    render :archives
-  end
-
-  def archives_antenne
-    retrieve_needs(current_user.antenne, :needs_done)
-  end
-
-  def archives_antenne_rejected
-    retrieve_needs(current_user.antenne, :needs_not_for_me)
-    render :archives_antenne
-  end
-
-  def archives_antenne_failed
-    retrieve_needs(current_user.antenne, :needs_archived)
-    render :archives_antenne
-  end
+  ## Instance actions
+  #
+  public
 
   def show
     @diagnosis = retrieve_diagnosis
@@ -132,16 +158,5 @@ class NeedsController < ApplicationController
 
   def retrieve_need
     @need = Need.find(params.require(:id))
-  end
-
-  def retrieve_variables_for_index
-    @experts_emails = current_user.experts.distinct.pluck(:email)
-    @no_needs = current_user.needs_taking_care.empty? &&
-        current_user.needs_others_taking_care.empty? &&
-        current_user.needs_quo.empty?
-  end
-
-  def retrieve_needs(scope, status)
-    @needs = scope.send(status).includes(:company, :advisor, :subject).page params[:page]
   end
 end
