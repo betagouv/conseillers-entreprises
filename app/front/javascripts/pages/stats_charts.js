@@ -11,11 +11,12 @@
       const maxValue = chart.dataset.maxValue;
       const series = JSON.parse(chart.dataset.series);
       const colors = JSON.parse(chart.dataset.colors);
-      statsCharts(container, months, maxValue, series, colors);
+      const format = JSON.parse(chart.dataset.format);
+      statsCharts(container, months, maxValue, series, colors, format);
     }
   }
 
-  function statsCharts (container, months, max_value, series, colors) {
+  function statsCharts (container, months, max_value, series, colors, format) {
     Highcharts.chart(container, {
       colors: colors,
       chart: {
@@ -36,8 +37,7 @@
         }
       },
       tooltip: {
-        pointFormat:
-          '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
+        pointFormat: format
       },
       xAxis: {
         categories: months,

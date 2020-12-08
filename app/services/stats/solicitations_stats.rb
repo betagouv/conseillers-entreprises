@@ -25,5 +25,9 @@ module Stats
     def category_order_attribute
       Arel.sql('true')
     end
+
+    def format
+      'Total : <b>{point.stackTotal}</b>'
+    end
   end
 end

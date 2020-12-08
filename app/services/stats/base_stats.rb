@@ -69,6 +69,10 @@ module Stats
       category
     end
 
+    def format
+      '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
+    end
+
     private
 
     def grouped_by_month(query)

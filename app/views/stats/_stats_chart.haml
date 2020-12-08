@@ -11,4 +11,5 @@
       "data-months": data.all_months.map{ |d| I18n.l(d, format: :month) }.to_json.html_safe,
       "data-max-value": data.max_value,
       "data-series": data.series.to_json.html_safe,
+      "data-format": data.format.to_json.html_safe,
       "data-colors": data.colors.to_json.html_safe }
