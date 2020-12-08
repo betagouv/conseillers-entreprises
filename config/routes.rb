@@ -176,6 +176,8 @@ Rails.application.routes.draw do
   end
 
   namespace :reminders, path: 'relances' do
+    get '/', to: redirect('/relances/besoins')
+
     resources :experts, only: %i[index show], path: 'referents' do
       member do
         post :reminders_notes
