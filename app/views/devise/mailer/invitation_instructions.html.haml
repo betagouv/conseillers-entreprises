@@ -5,9 +5,11 @@
 
 %p= t('devise.mailer.hello', user_full_name: @resource.full_name)
 
-%p= t('.description_html', link_to_root: link_to(t('app_name'), root_url), antenne: @resource.antenne.name)
+%p.bold= t('.description_html', link_to_root: link_to(t('app_name'), root_url), antenne: @resource.antenne.name)
 
 %h3= t('.details_question')
+
+%p= t('.details_answer_service')
 
 %p= t('.details_answer')
 
@@ -17,5 +19,3 @@
 %p
   .button
     %a{ href: accept_user_invitation_url(invitation_token: @token) }= t('.accept')
-
-%p.text-grey= t(".ignore")
