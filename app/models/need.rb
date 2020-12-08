@@ -146,8 +146,7 @@ class Need < ApplicationRecord
     with_matches_only_in_status([:quo, :not_for_me])
       .archived(false)
       .in_reminders_range(:archive)
-      .distinct
-      .or(left_outer_joins(:matches).rejected.distinct)
+      .or(status_not_for_me.archived(false))
   end
 
   REMINDERS_DAYS = {
