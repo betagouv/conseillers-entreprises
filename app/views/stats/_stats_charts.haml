@@ -1,5 +1,5 @@
 - cache("stats_charts-#{stats.params}", expires_in: 1.hour) do
   #stats-charts
-    - names = [:needs, :solicitations_diagnoses, :source, :matches, :advisors, :solicitations]
+    - names = [:needs, :solicitations_diagnoses, :source, :matches, :advisors]
     - names.each do |name|
       = render 'stats_chart', stats: stats, name: name
