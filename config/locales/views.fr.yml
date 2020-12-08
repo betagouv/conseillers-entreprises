@@ -460,9 +460,9 @@ fr:
       browse_archived_needs: Voir mes demandes archivées
       contact_us_mailto_text: Contactez-nous !
       needs_for_you: 'Ces entreprises ont besoin de vous :'
-      needs_others_taking_care_html: "Pris en charge par d’autres référents"
-      needs_quo_html: "À rappeler <i>(J+14)</i>"
-      needs_taking_care_html: "Pris en charge"
+      needs_others_taking_care_html: Pris en charge par d’autres référents
+      needs_quo_html: À rappeler <i>(J+14)</i>
+      needs_taking_care_html: Pris en charge
       no_needs: Il n’y a aucune demande.
       no_requests_html: "<p>Lorsqu’un chef d'entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{email}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
       no_requests_many_emails_html: "<p>Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.</p><p>Un problème ? Une question ? %{mailto_link}</p>"
@@ -565,16 +565,16 @@ fr:
     needs:
       header:
         reminders_to_archive: Abandonnés
-        reminders_to_warn: Institution à prévenir
         reminders_to_poke: À relancer
         reminders_to_recall: À rappeler
+        reminders_to_warn: Institution à prévenir
       index:
         title: Besoins %{status}
       menu:
-        reminders_to_archive_html: "Abandonnés <i>(J+30 et refusés)</i>"
-        reminders_to_warn_html: "Prévenir l‘institution <i>(J+21)</i>"
-        reminders_to_poke_html: "À relancer <i>(J+7)</i>"
-        reminders_to_recall_html: "À rappeler<i>(J+14)</i>"
+        reminders_to_archive_html: Abandonnés <i>(J+30 et refusés)</i>
+        reminders_to_poke_html: À relancer <i>(J+7)</i>
+        reminders_to_recall_html: À rappeler<i>(J+14)</i>
+        reminders_to_warn_html: Prévenir l‘institution <i>(J+21)</i>
   reminders_actions:
     archive: Archiver
     processed_need: Besoin de l‘entreprise %{company} traité
@@ -595,8 +595,8 @@ fr:
       title: Solicitations
     menu:
       canceled: Annulées
-      in_progress_html: "Relancées"
-      index_html: "À traiter"
+      in_progress_html: Relancées
+      index_html: À traiter
       processed: Traitées
     set_category_content:
       landings: Landings
