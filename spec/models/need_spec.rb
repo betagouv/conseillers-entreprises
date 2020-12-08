@@ -67,7 +67,6 @@ RSpec.describe Need, type: :model do
     context 'diagnosis complete' do
       rules = {
         %i[quo quo] => 'quo',
-        %i[quo done_not_reachable not_for_me] => 'quo',
         %i[quo not_for_me] => 'quo',
         %i[quo taking_care] => 'taking_care',
         %i[quo taking_care not_for_me] => 'taking_care',
@@ -75,8 +74,10 @@ RSpec.describe Need, type: :model do
         %i[quo taking_care not_for_me done] => 'done',
         %i[done done_no_help] => 'done',
         %i[done done_not_reachable done_no_help] => 'done',
+        %i[quo done_no_help] => 'done_no_help',
+        %i[taking_care done_no_help] => 'done_no_help',
         %i[done_not_reachable done_no_help] => 'done_no_help',
-        %i[done_not_reachable not_for_me] => 'done_not_reachable',
+        %i[quo done_not_reachable not_for_me] => 'done_not_reachable',
         %i[not_for_me not_for_me] => 'not_for_me',
       }
       rules.each do |matches_statuses, need_status|
