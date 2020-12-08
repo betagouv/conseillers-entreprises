@@ -109,25 +109,22 @@ class Need < ApplicationRecord
       .abandoned
   end
 
-  scope :reminders_to_poke, -> do
-    action_may_help
-      .archived(false)
-      .in_reminders_range(:poke)
-      .without_action(:poke)
-  end
+  scope :reminders_to, -> (action) do
+    if action == :archive
+      query1 = archived(false)
+        .in_reminders_range(action)
+        .with_matches_only_in_status([:quo, :not_for_me])
 
-  scope :reminders_to_recall, -> do
-    action_may_help
-      .archived(false)
-      .in_reminders_range(:recall)
-      .without_action(:recall)
-  end
+      query2 = archived(false)
+        .status_not_for_me
 
-  scope :reminders_to_warn, -> do
-    action_may_help
-      .archived(false)
-      .in_reminders_range(:warn)
-      .without_action(:warn)
+      query1.or(query2)
+    else # :poke, :recall and :warn
+      archived(false)
+        .in_reminders_range(action)
+        .reminding_may_help
+        .without_action(action)
+    end
   end
 
   scope :reminding_may_help, -> do
@@ -140,13 +137,6 @@ class Need < ApplicationRecord
       .joins(:reminders_actions)
       .where(reminders_actions: { category: category })
     where.not(id: subquery)
-  end
-
-  scope :reminders_to_archive, -> do
-    with_matches_only_in_status([:quo, :not_for_me])
-      .archived(false)
-      .in_reminders_range(:archive)
-      .or(status_not_for_me.archived(false))
   end
 
   REMINDERS_DAYS = {

@@ -8,38 +8,35 @@ module Reminders
     end
 
     def to_poke
-      retrieve_needs :reminders_to_poke
       @action_path = [:poke, :reminders_action]
-      render :index
+      render_collection(:poke)
     end
 
     def to_recall
-      retrieve_needs :reminders_to_recall
       @action_path = [:recall, :reminders_action]
-      render :index
+      render_collection(:recall)
     end
 
     def to_warn
-      retrieve_needs :reminders_to_warn
       @action_path = [:warn, :reminders_action]
-      render :index
+      render_collection(:warn)
     end
 
     def to_archive
-      retrieve_needs :reminders_to_archive
       @action_path = [:archive, :need]
-      render :index
+      render_collection(:archive)
     end
 
     private
 
-    def retrieve_needs(scope)
-      @needs = Need.diagnosis_completed.send(scope)
-      if @territory.present?
-        @needs = @needs.by_territory(@territory)
-      end
-      @needs = @needs.includes(:subject).page(params[:page])
-      @status = t("reminders.needs.header.#{scope}").downcase
+    def render_collection(action)
+      @status = t("reminders.needs.header.#{action}").downcase
+      needs = @territory.present? ? @territory.needs : Need.all
+
+      @needs = needs
+        .reminders_to(action)
+        .includes(:subject).page(params[:page])
+      render :index
     end
   end
 end

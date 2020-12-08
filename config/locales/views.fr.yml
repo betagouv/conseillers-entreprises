@@ -559,10 +559,10 @@ fr:
       title: Relances
     needs:
       header:
-        reminders_to_archive: Abandonnés
-        reminders_to_poke: À relancer
-        reminders_to_recall: À rappeler
-        reminders_to_warn: Institution à prévenir
+        archive: Abandonnés
+        poke: À relancer
+        recall: À rappeler
+        warn: Institution à prévenir
       index:
         title: Besoins %{status}
       menu:
