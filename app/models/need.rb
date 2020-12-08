@@ -192,13 +192,21 @@ class Need < ApplicationRecord
   scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
 
   scope :with_some_matches_in_status, -> (status) do
-    # can be an array
-    joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
+    # status can be an array
+    needs_with_matches = Need.unscoped
+      .joins(:matches)
+      .where(matches: Match.unscoped.where(status: status))
+    # put it in a subquery to avoid duplicate rows, or requiring the join if this scope is composed with others
+    where(id: needs_with_matches)
   end
 
   scope :with_matches_only_in_status, -> (status) do
-    # can be an array
-    left_outer_joins(:matches).where.not(matches: Match.unscoped.where.not(status: status)).distinct
+    # status can be an array
+    needs_with_matches = Need.unscoped
+      .left_outer_joins(:matches)
+      .where.not(matches: Match.unscoped.where.not(status: status))
+    # put it in a subquery to avoid duplicate rows, or requiring the join if this scope is composed with others
+    where(id: needs_with_matches)
   end
 
   scope :no_help_provided, -> do
