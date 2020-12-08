@@ -96,12 +96,6 @@ class Need < ApplicationRecord
   REMINDER_INSTITUTIONS_DELAY = 21.days
   REMINDER_ABANDONED_DELAY = 30.days
 
-  scope :made_in, -> (date_range) do
-    joins(:diagnosis)
-      .where(diagnoses: { happened_on: date_range })
-      .distinct
-  end
-
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
       .merge(Subject.ordered_for_interview)
@@ -116,12 +110,6 @@ class Need < ApplicationRecord
     status_quo
       .archived(false)
       .abandoned
-  end
-
-  scope :reminders_to_process, -> do
-    no_help_provided
-      .archived(false)
-      .reminder
   end
 
   scope :reminders_to_poke, -> do
