@@ -1,5 +1,5 @@
 module Reminders
-  class NeedsController < RemindersController
+  class NeedsController < BaseController
     before_action :find_territories
     before_action :count_needs
 

@@ -1,5 +1,5 @@
 module Reminders
-  class RemindersController < ApplicationController
+  class BaseController < ApplicationController
     include TerritoryFiltrable
 
     before_action :authenticate_admin!
