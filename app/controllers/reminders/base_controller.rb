@@ -18,7 +18,6 @@ module Reminders
           reminders_to_recall: needs.diagnosis_completed.reminders_to_recall.size,
           reminders_to_warn: needs.diagnosis_completed.reminders_to_warn.size,
           reminders_to_archive: needs.diagnosis_completed.reminders_to_archive.size,
-          rejected: needs.diagnosis_completed.rejected.size
         }
       end
     end
