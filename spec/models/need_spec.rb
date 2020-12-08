@@ -574,7 +574,7 @@ RSpec.describe Need, type: :model do
         let!(:need3) { travel_to(reference_date - 100.days) { create :need_with_matches } }
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.abandoned_without_taking_care).to eq [need2, need3]
+          expect(described_class.abandoned_without_taking_care).to match_array [need2, need3]
         end
       end
 

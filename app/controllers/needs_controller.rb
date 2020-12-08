@@ -6,7 +6,7 @@ class NeedsController < ApplicationController
   before_action :retrieve_need, only: %i[archive unarchive]
 
   def index
-    @needs = current_user.needs_quo.or(current_user.needs_others_taking_care).page params[:page]
+    @needs = current_user.needs_quo.page params[:page]
     @count_needs = Rails.cache.fetch([current_user.received_needs]) do
       {
         quo: @needs.size,
@@ -19,7 +19,7 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user, :needs_taking_care)
     @count_needs = Rails.cache.fetch([current_user.received_needs]) do
       {
-        quo: current_user.needs_quo.or(current_user.needs_others_taking_care).size,
+        quo: current_user.needs_quo.size,
         taking_care: @needs.size
       }
     end
@@ -27,7 +27,7 @@ class NeedsController < ApplicationController
   end
 
   def index_antenne
-    @needs = current_user.antenne.needs_quo.or(current_user.antenne.needs_others_taking_care).page params[:page]
+    @needs = current_user.antenne.needs_quo.page params[:page]
   end
 
   def taking_care_antenne
@@ -40,7 +40,7 @@ class NeedsController < ApplicationController
   end
 
   def archives_rejected
-    retrieve_needs(current_user, :needs_rejected)
+    retrieve_needs(current_user, :needs_not_for_me)
     render :archives
   end
 
@@ -54,7 +54,7 @@ class NeedsController < ApplicationController
   end
 
   def archives_antenne_rejected
-    retrieve_needs(current_user.antenne, :needs_rejected)
+    retrieve_needs(current_user.antenne, :needs_not_for_me)
     render :archives_antenne
   end
 
