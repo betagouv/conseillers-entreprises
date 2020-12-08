@@ -5,7 +5,7 @@ class RemindersActionsController < ApplicationController
 
   def poke
     @need.reminders_actions.create(category: :poke)
-    redirect_to reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
+    redirect_to to_poke_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
   def recall

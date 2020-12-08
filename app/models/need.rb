@@ -91,7 +91,7 @@ class Need < ApplicationRecord
   ## Scopes
   #
   EXPERT_ABANDONED_DELAY = 14.days
-  REMINDER_DELAY = 7.days
+  REMINDERS_TO_POKE_DELAY = 7.days
   REMINDER_TO_RECALL_DELAY = 14.days
   REMINDER_INSTITUTIONS_DELAY = 21.days
   REMINDER_ABANDONED_DELAY = 30.days
@@ -124,7 +124,7 @@ class Need < ApplicationRecord
       .reminder
   end
 
-  scope :reminder_quo_not_taken, -> do
+  scope :reminders_to_poke, -> do
     query = no_help_provided
       .archived(false)
       .reminder
@@ -179,7 +179,7 @@ class Need < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_TO_RECALL_DELAY.ago, REMINDER_DELAY.ago) }
+  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_TO_RECALL_DELAY.ago, REMINDERS_TO_POKE_DELAY.ago) }
 
   scope :in_reminder_to_recall_time_range, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_TO_RECALL_DELAY.ago) }
 

@@ -4,11 +4,11 @@ module Reminders
     before_action :count_needs
 
     def index
-      redirect_to action: :quo_not_taken
+      redirect_to action: :to_poke
     end
 
-    def quo_not_taken
-      retrieve_needs :reminder_quo_not_taken
+    def to_poke
+      retrieve_needs :reminders_to_poke
       @action_path = [:poke, :reminders_action]
       render :index
     end

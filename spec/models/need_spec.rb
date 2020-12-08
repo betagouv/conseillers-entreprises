@@ -359,7 +359,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminder_quo_not_taken).to match_array [need2, need3]
+          expect(described_class.reminders_to_poke).to match_array [need2, need3]
         end
       end
 
@@ -389,7 +389,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins sans Reminder Action' do
-          expect(described_class.reminder_quo_not_taken).to eq [need1]
+          expect(described_class.reminders_to_poke).to eq [need1]
         end
       end
 
@@ -418,7 +418,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins avec certaines relations' do
-          expect(described_class.reminder_quo_not_taken).to match_array [need1, need2, need3, need4]
+          expect(described_class.reminders_to_poke).to match_array [need1, need2, need3, need4]
         end
       end
     end

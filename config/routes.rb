@@ -188,7 +188,7 @@ Rails.application.routes.draw do
     end
     resources :needs, path: 'besoins', only: %i[index] do
       collection do
-        get :quo_not_taken, path: 'a-relancer'
+        get :to_poke, path: 'a-relancer'
         get :to_recall, path: 'a-rappeler'
         get :institutions, path: 'institutions_a_prevenir'
         get :abandoned, path: 'abandonnes'
