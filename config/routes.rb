@@ -190,7 +190,7 @@ Rails.application.routes.draw do
       collection do
         get :to_poke, path: 'a-relancer'
         get :to_recall, path: 'a-rappeler'
-        get :institutions, path: 'institutions_a_prevenir'
+        get :to_warn, path: 'institution-a-prevenir'
         get :abandoned, path: 'abandonnes'
       end
     end

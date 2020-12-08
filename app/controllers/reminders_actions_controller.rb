@@ -15,7 +15,7 @@ class RemindersActionsController < ApplicationController
 
   def warn
     @need.reminders_actions.create(category: :warn)
-    redirect_to institutions_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
+    redirect_to to_warn_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
   private

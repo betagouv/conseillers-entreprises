@@ -19,8 +19,8 @@ module Reminders
       render :index
     end
 
-    def institutions
-      retrieve_needs :reminder_institutions
+    def to_warn
+      retrieve_needs :reminders_to_warn
       @action_path = [:warn, :reminders_action]
       render :index
     end

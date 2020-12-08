@@ -525,7 +525,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminder_institutions).to match_array [need2, need3]
+          expect(described_class.reminders_to_warn).to match_array [need2, need3]
         end
       end
 
@@ -553,7 +553,7 @@ RSpec.describe Need, type: :model do
         let!(:reminders_action8) { create :reminders_action, category: :warn, need: need6 }
 
         it 'retourne les besoins sans Reminder Action' do
-          expect(described_class.reminder_institutions).to match_array [need1, need2]
+          expect(described_class.reminders_to_warn).to match_array [need1, need2]
         end
       end
     end
