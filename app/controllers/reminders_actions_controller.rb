@@ -10,7 +10,7 @@ class RemindersActionsController < ApplicationController
 
   def recall
     @need.reminders_actions.create(category: :recall)
-    redirect_back fallback_location: reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
+    redirect_to to_recall_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
   def warn

@@ -567,14 +567,14 @@ fr:
         abandoned_without_taking_care: Abandonnés
         reminder_institutions: Institution à prévenir
         reminders_to_poke: À relancer
-        reminder_to_recall: À rappeler
+        reminders_to_recall: À rappeler
       index:
         title: Besoins %{status}
       menu:
         abandoned_without_taking_care_html: "Abandonnés <i>(J+30 et refusés)</i>"
         reminder_institutions_html: "Prévenir l‘institution <i>(J+21)</i>"
         reminders_to_poke_html: "À relancer <i>(J+7)</i>"
-        reminder_to_recall_html: "À rappeler<i>(J+14)</i>"
+        reminders_to_recall_html: "À rappeler<i>(J+14)</i>"
   reminders_actions:
     archive: Archiver
     processed_need: Besoin de l‘entreprise %{company} traité

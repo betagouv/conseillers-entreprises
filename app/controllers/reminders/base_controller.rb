@@ -15,7 +15,7 @@ module Reminders
       @count_needs = Rails.cache.fetch(["reminders_need", Need.all, @territory]) do
         {
           reminders_to_poke: needs.diagnosis_completed.reminders_to_poke.size,
-          reminder_to_recall: needs.diagnosis_completed.reminder_to_recall.size,
+          reminders_to_recall: needs.diagnosis_completed.reminders_to_recall.size,
           reminder_institutions: needs.diagnosis_completed.reminder_institutions.size,
           abandoned_without_taking_care: needs.diagnosis_completed.abandoned_without_taking_care.size,
           rejected: needs.diagnosis_completed.rejected.size
