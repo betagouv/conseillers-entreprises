@@ -656,7 +656,7 @@ RSpec.describe Need, type: :model do
         old_need
       end
 
-      subject { described_class.reminder }
+      subject { described_class.in_reminders_range(:poke) }
 
       it 'expect to have needs between 10 and 30 days' do
         is_expected.to eq [mid_need]
