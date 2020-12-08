@@ -25,8 +25,8 @@ module Reminders
       render :index
     end
 
-    def abandoned
-      retrieve_needs :abandoned_without_taking_care
+    def to_archive
+      retrieve_needs :reminders_to_archive
       @action_path = [:archive, :need]
       render :index
     end

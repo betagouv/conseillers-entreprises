@@ -94,7 +94,7 @@ class Need < ApplicationRecord
   REMINDERS_TO_POKE_DELAY = 7.days
   REMINDERS_TO_RECALL_DELAY = 14.days
   REMINDERS_TO_WARN_DELAY = 21.days
-  REMINDER_ABANDONED_DELAY = 30.days
+  REMINDERS_TO_ARCHIVE_DELAY = 30.days
 
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
@@ -141,7 +141,7 @@ class Need < ApplicationRecord
       .or(self.where(reminders_actions: { id: nil })).distinct
   end
 
-  scope :abandoned_without_taking_care, -> do
+  scope :reminders_to_archive, -> do
     with_matches_only_in_status([:quo, :not_for_me])
       .archived(false)
       .reminder_abandoned
@@ -171,9 +171,9 @@ class Need < ApplicationRecord
 
   scope :in_reminders_to_recall_time_range, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDERS_TO_WARN_DELAY.ago, REMINDERS_TO_RECALL_DELAY.ago) }
 
-  scope :reminders_to_warn_delay, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDERS_TO_WARN_DELAY.ago) }
+  scope :reminders_to_warn_delay, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDERS_TO_ARCHIVE_DELAY.ago, REMINDERS_TO_WARN_DELAY.ago) }
 
-  scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_ABANDONED_DELAY.ago) }
+  scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDERS_TO_ARCHIVE_DELAY.ago) }
 
   # For Reminders, find Needs without taking care since EXPERT_ABANDONED_DELAY
   scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }

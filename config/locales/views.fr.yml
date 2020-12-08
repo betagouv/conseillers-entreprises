@@ -564,14 +564,14 @@ fr:
       title: Relances
     needs:
       header:
-        abandoned_without_taking_care: Abandonnés
+        reminders_to_archive: Abandonnés
         reminders_to_warn: Institution à prévenir
         reminders_to_poke: À relancer
         reminders_to_recall: À rappeler
       index:
         title: Besoins %{status}
       menu:
-        abandoned_without_taking_care_html: "Abandonnés <i>(J+30 et refusés)</i>"
+        reminders_to_archive_html: "Abandonnés <i>(J+30 et refusés)</i>"
         reminders_to_warn_html: "Prévenir l‘institution <i>(J+21)</i>"
         reminders_to_poke_html: "À relancer <i>(J+7)</i>"
         reminders_to_recall_html: "À rappeler<i>(J+14)</i>"

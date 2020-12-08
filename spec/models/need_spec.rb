@@ -575,7 +575,7 @@ RSpec.describe Need, type: :model do
         let!(:need3) { travel_to(reference_date - 100.days) { create :need_with_matches } }
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.abandoned_without_taking_care).to match_array [need2, need3]
+          expect(described_class.reminders_to_archive).to match_array [need2, need3]
         end
       end
 
@@ -596,7 +596,7 @@ RSpec.describe Need, type: :model do
         let!(:need4_match) { travel_to(thirty_days_ago) { create :match, need: need4, status: :taking_care } }
 
         it 'retourne les besoins non archivés' do
-          expect(described_class.abandoned_without_taking_care).to eq [need1]
+          expect(described_class.reminders_to_archive).to eq [need1]
         end
       end
 
@@ -626,7 +626,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins avec certaines relations' do
-          expect(described_class.abandoned_without_taking_care).to match_array [need1, need4]
+          expect(described_class.reminders_to_archive).to match_array [need1, need4]
         end
       end
     end
