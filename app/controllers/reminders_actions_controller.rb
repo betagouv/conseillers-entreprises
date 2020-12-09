@@ -5,17 +5,17 @@ class RemindersActionsController < ApplicationController
 
   def poke
     @need.reminders_actions.create(category: :poke)
-    redirect_to reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
+    redirect_to to_poke_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
   def recall
     @need.reminders_actions.create(category: :recall)
-    redirect_back fallback_location: reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
+    redirect_to to_recall_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
   def warn
     @need.reminders_actions.create(category: :warn)
-    redirect_to institutions_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
+    redirect_to to_warn_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
   private

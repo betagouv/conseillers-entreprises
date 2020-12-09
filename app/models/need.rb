@@ -91,16 +91,6 @@ class Need < ApplicationRecord
   ## Scopes
   #
   EXPERT_ABANDONED_DELAY = 14.days
-  REMINDER_DELAY = 7.days
-  REMINDER_TO_RECALL_DELAY = 14.days
-  REMINDER_INSTITUTIONS_DELAY = 21.days
-  REMINDER_ABANDONED_DELAY = 30.days
-
-  scope :made_in, -> (date_range) do
-    joins(:diagnosis)
-      .where(diagnoses: { happened_on: date_range })
-      .distinct
-  end
 
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
@@ -118,48 +108,66 @@ class Need < ApplicationRecord
       .abandoned
   end
 
-  scope :reminders_to_process, -> do
+  scope :reminders_to_poke, -> do
     no_help_provided
       .archived(false)
-      .reminder
+      .in_reminders_range(:poke)
+      .without_action(:poke)
   end
 
-  scope :reminder_quo_not_taken, -> do
-    query = no_help_provided
+  scope :reminders_to_recall, -> do
+    no_help_provided
       .archived(false)
-      .reminder
-      .left_outer_joins(:reminders_actions)
-    query.exclude_needs_with_reminders_action(:poke).distinct
+      .in_reminders_range(:recall)
+      .without_action(:recall)
   end
 
-  scope :reminder_to_recall, -> do
-    query = no_help_provided
+  scope :reminders_to_warn, -> do
+    no_help_provided
       .archived(false)
-      .in_reminder_to_recall_time_range
-      .left_outer_joins(:reminders_actions)
-    query.exclude_needs_with_reminders_action(:recall).distinct
+      .in_reminders_range(:warn)
+      .without_action(:warn)
   end
 
-  scope :reminder_institutions, -> do
-    query = no_help_provided
-      .archived(false)
-      .reminder_institutions_delay
-      .left_outer_joins(:reminders_actions)
-    query.exclude_needs_with_reminders_action(:warn).distinct
+  scope :without_action, -> (category) do
+    subquery = Need.unscoped
+      .joins(:reminders_actions)
+      .where(reminders_actions: { category: category })
+    where.not(id: subquery)
   end
 
-  scope :exclude_needs_with_reminders_action, -> (category) do
-    where.not(reminders_actions: RemindersAction.unscoped.where(category: category))
-      .or(self.where(reminders_actions: { id: nil })).distinct
-  end
-
-  scope :abandoned_without_taking_care, -> do
+  scope :reminders_to_archive, -> do
     with_matches_only_in_status([:quo, :not_for_me])
       .archived(false)
-      .reminder_abandoned
+      .in_reminders_range(:archive)
       .distinct
       .or(left_outer_joins(:matches).rejected.distinct)
   end
+
+  REMINDERS_DAYS = {
+    poke: 7,
+    recall: 14,
+    warn: 21,
+    archive: 30
+  }
+
+  def self.reminders_range(action)
+    index = REMINDERS_DAYS.keys.index(action)
+    Range.new(REMINDERS_DAYS.values[index + 1]&.days&.ago, REMINDERS_DAYS.values[index].days.ago)
+  end
+
+  scope :in_reminders_range, -> (action) {
+    range = reminders_range(action)
+    matches_created_at(range)
+  }
+
+  scope :matches_created_at, -> (range) {
+    needs_in_range = Need.unscoped
+      .joins(:matches)
+      .where(matches: { created_at: range })
+    # put it in a subquery to avoid duplicate rows, or requiring the join if this scope is composed with others
+    where(id: needs_in_range)
+  }
 
   scope :abandoned_taken_not_done, -> do
     status_taking_care
@@ -178,14 +186,6 @@ class Need < ApplicationRecord
       .group(:id)
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
-
-  scope :reminder, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_TO_RECALL_DELAY.ago, REMINDER_DELAY.ago) }
-
-  scope :in_reminder_to_recall_time_range, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_INSTITUTIONS_DELAY.ago, REMINDER_TO_RECALL_DELAY.ago) }
-
-  scope :reminder_institutions_delay, -> { left_outer_joins(:matches).where('matches.created_at BETWEEN ? AND ?', REMINDER_ABANDONED_DELAY.ago, REMINDER_INSTITUTIONS_DELAY.ago) }
-
-  scope :reminder_abandoned, -> { left_outer_joins(:matches).where('matches.created_at < ?', REMINDER_ABANDONED_DELAY.ago) }
 
   # For Reminders, find Needs without taking care since EXPERT_ABANDONED_DELAY
   scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }

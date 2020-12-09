@@ -176,6 +176,8 @@ Rails.application.routes.draw do
   end
 
   namespace :reminders, path: 'relances' do
+    get '/', to: redirect('/relances/besoins')
+
     resources :experts, only: %i[index show], path: 'referents' do
       member do
         post :reminders_notes
@@ -186,9 +188,10 @@ Rails.application.routes.draw do
     end
     resources :needs, path: 'besoins', only: %i[index] do
       collection do
+        get :to_poke, path: 'a-relancer'
         get :to_recall, path: 'a-rappeler'
-        get :institutions, path: 'institutions_a_prevenir'
-        get :abandoned, path: 'abandonnes'
+        get :to_warn, path: 'institution-a-prevenir'
+        get :to_archive, path: 'abandonnes'
       end
     end
   end
