@@ -607,18 +607,29 @@ fr:
       add_remove_badges: Ajouter / Enlever des tags
   stats:
     series:
-      advisors: Conseillers publics
-      companies: Entreprises aidées
-      experts: Référents
-      matches: Mises en relation
-      needs: Besoins identifiés
-      solicitations: Demandes déposées par les entreprises
-      solicitations_diagnoses: Sollicitations avec et sans analyse
+      advisors:
+        title: Conseillers publics
+      companies:
+        title: Entreprises aidées
+      experts:
+        title: Référents
+      matches:
+        title: Mises en relation
+      needs:
+        title: Besoins identifiés
+      solicitations:
+        series: Demandes déposées
+        title: demandes déposées par les entreprises
+      solicitations_diagnoses:
+        subtitle: Pour le bon fonctionnement du service, seules les demandes qualifiées sont transmises. Les demandes sans aucun élément de contexte, touchant à la création d’entreprise ou encore exprimées dans une région non déployée, ne sont pas transmises.
+        title: de demandes transmises aux conseillers parmi les demandes déposées par les entreprises
       source: Analyses d’entreprises
       source_category:
         direct: Sollicitations d’entreprises
+        title: Analyses d’entreprises
         visits: Visites par un conseiller
-      taking_care: Sollicitations prises en charge
+      taking_care:
+        title: Sollicitations prises en charge
       themes: Besoins par thèmes
     show:
       title: Statistiques d’utilisation
