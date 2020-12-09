@@ -3,7 +3,6 @@
 # Table name: landings
 #
 #  id                           :bigint(8)        not null, primary key
-#  content                      :jsonb
 #  custom_css                   :string
 #  emphasis                     :boolean          default(FALSE)
 #  home_description             :text             default("")

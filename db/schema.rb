@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_141908) do
+ActiveRecord::Schema.define(version: 2020_12_09_113057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -269,7 +269,6 @@ ActiveRecord::Schema.define(version: 2020_11_16_141908) do
     t.string "slug", null: false
     t.string "preselected_subject_slug"
     t.string "preselected_institution_slug"
-    t.jsonb "content", default: {}
     t.boolean "requires_full_name", default: false, null: false
     t.boolean "requires_phone_number", default: false, null: false
     t.boolean "requires_email", default: false, null: false
@@ -297,7 +296,6 @@ ActiveRecord::Schema.define(version: 2020_11_16_141908) do
 
   create_table "landings", force: :cascade do |t|
     t.string "slug", null: false
-    t.jsonb "content", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "home_title", default: ""

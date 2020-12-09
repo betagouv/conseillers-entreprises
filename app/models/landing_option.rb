@@ -3,7 +3,6 @@
 # Table name: landing_options
 #
 #  id                             :bigint(8)        not null, primary key
-#  content                        :jsonb
 #  description_explanation        :string
 #  form_description               :string
 #  form_title                     :string
