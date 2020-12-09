@@ -675,8 +675,8 @@ fr:
     taken_care_before: Moins de 5 jours
     team:
       title: Statistiques équipe
-    with_diagnoses: Avec analyse
-    without_diagnoses: Sans analyse
+    with_diagnoses: Demandes transmises
+    without_diagnoses: Demandes non transmises
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:
