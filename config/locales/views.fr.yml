@@ -635,7 +635,9 @@ fr:
         visits: Visites par un conseiller
       taking_care:
         title: de réponse en moins de 5 jours aux demandes déposées par les entreprises
-      themes: Besoins par thèmes
+      themes:
+        subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
+        title: Thématiques choisies par les entreprises
     show:
       title: Statistiques d’utilisation
     stats_params:
