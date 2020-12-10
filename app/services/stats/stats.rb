@@ -49,5 +49,9 @@ module Stats
     def exchange_with_expert
       ExchangeWithExpertStats.new(@params)
     end
+
+    def companies_by_naf_code
+      CompaniesByNafCodeStats.new(@params)
+    end
   end
 end
