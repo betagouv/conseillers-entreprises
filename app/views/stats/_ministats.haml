@@ -2,9 +2,9 @@
   - stats = Stats::Stats.new
   .stats-item
     %div
-      = stats.companies.count
+      = stats.companies_by_employees.count
     .text
-      = t('stats.series.companies')
+      = t('stats.series.companies_by_employees.ministats')
   .stats-item
     %div
       = stats.needs.count

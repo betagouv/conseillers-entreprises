@@ -10,8 +10,8 @@ module Stats
       AdvisorsStats.new(@params)
     end
 
-    def companies
-      CompaniesStats.new(@params)
+    def companies_by_employees
+      CompaniesByEmployeesStats.new(@params)
     end
 
     def needs
