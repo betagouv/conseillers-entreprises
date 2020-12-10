@@ -221,6 +221,15 @@ class Need < ApplicationRecord
     joins(:diagnosis).where(diagnoses: { facility: territory&.facilities })
   end
 
+  scope :without_exchange, -> do
+    where(status: [:not_for_me, :done_not_reachable])
+      .or(Need.where(status: [:taking_care, :quo]).archived(true))
+  end
+
+  scope :with_exchange, -> do
+    where(status: [:done, :done_no_help])
+  end
+
   ##
   #
   def to_s

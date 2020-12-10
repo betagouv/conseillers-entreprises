@@ -611,6 +611,11 @@ fr:
         title: Conseillers publics
       companies:
         title: Entreprises aidées
+      exchange_with_expert:
+        subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020, grâce à l’ajout de nouvelles fonctionnalités permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais une même demande peut exprimer plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service. <br> La transmission d'un besoin à un conseiller est concluante lorsqu'elle donne lieu à un échange. Il peut arriver que l'entreprise soit injoignable.
+        title: des besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
+        with_exchange: Avec échange
+        without_exchange: Sans échange
       experts:
         title: Référents
       matches:
