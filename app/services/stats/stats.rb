@@ -47,7 +47,7 @@ module Stats
     end
 
     def taking_care
-      PublicTakingCareStats.new(@params)
+      TakingCareTimeStats.new(@params)
     end
 
     def exchange_with_expert
