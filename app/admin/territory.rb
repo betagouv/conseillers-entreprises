@@ -58,6 +58,7 @@ ActiveAdmin.register Territory do
     attributes_table do
       row :name
       row :bassin_emploi
+      row :support_contact
       row(:communes) do |t|
         div admin_link_to(t, :communes)
         div safe_join(t.communes.map { |c| admin_link_to c }, ', '.html_safe)
@@ -80,12 +81,13 @@ ActiveAdmin.register Territory do
 
   ## Form
   #
-  permit_params :name, :insee_codes, :bassin_emploi
+  permit_params :name, :insee_codes, :bassin_emploi, :support_contact_id
 
   form do |f|
     f.inputs do
       f.input :name
       f.input :bassin_emploi
+      f.input :support_contact, collection: User.admin.not_deleted
     end
     f.inputs do
       f.input :insee_codes

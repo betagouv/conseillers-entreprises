@@ -257,6 +257,7 @@ fr:
         antennes: Antennes
         bassin_emploi: Bassin d’emploi?
         experts: Experts
+        support_contact: Contact support
       user:
         can_view_diagnoses_tab: Peut voir l’onglet analyses
         can_view_review_subjects_flash: Rappel de la revue des compétences
