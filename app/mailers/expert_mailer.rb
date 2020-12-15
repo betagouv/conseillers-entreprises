@@ -24,7 +24,6 @@ class ExpertMailer < ApplicationMailer
 
   def first_notification_help(expert)
     @expert = expert
-    @support_user = User.support_contact
     mail(
       to: @expert.email_with_display_name,
       subject: t('mailers.expert_mailer.first_notification_help.subject')

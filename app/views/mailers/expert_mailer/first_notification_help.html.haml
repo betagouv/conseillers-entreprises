@@ -14,11 +14,7 @@
 
 %p= t('.pde_contact')
 
-= @support_user.full_name
-%br
-= @support_user.phone_number
-%br
-= mail_to @support_user.email, @support_user.email, target: '_blank'
+= render 'mailers/expert_mailer/support_contacts'
 
 %p= t('.watch_videos_html')
 
