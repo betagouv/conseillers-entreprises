@@ -45,8 +45,10 @@ end
 
 Selenium::WebDriver.logger.level = :warn
 Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new app, browser: :chrome,
-                                      options: Selenium::WebDriver::Chrome::Options.new(args: %w[headless disable-gpu])
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless disable-gpu])
+  browser_path = ENV['DEVELOPMENT_SELENIUM_CHROMIUM_BROWSER_PATH']
+  options.binary = browser_path if browser_path.present?
+  Capybara::Selenium::Driver.new app, browser: :chrome, options: options
 end
 
 Capybara.javascript_driver = :chrome
