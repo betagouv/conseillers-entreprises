@@ -1,4 +1,4 @@
-- diagnoses = Diagnosis.where(needs: received_needs).distinct.order(updated_at: :desc)
+- diagnoses = Diagnosis.where(needs: received_needs).distinct.order(happened_on: :desc)
 = paginate received_needs
 
 .ui.segments.shadow-less.selectable-list
