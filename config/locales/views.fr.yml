@@ -216,12 +216,16 @@ fr:
     subjects_modal:
       title: Domaines d’intervention
   feedbacks:
+    add: Ajouter un commentaire
     feedback:
       delete: Supprimer ce commentaire ?
     form:
       need:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
         subtitle: Ce message n’est pas adressé au chef d’entreprise, pour transmettre l’information au dirigeant veuillez l’appeler.
+      reminder:
+        placeholder: " "
+        subtitle: " "
       solicitation:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'
         subtitle: " "
@@ -610,7 +614,6 @@ fr:
       siret: 'Siret :'
       slug: 'Page thématique :'
     solicitation_actions:
-      add_feedback: Ajouter un commentaire
       prepare_diagnosis_errors:
         one: Erreur à la préparation
         other: "%{count} erreurs à préparation"

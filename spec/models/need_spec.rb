@@ -267,6 +267,20 @@ RSpec.describe Need, type: :model do
           .to match_array [need1, need2, need3, need4]
       end
     end
+
+    describe 'feedbacks' do
+      let(:need) { create :need }
+      let!(:feedback1) { create :feedback, :for_reminder, feedbackable: need }
+      let!(:feedback2) { create :feedback, :for_need, feedbackable: need }
+
+      it 'return only feedbacks for reminders' do
+        expect(need.reminder_feedbacks).to match_array [feedback1]
+      end
+
+      it 'return only feedbacks for diagnosis page' do
+        expect(need.feedbacks).to match_array [feedback2]
+      end
+    end
   end
 
   describe 'abandoned' do
@@ -372,7 +386,7 @@ RSpec.describe Need, type: :model do
         let(:seven_days_ago) { Time.zone.now.beginning_of_day - 7.days }
 
         let!(:need1) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:feedback1) { create :feedback, feedbackable: need1 }
+        let!(:feedback1) { create :feedback, :for_need, feedbackable: need1 }
         let!(:need2) { travel_to(seven_days_ago) { create :need_with_matches } }
         let!(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
         let!(:need3) { travel_to(seven_days_ago) { create :need_with_matches } }
@@ -408,7 +422,7 @@ RSpec.describe Need, type: :model do
         let!(:need3) { travel_to(seven_days_ago) { create :need_with_matches } }
         let!(:need3_match) { travel_to(seven_days_ago) { create :match, need: need3, status: :done_not_reachable } }
         let!(:need4) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:feedback4) { create :feedback, feedbackable: need4 }
+        let!(:feedback4) { create :feedback, :for_need, feedbackable: need4 }
 
         before do
           need1.reload

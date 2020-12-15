@@ -47,7 +47,8 @@ class Need < ApplicationRecord
   belongs_to :diagnosis, inverse_of: :needs, touch: true
   belongs_to :subject, inverse_of: :needs
   has_many :matches, dependent: :destroy, inverse_of: :need
-  has_many :feedbacks, dependent: :destroy, as: :feedbackable
+  has_many :feedbacks, -> { where(category: :need) }, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
+  has_many :reminder_feedbacks, -> { where(category: :reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
   has_many :reminders_actions, inverse_of: :need, dependent: :destroy
   has_one :company_satisfaction, dependent: :destroy, inverse_of: :need
 

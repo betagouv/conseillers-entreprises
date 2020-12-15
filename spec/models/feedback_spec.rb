@@ -15,14 +15,14 @@ RSpec.describe Feedback, type: :model do
     let(:expert3) { create :expert, users: [user3] }
     let(:matches) { [create(:match, expert: expert1), create(:match, expert: expert2), create(:match, expert: expert3)] }
     let(:need) { create :need, advisor: advisor, matches: matches }
-    let(:feedback) { create :feedback, feedbackable: need, user: author }
+    let(:feedback) { create :feedback, :for_need, feedbackable: need, user: author }
 
     subject { feedback.persons_to_notify }
 
     context 'when the author is the one of the contacted experts' do
       let(:user2) { create :user }
-      let!(:feedback2) { create :feedback, feedbackable: need, user: user2 }
-      let!(:feedback3) { create :feedback, feedbackable: need, user: user3 }
+      let!(:feedback2) { create :feedback, :for_need, feedbackable: need, user: user2 }
+      let!(:feedback3) { create :feedback, :for_need, feedbackable: need, user: user3 }
       let(:author) { user3 }
 
       it{ is_expected.to match_array [expert1, expert2, user2, advisor] }
@@ -61,7 +61,7 @@ RSpec.describe Feedback, type: :model do
     subject { solicitation.reload.updated_at }
 
     context 'when a feedback is added to a solicitation' do
-      let(:feedback) { travel_to(date3) { create :feedback, feedbackable: solicitation } }
+      let(:feedback) { travel_to(date3) { create :feedback, :for_solicitation, feedbackable: solicitation } }
 
       before do
         feedback
@@ -72,7 +72,7 @@ RSpec.describe Feedback, type: :model do
     end
 
     context 'when a feedback is removed from a solicitation' do
-      let(:feedback) { travel_to(date1) { create :feedback, feedbackable: solicitation } }
+      let(:feedback) { travel_to(date1) { create :feedback, :for_solicitation, feedbackable: solicitation } }
 
       before do
         feedback
@@ -83,7 +83,7 @@ RSpec.describe Feedback, type: :model do
     end
 
     context 'when a feedback is updated' do
-      let(:feedback) { travel_to(date1) { create :feedback, feedbackable: solicitation } }
+      let(:feedback) { travel_to(date1) { create :feedback, :for_solicitation, feedbackable: solicitation } }
 
       before do
         feedback

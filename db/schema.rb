@@ -21,6 +21,12 @@ ActiveRecord::Schema.define(version: 2020_12_14_093326) do
     "warn",
   ], force: :cascade
 
+  create_enum :feedbacks_categories, [
+    "need",
+    "reminder",
+    "solicitation",
+  ], force: :cascade
+
   create_enum :match_status, [
     "quo",
     "taking_care",
@@ -234,6 +240,8 @@ ActiveRecord::Schema.define(version: 2020_12_14_093326) do
     t.bigint "user_id"
     t.string "feedbackable_type"
     t.bigint "feedbackable_id"
+    t.enum "category", null: false, enum_name: "feedbacks_categories"
+    t.index ["category"], name: "index_feedbacks_on_category"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
