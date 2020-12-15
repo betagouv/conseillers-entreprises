@@ -146,15 +146,20 @@ Rails.application.routes.draw do
 
   resources :needs, only: %i[index show], path: 'besoins' do
     collection do
-      get :taking_care, path: 'pris_en_charges'
-      get :archives
-      get :archives_rejected, path: 'archives_rejetes'
-      get :archives_failed, path: 'archives_en_echec'
-      get :index_antenne
-      get :taking_care_antenne, path: 'pris_en_charges_par_antenne'
-      get :archives_antenne
-      get :archives_antenne_rejected, path: 'archives_antenne_rejetes'
-      get :archives_antenne_failed, path: 'archives_antenne_en_echec'
+      # TODO: We could use a single route like this:
+      # /besoins(/antenne)/:collection_name
+      # See needs_controller.rb and #1278
+      get :quo, path: 'boite_de_reception'
+      get :taking_care, path: 'prises_en_charge'
+      get :done, path: 'cloturees'
+      get :not_for_me, path: 'refusees'
+      get :archived, path: 'expirees'
+
+      get :antenne_quo, path: 'antenne/boite_de_reception'
+      get :antenne_taking_care, path: 'antenne/prises_en_charge'
+      get :antenne_done, path: 'antenne/cloturees'
+      get :antenne_not_for_me, path: 'antenne/refusees'
+      get :antenne_archived, path: 'antenne/expirees'
     end
     member do
       get :additional_experts
