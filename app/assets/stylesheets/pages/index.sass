@@ -10,17 +10,22 @@
     font-size: 1.5rem
   p
     font-size: 1.3rem
+  a
+    padding: 0.5rem
+.home-title, .title
   .links
     font-weight: bold
     font-size: 1.3rem
     display: flex
     align-items: center
-    justify-content: space-around
+    justify-content: space-between
     margin-top: 2rem
     .button
       padding: 0.7em 2.1em
-  a
-    padding: 0.5rem
+      display: flex
+      img
+        max-height: 24px
+        margin-right: 5px
 
 section.section.section-light-grey
   background-color: #FAFBFC
@@ -89,6 +94,15 @@ section.section#section-thematiques
       background-color: #fff
       background-color: var(--white)
       position: static
+  img
+    max-height: 50px
+    margin-right: 0.5rem
+
+.card-section-header
+  font-size: 1.7rem
+  line-height: 1.25em
+  font-family: 'Evolventa', 'lato', 'sans-serif'
+  font-weight: bold
 
 @media(max-width: 750px)
   .home-title

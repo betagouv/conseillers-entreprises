@@ -10,6 +10,7 @@ fr:
   company_contact: Chefs d’entreprises, cliquez ici
   confirm: Valider
   contact_us: contactez-nous
+  cta_button: Échanger avec un conseiller
   date:
     abbr_day_names:
     - dim
@@ -257,3 +258,4 @@ fr:
   update: Mettre à jour
   usage_stats: Statistiques
   'yes': oui
+  you_wish: Vous souhaitez
