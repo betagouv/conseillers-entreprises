@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "@rails/ujs": "^6.0.3-4",
     "@rails/webpacker": "5.2.1",
     "accessible-autocomplete": "^2.0.3",
