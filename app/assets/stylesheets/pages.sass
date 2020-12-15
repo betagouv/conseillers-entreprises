@@ -304,3 +304,19 @@ a:hover
 
 .section.less-padding
   padding: 2em 0
+
+// Accessibility
+.visually-hidden
+  clip: rect(1px, 1px, 1px, 1px)
+  height: 1px
+  overflow: hidden
+  position: absolute
+  white-space: nowrap
+  width: 1px
+
+.visually-hidden:focus
+  clip: auto
+  height: auto
+  overflow: auto
+  position: absolute
+  width: auto
