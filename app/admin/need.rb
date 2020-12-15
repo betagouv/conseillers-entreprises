@@ -24,7 +24,7 @@ ActiveAdmin.register Need do
     column :updated_at
     column :status do |need|
       human_attribute_status_tag need, :status
-      status_tag t('activerecord.attributes.need.is_archived') if need.is_archived
+      status_tag I18n.t('attributes.is_archived') if need.is_archived
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
@@ -33,16 +33,16 @@ ActiveAdmin.register Need do
 
     actions dropdown: true do |need|
       if need.is_archived
-        item t('active_admin.need.unarchive'), polymorphic_path([:unarchive, :admin, need])
+        item t('archivable.unarchive'), polymorphic_path([:unarchive, :admin, need])
       else
-        item t('active_admin.need.archive'), polymorphic_path([:archive, :admin, need])
+        item t('archivable.archive'), polymorphic_path([:archive, :admin, need])
       end
     end
   end
 
   filter :status, as: :select, collection: -> { Need.human_attribute_values(:status, raw_values: true).invert.to_a }
 
-  filter :archived_in, as: :boolean, label: I18n.t('activerecord.attributes.need.is_archived')
+  filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
 
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
@@ -86,11 +86,11 @@ ActiveAdmin.register Need do
   end
 
   action_item :archive, only: :show, if: -> { !resource.is_archived } do
-    link_to t('active_admin.need.archive'), polymorphic_path([:archive, :admin, resource])
+    link_to t('archivable.archive'), polymorphic_path([:archive, :admin, resource])
   end
 
   action_item :unarchive, only: :show, if: -> { resource.is_archived } do
-    link_to t('active_admin.need.unarchive'), polymorphic_path([:unarchive, :admin, resource])
+    link_to t('archivable.unarchive'), polymorphic_path([:unarchive, :admin, resource])
   end
 
   ## Form
@@ -110,25 +110,25 @@ ActiveAdmin.register Need do
   #
   member_action :archive do
     resource.archive!
-    redirect_back fallback_location: collection_path, notice: t('active_admin.need.archive_done')
+    redirect_back fallback_location: collection_path, notice: t('archivable.archive_done')
   end
 
   member_action :unarchive do
     resource.unarchive!
-    redirect_back fallback_location: collection_path, notice: t('active_admin.need.unarchive_done')
+    redirect_back fallback_location: collection_path, notice: t('archivable.unarchive_done')
   end
 
-  batch_action(I18n.t('active_admin.need.archive')) do |ids|
+  batch_action(I18n.t('archivable.archive')) do |ids|
     batch_action_collection.find(ids).each do |resource|
       resource.archive!
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.archive_done')
+    redirect_back fallback_location: collection_path, notice: I18n.t('archivable.archive_done')
   end
 
-  batch_action(I18n.t('active_admin.need.unarchive')) do |ids|
+  batch_action(I18n.t('archivable.unarchive')) do |ids|
     batch_action_collection.find(ids).each do |resource|
       resource.unarchive!
     end
-    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.need.unarchive_done')
+    redirect_back fallback_location: collection_path, notice: I18n.t('archivable.unarchive_done')
   end
 end
