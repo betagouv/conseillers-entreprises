@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_141908) do
+ActiveRecord::Schema.define(version: 2020_12_14_093326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(version: 2020_11_16_141908) do
     "poke",
     "recall",
     "warn",
+  ], force: :cascade
+
+  create_enum :feedbacks_categories, [
+    "need",
+    "reminder",
+    "solicitation",
   ], force: :cascade
 
   create_enum :match_status, [
@@ -234,6 +240,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_141908) do
     t.bigint "user_id"
     t.string "feedbackable_type"
     t.bigint "feedbackable_id"
+    t.enum "category", null: false, enum_name: "feedbacks_categories"
+    t.index ["category"], name: "index_feedbacks_on_category"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
   end
@@ -269,7 +277,6 @@ ActiveRecord::Schema.define(version: 2020_11_16_141908) do
     t.string "slug", null: false
     t.string "preselected_subject_slug"
     t.string "preselected_institution_slug"
-    t.jsonb "content", default: {}
     t.boolean "requires_full_name", default: false, null: false
     t.boolean "requires_phone_number", default: false, null: false
     t.boolean "requires_email", default: false, null: false
@@ -297,7 +304,6 @@ ActiveRecord::Schema.define(version: 2020_11_16_141908) do
 
   create_table "landings", force: :cascade do |t|
     t.string "slug", null: false
-    t.jsonb "content", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "home_title", default: ""
@@ -313,6 +319,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_141908) do
     t.string "message_under_landing_topics"
     t.string "partner_url"
     t.boolean "emphasis", default: false
+    t.string "main_logo"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end
@@ -410,6 +417,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_141908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "bassin_emploi", default: false, null: false
+    t.bigint "support_contact_id"
+    t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
 
   create_table "themes", force: :cascade do |t|

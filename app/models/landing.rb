@@ -3,13 +3,13 @@
 # Table name: landings
 #
 #  id                           :bigint(8)        not null, primary key
-#  content                      :jsonb
 #  custom_css                   :string
 #  emphasis                     :boolean          default(FALSE)
 #  home_description             :text             default("")
 #  home_sort_order              :integer
 #  home_title                   :string           default("")
 #  logos                        :string
+#  main_logo                    :string
 #  message_under_landing_topics :string
 #  meta_description             :string
 #  meta_title                   :string

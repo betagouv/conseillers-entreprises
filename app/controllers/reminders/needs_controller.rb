@@ -1,27 +1,32 @@
 module Reminders
-  class NeedsController < RemindersController
+  class NeedsController < BaseController
     before_action :find_territories
     before_action :count_needs
 
     def index
-      retrieve_needs :reminder_quo_not_taken
+      redirect_to action: :to_poke
+    end
+
+    def to_poke
+      retrieve_needs :reminders_to_poke
       @action_path = [:poke, :reminders_action]
+      render :index
     end
 
     def to_recall
-      retrieve_needs :reminder_to_recall
+      retrieve_needs :reminders_to_recall
       @action_path = [:recall, :reminders_action]
       render :index
     end
 
-    def institutions
-      retrieve_needs :reminder_institutions
+    def to_warn
+      retrieve_needs :reminders_to_warn
       @action_path = [:warn, :reminders_action]
       render :index
     end
 
-    def abandoned
-      retrieve_needs :abandoned_without_taking_care
+    def to_archive
+      retrieve_needs :reminders_to_archive
       @action_path = [:archive, :need]
       render :index
     end

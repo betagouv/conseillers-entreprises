@@ -5,7 +5,7 @@
     = expert
 
 .ui.breadcrumb
-  = link_to t('reminders.index.title'), reminders_needs_path, class: 'section'
+  = link_to t('reminders.index.title'), reminders_path, class: 'section'
   %i.right.chevron.icon.divider
   = link_to Expert.model_name.human.pluralize, reminders_experts_path, class: 'section'
   %i.right.chevron.icon.divider

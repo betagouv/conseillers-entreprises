@@ -1,47 +1,8 @@
 - meta title: t('.title')
+- content_for :header, render('header', recipient: @recipient, collection_name: @collection_name)
+- content_for :menu, render('menu', recipient: @recipient, collections_counts: @collections_counts, user: @user, antenne: @antenne)
 
-- if @no_needs
-  - if current_user.needs_not_for_me.any? || current_user.needs_done.any? || current_user.needs_archived.any?
-    %h1.ui.header
-      = t('.title_no_needs')
-
-    .ui.icon.positive.message
-      %i.ui.icon.thumbs.up.outline
-      .content
-        = t('.all_needs_solved')
-    .ui.divider.section.hidden
-  - else
-    %h1.ui.header
-      = t('.title_welcome')
-
-    .ui.icon.info.message
-      %i.info.icon
-      .content
-        - if @experts_emails.count > 1
-          = t('.no_requests_many_emails_html', emails: @experts_emails.join(", "), mailto_link: mailto_contact_us(t('.contact_us_mailto_text')))
-        - else
-          = t('.no_requests_html', email: @experts_emails.first, mailto_link: mailto_contact_us(t('.contact_us_mailto_text')))
-- else
-  %h1.ui.header
-    = t('.title')
-    .sub.header= t('.needs_for_you')
-
-= render 'needs_tabs', count_needs: @count_needs
-
-.ui.aligned.grid.padded
-  .right.aligned.wide.column
-    - if current_user.antenne.advisors.count > 1
-      = link_to index_antenne_needs_path do
-        %i.folder.open.icon
-        = t('.browse_antenne_needs')
-        %br
-    = link_to archives_needs_path do
-      %i.archive.icon
-      = t('.browse_archived_needs')
-
-- if @needs.blank?
-  .ui.segment.placeholder.shadow-less.center.aligned
-    .ui.header
-      = t('.no_needs')
+- if @needs.empty?
+  = render 'empty_placeholder', recipient: @recipient
 - else
   = render 'received_needs', received_needs: @needs

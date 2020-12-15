@@ -1,0 +1,8 @@
+%ul
+  - Territory.with_support.includes(:support_contact).each do |territory|
+    - support_contact = territory.support_contact
+    %li= t('.support_contact_html',
+      region: territory.name,
+      name: support_contact.full_name,
+      tel: support_contact.phone_number,
+      email: support_contact.email)

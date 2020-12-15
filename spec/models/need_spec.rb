@@ -229,7 +229,7 @@ RSpec.describe Need, type: :model do
       it { expect(described_class.no_help_provided).to match_array [need1, need2, need6, need7] }
     end
 
-    describe 'exclude_needs_with_reminders_action' do
+    describe 'without_action' do
       # Exclue les besoins qui ont des reminders_action d'une catégorie en particulier
       # 1- besoin sans reminders_action
       # 2- besoin avec une action poke
@@ -253,18 +253,32 @@ RSpec.describe Need, type: :model do
       let!(:reminders_action6_2) { create :reminders_action, category: :recall, need: need6 }
 
       it 'expect to have needs without poke action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:poke))
+        expect(described_class.without_action(:poke))
           .to match_array [need1, need3, need5, need6]
       end
 
       it 'expect to have needs without recall action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:recall))
+        expect(described_class.without_action(:recall))
           .to match_array [need1, need2, need5]
       end
 
       it 'expect to have needs without warn action' do
-        expect(described_class.left_outer_joins(:reminders_actions).exclude_needs_with_reminders_action(:warn))
+        expect(described_class.without_action(:warn))
           .to match_array [need1, need2, need3, need4]
+      end
+    end
+
+    describe 'feedbacks' do
+      let(:need) { create :need }
+      let!(:feedback1) { create :feedback, :for_reminder, feedbackable: need }
+      let!(:feedback2) { create :feedback, :for_need, feedbackable: need }
+
+      it 'return only feedbacks for reminders' do
+        expect(need.reminder_feedbacks).to match_array [feedback1]
+      end
+
+      it 'return only feedbacks for diagnosis page' do
+        expect(need.feedbacks).to match_array [feedback2]
       end
     end
   end
@@ -359,7 +373,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminder_quo_not_taken).to match_array [need2, need3]
+          expect(described_class.reminders_to_poke).to match_array [need2, need3]
         end
       end
 
@@ -372,7 +386,7 @@ RSpec.describe Need, type: :model do
         let(:seven_days_ago) { Time.zone.now.beginning_of_day - 7.days }
 
         let!(:need1) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:feedback1) { create :feedback, feedbackable: need1 }
+        let!(:feedback1) { create :feedback, :for_need, feedbackable: need1 }
         let!(:need2) { travel_to(seven_days_ago) { create :need_with_matches } }
         let!(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
         let!(:need3) { travel_to(seven_days_ago) { create :need_with_matches } }
@@ -389,7 +403,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins sans Reminder Action' do
-          expect(described_class.reminder_quo_not_taken).to eq [need1]
+          expect(described_class.reminders_to_poke).to eq [need1]
         end
       end
 
@@ -408,7 +422,7 @@ RSpec.describe Need, type: :model do
         let!(:need3) { travel_to(seven_days_ago) { create :need_with_matches } }
         let!(:need3_match) { travel_to(seven_days_ago) { create :match, need: need3, status: :done_not_reachable } }
         let!(:need4) { travel_to(seven_days_ago) { create :need_with_matches } }
-        let!(:feedback4) { create :feedback, feedbackable: need4 }
+        let!(:feedback4) { create :feedback, :for_need, feedbackable: need4 }
 
         before do
           need1.reload
@@ -418,7 +432,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins avec certaines relations' do
-          expect(described_class.reminder_quo_not_taken).to match_array [need1, need2, need3, need4]
+          expect(described_class.reminders_to_poke).to match_array [need1, need2, need3, need4]
         end
       end
     end
@@ -448,7 +462,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminder_to_recall).to match_array [need2, need3]
+          expect(described_class.reminders_to_recall).to match_array [need2, need3]
         end
       end
 
@@ -475,7 +489,7 @@ RSpec.describe Need, type: :model do
         let!(:reminders_action7) { create :reminders_action, category: :recall, need: need6 }
 
         it 'retourne les besoins sans Reminder Action' do
-          expect(described_class.reminder_to_recall).to match_array [need1, need2]
+          expect(described_class.reminders_to_recall).to match_array [need1, need2]
         end
       end
 
@@ -500,7 +514,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins avec certains status' do
-          expect(described_class.reminder_to_recall).to match_array [need1, need2, need3]
+          expect(described_class.reminders_to_recall).to match_array [need1, need2, need3]
         end
       end
     end
@@ -525,7 +539,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminder_institutions).to match_array [need2, need3]
+          expect(described_class.reminders_to_warn).to match_array [need2, need3]
         end
       end
 
@@ -553,7 +567,7 @@ RSpec.describe Need, type: :model do
         let!(:reminders_action8) { create :reminders_action, category: :warn, need: need6 }
 
         it 'retourne les besoins sans Reminder Action' do
-          expect(described_class.reminder_institutions).to match_array [need1, need2]
+          expect(described_class.reminders_to_warn).to match_array [need1, need2]
         end
       end
     end
@@ -575,7 +589,7 @@ RSpec.describe Need, type: :model do
         let!(:need3) { travel_to(reference_date - 100.days) { create :need_with_matches } }
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.abandoned_without_taking_care).to match_array [need2, need3]
+          expect(described_class.reminders_to_archive).to match_array [need2, need3]
         end
       end
 
@@ -596,7 +610,7 @@ RSpec.describe Need, type: :model do
         let!(:need4_match) { travel_to(thirty_days_ago) { create :match, need: need4, status: :taking_care } }
 
         it 'retourne les besoins non archivés' do
-          expect(described_class.abandoned_without_taking_care).to eq [need1]
+          expect(described_class.reminders_to_archive).to eq [need1]
         end
       end
 
@@ -626,7 +640,7 @@ RSpec.describe Need, type: :model do
         end
 
         it 'retourne les besoins avec certaines relations' do
-          expect(described_class.abandoned_without_taking_care).to match_array [need1, need4]
+          expect(described_class.reminders_to_archive).to match_array [need1, need4]
         end
       end
     end
@@ -656,7 +670,7 @@ RSpec.describe Need, type: :model do
         old_need
       end
 
-      subject { described_class.reminder }
+      subject { described_class.in_reminders_range(:poke) }
 
       it 'expect to have needs between 10 and 30 days' do
         is_expected.to eq [mid_need]

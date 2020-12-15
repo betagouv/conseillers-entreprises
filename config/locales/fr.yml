@@ -10,6 +10,7 @@ fr:
   company_contact: Chefs d’entreprises, cliquez ici
   confirm: Valider
   contact_us: contactez-nous
+  cta_button: Échanger avec un conseiller
   date:
     abbr_day_names:
     - dim
@@ -175,6 +176,12 @@ fr:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
       add_other_experts: Rechercher d’autres référents à mettre en relation
       no_expert_found: Aucun résultat
+    collections:
+      archived: Expirées
+      done: Clôturées
+      not_for_me: Refusées
+      quo: Boite de réception
+      taking_care: Prises en charge
   next_step: Passer à la suite
   'no': non
   number:
@@ -257,3 +264,4 @@ fr:
   update: Mettre à jour
   usage_stats: Statistiques
   'yes': oui
+  you_wish: Vous souhaitez

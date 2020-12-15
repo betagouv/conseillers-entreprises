@@ -5,7 +5,7 @@
         .eight.wide.column
           %h2= diagnosis.company.name
           .sub.header= I18n.l(diagnosis.display_date, format: :long)
-  .ui.segment
+  .ui.segment.needs
     - if diagnosis.step_completed?
       - diagnosis.needs.each do |need|
         - if needs_of_interest.blank? || needs_of_interest.include?(need)
@@ -27,3 +27,11 @@
             - need.matches.each do |match|
               .item
                 ⁃ #{match.expert.antenne.to_s}
+
+          .ui.feed.feedbacks
+            = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
+            = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
+
+          .item.show-feedbacks-form{ 'data-feedbackable': "#{need.id}" }
+            %button.mini.ui.button
+              = t('feedbacks.add')

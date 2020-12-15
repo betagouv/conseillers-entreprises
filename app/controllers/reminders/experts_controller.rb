@@ -1,5 +1,5 @@
 module Reminders
-  class ExpertsController < RemindersController
+  class ExpertsController < BaseController
     before_action :retrieve_expert, except: :index
     before_action :count_expert_needs, except: %i[index reminders_notes]
     before_action :find_territories, only: %i[index]

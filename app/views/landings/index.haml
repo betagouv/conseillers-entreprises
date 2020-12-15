@@ -10,14 +10,14 @@
           %p
             = t('.answer')
           .links
-            = link_to t('.submit_request'), '#scroll-thematiques', class: 'button blue'
+            = render 'pages/cta_button'
             = link_to t('.how-it-works'), comment_ca_marche_path
 
         #image-home
           = image_tag('home.png', alt: "")
 
 - unless in_iframe?
-  %section.section.section-light-grey.blank-section#scroll-thematiques
+  %section.section.section-light-grey.blank-section#scroll-section
 
 %section.section.section-grey#section-thematiques
   .container

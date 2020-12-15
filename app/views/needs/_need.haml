@@ -4,7 +4,7 @@
   .ui.feed
     = render 'need_content', need: need, highlighted_experts: highlighted_experts
     = render need.feedbacks.order(:created_at), highlighted_experts: highlighted_experts
-    = render 'feedbacks/form', feedback: need.feedbacks.new
+    = render 'feedbacks/form', feedback: need.feedbacks.new(category: :need)
     = render need.matches.order(:created_at), highlighted_experts: highlighted_experts
     = render 'additional_experts', need: need
     - if current_user.is_admin?

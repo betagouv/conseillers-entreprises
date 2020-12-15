@@ -66,6 +66,7 @@ class User < ApplicationRecord
   has_many :feedbacks, inverse_of: :user
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
   has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
+  has_many :supported_territories, class_name: 'Territory', foreign_key: 'support_contact_id', inverse_of: :support_contact
 
   ## Validations
   #
@@ -227,10 +228,6 @@ class User < ApplicationRecord
     # Overriding this getter has a side-effect: :full_name is required to be present by PersonConcern.
     # In #delete we set it to nil, but the result of this getter is used for the validation, which then passes.
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
-  end
-
-  def self.support_contact
-    User.find_by(email: ENV['SUPPORT_CONTACT_EMAIL'])
   end
 
   ## Expert associations helpers
