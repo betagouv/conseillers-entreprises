@@ -10,5 +10,6 @@
 
 %section.section.section-grey#section-stats
   .container.container-full
+    = render 'tabs'
     = render 'stats_params', stats: @stats, route: team_stats_path
-    = render 'stats/stats_charts', stats: @stats
+    = render 'stats/stats_charts', stats: @stats, charts_names: @charts_names

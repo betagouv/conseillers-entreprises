@@ -659,6 +659,10 @@ fr:
         searchers: Chercheurs
         whose_match_done: Aux besoins clôturé
         whose_match_taken_care_of: Aux besoins répondus
+    tabs:
+      deployment: Déploiement
+      matches: Mises en relation
+      quality: Suivi qualité
     taken_care_after: Plus de 5 jours
     taken_care_before: Moins de 5 jours
     team:

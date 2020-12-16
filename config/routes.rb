@@ -97,6 +97,9 @@ Rails.application.routes.draw do
   resource :stats, only: [:show] do
     collection do
       get :team
+      get :quality, path: 'suivi-qualite'
+      get :matches, path: 'mises-en-relation'
+      get :deployment, path: 'deploiement'
     end
   end
 

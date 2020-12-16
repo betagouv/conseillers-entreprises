@@ -1,16 +1,37 @@
 class StatsController < PagesController
   include Pundit
-
-  def show
-    @stats = Stats::Stats.new(stats_params)
-  end
+  before_action :set_stats
+  before_action :authorize_team, except: [:show]
+  def show; end
 
   def team
-    @stats = Stats::Stats.new(stats_params)
-    authorize @stats, :team?
+    redirect_to action: :quality, params: stats_params
+  end
+
+  def quality
+    @charts_names = [:needs, :source, :matches, :advisors]
+    render :team
+  end
+
+  def matches
+    @charts_names = []
+    render :team
+  end
+
+  def deployment
+    @charts_names = []
+    render :team
   end
 
   private
+
+  def set_stats
+    @stats = Stats::Stats.new(stats_params)
+  end
+
+  def authorize_team
+    authorize @stats, :team?
+  end
 
   def stats_params
     permit_params = params.permit(:territory, :institution, :start_date, :end_date)
