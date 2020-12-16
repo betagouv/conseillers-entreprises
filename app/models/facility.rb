@@ -53,6 +53,10 @@ class Facility < ApplicationRecord
 
   accepts_nested_attributes_for :company
 
+  scope :in_regions, -> {
+    joins(:commune).merge(Commune.in_regions)
+  }
+
   ##
   #
   class << self

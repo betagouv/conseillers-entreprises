@@ -109,6 +109,24 @@ class Solicitation < ApplicationRecord
     joins(:diagnoses).where(diagnoses: { facility: territory&.facilities })
   end
 
+  scope :in_regions, -> {
+    joins(:diagnoses).merge(Diagnosis.in_regions)
+  }
+
+  # des sollicitations peuvent être hors régions déployés ou avec un siret indéterminé
+  scope :in_undefined_territory, -> {
+    in_regions_ids = in_regions.pluck(:id)
+    where.not(id: in_regions_ids)
+  }
+
+  scope :by_possible_territory, -> (possibly_territory_id) {
+    begin
+      by_territory(Territory.find(possibly_territory_id))
+    rescue ActiveRecord::RecordNotFound => e
+      in_undefined_territory
+    end
+  }
+
   ## Callbacks
   #
   def set_institution_from_landing

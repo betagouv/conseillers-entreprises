@@ -19,6 +19,7 @@ class Commune < ApplicationRecord
   #
   has_and_belongs_to_many :territories, inverse_of: :communes
   has_and_belongs_to_many :bassins_emploi, -> { bassins_emploi }, class_name: 'Territory'
+  has_and_belongs_to_many :regions, -> { regions }, class_name: 'Territory'
 
   has_many :facilities, inverse_of: :commune
 
@@ -33,6 +34,10 @@ class Commune < ApplicationRecord
   #
   has_many :antenne_experts, through: :antennes, source: :experts, inverse_of: :antenne_communes
   has_many :advisors, through: :antennes, inverse_of: :antenne_communes
+
+  scope :in_regions, -> {
+    joins(:regions)
+  }
 
   ##
   #

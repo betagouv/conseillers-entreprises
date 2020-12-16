@@ -1,5 +1,4 @@
 class SolicitationsController < ApplicationController
-  include TerritoryFiltrable
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
   before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
@@ -85,8 +84,8 @@ class SolicitationsController < ApplicationController
 
   def ordered_solicitations
     solicitations = Solicitation.order(created_at: :desc)
-    solicitations = solicitations.by_territory(@territory) if @territory.present?
-    solicitations.page(params[:page]).omnisearch(params[:query])
+    solicitations = solicitations.by_possible_territory(params[:territory]) if params[:territory].present?
+    solicitations.page(params[:page]).omnisearch(params[:query]).distinct
       .includes(:badges_solicitations, :badges, :institution, :landing, :diagnoses)
   end
 
@@ -121,5 +120,19 @@ class SolicitationsController < ApplicationController
           with_feedbacks: ordered_solicitations.with_feedbacks.total_count
       }
     end
+  end
+
+  def find_territories
+    @territories = Territory.regions.order(:name)
+    territory_id = territory_param || session[:territory]
+    if territory_id.present?
+      session[:territory] = territory_id
+    else
+      session.delete(:territory)
+    end
+  end
+
+  def territory_param
+    params.permit(:territory)[:territory]
   end
 end

@@ -245,6 +245,8 @@ fr:
       collection_count_html: "<strong>%{size}</strong> %{name}"
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
+      undefined_territory_label: Territoire indéterminé
+      undefined_territory_value: undefined
       view_completed_analysis: Voir l’analyse réalisée
   landing_topics:
     landing_topic:
@@ -548,6 +550,7 @@ fr:
       header: Solicitations %{status}
       manage_badges: Gérer les tags
       no_result: Il n'y a pas de résultat pour cette recherche.
+      region: Région
       search: Rechercher
       search_placeholder: Tag, aide demandée…
       title: Solicitations

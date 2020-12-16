@@ -69,4 +69,11 @@ module SolicitationHelper
 
     link_to text, diagnosis, class: 'ui item'
   end
+
+  def possible_territories_options(territories = Territory.regions.order(:name))
+    territory_options = territories.map do |territory|
+      [territory.name, territory.id]
+    end
+    territory_options.push([t('helpers.solicitation.undefined_territory_label'), t('helpers.solicitation.undefined_territory_value')])
+  end
 end
