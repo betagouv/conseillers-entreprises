@@ -584,6 +584,7 @@ fr:
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags
   stats:
+    other_status: Autres status
     series:
       advisors:
         title: Conseillers publics
@@ -603,6 +604,9 @@ fr:
         title: Mises en relation
       needs:
         title: Besoins identifiés
+      needs_done:
+        subtitle: La notion d’aide proposée correspond à une aide financière, à la mobilisation d’un accompagnement public ou à plus largement à des conseils visant à répondre à la demande exprimée par l’entreprise. Par exemple, les conseils juridiques dispensés par un conseiller en droit du travail en réponse à une demande de l’entreprise entre dans la catégorie « aide proposée ».
+        title: de besoins clôturés grâce à une aide proposée
       solicitations:
         series: Demandes déposées
         title: demandes déposées par les entreprises
@@ -659,6 +663,7 @@ fr:
         searchers: Chercheurs
         whose_match_done: Aux besoins clôturé
         whose_match_taken_care_of: Aux besoins répondus
+    status_done: Clôture avec aide proposée
     tabs:
       deployment: Déploiement
       matches: Mises en relation

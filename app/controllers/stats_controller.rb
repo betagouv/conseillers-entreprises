@@ -11,7 +11,8 @@ class StatsController < PagesController
   end
 
   def quality
-    @charts_names = [:needs, :source, :matches, :advisors]
+    @stats = Stats::Quality::Stats.new(stats_params)
+    @charts_names = [:needs_done]
     render :team
   end
 
@@ -28,7 +29,7 @@ class StatsController < PagesController
   private
 
   def authorize_team
-    authorize @stats, :team?
+    authorize Stats::All, :team?
   end
 
   def stats_params
