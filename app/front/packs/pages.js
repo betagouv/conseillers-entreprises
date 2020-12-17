@@ -20,3 +20,5 @@ require("jquery");
 
 import "javascripts/shared";
 import "javascripts/pages";
+
+import "@fortawesome/fontawesome-free/js/all";
