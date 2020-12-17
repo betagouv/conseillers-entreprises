@@ -1,4 +1,6 @@
 module InstitutionsHelper
+  include ImagesHelper
+
   def all_institutions_images(region)
     Institution
       .where(region_name: [region, '', nil])
