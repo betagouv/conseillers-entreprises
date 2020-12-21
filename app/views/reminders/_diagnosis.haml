@@ -8,27 +8,26 @@
   .ui.segment.needs
     - if diagnosis.step_completed?
       - diagnosis.needs.each do |need|
-        - if needs_of_interest.blank? || needs_of_interest.include?(need)
-          %h3.ui.header
-            %span
-              = need.subject
-              .sub.header
-                = need.matches.human_count
-                - if need.abandoned?
-                  .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
-            - if action.present?
-              = link_to t(action, scope: 'reminders.needs.scopes.mark_done'), polymorphic_path([action, :reminders_action], { id: need.id }),
-                method: :post, class: "ui button #{action == :archive ? 'red' : 'green'}"
+        %h3.ui.header
+          %span
+            = need.subject
+            .sub.header
+              = need.matches.human_count
+              - if need.abandoned?
+                .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
+          - if action.present?
+            = link_to t(action, scope: 'reminders.needs.scopes.mark_done'), polymorphic_path([action, :reminders_action], { id: need.id }),
+              method: :post, class: "ui button #{action == :archive ? 'red' : 'green'}"
 
-          .ui.list
-            - need.matches.each do |match|
-              .item
-                ⁃ #{match.expert.antenne.to_s}
+        .ui.list
+          - need.matches.each do |match|
+            .item
+              ⁃ #{match.expert.antenne.to_s}
 
-          .ui.feed.feedbacks
-            = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
-            = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
+        .ui.feed.feedbacks
+          = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
+          = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
 
-          .item.show-feedbacks-form{ 'data-feedbackable': "#{need.id}" }
-            %button.mini.ui.button
-              = t('feedbacks.add')
+        .item.show-feedbacks-form{ 'data-feedbackable': "#{need.id}" }
+          %button.mini.ui.button
+            = t('feedbacks.add')
