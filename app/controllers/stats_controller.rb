@@ -1,8 +1,10 @@
 class StatsController < PagesController
   include Pundit
-  before_action :set_stats
   before_action :authorize_team, except: [:show]
-  def show; end
+
+  def show
+    @stats = Stats::Public::All.new(stats_params)
+  end
 
   def team
     redirect_to action: :quality, params: stats_params
@@ -24,10 +26,6 @@ class StatsController < PagesController
   end
 
   private
-
-  def set_stats
-    @stats = Stats::Stats.new(stats_params)
-  end
 
   def authorize_team
     authorize @stats, :team?

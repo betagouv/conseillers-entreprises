@@ -1,6 +1,6 @@
-module Stats
+module Stats::Public
   class ExpertsStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Expert.all.distinct

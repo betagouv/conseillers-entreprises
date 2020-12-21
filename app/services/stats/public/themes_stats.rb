@@ -1,6 +1,6 @@
-module Stats
+module Stats::Public
   class ThemesStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Need

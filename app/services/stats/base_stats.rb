@@ -1,4 +1,10 @@
 module Stats
+  attr_reader :params
+
+  def initialize(params = {})
+    @params = OpenStruct.new(params)
+  end
+
   module BaseStats
     attr_reader :territory, :institution
 

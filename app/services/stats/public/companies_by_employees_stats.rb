@@ -1,6 +1,6 @@
-module Stats
+module Stats::Public
   class CompaniesByEmployeesStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Company

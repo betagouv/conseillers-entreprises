@@ -1,6 +1,6 @@
-module Stats
+module Stats::Public
   class CompaniesByNafCodeStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Company

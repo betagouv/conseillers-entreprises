@@ -1,6 +1,6 @@
-module Stats
+module Stats::Public
   class SolicitationsDiagnosesStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Solicitation.all
