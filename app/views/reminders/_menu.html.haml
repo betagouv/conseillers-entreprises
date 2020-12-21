@@ -1,6 +1,13 @@
-= menu_link_with_count(t('reminders.needs.menu.reminders_to_poke_html'), count_needs[:poke], to_poke_reminders_needs_path)
-= menu_link_with_count(t('reminders.needs.menu.reminders_to_recall_html'), count_needs[:recall], to_recall_reminders_needs_path)
-= menu_link_with_count(t('reminders.needs.menu.reminders_to_warn_html'), count_needs[:warn], to_warn_reminders_needs_path)
-= menu_link_with_count(t('reminders.needs.menu.reminders_to_archive_html'), count_needs[:archive], to_archive_reminders_needs_path)
-.ui.divider
+.ui.sub.header
+  = t('reminders.section.needs')
+
+- collections_counts.each do |name, count|
+  - path = polymorphic_path([name, :reminders, :needs])
+  = menu_link_with_count(count, path, class: 'item') do
+    = t(name, scope: 'reminders.needs.scopes.name')
+    - detail = t(name, scope: 'reminders.needs.scopes.detail', days: Need::REMINDERS_DAYS[name])
+    %i (#{detail})
+
+.ui.sub.header
+  = t('reminders.section.experts')
 = active_link_to Expert.model_name.human.pluralize, reminders_experts_path, { class: 'item' }

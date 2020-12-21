@@ -1,25 +1,25 @@
 module Reminders
   class NeedsController < BaseController
     before_action :find_territories
-    before_action :count_needs
+    before_action :collections_counts
 
     def index
-      redirect_to action: :to_poke
+      redirect_to action: :poke
     end
 
-    def to_poke
+    def poke
       render_collection(:poke)
     end
 
-    def to_recall
+    def recall
       render_collection(:recall)
     end
 
-    def to_warn
+    def warn
       render_collection(:warn)
     end
 
-    def to_archive
+    def archive
       render_collection(:archive)
     end
 

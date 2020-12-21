@@ -3,7 +3,7 @@ module Reminders
     before_action :retrieve_expert, except: :index
     before_action :count_expert_needs, except: %i[index reminders_notes]
     before_action :find_territories, only: %i[index]
-    before_action :count_needs, only: %i[index]
+    before_action :collections_counts, only: %i[index]
 
     def index
       experts_pool = @territory&.all_experts || Expert.all

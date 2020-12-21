@@ -9,17 +9,15 @@ module Reminders
 
     private
 
-    def count_needs
-      needs = Need.diagnosis_completed
-      needs = needs.by_territory(@territory) if @territory.present?
+    def collection_names
+      %i[poke recall warn archive]
+    end
 
-      @count_needs = Rails.cache.fetch(["reminders_need", Need.all, @territory]) do
-        {
-          poke: needs.reminders_to(:poke).size,
-          recall: needs.reminders_to(:recall).size,
-          warn: needs.reminders_to(:warn).size,
-          archive: needs.reminders_to(:archive).size,
-        }
+    def collections_counts
+      needs = @territory.present? ? @territory.needs : Need.all
+
+      @collections_counts = Rails.cache.fetch(['reminders_need', needs]) do
+        collection_names.index_with { |name| needs.reminders_to(name).size }
       end
     end
   end
