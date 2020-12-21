@@ -1,0 +1,102 @@
+---
+fr:
+  libelle_naf_a10:
+    AZ: Agriculture, sylviculture et pêche
+    BE: Industrie manufacturière, industries extractives et autres
+    FZ: Construction
+    GI: Commerce de gros et de détail, transports, hébergement et restauration
+    JZ: Information et communication
+    KZ: Activités financières et d’assurance
+    LZ: Activités immobilières
+    MN: Activités spécialisées, scientifiques et techniques et activités de services administratifs et de soutien
+    OQ: Administration publique, enseignement, santé humaine et action sociale
+    RU: Autres activités de services
+  naf_level2_to_naf_a10:
+    '01': AZ
+    '02': AZ
+    '03': AZ
+    '05': BE
+    '06': BE
+    '07': BE
+    '08': BE
+    '09': BE
+    '10': BE
+    '11': BE
+    '12': BE
+    '13': BE
+    '14': BE
+    '15': BE
+    '16': BE
+    '17': BE
+    '18': BE
+    '19': BE
+    '20': BE
+    '21': BE
+    '22': BE
+    '23': BE
+    '24': BE
+    '25': BE
+    '26': BE
+    '27': BE
+    '28': BE
+    '29': BE
+    '30': BE
+    '31': BE
+    '32': BE
+    '33': BE
+    '35': BE
+    '36': BE
+    '37': BE
+    '38': BE
+    '39': BE
+    '41': FZ
+    '42': FZ
+    '43': FZ
+    '45': GI
+    '46': GI
+    '47': GI
+    '49': GI
+    '50': GI
+    '51': GI
+    '52': GI
+    '53': GI
+    '55': GI
+    '56': GI
+    '58': JZ
+    '59': JZ
+    '60': JZ
+    '61': JZ
+    '62': JZ
+    '63': JZ
+    '64': KZ
+    '65': KZ
+    '66': KZ
+    '68': LZ
+    '69': MN
+    '70': MN
+    '71': MN
+    '72': MN
+    '73': MN
+    '74': MN
+    '75': MN
+    '77': MN
+    '78': MN
+    '79': MN
+    '80': MN
+    '81': MN
+    '82': MN
+    '84': OQ
+    '85': OQ
+    '86': OQ
+    '87': OQ
+    '88': OQ
+    '90': RU
+    '91': RU
+    '92': RU
+    '93': RU
+    '94': RU
+    '95': RU
+    '96': RU
+    '97': RU
+    '98': RU
+    '99': RU

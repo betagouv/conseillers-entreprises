@@ -43,17 +43,37 @@ module Stats
       as_series(with_diagnoses, without_diagnoses)
     end
 
+    def count
+      solicitations = build_series
+      without_diagnoses_sum = solicitations[0][:data].sum
+      with_diagnoses_sum = solicitations[1][:data].sum
+      sum = with_diagnoses_sum + without_diagnoses_sum
+      sum != 0 ? "#{with_diagnoses_sum * 100 / sum}%" : "0"
+    end
+
+    def format
+      '{series.name} : <b>{point.percentage:.0f}%</b>'
+    end
+
+    def chart
+      'percentage-column-chart'
+    end
+
+    def subtitle
+      I18n.t('stats.series.solicitations_diagnoses.subtitle')
+    end
+
     private
 
     def as_series(with_diagnoses, without_diagnoses)
       [
         {
-          name: I18n.t('stats.with_diagnoses'),
-            data: with_diagnoses.values
-        },
-        {
           name: I18n.t('stats.without_diagnoses'),
             data: without_diagnoses.values
+        },
+        {
+          name: I18n.t('stats.with_diagnoses'),
+            data: with_diagnoses.values
         }
       ]
     end

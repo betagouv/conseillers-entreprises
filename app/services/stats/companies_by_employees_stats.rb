@@ -1,12 +1,11 @@
 module Stats
-  class CompaniesStats
+  class CompaniesByEmployeesStats
     include BaseStats
 
     def main_query
       Company
         .includes(:needs).references(:needs)
-        .where(facilities: { diagnoses: { step: Diagnosis.steps[:completed] } })
-        .joins(:matches).where(:matches => { :status => [:done_no_help, :done, :done_not_reachable] })
+        .where(facilities: { diagnoses: { step: :completed } })
         .distinct
     end
 
@@ -19,7 +18,7 @@ module Stats
         query.merge!(territory.companies)
       end
       if institution.present?
-        query = query.where(diagnoses: institution.received_diagnoses)
+        query.where!(diagnoses: institution.received_diagnoses)
       end
       if @start_date.present?
         query.where!(needs: { created_at: @start_date..@end_date })
@@ -67,6 +66,18 @@ module Stats
 
     def colors
       %w[#dddddd #9f3cca #F45A5B #e78112 #f3dd68 #2D908F #62e0d3]
+    end
+
+    def count
+      false
+    end
+
+    def format
+      '{series.name} : <b>{point.percentage:.0f}%</b>'
+    end
+
+    def chart
+      'percentage-column-chart'
     end
   end
 end

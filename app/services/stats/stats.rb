@@ -10,8 +10,8 @@ module Stats
       AdvisorsStats.new(@params)
     end
 
-    def companies
-      CompaniesStats.new(@params)
+    def companies_by_employees
+      CompaniesByEmployeesStats.new(@params)
     end
 
     def needs
@@ -42,12 +42,16 @@ module Stats
       SourceStats.new(@params)
     end
 
-    def public_companies
-      PublicCompaniesStats.new(@params)
+    def taking_care
+      TakingCareTimeStats.new(@params)
     end
 
-    def taking_care
-      PublicTakingCareStats.new(@params)
+    def exchange_with_expert
+      ExchangeWithExpertStats.new(@params)
+    end
+
+    def companies_by_naf_code
+      CompaniesByNafCodeStats.new(@params)
     end
   end
 end

@@ -30,12 +30,13 @@ module UseCases
         insee_code = api_entreprise_facility.etablissement['commune_implantation']['code']
         naf_code = api_entreprise_facility.etablissement['naf']
         naf_libelle = api_entreprise_facility.etablissement['libelle_naf']
+        naf_code_a10 = NafCode::code_a10(naf_code)
         code_effectif = api_entreprise_facility.etablissement.dig('tranche_effectif_salarie_etablissement', 'code')
         readable_locality = api_entreprise_facility.etablissement.readable_locality
         facility = Facility.find_or_initialize_by siret: siret
         commune = Commune.find_or_create_by insee_code: insee_code
         facility.update! company: company, commune: commune, naf_code: naf_code, readable_locality: readable_locality,
-                         code_effectif: code_effectif, naf_libelle: naf_libelle
+                         code_effectif: code_effectif, naf_libelle: naf_libelle, naf_code_a10: naf_code_a10
         facility
       end
     end

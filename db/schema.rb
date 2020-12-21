@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_093326) do
+ActiveRecord::Schema.define(version: 2020_12_21_093049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(version: 2020_12_14_093326) do
     t.bigint "commune_id", null: false
     t.string "code_effectif"
     t.string "naf_libelle"
+    t.string "naf_code_a10"
     t.index ["commune_id"], name: "index_facilities_on_commune_id"
     t.index ["company_id"], name: "index_facilities_on_company_id"
     t.index ["siret"], name: "index_facilities_on_siret", unique: true, where: "((siret)::text <> NULL::text)"
