@@ -171,17 +171,6 @@ fr:
   honeypot_captcha:
     comment: Laissez ce champ vide !
   import: Importer
-  needs:
-    additional_experts:
-      add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
-      add_other_experts: Rechercher d’autres référents à mettre en relation
-      no_expert_found: Aucun résultat
-    collections:
-      archived: Expirées
-      done: Clôturées
-      not_for_me: Refusées
-      quo: Boite de réception
-      taking_care: Prises en charge
   next_step: Passer à la suite
   'no': non
   number:

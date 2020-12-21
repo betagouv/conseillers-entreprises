@@ -443,11 +443,21 @@ fr:
       match_with: 'Mise en relation avec :'
       thats_you: C’est vous !
   needs:
+    additional_experts:
+      add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
+      add_other_experts: Rechercher d’autres référents à mettre en relation
+      no_expert_found: Aucun résultat
     archive:
       archive: Archiver
       archive_done: Besoin de l’entreprise %{company} archivé
       subjet_achived: Le besoin a été archivé
       unarchive: Désarchiver
+    collections:
+      archived: Expirées
+      done: Clôturées
+      not_for_me: Refusées
+      quo: Boite de réception
+      taking_care: Prises en charge
     empty_placeholder:
       title: Aucune demande
       welcome_help_html: Un problème ? Une question ? %{mailto_link}.
