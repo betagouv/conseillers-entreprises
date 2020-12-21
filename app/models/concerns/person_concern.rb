@@ -2,10 +2,14 @@ module PersonConcern
   extend ActiveSupport::Concern
 
   included do
+    ## Validation
+    #
     validates :full_name, :role, presence: true
     validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   end
 
+  ## Display helpers
+  #
   def to_s
     full_name
   end
@@ -29,7 +33,7 @@ module PersonConcern
   end
 
   def normalize_name
-    self.full_name = self.full_name.squish.titleize
+    self.full_name = titleize_if_all_same_case(self.full_name.squish)
   end
 
   def normalize_email
@@ -45,6 +49,18 @@ module PersonConcern
   end
 
   def normalize_role
-    self.role = self.role.squish.titleize
+    self.role = titleize_if_all_same_case(self.role.squish)
+  end
+
+  private
+
+  def titleize_if_all_same_case(str)
+    # Titleize if the input is all lowercase or all uppercase,
+    # leave it intact otherwise.
+    if str.in? [str.downcase, str.upcase]
+      str.titleize
+    else
+      str
+    end
   end
 end
