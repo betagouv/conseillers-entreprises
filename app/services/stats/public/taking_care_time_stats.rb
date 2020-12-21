@@ -56,10 +56,7 @@ module Stats::Public
 
     def count
       solicitations = build_series
-      more_time_sum = solicitations[0][:data].sum
-      less_time_sum = solicitations[1][:data].sum
-      sum = less_time_sum + more_time_sum
-      sum != 0 ? "#{less_time_sum * 100 / sum}%" : "0"
+      percentage_two_numbers(solicitations[1][:data], solicitations[0][:data])
     end
 
     def format

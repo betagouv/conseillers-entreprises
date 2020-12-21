@@ -45,10 +45,7 @@ module Stats::Public
 
     def count
       solicitations = build_series
-      without_diagnoses_sum = solicitations[0][:data].sum
-      with_diagnoses_sum = solicitations[1][:data].sum
-      sum = with_diagnoses_sum + without_diagnoses_sum
-      sum != 0 ? "#{with_diagnoses_sum * 100 / sum}%" : "0"
+      percentage_two_numbers(solicitations[1][:data], solicitations[0][:data])
     end
 
     def format

@@ -43,10 +43,7 @@ module Stats::Quality
 
     def count
       needs = build_series
-      with_help_sum = needs[0][:data].sum
-      without_help_sum = needs[1][:data].sum
-      sum = with_help_sum + without_help_sum
-      sum != 0 ? "#{with_help_sum * 100 / sum}%" : "0"
+      percentage_two_numbers(needs[1][:data], needs[0][:data])
     end
 
     def category_name(category)

@@ -61,6 +61,13 @@ module Stats
       @count ||= filtered(main_query).count
     end
 
+    def percentage_two_numbers(measured, others)
+      sum_measured = measured.sum
+      sum_others = others.sum
+      total = sum_measured + sum_others
+      total != 0 ? "#{(sum_measured * 100).fdiv(total).round}%" : "0"
+    end
+
     def format
       # Format for graph tooltip
       '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'

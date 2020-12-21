@@ -53,10 +53,7 @@ module Stats::Public
 
     def count
       besoins = build_series
-      without_exchange_sum = besoins[0][:data].sum
-      with_exchange_sum = besoins[1][:data].sum
-      sum = with_exchange_sum + without_exchange_sum
-      sum != 0 ? "#{with_exchange_sum * 100 / sum}%" : "0"
+      percentage_two_numbers(besoins[1][:data], besoins[0][:data])
     end
 
     def chart
