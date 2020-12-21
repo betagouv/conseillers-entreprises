@@ -45,8 +45,8 @@ module Stats
 
     def count
       solicitations = build_series
-      with_diagnoses_sum = solicitations[0][:data].sum
-      without_diagnoses_sum = solicitations[1][:data].sum
+      without_diagnoses_sum = solicitations[0][:data].sum
+      with_diagnoses_sum = solicitations[1][:data].sum
       sum = with_diagnoses_sum + without_diagnoses_sum
       sum != 0 ? "#{with_diagnoses_sum * 100 / sum}%" : "0"
     end
@@ -68,12 +68,12 @@ module Stats
     def as_series(with_diagnoses, without_diagnoses)
       [
         {
-          name: I18n.t('stats.with_diagnoses'),
-            data: with_diagnoses.values
-        },
-        {
           name: I18n.t('stats.without_diagnoses'),
             data: without_diagnoses.values
+        },
+        {
+          name: I18n.t('stats.with_diagnoses'),
+            data: with_diagnoses.values
         }
       ]
     end
