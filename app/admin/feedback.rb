@@ -12,6 +12,7 @@ ActiveAdmin.register Feedback do
     column :created_at
 
     column :feedbackable
+    column(:category) { |feedback| human_attribute_status_tag feedback, :category }
     column :user
     column :description
 
@@ -19,6 +20,7 @@ ActiveAdmin.register Feedback do
   end
 
   filter :description
+  filter :category, as: :select, collection: -> { Feedback.human_attribute_values(:category, raw_values: true).invert.to_a }
   filter :created_at
   filter :user, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
 
@@ -28,6 +30,7 @@ ActiveAdmin.register Feedback do
     column :id
     column :created_at
     column :feedbackable
+    column(:category) { |feedback| feedback.human_attribute_value(:category) }
     column :user
     column :description
     column(:siret) { |f| f.need&.facility&.siret }
@@ -41,6 +44,7 @@ ActiveAdmin.register Feedback do
     attributes_table do
       row :created_at
       row :feedbackable
+      row(:category) { |feedback| human_attribute_status_tag feedback, :category }
       row :user
       row :description
     end

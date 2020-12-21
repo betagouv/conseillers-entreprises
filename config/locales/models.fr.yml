@@ -131,6 +131,13 @@ fr:
       facility:
         company: Entreprise
         readable_locality: Commune
+      feedback:
+        category: Catégorie
+        feedbackable: Sujet
+      feedback/categories:
+        need: Besoin
+        reminder: Relance
+        solicitation: Solicitation
       institution:
         advisors: Conseillers
         antennes: Antennes
