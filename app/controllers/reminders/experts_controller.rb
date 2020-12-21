@@ -17,7 +17,7 @@ module Reminders
 
     def needs
       retrieve_needs :reminders_needs_to_call_back
-      @action_path = [:recall, :reminders_action]
+      @action = :recall
     end
 
     def needs_taking_care

@@ -16,12 +16,9 @@
                 = need.matches.human_count
                 - if need.abandoned?
                   .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
-            - if (action_path.present? && action_path.include?(:archive)) || need.status_not_for_me?
-              = link_to t('reminders_actions.archive'), polymorphic_path(action_path, { id: need.id }),
-                method: :post, class: 'ui button red'
-            - elsif action_path.present?
-              = link_to t('reminders_actions.to_do'), polymorphic_path(action_path, { id: need.id }),
-                method: :post, class: 'ui button green'
+            - if action.present?
+              = link_to t(action, scope: 'reminders.needs.scopes.mark_done'), polymorphic_path([action, :reminders_action], { id: need.id }),
+                method: :post, class: "ui button #{action == :archive ? 'red' : 'green'}"
 
           .ui.list
             - need.matches.each do |match|

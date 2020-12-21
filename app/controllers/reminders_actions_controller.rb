@@ -18,6 +18,11 @@ class RemindersActionsController < ApplicationController
     redirect_to to_warn_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
+  def archive
+    @need.archive!
+    redirect_to to_archive_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
+  end
+
   private
 
   def retrieve_need

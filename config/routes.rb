@@ -177,6 +177,7 @@ Rails.application.routes.draw do
       post :poke
       post :recall
       post :warn
+      post :archive
     end
   end
 

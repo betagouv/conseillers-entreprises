@@ -570,10 +570,14 @@ fr:
         reminders_to_poke_html: À relancer <i>(J+7)</i>
         reminders_to_recall_html: À rappeler<i>(J+14)</i>
         reminders_to_warn_html: Prévenir l‘institution <i>(J+21)</i>
+      scopes:
+        mark_done:
+          archive: Archiver
+          poke: Référent relancé
+          recall: Référent rappellé
+          warn: Institution prévenue
   reminders_actions:
-    archive: Archiver
     processed_need: Besoin de l‘entreprise %{company} traité
-    to_do: Traiter
   solicitations:
     header:
       canceled: annulées
