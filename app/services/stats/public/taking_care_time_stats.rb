@@ -9,10 +9,6 @@ module Stats::Public
         .distinct
     end
 
-    def date_group_attribute
-      'solicitations.created_at'
-    end
-
     def group_by_date(query)
       query.group_by do |solicitation|
         solicitation.matches.pluck(:taken_care_of_at).compact.min&.between?(solicitation.created_at, solicitation.created_at + 5.days)
@@ -44,10 +40,10 @@ module Stats::Public
       query = filtered(query)
       groups = group_by_date(query)
 
-      taken_care_before = taken_care_before(groups)
-      taken_care_after = taken_care_after(groups)
+      @taken_care_before ||= taken_care_before(groups)
+      @taken_care_after ||= taken_care_after(groups)
 
-      as_series(taken_care_before, taken_care_after)
+      as_series(@taken_care_before, @taken_care_after)
     end
 
     def category_order_attribute
@@ -55,16 +51,8 @@ module Stats::Public
     end
 
     def count
-      solicitations = build_series
-      percentage_two_numbers(solicitations[1][:data], solicitations[0][:data])
-    end
-
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
+      build_series
+      percentage_two_numbers(@taken_care_before, @taken_care_after)
     end
 
     private

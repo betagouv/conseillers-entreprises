@@ -6,10 +6,6 @@ module Stats::Public
       Solicitation.all
     end
 
-    def date_group_attribute
-      'solicitations.created_at'
-    end
-
     def with_diagnoses(query)
       query
         .joins(:diagnoses)
@@ -37,23 +33,15 @@ module Stats::Public
       query = main_query
       query = filtered(query)
 
-      with_diagnoses = with_diagnoses(query)
-      without_diagnoses = without_diagnoses(query)
+      @with_diagnoses ||= with_diagnoses(query).values
+      @without_diagnoses ||= without_diagnoses(query).values
 
-      as_series(with_diagnoses, without_diagnoses)
+      as_series(@with_diagnoses, @without_diagnoses)
     end
 
     def count
-      solicitations = build_series
-      percentage_two_numbers(solicitations[1][:data], solicitations[0][:data])
-    end
-
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
+      build_series
+      percentage_two_numbers(@with_diagnoses, @without_diagnoses)
     end
 
     def subtitle
@@ -66,11 +54,11 @@ module Stats::Public
       [
         {
           name: I18n.t('stats.without_diagnoses'),
-            data: without_diagnoses.values
+            data: without_diagnoses
         },
         {
           name: I18n.t('stats.with_diagnoses'),
-            data: with_diagnoses.values
+            data: with_diagnoses
         }
       ]
     end

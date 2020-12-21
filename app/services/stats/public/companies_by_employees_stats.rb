@@ -68,12 +68,8 @@ module Stats::Public
       %w[#dddddd #9f3cca #F45A5B #e78112 #f3dd68 #2D908F #62e0d3]
     end
 
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
+    def count
+      false
     end
   end
 end

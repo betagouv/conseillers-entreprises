@@ -21,6 +21,10 @@ module Stats
       end
     end
 
+    def date_group_attribute
+      'created_at'
+    end
+
     def colors
       %w[#62e0d3 #2D908F #f3dd68 #e78112 #F45A5B #9f3cca #F15C80 #A8FF96 #946c47 #64609b #7a7a7a]
     end
@@ -70,11 +74,11 @@ module Stats
 
     def format
       # Format for graph tooltip
-      '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
+      '{series.name} : <b>{point.percentage:.0f}%</b>'
     end
 
     def chart
-      'stats-chart'
+      'percentage-column-chart'
     end
 
     ## Overrides

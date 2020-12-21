@@ -9,10 +9,6 @@ module Stats::Public
         .joins(subject: :theme)
     end
 
-    def date_group_attribute
-      'needs.created_at'
-    end
-
     def filtered(query)
       if territory.present?
         query.merge! territory.needs
@@ -29,14 +25,6 @@ module Stats::Public
 
     def subtitle
       I18n.t('stats.series.themes.subtitle')
-    end
-
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
     end
 
     def category_group_attribute

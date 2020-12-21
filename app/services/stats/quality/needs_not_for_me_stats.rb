@@ -6,10 +6,6 @@ module Stats::Quality
       Need.diagnosis_completed
     end
 
-    def date_group_attribute
-      'needs.created_at'
-    end
-
     def filtered(query)
       if territory.present?
         query.merge! territory.needs
@@ -27,10 +23,10 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      needs_refused = refused(query)
-      needs_not_refused = not_refused(query)
+      @needs_refused = refused(query)
+      @needs_not_refused = not_refused(query)
 
-      as_series(needs_refused, needs_not_refused)
+      as_series(@needs_refused, @needs_not_refused)
     end
 
     def refused(query)
@@ -42,16 +38,8 @@ module Stats::Quality
     end
 
     def count
-      needs = build_series
-      percentage_two_numbers(needs[1][:data], needs[0][:data])
-    end
-
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
+      build_series
+      percentage_two_numbers(@needs_refused, @needs_not_refused)
     end
 
     private

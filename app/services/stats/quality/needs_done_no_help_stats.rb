@@ -6,10 +6,6 @@ module Stats::Quality
       Need.diagnosis_completed
     end
 
-    def date_group_attribute
-      'needs.created_at'
-    end
-
     def filtered(query)
       if territory.present?
         query.merge! territory.needs
@@ -27,10 +23,10 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      needs_with_help = with_help(query)
-      needs_without_help = without_help(query)
+      @needs_with_help ||= with_help(query)
+      @needs_without_help ||= without_help(query)
 
-      as_series(needs_with_help, needs_without_help)
+      as_series(@needs_with_help, @needs_without_help)
     end
 
     def with_help(query)
@@ -42,20 +38,8 @@ module Stats::Quality
     end
 
     def count
-      needs = build_series
-      percentage_two_numbers(needs[1][:data], needs[0][:data])
-    end
-
-    def category_name(category)
-      I18n.t('activerecord.models.need.other')
-    end
-
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
+      build_series
+      percentage_two_numbers(@needs_with_help, @needs_without_help)
     end
 
     private

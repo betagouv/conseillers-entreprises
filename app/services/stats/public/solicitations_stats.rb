@@ -6,10 +6,6 @@ module Stats::Public
       Solicitation.all
     end
 
-    def date_group_attribute
-      'created_at'
-    end
-
     def filtered(query)
       if territory.present?
         query.merge! Solicitation.by_territory(territory)
@@ -37,6 +33,10 @@ module Stats::Public
 
     def format
       'Total : <b>{point.stackTotal}</b>'
+    end
+
+    def chart
+      'stats-chart'
     end
   end
 end

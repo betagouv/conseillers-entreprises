@@ -6,10 +6,6 @@ module Stats::Public
       Need.diagnosis_completed
     end
 
-    def date_group_attribute
-      'needs.created_at'
-    end
-
     def filtered(query)
       if territory.present?
         query.merge! territory.needs
@@ -27,10 +23,10 @@ module Stats::Public
       query = main_query
       query = filtered(query)
 
-      needs_with_exchange = needs_with_exchange(query)
-      needs_without_exchange = needs_without_exchange(query)
+      @needs_with_exchange ||= needs_with_exchange(query).values
+      @needs_without_exchange ||= needs_without_exchange(query).values
 
-      as_series(needs_with_exchange, needs_without_exchange)
+      as_series(@needs_with_exchange, @needs_without_exchange)
     end
 
     def needs_with_exchange(query)
@@ -52,12 +48,8 @@ module Stats::Public
     end
 
     def count
-      besoins = build_series
-      percentage_two_numbers(besoins[1][:data], besoins[0][:data])
-    end
-
-    def chart
-      'percentage-column-chart'
+      build_series
+      percentage_two_numbers(@needs_with_exchange, @needs_without_exchange)
     end
 
     def format
@@ -70,11 +62,11 @@ module Stats::Public
       [
         {
           name: I18n.t('stats.series.exchange_with_expert.without_exchange'),
-          data: needs_without_exchange.values
+          data: needs_without_exchange
         },
         {
           name: I18n.t('stats.series.exchange_with_expert.with_exchange'),
-          data: needs_with_exchange.values
+          data: needs_with_exchange
         }
       ]
     end

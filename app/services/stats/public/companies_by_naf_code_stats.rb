@@ -34,14 +34,6 @@ module Stats::Public
       'facilities.naf_code_a10'
     end
 
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
-    end
-
     def colors
       %w[#DDDDDD #9F3BCA #F15C80 #E78016 #F2DD68 #2D908F #62E0D3 #88c479 #A7FF96 #946D47 #64609B #63DDDB #F45A5A]
     end

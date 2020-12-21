@@ -10,10 +10,6 @@ module Stats::Public
       true
     end
 
-    def date_group_attribute
-      'experts.created_at'
-    end
-
     def filtered(query)
       if territory.present?
         query.merge! territory.antenne_experts
@@ -35,6 +31,14 @@ module Stats::Public
 
     def category_order_attribute
       Arel.sql('true')
+    end
+
+    def chart
+      'stats-chart'
+    end
+
+    def format
+      '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
     end
   end
 end
