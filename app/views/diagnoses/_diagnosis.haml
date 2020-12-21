@@ -1,6 +1,6 @@
 - cache diagnosis do
   .ui.segment.selectable-item
-    - path = diagnosis.step_completed? ? need_path(diagnosis, highlighted_expert: local_assigns[:highlighted_expert]) : diagnosis_path(diagnosis)
+    - path = diagnosis.step_completed? ? need_path(diagnosis) : diagnosis_path(diagnosis)
     %a{ href: path }
       %h3.ui.header
         .sub.header= I18n.l(diagnosis.display_date, format: :long)

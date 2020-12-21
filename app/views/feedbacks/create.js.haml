@@ -1,4 +1,4 @@
-- feedback_html = render 'feedbacks/feedback', feedback: @feedback, highlighted_experts: []
+- feedback_html = render 'feedbacks/feedback', feedback: @feedback
 document.getElementById('feedback-form-#{@feedback.feedbackable_id}').insertAdjacentHTML('beforebegin', "#{j feedback_html}");
 
 document.querySelector('#feedback-form-#{@feedback.feedbackable_id} .form').reset()
