@@ -26,7 +26,6 @@ module Reminders
     private
 
     def render_collection(action)
-      @status = t("reminders.needs.header.#{action}").downcase
       needs = @territory.present? ? @territory.needs : Need.all
 
       @needs = needs

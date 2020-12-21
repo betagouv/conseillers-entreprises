@@ -46,7 +46,6 @@ module Reminders
 
     def retrieve_needs(status)
       @needs = @expert.send(status).diagnosis_completed.page params[:page]
-      @status = t("needs.header.#{status}")
     end
 
     def count_expert_needs
