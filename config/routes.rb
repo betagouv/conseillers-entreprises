@@ -159,12 +159,14 @@ Rails.application.routes.draw do
       get :taking_care, path: 'prises_en_charge'
       get :done, path: 'cloturees'
       get :not_for_me, path: 'refusees'
+      get :others_taking_care, path: 'pris_en_charges_par_dautres'
       get :archived, path: 'expirees'
 
       get :antenne_quo, path: 'antenne/boite_de_reception'
       get :antenne_taking_care, path: 'antenne/prises_en_charge'
       get :antenne_done, path: 'antenne/cloturees'
       get :antenne_not_for_me, path: 'antenne/refusees'
+      get :antenne_others_taking_care, path: 'pris_en_charges_par_dautres'
       get :antenne_archived, path: 'antenne/expirees'
     end
     member do

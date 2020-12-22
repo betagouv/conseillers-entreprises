@@ -37,6 +37,10 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user, :not_for_me)
   end
 
+  def others_taking_care
+    retrieve_needs(current_user, :others_taking_care)
+  end
+
   def archived
     retrieve_needs(current_user, :archived)
   end
@@ -57,6 +61,10 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user.antenne, :not_for_me)
   end
 
+  def antenne_others_taking_care
+    retrieve_needs(current_user.antenne, :others_taking_care)
+  end
+
   def antenne_archived
     retrieve_needs(current_user.antenne, :archived)
   end
@@ -64,7 +72,7 @@ class NeedsController < ApplicationController
   private
 
   def collection_names
-    %i[quo taking_care done not_for_me archived]
+    %i[quo taking_care done not_for_me others_taking_care archived]
   end
 
   # Common render method for collection actions

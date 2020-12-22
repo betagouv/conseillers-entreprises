@@ -2,9 +2,21 @@ module InvolvementConcern
   extend ActiveSupport::Concern
 
   def needs_quo
-    received_needs
+    query = received_needs
       .where(matches: received_matches.status_quo)
       .archived(false)
+
+    # Taken by no one, or taken by someone else but not old yet
+    query.status_quo
+         .or(query.where.not(id: Need.in_reminders_range(:archive)))
+  end
+
+  def needs_others_taking_care
+    query = received_needs
+      .where(matches: received_matches.status_quo)
+      .archived(false)
+
+    query.not_status_quo.in_reminders_range(:archive)
   end
 
   def needs_taking_care
@@ -28,13 +40,5 @@ module InvolvementConcern
   def needs_archived
     received_needs
       .archived(true)
-  end
-
-  def needs_others_taking_care
-    received_needs
-      .status_taking_care
-      .where(matches: received_matches.status_quo)
-      .archived(false)
-      .distinct
   end
 end
