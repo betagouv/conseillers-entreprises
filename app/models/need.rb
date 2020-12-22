@@ -209,10 +209,6 @@ class Need < ApplicationRecord
       .with_some_matches_in_status([:quo, :taking_care])
   end
 
-  scope :by_territory, -> (territory) do
-    joins(:diagnosis).where(diagnoses: { facility: territory&.facilities })
-  end
-
   scope :without_exchange, -> do
     where(status: [:not_for_me, :done_not_reachable])
       .or(Need.where(status: [:taking_care, :quo]).archived(true))
