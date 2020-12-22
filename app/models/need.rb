@@ -103,12 +103,6 @@ class Need < ApplicationRecord
       .merge(Diagnosis.completed)
   end
 
-  scope :abandoned_quo_not_taken, -> do
-    status_quo
-      .archived(false)
-      .abandoned
-  end
-
   scope :reminders_to, -> (action) do
     if action == :archive
       query1 = archived(false)
@@ -163,17 +157,6 @@ class Need < ApplicationRecord
     # put it in a subquery to avoid duplicate rows, or requiring the join if this scope is composed with others
     where(id: needs_in_range)
   }
-
-  scope :abandoned_taken_not_done, -> do
-    status_taking_care
-      .archived(false)
-      .abandoned
-  end
-
-  scope :rejected, -> do
-    status_not_for_me
-      .archived(false)
-  end
 
   scope :min_closed_at, -> (range) do
     joins(:matches)

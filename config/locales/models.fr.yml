@@ -20,8 +20,6 @@ fr:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     scopes:
-      abandoned_quo_not_taken: Non pris en charge
-      abandoned_taken_not_done: Sans nouvelles
       admin: Admins
       all: Tout
       archived: Archivés
@@ -37,7 +35,6 @@ fr:
       no_team: Solo
       not_taken_after_3_weeks: 3 semaines sans réponse
       personal_skillsets: Individuel
-      rejected: Refusés
       relevant_for_skills: Compétences visibles
       sent: Mises en relation envoyées
       support_experts: Support
@@ -45,8 +42,6 @@ fr:
       teams: Équipes
       to_support: Support
       tooltips:
-        abandoned_quo_not_taken: Non pris en charge depuis 3 semaines
-        abandoned_taken_not_done: Pas de nouvelles depuis 3 semaines
         diagnosis_completed: Besoins identifiés dans des analyses terminées
         from_solicitation: Analyses à partir d’une sollicitation directe
         from_visit: Analyses faites par des conesillers suite à une visite
