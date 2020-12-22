@@ -364,8 +364,8 @@ fr:
         one: Mise en relation
         other: Mises en relation
       need:
-        one: Besoin identifié
-        other: Besoins identifiés
+        one: Besoin
+        other: Besoins
       search:
         one: Recherche
         other: Recherches
@@ -462,10 +462,10 @@ fr:
       other: Mises en relation
     naf_code: Code NAF
     name: Nom
-    need: Besoin identifié
+    need: Besoin
     needs:
-      one: Besoin identifié
-      other: Besoins identifiés
+      one: Besoin
+      other: Besoins
     phone_number: Téléphone
     placeholder:
       email: marie.dupont@exemple.fr

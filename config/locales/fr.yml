@@ -44,6 +44,7 @@ fr:
     - samedi
     formats:
       default: "%d/%m/%Y"
+      iso: "%F"
       long: "%-d %B %Y"
       month: "%b %Y"
       short: "%e %b"

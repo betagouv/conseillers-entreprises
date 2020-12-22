@@ -48,7 +48,7 @@ describe 'admin panel', type: :feature do
       click_link 'Référents'
       click_link 'Créer Référent'
 
-      click_link 'Besoins identifiés'
+      click_link 'Besoins'
 
       click_link 'Mises en relation'
 

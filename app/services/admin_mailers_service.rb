@@ -5,26 +5,31 @@ class AdminMailersService
 
   class << self
     def send_statistics_email
-      @information_hash = {}
-
-      @not_admin_diagnoses = Diagnosis
-        .includes([:advisor, facility: [:company]])
-        .archived(false)
-        .where(advisor: User.not_admin)
-        .order(created_at: :desc)
-      @completed_diagnoses = @not_admin_diagnoses.completed.updated_last_week
-
-      sign_up_statistics
-      created_diagnoses_statistics
-      updated_diagnoses_statistics
-      completed_diagnoses_statistics
-      abandoned_needs_statistics
-      matches_count_statistics
-
-      AdminMailer.weekly_statistics(@information_hash).deliver_later
+      AdminMailer.weekly_statistics(public_stats_counts, reminders_counts).deliver_later
     end
 
     private
+
+    def public_stats_counts
+      params = {
+        start_date: 1.week.ago.to_date,
+        end_date: Date.today
+      }
+      stats = Stats::Stats.new(params)
+      counts = %i[solicitations solicitations_diagnoses exchange_with_expert taking_care].index_with do |name|
+        stats.send(name).count
+      end
+
+      { params: params, counts: counts }
+    end
+
+    def reminders_counts
+      counts = %i[poke recall warn archive].index_with do |name|
+        Need.reminders_to(name).human_count
+      end
+
+      { counts: counts }
+    end
 
     def sign_up_statistics
       recently_signed_up_users = User.created_last_week

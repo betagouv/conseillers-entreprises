@@ -320,7 +320,8 @@ fr:
           zero: Aucune analyse créée.
         diagnosis_description: 'Analyse #%{id} par %{advisor_name} pour %{company_name}'
         hello: Bonjour, chers administrateurs !
-        last_week: 'La semaine dernière sur Place des Entreprises, nous avons eu :'
+        last_week: 'Voici les statistiques de la semaine dernière :'
+        reminders: 'Côté relances, voici où nous en sommes :'
         matches_count:
           one: Une mise en relation.
           other: "%{count} mises en relation."

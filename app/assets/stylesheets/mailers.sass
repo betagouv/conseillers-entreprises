@@ -109,6 +109,42 @@ blockquote
 .bold
   font-weight: bold
 
+// Flex cards
+.cards
+  display: flex
+  flex-wrap: wrap
+  .card
+    margin: 1em
+    padding: 1.2em
+    border: lightgrey solid 1px
+    border-radius: 4px
+    box-sizing: border-box
+    flex: 0 calc(50% - 3em)
+    text-align: center
+    .title
+      color:
+      font-size: 2em
+      margin: 0 1em 0.8em
+
+// Clickable items containing an a
+.block-link
+  position: relative
+  a::after
+    z-index: 1
+    position: absolute
+    content: ""
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+
+// Clickable cards
+.card.block-link
+  a
+    color: #000
+  &:hover
+    background: #efefef
+
 @media (max-width: 620px)
   body
     width: 100%
