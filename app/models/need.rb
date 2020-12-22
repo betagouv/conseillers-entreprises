@@ -187,6 +187,7 @@ class Need < ApplicationRecord
     where(id: needs_with_matches)
   end
 
+  # TODO #1367 The :active scope should be removed.
   scope :active, -> do
     archived(false)
       .with_matches_only_in_status([:quo, :taking_care, :not_for_me])

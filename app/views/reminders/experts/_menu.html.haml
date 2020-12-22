@@ -1,3 +1,8 @@
+-# TODO #1367 For consistency between /relances/besoins, /besoins, and /relances/experts,
+-# In this menu we should have two sections:
+-# * one relying on the InvolvementConcern queries (as in /besoins, see needs/_menu.html.haml)
+-# * one relying on the Need#reminders_to scopes  (:poke, :recall, :warn, :archive)
+
 = active_link_to(t('.summary'), reminders_expert_path(expert), active: ['reminders/experts': :show], class: 'item')
 = menu_link_with_count(t('needs.index.needs_quo_html'), count_expert_needs[:reminders_needs_to_call_back], needs_reminders_expert_path(expert))
 = menu_link_with_count(t('needs.index.needs_taking_care_html'), count_expert_needs[:needs_taking_care], needs_taking_care_reminders_expert_path(expert))

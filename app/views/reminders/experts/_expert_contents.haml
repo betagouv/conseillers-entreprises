@@ -5,6 +5,8 @@
 .ui.grid
   .row
     - cache ["received_matches", expert, expert.received_matches] do
+      -# TODO #1367 Here, for consistency with /besoins
+      -# we should rely on the InvolvementConcert queries.
       .nine.wide.column
         %h5.ui.header= t('.matches_total')
         .ui.labels
@@ -21,6 +23,8 @@
             = expert.received_matches.where(status: :not_for_me).count
             .detail= t('.matches_total_not_for_me')
     - cache ["received_needs", expert, expert.received_needs] do
+      -# TODO #1367 Here, for consistency with /relances/besoins,
+      -# we should rely on the Need#reminders_to scopes  (:poke, :recall, :warn, :archive)
       .seven.wide.column
         %h5.ui.header= t('.received_needs_abandoned')
         .ui.labels
