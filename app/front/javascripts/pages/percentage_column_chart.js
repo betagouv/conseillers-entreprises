@@ -1,11 +1,11 @@
 (function () {
-  addEventListener('DOMContentLoaded', setupStatsCharts)
+  addEventListener('DOMContentLoaded', setupPercentageColumnCharts)
 
-  function setupStatsCharts () {
-    const statCharts = document.querySelectorAll("[data-chart='stats-chart']")
+  function setupPercentageColumnCharts () {
+    const percentageColumnCharts = document.querySelectorAll("[data-chart='percentage-column-chart']")
 
-    for (let i = 0; i < statCharts.length; i++) {
-      const chart = statCharts[i];
+    for (let i = 0; i < percentageColumnCharts.length; i++) {
+      const chart = percentageColumnCharts[i];
       const container = chart.id;
       const months = JSON.parse(chart.dataset.months);
       const maxValue = chart.dataset.maxValue;
@@ -33,17 +33,6 @@
       credits: {
         enabled: false
       },
-      plotOptions: {
-        series: {
-          animation: false
-        },
-        column: {
-          stacking: 'normal'
-        }
-      },
-      tooltip: {
-        pointFormat: format
-      },
       xAxis: {
         categories: months,
         tickInterval: 1,
@@ -51,13 +40,23 @@
         max: months.length - 1
       },
       yAxis: {
-        title: null,
-        max: max_value
+        min: 0,
+        title: {
+          text: null
+        },
+        labels: {
+          format: '{value} %'
+        }
       },
-      legend: {
-        enabled: true
+      tooltip: {
+        pointFormat: format,
+      },
+      plotOptions: {
+        column: {
+          stacking: 'percent'
+        }
       },
       series: series
-    })
+    });
   }
 })()

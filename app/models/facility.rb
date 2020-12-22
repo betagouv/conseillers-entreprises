@@ -5,6 +5,7 @@
 #  id                :bigint(8)        not null, primary key
 #  code_effectif     :string
 #  naf_code          :string
+#  naf_code_a10      :string
 #  naf_libelle       :string
 #  readable_locality :string
 #  siret             :string
@@ -27,6 +28,7 @@
 
 class Facility < ApplicationRecord
   include Effectif
+  include NafCode
 
   ## Associations
   #

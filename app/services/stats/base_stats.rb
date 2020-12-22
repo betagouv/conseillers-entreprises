@@ -55,8 +55,21 @@ module Stats
       @count ||= filtered(main_query).count
     end
 
+    def format
+      # Format for graph tooltip
+      '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
+    end
+
+    def chart
+      'stats-chart'
+    end
+
     ## Overrides
     #
+    def subtitle
+      false
+    end
+
     def filtered(query)
       query
     end

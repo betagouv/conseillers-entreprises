@@ -607,19 +607,40 @@ fr:
       add_remove_badges: Ajouter / Enlever des tags
   stats:
     series:
-      advisors: Conseillers publics
-      companies: Entreprises aidées
-      experts: Référents
-      matches: Mises en relation
-      needs: Besoins identifiés
-      solicitations: Sollicitations directes
-      solicitations_diagnoses: Sollicitations avec et sans analyse
+      advisors:
+        title: Conseillers publics
+      companies_by_employees:
+        ministats: Entreprises aidées
+        title: Typologie des entreprises utilisatrices du service
+      companies_by_naf_code:
+        title: Secteurs d’activité des entreprises utilisatrices du service
+      exchange_with_expert:
+        subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020, grâce à l’ajout de nouvelles fonctionnalités permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais une même demande peut exprimer plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service. <br> La transmission d'un besoin à un conseiller est concluante lorsqu'elle donne lieu à un échange. Il peut arriver que l'entreprise soit injoignable.
+        title: des besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
+        with_exchange: Avec échange
+        without_exchange: Sans échange
+      experts:
+        title: Référents
+      matches:
+        title: Mises en relation
+      needs:
+        title: Besoins identifiés
+      solicitations:
+        series: Demandes déposées
+        title: demandes déposées par les entreprises
+      solicitations_diagnoses:
+        subtitle: Pour le bon fonctionnement du service, seules les demandes qualifiées sont transmises. Les demandes sans aucun élément de contexte, touchant à la création d’entreprise ou encore exprimées dans une région non déployée, ne sont pas transmises.
+        title: de demandes transmises aux conseillers parmi les demandes déposées par les entreprises
       source: Analyses d’entreprises
       source_category:
         direct: Sollicitations d’entreprises
+        title: Analyses d’entreprises
         visits: Visites par un conseiller
-      taking_care: Sollicitations prises en charge
-      themes: Besoins par thèmes
+      taking_care:
+        title: de réponse en moins de 5 jours aux demandes déposées par les entreprises
+      themes:
+        subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
+        title: Thématiques choisies par les entreprises
     show:
       title: Statistiques d’utilisation
     stats_params:
@@ -664,8 +685,8 @@ fr:
     taken_care_before: Moins de 5 jours
     team:
       title: Statistiques équipe
-    with_diagnoses: Avec analyse
-    without_diagnoses: Sans analyse
+    with_diagnoses: Demandes transmises
+    without_diagnoses: Demandes non transmises
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

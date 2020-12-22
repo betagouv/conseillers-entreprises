@@ -131,6 +131,13 @@ fr:
       facility:
         company: Entreprise
         readable_locality: Commune
+      feedback:
+        category: Catégorie
+        feedbackable: Sujet
+      feedback/categories:
+        need: Besoin
+        reminder: Relance
+        solicitation: Solicitation
       institution:
         advisors: Conseillers
         antennes: Antennes
@@ -507,3 +514,4 @@ fr:
     default_role_from_solicitation: "(Solicitation déposée sur Place des entreprises)"
   deleted_account:
     full_name: "(Compte supprimé)"
+  no_data: Données manquantes

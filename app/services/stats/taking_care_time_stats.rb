@@ -1,5 +1,5 @@
 module Stats
-  class PublicTakingCareStats
+  class TakingCareTimeStats
     include BaseStats
 
     def main_query
@@ -54,17 +54,33 @@ module Stats
       Arel.sql('true')
     end
 
+    def count
+      solicitations = build_series
+      more_time_sum = solicitations[0][:data].sum
+      less_time_sum = solicitations[1][:data].sum
+      sum = less_time_sum + more_time_sum
+      sum != 0 ? "#{less_time_sum * 100 / sum}%" : "0"
+    end
+
+    def format
+      '{series.name} : <b>{point.percentage:.0f}%</b>'
+    end
+
+    def chart
+      'percentage-column-chart'
+    end
+
     private
 
     def as_series(taken_care_before, taken_care_after)
       [
         {
-          name: I18n.t('stats.taken_care_before'),
-            data: taken_care_before
-        },
-        {
           name: I18n.t('stats.taken_care_after'),
             data: taken_care_after
+        },
+        {
+          name: I18n.t('stats.taken_care_before'),
+            data: taken_care_before
         }
       ]
     end

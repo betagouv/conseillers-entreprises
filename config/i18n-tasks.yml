@@ -102,6 +102,8 @@ ignore_unused:
   - 'code_to_range.*'
   - 'simple_effectif.*'
   - 'codes_effectif.*'
+  - 'libelle_naf_a10.*'
+  - 'naf_level2_to_naf_a10.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
