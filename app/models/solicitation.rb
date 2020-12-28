@@ -42,7 +42,6 @@ class Solicitation < ApplicationRecord
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnoses, inverse_of: :solicitation
   has_many :needs, through: :diagnoses, inverse_of: :solicitation
-  has_many :expert_institutions, inverse_of: :solicitation
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
