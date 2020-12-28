@@ -1,45 +1,39 @@
 module Reminders
   class NeedsController < BaseController
     before_action :find_territories
-    before_action :count_needs
+    before_action :collections_counts
 
     def index
-      redirect_to action: :to_poke
+      redirect_to action: :poke
     end
 
-    def to_poke
-      retrieve_needs :reminders_to_poke
-      @action_path = [:poke, :reminders_action]
-      render :index
+    def poke
+      render_collection(:poke)
     end
 
-    def to_recall
-      retrieve_needs :reminders_to_recall
-      @action_path = [:recall, :reminders_action]
-      render :index
+    def recall
+      render_collection(:recall)
     end
 
-    def to_warn
-      retrieve_needs :reminders_to_warn
-      @action_path = [:warn, :reminders_action]
-      render :index
+    def warn
+      render_collection(:warn)
     end
 
-    def to_archive
-      retrieve_needs :reminders_to_archive
-      @action_path = [:archive, :need]
-      render :index
+    def archive
+      render_collection(:archive)
     end
 
     private
 
-    def retrieve_needs(scope)
-      @needs = Need.diagnosis_completed.send(scope)
-      if @territory.present?
-        @needs = @needs.by_territory(@territory)
-      end
-      @needs = @needs.includes(:subject).page(params[:page])
-      @status = t("reminders.needs.header.#{scope}").downcase
+    def render_collection(action)
+      needs = @territory.present? ? @territory.needs : Need.all
+
+      @needs = needs
+        .reminders_to(action)
+        .includes(:subject).page(params[:page])
+
+      @action = action
+      render :index
     end
   end
 end

@@ -177,6 +177,7 @@ Rails.application.routes.draw do
       post :poke
       post :recall
       post :warn
+      post :archive
     end
   end
 
@@ -193,10 +194,10 @@ Rails.application.routes.draw do
     end
     resources :needs, path: 'besoins', only: %i[index] do
       collection do
-        get :to_poke, path: 'a-relancer'
-        get :to_recall, path: 'a-rappeler'
-        get :to_warn, path: 'institution-a-prevenir'
-        get :to_archive, path: 'abandonnes'
+        get :poke, path: 'a-relancer'
+        get :recall, path: 'a-rappeler'
+        get :warn, path: 'institution-a-prevenir'
+        get :archive, path: 'abandonnes'
       end
     end
   end
