@@ -20,12 +20,12 @@ module Stats
     end
 
     def taken_care_before(query)
-      return if query[true].nil?
+      return [] if query[true].nil?
       query[true].group_by_month(&:created_at).map { |_, v| v.size }
     end
 
     def taken_care_after(query)
-      return if query[false].nil?
+      return [] if query[false].nil?
       query[false].group_by_month(&:created_at).map { |_, v| v.size }
     end
 

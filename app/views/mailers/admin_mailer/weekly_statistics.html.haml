@@ -1,56 +1,20 @@
 %p= t('.hello')
+
 %p= t('.last_week')
+.cards
+  - date_params = @public_stats_counts[:params].transform_values{ |date| I18n.l(date, format: :iso) }
+  - @public_stats_counts[:counts].each do |name, count|
+    .card.block-link
+      %h3.title= link_to count, stats_url(date_params.merge(anchor: "chart-#{name}"))
+      = t("stats.series.#{name}.title")
 
-%p
-  %strong= t('.signed_up_users_count', count: @information_hash[:signed_up_users][:count])
-- if @information_hash[:signed_up_users][:count].positive?
-  %ul
-    - @information_hash[:signed_up_users][:items].each do |user|
-      - title = "#{user.full_name} (#{user.role} - #{user.antenne.name})"
-      %li= link_to title, admin_user_url(user)
-
-%p
-  %strong= t('.created_diagnoses_count', count: @information_hash[:created_diagnoses][:count])
-- if @information_hash[:created_diagnoses][:count].positive?
-  %ul
-    - @information_hash[:created_diagnoses][:items].each do |diagnosis|
-      - description = t('.diagnosis_description',
-      id: diagnosis.id,
-      advisor_name: diagnosis.advisor.full_name,
-      company_name: diagnosis.company.name)
-      %li= link_to description, admin_diagnosis_url(diagnosis)
-
-%p
-  %strong= t('.updated_diagnoses_count', count: @information_hash[:updated_diagnoses][:count])
-- if @information_hash[:updated_diagnoses][:count].positive?
-  %ul
-    - @information_hash[:updated_diagnoses][:items].each do |diagnosis|
-      - description = t('.diagnosis_description',
-      id: diagnosis.id,
-      advisor_name: diagnosis.advisor.full_name,
-      company_name: diagnosis.company.name)
-      %li= link_to description, admin_diagnosis_url(diagnosis)
-
-%p
-  %strong= t('.completed_diagnoses_count', count: @information_hash[:completed_diagnoses][:count])
-  = t('.matches_count', count: @information_hash[:matches_count])
-- if @information_hash[:completed_diagnoses][:count].positive?
-  %ul
-    - @information_hash[:completed_diagnoses][:items].each do |diagnosis|
-      - description = t('.diagnosis_description',
-      id: diagnosis.id,
-      advisor_name: diagnosis.advisor.full_name,
-      company_name: diagnosis.company.name)
-      %li= link_to description, admin_diagnosis_url(diagnosis)
-
-%p
-  %strong= t('.needs_abandoned.title')
-  %ul
-    - scopes = %i[abandoned_quo_not_taken abandoned_taken_not_done rejected]
-    - scopes.each do |scope|
-      - if @information_hash[scope].positive?
-        - i18n_scope = 'mailers.admin_mailer.weekly_statistics.needs_abandoned.scopes'
-        - description = t(scope.to_s, scope: i18n_scope, count: @information_hash[scope])
-        %li= link_to description, admin_needs_url(scope: scope)
+%p= t('.reminders')
+.cards
+  - @reminders_counts[:counts].each do |name, count|
+    .card.block-link
+      %h3.title= link_to count, polymorphic_url([name, :reminders, :needs])
+      = t(name, scope: 'reminders.needs.scopes.name')
+      - detail = t(name, scope: 'reminders.needs.scopes.detail', days: Need::REMINDERS_DAYS[name])
+      %i (#{detail})
 
 %p= t('.see_you_next_week')

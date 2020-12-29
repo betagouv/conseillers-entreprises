@@ -310,46 +310,11 @@ fr:
         new_solicitation_received: Une entreprise nous sollicite !
         subject: Nouvelle sollicitation d’entreprise
       weekly_statistics:
-        completed_diagnoses_count:
-          one: 'Une analyse terminée :'
-          other: "%{count} analyses terminées :"
-          zero: Aucune analyse terminée.
-        created_diagnoses_count:
-          one: 'Une analyse créée :'
-          other: "%{count} analyses créées :"
-          zero: Aucune analyse créée.
-        diagnosis_description: 'Analyse #%{id} par %{advisor_name} pour %{company_name}'
         hello: Bonjour, chers administrateurs !
-        last_week: 'La semaine dernière sur Place des Entreprises, nous avons eu :'
-        matches_count:
-          one: Une mise en relation.
-          other: "%{count} mises en relation."
-          zero: Aucune mise en relation.
-        needs_abandoned:
-          scopes:
-            abandoned_quo_not_taken:
-              one: Un besoin non pris en charge
-              other: "%{count} besoins non pris en charge"
-              zero: Aucun besoin non pris en charge
-            abandoned_taken_not_done:
-              one: Un besoin sans nouvelles
-              other: "%{count} besoins sans nouvelles"
-              zero: Aucun besoin sans nouvelles
-            rejected:
-              one: Un besoin refusé
-              other: "%{count} besoins refusés"
-              zero: Aucun besoin refusé
-          title: Besoins en souffrance
+        last_week: 'Voici les statistiques de la semaine dernière :'
+        reminders: 'Côté relances, voici où nous en sommes :'
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
-        signed_up_users_count:
-          one: 'Un nouvel inscrit :'
-          other: "%{count} nouveaux inscrits :"
-          zero: Aucun nouvel inscrit.
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
-        updated_diagnoses_count:
-          one: 'Une analyse mise à jour :'
-          other: "%{count} analyses mises à jour :"
-          zero: Aucune analyse mise à jour.
     company_mailer:
       confirmation_solicitation:
         content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise aux partenaires publics susceptibles de vous aider.</p><p>Un suivi qualité est assuré afin qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"

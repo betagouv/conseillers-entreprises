@@ -6,8 +6,10 @@ class AdminMailer < ApplicationMailer
 
   helper :solicitation
 
-  def weekly_statistics(information_hash)
-    @information_hash = information_hash
+  def weekly_statistics(public_stats_counts, reminders_counts)
+    @public_stats_counts = public_stats_counts
+    # TODO: Use Team Stats here as well once #1468 is merged
+    @reminders_counts = reminders_counts
 
     mail(to: default_recipients, subject: t('mailers.admin_mailer.weekly_statistics.subject'))
   end
