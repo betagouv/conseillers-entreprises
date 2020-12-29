@@ -84,7 +84,7 @@ class SolicitationsController < ApplicationController
 
   def ordered_solicitations
     solicitations = Solicitation.order(created_at: :desc)
-    solicitations = solicitations.by_possible_territory(params[:territory]) if params[:territory].present?
+    solicitations = solicitations.by_possible_territory(territory_param) if params[:territory].present?
     solicitations.page(params[:page]).omnisearch(params[:query]).distinct
       .includes(:badges_solicitations, :badges, :institution, :landing, :diagnoses)
   end

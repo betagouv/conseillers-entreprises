@@ -106,8 +106,9 @@ class Diagnosis < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  scope :in_regions, -> {
-    joins(:facility).merge(Facility.in_regions)
+  scope :out_of_deployed_territories, -> {
+    left_outer_joins(:facility_territories)
+      .where(territories: { id: nil })
   }
 
   ## Scopes for flags

@@ -7,7 +7,7 @@
   - options = { include_blank: t('all_choices'), class: 'ui search selection dropdown clearable', onchange: 'this.form.submit();' }
   .two.fields
     .field
-      = label_tag(t('.region'))
+      = label_tag(t('.filter'))
       = select_tag(:territory,
         options_for_select(possible_territories_options, (params[:territory] || session[:territory])),
         options.dup)

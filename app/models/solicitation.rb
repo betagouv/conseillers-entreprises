@@ -47,6 +47,27 @@ class Solicitation < ApplicationRecord
 
   before_create :set_institution_from_landing
 
+  ## Callbacks
+  #
+  def set_institution_from_landing
+    self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
+  end
+
+  def touch_after_badges_update(_badge)
+    touch if persisted?
+  end
+
+  ## Validations
+  #
+  validates :landing_slug, :description, presence: true, allow_blank: false
+  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
+  validate on: :create do
+    # All visible fields are required on creation
+    required_fields.each do |attr|
+      errors.add(attr, :blank) if self.public_send(attr).blank?
+    end
+  end
+
   ## Scopes
   #
   scope :omnisearch, -> (query) do
@@ -105,52 +126,30 @@ class Solicitation < ApplicationRecord
       .where(feedbacks: { id: nil })
   end
 
+  scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
+
   scope :by_territory, -> (territory) do
     joins(:diagnoses).where(diagnoses: { facility: territory&.facilities })
   end
 
-  scope :in_regions, -> {
-    joins(:diagnoses).merge(Diagnosis.in_regions)
-  }
-
-  # des sollicitations peuvent être hors régions déployés ou avec un siret indéterminé
-  scope :in_undefined_territory, -> {
-    in_regions_ids = in_regions.pluck(:id)
-    where.not(id: in_regions_ids)
-  }
-
-  scope :by_possible_territory, -> (possibly_territory_id) {
+  # param peut être un id de Territory ou une clé correspondant à un scope ("without_diagnoses" par ex)
+  scope :by_possible_territory, -> (param) {
     begin
-      by_territory(Territory.find(possibly_territory_id))
+      by_territory(Territory.find(param))
     rescue ActiveRecord::RecordNotFound => e
-      in_undefined_territory
+      self.send(param)
     end
   }
 
-  ## Callbacks
-  #
-  def set_institution_from_landing
-    self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
-  end
+  # Pour détecter les pb de siret, par exemple
+  scope :without_diagnoses, -> {
+    left_outer_joins(:diagnoses)
+      .where(diagnoses: { id: nil })
+  }
 
-  def touch_after_badges_update(_badge)
-    touch if persisted?
-  end
-
-  ## Validations
-  #
-  validates :landing_slug, :description, presence: true, allow_blank: false
-  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate on: :create do
-    # All visible fields are required on creation
-    required_fields.each do |attr|
-      errors.add(attr, :blank) if self.public_send(attr).blank?
-    end
-  end
-
-  ## Scopes
-  #
-  scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
+  scope :out_of_deployed_territories, -> {
+    joins(:diagnoses).merge(Diagnosis.out_of_deployed_territories)
+  }
 
   ## JSON Accessors
   #

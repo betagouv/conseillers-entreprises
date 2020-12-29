@@ -161,21 +161,52 @@ RSpec.describe Solicitation, type: :model do
   describe '#by_territory' do
     let(:territory1) { create :territory }
     let(:territory2) { create :territory }
-    let(:solicitation1) { create :solicitation }
-    let(:solicitation2) { create :solicitation }
-    let(:solicitation3) { create :solicitation }
-    let(:facility1) { create :facility }
-    let(:facility2) { create :facility }
-    let!(:diagnosis1) { create :diagnosis, solicitation: solicitation1, facility: facility1 }
-    let!(:diagnosis2) { create :diagnosis, solicitation: solicitation2, facility: facility2 }
+    let(:solicitation1) { create :solicitation, :with_diagnoses }
+    let(:solicitation2) { create :solicitation, :with_diagnoses }
+    let(:solicitation3) { create :solicitation, :with_diagnoses }
 
     before {
-      territory1.communes = [facility1.commune]
-      territory2.communes = [facility2.commune]
+      territory1.communes = [solicitation1.diagnoses.first.facility.commune]
+      territory2.communes = [solicitation2.diagnoses.first.facility.commune]
     }
 
     subject { described_class.by_territory(territory2) }
 
     it { is_expected.to eq [solicitation2] }
+  end
+
+  describe "#by_possible_territory" do
+    let(:territory1) { create :territory, :region }
+    let(:territory2) { create :territory }
+    # - solicitation avec facility dans un territoire connu
+    let!(:solicitation1) { create :solicitation, :with_diagnoses }
+    # - solicitation avec facility dans territoire non déployé
+    let!(:solicitation2) { create :solicitation, :with_diagnoses }
+    # - solicitation sans diagnosis (pb de siret, par ex)
+    let!(:solicitation3) { create :solicitation }
+
+    before {
+      territory1.communes = [solicitation1.diagnoses.first.facility.commune]
+    }
+
+    subject { described_class.by_possible_territory(possible_territory) }
+
+    context 'filter by existing territory' do
+      let(:possible_territory) { territory1.id }
+
+      it { is_expected.to eq [solicitation1] }
+    end
+
+    context 'filter by diagnoses problem' do
+      let(:possible_territory) { 'without_diagnoses' }
+
+      it { is_expected.to eq [solicitation3] }
+    end
+
+    context 'filter by out_of_deployed_territories' do
+      let(:possible_territory) { 'out_of_deployed_territories' }
+
+      it { is_expected.to eq [solicitation2] }
+    end
   end
 end
