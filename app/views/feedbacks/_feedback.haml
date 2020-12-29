@@ -1,7 +1,5 @@
 :ruby
   for_me = policy(feedback).creator?
-  highlighted_experts = highlighted_experts || []
-  highlight = feedback.user.in? highlighted_experts
 
 .event{ id: "feedback-#{feedback.id}" }
   .label
@@ -9,7 +7,7 @@
       %i.comment.outline.icon{ class: ('blue' if for_me) }
   .content
     .summary
-      .user.popup-hover{ class: ('expert-highlighted' if highlight) }
+      .user.popup-hover
         = feedback.user.full_name
       .ui.popup= person_block(feedback.user)
       .date= I18n.l(feedback.created_at, format: :long)

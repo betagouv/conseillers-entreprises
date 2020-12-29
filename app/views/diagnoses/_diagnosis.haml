@@ -1,6 +1,6 @@
 - cache diagnosis do
   .ui.segment.selectable-item
-    - path = diagnosis.step_completed? ? need_path(diagnosis, highlighted_expert: local_assigns[:highlighted_expert]) : diagnosis_path(diagnosis)
+    - path = diagnosis.step_completed? ? need_path(diagnosis) : diagnosis_path(diagnosis)
     %a{ href: path }
       %h3.ui.header
         .sub.header= I18n.l(diagnosis.display_date, format: :long)
@@ -11,11 +11,10 @@
         .sub.header= diagnosis.facility.commune_name
       - if diagnosis.step_completed?
         - diagnosis.needs.each do |need|
-          - if needs_of_interest.blank? || needs_of_interest.include?(need)
-            %h4.ui.header
-              = need.subject
-              .sub.header
-                = need.matches.human_count
-                - if need.abandoned?
-                  .ui.label.basic.orange= t('.last_activity_date', l: l(need.updated_at.to_date, format: :long))
+          %h4.ui.header
+            = need.subject
+            .sub.header
+              = need.matches.human_count
+              - if need.abandoned?
+                .ui.label.basic.orange= t('.last_activity_date', l: l(need.updated_at.to_date, format: :long))
       = render 'diagnoses/archive_action', diagnosis: diagnosis

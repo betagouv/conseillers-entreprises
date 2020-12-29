@@ -103,31 +103,27 @@ class Need < ApplicationRecord
       .merge(Diagnosis.completed)
   end
 
-  scope :abandoned_quo_not_taken, -> do
-    status_quo
-      .archived(false)
-      .abandoned
+  scope :reminders_to, -> (action) do
+    if action == :archive
+      query1 = archived(false)
+        .in_reminders_range(action)
+        .with_matches_only_in_status([:quo, :not_for_me])
+
+      query2 = archived(false)
+        .status_not_for_me
+
+      query1.or(query2)
+    else # :poke, :recall and :warn
+      archived(false)
+        .in_reminders_range(action)
+        .reminding_may_help
+        .without_action(action)
+    end
   end
 
-  scope :reminders_to_poke, -> do
-    no_help_provided
-      .archived(false)
-      .in_reminders_range(:poke)
-      .without_action(:poke)
-  end
-
-  scope :reminders_to_recall, -> do
-    no_help_provided
-      .archived(false)
-      .in_reminders_range(:recall)
-      .without_action(:recall)
-  end
-
-  scope :reminders_to_warn, -> do
-    no_help_provided
-      .archived(false)
-      .in_reminders_range(:warn)
-      .without_action(:warn)
+  scope :reminding_may_help, -> do
+    where(status: %i[quo done_no_help done_not_reachable])
+      .with_some_matches_in_status(:quo)
   end
 
   scope :without_action, -> (category) do
@@ -135,14 +131,6 @@ class Need < ApplicationRecord
       .joins(:reminders_actions)
       .where(reminders_actions: { category: category })
     where.not(id: subquery)
-  end
-
-  scope :reminders_to_archive, -> do
-    with_matches_only_in_status([:quo, :not_for_me])
-      .archived(false)
-      .in_reminders_range(:archive)
-      .distinct
-      .or(left_outer_joins(:matches).rejected.distinct)
   end
 
   REMINDERS_DAYS = {
@@ -170,17 +158,6 @@ class Need < ApplicationRecord
     where(id: needs_in_range)
   }
 
-  scope :abandoned_taken_not_done, -> do
-    status_taking_care
-      .archived(false)
-      .abandoned
-  end
-
-  scope :rejected, -> do
-    status_not_for_me
-      .archived(false)
-  end
-
   scope :min_closed_at, -> (range) do
     joins(:matches)
       .merge(Match.status_done)
@@ -192,33 +169,27 @@ class Need < ApplicationRecord
   scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
 
   scope :with_some_matches_in_status, -> (status) do
-    # can be an array
-    joins(:matches).where(matches: Match.unscoped.where(status: status)).distinct
+    # status can be an array
+    needs_with_matches = Need.unscoped
+      .joins(:matches)
+      .where(matches: Match.unscoped.where(status: status))
+    # put it in a subquery to avoid duplicate rows, or requiring the join if this scope is composed with others
+    where(id: needs_with_matches)
   end
 
   scope :with_matches_only_in_status, -> (status) do
-    # can be an array
-    left_outer_joins(:matches).where.not(matches: Match.unscoped.where.not(status: status)).distinct
-  end
-
-  scope :no_help_provided, -> do
-    joins(:matches)
-      .where(status: %w[quo not_for_me])
-      .distinct
-      .or(
-        where(status: %w[done_no_help done_not_reachable])
-          .with_some_matches_in_status(:quo)
-      )
+    # status can be an array
+    needs_with_matches = Need.unscoped
+      .left_outer_joins(:matches)
+      .where.not(matches: Match.unscoped.where.not(status: status))
+    # put it in a subquery to avoid duplicate rows, or requiring the join if this scope is composed with others
+    where(id: needs_with_matches)
   end
 
   scope :active, -> do
     archived(false)
       .with_matches_only_in_status([:quo, :taking_care, :not_for_me])
       .with_some_matches_in_status([:quo, :taking_care])
-  end
-
-  scope :by_territory, -> (territory) do
-    joins(:diagnosis).where(diagnoses: { facility: territory&.facilities })
   end
 
   scope :without_exchange, -> do

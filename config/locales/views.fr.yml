@@ -310,46 +310,11 @@ fr:
         new_solicitation_received: Une entreprise nous sollicite !
         subject: Nouvelle sollicitation d’entreprise
       weekly_statistics:
-        completed_diagnoses_count:
-          one: 'Une analyse terminée :'
-          other: "%{count} analyses terminées :"
-          zero: Aucune analyse terminée.
-        created_diagnoses_count:
-          one: 'Une analyse créée :'
-          other: "%{count} analyses créées :"
-          zero: Aucune analyse créée.
-        diagnosis_description: 'Analyse #%{id} par %{advisor_name} pour %{company_name}'
         hello: Bonjour, chers administrateurs !
-        last_week: 'La semaine dernière sur Place des Entreprises, nous avons eu :'
-        matches_count:
-          one: Une mise en relation.
-          other: "%{count} mises en relation."
-          zero: Aucune mise en relation.
-        needs_abandoned:
-          scopes:
-            abandoned_quo_not_taken:
-              one: Un besoin non pris en charge
-              other: "%{count} besoins non pris en charge"
-              zero: Aucun besoin non pris en charge
-            abandoned_taken_not_done:
-              one: Un besoin sans nouvelles
-              other: "%{count} besoins sans nouvelles"
-              zero: Aucun besoin sans nouvelles
-            rejected:
-              one: Un besoin refusé
-              other: "%{count} besoins refusés"
-              zero: Aucun besoin refusé
-          title: Besoins en souffrance
+        last_week: 'Voici les statistiques de la semaine dernière :'
+        reminders: 'Côté relances, voici où nous en sommes :'
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
-        signed_up_users_count:
-          one: 'Un nouvel inscrit :'
-          other: "%{count} nouveaux inscrits :"
-          zero: Aucun nouvel inscrit.
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
-        updated_diagnoses_count:
-          one: 'Une analyse mise à jour :'
-          other: "%{count} analyses mises à jour :"
-          zero: Aucune analyse mise à jour.
     company_mailer:
       confirmation_solicitation:
         content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise aux partenaires publics susceptibles de vous aider.</p><p>Un suivi qualité est assuré afin qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
@@ -443,11 +408,21 @@ fr:
       match_with: 'Mise en relation avec :'
       thats_you: C’est vous !
   needs:
+    additional_experts:
+      add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
+      add_other_experts: Rechercher d’autres référents à mettre en relation
+      no_expert_found: Aucun résultat
     archive:
       archive: Archiver
       archive_done: Besoin de l’entreprise %{company} archivé
       subjet_achived: Le besoin a été archivé
       unarchive: Désarchiver
+    collections:
+      archived: Expirées
+      done: Clôturées
+      not_for_me: Refusées
+      quo: Boite de réception
+      taking_care: Prises en charge
     empty_placeholder:
       title: Aucune demande
       welcome_help_html: Un problème ? Une question ? %{mailto_link}.
@@ -455,11 +430,6 @@ fr:
         one: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification à l’adresse %{emails}.
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
       welcome_title: Bienvenue sur Place des Entreprises
-    header:
-      needs_others_taking_care: pris en charge par d'autres référents
-      needs_quo: en attentes
-      needs_taking_care: pris en charges
-      reminders_needs_to_call_back: à rappeler
     index:
       needs_others_taking_care_html: Pris en charge par d’autres référents
       needs_quo_html: À rappeler <i>(J+14)</i>
@@ -539,8 +509,6 @@ fr:
         received_needs_abandoned_taking_care_tooltip: Besoins indiqués comme pris en charge il y a plus de 2 semaines, sans autre nouvelle depuis.
       expert_reminders_notes:
         placeholder: Restez factuel :)
-      header:
-        needs_status: Besoins %{status}
       index:
         title: Relances par référents
       menu:
@@ -548,22 +516,27 @@ fr:
     index:
       title: Relances
     needs:
-      header:
-        reminders_to_archive: Abandonnés
-        reminders_to_poke: À relancer
-        reminders_to_recall: À rappeler
-        reminders_to_warn: Institution à prévenir
-      index:
-        title: Besoins %{status}
-      menu:
-        reminders_to_archive_html: Abandonnés <i>(J+30 et refusés)</i>
-        reminders_to_poke_html: À relancer <i>(J+7)</i>
-        reminders_to_recall_html: À rappeler<i>(J+14)</i>
-        reminders_to_warn_html: Prévenir l‘institution <i>(J+21)</i>
+      scopes:
+        detail:
+          archive: J+%{days} et refusés
+          poke: J+%{days}
+          recall: J+%{days}
+          warn: J+%{days}
+        mark_done:
+          archive: Archiver
+          poke: Référent relancé
+          recall: Référent rappellé
+          warn: Institution prévenue
+        name:
+          archive: Abandonnés
+          poke: À relancer
+          recall: À rappeler
+          warn: Prévenir l’institution
+    section:
+      experts: Par référent
+      needs: Par délai
   reminders_actions:
-    archive: Archiver
     processed_need: Besoin de l‘entreprise %{company} traité
-    to_do: Traiter
   solicitations:
     header:
       canceled: annulées

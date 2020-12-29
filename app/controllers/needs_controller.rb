@@ -96,8 +96,6 @@ class NeedsController < ApplicationController
       # let diagnoses_controller (and steps_controller) handle incomplete diagnoses
       redirect_to @diagnosis and return
     end
-
-    @highlighted_experts = highlighted_experts
   end
 
   def additional_experts
@@ -143,14 +141,6 @@ class NeedsController < ApplicationController
   end
 
   private
-
-  def highlighted_experts
-    begin
-      [Expert.find(params.require(:highlighted_expert))]
-    rescue
-      []
-    end
-  end
 
   def retrieve_diagnosis
     Diagnosis.find(params.require(:id))

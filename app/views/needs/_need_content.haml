@@ -1,14 +1,13 @@
 - return if need.content.empty?
 
 - for_me = need.advisor == current_user
-- highlight = need.advisor.in? highlighted_experts
 .event{ id: "need_content-#{need.id}" }
   .label
     %a{ href: "#need_content-#{need.id}", data: { turbolinks: 'false' } }
       %i.comment.outline.icon{ class: ('blue' if for_me) }
   .content
     .summary
-      .user.popup-hover{ class: ('expert-highlighted' if highlight) }
+      .user.popup-hover
         = need.advisor.full_name
       .ui.popup= person_block(need.advisor)
       .date= I18n.l(need.diagnosis.completed_at, format: :long)

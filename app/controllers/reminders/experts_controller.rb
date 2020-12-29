@@ -3,7 +3,7 @@ module Reminders
     before_action :retrieve_expert, except: :index
     before_action :count_expert_needs, except: %i[index reminders_notes]
     before_action :find_territories, only: %i[index]
-    before_action :count_needs, only: %i[index]
+    before_action :collections_counts, only: %i[index]
 
     def index
       experts_pool = @territory&.all_experts || Expert.all
@@ -17,7 +17,7 @@ module Reminders
 
     def needs
       retrieve_needs :reminders_needs_to_call_back
-      @action_path = [:recall, :reminders_action]
+      @action = :recall
     end
 
     def needs_taking_care
@@ -46,7 +46,6 @@ module Reminders
 
     def retrieve_needs(status)
       @needs = @expert.send(status).diagnosis_completed.page params[:page]
-      @status = t("needs.header.#{status}")
     end
 
     def count_expert_needs

@@ -8,9 +8,6 @@ ActiveAdmin.register Need do
   includes :diagnosis, :subject, :advisor, :matches, :feedbacks, :company
 
   scope :diagnosis_completed, default: true
-  scope :abandoned_quo_not_taken, group: :abandoned
-  scope :abandoned_taken_not_done, group: :abandoned
-  scope :rejected, group: :abandoned
   scope :all, group: :all
 
   index do
