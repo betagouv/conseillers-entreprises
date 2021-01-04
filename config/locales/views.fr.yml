@@ -607,6 +607,9 @@ fr:
       needs_done:
         subtitle: La notion d’aide proposée correspond à une aide financière, à la mobilisation d’un accompagnement public ou à plus largement à des conseils visant à répondre à la demande exprimée par l’entreprise. Par exemple, les conseils juridiques dispensés par un conseiller en droit du travail en réponse à une demande de l’entreprise entre dans la catégorie « aide proposée ».
         title: de besoins clôturés grâce à une aide proposée
+      needs_done_no_help:
+        subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
+        title: de besoins clôturés sans aide disponible
       solicitations:
         series: Demandes déposées
         title: demandes déposées par les entreprises
@@ -664,6 +667,7 @@ fr:
         whose_match_done: Aux besoins clôturé
         whose_match_taken_care_of: Aux besoins répondus
     status_done: Clôture avec aide proposée
+    status_done_no_help: Clôture sans accompagnement
     tabs:
       deployment: Déploiement
       matches: Mises en relation
