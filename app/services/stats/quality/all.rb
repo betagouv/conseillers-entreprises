@@ -7,5 +7,9 @@ module Stats::Quality
     def needs_done_no_help
       NeedsDoneNoHelpStats.new(@params)
     end
+
+    def needs_done_not_reachable
+      NeedsDoneNotReachableStats.new(@params)
+    end
   end
 end

@@ -610,6 +610,8 @@ fr:
       needs_done_no_help:
         subtitle: La clôture sans accompagnement signifie que l’entreprise a bien été rappelée par au moins un conseiller, mais que celui-ci n’a finalement pas pu l’aider au regard de sa situation particulière.
         title: de besoins clôturés sans aide disponible
+      needs_done_not_reachable:
+        title: de besoins clôturés faute d’avoir pu joindre l’entreprise
       solicitations:
         series: Demandes déposées
         title: demandes déposées par les entreprises
@@ -668,6 +670,7 @@ fr:
         whose_match_taken_care_of: Aux besoins répondus
     status_done: Clôture avec aide proposée
     status_done_no_help: Clôture sans accompagnement
+    status_done_not_reachable: Entreprises injoignables
     tabs:
       deployment: Déploiement
       matches: Mises en relation
