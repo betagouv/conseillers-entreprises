@@ -612,6 +612,8 @@ fr:
         title: de besoins clôturés sans aide disponible
       needs_done_not_reachable:
         title: de besoins clôturés faute d’avoir pu joindre l’entreprise
+      needs_not_for_me:
+        title: de besoins refusés
       solicitations:
         series: Demandes déposées
         title: demandes déposées par les entreprises
@@ -681,6 +683,7 @@ fr:
       title: Statistiques équipe
     with_diagnoses: Demandes transmises
     without_diagnoses: Demandes non transmises
+    status_not_for_me: "Besoins refusés"
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

@@ -11,5 +11,9 @@ module Stats::Quality
     def needs_done_not_reachable
       NeedsDoneNotReachableStats.new(@params)
     end
+
+    def needs_not_for_me
+      NeedsNotForMeStats.new(@params)
+    end
   end
 end
