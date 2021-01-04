@@ -11,8 +11,8 @@ class StatsController < PagesController
   end
 
   def quality
-    @stats = Stats::Quality::Stats.new(stats_params)
-    @charts_names = [:needs_done]
+    @stats = Stats::Quality::All.new(stats_params)
+    @charts_names = [:needs_done, :needs_done_no_help, :needs_done_not_reachable, :needs_not_for_me, :needs_abandoned]
     render :team
   end
 
