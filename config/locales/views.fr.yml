@@ -584,6 +584,7 @@ fr:
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags
   stats:
+    archived: Besoins abandonnés
     other_status: Autres status
     series:
       advisors:
@@ -604,6 +605,9 @@ fr:
         title: Mises en relation
       needs:
         title: Besoins identifiés
+      needs_abandoned:
+        subtitle: Le besoin est considéré comme abandonné lorsqu’aucun conseiller ne s’est positionné au bout de 30 jours. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
+        title: de besoins abandonnés
       needs_done:
         subtitle: La notion d’aide proposée correspond à une aide financière, à la mobilisation d’un accompagnement public ou à plus largement à des conseils visant à répondre à la demande exprimée par l’entreprise. Par exemple, les conseils juridiques dispensés par un conseiller en droit du travail en réponse à une demande de l’entreprise entre dans la catégorie « aide proposée ».
         title: de besoins clôturés grâce à une aide proposée
@@ -673,6 +677,7 @@ fr:
     status_done: Clôture avec aide proposée
     status_done_no_help: Clôture sans accompagnement
     status_done_not_reachable: Entreprises injoignables
+    status_not_for_me: Besoins refusés
     tabs:
       deployment: Déploiement
       matches: Mises en relation
@@ -683,7 +688,6 @@ fr:
       title: Statistiques équipe
     with_diagnoses: Demandes transmises
     without_diagnoses: Demandes non transmises
-    status_not_for_me: "Besoins refusés"
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

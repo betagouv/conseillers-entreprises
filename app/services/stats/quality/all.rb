@@ -15,5 +15,9 @@ module Stats::Quality
     def needs_not_for_me
       NeedsNotForMeStats.new(@params)
     end
+
+    def needs_abandoned
+      NeedsAbandonedStats.new(@params)
+    end
   end
 end
