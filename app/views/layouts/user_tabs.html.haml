@@ -2,3 +2,6 @@
 - content_for :menu, render('users/menu', user: @user)
 
 = render template: 'layouts/side_menu'
+
+-## Implementation note: The user_tabs layout was done before side_menu.
+  TODO: We could remove it and use side_menu directly in experts_controller and registrations_controller
