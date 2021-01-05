@@ -6,7 +6,7 @@ module RecordExtensions
     # > user.last.searches.human_count
     # => "12 recherches"
     def human_count
-      "#{current_scope.size} #{model_name.human(count: current_scope.size).downcase}"
+      "#{size} #{model_name.human(count: size).downcase}"
     end
   end
 end
