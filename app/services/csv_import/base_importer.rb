@@ -1,5 +1,7 @@
 module CsvImport
-  # Model-specific importer inherit from this and override methods as needed.
+  # CSV Im=porting abstract implementation, to be subclassed for specific models.
+  #
+  # See also csv_import.rb for the high-level API.
   class BaseImporter
     def initialize(input, options = {})
       @input = input
@@ -75,7 +77,7 @@ module CsvImport
       opened_files[best_index]
     end
 
-    ## subclasses override points
+    # Methods implemented by subclasses
     #
     public
 
