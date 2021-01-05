@@ -94,12 +94,14 @@ Rails.application.routes.draw do
     get :mentions_legales
   end
 
-  resource :stats, only: [:show] do
-    collection do
-      get :team
-      get :quality, path: 'suivi-qualite'
-      get :matches, path: 'mises-en-relation'
-      get :deployment, path: 'deploiement'
+  scope :stats, module: :stats do
+    resources :public, only: :index, path: '/'
+    resources :team, only: :index, path: 'equipe' do
+      collection do
+        get :quality, path: 'suivi-qualite'
+        get :matches, path: 'mises-en-relation'
+        get :deployment, path: 'deploiement'
+      end
     end
   end
 
