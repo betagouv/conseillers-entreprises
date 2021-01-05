@@ -419,6 +419,7 @@ fr:
     diagnoses:
       one: Analyse
       other: Analyses
+    diagnoses_regions: Régions
     diagnosis: Analyse
     effectif: Effectif
     email: E-mail
@@ -436,6 +437,7 @@ fr:
       one: Établissement
       other: Établissements
     facility: Établissement visité
+    facility_regions: Régions des établissements
     facility_territories: Territoires des établissements
     feedbacks:
       one: Commentaire

@@ -73,6 +73,7 @@ class Match < ApplicationRecord
 
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :matches
+  has_many :facility_regions, -> { regions }, through: :facility, source: :territories, inverse_of: :matches
 
   # :subject
   has_one :theme, through: :subject, inverse_of: :matches

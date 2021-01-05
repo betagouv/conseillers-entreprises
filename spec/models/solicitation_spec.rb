@@ -177,7 +177,6 @@ RSpec.describe Solicitation, type: :model do
 
   describe "#by_possible_territory" do
     let(:territory1) { create :territory, :region }
-    let(:territory2) { create :territory }
     # - solicitation avec facility dans un territoire connu
     let!(:solicitation1) { create :solicitation, :with_diagnoses }
     # - solicitation avec facility dans territoire non déployé
