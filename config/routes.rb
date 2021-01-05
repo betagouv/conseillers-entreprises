@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   end
 
   # Pages
+  # # Only these routes are available in iframes and only this controller includes IframePrefix
   scope path: "(:iframe_prefix)", iframe_prefix: /e?/, defaults: { iframe_prefix: nil } do
     root controller: :landings, action: :index
     resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do

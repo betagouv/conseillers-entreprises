@@ -20,7 +20,7 @@ class SharedController < ActionController::Base
     raise ActionController::RoutingError, 'Not Found'
   end
 
-  include IframePrefix::InIframe
+  include IframePrefix::InIframe # Note: This could be included in PagesController, there's currently no need for in the ApplicationController.
 
   private
 
