@@ -397,6 +397,8 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    recipient_interceptor (0.2.0)
+      mail
     ref (2.0.0)
     regexp_parser (1.8.2)
     responders (3.0.1)
@@ -603,6 +605,7 @@ DEPENDENCIES
   rails-i18n
   rails_autolink
   rails_real_favicon
+  recipient_interceptor
   rspec-rails
   rspec_junit_formatter
   rubocop

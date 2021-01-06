@@ -122,3 +122,12 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
+
+if ENV['STAGING_ENV'].present?
+  Mail.register_interceptor(
+    RecipientInterceptor.new(
+      ENV['INTERCEPTOR_EMAIL_RECIPIENTS'],
+      subject_prefix: '[STAGING]',
+    ),
+  )
+end
