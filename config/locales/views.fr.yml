@@ -245,7 +245,11 @@ fr:
       collection_count_html: "<strong>%{size}</strong> %{name}"
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
+      out_of_deployed_territories_label: Hors territoires déployés
+      out_of_deployed_territories_value: out_of_deployed_territories
       view_completed_analysis: Voir l’analyse réalisée
+      without_diagnoses_label: Problème d'analyse (SIRET ou autre)
+      without_diagnoses_value: without_diagnoses
   landing_topics:
     landing_topic:
       choose: Choisir
@@ -545,6 +549,7 @@ fr:
       processed: traitées
     index:
       clear_search: Réinitialiser la recherche
+      filter: Filtrer
       header: Solicitations %{status}
       manage_badges: Gérer les tags
       no_result: Il n'y a pas de résultat pour cette recherche.

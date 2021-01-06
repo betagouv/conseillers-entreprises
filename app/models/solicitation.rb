@@ -39,6 +39,8 @@ class Solicitation < ApplicationRecord
   #
   belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
   has_many :diagnoses, inverse_of: :solicitation
+  has_many :diagnoses_regions, -> { regions }, through: :diagnoses, source: :facility_territories, inverse_of: :diagnoses
+
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnoses, inverse_of: :solicitation
   has_many :needs, through: :diagnoses, inverse_of: :solicitation
@@ -46,6 +48,27 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
   before_create :set_institution_from_landing
+
+  ## Callbacks
+  #
+  def set_institution_from_landing
+    self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
+  end
+
+  def touch_after_badges_update(_badge)
+    touch if persisted?
+  end
+
+  ## Validations
+  #
+  validates :landing_slug, :description, presence: true, allow_blank: false
+  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
+  validate on: :create do
+    # All visible fields are required on creation
+    required_fields.each do |attr|
+      errors.add(attr, :blank) if self.public_send(attr).blank?
+    end
+  end
 
   ## Scopes
   #
@@ -105,34 +128,30 @@ class Solicitation < ApplicationRecord
       .where(feedbacks: { id: nil })
   end
 
+  scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
+
   scope :by_territory, -> (territory) do
     joins(:diagnoses).where(diagnoses: { facility: territory&.facilities })
   end
 
-  ## Callbacks
-  #
-  def set_institution_from_landing
-    self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
-  end
-
-  def touch_after_badges_update(_badge)
-    touch if persisted?
-  end
-
-  ## Validations
-  #
-  validates :landing_slug, :description, presence: true, allow_blank: false
-  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate on: :create do
-    # All visible fields are required on creation
-    required_fields.each do |attr|
-      errors.add(attr, :blank) if self.public_send(attr).blank?
+  # param peut être un id de Territory ou une clé correspondant à un scope ("without_diagnoses" par ex)
+  scope :by_possible_territory, -> (param) {
+    begin
+      by_territory(Territory.find(param))
+    rescue ActiveRecord::RecordNotFound => e
+      self.send(param)
     end
-  end
+  }
 
-  ## Scopes
-  #
-  scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
+  # Pour détecter les pb de siret, par exemple
+  scope :without_diagnoses, -> {
+    left_outer_joins(:diagnoses)
+      .where(diagnoses: { id: nil })
+  }
+
+  scope :out_of_deployed_territories, -> {
+    joins(:diagnoses).merge(Diagnosis.out_of_deployed_territories)
+  }
 
   ## JSON Accessors
   #

@@ -10,7 +10,7 @@ FactoryBot.define do
     siret { Faker::Company.french_siret_number }
 
     trait :with_diagnoses do
-      diagnoses { build_list :diagnoses, 1 }
+      diagnoses { build_list :diagnosis, 1 }
     end
   end
 end
