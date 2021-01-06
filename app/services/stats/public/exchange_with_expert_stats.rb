@@ -1,13 +1,9 @@
-module Stats
+module Stats::Public
   class ExchangeWithExpertStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Need.diagnosis_completed
-    end
-
-    def date_group_attribute
-      'needs.created_at'
     end
 
     def filtered(query)
@@ -27,10 +23,10 @@ module Stats
       query = main_query
       query = filtered(query)
 
-      needs_with_exchange = needs_with_exchange(query)
-      needs_without_exchange = needs_without_exchange(query)
+      @needs_with_exchange ||= needs_with_exchange(query).values
+      @needs_without_exchange ||= needs_without_exchange(query).values
 
-      as_series(needs_with_exchange, needs_without_exchange)
+      as_series(@needs_with_exchange, @needs_without_exchange)
     end
 
     def needs_with_exchange(query)
@@ -52,15 +48,8 @@ module Stats
     end
 
     def count
-      besoins = build_series
-      without_exchange_sum = besoins[0][:data].sum
-      with_exchange_sum = besoins[1][:data].sum
-      sum = with_exchange_sum + without_exchange_sum
-      sum != 0 ? "#{with_exchange_sum * 100 / sum}%" : "0"
-    end
-
-    def chart
-      'percentage-column-chart'
+      build_series
+      percentage_two_numbers(@needs_with_exchange, @needs_without_exchange)
     end
 
     def format
@@ -73,11 +62,11 @@ module Stats
       [
         {
           name: I18n.t('stats.series.exchange_with_expert.without_exchange'),
-          data: needs_without_exchange.values
+          data: needs_without_exchange
         },
         {
           name: I18n.t('stats.series.exchange_with_expert.with_exchange'),
-          data: needs_with_exchange.values
+          data: needs_with_exchange
         }
       ]
     end

@@ -1,5 +1,5 @@
 .row
-  - stats = Stats::Stats.new
+  - stats = Stats::Mini::All.new
   .stats-item
     %div
       = stats.companies_by_employees.count

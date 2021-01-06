@@ -1,13 +1,9 @@
-module Stats
+module Stats::Public
   class SolicitationsStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Solicitation.all
-    end
-
-    def date_group_attribute
-      'created_at'
     end
 
     def filtered(query)
@@ -37,6 +33,10 @@ module Stats
 
     def format
       'Total : <b>{point.stackTotal}</b>'
+    end
+
+    def chart
+      'stats-chart'
     end
   end
 end

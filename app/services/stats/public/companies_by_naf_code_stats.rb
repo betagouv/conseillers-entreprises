@@ -1,6 +1,6 @@
-module Stats
+module Stats::Public
   class CompaniesByNafCodeStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Company
@@ -32,14 +32,6 @@ module Stats
 
     def category_order_attribute
       'facilities.naf_code_a10'
-    end
-
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
     end
 
     def colors

@@ -1,6 +1,6 @@
-module Stats
+module Stats::Public
   class ExpertsStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Expert.all.distinct
@@ -8,10 +8,6 @@ module Stats
 
     def additive_values
       true
-    end
-
-    def date_group_attribute
-      'experts.created_at'
     end
 
     def filtered(query)
@@ -35,6 +31,14 @@ module Stats
 
     def category_order_attribute
       Arel.sql('true')
+    end
+
+    def chart
+      'stats-chart'
+    end
+
+    def format
+      '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
     end
   end
 end
