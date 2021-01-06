@@ -1,13 +1,9 @@
-module Stats
+module Stats::Public
   class SolicitationsDiagnosesStats
-    include BaseStats
+    include ::Stats::BaseStats
 
     def main_query
       Solicitation.all
-    end
-
-    def date_group_attribute
-      'solicitations.created_at'
     end
 
     def with_diagnoses(query)
@@ -37,26 +33,15 @@ module Stats
       query = main_query
       query = filtered(query)
 
-      with_diagnoses = with_diagnoses(query)
-      without_diagnoses = without_diagnoses(query)
+      @with_diagnoses ||= with_diagnoses(query).values
+      @without_diagnoses ||= without_diagnoses(query).values
 
-      as_series(with_diagnoses, without_diagnoses)
+      as_series(@with_diagnoses, @without_diagnoses)
     end
 
     def count
-      solicitations = build_series
-      without_diagnoses_sum = solicitations[0][:data].sum
-      with_diagnoses_sum = solicitations[1][:data].sum
-      sum = with_diagnoses_sum + without_diagnoses_sum
-      sum != 0 ? "#{with_diagnoses_sum * 100 / sum}%" : "0"
-    end
-
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
-    end
-
-    def chart
-      'percentage-column-chart'
+      build_series
+      percentage_two_numbers(@with_diagnoses, @without_diagnoses)
     end
 
     def subtitle
@@ -69,11 +54,11 @@ module Stats
       [
         {
           name: I18n.t('stats.without_diagnoses'),
-            data: without_diagnoses.values
+            data: without_diagnoses
         },
         {
           name: I18n.t('stats.with_diagnoses'),
-            data: with_diagnoses.values
+            data: with_diagnoses
         }
       ]
     end
