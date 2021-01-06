@@ -53,7 +53,7 @@ module Stats::Public
     end
 
     def format
-      '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.stackTotal})'
+      '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.y})'
     end
 
     private
