@@ -8,9 +8,7 @@ module NafCode
   end
 
   def self.libelle_a10(naf_code_a10)
-    if naf_code_a10.nil?
-      return I18n.t('no_data')
-    end
+    return I18n.t('no_data') if naf_code_a10.nil?
     I18n.t(naf_code_a10, scope: 'libelle_naf_a10')
   end
 

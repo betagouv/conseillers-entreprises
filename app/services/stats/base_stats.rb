@@ -1,4 +1,10 @@
 module Stats
+  attr_reader :params
+
+  def initialize(params = {})
+    @params = OpenStruct.new(params)
+  end
+
   module BaseStats
     attr_reader :territory, :institution
 
@@ -13,6 +19,10 @@ module Stats
         @start_date = params.start_date.to_date
         @end_date = params.end_date.to_date || Date.today
       end
+    end
+
+    def date_group_attribute
+      'created_at'
     end
 
     def colors
@@ -55,13 +65,20 @@ module Stats
       @count ||= filtered(main_query).count
     end
 
+    def percentage_two_numbers(measured, others)
+      sum_measured = measured.sum
+      sum_others = others.sum
+      total = sum_measured + sum_others
+      total != 0 ? "#{(sum_measured * 100).fdiv(total).round}%" : "0"
+    end
+
     def format
       # Format for graph tooltip
-      '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
+      '{series.name} : <b>{point.percentage:.0f}%</b>'
     end
 
     def chart
-      'stats-chart'
+      'percentage-column-chart'
     end
 
     ## Overrides

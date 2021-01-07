@@ -1,21 +1,7 @@
-module Stats
-  class Stats
-    attr_reader :params
-
-    def initialize(params = {})
-      @params = OpenStruct.new(params)
-    end
-
-    def advisors
-      AdvisorsStats.new(@params)
-    end
-
+module Stats::Public
+  class All < Stats::All
     def companies_by_employees
       CompaniesByEmployeesStats.new(@params)
-    end
-
-    def needs
-      NeedsStats.new(@params)
     end
 
     def themes
@@ -26,10 +12,6 @@ module Stats
       ExpertsStats.new(@params)
     end
 
-    def matches
-      MatchesStats.new(@params)
-    end
-
     def solicitations_diagnoses
       SolicitationsDiagnosesStats.new(@params)
     end
@@ -38,20 +20,16 @@ module Stats
       SolicitationsStats.new(@params)
     end
 
-    def source
-      SourceStats.new(@params)
-    end
-
     def taking_care
       TakingCareTimeStats.new(@params)
     end
 
-    def exchange_with_expert
-      ExchangeWithExpertStats.new(@params)
-    end
-
     def companies_by_naf_code
       CompaniesByNafCodeStats.new(@params)
+    end
+
+    def exchange_with_expert
+      ExchangeWithExpertStats.new(@params)
     end
   end
 end
