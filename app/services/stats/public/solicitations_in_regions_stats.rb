@@ -1,23 +1,25 @@
 module Stats::Public
-  class SolicitationsDiagnosesStats
+  class SolicitationsInRegionsStats
     include ::Stats::BaseStats
 
     def main_query
       Solicitation.all
     end
 
-    def with_diagnoses(query)
+    def territories
+      Territory.where(id: YAML.safe_load(ENV['DEPLOYED_REGIONS_IDS']))
+    end
+
+    def in_regions(query)
       query
-        .joins(:diagnoses)
-        .where.not('diagnoses.id' => nil)
+        .by_territories(territories)
         .group_by_month(date_group_attribute)
         .count
     end
 
-    def without_diagnoses(query)
+    def out_of_regions(query)
       query
-        .left_outer_joins(:diagnoses)
-        .where('diagnoses.id IS NULL')
+        .where.not(id: Solicitation.by_territories(territories))
         .group_by_month(date_group_attribute)
         .count
     end
@@ -36,32 +38,32 @@ module Stats::Public
       query = main_query
       query = filtered(query)
 
-      @with_diagnoses ||= with_diagnoses(query).values
-      @without_diagnoses ||= without_diagnoses(query).values
+      @in_regions ||= in_regions(query).values
+      @out_of_regions ||= out_of_regions(query).values
 
-      as_series(@with_diagnoses, @without_diagnoses)
+      as_series(@in_regions, @out_of_regions)
     end
 
     def count
       build_series
-      percentage_two_numbers(@with_diagnoses, @without_diagnoses)
+      percentage_two_numbers(@in_regions, @out_of_regions)
     end
 
     def subtitle
-      I18n.t('stats.series.solicitations_diagnoses.subtitle_html')
+      I18n.t('stats.series.solicitations_in_regions.subtitle_html')
     end
 
     private
 
-    def as_series(with_diagnoses, without_diagnoses)
+    def as_series(in_regions, out_of_regions)
       [
         {
-          name: I18n.t('stats.without_diagnoses'),
-            data: without_diagnoses
+          name: I18n.t('stats.out_of_regions'),
+            data: out_of_regions
         },
         {
-          name: I18n.t('stats.with_diagnoses'),
-            data: with_diagnoses
+          name: I18n.t('stats.in_regions'),
+            data: in_regions
         }
       ]
     end

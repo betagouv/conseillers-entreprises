@@ -31,5 +31,9 @@ module Stats::Public
     def exchange_with_expert
       ExchangeWithExpertStats.new(@params)
     end
+
+    def solicitations_in_regions
+      SolicitationsInRegionsStats.new(@params)
+    end
   end
 end
