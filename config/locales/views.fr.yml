@@ -40,7 +40,6 @@ fr:
       problem_or_question: Un problème ? Une question ?
     insee_code_field:
       city: Ville
-      postal_code: Code postal
     navbar:
       account: Compte
       admin: Administration
