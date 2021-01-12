@@ -173,6 +173,8 @@ GEM
     equalizer (0.0.11)
     erubi (1.10.0)
     erubis (2.7.0)
+    ethon (0.12.0)
+      ffi (>= 1.3.0)
     execjs (2.7.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
@@ -237,7 +239,6 @@ GEM
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
       http-parser (~> 1.2.0)
-    http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
@@ -297,25 +298,17 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mailjet (1.5.4)
-      activesupport (>= 3.1.0)
-      rack (>= 1.4.0)
-      rest-client
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     metamagic (3.1.7)
       rails (>= 3.0.0)
     method_source (1.0.0)
-    mime-types (3.3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.1104)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     minitest (5.14.2)
     msgpack (1.3.3)
     multipart-post (2.1.1)
-    netrc (0.11.0)
     nio4r (2.5.4)
     nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
@@ -404,16 +397,13 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    recipient_interceptor (0.2.0)
+      mail
     ref (2.0.0)
     regexp_parser (1.8.2)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rest-client (2.1.0)
-      http-accept (>= 1.7.0, < 2.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
     rexml (3.2.4)
     rspec-core (3.10.0)
       rspec-support (~> 3.10.0)
@@ -485,6 +475,9 @@ GEM
     sexp_processor (4.15.1)
     shoulda-matchers (4.4.1)
       activesupport (>= 4.2.0)
+    sib-api-v3-sdk (7.2.0)
+      json (~> 2.1, >= 2.1.0)
+      typhoeus (~> 1.0, >= 1.0.1)
     spring (2.1.1)
     spring-commands-parallel-tests (1.0.1)
       spring (>= 0.9.1)
@@ -513,6 +506,8 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
+    typhoeus (1.4.0)
+      ethon (>= 0.9.0)
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
@@ -597,7 +592,6 @@ DEPENDENCIES
   kaminari
   letter_opener_web
   listen
-  mailjet
   metamagic
   parallel_tests
   pg
@@ -611,6 +605,7 @@ DEPENDENCIES
   rails-i18n
   rails_autolink
   rails_real_favicon
+  recipient_interceptor
   rspec-rails
   rspec_junit_formatter
   rubocop
@@ -623,6 +618,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-raven
   shoulda-matchers
+  sib-api-v3-sdk (~> 7.2)
   spring
   spring-commands-parallel-tests
   spring-commands-rspec

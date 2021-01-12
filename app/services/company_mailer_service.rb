@@ -19,10 +19,15 @@ class CompanyMailerService
     diagnoses = Diagnosis
       .min_closed_at(13.days.ago..12.days.ago)
       .not_newsletter_subscription_email_sent
+    api_instance = SibApiV3Sdk::ContactsApi.new
     diagnoses.each do |diagnosis|
-      contact = Mailjet::Contactslistsignup.all(email: diagnosis.visitee.email, contacts_list: ENV['MAILJET_NEWSLETTER_ID'])
-      CompanyMailer.newsletter_subscription(diagnosis).deliver_later if contact.blank?
-      diagnosis.update(newsletter_subscription_email_sent: true)
+      begin
+        contact = api_instance.get_contact_info(diagnosis.visitee.email)
+        CompanyMailer.newsletter_subscription(diagnosis).deliver_later unless contact.list_ids.include?(ENV['SENDINBLUE_NEWSLETTER_ID'].to_i)
+        diagnosis.update(newsletter_subscription_email_sent: true)
+      rescue SibApiV3Sdk::ApiError => e
+        Raven.capture_exception(e)
+      end
     end
   end
 end
