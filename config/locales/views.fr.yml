@@ -461,7 +461,7 @@ fr:
       visit_made_on: Mise en relation faite le %{date}
   newsletters:
     create:
-      error_mailjet: Une erreur s’est produite, merci de réessayer.
+      error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
     alert_region:

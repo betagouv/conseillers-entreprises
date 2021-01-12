@@ -2,13 +2,21 @@ class NewslettersController < PagesController
   def new; end
 
   def create
+    api_instance = SibApiV3Sdk::ContactsApi.new
+    contact_params = {
+      email: params[:email],
+      listIds: [ENV['SENDINBLUE_NEWSLETTER_ID'].to_i],
+      updateEnabled: true
+    }
+
     begin
-      Mailjet::Contactslist_managecontact.create(id: ENV['MAILJET_NEWSLETTER_ID'], action: "addforce", email: params[:email])
+      api_instance.create_contact(SibApiV3Sdk::CreateContact.new(contact_params))
       flash[:success] = t('.success_newsletter')
-    rescue StandardError => e
+    rescue SibApiV3Sdk::ApiError => e
       Raven.capture_exception(e)
-      flash[:warning] = t('.error_mailjet')
+      flash[:warning] = t('.error_newsletter_subscription')
     end
+
     redirect_back fallback_location: root_path
   end
 end

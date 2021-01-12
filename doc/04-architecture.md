@@ -109,8 +109,8 @@ Nous utilisons aussi des outils propres à la communauté betagouv et etalab:
  
 ### Services tiers
 
-* [Mailjet](https://www.mailjet.com) nous sert à envoyer les emails de confirmation, d’inscription, de notification… aux différents utilisateurs du service.
-* [ipinfo.io](https://ipinfo.io/) est utilisé de façon annexe. La géolocalisation IP est utilisée uniquement pour afficher une alerte si l’utilisateur semble se situer dans une région où Place des Entreprises n’est pas encore déployé. 
+* [Sendinblue](https://www.sendinblue.com/) nous sert à envoyer les emails de confirmation, d’inscription, de notification… aux différents utilisateurs du service.
+* [ipinfo.io](https://ipinfo.io/) est utilisé de façon annexe. La géolocalisation IP est utilisée uniquement pour afficher une alerte si l’utilisateur semble se situer dans une région où Place des Entreprises n’est pas encore déployé.
 
 ### Contrôle des accès
 

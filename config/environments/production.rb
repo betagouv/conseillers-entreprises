@@ -59,10 +59,17 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Actually send emails, but use Mailjet in production and Mailtrap in staging
+  # Actually send emails, but use sendinblue in production and Mailtrap in staging
   config.action_mailer.perform_caching = false
-  if ENV['MAILJET_API_PUBLIC_KEY'].present?
-    config.action_mailer.delivery_method = :mailjet
+  if ENV['SENDINBLUE_API_KEY'].present?
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      user_name: ENV['SENDINBLUE_USER_NAME'],
+      password: ENV['SENDINBLUE_SMTP_KEY'],
+      address: 'smtp-relay.sendinblue.com',
+      port: '587',
+      authentication: 'cram_md5'
+    }
   elsif ENV['MAILTRAP_USER_NAME'].present?
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -114,4 +121,13 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+end
+
+if ENV['STAGING_ENV'].present?
+  Mail.register_interceptor(
+    RecipientInterceptor.new(
+      ENV['INTERCEPTOR_EMAIL_RECIPIENTS'],
+      subject_prefix: '[STAGING]',
+    ),
+  )
 end
