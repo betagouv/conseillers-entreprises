@@ -3,7 +3,7 @@
 class AdminMailersService
   class << self
     def send_statistics_email
-      AdminMailer.weekly_statistics(public_stats_counts, reminders_counts).deliver_later
+      AdminMailer.weekly_statistics(public_stats_counts, reminders_counts).deliver_now
     end
 
     private
@@ -13,7 +13,7 @@ class AdminMailersService
         start_date: 1.week.ago.to_date,
         end_date: Date.today
       }
-      stats = Stats::Stats.new(params)
+      stats = Stats::Public::All.new(params)
       counts = %i[solicitations solicitations_diagnoses exchange_with_expert taking_care].index_with do |name|
         stats.send(name).count
       end

@@ -5,7 +5,7 @@
   - date_params = @public_stats_counts[:params].transform_values{ |date| I18n.l(date, format: :iso) }
   - @public_stats_counts[:counts].each do |name, count|
     .card.block-link
-      %h3.title= link_to count, stats_url(date_params.merge(anchor: "chart-#{name}"))
+      %h3.title= link_to count, public_index_url(date_params.merge(anchor: "chart-#{name}"))
       = t("stats.series.#{name}.title")
 
 %p= t('.reminders')
