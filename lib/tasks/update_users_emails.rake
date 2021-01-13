@@ -12,19 +12,23 @@ task update_users_emails: :environment do
     old_email = row.first
     new_email = row.last
     user = User.find_by(email: old_email)
-    if user.nil?
-      puts "Aucun utilisateur trouvé avec l’email #{old_email}"
+    expert = Expert.find_by(email: old_email)
+
+    puts "Utilisateur : #{user.to_s} /  #{user.antenne.to_s}" if user.present?
+    puts "Referent : #{user.to_s} /  #{user.antenne.to_s}" if expert.present?
+
+    if user.present? || expert.present?
+      puts "remplacer '#{old_email}' par '#{new_email}' ? Y/n"
+    else
+      puts "Aucun utilisateur ni referent n'a été trouvé avec l’email #{old_email}"
       next
     end
-    puts "Utilisateur : #{user.to_s} /  #{user.antenne.to_s}"
-    puts "remplacer '#{old_email}' par '#{new_email}' ? Y/n"
+
     response = $stdin.gets.chomp
     if response.empty? || response.casecmp('y').zero?
-      if user.update_columns(email: new_email)
-        puts "Ok"
-      else
-        puts "Erreur"
-      end
+      user.update_columns(email: new_email) if user.present?
+      expert.update_columns(email: new_email) if expert.present?
+      puts "Ok"
     else
       puts "Mise à jour annulée"
     end
