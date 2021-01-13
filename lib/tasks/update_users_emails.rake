@@ -1,7 +1,7 @@
 task update_users_emails: :environment do
   puts 'Mise à jour des emails utilisateurs'
   puts '---'
-  puts "Format du CSV : séparateur de colonne : ',', séparateur de ligne : ';'"
+  puts "Format du CSV : 'vieux_email1,nouvel_email1;vieux_email2,nouvel_email2;'"
   puts 'CSV au format text :'
   string = $stdin.gets.chomp
 
@@ -15,7 +15,7 @@ task update_users_emails: :environment do
     expert = Expert.find_by(email: old_email)
 
     puts "Utilisateur : #{user.to_s} /  #{user.antenne.to_s}" if user.present?
-    puts "Referent : #{user.to_s} /  #{user.antenne.to_s}" if expert.present?
+    puts "Referent : #{expert.to_s} /  #{expert.antenne.to_s}" if expert.present?
 
     if user.present? || expert.present?
       puts "remplacer '#{old_email}' par '#{new_email}' ? Y/n"
