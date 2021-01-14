@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_093049) do
+ActiveRecord::Schema.define(version: 2021_01_14_102724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -419,6 +419,8 @@ ActiveRecord::Schema.define(version: 2020_12_21_093049) do
     t.datetime "updated_at", null: false
     t.boolean "bassin_emploi", default: false, null: false
     t.bigint "support_contact_id"
+    t.integer "code_region"
+    t.index ["code_region"], name: "index_territories_on_code_region"
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
 

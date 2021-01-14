@@ -251,6 +251,7 @@ fr:
         advisors: Conseillers
         antennes: Antennes
         bassin_emploi: Bassin d’emploi?
+        code_region: Région
         experts: Experts
         support_contact: Contact support
       user:

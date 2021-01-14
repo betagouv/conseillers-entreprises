@@ -4,6 +4,7 @@
 #
 #  id                 :bigint(8)        not null, primary key
 #  bassin_emploi      :boolean          default(FALSE), not null
+#  code_region        :integer
 #  name               :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -11,6 +12,7 @@
 #
 # Indexes
 #
+#  index_territories_on_code_region         (code_region)
 #  index_territories_on_support_contact_id  (support_contact_id)
 #
 
@@ -44,7 +46,7 @@ class Territory < ApplicationRecord
   ## Scopes
   #
   scope :bassins_emploi, -> { where(bassin_emploi: true) }
-  scope :regions, -> { where(bassin_emploi: false) }
+  scope :regions, -> { where.not(code_region: nil) }
   scope :with_support, -> { where.not(support_contact_id: nil) }
 
   ##
