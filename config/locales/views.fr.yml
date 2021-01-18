@@ -585,7 +585,9 @@ fr:
       add_remove_badges: Ajouter / Enlever des tags
   stats:
     archived: Besoins abandonnés
+    in_regions: Demandes dans une région déployée
     other_status: Autres status
+    out_of_regions: Demandes hors régions déployées
     public:
       index:
         title: Statistiques d’utilisation
@@ -598,7 +600,7 @@ fr:
       companies_by_naf_code:
         title: Secteurs d’activité des entreprises utilisatrices du service
       exchange_with_expert:
-        subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020, grâce à l’ajout de nouvelles fonctionnalités permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais une même demande peut exprimer plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service. <br> La transmission d'un besoin à un conseiller est concluante lorsqu'elle donne lieu à un échange. Il peut arriver que l'entreprise soit injoignable.
+        subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020 grâce à l’ajout de nouvelles fonctionnalités, permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais il se peut qu’une même demande exprime plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service.
         title: des besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
         with_exchange: Avec échange
         without_exchange: Sans échange
@@ -625,8 +627,11 @@ fr:
         series: Demandes déposées
         title: demandes déposées par les entreprises
       solicitations_diagnoses:
-        subtitle: Pour le bon fonctionnement du service, seules les demandes qualifiées sont transmises. Les demandes sans aucun élément de contexte, touchant à la création d’entreprise ou encore exprimées dans une région non déployée, ne sont pas transmises.
-        title: de demandes transmises aux conseillers parmi les demandes déposées par les entreprises
+        subtitle_html: Pour le bon fonctionnement du service, seules les demandes qualifiées sont transmises. Les demandes sans aucun élément de contexte, avec des erreurs de siret ou touchant à la création d’entreprise, ne peuvent pas être transmises. <br/>Un taux élevé signifie que nous parvenons à obtenir des demandes de qualité, pouvant être facilement prise en charge par les conseillers. Un taux faible signifie que les demandes sont peu contextualisées ou comportent des erreurs rendant difficile leur traitement
+        title: de demandes dans les régions déployées transmises aux conseillers
+      solicitations_in_regions:
+        subtitle_html: 'Le service est déployé région par région, afin de constituer un carnet d’adresses rassemblant l’ensemble des partenaires publics et parapublics chargés d’accompagner les entreprises sur le territoire. La stratégie d’acquisition des besoins des TPE & PME suit ce déploiement régional progressif. Néanmoins, il arrive que des sollicitations soient déposées par des entreprises situées dans des régions non encore déployées.<br/>Précaution : cette statistique n’a de sens pour l’activité globale du service. Le filtre région ne fonctionne donc pas ici.'
+        title: de demandes provenant de régions où le service est ouvert
       source: Analyses d’entreprises
       source_category:
         direct: Sollicitations d’entreprises

@@ -175,6 +175,23 @@ RSpec.describe Solicitation, type: :model do
     it { is_expected.to eq [solicitation2] }
   end
 
+  describe '#by_territories' do
+    let(:territory1) { create :territory }
+    let(:territory2) { create :territory }
+    let(:solicitation1) { create :solicitation, :with_diagnoses }
+    let(:solicitation2) { create :solicitation, :with_diagnoses }
+    let(:solicitation3) { create :solicitation, :with_diagnoses }
+
+    before {
+      territory1.communes = [solicitation1.diagnoses.first.facility.commune]
+      territory2.communes = [solicitation2.diagnoses.first.facility.commune]
+    }
+
+    subject { described_class.by_territories([territory1, territory2]) }
+
+    it { is_expected.to match_array [solicitation1, solicitation2] }
+  end
+
   describe "#by_possible_territory" do
     let(:territory1) { create :territory, :region }
     # - solicitation avec facility dans un territoire connu

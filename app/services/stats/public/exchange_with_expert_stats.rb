@@ -3,7 +3,7 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed
+      Need.diagnosis_completed.where(created_at: Time.zone.local(2020, 9, 1)..)
     end
 
     def filtered(query)
@@ -53,7 +53,7 @@ module Stats::Public
     end
 
     def format
-      '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.stackTotal})'
+      '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.y})'
     end
 
     private

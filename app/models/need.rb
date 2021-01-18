@@ -193,8 +193,7 @@ class Need < ApplicationRecord
   end
 
   scope :without_exchange, -> do
-    where(status: [:not_for_me, :done_not_reachable])
-      .or(Need.where(status: [:taking_care, :quo]).archived(true))
+    where(status: [:not_for_me, :done_not_reachable, :quo, :taking_care])
   end
 
   scope :with_exchange, -> do
