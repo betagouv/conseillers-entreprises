@@ -20,10 +20,11 @@ class CompanyMailerService
       .min_closed_at(13.days.ago..12.days.ago)
       .not_newsletter_subscription_email_sent
     api_instance = SibApiV3Sdk::ContactsApi.new
+    list_contacts = api_instance.get_contacts_from_list(ENV['SENDINBLUE_NEWSLETTER_ID'].to_i)
+    list_emails = list_contacts.contacts.pluck(:email)
     diagnoses.each do |diagnosis|
       begin
-        contact = api_instance.get_contact_info(diagnosis.visitee.email)
-        CompanyMailer.newsletter_subscription(diagnosis).deliver_later unless contact.list_ids&.include?(ENV['SENDINBLUE_NEWSLETTER_ID'].to_i)
+        CompanyMailer.newsletter_subscription(diagnosis).deliver_later unless list_emails.include?(diagnosis.visitee.email)
         diagnosis.update(newsletter_subscription_email_sent: true)
       rescue SibApiV3Sdk::ApiError => e
         Raven.tags_context(email: diagnosis.visitee.email) do
