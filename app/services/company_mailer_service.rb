@@ -23,10 +23,12 @@ class CompanyMailerService
     diagnoses.each do |diagnosis|
       begin
         contact = api_instance.get_contact_info(diagnosis.visitee.email)
-        CompanyMailer.newsletter_subscription(diagnosis).deliver_later unless contact.list_ids.include?(ENV['SENDINBLUE_NEWSLETTER_ID'].to_i)
+        CompanyMailer.newsletter_subscription(diagnosis).deliver_later unless contact.list_ids&.include?(ENV['SENDINBLUE_NEWSLETTER_ID'].to_i)
         diagnosis.update(newsletter_subscription_email_sent: true)
       rescue SibApiV3Sdk::ApiError => e
-        Raven.capture_exception(e)
+        Raven.tags_context(email: diagnosis.visitee.email) do
+          Raven.capture_exception(e)
+        end
       end
     end
   end
