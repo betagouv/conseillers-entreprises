@@ -1,40 +1,61 @@
+import { exists, debounce } from '../shared/utils.js'
+import accessibleAutocomplete from 'accessible-autocomplete';
+
 (function () {
-  // See also views/application/_insee_code_field.html.haml
-  // Uses the api-adresse to load communes insee codes for a postal code, and fill the <option>s of a <select>.
-  addEventListener('turbolinks:load', setupInseeCodeFields)
+  addEventListener('turbolinks:load', setupCityAutocomplete)
 
-  function setupInseeCodeFields () {
-    const containers = document.querySelectorAll('.insee-code-field')
-    for (let i = 0; i < containers.length; i++) {
-      setupInseeCodeField(containers[i])
+  const SEARCH_URL = 'https://api-adresse.data.gouv.fr/search/?type=municipality&q='
+
+  function setupCityAutocomplete () {
+    const targetField = document.querySelector("[data-target='insee-code']")
+    const autocompleteField = document.querySelector("[data-action='city-autocomplete']")
+    if (exists(autocompleteField)) {
+      accessibleAutocomplete({
+        element: autocompleteField,
+        id: 'city_autocomplete',
+        showNoOptionsFound: false,
+        templates: {
+          inputValue: inputValueTemplate,
+          suggestion: suggestionTemplate
+        },
+        tAssistiveHint: () => autocompleteField.dataset.assistiveHint,
+        source: debounce(async (query, populateResults) => {
+          // display autocomplete suggestions
+          const res = await fetchSource(query, SEARCH_URL)
+          const results = res.features
+          populateResults(results)
+        }, 300),
+        onConfirm: (val) => {
+          if (val) {
+            targetField.value = val.properties.citycode
+          }
+        }
+      })
     }
   }
 
-  function setupInseeCodeField (container) {
-    const text_field = container.querySelector('input#postal_code')
-    text_field.addEventListener('input', () => loadInseeCodes(container, text_field))
+  // Récupération des résultats ----------------------------------------------------
+
+  async function fetchSource (query, url) {
+    query = query.trim().toLowerCase().replace(/[^a-zA-Z0-9 -]/, "").replace(/\s/g, "-");
+    const res = await fetch(
+      `${url}${encodeURIComponent(query)}`
+    )
+    const data = await res.json()
+    return data
   }
 
-  function loadInseeCodes (container, text_field) {
-    if (!text_field.validity.valid) {
-      return
-    }
+  // Traitement des résultats --------------------------------------------
 
-    const loader = container.querySelector('.insee-code-loader')
-    const select = container.querySelector('select#insee_code')
+  function suggestionTemplate (result) {
+    if (!result) return
+    const properties = result.properties
+    return result && `<span></span><strong> ${properties.city} </strong> - ${properties.postcode}</p>`
+  }
 
-    loader.classList.add('active')
-
-    const url = `https://api-adresse.data.gouv.fr/search/?type=municipality&q=${text_field.value}`
-    const request = new XMLHttpRequest()
-    request.open('GET', url)
-    request.addEventListener('load', function () {
-      loader.classList.remove('active')
-      select.length = 0
-      const json = JSON.parse(this.response)
-      const cities = json.features
-      cities.forEach(hash => select.add(new Option(hash.properties.name, hash.properties.citycode)))
-    })
-    request.send()
+  function inputValueTemplate (result) {
+    if (!result) return
+    return `${result.properties.city} - ${result.properties.postcode}`
   }
 })()
+
