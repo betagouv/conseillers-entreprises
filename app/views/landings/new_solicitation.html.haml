@@ -44,6 +44,10 @@
             .description
               %div= landing_option&.form_description&.html_safe
 
+  %section.section.section-white.out-region#container-newsletter{ "data-error": "newsletter" }
+    .container
+      = render 'newsletter'
+
   - unless in_iframe?
     %section.section.section-white.landing
       = render 'pages/how_it_works'
