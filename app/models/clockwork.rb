@@ -11,11 +11,11 @@ module Clockwork
     ExpertReminderService.delay.send_reminders
   end
 
-  every(1.day, 'send_newsletter_subscription_emails', at: ('9:41')) do
+  every(1.day, 'send_newsletter_subscription_emails', at: ('4:41')) do
     CompanyMailerService.delay.send_newsletter_subscription_emails
   end
 
-  every(1.day, 'send_satisfaction_emails', at: ('10:41')) do
+  every(1.day, 'send_satisfaction_emails', at: ('5:41')) do
     CompanyMailerService.delay.send_satisfaction_emails
   end
 end
