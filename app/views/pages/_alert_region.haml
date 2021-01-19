@@ -1,4 +1,4 @@
-- if ENV['DEPLOYED_REGIONS_IDS'].present? && !session[:in_deployed_region]
+- if ENV['DEPLOYED_REGIONS_CODES'].present? && !session[:in_deployed_region]
   .notification.full-width.error.region-alerte
     .container
       %p= t('pages.alert_region.alert_region_html')
