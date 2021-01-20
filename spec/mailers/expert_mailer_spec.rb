@@ -34,7 +34,7 @@ describe ExpertMailer do
       let(:expert) { create :expert, users: expert_members }
 
       context 'solo expert, never use' do
-        let(:expert_members) { [build(:user, invitation_sent_at: nil, encrypted_password: '')] }
+        let(:expert_members) { [build(:user, invitation_accepted_at: nil)] }
 
         it do
           expect_any_instance_of(User).to receive(:send_reset_password_instructions).once
@@ -44,7 +44,7 @@ describe ExpertMailer do
       end
 
       context 'solo expert, used account' do
-        let(:expert_members) { [build(:user, invitation_sent_at: DateTime.now, encrypted_password: 'password')] }
+        let(:expert_members) { [build(:user, invitation_accepted_at: DateTime.now)] }
 
         it do
           expect_any_instance_of(User).not_to receive(:send_reset_password_instructions)

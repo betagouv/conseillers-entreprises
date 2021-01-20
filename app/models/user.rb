@@ -201,7 +201,7 @@ class User < ApplicationRecord
   end
 
   def never_used_account?
-    invitation_sent_at.nil? && encrypted_password.blank?
+    invitation_accepted_at.nil?
   end
 
   ## Deactivation and soft deletion

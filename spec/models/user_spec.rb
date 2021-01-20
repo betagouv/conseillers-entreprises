@@ -152,13 +152,13 @@ RSpec.describe User, type: :model do
     subject { user.never_used_account? }
 
     context 'blank user' do
-      let(:user) { build :user, invitation_sent_at: nil, encrypted_password: '' }
+      let(:user) { build :user, invitation_accepted_at: nil }
 
       it{ is_expected.to be_truthy }
     end
 
     context 'active user' do
-      let(:user) { build :user, invitation_sent_at: DateTime.now, encrypted_password: 'password' }
+      let(:user) { build :user, invitation_accepted_at: DateTime.now }
 
       it{ is_expected.to be_falsey }
     end
