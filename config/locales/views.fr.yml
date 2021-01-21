@@ -126,7 +126,7 @@ fr:
       archived: Archivées
       processed: Traitées
     company_details:
-      company_details: Voir le detail de l’entreprise
+      company_details: Voir le détail de l’entreprise
       need_without_siret: Analyse sans SIRET
     diagnoses_tabs:
       archived: Archivées
@@ -456,7 +456,7 @@ fr:
         one: "%{advisor} a identifié un besoin."
         other: "%{advisor} a identifié %{count} besoins."
       person_advisor: Conseiller
-      person_company_contact: Personne rencontrée
+      person_company_contact: Contact entreprise
       visit_made_on: Mise en relation faite le %{date}
   newsletters:
     create:
