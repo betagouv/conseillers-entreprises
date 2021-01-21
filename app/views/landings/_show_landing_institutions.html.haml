@@ -2,5 +2,5 @@
   %h2.section__subtitle= t('.institutions')
   .logo-list
     = region_image(session[:region])
-    - landing.logos.split(' ').each do |logo_slug|
+    - landing.logos.split.each do |logo_slug|
       = institution_image(logo_slug)

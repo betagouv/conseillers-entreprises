@@ -69,7 +69,7 @@ module Stats
       sum_measured = measured.sum
       sum_others = others.sum
       total = sum_measured + sum_others
-      total != 0 ? "#{(sum_measured * 100).fdiv(total).round}%" : "0"
+      total == 0 ? "0" : "#{(sum_measured * 100).fdiv(total).round}%"
     end
 
     def format
