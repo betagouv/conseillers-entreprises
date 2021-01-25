@@ -42,6 +42,7 @@ gem 'devise_invitable'
 gem 'user_impersonate2', require: 'user_impersonate'
 gem 'pundit'
 gem 'activerecord-postgres_enum'
+gem 'auto_strip_attributes'
 
 # Charts
 gem 'groupdate'

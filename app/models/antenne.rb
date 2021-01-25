@@ -37,8 +37,9 @@ class Antenne < ApplicationRecord
   # Same as :advisors, but excluding deleted users; this makes it possible to preload not_deleted users in views.
   has_many :not_deleted_advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
 
-  ## Validations
+  ## Hooks and Validations
   #
+  auto_strip_attributes :name
   validates :name, presence: true, uniqueness: { scope: :institution_id }
   validates :institution, presence: true
 
