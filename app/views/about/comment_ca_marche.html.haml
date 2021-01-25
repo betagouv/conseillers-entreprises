@@ -13,8 +13,8 @@
   .container
     %h2 Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 50 partenaires publics et parapublics :
     .logo-list
-      = region_image(session[:region])
-      = all_institutions_images(session[:region])
+      = region_image(session[:region_code])
+      = all_institutions_images(session[:region_code])
     .row.partners-list
       - @institutions.each do |institutions_column|
         %ul
