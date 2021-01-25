@@ -20,7 +20,7 @@ module NestedErrorsHelper
 
     return if level > 3 # safety net: relationships may indefinitely nest errors
 
-    main_message = errors.full_messages.to_sentence || object.to_s
+    main_message = errors.full_messages.uniq.to_sentence || object.to_s
     main_message = '• ' * level + main_message + "\n"
 
     sub_messages = errors.details.values.flatten.flat_map do |hash|
