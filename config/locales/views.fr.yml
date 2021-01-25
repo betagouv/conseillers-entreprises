@@ -481,6 +481,7 @@ fr:
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
       placeholder_email: Votre adresse email
       received_news: 'Découvrez les nouveaux accompagnements publics :'
+      select_region: Votre région
       subscribe: S’abonner
   partner_tools:
     inserts:

@@ -87,3 +87,18 @@ section#section-formulaire .solicitation-form
 
 #find-siret
   white-space: nowrap
+
+#container-newsletter
+  form
+    max-width: 55rem
+    .input__group
+      justify-content: center
+      input#email
+        max-width: 27rem
+        margin-right: 1rem
+      @media(max-width: 750px)
+        flex-direction: column
+        select
+          margin: 1rem 0
+        .button
+          margin: 0

@@ -8,5 +8,5 @@
   .form__group
     .input__group
       = f.email_field :email, placeholder: t('.placeholder_email'), 'aria-label': t('.placeholder_email'), required: true, value: local_assigns[:email]
-      = f.hidden_field :region_code
+      = f.select :region_code, options_from_collection_for_select(regions_list, :first, :last, :region_code), { prompt: t('.select_region') }, 'aria-label': t('.select_region')
       = f.submit t('.subscribe'), class: 'button bold'
