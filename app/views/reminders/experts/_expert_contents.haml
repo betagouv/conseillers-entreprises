@@ -35,12 +35,12 @@
             = abandoned_count
             .detail{ title: t('.received_needs_abandoned_quo_not_taken_tooltip') }
               = t('.received_needs_abandoned_quo_not_taken')
-          - abandoned_count = expert.needs_taking_care.abandoned.count
+          - abandoned_count = expert.needs_taking_care.diagnosis_completed.size
           = link_to needs_taking_care_reminders_expert_path(expert), class: "ui label #{abandoned_count > 0 ? 'yellow' : 'basic'}" do
             = abandoned_count
             .detail{ title: t('.received_needs_abandoned_taking_care_tooltip') }
               = t('.received_needs_abandoned_taking_care')
-          - abandoned_count = expert.needs_others_taking_care.abandoned.count
+          - abandoned_count = expert.needs_others_taking_care.diagnosis_completed.size
           = link_to needs_taking_care_by_others_reminders_expert_path(expert), class: "ui label #{abandoned_count > 0 ? 'yellow' : 'basic'}" do
             = abandoned_count
             .detail{ title: t('.received_needs_abandoned_others_taking_care_tooltip') }
