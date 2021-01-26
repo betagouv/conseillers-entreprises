@@ -106,16 +106,19 @@ class Need < ApplicationRecord
 
   scope :reminders_to, -> (action) do
     if action == :archive
-      query1 = archived(false)
+      query1 = diagnosis_completed
+        .archived(false)
         .in_reminders_range(action)
         .with_matches_only_in_status([:quo, :not_for_me])
 
-      query2 = archived(false)
+      query2 = diagnosis_completed
+        .archived(false)
         .status_not_for_me
 
       query1.or(query2)
     else # :poke, :recall and :warn
-      archived(false)
+      diagnosis_completed
+        .archived(false)
         .in_reminders_range(action)
         .reminding_may_help
         .without_action(action)
