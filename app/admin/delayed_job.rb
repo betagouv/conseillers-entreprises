@@ -1,4 +1,6 @@
-ActiveAdmin.register Delayed::Job, as: 'Jobs' do
+require 'delayed/backend/active_record'
+
+ActiveAdmin.register Delayed::Backend::ActiveRecord::Job, as: 'Jobs' do
   menu priority: 2
   actions :index, :show, :destroy
 
