@@ -13,6 +13,6 @@ module InstitutionsHelper
 
   def institution_image(name, extra_params = {})
     params = { class: 'institution_logo' }
-    display_image({ name: name, path: "institutions/", extra_params: params })
+    display_image(name: name, path: "institutions/", extra_params: params)
   end
 end
