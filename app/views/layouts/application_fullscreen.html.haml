@@ -1,4 +1,4 @@
--# See also AutoFullscreenLayout
+-# See also auto_full_screen_layout.rb
 !!!
 %html
   = render 'head'
@@ -7,7 +7,7 @@
     = render 'environment_ribbon'
     = render 'user_impersonate'
 
-    -# By default, link_to uses the current request path; we just add the fullscreen param. See also AutoFullScreenLayout.
+    -# By default, link_to uses the current request path; we just remove the fullscreen param.
     = link_to({}, class: 'button-exit-fullscreen') do
       .ui.small.circular.icon.button
         %i.close.icon{ title: t('exit_fullscreen') }

@@ -2,10 +2,17 @@
 
 module IframePrefix
   extend ActiveSupport::Concern
-  # Allow the routes of a controller to be served inside an optional iframe,
-  # with working navigation inside the iframe.
-  # The routes for the controller must be scoped, like that:
-  # scope path: "(:iframe_prefix)", iframe_prefix: /my_nice_prefix?/, defaults: {iframe_prefix: nil}
+  # Allow the routes of a controller to be served inside an iframe.
+  # Features:
+  # * the adopting controller can be served both in an iframe or regularly
+  # * the views can now if they’re being rendered within an iframe
+  # * links from the iframe keep working within the iframe,
+  #   * only if the target url can be rendered in the iframe.
+  #
+  # See also:
+  # * routes.rb: The controller must be scoped, like that:
+  #   `scope path: "(:iframe_prefix)", iframe_prefix: /my_nice_prefix?/, defaults: {iframe_prefix: nil}`
+  # * iframe_external_links.js: The <a href=''> links in the page are automatically tweaked to target the iframe.
   included do
     helper OverrideUrlFor # Insert our implementation in the helpers stack to customize url_for.
 
@@ -16,30 +23,42 @@ module IframePrefix
   end
 
   def detect_iframe_prefix
-    params # side-effect: Make sure @iframe_prefix is set.
+    params
+    # Implementation Note: A side-effect of calling params is to make sure @iframe_prefix is set.
   end
 
   def params
     clean_params = super
+    # Note: :iframe_prefix is the name of the optional parameter defined in routes.rb.
     @iframe_prefix ||= clean_params.delete(:iframe_prefix)
+    # Implementation Note: clean_params actually points to an instance variable of a superclass, which we’re modifying.
+    # It means that on the second call, clean_params doesn’t contain :iframe_prefix anymore.
     clean_params
   end
 
   def allow_in_iframe
+    # Note: ActionDispatch sets "X-Frame-Options" => "SAMEORIGIN" by default,
+    # which prevents a page to be displayed in an iframe.
     response.headers.except! 'X-Frame-Options'
   end
 
-  # We want in_iframe? to be available both in template (as a helper method) and in controllers
+  # Implementation Note:
+  # We want in_iframe? to be available both in template (as a helper method) and in controllers.
+  # The InIframe module is included in SharedController…
   module InIframe
     extend ActiveSupport::Concern
-    included { helper_method :in_iframe? }
+    included { helper_method :in_iframe? } # … and this makes the in_iframe? method available in all views.
 
     def in_iframe?
       @iframe_prefix.present?
     end
   end
 
-  # Override :url_for
+  # We also override :url_for so that links to iframe-compatible routes are correctly routed.
+  # i.e., `link_to landing_page` returns normally a link to `/aide-entreprises/<slug>`,
+  # and instead this makes it return `/<iframe_prefix>/aide-entreprises/<slug>`.
+  #
+  # Note: See also iframe_external_links.js for the
   module OverrideUrlFor
     # :url_for is called, via :link_to or the `*_path` helpers, in the view templates.
     def url_for(args)

@@ -1,4 +1,7 @@
 module CsvExport
+  # CSV Export facility.
+  # Instantiate a model-specific exporter and run it.
+  # See also csv_export/base_exporter.rb
   def self.export(relation, options = {})
     klass = relation.klass
     exporter_klass = "CsvExport::#{klass}Exporter".constantize

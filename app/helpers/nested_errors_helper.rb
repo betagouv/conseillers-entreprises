@@ -14,6 +14,8 @@ module NestedErrorsHelper
   #     }
   #   ]
   # }
+  #
+  # Note: this is primarily used for csv_import.
   def nested_errors_messages(object, level = 0)
     errors = object.errors
     return if errors.empty?

@@ -154,7 +154,7 @@ class User < ApplicationRecord
 
   ## Relevant Experts stuff
   # User objects fetched through this scope have an additional attribute :relevant_expert_id
-  # (This scope will return several rows for the same user, if there are several relevant experts.)
+  # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)
   scope :relevant_for_skills, -> do
     not_deleted
       .joins(:relevant_experts)
