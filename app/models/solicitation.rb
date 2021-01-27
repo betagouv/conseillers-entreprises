@@ -256,4 +256,8 @@ class Solicitation < ApplicationRecord
   def allowed_new_statuses
     self.class.statuses.keys - [self.status]
   end
+
+  def transmitted_at
+    diagnoses.pluck(:completed_at).compact&.min
+  end
 end

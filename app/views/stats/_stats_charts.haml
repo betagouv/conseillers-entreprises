@@ -1,4 +1,4 @@
-- cache("stats_charts-#{stats.params}", expires_in: 1.hour) do
+- cache([stats, charts_names], expires_in: 1.hour) do
   #stats-charts
-    - @charts_names.each do |name|
+    - charts_names.each do |name|
       = render 'stats/stats_chart', stats: stats, name: name

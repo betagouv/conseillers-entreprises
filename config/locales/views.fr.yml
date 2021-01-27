@@ -586,6 +586,8 @@ fr:
   stats:
     archived: Besoins abandonnés
     in_regions: Demandes dans une région déployée
+    less_than_72h: Moins de 72h
+    more_than_72h: Plus de 72h
     other_status: Autres status
     out_of_regions: Demandes hors régions déployées
     public:
@@ -642,6 +644,8 @@ fr:
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
         title: Thématiques choisies par les entreprises
+      transmitted_less_than_72h_stats:
+        title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
     stats_params:
       end_date: Date de fin
       region: Région
