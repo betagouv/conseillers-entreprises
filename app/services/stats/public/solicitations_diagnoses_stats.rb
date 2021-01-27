@@ -17,7 +17,7 @@ module Stats::Public
     def without_diagnoses(query)
       query
         .left_outer_joins(:diagnoses)
-        .where(diagnoses: { id: nil })
+        .where('diagnoses.id IS NULL')
         .group_by_month(date_group_attribute)
         .count
     end

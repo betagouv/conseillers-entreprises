@@ -1,7 +1,4 @@
-- if recipient.received_needs.exists?
-  .ui.message
-    .content.header= t('.title')
-- else
+- if !recipient.received_needs.exists?
   -# If the recipient never received anything, display a welcome message.
   .ui.icon.info.message
     %i.icon.inbox
@@ -10,3 +7,6 @@
       - emails = recipient.experts.pluck(:email)
       %p= t('.welcome_subtitle_emails', emails: emails.to_sentence, count: emails.size)
       %p= t('.welcome_help_html', mailto_link: mailto_contact_us(t('contact_us').capitalize))
+- else
+  .ui.message
+    .content.header= t('.title')
