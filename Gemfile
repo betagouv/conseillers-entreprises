@@ -89,7 +89,7 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'spring-commands-parallel-tests'
   gem "dotenv-rails"
-  # gem "debase"
+  gem "debase"
 end
 
 group :development do

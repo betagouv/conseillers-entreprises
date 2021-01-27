@@ -337,11 +337,6 @@ Lint/EachWithObjectArgument:
 Lint/ElseLayout:
   Enabled: true
 
-Lint/EmptyBlock:
-  Enabled: true
-  Exclude:
-    - 'spec/**/*'
-
 Lint/EmptyEnsure:
   Enabled: true
 
@@ -1354,14 +1349,14 @@ Style/YodaCondition:
 Style/ZeroLengthPredicate:
   Enabled: false
 
-I18n/RailsI18n:
+RailsI18n:
   Enabled: true
   Exclude:
     - 'lib/tasks/*.rake'
     - 'spec/**/*'
 
-I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
+RailsI18n/DecorateStringFormattingUsingInterpolation:
   Enabled: false
 
-I18n/GetText:
+GetText:
   Enabled: false
