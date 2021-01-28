@@ -64,7 +64,7 @@ ActiveAdmin.register Territory do
       row :name
       row :bassin_emploi
       row :code_region do |t|
-        div I18n.t(t.code_region, scope: 'regions_codes_to_libelles')
+        div I18n.t(t.code_region, scope: 'regions_codes_to_libelles', default: "")
       end
       row :support_contact
       row(:communes) do |t|

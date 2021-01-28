@@ -66,7 +66,7 @@ ActiveAdmin.register Institution do
       end
       row :logo_sort_order
       row(:code_region) do |i|
-        I18n.t(i.code_region, scope: 'regions_codes_to_libelles')
+        I18n.t(i.code_region, scope: 'regions_codes_to_libelles', default: "")
       end
       row :show_on_list
     end
