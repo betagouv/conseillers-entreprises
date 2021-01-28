@@ -88,6 +88,7 @@ class Match < ApplicationRecord
 
   scope :sent, -> { where(id: joins(:diagnosis).merge(Diagnosis.step_completed)) }
 
+  # TODO #1367 The :active and :active_abandoned scopes should be removed.
   scope :active, -> do
     joins(:need)
       .merge(Need.active)

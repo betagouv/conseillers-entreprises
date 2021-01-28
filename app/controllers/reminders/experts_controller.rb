@@ -7,6 +7,10 @@ module Reminders
 
     def index
       experts_pool = @territory&.all_experts || Expert.all
+      # TODO: #1367 the list of experts here should actually be built from
+      # the needs in the collections in Reminders::NeedsController (for poke, recall, warn and archive).
+      # We don’t want all the experts for these needs: we want just the ones who didn’t respond to the match, yet.
+      # (It probably is some ruby code, not an ActiveRecord query.)
       @active_experts = experts_pool.with_active_abandoned_matches.includes(:antenne).sort_by do |expert|
         expert.needs_quo.abandoned.count
       end.reverse

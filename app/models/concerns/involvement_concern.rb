@@ -1,6 +1,9 @@
 module InvolvementConcern
   extend ActiveSupport::Concern
 
+  # These methods can be called on any object that implements #received_needs
+  # i.e. Experts, Antennes and Institutions.
+
   def needs_quo
     received_needs
       .where(matches: received_matches.status_quo)
