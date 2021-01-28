@@ -169,12 +169,12 @@ module DiagnosisCreation
       self
     end
   end
-end
 
-def get_solicitation_description(params)
-  if params[:solicitation].present?
-    params[:solicitation].description
-  elsif params[:solicitation_id].present?
-    Solicitation.find(params[:solicitation_id])&.description
+  def self.get_solicitation_description(params)
+    if params[:solicitation].present?
+      params[:solicitation].description
+    elsif params[:solicitation_id].present?
+      Solicitation.find(params[:solicitation_id])&.description
+    end
   end
 end
