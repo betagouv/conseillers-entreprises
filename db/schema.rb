@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_18_143631) do
+ActiveRecord::Schema.define(version: 2021_01_25_130337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_01_18_143631) do
     t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
     t.index ["name", "institution_id"], name: "index_antennes_on_name_and_institution_id", unique: true
+    t.index ["updated_at"], name: "index_antennes_on_updated_at"
   end
 
   create_table "antennes_communes", id: false, force: :cascade do |t|
@@ -260,6 +261,7 @@ ActiveRecord::Schema.define(version: 2021_01_18_143631) do
     t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
     t.index ["name"], name: "index_institutions_on_name", unique: true
     t.index ["slug"], name: "index_institutions_on_slug", unique: true
+    t.index ["updated_at"], name: "index_institutions_on_updated_at"
   end
 
   create_table "institutions_subjects", force: :cascade do |t|
@@ -271,6 +273,7 @@ ActiveRecord::Schema.define(version: 2021_01_18_143631) do
     t.index ["institution_id"], name: "index_institutions_subjects_on_institution_id"
     t.index ["subject_id", "institution_id", "description"], name: "unique_institution_subject_in_institution", unique: true
     t.index ["subject_id"], name: "index_institutions_subjects_on_subject_id"
+    t.index ["updated_at"], name: "index_institutions_subjects_on_updated_at"
   end
 
   create_table "landing_options", force: :cascade do |t|
@@ -432,6 +435,7 @@ ActiveRecord::Schema.define(version: 2021_01_18_143631) do
     t.integer "interview_sort_order"
     t.index ["interview_sort_order"], name: "index_themes_on_interview_sort_order"
     t.index ["label"], name: "index_themes_on_label", unique: true
+    t.index ["updated_at"], name: "index_themes_on_updated_at"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

@@ -15,9 +15,10 @@
 # Indexes
 #
 #  index_institutions_on_code_region  (code_region)
-#  index_institutions_on_deleted_at   (deleted_at)
-#  index_institutions_on_name         (name) UNIQUE
-#  index_institutions_on_slug         (slug) UNIQUE
+#  index_institutions_on_deleted_at  (deleted_at)
+#  index_institutions_on_name        (name) UNIQUE
+#  index_institutions_on_slug        (slug) UNIQUE
+#  index_institutions_on_updated_at  (updated_at)
 #
 
 class Institution < ApplicationRecord
