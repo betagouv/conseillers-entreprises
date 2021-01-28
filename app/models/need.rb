@@ -76,6 +76,7 @@ class Need < ApplicationRecord
 
   # :facility
   has_many :facility_territories, through: :facility, source: :territories, inverse_of: :needs
+  has_many :facility_regions, -> { regions }, through: :facility, source: :territories, inverse_of: :matches
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_needs

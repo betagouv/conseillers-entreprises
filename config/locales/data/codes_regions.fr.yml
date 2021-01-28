@@ -1,0 +1,59 @@
+---
+fr:
+  regions_codes_to_libelles:
+    '1': Guadeloupe
+    '11': Île-de-France
+    '2': Martinique
+    '24': Centre-Val de Loire
+    '27': Bourgogne-Franche-Comté
+    '28': Normandie
+    '3': Guyane
+    '32': Hauts-de-France
+    '4': La Réunion
+    '44': Grand Est
+    '5': Mayotte
+    '52': Pays de la Loire
+    '53': Bretagne
+    '75': Nouvelle-Aquitaine
+    '76': Occitanie
+    '84': Auvergne-Rhône-Alpes
+    '93': Provence-Alpes-Côte d’Azur
+    '94': Corse
+  regions_codes_to_slugs:
+    '1': guadeloupe
+    '11': ile-de-france
+    '2': martinique
+    '24': centre-val-de-loire
+    '27': bourgogne-franche-comte
+    '28': normandie
+    '3': guyane
+    '32': hauts-de-france
+    '4': la-reunion
+    '44': grand-est
+    '5': mayotte
+    '52': pays-de-la-loire
+    '53': bretagne
+    '75': nouvelle-aquitaine
+    '76': occitanie
+    '84': auvergne-rhone-alpes
+    '93': provence-alpes-cote-d-azur
+    '94': corse
+  regions_slugs_to_codes:
+    auvergne-rhone-alpes: 84
+    bourgogne-franche-comte: 27
+    bretagne: 53
+    centre-val-de-loire: 24
+    corse: 94
+    grand-est: 44
+    guadeloupe: 1
+    guyane: 3
+    hauts-de-france: 32
+    ile-de-france: 11
+    la-reunion: 4
+    martinique: 2
+    mayotte: 5
+    normandie: 28
+    nouvelle-aquitaine: 75
+    occitanie: 76
+    pays-de-la-loire: 52
+    provence-alpes-cote-d-azur: 93

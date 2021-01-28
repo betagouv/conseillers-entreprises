@@ -8,7 +8,7 @@ module CsvExport
         visitee: -> { diagnosis.visitee.email },
         siret: -> { facility.siret },
         commune: -> { facility.commune },
-        facility_regions: -> { facility_regions&.pluck(:name).join(", ") },
+        facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
         created_at: :created_at,
         advisor: :advisor,
         advisor_antenne: :advisor_antenne,

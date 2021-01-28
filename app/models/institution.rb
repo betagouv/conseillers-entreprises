@@ -3,10 +3,10 @@
 # Table name: institutions
 #
 #  id              :bigint(8)        not null, primary key
+#  code_region     :integer
 #  deleted_at      :datetime
 #  logo_sort_order :integer
 #  name            :string           not null
-#  region_name     :string
 #  show_on_list    :boolean          default(FALSE)
 #  slug            :string           not null
 #  created_at      :datetime         not null
@@ -14,9 +14,10 @@
 #
 # Indexes
 #
-#  index_institutions_on_deleted_at  (deleted_at)
-#  index_institutions_on_name        (name) UNIQUE
-#  index_institutions_on_slug        (slug) UNIQUE
+#  index_institutions_on_code_region  (code_region)
+#  index_institutions_on_deleted_at   (deleted_at)
+#  index_institutions_on_name         (name) UNIQUE
+#  index_institutions_on_slug         (slug) UNIQUE
 #
 
 class Institution < ApplicationRecord

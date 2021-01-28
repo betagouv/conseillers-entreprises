@@ -97,7 +97,7 @@ ActiveAdmin.register Solicitation do
     end
     column(:diagnoses) { |s| s.diagnoses.ids.join(",") }
     column(:badges) { |s| s.badges.map(&:to_s).join(",") }
-    column(:regions) { |s| s.diagnoses_regions&.pluck(:name).join(", ") }
+    column(:regions) { |s| s.diagnoses_regions&.pluck(:name).uniq.join(", ") }
     Solicitation.all_past_landing_options_slugs.each do |landing|
       column landing, humanize_name: false do |s|
         s.landing_options_slugs&.include?(landing) ? I18n.t('yes') : ''

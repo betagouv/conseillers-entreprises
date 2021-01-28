@@ -14,15 +14,10 @@ module GeocoderIp
         Geocoder.search(ip)
       end
       result_name = results.first&.region || '' # to prevent "Geocoding API error: 429 Too Many Requests"
-      current_region_name = "région #{result_name}".parameterize
-      deployed_region_ids = YAML.safe_load(ENV['DEPLOYED_REGIONS_IDS'])
-      deployed_regions_names = Rails.cache.fetch(deployed_region_ids) do
-        Territory.where(id: deployed_region_ids)
-          &.pluck(:name)
-          &.map(&:parameterize)
-      end
-      session[:in_deployed_region] = deployed_regions_names.include? current_region_name
-      session[:region] = result_name
+      current_region_code = I18n.t(result_name.parameterize, scope: 'regions_slugs_to_codes')
+      deployed_region_code = YAML.safe_load(ENV['DEPLOYED_REGIONS_CODES'])
+      session[:in_deployed_region] = deployed_region_code.include? current_region_code
+      session[:region_code] = current_region_code
     end
   end
 end

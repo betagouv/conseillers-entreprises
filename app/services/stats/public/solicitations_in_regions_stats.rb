@@ -7,7 +7,7 @@ module Stats::Public
     end
 
     def territories
-      Territory.where(id: YAML.safe_load(ENV['DEPLOYED_REGIONS_IDS']))
+      Territory.where(code_region: YAML.safe_load(ENV['DEPLOYED_REGIONS_CODES']))
     end
 
     def in_regions(query)

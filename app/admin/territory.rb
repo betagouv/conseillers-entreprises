@@ -11,6 +11,7 @@ ActiveAdmin.register Territory do
 
   scope :all, default: true
   scope :bassins_emploi
+  scope :regions
 
   index do
     selectable_column
@@ -18,6 +19,9 @@ ActiveAdmin.register Territory do
       div admin_link_to(t)
       if t.bassin_emploi
         div status_tag :bassin_emploi, class: 'ok'
+      end
+      if t.code_region
+        div status_tag :region, class: 'ok'
       end
     end
     column(:communes) do |t|
@@ -43,6 +47,7 @@ ActiveAdmin.register Territory do
   csv do
     column :name
     column :bassin_emploi
+    column :code_region
     column_count :communes
     column_count :antennes
     column_count :advisors
@@ -58,6 +63,9 @@ ActiveAdmin.register Territory do
     attributes_table do
       row :name
       row :bassin_emploi
+      row :code_region do |t|
+        div I18n.t(t.code_region, scope: 'regions_codes_to_libelles', default: "")
+      end
       row :support_contact
       row(:communes) do |t|
         div admin_link_to(t, :communes)
@@ -81,12 +89,13 @@ ActiveAdmin.register Territory do
 
   ## Form
   #
-  permit_params :name, :insee_codes, :bassin_emploi, :support_contact_id
+  permit_params :name, :insee_codes, :bassin_emploi, :code_region, :support_contact_id
 
   form do |f|
     f.inputs do
       f.input :name
       f.input :bassin_emploi
+      f.input :code_region, as: :select, collection: regions_list.map{ |r| [r.last, r.first] }
       f.input :support_contact, collection: User.admin.not_deleted
     end
     f.inputs do
