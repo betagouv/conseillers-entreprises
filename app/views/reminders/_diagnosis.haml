@@ -7,7 +7,7 @@
           .sub.header= I18n.l(diagnosis.display_date, format: :long)
   .ui.segment.needs
     - if diagnosis.step_completed?
-      - diagnosis.needs.each do |need|
+      - diagnosis.needs.reminders_to(action).each do |need|
         %h3.ui.header
           %span
             = need.subject
