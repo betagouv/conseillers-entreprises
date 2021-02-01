@@ -20,7 +20,7 @@
     .container.container-medium
       = render 'new_solicitation_thank_you', solicitation: @solicitation
   - unless in_iframe?
-    %section.section.section-white#container-newsletter
+    %section.section.section-white.container-newsletter
       .container
         = render 'newsletter', email: @solicitation.email
 
@@ -44,7 +44,7 @@
             .description
               %div= landing_option&.form_description&.html_safe
 
-  %section.section.section-white.out-region#container-newsletter{ "data-error": "newsletter" }
+  %section.section.section-white.out-region.container-newsletter#newsletter{ "data-error": "newsletter" }
     .container
       = render 'newsletter'
 

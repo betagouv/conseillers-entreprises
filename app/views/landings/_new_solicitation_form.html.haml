@@ -20,8 +20,7 @@
           .notification.warning.out-region{ "data-error": "not-in-deployed-region" }
             = image_tag('info-alert-orange.png', alt: '')
             = t(".attributes.help.not_in_deployed_region_html")
-            %br
-            = link_to t('.clic_newsletter'), '#container-newsletter'
+            = link_to t('.clic_newsletter'), '#newsletter'
         - else
           = f.label field
           - if help.present?
