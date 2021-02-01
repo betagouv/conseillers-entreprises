@@ -1,5 +1,6 @@
 import { exists, debounce } from '../shared/utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
+import { departments_to_regions } from './departments_to_regions';
 
 (function () {
   addEventListener('DOMContentLoaded', setupSiretAutocomplete)
@@ -50,13 +51,21 @@ import accessibleAutocomplete from 'accessible-autocomplete';
     }
 
     function CheckIfInDeployedRegion (option) {
-      if (!deployedRegion.includes(option.region)) {
+      if (typeof option == 'undefined') return
+      let region = null
+      if (typeof option.postal_code !== 'undefined') {
+        region = departments_to_regions[option.postal_code.slice(0, 2)]
+      }
+      else if (typeof option.region !== 'undefined') {
+        region = option.region
+      }
+      if (!deployedRegion.includes(region)) {
         const notInDeployedRegion = document.querySelector("[data-error='not-in-deployed-region']")
         notInDeployedRegion.style.display = 'block'
         const newsletter = document.querySelector("[data-error='newsletter']")
         newsletter.style.display = 'block'
 
-        fill_newsletter_form(option.region)
+        fill_newsletter_form(region)
       }
     }
   }
@@ -104,6 +113,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         {
           label: `${etablissement.siret} (${uniteLegale.denomination})`,
           address: etablissement.geo_adresse,
+          postal_code: etablissement.code_postal
         },
       ];
     }
