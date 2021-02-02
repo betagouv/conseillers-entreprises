@@ -13,6 +13,7 @@ FactoryBot.define do
       after(:create) do |diagnosis, _|
         diagnosis.step = 5
         diagnosis.needs = create_list(:need_with_matches, 1, diagnosis: diagnosis)
+        diagnosis.completed_at = diagnosis.needs.first.matches.first.created_at
         diagnosis.save!
       end
     end

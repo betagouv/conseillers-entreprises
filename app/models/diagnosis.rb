@@ -4,6 +4,7 @@
 #
 #  id                                 :bigint(8)        not null, primary key
 #  archived_at                        :datetime
+#  completed_at                       :datetime
 #  content                            :text
 #  happened_on                        :date
 #  newsletter_subscription_email_sent :boolean          default(FALSE), not null
@@ -129,7 +130,7 @@ class Diagnosis < ApplicationRecord
     happened_on || created_at.to_date
   end
 
-  def completed_at
+  def old_completed_at
     # This is debatable:
     # last_step_has_matches guarantees that completed diagnoses have matches
     # and we know matches are created when the diagnosis is completed.

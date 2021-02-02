@@ -7,7 +7,7 @@ FactoryBot.define do
     association :subject
 
     after(:create) do |match, _|
-      match.diagnosis.update(step: :completed)
+      match.diagnosis.update(step: :completed, completed_at: Time.zone.now)
       Need.find_each(&:update_status)
     end
   end

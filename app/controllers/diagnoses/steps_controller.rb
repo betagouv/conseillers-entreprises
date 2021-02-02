@@ -54,6 +54,7 @@ class Diagnoses::StepsController < ApplicationController
 
     diagnosis_params = params_for_matches
     diagnosis_params[:step] = :completed
+    diagnosis_params[:completed_at] = Time.zone.now
     # Automated diagnoses have no advisor: assign the current_user now.
     diagnosis_params[:advisor] = current_user if @diagnosis.advisor.nil?
 
