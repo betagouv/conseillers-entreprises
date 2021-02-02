@@ -272,6 +272,7 @@ GEM
       has_scope (~> 0.6)
       railties (>= 5.0, < 6.1)
       responders (>= 2, < 4)
+    ip_anonymizer (0.1.1)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
@@ -592,6 +593,7 @@ DEPENDENCIES
   honeypot-captcha
   http
   i18n-tasks
+  ip_anonymizer
   jbuilder
   jquery-rails
   kaminari

@@ -61,6 +61,7 @@ gem 'rails_autolink'
 gem 'geocoder'
 gem 'sib-api-v3-sdk', '~> 7.2'
 gem 'recipient_interceptor'
+gem 'ip_anonymizer'
 
 # Notifiers
 gem 'sentry-raven'
