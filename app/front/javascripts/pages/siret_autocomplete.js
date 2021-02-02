@@ -11,6 +11,7 @@ import { departments_to_regions } from './departments_to_regions';
   function setupSiretAutocomplete () {
     const targetField = document.querySelector("[data-target='siret-autocomplete']")
     const autocompleteField = document.querySelector("[data-action='siret-autocomplete']")
+    if (autocompleteField === null) return
     const deployedRegion = autocompleteField.getAttribute('data-deployed-regions')
 
     if (exists(autocompleteField)) {
