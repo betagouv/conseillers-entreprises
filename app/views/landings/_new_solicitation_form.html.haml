@@ -14,10 +14,13 @@
           = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
           - if help.present?
             %span= help
-          %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint") }
+          %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint"), "data-deployed-regions": ENV['DEPLOYED_REGIONS_CODES'] }
           = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
           %small.siret-warn{ "data-error": "indiffusible-siret" }= t(".attributes.help.indiffusible_siret_html")
-
+          .notification.warning.out-region{ "data-error": "not-in-deployed-region" }
+            = image_tag('info-alert-orange.png', alt: '')
+            = t(".attributes.help.not_in_deployed_region_html")
+            = link_to t('.clic_newsletter'), '#newsletter'
         - else
           = f.label field
           - if help.present?

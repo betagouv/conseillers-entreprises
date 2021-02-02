@@ -1,5 +1,6 @@
 import { exists, debounce } from '../shared/utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
+import { departments_to_regions } from './departments_to_regions';
 
 (function () {
   addEventListener('DOMContentLoaded', setupSiretAutocomplete)
@@ -10,6 +11,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
   function setupSiretAutocomplete () {
     const targetField = document.querySelector("[data-target='siret-autocomplete']")
     const autocompleteField = document.querySelector("[data-action='siret-autocomplete']")
+    const deployedRegion = autocompleteField.getAttribute('data-deployed-regions')
 
     if (exists(autocompleteField)) {
       accessibleAutocomplete({
@@ -34,6 +36,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         }, 300),
         onConfirm: (option) => {
           fillSiretField(option)
+          CheckIfInDeployedRegion(option)
         }
       })
     }
@@ -46,6 +49,33 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         }
       }
     }
+
+    function CheckIfInDeployedRegion (option) {
+      if (typeof option == 'undefined') return
+      let region = null
+      if (typeof option.postal_code !== 'undefined') {
+        region = departments_to_regions[option.postal_code.slice(0, 2)]
+      }
+      else if (typeof option.region !== 'undefined') {
+        region = option.region
+      }
+      if (!deployedRegion.includes(region)) {
+        const notInDeployedRegion = document.querySelector("[data-error='not-in-deployed-region']")
+        notInDeployedRegion.style.display = 'block'
+        const newsletter = document.querySelector("[data-error='newsletter']")
+        newsletter.style.display = 'block'
+
+        fill_newsletter_form(region)
+      }
+    }
+  }
+
+  function fill_newsletter_form (region_code) {
+    const newsletter_region_field = document.getElementById("region_code")
+    const solicitation_form_email = document.getElementById("solicitation_email")
+    const newsletter_form_email = document.getElementById("email")
+    newsletter_form_email.value = solicitation_form_email.value
+    newsletter_region_field.value = region_code
   }
 
   // Récupération des résultats ----------------------------------------------------
@@ -83,6 +113,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         {
           label: `${etablissement.siret} (${uniteLegale.denomination})`,
           address: etablissement.geo_adresse,
+          postal_code: etablissement.code_postal
         },
       ];
     }
@@ -99,7 +130,8 @@ import accessibleAutocomplete from 'accessible-autocomplete';
           return {
             label: `${name} (${etablissement.siret})`,
             address: etablissement.geo_adresse,
-            activity: etablissement.libelle_activite_principale
+            activity: etablissement.libelle_activite_principale,
+            region: etablissement.region
           }
         })
     }
