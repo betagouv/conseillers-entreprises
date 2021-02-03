@@ -1,7 +1,5 @@
 module Stats
   class BaseController < PagesController
-    include Pundit
-
     private
 
     def stats_params
