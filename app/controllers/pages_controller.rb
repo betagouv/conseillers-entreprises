@@ -2,6 +2,7 @@ class PagesController < SharedController
   # Abstract Controller for the public pages
   # implicitly uses the 'pages' layout
   include GeocoderIp
+  include Pundit
 
   ## Configuration for honeypot-captcha
   #
