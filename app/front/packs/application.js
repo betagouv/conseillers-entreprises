@@ -14,6 +14,10 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+// Compatibilité navigateurs anciens dont IE11
+import "core-js/stable";
+import "whatwg-fetch";
+
 require("@rails/ujs").start();
 require("turbolinks").start();
 
