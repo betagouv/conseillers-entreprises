@@ -29,7 +29,7 @@ Les entrepreneurs, quand ils déposent une sollicitation sur `https://place-des-
 
 Une fois la sollicitation de l’entrepreneur reçue et validée, les informations de la société sont automatiquement récupérées depuis les bases administratives `entreprise.data.gouv.fr` et `API entreprise`.
 * Données publiques de l’entreprise : raison sociale, forme juridique, tranche d’effectif, capital social, code NAF, adresse, IDCC ;
-* Données sur les gérants : nom, fonction et date de naissance ;
+* Données sur les gérants : nom et fonction ;
 
 Cette liste n’est pas exhaustive: d’autres informations disponibles dans les bases administratives sont appelées à être utilisées. Ces informations vont servir à sélectionner automatiquement les agents partenaires les plus susceptibles de venir à l’aide de l’entreprise. En particulier, l’adresse de l’établissement permet de choisir, par exemple, la bonne agence Pôle-Emploi. 
 
