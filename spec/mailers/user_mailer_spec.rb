@@ -23,6 +23,14 @@ describe UserMailer do
 
       it { expect(mail).to be_nil }
     end
+
+    describe 'when the recipient is admin' do
+      before { a_match.advisor.update(is_admin: true) }
+
+      let(:mail) { subject }
+
+      it { expect(mail).to be_nil }
+    end
   end
 
   describe '#match_feedback' do
