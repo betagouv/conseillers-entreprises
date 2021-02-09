@@ -15,6 +15,11 @@ module Stats::Public
       end
     end
 
+    def group_by_date_in_range(query, range)
+      query_range = query.created_between(range.first, range.last)
+      group_by_date(query_range)
+    end
+
     def taken_care_before(query)
       return [] if query[true].nil?
       query[true].group_by_month(&:created_at).map { |_, v| v.size }
@@ -23,6 +28,11 @@ module Stats::Public
     def taken_care_after(query)
       return [] if query[false].nil?
       query[false].group_by_month(&:created_at).map { |_, v| v.size }
+    end
+
+    # [Fri, 08 Feb 2019..Thu, 28 Feb 2019, Fri, 01 Mar 2019..Sun, 31 Mar 2019, ...]
+    def search_range_by_month
+      (@start_date.to_date..@end_date.to_date).group_by(&:beginning_of_month).map { |_, month| month.first..month.last }
     end
 
     def filtered(query)
@@ -38,10 +48,15 @@ module Stats::Public
     def build_series
       query = main_query
       query = filtered(query)
-      groups = group_by_date(query)
 
-      @taken_care_before ||= taken_care_before(groups)
-      @taken_care_after ||= taken_care_after(groups)
+      @taken_care_before = []
+      @taken_care_after = []
+
+      search_range_by_month.each do |range|
+        grouped_result = group_by_date_in_range(query, range)
+        @taken_care_before.push(grouped_result[true]&.size || 0)
+        @taken_care_after.push(grouped_result[false]&.size || 0)
+      end
 
       as_series(@taken_care_before, @taken_care_after)
     end
