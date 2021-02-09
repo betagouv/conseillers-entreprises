@@ -31,6 +31,7 @@ class Need < ApplicationRecord
   ##
   #
   include Archivable
+  include RangeScopes
 
   enum status: {
     diagnosis_not_complete: 'diagnosis_not_complete',

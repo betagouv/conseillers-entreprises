@@ -30,11 +30,6 @@ module Stats::Public
       query[false].group_by_month(&:created_at).map { |_, v| v.size }
     end
 
-    # [Fri, 08 Feb 2019..Thu, 28 Feb 2019, Fri, 01 Mar 2019..Sun, 31 Mar 2019, ...]
-    def search_range_by_month
-      (@start_date.to_date..@end_date.to_date).group_by(&:beginning_of_month).map { |_, month| month.first..month.last }
-    end
-
     def filtered(query)
       if territory.present?
         query.where!(diagnoses: territory.diagnoses)

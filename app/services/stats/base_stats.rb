@@ -52,7 +52,12 @@ module Stats
     end
 
     def all_months
-      @all_months ||= grouped_by_month(filtered(main_query)).count.keys
+      @all_months ||= search_range_by_month.map(&:begin)
+    end
+
+    # [Fri, 08 Feb 2019..Thu, 28 Feb 2019, Fri, 01 Mar 2019..Sun, 31 Mar 2019, ...]
+    def search_range_by_month
+      @search_range_by_month ||= (@start_date.to_date..@end_date.to_date).group_by(&:beginning_of_month).map { |_, month| month.first..month.last }
     end
 
     def all_categories

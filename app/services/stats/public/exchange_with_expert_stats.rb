@@ -23,24 +23,15 @@ module Stats::Public
       query = main_query
       query = filtered(query)
 
-      @needs_with_exchange ||= needs_with_exchange(query).values
-      @needs_without_exchange ||= needs_without_exchange(query).values
+      @needs_with_exchange = []
+      @needs_without_exchange = []
+
+      search_range_by_month.each do |range|
+        @needs_with_exchange.push(query.with_exchange.created_between(range.first, range.last).count)
+        @needs_without_exchange.push(query.without_exchange.created_between(range.first, range.last).count)
+      end
 
       as_series(@needs_with_exchange, @needs_without_exchange)
-    end
-
-    def needs_with_exchange(query)
-      query
-        .with_exchange
-        .group_by_month(date_group_attribute)
-        .count
-    end
-
-    def needs_without_exchange(query)
-      query
-        .without_exchange
-        .group_by_month(date_group_attribute)
-        .count
     end
 
     def subtitle
