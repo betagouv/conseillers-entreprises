@@ -13,6 +13,6 @@
     - cache("stats_charts-#{@stats.params}", expires_in: 1.hour) do
       = render 'stats/stats_params', stats: @stats, route: public_index_path
       #stats-charts
-        - names = [:solicitations, :solicitations_in_regions, :solicitations_diagnoses, :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
+        - names = [:solicitations, :solicitations_diagnoses, :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
         - names.each do |name|
           = render 'stats/stats_chart', stats: @stats, name: name
