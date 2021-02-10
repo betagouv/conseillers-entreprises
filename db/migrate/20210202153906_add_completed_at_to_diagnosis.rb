@@ -4,7 +4,7 @@ class AddCompletedAtToDiagnosis < ActiveRecord::Migration[6.0]
 
     up_only do
       Diagnosis.find_each do |diagnosis|
-        diagnosis.update_columns(completed_at: diagnosis.old_completed_at)
+        diagnosis.update_columns(completed_at: diagnosis.matches&.first&.created_at)
       end
     end
   end

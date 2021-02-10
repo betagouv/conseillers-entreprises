@@ -130,15 +130,6 @@ class Diagnosis < ApplicationRecord
     happened_on || created_at.to_date
   end
 
-  def old_completed_at
-    # This is debatable:
-    # last_step_has_matches guarantees that completed diagnoses have matches
-    # and we know matches are created when the diagnosis is completed.
-    # We could also add a diagnoses.completed_at column;
-    # if we ever want to use completed_at for queries, that’ll be necessary.
-    matches&.first&.created_at
-  end
-
   def from_solicitation?
     solicitation_id.present?
   end
