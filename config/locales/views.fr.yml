@@ -88,7 +88,6 @@ fr:
       siret: SIRET
       tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
     mandataire:
-      date_naissance: Date de naissance
       dirigeant: Est-ce un dirigeant ?
       fonction: Fonction
       identifiant: Identifiant

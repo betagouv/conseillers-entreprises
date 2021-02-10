@@ -15,10 +15,6 @@
       %tr
         %td= t('.fonction')
         %td= person['fonction'].humanize
-    - if person['date_naissance_timestamp']
-      %tr
-        %td= t('.date_naissance')
-        %td= date_from_timestamp(person['date_naissance_timestamp'])
     %tr
       %td= t('.dirigeant')
       %td= person['dirigeant'].to_b ? t('yes') : t('no')
