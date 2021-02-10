@@ -6,22 +6,6 @@ module Stats::Public
       Solicitation.all
     end
 
-    def with_diagnoses(query)
-      query
-        .joins(:diagnoses)
-        .where.not('diagnoses.id' => nil)
-        .group_by_month(date_group_attribute)
-        .count
-    end
-
-    def without_diagnoses(query)
-      query
-        .left_outer_joins(:diagnoses)
-        .where('diagnoses.id IS NULL')
-        .group_by_month(date_group_attribute)
-        .count
-    end
-
     def filtered(query)
       if institution.present?
         query.merge! institution.received_solicitations
@@ -36,8 +20,14 @@ module Stats::Public
       query = main_query
       query = filtered(query)
 
-      @with_diagnoses ||= with_diagnoses(query).values
-      @without_diagnoses ||= without_diagnoses(query).values
+      @with_diagnoses = []
+      @without_diagnoses = []
+
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        @with_diagnoses.push(month_query.joins(:diagnoses).count)
+        @without_diagnoses.push(month_query.without_diagnoses.count)
+      end
 
       as_series(@with_diagnoses, @without_diagnoses)
     end

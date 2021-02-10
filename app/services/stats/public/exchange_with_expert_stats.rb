@@ -27,8 +27,9 @@ module Stats::Public
       @needs_without_exchange = []
 
       search_range_by_month.each do |range|
-        @needs_with_exchange.push(query.with_exchange.created_between(range.first, range.last).count)
-        @needs_without_exchange.push(query.without_exchange.created_between(range.first, range.last).count)
+        month_query = query.created_between(range.first, range.last)
+        @needs_with_exchange.push(month_query.with_exchange.count)
+        @needs_without_exchange.push(month_query.without_exchange.count)
       end
 
       as_series(@needs_with_exchange, @needs_without_exchange)
