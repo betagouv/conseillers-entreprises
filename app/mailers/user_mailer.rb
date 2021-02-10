@@ -32,7 +32,7 @@ class UserMailer < ApplicationMailer
     @need = match.need
     @subject = match.subject
 
-    return if @advisor.deleted?
+    return if (@advisor.deleted? || @advisor.is_admin)
     mail(to: @advisor.email, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @company.name))
   end
 end
