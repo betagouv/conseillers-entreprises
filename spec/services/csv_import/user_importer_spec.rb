@@ -47,6 +47,47 @@ describe CsvImport::UserImporter, CsvImport do
     end
   end
 
+  context 'add user to existing team' do
+    let!(:expert_antenne) { create :antenne, name: 'Antenna', institution: institution }
+    let!(:expert) { create :expert, email: 'equipe@antenne.com', antenne: expert_antenne }
+
+    context 'without typo' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+          The Institution,Antenna,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.teams.count).to eq 1
+        team = institution.experts.teams.first
+        expect(team.email).to eq 'equipe@antenne.com'
+        expect(team.role).to eq 'Equipe des chefs'
+        expect(team.users.count).to eq 2
+        expect(User.find_by(email: 'marie.dupont@antenne.com').experts).to include(expert)
+      end
+    end
+
+    context 'with tab before expert email' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+          The Institution,	Antenna,Mario Dupont,mario.dupont@antenne.com,0123456789,Cheffe,Equipe,	equipe@antenne.com  ,0987654321,Equipe des chefs
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.teams.count).to eq 1
+        team = institution.experts.teams.first
+        expect(team.email).to eq 'equipe@antenne.com'
+        expect(User.find_by(email: 'mario.dupont@antenne.com').experts).to include(expert)
+      end
+    end
+  end
+
   context 'failing teams' do
     let(:csv) do
       <<~CSV
@@ -213,6 +254,27 @@ describe CsvImport::UserImporter, CsvImport do
       <<~CSV
         Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
         The Institution,The Antenne,Marie Dupont,test@test.com,0123456789,Cheffe
+      CSV
+    end
+
+    it do
+      expect(result).to be_success
+      existing_user.reload
+      expect(result.objects).to eq [existing_user]
+      expect(existing_user.full_name).to eq 'Marie Dupont'
+      expect(existing_user.institution).to eq institution
+      expect(other_antenne.advisors).to be_empty
+    end
+  end
+
+  context 'overwrite existing user with email typo' do
+    let(:other_antenne) { create :antenne, name: 'Other' }
+    let!(:existing_user) { create :user, full_name: 'TestUser', email: 'test@test.com', phone_number: '4321', antenne: other_antenne }
+
+    let(:csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
+        The Institution,The Antenne,Marie Dupont, test@test.com,0123456789,Cheffe
       CSV
     end
 
