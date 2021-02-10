@@ -32,6 +32,7 @@
 
 class Solicitation < ApplicationRecord
   include DiagnosisCreation::SolicitationMethods
+  include RangeScopes
 
   enum status: { in_progress: 0, processed: 1, canceled: 2 }, _prefix: true
 
