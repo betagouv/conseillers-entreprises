@@ -31,8 +31,9 @@ class Institution < ApplicationRecord
   has_many :landings, inverse_of: :institution
   has_many :solicitations, inverse_of: :institution
 
-  ## Validations
+  ## Hooks and Validations
   #
+  auto_strip_attributes :name
   validates :name, :slug, presence: true, uniqueness: true
   before_validation :compute_slug
 
