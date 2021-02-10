@@ -576,11 +576,9 @@ fr:
         one: Erreur à la préparation
         other: "%{count} erreurs à préparation"
       prepare_diagnosis_retry: Réessayer
-      start_another_diagnosis: Démarrer une autre analyse
       start_auto_diagnosis: Analyse automatique
       start_diagnosis: Démarrer une analyse
       start_manual_diagnosis: Analyse manuelle
-      view_diagnoses: "%{count} analyses"
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags
   stats:

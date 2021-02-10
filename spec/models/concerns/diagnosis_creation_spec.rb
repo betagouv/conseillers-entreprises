@@ -91,7 +91,7 @@ RSpec.describe DiagnosisCreation do
       let(:prepare_needs) {}
 
       it do
-        expect(solicitation.diagnoses).not_to be_empty
+        expect(solicitation.diagnosis).not_to be_nil
         expect(solicitation.prepare_diagnosis_errors).to be_empty
       end
     end
@@ -101,7 +101,7 @@ RSpec.describe DiagnosisCreation do
       let(:prepare_needs) {}
 
       it do
-        expect(solicitation.diagnoses).to be_empty
+        expect(solicitation.diagnosis).to be_nil
         expect(solicitation.prepare_diagnosis_errors.details).to eq({ facility: [{ error: :blank }] })
       end
     end
@@ -111,7 +111,7 @@ RSpec.describe DiagnosisCreation do
       let(:prepare_needs) { diagnosis.errors.add(:needs, :some_failure) }
 
       it do
-        expect(solicitation.diagnoses).to be_empty
+        expect(solicitation.diagnosis).to be_nil
         expect(solicitation.prepare_diagnosis_errors.details).to eq({ needs: [{ error: :some_failure }] })
       end
     end
