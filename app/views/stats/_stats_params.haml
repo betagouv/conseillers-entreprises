@@ -1,4 +1,4 @@
-- cache("stats_params-#{stats.params}", expires_in: 1.hour) do
+- cache([stats, route], expires_in: 1.hour) do
   .panel#stats-params
     = form_with url: route, method: :get, skip_enforcing_utf8: true, local: true do
       .form__group

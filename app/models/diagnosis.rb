@@ -4,6 +4,7 @@
 #
 #  id                                 :bigint(8)        not null, primary key
 #  archived_at                        :datetime
+#  completed_at                       :datetime
 #  content                            :text
 #  happened_on                        :date
 #  newsletter_subscription_email_sent :boolean          default(FALSE), not null
@@ -127,15 +128,6 @@ class Diagnosis < ApplicationRecord
 
   def display_date
     happened_on || created_at.to_date
-  end
-
-  def completed_at
-    # This is debatable:
-    # last_step_has_matches guarantees that completed diagnoses have matches
-    # and we know matches are created when the diagnosis is completed.
-    # We could also add a diagnoses.completed_at column;
-    # if we ever want to use completed_at for queries, that’ll be necessary.
-    matches&.first&.created_at
   end
 
   def from_solicitation?

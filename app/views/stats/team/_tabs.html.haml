@@ -3,8 +3,7 @@
     = active_link_to quality_team_index_path, class: 'tile' do
       %i.fas.fa-award.tile__icon
       %h2= t('.quality')
-    -# = active_link_to matches_team_index_path, class: 'tile' do
-    = link_to '#', class: 'tile' do
+    = active_link_to matches_team_index_path, class: 'tile' do
       %i.fas.fa-handshake.tile__icon
       %h2= t('.matches')
     -# = active_link_to deployment_team_index_path, class: 'tile' do
