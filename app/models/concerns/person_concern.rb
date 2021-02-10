@@ -9,7 +9,7 @@ module PersonConcern
 
     ## Data sanitization
     #
-    before_validation :normalize_values
+    before_validation :normalize_values, on: :create
   end
 
   ## Display helpers
@@ -45,7 +45,7 @@ module PersonConcern
   def normalize_name
     return unless self.full_name
 
-    self.full_name = titleize_if_all_same_case(self.full_name.squish)
+    self.full_name = self.full_name.squish.titleize
   end
 
   def normalize_email
@@ -67,18 +67,6 @@ module PersonConcern
   def normalize_role
     return unless self.role
 
-    self.role = titleize_if_all_same_case(self.role.squish)
-  end
-
-  private
-
-  def titleize_if_all_same_case(str)
-    # Titleize if the input is all lowercase or all uppercase,
-    # leave it intact otherwise.
-    if str.in? [str.downcase, str.upcase]
-      str.titleize
-    else
-      str
-    end
+    self.role = self.role.squish.titleize
   end
 end

@@ -11,7 +11,7 @@ describe CsvExport::UserExporter, CsvExport do
     it do
       csv = <<~CSV
         Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
-        Test Institution,Test Antenne,User 1,user@user.com,0123456789,User Role
+        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Role
       CSV
       is_expected.to eq csv
     end
@@ -25,7 +25,7 @@ describe CsvExport::UserExporter, CsvExport do
     it do
       csv = <<~CSV
         Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-        Test Institution,Test Antenne,User 1,user@user.com,0123456789,User Role,Team 1,team@team.com,0987654321,Team Role
+        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Role,Team 1,team@team.com,09 87 65 43 21,Team Role
       CSV
       is_expected.to eq csv
     end
@@ -45,7 +45,7 @@ describe CsvExport::UserExporter, CsvExport do
     it do
       csv = <<~CSV
         Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Test Subject
-        Test Institution,Test Antenne,User 1,user@user.com,0123456789,User Role,Intervention criteria
+        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Role,Intervention criteria
       CSV
       is_expected.to eq csv
     end
