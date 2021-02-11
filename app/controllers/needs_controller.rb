@@ -73,7 +73,7 @@ class NeedsController < ApplicationController
     @antenne = current_user.antenne
     @recipient = recipient
 
-    @collections_counts = Rails.cache.fetch(recipient.received_needs) do
+    @collections_counts = Rails.cache.fetch([recipient.received_needs, recipient.received_needs.pluck(:updated_at).max]) do
       collection_names.index_with { |name| recipient.send("needs_#{name}").size }
     end
     @collection_name = collection_name
