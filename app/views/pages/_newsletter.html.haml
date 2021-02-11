@@ -2,7 +2,8 @@
   = t('.received_news')
 %p.section__subtitle
   = t('.newsletter_informations')
-  .ui.divider.hidden
+
+.ui.divider.hidden
 
 = form_with url: newsletters_path, method: :post, local: true do |f|
   .form__group
