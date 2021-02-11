@@ -17,10 +17,18 @@ module CsvImport
     end
 
     def preprocess(attributes)
+      attributes = sanitize_inputs(attributes)
       institution = Institution.find_by(name: attributes[:institution]) || @options[:institution]
       antenne = Antenne.find_by(institution: institution, name: attributes[:antenne])
       attributes.delete(:institution)
       attributes[:antenne] = antenne
+    end
+
+    def sanitize_inputs(attributes)
+      attributes[:institution] = attributes[:institution].strip if attributes[:institution].present?
+      attributes[:antenne] = attributes[:antenne].strip if attributes[:antenne].present?
+      attributes[:email] = attributes[:email].strip.downcase if attributes[:email].present?
+      attributes
     end
 
     def find_instance(attributes)
@@ -56,6 +64,7 @@ module CsvImport
         .transform_keys{ |k| team_mapping[k] }
         .transform_keys{ |k| k.to_s.delete_prefix('team_').to_sym }
         .select { |_, v| v.present? }
+      attributes = sanitize_inputs(attributes)
 
       if attributes[:email].present?
         attributes[:antenne] = user.antenne
