@@ -550,12 +550,12 @@ fr:
     index:
       clear_search: Réinitialiser la recherche
       filter: Filtrer
-      header: Solicitations %{status}
+      header: Sollicitations %{status}
       manage_badges: Gérer les tags
       no_result: Il n'y a pas de résultat pour cette recherche.
       search: Rechercher
       search_placeholder: Tag, aide demandée…
-      title: Solicitations
+      title: Sollicitations
     menu:
       canceled: Annulées
       in_progress_html: Relancées
