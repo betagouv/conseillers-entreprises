@@ -1,8 +1,7 @@
 - diagnoses = Diagnosis.completed.where(needs: received_needs).distinct.order(happened_on: :desc)
 
-
 = paginate received_needs
 
-= render partial: 'reminders/diagnosis', collection: diagnoses, locals: { action: action }, cached: true
+= render partial: 'reminders/diagnosis', collection: diagnoses, locals: { action: action }
 
 = paginate received_needs
