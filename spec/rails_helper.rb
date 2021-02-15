@@ -26,6 +26,7 @@ RSpec.configure do |config|
   config.extend ControllerMacros, type: :view
   config.extend ControllerMacros, type: :helper
   config.extend FeatureMacros, type: :feature
+  config.extend W3cValidator, type: :feature
   config.include Warden::Test::Helpers
 
   config.infer_spec_type_from_file_location!
