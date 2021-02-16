@@ -1,16 +1,29 @@
-#needs-app
-  .subject.checkbox
-    display: block
-  .subject
-    input[type=checkbox] + label
-      cursor: pointer
-    input[type=checkbox] ~ textarea
-      margin-top: 1em
-    input[type=checkbox]:not(checked) ~ textarea
-      display: none
-    input[type=checkbox]:checked ~ textarea
-      display: block
+//_diagnosis
+.ui.feed > .event > .content .summary > .date.diagnosis
+  margin: 0
 
+.ui.segments.diagnosis
+  .segment.secondary
+    border: none
+  h2
+    font-size: 1.4rem
+    margin-bottom: 0
+  h3
+    font-size: 1.1rem
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+// _related_diagnoses
+.diagnosis-links
+  margin-top: 1rem
+
+
+// Feedbacks form
+.ui.feed > .event.feedbacks-form
+  margin-bottom: 1rem
+
+// STEPS
 #visit-app
   #insee-code-section
     input[type=checkbox]
@@ -24,50 +37,25 @@
         &~ #insee-code-section-button
           display: none
 
+#needs-app
+  .subject.checkbox
+    display: block
+  .subject
+    input[type=checkbox] + label
+      cursor: pointer
+    input[type=checkbox] ~ textarea
+      margin-top: 1em
+    input[type=checkbox]:not(checked) ~ textarea
+      display: none
+    input[type=checkbox]:checked ~ textarea
+      display: block
+
 .experts_subject_checkbox
   .ui.checkbox
     display: block
     padding: 1rem 0
   .ui.grid > .row
     padding: 0
-
-.needs-diagnosis, .needs-match
-  .match-status
-    position: absolute
-    top: 14px
-    right: 14px
-
-.ui.segments.selectable-list
-  margin-bottom: 20px
-  a, a:hover
-    color: inherit
-  .selectable-item:hover
-    background: #f6f6f6
-  .match-status
-    float: right
-  .diagnosis-step
-    float: right
-
-.ui.attached.menu.head-tab.new-diagnosis
-  margin-top: 2rem
-.ui.tab.new-diagnosis
-  .header
-    padding: 1rem 0
-
-.ui.button.new-diagnosis
-  margin-top: 1em
-
-.ui.feed > .event > .content .summary > .date.diagnosis
-  margin: 0
-
-.diagnosis-links
-  margin-top: 1rem
-
-.ui.small.button.match
-  margin-top: 0.3rem
-
-.ui.feed > .event.feedbacks-form
-  margin-bottom: 1rem
 
 .ui.content.subjects.basic.segments
   border-top: none
@@ -79,14 +67,35 @@
   i.dropdown.icon
     float: right
 
-.ui.segments.diagnosis
-  .segment.secondary
-    border: none
-  h2
-    font-size: 1.4rem
-    margin-bottom: 0
-  h3
-    font-size: 1.1rem
-    display: flex
-    align-items: center
-    justify-content: space-between
+// _matches
+.needs-diagnosis, .needs-match
+  .match-status
+    position: absolute
+    top: 14px
+    right: 14px
+
+// New
+.ui.attached.menu.head-tab.new-diagnosis
+  margin-top: 2rem
+.ui.tab.new-diagnosis
+  .header
+    padding: 1rem 0
+
+.ui.button.new-diagnosis
+  margin-top: 1em
+
+// AUTRES
+.ui.segments.selectable-list
+  margin-bottom: 20px
+  a, a:hover
+    color: inherit
+  .selectable-item:hover
+    background: #f6f6f6
+  .match-status
+    float: right
+  .diagnosis-step
+    float: right
+
+// Inutilisé
+//.ui.small.button.match
+//  margin-top: 0.3rem
