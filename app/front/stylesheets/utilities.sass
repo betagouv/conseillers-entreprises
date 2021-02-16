@@ -1,0 +1,30 @@
+.list-unstyled
+  list-style: none
+
+.order-minus-one
+  order: -1
+
+.lighter-blue-background
+  background-color: $lighter-blue-background
+
+.white-background
+  background-color: var(--w-bf500)
+
+.expand-action
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    cursor: pointer
+
+.hidden
+  display: none
+
+.simpletooltip[aria-hidden="true"],
+.minimalist-simpletooltip[aria-hidden="true"],
+.minimalist-left-simpletooltip[aria-hidden="true"]
+  display: none
+

@@ -108,6 +108,12 @@ fr:
       information: Informations
       mandataires_sociaux: Mandataires sociaux
       siege_social: Siège social
+    company_infos:
+      company: "Entreprise"
+    facility_infos:
+      company: "Entreprise"
+      workforce: 'Tranche effectif : %{range}'
+      more_informations: "Plus d'informations"
   company_satisfactions:
     new:
       comment: Un commentaire ? Une suggestion ? Nous sommes à votre écoute.
@@ -448,6 +454,9 @@ fr:
       solicitation_link: Lien vers la sollicitation
     show:
       title: Visite de la société « %{company} »
+      all_needs: "Toutes les demandes"
+      person_company_contact: "Contact entreprise"
+      transmitted_by: "Demande transmise par"
     unarchive:
       subject_unarchived: Besoin désarchivé
     visit_summary:

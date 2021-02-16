@@ -1,5 +1,5 @@
 !!!
-%html
+%html{"data-rf-reset" => "", :lang => "fr"}
   = render 'head'
 
   %body
@@ -7,7 +7,7 @@
     = render 'environment_ribbon'
     = render 'user_impersonate'
 
-    %main.ui.container{ class: @wide_layout ? 'wide-container' : 'narrow-container' }
+    %main.ui.container{ class: @wide_layout ? 'wide-container' : '' }
       -# TODO: @wide_layout is a bit of a hack.
         We should just use the “wide” (in fact, “regular”) container everywhere
         and get rid of 'narrow-container'.
