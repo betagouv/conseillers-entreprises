@@ -81,8 +81,7 @@ module DiagnosisCreation
       end
 
       # Save or clear the error
-      self.update(prepare_diagnosis_errors: prepare_diagnosis_errors)
-
+      self.update(prepare_diagnosis_errors: prepare_diagnosis_errors, diagnosis: diagnosis)
       diagnosis
     end
 

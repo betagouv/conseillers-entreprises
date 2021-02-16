@@ -1,6 +1,5 @@
 .ui.compact.inverted.green.menu
-  - diagnoses = solicitation.diagnoses
-  - if diagnoses.blank?
+  - if solicitation.diagnosis.nil?
     - if solicitation.may_prepare_diagnosis?
       - if solicitation.prepare_diagnosis_errors.present?
         .ui.item
@@ -27,22 +26,12 @@
       = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do
         = t('.start_diagnosis')
         %i.right.chevron.icon
-  - elsif diagnoses.size == 1
-    - diagnosis = diagnoses.first
-    = link_to_diagnosis(diagnosis)
   - else
-    .ui.item.dropdown
-      = t('.view_diagnoses', count: diagnoses.size)
-      %i.dropdown.icon
-      .ui.menu
-        - diagnoses.each do |diagnosis|
-          = link_to_diagnosis(diagnosis)
+    = link_to_diagnosis(solicitation.diagnosis)
+
   .ui.item.dropdown
     %i.settings.icon
     .ui.menu
       - solicitation.allowed_new_statuses.each do |status|
         = status_action_link(solicitation, status, %w[item])
       .item.show-feedbacks-form{ 'data-feedbackable': "#{solicitation.id}" }= t('feedbacks.add')
-      - if diagnoses.present?
-        = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item' do
-          = t('.start_another_diagnosis')

@@ -39,12 +39,12 @@ class Solicitation < ApplicationRecord
   ## Associations
   #
   belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
-  has_many :diagnoses, inverse_of: :solicitation
-  has_many :diagnoses_regions, -> { regions }, through: :diagnoses, source: :facility_territories, inverse_of: :diagnoses
+  has_one :diagnosis, inverse_of: :solicitation
+  has_many :diagnosis_region, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnosis
 
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
-  has_many :matches, through: :diagnoses, inverse_of: :solicitation
-  has_many :needs, through: :diagnoses, inverse_of: :solicitation
+  has_many :matches, through: :diagnosis, inverse_of: :solicitation
+  has_many :needs, through: :diagnosis, inverse_of: :solicitation
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
@@ -132,11 +132,11 @@ class Solicitation < ApplicationRecord
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
 
   scope :by_territory, -> (territory) do
-    joins(:diagnoses).where(diagnoses: { facility: territory&.facilities })
+    joins(:diagnosis).where(diagnoses: { facility: territory&.facilities })
   end
 
   scope :by_territories, -> (territories) do
-    joins(:diagnoses).where(diagnoses: { facility: territories.map{ |t| t.facility_ids }.flatten })
+    joins(:diagnosis).where(diagnoses: { facility: territories.map{ |t| t.facility_ids }.flatten })
   end
 
   # param peut être un id de Territory ou une clé correspondant à un scope ("without_diagnoses" par ex)
@@ -150,12 +150,12 @@ class Solicitation < ApplicationRecord
 
   # Pour détecter les pb de siret, par exemple
   scope :without_diagnoses, -> {
-    left_outer_joins(:diagnoses)
+    left_outer_joins(:diagnosis)
       .where(diagnoses: { id: nil })
   }
 
   scope :out_of_deployed_territories, -> {
-    joins(:diagnoses).merge(Diagnosis.out_of_deployed_territories)
+    joins(:diagnosis).merge(Diagnosis.out_of_deployed_territories)
   }
 
   ## JSON Accessors

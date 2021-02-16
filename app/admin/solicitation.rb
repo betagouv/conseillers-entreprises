@@ -5,7 +5,7 @@ ActiveAdmin.register Solicitation do
   #
   scope :all, default: true
 
-  includes :diagnoses, :landing, :institution, :badges, diagnoses: :company
+  includes :diagnosis, :landing, :institution, :badges, diagnosis: :company
 
   index do
     selectable_column
@@ -25,9 +25,7 @@ ActiveAdmin.register Solicitation do
         end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
-      if s.diagnoses.size > 0
-        div "#{s.diagnoses.human_count} :<br/>".html_safe + admin_link_to(s, :diagnoses, list: true)
-      end
+      admin_link_to(s.diagnosis)
     end
     column I18n.t('attributes.badges.other') do |s|
       render 'badges', badges: s.badges
@@ -62,12 +60,12 @@ ActiveAdmin.register Solicitation do
   ## Filters
   #
   preserve_default_filters!
-  remove_filter :diagnoses  # ActiveAdmin default filters build selects for all the declared model relations.
+  remove_filter :diagnosis  # ActiveAdmin default filters build selects for all the declared model relations.
   remove_filter :matches    # Displaying them can become very expensive, especially if to_s is implemented
   remove_filter :needs      # and uses yet another relation.
   filter :landing, as: :select, collection: -> { Landing.pluck(:title, :slug) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
-  filter :diagnoses_regions, as: :select, collection: -> { Territory.regions.pluck(:name, :id) }
+  filter :diagnosis_region, as: :select, collection: -> { Territory.regions.pluck(:name, :id) }
 
   ## Batch actions
   # Statuses
@@ -95,9 +93,9 @@ ActiveAdmin.register Solicitation do
     column :options do |s|
       s.landing_options_slugs&.join("\n")
     end
-    column(:diagnoses) { |s| s.diagnoses.ids.join(",") }
+    column :diagnosis
     column(:badges) { |s| s.badges.map(&:to_s).join(",") }
-    column(:regions) { |s| s.diagnoses_regions&.pluck(:name).uniq.join(", ") }
+    column(:regions) { |s| s.diagnosis_region&.pluck(:name).uniq.join(", ") }
     Solicitation.all_past_landing_options_slugs.each do |landing|
       column landing, humanize_name: false do |s|
         s.landing_options_slugs&.include?(landing) ? I18n.t('yes') : ''
@@ -139,7 +137,7 @@ ActiveAdmin.register Solicitation do
   sidebar I18n.t('activerecord.models.solicitation.one'), only: :show do
     attributes_table_for solicitation do
       row(:status) { human_attribute_status_tag solicitation, :status }
-      row :diagnoses
+      row :diagnosis
       row :created_at
       row :updated_at
     end

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Solicitation, type: :model do
   describe 'associations' do
-    it { is_expected.to have_many :diagnoses }
+    it { is_expected.to have_one :diagnosis }
   end
 
   describe 'validations' do
@@ -161,13 +161,13 @@ RSpec.describe Solicitation, type: :model do
   describe '#by_territory' do
     let(:territory1) { create :territory }
     let(:territory2) { create :territory }
-    let(:solicitation1) { create :solicitation, :with_diagnoses }
-    let(:solicitation2) { create :solicitation, :with_diagnoses }
-    let(:solicitation3) { create :solicitation, :with_diagnoses }
+    let(:solicitation1) { create :solicitation, :with_diagnosis }
+    let(:solicitation2) { create :solicitation, :with_diagnosis }
+    let(:solicitation3) { create :solicitation, :with_diagnosis }
 
     before {
-      territory1.communes = [solicitation1.diagnoses.first.facility.commune]
-      territory2.communes = [solicitation2.diagnoses.first.facility.commune]
+      territory1.communes = [solicitation1.diagnosis.facility.commune]
+      territory2.communes = [solicitation2.diagnosis.facility.commune]
     }
 
     subject { described_class.by_territory(territory2) }
@@ -178,13 +178,13 @@ RSpec.describe Solicitation, type: :model do
   describe '#by_territories' do
     let(:territory1) { create :territory }
     let(:territory2) { create :territory }
-    let(:solicitation1) { create :solicitation, :with_diagnoses }
-    let(:solicitation2) { create :solicitation, :with_diagnoses }
-    let(:solicitation3) { create :solicitation, :with_diagnoses }
+    let(:solicitation1) { create :solicitation, :with_diagnosis }
+    let(:solicitation2) { create :solicitation, :with_diagnosis }
+    let(:solicitation3) { create :solicitation, :with_diagnosis }
 
     before {
-      territory1.communes = [solicitation1.diagnoses.first.facility.commune]
-      territory2.communes = [solicitation2.diagnoses.first.facility.commune]
+      territory1.communes = [solicitation1.diagnosis.facility.commune]
+      territory2.communes = [solicitation2.diagnosis.facility.commune]
     }
 
     subject { described_class.by_territories([territory1, territory2]) }
@@ -195,14 +195,14 @@ RSpec.describe Solicitation, type: :model do
   describe "#by_possible_territory" do
     let(:territory1) { create :territory, :region }
     # - solicitation avec facility dans un territoire connu
-    let!(:solicitation1) { create :solicitation, :with_diagnoses }
+    let!(:solicitation1) { create :solicitation, :with_diagnosis }
     # - solicitation avec facility dans territoire non déployé
-    let!(:solicitation2) { create :solicitation, :with_diagnoses }
+    let!(:solicitation2) { create :solicitation, :with_diagnosis }
     # - solicitation sans diagnosis (pb de siret, par ex)
     let!(:solicitation3) { create :solicitation }
 
     before {
-      territory1.communes = [solicitation1.diagnoses.first.facility.commune]
+      territory1.communes = [solicitation1.diagnosis.facility.commune]
     }
 
     subject { described_class.by_possible_territory(possible_territory) }

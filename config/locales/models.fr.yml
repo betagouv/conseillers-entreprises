@@ -420,8 +420,8 @@ fr:
     diagnoses:
       one: Analyse
       other: Analyses
-    diagnoses_regions: Régions
     diagnosis: Analyse
+    diagnosis_region: Région
     effectif: Effectif
     email: E-mail
     expert: Référent
