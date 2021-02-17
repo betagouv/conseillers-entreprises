@@ -214,7 +214,7 @@ RSpec.describe Solicitation, type: :model do
     end
 
     context 'filter by diagnoses problem' do
-      let(:possible_territory) { 'without_diagnoses' }
+      let(:possible_territory) { 'without_diagnosis' }
 
       it { is_expected.to eq [solicitation3] }
     end

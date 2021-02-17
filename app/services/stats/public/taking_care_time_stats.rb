@@ -5,7 +5,7 @@ module Stats::Public
     def main_query
       Solicitation
         .status_processed
-        .joins(diagnoses: [needs: :matches])
+        .joins(diagnosis: [needs: :matches])
         .distinct
     end
 
@@ -32,7 +32,7 @@ module Stats::Public
 
     def filtered(query)
       if territory.present?
-        query.where!(diagnoses: territory.diagnoses)
+        query.where!(diagnosis: territory.diagnoses)
       end
       if @start_date.present?
         query.where!("solicitations.created_at >= ? AND solicitations.created_at <= ?", @start_date, @end_date)

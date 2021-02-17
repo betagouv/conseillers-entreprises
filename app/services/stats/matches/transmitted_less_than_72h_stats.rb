@@ -3,7 +3,7 @@ module Stats::Matches
     include ::Stats::BaseStats
 
     def main_query
-      Solicitation.joins(:diagnoses).status_processed.all
+      Solicitation.joins(:diagnosis).status_processed.all
     end
 
     def filtered(query)
@@ -22,10 +22,21 @@ module Stats::Matches
     def build_series
       query = main_query
       query = filtered(query)
-      query = group_by_date(query)
-      @less_than_72h ||= query[true].group_by_month(&:created_at).map { |_, v| v.size }
-      @more_than_72h ||= query[false].group_by_month(&:created_at).map { |_, v| v.size }
+      @less_than_72h = []
+      @more_than_72h = []
+
+      search_range_by_month.each do |range|
+        grouped_result = group_by_date_in_range(query, range)
+        @less_than_72h.push(grouped_result[true]&.size || 0)
+        @more_than_72h.push(grouped_result[false]&.size || 0)
+      end
+
       as_series(@less_than_72h, @more_than_72h)
+    end
+
+    def group_by_date_in_range(query, range)
+      query_range = query.created_between(range.first, range.last)
+      group_by_date(query_range)
     end
 
     def group_by_date(query)

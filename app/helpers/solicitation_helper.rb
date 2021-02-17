@@ -75,7 +75,7 @@ module SolicitationHelper
       [territory.name, territory.id]
     end
     territory_options.push(
-      [ t('helpers.solicitation.without_diagnoses_label'), t('helpers.solicitation.without_diagnoses_value') ],
+      [ t('helpers.solicitation.without_diagnosis_label'), t('helpers.solicitation.without_diagnosis_value') ],
       [ t('helpers.solicitation.out_of_deployed_territories_label'), t('helpers.solicitation.out_of_deployed_territories_value') ]
     )
   end
