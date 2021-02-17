@@ -53,7 +53,7 @@ class Institution < ApplicationRecord
   has_many :received_matches, through: :antennes, inverse_of: :expert_institution
   has_many :received_needs, through: :antennes, inverse_of: :expert_institutions
   has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institutions
-  has_many :received_solicitations, through: :received_diagnoses, source: :solicitation, inverse_of: :expert_institutions
+  has_many :received_solicitations, through: :received_diagnoses, source: :solicitation, inverse_of: :diagnosis
 
   # Same as :advisors and :antennes, but excluding deleted items; this makes it possible to preload not_deleted items in views.
   has_many :not_deleted_antennes, -> { not_deleted }, class_name: "Antenne", inverse_of: :institution
