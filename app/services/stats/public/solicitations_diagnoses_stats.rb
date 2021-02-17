@@ -20,21 +20,21 @@ module Stats::Public
       query = main_query
       query = filtered(query)
 
-      @with_diagnoses = []
-      @without_diagnoses = []
+      @with_diagnosis = []
+      @without_diagnosis = []
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        @with_diagnoses.push(month_query.joins(:diagnoses).count)
-        @without_diagnoses.push(month_query.without_diagnoses.count)
+        @with_diagnosis.push(month_query.joins(:diagnosis).count)
+        @without_diagnosis.push(month_query.without_diagnosis.count)
       end
 
-      as_series(@with_diagnoses, @without_diagnoses)
+      as_series(@with_diagnosis, @without_diagnosis)
     end
 
     def count
       build_series
-      percentage_two_numbers(@with_diagnoses, @without_diagnoses)
+      percentage_two_numbers(@with_diagnosis, @without_diagnosis)
     end
 
     def subtitle
@@ -43,15 +43,15 @@ module Stats::Public
 
     private
 
-    def as_series(with_diagnoses, without_diagnoses)
+    def as_series(with_diagnosis, without_diagnosis)
       [
         {
-          name: I18n.t('stats.without_diagnoses'),
-            data: without_diagnoses
+          name: I18n.t('stats.without_diagnosis'),
+            data: without_diagnosis
         },
         {
-          name: I18n.t('stats.with_diagnoses'),
-            data: with_diagnoses
+          name: I18n.t('stats.with_diagnosis'),
+            data: with_diagnosis
         }
       ]
     end

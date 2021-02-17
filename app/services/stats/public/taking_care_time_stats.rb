@@ -5,7 +5,7 @@ module Stats::Public
     def main_query
       Solicitation
         .status_processed
-        .joins(diagnoses: [needs: :matches])
+        .joins(diagnosis: [needs: :matches])
         .distinct
     end
 

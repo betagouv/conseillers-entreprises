@@ -244,8 +244,8 @@ fr:
       out_of_deployed_territories_label: Hors territoires déployés
       out_of_deployed_territories_value: out_of_deployed_territories
       view_completed_analysis: Voir l’analyse réalisée
-      without_diagnoses_label: Problème d'analyse (SIRET ou autre)
-      without_diagnoses_value: without_diagnoses
+      without_diagnosis_label: Problème d'analyse (SIRET ou autre)
+      without_diagnosis_value: without_diagnosis
   landing_topics:
     landing_topic:
       choose: Choisir
@@ -695,8 +695,8 @@ fr:
         deployment: Déploiement
         matches: Mises en relation
         quality: Suivi qualité
-    with_diagnoses: Demandes transmises
-    without_diagnoses: Demandes non transmises
+    with_diagnosis: Demandes transmises
+    without_diagnosis: Demandes non transmises
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

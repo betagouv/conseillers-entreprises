@@ -139,7 +139,7 @@ class Solicitation < ApplicationRecord
     joins(:diagnosis).where(diagnoses: { facility: territories.map{ |t| t.facility_ids }.flatten })
   end
 
-  # param peut être un id de Territory ou une clé correspondant à un scope ("without_diagnoses" par ex)
+  # param peut être un id de Territory ou une clé correspondant à un scope ("without_diagnosis" par ex)
   scope :by_possible_territory, -> (param) {
     begin
       by_territory(Territory.find(param))
@@ -149,7 +149,7 @@ class Solicitation < ApplicationRecord
   }
 
   # Pour détecter les pb de siret, par exemple
-  scope :without_diagnoses, -> {
+  scope :without_diagnosis, -> {
     left_outer_joins(:diagnosis)
       .where(diagnoses: { id: nil })
   }
@@ -259,6 +259,6 @@ class Solicitation < ApplicationRecord
   end
 
   def transmitted_at
-    diagnoses.pluck(:completed_at).compact&.min
+    diagnosis&.completed_at
   end
 end
