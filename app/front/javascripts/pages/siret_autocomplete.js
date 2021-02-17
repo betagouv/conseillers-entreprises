@@ -55,7 +55,8 @@ import { departments_to_regions } from './departments_to_regions';
       if (typeof option == 'undefined') return
       let region = null
       if (typeof option.postal_code !== 'undefined') {
-        region = departments_to_regions[option.postal_code.slice(0, 2)]
+        const department = option.postal_code.slice(0, 2)
+        region =fetchCodeRegion(department)
       }
       else if (typeof option.region !== 'undefined') {
         region = option.region
@@ -98,7 +99,7 @@ import { departments_to_regions } from './departments_to_regions';
 
   function filterResults (results) {
     const indifusibleSiretHelp = document.querySelector("[data-error='indiffusible-siret']")
-    
+
     if (results.message == 'no results found') return
     // Recherche par SIRET
     if (results.unite_legale) {
@@ -159,5 +160,11 @@ import { departments_to_regions } from './departments_to_regions';
 
   function isSiretSearch (str) {
     return str.replace(/\s/g, '').match(/^\d+$/g)
+  }
+
+  async function fetchCodeRegion(department) {
+    let response = await fetch(`/code-region/${department}`)
+    let data = await response.json()
+    return data.code_region
   }
 })()

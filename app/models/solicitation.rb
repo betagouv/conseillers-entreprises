@@ -3,6 +3,7 @@
 # Table name: solicitations
 #
 #  id                               :bigint(8)        not null, primary key
+#  code_region                      :integer
 #  description                      :string
 #  email                            :string
 #  form_info                        :jsonb
@@ -21,6 +22,7 @@
 #
 # Indexes
 #
+#  index_solicitations_on_code_region     (code_region)
 #  index_solicitations_on_email           (email)
 #  index_solicitations_on_institution_id  (institution_id)
 #  index_solicitations_on_landing_slug    (landing_slug)
@@ -40,7 +42,7 @@ class Solicitation < ApplicationRecord
   #
   belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
   has_one :diagnosis, inverse_of: :solicitation
-  has_many :diagnosis_region, -> { regions }, through: :diagnosis, source: :facility_territories
+  has_many :diagnosis_region, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
 
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnosis, inverse_of: :solicitation
@@ -49,11 +51,27 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
   before_create :set_institution_from_landing
+  before_create :set_code_region
 
   ## Callbacks
   #
   def set_institution_from_landing
     self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
+  end
+
+  def set_code_region
+    begin
+      siret = Facility.clean_siret(self.siret)
+      return if siret.blank?
+      searched_etablissement = UseCases::SearchFacility.with_siret(siret)
+      ## Si mauvais siret
+      return if searched_etablissement.blank?
+
+      code_region = searched_etablissement.etablissement.region_implantation['code']
+      self.code_region = code_region
+    rescue StandardError => e
+      return
+    end
   end
 
   def touch_after_badges_update(_badge)
