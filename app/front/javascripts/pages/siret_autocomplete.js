@@ -1,18 +1,17 @@
 import { exists, debounce } from '../shared/utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
-import { departments_to_regions } from './departments_to_regions';
 
 (function () {
   addEventListener('DOMContentLoaded', setupSiretAutocomplete)
 
-  const NAME_SEARCH_URL = 'https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'
-  const SIRET_SEARCH_URL = 'https://entreprise.data.gouv.fr/api/sirene/v3/unites_legales/'
-
   function setupSiretAutocomplete () {
-    const targetField = document.querySelector("[data-target='siret-autocomplete']")
     const autocompleteField = document.querySelector("[data-action='siret-autocomplete']")
     if (autocompleteField === null) return
+
     const deployedRegion = autocompleteField.getAttribute('data-deployed-regions')
+    const siretField = document.querySelector("[data-target='siret-autocomplete']")
+    const codeRegionField = document.querySelector("[data-target='code-region-autocomplete']")
+    const indifusibleSiretHelp = document.querySelector("[data-error='indiffusible-siret']")
 
     if (exists(autocompleteField)) {
       accessibleAutocomplete({
@@ -25,50 +24,62 @@ import { departments_to_regions } from './departments_to_regions';
         },
         tAssistiveHint: () => autocompleteField.dataset.assistiveHint,
         source: debounce(async (query, populateResults) => {
-          // fill hidden field in case autocomplete gives no result
-          targetField.value = query
-          // display autocomplete suggestions
-          const url = getSearchUrl(query)
-          const res = await fetchSource(query, url)
-          const filteredResults = filterResults(res)
-          if (filteredResults) {
-            populateResults(filteredResults)
+          reinitFormFields(query);
+          const results = await fetchEtablissements(query);
+          console.log(results);
+          if(!results) return;
+          if (results.error) {
+            displayErrorBlock()
+          } else {
+            hideErrorBlock()
+            populateResults(filterResults(results));
           }
         }, 300),
         onConfirm: (option) => {
           fillSiretField(option)
-          CheckIfInDeployedRegion(option)
+          fillCodeRegionField(option)
+          checkIfInDeployedRegion(option)
         }
       })
     }
 
-    function fillSiretField (option) {
-      if (option && option.label) {
-        const match = option.label.match(/\d{14}/)[0]
-        if (match) {
-          targetField.value = match
+    function fillSiretField(option) {
+      if (option && option.siret) {
+        siretField.value = option.siret
+      }
+    }
+
+    function fillCodeRegionField(option) {
+      if (option && option.code_region) {
+        codeRegionField.value = option.code_region
+      }
+    }
+
+    function checkIfInDeployedRegion (option) {
+      if (option && option.code_region) {
+        let region = option.code_region;
+        if (!deployedRegion.includes(region)) {
+          const notInDeployedRegion = document.querySelector("[data-error='not-in-deployed-region']")
+          notInDeployedRegion.style.display = 'block'
+          const newsletter = document.querySelector("[data-error='newsletter']")
+          newsletter.style.display = 'block'
+          fill_newsletter_form(region)
         }
       }
     }
 
-    function CheckIfInDeployedRegion (option) {
-      if (typeof option == 'undefined') return
-      let region = null
-      if (typeof option.postal_code !== 'undefined') {
-        const department = option.postal_code.slice(0, 2)
-        region =fetchCodeRegion(department)
-      }
-      else if (typeof option.region !== 'undefined') {
-        region = option.region
-      }
-      if (!deployedRegion.includes(region)) {
-        const notInDeployedRegion = document.querySelector("[data-error='not-in-deployed-region']")
-        notInDeployedRegion.style.display = 'block'
-        const newsletter = document.querySelector("[data-error='newsletter']")
-        newsletter.style.display = 'block'
+    function displayErrorBlock() {
+      indifusibleSiretHelp.style.display = "block";
+    }
 
-        fill_newsletter_form(region)
-      }
+    function hideErrorBlock() {
+      indifusibleSiretHelp.style.display = "none";
+    }
+
+    function reinitFormFields(query) {
+      // fill hidden field in case autocomplete gives no result
+      siretField.value = query;
+      codeRegionField.value = "";
     }
   }
 
@@ -82,89 +93,31 @@ import { departments_to_regions } from './departments_to_regions';
 
   // Récupération des résultats ----------------------------------------------------
 
-  function getSearchUrl (query) {
-    return isSiretSearch(query) ? SIRET_SEARCH_URL : NAME_SEARCH_URL
+  async function fetchEtablissements(query) {
+    let response = await fetch(`/rech-etablissement/${query}`);
+    let data = await response.json();
+    return data;
   }
 
-  async function fetchSource (query, url) {
-    if (isSiretSearch(query)) query = query.replace(/\s/g, '')
-    const res = await fetch(
-      `${url}${encodeURIComponent(query)}?per_page=15`
-    )
-    const data = await res.json()
-    return data
+  function filterResults(data) {
+    return data.filter((etablissement) => {
+      // remove Administrations from suggestions
+      return etablissement.activite != "Administration publique générale";
+    });
   }
 
   // Traitement des résultats --------------------------------------------
-
-  function filterResults (results) {
-    const indifusibleSiretHelp = document.querySelector("[data-error='indiffusible-siret']")
-
-    if (results.message == 'no results found') return
-    // Recherche par SIRET
-    if (results.unite_legale) {
-      indifusibleSiretHelp.style.display = "none";
-      const uniteLegale = results.unite_legale
-      const etablissement = uniteLegale.etablissement_siege
-      // les siret indiffusiblse ne sortent aucun résultat
-      if (!exists(etablissement)) {
-        indifusibleSiretHelp.style.display = 'block'
-        return
-      }
-      return [
-        {
-          label: `${etablissement.siret} (${uniteLegale.denomination})`,
-          address: etablissement.geo_adresse,
-          postal_code: etablissement.code_postal
-        },
-      ];
-    }
-    // Recherche par nom
-    if (results.etablissement) {
-      indifusibleSiretHelp.style.display = "none";
-      return results.etablissement
-        .filter((etablissement) => {
-          // remove Administrations from suggestions
-          return (etablissement.libelle_activite_principale != 'Administration publique générale')
-        })
-        .map((etablissement) => {
-          const name = getName(etablissement).replace(/\*/g, ' ')
-          return {
-            label: `${name} (${etablissement.siret})`,
-            address: etablissement.geo_adresse,
-            activity: etablissement.libelle_activite_principale,
-            region: etablissement.region
-          }
-        })
-    }
-  }
-
   function suggestionTemplate (result) {
     if (!result) return
-    const activity = result.activity ? `${result.activity} - ` : ''
-    return result && `<strong> ${result.label} </strong>
-        <p><span class="small">${activity}${result.address}</span> </p>`
+    return (
+      result &&
+      `<strong> ${result.siret} (${result.nom}) </strong>
+        <p><span class="small">${result.activite || ''} - ${result.lieu || ''}</span> </p>`
+    );
   }
 
   function inputValueTemplate (result) {
-    return result && result.label
+    return result && `${result.siret} - ${result.nom}`;
   }
 
-  function getName (etablissement) {
-    if (etablissement.nom) { return `${etablissement.nom} ${etablissement.prenom}` }
-    if (etablissement.enseigne) return etablissement.enseigne
-    return etablissement.nom_raison_sociale
-  }
-
-  // Utilities ----------------------------------------------------------------
-
-  function isSiretSearch (str) {
-    return str.replace(/\s/g, '').match(/^\d+$/g)
-  }
-
-  async function fetchCodeRegion(department) {
-    let response = await fetch(`/code-region/${department}`)
-    let data = await response.json()
-    return data.code_region
-  }
 })()

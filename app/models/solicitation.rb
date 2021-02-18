@@ -51,7 +51,6 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
   before_create :set_institution_from_landing
-  before_create :set_code_region
 
   ## Callbacks
   #
@@ -61,7 +60,7 @@ class Solicitation < ApplicationRecord
 
   def set_code_region
     begin
-      siret = Facility.clean_siret(self.siret)
+      siret = FormatSiret.clean_siret(self.siret)
       return if siret.blank?
       searched_etablissement = UseCases::SearchFacility.with_siret(siret)
       ## Si mauvais siret

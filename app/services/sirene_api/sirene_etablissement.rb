@@ -2,7 +2,7 @@
 
 module SireneApi
   class SireneEtablissement
-    attr_reader :siret, :nom, :enseigne, :activite, :lieu
+    attr_reader :siret, :nom, :enseigne, :activite, :lieu, :code_region
 
     def initialize(hash)
       @siret = hash[:siret]
@@ -10,6 +10,7 @@ module SireneApi
       @enseigne = hash[:enseigne]
       @activite = hash[:libelle_activite_principale]
       @lieu = lieu_from_hash(hash)
+      @code_region = hash[:region]
     end
 
     private

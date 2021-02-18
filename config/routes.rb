@@ -217,7 +217,7 @@ Rails.application.routes.draw do
   end
 
   get 'profile' => 'users#show'
-  get '/code-region/:department', to: 'utilities#departments_to_regions'
+  get '/rech-etablissement/:query', to: 'utilities#search_etablissement'
 
   ## Redirection for compatibility
   get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')

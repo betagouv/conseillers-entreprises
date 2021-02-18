@@ -1,9 +1,9 @@
 class UtilitiesController < SharedController
-  def departments_to_regions
-    code_region = I18n.t(params[:department], scope: 'departments_to_regions')
+  def search_etablissement
+    results = SearchEtablissement.call(params.permit(:query).require(:query))
     respond_to do |format|
       format.json do
-        render json: { code_region: code_region }
+        render json: results.as_json
       end
     end
   end
