@@ -46,8 +46,8 @@ class DiagnosesController < ApplicationController
   def show
     authorize @diagnosis
     if @diagnosis.step_completed?
-      # let needs_controller handle completed diagnoses
-      redirect_to need_path(@diagnosis)
+      need = current_user.received_needs.where(diagnosis: @diagnosis).first || @diagnosis.needs.first
+      redirect_to need_path(need)
     else
       redirect_to controller: 'diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     end
