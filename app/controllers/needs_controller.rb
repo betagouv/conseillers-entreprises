@@ -2,7 +2,7 @@
 
 class NeedsController < ApplicationController
   before_action :maybe_review_expert_subjects
-  before_action :retrieve_need, only: %i[archive unarchive]
+  before_action :retrieve_need, only: %i[show archive unarchive]
 
   layout 'side_menu', except: :show
 
@@ -90,12 +90,7 @@ class NeedsController < ApplicationController
   public
 
   def show
-    @diagnosis = retrieve_diagnosis
-    authorize @diagnosis
-    unless @diagnosis.step_completed?
-      # let diagnoses_controller (and steps_controller) handle incomplete diagnoses
-      redirect_to @diagnosis and return
-    end
+    authorize @need
   end
 
   def additional_experts
@@ -129,7 +124,7 @@ class NeedsController < ApplicationController
     authorize @need, :archive?
     @need.archive!
     flash[:notice] = t('.subjet_achived')
-    redirect_back fallback_location: need_path(@need.diagnosis),
+    redirect_back fallback_location: diagnosis_path(@need.diagnosis),
                   notice: t('needs.archive.archive_done', company: @need.company.name)
   end
 
@@ -137,7 +132,7 @@ class NeedsController < ApplicationController
     authorize @need, :archive?
     @need.update(archived_at: nil)
     flash[:notice] = t('.subject_unarchived')
-    redirect_to need_path(@need.diagnosis)
+    redirect_to diagnosis_path(@need.diagnosis)
   end
 
   private
