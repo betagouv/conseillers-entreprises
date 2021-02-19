@@ -59,7 +59,7 @@ class LandingsController < PagesController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:landing_slug, :description,
+      .permit(:landing_slug, :description, :code_region,
               *Solicitation::FIELD_TYPES.keys,
               landing_options_slugs: [])
   end
