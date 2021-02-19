@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class FormatSiret
-  def self.to_siret(query)
+  def self.siret_from_query(query)
     maybe_siret = clean_siret(query)
     maybe_siret if siret_is_valid(maybe_siret)
   end
 
-  def self.to_siren(query)
+  def self.siren_from_query(query)
     maybe_siren = clean_siret(query)
     maybe_siren if siren_is_valid(maybe_siren)
   end

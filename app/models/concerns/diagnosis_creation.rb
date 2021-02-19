@@ -42,7 +42,7 @@ module DiagnosisCreation
     # Some preconditions can be verified without actually trying to create the Diagnosis
     def may_prepare_diagnosis?
       self.preselected_subjects.present? &&
-        Facility.siret_is_valid(Facility.clean_siret(self.siret)) # TODO: unify the SIRET validation methods
+        FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret)) # TODO: unify the SIRET validation methods
     end
 
     # Attempt to create a diagnosis up to the last step with the information from the solicitation.
@@ -60,7 +60,7 @@ module DiagnosisCreation
         diagnosis = DiagnosisCreation.create_diagnosis(
           advisor: advisor,
           solicitation: self,
-          facility_attributes: { siret: Facility.clean_siret(self.siret) }
+          facility_attributes: { siret: FormatSiret.clean_siret(self.siret) }
         )
 
         # Steps 1, 2, 3: fill in with the solicitation data and the landing_option preselections

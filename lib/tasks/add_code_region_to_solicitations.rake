@@ -13,16 +13,26 @@ task add_code_region_to_solicitations: :environment do
     total += 1
   end
   Solicitation.where(code_region: nil).find_each do |solicitation|
-    solicitation.set_code_region
-    solicitation.save!(touch: false, validate: false)
+    begin
+      siret = FormatSiret.clean_siret(solicitation.siret)
+      return if siret.blank?
+      searched_etablissement = UseCases::SearchFacility.with_siret(siret)
+      ## Si mauvais siret
+      return if searched_etablissement.blank?
+      code_region = searched_etablissement.etablissement.region_implantation['code']
+      solicitation.code_region = code_region
+      solicitation.save!(touch: false, validate: false)
+    rescue StandardError => e
+      return
+    end
     total += 1
     volumetry_total += 1
-    if volumetry_total % 2000 == 0
+    if volumetry_total % 1999 == 0
       sleep(10.minutes)
       volumetry_total = 0
     end
   end
 
   puts "#{total} sollicitations mises à jour"
-  puts "Sollicitations restant code region : #{Solicitation.where(code_region: nil).count}"
+  puts "Sollicitations restant sans code region : #{Solicitation.where(code_region: nil).count}"
 end

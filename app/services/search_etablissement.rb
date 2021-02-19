@@ -27,7 +27,7 @@ class SearchEtablissement
   end
 
   def siret_search
-    siren = FormatSiret.to_siren(@query)
+    siren = FormatSiret.siren_from_query(@query)
     return if siren.blank?
     begin
       response = UseCases::SearchCompany.with_siren siren
