@@ -9,7 +9,7 @@ module W3cValidator
       validator.validate_text(body)
       errors << validator.results.errors
       # ne prend pas en compte les erreurs CSS pour le moment elle ne sont pas pertinente, peut être trouver un moyen de mieux intégrer le validateur
-      errors = errors.flatten.delete_if { |e| e.message == 'CSS: Parse Error.' }
+      errors = errors.flatten.delete_if { |e| e.message == 'CSS: Parse Error.' || e.message == 'CSS: “box-shadow”: Unknown dimension.' }
       errors.length == 0
     end
     failure_message do |actual|

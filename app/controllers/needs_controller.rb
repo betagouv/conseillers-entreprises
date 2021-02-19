@@ -91,6 +91,7 @@ class NeedsController < ApplicationController
 
   def show
     authorize @need
+    @others_matches = @need.matches.where.not(id: current_user.received_matches.ids).distinct
   end
 
   def additional_experts
@@ -100,19 +101,16 @@ class NeedsController < ApplicationController
     @experts = Expert.omnisearch(@query)
       .with_subjects
       .where.not(id: @need.experts)
-      .limit(15)
+      .limit(20)
       .includes(:antenne, experts_subjects: :institution_subject)
   end
 
   def add_match
-    @diagnosis = retrieve_diagnosis
-
-    @need = Need.find(params.require(:need))
-    expert_subject = ExpertSubject.find(params.require(:expert_subject))
-    expert = expert_subject.expert
+    @need = retrieve_need
+    expert = Expert.find(params.require(:expert))
     @match = Match.create(need: @need, expert: expert, subject: @need.subject)
     if @match.valid?
-      ExpertMailer.notify_company_needs(expert, @diagnosis).deliver_later
+      ExpertMailer.notify_company_needs(expert, @need.diagnosis).deliver_later
       expert.first_notification_help_email
     else
       flash.alert = @match.errors.full_messages.to_sentence

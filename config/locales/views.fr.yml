@@ -87,6 +87,10 @@ fr:
       region_implantation: Région d’implantation
       siret: SIRET
       tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
+    facility_infos:
+      company: Entreprise
+      more_informations: Plus d'informations
+      workforce: 'Tranche effectif : %{range}'
     mandataire:
       dirigeant: Est-ce un dirigeant ?
       fonction: Fonction
@@ -221,6 +225,7 @@ fr:
     add: Ajouter un commentaire
     feedback:
       delete: Supprimer ce commentaire ?
+      delete_comment: Supprimer ce commentaire
     form:
       need:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
@@ -232,7 +237,7 @@ fr:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'
         subtitle: " "
       submit: Commenter
-      title: Nouveau commentaire
+      title: 'Nouveau commentaire :'
   helpers:
     page_entries_info:
       many_pages_html: "<strong>%{total}</strong> %{name} (affichage de %{start} à %{end})"
@@ -443,6 +448,27 @@ fr:
       needs_quo_html: À rappeler <i>(J+14)</i>
       needs_taking_care_html: Pris en charge
       title: Demandes reçues
+    match_actions:
+      can_you_help: Pouvez-vous aider l’entreprise %{company} ?
+      cancel: Annuler
+      cancel_taking_care: Annuler ma prise en charge
+      close_need: 'Clôturer votre intervention :'
+      deposited_on_partner_website_html: Demande déposée sur le site %{partner_link}
+      help_provided:
+        content: Un conseil, un accompagnement ou une aide financière a pu être proposé.
+        title: Une aide proposée
+      its_done: C’est terminé, merci pour votre intervention ! Laissez un commentaire pour les autres experts.
+      need_canceled: Vous avez décliné cette demande. Merci d’indiquer pourquoi, afin de nous aider à améliorer le service. Votre retour est précieux !
+      no_help:
+        content: Mon organisme n’est pas en mesure d’accompagner l’entreprise.
+        title: Pas d’aide disponible
+      not_for_me: Ce n’est pas pour moi
+      not_reachable:
+        content: Le chef d’entreprise ne répond pas mais il a vos coordonnées pour vous recontacter.
+        title: Entreprise injoignable
+      take_care: Je m’en charge !
+      validate: Valider
+      your_turn_html: C‘est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     menu:
       for_other_antenne: Toutes les demandes pour %{antenne}
       for_other_header: Voir aussi
@@ -453,10 +479,18 @@ fr:
       need_archived: Besoin archivé
       solicitation_link: Lien vers la sollicitation
     show:
+      all_needs: Toutes les demandes
+      comments: Discussion entre experts
+      no_comment: Aucun commentaire
+      no_match: Aucun autre expert de notifié
+      others_experts: Autres experts notifiés
+      person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »
       all_needs: "Toutes les demandes"
       person_company_contact: "Contact entreprise"
       transmitted_by: "Demande transmise par"
+      transmitted_by: Demande transmise par
+      warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
     unarchive:
       subject_unarchived: Besoin désarchivé
     visit_summary:

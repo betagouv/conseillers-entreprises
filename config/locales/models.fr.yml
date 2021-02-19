@@ -189,7 +189,7 @@ fr:
         done_no_help: Après échange, je n’ai pas d'accompagnement à proposer. Si j’ai des infos, je les partage aux autres experts.
         done_not_reachable: J’ai tenté de joindre l’entreprise à plusieurs reprises sans succès. J’ai laissé un message.
       match/statuses/short:
-        done: Clôturé
+        done: Aide proposée
         done_no_help: Pas d’aide
         done_not_reachable: Non joignable
         not_for_me: Refusé

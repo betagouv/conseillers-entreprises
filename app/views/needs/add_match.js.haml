@@ -1,8 +1,5 @@
+var noMatch = document.getElementById('no-match')
+if (noMatch) { noMatch.remove() }
+
 - match_html = render @match
-document.getElementById('additional_experts-#{@need.id}').insertAdjacentHTML('beforebegin', "#{j match_html}");
-
-- html = render 'additional_experts', need: @need
-document.getElementById('additional_experts-#{@need.id}').outerHTML = "#{j html}";
-
-- need_header_html = render 'needs/need_header', need: @need
-document.getElementById('need_header-#{@need.id}').innerHTML = "#{j need_header_html}";
+document.getElementById('others-experts').insertAdjacentHTML('beforeend', "#{j match_html}");

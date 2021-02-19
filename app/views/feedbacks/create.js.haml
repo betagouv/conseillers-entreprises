@@ -1,4 +1,7 @@
+var noComment = document.getElementById('no-comment')
+if (noComment) { noComment.remove() }
+
 - feedback_html = render 'feedbacks/feedback', feedback: @feedback
 document.getElementById('feedback-form-#{@feedback.feedbackable_id}').insertAdjacentHTML('beforebegin', "#{j feedback_html}");
 
-document.querySelector('#feedback-form-#{@feedback.feedbackable_id} .form').reset()
+document.querySelector('#feedback-form-#{@feedback.feedbackable_id}').reset()

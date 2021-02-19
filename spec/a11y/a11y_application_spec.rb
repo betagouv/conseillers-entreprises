@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-describe 'application', type: :feature, js: true do
+describe 'a11y', type: :feature, js: true do
   login_user
-  subject { page.body }
+  subject { page }
 
   describe '/besoins/:id' do
     let(:solicitation) { create :solicitation, :with_diagnosis }
@@ -23,7 +23,7 @@ describe 'application', type: :feature, js: true do
         visit "/besoins/#{need.id}"
       end
 
-      it { is_expected.to be_valid_html }
+      it { is_expected.to be_accessible }
     end
 
     describe 'with status_taking_care need' do
@@ -32,7 +32,7 @@ describe 'application', type: :feature, js: true do
         visit "/besoins/#{need.id}"
       end
 
-      it { is_expected.to be_valid_html }
+      it { is_expected.to be_accessible }
     end
   end
 end
