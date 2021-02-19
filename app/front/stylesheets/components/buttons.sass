@@ -1,0 +1,45 @@
+.rf-btn
+  font-weight: bold
+  &:hover, &:focus
+    opacity: 0.8
+    background-image: none
+
+\:root:not([data-rf-theme="dark"]) .rf-btn
+  --color-hover: none
+  --color-active: none
+
+.rf-btn.btn-blue
+  background-color: $blue
+  &:hover, &:focus
+    background-color: $blue
+
+.rf-btn.btn-green
+  background-color: $green
+  &:hover, &:focus
+    background-color: $green
+
+.rf-btn.btn-grey-blue
+  background-color: $grey-blue
+  &:hover, &:focus
+    background-color: $grey-blue
+
+.rf-btn.btn-orange
+  background-color: $orange
+  &:hover, &:focus
+    background-color: $orange
+
+.rf-btn.rf-btn--secondary.btn-red
+  color: var(--rm500)
+  box-shadow: inset 0 0 0 1px var(--rm500)
+
+.btn-unstyled
+  border: none
+  background: none
+  cursor: pointer
+
+.gray-link
+  border: none
+  background: none
+  color: var(--g600)
+  text-decoration: underline
+  cursor: pointer

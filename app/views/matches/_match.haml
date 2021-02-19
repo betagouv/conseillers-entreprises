@@ -1,41 +1,22 @@
-- for_me = match.in?(current_user.received_matches)
-.event{ id: "match-#{match.id}" }
-  .label
-    %a{ href: "#match-#{match.id}", data: { turbolinks: 'false' } }
-      - if match.additional_match?
-        %i.ambulance.icon{ class: ('blue' if for_me) }
-      - else
-        %i.handshake.outline.icon{ class: ('blue' if for_me) }
-      - if for_me
-        .ui.mini.basic.blue.label= t('.thats_you')
-  .content.match-summary
-    .date
-      - if match.additional_match?
-        = t('.additional_match', date: l(match.created_at, format: :long))
-      - else
-        = t('.match_with')
-    .summary
-      .user.popup-hover
-        - if current_user.is_admin?
-          = link_to "#{match.expert.full_name} - #{match.expert.antenne.name}", needs_reminders_expert_path(match.expert)
-        - else
-          #{match.expert.full_name} - #{match.expert.antenne.name}
-      .ui.popup= person_block(match.expert)
-    - if match.need.not_archived?
-      - if for_me
-        .meta
-          = match_actions_buttons match
-      - elsif policy(match).mark_as_done? && match.status_taking_care?
-        .meta
-          .ui.simple.dropdown
-            .text= t('.mark_as_done')
-            %i.dropdown.icon
-            = admin_match_actions_buttons match
-    - elsif policy(match).mark_as_done? && (match.allowed_new_status.include? :done)
-      .meta
-        .ui.simple.dropdown
-          %i.dropdown.icon
-          = t('.mark_as_done')
-          = admin_match_actions_buttons match
-  .match-status
+.rf-grid-row.row-match{ id: "row-match-#{match.id}" }
+  .rf-col-sm-1.col-icon
+    = expert_status_icon(match.status)
+  .rf-col-sm-8
+    %p
+      %b.blue.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{match.id}" }
+        #{match.expert.full_name}
+      = " - " + match.expert.antenne.name
+      .hidden{ id: "tooltip-case-#{match.id}" }
+        = person_block(match.expert)
+
+  .rf-col-sm-2.col-label
     = status_label(match)
+
+  .rf-col-sm-1.modify-match
+    - if policy(match).mark_as_done? && match.status_taking_care?
+      %section.rf-accordion
+        %h3.rf-accordion__title
+          %button.rf-accordion__btn{ "aria-controls" => "rf-accordion-10", "aria-expanded" => "false" }
+            .ri-edit-box-line
+        .rf-collapse#rf-accordion-10
+          = admin_match_actions_buttons match

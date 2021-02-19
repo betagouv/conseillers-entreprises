@@ -71,6 +71,7 @@ class Need < ApplicationRecord
   has_one :company, through: :diagnosis, inverse_of: :needs
   has_one :solicitation, through: :diagnosis, inverse_of: :needs
   has_one :advisor, through: :diagnosis, inverse_of: :sent_needs
+  has_one :visitee, through: :diagnosis, inverse_of: :needs
 
   # :matches
   has_many :experts, -> { distinct }, through: :matches, inverse_of: :received_needs

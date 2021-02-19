@@ -1,4 +1,4 @@
-.rf-col.block-infos
+.block-infos
   %ul.list-unstyled.rf-pl-1v
     %li.blue
       %b= t('.company')
@@ -6,6 +6,6 @@
       %b= facility.company.name
     %li= facility.readable_locality
     %li= t('.workforce', range: Effectif.effectif(facility.code_effectif))
-    %li= "#{t('attributes.siret')} : #{facility.siret}"
+    %li "#{t('attributes.siret')} : #{facility.siret}"
     %li= facility.naf_libelle
     %li= link_to t('.more_informations'), company_path(facility.siret), class: 'bold blue'

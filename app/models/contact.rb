@@ -27,6 +27,7 @@ class Contact < ApplicationRecord
   #
   belongs_to :company, inverse_of: :contacts
   has_many :diagnoses, dependent: :restrict_with_error, foreign_key: 'visitee_id', inverse_of: :visitee
+  has_many :needs, through: :diagnoses, inverse_of: :visitee
 
   ## Validations
   #

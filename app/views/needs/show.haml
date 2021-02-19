@@ -1,41 +1,61 @@
-- meta title: t('.title', company: @diagnosis.company.name)
+- meta title: t('.title', company: @need.company.name)
 
-%nav.rf-breadcrumb{"aria-label" => "vous êtes ici :"}
-  %button.rf-breadcrumb__button{:hidden => ""} Voir le fil d’Ariane
+%nav.rf-breadcrumb{ "aria-label" => "vous êtes ici :" }
+  %button.rf-breadcrumb__button{ :hidden => "" } Voir le fil d’Ariane
   %ol.rf-breadcrumb__list
     %li.rf-breadcrumb__item
       = link_to t('.all_needs'), needs_path
-    %li.rf-breadcrumb__item.rf-breadcrumb__item--current{"aria-current" => "page"}
-      #{@diagnosis.visitee} - #{@diagnosis.company.name}
+    %li.rf-breadcrumb__item.rf-breadcrumb__item--current{ "aria-current" => "page" }
+      #{@need.visitee} - #{@need.company.name}
 
-.rf-container
+.rf-container-fluid.rf-pb-4w
   .rf-grid-row
-    .rf-col-lg-4
+    .rf-col-lg-8
+      .rf-container
+        %h1.rf-h2= @need.subject
+        %p
+          %time.date{ datetime: @need.solicitation.created_at } Le #{I18n.l(@need.solicitation.created_at, format: :sentence)}
+        = simple_format(auto_link(@need.diagnosis.content.presence || @need.solicitation&.description), class: 'content')
+
+    .rf-col-lg-4.order-minus-one
       .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle.rf-mb-2w
-        .rf-container
+        .rf-container.rf-p-0
           .rf-grid-row
             .rf-col-lg-2.rf-grid-row--center.picto-person-block
               %span.ri-map-pin-user-line
-            = person_infos(@diagnosis.visitee, prefix: t('.person_company_contact'), role: nil)
+            .rf-col-lg-10
+              = person_block(@need.visitee, prefix: t('.person_company_contact'), role: nil)
       .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle.rf-mb-2w
-        .rf-container
+        .rf-container.rf-p-0
           .rf-grid-row
             .rf-col-lg-2.rf-grid-row--center.picto-person-block
               %span.ri-building-4-line
-            =render 'companies/facility_infos', facility: @diagnosis.facility
+            .rf-col-lg-10
+              = render 'companies/facility_infos', facility: @need.facility
       %hr.separation
       .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle
-        .rf-container
+        .rf-container.rf-p-0
           .rf-grid-row
             .rf-col-lg-2.rf-grid-row--center.picto-person-block
               %span.ri-mail-send-line
-            = person_infos(@diagnosis.advisor, prefix: t('.transmitted_by'))
+            .rf-col-lg-10
+              = person_block(@need.advisor, prefix: t('.transmitted_by'))
 
-    .rf-col-4
-    .rf-col-xs-12.rf-col-lg-4
+= render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
+
+.rf-container.lighter-blue-background.rf-p-2w#others-experts
+  %h2.rf-h3.rf-my-4w= t('.others_experts')
+  = render(:partial => 'matches/match', :collection => @others_matches) || tag(:p, t('.no_match'), id: 'no-match')
+
+.rf-container.lighter-blue-background
+  = render 'additional_experts', need: @need
 
 
+.rf-container.lighter-blue-background.rf-p-2w
+  .rf-my-4w.feedbacks-title
+    %h2.rf-h3= t('.comments')
+    %p= t('.warning_comments')
 
-= render 'visit_summary', diagnosis: @diagnosis
+  = render(:partial => 'feedbacks/feedback', :collection => @need.feedbacks.order(:created_at)) || tag(:p, t('.no_comment'), id: 'no-comment')
 
-= render @diagnosis.needs.ordered_for_interview
+  = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)
