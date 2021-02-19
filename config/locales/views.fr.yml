@@ -112,12 +112,6 @@ fr:
       information: Informations
       mandataires_sociaux: Mandataires sociaux
       siege_social: Siège social
-    company_infos:
-      company: "Entreprise"
-    facility_infos:
-      company: "Entreprise"
-      workforce: 'Tranche effectif : %{range}'
-      more_informations: "Plus d'informations"
   company_satisfactions:
     new:
       comment: Un commentaire ? Une suggestion ? Nous sommes à votre écoute.
@@ -229,13 +223,10 @@ fr:
     form:
       need:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
-        subtitle: Ce message n’est pas adressé au chef d’entreprise, pour transmettre l’information au dirigeant veuillez l’appeler.
       reminder:
         placeholder: " "
-        subtitle: " "
       solicitation:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'
-        subtitle: " "
       submit: Commenter
       title: 'Nouveau commentaire :'
   helpers:
@@ -414,12 +405,6 @@ fr:
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
-  matches:
-    match:
-      additional_match: Mise en relation ultérieure (%{date})
-      mark_as_done: Clôturer
-      match_with: 'Mise en relation avec :'
-      thats_you: C’est vous !
   needs:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
@@ -474,10 +459,6 @@ fr:
       for_other_header: Voir aussi
       for_other_user: Uniquement les demandes pour %{user}
       for_recipient: Pour %{recipient}
-    need_header:
-      company_message: 'Message de l''entreprise :'
-      need_archived: Besoin archivé
-      solicitation_link: Lien vers la sollicitation
     show:
       all_needs: Toutes les demandes
       comments: Discussion entre experts
@@ -486,20 +467,10 @@ fr:
       others_experts: Autres experts notifiés
       person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »
-      all_needs: "Toutes les demandes"
-      person_company_contact: "Contact entreprise"
-      transmitted_by: "Demande transmise par"
       transmitted_by: Demande transmise par
       warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
     unarchive:
       subject_unarchived: Besoin désarchivé
-    visit_summary:
-      advisor_has_diagnosed_n_needs:
-        one: "%{advisor} a identifié un besoin."
-        other: "%{advisor} a identifié %{count} besoins."
-      person_advisor: Conseiller
-      person_company_contact: Contact entreprise
-      visit_made_on: Mise en relation faite le %{date}
   newsletters:
     create:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.

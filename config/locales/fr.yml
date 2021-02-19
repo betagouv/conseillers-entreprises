@@ -111,7 +111,6 @@ fr:
       month: Mois
       second: Seconde
       year: Année
-  delete: Supprimer
   download: Télécharger
   errors:
     format: "%{attribute} %{message}"
