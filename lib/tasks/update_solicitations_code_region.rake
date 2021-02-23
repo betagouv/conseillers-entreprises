@@ -54,5 +54,3 @@ end
 
 desc 'update solicitations code_region'
 task update_solicitations_code_region: %w[update_solicitations_code_region:all]
-
-

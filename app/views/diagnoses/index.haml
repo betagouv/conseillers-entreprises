@@ -8,7 +8,7 @@
       = t('.subtitle', name: current_user.full_name)
 - else
   %h1.ui.header= t('.create_new_diagnosis')
-  = render partial: 'companies/search_form', locals: { query: @query }
+  = render partial: 'companies/search_form', locals: { query: @query, solicitation: @current_solicitation }
 
 = render 'diagnoses_tabs'
 
