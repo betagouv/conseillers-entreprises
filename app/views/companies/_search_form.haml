@@ -1,13 +1,12 @@
 %h2.ui.header= t('companies.search.search_company')
-
 %p= t('.subtitle')
 
 .ui.form
   = form_with url: search_companies_path, method: :get, skip_enforcing_utf8: true, local: true do
     .field
-      - if local_assigns[:solicitation].present?
-        = hidden_field_tag :solicitation, solicitation.id
-      - siret = local_assigns[:solicitation]&.siret
+      - if @current_solicitation.present?
+        = hidden_field_tag :solicitation, @current_solicitation.id
+      - siret = @current_solicitation&.siret
       .ui.action.input
         = text_field_tag :query, query || siret, autofocus: true, placeholder: t('companies.search.explanation')
         %button.ui.button.green{ type: 'submit' }= t('search')
