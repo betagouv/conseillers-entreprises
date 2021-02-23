@@ -421,7 +421,7 @@ fr:
       one: Analyse
       other: Analyses
     diagnosis: Analyse
-    diagnosis_region: Région
+    diagnosis_regions: Région
     effectif: Effectif
     email: E-mail
     expert: Référent
