@@ -79,7 +79,8 @@ module Stats
 
     def format
       # Format for graph tooltip
-      '{series.name} : <b>{point.percentage:.0f}%</b>'
+      # '{series.name} : <b>{point.percentage:.0f}%</b>'
+      '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
     end
 
     def chart

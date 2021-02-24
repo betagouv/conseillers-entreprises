@@ -44,9 +44,9 @@ module Stats::Public
       percentage_two_numbers(@needs_with_exchange, @needs_without_exchange)
     end
 
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.y})'
-    end
+    # def format
+    #   '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.y})'
+    # end
 
     private
 

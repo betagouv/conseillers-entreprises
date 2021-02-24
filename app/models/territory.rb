@@ -47,7 +47,13 @@ class Territory < ApplicationRecord
   #
   scope :bassins_emploi, -> { where(bassin_emploi: true) }
   scope :regions, -> { where.not(code_region: nil) }
+  scope :deployed_regions, -> { where(code_region: self.deployed_code_regions) }
   scope :with_support, -> { where.not(support_contact_id: nil) }
+
+  # Je me dis que c'est pas insensé de le centraliser ici. Ou bien dans un service ? A questionner
+  def self.deployed_code_regions
+    YAML.safe_load(ENV['DEPLOYED_REGIONS_CODES'])
+  end
 
   ##
   #

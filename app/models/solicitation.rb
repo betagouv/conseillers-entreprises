@@ -141,6 +141,16 @@ class Solicitation < ApplicationRecord
     joins(:diagnosis).where(diagnoses: { facility: territories.map{ |t| t.facility_ids }.flatten })
   end
 
+  scope :in_regions, -> (code_regions) do
+    where(code_region: code_regions)
+  end
+
+  scope :out_of_regions, -> (code_regions) do
+    where.not(code_region: code_regions).where.not(code_region: nil)
+  end
+
+  scope :in_unknown_region, -> { where(code_region: nil) }
+
   # param peut être un id de Territory ou une clé correspondant à un scope ("without_diagnosis" par ex)
   scope :by_possible_territory, -> (param) {
     begin
