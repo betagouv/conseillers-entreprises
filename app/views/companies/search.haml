@@ -1,6 +1,6 @@
 - meta title: t('.search_company')
 
-= render partial: 'companies/search_form', locals: { query: @query }
+= render partial: 'companies/search_form', locals: { query: @query, solicitation: @current_solicitation }
 
 - results = @etablissements
 - if results.present?

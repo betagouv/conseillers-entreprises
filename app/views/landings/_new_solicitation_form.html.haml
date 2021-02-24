@@ -16,6 +16,8 @@
             %span= help
           %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint"), "data-deployed-regions": ENV['DEPLOYED_REGIONS_CODES'] }
           = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
+          = f.hidden_field :code_region, data: { target: 'code-region-autocomplete' }
+
           %small.siret-warn{ "data-error": "indiffusible-siret" }= t(".attributes.help.indiffusible_siret_html")
           .notification.warning.out-region{ "data-error": "not-in-deployed-region" }
             = image_tag('info-alert-orange.png', alt: '')

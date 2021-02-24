@@ -4,12 +4,14 @@ defaults: &defaults
   working_directory: ~/place-des-entreprises
   docker:
     - image: circleci/ruby:2.7.2-node-browsers
+      environment:
+        SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
     - image: circleci/postgres:11.5
       environment:
         POSTGRES_USER: place_des_entreprises_test
         POSTGRES_PASSWORD: place_des_entreprises_test
         POSTGRES_DB: place_des_entreprises_test
-
+    - image: selenium/standalone-chrome:87.0
 bundle_restore_cache: &bundle_restore_cache
   restore_cache:
     key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
@@ -85,6 +87,8 @@ jobs:
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       - store_test_results:
           path: ~/test-results
+      - store_artifacts:
+          path: tmp/screenshots
   lint:
     <<: *defaults
     steps:
