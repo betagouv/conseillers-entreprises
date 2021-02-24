@@ -3,7 +3,7 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
-      Solicitation.all
+      Solicitation.in_regions(Territory.deployed_code_regions)
     end
 
     def filtered(query)
@@ -25,8 +25,10 @@ module Stats::Public
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        @with_diagnosis.push(month_query.joins(:diagnosis).count)
-        @without_diagnosis.push(month_query.without_diagnosis.count)
+        with_diagnosis_query = month_query.joins(:diagnosis).merge(Diagnosis.completed)
+        without_diagnosis_query = month_query.without_diagnosis.or(month_query.left_outer_joins(:diagnosis).merge(Diagnosis.in_progress))
+        @with_diagnosis.push(with_diagnosis_query.count)
+        @without_diagnosis.push(without_diagnosis_query.count)
       end
 
       as_series(@with_diagnosis, @without_diagnosis)

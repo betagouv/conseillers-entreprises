@@ -3,7 +3,7 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed.where(created_at: Time.zone.local(2020, 9, 1)..)
+      Need.joins(:diagnosis).merge(Diagnosis.from_solicitation.completed).where(created_at: Time.zone.local(2020, 9, 1)..)
     end
 
     def filtered(query)
