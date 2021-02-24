@@ -27,7 +27,6 @@ namespace :update_solicitations_code_region do
     Solicitation.where(code_region: nil).where.not(siret: nil).where.not(siret: "").find_each do |solicitation|
       begin
         siret = FormatSiret.clean_siret(solicitation.siret)
-        p siret
         return if siret.blank?
         searched_etablissement = UseCases::SearchFacility.with_siret(siret)
         ## Si mauvais siret

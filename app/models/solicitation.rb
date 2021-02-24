@@ -58,21 +58,6 @@ class Solicitation < ApplicationRecord
     self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
   end
 
-  def set_code_region
-    begin
-      siret = FormatSiret.clean_siret(self.siret)
-      return if siret.blank?
-      searched_etablissement = UseCases::SearchFacility.with_siret(siret)
-      ## Si mauvais siret
-      return if searched_etablissement.blank?
-
-      code_region = searched_etablissement.etablissement.region_implantation['code']
-      self.code_region = code_region
-    rescue StandardError => e
-      return
-    end
-  end
-
   def touch_after_badges_update(_badge)
     touch if persisted?
   end

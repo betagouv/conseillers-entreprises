@@ -26,7 +26,6 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         source: debounce(async (query, populateResults) => {
           reinitFormFields(query);
           const results = await fetchEtablissements(query);
-          console.log(results);
           if(!results) return;
           if (results.error) {
             displayErrorBlock()
