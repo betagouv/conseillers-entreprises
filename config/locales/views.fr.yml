@@ -244,8 +244,8 @@ fr:
       out_of_deployed_territories_label: Hors territoires déployés
       out_of_deployed_territories_value: out_of_deployed_territories
       view_completed_analysis: Voir l’analyse réalisée
-      without_diagnosis_label: Problème d'analyse (SIRET ou autre)
-      without_diagnosis_value: without_diagnosis
+      with_probable_siret_problem_label: Problème d'analyse (SIRET ou autre)
+      with_probable_siret_problem_value: with_probable_siret_problem
   landing_topics:
     landing_topic:
       choose: Choisir

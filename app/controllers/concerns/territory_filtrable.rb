@@ -14,7 +14,7 @@ module TerritoryFiltrable
   end
 
   def find_territories
-    @territories = Territory.regions.order(:name)
+    @territories = Territory.deployed_regions.order(:name)
     @territory = retrieve_territory
   end
 end

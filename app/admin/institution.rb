@@ -92,7 +92,7 @@ ActiveAdmin.register Institution do
       f.input :name
       f.input :slug
       f.input :logo_sort_order, input_html: { style: 'width:300px', placeholder: I18n.t('active_admin.landings.home_sort_order_placeholder') }
-      f.input :code_region, as: :select, collection: Territory.regions.map{ |r| [r.name, r.code_region] }
+      f.input :code_region, as: :select, collection: Territory.deployed_regions.map{ |r| [r.name, r.code_region] }
       f.input :show_on_list
     end
     f.inputs do
