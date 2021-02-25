@@ -583,11 +583,12 @@ fr:
       add_remove_badges: Ajouter / Enlever des tags
   stats:
     archived: Besoins abandonnés
-    in_regions: Demandes dans une région déployée
+    in_deployed_regions: Demandes dans une région déployée
+    in_unknown_region: Demandes dans une région indéterminée
     less_than_72h: Moins de 72h
     more_than_72h: Plus de 72h
     other_status: Autres status
-    out_of_regions: Demandes hors régions déployées
+    out_of_deployed_regions: Demandes hors régions déployées
     public:
       index:
         title: Statistiques d’utilisation
@@ -629,7 +630,7 @@ fr:
       solicitations_diagnoses:
         subtitle_html: Pour le bon fonctionnement du service, seules les demandes qualifiées sont transmises. Les demandes sans aucun élément de contexte, avec des erreurs de siret ou touchant à la création d’entreprise, ne peuvent pas être transmises. <br/>Un taux élevé signifie que nous parvenons à obtenir des demandes de qualité, pouvant être facilement prise en charge par les conseillers. Un taux faible signifie que les demandes sont peu contextualisées ou comportent des erreurs rendant difficile leur traitement
         title: de demandes dans les régions déployées transmises aux conseillers
-      solicitations_in_regions:
+      solicitations_in_deployed_regions:
         subtitle_html: 'Le service est déployé région par région, afin de constituer un carnet d’adresses rassemblant l’ensemble des partenaires publics et parapublics chargés d’accompagner les entreprises sur le territoire. La stratégie d’acquisition des besoins des TPE & PME suit ce déploiement régional progressif. Néanmoins, il arrive que des sollicitations soient déposées par des entreprises situées dans des régions non encore déployées.<br/>Précaution : cette statistique n’a de sens pour l’activité globale du service. Le filtre région ne fonctionne donc pas ici.'
         title: de demandes provenant de régions où le service est ouvert
       source: Analyses d’entreprises

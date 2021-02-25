@@ -6,25 +6,14 @@ module Stats::Public
       Solicitation.all
     end
 
-    def territories
-      Territory.where(code_region: YAML.safe_load(ENV['DEPLOYED_REGIONS_CODES']))
-    end
-
-    def in_regions(query)
-      query
-        .by_territories(territories)
-        .group_by_month(date_group_attribute)
-        .count
-    end
-
-    def out_of_regions(query)
-      query
-        .where.not(id: Solicitation.by_territories(territories))
-        .group_by_month(date_group_attribute)
-        .count
+    def deployed_codes_regions
+      Territory.deployed_codes_regions
     end
 
     def filtered(query)
+      if territory.present?
+        query = query.none
+      end
       if institution.present?
         query.merge! institution.received_solicitations
       end
@@ -38,32 +27,44 @@ module Stats::Public
       query = main_query
       query = filtered(query)
 
-      @in_regions ||= in_regions(query).values
-      @out_of_regions ||= out_of_regions(query).values
+      @in_deployed_regions = []
+      @out_of_deployed_regions = []
+      @in_unknown_region = []
 
-      as_series(@in_regions, @out_of_regions)
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        @in_deployed_regions.push(month_query.in_regions(deployed_codes_regions).count)
+        @out_of_deployed_regions.push(month_query.out_of_regions(deployed_codes_regions).count)
+        @in_unknown_region.push(month_query.in_unknown_region.count)
+      end
+
+      as_series(@in_deployed_regions, @out_of_deployed_regions, @in_unknown_region)
     end
 
     def count
       build_series
-      percentage_two_numbers(@in_regions, @out_of_regions)
+      percentage_two_numbers(@in_deployed_regions, (@out_of_deployed_regions + @in_unknown_region))
     end
 
     def subtitle
-      I18n.t('stats.series.solicitations_in_regions.subtitle_html')
+      I18n.t('stats.series.solicitations_in_deployed_regions.subtitle_html')
     end
 
     private
 
-    def as_series(in_regions, out_of_regions)
+    def as_series(in_deployed_regions, out_of_deployed_regions, in_unknown_region)
       [
         {
-          name: I18n.t('stats.out_of_regions'),
-            data: out_of_regions
+          name: I18n.t('stats.in_unknown_region'),
+            data: in_unknown_region
         },
         {
-          name: I18n.t('stats.in_regions'),
-            data: in_regions
+          name: I18n.t('stats.out_of_deployed_regions'),
+            data: out_of_deployed_regions
+        },
+        {
+          name: I18n.t('stats.in_deployed_regions'),
+            data: in_deployed_regions
         }
       ]
     end

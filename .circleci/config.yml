@@ -6,6 +6,7 @@ defaults: &defaults
     - image: circleci/ruby:2.7.2-node-browsers
       environment:
         SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
+        DEPLOYED_REGIONS_CODES: [11,32]
     - image: circleci/postgres:11.5
       environment:
         POSTGRES_USER: place_des_entreprises_test

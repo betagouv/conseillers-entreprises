@@ -37,8 +37,8 @@ module Stats::Public
       'stats-chart'
     end
 
-    def format
-      '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
-    end
+    # def format
+    #   '{series.name} : <b>{point.y}</b> ({point.percentage:.0f}%)<br>Total: {point.stackTotal}'
+    # end
   end
 end

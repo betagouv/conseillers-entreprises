@@ -3,7 +3,7 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed.where(created_at: Time.zone.local(2020, 9, 1)..)
+      Need.joins(:diagnosis).merge(Diagnosis.from_solicitation.completed).where(created_at: Time.zone.local(2020, 9, 1)..)
     end
 
     def filtered(query)
@@ -44,9 +44,9 @@ module Stats::Public
       percentage_two_numbers(@needs_with_exchange, @needs_without_exchange)
     end
 
-    def format
-      '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.y})'
-    end
+    # def format
+    #   '{series.name} : <b>{point.percentage:.0f}%</b> (Total : {point.y})'
+    # end
 
     private
 

@@ -32,8 +32,8 @@ module Stats::Public
       ExchangeWithExpertStats.new(@params)
     end
 
-    # def solicitations_in_regions
-    #   SolicitationsInRegionsStats.new(@params)
-    # end
+    def solicitations_in_deployed_regions
+      SolicitationsInRegionsStats.new(@params)
+    end
   end
 end
