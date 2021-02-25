@@ -7,6 +7,9 @@ module Stats::Public
     end
 
     def filtered(query)
+      if territory.present?
+        query.merge! Solicitation.in_regions(territory.code_region)
+      end
       if institution.present?
         query.merge! institution.received_solicitations
       end
