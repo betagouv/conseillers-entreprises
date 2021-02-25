@@ -6,8 +6,8 @@ module Stats::Public
       Solicitation.all
     end
 
-    def deployed_code_regions
-      Territory.deployed_code_regions
+    def deployed_codes_regions
+      Territory.deployed_codes_regions
     end
 
     def filtered(query)
@@ -33,8 +33,8 @@ module Stats::Public
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        @in_deployed_regions.push(month_query.in_regions(deployed_code_regions).count)
-        @out_of_deployed_regions.push(month_query.out_of_regions(deployed_code_regions).count)
+        @in_deployed_regions.push(month_query.in_regions(deployed_codes_regions).count)
+        @out_of_deployed_regions.push(month_query.out_of_regions(deployed_codes_regions).count)
         @in_unknown_region.push(month_query.in_unknown_region.count)
       end
 

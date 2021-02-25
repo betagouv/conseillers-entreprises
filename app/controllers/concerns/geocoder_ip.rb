@@ -15,7 +15,7 @@ module GeocoderIp
       end
       result_name = results.first&.region || '' # to prevent "Geocoding API error: 429 Too Many Requests"
       current_region_code = I18n.t(result_name.parameterize, scope: 'regions_slugs_to_codes')
-      session[:in_deployed_region] = Territory.deployed_code_regions.include? current_region_code
+      session[:in_deployed_region] = Territory.deployed_codes_regions.include? current_region_code
       session[:region_code] = current_region_code
     end
   end

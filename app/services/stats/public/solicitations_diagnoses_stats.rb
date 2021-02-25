@@ -3,7 +3,7 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
-      Solicitation.in_regions(Territory.deployed_code_regions)
+      Solicitation.in_regions(Territory.deployed_codes_regions)
     end
 
     def filtered(query)

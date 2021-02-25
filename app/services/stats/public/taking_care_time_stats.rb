@@ -4,7 +4,7 @@ module Stats::Public
 
     def main_query
       Solicitation
-        .joins(:diagnosis, diagnosis: [needs: :matches])
+        .joins(diagnosis: [needs: :matches])
         .merge(Diagnosis.completed)
         .distinct
     end
