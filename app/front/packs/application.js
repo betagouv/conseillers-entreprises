@@ -22,6 +22,7 @@ require("@rails/ujs").start();
 require("turbolinks").start();
 require('remixicon/fonts/remixicon.css')
 require('@gouvfr/all/dist/css/all')
+require('jquery-accessible-simple-tooltip-aria/jquery-accessible-simple-tooltip-aria')
 require('stylesheets/application.sass')
 
 require("jquery");

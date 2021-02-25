@@ -7,6 +7,7 @@
     "accessible-autocomplete": "^2.0.3",
     "expose-loader": "^1.0.1",
     "jquery": "^3.5.1",
+    "jquery-accessible-simple-tooltip-aria": "^2.3.0",
     "remixicon": "^2.5.0",
     "stimulus": "^2.0.0",
     "turbolinks": "^5.2.0",
