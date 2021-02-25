@@ -9,7 +9,7 @@ class CompaniesController < ApplicationController
     if @query.present?
       siret = FormatSiret.siret_from_query(@query)
       if siret.present?
-        redirect_to company_path(siret, current_solicitation)
+        redirect_to company_path(siret, @current_solicitation)
       else
         search_results
       end

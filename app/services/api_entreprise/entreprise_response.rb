@@ -16,7 +16,7 @@ module ApiEntreprise
     end
 
     def success?
-      @error.nil? && @http_response.status.success?
+      @error.nil? && @http_response.status.success? && @data['errors'].nil?
     end
 
     def error_message
