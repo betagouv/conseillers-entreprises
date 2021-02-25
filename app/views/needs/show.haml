@@ -1,14 +1,15 @@
 - meta title: t('.title', company: @need.company.name)
 
-%nav.rf-breadcrumb{ "aria-label" => "vous êtes ici :" }
-  %button.rf-breadcrumb__button{ :hidden => "" } Voir le fil d’Ariane
-  %ol.rf-breadcrumb__list
-    %li.rf-breadcrumb__item
-      = link_to t('.all_needs'), needs_path
-    %li.rf-breadcrumb__item.rf-breadcrumb__item--current{ "aria-current" => "page" }
-      #{@need.visitee} - #{@need.company.name}
+.rf-container
+  %nav.rf-breadcrumb{ "aria-label" => "vous êtes ici :" }
+    %button.rf-breadcrumb__button{ :hidden => "" } Voir le fil d’Ariane
+    %ol.rf-breadcrumb__list
+      %li.rf-breadcrumb__item
+        = link_to t('.all_needs'), needs_path
+      %li.rf-breadcrumb__item.rf-breadcrumb__item--current{ "aria-current" => "page" }
+        #{@need.visitee} - #{@need.company.name}
 
-.rf-container-fluid.rf-pb-4w
+.rf-container.rf-pb-4w
   .rf-grid-row
     .rf-col-lg-8
       .rf-container
@@ -41,21 +42,25 @@
             .rf-col-lg-10
               = person_block(@need.advisor, prefix: t('.transmitted_by'))
 
-= render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
+.lighter-blue-background
+  .rf-container.rf-p-2w.rf-pt-6w#match-actions
+    = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
-.rf-container.lighter-blue-background.rf-p-2w#others-experts
-  %h2.rf-h3.rf-my-4w= t('.others_experts')
-  = render(:partial => 'matches/match', :collection => @others_matches) || tag(:p, t('.no_match'), id: 'no-match')
+.lighter-blue-background
+  .rf-container.rf-p-2w#others-experts
+    %h2.rf-h3.rf-my-4w= t('.others_experts')
+    = render(:partial => 'matches/match', :collection => @others_matches) || tag(:p, t('.no_match'), id: 'no-match')
 
-.rf-container.lighter-blue-background
-  = render 'additional_experts', need: @need
+.lighter-blue-background
+  .rf-container
+    = render 'additional_experts', need: @need
 
+.lighter-blue-background
+  .rf-container.rf-p-2w
+    .rf-my-4w.feedbacks-title
+      %h2.rf-h3= t('.comments')
+      %p= t('.warning_comments')
 
-.rf-container.lighter-blue-background.rf-p-2w
-  .rf-my-4w.feedbacks-title
-    %h2.rf-h3= t('.comments')
-    %p= t('.warning_comments')
+    = render(:partial => 'feedbacks/feedback', :collection => @need.feedbacks.order(:created_at)) || tag(:p, t('.no_comment'), id: 'no-comment')
 
-  = render(:partial => 'feedbacks/feedback', :collection => @need.feedbacks.order(:created_at)) || tag(:p, t('.no_comment'), id: 'no-comment')
-
-  = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)
+    = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)
