@@ -1,7 +1,7 @@
-.ui.top.stackable.menu
+%nav.ui.top.stackable.menu
   .ui.container
-    = link_to root_path, class: 'item' do
-      = image_tag 'place-des-entreprises-logo.png', style: 'width: 24px'
+    = link_to root_path, class: 'item', title: 'accueil' do
+      = image_tag 'place-des-entreprises-logo.png', style: 'width: 24px', alt: ''
     - if user_signed_in?
       - if current_user.experts.present?
         = active_link_to needs_path, class: 'item' do

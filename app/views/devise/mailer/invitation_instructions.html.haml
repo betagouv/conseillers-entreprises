@@ -1,7 +1,7 @@
 .logo-container
   .logos
     = institution_image @resource.institution.name
-    = image_tag 'place-des-entreprises-logo.png'
+    = image_tag 'place-des-entreprises-logo.png', alt: ''
 
 %p= t('devise.mailer.hello', user_full_name: @resource.full_name)
 
