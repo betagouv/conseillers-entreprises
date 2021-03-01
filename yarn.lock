@@ -4560,14 +4560,7 @@ jest-worker@^26.5.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jquery-accessible-simple-tooltip-aria@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/jquery-accessible-simple-tooltip-aria/-/jquery-accessible-simple-tooltip-aria-2.3.0.tgz#29f92567701aec580c5c0404a853d2252845ad8f"
-  integrity sha512-zKUhK0sBDSFk5+sYkGv/kNnWYNnfJ2TyHe8nlGAYfaK1i/J+4p82WFEN7BPfG7J/DgprDWRgYTS9ZUa753/rvA==
-  dependencies:
-    jquery ">=1.0.0"
-
-jquery@>=1.0.0, jquery@^3.5.1:
+jquery@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
   integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
