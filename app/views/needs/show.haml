@@ -15,7 +15,8 @@
       .rf-container
         %h1.rf-h2= @need.subject
         %p
-          %time.date{ datetime: @need.solicitation.created_at } Le #{I18n.l(@need.solicitation.created_at, format: :sentence)}
+          - created_at = @need.solicitation&.created_at || @need.diagnosis.created_at
+          %time.date{ datetime: created_at } Le #{I18n.l(created_at, format: :sentence)}
         = simple_format(auto_link(@need.diagnosis.content.presence || @need.solicitation&.description), class: 'content')
 
     .rf-col-lg-4.order-minus-one
@@ -49,7 +50,10 @@
 .lighter-blue-background
   .rf-container.rf-p-2w#others-experts
     %h2.rf-h3.rf-my-4w= t('.others_experts')
-    = render(:partial => 'matches/match', :collection => @others_matches) || tag(:p, t('.no_match'), id: 'no-match')
+    - if @others_matches.present?
+      = render @others_matches
+    - else
+      %p#no-match= t('.no_match')
 
 .lighter-blue-background
   .rf-container
@@ -61,6 +65,9 @@
       %h2.rf-h3= t('.comments')
       %p= t('.warning_comments')
 
-    = render(:partial => 'feedbacks/feedback', :collection => @need.feedbacks.order(:created_at)) || tag(:p, t('.no_comment'), id: 'no-comment')
+    - if @need.feedbacks.present?
+      = render @need.feedbacks.order(:created_at)
+    - else
+      %p#no-comment= t('.no_comment')
 
     = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)
