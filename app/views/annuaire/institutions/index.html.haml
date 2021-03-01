@@ -1,5 +1,6 @@
 - title = Institution.model_name.human.pluralize
 - meta title: title
-%h1.ui.header= title
+.rf-container
+  %h1.ui.header= title
 
-= render 'table', institutions: @institutions
+  = render 'table', institutions: @institutions

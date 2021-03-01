@@ -1,57 +1,58 @@
 - meta title: Diagnosis.human_attribute_value(:step, :matches)
 
-= render 'header', diagnosis: @diagnosis, current_page_step: 4
+.rf-container
+  = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
-#matches-app
-  .ui.info.message
-    = t('.explanation')
+  #matches-app
+    .ui.info.message
+      = t('.explanation')
 
-  .ui.segment
-    %details
-      %summary
-        %strong Rappel de la sollicitation
-      - if @diagnosis.content.present?
-        %blockquote
-          %span= simple_format(auto_link(@diagnosis.content))
+    .ui.segment
+      %details
+        %summary
+          %strong Rappel de la sollicitation
+        - if @diagnosis.content.present?
+          %blockquote
+            %span= simple_format(auto_link(@diagnosis.content))
 
-  = form_with model: @diagnosis,
-    url: update_matches_diagnosis_path(@diagnosis),
-    class: 'ui form',
-    data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |form|
-    - @diagnosis.needs.ordered_for_interview.each do |need|
-      .ui.segment.shadow-less
-        %h3.ui.header= need.subject
-        - experts_subjects = ExpertSubject.relevant_for(need)
-        - support_subject = ExpertSubject.support_for(@diagnosis)
-        - if experts_subjects.present?
-          = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
-        - elsif support_subject.present?
-          .field.warning
-            .ui.warning.message
-              = t('.no_expert_subject')
-              = t('.you_can_contact_support')
-          = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
-        - else
-          %p= t('.no_expert_subject')
+    = form_with model: @diagnosis,
+      url: update_matches_diagnosis_path(@diagnosis),
+      class: 'ui form',
+      data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |form|
+      - @diagnosis.needs.ordered_for_interview.each do |need|
+        .ui.segment.shadow-less
+          %h3.ui.header= need.subject
+          - experts_subjects = ExpertSubject.relevant_for(need)
+          - support_subject = ExpertSubject.support_for(@diagnosis)
+          - if experts_subjects.present?
+            = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
+          - elsif support_subject.present?
+            .field.warning
+              .ui.warning.message
+                = t('.no_expert_subject')
+                = t('.you_can_contact_support')
+            = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
+          - else
+            %p= t('.no_expert_subject')
 
-    .ui.hidden.divider
-    .field.info
-      .ui.info.message
-        .content
-          .header= t('.before_sending_emails_1')
-          %p= t('.before_sending_emails_2')
+      .ui.hidden.divider
+      .field.info
+        .ui.info.message
+          .content
+            .header= t('.before_sending_emails_1')
+            %p= t('.before_sending_emails_2')
 
-    .ui.two.column.stackable.grid.container
-      .ui.left.aligned.column.no-left-padding.no-margin
-        = link_to visit_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
-          = t('previous_step')
-          %i.arrow.left.icon
+      .ui.two.column.stackable.grid.container
+        .ui.left.aligned.column.no-left-padding.no-margin
+          = link_to visit_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
+            = t('previous_step')
+            %i.arrow.left.icon
 
-      .ui.right.aligned.column.no-right-padding.no-margin
-        - button_classes = []
-        - if @diagnosis.visitee.blank?
-          - button_classes << 'disabled'
-        %button.ui.green.button.no-margin#next-step-button{ class: button_classes }
-          = t('.notify_matches')
+        .ui.right.aligned.column.no-right-padding.no-margin
+          - button_classes = []
+          - if @diagnosis.visitee.blank?
+            - button_classes << 'disabled'
+          %button.ui.green.button.no-margin#next-step-button{ class: button_classes }
+            = t('.notify_matches')
 
-    .clear
+      .clear

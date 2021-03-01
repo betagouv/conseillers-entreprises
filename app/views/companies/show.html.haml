@@ -1,26 +1,27 @@
 - meta title: @company.name
 
-#company-show
-  %h1
-    = @company.name
+.rf-container
+  #company-show
+    %h1
+      = @company.name
 
-    = form_with model: @diagnosis, local: true do |form|
-      = form.hidden_field :solicitation_id
-      = form.fields_for :facility do |facility_form|
-        = facility_form.hidden_field :siret, value: @facility.etablissement.siret
-      = form.button :submit, class: 'ui right floated positive basic button' do
-        = t('.create_diagnosis')
+      = form_with model: @diagnosis, local: true do |form|
+        = form.hidden_field :solicitation_id
+        = form.fields_for :facility do |facility_form|
+          = facility_form.hidden_field :siret, value: @facility.etablissement.siret
+        = form.button :submit, class: 'ui right floated positive basic button' do
+          = t('.create_diagnosis')
 
-  %h2= t('.information')
-  = render partial: 'company', locals: { entreprise: @company.entreprise }
+    %h2= t('.information')
+    = render partial: 'company', locals: { entreprise: @company.entreprise }
 
-  %h2= t('.facility')
-  = render partial: 'facility', locals: { etablissement: @facility.etablissement }
+    %h2= t('.facility')
+    = render partial: 'facility', locals: { etablissement: @facility.etablissement }
 
-  - if !@facility.etablissement['siege_social'].to_b
-    %h2= t('.siege_social')
-    = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
+    - if !@facility.etablissement['siege_social'].to_b
+      %h2= t('.siege_social')
+      = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
 
-  %h2= t('.mandataires_sociaux')
-  - @company.entreprise.mandataires_sociaux.each do |person|
-    = render partial: 'mandataire', locals: { person: person }
+    %h2= t('.mandataires_sociaux')
+    - @company.entreprise.mandataires_sociaux.each do |person|
+      = render partial: 'mandataire', locals: { person: person }

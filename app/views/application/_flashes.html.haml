@@ -1,10 +1,10 @@
-#flashes
-  - if alert
-    .rf-callout.rf-col-md-12.rf-scheme-soft-orange-soft.rf-my-2w
-      %p.rf-callout__text
-        = alert
+.rf-container
+  #flashes
+    - if alert
+      .rf-callout.rf-col-md-12.rf-scheme-soft-orange-soft.rf-my-2w
+        %p.rf-callout__text= alert
 
-  - if notice
-    .rf-callout.rf-col-md-12.rf-scheme-soft-green-light.rf-my-2w
-      %p.rf-callout__text
-        = notice
+    - if notice
+      .rf-callout.rf-col-md-12.rf-scheme-soft-green-light.rf-my-2w
+        %p.rf-callout__text= notice
+

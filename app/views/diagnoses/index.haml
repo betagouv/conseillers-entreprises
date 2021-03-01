@@ -1,4 +1,5 @@
-- meta title: t('.title')
+.rf-container
+  - meta title: t('.title')
 
 - if ENV['FEATURE_DIAGNOSIS_WITHOUT_SIRET'].to_b
   %h1.ui.header
@@ -10,20 +11,20 @@
   %h1.ui.header= t('.create_new_diagnosis')
   = render partial: 'companies/search_form', locals: { query: @query, solicitation: @current_solicitation }
 
-= render 'diagnoses_tabs'
+  = render 'diagnoses_tabs'
 
-.ui.aligned.grid.padded
-  .aligned.eight.wide.column
-    %p= page_entries_info @diagnoses
-  .right.aligned.eight.wide.column
-    - if current_user.antenne.advisors.count > 1
-      = link_to index_antenne_diagnoses_path do
-        %i.folder.open.icon
-        = t('.browse_antenne_diagnoses')
+  .ui.aligned.grid.padded
+    .aligned.eight.wide.column
+      %p= page_entries_info @diagnoses
+    .right.aligned.eight.wide.column
+      - if current_user.antenne.advisors.count > 1
+        = link_to index_antenne_diagnoses_path do
+          %i.folder.open.icon
+          = t('.browse_antenne_diagnoses')
 
-= paginate @diagnoses
+  = paginate @diagnoses
 
-.ui.segments.shadow-less.selectable-list
-  = render partial: 'diagnosis', collection: @diagnoses, cached: true
+  .ui.segments.shadow-less.selectable-list
+    = render partial: 'diagnosis', collection: @diagnoses, cached: true
 
-= paginate @diagnoses
+  = paginate @diagnoses
