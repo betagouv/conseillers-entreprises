@@ -44,8 +44,7 @@
               = person_block(@need.advisor, prefix: t('.transmitted_by'))
 
 .lighter-blue-background
-  .rf-container.rf-p-2w.rf-pt-6w#match-actions
-    = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
+  = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
 .lighter-blue-background
   .rf-container.rf-p-2w#others-experts
