@@ -1,18 +1,19 @@
-%h2= t('.password_reset')
+.rf-container
+  %h2= t('.password_reset')
 
-.ui.very.padded.segment.shadow-less
-  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'ui form' } do |f|
-    = render "devise/shared/error_messages", resource: resource
-    = f.hidden_field :reset_password_token
-    %p= t('.password_reset_description')
-    .field
-      = f.label :password, t('.new_password')
-      - placeholder = t('devise.password_minimum_characters', count: @minimum_password_length)
-      = f.password_field :password, placeholder: placeholder, autofocus: true, autocomplete: 'new-password'
-    .field
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation, autocomplete: 'new-password'
-    .actions
-      = f.submit t('.change_own_password'), class: 'rf-btn btn-green'
+  .ui.very.padded.segment.shadow-less
+    = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'ui form' } do |f|
+      = render "devise/shared/error_messages", resource: resource
+      = f.hidden_field :reset_password_token
+      %p= t('.password_reset_description')
+      .field
+        = f.label :password, t('.new_password')
+        - placeholder = t('devise.password_minimum_characters', count: @minimum_password_length)
+        = f.password_field :password, placeholder: placeholder, autofocus: true, autocomplete: 'new-password'
+      .field
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, autocomplete: 'new-password'
+      .actions
+        = f.submit t('.change_own_password'), class: 'rf-btn btn-green'
 
-  = render 'devise/shared/links'
+    = render 'devise/shared/links'

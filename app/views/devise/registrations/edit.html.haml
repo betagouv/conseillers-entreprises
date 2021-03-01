@@ -1,13 +1,14 @@
-= form_with model: @user, url: user_path, local: true, class: 'ui form' do |f|
-  = render "devise/shared/error_messages", resource: @user
-  .field
-    = f.label :email
-    = f.email_field :email, disabled: true
-  %p
-    %i.blue.icon.info.circle
-    = t('.contact_us_to_change_email_html', email: ENV['APPLICATION_EMAIL'])
+.rf-container
+  = form_with model: @user, url: user_path, local: true, class: 'ui form' do |f|
+    = render "devise/shared/error_messages", resource: @user
+    .field
+      = f.label :email
+      = f.email_field :email, disabled: true
+    %p
+      %i.blue.icon.info.circle
+      = t('.contact_us_to_change_email_html', email: ENV['APPLICATION_EMAIL'])
 
-  = render 'devise/shared/user_fields', form: f
+    = render 'devise/shared/user_fields', form: f
 
-  .actions
-    = f.submit t('update'), class: 'rf-btn btn-green'
+    .actions
+      = f.submit t('update'), class: 'rf-btn btn-green'
