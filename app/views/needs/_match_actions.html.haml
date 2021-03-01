@@ -1,74 +1,75 @@
-- if match.status_quo?
-  .rf-grid-row.white-background.rf-p-3w.rf-grid-row--middle
-    .actions-default.rf-col
-      %p.question= t('.can_you_help', company: match.need.company)
-      = form_with(model: match, url: match_path(match)) do |f|
-        = f.button :submit, name: :status, value: :taking_care, class: 'rf-btn btn-green rf-mr-2w' do
-          = t('.take_care')
-        = f.button :submit, name: :status, value: :not_for_me, class: 'rf-btn rf-btn--secondary btn-red' do
-          = t('.not_for_me')
+.rf-container.rf-p-2w.rf-pt-6w#match-actions
+  - if match.status_quo?
+    .rf-grid-row.white-background.rf-p-3w.rf-grid-row--middle
+      .actions-default.rf-col
+        %p.question= t('.can_you_help', company: match.need.company)
+        = form_with(model: match, url: match_path(match)) do |f|
+          = f.button :submit, name: :status, value: :taking_care, class: 'rf-btn btn-green rf-mr-2w' do
+            = t('.take_care')
+          = f.button :submit, name: :status, value: :not_for_me, class: 'rf-btn rf-btn--secondary btn-red' do
+            = t('.not_for_me')
 
-- elsif match.status_taking_care?
-  .rf-grid-row
-    .green-box.alert-box.take_care.rf-col
-      %span.ri-phone-line.icon
-      .content
-        - link_to_phone = match.diagnosis.visitee.phone_number
-        %p.explanations= t('.your_turn_html', company: match.company, phone: link_to(link_to_phone, "tel:#{link_to_phone}"))
-        - partner_link = match.solicitation.landing.partner_url
-        - if partner_link.present?
-          %p.sub-content= t('.deposited_on_partner_website_html', partner_link: link_to(partner_link, partner_link, target: '_blank', rel: 'noopener'))
-      = form_with(model: match, url: match_path(match)) do |f|
-        = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
-          = t('.cancel_taking_care')
+  - elsif match.status_taking_care?
+    .rf-grid-row
+      .green-box.alert-box.take_care.rf-col
+        %span.ri-phone-line.icon
+        .content
+          - link_to_phone = match.diagnosis.visitee.phone_number
+          %p.explanations= t('.your_turn_html', company: match.company, phone: link_to(link_to_phone, "tel:#{link_to_phone}"))
+          - partner_link = match.solicitation.landing.partner_url
+          - if partner_link.present?
+            %p.sub-content= t('.deposited_on_partner_website_html', partner_link: link_to(partner_link, partner_link, target: '_blank', rel: 'noopener'))
+        = form_with(model: match, url: match_path(match)) do |f|
+          = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
+            = t('.cancel_taking_care')
 
-  %h2.rf-h3.rf-my-4w= t('.close_need')
-  = form_with(model: match, url: match_path(match)) do |f|
-    %ul.list-unstyled.rf-grid-row.rf-grid-row--gutters.rf-col
-      %li.rf-col-12.rf-col-md-4
-        .rf-col.close-need-box
-          .icon.green
-            %span.ri-checkbox-circle-fill
-          .content
-            %h3.rf-card__title= t('.help_provided.title')
-            %p.rf-card__desc= t('.help_provided.content')
-            = f.button :submit, name: :status, value: :done, class: 'rf-btn btn-green', aria: { label: "#{t('.help_provided.title')}. #{t('.help_provided.content')}" } do
-              = t('.validate')
-      %li.rf-col-12.rf-col-md-4
-        .rf-col.close-need-box
-          .icon.grey-blue
-            %span.ri-checkbox-circle-fill
-          .content
-            %h3.rf-card__title= t('.not_reachable.title')
-            %p.rf-card__description= t('.not_reachable.content')
-            = f.button :submit, name: :status, value: :done_no_help, class: 'rf-btn btn-grey-blue', aria: { label: "#{t('.not_reachable.title')}. #{t('.not_reachable.content')}" } do
-              = t('.validate')
-      %li.rf-col-12.rf-col-md-4
-        .rf-col.close-need-box
-          .icon.orange
-            %span.ri-checkbox-circle-fill
-          .content
-            %h3.rf-card__title= t('.no_help.title')
-            %p.rf-card__description= t('.no_help.content')
-            = f.button :submit, name: :status, value: :done_not_reachable, class: 'rf-btn btn-orange', aria: { label: "#{t('.no_help.title')}. #{t('.no_help.content')}" } do
-              = t('.validate')
+    %h2.rf-h3.rf-my-4w= t('.close_need')
+    = form_with(model: match, url: match_path(match)) do |f|
+      %ul.list-unstyled.rf-grid-row.rf-grid-row--gutters.rf-col
+        %li.rf-col-12.rf-col-md-4
+          .rf-col.close-need-box
+            .icon.green
+              %span.ri-checkbox-circle-fill
+            .content
+              %h3.rf-card__title= t('.help_provided.title')
+              %p.rf-card__desc= t('.help_provided.content')
+              = f.button :submit, name: :status, value: :done, class: 'rf-btn btn-green', aria: { label: "#{t('.help_provided.title')}. #{t('.help_provided.content')}" } do
+                = t('.validate')
+        %li.rf-col-12.rf-col-md-4
+          .rf-col.close-need-box
+            .icon.grey-blue
+              %span.ri-checkbox-circle-fill
+            .content
+              %h3.rf-card__title= t('.not_reachable.title')
+              %p.rf-card__description= t('.not_reachable.content')
+              = f.button :submit, name: :status, value: :done_no_help, class: 'rf-btn btn-grey-blue', aria: { label: "#{t('.not_reachable.title')}. #{t('.not_reachable.content')}" } do
+                = t('.validate')
+        %li.rf-col-12.rf-col-md-4
+          .rf-col.close-need-box
+            .icon.orange
+              %span.ri-checkbox-circle-fill
+            .content
+              %h3.rf-card__title= t('.no_help.title')
+              %p.rf-card__description= t('.no_help.content')
+              = f.button :submit, name: :status, value: :done_not_reachable, class: 'rf-btn btn-orange', aria: { label: "#{t('.no_help.title')}. #{t('.no_help.content')}" } do
+                = t('.validate')
 
-- elsif match.status_done? || match.status_done_no_help? || match.status_done_not_reachable?
-  .rf-grid-row
-    .green-box.alert-box.take_care.rf-col
-      %span.ri-checkbox-circle-fill.icon
-      .content
-        %p.explanations= t('.its_done')
-      = form_with(model: match, url: match_path(match)) do |f|
-        = f.button :submit, name: :status, value: :taking_care, class: 'gray-link' do
-          = t('.cancel')
+  - elsif match.status_done? || match.status_done_no_help? || match.status_done_not_reachable?
+    .rf-grid-row
+      .green-box.alert-box.take_care.rf-col
+        %span.ri-checkbox-circle-fill.icon
+        .content
+          %p.explanations= t('.its_done')
+        = form_with(model: match, url: match_path(match)) do |f|
+          = f.button :submit, name: :status, value: :taking_care, class: 'gray-link' do
+            = t('.cancel')
 
-- elsif match.status_not_for_me?
-  .rf-grid-row
-    .orange-box.alert-box.take_care.rf-col
-      %span.ri-file-forbid-line.icon
-      .content
-        %p.explanations= t('.need_canceled')
-      = form_with(model: match, url: match_path(match)) do |f|
-        = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
-          = t('.cancel')
+  - elsif match.status_not_for_me?
+    .rf-grid-row
+      .orange-box.alert-box.take_care.rf-col
+        %span.ri-file-forbid-line.icon
+        .content
+          %p.explanations= t('.need_canceled')
+        = form_with(model: match, url: match_path(match)) do |f|
+          = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
+            = t('.cancel')
