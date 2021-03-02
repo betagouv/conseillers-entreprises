@@ -14,6 +14,10 @@ class NeedPolicy < ApplicationPolicy
       @record.in?(@user&.received_needs)
   end
 
+  def has_match_for_user?
+    @record.matches.find_by(expert: @user.experts).present?
+  end
+
   def archive?
     admin?
   end

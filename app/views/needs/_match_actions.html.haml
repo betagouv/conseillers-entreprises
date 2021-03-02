@@ -14,9 +14,13 @@
       .green-box.alert-box.take_care.rf-col
         %span.ri-phone-line.icon
         .content
-          - link_to_phone = match.diagnosis.visitee.phone_number
-          %p.explanations= t('.your_turn_html', company: match.company, phone: link_to(link_to_phone, "tel:#{link_to_phone}"))
-          - partner_link = match.solicitation.landing.partner_url
+          - if match.diagnosis.visitee.phone_number.present?
+            - link_to_phone = match.diagnosis.visitee.phone_number
+            - text = t('.your_turn_html', company: match.company, phone: link_to(link_to_phone, "tel:#{link_to_phone}"))
+          - else
+            - text = t('.contact_company', company: match.company)
+          %p.explanations= text
+          - partner_link = match.solicitation&.landing&.partner_url
           - if partner_link.present?
             %p.sub-content= t('.deposited_on_partner_website_html', partner_link: link_to(partner_link, partner_link, target: '_blank', rel: 'noopener'))
         = form_with(model: match, url: match_path(match)) do |f|

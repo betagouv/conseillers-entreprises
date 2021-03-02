@@ -3,7 +3,7 @@
 
 .additional-experts.rf-pt-2w{ id: "additional_experts-#{need.id}" }
   .content
-    = form_with url: additional_experts_need_path, remote: true, method: :get do |f|
+    = form_with url: additional_experts_need_path(need), remote: true, method: :get do |f|
       .rf-search-bar.rf-search-bar
         %span.ri-user-add-fill.blue
         = f.hidden_field :need, value: need.id, class: 'rf-label'
@@ -13,7 +13,7 @@
 
     - if !local_assigns[:experts].nil?
       - if local_assigns[:experts].empty?
-        %p.rf-p-4w= t('.no_expert_found')
+        %p.rf-p-4w.rf-m-0= t('.no_expert_found')
       - else
         = form_with url: add_match_need_path do |f|
           %ul.list-unstyled

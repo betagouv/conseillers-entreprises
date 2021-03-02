@@ -27,6 +27,7 @@ RSpec.configure do |config|
   config.extend ControllerMacros, type: :helper
   config.extend FeatureMacros, type: :feature
   config.include Warden::Test::Helpers
+  config.include PunditSpecHelper, type: :view
 
   config.infer_spec_type_from_file_location!
 

@@ -16,7 +16,7 @@
     - if policy(match).mark_as_done? && match.status_taking_care?
       %section.rf-accordion
         %h3.rf-accordion__title
-          %button.rf-accordion__btn{ "aria-controls" => "rf-accordion-10", "aria-expanded" => "false" }
+          %button.rf-accordion__btn{ "aria-controls" => "rf-accordion-#{match.id}", "aria-expanded" => "false" }
             .ri-edit-box-line
-        .rf-collapse#rf-accordion-10
+        .rf-collapse{ id: "rf-accordion-#{match.id}" }
           = admin_match_actions_buttons match
