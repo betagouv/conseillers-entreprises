@@ -438,6 +438,7 @@ fr:
       cancel: Annuler
       cancel_taking_care: Annuler ma prise en charge
       close_need: 'Clôturer votre intervention :'
+      contact_company: C‘est à vous de jouer et de contacter l’entreprise %{company}
       deposited_on_partner_website_html: Demande déposée sur le site %{partner_link}
       help_provided:
         content: Un conseil, un accompagnement ou une aide financière a pu être proposé.

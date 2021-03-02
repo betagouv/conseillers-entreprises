@@ -3,4 +3,4 @@ linters:
     enabled: false
   ConsecutiveSilentScripts:
     enabled: true
-    max_consecutive: 3
+    max_consecutive: 5
