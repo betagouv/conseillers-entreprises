@@ -1,75 +1,104 @@
-%nav.ui.top.stackable.menu
-  .ui.container
-    = link_to root_path, class: 'item', title: 'accueil' do
-      = image_tag 'place-des-entreprises-logo.png', style: 'width: 24px', alt: ''
-    - if user_signed_in?
-      - if current_user.experts.present?
-        = active_link_to needs_path, class: 'item' do
-          %i.inbox.icon
-          = t('needs.index.title')
-          - cache([current_user, Need.all]) do
-            - if current_user.needs_quo.exists?
-              .ui.orange.empty.circular.horizontal.label
-      - if policy(Diagnosis).index?
-        = active_link_to diagnoses_path, class: 'item' do
-          %i.tasks.icon
-          = t('.diagnoses')
-      - if current_user.is_admin?
-        .ui.simple.dropdown.item
-          = active_link_to solicitations_path do
-            %i.comment.dots.outline.icon
-            = t('solicitations.index.title')
-          .menu
-            = active_link_to badges_path, class: 'item' do
-              %i.tags.icon
-              = t('.badges')
-        = active_link_to reminders_path, class: 'item' do
-          %i.ambulance.icon
-          = t('reminders.index.title')
+%header.rf-header{:role => "banner"}
 
-      = active_link_to tutoriels_path, class: 'item' do
-        %i.tools.icon
-        = t('user_pages.tutoriels.title')
-
-    - else # not signed in
-      = active_link_to comment_ca_marche_path, class: 'item' do
-        %i.subject.icon
-        = t('about.comment_ca_marche.title')
-      = link_to root_path, class: 'item' do
-        %i.hand.point.right.outline.icon
-        = t('company_contact')
-
-    - if user_signed_in?
-      .ui.simple.dropdown.right.item
-        %i.user.outline.icon
-        = t('.account')
-        .menu
-          - if user_signed_in?
-            - if current_user.is_admin?
-              = active_link_to admin_root_path, class: 'item' do
-                %i.gavel.icon
-                = t('.admin')
-              = active_link_to institutions_path, class: 'item' do
-                %i.landmark.icon
-                = t('.annuaire')
-              = active_link_to inserts_partner_tools_path, class: 'item' do
-                %i.wrench.icon
-                = t('.partner_tools')
-              = active_link_to new_user_invitation_path, class: 'item' do
-                %i.gift.icon
-                = t('.invite')
-            = active_link_to user_path, class: 'item' do
-              %i.user.circle.icon
-              = t('.profile')
-            = link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'item' do
-              %i.sign.out.icon
-              = t('.sign_out')
-
-    - else # not signed in
-      .right.menu
-        = active_link_to tutoriels_path, class: 'item' do
-          %i.tools.icon
-          = t('user_pages.tutoriels.title')
-        = active_link_to new_user_session_path, class: 'item' do
-          %i.sign.in.icon
-          = t('sign_in')
+  - if user_signed_in?
+    .rf-container
+      %nav#header-navigation.rf-nav{"aria-label" => "Menu principal", :role => "navigation"}
+        %ul.rf-nav__list
+          %li.rf-nav__item
+            = link_to root_path, class: '', title: 'accueil Place des Entreprises' do
+              = image_tag 'place-des-entreprises-logo.png', style: 'width: 56px', alt: ''
+          - if current_user.experts.present?
+            %li.rf-nav__item
+              = active_link_to needs_path, class: 'rf-link rf-link--icon-left' do
+                %i.ri-inbox-fill.rf-mr-1w
+                = t('needs.index.title')
+                - cache([current_user, Need.all]) do
+                  - if current_user.needs_quo.exists?
+                    .ui.orange.empty.circular.horizontal.label.rf-ml-1w
+          - if policy(Diagnosis).index?
+            %li.rf-nav__item
+              = active_link_to diagnoses_path, class: 'rf-link' do
+                %i.tasks.icon.rf-mr-1w
+                = t('.diagnoses')
+          - if current_user.is_admin?
+            %li.rf-nav__item
+              = active_link_to solicitations_path, class: "rf-link" do
+                %i.comment.dots.outline.icon
+                = t('solicitations.index.title')
+            %li.rf-nav__item
+              = active_link_to reminders_path, class: 'rf-link' do
+                %i.ambulance.icon
+                = t('reminders.index.title')
+        %ul.rf-nav__list
+          %li.rf-nav__item
+            = active_link_to tutoriels_path, class: 'rf-link' do
+              %i.tools.icon.rf-mr-1w
+              = t('user_pages.tutoriels.title')
+          %li.rf-nav__item.rf-nav__item--active
+            %button.rf-btn{"aria-controls" => "rf-nav-item-3", "aria-expanded" => "false"}
+              = t('.account')
+            #rf-nav-item-3.rf-menu.rf-collapse
+              %ul.rf-menu__list
+                - if current_user.is_admin?
+                  %li.rf-menu__item
+                    = active_link_to admin_root_path, class: 'rf-link' do
+                      %i.gavel.icon
+                      = t('.admin')
+                  %li.rf-menu__item
+                    = active_link_to institutions_path, class: 'rf-link' do
+                      %i.landmark.icon
+                      = t('.annuaire')
+                  %li.rf-menu__item
+                    = active_link_to badges_path, class: 'rf-link' do
+                      %i.tags.icon
+                      = t('.badges')
+                  %li.rf-menu__item
+                    = active_link_to inserts_partner_tools_path, class: 'rf-link' do
+                      %i.wrench.icon
+                      = t('.partner_tools')
+                  %li.rf-menu__item
+                    = active_link_to new_user_invitation_path, class: 'rf-link' do
+                      %i.gift.icon
+                      = t('.invite')
+                %li.rf-menu__item
+                  = active_link_to user_path, class: 'rf-link' do
+                    %i.user.circle.icon
+                    = t('.profile')
+                %li.rf-menu__item
+                  = link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'rf-link' do
+                    %i.sign.out.icon
+                    = t('.sign_out')
+  - else
+    .rf-container
+      .rf-header__body
+        .rf-header__brand
+          = link_to root_path, class: 'rf-logo', title: 'accueil Place des Entreprises' do
+            %span.rf-logo__title
+              République
+              %br/
+              française
+        .rf-header__operator
+          = image_tag 'place-des-entreprises-logo.png', style: 'width: 56px', alt: ''
+        .rf-header__navbar
+          .rf-service
+            = link_to root_path, class: 'rf-service__title', title: 'accueil Place des Entreprises' do
+              Place des Entreprises
+            -# %p.rf-service__tagline baseline - précisions sur l‘organisation
+        .rf-header__tools
+          .rf-shortcuts
+            %ul.rf-shortcuts__list
+              %li.rf-shortcuts__item
+                = active_link_to comment_ca_marche_path, class: 'rf-link' do
+                  %i.subject.icon
+                  = t('about.comment_ca_marche.title')
+              %li.rf-shortcuts__item
+                = link_to root_path, class: 'rf-link' do
+                  %i.hand.point.right.outline.icon
+                  = t('company_contact')
+              %li.rf-shortcuts__item
+                = active_link_to tutoriels_path, class: 'rf-link' do
+                  %i.tools.icon.rf-mr-1w
+                  = t('user_pages.tutoriels.title')
+              %li.rf-shortcuts__item
+                = active_link_to new_user_session_path, class: 'rf-link rf-fi-account-line rf-link--icon-left' do
+                  = t('sign_in')
