@@ -8,7 +8,7 @@ module Stats::Matches
 
     def filtered(query)
       if territory.present?
-        query.merge! query.by_possible_territory(territory.id)
+        query.merge! query.by_possible_region(territory.id)
       end
       if institution.present?
         query.merge! institution.received_needs

@@ -158,46 +158,12 @@ RSpec.describe Solicitation, type: :model do
     it { is_expected.to eq [solicitation] }
   end
 
-  describe '#by_territory' do
-    let(:territory1) { create :territory }
-    let(:territory2) { create :territory }
-    let(:solicitation1) { create :solicitation, :with_diagnosis }
-    let(:solicitation2) { create :solicitation, :with_diagnosis }
-    let(:solicitation3) { create :solicitation, :with_diagnosis }
-
-    before {
-      territory1.communes = [solicitation1.diagnosis.facility.commune]
-      territory2.communes = [solicitation2.diagnosis.facility.commune]
-    }
-
-    subject { described_class.by_territory(territory2) }
-
-    it { is_expected.to eq [solicitation2] }
-  end
-
-  describe '#by_territories' do
-    let(:territory1) { create :territory }
-    let(:territory2) { create :territory }
-    let(:solicitation1) { create :solicitation, :with_diagnosis }
-    let(:solicitation2) { create :solicitation, :with_diagnosis }
-    let(:solicitation3) { create :solicitation, :with_diagnosis }
-
-    before {
-      territory1.communes = [solicitation1.diagnosis.facility.commune]
-      territory2.communes = [solicitation2.diagnosis.facility.commune]
-    }
-
-    subject { described_class.by_territories([territory1, territory2]) }
-
-    it { is_expected.to match_array [solicitation1, solicitation2] }
-  end
-
-  describe "#by_possible_territory" do
-    let(:territory1) { create :territory, :region }
-    # - solicitation avec facility dans un territoire connu
-    let!(:solicitation1) { create :solicitation, :with_diagnosis }
+  describe "#by_possible_region" do
+    let(:territory1) { create :territory, :region, code_region: Territory.deployed_codes_regions.first }
+    # - solicitation avec facility dans une region déployé
+    let!(:solicitation1) { create :solicitation, :with_diagnosis, code_region: territory1.code_region }
     # - solicitation avec facility dans territoire non déployé
-    let!(:solicitation2) { create :solicitation, :with_diagnosis }
+    let!(:solicitation2) { create :solicitation, :with_diagnosis, code_region: 22 }
     # - solicitation sans diagnosis (pb de siret, par ex)
     let!(:solicitation3) { create :solicitation }
 
@@ -205,22 +171,22 @@ RSpec.describe Solicitation, type: :model do
       territory1.communes = [solicitation1.diagnosis.facility.commune]
     }
 
-    subject { described_class.by_possible_territory(possible_territory) }
+    subject { described_class.by_possible_region(possible_region) }
 
     context 'filter by existing territory' do
-      let(:possible_territory) { territory1.id }
+      let(:possible_region) { territory1.id }
 
       it { is_expected.to eq [solicitation1] }
     end
 
     context 'filter by diagnoses problem' do
-      let(:possible_territory) { 'without_diagnosis' }
+      let(:possible_region) { 'with_probable_siret_problem' }
 
       it { is_expected.to eq [solicitation3] }
     end
 
     context 'filter by out_of_deployed_territories' do
-      let(:possible_territory) { 'out_of_deployed_territories' }
+      let(:possible_region) { 'out_of_deployed_territories' }
 
       it { is_expected.to eq [solicitation2] }
     end

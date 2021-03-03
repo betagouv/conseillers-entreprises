@@ -125,6 +125,11 @@ class Solicitation < ApplicationRecord
       .joins(:feedbacks)
   end
 
+  scope :without_diagnosis, -> {
+    left_outer_joins(:diagnosis)
+      .where(diagnoses: { id: nil })
+  }
+
   scope :without_feedbacks, -> do
     status_in_progress
       .left_outer_joins(:feedbacks)
@@ -132,14 +137,6 @@ class Solicitation < ApplicationRecord
   end
 
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
-
-  scope :by_territory, -> (territory) do
-    joins(:diagnosis).where(diagnoses: { facility: territory&.facilities })
-  end
-
-  scope :by_territories, -> (territories) do
-    joins(:diagnosis).where(diagnoses: { facility: territories.map{ |t| t.facility_ids }.flatten })
-  end
 
   scope :in_regions, -> (codes_regions) do
     where(code_region: codes_regions)
@@ -151,23 +148,22 @@ class Solicitation < ApplicationRecord
 
   scope :in_unknown_region, -> { where(code_region: nil) }
 
-  # param peut être un id de Territory ou une clé correspondant à un scope ("without_diagnosis" par ex)
-  scope :by_possible_territory, -> (param) {
+  # param peut être un id de Territory ou une clé correspondant à un scope ("with_probable_siret_problem" par ex)
+  scope :by_possible_region, -> (param) {
     begin
-      by_territory(Territory.find(param))
+      in_regions(Territory.find(param).code_region)
     rescue ActiveRecord::RecordNotFound => e
       self.send(param)
     end
   }
 
   # Pour détecter les pb de siret, par exemple
-  scope :without_diagnosis, -> {
-    left_outer_joins(:diagnosis)
-      .where(diagnoses: { id: nil })
+  scope :with_probable_siret_problem, -> {
+    without_diagnosis.where(code_region: nil)
   }
 
   scope :out_of_deployed_territories, -> {
-    joins(:diagnosis).merge(Diagnosis.out_of_deployed_territories)
+    where.not(code_region: Territory.deployed_codes_regions)
   }
 
   ## JSON Accessors
@@ -272,5 +268,9 @@ class Solicitation < ApplicationRecord
 
   def transmitted_at
     diagnosis&.completed_at
+  end
+
+  def region
+    Territory.find_by(code_region: self.code_region)
   end
 end
