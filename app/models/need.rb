@@ -207,6 +207,14 @@ class Need < ApplicationRecord
     where(status: [:done, :done_no_help])
   end
 
+  scope :in_progress, -> do
+    where(status: [:quo, :taking_care])
+  end
+
+  scope :done, -> do
+    where(status: [:done, :done_no_help, :done_not_reachable, :not_for_me])
+  end
+
   ##
   #
   def to_s

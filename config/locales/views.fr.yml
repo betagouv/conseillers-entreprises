@@ -90,6 +90,7 @@ fr:
     facility_infos:
       company: Entreprise
       more_informations: Plus d'informations
+      needs_historic: Historique des besoins
       workforce: 'Tranche effectif : %{range}'
     mandataire:
       dirigeant: Est-ce un dirigeant ?
@@ -98,6 +99,10 @@ fr:
       nom: Nom
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
+    needs:
+      needs_done: Cloturés
+      needs_in_progress: En cours
+      title: Liste des besoins pour %{company}
     search:
       explanation: 20005494800019, La Poste Lille
       generic_error: La recherche a échoué pour une raison inconnue. Réessayez plus tard.

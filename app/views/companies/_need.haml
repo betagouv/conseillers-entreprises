@@ -1,0 +1,11 @@
+.rf-tile.rf-tile--horizontal.company-need.rf-col-12.rf-mb-2w
+  .rf-tile__body
+    .left
+      .rf-tile__title
+        = link_to need.subject.label, need_path(need), class: 'rf-tile__link'
+      - created_at = need.solicitation&.created_at || need.created_at
+      %time.date{ datetime: created_at } Le #{I18n.l(created_at, format: :sentence)}
+      %p.rf-m-0.rf-mt-2w= need.matches.human_count
+    .right
+      = status_label(need)
+
