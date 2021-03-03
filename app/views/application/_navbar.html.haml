@@ -53,7 +53,7 @@
                 = active_link_to user_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
                   %i.user.circle.icon
                   = t('.profile')
-                = link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
+                = active_link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
                   %i.sign.out.icon
                   = t('.sign_out')
   - else
