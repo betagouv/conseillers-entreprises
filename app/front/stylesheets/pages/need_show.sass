@@ -8,6 +8,13 @@
     font-size: 1.2rem
     margin: 0
 
+@media (max-width: $bp-md)
+  .actions-default, .take_care
+    flex-direction: column
+    text-align: center
+    >* >*
+      margin-top: 1rem
+
 .close-need-box
   background-color: var(--w-bf500)
   padding: 1.5rem
@@ -34,6 +41,8 @@
     text-align: center
   .col-label
     text-align: right
+    @media (max-width: $bp-md)
+      margin-top: 1rem
 
 .feedbacks-title
   display: flex
