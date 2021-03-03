@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  before_action :maybe_review_expert_subjects
+  before_action :maybe_review_expert_subjects, only: %i[search show]
 
   def search
     @query = search_query
@@ -44,6 +44,19 @@ class CompaniesController < ApplicationController
       @diagnoses = Diagnosis.none
     end
     save_search(siret, @company.name)
+  end
+
+  def needs
+    @facility = Facility.find_by(siret: params.permit(:siret)[:siret])
+    if current_user.is_admin?
+      needs = Need.where.not(status: :diagnosis_not_complete).joins(diagnosis: :facility).where(diagnosis: @facility.diagnoses)
+      @needs_in_progress = needs.in_progress
+      @needs_done = needs.done
+    else
+      needs = current_user.received_needs.joins(diagnosis: :facility).where(diagnoses: { facility: @facility })
+      @needs_in_progress = needs.select { |n| n.matches.in_progress.find_by(expert: current_user.experts) }
+      @needs_done = needs.select { |n| n.matches.done.find_by(expert: current_user.experts) }
+    end
   end
 
   private
