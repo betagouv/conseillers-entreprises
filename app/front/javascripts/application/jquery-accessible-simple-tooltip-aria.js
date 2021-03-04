@@ -57,7 +57,7 @@
         var $tooltip_to_show = $('#' + tooltip_to_show_id);
         $tooltip_to_show.attr('aria-hidden', 'false');
       })
-      .on('mouseleave', '.js-simple-tooltip', function(event) {
+      .on('mouseleave', '.js-simple-tooltip', function() {
         var $this = $(this);
         var aria_describedby = $this.attr('aria-describedby');
         var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
@@ -70,7 +70,7 @@
           $tooltip_to_show.attr('aria-hidden', 'true');
         }
       })
-      .on('focusout', '.js-simple-tooltip', function(event) {
+      .on('focusout', '.js-simple-tooltip', function() {
         var $this = $(this);
         var aria_describedby = $this.attr('aria-describedby');
         var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
