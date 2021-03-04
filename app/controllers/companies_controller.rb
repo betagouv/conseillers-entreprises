@@ -35,21 +35,13 @@ class CompaniesController < ApplicationController
       redirect_back fallback_location: { action: :search }, alert: message
       return
     end
-    existing_facility = Facility.find_by(siret: siret)
-    if existing_facility.present?
-      @diagnoses = Facility.find_by(siret: siret).diagnoses
-        .completed
-        .includes(:matches, :advisor, :needs)
-    else
-      @diagnoses = Diagnosis.none
-    end
     save_search(siret, @company.name)
   end
 
   def needs
     @facility = Facility.find_by(siret: params.permit(:siret)[:siret])
     if current_user.is_admin?
-      needs = Need.where.not(status: :diagnosis_not_complete).joins(diagnosis: :facility).where(diagnosis: @facility.diagnoses)
+      needs = @facility.needs.diagnosis_completed
       @needs_in_progress = needs.in_progress
       @needs_done = needs.done
     else

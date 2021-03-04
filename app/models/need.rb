@@ -101,10 +101,7 @@ class Need < ApplicationRecord
       .merge(Subject.ordered_for_interview)
   end
 
-  scope :diagnosis_completed, -> do
-    joins(:diagnosis)
-      .merge(Diagnosis.completed)
-  end
+  scope :diagnosis_completed, -> { where.not(status: :diagnosis_not_complete) }
 
   scope :reminders_to, -> (action) do
     if action == :archive
