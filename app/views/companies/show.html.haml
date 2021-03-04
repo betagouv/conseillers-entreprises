@@ -11,9 +11,6 @@
       = form.button :submit, class: 'ui right floated positive basic button' do
         = t('.create_diagnosis')
 
-  - if @diagnoses.present?
-    = render 'diagnoses/related_diagnoses', diagnoses: @diagnoses
-
   %h2= t('.information')
   = render partial: 'company', locals: { entreprise: @company.entreprise }
 

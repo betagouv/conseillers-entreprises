@@ -2,8 +2,8 @@
 
 = render 'header', diagnosis: @diagnosis, current_page_step: 2
 
-- if @diagnosis.solicitation.present? && @diagnosis.facility.diagnoses.many?
-  = render 'diagnoses/related_diagnoses', diagnoses: @diagnosis.facility.diagnoses
+- if @diagnosis.solicitation.present? && @diagnosis.facility.needs.diagnosis_completed.many?
+  = render partial: 'companies/need', collection: @diagnosis.facility.needs.diagnosis_completed
 
 #needs-app
   = form_with model: @diagnosis,

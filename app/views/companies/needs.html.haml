@@ -2,7 +2,7 @@
   %h1.rf-h2.rf-mb-8w= t('.title', company: @facility.company.name)
 
   - if @needs_in_progress.present?
-    .rf-grid-row
+    .rf-grid-row.rf-mb-4w
       %h2.rf-h3= t('.needs_in_progress')
       = render partial: 'need', collection: @needs_in_progress
 

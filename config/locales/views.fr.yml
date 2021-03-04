@@ -102,6 +102,7 @@ fr:
     needs:
       needs_done: Cloturés
       needs_in_progress: En cours
+      others: Autre besoins pour cette entreprises
       title: Liste des besoins pour %{company}
     search:
       explanation: 20005494800019, La Poste Lille
@@ -158,7 +159,6 @@ fr:
       sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
       title: Saisie manuelle
     related_diagnoses:
-      diagnoses_completed: Analyses completées
       diagnosis_related: Analyse associée
       matches:
         one: 1 mise en relation
