@@ -11,11 +11,11 @@
       %li
         %span.picto.ri-contacts-book-line
         = role
-    - if email.present?
-      %li
-        %span.picto.ri-mail-line
-        = mail_to email
     - if phone_number.present?
       %li
         %span.picto.ri-phone-line
         = link_to(phone_number, "tel:#{phone_number}")
+    - if email.present?
+      %li
+        %span.picto.ri-mail-line
+        = mail_to email
