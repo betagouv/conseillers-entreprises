@@ -34,15 +34,18 @@
               %span.ri-building-4-line
             .rf-col-lg-10
               = render 'companies/facility_infos', facility: @need.facility
-      %hr.separation
       .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle
         .rf-container.rf-p-0
           .rf-grid-row
             .rf-col-lg-2.rf-grid-row--center.picto-person-block
               %span.ri-mail-send-line
-            .rf-col-lg-10
-              = person_block(@need.advisor, prefix: t('.transmitted_by'))
-
+            .rf-col-lg-10.infos-transmitted-by.rf-pl-1v
+              %p.blue.title= t('.transmitted_by')
+              %p
+                %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-advisor-#{@need.advisor.id}" }
+                  #{@need.advisor.full_name}
+                .hidden{ id: "tooltip-case-advisor-#{@need.advisor.id}" }
+                  = person_block(@need.advisor)
 
 - if policy(@need).has_match_for_user?
   .lighter-blue-background
