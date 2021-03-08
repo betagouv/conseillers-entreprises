@@ -1,12 +1,12 @@
-%header.rf-header{:role => "banner"}
+%header.rf-header{ :role => "banner" }
 
   - if user_signed_in?
     .rf-container
-      %nav#header-navigation.rf-nav{"aria-label" => "Menu principal", :role => "navigation"}
+      %nav.rf-nav#header-navigation{ "aria-label": t(".aria_menu"), role: "navigation" }
         %ul.rf-nav__list
           %li.rf-nav__item
-            = link_to root_path, class: 'pde-logo', title: 'accueil Place des Entreprises' do
-              = image_tag 'place-des-entreprises-logo.png', style: 'width: 56px', alt: ''
+            = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
+              = image_tag 'place-des-entreprises-logo.png', style: 'width: 56px', alt: t('logos.pde')
           - if current_user.experts.present?
             = active_link_to needs_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
               %i.ri-inbox-fill.rf-mr-1w
@@ -30,9 +30,9 @@
             %i.tools.icon.rf-mr-1w
             = t('user_pages.tutoriels.title')
           %li.rf-nav__item
-            %button.rf-btn{"aria-controls" => "rf-nav-item-3", "aria-expanded" => "false"}
+            %button.rf-btn{ "aria-controls" => "rf-nav-item-3", "aria-expanded" => "false" }
               = t('.account')
-            #rf-nav-item-3.rf-menu.rf-collapse
+            .rf-menu.rf-collapse#rf-nav-item-3
               %ul.rf-menu__list
                 - if current_user.is_admin?
                   = active_link_to admin_root_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
@@ -60,14 +60,14 @@
     .rf-container
       .rf-header__body
         .rf-header__brand
-          = link_to root_path, class: 'rf-logo', title: 'accueil Place des Entreprises' do
+          = link_to root_path, class: 'rf-logo', title: t('.root_path_title') do
             %span.rf-logo__title
               République
               %br/
               française
         .rf-header__operator
-          = link_to root_path, class: 'pde-logo', title: 'accueil Place des Entreprises' do
-            = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('pages.menu.logo_pde')
+          = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
+            = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('logos.pde')
         .rf-header__tools
           .rf-shortcuts
             %ul.rf-shortcuts__list

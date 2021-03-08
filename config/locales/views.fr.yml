@@ -34,19 +34,20 @@ fr:
           other: En-têtes non reconnus
   application:
     footer:
-      contact_us: Contactez-nous !
-      problem_or_question: Un problème ? Une question ?
+      service_description: Description du service, pour les experts et conseillers
     insee_code_field:
       city: Ville
     navbar:
       account: Compte
       admin: Administration
       annuaire: Annuaire
+      aria_menu: Menu principal
       badges: Tags
       diagnoses: Analyses
       invite: Inviter des utilisateurs
       partner_tools: Outils partenaires
       profile: Profil
+      root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
   badges:
     index:
@@ -309,6 +310,10 @@ fr:
       title: Merci !
     show_landing_institutions:
       institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
+  logos:
+    france_relance: logo France Relance
+    pde: logo Place des Entreprises
+    republique_francaise: logo République française
   mailers:
     admin_mailer:
       csv_export: Export CSV des %{model}
@@ -494,8 +499,6 @@ fr:
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
       submit_request: Déposez votre demande
     menu:
-      logo_fr: logo République française
-      logo_pde: logo Place des Entreprises
       unfold: Déplier menu
     newsletter:
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise

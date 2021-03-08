@@ -2,12 +2,12 @@
   .container
     %ul.footer__links
       %li.marianne
-        = image_tag 'Republique_Francaise_blanc.png', alt: 'Logo Marianne République Française'
+        = image_tag 'Republique_Francaise_blanc.png', alt: t('logos.republique_francaise')
       %li.france-relance
-        = image_tag 'logo-france-relance.png', alt: 'Logo France Relance'
+        = image_tag 'logo-france-relance.png', alt: t('logos.france_relance')
     %ul.footer__links
       %li.title
-        = image_tag 'place-des-entreprises-logo.png', alt: 'Logo Place des Entreprises', class: 'logo-footer'
+        = image_tag 'place-des-entreprises-logo.png', alt: t('logos.pde'), class: 'logo-footer'
         %span= 'place-des-entreprises.beta.gouv.fr'
       %li.beta-link= link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises'
       %li.social-network
