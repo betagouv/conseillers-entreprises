@@ -8,7 +8,7 @@
 #needs-app
   = form_with model: @diagnosis,
     url: update_needs_diagnosis_path,
-    class: 'ui form',
+    class: 'ui form', local: true,
     data: { checkboxes_require_one_with: t(".select_at_least_one_need") } do |diagnosis_form|
 
     %h1.ui.header

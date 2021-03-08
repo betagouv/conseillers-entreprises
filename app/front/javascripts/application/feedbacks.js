@@ -1,5 +1,5 @@
 (function () {
-  addEventListener('turbolinks:load', function() {
+  addEventListener('turbo:load', function() {
     let feedbackLinks = document.getElementsByClassName( 'show-feedbacks-form' )
     for ( let i = 0; i < feedbackLinks.length; i++ ) {
       const feedbackLink = feedbackLinks[i];

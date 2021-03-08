@@ -3,7 +3,7 @@
 
 .event{ id: "feedback-#{feedback.id}" }
   .label
-    %a{ href: "#feedback-#{feedback.id}", data: { turbolinks: 'false' } }
+    %a{ href: "#feedback-#{feedback.id}", data: { turbo: 'false' } }
       %i.comment.outline.icon{ class: ('blue' if for_me) }
   .content
     .summary

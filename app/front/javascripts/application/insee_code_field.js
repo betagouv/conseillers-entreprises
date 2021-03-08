@@ -2,7 +2,7 @@ import { exists, debounce } from '../shared/utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
 
 (function () {
-  addEventListener('turbolinks:load', setupCityAutocomplete)
+  addEventListener('turbo:load', setupCityAutocomplete)
 
   const SEARCH_URL = 'https://api-adresse.data.gouv.fr/search/?type=municipality&q='
 

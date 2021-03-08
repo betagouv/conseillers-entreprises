@@ -4,14 +4,14 @@
     %p
       %object
         - confirm_delete_message = t('diagnoses.index.confirm_archive', company_name: diagnosis.company.name)
-        = link_to archive_diagnosis_path(diagnosis), method: :post, data: { confirm: confirm_delete_message } do
+        = link_to archive_diagnosis_path(diagnosis), method: :post, local: true, data: { confirm: confirm_delete_message, turbo: false } do
           .ui.tiny.button.text
             %i.archive.icon
             = t('archivable.archive')
   - if diagnosis.is_archived
     %p
       %object
-        = link_to unarchive_diagnosis_path(diagnosis), method: :post do
+        = link_to unarchive_diagnosis_path(diagnosis), method: :post, local: true do
           .ui.tiny.button.text
             %i.undo.icon
             = t('archivable.unarchive')

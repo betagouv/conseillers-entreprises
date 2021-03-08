@@ -1,5 +1,5 @@
 (function () {
-  addEventListener('turbolinks:load', setupSemanticUiCalendar)
+  addEventListener('turbo:load', setupSemanticUiCalendar)
 
   function setupSemanticUiCalendar () {
     const semanticUiCalendars = document.querySelectorAll("[data-calendar='semantic-ui']")

@@ -2,9 +2,9 @@
   = metamagic site: t('app_name'), title: %i[title site]
   %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
   = csrf_meta_tags
-  = stylesheet_link_tag 'application', media: 'all', data: { turbolinks_track: 'reload' }
-  = javascript_pack_tag 'application', data: { turbolinks_track: 'reload' }
-  = javascript_include_tag 'application', data: { turbolinks_track: 'reload' }
+  = stylesheet_link_tag 'application', media: 'all', data: { turbo_track: 'reload' }
+  = javascript_pack_tag 'application', data: { turbo_track: 'reload' }
+  = javascript_include_tag 'application', data: { turbo_track: 'reload' }
 
   = javascript_include_tag 'https://browser.sentry-cdn.com/4.6.4/bundle.min.js', crossorigin: 'anonymous'
 

@@ -3,7 +3,7 @@
 - for_me = need.advisor == current_user
 .event{ id: "need_content-#{need.id}" }
   .label
-    %a{ href: "#need_content-#{need.id}", data: { turbolinks: 'false' } }
+    %a{ href: "#need_content-#{need.id}", data: { turbo: 'false' } }
       %i.comment.outline.icon{ class: ('blue' if for_me) }
   .content
     .summary

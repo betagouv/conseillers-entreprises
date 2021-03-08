@@ -19,8 +19,7 @@ import "core-js/stable";
 import "whatwg-fetch";
 
 require("@rails/ujs").start();
-require("turbolinks").start();
-
+require("@hotwired/turbo-rails");
 require("jquery");
 
 import "javascripts/shared";

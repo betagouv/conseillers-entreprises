@@ -1,7 +1,7 @@
 %div{ id: "need_header-#{need.id}" }
   .ui.horizontal.divider.sub.header= need.subject.theme
   %h2.ui.header.center.aligned
-    %a{ href: "#need-#{need.id}", data: { turbolinks: 'false' } }
+    %a{ href: "#need-#{need.id}", data: { turbo: 'false' } }
       = need.subject
     .need-status
       - if need.not_archived?

@@ -5,6 +5,7 @@
 #visit-app
   = form_with model: @diagnosis,
     url: update_visit_diagnosis_path,
+    local: true,
     class: 'ui form' do |diagnosis_form|
 
     %h2.ui.header

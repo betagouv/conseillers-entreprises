@@ -16,8 +16,8 @@
 
   = form_with model: @diagnosis,
     url: update_matches_diagnosis_path(@diagnosis),
-    class: 'ui form',
-    data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |form|
+    class: 'ui form', local: true,
+    data: { checkboxes_require_one_with: t(".select_at_least_one_expert"), turbo: "false" } do |form|
     - @diagnosis.needs.ordered_for_interview.each do |need|
       .ui.segment.shadow-less
         %h3.ui.header= need.subject
