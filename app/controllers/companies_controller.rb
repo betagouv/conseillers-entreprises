@@ -9,7 +9,7 @@ class CompaniesController < ApplicationController
     if @query.present?
       siret = FormatSiret.siret_from_query(@query)
       if siret.present?
-        redirect_to company_path(siret, @current_solicitation)
+        redirect_to company_path(siret, solicitation: @current_solicitation.id)
       else
         search_results
       end
@@ -23,7 +23,7 @@ class CompaniesController < ApplicationController
     siret = params[:siret]
     clean_siret = FormatSiret.clean_siret(siret)
     if clean_siret != siret
-      redirect_to company_path(clean_siret, current_solicitation)
+      redirect_to company_path(clean_siret, solicitation: current_solicitation.id)
       return
     end
 
