@@ -233,6 +233,7 @@ fr:
       solicitation:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'
       submit: Commenter
+      thank_you_html: "<p class='rf-m-0 rf-ml-16v'><b>Merci, votre commentaire a été publié.</b></p>"
       title: 'Nouveau commentaire :'
   helpers:
     page_entries_info:
