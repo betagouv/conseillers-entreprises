@@ -1,2 +1,7 @@
-= link_to url, title: t('views.pagination.previous').html_safe, class: 'item', remote: remote do
-  %i.left.angle.icon
+- if current_page.first?
+  %li.rf-pagination__item--prev.rf-pagination__item.rf-pagination__item.rf-pagination__item--disabled
+    %span.rf-pagination__label= t('views.pagination.previous')
+- else
+  %li.rf-pagination__item--prev.rf-pagination__item.rf-pagination__item
+    = link_to t('views.pagination.previous'), url, title: t('views.pagination.previous_page'),
+      "aria-label": t('views.pagination.previous_page'), class: 'rf-pagination__link', remote: remote

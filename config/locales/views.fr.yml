@@ -254,6 +254,12 @@ fr:
       view_completed_analysis: Voir l’analyse réalisée
       with_probable_siret_problem_label: Problème d'analyse (SIRET ou autre)
       with_probable_siret_problem_value: with_probable_siret_problem
+  kaminari:
+    page:
+      page: Page
+      page_number: Page %{number}
+    paginator:
+      navigation_page: Pagination navigation
   landing_topics:
     landing_topic:
       choose: Choisir
@@ -762,6 +768,8 @@ fr:
     pagination:
       first: Première page
       last: Dernière page
-      next: Page suivante
-      previous: Page précédente
-      truncate: "&hellip;"
+      next: Suivante
+      next_page: Page suivante
+      previous: Précédente
+      previous_page: Page précédente
+      truncate: "…"
