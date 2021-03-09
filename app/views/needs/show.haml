@@ -70,7 +70,8 @@
       %p= t('.warning_comments')
 
     - if @need.feedbacks.present?
-      = render @need.feedbacks.order(:created_at)
+      %div{ id: "display-feedbacks-#{@need.id}" }
+        = render @need.feedbacks.order(:created_at)
     - else
       %p#no-comment= t('.no_comment')
 

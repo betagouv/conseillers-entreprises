@@ -59,21 +59,27 @@
                 = t('.validate')
 
   - elsif match.status_done? || match.status_done_no_help? || match.status_done_not_reachable?
-    .rf-grid-row
-      .green-box.alert-box.take_care.rf-col
+    .rf-grid-row.green-box
+      .rf-col-12.alert-box.take_care
         %span.ri-checkbox-circle-fill.icon
         .content
           %p.explanations= t('.its_done')
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :taking_care, class: 'gray-link' do
             = t('.cancel')
+      - if defined? display_feedback_form
+        .rf-col-12.rf-p-2w
+          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), no_placeholder: true, from_alert_box: true
 
   - elsif match.status_not_for_me?
-    .rf-grid-row
-      .orange-box.alert-box.take_care.rf-col
+    .rf-grid-row.orange-box
+      .rf-col-12.alert-box.take_care.rf-col
         %span.ri-file-forbid-line.icon
         .content
           %p.explanations= t('.need_canceled')
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
             = t('.cancel')
+      - if defined? display_feedback_form
+        .rf-col-12.rf-p-2w
+          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), no_placeholder: true, from_alert_box: true
