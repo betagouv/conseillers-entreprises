@@ -14,7 +14,7 @@
           = f.check_box :remember_me, checked: true, class: 'hidden'
           = f.label :remember_me
     .actions
-      = f.submit t('sign_in'), class: 'ui button green'
+      = f.submit t('sign_in'), class: 'rf-btn btn-green'
   = render 'devise/shared/links'
 
 = t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL']))
