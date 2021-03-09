@@ -1,6 +1,7 @@
 - if page.current?
-  = link_to url, class: 'item active', remote: remote do
+  %li.rf-pagination__item.rf-pagination__item--active{ "aria-current" => t('.page') }
     = page
 - else
-  = link_to url, class: 'item', remote: remote do
-    = page
+  %li.rf-pagination__item.rf-pagination__item--from-md
+    = link_to page, url, title: t('.page_number', number: page), class: 'rf-pagination__link',
+      "aria-label": t('.page_number', number: page), remote: remote
