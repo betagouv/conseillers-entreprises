@@ -52,7 +52,7 @@
           - button_classes = []
           - if @diagnosis.visitee.blank?
             - button_classes << 'disabled'
-          %button.ui.green.button.no-margin#next-step-button{ class: button_classes }
+          %button.rf-btn.btn-green#next-step-button{ class: button_classes }
             = t('.notify_matches')
 
       .clear
