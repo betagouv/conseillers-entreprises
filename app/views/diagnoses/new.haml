@@ -36,8 +36,9 @@
 
         = render 'insee_code_field', form: facility_form, required: true
 
-      = form.button :submit, class: 'ui right floated button green right labeled icon' do
-        = t('next_step')
-        %i.arrow.right.icon
+      .text-right
+        = form.button :submit, class: 'rf-btn btn-green btn-icon' do
+          = t('next_step')
+          %span.ri-arrow-right-s-line
 
     .clear
