@@ -1,7 +1,7 @@
 %header.rf-header{ :role => "banner" }
   .rf-container
     - if user_signed_in?
-      .rf-header__body
+      .rf-header__body.rf-header__body--hidden
         .rf-header__brand
         .rf-header__navbar
           .rf-service
@@ -65,7 +65,7 @@
                   = t('.sign_out')
 
     - else
-      .rf-header__body
+      .rf-header__body.rf-header__body--displayed
         .rf-header__brand
           = link_to root_path, class: 'rf-logo', title: t('.root_path_title') do
             %span.rf-logo__title
