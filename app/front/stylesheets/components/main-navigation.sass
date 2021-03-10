@@ -1,7 +1,20 @@
 .rf-header
-  .rf-nav
-    display: flex
-    justify-content: space-between
-
   .pde-logo
     box-shadow: none
+
+@media (max-width: 48em)
+  .rf-header__navbar
+    margin-top: 0
+    padding-top-top: 0
+    &::after
+      display: none
+  .rf-nav__item > .rf-link
+    justify-content: flex-start
+
+@media (min-width: 48em)
+  .rf-header
+    .rf-nav
+      display: flex
+      justify-content: space-between
+  .rf-header__body
+    display: none

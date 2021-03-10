@@ -1,7 +1,14 @@
 %header.rf-header{ :role => "banner" }
-
-  - if user_signed_in?
-    .rf-container
+  .rf-container
+    - if user_signed_in?
+      .rf-header__body
+        .rf-header__brand
+        .rf-header__navbar
+          .rf-service
+            = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
+              = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('logos.pde')
+        .rf-header__tools
+          .rf-shortcuts
       %nav.rf-nav#header-navigation{ "aria-label": t(".aria_menu"), role: "navigation" }
         %ul.rf-nav__list
           %li.rf-nav__item
@@ -56,8 +63,8 @@
                 = active_link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
                   %i.sign.out.icon
                   = t('.sign_out')
-  - else
-    .rf-container
+
+    - else
       .rf-header__body
         .rf-header__brand
           = link_to root_path, class: 'rf-logo', title: t('.root_path_title') do
@@ -65,9 +72,10 @@
               République
               %br/
               française
-        .rf-header__operator
-          = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
-            = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('logos.pde')
+        .rf-header__navbar
+          .rf-service
+            = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
+              = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('logos.pde')
         .rf-header__tools
           .rf-shortcuts
             %ul.rf-shortcuts__list
