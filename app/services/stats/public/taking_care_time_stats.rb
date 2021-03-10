@@ -5,7 +5,7 @@ module Stats::Public
     def main_query
       Solicitation
         .joins(diagnosis: [needs: :matches])
-        .merge(Diagnosis.completed)
+        .merge(Need.where.not(status: [:diagnosis_not_complete, :quo]))
         .distinct
     end
 

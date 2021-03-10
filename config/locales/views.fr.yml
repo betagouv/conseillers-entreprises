@@ -602,7 +602,7 @@ fr:
         title: Secteurs d’activité des entreprises utilisatrices du service
       exchange_with_expert:
         subtitle_html: Cette statistique n’est disponible que depuis le 01/09/2020 grâce à l’ajout de nouvelles fonctionnalités, permettant un suivi plus fin des besoins.<br>Un besoin correspond en principe à une demande d’entreprise, mais il se peut qu’une même demande exprime plusieurs besoins, d’où l’utilisation du terme plus précis de « besoin » pour mesurer la dernière étape du service.
-        title: des besoins d’entreprises transmis ayant donné lieu à un échange avec un conseiller
+        title: des besoins d’entreprises transmis ont donné lieu à un échange avec un conseiller
         with_exchange: Avec échange
         without_exchange: Sans échange
       experts:
@@ -629,17 +629,17 @@ fr:
         title: demandes déposées par les entreprises
       solicitations_diagnoses:
         subtitle_html: Pour le bon fonctionnement du service, seules les demandes qualifiées sont transmises. Les demandes sans aucun élément de contexte, avec des erreurs de siret ou touchant à la création d’entreprise, ne peuvent pas être transmises. <br/>Un taux élevé signifie que nous parvenons à obtenir des demandes de qualité, pouvant être facilement prise en charge par les conseillers. Un taux faible signifie que les demandes sont peu contextualisées ou comportent des erreurs rendant difficile leur traitement
-        title: de demandes dans les régions déployées transmises aux conseillers
+        title: de demandes en région(s) déployée(s) sont transmises aux conseillers
       solicitations_in_deployed_regions:
         subtitle_html: 'Le service est déployé région par région, afin de constituer un carnet d’adresses rassemblant l’ensemble des partenaires publics et parapublics chargés d’accompagner les entreprises sur le territoire. La stratégie d’acquisition des besoins des TPE & PME suit ce déploiement régional progressif. Néanmoins, il arrive que des sollicitations soient déposées par des entreprises situées dans des régions non encore déployées.<br/>Précaution : cette statistique n’a de sens pour l’activité globale du service. Le filtre région ne fonctionne donc pas ici.'
-        title: de demandes provenant de régions où le service est ouvert
+        title: de demandes proviennent de régions où le service est ouvert
       source: Analyses d’entreprises
       source_category:
         direct: Sollicitations d’entreprises
         title: Analyses d’entreprises
         visits: Visites par un conseiller
       taking_care:
-        title: de réponse en moins de 5 jours aux demandes déposées par les entreprises
+        title: des réponses aux demandes des entreprises sont apportées en moins de 5 jours
       themes:
         subtitle: Une thématique est un regroupement de sujets d’entreprises proches. <br>Le pic que l’on observe au mois de mars 2020 dans la catégorie « Autres typologies de besoins » correspond aux demandes exprimant des difficultés liées au covid-19
         title: Thématiques choisies par les entreprises
