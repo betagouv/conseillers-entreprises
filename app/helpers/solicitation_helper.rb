@@ -51,9 +51,9 @@ module SolicitationHelper
 
         title = title_components.map{ |k,v| "#{k} : #{v}" }.join("\n")
 
-        tag.div(slug, class: classes, title: title)
+        tag.div(slug.humanize, class: classes, title: title)
       else
-        tag.div(slug, class: classes)
+        tag.div(slug.humanize, class: classes)
       end
     end
 
