@@ -4,9 +4,8 @@ import './feedbacks'
 import "./jquery-accessible-simple-tooltip-aria.js"
 import './controllers'
 
-import { Header } from "@gouvfr/header/src/scripts/header/header.js";
+import { Header } from "./rf-header.js";
 
 document.addEventListener("turbolinks:load", function () {
-  console.log("hey");
   new Header();
 });

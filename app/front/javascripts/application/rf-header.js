@@ -7,7 +7,7 @@ let count = 0;
 
 class Header {
   constructor(header) {
-    this.header = header || document.querySelector(".${prefix}-header");
+    this.header = header || document.querySelector(`.rf-header`);
     this.numId = count;
     count++;
 
@@ -17,27 +17,27 @@ class Header {
   init() {
     this.popins = [];
 
-    this.tools = this.header.querySelector(".${prefix}-header__tools");
+    this.tools = this.header.querySelector(".rf-header__tools");
 
     this.searchBar = this.header.querySelector(
-      ".${prefix}-header__tools .${prefix}-search-bar"
+      ".rf-header__tools .rf-search-bar"
     );
 
-    const navbar = this.header.querySelector(".${prefix}-header__navbar");
+    const navbar = this.header.querySelector(".rf-header__navbar");
 
-    this.nav = this.header.querySelector(".${prefix}-nav");
+    this.nav = this.header.querySelector(".rf-nav");
 
     this.navItems =
-      this.header.querySelectorAll(".${prefix}-nav .${prefix}-nav__item") || [];
+      this.header.querySelectorAll(".rf-nav .rf-nav__item") || [];
 
     const append = this.numId === 0 ? "" : "-" + this.numId;
 
     this.shortcuts = this.header.querySelector(
-      ".${prefix}-header__tools .${prefix}-shortcuts"
+      ".rf-header__tools .rf-shortcuts"
     );
 
     this.navList = this.header.querySelector(
-      ".${prefix}-nav .${prefix}-nav__list"
+      ".rf-nav .rf-nav__list"
     );
 
     if (this.searchBar) {
@@ -115,12 +115,12 @@ class HeaderPopin {
     const button = document.createElement("button");
     button.setAttribute(
       "class",
-      "${prefix}-btn ${prefix}-fi-" +
+      "rf-btn rf-fi-" +
         icon +
-        " ${prefix}-btn--icon" +
+        " rf-btn--icon" +
         (hasLabel ? "-right" : "") +
         " " +
-        (size !== undefined ? "${prefix}-btn--" + size : "")
+        (size !== undefined ? "rf-btn--" + size : "")
     );
     button.setAttribute("title", title);
     button.setAttribute("aria-controls", this.id);
@@ -135,15 +135,15 @@ class HeaderPopin {
         this.navbar.removeChild(this.button);
       if (this.popin.contains(this.close)) this.popin.removeChild(this.close);
       this.popin.removeAttribute("id");
-      removeClass(this.popin, "${prefix}-header__popin");
-      removeClass(this.popin, "${prefix}-header__popin--expanded");
+      removeClass(this.popin, "rf-header__popin");
+      removeClass(this.popin, "rf-header__popin--expanded");
     } else {
       if (!this.navbar.contains(this.button))
         this.navbar.appendChild(this.button);
       if (!this.popin.contains(this.close)) this.popin.appendChild(this.close);
 
       this.popin.setAttribute("id", this.id);
-      addClass(this.popin, "${prefix}-header__popin");
+      addClass(this.popin, "rf-header__popin");
       this.handle();
     }
   }
@@ -160,9 +160,9 @@ class HeaderPopin {
 
   handle() {
     if (this.isExpanded) {
-      addClass(this.popin, "${prefix}-header__popin--expanded");
+      addClass(this.popin, "rf-header__popin--expanded");
     } else {
-      removeClass(this.popin, "${prefix}-header__popin--expanded");
+      removeClass(this.popin, "rf-header__popin--expanded");
     }
   }
 }
