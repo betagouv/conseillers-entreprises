@@ -38,7 +38,7 @@ class SharedController < ActionController::Base
     Sentry.configure_scope do |scope|
       scope.set_user(id: current_user&.id)
       scope.set_extras(
-        params: params.to_unsafe_h, 
+        params: params.to_unsafe_h,
         url: request.url
       )
     end
