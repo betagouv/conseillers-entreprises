@@ -12,7 +12,7 @@ class SharedController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :set_raven_context
+  before_action :set_sentry_context
 
   rescue_from Exception, with: :render_error
 
@@ -29,22 +29,19 @@ class SharedController < ActionController::Base
     if NOT_FOUND_ERROR_CLASSES.include? exception.class
       respond_with_status(404)
     else
-      Raven.capture_exception(exception)
+      Sentry.capture_exception(exception)
       respond_with_status(500)
     end
   end
 
-  def set_raven_context
-    Raven.user_context(
-      username: current_user&.full_name,
-      email: current_user&.email,
-      id: current_user&.id,
-      ip_address: request.ip
-    )
-    Raven.extra_context(
-      params: params.to_unsafe_h,
-      url: request.url
-    )
+  def set_sentry_context
+    Sentry.configure_scope do |scope|
+      scope.set_user(id: current_user&.id)
+      scope.set_extras(
+        params: params.to_unsafe_h, 
+        url: request.url
+      )
+    end
   end
 
   def respond_with_status(status)

@@ -27,8 +27,9 @@ class CompanyMailerService
         CompanyMailer.newsletter_subscription(diagnosis).deliver_later unless list_emails.include?(diagnosis.visitee.email)
         diagnosis.update(newsletter_subscription_email_sent: true)
       rescue SibApiV3Sdk::ApiError => e
-        Raven.tags_context(email: diagnosis.visitee.email) do
-          Raven.capture_exception(e)
+        Sentry.with_scope do |scope|
+          scope.set_tags(email: diagnosis.visitee.email)
+          Sentry.capture_exception(e)
         end
       end
     end
