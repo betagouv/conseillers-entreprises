@@ -65,7 +65,9 @@ gem 'recipient_interceptor'
 gem 'ip_anonymizer'
 
 # Notifiers
-gem 'sentry-raven'
+gem "sentry-ruby"
+gem "sentry-rails"
+gem "sentry-delayed_job"
 
 # Helper gems
 gem 'browser'

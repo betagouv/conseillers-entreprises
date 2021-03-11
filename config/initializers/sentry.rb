@@ -1,5 +1,6 @@
-Raven.configure do |config|
-  # SENTRY_DSN is used to set the DSN https://docs.sentry.io/clients/ruby/
-  config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
-  config.silence_ready = true
+Sentry.init do |config|
+  config.dsn = ENV['SENTRY_DSN']
+  config.breadcrumbs_logger = [:active_support_logger]
+  config.traces_sample_rate = 0.5
+  config.send_default_pii = false
 end

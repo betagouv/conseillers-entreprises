@@ -15,7 +15,7 @@ class NewslettersController < PagesController
       api_instance.create_contact(SibApiV3Sdk::CreateContact.new(contact_params))
       flash[:success] = t('.success_newsletter')
     rescue SibApiV3Sdk::ApiError => e
-      Raven.capture_exception(e)
+      Sentry.capture_exception(e)
       flash[:warning] = t('.error_newsletter_subscription')
     end
 
