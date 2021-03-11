@@ -12,13 +12,13 @@
       %li.beta-link= link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises'
       %li.social-network
         = link_to 'https://www.linkedin.com/company/place-des-entreprises', target: '_blank', rel: 'noopener' do
-          %i.fab.fa-linkedin{ 'aria-hidden': 'true' }
+          %span.ri-linkedin-box-fill{ 'aria-hidden': 'true' }
           %span.visually-hidden Linkedin
         = link_to 'https://twitter.com/place_des_ets', target: '_blank', rel: 'noopener' do
-          %i.fab.fa-twitter{ 'aria-hidden': 'true' }
+          %span.ri-twitter-fill{ 'aria-hidden': 'true' }
           %span.visually-hidden Twitter
         = link_to 'https://github.com/betagouv/place-des-entreprises', target: '_blank', rel: 'noopener' do
-          %i.fab.fa-github{ 'aria-hidden': 'true' }
+          %span.ri-github-fill{ 'aria-hidden': 'true' }
           %span.visually-hidden Github
     %ul.footer__links
       %li= link_to t('cgu'), cgu_path
