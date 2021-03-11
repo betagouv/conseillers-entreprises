@@ -228,7 +228,7 @@ fr:
       delete_comment: Supprimer ce commentaire
     form:
       need:
-        placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
+        placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise et avons convenu d’un rendez-vous le 23/11. »'
       reminder:
         placeholder: " "
       solicitation:
@@ -466,6 +466,7 @@ fr:
       take_care: Je m’en charge !
       validate: Valider
       your_turn_html: C‘est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
+      placeholder_no_help: "Par exemple : « Je n’est pas d’aide pour les entreprises de moins de 3 ans »"
     menu:
       for_other_antenne: Toutes les demandes pour %{antenne}
       for_other_header: Voir aussi

@@ -46,7 +46,7 @@
             .content
               %h3.rf-card__title= t('.not_reachable.title')
               %p.rf-card__description= t('.not_reachable.content')
-              = f.button :submit, name: :status, value: :done_no_help, class: 'rf-btn btn-grey-blue', aria: { label: "#{t('.not_reachable.title')}. #{t('.not_reachable.content')}" } do
+              = f.button :submit, name: :status, value: :done_not_reachable, class: 'rf-btn btn-grey-blue', aria: { label: "#{t('.not_reachable.title')}. #{t('.not_reachable.content')}" } do
                 = t('.validate')
         %li.rf-col-12.rf-col-md-4
           .rf-col.close-need-box
@@ -55,7 +55,7 @@
             .content
               %h3.rf-card__title= t('.no_help.title')
               %p.rf-card__description= t('.no_help.content')
-              = f.button :submit, name: :status, value: :done_not_reachable, class: 'rf-btn btn-orange', aria: { label: "#{t('.no_help.title')}. #{t('.no_help.content')}" } do
+              = f.button :submit, name: :status, value: :done_no_help, class: 'rf-btn btn-orange', aria: { label: "#{t('.no_help.title')}. #{t('.no_help.content')}" } do
                 = t('.validate')
 
   - elsif match.status_done? || match.status_done_no_help? || match.status_done_not_reachable?
@@ -67,9 +67,10 @@
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :taking_care, class: 'gray-link' do
             = t('.cancel')
-      - if defined? display_feedback_form
+      - if local_assigns[:display_feedback_form] && (match.status_done? || match.status_done_no_help?)
         .rf-col-12.rf-p-2w
-          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), no_placeholder: true, from_alert_box: true
+          - placeholder = match.status_done? ? t("feedbacks.form.need.placeholder") : t('.placeholder_no_help')
+          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: placeholder, from_alert_box: true
 
   - elsif match.status_not_for_me?
     .rf-grid-row.orange-box
@@ -80,6 +81,6 @@
         = form_with(model: match, url: match_path(match)) do |f|
           = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
             = t('.cancel')
-      - if defined? display_feedback_form
+      - if local_assigns[:display_feedback_form]
         .rf-col-12.rf-p-2w
-          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), no_placeholder: true, from_alert_box: true
+          = render 'feedbacks/form', feedback: match.need.feedbacks.new(category: :need), placeholder: t('.placeholder_no_help'), from_alert_box: true

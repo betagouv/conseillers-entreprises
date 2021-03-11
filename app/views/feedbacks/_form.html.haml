@@ -4,7 +4,7 @@
   = form.hidden_field :feedbackable_type
   = form.hidden_field :category
   .rf-input-group
-    - placeholder = local_assigns[:no_placeholder] ? nil : t("feedbacks.form.#{feedback.category.underscore}.placeholder")
+    - placeholder = local_assigns[:placeholder].present? ? local_assigns[:placeholder] : t("feedbacks.form.#{feedback.category.underscore}.placeholder")
     = form.label :description, t('.title'), class: 'rf-label'
     = form.text_area :description, placeholder: placeholder,
       class: 'rf-input',
