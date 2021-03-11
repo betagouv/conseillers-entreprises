@@ -20,7 +20,7 @@ xml.urlset xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" do
   end
 
   # Misc static pages
-  static_pages = [comment_ca_marche_url, stats_url, ENV['BLOG_URL']]
+  static_pages = [comment_ca_marche_url, public_index_url, ENV['BLOG_URL']]
   static_pages.each do |page|
     xml.url do
       xml.loc page
