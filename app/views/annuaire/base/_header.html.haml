@@ -2,10 +2,10 @@
 
 .ui.breadcrumb
   = link_to Institution.model_name.human.pluralize, institutions_path, class: 'section'
-  %i.right.chevron.icon.divider
+  %span.ri-arrow-right-s-line.divider
   = link_to institution.name, institution, class: 'section'
   - if local_assigns[:antenne].present?
-    %i.right.chevron.icon.divider
+    %span.ri-arrow-right-s-line.divider
     -# By default, link_to uses the current request path. We only set the name here.
     = link_to antenne, {}, class: 'section'
 

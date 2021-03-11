@@ -2,6 +2,6 @@
 
 .ui.breadcrumb
   .section= recipient.to_s
-  %i.right.chevron.icon.divider
+  %span.ri-arrow-right-s-line.divider
   -# By default, link_to uses the current request path. We only set the name here.
   = link_to t(collection_name, scope: 'needs.collections'), {}, class: 'section'

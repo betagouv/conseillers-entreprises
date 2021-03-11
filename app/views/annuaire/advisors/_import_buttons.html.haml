@@ -1,14 +1,14 @@
 .ui.secondary.fitted.menu
   .item
     = link_to institution_advisors_path(format: 'csv'), class: 'ui labeled icon' do
-      %i.download.icon
+      %span.ri-download-2-line.rf-mr-1w
       = t('download')
   .item
     = link_to import_institution_advisors_path, class: 'ui labeled icon' do
-      %i.upload.icon
+      %span.ri-upload-2-line.rf-mr-1w
       = t('import')
   .item
     -# By default, link_to uses the current request path; we just add the fullscreen param. See also AutoFullScreenLayout.
     = link_to({ fullscreen: true }, { class: 'ui labeled icon' }) do
-      %i.desktop.icon
+      %span.ri-computer-line.rf-mr-1w
       = t('fullscreen')

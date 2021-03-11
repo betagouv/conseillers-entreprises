@@ -36,7 +36,7 @@
       .inline.field
         .ui.calendar#datepicker{ "data-calendar": 'semantic-ui', "data-days": t('date.abbr_day_names').compact.to_json.html_safe, "data-months": t('date.month_names').compact.to_json.html_safe }
           .ui.input.left.icon
-            %i.calendar.icon
+            %span.ri-calendar-line.icon
             = diagnosis_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
 
       - if ENV['FEATURE_NEW_LOCALITY_FOR_DIAGNOSIS'].to_b
@@ -49,9 +49,10 @@
             = diagnosis_form.fields_for :facility do |facility_form|
               = render 'insee_code_field', form: facility_form, required: false
 
-      %a.ui.left.floated.button.labeled.icon{ href: needs_diagnosis_path }
+      %a.rf-btn.ri-arrow-left-line.rf-btn--icon-left.no-margin{ href: needs_diagnosis_path }
         = t('previous_step')
-        %i.arrow.left.icon
+
       = render 'next_step', diagnosis_form: diagnosis_form
 
     .clear
+

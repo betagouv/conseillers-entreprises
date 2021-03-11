@@ -14,9 +14,9 @@
     = t('.for_other_header')
   - if recipient != antenne
     = link_to antenne_quo_needs_path, class: 'item' do
-      %i.users.icon
+      %i.ri-team-fill.float-right
       = t('.for_other_antenne', antenne: antenne)
   - if recipient != user
     = link_to quo_needs_path, class: 'item' do
-      %i.user.icon
+      %i.ri-user-fill.float-right
       = t('.for_other_user', user: user)

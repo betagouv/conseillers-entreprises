@@ -2,5 +2,5 @@
   - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
     %p
       = link_to new_password_path(resource_name) do
-        %i.icon.question.circle.outline
+        %span.ri-question-line
         = t('devise.forgot_password')

@@ -9,7 +9,7 @@
       %p= @expert.email
   - if @expert.team?
     %p
-      %i.blue.icon.info.circle
+      %span.blue.ri-information-fill
       = t('.team_email_explanation_html', email: ENV['APPLICATION_EMAIL'])
 
   .ui.divider.hidden
@@ -24,7 +24,7 @@
     = f.label :full_name, t('activerecord.attributes.expert.full_name')
     = f.text_field :full_name, placeholder: t('attributes.placeholder.team_name'), autocomplete: 'off', required: true
   %p
-    %i.blue.icon.info.circle
+    %span.blue.ri-information-fill
     = t('.team_name_explanation')
 
   .ui.divider.hidden
@@ -41,7 +41,7 @@
           %b= @expert.institution.name
   - if @expert.antenne != @user.antenne
     %p
-      %i.orange.icon.circle.warning
+      %span.orange.ri-information-fill
       = t('.different_antenne_warning_html', email: ENV['APPLICATION_EMAIL'])
 
   .ui.divider.hidden
@@ -58,12 +58,12 @@
       .ui.list
         - @expert.users.not_deleted.each do |member|
           .item
-            - if member == @user
-              %i.user.blue.icon{ title: t('users.thats_you') }
-            - else
-              %i.user.icon
             .content
               .user.popup-hover
+                - if member == @user
+                  %span.blue.ri-user-fill{ title: t('users.thats_you') }
+                - else
+                  %span.ri-user-fill
                 = member.full_name
               .ui.popup= person_block(member)
 

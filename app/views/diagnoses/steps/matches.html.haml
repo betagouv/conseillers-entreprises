@@ -10,6 +10,7 @@
     .ui.segment
       %details
         %summary
+          %span.ri-arrow-right-s-fill
           %strong Rappel de la sollicitation
         - if @diagnosis.content.present?
           %blockquote
@@ -44,9 +45,8 @@
 
       .ui.two.column.stackable.grid.container
         .ui.left.aligned.column.no-left-padding.no-margin
-          = link_to visit_diagnosis_path(@diagnosis), class: 'ui left labeled icon button no-margin' do
+          = link_to visit_diagnosis_path(@diagnosis), class: 'rf-btn ri-arrow-left-line rf-btn--icon-left no-margin' do
             = t('previous_step')
-            %i.arrow.left.icon
 
         .ui.right.aligned.column.no-right-padding.no-margin
           - button_classes = []

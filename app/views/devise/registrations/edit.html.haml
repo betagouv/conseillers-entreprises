@@ -5,7 +5,7 @@
       = f.label :email
       = f.email_field :email, disabled: true
     %p
-      %i.blue.icon.info.circle
+      %i.blue.ri-information-fill
       = t('.contact_us_to_change_email_html', email: ENV['APPLICATION_EMAIL'])
 
     = render 'devise/shared/user_fields', form: f

@@ -10,6 +10,6 @@
     -# By default, link_to uses the current request path; we just remove the fullscreen param.
     = link_to({}, class: 'button-exit-fullscreen') do
       .ui.small.circular.icon.button
-        %i.close.icon{ title: t('exit_fullscreen') }
+        %i.ri-close-line.icon{ title: t('exit_fullscreen') }
     %main.application_fullscreen
       = yield

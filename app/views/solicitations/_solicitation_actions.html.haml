@@ -5,32 +5,32 @@
         .ui.item
           - error_text = solicitation.prepare_diagnosis_errors.full_messages.to_sentence
           .ui.icon{ data: { tooltip: error_text, variation: 'fixed' } }
-            %i.warning.sign.icon
+            %span.ri-error-warning-line
             = t('.prepare_diagnosis_errors', count: solicitation.prepare_diagnosis_errors.count)
         .ui.item.dropdown
           = t('.prepare_diagnosis_retry')
-          %i.dropdown.icon
+          %span.ri-arrow-down-s-line.rf-ml-1w
           .ui.menu
             = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'item', method: :post do
               = t('.start_auto_diagnosis')
-              %i.right.chevron.icon
+              %span.ri-arrow-right-s-line.rf-ml-1w
             = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item' do
               = t('.start_manual_diagnosis')
-              %i.right.chevron.icon
+              %span.ri-arrow-right-s-line.rf-ml-1w
       - else
         = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'ui item', method: :post do
-          %i.rocket.icon
+          %span.ri-rocket-2-fill.rf-mr-1w
           = t('.start_auto_diagnosis')
-          %i.right.chevron.icon
+          %span.ri-arrow-right-s-line.rf-ml-1w
     - else
       = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do
         = t('.start_diagnosis')
-        %i.right.chevron.icon
+        %span.ri-arrow-right-s-line.rf-ml-1w
   - else
     = link_to_diagnosis(solicitation.diagnosis)
 
   .ui.item.dropdown
-    %i.settings.icon
+    %span.ri-list-settings-fill
     .ui.menu
       - solicitation.allowed_new_statuses.each do |status|
         = status_action_link(solicitation, status, %w[item])

@@ -12,7 +12,7 @@
       %p= page_entries_info @diagnoses
     .right.aligned.eight.wide.column
       = link_to diagnoses_path do
-        %i.tasks.icon
+        %span.ri-list-check
         = t('.browse_active_diagnoses')
 
   = paginate @diagnoses

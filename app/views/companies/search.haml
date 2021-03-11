@@ -17,10 +17,10 @@
               - if etablissement.lieu.present?
                 .sub.header= etablissement.lieu.upcase
             .small.text
-              %i.file.icon
+              %i.ri-file-fill.icon
               = etablissement.activite.capitalize
             .small.text
-              %i.paperclip.icon
+              %i.ri-attachment-2.icon
               #{I18n.t("attributes.siret")} : #{etablissement.siret}
 
   - suggestions = @suggestions

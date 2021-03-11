@@ -16,25 +16,25 @@
               = image_tag 'place-des-entreprises-logo.png', style: 'width: 56px', alt: t('logos.pde')
           - if current_user.experts.present?
             = active_link_to needs_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-              %i.ri-inbox-fill.rf-mr-1w
+              %span.ri-inbox-fill.rf-mr-1w
               = t('needs.index.title')
               - cache([current_user, Need.all]) do
                 - if current_user.needs_quo.exists?
                   .ui.orange.empty.circular.horizontal.label.rf-ml-1w
           - if policy(Diagnosis).index?
             = active_link_to diagnoses_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-              %i.tasks.icon.rf-mr-1w
+              %span.ri-list-check.rf-mr-1w
               = t('.diagnoses')
           - if current_user.is_admin?
             = active_link_to solicitations_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-              %i.comment.dots.outline.icon
+              %span.ri-message-2-line.rf-mr-1w
               = t('solicitations.index.title')
             = active_link_to reminders_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-              %i.ambulance.icon
+              %span.ri-feedback-line.rf-mr-1w
               = t('reminders.index.title')
         %ul.rf-nav__list
           = active_link_to tutoriels_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-            %i.tools.icon.rf-mr-1w
+            %span.ri-tools-line.rf-mr-1w
             = t('user_pages.tutoriels.title')
           %li.rf-nav__item
             %button.rf-btn{ "aria-controls" => "rf-nav-item-3", "aria-expanded" => "false", data: { controller: 'rf-dropdown', action: 'click->rf-dropdown#collapse' } }
@@ -43,25 +43,25 @@
               %ul.rf-menu__list
                 - if current_user.is_admin?
                   = active_link_to admin_root_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %i.gavel.icon
+                    %span.ri-auction-line.rf-mr-1w
                     = t('.admin')
                   = active_link_to institutions_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %i.landmark.icon
+                    %span.ri-government-line.rf-mr-1w
                     = t('.annuaire')
                   = active_link_to badges_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %i.tags.icon
+                    %span.ri-price-tag-3-line.rf-mr-1w
                     = t('.badges')
                   = active_link_to inserts_partner_tools_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %i.wrench.icon
+                    %span.ri-pencil-ruler-2-line.rf-mr-1w
                     = t('.partner_tools')
                   = active_link_to new_user_invitation_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %i.gift.icon
+                    %span.ri-user-add-line.rf-mr-1w
                     = t('.invite')
                 = active_link_to user_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                  %i.user.circle.icon
+                  %span.ri-user-line.rf-mr-1w
                   = t('.profile')
                 = active_link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                  %i.sign.out.icon
+                  %span.ri-logout-box-r-line.rf-mr-1w
                   = t('.sign_out')
 
     - else
@@ -81,14 +81,12 @@
             %ul.rf-shortcuts__list
               %li.rf-shortcuts__item
                 = active_link_to comment_ca_marche_path, class: 'rf-link' do
-                  %i.subject.icon
                   = t('about.comment_ca_marche.title')
               %li.rf-shortcuts__item
                 = link_to root_path, class: 'rf-link' do
-                  %i.hand.point.right.outline.icon
                   = t('company_contact')
               = active_link_to tutoriels_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-shortcuts__item', class_active: 'rf-shortcuts__item--active' do
-                %i.tools.icon.rf-mr-1w
+                %i.ri-tools-line.rf-mr-1w
                 = t('user_pages.tutoriels.title')
               = active_link_to new_user_session_path, class: 'rf-link rf-fi-account-line rf-link--icon-left', wrap_tag: :li, wrap_class: 'rf-shortcuts__item', class_active: 'rf-shortcuts__item--active' do
                 = t('sign_in')
