@@ -10,7 +10,6 @@
     .ui.segment
       %details
         %summary
-          %span.ri-arrow-right-s-fill
           %strong Rappel de la sollicitation
         - if @diagnosis.content.present?
           %blockquote
@@ -43,16 +42,13 @@
             .header= t('.before_sending_emails_1')
             %p= t('.before_sending_emails_2')
 
-      .ui.two.column.stackable.grid.container
-        .ui.left.aligned.column.no-left-padding.no-margin
-          = link_to visit_diagnosis_path(@diagnosis), class: 'rf-btn ri-arrow-left-line rf-btn--icon-left no-margin' do
-            = t('previous_step')
+      .bottom_actions.flex
+        = link_to visit_diagnosis_path(@diagnosis), class: 'rf-btn rf-btn--icon-left no-margin' do
+          %span.ri-arrow-left-line.rf-mr-1w
+          = t('previous_step')
 
-        .ui.right.aligned.column.no-right-padding.no-margin
-          - button_classes = []
-          - if @diagnosis.visitee.blank?
-            - button_classes << 'disabled'
-          %button.rf-btn.btn-green#next-step-button{ class: button_classes }
-            = t('.notify_matches')
-
-      .clear
+        - button_classes = []
+        - if @diagnosis.visitee.blank?
+          - button_classes << 'disabled'
+        %button.rf-btn.btn-green#next-step-button{ class: button_classes }
+          = t('.notify_matches')

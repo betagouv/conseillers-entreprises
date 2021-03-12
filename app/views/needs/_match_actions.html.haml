@@ -1,6 +1,6 @@
 .rf-container.rf-p-2w.rf-pt-6w#match-actions
   - if match.status_quo?
-    .rf-grid-row.white-background.rf-p-3w.rf-grid-row--middle
+    .rf-grid-row.white-bg.rf-p-3w.rf-grid-row--middle
       .actions-default.rf-col
         %p.question= t('.can_you_help', company: match.need.company)
         = form_with(model: match, url: match_path(match)) do |f|

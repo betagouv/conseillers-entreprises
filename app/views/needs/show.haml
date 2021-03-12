@@ -48,10 +48,10 @@
                   = person_block(@need.advisor)
 
 - if policy(@need).has_match_for_user?
-  .lighter-blue-background
+  .lighter-blue-bg
     = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
-.lighter-blue-background
+.lighter-blue-bg
   .rf-container.rf-p-2w#others-experts
     %h2.rf-h3.rf-my-4w= t('.others_experts')
     - if @others_matches.present?
@@ -59,11 +59,11 @@
     - else
       %p#no-match= t('.no_match')
 
-.lighter-blue-background
+.lighter-blue-bg
   .rf-container
     = render 'additional_experts', need: @need
 
-.lighter-blue-background
+.lighter-blue-bg
   .rf-container.rf-p-2w
     .rf-my-4w.feedbacks-title
       %h2.rf-h3= t('.comments')

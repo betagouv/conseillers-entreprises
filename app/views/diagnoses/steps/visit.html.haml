@@ -49,10 +49,12 @@
             = diagnosis_form.fields_for :facility do |facility_form|
               = render 'insee_code_field', form: facility_form, required: false
 
-      %a.rf-btn.ri-arrow-left-line.rf-btn--icon-left.no-margin{ href: needs_diagnosis_path }
-        = t('previous_step')
+      .bottom_actions.flex
+        = link_to needs_diagnosis_path, class: 'rf-btn rf-btn--icon-left no-margin' do
+          %span.ri-arrow-left-line.rf-mr-1w
+          = t('previous_step')
 
-      = render 'next_step', diagnosis_form: diagnosis_form
+        = render 'next_step', diagnosis_form: diagnosis_form
 
     .clear
 
