@@ -6,8 +6,8 @@
       %b.blue.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{match.id}" }
         #{match.expert.full_name}
       = " - " + match.expert.antenne.name
-      .hidden{ id: "tooltip-case-#{match.id}" }
-        = person_block(match.expert)
+    .hidden{ id: "tooltip-case-#{match.id}" }
+      = person_block(match.expert)
 
   .rf-col-sm-2.rf-col.col-label
     = status_label(match)
