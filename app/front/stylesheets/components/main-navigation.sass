@@ -1,6 +1,17 @@
 .rf-header
   .pde-logo
     box-shadow: none
+  .rf-nav__item--active
+    .rf-link
+      pointer-events: initial
+
+.rf-menu
+  right: 20px
+  width: 15rem
+  &:after
+    margin-right: 0
+  .rf-menu__item
+    width: 17rem
 
 @media (max-width: 48em)
   .rf-header__navbar
@@ -20,3 +31,5 @@
     display: none
   .rf-header__body--displayed
     display: flex
+
+
