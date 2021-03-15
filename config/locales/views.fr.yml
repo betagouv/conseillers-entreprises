@@ -461,9 +461,9 @@ fr:
         title: Pas d’aide disponible
       not_for_me: Ce n’est pas pour moi
       not_reachable:
-        content: Le chef d’entreprise ne répond pas mais il a mes coordonnées pour vous recontacter.
+        content: Le chef d’entreprise ne répond pas mais il a mes coordonnées pour me recontacter.
         title: Entreprise injoignable
-      placeholder_no_help: 'Par exemple : « Je n’est pas d’aide pour les entreprises de moins de 3 ans »'
+      placeholder_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
       take_care: Je m’en charge !
       validate: Valider
       your_turn_html: C‘est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
