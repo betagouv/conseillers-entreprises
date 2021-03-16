@@ -9,12 +9,4 @@
             .ui.grey.basic.label= diagnosis.human_attribute_value(:step)
         = diagnosis.company.name
         .sub.header= diagnosis.facility.commune_name
-      - if diagnosis.step_completed?
-        - diagnosis.needs.each do |need|
-          %h4.ui.header
-            = need.subject
-            .sub.header
-              = need.matches.human_count
-              - if need.abandoned?
-                .ui.label.basic.orange= t('.last_activity_date', l: l(need.updated_at.to_date, format: :long))
       = render 'diagnoses/archive_action', diagnosis: diagnosis

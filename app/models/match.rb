@@ -3,6 +3,7 @@
 # Table name: matches
 #
 #  id               :bigint(8)        not null, primary key
+#  archived_at      :datetime
 #  closed_at        :datetime
 #  status           :enum             default("quo"), not null
 #  taken_care_of_at :datetime
@@ -28,6 +29,8 @@
 #
 
 class Match < ApplicationRecord
+  include Archivable
+
   ## Constants
   #
   enum status: {
