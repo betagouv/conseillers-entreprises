@@ -136,6 +136,10 @@ class Need < ApplicationRecord
     where.not(id: subquery)
   end
 
+  scope :received_by, -> (user_id) do
+    joins(:contacted_users).where(users: { id: user_id })
+  end
+
   REMINDERS_DAYS = {
     poke: 7,
     recall: 14,
