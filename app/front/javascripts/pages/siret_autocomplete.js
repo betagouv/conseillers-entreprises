@@ -93,7 +93,8 @@ import accessibleAutocomplete from 'accessible-autocomplete';
   // Récupération des résultats ----------------------------------------------------
 
   async function fetchEtablissements(query) {
-    let response = await fetch(`/rech-etablissement/${query}`);
+    let params = `query=${query}&non_diffusables=false`; // pour ne pas afficher publiquement les SIRET non diffusibles
+    let response = await fetch(`/rech-etablissement?${params}`);
     let data = await response.json();
     return data;
   }

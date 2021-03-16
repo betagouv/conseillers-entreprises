@@ -2,10 +2,11 @@
 
 module ApiEntreprise
   class Etablissements
-    attr_accessor :token
+    attr_accessor :token, :options
 
-    def initialize(token)
+    def initialize(token, options = {})
       @token = token
+      @options = options
     end
 
     def fetch(siret)
@@ -17,7 +18,7 @@ module ApiEntreprise
     def fetch_from_api(siret)
       connection = HTTP
 
-      etablissement_response = EtablissementRequest.new(token, siret, connection).response
+      etablissement_response = EtablissementRequest.new(token, siret, connection, options).response
       raise ApiEntrepriseError, etablissement_response.error_message if !etablissement_response.success?
 
       etablissement_response.etablissement_wrapper

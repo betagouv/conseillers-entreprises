@@ -1,14 +1,15 @@
 class SearchEtablissement
   # Recherche d'un établissement via l'appel à des API externes
   # Utilisable pour des champs en auto-complétion
-  attr_accessor :query
+  attr_accessor :query, :non_diffusables
 
-  def self.call(query)
-    self.new(query).call
+  def self.call(params)
+    self.new(params).call
   end
 
-  def initialize(query)
-    @query = query
+  def initialize(params)
+    @query = params[:query]
+    @non_diffusables = params[:non_diffusables]
   end
 
   def call
@@ -27,10 +28,10 @@ class SearchEtablissement
   end
 
   def siret_search
-    siren = FormatSiret.siren_from_query(@query)
+    siren = FormatSiret.siren_from_query(query)
     return if siren.blank?
     begin
-      response = UseCases::SearchCompany.with_siren siren
+      response = UseCases::SearchCompany.with_siren(siren, {non_diffusables: non_diffusables})
       return [ApiEntreprise::SearchEtablissementWrapper.new(response)]
     rescue ApiEntreprise::ApiEntrepriseError => e
       p e
@@ -40,7 +41,7 @@ class SearchEtablissement
   end
 
   def full_text_search
-    response = SireneApi::FullTextSearch.search(@query)
+    response = SireneApi::FullTextSearch.search(query)
     if response.success?
       return response.etablissements
     else
