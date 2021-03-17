@@ -12,7 +12,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN number exists' do
     let(:token) { '1234' }
     let(:siren) { '123456789' }
-    let(:url) { "#{base_url}/123456789?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
+    let(:url) { "#{base_url}/123456789?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
     before do
       stub_request(:get, url).to_return(
@@ -33,7 +33,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN is missing' do
     let(:token) { '1234' }
     let(:siren) { '' }
-    let(:url) { "#{base_url}/?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
+    let(:url) { "#{base_url}/?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
     before do
       stub_request(:get, url).to_return(
@@ -49,7 +49,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'SIREN does not exist' do
     let(:token) { '1234' }
     let(:siren) { '' }
-    let(:url) { "#{base_url}/?token=1234&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
+    let(:url) { "#{base_url}/?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
     before do
       stub_request(:get, url).to_return(
@@ -66,7 +66,7 @@ RSpec.describe ApiEntreprise::Entreprises do
   context 'Token is unauthorized' do
     let(:token) { '' }
     let(:siren) { '123456789' }
-    let(:url) { "#{base_url}/123456789?token=&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
+    let(:url) { "#{base_url}/123456789?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=" }
 
     before do
       stub_request(:get, url).to_return(
