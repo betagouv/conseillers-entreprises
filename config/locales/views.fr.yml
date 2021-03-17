@@ -34,7 +34,7 @@ fr:
           other: En-têtes non reconnus
   application:
     footer:
-      service_description: Description du service, pour les experts et conseillers
+      service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
     insee_code_field:
       city: Ville
     navbar:
