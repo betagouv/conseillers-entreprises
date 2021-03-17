@@ -164,8 +164,9 @@ RSpec.describe Solicitation, type: :model do
     let!(:solicitation1) { create :solicitation, :with_diagnosis, code_region: territory1.code_region }
     # - solicitation avec facility dans territoire non déployé
     let!(:solicitation2) { create :solicitation, :with_diagnosis, code_region: 22 }
-    # - solicitation sans diagnosis (pb de siret, par ex)
-    let!(:solicitation3) { create :solicitation }
+    # - solicitation inclassables (sans analyse, sans région...)
+    let!(:solicitation_without_diagnosis) { create :solicitation }
+    let!(:solicitation_with_diagnosis_no_region) { create :solicitation, :with_diagnosis, code_region: nil }
 
     before {
       territory1.communes = [solicitation1.diagnosis.facility.commune]
@@ -182,7 +183,7 @@ RSpec.describe Solicitation, type: :model do
     context 'filter by diagnoses problem' do
       let(:possible_region) { 'uncategorisable' }
 
-      it { is_expected.to eq [solicitation3] }
+      it { is_expected.to eq [solicitation_without_diagnosis, solicitation_with_diagnosis_no_region] }
     end
 
     context 'filter by out_of_deployed_territories' do
