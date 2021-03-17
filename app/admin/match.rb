@@ -52,11 +52,18 @@ ActiveAdmin.register Match do
       div admin_link_to(m, :subject)
     end
 
-    actions dropdown: true
+    actions dropdown: true do |match|
+      if match.is_archived
+        item t('archivable.unarchive'), polymorphic_path([:unarchive, :admin, match])
+      else
+        item t('archivable.archive'), polymorphic_path([:archive, :admin, match])
+      end
+    end
   end
 
   collection = -> { Match.human_attribute_values(:status, raw_values: true, context: :short).invert.to_a }
   filter :status, as: :select, collection: collection, label: I18n.t('attributes.status')
+  filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
 
   filter :updated_at
 
@@ -82,6 +89,7 @@ ActiveAdmin.register Match do
       row :need
       row :created_at
       row :updated_at
+      row :archived_at
       row :taken_care_of_at
       row :closed_at
       row(:need) do |m|
@@ -117,5 +125,31 @@ ActiveAdmin.register Match do
     end
 
     f.actions
+  end
+
+  ## Actions
+  #
+  member_action :archive do
+    resource.archive!
+    redirect_back fallback_location: collection_path, notice: t('archivable.archive_done')
+  end
+
+  member_action :unarchive do
+    resource.unarchive!
+    redirect_back fallback_location: collection_path, notice: t('archivable.unarchive_done')
+  end
+
+  batch_action(I18n.t('archivable.archive')) do |ids|
+    batch_action_collection.find(ids).each do |resource|
+      resource.archive!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('archivable.archive_done')
+  end
+
+  batch_action(I18n.t('archivable.unarchive')) do |ids|
+    batch_action_collection.find(ids).each do |resource|
+      resource.unarchive!
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('archivable.unarchive_done')
   end
 end
