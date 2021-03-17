@@ -148,7 +148,7 @@ class Solicitation < ApplicationRecord
 
   scope :in_unknown_region, -> { where(code_region: nil) }
 
-  # param peut être un id de Territory ou une clé correspondant à un scope ("with_probable_siret_problem" par ex)
+  # param peut être un id de Territory ou une clé correspondant à un scope ("uncategorisable" par ex)
   scope :by_possible_region, -> (param) {
     begin
       in_regions(Territory.find(param).code_region)
@@ -157,13 +157,15 @@ class Solicitation < ApplicationRecord
     end
   }
 
-  # Pour détecter les pb de siret, par exemple
-  scope :with_probable_siret_problem, -> {
-    without_diagnosis.where(code_region: nil)
+  # scope destiné à recevoir les solicitations qui ne sortent pas
+  # dans les autres filtres des solicitation.
+  # La méthode d'identification pourra evoluer au fil du temps
+  scope :uncategorisable, -> {
+    in_unknown_region
   }
 
   scope :out_of_deployed_territories, -> {
-    where.not(code_region: Territory.deployed_codes_regions)
+    out_of_regions(Territory.deployed_codes_regions)
   }
 
   ## JSON Accessors
