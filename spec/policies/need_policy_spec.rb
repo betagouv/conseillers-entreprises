@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe NeedPolicy, type: :policy do
   let(:user) { nil }
-  let(:need) { create :need_with_matches }
+  let!(:need) { create :need_with_matches }
 
   subject { described_class }
 
@@ -55,6 +55,27 @@ RSpec.describe NeedPolicy, type: :policy do
       let(:support_subject) { create :subject, is_support: true }
 
       it { is_expected.not_to permit(user, need) }
+    end
+  end
+
+  describe 'Scopes' do
+    let!(:other_need) { create :need_with_matches }
+    let(:need_scope) { NeedPolicy::Scope.new(user, Need.all).resolve }
+
+    context 'admin user' do
+      let(:user) { create :user, is_admin: true }
+
+      it 'allows access to all needs' do
+        expect(need_scope.to_a).to match_array([need, other_need])
+      end
+    end
+
+    context 'expert user' do
+      let(:user) { need.contacted_users.first }
+
+      it 'allows a limited subset of needs' do
+        expect(need_scope.to_a).to match_array([need])
+      end
     end
   end
 end
