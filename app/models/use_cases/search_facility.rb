@@ -1,20 +1,20 @@
 module UseCases
   class SearchFacility
     class << self
-      def with_siret(siret)
+      def with_siret(siret, options = {})
         token = ENV.fetch('API_ENTREPRISE_TOKEN')
-        ApiEntreprise::Etablissements.new(token).fetch(siret)
+        ApiEntreprise::Etablissements.new(token, options).fetch(siret)
       end
 
-      def with_siret_and_save(siret)
-        company = create_or_update_company(siret)
-        create_or_update_facility(siret, company)
+      def with_siret_and_save(siret, options = {})
+        company = create_or_update_company(siret, options)
+        create_or_update_facility(siret, company, options)
       end
 
       private
 
-      def create_or_update_company(siret)
-        api_entreprise_company = UseCases::SearchCompany.with_siret(siret)
+      def create_or_update_company(siret, options = {})
+        api_entreprise_company = UseCases::SearchCompany.with_siret(siret, options)
         company_name = api_entreprise_company.name
         siren = api_entreprise_company.entreprise['siren']
         date_de_creation = I18n.l(Time.strptime(api_entreprise_company.entreprise['date_creation'].to_s.to_s, '%s').in_time_zone.to_date)
@@ -25,8 +25,8 @@ module UseCases
         company
       end
 
-      def create_or_update_facility(siret, company)
-        api_entreprise_facility = with_siret(siret)
+      def create_or_update_facility(siret, company, options = {})
+        api_entreprise_facility = with_siret(siret, options)
         insee_code = api_entreprise_facility.etablissement['commune_implantation']['code']
         naf_code = api_entreprise_facility.etablissement['naf']
         naf_libelle = api_entreprise_facility.etablissement['libelle_naf']

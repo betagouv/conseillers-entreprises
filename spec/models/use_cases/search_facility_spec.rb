@@ -15,14 +15,14 @@ describe UseCases::SearchFacility do
 
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
-      allow(ApiEntreprise::Etablissements).to receive(:new).with(token) { etablissements_instance }
+      allow(ApiEntreprise::Etablissements).to receive(:new).with(token, {}) { etablissements_instance }
       allow(etablissements_instance).to receive(:fetch).with(siret)
     end
 
     it 'calls external service' do
       described_class.with_siret siret
 
-      expect(ApiEntreprise::Etablissements).to have_received(:new).with(token)
+      expect(ApiEntreprise::Etablissements).to have_received(:new).with(token, {})
       expect(etablissements_instance).to have_received(:fetch).with(siret)
     end
   end
@@ -31,20 +31,20 @@ describe UseCases::SearchFacility do
     before do
       company_json = JSON.parse(file_fixture('api_entreprise_get_entreprise.json').read)
       entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprises_instance }
+      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret, {}) { entreprises_instance }
 
       facility_json = file_fixture('api_entreprise_get_etablissement.json').read
       facility_parsed_json = JSON.parse(facility_json)
       facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_parsed_json)
-      allow(described_class).to receive(:with_siret).with(siret) { facility_instance }
+      allow(described_class).to receive(:with_siret).with(siret, {}) { facility_instance }
     end
 
     context 'first call' do
       before { described_class.with_siret_and_save siret }
 
       it 'calls external service' do
-        expect(UseCases::SearchCompany).to have_received(:with_siret).with(siret)
-        expect(described_class).to have_received(:with_siret).with(siret)
+        expect(UseCases::SearchCompany).to have_received(:with_siret).with(siret, {})
+        expect(described_class).to have_received(:with_siret).with(siret, {})
       end
 
       it 'sets company and facility' do

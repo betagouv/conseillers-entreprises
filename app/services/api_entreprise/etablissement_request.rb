@@ -2,12 +2,13 @@
 
 module ApiEntreprise
   class EtablissementRequest
-    attr_reader :token, :siret, :connection
+    attr_reader :token, :siret, :connection, :options
 
-    def initialize(token, siret, connection)
+    def initialize(token, siret, connection, options = {})
       @token = token
       @siret = siret
       @connection = connection
+      @options = options
     end
 
     def response
@@ -17,7 +18,21 @@ module ApiEntreprise
 
     def url
       # TODO: Send more relevant recipient and object values
-      "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?token=#{token}&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises"
+      api_entreprises_params = {
+        token: token,
+        context: 'PlaceDesEntreprises',
+        recipient: 'PlaceDesEntreprises',
+        object: 'PlaceDesEntreprises',
+        non_diffusables: non_diffusables
+      }.to_query
+
+      "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?#{api_entreprises_params}"
+    end
+
+    private
+
+    def non_diffusables
+      options[:non_diffusables] || true
     end
   end
 end
