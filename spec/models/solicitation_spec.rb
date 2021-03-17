@@ -183,7 +183,7 @@ RSpec.describe Solicitation, type: :model do
     context 'filter by diagnoses problem' do
       let(:possible_region) { 'uncategorisable' }
 
-      it { is_expected.to eq [solicitation_without_diagnosis, solicitation_with_diagnosis_no_region] }
+      it { is_expected.to match_array [solicitation_without_diagnosis, solicitation_with_diagnosis_no_region] }
     end
 
     context 'filter by out_of_deployed_territories' do
