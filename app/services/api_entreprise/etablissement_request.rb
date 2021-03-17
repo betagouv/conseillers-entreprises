@@ -23,7 +23,7 @@ module ApiEntreprise
         context: 'PlaceDesEntreprises',
         recipient: 'PlaceDesEntreprises',
         object: 'PlaceDesEntreprises',
-        non_diffusables: non_diffusables  
+        non_diffusables: non_diffusables
       }.to_query
 
       "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?#{api_entreprises_params}"

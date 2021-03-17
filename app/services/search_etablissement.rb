@@ -31,7 +31,7 @@ class SearchEtablissement
     siren = FormatSiret.siren_from_query(query)
     return if siren.blank?
     begin
-      response = UseCases::SearchCompany.with_siren(siren, {non_diffusables: non_diffusables})
+      response = UseCases::SearchCompany.with_siren(siren, { non_diffusables: non_diffusables })
       return [ApiEntreprise::SearchEtablissementWrapper.new(response)]
     rescue ApiEntreprise::ApiEntrepriseError => e
       p e
