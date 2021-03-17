@@ -121,6 +121,9 @@ ActiveAdmin.register Solicitation do
       row :full_name
       row :phone_number
       row :email
+      row(:code_region) do |i|
+        I18n.t(i.code_region, scope: 'regions_codes_to_libelles', default: "")
+      end
     end
 
     attributes_table title: t('activerecord.attributes.solicitation.tracking') do
