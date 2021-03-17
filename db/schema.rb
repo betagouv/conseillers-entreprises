@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_15_153212) do
+ActiveRecord::Schema.define(version: 2021_03_16_155433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -339,6 +339,7 @@ ActiveRecord::Schema.define(version: 2021_02_15_153212) do
     t.bigint "expert_id"
     t.bigint "subject_id"
     t.enum "status", default: "quo", null: false, enum_name: "match_status"
+    t.datetime "archived_at"
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
