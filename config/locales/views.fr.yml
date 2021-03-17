@@ -243,9 +243,9 @@ fr:
       analysis_in_progress: Analyse en cours (%{step})
       out_of_deployed_territories_label: Hors territoires déployés
       out_of_deployed_territories_value: out_of_deployed_territories
+      uncategorisable_label: Inclassables
+      uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
-      with_probable_siret_problem_label: Problème d'analyse (SIRET ou autre)
-      with_probable_siret_problem_value: with_probable_siret_problem
   landing_topics:
     landing_topic:
       choose: Choisir

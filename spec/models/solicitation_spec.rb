@@ -180,7 +180,7 @@ RSpec.describe Solicitation, type: :model do
     end
 
     context 'filter by diagnoses problem' do
-      let(:possible_region) { 'with_probable_siret_problem' }
+      let(:possible_region) { 'uncategorisable' }
 
       it { is_expected.to eq [solicitation3] }
     end

@@ -75,8 +75,8 @@ module SolicitationHelper
       [territory.name, territory.id]
     end
     territory_options.push(
-      [ t('helpers.solicitation.with_probable_siret_problem_label'), t('helpers.solicitation.with_probable_siret_problem_value') ],
-      [ t('helpers.solicitation.out_of_deployed_territories_label'), t('helpers.solicitation.out_of_deployed_territories_value') ]
+      [ t('helpers.solicitation.out_of_deployed_territories_label'), t('helpers.solicitation.out_of_deployed_territories_value') ],
+      [ t('helpers.solicitation.uncategorisable_label'), t('helpers.solicitation.uncategorisable_value') ]
     )
   end
 end
