@@ -6,8 +6,6 @@
   .rf-input-group
     - placeholder = local_assigns[:placeholder].presence || t("feedbacks.form.#{feedback.category.underscore}.placeholder")
     = form.label :description, t('.title'), class: 'rf-label'
-    = form.text_area :description, placeholder: placeholder,
-      class: 'rf-input',
-      rows: 2, required: true
+    = form.text_area :description, placeholder: placeholder, class: 'rf-input', rows: 2, required: true
     = form.button :submit, class: 'rf-btn btn-blue' do
       = t('.submit')

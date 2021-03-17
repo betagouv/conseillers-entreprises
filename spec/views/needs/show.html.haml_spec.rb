@@ -19,9 +19,7 @@ RSpec.describe 'needs/show.haml', type: :view do
     let!(:a_match) { create :match, expert: current_user.experts.first, need: need }
 
     describe 'display page' do
-      before do
-        assignments
-      end
+      before { assignments }
 
       it('displays subject title') { expect(rendered).to have_selector('h1', text: need.subject.label) }
       it('display other experts matches') { expect(rendered).to have_selector('#others-experts', text: others_matches.first.expert.full_name) }
@@ -31,9 +29,7 @@ RSpec.describe 'needs/show.haml', type: :view do
     end
 
     describe 'displays page without solicitation' do
-      before do
-        assignments
-      end
+      before { assignments }
 
       it('displays diagnosis content') { expect(rendered).to match need.diagnosis.content }
     end
@@ -41,17 +37,13 @@ RSpec.describe 'needs/show.haml', type: :view do
     describe 'displays page with solicitation' do
       let(:solicitation) { create :solicitation, diagnosis: need.diagnosis }
 
-      before do
-        assignments
-      end
+      before { assignments }
 
       it('displays solicitation description') { expect(rendered).to match solicitation.description }
     end
 
     describe 'status quo' do
-      before do
-        assignments
-      end
+      before { assignments }
 
       it('displays action for match') { expect(render).to have_selector('#match-actions', text: I18n.t('needs.match_actions.can_you_help', company: need.company)) }
     end

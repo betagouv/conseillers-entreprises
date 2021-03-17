@@ -121,7 +121,7 @@ Rails.application.routes.draw do
   end
 
   # Application
-  resources :diagnoses, only: %i[index new create show], path: 'analyses' do
+  resources :diagnoses, only: %i[index new show create], path: 'analyses' do
     collection do
       get :processed, path: 'traitees'
       get :archives
