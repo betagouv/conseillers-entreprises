@@ -14,7 +14,7 @@ describe 'experts', type: :feature do
       visit needs_path
       expect(page.html).to include 'Demandes reçues'
       expect(page.html).to include match.diagnosis.company.name
-      page.click_link('', :href => "/besoins/#{match.need.diagnosis.id}")
+      page.click_link('', :href => "/analyses/#{match.need.diagnosis.id}")
       expect(page.html).to include need_subject
     end
   end
