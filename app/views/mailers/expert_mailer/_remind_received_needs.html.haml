@@ -5,7 +5,8 @@
 - diagnoses = Diagnosis.where(needs: received_needs).distinct.order!(happened_on: :desc)
 - diagnoses.each do |diagnosis|
   %h3
-    %a{ href: need_url(diagnosis) }= diagnosis.company.name
+    - company_link = diagnosis.facility.siret.present? ? company_url(diagnosis.facility.siret) : '#'
+    %a{ href: company_link }= diagnosis.company.name
     - if visited_at
       = t('mailers.expert_mailer.remind_involvement.visited_on', date: I18n.l(diagnosis.display_date, format: :long))
     - else
@@ -14,5 +15,5 @@
     - diagnosis.needs.merge(received_needs).each do |need|
       %li
         = need.subject
-  .button
-    %a{ href: diagnosis_url(diagnosis) }= t('mailers.see_diagnosis')
+      .button
+        %a{ href: need_url(need) }= t('mailers.see_diagnosis')

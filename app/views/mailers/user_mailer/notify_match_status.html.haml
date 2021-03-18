@@ -4,7 +4,7 @@
   company_name: @company.name,
   date: I18n.l(@need.diagnosis.display_date, format: :long),
   subject: @subject,
-  path: diagnosis_url(@match.diagnosis))
+  path: need_url(@match.need))
 
 %blockquote
   = t(".expert_and_status.#{@match.status}_html",

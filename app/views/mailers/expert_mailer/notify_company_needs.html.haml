@@ -17,6 +17,8 @@
     %blockquote
       %p= simple_format(auto_link(need.content))
 
+  .button
+    %a{ href: need_url(need) }= t('mailers.see_diagnosis')
 %p
   - if @solicitation.present? && @solicitation.landing&.partner_url.present?
     = t('.via_partner_html', date: I18n.l(@solicitation.created_at, format: :long), url: @solicitation.landing.partner_url)
@@ -28,8 +30,6 @@
      visit_date: I18n.l(@diagnosis.display_date, format: :long))
 
 
-.button
-  %a{ href: diagnosis_url(@diagnosis) }= t('mailers.see_diagnosis')
 
 .info
   %p= t('.support_contact_label')

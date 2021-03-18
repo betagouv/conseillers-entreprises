@@ -3,7 +3,7 @@
 %p= t('.need_description_html',
   company_name: @match.company.name,
   subject: @match.subject,
-  path: diagnosis_url(@match.diagnosis),
+  path: need_url(@match.need),
   expert: @match.expert.full_name,
   antenne: @match.expert.antenne.name)
 
