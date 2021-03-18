@@ -1,7 +1,7 @@
 - if !recipient.received_needs.exists?
   -# If the recipient never received anything, display a welcome message.
   .ui.icon.info.message
-    %i.icon.inbox
+    %i.icon.ri-inbox-fill
     .content
       .header= t('.welcome_title')
       - emails = recipient.experts.pluck(:email)

@@ -1,5 +1,78 @@
-- meta title: t('.title', company: @diagnosis.company.name)
+- meta title: t('.title', company: @need.company.name)
 
-= render 'visit_summary', diagnosis: @diagnosis
+.rf-container
+  %nav.rf-breadcrumb{ "aria-label" => "vous êtes ici :" }
+    %button.rf-breadcrumb__button{ :hidden => "" } Voir le fil d’Ariane
+    %ol.rf-breadcrumb__list
+      %li.rf-breadcrumb__item
+        = link_to t('.all_needs'), needs_path
+      %li.rf-breadcrumb__item.rf-breadcrumb__item--current{ "aria-current" => "page" }
+        #{@need.visitee} - #{@need.company.name}
 
-= render @diagnosis.needs.ordered_for_interview
+.rf-container.rf-pb-4w
+  .rf-grid-row
+    .rf-col-md-8
+      .rf-container.rf-mt-xs-4w
+        %h1.rf-h2= @need.subject
+        %p
+          - created_at = @need.solicitation&.created_at || @need.diagnosis.created_at
+          %time.date{ datetime: created_at } Le #{I18n.l(created_at, format: :sentence)}
+        = simple_format(auto_link(@need.diagnosis.content.presence || @need.solicitation&.description), class: 'content')
+
+    .rf-col-md-4.order-minus-one.bp-sm
+      .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle.rf-mb-2w
+        .rf-container.rf-p-0
+          .rf-grid-row
+            .rf-col-lg-2.rf-grid-row--center.picto-person-block
+              %span.ri-map-pin-user-line
+            .rf-col-lg-10
+              = person_block(@need.visitee, prefix: t('.person_company_contact'), role: nil)
+      .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle.rf-mb-2w
+        .rf-container.rf-p-0
+          .rf-grid-row
+            .rf-col-lg-2.rf-grid-row--center.picto-person-block
+              %span.ri-building-4-line
+            .rf-col-lg-10
+              = render 'companies/facility_infos', facility: @need.facility
+      .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle
+        .rf-container.rf-p-0
+          .rf-grid-row
+            .rf-col-lg-2.rf-grid-row--center.picto-person-block
+              %span.ri-mail-send-line
+            .rf-col-lg-10.infos-transmitted-by.rf-pl-1v
+              %p.blue.title= t('.transmitted_by')
+              %p
+                %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-advisor-#{@need.advisor.id}" }
+                  #{@need.advisor.full_name}
+                .hidden{ id: "tooltip-case-advisor-#{@need.advisor.id}" }
+                  = person_block(@need.advisor)
+
+- if policy(@need).has_match_for_user?
+  .lighter-blue-bg
+    = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
+
+.lighter-blue-bg
+  .rf-container.rf-p-2w#others-experts
+    %h2.rf-h3.rf-my-4w= t('.others_experts')
+    - if @others_matches.present?
+      = render @others_matches
+    - else
+      %p#no-match= t('.no_match')
+
+.lighter-blue-bg
+  .rf-container
+    = render 'additional_experts', need: @need
+
+.lighter-blue-bg.rf-pb-6w
+  .rf-container.rf-p-2w
+    .rf-my-4w.feedbacks-title
+      %h2.rf-h3= t('.comments')
+      %p= t('.warning_comments')
+
+    - if @need.feedbacks.present?
+      %div{ id: "display-feedbacks-#{@need.id}" }
+        = render @need.feedbacks.order(:created_at)
+    - else
+      %p#no-comment= t('.no_comment')
+
+    = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)

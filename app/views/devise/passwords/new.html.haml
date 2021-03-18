@@ -1,13 +1,14 @@
-%h2= t('devise.forgot_password')
+.rf-container
+  %h2= t('devise.forgot_password')
 
-.ui.very.padded.segment.shadow-less
-  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'ui form' } do |f|
-    = render "devise/shared/error_messages", resource: resource
-    .field
-      = f.label :email
-      = f.email_field :email, autofocus: true
-    %p= t('.password_unknown_description')
-    .actions
-      = f.submit t('.send_me_reset_password_instructions'), class: 'ui button green'
+  .ui.very.padded.segment.shadow-less
+    = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'ui form' } do |f|
+      = render "devise/shared/error_messages", resource: resource
+      .field
+        = f.label :email
+        = f.email_field :email, autofocus: true
+      %p= t('.password_unknown_description')
+      .actions
+        = f.submit t('.send_me_reset_password_instructions'), class: 'rf-btn btn-green'
 
-  = render 'devise/shared/links'
+    = render 'devise/shared/links'

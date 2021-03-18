@@ -7,7 +7,7 @@
     .ui.segment.secondary.shadow-less
       = @user.antenne.name
   %p
-    %i.blue.icon.info.circle
+    %i.blue.ri-information-fill
     = t('.contact_us_for_missing_antenne_html', institution: @user.institution.name, email: ENV['APPLICATION_EMAIL'])
 
   .ui.hidden.divider
@@ -18,12 +18,12 @@
       .ui.list
         - @user.antenne.advisors.not_deleted.each do |advisor|
           .item
-            - if advisor == @user
-              %i.user.blue.icon{ title: t('users.thats_you') }
-            - else
-              %i.user.icon
             .content
               .user.popup-hover
+                - if advisor == @user
+                  %span.ri-user-fill.blue{ title: t('users.thats_you') }
+                - else
+                  %span.ri-user-fill
                 = advisor.full_name
               .ui.popup= person_block(advisor)
 
@@ -36,12 +36,12 @@
         - @user.antenne.experts.teams.each do |team|
           - members = team.users.not_deleted
           .item
-            - if @user.in?(members)
-              %i.users.blue.icon
-            - else
-              %i.users.icon
             .content
               .header
+                - if @user.in?(members)
+                  %span.blue.ri-team-fill
+                - else
+                  %span.ri-team-fill
                 = team.full_name
               .ui.list
                 = members.pluck(:full_name).to_sentence

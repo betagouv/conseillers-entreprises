@@ -1,17 +1,18 @@
-%h2= t ".header"
-= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: 'ui form' }) do |f|
-  = render "devise/shared/error_messages", resource: resource
+.rf-container
+  %h2= t ".header"
+  = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: 'ui form' }) do |f|
+    = render "devise/shared/error_messages", resource: resource
 
-  .required.field
-    = f.label :email
-    %p= t('.description')
-    = f.text_field :email, placeholder: t('attributes.placeholder.email'), autofocus: true, autocomplete: 'off', required: true
+    .required.field
+      = f.label :email
+      %p= t('.description')
+      = f.text_field :email, placeholder: t('attributes.placeholder.email'), autofocus: true, autocomplete: 'off', required: true
 
-  = render 'devise/shared/user_fields', form: f
+    = render 'devise/shared/user_fields', form: f
 
-  .required.field
-    = f.label :antenne
-    = f.select(:antenne_id, options_from_collection_for_select(Antenne.not_deleted.order(:name), :id, :name), { include_blank: t('all_choices') }, { class: 'ui search selection dropdown' })
+    .required.field
+      = f.label :antenne
+      = f.select(:antenne_id, options_from_collection_for_select(Antenne.not_deleted.order(:name), :id, :name), { include_blank: t('all_choices') }, { class: 'ui search selection dropdown' })
 
-  .actions
-    = f.submit t(".submit_button"), class: 'ui green button'
+    .actions
+      = f.submit t(".submit_button"), class: 'ui green button'

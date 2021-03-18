@@ -1,17 +1,11 @@
-.event.feedbacks-form{ id: "feedback-form-#{feedback.feedbackable_id}" }
-  .label
-  .content
-    .summary
-      = t('.title')
-      .date.diagnosis= t("feedbacks.form.#{feedback.category}.subtitle")
-    .extra
-    = form_with model: feedback, class: 'ui form' do |form|
-      = form.hidden_field :feedbackable_id
-      = form.hidden_field :feedbackable_type
-      = form.hidden_field :category
-      .field
-        = form.text_area :description, placeholder: t("feedbacks.form.#{feedback.category.underscore}.placeholder"),
-          class: 'top attached',
-          rows: 2, required: true
-      = form.button :submit, class: 'ui green small button' do
-        = t('.submit')
+= form_with model: feedback, id: "feedback-form-#{feedback.feedbackable_id}-#{Time.now.to_i}",
+  class: "feedbacks-form feedback-form-#{feedback.feedbackable_id} #{'from_alert_box' if local_assigns[:from_alert_box].present?} " do |form|
+  = form.hidden_field :feedbackable_id
+  = form.hidden_field :feedbackable_type
+  = form.hidden_field :category
+  .rf-input-group
+    - placeholder = local_assigns[:placeholder].presence || t("feedbacks.form.#{feedback.category.underscore}.placeholder")
+    = form.label :description, t('.title'), class: 'rf-label'
+    = form.text_area :description, placeholder: placeholder, class: 'rf-input', rows: 2, required: true
+    = form.button :submit, class: 'rf-btn btn-blue' do
+      = t('.submit')

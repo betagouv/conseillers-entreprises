@@ -71,6 +71,7 @@ class Need < ApplicationRecord
   has_one :company, through: :diagnosis, inverse_of: :needs
   has_one :solicitation, through: :diagnosis, inverse_of: :needs
   has_one :advisor, through: :diagnosis, inverse_of: :sent_needs
+  has_one :visitee, through: :diagnosis, inverse_of: :needs
 
   # :matches
   has_many :experts, -> { distinct }, through: :matches, inverse_of: :received_needs
@@ -100,10 +101,7 @@ class Need < ApplicationRecord
       .merge(Subject.ordered_for_interview)
   end
 
-  scope :diagnosis_completed, -> do
-    joins(:diagnosis)
-      .merge(Diagnosis.completed)
-  end
+  scope :diagnosis_completed, -> { where.not(status: :diagnosis_not_complete) }
 
   scope :reminders_to, -> (action) do
     if action == :archive
@@ -136,6 +134,10 @@ class Need < ApplicationRecord
       .joins(:reminders_actions)
       .where(reminders_actions: { category: category })
     where.not(id: subquery)
+  end
+
+  scope :received_by, -> (user_id) do
+    joins(:contacted_users).where(users: { id: user_id })
   end
 
   REMINDERS_DAYS = {
@@ -204,6 +206,14 @@ class Need < ApplicationRecord
 
   scope :with_exchange, -> do
     where(status: [:done, :done_no_help])
+  end
+
+  scope :in_progress, -> do
+    where(status: [:quo, :taking_care])
+  end
+
+  scope :done, -> do
+    where(status: [:done, :done_no_help, :done_not_reachable, :not_for_me])
   end
 
   ##

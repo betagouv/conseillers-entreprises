@@ -1,22 +1,23 @@
-- meta title: t('.title')
+.rf-container
+  - meta title: t('.title')
 
-%h1.ui.header
-  = t('.title')
-  .sub.header= t('.subtitle', antenne: current_user.antenne.name)
+  %h1.ui.header
+    = t('.title')
+    .sub.header= t('.subtitle', antenne: current_user.antenne.name)
 
-= render 'antenne_diagnoses_tabs'
+  = render 'antenne_diagnoses_tabs'
 
-.ui.aligned.grid.padded
-  .aligned.eight.wide.column
-    %p= page_entries_info @diagnoses
-  .right.aligned.eight.wide.column
-    = link_to diagnoses_path do
-      %i.tasks.icon
-      = t('.browse_active_diagnoses')
+  .ui.aligned.grid.padded
+    .aligned.eight.wide.column
+      %p= page_entries_info @diagnoses
+    .right.aligned.eight.wide.column
+      = link_to diagnoses_path do
+        %span.ri-list-check
+        = t('.browse_active_diagnoses')
 
-= paginate @diagnoses
+  = paginate @diagnoses
 
-.ui.segments.shadow-less.selectable-list
-  = render partial: 'diagnosis', collection: @diagnoses, cached: true
+  .ui.segments.shadow-less.selectable-list
+    = render partial: 'diagnosis', collection: @diagnoses, cached: true
 
-= paginate @diagnoses
+  = paginate @diagnoses

@@ -1,12 +1,12 @@
 = paginator.render do
-  .ui.center.aligned.container
-    %nav.ui.small.shadow-less.pagination.menu
-      = first_page_tag unless current_page.first?
-      = prev_page_tag unless current_page.first?
+  %nav.rf-pagination{ "aria-label" => t('.navigation_page') }
+    %ul.rf-pagination__list
+      = first_page_tag
+      = prev_page_tag
       - each_page do |page|
         - if page.left_outer? || page.right_outer? || page.inside_window?
           = page_tag page
         - elsif !page.was_truncated?
           = gap_tag
-      = next_page_tag unless current_page.last?
-      = last_page_tag unless current_page.last?
+      = next_page_tag
+      = last_page_tag

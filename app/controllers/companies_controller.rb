@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  before_action :maybe_review_expert_subjects
+  before_action :maybe_review_expert_subjects, only: %i[search show]
 
   def search
     @query = search_query
@@ -35,15 +35,13 @@ class CompaniesController < ApplicationController
       redirect_back fallback_location: { action: :search }, alert: message
       return
     end
-    existing_facility = Facility.find_by(siret: siret)
-    if existing_facility.present?
-      @diagnoses = Facility.find_by(siret: siret).diagnoses
-        .completed
-        .includes(:matches, :advisor, :needs)
-    else
-      @diagnoses = Diagnosis.none
-    end
     save_search(siret, @company.name)
+  end
+
+  def needs
+    @facility = Facility.find_by(siret: params.permit(:siret)[:siret])
+    @needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, @facility.needs).resolve
+    @needs_done = NeedDonePolicy::Scope.new(current_user, @facility.needs).resolve
   end
 
   private

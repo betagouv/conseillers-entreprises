@@ -16,7 +16,7 @@ class DiagnosesController < ApplicationController
   def new
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])
     @diagnosis = DiagnosisCreation.new_diagnosis(@current_solicitation)
-    @diagnoses = Diagnosis.joins(:solicitation).where(solicitations: { email: @current_solicitation&.email })
+    @needs = Need.joins(diagnosis: :solicitation).where(diagnosis: { solicitations: { email: @current_solicitation&.email } })
   end
 
   def index_antenne
@@ -46,8 +46,8 @@ class DiagnosesController < ApplicationController
   def show
     authorize @diagnosis
     if @diagnosis.step_completed?
-      # let needs_controller handle completed diagnoses
-      redirect_to need_path(@diagnosis)
+      need = current_user.received_needs.where(diagnosis: @diagnosis).first || @diagnosis.needs.first
+      redirect_to need_path(need)
     else
       redirect_to controller: 'diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     end

@@ -9,4 +9,4 @@
       - siret = local_assigns[:solicitation]&.siret
       .ui.action.input
         = text_field_tag :query, query || siret, autofocus: true, placeholder: t('companies.search.explanation')
-        %button.ui.button.green{ type: 'submit' }= t('search')
+        %button.rf-btn.btn-green{ type: 'submit' }= t('search')

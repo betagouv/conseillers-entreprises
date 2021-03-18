@@ -1,39 +1,31 @@
 :ruby
   return unless current_user&.is_admin?
 
-.event{ id: "additional_experts-#{need.id}" }
-  .label
-    %i.ambulance.icon
+.additional-experts.rf-pt-2w{ id: "additional_experts-#{need.id}" }
   .content
-    = form_with class: 'ui form',
-      url: additional_experts_need_path, remote: true, method: :get do |f|
-      .ui.field.mini
-        .ui.action.input.small
-          = f.hidden_field :need, value: need.id
-          = f.text_field :query, value: local_assigns[:query],
-            autofocus: local_assigns[:query].present?,
-            required: true, minlength: 3, placeholder: t('.add_other_experts')
-          = f.button t('search'), data: { disable_with: t('search') }, class: 'ui button blue small'
+    = form_with url: additional_experts_need_path(need), remote: true, method: :get do |f|
+      .rf-search-bar
+        %span.ri-user-add-fill.blue
+        = f.hidden_field :need, value: need.id, class: 'rf-label'
+        = f.search_field :query, value: local_assigns[:query], autofocus: local_assigns[:query].present?,
+        class: 'rf-input', required: true, minlength: 3, placeholder: t('.add_other_experts')
+        = f.button t('search'), title: t('search'), data: { disable_with: t('search') }, class: 'rf-btn btn-blue'
 
     - if !local_assigns[:experts].nil?
       - if local_assigns[:experts].empty?
-        .ui.list
-          .item
-            = t('.no_expert_found')
+        %p.rf-p-4w.rf-m-0= t('.no_expert_found')
       - else
-        .ui.list
-          - local_assigns[:experts].each do |expert|
-            .item
-              .header
-                #{expert.full_name} (#{expert.role} - #{expert.antenne.name})
-              .list
-                - expert.experts_subjects.each do |expert_subject|
-                  .item
-                    %i.angle.right.icon
-                    .content
-                      - confirm_message = t('.add_match_with', name: expert.full_name, subject: need.subject)
-                      = link_to add_match_need_path(expert_subject: expert_subject, need: need), method: :post, remote: true, data: { confirm: confirm_message } do
-                        = expert_subject.institution_subject.description
-                        - if expert_subject.intervention_criteria.present?
-                          %br
-                          = expert_subject.intervention_criteria
+        = form_with url: add_match_need_path do |f|
+          %ul.list-unstyled
+            - local_assigns[:experts].each do |expert|
+              - confirm_message = t('.add_match_with', name: expert.full_name, subject: need.subject)
+              %li
+                = f.button "#{expert.full_name} (#{expert.role} - #{expert.antenne.name})", value: expert.id,
+                name: :expert, data: { confirm: confirm_message }, remote: true, class: 'gray-link'
+                %ul.list-unstyled
+                  - expert.experts_subjects.each do |expert_subject|
+                    %li.rf-text--sm.rf-text--alt.rf-m-0
+                      %span.ri-arrow-right-s-line
+                      = expert_subject.institution_subject.description
+                      - if expert_subject.intervention_criteria.present?
+                        = " / #{expert_subject.intervention_criteria}"

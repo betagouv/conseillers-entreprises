@@ -1,7 +1,6 @@
 - cache diagnosis do
   .ui.segment.selectable-item
-    - path = diagnosis.step_completed? ? need_path(diagnosis) : diagnosis_path(diagnosis)
-    %a{ href: path }
+    %a{ href: diagnosis_path(diagnosis) }
       %h3.ui.header
         .sub.header= I18n.l(diagnosis.display_date, format: :long)
         - if !diagnosis.step_completed?

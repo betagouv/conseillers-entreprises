@@ -6,11 +6,11 @@ module DiagnosisHelper
     is_active = displayed_step == current_page_step
 
     if is_completed && is_active
-      'completed active'
+      'ri-check-line active'
     elsif is_active
       'active'
     elsif is_completed
-      'completed'
+      'ri-check-line green'
     end
   end
 end

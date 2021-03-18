@@ -1,2 +1,7 @@
-= link_to url, title: t('views.pagination.last').html_safe, class: 'item', remote: remote do
-  %i.angle.double.right.icon
+- if current_page.last?
+  %li.rf-pagination__item--last.rf-pagination__item.rf-pagination__item--disabled
+- else
+  %li.rf-pagination__item--last.rf-pagination__item
+    = link_to url, title: t('views.pagination.last'), "aria-label": t('views.pagination.last'), class: 'rf-pagination__link', remote: remote do
+      %span
+

@@ -19,10 +19,8 @@ import "core-js/stable";
 import "whatwg-fetch";
 
 require("@rails/ujs").start();
-
+require('remixicon/fonts/remixicon.css');
 require("jquery");
 
 import "javascripts/shared";
 import "javascripts/pages";
-
-import "@fortawesome/fontawesome-free/js/all";

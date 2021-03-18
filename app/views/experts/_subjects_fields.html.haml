@@ -1,6 +1,6 @@
 - if !expert.can_edit_own_subjects
   %p
-    %i.blue.icon.info.circle
+    %i.blue.ri-information-fill
     = t('.contact_us_to_change_subjects_html', email: ENV['APPLICATION_EMAIL'])
 
 - additional_field_class = expert.can_edit_own_subjects ? '' : 'disabled'

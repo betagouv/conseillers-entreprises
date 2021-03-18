@@ -4,7 +4,7 @@
 
   - if expert.users.size > 1
     .p
-      %i.icon.orange.circle.warning
+      %span.orange.ri-information-fill
       %strong= t('.others_members_warning_header_html', name: expert.full_name, path: edit_expert_path(expert))
       %br
       = t('.others_members_warning_details', count: expert.users.size)

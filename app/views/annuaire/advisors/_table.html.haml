@@ -38,7 +38,7 @@
         - count = experts.size
         %th.right.aligned{ title: t('.experts_on_subject', count: count) }
           - if count.zero?
-            %i.ui.red.icon.exclamation.triangle
+            %i.red.ri-error-warning-fill
           = count
   %tbody
     -# `advisors` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)

@@ -4,13 +4,13 @@
 .ui.breadcrumb
   = link_to t('reminders.index.title'), reminders_path, class: 'section'
   -# section is either :needs or :experts
-  %i.right.chevron.icon.divider
+  %span.ri-arrow-right-s-line.divider
   = link_to t(section, scope: 'reminders.section'), polymorphic_path([:reminders, section]), class: 'section'
   -# In the :needs section, we can also have one more level for the current scope
   - if defined?(scope)
-    %i.right.chevron.icon.divider
+    %span.ri-arrow-right-s-line.divider
     = link_to t(scope, scope: 'reminders.needs.scopes.name'), polymorphic_path([scope, :reminders, :needs]), class: 'section'
   -# In the :experts section, we can also have one more levek for the current expert
   - if defined?(expert)
-    %i.right.chevron.icon.divider
+    %span.ri-arrow-right-s-line.divider
     = link_to expert, reminders_expert_path(expert), class: 'section'

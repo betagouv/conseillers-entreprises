@@ -1,41 +1,44 @@
 - meta title: t('.title')
 
-%h1.ui.header= t('.create_new_diagnosis')
+.rf-container
+  %h1.ui.header= t('.create_new_diagnosis')
 
-- if @diagnoses.present?
-  = render 'diagnoses/related_diagnoses', diagnoses: @diagnoses
+  - if @needs.present?
+    %h2.rf-h3= t('companies.needs.others')
+    = render partial: 'companies/need', collection: @needs
 
-.ui.attached.tabular.menu.head-tab.new-diagnosis
-  %a.item.active{ "data-tab" => "first" }
-    = t('.find_company')
-  %a.item{ "data-tab" => "second" }
-    = t('.search_manually')
-.ui.bottom.attached.tab.new-diagnosis.segment.active{ "data-tab" => "first" }
-  = render partial: 'companies/search_form', locals: { query: @query, solicitation: @diagnosis.solicitation }
+  .ui.attached.tabular.menu.head-tab.new-diagnosis
+    %a.item.active{ "data-tab" => "first" }
+      = t('.find_company')
+    %a.item{ "data-tab" => "second" }
+      = t('.search_manually')
+  .ui.bottom.attached.tab.new-diagnosis.segment.active{ "data-tab" => "first" }
+    = render partial: 'companies/search_form', locals: { query: @query, solicitation: @diagnosis.solicitation }
 
-.ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second" }
-  %h2.ui.header
-    = t('.title')
+  .ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second" }
+    %h2.ui.header
+      = t('.title')
 
-  %p
-    = t('.sub_title')
+    %p
+      = t('.sub_title')
 
-  = form_with model: @diagnosis, class: 'ui form', local: true do |form|
-    - if @diagnosis.errors.present?
-      .field.error
-        .ui.error.message= @diagnosis.errors.full_messages.to_sentence
-    - if @diagnosis.solicitation.present?
-      = form.hidden_field :solicitation_id
-    = form.fields_for :facility do |facility_form|
-      .field.required
-        = facility_form.fields_for :company do |company_form|
-          = label_tag t('.name')
-          = company_form.text_field :name, required: true
+    = form_with model: @diagnosis, class: 'ui form', local: true do |form|
+      - if @diagnosis.errors.present?
+        .field.error
+          .ui.error.message= @diagnosis.errors.full_messages.to_sentence
+      - if @diagnosis.solicitation.present?
+        = form.hidden_field :solicitation_id
+      = form.fields_for :facility do |facility_form|
+        .field.required
+          = facility_form.fields_for :company do |company_form|
+            = label_tag t('.name')
+            = company_form.text_field :name, required: true
 
-      = render 'insee_code_field', form: facility_form, required: true
+        = render 'insee_code_field', form: facility_form, required: true
 
-    = form.button :submit, class: 'ui right floated button green right labeled icon' do
-      = t('next_step')
-      %i.arrow.right.icon
+      .text-right
+        = form.button :submit, class: 'rf-btn btn-green btn-icon' do
+          = t('next_step')
+          %span.ri-arrow-right-s-line
 
-  .clear
+    .clear

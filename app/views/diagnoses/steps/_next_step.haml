@@ -1,3 +1,4 @@
-= diagnosis_form.button :submit, class: 'ui right floated button green right labeled icon' do
-  = t('next_step')
-  %i.arrow.right.icon
+.text-right
+  = diagnosis_form.button :submit, class: 'rf-btn btn-green' do
+    = t('next_step')
+    %span.btn-icon.ri-arrow-right-s-line

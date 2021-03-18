@@ -34,19 +34,20 @@ fr:
           other: En-têtes non reconnus
   application:
     footer:
-      contact_us: Contactez-nous !
-      problem_or_question: Un problème ? Une question ?
+      service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
     insee_code_field:
       city: Ville
     navbar:
       account: Compte
       admin: Administration
       annuaire: Annuaire
+      aria_menu: Menu principal
       badges: Tags
       diagnoses: Analyses
       invite: Inviter des utilisateurs
       partner_tools: Outils partenaires
       profile: Profil
+      root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
   badges:
     index:
@@ -87,6 +88,11 @@ fr:
       region_implantation: Région d’implantation
       siret: SIRET
       tranche_effectif_salarie_etablissement: Tranche d’effectif de salariés de l’établissement
+    facility_infos:
+      company: Entreprise
+      more_informations: Plus d'informations
+      needs_historic: Historique des besoins
+      workforce: 'Tranche effectif : %{range}'
     mandataire:
       dirigeant: Est-ce un dirigeant ?
       fonction: Fonction
@@ -94,6 +100,11 @@ fr:
       nom: Nom
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
+    needs:
+      needs_done: Cloturés
+      needs_in_progress: En cours
+      others: Autre besoins pour cette entreprises
+      title: Liste des besoins pour %{company}
     search:
       explanation: 20005494800019, La Poste Lille
       generic_error: La recherche a échoué pour une raison inconnue. Réessayez plus tard.
@@ -149,7 +160,6 @@ fr:
       sub_title: Si l’entreprise n’existe pas encore, ou qu’elle est introuvable, vous pouvez simplement saisir son nom et son implantation. SIRET non diffusible, reprise d’entreprise, déménagement…
       title: Saisie manuelle
     related_diagnoses:
-      diagnoses_completed: Analyses completées
       diagnosis_related: Analyse associée
       matches:
         one: 1 mise en relation
@@ -206,7 +216,7 @@ fr:
       contact_us_to_change_subjects_html: Pour changer vos domaines d’intervention, <a href="mailto:%{email}">contactez-nous</a>.
       intervention_criteria_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
     subjects_messages:
-      instructions_html: En tant que référent sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention. Sélectionnez les sujets sur lesquels vous intervenez, parmi les domaines de compétences de <strong>%{institution}</strong>.
+      instructions_html: En tant que référent sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention.
       others_members_warning_details: Les modifications apportées ici s’appliqueront aux %{count} membres de l’équipe.
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a>.
     subjects_modal:
@@ -215,18 +225,17 @@ fr:
     add: Ajouter un commentaire
     feedback:
       delete: Supprimer ce commentaire ?
+      delete_comment: Supprimer ce commentaire
     form:
       need:
-        placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui pour faire le point avec lui sur son besoin. Nous avons convenu d’un rendez-vous le 23/11. »'
-        subtitle: Ce message n’est pas adressé au chef d’entreprise, pour transmettre l’information au dirigeant veuillez l’appeler.
+        placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
       reminder:
         placeholder: " "
-        subtitle: " "
       solicitation:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'
-        subtitle: " "
       submit: Commenter
-      title: Nouveau commentaire
+      thank_you_html: "<p class='rf-m-0 rf-ml-16v'><b>Merci, votre commentaire a été publié.</b></p>"
+      title: 'Nouveau commentaire :'
   helpers:
     page_entries_info:
       many_pages_html: "<strong>%{total}</strong> %{name} (affichage de %{start} à %{end})"
@@ -246,6 +255,12 @@ fr:
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
+  kaminari:
+    page:
+      page: Page
+      page_number: Page %{number}
+    paginator:
+      navigation_page: navigation pages
   landing_topics:
     landing_topic:
       choose: Choisir
@@ -301,6 +316,10 @@ fr:
       title: Merci !
     show_landing_institutions:
       institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
+  logos:
+    france_relance: logo France Relance
+    pde: logo Place des Entreprises
+    republique_francaise: logo République française
   mailers:
     admin_mailer:
       csv_export: Export CSV des %{model}
@@ -403,12 +422,6 @@ fr:
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
-  matches:
-    match:
-      additional_match: Mise en relation ultérieure (%{date})
-      mark_as_done: Clôturer
-      match_with: 'Mise en relation avec :'
-      thats_you: C’est vous !
   needs:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
@@ -437,26 +450,46 @@ fr:
       needs_quo_html: À rappeler <i>(J+14)</i>
       needs_taking_care_html: Pris en charge
       title: Demandes reçues
+    match_actions:
+      can_you_help: Pouvez-vous aider l’entreprise %{company} ?
+      cancel: Annuler
+      cancel_taking_care: Annuler ma prise en charge
+      close_need: 'Clôturer votre intervention :'
+      contact_company: C‘est à vous de jouer et de contacter l’entreprise %{company}
+      deposited_on_partner_website_html: Demande déposée sur le site %{partner_link}
+      help_provided:
+        content: Un conseil, un accompagnement ou une aide financière a pu être proposée.
+        title: Une aide proposée
+      its_done: C’est terminé, merci pour votre intervention ! Laissez un commentaire pour les autres experts.
+      need_canceled: Vous avez décliné cette demande. Merci d’indiquer pourquoi, afin de nous aider à améliorer le service. Votre retour est précieux !
+      no_help:
+        content: Mon organisme n’est pas en mesure d’accompagner l’entreprise.
+        title: Pas d’aide disponible
+      not_for_me: Ce n’est pas pour moi
+      not_reachable:
+        content: Le chef d’entreprise ne répond pas mais il a mes coordonnées pour me recontacter.
+        title: Entreprise injoignable
+      placeholder_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
+      take_care: Je m’en charge !
+      validate: Valider
+      your_turn_html: C‘est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     menu:
       for_other_antenne: Toutes les demandes pour %{antenne}
       for_other_header: Voir aussi
       for_other_user: Uniquement les demandes pour %{user}
       for_recipient: Pour %{recipient}
-    need_header:
-      company_message: 'Message de l''entreprise :'
-      need_archived: Besoin archivé
-      solicitation_link: Lien vers la sollicitation
     show:
+      all_needs: Toutes les demandes
+      comments: Discussion entre experts
+      no_comment: Aucun commentaire
+      no_match: Aucun autre expert de notifié
+      others_experts: Autres experts notifiés
+      person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »
+      transmitted_by: Demande transmise par
+      warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
     unarchive:
       subject_unarchived: Besoin désarchivé
-    visit_summary:
-      advisor_has_diagnosed_n_needs:
-        one: "%{advisor} a identifié un besoin."
-        other: "%{advisor} a identifié %{count} besoins."
-      person_advisor: Conseiller
-      person_company_contact: Contact entreprise
-      visit_made_on: Mise en relation faite le %{date}
   newsletters:
     create:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
@@ -473,8 +506,6 @@ fr:
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
       submit_request: Déposez votre demande
     menu:
-      logo_fr: logo République française
-      logo_pde: logo Place des Entreprises
       unfold: Déplier menu
     newsletter:
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
@@ -743,4 +774,4 @@ fr:
       last: Dernière page
       next: Page suivante
       previous: Page précédente
-      truncate: "&hellip;"
+      truncate: "…"

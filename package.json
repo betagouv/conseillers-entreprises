@@ -1,11 +1,13 @@
 {
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@gouvfr/all": "^0.5.3",
     "@rails/ujs": "^6.0.3-4",
     "@rails/webpacker": "5.2.1",
     "accessible-autocomplete": "^2.0.3",
     "expose-loader": "^1.0.1",
     "jquery": "^3.5.1",
+    "remixicon": "^2.5.0",
+    "stimulus": "^2.0.0",
     "turbolinks": "^5.2.0",
     "whatwg-fetch": "^3.5.0"
   },

@@ -5,8 +5,8 @@
       const feedbackLink = feedbackLinks[i];
       feedbackLink.onclick = function() {
         const feedbackableId = feedbackLink.dataset.feedbackable
-        const form = document.getElementById("feedback-form-" + feedbackableId)
-        form.style.display = 'block'
+        const forms = document.getElementsByClassName("feedback-form-" + feedbackableId)
+        forms.forEach(form => form.style.display = 'block');
       }
     }
   })

@@ -1,18 +1,10 @@
-#flashes
-  - if alert
-    .ui.hidden.divider
-    .ui.icon.error.message
-      %i.icon.exclamation.triangle
-      .content
-        .header
-        %p= alert
-    .ui.hidden.divider
+.rf-container
+  #flashes
+    - if alert
+      .rf-callout.rf-col-md-12.rf-scheme-soft-orange-soft.rf-my-2w
+        %p.rf-callout__text= alert
 
-  - if notice
-    .ui.hidden.divider
-    .ui.icon.success.message
-      %i.success.icon
-      .content
-        .header
-        %p= notice
-    .ui.hidden.divider
+    - if notice
+      .rf-callout.rf-col-md-12.rf-scheme-soft-green-light.rf-my-2w
+        %p.rf-callout__text= notice
+

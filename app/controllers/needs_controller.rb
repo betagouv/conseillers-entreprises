@@ -2,7 +2,7 @@
 
 class NeedsController < ApplicationController
   before_action :maybe_review_expert_subjects
-  before_action :retrieve_need, only: %i[archive unarchive]
+  before_action :retrieve_need, only: %i[show archive unarchive]
 
   layout 'side_menu', except: :show
 
@@ -90,12 +90,8 @@ class NeedsController < ApplicationController
   public
 
   def show
-    @diagnosis = retrieve_diagnosis
-    authorize @diagnosis
-    unless @diagnosis.step_completed?
-      # let diagnoses_controller (and steps_controller) handle incomplete diagnoses
-      redirect_to @diagnosis and return
-    end
+    authorize @need
+    @others_matches = @need.matches.where.not(id: current_user.received_matches.ids).distinct
   end
 
   def additional_experts
@@ -105,19 +101,16 @@ class NeedsController < ApplicationController
     @experts = Expert.omnisearch(@query)
       .with_subjects
       .where.not(id: @need.experts)
-      .limit(15)
+      .limit(20)
       .includes(:antenne, experts_subjects: :institution_subject)
   end
 
   def add_match
-    @diagnosis = retrieve_diagnosis
-
-    @need = Need.find(params.require(:need))
-    expert_subject = ExpertSubject.find(params.require(:expert_subject))
-    expert = expert_subject.expert
+    @need = retrieve_need
+    expert = Expert.find(params.require(:expert))
     @match = Match.create(need: @need, expert: expert, subject: @need.subject)
     if @match.valid?
-      ExpertMailer.notify_company_needs(expert, @diagnosis).deliver_later
+      ExpertMailer.notify_company_needs(expert, @need.diagnosis).deliver_later
       expert.first_notification_help_email
     else
       flash.alert = @match.errors.full_messages.to_sentence
@@ -129,7 +122,7 @@ class NeedsController < ApplicationController
     authorize @need, :archive?
     @need.archive!
     flash[:notice] = t('.subjet_achived')
-    redirect_back fallback_location: need_path(@need.diagnosis),
+    redirect_back fallback_location: diagnosis_path(@need.diagnosis),
                   notice: t('needs.archive.archive_done', company: @need.company.name)
   end
 
@@ -137,7 +130,7 @@ class NeedsController < ApplicationController
     authorize @need, :archive?
     @need.update(archived_at: nil)
     flash[:notice] = t('.subject_unarchived')
-    redirect_to need_path(@need.diagnosis)
+    redirect_to diagnosis_path(@need.diagnosis)
   end
 
   private

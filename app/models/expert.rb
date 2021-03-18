@@ -181,9 +181,10 @@ class Expert < ApplicationRecord
   end
 
   scope :omnisearch, -> (query) do
-    joins(:antenne)
+    joins(antenne: :institution)
       .where('experts.full_name ILIKE ?', "%#{query}%")
-      .or(Expert.joins(:antenne).where('antennes.name ILIKE ?', "%#{query}%"))
+      .or(Expert.joins(antenne: :institution).where('antennes.name ILIKE ?', "%#{query}%"))
+      .or(Expert.joins(antenne: :institution).where('institutions.name ILIKE ?', "%#{query}%"))
   end
 
   ## Team stuff

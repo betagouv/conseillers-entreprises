@@ -1,6 +1,6 @@
 - unless result.success?
   .ui.icon.error.message
-    %i.icon.exclamation.triangle
+    %span.ri-error-warning-fill
     .content
       .header= t('.import_failed')
       - if result.header_errors.present?

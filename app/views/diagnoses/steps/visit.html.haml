@@ -1,56 +1,60 @@
 - meta title: Diagnosis.human_attribute_value(:step, :visit)
 
-= render 'header', diagnosis: @diagnosis, current_page_step: 3
+.rf-container
+  = render 'header', diagnosis: @diagnosis, current_page_step: 3
 
-#visit-app
-  = form_with model: @diagnosis,
-    url: update_visit_diagnosis_path,
-    class: 'ui form' do |diagnosis_form|
+  #visit-app
+    = form_with model: @diagnosis,
+      url: update_visit_diagnosis_path,
+      class: 'ui form' do |diagnosis_form|
 
-    %h2.ui.header
-      .sub.header
-        = t('.form_info')
+      %h2.ui.header
+        .sub.header
+          = t('.form_info')
 
-    - @diagnosis.visitee ||= Contact.new
-    = diagnosis_form.fields_for :visitee do |contact_form|
+      - @diagnosis.visitee ||= Contact.new
+      = diagnosis_form.fields_for :visitee do |contact_form|
+        %h3.ui.header
+          = t('.your_contact_in_the_company', company_name: @diagnosis.company.name)
+
+        .field
+          = contact_form.label t('.full_name')
+          = contact_form.text_field :full_name, placeholder: t('.full_name_placeholder'), required: true
+        .field
+          = contact_form.label t('.role')
+          = contact_form.text_field :role, placeholder: t('.role_placeholder'), required: true
+        .two.fields
+          .field
+            = contact_form.label t('.email_address')
+            = contact_form.email_field :email, required: true
+          .field
+            = contact_form.label t('.phone_number')
+            = contact_form.telephone_field :phone_number, required: true
+
       %h3.ui.header
-        = t('.your_contact_in_the_company', company_name: @diagnosis.company.name)
+        = t('.date')
+      .inline.field
+        .ui.calendar#datepicker{ "data-calendar": 'semantic-ui', "data-days": t('date.abbr_day_names').compact.to_json.html_safe, "data-months": t('date.month_names').compact.to_json.html_safe }
+          .ui.input.left.icon
+            %span.ri-calendar-line.icon
+            = diagnosis_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
 
-      .field
-        = contact_form.label t('.full_name')
-        = contact_form.text_field :full_name, placeholder: t('.full_name_placeholder'), required: true
-      .field
-        = contact_form.label t('.role')
-        = contact_form.text_field :role, placeholder: t('.role_placeholder'), required: true
-      .two.fields
-        .field
-          = contact_form.label t('.email_address')
-          = contact_form.email_field :email, required: true
-        .field
-          = contact_form.label t('.phone_number')
-          = contact_form.telephone_field :phone_number, required: true
+      - if ENV['FEATURE_NEW_LOCALITY_FOR_DIAGNOSIS'].to_b
+        #insee-code-section
+          = check_box_tag :view_insee_code_section, nil, false, { name: nil }
+          %p#insee-code-section-button= label_tag :view_insee_code_section, t('.new_city', locality: @diagnosis.facility.readable_locality), { class: 'ui button basic blue' }
 
-    %h3.ui.header
-      = t('.date')
-    .inline.field
-      .ui.calendar#datepicker{ "data-calendar": 'semantic-ui', "data-days": t('date.abbr_day_names').compact.to_json.html_safe, "data-months": t('date.month_names').compact.to_json.html_safe }
-        .ui.input.left.icon
-          %i.calendar.icon
-          = diagnosis_form.text_field(:happened_on, placeholder: t('.date_placeholder'), required: true)
+          #insee-code-row
+            %h3.ui.header= t('.new_city_title')
+            = diagnosis_form.fields_for :facility do |facility_form|
+              = render 'insee_code_field', form: facility_form, required: false
 
-    - if ENV['FEATURE_NEW_LOCALITY_FOR_DIAGNOSIS'].to_b
-      #insee-code-section
-        = check_box_tag :view_insee_code_section, nil, false, { name: nil }
-        %p#insee-code-section-button= label_tag :view_insee_code_section, t('.new_city', locality: @diagnosis.facility.readable_locality), { class: 'ui button basic blue' }
+      .bottom_actions.flex
+        = link_to needs_diagnosis_path, class: 'rf-btn rf-btn--icon-left no-margin' do
+          %span.ri-arrow-left-line.rf-mr-1w
+          = t('previous_step')
 
-        #insee-code-row
-          %h3.ui.header= t('.new_city_title')
-          = diagnosis_form.fields_for :facility do |facility_form|
-            = render 'insee_code_field', form: facility_form, required: false
+        = render 'next_step', diagnosis_form: diagnosis_form
 
-    %a.ui.left.floated.button.labeled.icon{ href: needs_diagnosis_path }
-      = t('previous_step')
-      %i.arrow.left.icon
-    = render 'next_step', diagnosis_form: diagnosis_form
+    .clear
 
-  .clear

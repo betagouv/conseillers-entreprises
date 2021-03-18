@@ -1,0 +1,42 @@
+.list-unstyled
+  list-style: none
+
+.order-minus-one
+  order: -1
+  &.bp-sm
+    @media (max-width: $bp-sm)
+      order: 0
+
+.lighter-blue-bg
+  background-color: $blue-lighter-background
+
+.white-bg
+  background-color: var(--w-bf500)
+
+.expand-action
+  &::before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    cursor: pointer
+
+.hidden
+  display: none
+
+.simpletooltip[aria-hidden="true"],
+.minimalist-simpletooltip[aria-hidden="true"],
+.minimalist-left-simpletooltip[aria-hidden="true"]
+  display: none
+
+.text-right
+  text-align: right
+
+.float-right
+  float: right
+
+.bottom_actions
+  display: flex
+  justify-content: space-between

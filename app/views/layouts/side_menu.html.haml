@@ -2,18 +2,19 @@
   Based on the main application layout
 
 - content_for :content do
-  = yield :header
+  .rf-container.rf-pb-6w
+    = yield :header
 
-  .ui.divider
+    .ui.divider
 
-  -# stackable to move the menu on top on mobile
-  .ui.stackable.grid
-    .four.wide.column
-      .ui.secondary.pointing.vertical.fluid.menu
-        = yield :menu
+    -# stackable to move the menu on top on mobile
+    .ui.stackable.grid
+      .four.wide.column
+        .ui.secondary.pointing.vertical.fluid.menu
+          = yield :menu
 
-    .twelve.wide.column
-      = yield
+      .twelve.wide.column
+        = yield
 
 - @wide_layout = true
 = render template: 'layouts/application'
