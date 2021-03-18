@@ -114,7 +114,7 @@ class SolicitationsController < ApplicationController
   end
 
   def count_solicitations
-    @count_solicitations = Rails.cache.fetch(["count-solicitations", Solicitation.all, @territory]) do
+    @count_solicitations = Rails.cache.fetch(["count-solicitations", ordered_solicitations, territory_id]) do
       {
         without_feedbacks: ordered_solicitations.without_feedbacks.total_count,
           with_feedbacks: ordered_solicitations.with_feedbacks.total_count
@@ -124,11 +124,11 @@ class SolicitationsController < ApplicationController
 
   def find_territories
     @territories = Territory.deployed_regions.order(:name)
-    territory_id = territory_param || session[:territory]
+    territory_id = territory_param || session[:s_territory]
     if territory_id.present?
-      session[:territory] = territory_id
+      session[:s_territory] = territory_id
     else
-      session.delete(:territory)
+      session.delete(:s_territory)
     end
   end
 

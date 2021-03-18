@@ -9,7 +9,7 @@
     .field
       = label_tag(:territory, t('.filter'), class: 'rf-label')
       = select_tag(:territory,
-      options_for_select(possible_territories_options, (params[:territory] || session[:territory])),
+      options_for_select(possible_territories_options, (params[:territory] || session[:s_territory])),
       options.dup)
 
 %p= collection_count @solicitations
