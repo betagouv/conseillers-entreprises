@@ -255,6 +255,12 @@ fr:
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
+  kaminari:
+    page:
+      page: Page
+      page_number: Page %{number}
+    paginator:
+      navigation_page: navigation pages
   landing_topics:
     landing_topic:
       choose: Choisir
@@ -768,4 +774,4 @@ fr:
       last: Dernière page
       next: Page suivante
       previous: Page précédente
-      truncate: "&hellip;"
+      truncate: "…"
