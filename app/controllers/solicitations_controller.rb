@@ -1,9 +1,11 @@
 class SolicitationsController < ApplicationController
+  include TerritoryFiltrable
+
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
   before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
   before_action :set_category_content, only: %i[index processed canceled]
-  before_action :find_territories, only: %i[index in_progress processed canceled]
+  before_action :setup_territory_filters, only: %i[index in_progress processed canceled]
   before_action :count_solicitations, only: %i[index in_progress processed canceled]
 
   layout 'side_menu'
@@ -84,7 +86,7 @@ class SolicitationsController < ApplicationController
 
   def ordered_solicitations
     solicitations = Solicitation.order(created_at: :desc)
-    solicitations = solicitations.by_possible_region(territory_param) if params[:territory].present?
+    solicitations = solicitations.by_possible_region(territory_id) if territory_id.present?
     solicitations.page(params[:page]).omnisearch(params[:query]).distinct
       .includes(:badges_solicitations, :badges, :institution, :landing, :diagnosis)
   end
@@ -122,17 +124,8 @@ class SolicitationsController < ApplicationController
     end
   end
 
-  def find_territories
-    @territories = Territory.deployed_regions.order(:name)
-    territory_id = territory_param || session[:s_territory]
-    if territory_id.present?
-      session[:s_territory] = territory_id
-    else
-      session.delete(:s_territory)
-    end
-  end
-
-  def territory_param
-    params.permit(:territory)[:territory]
+  # nom de variable spécifique pour ne pas parasiter les autres filtres région
+  def territory_session_param
+    :s_territory
   end
 end

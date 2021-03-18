@@ -1,6 +1,7 @@
 module Reminders
   class NeedsController < BaseController
-    before_action :find_territories
+    before_action :setup_territory_filters
+    before_action :find_current_territory
     before_action :collections_counts
 
     def index
@@ -26,9 +27,7 @@ module Reminders
     private
 
     def render_collection(action)
-      needs = @territory.present? ? @territory.needs : Need.all
-
-      @needs = needs
+      @needs = territory_needs
         .reminders_to(action)
         .includes(:subject).page(params[:page])
 
