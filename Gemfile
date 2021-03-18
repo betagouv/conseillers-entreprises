@@ -82,6 +82,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webmock'
   gem 'axe-matchers', require: false
+  gem 'simplecov', require: false
 end
 
 group :development, :test do
