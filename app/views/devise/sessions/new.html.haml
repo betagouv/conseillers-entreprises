@@ -1,21 +1,24 @@
 .rf-container
-  %h2= t('sign_in')
+  .rf-grid-row.rf-grid-row--center.rf-grid-row--gutters.rf-mb-5w
+    .rf-col.rf-col-lg-6
+      %h1.rf-mb-5w= t('sign_in')
 
-  .ui.very.padded.segment.shadow-less
-    = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'ui form' } do |f|
-      .field
-        = f.label :email
-        = f.email_field :email, autofocus: true, required: true
-      .field
-        = f.label :password
-        = f.password_field :password, autocomplete: 'off', required: true
-      - if devise_mapping.rememberable?
-        .field
-          .ui.checkbox
+      = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: '' } do |f|
+        .rf-input-group
+          = f.label :email, class: 'rf-label'
+          = f.email_field :email, class: 'rf-input', autofocus: true, required: true
+        .rf-input-group
+          = f.label :password, class: 'rf-label'
+          = f.password_field :password, class: 'rf-input', autocomplete: 'off', required: true
+          = link_to new_password_path(resource_name) do
+            = t('devise.forgot_password')
+        - if devise_mapping.rememberable?
+          .rf-checkbox-group
             = f.check_box :remember_me, checked: true, class: 'hidden'
             = f.label :remember_me
-      .actions
-        = f.submit t('sign_in'), class: 'rf-btn btn-green'
-    = render 'devise/shared/links'
+        .rf-mt-3w
+          = f.submit t('sign_in'), class: 'rf-btn btn-green'
 
-  = t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL']))
+.lighter-blue-bg.rf-py-6w
+  .rf-container
+    = t('.how_to_sign_up_html', email: mail_to(ENV['APPLICATION_EMAIL']))
