@@ -2,7 +2,8 @@ module Reminders
   class ExpertsController < BaseController
     before_action :retrieve_expert, except: :index
     before_action :count_expert_needs, except: %i[index reminders_notes]
-    before_action :find_territories, only: %i[index]
+    before_action :setup_territory_filters, only: %i[index]
+    before_action :find_current_territory, only: %i[index]
     before_action :collections_counts, only: %i[index]
 
     def index

@@ -14,11 +14,13 @@ module Reminders
     end
 
     def collections_counts
-      needs = @territory.present? ? @territory.needs : Need.all
-
-      @collections_counts = Rails.cache.fetch(['reminders_need', needs]) do
-        collection_names.index_with { |name| needs.reminders_to(name).size }
+      @collections_counts = Rails.cache.fetch(['reminders_need', territory_needs]) do
+        collection_names.index_with { |name| territory_needs.reminders_to(name).size }
       end
+    end
+
+    def territory_needs
+      @territory.present? ? @territory.needs : Need.all
     end
   end
 end
