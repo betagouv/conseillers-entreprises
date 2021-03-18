@@ -10,6 +10,6 @@
 %p= t('.complementary_help')
 
 .button
-  %a{ href: need_url(@match.diagnosis) }= t('mailers.see_diagnosis')
+  %a{ href: need_url(@match.need) }= t('mailers.see_diagnosis')
 
 %p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))

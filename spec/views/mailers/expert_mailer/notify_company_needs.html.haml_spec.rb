@@ -21,7 +21,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, needs: [need1, need2] }
 
       it 'displays the date, phone number and 2 list items' do
-        expect(rendered).to include "besoins/#{diagnosis.id}"
+        expect(rendered).to include "analyses/#{diagnosis.id}"
         assert_select 'h2.subject', count: 2
       end
     end
@@ -30,7 +30,7 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
       let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, needs: [need1] }
 
       it 'does not display the date, but displays email and one list item' do
-        expect(rendered).to include "besoins/#{diagnosis.id}"
+        expect(rendered).to include "analyses/#{diagnosis.id}"
         assert_select 'h2.subject', count: 1
       end
     end
