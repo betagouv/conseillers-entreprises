@@ -6,8 +6,9 @@
       %b= facility.company.name
     %li= facility.readable_locality
     %li= t('.workforce', range: Effectif.effectif(facility.code_effectif))
-    %li #{t('attributes.siret')} : #{facility.siret}
-    %li= facility.naf_libelle
-    %li= link_to t('.more_informations'), company_path(facility.siret), class: 'bold blue'
-    - if policy(facility).show_needs_history?
-      %li= link_to t('.needs_historic'), needs_company_path(facility.siret), class: 'bold blue'
+    - if facility.siret.present?
+      %li #{t('attributes.siret')} : #{facility.siret}
+      %li= facility.naf_libelle
+      %li= link_to t('.more_informations'), company_path(facility.siret), class: 'bold blue'
+      - if policy(facility).show_needs_history?
+        %li= link_to t('.needs_historic'), needs_company_path(facility.siret), class: 'bold blue'
