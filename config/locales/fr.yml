@@ -1,6 +1,6 @@
 ---
 fr:
-  all_choices: Tous
+  all_choices: Tout
   api_entreprise:
     default_error_message:
       entreprise: Erreur lors de la récupération des détails de l’entreprise.

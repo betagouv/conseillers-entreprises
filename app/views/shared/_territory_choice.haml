@@ -1,8 +1,8 @@
-= form_with url: request.path, method: :get, skip_enforcing_utf8: true, class: 'ui large form' do
-  - options = { include_blank: t('all_choices'), class: 'ui search selection dropdown clearable', onchange: 'this.form.submit();' }
+= form_with url: request.path, method: :get, skip_enforcing_utf8: true, class: '' do
+  - options = { include_blank: t('all_choices'), class: 'rf-select', onchange: 'this.form.submit();' }
   .two.fields
     .field
-      = label_tag(t('.region'))
+      = label_tag(:territory, t('.region'), class: 'rf-label')
       = select_tag(:territory,
         options_from_collection_for_select(territories, :id, :name, params[:territory] || session[:territory]),
         options.dup)
