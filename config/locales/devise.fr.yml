@@ -76,10 +76,8 @@ fr:
       new:
         how_to_sign_up_html: |
           <h2>Qui sont les conseillers utilisant Place des Entreprises ?</h2>
-          <p>Les conseillers de Place des Entreprises sont des agents des organismes publics et parapublics chargés de la relation entreprise. Le service compte aujourd’hui plus de 900 conseillers au sein de 50 partenaires publics.</p>
-          <p>Chaque conseiller est référencé comme expert sur un champ de compétences précis. Le service lui permet de recevoir des besoins d’entreprises correspondant à son champ d’intervention et de partager des besoins relevant d’autres organismes. Le conseiller utilisant Place des Entreprises devient ainsi un interlocuteur privilégié pour les chefs d’entreprises : il accède en 2 minutes à tous les partenaires publics proposant une grande diversité d’accompagnements.</p>
-          <p>Si vous êtes agent d’un acteur public porteur de solutions, rejoignez-nous !</p>
-          <h2>Comment s’inscrire ?</h2>
-          <p>Envoyez-nous un email à %{email}.</p>
+          <p>Les conseillers de Place des Entreprises sont des agents des administrations, des organismes publics et parapublics et des collectivités chargés d’accompagner les entreprises. Le service compte aujourd’hui plus de <b>1 000 conseillers par région</b> au sein de 50 partenaires différents !</p>
+          <p>En tant que conseiller, vous êtes référencé comme expert sur un ou plusieurs sujets avec un champ d’intervention précis. Le service vous permet ensuite de recevoir des besoins d’entreprises correspondant à votre expertise et d’échanger avec d’autres conseillers compétents pour aider une entreprise.</p>
+          <p>Ce service vise autant à aider les TPE & PME qu’à <b>faciliter le travail quotidien</b> des conseillers qui les accompagnent, dans une logique de <b>complémentarité et de décloisonnement des institutions</b>. Si vous êtes un acteur de la relation entreprise dans une structure porteuse de solutions, rejoignez-nous !</p>
       signed_in: ''
       signed_out: Déconnecté.
