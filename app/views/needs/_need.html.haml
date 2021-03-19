@@ -1,0 +1,16 @@
+- cache need do
+  .rf-mb-2w
+    .rf-card__c-container
+      .rf-card.rf-card--horizontal
+        .rf-card__body
+          %p.rf-card__detail.justify-between
+            = I18n.l(need.display_date, format: :long)
+            - if !need.diagnosis.step_completed?
+              %span.rf-tag= need.diagnosis.human_attribute_value(:step)
+          %h4.rf-card__title
+            = link_to need.subject, need_path(need), class: 'rf-card__link'
+          .rf-card__desc
+            .rf-text--lead= need.company.name
+            = need.facility.commune_name
+      .rf-card__c-footer
+        = render 'diagnoses/archive_action', diagnosis: need.diagnosis

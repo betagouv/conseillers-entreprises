@@ -240,6 +240,14 @@ class Need < ApplicationRecord
     self.update(status: new_status)
   end
 
+  def display_time
+    solicitation&.created_at || diagnosis.created_at
+  end
+
+  def display_date
+    display_time.to_date
+  end
+
   def computed_status
     matches_status = matches.pluck(:status).map(&:to_sym)
 
