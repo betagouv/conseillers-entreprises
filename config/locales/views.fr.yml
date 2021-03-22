@@ -395,7 +395,7 @@ fr:
     hello_name: Bonjour %{name},
     nice_day: Bonne journée,
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
-    see_diagnosis: Voir la fiche entreprise
+    see_diagnosis: Voir la demande
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
     user_mailer:
       confirm_notifications_sent:

@@ -12,9 +12,9 @@
     - need.experts.each do |expert|
       %li #{expert.full_name} — #{expert.antenne.name}
 
-%h2
-  .button
-    %a{ href: diagnosis_url(@diagnosis) }= t('.show_details')
+  %h2
+    .button
+      %a{ href: need_url(need) }= t('.show_details')
 
 %p= t('.thank_you')
 %p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))
