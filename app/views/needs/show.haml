@@ -69,10 +69,10 @@
       %h2.rf-h3= t('.comments')
       %p= t('.warning_comments')
 
-    - if @need.feedbacks.present?
-      %div{ id: "display-feedbacks-#{@need.id}" }
+    %div{ id: "display-feedbacks-#{@need.id}" }
+      - if @need.feedbacks.present?
         = render @need.feedbacks.order(:created_at)
-    - else
-      %p#no-comment= t('.no_comment')
+      - else
+        %p#no-comment= t('.no_comment')
 
     = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)
