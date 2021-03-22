@@ -1,4 +1,7 @@
-= menu_link_with_count(t('.index_html'), count[:without_feedbacks], solicitations_path, active: [solicitations: :index])
-= menu_link_with_count(t('.in_progress_html'), count[:with_feedbacks], in_progress_solicitations_path)
-= active_link_to(t('.processed'), processed_solicitations_path, class: 'item')
-= active_link_to(t('.canceled'), canceled_solicitations_path, class: 'item')
+%ul.rf-sidemenu__list
+  = menu_link_with_count(t('.index_html'), count[:without_feedbacks], solicitations_path, active: [solicitations: :index])
+  = menu_link_with_count(t('.in_progress_html'), count[:with_feedbacks], in_progress_solicitations_path)
+  %li.rf-sidemenu__item
+    = active_link_to(t('.processed'), processed_solicitations_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
+  %li.rf-sidemenu__item
+    = active_link_to(t('.canceled'), canceled_solicitations_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')

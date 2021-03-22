@@ -1,0 +1,8 @@
+.rf-sidemenu__title= t('diagnoses.menu.for_recipient', recipient: recipient)
+%ul.rf-sidemenu__list
+  %li.rf-sidemenu__item
+    = active_link_to(t('diagnoses.collections.completed'), index_antenne_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
+  %li.rf-sidemenu__item
+    = active_link_to(t('diagnoses.collections.all'), archives_antenne_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
+  %li.rf-sidemenu__item
+    = link_to t('.browse_active_diagnoses'), diagnoses_path, class: 'rf-sidemenu__link'

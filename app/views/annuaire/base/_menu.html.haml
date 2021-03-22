@@ -1,3 +1,7 @@
-= active_link_to Institution.human_attribute_name(:subjects), institution_subjects_path(institution), { class: 'item' }
-= active_link_to Institution.human_attribute_name(:antennes), institution_antennes_path(institution), { class: 'item' }
-= active_link_to Institution.human_attribute_name(:advisors), institution_advisors_path(institution), { class: 'item' }
+%ul.rf-sidemenu__list
+  %li.rf-sidemenu__item
+    = active_link_to Institution.human_attribute_name(:subjects), institution_subjects_path(institution), { class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active' }
+  %li.rf-sidemenu__item
+    = active_link_to Institution.human_attribute_name(:antennes), institution_antennes_path(institution), { class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active' }
+  %li.rf-sidemenu__item
+    = active_link_to Institution.human_attribute_name(:advisors), institution_advisors_path(institution), { class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active' }

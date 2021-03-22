@@ -1,29 +1,12 @@
 - meta title: t('.title')
+- content_for :header, render('header', recipient: current_user, collection_name: @collection_name)
+- content_for :menu, render('menu', recipient: current_user, collections_counts: @collections_counts, user: @user, antenne: @antenne)
 
 .rf-container
-  - if ENV['FEATURE_DIAGNOSIS_WITHOUT_SIRET'].to_b
-    .rf-grid-row.rf-grid-row--beetween
-      .rf-col
-        %h1
-          = t('.title')
-        .sub.header
-          = t('.subtitle', name: current_user.full_name)
-      .rf-col.text-right
-        = link_to t('.create_new_diagnosis'), new_diagnosis_path, class: 'rf-btn rf-btn--lg btn-green new-diagnosis'
-  - else
-    %h1.ui.header= t('.create_new_diagnosis')
-    = render partial: 'companies/search_form', locals: { query: @query, solicitation: @current_solicitation }
-
-  = render 'diagnoses_tabs'
 
   .ui.aligned.grid.padded
     .aligned.eight.wide.column
       %p= page_entries_info @diagnoses
-    .right.aligned.eight.wide.column
-      - if current_user.antenne.advisors.count > 1
-        = link_to index_antenne_diagnoses_path do
-          %span.ri-folder-open-line.icon
-          = t('.browse_antenne_diagnoses')
 
   = paginate @diagnoses
 

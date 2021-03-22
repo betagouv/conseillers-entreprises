@@ -4,6 +4,8 @@ class DiagnosesController < ApplicationController
   before_action :retrieve_diagnosis, only: %i[show archive unarchive]
   before_action :maybe_review_expert_subjects
 
+  layout 'side_menu', except: %i[new]
+
   def index
     retrieve_diagnoses(current_user, false, :in_progress)
   end
@@ -73,6 +75,7 @@ class DiagnosesController < ApplicationController
 
   def retrieve_diagnoses(scope, archived, status = :all)
     authorize Diagnosis, :index?
+    @collection_name = status
     @diagnoses = scope.sent_diagnoses.archived(archived)
       .distinct
       .left_outer_joins(:matches, needs: :matches)

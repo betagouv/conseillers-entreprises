@@ -1,0 +1,11 @@
+%ul.rf-sidemenu__list
+  .rf-sidemenu__title= t('.for_recipient', recipient: recipient)
+  %li.rf-sidemenu__item
+    = active_link_to(t('diagnoses.collections.in_progress'), diagnoses_path, active: [diagnoses: :index], class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
+  %li.rf-sidemenu__item
+    = active_link_to(t('diagnoses.collections.completed'), processed_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
+  %li.rf-sidemenu__item
+    = active_link_to(t('diagnoses.collections.all'), archives_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
+  - if current_user.antenne.advisors.count > 1
+    %li.rf-sidemenu__item
+      = link_to t('.browse_antenne_diagnoses'), index_antenne_diagnoses_path, class: 'rf-sidemenu__link'

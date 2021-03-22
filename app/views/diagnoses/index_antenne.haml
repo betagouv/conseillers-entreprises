@@ -1,19 +1,11 @@
+- meta title: t('.title')
+- content_for :header, render('header', recipient: current_user.antenne, collection_name: @collection_name)
+- content_for :menu, render('antenne_menu', recipient: current_user.antenne, collections_counts: @collections_counts, user: @user, antenne: @antenne)
+
 .rf-container
-  - meta title: t('.title')
-
-  %h1.ui.header
-    = t('.title')
-    .sub.header= t('.subtitle', antenne: current_user.antenne.name)
-
-  = render 'antenne_diagnoses_tabs'
-
   .ui.aligned.grid.padded
     .aligned.eight.wide.column
       %p= page_entries_info @diagnoses
-    .right.aligned.eight.wide.column
-      = link_to diagnoses_path do
-        %span.ri-list-check
-        = t('.browse_active_diagnoses')
 
   = paginate @diagnoses
 
