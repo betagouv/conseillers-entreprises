@@ -1,3 +1,5 @@
+// Main navigation
+
 .rf-header
   .pde-logo
     box-shadow: none
@@ -31,3 +33,21 @@
     display: none
   .rf-header__body--displayed
     display: flex
+
+// Left menu
+
+@media (min-width: 48em)
+  .rf-sidemenu
+    .rf-sidemenu__inner
+      padding: 0 1rem 0 0.25rem
+
+.item-with-tag
+  display: flex
+.rf-sidemenu__list
+  .rf-sidemenu__item--active
+    color: $blue
+  .rf-sidemenu__link
+    i
+      display: contents
+  .rf-tag
+    height: fit-content

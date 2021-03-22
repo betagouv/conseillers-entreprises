@@ -130,28 +130,27 @@ fr:
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   diagnoses:
-    antenne_diagnoses_tabs:
-      archived: Archivées
-      processed: Traitées
+    antenne_menu:
+      browse_active_diagnoses: Mes analyses
+    collections:
+      all: Archivés
+      completed: Traitées
+      in_progress: En cours
     company_details:
       company_details: Voir le détail de l’entreprise
       need_without_siret: Analyse sans SIRET
-    diagnoses_tabs:
-      archived: Archivées
-      in_progress: En cours
-      processed: Traitées
     diagnosis:
       last_activity_date: dernière activité le %{l}
-    index:
-      browse_antenne_diagnoses: Voir les analyses de mon antenne
-      confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
+    header:
       create_new_diagnosis: Démarrer une analyse
-      subtitle: Par %{name}
+    index:
+      confirm_archive: Êtes-vous sûr de vouloir archiver l’analyse de %{company_name} ?
       title: Analyses
     index_antenne:
-      browse_active_diagnoses: Voir mes analyses
-      subtitle: Réalisées par %{antenne}
       title: Analyses
+    menu:
+      browse_antenne_diagnoses: Analyses de mon antenne
+      for_recipient: Par %{recipient}
     new:
       create_new_diagnosis: Démarrer une analyse
       find_company: Rechercher une entreprise
@@ -315,6 +314,9 @@ fr:
       title: Merci !
     show_landing_institutions:
       institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
+  layouts:
+    side_menu:
+      mobile_menu: Menu
   logos:
     france_relance: logo France Relance
     pde: logo Place des Entreprises
@@ -421,6 +423,8 @@ fr:
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
+  nav:
+    see-breadcrumb: Voir le fil d’Ariane
   needs:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?

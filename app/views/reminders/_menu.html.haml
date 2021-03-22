@@ -1,13 +1,17 @@
-.ui.sub.header
+.rf-sidemenu__title
   = t('reminders.section.needs')
 
-- collections_counts.each do |name, count|
-  - path = polymorphic_path([name, :reminders, :needs])
-  = menu_link_with_count(count, path, class: 'item') do
-    = t(name, scope: 'reminders.needs.scopes.name')
-    - detail = t(name, scope: 'reminders.needs.scopes.detail', days: Need::REMINDERS_DAYS[name])
-    %i (#{detail})
+%ul.rf-sidemenu__list
+  - collections_counts.each do |name, count|
+    - path = polymorphic_path([name, :reminders, :needs])
+    = menu_link_with_count(count, path, class: 'item') do
+      = t(name, scope: 'reminders.needs.scopes.name')
+      - detail = t(name, scope: 'reminders.needs.scopes.detail', days: Need::REMINDERS_DAYS[name])
+      %i (#{detail})
 
-.ui.sub.header
+.rf-sidemenu__title.rf-mt-6w
   = t('reminders.section.experts')
-= active_link_to Expert.model_name.human.pluralize, reminders_experts_path, { class: 'item' }
+
+%ul.rf-sidemenu__list
+  %li.rf-sidemenu__item
+    = active_link_to Expert.model_name.human.pluralize, reminders_experts_path, { class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active' }

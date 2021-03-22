@@ -1,7 +1,6 @@
 .ui.grid
   .one.wide.row
-    .column
-      = person_block(expert, suffix: t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long)))
+    = person_block(expert, suffix: t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long)))
 .ui.grid
   .row
     - cache ["received_matches", expert, expert.received_matches] do

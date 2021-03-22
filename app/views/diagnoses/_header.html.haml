@@ -1,4 +1,9 @@
-%h1= t('needs.index.title')
+.rf-grid-row.rf-grid-row--beetween
+  .rf-col
+    %h1
+      = t('diagnoses.index.title')
+  .rf-col.text-right
+    = link_to t('.create_new_diagnosis'), new_diagnosis_path, class: 'rf-btn rf-btn--lg btn-green new-diagnosis'
 
 %nav.rf-breadcrumb{ "aria-label" => "vous êtes ici :" }
   %button.rf-breadcrumb__button{ :hidden => "" }= t('nav.see-breadcrumb')
@@ -6,4 +11,5 @@
     %li.rf-breadcrumb__item= recipient.to_s
     %li.rf-breadcrumb__item
       -# By default, link_to uses the current request path. We only set the name here.
-      = link_to t(collection_name, scope: 'needs.collections')
+      = link_to t(collection_name, scope: 'diagnoses.collections')
+
