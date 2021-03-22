@@ -1,4 +1,3 @@
--# - can_archive = true
 - can_archive = diagnosis.advisor == current_user
 - if can_archive
   .rf-p-1w
@@ -6,9 +5,9 @@
       - if !diagnosis.is_archived
         - confirm_delete_message = t('diagnoses.index.confirm_archive', company_name: diagnosis.company.name)
         = link_to archive_diagnosis_path(diagnosis), method: :post, data: { confirm: confirm_delete_message }, class: 'rf-btn rf-btn--secondary' do
-          %span.ri-inbox-archive-fill
+          %span.ri-inbox-archive-fill.rf-mr-1w
           = t('archivable.archive')
       - if diagnosis.is_archived
         = link_to unarchive_diagnosis_path(diagnosis), method: :post, class: 'rf-btn rf-btn--secondary' do
-          %span.ri-inbox-unarchive-fill
+          %span.ri-inbox-unarchive-fill.rf-mr-1w
           = t('archivable.unarchive')

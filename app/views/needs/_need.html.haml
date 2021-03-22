@@ -1,6 +1,6 @@
 - cache need do
   .rf-mb-2w
-    .rf-card__c-container
+    .rf-card__c-container.rf-card__c-container--need
       .rf-card.rf-card--horizontal
         .rf-card__body
           %p.rf-card__detail.justify-between
@@ -10,7 +10,5 @@
           %h4.rf-card__title
             = link_to need.subject, need_path(need), class: 'rf-card__link'
           .rf-card__desc
-            .rf-text--lead= need.company.name
+            .rf-text--lg= need.company.name
             = need.facility.commune_name
-      .rf-card__c-footer
-        = render 'diagnoses/archive_action', diagnosis: need.diagnosis
