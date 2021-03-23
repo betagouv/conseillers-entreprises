@@ -6,6 +6,9 @@
     = active_link_to(t('diagnoses.collections.completed'), processed_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
   %li.rf-sidemenu__item
     = active_link_to(t('diagnoses.collections.all'), archives_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
-  - if current_user.antenne.advisors.count > 1
+
+- if antenne.advisors.count > 1
+  %ul.rf-sidemenu__list
+    .rf-sidemenu__title= t('.for_other_header', recipient: recipient)
     %li.rf-sidemenu__item
-      = link_to t('.browse_antenne_diagnoses'), index_antenne_diagnoses_path, class: 'rf-sidemenu__link'
+      = link_to t('.browse_antenne_diagnoses', antenne: antenne), index_antenne_diagnoses_path, class: 'rf-sidemenu__link'
