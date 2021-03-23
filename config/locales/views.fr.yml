@@ -132,6 +132,7 @@ fr:
   diagnoses:
     antenne_menu:
       browse_active_diagnoses: Mes analyses
+      for_other_header: Voir aussi
     collections:
       all: Archivés
       completed: Traitées
@@ -149,7 +150,8 @@ fr:
     index_antenne:
       title: Analyses
     menu:
-      browse_antenne_diagnoses: Analyses de mon antenne
+      browse_antenne_diagnoses: Toutes les analyses de %{antenne}
+      for_other_header: Voir aussi
       for_recipient: Par %{recipient}
     new:
       create_new_diagnosis: Démarrer une analyse

@@ -7,12 +7,12 @@ module UserTabsHelper
   def experts_items_in_section(experts, path_component, section_title)
     if experts.size == 1
       expert = experts.first
-      active_link_to section_title, polymorphic_path([path_component, expert]), { class: 'item' }
+      active_link_to section_title, polymorphic_path([path_component, expert]), { class: 'rf-sidemenu__link', wrap_tag: :li, wrap_class: 'rf-sidemenu__item', class_active: 'rf-sidemenu__item--active' }
     elsif experts.size > 1
       html = ''.html_safe
       html << tag.div(section_title, class: %w[ui sub header])
       experts.each do |expert|
-        html << active_link_to(expert.full_name, polymorphic_path([path_component, expert]), { class: 'item' })
+        html << active_link_to(expert.full_name, polymorphic_path([path_component, expert]), { class: 'rf-sidemenu__link', wrap_tag: :li, wrap_class: 'rf-sidemenu__item', class_active: 'rf-sidemenu__item--active' })
       end
       html
     end

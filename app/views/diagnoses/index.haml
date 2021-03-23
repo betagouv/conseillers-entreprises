@@ -1,6 +1,6 @@
 - meta title: t('.title')
 - content_for :header, render('header', recipient: current_user, collection_name: @collection_name)
-- content_for :menu, render('menu', recipient: current_user, collections_counts: @collections_counts, user: @user, antenne: @antenne)
+- content_for :menu, render('menu', recipient: current_user, collections_counts: @collections_counts, antenne: current_user.antenne)
 
 .rf-container
 
