@@ -15,7 +15,7 @@ module Clockwork
   every(1.day, 'send_satisfaction_emails', at: ('5:41')) do
     CompanyMailerService.delay.send_satisfaction_emails
   end
-  every(1.day, 'update_solicitations_code_region', at: ('3:41'), :if => lambda { |t| t.day == 1 }) do
+  every(1.day, 'update_solicitations_code_region', at: ('3:41')) do
     `rake update_solicitations_code_region:from_diagnosis`
   end
   every(1.day, 'auto_archive_old_matches', at: ('2:41')) do
