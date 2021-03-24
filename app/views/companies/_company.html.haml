@@ -44,3 +44,6 @@
       %tr
         %td= t('.date_radiation')
         %td= date_from_timestamp(entreprise.date_radiation)
+      %tr
+        %td= t('.diffusable_commercialement')
+        %td= t(entreprise.diffusable_commercialement.to_b, scope: [:boolean, :text])
