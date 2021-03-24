@@ -2,26 +2,27 @@
 
 .rf-container
   #company-show
+    = form_with model: @diagnosis, local: true do |form|
+      = form.hidden_field :solicitation_id
+      = form.fields_for :facility do |facility_form|
+        = facility_form.hidden_field :siret, value: @facility.etablissement.siret
+      = form.button :submit, class: 'rf-btn btn-green float-right' do
+        = t('.create_diagnosis')
     %h1
       = @company.name
 
-      = form_with model: @diagnosis, local: true do |form|
-        = form.hidden_field :solicitation_id
-        = form.fields_for :facility do |facility_form|
-          = facility_form.hidden_field :siret, value: @facility.etablissement.siret
-        = form.button :submit, class: 'ui right floated positive basic button' do
-          = t('.create_diagnosis')
 
-    %h2= t('.information')
-    = render partial: 'company', locals: { entreprise: @company.entreprise }
+    %section.rf-mb-6w
+      = render partial: 'company', locals: { entreprise: @company.entreprise }
 
-    %h2= t('.facility')
-    = render partial: 'facility', locals: { etablissement: @facility.etablissement }
+    %section.rf-mb-6w
+      = render partial: 'facility', locals: { etablissement: @facility.etablissement, caption: t('.facility') }
 
     - if !@facility.etablissement['siege_social'].to_b
-      %h2= t('.siege_social')
-      = render partial: 'facility', locals: { etablissement: @company.etablissement_siege }
+      %section.rf-mb-6w
+        %h2= t('.siege_social')
+        = render partial: 'facility', locals: { etablissement: @company.etablissement_siege, caption: t('.siege_social') }
 
-    %h2= t('.mandataires_sociaux')
-    - @company.entreprise.mandataires_sociaux.each do |person|
-      = render partial: 'mandataire', locals: { person: person }
+    %section.rf-mb-6w
+      - @company.entreprise.mandataires_sociaux.each do |person|
+        = render partial: 'mandataire', locals: { person: person }

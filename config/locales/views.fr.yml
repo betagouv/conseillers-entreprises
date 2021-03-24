@@ -70,6 +70,7 @@ fr:
       date_creation: Date de création
       date_radiation: Date de radiation
       forme_juridique: Forme juridique
+      information: Informations sur l'entreprise
       nom: Nom
       nom_commercial: Nom Commercial
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
@@ -97,6 +98,7 @@ fr:
       dirigeant: Est-ce un dirigeant ?
       fonction: Fonction
       identifiant: Identifiant
+      mandataires_sociaux: Mandataires sociaux
       nom: Nom
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
@@ -116,8 +118,6 @@ fr:
     show:
       create_diagnosis: Démarrer une analyse
       facility: Établissement
-      information: Informations
-      mandataires_sociaux: Mandataires sociaux
       siege_social: Siège social
   company_satisfactions:
     new:
