@@ -528,6 +528,8 @@ fr:
     deleted_person: Compte supprimé
   reminders:
     experts:
+      expert:
+        expert_reminders_link: Afficher le détail
       expert_contents:
         expert_creation_date: Inscription le %{date}
         matches_total: Demandes depuis le début
