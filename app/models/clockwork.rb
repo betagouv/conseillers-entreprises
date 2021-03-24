@@ -16,7 +16,7 @@ module Clockwork
     CompanyMailerService.delay.send_satisfaction_emails
   end
   every(1.day, 'update_solicitations_code_region', at: ('3:41')) do
-    `rake update_solicitations_code_region:from_diagnosis`
+    `rake update_solicitations_code_region`
   end
   every(1.day, 'auto_archive_old_matches', at: ('2:41')) do
     `rake auto_archive_old_matches`
