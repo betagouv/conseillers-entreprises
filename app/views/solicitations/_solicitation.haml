@@ -17,6 +17,9 @@
       .item
         = t('.email')
         %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
+      - facility = solicitation.facility
+      - if facility&.siret.present? && policy(facility).show_needs_history?
+        = link_to t('.needs_historic'), needs_company_path(facility.siret), class: 'gray-link float-right'
       - solicitation.display_attributes.each do |attribut|
         - if solicitation.send(attribut).present?
           .item

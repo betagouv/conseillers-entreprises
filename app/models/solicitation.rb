@@ -43,6 +43,7 @@ class Solicitation < ApplicationRecord
   belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
   has_one :diagnosis, inverse_of: :solicitation
   has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
+  has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
 
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnosis, inverse_of: :solicitation

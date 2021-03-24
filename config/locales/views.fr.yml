@@ -602,6 +602,7 @@ fr:
       description: 'Description :'
       email: 'Email :'
       landing_options: 'Aides demandées :'
+      needs_historic: Historique de l'entreprise
       siret: 'Siret :'
       slug: 'Page thématique :'
     solicitation_actions:
