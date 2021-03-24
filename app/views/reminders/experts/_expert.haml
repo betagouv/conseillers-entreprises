@@ -1,6 +1,7 @@
 .ui.segment.selectable-item
-  %a{ href: reminders_expert_path(expert) }
-    = render 'expert_contents', expert: expert
+  -# Patch temporaire le temps de revoir + en profondeur le design
+  = link_to t('.expert_reminders_link'), reminders_expert_path(expert), class: 'gray-link float-right'
+  = render 'expert_contents', expert: expert
   - cache expert do
     %div{ id: "expert_reminders_notes-#{expert.id}" }
       = render 'expert_reminders_notes', expert: expert
