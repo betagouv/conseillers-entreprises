@@ -1,7 +1,6 @@
 .rf-grid-row.rf-grid-row--beetween
   .rf-col
-    %h1
-      = t('diagnoses.index.title')
+    %h1= t('diagnoses.index.title')
   .rf-col.text-right
     = link_to t('.create_new_diagnosis'), new_diagnosis_path, class: 'rf-btn rf-btn--lg btn-green new-diagnosis'
 
@@ -12,4 +11,3 @@
     %li.rf-breadcrumb__item
       -# By default, link_to uses the current request path. We only set the name here.
       = link_to t(collection_name, scope: 'diagnoses.collections')
-
