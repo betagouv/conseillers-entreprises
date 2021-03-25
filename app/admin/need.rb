@@ -62,6 +62,7 @@ ActiveAdmin.register Need do
     column(:status) { |need| need.human_attribute_value(:status, context: :short) }
     column :is_archived
     column_count :matches
+    column(:matched_antennes) { |n| n.experts.map{ |e| e.antenne.name }.join(', ') }
   end
 
   ## Show

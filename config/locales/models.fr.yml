@@ -455,6 +455,7 @@ fr:
     label: Intitulé
     legal_form_code: Forme juridique
     logo_sort_order: Position du logo sur la page d'accueil
+    matched_antennes: Antennes MER
     matches:
       one: Mise en relation
       other: Mises en relation
