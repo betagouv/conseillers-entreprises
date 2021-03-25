@@ -19,6 +19,12 @@
   %section.section.section-grey#section-thankyou
     .container.container-medium
       = render 'new_solicitation_thank_you', solicitation: @solicitation
+      - if @landing.logos.present?
+        .logo-list
+          = region_image(session[:region_code])
+          - @landing.logos.split.each do |logo_slug|
+            = institution_image(logo_slug)
+
   - unless in_iframe?
     %section.section.section-white.container-newsletter
       .container
