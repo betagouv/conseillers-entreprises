@@ -1,18 +1,20 @@
 .rf-container
-  %h2= t ".header"
-  = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post, class: 'ui form' }) do |f|
-    = render "devise/shared/error_messages", resource: resource
+  .rf-grid-row.rf-grid-row--center.rf-grid-row--gutters.rf-mb-5w
+    .rf-col.rf-col-lg-6
+      %h2= t ".header"
+      = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f|
+        = render "devise/shared/error_messages", resource: resource
 
-    .required.field
-      = f.label :email
-      %p= t('.description')
-      = f.text_field :email, placeholder: t('attributes.placeholder.email'), autofocus: true, autocomplete: 'off', required: true
+        .rf-input-group.required
+          = f.label :email, class: 'rf-label'
+          %span.rf-hint-text= t('.description')
+          = f.text_field :email, class: 'rf-input', placeholder: t('attributes.placeholder.email'), autofocus: true, autocomplete: 'off', required: true
 
-    = render 'devise/shared/user_fields', form: f
+        = render 'devise/shared/user_fields', form: f
 
-    .required.field
-      = f.label :antenne
-      = f.select(:antenne_id, options_from_collection_for_select(Antenne.not_deleted.order(:name), :id, :name), { include_blank: t('all_choices') }, { class: 'ui search selection dropdown' })
+        .rf-input-group.required
+          = f.label :antenne, class: 'rf-label'
+          = f.select(:antenne_id, options_from_collection_for_select(Antenne.not_deleted.order(:name), :id, :name), { include_blank: t('all_choices') }, { class: 'rf-select' })
 
-    .actions
-      = f.submit t(".submit_button"), class: 'ui green button'
+        .actions
+          = f.submit t(".submit_button"), class: 'rf-btn btn-green'

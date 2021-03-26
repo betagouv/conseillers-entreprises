@@ -1,9 +1,9 @@
 .rf-container
-  = form_with model: @user, url: user_path, local: true, class: 'ui form' do |f|
+  = form_with model: @user, url: user_path, local: true do |f|
     = render "devise/shared/error_messages", resource: @user
-    .field
-      = f.label :email
-      = f.email_field :email, disabled: true
+    .rf-input-group
+      = f.label :email, class: 'rf-label'
+      = f.email_field :email, class: 'rf-input', disabled: true
     %p
       %i.blue.ri-information-fill
       = t('.contact_us_to_change_email_html', email: ENV['APPLICATION_EMAIL'])

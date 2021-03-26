@@ -3,9 +3,10 @@ module ApplicationHelper
     if block
       options, url, count, title = url, count, title, capture(&block)
     end
-
-    active_link_to(url, options.merge(class: 'item')) do
-      tag.div("#{count}", class: "ui label") + title
+    tag.li class: 'rf-sidemenu__item item-with-tag' do
+      active_link_to(url, options.merge(class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')) do
+       title
+     end + tag.span("#{count}", class: "rf-tag rf-ml-2v")
     end
   end
 end
