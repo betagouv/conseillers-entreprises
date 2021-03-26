@@ -567,7 +567,7 @@ fr:
         mark_done:
           archive: Archiver
           poke: Référent relancé
-          recall: Référent rappellé
+          recall: Référent rappelé
           warn: Institution prévenue
         name:
           archive: Abandonnés
