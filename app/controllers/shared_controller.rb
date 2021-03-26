@@ -27,6 +27,7 @@ class SharedController < ActionController::Base
   def render_error(exception)
     raise exception if (Rails.env.development? || Rails.env.test?) && !ENV['TEST_ERROR_RENDERING'].to_b
     if NOT_FOUND_ERROR_CLASSES.include? exception.class
+      @user = current_user
       respond_with_status(404)
     else
       Sentry.capture_exception(exception)
