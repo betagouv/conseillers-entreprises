@@ -1,6 +1,29 @@
-= form_with model: @expert, class: 'ui form' do |f|
-  = hidden_field_tag :update_context, :subjects
-  = render 'subjects_messages', expert: @expert
-  = render 'subjects_fields', f: f, expert: @expert
-  - if @expert.can_edit_own_subjects
-    = f.submit t('confirm'), class: 'ui green approve button'
+.ui.field
+  %p
+    = t('.instructions_html', institution: @expert.institution)
+
+  - if @expert.users.size > 1
+    .p
+      %span.orange.ri-information-fill
+      %strong= t('.others_members_warning_header_html', name: @expert.full_name, path: edit_expert_path(@expert))
+
+%p
+  %i.blue.ri-information-fill
+  = t('.contact_us_to_change_subjects_html', email: ENV['APPLICATION_EMAIL'])
+
+- institution_subjects = @expert.institution.available_subjects
+- institution_subjects.each do |theme, institutions_subjects|
+  %h2.rf-h4= theme.label
+  %ul.list-unstyled.rf-mb-3w
+    - institutions_subjects.each do |institution_subject|
+      %li.rf-mb-2v
+        - expert_subject = ExpertSubject.find_by(expert: @expert, institution_subject: institution_subject)
+        - if expert_subject.present?
+          %span.ri-checkbox-line.green
+        - else
+          %span.ri-checkbox-blank-line
+        %b= institution_subject.subject
+        %br
+        = institution_subject.description
+        - if expert_subject.present? && expert_subject.intervention_criteria.present?
+          %br= expert_subject.intervention_criteria

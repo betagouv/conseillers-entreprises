@@ -3,9 +3,9 @@
     = render "devise/shared/error_messages", resource: @user
     .rf-input-group
       = f.label :email, class: 'rf-label'
-      = f.email_field :email, class: 'rf-input', disabled: true
+      = f.email_field :email, disabled: true, class: 'rf-input'
     %p
-      %i.blue.ri-information-fill
+      %span.blue.ri-information-fill
       = t('.contact_us_to_change_email_html', email: ENV['APPLICATION_EMAIL'])
 
     = render 'devise/shared/user_fields', form: f

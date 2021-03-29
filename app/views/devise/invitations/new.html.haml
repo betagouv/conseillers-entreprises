@@ -1,20 +1,22 @@
 .rf-container
   .rf-grid-row.rf-grid-row--center.rf-grid-row--gutters.rf-mb-5w
     .rf-col.rf-col-lg-6
-      %h2= t ".header"
+      %h1.rf-h2= t ".header"
       = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f|
         = render "devise/shared/error_messages", resource: resource
 
-        .rf-input-group.required
+        .required.rf-input-group
           = f.label :email, class: 'rf-label'
-          %span.rf-hint-text= t('.description')
-          = f.text_field :email, class: 'rf-input', placeholder: t('attributes.placeholder.email'), autofocus: true, autocomplete: 'off', required: true
+          %p.rf-mb-2v.rf-text--sm= t('.description')
+          = f.text_field :email, placeholder: t('attributes.placeholder.email'), autofocus: true, class: 'rf-input',
+            autocomplete: 'email', required: true
 
         = render 'devise/shared/user_fields', form: f
 
-        .rf-input-group.required
+        .required.rf-input-group
           = f.label :antenne, class: 'rf-label'
-          = f.select(:antenne_id, options_from_collection_for_select(Antenne.not_deleted.order(:name), :id, :name), { include_blank: t('all_choices') }, { class: 'rf-select' })
+          = f.select(:antenne_id, options_from_collection_for_select(Antenne.not_deleted.order(:name), :id, :name),
+            { include_blank: t('all_choices') }, { class: 'rf-select' })
 
-        .actions
+        .rf-input-group
           = f.submit t(".submit_button"), class: 'rf-btn btn-green'

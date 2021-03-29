@@ -1,47 +1,31 @@
--# Antenne informations
-  This is read-only for now; users have to go through us to change this.
+%h2.rf-h5= t('.antenne_within_institution', institution: @user.institution.name)
+.rf-highlight.rf-mb-6w
+  = @user.antenne.name
 
-.ui.form
-  .field
-    %label= t('.antenne_within_institution', institution: @user.institution.name)
-    .ui.segment.secondary.shadow-less
-      = @user.antenne.name
-  %p
-    %i.blue.ri-information-fill
-    = t('.contact_us_for_missing_antenne_html', institution: @user.institution.name, email: ENV['APPLICATION_EMAIL'])
+%h2.rf-h5= t('attributes.advisors.other')
+.rf-highlight.rf-mb-6w
+  %ul.list-unstyled.rf-p-0
+    - @user.antenne.advisors.not_deleted.each do |advisor|
+      %li.rf-mb-1v
+        %span.rf-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{advisor.id}" }
+          - if advisor == @user
+            %span.ri-user-fill.blue{ title: t('users.thats_you') }
+          - else
+            %span.ri-user-fill
+          = advisor.full_name
+        .hidden{ id: "tooltip-case-#{advisor.id}" }
+          = person_block(advisor)
 
-  .ui.hidden.divider
-
-  .field
-    %label= t('attributes.advisors.other')
-    .ui.shadow-less.secondary.segment
-      .ui.list
-        - @user.antenne.advisors.not_deleted.each do |advisor|
-          .item
-            .content
-              .user.popup-hover
-                - if advisor == @user
-                  %span.ri-user-fill.blue{ title: t('users.thats_you') }
-                - else
-                  %span.ri-user-fill
-                = advisor.full_name
-              .ui.popup= person_block(advisor)
-
-  .ui.hidden.divider
-
-  .field
-    %label= t('attributes.teams.other')
-    .ui.shadow-less.secondary.segment
-      .ui.list
-        - @user.antenne.experts.teams.each do |team|
-          - members = team.users.not_deleted
-          .item
-            .content
-              .header
-                - if @user.in?(members)
-                  %span.blue.ri-team-fill
-                - else
-                  %span.ri-team-fill
-                = team.full_name
-              .ui.list
-                = members.pluck(:full_name).to_sentence
+%h2.rf-h5= t('attributes.teams.other')
+.rf-highlight
+  %ul.list-unstyled.rf-p-0
+    - @user.antenne.experts.not_deleted.teams.each do |team|
+      - members = team.users.not_deleted
+      %li.rf-mb-1v
+        - if @user.in?(members)
+          %span.blue.ri-team-fill
+        - else
+          %span.ri-team-fill
+        = team.full_name
+        %p.rf-mb-0
+          = members.pluck(:full_name).to_sentence

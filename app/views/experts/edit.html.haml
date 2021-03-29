@@ -1,72 +1,57 @@
--# Teams Parameters
-  Used only for Teams; personal skillsets are not displayed with this view.
-
-= form_with model: @expert, class: 'ui form' do |f|
+= form_with model: @expert do |f|
   = hidden_field_tag :update_context, :edit
-  .field
-    %label= t('attributes.email')
-    .ui.segment.secondary.shadow-less
-      %p= @expert.email
+  .rf-input-group
+    = f.label :email, class: 'rf-label'
+    = f.email_field :email, class: 'rf-input', disabled: 'disabled'
   - if @expert.team?
-    %p
+    %p.rf-mb-3w
       %span.blue.ri-information-fill
       = t('.team_email_explanation_html', email: ENV['APPLICATION_EMAIL'])
 
-  .ui.divider.hidden
+  .required.rf-input-group
+    = f.label :phone_number, class: 'rf-label'
+    = f.text_field :phone_number, placeholder: t('attributes.placeholder.phone_number'), class: 'rf-input', autocomplete: 'off', required: true
 
-  .required.field
-    = f.label :phone_number
-    = f.text_field :phone_number, placeholder: t('attributes.placeholder.phone_number'), autocomplete: 'off', required: true
-
-  .ui.divider.hidden
-
-  .required.field
-    = f.label :full_name, t('activerecord.attributes.expert.full_name')
-    = f.text_field :full_name, placeholder: t('attributes.placeholder.team_name'), autocomplete: 'off', required: true
-  %p
+  .required.rf-input-group
+    = f.label :full_name, t('activerecord.attributes.expert.full_name'), class: 'rf-label'
+    = f.text_field :full_name, placeholder: t('attributes.placeholder.team_name'), class: 'rf-input',
+      autocomplete: 'off', required: true
+  %p.rf-mb-3w
     %span.blue.ri-information-fill
     = t('.team_name_explanation')
 
-  .ui.divider.hidden
+  .required.rf-input-group
+    = f.label :role, class: 'rf-label'
+    = f.text_field :role, placeholder: t('attributes.placeholder.role'), class: 'rf-input', autocomplete: 'off', required: true
 
-  .field
-    %label= t('.antenne_and_institution')
-    .ui.shadow-less.secondary.segment
-      = link_to antenne_user_path do
-        %p
-          #{t('activerecord.models.antenne.one')} :
-          %b= @expert.antenne.name
-        %p
-          #{t('activerecord.models.institution.one')} :
-          %b= @expert.institution.name
+  .rf-mb-3w
+    %p.rf-mb-2v= t('.antenne_and_institution')
+    .rf-callout.rf-p-3w
+      %p.rf-mb-0
+        #{t('activerecord.models.antenne.one')} :
+        %b= @expert.antenne.name
+      %p.rf-mb-0
+        #{t('activerecord.models.institution.one')} :
+        %b= @expert.institution.name
   - if @expert.antenne != @user.antenne
     %p
       %span.orange.ri-information-fill
       = t('.different_antenne_warning_html', email: ENV['APPLICATION_EMAIL'])
 
-  .ui.divider.hidden
-
-  .required.field
-    = f.label :role
-    = f.text_field :role, placeholder: t('attributes.placeholder.role'), autocomplete: 'off', required: true
-
-  .ui.divider.hidden
-
-  .field
-    %label= t('.team_members')
-    .ui.shadow-less.secondary.segment
-      .ui.list
+  .rf-mb-3w
+    %p.rf-mb-2v= t('.team_members')
+    .rf-callout.rf-p-3w
+      %ul.list-unstyled.rf-p-0.rf-m-0
         - @expert.users.not_deleted.each do |member|
-          .item
-            .content
-              .user.popup-hover
-                - if member == @user
-                  %span.blue.ri-user-fill{ title: t('users.thats_you') }
-                - else
-                  %span.ri-user-fill
-                = member.full_name
-              .ui.popup= person_block(member)
+          %li.rf-mb-1v
+            %span.rf-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{member.id}" }
+              - if member == @user
+                %span.blue.ri-user-fill{ title: t('users.thats_you') }
+              - else
+                %span.ri-user-fill
+              = member.full_name
+            .hidden{ id: "tooltip-case-#{member.id}" }
+              = person_block(member)
 
   .actions
     = f.submit t('update'), class: 'rf-btn btn-green'
-
