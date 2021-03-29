@@ -1,0 +1,33 @@
+- cache [need, action] do
+  .ui.segments.shadow-less.need{ 'id': need.id }
+    = link_to need do
+      .ui.segment.secondary
+        .ui.header.grid.aligned
+          .eight.wide.column
+            %h2= need.company.name
+            .sub.header= I18n.l(need.display_date, format: :long)
+    .ui.segment.needs
+      %h3.ui.header.reminders-header
+        %span
+          = need.subject
+          .sub.header
+            = need.matches.human_count
+            - if need.abandoned?
+              .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
+        - if action.present?
+          = link_to t(action, scope: 'reminders.needs.scopes.mark_done'), polymorphic_path([action, :reminders_action], { id: need.id }),
+            method: :post, class: "rf-btn #{action == :archive ? 'btn-red' : 'btn-green'}"
+
+      .ui.list
+        - need.matches.each do |match|
+          .item
+            ⁃ #{match.expert.antenne.to_s}
+
+      .ui.feed.feedbacks
+        %div{ id: "display-feedbacks-#{need.id}" }
+          = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
+        = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
+
+      .item.show-feedbacks-form{ 'data-feedbackable': "#{need.id}" }
+        %button.mini.ui.button
+          = t('feedbacks.add')
