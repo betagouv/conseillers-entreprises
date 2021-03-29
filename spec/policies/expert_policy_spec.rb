@@ -45,20 +45,4 @@ RSpec.describe ExpertPolicy, type: :policy do
       it { is_expected.not_to permit(user, expert) }
     end
   end
-
-  permissions :update_subjects? do
-    let(:user) { expert.users.first }
-
-    context "grants access if expert can edit own subjects" do
-      before { expert.can_edit_own_subjects = true }
-
-      it { is_expected.to permit(user, expert) }
-    end
-
-    context "denies access if expert cant edit own subjects" do
-      before { expert.can_edit_own_subjects = false }
-
-      it { is_expected.not_to permit(user, expert) }
-    end
-  end
 end

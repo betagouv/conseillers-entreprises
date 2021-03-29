@@ -3,7 +3,6 @@ module Reminders
     include TerritoryFiltrable
 
     before_action :authenticate_admin!
-    before_action :maybe_review_expert_subjects
 
     layout 'side_menu'
 

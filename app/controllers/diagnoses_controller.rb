@@ -2,7 +2,6 @@
 
 class DiagnosesController < ApplicationController
   before_action :retrieve_diagnosis, only: %i[show archive unarchive]
-  before_action :maybe_review_expert_subjects
 
   layout 'side_menu', except: %i[new]
 

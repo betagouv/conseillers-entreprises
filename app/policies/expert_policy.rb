@@ -10,8 +10,4 @@ class ExpertPolicy < ApplicationPolicy
   def update?
     edit?
   end
-
-  def update_subjects?
-    update? && @record.can_edit_own_subjects
-  end
 end

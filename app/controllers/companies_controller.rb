@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  before_action :maybe_review_expert_subjects, only: %i[search show]
-
   def search
     @query = search_query
     @current_solicitation = get_current_solicitation

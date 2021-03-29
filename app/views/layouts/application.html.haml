@@ -11,7 +11,6 @@
       -# TODO: @wide_layout is a bit of a hack.
 
       = render 'flashes'
-      = render 'app_modal'
 
       = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts (e.g. side_menu)
 

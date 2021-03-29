@@ -21,11 +21,6 @@ class ExpertsController < ApplicationController
   end
 
   def update
-    if expert_params.include?(:experts_subjects_attributes)
-      authorize @expert, :update_subjects?
-    end
-
-    @expert.mark_subjects_reviewed!
     @expert.update(expert_params)
     case params[:update_context]&.to_sym
     when :subjects

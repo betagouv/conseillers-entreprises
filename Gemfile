@@ -35,7 +35,6 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 
 # Improving models
-gem 'audited'
 gem 'devise'
 gem 'devise-async'
 gem 'devise_invitable'

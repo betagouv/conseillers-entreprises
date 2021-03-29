@@ -99,8 +99,6 @@ GEM
       activesupport (>= 3.0.0, < 6.1)
       ruby2_keywords (>= 0.0.2, < 1.0)
     ast (2.4.1)
-    audited (4.10.0)
-      activerecord (>= 4.2, < 6.2)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
     autoprefixer-rails (10.2.0.0)
@@ -584,7 +582,6 @@ DEPENDENCIES
   activeadmin-ajax_filter
   activerecord-postgres_enum
   annotate
-  audited
   auto_strip_attributes
   awesome_print
   axe-matchers

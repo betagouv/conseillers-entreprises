@@ -145,30 +145,6 @@ RSpec.describe Expert, type: :model do
         }
       end
     end
-
-    describe 'should_review_subjects?' do
-      subject { expert.should_review_subjects? }
-
-      let(:expert) { create :expert, subjects_reviewed_at: reviewed_at, can_edit_own_subjects: true }
-
-      context 'subjects never reviewed' do
-        let(:reviewed_at) { nil }
-
-        it{ is_expected.to be_truthy }
-      end
-
-      context 'subjects reviewed long ago' do
-        let(:reviewed_at) { 10.years.ago }
-
-        it{ is_expected.to be_truthy }
-      end
-
-      context 'subjects reviewed recently' do
-        let(:reviewed_at) { 2.days.ago }
-
-        it{ is_expected.to be_falsey }
-      end
-    end
   end
 
   describe 'soft deletion' do
