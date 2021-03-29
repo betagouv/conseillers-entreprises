@@ -1,5 +1,5 @@
 var noComment = document.getElementById('no-comment')
-if (noComment) { noComment.remove() }
+if (typeof noComment !== 'undefined') { noComment.remove() }
 
 - feedback_html = render 'feedbacks/feedback', feedback: @feedback
 document.getElementById('display-feedbacks-#{@feedback.feedbackable_id}').insertAdjacentHTML('beforeend', "#{j feedback_html}");
