@@ -80,7 +80,7 @@ fr:
       user_info: Informations utilisateur
   activerecord:
     attributes:
-      antenne:
+      antenne: 
       commune:
         insee_code: Code commune
       company: 
