@@ -1,5 +1,5 @@
 var noMatch = document.getElementById('no-match')
-if (noMatch) { noMatch.remove() }
+if (noMatch != null) { noMatch.remove() }
 
 - match_html = render @match
 document.getElementById('others-experts').insertAdjacentHTML('beforeend', "#{j match_html}");
