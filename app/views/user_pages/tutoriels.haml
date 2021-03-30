@@ -1,77 +1,65 @@
 .rf-container
-  %h1.ui.header
-    = t('.title')
+  %h1.rf-mb-6w= t('.title')
 
-  .ui.divider.hidden
-
-  .ui.segments.shadow-less
-    .ui.segment.secondary
-      .ui.header
-        %h2= t('.create_acount')
-    .ui.segment
-      %h4= t('.question_account')
+  .rf-grid-row
+    .rf-col-12
+      %h2= t('.create_acount')
+      %p.rf-h5= t('.question_account')
 
       = link_to t('.download_tuto'), '/tutoriels/creation-de-compte.pdf', target: '_blank', class: 'rf-btn btn-blue', rel: 'noopener'
+  %hr.rf-my-4w
 
-  .ui.segments.shadow-less
-    .ui.segment.secondary
-      .ui.header
-        %h2= t('.find_need')
-    .ui.segment
-      %h4= t('.question_expert')
+  .rf-grid-row
+    .rf-col-12
+      %h2= t('.find_need')
+      %h3.rf-h5= t('.question_expert')
       %p= t('.methods')
       %ul
         %li
           = t('.expert_first_item')
-          %blockquote.user_pages
+          %blockquote
             .text-grey= t('.quote_first_item')
         %li
           = t('.expert_second_item')
-          %blockquote.user_pages
+          %blockquote
             .text-grey= t('.quote_second_item')
       %p
         = t('.other_cases')
-        %blockquote.user_pages
+        %blockquote
           .text-grey= t('.quote_other_cases')
 
-      %h4= t('.subjects-list')
-      .ui.accordion
+      %h3.rf-h5= t('.subjects-list')
+      %ul.rf-accordions-group
         - Theme.for_interview.each do |theme|
-          .title
-            %span.ri-arrow-right-s-fill.float-right
-            = theme
-          .content
-            %p.transition.hidden
-              %ul
-                - theme.subjects.for_interview.each do |subject|
-                  %li= subject
-      .ui.divider.hidden
+          %li
+            %section.rf-accordion
+              %p.rf-accordion__title
+                %button.rf-accordion__btn{ aria: { controls: "rf-accordion-#{theme.id}", expanded: false }, data: { controller: 'rf-accordions-management', action: 'click->rf-accordions-management#collapse' } }= theme
 
-      = link_to t('.download_guide'), '/tutoriels/Guide_entretien_Place_des_entreprises.pdf', target: '_blank', class: 'rf-btn btn-blue', rel: 'noopener'
+              .rf-collapse{ id: "rf-accordion-#{theme.id}" }
+                %ul
+                  - theme.subjects.for_interview.each do |subject|
+                    %li= subject
 
-  .ui.segments.shadow-less
-    .ui.segment.secondary
-      .ui.header
-        %h2= t('.create_diagnosis')
-    .ui.segment
-      %h4= t('.question_diagnosis')
+      = link_to t('.download_guide'), '/tutoriels/Guide_entretien_Place_des_entreprises.pdf', target: '_blank', class: 'rf-btn btn-blue rf-mt-3w', rel: 'noopener'
+      %hr.rf-my-4w
 
+  .rf-grid-row
+    .rf-col-12
+      %h2= t('.create_diagnosis')
+      %p.rf-h5= t('.question_diagnosis')
       = link_to t('.download_tuto'), '/tutoriels/analyse.pdf', target: '_blank', class: 'rf-btn btn-blue', rel: 'noopener'
+      %hr.rf-my-4w
 
-  .ui.segments.shadow-less
-    .ui.segment.secondary
-      .ui.header
-        %h2= t('.take_care_diagnosis')
-    .ui.segment
-      %h4= t('.question_take_care')
-
+  .rf-grid-row
+    .rf-col-12
+      %h2= t('.take_care_diagnosis')
+      %p.rf-h5= t('.question_take_care')
       = link_to t('.download_tuto'), '/tutoriels/prise-en-charge.pdf', target: '_blank', class: 'rf-btn btn-blue', rel: 'noopener'
+      %hr.rf-my-4w
 
-  .ui.segments.shadow-less
-    .ui.segment.secondary
-      .ui.header
-        %h2= t('.emails')
-    .ui.segment
-      %h4= t('.question_emails')
+  .rf-grid-row
+    .rf-col-12
+      %h2= t('.emails')
+      %p.rf-h5= t('.question_emails')
       %p= t('.explanation_emails')
-
