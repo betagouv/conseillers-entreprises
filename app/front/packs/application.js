@@ -21,11 +21,10 @@ import "whatwg-fetch";
 require("@rails/ujs").start();
 require("turbolinks").start();
 require('remixicon/fonts/remixicon.css')
-require('@gouvfr/all/dist/css/all')
+require('@gouvfr/dsfr/dist/css/dsfr.css')
 require('stylesheets/application.sass')
 
 require("jquery");
 
-import "@gouvfr/all/dist/js/all";
 import "javascripts/shared";
 import "javascripts/application";
