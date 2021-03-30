@@ -1,2 +1,2 @@
 element = document.getElementById('feedback-#{@feedback_id}');
-element.parentNode.removeChild(element);
+if (element != null) { element.remove() }
