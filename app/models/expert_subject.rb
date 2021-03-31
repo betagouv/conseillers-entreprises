@@ -20,9 +20,6 @@
 #
 
 class ExpertSubject < ApplicationRecord
-  audited associated_with: :expert
-  audited max_audits: 10
-
   ## Associations
   #
   belongs_to :expert, inverse_of: :experts_subjects

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class NeedsController < ApplicationController
-  before_action :maybe_review_expert_subjects
   before_action :retrieve_need, only: %i[show archive unarchive]
 
   layout 'side_menu', except: :show

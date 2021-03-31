@@ -213,6 +213,10 @@ fr:
       team_email_explanation_html: C’est sur cette adresse email que vous recevrez les notifications de besoins sur Place des Entreprises.<br/> <a href="mailto:%{email}">Contactez-nous</a> si vous souhaitez la modifier.
       team_members: Membres de l’équipe
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
+    subjects:
+      contact_us_to_change_subjects_html: Pour changer vos domaines d’intervention, <a href="mailto:%{email}">contactez-nous</a>.
+      instructions_html: En tant que référent sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention.
+      others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a>.
     subjects_fields:
       contact_us_to_change_subjects_html: Pour changer vos domaines d’intervention, <a href="mailto:%{email}">contactez-nous</a>.
       intervention_criteria_placeholder: 'Conditions d’intervention, le cas échéant. Par exemple : « uniquement les commercants », « entreprises de plus de 3 ans ». Autant que possible, soyez concis.'
@@ -774,7 +778,6 @@ fr:
     registrations:
       antenne:
         antenne_within_institution: Antenne (au sein de %{institution})
-        contact_us_for_missing_antenne_html: Si vous ne trouvez pas votre antenne, <a href="mailto:%{email}">contactez-nous</a>.
     thats_you: C’est vous !
   views:
     pagination:

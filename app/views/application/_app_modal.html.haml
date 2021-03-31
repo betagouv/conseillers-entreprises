@@ -1,6 +1,0 @@
--# Display a specific partial as part of the layout, in addition to the regular action.
-  Set @app_modal to a hash with :partial and :locals anywhere in the controller.
-  haml-lint:disable InstanceVariables
-- if @app_modal.present?
-  .ui.modal
-    = render @app_modal[:partial], **@app_modal[:locals]

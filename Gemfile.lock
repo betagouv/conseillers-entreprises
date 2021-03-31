@@ -99,8 +99,6 @@ GEM
       activesupport (>= 3.0.0, < 6.1)
       ruby2_keywords (>= 0.0.2, < 1.0)
     ast (2.4.1)
-    audited (4.10.0)
-      activerecord (>= 4.2, < 6.2)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
     autoprefixer-rails (10.2.0.0)
@@ -317,7 +315,9 @@ GEM
     metamagic (3.1.7)
       rails (>= 3.0.0)
     method_source (1.0.0)
-    mimemagic (0.3.5)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.2)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
@@ -584,7 +584,6 @@ DEPENDENCIES
   activeadmin-ajax_filter
   activerecord-postgres_enum
   annotate
-  audited
   auto_strip_attributes
   awesome_print
   axe-matchers

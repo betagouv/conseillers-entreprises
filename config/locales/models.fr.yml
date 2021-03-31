@@ -81,11 +81,6 @@ fr:
   activerecord:
     attributes:
       antenne: 
-      audited: 
-      audited/audit/actions:
-        create: création
-        destroy: suppression
-        update: mise à jour
       commune:
         insee_code: Code commune
       company: 
@@ -116,7 +111,6 @@ fr:
         is_global_zone: Global
         reminders_notes: Suivi des relances
         role: Fonction
-        subjects_reviewed_at: Revue des compétences
         users:
           one: Membre
           other: Membres
@@ -256,7 +250,6 @@ fr:
         support_contact: Contact support
       user:
         can_view_diagnoses_tab: Peut voir l’onglet analyses
-        can_view_review_subjects_flash: Rappel de la revue des compétences
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
@@ -311,9 +304,6 @@ fr:
       antenne:
         one: Antenne
         other: Antennes
-      audited/audit:
-        one: Évènement
-        other: Journal
       commune:
         one: Commune
         other: Communes
@@ -398,7 +388,6 @@ fr:
       one: Référent
       other: Référents
     archived_at: Date d’archivage
-    auditable_type: Évènement
     badges:
       one: Tag
       other: Tags
