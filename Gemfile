@@ -74,6 +74,9 @@ gem 'metamagic'
 gem 'wannabe_bool'
 gem 'active_link_to'
 
+# Security
+gem 'rack-attack'
+
 group :test do
   gem 'capybara'
   gem 'rails-controller-testing'
