@@ -27,6 +27,11 @@ Rails.application.configure do
     'Cache-Control' => 'public, s-maxage=31536000, max-age=15552000'
   }
 
+  # Recommendation of https://www.zaproxy.org/docs/alerts/10015/
+  config.action_dispatch.default_headers = {
+    'Cache-Control' => 'no-cache',
+  }
+
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(harmony: true)
   # Compress CSS using a preprocessor.
