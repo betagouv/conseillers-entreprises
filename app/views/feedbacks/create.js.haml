@@ -1,5 +1,5 @@
 var noComment = document.getElementById('no-comment')
-if (noComment != null) { noComment.remove() }
+if (noComment != null) { noComment.parentNode.removeChild(noComment) }
 
 - feedback_html = render 'feedbacks/feedback', feedback: @feedback
 document.getElementById('display-feedbacks-#{@feedback.feedbackable_id}').insertAdjacentHTML('beforeend', "#{j feedback_html}");
@@ -10,5 +10,5 @@ document.querySelector('.feedback-form-#{@feedback.feedbackable_id}').reset()
 var form = document.getElementsByClassName('from_alert_box');
 if (form.length > 0) {
 form[0].insertAdjacentHTML('beforebegin', "#{j I18n.t('feedbacks.form.thank_you_html').html_safe}");
-form[0].remove();
+form[0].parentNode.removeChild(form[0]);
 }
