@@ -1,7 +1,9 @@
 # See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
 #
+# Incompatibilité avec balise noindex ? https://developers.google.com/search/docs/advanced/crawling/remove-information?visit_id=637529589118073605-2322335355&rd=1#if-the-information-still-exists-on-the-web
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
-# Disallow: /
+# User-agent: AdsBot-Google
+# Disallow: /e/
 
 Sitemap: https://place-des-entreprises.beta.gouv.fr/sitemap.xml

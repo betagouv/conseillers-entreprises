@@ -10,10 +10,10 @@ fr:
       deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Bretagne.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
       join_us: Vous souhaitez rejoindre le partenariat ?
       long_title: Place des Entreprises, comment ça marche ?
+      meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
+      meta_title: Comment ça marche ?
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
-      meta_title: Comment ça marche ?
-      meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
     mentions_d_information:
       title: Mentions d'information
     mentions_legales:
@@ -636,8 +636,8 @@ fr:
     out_of_deployed_regions: Demandes hors régions déployées
     public:
       index:
-        title: Statistiques d’utilisation
         meta_description: Le service public Place des Entreprises permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
+        title: Statistiques d’utilisation
     series:
       advisors:
         title: Conseillers publics

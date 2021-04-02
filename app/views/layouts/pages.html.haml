@@ -4,6 +4,8 @@
     = metamagic site: t('app_name'), title: %i[title site], separator: ' | '
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     = canonical_tags
+    - if in_iframe?
+      %meta{ name: 'robots', content: 'noindex' }
     = csrf_meta_tags
     = stylesheet_link_tag 'pages'
     = stylesheet_pack_tag 'pages', media: 'all'
