@@ -22,9 +22,16 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
+  # Best practice headers https://owasp.org/www-project-secure-headers/
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
   config.public_file_server.headers = {
-    'Cache-Control' => 'public, s-maxage=31536000, max-age=15552000'
+    'Cache-Control' => 'public, s-maxage=31536000, max-age=15552000',
+    'X-Content-Type-Options' => 'nosniff'
+  }
+
+  # Recommendation of https://www.zaproxy.org/docs/alerts/10015/
+  config.action_dispatch.default_headers = {
+    'Cache-Control' => 'no-cache',
   }
 
   # Compress JavaScripts and CSS.
