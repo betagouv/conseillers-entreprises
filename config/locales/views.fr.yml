@@ -12,6 +12,8 @@ fr:
       long_title: Place des Entreprises, comment ça marche ?
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
+      meta_title: Comment ça marche ?
+      meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
     mentions_d_information:
       title: Mentions d'information
     mentions_legales:
@@ -274,8 +276,8 @@ fr:
       answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
       how-it-works: Comment ça marche
       meta:
-        description: Financement de projets, difficultés financières, cession reprise, formation, recrutement… Service public rapide et gratuit pour accéder au bon conseiller.
-        title: Place des Entreprises
+        description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières...'
+        title: Place des Entreprises / Service public
       question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
     index_institutions:
       more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
@@ -635,6 +637,7 @@ fr:
     public:
       index:
         title: Statistiques d’utilisation
+        meta_description: Le service public Place des Entreprises permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
     series:
       advisors:
         title: Conseillers publics
