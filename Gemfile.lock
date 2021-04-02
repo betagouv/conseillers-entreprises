@@ -353,6 +353,8 @@ GEM
       activesupport (>= 3.0.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-attack (6.5.0)
+      rack (>= 1.0, < 3)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -627,6 +629,7 @@ DEPENDENCIES
   premailer-rails
   puma
   pundit
+  rack-attack
   rails
   rails-controller-testing
   rails-erd!
