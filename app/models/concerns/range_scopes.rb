@@ -3,7 +3,7 @@ module RangeScopes
 
   included do
     scope :created_between, -> (start_date, end_date) {
-      where arel_table[:created_at].in(start_date.at_beginning_of_day..end_date.at_end_of_day)
+      where(created_at: start_date.at_beginning_of_day..end_date.at_end_of_day)
     }
   end
 end
