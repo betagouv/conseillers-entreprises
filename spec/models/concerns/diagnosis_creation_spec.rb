@@ -88,7 +88,7 @@ RSpec.describe DiagnosisCreation do
 
     context 'all is well' do
       let(:diagnosis) { create :diagnosis, solicitation: solicitation, advisor: user }
-      let(:prepare_needs) {}
+      let(:prepare_needs) { [] }
 
       it do
         expect(solicitation.diagnosis).not_to be_nil
@@ -98,7 +98,7 @@ RSpec.describe DiagnosisCreation do
 
     context 'creation fails' do
       let(:diagnosis) { Diagnosis.create(facility: nil, advisor: user) }
-      let(:prepare_needs) {}
+      let(:prepare_needs) { [] }
 
       it do
         expect(solicitation.diagnosis).to be_nil

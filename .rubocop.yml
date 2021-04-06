@@ -1349,14 +1349,14 @@ Style/YodaCondition:
 Style/ZeroLengthPredicate:
   Enabled: false
 
-RailsI18n:
+I18n/RailsI18n:
   Enabled: true
   Exclude:
     - 'lib/tasks/*.rake'
     - 'spec/**/*'
 
-RailsI18n/DecorateStringFormattingUsingInterpolation:
+I18n/RailsI18n/DecorateStringFormattingUsingInterpolation:
   Enabled: false
 
-GetText:
+I18n/GetText:
   Enabled: false
