@@ -586,6 +586,10 @@ fr:
       needs: Par délai
   reminders_actions:
     processed_need: Besoin de l‘entreprise %{company} traité
+  shared:
+    breadcrumb:
+      see_breadcrumb: Voir le fil d’Ariane
+      you_are_here: 'Vous êtes ici :'
   solicitations:
     header:
       canceled: annulées
