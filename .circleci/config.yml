@@ -36,7 +36,7 @@ yarn_save_cache: &yarn_save_cache
 bundle_install: &bundle_install
   run:
     name: Install Ruby Dependencies
-    command: bundle install --path ~/vendor/bundle
+    command: bundle install
 
 yarn_install: &yarn_install
   run:

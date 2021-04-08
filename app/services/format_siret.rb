@@ -33,7 +33,7 @@ class FormatSiret
       sum += s[k].to_i # s1
       tmp = s[k + 1].to_i * 2
       if tmp > 9
-        tmp = tmp.to_s.split(//).sum(&:to_i)
+        tmp = tmp.to_s.chars.sum(&:to_i)
       end
       sum += tmp
     end
