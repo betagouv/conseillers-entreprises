@@ -108,7 +108,7 @@ module Stats
     private
 
     def grouped_by_month(query)
-      query.group_by_month(date_group_attribute)
+      query.group_by_month(date_group_attribute, time_zone: "Paris")
     end
 
     def grouped_by_category(query)
