@@ -92,11 +92,11 @@ hr.separation
     font-weight: bold
   textarea
     margin: 1rem 0
-  .rf-input
+  .fr-input
     background-color: #fff
     box-shadow: inset 0 -2px 0 0 $grey-light
 
-\:root:not([data-rf-theme="dark"]) .rf-tile
+\:root:not([data-fr-theme="dark"]) .fr-tile
   box-shadow: inset 0 -0.25rem 0 0 $blue
   background-color: var(--g100)
   --color-hover: var(--g200)
@@ -105,7 +105,7 @@ hr.separation
 .company-need
   .left
     text-align: left
-  .rf-tile__body
+  .fr-tile__body
     flex-direction: row
     justify-content: space-between
     align-items: center
@@ -115,15 +115,15 @@ hr.separation
     font-weight: bold
     font-style: italic
   @media (max-width: $bp-sm)
-    .rf-tile__body
+    .fr-tile__body
       flex-direction: column
     .right
       margin-top: 1rem
 
-.rf-pagination
+.fr-pagination
   display: flex
   justify-content: center
-  .rf-pagination__item--active
+  .fr-pagination__item--active
     background-color: $blue
-  .rf-pagination__link
+  .fr-pagination__link
     z-index: 1

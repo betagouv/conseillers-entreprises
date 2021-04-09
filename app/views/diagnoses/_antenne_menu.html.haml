@@ -1,11 +1,11 @@
-.rf-sidemenu__title= t('diagnoses.menu.for_recipient', recipient: recipient)
-%ul.rf-sidemenu__list
-  %li.rf-sidemenu__item
-    = active_link_to(t('diagnoses.collections.completed'), index_antenne_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
-  %li.rf-sidemenu__item
-    = active_link_to(t('diagnoses.collections.all'), archives_antenne_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
+.fr-sidemenu__title= t('diagnoses.menu.for_recipient', recipient: recipient)
+%ul.fr-sidemenu__list
+  %li.fr-sidemenu__item
+    = active_link_to(t('diagnoses.collections.completed'), index_antenne_diagnoses_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
+  %li.fr-sidemenu__item
+    = active_link_to(t('diagnoses.collections.all'), archives_antenne_diagnoses_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
 
-%ul.rf-sidemenu__list
-  .rf-sidemenu__title= t('.for_other_header', recipient: recipient)
-  %li.rf-sidemenu__item
-    = link_to t('.browse_active_diagnoses'), diagnoses_path, class: 'rf-sidemenu__link'
+%ul.fr-sidemenu__list
+  .fr-sidemenu__title= t('.for_other_header', recipient: recipient)
+  %li.fr-sidemenu__item
+    = link_to t('.browse_active_diagnoses'), diagnoses_path, class: 'fr-sidemenu__link'

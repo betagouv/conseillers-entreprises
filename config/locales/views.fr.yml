@@ -43,10 +43,12 @@ fr:
       account: Compte
       admin: Administration
       annuaire: Annuaire
-      aria_menu: Menu principal
       badges: Tags
+      close: Fermer
       diagnoses: Analyses
       invite: Inviter des utilisateurs
+      main_menu: Menu principal
+      menu: Menu
       partner_tools: Outils partenaires
       profile: Profil
       root_path_title: Accueil Place des Entreprises
@@ -241,7 +243,7 @@ fr:
       solicitation:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'
       submit: Commenter
-      thank_you_html: "<p class='rf-m-0 rf-ml-16v'><b>Merci, votre commentaire a été publié.</b></p>"
+      thank_you_html: "<p class='fr-m-0 fr-ml-16v'><b>Merci, votre commentaire a été publié.</b></p>"
       title: 'Nouveau commentaire :'
   helpers:
     page_entries_info:

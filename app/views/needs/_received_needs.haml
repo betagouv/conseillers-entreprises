@@ -1,7 +1,7 @@
 - diagnoses = Diagnosis.where(needs: received_needs).distinct.order(happened_on: :desc)
 = paginate received_needs
 
-.rf-mb-6w
+.fr-mb-6w
   = render partial: 'needs/need', collection: received_needs, cached: true
 
 = paginate received_needs

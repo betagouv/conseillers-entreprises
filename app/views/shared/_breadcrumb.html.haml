@@ -1,11 +1,11 @@
-%nav.rf-breadcrumb{ 'aria-label': t('.you_are_here'), role: 'navigation' }
-  %button.rf-breadcrumb__button{ 'aria-controls': 'breadcrumb-189', 'aria-expanded': 'false' }
+%nav.fr-breadcrumb{ 'aria-label': t('.you_are_here'), role: 'navigation' }
+  %button.fr-breadcrumb__button{ 'aria-controls': 'breadcrumb-189', 'aria-expanded': 'false' }
     = t('.see_breadcrumb')
-  .rf-collapse#breadcrumb-189
-    %ol.rf-breadcrumb__list
+  .fr-collapse#breadcrumb-189
+    %ol.fr-breadcrumb__list
       - pages.each do |page|
         %li
-          = link_to page[:title], page[:path], class: 'rf-breadcrumb__link'
+          = link_to page[:title], page[:path], class: 'fr-breadcrumb__link'
       %li
-        %a.rf-breadcrumb__link{ 'aria-current': 'page' }
+        %a.fr-breadcrumb__link{ 'aria-current': 'page' }
           = current_page

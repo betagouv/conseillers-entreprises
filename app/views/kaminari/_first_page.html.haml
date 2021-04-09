@@ -1,8 +1,8 @@
 - if current_page.first?
-  %li.rf-pagination__item--first.rf-pagination__item.rf-pagination__item.rf-pagination__item--disabled
+  %li.fr-pagination__item--first.fr-pagination__item.fr-pagination__item.fr-pagination__item--disabled
 - else
-  %li.rf-pagination__item--first.rf-pagination__item.rf-pagination__item
-    = link_to url, title: t('views.pagination.first'), class: 'rf-pagination__link',
+  %li.fr-pagination__item--first.fr-pagination__item.fr-pagination__item
+    = link_to url, title: t('views.pagination.first'), class: 'fr-pagination__link',
       "aria-label": t('views.pagination.first'), remote: remote do
       %span
 

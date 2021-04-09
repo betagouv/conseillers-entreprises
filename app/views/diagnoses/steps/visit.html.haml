@@ -1,6 +1,6 @@
 - meta title: Diagnosis.human_attribute_value(:step, :visit)
 
-.rf-container
+.fr-container
   = render 'header', diagnosis: @diagnosis, current_page_step: 3
 
   #visit-app
@@ -50,8 +50,8 @@
               = render 'insee_code_field', form: facility_form, required: false
 
       .bottom_actions.flex
-        = link_to needs_diagnosis_path, class: 'rf-btn rf-btn--icon-left no-margin' do
-          %span.ri-arrow-left-line.rf-mr-1w
+        = link_to needs_diagnosis_path, class: 'fr-btn fr-btn--icon-left no-margin' do
+          %span.ri-arrow-left-line.fr-mr-1w
           = t('previous_step')
 
         = render 'next_step', diagnosis_form: diagnosis_form

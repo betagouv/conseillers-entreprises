@@ -1,28 +1,28 @@
-%footer.rf-footer#footer{ :role => "contentinfo" }
-  .rf-container
-    .rf-footer__body
-      .rf-footer__brand
-        = image_tag 'Republique_Francaise_RVB.png', alt: t('logos.republique_francaise'), class: 'rf-logo', style: 'width: 170px'
-        = link_to 'https://www.gouvernement.fr/france-relance', class: 'rf-footer__brand-link' do
-          = image_tag 'logo-france-relance.png', alt: t('logos.france_relance'), class: 'rf-footer__logo', style: 'width: 120px'
-      .rf-footer__content
-        %p.rf-footer__content-desc
+%footer.fr-footer#footer{ :role => "contentinfo" }
+  .fr-container
+    .fr-footer__body
+      .fr-footer__brand
+        = image_tag 'Republique_Francaise_RVB.png', alt: t('logos.republique_francaise'), class: 'fr-logo', style: 'width: 170px'
+        = link_to 'https://www.gouvernement.fr/france-relance', class: 'fr-footer__brand-link' do
+          = image_tag 'logo-france-relance.png', alt: t('logos.france_relance'), class: 'fr-footer__logo', style: 'width: 120px'
+      .fr-footer__content
+        %p.fr-footer__content-desc
           = t('.service_description')
-        %ul.rf-footer__content-list
-          %li.rf-footer__content-item
-            = mail_to ENV['APPLICATION_EMAIL'], 'Contactez-nous', target: :_blank, class: 'rf-footer__content-link'
-          %li.rf-footer__content-item
-            = link_to t('pages.footer.service_presentation'), '/book.pdf', 'aria-label': t('pages.footer.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'rf-footer__content-link'
-          %li.rf-footer__content-item
-            = link_to t('usage_stats'), public_index_path, class: 'rf-footer__content-link'
+        %ul.fr-footer__content-list
+          %li.fr-footer__content-item
+            = mail_to ENV['APPLICATION_EMAIL'], 'Contactez-nous', target: :_blank, class: 'fr-footer__content-link'
+          %li.fr-footer__content-item
+            = link_to t('pages.footer.service_presentation'), '/book.pdf', 'aria-label': t('pages.footer.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+          %li.fr-footer__content-item
+            = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
           - if policy(Stats::All).team?
-            %li.rf-footer__content-item
-              = link_to t('usage_team_stats'), team_index_path, class: 'rf-footer__content-link'
-    .rf-footer__bottom
-      %ul.rf-footer__bottom-list
-        %li.rf-footer__bottom-item
-          = link_to t('cgu'), cgu_path, class: 'rf-footer__bottom-link'
-        %li.rf-footer__bottom-item
-          = link_to t('about.mentions_d_information.title'), mentions_d_information_path, class: 'rf-footer__bottom-link'
-        %li.rf-footer__bottom-item
-          = link_to t('about.mentions_legales.title'), mentions_legales_path, class: 'rf-footer__bottom-link'
+            %li.fr-footer__content-item
+              = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__content-link'
+    .fr-footer__bottom
+      %ul.fr-footer__bottom-list
+        %li.fr-footer__bottom-item
+          = link_to t('cgu'), cgu_path, class: 'fr-footer__bottom-link'
+        %li.fr-footer__bottom-item
+          = link_to t('about.mentions_d_information.title'), mentions_d_information_path, class: 'fr-footer__bottom-link'
+        %li.fr-footer__bottom-item
+          = link_to t('about.mentions_legales.title'), mentions_legales_path, class: 'fr-footer__bottom-link'

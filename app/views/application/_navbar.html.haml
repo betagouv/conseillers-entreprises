@@ -1,92 +1,80 @@
-%header.rf-header{ :role => "banner" }
-  .rf-container
-    - if user_signed_in?
-      .rf-header__body.rf-header__body--hidden
-        .rf-header__brand
-        .rf-header__navbar
-          .rf-service
-            = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
-              = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('logos.pde')
-        .rf-header__tools
-          .rf-shortcuts
-      %nav.rf-nav#header-navigation{ "aria-label": t(".aria_menu"), role: "navigation" }
-        %ul.rf-nav__list
-          %li.rf-nav__item
-            = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
-              = image_tag 'place-des-entreprises-logo.png', style: 'width: 56px', alt: t('logos.pde')
-          - if current_user.experts.present?
-            = active_link_to needs_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-              %span.ri-inbox-fill.rf-mr-1w
-              = t('needs.index.title')
-              - cache([current_user, Need.all]) do
-                - if current_user.needs_quo.exists?
-                  .ui.orange.empty.circular.horizontal.label.rf-ml-1w
-          - if policy(Diagnosis).index?
-            = active_link_to diagnoses_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-              %span.ri-list-check.rf-mr-1w
-              = t('.diagnoses')
-          - if current_user.is_admin?
-            = active_link_to solicitations_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-              %span.ri-message-2-line.rf-mr-1w
-              = t('solicitations.index.title')
-            = active_link_to reminders_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-              %span.ri-feedback-line.rf-mr-1w
-              = t('reminders.index.title')
-        %ul.rf-nav__list
-          = active_link_to tutoriels_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-nav__item', class_active: 'rf-nav__item--active' do
-            %span.ri-tools-line.rf-mr-1w
-            = t('user_pages.tutoriels.title')
-          %li.rf-nav__item
-            %button.rf-btn{ "aria-controls" => "rf-nav-item-3", "aria-expanded" => "false", data: { controller: 'rf-dropdown', action: 'click->rf-dropdown#collapse' } }
-              = t('.account')
-            .rf-menu.rf-collapse#rf-nav-item-3
-              %ul.rf-menu__list
-                - if current_user.is_admin?
-                  = active_link_to admin_root_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %span.ri-auction-line.rf-mr-1w
-                    = t('.admin')
-                  = active_link_to institutions_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %span.ri-government-line.rf-mr-1w
-                    = t('.annuaire')
-                  = active_link_to badges_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %span.ri-price-tag-3-line.rf-mr-1w
-                    = t('.badges')
-                  = active_link_to inserts_partner_tools_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %span.ri-pencil-ruler-2-line.rf-mr-1w
-                    = t('.partner_tools')
-                  = active_link_to new_user_invitation_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                    %span.ri-user-add-line.rf-mr-1w
-                    = t('.invite')
-                = active_link_to user_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                  %span.ri-user-line.rf-mr-1w
-                  = t('.profile')
-                = active_link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-menu__item', class_active: 'rf-menu__item--active' do
-                  %span.ri-logout-box-r-line.rf-mr-1w
-                  = t('.sign_out')
+- if user_signed_in?
+  %header.fr-header{ role: "banner" }
+    .fr-header__body.fr-header--hidden
+      .fr-container
+        .fr-header__body-row
+          .fr-header__brand.fr-enlarge-link
+            .fr-header__brand-top
+              .fr-header__logo
+                %p.fr-logo
+                  République
+                  %br/
+                  française
+              .fr-header__operator
+                = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
+                  = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('logos.pde')
+              .fr-header__navbar
+                %button.fr-btn--menu.fr-btn#button-menu{ "aria-controls": "modal-header-menu", "aria-haspopup": "menu", title: t(".menu"), data: { "fr-opened": false, controller: 'fr-header', action: 'click->fr-header#open' } }
+                  = t(".menu")
+          .fr-header__tools
+            .fr-header__tools-links
+              %ul.fr-links-group
+    .fr-header__menu.fr-modal#modal-header-menu{ "aria-labelledby": "button-menu" }
+      .fr-container
+        %button.fr-link--close.fr-link{ "aria-controls": "modal-header-menu", data: { controller: 'fr-header', action: 'click->fr-header#close' } }
+          = t(".close")
+        .fr-header__menu-links
+        %nav.fr-nav{ "aria-label": t(".main_menu"), role: "navigation" }
+          %ul.fr-nav__list
+            - if current_user.experts.present?
+              = active_link_to needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+                %span.ri-inbox-fill.fr-mr-1w
+                = t('needs.index.title')
+                - cache([current_user, Need.all]) do
+                  - if current_user.needs_quo.exists?
+                    .ui.orange.empty.circular.horizontal.label.fr-ml-1w
+            - if policy(Diagnosis).index?
+              = active_link_to diagnoses_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+                %span.ri-list-check.fr-mr-1w
+                = t('.diagnoses')
+            - if current_user.is_admin?
+              = active_link_to solicitations_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+                %span.ri-message-2-line.fr-mr-1w
+                = t('solicitations.index.title')
+              = active_link_to reminders_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+                %span.ri-feedback-line.fr-mr-1w
+                = t('reminders.index.title')
+          %ul.fr-nav__list
+            = active_link_to tutoriels_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+              %span.ri-tools-line.fr-mr-1w
+              = t('user_pages.tutoriels.title')
+            %li.fr-nav__item.fr-nav__item--align-right
+              %button.fr-nav__btn{ "aria-controls": "fr-nav-item-account", "aria-expanded": "false", data: { controller: 'fr-dropdown', action: 'click->fr-dropdown#collapse' } }
+                = t('.account')
+              .fr-menu.fr-collapse#fr-nav-item-account
+                %ul.fr-menu__list
+                  - if current_user.is_admin?
+                    = active_link_to admin_root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
+                      %span.ri-auction-line.fr-mr-1w
+                      = t('.admin')
+                    = active_link_to institutions_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
+                      %span.ri-government-line.fr-mr-1w
+                      = t('.annuaire')
+                    = active_link_to badges_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
+                      %span.ri-price-tag-3-line.fr-mr-1w
+                      = t('.badges')
+                    = active_link_to inserts_partner_tools_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
+                      %span.ri-pencil-ruler-2-line.fr-mr-1w
+                      = t('.partner_tools')
+                    = active_link_to new_user_invitation_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
+                      %span.ri-user-add-line.fr-mr-1w
+                      = t('.invite')
+                  = active_link_to user_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
+                    %span.ri-user-line.fr-mr-1w
+                    = t('.profile')
+                  = active_link_to destroy_user_session_path, method: :delete, rel: :nofollow, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
+                    %span.ri-logout-box-r-line.fr-mr-1w
+                    = t('.sign_out')
 
-    - else
-      .rf-header__body.rf-header__body--displayed
-        .rf-header__brand
-          = link_to root_path, class: 'rf-logo', title: t('.root_path_title') do
-            %span.rf-logo__title
-              République
-              %br/
-              française
-        .rf-header__navbar
-          .rf-service
-            = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
-              = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('logos.pde')
-        .rf-header__tools
-          .rf-shortcuts
-            %ul.rf-shortcuts__list
-              %li.rf-shortcuts__item
-                = active_link_to comment_ca_marche_path, class: 'rf-link' do
-                  = t('about.comment_ca_marche.title')
-              %li.rf-shortcuts__item
-                = link_to root_path, class: 'rf-link' do
-                  = t('company_contact')
-              = active_link_to tutoriels_path, class: 'rf-link', wrap_tag: :li, wrap_class: 'rf-shortcuts__item', class_active: 'rf-shortcuts__item--active' do
-                %i.ri-tools-line.rf-mr-1w
-                = t('user_pages.tutoriels.title')
-              = active_link_to new_user_session_path, class: 'rf-link rf-fi-account-line rf-link--icon-left', wrap_tag: :li, wrap_class: 'rf-shortcuts__item', class_active: 'rf-shortcuts__item--active' do
-                = t('sign_in')
+- else
+  = render 'navbar_signin'

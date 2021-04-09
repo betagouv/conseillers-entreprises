@@ -1,38 +1,38 @@
 - meta title: t('.title', company: @need.company.name)
 
-.rf-container
+.fr-container
   = render 'shared/breadcrumb', pages: [{ title: t('.all_needs'), path: needs_path }], current_page: "#{@need.visitee} - #{@need.company.name}"
 
-.rf-container.rf-pb-4w
-  .rf-grid-row
-    .rf-col-md-8
-      .rf-container.rf-mt-xs-4w
-        %h1.rf-h2= @need.subject
+.fr-container.fr-pb-4w
+  .fr-grid-row
+    .fr-col-md-8
+      .fr-container.fr-mt-xs-4w
+        %h1.fr-h2= @need.subject
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = simple_format(auto_link(@need.diagnosis.content.presence || @need.solicitation&.description), class: 'content')
 
-    .rf-col-md-4.order-minus-one.bp-sm
-      .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle.rf-mb-2w
-        .rf-container.rf-p-0
-          .rf-grid-row
-            .rf-col-lg-2.rf-grid-row--center.picto-person-block
+    .fr-col-md-4.order-minus-one.bp-sm
+      .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle.fr-mb-2w
+        .fr-container.fr-p-0
+          .fr-grid-row
+            .fr-col-lg-2.fr-grid-row--center.picto-person-block
               %span.ri-map-pin-user-line
-            .rf-col-lg-10
+            .fr-col-lg-10
               = person_block(@need.visitee, prefix: t('.person_company_contact'), role: nil)
-      .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle.rf-mb-2w
-        .rf-container.rf-p-0
-          .rf-grid-row
-            .rf-col-lg-2.rf-grid-row--center.picto-person-block
+      .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle.fr-mb-2w
+        .fr-container.fr-p-0
+          .fr-grid-row
+            .fr-col-lg-2.fr-grid-row--center.picto-person-block
               %span.ri-building-4-line
-            .rf-col-lg-10
+            .fr-col-lg-10
               = render 'companies/facility_infos', facility: @need.facility, need: @need
-      .rf-grid-row.rf-grid-row--gutter.rf-grid-row--middle
-        .rf-container.rf-p-0
-          .rf-grid-row
-            .rf-col-lg-2.rf-grid-row--center.picto-person-block
+      .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle
+        .fr-container.fr-p-0
+          .fr-grid-row
+            .fr-col-lg-2.fr-grid-row--center.picto-person-block
               %span.ri-mail-send-line
-            .rf-col-lg-10.infos-transmitted-by.rf-pl-1v
+            .fr-col-lg-10.infos-transmitted-by.fr-pl-1v
               %p.blue.title= t('.transmitted_by')
               %p
                 - if @need.advisor.present?
@@ -48,21 +48,21 @@
     = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
 .lighter-blue-bg
-  .rf-container.rf-p-2w#others-experts
-    %h2.rf-h3.rf-my-4w= t('.others_experts')
+  .fr-container.fr-p-2w#others-experts
+    %h2.fr-h3.fr-my-4w= t('.others_experts')
     - if @others_matches.present?
       = render @others_matches
     - else
       %p#no-match= t('.no_match')
 
 .lighter-blue-bg
-  .rf-container
+  .fr-container
     = render 'additional_experts', need: @need
 
-.lighter-blue-bg.rf-pb-6w
-  .rf-container.rf-p-2w
-    .rf-my-4w.feedbacks-title
-      %h2.rf-h3= t('.comments')
+.lighter-blue-bg.fr-pb-6w
+  .fr-container.fr-p-2w
+    .fr-my-4w.feedbacks-title
+      %h2.fr-h3= t('.comments')
       %p= t('.warning_comments')
 
     %div{ id: "display-feedbacks-#{@need.id}" }

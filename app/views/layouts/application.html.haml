@@ -1,5 +1,5 @@
 !!!
-%html{ "data-rf-reset" => "", :lang => "fr" }
+%html{ "data-fr-reset" => "", :lang => "fr" }
   = render 'head'
 
   %body
@@ -7,7 +7,7 @@
     = render 'environment_ribbon'
     = render 'user_impersonate'
 
-    %main.rf-py-6w{ class: @wide_layout ? 'wide-container' : '' }
+    %main.fr-py-6w{ class: @wide_layout ? 'wide-container' : '' }
       -# TODO: @wide_layout is a bit of a hack.
 
       = render 'flashes'

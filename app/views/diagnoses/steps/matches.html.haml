@@ -1,6 +1,6 @@
 - meta title: Diagnosis.human_attribute_value(:step, :matches)
 
-.rf-container
+.fr-container
   = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
   #matches-app
@@ -43,12 +43,12 @@
             %p= t('.before_sending_emails_2')
 
       .bottom_actions.flex
-        = link_to visit_diagnosis_path(@diagnosis), class: 'rf-btn rf-btn--icon-left no-margin' do
-          %span.ri-arrow-left-line.rf-mr-1w
+        = link_to visit_diagnosis_path(@diagnosis), class: 'fr-btn fr-btn--icon-left no-margin' do
+          %span.ri-arrow-left-line.fr-mr-1w
           = t('previous_step')
 
         - button_classes = []
         - if @diagnosis.visitee.blank?
           - button_classes << 'disabled'
-        %button.rf-btn.btn-green#next-step-button{ class: button_classes }
+        %button.fr-btn.btn-green#next-step-button{ class: button_classes }
           = t('.notify_matches')

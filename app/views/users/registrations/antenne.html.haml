@@ -1,13 +1,13 @@
-%h2.rf-h5= t('.antenne_within_institution', institution: @user.institution.name)
-.rf-highlight.rf-mb-6w
+%h2.fr-h5= t('.antenne_within_institution', institution: @user.institution.name)
+.fr-highlight.fr-mb-6w
   = @user.antenne.name
 
-%h2.rf-h5= t('attributes.advisors.other')
-.rf-highlight.rf-mb-6w
-  %ul.list-unstyled.rf-p-0
+%h2.fr-h5= t('attributes.advisors.other')
+.fr-highlight.fr-mb-6w
+  %ul.list-unstyled.fr-p-0
     - @user.antenne.advisors.not_deleted.each do |advisor|
-      %li.rf-mb-1v
-        %span.rf-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{advisor.id}" }
+      %li.fr-mb-1v
+        %span.fr-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{advisor.id}" }
           - if advisor == @user
             %span.ri-user-fill.blue{ title: t('users.thats_you') }
           - else
@@ -16,16 +16,16 @@
         .hidden{ id: "tooltip-case-#{advisor.id}" }
           = person_block(advisor)
 
-%h2.rf-h5= t('attributes.teams.other')
-.rf-highlight
-  %ul.list-unstyled.rf-p-0
+%h2.fr-h5= t('attributes.teams.other')
+.fr-highlight
+  %ul.list-unstyled.fr-p-0
     - @user.antenne.experts.not_deleted.teams.each do |team|
       - members = team.users.not_deleted
-      %li.rf-mb-1v
+      %li.fr-mb-1v
         - if @user.in?(members)
           %span.blue.ri-team-fill
         - else
           %span.ri-team-fill
         = team.full_name
-        %p.rf-mb-0
+        %p.fr-mb-0
           = members.pluck(:full_name).to_sentence

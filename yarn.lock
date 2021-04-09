@@ -872,10 +872,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@gouvfr/dsfr@^1.0.0-rc1":
-  version "1.0.0-rc1"
-  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.0.0-rc1.tgz#5c4f201620426f60e35904b9d91fd3003c8f8000"
-  integrity sha512-vV53WpTk/sPsncJGalurW1FARD3PJkCDfQvGhG5Sev7iyAitgc9ThTb7l2erTOCMvZoLc83te/PAuaHWHMLxFA==
+"@gouvfr/dsfr@^1.0.0-rc1.0":
+  version "1.0.0-rc1.0"
+  resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.0.0-rc1.0.tgz#a7d0f8e047322f0b63371d9e35ffcfc29c6bb85d"
+  integrity sha512-mXfun0FzqeSgfyti6SsdPQHSpNsQBOJNkzZtvoN8KfaUGP3asupaMXe2CbRgrkV3ogqM0n/vToWjYjLzBwPxuQ==
 
 "@npmcli/move-file@^1.0.1":
   version "1.1.2"
