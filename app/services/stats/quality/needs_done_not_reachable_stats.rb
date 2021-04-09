@@ -23,18 +23,18 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      @needs_not_reachable ||= not_reachable(query)
-      @needs_other_status ||= other_status(query)
+      @needs_not_reachable = []
+      @needs_other_status = []
+
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        not_reachable_query = month_query.where(status: :done_not_reachable)
+        other_status_query = month_query.where.not(status: :done_not_reachable)
+        @needs_not_reachable.push(not_reachable_query.count)
+        @needs_other_status.push(other_status_query.count)
+      end
 
       as_series(@needs_not_reachable, @needs_other_status)
-    end
-
-    def not_reachable(query)
-      query.where(status: :done_not_reachable).group_by_month(&:created_at).map { |_, v| v.size }
-    end
-
-    def other_status(query)
-      query.where.not(status: :done_not_reachable).group_by_month(&:created_at).map { |_, v| v.size }
     end
 
     def count

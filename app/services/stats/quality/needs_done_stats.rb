@@ -23,36 +23,36 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      @needs_with_help ||= with_help(query)
-      @needs_without_help ||= without_help(query)
+      @needs_done = []
+      @needs_not_done = []
 
-      as_series(@needs_with_help, @needs_without_help)
-    end
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        needs_done_query = month_query.where(status: :done)
+        needs_not_done_query = month_query.where.not(status: :done)
+        @needs_done.push(needs_done_query.count)
+        @needs_not_done.push(needs_not_done_query.count)
+      end
 
-    def with_help(query)
-      query.where(status: :done).group_by_month(&:created_at).map { |_, v| v.size }
-    end
-
-    def without_help(query)
-      query.where.not(status: :done).group_by_month(&:created_at).map { |_, v| v.size }
+      as_series(@needs_done, @needs_not_done)
     end
 
     def count
       build_series
-      percentage_two_numbers(@needs_with_help, @needs_without_help)
+      percentage_two_numbers(@needs_done, @needs_not_done)
     end
 
     private
 
-    def as_series(needs_with_help, needs_without_help)
+    def as_series(needs_done, needs_not_done)
       [
         {
           name: I18n.t('stats.other_status'),
-          data: needs_without_help
+          data: needs_not_done
         },
         {
           name: I18n.t('stats.status_done'),
-          data: needs_with_help
+          data: needs_done
         }
       ]
     end

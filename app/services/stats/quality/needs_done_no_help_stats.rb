@@ -23,10 +23,18 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      @needs_with_help ||= with_help(query)
-      @needs_without_help ||= without_help(query)
+      @needs_with_no_help = []
+      @needs_without_no_help = []
 
-      as_series(@needs_with_help, @needs_without_help)
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        with_no_help_query = month_query.where(status: :done_no_help)
+        without_no_help_query = month_query.where.not(status: :done)
+        @needs_with_no_help.push(with_no_help_query.count)
+        @needs_without_no_help.push(without_no_help_query.count)
+      end
+
+      as_series(@needs_with_no_help, @needs_without_no_help)
     end
 
     def with_help(query)
@@ -39,7 +47,7 @@ module Stats::Quality
 
     def count
       build_series
-      percentage_two_numbers(@needs_with_help, @needs_without_help)
+      percentage_two_numbers(@needs_with_no_help, @needs_without_no_help)
     end
 
     private

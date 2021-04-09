@@ -23,18 +23,18 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      @needs_archived ||= archived(query)
-      @needs_not_archived ||= not_archived(query)
+      @needs_archived = []
+      @needs_not_archived = []
+
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        archived_query = month_query.archived(true)
+        not_archived_query = month_query.archived(false)
+        @needs_archived.push(archived_query.count)
+        @needs_not_archived.push(not_archived_query.count)
+      end
 
       as_series(@needs_archived, @needs_not_archived)
-    end
-
-    def archived(query)
-      query.archived(true).group_by_month(&:created_at).map { |_, v| v.size }
-    end
-
-    def not_archived(query)
-      query.archived(false).group_by_month(&:created_at).map { |_, v| v.size }
     end
 
     def count
@@ -47,7 +47,7 @@ module Stats::Quality
     def as_series(needs_archived, needs_not_archived)
       [
         {
-          name: I18n.t('stats.other_status'),
+          name: I18n.t('stats.not_archived'),
           data: needs_not_archived
         },
         {

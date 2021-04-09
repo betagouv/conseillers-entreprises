@@ -23,32 +23,32 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      @needs_refused = refused(query)
-      @needs_not_refused = not_refused(query)
+      @needs_refused = []
+      @needs_other_status = []
 
-      as_series(@needs_refused, @needs_not_refused)
-    end
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        refused_query = month_query.where(status: :not_for_me)
+        other_status_query = month_query.where.not(status: :not_for_me)
+        @needs_refused.push(refused_query.count)
+        @needs_other_status.push(other_status_query.count)
+      end
 
-    def refused(query)
-      query.where(status: :not_for_me).group_by_month(&:created_at).map { |_, v| v.size }
-    end
-
-    def not_refused(query)
-      query.where.not(status: :not_for_me).group_by_month(&:created_at).map { |_, v| v.size }
+      as_series(@needs_refused, @needs_other_status)
     end
 
     def count
       build_series
-      percentage_two_numbers(@needs_refused, @needs_not_refused)
+      percentage_two_numbers(@needs_refused, @needs_other_status)
     end
 
     private
 
-    def as_series(needs_refused, needs_not_refused)
+    def as_series(needs_refused, needs_others_status)
       [
         {
           name: I18n.t('stats.other_status'),
-          data: needs_not_refused
+          data: needs_others_status
         },
         {
           name: I18n.t('stats.status_not_for_me'),

@@ -632,6 +632,7 @@ fr:
     in_unknown_region: Demandes dans une région indéterminée
     less_than_72h: Moins de 72h
     more_than_72h: Plus de 72h
+    not_archived: Besoins non abandonnés
     other_status: Autres status
     out_of_deployed_regions: Demandes hors régions déployées
     public:
