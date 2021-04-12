@@ -3,7 +3,7 @@ module Stats
     include BaseStats
 
     def main_query
-      Need.diagnosis_completed
+      Need.diagnosis_completed.where(created_at: @start_date..@end_date)
     end
 
     def date_group_attribute
@@ -16,9 +16,6 @@ module Stats
       end
       if institution.present?
         query.merge! institution.received_needs
-      end
-      if @start_date.present?
-        query.where!(needs: { created_at: @start_date..@end_date })
       end
       query
     end

@@ -3,7 +3,7 @@ module Stats::Quality
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed
+      Need.diagnosis_completed.where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
@@ -13,9 +13,6 @@ module Stats::Quality
       if institution.present?
         query.merge! institution.received_needs
       end
-      if @start_date.present?
-        query.where!(needs: { created_at: @start_date..@end_date })
-      end
       query
     end
 
@@ -23,10 +20,18 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      @needs_with_help ||= with_help(query)
-      @needs_without_help ||= without_help(query)
+      @needs_done_no_help = []
+      @needs_others_status = []
 
-      as_series(@needs_with_help, @needs_without_help)
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        done_no_help_query = month_query.where(status: :done_no_help)
+        others_status_query = month_query.where.not(status: :done)
+        @needs_done_no_help.push(done_no_help_query.count)
+        @needs_others_status.push(others_status_query.count)
+      end
+
+      as_series(@needs_done_no_help, @needs_others_status)
     end
 
     def with_help(query)
@@ -39,7 +44,7 @@ module Stats::Quality
 
     def count
       build_series
-      percentage_two_numbers(@needs_with_help, @needs_without_help)
+      percentage_two_numbers(@needs_done_no_help, @needs_others_status)
     end
 
     private

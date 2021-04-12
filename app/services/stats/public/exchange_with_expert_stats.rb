@@ -3,7 +3,11 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
-      Need.joins(:diagnosis).merge(Diagnosis.from_solicitation.completed).where(created_at: Time.zone.local(2020, 9, 1)..)
+      # This stat is available since 2020-09-01
+      Need.joins(:diagnosis)
+        .merge(Diagnosis.from_solicitation.completed)
+        .where(created_at: Time.zone.local(2020, 9, 1)..)
+        .where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
@@ -12,9 +16,6 @@ module Stats::Public
       end
       if institution.present?
         query.merge! institution.received_needs
-      end
-      if @start_date.present?
-        query.where!(needs: { created_at: @start_date..@end_date })
       end
       query
     end

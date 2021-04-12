@@ -3,7 +3,7 @@ module Stats::Matches
     include ::Stats::BaseStats
 
     def main_query
-      Solicitation.joins(:diagnosis).status_processed.all
+      Solicitation.joins(:diagnosis).status_processed.where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
@@ -12,9 +12,6 @@ module Stats::Matches
       end
       if institution.present?
         query.merge! institution.received_needs
-      end
-      if @start_date.present?
-        query.where!(created_at: @start_date..@end_date)
       end
       query
     end

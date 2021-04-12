@@ -44,10 +44,10 @@ module Stats
     end
 
     def max_value
-      if additive_values
+      if additive_values || build_series.blank?
         count
       else
-        @max_value ||= grouped_by_month(filtered(main_query)).count.values.max
+        @max_value ||= build_series.first[:data].max
       end
     end
 
@@ -108,7 +108,7 @@ module Stats
     private
 
     def grouped_by_month(query)
-      query.group_by_month(date_group_attribute, time_zone: Time.zone.name)
+      query.group("DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)")
     end
 
     def grouped_by_category(query)
@@ -132,7 +132,7 @@ module Stats
       # ]
 
       query.count.each_with_object({}) do |entry, hash|
-        month = entry.first.first
+        month = entry.first.first.to_datetime
         category = entry.first.second
         count = entry.second
         hash[category] ||= {}

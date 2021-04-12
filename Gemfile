@@ -44,7 +44,6 @@ gem 'activerecord-postgres_enum'
 gem 'auto_strip_attributes'
 
 # Charts
-gem 'groupdate'
 gem 'highcharts-rails'
 
 # Misc

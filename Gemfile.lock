@@ -219,8 +219,6 @@ GEM
     geocoder (1.6.6)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    groupdate (5.2.2)
-      activesupport (>= 5)
     haml (5.2.1)
       temple (>= 0.8.0)
       tilt
@@ -612,7 +610,6 @@ DEPENDENCIES
   fomantic-ui-sass
   foreman
   geocoder
-  groupdate
   haml-rails
   haml_lint
   highcharts-rails

@@ -5,6 +5,7 @@ module Stats::Public
     def main_query
       Company
         .includes(:needs).references(:needs)
+        .where(created_at: @start_date..@end_date)
         .where(facilities: { diagnoses: { step: :completed } })
         .distinct
     end
@@ -19,9 +20,6 @@ module Stats::Public
       end
       if institution.present?
         query.where!(diagnoses: institution.received_diagnoses)
-      end
-      if @start_date.present?
-        query.where!(needs: { created_at: @start_date..@end_date })
       end
       query
     end

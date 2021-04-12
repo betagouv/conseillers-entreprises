@@ -7,6 +7,7 @@ module Stats::Public
         .diagnosis_completed
         .joins(:advisor)
         .joins(subject: :theme)
+        .where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
@@ -16,10 +17,6 @@ module Stats::Public
       if institution.present?
         query.merge! institution.received_needs
       end
-      if @start_date.present?
-        query.where!("needs.created_at >= ? AND needs.created_at <= ?", @start_date, @end_date)
-      end
-
       query
     end
 

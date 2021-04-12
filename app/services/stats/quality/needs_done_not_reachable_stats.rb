@@ -3,7 +3,7 @@ module Stats::Quality
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed
+      Need.diagnosis_completed.where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
@@ -13,9 +13,6 @@ module Stats::Quality
       if institution.present?
         query.merge! institution.received_needs
       end
-      if @start_date.present?
-        query.where!(needs: { created_at: @start_date..@end_date })
-      end
       query
     end
 
@@ -23,28 +20,28 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      @needs_not_reachable ||= not_reachable(query)
-      @needs_other_status ||= other_status(query)
+      @needs_done_not_reachable = []
+      @needs_other_status = []
 
-      as_series(@needs_not_reachable, @needs_other_status)
-    end
+      search_range_by_month.each do |range|
+        month_query = query.created_between(range.first, range.last)
+        done_not_reachable_query = month_query.where(status: :done_not_reachable)
+        other_status_query = month_query.where.not(status: :done_not_reachable)
+        @needs_done_not_reachable.push(done_not_reachable_query.count)
+        @needs_other_status.push(other_status_query.count)
+      end
 
-    def not_reachable(query)
-      query.where(status: :done_not_reachable).group_by_month(&:created_at).map { |_, v| v.size }
-    end
-
-    def other_status(query)
-      query.where.not(status: :done_not_reachable).group_by_month(&:created_at).map { |_, v| v.size }
+      as_series(@needs_done_not_reachable, @needs_other_status)
     end
 
     def count
       build_series
-      percentage_two_numbers(@needs_not_reachable, @needs_other_status)
+      percentage_two_numbers(@needs_done_not_reachable, @needs_other_status)
     end
 
     private
 
-    def as_series(needs_not_reachable, needs_other_status)
+    def as_series(needs_done_not_reachable, needs_other_status)
       [
         {
           name: I18n.t('stats.other_status'),
@@ -52,7 +49,7 @@ module Stats::Quality
         },
         {
           name: I18n.t('stats.status_done_not_reachable'),
-          data: needs_not_reachable
+          data: needs_done_not_reachable
         }
       ]
     end
