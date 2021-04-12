@@ -3,7 +3,7 @@ module Stats::Quality
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed.where!(needs: { created_at: @start_date..@end_date })
+      Need.diagnosis_completed.where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
