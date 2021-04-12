@@ -5,7 +5,7 @@ module Stats::Public
     def main_query
       Solicitation
         .in_regions(Territory.deployed_codes_regions)
-        .where("solicitations.created_at >= ? AND solicitations.created_at <= ?", @start_date, @end_date)
+        .where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
