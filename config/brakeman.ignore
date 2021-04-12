@@ -7,7 +7,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/solicitations_controller.rb",
-      "line": 63,
+      "line": 78,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Solicitation.find(params[:id]).prepare_diagnosis(current_user))",
       "render_path": null,
@@ -27,7 +27,7 @@
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/landings/new_solicitation.html.haml",
-      "line": 38,
+      "line": 51,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "Solicitation.create(solicitation_params.merge(retrieve_form_info)).landing_option.form_description",
       "render_path": [
@@ -58,7 +58,7 @@
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/experts_controller.rb",
-      "line": 43,
+      "line": 38,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:expert).permit(:full_name, :phone_number, :role, :experts_subjects_attributes => ({}))",
       "render_path": null,
@@ -78,7 +78,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 64,
+      "line": 70,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -90,8 +90,28 @@
       "user_input": "([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")",
       "confidence": "Weak",
       "note": "The crafted SQL query is a list of \"(?)\" placeholders; it is essentially a workaround for a limitation of ActiveRecord."
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "caeb5035f86b6b391254bf0d8d77bfb1838cf7559a4b19852a55c33bd6e32422",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/stats/base_stats.rb",
+      "line": 111,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Stats::BaseStats",
+        "method": "grouped_by_month"
+      },
+      "user_input": "query.model.name.pluralize",
+      "confidence": "Weak",
+      "note": ""
     }
   ],
-  "updated": "2020-08-04 12:08:27 +0200",
-  "brakeman_version": "4.8.2"
+  "updated": "2021-04-12 14:57:10 +0200",
+  "brakeman_version": "5.0.0"
 }
