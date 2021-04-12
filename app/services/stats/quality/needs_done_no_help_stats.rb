@@ -3,7 +3,7 @@ module Stats::Quality
     include ::Stats::BaseStats
 
     def main_query
-      Need.diagnosis_completed
+      Need.diagnosis_completed.where!(needs: { created_at: @start_date..@end_date })
     end
 
     def filtered(query)
@@ -12,9 +12,6 @@ module Stats::Quality
       end
       if institution.present?
         query.merge! institution.received_needs
-      end
-      if @start_date.present?
-        query.where!(needs: { created_at: @start_date..@end_date })
       end
       query
     end

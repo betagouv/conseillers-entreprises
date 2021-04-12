@@ -5,6 +5,7 @@ module Stats::Public
     def main_query
       Solicitation
         .joins(diagnosis: [needs: :matches])
+        .where("solicitations.created_at >= ? AND solicitations.created_at <= ?", @start_date, @end_date)
         .merge(Need.where.not(status: [:diagnosis_not_complete, :quo]))
         .distinct
     end
@@ -33,9 +34,6 @@ module Stats::Public
     def filtered(query)
       if territory.present?
         query.where!(diagnosis: territory.diagnoses)
-      end
-      if @start_date.present?
-        query.where!("solicitations.created_at >= ? AND solicitations.created_at <= ?", @start_date, @end_date)
       end
       query
     end
