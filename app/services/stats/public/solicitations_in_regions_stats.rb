@@ -3,7 +3,7 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
-      Solicitation.where("solicitations.created_at >= ? AND solicitations.created_at <= ?", @start_date, @end_date)
+      Solicitation.where(created_at: @start_date..@end_date)
     end
 
     def deployed_codes_regions
