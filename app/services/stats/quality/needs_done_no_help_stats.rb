@@ -20,18 +20,18 @@ module Stats::Quality
       query = main_query
       query = filtered(query)
 
-      @needs_with_no_help = []
-      @needs_without_no_help = []
+      @needs_done_no_help = []
+      @needs_others_status = []
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        with_no_help_query = month_query.where(status: :done_no_help)
-        without_no_help_query = month_query.where.not(status: :done)
-        @needs_with_no_help.push(with_no_help_query.count)
-        @needs_without_no_help.push(without_no_help_query.count)
+        done_no_help_query = month_query.where(status: :done_no_help)
+        others_status_query = month_query.where.not(status: :done)
+        @needs_done_no_help.push(done_no_help_query.count)
+        @needs_others_status.push(others_status_query.count)
       end
 
-      as_series(@needs_with_no_help, @needs_without_no_help)
+      as_series(@needs_done_no_help, @needs_others_status)
     end
 
     def with_help(query)
@@ -44,7 +44,7 @@ module Stats::Quality
 
     def count
       build_series
-      percentage_two_numbers(@needs_with_no_help, @needs_without_no_help)
+      percentage_two_numbers(@needs_done_no_help, @needs_others_status)
     end
 
     private
