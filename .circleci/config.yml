@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/place-des-entreprises
   docker:
-    - image: circleci/ruby:2.7.2-node-browsers
+    - image: circleci/ruby:2.7.3-node-browsers
       environment:
         SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
         DEPLOYED_REGIONS_CODES: [11,32]
