@@ -44,7 +44,7 @@ module Stats
     end
 
     def max_value
-      if additive_values
+      if additive_values || build_series.blank?
         count
       else
         @max_value ||= build_series.first[:data].max
