@@ -7,7 +7,7 @@ module Stats::Public
         .diagnosis_completed
         .joins(:advisor)
         .joins(subject: :theme)
-        .where("needs.created_at >= ? AND needs.created_at <= ?", @start_date, @end_date)
+       .where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
