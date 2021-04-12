@@ -3,6 +3,7 @@ module Stats::Public
     include ::Stats::BaseStats
 
     def main_query
+      # This stat is available since 2020-09-01
       Need.joins(:diagnosis)
         .merge(Diagnosis.from_solicitation.completed)
         .where(created_at: Time.zone.local(2020, 9, 1)..)
