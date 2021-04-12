@@ -6,6 +6,6 @@
     .landing-topics
       = render topics
 
-  .ui.text-center.other
-    %b= landing.message_under_landing_topics&.html_safe
-
+  - unless in_iframe?
+    .ui.text-center.other
+      %b= landing.message_under_landing_topics&.html_safe
