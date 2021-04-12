@@ -5,7 +5,7 @@ module Stats::Public
     def main_query
       Solicitation
         .joins(diagnosis: [needs: :matches])
-        .where("solicitations.created_at >= ? AND solicitations.created_at <= ?", @start_date, @end_date)
+        .where(created_at: @start_date..@end_date)
         .merge(Need.where.not(status: [:diagnosis_not_complete, :quo]))
         .distinct
     end
