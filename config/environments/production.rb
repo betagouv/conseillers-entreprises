@@ -37,7 +37,8 @@ Rails.application.configure do
     'Pragma' => 'no-cache',
     'X-Content-Type-Options' => 'nosniff',
     'X-Frame-Options' => 'deny',
-    'X-Permitted-Cross-Domain-Policies' => 'none'
+    'X-Permitted-Cross-Domain-Policies' => 'none',
+    'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains; preload'
   }
 
   # Compress JavaScripts and CSS.
