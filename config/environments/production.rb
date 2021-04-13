@@ -38,7 +38,8 @@ Rails.application.configure do
     'X-Content-Type-Options' => 'nosniff',
     'X-Frame-Options' => 'deny',
     'X-Permitted-Cross-Domain-Policies' => 'none',
-    'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains; preload'
+    'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains; preload',
+    'X-XSS-Protection' => '1; mode=block'
   }
 
   # Compress JavaScripts and CSS.
