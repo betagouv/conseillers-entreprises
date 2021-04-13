@@ -36,7 +36,8 @@ Rails.application.configure do
     'Expires' => '0',
     'Pragma' => 'no-cache',
     'X-Content-Type-Options' => 'nosniff',
-    'X-Frame-Options' => 'deny'
+    'X-Frame-Options' => 'deny',
+    'X-Permitted-Cross-Domain-Policies' => 'none'
   }
 
   # Compress JavaScripts and CSS.
