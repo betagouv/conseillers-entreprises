@@ -1,6 +1,6 @@
 .card.block-link
   .card__content
-    %h2= link_to landing.home_title, landing_path(landing, anchor: 'section-breadcrumbs'), onclick: 'click_on_landing()'
+    %h3= link_to landing.home_title, landing_path(landing, anchor: 'section-breadcrumbs'), onclick: 'click_on_landing()'
     = simple_format(landing.home_description, {}, wrapper_tag: 'p')
   .discover_button
     %button.button.small.primary= t('.discover')
