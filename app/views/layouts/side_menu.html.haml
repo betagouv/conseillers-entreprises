@@ -7,7 +7,7 @@
 
     .fr-grid-row.fr-mt-5w
       .fr-col-md-3
-        %nav.fr-sidemenu.fr-sidemenu--sticky{ "aria-label" => "Menu latéral" }
+        %nav.fr-sidemenu.fr-sidemenu--sticky{ "aria-label" => "Menu latéral", role: "navigation" }
           .fr-sidemenu__inner
             %button.fr-sidemenu__btn{ "aria-controls" => "fr-sidemenu-wrapper", "aria-expanded" => "false", :hidden => "" }= t('.mobile_menu')
             .fr-collapse#fr-sidemenu-wrapper
