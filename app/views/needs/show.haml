@@ -41,10 +41,13 @@
             .rf-col-lg-10.infos-transmitted-by.rf-pl-1v
               %p.blue.title= t('.transmitted_by')
               %p
-                %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-advisor-#{@need.advisor.id}" }
-                  #{@need.advisor.full_name}
-                .hidden{ id: "tooltip-case-advisor-#{@need.advisor.id}" }
-                  = person_block(@need.advisor)
+                - if @need.advisor.present?
+                  %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-advisor-#{@need.advisor.id}" }
+                    #{@need.advisor.full_name}
+                  .hidden{ id: "tooltip-case-advisor-#{@need.advisor.id}" }
+                    = person_block(@need.advisor)
+                - else
+                  = t('.blank_advisor')
 
 - if policy(@need).has_match_for_user?
   .lighter-blue-bg
