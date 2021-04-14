@@ -51,61 +51,61 @@
     // events ------------------
     $('body')
       .on('mouseenter focusin', '.js-simple-tooltip', function() {
-        var $this = $(this);
-        var aria_describedby = $this.attr('aria-describedby');
+        var aria_describedby = $(this).attr('aria-describedby');
         if (ariaDescribedPresent(aria_describedby)) {
-          var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
-          var $tooltip_to_show = $('#' + tooltip_to_show_id);
-          $tooltip_to_show.attr('aria-hidden', 'false');
+          var $tooltip = getTooltipToShow(aria_describedby);
+          showTooltip($tooltip);
         }
       })
       .on('mouseleave', '.js-simple-tooltip', function() {
-        var $this = $(this);
-        var aria_describedby = $this.attr('aria-describedby');
+        var aria_describedby = $(this).attr('aria-describedby');
         if (ariaDescribedPresent(aria_describedby)) {
-          var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
-          var $tooltip_to_show = $('#' + tooltip_to_show_id);
-          var $is_target_hovered = $tooltip_to_show.is(':hover');
+          var $tooltip = getTooltipToShow(aria_describedby);
+          var $is_target_hovered = $tooltip.is(':hover');
 
-          //alert($target_hovered);
-          //$target.addClass('redborder');
           if (!$is_target_hovered) {
-            $tooltip_to_show.attr('aria-hidden', 'true');
+            hideTooltip($tooltip);
           }
         }
       })
       .on('focusout', '.js-simple-tooltip', function() {
-        var $this = $(this);
-        var aria_describedby = $this.attr('aria-describedby');
+        var aria_describedby = $(this).attr('aria-describedby');
         if (ariaDescribedPresent(aria_describedby)) {
-          var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
-          var $tooltip_to_show = $('#' + tooltip_to_show_id);
+          var $tooltip = getTooltipToShow(aria_describedby);
 
-          $tooltip_to_show.attr('aria-hidden', 'true');
+          hideTooltip($tooltip);
         }
       })
       .on('mouseleave', '.js-simpletooltip', function() {
-        var $this = $(this);
-        $this.attr('aria-hidden', 'true');
+        $(this).attr('aria-hidden', 'true');
       })
       .on('keydown', '.js-simple-tooltip', function(event) {
-        // close esc key
-
-        var $this = $(this);
-        var aria_describedby = $this.attr('aria-describedby');
+        var aria_describedby = $(this).attr('aria-describedby');
         if (ariaDescribedPresent(aria_describedby)) {
-          var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
-          var $tooltip_to_show = $('#' + tooltip_to_show_id);
+          var $tooltip = getTooltipToShow(aria_describedby);
 
           if (event.keyCode == 27) { // esc
-            $tooltip_to_show.attr('aria-hidden', 'true');
+            hideTooltip($tooltip);
           }
         }
       });
 
     function ariaDescribedPresent(aria_describedby) {
-      typeof aria_describedby != 'undefined'
+      return typeof aria_describedby != "undefined";
     }
 
+    function getTooltipToShow(aria_describedby) {
+      var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
+      var $tooltip_to_show = $('#' + tooltip_to_show_id);
+      return $tooltip_to_show;
+    }
+
+    function showTooltip($tooltip) {
+      $tooltip.attr('aria-hidden', 'false');
+    }
+
+    function hideTooltip($tooltip) {
+      $tooltip.attr('aria-hidden', 'true');
+    }
   });
 })();
