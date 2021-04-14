@@ -10,5 +10,5 @@
       %li #{t('attributes.siret')} : #{facility.siret}
       %li= facility.naf_libelle
       %li= link_to t('.more_informations'), company_path(facility.siret), class: 'bold blue'
-      - if policy(facility).show_needs_history?
+      - if policy(facility).show_needs_history? && Need.for_facility(facility).where.not(id: need.id).any?
         %li= link_to t('.needs_historic'), needs_company_path(facility.siret), class: 'bold blue'
