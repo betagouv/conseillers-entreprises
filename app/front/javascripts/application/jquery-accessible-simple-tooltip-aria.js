@@ -53,30 +53,36 @@
       .on('mouseenter focusin', '.js-simple-tooltip', function() {
         var $this = $(this);
         var aria_describedby = $this.attr('aria-describedby');
-        var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
-        var $tooltip_to_show = $('#' + tooltip_to_show_id);
-        $tooltip_to_show.attr('aria-hidden', 'false');
+        if (ariaDescribedPresent(aria_describedby)) {
+          var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
+          var $tooltip_to_show = $('#' + tooltip_to_show_id);
+          $tooltip_to_show.attr('aria-hidden', 'false');
+        }
       })
       .on('mouseleave', '.js-simple-tooltip', function() {
         var $this = $(this);
         var aria_describedby = $this.attr('aria-describedby');
-        var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
-        var $tooltip_to_show = $('#' + tooltip_to_show_id);
-        var $is_target_hovered = $tooltip_to_show.is(':hover');
+        if (ariaDescribedPresent(aria_describedby)) {
+          var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
+          var $tooltip_to_show = $('#' + tooltip_to_show_id);
+          var $is_target_hovered = $tooltip_to_show.is(':hover');
 
-        //alert($target_hovered);
-        //$target.addClass('redborder');
-        if (!$is_target_hovered) {
-          $tooltip_to_show.attr('aria-hidden', 'true');
+          //alert($target_hovered);
+          //$target.addClass('redborder');
+          if (!$is_target_hovered) {
+            $tooltip_to_show.attr('aria-hidden', 'true');
+          }
         }
       })
       .on('focusout', '.js-simple-tooltip', function() {
         var $this = $(this);
         var aria_describedby = $this.attr('aria-describedby');
-        var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
-        var $tooltip_to_show = $('#' + tooltip_to_show_id);
+        if (ariaDescribedPresent(aria_describedby)) {
+          var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
+          var $tooltip_to_show = $('#' + tooltip_to_show_id);
 
-        $tooltip_to_show.attr('aria-hidden', 'true');
+          $tooltip_to_show.attr('aria-hidden', 'true');
+        }
       })
       .on('mouseleave', '.js-simpletooltip', function() {
         var $this = $(this);
@@ -87,12 +93,19 @@
 
         var $this = $(this);
         var aria_describedby = $this.attr('aria-describedby');
-        var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
-        var $tooltip_to_show = $('#' + tooltip_to_show_id);
+        if (ariaDescribedPresent(aria_describedby)) {
+          var tooltip_to_show_id = aria_describedby.substr(0, aria_describedby.indexOf(" "));
+          var $tooltip_to_show = $('#' + tooltip_to_show_id);
 
-        if (event.keyCode == 27) { // esc
-          $tooltip_to_show.attr('aria-hidden', 'true');
+          if (event.keyCode == 27) { // esc
+            $tooltip_to_show.attr('aria-hidden', 'true');
+          }
         }
       });
+
+    function ariaDescribedPresent(aria_describedby) {
+      typeof aria_describedby != 'undefined'
+    }
+
   });
 })();
