@@ -433,8 +433,6 @@ fr:
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
-  nav:
-    see-breadcrumb: Voir le fil d’Ariane
   needs:
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?

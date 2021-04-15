@@ -1,7 +1,2 @@
-- if current_page.last?
-  %li.fr-pagination__item--last.fr-pagination__item.fr-pagination__item--disabled
-- else
-  %li.fr-pagination__item--last.fr-pagination__item
-    = link_to url, title: t('views.pagination.last'), "aria-label": t('views.pagination.last'), class: 'fr-pagination__link', remote: remote do
-      %span
-
+%li
+  = link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, "aria-label": t('views.pagination.last'), class: 'fr-pagination__link fr-pagination__link--last', remote: remote

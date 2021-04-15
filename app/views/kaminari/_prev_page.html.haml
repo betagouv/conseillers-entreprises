@@ -1,7 +1,3 @@
-- if current_page.first?
-  %li.fr-pagination__item--prev.fr-pagination__item.fr-pagination__item.fr-pagination__item--disabled
-    %span.fr-pagination__label= t('views.pagination.previous')
-- else
-  %li.fr-pagination__item--prev.fr-pagination__item.fr-pagination__item
-    = link_to t('views.pagination.previous'), url, title: t('views.pagination.previous'),
-      "aria-label": t('views.pagination.previous'), class: 'fr-pagination__link', remote: remote
+%li
+  = link_to_unless current_page.first?, t('views.pagination.previous').html_safe, url, rel: 'prev', remote: remote,
+    class: 'fr-pagination__link fr-pagination__link--prev fr-pagination__link--lg-label', title: t('views.pagination.previous'), "aria-label": t('views.pagination.previous')
