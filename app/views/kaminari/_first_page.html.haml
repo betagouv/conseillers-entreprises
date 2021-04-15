@@ -1,2 +1,10 @@
-%li
-  = link_to_unless current_page.first?, t('views.pagination.first').html_safe, url, remote: remote, class: 'fr-pagination__link fr-pagination__link--first', "aria-label": t('views.pagination.first')
+- if current_page.first?
+  %li
+    %a.fr-pagination__link.fr-pagination__link--first
+      = t('views.pagination.first')
+    -# .fr-pagination__item--first.fr-pagination__item.fr-pagination__item.fr-pagination__item--disabled
+- else
+  %li
+    = link_to t('views.pagination.first'), url, title: t('views.pagination.first'), class: 'fr-pagination__link fr-pagination__link--first',
+      "aria-label": t('views.pagination.first'), remote: remote
+

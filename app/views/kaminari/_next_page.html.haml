@@ -1,3 +1,8 @@
-%li
-  = link_to_unless current_page.last?, t('views.pagination.next'), url, title: t('views.pagination.next'), "aria-label": t('views.pagination.next'),
-    class: 'fr-pagination__link fr-pagination__link--next fr-pagination__link--lg-label', remote: remote
+- if current_page.last?
+  %li
+    %a.fr-pagination__link.fr-pagination__link--next.fr-pagination__link--lg-label
+      = t('views.pagination.next')
+- else
+  %li
+    = link_to t('views.pagination.next'), url, title: t('views.pagination.next'), "aria-label": t('views.pagination.next'),
+      class: 'fr-pagination__link fr-pagination__link--next fr-pagination__link--lg-label', remote: remote
