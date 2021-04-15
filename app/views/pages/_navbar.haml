@@ -13,7 +13,7 @@
       %nav#responsive-main-navigation{ "data-target": "toggle-nav", role: "navigation" }
         %ul.nav__links
           %li.nav__item
-            = link_to t('about.blog.title'), ENV['BLOG_URL']
+            = link_to t('about.blog.title'), ENV['BLOG_URL'], title: t('.link_to_blog')
           %li.nav__item
             = active_link_to t('about.comment_ca_marche.title'), comment_ca_marche_path
           %li.nav__item
