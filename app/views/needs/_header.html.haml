@@ -1,9 +1,3 @@
 %h1= t('needs.index.title')
 
-%nav.fr-breadcrumb{ "aria-label" => "vous êtes ici :" }
-  %button.fr-breadcrumb__button{ :hidden => "" }= t('nav.see-breadcrumb')
-  %ol.fr-breadcrumb__list
-    %li.fr-breadcrumb__item= recipient.to_s
-    %li.fr-breadcrumb__item
-      -# By default, link_to uses the current request path. We only set the name here.
-      = link_to t(collection_name, scope: 'needs.collections')
+= render 'shared/breadcrumb', pages: [{ title: recipient.to_s, path: needs_path }], current_page: t(collection_name, scope: 'needs.collections')
