@@ -43,7 +43,6 @@ describe MatchMailerService do
       mailer_double = double().as_null_object
       allow(UserMailer).to receive(:notify_match_status) { mailer_double }
       allow(CompanyMailer).to receive(:notify_taking_care) { mailer_double }
-      allow(ExpertMailer).to receive(:notify_other_taking_care) { mailer_double }
 
       other_matches = create_list :match, 2, status: :quo
       create :need, matches: [a_match] + other_matches
@@ -60,7 +59,6 @@ describe MatchMailerService do
       it do
         expect(UserMailer).to have_received(:notify_match_status)
         expect(CompanyMailer).to have_received(:notify_taking_care)
-        expect(ExpertMailer).to have_received(:notify_other_taking_care).twice
       end
     end
 
@@ -71,7 +69,6 @@ describe MatchMailerService do
       it do
         expect(UserMailer).to have_received(:notify_match_status)
         expect(CompanyMailer).not_to have_received(:notify_taking_care)
-        expect(ExpertMailer).not_to have_received(:notify_other_taking_care)
       end
     end
 
@@ -82,7 +79,6 @@ describe MatchMailerService do
       it do
         expect(UserMailer).to have_received(:notify_match_status)
         expect(CompanyMailer).not_to have_received(:notify_taking_care)
-        expect(ExpertMailer).not_to have_received(:notify_other_taking_care)
       end
     end
   end

@@ -387,9 +387,6 @@ fr:
         support_contact_label: 'Si vous n''arrivez pas à accéder à la fiche entreprise, contactez :'
         this_company: L’entreprise
         via_partner_html: Cette demande a été déposée sur le site <a href='%{url}' target='_blank'>%{url}</a> avec lequel le service Place des Entreprises est en partenariat.
-      notify_other_taking_care:
-        complementary_help: Il correspond à votre champ d’intervention. Avez-vous une solution complémentaire à proposer ?
-        need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> - %{subject} - a été pris en charge par %{expert} (%{antenne}).
       remind_involvement:
         needs_for_you: 'Ces entreprises ont besoin de vous :'
         needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'

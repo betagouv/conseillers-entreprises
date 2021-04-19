@@ -35,11 +35,6 @@ class MatchMailerService
     if should_notify_everyone(previous_status, match.status)
       # Notify the company
       CompanyMailer.notify_taking_care(match).deliver_later
-
-      # Notify other experts that haven’t responded yet
-      match.need.quo_experts.each do |expert|
-        ExpertMailer.notify_other_taking_care(expert, match).deliver_later
-      end
     end
   end
 

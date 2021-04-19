@@ -45,12 +45,4 @@ class ExpertMailer < ApplicationMailer
       subject: t('mailers.expert_mailer.remind_involvement.subject')
     )
   end
-
-  def notify_other_taking_care(expert, match)
-    @expert = expert
-    @match = match
-
-    return if @expert.deleted?
-    mail(to: @expert.email_with_display_name, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @match.company.name))
-  end
 end
