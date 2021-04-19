@@ -1,10 +1,10 @@
-%ul.rf-sidemenu__list
-  %li.rf-sidemenu__item
+%ul.fr-sidemenu__list
+  %li.fr-sidemenu__item
     = active_link_to Institution.human_attribute_name(:subjects), institution_subjects_path(institution),
-      { class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active' }
-  %li.rf-sidemenu__item
+      { class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active' }
+  %li.fr-sidemenu__item
     = active_link_to Institution.human_attribute_name(:antennes), institution_antennes_path(institution),
-      { class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active' }
-  %li.rf-sidemenu__item
+      { class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active' }
+  %li.fr-sidemenu__item
     = active_link_to Institution.human_attribute_name(:advisors), institution_advisors_path(institution),
-      { class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active' }
+      { class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active' }

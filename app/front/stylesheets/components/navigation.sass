@@ -1,53 +1,51 @@
 // Main navigation
 
-.rf-header
+.fr-header
   .pde-logo
     box-shadow: none
-  .rf-nav__item--active
-    .rf-link
+  .fr-nav__item--active
+    .fr-link
       pointer-events: initial
 
-.rf-menu
-  right: 20px
-  width: 15rem
-  &:after
-    margin-right: 0
-  .rf-menu__item
-    width: 17rem
-
 @media (max-width: 48em)
-  .rf-header__navbar
+  .fr-header__navbar
     margin-top: 0
     padding-top-top: 0
     &::after
       display: none
-  .rf-nav__item > .rf-link
+  .fr-nav__item > .fr-link
     justify-content: flex-start
+  .pde-logo-sm
+    display: none
 
 @media (min-width: 48em)
-  .rf-header
-    .rf-nav
+  .fr-header
+    .fr-nav
       display: flex
       justify-content: space-between
-  .rf-header__body--hidden
+  .fr-header--hidden
     display: none
-  .rf-header__body--displayed
+  .fr-header--displayed
     display: flex
+
+@media (min-width: 62em)
+  .fr-menu__list
+      width: 15rem
 
 // Left menu
 
 @media (min-width: 48em)
-  .rf-sidemenu
-    .rf-sidemenu__inner
+  .fr-sidemenu
+    .fr-sidemenu__inner
       padding: 0 1rem 0 0.25rem
 
 .item-with-tag
   display: flex
-.rf-sidemenu__list
-  .rf-sidemenu__item--active
+.fr-sidemenu__list
+  .fr-sidemenu__item--active
     color: $blue
-  .rf-sidemenu__link
+  .fr-sidemenu__link
     i
       display: contents
-  .rf-tag
+  .fr-tag
     height: fit-content

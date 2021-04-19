@@ -1,41 +1,42 @@
 input[type="submit" i]
   border: none
 
-.rf-btn
+.fr-btn
   font-weight: bold
   &:hover, &:focus
     opacity: 0.8
     background-image: none
 
-\:root:not([data-rf-theme="dark"]) .rf-btn
+\:root:not([data-fr-theme="dark"]) .fr-btn
   --color-hover: none
   --color-active: none
 
-.rf-btn.btn-blue
+.fr-btn.btn-blue
   background-color: $blue
   &:hover, &:focus
     background-color: $blue
+    color: white
 
-.rf-btn.btn-green
+.fr-btn.btn-green
   background-color: $green
   &:hover, &:focus
     background-color: $green
 
-.rf-btn.btn-grey-blue
+.fr-btn.btn-grey-blue
   background-color: $grey-blue
   &:hover, &:focus
     background-color: $grey-blue
 
-.rf-btn.btn-orange
+.fr-btn.btn-orange
   background-color: $orange
   &:hover, &:focus
     background-color: $orange
 
-.rf-btn.btn-red
+.fr-btn.btn-red
   background-color: $red
   &:hover, &:focus
     background-color: $red
-  &.rf-btn--secondary
+  &.fr-btn--secondary
     color: var(--rm500)
     box-shadow: inset 0 0 0 1px var(--rm500)
     background: none

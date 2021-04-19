@@ -1,6 +1,6 @@
 = paginator.render do
-  %nav.rf-pagination{ "aria-label" => t('.navigation_page') }
-    %ul.rf-pagination__list
+  %nav.fr-pagination{ "aria-label" => t('.navigation_page'), role: 'navigation' }
+    %ul.fr-pagination__list
       = first_page_tag
       = prev_page_tag
       - each_page do |page|

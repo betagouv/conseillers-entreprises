@@ -1,0 +1,11 @@
+%nav.fr-breadcrumb{ 'aria-label': t('.you_are_here'), role: 'navigation' }
+  %button.fr-breadcrumb__button{ 'aria-controls': 'breadcrumb-189', 'aria-expanded': 'false' }
+    = t('.see_breadcrumb')
+  .fr-collapse#breadcrumb-189
+    %ol.fr-breadcrumb__list
+      - pages.each do |page|
+        %li
+          = link_to page[:title], page[:path], class: 'fr-breadcrumb__link'
+      %li
+        %a.fr-breadcrumb__link{ 'aria-current': 'page' }
+          = current_page

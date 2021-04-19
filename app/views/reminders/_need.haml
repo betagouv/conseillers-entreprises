@@ -16,7 +16,7 @@
               .ui.label.basic.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
         - if action.present?
           = link_to t(action, scope: 'reminders.needs.scopes.mark_done'), polymorphic_path([action, :reminders_action], { id: need.id }),
-            method: :post, class: "rf-btn #{action == :archive ? 'btn-red' : 'btn-green'}"
+            method: :post, class: "fr-btn #{action == :archive ? 'btn-red' : 'btn-green'}"
 
       .ui.list
         - need.matches.each do |match|

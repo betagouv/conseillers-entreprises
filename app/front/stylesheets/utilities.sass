@@ -1,5 +1,7 @@
 .list-unstyled
   list-style: none
+  & > li::before
+    content: none
 
 .order-minus-one
   order: -1
@@ -60,6 +62,6 @@
   -webkit-hyphens: auto
   hyphens: auto
 /* box shadow pas heureux quand lien sur 2 lignes */
-a.rf-breadcrumb__item a.break-word, .rf-prose a.break-word, [class*=" rf-"] a.break-word, [class^=rf-] a.break-word, [data-rf-reset] a.break-word
+a.fr-breadcrumb__item a.break-word, .fr-prose a.break-word, [class*=" fr-"] a.break-word, [class^=fr-] a.break-word, [data-fr-reset] a.break-word
   text-decoration: underline
   box-shadow: none

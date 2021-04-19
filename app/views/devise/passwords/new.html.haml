@@ -1,14 +1,14 @@
-.rf-container.rf-mb-6w
-  .rf-grid-row.rf-grid-row--center.rf-grid-row--gutters
-    .rf-col.rf-col-lg-6
-      %h1.rf-mb-5w= t('devise.forgot_password')
+.fr-container.fr-mb-6w
+  .fr-grid-row.fr-grid-row--center.fr-grid-row--gutters
+    .fr-col.fr-col-lg-6
+      %h1.fr-mb-5w= t('devise.forgot_password')
 
       = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post } do |f|
         = render "devise/shared/error_messages", resource: resource
-        .rf-input-group
-          = f.label :email, class: 'rf-label'
-          = f.email_field :email, class: 'rf-input', autofocus: true
+        .fr-input-group
+          = f.label :email, class: 'fr-label'
+          = f.email_field :email, class: 'fr-input', autofocus: true
         %p= t('.password_unknown_description')
-        .rf-mt-3w
-          = f.submit t('.send_me_reset_password_instructions'), class: 'rf-btn btn-green'
+        .fr-mt-3w
+          = f.submit t('.send_me_reset_password_instructions'), class: 'fr-btn btn-green'
 

@@ -7,7 +7,7 @@
 
 - institution_subjects = expert.institution.available_subjects
 - institution_subjects.each do |theme, institutions_subjects|
-  %h2.rf-h3= theme.label
+  %h2.fr-h3= theme.label
   - institutions_subjects.each do |institution_subject|
     - expert_subject = ExpertSubject.where(expert: expert, institution_subject: institution_subject).first_or_initialize
     .ui.field.institution-subject{ class: additional_field_class }

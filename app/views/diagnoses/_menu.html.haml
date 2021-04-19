@@ -1,14 +1,14 @@
-%ul.rf-sidemenu__list
-  .rf-sidemenu__title= t('.for_recipient', recipient: recipient)
-  %li.rf-sidemenu__item
-    = active_link_to(t('diagnoses.collections.in_progress'), diagnoses_path, active: [diagnoses: :index], class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
-  %li.rf-sidemenu__item
-    = active_link_to(t('diagnoses.collections.completed'), processed_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
-  %li.rf-sidemenu__item
-    = active_link_to(t('diagnoses.collections.all'), archives_diagnoses_path, class: 'rf-sidemenu__link', class_active: 'rf-sidemenu__item--active')
+%ul.fr-sidemenu__list
+  .fr-sidemenu__title= t('.for_recipient', recipient: recipient)
+  %li.fr-sidemenu__item
+    = active_link_to(t('diagnoses.collections.in_progress'), diagnoses_path, active: [diagnoses: :index], class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
+  %li.fr-sidemenu__item
+    = active_link_to(t('diagnoses.collections.completed'), processed_diagnoses_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
+  %li.fr-sidemenu__item
+    = active_link_to(t('diagnoses.collections.all'), archives_diagnoses_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
 
 - if antenne.advisors.count > 1
-  %ul.rf-sidemenu__list
-    .rf-sidemenu__title= t('.for_other_header', recipient: recipient)
-    %li.rf-sidemenu__item
-      = link_to t('.browse_antenne_diagnoses', antenne: antenne), index_antenne_diagnoses_path, class: 'rf-sidemenu__link'
+  %ul.fr-sidemenu__list
+    .fr-sidemenu__title= t('.for_other_header', recipient: recipient)
+    %li.fr-sidemenu__item
+      = link_to t('.browse_antenne_diagnoses', antenne: antenne), index_antenne_diagnoses_path, class: 'fr-sidemenu__link'

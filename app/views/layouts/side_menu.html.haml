@@ -2,18 +2,18 @@
   Based on the main application layout
 
 - content_for :content do
-  .rf-container.rf-pb-6w
+  .fr-container.fr-pb-6w
     = yield :header
 
-    .rf-grid-row.rf-mt-5w
-      .rf-col-md-3
-        %nav.rf-sidemenu.rf-sidemenu--sticky{ "aria-label" => "Menu latéral" }
-          .rf-sidemenu__inner
-            %button.rf-sidemenu__btn{ "aria-controls" => "rf-sidemenu-wrapper", "aria-expanded" => "false", :hidden => "" }= t('.mobile_menu')
-            .rf-collapse#rf-sidemenu-wrapper
+    .fr-grid-row.fr-mt-5w
+      .fr-col-md-3
+        %nav.fr-sidemenu.fr-sidemenu--sticky{ "aria-label" => "Menu latéral" }
+          .fr-sidemenu__inner
+            %button.fr-sidemenu__btn{ "aria-controls" => "fr-sidemenu-wrapper", "aria-expanded" => "false", :hidden => "" }= t('.mobile_menu')
+            .fr-collapse#fr-sidemenu-wrapper
               = yield :menu
 
-      .rf-col-md-9
+      .fr-col-md-9
         = yield
 
 - @wide_layout = true

@@ -1,26 +1,26 @@
-.rf-container
-  .rf-grid-row.rf-grid-row--center.rf-grid-row--gutters.rf-mb-5w
-    .rf-col.rf-col-lg-6
-      %h1.rf-h2= t('.header')
+.fr-container
+  .fr-grid-row.fr-grid-row--center.fr-grid-row--gutters.fr-mb-5w
+    .fr-col.fr-col-lg-6
+      %h1.fr-h2= t('.header')
       = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f|
         = render 'devise/shared/error_messages', resource: resource
         = f.hidden_field :invitation_token, readonly: true
 
-        .rf-input-group
-          = f.label :email, class: 'rf-label'
-          = f.email_field :email, autofocus: true, disabled: true, class: 'rf-input'
+        .fr-input-group
+          = f.label :email, class: 'fr-label'
+          = f.email_field :email, autofocus: true, disabled: true, class: 'fr-input'
 
-        %p.rf-mb-4v= t('.prefilled_description')
+        %p.fr-mb-4v= t('.prefilled_description')
         = render 'devise/shared/user_fields', form: f
 
-        %p.rf-mb-4v= t('.password_description')
+        %p.fr-mb-4v= t('.password_description')
 
-        .required.rf-input-group
-          = f.label :password, class: 'rf-label'
-          = f.password_field :password, class: 'rf-input'
-        .required.rf-input-group
-          = f.label :password_confirmation, class: 'rf-label'
-          = f.password_field :password_confirmation, class: 'rf-input'
+        .required.fr-input-group
+          = f.label :password, class: 'fr-label'
+          = f.password_field :password, class: 'fr-input'
+        .required.fr-input-group
+          = f.label :password_confirmation, class: 'fr-label'
+          = f.password_field :password_confirmation, class: 'fr-input'
 
-        .rf-input-group
-          = f.submit t('.submit_button'), class: 'rf-btn btn-green'
+        .fr-input-group
+          = f.submit t('.submit_button'), class: 'fr-btn btn-green'

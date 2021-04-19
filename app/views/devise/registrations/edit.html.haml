@@ -1,9 +1,9 @@
-.rf-container
+.fr-container
   = form_with model: @user, url: user_path, local: true do |f|
     = render "devise/shared/error_messages", resource: @user
-    .rf-input-group
-      = f.label :email, class: 'rf-label'
-      = f.email_field :email, disabled: true, class: 'rf-input'
+    .fr-input-group
+      = f.label :email, class: 'fr-label'
+      = f.email_field :email, disabled: true, class: 'fr-input'
     %p
       %span.blue.ri-information-fill
       = t('.contact_us_to_change_email_html', email: ENV['APPLICATION_EMAIL'])
@@ -11,4 +11,4 @@
     = render 'devise/shared/user_fields', form: f
 
     .actions
-      = f.submit t('update'), class: 'rf-btn btn-green'
+      = f.submit t('update'), class: 'fr-btn btn-green'

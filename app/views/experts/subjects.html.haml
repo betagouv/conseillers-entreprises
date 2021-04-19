@@ -13,10 +13,10 @@
 
 - institution_subjects = @expert.institution.available_subjects
 - institution_subjects.each do |theme, institutions_subjects|
-  %h2.rf-h4= theme.label
-  %ul.list-unstyled.rf-mb-3w
+  %h2.fr-h4= theme.label
+  %ul.list-unstyled.fr-mb-3w
     - institutions_subjects.each do |institution_subject|
-      %li.rf-mb-2v
+      %li.fr-mb-2v
         - expert_subject = ExpertSubject.find_by(expert: @expert, institution_subject: institution_subject)
         - if expert_subject.present?
           %span.ri-checkbox-line.green
