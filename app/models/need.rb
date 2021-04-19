@@ -216,6 +216,10 @@ class Need < ApplicationRecord
     where(status: [:done, :done_no_help, :done_not_reachable, :not_for_me])
   end
 
+  scope :with_status_done, -> do
+    where(status: [:done, :done_no_help, :done_not_reachable])
+  end
+
   scope :for_facility, -> (facility) do
     joins(diagnosis: :facility).where(diagnoses: { facility: facility })
   end

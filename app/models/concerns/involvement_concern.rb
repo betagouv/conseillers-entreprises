@@ -20,7 +20,7 @@ module InvolvementConcern
 
   def needs_done
     received_needs
-      .where(matches: received_matches.status_done)
+      .where(matches: received_matches.with_status_done)
       .where(matches: { archived_at: nil })
       .archived(false)
   end
