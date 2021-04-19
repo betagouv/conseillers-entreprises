@@ -6,14 +6,14 @@
       %a.navbar__home{ href: '/' }
         = image_tag 'Republique_Francaise_RVB.png', alt: t('logos.republique_francaise'), class: 'navbar__logo'
         = image_tag 'logo-PDE.svg', alt: t('logos.pde'), class: 'navbar__domain'
-        %button.burger-btn{ "data-action": "toggle-nav", "aria-label": t('pages.menu.unfold') }
-          %span.burger-btn__bar
-          %span.burger-btn__bar
-          %span.burger-btn__bar
-      %nav{ "data-target": "toggle-nav" }
+      %button.burger-btn#responsive-button-main-navigation{ "aria-controls": "responsive-main-navigation", "data-action": "toggle-nav", "aria-label": t('pages.menu.unfold'), "aria-expanded": "false" }
+        %span.burger-btn__bar
+        %span.burger-btn__bar
+        %span.burger-btn__bar
+      %nav#responsive-main-navigation{ "data-target": "toggle-nav", role: "navigation" }
         %ul.nav__links
           %li.nav__item
-            = link_to t('about.blog.title'), ENV['BLOG_URL']
+            = link_to t('about.blog.title'), ENV['BLOG_URL'], title: t('.link_to_blog')
           %li.nav__item
             = active_link_to t('about.comment_ca_marche.title'), comment_ca_marche_path
           %li.nav__item

@@ -10,7 +10,7 @@
         #button-discover= link_to t('.discover_measures'), landing, class: 'button-outline small primary'
 
 - unless in_iframe?
-  %p.card-section-header= t('you_wish')
+  %h2.card-section-header= t('you_wish')
 
 - landings.each_slice(3) do |landings_slice|
   .row

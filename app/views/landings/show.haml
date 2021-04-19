@@ -2,7 +2,6 @@
   meta title: @landing.meta_title, description: @landing.meta_description
 
 - cache_unless(flash.present?, [@landing, in_iframe?]) do
-  %style= @landing.custom_css
 
   - unless in_iframe?
     %section.section.section-white.landing.less-padding
@@ -23,7 +22,7 @@
     = render 'pages/breadcrumbs', landing: @landing
 
   - unless in_iframe?
-    %section#scroll-section
+    #scroll-section
 
   %section.section.section-grey#section-exemples
     .container
