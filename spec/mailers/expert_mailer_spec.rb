@@ -104,15 +104,4 @@ describe ExpertMailer do
 
     it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
   end
-
-  describe '#notify_other_taking_care' do
-    subject(:mail) { described_class.notify_other_taking_care(expert, a_match).deliver_now }
-
-    let(:expert) { create :expert }
-    let(:a_match) { create :match }
-
-    it_behaves_like 'an email'
-
-    it { expect(mail.header[:from].value).to eq ExpertMailer::SENDER }
-  end
 end
