@@ -10,4 +10,10 @@ module ScriptsSnippetsHelper
       render 'shared/sentry'
     end
   end
+
+  def tarteaucitron_script
+    if Rails.env.production?
+      render 'shared/tarteaucitron'
+    end
+  end
 end
