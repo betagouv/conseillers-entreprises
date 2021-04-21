@@ -43,10 +43,13 @@
   display: flex
   align-items: center
 .fr-sidemenu__list
-  .fr-sidemenu__item--active
+  .fr-sidemenu__item--active, .fr-sidemenu__link:hover
     color: $blue
   .fr-sidemenu__link
     i
       display: contents
   .fr-tag
     height: fit-content
+
+a.fr-nav__link[href]:hover
+    color: $blue
