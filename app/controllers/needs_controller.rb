@@ -36,8 +36,8 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user, :not_for_me)
   end
 
-  def archived
-    retrieve_needs(current_user, :archived)
+  def expired
+    retrieve_needs(current_user, :expired)
   end
 
   def antenne_quo
@@ -63,7 +63,7 @@ class NeedsController < ApplicationController
   private
 
   def collection_names
-    %i[quo taking_care done not_for_me archived]
+    %i[quo taking_care done not_for_me expired]
   end
 
   # Common render method for collection actions
