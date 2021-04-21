@@ -38,6 +38,14 @@ module InvolvementConcern
       .or(received_needs.where.not(matches: { archived_at: nil }))
   end
 
+  def needs_expired
+    # Je n’ai pas pu écrire ".where(matches: { created_at: ..60.days.ago })" à cause d’un bug de Rubocop sur CircleCi
+    received_needs
+      .where(matches: received_matches.status_quo)
+      .where("matches.created_at < ?", 60.days.ago)
+      .distinct
+  end
+
   def needs_others_taking_care
     received_needs
       .status_taking_care

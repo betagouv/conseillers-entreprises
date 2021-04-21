@@ -162,7 +162,7 @@ Rails.application.routes.draw do
       get :taking_care, path: 'prises_en_charge'
       get :done, path: 'cloturees'
       get :not_for_me, path: 'refusees'
-      get :archived, path: 'expirees'
+      get :expired, path: 'expirees'
 
       get :antenne_quo, path: 'antenne/boite_de_reception'
       get :antenne_taking_care, path: 'antenne/prises_en_charge'
