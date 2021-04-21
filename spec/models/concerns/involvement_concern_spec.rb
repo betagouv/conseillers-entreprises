@@ -32,6 +32,23 @@ RSpec.describe InvolvementConcern do
     ])
   end
 
+  # besoin non pris en charge et avec un match de l’expert archivé
+  let!(:need_quo_expert_match_archived) do
+    matches = [create(:match, expert: current_expert, status: :quo, archived_at: Time.zone.now), create(:match, status: :quo)]
+    create(:need, diagnosis: create(:diagnosis_completed), matches: matches)
+  end
+
+  # besoin non pris en charge et avec un match d’un autre expert archivé
+  let!(:need_quo_another_expert_match_archived) do
+    matches = [create(:match, expert: current_expert, status: :quo), create(:match, status: :quo, archived_at: Time.zone.now)]
+    create(:need, diagnosis: create(:diagnosis_completed), matches: matches)
+  end
+
+  # besoin refusé par l’expert et non archivé
+  let!(:need_refused_not_archived) do
+    create(:need, diagnosis: create(:diagnosis_completed), matches: [create(:match, expert: current_expert, status: :quo)])
+  end
+
   let(:current_expert) { create :expert, users: [user] }
   let(:other_expert) { create :expert }
   let(:user) { create :user }
@@ -69,6 +86,6 @@ RSpec.describe InvolvementConcern do
   describe 'needs_archived' do
     subject { user.needs_archived }
 
-    it { is_expected.to contain_exactly(need_archived) }
+    it { is_expected.to contain_exactly(need_archived, need_quo_expert_match_archived) }
   end
 end
