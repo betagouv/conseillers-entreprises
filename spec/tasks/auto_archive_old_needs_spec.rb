@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'auto_archive_old_matches', type: :task do
   subject { described_class }
 
-  let(:date1) { 56.days }
+  let(:date1) { 61.days }
   let(:need_taking_care) { create :need }
   let!(:match_need_taking_care) { create :match, status: :taking_care, need: need_taking_care }
   let!(:match_quo_need_taking_care) { create :match, status: :quo, need: need_taking_care }
@@ -11,8 +11,8 @@ describe 'auto_archive_old_matches', type: :task do
   let!(:match_need_quo) { create :match, status: :quo, need: need_quo }
 
   context 'When matches are to old, archives them automatically' do
-    # Mis en relation de plus de 55 jours avec besoin pris en charge par un autre référent : OK
-    # Mis en relation de plus de 55 jours avec besoin non pris en charge par un autre référent : KO
+    # Mis en relation de plus de 60 jours avec besoin pris en charge par un autre référent : OK
+    # Mis en relation de plus de 60 jours avec besoin non pris en charge par un autre référent : KO
     before do
       travel date1 do
         task.invoke
@@ -28,8 +28,8 @@ describe 'auto_archive_old_matches', type: :task do
   end
 
   context 'When matches are not to old, not archives them automatically' do
-    # Mis en relation de moins de 55 jours avec besoin pris en charge par un autre référent : OK
-    # Mis en relation de moins de 55 jours avec besoin non pris en charge par un autre référent : KO
+    # Mis en relation de moins de 60 jours avec besoin pris en charge par un autre référent : OK
+    # Mis en relation de moins de 60 jours avec besoin non pris en charge par un autre référent : KO
     before do
       task.invoke
       need_taking_care.reload
