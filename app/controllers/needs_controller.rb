@@ -56,7 +56,7 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user.antenne, :not_for_me)
   end
 
-  def antenne_archived
+  def antenne_expired
     retrieve_needs(current_user.antenne, :archived)
   end
 

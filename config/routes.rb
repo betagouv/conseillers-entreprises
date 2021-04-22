@@ -168,7 +168,7 @@ Rails.application.routes.draw do
       get :antenne_taking_care, path: 'antenne/prises_en_charge'
       get :antenne_done, path: 'antenne/cloturees'
       get :antenne_not_for_me, path: 'antenne/refusees'
-      get :antenne_archived, path: 'antenne/expirees'
+      get :antenne_expired, path: 'antenne/expirees'
     end
     member do
       get :additional_experts
