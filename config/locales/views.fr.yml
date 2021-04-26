@@ -328,9 +328,11 @@ fr:
     side_menu:
       mobile_menu: Menu
   logos:
-    france_relance: logo France Relance
-    pde: logo Place des Entreprises
-    republique_francaise: logo République française
+    france_relance: France Relance
+    pde: Place des Entreprises
+    pde_home: Place des Entreprises - Page d’accueil
+    prefet_region: Préfet région %{name}
+    republique_francaise: République française
   mailers:
     admin_mailer:
       csv_export: Export CSV des %{model}

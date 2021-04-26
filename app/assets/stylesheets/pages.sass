@@ -12,6 +12,8 @@
 
 html
   scroll-behavior: smooth
+  a:focus
+    border: inset 1px var(--dark-blue)
 
 @media (prefers-reduced-motion: reduce)
   html
@@ -298,6 +300,9 @@ a:hover
 .blue
   color: #0053b3
   color: var(--blue)
+
+.button.blue:focus
+  border: 2px dashed white
 
 .asterisk
   font-size: 0.8rem
