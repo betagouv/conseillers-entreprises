@@ -1,7 +1,10 @@
 !!!
 %html{ lang: 'fr' }
   %head
-    = metamagic site: t('app_name'), title: %i[title site], separator: ' | '
+    - if request.path == root_path
+      = metamagic
+    - else
+      = metamagic site: t('app_name'), title: %i[title site], separator: ' | '
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     = canonical_tags
     - if in_iframe?
