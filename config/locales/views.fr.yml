@@ -508,9 +508,11 @@ fr:
       alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France et en Île-de-France."
       learn_more: En savoir plus
     footer:
+      cookies: Gestion des cookies
       github_title: Page Github de Place des Entreprises - lien externe
       link_to_beta_gouv: Lien vers le site de Beta.gouv.fr - lien externe
       linkedin_title: Page Linkedin de Place des Entreprises - lien externe
+      open_cookies: Ouvre la fenêtre de gestion des cookies
       service_presentation: Présentation du service (PDF 1,6 Mo)
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 1,6 Mo) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
