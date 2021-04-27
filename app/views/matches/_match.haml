@@ -1,22 +1,23 @@
-.fr-grid-row.row-match{ id: "row-match-#{match.id}" }
-  .fr-col-sm-1.fr-col-1.col-icon
-    = expert_status_icon(match.status)
-  .fr-col-sm-8.fr-col-11
-    %p
-      %b.blue.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{match.id}" }
-        #{match.expert.full_name}
-      = " - " + match.expert.antenne.name
-    .hidden{ id: "tooltip-case-#{match.id}" }
-      = person_block(match.expert)
+- if !match.expert.deleted? || (match.expert.deleted? && policy(match.expert).show_deleted_experts?)
+  .fr-grid-row.row-match{ id: "row-match-#{match.id}" }
+    .fr-col-sm-1.fr-col-1.col-icon
+      = expert_status_icon(match.status)
+    .fr-col-sm-8.fr-col-11
+      %p
+        %b.blue.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{match.id}" }
+          #{match.expert.full_name}
+        = " - " + match.expert.antenne.name
+      .hidden{ id: "tooltip-case-#{match.id}" }
+        = person_block(match.expert)
 
-  .fr-col-sm-2.fr-col.col-label
-    = status_label(match)
+    .fr-col-sm-2.fr-col.col-label
+      = status_label(match)
 
-  .fr-col-sm-1.fr-col.modify-match
-    - if policy(match).mark_as_done? && match.status_taking_care?
-      %section.fr-accordion
-        %h3.fr-accordion__title
-          %button.fr-accordion__btn{ "aria-controls" => "fr-accordion-#{match.id}", "aria-expanded" => "false" }
-            .ri-edit-box-line
-        .fr-collapse{ id: "fr-accordion-#{match.id}" }
-          = admin_match_actions_buttons match
+    .fr-col-sm-1.fr-col.modify-match
+      - if policy(match).mark_as_done? && match.status_taking_care?
+        %section.fr-accordion
+          %h3.fr-accordion__title
+            %button.fr-accordion__btn{ "aria-controls" => "fr-accordion-#{match.id}", "aria-expanded" => "false" }
+              .ri-edit-box-line
+          .fr-collapse{ id: "fr-accordion-#{match.id}" }
+            = admin_match_actions_buttons match
