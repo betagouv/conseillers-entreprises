@@ -22,12 +22,13 @@ module StatusHelper
   }
 
   EXPERTS_ICONS = {
-    quo: %w[ri-user-received-line grey-blue],
-    not_for_me: %w[ri-user-unfollow-line red],
-    taking_care: %w[ri-user-add-line green],
-    done: %w[ri-user-follow-line green],
-    done_no_help: %w[ri-user-follow-line orange],
-    done_not_reachable: %w[ri-user-follow-line grey-blue]
+    quo: %w[ri-user-received-line],
+    not_for_me: %w[ri-user-unfollow-line],
+    taking_care: %w[ri-user-add-line],
+    done: %w[ri-user-follow-line],
+    done_no_help: %w[ri-user-follow-line],
+    done_not_reachable: %w[ri-user-follow-line],
+    additional: %w[ri-user-search-line]
   }
 
   STATUS_CONTENT = %i[done done_no_help done_not_reachable]
@@ -77,8 +78,14 @@ module StatusHelper
     tag.i(class: classes.join(' '))
   end
 
-  def expert_status_icon(status)
-    classes = EXPERTS_ICONS[status.to_sym]
+  def expert_status_icon(match)
+    classes = []
+    classes << if match.additional_match?
+      EXPERTS_ICONS[:additional]
+    else
+      EXPERTS_ICONS[match.status.to_sym]
+    end
+    classes << STATUS_COLORS[match.status.to_sym]
     tag.span('', class: classes.join(' '))
   end
 end

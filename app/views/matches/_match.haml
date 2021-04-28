@@ -1,7 +1,7 @@
 - if !match.expert.deleted? || (match.expert.deleted? && policy(match.expert).show_deleted_experts?)
   .fr-grid-row.row-match{ id: "row-match-#{match.id}" }
     .fr-col-sm-1.fr-col-1.col-icon
-      = expert_status_icon(match.status)
+      = expert_status_icon(match)
     .fr-col-sm-8.fr-col-11
       %p
         %b.blue.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{match.id}" }
