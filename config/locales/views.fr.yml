@@ -489,12 +489,11 @@ fr:
       for_other_user: Uniquement les demandes pour %{user}
       for_recipient: Pour %{recipient}
     show:
+      all_experts: Experts notifiés
       all_needs: Toutes les demandes
       blank_advisor: "-"
       comments: Discussion entre experts
       no_comment: Aucun commentaire
-      no_match: Aucun autre expert de notifié
-      others_experts: Autres experts notifiés
       person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »
       transmitted_by: Demande transmise par

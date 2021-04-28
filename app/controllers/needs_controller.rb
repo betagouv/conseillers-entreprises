@@ -90,7 +90,7 @@ class NeedsController < ApplicationController
 
   def show
     authorize @need
-    @others_matches = @need.matches.where.not(id: current_user.received_matches.ids).distinct
+    @matches = @need.matches.order(:created_at)
   end
 
   def additional_experts
