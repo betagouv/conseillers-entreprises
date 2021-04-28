@@ -45,4 +45,18 @@ RSpec.describe ExpertPolicy, type: :policy do
       it { is_expected.not_to permit(user, expert) }
     end
   end
+
+  permissions :show_deleted_experts? do
+    context "grants access if user is an admin" do
+      let(:user) { create :user, is_admin: true }
+
+      it { is_expected.to permit(user, expert) }
+    end
+
+    context "denies access if user is another user" do
+      let(:user) { create :user }
+
+      it { is_expected.not_to permit(user, expert) }
+    end
+  end
 end

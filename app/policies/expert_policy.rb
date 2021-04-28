@@ -10,4 +10,8 @@ class ExpertPolicy < ApplicationPolicy
   def update?
     edit?
   end
+
+  def show_deleted_experts?
+    admin?
+  end
 end
