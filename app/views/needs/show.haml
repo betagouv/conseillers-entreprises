@@ -36,9 +36,9 @@
               %p.blue.title= t('.transmitted_by')
               %p
                 - if @need.advisor.present?
-                  %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-advisor-#{@need.advisor.id}" }
+                  %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-advisor-#{@need.advisor.id}" }
                     #{@need.advisor.full_name}
-                  .hidden{ id: "tooltip-case-advisor-#{@need.advisor.id}" }
+                  .hidden{ id: "tooltip-advisor-#{@need.advisor.id}" }
                     = person_block(@need.advisor)
                 - else
                   = t('.blank_advisor')

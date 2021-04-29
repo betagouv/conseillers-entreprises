@@ -7,13 +7,13 @@
   %ul.list-unstyled.fr-p-0
     - @user.antenne.advisors.not_deleted.each do |advisor|
       %li.fr-mb-1v
-        %span.fr-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{advisor.id}" }
+        %span.fr-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-advisor-#{advisor.id}" }
           - if advisor == @user
             %span.ri-user-fill.blue{ title: t('users.thats_you') }
           - else
             %span.ri-user-fill
           = advisor.full_name
-        .hidden{ id: "tooltip-case-#{advisor.id}" }
+        .hidden{ id: "tooltip-advisor-#{advisor.id}" }
           = person_block(advisor)
 
 %h2.fr-h5= t('attributes.teams.other')

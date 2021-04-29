@@ -4,10 +4,10 @@
       = expert_status_icon(match)
     .fr-col-sm-8.fr-col-11
       %p
-        %b.blue.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{match.id}" }
+        %b.blue.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-match-#{match.id}" }
           #{match.expert.full_name}
         = " - " + match.expert.antenne.name
-      .hidden{ id: "tooltip-case-#{match.id}" }
+      .hidden{ id: "tooltip-match-#{match.id}" }
         = person_block(match.expert)
 
     .fr-col-sm-2.fr-col.col-label

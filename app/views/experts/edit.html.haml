@@ -44,13 +44,13 @@
       %ul.list-unstyled.fr-p-0.fr-m-0
         - @expert.users.not_deleted.each do |member|
           %li.fr-mb-1v
-            %span.fr-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-#{member.id}" }
+            %span.fr-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-member-#{member.id}" }
               - if member == @user
                 %span.blue.ri-user-fill{ title: t('users.thats_you') }
               - else
                 %span.ri-user-fill
               = member.full_name
-            .hidden{ id: "tooltip-case-#{member.id}" }
+            .hidden{ id: "tooltip-member-#{member.id}" }
               = person_block(member)
 
   .actions
