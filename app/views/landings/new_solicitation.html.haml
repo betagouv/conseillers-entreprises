@@ -1,6 +1,6 @@
 :ruby
   landing_option = @solicitation.landing_option
-  meta title: landing_option&.meta_title || @landing.meta_title, description: @landing.meta_description
+  meta title: landing_option&.meta_title.presence || @landing.meta_title, description: @landing.meta_description
 
 - unless in_iframe?
   %section.section.section-white.landing.less-padding
