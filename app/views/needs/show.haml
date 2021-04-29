@@ -36,9 +36,9 @@
               %p.blue.title= t('.transmitted_by')
               %p
                 - if @need.advisor.present?
-                  %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-case-advisor-#{@need.advisor.id}" }
+                  %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-advisor-#{@need.advisor.id}" }
                     #{@need.advisor.full_name}
-                  .hidden{ id: "tooltip-case-advisor-#{@need.advisor.id}" }
+                  .hidden{ id: "tooltip-advisor-#{@need.advisor.id}" }
                     = person_block(@need.advisor)
                 - else
                   = t('.blank_advisor')
@@ -48,10 +48,10 @@
     = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
 .lighter-blue-bg
-  .fr-container.fr-p-2w#others-experts
-    %h2.fr-h3.fr-my-4w= t('.others_experts')
-    - if @others_matches.present?
-      = render @others_matches
+  .fr-container.fr-p-2w#all-experts
+    %h2.fr-h3.fr-my-4w= t('.all_experts')
+    - if @matches.any?
+      = render @matches
     - else
       %p#no-match= t('.no_match')
 

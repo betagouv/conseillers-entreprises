@@ -5,13 +5,13 @@ require 'rails_helper'
 RSpec.describe 'needs/show.haml', type: :view do
   login_user
   let(:need) { create :need_with_matches, status: :quo }
-  let(:others_matches) { need.matches.where.not(id: current_user.received_matches.ids).distinct }
+  let(:matches) { need.matches }
   let!(:taken_care_match) { create :match, need: need, status: :taking_care }
 
   let(:assignments) do
     enable_pundit(view, current_user)
     assign(:need, need)
-    assign(:others_matches, others_matches)
+    assign(:matches, matches)
     render
   end
 
@@ -22,7 +22,7 @@ RSpec.describe 'needs/show.haml', type: :view do
       before { assignments }
 
       it('displays subject title') { expect(rendered).to have_selector('h1', text: need.subject.label) }
-      it('display other experts matches') { expect(rendered).to have_selector('#others-experts', text: others_matches.first.expert.full_name) }
+      it('display other experts matches') { expect(rendered).to have_selector('#all-experts', text: matches.first.expert.full_name) }
       it('display new feedback form') { expect(rendered).to have_selector('.feedbacks-form', text: I18n.t('feedbacks.form.title')) }
       it('have form for additional experts') { expect(render).not_to have_selector('.additional-experts', count: 1) }
       it('has form for close matches') { expect(render).not_to have_selector("#fr-accordion-#{taken_care_match.id}", count: 1) }

@@ -7,7 +7,7 @@ module StatusHelper
     taking_care: %w[green],
     done: %w[green],
     done_no_help: %w[orange],
-    done_not_reachable: %w[grey-blue]
+    done_not_reachable: %w[blue-dark]
   }
 
   STATUS_ICONS = {
