@@ -493,6 +493,7 @@ fr:
       all_needs: Toutes les demandes
       blank_advisor: "-"
       comments: Discussion entre experts
+      no_match: Aucun expert de notifié
       no_comment: Aucun commentaire
       person_company_contact: Contact entreprise
       title: Visite de la société « %{company} »
