@@ -48,9 +48,10 @@
     = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
 .lighter-blue-bg
-  .fr-container.fr-p-2w#others-experts
+  .fr-container.fr-p-2w#all-experts
     %h2.fr-h3.fr-my-4w= t('.all_experts')
-    = render @matches
+    - if @matches.present?
+      = render @matches
 
 .lighter-blue-bg
   .fr-container
