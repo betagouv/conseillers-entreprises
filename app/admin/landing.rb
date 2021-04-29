@@ -91,10 +91,11 @@ ActiveAdmin.register Landing do
         column I18n.t("landings.new_solicitation_form.form") do |option|
           link_to option.slug, new_solicitation_landing_path(landing, option)
         end
-        column :slug
         column :preselected_subject_slug
         column :preselected_institution_slug
         column :form_title
+        column :meta_title
+        column :slug
         column :form_description
         column :description_explanation
         LandingOption::REQUIRED_FIELDS_FLAGS.each do |attr|
@@ -107,12 +108,15 @@ ActiveAdmin.register Landing do
   ## Form
   #
   landing_options_attributes = [
-    :id, :slug, :landing_sort_order,
+    :id, :slug, :landing_sort_order, :meta_title,
     :preselected_institution_slug, :preselected_subject_slug,
     :_destroy, :form_description, :form_title, :description_explanation,
     *LandingOption::REQUIRED_FIELDS_FLAGS,
   ]
-  landing_topics_attributes = [:id, :title, :description, :landing_sort_order, :landing_option_slug, :group_name, :_destroy]
+  landing_topics_attributes = [
+    :id, :title, :description, :landing_sort_order, :landing_option_slug,
+    :group_name, :_destroy
+  ]
   permit_params :slug,
                 :institution_id,
                 :home_title, :home_description, :home_sort_order,
@@ -172,6 +176,7 @@ ActiveAdmin.register Landing do
         o.input :preselected_subject_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Subject.pluck(:slug)
         o.input :preselected_institution_slug, input_html: { style: 'width:70%' }, as: :datalist, collection: Institution.pluck(:slug)
         o.input :form_title, input_html: { style: 'width:70%' }
+        o.input :meta_title, input_html: { style: 'width:70%' }
         o.input :form_description, as: :text, input_html: { style: 'width:70%', rows: 10 }
         o.input :description_explanation, as: :text, input_html: { style: 'width:70%', rows: 10 }
         LandingOption::REQUIRED_FIELDS_FLAGS.each do |flag|

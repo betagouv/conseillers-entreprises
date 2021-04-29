@@ -7,6 +7,7 @@
 #  form_description               :string
 #  form_title                     :string
 #  landing_sort_order             :integer
+#  meta_title                     :string
 #  preselected_institution_slug   :string
 #  preselected_subject_slug       :string
 #  requires_email                 :boolean          default(FALSE), not null
