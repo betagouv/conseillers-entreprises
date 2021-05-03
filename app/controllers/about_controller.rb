@@ -5,6 +5,8 @@ class AboutController < PagesController
 
   def mentions_legales; end
 
+  def accessibilite; end
+
   def comment_ca_marche
     @institutions = Rails.cache.fetch("institutions-#{Institution.maximum(:updated_at)}") do
       institutions = Institution.where(show_on_list: true).pluck(:name).sort

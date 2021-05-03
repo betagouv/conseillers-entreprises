@@ -24,6 +24,7 @@
       %li= link_to t('cgu'), cgu_path
       %li= link_to t('about.mentions_d_information.title'), mentions_d_information_path
       %li= link_to t('about.mentions_legales.title'), mentions_legales_path
+      %li= link_to t('about.accessibilite.footer_title'), accessibilite_path
       %li= link_to t('usage_stats'), public_index_path
       - if policy(Stats::All).team?
         %li= link_to t('usage_team_stats'), team_index_path

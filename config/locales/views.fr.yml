@@ -1,6 +1,9 @@
 ---
 fr:
   about:
+    accessibilite:
+      footer_title: 'Accessibilité : non conforme'
+      title: Accessibilité
     blog:
       title: Actu aides
     cgu:

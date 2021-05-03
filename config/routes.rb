@@ -93,6 +93,7 @@ Rails.application.routes.draw do
     get :cgu
     get :mentions_d_information
     get :mentions_legales
+    get :accessibilite
   end
 
   scope :stats, module: :stats do
