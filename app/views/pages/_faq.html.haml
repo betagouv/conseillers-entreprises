@@ -41,7 +41,8 @@
     }
 
 %h2 Questions fréquentes
-- @faq.each do |item|
+
+- I18n.t('faq').each_value do |item|
   %details.faq
     %summary
       %h3= item[:question]
