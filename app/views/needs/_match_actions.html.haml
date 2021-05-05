@@ -31,7 +31,7 @@
     = form_with(model: match, url: match_path(match)) do |f|
       %ul.list-unstyled.fr-grid-row.fr-grid-row--gutters.fr-col
         %li.fr-col-12.fr-col-md-4
-          .fr-col.close-need-box.block-link
+          .fr-col.close-need-box.block-button
             .icon.green
               %span.ri-checkbox-circle-fill
             .content
@@ -40,7 +40,7 @@
               = f.button :submit, name: :status, value: :done, class: 'fr-btn btn-green', aria: { label: "#{t('.help_provided.title')}. #{t('.help_provided.content')}" } do
                 = t('.validate')
         %li.fr-col-12.fr-col-md-4
-          .fr-col.close-need-box
+          .fr-col.close-need-box.block-button
             .icon.blue-dark
               %span.ri-checkbox-circle-fill
             .content
@@ -49,7 +49,7 @@
               = f.button :submit, name: :status, value: :done_not_reachable, class: 'fr-btn btn-blue-dark', aria: { label: "#{t('.not_reachable.title')}. #{t('.not_reachable.content')}" } do
                 = t('.validate')
         %li.fr-col-12.fr-col-md-4
-          .fr-col.close-need-box
+          .fr-col.close-need-box.block-button
             .icon.orange
               %span.ri-checkbox-circle-fill
             .content
