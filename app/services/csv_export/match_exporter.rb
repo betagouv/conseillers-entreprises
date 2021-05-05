@@ -29,7 +29,7 @@ module CsvExport
         need_status: -> { need.human_attribute_value(:status, context: :short) },
         taken_care_of_at: :taken_care_of_at,
         closed_at: :closed_at,
-        page_analyse: -> { Rails.application.routes.url_helpers.need_url(self.diagnosis) },
+        page_besoin: -> { Rails.application.routes.url_helpers.need_url(self.need) },
       }
     end
 
