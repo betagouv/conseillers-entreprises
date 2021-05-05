@@ -158,7 +158,7 @@ class Match < ApplicationRecord
 
   def additional_match?
     delay_after_first_match = (created_at - need.initial_matches_at)
-    delay_after_first_match > 5.minutes
+    delay_after_first_match > 30.seconds
   end
 
   def expert_subject
