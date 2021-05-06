@@ -9,6 +9,10 @@
 %section.section.section-white.landing
   = render 'pages/how_it_works'
 
+%section.section.section-white
+  .container
+    = render 'pages/faq', faq: @faq, ld_json: @ld_json
+
 %section.section.section-grey#liste-partenaires
   .container
     %h2 Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 50 partenaires publics et parapublics :

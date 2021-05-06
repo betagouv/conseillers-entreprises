@@ -37,6 +37,7 @@ class CompaniesController < ApplicationController
   end
 
   def needs
+    ## TODO : afficher aussi les besoins déposés avec le même email (cf cas cession/reprise)
     @facility = Facility.find_by(siret: params.permit(:siret)[:siret])
     @needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, @facility.needs).resolve
     @needs_done = NeedDonePolicy::Scope.new(current_user, @facility.needs).resolve

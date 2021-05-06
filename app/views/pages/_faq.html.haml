@@ -1,0 +1,10 @@
+%script{ type: "application/ld+json" }
+  !=ld_json
+
+%h2 Questions fréquentes
+
+- faq.each do |item|
+  %details.faq
+    %summary
+      %h3= item[:question]
+    %p= simple_format(item[:answer])

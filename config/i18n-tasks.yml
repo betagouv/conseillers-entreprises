@@ -106,6 +106,7 @@ ignore_unused:
   - 'regions_codes_to_libelles.*'
   - 'regions_codes_to_slugs.*'
   - 'regions_slugs_to_codes.*'
+  - 'faq.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
