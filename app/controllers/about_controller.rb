@@ -12,24 +12,7 @@ class AboutController < PagesController
       institutions = Institution.where(show_on_list: true).pluck(:name).sort
       institutions.each_slice((institutions.count.to_f / 4).ceil).to_a
     end
-    faq_values = I18n.t('faq').values
-    # Rich snippets
-    faq_to_ld_json = faq_values.each_with_object([]) do |item, new_array|
-      new_array << {
-        "@type": "Question",
-        name: item[:question],
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item[:answer]
-        }
-      }
-    end
-    @ld_json = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faq_to_ld_json
-    }.to_json
-    # Suppression premiere question FAQ, car déjà présente avec les 3 icones
-    @faq = faq_values.drop(1)
+    @ld_json = FaqGenerator.new(I18n.t('faq').values).to_ld_json
+    @faq = FaqGenerator.new(I18n.t('faq').values).to_html
   end
 end
