@@ -2,7 +2,7 @@ module CsvExportable
   def self.included(dsl)
     dsl.action_item :export_csv, method: :post do
       ransack_params = params.slice(:q).permit(q: {})[:q]
-      path = polymorphic_path([:export_csv, :admin, resource_class.model_name.collection], q: ransack_params)
+      path = polymorphic_path([:export_csv, :admin, resource_class.model_name.collection.to_sym], q: ransack_params)
       link_to t('active_admin.csv_export'), path, method: :post
     end
 
