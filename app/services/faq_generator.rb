@@ -1,5 +1,4 @@
 class FaqGenerator
-
   attr_reader :base_faq
 
   def initialize(values)
@@ -33,5 +32,4 @@ class FaqGenerator
       }
     end
   end
-
 end
