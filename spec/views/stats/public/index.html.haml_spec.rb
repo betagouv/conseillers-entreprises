@@ -12,6 +12,7 @@ RSpec.describe 'stats/public/index.html.haml', type: :view do
 
     it "displays coherent needs counts" do
       assign(:stats, Stats::Public::All.new({ start_date: start_date, end_date: end_date }))
+      assign(:main_stat, Stats::Public::ExchangeWithExpertColumnStats.new({ start_date: start_date, end_date: end_date }))
 
       render
 

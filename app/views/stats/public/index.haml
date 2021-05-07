@@ -15,7 +15,7 @@
     .container.container-full
       = render 'stats/stats_params', stats: @stats, route: public_index_path
       #stats-charts
-        - names = [:solicitations, :solicitations_in_deployed_regions, :solicitations_diagnoses, :exchange_with_expert, :themes, :companies_by_employees, :companies_by_naf_code]
+        - names = [:solicitations, :solicitations_in_deployed_regions, :solicitations_diagnoses, :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code]
         - names.each do |name|
           - data = @stats.send(name.to_sym)
           = render 'stats/stats_chart', data: data, name: name

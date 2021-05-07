@@ -6,19 +6,18 @@ module Stats
   end
 
   module BaseStats
-    attr_reader :territory, :institution
+    attr_reader :territory, :institution, :start_date, :end_date
 
     def initialize(params)
+      params = OpenStruct.new(params)
       if params.territory.present?
         @territory = Territory.find_by(id: params.territory)
       end
       if params.institution.present?
         @institution = Institution.find_by(id: params.institution)
       end
-      if params.start_date.present?
-        @start_date = params.start_date.to_date
-        @end_date = params.end_date.to_date || Date.today
-      end
+      @start_date = params.start_date.to_date || Date.today - 6.months
+      @end_date = params.end_date.to_date || Date.today
     end
 
     def date_group_attribute
