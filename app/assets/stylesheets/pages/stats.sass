@@ -1,5 +1,7 @@
 #section-stats
   #stats-params
+    .datepicker
+      display: inline-block
     form
       select
         max-width: 100%
@@ -23,3 +25,23 @@
       &:hover
         background: var(--blue)
         color: #fff
+
+.grid#stats-charts
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
+
+.card.stats
+  margin: 1rem 0
+
+.main-stat
+  margin-bottom: 2rem
+  .container
+    padding: 0 1.5rem
+  .header
+    max-width: 50em
+    margin: 0 auto
+  .highlight
+    font-size: 5rem
+  .incipit
+    font-size: 1.5rem
+    font-weight: bold
+    color: var(--dark-grey)
