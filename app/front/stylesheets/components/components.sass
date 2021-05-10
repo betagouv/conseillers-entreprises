@@ -129,3 +129,14 @@ hr.separation
     z-index: 1
     &:hover
       color: $blue
+
+.block-button
+  position: relative
+  button::after
+    z-index: 1
+    position: absolute
+    content: ""
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
