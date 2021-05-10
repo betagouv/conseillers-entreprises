@@ -6,7 +6,7 @@
   /besoins(/antenne)/:collection_name
 %ul.fr-sidemenu__list
   - collections_counts.each do |name, count|
-    - prefix = 'antenne' if recipient == antenne
+    - prefix = :antenne if recipient == antenne
     - path = polymorphic_path([prefix, name, :needs].compact)
     = menu_link_with_count(t(name, scope: 'needs.collections'), count, path)
 
