@@ -1,6 +1,6 @@
 module Stats::Mini
   class CompaniesByEmployeesStats
-    include ::Stats::BaseStats
+    include ::Stats::Mini::BaseStats
 
     def main_query
       Company

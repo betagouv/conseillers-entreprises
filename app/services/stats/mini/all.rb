@@ -1,15 +1,15 @@
 module Stats::Mini
   class All < Stats::All
     def companies_by_employees
-      CompaniesByEmployeesStats.new(@params)
+      CompaniesByEmployeesStats.new.count
     end
 
     def advisors
-      AdvisorsStats.new(@params)
+      AdvisorsStats.new.count
     end
 
     def needs
-      NeedsStats.new(@params)
+      NeedsStats.new.count
     end
   end
 end

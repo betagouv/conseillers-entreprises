@@ -2,16 +2,16 @@
   - stats = Stats::Mini::All.new
   .stats-item
     %div
-      = stats.companies_by_employees.count
+      = stats.companies_by_employees
     .text
       = t('stats.series.companies_by_employees.ministats')
   .stats-item
     %div
-      = stats.needs.count
+      = stats.needs
     .text
       = t('stats.series.needs.title')
   .stats-item
     %div
-      = stats.advisors.count
+      = stats.advisors
     .text
       = t('stats.series.advisors.title')
