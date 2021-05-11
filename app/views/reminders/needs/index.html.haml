@@ -1,6 +1,6 @@
 - meta title: t('reminders.index.title')
 - content_for :header, render('reminders/header', section: :needs, scope: @action)
-- content_for :menu, render('reminders/menu', collections_counts: @collections_counts)
+- content_for :menu, render('reminders/menu', collections_counts: @collections_counts, experts_count: @experts_count)
 
 = render 'shared/territory_choice', territories: @territories
 

@@ -12,9 +12,12 @@ module Reminders
       # the needs in the collections in Reminders::NeedsController (for poke, recall, warn and archive).
       # We don’t want all the experts for these needs: we want just the ones who didn’t respond to the match, yet.
       # (It probably is some ruby code, not an ActiveRecord query.)
-      @active_experts = experts_pool.with_active_abandoned_matches.includes(:antenne).sort_by do |expert|
-        expert.needs_quo.abandoned.count
-      end.reverse
+      @active_experts = experts_pool
+        .includes(:antenne)
+        .not_deleted
+        .with_needs_in_inbox
+        .most_needs_quo_first
+        .page params[:page]
     end
 
     def show

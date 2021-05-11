@@ -4,24 +4,24 @@
 .ui.grid
   .row
     - cache ["received_matches", expert, expert.received_matches] do
-      -#
-        TODO #1367 Here, for consistency with /besoins
-        we should rely on the InvolvementConcert queries.
       .nine.wide.column
         %h5.ui.header= t('.matches_total')
         .ui.labels
           .ui.basic.label
             = expert.received_matches.count
-            .detail= t('.matches_total_received')
+            .detail= t('.received_matches')
           .ui.basic.label
-            = expert.received_matches.where(status: :taking_care).count
-            .detail= t('.matches_total_taken_care_of')
+            = expert.needs_quo.count
+            .detail= t('.needs_quo')
           .ui.basic.label
-            = expert.received_matches.where(status: :done).count
-            .detail= t('.matches_total_done')
+            = expert.needs_taking_care.count
+            .detail= t('.needs_taking_care')
           .ui.basic.label
-            = expert.received_matches.where(status: :not_for_me).count
-            .detail= t('.matches_total_not_for_me')
+            = expert.needs_done.count
+            .detail= t('.needs_done')
+          .ui.basic.label
+            = expert.needs_not_for_me.count
+            .detail= t('.needs_not_for_me')
     - cache ["received_needs", expert, expert.received_needs] do
       -#
         TODO #1367 Here, for consistency with /relances/besoins,

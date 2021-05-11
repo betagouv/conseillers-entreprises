@@ -45,6 +45,7 @@ class Expert < ApplicationRecord
 
   has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
   has_many :received_matches, -> { sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
+  has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
 
   ## Validations
   #
@@ -140,6 +141,21 @@ class Expert < ApplicationRecord
     joins(:received_matches)
       .merge(Match.active_abandoned)
       .distinct
+  end
+
+  # referent a relancer = avec besoin dans boite reception vieuw de + de X jours
+  scope :with_needs_in_inbox, -> do
+    joins(:received_quo_matches)
+      .merge(Match
+        .where(archived_at: nil)
+        .where(created_at: (..Need::REMINDERS_DAYS[:poke].days.ago))
+        .joins(:need).where(need:{ archived_at: nil }))
+  end
+
+  scope :most_needs_quo_first, -> do
+    joins(:received_quo_matches)
+      .group(:id)
+      .order('COUNT(matches.id) DESC')
   end
 
   # Referencing
