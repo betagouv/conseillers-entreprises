@@ -10,6 +10,7 @@
     - if in_iframe?
       %meta{ name: 'robots', content: 'noindex' }
     = csrf_meta_tags
+    = csp_meta_tag
     = tarteaucitron_script
     = stylesheet_link_tag 'pages'
     = stylesheet_pack_tag 'pages', media: 'all'
