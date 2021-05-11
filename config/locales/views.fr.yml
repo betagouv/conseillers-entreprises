@@ -646,6 +646,8 @@ fr:
     in_deployed_regions: Demandes dans une région déployée
     in_unknown_region: Demandes dans une région indéterminée
     less_than_72h: Moins de 72h
+    main_stats_chart:
+      title: Notre mesure d’impact phare
     more_than_72h: Plus de 72h
     not_archived: Besoins non abandonnés
     other_status: Autres status
