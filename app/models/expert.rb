@@ -129,17 +129,11 @@ class Expert < ApplicationRecord
   end
 
   # Activity stuff
-  # TODO: #1367 The :with_active_matches and :with_active_abandoned_matches scope should be removed,
+  # TODO: #1367 The :with_active_matches scope should be removed,
   # we should build on Need#reminders_to and InvolvementConcern instead.
   scope :with_active_matches, -> do
     joins(:received_matches)
       .merge(Match.active)
-      .distinct
-  end
-
-  scope :with_active_abandoned_matches, -> do
-    joins(:received_matches)
-      .merge(Match.active_abandoned)
       .distinct
   end
 
