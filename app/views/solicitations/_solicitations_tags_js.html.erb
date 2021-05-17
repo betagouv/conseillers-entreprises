@@ -1,0 +1,25 @@
+<%= content_for :head do %>
+  <%= javascript_tag nonce: true do -%>
+    $(document).ready(function() {
+      $('select.ui.selection.search.dropdown.badges').dropdown({
+        fullTextSearch: 'exact',
+        ignoreDiacritics: true,
+        message: {
+        noResults :'<%= link_to t('.manage_badges'), badges_path %>'
+        }
+      })
+      $('.modify-badges').click( function() {
+        let solicitationId = $(this).data('id')
+        let $div = $('#solicitation-' + solicitationId + '-badges')
+        let $form = $('#solicitation-' + solicitationId + '-form-badges')
+        $div.toggleClass('hide')
+        $form.toggleClass('hide')
+      })
+      $('.ui.search').search({
+        type: 'category',
+        showNoResults: false,
+        source: <%= category_content.to_json.html_safe %>
+      })
+    })
+  <% end -%>
+<% end -%>
