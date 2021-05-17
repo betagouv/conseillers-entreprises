@@ -1,6 +1,7 @@
 class FeedbacksController < ApplicationController
   def create
-    @feedback = Feedback.create(feedback_params.merge(user: current_user))
+    sanitized_params = sanitize_params feedback_params
+    @feedback = Feedback.create(sanitized_params.merge(user: current_user))
     if @feedback.persisted?
       @feedback.notify_for_need!
     else
