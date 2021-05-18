@@ -1,4 +1,4 @@
-:javascript
+<%= javascript_tag nonce: true do -%>
   var _paq = _paq || [];
   // Configure Matomo analytics
   _paq.push(['trackPageView']);
@@ -30,3 +30,4 @@
     }
     window.gMatomoPreviousPageUrl = window.location.href;
   });
+<% end -%>
