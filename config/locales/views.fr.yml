@@ -314,7 +314,7 @@ fr:
           role: Conseiller entreprise, Chargé de mission…
           siret: 123 456 789 00010
           team_name: Équipe formation, Cellule-conseil aux entreprises…
-      better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrase :'
+      better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
       button:
         title: Envoyer ma demande
       clic_newsletter: Je m'abonne.
