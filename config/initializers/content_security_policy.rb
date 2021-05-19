@@ -6,14 +6,17 @@
 
 Rails.application.config.content_security_policy do |p|
   p.default_src :self
+  p.base_uri    :self
   p.font_src    :self, :data, 'fonts.gstatic.com'
   p.img_src     :self, :data, 'voxusagers.numerique.gouv.fr', 'stats.data.gouv.fr'
   p.object_src  :none
   p.style_src   :self, :unsafe_inline, 'fonts.googleapis.com'
-  p.script_src :self, :unsafe_eval, 'browser.sentry-cdn.com', 'sentry.io', 'stats.data.gouv.fr', 'cdn.jsdelivr.net'
+  p.script_src  :self, :unsafe_eval, 'browser.sentry-cdn.com', 'sentry.io', 'stats.data.gouv.fr', 'cdn.jsdelivr.net'
 
   if Rails.env.development?
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035'
+  else
+    p.connect_src :self, '*.sentry.io'
   end
 end
 
