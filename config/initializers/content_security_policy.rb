@@ -5,17 +5,17 @@
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
 Rails.application.config.content_security_policy do |p|
-  p.default_src :self, :https
-  p.font_src    :self, :https, :data
-  p.img_src     :self, :https, :data
+  p.default_src :self
+  p.font_src    :self, :data, 'fonts.gstatic.com'
+  p.img_src     :self, :data, 'voxusagers.numerique.gouv.fr'
   p.object_src  :none
-  p.style_src   :self, :https, :unsafe_inline
+  p.style_src   :self, :unsafe_inline, 'fonts.googleapis.com'
 
   if Rails.env.development?
-    p.script_src :self, :https, :unsafe_eval
-    p.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035'
+    p.script_src :self, :unsafe_eval, 'browser.sentry-cdn.com'
+    p.connect_src :self, 'localhost:3035', 'ws://localhost:3035'
   else
-    p.script_src :self, :https, 'browser.sentry-cdn.com', 'stats.data.gouv.fr'
+    p.script_src :self, 'browser.sentry-cdn.com', 'stats.data.gouv.fr'
   end
 end
 
