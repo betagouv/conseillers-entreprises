@@ -63,6 +63,8 @@ ActiveAdmin.register Solicitation do
   remove_filter :diagnosis  # ActiveAdmin default filters build selects for all the declared model relations.
   remove_filter :matches    # Displaying them can become very expensive, especially if to_s is implemented
   remove_filter :needs      # and uses yet another relation.
+  remove_filter :feedbacks
+  remove_filter :landing_options_slugs
   filter :landing, as: :select, collection: -> { Landing.pluck(:title, :slug) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :diagnosis_regions, as: :select, collection: -> { Territory.deployed_regions.pluck(:name, :id) }
