@@ -4,7 +4,7 @@
 - content_for :menu, render('menu', count: @count_solicitations)
 
 = form_with url: request.path, method: :get, skip_enforcing_utf8: true, class: '' do
-  - options = { include_blank: t('all_choices'), class: 'fr-select', onchange: 'this.form.submit();' }
+  - options = { include_blank: t('all_choices'), class: 'fr-select' }
   .two.fields
     .field
       = label_tag(:territory, t('.filter'), class: 'fr-label')
