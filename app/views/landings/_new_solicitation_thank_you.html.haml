@@ -4,12 +4,10 @@
   %p.section__subtitle
     = t('.message_with_institution', institution: solicitation.institution.name)
 
-  :javascript
-    _paq.push(['trackEvent', 'contact-formulaire-partenaire', "success"]);
+  = render 'matomo_partner_contact'
 
 - else
   %p.section__subtitle.text-left
     = t('.message_html')
 
-  :javascript
-    _paq.push(['trackEvent', 'contact-entreprise', "success"]);
+  = render 'matomo_company_contact_success'
