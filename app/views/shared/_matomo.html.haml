@@ -22,7 +22,8 @@
       _paq.push(['setCustomUrl', window.location.href]);
       _paq.push(['setDocumentTitle', document.title]);
       _paq.push(['trackPageView']);
-      if ((typeof event.data !== "undefined") && (event.data != null) ) {
+      if ((typeof event.data !== "undefined") && (event.data !== null) &&
+      (typeof event.data.timing !== "undefined") && (event.data.timing !== null) ) {
         var loadTimeMs = event.data.timing.visitEnd - event.data.timing.visitStart;
         _paq.push(['setGenerationTimeMs', loadTimeMs]);
       }
