@@ -18,6 +18,10 @@ Rails.application.config.content_security_policy do |p|
   else
     p.connect_src :self, '*.sentry.io'
   end
+
+  if ENV["CSP_REPORT_URI"].present?
+    p.report_uri ENV["CSP_REPORT_URI"]
+  end
 end
 
 # If you are using UJS then enable automatic nonce generation
