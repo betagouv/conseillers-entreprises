@@ -168,4 +168,32 @@ RSpec.describe Expert, type: :model do
       end
     end
   end
+
+  describe 'with_old_needs_in_inbox scope' do
+    let!(:expert_with_empty_inbox) { create :expert }
+    let!(:expert_with_recent_needs_in_inbox) { create :expert }
+    let!(:expert_with_old_needs_in_inbox) { create :expert }
+    let!(:recent_match) { create :match, expert: expert_with_recent_needs_in_inbox }
+    let!(:old_match) { create :match, expert: expert_with_old_needs_in_inbox, created_at: 8.days.ago }
+
+    it 'displays only expert with old needs in inbox' do
+      expect(described_class.with_old_needs_in_inbox).to match_array [expert_with_old_needs_in_inbox]
+    end
+  end
+
+  describe 'most_needs_quo_first scope' do
+    let!(:expert_with_lots_inbox) { create :expert }
+    let!(:expert_with_few_inbox) { create :expert }
+    let!(:expert_with_few_taken_care) { create :expert }
+
+    before do
+      expert_with_lots_inbox.received_matches << [ create(:match), create(:match) ]
+      expert_with_few_inbox.received_matches << [ create(:match), create(:match, status: 'taking_care'), create(:match, status: 'taking_care') ]
+      expert_with_few_taken_care.received_matches << [ create(:match, status: 'taking_care'), create(:match, status: 'taking_care') ]
+    end
+
+    it 'displays expert in correct order' do
+      expect(described_class.most_needs_quo_first).to eq [expert_with_lots_inbox, expert_with_few_inbox]
+    end
+  end
 end

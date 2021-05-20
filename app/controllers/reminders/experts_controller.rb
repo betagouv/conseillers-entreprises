@@ -7,15 +7,12 @@ module Reminders
     before_action :collections_counts, only: %i[index]
 
     def index
-      experts_pool = @territory&.all_experts || Expert.all
       # TODO: #1367 the list of experts here should actually be built from
       # the needs in the collections in Reminders::NeedsController (for poke, recall, warn and archive).
       # We don’t want all the experts for these needs: we want just the ones who didn’t respond to the match, yet.
       # (It probably is some ruby code, not an ActiveRecord query.)
-      @active_experts = experts_pool
+      @active_experts = to_remind_experts
         .includes(:antenne)
-        .not_deleted
-        .with_needs_in_inbox
         .most_needs_quo_first
         .page params[:page]
     end

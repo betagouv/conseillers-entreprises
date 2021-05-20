@@ -17,7 +17,7 @@ module Reminders
         collection_names.index_with { |name| territory_needs.reminders_to(name).size }
       end
       @experts_count = Rails.cache.fetch(['expert_reminders_need', territory_needs]) do
-        to_remind_experts.size
+        to_remind_experts.distinct.size
       end
     end
 
@@ -27,7 +27,7 @@ module Reminders
 
     def to_remind_experts
       experts_pool = @territory&.all_experts || Expert.all
-      experts_pool.not_deleted.with_needs_in_inbox.distinct
+      experts_pool.not_deleted.with_old_needs_in_inbox
     end
   end
 end

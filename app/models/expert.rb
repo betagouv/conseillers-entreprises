@@ -137,15 +137,16 @@ class Expert < ApplicationRecord
       .distinct
   end
 
-  # referent a relancer = avec besoin dans boite reception vieuw de + de X jours
-  scope :with_needs_in_inbox, -> do
+  # referent a relancer = avec besoin dans boite reception vieux de + de X jours
+  scope :with_old_needs_in_inbox, -> do
     joins(:received_quo_matches)
       .merge(Match
         .where(archived_at: nil)
         .where(created_at: (..Need::REMINDERS_DAYS[:poke].days.ago))
-        .joins(:need).where(need:{ archived_at: nil }))
+        .joins(:need).where(need: { archived_at: nil }))
   end
 
+  # Pas besoin de distinct avec cette méthode
   scope :most_needs_quo_first, -> do
     joins(:received_quo_matches)
       .group(:id)
