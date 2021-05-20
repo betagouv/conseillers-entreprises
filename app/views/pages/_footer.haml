@@ -29,4 +29,4 @@
       - if policy(Stats::All).team?
         %li= link_to t('usage_team_stats'), team_index_path
       %li= link_to t('.service_presentation'), '/book.pdf', 'aria-label': t('.service_presentation_title'), target: '_blank', rel: 'noopener'
-      %li= link_to t('.cookies'), '#', onclick: 'tarteaucitron.userInterface.openPanel();return false', 'aria-label': t('.open_cookies')
+      %li= link_to t('.cookies'), '#', id: 'open-cookies-box', 'aria-label': t('.open_cookies')
