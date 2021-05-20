@@ -35,7 +35,7 @@
           = selected_options_tags(solicitation, "ui small label")
       .item
         = t('.description')
-        %p= simple_format(auto_link(solicitation.description))
+        %p= simple_format(solicitation.description)
 
   .ui.segment.feed.feedbacks
     %div{ id: "display-feedbacks-#{solicitation.id}" }

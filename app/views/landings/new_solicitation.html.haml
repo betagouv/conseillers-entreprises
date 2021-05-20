@@ -46,7 +46,7 @@
         - unless in_iframe?
           - if landing_option&.form_description.present?
             .description
-              %div= landing_option&.form_description&.html_safe
+              %div= simple_format(@solicitation.description)
 
   %section.section.section-white.out-region.container-newsletter#newsletter{ "data-error": "newsletter" }
     .container

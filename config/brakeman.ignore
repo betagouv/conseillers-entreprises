@@ -21,37 +21,6 @@
       "note": ""
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "4d2d3e12d147e9d89fe1ed1a21101d894d0fa7adfbcb002428c1e2a8a3ddfd96",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/landings/new_solicitation.html.haml",
-      "line": 51,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Solicitation.create(solicitation_params.merge(retrieve_form_info)).landing_option.form_description",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "LandingsController",
-          "method": "create_solicitation",
-          "line": 30,
-          "file": "app/controllers/landings_controller.rb",
-          "rendered": {
-            "name": "landings/new_solicitation",
-            "file": "app/views/landings/new_solicitation.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "landings/new_solicitation"
-      },
-      "user_input": null,
-      "confidence": "Medium",
-      "note": "The unescaped data is meant to be used as raw html, and edited only by the team admins."
-    },
-    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "8c0cf3dade4441e78ad5e8f205c8b119a75fd588ae9cab646729864072d6853c",

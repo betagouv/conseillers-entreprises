@@ -24,6 +24,14 @@ class SharedController < ActionController::Base
 
   private
 
+  def sanitize_params(params)
+    params.each do |key, value|
+      next if value.class != String
+      params[key] = ActionController::Base.helpers.sanitize(value, tags: %w[a p img], attributes: %w[alt])
+    end
+    params
+  end
+
   def render_error(exception)
     raise exception if (Rails.env.development? || Rails.env.test?) && !ENV['TEST_ERROR_RENDERING'].to_b
     if NOT_FOUND_ERROR_CLASSES.include? exception.class
