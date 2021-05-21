@@ -555,11 +555,11 @@ fr:
       expert_contents:
         expert_creation_date: Inscription le %{date}
         matches_total: Demandes depuis le début
-        needs_quo: en boîte de réception
         needs_done: clôturées
         needs_not_for_me: refusées
-        received_matches: reçues
+        needs_quo: en boîte de réception
         needs_taking_care: prises en charge
+        received_matches: reçues
         received_needs_abandoned: Actuellement en souffrance
         received_needs_abandoned_others_taking_care: pris en charge par d’autres
         received_needs_abandoned_others_taking_care_tooltip: Besoins indiqués comme pris en charge par d’autres référents il y a plus de 2 semaines, sans autre nouvelle depuis.

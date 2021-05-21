@@ -129,8 +129,7 @@ class Expert < ApplicationRecord
   end
 
   # Activity stuff
-  # TODO: #1367 The :with_active_matches scope should be removed,
-  # we should build on Need#reminders_to and InvolvementConcern instead.
+  # Utilisé pour les mails de relance
   scope :with_active_matches, -> do
     joins(:received_matches)
       .merge(Match.active)
@@ -142,7 +141,7 @@ class Expert < ApplicationRecord
     joins(:received_quo_matches)
       .merge(Match
         .where(archived_at: nil)
-        .where(created_at: (..Need::REMINDERS_DAYS[:poke].days.ago))
+        .where(Match.arel_table[:created_at].lt(Need::REMINDERS_DAYS[:poke].days.ago))
         .joins(:need).where(need: { archived_at: nil }))
   end
 

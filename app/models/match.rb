@@ -91,7 +91,7 @@ class Match < ApplicationRecord
 
   scope :sent, -> { where(id: joins(:diagnosis).merge(Diagnosis.step_completed)) }
 
-  # TODO #1367 The :active scopes should be removed.
+  # Utilisé pour les mails de relance
   scope :active, -> do
     joins(:need)
       .merge(Need.active)
