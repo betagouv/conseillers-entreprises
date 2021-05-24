@@ -1,46 +1,29 @@
-.ui.grid
-  .one.wide.row
-    = person_block(expert, suffix: t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long)))
-.ui.grid
-  .row
-    - cache ["received_matches", expert, expert.received_matches] do
-      .nine.wide.column
-        %h5.ui.header= t('.matches_total')
-        .ui.labels
-          .ui.basic.label
-            = expert.received_matches.count
-            .detail= t('.received_matches')
-          .ui.basic.label
-            = expert.needs_quo.count
-            .detail= t('.needs_quo')
-          .ui.basic.label
-            = expert.needs_taking_care.count
-            .detail= t('.needs_taking_care')
-          .ui.basic.label
-            = expert.needs_done.count
-            .detail= t('.needs_done')
-          .ui.basic.label
-            = expert.needs_not_for_me.count
-            .detail= t('.needs_not_for_me')
-    - cache ["received_needs", expert, expert.received_needs] do
-      -#
-        TODO #1367 Here, for consistency with /relances/besoins,
-        we should rely on the Need#reminders_to scopes  (:poke, :recall, :warn, :archive)
-      .seven.wide.column
-        %h5.ui.header= t('.received_needs_abandoned')
-        .ui.labels
-          - abandoned_count = expert.reminders_needs_to_call_back.count
-          = link_to needs_reminders_expert_path(expert), class: "ui label #{abandoned_count > 0 ? 'orange' : 'basic'}" do
-            = abandoned_count
-            .detail{ title: t('.received_needs_abandoned_quo_not_taken_tooltip') }
-              = t('.received_needs_abandoned_quo_not_taken')
-          - abandoned_count = expert.needs_taking_care.diagnosis_completed.size
-          = link_to needs_taking_care_reminders_expert_path(expert), class: "ui label #{abandoned_count > 0 ? 'yellow' : 'basic'}" do
-            = abandoned_count
-            .detail{ title: t('.received_needs_abandoned_taking_care_tooltip') }
-              = t('.received_needs_abandoned_taking_care')
-          - abandoned_count = expert.needs_others_taking_care.diagnosis_completed.size
-          = link_to needs_taking_care_by_others_reminders_expert_path(expert), class: "ui label #{abandoned_count > 0 ? 'yellow' : 'basic'}" do
-            = abandoned_count
-            .detail{ title: t('.received_needs_abandoned_others_taking_care_tooltip') }
-              = t('.received_needs_abandoned_others_taking_care')
+%h4.fr-card__title
+  = link_to expert.full_name.presence, reminders_expert_path(expert), class: 'fr-card__link'
+%ul.list-unstyled.card-expert__list
+  %li= t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long))
+  - if expert.role.present?
+    %li
+      %span.picto.ri-contacts-book-line
+      = expert.role
+  - if expert.phone_number.present?
+    %li
+      %span.picto.ri-phone-line
+      = link_to(expert.phone_number, "tel:#{expert.phone_number}")
+  - if expert.email.present?
+    %li
+      %span.picto.ri-mail-line
+      = mail_to expert.email, expert.email, class: 'break-word'
+
+
+- cache ["received_matches", expert, expert.received_matches] do
+  .card-expert__subtitle= t('.matches_total')
+  .fr-tags-group
+    .fr-tag
+      .bold= expert.received_matches.count
+      .fr-ml-1v= t('.received_matches')
+    - inbox_collections_counts(expert).each do |name, count|
+      - path = polymorphic_path([name, :reminders, expert])
+      = link_to path, class: 'fr-tag' do
+        .bold= count
+        .fr-ml-1v= t(name, scope: 'needs.collections').downcase

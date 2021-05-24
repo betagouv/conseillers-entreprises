@@ -1,7 +1,6 @@
-.ui.segment.selectable-item
-  -# Patch temporaire le temps de revoir + en profondeur le design
-  = link_to t('.expert_reminders_link'), reminders_expert_path(expert), class: 'gray-link float-right'
-  = render 'expert_contents', expert: expert
-  - cache expert do
-    %div{ id: "expert_reminders_notes-#{expert.id}" }
-      = render 'expert_reminders_notes', expert: expert
+.fr-card.fr-my-4w
+  .fr-card__body
+    = render 'expert_contents', expert: expert
+    - cache expert do
+      .fr-mt-1w{ id: "expert_reminders_notes-#{expert.id}" }
+        = render 'expert_reminders_notes', expert: expert

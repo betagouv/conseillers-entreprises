@@ -197,9 +197,11 @@ Rails.application.routes.draw do
     resources :experts, only: %i[index show], path: 'referents' do
       member do
         post :reminders_notes
-        get :needs, path: 'besoins_en_attentes'
-        get :needs_taking_care, path: 'besoins_pris_en_charges'
-        get :needs_taking_care_by_others, path: 'besoins_pris_en_charges_par_dautres'
+        get :quo, path: 'boite_de_reception'
+        get :taking_care, path: 'prises_en_charge'
+        get :done, path: 'cloturees'
+        get :not_for_me, path: 'refusees'
+        get :expired, path: 'expirees'
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do

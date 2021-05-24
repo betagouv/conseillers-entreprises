@@ -4,8 +4,6 @@
   * one relying on the InvolvementConcern queries (as in /besoins, see needs/_menu.html.haml)
   * one relying on the Need#reminders_to scopes  (:poke, :recall, :warn, :archive)
 %ul.fr-sidemenu__list
-  %li.fr-sidemenu__item
-    = active_link_to(t('.summary'), reminders_expert_path(expert), active: ['reminders/experts': :show], class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
-  = menu_link_with_count(t('needs.index.needs_quo_html'), count_expert_needs[:reminders_needs_to_call_back], needs_reminders_expert_path(expert))
-  = menu_link_with_count(t('needs.index.needs_taking_care_html'), count_expert_needs[:needs_taking_care], needs_taking_care_reminders_expert_path(expert))
-  = menu_link_with_count(t('needs.index.needs_others_taking_care_html'), count_expert_needs[:needs_others_taking_care], needs_taking_care_by_others_reminders_expert_path(expert))
+  - collections_counts.each do |name, count|
+    - path = polymorphic_path([name, :reminders_expert].compact)
+    = menu_link_with_count(t(name, scope: 'needs.collections'), count, path)

@@ -1,0 +1,31 @@
+- meta title: @expert.full_name
+
+- content_for :callout do
+  .fr-callout.fr-callout--c-expert
+    %details
+      %summary
+        %h4= @expert.full_name
+      %p
+        .block-infos
+          .fr-grid-row.fr-mt-5w
+            .fr-col-md-4
+              %ul.list-unstyled.fr-pl-1v
+                - if @expert.role.present?
+                  %li
+                    %span.picto.ri-contacts-book-line
+                    = @expert.role
+                - if @expert.phone_number.present?
+                  %li
+                    %span.picto.ri-phone-line
+                    = link_to(@expert.phone_number, "tel:#{@expert.phone_number}")
+                %li
+                  %span.picto.ri-mail-line
+                  = mail_to @expert.email, @expert.email, class: 'break-word'
+            .fr-col-md-8
+              %div{ id: "expert_reminders_notes-#{@expert.id}" }
+                = render 'expert_reminders_notes', expert: @expert
+
+- content_for :header, render('reminders/header', section: :experts, expert: @expert)
+- content_for :menu, render('menu', expert: @expert, collections_counts: @inbox_collections_counts)
+
+= render 'reminders/needs', received_needs: @needs, action: @action

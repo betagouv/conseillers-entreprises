@@ -6,7 +6,7 @@
 = paginate @active_experts
 = render 'shared/territory_choice', territories: @territories
 
-.ui.segments.shadow-less.selectable-list
+%div
   = render partial: 'expert', collection: @active_experts
 
 = paginate @active_experts
