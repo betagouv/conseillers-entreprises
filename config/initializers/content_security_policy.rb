@@ -17,10 +17,9 @@ Rails.application.config.content_security_policy do |p|
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035'
   else
     p.connect_src :self, '*.sentry.io'
-  end
-
-  if ENV["CSP_REPORT_URI"].present?
-    p.report_uri ENV["CSP_REPORT_URI"]
+    if ENV["CSP_REPORT_URI"].present?
+      p.report_uri ENV["CSP_REPORT_URI"]
+    end
   end
 end
 
