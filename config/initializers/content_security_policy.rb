@@ -7,11 +7,11 @@
 Rails.application.config.content_security_policy do |p|
   p.default_src :self
   p.base_uri    :self
-  p.font_src    :self, :data, 'fonts.gstatic.com'
-  p.img_src     :self, :data, 'voxusagers.numerique.gouv.fr', 'stats.data.gouv.fr'
+  p.font_src    :self, :data, 'https://fonts.gstatic.com'
+  p.img_src     :self, :data, 'https://voxusagers.numerique.gouv.fr', 'https://stats.data.gouv.fr', 'https://www.google.com', 'https://www.google.fr'
   p.object_src  :none
-  p.style_src   :self, :unsafe_inline, 'fonts.googleapis.com'
-  p.script_src  :self, 'browser.sentry-cdn.com', 'sentry.io', 'stats.data.gouv.fr', 'cdn.jsdelivr.net'
+  p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
+  p.script_src  :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googleadservices.com'
 
   if Rails.env.development?
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035'
