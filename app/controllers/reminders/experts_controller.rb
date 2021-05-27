@@ -14,10 +14,6 @@ module Reminders
         .page params[:page]
     end
 
-    def show
-      redirect_to action: :quo
-    end
-
     def quo
       retrieve_needs(@expert, :quo, :quo)
     end

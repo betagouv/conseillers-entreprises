@@ -1,5 +1,5 @@
 %h4.fr-card__title
-  = link_to expert.full_name.presence, reminders_expert_path(expert), class: 'fr-card__link'
+  = link_to expert.full_name.presence, quo_reminders_expert_path(expert), class: 'fr-card__link'
 %ul.list-unstyled.card-expert__list
   %li= t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long))
   - if expert.role.present?

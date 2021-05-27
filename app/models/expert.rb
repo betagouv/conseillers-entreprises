@@ -137,6 +137,7 @@ class Expert < ApplicationRecord
   end
 
   # referent a relancer = avec besoin dans boite reception vieux de + de X jours
+  # Utilisation d'arel pour plaire a brakeman
   scope :with_old_needs_in_inbox, -> do
     joins(:received_quo_matches)
       .merge(Match
