@@ -1,4 +1,5 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
+const webpack = require('webpack');
 
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 
@@ -13,5 +14,17 @@ environment.plugins.append('sentry',
   })
 )
 
+const extraConfig = {
+  node: {
+    global: false,
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      global: "window", // Placeholder for global used in any node_modules
+    }),
+  ],
+};
+
+environment.config.merge(extraConfig);
 
 module.exports = environment.toWebpackConfig()
