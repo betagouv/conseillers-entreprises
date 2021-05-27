@@ -1,4 +1,5 @@
 .fr-card__c-container
+  border: 1px solid $fr-g600
   border: 1px solid var(--g600)
   p
     margin: 0 0 1rem
@@ -19,3 +20,43 @@
     color: $black
     &:hover
       color: $blue
+
+.card-expert__list
+  margin-top: 0
+  margin-bottom: 0.75rem
+  font-size: 0.875rem
+  line-height: 1rem
+
+.card-expert__subtitle
+  font-weight: 700
+  font-size: 1.125rem
+  line-height: 1.5rem
+  margin: 0 0 0.75rem
+
+.card-reminders-need
+  border: 1px solid $fr-g400
+  border: 1px solid var(--g400)
+  .subtitle
+    color: $fr-g600
+    color: var(--g600)
+  .card__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    background-color: $fr-beige
+    background-color: var(--beige)
+    padding: 1.5rem
+    a
+      text-decoration: none
+      --is-link: false
+    h2
+      margin-bottom: 0
+    .label
+      flex-shrink: 0
+  .card__need
+    display: flex
+    justify-content: space-between
+    h3
+      margin-bottom: 0
+    &-action
+      flex-shrink: 0

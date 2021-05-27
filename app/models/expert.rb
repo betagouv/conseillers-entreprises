@@ -45,6 +45,7 @@ class Expert < ApplicationRecord
 
   has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
   has_many :received_matches, -> { sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
+  has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
 
   ## Validations
   #
@@ -128,18 +129,28 @@ class Expert < ApplicationRecord
   end
 
   # Activity stuff
-  # TODO: #1367 The :with_active_matches and :with_active_abandoned_matches scope should be removed,
-  # we should build on Need#reminders_to and InvolvementConcern instead.
+  # Utilisé pour les mails de relance
   scope :with_active_matches, -> do
     joins(:received_matches)
       .merge(Match.active)
       .distinct
   end
 
-  scope :with_active_abandoned_matches, -> do
-    joins(:received_matches)
-      .merge(Match.active_abandoned)
-      .distinct
+  # referent a relancer = avec besoin dans boite reception vieux de + de X jours
+  # Utilisation d'arel pour plaire a brakeman
+  scope :with_old_needs_in_inbox, -> do
+    joins(:received_quo_matches)
+      .merge(Match
+        .where(archived_at: nil)
+        .where(Match.arel_table[:created_at].lt(Need::REMINDERS_DAYS[:poke].days.ago))
+        .joins(:need).where(need: { archived_at: nil }))
+  end
+
+  # Pas besoin de distinct avec cette méthode
+  scope :most_needs_quo_first, -> do
+    joins(:received_quo_matches)
+      .group(:id)
+      .order('COUNT(matches.id) DESC')
   end
 
   # Referencing

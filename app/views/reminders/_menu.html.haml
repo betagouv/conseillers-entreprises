@@ -14,5 +14,6 @@
 
 %ul.fr-sidemenu__list
   %li.fr-sidemenu__item
-    = active_link_to Expert.model_name.human.pluralize, reminders_experts_path,
-      { class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active' }
+    = menu_link_with_count(experts_count, reminders_experts_path, class: 'item') do
+      = Expert.model_name.human.pluralize
+

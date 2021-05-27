@@ -8,4 +8,12 @@ module FeatureMacros
       login_as current_user, scope: :user
     end
   end
+
+  def login_admin
+    let(:current_user) { create :user, is_admin: true }
+
+    before do
+      login_as current_user, scope: :user
+    end
+  end
 end

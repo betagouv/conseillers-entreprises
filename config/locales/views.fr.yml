@@ -459,9 +459,6 @@ fr:
         other: Lorsqu’un chef d’entreprise déposera un besoin relevant de votre champ d’intervention, vous recevrez automatiquement un mail de notification sur les adresses %{emails}.
       welcome_title: Bienvenue sur Place des Entreprises
     index:
-      needs_others_taking_care_html: Pris en charge par d’autres référents
-      needs_quo_html: À rappeler <i>(J+14)</i>
-      needs_taking_care_html: Pris en charge
       title: Demandes reçues
     match_actions:
       can_you_help: Pouvez-vous aider l’entreprise %{company} ?
@@ -550,28 +547,14 @@ fr:
     deleted_person: Compte supprimé
   reminders:
     experts:
-      expert:
-        expert_reminders_link: Afficher le détail
       expert_contents:
         expert_creation_date: Inscription le %{date}
         matches_total: Demandes depuis le début
-        matches_total_done: clôturées
-        matches_total_not_for_me: refusées
-        matches_total_received: reçues
-        matches_total_taken_care_of: prises en charge
-        received_needs_abandoned: Actuellement en souffrance
-        received_needs_abandoned_others_taking_care: pris en charge par d’autres
-        received_needs_abandoned_others_taking_care_tooltip: Besoins indiqués comme pris en charge par d’autres référents il y a plus de 2 semaines, sans autre nouvelle depuis.
-        received_needs_abandoned_quo_not_taken: sans réponse
-        received_needs_abandoned_quo_not_taken_tooltip: Besoins mis en relation il y a plus de 2 semaines, restés sans réponse depuis.
-        received_needs_abandoned_taking_care: pris en charge
-        received_needs_abandoned_taking_care_tooltip: Besoins indiqués comme pris en charge il y a plus de 2 semaines, sans autre nouvelle depuis.
+        received_matches: reçues
       expert_reminders_notes:
         placeholder: Restez factuel :)
       index:
         title: Relances par référents
-      menu:
-        summary: Résumé
     index:
       title: Relances
     needs:

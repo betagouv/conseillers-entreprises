@@ -16,10 +16,18 @@ module Reminders
       @collections_counts = Rails.cache.fetch(['reminders_need', territory_needs]) do
         collection_names.index_with { |name| territory_needs.reminders_to(name).size }
       end
+      @experts_count = Rails.cache.fetch(['expert_reminders_need', territory_needs]) do
+        to_remind_experts.distinct.size
+      end
     end
 
     def territory_needs
       @territory.present? ? @territory.needs : Need.all
+    end
+
+    def to_remind_experts
+      experts_pool = @territory&.all_experts || Expert.all
+      experts_pool.not_deleted.with_old_needs_in_inbox
     end
   end
 end

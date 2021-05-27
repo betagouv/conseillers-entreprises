@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class NeedsController < ApplicationController
+  include Inbox
+  before_action :retrieve_user_and_antenne, except: %i[index]
   before_action :retrieve_need, only: %i[show archive unarchive]
 
   layout 'side_menu', except: :show
@@ -62,26 +64,9 @@ class NeedsController < ApplicationController
 
   private
 
-  def collection_names
-    %i[quo taking_care done not_for_me expired]
-  end
-
-  # Common render method for collection actions
-  def retrieve_needs(recipient, collection_name)
+  def retrieve_user_and_antenne
     @user = current_user
     @antenne = current_user.antenne
-    @recipient = recipient
-
-    @collections_counts = Rails.cache.fetch([recipient.received_needs, recipient.received_needs.pluck(:updated_at).max]) do
-      collection_names.index_with { |name| recipient.send("needs_#{name}").distinct.size }
-    end
-    @collection_name = collection_name
-
-    @needs = recipient
-      .send("needs_#{collection_name}") # See InvolvementConcern
-      .includes(:company, :advisor, :subject)
-      .page params[:page]
-    render :index
   end
 
   ## Instance actions
