@@ -14,6 +14,8 @@ environment.plugins.append('sentry',
   })
 )
 
+// Config speciique pour eviter une erreur CSP
+// cf https://github.com/webpack/webpack/issues/5627#issuecomment-394309966
 const extraConfig = {
   node: {
     global: false,
