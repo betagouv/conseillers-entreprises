@@ -389,7 +389,7 @@ fr:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
         needs_you: 'a besoin de votre expertise pour :'
         subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
-        support_contact_label: 'Si vous n''arrivez pas à accéder à la fiche entreprise, contactez :'
+        support_contact_label: 'Si vous n’arrivez pas à accéder à la fiche entreprise, contactez :'
         this_company: L’entreprise
         via_partner_html: Cette demande a été déposée sur le site <a href='%{url}' target='_blank'>%{url}</a> avec lequel le service Place des Entreprises est en partenariat.
       remind_involvement:
