@@ -379,6 +379,7 @@ ActiveRecord::Schema.define(version: 2021_05_31_095237) do
     t.string "location"
     t.bigint "institution_id"
     t.integer "code_region"
+    t.boolean "created_in_deployed_region", default: false
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"
@@ -408,6 +409,7 @@ ActiveRecord::Schema.define(version: 2021_05_31_095237) do
     t.boolean "bassin_emploi", default: false, null: false
     t.bigint "support_contact_id"
     t.integer "code_region"
+    t.datetime "deployed_at"
     t.index ["code_region"], name: "index_territories_on_code_region"
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
