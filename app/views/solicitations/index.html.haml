@@ -4,7 +4,7 @@
 - content_for :menu, render('menu', count: @count_solicitations)
 
 = form_with url: request.path, method: :get, skip_enforcing_utf8: true, class: '' do
-  - options = { include_blank: t('all_choices'), class: 'fr-select', onchange: 'this.form.submit();' }
+  - options = { include_blank: t('all_choices'), class: 'fr-select' }
   .two.fields
     .field
       = label_tag(:territory, t('.filter'), class: 'fr-label')
@@ -38,25 +38,4 @@
 
 = paginate @solicitations
 
-:javascript
-  $(document).ready(function() {
-    $('select.ui.selection.search.dropdown.badges').dropdown({
-      fullTextSearch: 'exact',
-      ignoreDiacritics: true,
-      message: {
-        noResults     : '#{link_to t('.manage_badges'), badges_path}'
-      }
-    })
-    $('.modify-badges').click( function() {
-      let solicitationId = $(this).data('id')
-      let $div = $('#solicitation-' + solicitationId + '-badges')
-      let $form = $('#solicitation-' + solicitationId + '-form-badges')
-      $div.toggleClass('hide')
-      $form.toggleClass('hide')
-    })
-    $('.ui.search').search({
-      type: 'category',
-      showNoResults: false,
-      source: #{@category_content.to_json.html_safe}
-    })
-  })
+= render 'solicitations_tags_js', category_content: @category_content

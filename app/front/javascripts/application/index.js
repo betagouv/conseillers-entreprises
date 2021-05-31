@@ -3,3 +3,4 @@ import './semantic_ui_calendar_datepicker_params'
 import './feedbacks'
 import "./jquery-accessible-simple-tooltip-aria.js"
 import './controllers'
+import './submit_forms'

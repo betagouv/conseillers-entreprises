@@ -4,23 +4,30 @@
 # For further information see the following documentation
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
-# Rails.application.config.content_security_policy do |policy|
-#   policy.default_src :self, :https
-#   policy.font_src    :self, :https, :data
-#   policy.img_src     :self, :https, :data
-#   policy.object_src  :none
-#   policy.script_src  :self, :https
-#   policy.style_src   :self, :https
+Rails.application.config.content_security_policy do |p|
+  p.default_src :self
+  p.base_uri    :self
+  p.font_src    :self, :data, 'https://fonts.gstatic.com'
+  p.img_src     :self, :data, 'https://voxusagers.numerique.gouv.fr', 'https://stats.data.gouv.fr', 'https://www.google.com', 'https://www.google.fr'
+  p.object_src  :none
+  p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
+  p.script_src  :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googleadservices.com'
 
-#   # Specify URI for violation reports
-#   # policy.report_uri "/csp-violation-report-endpoint"
-# end
+  if Rails.env.development?
+    p.connect_src :self, 'localhost:3035', 'ws://localhost:3035'
+  else
+    p.connect_src :self, '*.sentry.io'
+    if ENV["CSP_REPORT_URI"].present?
+      p.report_uri ENV["CSP_REPORT_URI"]
+    end
+  end
+end
 
 # If you are using UJS then enable automatic nonce generation
-# Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
+Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
 
 # Set the nonce only to specific directives
-# Rails.application.config.content_security_policy_nonce_directives = %w(script-src)
+Rails.application.config.content_security_policy_nonce_directives = %w(script-src)
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:

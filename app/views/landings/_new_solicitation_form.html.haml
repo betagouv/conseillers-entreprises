@@ -1,7 +1,6 @@
 = form_with(model: solicitation, url: path, local: true, html: { honeypot: true }) do |f|
   - if solicitation.errors.present?
-    :javascript
-      _paq.push(['trackEvent', 'contact-entreprise', 'failure']);
+    = render 'matomo_company_contact_failure'
   = f.hidden_field :landing_options_slugs, multiple: true
   = f.hidden_field :landing_slug
   .form__group

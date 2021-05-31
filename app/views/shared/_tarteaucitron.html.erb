@@ -1,0 +1,38 @@
+<%= javascript_include_tag 'https://cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@20210329/tarteaucitron.min.js', crossorigin: 'anonymous', integrity: "sha384-RjI0In9EY5Sl0H6wm3ZmWRGZzBiy5eRJ567WL5okXwadLsN6ICEBb/gCiHHnQjvX" %>
+
+<%= javascript_tag nonce: true do -%>
+  tarteaucitron.init({
+  "privacyUrl": "",
+  "hashtag": "#consentement",
+  "cookieName": "tarteaucitron",
+  "bodyPosition": "top",
+  "adblocker": false,
+  "highPrivacy": true,
+  "handleBrowserDNTRequest": false,
+  "useExternalCss": true,
+  "orientation": "bottom",
+  "DenyAllCta" : true,
+  "AcceptAllCta" : true,
+  "closePopup": false,
+  "removeCredit": true,
+  "moreInfoLink": true,
+  "readmoreLink": '/mentions_d_information#utilisation-cookies',
+  "mandatory": false,
+  "showAlertSmall": false,
+  "cookieslist": false,
+  "showIcon": false,
+  "iconPosition": "BottomLeft",
+  "groupServices": false
+  });
+
+  tarteaucitron.user.adwordsremarketingId = 'AW-798054765';
+  (tarteaucitron.job = tarteaucitron.job || []).push('googleadwordsremarketing');
+
+  // Ouvre la boite gestion des cookies au clic sur le lien
+  document.addEventListener("DOMContentLoaded", function() {
+    const cookiesLink = document.getElementById("open-cookies-box")
+    if (cookiesLink !== null) {
+      cookiesLink.onclick = function() { tarteaucitron.userInterface.openPanel();return false };
+    }
+  });
+<% end -%>

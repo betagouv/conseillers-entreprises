@@ -593,7 +593,6 @@ fr:
       clear_search: Réinitialiser la recherche
       filter: Filtrer
       header: Sollicitations %{status}
-      manage_badges: Gérer les tags
       no_result: Il n'y a pas de résultat pour cette recherche.
       search: Rechercher
       search_placeholder: Tag, aide demandée…
@@ -624,6 +623,8 @@ fr:
       start_manual_diagnosis: Analyse manuelle
     solicitation_badges:
       add_remove_badges: Ajouter / Enlever des tags
+    solicitations_tags_js:
+      manage_badges: Gérer les tags
   stats:
     archived: Besoins abandonnés
     in_deployed_regions: Demandes dans une région déployée

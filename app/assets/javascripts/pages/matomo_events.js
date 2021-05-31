@@ -1,14 +1,20 @@
 // fonction utilisées dans les vues directement
-/* eslint-disable no-unused-vars */
-function click_on_landing () {
-  _paq.push(['trackEvent', 'page-thematique', 'success'])
-}
+document.addEventListener("DOMContentLoaded", function() {
+  const clickOnLanding = document.getElementsByClassName("click-on-landing")
+  if (clickOnLanding.length !== 0) {
+    clickOnLanding.forEach(function (item) {
+      item.addEventListener('click', function () {
+        _paq.push(['trackEvent', 'page-thematique', 'success'])
+      });
+    });
+  }
 
-function click_on_landing_option () {
-  _paq.push(['trackEvent', 'formulaire', 'success'])
-}
-
-function click_on_find_siret () {
-  _paq.push(['trackEvent', 'chercher-SIRET', 'success'])
-}
-/* eslint-enable no-unused-vars */
+  const clickOnLandingOption = document.getElementsByClassName("click-on-landing-option")
+  if (clickOnLandingOption.length !== 0) {
+    clickOnLandingOption.forEach(function (item) {
+      item.addEventListener('click', function () {
+        _paq.push(['trackEvent', 'formulaire', 'success'])
+      });
+    });
+  }
+});

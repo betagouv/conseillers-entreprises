@@ -12,7 +12,7 @@
                   française
               .fr-header__operator
                 = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
-                  = image_tag 'logo-PDE.svg', style: 'width: 156px', alt: t('logos.pde')
+                  = image_tag 'logo-PDE.svg', alt: t('logos.pde')
               .fr-header__navbar
                 %button.fr-btn--menu.fr-btn#button-menu{ "aria-controls": "modal-header-menu", "aria-haspopup": "menu", title: t(".menu"), data: { "fr-opened": false, controller: 'fr-header', action: 'click->fr-header#open' } }
                   = t(".menu")
@@ -28,7 +28,7 @@
           %ul.fr-nav__list
             %li.fr-nav__item
               = link_to root_path, class: 'pde-logo-sm', title: t('.root_path_title') do
-                = image_tag 'place-des-entreprises-logo.png', style: 'width: 45px', alt: t('logos.pde')
+                = image_tag 'place-des-entreprises-logo.png', alt: t('logos.pde')
             - if current_user.experts.present?
               = active_link_to needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-inbox-fill.fr-mr-1w
