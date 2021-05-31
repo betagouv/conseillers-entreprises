@@ -42,7 +42,12 @@
           %span
             = t('.five_days_contact_html')
       .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
-        = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path
+        - if params[:institution].present?
+          - path = create_solicitation_landing_path(institution: params[:institution])
+        - else
+          - path = create_solicitation_landing_path
+
+        = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: path
         - unless in_iframe?
           - if landing_option&.form_description.present?
             .description
