@@ -11,7 +11,7 @@
                 française
             .fr-header__operator
               = link_to root_path, class: 'pde-logo', title: t('application.navbar.root_path_title') do
-                = image_tag 'logo-PDE.svg', alt: t('logos.pde')
+                = image_tag 'logo-PDE.svg', alt: t('logos.pde'), class: 'logo-sign-in'
             .fr-header__navbar
               %button.fr-btn--menu.fr-btn#button-menu{ "aria-controls": "modal-header-menu", "aria-haspopup": "menu", title: t("application.navbar.menu"), data: { "fr-opened": false, controller: 'fr-header', action: 'click->fr-header#open' } }
                 = t("application.navbar.menu")
