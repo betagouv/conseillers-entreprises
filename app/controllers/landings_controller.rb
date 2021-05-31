@@ -34,32 +34,17 @@ class LandingsController < PagesController
   private
 
   def save_form_info
-    p "SAVE_FORM_INFO ============================"
-    p "params : "
-    p params
-    p "session[:solicitation_form_info]"
-    p session[:solicitation_form_info]
     form_info = session[:solicitation_form_info] || {}
     info_params = show_params.slice(*Solicitation::FORM_INFO_KEYS)
-    p "info_params"
-    p info_params
     form_info.merge!(info_params)
-    p "form_info"
-    p form_info
-    p '====================================='
     session[:solicitation_form_info] = form_info if form_info.present?
   end
 
   def retrieve_form_info
-    p "retrieve_form_info ================================="
-    p session[:solicitation_form_info]
+    # Les params ne passent pas en session dans les iframe, raison pour laquelle on check ici aussi les params de l'url
     form_info = session[:solicitation_form_info] || {}
     info_params = show_params.slice(*Solicitation::FORM_INFO_KEYS)
-    p "info_params"
-    p info_params
     form_info.merge!(info_params)
-    p "form_info"
-    p form_info
     session.delete(:solicitation_form_info)
     { form_info: form_info }
   end
