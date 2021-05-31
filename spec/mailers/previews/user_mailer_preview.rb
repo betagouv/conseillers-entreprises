@@ -11,4 +11,8 @@ class UserMailerPreview < ActionMailer::Preview
   def notify_match_status
     UserMailer.notify_match_status(Match.all.sample, Match.all.sample.status)
   end
+
+  def remind_invitation
+    UserMailer.remind_invitation(User.not_deleted.sample)
+  end
 end

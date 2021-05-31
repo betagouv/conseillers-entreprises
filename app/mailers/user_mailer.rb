@@ -3,6 +3,7 @@
 class UserMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/user_mailer'
+  helper :institutions
 
   def confirm_notifications_sent(diagnosis)
     @diagnosis = diagnosis
@@ -34,5 +35,13 @@ class UserMailer < ApplicationMailer
 
     return if (@advisor.deleted? || @advisor.is_admin)
     mail(to: @advisor.email, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @company.name))
+  end
+
+  def remind_invitation(user)
+    @user = user
+    @institution = user.institution
+    @token = @user.invitation_token
+
+    mail(to: @user.email, subject: t('mailers.user_mailer.remind_invitation.subject', institution_name: @institution.name))
   end
 end

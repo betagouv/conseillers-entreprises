@@ -434,6 +434,9 @@ fr:
           taking_care_html: "<p>%{expert} (%{antenne}) a pris en charge ce besoin.</p>"
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
+      remind_invitation:
+        reminder_html: "<p>Pour rappel, vous êtes invité(e) à rejoindre le service public Place des Entreprises, au sein de l’antenne %{antenne}.</p><p>Nous sommes en attente de la finalisation de votre compte : il faut juste choisir votre mot de passe.</p>"
+        subject: Attente de votre réponse pour votre compte sur le service public Place des Entreprises, partenaire de %{institution_name}
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
   needs:
     additional_experts:

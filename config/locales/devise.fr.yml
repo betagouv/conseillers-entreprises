@@ -36,13 +36,13 @@ fr:
         details_question: Qu’est ce que Place des Entreprises ?
         discover_partners_html: Découvrez %{link} et rejoignez la communauté en un clic en choisissant votre mot de passe !
         insitution_engagment: Au regard de ses missions, %{institution} est pleinement engagé(e) dans cette nouvelle dynamique collective.
+        livestorm_permalink: lien permanant livestorm
+        looking_forward: Au plaisir d’échanger à cette occasion !
         question_one: Pourquoi recevez-vous ce mail ?
         question_two: Comment fonctionne le service public Place des Entreprises ?
         subject: Invitation sur Place des Entreprises
-        training_html: "Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service : %{link}"
-        livestorm_permalink: "lien permanant livestorm"
-        looking_forward: "Au plaisir d’échanger à cette occasion !"
-        support_contact_label: "Si vous avez le moindre souci pour votre compte, contactez :"
+        support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
+        training_html: Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service : %{link}
       reset_password_instructions:
         account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté·e. Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
         change_my_password: Changer de mot de passe
