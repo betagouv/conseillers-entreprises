@@ -2,9 +2,11 @@
 #
 # Table name: reminders_actions
 #
-#  id       :bigint(8)        not null, primary key
-#  category :enum             not null
-#  need_id  :bigint(8)        not null
+#  id         :bigint(8)        not null, primary key
+#  category   :enum             not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  need_id    :bigint(8)        not null
 #
 # Indexes
 #
