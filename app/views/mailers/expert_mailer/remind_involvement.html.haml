@@ -1,4 +1,6 @@
-%p= t('mailers.hello_name', name: @expert.full_name)
+= render 'mailers/header', institution_name: @expert.institution.name
+
+%p= t('mailers.hello')
 
 - link_to_root = link_to t('app_name'), root_url
 %p= t('.needs_for_you', link_to_root: link_to_root)

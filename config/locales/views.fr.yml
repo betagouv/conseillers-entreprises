@@ -397,8 +397,8 @@ fr:
         needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
         needs_taking_care: 'Besoins pris en charge : est ce qu’il y a du nouveau ?'
         subject: "[Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
-        visited_days_ago: Visitée il y a %{days} par %{advisor}
-        visited_on: Visitée le %{date}
+        visited_days_ago: il y a %{days} par %{advisor}
+        visited_on: le %{date}
       support_contacts:
         support_contact_html: en %{region}, %{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>
     footer:

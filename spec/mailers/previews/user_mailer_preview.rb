@@ -5,7 +5,7 @@ class UserMailerPreview < ActionMailer::Preview
 
   def match_feedback
     feedback = Feedback.all.sample
-    UserMailer.match_feedback(feedback, feedback.need.advisor)
+    UserMailer.match_feedback(feedback, feedback.need.experts.sample)
   end
 
   def notify_match_status

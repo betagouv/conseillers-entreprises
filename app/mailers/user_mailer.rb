@@ -16,6 +16,7 @@ class UserMailer < ApplicationMailer
     @feedback = feedback
     @person = person
     @author = feedback.user
+    @match = person.received_needs.find_by(id: feedback.need.id)
 
     return if @person.deleted?
     mail(to: @person.email_with_display_name,
