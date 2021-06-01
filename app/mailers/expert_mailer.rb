@@ -3,11 +3,13 @@
 class ExpertMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/expert_mailer'
+  helper :institutions
 
-  def notify_company_needs(expert, diagnosis)
+  def notify_company_needs(expert, need)
     @expert = expert
-    @diagnosis = diagnosis
-    @solicitation = diagnosis.solicitation
+    @need = need
+    @diagnosis = need.diagnosis
+    @solicitation = need.solicitation
 
     mail(
       to: @expert.email_with_display_name,

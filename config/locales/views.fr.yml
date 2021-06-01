@@ -387,8 +387,8 @@ fr:
         you_need_to_use_your_user_account: Place des entreprises nécessite de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
       notify_company_needs:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
-        needs_you: 'a besoin de votre expertise pour :'
-        subject: "[Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
+        needs_you: a besoin de votre expertise sur « %{subject} »
+        subject: "[Service public Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
         support_contact_label: 'Si vous n’arrivez pas à accéder à la fiche entreprise, contactez :'
         this_company: L’entreprise
         via_partner_html: Cette demande a été déposée sur le site <a href='%{url}' target='_blank'>%{url}</a> avec lequel le service Place des Entreprises est en partenariat.
@@ -410,6 +410,7 @@ fr:
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_diagnosis: Voir la demande
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
+    thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
       confirm_notifications_sent:
         contacted_experts:
