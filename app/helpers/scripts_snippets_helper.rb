@@ -12,7 +12,7 @@ module ScriptsSnippetsHelper
   end
 
   def tarteaucitron_script
-    if Rails.env.production?
+    if Rails.env.production? && !in_iframe?
       render 'shared/tarteaucitron'
     end
   end

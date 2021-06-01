@@ -1,0 +1,3 @@
+- if in_iframe? && session.dig(:solicitation_form_info, "institution").present?
+  - if session[:solicitation_form_info]["institution"] == "collectivite_de_martinique"
+    %style= martinique_custom_css
