@@ -1,5 +1,5 @@
 <%= content_for :head do %>
-  <%= javascript_tag nonce: true do -%>
+  <%= javascript_tag nonce: true, 'data-turbolinks-eval': false do -%>
     $(document).ready(function() {
       $('select.ui.selection.search.dropdown.badges').dropdown({
         fullTextSearch: 'exact',
