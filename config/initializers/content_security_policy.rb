@@ -10,14 +10,15 @@ Rails.application.config.content_security_policy do |p|
   p.default_src :self
   p.base_uri    :self
   p.font_src    :self, :data, 'https://fonts.gstatic.com'
-  p.img_src     :self, :data, 'https://voxusagers.numerique.gouv.fr', 'https://stats.data.gouv.fr', 'https://www.google.com', 'https://www.google.fr', 'https://googleads.g.doubleclick.net'
+  p.img_src     :self, :data, 'https://voxusagers.numerique.gouv.fr', 'https://stats.data.gouv.fr', 'https://www.google.com', 'https://www.google.fr', 'https://googleads.g.doubleclick.net', 'https://www.googletagmanager.com'
   p.object_src  :none
   p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
   p.script_src  :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
-  p.frame_src   :self, 'stats.data.gouv.fr', 'https://bid.g.doubleclick.net'
+  p.script_src_elem :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
+  p.frame_src :self, 'stats.data.gouv.fr', 'https://bid.g.doubleclick.net'
 
   if Rails.env.development?
-    p.connect_src :self, 'localhost:3035', 'ws://localhost:3035'
+    p.connect_src :self, 'localhost:3035', 'ws://localhost:3035', 'https://api-adresse.data.gouv.fr/'
   else
     p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/'
     if ENV["CSP_REPORT_URI"].present?
@@ -30,7 +31,7 @@ end
 Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
 
 # Set the nonce only to specific directives
-Rails.application.config.content_security_policy_nonce_directives = %w(script-src)
+Rails.application.config.content_security_policy_nonce_directives = %w(script-src script-src-elem)
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:
