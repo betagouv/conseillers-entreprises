@@ -2,4 +2,6 @@ var noMatch = document.getElementById('no-match')
 if (noMatch != null) { noMatch.remove() }
 
 - match_html = render @match
-document.getElementById('all-experts').insertAdjacentHTML('beforeend', "#{j match_html}");
+
+var expertsBlock = document.getElementById('all-experts');
+if (typeof expertsBlock !== 'undefined' && expertsBlock != null) { expertsBlock.insertAdjacentHTML('beforeend', "#{j match_html}"); }
