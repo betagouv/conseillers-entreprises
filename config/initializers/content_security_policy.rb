@@ -10,7 +10,7 @@ Rails.application.config.content_security_policy do |p|
   p.default_src :self
   p.base_uri    :self
   p.font_src    :self, :data, 'https://fonts.gstatic.com'
-  p.img_src     :self, :data, 'https://voxusagers.numerique.gouv.fr', 'https://stats.data.gouv.fr', 'https://www.google.com', 'https://www.google.fr', 'https://googleads.g.doubleclick.net'
+  p.img_src     :self, :data, 'https://voxusagers.numerique.gouv.fr', 'https://stats.data.gouv.fr', 'https://www.google.com', 'https://www.google.fr', 'https://googleads.g.doubleclick.net', 'https://www.googletagmanager.com'
   p.object_src  :none
   p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
   p.script_src  :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
