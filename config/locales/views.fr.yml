@@ -423,6 +423,7 @@ fr:
         thank_you: "Merci ! \U0001F44D"
         you_met_company_html: 'Le %{visit_date}, vous avez partagé un de besoin de l’entreprise :'
       match_feedback:
+        match_status_html: 'Statut de votre mise en relation sur ce besoin : %{status}'
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
         subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
       notify_match_status:

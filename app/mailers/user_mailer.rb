@@ -4,6 +4,7 @@ class UserMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/user_mailer'
   helper :institutions
+  helper :status
 
   def confirm_notifications_sent(diagnosis)
     @diagnosis = diagnosis
@@ -16,7 +17,7 @@ class UserMailer < ApplicationMailer
     @feedback = feedback
     @person = person
     @author = feedback.user
-    @match = person.received_needs.find_by(id: feedback.need.id)
+    @match = person.received_matches.find_by(need: feedback.need.id)
 
     return if @person.deleted?
     mail(to: @person.email_with_display_name,
