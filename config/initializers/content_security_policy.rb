@@ -14,6 +14,7 @@ Rails.application.config.content_security_policy do |p|
   p.object_src  :none
   p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
   p.script_src  :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
+  p.script_src_elem :self, 'https://cdn.jsdelivr.net'
   p.frame_src   :self, 'stats.data.gouv.fr', 'https://bid.g.doubleclick.net'
 
   if Rails.env.development?
