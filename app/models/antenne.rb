@@ -47,6 +47,7 @@ class Antenne < ApplicationRecord
   #
   # :communes
   has_many :territories, -> { distinct.bassins_emploi }, through: :communes, inverse_of: :antennes
+  has_many :regions, -> { distinct.regions }, through: :communes, inverse_of: :antennes
 
   # :advisors
   has_many :sent_diagnoses, through: :advisors, inverse_of: :advisor_antenne
@@ -74,5 +75,10 @@ class Antenne < ApplicationRecord
   #
   def to_s
     name
+  end
+
+  def support_user
+    return if regions.many? || regions.blank?
+    User.find(Antenne.find(id).regions.first.support_contact_id)
   end
 end
