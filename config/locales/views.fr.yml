@@ -396,7 +396,7 @@ fr:
         needs_for_you: 'Ces entreprises ont besoin de vous :'
         needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
         needs_taking_care: 'Besoins pris en charge : est ce qu’il y a du nouveau ?'
-        subject: "[Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
+        subject: "[Service public Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
         visited_days_ago: il y a %{days} par %{advisor}
         visited_on: le %{date}
       support_contacts:
@@ -418,14 +418,14 @@ fr:
           other: 'Mises en relations :'
         show_details: Voir la fiche entreprise
         subject:
-          one: "[Place des Entreprises] Confirmation de notification du besoin de l’entreprise %{company}"
-          other: "[Place des Entreprises] Confirmation de notification des besoins de l’entreprise %{company}"
+          one: "[Service public Place des Entreprises] Confirmation de notification du besoin de l’entreprise %{company}"
+          other: "[Service public Place des Entreprises] Confirmation de notification des besoins de l’entreprise %{company}"
         thank_you: "Merci ! \U0001F44D"
         you_met_company_html: 'Le %{visit_date}, vous avez partagé un de besoin de l’entreprise :'
       match_feedback:
-        match_status_html: 'Statut de votre mise en relation sur ce besoin : %{status}'
+        match_status_html: 'Votre positionnement sur ce besoin : %{status}'
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."
-        subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
+        subject: "[Service public Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
       notify_match_status:
         expert_and_status:
           done_html: "<p>%{expert} (%{antenne}) a clôturé ce besoin.</p>"
@@ -435,7 +435,7 @@ fr:
           quo_html: "<p>%{expert} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
           taking_care_html: "<p>%{expert} (%{antenne}) a pris en charge ce besoin.</p>"
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
-        subject: "[Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
+        subject: "[Service public Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
       remind_invitation:
         reminder_html: "<p>Pour rappel, vous êtes invité(e) à rejoindre le service public Place des Entreprises, au sein de l’antenne %{antenne}.</p><p>Nous sommes en attente de la finalisation de votre compte : il faut juste choisir votre mot de passe.</p>"
         subject: Attente de votre réponse pour votre compte sur le service public Place des Entreprises, partenaire de %{institution_name}
