@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe SolicitationService::Create do
+describe SolicitationModification::Create do
   describe 'call' do
     let(:base_params) {
       {
@@ -14,8 +14,7 @@ describe SolicitationService::Create do
         description: "Ma demande"
       }
     }
-
-    subject(:service) { described_class.call(params) }
+    let(:service) { described_class.call(params) }
 
     context 'with deployed code region' do
       let(:params) { base_params.merge(code_region: "11") }
