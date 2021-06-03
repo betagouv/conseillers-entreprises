@@ -1,8 +1,4 @@
 class UserMailerPreview < ActionMailer::Preview
-  def confirm_notifications_sent
-    UserMailer.confirm_notifications_sent(Diagnosis.completed.sample)
-  end
-
   def match_feedback
     feedback = Feedback.all.sample
     UserMailer.match_feedback(feedback, feedback.need.experts.sample)

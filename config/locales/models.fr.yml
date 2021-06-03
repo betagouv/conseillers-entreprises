@@ -261,7 +261,6 @@ fr:
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
-        disable_email_confirm_notifications_sent: Ne veut pas recevoir les email de confirmation de mise en relation
         encrypted_password: Mot de passe chiffré
         experts:
           one: Équipe

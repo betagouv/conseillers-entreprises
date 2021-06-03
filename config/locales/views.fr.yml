@@ -412,16 +412,6 @@ fr:
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
-      confirm_notifications_sent:
-        contacted_experts:
-          one: 'Mise en relation :'
-          other: 'Mises en relations :'
-        show_details: Voir la fiche entreprise
-        subject:
-          one: "[Service public Place des Entreprises] Confirmation de notification du besoin de l’entreprise %{company}"
-          other: "[Service public Place des Entreprises] Confirmation de notification des besoins de l’entreprise %{company}"
-        thank_you: "Merci ! \U0001F44D"
-        you_met_company_html: 'Le %{visit_date}, vous avez partagé un de besoin de l’entreprise :'
       match_feedback:
         match_status_html: 'Votre positionnement sur ce besoin : %{status}'
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire concernant le besoin de l’entreprise <b>%{company}</b>, adressé le %{date}."

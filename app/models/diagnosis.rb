@@ -148,10 +148,6 @@ class Diagnosis < ApplicationRecord
       end
       expert.first_notification_help_email
     end
-    # Notify Advisor
-    unless advisor.disable_email_confirm_notifications_sent.to_bool
-      UserMailer.confirm_notifications_sent(self).deliver_later
-    end
   end
 
   private

@@ -6,13 +6,6 @@ class UserMailer < ApplicationMailer
   helper :institutions
   helper :status
 
-  def confirm_notifications_sent(diagnosis)
-    @diagnosis = diagnosis
-    @user = @diagnosis.advisor
-    mail(to: @user.email_with_display_name,
-      subject: t('mailers.user_mailer.confirm_notifications_sent.subject', company: @diagnosis.company.name, count: @diagnosis.needs.size))
-  end
-
   def match_feedback(feedback, person)
     @feedback = feedback
     @person = person
