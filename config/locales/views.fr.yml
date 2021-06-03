@@ -375,7 +375,7 @@ fr:
     expert_mailer:
       first_notification_help:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
-        answer_continuation: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
+        answer_continuation: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon conseiller au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
         need_help: Besoin d’aide ?
         pde_contact: 'Vos contacts pour vous aider au sein de l’équipe Place des Entreprises :'
         received_need: Vous venez de recevoir votre premier besoin d’entreprise sur Place des Entreprises.
