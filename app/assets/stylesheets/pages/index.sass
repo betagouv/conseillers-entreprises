@@ -35,14 +35,19 @@ section.section.blank-section
   padding: 2.5rem 0
 
 section.section#section-thematiques
-  .row + .row
-    margin-top: 1.5em
-    margin-top: var(--space-m)
+  .landing-cards-container
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
   .card
     border: none
     display: flex
     flex-direction: column
+    flex: 0 1 31%
+    flex: 0 1 calc(33% - 0.75em)
     padding: 2px
+    margin-bottom: 1.5em
+    margin-bottom: var(--space-m)
     &:hover
       border: 2px solid #0053b3
       border: 2px solid var(--blue)
@@ -71,6 +76,17 @@ section.section#section-thematiques
   .contact-us
     font-size: 1.2rem
     margin: 2rem 0 0 0
+
+@media(max-width: 1040px)
+  section.section#section-thematiques
+    .card
+      flex: 0 1 48%
+      flex: 0 1 calc(50% - 0.75em)
+
+@media(max-width: 750px)
+  section.section#section-thematiques
+    .card
+      flex: 0 1 100%
 
 .emphasis
   margin-top: -6.5rem
