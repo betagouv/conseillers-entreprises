@@ -81,4 +81,12 @@ class Antenne < ApplicationRecord
     return if regions.many? || regions.blank?
     User.find(Antenne.find(id).regions.first.support_contact_id)
   end
+
+  def user_support_email
+    if support_user.present?
+      "#{support_user.full_name} - #{I18n.t('app_name')} <#{support_user.email}>"
+    else
+      "#{I18n.t('app_name')} <#{ENV['APPLICATION_EMAIL']}>"
+    end
+  end
 end

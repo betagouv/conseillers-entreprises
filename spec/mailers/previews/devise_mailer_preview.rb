@@ -1,19 +1,18 @@
 class DeviseMailerPreview < ActionMailer::Preview
   def invitation_instructions
-    user = User.all.sample
+    user = User.not_deleted.sample
     user.inviter = User.all.sample
-    user.can_view_diagnoses_tab = [true, false].sample
-    Devise::Mailer::invitation_instructions(user, 'faketoken')
+    CustomDeviseMailer::invitation_instructions(user, 'faketoken')
   end
 
   def reset_password_instructions
-    user = User.all.sample
+    user = User.not_deleted.sample
     user.reset_password_sent_at = Time.now.utc
     Devise::Mailer.reset_password_instructions(user, 'faketoken')
   end
 
   def reset_password_instructions_never_used
-    user = User.all.sample
+    user = User.not_deleted.sample
     user.invitation_accepted_at = nil
     Devise::Mailer.reset_password_instructions(user, 'faketoken')
   end

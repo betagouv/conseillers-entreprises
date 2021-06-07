@@ -40,7 +40,7 @@ fr:
         looking_forward: Au plaisir d’échanger à cette occasion !
         question_one: Pourquoi recevez-vous ce mail ?
         question_two: Comment fonctionne le service public Place des Entreprises ?
-        subject: Vous êtes invité à rejoindre le service public Place des Entreprises
+        subject: Vous êtes invité à rejoindre le service public Place des Entreprises, partenaire de %{institution}
         support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
         training_html: "<strong>Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service</strong> : %{link}"
       reset_password_instructions:
