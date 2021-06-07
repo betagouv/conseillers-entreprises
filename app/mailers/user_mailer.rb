@@ -15,7 +15,6 @@ class UserMailer < ApplicationMailer
     @match = person.received_matches.find_by(need: feedback.need.id)
 
     mail(to: @person.email_with_display_name,
-         reply_to: @author.email_with_display_name,
          subject: t('mailers.user_mailer.match_feedback.subject', company_name: feedback.need.company))
   end
 
