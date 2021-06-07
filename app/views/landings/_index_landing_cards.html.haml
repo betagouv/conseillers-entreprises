@@ -12,9 +12,8 @@
 - unless in_iframe?
   %h2.card-section-header= t('you_wish')
 
-- landings.each_slice(3) do |landings_slice|
-  .row
-    = render partial: 'index_landing_card', collection: landings_slice, as: :landing
+.landing-cards-container
+  = render partial: 'index_landing_card', collection: landings, as: :landing
 
 %p.text-center.contact-us
   %b= t('.other_questions')
