@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", function() {
   if (clickOnLanding.length !== 0) {
     clickOnLanding.forEach(function (item) {
       item.addEventListener('click', function () {
-        _paq.push(['trackEvent', 'page-thematique', 'success'])
+        if (typeof _paq !== 'undefined') {
+          _paq.push(['trackEvent', 'page-thematique', 'success'])
+        }
       });
     });
   }
@@ -13,7 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
   if (clickOnLandingOption.length !== 0) {
     clickOnLandingOption.forEach(function (item) {
       item.addEventListener('click', function () {
-        _paq.push(['trackEvent', 'formulaire', 'success'])
+        if (typeof _paq !== 'undefined') {
+          _paq.push(['trackEvent', 'formulaire', 'success'])
+        }
       });
     });
   }
