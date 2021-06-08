@@ -1,3 +1,5 @@
 <%= javascript_tag nonce: true do -%>
-  _paq.push(['trackEvent', 'contact-formulaire-partenaire', "success"]);
+  if (typeof _paq !== 'undefined') {
+    _paq.push(['trackEvent', 'contact-formulaire-partenaire', "success"]);
+  }
 <% end -%>
