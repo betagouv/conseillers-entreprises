@@ -1,12 +1,5 @@
 class ExpertMailerPreview < ActionMailer::Preview
-  def notify_company_needs_without_solicitation
-    diagnosis = Diagnosis.completed.where(solicitation: nil).joins(:experts).where(experts: { deleted_at: nil }).sample
-    expert = diagnosis.experts.not_deleted.sample
-    need = expert.received_needs.sample
-    ExpertMailer.notify_company_needs(expert, need)
-  end
-
-  def notify_company_needs_with_solicitation
+  def notify_company_needs_from_pde
     expert = active_expert
     need = expert.received_needs.sample
     need.solicitation = Solicitation.joins(:landing).where(landing: { partner_url: [nil, ''] }).sample
