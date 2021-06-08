@@ -2,6 +2,6 @@
   .container.breadcrumbs
     - if defined? landing
       - landing_option ||= nil
-      = breadcrumbs_landing(landing, landing_option)
+      = breadcrumbs_landing(landing, landing_option, institution: params[:institution].presence)
     - else
       = breadcrumbs_page(title)
