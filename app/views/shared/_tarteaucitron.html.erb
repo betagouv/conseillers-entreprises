@@ -40,7 +40,7 @@
       gtag('js', new Date());
 
       if (tarteaucitron.user.gtagCrossdomain) {
-        gtag('config',tarteaucitron.user.gtagAw,{ 'anonymize_ip': true },{linker: {domains: tarteaucitron.user.gtagCrossdomain,}});
+        gtag('config',tarteaucitron.user.gtagAw,{ 'anonymize_ip': true },{linker: {domains: tarteaucitron.user.gtagCrossdomain}});
       } else {
         gtag('config', tarteaucitron.user.gtagAw, { 'anonymize_ip': true });
       }
