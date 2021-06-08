@@ -33,7 +33,7 @@ module Stats::Public
     end
 
     def solicitations_in_deployed_regions
-      SolicitationsInRegionsStats.new(@params)
+      SolicitationsInDeployedRegionsStats.new(@params)
     end
   end
 end

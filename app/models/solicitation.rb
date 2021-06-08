@@ -4,6 +4,7 @@
 #
 #  id                               :bigint(8)        not null, primary key
 #  code_region                      :integer
+#  created_in_deployed_region       :boolean          default(FALSE)
 #  description                      :string
 #  email                            :string
 #  form_info                        :jsonb
@@ -141,6 +142,15 @@ class Solicitation < ApplicationRecord
 
   scope :in_regions, -> (codes_regions) do
     where(code_region: codes_regions)
+  end
+
+  scope :in_deployed_regions, -> do
+    where(created_in_deployed_region: true)
+  end
+
+  # solicitation avec region identifiee mais hors region deployee
+  scope :in_undeployed_regions, -> do
+    where(created_in_deployed_region: false).where.not(code_region: nil)
   end
 
   scope :out_of_regions, -> (codes_regions) do

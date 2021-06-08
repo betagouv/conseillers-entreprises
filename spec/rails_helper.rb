@@ -55,6 +55,11 @@ RSpec.configure do |config|
       driven_by :selenium_chrome_headless
     end
   end
+
+  # les tests ont besoin des seeds pour les régions deployées
+  config.before(:suite) do
+    Rails.application.load_seed
+  end
 end
 
 Shoulda::Matchers.configure do |config|

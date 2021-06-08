@@ -8,8 +8,7 @@ namespace :update_solicitations_code_region do
     solicitations_to_update.joins(:diagnosis).find_each do |solicitation|
       code_region = solicitation.diagnosis_regions&.first&.code_region
       if code_region.present?
-        solicitation.code_region = code_region
-        solicitation.save!(touch: false, validate: false)
+        SolicitationModification::Update.call(solicitation, code_region: code_region)
         total += 1
       end
     end
@@ -34,8 +33,7 @@ namespace :update_solicitations_code_region do
         ## Si mauvais siret
         return if searched_etablissement.blank?
         code_region = searched_etablissement.etablissement.region_implantation['code']
-        solicitation.code_region = code_region
-        solicitation.save!(touch: false, validate: false)
+        SolicitationModification::Update.call(solicitation, code_region: code_region)
       rescue StandardError => e
         next
       end

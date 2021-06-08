@@ -18,8 +18,8 @@ class LandingsController < PagesController
   end
 
   def create_solicitation
-    sanitized_params = sanitize_params(solicitation_params)
-    @solicitation = Solicitation.create(sanitized_params.merge(retrieve_form_info))
+    sanitized_params = sanitize_params(solicitation_params).merge(retrieve_form_info)
+    @solicitation = SolicitationModification::Create.call(sanitized_params)
     if @solicitation.persisted?
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
