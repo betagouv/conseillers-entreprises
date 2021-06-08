@@ -41,7 +41,7 @@ region.update(
   bassin_emploi: false,
   deployed_at: "2021-06-10".to_datetime,
   support_contact_id: ref.id
-  ]
+)
 ```
 
 ## 4. Mise à jour des institutions

@@ -2,21 +2,26 @@ desc 'Deploy region'
 task deploy_region: :environment do
   require 'highline/import'
 
-  data = {
-    code_region: 2,
-    region_name: 'Martinique',
-    deployed_at: "2021-06-10".to_datetime,
-    referent_email: 'adeline.latron@beta.gouv.fr',
-    institution_slug: 'collectivite_de_martinique'
-  }
+  def ask_for_data
+    data = {}
+    puts "Saisissez les informations de la région (code région, nom, email du référent, date de déploiement, institution liée)"
+    data[:code_region] = ask('Code région ?')
+    data[:region_name] = ask('Nom de la région ?')
+    data[:deployed_at] = ask('Date de déploiement ? (format YYYY-MM-DD)').to_date
+    data[:referent_email] = ask('Email du référent PDE ?')
+    data[:institution_name] = ask('Nom de l\'institution régionale ? (optionnel)') { |q| q.default = nil }
+    return data
+  end
 
   def prompt_for_confirmation(data)
-    puts "Vous vous apprêtez à déployer la région '#{data[:region_name]}' avec les données suivantes :"
+    puts "Vous vous apprêtez à déployer la région suivante :"
     data.each { |key, value| puts "- #{key}: #{value}\n" }
     if !agree("On y va ? (y/n)")
       exit
     end
   end
+
+  data = ask_for_data
 
   prompt_for_confirmation(data)
 
@@ -33,9 +38,12 @@ task deploy_region: :environment do
   )
 
   # Create or update institution
-  if data[:institution_slug].present?
-    institution = Institution.where(slug: data[:institution_slug]).first_or_initialize
-    institution.update!(code_region: data[:code_region])
+  if data[:institution_name].present?
+    institution = Institution.where(name: data[:institution_name]).first_or_initialize
+    institution.slug = data[:institution_name].parameterize.underscore if institution.slug.blank?
+    institution.update!(
+      code_region: data[:code_region]
+    )
   end
 
   puts "Région déployée."
