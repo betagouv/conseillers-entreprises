@@ -22,9 +22,6 @@ class LandingsController < PagesController
     @solicitation = SolicitationModification::Create.call(sanitized_params)
     if @solicitation.persisted?
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-      if ENV['FEATURE_SEND_ADMIN_SOLICITATION_EMAIL'].to_b
-        AdminMailer.solicitation(@solicitation).deliver_later
-      end
       @solicitation.delay.prepare_diagnosis(nil)
     end
 
