@@ -7,28 +7,30 @@ class UserMailer < ApplicationMailer
   helper :status
 
   def match_feedback(feedback, person)
-    @feedback = feedback
     @person = person
+    return if @person.deleted?
+
+    @feedback = feedback
     @author = feedback.user
     @match = person.received_matches.find_by(need: feedback.need.id)
 
-    return if @person.deleted?
     mail(to: @person.email_with_display_name,
          reply_to: @author.email_with_display_name,
          subject: t('mailers.user_mailer.match_feedback.subject', company_name: feedback.need.company))
   end
 
   def notify_match_status(match, previous_status)
-    @status = {}
     @match = match
+    @advisor = match.advisor
+    return if (@advisor.deleted? || @advisor.is_admin)
+
+    @status = {}
     @expert = match.expert
     @previous_status = previous_status
-    @advisor = match.advisor
     @company = match.company
     @need = match.need
     @subject = match.subject
 
-    return if (@advisor.deleted? || @advisor.is_admin)
     mail(to: @advisor.email, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @company.name))
   end
 
