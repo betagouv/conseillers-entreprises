@@ -6,7 +6,8 @@
 - diagnoses.each do |diagnosis|
   %h3
     - company_link = diagnosis.facility.siret.present? ? company_url(diagnosis.facility.siret) : '#'
-    %a{ href: company_link }= diagnosis.company.name
+    = t('.company')
+    = link_to diagnosis.company.name, company_link
     - if visited_at
       = t('mailers.expert_mailer.remind_involvement.visited_on', date: I18n.l(diagnosis.display_date, format: :long))
     - else

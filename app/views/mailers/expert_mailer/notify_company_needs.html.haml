@@ -7,7 +7,7 @@
   %h1= @diagnosis.company
   .text-grey= @diagnosis.facility.commune_name
 %p
-  = t('.needs_you', subject: @need.subject)
+  = t('.needs_you_html', subject: @need.subject)
 %p
   - if @solicitation.present? && @solicitation.landing&.partner_url.present?
     = t('.via_partner_html', date: I18n.l(@solicitation.created_at, format: :long), url: @solicitation.landing.partner_url)
