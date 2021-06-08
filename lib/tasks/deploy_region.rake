@@ -12,7 +12,7 @@ task deploy_region: :environment do
 
   def prompt_for_confirmation(data)
     puts "Vous vous apprêtez à déployer la région '#{data[:region_name]}' avec les données suivantes :"
-    data.each {|key, value| puts "- #{key}: #{value}\n" }
+    data.each { |key, value| puts "- #{key}: #{value}\n" }
     if !agree("On y va ? (y/n)")
       exit
     end

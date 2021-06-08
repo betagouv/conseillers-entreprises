@@ -253,6 +253,7 @@ fr:
         antennes: Antennes
         bassin_emploi: Bassin d’emploi?
         code_region: Région
+        deployed_at: Déployé le
         experts: Experts
         support_contact: Contact support
       user:
