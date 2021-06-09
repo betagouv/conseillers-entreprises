@@ -10,9 +10,7 @@
 
 Procédure vouée à disparaître une fois le produit lancé nationalement.
 
-Un script à modifier à chaque déploiement peut être lancé pour automatiser le déploiement via `rake deploy_region`.
-
-Le fichier à modifier se trouve ici : `/lib/tasks/deploy_region.rake`
+Un script interactif peut être lancé pour automatiser le déploiement via `rake deploy_region`.
 
 ## 1. Code région
 
