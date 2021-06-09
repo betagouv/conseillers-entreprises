@@ -64,9 +64,9 @@ module StatusHelper
     end
   end
 
-  def status_label(need_or_match)
+  def status_label(need_or_match, length = :short)
     status = need_or_match.status
-    title = need_or_match.human_attribute_value(:status, context: :short)
+    title = need_or_match.human_attribute_value(:status, context: length)
     classes = %w[label] + STATUS_COLORS[status.to_sym]
     tag.div(class: classes.join(' ')) do
       status_icon(status) + title

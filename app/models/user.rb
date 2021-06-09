@@ -152,6 +152,12 @@ class User < ApplicationRecord
       .distinct
   end
 
+  scope :invited_seven_days_ago, -> do
+    not_deleted
+      .where(invitation_sent_at: 7.days.ago.beginning_of_day..7.days.ago.end_of_day)
+      .where(invitation_accepted_at: nil)
+  end
+
   ## Relevant Experts stuff
   # User objects fetched through this scope have an additional attribute :relevant_expert_id
   # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)
@@ -168,7 +174,6 @@ class User < ApplicationRecord
   #
   FLAGS = %i[
     can_view_diagnoses_tab
-    disable_email_confirm_notifications_sent
   ]
   store_accessor :flags, FLAGS.map(&:to_s)
 
@@ -248,5 +253,11 @@ class User < ApplicationRecord
 
   def synchronize_personal_skillsets
     self.personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
+  end
+
+  def self.send_reminder_invitation
+    invited_seven_days_ago.each do |user|
+      UserMailer.remind_invitation(user).deliver_later
+    end
   end
 end

@@ -3,11 +3,15 @@
 class ExpertMailer < ApplicationMailer
   SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
   default from: SENDER, template_path: 'mailers/expert_mailer'
+  helper :institutions
 
-  def notify_company_needs(expert, diagnosis)
+  def notify_company_needs(expert, need)
     @expert = expert
-    @diagnosis = diagnosis
-    @solicitation = diagnosis.solicitation
+    return if @expert.deleted?
+
+    @need = need
+    @diagnosis = need.diagnosis
+    @solicitation = need.solicitation
 
     mail(
       to: @expert.email_with_display_name,
@@ -24,6 +28,8 @@ class ExpertMailer < ApplicationMailer
 
   def first_notification_help(expert)
     @expert = expert
+    return if @expert.deleted?
+
     mail(
       to: @expert.email_with_display_name,
       subject: t('mailers.expert_mailer.first_notification_help.subject')
@@ -32,6 +38,7 @@ class ExpertMailer < ApplicationMailer
 
   def remind_involvement(expert)
     @expert = expert
+    return if @expert.deleted?
 
     @needs_quo = expert.needs_quo
     @needs_taking_care = expert.needs_taking_care
@@ -39,7 +46,6 @@ class ExpertMailer < ApplicationMailer
 
     return if @needs_taking_care.empty? && @needs_quo.empty? && @needs_others_taking_care.empty?
 
-    return if @expert.deleted?
     mail(
       to: @expert.email_with_display_name,
       subject: t('mailers.expert_mailer.remind_involvement.subject')

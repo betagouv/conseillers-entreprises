@@ -143,12 +143,10 @@ class Diagnosis < ApplicationRecord
   def notify_matches_made!
     # Notify experts
     experts.each do |expert|
-      ExpertMailer.notify_company_needs(expert, self).deliver_later
+      self.needs.each do |need|
+        ExpertMailer.notify_company_needs(expert, need).deliver_later
+      end
       expert.first_notification_help_email
-    end
-    # Notify Advisor
-    unless advisor.disable_email_confirm_notifications_sent.to_bool
-      UserMailer.confirm_notifications_sent(self).deliver_later
     end
   end
 

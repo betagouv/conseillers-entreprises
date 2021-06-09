@@ -1,21 +1,28 @@
-.logo-container
-  .logos
-    = institution_image @resource.institution.name
-    = image_tag 'place-des-entreprises-logo.png', alt: ''
+= render 'mailers/header', institution_name: @resource.institution.name
 
 %p= t('devise.mailer.hello', user_full_name: @resource.full_name)
 
-%p.bold= t('.description_html', link_to_root: link_to(t('app_name'), root_url), antenne: @resource.antenne.name)
+%p= t('.description_html', link_to_root: link_to(t('app_name'), root_url), antenne: @resource.antenne.name)
 
-%h3= t('.details_question')
+%h2= t('.question_one')
 
-%p= t('.details_answer_service')
+%p= t('.answer_one', institution_name: @resource.institution.name)
 
-%p= t('.details_answer')
+%h2= t('.question_two')
 
-%p= t('.insitution_engagment', institution: @resource.institution.name)
+%p= t('.answer_two_html')
 
-%p= t('.discover_partners_html', link: link_to(t('app_name'), comment_ca_marche_url(anchor: 'liste-partenaires')))
+%p= t('.discover_partners_html', link: link_to(t('link_to_partners'), comment_ca_marche_url(anchor: 'liste-partenaires')))
 %p
   .button
     %a{ href: accept_user_invitation_url(invitation_token: @token) }= t('.accept')
+
+%p= t('.training_html', link: link_to('https://app.livestorm.co/place-des-entreprises', 'https://app.livestorm.co/place-des-entreprises'))
+
+%p= t('.looking_forward')
+
+%p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to(t('app_name'), root_url))
+
+.info
+  %p= t('.support_contact_label')
+  = render 'mailers/expert_mailer/support_contacts'

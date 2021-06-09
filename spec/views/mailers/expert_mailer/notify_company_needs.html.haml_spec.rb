@@ -7,33 +7,19 @@ RSpec.describe 'mailers/expert_mailer/notify_company_needs.html.haml', type: :vi
     let(:contact) { create :contact, :with_email }
     let(:user) { create :user }
     let(:expert) { create :expert }
-    let(:need1) { create(:need, matches: [create(:match, expert: expert)]) }
-    let(:need2) { create(:need, matches: [create(:match, expert: expert)]) }
+    let(:need) { create(:need, matches: [create(:match, expert: expert)]) }
 
     before do
       assign(:expert, expert)
-      assign(:diagnosis, diagnosis)
+      assign(:diagnosis, need.diagnosis)
+      assign(:need, need)
 
       render
     end
 
-    context 'when diagnosis has a date and there are two subjects' do
-      let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, needs: [need1, need2] }
-
-      it 'displays the date, phone number and 2 list items' do
-        expect(rendered).to include "besoins/#{need1.id}"
-        expect(rendered).to include "besoins/#{need2.id}"
-        assert_select 'h2.subject', count: 2
-      end
-    end
-
-    context 'when there is one subject' do
-      let(:diagnosis) { create :diagnosis, advisor: user, visitee: contact, needs: [need1] }
-
-      it 'does not display the date, but displays email and one list item' do
-        expect(rendered).to include "besoins/#{need1.id}"
-        assert_select 'h2.subject', count: 1
-      end
+    it 'displays the date, phone number and 1 items' do
+      expect(rendered).to include "besoins/#{need.id}"
+      assert_select 'h1', count: 1
     end
   end
 end

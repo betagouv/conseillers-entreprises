@@ -1,24 +1,13 @@
-%p= t('mailers.hello_name', name: @expert.full_name)
+= render 'mailers/header', institution_name: @expert.institution.name
 
-- needs = @diagnosis.needs.merge(@expert.received_needs)
+%p= t('mailers.hello')
 
 %p= t('.this_company')
 %blockquote
   %h1= @diagnosis.company
   .text-grey= @diagnosis.facility.commune_name
-%p= t('.needs_you')
-
-- needs.ordered_for_interview.each do |need|
-  %h2.subject= need.subject
-  - if @diagnosis.content.present?
-    %blockquote
-      %p= simple_format(auto_link(@diagnosis.content))
-  - if need.content.present?
-    %blockquote
-      %p= simple_format(auto_link(need.content))
-
-  .button
-    %a{ href: need_url(need) }= t('mailers.see_diagnosis')
+%p
+  = t('.needs_you_html', subject: @need.subject)
 %p
   - if @solicitation.present? && @solicitation.landing&.partner_url.present?
     = t('.via_partner_html', date: I18n.l(@solicitation.created_at, format: :long), url: @solicitation.landing.partner_url)
@@ -29,7 +18,12 @@
      antenne: advisor.antenne.name,
      visit_date: I18n.l(@diagnosis.display_date, format: :long))
 
+.button
+  %a{ href: need_url(@need) }= t('mailers.see_diagnosis')
 
+%p= t('mailers.thanks_for_your_trust')
+
+%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))
 
 .info
   %p= t('.support_contact_label')
@@ -37,4 +31,3 @@
 
 = render 'mailers/expert_mailer/never_used_account_warning'
 
-%p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to(t('app_name'), root_url))

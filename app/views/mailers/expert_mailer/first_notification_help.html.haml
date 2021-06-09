@@ -1,4 +1,6 @@
-%p= t('mailers.hello_name', name: @expert.full_name)
+= render 'mailers/header', institution_name: @expert.institution.name
+
+%p= t('mailers.hello')
 
 %p= t('.received_need')
 

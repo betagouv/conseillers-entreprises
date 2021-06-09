@@ -1,4 +1,6 @@
-%p= t('mailers.hello_name', name: @expert.full_name)
+= render 'mailers/header', institution_name: @expert.institution.name
+
+%p= t('mailers.hello')
 
 - link_to_root = link_to t('app_name'), root_url
 %p= t('.needs_for_you', link_to_root: link_to_root)
@@ -16,3 +18,7 @@
 = render 'mailers/expert_mailer/never_used_account_warning'
 
 %p= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: link_to_root)
+
+.info
+  %p= t('.support_contact_label')
+  = render 'mailers/expert_mailer/support_contacts'
