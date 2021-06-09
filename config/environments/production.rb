@@ -74,6 +74,8 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
+  config.action_mailer.asset_host = ENV['HOST_NAME']
+
   # Actually send emails, but use sendinblue in production and Mailtrap in staging
   config.action_mailer.perform_caching = false
   if ENV['SENDINBLUE_API_KEY'].present?
