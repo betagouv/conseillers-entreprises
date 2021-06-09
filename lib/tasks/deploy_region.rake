@@ -46,5 +46,6 @@ task deploy_region: :environment do
     )
   end
 
-  puts "Région déployée."
+  puts "Région déployée :"
+  puts region.inspect
 end
