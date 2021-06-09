@@ -1,7 +1,7 @@
-= image_tag root_url + image_path('Republique_Francaise_RVB.png'), width: '150px'
+= image_tag image_url('Republique_Francaise_RVB.png', host: root_url), width: '150px'
 
 .logo-container
   .logos
     - if defined? institution_name
-      = institution_image institution_name
+      = institution_image institution_name, true
     = image_tag root_url + 'place-des-entreprises-logo.png', alt: ''

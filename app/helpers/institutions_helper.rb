@@ -11,8 +11,8 @@ module InstitutionsHelper
       .join.html_safe
   end
 
-  def institution_image(name, extra_params = {})
+  def institution_image(name, with_host = false)
     params = { class: 'institution_logo' }
-    display_image({ name: name, path: "institutions/", extra_params: params })
+    display_image({ name: name, path: "institutions/", extra_params: params, with_host: with_host })
   end
 end
