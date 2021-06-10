@@ -506,7 +506,7 @@ fr:
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
     alert_region:
-      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France et en Île-de-France."
+      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert uniquement en Hauts-de-France, Île-de-France et Martinique."
       learn_more: En savoir plus
     footer:
       cookies: Gestion des cookies

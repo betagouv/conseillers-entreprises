@@ -51,6 +51,9 @@ institution = Institution.where(slug: "collectivite_de_martinique").first_or_ini
 institution.update(code_region: code_region)
 ```
 
+## 5. Mise à jour du message bandeau
+
+Modifier le texte du bandeau indiquant quelles régions sont ouvertes (`/config/locales/views.fr.yml`)
 
 
 
