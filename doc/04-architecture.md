@@ -43,12 +43,12 @@ De l’autre côté, on trouve donc les informations des agents recensées aupr�
  
 ## Volumétrie et contraintes
 
-**À date de novembre 2020**, Place des Entreprises est déployé dans les Hauts de France, et s’apprête à ouvrir le service en Île-de-France.
-* Nous recensons environ 1900 agents de 40 institutions partenaires. 
+**À date de juin 2021**, Place des Entreprises est déployé dans les Hauts de France, en Île-de-France et en Martinique  .
+* Nous recensons environ 2300 agents de 60 institutions partenaires.
 * Nous recevons et transmettons environ 150 besoins d’entreprise par mois ; chaque besoin est transmis en général à deux ou trois agents.
 * Ces chiffres augmentent d’environ 20% par mois.
 
-> Note: Lors du premier confinement lié à la pandémie de Covid-19, nous avons fait face à un pic d’activité à plus de 8 fois notre activité actuelle; cela nous a au moins permis de vérifier la capacité de notre infrastructure.  
+> Note: Lors du premier confinement lié à la pandémie de Covid-19, nous avons fait face à un pic d’activité à plus de 8 fois notre activité actuelle; cela nous a au moins permis de vérifier la capacité de notre infrastructure.
 
 Les statistiques publiques sont disponibles en temps réel [sur notre page /stats](https://place-des-entreprises.beta.gouv.fr/stats).
 

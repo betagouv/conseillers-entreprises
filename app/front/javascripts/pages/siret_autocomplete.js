@@ -50,19 +50,19 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 
     function fillCodeRegionField(option) {
       if (option && option.code_region) {
-        codeRegionField.value = option.code_region
+        codeRegionField.value = parseInt(option.code_region)
       }
     }
 
     function checkIfInDeployedRegion (option) {
       if (option && option.code_region) {
-        let region = option.code_region;
-        if (!deployedRegion.includes(region)) {
+        let code_region = parseInt(option.code_region);
+        if (!deployedRegion.includes(code_region)) {
           const notInDeployedRegion = document.querySelector("[data-error='not-in-deployed-region']")
           notInDeployedRegion.style.display = 'block'
           const newsletter = document.querySelector("[data-error='newsletter']")
           newsletter.style.display = 'block'
-          fill_newsletter_form(region)
+          fill_newsletter_form(code_region);
         }
       }
     }
