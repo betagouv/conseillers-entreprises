@@ -613,6 +613,7 @@ DEPENDENCIES
   haml-rails
   haml_lint
   highcharts-rails
+  highline
   honeypot-captcha
   http
   i18n-tasks

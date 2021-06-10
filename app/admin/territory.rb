@@ -67,6 +67,9 @@ ActiveAdmin.register Territory do
         div I18n.t(t.code_region, scope: 'regions_codes_to_libelles', default: "")
       end
       row :support_contact
+      row :deployed_at do |t|
+        div t.deployed_at&.to_date
+      end
       row(:communes) do |t|
         div admin_link_to(t, :communes)
         div safe_join(t.communes.map { |c| admin_link_to c }, ', '.html_safe)

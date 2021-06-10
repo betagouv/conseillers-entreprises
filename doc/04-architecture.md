@@ -4,6 +4,7 @@
 * [Development (en)](02-development.md)
 * [Deployment (en)](03-deployment.md)
 * ➡ [Architecture (fr)](04-architecture.md)
+* [Déployer une région (fr)](05-deployer-une-region.md)
 
 # Place des Entreprises - Architecture générale
 
