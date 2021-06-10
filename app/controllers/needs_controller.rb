@@ -94,7 +94,7 @@ class NeedsController < ApplicationController
     expert = Expert.find(params.require(:expert))
     @match = Match.create(need: @need, expert: expert, subject: @need.subject)
     if @match.valid?
-      ExpertMailer.notify_company_needs(expert, @need.diagnosis).deliver_later
+      ExpertMailer.notify_company_needs(expert, @need).deliver_later
       expert.first_notification_help_email
     else
       flash.alert = @match.errors.full_messages.to_sentence
