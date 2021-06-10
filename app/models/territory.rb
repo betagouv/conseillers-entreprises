@@ -48,10 +48,10 @@ class Territory < ApplicationRecord
   #
   scope :bassins_emploi, -> { where(bassin_emploi: true) }
   scope :regions, -> { where.not(code_region: nil) }
-  scope :deployed_regions, -> { regions.where.not(deployed_at: nil) }
+  scope :deployed_regions, -> { regions.where(arel_table[:deployed_at].lteq(Time.zone.now)) }
+
   scope :with_support, -> { where.not(support_contact_id: nil) }
 
-  # Je me dis que c'est pas insensé de le centraliser ici. Ou bien dans un service ? A questionner
   def self.deployed_codes_regions
     deployed_regions.pluck(:code_region)
   end
@@ -63,7 +63,7 @@ class Territory < ApplicationRecord
   end
 
   def deployed?
-    deployed_at.present?
+    deployed_at.present? && deployed_at < Time.zone.now
   end
 
   def all_experts
