@@ -8,7 +8,7 @@ module Effectif
   end
 
   def self.effectif(code)
-    if code.nil?
+    if code.blank?
       return I18n.t('other')
     end
 
