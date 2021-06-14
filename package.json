@@ -6,9 +6,13 @@
     "@sentry/webpack-plugin": "^1.14.2",
     "accessible-autocomplete": "^2.0.3",
     "expose-loader": "^1.0.1",
+    "glob-parent": "^5.1.2",
     "jquery": "^3.5.1",
+    "normalize-url": "^4.5.1",
+    "postcss": "^8.2.10",
     "remixicon": "^2.5.0",
     "stimulus": "^2.0.0",
+    "trim-newlines": "^3.0.1",
     "turbolinks": "^5.2.0",
     "whatwg-fetch": "^3.5.0"
   },
