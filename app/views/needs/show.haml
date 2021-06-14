@@ -10,7 +10,7 @@
         %h1.fr-h2= @need.subject
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
-        = simple_format(auto_link(@need.diagnosis.content.presence || @need.solicitation&.description), class: 'content')
+        = need_general_context(@need)
 
     .fr-col-md-4.order-minus-one.bp-sm
       .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle.fr-mb-2w
