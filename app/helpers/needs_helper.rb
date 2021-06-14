@@ -1,4 +1,3 @@
-
 module NeedsHelper
   def need_general_context(need)
     context = ""
@@ -8,6 +7,6 @@ module NeedsHelper
     if need.content.present?
       context << simple_format(need.content, class: 'content')
     end
-    context
+    raw context
   end
 end
