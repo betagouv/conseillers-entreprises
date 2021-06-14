@@ -40,11 +40,11 @@ class ExpertMailer < ApplicationMailer
     @expert = expert
     return if @expert.deleted?
 
-    @needs_quo = expert.needs_quo
-    @needs_taking_care = expert.needs_taking_care
-    @needs_others_taking_care = expert.needs_others_taking_care
+    # On ne relance pas les MER les + recentes
+    @needs_quo = expert.needs_quo.matches_created_at(Range.new(nil, 4.days.ago))
+    @needs_taking_care = expert.needs_taking_care.matches_created_at(Range.new(nil, 4.days.ago))
 
-    return if @needs_taking_care.empty? && @needs_quo.empty? && @needs_others_taking_care.empty?
+    return if @needs_taking_care.empty? && @needs_quo.empty?
 
     mail(
       to: @expert.email_with_display_name,
