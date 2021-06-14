@@ -1,9 +1,7 @@
-<% if Rails.env.production? %>
-  <%= javascript_tag nonce: true do -%>
-    document.onload = function(){
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'});
-      }
+<%= javascript_tag nonce: true do -%>
+  document.onload = function(){
+    if (typeof tarteaucitron.user.gtag !== 'undefined') {
+      tarteaucitron.user.gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'});
     }
-  <% end -%>
+  }
 <% end %>

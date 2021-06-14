@@ -44,6 +44,7 @@
       } else {
         gtag('config', tarteaucitron.user.gtagAw, { 'anonymize_ip': true });
       }
+      tarteaucitron.user.gtag = window.gtag;
 
       if (typeof tarteaucitron.user.gtagMore === 'function') {
         tarteaucitron.user.gtagMore();
