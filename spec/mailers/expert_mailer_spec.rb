@@ -85,7 +85,7 @@ describe ExpertMailer do
     let(:expert) { create :expert }
 
     before do
-      create :match, expert: expert
+      create :match, expert: expert, created_at: 5.days.ago
     end
 
     it_behaves_like 'an email'
