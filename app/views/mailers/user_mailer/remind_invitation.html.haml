@@ -25,4 +25,4 @@
 
 .info
   %p= t('devise.mailer.invitation_instructions.support_contact_label')
-  = render 'mailers/expert_mailer/support_contacts'
+  = render 'mailers/expert_mailer/support_contacts', antenne: @user.antenne
