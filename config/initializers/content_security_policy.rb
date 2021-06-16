@@ -12,14 +12,14 @@ Rails.application.config.content_security_policy do |p|
   p.img_src     :self, :data, 'https://voxusagers.numerique.gouv.fr', 'https://stats.data.gouv.fr', 'https://www.google.com', 'https://www.google.fr', 'https://googleads.g.doubleclick.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://www.gstatic.com'
   p.object_src  :none
   p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
-  p.script_src  :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
+  p.script_src  :self, :blob, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
   p.script_src_elem :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com'
   p.frame_src :self, 'stats.data.gouv.fr', 'https://bid.g.doubleclick.net', 'browser.sentry-cdn.com', 'cdn.jsdelivr.net'
 
   if Rails.env.development?
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035', 'https://api-adresse.data.gouv.fr/'
   else
-    p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/'
+    p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/', 'https://www.google.com'
     if ENV["CSP_REPORT_URI"].present?
       p.report_uri ENV["CSP_REPORT_URI"]
     end
