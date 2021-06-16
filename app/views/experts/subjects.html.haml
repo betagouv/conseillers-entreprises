@@ -1,11 +1,10 @@
-.ui.field
-  %p
-    = t('.instructions_html', institution: @expert.institution)
+%p
+  = t('.instructions_html', institution: @expert.institution)
 
-  - if @expert.users.size > 1
-    .p
-      %span.orange.ri-information-fill
-      %strong= t('.others_members_warning_header_html', name: @expert.full_name, path: edit_expert_path(@expert))
+- if @expert.users.size > 1
+  %p.fr-mb-0
+    %span.orange.ri-information-fill
+    %strong= t('.others_members_warning_header_html', name: @expert.full_name, path: edit_expert_path(@expert))
 
 %p
   %i.blue.ri-information-fill
