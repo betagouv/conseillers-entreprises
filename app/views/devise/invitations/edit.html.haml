@@ -22,12 +22,10 @@
           = f.label :password_confirmation, class: 'fr-label'
           = f.password_field :password_confirmation, class: 'fr-input'
 
-        .required.fr-input-group{ "data-controller": "cgu-acceptance" }
-          = f.label :cgu_accepted, class: 'fr-label' do
-            = f.check_box :cgu_accepted, { class: "required", required: true, data: { action: 'change->cgu-acceptance#toggleField', 'cgu-acceptance-target': "acceptedCheckbox" } }
-            %span.ml-2 J’ai lu et j’accepte les
-            = link_to " conditions d’utilisation de Place des Entreprises", cgu_path
-            = f.hidden_field :cgu_accepted_at, value: Time.zone.now, disabled: true, data: { 'cgu-acceptance-target': "acceptedAtField" }
+        .required.fr-checkbox-group{ "data-controller": "cgu-acceptance" }
+          = f.check_box :cgu_accepted, { class: "required", required: true, data: { action: 'change->cgu-acceptance#toggleField', 'cgu-acceptance-target': "acceptedCheckbox" } }
+          = f.label :cgu_accepted, t('.accept_cgu_html', cgu_path: cgu_path), class: 'fr-label'
+          = f.hidden_field :cgu_accepted_at, value: Time.zone.now, disabled: true, data: { 'cgu-acceptance-target': "acceptedAtField" }
 
-        .fr-input-group
+        .fr-input-group.fr-mt-2w
           = f.submit t('.submit_button'), class: 'fr-btn btn-green'
