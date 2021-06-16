@@ -43,7 +43,7 @@ describe 'New Solicitation', type: :system, js: true do
       let(:solicitation) { Solicitation.last }
       let(:token) { '1234' }
       let(:siren) { '418166096' }
-      let(:url) { "#{base_url}/#{siren}?token=#{token}&context=PlaceDesEntreprises&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
+      let(:url) { "#{base_url}/#{siren}?token=#{token}&context=PlaceDesEntreprises&non_diffusables=false&recipient=PlaceDesEntreprises&object=PlaceDesEntreprises" }
 
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
@@ -52,7 +52,7 @@ describe 'New Solicitation', type: :system, js: true do
         )
       end
 
-      xit 'correctly sets siret and code_region' do
+      it 'correctly sets siret and code_region' do
         visit '/'
         click_link 'Test Landing'
         find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
