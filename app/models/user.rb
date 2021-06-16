@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
+#  cgu_accepted_at        :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  deleted_at             :datetime
@@ -56,6 +57,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :async,
          :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
+
+  attr_accessor :cgu_accepted
 
   ## Associations
   #
