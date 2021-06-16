@@ -98,7 +98,7 @@ class Expert < ApplicationRecord
   # Team stuff
   scope :personal_skillsets, -> do
     # Experts with only one member only represent this user’s skills.
-    single_member = Expert.unscoped.joins(:users)
+    single_member = Expert.unscoped.not_deleted.joins(:users)
       .merge(User.unscoped.not_deleted)
       .group(:id)
       .having("COUNT(users.id)=1")
@@ -118,14 +118,14 @@ class Expert < ApplicationRecord
     # This is not a normal state, but can happen during referencing
     # before users are actually registered, or when a user is removed.
     left_outer_joins(:users)
-      .merge(User.unscoped.not_deleted)
+      .merge(User.all)
       .where(users: { id: nil })
   end
 
   scope :teams, -> do
     # Experts (with members) that are not personal_skillsets are proper teams
-    where.not(id: Expert.unscoped.without_users)
-      .where.not(id: Expert.unscoped.personal_skillsets)
+      where.not(id: Expert.without_users)
+      .where.not(id: Expert.personal_skillsets)
   end
 
   # Activity stuff
@@ -182,9 +182,9 @@ class Expert < ApplicationRecord
   end
 
   scope :relevant_for_skills, -> do
-    not_deleted.where(id: unscoped.teams)
-      .or(not_deleted.where(id: unscoped.only_expert_of_user))
-      .or(not_deleted.where(id: unscoped.with_subjects))
+    where(id: unscoped.teams)
+      .or(where(id: unscoped.only_expert_of_user))
+      .or(where(id: unscoped.with_subjects))
   end
 
   scope :omnisearch, -> (query) do

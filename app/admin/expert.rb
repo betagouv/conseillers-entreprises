@@ -15,6 +15,7 @@ ActiveAdmin.register Expert do
   config.sort_order = 'full_name_asc'
 
   scope :all, default: true
+  scope :deleted
   scope :support_experts
   scope :with_custom_communes, group: :referencing
   scope :without_subjects, group: :referencing

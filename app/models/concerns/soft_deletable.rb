@@ -2,8 +2,9 @@ module SoftDeletable
   extend ActiveSupport::Concern
 
   included do
-    scope :deleted, -> { where.not(deleted_at: nil) }
-    scope :not_deleted, -> { where(deleted_at: nil) }
+    default_scope { not_deleted }
+    scope :deleted, -> { unscoped.where.not(deleted_at: nil) }
+    scope :not_deleted, -> { unscoped.where(deleted_at: nil) }
   end
 
   def deleted?
