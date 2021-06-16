@@ -12,7 +12,7 @@ fr:
     forgot_password: Mot de passe oublié ou inconnu ?
     invitations:
       edit:
-        accept_cgu_html: <span>J’ai lu et j’accepte les <a href='%{cgu_path}'>conditions d’utilisation de Place des Entreprises</a></span>
+        accept_cgu_html: J’ai lu et j’accepte les <a href='%{cgu_path}'>conditions d’utilisation de Place des Entreprises</a>
         header: Bienvenue sur Place des Entreprises
         password_description: 'Choisissez un mot de passe pour créer votre compte :'
         prefilled_description: 'Certaines informations ont été préremplies; vous pouvez les corriger si nécessaire :'
