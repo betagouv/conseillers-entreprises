@@ -1,6 +1,9 @@
 <%= javascript_tag nonce: true do -%>
   document.onload = function(){
+    console.log('gtag conversion')
     if (typeof tarteaucitron.user.gtag !== 'undefined') {
+      console.log(tarteaucitron.user)
+      console.log(tarteaucitron.user.gtag)
       tarteaucitron.user.gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'});
     }
   }
