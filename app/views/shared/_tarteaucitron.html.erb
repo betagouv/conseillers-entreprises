@@ -1,36 +1,36 @@
 <%= javascript_include_tag 'https://cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@20210329/tarteaucitron.min.js', crossorigin: 'anonymous', integrity: "sha384-RjI0In9EY5Sl0H6wm3ZmWRGZzBiy5eRJ567WL5okXwadLsN6ICEBb/gCiHHnQjvX" %>
 
 <%= javascript_tag nonce: true do -%>
-  tarteaucitron.services.google_ads = {
-  "key": "google_ads",
-  "type": "ads",
-  "name": "Google Ads (remarketing)",
-  "uri": "https://policies.google.com/privacy",
-  "needConsent": true,
-  "cookies": ['__Secure-3PSIDCC', '__Secure-3PSID', '__Secure-3PAPISID', 'NID'],
-  "js": function () {
-    "use strict";
-    console.log('initialisation tarteaucitron.services.google_ads');
-    window.dataLayer = window.dataLayer || [];
-    console.log('init window.gtag ');
-    window.gtag = function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+  // tarteaucitron.services.google_ads = {
+  // "key": "google_ads",
+  // "type": "ads",
+  // "name": "Google Ads (remarketing)",
+  // "uri": "https://policies.google.com/privacy",
+  // "needConsent": true,
+  // "cookies": ['__Secure-3PSIDCC', '__Secure-3PSID', '__Secure-3PAPISID', 'NID'],
+  // "js": function () {
+  //   "use strict";
+  //   console.log('initialisation tarteaucitron.services.google_ads');
+  //   window.dataLayer = window.dataLayer || [];
+  //   console.log('init window.gtag ');
+  //   window.gtag = function gtag() { dataLayer.push(arguments); }
+  //   gtag('js', new Date());
 
-    tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw, 'gtag', function () {
-      if (tarteaucitron.user.gtagCrossdomain) {
-        gtag('config',tarteaucitron.user.gtagAw,{ 'anonymize_ip': true },{linker: {domains: tarteaucitron.user.gtagCrossdomain}});
-      } else {
-        gtag('config', tarteaucitron.user.gtagAw, { 'anonymize_ip': true });
-      }
-      // tarteaucitron.user.gtag = window.gtag;
+  //   tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw, 'gtag', function () {
+  //     if (tarteaucitron.user.gtagCrossdomain) {
+  //       gtag('config',tarteaucitron.user.gtagAw,{ 'anonymize_ip': true },{linker: {domains: tarteaucitron.user.gtagCrossdomain}});
+  //     } else {
+  //       gtag('config', tarteaucitron.user.gtagAw, { 'anonymize_ip': true });
+  //     }
+  //     // tarteaucitron.user.gtag = window.gtag;
 
-      if (typeof tarteaucitron.user.gtagMore === 'function') {
-        tarteaucitron.user.gtagMore();
-      }
-      // console.log(window.dataLayer);
-      });
-    }
-  };
+  //     if (typeof tarteaucitron.user.gtagMore === 'function') {
+  //       tarteaucitron.user.gtagMore();
+  //     }
+  //     // console.log(window.dataLayer);
+  //     });
+  //   }
+  // };
 
   tarteaucitron.init({
   "privacyUrl": "",
@@ -56,8 +56,8 @@
   "groupServices": false
   });
 
-  tarteaucitron.user.gtagAw = 'AW-415474841';
-  (tarteaucitron.job = tarteaucitron.job || []).push('google_ads');
+  // tarteaucitron.user.gtagAw = 'AW-415474841';
+  // (tarteaucitron.job = tarteaucitron.job || []).push('google_ads');
 
   // Ouvre la boite gestion des cookies au clic sur le lien
   document.addEventListener("DOMContentLoaded", function() {
