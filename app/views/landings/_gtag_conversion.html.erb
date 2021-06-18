@@ -1,18 +1,18 @@
 <%= javascript_tag nonce: true do -%>
   document.addEventListener("google_ads_loaded", function() {
   // document.onload = function(){
-    console.log('initialisation gtag conversion onload')
-    console.log("tarteaucitron")
+    console.log('[conv] initialisation gtag conversion onload')
+    console.log("[conv] tarteaucitron")
     console.log(tarteaucitron)
-    console.log("tarteaucitron.user")
+    console.log("[conv] tarteaucitron.user")
     console.log(tarteaucitron.user)
-    console.log("tarteaucitron.user.gtag")
+    console.log("[conv] tarteaucitron.user.gtag")
     console.log(tarteaucitron.user.gtag)
-    console.log("window.dataLayer")
+    console.log("[conv] window.dataLayer")
     console.log(window.dataLayer)
-    console.log("window.gtag")
+    console.log("[conv] window.gtag")
     console.log(window.gtag)
-    console.log("tarteaucitron.job");
+    console.log("[conv] tarteaucitron.job");
     console.log(tarteaucitron.job);
     gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'})
     // if (typeof tarteaucitron.user.gtag !== 'undefined') {

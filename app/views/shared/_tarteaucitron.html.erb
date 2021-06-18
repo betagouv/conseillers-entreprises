@@ -12,21 +12,22 @@
     "use strict";
     console.log('initialisation tarteaucitron.services.google_ads');
     window.dataLayer = window.dataLayer || [];
-    tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw, '', function () {
-      window.gtag = function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
+    console.log('init window.gtag ');
+    window.gtag = function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
+    tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw, 'gtag', function () {
       if (tarteaucitron.user.gtagCrossdomain) {
         gtag('config',tarteaucitron.user.gtagAw,{ 'anonymize_ip': true },{linker: {domains: tarteaucitron.user.gtagCrossdomain}});
       } else {
         gtag('config', tarteaucitron.user.gtagAw, { 'anonymize_ip': true });
       }
-      tarteaucitron.user.gtag = window.gtag;
+      // tarteaucitron.user.gtag = window.gtag;
 
       if (typeof tarteaucitron.user.gtagMore === 'function') {
         tarteaucitron.user.gtagMore();
       }
-      console.log(window.dataLayer);
+      // console.log(window.dataLayer);
       });
     }
   };
