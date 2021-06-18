@@ -1,10 +1,14 @@
 <%= javascript_tag nonce: true do -%>
-  document.onload = function(){
-    console.log('gtag conversion')
+  document.addEventListener("DOMContentLoaded", function() {
+  // document.onload = function(){
+    console.log('initialisation gtag conversion onload')
+    console.log(tarteaucitron)
+    console.log(tarteaucitron.user)
+    console.log(tarteaucitron.user.gtag)
+    console.log(window.dataLayer)
     if (typeof tarteaucitron.user.gtag !== 'undefined') {
-      console.log(tarteaucitron.user)
-      console.log(tarteaucitron.user.gtag)
+      console.log('typeof tarteaucitron.user.gtag !== "undefined" - ONLOAD')
       tarteaucitron.user.gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'});
     }
-  }
+  })
 <% end %>

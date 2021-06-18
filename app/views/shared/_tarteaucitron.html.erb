@@ -34,9 +34,10 @@
   "cookies": ['__Secure-3PSIDCC', '__Secure-3PSID', '__Secure-3PAPISID', 'NID'],
   "js": function () {
     "use strict";
+    console.log('initialisation tarteaucitron.services.google_ads');
     window.dataLayer = window.dataLayer || [];
     tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw, '', function () {
-      window.gtag = function gtag(){dataLayer.push(arguments);}
+      window.gtag = function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
       if (tarteaucitron.user.gtagCrossdomain) {
@@ -49,6 +50,7 @@
       if (typeof tarteaucitron.user.gtagMore === 'function') {
         tarteaucitron.user.gtagMore();
       }
+      console.log(window.dataLayer);
       });
     }
   };
