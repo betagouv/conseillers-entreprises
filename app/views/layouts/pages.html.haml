@@ -23,8 +23,8 @@
 
     = render 'favicon'
     // temporary test
-    - if Rails.env.production?
-      = render 'shared/gtag'
+    -# - if Rails.env.production?
+    -#   = render 'shared/gtag'
     = yield :head
     = sentry_script
     = matomo_script
