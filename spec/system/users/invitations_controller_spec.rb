@@ -52,4 +52,19 @@ describe 'invitations', type: :system, js: true do
       expect(user.full_name).to eq 'Jane Doe'
     end
   end
+
+  describe 'invitation more than 2 months old' do
+    let!(:user) { create :user, full_name: "Niten Doe", created_at: 3.months.ago }
+
+    before do
+      travel_to(3.months.ago) { user.invite! }
+    end
+
+    it 'display error message and not validates invitation' do
+      user.reload
+      expect(user.invitation_accepted_at).to eq nil
+      visit accept_user_invitation_url(invitation_token: user.raw_invitation_token)
+      expect(page.html).to include I18n.t('devise.invitations.invitation_token_invalid')
+    end
+  end
 end
