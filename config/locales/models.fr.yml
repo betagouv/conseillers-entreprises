@@ -20,6 +20,7 @@ fr:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     scopes:
+      active: Actifs
       admin: Admins
       all: Tout
       archived: Archivés

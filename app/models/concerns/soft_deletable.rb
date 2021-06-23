@@ -5,6 +5,8 @@ module SoftDeletable
     default_scope { not_deleted }
     scope :deleted, -> { unscoped.where.not(deleted_at: nil) }
     scope :not_deleted, -> { unscoped.where(deleted_at: nil) }
+    # scope used for Active Admin translation
+    scope :active, -> { all }
   end
 
   def deleted?
