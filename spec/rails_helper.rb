@@ -29,6 +29,7 @@ RSpec.configure do |config|
   config.extend ControllerMacros, type: :view
   config.extend ControllerMacros, type: :helper
   config.extend FeatureMacros, type: :feature
+  config.extend FeatureMacros, type: :system
   config.include Warden::Test::Helpers
   config.include PunditSpecHelper, type: :view
 

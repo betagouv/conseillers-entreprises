@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'invitations', type: :feature do
+describe 'invitations', type: :system, js: true do
   describe 'new invitations' do
     login_user
 
@@ -36,11 +36,11 @@ describe 'invitations', type: :feature do
 
     before do
       user.invite!
-      visit accept_user_invitation_url(invitation_token: user.raw_invitation_token)
+      visit accept_user_invitation_path(invitation_token: user.raw_invitation_token)
       fill_in id: 'user_full_name', with: 'Jane Doe'
-
       fill_in id: 'user_password', with: 'fakepassword'
       fill_in id: 'user_password_confirmation', with: 'fakepassword'
+      page.execute_script("document.querySelector('[data-controller=\"cgu-acceptance\"] label').click()")
 
       click_button 'Enregistrer'
     end
@@ -48,6 +48,7 @@ describe 'invitations', type: :feature do
     it 'marks the invitation as accepted, and takes modifications into account' do
       user.reload
       expect(user).to be_invitation_accepted
+      expect(user.cgu_accepted_at).not_to be_nil
       expect(user.full_name).to eq 'Jane Doe'
     end
   end
