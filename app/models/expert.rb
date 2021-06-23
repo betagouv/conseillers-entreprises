@@ -118,13 +118,13 @@ class Expert < ApplicationRecord
     # This is not a normal state, but can happen during referencing
     # before users are actually registered, or when a user is removed.
     left_outer_joins(:users)
-      .merge(User.all)
       .where(users: { id: nil })
+      .merge(User.not_deleted)
   end
 
   scope :teams, -> do
     # Experts (with members) that are not personal_skillsets are proper teams
-      where.not(id: Expert.without_users)
+    where.not(id: Expert.without_users)
       .where.not(id: Expert.personal_skillsets)
   end
 
