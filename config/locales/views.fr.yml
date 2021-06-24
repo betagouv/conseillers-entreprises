@@ -76,6 +76,7 @@ fr:
       categorie_entreprise: Catégorie de l’entreprise
       date_creation: Date de création
       date_radiation: Date de radiation
+      diffusable_commercialement: Diffusable commercialement
       forme_juridique: Forme juridique
       information: Informations sur l’entreprise
       nom: Nom
