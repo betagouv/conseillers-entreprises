@@ -1,21 +1,5 @@
 <%= javascript_tag nonce: true do -%>
-  // gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'})
   document.addEventListener("google_ads_loaded", function() {
-    // console.log('[conv] initialisation gtag conversion onload')
-    // console.log("[conv] tarteaucitron")
-    // console.log(tarteaucitron)
-    // console.log("[conv] tarteaucitron.user")
-    // console.log(tarteaucitron.user)
-    // console.log("[conv] window.dataLayer")
-    // console.log(window.dataLayer)
-    // console.log("[conv] window.gtag")
-    // console.log(window.gtag)
-    // console.log("[conv] tarteaucitron.job");
-    // console.log(tarteaucitron.job);
     gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'})
-    // if (typeof tarteaucitron.user.gtag !== 'undefined') {
-    //   console.log('typeof tarteaucitron.user.gtag !== "undefined" - ONLOAD')
-    //   tarteaucitron.user.gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'});
-    // }
   })
 <% end %>
