@@ -6,6 +6,10 @@ fr:
       entreprise: Erreur lors de la récupération des détails de l’entreprise.
       etablissement: Erreur lors de la récupération des détails de l’établissement.
   app_name: Place des Entreprises
+  boolean:
+    text:
+      'false': non
+      'true': oui
   cgu: Conditions d’utilisation
   company_contact: Chefs d’entreprises, cliquez ici
   contact_us: contactez-nous
