@@ -117,8 +117,8 @@ class User < ApplicationRecord
 
   # Team stuff
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
-  scope :team_members, -> { joins(:experts).merge(Expert.teams) }
-  scope :no_team, -> { where.not(id: unscoped.team_members) }
+  scope :team_members, -> { not_deleted.joins(:experts).merge(Expert.teams) }
+  scope :no_team, -> { not_deleted.where.not(id: unscoped.team_members) }
   # A user without experts is not supposed to happen:
   # `create_personal_skillset_if_needed` makes sure there is one after a user is created.
   # However there is nothing preventing an expert to be removed afterwards.
@@ -156,7 +156,8 @@ class User < ApplicationRecord
   end
 
   scope :invited_seven_days_ago, -> do
-    where(invitation_sent_at: 7.days.ago.beginning_of_day..7.days.ago.end_of_day)
+    not_deleted
+      .where(invitation_sent_at: 7.days.ago.beginning_of_day..7.days.ago.end_of_day)
       .where(invitation_accepted_at: nil)
   end
 
@@ -164,7 +165,8 @@ class User < ApplicationRecord
   # User objects fetched through this scope have an additional attribute :relevant_expert_id
   # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)
   scope :relevant_for_skills, -> do
-    joins(:relevant_experts)
+    not_deleted
+      .joins(:relevant_experts)
       .select('users.*', 'experts.id as relevant_expert_id', 'experts.full_name as team_name')
   end
   # User objects fetched through relevant_for_skills have an addition association to a single expert.

@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :match do
     association :need
-    association :expert, factory: :expert_with_user
+    association :expert
     association :subject
 
     after(:create) do |match, _|

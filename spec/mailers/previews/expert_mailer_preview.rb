@@ -29,6 +29,6 @@ class ExpertMailerPreview < ActionMailer::Preview
   private
 
   def active_expert
-    Expert.with_active_matches.sample
+    Expert.not_deleted.with_active_matches.sample
   end
 end
