@@ -10,6 +10,9 @@ FactoryBot.define do
     password_confirmation { 'password' }
     association :antenne
     can_view_diagnoses_tab { true }
-    invitation_accepted_at { Time.zone.now }
+
+    trait :invitation_accepted do
+      invitation_accepted_at { Time.zone.now }
+    end
   end
 end
