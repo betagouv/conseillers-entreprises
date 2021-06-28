@@ -5,7 +5,7 @@ module ApiEntreprise
     attr_reader :token, :siren, :connection, :options, :hash
 
     KEY_CLASSES_MAPPING = {
-      entreprises:EntrepriseRequest::Entreprises,
+      entreprises: EntrepriseRequest::Entreprises,
       rcs: EntrepriseRequest::Rcs
     }
 
@@ -17,7 +17,7 @@ module ApiEntreprise
     end
 
     def call
-      @hash = {data: {}, errors: {}}
+      @hash = { data: {}, errors: {} }
       url_keys.each_with_object(@hash) do |key, hash|
         response = KEY_CLASSES_MAPPING[key].new(token, siren, connection, options).response
         if response.success?

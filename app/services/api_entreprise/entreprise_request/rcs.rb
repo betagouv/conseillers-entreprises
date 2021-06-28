@@ -2,7 +2,6 @@
 
 module ApiEntreprise
   class EntrepriseRequest::Rcs < EntrepriseRequest::Base
-
     private
 
     def url_key

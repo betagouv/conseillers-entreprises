@@ -27,7 +27,6 @@ module ApiEntreprise
       "https://entreprise.api.gouv.fr/v2/extraits_rcs_infogreffe/#{siren}?#{api_entreprises_params}"
     end
 
-
     private
 
     def non_diffusables
