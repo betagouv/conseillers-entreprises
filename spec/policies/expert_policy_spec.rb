@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ExpertPolicy, type: :policy do
   let(:user) { nil }
-  let(:expert) { create :expert }
+  let(:expert) { create :expert_with_user }
 
   subject { described_class }
 

@@ -1,3 +1,6 @@
+- content_for :head do
+  = render 'gtag_conversion'
+
 %h2.section__title{ class: "#{'text-left' unless in_iframe?}" }= t('.title')
 
 - if solicitation.institution
@@ -11,4 +14,3 @@
     = t('.message_html')
 
   = render 'matomo_company_contact_success'
-  = render 'gtag_conversion'
