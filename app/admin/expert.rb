@@ -14,7 +14,8 @@ ActiveAdmin.register Expert do
            :subjects, :received_matches
   config.sort_order = 'full_name_asc'
 
-  scope :all, default: true
+  scope :active, default: true
+  scope :deleted
   scope :support_experts
   scope :with_custom_communes, group: :referencing
   scope :without_subjects, group: :referencing
@@ -28,9 +29,11 @@ ActiveAdmin.register Expert do
     selectable_column
     column(:full_name) do |e|
       div admin_link_to(e)
-      div '➜ ' + e.role
-      div '✉ ' + (e.email || '')
-      div '✆ ' + (e.phone_number || '')
+      unless e.deleted?
+        div '➜ ' + e.role
+        div '✉ ' + (e.email || '')
+        div '✆ ' + (e.phone_number || '')
+      end
     end
     column(:institution) do |e|
       div admin_link_to(e, :institution)
@@ -44,8 +47,10 @@ ActiveAdmin.register Expert do
           status_tag t('attributes.custom_communes'), class: 'yes'
         end
         zone = e.custom_communes? ? e : e.antenne
-        div admin_link_to(zone, :territories)
-        div admin_link_to(zone, :communes)
+        unless e.deleted? || zone.nil?
+          div admin_link_to(zone, :territories)
+          div admin_link_to(zone, :communes)
+        end
       end
     end
     column(:users) do |e|
