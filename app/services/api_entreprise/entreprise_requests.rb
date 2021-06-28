@@ -9,7 +9,7 @@ module ApiEntreprise
       rcs: EntrepriseRequest::Rcs
     }
 
-    def initialize(token, siren, connection, options = {})
+    def initialize(token, siren, connection, options = { url_keys: [:entreprises] })
       @token = token
       @siren = siren
       @connection = connection
@@ -38,7 +38,7 @@ module ApiEntreprise
     end
 
     def error_message
-      errors.join(', ')
+      errors.values.join(', ')
     end
 
     private

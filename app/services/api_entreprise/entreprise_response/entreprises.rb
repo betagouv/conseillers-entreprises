@@ -5,9 +5,9 @@ module ApiEntreprise
     def formatted_data
       data = http_response.parse(:json)
       {
-        entreprise: data["entreprise"],
-        etablissement: data["etablissement_siege"],
-        errors: data["errors"]
+        'entreprise' => data["entreprise"],
+        'etablissement_siege' => data["etablissement_siege"],
+        'errors' => data["errors"]
       }
     end
   end

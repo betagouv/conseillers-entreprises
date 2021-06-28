@@ -14,7 +14,6 @@ class SearchEtablissement
 
   def call
     if siret_search_type?
-      # TODO : ne pas rechercher tant que pas chiffres siren suffisants
       siret_search
     else
       full_text_search
@@ -31,7 +30,7 @@ class SearchEtablissement
     siren = FormatSiret.siren_from_query(query)
     return if siren.blank?
     begin
-      response = UseCases::SearchCompany.with_siren(siren, { non_diffusables: non_diffusables })
+      response = UseCases::SearchCompany.with_siren(siren, { non_diffusables: non_diffusables, url_keys: [:entreprises] })
       return [ApiEntreprise::SearchEtablissementWrapper.new(response)]
     rescue ApiEntreprise::ApiEntrepriseError => e
       p e
