@@ -5,8 +5,8 @@ module ApiEntreprise
     attr_accessor :entreprise, :etablissement_siege
 
     def initialize(data)
-      @entreprise = Entreprise.new(data.fetch('entreprise'))
-      @etablissement_siege = Etablissement.new(data.fetch('etablissement_siege'))
+      @entreprise = Entreprise.new(data.fetch(:entreprise))
+      @etablissement_siege = Etablissement.new(data.fetch(:etablissement))
     end
 
     def name
@@ -17,6 +17,10 @@ module ApiEntreprise
       end
 
       company_name.present? ? company_name.titleize : nil
+    end
+
+    def inscrit_rcs
+      entreprise.rcs["errors"].nil?
     end
   end
 end
