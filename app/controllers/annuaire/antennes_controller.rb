@@ -2,7 +2,6 @@ module  Annuaire
   class AntennesController < BaseController
     def index
       @antennes = @institution.antennes
-        .not_deleted
         .order(:name)
         .preload(:communes)
 

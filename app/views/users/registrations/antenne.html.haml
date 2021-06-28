@@ -5,7 +5,7 @@
 %h2.fr-h5= t('attributes.advisors.other')
 .fr-highlight.fr-mb-6w
   %ul.list-unstyled.fr-p-0
-    - @user.antenne.advisors.not_deleted.each do |advisor|
+    - @user.antenne.advisors.each do |advisor|
       %li.fr-mb-1v
         %span.fr-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-advisor-#{advisor.id}" }
           - if advisor == @user
@@ -19,8 +19,8 @@
 %h2.fr-h5= t('attributes.teams.other')
 .fr-highlight
   %ul.list-unstyled.fr-p-0
-    - @user.antenne.experts.not_deleted.teams.each do |team|
-      - members = team.users.not_deleted
+    - @user.antenne.experts.teams.each do |team|
+      - members = team.users
       %li.fr-mb-1v
         - if @user.in?(members)
           %span.blue.ri-team-fill

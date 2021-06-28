@@ -4,7 +4,7 @@ module SoftDeletable
   included do
     default_scope { not_deleted }
     scope :deleted, -> { unscoped.where.not(deleted_at: nil) }
-    scope :not_deleted, -> { unscoped.where(deleted_at: nil) }
+    scope :not_deleted, -> { where(deleted_at: nil) }
     # scope used for Active Admin translation
     scope :active, -> { all }
   end
@@ -24,12 +24,6 @@ module SoftDeletable
 
   module ActiveAdminResourceController
     # Override methods from ActiveAdmin::ResourceController::DataAccess
-
-    def scoped_collection
-      # We don’t use a default_scope, but do we want to hide deleted objects in /admin…
-      super.merge(resource_class.not_deleted)
-    end
-
     def find_resource
       # … however, if accessing directly the object, we like to see it even if it is soft-deleted.
       resource_class.all.send method_for_find, params[:id]

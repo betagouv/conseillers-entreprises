@@ -36,7 +36,6 @@ class InstitutionSubject < ApplicationRecord
 
   # :experts_subjects
   has_many :experts, through: :experts_subjects, inverse_of: :institutions_subjects
-  has_many :not_deleted_experts, through: :experts_subjects, inverse_of: :institutions_subjects
 
   # :institution
   # Other InstitutionSubjects of the same Institution, and the same Subject.

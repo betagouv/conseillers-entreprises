@@ -32,7 +32,7 @@
       %th.rowspanned
       %th.rowspanned
       - institutions_subjects.each do |institution_subject|
-        - experts = institution_subject.not_deleted_experts
+        - experts = institution_subject.experts
         - if local_assigns[:antenne]
           - experts &= antenne.experts
         - count = experts.size

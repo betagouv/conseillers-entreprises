@@ -30,8 +30,6 @@ class ExpertSubject < ApplicationRecord
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
   has_one :theme, through: :subject, inverse_of: :experts_subjects
 
-  belongs_to :not_deleted_expert, -> { not_deleted }, class_name: 'Expert', foreign_key: 'expert_id', optional: true, inverse_of: :experts_subjects
-
   ## Validations
   #
   validates :expert, uniqueness: { scope: :institution_subject_id }
@@ -40,7 +38,7 @@ class ExpertSubject < ApplicationRecord
   #
   scope :relevant_for, -> (need) do
     of_subject(need.subject)
-      .joins(:not_deleted_expert)
+      .joins(:expert)
       .in_commune(need.facility.commune)
   end
 

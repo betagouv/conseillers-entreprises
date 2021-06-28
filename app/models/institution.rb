@@ -55,15 +55,11 @@ class Institution < ApplicationRecord
   has_many :received_diagnoses, through: :antennes, inverse_of: :expert_institutions
   has_many :received_solicitations, through: :received_diagnoses, source: :solicitation, inverse_of: :diagnosis
 
-  # Same as :advisors and :antennes, but excluding deleted items; this makes it possible to preload not_deleted items in views.
-  has_many :not_deleted_antennes, -> { not_deleted }, class_name: "Antenne", inverse_of: :institution
-  has_many :not_deleted_advisors, through: :antennes
-
   accepts_nested_attributes_for :institutions_subjects, :allow_destroy => true
 
   ## Scopes
   #
-  scope :ordered_logos, -> { not_deleted.where.not(logo_sort_order: nil).order(:logo_sort_order) }
+  scope :ordered_logos, -> { where.not(logo_sort_order: nil).order(:logo_sort_order) }
 
   ## Institution subjects helpers
   #

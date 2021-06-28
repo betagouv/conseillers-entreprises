@@ -42,7 +42,7 @@
     %p.fr-mb-2v= t('.team_members')
     .fr-callout.fr-p-3w
       %ul.list-unstyled.fr-p-0.fr-m-0
-        - @expert.users.not_deleted.each do |member|
+        - @expert.users.each do |member|
           %li.fr-mb-1v
             %span.fr-m-0.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-member-#{member.id}" }
               - if member == @user
