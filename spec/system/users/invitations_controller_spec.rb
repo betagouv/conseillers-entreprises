@@ -37,7 +37,7 @@ describe 'invitations', type: :system, js: true do
     before do
       user.invite!
       visit accept_user_invitation_path(invitation_token: user.raw_invitation_token)
-      fill_in id: 'user_full_name', with: 'Jane Doe'
+      fill_in id: 'user_full_name', with: 'Jane Doe', fill_options: { clear: :backspace }
       fill_in id: 'user_password', with: 'fakepassword'
       fill_in id: 'user_password_confirmation', with: 'fakepassword'
       page.execute_script("document.querySelector('[data-controller=\"cgu-acceptance\"] label').click()")
@@ -50,6 +50,21 @@ describe 'invitations', type: :system, js: true do
       expect(user).to be_invitation_accepted
       expect(user.cgu_accepted_at).not_to be_nil
       expect(user.full_name).to eq 'Jane Doe'
+    end
+  end
+
+  describe 'invitation more than 2 months old' do
+    let(:user) { create :user, full_name: "Niten Doe", created_at: 3.months.ago, invitation_accepted_at: nil }
+
+    before do
+      travel_to(3.months.ago) { user.invite! }
+      visit accept_user_invitation_path(invitation_token: user.raw_invitation_token)
+    end
+
+    it 'display error message and not validates invitation' do
+      user.reload
+      expect(user.invitation_accepted_at).to eq nil
+      expect(page.html).to include I18n.t('devise.invitations.invitation_token_invalid')
     end
   end
 end
