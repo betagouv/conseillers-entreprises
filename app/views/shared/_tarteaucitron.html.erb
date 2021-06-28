@@ -1,57 +1,46 @@
 <%= javascript_include_tag 'https://cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@20210329/tarteaucitron.min.js', crossorigin: 'anonymous', integrity: "sha384-RjI0In9EY5Sl0H6wm3ZmWRGZzBiy5eRJ567WL5okXwadLsN6ICEBb/gCiHHnQjvX" %>
 
 <%= javascript_tag nonce: true do -%>
-  tarteaucitron.init({
-  "privacyUrl": "",
-  "hashtag": "#consentement",
-  "cookieName": "tarteaucitron",
-  "bodyPosition": "top",
-  "adblocker": false,
-  "highPrivacy": true,
-  "handleBrowserDNTRequest": false,
-  "useExternalCss": true,
-  "orientation": "bottom",
-  "DenyAllCta" : true,
-  "AcceptAllCta" : true,
-  "closePopup": false,
-  "removeCredit": true,
-  "moreInfoLink": true,
-  "readmoreLink": '/mentions_d_information#utilisation-cookies',
-  "mandatory": false,
-  "showAlertSmall": false,
-  "cookieslist": false,
-  "showIcon": false,
-  "iconPosition": "BottomLeft",
-  "groupServices": false
-  });
-
   tarteaucitron.services.google_ads = {
-  "key": "google_ads",
-  "type": "ads",
-  "name": "Google Ads (remarketing)",
-  "uri": "https://policies.google.com/privacy",
-  "needConsent": true,
-  "cookies": ['__Secure-3PSIDCC', '__Secure-3PSID', '__Secure-3PAPISID', 'NID'],
-  "js": function () {
-    "use strict";
-    window.dataLayer = window.dataLayer || [];
-    tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw, '', function () {
-      window.gtag = function gtag(){dataLayer.push(arguments);}
+    "key": "google_ads",
+    "type": "ads",
+    "name": "Google Ads (remarketing)",
+    "uri": "https://policies.google.com/privacy",
+    "needConsent": true,
+    "cookies": ['__Secure-3PSIDCC', '__Secure-3PSID', '__Secure-3PAPISID', 'NID'],
+    "js": function () {
+      "use strict";
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
 
-      if (tarteaucitron.user.gtagCrossdomain) {
-        gtag('config',tarteaucitron.user.gtagAw,{ 'anonymize_ip': true },{linker: {domains: tarteaucitron.user.gtagCrossdomain}});
-      } else {
-        gtag('config', tarteaucitron.user.gtagAw, { 'anonymize_ip': true });
-      }
-      tarteaucitron.user.gtag = window.gtag;
-
-      if (typeof tarteaucitron.user.gtagMore === 'function') {
-        tarteaucitron.user.gtagMore();
-      }
-      });
+      tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw);
     }
   };
+
+  tarteaucitron.init({
+    "privacyUrl": "",
+    "hashtag": "#consentement",
+    "cookieName": "tarteaucitron",
+    "bodyPosition": "top",
+    "adblocker": false,
+    "highPrivacy": true,
+    "handleBrowserDNTRequest": false,
+    "useExternalCss": true,
+    "orientation": "bottom",
+    "DenyAllCta" : true,
+    "AcceptAllCta" : true,
+    "closePopup": false,
+    "removeCredit": true,
+    "moreInfoLink": true,
+    "readmoreLink": '/mentions_d_information#utilisation-cookies',
+    "mandatory": false,
+    "showAlertSmall": false,
+    "cookieslist": false,
+    "showIcon": false,
+    "iconPosition": "BottomLeft",
+    "groupServices": false
+  });
 
   tarteaucitron.user.gtagAw = 'AW-415474841';
   (tarteaucitron.job = tarteaucitron.job || []).push('google_ads');
