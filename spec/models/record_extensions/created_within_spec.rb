@@ -7,7 +7,7 @@ describe RecordExtensions::CreatedWithin do
         new_record = create :user
         create :user, created_at: 2.weeks.ago
 
-        expect(User.created_last_week).to eq [new_record]
+        expect(User.created_last_week).to match_array [new_record]
       end
     end
 
@@ -16,7 +16,7 @@ describe RecordExtensions::CreatedWithin do
         create :user
         old_record = create :user, created_at: 2.weeks.ago
 
-        expect(User.created_before_last_week).to eq [old_record]
+        expect(User.created_before_last_week).to match_array [old_record]
       end
     end
 
@@ -25,7 +25,7 @@ describe RecordExtensions::CreatedWithin do
         new_record = create :user
         create :user, updated_at: 2.weeks.ago
 
-        expect(User.updated_last_week).to eq [new_record]
+        expect(User.updated_last_week).to match_array [new_record]
       end
     end
 
@@ -34,7 +34,7 @@ describe RecordExtensions::CreatedWithin do
         new_record = create :user
         create :user, updated_at: 2.days.ago
 
-        expect(User.updated_yesterday).to eq [new_record]
+        expect(User.updated_yesterday).to match_array [new_record]
       end
     end
   end
