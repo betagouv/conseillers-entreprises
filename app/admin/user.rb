@@ -15,8 +15,7 @@ ActiveAdmin.register User do
            :invitees
   config.sort_order = 'created_at_desc'
 
-  scope :active, default: true
-  scope :deleted
+  scope :all, default: true
   scope :admin
 
   scope :team_members, group: :teams

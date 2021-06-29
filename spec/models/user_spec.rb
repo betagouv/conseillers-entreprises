@@ -212,15 +212,15 @@ RSpec.describe User, type: :model do
 
   describe 'invited_seven_days_ago' do
     # Utilisateur invité il y a 6 jours KO
-    let!(:user_1) { create :user, created_at: 6.days.ago, invitation_sent_at: 6.days.ago, invitation_accepted_at: nil }
+    let!(:user_1) { create :user, created_at: 6.days.ago, invitation_sent_at: 6.days.ago }
     # Utilisateur invité il y a 7 jours n’ayant pas accepté l’invitation OK
-    let!(:user_2) { create :user, created_at: 7.days.ago, invitation_sent_at: 7.days.ago, invitation_accepted_at: nil }
+    let!(:user_2) { create :user, created_at: 7.days.ago, invitation_sent_at: 7.days.ago }
     # Utilisateur invité il y a 7 jours ayant accepté l’invitation KO
     let!(:user_3) { create :user, created_at: 7.days.ago, invitation_sent_at: 7.days.ago, invitation_accepted_at: Time.zone.now }
     # Utilisateur supprimé invité il y a 7 jours KO
     let!(:user_4) { create :user, created_at: 7.days.ago, invitation_sent_at: 7.days.ago, invitation_accepted_at: Time.zone.now, deleted_at: Time.zone.now }
     # Utilisateur invité il y a 8 jours n’ayant pas accepté l’invitation KO
-    let!(:user_5) { create :user, created_at: 8.days.ago, invitation_sent_at: 8.days.ago, invitation_accepted_at: nil }
+    let!(:user_5) { create :user, created_at: 8.days.ago, invitation_sent_at: 8.days.ago }
     # Utilisateur invité il y a 8 jours ayant accepté l’invitation KO
     let!(:user_6) { create :user, created_at: 8.days.ago, invitation_sent_at: 8.days.ago, invitation_accepted_at: Time.zone.now }
 
