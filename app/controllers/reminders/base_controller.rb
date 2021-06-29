@@ -26,7 +26,7 @@ module Reminders
     end
 
     def to_remind_experts
-      experts_pool = @territory&.all_experts || Expert.all
+      experts_pool = @territory&.all_experts || Expert.not_deleted
       experts_pool.with_old_needs_in_inbox
     end
   end

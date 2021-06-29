@@ -15,7 +15,7 @@
 
         .required.fr-input-group
           = f.label :antenne, class: 'fr-label'
-          = f.select(:antenne_id, options_from_collection_for_select(Antenne.all.order(:name), :id, :name),
+          = f.select(:antenne_id, options_from_collection_for_select(Antenne.not_deleted.order(:name), :id, :name),
             { include_blank: t('all_choices') }, { class: 'fr-select' })
 
         .fr-input-group
