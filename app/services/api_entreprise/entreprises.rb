@@ -4,7 +4,7 @@ module ApiEntreprise
   class Entreprises
     attr_accessor :token, :options
 
-    def initialize(token, options = { url_keys: [:entreprises] })
+    def initialize(token, options = {})
       @token = token
       @options = options
     end

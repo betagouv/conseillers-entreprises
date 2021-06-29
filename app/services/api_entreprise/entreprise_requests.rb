@@ -9,7 +9,7 @@ module ApiEntreprise
       rcs: EntrepriseRequest::Rcs
     }
 
-    def initialize(token, siren, connection, options = { url_keys: [:entreprises] })
+    def initialize(token, siren, connection, options = {})
       @token = token
       @siren = siren
       @connection = connection
@@ -43,8 +43,9 @@ module ApiEntreprise
 
     private
 
+    # Par défaut, on n'appelle que l'url "entreprises"
     def url_keys
-      @url_keys ||= options.fetch(:url_keys)
+      options[:url_keys] || [:entreprises]
     end
 
     def errors
