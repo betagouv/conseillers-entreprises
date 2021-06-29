@@ -145,7 +145,7 @@ module DiagnosisCreation
     def prepare_matches_from_solicitation
       return unless solicitation.present? && matches.blank?
 
-      institutions = solicitation.preselected_institutions || Institution.all
+      institutions = solicitation.preselected_institutions || Institution.not_deleted
 
       # Note: this query is the very core feature of Place des Entreprises.
       # This is where we find experts for needs.

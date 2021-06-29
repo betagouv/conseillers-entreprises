@@ -22,7 +22,7 @@
 class ExpertSubject < ApplicationRecord
   ## Associations
   #
-  belongs_to :expert, inverse_of: :experts_subjects
+  belongs_to :expert, -> { not_deleted }, inverse_of: :experts_subjects
   belongs_to :institution_subject, inverse_of: :experts_subjects
 
   ## "Through" associations

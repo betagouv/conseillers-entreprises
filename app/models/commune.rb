@@ -23,8 +23,8 @@ class Commune < ApplicationRecord
 
   has_many :facilities, inverse_of: :commune
 
-  has_and_belongs_to_many :antennes, inverse_of: :communes
-  has_and_belongs_to_many :direct_experts, class_name: 'Expert', inverse_of: :communes
+  has_and_belongs_to_many :antennes, -> { not_deleted }, inverse_of: :communes
+  has_and_belongs_to_many :direct_experts, -> { not_deleted }, class_name: 'Expert', inverse_of: :communes
 
   ## Validations
   #
@@ -33,7 +33,7 @@ class Commune < ApplicationRecord
   ## “Through” Associations
   #
   has_many :antenne_experts, through: :antennes, source: :experts, inverse_of: :antenne_communes
-  has_many :advisors, through: :antennes, inverse_of: :antenne_communes
+  has_many :advisors, -> { not_deleted }, through: :antennes, inverse_of: :antenne_communes
 
   ##
   #

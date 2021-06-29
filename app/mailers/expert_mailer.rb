@@ -21,7 +21,7 @@ class ExpertMailer < ApplicationMailer
     # Also send a reset link to the expert’s users that have never used their account.
     # In practice, this only happens to Experts that used to have no corresponding User and
     # for which we created User accounts automatically.
-    expert.users.filter(&:never_used_account?).each do |user|
+    expert.users.not_deleted.filter(&:never_used_account?).each do |user|
       user.send_reset_password_instructions
     end
   end

@@ -7,8 +7,8 @@ ActiveAdmin.register Institution do
     include SoftDeletable::ActiveAdminResourceController
   end
 
-  scope :active, default: true
-  scope :deleted
+  scope :active, default: true, example_group: :primary_scope
+  scope :deleted, example_group: :primary_scope
 
   ## Index
   #

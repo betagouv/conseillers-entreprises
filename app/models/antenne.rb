@@ -29,10 +29,10 @@ class Antenne < ApplicationRecord
   include ManyCommunes
   include InvolvementConcern
 
-  belongs_to :institution, inverse_of: :antennes
+  belongs_to :institution, -> { not_deleted }, inverse_of: :antennes
 
-  has_many :experts, inverse_of: :antenne
-  has_many :advisors, class_name: 'User', inverse_of: :antenne
+  has_many :experts, ->{ not_deleted }, inverse_of: :antenne
+  has_many :advisors, ->{ not_deleted }, class_name: 'User', inverse_of: :antenne
 
   ## Hooks and Validations
   #

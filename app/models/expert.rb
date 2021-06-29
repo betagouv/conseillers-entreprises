@@ -38,7 +38,7 @@ class Expert < ApplicationRecord
 
   belongs_to :antenne, inverse_of: :experts
 
-  has_and_belongs_to_many :users, inverse_of: :experts
+  has_and_belongs_to_many :users, ->{ not_deleted }, inverse_of: :experts
 
   has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
   has_many :received_matches, -> { sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify

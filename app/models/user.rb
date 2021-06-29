@@ -62,13 +62,13 @@ class User < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :antenne, inverse_of: :advisors
-  has_and_belongs_to_many :experts, inverse_of: :users
+  belongs_to :antenne, ->{ not_deleted }, inverse_of: :advisors
+  has_and_belongs_to_many :experts, ->{ not_deleted }, inverse_of: :users
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :searches, inverse_of: :user
   has_many :feedbacks, inverse_of: :user
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
-  has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
+  has_many :invitees, ->{ not_deleted }, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
   has_many :supported_territories, class_name: 'Territory', foreign_key: 'support_contact_id', inverse_of: :support_contact
 
   ## Validations
@@ -98,7 +98,8 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :admin, -> { where(is_admin: true) }
+  scope :admin, -> { not_deleted.where(is_admin: true) }
+  scope :admin_deleted, -> { deleted.where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
 
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
@@ -164,8 +165,7 @@ class User < ApplicationRecord
   # User objects fetched through this scope have an additional attribute :relevant_expert_id
   # Note: This scope will return DUPLICATE ROWS FOR THE SAME USER, if there are several relevant experts.)
   scope :relevant_for_skills, -> do
-    not_deleted
-      .joins(:relevant_experts)
+    joins(:relevant_experts)
       .select('users.*', 'experts.id as relevant_expert_id', 'experts.full_name as team_name')
   end
   # User objects fetched through relevant_for_skills have an addition association to a single expert.

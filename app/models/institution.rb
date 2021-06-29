@@ -26,7 +26,7 @@ class Institution < ApplicationRecord
 
   ## Associations
   #
-  has_many :antennes, inverse_of: :institution
+  has_many :antennes, ->{ not_deleted }, inverse_of: :institution
   has_many :institutions_subjects, inverse_of: :institution
   has_many :landings, inverse_of: :institution
   has_many :solicitations, inverse_of: :institution
@@ -44,8 +44,8 @@ class Institution < ApplicationRecord
   has_many :themes, through: :institutions_subjects, inverse_of: :institutions
 
   # :antennes
-  has_many :experts, through: :antennes, inverse_of: :institution
-  has_many :advisors, through: :antennes, inverse_of: :institution
+  has_many :experts, ->{ not_deleted }, through: :antennes, inverse_of: :institution
+  has_many :advisors, ->{ not_deleted }, through: :antennes, inverse_of: :institution
   has_many :sent_diagnoses, through: :antennes, inverse_of: :advisor_institution
   has_many :sent_needs, through: :antennes, inverse_of: :advisor_institution
   has_many :sent_matches, through: :antennes, inverse_of: :advisor_institution

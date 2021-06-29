@@ -13,8 +13,8 @@ ActiveAdmin.register Antenne do
            :communes, :territories
   config.sort_order = 'name_asc'
 
-  scope :active, default: true
-  scope :deleted
+  scope :active, default: true, example_group: :primary_scope
+  scope :deleted, example_group: :primary_scope
   scope :without_communes
 
   index do

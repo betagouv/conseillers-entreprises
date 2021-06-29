@@ -14,8 +14,10 @@ ActiveAdmin.register Expert do
            :subjects, :received_matches
   config.sort_order = 'full_name_asc'
 
-  scope :all, default: true
-  scope :support_experts
+  scope :active, default: true, example_group: :primary_scope
+  scope :deleted, example_group: :primary_scope
+  scope :support_experts, example_group: :primary_scope
+
   scope :with_custom_communes, group: :referencing
   scope :without_subjects, group: :referencing
 
