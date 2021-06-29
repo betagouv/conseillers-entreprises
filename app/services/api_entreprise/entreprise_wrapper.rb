@@ -20,6 +20,7 @@ module ApiEntreprise
     end
 
     def inscrit_rcs
+      return if entreprise.rcs.blank?
       entreprise.rcs["errors"].nil?
     end
   end

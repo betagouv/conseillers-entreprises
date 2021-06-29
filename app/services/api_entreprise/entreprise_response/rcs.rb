@@ -4,8 +4,8 @@ module ApiEntreprise
   class EntrepriseResponse::Rcs < EntrepriseResponse::Base
     def formatted_data
       {
-        entreprise: {
-          rcs: http_response.parse(:json)
+        'entreprise' =>  {
+          'rcs' => http_response.parse(:json)
         }
       }
     end
