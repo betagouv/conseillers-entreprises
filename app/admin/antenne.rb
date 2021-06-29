@@ -13,13 +13,14 @@ ActiveAdmin.register Antenne do
            :communes, :territories
   config.sort_order = 'name_asc'
 
-  scope :all, default: true
+  scope :active, default: true
+  scope :deleted
   scope :without_communes
 
   index do
     selectable_column
     column(:name) do |a|
-      div admin_link_to(a)
+      a.deleted? ? div(a.name) : div(admin_link_to(a))
       div admin_link_to(a, :institution)
     end
     column(:community) do |a|

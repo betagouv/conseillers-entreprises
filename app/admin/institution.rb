@@ -7,6 +7,9 @@ ActiveAdmin.register Institution do
     include SoftDeletable::ActiveAdminResourceController
   end
 
+  scope :active, default: true
+  scope :deleted
+
   ## Index
   #
   includes :antennes, :subjects, :advisors, :experts, :sent_matches, :received_matches
@@ -19,7 +22,7 @@ ActiveAdmin.register Institution do
   index do
     selectable_column
     column(:name) do |i|
-      div admin_link_to(i)
+      i.deleted? ? div(i.name) : div(admin_link_to(i))
       div admin_link_to(i, :antennes)
       div admin_link_to(i, :subjects)
     end
