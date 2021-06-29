@@ -116,13 +116,13 @@ class Expert < ApplicationRecord
     # before users are actually registered, or when a user is removed.
     left_outer_joins(:users)
       .where(users: { id: nil })
-      .merge(User.not_deleted)
+      .merge(User.unscoped.not_deleted)
   end
 
   scope :teams, -> do
     # Experts (with members) that are not personal_skillsets are proper teams
-    where.not(id: Expert.without_users)
-      .where.not(id: Expert.personal_skillsets)
+    where.not(id: Expert.not_deleted.without_users)
+      .where.not(id: Expert.not_deleted.personal_skillsets)
   end
 
   # Activity stuff
@@ -138,9 +138,9 @@ class Expert < ApplicationRecord
   scope :with_old_needs_in_inbox, -> do
     joins(:received_quo_matches)
       .merge(Match
-        .where(archived_at: nil)
-        .where(Match.arel_table[:created_at].lt(Need::REMINDERS_DAYS[:poke].days.ago))
-        .joins(:need).where(need: { archived_at: nil }))
+               .where(archived_at: nil)
+               .where(Match.arel_table[:created_at].lt(Need::REMINDERS_DAYS[:poke].days.ago))
+               .joins(:need).where(need: { archived_at: nil }))
   end
 
   # Pas besoin de distinct avec cette méthode
