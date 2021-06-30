@@ -9,7 +9,7 @@ describe ExpertMailer do
 
     let(:expert) { create :expert }
     let(:user) { create :user }
-    let(:diagnosis) { create :diagnosis_completed, advisor: user }
+    let(:diagnosis) { create :diagnosis_completed, advisor: user, visitee: create(:contact, :with_email) }
     let(:need) { diagnosis.needs.first }
 
     describe 'email behavior' do
@@ -42,8 +42,8 @@ describe ExpertMailer do
       end
 
       context 'expert with several users' do
-        let(:user1) { build :user, invitation_accepted_at: nil, invitation_sent_at: nil, encrypted_password: '' }
-        let(:user2) { build :user, invitation_accepted_at: nil, invitation_sent_at: nil, encrypted_password: '' }
+        let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
+        let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '' }
         let(:expert_members) { [user1, user2] }
 
         it do
@@ -59,8 +59,8 @@ describe ExpertMailer do
       end
 
       context 'expert with deleted user ' do
-        let(:user1) { build :user, invitation_accepted_at: nil, invitation_sent_at: nil, encrypted_password: '' }
-        let(:user2) { build :user, invitation_accepted_at: nil, invitation_sent_at: nil, encrypted_password: '', deleted_at: Time.zone.now }
+        let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
+        let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '', deleted_at: Time.zone.now }
         let(:expert_members) { [user1, user2] }
 
         it do
