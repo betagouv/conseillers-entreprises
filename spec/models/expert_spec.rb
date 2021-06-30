@@ -20,7 +20,6 @@ RSpec.describe Expert, type: :model do
         is_expected.to validate_presence_of(:role)
         is_expected.to validate_presence_of(:antenne)
         is_expected.to validate_presence_of(:email)
-        is_expected.to validate_presence_of(:phone_number)
       end
     end
   end

@@ -14,7 +14,6 @@ RSpec.describe User, type: :model do
       it do
         is_expected.to validate_presence_of(:full_name)
         is_expected.to validate_presence_of(:role)
-        is_expected.to validate_presence_of(:phone_number)
         is_expected.to validate_presence_of(:email)
       end
     end

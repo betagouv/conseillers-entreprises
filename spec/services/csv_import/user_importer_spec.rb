@@ -47,6 +47,25 @@ describe CsvImport::UserImporter, CsvImport do
     end
   end
 
+  context 'set teams and user without phone number' do
+    let(:csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,,Cheffe,Equipe,equipe@antenne.com,,Equipe des chefs
+        The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,,Sous-Chef,Equipe,equipe@antenne.com,,Equipe des chefs
+      CSV
+    end
+
+    it do
+      expect(result).to be_success
+      expect(institution.experts.teams.count).to eq 1
+      team = institution.experts.teams.first
+      expect(team.email).to eq 'equipe@antenne.com'
+      expect(team.role).to eq 'Equipe des chefs'
+      expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
+    end
+  end
+
   context 'add user to existing team' do
     let!(:expert_antenne) { create :antenne, name: 'Antenna', institution: institution }
     let!(:expert) { create :expert_with_users, email: 'equipe@antenne.com', antenne: expert_antenne }
@@ -85,25 +104,6 @@ describe CsvImport::UserImporter, CsvImport do
         expect(team.email).to eq 'equipe@antenne.com'
         expect(User.find_by(email: 'mario.dupont@antenne.com').experts).to include(expert)
       end
-    end
-  end
-
-  context 'failing teams' do
-    let(:csv) do
-      <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,,Equipe des chefs
-      CSV
-    end
-
-    it do
-      expect(result).not_to be_success
-      first_error = result.objects.first.errors.details.dig(:experts, -1)
-      expect(first_error).not_to be_nil
-      expect(first_error[:error]).to eq :invalid
-      invalid_experts = first_error[:value]
-      expect(invalid_experts).not_to be_nil
-      expect(invalid_experts.flat_map{ |e| e.errors.details }).to eq [{}, { phone_number: [{ error: :blank }] }]
     end
   end
 

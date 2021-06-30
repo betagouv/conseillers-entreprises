@@ -75,7 +75,7 @@ class User < ApplicationRecord
   ## Validations
   #
   before_validation :fix_flag_values
-  validates :full_name, :phone_number, presence: true, unless: :deleted?
+  validates :full_name, presence: true, unless: :deleted?
   after_create :create_personal_skillset_if_needed
   after_update :synchronize_personal_skillsets
   validates_associated :experts, on: :import
