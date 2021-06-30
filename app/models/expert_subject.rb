@@ -58,6 +58,22 @@ class ExpertSubject < ApplicationRecord
       .where(institutions_subjects: { institution: institution })
   end
 
+  scope :in_company_registres, -> (company) do
+    if company.inscrit_rcs && !company.inscrit_rm
+      for_institution('cci')
+    elsif !company.inscrit_rcs && company.inscrit_rm
+      for_institution('cma')
+    else # Have both or have none
+      for_institution('cci').or(for_institution('cma'))
+    end
+  end
+
+  scope :for_institution, -> (institution_slug) do
+    institution = Institution.find_by(slug: institution_slug)
+    return if institution.nil?
+    where(expert: institution.experts)
+  end
+
   scope :support_for, -> (diagnosis) do
     experts_in_commune = diagnosis.facility.commune.all_experts
 

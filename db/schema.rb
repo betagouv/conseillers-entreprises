@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_155222) do
+ActiveRecord::Schema.define(version: 2021_06_30_132421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_155222) do
     t.string "legal_form_code"
     t.string "code_effectif"
     t.date "date_de_creation"
+    t.boolean "inscrit_rcs"
+    t.boolean "inscrit_rm"
     t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 

@@ -153,6 +153,7 @@ module DiagnosisCreation
           .in_commune(need.facility.commune)
           .of_subject(need.subject)
           .of_institution(institutions)
+          .in_company_registres(need.company)
 
         if expert_subjects.present?
           matches_params = expert_subjects.map{ |es| { expert: es.expert, subject: es.subject } }

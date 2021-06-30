@@ -43,9 +43,9 @@ module ApiEntreprise
 
     private
 
-    # Par défaut, on n'appelle que l'url "entreprises"
+    # Par défaut, on appelle toutes les url (cas le + fréquent)
     def url_keys
-      options[:url_keys] || [:entreprises]
+      options[:url_keys] || [:entreprises, :rcs]
     end
 
     def errors

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ApiEntreprise::Entreprises do
-  let(:company) { described_class.new(token).fetch(siren) }
+  let(:company) { described_class.new(token, { url_keys: [:entreprises] }).fetch(siren) }
 
   let(:entreprises_base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises' }
 
@@ -31,7 +31,7 @@ RSpec.describe ApiEntreprise::Entreprises do
       end
 
       it 'doesnt set rcs subscription' do
-        expect(company.inscrit_rcs).to eq nil
+        expect(company.entreprise.inscrit_rcs).to eq nil
       end
     end
 
@@ -110,7 +110,7 @@ RSpec.describe ApiEntreprise::Entreprises do
       end
 
       it 'returns rcs subscription' do
-        expect(company.inscrit_rcs).to eq true
+        expect(company.entreprise.inscrit_rcs).to eq true
       end
     end
 
@@ -133,7 +133,7 @@ RSpec.describe ApiEntreprise::Entreprises do
       end
 
       it 'returns no rcs subscription' do
-        expect(company.inscrit_rcs).to eq false
+        expect(company.entreprise.inscrit_rcs).to eq false
       end
     end
 
