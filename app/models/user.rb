@@ -98,7 +98,7 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :admin, -> { where(is_admin: true) }
+  scope :admin, -> { not_deleted.where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
 
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }

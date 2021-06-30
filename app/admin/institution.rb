@@ -7,6 +7,9 @@ ActiveAdmin.register Institution do
     include SoftDeletable::ActiveAdminResourceController
   end
 
+  scope :active, default: true
+  scope :deleted
+
   ## Index
   #
   includes :antennes, :subjects, :advisors, :experts, :sent_matches, :received_matches
