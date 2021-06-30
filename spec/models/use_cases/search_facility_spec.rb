@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe UseCases::SearchFacility do
-  let(:legal_form_code) { '5699' }
+  let(:legal_form_code) { '5710' }
   let(:naf_code) { '6202A' }
-  let(:code_effectif) { '31' }
+  let(:code_effectif) { '32' }
   let(:siret) { '41816609600051' }
   let(:siren) { '418166096' }
   let(:token) { '1234' }
@@ -29,13 +29,12 @@ describe UseCases::SearchFacility do
 
   describe 'with_siret_and_save' do
     before do
-      company_json = JSON.parse(file_fixture('api_entreprise_get_entreprise.json').read)
+      company_json = JSON.parse(file_fixture('api_entreprise_entreprise_request_data.json').read)
       entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
       allow(UseCases::SearchCompany).to receive(:with_siret).with(siret, {}) { entreprises_instance }
 
-      facility_json = file_fixture('api_entreprise_get_etablissement.json').read
-      facility_parsed_json = JSON.parse(facility_json)
-      facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_parsed_json)
+      facility_json = JSON.parse(file_fixture('api_entreprise_get_etablissement.json').read)
+      facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_json)
       allow(described_class).to receive(:with_siret).with(siret, {}) { facility_instance }
     end
 
@@ -53,7 +52,7 @@ describe UseCases::SearchFacility do
         expect(Company.last.code_effectif).to eq code_effectif
 
         expect(Facility.last.siret).to eq siret
-        expect(Facility.last.commune.insee_code).to eq '75008'
+        expect(Facility.last.commune.insee_code).to eq '75102'
         expect(Facility.last.naf_code).to eq naf_code
         expect(Facility.last.code_effectif).to eq code_effectif
       end

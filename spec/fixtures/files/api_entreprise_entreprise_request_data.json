@@ -1,0 +1,133 @@
+{
+  "entreprise": {
+    "siren": "418166096",
+    "capital_social": 509525,
+    "numero_tva_intracommunautaire": "FR16418166096",
+    "forme_juridique": "SAS, société par actions simplifiée",
+    "forme_juridique_code": "5710",
+    "nom_commercial": "OCTO-TECHNOLOGY",
+    "procedure_collective": false,
+    "enseigne": null,
+    "libelle_naf_entreprise": "Conseil en systèmes et logiciels informatiques",
+    "naf_entreprise": "6202A",
+    "raison_sociale": "OCTO-TECHNOLOGY",
+    "siret_siege_social": "41816609600069",
+    "code_effectif_entreprise": "32",
+    "date_creation": 891381600,
+    "nom": null,
+    "prenom": null,
+    "date_radiation": null,
+    "categorie_entreprise": "GE",
+    "tranche_effectif_salarie_entreprise": {
+      "de": 250,
+      "a": 499,
+      "code": "32",
+      "date_reference": "2018",
+      "intitule": "250 à 499 salariés"
+    },
+    "mandataires_sociaux": [
+      {
+        "nom": "CINQUIN",
+        "prenom": "LUDOVIC",
+        "fonction": "PRESIDENT",
+        "date_naissance": "1972-01-25",
+        "date_naissance_timestamp": 65142000,
+        "dirigeant": true,
+        "raison_sociale": "",
+        "identifiant": "",
+        "type": "PP"
+      },
+      {
+        "nom": "",
+        "prenom": "",
+        "fonction": "COMMISSAIRE AUX COMPTES TITULAIRE",
+        "date_naissance": "",
+        "date_naissance_timestamp": 0,
+        "dirigeant": true,
+        "raison_sociale": "MAZARS - SOCIETE ANONYME",
+        "identifiant": "784824153",
+        "type": "PM"
+      },
+      {
+        "nom": "",
+        "prenom": "",
+        "fonction": "COMMISSAIRE AUX COMPTES TITULAIRE",
+        "date_naissance": "",
+        "date_naissance_timestamp": 0,
+        "dirigeant": true,
+        "raison_sociale": "KPMG - SOCIETE ANONYME",
+        "identifiant": "",
+        "type": "PM"
+      },
+      {
+        "nom": "SIMON",
+        "prenom": "JEAN-LOUIS",
+        "fonction": "COMMISSAIRE AUX COMPTES SUPPLEANT",
+        "date_naissance": "1959-02-17",
+        "date_naissance_timestamp": -343098000,
+        "dirigeant": true,
+        "raison_sociale": "",
+        "identifiant": "",
+        "type": "PP"
+      }
+    ],
+    "etat_administratif": { "value": "A", "date_cessation": null },
+    "diffusable_commercialement": true,
+    "rcs": {
+      "siren": "418166096",
+      "date_immatriculation": "1998-03-27",
+      "date_immatriculation_timestamp": 890953200,
+      "date_extrait": "29 JUIN 2021",
+      "observations": [
+        {
+          "date": "2000-02-23",
+          "date_timestamp": 951260400,
+          "numero": "12197",
+          "libelle": "  LA SOCIETE NE CONSERVE AUCUNE ACTIVITE A SON ANCIEN SIEGE"
+        }
+      ]
+    }
+  },
+  "etablissement_siege": {
+    "siege_social": true,
+    "siret": "41816609600069",
+    "naf": "6202A",
+    "libelle_naf": "Conseil en systèmes et logiciels informatiques",
+    "date_mise_a_jour": 1623003213,
+    "tranche_effectif_salarie_etablissement": {
+      "de": 250,
+      "a": 499,
+      "code": "32",
+      "date_reference": "2018",
+      "intitule": "250 à 499 salariés"
+    },
+    "date_creation_etablissement": 1480287600,
+    "region_implantation": { "code": "11", "value": "Île-de-France" },
+    "commune_implantation": {
+      "code": "75102",
+      "value": "Paris 2e Arrondissement"
+    },
+    "pays_implantation": { "code": "FR", "value": "FRANCE" },
+    "diffusable_commercialement": true,
+    "enseigne": null,
+    "adresse": {
+      "l1": "OCTO-TECHNOLOGY",
+      "l2": null,
+      "l3": null,
+      "l4": "34 AV DE L OPERA",
+      "l5": null,
+      "l6": "75002 PARIS 2",
+      "l7": "FRANCE",
+      "numero_voie": "34",
+      "type_voie": "AV",
+      "nom_voie": "DE L OPERA",
+      "complement_adresse": null,
+      "code_postal": "75002",
+      "localite": "PARIS 2",
+      "code_insee_localite": "75102",
+      "cedex": null
+    },
+    "etat_administratif": { "value": "A", "date_fermeture": null }
+  },
+  "errors": null
+}

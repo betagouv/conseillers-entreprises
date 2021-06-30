@@ -10,7 +10,7 @@ RSpec.describe CompaniesController, type: :controller do
 
     before do
       allow(UseCases::SearchFacility).to receive(:with_siret).with(siret)
-      company_json = JSON.parse(file_fixture('api_entreprise_get_entreprise.json').read)
+      company_json = JSON.parse(file_fixture('api_entreprise_entreprise_request_data.json').read)
       entreprise_wrapper = ApiEntreprise::EntrepriseWrapper.new(company_json)
       allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprise_wrapper }
     end
