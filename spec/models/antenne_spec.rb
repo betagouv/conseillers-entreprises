@@ -1,6 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe Antenne, type: :model do
+  describe 'relations' do
+    describe 'expert' do
+      let(:active_expert) { create :expert }
+      let(:deleted_expert) { create :expert, deleted_at: Time.now }
+      let(:antenne) { create :antenne, experts: [active_expert, deleted_expert] }
+
+      subject { antenne.experts }
+
+      before { antenne.reload }
+
+      it 'return only not deleted experts' do
+        is_expected.to match [active_expert]
+      end
+    end
+
+    describe 'advisor' do
+      let(:active_advisor) { create :user }
+      let(:deleted_advisor) { create :user, deleted_at: Time.now }
+      let(:antenne) { create :antenne, advisors: [active_advisor, deleted_advisor] }
+
+      subject { antenne.advisors }
+
+      before { antenne.reload }
+
+      it 'return only not deleted advisors' do
+        is_expected.to match [active_advisor]
+      end
+    end
+  end
+
   describe 'name code uniqueness' do
     subject { build :antenne, name: name, institution: institution }
 

@@ -10,7 +10,7 @@ module  Annuaire
         .relevant_for_skills
         .joins(:antenne)
         .order('antennes.name', 'team_name', 'users.full_name')
-        .preload(:antenne, relevant_expert: [:not_deleted_users, :antenne, :experts_subjects])
+        .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
 
       @institutions_subjects = @institution.institutions_subjects
         .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)

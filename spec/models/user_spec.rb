@@ -20,6 +20,22 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'relations' do
+    describe 'expert' do
+      let(:active_expert) { create :expert }
+      let(:deleted_expert) { create :expert, deleted_at: Time.now }
+      let(:user) { create :user, :invitation_accepted, experts: [active_expert, deleted_expert] }
+
+      subject { user.experts }
+
+      before { user.reload }
+
+      it 'return only not deleted experts' do
+        is_expected.to match [active_expert, user.personal_skillsets.first]
+      end
+    end
+  end
+
   describe 'soft deletion' do
     subject(:user) { create :user }
 

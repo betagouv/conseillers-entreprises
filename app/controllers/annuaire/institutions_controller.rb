@@ -5,7 +5,7 @@ module  Annuaire
 
       @institutions = Institution.all
         .order(:slug)
-        .preload([institutions_subjects: :theme], :not_deleted_antennes, :not_deleted_advisors)
+        .preload([institutions_subjects: :theme], :not_deleted_antennes, :advisors)
 
       @wide_layout = true
     end

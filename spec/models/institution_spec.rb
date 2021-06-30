@@ -8,6 +8,22 @@ RSpec.describe Institution, type: :model do
     is_expected.to validate_presence_of :name
   end
 
+  describe 'relations' do
+    describe 'antenne' do
+      let(:active_antenne) { create :antenne }
+      let(:deleted_antenne) { create :antenne, deleted_at: Time.now }
+      let(:institution) { create :institution, antennes: [active_antenne, deleted_antenne] }
+
+      subject { institution.antennes }
+
+      before { institution.reload }
+
+      it 'return only not deleted antennes' do
+        is_expected.to match [active_antenne]
+      end
+    end
+  end
+
   describe 'to_s' do
     it do
       institution = create :institution, name: 'Direccte'
