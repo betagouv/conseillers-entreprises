@@ -30,6 +30,9 @@ module CsvImport
 
           # Create objects
           object = find_instance(attributes)
+          if object.instance_of?(Antenne)
+            attributes.delete(:name)
+          end
           object.update(attributes)
 
           postprocess(object, row)

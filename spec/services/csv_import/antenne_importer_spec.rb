@@ -80,4 +80,22 @@ describe CsvImport::AntenneImporter, CsvImport do
       expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00002'
     end
   end
+
+  context 'existing antenne tolerant name' do
+    before do
+      create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
+    end
+
+    let(:csv) do
+      <<~CSV
+        Institution,Nom,Codes commune
+        Test Institution, antenne1 ,00002
+      CSV
+    end
+
+    it do
+      expect(result).to be_success
+      expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00002'
+    end
+  end
 end
