@@ -49,7 +49,7 @@ describe CsvImport::UserImporter, CsvImport do
 
   context 'add user to existing team' do
     let!(:expert_antenne) { create :antenne, name: 'Antenna', institution: institution }
-    let!(:expert) { create :expert, email: 'equipe@antenne.com', antenne: expert_antenne }
+    let!(:expert) { create :expert_with_users, email: 'equipe@antenne.com', antenne: expert_antenne }
 
     context 'without typo' do
       let(:csv) do
