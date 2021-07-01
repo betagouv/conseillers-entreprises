@@ -27,8 +27,8 @@ ActiveAdmin.register Institution do
       div admin_link_to(i, :subjects)
     end
     column(:community) do |i|
-      div(admin_link_to(i, :advisors)) if i.advisors.blank?
-      div(admin_link_to(i, :experts)) if i.experts.blank?
+      div(admin_link_to(i, :advisors))
+      div(admin_link_to(i, :experts))
     end
     column(:activity) do |i|
       div admin_link_to(i, :sent_matches, blank_if_empty: true)
