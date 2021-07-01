@@ -29,21 +29,40 @@ describe CsvImport::UserImporter, CsvImport do
   end
 
   context 'set teams' do
-    let(:csv) do
-      <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
-        The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
-      CSV
+    describe 'without typo' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
+          The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.teams.count).to eq 1
+        team = institution.experts.teams.first
+        expect(team.email).to eq 'equipe@antenne.com'
+        expect(team.role).to eq 'Equipe des chefs'
+        expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
+      end
     end
 
-    it do
-      expect(result).to be_success
-      expect(institution.experts.teams.count).to eq 1
-      team = institution.experts.teams.first
-      expect(team.email).to eq 'equipe@antenne.com'
-      expect(team.role).to eq 'Equipe des chefs'
-      expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
+    describe 'witout 0 in phone number' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,123456789,Cheffe,Equipe,equipe@antenne.com,987654321,Equipe des chefs
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.teams.count).to eq 1
+        team = institution.experts.teams.first
+        expect(team.phone_number).to eq '09 87 65 43 21'
+        expect(team.users.pluck(:phone_number)).to match_array(['01 23 45 67 89'])
+      end
     end
   end
 

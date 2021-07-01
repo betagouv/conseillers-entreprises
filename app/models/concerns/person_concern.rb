@@ -58,6 +58,7 @@ module PersonConcern
     return unless self.phone_number
 
     number = self.phone_number.gsub(/[^0-9]/,'')
+    number.insert(0, '0') if number.length == 9 && number.first != '0'
     if number.length == 10
       number = number.gsub(/(.{2})(?=.)/, '\1 \2')
       self.phone_number = number
