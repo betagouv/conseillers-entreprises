@@ -15,7 +15,9 @@ ActiveAdmin.register User do
            :invitees
   config.sort_order = 'created_at_desc'
 
-  scope :all, default: true
+  scope :active, default: true
+  scope :deleted
+
   scope :admin
 
   scope :team_members, group: :teams
@@ -28,8 +30,10 @@ ActiveAdmin.register User do
     selectable_column
     column(:full_name) do |u|
       div admin_link_to(u)
-      div '✉ ' + u.email
-      div '✆ ' + u.phone_number
+      unless u.deleted?
+        div '✉ ' + u.email
+        div '✆ ' + u.phone_number
+      end
     end
     column :created_at
     column :role do |u|

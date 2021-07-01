@@ -63,7 +63,8 @@ class User < ApplicationRecord
   ## Associations
   #
   belongs_to :antenne, inverse_of: :advisors
-  has_and_belongs_to_many :experts, inverse_of: :users
+  has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
+
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
   has_many :searches, inverse_of: :user
   has_many :feedbacks, inverse_of: :user
@@ -98,7 +99,7 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :admin, -> { where(is_admin: true) }
+  scope :admin, -> { not_deleted.where(is_admin: true) }
   scope :not_admin, -> { where(is_admin: false) }
 
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }

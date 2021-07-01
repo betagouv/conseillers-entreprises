@@ -25,6 +25,22 @@ RSpec.describe Expert, type: :model do
     end
   end
 
+  describe 'relations' do
+    describe 'users' do
+      let(:active_user) { create :user, :invitation_accepted }
+      let(:deleted_user) { create :user, :invitation_accepted, deleted_at: Time.now }
+      let!(:expert) { create :expert, users: [deleted_user, active_user] }
+
+      subject { expert.users }
+
+      before { expert.reload }
+
+      it 'return only not deleted users' do
+        is_expected.to match [active_user]
+      end
+    end
+  end
+
   describe 'team notions' do
     let(:user) { build :user, email: 'user@example' }
     let(:user2) { build :user, email: 'otheruser@example' }

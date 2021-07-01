@@ -7,6 +7,9 @@ ActiveAdmin.register Institution do
     include SoftDeletable::ActiveAdminResourceController
   end
 
+  scope :active, default: true
+  scope :deleted
+
   ## Index
   #
   includes :antennes, :subjects, :advisors, :experts, :sent_matches, :received_matches
@@ -24,8 +27,8 @@ ActiveAdmin.register Institution do
       div admin_link_to(i, :subjects)
     end
     column(:community) do |i|
-      div admin_link_to(i, :advisors)
-      div admin_link_to(i, :experts)
+      div(admin_link_to(i, :advisors))
+      div(admin_link_to(i, :experts))
     end
     column(:activity) do |i|
       div admin_link_to(i, :sent_matches, blank_if_empty: true)
