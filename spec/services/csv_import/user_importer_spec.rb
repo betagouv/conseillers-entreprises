@@ -32,9 +32,9 @@ describe CsvImport::UserImporter, CsvImport do
     describe 'without typo' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
-          The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321
+          The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef,Equipe,equipe@antenne.com,0987654321
         CSV
       end
 
@@ -43,7 +43,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(institution.experts.teams.count).to eq 1
         team = institution.experts.teams.first
         expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.role).to eq 'Equipe des chefs'
+        expect(team.role).to eq nil
         expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
       end
     end
@@ -51,8 +51,8 @@ describe CsvImport::UserImporter, CsvImport do
     describe 'witout 0 in phone number' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,123456789,Cheffe,Equipe,equipe@antenne.com,987654321,Equipe des chefs
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,123456789,Cheffe,Equipe,equipe@antenne.com,987654321
         CSV
       end
 
@@ -69,9 +69,9 @@ describe CsvImport::UserImporter, CsvImport do
   context 'set teams and user without phone number' do
     let(:csv) do
       <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,,Cheffe,Equipe,equipe@antenne.com,,Equipe des chefs
-        The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,,Sous-Chef,Equipe,equipe@antenne.com,,Equipe des chefs
+        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+        The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com,,Cheffe,Equipe,equipe@antenne.com,
+        The Institution,The Antenne,Mario Dupont,mario.dupont@antenne.com,,Sous-Chef,Equipe,equipe@antenne.com,
       CSV
     end
 
@@ -80,7 +80,7 @@ describe CsvImport::UserImporter, CsvImport do
       expect(institution.experts.teams.count).to eq 1
       team = institution.experts.teams.first
       expect(team.email).to eq 'equipe@antenne.com'
-      expect(team.role).to eq 'Equipe des chefs'
+      expect(team.role).to eq nil
       expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
     end
   end
@@ -92,8 +92,8 @@ describe CsvImport::UserImporter, CsvImport do
     context 'without typo' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-          The Institution,Antenna,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321,Equipe des chefs
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          The Institution,Antenna,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe,Equipe,equipe@antenne.com,0987654321
         CSV
       end
 
@@ -102,7 +102,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(institution.experts.teams.count).to eq 1
         team = institution.experts.teams.first
         expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.role).to eq 'Equipe des chefs'
+        expect(team.role).to eq nil
         expect(team.users.count).to eq 2
         expect(User.find_by(email: 'marie.dupont@antenne.com').experts).to include(expert)
       end
@@ -111,8 +111,8 @@ describe CsvImport::UserImporter, CsvImport do
     context 'with tab before expert email' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-          The Institution,	Antenna,Mario Dupont,mario.dupont@antenne.com,0123456789,Cheffe,Equipe,	equipe@antenne.com  ,0987654321,Equipe des chefs
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          The Institution,	Antenna,Mario Dupont,mario.dupont@antenne.com,0123456789,Cheffe,Equipe,	equipe@antenne.com  ,0987654321
         CSV
       end
 
@@ -150,11 +150,11 @@ describe CsvImport::UserImporter, CsvImport do
     context 'merge the subjects of users in the same team' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe,First IS,Second IS
-          The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,Equipe,oui,
-          The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,Equipe,,oui
-          The Institution,The Antenne,Maria,maria@a.a,0123456789,Directora,Equipe,equipe@a.a,0123456789,Equipe,,
-          The Institution,The Antenne,Maria,marin@a.a,0123456789,Directoro,Equipe,equipe@a.a,0123456789,Equipe,oui,oui
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,First IS,Second IS
+          The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,oui,
+          The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,,oui
+          The Institution,The Antenne,Maria,maria@a.a,0123456789,Directora,Equipe,equipe@a.a,0123456789,,
+          The Institution,The Antenne,Maria,marin@a.a,0123456789,Directoro,Equipe,equipe@a.a,0123456789,oui,oui
         CSV
       end
 
@@ -211,11 +211,11 @@ describe CsvImport::UserImporter, CsvImport do
     context 'merge the subjects of users in the same team' do
       let(:csv) do
         <<~CSV
-          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe,Sujet
-          The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,Equipe,First IS
-          The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,Equipe,Second IS
-          The Institution,The Antenne,Maria,maria@a.a,0123456789,Directora,Equipe,equipe@a.a,0123456789,Equipe,
-          The Institution,The Antenne,Maria,marin@a.a,0123456789,Directoro,Equipe,equipe@a.a,0123456789,Equipe,First IS
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Sujet
+          The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,First IS
+          The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,Second IS
+          The Institution,The Antenne,Maria,maria@a.a,0123456789,Directora,Equipe,equipe@a.a,0123456789,
+          The Institution,The Antenne,Maria,marin@a.a,0123456789,Directoro,Equipe,equipe@a.a,0123456789,First IS
         CSV
       end
 
