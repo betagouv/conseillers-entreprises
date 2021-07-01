@@ -8,6 +8,14 @@ module DiagnosisCreation
                   facility: Facility.new(company: Company.new(name: solicitation&.full_name)))
   end
 
+  def self.get_solicitation_description(params)
+    if params[:solicitation].present?
+      params[:solicitation].description
+    elsif params[:solicitation_id].present?
+      Solicitation.find(params[:solicitation_id])&.description
+    end
+  end
+
   # Actually create a diagnosis with nested attributes for #facility and #company
   def self.create_diagnosis(params)
     Diagnosis.transaction do
@@ -144,36 +152,7 @@ module DiagnosisCreation
     def prepare_matches_from_solicitation
       return unless solicitation.present? && matches.blank?
 
-      institutions = solicitation.preselected_institutions || Institution.not_deleted
-
-      # Note: this query is the very core feature of Place des Entreprises.
-      # This is where we find experts for needs.
-      self.needs.each do |need|
-        expert_subjects = ExpertSubject
-          .in_commune(need.facility.commune)
-          .of_subject(need.subject)
-          .of_institution(institutions)
-          .in_company_registres(need.company)
-
-        if expert_subjects.present?
-          matches_params = expert_subjects.map{ |es| { expert: es.expert, subject: es.subject } }
-          need.matches.create(matches_params)
-        else
-          self.errors.add(:matches, :preselected_institution_has_no_relevant_experts)
-        end
-      end
-
-      self.matches.reload # self.matches is a through relationship; make sure it’s up to date.
-
-      self
-    end
-  end
-
-  def self.get_solicitation_description(params)
-    if params[:solicitation].present?
-      params[:solicitation].description
-    elsif params[:solicitation_id].present?
-      Solicitation.find(params[:solicitation_id])&.description
+      CreateMatches.new(self).call
     end
   end
 end

@@ -40,6 +40,47 @@ RSpec.describe ExpertSubject, type: :model do
         it{ is_expected.to eq [expert_subject] }
       end
     end
+
+    describe 'in_company_registres' do
+      subject{ described_class.in_company_registres(company) }
+
+      let(:need) { create :need, company: company }
+      let!(:expert_subject_cci) do
+        create :expert_subject,
+               expert: create(:expert, institution: create(:institution, name: 'cci'))
+      end
+      let!(:expert_subject_cma) do
+        create :expert_subject,
+               expert: create(:expert, institution: create(:institution, name: 'cma'))
+      end
+
+      context 'when company is rcs & rm' do
+        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: true }
+
+        it{ is_expected.to match_array [expert_subject_cci, expert_subject_cma] }
+      end
+
+      context 'when company is only rcs' do
+        let(:company) { create :company, inscrit_rcs: true, inscrit_rm: false }
+
+        it do
+          is_expected.to match_array [expert_subject_cci]
+        end
+        # it{ is_expected.to match_array [expert_subject_cci] }
+      end
+
+      context 'when company is only rm' do
+        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: true }
+
+        it{ is_expected.to match_array [expert_subject_cma] }
+      end
+
+      context 'when company is none' do
+        let(:company) { create :company, inscrit_rcs: false, inscrit_rm: false }
+
+        it{ is_expected.to match_array [expert_subject_cci, expert_subject_cma] }
+      end
+    end
   end
 
   describe 'csv_description' do
