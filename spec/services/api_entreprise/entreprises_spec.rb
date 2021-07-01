@@ -33,6 +33,10 @@ RSpec.describe ApiEntreprise::Entreprises do
       it 'doesnt set rcs subscription' do
         expect(company.entreprise.inscrit_rcs).to eq nil
       end
+
+      it 'doesnt set rm subscription' do
+        expect(company.entreprise.inscrit_rm).to eq nil
+      end
     end
 
     context 'SIREN is missing' do
@@ -86,9 +90,10 @@ RSpec.describe ApiEntreprise::Entreprises do
     end
   end
 
-  context 'RCS call' do
-    let(:company) { described_class.new(token, { url_keys: [:entreprises, :rcs] }).fetch(siren) }
+  context 'All calls' do
+    let(:company) { described_class.new(token, {}).fetch(siren) }
     let(:rcs_base_url) { 'https://entreprise.api.gouv.fr/v2/extraits_rcs_infogreffe' }
+    let(:rm_base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises_artisanales_cma' }
 
     context 'SIREN number exists and company is inscrit_rcs' do
       let(:token) { '1234' }
@@ -102,6 +107,9 @@ RSpec.describe ApiEntreprise::Entreprises do
         stub_request(:get, "#{rcs_base_url}#{url_base_params}").to_return(
           body: file_fixture('api_entreprise_extraits_rcs_infogreffe.json')
         )
+        stub_request(:get, "#{rm_base_url}#{url_base_params}").to_return(
+          body: file_fixture('api_entreprise_entreprises_artisanales_cma.json')
+        )
       end
 
       it 'creates an entreprise with good fields' do
@@ -112,9 +120,13 @@ RSpec.describe ApiEntreprise::Entreprises do
       it 'returns rcs subscription' do
         expect(company.entreprise.inscrit_rcs).to eq true
       end
+
+      it 'returns rm subscription' do
+        expect(company.entreprise.inscrit_rm).to eq true
+      end
     end
 
-    context 'SIREN number exists and company NOT inscrit_rcs' do
+    context 'SIREN number exists and company NOT inscrit_rcs NOR RM' do
       let(:token) { '1234' }
       let(:siren) { '123456789' }
       let(:url_base_params) { '/123456789?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234' }
@@ -126,6 +138,9 @@ RSpec.describe ApiEntreprise::Entreprises do
         stub_request(:get, "#{rcs_base_url}#{url_base_params}").to_return(
           body: file_fixture('api_entreprise_extraits_rcs_infogreffe_404.json')
         )
+        stub_request(:get, "#{rm_base_url}#{url_base_params}").to_return(
+          body: file_fixture('api_entreprise_entreprises_artisanales_cma_404.json')
+        )
       end
 
       it 'creates an entreprise with good fields' do
@@ -134,6 +149,10 @@ RSpec.describe ApiEntreprise::Entreprises do
 
       it 'returns no rcs subscription' do
         expect(company.entreprise.inscrit_rcs).to eq false
+      end
+
+      it 'returns no rm subscription' do
+        expect(company.entreprise.inscrit_rm).to eq false
       end
     end
 
@@ -147,6 +166,9 @@ RSpec.describe ApiEntreprise::Entreprises do
           status: 500, body: '{}'
         )
         stub_request(:get, "#{rcs_base_url}#{url_base_params}").to_return(
+          status: 500, body: '{}'
+        )
+        stub_request(:get, "#{rm_base_url}#{url_base_params}").to_return(
           status: 500, body: '{}'
         )
       end
@@ -170,6 +192,10 @@ RSpec.describe ApiEntreprise::Entreprises do
           status: 500,
           body: file_fixture('api_entreprise_extraits_rcs_infogreffe_422.json')
         )
+        stub_request(:get, "#{rm_base_url}#{url_base_params}").to_return(
+          status: 500,
+          body: file_fixture('api_entreprise_entreprises_artisanales_cma_422.json')
+        )
       end
 
       it 'raises an error' do
@@ -188,6 +214,10 @@ RSpec.describe ApiEntreprise::Entreprises do
           body: file_fixture('api_entreprise_401.json')
         )
         stub_request(:get, "#{rcs_base_url}#{url_base_params}").to_return(
+          status: 401,
+          body: file_fixture('api_entreprise_401.json')
+        )
+        stub_request(:get, "#{rm_base_url}#{url_base_params}").to_return(
           status: 401,
           body: file_fixture('api_entreprise_401.json')
         )

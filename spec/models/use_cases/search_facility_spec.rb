@@ -9,6 +9,8 @@ describe UseCases::SearchFacility do
   let(:siret) { '41816609600051' }
   let(:siren) { '418166096' }
   let(:token) { '1234' }
+  let(:inscrit_rcs) { true }
+  let(:inscrit_rm) { true }
 
   describe 'with_siret' do
     let!(:etablissements_instance) { ApiEntreprise::Etablissements.new(token) }
@@ -47,14 +49,18 @@ describe UseCases::SearchFacility do
       end
 
       it 'sets company and facility' do
-        expect(Company.last.siren).to eq siren
-        expect(Company.last.legal_form_code).to eq legal_form_code
-        expect(Company.last.code_effectif).to eq code_effectif
+        company = Company.last
+        facility = Facility.last
+        expect(company.siren).to eq siren
+        expect(company.legal_form_code).to eq legal_form_code
+        expect(company.code_effectif).to eq code_effectif
+        expect(company.inscrit_rcs).to eq inscrit_rcs
+        expect(company.inscrit_rm).to eq inscrit_rm
 
-        expect(Facility.last.siret).to eq siret
-        expect(Facility.last.commune.insee_code).to eq '75102'
-        expect(Facility.last.naf_code).to eq naf_code
-        expect(Facility.last.code_effectif).to eq code_effectif
+        expect(facility.siret).to eq siret
+        expect(facility.commune.insee_code).to eq '75102'
+        expect(facility.naf_code).to eq naf_code
+        expect(facility.code_effectif).to eq code_effectif
       end
     end
 

@@ -26,7 +26,8 @@ module UseCases
           legal_form_code: legal_form_code,
           code_effectif: code_effectif,
           date_de_creation: date_de_creation,
-          inscrit_rcs: api_entreprise_company.entreprise.inscrit_rcs
+          inscrit_rcs: api_entreprise_company.entreprise.inscrit_rcs,
+          inscrit_rm: api_entreprise_company.entreprise.inscrit_rm
         )
         company
       end

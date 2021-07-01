@@ -6,7 +6,8 @@ module ApiEntreprise
 
     KEY_CLASSES_MAPPING = {
       entreprises: EntrepriseRequest::Entreprises,
-      rcs: EntrepriseRequest::Rcs
+      rcs: EntrepriseRequest::Rcs,
+      rm: EntrepriseRequest::Rm
     }
 
     def initialize(token, siren, connection, options = {})
@@ -45,7 +46,7 @@ module ApiEntreprise
 
     # Par défaut, on appelle toutes les url (cas le + fréquent)
     def url_keys
-      options[:url_keys] || [:entreprises, :rcs]
+      options[:url_keys] || [:entreprises, :rcs, :rm]
     end
 
     def errors
