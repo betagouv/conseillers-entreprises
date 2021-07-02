@@ -1,6 +1,25 @@
 require 'rails_helper'
 
 describe CsvImport::BaseImporter, CsvImport do
+  describe 'with blank line' do
+    subject(:result) { Antenne.import_csv(csv, institution: institution) }
+
+    let(:institution) { create :institution, name: 'Test Institution' }
+
+    context 'blank row' do
+      let(:csv) do
+        <<~CSV
+          Institution,Nom,Codes commune
+          Test Institution,Antenne1,12345
+          ,,
+          Test Institution,Antenne2,23456
+        CSV
+      end
+
+      it { is_expected.to be_success }
+    end
+  end
+
   describe 'automatic column separator detection' do
     subject(:result) { Antenne.import_csv(csv, institution: institution) }
 

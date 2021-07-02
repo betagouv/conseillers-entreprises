@@ -51,14 +51,15 @@ module CsvImport
 
     def open_with_separator(input, col_sep)
       begin
+        common_options = { headers: true, col_sep: col_sep, skip_blanks: true,skip_lines: /^(?:,\s*)+$/ }
         if input.respond_to?(:open)
           # Unfortunately, CSV::read only takes files…
           # … and CSV::new takes strings or IO, but the IO needs to be already open.
           # @input is a file:
-          CSV.read(input, headers: true, col_sep: col_sep)
+          CSV.read(input, common_options)
         else
           # @input is a string:
-          CSV.new(input, headers: true, col_sep: col_sep).read
+          CSV.new(input, common_options).read
         end
       rescue CSV::MalformedCSVError => e
         return e
