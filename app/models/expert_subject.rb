@@ -59,19 +59,18 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :in_company_registres, -> (company) do
+    return if (company.all_registres? || company.none_registres?)
     if company.inscrit_rcs && !company.inscrit_rm
-      for_institution('cci')
+      except_institution('cma')
     elsif !company.inscrit_rcs && company.inscrit_rm
-      for_institution('cma')
-    else # Have both or have none
-      for_institution('cci').or(for_institution('cma'))
+      except_institution('cci')
     end
   end
 
-  scope :for_institution, -> (institution_slug) do
+  scope :except_institution, -> (institution_slug) do
     institution = Institution.find_by(slug: institution_slug)
     return if institution.nil?
-    where(expert: institution.experts)
+    where.not(expert: institution.experts)
   end
 
   scope :support_for, -> (diagnosis) do

@@ -50,4 +50,12 @@ class Company < ApplicationRecord
   def to_s
     name
   end
+
+  def all_registres?
+    inscrit_rcs && inscrit_rm
+  end
+
+  def none_registres?
+    !inscrit_rcs && !inscrit_rm
+  end
 end

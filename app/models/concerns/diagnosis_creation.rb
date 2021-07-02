@@ -152,7 +152,7 @@ module DiagnosisCreation
     def prepare_matches_from_solicitation
       return unless solicitation.present? && matches.blank?
 
-      CreateMatches.new(self).call
+      CreateDiagnosis::CreateMatches.new(self).call
     end
   end
 end
