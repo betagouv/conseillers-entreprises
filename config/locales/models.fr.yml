@@ -507,8 +507,6 @@ fr:
     user: Conseiller
     visit: Visite
     visitee: Personne rencontrée
-  contact:
-    default_role_from_solicitation: "(Sollicitation déposée sur Place des entreprises)"
   deleted_account:
     full_name: "(Compte supprimé)"
   no_data: Données manquantes

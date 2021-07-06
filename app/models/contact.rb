@@ -31,7 +31,7 @@ class Contact < ApplicationRecord
 
   ## Validations
   #
-  validates :company, :role, presence: true
+  validates :company, presence: true
   validate :at_least_email_or_phone_number
 
   ##
