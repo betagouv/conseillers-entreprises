@@ -18,15 +18,6 @@
       - grouped_subjects.each_value do |subjects|
         - subjects.each do |subject, institutions_subjects|
           %th{ colspan: institutions_subjects.size }= subject.label
-    %tr
-      %th.rowspanned
-      %th.rowspanned
-      %th.rowspanned
-      -# Subjects columns, third and last row: the institutions_subjects.
-      - grouped_subjects.each_value do |subjects|
-        - subjects.each_value do |institutions_subjects|
-          - institutions_subjects.each do |institution_subject|
-            %th= institution_subject.description
     %tr.advisors-count
       %th.rowspanned
       %th.rowspanned
