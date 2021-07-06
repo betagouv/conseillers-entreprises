@@ -113,7 +113,24 @@ describe CsvImport::UserImporter, CsvImport do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
-          The Institution,	Antenna,Mario Dupont,mario.dupont@antenne.com,0123456789,Cheffe,Equipe,	equipe@antenne.com  ,0987654321
+          The Institution,Antenna,Mario Dupont,   mario.dupont@antenne.com,0123456789,Cheffe,Equipe,	equipe@antenne.com  ,0987654321
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.teams.count).to eq 1
+        team = institution.experts.teams.first
+        expect(team.email).to eq 'equipe@antenne.com'
+        expect(User.find_by(email: 'mario.dupont@antenne.com').experts).to include(expert)
+      end
+    end
+
+    context 'with tab and no capital letter in antenne name' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
+          The Institution,  antenna,Mario Dupont,mario.dupont@antenne.com,0123456789,Cheffe,Equipe,	equipe@antenne.com  ,0987654321,Equipe des chefs
         CSV
       end
 

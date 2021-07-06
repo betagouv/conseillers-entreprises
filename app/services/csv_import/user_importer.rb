@@ -19,7 +19,8 @@ module CsvImport
     def preprocess(attributes)
       attributes = sanitize_inputs(attributes)
       institution = Institution.find_by(name: attributes[:institution]) || @options[:institution]
-      antenne = Antenne.find_by(institution: institution, name: attributes[:antenne])
+      antenne = institution.antennes.where('lower(name) = ?', attributes[:antenne].squish.downcase).first
+      antenne ||= Antenne.new(institution: institution, name: attributes[:antenne].strip)
       attributes.delete(:institution)
       attributes[:antenne] = antenne
     end
