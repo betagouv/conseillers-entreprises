@@ -23,6 +23,7 @@ describe CsvImport::UserImporter, CsvImport do
     end
 
     it do
+      expect(institution.experts.teams.count).to eq 0
       expect(result).to be_success
       expect(institution.advisors.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
     end
@@ -147,7 +148,7 @@ describe CsvImport::UserImporter, CsvImport do
       end
     end
 
-    context 'merge the subjects of users in the same team' do
+    context 'different users, same team, different subjects' do
       let(:csv) do
         <<~CSV
           Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,First IS,Second IS
@@ -159,11 +160,27 @@ describe CsvImport::UserImporter, CsvImport do
       end
 
       it do
+        expect(result).not_to be_success
+      end
+    end
+
+    context 'different users, same team, same subjects' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe,First IS,Second IS
+          The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,Equipe,,oui
+          The Institution,The Antenne,Marco,marco@a.a,0123456789,Directeur,Equipe,equipe@a.a,0123456789,Equipe,,oui
+          The Institution,The Antenne,Maria,maria@a.a,0123456789,Directora,Equipe,equipe@a.a,0123456789,Equipe,,oui
+          The Institution,The Antenne,Maria,marin@a.a,0123456789,Directoro,Equipe,equipe@a.a,0123456789,Equipe,,oui
+        CSV
+      end
+
+      it do
         expect(result).to be_success
         team = Expert.teams.first
         expect(team.users.count).to eq 4
-        expect(team.experts_subjects.count).to eq 2
-        expect(team.institutions_subjects.pluck(:description)).to eq ['First IS', 'Second IS']
+        expect(team.experts_subjects.count).to eq 1
+        expect(team.institutions_subjects.pluck(:description)).to eq ['Second IS']
       end
     end
   end
@@ -304,6 +321,35 @@ describe CsvImport::UserImporter, CsvImport do
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
       expect(other_antenne.advisors).to be_empty
+    end
+  end
+
+  context 'update existing team subjects' do
+    let(:first_csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe,First IS,Second IS
+        The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,Equipe,oui,oui
+      CSV
+    end
+
+    let(:csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe,First IS,Second IS
+        The Institution,The Antenne,Marie,marie@a.a,0123456789,Superchef,Equipe,equipe@a.a,0123456789,Equipe,,oui
+      CSV
+    end
+
+    before do
+      User.import_csv(first_csv, institution: institution)
+      team = Expert.teams.first
+      expect(team.experts_subjects.count).to eq 2
+    end
+
+    it do
+      expect(result).to be_success
+      team = Expert.teams.first
+      expect(team.experts_subjects.count).to eq 1
+      expect(team.institutions_subjects.pluck(:description)).to eq ['Second IS']
     end
   end
 end
