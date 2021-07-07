@@ -55,7 +55,7 @@ module CsvImport
 
     def team_mapping
       @team_mapping ||=
-        %i[team_email team_full_name team_phone_number team_role]
+        %i[team_email team_full_name team_phone_number]
           .index_by{ |k| User.human_attribute_name(k) }
     end
 

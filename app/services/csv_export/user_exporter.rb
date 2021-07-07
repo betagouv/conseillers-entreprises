@@ -33,8 +33,7 @@ module CsvExport
       {
         team_full_name: -> { relevant_expert.full_name if relevant_expert.team? },
         team_email: -> { relevant_expert.email if relevant_expert.team? },
-        team_phone_number: -> { relevant_expert.phone_number if relevant_expert.team? },
-        team_role: -> { relevant_expert.role if relevant_expert.team? },
+        team_phone_number: -> { relevant_expert.phone_number if relevant_expert.team? }
       }
     end
 

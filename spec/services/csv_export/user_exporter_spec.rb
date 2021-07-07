@@ -18,14 +18,14 @@ describe CsvExport::UserExporter, CsvExport do
   end
 
   describe 'with teams' do
-    let!(:expert) { create :expert, antenne: antenne, users: [user], full_name: 'Team 1', email: 'team@team.com', phone_number: '0987654321', role: 'Team Role' }
+    let!(:expert) { create :expert, antenne: antenne, users: [user], full_name: 'Team 1', email: 'team@team.com', phone_number: '0987654321' }
 
     subject { User.relevant_for_skills.export_csv(include_expert_team: true).csv }
 
     it do
       csv = <<~CSV
-        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe,Fonction de l’équipe
-        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Role,Team 1,team@team.com,09 87 65 43 21,Team Role
+        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Role,Team 1,team@team.com,09 87 65 43 21
       CSV
       is_expected.to eq csv
     end

@@ -134,8 +134,7 @@ module DiagnosisCreation
       self.build_visitee(full_name: solicitation.full_name,
                           email: solicitation.email,
                           phone_number: solicitation.phone_number,
-                          company: facility.company,
-                          role: I18n.t('contact.default_role_from_solicitation'))
+                          company: facility.company)
 
       self.save # Validate and save both the new visitee and the diagnosis
 

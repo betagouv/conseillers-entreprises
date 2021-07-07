@@ -20,8 +20,8 @@ module PersonHelper
   private
 
   def detailed_role(person)
-    if defined? person.antenne
-      "#{person.role} - #{person.antenne.name}"
+    if defined?(person.antenne)
+      [person.role, person.antenne.name].compact_blank.join(" - ")
     else
       person.role
     end
