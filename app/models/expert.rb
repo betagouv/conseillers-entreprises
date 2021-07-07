@@ -83,9 +83,7 @@ class Expert < ApplicationRecord
 
   ## Keys for flags
   #
-  FLAGS = %i[
-    can_edit_own_subjects
-  ]
+  FLAGS = %i[]
   store_accessor :flags, FLAGS.map(&:to_s)
 
   def fix_flag_values
