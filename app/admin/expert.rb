@@ -138,7 +138,7 @@ ActiveAdmin.register Expert do
         end
       end
 
-      attributes_table title: I18n.t('activerecord.models.institution_subject.other') do
+      attributes_table title: I18n.t('active_admin.expert.skills') do
         table_for expert.experts_subjects.ordered_for_interview do
           column(:theme)
           column(:subject)
@@ -152,10 +152,6 @@ ActiveAdmin.register Expert do
 
   action_item :normalize_values, only: :show do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
-  end
-
-  action_item :modify_subjects, only: :show do
-    link_to t('active_admin.expert.modify_subjects'), subjects_expert_path(expert)
   end
 
   ## Form

@@ -3,6 +3,7 @@ fr:
   active_admin:
     expert:
       modify_subjects: Modifier les domaines d’intervention
+      skills: "Compétences"
     flag:
       action:
         add: Activer une option
@@ -120,6 +121,7 @@ fr:
           other: Membres
       expert_subject:
         institution_subject: Compétence d’institution
+        intervention_criteria: Critères d’intervention
         role: rôle
       facility:
         company: Entreprise
