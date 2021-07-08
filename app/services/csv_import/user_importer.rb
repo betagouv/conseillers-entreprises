@@ -88,25 +88,23 @@ module CsvImport
     end
 
     def import_several_subjects(expert, all_attributes)
-      attributes = all_attributes.slice(*several_subjects_mapping.keys)
-        .transform_keys{ |k| several_subjects_mapping[k] }
-
-      # Avoid duplicate ExpertsSubjects
-      filtered_attributes = attributes.reject do |institution_subject, _|
-        expert.institutions_subjects.include? institution_subject
-      end
-
-      experts_subjects_attributes = filtered_attributes.map do |institution_subject, serialized_description|
-        if serialized_description.present?
-          {
-            institution_subject: institution_subject,
-            csv_description: serialized_description
-          }
-        end
+      experts_subjects_attributes = all_attributes.slice(*several_subjects_mapping.keys)
+        .transform_keys{ |k| several_subjects_mapping[k] }.map do |institution_subject, serialized_description|
+        {
+          institution_subject: institution_subject,
+          csv_description: serialized_description
+        }
       end.compact
 
-      expert.experts_subjects.new(experts_subjects_attributes)
-      expert.save
+      experts_subjects_attributes.each do |attributes|
+        experts_subject = expert.experts_subjects.find_by(institution_subject_id: attributes[:institution_subject].id)
+        # `serialized_description = nil` => l'expert avait le sujet mais ne l'a plus, donc à supprimer
+        if experts_subject.present? && attributes[:csv_description].nil?
+          experts_subject.destroy
+        elsif experts_subject.nil? && attributes[:csv_description].present? # sujet à rajouter si l'expert ne l'avait pas déjà
+          expert.experts_subjects.create(attributes)
+        end
+      end
     end
 
     def one_subject_mapping
