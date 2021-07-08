@@ -21,7 +21,14 @@ module UseCases
         legal_form_code = api_entreprise_company.entreprise['forme_juridique_code']
         code_effectif = api_entreprise_company.entreprise.dig('tranche_effectif_salarie_entreprise', 'code')
         company = Company.find_or_initialize_by siren: siren
-        company.update! name: company_name, legal_form_code: legal_form_code, code_effectif: code_effectif, date_de_creation: date_de_creation
+        company.update!(
+          name: company_name,
+          legal_form_code: legal_form_code,
+          code_effectif: code_effectif,
+          date_de_creation: date_de_creation,
+          inscrit_rcs: api_entreprise_company.entreprise.inscrit_rcs,
+          inscrit_rm: api_entreprise_company.entreprise.inscrit_rm
+        )
         company
       end
 

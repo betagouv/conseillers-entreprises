@@ -22,7 +22,7 @@
       - @diagnosis.needs.ordered_for_interview.each do |need|
         .ui.segment.shadow-less
           %h3.ui.header= need.subject
-          - experts_subjects = ExpertSubject.relevant_for(need)
+          - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
           - support_subject = ExpertSubject.support_for(@diagnosis)
           - if experts_subjects.present?
             = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects

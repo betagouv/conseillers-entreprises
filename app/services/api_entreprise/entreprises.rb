@@ -18,13 +18,13 @@ module ApiEntreprise
     def fetch_from_api(siren)
       connection = HTTP
 
-      entreprise_response = EntrepriseRequest.new(token, siren, connection, options).response
+      entreprise_request = EntrepriseRequests.new(token, siren, connection, options).call
 
-      if !entreprise_response.success?
-        raise ApiEntrepriseError, entreprise_response.error_message
+      if !entreprise_request.success?
+        raise ApiEntrepriseError, entreprise_request.error_message
       end
 
-      entreprise_response.entreprise_wrapper
+      EntrepriseWrapper.new(entreprise_request.data)
     end
   end
 end

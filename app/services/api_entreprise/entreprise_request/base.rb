@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module ApiEntreprise
-  class EntrepriseRequest
+  class EntrepriseRequest::Base
     attr_reader :token, :siren, :connection, :options
+
+    BASE_URL = "https://entreprise.api.gouv.fr/v2/"
 
     def initialize(token, siren, connection, options = {})
       @token = token
@@ -13,25 +15,30 @@ module ApiEntreprise
 
     def response
       http_response = connection.get(url)
-      EntrepriseResponse.new(http_response)
-    end
-
-    def url
-      # TODO: Send more relevant recipient and object values
-      api_entreprises_params = {
-        token: token,
-        context: 'PlaceDesEntreprises',
-        recipient: 'PlaceDesEntreprises',
-        object: 'PlaceDesEntreprises',
-        non_diffusables: non_diffusables
-      }.to_query
-      "https://entreprise.api.gouv.fr/v2/entreprises/#{siren}?#{api_entreprises_params}"
+      responder.new(http_response)
     end
 
     private
 
-    def non_diffusables
-      options[:non_diffusables] || true
+    def url_key
+      @url_key ||= ""
+    end
+
+    def url
+      "#{BASE_URL}#{url_key}/#{siren}?#{request_params}"
+    end
+
+    def request_params
+      {
+        token: token,
+        context: 'PlaceDesEntreprises',
+        recipient: 'PlaceDesEntreprises',
+        object: 'PlaceDesEntreprises'
+      }.to_query
+    end
+
+    def responder
+      @responder ||= EntrepriseResponse::Base
     end
   end
 end

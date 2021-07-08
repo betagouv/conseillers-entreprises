@@ -63,7 +63,7 @@ describe 'New Solicitation', type: :system, js: true do
         # expect(page).to have_content('OCTO-TECHNOLOGY')
         # find(".autocomplete__option", match: :first).click
 
-        # option 2 : working in local, not with circle-ci
+        # option 2
         option = find(".autocomplete__option")
         expect(option).to have_content('OCTO-TECHNOLOGY')
         page.execute_script("document.querySelector('.autocomplete__option').click()")
