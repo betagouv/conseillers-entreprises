@@ -341,13 +341,12 @@ describe CsvImport::UserImporter, CsvImport do
 
     before do
       User.import_csv(first_csv, institution: institution)
-      team = Expert.teams.first
-      expect(team.experts_subjects.count).to eq 2
     end
 
     it do
-      expect(result).to be_success
       team = Expert.teams.first
+      expect(team.experts_subjects.count).to eq 2
+      expect(result).to be_success
       expect(team.experts_subjects.count).to eq 1
       expect(team.institutions_subjects.pluck(:description)).to eq ['Second IS']
     end
