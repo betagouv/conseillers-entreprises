@@ -18,10 +18,9 @@ module CsvImport
     end
 
     def find_instance(attributes)
-      institution_antennes = Antenne.where(institution: attributes[:institution])
-      antenne = institution_antennes.where('lower(name) = ?', attributes[:name].squish.downcase).first
-      antenne ||= Antenne.new(institution: attributes[:institution], name: attributes[:name].strip)
-      antenne
+      antenne = Antenne.flexible_find_or_initialize(attributes[:institution], attributes[:name])
+      attributes.delete(:name)
+      return antenne, attributes
     end
   end
 end
