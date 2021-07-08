@@ -10,6 +10,8 @@ module Archivable
         where(archived_at: nil)
       end
     end
+    scope :not_archived, -> { where(archived_at: nil) }
+    scope :is_archived, -> { where.not(archived_at: nil) }
 
     ransacker(:archived, formatter: -> (value) {
       archived(value).ids.presence

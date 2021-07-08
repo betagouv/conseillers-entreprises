@@ -33,8 +33,10 @@ fr:
       from_solicitation: Sollicitations
       from_visit: Visites
       invitation_not_accepted: Invitations pas encore acceptées
+      is_archived: Archivés
       never_used: Non connectable
       no_team: Solo
+      not_archived: Non archivés
       not_taken_after_3_weeks: 3 semaines sans réponse
       personal_skillsets: Individuel
       relevant_for_skills: Compétences visibles

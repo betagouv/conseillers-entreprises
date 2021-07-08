@@ -8,6 +8,9 @@ ActiveAdmin.register Subject do
   #
   include AdminArchivable
 
+  scope :not_archived, default: true
+  scope :is_archived
+
   ## Index
   #
   includes :theme, :institutions_subjects, :experts, :matches, :needs, :institutions
@@ -20,9 +23,6 @@ ActiveAdmin.register Subject do
     end
     column :theme, sortable: 'themes.interview_sort_order'
     column :interview_sort_order
-    column :is_archived do |s|
-      status_tag t('archivable.archive_done') if s.is_archived
-    end
     column :is_support do |d|
       status_tag t('activerecord.attributes.subject.is_support') if d.is_support
     end
@@ -39,7 +39,6 @@ ActiveAdmin.register Subject do
     end
   end
 
-  filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
   filter :is_support
   filter :theme, collection: -> { Theme.ordered_for_interview }
   filter :label
