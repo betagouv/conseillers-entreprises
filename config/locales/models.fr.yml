@@ -2,7 +2,7 @@
 fr:
   active_admin:
     expert:
-      skills: "Compétences"
+      skills: Compétences
     flag:
       action:
         add: Activer une option
