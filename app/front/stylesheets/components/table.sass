@@ -26,6 +26,9 @@
           left: 0
           position: sticky
           background-color: rgb(247, 247, 247) // same color as the initial rgba(0, 0, 0, 0.03), but opaque
+        &.yellow
+          background: #fff9d2
+          color: #B58105
     th, td.td-header
       position: sticky
       top: 0
@@ -37,6 +40,7 @@
       background-color: var(--beige)
       color: var(--g700)
       font-weight: 700
+      z-index: 0
     thead tr.subjects th
       top: 64px
     thead tr.advisors-count th
@@ -48,3 +52,7 @@
       border-rihgt: 0.125rem solid var(--g600)
     .tr--distinct:not(:first-child) td
       border-top: 4px solid rgba(34,36,38,0.1)
+    tr.blue, tr.blue td
+      background-color: $grey-blue-lighter
+    .dashed
+      border-bottom: 1px dashed

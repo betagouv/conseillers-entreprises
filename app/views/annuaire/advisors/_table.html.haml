@@ -39,8 +39,8 @@
             - highlighted_ids = flash[:table_highlighted_ids]
             - team_first_row = index_in_antenne == 0 && index_in_team == 0
             - team_separation_class = team_first_row ? 'tr--distinct' : ''
-            - highlihted_class = highlighted_ids&.include?(user.id) ? 'blue' : ''
-            %tr{ class: [team_separation_class, highlihted_class].compact.join(" ") }
+            - highlighted_class = highlighted_ids&.include?(user.id) ? 'blue' : ''
+            %tr{ class: [team_separation_class, highlighted_class].compact.join(" ") }
               - if team_first_row
                 %td.td-header{ rowspan: teams.values.sum(&:size) }
                   = link_to antenne, institution_antenne_advisors_path(antenne_id: antenne)
