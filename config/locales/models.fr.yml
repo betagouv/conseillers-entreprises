@@ -2,7 +2,7 @@
 fr:
   active_admin:
     expert:
-      modify_subjects: Modifier les domaines d’intervention
+      skills: Compétences
     flag:
       action:
         add: Activer une option
@@ -110,7 +110,6 @@ fr:
         phone_number: Numéro de téléphone de la personne rencontrée
         role: Fonction de la personne rencontrée
       expert:
-        can_edit_own_subjects: Peut modifier ses compétences
         full_name: Nom de l’équipe
         is_global_zone: Global
         reminders_notes: Suivi des relances
@@ -120,6 +119,7 @@ fr:
           other: Membres
       expert_subject:
         institution_subject: Compétence d’institution
+        intervention_criteria: Critères d’intervention
         role: rôle
       facility:
         company: Entreprise
