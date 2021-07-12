@@ -86,4 +86,9 @@ class Antenne < ApplicationRecord
       "#{I18n.t('app_name')} <#{ENV['APPLICATION_EMAIL']}>"
     end
   end
+
+  def self.flexible_find_or_initialize(institution, name)
+    antenne = institution.antennes.find_by('lower(name) = ?', name.squish.downcase)
+    antenne ||= Antenne.new(institution: institution, name: name.squish)
+  end
 end

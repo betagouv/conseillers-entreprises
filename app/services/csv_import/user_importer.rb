@@ -19,7 +19,7 @@ module CsvImport
     def preprocess(attributes)
       attributes = sanitize_inputs(attributes)
       institution = Institution.find_by(name: attributes[:institution]) || @options[:institution]
-      antenne = Antenne.find_by(institution: institution, name: attributes[:antenne])
+      antenne = Antenne.flexible_find_or_initialize institution, attributes[:antenne]
       attributes.delete(:institution)
       attributes[:antenne] = antenne
     end
@@ -32,7 +32,7 @@ module CsvImport
     end
 
     def find_instance(attributes)
-      User.find_or_initialize_by(email: attributes[:email]) # Handle casing, see #1408
+      return User.find_or_initialize_by(email: attributes[:email]), attributes # Handle casing, see #1408
     end
 
     def postprocess(user, attributes)

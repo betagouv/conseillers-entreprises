@@ -29,7 +29,8 @@ module CsvImport
           preprocess(attributes)
 
           # Create objects
-          object = find_instance(attributes)
+          object, attributes = find_instance(attributes)
+
           object.update(attributes)
 
           postprocess(object, row)
