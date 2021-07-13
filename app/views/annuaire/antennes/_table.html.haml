@@ -21,4 +21,4 @@
               - summary[:territories].each do |hash|
                 %li #{hash[:territory].name} (#{hash[:included]})
               - if summary[:other] > 0
-                %li #{I18n.t('other') } (#{summary[:other]})
+                %li #{I18n.t('other')} (#{summary[:other]})
