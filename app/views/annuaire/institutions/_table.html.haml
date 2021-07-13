@@ -1,27 +1,25 @@
-%table.ui.definition.selectable.celled.table
-  %thead
-    %tr
-      %th
-      %th= Institution.human_attribute_name(:subjects)
-      %th= Institution.human_attribute_name(:antennes)
-      %th= Institution.human_attribute_name(:advisors)
-  %tbody
-    - institutions.each do |institution|
+.fr-table--c-annuaire
+  %table
+    %thead
       %tr
-        - url = url_for(institution)
-        %td.selectable
-          %a{ href: url }
-            %h4.ui.image.header
-              .ui.mini.image= institution_image institution.name
-              .content
-                = institution.name
-        %td
-          = link_to [institution, :subjects] do
-            - institution.institutions_subjects.group_by(&:theme).each do |theme, institutions_subjects|
-              %li #{theme.label} (#{institutions_subjects.size})
-        %td
-          = link_to [institution, :antennes] do
-            = institution.not_deleted_antennes.human_count
-        %td
-          = link_to [institution, :advisors] do
-            = institution.advisors.human_count
+        %th= Institution.model_name.human
+        %th= Institution.human_attribute_name(:subjects)
+        %th= Institution.human_attribute_name(:antennes)
+        %th= Institution.human_attribute_name(:advisors)
+    %tbody
+      - institutions.each do |institution|
+        %tr
+          %td.fr-enlarge-link
+            = institution_image institution.name
+            = link_to institution.name, url_for(institution), class: 'fr-text--lg'
+          %td.fr-enlarge-link
+            = link_to [institution, :subjects] do
+              %ul
+                - institution.institutions_subjects.group_by(&:theme).each do |theme, institutions_subjects|
+                  %li #{theme.label} (#{institutions_subjects.size})
+          %td.fr-enlarge-link
+            = link_to [institution, :antennes] do
+              = institution.not_deleted_antennes.human_count
+          %td.fr-enlarge-link
+            = link_to [institution, :advisors] do
+              = institution.advisors.human_count

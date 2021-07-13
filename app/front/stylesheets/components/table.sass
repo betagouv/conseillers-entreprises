@@ -11,48 +11,62 @@
   margin-bottom: 2.5rem
   table
     border-spacing: 0
-    td, th
-      padding: 0.75rem
-      text-align: left
-      vertical-align: middle
-      display: table-cell
-      font-size: 0.875rem
-      line-height: 1.5rem
-    tbody
-      td
-        border-left: 1px solid rgba(34,36,38,0.1)
-        border-bottom: 1px solid rgba(34,36,38,0.1)
-        &.td-header
-          left: 0
-          position: sticky
-          background-color: rgb(247, 247, 247) // same color as the initial rgba(0, 0, 0, 0.03), but opaque
-        &.yellow
-          background: #fff9d2
-          color: #B58105
-    th, td.td-header
+    border-top: 0.125rem solid $grey
+  td, th
+    padding: 0.75rem
+    text-align: left
+    vertical-align: middle
+    display: table-cell
+    font-size: 0.875rem
+    line-height: 1.5rem
+  td
+    border-left: 1px solid $grey-light
+    border-bottom: 1px solid $grey-light
+    &:last-child
+      border-right: 1px solid $grey-light
+    &.td-header
+      left: 0
       position: sticky
-      top: 0
-      border-left: 0.125rem solid #6a6a6a
-      border-bottom: 0.125rem solid #6a6a6a
-      border-left: 0.125rem solid var(--g600)
-      border-bottom: 0.125rem solid var(--g600)
-      background-color: #f9f8f6
-      background-color: var(--beige)
-      color: var(--g700)
-      font-weight: 700
-      z-index: 0
-    thead tr.subjects th
-      top: 64px
-    thead tr.advisors-count th
-      top: 191px
-    th
-      z-index: 2
-    td.td-advisor
-      border-right: 0.125rem solid #6a6a6a
-      border-rihgt: 0.125rem solid var(--g600)
-    .tr--distinct:not(:first-child) td
-      border-top: 4px solid rgba(34,36,38,0.1)
-    tr.blue, tr.blue td
-      background-color: $grey-blue-lighter
-    .dashed
-      border-bottom: 1px dashed
+    &.yellow
+      background: #fff9d2
+      color: #B58105
+  th, td.td-header
+    position: sticky
+    top: 0
+    border-left: 0.125rem solid $grey
+    border-bottom: 0.125rem solid $grey
+    background-color: $fr-beige
+    background-color: $fr-beige
+    color: var(--g700)
+    font-weight: 700
+    z-index: 0
+  th:last-child
+    border-right: 0.125rem solid $grey
+  th
+    z-index: 1
+  // sticky header
+  thead tr.subjects th
+    top: 64px
+  thead tr.advisors-count th
+    top: 191px
+  tbody tr:hover
+    background: rgba(0,0,0,0.02)
+    .td-header
+      background-color: darken($fr-beige, 2%)
+  td.td-advisor
+    border-right: 0.125rem solid $grey
+  .tr--distinct:not(:first-child) td
+    border-top: 4px solid $grey-light
+  tr.blue, tr.blue td
+    background-color: $grey-blue-lighter
+  .dashed
+    border-bottom: 1px dashed
+  img
+    max-width: 50px
+    max-height: 30px
+    margin-right: 5px
+  .fr-enlarge-link a
+    box-shadow: none
+  .fr-enlarge-link:hover
+    cursor: pointer
+    background: rgba(0,0,0,0.03)
