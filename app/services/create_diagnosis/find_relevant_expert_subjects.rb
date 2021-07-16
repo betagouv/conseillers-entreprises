@@ -8,6 +8,7 @@ module CreateDiagnosis
 
     def call
       ExpertSubject
+        .joins(:not_deleted_expert)
         .in_commune(need.facility.commune)
         .of_subject(need.subject)
         .of_institution(institutions)
