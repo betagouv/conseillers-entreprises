@@ -11,9 +11,9 @@ ActiveAdmin.register Contact do
     selectable_column
     column(:coordinates, sortable: :full_name) do |c|
       div admin_link_to(c)
-      div '☞ ' + c.role
-      div '✉ ' + c.email
-      div '✆ ' + c.phone_number
+      div '☞ ' + (c.role.presence || '')
+      div '✉ ' + (c.email || '')
+      div '✆ ' + (c.phone_number || '')
     end
     column(:company) do |c|
       div admin_link_to(c, :company)
