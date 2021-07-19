@@ -1,24 +1,21 @@
-%table.ui.definition.celled.table
-  %thead
-    %tr
-      %th
-      %th= InstitutionSubject.human_attribute_name(:subject)
-      %th= InstitutionSubject.human_attribute_name(:description)
-  %tbody
-    -# We’re building a three-column table, but the cells in the first and second columns span over multiple rows
-      We’re grouping themes, and then subjects, together.
-    - grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
-    - grouped_subjects.each do |theme, subjects|
-      - subjects.each_with_index do |key_and_value, subject_index|
-        - subject, institutions_subjects = key_and_value.first, key_and_value.last
-        - institutions_subjects.each_with_index do |institution_subject, institution_subject_index|
-          %tr
-            - if subject_index == 0 && institution_subject_index == 0
-              %td{ rowspan: subjects.values.sum(&:size) }= theme.label
-            - else
-              %td.rowspanned
-            - if institution_subject_index == 0
-              %td{ rowspan: institutions_subjects.size }= subject.label
-            - else
-              %td.rowspanned
-            %td= institution_subject.description
+.fr-table--c-annuaire
+  %table
+    %thead
+      %tr
+        %th
+        %th= InstitutionSubject.human_attribute_name(:subject)
+        %th= InstitutionSubject.human_attribute_name(:description)
+    %tbody
+      -# We’re building a three-column table, but the cells in the first and second columns span over multiple rows
+        We’re grouping themes, and then subjects, together.
+      - grouped_subjects = institutions_subjects.group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
+      - grouped_subjects.each do |theme, subjects|
+        - subjects.each_with_index do |key_and_value, subject_index|
+          - subject, institutions_subjects = key_and_value.first, key_and_value.last
+          - institutions_subjects.each_with_index do |institution_subject, institution_subject_index|
+            %tr
+              - if subject_index == 0 && institution_subject_index == 0
+                %td.td-header{ rowspan: subjects.values.sum(&:size) }= theme.label
+              - if institution_subject_index == 0
+                %td{ rowspan: institutions_subjects.size }= subject.label
+              %td= institution_subject.description

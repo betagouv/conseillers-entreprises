@@ -161,9 +161,7 @@ fr:
       header:
         one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
         other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
-  exit_fullscreen: Quitter le plein écran
   experts_login: Accès conseillers
-  fullscreen: Plein écran
   helpers:
     select:
       prompt: Veuillez sélectionner

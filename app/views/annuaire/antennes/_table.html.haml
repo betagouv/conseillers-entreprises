@@ -1,23 +1,24 @@
-%table.ui.definition.celled.table
-  %thead
-    %tr
-      %th
-      %th= Antenne.human_attribute_name(:advisors, count: 2)
-      %th= Antenne.human_attribute_name(:intervention_zone)
-  %tbody
-    - antennes.each do |antenne|
-      - highlighted_ids = flash[:table_highlighted_ids]
-      %tr{ class: highlighted_ids&.include?(antenne.id) ? 'blue' : '' }
-        %td
-          = link_to antenne, institution_antenne_advisors_path(antenne_id: antenne)
-        %td
-          %ul
-            %li= antenne.experts.human_count
-            %li= antenne.advisors.human_count
-        %td
-          %ul
-            - summary = antenne.intervention_zone_summary
-            - summary[:territories].each do |hash|
-              %li #{hash[:territory].name} (#{hash[:included]})
-            - if summary[:other] > 0
-              %li #{I18n.t('other')} (#{summary[:other]})
+.fr-table--c-annuaire
+  %table
+    %thead
+      %tr
+        %th
+        %th= Antenne.human_attribute_name(:advisors, count: 2)
+        %th= Antenne.human_attribute_name(:intervention_zone)
+    %tbody
+      - antennes.each do |antenne|
+        - highlighted_ids = flash[:table_highlighted_ids]
+        %tr{ class: highlighted_ids&.include?(antenne.id) ? 'blue' : '' }
+          %td.fr-enlarge-link
+            = link_to antenne, institution_antenne_advisors_path(antenne_id: antenne)
+          %td
+            %ul
+              %li= antenne.experts.human_count
+              %li= antenne.advisors.human_count
+          %td
+            %ul
+              - summary = antenne.intervention_zone_summary
+              - summary[:territories].each do |hash|
+                %li #{hash[:territory].name} (#{hash[:included]})
+              - if summary[:other] > 0
+                %li #{I18n.t('other')} (#{summary[:other]})
