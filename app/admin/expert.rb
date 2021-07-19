@@ -31,7 +31,7 @@ ActiveAdmin.register Expert do
     column(:full_name) do |e|
       div admin_link_to(e)
       unless e.deleted?
-        div '➜ ' + e.role
+        div '➜ ' + (e.role || '')
         div '✉ ' + (e.email || '')
         div '✆ ' + (e.phone_number || '')
       end

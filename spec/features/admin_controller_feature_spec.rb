@@ -19,6 +19,27 @@ describe 'admin panel', type: :feature do
   describe 'user access to admin pages' do
     before do
       current_user.update is_admin: true
+      # Dummy data, so as to thoroughly check views
+      create(:antenne)
+      create(:badge)
+      create(:commune)
+      create(:company)
+      create(:contact_with_email)
+      create(:diagnosis)
+      create(:expert_subject)
+      create(:expert)
+      create(:facility)
+      create(:feedback, :for_need)
+      create(:institution_subject)
+      create(:institution)
+      create(:landing_option)
+      create(:landing_topic)
+      create(:landing)
+      create(:match)
+      create(:subject)
+      create(:theme)
+      create(:user)
+
       visit '/admin'
 
       click_link 'Utilisateurs'
