@@ -10,8 +10,9 @@ module  Annuaire
         .order('antennes.name', 'team_name', 'users.full_name')
         .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
 
-      @institutions_subjects = @institution.institutions_subjects
+      @grouped_subjects = @institution.institutions_subjects
         .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
+        .group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
 
       respond_to do |format|
         format.html
