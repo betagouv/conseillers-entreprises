@@ -31,7 +31,7 @@ fr:
     advisors:
       table:
         edit_expert: Modifier %{expert_name} - %{antenne}
-        experts_on_subject: "%{count} référents sur ce sujet"
+        experts_on_subject: "%{count} référents sur le sujet %{subject}"
     base:
       import_errors:
         import_failed: Échec de l’import

@@ -108,6 +108,8 @@ class Expert < ApplicationRecord
       .where(users: { id: User.unscoped.single_expert })
   end
 
+  scope :with_users, -> { joins(:users) }
+
   scope :without_users, -> do
     # Experts without members can’t connect to the app.
     # This is not a normal state, but can happen during referencing
@@ -192,7 +194,7 @@ class Expert < ApplicationRecord
   ## Team stuff
   def personal_skillset?
     users.size == 1 &&
-      users.first.email == self.email
+      users.first.email.casecmp(self.email).zero?
   end
 
   def without_users?
