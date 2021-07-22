@@ -440,6 +440,7 @@ fr:
       subjet_achived: Le besoin a été archivé
       unarchive: Désarchiver
     collections:
+      archived: Expirées
       done: Clôturées
       expired: Expirées
       not_for_me: Refusées
