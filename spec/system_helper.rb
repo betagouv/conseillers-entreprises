@@ -28,3 +28,7 @@ def create_base_dummy_data
   create(:theme)
   create(:user)
 end
+
+def side_menu_link(path)
+  find("a[href='#{path}']").sibling('span')
+end
