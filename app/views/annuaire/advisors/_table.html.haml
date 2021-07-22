@@ -19,12 +19,12 @@
         - grouped_subjects.each_value do |subjects|
           - subjects.each do |subject, institutions_subjects|
             - institutions_subjects.each do |institution_subject|
-              - experts = institution_subject.not_deleted_experts
+              - experts = institution_subject.not_deleted_experts.with_users
               - if local_assigns[:antenne]
                 - experts &= antenne.experts
               - count = experts.size
               - anomalie = (count == 0 || (local_assigns[:antenne] && count > 1))
-              %th.right.aligned{ title: t('.experts_on_subject', count: count), class: ('red' if anomalie) }
+              %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description), class: ('red' if anomalie) }
                 = count
                 - if anomalie
                   %i.red.ri-error-warning-fill
