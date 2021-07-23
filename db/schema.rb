@@ -280,6 +280,42 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.index ["slug"], name: "index_landing_options_on_slug", unique: true
   end
 
+  create_table "landing_subjects", force: :cascade do |t|
+    t.bigint "landing_theme_id", null: false
+    t.bigint "subject_id", null: false
+    t.string "title"
+    t.string "slug"
+    t.text "description"
+    t.integer "position"
+    t.string "meta_title"
+    t.string "meta_description"
+    t.string "form_title"
+    t.text "form_description"
+    t.text "description_explanation"
+    t.boolean "requires_siret", default: false, null: false
+    t.boolean "requires_requested_help_amount", default: false, null: false
+    t.boolean "requires_location", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
+    t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
+  end
+
+  create_table "landing_themes", force: :cascade do |t|
+    t.bigint "landing_id"
+    t.string "title"
+    t.string "slug"
+    t.text "description"
+    t.integer "position"
+    t.string "meta_title"
+    t.string "meta_description"
+    t.string "subtitle"
+    t.string "logos"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["landing_id"], name: "index_landing_themes_on_landing_id"
+  end
+
   create_table "landing_topics", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -310,6 +346,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.string "partner_url"
     t.boolean "emphasis", default: false
     t.string "main_logo"
+    t.boolean "single_page", default: false
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end
@@ -491,6 +528,9 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_options", "landings"
+  add_foreign_key "landing_subjects", "landing_themes"
+  add_foreign_key "landing_subjects", "subjects"
+  add_foreign_key "landing_themes", "landings"
   add_foreign_key "landing_topics", "landings"
   add_foreign_key "landings", "institutions"
   add_foreign_key "matches", "experts"
