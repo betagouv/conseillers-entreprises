@@ -33,7 +33,9 @@
       -# `advisors` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
       - grouped_advisors = advisors.group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
+      - highlighted_antennes_ids = flash[:highlighted_antennes_ids]
       - grouped_advisors.each do |antenne, teams|
+        - next if highlighted_antennes_ids.present? && flash[:highlighted_antennes_ids].exclude?(antenne.id)
         - teams.each_with_index do |key_and_value, index_in_antenne|
           - advisors = key_and_value.last
           - advisors.each_with_index do |user, index_in_team|
