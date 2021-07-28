@@ -1,5 +1,5 @@
 module  Annuaire
-  class AdvisorsController < BaseController
+  class UsersController < BaseController
     def index
       @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
 

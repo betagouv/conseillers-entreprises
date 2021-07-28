@@ -1,9 +1,9 @@
 .ui.secondary.fitted.menu
   .item
-    = link_to institution_advisors_path(format: 'csv'), class: 'ui labeled icon' do
+    = link_to institution_users_path(format: 'csv'), class: 'ui labeled icon' do
       %span.ri-download-2-line.fr-mr-1w
       = t('download')
   .item
-    = link_to import_institution_advisors_path, class: 'ui labeled icon' do
+    = link_to import_institution_users_path, class: 'ui labeled icon' do
       %span.ri-upload-2-line.fr-mr-1w
       = t('import')
