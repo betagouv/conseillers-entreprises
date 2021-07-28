@@ -35,6 +35,7 @@ class Subject < ApplicationRecord
   belongs_to :theme, inverse_of: :subjects
 
   has_many :needs, inverse_of: :subject
+  has_many :landing_subjects, inverse_of: :subject
   has_many :institutions_subjects, inverse_of: :subject
 
   ## Validations

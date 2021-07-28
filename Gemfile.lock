@@ -94,6 +94,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    acts_as_list (1.0.4)
+      activerecord (>= 4.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     anbt-sql-formatter (0.0.7)
@@ -598,6 +600,7 @@ DEPENDENCIES
   activeadmin-ajax_filter
   activeadmin_blaze_theme
   activerecord-postgres_enum
+  acts_as_list
   annotate
   auto_strip_attributes
   awesome_print
@@ -686,4 +689,4 @@ RUBY VERSION
    ruby 2.7.3p183
 
 BUNDLED WITH
-   2.2.3
+   2.2.16

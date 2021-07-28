@@ -1,35 +1,35 @@
-- meta title: t('.meta.title'), description: t('.meta.description')
+-# - meta title: t('.meta.title'), description: t('.meta.description')
 
-- unless in_iframe?
-  %section.section.section-white.less-padding
-    .container
-      .row
-        .home-title
-          %h1
-            = t('.question')
-          %p
-            = t('.answer')
-          .links
-            = render 'pages/cta_button'
-            = link_to t('.how-it-works'), comment_ca_marche_path
+-# - unless in_iframe?
+-#   %section.section.section-white.less-padding
+-#     .container
+-#       .row
+-#         .home-title
+-#           %h1
+-#             = t('.question')
+-#           %p
+-#             = t('.answer')
+-#           .links
+-#             = render 'pages/cta_button'
+-#             = link_to t('.how-it-works'), comment_ca_marche_path
 
-        #image-home
-          = image_tag('home.png', alt: "")
+-#         #image-home
+-#           = image_tag('home.png', alt: "")
 
-- unless in_iframe?
-  .section.section-light-grey.blank-section#scroll-section
+-# - unless in_iframe?
+-#   .section.section-light-grey.blank-section#scroll-section
 
-%section.section.section-grey#section-thematiques
-  .container
-    = render 'index_landing_cards', landings: @landings
+-# %section.section.section-grey#section-thematiques
+-#   .container
+-#     = render 'index_landing_cards', landings: @landings
 
-- unless in_iframe?
-  .section.section-lightest-grey.section-partners
-    .container.text-center
-      - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
-        = render 'index_institutions'
+-# - unless in_iframe?
+-#   .section.section-lightest-grey.section-partners
+-#     .container.text-center
+-#       - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
+-#         = render 'index_institutions'
 
-  %section.section.section-white.container-newsletter
-    .container
-      = render 'newsletter'
+-#   %section.section.section-white.container-newsletter
+-#     .container
+-#       = render 'newsletter'
 

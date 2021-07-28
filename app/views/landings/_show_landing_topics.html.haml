@@ -1,11 +1,11 @@
-- topics_groups = landing.landing_topics.grouped_for_landing
+-# - topics_groups = landing.landing_topics.grouped_for_landing
 
-- if topics_groups.present?
-  - topics_groups.each do |name, topics|
-    %h2= name.presence || t('you_wish')
-    .landing-topics
-      = render topics
+-# - if topics_groups.present?
+-#   - topics_groups.each do |name, topics|
+-#     %h2= name.presence || t('you_wish')
+-#     .landing-topics
+-#       = render topics
 
-  - unless in_iframe?
-    .ui.text-center.other
-      %b= landing.message_under_landing_topics&.html_safe
+-#   - unless in_iframe?
+-#     .ui.text-center.other
+-#       %b= landing.message_under_landing_topics&.html_safe

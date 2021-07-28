@@ -279,9 +279,9 @@ fr:
       navigation_page: navigation pages
   landing_topics:
     landing_topic:
-      choose: Choisir
+
   landings:
-    index:
+    home:
       answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
       how-it-works: Comment ça marche
       meta:
@@ -291,9 +291,37 @@ fr:
     index_institutions:
       more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
       title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
-    index_landing_card:
-      discover: Choisir
-    index_landing_cards:
+    landing_themes:
+      card:
+        discover: Choisir
+      show:
+        back_to_other_subjects: "Vous souhaitez être accompagné sur un autre sujet ? <a href=\"/\">Découvrez les autres sujets.</a>"
+        catch_phrase: "Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider."
+      institutions:
+        institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
+    landing_subjects:
+      card:
+        choose: Choisir
+      new_solicitation_form:
+        attributes:
+          help:
+            indiffusible_siret_html: Nous ne trouvons pas votre SIRET. Peut-être est-il non-diffusible ? <br>Pour que nous puissions bien vous orienter, veuillez préciser la ville de votre établissement dans la description de votre demande.
+            not_in_deployed_region_html: Place des Entreprises n’est pas encore ouvert sur votre territoire. Abonnez-vous à la newsletter pour être informé de l’arrivée du service dans votre région.
+            siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
+            siret_html: Recherche libre possible (nom, activité, ville...)
+          placeholder:
+            description: Décrivez votre demande.
+            email: marie.dupont@exemple.fr
+            full_name: 'ex: Marie Dupont'
+            location: Hauts-de-France; région de Milly-la-forêt; 91260…
+            phone_number: 06 12 34 56 78
+            requested_help_amount: 8 000 €
+            role: Conseiller entreprise, Chargé de mission…
+            siret: 123 456 789 00010
+            team_name: Équipe formation, Cellule-conseil aux entreprises…
+        button:
+          title: Envoyer ma demande
+    landing_theme_cards:
       contact_us: cliquez ici !
       discover_measures: Découvrir les mesures
       other_questions: Pour toute autre demande,
@@ -301,26 +329,7 @@ fr:
       five_days_contact_html: Déposez votre demande, un conseiller vous rappelle <b>dans les 5 jours</b> (Délai moyen de prise en charge).
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
-    new_solicitation_form:
-      attributes:
-        help:
-          indiffusible_siret_html: Nous ne trouvons pas votre SIRET. Peut-être est-il non-diffusible ? <br>Pour que nous puissions bien vous orienter, veuillez préciser la ville de votre établissement dans la description de votre demande.
-          not_in_deployed_region_html: Place des Entreprises n’est pas encore ouvert sur votre territoire. Abonnez-vous à la newsletter pour être informé de l’arrivée du service dans votre région.
-          siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
-          siret_html: Recherche libre possible (nom, activité, ville...)
-        placeholder:
-          description: Décrivez votre demande.
-          email: marie.dupont@exemple.fr
-          full_name: 'ex: Marie Dupont'
-          location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
-          phone_number: 06 12 34 56 78
-          requested_help_amount: 8 000 €
-          role: Conseiller entreprise, Chargé de mission…
-          siret: 123 456 789 00010
-          team_name: Équipe formation, Cellule-conseil aux entreprises…
       better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
-      button:
-        title: Envoyer ma demande
       clic_newsletter: Je m'abonne.
       description: Description de votre demande
       form: Formulaire
@@ -619,7 +628,7 @@ fr:
       landing_options: 'Aides demandées :'
       needs_historic: Historique de l'entreprise
       siret: 'Siret :'
-      slug: 'Page thématique :'
+      source: 'Source :'
     solicitation_actions:
       prepare_diagnosis_errors:
         one: Erreur à la préparation

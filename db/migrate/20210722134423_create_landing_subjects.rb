@@ -1,14 +1,13 @@
 class CreateLandingSubjects < ActiveRecord::Migration[6.1]
   def change
     create_table :landing_themes do |t|
-      t.references :landing, null: true, foreign_key: true
       t.string :title
       t.string :slug
       t.text :description
-      t.integer :position
       t.string :meta_title
       t.string :meta_description
       t.string :logos
+      t.string :main_logo
       t.timestamps null: false
     end
 
@@ -30,7 +29,19 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
 
       t.timestamps null: false
     end
-    add_column :landings, :single_page, :boolean, default: false
+
+    create_table :landing_joint_themes do |t|
+      t.references :landing
+      t.references :landing_theme
+      t.integer :position
+      t.timestamps null: false
+    end
+
+    add_column :landings, :layout, :string, default: 'multiple_steps'
+    change_column_null :solicitations, :landing_slug, true
+
+    add_reference :solicitations, :landing, foreign_key: true, null: true
+    add_reference :solicitations, :landing_subject, foreign_key: true, null: true
 
     # Utilisé uniquement sur "relance"
     # - emphasis
@@ -40,31 +51,27 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
     up_only do
       def defaults_landing_theme_attributes(landing)
         {
-          landing_id: landing.id,
           title: landing.home_title,
-          slug: landing.home_title.parameterize,
+          slug: landing.slug,
           description: landing.home_description || landing.meta_description,
-          position: landing.home_sort_order,
           meta_title: landing.meta_title,
           meta_description: landing.meta_description,
+          logos: landing.logos,
+          main_logo: landing.main_logo
         }
       end
 
       def defaults_landing_subject_attributes(landing_theme, landing_topic)
-        p "defaults_landing_subject_attributes =========="
-        p landing_topic
         landing_option = LandingOption.find_by(slug: landing_topic.landing_option_slug)
         subject = Subject.find_by(slug: landing_option.preselected_subject_slug)
-        p landing_option
-        p subject
         {
           landing_theme_id: landing_theme.id,
           subject_id: subject.id,
           title: landing_topic.title,
           slug: landing_topic.title.parameterize,
           description: landing_topic.description,
-          position: landing_topic.landing_sort_order,
           meta_title: landing_option.meta_title,
+          meta_description: nil,
           form_title: landing_option.form_title,
           form_description: landing_option.form_description,
           description_explanation: landing_option.description_explanation,
@@ -75,34 +82,51 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       end
 
       ## Home Landing
-      home_landing = Landing.create(
-        title: 'home',
-        slug: 'home'
+      home_landing = Landing.where(slug: 'home').first_or_create(
+        title: 'home'
       )
 
       # Themes de la page d'accueil
-      Landing.where.not(home_sort_order: nil).each do |landing|
-        landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
-          landing_id: home_landing.id
-        )
-        landing_theme = LandingTheme.create(landing_theme_attributes)
+      Landing.where.not(home_sort_order: nil).order(:home_sort_order).each do |landing|
+        landing_theme_attributes = defaults_landing_theme_attributes(landing)
+        landing_theme = home_landing.landing_themes.create(landing_theme_attributes)
+        p "THEME ============="
+        p landing_theme
+
         landing.landing_topics.order(:landing_sort_order).each do |lt|
           ls_attributes = defaults_landing_subject_attributes(landing_theme, lt)
           LandingSubject.create(ls_attributes)
+        end
+
+        landing.solicitations.each do |sol|
+          landing_option = sol.landing_option
+          p sol.landing_option&.preselected_subject_slug
+          if landing_option.present?
+            landing_subject = retrieve_landing_subject(landing_option) || landing_theme.landing_subjects.first
+          else
+            landing_subject = landing_theme.landing_subjects.first
+          end
+          p landing_subject&.slug
+
+          sol.update(
+            landing_id: home_landing.id,
+            landing_slug: home_landing.slug,
+            landing_subject_id: landing_subject&.id || nil
+          )
         end
       end
 
       # Landing avec des group_name
       Landing.where(slug: ['relance', 'brexit', 'relance-hautsdefrance']).each do |landing|
-        landing.update(single_page: true)
+        landing.update(layout: 'single_page')
         # Create themes for each group_name
         landing.landing_topics.order(:landing_sort_order).pluck(:group_name).compact.each_with_index do |group_name, idx|
           landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
             title: group_name,
             slug: group_name.parameterize,
-            position: idx
+            # position: idx
           )
-          LandingTheme.create(landing_theme_attributes)
+          landing.landing_themes.create(landing_theme_attributes)
         end
         landing.landing_topics.order(:landing_sort_order).each do |lt|
           landing_theme = LandingTheme.find_by(title: lt.group_name)
@@ -113,18 +137,37 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
 
       ## Landing "contactez-nous"
       Landing.where(slug: ['contactez-nous']).each do |landing|
-        landing.update(single_page: true)
+        landing.update(layout: 'single_page')
         landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
           title: 'Échanger avec un conseiller pour :',
-          position: 1
+          # position: 1
         )
-        landing_theme = LandingTheme.create(landing_theme_attributes)
+        landing_theme = landing.landing_themes.create(landing_theme_attributes)
         landing.landing_topics.order(:landing_sort_order).each do |lt|
           ls_attributes = defaults_landing_subject_attributes(landing_theme, lt)
           LandingSubject.create(ls_attributes)
         end
       end
+
+      ## MaJ solicitations restantes
+      Solicitation.where(landing_subject: nil).each do |sol|
+        landing = Landing.find_by(slug: sol.landing_slug)
+        landing_option = sol.landing_option
+        if landing_option.present?
+          landing_subject = retrieve_landing_subject(landing_option)
+        end
+
+        sol.update(
+          landing_id: landing&.id,
+          landing_subject_id: landing_subject&.id || nil
+        )
+      end
+
     end
+  end
+  def retrieve_landing_subject(landing_option)
+    subject = Subject.find_by(slug: landing_option.preselected_subject_slug)
+    LandingSubject.find_by(subject_id: subject.id)
   end
 end
 

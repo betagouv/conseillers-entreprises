@@ -1,0 +1,60 @@
+:ruby
+  meta title: @landing_subject&.meta_title.presence || @landing_subject.landing_theme.meta_title, description: @landing_subject&.meta_description.presence || @landing_subject.landing_theme.meta_description
+
+- unless in_iframe?
+  %section.section.section-white.landing.less-padding
+    .container
+      .landing-header
+        .title
+          %h1= @landing_subject&.form_title.presence || @landing_subject.title
+          %p.subtitle= t('.catch_phrase')
+
+-# - if @landing.home_sort_order.present?
+-#   = render 'pages/breadcrumbs', landing: @landing, @landing_subject: @landing_subject
+
+- if @solicitation.persisted?
+  %section.section.section-grey#section-thankyou
+    .container.container-medium
+      = render 'new_solicitation_thank_you', solicitation: @solicitation
+      - if @landing_subject.landing_theme.logos.present?
+        .logo-list
+          = region_image(session[:region_code])
+          - @landing_subject.landing_theme.logos.split.each do |logo_slug|
+            = institution_image(logo_slug)
+
+  - unless in_iframe?
+    %section.section.section-white.container-newsletter
+      .container
+        = render 'newsletter', email: @solicitation.email
+
+    %section.section.section-grey
+      .container.section__title
+        %a{ :href => "https://voxusagers.numerique.gouv.fr/Demarches/2666?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=217cc9ca5ab6c2999a02839fdd402d01", target: '_blank' }
+          %img{ :alt => t('.give_my_opinion_alt'), :src => "https://voxusagers.numerique.gouv.fr/static/bouton-blanc.svg", :title => t('.give_my_opinion_title') }
+
+- if @solicitation.new_record?
+  %section.section.section-grey.landing#section-formulaire
+    .container
+      - unless in_iframe?
+        .notification.warning.contact-delay
+          = image_tag('5days.png', alt: '')
+          %span
+            = t('.five_days_contact_html')
+      .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
+        = render 'new_solicitation_form', landing_subject: @landing_subject, solicitation: @solicitation, path: create_solicitation_landing_subject_path(@landing, @landing_subject, institution: params[:institution].presence)
+        - unless in_iframe?
+          - if @landing_subject&.form_description.present?
+            .description
+              %div= sanitize @landing_subject&.form_description&.html_safe
+
+  %section.section.section-white.out-region.container-newsletter#newsletter{ "data-error": "newsletter" }
+    .container
+      = render 'newsletter'
+
+  - unless in_iframe?
+    %section.section.section-white.landing
+      = render 'pages/how_it_works'
+
+    %section.section.section-grey
+      .container
+        = render 'landings/landing_themes/institutions', landing_theme: @landing_subject.landing_theme

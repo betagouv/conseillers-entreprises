@@ -36,29 +36,16 @@ module SolicitationHelper
     link_to name, path, method: :post, remote: true, class: classes.join(' ')
   end
 
-  def selected_options_tags(solicitation, classes = %[])
-    tags = solicitation.landing_options_slugs.map do |slug|
-      option = LandingOption.find_by(slug: slug)
-      if option.present?
-        title_components = {}
-        if option.preselected_institution_slug.present?
-          institution = option.preselected_institution&.name || option.preselected_institution_slug
-          title_components[t('attributes.institution')] = institution
-        end
-        if option.preselected_subject_slug.present?
-          subject = option.preselected_subject&.label || option.preselected_subject_slug
-          title_components[t('attributes.subject')] = subject
-        end
+  def subject_tag(solicitation, classes = %[])
+    landing_subject = solicitation.landing_subject
+    if landing_subject.present?
+      title_components = {}
+      subject = landing_subject.subject
+      title_components[t('attributes.subject')] = subject
+      title = "#{t('attributes.subject')} : #{subject}"
 
-        title = title_components.map{ |k,v| "#{k} : #{v}" }.join("\n")
-
-        tag.div(slug.humanize, class: classes, title: title)
-      else
-        tag.div(slug.humanize, class: classes)
-      end
+      link_to landing_subject.title, landing_subject_path(solicitation.landing, solicitation.landing_subject), class: classes, title: title
     end
-
-    tags.join.html_safe
   end
 
   def link_to_diagnosis(diagnosis)

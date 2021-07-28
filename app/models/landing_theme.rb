@@ -1,7 +1,8 @@
 class LandingTheme< ApplicationRecord
   ## Associations
   #
-  belongs_to :landing, inverse_of: :landing_themes, optional: true
+  has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing_theme, dependent: :destroy
+  has_many :landings, through: :landing_joint_themes
   has_many :landing_subjects, inverse_of: :landing_theme, dependent: :destroy
 
 
@@ -9,9 +10,9 @@ class LandingTheme< ApplicationRecord
   #
   validates :slug, presence: true, uniqueness: true
 
-  ## Scopes
-  #
-  scope :ordered_for_landing, -> { order(:position, :id) }
+  def to_s
+    slug
+  end
 
   def to_param
     slug

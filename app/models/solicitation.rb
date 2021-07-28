@@ -41,7 +41,11 @@ class Solicitation < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
+  # belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
+  belongs_to :landing, inverse_of: :solicitations, optional: true
+  belongs_to :landing_subject, inverse_of: :solicitations, optional: true
+  has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
+
   has_one :diagnosis, inverse_of: :solicitation
   has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
   has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
@@ -66,7 +70,7 @@ class Solicitation < ApplicationRecord
 
   ## Validations
   #
-  validates :landing_slug, :description, presence: true, allow_blank: false
+  validates :landing, :description, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   validate on: :create do
     # All visible fields are required on creation
@@ -208,10 +212,11 @@ class Solicitation < ApplicationRecord
   ## Visible fields in form
   #
   # Used \when a solicitation is made without a landing_option
+  BASE_REQUIRED_FIELDS = %i[full_name phone_number email]
   DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
 
   def required_fields
-    landing_option&.required_fields || DEFAULT_REQUIRED_FIELDS
+    BASE_REQUIRED_FIELDS + landing_subject&.required_fields || DEFAULT_REQUIRED_FIELDS
   end
 
   FIELD_TYPES = {
@@ -219,7 +224,6 @@ class Solicitation < ApplicationRecord
     phone_number: 'tel',
     email: 'email',
     siret: 'text',
-    requested_help_amount: 'text',
     location: 'text'
   }
 
