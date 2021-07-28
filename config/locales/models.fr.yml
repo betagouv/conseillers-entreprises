@@ -132,9 +132,9 @@ fr:
         reminder: Relance
         solicitation: Solicitation
       institution:
-        advisors: Conseillers
         antennes: Antennes
         subjects: Domaines
+        users: Conseillers
       landing:
         custom_css: CSS personnalisé
         emphasis: Mettre en avant sur la page d’accueil

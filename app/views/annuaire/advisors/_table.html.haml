@@ -15,7 +15,7 @@
         - grouped_subjects.each_value do |subjects|
           - subjects.each do |subject, institutions_subjects|
             %th{ colspan: institutions_subjects.size, title: subject.label }= subject.label.truncate(30)
-      %tr.advisors-count
+      %tr.users-count
         - grouped_subjects.each_value do |subjects|
           - subjects.each do |subject, institutions_subjects|
             - institutions_subjects.each do |institution_subject|
@@ -33,15 +33,15 @@
                   %span.orange.ri-error-warning-fill
 
     %tbody
-      -# `advisors` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
+      -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
-      - grouped_advisors = advisors.group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
+      - grouped_users = users.group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
       - highlighted_antennes_ids = flash[:highlighted_antennes_ids]
-      - grouped_advisors.each do |antenne, teams|
+      - grouped_users.each do |antenne, teams|
         - next if highlighted_antennes_ids.present? && flash[:highlighted_antennes_ids].exclude?(antenne.id)
         - teams.each_with_index do |key_and_value, index_in_antenne|
-          - advisors = key_and_value.last
-          - advisors.each_with_index do |user, index_in_team|
+          - users = key_and_value.last
+          - users.each_with_index do |user, index_in_team|
             - highlighted_ids = flash[:table_highlighted_ids]
             - team_first_row = index_in_team == 0
             - antenne_first_row = index_in_antenne == 0 && team_first_row
@@ -52,10 +52,10 @@
                 %td.td-header{ rowspan: teams.values.sum(&:size) }
                   = link_to antenne, institution_antenne_advisors_path(antenne_id: antenne)
               - if index_in_team == 0
-                %td.td-header{ rowspan: advisors.size }
+                %td.td-header{ rowspan: users.size }
                   - if user.relevant_expert.team?
                     = link_to user.relevant_expert.full_name, edit_admin_expert_path(user.relevant_expert), title: t('.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne)
-              %td.td-header.td-advisor
+              %td.td-header.td-user
                 = link_to user.full_name, edit_admin_expert_path(user.relevant_expert), title: t('.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne)
               - if index_in_team == 0
                 - grouped_subjects.each_value do |subjects|
@@ -66,7 +66,7 @@
                       - raise 'There should only be one ExpertSubject' if experts_subjects.size > 1
                       - expert_subject = experts_subjects.first
                       -# The InstitutionSubjects cells themselves are spanned on all the rows of the members of the expert team.
-                      %td{ rowspan: advisors.size, class: ('yellow' if expert_subject.present?) }
+                      %td{ rowspan: users.size, class: ('yellow' if expert_subject.present?) }
                         - if expert_subject.present?
                           - intervention_criteria = expert_subject.intervention_criteria
                           - if intervention_criteria.present?
