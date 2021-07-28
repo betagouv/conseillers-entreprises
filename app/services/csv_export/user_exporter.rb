@@ -55,5 +55,9 @@ module CsvExport
         [title, lambda]
       end.to_h
     end
+
+    def sort_relation(relation)
+      relation.preload(*preloaded_associations).sort_by{ |u| [u.antenne.name, u.relevant_expert&.full_name] }
+    end
   end
 end
