@@ -4,7 +4,10 @@ module CsvExport
       {
         institution: -> { institution.name },
         name: :name,
-        insee_codes: :insee_codes
+        insee_codes: :insee_codes,
+        manager_full_name: :manager_full_name,
+        manager_email: :manager_email,
+        manager_phone: :manager_phone
       }
     end
 

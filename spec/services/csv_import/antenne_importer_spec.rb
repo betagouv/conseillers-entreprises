@@ -49,8 +49,8 @@ describe CsvImport::AntenneImporter, CsvImport do
   context 'two antennes' do
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes commune
-        Test Institution,Antenne1,00001 00002
+        Institution,Nom,Codes commune,Nom du responsable,Email du responsable,Téléphone du responsable
+        Test Institution,Antenne1,00001 00002,Mariane Martin, mariane.m@gouv.fr,0123456789
         Test Institution,Antenne2,00003 00004
       CSV
     end
@@ -58,8 +58,12 @@ describe CsvImport::AntenneImporter, CsvImport do
     it do
       expect(result).to be_success
       expect(result.objects.count).to eq 2
-      expect(result.objects.map(&:name)).to eq %w[Antenne1 Antenne2]
       expect(Commune.pluck(:insee_code)).to match_array %w[00001 00002 00003 00004]
+      expect(Antenne.find_by(name: 'Antenne1').communes.pluck(:insee_code)).to eq %w[00001 00002]
+      expect(Antenne.find_by(name: 'Antenne2').communes.pluck(:insee_code)).to eq %w[00003 00004]
+      expect(Antenne.find_by(name: 'Antenne1').manager_full_name).to eq 'Mariane Martin'
+      expect(Antenne.find_by(name: 'Antenne1').manager_email).to eq 'mariane.m@gouv.fr'
+      expect(Antenne.find_by(name: 'Antenne1').manager_phone).to eq '0123456789'
     end
   end
 
@@ -78,6 +82,27 @@ describe CsvImport::AntenneImporter, CsvImport do
     it do
       expect(result).to be_success
       expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00002'
+    end
+  end
+
+  context 'Add manager to existing antenne without INSEE codes' do
+    before do
+      create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
+    end
+
+    let(:csv) do
+      <<~CSV
+        Institution,Nom,Codes commune,Nom du responsable,Email du responsable,Téléphone du responsable
+        Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
+      CSV
+    end
+
+    it do
+      expect(result).to be_success
+      expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00001'
+      expect(Antenne.find_by(name: 'Antenne1').manager_full_name).to eq 'Mariane Martin'
+      expect(Antenne.find_by(name: 'Antenne1').manager_email).to eq 'mariane.m@gouv.fr'
+      expect(Antenne.find_by(name: 'Antenne1').manager_phone).to eq '0123456789'
     end
   end
 

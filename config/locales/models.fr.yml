@@ -455,6 +455,11 @@ fr:
     label: Intitulé
     legal_form_code: Forme juridique
     logo_sort_order: Position du logo sur la page d'accueil
+    manager: Responsable
+    manager_email: Email du responsable
+    manager_full_name: Nom du responsable
+    manager_phone: Téléphone du responsable
+    managers: Responsables
     matched_antennes: Antennes MER
     matches:
       one: Mise en relation

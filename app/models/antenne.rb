@@ -2,12 +2,15 @@
 #
 # Table name: antennes
 #
-#  id             :bigint(8)        not null, primary key
-#  deleted_at     :datetime
-#  name           :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  institution_id :bigint(8)        not null
+#  id                :bigint(8)        not null, primary key
+#  deleted_at        :datetime
+#  manager_email     :string
+#  manager_full_name :string
+#  manager_phone     :string
+#  name              :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  institution_id    :bigint(8)        not null
 #
 # Indexes
 #
