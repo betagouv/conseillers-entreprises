@@ -2,7 +2,7 @@
 
 ActiveAdmin.register Subject do
   menu parent: :themes, priority: 1
-  actions :all, except: :destroy
+  actions :all
 
   ##
   #

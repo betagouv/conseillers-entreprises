@@ -62,6 +62,7 @@ class Subject < ApplicationRecord
   #
   scope :ordered_for_interview, -> do
     left_outer_joins(:theme)
+      .not_archived
       .merge(Theme.ordered_for_interview)
       .order(:interview_sort_order, :id)
   end
