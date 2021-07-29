@@ -23,17 +23,22 @@
               - if local_assigns[:antenne]
                 - experts &= antenne.experts
               - count = experts.size
-              - anomalie = (count == 0 || (local_assigns[:antenne] && count > 1))
-              %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description), class: ('red' if anomalie) }
+              - anomalie_less = count == 0
+              - anomalie_more = local_assigns[:antenne] && count > 1
+              %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description), class: (('red' if anomalie_less) || ('orange' if anomalie_more)) }
                 = count
-                - if anomalie
-                  %i.red.ri-error-warning-fill
+                - if anomalie_less
+                  %span.red.ri-error-warning-fill
+                - if anomalie_more
+                  %span.orange.ri-error-warning-fill
 
     %tbody
       -# `advisors` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
       - grouped_advisors = advisors.group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
+      - highlighted_antennes_ids = flash[:highlighted_antennes_ids]
       - grouped_advisors.each do |antenne, teams|
+        - next if highlighted_antennes_ids.present? && flash[:highlighted_antennes_ids].exclude?(antenne.id)
         - teams.each_with_index do |key_and_value, index_in_antenne|
           - advisors = key_and_value.last
           - advisors.each_with_index do |user, index_in_team|
