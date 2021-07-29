@@ -1,16 +1,16 @@
-- content_for :head do
-  = render 'gtag_conversion'
+-# - content_for :head do
+-#   = render 'gtag_conversion'
 
-%h2.section__title{ class: "#{'text-left' unless in_iframe?}" }= t('.title')
+-# %h2.section__title{ class: "#{'text-left' unless in_iframe?}" }= t('.title')
 
-- if solicitation.institution
-  %p.section__subtitle
-    = t('.message_with_institution', institution: solicitation.institution.name)
+-# - if solicitation.institution
+-#   %p.section__subtitle
+-#     = t('.message_with_institution', institution: solicitation.institution.name)
 
-  = render 'matomo_partner_contact'
+-#   = render 'matomo_partner_contact'
 
-- else
-  %p.section__subtitle.text-left
-    = t('.message_html')
+-# - else
+-#   %p.section__subtitle.text-left
+-#     = t('.message_html')
 
-  = render 'matomo_company_contact_success'
+-#   = render 'matomo_company_contact_success'

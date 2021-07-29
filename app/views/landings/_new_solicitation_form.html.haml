@@ -1,51 +1,51 @@
-= form_with(model: solicitation, url: path, local: true, html: { honeypot: true }) do |f|
-  - if solicitation.errors.present?
-    = render 'matomo_company_contact_failure'
-  = f.hidden_field :landing_options_slugs, multiple: true
-  = f.hidden_field :landing_slug
-  .form__group
-    - solicitation.required_fields.each do |field|
-      .form__group
-        - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
+-# = form_with(model: solicitation, url: path, local: true, html: { honeypot: true }) do |f|
+-#   - if solicitation.errors.present?
+-#     = render 'matomo_company_contact_failure'
+-#   = f.hidden_field :landing_options_slugs, multiple: true
+-#   = f.hidden_field :landing_slug
+-#   .form__group
+-#     - solicitation.required_fields.each do |field|
+-#       .form__group
+-#         - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
 
-        - if field == :siret
-          // Duplication pour respecter l'accessibilité (id unique, field avec label...)
-          = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
-          - if help.present?
-            %span= help
-          %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint"), "data-deployed-regions": Territory.deployed_codes_regions }
-          = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
-          = f.hidden_field :code_region, data: { target: 'code-region-autocomplete' }
+-#         - if field == :siret
+-#           // Duplication pour respecter l'accessibilité (id unique, field avec label...)
+-#           = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
+-#           - if help.present?
+-#             %span= help
+-#           %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint"), "data-deployed-regions": Territory.deployed_codes_regions }
+-#           = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
+-#           = f.hidden_field :code_region, data: { target: 'code-region-autocomplete' }
 
-          %small.siret-warn{ "data-error": "indiffusible-siret" }= t(".attributes.help.indiffusible_siret_html")
-          .notification.warning.out-region{ "data-error": "not-in-deployed-region" }
-            = image_tag('info-alert-orange.png', alt: '')
-            = t(".attributes.help.not_in_deployed_region_html")
-            = link_to t('.clic_newsletter'), '#newsletter'
-        - else
-          = f.label field
-          - if help.present?
-            %span= help
-          = f.text_field field,
-            placeholder: t(".attributes.placeholder.#{field}"),
-            type: Solicitation::FIELD_TYPES[field],
-            required: true
+-#           %small.siret-warn{ "data-error": "indiffusible-siret" }= t(".attributes.help.indiffusible_siret_html")
+-#           .notification.warning.out-region{ "data-error": "not-in-deployed-region" }
+-#             = image_tag('info-alert-orange.png', alt: '')
+-#             = t(".attributes.help.not_in_deployed_region_html")
+-#             = link_to t('.clic_newsletter'), '#newsletter'
+-#         - else
+-#           = f.label field
+-#           - if help.present?
+-#             %span= help
+-#           = f.text_field field,
+-#             placeholder: t(".attributes.placeholder.#{field}"),
+-#             type: Solicitation::FIELD_TYPES[field],
+-#             required: true
 
-        .notification.error= solicitation.errors.full_messages_for(field).to_sentence
-  .form__group
-    = f.label 'description', t('.description')
-    - if solicitation.landing_option&.description_explanation.present?
-      .explanation
-        %div
-          = image_tag('info-alert.png', alt: '')
-          %span
-            = t('.better_taking_care')
-        %div= solicitation.landing_option&.description_explanation&.html_safe
-    = f.text_area 'description', placeholder: t("landings.new_solicitation_form.attributes.placeholder.description"), rows: 6, required: true
-    .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
-  .form__group
-    = f.submit t('.button.title'), class: 'button large'
-  .legal-notice
-    = t('.legal_notice_html',
-      mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
-      informations: link_to('mentions d’information', mentions_d_information_url))
+-#         .notification.error= solicitation.errors.full_messages_for(field).to_sentence
+-#   .form__group
+-#     = f.label 'description', t('.description')
+-#     - if solicitation.landing_option&.description_explanation.present?
+-#       .explanation
+-#         %div
+-#           = image_tag('info-alert.png', alt: '')
+-#           %span
+-#             = t('.better_taking_care')
+-#         %div= solicitation.landing_option&.description_explanation&.html_safe
+-#     = f.text_area 'description', placeholder: t("landings.new_solicitation_form.attributes.placeholder.description"), rows: 6, required: true
+-#     .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
+-#   .form__group
+-#     = f.submit t('.button.title'), class: 'button large'
+-#   .legal-notice
+-#     = t('.legal_notice_html',
+-#       mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
+-#       informations: link_to('mentions d’information', mentions_d_information_url))

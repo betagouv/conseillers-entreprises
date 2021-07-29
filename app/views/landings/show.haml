@@ -1,37 +1,42 @@
--# :ruby
--#   meta title: @landing.meta_title, description: @landing.meta_description
+:ruby
+  meta title: @landing.meta_title, description: @landing.meta_description
 
--# - cache_unless(flash.present?, [@landing, in_iframe?]) do
+- cache_unless(flash.present?, [@landing, in_iframe?]) do
 
--#   - unless in_iframe?
--#     %section.section.section-white.landing.less-padding
--#       .container
--#         .row.landing-header
--#           .title
--#             .heading
--#               - if @landing.main_logo
--#                 = display_image(name: @landing.main_logo)
--#               %h1= @landing.title
--#             %p.subtitle= @landing.subtitle
--#             .links
--#               = render 'pages/cta_button'
--#           .image
--#             = image_tag('home.png', alt: "")
+  - unless in_iframe?
+    %section.section.section-white.landing.less-padding
+      .container
+        .row.landing-header
+          .title
+            .heading
+              - if @landing.main_logo
+                = display_image(name: @landing.main_logo)
+              %h1= @landing.title
+            %p.subtitle= @landing.subtitle
+            .links
+              = render 'pages/cta_button'
+          .image
+            = image_tag('home.png', alt: "")
 
--#   - if @landing.home_sort_order.present?
--#     = render 'pages/breadcrumbs', landing: @landing
+  -# - if @landing.home_sort_order.present?
+  -#   = render 'pages/breadcrumbs', landing: @landing
 
--#   - unless in_iframe?
--#     #scroll-section
+  - unless in_iframe?
+    #scroll-section
 
--#   %section.section.section-grey#section-exemples
--#     .container
--#       = render 'show_landing_topics', landing: @landing
 
--#   - unless in_iframe?
--#     %section.section.section-light-grey.landing
--#       = render 'pages/how_it_works'
+  - if lookup_context.template_exists?("#{@landing.layout}", "landings", true)
+    = render @landing.layout, landing_themes: @landing.landing_themes, landing: @landing
 
--#     %section.section.section-white
--#       .container
--#         = render 'show_landing_institutions', landing: @landing
+  - else
+    %section.section.section-grey#section-thematiques
+      .container
+        = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
+
+  - unless in_iframe?
+    %section.section.section-light-grey.landing
+      = render 'pages/how_it_works'
+
+    %section.section.section-white
+      .container
+        = render 'show_landing_institutions', landing: @landing
