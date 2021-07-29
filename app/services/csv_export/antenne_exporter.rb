@@ -14,5 +14,9 @@ module CsvExport
         :communes,
       ]
     end
+
+    def sort_relation(relation)
+      relation.preload(*preloaded_associations).sort_by(&:name)
+    end
   end
 end

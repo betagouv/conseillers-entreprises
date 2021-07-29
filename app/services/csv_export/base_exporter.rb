@@ -19,7 +19,7 @@ module CsvExport
       CSV.generate do |csv|
         csv << attributes.keys.map{ |attr| klass.human_attribute_name(attr, default: attr) }
         row = attributes.values
-        @relation.preload(*preloaded_associations).find_each do |object|
+        sort_relation(@relation).each do |object|
           csv << row.map do |val|
             if val.respond_to? :call
               lambda = val
@@ -47,6 +47,10 @@ module CsvExport
     # The preloaded associations for the query
     def preloaded_associations
       raise NotImplementedError
+    end
+
+    def sort_relation(relation)
+      relation.preload(*preloaded_associations)
     end
   end
 end
