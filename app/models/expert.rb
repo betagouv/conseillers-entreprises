@@ -194,7 +194,7 @@ class Expert < ApplicationRecord
   ## Team stuff
   def personal_skillset?
     users.size == 1 &&
-      users.first.email.casecmp(self.email).zero?
+      users.first.email.casecmp(self.email)&.zero?
   end
 
   def without_users?
