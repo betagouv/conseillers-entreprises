@@ -1,4 +1,4 @@
-class LandingSubject< ApplicationRecord
+class LandingSubject < ApplicationRecord
   ## Associations
   #
   belongs_to :subject, inverse_of: :landing_subjects

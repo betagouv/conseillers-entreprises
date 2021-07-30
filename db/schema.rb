@@ -308,6 +308,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
+    t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
     t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
   end
 
@@ -322,6 +323,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.string "main_logo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
   end
 
   create_table "landing_topics", force: :cascade do |t|

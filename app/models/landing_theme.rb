@@ -1,10 +1,9 @@
-class LandingTheme< ApplicationRecord
+class LandingTheme < ApplicationRecord
   ## Associations
   #
   has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing_theme, dependent: :destroy
   has_many :landings, through: :landing_joint_themes
   has_many :landing_subjects, inverse_of: :landing_theme, dependent: :destroy
-
 
   ## Validation
   #

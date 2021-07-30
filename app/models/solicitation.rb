@@ -216,7 +216,11 @@ class Solicitation < ApplicationRecord
   DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
 
   def required_fields
-    BASE_REQUIRED_FIELDS + landing_subject&.required_fields || DEFAULT_REQUIRED_FIELDS
+    if landing_subject.present?
+      BASE_REQUIRED_FIELDS + landing_subject&.required_fields
+    else
+      DEFAULT_REQUIRED_FIELDS
+    end
   end
 
   FIELD_TYPES = {

@@ -3,7 +3,7 @@
     - landing_themes.each do |theme|
       %h2= theme.title || t('you_wish')
       .landing-topics
-        = render partial: 'landings/landing_subjects/card', collection: theme.landing_subjects, as: :landing_subject, locals: { landing: @landing }
+        = render partial: 'landings/landing_subjects/card', collection: theme.landing_subjects, as: :landing_subject, locals: { landing: landing }
 
     - unless in_iframe?
       .ui.text-center.other

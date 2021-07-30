@@ -8,7 +8,7 @@ RSpec.describe Solicitation, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :landing_slug }
+    it { is_expected.to validate_presence_of :landing }
     it { is_expected.to validate_presence_of :description }
     it { is_expected.to validate_presence_of :full_name }
     it { is_expected.to validate_presence_of :phone_number }

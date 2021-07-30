@@ -44,7 +44,7 @@ ActiveAdmin.register Landing do
       row :updated_at
     end
 
-    attributes_table title: I18n.t("landings.new_solicitation_form.form") do
+    attributes_table title: I18n.t("landings.landing_subjects.new_solicitation_form.form") do
       row :institution
       row :partner_url
     end
@@ -88,7 +88,7 @@ ActiveAdmin.register Landing do
 
     attributes_table title: I18n.t('activerecord.attributes.landing.landing_options') do
       table_for landing.landing_options.ordered_for_landing do
-        column I18n.t("landings.new_solicitation_form.form") do |option|
+        column I18n.t("landings.landing_subjects.new_solicitation_form.form") do |option|
           link_to option.slug, new_solicitation_landing_path(landing, option)
         end
         column :preselected_subject_slug
@@ -134,7 +134,7 @@ ActiveAdmin.register Landing do
       f.input :slug
     end
 
-    f.inputs I18n.t("landings.new_solicitation_form.form") do
+    f.inputs I18n.t("landings.landing_subjects.new_solicitation_form.form") do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
       f.input :partner_url
     end

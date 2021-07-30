@@ -32,3 +32,7 @@ end
 def side_menu_link(path)
   find("a[href='#{path}']").sibling('span')
 end
+
+def create_home_landing
+  home_landing = create(:landing, :with_subjects, slug: 'home')
+end

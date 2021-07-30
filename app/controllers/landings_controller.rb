@@ -40,7 +40,6 @@ class LandingsController < PagesController
     session[:solicitation_form_info] = form_info if form_info.present?
   end
 
-
   def show_params
     params.permit(:slug, *Solicitation::FORM_INFO_KEYS)
   end

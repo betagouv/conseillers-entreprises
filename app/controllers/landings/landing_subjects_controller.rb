@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Landings::LandingSubjectsController < Landings::BaseController
   before_action :retrieve_landing_subject
 

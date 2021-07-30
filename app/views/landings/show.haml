@@ -17,9 +17,9 @@
               = render 'pages/cta_button'
           .image
             = image_tag('home.png', alt: "")
-
-  -# - if @landing.home_sort_order.present?
-  -#   = render 'pages/breadcrumbs', landing: @landing
+  -#
+    - if @landing.home_sort_order.present?
+      = render 'pages/breadcrumbs', landing: @landing
 
   - unless in_iframe?
     #scroll-section
@@ -39,4 +39,4 @@
 
     %section.section.section-white
       .container
-        = render 'show_landing_institutions', landing: @landing
+        = render 'institutions', item: @landing

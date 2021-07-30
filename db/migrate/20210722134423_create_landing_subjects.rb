@@ -37,6 +37,9 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       t.timestamps null: false
     end
 
+    add_index :landing_themes, :slug, unique: true
+    add_index :landing_subjects, :slug, unique: true
+
     add_column :landings, :layout, :string, default: 'multiple_steps'
     change_column_null :solicitations, :landing_slug, true
 
@@ -90,8 +93,8 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       Landing.where.not(home_sort_order: nil).order(:home_sort_order).each do |landing|
         landing_theme_attributes = defaults_landing_theme_attributes(landing)
         landing_theme = home_landing.landing_themes.create(landing_theme_attributes)
-        p "THEME ============="
-        p landing_theme
+        # p "THEME ============="
+        # p landing_theme
 
         landing.landing_topics.order(:landing_sort_order).each do |lt|
           ls_attributes = defaults_landing_subject_attributes(landing_theme, lt)
@@ -100,13 +103,13 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
 
         landing.solicitations.each do |sol|
           landing_option = sol.landing_option
-          p sol.landing_option&.preselected_subject_slug
+          # p sol.landing_option&.preselected_subject_slug
           if landing_option.present?
             landing_subject = retrieve_landing_subject(landing_option) || landing_theme.landing_subjects.first
           else
             landing_subject = landing_theme.landing_subjects.first
           end
-          p landing_subject&.slug
+          # p landing_subject&.slug
 
           sol.update(
             landing_id: home_landing.id,
@@ -162,9 +165,9 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           landing_subject_id: landing_subject&.id || nil
         )
       end
-
     end
   end
+
   def retrieve_landing_subject(landing_option)
     subject = Subject.find_by(slug: landing_option.preselected_subject_slug)
     LandingSubject.find_by(subject_id: subject.id)

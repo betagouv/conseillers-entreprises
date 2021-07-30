@@ -3,19 +3,22 @@
 require 'rails_helper'
 
 describe 'New Solicitation', type: :system, js: true do
-  let(:landing) { create :landing, slug: 'test-landing', home_sort_order: 0, home_title: 'Test Landing' }
-  let(:landing_option) { create :landing_option, landing: landing, requires_siret: true, requires_email: true }
-  let!(:landing_topic) { create :landing_topic, title: 'landing topic test', landing: landing, landing_option_slug: landing_option.slug }
+  let(:pde_subject) { create :subject }
+  let!(:landing) { create :landing, slug: 'home', home_title: 'Test Landing' }
+  let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
+  let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", requires_siret: true }
 
   describe 'post solicitation' do
     let(:solicitation) { Solicitation.last }
 
     context "from pk campaign" do
       before do
+        landing.landing_themes << landing_theme
         visit '/?pk_campaign=FOO&pk_kwd=BAR'
-        click_link 'Test Landing'
-        # Find 'Choose' link
-        find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
+        # find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
+        fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
 
         fill_in 'Description', with: 'Ceci est un test'
         fill_in 'SIRET', with: '123 456 789 00010'
@@ -25,7 +28,8 @@ describe 'New Solicitation', type: :system, js: true do
 
       xit do
         expect(page).to have_content('Merci')
-        expect(solicitation.landing_slug).to eq 'test-landing'
+        expect(solicitation.landing).to eq home_landing
+        expect(solicitation.subject).to eq pde_subject
         expect(solicitation.siret).to eq '123 456 789 00010'
         expect(solicitation.pk_campaign).to eq 'FOO'
         expect(solicitation.pk_kwd).to eq 'BAR'
@@ -34,9 +38,10 @@ describe 'New Solicitation', type: :system, js: true do
 
     context "from home page" do
       before do
+        landing.landing_themes << landing_theme
         visit '/'
-        click_link 'Test Landing'
-        click_link 'landing topic test'
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
 
         fill_in 'Description', with: 'Ceci est un test'
         fill_in 'SIRET', with: '123 456 789 00010'
@@ -46,7 +51,7 @@ describe 'New Solicitation', type: :system, js: true do
 
       xit do
         expect(page).to have_content('Merci')
-        expect(solicitation.landing_slug).to eq 'test-landing'
+        expect(solicitation.landing).to eq home_landing
         expect(solicitation.siret).to eq '123 456 789 00010'
         expect(solicitation.pk_campaign).to eq nil
       end
@@ -67,12 +72,13 @@ describe 'New Solicitation', type: :system, js: true do
         stub_request(:get, url).to_return(
           body: file_fixture('api_entreprise_get_entreprise.json')
         )
+        landing.landing_themes << landing_theme
       end
 
       it 'correctly sets siret and code_region' do
         visit '/'
-        click_link 'Test Landing'
-        find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
         fill_in 'E-mail', with: 'user@exemple.com'
         fill_in 'Description', with: 'Ceci est un test'
         fill_in 'SIRET', with: '418166096'

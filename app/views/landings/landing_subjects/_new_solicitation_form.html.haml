@@ -11,8 +11,7 @@
         - if field == :siret
           // Duplication pour respecter l'accessibilité (id unique, field avec label...)
           = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
-          - if help.present?
-            %span= help
+          %span= t(".attributes.help.siret_html")
           %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint"), "data-deployed-regions": Territory.deployed_codes_regions }
           = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
           = f.hidden_field :code_region, data: { target: 'code-region-autocomplete' }
@@ -41,7 +40,7 @@
           %span
             = t('.better_taking_care')
         %div= solicitation.landing_subject&.description_explanation&.html_safe
-    = f.text_area 'description', placeholder: t("landings.new_solicitation_form.attributes.placeholder.description"), rows: 6, required: true
+    = f.text_area 'description', placeholder: t(".attributes.placeholder.description"), rows: 6, required: true
     .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
   .form__group
     = f.submit t('.button.title'), class: 'button large'

@@ -4,16 +4,31 @@ if ENV['RAILS_ENV'] == 'development'
   TEST_PASSWORD = '1234567'
   TEST_EMAIL = 'a@a.a'
 
-  if Landing.none?
-    ## Landing pages
-    landing = Landing.find_or_create_by!(slug: 'test-landing', home_sort_order: 0)
-    topic = LandingTopic.find_or_create_by!(title: 'Test Topic', landing: landing)
-  end
-
   ## Theme and Subject
   theme = Theme.find_or_create_by!(label: 'Test Theme')
   subject = Subject.find_or_create_by!(theme: theme, label: 'Test Subject')
 
+  ## Landings home, themes and subjects
+  home_landing = Landing.where(slug: 'home').first_or_create(
+    title: 'home'
+  )
+  landing_theme = home_landing.landing_themes.first_or_create(
+    title: "Titre landing theme test",
+    slug: "landing-theme-test",
+    description: "Description landing theme test",
+  )
+  landing_subject = landing_theme.landing_subjects.first_or_create(
+    subject_id: subject.id,
+    title: "Titre landing subject test",
+    slug: "landing-subject-test",
+    description: "Description landing subject test",
+    # meta_title: landing_option.meta_title,
+    # meta_description: nil,
+    form_title: "Form Titre landing subject test",
+    form_description: "Form Description landing subject test",
+    description_explanation: "Description explication landing subject test",
+    requires_siret: true,
+  )
   ## Institution and Antenne
   institution = Institution.find_or_create_by!(name: 'Test Institution')
   antenne = Antenne.find_or_create_by!(name: 'Test Antenne', institution: institution)

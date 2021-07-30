@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :landing_option do
-    slug { Faker::Lorem.unique.word.downcase }
+    sequence(:slug) { |n| Faker::Lorem.word + n.to_s }
     form_title { Faker::Lorem.words }
     form_description { Faker::Lorem.sentence }
     association :landing
