@@ -1,6 +1,50 @@
 .fr-card.fr-card--no-arrow.fr-my-4w
   .fr-card__body
-    = render 'expert_contents', expert: expert
+    %h4.fr-card__title
+      = link_to expert.full_name.presence, quo_reminders_expert_path(expert), class: 'fr-card__link'
+    .fr-grid-row
+      .fr-col-7
+        %ul.list-unstyled.card-expert__list
+          %li= t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long))
+          - if expert.role.present?
+            %li
+              %span.picto.ri-contacts-book-line
+              = expert.role
+          - if expert.phone_number.present?
+            %li
+              %span.picto.ri-phone-line
+              = link_to(expert.phone_number, "tel:#{expert.phone_number}")
+          - if expert.email.present?
+            %li
+              %span.picto.ri-mail-line
+              = mail_to expert.email, expert.email, class: 'break-word'
+      .fr-col-5
+        %ul.list-unstyled.card-expert__list
+          - if expert.antenne.manager_full_name.present?
+            %li
+              %span.picto.ri-nurse-fill
+              = t('.manager_name', name: expert.antenne.manager_full_name)
+          - if expert.antenne.manager_email.present?
+            %li
+              %span.picto.ri-mail-fill
+              = mail_to expert.antenne.manager_email, expert.antenne.manager_email, class: 'break-word'
+          - if expert.antenne.manager_phone.present?
+            %li
+              %span.picto.ri-phone-fill
+              = link_to(expert.antenne.manager_phone, "tel:#{expert.antenne.manager_phone}")
+
+    - cache ["received_matches", expert, expert.received_matches] do
+      .card-expert__subtitle= t('.matches_total')
+      .fr-tags-group
+        .fr-tag
+          .bold= expert.received_matches.count
+          .fr-ml-1v= t('.received_matches')
+        - inbox_collections_counts(expert).each do |name, count|
+          - path = polymorphic_path([name, :reminders, expert])
+          = link_to path, class: 'fr-tag' do
+            .bold= count
+            .fr-ml-1v= t(name, scope: 'needs.collections').downcase
+
     - cache expert do
       .fr-mt-1w{ id: "expert_reminders_notes-#{expert.id}" }
         = render 'expert_reminders_notes', expert: expert

@@ -434,6 +434,8 @@ fr:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
       add_other_experts: Rechercher d’autres référents à mettre en relation
       no_expert_found: Aucun résultat
+    antenne_manager:
+      manager_name: 'Responsable : %{name}'
     archive:
       archive: Archiver
       archive_done: Besoin de l’entreprise %{company} archivé
@@ -542,8 +544,9 @@ fr:
     deleted_person: Compte supprimé
   reminders:
     experts:
-      expert_contents:
+      expert:
         expert_creation_date: Inscription le %{date}
+        manager_name: 'Responsable : %{name}'
         matches_total: Demandes depuis le début
         received_matches: reçues
       expert_reminders_notes:

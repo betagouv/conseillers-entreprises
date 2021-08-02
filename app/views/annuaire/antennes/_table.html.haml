@@ -5,6 +5,7 @@
         %th
         %th= Antenne.human_attribute_name(:advisors, count: 2)
         %th= Antenne.human_attribute_name(:intervention_zone)
+        %th= Antenne.human_attribute_name(:managers)
     %tbody
       - antennes.each do |antenne|
         - highlighted_ids = flash[:table_highlighted_ids]
@@ -22,3 +23,11 @@
                 %li #{hash[:territory].name} (#{hash[:included]})
               - if summary[:other] > 0
                 %li #{I18n.t('other')} (#{summary[:other]})
+          %td
+            %ul
+              - if antenne.manager_full_name.present?
+                %li= antenne.manager_full_name
+              - if antenne.manager_email.present?
+                %li= mail_to antenne.manager_email, antenne.manager_email, target: :blank
+              - if antenne.manager_phone.present?
+                %li= link_to(antenne.manager_phone, "tel:#{antenne.manager_phone}")

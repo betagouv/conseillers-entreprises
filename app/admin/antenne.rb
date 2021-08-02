@@ -35,6 +35,11 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :sent_matches, blank_if_empty: true)
       div admin_link_to(a, :received_matches, blank_if_empty: true)
     end
+    column(:manager) do |a|
+      div a.manager_full_name
+      div a.manager_email
+      div a.manager_phone
+    end
   end
 
   filter :name
@@ -75,12 +80,17 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :sent_matches)
         div admin_link_to(a, :received_matches)
       end
+      row(:manager) do |a|
+        div a.manager_full_name
+        div a.manager_email
+        div a.manager_phone
+      end
     end
   end
 
   ## Form
   #
-  permit_params :name, :institution_id, :insee_codes, advisor_ids: [], expert_ids: []
+  permit_params :name, :institution_id, :insee_codes, :manager_full_name, :manager_email, :manager_phone, advisor_ids: [], expert_ids: []
 
   form do |f|
     f.inputs do
@@ -89,7 +99,9 @@ ActiveAdmin.register Antenne do
         url: :admin_institutions_path,
         search_fields: [:name]
       }
-
+      f.input :manager_full_name
+      f.input :manager_email
+      f.input :manager_phone
       f.input :insee_codes, as: :text
     end
 

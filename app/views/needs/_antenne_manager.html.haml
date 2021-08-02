@@ -1,0 +1,14 @@
+.block-infos
+  %ul.list-unstyled.fr-pl-1v
+    - if antenne.manager_full_name.present?
+      %li
+        %span.picto.ri-nurse-fill
+        = t('.manager_name', name: antenne.manager_full_name)
+    - if antenne.manager_email.present?
+      %li
+        %span.picto.ri-mail-fill
+        = mail_to antenne.manager_email, antenne.manager_email, class: 'break-word'
+    - if antenne.manager_phone.present?
+      %li
+        %span.picto.ri-phone-fill
+        = link_to(antenne.manager_phone, "tel:#{antenne.manager_phone}")

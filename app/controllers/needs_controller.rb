@@ -75,6 +75,7 @@ class NeedsController < ApplicationController
 
   def show
     authorize @need
+    @origin = params[:origin]
     @matches = @need.matches.order(:created_at)
   end
 
