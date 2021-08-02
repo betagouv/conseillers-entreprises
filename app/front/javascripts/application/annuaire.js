@@ -4,7 +4,7 @@
     if (subjectCells.length != 0) {
       const themeRowHeight = document.querySelector('tr').offsetHeight
       const subjectRowHeight = document.querySelector('tr.subjects').offsetHeight
-      let countCells = document.querySelectorAll('tr.advisors-count th')
+      let countCells = document.querySelectorAll('tr.users-count th')
 
       for (let cell of subjectCells) {
         console.log(cell)

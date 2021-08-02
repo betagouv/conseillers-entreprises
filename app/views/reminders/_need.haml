@@ -2,7 +2,7 @@
   .card-reminders-need.fr-my-4w
     .card__header.fr-enlarge-link
       .card__title
-        %h2= link_to need.company.name, need
+        %h2= link_to need.company.name, need_path(need, origin: 'reminders')
         %span.subtitle= I18n.l(need.display_date, format: :long)
       = status_label(need)
     .fr-card__body

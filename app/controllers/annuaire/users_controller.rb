@@ -1,9 +1,9 @@
 module  Annuaire
-  class AdvisorsController < BaseController
+  class UsersController < BaseController
     def index
       @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
 
-      @advisors = (@antenne || @institution).advisors
+      @users = (@antenne || @institution).advisors
         .relevant_for_skills
         .joins(:antenne)
         .order('antennes.name', 'team_name', 'users.full_name')
@@ -18,7 +18,7 @@ module  Annuaire
       respond_to do |format|
         format.html
         format.csv do
-          result = @advisors.export_csv(include_expert_team: true, institutions_subjects: institutions_subjects)
+          result = @users.export_csv(include_expert_team: true, institutions_subjects: institutions_subjects)
           send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
         end
       end
