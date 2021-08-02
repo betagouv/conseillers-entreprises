@@ -18,7 +18,7 @@ Rails.application.config.content_security_policy do |p|
   if Rails.env.development?
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035', 'https://api-adresse.data.gouv.fr/'
   else
-    p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/', 'https://www.google.com', 'https://adservice.google.com'
+    p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/', 'https://www.google.com', 'https://adservice.google.com', 'https://stats.data.gouv.fr'
     if ENV["CSP_REPORT_URI"].present?
       p.report_uri ENV["CSP_REPORT_URI"]
     end
