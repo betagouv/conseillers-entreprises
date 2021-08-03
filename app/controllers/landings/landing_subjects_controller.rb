@@ -35,17 +35,6 @@ class Landings::LandingSubjectsController < Landings::BaseController
               *Solicitation::FIELD_TYPES.keys)
   end
 
-  def show_params
-    params.permit(:slug, *Solicitation::FORM_INFO_KEYS)
-  end
-
-  def save_form_info
-    form_info = session[:solicitation_form_info] || {}
-    info_params = show_params.slice(*Solicitation::FORM_INFO_KEYS)
-    form_info.merge!(info_params)
-    session[:solicitation_form_info] = form_info if form_info.present?
-  end
-
   def retrieve_form_info
     # Les params ne passent pas en session dans les iframe, raison pour laquelle on check ici aussi les params de l'url
     form_info = session[:solicitation_form_info] || {}

@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   scope path: "(:iframe_prefix)", iframe_prefix: /e?/, defaults: { iframe_prefix: nil } do
     # root controller: :landings, action: :index
     root controller: :landings, action: :home
-    resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do
+    resources :landings, param: :slug, only: [], path: 'aide-entreprises' do
       resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', as: 'theme', only: %i[show]
       resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', as: 'subject', only: %i[show] do
         post :create_solicitation, on: :member

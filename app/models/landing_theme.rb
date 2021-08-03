@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: landing_themes
+#
+#  id               :bigint(8)        not null, primary key
+#  description      :text
+#  logos            :string
+#  main_logo        :string
+#  meta_description :string
+#  meta_title       :string
+#  slug             :string
+#  subtitle         :string
+#  title            :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+# Indexes
+#
+#  index_landing_themes_on_slug  (slug) UNIQUE
+#
 class LandingTheme < ApplicationRecord
   ## Associations
   #

@@ -1,7 +1,7 @@
 class Landings::BaseController < PagesController
   include IframePrefix
 
-  before_action :retrieve_landing
+  before_action :retrieve_landing, except: [:home]
 
   private
 
@@ -12,5 +12,16 @@ class Landings::BaseController < PagesController
     end
 
     redirect_to root_path, status: :moved_permanently if @landing.nil?
+  end
+
+  def save_form_info
+    form_info = session[:solicitation_form_info] || {}
+    info_params = show_params.slice(*Solicitation::FORM_INFO_KEYS)
+    form_info.merge!(info_params)
+    session[:solicitation_form_info] = form_info if form_info.present?
+  end
+
+  def show_params
+    params.permit(:slug, *Solicitation::FORM_INFO_KEYS)
   end
 end

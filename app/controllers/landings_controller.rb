@@ -1,15 +1,7 @@
-class LandingsController < PagesController
-  before_action :save_form_info, only: %i[index show]
-  before_action :retrieve_landing, only: %i[show]
+class LandingsController < Landings::BaseController
+  before_action :save_form_info
 
   include IframePrefix
-
-  def index
-    @landings = Rails.cache.fetch('landings', expires_in: 3.minutes) do
-      Landing.ordered_for_home.to_a
-    end
-    @landing_emphasis = Landing.emphasis
-  end
 
   def home
     @landing = Landing.find_by(slug: 'home')

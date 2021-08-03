@@ -19,7 +19,7 @@ describe 'New Solicitation', type: :system, js: true do
         click_link 'Super sujet'
         # find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
         fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-
+        fill_in 'Téléphone', with: '0123456789'
         fill_in 'Description', with: 'Ceci est un test'
         fill_in 'SIRET', with: '123 456 789 00010'
         fill_in 'E-mail', with: 'user@exemple.com'
@@ -28,8 +28,8 @@ describe 'New Solicitation', type: :system, js: true do
 
       xit do
         expect(page).to have_content('Merci')
-        expect(solicitation.landing).to eq home_landing
-        expect(solicitation.subject).to eq pde_subject
+        expect(solicitation.landing).to eq landing
+        expect(solicitation.landing_subject.subject).to eq pde_subject
         expect(solicitation.siret).to eq '123 456 789 00010'
         expect(solicitation.pk_campaign).to eq 'FOO'
         expect(solicitation.pk_kwd).to eq 'BAR'
@@ -42,7 +42,8 @@ describe 'New Solicitation', type: :system, js: true do
         visit '/'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
-
+        fill_in 'Prénom et nom', with: 'Mariane'
+        fill_in 'Téléphone', with: '0123456789'
         fill_in 'Description', with: 'Ceci est un test'
         fill_in 'SIRET', with: '123 456 789 00010'
         fill_in 'E-mail', with: 'user@example.com'
@@ -51,7 +52,7 @@ describe 'New Solicitation', type: :system, js: true do
 
       xit do
         expect(page).to have_content('Merci')
-        expect(solicitation.landing).to eq home_landing
+        expect(solicitation.landing).to eq landing
         expect(solicitation.siret).to eq '123 456 789 00010'
         expect(solicitation.pk_campaign).to eq nil
       end
@@ -79,6 +80,8 @@ describe 'New Solicitation', type: :system, js: true do
         visit '/'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
+        fill_in 'Prénom et nom', with: 'Mariane'
+        fill_in 'Téléphone', with: '0123456789'
         fill_in 'E-mail', with: 'user@exemple.com'
         fill_in 'Description', with: 'Ceci est un test'
         fill_in 'SIRET', with: '418166096'

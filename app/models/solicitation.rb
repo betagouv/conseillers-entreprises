@@ -10,7 +10,7 @@
 #  form_info                        :jsonb
 #  full_name                        :string
 #  landing_options_slugs            :string           is an Array
-#  landing_slug                     :string           not null
+#  landing_slug                     :string
 #  location                         :string
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
@@ -20,17 +20,23 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  institution_id                   :bigint(8)
+#  landing_id                       :bigint(8)
+#  landing_subject_id               :bigint(8)
 #
 # Indexes
 #
-#  index_solicitations_on_code_region     (code_region)
-#  index_solicitations_on_email           (email)
-#  index_solicitations_on_institution_id  (institution_id)
-#  index_solicitations_on_landing_slug    (landing_slug)
+#  index_solicitations_on_code_region         (code_region)
+#  index_solicitations_on_email               (email)
+#  index_solicitations_on_institution_id      (institution_id)
+#  index_solicitations_on_landing_id          (landing_id)
+#  index_solicitations_on_landing_slug        (landing_slug)
+#  index_solicitations_on_landing_subject_id  (landing_subject_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (institution_id => institutions.id)
+#  fk_rails_...  (landing_id => landings.id)
+#  fk_rails_...  (landing_subject_id => landing_subjects.id)
 #
 
 class Solicitation < ApplicationRecord

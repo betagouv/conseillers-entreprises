@@ -1,4 +1,6 @@
 class Landings::LandingThemesController < Landings::BaseController
+  before_action :save_form_info
+
   def show
     @landing_theme = LandingTheme.find_by(slug: params[:slug])
     @landing_subjects = @landing_theme.landing_subjects.order(:position)

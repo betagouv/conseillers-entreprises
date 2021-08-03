@@ -8,6 +8,7 @@
 #  home_description             :text             default("")
 #  home_sort_order              :integer
 #  home_title                   :string           default("")
+#  layout                       :string           default("multiple_steps")
 #  logos                        :string
 #  main_logo                    :string
 #  message_under_landing_topics :string

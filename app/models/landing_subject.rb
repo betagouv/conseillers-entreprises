@@ -1,3 +1,36 @@
+# == Schema Information
+#
+# Table name: landing_subjects
+#
+#  id                             :bigint(8)        not null, primary key
+#  description                    :text
+#  description_explanation        :text
+#  form_description               :text
+#  form_title                     :string
+#  meta_description               :string
+#  meta_title                     :string
+#  position                       :integer
+#  requires_location              :boolean          default(FALSE), not null
+#  requires_requested_help_amount :boolean          default(FALSE), not null
+#  requires_siret                 :boolean          default(FALSE), not null
+#  slug                           :string
+#  title                          :string
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  landing_theme_id               :bigint(8)        not null
+#  subject_id                     :bigint(8)        not null
+#
+# Indexes
+#
+#  index_landing_subjects_on_landing_theme_id  (landing_theme_id)
+#  index_landing_subjects_on_slug              (slug) UNIQUE
+#  index_landing_subjects_on_subject_id        (subject_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (landing_theme_id => landing_themes.id)
+#  fk_rails_...  (subject_id => subjects.id)
+#
 class LandingSubject < ApplicationRecord
   ## Associations
   #
