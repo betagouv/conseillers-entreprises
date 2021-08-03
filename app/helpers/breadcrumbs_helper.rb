@@ -1,16 +1,15 @@
 module BreadcrumbsHelper
   # Breadcrumbs for landing page un new solicitations
-  # For new solicitation page we need landing_option to display the form title
   # ex: Landing : "Déposer une demande › Surmonter des difficultés financières "
   # ex new solicitation : "Déposer une demande › Surmonter des difficultés financières › Faire un point sur votre situation"
-  def breadcrumbs_landing(landing, landing_option = nil, params = {})
+  def breadcrumbs_landing(landing_theme, landing_subject = nil, params = {})
     html = home_link(params)
-    if landing_option.present?
-      html << link_to(landing.title, landing_path(params))
+    if landing_subject.present?
+      html << link_to(landing_theme.title, landing_theme_path(landing_theme.slug, params))
       html << arrow
-      html << landing_option.form_title
+      html << landing_subject.title
     else
-      html << landing.title
+      html << landing_theme.title
     end
     html
   end

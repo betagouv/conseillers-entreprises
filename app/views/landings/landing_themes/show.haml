@@ -18,9 +18,9 @@
               = render 'pages/cta_button'
           .image
             = image_tag('home.png', alt: "")
-  -#
-    - if @landing_theme.home_sort_order.present?
-    = render 'pages/breadcrumbs', landing: @landing_theme
+
+    - if @landing_theme.landings.present?
+      = render 'pages/breadcrumbs', landing_theme: @landing_theme
 
   - unless in_iframe?
     #scroll-section
@@ -30,7 +30,6 @@
       %h2= @landing_theme.title.presence || t('you_wish')
       .landing-topics
         = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
-
 
       - unless in_iframe?
         .ui.text-center.other

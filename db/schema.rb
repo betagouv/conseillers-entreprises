@@ -314,6 +314,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
 
   create_table "landing_themes", force: :cascade do |t|
     t.string "title"
+    t.string "page_title"
     t.string "slug"
     t.text "description"
     t.string "meta_title"

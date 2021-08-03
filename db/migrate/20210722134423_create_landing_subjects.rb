@@ -2,6 +2,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
   def change
     create_table :landing_themes do |t|
       t.string :title
+      t.string :page_title
       t.string :slug
       t.text :description
       t.string :meta_title
@@ -55,6 +56,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       def defaults_landing_theme_attributes(landing)
         {
           title: landing.home_title,
+          page_title: landing.title,
           slug: landing.slug,
           description: landing.home_description || landing.meta_description,
           meta_title: landing.meta_title,
