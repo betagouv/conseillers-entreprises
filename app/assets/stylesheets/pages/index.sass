@@ -34,7 +34,7 @@ section.section.section-light-grey
 section.section.blank-section
   padding: 2.5rem 0
 
-section.section#section-thematiques
+section.section#section-thematiques, .section.section-grey#section-exemples
   .landing-cards-container
     display: flex
     justify-content: space-between
@@ -50,15 +50,17 @@ section.section#section-thematiques
     margin-bottom: var(--space-m)
     &:hover
       border: 2px solid #0053b3
-      border: 2px solid var(--blue)
       padding: 0
-    button
-      padding: 0.4rem 0.8rem
+      border: 2px solid var(--blue)
     .card__content
       padding: 14px
     .discover_button
       margin-top: auto
       padding: 0 1em 1em
+      font-size: 2rem
+      display: flex
+      justify-content: flex-end
+      color: #0053b3
     a
       text-decoration: none
       display: flex
@@ -76,6 +78,14 @@ section.section#section-thematiques
   .contact-us
     font-size: 1.2rem
     margin: 2rem 0 0 0
+
+.section.section-grey#section-exemples
+  .card
+    flex: 0 1 49%
+    padding: 2px
+    background: #f9fafc
+    ul
+      //padding-left: 1rem
 
 @media(max-width: 1040px)
   section.section#section-thematiques

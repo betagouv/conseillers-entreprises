@@ -3,7 +3,7 @@
 - if topics_groups.present?
   - topics_groups.each do |name, topics|
     %h2= name.presence || t('you_wish')
-    .landing-topics
+    .landing-cards-container
       = render topics
 
   - unless in_iframe?
