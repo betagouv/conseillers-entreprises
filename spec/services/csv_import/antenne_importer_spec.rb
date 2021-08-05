@@ -34,7 +34,7 @@ describe CsvImport::AntenneImporter, CsvImport do
   context 'invalid rows' do
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes commune
+        Institution,Nom,Codes communes
         Test Institution,Antenne1,invalid_code
       CSV
     end
@@ -49,7 +49,7 @@ describe CsvImport::AntenneImporter, CsvImport do
   context 'two antennes' do
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes commune,Nom du responsable,Email du responsable,Téléphone du responsable
+        Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
         Test Institution,Antenne1,00001 00002,Mariane Martin, mariane.m@gouv.fr,0123456789
         Test Institution,Antenne2,00003 00004
       CSV
@@ -74,7 +74,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes commune
+        Institution,Nom,Codes communes
         Test Institution,Antenne1,00002
       CSV
     end
@@ -92,7 +92,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes commune,Nom du responsable,Email du responsable,Téléphone du responsable
+        Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
         Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
       CSV
     end
@@ -113,7 +113,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     let(:csv) do
       <<~CSV
-        Institution,Nom,Codes commune
+        Institution,Nom,Codes communes
         Test Institution, antenne1 ,00002
       CSV
     end
