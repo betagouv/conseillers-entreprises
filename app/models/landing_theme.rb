@@ -16,21 +16,24 @@
 #
 # Indexes
 #
-#  index_landing_themes_on_slug  (slug) UNIQUE
+#  index_landing_themes_on_slug   (slug) UNIQUE
+#  index_landing_themes_on_title  (title) UNIQUE
 #
 class LandingTheme < ApplicationRecord
   ## Associations
   #
   has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing_theme, dependent: :destroy
-  has_many :landings, through: :landing_joint_themes
+  has_many :landings, through: :landing_joint_themes, inverse_of: :landing_themes
   has_many :landing_subjects, inverse_of: :landing_theme, dependent: :destroy
+
+  accepts_nested_attributes_for :landing_subjects, allow_destroy: true
 
   ## Validation
   #
   validates :slug, presence: true, uniqueness: true
 
   def to_s
-    slug
+    title
   end
 
   def to_param

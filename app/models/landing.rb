@@ -36,15 +36,15 @@ class Landing < ApplicationRecord
   ## Associations
   #
   has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing, dependent: :destroy
-  has_many :landing_themes, through: :landing_joint_themes
-  has_many :landing_subjects, through: :landing_themes
+  has_many :landing_themes, through: :landing_joint_themes, inverse_of: :landings
+  has_many :landing_subjects, through: :landing_themes, inverse_of: :landing_theme
 
   belongs_to :institution, inverse_of: :landings, optional: true
   has_many :landing_topics, inverse_of: :landing, :dependent => :destroy
   has_many :landing_options, inverse_of: :landing, :dependent => :destroy
 
   has_many :solicitations, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :landing
-  accepts_nested_attributes_for :landing_topics, :landing_options, allow_destroy: true
+  accepts_nested_attributes_for :landing_topics, :landing_options, :landing_joint_themes, allow_destroy: true
 
   before_save :set_emphasis
 
