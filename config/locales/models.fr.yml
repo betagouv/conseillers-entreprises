@@ -446,7 +446,7 @@ fr:
     flags: Options
     full_name: Prénom et nom
     happened_on: Date de la visite
-    insee_codes: Codes commune
+    insee_codes: Codes communes
     institution: Institution
     institutions_subjects: Domaines de l’institution
     intervention_zone: Zone d’intervention

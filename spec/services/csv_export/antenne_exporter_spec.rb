@@ -12,7 +12,7 @@ describe CsvExport::AntenneExporter, CsvExport do
 
   it do
     csv = <<~CSV
-      Institution,Nom,Codes commune,Nom du responsable,Email du responsable,Téléphone du responsable
+      Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
       Test Institution,Antenne 1,12345 67890,,,
       Test Institution,Antenne 2,98765 43210,Mariane Martin,mariane.m@gouv.fr,0123456789
     CSV

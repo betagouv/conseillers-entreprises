@@ -12,7 +12,7 @@ module CsvImport
       build_several_subjects_mapping(headers, static_headers)
       known_headers = static_headers + several_subjects_mapping.keys
       headers.map do |header|
-        UnknownHeaderError.new(header) unless known_headers.include? header
+        UnknownHeaderError.new(header) unless known_headers.include? header.squish
       end.compact
     end
 

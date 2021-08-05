@@ -9,7 +9,7 @@ module CsvImport
 
     def check_headers(headers)
       headers.map do |header|
-        UnknownHeaderError.new(header) unless mapping.include? header
+        UnknownHeaderError.new(header) unless mapping.include? header.squish
       end.compact
     end
 
