@@ -500,6 +500,7 @@ fr:
       one: Besoin
       other: Besoins
     optional: Optionnel
+    page_title: Titre affiché sur la page
     phone_number: Téléphone
     placeholder:
       email: marie.dupont@exemple.fr

@@ -35,6 +35,7 @@ ActiveAdmin.register LandingTheme do
   show do
     attributes_table do
       row :title
+      row :page_title
       row :subtitle
       row :slug
       row :description

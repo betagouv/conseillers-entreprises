@@ -8,6 +8,7 @@
 #  main_logo        :string
 #  meta_description :string
 #  meta_title       :string
+#  page_title       :string
 #  slug             :string
 #  subtitle         :string
 #  title            :string
@@ -16,8 +17,7 @@
 #
 # Indexes
 #
-#  index_landing_themes_on_slug   (slug) UNIQUE
-#  index_landing_themes_on_title  (title) UNIQUE
+#  index_landing_themes_on_slug  (slug) UNIQUE
 #
 class LandingTheme < ApplicationRecord
   ## Associations

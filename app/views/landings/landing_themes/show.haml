@@ -12,7 +12,7 @@
               -#
                 - if @landing_theme.main_logo
                   = display_image(name: @landing_theme.main_logo)
-              %h1= @landing_theme.title
+              %h1= @landing_theme.page_title || @landing_theme.title
             %p.subtitle= t('landings.home.answer')
             .links
               = render 'pages/cta_button'
@@ -27,7 +27,7 @@
 
   %section.section.section-grey#section-exemples
     .container
-      %h2= @landing_theme.title.presence || t('you_wish')
+      %h2= t('you_wish')
       .landing-topics
         = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
 
