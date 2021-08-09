@@ -36,7 +36,6 @@ ActiveAdmin.register LandingTheme do
     attributes_table do
       row :title
       row :page_title
-      row :subtitle
       row :slug
       row :description
       row :created_at
@@ -78,17 +77,18 @@ ActiveAdmin.register LandingTheme do
   ## Form
   #
   landing_subjects_attributes = %i[
-    id title subject_id description description_explanation form_title form_description meta_title
+    id title slug subject_id description description_explanation form_title form_description meta_title
     meta_description requires_location requires_requested_help_amount requires_siret position _destroy
   ]
 
-  permit_params :title, :subtitle, :description, :logos, :main_logo, :meta_title, :meta_description,
+  permit_params :title, :page_title, :slug, :description, :logos, :main_logo, :meta_title, :meta_description,
                 landing_subjects_attributes: landing_subjects_attributes
 
   form title: :title do |f|
     f.inputs do
       f.input :title
-      f.input :subtitle
+      f.input :page_title
+      f.input :slug
       f.input :description, input_html: { rows: 10 }
       f.input :logos
       f.input :main_logo
@@ -99,9 +99,16 @@ ActiveAdmin.register LandingTheme do
       f.input :meta_description
     end
 
+    f.inputs I18n.t('.landing_subjects_order') do
+      f.has_many :landing_subjects, sortable: :position, sortable_start: 1 do |ls|
+        ls.input :position, label: ls.object.title, input_html: {style: 'width:10%' }
+      end
+    end
+
     f.inputs I18n.t('activerecord.attributes.landing_themes.landing_subjects') do
       f.has_many :landing_subjects, sortable: :position, sortable_start: 1, allow_destroy: true, new_record: true do |ls|
         ls.input :title
+        ls.input :slug
         ls.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
         ls.input :description, input_html: { rows: 2 }
         ls.input :description_explanation, input_html: { rows: 8 }

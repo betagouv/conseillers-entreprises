@@ -319,7 +319,6 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.text "description"
     t.string "meta_title"
     t.string "meta_description"
-    t.string "subtitle"
     t.string "logos"
     t.string "main_logo"
     t.datetime "created_at", precision: 6, null: false
