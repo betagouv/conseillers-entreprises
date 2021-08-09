@@ -99,9 +99,9 @@ ActiveAdmin.register LandingTheme do
       f.input :meta_description
     end
 
-    f.inputs I18n.t('.landing_subjects_order') do
+    f.inputs I18n.t('active_admin.landing_subjects_order') do
       f.has_many :landing_subjects, sortable: :position, sortable_start: 1 do |ls|
-        ls.input :position, label: ls.object.title, input_html: {style: 'width:10%' }
+        ls.input :position, label: ls.object.title, input_html: { style: 'width:10%' }
       end
     end
 
