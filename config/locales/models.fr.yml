@@ -1,5 +1,14 @@
 ---
 fr:
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} a été créé avec succès"
+      update:
+        notice: "%{resource_name} a été mis à jour avec succès"
+      destroy:
+        notice: "%{resource_name} a été supprimé avec succès"
+        alert: "%{resource_name} ne peut être supprimé"
   active_admin:
     expert:
       skills: Compétences
