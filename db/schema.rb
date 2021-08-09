@@ -324,7 +324,6 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
-    t.index ["title"], name: "index_landing_themes_on_title", unique: true
   end
 
   create_table "landing_topics", force: :cascade do |t|

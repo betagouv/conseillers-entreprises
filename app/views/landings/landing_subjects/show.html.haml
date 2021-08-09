@@ -1,5 +1,6 @@
 :ruby
-  meta title: @landing_subject&.meta_title.presence || @landing_subject.landing_theme.meta_title, description: @landing_subject&.meta_description.presence || @landing_subject.landing_theme.meta_description
+  meta title: @landing_subject&.meta_title.presence || @landing_subject.landing_theme.meta_title,
+    description: @landing_subject&.meta_description.presence || @landing_subject.landing_theme.meta_description
 
 - unless in_iframe?
   %section.section.section-white.landing.less-padding
@@ -40,7 +41,11 @@
           %span
             = t('.five_days_contact_html')
       .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
-        = render 'new_solicitation_form', landing_subject: @landing_subject, solicitation: @solicitation, path: create_solicitation_landing_subject_path(@landing, @landing_subject, institution: params[:institution].presence)
+        = render 'new_solicitation_form',
+          landing_subject: @landing_subject,
+          solicitation: @solicitation,
+          path: create_solicitation_landing_subject_path(@landing, @landing_subject,
+          institution: params[:institution].presence)
         - unless in_iframe?
           - if @landing_subject&.form_description.present?
             .description

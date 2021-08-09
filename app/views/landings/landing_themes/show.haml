@@ -9,9 +9,6 @@
         .row.landing-header
           .title
             .heading
-              -#
-                - if @landing_theme.main_logo
-                  = display_image(name: @landing_theme.main_logo)
               %h1= @landing_theme.page_title || @landing_theme.title
             %p.subtitle= t('landings.home.answer')
             .links
