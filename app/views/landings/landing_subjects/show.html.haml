@@ -49,6 +49,7 @@
         - unless in_iframe?
           - if @landing_subject&.form_description.present?
             .description
+              %h2= t('.accompaniments')
               %div= sanitize @landing_subject&.form_description&.html_safe
 
   %section.section.section-white.out-region.container-newsletter#newsletter{ "data-error": "newsletter" }

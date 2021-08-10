@@ -60,9 +60,9 @@ ActiveAdmin.register LandingTheme do
             row :title
             row(:subject) { |ls| admin_link_to ls.subject }
             row :description
-            row :description_explanation
+            row(:description_explanation) { |ls| ls.description_explanation.html_safe }
             row :form_title
-            row :form_description
+            row(:form_description) { |ls| ls.form_description.html_safe }
             row :requires_location
             row :requires_requested_help_amount
             row :requires_siret
@@ -111,9 +111,9 @@ ActiveAdmin.register LandingTheme do
         ls.input :slug
         ls.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
         ls.input :description, input_html: { rows: 2 }
-        ls.input :description_explanation, input_html: { rows: 8 }
+        ls.input :description_explanation, as: :quill_editor
         ls.input :form_title
-        ls.input :form_description, input_html: { rows: 8 }
+        ls.input :form_description, as: :quill_editor
         ls.input :requires_location
         ls.input :requires_requested_help_amount
         ls.input :requires_siret

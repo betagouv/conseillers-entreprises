@@ -67,6 +67,8 @@ GEM
       has_scope (>= 0.6.0)
       rails (>= 5.0)
       selectize-rails (>= 0.12.6)
+    activeadmin_quill_editor (0.3.4)
+      activeadmin (~> 2.0)
     activeadmin_blaze_theme (0.7.6)
       activeadmin (~> 2.0)
       sassc (~> 2.4)
@@ -599,6 +601,7 @@ DEPENDENCIES
   activeadmin
   activeadmin-ajax_filter
   activeadmin_blaze_theme
+  activeadmin_quill_editor
   activerecord-postgres_enum
   acts_as_list
   annotate

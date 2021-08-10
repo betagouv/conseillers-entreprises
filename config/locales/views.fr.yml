@@ -324,6 +324,7 @@ fr:
         message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
         title: Merci !
       show:
+        accompaniments: 'Accompagnements :'
         five_days_contact_html: Déposez votre demande, un conseiller vous rappelle <b>dans les 5 jours</b> (Délai moyen de prise en charge).
         give_my_opinion_alt: Je donne mon avis
         give_my_opinion_title: Je donne mon avis sur cette démarche
