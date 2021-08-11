@@ -15,20 +15,10 @@ ActiveAdmin.register LandingTheme do
     selectable_column
     column(:title) { |t| admin_link_to t }
     column(:landings){ |t| admin_link_to(t, :landings) }
-    # column(:landing_subjects){ |t| admin_link_to(t, :landing_subjects) }
     actions dropdown: true
   end
 
   filter :title
-
-  ## CSV
-  #
-  # csv do
-  #   column :label
-  #   column :interview_sort_order
-  #   column_count :subjects
-  #   column_count :institutions_subjects
-  # end
 
   ## Show
   #
