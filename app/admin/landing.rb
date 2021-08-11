@@ -47,6 +47,7 @@ ActiveAdmin.register Landing do
           div link_to l.slug, l if l.slug.present?
         end
         row :layout
+        row :iframe
         row :logos
         row :custom_css
         row :message_under_landing_topics do |l|
@@ -128,7 +129,7 @@ ActiveAdmin.register Landing do
   landing_joint_themes_attributes = %i[id landing_theme_id position _destroy]
 
   permit_params :slug,
-                :institution_id,
+                :institution_id, :iframe,
                 :home_title, :home_description, :home_sort_order,
                 :meta_title, :meta_description,
                 :emphasis,
@@ -141,6 +142,7 @@ ActiveAdmin.register Landing do
     f.inputs do
       f.input :title
       f.input :slug
+      f.input :iframe
     end
 
     f.inputs I18n.t("landings.landing_subjects.new_solicitation_form.form") do

@@ -1,9 +1,9 @@
 :ruby
   meta title: @landing_theme.meta_title, description: @landing_theme.meta_description
 
-- cache_unless(flash.present?, [@landing_theme, in_iframe?]) do
+- cache_unless(flash.present?, [@landing_theme, @landing]) do
 
-  - unless in_iframe?
+  - unless @landing.iframe?
     %section.section.section-white.landing.less-padding
       .container
         .row.landing-header
@@ -19,7 +19,7 @@
     - if @landing_theme.landings.present?
       = render 'pages/breadcrumbs', landing_theme: @landing_theme
 
-  - unless in_iframe?
+  - unless @landing.iframe?
     #scroll-section
 
   %section.section.section-grey#section-exemples
@@ -28,11 +28,11 @@
       .landing-topics
         = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
 
-      - unless in_iframe?
+      - unless @landing.iframe?
         .ui.text-center.other
           %b= t('.back_to_other_subjects').html_safe
 
-  - unless in_iframe?
+  - unless @landing.iframe?
     %section.section.section-light-grey.landing
       = render 'pages/how_it_works'
 

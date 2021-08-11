@@ -6,7 +6,7 @@ class Landings::BaseController < PagesController
   private
 
   def retrieve_landing
-    slug = params[:landing_slug]&.to_sym
+    slug = params.permit(:landing_slug)[:landing_slug]&.to_sym
     @landing = Rails.cache.fetch("landing-#{slug}", expires_in: 1.minute) do
       Landing.find_by(slug: slug)
     end

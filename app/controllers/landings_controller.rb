@@ -11,7 +11,9 @@ class LandingsController < Landings::BaseController
     @landing_emphasis = Landing.emphasis
   end
 
-  def show; end
+  def show
+    redirect_to landing_theme_path(@landing, @landing_themes.first) unless @landing_themes.many?
+  end
 
   private
 

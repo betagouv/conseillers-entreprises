@@ -7,8 +7,6 @@
       = metamagic site: t('app_name'), title: %i[title site], separator: ' | '
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     = canonical_tags
-    - if in_iframe?
-      %meta{ name: 'robots', content: 'noindex' }
     = csrf_meta_tags
     = csp_meta_tag
     = tarteaucitron_script
@@ -19,6 +17,8 @@
     = javascript_include_tag 'https://browser.sentry-cdn.com/6.2.3/bundle.min.js', crossorigin: 'anonymous', integrity: "sha384-n6TNefxJMUTqJauZtoDyDhAs5Ng0VzcMTy0/afmyZoVZpaQ2clYR1LBa4SqhVySs"
     - if defined? @landing
       %style= @landing.custom_css
+      - if @landing.iframe?
+        %meta{ name: 'robots', content: 'noindex' }
     = render 'custom_iframe_css'
 
     = render 'favicon'
@@ -26,13 +26,12 @@
     = sentry_script
     = matomo_script
 
-  %body
-    = render 'navbar' unless in_iframe?
   %body{ class: "#{@landing.layout if defined?(@landing)}" }
+    = render 'navbar' if (defined?(@landing) && !@landing.iframe?) || !defined?(@landing)
     = render 'environment_ribbon'
     = render 'user_impersonate'
     = render 'shared/flashes_pages'
     %main
       = yield
-    = render 'footer' unless in_iframe?
+    = render 'footer' if defined?(@landing) && !@landing.iframe? || !defined?(@landing)
 

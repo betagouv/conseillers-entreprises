@@ -1,9 +1,9 @@
 :ruby
   meta title: @landing.meta_title, description: @landing.meta_description
 
-- cache_unless(flash.present?, [@landing, in_iframe?]) do
+- cache_unless(flash.present?, @landing) do
 
-  - unless in_iframe?
+  - unless @landing.iframe?
     %section.section.section-white.landing.less-padding
       .container
         .row.landing-header
@@ -18,7 +18,7 @@
           .image
             = image_tag('home.png', alt: "")
 
-  - unless in_iframe?
+  - unless @landing.iframe?
     #scroll-section
 
   - if lookup_context.template_exists?("#{@landing.layout}", "landings", true)
@@ -29,7 +29,7 @@
       .container
         = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
-  - unless in_iframe?
+  - unless @landing.iframe?
     %section.section.section-light-grey.landing
       = render 'pages/how_it_works'
 
