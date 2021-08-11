@@ -51,23 +51,21 @@ Rails.application.routes.draw do
   end
 
   # Pages
-  # # Only these routes are available in iframes and only this controller includes IframePrefix
-  scope path: "(:iframe_prefix)", iframe_prefix: /e?/, defaults: { iframe_prefix: nil } do
-    # root controller: :landings, action: :index
-    root controller: :landings, action: :home
-    resources :landings, param: :slug, only: [], path: 'aide-entreprises' do
-      resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', as: 'theme', only: %i[show]
-      resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', as: 'subject', only: %i[show] do
-        post :create_solicitation, on: :member
-      end
+  # root controller: :landings, action: :index
+  root controller: :landings, action: :home
+  resources :landings, param: :slug, only: [], path: 'aide-entreprises' do
+
+    resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', as: 'theme', only: %i[show]
+    resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', as: 'subject', only: %i[show] do
+      post :create_solicitation, on: :member
     end
-    resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do
-      member do
-        get 'demande(/:option_slug)', action: :new_solicitation, as: :new_solicitation
-        # as the form to create solicitations is on the landings show page,
-        # we’re using the same path the show landings and to view solicitations.
-        post :create_solicitation, path: ''
-      end
+  end
+  resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do
+    member do
+      get 'demande(/:option_slug)', action: :new_solicitation, as: :new_solicitation
+      # as the form to create solicitations is on the landings show page,
+      # we’re using the same path the show landings and to view solicitations.
+      post :create_solicitation, path: ''
     end
   end
 

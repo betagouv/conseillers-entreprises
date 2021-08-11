@@ -2,7 +2,7 @@
   meta title: @landing_subject.meta_title.presence || @landing_subject.title.presence || @landing_subject.landing_theme.meta_title,
     description: @landing_subject.meta_description.presence || @landing_subject.description.presence || @landing_subject.landing_theme.meta_description
 
-- unless @landing.iframe?
+- unless in_iframe?
   %section.section.section-white.landing.less-padding
     .container
       .landing-header
@@ -22,7 +22,7 @@
           - @landing_subject.landing_theme.logos.split.each do |logo_slug|
             = institution_image(logo_slug)
 
-  - unless @landing.iframe?
+  - unless in_iframe?
     %section.section.section-white.container-newsletter
       .container
         = render 'newsletter', email: @solicitation.email
@@ -35,18 +35,18 @@
 - if @solicitation.new_record?
   %section.section.section-grey.landing#section-formulaire
     .container
-      - unless @landing.iframe?
+      - unless in_iframe?
         .notification.warning.contact-delay
           = image_tag('5days.png', alt: '')
           %span
             = t('.five_days_contact_html')
-      .solicitation-form{ class: "#{'in-iframe' if @landing.iframe?}" }
+      .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
         = render 'new_solicitation_form',
           landing_subject: @landing_subject,
           solicitation: @solicitation,
           path: create_solicitation_landing_subject_path(@landing, @landing_subject,
           institution: params[:institution].presence)
-        - unless @landing.iframe?
+        - unless in_iframe?
           - if @landing_subject&.form_description.present?
             .description
               %h2= t('.accompaniments')
@@ -56,7 +56,7 @@
     .container
       = render 'newsletter'
 
-  - unless @landing.iframe?
+  - unless in_iframe?
     %section.section.section-white.landing
       = render 'pages/how_it_works'
 

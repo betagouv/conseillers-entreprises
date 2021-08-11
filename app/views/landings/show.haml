@@ -4,7 +4,7 @@
 
 - cache_unless(flash.present?, @landing) do
 
-  - unless @landing.iframe?
+  - unless in_iframe?
     %section.section.section-white.landing.less-padding
       .container
         .row.landing-header
@@ -19,7 +19,7 @@
           .image
             = image_tag('home.png', alt: "")
 
-  - unless @landing.iframe?
+  - unless in_iframe?
     #scroll-section
 
   - if lookup_context.template_exists?("#{@landing.layout}", "landings", true)
@@ -30,7 +30,7 @@
       .container
         = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
-  - unless @landing.iframe?
+  - unless in_iframe?
     %section.section.section-light-grey.landing
       = render 'pages/how_it_works'
 

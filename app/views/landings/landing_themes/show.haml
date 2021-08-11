@@ -4,7 +4,7 @@
 
 - cache_unless(flash.present?, [@landing_theme, @landing]) do
 
-  - unless @landing.iframe?
+  - unless in_iframe?
     %section.section.section-white.landing.less-padding
       .container
         .row.landing-header
@@ -20,7 +20,7 @@
     - if @landing_theme.landings.present?
       = render 'pages/breadcrumbs', landing_theme: @landing_theme
 
-  - unless @landing.iframe?
+  - unless in_iframe?
     #scroll-section
 
   %section.section.section-grey#section-exemples
@@ -29,11 +29,11 @@
       .landing-topics
         = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
 
-      - unless @landing.iframe?
+      - unless in_iframe?
         .ui.text-center.other
           %b= t('.back_to_other_subjects_html')
 
-  - unless @landing.iframe?
+  - unless in_iframe?
     %section.section.section-light-grey.landing
       = render 'pages/how_it_works'
 

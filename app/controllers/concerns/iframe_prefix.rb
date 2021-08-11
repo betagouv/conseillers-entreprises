@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module IframePrefix
+  # TODO il faut faire le ménage ici
   extend ActiveSupport::Concern
   # Allow the routes of a controller to be served inside an iframe.
   # Features:
@@ -16,24 +17,8 @@ module IframePrefix
   included do
     helper OverrideUrlFor # Insert our implementation in the helpers stack to customize url_for.
 
-    prepend_before_action :detect_iframe_prefix
-
     skip_forgery_protection if: -> { in_iframe? }
     after_action :allow_in_iframe, if: -> { in_iframe? }
-  end
-
-  def detect_iframe_prefix
-    params
-    # Implementation Note: A side-effect of calling params is to make sure @iframe_prefix is set.
-  end
-
-  def params
-    clean_params = super
-    # Note: :iframe_prefix is the name of the optional parameter defined in routes.rb.
-    @iframe_prefix ||= clean_params.delete(:iframe_prefix)
-    # Implementation Note: clean_params actually points to an instance variable of a superclass, which we’re modifying.
-    # It means that on the second call, clean_params doesn’t contain :iframe_prefix anymore.
-    clean_params
   end
 
   def allow_in_iframe
@@ -50,7 +35,7 @@ module IframePrefix
     included { helper_method :in_iframe? } # … and this makes the in_iframe? method available in all views.
 
     def in_iframe?
-      @iframe_prefix.present?
+      defined?(@landing) && @landing.iframe?
     end
   end
 
