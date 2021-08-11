@@ -1,6 +1,6 @@
 :ruby
-  meta title: @landing_subject&.meta_title.presence || @landing_subject.landing_theme.meta_title,
-    description: @landing_subject&.meta_description.presence || @landing_subject.landing_theme.meta_description
+  meta title: @landing_subject.meta_title.presence || @landing_subject.title.presence || @landing_subject.landing_theme.meta_title,
+    description: @landing_subject.meta_description.presence || @landing_subject.description.presence || @landing_subject.landing_theme.meta_description
 
 - unless @landing.iframe?
   %section.section.section-white.landing.less-padding

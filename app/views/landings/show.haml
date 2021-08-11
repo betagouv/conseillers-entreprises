@@ -1,5 +1,6 @@
 :ruby
-  meta title: @landing.meta_title, description: @landing.meta_description
+  meta title: @landing.meta_title.presence || @landing.title,
+    description: @landing.meta_description.presence
 
 - cache_unless(flash.present?, @landing) do
 
