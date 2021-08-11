@@ -332,7 +332,7 @@ fr:
       card:
         discover: Choisir
       show:
-        back_to_other_subjects: Vous souhaitez être accompagné sur un autre sujet ? <a href="/">Découvrez les autres sujets.</a>
+        back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/">Découvrez les autres sujets.</a>
     multiple_steps:
       contact_us: cliquez ici !
       other_questions: Pour toute autre demande,
