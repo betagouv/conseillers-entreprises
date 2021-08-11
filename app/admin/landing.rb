@@ -46,6 +46,7 @@ ActiveAdmin.register Landing do
         row :slug do |l|
           div link_to l.slug, l if l.slug.present?
         end
+        row :layout
         row :logos
         row :custom_css
         row :message_under_landing_topics do |l|

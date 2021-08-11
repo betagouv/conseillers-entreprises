@@ -8,7 +8,8 @@
 #  home_description             :text             default("")
 #  home_sort_order              :integer
 #  home_title                   :string           default("")
-#  layout                       :string           default("multiple_steps")
+#  iframe                       :boolean          default(FALSE)
+#  layout                       :integer          default("multiple_steps")
 #  logos                        :string
 #  main_logo                    :string
 #  message_under_landing_topics :string
@@ -33,6 +34,11 @@
 #
 
 class Landing < ApplicationRecord
+  enum layout: {
+    multiple_steps: 1,
+    single_page: 2
+  }, _prefix: true
+
   ## Associations
   #
   has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing, dependent: :destroy

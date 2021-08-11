@@ -39,9 +39,10 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
     end
 
     add_index :landing_themes, :slug, unique: true
-    add_index :landing_subjects, :slug, unique: true
+    add_index :landing_subjects, [:slug, :landing_theme_id], :unique => true
 
-    add_column :landings, :layout, :string, default: 'multiple_steps'
+    add_column :landings, :layout, :integer, default: 1
+    add_column :landings, :iframe, :boolean, default: false
     change_column_null :solicitations, :landing_slug, true
 
     add_reference :solicitations, :landing, foreign_key: true, null: true
@@ -51,7 +52,6 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
     # - emphasis
     # - main_logo
 
-    # A faire passer en iframe : 'brexit', 'relance-hautsdefrance', 'france-transition-ecologique'
     up_only do
       def defaults_landing_theme_attributes(landing)
         {
@@ -123,7 +123,11 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
 
       # Landing avec des group_name
       Landing.where(slug: ['relance', 'brexit', 'relance-hautsdefrance']).each do |landing|
-        landing.update(layout: 'single_page')
+        landing.update(layout: :single_page)
+        if landing.slug == 'brexit'
+          landing.custom_css << "\n.landing-cards-container .card { background: none !important; box-shadow: none !important; }"
+          landing.save!
+        end
         # Create themes for each group_name
         landing.landing_topics.order(:landing_sort_order).pluck(:group_name).compact.each_with_index do |group_name, idx|
           landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
@@ -131,7 +135,12 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
             slug: group_name.parameterize,
             # position: idx
           )
-          landing.landing_themes.create(landing_theme_attributes)
+          lt = LandingTheme.find_by(slug: group_name.parameterize)
+          if lt.present?
+            landing.landing_themes << lt unless landing.landing_themes.include?(lt)
+          else
+            landing.landing_themes.create(landing_theme_attributes)
+          end
         end
         landing.landing_topics.order(:landing_sort_order).each do |lt|
           landing_theme = LandingTheme.find_by(title: lt.group_name)
@@ -140,9 +149,19 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
         end
       end
 
+      # Iframes
+      fte = Landing.find_by(slug: 'france-transition-ecologique')
+      fte.update(iframe: true)
+      fte.landing_themes.create!(defaults_landing_theme_attributes(fte).merge(title: fte.title))
+      fte.landing_topics.order(:landing_sort_order).each do |lt|
+        landing_theme = fte.landing_themes.first
+        ls_attributes = defaults_landing_subject_attributes(landing_theme, lt)
+        LandingSubject.create(ls_attributes)
+      end
+
       ## Landing "contactez-nous"
       Landing.where(slug: ['contactez-nous']).each do |landing|
-        landing.update(layout: 'single_page')
+        landing.update(layout: :single_page)
         landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
           title: 'Échanger avec un conseiller pour :',
           # position: 1

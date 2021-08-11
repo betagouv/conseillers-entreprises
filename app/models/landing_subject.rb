@@ -22,9 +22,9 @@
 #
 # Indexes
 #
-#  index_landing_subjects_on_landing_theme_id  (landing_theme_id)
-#  index_landing_subjects_on_slug              (slug) UNIQUE
-#  index_landing_subjects_on_subject_id        (subject_id)
+#  index_landing_subjects_on_landing_theme_id           (landing_theme_id)
+#  index_landing_subjects_on_slug_and_landing_theme_id  (slug,landing_theme_id) UNIQUE
+#  index_landing_subjects_on_subject_id                 (subject_id)
 #
 # Foreign Keys
 #
@@ -40,7 +40,7 @@ class LandingSubject < ApplicationRecord
 
   ## Validation
   #
-  validates :slug, presence: true, uniqueness: true
+  validates :slug, presence: true, uniqueness: { scope: :landing_theme_id }
 
   ## Scopes
   #

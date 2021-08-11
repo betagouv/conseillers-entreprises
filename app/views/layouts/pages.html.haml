@@ -28,6 +28,7 @@
 
   %body
     = render 'navbar' unless in_iframe?
+  %body{ class: "#{@landing.layout if defined?(@landing)}" }
     = render 'environment_ribbon'
     = render 'user_impersonate'
     = render 'shared/flashes_pages'
