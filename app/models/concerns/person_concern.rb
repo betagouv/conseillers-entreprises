@@ -51,7 +51,7 @@ module PersonConcern
   def normalize_email
     return unless self.email
 
-    self.email = self.email.strip.downcase
+    self.email = ActiveSupport::Inflector.transliterate(self.email.strip.downcase)
   end
 
   def normalize_phone_number

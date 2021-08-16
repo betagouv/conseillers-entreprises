@@ -65,6 +65,23 @@ describe CsvImport::UserImporter, CsvImport do
         expect(team.users.pluck(:phone_number)).to match_array(['01 23 45 67 89'])
       end
     end
+
+    describe 'with accent in email' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dùpont@antênne.com,0123456789,Cheffe,Equipe,équîpe@ântènne.com,0987654321
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.teams.count).to eq 1
+        team = institution.experts.teams.first
+        expect(team.email).to eq 'equipe@antenne.com'
+        expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com'])
+      end
+    end
   end
 
   context 'set teams and user without phone number' do
