@@ -15,7 +15,7 @@ module IframePrefix
   #   `scope path: "(:iframe_prefix)", iframe_prefix: /my_nice_prefix?/, defaults: {iframe_prefix: nil}`
   # * iframe_external_links.js: The <a href=''> links in the page are automatically tweaked to target the iframe.
   included do
-    helper OverrideUrlFor # Insert our implementation in the helpers stack to customize url_for.
+    # helper OverrideUrlFor # Insert our implementation in the helpers stack to customize url_for.
 
     skip_forgery_protection if: -> { in_iframe? }
     after_action :allow_in_iframe, if: -> { in_iframe? }
@@ -46,9 +46,9 @@ module IframePrefix
   # Note: See also iframe_external_links.js for the
   module OverrideUrlFor
     # :url_for is called, via :link_to or the `*_path` helpers, in the view templates.
-    def url_for(args)
-      prefix_url_if_needed(super)
-    end
+    # def url_for(args)
+    #   prefix_url_if_needed(super)
+    # end
 
     private
 

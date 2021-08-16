@@ -22,13 +22,14 @@
   - unless in_iframe?
     #scroll-section
 
-  - if lookup_context.template_exists?("#{@landing.layout}", "landings", true)
-    = render @landing.layout, landing_themes: @landing.landing_themes, landing: @landing
-
-  - else
-    %section.section.section-grey#section-thematiques
-      .container
-        = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
+  -# TODO ça sert à quoi ?
+  -# - if lookup_context.template_exists?("#{@landing.layout}", "landings", true)
+  -#   = render @landing.layout, landing_themes: @landing.landing_themes, landing: @landing
+  -#
+  -# - else
+  %section.section.section-grey#section-thematiques
+    .container
+      = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
   - unless in_iframe?
     %section.section.section-light-grey.landing

@@ -17,8 +17,8 @@
           .image
             = image_tag('home.png', alt: "")
 
-    - if @landing_theme.landings.present?
-      = render 'pages/breadcrumbs', landing_theme: @landing_theme
+  - if !in_iframe? || (in_iframe? && @landing.layout_multiple_steps?)
+    = render 'pages/breadcrumbs', landing: @landing, landing_theme: @landing_theme
 
   - unless in_iframe?
     #scroll-section

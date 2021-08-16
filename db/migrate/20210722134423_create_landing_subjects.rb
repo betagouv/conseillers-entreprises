@@ -39,6 +39,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
     end
 
     add_index :landing_themes, :slug, unique: true
+    # TODO remettre en unique
     add_index :landing_subjects, [:slug, :landing_theme_id], :unique => true
 
     add_column :landings, :layout, :integer, default: 1
@@ -120,6 +121,22 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           )
         end
       end
+
+      # Iframe de la MARTINIQUE
+      landing_martinique = home_landing.dup
+      landing_martinique.update(landing_themes: home_landing.landing_themes, slug: 'collectivite_de_martinique', iframe: true, title: 'Collectivite de Martinique',
+        custom_css:  "section.section, section.section-grey, .section-grey, #section-thankyou {
+          background-color: #ECF3FC !important;
+          }
+          .card, .landing-topic.block-link {
+            background-color: #ffffff !important;
+          }
+          .landing-topic.block-link {
+            margin-right: 2rem !important;
+            flex: 0 0 45% !important;
+            padding: 20px !important
+          }
+          ")
 
       # Landing avec des group_name
       Landing.where(slug: ['relance', 'brexit', 'relance-hautsdefrance']).each do |landing|

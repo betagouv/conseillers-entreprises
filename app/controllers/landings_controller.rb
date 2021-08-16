@@ -12,7 +12,12 @@ class LandingsController < Landings::BaseController
   end
 
   def show
-    redirect_to landing_theme_path(@landing, @landing_themes.first) unless @landing_themes.many?
+    redirect_to landing_theme_path(@landing.slug, @landing_themes.first) unless @landing_themes.many?
+  end
+
+  # temporary redirection for iframes
+  def redirect_iframe
+  # go to retrieve_landing
   end
 
   private
@@ -23,8 +28,19 @@ class LandingsController < Landings::BaseController
       Landing.find_by(slug: slug)
     end
     @landing_themes = @landing&.landing_themes&.order(:position)
-
-    redirect_to root_path, status: :moved_permanently if @landing.nil?
+    # Temporary redirections for landings routes
+    if @landing.nil?
+      landing_theme = LandingTheme.find_by(slug: slug)
+      if landing_theme.present?
+        redirect_to landing_theme_path(:home, landing_theme), status: :moved_permanently
+      elsif params[:institution].present?
+        if params[:institution] == 'collectivite_de_martinique'
+          redirect_to landing_path('collectivite_de_martinique'), status: :moved_permanently
+        end
+      else
+        redirect_to root_path, status: :moved_permanently
+      end
+    end
   end
 
   def save_form_info

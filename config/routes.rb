@@ -53,21 +53,16 @@ Rails.application.routes.draw do
   # Pages
   # root controller: :landings, action: :index
   root controller: :landings, action: :home
-  resources :landings, param: :slug, only: [], path: 'aide-entreprises' do
-
+  resources :landings, param: :slug, only: [:show], path: 'aide-entreprises' do
+    collection do
+      get :redirect_iframe
+    end
     resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', as: 'theme', only: %i[show]
     resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', as: 'subject', only: %i[show] do
       post :create_solicitation, on: :member
     end
   end
-  resources :landings, param: :slug, only: %i[show], path: 'aide-entreprises' do
-    member do
-      get 'demande(/:option_slug)', action: :new_solicitation, as: :new_solicitation
-      # as the form to create solicitations is on the landings show page,
-      # we’re using the same path the show landings and to view solicitations.
-      post :create_solicitation, path: ''
-    end
-  end
+
 
   resource :newsletters, only: %i[] do
     post :create
@@ -231,6 +226,14 @@ Rails.application.routes.draw do
   get '/rech-etablissement', to: 'utilities#search_etablissement'
 
   ## Redirection for compatibility
+  # Landings
+  get '/e/(*all)', to: redirect(path: '/aide-entreprises/redirect_iframe')
+  # get '/aide-entreprises/:slug/demande(/:option_slug)', to: redirect(path: '/aide-entreprises/home/demande/%{slug}')
+  # get '/aide-entreprises/contactez-nous', to: redirect(path: '/contactez-nous/theme/contactez-nous')
+  # get '/aide-entreprises/contactez-nous/demande/:slug', to: redirect(path: '/aide-entreprises/contactez-nous/demande/%{slug}')
+  #   # /aide-entreprises/contactez-nous/demande/autre_demande
+  #   # /aide-entreprises/contactez-nous/demande/faire-une-autre-demande
+  # Others
   get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
   get '/entreprise/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
   get '/aide/:slug', to: redirect('/aide-entreprises/%{slug}')
