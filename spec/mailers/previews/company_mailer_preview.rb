@@ -11,8 +11,8 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.notify_taking_care(Diagnosis.completed.from_solicitation.sample.matches.sample)
   end
 
-  def taking_care_visit
-    CompanyMailer.notify_taking_care(Diagnosis.completed.from_visit.sample.matches.sample)
+  def not_reachable
+    CompanyMailer.notify_not_reachable(Diagnosis.completed.from_solicitation.sample.matches.sample)
   end
 
   def satisfaction

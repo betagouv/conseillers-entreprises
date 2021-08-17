@@ -368,6 +368,10 @@ fr:
         subscribe: S’abonner à la newsletter
         content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider. </p><p>Vous serez informés par mail de la prise en charge de votre demande et appelé directement par le(s) conseiller(s), dans les <strong>5 jours ouvrés</strong> en moyenne.</p>"
         subject: Nous avons bien reçu votre demande
+      notify_not_reachable:
+        content_by_expert_html: "<p>Elle a été prise en charge par un conseiller de %{expert_antenne}, qui a tenté de vous joindre par téléphone. <strong>Nous vous invitons à consulter votre messagerie vocale et vos mails</strong>.</p>"
+        recall: N’hésitez pas à le rappeler directement.
+        subject: Un conseiller a tenté de vous joindre
       notify_taking_care:
         content_by_expert_html: "<p>Elle est prise en charge par un conseiller de %{expert_antenne}, qui va vous appeler rapidement. <strong>N’oubliez pas de consulter votre messagerie vocale et vos mails</strong>.</p>"
         intro_from_solicitation_html: "<p>Vous avez utilisé le service public Place des Entreprises pour %{company}. Votre demande concerne :</p>"

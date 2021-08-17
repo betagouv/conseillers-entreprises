@@ -36,6 +36,19 @@ describe MatchMailerService do
         expect(Delayed::Job.count).to eq 0
       end
     end
+
+    context 'match taking_care and match not reachable' do
+      before do
+        notify_change(:taking_care)
+        notify_change(:done_not_reachable)
+      end
+
+      it do
+        expect(Delayed::Job.count).to eq 1
+        previous_status = Delayed::Job.last.payload_object.args.last.to_sym
+        expect(previous_status).to eq :quo
+      end
+    end
   end
 
   describe '#notify_status' do

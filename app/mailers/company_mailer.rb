@@ -21,6 +21,15 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
+  def notify_not_reachable(match)
+    @match = match
+    @diagnosis = match.diagnosis
+    mail(
+      to: @diagnosis.visitee.email_with_display_name,
+      subject: t('mailers.company_mailer.notify_not_reachable.subject')
+    )
+  end
+
   def satisfaction(need)
     @need = need
     @email_token = Digest::SHA256.hexdigest(@need.diagnosis.visitee.email)
