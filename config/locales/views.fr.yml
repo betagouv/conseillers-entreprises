@@ -584,9 +584,9 @@ fr:
   solicitations:
     header:
       canceled: annulées
-      in_progress: relancées
       index: à traiter
       processed: traitées
+      reminded: relancées
     index:
       clear_search: Réinitialiser la recherche
       filter: Filtrer
@@ -597,9 +597,9 @@ fr:
       title: Sollicitations
     menu:
       canceled: Annulées
-      in_progress_html: Relancées
       index_html: À traiter
       processed: Traitées
+      reminded_html: Relancées
     set_category_content:
       landings: Landings
       options: Options
