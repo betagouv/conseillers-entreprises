@@ -49,6 +49,7 @@ gem 'highcharts-rails'
 # Misc
 gem 'activeadmin'
 gem 'activeadmin-ajax_filter'
+gem 'activeadmin_blaze_theme'
 gem 'http'
 gem 'jbuilder'
 gem 'turbolinks'
