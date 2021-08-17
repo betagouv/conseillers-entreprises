@@ -1,9 +1,13 @@
-= render 'mailers/company_mailer/header'
+= render 'mailers/header'
 
 %p= t('mailers.hello')
 
 - link_to_root = link_to t('app_name'), root_url
 
 = t('.content_html', website: (@solicitation.institution.present? ? @solicitation.institution.name : 'Place des Entreprises'))
+
+%p= t('mailers.thank_you_to_used_our_service')
+
+%p= t('mailers.nice_day')
 
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)

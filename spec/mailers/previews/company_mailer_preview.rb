@@ -1,6 +1,10 @@
 class CompanyMailerPreview < ActionMailer::Preview
-  def confirmation_solicitation
-    CompanyMailer.confirmation_solicitation(Solicitation.all.sample)
+  def confirmation_solicitation_from_pde
+    CompanyMailer.confirmation_solicitation(Solicitation.where(institution: nil).sample)
+  end
+
+  def confirmation_solicitation_from_iframe
+    CompanyMailer.confirmation_solicitation(Solicitation.where.not(institution: nil).sample)
   end
 
   def taking_care_solicitation

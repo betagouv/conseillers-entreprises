@@ -1,19 +1,15 @@
-= render 'mailers/company_mailer/header'
+= render 'mailers/header'
 
 %p= t('mailers.hello')
 
-- if @diagnosis.from_solicitation?
-  = t('.intro_from_solicitation_html', company: @diagnosis.company.name)
-- else
-  = t('.intro_from_visit_html',
-   company: @diagnosis.company.name,
-   advisor_antenne: @diagnosis.advisor.antenne.name,
-   advisor: @diagnosis.advisor.full_name)
+= t('.intro_from_solicitation_html', company: @diagnosis.company.name)
 
 %blockquote
   %strong= @match.need.subject.label
 
 = t('.content_by_expert_html', expert_antenne: @match.expert.antenne.name)
+
+%p= t('mailers.thank_you_to_used_our_service')
 
 %p= t('mailers.nice_day')
 
@@ -21,5 +17,4 @@
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
 
 %p= t('mailers.withdraw_request_html', mailto_link: mailto_contact_us(t('contact_us')))
-
 

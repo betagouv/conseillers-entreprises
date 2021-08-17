@@ -361,23 +361,24 @@ fr:
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
     company_mailer:
       confirmation_solicitation:
-        content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise aux partenaires publics susceptibles de vous aider.</p><p>Un suivi qualité est assuré afin qu’aucune demande ne reste sans réponse.</p><p>Merci d’avoir utilisé notre service.</p><p>Bonne journée,</p>"
-        subject: Bonne réception de votre demande par Place des Entreprises
       newsletter_subscription:
         discover: Découvrez chaque mois un accompagnement public susceptible de vous aider !
         intro_html: Vous avez utilisé <strong>le service public Place des Entreprises</strong> pour votre entreprise <strong>%{company}</strong>.
         subject: Découvrez les accompagnements publics pour votre entreprise avec la newsletter Place des Entreprises
         subscribe: S’abonner à la newsletter
+        content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider. </p><p>Vous serez informés par mail de la prise en charge de votre demande et appelé directement par le(s) conseiller(s), dans les <strong>5 jours ouvrés</strong> en moyenne.</p>"
+        subject: Nous avons bien reçu votre demande
       notify_taking_care:
-        content_by_expert_html: "<p>Elle a été transmise à un conseiller de <strong>%{expert_antenne}</strong>, qui va prendre contact avec vous. N’oubliez pas de consulter vos mails ou votre messagerie vocale. </p>"
-        intro_from_solicitation_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
-        intro_from_visit_html: "<p>Vous avez rencontré <strong>%{advisor}</strong> (%{advisor_antenne}), qui a utilisé le service public Place des Entreprises pour aider votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
-        subject: Transmission de votre demande Place des Entreprises à un partenaire public
+        content_by_expert_html: "<p>Elle est prise en charge par un conseiller de %{expert_antenne}, qui va vous appeler rapidement. <strong>N’oubliez pas de consulter votre messagerie vocale et vos mails</strong>.</p>"
+        intro_from_solicitation_html: "<p>Vous avez utilisé le service public Place des Entreprises pour %{company}. Votre demande concerne :</p>"
+        subject: Votre demande a été prise en charge
       satisfaction:
-        intro_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande portait sur le sujet :</p>"
+        follow_us: Suivre le service sur LinkedIn
+        intro_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande concernait le sujet :</p>"
+        linkedin_news: Ne loupez pas l’actualité des aides et accompagnements publics !
         outro: Votre avis est important pour nous aider à améliorer ce nouveau service public.
-        question_one_html: "<p>Est-ce que vous avez bien été recontacté par au moins un conseiller ? <a href='%{link_yes}' target='_blank' class='button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='button no'>Non</a></p>"
-        subject: Clôture de votre demande sur Place des Entreprises
+        question_one_html: "<p>Est-ce que vous avez bien été recontacté par au moins un conseiller ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a></p>"
+        subject: Avez-vous bien été rappelé ?
         tank_you: Merci pour votre confiance,
     expert_mailer:
       first_notification_help:
@@ -420,6 +421,7 @@ fr:
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_diagnosis: Voir la demande
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
+    thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
       match_feedback:
