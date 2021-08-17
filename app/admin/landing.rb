@@ -7,6 +7,10 @@ ActiveAdmin.register Landing do
     defaults :finder => :find_by_slug!
   end
 
+  scope :all, default: true
+  scope :iframes
+  scope :locales
+
   ## Index
   #
   index do

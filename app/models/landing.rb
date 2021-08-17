@@ -58,6 +58,8 @@ class Landing < ApplicationRecord
   #
   scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
   scope :emphasis, -> { where(emphasis: true) }
+  scope :iframes, -> { where(iframe: true) }
+  scope :locales, -> { where.not(iframe: true) }
 
   def to_s
     slug
