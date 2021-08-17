@@ -175,6 +175,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
         ls_attributes = defaults_landing_subject_attributes(landing_theme, lt)
         LandingSubject.create(ls_attributes)
       end
+      Landing.where(slug: ['brexit', 'relance-hautsdefrance']).each { |l| l.update(iframe: true) }
 
       ## Landing "contactez-nous"
       Landing.where(slug: ['contactez-nous']).each do |landing|

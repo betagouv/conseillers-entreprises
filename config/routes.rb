@@ -227,7 +227,7 @@ Rails.application.routes.draw do
 
   ## Redirection for compatibility
   # Landings
-  get '/e/(*all)', to: redirect(path: '/aide-entreprises/redirect_iframe')
+  get '/e/aide-entreprises/(*slug)', to: redirect(path: '/aide-entreprises/redirect_iframe?iframe=%{slug}')
   # get '/aide-entreprises/:slug/demande(/:option_slug)', to: redirect(path: '/aide-entreprises/home/demande/%{slug}')
   # get '/aide-entreprises/contactez-nous', to: redirect(path: '/contactez-nous/theme/contactez-nous')
   # get '/aide-entreprises/contactez-nous/demande/:slug', to: redirect(path: '/aide-entreprises/contactez-nous/demande/%{slug}')

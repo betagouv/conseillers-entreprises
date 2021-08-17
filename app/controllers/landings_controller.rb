@@ -37,6 +37,8 @@ class LandingsController < Landings::BaseController
         if params[:institution] == 'collectivite_de_martinique'
           redirect_to landing_path('collectivite_de_martinique'), status: :moved_permanently
         end
+      elsif params[:iframe].present?
+        redirect_to landing_path(params[:iframe]), status: :moved_permanently
       else
         redirect_to root_path, status: :moved_permanently
       end
