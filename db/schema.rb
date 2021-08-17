@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.bigint "facility_id", null: false
     t.date "happened_on"
     t.bigint "solicitation_id"
-    t.boolean "newsletter_subscription_email_sent", default: false, null: false
     t.datetime "completed_at"
+    t.boolean "retention_email_sent", default: false
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
     t.index ["facility_id"], name: "index_diagnoses_on_facility_id"

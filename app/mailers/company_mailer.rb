@@ -39,12 +39,12 @@ class CompanyMailer < ApplicationMailer
     )
   end
 
-  def newsletter_subscription(diagnosis)
-    @diagnosis = diagnosis
+  def retention(need)
+    @need = need
 
     mail(
-      to: @diagnosis.visitee.email_with_display_name,
-      subject: t('mailers.company_mailer.newsletter_subscription.subject')
+      to: @need.diagnosis.visitee.email_with_display_name,
+      subject: t('mailers.company_mailer.retention.subject')
     )
   end
 end

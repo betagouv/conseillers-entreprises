@@ -361,11 +361,6 @@ fr:
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
     company_mailer:
       confirmation_solicitation:
-      newsletter_subscription:
-        discover: Découvrez chaque mois un accompagnement public susceptible de vous aider !
-        intro_html: Vous avez utilisé <strong>le service public Place des Entreprises</strong> pour votre entreprise <strong>%{company}</strong>.
-        subject: Découvrez les accompagnements publics pour votre entreprise avec la newsletter Place des Entreprises
-        subscribe: S’abonner à la newsletter
         content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider. </p><p>Vous serez informés par mail de la prise en charge de votre demande et appelé directement par le(s) conseiller(s), dans les <strong>5 jours ouvrés</strong> en moyenne.</p>"
         subject: Nous avons bien reçu votre demande
       notify_not_reachable:
@@ -376,6 +371,12 @@ fr:
         content_by_expert_html: "<p>Elle est prise en charge par un conseiller de %{expert_antenne}, qui va vous appeler rapidement. <strong>N’oubliez pas de consulter votre messagerie vocale et vos mails</strong>.</p>"
         intro_from_solicitation_html: "<p>Vous avez utilisé le service public Place des Entreprises pour %{company}. Votre demande concerne :</p>"
         subject: Votre demande a été prise en charge
+      retention:
+        intro_html: "<p>Vous avez utilisé le service public Place des Entreprises il y a 5 mois pour votre entreprise %{company}. Votre demande concernait le sujet :</p>"
+        list_html: 'Plus de 50 partenaires publics sont réunis dans ce service pour vous accompagner sur de nombreux sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
+        outro_html: Si vous souhaitez être accompagné, n’hésitez pas à déposer une demande sur %{link_to_root}.
+        remind: Pour rappel, Place des Entreprises est un service de mise en relation pour les TPE & PME. Il vous permet d’échanger avec LE conseiller qui peut vous aider.
+        subject: Avez-vous besoin d’aide ?
       satisfaction:
         follow_us: Suivre le service sur LinkedIn
         intro_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <strong>%{company}</strong>. Votre demande concernait le sujet :</p>"
