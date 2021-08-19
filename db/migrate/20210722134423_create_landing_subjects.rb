@@ -181,7 +181,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       Landing.where(slug: ['contactez-nous']).each do |landing|
         landing.update(layout: :single_page)
         landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
-          title: 'Échanger avec un conseiller pour :',
+          title: 'Contactez-nous',
           # position: 1
         )
         landing_theme = landing.landing_themes.create(landing_theme_attributes)
