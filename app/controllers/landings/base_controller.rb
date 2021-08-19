@@ -13,7 +13,7 @@ class Landings::BaseController < PagesController
 
     # temporary redirections
     if @landing.nil?
-      landing_theme = LandingTheme.find_by_slug(params[:landing_slug])
+      landing_theme = LandingTheme.find_by(slug: params[:landing_slug])
     end
     home_landings = %w[contactes-nous relance]
     if @landing.nil? && landing_theme.present?
@@ -22,7 +22,7 @@ class Landings::BaseController < PagesController
     elsif home_landings.include?(@landing.slug) && params[:slug].present? && find_subject_slug[params[:slug]].present?
       slug = find_subject_slug[params[:slug]]
       redirect_to landing_subject_path(@landing.slug, slug), status: :moved_permanently
-    elsif !@landing.slug == 'home' && !home_landings.include?(@landing.slug)
+    elsif !@landing.slug == 'home' && home_landings.exclude?(@landing.slug)
       redirect_to root_path, status: :moved_permanently
     end
   end

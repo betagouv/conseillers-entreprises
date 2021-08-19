@@ -63,7 +63,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   resource :newsletters, only: %i[] do
     post :create
     get :new, path: 'abonnement', as: :new

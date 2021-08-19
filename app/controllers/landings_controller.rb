@@ -17,7 +17,7 @@ class LandingsController < Landings::BaseController
 
   # temporary redirection for iframes
   def redirect_iframe
-  # go to retrieve_landing
+    # go to retrieve_landing
   end
 
   private
