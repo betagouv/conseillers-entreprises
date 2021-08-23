@@ -36,7 +36,7 @@ class MatchMailerService
       # Notify the company
       CompanyMailer.notify_taking_care(match).deliver_later
     end
-    if company_is_not_reachable(previous_status, match.status)
+    if match.status == :done_not_reachable
       CompanyMailer.notify_not_reachable(match).deliver_later
     end
   end
@@ -44,13 +44,6 @@ class MatchMailerService
   def self.should_notify_everyone(old_status, new_status)
     not_taken_care_of = %w[quo not_for_me]
     taken_care_of = %w[taking_care done]
-
-    old_status.in?(not_taken_care_of) && new_status.in?(taken_care_of)
-  end
-
-  def self.company_is_not_reachable(old_status, new_status)
-    not_taken_care_of = %w[quo not_for_me taking_care]
-    taken_care_of = %w[done_not_reachable]
 
     old_status.in?(not_taken_care_of) && new_status.in?(taken_care_of)
   end

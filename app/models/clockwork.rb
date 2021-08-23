@@ -13,7 +13,7 @@ module Clockwork
     UnusedUsersService.delay.delete_users
   end
   every(1.day, 'send_newsletter_subscription_emails', at: ('4:41')) do
-    CompanyMailerService.delay.send_newsletter_subscription_emails
+    CompanyMailerService.delay.send_retention_emails
   end
   every(1.day, 'send_satisfaction_emails', at: ('5:41')) do
     CompanyMailerService.delay.send_satisfaction_emails

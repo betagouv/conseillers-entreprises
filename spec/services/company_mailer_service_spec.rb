@@ -16,28 +16,28 @@ describe CompanyMailerService do
       described_class.send_retention_emails
     end
 
-    let(:two_months) { Time.now - 2.months }
-    let(:five_months) { Time.now - 5.months }
-    let(:seven_months) { Time.now - 7.months }
+    let(:two_months_ago) { Time.now - 2.months }
+    let(:five_months_ago) { Time.now - 5.months }
+    let(:seven_months_ago) { Time.now - 7.months }
     # Analyse de moins de 5 mois KO
-    let!(:need_1) { create :need_with_matches, created_at: two_months }
+    let!(:need_1) { create :need_with_matches, created_at: two_months_ago }
     # Analyse de plus de 5 mois et moins de 6 mois clôturé avec aide proposée OK
-    let!(:need_2) { create :need_with_matches, created_at: five_months }
+    let!(:need_2) { create :need_with_matches, created_at: five_months_ago }
     # Analyse de plus de 5 mois et moins de 6 mois clôturé avec injoignable OK
-    let!(:need_3) { create :need_with_matches, created_at: five_months }
+    let!(:need_3) { create :need_with_matches, created_at: five_months_ago }
     # Analyse de plus de 5 mois et moins de 6 mois clôturé avec pas d’aide disponible OK
-    let!(:need_4) { create :need_with_matches, created_at: five_months }
+    let!(:need_4) { create :need_with_matches, created_at: five_months_ago }
     # Analyse de plus de 5 mois et moins de 6 mois clôturé avec pas pour mois KO
-    let!(:need_5) { create :need_with_matches, created_at: five_months }
+    let!(:need_5) { create :need_with_matches, created_at: five_months_ago }
     # Analyse de plus de 5 mois et moins de 6 mois pris en charge KO
-    let!(:need_6) { create :need_with_matches, created_at: five_months }
+    let!(:need_6) { create :need_with_matches, created_at: five_months_ago }
     # Analyse de plus de 5 mois et moins de 6 mois en attente KO
-    let!(:need_7) { create :need_with_matches, created_at: five_months }
+    let!(:need_7) { create :need_with_matches, created_at: five_months_ago }
     # Analyse de plus de 5 mois et moins de 6 mois et avec un email deja envoyé KO
-    let!(:diagnosis_8) { create :diagnosis_completed, created_at: five_months, retention_email_sent: true }
-    let!(:need_8) { create :need_with_matches, created_at: five_months, diagnosis: diagnosis_8 }
+    let!(:diagnosis_8) { create :diagnosis_completed, created_at: five_months_ago, retention_email_sent: true }
+    let!(:need_8) { create :need_with_matches, created_at: five_months_ago, diagnosis: diagnosis_8 }
     # Analyse de plus de 6 mois KO
-    let!(:need_9) { create :need_with_matches, created_at: seven_months }
+    let!(:need_9) { create :need_with_matches, created_at: seven_months_ago }
 
     it 'enqueues 3 mailer job' do
       expect(ActionMailer::Base.deliveries.count).to eq 3
