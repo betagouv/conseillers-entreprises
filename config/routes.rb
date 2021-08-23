@@ -77,7 +77,7 @@ Rails.application.routes.draw do
       post :prepare_diagnosis
     end
     collection do
-      get :in_progress, path: 'relancees'
+      get :reminded, path: 'relancees'
       get :processed, path: 'traitees'
       get :canceled, path: 'annulees'
     end

@@ -236,10 +236,12 @@ fr:
         canceled: Annulée
         in_progress: Reçue
         processed: Clôturée
+        reminded: Relancée
       solicitation/statuses/action:
         canceled: Annuler
         in_progress: Réouvrir
         processed: Clôturer
+        reminded: Relancer
       solicitation/statuses/done:
         canceled:
           one: annulée
@@ -250,6 +252,9 @@ fr:
         processed:
           one: clôturée
           other: clôturées
+        reminded:
+          one: relancée
+          other: relancées
       subject:
         is_support: Support
       territory:

@@ -37,7 +37,7 @@ class Solicitation < ApplicationRecord
   include DiagnosisCreation::SolicitationMethods
   include RangeScopes
 
-  enum status: { in_progress: 0, processed: 1, canceled: 2 }, _prefix: true
+  enum status: { in_progress: 0, processed: 1, canceled: 2, reminded: 3 }, _prefix: true
 
   ## Associations
   #
@@ -122,21 +122,10 @@ class Solicitation < ApplicationRecord
     where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
   }
 
-  scope :with_feedbacks, -> do
-    status_in_progress
-      .joins(:feedbacks)
-  end
-
   scope :without_diagnosis, -> {
     left_outer_joins(:diagnosis)
       .where(diagnoses: { id: nil })
   }
-
-  scope :without_feedbacks, -> do
-    status_in_progress
-      .left_outer_joins(:feedbacks)
-      .where(feedbacks: { id: nil })
-  end
 
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
 

@@ -2,22 +2,22 @@ class SolicitationsController < ApplicationController
   include TerritoryFiltrable
 
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
-  before_action :authorize_index_solicitation, only: [:index, :processed, :canceled]
+  before_action :authorize_index_solicitation, only: [:index, :reminded, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
   before_action :set_category_content, only: %i[index processed canceled]
-  before_action :setup_territory_filters, only: %i[index in_progress processed canceled]
-  before_action :count_solicitations, only: %i[index in_progress processed canceled]
+  before_action :setup_territory_filters, only: %i[index reminded processed canceled]
+  before_action :count_solicitations, only: %i[index reminded processed canceled]
 
   layout 'side_menu'
 
   def index
-    @solicitations = ordered_solicitations.without_feedbacks
+    @solicitations = ordered_solicitations.status_in_progress
     @status = t('solicitations.header.index')
   end
 
-  def in_progress
-    @solicitations = ordered_solicitations.with_feedbacks
-    @status = t('solicitations.header.in_progress')
+  def reminded
+    @solicitations = ordered_solicitations.status_reminded
+    @status = t('solicitations.header.reminded')
     render :index
   end
 
@@ -40,6 +40,9 @@ class SolicitationsController < ApplicationController
     when 'canceled'
       page = Solicitation.status_canceled.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
       redirect_to canceled_solicitations_path(anchor: @solicitation.id, page: page)
+    when 'reminded'
+      page = Solicitation.status_reminded.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
+      redirect_to reminded_solicitations_path(anchor: @solicitation.id, page: page)
     when 'processed'
       page = Solicitation.status_processed.where('updated_at > ?',@solicitation.updated_at).count / nb_per_page + 1
       redirect_to processed_solicitations_path(anchor: @solicitation.id, page: page)
@@ -118,8 +121,8 @@ class SolicitationsController < ApplicationController
   def count_solicitations
     @count_solicitations = Rails.cache.fetch(["count-solicitations", ordered_solicitations, territory_id]) do
       {
-        without_feedbacks: ordered_solicitations.without_feedbacks.total_count,
-          with_feedbacks: ordered_solicitations.with_feedbacks.total_count
+        in_progress: ordered_solicitations.status_in_progress.total_count,
+        reminded: ordered_solicitations.status_reminded.total_count
       }
     end
   end
