@@ -4,7 +4,12 @@
 
 - link_to_root = link_to t('app_name'), root_url
 
-= t('.content_html', website: (@solicitation.institution.present? ? @solicitation.institution.name : 'Place des Entreprises'))
+- if @solicitation.institution.present?
+  %p= t('.content_for_iframe_html', website: @solicitation.institution.name)
+- else
+  %p= t('.content_html')
+
+= t('.informations_html')
 
 %p= t('mailers.thank_you_to_used_our_service')
 

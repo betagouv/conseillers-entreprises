@@ -361,7 +361,9 @@ fr:
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
     company_mailer:
       confirmation_solicitation:
-        content_html: "<p>L’équipe Place des Entreprises a bien reçu votre demande déposée sur le site de %{website}.</p><p>Votre demande va être transmise au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider. </p><p>Vous serez informés par mail de la prise en charge de votre demande et appelé directement par le(s) conseiller(s), dans les <strong>5 jours ouvrés</strong> en moyenne.</p>"
+        content_for_iframe_html: Nous avons bien reçu votre demande déposée sur le site %{website}, en partenariat avec le service Place des Entreprises.
+        content_html: Nous avons bien reçu votre demande déposée sur le site Place des Entreprises
+        informations_html: "<p>Votre demande va être transmise au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider.</p><p>Vous serez informés par mail de la prise en charge de votre demande et appelé directement par le(s) conseiller(s), dans les <strong>5 jours ouvrés</strong> en moyenne.</p>"
         subject: Nous avons bien reçu votre demande
       notify_not_reachable:
         content_by_expert_html: "<p>Elle a été prise en charge par un conseiller de %{expert_antenne}, qui a tenté de vous joindre par téléphone. <strong>Nous vous invitons à consulter votre messagerie vocale et vos mails</strong>.</p>"
