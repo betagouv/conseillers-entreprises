@@ -76,14 +76,23 @@ $text-shadow: #000;
 // Scopes
 .table_tools_segmented_control {
   li a {
-    background-color: #6a6a6a !important;
-    border: 1px solid white !important;
+    background-color: #EFEFEFFF !important;
+    border-top: 1px solid #5E6469 !important;
+    border-bottom: 1px solid #5E6469 !important;
     border-radius: 0 !important;
     margin: 0 !important;
+    text-shadow: none !important;
+    color: #5E6469 !important;
+    margin-bottom: 0.5rem !important;
+    border-right: 1px solid #5E6469 !important;
+    span {
+      color: #5E6469 !important;
+      text-shadow: none !important;
+    }
   }
   li:first-child a {
     margin-left: 1rem !important;
-    border-left: 1px solid white !important;
+    border-left: 1px solid #5E6469 !important;
     border-top-left-radius: 6px !important;
     border-bottom-left-radius: 6px !important;
   }
@@ -92,21 +101,29 @@ $text-shadow: #000;
     border-bottom-right-radius: 6px !important;
   }
   .selected a {
-    background-color: $bg-menu-active !important;
-    color: #5E6469 !important;
+    background-color: #6a6a6a !important;
+    color: white !important;
     text-shadow: none !important;
     span {
-      color: #5E6469 !important;
+      color: white !important;
       text-shadow: none !important;
     }
   }
 }
+body.active_admin .button-base {
+  text-shadow: none !important;
+}
 
+body.active_admin .table_tools a.disabled {
+  color: black !important;
+  text-shadow: none !important;
+}
 // Header
 .header {
   position: relative;
   color: #5E6469 !important;
   text-shadow: none !important;
+  margin-bottom: 0.5rem;
 }
 body.active_admin #tabs, body.active_admin #utility_nav, .header {
   background-color: #fff !important;
@@ -145,6 +162,7 @@ body.active_admin #header ul.tabs > li.has_nested > ul {
   text-shadow: none;
 }
 
+// Sidebar
 #sidebar {
   padding-top: 1rem !important;
 }
@@ -153,5 +171,35 @@ body.active_admin #header ul.tabs > li.has_nested > ul {
 body.logged_in .flash {
   background-image: none !important;
   border-bottom: none !important;
+  text-shadow: none !important;
+}
+
+// Entêtes tableaux
+body.active_admin .index_table th {
+  background-color: #ECE9E2 !important;
+  text-shadow: none !important;
+}
+
+// Pagination
+body.active_admin nav.pagination {
+  span {
+    font-size: 1rem !important;
+    color: #5E6469 !important;
+    a {
+      color: #5E6469 !important;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+// Bouton actions
+.dropdown_menu .dropdown_menu_button {
+  background-image: none !important;
+  background-color: #EFEFEFFF !important;
+  border-radius: 6px !important;
+  border: solid 1px #5E6469 !important;
+  color: #5E6469 !important;
   text-shadow: none !important;
 }
