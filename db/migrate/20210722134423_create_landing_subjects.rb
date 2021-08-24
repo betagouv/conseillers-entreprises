@@ -162,9 +162,11 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       # Iframes
       ## Iframe 360°
       [
-        { slug: 'zetwal', title: 'Zetwal', institution_id: 146, partner_url: 'https://www.zetwal.mq/deposer-une-demande-2/', iframe: true, custom_css:  "section.section, section.section-grey, .section-grey, #section-thankyou {
-          background-color: #ECF3FC !important; }.card, .landing-topic.block-link {  background-color: #ffffff !important;}.landing-topic.block-link {  margin-right: 2rem !important;  flex: 0 0 45% !important;  padding: 20px !important}" },
-        { slug: 'entreprises-haut-de-france', title: 'Entreprises Haut de France', institution_id: 31,  partner_url: 'https://entreprises.hautsdefrance.fr/Contact', iframe: true, custom_css: '' }
+        {
+          slug: 'zetwal', title: 'Zetwal', institution_id: 146, partner_url: 'https://www.zetwal.mq/deposer-une-demande-2/', iframe: true, custom_css:  "section.section, section.section-grey, .section-grey, #section-thankyou {
+          background-color: #ECF3FC !important; }.card, .landing-topic.block-link {  background-color: #ffffff !important;}.landing-topic.block-link {  margin-right: 2rem !important;  flex: 0 0 45% !important;  padding: 20px !important}"
+        },
+        { slug: 'entreprises-haut-de-france', title: 'Entreprises Haut de France', institution_id: 31, partner_url: 'https://entreprises.hautsdefrance.fr/Contact', iframe: true, custom_css: '' }
       ].each do |hash|
         landing = Landing.where(slug: hash[:slug]).first_or_create(
           title: hash[:title],
@@ -174,7 +176,6 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           custom_css: hash[:custom_css],
         )
         landing.landing_themes << home_landing.landing_themes
-
       end
       ## France transition ecologique
       Landing.where(slug: ['france-transition-ecologique']).each do |landing|

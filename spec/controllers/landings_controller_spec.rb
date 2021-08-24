@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe LandingsController, type: :controller do
   describe 'GET #show' do
     before do
-      create :landing, slug: 'home'
+      create :landing, slug: 'accueil'
     end
 
     context 'existing home landing page' do

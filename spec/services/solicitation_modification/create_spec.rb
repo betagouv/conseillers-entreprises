@@ -3,7 +3,7 @@
 require 'rails_helper'
 describe SolicitationModification::Create do
   describe 'call' do
-    let(:landing) { create :landing, slug: 'home', home_title: 'Test Landing' }
+    let(:landing) { create :landing, slug: 'accueil', home_title: 'Test Landing' }
     let!(:landing_subject) { create :landing_subject, requires_siret: true }
 
     let(:base_params) {

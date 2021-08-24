@@ -242,8 +242,8 @@ Rails.application.routes.draw do
   get '/e', to: redirect { |path_params, req|
     query_params = Rack::Utils.parse_query(req.query_string)
     hash = {
-      'conseil_regional_hauts_de_france'=> 'entreprises-haut-de-france',
-      'collectivite_de_martinique'=> 'zetwal'
+      'conseil_regional_hauts_de_france' => 'entreprises-haut-de-france',
+      'collectivite_de_martinique' => 'zetwal'
     }
     "/aide-entreprise/#{hash[query_params['institution']]}"
   }

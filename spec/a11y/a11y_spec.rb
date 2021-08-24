@@ -6,7 +6,7 @@ describe 'a11y', type: :feature, js: true do
   subject { page }
 
   before do
-    create :landing, :with_subjects, slug: 'home'
+    create :landing, :with_subjects, slug: 'accueil'
     create :landing, :with_subjects, slug: 'landing-two',
       title: 'Titre landing'
   end
@@ -17,25 +17,25 @@ describe 'a11y', type: :feature, js: true do
     it { is_expected.to be_accessible }
   end
 
-  describe '/aide-entreprises/:slug' do
-    before { visit "/aide-entreprises/#{Landing.last.slug}" }
+  describe '/aide-entreprise/:slug' do
+    before { visit "/aide-entreprise/#{Landing.last.slug}" }
 
     it { is_expected.to be_accessible }
   end
 
-  describe '/aide-entreprises/:landing_slug/theme/:slug' do
+  describe '/aide-entreprise/:landing_slug/theme/:slug' do
     before do
       landing = Landing.last
-      visit "/aide-entreprises/#{landing.slug}/theme/#{landing.landing_themes.first.slug}"
+      visit "/aide-entreprise/#{landing.slug}/theme/#{landing.landing_themes.first.slug}"
     end
 
     it { is_expected.to be_accessible }
   end
 
-  describe '/aide-entreprises/:landing_slug/demande/:slug' do
+  describe '/aide-entreprise/:landing_slug/demande/:slug' do
     before do
       landing = Landing.last
-      visit "/aide-entreprises/#{landing.slug}/demande/#{landing.landing_subjects.first.slug}"
+      visit "/aide-entreprise/#{landing.slug}/demande/#{landing.landing_subjects.first.slug}"
     end
 
     it { is_expected.to be_accessible }
