@@ -9,6 +9,9 @@ module Clockwork
   every(1.week, 'send_experts_reminders', at: 'Tuesday 9:00') do
     ExpertReminderService.delay.send_reminders
   end
+  every(1.week, 'delete_unused_users', at: 'sunday 9:00') do
+    UnusedUsersService.delay.delete_users
+  end
   every(1.day, 'send_newsletter_subscription_emails', at: ('4:41')) do
     CompanyMailerService.delay.send_newsletter_subscription_emails
   end

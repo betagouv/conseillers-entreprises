@@ -12,13 +12,13 @@ module SoftDeletable
     deleted_at.present?
   end
 
-  def delete
+  def soft_delete
     update_columns(deleted_at: Time.zone.now)
   end
 
   def destroy
     # Don’t run callbacks for :destroy (i.e. don't nullify dependent relations.)
-    delete
+    soft_delete
   end
 
   module ActiveAdminResourceController

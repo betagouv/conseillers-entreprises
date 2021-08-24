@@ -219,9 +219,9 @@ class User < ApplicationRecord
     super && !deleted?
   end
 
-  def delete
+  def soft_delete
     self.transaction do
-      personal_skillsets.each { |expert| expert.delete }
+      personal_skillsets.each { |expert| expert.soft_delete }
       update_columns(deleted_at: Time.zone.now,
                      email: nil,
                      full_name: nil,
