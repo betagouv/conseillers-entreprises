@@ -4,7 +4,7 @@ class LandingsController < Landings::BaseController
   include IframePrefix
 
   def home
-    @landing = Landing.find_by(slug: 'home')
+    @landing = Landing.find_by(slug: 'accueil')
     @landing_themes = Rails.cache.fetch('landing_themes', expires_in: 3.minutes) do
       @landing.landing_themes.order(:position)
     end
@@ -12,12 +12,6 @@ class LandingsController < Landings::BaseController
   end
 
   def show
-    redirect_to landing_theme_path(@landing.slug, @landing_themes.first) unless @landing_themes.many?
-  end
-
-  # temporary redirection for iframes
-  def redirect_iframe
-    # go to retrieve_landing
   end
 
   private
@@ -32,7 +26,7 @@ class LandingsController < Landings::BaseController
     if @landing.nil?
       landing_theme = LandingTheme.find_by(slug: slug)
       if landing_theme.present?
-        redirect_to landing_theme_path(:home, landing_theme), status: :moved_permanently
+        redirect_to landing_theme_path(:accueil, landing_theme), status: :moved_permanently
       elsif params[:institution].present?
         if params[:institution] == 'collectivite_de_martinique'
           redirect_to landing_path('collectivite_de_martinique'), status: :moved_permanently

@@ -25,7 +25,7 @@ module BreadcrumbsHelper
   private
 
   def home_link(landing, params = {})
-    if landing.slug == 'home'
+    if landing.slug == 'accueil'
       html = link_to t('breadcrumbs_helper.home_link.home'), root_path(params)
     else
       html = link_to t('breadcrumbs_helper.home_link.home'), landing

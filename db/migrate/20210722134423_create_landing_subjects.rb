@@ -74,7 +74,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           landing_theme_id: landing_theme.id,
           subject_id: subject.id,
           title: landing_topic.title,
-          slug: landing_topic.title.parameterize,
+          slug: landing_topic.landing_option_slug.dasherize.parameterize,
           description: landing_topic.description,
           meta_title: landing_option.meta_title,
           meta_description: nil,
@@ -88,16 +88,14 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       end
 
       ## Home Landing
-      home_landing = Landing.where(slug: 'home').first_or_create(
-        title: 'home'
+      home_landing = Landing.where(slug: 'accueil').first_or_create(
+        title: 'Accueil'
       )
 
       # Themes de la page d'accueil
       Landing.where.not(home_sort_order: nil).order(:home_sort_order).each do |landing|
         landing_theme_attributes = defaults_landing_theme_attributes(landing)
         landing_theme = home_landing.landing_themes.create(landing_theme_attributes)
-        # p "THEME ============="
-        # p landing_theme
 
         landing.landing_topics.order(:landing_sort_order).each do |lt|
           ls_attributes = defaults_landing_subject_attributes(landing_theme, lt)
@@ -106,13 +104,11 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
 
         landing.solicitations.each do |sol|
           landing_option = sol.landing_option
-          # p sol.landing_option&.preselected_subject_slug
           if landing_option.present?
             landing_subject = retrieve_landing_subject(landing_option) || landing_theme.landing_subjects.first
           else
             landing_subject = landing_theme.landing_subjects.first
           end
-          # p landing_subject&.slug
 
           sol.update(
             landing_id: home_landing.id,
@@ -122,22 +118,6 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
         end
       end
 
-      # Iframe de la MARTINIQUE
-      landing_martinique = home_landing.dup
-      landing_martinique.update(landing_themes: home_landing.landing_themes, slug: 'collectivite_de_martinique', iframe: true, title: 'Collectivite de Martinique',
-        custom_css:  "section.section, section.section-grey, .section-grey, #section-thankyou {
-          background-color: #ECF3FC !important;
-          }
-          .card, .landing-topic.block-link {
-            background-color: #ffffff !important;
-          }
-          .landing-topic.block-link {
-            margin-right: 2rem !important;
-            flex: 0 0 45% !important;
-            padding: 20px !important
-          }
-          ")
-
       # Landing avec des group_name
       Landing.where(slug: ['relance', 'brexit', 'relance-hautsdefrance']).each do |landing|
         landing.update(layout: :single_page)
@@ -146,16 +126,16 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           landing.save!
         end
         # Create themes for each group_name
-        landing.landing_topics.order(:landing_sort_order).pluck(:group_name).compact.each_with_index do |group_name, idx|
-          landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
-            title: group_name,
-            slug: group_name.parameterize,
-            # position: idx
-          )
-          lt = LandingTheme.find_by(slug: group_name.parameterize)
+        landing.landing_topics.order(:landing_sort_order).pluck(:group_name).compact.each do |group_name|
+          theme_slug = group_name.parameterize
+          lt = LandingTheme.find_by(slug: theme_slug)
           if lt.present?
             landing.landing_themes << lt unless landing.landing_themes.include?(lt)
           else
+            landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
+              title: group_name,
+              slug: theme_slug,
+            )
             landing.landing_themes.create(landing_theme_attributes)
           end
         end
@@ -166,23 +146,11 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
         end
       end
 
-      # Iframes
-      fte = Landing.find_by(slug: 'france-transition-ecologique')
-      fte.update(iframe: true)
-      fte.landing_themes.create!(defaults_landing_theme_attributes(fte).merge(title: fte.title))
-      fte.landing_topics.order(:landing_sort_order).each do |lt|
-        landing_theme = fte.landing_themes.first
-        ls_attributes = defaults_landing_subject_attributes(landing_theme, lt)
-        LandingSubject.create(ls_attributes)
-      end
-      Landing.where(slug: ['brexit', 'relance-hautsdefrance']).each { |l| l.update(iframe: true) }
-
       ## Landing "contactez-nous"
       Landing.where(slug: ['contactez-nous']).each do |landing|
         landing.update(layout: :single_page)
         landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
-          title: 'Contactez-nous',
-          # position: 1
+          title: 'Échanger avec un conseiller pour :',
         )
         landing_theme = landing.landing_themes.create(landing_theme_attributes)
         landing.landing_topics.order(:landing_sort_order).each do |lt|
@@ -190,6 +158,32 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           LandingSubject.create(ls_attributes)
         end
       end
+
+      # Iframes
+      ## Iframe 360°
+      [
+        { slug: 'zetwal', title: 'Zetwal', institution_id: 146, partner_url: 'https://www.zetwal.mq/deposer-une-demande-2/', iframe: true, custom_css:  "section.section, section.section-grey, .section-grey, #section-thankyou {
+          background-color: #ECF3FC !important; }.card, .landing-topic.block-link {  background-color: #ffffff !important;}.landing-topic.block-link {  margin-right: 2rem !important;  flex: 0 0 45% !important;  padding: 20px !important}" },
+        { slug: 'entreprises-haut-de-france', title: 'Entreprises Haut de France', institution_id: 31,  partner_url: 'https://entreprises.hautsdefrance.fr/Contact', iframe: true, custom_css: '' }
+      ].each do |hash|
+        landing = Landing.where(slug: hash[:slug]).first_or_create(
+          title: hash[:title],
+          institution_id: hash[:institution_id],
+          partner_url: hash[:partner_url],
+          iframe: hash[:iframe],
+          custom_css: hash[:custom_css],
+        )
+        landing.landing_themes << home_landing.landing_themes
+
+      end
+      ## France transition ecologique
+      Landing.where(slug: ['france-transition-ecologique']).each do |landing|
+        landing.update(layout: :single_page, iframe: true)
+        ecolo_theme = LandingTheme.find_by(slug: "environnement-transition-ecologique")
+        landing.landing_themes << ecolo_theme
+      end
+
+      Landing.where(slug: ['brexit', 'relance-hautsdefrance']).each { |l| l.update(iframe: true) }
 
       ## MaJ solicitations restantes
       Solicitation.where(landing_subject: nil).each do |sol|
@@ -204,6 +198,8 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           landing_subject_id: landing_subject&.id || nil
         )
       end
+      ## On supprime les landing qui ne servent plus
+      Landing.where.not(home_sort_order: nil).destroy_all
     end
   end
 

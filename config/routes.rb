@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   # Pages
   # root controller: :landings, action: :index
   root controller: :landings, action: :home
-  resources :landings, param: :slug, only: [:show], path: 'aide-entreprises' do
+  resources :landings, param: :slug, only: [:show], path: 'aide-entreprise' do
     collection do
       get :redirect_iframe
     end
@@ -225,13 +225,29 @@ Rails.application.routes.draw do
   get '/rech-etablissement', to: 'utilities#search_etablissement'
 
   ## Redirection for compatibility
-  # Landings
-  get '/e/aide-entreprises/(*slug)', to: redirect(path: '/aide-entreprises/redirect_iframe?iframe=%{slug}')
-  # get '/aide-entreprises/:slug/demande(/:option_slug)', to: redirect(path: '/aide-entreprises/home/demande/%{slug}')
-  # get '/aide-entreprises/contactez-nous', to: redirect(path: '/contactez-nous/theme/contactez-nous')
-  # get '/aide-entreprises/contactez-nous/demande/:slug', to: redirect(path: '/aide-entreprises/contactez-nous/demande/%{slug}')
-  #   # /aide-entreprises/contactez-nous/demande/autre_demande
-  #   # /aide-entreprises/contactez-nous/demande/faire-une-autre-demande
+  ### Landings - Accueil
+  ["recrutement-formation", "financement-projets", "entreprise-en-difficulte", "droit-du-travail", "developpement-commercial", "internet-web", "environnement-transition-ecologique", "sante-securite-travail", "cession-reprise"].each do |theme|
+    get "/aide-entreprises/#{theme}", to: redirect(path: "aide-entreprise/accueil/theme/#{theme}")
+    get "/aide-entreprises/#{theme}/demande/:option_slug", to: redirect { |path_params, req| "/aide-entreprise/accueil/demande/#{path_params[:option_slug].dasherize.parameterize}" }
+  end
+  ### Landings - autres locales
+  ["contactez-nous", "relance"].each do |landing|
+    get "/aide-entreprises/#{landing}", to: redirect(path: "aide-entreprise/#{landing}")
+    get "/aide-entreprises/#{landing}/demande/:option_slug", to: redirect { |path_params, req| "/aide-entreprise/#{landing}/demande/#{path_params[:option_slug].dasherize.parameterize}" }
+  end
+  ### Landings - Iframe
+  ["relance-hautsdefrance", "brexit", "france-transition-ecologique"].each do |landing|
+    get "/e/aide-entreprises/#{landing}", to: redirect(path: "aide-entreprise/#{landing}")
+  end
+  get '/e', to: redirect { |path_params, req|
+    query_params = Rack::Utils.parse_query(req.query_string)
+    hash = {
+      'conseil_regional_hauts_de_france'=> 'entreprises-haut-de-france',
+      'collectivite_de_martinique'=> 'zetwal'
+    }
+    "/aide-entreprise/#{hash[query_params['institution']]}"
+  }
+
   # Others
   get '/entreprise/:slug', to: redirect(path: '/aide-entreprises/%{slug}')
   get '/entreprise/:slug(*all)', to: redirect(path: '/aide-entreprises/%{slug}%{all}')
