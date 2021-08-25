@@ -279,19 +279,6 @@ fr:
     paginator:
       navigation_page: navigation pages
   landings:
-    home:
-      answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
-      discover_measures: Découvrir les mesures
-      how-it-works: Comment ça marche
-      meta:
-        description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières...'
-        title: Place des Entreprises - Service public pour les TPE & PME
-      question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
-    index_institutions:
-      more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
-      title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
-    institutions:
-      institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
     landing_subjects:
       card:
         choose: Choisir
@@ -333,9 +320,23 @@ fr:
         discover: Choisir
       show:
         back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/">Découvrez les autres sujets.</a>
-    multiple_steps:
-      contact_us: cliquez ici !
-      other_questions: Pour toute autre demande,
+    landings:
+      home:
+        answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
+        discover_measures: Découvrir les mesures
+        how-it-works: Comment ça marche
+        meta:
+          description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières...'
+          title: Place des Entreprises - Service public pour les TPE & PME
+        question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
+      index_institutions:
+        more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
+        title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
+      institutions:
+        institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
+      multiple_steps:
+        contact_us: cliquez ici !
+        other_questions: Pour toute autre demande,
   layouts:
     side_menu:
       mobile_menu: Menu

@@ -19,14 +19,13 @@
       %style= @landing.custom_css
     - if in_iframe?
       %meta{ name: 'robots', content: 'noindex' }
-    = render 'custom_iframe_css'
 
     = render 'favicon'
     = yield :head
     = sentry_script
     = matomo_script
 
-  %body{ class: "#{@landing.layout if defined?(@landing)}" }
+  %body
     = render 'navbar' unless in_iframe?
     = render 'environment_ribbon'
     = render 'user_impersonate'

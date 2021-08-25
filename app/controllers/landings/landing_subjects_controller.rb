@@ -8,7 +8,7 @@ class Landings::LandingSubjectsController < Landings::BaseController
   end
 
   def create_solicitation
-    sanitized_params = sanitize_params(solicitation_params).merge(retrieve_form_info)
+    sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
     @solicitation = SolicitationModification::Create.call(sanitized_params)
     if @solicitation.persisted?
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
@@ -35,12 +35,12 @@ class Landings::LandingSubjectsController < Landings::BaseController
               *Solicitation::FIELD_TYPES.keys)
   end
 
-  def retrieve_form_info
+  def retrieve_query_params
     # Les params ne passent pas en session dans les iframe, raison pour laquelle on check ici aussi les params de l'url
-    form_info = session[:solicitation_form_info] || {}
-    info_params = show_params.slice(*Solicitation::FORM_INFO_KEYS)
-    form_info.merge!(info_params)
+    saved_params = session[:solicitation_form_info] || {}
+    query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS)
+    saved_params.merge!(query_params)
     session.delete(:solicitation_form_info)
-    { form_info: form_info }
+    { form_info: saved_params }
   end
 end

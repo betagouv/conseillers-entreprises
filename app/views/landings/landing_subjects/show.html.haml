@@ -8,7 +8,7 @@
       .landing-header
         .title
           %h1= @landing_subject&.form_title.presence || @landing_subject.title
-          %p.subtitle= t('landings.home.answer')
+          %p.subtitle= t('landings.landings.home.answer')
 
 - if !in_iframe? || (in_iframe? && @landing.layout_multiple_steps?)
   = render 'pages/breadcrumbs', landing: @landing, landing_theme: @landing_subject.landing_theme, landing_subject: @landing_subject
@@ -63,4 +63,4 @@
 
     %section.section.section-grey
       .container
-        = render 'landings/institutions', item: @landing_subject.landing_theme
+        = render 'landings/landings/institutions', item: @landing_subject.landing_theme

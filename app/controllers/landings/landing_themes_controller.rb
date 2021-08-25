@@ -1,5 +1,5 @@
 class Landings::LandingThemesController < Landings::BaseController
-  before_action :save_form_info
+  before_action :save_query_params
 
   def show
     @landing_theme = LandingTheme.find_by(slug: params[:slug])

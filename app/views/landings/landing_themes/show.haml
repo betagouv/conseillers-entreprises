@@ -11,7 +11,7 @@
           .title
             .heading
               %h1= @landing_theme.page_title || @landing_theme.title
-            %p.subtitle= t('landings.home.answer')
+            %p.subtitle= t('landings.landings.home.answer')
             .links
               = render 'pages/cta_button'
           .image
@@ -39,4 +39,4 @@
 
     %section.section.section-white
       .container
-        = render 'landings/institutions', item: @landing_theme
+        = render 'landings/landings/institutions', item: @landing_theme

@@ -52,11 +52,8 @@ Rails.application.routes.draw do
 
   # Pages
   # root controller: :landings, action: :index
-  root controller: :landings, action: :home
-  resources :landings, param: :slug, only: [:show], path: 'aide-entreprise' do
-    collection do
-      get :redirect_iframe
-    end
+  root controller: "landings/landings", action: :home
+  resources :landings, param: :slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do
     resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', as: 'theme', only: %i[show]
     resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', as: 'subject', only: %i[show] do
       post :create_solicitation, on: :member
