@@ -27,7 +27,7 @@ RSpec.describe Solicitation, type: :model do
         it { is_expected.to eq institution }
       end
 
-      context 'with a solicitation slug in the form_info' do
+      context 'with a solicitation slug in the query_params' do
         let(:institution) { create :institution }
         let(:solicitation) { create :solicitation, form_info: { institution: institution.slug } }
 
@@ -73,7 +73,7 @@ RSpec.describe Solicitation, type: :model do
     context 'subject is known' do
       let(:preselected_subject_slug) { subject1.slug }
 
-      it { is_expected.to eq [subject1] }
+      it { is_expected.to match_array [subject1] }
     end
 
     context 'subject is unknown' do
@@ -93,7 +93,7 @@ RSpec.describe Solicitation, type: :model do
     context 'institution is known' do
       let(:preselected_institution_slug) { institution1.slug }
 
-      it { is_expected.to eq [institution1] }
+      it { is_expected.to match_array [institution1] }
     end
 
     context 'institution is unknown' do
@@ -110,7 +110,7 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.have_badge('test') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe '#have_landing_option' do
@@ -119,7 +119,7 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.have_landing_option('landing_test_slug') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe '#description_contains' do
@@ -128,7 +128,7 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.description_contains('test') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe '#have_landing_slug' do
@@ -137,7 +137,7 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.have_landing('test') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe '#name_contains' do
@@ -146,7 +146,7 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.name_contains('Pink') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe '#email_contains' do
@@ -155,7 +155,7 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.email_contains('kingju') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe "#by_possible_region" do
@@ -177,7 +177,7 @@ RSpec.describe Solicitation, type: :model do
     context 'filter by existing territory' do
       let(:possible_region) { territory1.id }
 
-      it { is_expected.to eq [solicitation1] }
+      it { is_expected.to match_array [solicitation1] }
     end
 
     context 'filter by diagnoses problem' do
@@ -189,7 +189,7 @@ RSpec.describe Solicitation, type: :model do
     context 'filter by out_of_deployed_territories' do
       let(:possible_region) { 'out_of_deployed_territories' }
 
-      it { is_expected.to eq [solicitation2] }
+      it { is_expected.to match_array [solicitation2] }
     end
   end
 end

@@ -64,7 +64,7 @@ RSpec.describe Antenne, type: :model do
     let(:antenne) { build :antenne }
 
     context 'no match' do
-      it { is_expected.to eq [] }
+      it { is_expected.to match_array [] }
     end
 
     context 'match' do
@@ -75,7 +75,7 @@ RSpec.describe Antenne, type: :model do
                            diagnosis: build(:diagnosis, advisor: user))
       end
 
-      it { is_expected.to eq [match] }
+      it { is_expected.to match_array [match] }
     end
   end
 
@@ -85,14 +85,14 @@ RSpec.describe Antenne, type: :model do
     let(:antenne) { build :antenne }
 
     context 'no match' do
-      it { is_expected.to eq [] }
+      it { is_expected.to match_array [] }
     end
 
     context 'match' do
       let(:expert) { build :expert, antenne: antenne }
       let!(:match) { create :match, expert: expert }
 
-      it { is_expected.to eq [match] }
+      it { is_expected.to match_array [match] }
     end
   end
 

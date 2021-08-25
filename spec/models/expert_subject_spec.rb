@@ -37,7 +37,7 @@ RSpec.describe ExpertSubject, type: :model do
         let(:the_subject) { need.subject }
         let(:communes) { [need.facility.commune] }
 
-        it{ is_expected.to eq [expert_subject] }
+        it{ is_expected.to match_array [expert_subject] }
       end
     end
 
