@@ -37,6 +37,13 @@ class Landing < ApplicationRecord
     single_page: 2
   }, _prefix: true
 
+  enum iframe_category: {
+    integral: 1,
+    themes: 2,
+    subjects: 3,
+    form: 4
+  }, _suffix: :iframe
+
   ## Associations
   #
   has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing, dependent: :destroy

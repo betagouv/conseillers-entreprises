@@ -21,8 +21,7 @@
 
   - unless in_iframe?
     #scroll-section
-
-  - if lookup_context.template_exists?("#{@landing.layout}", "landings", true)
+  - if lookup_context.template_exists?("#{@landing.layout}", "landings/landings", true)
     = render @landing.layout, landing_themes: @landing.landing_themes, landing: @landing
 
   - else

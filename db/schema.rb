@@ -358,6 +358,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.string "main_logo"
     t.integer "layout", default: 1
     t.boolean "iframe", default: false
+    t.integer "iframe_category", default: 1
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end

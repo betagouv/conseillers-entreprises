@@ -17,7 +17,7 @@
           .image
             = image_tag('home.png', alt: "")
 
-  - if !in_iframe? || (in_iframe? && @landing.layout_multiple_steps?)
+  - if !in_iframe? || (in_iframe? && @landing.layout_multiple_steps? && !@landing.subjects_iframe?)
     = render 'pages/breadcrumbs', landing: @landing, landing_theme: @landing_theme
 
   - unless in_iframe?

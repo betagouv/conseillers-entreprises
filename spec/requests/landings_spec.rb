@@ -84,21 +84,6 @@ RSpec.describe "Landings", type: :request do
           end
         end
       end
-
-      # context "locale landing" do
-      #   let!(:landing) { create :landing, slug: 'relance' }
-      #   let(:landing_theme) { create :landing_theme, slug: "les-mesures-de-soutien-economique" }
-      #   let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, slug: "demarche-ecologie" }
-
-      #   before do
-      #     landing.landing_themes << landing_theme
-      #   end
-
-      #   it 'redirects correctly' do
-      #     get "/aide-entreprises/relance/demande/demarche_ecologie"
-      #     expect(response).to redirect_to("/aide-entreprise/relance/demande/demarche-ecologie")
-      #   end
-      # end
     end
   end
 end

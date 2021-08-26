@@ -22,6 +22,6 @@ class Landings::BaseController < PagesController
   end
 
   def view_params
-    params.permit(:slug, *Solicitation::FORM_INFO_KEYS)
+    params.permit(:landing_slug, :slug, *Solicitation::FORM_INFO_KEYS)
   end
 end

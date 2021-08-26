@@ -44,6 +44,8 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
 
     add_column :landings, :layout, :integer, default: 1
     add_column :landings, :iframe, :boolean, default: false
+    add_column :landings, :iframe_category, :integer, default: 1
+
     change_column_null :solicitations, :landing_slug, true
 
     add_reference :solicitations, :landing, foreign_key: true, null: true
@@ -174,17 +176,23 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           partner_url: hash[:partner_url],
           iframe: hash[:iframe],
           custom_css: hash[:custom_css],
+          iframe_category: :integral
         )
         landing.landing_themes << home_landing.landing_themes
       end
       ## France transition ecologique
       Landing.where(slug: ['france-transition-ecologique']).each do |landing|
-        landing.update(layout: :single_page, iframe: true)
+        landing.update(layout: :single_page, iframe: true, iframe_category: :subjects)
         ecolo_theme = LandingTheme.find_by(slug: "environnement-transition-ecologique")
         landing.landing_themes << ecolo_theme
       end
 
-      Landing.where(slug: ['brexit', 'relance-hautsdefrance']).each { |l| l.update(iframe: true) }
+      Landing.where(slug: ['brexit', 'relance-hautsdefrance']).each do |l|
+        l.update(
+          iframe: true,
+          iframe_category: :themes
+        )
+      end
 
       ## MaJ solicitations restantes
       Solicitation.where(landing_subject: nil).each do |sol|
