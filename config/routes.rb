@@ -242,7 +242,8 @@ Rails.application.routes.draw do
       'conseil_regional_hauts_de_france' => 'entreprises-haut-de-france',
       'collectivite_de_martinique' => 'zetwal'
     }
-    "/aide-entreprise/#{hash[query_params['institution']]}"
+    landing_slug = hash[query_params['institution']]
+    ["/aide-entreprise/#{landing_slug}", req.query_string.presence].compact.join('?')
   }
 
   # Others
