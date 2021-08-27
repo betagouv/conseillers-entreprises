@@ -21,8 +21,8 @@
 
   - unless in_iframe?
     #scroll-section
-  - if lookup_context.template_exists?("#{@landing.layout}", "landings/landings", true)
-    = render @landing.layout, landing_themes: @landing.landing_themes, landing: @landing
+  - if @landing.layout_single_page?
+    = render 'single_page', landing_themes: @landing.landing_themes, landing: @landing
 
   - else
     %section.section.section-grey#section-thematiques
