@@ -18,10 +18,10 @@ ActiveAdmin.register Solicitation do
     end
     column :description do |s|
       div(admin_link_to(s.landing) || s.landing_slug)
-      options_slugs = s.landing_options_slugs
-      if options_slugs.present?
-        div t('activerecord.attributes.solicitation.landing_options') + ' : ' do
-          options_slugs.each { |option| div status_tag option }.join
+      subject_slug = s.landing_subject.slug
+      if subject_slug.present?
+        div t('activerecord.attributes.solicitation.landing_subject') + ' : ' do
+          div status_tag subject_slug
         end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
@@ -64,7 +64,6 @@ ActiveAdmin.register Solicitation do
   remove_filter :matches    # Displaying them can become very expensive, especially if to_s is implemented
   remove_filter :needs      # and uses yet another relation.
   remove_filter :feedbacks
-  remove_filter :landing_options_slugs
   filter :landing, as: :select, collection: -> { Landing.pluck(:title, :slug) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :diagnosis_regions, as: :select, collection: -> { Territory.deployed_regions.pluck(:name, :id) }
@@ -92,9 +91,7 @@ ActiveAdmin.register Solicitation do
     column :full_name
     column :phone_number
     column :email
-    column :options do |s|
-      s.landing_options_slugs&.join("\n")
-    end
+    column(:subject) { |s| s.landing_subject&.slug }
     column :diagnosis
     column(:badges) { |s| s.badges.map(&:to_s).join(",") }
     column(:regions) { |s| s.region&.name }

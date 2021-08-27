@@ -143,7 +143,7 @@ fr:
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
         institution: Institution partenaire (pour iframe)
-        landing_options: Options
+        landing_subjects: Sujets de landing
         landing_themes: Thèmes de landing
         landing_topics: Exemples
         message_under_landing_topics: Message sous les exemples
@@ -236,7 +236,7 @@ fr:
         query: Requête
         user: Utilisateur
       solicitation:
-        landing_options: Options choisies
+        landing_subject: Sujet choisi
         location: Localisation
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
@@ -324,7 +324,7 @@ fr:
               preselected_institution_has_no_relevant_experts: aucun référent de l’institution préselectionnée ne peut prendre en charge cette entreprise
             needs:
               format: 'Besoins : %{message}.'
-              solicitation_has_no_preselected_subjects: il n’y a pas de sujet préselectionné
+              solicitation_has_no_preselected_subject: il n’y a pas de sujet préselectionné
         user:
           attributes:
             email:
@@ -376,8 +376,8 @@ fr:
         one: Option
         other: Options
       landing_subjects:
-        one: Sujet
-        others: Sujets
+        one: Sujet de landing
+        others: Sujets de landing
       landing_theme:
         one: Thématique de landing
         other: Thématiques de landing

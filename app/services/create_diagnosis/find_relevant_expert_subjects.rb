@@ -18,7 +18,7 @@ module CreateDiagnosis
     private
 
     def institutions
-      @institutions ||= (need&.solicitation&.preselected_institutions&.presence || Institution.not_deleted)
+      @institutions ||= (Institution.where(need&.solicitation&.preselected_institution) || Institution.not_deleted)
     end
   end
 end

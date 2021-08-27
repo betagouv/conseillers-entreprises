@@ -90,9 +90,10 @@ class Solicitation < ApplicationRecord
   scope :omnisearch, -> (query) do
     if query.present?
       where(id: have_badge(query))
-        .or(have_landing_option(query))
+        .or(where(id: have_landing_subject(query)))
+        .or(where(id: have_landing_theme(query)))
+        .or(where(id: have_landing(query)))
         .or(description_contains(query))
-        .or(have_landing(query))
         .or(name_contains(query))
         .or(email_contains(query))
         .or(pk_kwd_contains(query))
@@ -104,12 +105,16 @@ class Solicitation < ApplicationRecord
     joins(:badges).where('badges.title ILIKE ?', "%#{query}%")
   end
 
-  scope :have_landing_option, -> (query) do
-    where('? = ANY(solicitations.landing_options_slugs)', query)
+  scope :have_landing_subject, -> (query) do
+    joins(:landing_subject).where('landing_subjects.slug ILIKE ?', "%#{query}%")
+  end
+
+  scope :have_landing_theme, -> (query) do
+    joins(:landing_theme).where('landing_themes.slug ILIKE ?', "%#{query}%")
   end
 
   scope :have_landing, -> (query) do
-    where('solicitations.landing_slug ILIKE ?', "%#{query}%")
+    joins(:landing).where('landings.slug ILIKE ?', "%#{query}%")
   end
 
   scope :description_contains, -> (query) do
@@ -199,7 +204,7 @@ class Solicitation < ApplicationRecord
     record
   end
 
-  ## Options
+  ## Options - TODO a supprimer
   # I would love to use a has_many relation, but Rails doesn’t (yet?) support backing relations with postgresql arrays.
   def landing_options=(landing_options)
     self.landing_options_slugs = landing_options.pluck(:slug)
@@ -238,12 +243,12 @@ class Solicitation < ApplicationRecord
 
   ## Preselection
   #
-  def preselected_subjects
-    landing_options.map(&:preselected_subject).compact
+  def preselected_subject
+    landing_subject&.subject
   end
 
-  def preselected_institutions
-    landing_options.map(&:preselected_institution).compact
+  def preselected_institution
+    landing&.institution
   end
 
   # * Retrieve all the landing options slugs used in the past;

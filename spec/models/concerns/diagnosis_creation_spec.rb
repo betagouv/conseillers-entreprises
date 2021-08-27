@@ -122,24 +122,24 @@ RSpec.describe DiagnosisCreation do
     let(:solicitation) { create :solicitation }
 
     before do
-      allow(solicitation).to receive(:preselected_subjects).and_return(subjects)
+      allow(solicitation).to receive(:preselected_subject).and_return(pde_subject)
       diagnosis.prepare_needs_from_solicitation
     end
 
     context 'solicitation has preselected subjects' do
-      let(:subjects) { create_list :subject, 2 }
+      let(:pde_subject) { create :subject }
 
       it 'creates needs' do
-        expect(diagnosis.needs.count).to eq 2
+        expect(diagnosis.needs.count).to eq 1
       end
     end
 
     context 'solicitation has no preselected subjects' do
-      let(:subjects) { [] }
+      let(:subject) { nil }
 
       it 'sets an error' do
         expect(diagnosis.needs).to be_empty
-        expect(diagnosis.errors.details).to eq({ needs: [{ error: :solicitation_has_no_preselected_subjects }] })
+        expect(diagnosis.errors.details).to eq({ needs: [{ error: :solicitation_has_no_preselected_subject }] })
       end
     end
   end
@@ -180,10 +180,10 @@ RSpec.describe DiagnosisCreation do
              expert: create(:expert, communes: communes)
     end
     let(:institution) { create :institution }
-    let(:preselected_institutions) { [institution] }
+    let(:preselected_institution) { institution }
 
     before do
-      allow(solicitation).to receive(:preselected_institutions).and_return(preselected_institutions)
+      allow(solicitation).to receive(:preselected_institution).and_return(preselected_institution)
       diagnosis.prepare_matches_from_solicitation
     end
 

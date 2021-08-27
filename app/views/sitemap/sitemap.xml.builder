@@ -2,19 +2,26 @@
 xml.instruct!
 xml.urlset xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" do
   # Landing pages
-  Landing.all.preload(:landing_options).each do |landing|
+  Landing.locales.preload(:landing_themes).each do |landing|
     xml.url do
       xml.loc landing_url(landing)
       xml.lastmod landing.updated_at.iso8601
       xml.changefreq 'weekly'
     end
 
-    # And their options
-    landing.landing_options.each do |landing_option|
+    landing.landing_themes.preload(:landing_subjects).each do |landing_theme|
       xml.url do
-        xml.loc new_solicitation_landing_url(landing, landing_option)
-        xml.lastmod landing.updated_at.iso8601
+        xml.loc landing_theme_url(landing, landing_theme)
+        xml.lastmod landing_theme.updated_at.iso8601
         xml.changefreq 'weekly'
+      end
+
+      landing_theme.landing_subjects.each do |landing_subject|
+        xml.url do
+          xml.loc landing_subject_url(landing, landing_subject)
+          xml.lastmod landing_subject.updated_at.iso8601
+          xml.changefreq 'weekly'
+        end
       end
     end
   end
