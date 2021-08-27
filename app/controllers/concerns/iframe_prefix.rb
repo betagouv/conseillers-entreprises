@@ -1,22 +1,8 @@
 # frozen_string_literal: true
 
 module IframePrefix
-  # TODO il faut faire le ménage ici
   extend ActiveSupport::Concern
-  # Allow the routes of a controller to be served inside an iframe.
-  # Features:
-  # * the adopting controller can be served both in an iframe or regularly
-  # * the views can now if they’re being rendered within an iframe
-  # * links from the iframe keep working within the iframe,
-  #   * only if the target url can be rendered in the iframe.
-  #
-  # See also:
-  # * routes.rb: The controller must be scoped, like that:
-  #   `scope path: "(:iframe_prefix)", iframe_prefix: /my_nice_prefix?/, defaults: {iframe_prefix: nil}`
-  # * iframe_external_links.js: The <a href=''> links in the page are automatically tweaked to target the iframe.
   included do
-    # helper OverrideUrlFor # Insert our implementation in the helpers stack to customize url_for.
-
     skip_forgery_protection if: -> { in_iframe? }
     after_action :allow_in_iframe, if: -> { in_iframe? }
   end
@@ -32,10 +18,14 @@ module IframePrefix
   # The InIframe module is included in SharedController…
   module InIframe
     extend ActiveSupport::Concern
-    included { helper_method :in_iframe? } # … and this makes the in_iframe? method available in all views.
+    included { helper_method :in_iframe?, :show_breadcrumbs? } # … and this makes the in_iframe? method available in all views.
 
     def in_iframe?
       defined?(@landing) && @landing.iframe?
+    end
+
+    def show_breadcrumbs?
+      !in_iframe? || (in_iframe? && defined?(@landing) && @landing.layout_multiple_steps? && !@landing.subjects_iframe?)
     end
   end
 

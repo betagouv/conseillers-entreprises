@@ -47,7 +47,6 @@ class Solicitation < ApplicationRecord
 
   ## Associations
   #
-  # belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
   belongs_to :landing, inverse_of: :solicitations, optional: true
   belongs_to :landing_subject, inverse_of: :solicitations, optional: true
   has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
