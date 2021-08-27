@@ -65,6 +65,11 @@ class Landing < ApplicationRecord
   scope :iframes, -> { where(iframe: true) }
   scope :locales, -> { where.not(iframe: true) }
 
+  # TODO a supprimer apres migration refacto
+  def solicitations_from_landing_slug
+    Solicitation.where(landing_slug: self.slug)
+  end
+
   def to_s
     slug
   end

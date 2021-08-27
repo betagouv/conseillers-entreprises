@@ -104,7 +104,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           LandingSubject.create(ls_attributes)
         end
 
-        landing.solicitations.each do |sol|
+        landing.solicitations_from_landing_slug.each do |sol|
           landing_option = sol.landing_option
           if landing_option.present?
             landing_subject = retrieve_landing_subject(landing_option) || landing_theme.landing_subjects.first
@@ -208,6 +208,18 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
         )
       end
     end
+    ## Solicitation des iframes 360
+    Solicitation.where(institution_id: 146).each do |sol|
+      sol.update(landing_id: Landing.find_by(slug: 'zetwal').id)
+    end
+    Solicitation.where(institution_id: 31).where.not(landing_slug: 'relance-hautsdefrance').each do |sol|
+      sol.update(landing_id: Landing.find_by(slug: 'entreprises-haut-de-france').id)
+    end
+    # certaines solicitation brexit n'était pas rattachées à l'institution
+    Solicitation.where(landing: Landing.find_by(slug: 'brexit')).find_each do |sol|
+      sol.update(institution_id: 19)
+    end
+
     ## On supprime les landing qui ne servent plus
     Landing.where.not(home_sort_order: nil).destroy_all
     remove_column :landings, :home_title, :string, default: ""
