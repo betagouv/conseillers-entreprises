@@ -135,7 +135,7 @@ RSpec.describe DiagnosisCreation do
     end
 
     context 'solicitation has no preselected subjects' do
-      let(:subject) { nil }
+      let(:pde_subject) { nil }
 
       it 'sets an error' do
         expect(diagnosis.needs).to be_empty

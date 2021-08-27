@@ -45,18 +45,18 @@ RSpec.describe Solicitation, type: :model do
 
   describe '#preselected_subject' do
     let(:solicitation) { create :solicitation, landing_subject: landing_subject }
-    let(:landing_subject) { create :landing_subject, subject: subject }
 
     subject { solicitation.preselected_subject }
 
     context 'subject is known' do
       let(:pde_subject) { create :subject }
+      let(:landing_subject) { create :landing_subject, subject: pde_subject }
 
       it { is_expected.to eq pde_subject }
     end
 
     context 'subject is unknown' do
-      let(:subject) { nil }
+      let(:landing_subject) { nil }
 
       it { is_expected.to be_nil }
     end
