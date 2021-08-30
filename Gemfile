@@ -63,6 +63,8 @@ gem 'sib-api-v3-sdk', '~> 7.2'
 gem 'recipient_interceptor'
 gem 'ip_anonymizer'
 gem 'highline'
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 # Notifiers
 gem "sentry-ruby"
