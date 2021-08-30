@@ -475,6 +475,7 @@ fr:
     needs:
       one: Besoin
       other: Besoins
+    optional: Optionnel
     phone_number: Téléphone
     placeholder:
       email: marie.dupont@exemple.fr

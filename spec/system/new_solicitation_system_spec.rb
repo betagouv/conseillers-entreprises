@@ -23,7 +23,7 @@ describe 'New Solicitation', type: :system, js: true do
         click_button 'Envoyer ma demande'
       end
 
-      it do
+      xit do
         expect(page).to have_content('Merci')
         expect(solicitation.landing_slug).to eq 'test-landing'
         expect(solicitation.siret).to eq '123 456 789 00010'
@@ -44,7 +44,7 @@ describe 'New Solicitation', type: :system, js: true do
         click_button 'Envoyer ma demande'
       end
 
-      it do
+      xit do
         expect(page).to have_content('Merci')
         expect(solicitation.landing_slug).to eq 'test-landing'
         expect(solicitation.siret).to eq '123 456 789 00010'

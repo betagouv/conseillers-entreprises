@@ -25,9 +25,10 @@
               - count = experts.size
               - anomalie_less = count == 0
               - anomalie_more = local_assigns[:antenne] && count > 1
-              %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description), class: (('red' if anomalie_less) || ('orange' if anomalie_more)) }
+              %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description),
+              class: (('red' if anomalie_less && !institution_subject.optional) || ('orange' if anomalie_more)) }
                 = count
-                - if anomalie_less
+                - if anomalie_less && !institution_subject.optional
                   %span.red.ri-error-warning-fill
                 - if anomalie_more
                   %span.orange.ri-error-warning-fill
