@@ -17,7 +17,7 @@ describe UserMailer do
     end
 
     describe 'when the recipient is deleted' do
-      before { a_match.advisor.delete }
+      before { a_match.advisor.soft_delete }
 
       let(:mail) { subject }
 
@@ -47,7 +47,7 @@ describe UserMailer do
     end
 
     describe 'when the recipient is deleted' do
-      before { user.delete }
+      before { user.soft_delete }
 
       let(:mail) { subject }
 

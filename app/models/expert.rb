@@ -225,7 +225,7 @@ class Expert < ApplicationRecord
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
-  def delete
+  def soft_delete
     update_columns(deleted_at: Time.zone.now,
                    email: nil,
                    full_name: nil,
