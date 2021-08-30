@@ -89,7 +89,7 @@ class ExpertSubject < ApplicationRecord
   ## used for serialization in advisors csv
   #
   def csv_description
-    intervention_criteria.presence || I18n.t('yes')
+    intervention_criteria.presence || 'x'
   end
 
   def csv_description=(value)

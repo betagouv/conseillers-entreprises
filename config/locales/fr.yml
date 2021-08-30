@@ -114,7 +114,7 @@ fr:
       month: Mois
       second: Seconde
       year: Année
-  download: Télécharger
+  download_csv: Télécharger CSV
   errors:
     format: "%{attribute} %{message}"
     messages:
