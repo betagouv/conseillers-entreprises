@@ -3,8 +3,14 @@
 module IframePrefix
   extend ActiveSupport::Concern
   included do
+    prepend_before_action :detect_landing_presence
     skip_forgery_protection if: -> { in_iframe? }
     after_action :allow_in_iframe, if: -> { in_iframe? }
+  end
+
+  # Pour s'assurer que in_iframe? fonctionne en toutes circonstances
+  def detect_landing_presence
+    @landing ||= Landing.find_by(slug: params[:landing_slug])
   end
 
   def allow_in_iframe

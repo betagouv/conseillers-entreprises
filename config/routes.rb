@@ -53,10 +53,13 @@ Rails.application.routes.draw do
   # Pages
   # root controller: :landings, action: :index
   root controller: "landings/landings", action: :home
-  resources :landings, param: :slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do
-    resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', as: 'theme', only: %i[show]
-    resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', as: 'subject', only: %i[show] do
-      post :create_solicitation, on: :member
+  resources :landings, param: :landing_slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do
+    # Utilisation de member pour que ce soit :landing_slug qui soit utilisé sur toutes les routes
+    member do
+      resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', only: %i[show]
+      resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', only: %i[show] do
+        post :create_solicitation, on: :member
+      end
     end
   end
 
