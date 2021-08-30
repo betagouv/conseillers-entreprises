@@ -27,7 +27,7 @@ module IframePrefix
     included { helper_method :in_iframe?, :show_breadcrumbs? } # … and this makes the in_iframe? method available in all views.
 
     def in_iframe?
-      defined?(@landing) && @landing.iframe?
+      @landing&.iframe?
     end
 
     def show_breadcrumbs?

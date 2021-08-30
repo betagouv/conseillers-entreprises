@@ -10,20 +10,12 @@ class Landings::LandingsController < Landings::BaseController
   end
 
   def show
+    @landing_themes = @landing&.landing_themes&.order(:position)
+
     redirect_to_iframe_view if @landing.iframe?
   end
 
   private
-
-  def retrieve_landing
-    slug = params[:landing_slug]&.to_sym
-    @landing = Rails.cache.fetch("landing-#{slug}", expires_in: 1.minute) do
-      Landing.find_by(slug: slug)
-    end
-    @landing_themes = @landing&.landing_themes&.order(:position)
-    # Temporary redirections for landings routes
-    redirect_to root_path, status: :moved_permanently if @landing.nil?
-  end
 
   def redirect_to_iframe_view
     if @landing.subjects_iframe?

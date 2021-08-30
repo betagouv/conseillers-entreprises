@@ -7,4 +7,4 @@
 - unless in_iframe?
   %p.text-center.contact-us
     %b= t('.other_questions')
-    %b= link_to t('.contact_us'), landing_path({ slug: 'contactez-nous', institution: params[:institution].presence })
+    %b= link_to t('.contact_us'), landing_path({ landing_slug: 'contactez-nous', institution: params[:institution].presence })

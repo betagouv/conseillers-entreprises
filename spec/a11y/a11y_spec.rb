@@ -17,7 +17,7 @@ describe 'a11y', type: :feature, js: true do
     it { is_expected.to be_accessible }
   end
 
-  describe '/aide-entreprise/:slug' do
+  describe '/aide-entreprise/:landing_slug' do
     before { visit "/aide-entreprise/#{Landing.last.slug}" }
 
     it { is_expected.to be_accessible }
