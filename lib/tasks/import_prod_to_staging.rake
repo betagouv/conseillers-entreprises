@@ -1,4 +1,7 @@
 namespace :import_prod_to_staging do
+  # Il peut arriver qu'un tunnel SSH ait été ouvert, non fermé et bloque tout de manière invisible.
+  # Pour le tuer, même s'il est en arrière plan : killall scalingo
+
   def export_filename
     @export_filename ||= 'tmp/export_prod.dump'
   end
@@ -31,7 +34,6 @@ namespace :import_prod_to_staging do
     pw = pg_url[/.*:(.*)@/,1]
     username = 'reso_produc_4107'
     dbname = 'reso_produc_4107'
-    sh "#{pg_url}"
     db_url = "postgres://#{username}:#{pw}@127.0.0.1:10000/#{dbname}?sslmode=require"
 
     sh "pg_dump --clean --if-exists --format c --dbname #{db_url} --file #{export_filename}"
@@ -46,12 +48,12 @@ namespace :import_prod_to_staging do
     env = `scalingo -a reso-staging env`.lines
     pg_url = env.find{ |i| i[/SCALINGO_POSTGRESQL_URL=/] }
     pw = pg_url[/.*:(.*)@/,1]
-    username = 'reso_stagin_5607'
-    dbname = 'reso_stagin_5607'
+    username = 'reso_stagin_1257'
+    dbname = 'reso_stagin_1257'
     db_url = "postgres://#{username}:#{pw}@127.0.0.1:10000/#{dbname}?sslmode=require"
 
     # solution non pérenne mais on n'a pas mieux pour le moment
-    sh "echo \"DROP TABLE public.needs CASCADE;\" | psql -d #{db_url}"
+    # sh "echo \"DROP TABLE public.needs CASCADE;\" | psql -d #{db_url}"
     sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{db_url} #{export_filename}"
 
     kill_staging_tunnel
