@@ -13,7 +13,7 @@
               - if @landing.main_logo
                 = display_image(name: @landing.main_logo)
               %h1= @landing.title
-            %p.subtitle= @landing.subtitle
+            %p.subtitle= t('landings.landings.home.answer')
             .links
               = render 'pages/cta_button'
           .image

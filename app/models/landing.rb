@@ -6,11 +6,10 @@
 #  custom_css                   :string
 #  emphasis                     :boolean          default(FALSE)
 #  home_description             :text             default("")
-#  home_sort_order              :integer
-#  home_title                   :string           default("")
+#  iframe                       :boolean          default(FALSE)
+#  layout                       :integer          default("multiple_steps")
 #  logos                        :string
 #  main_logo                    :string
-#  message_under_landing_topics :string
 #  meta_description             :string
 #  meta_title                   :string
 #  partner_url                  :string
@@ -51,17 +50,17 @@ class Landing < ApplicationRecord
   has_many :landing_subjects, through: :landing_themes, inverse_of: :landing_theme
 
   belongs_to :institution, inverse_of: :landings, optional: true
+  # TODO a supprimer une fois les migrations passées
   has_many :landing_topics, inverse_of: :landing, :dependent => :destroy
   has_many :landing_options, inverse_of: :landing, :dependent => :destroy
 
   has_many :solicitations, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :landing
-  accepts_nested_attributes_for :landing_topics, :landing_options, :landing_joint_themes, allow_destroy: true
+  accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
 
   before_save :set_emphasis
 
   ## Scopes
   #
-  scope :ordered_for_home, -> { where.not(home_sort_order: nil).order(:home_sort_order) }
   scope :emphasis, -> { where(emphasis: true) }
   scope :iframes, -> { where(iframe: true) }
   scope :locales, -> { where.not(iframe: true) }

@@ -26,7 +26,7 @@
             .emphasis-header
               - if landing.main_logo
                 = display_image(name: landing.main_logo)
-              = simple_format("#{landing.home_title} : ", {}, wrapper_tag: 'h2')
+              = simple_format("#{landing.title} : ", {}, wrapper_tag: 'h2')
             = simple_format(landing.home_description, {}, wrapper_tag: 'span')
             #button-discover= link_to t('.discover_measures'), landing, class: 'button-outline small primary'
 

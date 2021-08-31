@@ -342,17 +342,13 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "home_title", default: ""
     t.text "home_description", default: ""
-    t.integer "home_sort_order"
     t.bigint "institution_id"
     t.string "meta_title"
     t.string "meta_description"
     t.string "title"
-    t.string "subtitle"
     t.string "logos"
     t.string "custom_css"
-    t.string "message_under_landing_topics"
     t.string "partner_url"
     t.boolean "emphasis", default: false
     t.string "main_logo"

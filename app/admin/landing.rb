@@ -21,7 +21,6 @@ ActiveAdmin.register Landing do
     column :title do |l|
       div admin_link_to l.institution if l.institution.present?
       div link_to l.title, l if l.slug.present?
-      div l.subtitle
       div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
     end
     column :landing_themes do |l|
@@ -36,7 +35,6 @@ ActiveAdmin.register Landing do
     panel I18n.t("activerecord.models.landing.one") do
       attributes_table_for landing do
         row :title
-        row :subtitle
         row :slug do |l|
           div link_to l.slug, l if l.slug.present?
         end
@@ -44,9 +42,6 @@ ActiveAdmin.register Landing do
         row :iframe
         row :logos
         row :custom_css
-        row :message_under_landing_topics do |l|
-          l.message_under_landing_topics&.html_safe
-        end
         row :created_at
         row :updated_at
       end
@@ -74,12 +69,11 @@ ActiveAdmin.register Landing do
 
   permit_params :slug,
                 :institution_id, :iframe,
-                :home_title, :home_description, :home_sort_order,
+                :title, :home_description,
                 :meta_title, :meta_description,
                 :emphasis,
-                :title, :subtitle, :logos,
-                :custom_css,
-                :message_under_landing_topics, :partner_url,
+                :logos,
+                :custom_css, :partner_url,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
   form title: :title do |f|
@@ -95,7 +89,6 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
-      f.input :home_title
       f.input :home_description, input_html: { rows: 2 }
       f.input :emphasis, as: :boolean
     end
@@ -108,10 +101,8 @@ ActiveAdmin.register Landing do
 
       f.inputs do
         f.input :title
-        f.input :subtitle
         f.input :logos
         f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
-        f.input :message_under_landing_topics, as: :text, input_html: { rows: 3 }
       end
     end
 

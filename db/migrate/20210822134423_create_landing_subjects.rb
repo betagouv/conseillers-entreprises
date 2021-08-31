@@ -207,9 +207,13 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           landing_subject_id: landing_subject&.id || nil
         )
       end
-      ## On supprime les landing qui ne servent plus
-      Landing.where.not(home_sort_order: nil).destroy_all
     end
+    ## On supprime les landing qui ne servent plus
+    Landing.where.not(home_sort_order: nil).destroy_all
+    remove_column :landings, :home_title, :string, default: ""
+    remove_column :landings, :home_sort_order, :integer, default: ""
+    remove_column :landings, :subtitle, :string
+    remove_column :landings, :message_under_landing_topics, :string
   end
 
   def retrieve_landing_subject(landing_option)
