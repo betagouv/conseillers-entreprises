@@ -51,9 +51,144 @@
   &.canceled
     background: #932419
 
-
 .textarea-monospace
   font-family: monospace
-
   font-size: 1.3em
 
+// blaze colors
+$color-brand: #0053b3
+$color-info: rgba(8, 97, 199, 0.87)
+$color-warning: #ff9800
+$color-success: rgba(0, 137, 65, 0.87)
+$color-error: rgba(224, 5, 0, 0.87)
+// main variables
+$bg-footer: #f9f8f6               // bg footer bar
+$bg-form1: #f9f8f6                // bg 1st level forms
+$bg-form2: darken($bg-form1, 3%)  // bg 2nd level forms (nested)
+$bg-form3: darken($bg-form1, 6%)  // bg 3rd level forms (nested)
+$bg-form4: darken($bg-form1, 9%)  // bg 4th level forms (nested)
+$bg-form-sub-headings: lighten($color-brand, 64%)  // bg nested forms title
+$bg-header: $color-brand          // bg header bar
+$bg-inputs: #fff                  // bg forms inputs
+$bg-menu-active: #EFEFEF          // bg menu item current / hover
+$bg-sidebar: #efefef              // bg sidebar
+$fg-box-title: #fff
+$fg-button-link: #fff
+$fg-menu-items: #f8f8f8
+$fg-table-borders: #e4e4e4
+$fg-table-link: #eee
+// other variables
+$form-padding: 10px
+$inputs-spacing: 10px
+$height-inputs: 26px
+$height-topbar: 40px
+$height-titlebar: 38px
+$text-shadow: #000
+
+@import "activeadmin_blaze_theme/theme"
+
+// Scopes
+.table_tools_segmented_control
+  li a
+    background-color: #EFEFEFFF !important
+    border-top: 1px solid #5E6469 !important
+    border-bottom: 1px solid #5E6469 !important
+    border-radius: 0 !important
+    margin: 0 !important
+    text-shadow: none !important
+    color: #5E6469 !important
+    margin-bottom: 0.5rem !important
+    border-right: 1px solid #5E6469 !important
+    span
+      color: #5E6469 !important
+      text-shadow: none !important
+
+  li:first-child a
+    margin-left: 1rem !important
+    border-left: 1px solid #5E6469 !important
+    border-top-left-radius: 6px !important
+    border-bottom-left-radius: 6px !important
+  li:last-child a
+    border-top-right-radius: 6px !important
+    border-bottom-right-radius: 6px !important
+  .selected a
+    background-color: #6a6a6a !important
+    color: white !important
+    text-shadow: none !important
+    span
+      color: white !important
+      text-shadow: none !important
+
+body.active_admin .button-base
+  text-shadow: none !important
+
+body.active_admin .table_tools a.disabled
+  color: black !important
+  text-shadow: none !important
+
+// Header
+.header
+  position: relative
+  color: #5E6469 !important
+  text-shadow: none !important
+  margin-bottom: 0.5rem
+body.active_admin #tabs, body.active_admin #utility_nav, .header
+  background-color: #fff !important
+.c-nav, body.active_admin #tabs, body.active_admin #utility_nav
+  color: #5E6469 !important
+body.active_admin #header ul.tabs li > a
+  color: #5E6469 !important
+body.active_admin #header ul.tabs > li.has_nested > ul
+  background: #fff
+#header a, #header a:link
+  color: $color-brand
+  text-shadow: none !important
+  &:hover
+    color: $color-brand !important
+#title_bar
+  background-color: #fff
+  border: none
+  text-shadow: none
+  #titlebar_left
+    font-size: 1rem !important
+.breadcrumb a, .breadcrumb a:link, .breadcrumb a:visited, .breadcrumb a:active
+  color: #5E6469
+
+.c-card__item--brand, body.active_admin #main_content .panel > h3, body.active_admin .sidebar_section > h3, body.active_admin form > fieldset.inputs > legend, body.active_admin form div.c-card__item > fieldset.inputs > legend, body.active_admin form div.panel_contents > fieldset.inputs > legend, body.active_admin form .ui-tabs-panel > fieldset.inputs > legend
+  background-color: #ECE9E2
+  color: #5E6469
+  text-shadow: none
+
+// Sidebar
+#sidebar
+  padding-top: 1rem !important
+
+//flashs
+body.logged_in .flash
+  background-image: none !important
+  border-bottom: none !important
+  text-shadow: none !important
+
+// Entêtes tableaux
+body.active_admin .index_table th
+  background-color: #ECE9E2 !important
+  text-shadow: none !important
+
+// Pagination
+body.active_admin nav.pagination
+  span
+    font-size: 1rem !important
+    color: #5E6469 !important
+    a
+      color: #5E6469 !important
+      &:hover
+        opacity: 0.8
+
+// Bouton actions
+.dropdown_menu .dropdown_menu_button
+  background-image: none !important
+  background-color: #EFEFEFFF !important
+  border-radius: 6px !important
+  border: solid 1px #5E6469 !important
+  color: #5E6469 !important
+  text-shadow: none !important
