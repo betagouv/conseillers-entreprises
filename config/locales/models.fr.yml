@@ -142,15 +142,19 @@ fr:
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
-        institution: Institution partenaire (pour iframe)
+        institution: Institution partenaire
         landing_subjects: Sujets de landing
         landing_themes: Thèmes de landing
         landing_topics: Exemples
+        layout: Mise en page
         message_under_landing_topics: Message sous les exemples
         meta_description: Description méta
         meta_title: Titre méta
         partner_url: Url du site partenaire
         slug: Slug
+      landing/layouts:
+        multiple_steps: plusieurs étapes
+        single_page: regroupement par thématique
       landing_joint_theme:
         landing_theme: Thèmes de landing
       landing_option:
@@ -169,6 +173,7 @@ fr:
         requires_requested_help_amount: Champ Montant de l’aide
         requires_siret: Champ SIRET
       landing_theme:
+        main_logo: Logo principal (pour mise en avant)
         meta_description: Description méta
         meta_title: Titre méta
       landing_themes:

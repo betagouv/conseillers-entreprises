@@ -38,18 +38,18 @@ ActiveAdmin.register Landing do
         row :slug do |l|
           div link_to l.slug, l if l.slug.present?
         end
-        row :layout
-        row :iframe
+        row(:layout) { |landing| human_attribute_status_tag landing, :layout }
         row :logos
-        row :custom_css
         row :created_at
         row :updated_at
       end
     end
 
-    attributes_table title: I18n.t("landings.landing_subjects.new_solicitation_form.form") do
+    attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
+      row :iframe
       row :institution
       row :partner_url
+      row :custom_css
     end
 
     attributes_table title: I18n.t("active_admin.meta") do
@@ -73,6 +73,7 @@ ActiveAdmin.register Landing do
                 :meta_title, :meta_description,
                 :emphasis,
                 :logos,
+                :layout,
                 :custom_css, :partner_url,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
@@ -80,12 +81,8 @@ ActiveAdmin.register Landing do
     f.inputs do
       f.input :title
       f.input :slug
-      f.input :iframe
-    end
-
-    f.inputs I18n.t("landings.landing_subjects.new_solicitation_form.form") do
-      f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-      f.input :partner_url
+      f.input :layout, as: :select, collection: Landing.human_attribute_values(:layout).invert
+      f.input :logos
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
@@ -93,16 +90,17 @@ ActiveAdmin.register Landing do
       f.input :emphasis, as: :boolean
     end
 
-    panel I18n.t("activerecord.models.landing.one") do
+    f.inputs I18n.t("landings.landings.admin.iframe_fields") do
+      f.input :iframe
+      f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+      f.input :partner_url
+      f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
+    end
+
+    panel I18n.t("active_admin.meta") do
       f.inputs do
         f.input :meta_title
         f.input :meta_description
-      end
-
-      f.inputs do
-        f.input :title
-        f.input :logos
-        f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
       end
     end
 
