@@ -26,6 +26,9 @@ ActiveAdmin.register Landing do
     column :landing_themes do |l|
       div l.landing_themes.count
     end
+    column :solicitations do |l|
+      div l.solicitations.count
+    end
     actions dropdown: true
   end
 

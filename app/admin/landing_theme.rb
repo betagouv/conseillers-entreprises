@@ -13,8 +13,12 @@ ActiveAdmin.register LandingTheme do
 
   index do
     selectable_column
+    column :slug
     column(:title) { |t| admin_link_to t }
     column(:landings){ |t| admin_link_to(t, :landings) }
+    column :solicitations do |l|
+      div l.solicitations.count
+    end
     actions dropdown: true
   end
 

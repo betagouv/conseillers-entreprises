@@ -5,7 +5,7 @@ module BreadcrumbsHelper
   def breadcrumbs_landing(landing, landing_theme, landing_subject = nil, params = {})
     html = home_link(landing, params)
     if landing_subject.present?
-      html << link_to(landing_theme.title, landing_theme_path(landing_theme.slug, params))
+      html << link_to(landing_theme.title, landing_theme_path(landing, landing_theme, params))
       html << arrow
       html << landing_subject.title
     else
@@ -25,10 +25,10 @@ module BreadcrumbsHelper
   private
 
   def home_link(landing, params = {})
-    if landing.slug == 'accueil'
-      html = link_to t('breadcrumbs_helper.home_link.home'), root_path(params)
-    else
+    if landing.iframe?
       html = link_to t('breadcrumbs_helper.home_link.home'), landing
+    else
+      html = link_to t('breadcrumbs_helper.home_link.home'), root_path(params)
     end
     html << arrow
   end
