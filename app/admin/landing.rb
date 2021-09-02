@@ -45,6 +45,12 @@ ActiveAdmin.register Landing do
       end
     end
 
+    attributes_table title: I18n.t("activerecord.attributes.landing.featured_on_home") do
+      row :emphasis
+      row :home_description
+      row :main_logo
+    end
+
     attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
       row :iframe
       row :institution
@@ -88,6 +94,7 @@ ActiveAdmin.register Landing do
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
       f.input :home_description, input_html: { rows: 2 }
       f.input :emphasis, as: :boolean
+      f.input :main_logo
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_fields") do

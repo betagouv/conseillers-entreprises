@@ -31,7 +31,6 @@ ActiveAdmin.register LandingTheme do
       row :created_at
       row :updated_at
       row :logos
-      row :main_logo
       row(:landings) do |t|
         div admin_link_to(t, :landings)
         div admin_link_to(t, :landings, list: true)
@@ -68,10 +67,10 @@ ActiveAdmin.register LandingTheme do
   #
   landing_subjects_attributes = %i[
     id title slug subject_id description description_explanation form_title form_description meta_title
-    meta_description requires_location requires_requested_help_amount requires_siret position _destroy
+    meta_description requires_location requires_requested_help_amount requires_siret position position _destroy
   ]
 
-  permit_params :title, :page_title, :slug, :description, :logos, :main_logo, :meta_title, :meta_description,
+  permit_params :title, :page_title, :slug, :description, :logos, :meta_title, :meta_description,
                 landing_subjects_attributes: landing_subjects_attributes
 
   form title: :title do |f|
@@ -81,7 +80,6 @@ ActiveAdmin.register LandingTheme do
       f.input :slug
       f.input :description, input_html: { rows: 10 }
       f.input :logos
-      f.input :main_logo
     end
 
     f.inputs I18n.t('active_admin.meta') do
@@ -89,11 +87,11 @@ ActiveAdmin.register LandingTheme do
       f.input :meta_description
     end
 
-    f.inputs I18n.t('active_admin.landing_subjects_order') do
-      f.has_many :landing_subjects, sortable: :position, sortable_start: 1 do |ls|
-        ls.input :position, label: ls.object.title, input_html: { style: 'width:10%' }
-      end
-    end
+    # f.inputs I18n.t('active_admin.landing_subjects_order') do
+    #   f.has_many :landing_subjects, sortable: :position, sortable_start: 1 do |ls|
+    #     ls.input :position, label: ls.object.title, input_html: { style: 'width:10%' }
+    #   end
+    # end
 
     f.inputs I18n.t('activerecord.attributes.landing_themes.landing_subjects') do
       f.has_many :landing_subjects, sortable: :position, sortable_start: 1, allow_destroy: true, new_record: true do |ls|

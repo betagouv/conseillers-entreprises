@@ -8,7 +8,6 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       t.string :meta_title
       t.string :meta_description
       t.string :logos
-      t.string :main_logo
       t.timestamps null: false
     end
 

@@ -84,10 +84,10 @@ fr:
       user_info: Informations utilisateur
   activerecord:
     attributes:
-      antenne: 
+      antenne:
       commune:
         insee_code: Code commune
-      company: 
+      company:
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
@@ -147,6 +147,7 @@ fr:
         landing_themes: Thèmes de landing
         landing_topics: Exemples
         layout: Mise en page
+        main_logo: Logo mis en avant
         message_under_landing_topics: Message sous les exemples
         meta_description: Description méta
         meta_title: Titre méta
@@ -173,7 +174,6 @@ fr:
         requires_requested_help_amount: Champ Montant de l’aide
         requires_siret: Champ SIRET
       landing_theme:
-        main_logo: Logo principal (pour mise en avant)
         meta_description: Description méta
         meta_title: Titre méta
       landing_themes:
