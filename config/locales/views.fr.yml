@@ -27,7 +27,6 @@ fr:
       modified: Le tag a été %{action}
     csv_export: Export CSV
     csv_export_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
-    landing_subjects_order: Ordre des sujets
   annuaire:
     base:
       import_errors:
