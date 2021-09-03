@@ -2,7 +2,7 @@ class Landings::LandingsController < Landings::BaseController
   before_action :save_query_params
 
   def home
-    @landing = Landing.find_by(slug: 'accueil')
+    @landing = Landing.accueil
     @landing_themes = Rails.cache.fetch('landing_themes', expires_in: 3.minutes) do
       @landing.landing_themes.order(:position)
     end
@@ -10,7 +10,7 @@ class Landings::LandingsController < Landings::BaseController
   end
 
   def show
-    @landing_themes = @landing&.landing_themes&.order(:position)
+    @landing_themes = @landing&.displayable_landing_themes&.order(:position)
 
     redirect_to_iframe_view if @landing.iframe?
   end

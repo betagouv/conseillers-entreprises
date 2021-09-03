@@ -151,7 +151,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
       Landing.where(slug: ['contactez-nous']).each do |landing|
         landing.update(layout: :single_page)
         landing_theme_attributes = defaults_landing_theme_attributes(landing).merge(
-          title: 'Échanger avec un conseiller pour :',
+          title: 'Contactez-nous',
         )
         landing_theme = landing.landing_themes.create(landing_theme_attributes)
         landing.landing_topics.order(:landing_sort_order).each do |lt|
@@ -178,6 +178,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           iframe_category: :integral
         )
         landing.landing_themes << home_landing.landing_themes
+        landing.landing_themes << LandingTheme.find_by(slug: 'contactez-nous')
       end
       ## France transition ecologique
       Landing.where(slug: ['france-transition-ecologique']).each do |landing|

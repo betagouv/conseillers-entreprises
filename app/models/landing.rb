@@ -70,12 +70,33 @@ class Landing < ApplicationRecord
     Solicitation.where(landing_slug: self.slug)
   end
 
+  def self.accueil
+    Landing.find_by(slug: 'accueil')
+  end
+
   def to_s
     slug
   end
 
   def to_param
     slug
+  end
+
+  # Pour permettre l'affichage de la phrase "voiture-balais" sur les iframes 360
+  def displayable_landing_themes
+    if self.slug == 'contactez-nous'
+      landing_themes
+    else
+      landing_themes.where.not(slug: 'contactez-nous')
+    end
+  end
+
+  def update_iframe_360
+    self.transaction do
+      self.landing_joint_themes.destroy_all
+      self.landing_themes << Landing.accueil.landing_themes
+      self.landing_themes << LandingTheme.find_by(slug: 'contactez-nous')
+    end
   end
 
   private

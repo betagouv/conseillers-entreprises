@@ -4,6 +4,12 @@
 .landing-cards-container
   = render partial: 'landings/landing_themes/card', collection: landing_themes, as: :landing_theme, locals: { landing: landing }
 
+- if in_iframe? && landing.landing_themes.pluck(:slug).include?('contactez-nous')
+  %p.text-center.contact-us
+    %b= t('.other_questions')
+    %b= link_to t('.contact_us'), landing_theme_path({ landing_slug: landing.slug, slug: 'contactez-nous', institution: params[:institution].presence })
+
+
 - unless in_iframe?
   %p.text-center.contact-us
     %b= t('.other_questions')

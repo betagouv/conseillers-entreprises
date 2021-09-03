@@ -23,6 +23,9 @@ ActiveAdmin.register Landing do
       div link_to l.title, l if l.slug.present?
       div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
     end
+    column :iframe_category do |l|
+      div l.iframe? ? (human_attribute_status_tag l, :iframe_category) : '-'
+    end
     column :landing_themes do |l|
       div l.landing_themes.count
     end
@@ -31,6 +34,12 @@ ActiveAdmin.register Landing do
     end
     actions dropdown: true
   end
+
+  filter :title
+  filter :slug
+  filter :landing_themes, as: :ajax_select, data: { url: :admin_landing_themes_path, search_fields: [:title] }
+  filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :iframe_category, as: :select, collection: -> { Landing.human_attribute_values(:iframe_category, raw_values: true).invert.to_a }
 
   ## Show
   #
@@ -56,6 +65,7 @@ ActiveAdmin.register Landing do
 
     attributes_table title: I18n.t("landings.landings.admin.iframe_fields") do
       row :iframe
+      row(:iframe_category) { |landing| human_attribute_status_tag landing, :iframe_category }
       row :institution
       row :partner_url
       row :custom_css
@@ -76,13 +86,11 @@ ActiveAdmin.register Landing do
 
   landing_joint_themes_attributes = %i[id landing_theme_id position _destroy]
 
-  permit_params :slug,
-                :institution_id, :iframe,
-                :title, :home_description,
+  permit_params :slug, :title,
+                :layout, :logos,
+                :emphasis, :home_description, :main_logo,
                 :meta_title, :meta_description,
-                :emphasis,
-                :logos,
-                :layout,
+                :iframe, :iframe_category, :institution_id,
                 :custom_css, :partner_url,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
@@ -95,13 +103,14 @@ ActiveAdmin.register Landing do
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
-      f.input :home_description, input_html: { rows: 2 }
       f.input :emphasis, as: :boolean
+      f.input :home_description, input_html: { rows: 2 }
       f.input :main_logo
     end
 
     f.inputs I18n.t("landings.landings.admin.iframe_fields") do
       f.input :iframe
+      f.input :iframe_category, as: :select, collection: Landing.human_attribute_values(:iframe_category).invert
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
       f.input :partner_url
       f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
@@ -121,5 +130,15 @@ ActiveAdmin.register Landing do
     end
 
     f.actions
+  end
+
+  ## Actions
+  #
+  action_item :update_iframe_360, only: :show do
+    link_to t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(resource), method: :put
+  end
+  member_action :update_iframe_360, method: :put do
+    resource.update_iframe_360
+    redirect_to resource_path(resource), alert: I18n.t('active_admin.landings.update_iframe_360_done')
   end
 end

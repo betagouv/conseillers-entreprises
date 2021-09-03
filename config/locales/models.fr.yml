@@ -13,6 +13,8 @@ fr:
         remove: Option « %{flag} » désactivée
     landings:
       home_sort_order_placeholder: Laisser vide pour ne pas afficher sur l’accueil.
+      update_iframe_360_button: Mettre à jour iframe 360°
+      update_iframe_360_done: Mise à jour iframe 360° faite.
     matches:
       deleted: Supprimé
     move: Déplacer
@@ -142,6 +144,7 @@ fr:
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
+        iframe_category: Type d'iframe
         institution: Institution partenaire
         landing_subjects: Sujets de landing
         landing_themes: Thèmes de landing
@@ -153,6 +156,11 @@ fr:
         meta_title: Titre méta
         partner_url: Url du site partenaire
         slug: Slug
+      landing/iframe_categories:
+        form: formulaire un sujet
+        integral: 360°
+        subjects: liste de sujets
+        themes: liste de thèmes
       landing/layouts:
         multiple_steps: plusieurs étapes
         single_page: regroupement par thématique
