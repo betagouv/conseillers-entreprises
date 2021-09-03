@@ -38,6 +38,8 @@ class LandingSubject < ApplicationRecord
   belongs_to :landing_theme, inverse_of: :landing_subjects
   has_many :solicitations, inverse_of: :landing_subject
 
+  before_validation :compute_slug
+
   ## Validation
   #
   validates :slug, presence: true, uniqueness: { scope: :landing_theme_id }
@@ -73,5 +75,11 @@ class LandingSubject < ApplicationRecord
       .filter{ |_, value| value }
       .keys
       .map{ |flag| flag.to_s.delete_prefix('requires_').to_sym }
+  end
+
+  def compute_slug
+    if title.present? && slug.blank?
+      self.slug = title.dasherize.parameterize
+    end
   end
 end

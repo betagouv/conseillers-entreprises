@@ -147,7 +147,7 @@ fr:
         iframe_category: Type d'iframe
         institution: Institution partenaire
         landing_subjects: Sujets de landing
-        landing_themes: Thèmes de landing
+        landing_themes: Thèmatiques de landing
         landing_topics: Exemples
         layout: Mise en page
         main_logo: Logo mis en avant
@@ -160,12 +160,12 @@ fr:
         form: formulaire un sujet
         integral: 360°
         subjects: liste de sujets
-        themes: liste de thèmes
+        themes: liste de thématiques
       landing/layouts:
         multiple_steps: plusieurs étapes
         single_page: regroupement par thématique
       landing_joint_theme:
-        landing_theme: Thèmes de landing
+        landing_theme: Thématiques de landing
       landing_option:
         preselected_institution_slug: Institution pré-sélectionnée
         preselected_subject_slug: Sujet pré-sélectionné
@@ -181,6 +181,7 @@ fr:
         requires_location: Champ Localisation
         requires_requested_help_amount: Champ Montant de l’aide
         requires_siret: Champ SIRET
+        title: Intitulé de sujet
       landing_theme:
         meta_description: Description méta
         meta_title: Titre méta
@@ -249,7 +250,7 @@ fr:
         query: Requête
         user: Utilisateur
       solicitation:
-        landing_subject: Sujet choisi
+        landing_subject: Intitulé de sujet choisi
         location: Localisation
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone

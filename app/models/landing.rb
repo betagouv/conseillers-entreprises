@@ -57,7 +57,12 @@ class Landing < ApplicationRecord
   has_many :solicitations, inverse_of: :landing
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
 
+  before_validation :compute_slug
   before_save :set_emphasis
+
+  ## Validation
+  #
+  validates :slug, presence: true, uniqueness: true
 
   ## Scopes
   #
@@ -104,6 +109,12 @@ class Landing < ApplicationRecord
   def set_emphasis
     if emphasis
       Landing.where.not(id: id).update_all(emphasis: false)
+    end
+  end
+
+  def compute_slug
+    if title.present? && slug.blank?
+      self.slug = title.dasherize.parameterize
     end
   end
 end

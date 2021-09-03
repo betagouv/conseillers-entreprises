@@ -28,6 +28,8 @@ class LandingTheme < ApplicationRecord
 
   accepts_nested_attributes_for :landing_subjects, allow_destroy: true
 
+  before_validation :compute_slug
+
   ## Validation
   #
   validates :slug, presence: true, uniqueness: true
@@ -40,24 +42,11 @@ class LandingTheme < ApplicationRecord
     slug
   end
 
-  # REQUIRED_FIELDS_FLAGS = %i[
-  #   requires_full_name
-  #   requires_phone_number
-  #   requires_email
-  #   requires_siret
-  #   requires_requested_help_amount
-  #   requires_location
-  # ]
-  # REQUIRED_FIELDS_FLAGS.each do |flag|
-  #   scope flag, -> { where(flag => true) }
-  #   scope "not_#{flag}", -> { where(flag => false) }
-  # end
+  private
 
-  # def required_fields
-  #   attributes.symbolize_keys
-  #     .slice(*REQUIRED_FIELDS_FLAGS)
-  #     .filter{ |_, value| value }
-  #     .keys
-  #     .map{ |flag| flag.to_s.delete_prefix('requires_').to_sym }
-  # end
+  def compute_slug
+    if title.present? && slug.blank?
+      self.slug = title.dasherize.parameterize
+    end
+  end
 end
