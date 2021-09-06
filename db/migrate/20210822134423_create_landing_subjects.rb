@@ -63,8 +63,7 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
           description: landing.home_description || landing.meta_description,
           meta_title: landing.meta_title,
           meta_description: landing.meta_description,
-          logos: landing.logos,
-          main_logo: landing.main_logo
+          logos: landing.logos
         }
       end
 

@@ -5,7 +5,6 @@
 #  id               :bigint(8)        not null, primary key
 #  description      :text
 #  logos            :string
-#  main_logo        :string
 #  meta_description :string
 #  meta_title       :string
 #  page_title       :string

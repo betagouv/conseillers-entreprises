@@ -320,7 +320,6 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.string "meta_title"
     t.string "meta_description"
     t.string "logos"
-    t.string "main_logo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
