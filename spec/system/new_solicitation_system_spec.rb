@@ -17,7 +17,7 @@ describe 'New Solicitation', type: :system, js: true do
         visit '/?pk_campaign=FOO&pk_kwd=BAR'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
-        # find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
+        # find(".landing-subject-section > div > div.landing-topics > div.landing-topic > h3 > a").click
         fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
         fill_in 'Téléphone', with: '0123456789'
         fill_in 'Description', with: 'Ceci est un test'
@@ -26,7 +26,7 @@ describe 'New Solicitation', type: :system, js: true do
         click_button 'Envoyer ma demande'
       end
 
-      xit do
+      it do
         expect(page).to have_content('Merci')
         expect(solicitation.landing).to eq landing
         expect(solicitation.landing_subject.subject).to eq pde_subject
@@ -50,7 +50,7 @@ describe 'New Solicitation', type: :system, js: true do
         click_button 'Envoyer ma demande'
       end
 
-      xit do
+      it do
         expect(page).to have_content('Merci')
         expect(solicitation.landing).to eq landing
         expect(solicitation.siret).to eq '123 456 789 00010'
@@ -120,8 +120,8 @@ describe 'New Solicitation', type: :system, js: true do
       # Not working, for now
       xit 'correctly sets siret and code_region' do
         visit '/'
-        click_link 'Test Landing'
-        find("#section-exemples > div > div.landing-topics > div.landing-topic > h3 > a").click
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
         fill_in 'E-mail', with: 'user@exemple.com'
         fill_in 'Description', with: 'Ceci est un test'
         fill_in 'SIRET', with: 'octo technology'
