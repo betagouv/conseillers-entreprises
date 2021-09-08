@@ -5,6 +5,23 @@ ActiveAdmin.register LandingTheme do
 
   controller do
     defaults :finder => :find_by_slug!
+    def destroy
+      begin
+        resource.destroy
+        redirect_to admin_landing_themes_path, notice: t('active_admin.landing_subjects.destroy_done')
+      rescue ActiveRecord::DeleteRestrictionError => e
+        redirect_to resource_path(resource), notice: I18n.t('activerecord.errors.models.landing_themes.restrict_dependent_destroy.solicitations')
+      end
+    end
+
+    def update
+      begin
+        super
+      rescue ActiveRecord::DeleteRestrictionError => e
+        flash[:notice] = I18n.t('activerecord.errors.models.landing_subjects.restrict_dependent_destroy.solicitations')
+        render action: :edit
+      end
+    end
   end
 
   ## Index
@@ -90,12 +107,6 @@ ActiveAdmin.register LandingTheme do
       f.input :meta_title
       f.input :meta_description
     end
-
-    # f.inputs I18n.t('active_admin.landing_subjects_order') do
-    #   f.has_many :landing_subjects, sortable: :position, sortable_start: 1 do |ls|
-    #     ls.input :position, label: ls.object.title, input_html: { style: 'width:10%' }
-    #   end
-    # end
 
     f.inputs I18n.t('activerecord.attributes.landing_themes.landing_subjects') do
       f.has_many :landing_subjects, sortable: :position, sortable_start: 1, allow_destroy: true, new_record: true do |ls|

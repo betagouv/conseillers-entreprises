@@ -14,10 +14,6 @@ RSpec.describe Landing, type: :model do
     let!(:home_landing) { create :landing, :with_subjects, slug: 'accueil' }
     let!(:contact_landing_theme) { create :landing_theme, slug: 'contactez-nous' }
 
-    # before do
-    #   create_home_landing
-    # end
-
     context 'with empty landing' do
       let(:landing) { create :landing }
 
@@ -31,8 +27,5 @@ RSpec.describe Landing, type: :model do
         expect(landing.landing_themes).to include(contact_landing_theme)
       end
     end
-
-    # context 'when there were already experts' do
-    # end
   end
 end

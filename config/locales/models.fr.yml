@@ -11,6 +11,8 @@ fr:
       done:
         add: Option « %{flag} » activée
         remove: Option « %{flag} » désactivée
+    landing_subjects:
+      destroy_done: Les sujets de landing ont bien été supprimés
     landings:
       home_sort_order_placeholder: Laisser vide pour ne pas afficher sur l’accueil.
       update_iframe_360_button: Mettre à jour iframe 360°
@@ -147,7 +149,7 @@ fr:
         iframe_category: Type d'iframe
         institution: Institution partenaire
         landing_subjects: Sujets de landing
-        landing_themes: Thèmatiques de landing
+        landing_themes: Thématiques de landing
         landing_topics: Exemples
         layout: Mise en page
         main_logo: Logo mis en avant
@@ -324,7 +326,7 @@ fr:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          has_many: Vous ne pouvez pas supprimer l’enregistrement parce que les %{record} dépendants existent
+          has_many: Vous ne pouvez pas supprimer l’enregistrement car des %{record} dépendants existent
           has_one: Vous ne pouvez pas supprimer l’enregistrement car un(e) %{record} dépendant(e) existe
       models:
         contact:
@@ -339,6 +341,12 @@ fr:
             needs:
               format: 'Besoins : %{message}.'
               solicitation_has_no_preselected_subject: il n’y a pas de sujet préselectionné
+        landing_subjects:
+          restrict_dependent_destroy:
+            solicitations: Vous ne pouvez pas supprimer le sujet de landing car des solicitations y font référence
+        landing_themes:
+          restrict_dependent_destroy:
+            solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
         user:
           attributes:
             email:
