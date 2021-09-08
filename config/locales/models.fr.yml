@@ -51,7 +51,7 @@ fr:
         from_visit: Analyses faites par des conesillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
         no_team: Utilisateurs non membres d’une équipe. Ils n’ont qu’un seul référent, qui correspond à leur domaine de compétence personnel.
-        personal_skillsets: 'Domaine de compétences d’un seul utilisateur: référents avec un seul utilisateur dont l’adresse email est identique au référent.'
+        personal_skillsets: 'Domaine de compétences d’un seul utilisateur : référents avec un seul utilisateur dont l’adresse email est identique au référent.'
         relevant_for_skills: 'Tous les experts utiles à afficher pour le choix des domaines d’intervention : toutes les équipes (plusieurs membres), tous les experts ayant des compétences, ainsi que les experts qui sont le seul expert d’un utilisateur.'
         team_members: Utilisateurs membres d’une équipe
         teams: 'Équipes: plusieurs membres, ou un seul mais dont l’adresse email diffère de celle du référent'
@@ -260,7 +260,7 @@ fr:
       territory:
         advisors: Conseillers
         antennes: Antennes
-        bassin_emploi: Bassin d’emploi?
+        bassin_emploi: Bassin d’emploi ?
         code_region: Région
         deployed_at: Déployé le
         experts: Experts
