@@ -98,7 +98,7 @@ RSpec.describe ExpertSubject, type: :model do
     context 'empty criteria' do
       let(:intervention_criteria) { '' }
 
-      it { is_expected.to eq 'oui' }
+      it { is_expected.to eq 'x' }
     end
   end
 

@@ -217,6 +217,7 @@ fr:
         role: Fonction au sein de l’entreprise
         role_placeholder: Directeur, Gérant…
         your_contact_in_the_company: 'Votre contact chez %{company_name} :'
+  download_xls: Télécharger XLSX
   experts:
     edit:
       antenne_and_institution: Structure
@@ -228,6 +229,14 @@ fr:
       contact_us_to_change_subjects_html: Pour changer vos domaines d’intervention, <a href="mailto:%{email}">contactez-nous</a>.
       instructions_html: En tant que référent sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention.
       others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a>.
+  export_xls:
+    email_instructions: Les adresses mails individuels sont indispensables à la création des comptes utilisateurs et l’accès à l’interface Place des Entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
+    phone_instructions: |-
+      Un numéro différent par conseiller
+      Pas de standard téléphonique
+    subjects_instructions: Un conseiller ou une équipe par sujet (colonne) maximum.
+    team_email: Boîte mail commune (option)
+    teams_instructions: Lorsqu’un mail d’équipe est renseigné, les besoins d’entreprises arriveront sur cette adresse commune et non plus sur les mails individuels des conseillers.
   feedbacks:
     add: Ajouter un commentaire
     feedback:
