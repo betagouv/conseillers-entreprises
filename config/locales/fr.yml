@@ -134,8 +134,8 @@ fr:
       invalid: n'est pas valide
       less_than: doit être inférieur à %{count}
       less_than_or_equal_to: doit être inférieur ou égal à %{count}
-      model_invalid: 'Validation échouée: %{errors}'
-      not_a_number: n'est pas un nombre
+      model_invalid: 'Validation échouée : %{errors}'
+      not_a_number: n’est pas un nombre
       not_an_integer: doit être un nombre entier
       not_found: n’a pas été trouvé(e).
       not_locked: n’était pas verrouillé(e).
@@ -146,7 +146,7 @@ fr:
       other_than: doit être différent de %{count}
       present: doit être vide
       required: doit exister
-      taken: n'est pas disponible
+      taken: n’est pas disponible
       too_long:
         one: est trop long (pas plus d'un caractère)
         other: est trop long (pas plus de %{count} caractères)

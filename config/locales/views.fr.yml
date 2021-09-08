@@ -116,7 +116,7 @@ fr:
     needs:
       needs_done: Cloturés
       needs_in_progress: En cours
-      others: Autre besoins pour cette entreprises
+      others: Autres besoins pour cette entreprise
       title: Liste des besoins pour %{company}
     search:
       explanation: 20005494800019, La Poste Lille
@@ -303,7 +303,7 @@ fr:
           description: Décrivez votre demande.
           email: marie.dupont@exemple.fr
           full_name: 'ex: Marie Dupont'
-          location: Hauts-de-France; région de Milly-la-forêt; 91260…
+          location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
           phone_number: 06 12 34 56 78
           requested_help_amount: 8 000 €
           role: Conseiller entreprise, Chargé de mission…
@@ -315,7 +315,7 @@ fr:
       clic_newsletter: Je m'abonne.
       description: Description de votre demande
       form: Formulaire
-      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place des Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
     new_solicitation_thank_you:
       message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
       message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
@@ -377,22 +377,22 @@ fr:
         response_delay: Le délai moyen de réponse à l’entreprise est de 5 jours.
         subject: Place des Entreprises - Besoin d’aide ?
         watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
-        what_is_pde: Qu’est ce que Place des Entreprises ?
+        what_is_pde: Qu’est-ce que Place des Entreprises ?
       never_used_account_warning:
-        you_need_to_use_your_user_account: Place des entreprises nécessite de se connecter à son compte utilisateur pour accéder au informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
+        you_need_to_use_your_user_account: Place des entreprises nécessite de se connecter à son compte utilisateur pour accéder aux informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
       notify_company_needs:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
         needs_you_html: a besoin de votre expertise sur <strong>« %{subject} »</strong>
         subject: "[Service public Place des Entreprises] L’entreprise %{company_name} a besoin de vous"
-        support_contact_label: 'Si vous n’arrivez pas à accéder à cette demande, contactez :'
+        support_contact_label: 'Si vous n’arrivez pas à accéder à cette demande, contactez :'
         this_company: L’entreprise
         via_partner_html: Cette demande a été déposée sur le site <a href='%{url}' target='_blank'>%{url}</a> avec lequel le service Place des Entreprises est en partenariat.
       remind_involvement:
         needs_for_you: 'Ces entreprises ont besoin de vous :'
-        needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
-        needs_taking_care: 'Besoins pris en charge : est ce qu’il y a du nouveau ?'
-        subject: "[Service public Place des Entreprises] Rappel: Des entreprises ont besoin de vous !"
-        support_contact_label: 'Si vous n’arrivez pas à accéder à une demande, contactez :'
+        needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
+        needs_taking_care: 'Besoins pris en charge : est ce qu’il y a du nouveau ?'
+        subject: "[Service public Place des Entreprises] Rappel : Des entreprises ont besoin de vous !"
+        support_contact_label: 'Si vous n’arrivez pas à accéder à une demande, contactez :'
         visited_days_ago: il y a %{days} par %{advisor}
         visited_on: le %{date}
       remind_received_needs:
@@ -417,10 +417,10 @@ fr:
       notify_match_status:
         expert_and_status:
           done_html: "<p>%{expert} (%{antenne}) a clôturé ce besoin.</p>"
-          done_no_help_html: "<p>%{expert} (%{antenne}) a échangé avec l'entreprise mais n'a pas d'accompagnement adapté à sa situation.</p>"
-          done_not_reachable_html: "<p>%{expert} (%{antenne}) a clôturé le besoin, après avoir tenté de joindre l'entreprise sans succès à plusieurs reprises.</p>"
-          not_for_me_html: "<p>%{expert} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Equipe Place des Entreprises prendra le relai.</p>"
-          quo_html: "<p>%{expert} (%{antenne}) a annulé sa derniere action (%{previous_status}).</p>"
+          done_no_help_html: "<p>%{expert} (%{antenne}) a échangé avec l’entreprise mais n'a pas d’accompagnement adapté à sa situation.</p>"
+          done_not_reachable_html: "<p>%{expert} (%{antenne}) a clôturé le besoin, après avoir tenté de joindre l’entreprise sans succès à plusieurs reprises.</p>"
+          not_for_me_html: "<p>%{expert} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Équipe Place des Entreprises prendra le relai.</p>"
+          quo_html: "<p>%{expert} (%{antenne}) a annulé sa dernière action (%{previous_status}).</p>"
           taking_care_html: "<p>%{expert} (%{antenne}) a pris en charge ce besoin.</p>"
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         subject: "[Service public Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
@@ -479,7 +479,7 @@ fr:
       placeholder_no_help: 'Par exemple : « Je n’ai pas d’aide pour les entreprises de moins de 3 ans »'
       take_care: Je m’en charge !
       validate: Valider
-      your_turn_html: C‘est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
+      your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
     menu:
       for_other_antenne: Toutes les demandes pour %{antenne}
       for_other_header: Voir aussi
@@ -576,7 +576,7 @@ fr:
       experts: Par référent
       needs: Par délai
   reminders_actions:
-    processed_need: Besoin de l‘entreprise %{company} traité
+    processed_need: Besoin de l’entreprise %{company} traité
   shared:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
@@ -652,7 +652,7 @@ fr:
         with_exchange: Avec échange
         without_exchange: Sans échange
       exchange_with_expert_column:
-        series: besoins suivi d'un échange avec un conseiller
+        series: besoins suivis d'un échange avec un conseiller
         subtitle_html: "<p>La promesse du service Place des Entreprises est d’offrir un conseil humain et de proximité à une entreprise exprimant un besoin, qu’il s’agisse d’un projet, d’une difficulté ou d’une question.</p><p>Le nombre total de besoins donnant lieu à un échange avec un conseiller s’analyse au regard du déploiement progressif du service, région par région.</p>"
         title: besoins d’entreprises ont donné lieu à un échange avec un conseiller depuis l'ouverture du service
       experts:
@@ -662,7 +662,7 @@ fr:
       needs:
         title: Besoins identifiés
       needs_abandoned:
-        subtitle: Le besoin est considéré comme abandonné lorsqu’aucun conseiller ne s’est positionné au bout de 30 jours. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
+        subtitle: Le besoin est considéré comme abandonné lorsque aucun conseiller ne s’est positionné au bout de 30 jours. Il est resté sans réponse malgré les relances et le suivi qualité dont il a fait l’objet.
         title: de besoins abandonnés
       needs_done:
         subtitle: La notion d’aide proposée correspond à une aide financière, à la mobilisation d’un accompagnement public ou à plus largement à des conseils visant à répondre à la demande exprimée par l’entreprise. Par exemple, les conseils juridiques dispensés par un conseiller en droit du travail en réponse à une demande de l’entreprise entre dans la catégorie « aide proposée ».
@@ -703,7 +703,7 @@ fr:
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
-        match_done: Besoins clôturé
+        match_done: Besoins clôturés
         match_not_for_me: Rejets
         match_taken_care_of: Prises en charge
         matches: Mises en relation
@@ -731,7 +731,7 @@ fr:
         matchers: Entremetteurs
         registered: Inscrits
         searchers: Chercheurs
-        whose_match_done: Aux besoins clôturé
+        whose_match_done: Aux besoins clôturés
         whose_match_taken_care_of: Aux besoins répondus
     status_done: Clôture avec aide proposée
     status_done_no_help: Clôture sans accompagnement
@@ -762,12 +762,12 @@ fr:
       find_need: Déceler des besoins
       methods: Vous trouverez la méthode qui vous convient le mieux.
       other_cases: 'Dans tous les cas vous pouvez rassurer votre interlocuteur en lui indiquant que :'
-      question_account: A quoi sert le compte Place des entreprises ? Comment le créer ?
-      question_diagnosis: Je veux transmettre un besoin à un partenaire, comment faire ?
-      question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
-      question_expert: Comment procéder ? Quelle question poser ?
-      question_take_care: Je reçois un besoin via Place des entreprises, comment agir ?
-      quote_first_item: "« Avez-vous un projet particulier d’investissement ? Oui, et de quelle nature est-il : foncier - immobilier ; innovation ou recherche de financement ? »"
+      question_account: À quoi sert le compte Place des entreprises ? Comment le créer ?
+      question_diagnosis: Je veux transmettre un besoin à un partenaire, comment faire ?
+      question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
+      question_expert: Comment procéder ? Quelle question poser ?
+      question_take_care: Je reçois un besoin via Place des entreprises, comment agir ?
+      quote_first_item: "« Avez-vous un projet particulier d’investissement ? Oui, et de quelle nature est-il : foncier - immobilier ; innovation ou recherche de financement ? »"
       quote_other_cases: "« Nous disposons, au sein du service public, d’un outil permettant de solliciter sur vos besoins les partenaires compétents. Un expert vous contactera alors pour vous proposer des solutions adaptées. »"
       quote_second_item: "« Parallèlement aux questions que nous venons de traiter, avez-vous d’autres besoins liés à des projets à venir ou des difficultés ? »"
       subjects-list: Liste des besoins
