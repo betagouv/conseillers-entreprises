@@ -9,6 +9,7 @@ ActiveAdmin.register Delayed::Backend::ActiveRecord::Job, as: 'Jobs' do
   index do
     selectable_column
     id_column
+    column :failed_at
     column :name
     column :attempts
     column :status do |job|
@@ -27,7 +28,7 @@ ActiveAdmin.register Delayed::Backend::ActiveRecord::Job, as: 'Jobs' do
       end
     end
 
-    actions defaults: true do |job|
+    actions defaults: true, dropdown: true do |job|
       item('Relancer', retry_admin_job_path(job), method: :post)
     end
   end
