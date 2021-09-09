@@ -1,0 +1,43 @@
+- meta title: t('.meta.title'), description: t('.meta.description')
+
+%section.section.section-white.less-padding
+  .container
+    .row
+      .home-title
+        %h1
+          = t('.question')
+        %p
+          = t('.answer')
+        .links
+          = render 'pages/cta_button'
+          = link_to t('.how-it-works'), comment_ca_marche_path
+
+      #image-home
+        = image_tag('home.png', alt: "")
+
+.section.section-light-grey.blank-section#scroll-section
+
+%section.section.section-grey#section-thematiques
+  .container
+    - unless in_iframe?
+      - @landing_emphasis.each do |landing|
+        .block-link
+          .emphasis.notification.warning
+            .emphasis-header
+              - if landing.main_logo
+                = display_image(name: landing.main_logo)
+              = simple_format("#{landing.title} : ", {}, wrapper_tag: 'h2')
+            = simple_format(landing.home_description, {}, wrapper_tag: 'span')
+            #button-discover= link_to t('.discover_measures'), landing, class: 'button-outline small primary'
+
+    = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
+
+.section.section-lightest-grey.section-partners
+  .container.text-center
+    - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
+      = render 'index_institutions'
+
+  %section.section.section-white.container-newsletter
+    .container
+      = render 'newsletter'
+

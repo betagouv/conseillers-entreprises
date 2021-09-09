@@ -7,8 +7,6 @@
       = metamagic site: t('app_name'), title: %i[title site], separator: ' | '
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
     = canonical_tags
-    - if in_iframe?
-      %meta{ name: 'robots', content: 'noindex' }
     = csrf_meta_tags
     = csp_meta_tag
     = tarteaucitron_script
@@ -19,7 +17,8 @@
     = javascript_include_tag 'https://browser.sentry-cdn.com/6.2.3/bundle.min.js', crossorigin: 'anonymous', integrity: "sha384-n6TNefxJMUTqJauZtoDyDhAs5Ng0VzcMTy0/afmyZoVZpaQ2clYR1LBa4SqhVySs"
     - if defined? @landing
       %style= @landing.custom_css
-    = render 'custom_iframe_css'
+    - if in_iframe?
+      %meta{ name: 'robots', content: 'noindex' }
 
     = render 'favicon'
     = yield :head

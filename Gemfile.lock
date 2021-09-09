@@ -67,6 +67,8 @@ GEM
       has_scope (>= 0.6.0)
       rails (>= 5.0)
       selectize-rails (>= 0.12.6)
+    activeadmin_quill_editor (0.3.4)
+      activeadmin (~> 2.0)
     activeadmin_blaze_theme (0.7.6)
       activeadmin (~> 2.0)
       sassc (~> 2.4)
@@ -94,6 +96,8 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    acts_as_list (1.0.4)
+      activerecord (>= 4.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     anbt-sql-formatter (0.0.7)
@@ -597,7 +601,9 @@ DEPENDENCIES
   activeadmin
   activeadmin-ajax_filter
   activeadmin_blaze_theme
+  activeadmin_quill_editor
   activerecord-postgres_enum
+  acts_as_list
   annotate
   auto_strip_attributes
   awesome_print
@@ -686,4 +692,4 @@ RUBY VERSION
    ruby 2.7.3p183
 
 BUNDLED WITH
-   2.2.3
+   2.2.16

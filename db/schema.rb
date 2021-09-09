@@ -260,6 +260,16 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.index ["updated_at"], name: "index_institutions_subjects_on_updated_at"
   end
 
+  create_table "landing_joint_themes", force: :cascade do |t|
+    t.bigint "landing_id"
+    t.bigint "landing_theme_id"
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["landing_id"], name: "index_landing_joint_themes_on_landing_id"
+    t.index ["landing_theme_id"], name: "index_landing_joint_themes_on_landing_theme_id"
+  end
+
   create_table "landing_options", force: :cascade do |t|
     t.integer "landing_sort_order"
     t.bigint "landing_id"
@@ -280,6 +290,41 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.index ["slug"], name: "index_landing_options_on_slug", unique: true
   end
 
+  create_table "landing_subjects", force: :cascade do |t|
+    t.bigint "landing_theme_id", null: false
+    t.bigint "subject_id", null: false
+    t.string "title"
+    t.string "slug"
+    t.text "description"
+    t.integer "position"
+    t.string "meta_title"
+    t.string "meta_description"
+    t.string "form_title"
+    t.text "form_description"
+    t.text "description_explanation"
+    t.boolean "requires_siret", default: false, null: false
+    t.boolean "requires_requested_help_amount", default: false, null: false
+    t.boolean "requires_location", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
+    t.index ["slug", "landing_theme_id"], name: "index_landing_subjects_on_slug_and_landing_theme_id", unique: true
+    t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
+  end
+
+  create_table "landing_themes", force: :cascade do |t|
+    t.string "title"
+    t.string "page_title"
+    t.string "slug"
+    t.text "description"
+    t.string "meta_title"
+    t.string "meta_description"
+    t.string "logos"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
+  end
+
   create_table "landing_topics", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -296,20 +341,19 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "home_title", default: ""
     t.text "home_description", default: ""
-    t.integer "home_sort_order"
     t.bigint "institution_id"
     t.string "meta_title"
     t.string "meta_description"
     t.string "title"
-    t.string "subtitle"
     t.string "logos"
     t.string "custom_css"
-    t.string "message_under_landing_topics"
     t.string "partner_url"
     t.boolean "emphasis", default: false
     t.string "main_logo"
+    t.integer "layout", default: 1
+    t.boolean "iframe", default: false
+    t.integer "iframe_category", default: 1
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end
@@ -378,7 +422,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.string "siret"
     t.integer "status", default: 0
     t.string "full_name"
-    t.string "landing_slug", null: false
+    t.string "landing_slug"
     t.string "landing_options_slugs", array: true
     t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.string "requested_help_amount"
@@ -386,10 +430,14 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.bigint "institution_id"
     t.integer "code_region"
     t.boolean "created_in_deployed_region", default: false
+    t.bigint "landing_id"
+    t.bigint "landing_subject_id"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"
+    t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
+    t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|
@@ -491,6 +539,8 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"
   add_foreign_key "landing_options", "landings"
+  add_foreign_key "landing_subjects", "landing_themes"
+  add_foreign_key "landing_subjects", "subjects"
   add_foreign_key "landing_topics", "landings"
   add_foreign_key "landings", "institutions"
   add_foreign_key "matches", "experts"
@@ -501,6 +551,8 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "searches", "users"
   add_foreign_key "solicitations", "institutions"
+  add_foreign_key "solicitations", "landing_subjects"
+  add_foreign_key "solicitations", "landings"
   add_foreign_key "subjects", "themes"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"

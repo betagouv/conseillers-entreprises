@@ -10,7 +10,7 @@
 #  form_info                        :jsonb
 #  full_name                        :string
 #  landing_options_slugs            :string           is an Array
-#  landing_slug                     :string           not null
+#  landing_slug                     :string
 #  location                         :string
 #  phone_number                     :string
 #  prepare_diagnosis_errors_details :jsonb
@@ -20,17 +20,23 @@
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  institution_id                   :bigint(8)
+#  landing_id                       :bigint(8)
+#  landing_subject_id               :bigint(8)
 #
 # Indexes
 #
-#  index_solicitations_on_code_region     (code_region)
-#  index_solicitations_on_email           (email)
-#  index_solicitations_on_institution_id  (institution_id)
-#  index_solicitations_on_landing_slug    (landing_slug)
+#  index_solicitations_on_code_region         (code_region)
+#  index_solicitations_on_email               (email)
+#  index_solicitations_on_institution_id      (institution_id)
+#  index_solicitations_on_landing_id          (landing_id)
+#  index_solicitations_on_landing_slug        (landing_slug)
+#  index_solicitations_on_landing_subject_id  (landing_subject_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (institution_id => institutions.id)
+#  fk_rails_...  (landing_id => landings.id)
+#  fk_rails_...  (landing_subject_id => landing_subjects.id)
 #
 
 class Solicitation < ApplicationRecord
@@ -41,7 +47,10 @@ class Solicitation < ApplicationRecord
 
   ## Associations
   #
-  belongs_to :landing, primary_key: :slug, foreign_key: :landing_slug, inverse_of: :solicitations, optional: true
+  belongs_to :landing, inverse_of: :solicitations, optional: true
+  belongs_to :landing_subject, inverse_of: :solicitations, optional: true
+  has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
+
   has_one :diagnosis, inverse_of: :solicitation
   has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
   has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
@@ -66,7 +75,7 @@ class Solicitation < ApplicationRecord
 
   ## Validations
   #
-  validates :landing_slug, :description, presence: true, allow_blank: false
+  validates :landing, :description, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
   validate on: :create do
     # All visible fields are required on creation
@@ -80,9 +89,10 @@ class Solicitation < ApplicationRecord
   scope :omnisearch, -> (query) do
     if query.present?
       where(id: have_badge(query))
-        .or(have_landing_option(query))
+        .or(where(id: have_landing_subject(query)))
+        .or(where(id: have_landing_theme(query)))
+        .or(where(id: have_landing(query)))
         .or(description_contains(query))
-        .or(have_landing(query))
         .or(name_contains(query))
         .or(email_contains(query))
         .or(pk_kwd_contains(query))
@@ -94,12 +104,16 @@ class Solicitation < ApplicationRecord
     joins(:badges).where('badges.title ILIKE ?', "%#{query}%")
   end
 
-  scope :have_landing_option, -> (query) do
-    where('? = ANY(solicitations.landing_options_slugs)', query)
+  scope :have_landing_subject, -> (query) do
+    joins(:landing_subject).where('landing_subjects.slug ILIKE ?', "%#{query}%")
+  end
+
+  scope :have_landing_theme, -> (query) do
+    joins(:landing_theme).where('landing_themes.slug ILIKE ?', "%#{query}%")
   end
 
   scope :have_landing, -> (query) do
-    where('solicitations.landing_slug ILIKE ?', "%#{query}%")
+    joins(:landing).where('landings.slug ILIKE ?', "%#{query}%")
   end
 
   scope :description_contains, -> (query) do
@@ -170,9 +184,8 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid institution]
-  FORM_INFO_KEYS_WITH_ACCESSORS = %i[pk_campaign pk_kwd gclid] # We want :institution as a form_info parameter, but we don’t want accessors for it that would conflict with the belongs_to relation.
-  store_accessor :form_info, FORM_INFO_KEYS_WITH_ACCESSORS.map(&:to_s)
+  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid]
+  store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
   # Development helper
@@ -190,7 +203,7 @@ class Solicitation < ApplicationRecord
     record
   end
 
-  ## Options
+  ## Options - TODO a supprimer
   # I would love to use a has_many relation, but Rails doesn’t (yet?) support backing relations with postgresql arrays.
   def landing_options=(landing_options)
     self.landing_options_slugs = landing_options.pluck(:slug)
@@ -208,10 +221,15 @@ class Solicitation < ApplicationRecord
   ## Visible fields in form
   #
   # Used \when a solicitation is made without a landing_option
+  BASE_REQUIRED_FIELDS = %i[full_name phone_number email]
   DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
 
   def required_fields
-    landing_option&.required_fields || DEFAULT_REQUIRED_FIELDS
+    if landing_subject.present?
+      BASE_REQUIRED_FIELDS + landing_subject&.required_fields
+    else
+      DEFAULT_REQUIRED_FIELDS
+    end
   end
 
   FIELD_TYPES = {
@@ -219,18 +237,17 @@ class Solicitation < ApplicationRecord
     phone_number: 'tel',
     email: 'email',
     siret: 'text',
-    requested_help_amount: 'text',
     location: 'text'
   }
 
   ## Preselection
   #
-  def preselected_subjects
-    landing_options.map(&:preselected_subject).compact
+  def preselected_subject
+    landing_subject&.subject
   end
 
-  def preselected_institutions
-    landing_options.map(&:preselected_institution).compact
+  def preselected_institution
+    landing&.institution
   end
 
   # * Retrieve all the landing options slugs used in the past;

@@ -1,16 +1,15 @@
 module BreadcrumbsHelper
   # Breadcrumbs for landing page un new solicitations
-  # For new solicitation page we need landing_option to display the form title
   # ex: Landing : "Déposer une demande › Surmonter des difficultés financières "
   # ex new solicitation : "Déposer une demande › Surmonter des difficultés financières › Faire un point sur votre situation"
-  def breadcrumbs_landing(landing, landing_option = nil, params = {})
-    html = home_link(params)
-    if landing_option.present?
-      html << link_to(landing.title, landing_path(params))
+  def breadcrumbs_landing(landing, landing_theme, landing_subject = nil, params = {})
+    html = home_link(landing, params)
+    if landing_subject.present?
+      html << link_to(landing_theme.title, landing_theme_path(landing, landing_theme, params))
       html << arrow
-      html << landing_option.form_title
+      html << landing_subject.title
     else
-      html << landing.title
+      html << landing_theme.title
     end
     html
   end
@@ -18,14 +17,19 @@ module BreadcrumbsHelper
   # Breadcrumbs used for other pages
   # Ex : "Déposer une demande › Comment ça marche ?"
   def breadcrumbs_page(title)
-    html = home_link
+    html = link_to t('breadcrumbs_helper.home_link.home'), root_path(params.except(:controller, :action).presence)
+    html << arrow
     html << title
   end
 
   private
 
-  def home_link(params = {})
-    html = link_to t('breadcrumbs_helper.home_link.home'), root_path(params)
+  def home_link(landing, params = {})
+    if landing.iframe?
+      html = link_to t('breadcrumbs_helper.home_link.home'), landing
+    else
+      html = link_to t('breadcrumbs_helper.home_link.home'), root_path(params)
+    end
     html << arrow
   end
 

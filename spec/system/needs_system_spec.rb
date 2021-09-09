@@ -36,6 +36,7 @@ describe 'needs', type: :system do
 
   describe 'user needs' do
     before do
+      create_home_landing
       login_as user, scope: :user
     end
 

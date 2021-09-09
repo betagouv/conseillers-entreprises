@@ -25,14 +25,15 @@
           .item
             = Solicitation.human_attribute_name(attribut) + ' : '
             %strong= solicitation.send(attribut)
-      - if solicitation.landing_slug.present?
+      - if solicitation.landing.present?
         .item
-          = t('.slug')
-          %strong= link_to(solicitation.landing_slug, solicitation.landing)
-      - if solicitation.landing_options_slugs.present?
+          = t('.source')
+          %strong= link_to solicitation.landing.slug, landing_path(solicitation.landing)
+
+      - if solicitation.landing_subject.present?
         .item
           = t('.landing_options')
-          = selected_options_tags(solicitation, "ui small label")
+          = subject_tag(solicitation, "ui small label")
       .item
         = t('.description')
         %p= simple_format(solicitation.description)

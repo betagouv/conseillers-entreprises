@@ -207,7 +207,7 @@ RSpec.describe Expert, type: :model do
     end
 
     it 'displays expert in correct order' do
-      expect(described_class.most_needs_quo_first).to eq [expert_with_lots_inbox, expert_with_few_inbox]
+      expect(described_class.most_needs_quo_first).to match_array [expert_with_lots_inbox, expert_with_few_inbox]
     end
   end
 end

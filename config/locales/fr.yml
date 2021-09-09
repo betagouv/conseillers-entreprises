@@ -1,5 +1,7 @@
 ---
 fr:
+  active_admin:
+    meta: Métadonnée
   all_choices: Tout
   api_entreprise:
     default_error_message:

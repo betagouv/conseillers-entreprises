@@ -6,17 +6,9 @@ describe 'a11y', type: :feature, js: true do
   subject { page }
 
   before do
-    create :landing, home_sort_order: 0,
-           home_title: 'Premier Test',
-           home_description: 'Ceci est un test.',
-           title: 'Premier titre',
-           subtitle: 'Premier sous-titre'
-
-    create :landing, home_sort_order: 1,
-           home_title: 'Second test',
-           home_description: 'Encore un test.',
-           title: 'Second titre',
-           subtitle: 'Second sous-titre'
+    create :landing, :with_subjects, slug: 'accueil'
+    create :landing, :with_subjects, slug: 'landing-two',
+      title: 'Titre landing'
   end
 
   describe '/' do
@@ -25,14 +17,26 @@ describe 'a11y', type: :feature, js: true do
     it { is_expected.to be_accessible }
   end
 
-  describe '/aide-entreprises/:slug' do
-    before { visit "/aide-entreprises/#{Landing.last.slug}" }
+  describe '/aide-entreprise/:landing_slug' do
+    before { visit "/aide-entreprise/#{Landing.last.slug}" }
 
     it { is_expected.to be_accessible }
   end
 
-  describe '/aide-entreprises/:slug/demande' do
-    before { visit "/aide-entreprises/#{Landing.last.slug}/demande" }
+  describe '/aide-entreprise/:landing_slug/theme/:slug' do
+    before do
+      landing = Landing.last
+      visit "/aide-entreprise/#{landing.slug}/theme/#{landing.landing_themes.first.slug}"
+    end
+
+    it { is_expected.to be_accessible }
+  end
+
+  describe '/aide-entreprise/:landing_slug/demande/:slug' do
+    before do
+      landing = Landing.last
+      visit "/aide-entreprise/#{landing.slug}/demande/#{landing.landing_subjects.first.slug}"
+    end
 
     it { is_expected.to be_accessible }
   end

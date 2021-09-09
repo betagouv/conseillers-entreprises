@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'system_helper'
 
 describe 'invitations', type: :system, js: true do
   describe 'new invitations' do
@@ -9,6 +10,7 @@ describe 'invitations', type: :system, js: true do
     let!(:antenne) { create :antenne, name: 'Agence tous risques' }
 
     before do
+      create_home_landing
       visit new_user_invitation_path
 
       fill_in id: 'user_email', with: 'marie.dupont@exemple.fr'
@@ -57,6 +59,7 @@ describe 'invitations', type: :system, js: true do
     let(:user) { create :user, full_name: "Niten Doe", created_at: 3.months.ago, invitation_accepted_at: nil }
 
     before do
+      create_home_landing
       travel_to(3.months.ago) { user.invite! }
       visit accept_user_invitation_path(invitation_token: user.raw_invitation_token)
     end

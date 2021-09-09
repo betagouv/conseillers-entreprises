@@ -1,7 +1,7 @@
 .section.section-light-grey.landing.small-padding#section-breadcrumbs
   .container.breadcrumbs
-    - if defined? landing
-      - landing_option ||= nil
-      = breadcrumbs_landing(landing, landing_option, institution: params[:institution].presence)
+    - if defined? landing_theme
+      - landing_subject ||= nil
+      = breadcrumbs_landing(landing, landing_theme, landing_subject)
     - else
       = breadcrumbs_page(title)

@@ -1,8 +1,0 @@
-.landing-topic.block-link
-  - path = new_solicitation_landing_path(landing_topic.landing, landing_topic.landing_option_slug, institution: params[:institution].presence, anchor: 'section-breadcrumbs')
-  %h3= link_to landing_topic.title.html_safe, path, class: 'click-on-landing-option'
-  %p= landing_topic.description.html_safe
-  - if landing_topic.landing_option_slug.present?
-    %button.button.small{ tabindex: '-1' }
-      = t('.choose')
-

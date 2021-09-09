@@ -5,6 +5,9 @@ require 'system_helper'
 
 describe 'New Solicitation', type: :system do
   before do
+    create_home_landing
+    # todo : tester empahsis + page contactez-nous ?
+    # create :landing, slug: 'relance', home_title: 'Test Landing'
     create_base_dummy_data
   end
 

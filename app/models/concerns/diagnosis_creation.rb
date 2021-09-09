@@ -49,12 +49,12 @@ module DiagnosisCreation
   module SolicitationMethods
     # Some preconditions can be verified without actually trying to create the Diagnosis
     def may_prepare_diagnosis?
-      self.preselected_subjects.present? &&
+      self.preselected_subject.present? &&
         FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret)) # TODO: unify the SIRET validation methods
     end
 
     # Attempt to create a diagnosis up to the last step with the information from the solicitation.
-    # Use the landing_option preselected attributes to create the needs and matches.
+    # Use the preselected attributes (subject & institution) to create the needs and matches.
     #
     # returns nil and sets self.prepare_diagnosis_errors on error.
     # returns the diagnosis on success
@@ -71,12 +71,12 @@ module DiagnosisCreation
           facility_attributes: { siret: FormatSiret.clean_siret(self.siret) }
         )
 
-        # Steps 1, 2, 3: fill in with the solicitation data and the landing_option preselections
+        # Steps 1, 2, 3: fill in with the solicitation data and the preselections
         diagnosis.prepare_needs_from_solicitation if diagnosis.errors.empty?
         diagnosis.prepare_happened_on_from_solicitation if diagnosis.errors.empty?
         diagnosis.prepare_visitee_from_solicitation if diagnosis.errors.empty?
 
-        if self.preselected_institutions.present?
+        if self.preselected_institution.present?
           diagnosis.prepare_matches_from_solicitation if diagnosis.errors.empty?
         end
 
@@ -116,13 +116,13 @@ module DiagnosisCreation
     def prepare_needs_from_solicitation
       return unless solicitation.present? && needs.blank?
 
-      subjects = solicitation.preselected_subjects
-      if subjects.empty?
-        self.errors.add(:needs, :solicitation_has_no_preselected_subjects)
+      subject = solicitation.preselected_subject
+      if subject.nil?
+        self.errors.add(:needs, :solicitation_has_no_preselected_subject)
         return self
       end
 
-      needs_params = subjects.map{ |s| { subject: s } }
+      needs_params = { subject: subject }
       self.needs.create(needs_params)
 
       self

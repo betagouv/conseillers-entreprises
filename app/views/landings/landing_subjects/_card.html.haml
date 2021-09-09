@@ -1,0 +1,6 @@
+.landing-topic.block-link
+  - path = landing_subject_path(landing, landing_subject, institution: params[:institution].presence, anchor: 'section-breadcrumbs')
+  %h3= link_to landing_subject.title.html_safe, path, class: 'click-on-landing-option'
+  %p= sanitize landing_subject.description.html_safe
+  %button.button.small{ tabindex: '-1' }
+    = t('.choose')

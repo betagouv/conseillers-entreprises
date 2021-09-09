@@ -84,7 +84,7 @@ RSpec.describe User, type: :model do
         create :user, is_admin: true
         regular_user = create :user, is_admin: false
 
-        expect(described_class.not_admin).to eq [regular_user]
+        expect(described_class.not_admin).to match_array [regular_user]
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe User, type: :model do
         create :user, searches: [(create :search, created_at: 2.months.ago)]
 
         last_30_days = (30.days.ago)..Time.zone.now
-        expect(described_class.active_searchers(last_30_days)).to eq [searcher]
+        expect(described_class.active_searchers(last_30_days)).to match_array [searcher]
       end
     end
 
@@ -105,8 +105,8 @@ RSpec.describe User, type: :model do
 
         last_30_days = (30.days.ago)..Time.zone.now
 
-        expect(described_class.active_diagnosers(last_30_days, 3)).to eq [diagnoser]
-        expect(described_class.active_diagnosers(last_30_days, 4)).to eq []
+        expect(described_class.active_diagnosers(last_30_days, 3)).to match_array [diagnoser]
+        expect(described_class.active_diagnosers(last_30_days, 4)).to match_array []
       end
     end
 
@@ -119,8 +119,8 @@ RSpec.describe User, type: :model do
 
         last_30_days = (30.days.ago)..Time.zone.now
 
-        expect(described_class.active_answered(last_30_days, ['taking_care','done'])).to eq [active_user]
-        expect(described_class.active_answered(last_30_days, ['not_for_me'])).to eq []
+        expect(described_class.active_answered(last_30_days, ['taking_care','done'])).to match_array [active_user]
+        expect(described_class.active_answered(last_30_days, ['not_for_me'])).to match_array []
       end
     end
 
@@ -142,7 +142,7 @@ RSpec.describe User, type: :model do
     subject(:relevant_users_for_skills) { described_class.relevant_for_skills }
 
     it {
-      expect(relevant_users_for_skills.ids).to eq [user.id, user.id]
+      expect(relevant_users_for_skills.ids).to match_array [user.id, user.id]
       expect(relevant_users_for_skills.map(&:relevant_expert)).to match_array [expert1, expert2]
     }
   end
@@ -242,7 +242,7 @@ RSpec.describe User, type: :model do
     subject { described_class.invited_seven_days_ago }
 
     it 'get users who were invited 7 days ago and did not accept the invitation' do
-      is_expected.to eq [user_2]
+      is_expected.to match_array [user_2]
     end
   end
 end

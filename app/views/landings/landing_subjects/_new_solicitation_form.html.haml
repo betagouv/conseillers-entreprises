@@ -1,8 +1,8 @@
 = form_with(model: solicitation, url: path, local: true, html: { honeypot: true }) do |f|
   - if solicitation.errors.present?
     = render 'matomo_company_contact_failure'
-  = f.hidden_field :landing_options_slugs, multiple: true
-  = f.hidden_field :landing_slug
+  = f.hidden_field :landing_subject_id
+  = f.hidden_field :landing_id
   .form__group
     - solicitation.required_fields.each do |field|
       .form__group
@@ -11,8 +11,7 @@
         - if field == :siret
           // Duplication pour respecter l'accessibilité (id unique, field avec label...)
           = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
-          - if help.present?
-            %span= help
+          %span= t(".attributes.help.siret_html")
           %div{ "data-action": 'siret-autocomplete', "data-assistive-hint": t(".attributes.help.siret_assistive_hint"), "data-deployed-regions": Territory.deployed_codes_regions }
           = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
           = f.hidden_field :code_region, data: { target: 'code-region-autocomplete' }
@@ -34,17 +33,17 @@
         .notification.error= solicitation.errors.full_messages_for(field).to_sentence
   .form__group
     = f.label 'description', t('.description')
-    - if solicitation.landing_option&.description_explanation.present?
+    - if solicitation.landing_subject&.description_explanation.present?
       .explanation
         %div
           = image_tag('info-alert.png', alt: '')
           %span
             = t('.better_taking_care')
-        %div= solicitation.landing_option&.description_explanation&.html_safe
-    = f.text_area 'description', placeholder: t("landings.new_solicitation_form.attributes.placeholder.description"), rows: 6, required: true
+        %div= solicitation.landing_subject&.description_explanation&.html_safe
+    = f.text_area 'description', placeholder: t(".attributes.placeholder.description"), rows: 6, required: true
     .notification.error= solicitation.errors.full_messages_for(:description).to_sentence
   .form__group
-    = f.submit t('.button.title'), class: 'button large'
+    = f.submit t('.button.title'), class: 'button large', data: { disable_with: t('.submit_in_progress') }
   .legal-notice
     = t('.legal_notice_html',
       mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),

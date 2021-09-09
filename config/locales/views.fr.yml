@@ -277,60 +277,67 @@ fr:
       page_number: Page %{number}
     paginator:
       navigation_page: navigation pages
-  landing_topics:
-    landing_topic:
-      choose: Choisir
   landings:
-    index:
-      answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
-      how-it-works: Comment ça marche
-      meta:
-        description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières...'
-        title: Place des Entreprises - Service public pour les TPE & PME
-      question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
-    index_institutions:
-      more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
-      title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
-    index_landing_card:
-      discover: Choisir
-    index_landing_cards:
-      contact_us: cliquez ici !
-      discover_measures: Découvrir les mesures
-      other_questions: Pour toute autre demande,
-    new_solicitation:
-      five_days_contact_html: Déposez votre demande, un conseiller vous rappelle <b>dans les 5 jours</b> (Délai moyen de prise en charge).
-      give_my_opinion_alt: Je donne mon avis
-      give_my_opinion_title: Je donne mon avis sur cette démarche
-    new_solicitation_form:
-      attributes:
-        help:
-          indiffusible_siret_html: Nous ne trouvons pas votre SIRET. Peut-être est-il non-diffusible ? <br>Pour que nous puissions bien vous orienter, veuillez préciser la ville de votre établissement dans la description de votre demande.
-          not_in_deployed_region_html: Place des Entreprises n’est pas encore ouvert sur votre territoire. Abonnez-vous à la newsletter pour être informé de l’arrivée du service dans votre région.
-          siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
-          siret_html: Recherche libre possible (nom, activité, ville...)
-        placeholder:
-          description: Décrivez votre demande.
-          email: marie.dupont@exemple.fr
-          full_name: 'ex: Marie Dupont'
-          location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
-          phone_number: 06 12 34 56 78
-          requested_help_amount: 8 000 €
-          role: Conseiller entreprise, Chargé de mission…
-          siret: 123 456 789 00010
-          team_name: Équipe formation, Cellule-conseil aux entreprises…
-      better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
-      button:
-        title: Envoyer ma demande
-      clic_newsletter: Je m'abonne.
-      description: Description de votre demande
-      form: Formulaire
-      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place des Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
-    new_solicitation_thank_you:
-      message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
-      message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
-      title: Merci !
-    show_landing_institutions:
-      institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
+    landing_subjects:
+      card:
+        choose: Choisir
+      new_solicitation_form:
+        attributes:
+          help:
+            indiffusible_siret_html: Nous ne trouvons pas votre SIRET. Peut-être est-il non-diffusible ? <br>Pour que nous puissions bien vous orienter, veuillez préciser la ville de votre établissement dans la description de votre demande.
+            not_in_deployed_region_html: Place des Entreprises n’est pas encore ouvert sur votre territoire. Abonnez-vous à la newsletter pour être informé de l’arrivée du service dans votre région.
+            siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
+            siret_html: Recherche libre possible (nom, activité, ville...)
+          placeholder:
+            description: Décrivez votre demande.
+            email: marie.dupont@exemple.fr
+            full_name: 'ex: Marie Dupont'
+            location: Hauts-de-France; région de Milly-la-forêt; 91260…
+            phone_number: 06 12 34 56 78
+            requested_help_amount: 8 000 €
+            role: Conseiller entreprise, Chargé de mission…
+            siret: 123 456 789 00010
+            team_name: Équipe formation, Cellule-conseil aux entreprises…
+        better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
+        button:
+          title: Envoyer ma demande
+        clic_newsletter: Je m'abonne.
+        description: Description de votre demande
+        legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+        submit_in_progress: Envoi en cours...
+      new_solicitation_thank_you:
+        message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
+        message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
+        title: Merci !
+      show:
+        accompaniments: 'Accompagnements :'
+        five_days_contact_html: Déposez votre demande, un conseiller vous rappelle <b>dans les 5 jours</b> (Délai moyen de prise en charge).
+        give_my_opinion_alt: Je donne mon avis
+        give_my_opinion_title: Je donne mon avis sur cette démarche
+    landing_themes:
+      card:
+        discover: Choisir
+      show:
+        back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/">Découvrez les autres sujets.</a>
+    landings:
+      admin:
+        iframe_fields: Champs iframe
+      home:
+        answer: 'Service public simple et rapide : vous êtes rappelé par LE conseiller qui peut vous aider.'
+        discover_measures: Découvrir les mesures
+        how-it-works: Comment ça marche
+        meta:
+          description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières...'
+          title: Place des Entreprises - Service public pour les TPE & PME
+        question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
+      index_institutions:
+        more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
+        title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
+      institutions:
+        institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
+      multiple_steps:
+        contact_us: cliquez ici !
+        other_questions: Pour toute autre demande,
   layouts:
     side_menu:
       mobile_menu: Menu
@@ -619,7 +626,7 @@ fr:
       landing_options: 'Aides demandées :'
       needs_historic: Historique de l'entreprise
       siret: 'Siret :'
-      slug: 'Page thématique :'
+      source: 'Source :'
     solicitation_actions:
       prepare_diagnosis_errors:
         one: Erreur à la préparation

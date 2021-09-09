@@ -5,6 +5,8 @@
 #  id               :integer          not null, primary key
 #  code_effectif    :string
 #  date_de_creation :date
+#  inscrit_rcs      :boolean
+#  inscrit_rm       :boolean
 #  legal_form_code  :string
 #  name             :string
 #  siren            :string

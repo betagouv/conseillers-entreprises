@@ -2,38 +2,15 @@
 
 module IframePrefix
   extend ActiveSupport::Concern
-  # Allow the routes of a controller to be served inside an iframe.
-  # Features:
-  # * the adopting controller can be served both in an iframe or regularly
-  # * the views can now if they’re being rendered within an iframe
-  # * links from the iframe keep working within the iframe,
-  #   * only if the target url can be rendered in the iframe.
-  #
-  # See also:
-  # * routes.rb: The controller must be scoped, like that:
-  #   `scope path: "(:iframe_prefix)", iframe_prefix: /my_nice_prefix?/, defaults: {iframe_prefix: nil}`
-  # * iframe_external_links.js: The <a href=''> links in the page are automatically tweaked to target the iframe.
   included do
-    helper OverrideUrlFor # Insert our implementation in the helpers stack to customize url_for.
-
-    prepend_before_action :detect_iframe_prefix
-
+    prepend_before_action :detect_landing_presence
     skip_forgery_protection if: -> { in_iframe? }
     after_action :allow_in_iframe, if: -> { in_iframe? }
   end
 
-  def detect_iframe_prefix
-    params
-    # Implementation Note: A side-effect of calling params is to make sure @iframe_prefix is set.
-  end
-
-  def params
-    clean_params = super
-    # Note: :iframe_prefix is the name of the optional parameter defined in routes.rb.
-    @iframe_prefix ||= clean_params.delete(:iframe_prefix)
-    # Implementation Note: clean_params actually points to an instance variable of a superclass, which we’re modifying.
-    # It means that on the second call, clean_params doesn’t contain :iframe_prefix anymore.
-    clean_params
+  # Pour s'assurer que in_iframe? fonctionne en toutes circonstances
+  def detect_landing_presence
+    @landing ||= Landing.find_by(slug: params[:landing_slug])
   end
 
   def allow_in_iframe
@@ -47,10 +24,14 @@ module IframePrefix
   # The InIframe module is included in SharedController…
   module InIframe
     extend ActiveSupport::Concern
-    included { helper_method :in_iframe? } # … and this makes the in_iframe? method available in all views.
+    included { helper_method :in_iframe?, :show_breadcrumbs? } # … and this makes the in_iframe? method available in all views.
 
     def in_iframe?
-      @iframe_prefix.present?
+      @landing&.iframe?
+    end
+
+    def show_breadcrumbs?
+      !in_iframe? || (in_iframe? && defined?(@landing) && @landing.layout_multiple_steps? && !@landing.subjects_iframe?)
     end
   end
 
@@ -61,9 +42,9 @@ module IframePrefix
   # Note: See also iframe_external_links.js for the
   module OverrideUrlFor
     # :url_for is called, via :link_to or the `*_path` helpers, in the view templates.
-    def url_for(args)
-      prefix_url_if_needed(super)
-    end
+    # def url_for(args)
+    #   prefix_url_if_needed(super)
+    # end
 
     private
 

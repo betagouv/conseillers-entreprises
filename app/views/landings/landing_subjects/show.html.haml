@@ -1,26 +1,26 @@
 :ruby
-  landing_option = @solicitation.landing_option
-  meta title: landing_option&.meta_title.presence || @landing.meta_title, description: @landing.meta_description
+  meta title: @landing_subject.meta_title.presence || @landing_subject.title.presence || @landing_subject.landing_theme.meta_title,
+    description: @landing_subject.meta_description.presence || @landing_subject.description.presence || @landing_subject.landing_theme.meta_description
 
 - unless in_iframe?
   %section.section.section-white.landing.less-padding
     .container
       .landing-header
         .title
-          %h1= landing_option&.form_title.presence || @landing.title
-          %p.subtitle= @landing.subtitle
+          %h1= @landing_subject&.form_title.presence || @landing_subject.title
+          %p.subtitle= t('landings.landings.home.answer')
 
-- if @landing.home_sort_order.present?
-  = render 'pages/breadcrumbs', landing: @landing, landing_option: landing_option
+- if show_breadcrumbs?
+  = render 'pages/breadcrumbs', landing: @landing, landing_theme: @landing_subject.landing_theme, landing_subject: @landing_subject
 
 - if @solicitation.persisted?
   %section.section.section-grey#section-thankyou
     .container.container-medium
       = render 'new_solicitation_thank_you', solicitation: @solicitation
-      - if @landing.logos.present?
+      - if @landing_subject.landing_theme.logos.present?
         .logo-list
           = region_image(session[:region_code])
-          - @landing.logos.split.each do |logo_slug|
+          - @landing_subject.landing_theme.logos.split.each do |logo_slug|
             = institution_image(logo_slug)
 
   - unless in_iframe?
@@ -42,11 +42,16 @@
           %span
             = t('.five_days_contact_html')
       .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
-        = render 'new_solicitation_form', landing: @landing, solicitation: @solicitation, path: create_solicitation_landing_path(institution: params[:institution].presence)
+        = render 'new_solicitation_form',
+          landing_subject: @landing_subject,
+          solicitation: @solicitation,
+          path: create_solicitation_landing_subject_path(@landing, @landing_subject,
+          institution: params[:institution].presence)
         - unless in_iframe?
-          - if landing_option&.form_description.present?
+          - if @landing_subject&.form_description.present?
             .description
-              %div= sanitize landing_option&.form_description&.html_safe
+              %h2= t('.accompaniments')
+              %div= sanitize @landing_subject&.form_description&.html_safe
 
   %section.section.section-white.out-region.container-newsletter#newsletter{ "data-error": "newsletter" }
     .container
@@ -58,4 +63,4 @@
 
     %section.section.section-grey
       .container
-        = render 'show_landing_institutions', landing: @landing
+        = render 'landings/landings/institutions', item: @landing_subject.landing_theme

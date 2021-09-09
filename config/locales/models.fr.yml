@@ -11,8 +11,12 @@ fr:
       done:
         add: Option « %{flag} » activée
         remove: Option « %{flag} » désactivée
+    landing_subjects:
+      destroy_done: Les sujets de landing ont bien été supprimés
     landings:
       home_sort_order_placeholder: Laisser vide pour ne pas afficher sur l’accueil.
+      update_iframe_360_button: Mettre à jour iframe 360°
+      update_iframe_360_done: Mise à jour iframe 360° faite.
     matches:
       deleted: Supprimé
     move: Déplacer
@@ -142,24 +146,49 @@ fr:
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
-        institution: Institution partenaire (pour iframe)
-        landing_options: Options
+        iframe_category: Type d’iframe
+        institution: Institution partenaire
+        landing_subjects: Sujets de landing
+        landing_themes: Thématiques de landing
         landing_topics: Exemples
+        layout: Mise en page
+        main_logo: Logo mis en avant
         message_under_landing_topics: Message sous les exemples
+        meta_description: Description méta
+        meta_title: Titre méta
         partner_url: Url du site partenaire
         slug: Slug
+      landing/iframe_categories:
+        form: formulaire un sujet
+        integral: 360°
+        subjects: liste de sujets
+        themes: liste de thématiques
+      landing/layouts:
+        multiple_steps: plusieurs étapes
+        single_page: regroupement par thématique
+      landing_joint_theme:
+        landing_theme: Thématiques de landing
       landing_option:
-        description_explanation: Explications de la description
-        form_description: Description du formulaire
-        form_title: Titre du formulaire
         preselected_institution_slug: Institution pré-sélectionnée
         preselected_subject_slug: Sujet pré-sélectionné
         requires_email: Champ email
         requires_full_name: Champ Nom
-        requires_location: Champ Localisation
         requires_phone_number: Champ Téléphone
+      landing_subject:
+        description_explanation: Explications de la description
+        form_description: Description du formulaire
+        form_title: Titre du formulaire
+        meta_description: Description méta
+        meta_title: Titre méta
+        requires_location: Champ Localisation
         requires_requested_help_amount: Champ Montant de l’aide
         requires_siret: Champ SIRET
+        title: Intitulé de sujet
+      landing_theme:
+        meta_description: Description méta
+        meta_title: Titre méta
+      landing_themes:
+        landing_subjects: Sujets de landing
       landing_topic:
         landing_option_slug: Option (pour le bouton “Choisir”)
       match:
@@ -223,7 +252,7 @@ fr:
         query: Requête
         user: Utilisateur
       solicitation:
-        landing_options: Options choisies
+        landing_subject: Intitulé de sujet choisi
         location: Localisation
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
@@ -297,7 +326,7 @@ fr:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          has_many: Vous ne pouvez pas supprimer l’enregistrement parce que les %{record} dépendants existent
+          has_many: Vous ne pouvez pas supprimer l’enregistrement car des %{record} dépendants existent
           has_one: Vous ne pouvez pas supprimer l’enregistrement car un(e) %{record} dépendant(e) existe
       models:
         contact:
@@ -311,7 +340,13 @@ fr:
               preselected_institution_has_no_relevant_experts: aucun référent de l’institution préselectionnée ne peut prendre en charge cette entreprise
             needs:
               format: 'Besoins : %{message}.'
-              solicitation_has_no_preselected_subjects: il n’y a pas de sujet préselectionné
+              solicitation_has_no_preselected_subject: il n’y a pas de sujet préselectionné
+        landing_subjects:
+          restrict_dependent_destroy:
+            solicitations: Vous ne pouvez pas supprimer le sujet de landing car des solicitations y font référence
+        landing_themes:
+          restrict_dependent_destroy:
+            solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
         user:
           attributes:
             email:
@@ -354,11 +389,20 @@ fr:
         one: Compétence d’institution
         other: Compétences d’institutions
       landing:
-        one: Page thématique
-        other: Pages thématiques
+        one: Landing
+        other: Landings
+      landing_joint_theme:
+        one: Thèmes de landing
+        other: Thèmes de landing
       landing_option:
         one: Option
         other: Options
+      landing_subjects:
+        one: Sujet de landing
+        others: Sujets de landing
+      landing_theme:
+        one: Thématique de landing
+        other: Thématiques de landing
       landing_topic:
         one: Exemple
         other: Exemples
@@ -458,6 +502,8 @@ fr:
     interview_sort_order: Ordre dans le questionnaire
     is_archived: Archivé
     label: Intitulé
+    landing_subjects: Sujets de landing
+    landing_themes: Thèmes de landing
     legal_form_code: Forme juridique
     logo_sort_order: Position du logo sur la page d'accueil
     manager: Responsable
@@ -476,6 +522,7 @@ fr:
       one: Besoin
       other: Besoins
     optional: Optionnel
+    page_title: Titre affiché sur la page
     phone_number: Téléphone
     placeholder:
       email: marie.dupont@exemple.fr
@@ -522,4 +569,13 @@ fr:
     visitee: Personne rencontrée
   deleted_account:
     full_name: "(Compte supprimé)"
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} a été créé avec succès"
+      destroy:
+        alert: "%{resource_name} ne peut être supprimé"
+        notice: "%{resource_name} a été supprimé avec succès"
+      update:
+        notice: "%{resource_name} a été mis à jour avec succès"
   no_data: Données manquantes

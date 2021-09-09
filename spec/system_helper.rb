@@ -20,9 +20,9 @@ def create_base_dummy_data
   create(:feedback, :for_need)
   create(:institution_subject)
   create(:institution, show_on_list: true)
-  create(:landing_option)
-  create(:landing_topic)
   create(:landing)
+  create(:landing_theme)
+  create(:landing_subject)
   create(:match)
   create(:subject)
   create(:theme)
@@ -31,4 +31,8 @@ end
 
 def side_menu_link(path)
   find("a[href='#{path}']").sibling('span')
+end
+
+def create_home_landing
+  home_landing = create(:landing, :with_subjects, slug: 'accueil')
 end

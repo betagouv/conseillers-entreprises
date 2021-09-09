@@ -93,6 +93,7 @@ ignore_unused:
   - 'active_admin.flag.*'
   - 'active_admin.move'
   - 'attributes.*'
+  - 'flash.actions.*'
   - 'landings.new_solicitation_form.attributes.*'
   - 'mailers.user_mailer.notify_match_status.expert_and_status.*'
   - 'stats.stats_table.*'

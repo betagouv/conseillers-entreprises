@@ -8,7 +8,7 @@ RSpec.describe Solicitation, type: :model do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :landing_slug }
+    it { is_expected.to validate_presence_of :landing }
     it { is_expected.to validate_presence_of :description }
     it { is_expected.to validate_presence_of :full_name }
     it { is_expected.to validate_presence_of :phone_number }
@@ -27,7 +27,7 @@ RSpec.describe Solicitation, type: :model do
         it { is_expected.to eq institution }
       end
 
-      context 'with a solicitation slug in the form_info' do
+      context 'with a solicitation slug in the query_params' do
         let(:institution) { create :institution }
         let(:solicitation) { create :solicitation, form_info: { institution: institution.slug } }
 
@@ -43,63 +43,41 @@ RSpec.describe Solicitation, type: :model do
     end
   end
 
-  describe '#landing_options' do
-    let(:solicitation) { create :solicitation, landing_options_slugs: slugs }
-    let!(:option1) { create :landing_option, slug: 'option1' }
-    let!(:option2) { create :landing_option, slug: 'option2' }
+  describe '#preselected_subject' do
+    let(:solicitation) { create :solicitation, landing_subject: landing_subject }
 
-    subject { solicitation.landing_options }
-
-    context 'slugs are known' do
-      let(:slugs) { %w[option1 option2] }
-
-      it { is_expected.to match_array [option1, option2] }
-    end
-
-    context 'slugs are unknown' do
-      let(:slugs) { %w[option3 option4] }
-
-      it { is_expected.to be_empty }
-    end
-  end
-
-  describe '#preselected_subjects' do
-    let(:solicitation) { create :solicitation, landing_options: [option] }
-    let(:option) { create :landing_option, preselected_subject_slug: preselected_subject_slug }
-    let!(:subject1) { create :subject }
-
-    subject { solicitation.preselected_subjects }
+    subject { solicitation.preselected_subject }
 
     context 'subject is known' do
-      let(:preselected_subject_slug) { subject1.slug }
+      let(:pde_subject) { create :subject }
+      let(:landing_subject) { create :landing_subject, subject: pde_subject }
 
-      it { is_expected.to eq [subject1] }
+      it { is_expected.to eq pde_subject }
     end
 
     context 'subject is unknown' do
-      let(:preselected_subject_slug) { 'some_slug' }
+      let(:landing_subject) { nil }
 
-      it { is_expected.to be_empty }
+      it { is_expected.to be_nil }
     end
   end
 
-  describe '#preselected_institutions' do
-    let(:solicitation) { create :solicitation, landing_options: [option] }
-    let(:option) { create :landing_option, preselected_institution_slug: preselected_institution_slug }
-    let!(:institution1) { create :institution }
+  describe '#preselected_institution' do
+    let(:solicitation) { create :solicitation, landing: landing }
+    let(:landing) { create :landing, institution: institution }
 
-    subject { solicitation.preselected_institutions }
+    subject { solicitation.preselected_institution }
 
     context 'institution is known' do
-      let(:preselected_institution_slug) { institution1.slug }
+      let(:institution) { create :institution }
 
-      it { is_expected.to eq [institution1] }
+      it { is_expected.to eq institution }
     end
 
     context 'institution is unknown' do
-      let(:preselected_institution_slug) { 'some_institution' }
+      let(:institution) { nil }
 
-      it { is_expected.to be_empty }
+      it { is_expected.to be_nil }
     end
   end
 
@@ -110,16 +88,28 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.have_badge('test') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
-  describe '#have_landing_option' do
-    let(:solicitation) { create :solicitation, landing_options_slugs: ['landing_test_slug'] }
-    let!(:solicitation_without_slug) { create :solicitation }
+  describe '#have_landing_subject' do
+    let(:landing_subject) { create :landing_subject, slug: 'subject-slug' }
+    let(:solicitation) { create :solicitation, landing_subject: landing_subject }
+    let(:solicitation_without_subject) { create :solicitation }
 
-    subject { described_class.have_landing_option('landing_test_slug') }
+    subject { described_class.have_landing_subject('subjec') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
+  end
+
+  describe '#have_landing_theme' do
+    let(:landing_theme) { create :landing_theme, slug: 'theme-slug' }
+    let(:landing_subject) { create :landing_subject, landing_theme: landing_theme }
+    let(:solicitation) { create :solicitation, landing_subject: landing_subject }
+    let(:solicitation_without_subject) { create :solicitation }
+
+    subject { described_class.have_landing_theme('them') }
+
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe '#description_contains' do
@@ -128,16 +118,17 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.description_contains('test') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
-  describe '#have_landing_slug' do
-    let(:solicitation) { create :solicitation, landing_slug: 'landing_test' }
+  describe '#have_landing' do
+    let(:landing) { create :landing, slug: 'landing-slug' }
+    let(:solicitation) { create :solicitation, landing: landing }
     let!(:solicitation_without_landing) { create :solicitation }
 
-    subject { described_class.have_landing('test') }
+    subject { described_class.have_landing('anding') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe '#name_contains' do
@@ -146,7 +137,7 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.name_contains('Pink') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe '#email_contains' do
@@ -155,7 +146,7 @@ RSpec.describe Solicitation, type: :model do
 
     subject { described_class.email_contains('kingju') }
 
-    it { is_expected.to eq [solicitation] }
+    it { is_expected.to match_array [solicitation] }
   end
 
   describe "#by_possible_region" do
@@ -177,7 +168,7 @@ RSpec.describe Solicitation, type: :model do
     context 'filter by existing territory' do
       let(:possible_region) { territory1.id }
 
-      it { is_expected.to eq [solicitation1] }
+      it { is_expected.to match_array [solicitation1] }
     end
 
     context 'filter by diagnoses problem' do
@@ -189,7 +180,7 @@ RSpec.describe Solicitation, type: :model do
     context 'filter by out_of_deployed_territories' do
       let(:possible_region) { 'out_of_deployed_territories' }
 
-      it { is_expected.to eq [solicitation2] }
+      it { is_expected.to match_array [solicitation2] }
     end
   end
 end

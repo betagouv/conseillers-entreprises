@@ -3,10 +3,13 @@
 require 'rails_helper'
 describe SolicitationModification::Create do
   describe 'call' do
+    let(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
+    let!(:landing_subject) { create :landing_subject, requires_siret: true }
+
     let(:base_params) {
       {
-        landing_options_slugs: ["demarche_ecologie"],
-        landing_slug: "environnement-transition-ecologique",
+        landing_subject_id: landing_subject.id,
+        landing_id: landing.id,
         full_name: "Leslie Crane",
         phone_number: "+974-65-7100124",
         email: "rotoce@gmail.com",
