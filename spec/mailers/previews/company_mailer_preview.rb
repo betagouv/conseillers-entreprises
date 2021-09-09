@@ -19,7 +19,7 @@ class CompanyMailerPreview < ActionMailer::Preview
     CompanyMailer.satisfaction(Need.where(status: :done).sample)
   end
 
-  def rentention
+  def retention
     CompanyMailer.retention(Need.where(status: :done).sample)
   end
 end

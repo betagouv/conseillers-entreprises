@@ -15,7 +15,6 @@ class CompanyMailerService
 
   def self.send_retention_emails
     return unless ENV['FEATURE_SEND_RETENTION_EMAILS'].to_b || Rails.env.test?
-
     needs = Need
       .joins(:diagnosis)
       .where(diagnoses: { retention_email_sent: false },
