@@ -907,7 +907,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@gouvfr/dsfr@^1.0.0-rc1.0":
+"@gouvfr/dsfr@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@gouvfr/dsfr/-/dsfr-1.1.0.tgz#747969f179152721de9b6fe7f084374bb396fb00"
   integrity sha512-9sEgX046t3t9iA/CiNegBO3i65iZgXnJz9wgsc9mv1/hiuGYdlfiED4gQ+3zU/bQ5E2BB2CBTCCrnXtmGrMMNg==
