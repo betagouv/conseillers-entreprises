@@ -32,8 +32,7 @@ task :push_to_production do
     end
 
     messages
-      .map{ |message| pr_number_and_title(message) }
-      .compact
+      .filter_map{ |message| pr_number_and_title(message) }
       .map{ |parts| format_parts(parts) }
   end
 

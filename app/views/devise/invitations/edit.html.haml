@@ -22,7 +22,7 @@
           = f.label :password_confirmation, class: 'fr-label'
           = f.password_field :password_confirmation, class: 'fr-input'
 
-        .required.fr-checkbox-group{ "data-controller": "cgu-acceptance" }
+        .required.fr-checkbox-group{ 'data-controller': "cgu-acceptance" }
           = f.check_box :cgu_accepted, { class: "required", required: true, data: { action: 'cgu-acceptance#toggleField', 'cgu-acceptance-target': "acceptedCheckbox" } }
           = f.label :cgu_accepted, class: 'fr-label' do
             %span= t('.accept_cgu_html', cgu_path: cgu_path)

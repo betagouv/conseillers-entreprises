@@ -39,7 +39,7 @@ namespace :import_dump do
   end
 
   task anonymize: :environment do
-    whitelisted_models = [Antenne, Institution, Commune, Landing, LandingTopic, Territory, Theme, Subject]
+    allowed_models = [Antenne, Institution, Commune, Landing, LandingTopic, Territory, Theme, Subject]
 
     default_mapping = {
       'content' => -> { Faker::Lorem.paragraph },
@@ -87,7 +87,7 @@ namespace :import_dump do
       }
     }
 
-    models = ApplicationRecord.descendants - whitelisted_models
+    models = ApplicationRecord.descendants - allowed_models
 
     models.sort_by(&:to_s).each do |model|
       mapping = default_mapping

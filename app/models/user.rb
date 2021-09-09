@@ -159,7 +159,7 @@ class User < ApplicationRecord
 
   scope :invited_seven_days_ago, -> do
     not_deleted
-      .where(invitation_sent_at: 7.days.ago.beginning_of_day..7.days.ago.end_of_day)
+      .where(invitation_sent_at: 7.days.ago.all_day)
       .where(invitation_accepted_at: nil)
   end
 

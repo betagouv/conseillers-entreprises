@@ -53,7 +53,7 @@
               %h2= t('.accompaniments')
               %div= sanitize @landing_subject&.form_description&.html_safe
 
-  %section.section.section-white.out-region.container-newsletter#newsletter{ "data-error": "newsletter" }
+  %section.section.section-white.out-region.container-newsletter#newsletter{ 'data-error': "newsletter" }
     .container
       = render 'newsletter'
 

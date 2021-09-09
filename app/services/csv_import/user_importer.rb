@@ -11,9 +11,9 @@ module CsvImport
       static_headers = mapping.keys + team_mapping.keys + one_subject_mapping.keys
       build_several_subjects_mapping(headers, static_headers)
       known_headers = static_headers + several_subjects_mapping.keys
-      headers.map do |header|
+      headers.filter_map do |header|
         UnknownHeaderError.new(header) unless known_headers.include? header.squish
-      end.compact
+      end
     end
 
     def preprocess(attributes)
@@ -89,12 +89,12 @@ module CsvImport
 
     def import_several_subjects(expert, all_attributes)
       experts_subjects_attributes = all_attributes.slice(*several_subjects_mapping.keys)
-        .transform_keys{ |k| several_subjects_mapping[k] }.map do |institution_subject, serialized_description|
+        .transform_keys{ |k| several_subjects_mapping[k] }.filter_map do |institution_subject, serialized_description|
         {
           institution_subject: institution_subject,
           csv_description: serialized_description
         }
-      end.compact
+      end
 
       experts_subjects_attributes.each do |attributes|
         experts_subject = expert.experts_subjects.find_by(institution_subject_id: attributes[:institution_subject].id)

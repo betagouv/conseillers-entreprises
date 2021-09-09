@@ -3,4 +3,4 @@
   - tabindex = is_active_link?(path, :inclusive) ? 0 : 1
   - aria_selected = is_active_link?(path, :inclusive)
   = link_to Institution.human_attribute_name(key), path,
-    { class: 'fr-tabs__tab', "aria-selected": aria_selected, tabindex: tabindex, role: "tab", "aria-controls": "tabpanel-#{key}-panel" }
+    { class: 'fr-tabs__tab', 'aria-selected': aria_selected, tabindex: tabindex, role: "tab", 'aria-controls': "tabpanel-#{key}-panel" }

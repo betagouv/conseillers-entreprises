@@ -14,17 +14,17 @@
                 = link_to root_path, class: 'pde-logo', title: t('.root_path_title') do
                   = image_tag 'logo-PDE.svg', alt: t('logos.pde')
               .fr-header__navbar
-                %button.fr-btn--menu.fr-btn#button-menu{ "aria-controls": "modal-header-menu", "aria-haspopup": "menu", title: t(".menu"), data: { "fr-opened": false, controller: 'fr-header', action: 'click->fr-header#open' } }
+                %button.fr-btn--menu.fr-btn#button-menu{ 'aria-controls': "modal-header-menu", 'aria-haspopup': "menu", title: t(".menu"), data: { 'fr-opened': false, controller: 'fr-header', action: 'click->fr-header#open' } }
                   = t(".menu")
           .fr-header__tools
             .fr-header__tools-links
               %ul.fr-links-group
-    .fr-header__menu.fr-modal#modal-header-menu{ "aria-labelledby": "button-menu" }
+    .fr-header__menu.fr-modal#modal-header-menu{ 'aria-labelledby': "button-menu" }
       .fr-container
-        %button.fr-link--close.fr-link{ "aria-controls": "modal-header-menu", data: { controller: 'fr-header', action: 'click->fr-header#close' } }
+        %button.fr-link--close.fr-link{ 'aria-controls': "modal-header-menu", data: { controller: 'fr-header', action: 'click->fr-header#close' } }
           = t(".close")
         .fr-header__menu-links
-        %nav.fr-nav{ "aria-label": t(".main_menu"), role: "navigation" }
+        %nav.fr-nav{ 'aria-label': t(".main_menu"), role: "navigation" }
           %ul.fr-nav__list
             %li.fr-nav__item
               = link_to root_path, class: 'pde-logo-sm', title: t('.root_path_title') do
@@ -52,7 +52,7 @@
               %span.ri-tools-line.fr-mr-1w
               = t('user_pages.tutoriels.title')
             %li.fr-nav__item.fr-nav__item--align-right
-              %button.fr-nav__btn{ "aria-controls": "fr-nav-item-account", "aria-expanded": "false", data: { controller: 'fr-dropdown', action: 'click->fr-dropdown#collapse' } }
+              %button.fr-nav__btn{ 'aria-controls': "fr-nav-item-account", 'aria-expanded': "false", data: { controller: 'fr-dropdown', action: 'click->fr-dropdown#collapse' } }
                 = t('.account')
               .fr-menu.fr-collapse#fr-nav-item-account
                 %ul.fr-menu__list
