@@ -113,7 +113,7 @@ ActiveAdmin.register LandingTheme do
         ls.input :title
         ls.input :slug
         ls.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
-        ls.input :description, input_html: { rows: 2 }
+        ls.input :description, as: :quill_editor
         ls.input :description_explanation, as: :quill_editor
         ls.input :form_title
         ls.input :form_description, as: :quill_editor

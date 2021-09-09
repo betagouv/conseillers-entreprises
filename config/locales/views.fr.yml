@@ -279,8 +279,6 @@ fr:
       navigation_page: navigation pages
   landings:
     landing_subjects:
-      card:
-        choose: Choisir
       new_solicitation_form:
         attributes:
           help:
@@ -315,8 +313,6 @@ fr:
         give_my_opinion_alt: Je donne mon avis
         give_my_opinion_title: Je donne mon avis sur cette démarche
     landing_themes:
-      card:
-        discover: Choisir
       show:
         back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/">Découvrez les autres sujets.</a>
     landings:

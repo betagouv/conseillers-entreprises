@@ -40,6 +40,35 @@
     .subtitle
       max-width: 100%
 
+section.landing-theme-section, section.landing-subject-section
+  .contact-us
+    font-size: 1.2rem
+    margin: 2rem 0 0 0
+
+section.section.landing-subject-section
+  h4
+    font-size: 1.25rem
+    margin-top: 2rem
+    margin-bottom: 1rem
+    &:first-child
+      margin-top: 0
+  .panel__header
+    cursor: pointer
+    padding-right: 1rem
+    h3
+      font-weight: normal
+      font-size: 1.3rem
+    &:after
+      display: block
+
+  @media (max-width: 549px)
+    .container
+      padding: 0 0.5rem
+
+.other
+  margin-top: 32pt
+
+// Formulaire
 section#section-formulaire
   .legal-notice
     font-size: 0.7rem
@@ -106,3 +135,4 @@ section#section-formulaire .solicitation-form
           margin: 1rem 0
         .button
           margin: 0
+

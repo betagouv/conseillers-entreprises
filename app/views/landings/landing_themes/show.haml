@@ -23,14 +23,14 @@
   - unless in_iframe?
     #scroll-section
 
-  %section.section.section-grey#section-exemples
+  %section.section.section-grey.landing-subject-section
     .container
-      %h2= t('you_wish')
-      .landing-topics
+      %h2.card-section-header= t('you_wish')
+      .landing-subject-cards-container
         = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
 
       - unless in_iframe?
-        .ui.text-center.other
+        .text-center.other
           %b= t('.back_to_other_subjects_html')
 
   - unless in_iframe?

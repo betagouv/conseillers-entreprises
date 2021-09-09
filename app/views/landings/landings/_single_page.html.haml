@@ -1,8 +1,8 @@
-%section.section.section-grey#section-exemples
+%section.section.section-grey.landing-subject-section
   .container
     - landing_themes.each do |theme|
-      %h2= theme.title || t('you_wish')
-      .landing-topics
+      %h2.card-section-header= theme.title || t('you_wish')
+      .landing-subject-cards-container
         = render partial: 'landings/landing_subjects/card', collection: theme.landing_subjects, as: :landing_subject, locals: { landing: landing }
 
     - unless in_iframe?
