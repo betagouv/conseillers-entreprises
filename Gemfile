@@ -101,7 +101,6 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'spring-commands-parallel-tests'
   gem "dotenv-rails"
-  gem "debase"
   gem 'w3c_validators', require: false
 end
 
