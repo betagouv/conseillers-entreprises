@@ -134,7 +134,7 @@ fr:
     new:
       comment: Un commentaire ? Une suggestion ? Nous sommes à votre écoute.
       company_satisfaction_exist: Vous avez déjà répondu pour ce besoin.
-      contacted_by_expert: Est-ce que vous avez bien été recontacté par un conseiller ?
+      contacted_by_expert: Avez-vous bien été rappelé(e) par au moins un conseiller ou une conseillère ?
       send: Envoyer
       title: Donnez votre avis sur Place des Entreprises
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
@@ -361,22 +361,22 @@ fr:
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
     company_mailer:
       confirmation_solicitation:
-        content_for_iframe_html: Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec le service Place des Entreprises.
+        content_for_iframe_html: Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec le service public Place des Entreprises.
         content_html: Nous avons bien reçu votre demande déposée sur le site Place des Entreprises.
-        informations_html: "<p>Votre demande va être transmise au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider.</p><p>Vous serez informés par mail de la prise en charge de votre demande et appelé directement par le(s) conseiller(s), dans les <strong>5 jours ouvrés</strong> en moyenne.</p>"
+        informations_html: "<p>Votre demande va être transmise au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider.</p><p>Vous serez informé(e) par mail de la prise en charge de votre demande et appelé(e) directement par le(s) conseiller(s), dans les <strong>5 jours ouvrés</strong> en moyenne.</p>"
         subject: Nous avons bien reçu votre demande
       notify_not_reachable:
-        content_by_expert_html: "<p>Elle a été prise en charge par un conseiller de %{expert_antenne}, qui a tenté de vous joindre par téléphone. <strong>Nous vous invitons à consulter votre messagerie vocale et vos mails</strong>.</p>"
-        recall: N’hésitez pas à le rappeler directement.
+        content_by_expert_html: "<p>Elle a été prise en charge par une conseillère ou un conseiller de %{expert_antenne}, qui a tenté de vous joindre par téléphone. <strong>Nous vous invitons à consulter votre messagerie vocale et vos mails</strong>.</p>"
+        recall: N’hésitez pas à la ou le rappeler directement.
         subject: Un conseiller a tenté de vous joindre
       notify_taking_care:
-        content_by_expert_html: "<p>Elle est prise en charge par un conseiller de %{expert_antenne}, qui va vous appeler rapidement. <strong>N’oubliez pas de consulter votre messagerie vocale et vos mails</strong>.</p>"
+        content_by_expert_html: "<p>Elle est prise en charge par un conseiller ou une conseillère de %{expert_antenne}, qui va vous appeler rapidement. <strong>N’oubliez pas de consulter votre messagerie vocale et vos mails</strong>.</p>"
         intro_from_solicitation_html: "<p>Vous avez utilisé le service public Place des Entreprises pour <i>%{company}</i>. Votre demande concerne :</p>"
         subject: Votre demande a été prise en charge
       retention:
         intro_html: "<p>Vous avez utilisé le service public Place des Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :</p>"
         list_html: 'Plus de 50 partenaires publics sont réunis dans ce service pour vous accompagner sur de nombreux sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
-        outro: Si vous souhaitez être accompagné, n’hésitez pas à déposer une demande.
+        outro: Si vous souhaitez être accompagné(e), n’hésitez pas à déposer une demande.
         remind: Pour rappel, Place des Entreprises est un service de mise en relation pour les TPE & PME. Il vous permet d’échanger avec LE conseiller qui peut vous aider.
         send_solicitation: Échanger avec un conseiller
         subject: Avez-vous besoin d’aide ?
