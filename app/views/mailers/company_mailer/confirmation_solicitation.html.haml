@@ -4,7 +4,6 @@
 
 - link_to_root = link_to t('app_name'), root_url
 
-- if @solicitation.institution.present?
-  = t('.content_html')
+= t('.content_html', website: (@solicitation.institution.present? ? @solicitation.institution.name : 'Place des Entreprises'))
 
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
