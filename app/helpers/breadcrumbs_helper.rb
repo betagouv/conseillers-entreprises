@@ -17,7 +17,7 @@ module BreadcrumbsHelper
   # Breadcrumbs used for other pages
   # Ex : "Déposer une demande › Comment ça marche ?"
   def breadcrumbs_page(title)
-    html = link_to t('breadcrumbs_helper.home_link.home'), root_path(params.except(:controller, :action).presence)
+    html = link_to t('breadcrumbs_helper.home_link.home'), root_path
     html << arrow
     html << title
   end

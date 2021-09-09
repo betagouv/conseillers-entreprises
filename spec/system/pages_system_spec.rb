@@ -35,5 +35,8 @@ describe 'New Solicitation', type: :system do
     click_link 'Statistiques'
     expect(page).to have_select 'territory'
     expect(page).not_to have_select 'institution'
+    find('#start_date').set "2021-03-01"
+    click_button 'Chercher'
+    expect(page).to have_select 'territory'
   end
 end
