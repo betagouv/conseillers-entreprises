@@ -95,6 +95,7 @@ fr:
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
+        landing: Page source
         useful_exchange: Échange utile
       contact:
         company: Entreprise

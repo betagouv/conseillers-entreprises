@@ -20,6 +20,10 @@
 #
 class CompanySatisfaction < ApplicationRecord
   belongs_to :need, inverse_of: :company_satisfaction
+  has_one :solicitation, through: :need, inverse_of: :diagnosis
+  has_one :landing, through: :solicitation, inverse_of: :solicitations
+  has_one :landing_subject, through: :solicitation, inverse_of: :solicitations
+  has_one :subject, through: :need, inverse_of: :needs
 
   validates :contacted_by_expert, :useful_exchange, inclusion: { in: [true, false] }
 end
