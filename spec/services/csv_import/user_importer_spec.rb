@@ -255,7 +255,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(first_error[:error]).to eq :invalid
         invalid_experts = first_error[:value]
         expect(invalid_experts).not_to be_nil
-        expect(invalid_experts.flat_map{ |e| e.errors.details }).to eq [{ :"experts_subjects.institution_subject" => [{ error: :blank }] }]
+        expect(invalid_experts.flat_map{ |e| e.errors.details }).to eq [{ :'experts_subjects.institution_subject' => [{ error: :blank }] }]
       end
     end
 

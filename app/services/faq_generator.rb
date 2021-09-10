@@ -12,8 +12,8 @@ class FaqGenerator
 
   def to_ld_json
     {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
+      '@context': "https://schema.org",
+      '@type': "FAQPage",
       mainEntity: ld_json_faq_array
     }.to_json
   end
@@ -23,10 +23,10 @@ class FaqGenerator
   def ld_json_faq_array
     @base_faq.each_with_object([]) do |item, new_array|
       new_array << {
-        "@type": "Question",
+        '@type': "Question",
         name: item[:question],
         acceptedAnswer: {
-          "@type": "Answer",
+          '@type': "Answer",
           text: item[:answer]
         }
       }

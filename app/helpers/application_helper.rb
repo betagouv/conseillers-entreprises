@@ -14,8 +14,8 @@ module ApplicationHelper
   def canonical_tags
     canonical_url = raw "#{ENV['HOST_NAME']}#{path_without_html_extension}"
     capture do
-      concat tag(:link, href: canonical_url, rel: :canonical)
-      concat tag(:meta, property: 'og:url', content: canonical_url)
+      concat tag.link(href: canonical_url, rel: :canonical)
+      concat tag.meta(property: 'og:url', content: canonical_url)
     end
   end
 

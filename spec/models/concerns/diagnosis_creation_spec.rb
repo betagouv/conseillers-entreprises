@@ -164,7 +164,7 @@ RSpec.describe DiagnosisCreation do
 
       it 'sets an error' do
         expect(diagnosis.visitee).not_to be_persisted
-        expect(diagnosis.errors.details).to eq({ :"visitee.full_name" => [{ error: :blank }] })
+        expect(diagnosis.errors.details).to eq({ :'visitee.full_name' => [{ error: :blank }] })
       end
     end
   end

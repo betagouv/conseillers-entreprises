@@ -66,18 +66,18 @@ module XlsxExport
 
     def create_styles(s)
       @green_bg = s.add_style bg_color: 'D9EAD3', alignment: { horizontal: :center, vertical: :center, wrap_text: true },
-                             border: { style: :thin, color: '000000' }
+                              border: { style: :thin, color: '000000' }
       @green_bg_bold = s.add_style bg_color: 'D9EAD3', border: { style: :thin, color: 'c6c6c6' },
-                                  alignment: { horizontal: :center, vertical: :center, wrap_text: true }, b: true, sz: 13
+                                   alignment: { horizontal: :center, vertical: :center, wrap_text: true }, b: true, sz: 13
       @green_bg_italic = s.add_style bg_color: 'D9EAD3',alignment: { horizontal: :center, vertical: :center, wrap_text: true },
-                                    height: 50, i: true, sz: 11, border: { style: :thin, color: '000000', edges: [:bottom] }
+                                     height: 50, i: true, sz: 11, border: { style: :thin, color: '000000', edges: [:bottom] }
       @default_style = s.add_style alignment: { horizontal: :center, vertical: :center, wrap_text: true }, sz: 11, height: 40,
-                                  fg_color: '1F497D', border: { style: :thin, color: '000000', edges: [:bottom] }
+                                   fg_color: '1F497D', border: { style: :thin, color: '000000', edges: [:bottom] }
       @text_red = s.add_style fg_color: 'C0504D', alignment: { horizontal: :center, vertical: :center, wrap_text: true }
       @first_row_style = s.add_style alignment: { horizontal: :center, vertical: :center, wrap_text: true }, height: 70, sz: 11
       @second_row_style = s.add_style alignment: { horizontal: :center, vertical: :center, wrap_text: true }, height: 50, b: true, sz: 13
       @third_row_style = s.add_style alignment: { horizontal: :center, vertical: :center, wrap_text: true }, height: 50, i: true, sz: 11,
-                                    border: { style: :thin, color: '000000', edges: [:bottom] }
+                                     border: { style: :thin, color: '000000', edges: [:bottom] }
       s
     end
 

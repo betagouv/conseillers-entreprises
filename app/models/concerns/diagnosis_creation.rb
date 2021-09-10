@@ -140,9 +140,9 @@ module DiagnosisCreation
       return unless solicitation.present? && visitee.blank?
 
       self.build_visitee(full_name: solicitation.full_name,
-                          email: solicitation.email,
-                          phone_number: solicitation.phone_number,
-                          company: facility.company)
+                         email: solicitation.email,
+                         phone_number: solicitation.phone_number,
+                         company: facility.company)
 
       self.save # Validate and save both the new visitee and the diagnosis
 

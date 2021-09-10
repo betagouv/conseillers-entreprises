@@ -1,5 +1,5 @@
 -# See also insee_code_field.js
 .field.insee-code-field
-  = label_tag "city-autocomplete", t('.city')
-  %div{ "data-action": 'city-autocomplete' }
+  = label_tag 'city-autocomplete', t('.city')
+  %div{ 'data-action': 'city-autocomplete' }
   = form.hidden_field :insee_code, data: { target: 'insee-code' }

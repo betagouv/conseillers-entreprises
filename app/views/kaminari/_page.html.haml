@@ -1,8 +1,8 @@
 - if page.current?
   %li
-    %a.fr-pagination__link{ "aria-current": t('.page'), title: t('.page_number', number: page) }
+    %a.fr-pagination__link{ 'aria-current': t('.page'), title: t('.page_number', number: page) }
       = page
 - else
   %li
     = link_to page, url, title: t('.page_number', number: page), class: 'fr-pagination__link',
-      "aria-label": t('.page_number', number: page), remote: remote
+      'aria-label': t('.page_number', number: page), remote: remote

@@ -8,9 +8,9 @@ module CsvImport
     end
 
     def check_headers(headers)
-      headers.map do |header|
+      headers.filter_map do |header|
         UnknownHeaderError.new(header) unless mapping.include? header.squish
-      end.compact
+      end
     end
 
     def preprocess(attributes)
