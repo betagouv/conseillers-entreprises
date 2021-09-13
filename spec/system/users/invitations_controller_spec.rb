@@ -70,4 +70,21 @@ describe 'invitations', type: :system, js: true do
       expect(page.html).to include I18n.t('devise.invitations.invitation_token_invalid')
     end
   end
+
+  describe 're-invite user' do
+    let(:user) { create :user, full_name: "Hubertine Auclert", created_at: 3.months.ago, invitation_accepted_at: nil }
+
+    before do
+      create_home_landing
+      travel_to(3.weeks.ago) { user.invite! }
+      travel_back
+      user.invite!
+      visit accept_user_invitation_path(invitation_token: user.raw_invitation_token)
+    end
+
+    it 'doesnt display error message' do
+      user.reload
+      expect(page.html).not_to include I18n.t('devise.invitations.invitation_token_invalid')
+    end
+  end
 end
