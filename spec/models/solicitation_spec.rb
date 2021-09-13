@@ -62,25 +62,6 @@ RSpec.describe Solicitation, type: :model do
     end
   end
 
-  describe '#preselected_institution' do
-    let(:solicitation) { create :solicitation, landing: landing }
-    let(:landing) { create :landing, institution: institution }
-
-    subject { solicitation.preselected_institution }
-
-    context 'institution is known' do
-      let(:institution) { create :institution }
-
-      it { is_expected.to eq institution }
-    end
-
-    context 'institution is unknown' do
-      let(:institution) { nil }
-
-      it { is_expected.to be_nil }
-    end
-  end
-
   describe '#have_badge' do
     let(:badge) { create :badge, title: 'test' }
     let(:solicitation) { create :solicitation, badges: [badge] }
@@ -124,9 +105,9 @@ RSpec.describe Solicitation, type: :model do
   describe '#have_landing' do
     let(:landing) { create :landing, slug: 'landing-slug' }
     let(:solicitation) { create :solicitation, landing: landing }
-    let!(:solicitation_without_landing) { create :solicitation }
+    let!(:solicitation_other_landing) { create :solicitation }
 
-    subject { described_class.have_landing('anding') }
+    subject { described_class.have_landing('anding-slu') }
 
     it { is_expected.to match_array [solicitation] }
   end

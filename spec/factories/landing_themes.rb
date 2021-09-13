@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :landing_theme do
-    sequence(:slug) { |n| Faker::Lorem.word + n.to_s }
+    sequence(:slug) { |n| "lt" + Faker::Lorem.word + n.to_s }
     title { Faker::Company.bs }
     description { Faker::Lorem.paragraph }
     trait :with_subjects do

@@ -75,10 +75,7 @@ module DiagnosisCreation
         diagnosis.prepare_needs_from_solicitation if diagnosis.errors.empty?
         diagnosis.prepare_happened_on_from_solicitation if diagnosis.errors.empty?
         diagnosis.prepare_visitee_from_solicitation if diagnosis.errors.empty?
-
-        if self.preselected_institution.present?
-          diagnosis.prepare_matches_from_solicitation if diagnosis.errors.empty?
-        end
+        diagnosis.prepare_matches_from_solicitation if diagnosis.errors.empty?
 
         # Rollback on error!
         if diagnosis.errors.present?
