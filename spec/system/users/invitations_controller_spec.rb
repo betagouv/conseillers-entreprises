@@ -82,7 +82,7 @@ describe 'invitations', type: :system, js: true do
       visit accept_user_invitation_path(invitation_token: user.raw_invitation_token)
     end
 
-    it 'display error message and not validates invitation' do
+    it 'doesnt display error message' do
       user.reload
       expect(page.html).not_to include I18n.t('devise.invitations.invitation_token_invalid')
     end
