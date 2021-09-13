@@ -6,8 +6,6 @@ module  Annuaire
       @institutions = Institution.not_deleted
         .order(:slug)
         .preload([institutions_subjects: :theme], :not_deleted_antennes, :advisors)
-
-      @wide_layout = true
     end
 
     def show

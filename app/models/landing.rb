@@ -50,9 +50,6 @@ class Landing < ApplicationRecord
   has_many :landing_subjects, through: :landing_themes, inverse_of: :landing_theme
 
   belongs_to :institution, inverse_of: :landings, optional: true
-  # TODO a supprimer une fois les migrations passées
-  has_many :landing_topics, inverse_of: :landing, :dependent => :destroy
-  has_many :landing_options, inverse_of: :landing, :dependent => :destroy
 
   has_many :solicitations, inverse_of: :landing
   accepts_nested_attributes_for :landing_joint_themes, allow_destroy: true
@@ -70,11 +67,6 @@ class Landing < ApplicationRecord
   scope :emphasis, -> { where(emphasis: true) }
   scope :iframes, -> { where(iframe: true) }
   scope :locales, -> { where.not(iframe: true) }
-
-  # TODO a supprimer apres migration refacto
-  def solicitations_from_landing_slug
-    Solicitation.where(landing_slug: self.slug)
-  end
 
   def self.accueil
     Landing.find_by(slug: 'accueil')

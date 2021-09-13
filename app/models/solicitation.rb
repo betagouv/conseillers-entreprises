@@ -203,21 +203,6 @@ class Solicitation < ApplicationRecord
     record
   end
 
-  ## Options - TODO a supprimer
-  # I would love to use a has_many relation, but Rails doesn’t (yet?) support backing relations with postgresql arrays.
-  def landing_options=(landing_options)
-    self.landing_options_slugs = landing_options.pluck(:slug)
-  end
-
-  def landing_options
-    LandingOption.where(slug: landing_options_slugs)
-  end
-
-  def landing_option
-    # Technically, a solicitation can have many landing_options; however, we currently limit it to 1 in the UI.
-    landing_options&.first
-  end
-
   ## Visible fields in form
   #
   # Used \when a solicitation is made without a landing_option

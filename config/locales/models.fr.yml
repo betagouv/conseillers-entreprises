@@ -151,7 +151,6 @@ fr:
         institution: Institution partenaire
         landing_subjects: Sujets de landing
         landing_themes: Thématiques de landing
-        landing_topics: Exemples
         layout: Mise en page
         main_logo: Logo mis en avant
         message_under_landing_topics: Message sous les exemples
@@ -169,12 +168,6 @@ fr:
         single_page: regroupement par thématique
       landing_joint_theme:
         landing_theme: Thématiques de landing
-      landing_option:
-        preselected_institution_slug: Institution pré-sélectionnée
-        preselected_subject_slug: Sujet pré-sélectionné
-        requires_email: Champ email
-        requires_full_name: Champ Nom
-        requires_phone_number: Champ Téléphone
       landing_subject:
         description_explanation: Explications de la description
         form_description: Description du formulaire
@@ -190,8 +183,6 @@ fr:
         meta_title: Titre méta
       landing_themes:
         landing_subjects: Sujets de landing
-      landing_topic:
-        landing_option_slug: Option (pour le bouton “Choisir”)
       match:
         closed_at: Date de clôture
         expert: Référent
@@ -395,18 +386,12 @@ fr:
       landing_joint_theme:
         one: Thèmes de landing
         other: Thèmes de landing
-      landing_option:
-        one: Option
-        other: Options
       landing_subjects:
         one: Sujet de landing
         others: Sujets de landing
       landing_theme:
         one: Thématique de landing
         other: Thématiques de landing
-      landing_topic:
-        one: Exemple
-        other: Exemples
       match:
         one: Mise en relation
         other: Mises en relation
