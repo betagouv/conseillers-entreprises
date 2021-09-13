@@ -36,6 +36,7 @@ class UserMailer < ApplicationMailer
   def remind_invitation(user)
     @user = user
     @institution = user.institution
+    # /!\ ce n'est pas le bon token, il faudrait `raw_token`, non enregistré en BDD
     @token = @user.invitation_token
 
     mail(to: @user.email, subject: t('mailers.user_mailer.remind_invitation.subject', institution_name: @institution.name))
