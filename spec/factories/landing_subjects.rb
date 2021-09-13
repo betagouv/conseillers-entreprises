@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :landing_subject do
     association :landing_theme
     association :subject
-    slug { Faker::Lorem.unique.word.downcase }
+    sequence(:slug) { |n| "ls" + Faker::Lorem.word + n.to_s }
     title { Faker::Lorem.words }
     form_title { Faker::Lorem.words }
     description { Faker::Lorem.sentence }

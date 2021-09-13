@@ -180,10 +180,8 @@ RSpec.describe DiagnosisCreation do
              expert: create(:expert, communes: communes)
     end
     let(:institution) { create :institution }
-    let(:preselected_institution) { institution }
 
     before do
-      allow(solicitation).to receive(:preselected_institution).and_return(preselected_institution)
       diagnosis.prepare_matches_from_solicitation
     end
 
