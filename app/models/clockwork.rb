@@ -24,4 +24,7 @@ module Clockwork
   every(1.day, 'auto_archive_old_matches', at: ('2:41')) do
     `rake auto_archive_old_matches`
   end
+  every(1.day, 'send_reminder_invitation', at: ('7:03')) do
+    User.send_reminder_invitation
+  end
 end
