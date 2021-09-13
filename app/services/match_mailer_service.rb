@@ -36,6 +36,9 @@ class MatchMailerService
       # Notify the company
       CompanyMailer.notify_taking_care(match).deliver_later
     end
+    if match.status == :done_not_reachable
+      CompanyMailer.notify_not_reachable(match).deliver_later
+    end
   end
 
   def self.should_notify_everyone(old_status, new_status)

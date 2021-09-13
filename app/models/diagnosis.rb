@@ -2,19 +2,19 @@
 #
 # Table name: diagnoses
 #
-#  id                                 :bigint(8)        not null, primary key
-#  archived_at                        :datetime
-#  completed_at                       :datetime
-#  content                            :text
-#  happened_on                        :date
-#  newsletter_subscription_email_sent :boolean          default(FALSE), not null
-#  step                               :integer          default("not_started")
-#  created_at                         :datetime         not null
-#  updated_at                         :datetime         not null
-#  advisor_id                         :bigint(8)
-#  facility_id                        :bigint(8)        not null
-#  solicitation_id                    :bigint(8)
-#  visitee_id                         :bigint(8)
+#  id                   :bigint(8)        not null, primary key
+#  archived_at          :datetime
+#  completed_at         :datetime
+#  content              :text
+#  happened_on          :date
+#  retention_email_sent :boolean          default(FALSE)
+#  step                 :integer          default("not_started")
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  advisor_id           :bigint(8)
+#  facility_id          :bigint(8)        not null
+#  solicitation_id      :bigint(8)
+#  visitee_id           :bigint(8)
 #
 # Indexes
 #
@@ -114,7 +114,7 @@ class Diagnosis < ApplicationRecord
 
   ## Scopes for flags
   #
-  FLAGS = %i[newsletter_subscription_email_sent satisfaction_email_sent]
+  FLAGS = %i[retention_email_sent satisfaction_email_sent]
   FLAGS.each do |flag|
     scope flag, -> { where(flag => true) }
     scope "not_#{flag}", -> { where(flag => false) }

@@ -63,6 +63,7 @@ class Landing < ApplicationRecord
   ## Validation
   #
   validates :slug, presence: true, uniqueness: true
+  validates :partner_url, presence: true, if: :iframe?
 
   ## Scopes
   #

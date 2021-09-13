@@ -142,7 +142,7 @@ fr:
       landing:
         custom_css: CSS personnalisé
         emphasis: Mettre en avant sur la page d’accueil
-        featured_on_home: Afficher sur la page d’accueil
+        featured_on_home: Champs encart page d'accueil
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil

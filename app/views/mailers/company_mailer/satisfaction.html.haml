@@ -1,5 +1,5 @@
 :css
-  .button {
+  .response-button {
     padding: 0.25em 1em;
     color: #fff;
     margin: 0 0.6em;
@@ -11,7 +11,7 @@
     background-color: rgb(0, 83, 179);
   }
 
-= render 'mailers/company_mailer/header'
+= render 'mailers/header'
 
 %p= t('mailers.hello')
 
@@ -28,5 +28,10 @@
 
 %p= t('.tank_you')
 
-- link_to_root = link_to t('app_name'), root_url
+- link_to_root = link_to t('app_name'), root_url(pk_campaign: 'retention', pk_kwd: 'sequence-mail-pde')
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
+
+%p.margin-top-2= t('.linkedin_news')
+
+.button
+  = link_to t('.follow_us'), 'https://www.linkedin.com/company/place-des-entreprises/?pk_campaign=Page%20LinkedIn%20-%20PE'

@@ -13,25 +13,16 @@ class CompanyMailerService
     end
   end
 
-  def self.send_newsletter_subscription_emails
-    return unless ENV['FEATURE_SEND_NEWSLETTER_SUBSCRIPTION_EMAILS'].to_b
-
-    diagnoses = Diagnosis
-      .min_closed_at(13.days.ago..12.days.ago)
-      .not_newsletter_subscription_email_sent
-    api_instance = SibApiV3Sdk::ContactsApi.new
-    list_contacts = api_instance.get_contacts_from_list(ENV['SENDINBLUE_NEWSLETTER_ID'].to_i)
-    list_emails = list_contacts.contacts.pluck(:email)
-    diagnoses.each do |diagnosis|
-      begin
-        CompanyMailer.newsletter_subscription(diagnosis).deliver_later unless list_emails.include?(diagnosis.visitee.email)
-        diagnosis.update(newsletter_subscription_email_sent: true)
-      rescue SibApiV3Sdk::ApiError => e
-        Sentry.with_scope do |scope|
-          scope.set_tags(email: diagnosis.visitee.email)
-          Sentry.capture_exception(e)
-        end
-      end
+  def self.send_retention_emails
+    return unless ENV['FEATURE_SEND_RETENTION_EMAILS'].to_b || Rails.env.test?
+    needs = Need
+      .joins(:diagnosis)
+      .where(diagnoses: { retention_email_sent: false },
+             created_at: (Time.zone.now - 5.months - 2.days)..(Time.zone.now - 5.months))
+      .with_status_done
+    needs.each do |need|
+      CompanyMailer.retention(need).deliver_later
+      need.diagnosis.update(retention_email_sent: true)
     end
   end
 end
