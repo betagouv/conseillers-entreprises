@@ -18,7 +18,7 @@ class CompanyMailerService
     needs = Need
       .joins(:diagnosis)
       .where(diagnoses: { retention_email_sent: false },
-                     created_at: (Time.zone.now - 5.months - 2.days)..(Time.zone.now - 5.months))
+             created_at: (Time.zone.now - 5.months - 2.days)..(Time.zone.now - 5.months))
       .with_status_done
     needs.each do |need|
       CompanyMailer.retention(need).deliver_later
