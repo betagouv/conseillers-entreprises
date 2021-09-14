@@ -19,7 +19,7 @@
       = render 'new_solicitation_thank_you', solicitation: @solicitation
       - if @landing_subject.landing_theme.logos.present?
         .logo-list
-          = region_image(session[:region_code])
+          = prefet_region_logo(session[:region_code])
           - @landing_subject.landing_theme.logos.split.each do |logo_slug|
             = institution_image(logo_slug)
 
