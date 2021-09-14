@@ -623,8 +623,8 @@ fr:
       processed: Traitées
       reminded_html: Relancées
     set_category_content:
-      landings: Landings
-      options: Options
+      landings: Page source
+      subjects: Sujets de landings
       tags: Tags
     solicitation:
       description: 'Description :'

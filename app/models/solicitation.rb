@@ -9,7 +9,6 @@
 #  email                            :string
 #  form_info                        :jsonb
 #  full_name                        :string
-#  landing_options_slugs            :string           is an Array
 #  landing_slug                     :string
 #  location                         :string
 #  phone_number                     :string
@@ -205,7 +204,6 @@ class Solicitation < ApplicationRecord
 
   ## Visible fields in form
   #
-  # Used \when a solicitation is made without a landing_option
   BASE_REQUIRED_FIELDS = %i[full_name phone_number email]
   DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
 
@@ -229,14 +227,6 @@ class Solicitation < ApplicationRecord
   #
   def preselected_subject
     landing_subject&.subject
-  end
-
-  # * Retrieve all the landing options slugs used in the past;
-  #   LandingOptions may have been removed, but the slug remains here.
-  # * :landing_options_slugs is a postgresql array; we could use unnest() to flatten it
-  #   but let’s keep it easier to understand. It’s not performance-critical.
-  def self.all_past_landing_options_slugs
-    self.pluck(:landing_options_slugs).flatten.uniq
   end
 
   def normalized_phone_number

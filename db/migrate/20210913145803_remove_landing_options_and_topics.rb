@@ -2,9 +2,11 @@ class RemoveLandingOptionsAndTopics < ActiveRecord::Migration[6.1]
   def up
     drop_table :landing_options
     drop_table :landing_topics
+    remove_column :solicitations, :landing_options_slugs, :string
   end
 
   def down
+    add_column :solicitations, :landing_options_slugs, :string, array: true
     create_table "landing_topics", force: :cascade do |t|
       t.string "title"
       t.text "description"

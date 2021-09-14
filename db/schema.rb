@@ -391,7 +391,6 @@ ActiveRecord::Schema.define(version: 2021_09_14_125531) do
     t.integer "status", default: 0
     t.string "full_name"
     t.string "landing_slug"
-    t.string "landing_options_slugs", array: true
     t.jsonb "prepare_diagnosis_errors_details", default: {}
     t.string "requested_help_amount"
     t.string "location"

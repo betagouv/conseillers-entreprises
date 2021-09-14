@@ -153,7 +153,6 @@ fr:
         landing_themes: Thématiques de landing
         layout: Mise en page
         main_logo: Logo mis en avant
-        message_under_landing_topics: Message sous les exemples
         meta_description: Description méta
         meta_title: Titre méta
         partner_url: Url du site partenaire
@@ -244,6 +243,7 @@ fr:
         query: Requête
         user: Utilisateur
       solicitation:
+        landing: Page source
         landing_subject: Intitulé de sujet choisi
         location: Localisation
         needs: Besoins sélectionnés
@@ -251,7 +251,7 @@ fr:
         pk_campaign: Campagne
         pk_kwd: Mots-clés
         requested_help_amount: Montant de l’aide demandée
-        slug: Page thématique
+        slug: Slug
         tracking: Suivi
       solicitation/statuses:
         canceled: Annulée
