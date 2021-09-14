@@ -287,9 +287,17 @@ ActiveRecord::Schema.define(version: 2021_09_14_125531) do
     t.boolean "requires_location", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "display_region_logo", default: false
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
     t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
     t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
+  end
+
+  create_table "landing_subjects_logos", force: :cascade do |t|
+    t.bigint "logo_id"
+    t.bigint "landing_subject_id"
+    t.index ["landing_subject_id"], name: "index_landing_subjects_logos_on_landing_subject_id"
+    t.index ["logo_id"], name: "index_landing_subjects_logos_on_logo_id"
   end
 
   create_table "landing_themes", force: :cascade do |t|
@@ -299,7 +307,6 @@ ActiveRecord::Schema.define(version: 2021_09_14_125531) do
     t.text "description"
     t.string "meta_title"
     t.string "meta_description"
-    t.string "logos"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
@@ -324,6 +331,13 @@ ActiveRecord::Schema.define(version: 2021_09_14_125531) do
     t.integer "iframe_category", default: 1
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
+  end
+
+  create_table "logos", force: :cascade do |t|
+    t.string "slug"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "matches", force: :cascade do |t|

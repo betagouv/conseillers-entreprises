@@ -9,4 +9,14 @@ module ImagesHelper
     params.merge! extra_params
     image_tag(image_path(path), params) if path
   end
+
+  def landing_theme_logos(landing_theme)
+    logos = landing_theme.landing_subjects.collect(&:logos).flatten.uniq
+    logos.map { |l| display_image({ name: l.slug, path: 'institutions/' }) }.join.html_safe
+  end
+
+  def landing_subject_logos(landing_subject)
+    logos = landing_subject.logos
+    logos.map { |l| display_image({ name: l.slug, path: 'institutions/' }) }.join.html_safe
+  end
 end

@@ -37,6 +37,7 @@
     %section.section.section-light-grey.landing
       = render 'pages/how_it_works'
 
-    %section.section.section-white
-      .container
-        = render 'landings/landings/institutions', item: @landing_theme
+    - if @landing_theme.landing_subjects.collect(&:logos).present?
+      %section.section.section-white
+        .container
+          = render 'landings/landings/logos', landing_theme: @landing_theme

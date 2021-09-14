@@ -6,6 +6,15 @@ module RegionsHelper
     params = { alt: t('logos.prefet_region', name: name), class: 'institution_logo' }
     image_tag(path, params) if path
   end
+
+  def region_logo(region_code)
+    slug, name = find_name_and_slug(region_code)
+    possible_paths = "regions/#{slug}.png", "regions/#{slug}.svg", "regions/#{slug}.jpg"
+    path = possible_paths.find{ |path| resolve_asset_path(path, true) }
+    params = { alt: t('logos.region', name: name), class: 'institution_logo' }
+    image_tag(path, params) if path
+  end
+
   private
 
   def find_name_and_slug(region_code)
