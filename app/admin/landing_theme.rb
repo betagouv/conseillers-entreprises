@@ -48,7 +48,7 @@ ActiveAdmin.register LandingTheme do
       row :title
       row :page_title
       row :slug
-      row :description
+      row(:description) { |ls| ls.description.html_safe }
       row :created_at
       row :updated_at
       row :logos
@@ -69,7 +69,7 @@ ActiveAdmin.register LandingTheme do
           attributes_table_for s do
             row :title
             row(:subject) { |ls| admin_link_to ls.subject }
-            row :description
+            row(:description) { |ls| ls.description.html_safe }
             row(:description_explanation) { |ls| ls.description_explanation.html_safe }
             row :form_title
             row(:form_description) { |ls| ls.form_description.html_safe }
