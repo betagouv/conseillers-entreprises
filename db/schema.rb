@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_26_093254) do
+ActiveRecord::Schema.define(version: 2021_09_14_125531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -308,7 +308,7 @@ ActiveRecord::Schema.define(version: 2021_08_26_093254) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
-    t.index ["slug", "landing_theme_id"], name: "index_landing_subjects_on_slug_and_landing_theme_id", unique: true
+    t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
     t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
   end
 
