@@ -5,7 +5,7 @@ module CsvExport
         id: :id,
         need: :need_id,
         company: :company,
-        visitee: -> { diagnosis.visitee.email },
+        visitee: -> { diagnosis.visitee&.email },
         siret: -> { facility.siret },
         commune: -> { facility.commune },
         facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
