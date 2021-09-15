@@ -142,6 +142,7 @@ fr:
         users: Conseillers
       landing:
         custom_css: CSS personnalisé
+        display_pde_partnership_mention: Afficher le partenariat PDE (logo + phrase en bas d'iframe)
         emphasis: Mettre en avant sur la page d’accueil
         featured_on_home: Champs encart page d'accueil
         home_description: Description sur la page d’accueil
