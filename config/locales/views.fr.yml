@@ -623,13 +623,13 @@ fr:
       processed: Traitées
       reminded_html: Relancées
     set_category_content:
-      landings: Landings
-      options: Options
+      landings: Page source
+      subjects: Sujets de landings
       tags: Tags
     solicitation:
       description: 'Description :'
       email: 'Email :'
-      landing_options: 'Aides demandées :'
+      landing_subjects: 'Aides demandées :'
       needs_historic: Historique de l'entreprise
       siret: 'Siret :'
       source: 'Source :'

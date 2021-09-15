@@ -111,11 +111,10 @@ class SolicitationsController < ApplicationController
       .permit(:description, :siret, :phone_number, :email, :full_name, form_info: {}, needs: {})
   end
 
-  # TODO voir ce qu'on fait de all_past_landing_options_slugs
   def set_category_content
     @category_content = Badge
       .pluck(:title).map { |title| { category: t('solicitations.set_category_content.tags'), title: title } }
-      .concat Solicitation.all_past_landing_options_slugs.map { |slug| { category: t('solicitations.set_category_content.options'), title: slug } }
+      .concat LandingSubject.pluck(:slug).map { |slug| { category: t('solicitations.set_category_content.subjects'), title: slug } }
       .concat Landing.pluck(:slug).map { |slug| { category: t('solicitations.set_category_content.landings'), title: slug } }
   end
 

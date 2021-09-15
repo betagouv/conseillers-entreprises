@@ -22,8 +22,6 @@ if ENV['RAILS_ENV'] == 'development'
     title: "Titre landing subject test",
     slug: "landing-subject-test",
     description: "Description landing subject test",
-    # meta_title: landing_option.meta_title,
-    # meta_description: nil,
     form_title: "Form Titre landing subject test",
     form_description: "Form Description landing subject test",
     description_explanation: "Description explication landing subject test",

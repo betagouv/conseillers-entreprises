@@ -2,7 +2,7 @@
   meta title: @landing_theme.meta_title.presence || @landing_theme.title,
     description: @landing_theme.meta_description.presence || @landing_theme.description
 
-- cache_unless(flash.present?, [@landing_theme, @landing]) do
+- cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects]) do
 
   - unless in_iframe?
     %section.section.section-white.landing.less-padding
