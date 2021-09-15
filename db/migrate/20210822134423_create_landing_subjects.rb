@@ -38,7 +38,6 @@ class CreateLandingSubjects < ActiveRecord::Migration[6.1]
     end
 
     add_index :landing_themes, :slug, unique: true
-    # TODO remettre en unique
     add_index :landing_subjects, [:slug, :landing_theme_id], :unique => true
 
     add_column :landings, :layout, :integer, default: 1

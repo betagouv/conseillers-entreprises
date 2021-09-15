@@ -42,7 +42,7 @@ class LandingSubject < ApplicationRecord
 
   ## Validation
   #
-  validates :slug, presence: true, uniqueness: { scope: :landing_theme_id }
+  validates :slug, presence: true, uniqueness: true
 
   ## Scopes
   #
