@@ -38,7 +38,7 @@ class LandingSubject < ApplicationRecord
   belongs_to :subject, inverse_of: :landing_subjects
   belongs_to :landing_theme, inverse_of: :landing_subjects
   has_many :solicitations, inverse_of: :landing_subject, dependent: :restrict_with_exception
-  has_and_belongs_to_many :logos, inverse_of: :landing_subjects
+  has_and_belongs_to_many :logos, -> { order(:name) }, inverse_of: :landing_subjects
 
   before_validation :compute_slug
 

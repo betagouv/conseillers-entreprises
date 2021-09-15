@@ -58,6 +58,7 @@
     %section.section.section-white.landing
       = render 'pages/how_it_works'
 
+  - if @landing_subject.logos.present?
     %section.section.section-grey
       .container
         %h2.section__subtitle= t('logos.title')
