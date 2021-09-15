@@ -329,8 +329,6 @@ fr:
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
         title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
-      logos:
-        institutions: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
       multiple_steps:
         contact_us: cliquez ici !
         other_questions: Pour toute autre demande,
@@ -344,6 +342,7 @@ fr:
     prefet_region: Préfet région %{name}
     region: Conseil régional %{name}
     republique_francaise: République française
+    title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
   mailers:
     admin_mailer:
       csv_export: Export CSV des %{model}

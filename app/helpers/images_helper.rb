@@ -12,11 +12,17 @@ module ImagesHelper
 
   def landing_theme_logos(landing_theme)
     logos = landing_theme.landing_subjects.collect(&:logos).flatten.uniq
-    logos.map { |l| display_image({ name: l.slug, path: 'institutions/' }) }.join.html_safe
+    display_all_logos(logos)
   end
 
   def landing_subject_logos(landing_subject)
     logos = landing_subject.logos
+    display_all_logos(logos)
+  end
+
+  private
+
+  def display_all_logos(logos)
     logos.map { |l| display_image({ name: l.slug, path: 'institutions/' }) }.join.html_safe
   end
 end

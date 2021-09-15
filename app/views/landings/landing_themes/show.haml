@@ -40,4 +40,5 @@
     - if @landing_theme.landing_subjects.collect(&:logos).present?
       %section.section.section-white
         .container
+          %h2.section__subtitle= t('logos.title')
           = render 'landings/landings/logos', landing_theme: @landing_theme

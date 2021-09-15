@@ -18,11 +18,7 @@
     .container.container-medium
       = render 'new_solicitation_thank_you', solicitation: @solicitation
       - if @landing_subject.logos.present?
-        .logo-list
-          = prefet_region_logo(session[:region_code])
-          - if @landing_subject.display_region_logo
-            = region_logo(session[:region_code])
-          = landing_subject_logos(@landing_subject)
+        = render 'landings/landings/logos', landing_subject: @landing_subject
 
   - unless in_iframe?
     %section.section.section-white.container-newsletter
@@ -64,4 +60,5 @@
 
     %section.section.section-grey
       .container
+        %h2.section__subtitle= t('logos.title')
         = render 'landings/landings/logos', landing_subject: @landing_subject
