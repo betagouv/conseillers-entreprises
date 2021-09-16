@@ -261,6 +261,7 @@ class Solicitation < ApplicationRecord
   end
 
   def region
+    return if code_region.nil?
     Territory.find_by(code_region: self.code_region)
   end
 end
