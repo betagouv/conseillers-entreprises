@@ -48,12 +48,10 @@ namespace :import_prod_to_staging do
     env = `scalingo -a reso-staging env`.lines
     pg_url = env.find{ |i| i[/SCALINGO_POSTGRESQL_URL=/] }
     pw = pg_url[/.*:(.*)@/,1]
-    username = 'reso_stagin_1257'
-    dbname = 'reso_stagin_1257'
+    username = pg_url[/\/\/(.*):.*@/,1]
+    dbname = username
     db_url = "postgres://#{username}:#{pw}@127.0.0.1:10000/#{dbname}?sslmode=require"
 
-    # solution non pérenne mais on n'a pas mieux pour le moment
-    # sh "echo \"DROP TABLE public.needs CASCADE;\" | psql -d #{db_url}"
     sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{db_url} #{export_filename}"
 
     kill_staging_tunnel
