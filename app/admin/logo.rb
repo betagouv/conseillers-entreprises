@@ -20,6 +20,9 @@ ActiveAdmin.register Logo do
     attributes_table do
       row :name
       row :slug
+      row :image, class: 'logo' do |l|
+        display_image(name: l.slug, path: "institutions/")
+      end
     end
   end
 

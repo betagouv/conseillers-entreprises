@@ -339,8 +339,8 @@ fr:
     france_relance: France Relance
     pde: Place des Entreprises
     pde_home: Place des Entreprises - Page d’accueil
-    prefet_region: Préfet région %{name}
-    region: Conseil régional %{name}
+    prefets_regions: Préfet région %{name}
+    regions: Conseil régional %{name}
     republique_francaise: République française
     title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
   mailers:
