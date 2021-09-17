@@ -29,15 +29,15 @@ describe 'registrations', type: :feature do
     before do
       visit password_user_path
 
-      fill_in id: 'user_current_password', with: 'password'
-      fill_in id: 'user_password', with: 'new_password'
-      fill_in id: 'user_password_confirmation', with: 'new_password'
+      fill_in id: 'user_current_password', with: 'yX*4Ubo_xPW!u'
+      fill_in id: 'user_password', with: 'new_yX*4Ubo_xPW!u'
+      fill_in id: 'user_password_confirmation', with: 'new_yX*4Ubo_xPW!u'
 
       click_button 'Enregistrer le mot de passe'
     end
 
     it 'updates the password' do
-      expect(current_user.reload).to be_valid_password('new_password')
+      expect(current_user.reload).to be_valid_password('new_yX*4Ubo_xPW!u')
     end
   end
 end

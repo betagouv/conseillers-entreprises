@@ -128,7 +128,7 @@ RSpec.describe User, type: :model do
       subject { described_class.never_used }
 
       let!(:user1) { create :user, invitation_sent_at: nil, encrypted_password: '' }
-      let!(:user2) { create :user, invitation_sent_at: DateTime.now, encrypted_password: 'password' }
+      let!(:user2) { create :user, invitation_sent_at: DateTime.now, encrypted_password: 'yX*4Ubo_xPW!u' }
 
       it{ is_expected.to match_array user1 }
     end

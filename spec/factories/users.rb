@@ -6,8 +6,8 @@ FactoryBot.define do
     email { Faker::Internet.unique.email }
     phone_number { Faker::PhoneNumber.phone_number }
     role { Faker::Job.title }
-    password { 'password' }
-    password_confirmation { 'password' }
+    password { 'yX*4Ubo_xPW!u' }
+    password_confirmation { 'yX*4Ubo_xPW!u' }
     association :antenne
     can_view_diagnoses_tab { true }
 

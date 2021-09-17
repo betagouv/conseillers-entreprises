@@ -567,3 +567,5 @@ fr:
       update:
         notice: "%{resource_name} a été mis à jour avec succès"
   no_data: Données manquantes
+  password:
+    complexity_requirement_unmet: doit comprendre des majuscules, minuscules, chiffres et caractères spéciaux.
