@@ -175,7 +175,8 @@ ActiveAdmin.register User do
               collection: resource.experts,
               data: {
                 url: :admin_experts_path,
-                search_fields: [:full_name]
+                search_fields: [:full_name],
+                ajax_search_fields: [:antenne_id]
               }
       f.input :role
       f.input :email
