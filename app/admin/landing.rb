@@ -69,6 +69,7 @@ ActiveAdmin.register Landing do
       row :institution
       row :partner_url
       row :custom_css
+      row :display_pde_partnership_mention
     end
 
     attributes_table title: I18n.t("active_admin.meta") do
@@ -91,7 +92,7 @@ ActiveAdmin.register Landing do
                 :emphasis, :home_description, :main_logo,
                 :meta_title, :meta_description,
                 :iframe, :iframe_category, :institution_id,
-                :custom_css, :partner_url,
+                :custom_css, :partner_url, :display_pde_partnership_mention,
                 landing_joint_themes_attributes: landing_joint_themes_attributes
 
   form title: :title do |f|
@@ -114,6 +115,7 @@ ActiveAdmin.register Landing do
       f.input :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
       f.input :partner_url
       f.input :custom_css, as: :text, input_html: { style: 'font-family:monospace', rows: 10 }
+      f.input :display_pde_partnership_mention
     end
 
     panel I18n.t("active_admin.meta") do

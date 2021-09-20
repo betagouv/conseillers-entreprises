@@ -12,7 +12,6 @@ module ApplicationHelper
 
   # Inspiré de https://github.com/jumph4x/canonical-rails
   def canonical_tags
-    canonical_url = raw "#{ENV['HOST_NAME']}#{path_without_html_extension}"
     capture do
       concat tag.link(href: canonical_url, rel: :canonical)
       concat tag.meta(property: 'og:url', content: canonical_url)
@@ -22,5 +21,13 @@ module ApplicationHelper
   def path_without_html_extension
     return '' if request.path == '/'
     request.path.sub(/\.html$/, '')
+  end
+
+  def canonical_url
+    @canonical_url ||= "#{canonical_base_url}#{path_without_html_extension}"
+  end
+
+  def canonical_base_url
+    raw ENV['HOST_NAME']
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_14_125531) do
+ActiveRecord::Schema.define(version: 2021_09_14_143645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -329,6 +329,7 @@ ActiveRecord::Schema.define(version: 2021_09_14_125531) do
     t.integer "layout", default: 1
     t.boolean "iframe", default: false
     t.integer "iframe_category", default: 1
+    t.boolean "display_pde_partnership_mention", default: false
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end

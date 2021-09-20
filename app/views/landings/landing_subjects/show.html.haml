@@ -63,3 +63,6 @@
       .container
         %h2.section__subtitle= t('logos.title')
         = render 'landings/landings/logos', landing_subject: @landing_subject
+
+  - if in_iframe? && @landing.display_pde_partnership_mention?
+    = render 'landings/landings/pde_partnership_mention'
