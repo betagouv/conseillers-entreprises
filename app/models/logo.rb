@@ -12,4 +12,8 @@ class Logo < ApplicationRecord
   has_and_belongs_to_many :landing_subjects, inverse_of: :logos
 
   validates :slug, presence: true, allow_blank: false
+
+  def to_s
+    name
+  end
 end

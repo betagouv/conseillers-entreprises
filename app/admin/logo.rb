@@ -6,7 +6,9 @@ ActiveAdmin.register Logo do
   #
   index do
     selectable_column
-    column :name
+    column :name do |l|
+      admin_link_to l
+    end
     column :slug
     column :image, class: 'logo' do |l|
       display_image(name: l.slug, path: "institutions/")
