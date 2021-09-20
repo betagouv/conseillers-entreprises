@@ -13,8 +13,8 @@ fr:
       deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en Bretagne.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
       join_us: Vous souhaitez rejoindre le partenariat ?
       long_title: Place des Entreprises, comment ça marche ?
-      meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
-      meta_title: Comment ça marche ?
+      meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
+      meta_title: Comment ça marche | Place des Entreprises
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
     mentions_d_information:
@@ -323,14 +323,12 @@ fr:
         discover_measures: Découvrir les mesures
         how-it-works: Comment ça marche
         meta:
-          description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières...'
-          title: Place des Entreprises - Service public pour les TPE & PME
+          description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
+          title: Place des Entreprises - Conseils et aides publiques aux TPE & PME
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
         title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
-      institutions:
-        institutions: Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec : 
       multiple_steps:
         contact_us: cliquez ici !
         other_questions: Pour toute autre demande,
@@ -341,8 +339,10 @@ fr:
     france_relance: France Relance
     pde: Place des Entreprises
     pde_home: Place des Entreprises - Page d’accueil
-    prefet_region: Préfet région %{name}
+    prefets_regions: Préfet région %{name}
+    regions: Conseil régional %{name}
     republique_francaise: République française
+    title: 'Place des Entreprises est un service du Ministère de l’Economie et du Ministère du Travail, en partenariat avec :'
   mailers:
     admin_mailer:
       csv_export: Export CSV des %{model}

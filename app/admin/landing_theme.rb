@@ -48,10 +48,9 @@ ActiveAdmin.register LandingTheme do
       row :title
       row :page_title
       row :slug
-      row :description
+      row(:description) { |ls| ls.description.html_safe }
       row :created_at
       row :updated_at
-      row :logos
       row(:landings) do |t|
         div admin_link_to(t, :landings)
         div admin_link_to(t, :landings, list: true)
@@ -69,13 +68,15 @@ ActiveAdmin.register LandingTheme do
           attributes_table_for s do
             row :title
             row(:subject) { |ls| admin_link_to ls.subject }
-            row :description
+            row(:description) { |ls| ls.description.html_safe }
             row(:description_explanation) { |ls| ls.description_explanation.html_safe }
             row :form_title
             row(:form_description) { |ls| ls.form_description.html_safe }
             row :requires_location
             row :requires_requested_help_amount
             row :requires_siret
+            row :logos
+            row :display_region_logo
             row :meta_title
             row :meta_description
           end
@@ -86,12 +87,13 @@ ActiveAdmin.register LandingTheme do
 
   ## Form
   #
-  landing_subjects_attributes = %i[
-    id title slug subject_id description description_explanation form_title form_description meta_title
-    meta_description requires_location requires_requested_help_amount requires_siret position position _destroy
+  landing_subjects_attributes = [
+    :id, :title, :slug, :subject_id, :description, :description_explanation, :form_title, :form_description,
+    :meta_title, :logo_ids, :meta_description, :requires_location, :requires_requested_help_amount, :requires_siret,
+    :display_region_logo, :position, :position, :_destroy, logo_ids: []
   ]
 
-  permit_params :title, :page_title, :slug, :description, :logos, :meta_title, :meta_description,
+  permit_params :title, :page_title, :slug, :description, :meta_title, :meta_description,
                 landing_subjects_attributes: landing_subjects_attributes
 
   form title: :title do |f|
@@ -100,7 +102,6 @@ ActiveAdmin.register LandingTheme do
       f.input :page_title
       f.input :slug
       f.input :description, input_html: { rows: 10 }
-      f.input :logos
     end
 
     f.inputs I18n.t('active_admin.meta') do
@@ -120,6 +121,8 @@ ActiveAdmin.register LandingTheme do
         ls.input :requires_location
         ls.input :requires_requested_help_amount
         ls.input :requires_siret
+        ls.input :logos, as: :ajax_select, data: { url: :admin_logos_path, search_fields: [:name] }
+        ls.input :display_region_logo
         ls.input :meta_title
         ls.input :meta_description
       end
