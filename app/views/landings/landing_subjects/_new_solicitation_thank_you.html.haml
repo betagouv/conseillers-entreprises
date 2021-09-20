@@ -4,7 +4,7 @@
 - if in_iframe?
   %h2.section__title= t('.title')
 
-  %div.section__subtitle
+  .section__subtitle
     = t('.iframe_message_html')
 
     = image_tag 'logo-PDE.svg', alt: t('logos.pde'), class: 'img-sm'
@@ -12,7 +12,7 @@
 
 - else
 
-  %h2.section__title{ class: 'text-left' }= t('.title')
+  %h2.section__title.text-left= t('.title')
 
   - if solicitation.institution
     %p.section__subtitle
