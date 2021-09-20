@@ -2,12 +2,13 @@
   = render 'gtag_conversion'
 
 - if in_iframe?
-  %h2.section__title= t('.title')
+  .thank_you_iframe
+    %h2.section__title= t('.title')
 
-  .section__subtitle
-    = t('.iframe_message_html')
+    .section__subtitle
+      = t('.iframe_message_html')
 
-    = image_tag 'logo-PDE.svg', alt: t('logos.pde'), class: 'img-sm'
+    = image_tag 'logo-PDE.svg', alt: t('logos.pde')
 
 
 - else
