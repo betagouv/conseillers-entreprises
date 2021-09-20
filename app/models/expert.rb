@@ -60,6 +60,7 @@ class Expert < ApplicationRecord
   has_one :institution, through: :antenne, source: :institution, inverse_of: :experts
   has_many :antenne_communes, through: :antenne, source: :communes, inverse_of: :antenne_experts
   has_many :antenne_territories, -> { distinct }, through: :antenne, source: :territories, inverse_of: :antenne_experts
+  has_many :regions, -> { distinct.regions }, through: :antenne, inverse_of: :antenne_experts
 
   # :received_matches
   has_many :received_needs, through: :received_matches, source: :need, inverse_of: :experts
