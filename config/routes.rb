@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resource :user, only: %i[show update], path: 'mon_compte', controller: 'users/registrations' do
       get :edit, path: 'informations'
       get :password, path: 'mot_de_passe'
+      put :update_password
       get :antenne
     end
   end

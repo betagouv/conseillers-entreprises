@@ -26,18 +26,58 @@ describe 'registrations', type: :feature do
   describe 'password update' do
     login_user
 
-    before do
-      visit password_user_path
+    context 'with strong password' do
+      before do
+        visit password_user_path
 
-      fill_in id: 'user_current_password', with: 'password'
-      fill_in id: 'user_password', with: 'new_password'
-      fill_in id: 'user_password_confirmation', with: 'new_password'
+        fill_in id: 'user_current_password', with: 'yX*4Ubo_xPW!u'
+        fill_in id: 'user_password', with: 'new_yX*4Ubo_xPW!u'
+        fill_in id: 'user_password_confirmation', with: 'new_yX*4Ubo_xPW!u'
 
-      click_button 'Enregistrer le mot de passe'
+        click_button 'Enregistrer le mot de passe'
+      end
+
+      it 'updates the password' do
+        expect(current_user.reload).to be_valid_password('new_yX*4Ubo_xPW!u')
+        expect(page).to have_current_path(password_user_path)
+      end
     end
 
-    it 'updates the password' do
-      expect(current_user.reload).to be_valid_password('new_password')
+    context 'with weak password' do
+      before do
+        visit password_user_path
+
+        fill_in id: 'user_current_password', with: 'yX*4Ubo_xPW!u'
+        fill_in id: 'user_password', with: 'lalala'
+        fill_in id: 'user_password_confirmation', with: 'lalala'
+
+        click_button 'Enregistrer le mot de passe'
+      end
+
+      it 'updates the password' do
+        current_user.reload
+        expect(current_user.password).to eq('yX*4Ubo_xPW!u')
+        expect(current_user).not_to be_valid_password('lalala')
+        # expect(page).to have_current_path(password_user_path)
+      end
+    end
+
+    # Pour vérifier que la modif des exigences des mdp n'impacte pas les users existants
+    context 'with initial weak password' do
+      before do
+        current_user.update_attribute(:password, 'weakpassword')
+        visit password_user_path
+
+        fill_in id: 'user_current_password', with: 'weakpassword'
+        fill_in id: 'user_password', with: 'yX*4Ubo_xPW!u'
+        fill_in id: 'user_password_confirmation', with: 'yX*4Ubo_xPW!u'
+
+        click_button 'Enregistrer le mot de passe'
+      end
+
+      it 'updates the password' do
+        expect(current_user.reload).to be_valid_password('yX*4Ubo_xPW!u')
+      end
     end
   end
 end

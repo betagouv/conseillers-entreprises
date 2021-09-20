@@ -9,8 +9,8 @@
         %p= t('.password_reset_description')
         .fr-input-group
           = f.label :password, t('.new_password'), class: 'fr-label'
-          - placeholder = t('devise.password_minimum_characters', count: @minimum_password_length)
-          = f.password_field :password, placeholder: placeholder, autofocus: true, autocomplete: 'new-password', class: 'fr-input'
+          %span.fr-hint-text= t('devise.password_minimum_characters', count: @minimum_password_length)
+          = f.password_field :password, autofocus: true, autocomplete: 'new-password', class: 'fr-input'
         .fr-input-group
           = f.label :password_confirmation, class: 'fr-label'
           = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'fr-input'

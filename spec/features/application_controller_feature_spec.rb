@@ -25,7 +25,7 @@ describe 'ApplicationController specific features', type: :feature do
 
   describe 'after_sign_in_path_for' do
     before do
-      password = '1234567'
+      password = 'yX*4Ubo_xPW!u'
       user = create :user, password: password, password_confirmation: password
 
       visit new_user_session_path

@@ -12,12 +12,26 @@ module Users
     prepend_before_action -> { authenticate_scope! }, only: %i[password antenne]
     prepend_before_action -> { set_minimum_password_length }, only: %i[password]
 
-    layout 'user_tabs', only: %i[edit password antenne]
+    layout 'user_tabs', only: %i[edit password antenne update update_password]
 
     # The paths for Devise are heavily customized, see routes.rb.
     # The show action exists only for /mon_compte to redirect to /mon_compte/informations
     def show
       redirect_to action: :edit
+    end
+
+    def update_password
+      self.resource = current_user
+      resource_updated = resource.update_with_password(account_update_params)
+      if resource_updated
+        set_flash_message :notice, :updated
+        bypass_sign_in resource, scope: resource_name
+        redirect_to action: :password
+      else
+        clean_up_passwords resource
+        set_minimum_password_length
+        render :password
+      end
     end
 
     # Views for the new actions are in /views/users/registrations;
