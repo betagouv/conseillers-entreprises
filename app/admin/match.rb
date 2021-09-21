@@ -61,6 +61,14 @@ ActiveAdmin.register Match do
     end
   end
 
+  before_filter :only => :index do
+    @antennes_collection = if params[:q].present? && params[:q][:advisor_institution_id_eq].present?
+      Antenne.where(institution_id: params[:q][:advisor_institution_id_eq])
+    else
+      Antenne.all
+    end
+  end
+
   collection = -> { Match.human_attribute_values(:status, raw_values: true, context: :short).invert.to_a }
   filter :status, as: :select, collection: collection, label: I18n.t('attributes.status')
   filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
@@ -68,12 +76,11 @@ ActiveAdmin.register Match do
   filter :updated_at
 
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
-  filter :advisor_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
-  filter :advisor_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
 
   filter :expert, as: :ajax_select, data: { url: :admin_experts_path, search_fields: [:full_name] }
-  filter :expert_antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :expert_institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :expert_antenne, as: :ajax_select, collection: -> { @antennes_collection.pluck(:name, :id) },
+         data: { url: :admin_antennes_path, search_fields: [:name] }
 
   filter :theme, collection: -> { Theme.ordered_for_interview }
   filter :subject, collection: -> { Subject.order(:interview_sort_order) }
