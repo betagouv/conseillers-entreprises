@@ -64,9 +64,14 @@ ActiveAdmin.register Solicitation do
   remove_filter :matches    # Displaying them can become very expensive, especially if to_s is implemented
   remove_filter :needs      # and uses yet another relation.
   remove_filter :feedbacks
-  filter :landing, as: :select, collection: -> { Landing.pluck(:title, :slug) }
+  remove_filter :updated_at
+  remove_filter :institution
+  filter :landing, as: :select, collection: -> { Landing.order(:title).pluck(:title, :slug) }
+  filter :landing_theme, as: :select, collection: -> { LandingTheme.order(:title).pluck(:title, :slug) }
+  filter :landing_subject, as: :select, collection: -> { LandingSubject.order(:title).pluck(:title, :slug) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
-  filter :diagnosis_regions, as: :select, collection: -> { Territory.deployed_regions.pluck(:name, :id) }
+  filter :diagnosis_regions, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :id) }
+  filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
 
   ## Batch actions
   # Statuses
