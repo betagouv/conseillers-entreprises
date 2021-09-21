@@ -1,16 +1,25 @@
 - content_for :head do
   = render 'gtag_conversion'
 
-%h2.section__title{ class: "#{'text-left' unless in_iframe?}" }= t('.title')
+- if in_iframe?
+  .thank_you_iframe
+    %h2.section__title= t('.title')
 
-- if solicitation.institution
-  %p.section__subtitle
-    = t('.message_with_institution', institution: solicitation.institution.name)
-
-  = render 'matomo_partner_contact'
+    .section__subtitle
+      = t('.iframe_message_html')
+    = image_tag 'logo-PDE.svg', alt: t('logos.pde')
 
 - else
-  %p.section__subtitle.text-left
-    = t('.message_html')
+  %h2.section__title.text-left= t('.title')
 
-  = render 'matomo_company_contact_success'
+  - if solicitation.institution
+    %p.section__subtitle
+      = t('.message_with_institution', institution: solicitation.institution.name)
+
+    = render 'matomo_partner_contact'
+
+  - else
+    %p.section__subtitle.text-left
+      = t('.message_html')
+
+    = render 'matomo_company_contact_success'
