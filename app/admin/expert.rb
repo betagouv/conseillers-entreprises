@@ -69,12 +69,20 @@ ActiveAdmin.register Expert do
     end
   end
 
+  before_filter :only => :index do
+    @antennes_collection = if params[:q].present? && params[:q][:antenne_institution_id_eq].present?
+      Antenne.where(institution_id: params[:q][:antenne_institution_id_eq])
+    else
+      Antenne.all
+    end
+  end
+
   filter :full_name
   filter :role
   filter :email
   filter :phone_number
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+  filter :antenne, as: :ajax_select, collection: -> { @antennes_collection.pluck(:name, :id) }, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :regions, as: :ajax_select, collection: -> { Territory.regions.pluck(:name, :id) },
          data: { url: :admin_territories_path, search_fields: [:name] }
   filter :antenne_territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
