@@ -2,12 +2,13 @@
 
 .fr-container
   #company-show
-    = form_with model: @diagnosis, local: true do |form|
-      = form.hidden_field :solicitation_id
-      = form.fields_for :facility do |facility_form|
-        = facility_form.hidden_field :siret, value: @facility.etablissement.siret
-      = form.button :submit, class: 'fr-btn btn-green float-right' do
-        = t('.create_diagnosis')
+    - if policy(@diagnosis).new?
+      = form_with model: @diagnosis, local: true do |form|
+        = form.hidden_field :solicitation_id
+        = form.fields_for :facility do |facility_form|
+          = facility_form.hidden_field :siret, value: @facility.etablissement.siret
+        = form.button :submit, class: 'fr-btn btn-green float-right' do
+          = t('.create_diagnosis')
     %h1
       = @company.name
 

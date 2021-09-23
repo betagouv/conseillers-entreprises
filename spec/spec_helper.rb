@@ -6,6 +6,7 @@ require "pundit/rspec"
 require 'axe/rspec'
 require 'active_support/testing/time_helpers'
 require 'capybara/rspec'
+include Pundit
 
 RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
