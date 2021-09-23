@@ -45,7 +45,6 @@ class Solicitation < ApplicationRecord
   enum status: { in_progress: 0, processed: 1, canceled: 2, reminded: 3 }, _prefix: true
 
   ## Associations
-  #
   belongs_to :landing, inverse_of: :solicitations, optional: true
   belongs_to :landing_subject, inverse_of: :solicitations, optional: true
   has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
