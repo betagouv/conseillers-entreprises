@@ -18,7 +18,7 @@ ActiveAdmin.register Solicitation do
     end
     column :description do |s|
       div(admin_link_to(s.landing) || s.landing_slug)
-      subject_slug = s.landing_subject.slug
+      subject_slug = s.landing_subject&.slug
       if subject_slug.present?
         div t('activerecord.attributes.solicitation.landing_subject') + ' : ' do
           div status_tag subject_slug
@@ -57,6 +57,19 @@ ActiveAdmin.register Solicitation do
     end
   end
 
+  before_filter :only => :index do
+    @landing_themes = if params[:q].present? && params[:q][:landing_id_eq].present?
+      Landing.find(params[:q][:landing_id_eq]).landing_themes
+    else
+      LandingTheme.all
+    end
+    @landing_subjects = if params[:q].present? && params[:q][:landing_subject_landing_theme_id_eq].present?
+      LandingTheme.find(params[:q][:landing_subject_landing_theme_id_eq]).landing_subjects
+    else
+      LandingSubject.all
+    end
+  end
+
   ## Filters
   #
   preserve_default_filters!
@@ -64,9 +77,14 @@ ActiveAdmin.register Solicitation do
   remove_filter :matches    # Displaying them can become very expensive, especially if to_s is implemented
   remove_filter :needs      # and uses yet another relation.
   remove_filter :feedbacks
-  filter :landing, as: :select, collection: -> { Landing.pluck(:title, :slug) }
+  remove_filter :updated_at
+  remove_filter :institution
+  filter :landing, as: :select, collection: -> { Landing.order(:title).pluck(:title, :id) }
+  filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
+  filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
-  filter :diagnosis_regions, as: :select, collection: -> { Territory.deployed_regions.pluck(:name, :id) }
+  filter :diagnosis_regions, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :id) }
+  filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
 
   ## Batch actions
   # Statuses

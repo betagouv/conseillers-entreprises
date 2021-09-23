@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'companies/show.html.haml', type: :view do
+  login_user
+
   let(:company_json) do
     JSON.parse(file_fixture('api_entreprise_entreprise_request_data.json').read)
   end

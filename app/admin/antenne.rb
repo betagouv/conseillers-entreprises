@@ -44,7 +44,11 @@ ActiveAdmin.register Antenne do
 
   filter :name
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
-  filter :territories, as: :ajax_select, data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
+         data: { url: :admin_territories_path, search_fields: [:name] }
+  filter :regions, as: :ajax_select, collection: -> { Territory.regions.pluck(:name, :id) },
+         data: { url: :admin_territories_path, search_fields: [:name] }
+
   filter :communes, as: :ajax_select, data: { url: :admin_communes_path, search_fields: [:insee_code] }
 
   ## CSV
