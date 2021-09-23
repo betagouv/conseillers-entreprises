@@ -109,6 +109,7 @@ ActiveAdmin.register Solicitation do
     column :full_name
     column :phone_number
     column :email
+    column(:provenance_category) { |s| I18n.t(s.provenance_category, scope: %i(solicitation provenance_categories)) }
     column(:landing) { |s| s.landing&.slug }
     column(:subject) { |s| s.landing_subject&.slug }
     column :diagnosis

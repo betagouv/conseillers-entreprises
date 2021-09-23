@@ -186,6 +186,8 @@ fr:
         landing_subjects: Sujets de landing
       match:
         closed_at: Date de clôture
+        company_effectif: Effectifs
+        company_naf: Code naf
         expert: Expert
         landing_subject_slug: Option choisie sur le site
         match_created_at: Date de transmission de la demande

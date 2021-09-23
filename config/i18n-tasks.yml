@@ -109,6 +109,7 @@ ignore_unused:
   - 'regions_slugs_to_codes.*'
   - 'faq.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
+  - 'solicitation.provenance_categories.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

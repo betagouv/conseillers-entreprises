@@ -10,6 +10,8 @@ module CsvExport
         commune: -> { facility.commune },
         facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
         company_name: -> { company&.name },
+        company_naf: -> { facility.naf_libelle },
+        company_effectif: -> { Effectif.effectif(facility.code_effectif) },
         solicitation_full_name: -> { solicitation&.full_name },
         solicitation_email: -> { solicitation&.email },
         solicitation_phone_number: -> { solicitation&.phone_number },
