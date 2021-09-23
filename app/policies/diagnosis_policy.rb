@@ -16,6 +16,10 @@ class DiagnosisPolicy < ApplicationPolicy
     show?
   end
 
+  def new?
+    index?
+  end
+
   def destroy?
     admin?
   end
