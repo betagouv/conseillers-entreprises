@@ -111,6 +111,19 @@ class Match < ApplicationRecord
     where(status: [:done, :done_no_help, :done_not_reachable])
   end
 
+  # Pour ransacker, en admin
+  scope :solicitation_created_at_gteq_datetime, ->(val) do
+    joins(:solicitation).where('solicitations.created_at >= ?', val)
+  end
+
+  scope :solicitation_created_at_lteq_datetime, ->(val) do
+    joins(:solicitation).where('solicitations.created_at <= ?', val)
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    [:solicitation_created_at_gteq_datetime, :solicitation_created_at_lteq_datetime]
+  end
+
   ##
   #
   def to_s
