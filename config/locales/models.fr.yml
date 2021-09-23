@@ -432,9 +432,11 @@ fr:
       one: Conseiller
       other: Conseillers
     antenne: Antenne
+    antenne_communes: Commune de l’antenne
     antenne_experts:
       one: Référent
       other: Référents
+    antenne_territories: Territoire de l’antenne
     archived_at: Date d’archivage
     badges:
       one: Tag
@@ -450,6 +452,7 @@ fr:
     content: Description
     coordinates: Coordonnées
     created_at: Date de création
+    created_in_deployed_region: Créées dans une région déployée
     custom_communes: Spécifique
     date_de_creation: Date de création
     deleted_at: Suppression
