@@ -22,7 +22,8 @@ module CsvImport
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
           # Convert row to user attributes
-          attributes = row.slice(*mapping.keys)
+          attributes = row.transform_keys(&:squish)
+            .slice(*mapping.keys)
             .transform_keys{ |k| mapping[k] }
             .compact
 

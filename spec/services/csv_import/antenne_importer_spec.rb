@@ -67,6 +67,20 @@ describe CsvImport::AntenneImporter, CsvImport do
     end
   end
 
+  context 'tolerant headers' do
+    let(:csv) do
+      <<~CSV
+        Institution,Nom ,Codes communes, Nom du responsable,Email du responsable,Téléphone du responsable
+        Test Institution,Antenne1,00001 00002,Mariane Martin, mariane.m@gouv.fr,0123456789
+      CSV
+    end
+
+    it do
+      expect(result).to be_success
+      expect(Antenne.find_by(name: 'Antenne1')).not_to be_nil
+    end
+  end
+
   context 'existing antenne overwrite' do
     before do
       create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'

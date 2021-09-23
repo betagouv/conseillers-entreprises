@@ -14,10 +14,8 @@ module CsvImport
     end
 
     def preprocess(attributes)
+      attributes.transform_values!(&:squish)
       attributes[:institution] = Institution.find_by(name: attributes[:institution]) || @options[:institution]
-      attributes[:manager_full_name] = attributes[:manager_full_name]&.squish
-      attributes[:manager_email] = attributes[:manager_email]&.squish
-      attributes[:manager_phone] = attributes[:manager_phone]&.squish
     end
 
     def find_instance(attributes)
