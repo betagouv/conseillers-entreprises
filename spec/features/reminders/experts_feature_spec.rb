@@ -19,7 +19,7 @@ describe 'reminders experts', type: :feature do
     it 'works' do
       visit reminders_path
       expect(page.html).to include 'Relances'
-      expect(page.html).to include 'Référents'
+      expect(page.html).to include 'Experts'
       page.click_link('', href: "/relances/referents")
       expect(page).to have_css('.fr-card', count: 2)
       expect(page.html).not_to include expert_with_few_taken_care.full_name

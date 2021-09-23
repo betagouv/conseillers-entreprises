@@ -44,12 +44,15 @@ module CsvExport
     def preloaded_associations
       [
         :need, :diagnosis, :facility, :company, :related_matches,
-        :advisor, :advisor_antenne, :advisor_institution,
-        :expert, :expert_antenne, :expert_institution,
-        :subject, :theme,
+        :advisor, :expert, :expert_antenne, :expert_institution,
+        :subject, :theme, :solicitation, :company_satisfaction,
         facility: :commune,
         diagnosis: :visitee,
       ]
+    end
+
+    def sort_relation(relation)
+      relation.preload(*preloaded_associations).sort_by{ |m| [(m.solicitation&.created_at || m.created_at), m.created_at] }
     end
   end
 end
