@@ -32,7 +32,7 @@ ActiveAdmin.register User do
       div admin_link_to(u)
       unless u.deleted?
         div '✉ ' + u.email
-        div '✆ ' + u.phone_number
+        div '✆ ' + u.phone_number if u.phone_number
       end
     end
     column :created_at
