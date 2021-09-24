@@ -13,7 +13,7 @@
               = link_to root_path, class: 'pde-logo', title: t('application.navbar.root_path_title') do
                 = image_tag 'logo-PDE.svg', alt: t('logos.pde'), class: 'logo-sign-in'
             .fr-header__navbar
-              %button.fr-btn--menu.fr-btn#button-menu{ 'aria-controls': "modal-header-menu", 'aria-haspopup': "menu", title: t("application.navbar.menu"), data: { 'fr-opened': false, controller: 'fr-header', action: 'click->fr-header#open' } }
+              %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-2{ 'aria-controls': 'modal-870', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: t("application.navbar.menu") }
                 = t("application.navbar.menu")
         .fr-header__tools
           .fr-header__tools-links
@@ -28,8 +28,8 @@
               = active_link_to new_user_session_path, class: 'fr-link fr-fi-lock-line rf-link--icon-left', wrap_tag: :li do
                 = t('sign_in')
   / Navigation principale - à garder pour éviter erreurs js sur mobile
-  .fr-header__menu.fr-modal#modal-header-menu{ 'aria-labelledby': "button-menu" }
+  .fr-header__menu.fr-modal#modal-870{ 'aria-labelledby': 'fr-btn-menu-mobile-2' }
     .fr-container
-      %button.fr-link--close.fr-link{ 'aria-controls': "modal-header-menu", data: { controller: 'fr-header', action: 'click->fr-header#close' } }
-        = t("application.navbar.close")
+      %button.fr-link--close.fr-link{ 'aria-controls': 'modal-870' }= t("application.navbar.close")
       .fr-header__menu-links
+
