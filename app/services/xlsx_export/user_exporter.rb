@@ -14,7 +14,6 @@ module XlsxExport
 
     def base_fields
       {
-        institution: -> { institution.name },
         full_name: :full_name,
         antenne: -> { antenne.name },
         email: :email,
@@ -25,7 +24,7 @@ module XlsxExport
 
     def preloaded_associations
       [
-        :institution, :antenne
+        :antenne
       ]
     end
 
@@ -83,19 +82,17 @@ module XlsxExport
 
     def build_headers_rows(sheet, attributes, klass)
       # first row
-      headers = ['', '', '', '', I18n.t('export_xls.phone_instructions'), '', I18n.t('export_xls.team_email'), '', '', I18n.t('export_xls.subjects_instructions')]
       sheet.add_row(headers, height: 60)
       # second row, columns titles
       sheet.add_row(attributes.keys.map{ |attr| klass.human_attribute_name(attr, default: attr) }, height: 60, widths: [:ignore, :auto,80])
       # third row, institution subject description
       third_row = fields.values
       third_row[0] = ''
-      third_row[1] = ''
-      third_row[2] = I18n.t('export_xls.email_instructions')
-      third_row[3..5] = third_row[3..5].map { |v| v = '' }
-      third_row[6] = I18n.t('export_xls.teams_instructions')
-      third_row[7..8] = third_row[7..8].map { |v| v = '' }
-      index = 9
+      third_row[1] = I18n.t('export_xls.email_instructions')
+      third_row[2..4] = third_row[2..4].map { |v| v = '' }
+      third_row[5] = I18n.t('export_xls.teams_instructions')
+      third_row[6..7] = third_row[6..7].map { |v| v = '' }
+      index = 8
       @options[:institutions_subjects].each do |is|
         third_row[index] = is.description
         index += 1
@@ -127,9 +124,9 @@ module XlsxExport
           sheet.row_style(i, @third_row_style)
         else
           sheet.row_style i, @default_style
+          sheet.rows[i].cells[5].style = @green_bg
           sheet.rows[i].cells[6].style = @green_bg
           sheet.rows[i].cells[7].style = @green_bg
-          sheet.rows[i].cells[8].style = @green_bg
         end
       end
       sheet
@@ -137,21 +134,21 @@ module XlsxExport
 
     def apply_style(sheet, attributes)
       # Style
-      sheet.merge_cells('A1:D1')
-      sheet.merge_cells('G1:I1')
-      sheet.merge_cells('C3:F3')
-      sheet.merge_cells('G3:I3')
-      sheet.merge_cells('J1:L1')
+      sheet.merge_cells('A1:C1')
+      sheet.merge_cells('F1:H1')
+      sheet.merge_cells('B3:E3')
+      sheet.merge_cells('F3:H3')
+      sheet.merge_cells('I1:K1')
       sheet.rows[0].cells[4].style = @text_red
-      sheet.rows[0].cells[9].style = @text_red
-      sheet.rows[0].cells[6].style = @green_bg_bold
+      sheet.rows[0].cells[8].style = @text_red
+      sheet.rows[0].cells[5].style = @green_bg_bold
+      sheet.rows[1].cells[5].style = @green_bg_bold
       sheet.rows[1].cells[6].style = @green_bg_bold
       sheet.rows[1].cells[7].style = @green_bg_bold
-      sheet.rows[1].cells[8].style = @green_bg_bold
+      sheet.col_style 5, @green_bg, row_offset: 2
       sheet.col_style 6, @green_bg, row_offset: 2
       sheet.col_style 7, @green_bg, row_offset: 2
-      sheet.col_style 8, @green_bg, row_offset: 2
-      sheet.rows[2].cells[6].style = @green_bg_italic
+      sheet.rows[2].cells[5].style = @green_bg_italic
 
       attributes.keys.each_index do |i|
         width = if i < 9
