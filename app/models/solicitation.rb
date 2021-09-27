@@ -220,6 +220,7 @@ class Solicitation < ApplicationRecord
     phone_number: 'tel',
     email: 'email',
     siret: 'text',
+    requested_help_amount: 'text',
     location: 'text'
   }
 
