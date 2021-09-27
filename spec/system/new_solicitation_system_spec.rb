@@ -27,7 +27,7 @@ describe 'New Solicitation', type: :system, js: true do
       end
 
       it do
-        # expect(page).to have_content('Merci')
+        expect(page).to have_content('Merci')
         expect(solicitation.landing).to eq landing
         expect(solicitation.landing_subject.subject).to eq pde_subject
         expect(solicitation.siret).to eq '123 456 789 00010'
@@ -39,6 +39,9 @@ describe 'New Solicitation', type: :system, js: true do
     context "from home page" do
       before do
         landing.landing_themes << landing_theme
+      end
+
+      it do
         visit '/'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
@@ -48,10 +51,8 @@ describe 'New Solicitation', type: :system, js: true do
         fill_in 'SIRET', with: '123 456 789 00010'
         fill_in 'E-mail', with: 'user@example.com'
         click_button 'Envoyer ma demande'
-      end
-
-      it do
-        # expect(page).to have_content('Merci')
+        find(".section__title", match: :first)
+        expect(page).to have_content('Merci')
         expect(solicitation.landing).to eq landing
         expect(solicitation.siret).to eq '123 456 789 00010'
         expect(solicitation.pk_campaign).to eq nil
