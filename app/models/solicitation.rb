@@ -240,7 +240,7 @@ class Solicitation < ApplicationRecord
 
   # Provenance ----------------
   def provenance_category
-    if landing.iframe?
+    if landing&.iframe?
       :iframe
     elsif pk_campaign&.start_with?('googleads-')
       :googleads
