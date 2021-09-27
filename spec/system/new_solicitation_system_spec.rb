@@ -51,6 +51,7 @@ describe 'New Solicitation', type: :system, js: true do
         fill_in 'SIRET', with: '123 456 789 00010'
         fill_in 'E-mail', with: 'user@example.com'
         click_button 'Envoyer ma demande'
+        # Only here to avoid flickering test with CI
         find(".section__title", match: :first)
         expect(page).to have_content('Merci')
         expect(solicitation.landing).to eq landing
