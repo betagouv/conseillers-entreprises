@@ -11,7 +11,7 @@ ActiveAdmin.register Solicitation do
     selectable_column
     column :solicitation do |s|
       div admin_link_to(s)
-      div l(s.created_at, format: '%Y-%m-%d %H:%M')
+      div l(s.created_at, format: :admin)
       unless s.status_in_progress?
         human_attribute_status_tag s, :status
       end

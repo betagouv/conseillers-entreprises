@@ -27,13 +27,13 @@ ActiveAdmin.register Match do
     end
     column :solicitation_created_at do |m|
       if m.solicitation.present?
-        div I18n.l(m.solicitation.created_at, format: '%Y-%m-%d %H:%M')
+        div I18n.l(m.solicitation.created_at, format: :admin)
       end
     end
     column :need, sortable: :created_at do |m|
       div admin_link_to(m, :need)
       div admin_attr(m.facility, :commune)
-      div I18n.l(m.created_at, format: '%Y-%m-%d %H:%M')
+      div I18n.l(m.created_at, format: :admin)
       human_attribute_status_tag m.need, :status
       status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
     end
