@@ -27,6 +27,8 @@ describe 'New Solicitation', type: :system, js: true do
       end
 
       it do
+        # Only here to avoid flickering test with CI
+        find(".section__title", match: :first)
         expect(page).to have_content('Merci')
         expect(solicitation.landing).to eq landing
         expect(solicitation.landing_subject.subject).to eq pde_subject
