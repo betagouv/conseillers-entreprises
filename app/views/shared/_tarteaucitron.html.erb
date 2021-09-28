@@ -1,3 +1,9 @@
+<%= javascript_tag nonce: true do -%>
+  var tarteaucitronCustomText = {
+  "alertBigPrivacy": "Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord"
+  };
+<% end %>
+
 <%= javascript_include_tag 'https://cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@20210329/tarteaucitron.min.js', crossorigin: 'anonymous', integrity: "sha384-RjI0In9EY5Sl0H6wm3ZmWRGZzBiy5eRJ567WL5okXwadLsN6ICEBb/gCiHHnQjvX", nonce: true %>
 
 <%= javascript_tag nonce: true do -%>
