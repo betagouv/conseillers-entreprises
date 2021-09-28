@@ -63,6 +63,7 @@ class Match < ApplicationRecord
   has_one :company, through: :need, inverse_of: :matches
   has_one :advisor, through: :need, inverse_of: :sent_matches
   has_one :solicitation, through: :diagnosis, inverse_of: :matches
+  has_one :company_satisfaction, through: :need, inverse_of: :matches
   has_many :related_matches, through: :need, source: :matches, inverse_of: :related_matches
 
   # :advisor
@@ -108,6 +109,19 @@ class Match < ApplicationRecord
 
   scope :with_status_done, -> do
     where(status: [:done, :done_no_help, :done_not_reachable])
+  end
+
+  # Pour ransacker, en admin
+  scope :solicitation_created_at_gteq_datetime, -> (val) do
+    joins(:solicitation).where('solicitations.created_at >= ?', val)
+  end
+
+  scope :solicitation_created_at_lteq_datetime, -> (val) do
+    joins(:solicitation).where('solicitations.created_at <= ?', val)
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    [:solicitation_created_at_gteq_datetime, :solicitation_created_at_lteq_datetime]
   end
 
   ##

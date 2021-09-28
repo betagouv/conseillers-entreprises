@@ -248,6 +248,7 @@ fr:
   time:
     am: am
     formats:
+      admin: "%Y-%m-%d %H:%M"
       default: "%d %B %Y %Hh %Mmin %Ss"
       long: "%A %d %B %Y %Hh%M"
       long_sentence: "%A %d %B %Y à %Hh%M"

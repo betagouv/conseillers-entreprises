@@ -47,8 +47,8 @@ describe 'admin panel', type: :feature do
       click_link 'Institutions'
       click_link 'Créer Institution'
 
-      click_link 'Référents'
-      click_link 'Créer Référent'
+      click_link 'Experts'
+      click_link 'Créer Expert'
 
       click_link 'Besoins'
 

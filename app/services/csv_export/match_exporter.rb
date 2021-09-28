@@ -2,46 +2,58 @@ module CsvExport
   class MatchExporter < BaseExporter
     def fields
       {
-        id: :id,
-        need: :need_id,
-        company: :company,
-        visitee: -> { diagnosis.visitee&.email },
+        solicitation_created_at: -> { solicitation&.created_at },
+        solicitation_id: -> { solicitation&.id },
+        solicitation_description: -> { solicitation&.description },
+        solicitation_provenance_category: -> { I18n.t(solicitation.provenance_category, scope: %i(solicitation provenance_categories)) if solicitation&.provenance_category&.present? },
+        solicitation_provenance_title: -> { solicitation&.provenance_title },
+        solicitation_provenance_detail: -> { solicitation&.provenance_detail },
+        solicitation_gclid: -> { solicitation&.gclid },
+        landing_subject_slug: -> { solicitation&.landing_subject&.slug },
         siret: -> { facility.siret },
         commune: -> { facility.commune },
         facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
-        created_at: :created_at,
+        company_name: -> { company&.name },
+        company_naf: -> { facility.naf_code },
+        company_effectif: -> { Effectif.effectif(facility.code_effectif) },
+        solicitation_full_name: -> { solicitation&.full_name },
+        solicitation_email: -> { solicitation&.email },
+        solicitation_phone_number: -> { solicitation&.phone_number },
+        solicitation_badges: -> { solicitation.badges.pluck(:title).join(', ') if solicitation&.badges&.any? },
+        solicitation_status: -> { solicitation&.human_attribute_value(:status) },
+        match_created_at: :created_at,
+        need_id: -> { need&.id },
         advisor: :advisor,
-        advisor_antenne: :advisor_antenne,
-        advisor_institution: :advisor_institution,
         theme: :theme,
         subject: :subject,
-        content: -> do
-          if diagnosis.content.present? && need.content.present?
-            "#{diagnosis.content} / #{need.content}"
-          else
-            diagnosis.content.presence || need.content.presence
-          end
-        end,
+        match_id: :id,
         expert: :expert,
         expert_antenne: :expert_antenne,
         expert_institution: :expert_institution,
-        status: -> { human_attribute_value(:status, context: :short) },
-        need_status: -> { need.human_attribute_value(:status, context: :short) },
-        taken_care_of_at: :taken_care_of_at,
-        closed_at: :closed_at,
+        match_status: -> { human_attribute_value(:status, context: :short) },
+        match_taken_care_of_at: :taken_care_of_at,
+        match_closed_at: :closed_at,
+        need_status: -> { need.human_attribute_value(:status, context: :csv) },
+        archived_at: :archived_at,
         page_besoin: -> { Rails.application.routes.url_helpers.need_url(self.need) },
+        satisfaction_contacted_by_expert: -> { I18n.t(company_satisfaction.contacted_by_expert, scope: [:boolean, :text]) if company_satisfaction&.present? },
+        satisfaction_useful_exchange: -> { I18n.t(company_satisfaction.useful_exchange, scope: [:boolean, :text]) if company_satisfaction&.present? },
+        satisfaction_comment: -> { company_satisfaction&.comment },
       }
     end
 
     def preloaded_associations
       [
         :need, :diagnosis, :facility, :company, :related_matches,
-        :advisor, :advisor_antenne, :advisor_institution,
-        :expert, :expert_antenne, :expert_institution,
-        :subject, :theme,
+        :advisor, :expert, :expert_antenne, :expert_institution,
+        :subject, :theme, :solicitation, :company_satisfaction,
         facility: :commune,
         diagnosis: :visitee,
       ]
+    end
+
+    def sort_relation(relation)
+      relation.preload(*preloaded_associations).sort_by{ |m| [(m.solicitation&.created_at || m.created_at), m.created_at] }
     end
   end
 end

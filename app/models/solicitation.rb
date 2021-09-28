@@ -239,6 +239,38 @@ class Solicitation < ApplicationRecord
     end
   end
 
+  # Provenance ----------------
+  def provenance_category
+    if landing&.iframe?
+      :iframe
+    elsif pk_campaign&.start_with?('googleads-')
+      :googleads
+    elsif pk_campaign.present?
+      :campaign
+    end
+  end
+
+  def from_iframe?
+    provenance_category == :iframe
+  end
+
+  def from_pk_campaign?
+    provenance_category == :campaign || provenance_category == :googleads
+  end
+
+  def provenance_title
+    if from_iframe?
+      landing.slug
+    elsif from_pk_campaign?
+      pk_campaign
+    end
+  end
+
+  def provenance_detail
+    pk_kwd
+  end
+
+  # Else ---------------------
   def to_s
     "#{self.class.model_name.human} #{id}"
   end

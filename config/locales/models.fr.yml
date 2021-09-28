@@ -54,13 +54,13 @@ fr:
         from_solicitation: Analyses à partir d’une sollicitation directe
         from_visit: Analyses faites par des conesillers suite à une visite
         never_used: L’utilisateur devra choisir son mot de passe (recevoir une invitation ou une notification) pour se connecter
-        no_team: Utilisateurs non membres d’une équipe. Ils n’ont qu’un seul référent, qui correspond à leur domaine de compétence personnel.
-        personal_skillsets: 'Domaine de compétences d’un seul utilisateur : référents avec un seul utilisateur dont l’adresse email est identique au référent.'
+        no_team: Utilisateurs non membres d’une équipe. Ils n’ont qu’un seul expert, qui correspond à leur domaine de compétence personnel.
+        personal_skillsets: 'Domaine de compétences d’un seul utilisateur : experts avec un seul utilisateur dont l’adresse email est identique à l’expert.'
         relevant_for_skills: 'Tous les experts utiles à afficher pour le choix des domaines d’intervention : toutes les équipes (plusieurs membres), tous les experts ayant des compétences, ainsi que les experts qui sont le seul expert d’un utilisateur.'
         team_members: Utilisateurs membres d’une équipe
-        teams: 'Équipes: plusieurs membres, ou un seul mais dont l’adresse email diffère de celle du référent'
+        teams: 'Équipes: plusieurs membres, ou un seul mais dont l’adresse email diffère de celle de l’expert'
       with_custom_communes: Zone spécifique
-      with_deleted_expert: Référent supprimé
+      with_deleted_expert: Expert supprimé
       without_communes: Sans zone d’intervention
       without_subjects: Sans compétence
       without_users: Aucun membre
@@ -186,10 +186,32 @@ fr:
         landing_subjects: Sujets de landing
       match:
         closed_at: Date de clôture
-        expert: Référent
+        company_effectif: Effectifs
+        company_naf: Code naf
+        expert: Expert
+        landing_subject_slug: Sujet choisie sur le site
+        match_created_at: Date de transmission du besoin
+        match_id: Id de la mise en relation
+        match_status: Statut de la mise en relation
         need: Besoin identifié
+        need_id: Identifiant du besoin
         need_status: Statut du besoin
-        taken_care_of_at: Date de prise en charge
+        satisfaction_comment: Commentaire de satisfaction
+        satisfaction_contacted_by_expert: Satisfaction - rappel
+        satisfaction_useful_exchange: Satisfaction - utilité
+        solicitation_badges: Tags de l’équipe
+        solicitation_created_at: Date de sollicitation
+        solicitation_description: Description de la sollicitation
+        solicitation_email: Adresse mail du contact entreprise
+        solicitation_full_name: Contact en entreprise
+        solicitation_gclid: Id GA
+        solicitation_id: Id de la sollicitation
+        solicitation_phone_number: Téléphone du contact entreprise
+        solicitation_provenance_category: Type de source
+        solicitation_provenance_detail: Détail de la source
+        solicitation_provenance_title: Intitulé de la source
+        solicitation_status: Relecture des sollicitations
+        taken_care_of_at: Date d'intervention
       match/statuses:
         done: Besoin clôturé
         done_no_help: Pas d’aide disponible
@@ -230,6 +252,14 @@ fr:
         done_no_help: Pas d’aide disponible
         done_not_reachable: Entreprise non joignable
         not_for_me: Mise en relation refusée
+        quo: En attente de réponse
+        taking_care: En cours de prise en charge
+      need/statuses/csv:
+        diagnosis_not_complete: Analyse en cours
+        done: Clôturé avec une aide proposée
+        done_no_help: Clôturé en l'absence d’aide disponible
+        done_not_reachable: Clôturé sans avoir pu joindre l'entreprise
+        not_for_me: Refusé
         quo: En attente de réponse
         taking_care: En cours de prise en charge
       need/statuses/short:
@@ -331,7 +361,7 @@ fr:
           attributes:
             matches:
               format: 'Mises en relation : %{message}.'
-              preselected_institution_has_no_relevant_experts: aucun référent de l’institution préselectionnée ne peut prendre en charge cette entreprise
+              preselected_institution_has_no_relevant_experts: aucun expert de l’institution préselectionnée ne peut prendre en charge cette entreprise
             needs:
               format: 'Besoins : %{message}.'
               solicitation_has_no_preselected_subject: il n’y a pas de sujet préselectionné
@@ -365,8 +395,8 @@ fr:
         one: Analyse
         other: Analyses
       expert:
-        one: Référent
-        other: Référents
+        one: Expert
+        other: Experts
       expert_subject:
         one: Domaine d’intervention
         other: Domaines d’intervention
@@ -434,8 +464,8 @@ fr:
     antenne: Antenne
     antenne_communes: Commune de l’antenne
     antenne_experts:
-      one: Référent
-      other: Référents
+      one: Expert
+      other: Experts
     antenne_territories: Territoire de l’antenne
     archived_at: Date d’archivage
     badges:
@@ -444,8 +474,9 @@ fr:
     code_effectif: Tranche d’effectif
     communes: Communes
     community: Communauté
+    company_name: Nom de l'entreprise
     company_satisfaction: Satisfaction
-    contacted_expert: Référent contacté
+    contacted_expert: Expert contacté
     contacts:
       one: Personne rencontrée
       other: Personnes rencontrées
@@ -464,13 +495,13 @@ fr:
     diagnosis_regions: Région
     effectif: Effectif
     email: E-mail
-    expert: Référent
-    expert_antenne: Antenne du référent
-    expert_institution: Institution du référent
+    expert: Expert
+    expert_antenne: Antenne de l’expert
+    expert_institution: Institution de l’expert
     expert_subject: Domaine d’intervention
     experts:
-      one: Référent
-      other: Référents
+      one: Expert
+      other: Experts
     experts_subjects:
       one: Domaine d’intervention
       other: Domaines d’intervention
@@ -478,7 +509,7 @@ fr:
       one: Établissement
       other: Établissements
     facility: Établissement visité
-    facility_regions: Régions des établissements
+    facility_regions: Région de l’établissement
     facility_territories: Territoires des établissements
     feedbacks:
       one: Commentaire
@@ -502,6 +533,8 @@ fr:
     manager_full_name: Nom du responsable
     manager_phone: Téléphone du responsable
     managers: Responsables
+    match_closed_at: Date de clôture de la prise en charge
+    match_taken_care_of_at: Date d'intervention
     matched_antennes: Antennes MER
     matches:
       one: Mise en relation
@@ -572,3 +605,8 @@ fr:
   no_data: Données manquantes
   password:
     complexity_requirement_unmet: doit comprendre des majuscules, minuscules, chiffres et caractères spéciaux.
+  solicitation:
+    provenance_categories:
+      campaign: Campagne
+      googleads: Google Ads
+      iframe: Iframe
