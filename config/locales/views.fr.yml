@@ -530,6 +530,7 @@ fr:
     alert_region:
       alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert en Hauts-de-France, Île-de-France, Martinique et Bretagne."
       learn_more: En savoir plus
+    cookie_text: Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord
     footer:
       cookies: Gestion des cookies
       github_title: Page Github de Place des Entreprises - lien externe
