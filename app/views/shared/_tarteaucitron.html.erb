@@ -1,6 +1,8 @@
+
 <%= javascript_tag nonce: true do -%>
+  var cookieText = "<%= @cookie_text %>"
   var tarteaucitronCustomText = {
-  "alertBigPrivacy": "Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord"
+  "alertBigPrivacy": cookieText
   };
 <% end %>
 
