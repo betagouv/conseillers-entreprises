@@ -2,7 +2,7 @@ module CsvExport
   class MatchExporter < BaseExporter
     def fields
       {
-        solicitation_created_at: -> { solicitation&.created_at },
+        solicitation_created_at: -> { I18n.l(solicitation&.created_at, format: :admin) if solicitation.present? },
         solicitation_id: -> { solicitation&.id },
         solicitation_description: -> { solicitation&.description },
         solicitation_provenance_category: -> { I18n.t(solicitation.provenance_category, scope: %i(solicitation provenance_categories)) if solicitation&.provenance_category&.present? },
@@ -21,7 +21,7 @@ module CsvExport
         solicitation_phone_number: -> { solicitation&.phone_number },
         solicitation_badges: -> { solicitation.badges.pluck(:title).join(', ') if solicitation&.badges&.any? },
         solicitation_status: -> { solicitation&.human_attribute_value(:status) },
-        match_created_at: :created_at,
+        match_created_at:  -> { I18n.l(created_at, format: :admin) },
         need_id: -> { need&.id },
         advisor: :advisor,
         theme: :theme,
@@ -31,10 +31,10 @@ module CsvExport
         expert_antenne: :expert_antenne,
         expert_institution: :expert_institution,
         match_status: -> { human_attribute_value(:status, context: :short) },
-        match_taken_care_of_at: :taken_care_of_at,
-        match_closed_at: :closed_at,
+        match_taken_care_of_at: -> { I18n.l(taken_care_of_at, format: :admin) if taken_care_of_at.present? },
+        match_closed_at: -> { I18n.l(closed_at, format: :admin) if closed_at.present? },
         need_status: -> { need.human_attribute_value(:status, context: :csv) },
-        archived_at: :archived_at,
+        archived_at: -> { I18n.l(archived_at, format: :admin) if archived_at.present? },
         page_besoin: -> { Rails.application.routes.url_helpers.need_url(self.need) },
         satisfaction_contacted_by_expert: -> { I18n.t(company_satisfaction.contacted_by_expert, scope: [:boolean, :text]) if company_satisfaction&.present? },
         satisfaction_useful_exchange: -> { I18n.t(company_satisfaction.useful_exchange, scope: [:boolean, :text]) if company_satisfaction&.present? },
