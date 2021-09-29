@@ -12,6 +12,8 @@ Procédure vouée à disparaître une fois le produit lancé nationalement.
 
 Un script interactif peut être lancé pour automatiser le déploiement via `rake deploy_region`.
 
+Après application du script, ne reste que la mise à jour des traductions (cf point 5).
+
 ## 1. Code région
 
 Rechercher le `code_region`, qui figure dans `/config/locales/data/codes_regions.fr.yml`.
@@ -53,7 +55,9 @@ institution.update(code_region: code_region)
 
 ## 5. Mise à jour du message bandeau
 
-Modifier le texte du bandeau indiquant quelles régions sont ouvertes (`/config/locales/views.fr.yml`)
+Modifier le texte du bandeau indiquant quelles régions sont ouvertes :
+- `views.fr.yml` : `deployment_html`
+- `devise.fr.yml` : `alert_region_html`
 
 
 

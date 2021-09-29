@@ -83,7 +83,7 @@ ActiveAdmin.register Solicitation do
   filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
   filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
-  filter :diagnosis_regions, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :id) }
+  filter :code_region, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :code_region) }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
 
   ## Batch actions
