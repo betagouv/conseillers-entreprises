@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_14_143645) do
+ActiveRecord::Schema.define(version: 2021_09_30_141507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -237,9 +237,9 @@ ActiveRecord::Schema.define(version: 2021_09_14_143645) do
     t.datetime "updated_at", null: false
     t.string "slug", null: false
     t.boolean "show_on_list", default: false
-    t.integer "logo_sort_order"
     t.datetime "deleted_at"
     t.integer "code_region"
+    t.boolean "display_logo", default: false
     t.index ["code_region"], name: "index_institutions_on_code_region"
     t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
     t.index ["name"], name: "index_institutions_on_name", unique: true

@@ -2,23 +2,24 @@
 #
 # Table name: landings
 #
-#  id               :bigint(8)        not null, primary key
-#  custom_css       :string
-#  emphasis         :boolean          default(FALSE)
-#  home_description :text             default("")
-#  iframe           :boolean          default(FALSE)
-#  iframe_category  :integer          default("integral")
-#  layout           :integer          default("multiple_steps")
-#  logos            :string
-#  main_logo        :string
-#  meta_description :string
-#  meta_title       :string
-#  partner_url      :string
-#  slug             :string           not null
-#  title            :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  institution_id   :bigint(8)
+#  id                              :bigint(8)        not null, primary key
+#  custom_css                      :string
+#  display_pde_partnership_mention :boolean          default(FALSE)
+#  emphasis                        :boolean          default(FALSE)
+#  home_description                :text             default("")
+#  iframe                          :boolean          default(FALSE)
+#  iframe_category                 :integer          default("integral")
+#  layout                          :integer          default("multiple_steps")
+#  logos                           :string
+#  main_logo                       :string
+#  meta_description                :string
+#  meta_title                      :string
+#  partner_url                     :string
+#  slug                            :string           not null
+#  title                           :string
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  institution_id                  :bigint(8)
 #
 # Indexes
 #

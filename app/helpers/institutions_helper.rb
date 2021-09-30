@@ -1,9 +1,9 @@
 module InstitutionsHelper
   include ImagesHelper
 
-  def all_institutions_images(region_code)
+  def all_institutions_images
     Institution
-      .where(code_region: [region_code, nil])
+      .where(code_region: nil)
       .ordered_logos
       .pluck(:name)
       .map(&:parameterize).uniq

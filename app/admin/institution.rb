@@ -67,10 +67,10 @@ ActiveAdmin.register Institution do
         div admin_link_to(i, :sent_matches)
         div admin_link_to(i, :received_matches)
       end
-      row :logo_sort_order
       row(:code_region) do |i|
         I18n.t(i.code_region, scope: 'regions_codes_to_libelles', default: "")
       end
+      row :display_logo
       row :show_on_list
     end
 
@@ -87,7 +87,7 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :logo_sort_order, :slug, :show_on_list, :code_region,
+  permit_params :name, :display_logo, :slug, :show_on_list, :code_region,
                 antenne_ids: [],
                 institutions_subjects_attributes: %i[id description subject_id optional _create _update _destroy]
 
@@ -95,7 +95,7 @@ ActiveAdmin.register Institution do
     f.inputs do
       f.input :name
       f.input :slug
-      f.input :logo_sort_order, input_html: { style: 'width:300px', placeholder: I18n.t('active_admin.landings.home_sort_order_placeholder') }
+      f.input :display_logo
       f.input :code_region, as: :select, collection: Territory.deployed_regions.map{ |r| [r.name, r.code_region] }
       f.input :show_on_list
     end

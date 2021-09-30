@@ -1,9 +1,8 @@
 .logo-list
   = prefet_region_logo(session[:region_code])
+  = region_logo(session[:region_code])
 
   - if defined? landing_theme
     = landing_theme_logos(landing_theme)
   - if defined? landing_subject
-    - if landing_subject.display_region_logo
-      = region_logo(session[:region_code])
     = landing_subject_logos(landing_subject)

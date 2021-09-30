@@ -14,7 +14,6 @@ fr:
     landing_subjects:
       destroy_done: Les sujets de landing ont bien été supprimés
     landings:
-      home_sort_order_placeholder: Laisser vide pour ne pas afficher sur l’accueil.
       update_iframe_360_button: Mettre à jour iframe 360°
       update_iframe_360_done: Mise à jour iframe 360° faite.
     matches:
@@ -495,6 +494,7 @@ fr:
     diagnosis_created_at: Date de l'analyse
     diagnosis_id: Id de l'analyse
     diagnosis_regions: Région
+    display_logo: Afficher le logo sur la page d'accueil et la liste des partenaires
     effectif: Effectif
     email: E-mail
     expert: Expert
@@ -530,7 +530,6 @@ fr:
     landing_subjects: Sujets de landing
     landing_themes: Thèmes de landing
     legal_form_code: Forme juridique
-    logo_sort_order: Position du logo sur la page d'accueil
     manager: Responsable
     manager_email: Email du responsable
     manager_full_name: Nom du responsable
@@ -579,7 +578,7 @@ fr:
     sent_needs:
       one: Besoin analysé
       other: Besoins analysés
-    show_on_list: Afficher sur la liste des partenaires
+    show_on_list: Afficher le nom sur la liste des partenaires
     siren: SIREN
     siret: SIRET
     solicitation_badges: Tags de l’équipe
