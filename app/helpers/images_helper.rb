@@ -11,7 +11,7 @@ module ImagesHelper
   end
 
   def landing_theme_logos(landing_theme)
-    logos = landing_theme.landing_subjects.collect(&:logos).flatten.uniq
+    logos = landing_theme.landing_subjects.collect(&:logos).flatten.uniq.sort_by(&:name)
     include_region_logo = landing_theme.landing_subjects.pluck(:display_region_logo).include?(true)
     logos_html = display_all_logos(logos, 'institutions/')
     logos_html.insert(0, region_logo(session[:region_code])) if include_region_logo
