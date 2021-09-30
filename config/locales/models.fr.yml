@@ -57,7 +57,7 @@ fr:
         personal_skillsets: 'Domaine de compétences d’un seul utilisateur : experts avec un seul utilisateur dont l’adresse email est identique à l’expert.'
         relevant_for_skills: 'Tous les experts utiles à afficher pour le choix des domaines d’intervention : toutes les équipes (plusieurs membres), tous les experts ayant des compétences, ainsi que les experts qui sont le seul expert d’un utilisateur.'
         team_members: Utilisateurs membres d’une équipe
-        teams: 'Équipes: plusieurs membres, ou un seul mais dont l’adresse email diffère de celle de l’expert'
+        teams: 'Équipes : plusieurs membres, ou un seul mais dont l’adresse email diffère de celle de l’expert'
       with_custom_communes: Zone spécifique
       with_deleted_expert: Expert supprimé
       without_communes: Sans zone d’intervention
@@ -186,7 +186,7 @@ fr:
       match:
         closed_at: Date de clôture
         expert: Expert
-        landing_subject_slug: Sujet choisie sur le site
+        landing_subject_slug: Sujet choisi sur le site
         match_created_at: Date de transmission du besoin
         match_id: Id de la mise en relation
         match_status: Statut de la mise en relation
@@ -330,7 +330,7 @@ fr:
         invitees: Invités
         inviter: Invité par
         is_admin: Est administrateur ?
-        last_sign_in_at: Date de de la dernière connexion
+        last_sign_in_at: Date de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
@@ -555,7 +555,7 @@ fr:
     phone_number: Téléphone
     placeholder:
       email: marie.dupont@exemple.fr
-      full_name: 'ex: Marie Dupont'
+      full_name: 'ex : Marie Dupont'
       phone_number: 06 12 34 56 78
       role: Conseiller entreprise, Chargé de mission…
       team_name: Équipe formation, Cellule-conseil aux entreprises…
