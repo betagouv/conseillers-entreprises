@@ -13,7 +13,6 @@ module CsvImport
       if csv.is_a? CSV::MalformedCSVError
         return Result.new(rows: [], header_errors: [csv], objects: [])
       end
-
       header_errors = check_headers(csv.headers.compact)
 
       rows = csv.map(&:to_h)
@@ -52,8 +51,9 @@ module CsvImport
     private
 
     def open_with_separator(input, col_sep)
+      squish_converter = lambda { |header| header.squish }
       begin
-        common_options = { headers: true, col_sep: col_sep, skip_blanks: true,skip_lines: /^(?:,\s*)+$/ }
+        common_options = { headers: true, header_converters: squish_converter, col_sep: col_sep, skip_blanks: true, skip_lines: /^(?:,\s*)+$/ }
         if input.respond_to?(:open)
           # Unfortunately, CSV::read only takes files…
           # … and CSV::new takes strings or IO, but the IO needs to be already open.
