@@ -21,6 +21,9 @@ ActiveAdmin.register Institution do
 
   index do
     selectable_column
+    column :image, class: 'logo' do |l|
+      display_image(name: l.slug, path: "institutions/")
+    end
     column(:name) do |i|
       div admin_link_to(i)
       div admin_link_to(i, :antennes)
@@ -96,8 +99,8 @@ ActiveAdmin.register Institution do
       f.input :name
       f.input :slug
       f.input :display_logo
-      f.input :code_region, as: :select, collection: Territory.deployed_regions.map{ |r| [r.name, r.code_region] }
       f.input :show_on_list
+      f.input :code_region, as: :select, collection: Territory.deployed_regions.map{ |r| [r.name, r.code_region] }
     end
     f.inputs do
       f.input :antennes,
