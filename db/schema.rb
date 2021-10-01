@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_30_141507) do
+ActiveRecord::Schema.define(version: 2021_10_01_142356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,10 +335,12 @@ ActiveRecord::Schema.define(version: 2021_09_30_141507) do
   end
 
   create_table "logos", force: :cascade do |t|
-    t.string "slug"
+    t.string "filename"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "institution_id"
+    t.index ["institution_id"], name: "index_logos_on_institution_id"
   end
 
   create_table "matches", force: :cascade do |t|
@@ -523,6 +525,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_141507) do
   add_foreign_key "landing_subjects", "landing_themes"
   add_foreign_key "landing_subjects", "subjects"
   add_foreign_key "landings", "institutions"
+  add_foreign_key "logos", "institutions"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
   add_foreign_key "matches", "subjects"

@@ -10,8 +10,9 @@
 #
 class Logo < ApplicationRecord
   has_and_belongs_to_many :landing_subjects, inverse_of: :logos
+  belongs_to :institution, optional: true
 
-  validates :slug, presence: true, allow_blank: false
+  validates :filename, presence: true, allow_blank: false
 
   def to_s
     name

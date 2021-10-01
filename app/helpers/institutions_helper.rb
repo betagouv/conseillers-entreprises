@@ -5,8 +5,8 @@ module InstitutionsHelper
     Institution
       .where(code_region: nil)
       .ordered_logos
-      .pluck(:name)
-      .map(&:parameterize).uniq
+      .map{ |i| i.logo&.filename }
+      .uniq
       .map { institution_image(_1) }
       .join.html_safe
   end

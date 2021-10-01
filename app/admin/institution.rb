@@ -22,7 +22,7 @@ ActiveAdmin.register Institution do
   index do
     selectable_column
     column :image, class: 'logo' do |l|
-      display_image(name: l.slug, path: "institutions/")
+      display_image(name: l.logo&.filename, path: "institutions/") if l.logo.present?
     end
     column(:name) do |i|
       div admin_link_to(i)
@@ -72,6 +72,9 @@ ActiveAdmin.register Institution do
       end
       row(:code_region) do |i|
         I18n.t(i.code_region, scope: 'regions_codes_to_libelles', default: "")
+      end
+      row(:logo) do |i|
+        display_image(name: i.logo&.filename, path: "institutions/") if i.logo.present?
       end
       row :display_logo
       row :show_on_list
