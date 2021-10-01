@@ -329,7 +329,7 @@ fr:
           title: Place des Entreprises - Conseils et aides publiques aux TPE & PME
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
       index_institutions:
-        more_partners_html: Découvrez <a href='%{path}'>plus de 50 partenaires</a> à votre service.
+        more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
         title: Place des Entreprises vous met en relation avec le conseiller qui peut vous aider.
       multiple_steps:
         contact_us: cliquez ici !
@@ -377,7 +377,7 @@ fr:
         subject: Votre demande a été prise en charge
       retention:
         intro_html: "<p>Vous avez utilisé le service public Place des Entreprises il y a 5 mois pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :</p>"
-        list_html: 'Plus de 50 partenaires publics sont réunis dans ce service pour vous accompagner sur de nombreux sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
+        list_html: 'Plus de 40 partenaires publics sont réunis dans ce service pour vous accompagner sur de nombreux sujets : <ul><li>recrutement</li><li>formation</li>droit du travail</li><li>investissement</li><li>problème de trésorerie</li><li>développement commercial</li><li>stratégie numérique</li><li>santé & sécurité au travail</li><li>transition écologique & RSE</li>'
         outro: Si vous souhaitez être accompagné(e), n’hésitez pas à déposer une demande.
         remind: Pour rappel, Place des Entreprises est un service de mise en relation pour les TPE & PME. Il vous permet d’échanger avec LE conseiller qui peut vous aider.
         send_solicitation: Échanger avec un conseiller

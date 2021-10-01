@@ -2,15 +2,15 @@
 #
 # Table name: institutions
 #
-#  id              :bigint(8)        not null, primary key
-#  code_region     :integer
-#  deleted_at      :datetime
-#  logo_sort_order :integer
-#  name            :string           not null
-#  show_on_list    :boolean          default(FALSE)
-#  slug            :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id           :bigint(8)        not null, primary key
+#  code_region  :integer
+#  deleted_at   :datetime
+#  display_logo :boolean          default(FALSE)
+#  name         :string           not null
+#  show_on_list :boolean          default(FALSE)
+#  slug         :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 # Indexes
 #
@@ -63,7 +63,7 @@ class Institution < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_logos, -> { not_deleted.where.not(logo_sort_order: nil).order(:logo_sort_order) }
+  scope :ordered_logos, -> { not_deleted.where(display_logo: true).order(:name) }
 
   ## Institution subjects helpers
   #
