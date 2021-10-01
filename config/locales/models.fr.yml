@@ -186,8 +186,6 @@ fr:
         landing_subjects: Sujets de landing
       match:
         closed_at: Date de clôture
-        company_effectif: Effectifs
-        company_naf: Code naf
         expert: Expert
         landing_subject_slug: Sujet choisie sur le site
         match_created_at: Date de transmission du besoin
@@ -474,6 +472,8 @@ fr:
     code_effectif: Tranche d’effectif
     communes: Communes
     community: Communauté
+    company_effectif: Effectifs
+    company_naf: Code NAF
     company_name: Nom de l'entreprise
     company_satisfaction: Satisfaction
     contacted_expert: Expert contacté
@@ -492,6 +492,8 @@ fr:
       one: Analyse
       other: Analyses
     diagnosis: Analyse
+    diagnosis_created_at: Date de l'analyse
+    diagnosis_id: Id de l'analyse
     diagnosis_regions: Région
     effectif: Effectif
     email: E-mail
@@ -524,6 +526,7 @@ fr:
     interview_sort_order: Ordre dans le questionnaire
     is_archived: Archivé
     label: Intitulé
+    landing_subject_slug: Option choisie sur le site
     landing_subjects: Sujets de landing
     landing_themes: Thèmes de landing
     legal_form_code: Forme juridique
@@ -533,8 +536,9 @@ fr:
     manager_full_name: Nom du responsable
     manager_phone: Téléphone du responsable
     managers: Responsables
-    match_closed_at: Date de clôture de la prise en charge
-    match_taken_care_of_at: Date d'intervention
+    match_created_at: Date de transmission du besoin
+    match_id: Id de la mise en relation
+    match_status: Statut de la mise en relation
     matched_antennes: Antennes MER
     matches:
       one: Mise en relation
@@ -542,6 +546,8 @@ fr:
     naf_code: Code NAF
     name: Nom
     need: Besoin
+    need_id: Identifiant du besoin
+    need_status: Statut du besoin
     needs:
       one: Besoin
       other: Besoins
@@ -558,6 +564,9 @@ fr:
       one: Mise en relation reçue
       other: Mises en relation reçues
     region_name: Institution de la région
+    satisfaction_comment: Commentaire de satisfaction
+    satisfaction_contacted_by_expert: Satisfaction - rappel
+    satisfaction_useful_exchange: Satisfaction - utilité
     searches:
       one: Recherche
       other: Recherches
@@ -573,6 +582,18 @@ fr:
     show_on_list: Afficher sur la liste des partenaires
     siren: SIREN
     siret: SIRET
+    solicitation_badges: Tags de l’équipe
+    solicitation_created_at: Date de sollicitation
+    solicitation_description: Description de la sollicitation
+    solicitation_email: Adresse mail du contact entreprise
+    solicitation_full_name: Contact en entreprise
+    solicitation_gclid: Id GA
+    solicitation_id: Id de la sollicitation
+    solicitation_phone_number: Téléphone du contact entreprise
+    solicitation_provenance_category: Type de source
+    solicitation_provenance_detail: Détail de la source
+    solicitation_provenance_title: Intitulé de la source
+    solicitation_status: Relecture des sollicitations
     status: Statut
     subject: Sujet
     subjects:

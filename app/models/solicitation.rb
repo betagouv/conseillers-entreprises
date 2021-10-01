@@ -140,6 +140,11 @@ class Solicitation < ApplicationRecord
       .where(diagnoses: { id: nil })
   }
 
+  scope :without_matches, -> {
+    left_outer_joins(:matches)
+      .where(matches: { id: nil })
+  }
+
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
 
   scope :in_regions, -> (codes_regions) do

@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Solicitation do
+  include CsvExportable
+
   menu priority: 7
 
   ## Index
