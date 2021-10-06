@@ -1,0 +1,57 @@
+name: CI
+on: push
+jobs:
+  linter:
+    name: Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.4
+          bundler-cache: true
+      - run: bundle exec rake lint
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: pde_test
+          POSTGRES_PASSWORD: pde_test
+          POSTGRES_DB: pde_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports: ["5432:5432"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.4
+          bundler-cache: true
+      - name: Install JS dependencies
+        run: yarn install
+      - name: Setup parallel tests
+        run: RAILS_ENV=test bundle exec rake parallel:setup
+        env:
+          HOST: http://example.com
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: lapin_test
+          POSTGRES_PASSWORD: lapin_test
+          POSTGRES_DB: lapin_test
+      - name: Run specs
+        run: RAILS_ENV=test bundle exec rake parallel:spec
+        env:
+          HOST: http://example.com
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: pde_test
+          POSTGRES_PASSWORD: pde_test
+          POSTGRES_DB: pde_test
