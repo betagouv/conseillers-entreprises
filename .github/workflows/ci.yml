@@ -10,6 +10,11 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.4
+      - name: Bundle install
+        run: |
+          gem install bundler -v '2.1.0'
+          bundle config path vendor/bundle
+          bundler install --jobs 4 --retry 3
       - run: bundle exec rake lint
 
 #  tests:
