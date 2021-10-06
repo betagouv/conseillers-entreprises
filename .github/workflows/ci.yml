@@ -9,8 +9,12 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler: "Gemfile.lock"
+          bundler: 2.1.4
           ruby-version: 2.7.4
+      - name: Bundle install
+        run: |
+          bundle config path vendor/bundle
+          bundler install --jobs 4 --retry 3
       - run: bundle exec rake lint
 
 #  tests:
