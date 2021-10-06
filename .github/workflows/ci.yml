@@ -2,54 +2,8 @@ name: CI
 on: push
 jobs:
   linters:
-    name: Linters
+    name: Ruby linter
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Setup Node
-        uses: actions/setup-node@v2
-#        with:
-#          node-version: '14'
-#      - name: Find yarn cache location
-#        id: yarn-cache
-#        run: echo "::set-output name=dir::$(yarn cache dir)"
-#      - name: JS package cache
-#        uses: actions/cache@v2
-#        with:
-#          path: ${{ steps.yarn-cache.outputs.dir }}
-#          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-#          restore-keys: |
-#            ${{ runner.os }}-yarn-
-      - name: Install packages
-        run: |
-          yarn install --frozen-lockfile
-      - name: Run linters
-        run: |
-          bundle exec rake lint
-
-  tests:
-    name: Tests
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: pde_test
-          POSTGRES_PASSWORD: pde_test
-          POSTGRES_DB: pde_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports: ["5432:5432"]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
@@ -57,23 +11,48 @@ jobs:
         with:
           ruby-version: 2.7.4
           bundler-cache: true
-      - name: Install JS dependencies
-        run: yarn install
-      - name: Setup parallel tests
-        run: RAILS_ENV=test bundle exec rake parallel:setup
-        env:
-          HOST: http://example.com
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
-          POSTGRES_USER: lapin_test
-          POSTGRES_PASSWORD: lapin_test
-          POSTGRES_DB: lapin_test
-      - name: Run specs
-        run: RAILS_ENV=test bundle exec rake parallel:spec
-        env:
-          HOST: http://example.com
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
-          POSTGRES_USER: pde_test
-          POSTGRES_PASSWORD: pde_test
-          POSTGRES_DB: pde_test
+      - run: bundle exec rubocop --parallel
+
+#  tests:
+#    name: Tests
+#    runs-on: ubuntu-latest
+#    services:
+#      postgres:
+#        image: postgres
+#        env:
+#          POSTGRES_USER: pde_test
+#          POSTGRES_PASSWORD: pde_test
+#          POSTGRES_DB: pde_test
+#        options: >-
+#          --health-cmd pg_isready
+#          --health-interval 10s
+#          --health-timeout 5s
+#          --health-retries 5
+#        ports: ["5432:5432"]
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Set up Ruby
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          ruby-version: 2.7.4
+#          bundler-cache: true
+#      - name: Install JS dependencies
+#        run: yarn install
+#      - name: Setup parallel tests
+#        run: RAILS_ENV=test bundle exec rake parallel:setup
+#        env:
+#          HOST: http://example.com
+#          POSTGRES_HOST: localhost
+#          POSTGRES_PORT: 5432
+#          POSTGRES_USER: lapin_test
+#          POSTGRES_PASSWORD: lapin_test
+#          POSTGRES_DB: lapin_test
+#      - name: Run specs
+#        run: RAILS_ENV=test bundle exec rake parallel:spec
+#        env:
+#          HOST: http://example.com
+#          POSTGRES_HOST: localhost
+#          POSTGRES_PORT: 5432
+#          POSTGRES_USER: pde_test
+#          POSTGRES_PASSWORD: pde_test
+#          POSTGRES_DB: pde_test
