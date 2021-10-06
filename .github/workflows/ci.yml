@@ -5,17 +5,52 @@ jobs:
     name: Ruby linter
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Ruby
+      - name: Checkout code
+      uses: actions/checkout@v2
+
+      - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.4
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler: 2.1.0
+
+      - name: Get Yarn Cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache Node Modules
+        id: node-modules-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-1-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-1-
+      - name: Install postgres client
+        run: sudo apt-get install libpq-dev
+
+      - name: Cache Gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-1-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-1-
+      - name: Cache Assets
+        id: assets-cache
+        uses: actions/cache@v1
+        with:
+          path: public/packs-test
+          key: ${{ runner.os }}-assets-${{ steps.extract_branch.outputs.branch }}
+          restore-keys: |
+            ${{ runner.os }}-assets-
       - name: Bundle install
         run: |
-          gem install bundler -v 2.1.4
-          bundle config path vendor/bundle
-          bundler install --jobs 4 --retry 3
-      - run: bundle exec rake lint
+          gem install bundler -v '2.1.0'
+          bundler _2.1.0_ config path vendor/bundle
+          bundler _2.1.0_ install --jobs 4 --retry 3
+      - run: |
+          bundle exec rake lint
 
 #  tests:
 #    name: Tests
