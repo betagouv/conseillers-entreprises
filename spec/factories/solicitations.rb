@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :solicitation do
     landing
+    landing_subject
     description { Faker::Lorem.sentences(number: 3) }
     full_name { Faker::Name.unique.name }
     phone_number { Faker::PhoneNumber.phone_number }

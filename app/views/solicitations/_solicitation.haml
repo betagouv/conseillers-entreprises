@@ -31,15 +31,19 @@
             = subject_tag(solicitation, "ui small label")
 
       .card__meta
+        .meta__warnings
+          - if solicitation.recent_matched_solicitations.any?
+            %span R
+        // same_facility_needs = il existe un historiq, qu'on ne peut afficher que si on a un siret
+        - if solicitation.same_facility_needs.any? && solicitation.valid_sirets.any?
+          - solicitation.valid_sirets.each do |valid_siret|
+            .item= t('.needs_historic')
+            = link_to valid_siret, needs_company_path(valid_siret)
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.name)
-        - facility = solicitation.facility
-        - if facility&.siret.present? && policy(facility).show_needs_history?
-          = link_to t('.needs_historic'), needs_company_path(facility.siret), class: 'gray-link float-right'
     .card__description
       .card__description__label= t('.description')
       .card__description__content= simple_format(solicitation.description)
-    -# .ui.segment.feed.feedbacks
     .card__feedbacks
       %div{ id: "display-feedbacks-#{solicitation.id}" }
         = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks

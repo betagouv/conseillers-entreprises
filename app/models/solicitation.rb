@@ -140,6 +140,7 @@ class Solicitation < ApplicationRecord
       .where(diagnoses: { id: nil })
   }
 
+  # /!\ Fonctionne pas tout à fait, des solicitations avec matches ressortent (une vingtaine)
   scope :without_matches, -> {
     left_outer_joins(:matches)
       .where(matches: { id: nil })
@@ -185,6 +186,46 @@ class Solicitation < ApplicationRecord
   scope :out_of_deployed_territories, -> {
     out_of_regions(Territory.deployed_codes_regions)
   }
+
+  # Solicitations similaires
+  #
+  scope :from_same_company, -> (solicitation) {
+    where(siret: solicitation.valid_sirets)
+      .or(where(email: solicitation.email))
+  }
+
+  def recent_matched_solicitations
+    Solicitation.joins(:diagnosis).merge(Diagnosis.step_completed)
+      .where.not(id: self.id)
+      .created_between(Time.zone.now - 3.weeks, Time.zone.now)
+      .where(landing_subject_id: self.landing_subject_id)
+      .from_same_company(self)
+      .uniq
+  end
+
+  # On présume qu'un email correspond a une entreprise
+  def same_facility_needs
+    email = self.email
+    sirets = valid_sirets
+    Need.diagnosis_completed
+      .eager_load(:facility, :visitee).where(
+        Facility.arel_table[:siret].in(sirets)
+        .or(Contact.arel_table[:email].eq(email))
+      )
+  end
+
+  # Trouver les sirets probables des solicitations pour identifier relances et doublons
+  def valid_sirets
+    sirets = []
+    sirets << self.facility.siret if self.facility.present?
+
+    clean_siret = FormatSiret.clean_siret(self.siret)
+    sirets << clean_siret if FormatSiret.siret_is_valid(clean_siret)
+
+    contact = Contact.find_by(email: self.email)
+    sirets << contact.company.facilities.pluck(:siret) if contact.present?
+    sirets.flatten.compact.uniq
+  end
 
   ## JSON Accessors
   #
