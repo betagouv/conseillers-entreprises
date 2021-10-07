@@ -77,6 +77,7 @@ class User < ApplicationRecord
   before_validation :fix_flag_values
   validates :full_name, presence: true, unless: :deleted?
   validates :role, presence: true
+  validates :antenne, presence: true
   validate :password_complexity
   after_create :create_personal_skillset_if_needed
   after_update :synchronize_personal_skillsets
