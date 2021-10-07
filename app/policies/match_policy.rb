@@ -3,7 +3,7 @@ class MatchPolicy < ApplicationPolicy
     admin? || @record.contacted_users.include?(@user)
   end
 
-  def mark_as_done?
+  def update_status?
     admin?
   end
 end

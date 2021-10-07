@@ -6,7 +6,9 @@ class MatchesController < ApplicationController
     authorize @match
     previous_status = @match.status
     @match.update status: params[:status]
-    MatchMailerService.deduplicated_notify_status(@match, previous_status)
+    if @match.contacted_users.include?(current_user)
+      MatchMailerService.deduplicated_notify_status(@match, previous_status)
+    end
     respond_to do |format|
       format.js
       format.html { redirect_to diagnosis_path(@match.diagnosis, anchor: "match-#{@match.id}") }

@@ -53,12 +53,12 @@ module StatusHelper
   def admin_match_actions_buttons(match)
     allowed_actions = match.allowed_new_status
 
-    form_with(model: match, url: match_path(match), class: 'menu') do |f|
+    form_with(model: match, url: match_path(match), class: 'menu admin-match-actions') do |f|
       allowed_actions.map do |new_status|
         title = Match.human_attribute_value(:status, new_status, context: :action)
-        classes = %w[gray-link] + EXPERTS_ICONS[new_status]
+        classes = %w[gray-link]
         f.button :submit, name: :status, value: new_status, class: classes.join(' ') do
-          status_icon(:done) + title
+          status_icon(new_status) + title
         end
       end.join.html_safe
     end
