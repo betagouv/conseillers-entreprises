@@ -30,6 +30,7 @@ class Institution < ApplicationRecord
   has_many :institutions_subjects, inverse_of: :institution
   has_many :landings, inverse_of: :institution
   has_many :solicitations, inverse_of: :institution
+  has_one :logo, inverse_of: :institution
 
   ## Hooks and Validations
   #
@@ -63,7 +64,7 @@ class Institution < ApplicationRecord
 
   ## Scopes
   #
-  scope :ordered_logos, -> { not_deleted.where(display_logo: true).order(:name) }
+  scope :ordered_logos, -> { not_deleted.joins(:logo).where(display_logo: true).order(:name) }
 
   ## Institution subjects helpers
   #

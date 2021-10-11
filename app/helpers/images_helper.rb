@@ -23,6 +23,6 @@ module ImagesHelper
   private
 
   def display_all_logos(logos, path)
-    logos.map { |l| display_image({ name: l.slug, path: path }) }.join.html_safe
+    logos.map { |l| display_image({ name: l.filename, path: path }) }.join.html_safe
   end
 end

@@ -183,6 +183,8 @@ fr:
         meta_title: Titre méta
       landing_themes:
         landing_subjects: Sujets de landing
+      logo:
+        filename: Nom du fichier image (non modifiable)
       match:
         closed_at: Date de clôture
         expert: Expert
