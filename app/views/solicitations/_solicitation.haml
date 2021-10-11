@@ -33,7 +33,7 @@
       .card__meta
         .meta__warnings
           - if solicitation.recent_matched_solicitations.any?
-            %span{ title: t('.solicitation_relance_explanation')} R
+            %span{ title: t('.solicitation_relance_explanation') } R
         // same_facility_needs = il existe un historiq, qu'on ne peut afficher que si on a un siret
         - if solicitation.same_facility_needs.any? && solicitation.valid_sirets.any?
           - solicitation.valid_sirets.each do |valid_siret|
