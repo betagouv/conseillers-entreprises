@@ -91,6 +91,7 @@ class Antenne < ApplicationRecord
   end
 
   def self.flexible_find_or_initialize(institution, name)
+    return nil unless institution.present? && name.present?
     antenne = institution.antennes.find_by('lower(name) = ?', name.squish.downcase)
     antenne ||= Antenne.new(institution: institution, name: name.squish)
   end
