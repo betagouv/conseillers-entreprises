@@ -17,6 +17,7 @@
 
         .required.fr-input-group
           = f.label :password, class: 'fr-label'
+          %span.fr-hint-text= t('devise.password_minimum_characters', count: @minimum_password_length)
           = f.password_field :password, class: 'fr-input'
         .required.fr-input-group
           = f.label :password_confirmation, class: 'fr-label'
