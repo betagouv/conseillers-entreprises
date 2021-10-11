@@ -164,4 +164,71 @@ RSpec.describe Solicitation, type: :model do
       it { is_expected.to match_array [solicitation2] }
     end
   end
+
+  describe "recent_matched_solicitations" do
+    let(:landing_subject) { create :landing_subject }
+    let(:siret) { '13000601800019' }
+    let(:email) { 'hubertine@example.com' }
+
+    let!(:parent_siret_solicitation) {
+      create :solicitation,
+             siret: siret,
+             landing_subject: landing_subject,
+             created_at: 2.weeks.ago,
+             diagnosis: create(:diagnosis_completed)
+    }
+
+    let!(:parent_email_solicitation) {
+      create :solicitation,
+             email: email,
+             landing_subject: landing_subject,
+             created_at: 2.weeks.ago,
+             diagnosis: create(:diagnosis_completed)
+    }
+
+    let!(:other_siret_solicitation) {
+      create :solicitation,
+             siret: '98765432100099',
+             landing_subject: landing_subject,
+             created_at: 2.weeks.ago,
+             diagnosis: create(:diagnosis_completed)
+    }
+
+    let!(:too_old_solicitation) {
+      create :solicitation,
+             email: email,
+             siret: siret,
+             landing_subject: landing_subject,
+             created_at: 6.weeks.ago,
+             diagnosis: create(:diagnosis_completed)
+    }
+
+    let!(:other_subject_solicitation) {
+      create :solicitation,
+             email: email,
+             siret: siret,
+             landing_subject: create(:landing_subject),
+             created_at: 2.weeks.ago,
+             diagnosis: create(:diagnosis_completed)
+    }
+
+    let!(:no_match_solicitation) {
+      create :solicitation,
+             email: email,
+             siret: siret,
+             landing_subject: landing_subject,
+             created_at: 2.weeks.ago
+    }
+
+    let!(:child_solicitation) {
+      create :solicitation,
+             siret: siret,
+             email: email,
+             landing_subject: landing_subject
+    }
+
+    it 'displays only parent_solicitations' do
+      expect(child_solicitation.recent_matched_solicitations).to match_array([parent_siret_solicitation, parent_email_solicitation])
+    end
+  end
 end

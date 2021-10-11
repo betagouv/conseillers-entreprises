@@ -12,6 +12,7 @@ class FormatSiret
   end
 
   def self.clean_siret(maybe_siret)
+    return if maybe_siret.blank?
     maybe_siret&.gsub(/[\W_]+/, '')
   end
 

@@ -1,48 +1,52 @@
-.ui.segments.shadow-less.solicitation{ id: solicitation.id }
-  .ui.segment.secondary
-    .ui.header.grid.aligned
-      .eight.wide.column
-        #{solicitation.to_s} - #{solicitation.full_name}
-        .sub.header= I18n.l(solicitation.created_at, format: :long)
-      .ui.eight.wide.column.row-tags
-        = render 'solicitation_badges', solicitation: solicitation
-  .ui.segment
-    - if solicitation.institution.present?
-      .logo-institution= institution_image(solicitation.institution.name)
-    .ui.list
-      - if solicitation.siret.present?
-        .item
-          = t('.siret')
-          %strong= link_to(solicitation.normalized_siret, company_path(solicitation.siret))
-      .item
-        = t('.email')
-        %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
-      - facility = solicitation.facility
-      - if facility&.siret.present? && policy(facility).show_needs_history?
-        = link_to t('.needs_historic'), needs_company_path(facility.siret), class: 'gray-link float-right'
-      - solicitation.display_attributes.each do |attribut|
-        - if solicitation.send(attribut).present?
+.card-solicitation.fr-my-4w
+  .card__header
+    .card__title
+      %h2= [solicitation.to_s, solicitation.full_name].join(' - ')
+      %span.subtitle= I18n.l(solicitation.created_at, format: :long)
+    .card__badges
+      = render 'solicitation_badges', solicitation: solicitation
+  .fr-card__body
+    .card__info
+      .card__fields
+        - if solicitation.siret.present?
           .item
-            = Solicitation.human_attribute_name(attribut) + ' : '
-            %strong= solicitation.send(attribut)
-      - if solicitation.landing.present?
+            = t('.siret')
+            %strong= link_to(solicitation.normalized_siret, company_path(solicitation.siret))
         .item
-          = t('.source')
-          %strong= link_to solicitation.landing.slug, landing_path(solicitation.landing)
+          = t('.email')
+          %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
+        - solicitation.display_attributes.each do |attribut|
+          - if solicitation.send(attribut).present?
+            .item
+              = Solicitation.human_attribute_name(attribut) + ' : '
+              %strong= solicitation.send(attribut)
+        - if solicitation.landing.present?
+          .item
+            = t('.source')
+            %strong= link_to solicitation.landing.slug, landing_path(solicitation.landing)
 
-      - if solicitation.landing_subject.present?
-        .item
-          = t('.landing_subjects')
-          = subject_tag(solicitation, "ui small label")
-      .item
-        = t('.description')
-        %p= simple_format(solicitation.description)
+        - if solicitation.landing_subject.present?
+          .item
+            = t('.landing_subjects')
+            = subject_tag(solicitation, "ui small label")
 
-  .ui.segment.feed.feedbacks
-    %div{ id: "display-feedbacks-#{solicitation.id}" }
-      = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks
-    = render 'feedbacks/form', feedback: solicitation.feedbacks.new(category: :solicitation)
-
-  .ui.aligned.grid.segment
-    .right.floated.right.aligned.column
-      = render 'solicitation_actions', solicitation: solicitation
+      .card__meta
+        .meta__warnings
+          - if solicitation.recent_matched_solicitations.any?
+            %span{ title: t('.solicitation_relance_explanation') } R
+        // same_facility_needs = il existe un historiq, qu'on ne peut afficher que si on a un siret
+        - if solicitation.same_facility_needs.any? && solicitation.valid_sirets.any?
+          - solicitation.valid_sirets.each do |valid_siret|
+            .item= t('.needs_historic')
+            = link_to valid_siret, needs_company_path(valid_siret)
+        - if solicitation.institution.present?
+          .logo-institution= institution_image(solicitation.institution.name)
+    .card__description
+      .card__description__label= t('.description')
+      .card__description__content= simple_format(solicitation.description)
+    .card__feedbacks
+      %div{ id: "display-feedbacks-#{solicitation.id}" }
+        = render partial: 'feedbacks/feedback', collection: solicitation.feedbacks
+      = render 'feedbacks/form', feedback: solicitation.feedbacks.new(category: :solicitation)
+  .card__footer
+    = render 'solicitation_actions', solicitation: solicitation
