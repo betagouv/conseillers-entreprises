@@ -38,8 +38,8 @@
             %span{ title: t('.solicitation_doublon_explanation') } D
         // same_facility_needs = il existe un historiq, qu'on ne peut afficher que si on a un siret
         - if solicitation.same_facility_needs.any? && solicitation.valid_sirets.any?
+          .item= t('.needs_historic')
           - solicitation.valid_sirets.each do |valid_siret|
-            .item= t('.needs_historic')
             = link_to valid_siret, needs_company_path(valid_siret)
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.name)

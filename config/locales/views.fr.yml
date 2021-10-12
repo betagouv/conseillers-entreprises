@@ -115,10 +115,11 @@ fr:
       personne_morale: Personne morale
       raison_sociale: Raison Sociale
     needs:
+      back_to_company: Voir la fiche entreprise
       needs_done: Cloturés
       needs_in_progress: En cours
       others: Autres besoins pour cette entreprise
-      title: Liste des besoins pour %{company}
+      title_html: Liste des besoins pour %{company} <span class="fr-text--lg">(%{siret})</span>
     search:
       explanation: 20005494800019, La Poste Lille
       generic_error: La recherche a échoué pour une raison inconnue. Réessayez plus tard.

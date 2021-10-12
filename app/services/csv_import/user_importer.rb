@@ -102,7 +102,8 @@ module CsvImport
         if experts_subject.present? && attributes[:csv_description].nil?
           experts_subject.destroy
         elsif experts_subject.nil? && attributes[:csv_description].present? # sujet à rajouter si l'expert ne l'avait pas déjà
-          expert.experts_subjects.create(attributes)
+          # On teste la validite pour éviter " You cannot call create unless the parent is saved"
+          expert.experts_subjects.create(attributes) if expert.valid?
         end
       end
     end
