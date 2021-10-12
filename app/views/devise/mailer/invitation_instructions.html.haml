@@ -2,7 +2,7 @@
 
 %p= t('devise.mailer.hello', user_full_name: @resource.full_name)
 
-%p= t('.description_html', link_to_root: link_to(t('app_name'), root_url), antenne: @resource.antenne.name)
+%p= t('.description_html', link_to_root: t('app_name'), antenne: @resource.antenne.name)
 
 %h2= t('.question_one')
 
@@ -12,12 +12,10 @@
 
 %p= t('.answer_two_html')
 
-%p= t('.discover_partners_html', link: link_to(t('link_to_partners'), comment_ca_marche_url(anchor: 'liste-partenaires')))
-%p
-  .button
-    %a{ href: accept_user_invitation_url(invitation_token: @token) }= t('.accept')
+%h2= t('.accept_user_invitation_instruction')
 
-%p= t('.training_html', link: link_to('https://app.livestorm.co/place-des-entreprises', 'https://app.livestorm.co/place-des-entreprises'))
+.main-link
+  %a{ href: accept_user_invitation_url(invitation_token: @token) }= t('.accept')
 
 %p= t('.looking_forward')
 
