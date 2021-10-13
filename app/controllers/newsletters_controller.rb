@@ -21,4 +21,6 @@ class NewslettersController < PagesController
 
     redirect_back fallback_location: root_path
   end
+
+  def unsubscribe; end
 end
