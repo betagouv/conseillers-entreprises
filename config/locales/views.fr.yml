@@ -779,27 +779,19 @@ fr:
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:
-      create_acount: Créer mon compte
-      create_diagnosis: Transmettre un besoin
-      download_guide: Télécharger le guide d'entretien (PDF)
-      download_tuto: Télécharger le tutoriel (PDF)
+      at_your_service: Une équipe à votre service !
+      at_your_service_1: Pour vous proposer un outil simple et intuitif, qui vous permettre d’échanger avec d’autres experts au sein de différentes institutions.
+      at_your_service_2: Être à votre écoute pour améliorer la qualité et la nature des besoins d’entreprises que vous souhaitez recevoir.
+      at_your_service_3: Assurer le suivi des besoins restés sans réponse ou refusés, afin qu’aucune entreprise ne reste sans réponse.
+      comments: En cas de refus, les commentaires aident l’équipe Place des Entreprises à améliorer l’orientation des besoins d’entreprises.
       emails: Réceptionner les emails
-      expert_first_item: 'Avec la liste des besoins en support (détails ci-dessous), vous pouvez balayer les différentes typologies de besoins afin de questionner le dirigeant :'
-      expert_second_item: 'Autrement, vous pouvez privilégier une ouverture du dialogue du type :'
       explanation_emails: Je glisse l'email de Place des Entreprises dans ma boîte de réception. Les prochains emails @beta.gouv.fr arriveront ainsi directement dans ma boite de réception !
-      find_need: Déceler des besoins
-      methods: Vous trouverez la méthode qui vous convient le mieux.
-      other_cases: 'Dans tous les cas vous pouvez rassurer votre interlocuteur en lui indiquant que :'
-      question_account: À quoi sert le compte Place des entreprises ? Comment le créer ?
-      question_diagnosis: Je veux transmettre un besoin à un partenaire, comment faire ?
+      need_steps: Les 4 étapes de la prise en charge d’un besoin
       question_emails: Je ne reçois pas les mails de Place des entreprises, que faire ?
-      question_expert: Comment procéder ? Quelle question poser ?
-      question_take_care: Je reçois un besoin via Place des entreprises, comment agir ?
-      quote_first_item: "« Avez-vous un projet particulier d’investissement ? Oui, et de quelle nature est-il : foncier - immobilier ; innovation ou recherche de financement ? »"
-      quote_other_cases: "« Nous disposons, au sein du service public, d’un outil permettant de solliciter sur vos besoins les partenaires compétents. Un expert vous contactera alors pour vous proposer des solutions adaptées. »"
-      quote_second_item: "« Parallèlement aux questions que nous venons de traiter, avez-vous d’autres besoins liés à des projets à venir ou des difficultés ? »"
-      subjects-list: Liste des besoins
-      take_care_diagnosis: Prendre en charge un besoin
+      step_1: Je me positionne sur le besoin de l’entreprise adressé sur mon champ de compétences, en cliquant sur le bouton de prise en charge ou de refus.
+      step_2: Lorsque j’ai cliqué sur le bouton vert de prise en charge, j’appelle le chef d’entreprise pour préciser avec lui sa problématique et identifier l’aide ou l’accompagnement que ma structure peut lui proposer.
+      step_3: Après l’appel, je clôture mon intervention en fonction de la réponse apportée ou de l’impossibilité de joindre le chef d’entreprise (n’oubliez pas de laisser vos coordonnées sur le répondeur ou par mail).
+      step_4: Je laisse un commentaire pour les autres experts notifiés afin qu’ils puissent intervenir de manière complémentaire et pertinente par rapport à mon action.
       title: Tutoriels
   users:
     header:
