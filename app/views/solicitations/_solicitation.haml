@@ -36,11 +36,10 @@
             %span{ title: t('.solicitation_relance_explanation') } R
           - if solicitation.doublon_solicitations.any?
             %span{ title: t('.solicitation_doublon_explanation') } D
-        // same_facility_needs = il existe un historiq, qu'on ne peut afficher que si on a un siret
-        - if solicitation.same_facility_needs.any? && solicitation.valid_sirets.any?
+        - if solicitation.same_facility_needs.with_siret.any?
           .item= t('.needs_historic')
-          - solicitation.valid_sirets.each do |valid_siret|
-            = link_to valid_siret, needs_company_path(valid_siret)
+          - solicitation.same_facility_needs.with_siret.map{ |n| n.facility.siret }.uniq.each do |siret|
+            = link_to siret, needs_company_path(siret)
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.name)
     .card__description

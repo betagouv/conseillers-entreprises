@@ -21,7 +21,7 @@ RSpec.describe 'companies/needs.html.haml', type: :view do
       assignments
     end
 
-    it { expect(render).to have_selector('h1', text: I18n.t('companies.needs.title', company: facility.company.name)) }
+    it { expect(render).to have_selector('h1', text: strip_tags(I18n.t('companies.needs.title_html', company: facility.company.name, siret: facility.siret))) }
   end
 
   describe 'with only quo needs' do
