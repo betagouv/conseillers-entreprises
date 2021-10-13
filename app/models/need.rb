@@ -224,6 +224,10 @@ class Need < ApplicationRecord
     joins(diagnosis: :facility).where(diagnoses: { facility: facility })
   end
 
+  scope :with_siret, -> do
+    joins(diagnosis: :facility).merge(Facility.with_siret)
+  end
+
   ##
   #
   def to_s

@@ -194,6 +194,13 @@ class Solicitation < ApplicationRecord
       .or(where(email: solicitation.email))
   }
 
+  def doublon_solicitations
+    Solicitation.where(status: [:in_progress])
+      .where.not(id: self.id)
+      .from_same_company(self)
+      .uniq
+  end
+
   def recent_matched_solicitations
     Solicitation.joins(:diagnosis).merge(Diagnosis.step_completed)
       .where.not(id: self.id)

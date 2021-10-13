@@ -231,4 +231,41 @@ RSpec.describe Solicitation, type: :model do
       expect(child_solicitation.recent_matched_solicitations).to match_array([parent_siret_solicitation, parent_email_solicitation])
     end
   end
+
+  describe "doublon_solicitations" do
+    let(:siret) { '13000601800019' }
+    let(:email) { 'hubertine@example.com' }
+
+    let!(:same_siret_solicitation) {
+      create :solicitation,
+             siret: siret
+    }
+
+    let!(:same_email_solicitation) {
+      create :solicitation,
+             email: email
+    }
+
+    let!(:same_siret_with_matched_solicitation) {
+      create :solicitation,
+             siret: siret,
+             status: :processed,
+             diagnosis: create(:diagnosis_completed)
+    }
+
+    let!(:other_siret_solicitation) {
+      create :solicitation,
+             siret: '98765432100099'
+    }
+
+    let!(:solicitation) {
+      create :solicitation,
+             siret: siret,
+             email: email
+    }
+
+    it 'displays only doublon solicitations' do
+      expect(solicitation.doublon_solicitations).to match_array([same_siret_solicitation, same_email_solicitation])
+    end
+  end
 end

@@ -53,6 +53,10 @@ class Facility < ApplicationRecord
 
   accepts_nested_attributes_for :company
 
+  scope :with_siret, -> do
+    where.not(siret: nil).where.not(siret: '')
+  end
+
   ## insee_code / commune helpers
   # TODO: insee_code should be just a column in facility, and we should drop the Commune model entirely.
   #   In the meantime, fake it by delegating to commune.

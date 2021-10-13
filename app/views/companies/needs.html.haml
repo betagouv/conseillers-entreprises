@@ -1,5 +1,10 @@
 .fr-container.fr-pb-6w
-  %h1.fr-h2.fr-mb-8w= t('.title', company: @facility.company.name)
+  .fr-mb-8w
+    %h1.fr-h2= t('.title_html', company: @facility.company.name, siret: @facility.siret)
+
+    = link_to company_path(@facility.siret), class: "bold blue" do
+      %span.ri-arrow-left-line.fr-mr-1w
+      = t('.back_to_company')
 
   - if @needs_in_progress.present?
     .fr-grid-row.fr-mb-4w
