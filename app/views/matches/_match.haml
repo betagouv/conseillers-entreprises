@@ -19,7 +19,7 @@
       - if policy(match).update_status?
         %section.fr-accordion
           %h3.fr-accordion__title
-            %button.fr-accordion__btn{ "aria-controls" => "fr-accordion-#{match.id}", "aria-expanded" => "false" }
+            %button.fr-accordion__btn{ aria: { controls: "fr-accordion-#{match.id}", expanded: false }, data: { controller: 'fr-accordions-management', action: 'click->fr-accordions-management#collapse' } }
               .ri-edit-box-line
           .fr-collapse{ id: "fr-accordion-#{match.id}" }
             = admin_match_actions_buttons match
