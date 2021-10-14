@@ -42,7 +42,7 @@ describe 'ApplicationController specific features', type: :feature do
     context 'already connected' do
       let(:user) { create :user, password: password, password_confirmation: password, sign_in_count: 1 }
 
-      it('redirects to needs qup page') { expect(current_url).to eq quo_needs_url }
+      it('redirects to needs quo page') { expect(current_url).to eq quo_needs_url }
     end
   end
 end
