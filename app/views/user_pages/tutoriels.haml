@@ -1,9 +1,16 @@
 .fr-container.tuto
-  %h1.fr-mb-6w= t('.title')
+  %h1= t('.title')
+
+  .fr-grid-row.fr-grid-row--center
+    .fr-col-12.fr-col-lg-10
+      .fr-content-media
+        .fr-responsive-vid
+          %iframe.fr-responsive-vid__player{ :allow => "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", :allowfullscreen => "", :frameborder => "0", :height => "100%", :src => "https://tube.nocturlab.fr/videos/embed/657b2d95-cc7f-44a5-b737-6e06915760c5", :title => "vidéo de présentation du service", :width => "100%" }
 
   .fr-grid-row
     .fr-col-12
-      %h2= t('.need_steps')
+      %h2.fr-mb-4w= t('.need_steps')
+
       %ol
         %li.fr-h5
           = t('.step_1')
@@ -20,7 +27,6 @@
           %em= t('.comments')
           = image_tag('tuto/experts.png')
 
-
   .fr-grid-row
     .fr-col-12
       %h2= t('.emails')
@@ -35,4 +41,3 @@
           %li= t('.at_your_service_1')
           %li= t('.at_your_service_2')
           %li= t('.at_your_service_3')
-
