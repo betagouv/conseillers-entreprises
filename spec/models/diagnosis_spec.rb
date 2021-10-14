@@ -135,7 +135,7 @@ RSpec.describe Diagnosis, type: :model do
       let(:expert) { create :expert }
 
       context 'no diagnosis' do
-        it { is_expected.to eq [] }
+        it { is_expected.to match_array [] }
       end
 
       context 'one diagnosis' do
@@ -147,7 +147,7 @@ RSpec.describe Diagnosis, type: :model do
           create :match, need: need, expert: expert, subject: need.subject
         end
 
-        it { is_expected.to eq [diagnosis] }
+        it { is_expected.to match_array [diagnosis] }
       end
 
       describe 'min_closed_at' do
@@ -164,7 +164,7 @@ RSpec.describe Diagnosis, type: :model do
           travel_to(20.days.ago) { closed_20_days_ago.reload.matches.first.update(status: :done) }
         end
 
-        it { is_expected.to eq [closed_10_days_ago] }
+        it { is_expected.to match_array [closed_10_days_ago] }
       end
     end
   end

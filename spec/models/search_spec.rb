@@ -21,7 +21,7 @@ RSpec.describe Search, type: :model do
         let!(:search2) { create :search, query: 'other query' }
         let!(:search3) { create :search, query: 'yet another query' }
 
-        it { is_expected.to eq [search3, search2, search1] }
+        it { is_expected.to match_array [search3, search2, search1] }
       end
 
       context 'removes duplicates and keeps most recent' do
@@ -29,7 +29,7 @@ RSpec.describe Search, type: :model do
         let!(:search2) { create :search, query: 'other query' }
         let!(:search3) { create :search, query: 'query' }
 
-        it { is_expected.to eq [search3, search2] }
+        it { is_expected.to match_array [search3, search2] }
         it { is_expected.not_to include search1 }
       end
     end

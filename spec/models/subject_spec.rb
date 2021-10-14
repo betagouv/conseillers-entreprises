@@ -56,7 +56,7 @@ RSpec.describe Subject, type: :model do
       let(:q0) { create :subject, interview_sort_order: 0 }
       let(:qnil) { create :subject, interview_sort_order: nil }
 
-      it { is_expected.to eq [q0, q1, q2, q3, qnil] }
+      it { is_expected.to match_array [q0, q1, q2, q3, qnil] }
     end
 
     describe 'for_interview' do
@@ -69,7 +69,7 @@ RSpec.describe Subject, type: :model do
         create :subject, is_support: true
       end
 
-      it { is_expected.to eq [q] }
+      it { is_expected.to match_array [q] }
     end
   end
 
@@ -81,7 +81,7 @@ RSpec.describe Subject, type: :model do
 
       let!(:q2) { create :subject, is_support: true }
 
-      it { is_expected.to eq [q2] }
+      it { is_expected.to match_array [q2] }
     end
   end
 
