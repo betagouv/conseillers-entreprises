@@ -14,7 +14,7 @@ describe CsvImport::AntenneImporter, CsvImport do
 
     it do
       expect(result).not_to be_success
-      expect(result.header_errors.map(&:message)).to eq ["Unclosed quoted field in line 1."]
+      expect(result.header_errors.map(&:message)).to match_array ["Unclosed quoted field in line 1."]
     end
   end
 

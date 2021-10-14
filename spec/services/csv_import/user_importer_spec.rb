@@ -214,7 +214,7 @@ describe CsvImport::UserImporter, CsvImport do
         team = Expert.teams.first
         expect(team.users.count).to eq 4
         expect(team.experts_subjects.count).to eq 1
-        expect(team.institutions_subjects.pluck(:description)).to eq ['Second IS']
+        expect(team.institutions_subjects.pluck(:description)).to match_array ['Second IS']
       end
     end
   end
@@ -255,7 +255,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(first_error[:error]).to eq :invalid
         invalid_experts = first_error[:value]
         expect(invalid_experts).not_to be_nil
-        expect(invalid_experts.flat_map{ |e| e.errors.details }).to eq [{ :'experts_subjects.institution_subject' => [{ error: :blank }] }]
+        expect(invalid_experts.flat_map{ |e| e.errors.details }).to match_array [{ :'experts_subjects.institution_subject' => [{ error: :blank }] }]
       end
     end
 
@@ -275,7 +275,7 @@ describe CsvImport::UserImporter, CsvImport do
         team = Expert.teams.first
         expect(team.users.count).to eq 4
         expect(team.experts_subjects.count).to eq 2
-        expect(team.institutions_subjects.pluck(:description)).to eq ['First IS', 'Second IS']
+        expect(team.institutions_subjects.pluck(:description)).to match_array ['First IS', 'Second IS']
       end
     end
   end
@@ -311,7 +311,7 @@ describe CsvImport::UserImporter, CsvImport do
 
       it do
         expect(result).not_to be_success
-        expect(result.header_errors.map(&:message)).to eq ['The Subject']
+        expect(result.header_errors.map(&:message)).to match_array ['The Subject']
       end
     end
   end
@@ -330,7 +330,7 @@ describe CsvImport::UserImporter, CsvImport do
     it do
       expect(result).to be_success
       existing_user.reload
-      expect(result.objects).to eq [existing_user]
+      expect(result.objects).to match_array [existing_user]
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
       expect(other_antenne.advisors).to be_empty
@@ -351,7 +351,7 @@ describe CsvImport::UserImporter, CsvImport do
     it do
       expect(result).to be_success
       existing_user.reload
-      expect(result.objects).to eq [existing_user]
+      expect(result.objects).to match_array [existing_user]
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
       expect(other_antenne.advisors).to be_empty
@@ -382,7 +382,7 @@ describe CsvImport::UserImporter, CsvImport do
       expect(team.experts_subjects.count).to eq 2
       expect(result).to be_success
       expect(team.experts_subjects.count).to eq 1
-      expect(team.institutions_subjects.pluck(:description)).to eq ['Second IS']
+      expect(team.institutions_subjects.pluck(:description)).to match_array ['Second IS']
     end
   end
 end

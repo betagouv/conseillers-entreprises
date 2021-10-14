@@ -60,7 +60,7 @@ describe CsvImport::BaseImporter, CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.header_errors.map(&:message)).to eq ['Foo']
+          expect(result.header_errors.map(&:message)).to match_array ['Foo']
         end
       end
 
@@ -74,7 +74,7 @@ describe CsvImport::BaseImporter, CsvImport do
 
         it do
           expect(result).not_to be_success
-          expect(result.header_errors.map(&:message)).to eq ['Foo']
+          expect(result.header_errors.map(&:message)).to match_array ['Foo']
         end
       end
     end
