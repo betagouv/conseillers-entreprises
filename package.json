@@ -2,7 +2,7 @@
   "dependencies": {
     "@gouvfr/dsfr": "1.1.0",
     "@rails/ujs": "^6.0.3-4",
-    "@rails/webpacker": "5.2.1",
+    "@rails/webpacker": "5.4.2",
     "@sentry/webpack-plugin": "^1.14.2",
     "accessible-autocomplete": "^2.0.3",
     "expose-loader": "^1.0.1",
