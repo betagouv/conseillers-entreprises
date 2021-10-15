@@ -1,65 +1,43 @@
-.fr-container
-  %h1.fr-mb-6w= t('.title')
+.fr-container.tuto
+  %h1= t('.title')
+
+  .fr-grid-row.fr-grid-row--center
+    .fr-col-12.fr-col-lg-10
+      .fr-content-media
+        .fr-responsive-vid
+          %iframe.fr-responsive-vid__player{ :allow => "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", :allowfullscreen => "", :frameborder => "0", :height => "100%", :src => "https://tube.nocturlab.fr/videos/embed/657b2d95-cc7f-44a5-b737-6e06915760c5", :title => "vidéo de présentation du service", :width => "100%" }
 
   .fr-grid-row
     .fr-col-12
-      %h2= t('.create_acount')
-      %p.fr-h5= t('.question_account')
+      %h2.fr-mb-4w= t('.need_steps')
 
-      = link_to t('.download_tuto'), '/tutoriels/creation-de-compte.pdf', target: '_blank', class: 'fr-btn btn-blue', rel: 'noopener'
-  %hr.fr-my-4w
-
-  .fr-grid-row
-    .fr-col-12
-      %h2= t('.find_need')
-      %h3.fr-h5= t('.question_expert')
-      %p= t('.methods')
-      %ul
-        %li
-          = t('.expert_first_item')
-          %blockquote
-            .text-grey= t('.quote_first_item')
-        %li
-          = t('.expert_second_item')
-          %blockquote
-            .text-grey= t('.quote_second_item')
-      %p
-        = t('.other_cases')
-        %blockquote
-          .text-grey= t('.quote_other_cases')
-
-      %h3.fr-h5= t('.subjects-list')
-      %ul.fr-accordions-group
-        - Theme.for_interview.each do |theme|
-          %li
-            %section.fr-accordion
-              %p.fr-accordion__title
-                %button.fr-accordion__btn{ aria: { controls: "fr-accordion-#{theme.id}", expanded: false }, data: { controller: 'fr-accordions-management', action: 'click->fr-accordions-management#collapse' } }= theme
-
-              .fr-collapse{ id: "fr-accordion-#{theme.id}" }
-                %ul
-                  - theme.subjects.for_interview.each do |subject|
-                    %li= subject
-
-      = link_to t('.download_guide'), '/tutoriels/Guide_entretien_Place_des_entreprises.pdf', target: '_blank', class: 'fr-btn btn-blue fr-mt-3w', rel: 'noopener'
-      %hr.fr-my-4w
-
-  .fr-grid-row
-    .fr-col-12
-      %h2= t('.create_diagnosis')
-      %p.fr-h5= t('.question_diagnosis')
-      = link_to t('.download_tuto'), '/tutoriels/analyse.pdf', target: '_blank', class: 'fr-btn btn-blue', rel: 'noopener'
-      %hr.fr-my-4w
-
-  .fr-grid-row
-    .fr-col-12
-      %h2= t('.take_care_diagnosis')
-      %p.fr-h5= t('.question_take_care')
-      = link_to t('.download_tuto'), '/tutoriels/prise-en-charge.pdf', target: '_blank', class: 'fr-btn btn-blue', rel: 'noopener'
-      %hr.fr-my-4w
+      %ol
+        %li.fr-h5
+          = t('.step_1')
+          = image_tag('tuto/haut-de-page.png')
+        %li.fr-h5
+          = t('.step_2')
+          = image_tag('tuto/bandeau-vert.png')
+        %li.fr-h5
+          = t('.step_3')
+          = image_tag('tuto/boutons.png')
+        %li.fr-h5
+          = t('.step_4')
+          %br
+          %em= t('.comments')
+          = image_tag('tuto/experts.png')
 
   .fr-grid-row
     .fr-col-12
       %h2= t('.emails')
       %p.fr-h5= t('.question_emails')
       %p= t('.explanation_emails')
+
+  .fr-grid-row.fr-mt-6w
+    .fr-col-12
+      .fr-callout
+        %h2= t('.at_your_service')
+        %ul
+          %li= t('.at_your_service_1')
+          %li= t('.at_your_service_2')
+          %li= t('.at_your_service_3')

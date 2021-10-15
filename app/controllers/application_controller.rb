@@ -13,10 +13,8 @@ class ApplicationController < SharedController
   ## Devise overrides
   # See also RegistrationsController::after_sign_up_path_for
   def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope.relevant_experts.with_subjects.present?
-      path = needs_path
-    elsif resource_or_scope.can_view_diagnoses_tab
-      path = diagnoses_path
+    if resource_or_scope.sign_in_count == 1
+      path = tutoriels_path
     else
       path = quo_needs_path
     end
