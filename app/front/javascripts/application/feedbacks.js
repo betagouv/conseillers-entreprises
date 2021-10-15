@@ -6,7 +6,9 @@
       feedbackLink.onclick = function() {
         const feedbackableId = feedbackLink.dataset.feedbackable
         const forms = document.getElementsByClassName("feedback-form-" + feedbackableId)
-        forms.forEach(form => form.style.display = 'block');
+        for (const form of forms) {
+          form.style.display = 'block'
+        }
       }
     }
   })
