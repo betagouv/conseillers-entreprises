@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe MatchesController, type: :controller do
-  login_user
-
   describe 'PUT #update' do
+    login_user
     subject(:request) { put :update, xhr: true, params: params }
 
     let(:params) { { id: match.id, status: :taking_care } }
@@ -16,13 +15,42 @@ RSpec.describe MatchesController, type: :controller do
     end
 
     context 'match is available to expert' do
+      login_user
       before { current_user.update experts: [match.expert] }
 
-      it 'returns http success' do
+      it 'returns http success and send email' do
         request
 
         expect(response).to be_successful
         expect(match.reload.status_taking_care?).to eq true
+        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 1
+        expect(Delayed::Backend::ActiveRecord::Job.last.queue).to eq 'match_notify'
+      end
+    end
+
+    context 'current_user is an admin and include in match.experts' do
+      login_admin
+      before { current_user.update experts: [match.expert] }
+
+      it 'returns http success and send email' do
+        request
+
+        expect(response).to be_successful
+        expect(match.reload.status_taking_care?).to eq true
+        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 1
+        expect(Delayed::Backend::ActiveRecord::Job.last.queue).to eq 'match_notify'
+      end
+    end
+
+    context 'current_user is an admin and not include in match.experts' do
+      login_admin
+
+      it 'returns http success and don’t send email' do
+        request
+
+        expect(response).to be_successful
+        expect(match.reload.status_taking_care?).to eq true
+        expect(Delayed::Backend::ActiveRecord::Job.count).to eq 0
       end
     end
   end
