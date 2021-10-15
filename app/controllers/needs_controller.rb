@@ -62,11 +62,27 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user.antenne, :expired)
   end
 
+  def search
+    @recipient = current_user
+    inbox_collections_counts(@recipient)
+    @needs = @recipient
+      .received_needs
+      .omnisearch(search_params[:query])
+      .includes(:company, :advisor, :subject)
+      .order(created_at: :desc)
+      .page params[:page]
+    render :index
+  end
+
   private
 
   def retrieve_user_and_antenne
     @user = current_user
     @antenne = current_user.antenne
+  end
+
+  def search_params
+    params.permit(:query)
   end
 
   ## Instance actions

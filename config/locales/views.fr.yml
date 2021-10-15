@@ -510,6 +510,9 @@ fr:
       for_other_header: Voir aussi
       for_other_user: Uniquement les demandes pour %{user}
       for_recipient: Pour %{recipient}
+    search:
+      clear_search: Réinitialiser
+      search_placeholder: Rechercher par entreprise, contact, description, sujet...
     show:
       all_experts: Experts notifiés
       all_needs: Toutes les demandes

@@ -677,4 +677,15 @@ RSpec.describe Need, type: :model do
       end
     end
   end
+
+  describe 'search' do
+    # TODO : a completer
+    let(:need1) { create :need, content: "la la" }
+    let(:need2) { create :need, content: "la lo" }
+    let(:need3) { create :need, content: "lo lo" }
+
+    it 'searches content' do
+      expect(described_class.omnisearch("la")).to match_array [need1, need2]
+    end
+  end
 end

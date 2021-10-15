@@ -171,6 +171,8 @@ Rails.application.routes.draw do
       get :antenne_done, path: 'antenne/cloturees'
       get :antenne_not_for_me, path: 'antenne/refusees'
       get :antenne_expired, path: 'antenne/expirees'
+
+      get :search, path: 'recherche'
     end
     member do
       get :additional_experts

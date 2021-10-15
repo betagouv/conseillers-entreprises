@@ -16,6 +16,7 @@ module Inbox
     @needs = recipient
       .send("needs_#{collection_name}") # See InvolvementConcern
       .includes(:company, :advisor, :subject)
+      .order(created_at: :desc)
       .page params[:page]
     render view
   end
