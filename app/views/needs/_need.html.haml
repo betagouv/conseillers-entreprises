@@ -5,6 +5,8 @@
         .fr-card__body
           %p.fr-card__detail
             = I18n.l(need.display_date, format: :long)
+            - if params[:query].present?
+              %span.label.grey-blue= t(need.status, scope: 'needs.collections_single')
           %h4.fr-card__title
             = link_to need.subject, need_path(need), class: 'fr-card__link'
           .fr-card__desc

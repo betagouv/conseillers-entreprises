@@ -1,7 +1,7 @@
 .fr-mb-3w
   = form_tag search_needs_path, method: :get do
     .fr-search-bar#search-needs{ role: "search" }
-      = text_field_tag :query, params[:query], placeholder: t('.search_placeholder'), class: "fr-input"
+      = text_field_tag :query, params[:query], placeholder: t('.search_placeholder'), class: "fr-input", required: true
       = button_tag "", class: 'fr-btn'
   - if params[:query].present?
     = link_to t('.clear_search'), needs_path, id: 'clear-search'

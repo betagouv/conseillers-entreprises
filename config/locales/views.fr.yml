@@ -473,6 +473,13 @@ fr:
       not_for_me: Refusées
       quo: Boite de réception
       taking_care: Prises en charge
+    collections_single:
+      archived: Expirée
+      done: Clôturée
+      expired: Expirée
+      not_for_me: Refusée
+      quo: Boite de réception
+      taking_care: Prise en charge
     empty_placeholder:
       title: Aucune demande
       welcome_help_html: Un problème ? Une question ? %{mailto_link}.
