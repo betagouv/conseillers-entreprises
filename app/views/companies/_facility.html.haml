@@ -13,19 +13,22 @@
         %td= date_from_timestamp(etablissement.date_mise_a_jour)
       %tr
         %td= t('.tranche_effectif_salarie_etablissement')
-        %td= etablissement.tranche_effectif_salarie_etablissement['intitule']
+        %td= etablissement.tranche_effectif
       %tr
         %td= t('.date_creation_etablissement')
         %td= date_from_timestamp(etablissement.date_creation_etablissement)
       %tr
         %td= t('.region_implantation')
-        %td= etablissement.region_implantation['value']
+        %td= etablissement.region
       %tr
         %td= t('.commune_implantation')
-        %td= etablissement.commune_implantation['value']
+        %td= etablissement.commune
       %tr
         %td= t('.pays_implantation')
-        %td= etablissement.pays_implantation['value'] || ''
+        %td= etablissement.pays
+      %tr
+        %td= t('.opco')
+        %td= etablissement.opco&.name
       %tr
         %td= t('.adresse')
         %td

@@ -17,7 +17,7 @@ RSpec.describe 'companies/show.html.haml', type: :view do
 
   before do
     assign :diagnosis, build(:diagnosis)
-    assign :facility, ApiEntreprise::EtablissementWrapper.new(facility_json)
+    assign :facility, ApiConsumption::Models::Facility.new(facility_json["etablissement"])
     assign :company, ApiEntreprise::EntrepriseWrapper.new(company_json)
     assign :diagnoses, diagnoses
     render

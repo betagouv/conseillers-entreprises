@@ -8,6 +8,7 @@
 #  display_logo :boolean          default(FALSE)
 #  name         :string           not null
 #  show_on_list :boolean          default(FALSE)
+#  siren        :text
 #  slug         :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -30,7 +31,9 @@ class Institution < ApplicationRecord
   has_many :institutions_subjects, inverse_of: :institution
   has_many :landings, inverse_of: :institution
   has_many :solicitations, inverse_of: :institution
+  has_and_belongs_to_many :categories
   has_one :logo, inverse_of: :institution
+  has_many :facilities, inverse_of: :opco
 
   ## Hooks and Validations
   #
@@ -65,6 +68,7 @@ class Institution < ApplicationRecord
   ## Scopes
   #
   scope :ordered_logos, -> { not_deleted.joins(:logo).where(display_logo: true).order(:name) }
+  scope :opco, -> { joins(:categories).where(categories: { title: 'opco' }) }
 
   ## Institution subjects helpers
   #

@@ -6,7 +6,7 @@
       = form_with model: @diagnosis, local: true do |form|
         = form.hidden_field :solicitation_id
         = form.fields_for :facility do |facility_form|
-          = facility_form.hidden_field :siret, value: @facility.etablissement.siret
+          = facility_form.hidden_field :siret, value: @facility.siret
         = form.button :submit, class: 'fr-btn btn-green float-right' do
           = t('.create_diagnosis')
     %h1
@@ -17,9 +17,9 @@
       = render partial: 'company', locals: { entreprise: @company.entreprise }
 
     %section.fr-mb-6w
-      = render partial: 'facility', locals: { etablissement: @facility.etablissement, caption: t('.facility') }
+      = render partial: 'facility', locals: { etablissement: @facility, caption: t('.facility') }
 
-    - if !@facility.etablissement['siege_social'].to_b
+    - if !@facility.siege_social
       %section.fr-mb-6w
         %h2= t('.siege_social')
         = render partial: 'facility', locals: { etablissement: @company.etablissement_siege, caption: t('.siege_social') }
