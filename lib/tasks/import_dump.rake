@@ -39,7 +39,7 @@ namespace :import_dump do
   end
 
   task anonymize: :environment do
-    allowed_models = [Antenne, Institution, Commune, Landing, LandingTopic, Territory, Theme, Subject]
+    allowed_models = [Antenne, Institution, Commune, Landing, LandingTheme, LandingSubject, LandingJointTheme, Territory, Theme, Subject]
 
     default_mapping = {
       'content' => -> { Faker::Lorem.paragraph },
