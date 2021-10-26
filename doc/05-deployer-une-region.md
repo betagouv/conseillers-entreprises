@@ -57,7 +57,7 @@ institution.update(code_region: code_region)
 
 Modifier le texte du bandeau indiquant quelles régions sont ouvertes :
 - `views.fr.yml` : `deployment_html`
-- `devise.fr.yml` : `alert_region_html`
+- `views.fr.yml` : `alert_region_html`
 
 
 
