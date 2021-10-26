@@ -677,4 +677,26 @@ RSpec.describe Need, type: :model do
       end
     end
   end
+
+  describe 'search' do
+    let(:subject1) { create :subject, label: "sujet un" }
+    let(:subject2) { create :subject, label: "sujet deux" }
+    let(:diagnosis1) { create :diagnosis, company: create(:company, name: "Entreprise deux") }
+    let(:need1) { create :need, content: "la la" }
+    let(:need2) { create :need, content: "la lo", subject: subject2 }
+    let(:need3) { create :need, content: "lo deux", subject: subject1 }
+    let(:need4) { create :need, content: "li li", diagnosis: diagnosis1 }
+
+    it 'searches content' do
+      expect(described_class.omnisearch("la")).to match_array [need1, need2]
+    end
+
+    it 'searches subject' do
+      expect(described_class.omnisearch("sujet un")).to match_array [need3]
+    end
+
+    it 'searches multiple fields' do
+      expect(described_class.omnisearch("deux")).to match_array [need2, need3, need4]
+    end
+  end
 end
