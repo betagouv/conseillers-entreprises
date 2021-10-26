@@ -70,7 +70,7 @@ class NeedsController < ApplicationController
       .omnisearch(search_params[:query])
       .includes(:company, :advisor, :subject)
       .order(created_at: :desc)
-      .page params[:page]
+      .page(params[:page])
     render :index
   end
 
