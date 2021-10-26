@@ -13,6 +13,7 @@ module CreateDiagnosis
         .of_subject(need.subject)
         .of_institution(institutions)
         .in_company_registres(need.company)
+        .without_irrelevant_opcos(need.facility)
     end
 
     private

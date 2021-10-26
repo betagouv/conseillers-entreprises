@@ -41,6 +41,33 @@ RSpec.describe ExpertSubject, type: :model do
       end
     end
 
+    describe 'without_irrelevant_opcos' do
+      subject{ described_class.without_irrelevant_opcos(facility) }
+
+      let!(:opco) { create :opco }
+      let!(:other_opco) { create :opco }
+      let!(:expert_subject) do
+        create :expert_subject,
+        expert: create(:expert, institution: opco)
+      end
+      let!(:other_expert_subject) do
+        create :expert_subject,
+        expert: create(:expert, institution: other_opco)
+      end
+
+      context 'when facility opco exists' do
+        let(:facility) { create :facility, opco: opco }
+
+        it{ is_expected.to match_array [expert_subject] }
+      end
+
+      context 'when facility has no opco' do
+        let(:facility) { create :facility, opco: nil }
+
+        it{ is_expected.to be_blank }
+      end
+    end
+
     describe 'in_company_registres' do
       subject{ described_class.in_company_registres(company) }
 

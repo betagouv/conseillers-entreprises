@@ -76,9 +76,8 @@ class ExpertSubject < ApplicationRecord
   scope :without_irrelevant_opcos, -> (facility) do
     relevant_opco = facility.opco
     # Si pas d'opco identifié, on n'envoie à personne
-    irrelevant_opcos = Institution.opcos
-    irrelevant_opcos = irrelevant_opcos.where.not(id: relevant_opco.id) if relevant_opco.present?
-    where.not(experts: irrelevant_opcos.experts)
+    irrelevant_opcos = Institution.opco.where.not(id: relevant_opco&.id)
+    where.not(experts: irrelevant_opcos.map{ |o| o.experts }) if irrelevant_opcos.any?
   end
 
   scope :support_for, -> (diagnosis) do

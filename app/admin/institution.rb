@@ -12,7 +12,7 @@ ActiveAdmin.register Institution do
 
   ## Index
   #
-  includes :antennes, :subjects, :advisors, :experts, :sent_matches, :received_matches
+  includes :antennes, :subjects, :advisors, :experts, :sent_matches, :received_matches, :logo
   config.sort_order = 'slug_asc'
 
   controller do
