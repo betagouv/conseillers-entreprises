@@ -51,7 +51,7 @@
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
               - if antenne_first_row
                 %td.td-header{ rowspan: teams.values.sum(&:size) }
-                  = link_to antenne, institution_antenne_users_path(antenne_id: antenne)
+                  = link_to antenne, admin_antenne_path(antenne)
               - if index_in_team == 0
                 %td.td-header{ rowspan: users.size }
                   - if user.relevant_expert.team?
