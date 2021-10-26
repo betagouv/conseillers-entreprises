@@ -43,9 +43,22 @@ Rails.application.routes.draw do
     end
 
     resources :institutions, param: :slug, only: %i[index show] do
+      collection do
+        get :search
+        get :clear_search
+      end
       resources :subjects, path: 'domaines', only: :index
-      resources :users, path: 'conseillers', only: :index, concerns: :importable
+      resources :users, path: 'conseillers', only: :index, concerns: :importable do
+        collection do
+          get :search
+          get :clear_search
+        end
+      end
       resources :antennes, only: :index, concerns: :importable do
+        collection do
+          get :search
+          get :clear_search
+        end
         resources :users, path: 'conseillers', only: :index
       end
     end

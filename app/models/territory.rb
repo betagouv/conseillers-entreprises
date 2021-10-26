@@ -36,7 +36,7 @@ class Territory < ApplicationRecord
   has_many :facilities, through: :communes, inverse_of: :territories
 
   has_many :bassins_emploi, -> { distinct.bassins_emploi }, through: :communes, source: :territories
-  has_many :regions, -> { distinct.regions }, through: :communes, source: :territories
+  has_many :regions, -> { distinct.regions }, through: :communes, source: :territories, inverse_of: :regions
 
   # :facilities
   has_many :diagnoses, through: :facilities, inverse_of: :facility_territories

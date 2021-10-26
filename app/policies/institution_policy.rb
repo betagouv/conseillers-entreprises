@@ -26,4 +26,12 @@ class InstitutionPolicy < ApplicationPolicy
   def import_create?
     admin?
   end
+
+  def search?
+    admin?
+  end
+
+  def clear_search?
+    search?
+  end
 end

@@ -3,4 +3,5 @@
 .fr-container
   %h1.ui.header= title
 
+  = render 'annuaire/search', form_url: search_institutions_path, init_url: clear_search_institutions_path
   = render 'table', institutions: @institutions

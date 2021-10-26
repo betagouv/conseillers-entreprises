@@ -20,9 +20,11 @@
           - subjects.each do |subject, institutions_subjects|
             - institutions_subjects.each do |institution_subject|
               - experts = institution_subject.not_deleted_experts.with_users
+              - if session[:annuaire_region_id].present?
+                - experts = experts.joins(:regions).where(territories: { id: session[:annuaire_region_id] }).distinct
               - if local_assigns[:antenne]
                 - experts &= antenne.experts
-              - count = experts.size
+              - count = experts.count
               - anomalie_less = count == 0
               - anomalie_more = local_assigns[:antenne] && count > 1
               %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description),
