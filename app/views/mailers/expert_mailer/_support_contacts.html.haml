@@ -6,7 +6,7 @@
         email: antenne.support_user.email)
 - else
   %ul
-    - Territory.with_support.includes(:support_contact).each do |territory|
+    - Territory.deployed_regions.with_support.includes(:support_contact).each do |territory|
       - support_contact = territory.support_contact
       %li= t('.support_contact_html',
         region: territory.name,

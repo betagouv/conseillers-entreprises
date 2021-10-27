@@ -626,7 +626,12 @@ fr:
         notice: "%{resource_name} a été mis à jour avec succès"
   no_data: Données manquantes
   password:
-    complexity_requirement_unmet: doit comprendre des majuscules, minuscules, chiffres et caractères spéciaux.
+    missing_complexity_elements: 'Il manque au mot de passe %{count} des éléments suivants : %{elements}'
+    missing_elements:
+      digit: chiffre
+      downcase: lettre minuscule
+      special: caractère spécial
+      uppercase: lettre majuscule
   solicitation:
     provenance_categories:
       campaign: Campagne

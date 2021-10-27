@@ -110,6 +110,7 @@ ignore_unused:
   - 'faq.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
   - 'solicitation.provenance_categories.*'
+  - 'password.missing_elements.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

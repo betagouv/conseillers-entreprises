@@ -163,6 +163,40 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#password_complexity' do
+    subject { user.password_complexity }
+
+    context '1 uppercase, 1 lower case, 1 number, 1 special car' do
+      let(:user) { build :user, password: 'abAB12;;' }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context '1 uppercase, 1 lower case, 1 number' do
+      let(:user) { build :user, password: 'abcABC12' }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context '1 special car, 1 lower case, 1 number' do
+      let(:user) { build :user, password: 'abc***12' }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context '1 special car, 1 lower case, 1 uppercase' do
+      let(:user) { build :user, password: 'abcABC°°' }
+
+      it { is_expected.to be_truthy }
+    end
+
+    context '1 uppercase, 1 lower case' do
+      let(:user) { build :user, password: 'abcdABCD' }
+
+      it { is_expected.to be_falsey }
+    end
+  end
+
   describe '#never_used_account?' do
     subject { user.never_used_account? }
 
