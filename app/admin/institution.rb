@@ -8,6 +8,8 @@ ActiveAdmin.register Institution do
   end
 
   scope :active, default: true
+  scope :opco
+  scope :acquisition
   scope :deleted
 
   ## Index
