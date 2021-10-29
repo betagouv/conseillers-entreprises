@@ -12,22 +12,6 @@ describe UseCases::SearchFacility do
   let(:inscrit_rcs) { true }
   let(:inscrit_rm) { true }
 
-  describe 'with_siret' do
-    let!(:api_facility) { ApiConsumption::Facility.new(siret) }
-
-    before do
-      allow(ApiConsumption::Facility).to receive(:new).with(siret, {}) { api_facility }
-      allow(api_facility).to receive(:call)
-    end
-
-    it 'calls external service' do
-      described_class.with_siret siret
-
-      expect(ApiConsumption::Facility).to have_received(:new).with(siret, {})
-      expect(api_facility).to have_received(:call)
-    end
-  end
-
   describe 'with_siret_and_save' do
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
@@ -50,7 +34,9 @@ describe UseCases::SearchFacility do
 
       facility_adapter_json = JSON.parse(file_fixture('api_facility_adapter.json').read)
       facility_instance = ApiConsumption::Models::Facility.new(facility_adapter_json)
-      allow(described_class).to receive(:with_siret).with(siret, {}) { facility_instance }
+      api_facility = ApiConsumption::Facility.new(siret)
+      allow(ApiConsumption::Facility).to receive(:new).with(siret, {}) { api_facility }
+      allow(api_facility).to receive(:call) { facility_instance }
     end
 
     context 'first call' do
@@ -62,6 +48,7 @@ describe UseCases::SearchFacility do
 
       it 'calls external service' do
         expect(UseCases::SearchCompany).to have_received(:with_siret).with(siret, {})
+        expect(ApiConsumption::Facility).to have_received(:new).with(siret, {})
       end
 
       it 'sets company and facility' do

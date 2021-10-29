@@ -29,7 +29,7 @@ namespace :update_solicitations_code_region do
       begin
         siret = FormatSiret.clean_siret(solicitation.siret)
         return if siret.blank?
-        searched_etablissement = UseCases::SearchFacility.with_siret(siret)
+        searched_etablissement = ApiConsumption::Facility.new(siret).call
         ## Si mauvais siret
         return if searched_etablissement.blank?
         code_region = searched_etablissement.code_region

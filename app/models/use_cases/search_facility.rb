@@ -1,10 +1,6 @@
 module UseCases
   class SearchFacility
     class << self
-      def with_siret(siret, options = {})
-        ApiConsumption::Facility.new(siret, options).call
-      end
-
       def with_siret_and_save(siret, options = {})
         company = create_or_update_company(siret, options)
         create_or_update_facility(siret, company, options)
