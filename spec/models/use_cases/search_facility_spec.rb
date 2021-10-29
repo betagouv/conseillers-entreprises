@@ -42,7 +42,7 @@ describe UseCases::SearchFacility do
       allow(ApiEntreprise::EtablissementResponse.new({ fake: 'fake' })).to receive(:success?).and_return(true)
 
       cfadock_json = JSON.parse(file_fixture('api_cfadock_get_opco.json').read)
-      # Je sais pas pourquoi, mais sans appel prene trouve préalable à la classe,
+      # Je sais pas pourquoi, mais sans appel préalable à la classe,
       # rspec considere ApiCfadock::QueryFilter comme non instancié
       ApiCfadock::GetOpco
       api_cfadock_queryfilter = ApiCfadock::QueryFilter.new(cfadock_json)

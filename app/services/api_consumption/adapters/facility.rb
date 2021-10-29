@@ -16,7 +16,7 @@ module ApiConsumption::Adapters
     def fetch_api_entreprise_params
       connection = HTTP
       response = ApiEntreprise::EtablissementRequest.new(api_entreprise_token, @siret, connection, @options).response
-      raise ApiEntreprise::ApiEntrepriseError, response.error_message if !response.success?
+      raise ApiEntreprise::ApiEntrepriseError, response.error_message unless response.success?
       response.data["etablissement"]
     end
 

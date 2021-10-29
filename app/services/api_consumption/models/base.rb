@@ -25,7 +25,7 @@ module ApiConsumption::Models
         instance_variable_get("@" + attribute_name.to_s)
       end
 
-      self.send("#{attribute_name}=".to_sym, attribute_value) # if params.key?(key)
+      self.send("#{attribute_name}=".to_sym, attribute_value)
     end
   end
 end
