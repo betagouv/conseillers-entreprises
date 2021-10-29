@@ -56,7 +56,7 @@ fr:
     omniauth_callbacks:
       failure: 'Nous n’avons pas pu vous authentifier via %{kind} : ''%{reason}''.'
       success: Authentifié avec succès via %{kind}.
-    password_minimum_characters: "%{count} caractères minimum, avec des majuscules, minuscules, chiffres et caractères spéciaux"
+    password_minimum_characters: "%{count} caractères minimum, avec au moins 3 types de caractères différents (majuscules, minuscules, chiffres ou caractères spéciaux)"
     passwords:
       edit:
         change_own_password: Enregistrer le mot de passe

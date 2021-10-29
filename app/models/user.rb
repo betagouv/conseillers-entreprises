@@ -201,10 +201,12 @@ class User < ApplicationRecord
   end
 
   def password_complexity
-    # Regexp extracted from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-    return if password.blank? || password =~ /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-+:£€_;\/]).{12,}$/
+    return if password.blank?
+    check = CheckPasswordComplexity.new(password)
+    return true if check.valid?
 
-    errors.add :password, I18n.t('password.complexity_requirement_unmet')
+    errors.add :base, check.error_message
+    false
   end
 
   # Override from Devise::Models::Recoverable:

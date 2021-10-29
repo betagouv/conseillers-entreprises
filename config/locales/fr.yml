@@ -225,6 +225,7 @@ fr:
       format:
         delimiter: ''
   ok: OK
+  or_connector: " ou "
   other: Autre
   previous_step: Précédent
   search: Rechercher
