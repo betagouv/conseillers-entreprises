@@ -41,21 +41,82 @@ RSpec.describe ExpertSubject, type: :model do
       end
     end
 
+    describe 'of_institution' do
+      subject{ described_class.of_institution(institution) }
+
+      let(:institution) { create :institution }
+      let(:other_institution) { create :institution }
+      let!(:expert_subject) do
+        create :expert_subject,
+               institution_subject: create(:institution_subject, institution: institution)
+      end
+      let!(:other_expert_subject) do
+        create :expert_subject,
+               institution_subject: create(:institution_subject, institution: other_institution)
+      end
+
+      it{ is_expected.to match_array [expert_subject] }
+    end
+
+    describe 'not_of_institution' do
+      subject{ described_class.not_of_institution(institution) }
+
+      let(:institution) { create :institution }
+      let(:other_institution) { create :institution }
+      let!(:expert_subject) do
+        create :expert_subject,
+               institution_subject: create(:institution_subject, institution: institution)
+      end
+      let!(:other_expert_subject) do
+        create :expert_subject,
+               institution_subject: create(:institution_subject, institution: other_institution)
+      end
+
+      it{ is_expected.to match_array [other_expert_subject] }
+    end
+
+    describe 'without_irrelevant_opcos' do
+      subject{ described_class.without_irrelevant_opcos(facility) }
+
+      let(:opco) { create :opco }
+      let(:other_opco) { create :opco }
+      let!(:expert_subject) do
+        create :expert_subject,
+               institution_subject: create(:institution_subject, institution: opco)
+      end
+      let!(:other_expert_subject) do
+        create :expert_subject,
+               institution_subject: create(:institution_subject, institution: other_opco)
+      end
+
+      context 'when facility opco exists' do
+        let(:facility) { create :facility, opco: opco }
+
+        it { is_expected.to match_array [expert_subject] }
+      end
+
+      context 'when facility has no opco' do
+        let(:facility) { create :facility, opco: nil }
+
+        it{ is_expected.to be_blank }
+      end
+    end
+
     describe 'in_company_registres' do
       subject{ described_class.in_company_registres(company) }
 
       let(:need) { create :need, company: company }
       let!(:expert_subject_cci) do
         create :expert_subject,
-               expert: create(:expert, institution: create(:institution, name: 'cci'))
+               institution_subject: create(:institution_subject, institution: create(:institution, name: 'cci'))
       end
       let!(:expert_subject_cma) do
         create :expert_subject,
-               expert: create(:expert, institution: create(:institution, name: 'cma'))
+               institution_subject: create(:institution_subject, institution: create(:institution, name: 'cma'))
       end
       let!(:expert_subject_other) do
         create :expert_subject,
-               expert: create(:expert, institution: create(:institution, name: 'other'))
+               institution_subject: create(:institution_subject, institution: create(:institution, name: 'other'))
       end
 
       context 'when company is rcs & rm' do

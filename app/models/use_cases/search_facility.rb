@@ -1,11 +1,6 @@
 module UseCases
   class SearchFacility
     class << self
-      def with_siret(siret, options = {})
-        token = ENV.fetch('API_ENTREPRISE_TOKEN')
-        ApiEntreprise::Etablissements.new(token, options).fetch(siret)
-      end
-
       def with_siret_and_save(siret, options = {})
         company = create_or_update_company(siret, options)
         create_or_update_facility(siret, company, options)
@@ -33,17 +28,19 @@ module UseCases
       end
 
       def create_or_update_facility(siret, company, options = {})
-        api_entreprise_facility = with_siret(siret, options)
-        insee_code = api_entreprise_facility.etablissement['commune_implantation']['code']
-        naf_code = api_entreprise_facility.etablissement['naf']
-        naf_libelle = api_entreprise_facility.etablissement['libelle_naf']
-        naf_code_a10 = NafCode::code_a10(naf_code)
-        code_effectif = api_entreprise_facility.etablissement.dig('tranche_effectif_salarie_etablissement', 'code')
-        readable_locality = api_entreprise_facility.etablissement.readable_locality
+        api_facility = ApiConsumption::Facility.new(siret, options).call
         facility = Facility.find_or_initialize_by siret: siret
-        commune = Commune.find_or_create_by insee_code: insee_code
-        facility.update! company: company, commune: commune, naf_code: naf_code, readable_locality: readable_locality,
-                         code_effectif: code_effectif, naf_libelle: naf_libelle, naf_code_a10: naf_code_a10
+
+        facility.update!(
+          company: company,
+          commune: api_facility.commune,
+          naf_code: api_facility.naf,
+          readable_locality: api_facility.readable_locality,
+          code_effectif: api_facility.code_effectif,
+          naf_libelle: api_facility.naf_libelle,
+          naf_code_a10: api_facility.naf_code_a10,
+          opco: api_facility.opco
+        )
         facility
       end
     end

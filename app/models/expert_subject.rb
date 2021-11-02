@@ -58,19 +58,25 @@ class ExpertSubject < ApplicationRecord
       .where(institutions_subjects: { institution: institution })
   end
 
+  scope :not_of_institution, -> (institution) do
+    joins(institution_subject: :institution)
+      .where.not(institutions_subjects: { institution: institution })
+  end
+
   scope :in_company_registres, -> (company) do
     return if (company.all_registres? || company.none_registres?)
     if company.inscrit_rcs && !company.inscrit_rm
-      except_institution('cma')
+      not_of_institution(Institution.find_by(slug: 'cma'))
     elsif !company.inscrit_rcs && company.inscrit_rm
-      except_institution('cci')
+      not_of_institution(Institution.find_by(slug: 'cci'))
     end
   end
 
-  scope :except_institution, -> (institution_slug) do
-    institution = Institution.find_by(slug: institution_slug)
-    return if institution.nil?
-    where.not(expert: institution.experts)
+  scope :without_irrelevant_opcos, -> (facility) do
+    relevant_opco = facility.opco
+    # Si pas d'opco identifié, on n'envoie à personne
+    irrelevant_opcos = Institution.opco.where.not(id: relevant_opco&.id)
+    not_of_institution(irrelevant_opcos)
   end
 
   scope :support_for, -> (diagnosis) do

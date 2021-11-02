@@ -2,6 +2,10 @@
 
 FactoryBot.define do
   factory :institution do
-    name { Faker::Company.unique.name }
+    sequence(:name) { |n| Faker::Company.name + n.to_s }
+
+    factory :opco do
+      categories { [build(:category, label: 'opco')] }
+    end
   end
 end

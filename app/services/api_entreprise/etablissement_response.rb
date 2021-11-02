@@ -2,7 +2,7 @@
 
 module ApiEntreprise
   class EtablissementResponse
-    attr_reader :http_response
+    attr_reader :http_response, :data
 
     DEFAULT_ERROR_MESSAGE = I18n.t('api_entreprise.default_error_message.etablissement')
 

@@ -12,40 +12,43 @@ describe UseCases::SearchFacility do
   let(:inscrit_rcs) { true }
   let(:inscrit_rm) { true }
 
-  describe 'with_siret' do
-    let!(:etablissements_instance) { ApiEntreprise::Etablissements.new(token) }
-
-    before do
-      ENV['API_ENTREPRISE_TOKEN'] = token
-      allow(ApiEntreprise::Etablissements).to receive(:new).with(token, {}) { etablissements_instance }
-      allow(etablissements_instance).to receive(:fetch).with(siret)
-    end
-
-    it 'calls external service' do
-      described_class.with_siret siret
-
-      expect(ApiEntreprise::Etablissements).to have_received(:new).with(token, {})
-      expect(etablissements_instance).to have_received(:fetch).with(siret)
-    end
-  end
-
   describe 'with_siret_and_save' do
     before do
+      ENV['API_ENTREPRISE_TOKEN'] = token
       company_json = JSON.parse(file_fixture('api_entreprise_entreprise_request_data.json').read)
       entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
       allow(UseCases::SearchCompany).to receive(:with_siret).with(siret, {}) { entreprises_instance }
 
-      facility_json = JSON.parse(file_fixture('api_entreprise_get_etablissement.json').read)
-      facility_instance = ApiEntreprise::EtablissementWrapper.new(facility_json)
-      allow(described_class).to receive(:with_siret).with(siret, {}) { facility_instance }
+      api_entreprise_facility_json = JSON.parse(file_fixture('api_entreprise_get_etablissement.json').read)
+      allow(ApiEntreprise::EtablissementRequest).to receive(:new).with(token, siret, HTTP, {})
+      allow(ApiEntreprise::EtablissementRequest.new(token, siret, HTTP, {})).to receive(:response) { ApiEntreprise::EtablissementResponse.new({ fake: 'fake' }) }
+      allow(ApiEntreprise::EtablissementResponse).to receive(:new).with({ fake: 'fake' }) { OpenStruct.new({ data: api_entreprise_facility_json, success?: true }) }
+      allow(ApiEntreprise::EtablissementResponse.new({ fake: 'fake' })).to receive(:success?).and_return(true)
+
+      cfadock_json = JSON.parse(file_fixture('api_cfadock_get_opco.json').read)
+      # Je sais pas pourquoi, mais sans appel préalable à la classe,
+      # rspec considere ApiCfadock::QueryFilter comme non instancié
+      ApiCfadock::GetOpco
+      api_cfadock_queryfilter = ApiCfadock::QueryFilter.new(cfadock_json)
+      allow(ApiCfadock::GetOpco).to receive(:call).with(siret) { api_cfadock_queryfilter }
+
+      facility_adapter_json = JSON.parse(file_fixture('api_facility_adapter.json').read)
+      facility_instance = ApiConsumption::Models::Facility.new(facility_adapter_json)
+      api_facility = ApiConsumption::Facility.new(siret)
+      allow(ApiConsumption::Facility).to receive(:new).with(siret, {}) { api_facility }
+      allow(api_facility).to receive(:call) { facility_instance }
     end
 
     context 'first call' do
-      before { described_class.with_siret_and_save siret }
+      let!(:opco) { create :opco, siren: "851296632" }
+
+      before do
+        described_class.with_siret_and_save siret
+      end
 
       it 'calls external service' do
         expect(UseCases::SearchCompany).to have_received(:with_siret).with(siret, {})
-        expect(described_class).to have_received(:with_siret).with(siret, {})
+        expect(ApiConsumption::Facility).to have_received(:new).with(siret, {})
       end
 
       it 'sets company and facility' do
@@ -61,6 +64,7 @@ describe UseCases::SearchFacility do
         expect(facility.commune.insee_code).to eq '75102'
         expect(facility.naf_code).to eq naf_code
         expect(facility.code_effectif).to eq code_effectif
+        expect(facility.opco).to eq opco
       end
     end
 

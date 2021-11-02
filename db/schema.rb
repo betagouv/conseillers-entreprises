@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_01_142356) do
+ActiveRecord::Schema.define(version: 2021_10_20_073100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,19 @@ ActiveRecord::Schema.define(version: 2021_10_01_142356) do
   create_table "badges_solicitations", id: false, force: :cascade do |t|
     t.bigint "badge_id", null: false
     t.bigint "solicitation_id", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "label", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "categories_institutions", id: false, force: :cascade do |t|
+    t.bigint "institution_id", null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_categories_institutions_on_category_id"
+    t.index ["institution_id"], name: "index_categories_institutions_on_institution_id"
   end
 
   create_table "communes", force: :cascade do |t|
@@ -213,8 +226,10 @@ ActiveRecord::Schema.define(version: 2021_10_01_142356) do
     t.string "code_effectif"
     t.string "naf_libelle"
     t.string "naf_code_a10"
+    t.bigint "opco_id"
     t.index ["commune_id"], name: "index_facilities_on_commune_id"
     t.index ["company_id"], name: "index_facilities_on_company_id"
+    t.index ["opco_id"], name: "index_facilities_on_opco_id"
     t.index ["siret"], name: "index_facilities_on_siret", unique: true, where: "((siret)::text <> NULL::text)"
   end
 
@@ -240,6 +255,7 @@ ActiveRecord::Schema.define(version: 2021_10_01_142356) do
     t.datetime "deleted_at"
     t.integer "code_region"
     t.boolean "display_logo", default: false
+    t.text "siren"
     t.index ["code_region"], name: "index_institutions_on_code_region"
     t.index ["deleted_at"], name: "index_institutions_on_deleted_at"
     t.index ["name"], name: "index_institutions_on_name", unique: true
@@ -519,6 +535,7 @@ ActiveRecord::Schema.define(version: 2021_10_01_142356) do
   add_foreign_key "experts_users", "users"
   add_foreign_key "facilities", "communes"
   add_foreign_key "facilities", "companies"
+  add_foreign_key "facilities", "institutions", column: "opco_id"
   add_foreign_key "feedbacks", "users"
   add_foreign_key "institutions_subjects", "institutions"
   add_foreign_key "institutions_subjects", "subjects"

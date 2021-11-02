@@ -26,7 +26,7 @@ class CompaniesController < ApplicationController
     end
 
     begin
-      @facility = UseCases::SearchFacility.with_siret siret
+      @facility = ApiConsumption::Facility.new(siret).call
       @company = UseCases::SearchCompany.with_siret siret
     rescue ApiEntreprise::ApiEntrepriseError => e
       message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.

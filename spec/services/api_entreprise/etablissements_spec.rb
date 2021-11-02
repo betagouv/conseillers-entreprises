@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe ApiEntreprise::Etablissements do
   let(:facility) { described_class.new(token).fetch(siren) }
-
   let(:base_url) { 'https://entreprise.api.gouv.fr/v2/etablissements' }
 
   before { Rails.cache.clear }
