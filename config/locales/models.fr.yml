@@ -23,6 +23,7 @@ fr:
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     scopes:
+      acquisition: Acquisition
       active: Actifs
       admin: Admins
       all: Tout
@@ -33,6 +34,7 @@ fr:
       deleted: Supprimés
       diagnosis_completed: Analyses terminées
       done: Clôturé
+      expert_provider: Fournisseur d'experts
       from_solicitation: Sollicitations
       from_visit: Visites
       invitation_not_accepted: Invitations pas encore acceptées
@@ -41,6 +43,7 @@ fr:
       no_team: Solo
       not_archived: Non archivés
       not_taken_after_3_weeks: 3 semaines sans réponse
+      opco: Opco
       personal_skillsets: Individuel
       relevant_for_skills: Compétences visibles
       sent: Mises en relation envoyées
@@ -87,10 +90,10 @@ fr:
       user_info: Informations utilisateur
   activerecord:
     attributes:
-      antenne: 
+      antenne:
       commune:
         insee_code: Code commune
-      company: 
+      company:
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
@@ -470,6 +473,7 @@ fr:
     badges:
       one: Tag
       other: Tags
+    categories: Catégories
     code_effectif: Tranche d’effectif
     communes: Communes
     community: Communauté

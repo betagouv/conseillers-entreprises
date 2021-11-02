@@ -1,7 +1,7 @@
 class AddOpcoFields < ActiveRecord::Migration[6.1]
   def up
     create_table :categories do |t|
-      t.string :title, null: false
+      t.string :label, null: false
       t.timestamps
     end
 
@@ -14,14 +14,19 @@ class AddOpcoFields < ActiveRecord::Migration[6.1]
     add_reference :facilities, :opco, foreign_key: { to_table: :institutions }, null: true
 
     # Partenaires d'acquisition
-    acquisition_category = Category.create(title: 'acquisition')
+    acquisition_category = Category.create(label: 'acquisition')
     Institution.where(Institution.arel_table[:name].matches("%#{"acquisition"}%")).each do |acquisition_partner|
       acquisition_partner.categories << acquisition_category
     end
 
-    # OPCO
-    opco_category = Category.create(title: 'opco')
+    # Partenaires qui fournissent des experts
+    expert_category = Category.create(label: 'expert_provider')
+    Institution.where.not(Institution.arel_table[:name].matches("%#{"acquisition"}%")).each do |expert_partner|
+      expert_partner.categories << expert_category
+    end
 
+    # OPCO
+    opco_category = Category.create(label: 'opco')
     [
       [ "OPCO AKTO", "853000982" ],
       [ "OPCO 2i", "849813852" ],

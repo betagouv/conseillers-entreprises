@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :category do
-    title { Faker::Verb.base }
+    label { Faker::Verb.base }
   end
 end
