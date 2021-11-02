@@ -5,9 +5,11 @@ class AddOpcoFields < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    create_join_table :institutions, :categories do |t|
-      t.index :institution_id
-      t.index :category_id
+    create_table :categories_institutions, id: false, force: :cascade do |t|
+      t.bigint :institution_id, null: false
+      t.bigint :category_id, null: false
+      t.index ["category_id"], name: "index_categories_institutions_on_category_id"
+      t.index ["institution_id"], name: "index_categories_institutions_on_institution_id"
     end
 
     add_column :institutions, :siren, :text
