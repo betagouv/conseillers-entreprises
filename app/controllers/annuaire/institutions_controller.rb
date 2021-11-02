@@ -14,10 +14,7 @@ module  Annuaire
     end
 
     def search
-      @institutions = @institutions
-        .joins(antennes: :regions)
-        .where(antennes: { territories: { id: [@region_id] } })
-        .distinct
+      @institutions = @institutions.in_region(@region_id)
       render :index
     end
 

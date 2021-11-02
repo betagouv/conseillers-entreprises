@@ -178,6 +178,13 @@ class User < ApplicationRecord
   # This makes it possible to preload it in views.
   belongs_to :relevant_expert, class_name: 'Expert', optional: true
 
+  # distinct not works for /annuaire/institutions/:slug/conseillers/search?region_id=region_id
+  scope :in_region, -> (region_id) do
+    joins(antenne: :regions)
+      .where(antennes: { territories: { id: [region_id] } })
+      .uniq
+  end
+
   ## Keys for flags preferences
   #
   FLAGS = %i[

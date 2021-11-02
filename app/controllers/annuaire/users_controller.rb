@@ -25,10 +25,7 @@ module  Annuaire
     end
 
     def search
-      @users = @users
-        .joins(antenne: :regions)
-        .where(antennes: { territories: { id: [@region_id] } })
-        .uniq
+      @users = @users.in_region(@region_id)
 
       group_subjects
 
