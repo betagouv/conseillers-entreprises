@@ -44,6 +44,11 @@ describe CompanyMailerService do
     end
 
     it 'updates retention_email_sent' do
+      p need_2
+      p need_2.diagnosis
+      p need_2.maches
+      p need_2.errors unless need_2.valid?
+      p need_2.diagnosis.errors unless need_2.diagnosis.valid?
       expect(need_2.diagnosis.reload.retention_email_sent).to eq true
       expect(need_3.diagnosis.reload.retention_email_sent).to eq true
       expect(need_4.diagnosis.reload.retention_email_sent).to eq true
