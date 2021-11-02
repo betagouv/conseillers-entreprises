@@ -90,10 +90,10 @@ fr:
       user_info: Informations utilisateur
   activerecord:
     attributes:
-      antenne:
+      antenne: 
       commune:
         insee_code: Code commune
-      company:
+      company: 
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
