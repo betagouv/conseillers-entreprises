@@ -11,7 +11,6 @@ ActiveAdmin.register Contact do
     selectable_column
     column(:coordinates, sortable: :full_name) do |c|
       div admin_link_to(c)
-      div '☞ ' + (c.role.presence || '')
       div '✉ ' + (c.email || '')
       div '✆ ' + (c.phone_number || '')
     end
@@ -27,14 +26,12 @@ ActiveAdmin.register Contact do
   filter :full_name
   filter :email
   filter :phone_number
-  filter :role
   filter :created_at
 
   ## CSV
   #
   csv do
     column :full_name
-    column :role
     column :email
     column :phone_number
     column :company
@@ -45,7 +42,6 @@ ActiveAdmin.register Contact do
   show do
     attributes_table do
       row :full_name
-      row :role
       row :email
       row :phone_number
       row :company
@@ -58,12 +54,11 @@ ActiveAdmin.register Contact do
 
   ## Form
   #
-  permit_params :full_name, :role, :email, :phone_number, :company_id
+  permit_params :full_name, :email, :phone_number, :company_id
 
   form do |f|
     f.inputs do
       f.input :full_name
-      f.input :role
       f.input :email
       f.input :phone_number
 

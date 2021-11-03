@@ -6,7 +6,6 @@
 #  email        :string
 #  full_name    :string
 #  phone_number :string
-#  role         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  company_id   :bigint(8)        not null
