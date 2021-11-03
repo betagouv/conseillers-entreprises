@@ -20,9 +20,11 @@
           - subjects.each do |subject, institutions_subjects|
             - institutions_subjects.each do |institution_subject|
               - experts = institution_subject.not_deleted_experts.with_users
+              - if session[:annuaire_region_id].present?
+                - experts = experts.joins(:regions).where(territories: { id: session[:annuaire_region_id] }).distinct
               - if local_assigns[:antenne]
                 - experts &= antenne.experts
-              - count = experts.size
+              - count = experts.count
               - anomalie_less = count == 0
               - anomalie_more = local_assigns[:antenne] && count > 1
               %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description),
@@ -36,7 +38,7 @@
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
-      - grouped_users = users.group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
+      - grouped_users = users.select('"antennes".*').group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
       - highlighted_antennes_ids = flash[:highlighted_antennes_ids]
       - grouped_users.each do |antenne, teams|
         - next if highlighted_antennes_ids.present? && flash[:highlighted_antennes_ids].exclude?(antenne.id)
@@ -51,7 +53,7 @@
             %tr{ class: [antenne_separation_class, highlighted_class].compact.join(" ") }
               - if antenne_first_row
                 %td.td-header{ rowspan: teams.values.sum(&:size) }
-                  = link_to antenne, institution_antenne_users_path(antenne_id: antenne)
+                  = link_to antenne, admin_antenne_path(antenne)
               - if index_in_team == 0
                 %td.td-header{ rowspan: users.size }
                   - if user.relevant_expert.team?

@@ -1,11 +1,9 @@
 module  Annuaire
   class AntennesController < BaseController
-    def index
-      @antennes = @institution.antennes
-        .not_deleted
-        .order(:name)
-        .preload(:communes)
+    before_action :retrieve_region_id, only: :index
+    before_action :retrieve_antennes, only: :index
 
+    def index
       respond_to do |format|
         format.html
         format.csv do
@@ -13,6 +11,11 @@ module  Annuaire
           send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
         end
       end
+    end
+
+    def clear_search
+      clear_annuaire_session
+      redirect_to institution_antennes_path(@institution)
     end
 
     def import; end
@@ -25,6 +28,12 @@ module  Annuaire
       else
         render :import
       end
+    end
+
+    private
+
+    def retrieve_antennes
+      @antennes = @institution.retrieve_antennes(session[:annuaire_region_id])
     end
   end
 end

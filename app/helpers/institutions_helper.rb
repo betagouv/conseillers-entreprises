@@ -15,4 +15,20 @@ module InstitutionsHelper
     params = { class: 'institution_logo' }
     display_image({ name: name, path: "institutions/", extra_params: params })
   end
+
+  def antennes_count(institution)
+    if session[:annuaire_region_id].present?
+      institution.antennes_in_region(session[:annuaire_region_id]).human_count
+    else
+      institution.not_deleted_antennes.human_count
+    end
+  end
+
+  def advisors_count(institution)
+    if session[:annuaire_region_id].present?
+      institution.advisors_in_region(session[:annuaire_region_id]).human_count
+    else
+      institution.advisors.human_count
+    end
+  end
 end

@@ -34,6 +34,9 @@ fr:
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
+    search:
+      filter: Filtrer
+      select_region: Selectionnez une région
     users:
       table:
         edit_expert: Modifier %{expert_name} - %{antenne}
@@ -72,6 +75,7 @@ fr:
   breadcrumbs_helper:
     home_link:
       home: Accueil
+  clear_search: Réinitialiser la recherche
   companies:
     company:
       capital_social: Capital social

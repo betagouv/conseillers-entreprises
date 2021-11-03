@@ -1,19 +1,11 @@
 module  Annuaire
   class UsersController < BaseController
+    before_action :retrieve_region_id, only: :index
+    before_action :retrieve_antenne, only: :index
+    before_action :retrieve_users, only: :index
+
     def index
-      @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
-
-      @users = (@antenne || @institution).advisors
-        .relevant_for_skills
-        .joins(:antenne)
-        .order('antennes.name', 'team_name', 'users.full_name')
-        .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
-
-      institutions_subjects = @institution.institutions_subjects
-        .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
-
-      @grouped_subjects = institutions_subjects
-        .group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
+      group_subjects
 
       xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
 
@@ -30,6 +22,15 @@ module  Annuaire
       end
     end
 
+    def clear_search
+      clear_annuaire_session
+      if params[:antenne].present?
+        redirect_to institution_antenne_users_path(@institution, params[:antenne])
+      else
+        redirect_to institution_users_path(@institution)
+      end
+    end
+
     def import; end
 
     def import_create
@@ -41,6 +42,32 @@ module  Annuaire
       else
         render :import
       end
+    end
+
+    private
+
+    def retrieve_antenne
+      @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
+    end
+
+    def retrieve_users
+      @users = (@antenne || @institution).advisors
+        .relevant_for_skills
+        .order('antennes.name', 'team_name', 'users.full_name')
+        .joins(:antenne)
+        .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
+
+      if @region_id.present?
+        @users = @users.in_region(@region_id)
+      end
+    end
+
+    def group_subjects
+      institutions_subjects = @institution.institutions_subjects
+        .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
+
+      @grouped_subjects = institutions_subjects
+        .group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
     end
   end
 end

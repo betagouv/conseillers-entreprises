@@ -72,6 +72,12 @@ class Institution < ApplicationRecord
   scope :expert_provider, -> { active.joins(:categories).where(categories: { label: 'expert_provider' }) }
   scope :acquisition, -> { active.joins(:categories).where(categories: { label: 'acquisition' }) }
 
+  scope :in_region, -> (region_id) do
+    joins(antennes: :regions)
+      .where(antennes: { territories: { id: [region_id] } })
+      .distinct
+  end
+
   ## Institution subjects helpers
   #
 
@@ -86,6 +92,21 @@ class Institution < ApplicationRecord
 
   ##
   #
+  def antennes_in_region(region_id)
+    not_deleted_antennes
+      .order(:name)
+      .joins(:regions)
+      .where(antennes: { territories: { id: [region_id] } })
+      .distinct
+  end
+
+  def advisors_in_region(region_id)
+    advisors
+      .joins(:regions)
+      .where(antennes: { territories: { id: [region_id] } })
+      .distinct
+  end
+
   def to_param
     slug
   end
@@ -98,5 +119,26 @@ class Institution < ApplicationRecord
     if name.present?
       self.slug = name.parameterize.underscore
     end
+  end
+
+  def retrieve_antennes(region_id)
+    retrieved_antennes = if region_id.present?
+      antennes_in_region(region_id)
+    else
+      antennes
+    end
+    retrieved_antennes
+      .not_deleted
+      .order(:name)
+      .preload(:communes)
+  end
+
+  def self.retrieve_institutions(region_id)
+    institutions = not_deleted
+      .order(:slug)
+      .preload([institutions_subjects: :theme], :not_deleted_antennes, :advisors)
+
+    institutions = institutions.in_region(region_id) if region_id.present?
+    institutions
   end
 end
