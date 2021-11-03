@@ -42,23 +42,16 @@ Rails.application.routes.draw do
       post :import, action: :import_create, on: :collection
     end
 
-    resources :institutions, param: :slug, only: %i[index show] do
+    concern :region_search do
       collection do
-        get :search
         get :clear_search
       end
+    end
+
+    resources :institutions, param: :slug, only: %i[index show], concerns: :region_search do
       resources :subjects, path: 'domaines', only: :index
-      resources :users, path: 'conseillers', only: :index, concerns: :importable do
-        collection do
-          get :search
-          get :clear_search
-        end
-      end
-      resources :antennes, only: :index, concerns: :importable do
-        collection do
-          get :search
-          get :clear_search
-        end
+      resources :users, path: 'conseillers', only: :index, concerns: [:importable, :region_search]
+      resources :antennes, only: :index, concerns: [:importable, :region_search] do
         resources :users, path: 'conseillers', only: :index
       end
     end

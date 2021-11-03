@@ -1,12 +1,10 @@
 module  Annuaire
   class UsersController < BaseController
-    before_action :retrieve_antenne, only: %i[index search]
-    before_action :retrieve_users, only: %i[index search]
-    before_action :retrieve_region_id, only: :search
+    before_action :retrieve_region_id, only: :index
+    before_action :retrieve_antenne, only: :index
+    before_action :retrieve_users, only: :index
 
     def index
-      redirect_to search_institution_users_path(@institution) if session[:annuaire_region_id].present? && @antenne.nil?
-
       group_subjects
 
       xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
@@ -22,14 +20,6 @@ module  Annuaire
           send_data result.xlsx, type: "application/xlsx", filename: xlsx_filename
         end
       end
-    end
-
-    def search
-      @users = @users.in_region(@region_id)
-
-      group_subjects
-
-      render :index
     end
 
     def clear_search
@@ -66,6 +56,10 @@ module  Annuaire
         .order('antennes.name', 'team_name', 'users.full_name')
         .joins(:antenne)
         .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
+
+      if @region_id.present?
+        @users = @users.in_region(@region_id)
+      end
     end
 
     def group_subjects

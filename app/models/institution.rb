@@ -120,4 +120,25 @@ class Institution < ApplicationRecord
       self.slug = name.parameterize.underscore
     end
   end
+
+  def retrieve_antennes(region_id)
+    retrieved_antennes = if region_id.present?
+      antennes_in_region(region_id)
+    else
+      antennes
+    end
+    retrieved_antennes
+      .not_deleted
+      .order(:name)
+      .preload(:communes)
+  end
+
+  def self.retrieve_institutions(region_id)
+    institutions = not_deleted
+      .order(:slug)
+      .preload([institutions_subjects: :theme], :not_deleted_antennes, :advisors)
+
+    institutions = institutions.in_region(region_id) if region_id.present?
+    institutions
+  end
 end

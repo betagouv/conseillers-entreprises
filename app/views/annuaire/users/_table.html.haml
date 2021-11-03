@@ -38,7 +38,7 @@
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)
         We’ll group by Antenne and by Expert team, and span the first two columns as needed.
-      - grouped_users = users.group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
+      - grouped_users = users.select('"antennes".*').group_by(&:antenne).transform_values{ |users| users.group_by(&:relevant_expert) }
       - highlighted_antennes_ids = flash[:highlighted_antennes_ids]
       - grouped_users.each do |antenne, teams|
         - next if highlighted_antennes_ids.present? && flash[:highlighted_antennes_ids].exclude?(antenne.id)

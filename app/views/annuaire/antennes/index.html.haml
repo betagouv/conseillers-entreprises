@@ -3,7 +3,7 @@
 - content_for :menu, render('menu', institution: @institution)
 
 .fr-container
-  = render 'annuaire/search', form_url: search_institution_antennes_path(@institution.slug), init_url: clear_search_institution_antennes_path(@institution.slug)
+  = render 'annuaire/search', form_url: institution_antennes_path(@institution.slug), init_url: clear_search_institution_antennes_path(@institution.slug)
 
   = render 'import_buttons'
 
