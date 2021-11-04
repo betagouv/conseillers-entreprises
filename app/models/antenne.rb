@@ -71,12 +71,6 @@ class Antenne < ApplicationRecord
       .where("(antennes.name, institutions.name) IN (#{(['(?)'] * tuples_array.size).join(', ')})", *tuples_array)
   end
 
-  scope :in_region, -> (region_id) do
-    joins(antennes: :regions)
-      .where(antennes: { territories: { id: [region_id] } })
-      .distinct
-  end
-
   ##
   #
   def to_s

@@ -73,8 +73,10 @@ class Institution < ApplicationRecord
   scope :acquisition, -> { active.joins(:categories).where(categories: { label: 'acquisition' }) }
 
   scope :in_region, -> (region_id) do
-    joins(antennes: :regions)
+    left_joins(antennes: :regions)
+      .left_joins(antennes: :experts)
       .where(antennes: { territories: { id: [region_id] } })
+      .or(Institution.where(experts: { is_global_zone: true }))
       .distinct
   end
 
@@ -94,16 +96,18 @@ class Institution < ApplicationRecord
   #
   def antennes_in_region(region_id)
     not_deleted_antennes
-      .order(:name)
-      .joins(:regions)
+      .left_joins(:regions, :experts)
       .where(antennes: { territories: { id: [region_id] } })
+      .or(self.antennes.where(experts: { is_global_zone: true }))
+      .order(:name)
       .distinct
   end
 
   def advisors_in_region(region_id)
     advisors
-      .joins(:regions)
+      .left_joins(:regions, :experts)
       .where(antennes: { territories: { id: [region_id] } })
+      .or(self.antennes.where(experts: { is_global_zone: true }))
       .distinct
   end
 
