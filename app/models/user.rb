@@ -180,6 +180,7 @@ class User < ApplicationRecord
 
   scope :in_region, -> (region_id) do
     joins(antenne: :regions)
+      .select('"antennes".*')
       .where(antennes: { territories: { id: [region_id] } })
       .distinct
   end

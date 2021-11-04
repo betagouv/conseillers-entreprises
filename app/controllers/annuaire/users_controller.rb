@@ -5,7 +5,11 @@ module  Annuaire
     before_action :retrieve_users, only: :index
 
     def index
-      group_subjects
+      institutions_subjects = @institution.institutions_subjects
+        .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
+
+      @grouped_subjects = institutions_subjects
+        .group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
 
       xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
 
@@ -60,14 +64,6 @@ module  Annuaire
       if @region_id.present?
         @users = @users.in_region(@region_id)
       end
-    end
-
-    def group_subjects
-      institutions_subjects = @institution.institutions_subjects
-        .preload(:subject, :theme, :experts_subjects, :not_deleted_experts)
-
-      @grouped_subjects = institutions_subjects
-        .group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
     end
   end
 end
