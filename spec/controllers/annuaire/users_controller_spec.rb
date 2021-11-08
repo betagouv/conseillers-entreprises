@@ -37,9 +37,11 @@ RSpec.describe Annuaire::UsersController, type: :controller do
       # Utilisateur dans la région OK (user_1)
       # Utilisateur en dehors de la région KO (user_2)
 
-      xit 'return users for the selected region' do
+      it 'return users for the selected region' do
         request
-        expect(assigns(:users)).to match_array([user_1])
+        # Search Users due to 'relevant_for_skills' scope which return duplicate rows for users
+        user = assigns(:users).find_by(email: user_1.email)
+        expect(assigns(:users)).to match_array([user])
       end
     end
   end
