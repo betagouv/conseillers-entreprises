@@ -1,4 +1,3 @@
-
 <%= javascript_tag nonce: true do -%>
   var cookieText = "<%= @cookie_text %>"
   var tarteaucitronCustomText = {
@@ -6,23 +5,23 @@
   };
 <% end %>
 
-<%= javascript_include_tag 'https://cdn.jsdelivr.net/gh/AmauriC/tarteaucitron.js@20210329/tarteaucitron.min.js', crossorigin: 'anonymous', integrity: "sha384-RjI0In9EY5Sl0H6wm3ZmWRGZzBiy5eRJ567WL5okXwadLsN6ICEBb/gCiHHnQjvX", nonce: true %>
+<%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.5/tarteaucitron.min.js', crossorigin: 'anonymous', integrity: "sha256-5cw2E/j9N+6z4wJ7Xm2kxPmXeghPcva8lL12pw0oJjY=", nonce: true %>
 
 <%= javascript_tag nonce: true do -%>
   tarteaucitron.services.google_ads = {
-    "key": "google_ads",
-    "type": "ads",
-    "name": "Google Ads (remarketing)",
-    "uri": "https://policies.google.com/privacy",
-    "needConsent": true,
-    "cookies": ['__Secure-3PSIDCC', '__Secure-3PSID', '__Secure-3PAPISID', 'NID'],
-    "js": function () {
-      "use strict";
+  "key": "google_ads",
+  "type": "ads",
+  "name": "Google Ads (remarketing)",
+  "uri": "https://policies.google.com/privacy",
+  "needConsent": true,
+  "cookies": ['__Secure-3PSIDCC', '__Secure-3PSID', '__Secure-3PAPISID', 'NID'],
+  "js": function () {
+    "use strict";
+      tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw);
       window.dataLayer = window.dataLayer || [];
       window.gtag = function gtag() { dataLayer.push(arguments); }
       gtag('js', new Date());
-
-      tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagAw);
+      gtag('config', tarteaucitron.user.gtagAw);
     }
   };
 
