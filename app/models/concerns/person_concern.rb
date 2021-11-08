@@ -66,7 +66,7 @@ module PersonConcern
   end
 
   def normalize_role
-    return unless self.role
+    return unless self.class.method_defined?(:role) && self.role.present?
 
     self.role = self.role.squish.titleize
   end

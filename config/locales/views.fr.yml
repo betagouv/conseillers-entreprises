@@ -222,8 +222,6 @@ fr:
         new_city: Rechercher pour une autre localité que %{locality}
         new_city_title: Nouvelle localité
         phone_number: Numéro de télephone
-        role: Fonction au sein de l’entreprise
-        role_placeholder: Directeur, Gérant…
         your_contact_in_the_company: 'Votre contact chez %{company_name} :'
   download_xls: Télécharger XLSX
   experts:

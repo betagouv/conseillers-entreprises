@@ -83,7 +83,7 @@ class Diagnoses::StepsController < ApplicationController
   def params_for_visit
     params.require(:diagnosis)
       .permit(:happened_on,
-              visitee_attributes: [:full_name, :role, :email, :phone_number, :id],
+              visitee_attributes: [:full_name, :email, :phone_number, :id],
               facility_attributes: [:insee_code, :id])
   end
 
