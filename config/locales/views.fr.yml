@@ -35,6 +35,7 @@ fr:
           one: En-tête non reconnu
           other: En-têtes non reconnus
     search:
+      all_regions: Toutes
       filter: Filtrer
       select_region: Selectionnez une région
     users:

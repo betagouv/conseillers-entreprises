@@ -179,9 +179,11 @@ class User < ApplicationRecord
   belongs_to :relevant_expert, class_name: 'Expert', optional: true
 
   scope :in_region, -> (region_id) do
-    joins(antenne: :regions)
+    left_joins(antenne: :regions)
+      .left_joins(:experts)
       .select('"antennes".*')
       .where(antennes: { territories: { id: [region_id] } })
+      .or(self.select('"antennes".*').where(experts: { is_global_zone: true }))
       .distinct
   end
 
