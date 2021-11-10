@@ -1,7 +1,7 @@
 - title = Institution.model_name.human.pluralize
 - meta title: title
 .fr-container
-  %h1.ui.header= title
+  %h1= title
 
   = render 'annuaire/search', form_url: institutions_path, init_url: clear_search_institutions_path
   = render 'table', institutions: @institutions

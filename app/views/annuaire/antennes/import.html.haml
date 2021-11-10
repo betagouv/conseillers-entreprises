@@ -7,7 +7,7 @@
 - if @result.present?
   = render 'import_errors', result: @result
 
-= form_with url: import_institution_antennes_path, local: true, class: 'ui form' do |f|
-  .ui.inline.field
+= form_with url: import_institution_antennes_path, local: true do |f|
+  .fr-input-group.fr-mt-6w
     = f.file_field :file, accept: 'text/csv', required: true
-  = f.submit t('submit'), class: 'ui right floated button'
+  = f.submit t('submit'), class: 'fr-btn'

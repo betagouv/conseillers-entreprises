@@ -1,13 +1,13 @@
-.ui.secondary.fitted.menu
-  .item
-    = link_to institution_users_path(format: 'csv'), class: 'ui labeled icon' do
+.fr-mb-3w
+  %span.fr-ml-2w
+    = link_to institution_users_path(format: 'csv') do
       %span.ri-download-2-line.fr-mr-1w
       = t('download_csv')
-  .item
-    = link_to institution_users_path(format: 'xlsx', antenne_id: params[:antenne_id]), class: 'ui labeled icon' do
+  %span.fr-ml-2w
+    = link_to institution_users_path(format: 'xlsx', antenne_id: params[:antenne_id]) do
       %span.ri-download-2-line.fr-mr-1w
       = t('download_xls')
-  .item
-    = link_to import_institution_users_path, class: 'ui labeled icon' do
+  %span.fr-ml-2w
+    = link_to import_institution_users_path do
       %span.ri-upload-2-line.fr-mr-1w
       = t('import')
