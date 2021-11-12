@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module ApiEntreprise::Etablissement
-  class Effectifs < ApiEntreprise::Base
+module ApiEntreprise::Etablissement::Effectifs
+  class Base < ApiEntreprise::Base
     def request
       Request.new(@siren_or_siret)
     end
 
-    def formatted_response(http_request)
-      Response.new(http_request)
+    def responder(http_request)
+      Responder.new(http_request)
     end
 
     # Retourne hash vide en cas d'erreur
@@ -47,9 +47,8 @@ module ApiEntreprise::Etablissement
     end
   end
 
-  class Response < ApiEntreprise::Response
+  class Responder < ApiEntreprise::Responder
     def format_data
-      p @http_request
       { "effectifs" => @http_request.data.slice('annee', 'mois', 'effectifs_mensuels') }
     end
   end

@@ -12,7 +12,7 @@ module ApiEntreprise
       Rails.cache.fetch([id_key, @siren_or_siret].join('-'), expires_in: 12.hours) do
         http_request = request
         if http_request.success?
-          formatted_response(http_request).call
+          responder(http_request).call
         else
           handle_error(http_request)
         end
@@ -23,8 +23,8 @@ module ApiEntreprise
       Request.new(@siren_or_siret)
     end
 
-    def formatted_response(http_request)
-      Response.new(http_request)
+    def responder(http_request)
+      Responder.new(http_request)
     end
 
     def handle_error(http_request)
@@ -60,9 +60,9 @@ module ApiEntreprise
       @error.nil? && @http_response.status.success?
     end
 
-      def error_message
-        @error&.message || @data['errors']&.join('\n') || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
-      end
+    def error_message
+      @error&.message || @data['errors']&.join('\n') || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
+    end
 
     private
 
@@ -92,15 +92,15 @@ module ApiEntreprise
     end
   end
 
-  class Response
-    attr_reader :data
+  class Responder
+    # attr_reader :data
 
     def initialize(http_request)
       @http_request = http_request
     end
 
     def call
-      @data = format_data
+      format_data
     end
 
     def format_data

@@ -14,7 +14,8 @@ module ApiConsumption::Models
         :pays_implantation,
         :adresse,
         :diffusable_commercialement,
-        :opcoSiren
+        :opcoSiren,
+        :effectifs
       ]
     end
 
@@ -31,11 +32,11 @@ module ApiConsumption::Models
     end
 
     def tranche_effectif
-      @tranche_effectif ||= tranche_effectif_salarie_etablissement['intitule'] if tranche_effectif_salarie_etablissement.present?
+      @tranche_effectif ||= EffectifRange.new(effectifs).intitule_effectif
     end
 
     def code_effectif
-      @code_effectif ||= tranche_effectif_salarie_etablissement['code'] if tranche_effectif_salarie_etablissement.present?
+      @code_effectif ||= EffectifRange.new(effectifs).code_effectif
     end
 
     def readable_locality

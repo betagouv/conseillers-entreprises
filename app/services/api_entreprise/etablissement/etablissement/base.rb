@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module ApiEntreprise::Etablissement
+module ApiEntreprise::Etablissement::Etablissement
   class Base < ApiEntreprise::Base
     def request
       Request.new(@siren_or_siret)
     end
 
-    def formatted_response(http_request)
-      Response.new(http_request)
+    def responder(http_request)
+      Responder.new(http_request)
     end
   end
 
@@ -19,7 +19,7 @@ module ApiEntreprise::Etablissement
     end
   end
 
-  class Response < ApiEntreprise::Response
+  class Responder < ApiEntreprise::Responder
     def format_data
       @http_request.data["etablissement"]
     end
