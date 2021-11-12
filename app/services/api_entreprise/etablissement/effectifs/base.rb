@@ -3,7 +3,7 @@
 module ApiEntreprise::Etablissement::Effectifs
   class Base < ApiEntreprise::Base
     def request
-      Request.new(@siren_or_siret)
+      Request.new(@siren_or_siret, @options)
     end
 
     def responder(http_request)
@@ -12,12 +12,11 @@ module ApiEntreprise::Etablissement::Effectifs
 
     # Retourne hash vide en cas d'erreur
     def handle_error(http_request)
-      return { "effectifs" => { "error" => http_request.error_message }}
+      return { "effectifs" => { "error" => http_request.error_message } }
     end
   end
 
   class Request < ApiEntreprise::Request
-
     def error_message
       @error&.message || @data['error'] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
     end

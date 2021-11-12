@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class EffectifRange
-
   RANGES = [
     { min: 0,     max: 0,     code: '00' },
     { min: 1,     max: 2,     code: '01' },
@@ -28,7 +27,7 @@ class EffectifRange
   end
 
   def date_effectif
-    return nil unless code_effectif.present?
+    return nil if code_effectif.blank?
     Date.parse("#{@annee}-#{@mois}-01")
   end
 
@@ -37,7 +36,7 @@ class EffectifRange
   end
 
   def find_code_effectif
-    return nil unless @effectifs_mensuels.present?
+    return nil if @effectifs_mensuels.blank?
     code = nil
     RANGES.each do |range|
       if @effectifs_mensuels >= range[:min] && @effectifs_mensuels <= range[:max]
@@ -51,5 +50,4 @@ class EffectifRange
   def intitule_effectif
     I18n.t(code_effectif, scope: 'codes_effectif', default: I18n.t('simple_effectif.Autre'))
   end
-
 end

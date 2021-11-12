@@ -7,7 +7,7 @@ module ApiEntreprise
     def initialize(data)
       @entreprise = Entreprise.new(data.fetch('entreprise'))
       set_custom_entreprise_fields
-      @etablissement_siege = Etablissement.new(data.fetch('etablissement_siege'))
+      @etablissement_siege = ApiConsumption::Models::Facility.new(data.fetch('etablissement_siege'))
     end
 
     def name

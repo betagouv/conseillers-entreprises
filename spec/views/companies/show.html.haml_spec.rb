@@ -10,14 +10,14 @@ RSpec.describe 'companies/show.html.haml', type: :view do
   end
 
   let(:facility_json) do
-    JSON.parse(file_fixture('api_entreprise_get_etablissement.json').read)
+    JSON.parse(file_fixture('api_facility_adapter.json').read)
   end
 
   let(:diagnoses) { create_list :diagnosis, 2 }
 
   before do
     assign :diagnosis, build(:diagnosis)
-    assign :facility, ApiConsumption::Models::Facility.new(facility_json["etablissement"])
+    assign :facility, ApiConsumption::Models::Facility.new(facility_json)
     assign :company, ApiEntreprise::EntrepriseWrapper.new(company_json)
     assign :diagnoses, diagnoses
     render

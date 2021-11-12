@@ -32,6 +32,11 @@ RSpec.describe ApiConsumption::Facility do
       let(:token) { '1234' }
       let(:api_ets_url) { "#{api_ets_base_url}/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
       let(:cfadock_url) { "#{cfadock_base_url}#{siret}" }
+      let(:searched_date) do
+        searched_date = Time.zone.now.months_ago(3)
+        [searched_date.year, searched_date.strftime("%m")].join("/")
+      end
+      let(:effectifs_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{searched_date}/etablissement/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
       before do
         ENV['API_ENTREPRISE_TOKEN'] = token
@@ -41,11 +46,15 @@ RSpec.describe ApiConsumption::Facility do
         stub_request(:get, cfadock_url).to_return(
           body: file_fixture('api_cfadock_get_opco.json')
         )
+        stub_request(:get, effectifs_url).to_return(
+          body: file_fixture('api_entreprise_effectifs.json')
+        )
       end
 
       it 'has the right fields' do
         expect(api_facility.siret).to eq('41816609600069')
         expect(api_facility.code_region).to eq('11')
+        expect(api_facility.code_effectif).to eq('32')
       end
     end
   end

@@ -1,11 +1,11 @@
 module ApiEntreprise
-
   class Base
     attr_reader :siren_or_siret
 
-    def initialize(siren_or_siret)
+    def initialize(siren_or_siret, options = {})
       @siren_or_siret = FormatSiret.clean_siret(siren_or_siret)
       raise ApiEntrepriseError, "L'identifiant (siret ou siren) est invalide" unless valid_siren_or_siret?
+      @options = options
     end
 
     def call
@@ -20,7 +20,7 @@ module ApiEntreprise
     end
 
     def request
-      Request.new(@siren_or_siret)
+      Request.new(@siren_or_siret, @options)
     end
 
     def responder(http_request)
@@ -45,13 +45,13 @@ module ApiEntreprise
 
     attr_reader :data
 
-    def initialize(siren_or_siret)
+    def initialize(siren_or_siret, options = {})
       @siren_or_siret = siren_or_siret
+      @options = options
       @http_response = HTTP.get(url)
       begin
         @data = @http_response.parse(:json)
       rescue StandardError => e
-        p e
         @error = e
       end
     end

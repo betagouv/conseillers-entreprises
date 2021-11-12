@@ -3,7 +3,7 @@
 module ApiEntreprise::Etablissement::Etablissement
   class Base < ApiEntreprise::Base
     def request
-      Request.new(@siren_or_siret)
+      Request.new(@siren_or_siret, @options)
     end
 
     def responder(http_request)
@@ -16,6 +16,20 @@ module ApiEntreprise::Etablissement::Etablissement
 
     def url_key
       @url_key ||= "etablissements/"
+    end
+
+    def request_params
+      {
+        token: token,
+        context: 'PlaceDesEntreprises',
+        recipient: 'PlaceDesEntreprises',
+        object: 'PlaceDesEntreprises',
+        non_diffusables: non_diffusables
+      }.to_query
+    end
+
+    def non_diffusables
+      @options[:non_diffusables] || true
     end
   end
 

@@ -2,7 +2,6 @@
 
 module ApiCfadock
   class Opco
-
     def initialize(siret)
       @siret = FormatSiret.clean_siret(siret)
       return unless FormatSiret.siret_is_valid(@siret)
@@ -14,7 +13,7 @@ module ApiCfadock
         if http_request.success?
           Responder.new(http_request).call
         else
-          return { "opco" => { "error" => http_request.error_message }}
+          return { "opco" => { "error" => http_request.error_message } }
         end
       end
     end
@@ -43,7 +42,6 @@ module ApiCfadock
     def error_message
       @error&.message || @data['searchStatus'] || @http_response.status.reason || DEFAULT_ERROR_MESSAGE
     end
-
 
     private
 

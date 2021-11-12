@@ -28,9 +28,9 @@ describe UseCases::SearchFacility do
       cfadock_json = JSON.parse(file_fixture('api_cfadock_get_opco.json').read)
       # Je sais pas pourquoi, mais sans appel préalable à la classe,
       # rspec considere ApiCfadock::QueryFilter comme non instancié
-      ApiCfadock::GetOpco
-      api_cfadock_queryfilter = ApiCfadock::QueryFilter.new(cfadock_json)
-      allow(ApiCfadock::GetOpco).to receive(:call).with(siret) { api_cfadock_queryfilter }
+      ApiCfadock::Opco
+      api_cfadock_responder = ApiCfadock::Responder.new(cfadock_json)
+      allow(ApiCfadock::Opco.new(siret)).to receive(:call) { api_cfadock_responder }
 
       facility_adapter_json = JSON.parse(file_fixture('api_facility_adapter.json').read)
       facility_instance = ApiConsumption::Models::Facility.new(facility_adapter_json)
