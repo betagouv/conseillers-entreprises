@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SireneApi
+module ApiSirene
   class SireneResponse
     def initialize(query, http_response)
       @query = query

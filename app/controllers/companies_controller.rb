@@ -46,7 +46,7 @@ class CompaniesController < ApplicationController
   private
 
   def search_results
-    response = SireneApi::FullTextSearch.search(@query)
+    response = ApiSirene::FullTextSearch.search(@query)
     if response.success?
       @etablissements = response.etablissements
       @suggestions = response.suggestions

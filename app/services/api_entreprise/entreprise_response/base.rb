@@ -16,7 +16,7 @@ module ApiEntreprise
     end
 
     def formatted_data
-      http_response.parse(:json)
+      @http_response.parse(:json)
     end
 
     def success?

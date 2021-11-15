@@ -3,7 +3,7 @@
 module ApiEntreprise
   class EntrepriseResponse::Entreprises < EntrepriseResponse::Base
     def formatted_data
-      data = http_response.parse(:json)
+      data = @http_response.parse(:json)
       # utilisation de strings pour fournir un json correctement formaté
       return {
         'entreprise' => data["entreprise"],

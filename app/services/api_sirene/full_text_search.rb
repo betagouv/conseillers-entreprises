@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SireneApi
+module ApiSirene
   class FullTextSearch
     def self.search(query)
       cleanquery = cleanquery(query)

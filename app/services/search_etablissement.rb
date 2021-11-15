@@ -39,7 +39,7 @@ class SearchEtablissement
   end
 
   def full_text_search
-    response = SireneApi::FullTextSearch.search(query)
+    response = ApiSirene::FullTextSearch.search(query)
     if response.success?
       return response.etablissements
     else

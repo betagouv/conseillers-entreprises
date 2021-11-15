@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SireneApi
+module ApiSirene
   class SireneEtablissement
     attr_reader :siret, :nom, :enseigne, :activite, :lieu, :code_region
 
