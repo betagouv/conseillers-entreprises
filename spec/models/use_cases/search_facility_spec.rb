@@ -19,15 +19,9 @@ describe UseCases::SearchFacility do
       entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
       allow(UseCases::SearchCompany).to receive(:with_siret).with(siret, {}) { entreprises_instance }
 
-      api_entreprise_facility_json = JSON.parse(file_fixture('api_entreprise_get_etablissement.json').read)
-      allow(ApiEntreprise::EtablissementRequest).to receive(:new).with(token, siret, HTTP, {})
-      allow(ApiEntreprise::EtablissementRequest.new(token, siret, HTTP, {})).to receive(:response) { ApiEntreprise::EtablissementResponse.new({ fake: 'fake' }) }
-      allow(ApiEntreprise::EtablissementResponse).to receive(:new).with({ fake: 'fake' }) { OpenStruct.new({ data: api_entreprise_facility_json, success?: true }) }
-      allow(ApiEntreprise::EtablissementResponse.new({ fake: 'fake' })).to receive(:success?).and_return(true)
-
       cfadock_json = JSON.parse(file_fixture('api_cfadock_get_opco.json').read)
       # Je sais pas pourquoi, mais sans appel préalable à la classe,
-      # rspec considere ApiCfadock::QueryFilter comme non instancié
+      # rspec considere ApiCfadock::Responder comme non instancié
       ApiCfadock::Opco
       api_cfadock_responder = ApiCfadock::Responder.new(cfadock_json)
       allow(ApiCfadock::Opco.new(siret)).to receive(:call) { api_cfadock_responder }

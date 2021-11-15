@@ -2,25 +2,26 @@
 
 require 'rails_helper'
 
-RSpec.describe ApiEntreprise::Etablissements do
-  let(:facility) { described_class.new(token).fetch(siren) }
+RSpec.describe ApiEntreprise::Etablissement::Etablissement::Base do
+  let(:facility) { described_class.new(siren).call }
   let(:base_url) { 'https://entreprise.api.gouv.fr/v2/etablissements' }
 
   before { Rails.cache.clear }
 
   context 'SIREN number exists' do
     let(:token) { '1234' }
-    let(:siren) { '12345678901234' }
-    let(:url) { "#{base_url}/12345678901234?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+    let(:siren) { '41816609600069' }
+    let(:url) { "#{base_url}/41816609600069?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
     before do
+      ENV['API_ENTREPRISE_TOKEN'] = token
       stub_request(:get, url).to_return(
         body: file_fixture('api_entreprise_get_etablissement.json')
       )
     end
 
     it 'has the right fields' do
-      expect(facility.etablissement.siret).to be_present
+      expect(facility["siret"]).to be_present
     end
   end
 
@@ -30,6 +31,7 @@ RSpec.describe ApiEntreprise::Etablissements do
     let(:url) { "#{base_url}/?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
     before do
+      ENV['API_ENTREPRISE_TOKEN'] = token
       stub_request(:get, url).to_return(
         status: 500, body: '{}'
       )
@@ -46,6 +48,7 @@ RSpec.describe ApiEntreprise::Etablissements do
     let(:url) { "#{base_url}/?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
     before do
+      ENV['API_ENTREPRISE_TOKEN'] = token
       stub_request(:get, url).to_return(
         status: 500,
         body: file_fixture('api_entreprise_get_entreprise.json')
@@ -63,6 +66,7 @@ RSpec.describe ApiEntreprise::Etablissements do
     let(:url) { "#{base_url}/12345678901234?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=" }
 
     before do
+      ENV['API_ENTREPRISE_TOKEN'] = token
       stub_request(:get, url).to_return(
         status: 401,
         body: file_fixture('api_entreprise_401.json')
