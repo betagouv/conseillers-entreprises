@@ -33,7 +33,7 @@ module ApiEntreprise::Etablissement::Effectifs
     end
 
     def searched_date
-      @searched_date ||= Time.zone.now.months_ago(3)
+      @searched_date ||= Time.zone.now.months_ago(6)
     end
 
     # il faut un mois avec "0" (08, 09, 10...)
