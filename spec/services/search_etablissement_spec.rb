@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe SearchEtablissement do
-  let(:search_params) { { query: "#{query}", non_diffusables: "false"} }
-  let(:data) { described_class.call(search_params).as_json}
+  let(:search_params) { { query: "#{query}", non_diffusables: "false" } }
+  let(:data) { described_class.call(search_params).as_json }
 
   context 'fulltext search' do
     let(:api_url) { "https://entreprise.data.gouv.fr/api/sirene/v1/full_text/#{query}" }
-    let(:query) { 'octo techno'}
+    let(:query) { 'octo techno' }
 
     before do
       stub_request(:get, api_url).to_return(
@@ -22,8 +22,6 @@ RSpec.describe SearchEtablissement do
       expect(data[0]["activite"]).to eq("Conseil en systèmes et logiciels informatiques")
       expect(data[0]["code_region"]).to eq("11")
     end
-
-
   end
 
   context 'siret search' do
@@ -44,6 +42,5 @@ RSpec.describe SearchEtablissement do
       expect(data[0]["activite"]).to eq("Conseil en systèmes et logiciels informatiques")
       expect(data[0]["code_region"]).to eq("11")
     end
-
   end
 end

@@ -33,7 +33,7 @@ RSpec.describe ApiConsumption::Facility do
       let(:api_ets_url) { "#{api_ets_base_url}/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
       let(:cfadock_url) { "#{cfadock_base_url}#{siret}" }
       let(:searched_date) do
-        searched_date = Time.zone.now.months_ago(3)
+        searched_date = Time.zone.now.months_ago(6)
         [searched_date.year, searched_date.strftime("%m")].join("/")
       end
       let(:effectifs_url) { "https://entreprise.api.gouv.fr/v2/effectifs_mensuels_acoss_covid/#{searched_date}/etablissement/#{siret}?context=PlaceDesEntreprises&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }

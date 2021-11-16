@@ -10,7 +10,7 @@ task update_code_effectif: :environment do
   facilities_to_update.find_each do |facility|
     begin
       p [facility.siret, facility.company.name]
-      effectif_data = ApiEntreprise::Etablissement::Effectifs::Base.new(facility.siret).call.dig("effectifs")
+      effectif_data = ApiEntreprise::Etablissement::Effectifs::Base.new(facility.siret).call["effectifs"]
       p effectif_data
       code_effectif = EffectifRange.new(effectif_data).code_effectif
       p code_effectif

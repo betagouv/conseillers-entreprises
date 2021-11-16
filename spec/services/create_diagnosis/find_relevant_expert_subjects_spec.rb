@@ -4,6 +4,7 @@ require 'rails_helper'
 describe CreateDiagnosis::FindRelevantExpertSubjects do
   describe 'call' do
     subject{ described_class.new(need).call }
+
     let(:diagnosis) { create :diagnosis, company: company }
     let(:need) { create :need, diagnosis: diagnosis }
 
