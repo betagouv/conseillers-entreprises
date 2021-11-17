@@ -22,8 +22,8 @@ class EffectifRange
 
   def initialize(params)
     @annee = params["annee"]
-    @mois = params["mois"]
-    @effectifs_mensuels = params["effectifs_mensuels"]&.to_f
+    @mois = params["mois"]  || '01'
+    @effectifs = params["effectifs_mensuels"]&.to_f || params["effectifs_annuels"]&.to_f
   end
 
   def code_effectif
@@ -35,21 +35,21 @@ class EffectifRange
   end
 
   def effectif
-    @effectifs_mensuels
+    @effectifs
   end
-
-  private
 
   def date_effectif
     return nil if code_effectif.blank?
     Date.parse("#{@annee}-#{@mois}-01")
   end
 
+  private
+
   def find_code_effectif
-    return nil if @effectifs_mensuels.blank?
+    return nil if @effectifs.blank?
     code = nil
     RANGES.each do |range|
-      if @effectifs_mensuels >= range[:min] && @effectifs_mensuels <= range[:max]
+      if @effectifs >= range[:min] && @effectifs <= range[:max]
         code = range[:code]
         break
       end
