@@ -66,6 +66,7 @@ ActiveAdmin.register Institution do
       row :categories do |i|
         div i.categories.map{ |c| I18n.t('active_admin.scopes.' + c.label) }.join(', ')
       end
+      row :siren
       row(:antennes) do |i|
         div admin_link_to(i, :antennes)
       end
@@ -100,7 +101,7 @@ ActiveAdmin.register Institution do
 
   ## Form
   #
-  permit_params :name, :display_logo, :slug, :show_on_list, :code_region,
+  permit_params :name, :display_logo, :slug, :show_on_list, :code_region, :siren,
                 antenne_ids: [], category_ids: [],
                 institutions_subjects_attributes: %i[id description subject_id optional _create _update _destroy]
 
@@ -112,6 +113,7 @@ ActiveAdmin.register Institution do
       f.input :show_on_list
       f.input :code_region, as: :select, collection: Territory.deployed_regions.map{ |r| [r.name, r.code_region] }
       f.input :categories, as: :check_boxes, collection: Category.all.map{ |c| [I18n.t('active_admin.scopes.' + c.label), c.id] }
+      f.input :siren, input_html: { rows: 1 }
     end
     f.inputs do
       f.input :antennes,
