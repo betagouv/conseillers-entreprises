@@ -9,7 +9,7 @@ task update_effectif_facility: :environment do
   volumetry_total = 0
   facilities_to_update.find_each do |facility|
     begin
-      p [facility.siret, facility.company.name]
+      p [facility.siret, facility.company.name, I18n.l(facility.company.created_at, format: :ym)]
       effectif_data = ApiEntreprise::Etablissement::EffectifMensuel::Base.new(facility.siret).call["effectifs"]
       p effectif_data
       effectif = EffectifRange.new(effectif_data).effectif
