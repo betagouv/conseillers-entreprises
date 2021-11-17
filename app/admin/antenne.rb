@@ -72,6 +72,7 @@ ActiveAdmin.register Antenne do
       row :name
       row :institution
       row(:intervention_zone) do |a|
+        div admin_link_to(a, :regions)
         div admin_link_to(a, :territories)
         div admin_link_to(a, :communes)
         div intervention_zone_description(a)
@@ -88,6 +89,9 @@ ActiveAdmin.register Antenne do
         div a.manager_full_name
         div a.manager_email
         div a.manager_phone
+      end
+      row(I18n.t('active_admin.territory.communes_list')) do |a|
+        displays_insee_codes(a.communes)
       end
     end
   end
