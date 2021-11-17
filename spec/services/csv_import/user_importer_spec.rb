@@ -82,6 +82,23 @@ describe CsvImport::UserImporter, CsvImport do
         expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com'])
       end
     end
+
+    describe 'with non-breaking space in email' do
+      let(:csv) do
+        <<~CSV
+          Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
+          The Institution,The Antenne,Marie Dupont,marie.dupont@antenne.com ,0123456789,Cheffe,Equipe,équîpe@ântènne.com,0987654321
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.teams.count).to eq 1
+        team = institution.experts.teams.first
+        expect(team.email).to eq 'equipe@antenne.com'
+        expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com'])
+      end
+    end
   end
 
   context 'set teams and user without phone number' do
@@ -383,6 +400,21 @@ describe CsvImport::UserImporter, CsvImport do
       expect(result).to be_success
       expect(team.experts_subjects.count).to eq 1
       expect(team.institutions_subjects.pluck(:description)).to match_array ['Second IS']
+    end
+  end
+
+  context 'Don’t create antenne if the name is wrong' do
+    let(:csv) do
+      <<~CSV
+        Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
+        The Institution,The other Antenne,Marie Dupont,marie.dupont@antenne.com,0123456789,Cheffe
+        The Institution,The other Antenne,Mario Dupont,mario.dupont@antenne.com,0123456789,Sous-Chef
+      CSV
+    end
+
+    it do
+      expect(result).not_to be_success
+      expect(Antenne.count).to eq 1
     end
   end
 end

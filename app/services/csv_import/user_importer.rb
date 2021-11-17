@@ -19,8 +19,9 @@ module CsvImport
     def preprocess(attributes)
       attributes = sanitize_inputs(attributes)
       institution = Institution.find_by(name: attributes[:institution]) || @options[:institution]
-      antenne = Antenne.flexible_find_or_initialize institution, attributes[:antenne]
+      antenne = Antenne.flexible_find institution, attributes[:antenne]
       attributes.delete(:institution)
+      return PreprocessError::AntenneNotFound.new(attributes[:antenne]) if antenne.nil?
       attributes[:antenne] = antenne
     end
 

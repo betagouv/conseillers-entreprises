@@ -95,4 +95,9 @@ class Antenne < ApplicationRecord
     antenne = institution.antennes.find_by('lower(name) = ?', name.squish.downcase)
     antenne ||= Antenne.new(institution: institution, name: name.squish)
   end
+
+  def self.flexible_find(institution, name)
+    return nil unless institution.present? && name.present?
+    institution.antennes.find_by('lower(name) = ?', name.squish.downcase)
+  end
 end

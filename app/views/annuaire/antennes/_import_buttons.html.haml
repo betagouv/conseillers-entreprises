@@ -1,9 +1,9 @@
-.ui.secondary.fitted.menu
-  .item
-    = link_to institution_antennes_path(format: 'csv'), class: 'ui labeled icon' do
+.fr-mb-3w
+  %span.fr-ml-2w
+    = link_to institution_antennes_path(format: 'csv') do
       %span.ri-download-2-line.fr-mr-1w
       = t('download_csv')
-  .item
-    = link_to import_institution_antennes_path, class: 'ui labeled icon' do
+  %span.fr-ml-2w
+    = link_to import_institution_antennes_path do
       %span.ri-upload-2-line.fr-mr-1w
       = t('import')
