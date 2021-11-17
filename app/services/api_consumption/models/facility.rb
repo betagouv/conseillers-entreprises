@@ -31,12 +31,16 @@ module ApiConsumption::Models
       @naf_libelle ||= libelle_naf
     end
 
-    def tranche_effectif
-      @tranche_effectif ||= EffectifRange.new(effectifs).intitule_effectif
+    def effectif
+      @effectif ||= EffectifRange.new(effectifs).effectif
     end
 
     def code_effectif
       @code_effectif ||= EffectifRange.new(effectifs).code_effectif
+    end
+
+    def tranche_effectif
+      @tranche_effectif ||= EffectifRange.new(effectifs).intitule_effectif
     end
 
     def readable_locality

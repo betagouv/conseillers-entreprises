@@ -37,6 +37,7 @@ module UseCases
           naf_code: api_facility.naf,
           readable_locality: api_facility.readable_locality,
           code_effectif: api_facility.code_effectif,
+          effectif: api_facility.effectif,
           naf_libelle: api_facility.naf_libelle,
           naf_code_a10: api_facility.naf_code_a10,
           opco: api_facility.opco

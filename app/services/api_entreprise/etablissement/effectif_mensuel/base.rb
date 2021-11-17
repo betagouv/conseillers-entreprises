@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ApiEntreprise::Etablissement::Effectifs
+module ApiEntreprise::Etablissement::EffectifMensuel
   class Base < ApiEntreprise::Base
     def request
       Request.new(@siren_or_siret, @options)

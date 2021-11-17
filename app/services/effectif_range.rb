@@ -26,13 +26,23 @@ class EffectifRange
     @effectifs_mensuels = params["effectifs_mensuels"]&.to_f
   end
 
+  def code_effectif
+    @code_effectif ||= find_code_effectif
+  end
+
+  def intitule_effectif
+    I18n.t(code_effectif, scope: 'codes_effectif', default: I18n.t('simple_effectif.Autre'))
+  end
+
+  def effectif
+    @effectifs_mensuels
+  end
+
+  private
+
   def date_effectif
     return nil if code_effectif.blank?
     Date.parse("#{@annee}-#{@mois}-01")
-  end
-
-  def code_effectif
-    @code_effectif ||= find_code_effectif
   end
 
   def find_code_effectif
@@ -45,9 +55,5 @@ class EffectifRange
       end
     end
     code
-  end
-
-  def intitule_effectif
-    I18n.t(code_effectif, scope: 'codes_effectif', default: I18n.t('simple_effectif.Autre'))
   end
 end
