@@ -22,7 +22,7 @@ class EffectifRange
 
   def initialize(params)
     @annee = params["annee"]
-    @mois = params["mois"]  || '01'
+    @mois = params["mois"] || '01'
     @effectifs = params["effectifs_mensuels"]&.to_f || params["effectifs_annuels"]&.to_f
   end
 
