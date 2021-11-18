@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ApiEntreprise::Entreprise::EffectifAnnuel
+module ApiEntreprise::EntrepriseRcs
   class Base < ApiEntreprise::Base
     def request
       Request.new(@siren_or_siret, @options)
@@ -12,7 +12,7 @@ module ApiEntreprise::Entreprise::EffectifAnnuel
 
     # Retourne hash vide en cas d'erreur
     def handle_error(http_request)
-      return { "effectifs" => { "error" => http_request.error_message } }
+      return { "rcs" => { "error" => http_request.error_message } }
     end
   end
 
@@ -24,18 +24,13 @@ module ApiEntreprise::Entreprise::EffectifAnnuel
     private
 
     def url_key
-      @url_key ||= 'effectifs_annuels_acoss_covid/'
-    end
-
-    # effectifs_annuels_acoss_covid/SirenDeL’entreprise
-    def url
-      @url ||= "#{base_url}#{url_key}#{@siren_or_siret}?#{request_params}"
+      @url_key ||= 'extraits_rcs_infogreffe/'
     end
   end
 
   class Responder < ApiEntreprise::Responder
     def format_data
-      { "effectifs" => @http_request.data.slice('annee', 'effectifs_annuels') }
+      { "rcs" => @http_request.data }
     end
   end
 end

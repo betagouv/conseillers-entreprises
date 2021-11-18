@@ -14,7 +14,7 @@
 
 
     %section.fr-mb-6w
-      = render partial: 'company', locals: { entreprise: @company.entreprise }
+      = render partial: 'company', locals: { entreprise: @company }
 
     %section.fr-mb-6w
       = render partial: 'facility', locals: { etablissement: @facility, caption: t('.facility') }
@@ -22,8 +22,8 @@
     - if !@facility.siege_social
       %section.fr-mb-6w
         %h2= t('.siege_social')
-        = render partial: 'facility', locals: { etablissement: @company.etablissement_siege, caption: t('.siege_social') }
+        = render partial: 'facility', locals: { etablissement: @siege_facility, caption: t('.siege_social') }
 
     %section.fr-mb-6w
-      - @company.entreprise.mandataires_sociaux.each do |person|
+      - @company.mandataires_sociaux.each do |person|
         = render partial: 'mandataire', locals: { person: person }

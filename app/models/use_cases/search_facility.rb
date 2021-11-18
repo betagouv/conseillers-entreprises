@@ -9,20 +9,18 @@ module UseCases
       private
 
       def create_or_update_company(siret, options = {})
-        api_entreprise_company = UseCases::SearchCompany.with_siret(siret, options)
-        company_name = api_entreprise_company.name
-        siren = api_entreprise_company.entreprise['siren']
-        date_de_creation = I18n.l(Time.strptime(api_entreprise_company.entreprise['date_creation'].to_s.to_s, '%s').in_time_zone.to_date)
-        legal_form_code = api_entreprise_company.entreprise['forme_juridique_code']
-        code_effectif = api_entreprise_company.entreprise.dig('tranche_effectif_salarie_entreprise', 'code')
+        siren = siret[0, 9]
+        api_company = ApiConsumption::Company.new(siren, options).call
+        # api_company = UseCases::SearchCompany.with_siret(siret, options)
         company = Company.find_or_initialize_by siren: siren
         company.update!(
-          name: company_name,
-          legal_form_code: legal_form_code,
-          code_effectif: code_effectif,
-          date_de_creation: date_de_creation,
-          inscrit_rcs: api_entreprise_company.entreprise.inscrit_rcs,
-          inscrit_rm: api_entreprise_company.entreprise.inscrit_rm
+          name: api_company.name,
+          date_de_creation: api_company.date_de_creation,
+          legal_form_code: api_company.forme_juridique_code,
+          code_effectif: api_company.code_effectif,
+          effectif: api_company.effectif,
+          inscrit_rcs: api_company.inscrit_rcs,
+          inscrit_rm: api_company.inscrit_rm
         )
         company
       end

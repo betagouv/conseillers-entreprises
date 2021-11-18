@@ -2,8 +2,9 @@ module UseCases
   class SearchCompany
     class << self
       def with_siren(siren, options = {})
-        token = ENV.fetch('API_ENTREPRISE_TOKEN')
-        ApiEntreprise::Entreprises.new(token, options).fetch(siren)
+        # token = ENV.fetch('API_ENTREPRISE_TOKEN')
+        # ApiEntreprise::Entreprises.new(token, options).fetch(siren)
+        ApiEntreprise::Entreprise.new(siren).call
       end
 
       def with_siret(siret, options = {})

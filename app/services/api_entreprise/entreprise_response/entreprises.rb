@@ -7,8 +7,7 @@ module ApiEntreprise
       # utilisation de strings pour fournir un json correctement formaté
       return {
         'entreprise' => data["entreprise"],
-        'etablissement_siege' => data["etablissement_siege"],
-        'errors' => data["errors"]
+        'etablissement_siege' => data["etablissement_siege"]
       }
     end
   end

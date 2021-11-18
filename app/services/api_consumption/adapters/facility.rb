@@ -11,7 +11,7 @@ module ApiConsumption::Adapters
       @options = options
     end
 
-    def etablissement_params
+    def item_params
       REQUESTS.each_with_object({}) do |request, hash|
         response = request.new(@siret).call
         hash.deep_merge! response

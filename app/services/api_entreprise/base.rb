@@ -11,6 +11,7 @@ module ApiEntreprise
     def call
       Rails.cache.fetch([id_key, @siren_or_siret].join('-'), expires_in: 12.hours) do
         http_request = request
+        p http_request
         if http_request.success?
           responder(http_request).call
         else
