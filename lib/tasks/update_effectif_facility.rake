@@ -10,7 +10,7 @@ task update_effectif_facility: :environment do
   facilities_to_update.find_each do |facility|
     begin
       p [facility.siret, facility.company.name, I18n.l(facility.company.created_at, format: :ym)]
-      effectif_data = ApiEntreprise::Etablissement::EffectifMensuel::Base.new(facility.siret).call["effectifs"]
+      effectif_data = ApiEntreprise::EtablissementEffectifMensuel::Base.new(facility.siret).call["effectifs"]
       p effectif_data
       effectif = EffectifRange.new(effectif_data).effectif
       if effectif.present?

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApiEntreprise::Etablissement::Etablissement::Base do
+RSpec.describe ApiEntreprise::Etablissement::Base do
   let(:facility) { described_class.new(siren).call }
   let(:base_url) { 'https://entreprise.api.gouv.fr/v2/etablissements' }
 

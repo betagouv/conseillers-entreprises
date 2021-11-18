@@ -1,8 +1,8 @@
 module ApiConsumption::Adapters
   class Facility
     REQUESTS = [
-      ApiEntreprise::Etablissement::Etablissement::Base,
-      ApiEntreprise::Etablissement::EffectifMensuel::Base,
+      ApiEntreprise::Etablissement::Base,
+      ApiEntreprise::EtablissementEffectifMensuel::Base,
       ApiCfadock::Opco
     ]
 
