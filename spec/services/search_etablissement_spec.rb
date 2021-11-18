@@ -38,7 +38,7 @@ RSpec.describe SearchEtablissement do
 
     it 'displays correct proposition' do
       expect(data[0]["siret"]).to eq("41816609600051")
-      expect(data[0]["nom"]).to eq("OCTO-TECHNOLOGY")
+      expect(data[0]["nom"]).to eq("Octo Technology")
       expect(data[0]["activite"]).to eq("Conseil en systèmes et logiciels informatiques")
       expect(data[0]["code_region"]).to eq("11")
     end

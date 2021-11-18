@@ -5,7 +5,9 @@ require 'rails_helper'
 describe UseCases::SearchFacility do
   let(:legal_form_code) { '5710' }
   let(:naf_code) { '6202A' }
-  let(:code_effectif) { '32' }
+  let(:facility_code_effectif) { '32' }
+  let(:facility_effectif) { 412.6 }
+  let(:company_code_effectif) { '32' }
   let(:siret) { '41816609600051' }
   let(:siren) { '418166096' }
   let(:token) { '1234' }
@@ -15,10 +17,13 @@ describe UseCases::SearchFacility do
   describe 'with_siret_and_save' do
     before do
       ENV['API_ENTREPRISE_TOKEN'] = token
-      company_json = JSON.parse(file_fixture('api_entreprise_entreprise_request_data.json').read)
-      entreprises_instance = ApiEntreprise::EntrepriseWrapper.new(company_json)
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret, {}) { entreprises_instance }
+      company_adapter_json = JSON.parse(file_fixture('api_company_adapter.json').read)
+      company_instance = ApiConsumption::Models::Company.new(company_adapter_json)
+      api_company = ApiConsumption::Company.new(siret)
+      allow(ApiConsumption::Company).to receive(:new).with(siret[0,9], {}) { api_company }
+      allow(api_company).to receive(:call) { company_instance }
 
+      ## Etablissement
       cfadock_json = JSON.parse(file_fixture('api_cfadock_get_opco.json').read)
       # Je sais pas pourquoi, mais sans appel préalable à la classe,
       # rspec considere ApiCfadock::Responder comme non instancié
@@ -41,7 +46,7 @@ describe UseCases::SearchFacility do
       end
 
       it 'calls external service' do
-        expect(UseCases::SearchCompany).to have_received(:with_siret).with(siret, {})
+        expect(ApiConsumption::Company).to have_received(:new).with(siren, {})
         expect(ApiConsumption::Facility).to have_received(:new).with(siret, {})
       end
 
@@ -50,14 +55,15 @@ describe UseCases::SearchFacility do
         facility = Facility.last
         expect(company.siren).to eq siren
         expect(company.legal_form_code).to eq legal_form_code
-        expect(company.code_effectif).to eq code_effectif
+        expect(company.code_effectif).to eq company_code_effectif
         expect(company.inscrit_rcs).to eq inscrit_rcs
         expect(company.inscrit_rm).to eq inscrit_rm
 
         expect(facility.siret).to eq siret
         expect(facility.commune.insee_code).to eq '75102'
         expect(facility.naf_code).to eq naf_code
-        expect(facility.code_effectif).to eq code_effectif
+        expect(facility.code_effectif).to eq facility_code_effectif
+        expect(facility.effectif).to eq facility_effectif
         expect(facility.opco).to eq opco
       end
     end

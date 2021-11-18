@@ -35,7 +35,6 @@ module ApiEntreprise::Entreprise
 
   class Responder < ApiEntreprise::Responder
     def format_data
-      p @http_request
       data = @http_request.data
       # utilisation de strings pour fournir un json correctement formaté
       return {

@@ -62,8 +62,7 @@ module ApiConsumption::Models
     end
 
     def code_effectif
-      @code_effectif = tranche_effectif_salarie_entreprise['code']
-      @code_effectif = EffectifRange.new(effectifs).code_effectif if @code_effectif.nil?
+      @code_effectif ||= (@code_effectif_entreprise || EffectifRange.new(effectifs).code_effectif)
     end
 
     def tranche_effectif

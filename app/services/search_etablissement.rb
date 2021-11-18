@@ -30,8 +30,8 @@ class SearchEtablissement
     siren = FormatSiret.siren_from_query(query)
     return if siren.blank?
     begin
-      response = UseCases::SearchCompany.with_siren(siren, { non_diffusables: non_diffusables, url_keys: [:entreprises] })
-      return [ApiEntreprise::SearchEtablissementWrapper.new(response)]
+      entreprise_params = ApiEntreprise::Entreprise::Base.new(siren, { non_diffusables: non_diffusables }).call
+      return [ApiConsumption::Models::FacilityAutocomplete.new(entreprise_params)]
     rescue ApiEntreprise::ApiEntrepriseError => e
       message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
       return { error: message }

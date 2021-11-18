@@ -11,7 +11,6 @@ module UseCases
       def create_or_update_company(siret, options = {})
         siren = siret[0, 9]
         api_company = ApiConsumption::Company.new(siren, options).call
-        # api_company = UseCases::SearchCompany.with_siret(siret, options)
         company = Company.find_or_initialize_by siren: siren
         company.update!(
           name: api_company.name,

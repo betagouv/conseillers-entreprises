@@ -20,7 +20,9 @@ class EffectifRange
 
   ]
 
-  def initialize(params)
+  def initialize(params = {})
+    # si nil est passé, les params par défaut sont pas pris en compte
+    params ||= {}
     @annee = params["annee"]
     @mois = params["mois"] || '01'
     @effectifs = params["effectifs_mensuels"]&.to_f || params["effectifs_annuels"]&.to_f

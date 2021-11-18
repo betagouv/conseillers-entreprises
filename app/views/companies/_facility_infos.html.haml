@@ -5,7 +5,7 @@
     %li.name
       %b= facility.company.name
     %li= facility.readable_locality
-    %li= t('.workforce', range: Effectif.effectif(facility.code_effectif))
+    %li= t('.workforce', range: Effectif.intitule_effectif(facility.code_effectif))
     - if facility.siret.present?
       %li #{t('attributes.siret')} : #{facility.siret}
       %li= facility.naf_libelle

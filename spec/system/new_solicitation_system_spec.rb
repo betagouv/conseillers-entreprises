@@ -26,7 +26,7 @@ describe 'New Solicitation', type: :system, js: true do
         click_button 'Envoyer ma demande'
       end
 
-      xit do
+      it do
         # Only here to avoid flickering test with CI
         find(".section__title", match: :first)
         expect(page).to have_content('Merci')
@@ -43,7 +43,7 @@ describe 'New Solicitation', type: :system, js: true do
         landing.landing_themes << landing_theme
       end
 
-      xit do
+      it do
         visit '/'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
@@ -95,10 +95,10 @@ describe 'New Solicitation', type: :system, js: true do
 
         # option 2
         option = find(".autocomplete__option")
-        expect(option).to have_content('OCTO-TECHNOLOGY')
+        expect(option).to have_content('Octo Technology')
         page.execute_script("document.querySelector('.autocomplete__option').click()")
 
-        expect(page).to have_field("SIRET", with: '41816609600051 - OCTO-TECHNOLOGY', wait: 2)
+        expect(page).to have_field("SIRET", with: '41816609600051 - Octo Technology', wait: 2)
 
         click_button 'Envoyer ma demande'
         expect(solicitation.siret).to eq '41816609600051'
@@ -134,7 +134,7 @@ describe 'New Solicitation', type: :system, js: true do
         # page.execute_script("document.querySelector('.autocomplete__option').click()")
         find(".autocomplete__option", match: :first).click
 
-        expect(page).to have_field("SIRET", with: '41816609600051 - OCTO-TECHNOLOGY', wait: 5)
+        expect(page).to have_field("SIRET", with: '41816609600051 - Octo Technology', wait: 5)
 
         click_button 'Envoyer ma demande'
         expect(solicitation.siret).to eq '41816609600051'

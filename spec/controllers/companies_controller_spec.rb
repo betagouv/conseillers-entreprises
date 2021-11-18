@@ -6,15 +6,19 @@ RSpec.describe CompaniesController, type: :controller do
   login_user
 
   describe 'GET #show' do
-    let!(:api_facility) { ApiConsumption::Facility.new(siret) }
     let(:siret) { '41816609600051' }
+    let(:siren) { siret[0,9] }
+    let!(:api_facility) { ApiConsumption::Facility.new(siret) }
 
     before do
       allow(ApiConsumption::Facility).to receive(:new).with(siret) { api_facility }
       allow(api_facility).to receive(:call)
-      company_json = JSON.parse(file_fixture('api_entreprise_entreprise_request_data.json').read)
-      entreprise_wrapper = ApiEntreprise::EntrepriseWrapper.new(company_json)
-      allow(UseCases::SearchCompany).to receive(:with_siret).with(siret) { entreprise_wrapper }
+
+      company_and_siege_adapter_json = JSON.parse(file_fixture('api_company_and_siege_adapter.json').read)
+      company_instance = ApiConsumption::Models::CompanyAndSiege.new(company_and_siege_adapter_json)
+      api_company = ApiConsumption::Company.new(siret)
+      allow(ApiConsumption::CompanyAndSiege).to receive(:new).with(siren) { api_company }
+      allow(api_company).to receive(:call) { company_instance }
     end
 
     it do

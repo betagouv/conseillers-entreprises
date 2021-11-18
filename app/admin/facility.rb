@@ -15,7 +15,7 @@ ActiveAdmin.register Facility do
       div admin_attr(f, :siret)
       div admin_attr(f, :naf_code)
       if f.code_effectif?
-        div admin_attr(f, :code_effectif), title: f.effectif
+        div admin_attr(f, :code_effectif), title: f.intitule_effectif
       end
     end
     column :created_at
