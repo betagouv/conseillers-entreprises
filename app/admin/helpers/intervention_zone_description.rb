@@ -31,6 +31,17 @@ module Admin
 
         descriptions.join("<br/>").html_safe
       end
+
+      def displays_insee_codes(antenne_communes)
+        communes_grouped = antenne_communes.order(:insee_code).group_by { |x| x.insee_code[0..1] }
+        list = ""
+        communes_grouped.map do |department, communes|
+          list << tag.h3(I18n.t('active_admin.territory.department_number', number: department))
+          list << tag.i(I18n.t('active_admin.territory.communes_size', count: communes.size))
+          list << tag.div("#{communes.pluck(:insee_code).flatten.join(', ')}")
+        end
+        list.html_safe
+      end
     end
 
     Arbre::Element.include InterventionZoneDescription

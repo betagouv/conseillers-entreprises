@@ -78,7 +78,12 @@ fr:
       done: Ce sujet est maintenant le seul sujet support
     territory:
       assign_entire_territory: "[compléter]"
+      communes_list: Liste des communes
+      communes_size:
+        one: "%{count} commune"
+        other: "%{count} communes"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
+      department_number: 'Département %{number} :'
       entire_territory_assigned: Territoire ajouté
     user:
       admin: Admin
