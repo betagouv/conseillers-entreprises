@@ -2,7 +2,7 @@ module RegionsHelper
   def folder_logo(region_code, key)
     slug, name = find_name_and_slug(region_code)
     path = find_path(key, slug)
-    params = { alt: t("logos.#{key}", name: name), class: 'institution_logo' }
+    params = { alt: t("logos.#{key}", name: name), class: 'institution-logo' }
     image_tag(path, params) if path
   end
 
