@@ -31,7 +31,7 @@
             = subject_tag(solicitation, "ui small label")
 
       .card__meta
-        - if solicitation.recent_matched_solicitations.any? || solicitation.same_facility_needs.with_siret.any?
+        - if solicitation.recent_matched_solicitations.any? || solicitation.doublon_solicitations.any?
           .meta__warnings
             - if solicitation.recent_matched_solicitations.any?
               %span{ title: t('.solicitation_relance_explanation') } R
