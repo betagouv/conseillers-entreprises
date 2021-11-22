@@ -38,7 +38,7 @@ module Admin
         communes_grouped.map do |department, communes|
           list << tag.h3(I18n.t('active_admin.territory.department_number', number: department))
           list << tag.i(I18n.t('active_admin.territory.communes_size', count: communes.size))
-          list << tag.div("#{communes.pluck(:insee_code).flatten.join(', ')}")
+          list << tag.div("#{communes.pluck(:insee_code).flatten.join(' ')}")
         end
         list.html_safe
       end
