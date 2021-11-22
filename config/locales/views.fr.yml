@@ -79,6 +79,7 @@ fr:
   breadcrumbs_helper:
     home_link:
       home: Accueil
+      pde: Place des Entreprises
   clear_search: Réinitialiser la recherche
   companies:
     company:
@@ -280,6 +281,8 @@ fr:
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
+  iframe:
+    partners_logo: 'Les partenaires du service susceptibles de vous rappeler :'
   kaminari:
     page:
       page: Page

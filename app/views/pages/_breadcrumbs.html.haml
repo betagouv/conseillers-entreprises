@@ -2,6 +2,6 @@
   .container.breadcrumbs
     - if defined? landing_theme
       - landing_subject ||= nil
-      = breadcrumbs_landing(landing, landing_theme, landing_subject)
+      = raw breadcrumbs_landing(landing, landing_theme, landing_subject)
     - else
       = breadcrumbs_page(title)
