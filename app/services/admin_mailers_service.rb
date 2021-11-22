@@ -6,6 +6,13 @@ class AdminMailersService
       AdminMailer.weekly_statistics(public_stats_counts, reminders_counts).deliver_later
     end
 
+    def send_failed_jobs
+      failed_jobs = Delayed::Backend::ActiveRecord::Job.where.not(failed_at: nil)
+      if failed_jobs.any?
+        AdminMailer.failed_jobs(failed_jobs).deliver_later
+      end
+    end
+
     private
 
     def public_stats_counts

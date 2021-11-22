@@ -1,0 +1,21 @@
+= render 'mailers/header'
+
+%p= t('.hello')
+
+%p= t('.failed_jobs_list', count: @jobs.size)
+.container
+  - @jobs.each do |job|
+    %ul
+      %h3
+        = link_to t('.job_id', id: job.id), admin_job_url(job)
+      %li
+        %strong= t('.failed_date')
+        = I18n.l(job.failed_at, format: :long)
+      %li
+        %strong Handler :
+        = job.handler.truncate(300)
+      %li
+        %strong Erreur :
+        = job.last_error.truncate(300)
+
+= link_to t('.jobs_index'), admin_jobs_url

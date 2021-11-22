@@ -6,6 +6,9 @@ module Clockwork
   every(1.week, 'send_app_administrators_statistics_email', at: 'Monday 07:30') do
     AdminMailersService.delay.send_statistics_email
   end
+  every(1.day, 'send_failed_jobs_email', at: '10:00') do
+    AdminMailersService.delay.send_failed_jobs
+  end
   every(1.week, 'send_experts_reminders', at: 'Tuesday 9:00') do
     ExpertReminderService.delay.send_reminders
   end

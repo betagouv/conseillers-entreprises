@@ -23,4 +23,9 @@ class AdminMailerPreview < ActionMailer::Preview
 
     AdminMailer.weekly_statistics(public_stats_counts, reminders_counts)
   end
+
+  def failed_jobs
+    jobs = Delayed::Backend::ActiveRecord::Job.all
+    AdminMailer.failed_jobs(jobs)
+  end
 end

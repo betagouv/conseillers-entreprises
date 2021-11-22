@@ -14,6 +14,12 @@ class AdminMailer < ApplicationMailer
     mail(to: default_recipients, subject: t('mailers.admin_mailer.weekly_statistics.subject'))
   end
 
+  def failed_jobs(jobs)
+    @jobs = jobs
+
+    mail(to: ENV['TECH_EMAIL'], subject: t('mailers.admin_mailer.failed_jobs.subject', count: @jobs.size))
+  end
+
   def solicitation(solicitation)
     @solicitation = solicitation
     mail(to: default_recipients, subject: t('mailers.admin_mailer.solicitation.subject'))
