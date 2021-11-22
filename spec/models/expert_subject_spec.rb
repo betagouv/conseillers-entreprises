@@ -75,6 +75,32 @@ RSpec.describe ExpertSubject, type: :model do
       it{ is_expected.to match_array [other_expert_subject] }
     end
 
+    describe 'of_antenne' do
+      subject{ described_class.of_antenne(antenne2) }
+
+      let(:antenne1) { create :antenne }
+      let(:antenne2) { create :antenne }
+      let(:antenne3) { create :antenne }
+      let!(:expert_subject1) { create :expert_subject, expert: create(:expert, antenne: antenne1) }
+      let!(:expert_subject2) { create :expert_subject, expert: create(:expert, antenne: antenne2) }
+      let!(:expert_subject3) { create :expert_subject, expert: create(:expert, antenne: antenne3) }
+
+      it{ is_expected.to match_array [expert_subject2] }
+    end
+
+    describe 'not_of_antenne' do
+      subject{ described_class.not_of_antenne(antenne2) }
+
+      let(:antenne1) { create :antenne }
+      let(:antenne2) { create :antenne }
+      let(:antenne3) { create :antenne }
+      let!(:expert_subject1) { create :expert_subject, expert: create(:expert, antenne: antenne1) }
+      let!(:expert_subject2) { create :expert_subject, expert: create(:expert, antenne: antenne2) }
+      let!(:expert_subject3) { create :expert_subject, expert: create(:expert, antenne: antenne3) }
+
+      it{ is_expected.to match_array [expert_subject1, expert_subject3] }
+    end
+
     describe 'without_irrelevant_opcos' do
       subject{ described_class.without_irrelevant_opcos(facility) }
 
