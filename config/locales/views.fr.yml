@@ -10,7 +10,7 @@ fr:
       title: Conditions d’utilisation du service numérique Place des Entreprises
     comment_ca_marche:
       contact_us_html: Contactez-nous à %{mailto_link}.
-      deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en région Pays de la Loire.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
+      deployment_html: Le service est progressivement déployé dans les régions volontaires. <b>Il sera prochainement ouvert en région Grand Est.</b><br/>Si vous souhaitez être informé de l’ouverture du service dans votre région, n’hésitez pas à vous abonner à la newsletter !
       join_us: Vous souhaitez rejoindre le partenariat ?
       long_title: Place des Entreprises, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
@@ -555,7 +555,7 @@ fr:
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
     alert_region:
-      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert en Hauts-de-France, Île-de-France, Martinique, Bretagne et Provence Alpes Côtes d'Azur."
+      alert_region_html: "<b>Place des Entreprises</b> est un service public ouvert en Hauts-de-France, Île-de-France, Martinique, Bretagne, Provence Alpes Côtes d'Azur et Pays de la Loire."
       learn_more: En savoir plus
     cookie_text: Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord
     footer:
