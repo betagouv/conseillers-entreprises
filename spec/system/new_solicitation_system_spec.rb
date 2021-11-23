@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'New Solicitation', type: :system, js: true do
+describe 'New Solicitation', type: :system, js: true, flaky: true do
   let(:pde_subject) { create :subject }
   let!(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
@@ -101,6 +101,9 @@ describe 'New Solicitation', type: :system, js: true do
         expect(page).to have_field("SIRET", with: '41816609600051 - Octo Technology', wait: 2)
 
         click_button 'Envoyer ma demande'
+        find(".section__title", match: :first)
+        expect(page).to have_content('Merci')
+
         expect(solicitation.siret).to eq '41816609600051'
         expect(solicitation.code_region).to eq 11
       end
