@@ -207,14 +207,19 @@ ActiveAdmin.register Expert do
     end
 
     f.inputs t('attributes.custom_communes') do
-      f.input :is_global_zone
       f.input :insee_codes
     end
 
-    f.inputs I18n.t('attributes.flags') do
-      # Dynamically create a checkbox for each Expert::FLAGS
-      Expert::FLAGS.each do |flag|
-        f.input flag, as: :boolean
+    f.inputs t('attributes.is_global_zone') do
+      f.input :is_global_zone
+    end
+
+    if Expert::FLAGS.any?
+      f.inputs I18n.t('attributes.flags') do
+        # Dynamically create a checkbox for each Expert::FLAGS
+        Expert::FLAGS.each do |flag|
+          f.input flag, as: :boolean
+        end
       end
     end
 
