@@ -7,7 +7,7 @@ class AdminMailersService
     end
 
     def send_failed_jobs
-      failed_jobs = Delayed::Backend::ActiveRecord::Job.where.not(failed_at: nil)
+      failed_jobs = Delayed::Backend::ActiveRecord::Job.where.not(failed_at: nil).as_json
       if failed_jobs.any?
         AdminMailer.failed_jobs(failed_jobs).deliver_later
       end
