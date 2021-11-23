@@ -31,4 +31,13 @@ class MatchFilter < ApplicationRecord
 
   has_many :experts, through: :antenne, source: :experts, inverse_of: :match_filters
   has_many :experts_subjects, through: :experts, inverse_of: :match_filters
+
+  def raw_accepted_naf_codes
+    accepted_naf_codes&.join(' ')
+  end
+
+  def raw_accepted_naf_codes=(naf_codes)
+    updated_naf_codes = naf_codes.split(/[,\s]/).delete_if(&:empty?)
+    self.accepted_naf_codes = updated_naf_codes
+  end
 end
