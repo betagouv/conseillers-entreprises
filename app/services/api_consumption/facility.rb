@@ -16,7 +16,7 @@ module ApiConsumption
     end
 
     def params
-      ApiConsumption::Adapters::Facility.new(@siret, @options).etablissement_params
+      ApiConsumption::Adapters::Facility.new(@siret, @options).item_params
     end
   end
 end

@@ -80,5 +80,5 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.javascript_driver = :chrome
-Capybara.default_max_wait_time = 3
+Capybara.default_max_wait_time = 5
 WebMock.disable_net_connect!(allow_localhost: true)

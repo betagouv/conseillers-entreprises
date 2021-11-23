@@ -3,11 +3,11 @@ module Effectif
   #
   extend ActiveSupport::Concern
 
-  def effectif
-    Effectif::effectif(self.code_effectif)
+  def intitule_effectif
+    Effectif::intitule_effectif(self.code_effectif)
   end
 
-  def self.effectif(code)
+  def self.intitule_effectif(code)
     if code.blank?
       return I18n.t('other')
     end

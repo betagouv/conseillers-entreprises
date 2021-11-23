@@ -90,6 +90,7 @@ group :test do
   gem 'webmock'
   gem 'axe-matchers', require: false
   gem 'simplecov', require: false
+  gem 'rspec-retry'
 end
 
 group :development, :test do

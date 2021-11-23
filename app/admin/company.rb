@@ -15,7 +15,7 @@ ActiveAdmin.register Company do
       div admin_attr(c, :siren)
       div admin_attr(c, :legal_form_code), title: c.categorie_juridique
       if c.code_effectif?
-        div admin_attr(c, :code_effectif), title: c.effectif
+        div admin_attr(c, :code_effectif), title: c.intitule_effectif
       end
     end
     column :created_at

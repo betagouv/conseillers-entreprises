@@ -5,8 +5,8 @@ fr:
   all_choices: Tout
   api_entreprise:
     default_error_message:
-      entreprise: Erreur lors de la récupération des détails de l’entreprise.
       etablissement: Erreur lors de la récupération des détails de l’établissement.
+    invalid_siret_or_siren: L'identifiant (siret ou siren) est invalide
   app_name: Place des Entreprises
   boolean:
     text:
@@ -255,6 +255,7 @@ fr:
       long_sentence: "%A %d %B %Y à %Hh%M"
       sentence: "%d %B %Y"
       short: "%d %b %Hh%M"
+      ym: "%Y-%m"
     pm: pm
   update: Mettre à jour
   usage_stats: Statistiques

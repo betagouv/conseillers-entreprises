@@ -27,7 +27,9 @@ class CompaniesController < ApplicationController
 
     begin
       @facility = ApiConsumption::Facility.new(siret).call
-      @company = UseCases::SearchCompany.with_siret siret
+      company_and_siege = ApiConsumption::CompanyAndSiege.new(siret[0,9]).call
+      @company = company_and_siege.company
+      @siege_facility = company_and_siege.siege_facility
     rescue ApiEntreprise::ApiEntrepriseError => e
       message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
       redirect_back fallback_location: { action: :search }, alert: message
@@ -46,7 +48,7 @@ class CompaniesController < ApplicationController
   private
 
   def search_results
-    response = SireneApi::FullTextSearch.search(@query)
+    response = ApiSirene::FullTextSearch.search(@query)
     if response.success?
       @etablissements = response.etablissements
       @suggestions = response.suggestions

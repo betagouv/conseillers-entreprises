@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_03_153820) do
+ActiveRecord::Schema.define(version: 2021_11_17_111729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2021_11_03_153820) do
     t.date "date_de_creation"
     t.boolean "inscrit_rcs"
     t.boolean "inscrit_rm"
+    t.float "effectif"
     t.index ["siren"], name: "index_companies_on_siren", unique: true, where: "((siren)::text <> NULL::text)"
   end
 
@@ -226,6 +227,7 @@ ActiveRecord::Schema.define(version: 2021_11_03_153820) do
     t.string "naf_libelle"
     t.string "naf_code_a10"
     t.bigint "opco_id"
+    t.float "effectif"
     t.index ["commune_id"], name: "index_facilities_on_commune_id"
     t.index ["company_id"], name: "index_facilities_on_company_id"
     t.index ["opco_id"], name: "index_facilities_on_opco_id"

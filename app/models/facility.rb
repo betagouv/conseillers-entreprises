@@ -4,6 +4,7 @@
 #
 #  id                :bigint(8)        not null, primary key
 #  code_effectif     :string
+#  effectif          :float
 #  naf_code          :string
 #  naf_code_a10      :string
 #  naf_libelle       :string

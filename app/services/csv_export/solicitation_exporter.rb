@@ -59,7 +59,7 @@ module CsvExport
         facility_regions: -> { region&.name },
         company_name: -> { diagnosis&.company&.name },
         company_naf: -> { diagnosis&.facility&.naf_code },
-        company_effectif: -> { Effectif.effectif(diagnosis&.facility&.code_effectif) },
+        company_effectif: -> { Effectif.intitule_effectif(diagnosis&.facility&.code_effectif) },
         solicitation_full_name: -> { full_name },
         solicitation_email: -> { email },
         solicitation_phone_number: -> { phone_number },

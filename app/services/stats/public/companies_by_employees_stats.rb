@@ -59,7 +59,7 @@ module Stats::Public
     end
 
     def all_categories
-      %w[Autre 250 50 20 6 1 0]
+      %w[Autre 250 50 20 10 6 1 0]
     end
 
     def colors

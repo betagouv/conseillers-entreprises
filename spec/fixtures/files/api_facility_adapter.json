@@ -40,5 +40,6 @@
   "etat_administratif": { "value": "A", "date_fermeture": null },
   "idcc": 1486,
   "opcoName": "ATLAS",
-  "opcoSiren": "851296632"
+  "opcoSiren": "851296632",
+  "effectifs": { "annee": "2021", "mois": "08", "effectifs_mensuels": "412.60" }
 }

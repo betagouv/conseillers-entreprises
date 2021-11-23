@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'system_helper'
 
-describe 'annuaire', type: :system, js: true do
+describe 'annuaire', type: :system, js: true, flaky: true do
   let(:user) { create :user, is_admin: true }
   let(:institution) { create :institution }
   let!(:antenne) { create :antenne, institution: institution }
