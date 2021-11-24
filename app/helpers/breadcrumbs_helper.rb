@@ -25,12 +25,13 @@ module BreadcrumbsHelper
   private
 
   def home_link(landing, params = {})
-    if landing.iframe?
-      html = link_to t('breadcrumbs_helper.home_link.home'), landing
+    if landing.iframe? && landing.integral_iframe?
+      (link_to t('breadcrumbs_helper.home_link.pde'), landing) << arrow
+    elsif landing.iframe?
+      ''
     else
-      html = link_to t('breadcrumbs_helper.home_link.home'), root_path(params)
+      (link_to t('breadcrumbs_helper.home_link.home'), root_path(params)) << arrow
     end
-    html << arrow
   end
 
   def arrow

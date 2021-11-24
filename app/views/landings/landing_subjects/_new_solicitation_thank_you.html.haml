@@ -9,6 +9,11 @@
       = t('.iframe_message_html')
     = image_tag 'logo-PDE.svg', alt: t('logos.pde')
 
+    %section.section.section-grey
+      .container
+        %h2.section__subtitle= t('iframe.partners_logo')
+        = render 'landings/landings/logos', landing_subject: landing_subject
+
 - else
   %h2.section__title.text-left= t('.title')
 
