@@ -29,6 +29,7 @@ class ExpertSubject < ApplicationRecord
   #
   has_one :subject, through: :institution_subject, inverse_of: :experts_subjects
   has_one :theme, through: :subject, inverse_of: :experts_subjects
+  has_many :match_filters, through: :expert, inverse_of: :experts_subjects
 
   belongs_to :not_deleted_expert, -> { not_deleted }, class_name: 'Expert', foreign_key: 'expert_id', optional: true, inverse_of: :experts_subjects
 
@@ -61,6 +62,16 @@ class ExpertSubject < ApplicationRecord
   scope :not_of_institution, -> (institution) do
     joins(institution_subject: :institution)
       .where.not(institutions_subjects: { institution: institution })
+  end
+
+  scope :of_antenne, -> (antenne) do
+    joins(expert: :antenne)
+      .where(expert: { antenne: antenne })
+  end
+
+  scope :not_of_antenne, -> (antenne) do
+    joins(expert: :antenne)
+      .where.not(expert: { antenne: antenne })
   end
 
   scope :in_company_registres, -> (company) do

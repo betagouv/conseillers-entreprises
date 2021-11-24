@@ -10,7 +10,7 @@ ActiveAdmin.register Antenne do
   ## Index
   #
   includes :institution, :advisors, :experts, :sent_matches, :received_matches,
-           :communes, :territories
+           :communes, :territories, :match_filters
   config.sort_order = 'name_asc'
 
   scope :active, default: true
@@ -91,14 +91,30 @@ ActiveAdmin.register Antenne do
         div a.manager_phone
       end
       row(I18n.t('active_admin.territory.communes_list')) do |a|
-        displays_insee_codes(a.communes)
+        (a.communes)
+      end
+    end
+
+    attributes_table title: I18n.t('activerecord.attributes.antenne.match_filters') do
+      antenne.match_filters.map.with_index do |mf, index|
+        panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
+          attributes_table_for mf do
+            row :min_years_of_existence
+            row :effectif_min
+            row :effectif_max
+            row :subject
+            row :raw_accepted_naf_codes
+          end
+        end
       end
     end
   end
 
   ## Form
   #
-  permit_params :name, :institution_id, :insee_codes, :manager_full_name, :manager_email, :manager_phone, advisor_ids: [], expert_ids: []
+  match_filters_attributes = [ :id, :min_years_of_existence, :effectif_max, :effectif_min, :subject_id, :raw_accepted_naf_codes, :_destroy ]
+  permit_params :name, :institution_id, :insee_codes, :manager_full_name, :manager_email, :manager_phone,
+                advisor_ids: [], expert_ids: [], match_filters_attributes: match_filters_attributes
 
   form do |f|
     f.inputs do
@@ -131,6 +147,16 @@ ActiveAdmin.register Antenne do
                 url: :admin_experts_path,
                 search_fields: [:full_name]
               }
+    end
+
+    f.inputs do
+      f.has_many :match_filters, allow_destroy: true, new_record: true do |mf|
+        mf.input :min_years_of_existence
+        mf.input :effectif_min
+        mf.input :effectif_max
+        mf.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
+        mf.input :raw_accepted_naf_codes, as: :text
+      end
     end
 
     f.actions

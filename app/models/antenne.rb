@@ -36,6 +36,8 @@ class Antenne < ApplicationRecord
 
   has_many :experts, -> { not_deleted }, inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
+  has_many :match_filters, dependent: :destroy, inverse_of: :antenne
+  accepts_nested_attributes_for :match_filters, allow_destroy: true
 
   ## Hooks and Validations
   #

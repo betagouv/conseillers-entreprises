@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_111729) do
+ActiveRecord::Schema.define(version: 2021_11_19_134527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -360,6 +360,19 @@ ActiveRecord::Schema.define(version: 2021_11_17_111729) do
     t.index ["institution_id"], name: "index_logos_on_institution_id"
   end
 
+  create_table "match_filters", force: :cascade do |t|
+    t.string "accepted_naf_codes", array: true
+    t.integer "effectif_min"
+    t.integer "effectif_max"
+    t.integer "min_years_of_existence"
+    t.bigint "subject_id"
+    t.bigint "antenne_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
+    t.index ["subject_id"], name: "index_match_filters_on_subject_id"
+  end
+
   create_table "matches", force: :cascade do |t|
     t.bigint "need_id", null: false
     t.datetime "created_at", null: false
@@ -544,6 +557,8 @@ ActiveRecord::Schema.define(version: 2021_11_17_111729) do
   add_foreign_key "landing_subjects", "subjects"
   add_foreign_key "landings", "institutions"
   add_foreign_key "logos", "institutions"
+  add_foreign_key "match_filters", "antennes"
+  add_foreign_key "match_filters", "subjects"
   add_foreign_key "matches", "experts"
   add_foreign_key "matches", "needs"
   add_foreign_key "matches", "subjects"

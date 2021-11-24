@@ -16,6 +16,8 @@ fr:
     landings:
       update_iframe_360_button: Mettre à jour iframe 360°
       update_iframe_360_done: Mise à jour iframe 360° faite.
+    match_filter:
+      title_with_index: Filtre %{index}
     matches:
       deleted: Supprimé
     move: Déplacer
@@ -95,7 +97,8 @@ fr:
       user_info: Informations utilisateur
   activerecord:
     attributes:
-      antenne: 
+      antenne:
+        match_filters: Filtres pour les mises en relation
       commune:
         insee_code: Code commune
       company: 
@@ -251,6 +254,12 @@ fr:
         not_for_me: Refusé
         quo: Pas de réponse
         taking_care: Pris en charge
+      match_filter:
+        accepted_naf_codes: codes naf acceptés
+        effectif_max: effectif maximum
+        effectif_min: effectif minimum
+        min_years_of_existence: ancienneté minimum (en année)
+        raw_accepted_naf_codes: codes naf acceptés
       need:
         subject: Sujet
       need/statuses:
@@ -434,6 +443,9 @@ fr:
       match:
         one: Mise en relation
         other: Mises en relation
+      match_filter:
+        one: Filtre de mise en relation
+        other: Filtres de mise en relation
       need:
         one: Besoin
         other: Besoins
