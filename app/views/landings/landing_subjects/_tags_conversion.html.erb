@@ -2,4 +2,7 @@
   document.addEventListener("google_ads_loaded", function() {
     gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'})
   })
+  document.addEventListener("facebookpixel_loaded", function() {
+    fbq('track', 'conversion')
+  })
 <% end %>
