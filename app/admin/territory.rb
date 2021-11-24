@@ -73,7 +73,7 @@ ActiveAdmin.register Territory do
       end
       row(:communes) do |t|
         div admin_link_to(t, :communes)
-        div safe_join(t.communes.map { |c| admin_link_to c }, ', '.html_safe)
+        div displays_insee_codes(t.communes)
       end
       row(:antennes) do |t|
         div admin_link_to(t, :antennes)
