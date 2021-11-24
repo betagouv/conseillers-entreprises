@@ -18,17 +18,13 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       context 'young company' do
         let(:company) { create :company, date_de_creation: 2.years.ago }
 
-        it do
-          is_expected.to match_array [es_temoin]
-        end
+        it { is_expected.to match_array [es_temoin] }
       end
 
       context 'old company' do
         let(:company) { create :company, date_de_creation: 7.years.ago }
 
-        it do
-          is_expected.to match_array [es_01, es_temoin]
-        end
+        it { is_expected.to match_array [es_01, es_temoin] }
       end
     end
 
@@ -46,27 +42,21 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
         let(:facility) { create :facility, effectif: 19.4 }
         let(:need_subject) { create :subject }
 
-        it do
-          is_expected.to match_array [es_temoin]
-        end
+        it { is_expected.to match_array [es_temoin] }
       end
 
       context 'only matching subject' do
         let(:need_subject) { tresorerie_subject }
         let(:facility) { create :facility, effectif: 37.7 }
 
-        it do
-          is_expected.to match_array [es_temoin]
-        end
+        it { is_expected.to match_array [es_temoin] }
       end
 
       context 'matching subject and effectif' do
         let(:need_subject) { tresorerie_subject }
         let(:facility) { create :facility, effectif: 19.4 }
 
-        it do
-          is_expected.to match_array [es_temoin, es_01]
-        end
+        it { is_expected.to match_array [es_temoin, es_01] }
       end
     end
 
@@ -84,27 +74,21 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
         let(:need_subject) { create :subject }
         let(:facility) { create :facility, naf_code: '1102A' }
 
-        it do
-          is_expected.to match_array [es_temoin]
-        end
+        it { is_expected.to match_array [es_temoin] }
       end
 
       context 'only matching subject' do
         let(:need_subject) { difficulte_subject }
         let(:facility) { create :facility, naf_code: '9001Z' }
 
-        it do
-          is_expected.to match_array [es_temoin]
-        end
+        it { is_expected.to match_array [es_temoin] }
       end
 
       context 'matching naf and subject' do
         let(:need_subject) { difficulte_subject }
         let(:facility) { create :facility, naf_code: '1102A' }
 
-        it do
-          is_expected.to match_array [es_temoin, es_01]
-        end
+        it { is_expected.to match_array [es_temoin, es_01] }
       end
     end
 
@@ -125,41 +109,31 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       context 'no facility filter data' do
         let(:facility) { create :facility, effectif: nil, company: create(:company, date_de_creation: nil) }
 
-        it do
-          is_expected.to match_array [es_temoin]
-        end
+        it { is_expected.to match_array [es_temoin] }
       end
 
       context 'matching none' do
         let(:facility) { create :facility, effectif: 9.9, company: create(:company, date_de_creation: 2.years.ago) }
 
-        it do
-          is_expected.to match_array [es_temoin]
-        end
+        it { is_expected.to match_array [es_temoin] }
       end
 
       context 'matching min_years_of_existence' do
         let(:facility) { create :facility, company: create(:company, date_de_creation: 4.years.ago) }
 
-        it do
-          is_expected.to match_array [es_temoin, es_01]
-        end
+        it { is_expected.to match_array [es_temoin, es_01] }
       end
 
       context 'matching effectif_min' do
         let(:facility) { create :facility, effectif: 10.1 }
 
-        it do
-          is_expected.to match_array [es_temoin, es_01]
-        end
+        it { is_expected.to match_array [es_temoin, es_01] }
       end
 
       context 'matching both' do
         let(:facility) { create :facility, effectif: 10.1, company: create(:company, date_de_creation: 4.years.ago) }
 
-        it do
-          is_expected.to match_array [es_temoin, es_01]
-        end
+        it { is_expected.to match_array [es_temoin, es_01] }
       end
     end
   end

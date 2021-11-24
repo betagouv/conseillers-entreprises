@@ -23,9 +23,9 @@ module CreateDiagnosis
 
     def apply_match_filters(expert_subjects)
       ids_to_keep = []
-      expert_subjects.each_with_object(ids_to_keep) do |es, array|
+      expert_subjects.each do |es|
         if es.match_filters.empty? || es.match_filters.any?{ |mf| accepting(mf) }
-          array << es.id
+          ids_to_keep << es.id
         end
       end
       expert_subjects.where(id: ids_to_keep)
