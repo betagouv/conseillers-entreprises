@@ -62,7 +62,7 @@ fr:
       profile: Profil
       root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
-    pde_partnership_mention_html: Ce service public de mise en relation est proposé par <a href=%{url}> Place des Entreprises</a>
+    pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
   attributes:
     is_global_zone: Térritoire national
   badges:
