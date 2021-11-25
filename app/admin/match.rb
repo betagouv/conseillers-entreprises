@@ -15,7 +15,8 @@ ActiveAdmin.register Match do
            need: :subject,
            diagnosis: :solicitation
 
-  scope :all, default: true
+  scope :all, default: true, group: :all
+  scope :done, group: :all
   scope :with_deleted_expert
   scope :to_support
 
