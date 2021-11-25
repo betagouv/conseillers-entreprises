@@ -16,7 +16,7 @@ module Stats
       if params.institution.present?
         @institution = Institution.find_by(id: params.institution)
       end
-      @start_date = params.start_date.to_date || Date.today - 6.months
+      @start_date = params.start_date.to_date || (Date.today - 6.months)
       @end_date = params.end_date.to_date || Date.today
     end
 
@@ -186,7 +186,7 @@ module Stats
         category = category_name(category)
         values = month_values.values
         if additive_values
-          values = values.reduce([]) { |a, v| a << v + (a.last || 0) }
+          values = values.reduce([]) { |a, v| a << (v + (a.last || 0)) }
         end
 
         { name: category, data: values }
