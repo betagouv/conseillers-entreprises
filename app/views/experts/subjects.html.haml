@@ -1,28 +1,48 @@
 %p
   = t('.instructions_html', institution: @expert.institution)
 
-- if @expert.users.size > 1
-  %p.fr-mb-0
-    %span.orange.ri-information-fill
-    %strong= t('.others_members_warning_header_html', name: @expert.full_name, path: edit_expert_path(@expert))
+%section.fr-mb-6w
+  - if @expert.users.size > 1
+    - expert_subject_title = t('.expert_subject_title_team')
+  - else
+    - expert_subject_title = t('.expert_subject_title_solo')
+  %h2.fr-h3= expert_subject_title
 
-%p
-  %i.blue.ri-information-fill
-  = t('.contact_us_to_change_subjects_html', email: ENV['APPLICATION_EMAIL'])
+  .fr-callout.fr-mb-3w
+    - if @expert.users.size > 1
+      %p.fr-callout__text.fr-mb-3v
+        %i.fr-fi-information-line
+        = t('.others_members_warning_header_html', name: @expert.full_name, email: @expert.email, path: edit_expert_path(@expert))
+    %p.fr-callout__text
+      %i.fr-fi-information-line
+      = t('.contact_us_to_change_subjects_html', email: ENV['APPLICATION_EMAIL'])
 
-- institution_subjects = @expert.institution.available_subjects
-- institution_subjects.each do |theme, institutions_subjects|
-  %h2.fr-h4= theme.label
-  %ul.list-unstyled.fr-mb-3w
-    - institutions_subjects.each do |institution_subject|
-      %li.fr-mb-2v
-        - expert_subject = ExpertSubject.find_by(expert: @expert, institution_subject: institution_subject)
-        - if expert_subject.present?
+  - grouped_expert_subjects = @available_expert_subjects.grouped_by_theme
+  - grouped_expert_subjects.each do |theme, experts_subjects|
+    %h3.fr-h5= theme.label
+    %ul.list-unstyled.fr-mb-3w
+      - experts_subjects.each do |expert_subject|
+        %li.fr-mb-2v
           %span.ri-checkbox-line.green
-        - else
-          %span.ri-checkbox-blank-line
-        %b= institution_subject.subject
-        %br
-        = institution_subject.description
-        - if expert_subject.present? && expert_subject.intervention_criteria.present?
-          %br= expert_subject.intervention_criteria
+          %b= expert_subject.subject
+          %br
+          = expert_subject.institution_subject.description
+          - if expert_subject.intervention_criteria.present?
+            %br= expert_subject.intervention_criteria
+
+
+%section.fr-mb-6w
+  %details.details--with-title
+    %summary
+      %h2.fr-h3 Les autres domaines d'intervention de votre institution
+
+    - institution_subjects = @remaining_institution_subjects.grouped_by_theme
+    - institution_subjects.each do |theme, institutions_subjects|
+      %h3.fr-h5= theme.label
+      %ul.list-unstyled.fr-mb-3w
+        - institutions_subjects.each do |institution_subject|
+          %li.fr-mb-2v
+            %span.ri-checkbox-blank-line
+            %b= institution_subject.subject
+            %br
+            = institution_subject.description

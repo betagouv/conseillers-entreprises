@@ -18,6 +18,9 @@ class ExpertsController < ApplicationController
 
   def subjects
     @user = current_user
+    @available_expert_subjects = @expert.experts_subjects.available_subjects
+    expert_institution_subjects_ids = @available_expert_subjects.pluck(:institution_subject_id)
+    @remaining_institution_subjects = @expert.institution.institutions_subjects.available_subjects.where.not(id: expert_institution_subjects_ids)
   end
 
   def update

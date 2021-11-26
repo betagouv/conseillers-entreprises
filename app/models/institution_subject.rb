@@ -24,6 +24,8 @@
 #
 
 class InstitutionSubject < ApplicationRecord
+  include WithSubject
+
   ## Associations
   #
   belongs_to :institution, inverse_of: :institutions_subjects
@@ -55,11 +57,6 @@ class InstitutionSubject < ApplicationRecord
   #
   scope :support_subjects, -> do
     where(subject: Subject.support_subject)
-  end
-
-  scope :ordered_for_interview, -> do
-    joins(:subject)
-      .merge(Subject.ordered_for_interview)
   end
 
   ##

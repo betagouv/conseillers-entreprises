@@ -236,9 +236,11 @@ fr:
       team_members: Membres de l’équipe
       team_name_explanation: C’est le nom d’équipe qui sera indiqué au conseiller pour vous envoyer des besoins. Votre antenne et votre structure figurent automatiquement, ne les précisez pas dans le nom d’équipe.
     subjects:
-      contact_us_to_change_subjects_html: Pour changer vos domaines d’intervention, <a href="mailto:%{email}">contactez-nous</a>.
-      instructions_html: En tant qu’expert' sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos champs d’intervention.
-      others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a>.
+      contact_us_to_change_subjects_html: Pour <b>changer vos domaines d’intervention</b>, <a href="mailto:%{email}">contactez-nous</a>.
+      expert_subject_title_solo: Vos domaines d'intervention
+      expert_subject_title_team: Les domaines d'intervention de votre équipe
+      instructions_html: En tant qu’expert sur Place des entreprises, vous pouvez recevoir des besoins d’entreprises sur vos domaines d’intervention.
+      others_members_warning_header_html: Ce sont les domaines d’intervention de l’équipe <a href='%{path}'>%{name}</a> (%{email}). Vous êtes susceptible de n'intervenir que sur une partie de ces domaines.
   export_xls:
     email_instructions: Les adresses mails individuels sont indispensables à la création des comptes utilisateurs et l’accès à l’interface Place des Entreprises. Si des conseillers sont partis, merci de mettre en rouge les lignes en question pour que nous supprimions leurs comptes utilisateurs.
     phone_instructions: |-
