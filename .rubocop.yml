@@ -1145,6 +1145,9 @@ Style/NumericPredicate:
 Style/OneLineConditional:
   Enabled: false
 
+Style/OpenStructUse:
+  Enabled: false
+
 Style/OptionHash:
   Enabled: false
 

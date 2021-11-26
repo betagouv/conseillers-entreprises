@@ -58,7 +58,7 @@ describe ExpertMailer do
         end
       end
 
-      context 'expert with deleted user ' do
+      context 'expert with deleted user' do
         let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
         let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '', deleted_at: Time.zone.now }
         let(:expert_members) { [user1, user2] }

@@ -56,7 +56,7 @@ module IframePrefix
       # Avoid prefixing urls to other sites.
       url = URI.parse(raw_url)
       is_local_url = url.hostname.blank? ||
-        url.hostname == default_url_options[:host] && url.port == default_url_options[:port]
+        (url.hostname == default_url_options[:host] && url.port == default_url_options[:port])
       return raw_url unless is_local_url
 
       # Only prefix urls to routes compatible with iframes
