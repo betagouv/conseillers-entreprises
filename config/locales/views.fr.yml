@@ -336,8 +336,8 @@ fr:
         discover_measures: Découvrir les mesures
         how-it-works: Comment ça marche
         meta:
-          description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
-          title: Place des Entreprises - Conseils et aides publiques aux TPE & PME
+          description: 'TPE & PME vous avez un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider. Recrutement, droit du travail, investissement, difficultés financières... '
+          title: Place des Entreprises - Conseils et aides publiques
         question: TPE & PME, vous avez un projet, une difficulté, une question du quotidien ?
       index_institutions:
         more_partners_html: Découvrez <a href='%{path}'>plus de 40 partenaires</a> à votre service.
