@@ -154,7 +154,7 @@ ActiveAdmin.register Antenne do
         mf.input :min_years_of_existence
         mf.input :effectif_min
         mf.input :effectif_max
-        mf.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
+        mf.input :subject, as: :select, collection: resource.institution.subjects.map{ |s| [s.label, s.id] }
         mf.input :raw_accepted_naf_codes, as: :text
       end
     end
