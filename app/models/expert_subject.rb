@@ -20,6 +20,8 @@
 #
 
 class ExpertSubject < ApplicationRecord
+  include WithSubject
+
   ## Associations
   #
   belongs_to :expert, inverse_of: :experts_subjects
@@ -97,11 +99,6 @@ class ExpertSubject < ApplicationRecord
   end
 
   scope :support, -> { where(institution_subject: InstitutionSubject.support_subjects) }
-
-  scope :ordered_for_interview, -> do
-    joins(:subject)
-      .merge(Subject.ordered_for_interview)
-  end
 
   ## used for serialization in advisors csv
   #
