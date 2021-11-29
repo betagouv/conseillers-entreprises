@@ -8,7 +8,7 @@ class UserMailer < ApplicationMailer
 
   def match_feedback(feedback, person)
     @person = person
-    return if @person.deleted?
+    return if @person.deleted? || feedback.nil?
 
     @feedback = feedback
     @author = feedback.user
