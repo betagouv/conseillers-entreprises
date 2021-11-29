@@ -18,7 +18,7 @@ task :push_to_production do
   def retrieve_merge_commits_messages(last_commit)
     separator = '--------'
     messages = `git log --merges --pretty=%B#{separator} #{last_commit}..main`
-    messages.split(separator)
+    messages.split(separator)[0...-2]
   end
 
   def format_commit_messages(messages)
