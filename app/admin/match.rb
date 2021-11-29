@@ -15,7 +15,8 @@ ActiveAdmin.register Match do
            need: :subject,
            diagnosis: :solicitation
 
-  scope :all, default: true
+  scope :sent, default: true, group: :all
+  scope :all, group: :all
   scope :with_deleted_expert
   scope :to_support
 
@@ -99,23 +100,33 @@ ActiveAdmin.register Match do
   show do
     attributes_table do
       row(:status) { |m| human_attribute_status_tag m, :status }
-      row :need
+      row(:need) do |m|
+        human_attribute_status_tag m.need, :status
+        div admin_link_to(m, :need)
+        div do
+          if m.diagnosis.step_completed?
+            link_to(I18n.t('active_admin.matches.need_page'), need_path(m.need))
+          else
+            link_to(I18n.t('active_admin.matches.diagnosis_page'), diagnosis_path(m.diagnosis))
+          end
+        end
+        status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
+      end
       row :created_at
       row :updated_at
       row :archived_at
       row :taken_care_of_at
       row :closed_at
-      row(:need) do |m|
-        human_attribute_status_tag m.need, :status
-        status_tag t('attributes.is_archived'), class: :ok if m.need.is_archived
+      row :advisor do |m|
+        if m.advisor.present?
+          div admin_link_to(m, :advisor)
+          div admin_link_to(m, :advisor_antenne)
+        end
       end
-      row :advisor
-      row :advisor_antenne
       row :contacted_expert do |m|
         if m.expert.present?
           div admin_link_to(m, :expert)
           div admin_link_to(m, :expert_antenne)
-          div link_to('Page besoin', need_path(m.need))
         else
           div "#{m.expert.full_name} - #{m.expert.institution.name}"
           status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
