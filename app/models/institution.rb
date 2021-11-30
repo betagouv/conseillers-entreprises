@@ -86,7 +86,7 @@ class Institution < ApplicationRecord
   # All the subjects that can be assigned to an expert of this institution
   def available_subjects
     institutions_subjects
-      .grouped_available_subjects
+      .available_subjects.grouped_by_theme
   end
 
   ##
