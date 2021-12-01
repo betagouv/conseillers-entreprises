@@ -47,8 +47,14 @@ describe 'admin panel', type: :feature do
       click_link 'Institutions'
       click_link 'Créer Institution'
 
+      click_link 'Antennes'
+      click_link 'Créer Antenne'
+
       click_link 'Experts'
       click_link 'Créer Expert'
+      visit "/admin/experts/#{Expert.first.id}"
+      click_link 'Modifier Expert'
+      click_button 'Modifier ce(tte) Expert'
 
       click_link 'Besoins'
 
