@@ -63,6 +63,6 @@ import accessibleAutocomplete from 'accessible-autocomplete';
   function displayError (err) {
     console.warn(err);
     alert(`Désolée, un problème a été rencontré, vous pouvez réessayer un peu + tard` );
-  };
+  }
 })()
 
