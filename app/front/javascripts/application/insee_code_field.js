@@ -21,7 +21,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         tAssistiveHint: () => autocompleteField.dataset.assistiveHint,
         source: debounce(async (query, populateResults) => {
           // display autocomplete suggestions
-          const res = await fetchSource(query, SEARCH_URL)
+          const res = await fetchSource(query, SEARCH_URL).catch(displayError)
           const results = res.features
           populateResults(results)
         }, 300),
@@ -38,11 +38,13 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 
   async function fetchSource (query, url) {
     query = query.trim().toLowerCase().replace(/[^a-zA-Z0-9 -]/, "").replace(/\s/g, "-");
-    const res = await fetch(
-      `${url}${encodeURIComponent(query)}`
-    )
-    const data = await res.json()
-    return data
+    const res = await fetch(`${url}${encodeURIComponent(query)}`)
+    if (res.ok) {
+      const data = await res.json()
+      return data
+    } else {
+      return Promise.reject(res);
+    }
   }
 
   // Traitement des résultats --------------------------------------------
@@ -56,6 +58,11 @@ import accessibleAutocomplete from 'accessible-autocomplete';
   function inputValueTemplate (result) {
     if (!result) return
     return `${result.properties.city} - ${result.properties.postcode}`
+  }
+
+  function displayError (err) {
+    console.warn(err);
+    alert(`Désolée, un problème a été rencontré, vous pouvez réessayer un peu + tard` );
   }
 })()
 
