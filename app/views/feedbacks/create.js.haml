@@ -2,9 +2,11 @@ var noComment = document.getElementById('no-comment')
 if (noComment != null) { noComment.parentNode.removeChild(noComment) }
 
 - feedback_html = render 'feedbacks/feedback', feedback: @feedback
-document.getElementById('display-feedbacks-#{@feedback.feedbackable_id}').insertAdjacentHTML('beforeend', "#{j feedback_html}");
-
+var element = document.getElementById('display-feedbacks-#{@feedback.feedbackable_id}')
+if (element != null) {
+element.insertAdjacentHTML('beforeend', "#{j feedback_html}");
 document.querySelector('.feedback-form-#{@feedback.feedbackable_id}').reset()
+}
 
 -# Si ça vient du formulaire de changement de statut d'un besoin
 var form = document.getElementsByClassName('from_alert_box');
