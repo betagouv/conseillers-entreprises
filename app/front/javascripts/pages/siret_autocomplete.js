@@ -12,6 +12,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
     const siretField = document.querySelector("[data-target='siret-autocomplete']")
     const codeRegionField = document.querySelector("[data-target='code-region-autocomplete']")
     const indifusibleSiretHelp = document.querySelector("[data-error='indiffusible-siret']")
+    const landing_theme = autocompleteField.getAttribute('data-landing-theme')
 
     if (exists(autocompleteField)) {
       accessibleAutocomplete({
@@ -37,7 +38,9 @@ import accessibleAutocomplete from 'accessible-autocomplete';
         onConfirm: (option) => {
           fillSiretField(option)
           fillCodeRegionField(option)
-          checkIfInDeployedRegion(option)
+          if (landing_theme !== 'environnement-transition-ecologique') {
+            checkIfInDeployedRegion(option)
+          }
         }
       })
     }

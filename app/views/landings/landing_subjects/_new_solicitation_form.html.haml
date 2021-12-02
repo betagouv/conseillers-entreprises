@@ -12,7 +12,10 @@
           // Duplication pour respecter l'accessibilité (id unique, field avec label...)
           = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
           %span= t(".attributes.help.siret_html")
-          %div{ 'data-action': 'siret-autocomplete', 'data-assistive-hint': t(".attributes.help.siret_assistive_hint"), 'data-deployed-regions': Territory.deployed_codes_regions }
+          %div{ 'data-action': 'siret-autocomplete',
+          'data-assistive-hint': t(".attributes.help.siret_assistive_hint"),
+          'data-deployed-regions': Territory.deployed_codes_regions,
+          'data-landing-theme': solicitation.landing_theme.slug }
           = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
           = f.hidden_field :code_region, data: { target: 'code-region-autocomplete' }
 
