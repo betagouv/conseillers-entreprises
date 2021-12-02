@@ -64,7 +64,7 @@ Rails.application.configure do
   config.action_mailer.asset_host = "http://#{ENV['HOST_NAME']}:#{ENV['PORT']}"
 
   # Raises error for missing translations
-  config.i18n.raise_on_missing_translations = false
+  config.i18n.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
