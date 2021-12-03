@@ -13,7 +13,7 @@ Rails.application.config.content_security_policy do |p|
   p.object_src  :none
   p.style_src   :self, :unsafe_inline, 'https://www.ssa.gov', 'https://fonts.googleapis.com'
   p.script_src  :self, :blob, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.ssa.gov', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'https://connect.facebook.net', 'https://browser.sentry-cdn.com/6.2.3/bundle.min.js'
-  p.script_src_elem :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://stats.data.gouv.fr/piwik.js' 'https://cdn.jsdelivr.net', 'www.pagespeed-mod.com', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'https://connect.facebook.net'
+  p.script_src_elem :self, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://stats.data.gouv.fr/piwik.js', 'https://cdn.jsdelivr.net', 'www.pagespeed-mod.com', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'https://connect.facebook.net'
   p.frame_src :self, 'stats.data.gouv.fr', 'browser.sentry-cdn.com', 'cdn.jsdelivr.net', 'https://bid.g.doubleclick.net', 'https://tube.nocturlab.fr', 'https://www.facebook.com'
   if Rails.env.development?
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035', 'https://api-adresse.data.gouv.fr/'
