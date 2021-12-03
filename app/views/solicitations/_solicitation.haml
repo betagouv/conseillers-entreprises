@@ -43,7 +43,7 @@
             - solicitation.same_facility_needs.with_siret.map{ |n| n.facility.siret }.uniq.each do |siret|
               = link_to siret, needs_company_path(siret)
         - if solicitation.institution.present?
-          .logo-institution= institution_image(solicitation.institution.name)
+          .logo-institution= institution_image(solicitation.institution.logo&.filename)
     .card__description
       .card__description__label= t('.description')
       .card__description__content= simple_format(solicitation.description)

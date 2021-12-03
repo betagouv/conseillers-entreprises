@@ -1,4 +1,4 @@
-= render 'mailers/header', institution_name: @expert.institution.name
+= render 'mailers/header', institution_logo_name: @expert.institution.logo&.filename
 
 %p= t('mailers.hello')
 

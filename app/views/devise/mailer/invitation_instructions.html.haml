@@ -1,4 +1,4 @@
-= render 'mailers/header', institution_name: @resource.institution.name
+= render 'mailers/header', institution_logo_name: @resource.institution.logo&.filename
 
 %p= t('devise.mailer.hello', user_full_name: @resource.full_name)
 
