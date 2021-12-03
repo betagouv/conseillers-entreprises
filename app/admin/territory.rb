@@ -103,7 +103,7 @@ ActiveAdmin.register Territory do
       f.input :support_contact, collection: User.admin.not_deleted
     end
     f.inputs do
-      f.input :insee_codes
+      f.input :insee_codes, as: :text
     end
 
     f.actions
