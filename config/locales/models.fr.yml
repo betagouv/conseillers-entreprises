@@ -335,6 +335,7 @@ fr:
         code_region: Région
         deployed_at: Déployé le
         experts: Experts
+        insee_codes: Codes communes
         support_contact: Contact support
       user:
         can_view_diagnoses_tab: Peut voir l’onglet analyses
@@ -389,6 +390,10 @@ fr:
         landing_themes:
           restrict_dependent_destroy:
             solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
+        territory:
+          attributes:
+            insee_codes:
+              invalid_insee_codes: Codes communes invalides
         user:
           attributes:
             email:
