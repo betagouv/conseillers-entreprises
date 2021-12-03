@@ -2,6 +2,7 @@ module ImagesHelper
   EXTENSIONS = %w[png svg jpg jpeg]
 
   def display_image(name: "", path: "", extra_params: {})
+    return if name.blank?
     slug = name.parameterize
     possible_paths = EXTENSIONS.map{ |e| "#{path}#{slug}.#{e}" }
     path = possible_paths.find{ |possible_path| resolve_asset_path(possible_path, true) }

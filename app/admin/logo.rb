@@ -37,7 +37,7 @@ ActiveAdmin.register Logo do
   form do |f|
     f.inputs do
       f.input :name
-      f.input :filename, input_html: { disabled: true }
+      f.input :filename
       f.input :institution, as: :ajax_select, data: {
         url: :admin_institutions_path,
         search_fields: [:name]

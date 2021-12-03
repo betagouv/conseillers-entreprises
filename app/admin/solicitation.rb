@@ -83,7 +83,7 @@ ActiveAdmin.register Solicitation do
   remove_filter :feedbacks
   remove_filter :updated_at
   remove_filter :institution
-  filter :landing, as: :select, collection: -> { Landing.order(:title).pluck(:title, :id) }
+  filter :landing, as: :select, collection: -> { Landing.order(:slug).pluck(:slug, :id) }
   filter :landing_theme, as: :select, collection: -> { @landing_themes.order(:title).pluck(:title, :id) }
   filter :landing_subject, as: :select, collection: -> { @landing_subjects.order(:title).pluck(:title, :id) }
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }

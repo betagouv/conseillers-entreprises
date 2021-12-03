@@ -2,6 +2,6 @@
 
 .logo-container
   .logos
-    - if defined? institution_name
-      = institution_image institution_name
+    - if defined? institution_logo_name
+      = institution_image institution_logo_name
     = image_tag 'logo-PDE.png', alt: ''
