@@ -9,4 +9,4 @@
       - siret = local_assigns[:solicitation]&.siret
       %div{ 'data-controller': "siret-autocomplete" }
         %div{ data: { 'siret-autocomplete-target': "field", 'default-value': (query || siret) } }
-        %button.fr-btn.btn-green{ type: 'submit' }= t('search')
+      %button.fr-btn.btn-green.fr-mt-2w{ type: 'submit' }= t('search')
