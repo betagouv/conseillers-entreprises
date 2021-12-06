@@ -7,7 +7,7 @@ class ApplicationController < SharedController
   before_action :authenticate_user!
 
   def authenticate_admin!
-    current_user.is_admin? || not_found
+    current_user.role_admin? || not_found
   end
 
   ## Devise overrides

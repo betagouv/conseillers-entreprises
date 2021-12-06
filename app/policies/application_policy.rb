@@ -39,7 +39,7 @@ class ApplicationPolicy
   end
 
   def admin?
-    @user&.is_admin
+    @user&.role_admin?
   end
 
   class Scope

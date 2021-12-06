@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_19_134527) do
+ActiveRecord::Schema.define(version: 2021_12_06_135119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,12 @@ ActiveRecord::Schema.define(version: 2021_11_19_134527) do
     "not_for_me",
     "done_no_help",
     "done_not_reachable",
+  ], force: :cascade
+
+  create_enum :user_roles, [
+    "advisor",
+    "admin",
+    "antenne_manager",
   ], force: :cascade
 
   create_table "antennes", force: :cascade do |t|
@@ -505,7 +511,6 @@ ActiveRecord::Schema.define(version: 2021_11_19_134527) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_admin", default: false, null: false
     t.string "phone_number"
     t.string "job"
     t.string "full_name"
@@ -520,6 +525,7 @@ ActiveRecord::Schema.define(version: 2021_11_19_134527) do
     t.datetime "deleted_at"
     t.jsonb "flags", default: {}
     t.datetime "cgu_accepted_at"
+    t.enum "role", default: "advisor", null: false, enum_name: "user_roles"
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true, where: "((email)::text <> NULL::text)"

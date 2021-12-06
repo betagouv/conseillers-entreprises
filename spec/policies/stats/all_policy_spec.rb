@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Stats::AllPolicy, type: :policy do
   let(:no_user) { nil }
   let(:user) { create :user }
-  let(:admin) { create :user, is_admin: true }
+  let(:admin) { create :user, role: 'admin' }
 
   subject { described_class }
 

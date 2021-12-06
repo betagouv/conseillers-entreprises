@@ -81,8 +81,8 @@ RSpec.describe User, type: :model do
   describe 'scopes' do
     describe 'not_admin' do
       it do
-        create :user, is_admin: true
-        regular_user = create :user, is_admin: false
+        create :user, role: 'admin'
+        regular_user = create :user
 
         expect(described_class.not_admin).to match_array [regular_user]
       end

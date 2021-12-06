@@ -25,7 +25,7 @@ describe UserMailer do
     end
 
     describe 'when the recipient is admin' do
-      before { a_match.advisor.update(is_admin: true) }
+      before { a_match.advisor.update(role: 'admin') }
 
       let(:mail) { subject }
 

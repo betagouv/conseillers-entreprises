@@ -16,7 +16,7 @@ describe 'ApplicationController specific features', type: :feature do
 
     context 'user is admin' do
       it do
-        current_user.update is_admin: true
+        current_user.update role: 'admin'
         visit '/admin'
         expect(page.html).to include 'Sollicitations'
       end

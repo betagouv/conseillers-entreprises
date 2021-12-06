@@ -16,7 +16,7 @@ RSpec.describe FeedbackPolicy, type: :policy do
 
     context "denies access if user is admin" do
       let(:feedback) { create :feedback, :for_need }
-      let(:user) { create :user, is_admin: true }
+      let(:user) { create :user, role: 'admin' }
 
       it { is_expected.not_to permit(user, feedback) }
     end

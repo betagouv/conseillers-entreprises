@@ -90,11 +90,11 @@ fr:
       department_number: 'Département %{number} :'
       entire_territory_assigned: Territoire ajouté
     user:
-      admin: Admin
       connection: Connexion
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
       impersonate: Voir le site comme %{name}
+      role: Role
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
   activerecord:
@@ -351,7 +351,7 @@ fr:
         invitation_sent_at: Invitation envoyée
         invitees: Invités
         inviter: Invité par
-        is_admin: Est administrateur ?
+        job: Fonction
         last_sign_in_at: Date de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
@@ -359,11 +359,16 @@ fr:
         remember_me: Se souvenir de moi
         reset_password_sent_at: Date de régénération du mot de passe
         reset_password_token: Token de régénération du mot de passe
+        role: Role
         sign_in_count: Connexions
         team_email: E-mail de l’équipe
         team_full_name: Nom de l’équipe
         team_job: Fonction de l’équipe
         team_phone_number: Téléphone de l’équipe
+      user/roles:
+        admin: Admin
+        advisor: Conseiller
+        antenne_manager: Responsable d’antenne
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'

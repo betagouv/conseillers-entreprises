@@ -73,7 +73,7 @@ RSpec.describe CompaniesController, type: :controller do
 
     describe 'for admin' do
       before do
-        current_user.update is_admin: true
+        current_user.update role: 'admin'
         request
       end
 

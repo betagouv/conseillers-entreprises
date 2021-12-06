@@ -11,7 +11,7 @@ module ControllerMacros
   end
 
   def login_admin
-    let(:current_user) { create :user, is_admin: true }
+    let(:current_user) { create :user, role: 'admin' }
 
     before do
       @request.env['devise.mapping'] = Devise.mappings[:user]

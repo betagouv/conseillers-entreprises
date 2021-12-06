@@ -7,7 +7,7 @@ RSpec.describe FacilityPolicy, type: :policy do
 
   permissions :show_needs_history? do
     context 'user is admin' do
-      let(:user) { create :user, is_admin: true }
+      let(:user) { create :user, role: 'admin' }
 
       describe "grants access if there is any completed need for a facility" do
         let!(:diagnosis) { create :diagnosis_completed, facility: facility }

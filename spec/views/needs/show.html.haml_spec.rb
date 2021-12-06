@@ -97,7 +97,7 @@ RSpec.describe 'needs/show.haml', type: :view do
 
   context 'for admin' do
     before do
-      current_user.update is_admin: true
+      current_user.update role: 'admin'
       assignments
     end
 

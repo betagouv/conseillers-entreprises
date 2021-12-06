@@ -18,7 +18,8 @@ ActiveAdmin.register User do
   scope :active, default: true
   scope :deleted
 
-  scope :admin
+  scope :admin, group: :role
+  scope :antenne_manager, group: :role
 
   scope :team_members, group: :teams
   scope :no_team, group: :teams
@@ -130,7 +131,9 @@ ActiveAdmin.register User do
 
   sidebar I18n.t('active_admin.user.admin'), only: :show do
     attributes_table_for user do
-      row :is_admin
+      row :role do |u|
+        I18n.t(u.role, scope: 'activerecord.attributes.user/roles')
+      end
     end
   end
 
@@ -158,7 +161,7 @@ ActiveAdmin.register User do
   # Form
   #
   permit_params :full_name, :email, :institution, :role, :phone_number,
-                :is_admin,
+                :role,
                 :antenne_id,
                 *User::FLAGS,
                 expert_ids: []
@@ -184,8 +187,8 @@ ActiveAdmin.register User do
       f.input :phone_number
     end
 
-    f.inputs I18n.t('active_admin.user.admin') do
-      f.input :is_admin, as: :boolean
+    f.inputs I18n.t('active_admin.user.role') do
+      f.input :role, as: :select, collection: User.human_attribute_values(:role, raw_values: true).invert.to_a
     end
 
     f.inputs I18n.t('attributes.flags') do

@@ -17,13 +17,14 @@
 #  invitation_sent_at     :datetime
 #  invitation_token       :string
 #  invitations_count      :integer          default(0)
-#  is_admin               :boolean          default(FALSE), not null
+#  job                    :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
 #  phone_number           :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :enum             default("advisor"), not null
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -58,6 +59,12 @@ class User < ApplicationRecord
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
   attr_accessor :cgu_accepted
+
+  enum role: {
+    advisor: 'advisor',
+    admin: 'admin',
+    antenne_manager: 'antenne_manager'
+  }, _prefix: true
 
   ## Associations
   #
@@ -102,8 +109,9 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :admin, -> { not_deleted.where(is_admin: true) }
-  scope :not_admin, -> { where(is_admin: false) }
+  scope :admin, -> { not_deleted.where(role: 'admin') }
+  scope :antenne_manager, -> { not_deleted.where(role: 'antenne_manager') }
+  scope :not_admin, -> { where.not(role: 'admin') }
 
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
