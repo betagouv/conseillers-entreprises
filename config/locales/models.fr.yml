@@ -111,7 +111,7 @@ fr:
         useful_exchange: Échange utile
       contact:
         company: Entreprise
-        role: Fonction
+        job: Fonction
       diagnosis:
         content: Commentaire
         step: Étape
@@ -124,20 +124,20 @@ fr:
       diagnosis/visitee:
         email: Adresse e-mail de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée
+        job: Fonction de la personne rencontrée
         phone_number: Numéro de téléphone de la personne rencontrée
-        role: Fonction de la personne rencontrée
       expert:
         full_name: Nom de l’équipe
         is_global_zone: Global
+        job: Fonction
         reminders_notes: Suivi des relances
-        role: Fonction
         users:
           one: Membre
           other: Membres
       expert_subject:
         institution_subject: Compétence d’institution
         intervention_criteria: Critères d’intervention
-        role: rôle
+        job: rôle
       facility:
         company: Entreprise
         readable_locality: Commune
@@ -359,12 +359,11 @@ fr:
         remember_me: Se souvenir de moi
         reset_password_sent_at: Date de régénération du mot de passe
         reset_password_token: Token de régénération du mot de passe
-        role: Fonction
         sign_in_count: Connexions
         team_email: E-mail de l’équipe
         team_full_name: Nom de l’équipe
+        team_job: Fonction de l’équipe
         team_phone_number: Téléphone de l’équipe
-        team_role: Fonction de l’équipe
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -587,8 +586,8 @@ fr:
     placeholder:
       email: marie.dupont@exemple.fr
       full_name: 'ex : Marie Dupont'
+      job: Conseiller entreprise, Chargé de mission…
       phone_number: 06 12 34 56 78
-      role: Conseiller entreprise, Chargé de mission…
       team_name: Équipe formation, Cellule-conseil aux entreprises…
     received_matches:
       one: Mise en relation reçue

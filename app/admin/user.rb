@@ -36,8 +36,8 @@ ActiveAdmin.register User do
       end
     end
     column :created_at
-    column :role do |u|
-      div u.role
+    column :job do |u|
+      div u.job
       div admin_link_to(u, :antenne)
       div admin_link_to(u, :institution)
     end
@@ -65,7 +65,7 @@ ActiveAdmin.register User do
 
   filter :full_name
   filter :email
-  filter :role
+  filter :job
   filter :regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
@@ -79,7 +79,7 @@ ActiveAdmin.register User do
     column :email
     column :phone_number
     column :created_at
-    column :role
+    column :job
     column :antenne
     column :institution
     column_list :experts
@@ -99,8 +99,8 @@ ActiveAdmin.register User do
       row :email
       row :phone_number
       row :institution
-      row :role do |u|
-        div u.role
+      row :job do |u|
+        div u.job
         div admin_link_to(u, :antenne)
         div admin_link_to(u, :institution)
       end
@@ -179,7 +179,7 @@ ActiveAdmin.register User do
                 search_fields: [:full_name],
                 ajax_search_fields: [:antenne_id]
               }
-      f.input :role
+      f.input :job
       f.input :email
       f.input :phone_number
     end

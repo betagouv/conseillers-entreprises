@@ -12,7 +12,7 @@ describe 'experts', type: :feature do
     before do
       visit edit_expert_path(team.id)
 
-      fill_in id: 'expert_role', with: 'Doer of things'
+      fill_in id: 'expert_job', with: 'Doer of things'
       fill_in id: 'expert_phone_number', with: '0987654321'
 
       click_button 'Mettre à jour'
@@ -20,7 +20,7 @@ describe 'experts', type: :feature do
 
     it 'updates the expert info' do
       team.reload
-      expect(team.reload.role).to eq 'Doer of things'
+      expect(team.reload.job).to eq 'Doer of things'
       expect(team.reload.phone_number).to eq '0987654321'
     end
   end

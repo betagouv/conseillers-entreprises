@@ -76,7 +76,7 @@ fr:
       new:
         placeholders:
           full_name: 'ex: Marie Dupont'
-          role: Conseiller entreprise, Chargé de mission…
+          job: Conseiller entreprise, Chargé de mission…
         warning_message: L’inscription est réservé aux conseillers d’entreprise et experts des organismes publics. Merci de bien vouloir utiliser votre adresse e-mail professionnelle afin que votre compte soit validé.
       signed_up: Bienvenue, vous êtes connecté.
       signed_up_but_inactive: Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte n’est pas activé.

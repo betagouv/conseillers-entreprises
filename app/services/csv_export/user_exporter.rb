@@ -19,7 +19,7 @@ module CsvExport
         full_name: :full_name,
         email: :email,
         phone_number: :phone_number,
-        role: :role,
+        job: :job,
       }
     end
 

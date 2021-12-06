@@ -36,7 +36,7 @@ if ENV['RAILS_ENV'] == 'development'
   person_params = {
     email: TEST_EMAIL,
     phone_number: '0612345678',
-    role: 'Test User',
+    job: 'Test User',
     full_name: 'Edith Piaf',
     antenne: antenne,
     flags: {

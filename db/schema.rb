@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(version: 2021_11_19_134527) do
   create_table "experts", force: :cascade do |t|
     t.string "email"
     t.string "phone_number"
-    t.string "role"
+    t.string "job"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "full_name"
@@ -507,7 +507,7 @@ ActiveRecord::Schema.define(version: 2021_11_19_134527) do
     t.datetime "updated_at", null: false
     t.boolean "is_admin", default: false, null: false
     t.string "phone_number"
-    t.string "role"
+    t.string "job"
     t.string "full_name"
     t.bigint "antenne_id", null: false
     t.string "invitation_token"

@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
     describe 'presence' do
       it do
         is_expected.to validate_presence_of(:full_name)
-        is_expected.to validate_presence_of(:role)
+        is_expected.to validate_presence_of(:job)
         is_expected.to validate_presence_of(:email)
       end
     end

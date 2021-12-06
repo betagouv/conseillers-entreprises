@@ -53,7 +53,7 @@ namespace :import_dump do
       'last_sign_in_ip' => -> { Faker::Internet.ip_v4_address },
       'email' => -> { Faker::Internet.email },
       'query' => -> { Faker::Lorem.word },
-      'role' => -> { Faker::Job.title },
+      'job' => -> { Faker::Job.title },
       'readable_locality' => -> { Faker::Address.postcode + ' ' + Faker::Address.city },
       'siren' => -> { Faker::Company.french_siren_number },
       'siret' => -> { Faker::Company.french_siret_number }
@@ -63,8 +63,8 @@ namespace :import_dump do
       # Institution and Antenne names must be unique
       Institution => { 'name' => -> { Faker::Company.name + ' ' + Faker::Number(digits: 3) } },
       Antenne => { 'name' => -> { Faker::Company.name + ' ' + Faker::Number(digits: 3) } },
-      # ExpertSubject role must be kept; don’t set this in default
-      ExpertSubject => { 'role' => -> (record) { record.role } },
+      # ExpertSubject job must be kept; don’t set this in default
+      ExpertSubject => { 'job' => -> (record) { record.job } },
       Expert => {
         'email' => -> (record) do
           # Match single user names with their expert name

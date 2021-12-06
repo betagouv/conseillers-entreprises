@@ -31,7 +31,7 @@ ActiveAdmin.register Expert do
     column(:full_name) do |e|
       div admin_link_to(e)
       unless e.deleted?
-        div '➜ ' + (e.role || '')
+        div '➜ ' + (e.job || '')
         div '✉ ' + (e.email || '')
         div '✆ ' + (e.phone_number || '')
       end
@@ -78,7 +78,7 @@ ActiveAdmin.register Expert do
   end
 
   filter :full_name
-  filter :role
+  filter :job
   filter :email
   filter :phone_number
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
@@ -93,7 +93,7 @@ ActiveAdmin.register Expert do
   #
   csv do
     column :full_name
-    column :role
+    column :job
     column :email
     column :phone_number
     column :institution
@@ -115,7 +115,7 @@ ActiveAdmin.register Expert do
     attributes_table do
       row(:deleted_at) if resource.deleted?
       row :full_name
-      row :role
+      row :job
       row :email
       row :phone_number
       row :institution
@@ -168,7 +168,7 @@ ActiveAdmin.register Expert do
   #
   permit_params [
     :full_name,
-    :role,
+    :job,
     :antenne_id,
     :email,
     :phone_number,
@@ -191,7 +191,7 @@ ActiveAdmin.register Expert do
                 url: :admin_antennes_path,
                 search_fields: [:name]
               }
-      f.input :role
+      f.input :job
       f.input :email
       f.input :phone_number
     end

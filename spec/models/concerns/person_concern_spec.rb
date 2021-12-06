@@ -111,25 +111,25 @@ RSpec.describe PersonConcern do
     end
   end
 
-  describe 'normalize_role' do
-    subject { user.normalize_role }
+  describe 'normalize_job' do
+    subject { user.normalize_job }
 
-    let(:user) { create :user, role: role }
+    let(:user) { create :user, job: job }
 
     context 'Clean value' do
-      let(:role) { 'Important Job Title' }
+      let(:job) { 'Important Job Title' }
 
       it do
-        user.normalize_role
+        user.normalize_job
         is_expected.to eq 'Important Job Title'
       end
     end
 
     context 'Dirty value' do
-      let(:role) { ' IMPORTANT  job title		 ' }
+      let(:job) { ' IMPORTANT  job title		 ' }
 
       it do
-        user.normalize_role
+        user.normalize_job
         is_expected.to eq 'Important Job Title'
       end
     end

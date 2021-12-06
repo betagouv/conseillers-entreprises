@@ -14,7 +14,7 @@
                 = t('.solicited_by_html', name: solicitation.full_name, email: solicitation.email)
               - else
                 - advisor = diagnosis.advisor
-                = t('.visited_by_html', name: advisor.full_name, role: advisor.role, antenne: advisor.antenne.name, email: advisor.email)
+                = t('.visited_by_html', name: advisor.full_name, job: advisor.job, antenne: advisor.antenne.name, email: advisor.email)
           .diagnosis-links
             = link_to t('.diagnosis_related'), diagnosis_path(diagnosis), target: '_blank', rel: 'noopener', class: 'ui basic blue label'
             - if solicitation.present?

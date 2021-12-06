@@ -3,7 +3,7 @@ require 'rails_helper'
 describe CsvExport::UserExporter, CsvExport do
   let(:institution) { create :institution, name: 'Test Institution' }
   let(:antenne) { create :antenne, institution: institution, name: 'Test Antenne' }
-  let!(:user) { create :user, antenne: antenne, full_name: 'User 1', email: 'user@user.com', phone_number: '0123456789', role: 'User Role' }
+  let!(:user) { create :user, antenne: antenne, full_name: 'User 1', email: 'user@user.com', phone_number: '0123456789', job: 'User job' }
 
   describe 'simple user export' do
     subject { User.all.export_csv.csv }
@@ -11,7 +11,7 @@ describe CsvExport::UserExporter, CsvExport do
     it do
       csv = <<~CSV
         Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction
-        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Role
+        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Job
       CSV
       is_expected.to eq csv
     end
@@ -25,7 +25,7 @@ describe CsvExport::UserExporter, CsvExport do
     it do
       csv = <<~CSV
         Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Nom de l’équipe,E-mail de l’équipe,Téléphone de l’équipe
-        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Role,Team 1,team@team.com,09 87 65 43 21
+        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Job,Team 1,team@team.com,09 87 65 43 21
       CSV
       is_expected.to eq csv
     end
@@ -45,7 +45,7 @@ describe CsvExport::UserExporter, CsvExport do
     it do
       csv = <<~CSV
         Institution,Antenne,Prénom et nom,E-mail,Téléphone,Fonction,Test Subject
-        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Role,Intervention criteria
+        Test Institution,Test Antenne,User 1,user@user.com,01 23 45 67 89,User Job,Intervention criteria
       CSV
       is_expected.to eq csv
     end

@@ -34,7 +34,7 @@ module PersonConcern
     normalize_name
     normalize_email
     normalize_phone_number
-    normalize_role
+    normalize_job
   end
 
   def normalize_values!
@@ -65,9 +65,9 @@ module PersonConcern
     end
   end
 
-  def normalize_role
-    return unless self.class.method_defined?(:role) && self.role.present?
+  def normalize_job
+    return unless self.class.method_defined?(:job) && self.job.present?
 
-    self.role = self.role.squish.titleize
+    self.job = self.job.squish.titleize
   end
 end

@@ -8,9 +8,9 @@
 #  flags           :jsonb
 #  full_name       :string
 #  is_global_zone  :boolean          default(FALSE)
+#  job             :string
 #  phone_number    :string
 #  reminders_notes :text
-#  role            :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  antenne_id      :bigint(8)        not null

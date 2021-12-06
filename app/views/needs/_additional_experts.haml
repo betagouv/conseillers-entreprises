@@ -20,7 +20,7 @@
             - local_assigns[:experts].each do |expert|
               - confirm_message = t('.add_match_with', name: expert.full_name, subject: need.subject)
               %li
-                = f.button "#{expert.full_name} (#{expert.role} - #{expert.antenne.name})", value: expert.id,
+                = f.button "#{expert.full_name} (#{expert.job} - #{expert.antenne.name})", value: expert.id,
                 name: :expert, data: { confirm: confirm_message }, remote: true, class: 'gray-link'
                 %ul.list-unstyled
                   - expert.experts_subjects.each do |expert_subject|

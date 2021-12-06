@@ -6,10 +6,10 @@
       .fr-col-7
         %ul.list-unstyled.card-expert__list
           %li= t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long))
-          - if expert.role.present?
+          - if expert.job.present?
             %li
               %span.picto.ri-contacts-book-line
-              = expert.role
+              = expert.job
           - if expert.phone_number.present?
             %li
               %span.picto.ri-phone-line

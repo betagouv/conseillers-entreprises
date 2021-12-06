@@ -24,7 +24,6 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :string
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -76,7 +75,7 @@ class User < ApplicationRecord
   #
   before_validation :fix_flag_values
   validates :full_name, presence: true, unless: :deleted?
-  validates :role, presence: true
+  validates :job, presence: true
   validates :antenne, presence: true
   validate :password_complexity
   after_create :create_personal_skillset_if_needed
@@ -267,7 +266,7 @@ class User < ApplicationRecord
   end
 
   def attributes_shared_with_personal_skills
-    shared_attributes = %w[email full_name phone_number role antenne_id]
+    shared_attributes = %w[email full_name phone_number job antenne_id]
     self.attributes.slice(*shared_attributes)
   end
 

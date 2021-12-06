@@ -18,7 +18,7 @@ module XlsxExport
         antenne: -> { antenne.name },
         email: :email,
         phone_number: :phone_number,
-        role: :role,
+        job: :job,
       }
     end
 

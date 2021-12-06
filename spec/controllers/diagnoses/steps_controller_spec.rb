@@ -34,7 +34,7 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
           diagnosis: {
             happened_on: "27/01/2020",
             visitee_attributes: {
-              full_name: "Edith Piaf", role: "directrice", email: "edith@piaf.fr", phone_number: "0606060606"
+              full_name: "Edith Piaf", job: "directrice", email: "edith@piaf.fr", phone_number: "0606060606"
             }
           }
         }
@@ -55,7 +55,7 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
           diagnosis: {
             happened_on: "27/01/2020",
             visitee_attributes: {
-              full_name: "Edith Piaf", role: "directrice", email: "edith@piaf.fr", phone_number: "0606060606",
+              full_name: "Edith Piaf", job: "directrice", email: "edith@piaf.fr", phone_number: "0606060606",
             },
             facility_attributes: {
               id: diagnosis.facility_id,
