@@ -26,7 +26,6 @@ fr:
     - ven
     - sam
     abbr_month_names:
-    - 
     - jan.
     - fév.
     - mar.
@@ -52,6 +51,7 @@ fr:
       iso: "%F"
       long: "%-d %B %Y"
       month: "%b %Y"
+      month_name: "%B"
       short: "%e %b"
     month_names:
     - 
@@ -251,6 +251,7 @@ fr:
     formats:
       admin: "%Y-%m-%d %H:%M"
       default: "%d %B %Y %Hh %Mmin %Ss"
+      fr: "%d/%m/%Y %H:%M"
       long: "%A %d %B %Y %Hh%M"
       long_sentence: "%A %d %B %Y à %Hh%M"
       sentence: "%d %B %Y"

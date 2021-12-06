@@ -31,6 +31,7 @@ fr:
       active: Actifs
       admin: Admins
       all: Tout
+      antenne_manager: Responsables d’antenne
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
@@ -503,6 +504,7 @@ fr:
       other: Tags
     categories: Catégories
     code_effectif: Tranche d’effectif
+    commune: Commune
     communes: Communes
     community: Communauté
     company_effectif: Effectifs
@@ -552,6 +554,7 @@ fr:
       other: Commentaires
     flags: Options
     full_name: Prénom et nom
+    global_need_status: Statut du besoin au global
     happened_on: Date de la visite
     insee_codes: Codes communes
     institution: Institution
@@ -570,9 +573,12 @@ fr:
     manager_full_name: Nom du responsable
     manager_phone: Téléphone du responsable
     managers: Responsables
+    match_closed_at: Date de cloture
     match_created_at: Date de transmission du besoin
     match_id: Id de la mise en relation
     match_status: Statut de la mise en relation
+    match_status_by_expert: Statut de la mise en relation par expert
+    match_taken_care_of_at: Date de prise en charge
     matched_antennes: Antennes MER
     matches:
       one: Mise en relation
@@ -585,6 +591,7 @@ fr:
     needs:
       one: Besoin
       other: Besoins
+    notified_expert: Expert notifié
     optional: Optionnel
     page_title: Titre affiché sur la page
     phone_number: Téléphone

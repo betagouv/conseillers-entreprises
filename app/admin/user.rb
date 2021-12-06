@@ -129,7 +129,7 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar I18n.t('active_admin.user.admin'), only: :show do
+  sidebar I18n.t('active_admin.user.role'), only: :show do
     attributes_table_for user do
       row :role do |u|
         I18n.t(u.role, scope: 'activerecord.attributes.user/roles')

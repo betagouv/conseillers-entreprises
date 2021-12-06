@@ -60,6 +60,7 @@ fr:
       menu: Menu
       partner_tools: Outils partenaires
       profile: Profil
+      reports: Export des données
       root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
@@ -636,6 +637,18 @@ fr:
       needs: Par délai
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
+  reports:
+    download_matches:
+      xslx_name: export-%{number}-trimestre-%{year}.xlsx
+    find_quarter:
+      first: premier
+      fourth: quatrieme
+      second: deuxieme
+      third: troisieme
+    index:
+      interval: "%{start_month} à %{end_month} %{year}"
+      sub_title: Antenne %{name}
+      title: Export des données
   shared:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
