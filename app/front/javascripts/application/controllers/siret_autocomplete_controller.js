@@ -6,8 +6,6 @@ export default class extends Controller {
   static targets = [ "field" ]
 
   initialize() {
-    console.log('initialize')
-
     this.accessibleAutocomplete = accessibleAutocomplete({
       element: this.fieldTarget,
       id: 'solicitation-siret',
@@ -17,32 +15,19 @@ export default class extends Controller {
         inputValue: this.inputValueTemplate,
         suggestion: this.suggestionTemplate
       },
-      // defaultValue: this.fieldTarget.dataset.defaultValue,
       source: debounce(async (query, populateResults) => {
-        console.log(query)
-        // reinitFormFields(query);
         const results = await this.fetchEtablissements(query);
-        console.log(results)
         if(!results) return;
         if (results.error) {
           console.warn(results.error)
-          // displayErrorBlock()
         } else {
-          // hideErrorBlock()
           populateResults(this.filterResults(results));
         }
-      }, 300),
-      onConfirm: (option) => {
-        console.log(option)
-        // fillSiretField(option)
-      }
+      }, 300)
     })
   }
 
   connect() {
-    console.log('connect')
-    console.log(this.fieldTarget.dataset.defaultValue)
-    console.log(this.fieldTarget.value)
     if (exists(this.fieldTarget.dataset.defaultValue)) {
       document.querySelector('#solicitation-siret').value = this.fieldTarget.dataset.defaultValue
     }
