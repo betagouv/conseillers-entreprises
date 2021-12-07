@@ -9,8 +9,11 @@ class ReportsController < ApplicationController
     start_date = params[:start_date].to_date
     end_date = params[:end_date].to_date
     xlsx_filename = t('.xslx_name', number: find_quarter(start_date.month), year: start_date.year)
-    @matches = Match.joins(need: { experts: :antenne })
-      .where(need: { experts: { antennes: [current_user.antenne] }, created_at: [start_date..end_date] })
+
+    @matches = Match.joins(need: { experts: { antenne: :institution }, facility: :commune })
+      .where(need: { facilities: { commune: current_user.antenne.communes },
+             experts: { institutions: [current_user.institution] },
+             created_at: [start_date..end_date] })
       .where.not(need: { status: :diagnosis_not_complete })
       .distinct
 
