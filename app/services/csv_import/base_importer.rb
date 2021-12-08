@@ -34,6 +34,7 @@ module CsvImport
 
           # Create objects
           object, attributes = find_instance(attributes)
+          next if object.nil?
 
           object.update(attributes)
 

@@ -81,6 +81,15 @@ describe CsvImport::AntenneImporter, CsvImport do
     end
   end
 
+  context 'with blank rows' do
+    let(:csv) { file_fixture('antennes-with-blank-rows.csv') }
+
+    it do
+      expect(result).to be_success
+      expect(Antenne.find_by(name: 'Antenne1')).not_to be_nil
+    end
+  end
+
   context 'existing antenne overwrite' do
     before do
       create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
