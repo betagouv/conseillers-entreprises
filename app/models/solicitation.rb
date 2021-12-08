@@ -61,6 +61,7 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
   before_create :set_institution_from_landing
+  before_create :set_siret_and_region, if: -> { code_region.blank? && Rails.env != 'test' }
 
   ## Callbacks
   #
@@ -70,6 +71,23 @@ class Solicitation < ApplicationRecord
 
   def touch_after_badges_update(_badge)
     touch if persisted?
+  end
+
+  def set_siret_and_region
+    siret_or_siren = FormatSiret.clean_siret(siret)
+    # Solicitation with a valid SIRET
+    if FormatSiret.siret_is_valid(siret_or_siren)
+      etablissement_data = ApiEntreprise::Etablissement::Base.new(siret_or_siren).call
+      return if etablissement_data.blank?
+      self.code_region = ApiConsumption::Models::Facility.new(etablissement_data).code_region
+      self.siret = siret_or_siren
+    # Solicitation with a valid SIREN
+    elsif FormatSiret.siren_is_valid(siret_or_siren)
+      response = ApiSirene::SirenSearch.search(siret_or_siren)
+      return if response.other_etablissements_sirets.present?
+      self.code_region = response.siege_social[:region_siege]
+      self.siret = response.siege_social[:siret]
+    end
   end
 
   ## Validations

@@ -33,5 +33,13 @@ module ApiSirene
         SireneEtablissement.new(h)
       end
     end
+
+    def other_etablissements_sirets
+      @hashes[:other_etablissements_sirets]
+    end
+
+    def siege_social
+      @hashes[:siege_social]
+    end
   end
 end
