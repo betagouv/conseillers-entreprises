@@ -640,11 +640,6 @@ fr:
   reports:
     download_matches:
       xslx_name: export-%{number}-trimestre-%{year}.xlsx
-    find_quarter:
-      first: premier
-      fourth: quatrieme
-      second: deuxieme
-      third: troisieme
     index:
       interval: "%{start_month} à %{end_month} %{year}"
       sub_title: Antenne %{name}
@@ -822,6 +817,12 @@ fr:
         quality: Suivi qualité
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
+  time_duration_service:
+    find_quarter:
+      first: premier
+      fourth: quatrieme
+      second: deuxieme
+      third: troisieme
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

@@ -41,7 +41,6 @@ module XlsxExport
       @first_row_style = s.add_style alignment: { horizontal: :center, vertical: :center, wrap_text: true }, bg_color: 'f1efeb', sz: 12, b: true, border: { style: :thin, color: '6a6a6a' }
       @align_center = s.add_style alignment: { horizontal: :left, vertical: :center, wrap_text: true }
       @gray_bg = s.add_style alignment: { horizontal: :left, vertical: :center, wrap_text: true }, bg_color: 'f1f1f1', border: { style: :thin, color: 'A7A7A7' }
-      @beige_bg = s.add_style alignment: { horizontal: :left, vertical: :center, wrap_text: true }, bg_color: 'f9f8f6', border: { style: :thin, color: 'A7A7A7' }
       s
     end
 
@@ -83,7 +82,6 @@ module XlsxExport
     end
 
     def apply_style(sheet, _)
-      # # Style
       sheet.rows[0].style = @first_row_style
       sheet.sheet_view.pane do |pane|
         pane.top_left_cell = "A2"

@@ -109,9 +109,9 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :admin, -> { not_deleted.where(role: 'admin') }
-  scope :antenne_manager, -> { not_deleted.where(role: 'antenne_manager') }
-  scope :not_admin, -> { where.not(role: 'admin') }
+  scope :admin, -> { not_deleted.role_admin }
+  scope :antenne_manager, -> { not_deleted.role_antenne_manager }
+  scope :not_admin, -> { not_role_admin }
 
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
