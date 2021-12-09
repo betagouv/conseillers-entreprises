@@ -32,6 +32,12 @@
             %li
               %span.picto.ri-phone-fill
               = link_to(expert.antenne.manager_phone, "tel:#{expert.antenne.manager_phone}")
+    - cache ["positionning_rate", expert, expert.received_quo_matches] do
+      .fr-grid-row
+        .fr-col-7
+          .card-expert__subtitle= t('.positionning_rate')
+        .fr-col-5
+          = expert_positionning_rate_tag(expert)
 
     - cache ["received_matches", expert, expert.received_matches] do
       .card-expert__subtitle= t('.matches_total')

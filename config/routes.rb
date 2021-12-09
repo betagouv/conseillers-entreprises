@@ -209,7 +209,12 @@ Rails.application.routes.draw do
   namespace :reminders, path: 'relances' do
     get '/', to: redirect('/relances/besoins')
 
-    resources :experts, only: %i[index], path: 'referents' do
+    resources :experts, only: %i[index], path: 'experts' do
+      collection do
+        get :critical_rate, path: 'taux-positionnement-critique'
+        get :worrying_rate, path: 'taux-positionnement-a-surveiller'
+        get :pending_rate, path: 'positionnement-en-attente'
+      end
       member do
         post :reminders_notes
         get :quo, path: 'boite_de_reception'

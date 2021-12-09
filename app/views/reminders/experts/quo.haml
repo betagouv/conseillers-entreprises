@@ -26,6 +26,6 @@
                 = render 'expert_reminders_notes', expert: @expert
 
 - content_for :header, render('reminders/header', section: :experts, expert: @expert)
-- content_for :menu, render('menu', expert: @expert, collections_counts: @inbox_collections_counts)
+- content_for :menu, render('expert_menu', expert: @expert, collections_counts: @inbox_collections_counts)
 
 = render 'reminders/needs', received_needs: @needs, action: @action
