@@ -65,7 +65,7 @@ import accessibleAutocomplete from 'accessible-autocomplete';
           notInDeployedRegion.style.display = 'block'
           const newsletter = document.querySelector("[data-error='newsletter']")
           newsletter.style.display = 'block'
-          fill_newsletter_form(code_region);
+          fill_newsletter_form();
         }
       }
     }
@@ -85,12 +85,10 @@ import accessibleAutocomplete from 'accessible-autocomplete';
     }
   }
 
-  function fill_newsletter_form (region_code) {
-    const newsletter_region_field = document.getElementById("region_code")
+  function fill_newsletter_form() {
     const solicitation_form_email = document.getElementById("solicitation_email")
     const newsletter_form_email = document.getElementById("email")
     newsletter_form_email.value = solicitation_form_email.value
-    newsletter_region_field.value = region_code
   }
 
   // Récupération des résultats ----------------------------------------------------

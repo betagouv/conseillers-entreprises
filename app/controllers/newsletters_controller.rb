@@ -3,10 +3,8 @@ class NewslettersController < PagesController
 
   def create
     api_instance = SibApiV3Sdk::ContactsApi.new
-    region = params[:region_code].present? ? t(params[:region_code], scope: 'regions_codes_to_libelles') : ''
     contact_params = {
       email: params[:email],
-      attributes: { region: region },
       listIds: [ENV['SENDINBLUE_NEWSLETTER_ID'].to_i],
       updateEnabled: true
     }
