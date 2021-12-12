@@ -1,6 +1,6 @@
+import './controllers'
 import './iframe_external_links'
 import './navbar'
 import './stats_charts'
 import './percentage_column_chart'
-import './siret_autocomplete'
 import './responsive-menu'

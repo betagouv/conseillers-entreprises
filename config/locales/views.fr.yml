@@ -136,6 +136,7 @@ fr:
       search_company: Recherche d’une entreprise existante
       suggestions: Suggestions
     search_form:
+      siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
       subtitle: Par SIRET, raison sociale, adresse, activité
     show:
       create_diagnosis: Démarrer une analyse

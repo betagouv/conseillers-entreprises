@@ -7,7 +7,6 @@
       let countCells = document.querySelectorAll('tr.users-count th')
 
       for (let cell of subjectCells) {
-        console.log(cell)
         cell.style.top = `${themeRowHeight}px`
       }
 
