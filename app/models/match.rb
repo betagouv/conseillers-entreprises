@@ -95,12 +95,7 @@ class Match < ApplicationRecord
   # Takes all needs.matches in the user antenne territory and when there is an expert of user institution notified
   scope :user_antenne_territory_needs, -> (user, start_date, end_date) do
     joins(need: { experts: { antenne: :institution }, facility: :commune })
-      .where(need: {
-        facilities: { commune: user.antenne.communes },
-                     experts: { institutions: [user.institution] },
-                     created_at: [start_date..end_date]
-      })
-      .where.not(need: { status: :diagnosis_not_complete })
+      .merge(Need.user_antenne_territory_needs(user, start_date, end_date))
       .distinct
   end
 
