@@ -21,7 +21,7 @@ describe 'New Solicitation', type: :system, js: true, flaky: true do
         fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
         fill_in 'Téléphone', with: '0123456789'
         fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'SIRET', with: '123 456 789 00010'
+        fill_in 'solicitation-siret', with: '123 456 789 00010'
         fill_in 'E-mail', with: 'user@exemple.com'
         click_button 'Envoyer ma demande'
       end
@@ -50,7 +50,7 @@ describe 'New Solicitation', type: :system, js: true, flaky: true do
         fill_in 'Prénom et nom', with: 'Mariane'
         fill_in 'Téléphone', with: '0123456789'
         fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'SIRET', with: '123 456 789 00010'
+        fill_in 'solicitation-siret', with: '123 456 789 00010'
         fill_in 'E-mail', with: 'user@example.com'
         click_button 'Envoyer ma demande'
         # Only here to avoid flickering test with CI
@@ -88,7 +88,7 @@ describe 'New Solicitation', type: :system, js: true, flaky: true do
         fill_in 'Téléphone', with: '0123456789'
         fill_in 'E-mail', with: 'user@exemple.com'
         fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'SIRET', with: '418166096'
+        fill_in 'solicitation-siret', with: '418166096'
         # # option 1 : working in local, not with circle-ci
         # expect(page).to have_content('OCTO-TECHNOLOGY')
         # find(".autocomplete__option", match: :first).click
@@ -98,7 +98,7 @@ describe 'New Solicitation', type: :system, js: true, flaky: true do
         expect(option).to have_content('Octo Technology')
         page.execute_script("document.querySelector('.autocomplete__option').click()")
 
-        expect(page).to have_field("SIRET", with: '41816609600051 - Octo Technology', wait: 2)
+        expect(page).to have_field("solicitation-siret", with: '41816609600051', wait: 2)
 
         click_button 'Envoyer ma demande'
         find(".section__title", match: :first)
@@ -122,6 +122,7 @@ describe 'New Solicitation', type: :system, js: true, flaky: true do
         stub_request(:get, url).to_return(
           body: file_fixture('entreprise_data_gouv_full_text.json')
         )
+        landing.landing_themes << landing_theme
       end
 
       # Not working, for now
@@ -131,16 +132,19 @@ describe 'New Solicitation', type: :system, js: true, flaky: true do
         click_link 'Super sujet'
         fill_in 'E-mail', with: 'user@exemple.com'
         fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'SIRET', with: 'octo technology'
+        fill_in 'solicitation-siret', with: 'octo technology'
         option = find(".autocomplete__option")
         expect(option).to have_content('OCTO-TECHNOLOGY')
         # page.execute_script("document.querySelector('.autocomplete__option').click()")
         find(".autocomplete__option", match: :first).click
 
-        expect(page).to have_field("SIRET", with: '41816609600051 - Octo Technology', wait: 5)
+        expect(page).to have_field("solicitation-siret", with: '41816609600069', wait: 5)
 
         click_button 'Envoyer ma demande'
-        expect(solicitation.siret).to eq '41816609600051'
+        find(".section__title", match: :first)
+        expect(page).to have_content('Merci')
+
+        expect(solicitation.siret).to eq '41816609600069'
         expect(solicitation.code_region).to eq 11
       end
     end

@@ -12,18 +12,17 @@
           // Duplication pour respecter l'accessibilité (id unique, field avec label...)
           = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
           %span= t(".attributes.help.siret_html")
-          %div{ 'data-action': 'siret-autocomplete',
-          'data-assistive-hint': t(".attributes.help.siret_assistive_hint"),
-          'data-deployed-regions': Territory.deployed_codes_regions,
-          'data-landing-theme': solicitation.landing_theme.slug }
-          = f.hidden_field :siret, data: { target: 'siret-autocomplete' }
-          = f.hidden_field :code_region, data: { target: 'code-region-autocomplete' }
+          %div{ 'data-controller': "pages-siret-autocomplete" }
+            %div{ data: { 'pages-siret-autocomplete-target': "field", name: "solicitation[siret]", 'assistive-hint': t(".attributes.help.siret_assistive_hint"), 'landing-theme': solicitation.landing_theme.slug } }
+            = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField', 'deployed-regions': Territory.deployed_codes_regions }
 
-          %small.siret-warn{ 'data-error': "indiffusible-siret" }= t(".attributes.help.indiffusible_siret_html")
-          .notification.warning.out-region{ 'data-error': "not-in-deployed-region" }
-            = image_tag('info-alert-orange.png', alt: '')
-            = t(".attributes.help.not_in_deployed_region_html")
-            = link_to t('.clic_newsletter'), '#newsletter'
+            .notification.warning.autocomplete-warning{ data: { 'pages-siret-autocomplete-target': 'indifusibleBlock' } }
+              = t(".attributes.help.indiffusible_siret_html")
+
+            .notification.warning.autocomplete-warning{ data: { 'pages-siret-autocomplete-target': 'undeployedRegionBlock' } }
+              = image_tag('info-alert-orange.png', alt: '')
+              = t(".attributes.help.not_in_deployed_region_html")
+              = link_to t('.clic_newsletter'), '#newsletter'
         - else
           = f.label field
           - if help.present?
