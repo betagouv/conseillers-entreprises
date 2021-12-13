@@ -145,9 +145,8 @@ class Need < ApplicationRecord
     joins(experts: { antenne: :institution }, facility: :commune)
       .diagnosis_completed
       .where(facilities: { commune: user.antenne.communes },
-          experts: { institutions: [user.institution] },
-          created_at: [start_date..end_date]
-        )
+             experts: { institutions: [user.institution] },
+             created_at: [start_date..end_date])
   end
 
   REMINDERS_DAYS = {
