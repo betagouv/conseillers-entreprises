@@ -32,16 +32,4 @@ class UserMailer < ApplicationMailer
 
     mail(to: @advisor.email, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @company.name))
   end
-
-  def remind_invitation(user)
-    @user = user
-    @institution = user.institution
-    # Hack : pour utiliser dans le lien d'invitation `raw_token`, non enregistré en BDD, on régénère le token
-    # https://github.com/scambra/devise_invitable/blob/f76994e1bea603e81c1ebc19422d589253371f9b/lib/devise_invitable/models.rb#L276
-    @user.send(:generate_invitation_token!)
-
-    @token = @user.raw_invitation_token
-
-    mail(to: @user.email, subject: t('mailers.user_mailer.remind_invitation.subject', institution_name: @institution.name))
-  end
 end
