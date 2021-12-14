@@ -4,7 +4,7 @@
 %h2 Questions fréquentes
 
 - faq.each do |item|
-  %details.faq
+  %details.faq{ id: item[:id] }
     %summary
       %h3= item[:question]
     %p= simple_format(item[:answer])
