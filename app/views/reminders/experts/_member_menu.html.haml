@@ -1,9 +1,0 @@
--#
-  TODO #1367 For consistency between /relances/besoins, /besoins, and /relances/experts,
-  In this menu we should have two sections:
-  * one relying on the InvolvementConcern queries (as in /besoins, see needs/_menu.html.haml)
-  * one relying on the Need#reminders_to scopes  (:poke, :recall, :warn, :archive)
-%ul.fr-sidemenu__list
-  - collections_counts.each do |name, count|
-    - path = polymorphic_path([name, :reminders_expert].compact)
-    = menu_link_with_count(t(name, scope: 'needs.collections'), count, path)

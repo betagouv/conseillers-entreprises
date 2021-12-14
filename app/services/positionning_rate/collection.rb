@@ -12,12 +12,12 @@ module PositionningRate
 
     def critical_rate
       base_query
-        .where("(#{sql_received_quo_matches_count}) / cast((#{sql_received_matches_count}) as float) >= ?", CRITICAL_RATE)
+        .where("(#{sql_received_matches_count}) > 0 AND #{sql_ratio} >= ?", CRITICAL_RATE)
       end
 
     def worrying_rate
       base_query
-        .where("(#{sql_received_quo_matches_count}) / cast((#{sql_received_matches_count}) as float) >= ? AND (#{sql_received_quo_matches_count}) / cast((#{sql_received_matches_count}) as float) < ?", WORRYING_RATE, CRITICAL_RATE)
+        .where("(#{sql_received_matches_count}) > 0 AND #{sql_ratio} >= ? AND #{sql_ratio} < ?", WORRYING_RATE, CRITICAL_RATE)
   end
 
     def pending_rate
@@ -30,7 +30,7 @@ module PositionningRate
       base_query.select("experts.*,
         (#{sql_received_quo_matches_count}) as quo_count,
         (#{sql_received_matches_count}) as normal_count,
-        (#{sql_received_quo_matches_count}) / cast((#{sql_received_matches_count}) as float) as rate")
+        #{sql_ratio} as rate")
     end
 
     private
@@ -47,6 +47,10 @@ module PositionningRate
         WHERE matches.expert_id = experts.id
         AND matches.created_at BETWEEN '#{@start_date}' AND '#{@end_date}'
         AND matches.id IN (SELECT matches.id FROM matches INNER JOIN needs ON needs.id = matches.need_id INNER JOIN diagnoses ON diagnoses.id = needs.diagnosis_id WHERE diagnoses.step = #{Diagnosis.steps['completed']})"
+    end
+
+    def sql_ratio
+      "(#{sql_received_quo_matches_count}) / cast((#{sql_received_matches_count}) as float)"
     end
 
     def sql_received_quo_matches_count

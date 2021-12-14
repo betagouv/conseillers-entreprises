@@ -213,7 +213,7 @@ Rails.application.routes.draw do
       collection do
         get :critical_rate, path: 'taux-positionnement-critique'
         get :worrying_rate, path: 'taux-positionnement-a-surveiller'
-        get :pending_rate, path: 'positionnement-en-attente'
+        get :pending_rate, path: 'taux-positionnement-restant'
       end
       member do
         post :reminders_notes

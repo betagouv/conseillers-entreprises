@@ -7,7 +7,7 @@
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/solicitations_controller.rb",
-      "line": 78,
+      "line": 81,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
       "code": "redirect_to(Solicitation.find(params[:id]).prepare_diagnosis(current_user))",
       "render_path": null,
@@ -21,13 +21,33 @@
       "note": ""
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "42ece5cab4729c1ad4e9e3035ad7d12e33bcc5621ebf78d4f7991c7bc8fa7f43",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/positionning_rate/collection.rb",
+      "line": 25,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "base_query.where(\"(#{sql_received_matches_count}) > 0 AND #{sql_ratio} >= ? AND #{sql_ratio} < ?\", 0.4, 0.7)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PositionningRate::Collection",
+        "method": "worrying_rate"
+      },
+      "user_input": "sql_received_matches_count",
+      "confidence": "Weak",
+      "note": "Injection de donnee systeme, ne provenant pas des utilisateurs"
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "8c0cf3dade4441e78ad5e8f205c8b119a75fd588ae9cab646729864072d6853c",
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/experts_controller.rb",
-      "line": 38,
+      "line": 41,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:expert).permit(:full_name, :phone_number, :role, :experts_subjects_attributes => ({}))",
       "render_path": null,
@@ -47,7 +67,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 70,
+      "line": 73,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -67,7 +87,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/stats/base_stats.rb",
-      "line": 111,
+      "line": 110,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)\")",
       "render_path": null,
@@ -79,8 +99,28 @@
       "user_input": "query.model.name.pluralize",
       "confidence": "Weak",
       "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "d4ad1cd79d04378cc144c08603b2b1b14f8625b08da51d88239d0ca11910dedc",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/services/positionning_rate/collection.rb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "base_query.where(\"(#{sql_received_matches_count}) > 0 AND #{sql_ratio} >= ?\", 0.7)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PositionningRate::Collection",
+        "method": "critical_rate"
+      },
+      "user_input": "sql_received_matches_count",
+      "confidence": "Weak",
+      "note": "Injection de donnee systeme, ne provenant pas des utilisateurs"
     }
   ],
-  "updated": "2021-04-12 14:57:10 +0200",
-  "brakeman_version": "5.0.0"
+  "updated": "2021-12-14 10:04:48 +0100",
+  "brakeman_version": "5.1.2"
 }
