@@ -27,6 +27,9 @@ fr:
       modified: Le tag a été %{action}
     csv_export: Export CSV
     csv_export_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
+    solicitations:
+      diagnosis_in_progress: " (Analyse en cours)"
+      id: Sollicitation %{id}
   annuaire:
     base:
       import_errors:

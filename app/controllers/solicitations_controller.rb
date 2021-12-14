@@ -36,6 +36,7 @@ class SolicitationsController < ApplicationController
   def show
     authorize @solicitation
     nb_per_page = Solicitation.page(1).limit_value
+    session.delete(territory_session_param)
     case @solicitation.status
     when 'canceled'
       page = (Solicitation.status_canceled.where('created_at > ?', @solicitation.created_at).count / nb_per_page) + 1
