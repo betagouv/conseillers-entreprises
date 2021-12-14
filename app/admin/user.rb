@@ -160,11 +160,7 @@ ActiveAdmin.register User do
 
   # Form
   #
-  permit_params :full_name, :email, :institution, :role, :phone_number,
-                :role,
-                :antenne_id,
-                *User::FLAGS,
-                expert_ids: []
+  permit_params :full_name, :email, :institution, :job, :phone_number, :role, :antenne_id, *User::FLAGS, expert_ids: []
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
