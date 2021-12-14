@@ -14,7 +14,7 @@ ActiveAdmin.register Solicitation do
   index do
     selectable_column
     column :solicitation do |s|
-      div admin_link_to(s)
+      div link_to I18n.t('active_admin.solicitations.id', id: s.id), solicitation_path(s)
       div l(s.created_at, format: :admin)
       unless s.status_in_progress?
         human_attribute_status_tag s, :status
@@ -29,7 +29,11 @@ ActiveAdmin.register Solicitation do
         end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
-      admin_link_to(s.diagnosis)
+      if s.diagnosis&.step_completed?
+        admin_link_to(s.diagnosis)
+      elsif s.diagnosis.present? && !s.diagnosis&.step_completed?
+        admin_link_to(s.diagnosis) + I18n.t('active_admin.solicitations.diagnosis_in_progress')
+      end
     end
     column I18n.t('attributes.badges.other') do |s|
       render 'badges', badges: s.badges
