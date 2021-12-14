@@ -38,13 +38,29 @@ RSpec.describe Need, type: :model do
   end
 
   describe 'update_status' do
-    let(:need) { create :need_with_matches }
+    context 'after match changes' do
+      let(:need) { create :need_with_matches }
 
-    before { need.matches.first.update(status: :taking_care) }
+      before { need.matches.first.update(status: :taking_care) }
 
-    subject { need.reload.status }
+      subject { need.reload.status }
 
-    it { is_expected.to eq 'taking_care' }
+      it { is_expected.to eq 'taking_care' }
+    end
+
+    context 'after diagnosis changes' do
+      let(:need) { create :need }
+
+      before do
+        need.matches << create(:match)
+      end
+
+      it 'changes need status' do
+        expect(need.status).to eq('diagnosis_not_complete')
+        need.diagnosis.update(step: :completed)
+        expect(need.reload.status).to eq('quo')
+      end
+    end
   end
 
   describe 'status' do

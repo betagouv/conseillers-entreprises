@@ -87,6 +87,10 @@ class Diagnosis < ApplicationRecord
   has_many :expert_institutions, through: :experts, source: :institution, inverse_of: :received_diagnoses
   has_many :contacted_users, through: :experts, source: :users, inverse_of: :received_diagnoses
 
+  ## Callbacks
+  #
+  after_update :update_needs, if: :step_completed?
+
   ## Scopes
   #
   scope :from_solicitation, -> { where.not(solicitation: nil) }
@@ -151,6 +155,10 @@ class Diagnosis < ApplicationRecord
   end
 
   private
+
+  def update_needs
+    needs.each{ |n| n.update_status }
+  end
 
   def step_visit_has_needs
     if step_visit?
