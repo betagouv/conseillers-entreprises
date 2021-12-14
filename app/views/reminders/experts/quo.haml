@@ -10,10 +10,10 @@
           .fr-grid-row.fr-mt-5w
             .fr-col-md-4
               %ul.list-unstyled.fr-pl-1v
-                - if @expert.role.present?
+                - if @expert.job.present?
                   %li
                     %span.picto.ri-contacts-book-line
-                    = @expert.role
+                    = @expert.job
                 - if @expert.phone_number.present?
                   %li
                     %span.picto.ri-phone-line

@@ -8,7 +8,7 @@ describe 'admin panel', type: :feature do
   describe 'user access to panel' do
     context 'user is admin' do
       before do
-        current_user.update is_admin: true
+        current_user.update role: 'admin'
         visit '/admin'
       end
 
@@ -18,7 +18,7 @@ describe 'admin panel', type: :feature do
 
   describe 'user access to admin pages' do
     before do
-      current_user.update is_admin: true
+      current_user.update role: 'admin'
       # Dummy data, so as to thoroughly check views
       create_base_dummy_data
       visit '/admin'
@@ -78,7 +78,7 @@ describe 'admin panel', type: :feature do
     let(:match) { create :match }
 
     before do
-      current_user.update is_admin: true
+      current_user.update role: 'admin'
       visit '/admin'
 
       match.need.diagnosis.archive!

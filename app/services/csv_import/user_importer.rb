@@ -3,7 +3,7 @@ module CsvImport
   class UserImporter < BaseImporter
     def mapping
       @mapping ||=
-        %i[institution antenne full_name email phone_number role]
+        %i[institution antenne full_name email phone_number job]
           .index_by{ |k| User.human_attribute_name(k) }
     end
 

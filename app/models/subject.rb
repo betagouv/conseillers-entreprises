@@ -78,7 +78,7 @@ class Subject < ApplicationRecord
     self.transaction do
       self.institutions_subjects.destroy_all
       other.institutions_subjects.each do |other_institutions_subjects|
-        experts_subjects_attributes =  other_institutions_subjects.experts_subjects.map{ |es| es.attributes.symbolize_keys.slice(:description, :role, :expert_id) }
+        experts_subjects_attributes =  other_institutions_subjects.experts_subjects.map{ |es| es.attributes.symbolize_keys.slice(:description, :job, :expert_id) }
         i = InstitutionSubject.new(
           description: other_institutions_subjects.description,
           institution: other_institutions_subjects.institution,

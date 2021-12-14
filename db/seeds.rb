@@ -36,7 +36,7 @@ if ENV['RAILS_ENV'] == 'development'
   person_params = {
     email: TEST_EMAIL,
     phone_number: '0612345678',
-    role: 'Test User',
+    job: 'Test User',
     full_name: 'Edith Piaf',
     antenne: antenne,
     flags: {
@@ -46,7 +46,7 @@ if ENV['RAILS_ENV'] == 'development'
 
   ## User and Expert
   user = User.find_or_create_by!(person_params) do |user|
-    user.update!(password: TEST_PASSWORD, is_admin: true)
+    user.update!(password: TEST_PASSWORD, role: 'admin')
     # users.experts.first is created implicitely
     user.experts.first.experts_subjects.find_or_create_by!(institution_subject: institution_subject)
   end

@@ -16,7 +16,7 @@ describe 'invitations', type: :system, js: true do
       fill_in id: 'user_email', with: 'marie.dupont@exemple.fr'
       fill_in id: 'user_full_name', with: 'Marie Dupont'
       fill_in id: 'user_phone_number', with: '0123456789'
-      fill_in id: 'user_role', with: 'Conseillère'
+      fill_in id: 'user_job', with: 'Conseillère'
       select 'Agence tous risques', from: 'user_antenne_id'
 
       click_button 'Envoyer l’invitation'
@@ -28,7 +28,7 @@ describe 'invitations', type: :system, js: true do
       expect(last_user.email).to eq 'marie.dupont@exemple.fr'
       expect(last_user.full_name).to eq 'Marie Dupont'
       expect(last_user.phone_number).to eq '01 23 45 67 89'
-      expect(last_user.role).to eq 'Conseillère'
+      expect(last_user.job).to eq 'Conseillère'
       expect(last_user.antenne).to eq antenne
     end
   end

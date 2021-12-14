@@ -34,6 +34,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reports, path: 'export-des-donnees', only: :index do
+    collection do
+      get :download_matches
+    end
+  end
+
   scope :annuaire, module: :annuaire do
     get '/', to: redirect('/annuaire/institutions')
 

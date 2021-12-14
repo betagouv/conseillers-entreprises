@@ -18,7 +18,8 @@ ActiveAdmin.register User do
   scope :active, default: true
   scope :deleted
 
-  scope :admin
+  scope :admin, group: :role
+  scope :antenne_manager, group: :role
 
   scope :team_members, group: :teams
   scope :no_team, group: :teams
@@ -36,8 +37,8 @@ ActiveAdmin.register User do
       end
     end
     column :created_at
-    column :role do |u|
-      div u.role
+    column :job do |u|
+      div u.job
       div admin_link_to(u, :antenne)
       div admin_link_to(u, :institution)
     end
@@ -65,7 +66,7 @@ ActiveAdmin.register User do
 
   filter :full_name
   filter :email
-  filter :role
+  filter :job
   filter :regions, as: :select, collection: -> { Territory.regions.order(:name).pluck(:name, :id) }
   filter :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
@@ -79,7 +80,7 @@ ActiveAdmin.register User do
     column :email
     column :phone_number
     column :created_at
-    column :role
+    column :job
     column :antenne
     column :institution
     column_list :experts
@@ -99,8 +100,8 @@ ActiveAdmin.register User do
       row :email
       row :phone_number
       row :institution
-      row :role do |u|
-        div u.role
+      row :job do |u|
+        div u.job
         div admin_link_to(u, :antenne)
         div admin_link_to(u, :institution)
       end
@@ -128,9 +129,11 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar I18n.t('active_admin.user.admin'), only: :show do
+  sidebar I18n.t('active_admin.user.role'), only: :show do
     attributes_table_for user do
-      row :is_admin
+      row :role do |u|
+        I18n.t(u.role, scope: 'activerecord.attributes.user/roles')
+      end
     end
   end
 
@@ -158,7 +161,7 @@ ActiveAdmin.register User do
   # Form
   #
   permit_params :full_name, :email, :institution, :role, :phone_number,
-                :is_admin,
+                :role,
                 :antenne_id,
                 *User::FLAGS,
                 expert_ids: []
@@ -179,13 +182,13 @@ ActiveAdmin.register User do
                 search_fields: [:full_name],
                 ajax_search_fields: [:antenne_id]
               }
-      f.input :role
+      f.input :job
       f.input :email
       f.input :phone_number
     end
 
-    f.inputs I18n.t('active_admin.user.admin') do
-      f.input :is_admin, as: :boolean
+    f.inputs I18n.t('active_admin.user.role') do
+      f.input :role, as: :select, collection: User.human_attribute_values(:role, raw_values: true).invert.to_a
     end
 
     f.inputs I18n.t('attributes.flags') do

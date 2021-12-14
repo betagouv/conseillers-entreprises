@@ -10,7 +10,7 @@ module FeatureMacros
   end
 
   def login_admin
-    let(:current_user) { create :user, is_admin: true }
+    let(:current_user) { create :user, role: 'admin' }
 
     before do
       login_as current_user, scope: :user

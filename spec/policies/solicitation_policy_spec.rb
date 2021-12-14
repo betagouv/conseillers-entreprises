@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SolicitationPolicy, type: :policy do
   let(:no_user) { nil }
   let(:user) { create :user }
-  let(:admin) { create :user, is_admin: true }
+  let(:admin) { create :user, role: 'admin' }
   let(:solicitation) { create :solicitation }
 
   subject { described_class }

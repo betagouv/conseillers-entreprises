@@ -5,7 +5,7 @@ FactoryBot.define do
     full_name { Faker::Name.unique.name }
     email { Faker::Internet.unique.email }
     phone_number { Faker::PhoneNumber.phone_number }
-    role { Faker::Job.title }
+    job { Faker::Job.title }
     password { 'yX*4Ubo_xPW!u' }
     password_confirmation { 'yX*4Ubo_xPW!u' }
     association :antenne

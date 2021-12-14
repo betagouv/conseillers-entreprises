@@ -60,6 +60,7 @@ fr:
       menu: Menu
       partner_tools: Outils partenaires
       profile: Profil
+      reports: Export des données
       root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
@@ -197,7 +198,7 @@ fr:
       solicited_at: Sollicitée le %{date}
       solicited_by_html: 'par %{name} </br> email : %{email}'
       visited_at: Visitée le %{date}
-      visited_by_html: 'par %{name} (%{role} - %{antenne}) </br> email : %{email}'
+      visited_by_html: 'par %{name} (%{job} - %{antenne}) </br> email : %{email}'
     steps:
       matches:
         before_sending_emails_1: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail.
@@ -305,10 +306,10 @@ fr:
             description: Décrivez votre demande.
             email: marie.dupont@exemple.fr
             full_name: 'ex: Marie Dupont'
+            job: Conseiller entreprise, Chargé de mission…
             location: Hauts-de-France; région de Milly-la-forêt; 91260…
             phone_number: 06 12 34 56 78
             requested_help_amount: 8 000 €
-            role: Conseiller entreprise, Chargé de mission…
             siret: 123 456 789 00010
             team_name: Équipe formation, Cellule-conseil aux entreprises…
         better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
@@ -636,6 +637,13 @@ fr:
       needs: Par délai
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
+  reports:
+    download_matches:
+      xslx_name: export-%{number}-trimestre-%{year}.xlsx
+    index:
+      interval: "%{start_month} à %{end_month} %{year}"
+      sub_title: Antenne %{name}
+      title: Export des données
   shared:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
@@ -809,6 +817,12 @@ fr:
         quality: Suivi qualité
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
+  time_duration_service:
+    find_quarter:
+      first: premier
+      fourth: quatrieme
+      second: deuxieme
+      third: troisieme
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

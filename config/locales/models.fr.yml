@@ -31,6 +31,7 @@ fr:
       active: Actifs
       admin: Admins
       all: Tout
+      antenne_manager: Responsables d’antenne
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
@@ -90,11 +91,11 @@ fr:
       department_number: 'Département %{number} :'
       entire_territory_assigned: Territoire ajouté
     user:
-      admin: Admin
       connection: Connexion
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
       impersonate: Voir le site comme %{name}
+      role: Role
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
   activerecord:
@@ -111,7 +112,7 @@ fr:
         useful_exchange: Échange utile
       contact:
         company: Entreprise
-        role: Fonction
+        job: Fonction
       diagnosis:
         content: Commentaire
         step: Étape
@@ -124,20 +125,20 @@ fr:
       diagnosis/visitee:
         email: Adresse e-mail de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée
+        job: Fonction de la personne rencontrée
         phone_number: Numéro de téléphone de la personne rencontrée
-        role: Fonction de la personne rencontrée
       expert:
         full_name: Nom de l’équipe
         is_global_zone: Global
+        job: Fonction
         reminders_notes: Suivi des relances
-        role: Fonction
         users:
           one: Membre
           other: Membres
       expert_subject:
         institution_subject: Compétence d’institution
         intervention_criteria: Critères d’intervention
-        role: rôle
+        job: rôle
       facility:
         company: Entreprise
         readable_locality: Commune
@@ -351,7 +352,7 @@ fr:
         invitation_sent_at: Invitation envoyée
         invitees: Invités
         inviter: Invité par
-        is_admin: Est administrateur ?
+        job: Fonction
         last_sign_in_at: Date de la dernière connexion
         last_sign_in_ip: IP lors de la dernière connexion
         password: Mot de passe
@@ -359,12 +360,16 @@ fr:
         remember_me: Se souvenir de moi
         reset_password_sent_at: Date de régénération du mot de passe
         reset_password_token: Token de régénération du mot de passe
-        role: Fonction
+        role: Role
         sign_in_count: Connexions
         team_email: E-mail de l’équipe
         team_full_name: Nom de l’équipe
+        team_job: Fonction de l’équipe
         team_phone_number: Téléphone de l’équipe
-        team_role: Fonction de l’équipe
+      user/roles:
+        admin: Admin
+        advisor: Conseiller
+        antenne_manager: Responsable d’antenne
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -499,6 +504,7 @@ fr:
       other: Tags
     categories: Catégories
     code_effectif: Tranche d’effectif
+    commune: Commune
     communes: Communes
     community: Communauté
     company_effectif: Effectifs
@@ -548,6 +554,7 @@ fr:
       other: Commentaires
     flags: Options
     full_name: Prénom et nom
+    global_need_status: Statut du besoin au global
     happened_on: Date de la visite
     insee_codes: Codes communes
     institution: Institution
@@ -566,9 +573,12 @@ fr:
     manager_full_name: Nom du responsable
     manager_phone: Téléphone du responsable
     managers: Responsables
+    match_closed_at: Date de cloture
     match_created_at: Date de transmission du besoin
     match_id: Id de la mise en relation
     match_status: Statut de la mise en relation
+    match_status_by_expert: Statut de la mise en relation par expert
+    match_taken_care_of_at: Date de prise en charge
     matched_antennes: Antennes MER
     matches:
       one: Mise en relation
@@ -581,14 +591,15 @@ fr:
     needs:
       one: Besoin
       other: Besoins
+    notified_expert: Expert notifié
     optional: Optionnel
     page_title: Titre affiché sur la page
     phone_number: Téléphone
     placeholder:
       email: marie.dupont@exemple.fr
       full_name: 'ex : Marie Dupont'
+      job: Conseiller entreprise, Chargé de mission…
       phone_number: 06 12 34 56 78
-      role: Conseiller entreprise, Chargé de mission…
       team_name: Équipe formation, Cellule-conseil aux entreprises…
     received_matches:
       one: Mise en relation reçue
