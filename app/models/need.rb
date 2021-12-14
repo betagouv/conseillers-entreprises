@@ -60,10 +60,6 @@ class Need < ApplicationRecord
 
   accepts_nested_attributes_for :matches, allow_destroy: true
 
-  ## Callbacks
-  #
-  after_touch :update_status
-
   ## Through Associations
   #
   # :diagnosis
