@@ -93,7 +93,7 @@ ActiveAdmin.register Territory do
 
   ## Form
   #
-  permit_params :name, :insee_codes, :bassin_emploi, :code_region, :support_contact_id
+  permit_params :name, :insee_codes, :bassin_emploi, :code_region, :support_contact_id, :deployed_at
 
   form do |f|
     f.inputs do
@@ -101,6 +101,7 @@ ActiveAdmin.register Territory do
       f.input :bassin_emploi
       f.input :code_region, as: :select, collection: regions_list.map{ |r| [r.last, r.first] }
       f.input :support_contact, collection: User.admin.not_deleted
+      f.input :deployed_at, as: :datepicker, datepicker_options: { min_date: "2017-01-01" }
     end
     f.inputs do
       f.input :insee_codes, as: :text
