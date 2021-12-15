@@ -30,7 +30,7 @@ module PositionningRate
     def base_query
       @experts
         .not_deleted
-        .joins(:received_quo_matches) # Pour ne pas avoir de division avec zéro
+        .joins(received_quo_matches: {need: :diagnosis}) # Pour ne pas avoir de division avec zéro
         .merge(Match.created_between(@start_date, @end_date))
     end
 
