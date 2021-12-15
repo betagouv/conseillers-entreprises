@@ -3,7 +3,7 @@
 
 - pages = [{ title: t('reminders.index.title'), path: reminders_path },
            { title: t(section, scope: 'reminders.section'), path: polymorphic_path([:reminders, section]) }]
-- pages << { title: t(scope, scope: 'reminders.needs.scopes.name'), path: polymorphic_path([scope, :reminders, :needs]) } if defined?(scope)
+- pages << { title: t(scope, scope: [:reminders, section, :scopes, :name]), path: polymorphic_path([scope, :reminders, section]) } if defined?(scope)
 - pages << { title: expert, path: quo_reminders_expert_path(expert) } if defined?(expert)
 - current_page = pages.last[:title]
 - pages.delete pages.last

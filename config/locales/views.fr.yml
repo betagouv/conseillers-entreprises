@@ -607,11 +607,25 @@ fr:
         expert_creation_date: Inscription le %{date}
         manager_name: 'Responsable : %{name}'
         matches_total: Demandes depuis le début
+        positionning_rate: Taux de positionnement sur 60 jours
         received_matches: reçues
       expert_reminders_notes:
         placeholder: Restez factuel :)
       index:
         title: Relances par experts
+      scopes:
+        detail:
+          critical_rate: "(< 30%)"
+          pending_rate: "(> 60%)"
+          worrying_rate: "(< 60%)"
+        instruction:
+          critical_rate: J’appelle le responsable d’antenne pour faire un point et essayer de comprendre. (Si la région vient d’ouvrir, s’adresser d’abord aux experts)
+          pending_rate: Je fais un mail d’information aux experts dont le volume des besoins en attente est conséquent
+          worrying_rate: Je fais un mail d’information au responsable d’antenne
+        name:
+          critical_rate: Critique
+          pending_rate: Restant
+          worrying_rate: À surveiller
     index:
       title: Relances
     needs:
@@ -621,6 +635,11 @@ fr:
           poke: J+%{days}
           recall: J+%{days}
           warn: J+%{days}
+        instruction:
+          archive: Je fais un mail d’échec à l’entreprise
+          poke: Je mets un commentaire dans la fiche pour relancer la dynamique
+          recall: J’appelle les experts qui ne se sont pas positionnés
+          warn: Je fais un mail au responsable d’antenne pour indiquer que ce besoin reste sans réponse
         mark_done:
           archive: Archiver
           poke: Expert relancé
@@ -632,8 +651,8 @@ fr:
           recall: À rappeler
           warn: Prévenir l’institution
     section:
-      experts: Par expert
-      needs: Par délai
+      experts: Par taux de positionnement d’expert
+      needs: Par délai du besoin
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:

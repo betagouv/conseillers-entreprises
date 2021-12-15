@@ -30,6 +30,7 @@
 
 class Match < ApplicationRecord
   include Archivable
+  include RangeScopes
 
   ## Constants
   #
