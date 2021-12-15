@@ -13,24 +13,16 @@ module PositionningRate
     def critical_rate
       base_query
         .where("(#{sql_received_matches_count}) > 0 AND #{sql_ratio} >= ?", CRITICAL_RATE)
-      end
+    end
 
     def worrying_rate
       base_query
         .where("(#{sql_received_matches_count}) > 0 AND #{sql_ratio} >= ? AND #{sql_ratio} < ?", WORRYING_RATE, CRITICAL_RATE)
-  end
+    end
 
     def pending_rate
       base_query
         .where.not(id: critical_rate.pluck(:id) + worrying_rate.pluck(:id))
-    end
-
-    # Ici dans une logique de debug, pour le moment
-    def rates
-      base_query.select("experts.*,
-        (#{sql_received_quo_matches_count}) as quo_count,
-        (#{sql_received_matches_count}) as normal_count,
-        #{sql_ratio} as rate")
     end
 
     private

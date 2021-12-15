@@ -75,7 +75,7 @@ Rails.application.configure do
 
   # Bullet configuration. Other options : https://github.com/flyerhzm/bullet#configuration
   config.after_initialize do
-    Bullet.enable = false
+    Bullet.enable = true
     Bullet.add_footer = true
   end
 end

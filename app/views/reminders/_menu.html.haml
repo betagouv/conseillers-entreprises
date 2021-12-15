@@ -3,8 +3,7 @@
 
 %ul.fr-sidemenu__list
   - collections_counts.each do |name, count|
-    - path = polymorphic_path([name, :reminders, :needs])
-    = menu_link_with_count(count, path, class: 'item', title: t(name, scope: 'reminders.needs.scopes.instruction')) do
+    = menu_link_with_count(count, [name, :reminders, :needs], class: 'item', title: t(name, scope: [:reminders, :needs, :scopes, :instruction])) do
       = t(name, scope: 'reminders.needs.scopes.name')
       - detail = t(name, scope: 'reminders.needs.scopes.detail', days: Need::REMINDERS_DAYS[name])
       %i (#{detail})
@@ -14,8 +13,7 @@
 
 %ul.fr-sidemenu__list
   - expert_collections_count.each do |name, count|
-    - path = polymorphic_path([name, :reminders, :experts])
-    = menu_link_with_count(count, path, class: 'item', title: t(name, scope: 'reminders.experts.scopes.instruction')) do
+    = menu_link_with_count(count, [name, :reminders, :experts], class: 'item', title: t(name, scope: [:reminders, :experts, :scopes, :instruction])) do
       = t(name, scope: 'reminders.experts.scopes.name')
       %i= t(name, scope: 'reminders.experts.scopes.detail')
 

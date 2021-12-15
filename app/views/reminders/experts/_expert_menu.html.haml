@@ -1,4 +1,3 @@
 %ul.fr-sidemenu__list
   - collections_counts.each do |name, count|
-    - path = polymorphic_path([name, :reminders_expert].compact)
-    = menu_link_with_count(t(name, scope: 'needs.collections'), count, path)
+    = menu_link_with_count(t(name, scope: 'needs.collections'), count, [name, :reminders_expert])
