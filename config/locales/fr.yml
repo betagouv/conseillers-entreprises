@@ -18,6 +18,7 @@ fr:
   cta_button: Échanger avec un conseiller
   date:
     abbr_day_names:
+    - 
     - dim
     - lun
     - mar
