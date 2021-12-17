@@ -18,7 +18,6 @@ fr:
   cta_button: Échanger avec un conseiller
   date:
     abbr_day_names:
-    - 
     - dim
     - lun
     - mar
@@ -27,6 +26,7 @@ fr:
     - ven
     - sam
     abbr_month_names:
+    - 
     - jan.
     - fév.
     - mar.
