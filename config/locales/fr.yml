@@ -18,7 +18,7 @@ fr:
   cta_button: Échanger avec un conseiller
   date:
     abbr_day_names:
-    -
+    - 
     - dim
     - lun
     - mar
@@ -55,7 +55,7 @@ fr:
       month_name: "%B"
       short: "%e %b"
     month_names:
-    -
+    - 
     - janvier
     - février
     - mars
