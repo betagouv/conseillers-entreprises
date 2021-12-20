@@ -66,9 +66,15 @@
     align-items: center
     margin-right: 1rem
 
-.modify-match
+.match-admin-actions
+  display: flex
+  align-items: center
+  justify-content: space-between
+  .status-label
+    flex-shrink: 0
   .fr-accordion
     border: none
+    box-shadow: none
     .fr-accordion__btn
       display: flex
       justify-content: center
@@ -86,6 +92,14 @@
       right: 0
       background: #fff
       width: 17rem
+  .fr-btns-group
+    margin-left: 1.5rem
+    display: flex
+    align-items: center
+  .fr-btns-group--inline
+    width: auto
+    > li
+      display: block
 
 .infos-transmitted-by
   .title
