@@ -11,10 +11,13 @@ class ApplicationController < SharedController
   end
 
   ## Devise overrides
-  # See also RegistrationsController::after_sign_up_path_for
   def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.sign_in_count == 1
       path = tutoriels_path
+    elsif resource_or_scope.role_antenne_manager?
+      path = reports_path
+    elsif resource_or_scope.role_admin?
+      path = solicitations_path
     else
       path = quo_needs_path
     end
