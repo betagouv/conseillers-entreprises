@@ -99,6 +99,18 @@ describe CsvImport::UserImporter, CsvImport do
         expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com'])
       end
     end
+
+    context 'replace comma and semicolon with dots in emails' do
+      let(:csv) { file_fixture('users-with-comma-in-emails.csv') }
+
+      it do
+        expect(result).to be_success
+        expect(institution.experts.teams.count).to eq 1
+        team = institution.experts.teams.first
+        expect(team.email).to eq 'equipe@antenne.com'
+        expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com'])
+      end
+    end
   end
 
   context 'set teams and user without phone number' do
