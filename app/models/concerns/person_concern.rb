@@ -51,6 +51,7 @@ module PersonConcern
   def normalize_email
     return unless self.email
 
+    self.email.gsub!(/[,;]/,".")
     self.email = ActiveSupport::Inflector.transliterate(self.email.squish.downcase)
   end
 
