@@ -14,7 +14,7 @@ module Stats
 
     def matches
       @stats = Stats::Matches::All.new(stats_params)
-      @charts_names = [:transmitted_less_than_72h_stats]
+      @charts_names = [:transmitted_less_than_72h_stats, :positioning_rate]
       render :index
     end
 

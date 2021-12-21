@@ -93,6 +93,8 @@ class Match < ApplicationRecord
 
   scope :sent, -> { where(id: joins(:diagnosis).merge(Diagnosis.step_completed)) }
 
+  scope :in_region, -> (region) { joins(:facility_regions).where(facility: { territories: region }) }
+
   # Takes all needs.matches in the user antenne territory and when there is an expert of user institution notified
   scope :user_antenne_territory_needs, -> (user, start_date, end_date) do
     joins(need: { experts: { antenne: :institution }, facility: :commune })
