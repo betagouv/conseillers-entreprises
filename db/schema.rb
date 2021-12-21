@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_135119) do
     t.bigint "user_id"
     t.string "feedbackable_type"
     t.bigint "feedbackable_id"
-    t.enum "category", null: false, enum_name: "feedbacks_categories"
+    t.enum "category", null: false, enum_type: "feedbacks_categories"
     t.index ["category"], name: "index_feedbacks_on_category"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
@@ -387,7 +387,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_135119) do
     t.datetime "closed_at"
     t.bigint "expert_id"
     t.bigint "subject_id"
-    t.enum "status", default: "quo", null: false, enum_name: "match_status"
+    t.enum "status", default: "quo", null: false, enum_type: "match_status"
     t.datetime "archived_at"
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
@@ -405,7 +405,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_135119) do
     t.integer "matches_count"
     t.datetime "archived_at"
     t.boolean "satisfaction_email_sent", default: false, null: false
-    t.enum "status", default: "diagnosis_not_complete", null: false, enum_name: "need_status"
+    t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
     t.index ["archived_at"], name: "index_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
     t.index ["status"], name: "index_needs_on_status"
@@ -415,7 +415,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_135119) do
 
   create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
-    t.enum "category", null: false, enum_name: "actions_categories"
+    t.enum "category", null: false, enum_type: "actions_categories"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category"], name: "index_reminders_actions_on_category"
@@ -525,7 +525,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_135119) do
     t.datetime "deleted_at"
     t.jsonb "flags", default: {}
     t.datetime "cgu_accepted_at"
-    t.enum "role", default: "advisor", null: false, enum_name: "user_roles"
+    t.enum "role", default: "advisor", null: false, enum_type: "user_roles"
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true, where: "((email)::text <> NULL::text)"
