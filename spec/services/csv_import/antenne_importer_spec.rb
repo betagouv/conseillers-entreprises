@@ -90,6 +90,15 @@ describe CsvImport::AntenneImporter, CsvImport do
     end
   end
 
+  context 'with insee code with 4 digits' do
+    let(:csv) { file_fixture('csv_import/antennes-with-4-digits-insee-codes.csv') }
+
+    it do
+      expect(result).to be_success
+      expect(Antenne.find_by(name: 'Antenne1').communes.pluck(:insee_code)).to match_array %w[06001 06002]
+    end
+  end
+
   context 'existing antenne overwrite' do
     before do
       create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
