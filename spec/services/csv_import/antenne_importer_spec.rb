@@ -82,7 +82,7 @@ describe CsvImport::AntenneImporter, CsvImport do
   end
 
   context 'with blank rows' do
-    let(:csv) { file_fixture('antennes-with-blank-rows.csv') }
+    let(:csv) { file_fixture('csv_import/antennes-with-blank-rows.csv') }
 
     it do
       expect(result).to be_success
