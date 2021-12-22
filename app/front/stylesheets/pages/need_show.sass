@@ -72,18 +72,22 @@
   justify-content: space-between
   .status-label
     flex-shrink: 0
-  .fr-accordion
+    margin-left: auto
+  .fr-accordion, .fr-accordion:not(a):not(:disabled):hover
     border: none
     box-shadow: none
     .fr-accordion__btn
       display: flex
       justify-content: center
+      color: #000091
+      color: var(--bf500)
       &:before
         content: ''
         margin-right: 0
         margin-left: 0
       &:hover
         background-image: none
+        color: #1e70bf
     .fr-collapse
       box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17)
       line-height: 1.8rem
