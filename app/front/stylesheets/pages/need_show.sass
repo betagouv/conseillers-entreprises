@@ -66,18 +66,28 @@
     align-items: center
     margin-right: 1rem
 
-.modify-match
-  .fr-accordion
+.match-admin-actions
+  display: flex
+  align-items: center
+  justify-content: space-between
+  .status-label
+    flex-shrink: 0
+    margin-left: auto
+  .fr-accordion, .fr-accordion:not(a):not(:disabled):hover
     border: none
+    box-shadow: none
     .fr-accordion__btn
       display: flex
       justify-content: center
+      color: #000091
+      color: var(--bf500)
       &:before
         content: ''
         margin-right: 0
         margin-left: 0
       &:hover
         background-image: none
+        color: #1e70bf
     .fr-collapse
       box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17)
       line-height: 1.8rem
@@ -86,6 +96,14 @@
       right: 0
       background: #fff
       width: 17rem
+  .fr-btns-group
+    margin-left: 1.5rem
+    display: flex
+    align-items: center
+  .fr-btns-group--inline
+    width: auto
+    > li
+      display: block
 
 .infos-transmitted-by
   .title

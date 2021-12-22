@@ -44,5 +44,17 @@ describe 'ApplicationController specific features', type: :feature do
 
       it('redirects to needs quo page') { expect(current_url).to eq quo_needs_url }
     end
+
+    context 'antenne manager connection' do
+      let(:user) { create :user, password: password, password_confirmation: password, sign_in_count: 1, role: 'antenne_manager' }
+
+      it('redirects to reports page') { expect(current_url).to eq reports_url }
+    end
+
+    context 'admin manager connection' do
+      let(:user) { create :user, password: password, password_confirmation: password, sign_in_count: 1, role: 'admin' }
+
+      it('redirects to solicitations page') { expect(current_url).to eq solicitations_url }
+    end
   end
 end
