@@ -1,17 +1,18 @@
-version: 2
+version: 2.1
+
+orbs:
+  browser-tools: circleci/browser-tools@1.2.3
 
 defaults: &defaults
   working_directory: ~/place-des-entreprises
   docker:
-    - image: circleci/ruby:2.7.4-node-browsers
-      environment:
-        SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
-    - image: circleci/postgres:11.5
+    - image: cimg/ruby:3.0.2-browsers
+    - image: circleci/postgres:13.5
       environment:
         POSTGRES_USER: place_des_entreprises_test
         POSTGRES_PASSWORD: place_des_entreprises_test
         POSTGRES_DB: place_des_entreprises_test
-    - image: selenium/standalone-chrome:87.0
+
 bundle_restore_cache: &bundle_restore_cache
   restore_cache:
     key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
@@ -42,10 +43,12 @@ yarn_install: &yarn_install
     name: Install Yarn Dependencies
     command: yarn install --ignore-engines
 
-precompile_assets: &precompile_assets
+check_chrome_installation: &check_chrome_installation
   run:
-    name: Precompile assets
-    command: bundle exec rails webpacker:compile
+    name: Check Chrome install
+    command: |
+      google-chrome --version
+      chromedriver --version
 
 jobs:
   build:
@@ -63,6 +66,9 @@ jobs:
     parallelism: 1
     steps:
       - checkout
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - *check_chrome_installation
       - *bundle_restore_cache
       - *yarn_restore_cache
       - *bundle_install
@@ -72,7 +78,6 @@ jobs:
             DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_entreprises_test"
           name: Create DB
           command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
-      # - *precompile_assets
       - run:
           environment:
             DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_entreprises_test"

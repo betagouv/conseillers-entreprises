@@ -64,10 +64,10 @@ module CsvImport
           # Unfortunately, CSV::read only takes files…
           # … and CSV::new takes strings or IO, but the IO needs to be already open.
           # @input is a file:
-          CSV.read(input, common_options)
+          CSV.read(input, **common_options)
         else
           # @input is a string:
-          CSV.new(input, common_options).read
+          CSV.new(input, **common_options).read
         end
       rescue CSV::MalformedCSVError => e
         return e
