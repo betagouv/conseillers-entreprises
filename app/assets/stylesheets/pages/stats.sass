@@ -7,18 +7,23 @@
         max-width: 100%
   .tiles
     .grid
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
-      margin-bottom: 1rem
-      @media (max-width: 1500px)
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+      display: flex
+      margin-bottom: 2rem
+      //grid-template-columns: repeat(auto-fill, minmax(400px, 1fr))
+      //margin-bottom: 1rem
+      //@media (max-width: 1500px)
+      //  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
     a.tile
+      display: flex
+      align-items: center
+      justify-content: center
       text-decoration: none
       color: var(--black)
       height: 7rem
       .tile__icon
         font-size: 2rem
       h2
-        margin-top: 0
+        margin: 0
       &.active
         background: var(--blue)
         color: #fff

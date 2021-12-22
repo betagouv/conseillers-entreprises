@@ -719,8 +719,10 @@ fr:
       title: Notre mesure d’impact phare
     more_than_72h: Plus de 72h
     not_archived: Besoins non abandonnés
+    not_positioning: L’expert ne s’est pas positionné
     other_status: Autres status
     out_of_deployed_regions: Demandes hors régions déployées
+    positioning: L’expert s’est positionné
     public:
       index:
         meta_description: Le service public Place des Entreprises permet aux TPE & PME d’être appelées par le bon conseiller pour répondre à leur demande. L’activité du service est mesurée à partir de statistiques publiques.
@@ -761,6 +763,8 @@ fr:
         title: de besoins clôturés faute d’avoir pu joindre l’entreprise
       needs_not_for_me:
         title: de besoins refusés
+      positioning_rate:
+        title: Taux de positionnement
       solicitations:
         series: Demandes déposées
         title: demandes déposées par les entreprises
