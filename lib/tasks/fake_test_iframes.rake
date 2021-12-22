@@ -4,7 +4,7 @@ task fake_test_iframes: :environment do
 
   [
     { slug: 'iframe-test-1', title: 'Iframe test 1', custom_css: '.landing-theme-cards-container { grid-template-columns: repeat(1, 1fr); } .landing-subject-cards-container { grid-template-columns: repeat(1, 1fr) }', layout: "multiple_steps", iframe_category: "integral", display_pde_partnership_mention: true },
-    { slug: 'iframe-test-2', title: 'Iframe test 2', custom_css: '  ', layout: "multiple_steps", iframe_category: "integral", display_pde_partnership_mention: true },
+    { slug: 'iframe-test-2', title: 'Iframe test 2', custom_css: '.landing-theme-cards-container { grid-template-columns: repeat(2, 1fr); }', layout: "multiple_steps", iframe_category: "integral", display_pde_partnership_mention: true },
     { slug: 'iframe-test-3', title: 'Iframe test 3', layout: "multiple_steps", iframe_category: "integral", display_pde_partnership_mention: true },
   ].each do |params|
     landing = Landing.where(slug: params[:slug]).first_or_create!(
