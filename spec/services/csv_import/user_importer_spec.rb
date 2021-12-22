@@ -101,7 +101,7 @@ describe CsvImport::UserImporter, CsvImport do
     end
 
     context 'replace comma and semicolon with dots in emails' do
-      let(:csv) { file_fixture('users-with-comma-in-emails.csv') }
+      let(:csv) { file_fixture('csv_import/users-with-comma-in-emails.csv') }
 
       it do
         expect(result).to be_success

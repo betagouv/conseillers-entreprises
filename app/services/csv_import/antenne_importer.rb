@@ -15,6 +15,7 @@ module CsvImport
 
     def preprocess(attributes)
       attributes.transform_values!(&:squish)
+      attributes[:insee_codes] = FormatInseeCodes.normalize(attributes[:insee_codes]) if attributes[:insee_codes].present?
       attributes[:institution] = Institution.find_by(name: attributes[:institution]) || @options[:institution]
     end
 
