@@ -41,7 +41,7 @@ module XlsxExport
     end
 
     def fields_for_subjects
-      @options[:institutions_subjects].map do |institution_subject|
+      @options[:institutions_subjects].to_h do |institution_subject|
         # We build a hash of <institution subject>: <expert subject>
         # * There can be only one expert_subject for an (expert, institution_subject) pair.
         title = institution_subject.unique_name
@@ -56,7 +56,7 @@ module XlsxExport
           expert_subject&.csv_description
         }
         [title, lambda]
-      end.to_h
+      end
     end
 
     def sort_relation(relation)
