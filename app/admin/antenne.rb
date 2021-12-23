@@ -91,7 +91,7 @@ ActiveAdmin.register Antenne do
         div a.manager_phone
       end
       row(I18n.t('active_admin.territory.communes_list')) do |a|
-        (a.communes)
+        div displays_insee_codes(a.communes)
       end
     end
 
