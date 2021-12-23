@@ -2,7 +2,9 @@
 fr:
   active_admin:
     expert:
+      no_specifique_zone: Cet expert n’a pas de zone spécifique
       skills: Compétences
+      specifique_zone: Zone spécifique
     flag:
       action:
         add: Activer une option
