@@ -2,7 +2,9 @@
 fr:
   active_admin:
     expert:
+      no_specifique_zone: Cet expert n’a pas de zone spécifique
       skills: Compétences
+      specifique_zone: Zone spécifique
     flag:
       action:
         add: Activer une option
@@ -88,7 +90,7 @@ fr:
         one: "%{count} commune"
         other: "%{count} communes"
       confirm_assign_entire_territory: Assigner toutes les communes de %{territory} à la zone d’intervention de %{many_communes} ?
-      department_number: 'Département %{number} :'
+      department_number: 'Département %{number}, %{name} :'
       entire_territory_assigned: Territoire ajouté
     user:
       connection: Connexion

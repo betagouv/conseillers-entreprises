@@ -157,6 +157,16 @@ ActiveAdmin.register Expert do
           column(:archived_at) { |es| es.subject.archived_at }
         end
       end
+
+      attributes_table title: I18n.t('active_admin.expert.specifique_zone') do
+        row(:intervention_zone) do |e|
+          if e.communes.present?
+            div displays_insee_codes(e.communes)
+          else
+            I18n.t('active_admin.expert.no_specifique_zone')
+          end
+        end
+      end
     end
   end
 
