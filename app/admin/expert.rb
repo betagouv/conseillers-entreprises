@@ -237,10 +237,9 @@ ActiveAdmin.register Expert do
       f.inputs t('attributes.experts_subjects.other') do
         f.has_many :experts_subjects, allow_destroy: true do |sub_f|
           collection = resource.institution.available_subjects
-            .map do |t, s|
+            .to_h do |t, s|
               [t.label, s.map { |s| ["#{s.subject.label}: #{s.description}", s.id] }]
             end
-            .to_h
 
           sub_f.input :institution_subject, collection: collection
           sub_f.input :intervention_criteria
