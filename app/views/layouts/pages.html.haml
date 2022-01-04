@@ -19,6 +19,7 @@
     - if in_iframe?
       %meta{ name: 'robots', content: 'noindex' }
       = javascript_include_tag 'https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.2/js/iframeResizer.contentWindow.min.js', integrity: "sha256-rbC2imHDJIBYUIXvf+XiYY+2cXmiSlctlHgI+rrezQo=", crossorigin: "anonymous", nonce: true
+      %style="body {height: auto}"
       - if defined? @landing
         %style= @landing.custom_css
 
@@ -27,7 +28,7 @@
     = sentry_script
     = matomo_script
 
-  %body{ style: "#{'height: auto' if in_iframe?}"}
+  %body
     = render 'navbar' unless in_iframe?
     = render 'environment_ribbon'
     = render 'user_impersonate'
