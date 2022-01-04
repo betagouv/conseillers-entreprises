@@ -37,6 +37,7 @@ export default class extends SiretAutocompleteController {
       let codeRegion = parseInt(option.code_region);
       if (!this.codeRegionFieldTarget.dataset.deployedRegions.includes(codeRegion)) {
         this.undeployedRegionBlockTarget.style.display = 'block'
+        document.querySelector("[data-error='newsletter']").style.display = 'block'
         this.fillNewsletterForm()
       }
     }
