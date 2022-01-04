@@ -10,7 +10,7 @@
   = javascript_pack_tag 'application', data: { turbolinks_track: 'reload' }, nonce: true
   = javascript_include_tag 'application', data: { turbolinks_track: 'reload' }, nonce: true
 
-  = javascript_include_tag 'https://browser.sentry-cdn.com/6.16.1/bundle.min.js', crossorigin: 'anonymous', integrity: "sha384-n6TNefxJMUTqJauZtoDyDhAs5Ng0VzcMTy0/afmyZoVZpaQ2clYR1LBa4SqhVySs"
+  = javascript_include_tag 'https://browser.sentry-cdn.com/6.16.1/bundle.min.js', crossorigin: 'anonymous', integrity: "sha384-n6TNefxJMUTqJauZtoDyDhAs5Ng0VzcMTy0/afmyZoVZpaQ2clYR1LBa4SqhVySs", nonce: true
 
   = render 'favicon'
   = yield :head
