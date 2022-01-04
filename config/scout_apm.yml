@@ -1,0 +1,20 @@
+common: &defaults
+  name: <%= "PdE (#{Rails.env})" %>
+  key: <%= ENV.fetch('SCOUTAPM_KEY') %>
+  # log_level: Verboseness of logs.
+  # - Default: 'info'
+  # - Valid Options: debug, info, warn, error
+  log_level: info
+  monitor: true
+
+production:
+  <<: *defaults
+
+development:
+  <<: *defaults
+  monitor: false
+  dev_trace: true
+
+test:
+  <<: *defaults
+  monitor: false
