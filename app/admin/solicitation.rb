@@ -29,11 +29,8 @@ ActiveAdmin.register Solicitation do
         end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
-      if s.diagnosis&.step_completed?
-        admin_link_to(s.diagnosis)
-      elsif s.diagnosis.present? && !s.diagnosis&.step_completed?
-        admin_link_to(s.diagnosis) + I18n.t('active_admin.solicitations.diagnosis_in_progress')
-      end
+      div raw diagnosis_link(s.diagnosis)
+      div raw needs_links(s.needs) if s.needs.present?
     end
     column I18n.t('attributes.badges.other') do |s|
       render 'badges', badges: s.badges
@@ -50,8 +47,8 @@ ActiveAdmin.register Solicitation do
       div s.normalized_phone_number
       div mail_to(s.email)
       hr
-      div admin_attr(s, :requested_help_amount)
-      div admin_attr(s, :location)
+      div admin_attr(s, :requested_help_amount) if s.requested_help_amount.present?
+      div admin_attr(s, :location) if s.location.present?
       hr
       if s.pk_campaign.present?
         div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}".html_safe
