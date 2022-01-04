@@ -82,6 +82,9 @@ gem 'active_link_to'
 # Security
 gem 'rack-attack'
 
+# Performance
+gem 'scout_apm'
+
 group :test do
   gem 'capybara'
   gem 'rails-controller-testing'
