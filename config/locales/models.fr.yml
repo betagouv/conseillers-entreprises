@@ -74,6 +74,7 @@ fr:
       without_subjects: Sans compétence
       without_users: Aucun membre
     solicitations:
+      need_show: Fiche besoin : 
       no_siret: SIRET non fourni
     subject:
       copy_experts_button: Copier le référencement

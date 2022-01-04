@@ -28,7 +28,7 @@ fr:
     csv_export: Export CSV
     csv_export_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
     solicitations:
-      diagnosis_in_progress: " (Analyse en cours)"
+      diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
   annuaire:
     base:

@@ -29,11 +29,8 @@ ActiveAdmin.register Solicitation do
         end
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
-      if s.diagnosis&.step_completed?
-        admin_link_to(s.diagnosis)
-      elsif s.diagnosis.present? && !s.diagnosis&.step_completed?
-        admin_link_to(s.diagnosis) + I18n.t('active_admin.solicitations.diagnosis_in_progress')
-      end
+      div raw diagnosis_link(s.diagnosis)
+      div raw needs_links(s.needs) if s.needs.present?
     end
     column I18n.t('attributes.badges.other') do |s|
       render 'badges', badges: s.badges
