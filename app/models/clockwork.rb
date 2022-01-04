@@ -15,6 +15,9 @@ module Clockwork
   every(1.week, 'delete_unused_users', at: 'sunday 9:00') do
     UnusedUsersService.delay.delete_users
   end
+  every(1.week, 'anonymize_old_diagnoses', at: 'sunday 5:00') do
+    `rake anonymize_old_diagnoses`
+  end
   every(1.day, 'send_retention_emails', at: ('4:41')) do
     CompanyMailerService.delay.send_retention_emails
   end
