@@ -27,7 +27,7 @@
     = sentry_script
     = matomo_script
 
-  %body
+  %body{ style: "#{'height: auto' if in_iframe?}"}
     = render 'navbar' unless in_iframe?
     = render 'environment_ribbon'
     = render 'user_impersonate'
