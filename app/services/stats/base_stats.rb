@@ -66,7 +66,7 @@ module Stats
     end
 
     def count
-      @count ||= filtered(main_query).count
+      @count ||= filtered(main_query).size
     end
 
     def percentage_two_numbers(measured, others)

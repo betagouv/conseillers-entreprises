@@ -37,7 +37,7 @@ module Stats::Matches
     end
 
     def group_by_date(query)
-      query.group_by do |solicitation|
+      query.preload(:diagnosis).group_by do |solicitation|
         solicitation.transmitted_at&.between?(solicitation.created_at, solicitation.created_at + 3.days)
       end
     end
