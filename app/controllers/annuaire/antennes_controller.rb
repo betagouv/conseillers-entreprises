@@ -33,7 +33,7 @@ module  Annuaire
     private
 
     def retrieve_antennes
-      @antennes = @institution.retrieve_antennes(session[:annuaire_region_id])
+      @antennes = @institution.retrieve_antennes(session[:annuaire_region_id]).preload(:experts, :advisors)
     end
   end
 end
