@@ -3,6 +3,7 @@ module InstitutionsHelper
 
   def all_institutions_images
     Institution
+      .preload(:logo)
       .where(code_region: nil)
       .ordered_logos
       .map{ |i| i.logo&.filename }
