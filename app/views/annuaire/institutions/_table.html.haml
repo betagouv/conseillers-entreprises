@@ -7,7 +7,7 @@
         %th= Institution.human_attribute_name(:antennes)
         %th= Institution.human_attribute_name(:advisors)
     %tbody
-      - institutions.each do |institution|
+      - institutions.preload(:logo).each do |institution|
         %tr
           %td.fr-enlarge-link
             = display_image(name: institution.logo&.filename, path: "institutions/") if institution.logo.present?
