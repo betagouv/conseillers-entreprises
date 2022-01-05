@@ -18,8 +18,7 @@
     = javascript_include_tag 'https://browser.sentry-cdn.com/6.2.3/bundle.min.js', crossorigin: 'anonymous', integrity: "sha384-n6TNefxJMUTqJauZtoDyDhAs5Ng0VzcMTy0/afmyZoVZpaQ2clYR1LBa4SqhVySs", nonce: true
     - if in_iframe?
       %meta{ name: 'robots', content: 'noindex' }
-      = javascript_include_tag 'https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.2/js/iframeResizer.contentWindow.min.js', integrity: "sha256-rbC2imHDJIBYUIXvf+XiYY+2cXmiSlctlHgI+rrezQo=", crossorigin: "anonymous", nonce: true
-      %style= "body {height: auto}"
+      = render 'shared/iframe_resizer'
       - if defined? @landing
         %style= @landing.custom_css
 

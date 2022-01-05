@@ -1,0 +1,22 @@
+<style>
+  body {
+    height: auto
+  }
+</style>
+
+<%= javascript_tag nonce: true do -%>
+  console.log('iframe_resizer code read')
+  window.iFrameResizer = {
+    onReady: function() {
+      console.log("Iframe reeeeeeeeeeeeeeeeeaaaaaaaaaaaaaaaaaaaddddddddddddddyyyyyyyyyyyyy")
+      if ('parentIFrame' in window) {
+        window.parentIFrame.scrollToOffset(0,0);
+        return false;
+      }
+    }
+  }
+<% end %>
+
+<%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.2/js/iframeResizer.contentWindow.min.js', integrity: "sha256-rbC2imHDJIBYUIXvf+XiYY+2cXmiSlctlHgI+rrezQo=", crossorigin: "anonymous", nonce: true %>
+
+
