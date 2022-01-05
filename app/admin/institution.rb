@@ -16,11 +16,14 @@ ActiveAdmin.register Institution do
 
   ## Index
   #
-  includes :antennes, :subjects, :advisors, :experts, :sent_matches, :received_matches, :logo
   config.sort_order = 'slug_asc'
 
   controller do
     defaults :finder => :find_by_slug!
+
+    def scoped_collection
+      super.preload :advisors, :subjects, :institutions_subjects, :logo, :antennes, :experts
+    end
   end
 
   index do
