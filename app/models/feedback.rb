@@ -63,7 +63,7 @@ class Feedback < ApplicationRecord
     experts_to_notify -= self.user.experts
 
     # don’t notify experts who clicked “not for me”
-    experts_to_notify.reject!{ |e| e.received_matches.find_by(need: self.need).status_not_for_me? }
+    experts_to_notify.reject!{ |e| e.received_matches.find_by(need: self.need)&.status_not_for_me? }
 
     # mix users and experts
     users_to_notify + experts_to_notify
