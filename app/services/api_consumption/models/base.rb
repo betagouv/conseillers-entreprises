@@ -8,7 +8,8 @@ module ApiConsumption::Models
     end
 
     def initialize(params = {})
-      params = params.with_indifferent_access # accepter les strings et les sym, pour faciliter l'usage
+      return if params.blank?
+      params = params&.with_indifferent_access # accepter les strings et les sym, pour faciliter l'usage
       self.class.fields.each do |key|
         dynamically_create_attr_accessor(key, params[key])
       end
