@@ -11,7 +11,7 @@ module Stats::Public
     end
 
     def group_by_date(query)
-      query.group_by do |solicitation|
+      query.preload(:matches).group_by do |solicitation|
         solicitation.matches.pluck(:taken_care_of_at).compact.min&.between?(solicitation.created_at, solicitation.created_at + 5.days)
       end
     end

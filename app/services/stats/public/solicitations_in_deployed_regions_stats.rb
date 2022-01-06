@@ -26,9 +26,9 @@ module Stats::Public
 
       search_range_by_month.each do |range|
         month_query = query.created_between(range.first, range.last)
-        @in_deployed_regions.push(month_query.in_deployed_regions.where.not(code_region: nil).count)
-        @out_of_deployed_regions.push(month_query.in_undeployed_regions.count)
-        @in_unknown_region.push(month_query.in_unknown_region.count)
+        @in_deployed_regions.push(month_query.in_deployed_regions.where.not(code_region: nil).size)
+        @out_of_deployed_regions.push(month_query.in_undeployed_regions.size)
+        @in_unknown_region.push(month_query.in_unknown_region.size)
       end
 
       as_series(@in_deployed_regions, @out_of_deployed_regions, @in_unknown_region)
