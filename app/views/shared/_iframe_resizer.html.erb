@@ -5,10 +5,8 @@
 </style>
 
 <%= javascript_tag nonce: true do -%>
-  console.log('iframe_resizer code read')
   window.iFrameResizer = {
     onReady: function() {
-      console.log("Iframe reeeeeeeeeeeeeeeeeaaaaaaaaaaaaaaaaaaaddddddddddddddyyyyyyyyyyyyy")
       if ('parentIFrame' in window) {
         window.parentIFrame.scrollTo(0,0);
         return false;
