@@ -91,6 +91,7 @@ class Landing < ApplicationRecord
   end
 
   def update_iframe_360
+    return unless self.iframe? && self.integral_iframe?
     self.transaction do
       self.landing_joint_themes.destroy_all
       self.landing_themes << Landing.accueil.landing_themes
