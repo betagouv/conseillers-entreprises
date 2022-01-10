@@ -11,14 +11,9 @@ class Diagnoses::StepsController < ApplicationController
     authorize @diagnosis, :update?
 
     diagnosis_params = params_for_needs
-    diagnosis_params[:step] = :visit
+    diagnosis_params[:step] = :matches
     if @diagnosis.update(diagnosis_params)
-      if @diagnosis.solicitation.present? && @diagnosis.visitee.present?
-        @diagnosis.update(step: :matches)
-        redirect_to action: :matches
-      else
-        redirect_to action: :visit
-      end
+      redirect_to action: :matches
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
       redirect_to action: :needs
@@ -35,10 +30,10 @@ class Diagnoses::StepsController < ApplicationController
 
     diagnosis_params = params_for_visit
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
-    diagnosis_params[:step] = :matches
+    diagnosis_params[:step] = :needs
 
     if @diagnosis.update(diagnosis_params)
-      redirect_to action: :matches
+      redirect_to action: :needs
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
       redirect_to action: :visit
@@ -89,6 +84,6 @@ class Diagnoses::StepsController < ApplicationController
 
   def params_for_matches
     params.require(:diagnosis)
-      .permit(needs_attributes: [:id, matches_attributes: [:_destroy, :id, :subject_id, :expert_id]])
+      .permit(:content, needs_attributes: [:id, matches_attributes: [:_destroy, :id, :subject_id, :expert_id]])
   end
 end

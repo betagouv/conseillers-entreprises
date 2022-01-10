@@ -54,8 +54,8 @@ class Diagnosis < ApplicationRecord
 
   ## Validations and Callbacks
   #
-  validate :step_visit_has_needs
-  validate :step_matches_has_visit_attributes
+  validate :step_needs_has_visit
+  validate :step_matches_has_needs_attributes
   validate :step_completed_has_matches
   validate :step_completed_has_advisor
   validate :without_solicitation_has_advisor
@@ -142,6 +142,10 @@ class Diagnosis < ApplicationRecord
     solicitation_id.nil?
   end
 
+  def self.creation_steps
+    { visite: 3, needs: 2, matches: 4 }
+  end
+
   ## Matching
   #
   def notify_matches_made!
@@ -160,16 +164,8 @@ class Diagnosis < ApplicationRecord
     needs.each{ |n| n.update_status }
   end
 
-  def step_visit_has_needs
-    if step_visit?
-      if needs.blank?
-        errors.add(:needs, :blank)
-      end
-    end
-  end
-
-  def step_matches_has_visit_attributes
-    if step_matches?
+  def step_needs_has_visit
+    if step_needs?
       if visitee.nil?
         errors.add(:visitee, :blank)
       end
@@ -179,8 +175,15 @@ class Diagnosis < ApplicationRecord
     end
   end
 
+  def step_matches_has_needs_attributes
+    if step_matches? && needs.blank?
+      errors.add(:needs, :blank)
+    end
+  end
+
   def step_completed_has_matches
-    if step_completed?
+    # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
+    if step_completed? && needs&.flat_map(&:matches)&.empty?
       # On regarde qu'il n'y ait aucun besoin sans match
       if needs.empty? || needs&.map(&:matches)&.any?{ |m| m.empty? } # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
         errors.add(:base, :cant_send_need_without_matches)
@@ -189,18 +192,14 @@ class Diagnosis < ApplicationRecord
   end
 
   def step_completed_has_advisor
-    if step_completed?
-      if advisor.nil?
-        errors.add(:advisor, :blank)
-      end
+    if step_completed? && advisor.nil?
+      errors.add(:advisor, :blank)
     end
   end
 
   def without_solicitation_has_advisor
-    if solicitation.nil?
-      if advisor.nil?
-        errors.add(:advisor, :blank)
-      end
+    if solicitation.nil? && advisor.nil?
+      errors.add(:advisor, :blank)
     end
   end
 end

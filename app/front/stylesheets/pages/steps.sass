@@ -1,0 +1,36 @@
+.fr-breadcrumb.diagnosis-breadcrumb
+  width: 100%
+  .fr-breadcrumb__list
+    display: flex
+    justify-content: center
+    align-items: baseline
+    li
+      font-size: 1.5rem
+      padding: 0 1rem
+      &:before
+        position: absolute
+        left: -0.5rem
+        top: 0.2rem
+      &.active
+        text-decoration: underline
+      &.ri-check-line
+        margin-left: 1rem
+
+.diagnosis-creation-header
+  background-color: var(--beige)
+  margin-top: -3rem
+  .company-description
+    text-align: center
+    ul
+      list-style: none
+
+.card-matches
+  border: 1px solid $fr-g400
+  border: 1px solid var(--g400)
+  .card__header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    background-color: $fr-beige
+    background-color: var(--beige)
+    padding: 1.5rem

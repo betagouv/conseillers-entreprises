@@ -9,41 +9,49 @@ RSpec.describe Diagnosis, type: :model do
   end
 
   describe 'custom validations' do
-    describe 'step_visit_has_needs' do
-      subject(:diagnosis) { build :diagnosis, step: :visit, needs: needs }
+    describe 'step_needs_has_visit' do
+      subject(:diagnosis) { build :diagnosis, step: :needs, visitee: visitee, happened_on: happened_on }
 
       before { diagnosis.validate }
 
-      context 'without needs' do
-        let(:needs) { [] }
+      context 'without visitee' do
+        let(:visitee) { nil }
+        let(:happened_on) { Time.now }
 
         it { is_expected.not_to be_valid }
-        it { expect(diagnosis.errors.details).to eq({ needs: [{ error: :blank }] }) }
+        it { expect(diagnosis.errors.details).to eq({ visitee: [{ :error => :blank }] }) }
+      end
+
+      context 'without happened_on' do
+        let(:visitee) { build :contact, :with_email, :with_phone_number }
+        let(:happened_on) { nil }
+
+        it { is_expected.not_to be_valid }
+        it { expect(diagnosis.errors.details).to eq({ happened_on: [{ :error => :blank }] }) }
       end
 
       context 'with needs' do
-        let(:needs) { build_list :need, 2 }
+        let(:visitee) { build :contact, :with_email, :with_phone_number }
+        let(:happened_on) { Time.now }
 
         it { is_expected.to be_valid }
       end
     end
 
-    describe 'step_matches_has_visit_attributes' do
-      subject(:diagnosis) { build :diagnosis, step: :matches, visitee: visitee, happened_on: happened_on }
+    describe 'step_matches_has_needs_attributes' do
+      subject(:diagnosis) { build :diagnosis, step: :matches, needs: needs }
 
       before { diagnosis.validate }
 
-      context 'missing attributes' do
-        let(:visitee) { nil }
-        let(:happened_on) { nil }
+      context 'missing needs' do
+        let(:needs) { [] }
 
         it { is_expected.not_to be_valid }
-        it { expect(diagnosis.errors.details).to eq({ visitee: [{ error: :blank }], happened_on: [{ error: :blank }] }) }
+        it { expect(diagnosis.errors.details).to eq({ needs: [{ :error => :blank }] }) }
       end
 
-      context 'with matches' do
-        let(:visitee) { build :contact_with_email }
-        let(:happened_on) { Date.today }
+      context 'with needs' do
+        let(:needs) { build_list :need, 1 }
 
         it { is_expected.to be_valid }
       end
@@ -117,25 +125,21 @@ RSpec.describe Diagnosis, type: :model do
     describe 'in progress' do
       subject { described_class.in_progress.count }
 
-      it do
-        create :diagnosis_completed
-        create :diagnosis, step: :needs
-        create :diagnosis, step: :matches
+      let!(:diagnosis_completed) { create :diagnosis_completed }
+      let!(:diagnosis_needs) { create :diagnosis, step: :needs }
+      let!(:need) { create :need, diagnosis: create(:diagnosis) }
 
-        is_expected.to eq 2
-      end
+      it { is_expected.to eq 2 }
     end
 
     describe 'completed' do
       subject { described_class.completed.count }
 
-      it do
-        create :diagnosis_completed
-        create :diagnosis_completed
-        create :diagnosis, step: :matches
+      let!(:diagnosis_completed_1) { create :diagnosis_completed }
+      let!(:diagnosis_completed_2) { create :diagnosis_completed }
+      let!(:need) { create :need, diagnosis: create(:diagnosis) }
 
-        is_expected.to eq 2
-      end
+      it { is_expected.to eq 2 }
     end
 
     describe 'available_for_expert' do

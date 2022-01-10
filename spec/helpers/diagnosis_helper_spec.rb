@@ -26,7 +26,7 @@ describe DiagnosisHelper, type: :helper do
       let(:current_page_step) { 2 }
       let(:diagnosis_step) { 3 }
 
-      it { is_expected.to eq 'ri-check-line active' }
+      it { is_expected.to eq 'ri-check-line active green' }
     end
 
     context 'displayed step > current_page_step && displayed step > diagnosis_step' do
