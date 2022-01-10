@@ -31,12 +31,15 @@
             = subject_tag(solicitation, "ui small label")
 
       .card__meta
-        - if solicitation.recent_matched_solicitations.any? || solicitation.doublon_solicitations.any?
+        - if solicitation.recent_matched_solicitations.any? || solicitation.doublon_solicitations.any? || solicitation.from_banned_company?
           .meta__warnings
             - if solicitation.recent_matched_solicitations.any?
               %span{ title: t('.solicitation_relance_explanation') } R
             - if solicitation.doublon_solicitations.any?
               %span{ title: t('.solicitation_doublon_explanation') } D
+            - if solicitation.from_banned_company?
+              %span{ title: t('.solicitation_banned_facility_explanation') }
+                %i.ri-flag-fill
         - if solicitation.same_facility_needs.with_siret.any?
           .meta__items
             .item= t('.needs_historic')

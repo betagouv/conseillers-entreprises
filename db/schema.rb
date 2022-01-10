@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_06_135119) do
+ActiveRecord::Schema.define(version: 2022_01_07_153156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -452,6 +452,7 @@ ActiveRecord::Schema.define(version: 2021_12_06_135119) do
     t.boolean "created_in_deployed_region", default: false
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
+    t.boolean "banned", default: false
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"

@@ -3,6 +3,7 @@
 # Table name: solicitations
 #
 #  id                               :bigint(8)        not null, primary key
+#  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
 #  created_in_deployed_region       :boolean          default(FALSE)
 #  description                      :string
@@ -215,11 +216,19 @@ class Solicitation < ApplicationRecord
       .or(where(email: solicitation.email))
   }
 
+  scope :banned, -> {
+    where(banned: true)
+  }
+
   def doublon_solicitations
     Solicitation.where(status: [:in_progress])
       .where.not(id: self.id)
       .from_same_company(self)
       .uniq
+  end
+
+  def from_banned_company?
+    banned? || Solicitation.from_same_company(self).banned.any?
   end
 
   def recent_matched_solicitations
