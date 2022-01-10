@@ -30,7 +30,7 @@ ActiveAdmin.register Solicitation do
       end
       blockquote simple_format(s.description&.truncate(20000, separator: ' '))
       div raw diagnosis_link(s.diagnosis)
-      div raw needs_links(s.needs) if s.needs.present?
+      div raw needs_links(s.needs) if s.needs.present? && s.diagnosis.step_completed?
     end
     column I18n.t('attributes.badges.other') do |s|
       render 'badges', badges: s.badges
