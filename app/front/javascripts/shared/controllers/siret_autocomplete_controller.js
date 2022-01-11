@@ -1,6 +1,7 @@
 import { Controller } from "stimulus";
 import { exists, debounce } from '../utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
+import * as Sentry from "@sentry/webpack-plugin";
 
 export default class extends Controller {
   static targets = [ "field" ]
@@ -57,8 +58,14 @@ export default class extends Controller {
     let response = await fetch(`/rech-etablissement?${params}`, {
       credentials: "same-origin",
     });
-    let data = await response.json();
-    return data;
+    // Au cas où autre chose que du json est renvoyé
+    try {
+      let data = await response.json();
+      return data;
+    } catch(err) {
+      Sentry.captureException(err)
+      this.manageSourceError({error: "error reading not json data"})
+    }
   }
 
   filterResults(data) {

@@ -35,6 +35,10 @@ class SearchEtablissement
     rescue ApiEntreprise::ApiEntrepriseError => e
       message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
       return { error: message }
+    # I suspect there sometimes is another error uncatched. Capturing it for debugging purpose
+    rescue => e
+      Sentry.capture_exception(e)
+      return { error: I18n.t('api_entreprise.default_error_message.etablissement') }
     end
   end
 
