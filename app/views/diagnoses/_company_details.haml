@@ -1,24 +1,23 @@
-%h1.ui.header
-  .content
-    = diagnosis.company.name
-  .sub.header
+%h1= diagnosis.company.name
+%ul
+  %li
     = diagnosis.facility.commune_name
   - if diagnosis.facility.siret.present?
-    .sub.header
+    %li
       #{t('attributes.naf_code')} : #{diagnosis.facility.naf_code}
-    .sub.header
+    %li
       #{diagnosis.facility.naf_libelle}
     - if diagnosis.company.date_de_creation.present?
-      .sub.header
+      %li
         #{t('attributes.date_de_creation')} : #{I18n.l(diagnosis.company.date_de_creation)}
     - if diagnosis.facility.code_effectif.present?
-      .sub.header
+      %li
         #{t('attributes.code_effectif')} : #{t('codes_effectif' + '.' + diagnosis.facility.code_effectif)}
-    .sub.header
+    %li
       = link_to "SIRET : #{diagnosis.facility.siret}", company_path(diagnosis.facility.siret)
     .ui.hidden.divider
-    .sub.header
+    %li
       = link_to t('.company_details'), company_path(diagnosis.facility.siret)
   - else
-    .sub.header
+    %li
       = t('.need_without_siret')

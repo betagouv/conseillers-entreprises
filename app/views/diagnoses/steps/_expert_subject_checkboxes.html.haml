@@ -1,23 +1,21 @@
-.experts_subject_checkbox
+.experts_subject_checkbox.fr-p-2w
   = form.fields_for :needs, need do |need_form|
     = need_form.hidden_field :id
     - experts_subjects.each do |expert_subject|
       - expert = expert_subject.expert
-      .ui.field
-        .ui.checkbox
-          - match = need.matches.where(expert: expert, subject: expert_subject.subject).first_or_initialize
-          = need_form.fields_for :matches, match do |match_form|
-            = match_form.hidden_field :expert_id
-            = match_form.hidden_field :subject_id
-            = match_form.check_box :_destroy, { checked: match.persisted? }, '0', '1'
-            = match_form.label :_destroy do
-              .ui.equal.width.grid
-                .row
-                  .column
-                    %h4.ui.header
-                      = expert.full_name
-                      .sub.header= expert.job
-                      .sub.header= expert.antenne
-                  .column
-                    .sub.header
-                      = [expert_subject.institution_subject, expert_subject.intervention_criteria].compact.join(' — ')
+      .fr-checkbox-group
+        - match = need.matches.where(expert: expert, subject: expert_subject.subject).first_or_initialize
+        = need_form.fields_for :matches, match do |match_form|
+          = match_form.hidden_field :expert_id
+          = match_form.hidden_field :subject_id
+          = match_form.check_box :_destroy, { checked: match.persisted? }, '0', '1'
+          = match_form.label :_destroy do
+            .fr-container
+              .fr-grid-row
+                .fr-col
+                  %h3.fr-text.bold.fr-m-0
+                    = expert.full_name
+                  .fr-text--sm.fr-m-0= expert.job
+                  .fr-text--sm.fr-m-0= expert.antenne
+                .fr-col
+                  = [expert_subject.institution_subject, expert_subject.intervention_criteria].compact.join(' — ')
