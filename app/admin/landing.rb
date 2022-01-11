@@ -32,7 +32,9 @@ ActiveAdmin.register Landing do
     column :solicitations do |l|
       div l.solicitations.count
     end
-    actions dropdown: true
+    actions dropdown: true do |l|
+      item t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(l), method: :put
+    end
   end
 
   filter :title
@@ -136,11 +138,19 @@ ActiveAdmin.register Landing do
 
   ## Actions
   #
-  action_item :update_iframe_360, only: :show do
+  action_item :update_iframe_360, only: :show, if: ->{ resource.iframe? && resource.integral_iframe? } do
     link_to t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(resource), method: :put
   end
+
   member_action :update_iframe_360, method: :put do
     resource.update_iframe_360
     redirect_to resource_path(resource), alert: I18n.t('active_admin.landings.update_iframe_360_done')
+  end
+
+  batch_action I18n.t('active_admin.landings.update_iframe_360_button') do |ids|
+    batch_action_collection.find(ids).each do |landing|
+      landing.update_iframe_360
+    end
+    redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.landings.update_iframe_360_done')
   end
 end

@@ -15,7 +15,7 @@ RSpec.describe Landing, type: :model do
     let!(:contact_landing_theme) { create :landing_theme, slug: 'contactez-nous' }
 
     context 'with empty landing' do
-      let(:landing) { create :landing }
+      let(:landing) { create :landing, iframe_category: 'integral', iframe: true, partner_url: 'example.com' }
 
       it do
         expect(landing.landing_themes.count).to eq(0)
