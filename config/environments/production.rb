@@ -92,7 +92,7 @@ Rails.application.configure do
       port: '587',
       authentication: 'cram_md5'
     }
-  elsif ENV['MAILTRAP_USER_NAME'].present?
+  elsif ENV['MAILTRAP_USER_NAME'].present? && ENV['FEATURE_SEND_STAGING_EMAILS'].to_b
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
       user_name: ENV['MAILTRAP_USER_NAME'],
@@ -102,6 +102,8 @@ Rails.application.configure do
       port: '2525',
       authentication: :cram_md5
     }
+  else
+    config.action_mailer.perform_deliveries = false
   end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
