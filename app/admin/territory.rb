@@ -5,8 +5,11 @@ ActiveAdmin.register Territory do
 
   ## index
   #
-  # Note: Don’t `includes` related tables, as this causes massive leaks in ActiveAdmin.
-  # Since we only have a few dozens entries, N+1 queries are preferred.
+  def scoped_collection
+    # Note: Don’t `includes` lots of related tables, as this causes massive leaks in ActiveAdmin.
+    # Preferring N+1 queries fasten x2 index display
+    super.includes :antennes, :advisors, :antenne_experts
+  end
   config.sort_order = 'name_asc'
 
   scope :all, default: true
