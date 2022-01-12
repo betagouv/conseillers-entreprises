@@ -189,6 +189,11 @@ class Solicitation < ApplicationRecord
 
   scope :in_unknown_region, -> { where(code_region: nil) }
 
+  # scope destiné à recevoir les solicitations qui ne sortent pas
+  # dans les autres filtres des solicitation.
+  # La méthode d'identification pourra evoluer au fil du temps
+  scope :uncategorisable, -> {in_unknown_region }
+
   # param peut être un id de Territory ou une clé correspondant à un scope ("uncategorisable" par ex)
   scope :by_possible_region, -> (param) {
     begin
@@ -196,13 +201,6 @@ class Solicitation < ApplicationRecord
     rescue ActiveRecord::RecordNotFound => e
       self.send(param)
     end
-  }
-
-  # scope destiné à recevoir les solicitations qui ne sortent pas
-  # dans les autres filtres des solicitation.
-  # La méthode d'identification pourra evoluer au fil du temps
-  scope :uncategorisable, -> {
-    in_unknown_region
   }
 
   scope :out_of_deployed_territories, -> {
@@ -216,9 +214,7 @@ class Solicitation < ApplicationRecord
       .or(where(email: solicitation.email))
   }
 
-  scope :banned, -> {
-    where(banned: true)
-  }
+  scope :banned, -> { where(banned: true) }
 
   def doublon_solicitations
     Solicitation.where(status: [:in_progress])
