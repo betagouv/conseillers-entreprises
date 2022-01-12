@@ -19,7 +19,10 @@ module CsvExport
       CSV.generate do |csv|
         csv << attributes.keys.map{ |attr| klass.human_attribute_name(attr, default: attr) }
         row = attributes.values
-        sort_relation(@relation).find_each do |object|
+        # Il peut y avoir bcp de donnees, `sorted_relation.each` est long et couteux
+        sorted_relation = sort_relation(@relation)
+        while sorted_relation.count > 0
+          object = sorted_relation.shift
           csv << row.map do |val|
             if val.respond_to? :call
               lambda = val
