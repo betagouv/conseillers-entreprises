@@ -192,7 +192,7 @@ class Solicitation < ApplicationRecord
   # scope destiné à recevoir les solicitations qui ne sortent pas
   # dans les autres filtres des solicitation.
   # La méthode d'identification pourra evoluer au fil du temps
-  scope :uncategorisable, -> {in_unknown_region }
+  scope :uncategorisable, -> { in_unknown_region }
 
   # param peut être un id de Territory ou une clé correspondant à un scope ("uncategorisable" par ex)
   scope :by_possible_region, -> (param) {
