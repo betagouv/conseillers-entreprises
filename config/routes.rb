@@ -88,6 +88,7 @@ Rails.application.routes.draw do
       post :update_status
       post :update_badges
       post :prepare_diagnosis
+      post :ban_facility
     end
     collection do
       get :reminded, path: 'relancees'

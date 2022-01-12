@@ -3,6 +3,7 @@
 # Table name: solicitations
 #
 #  id                               :bigint(8)        not null, primary key
+#  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
 #  created_in_deployed_region       :boolean          default(FALSE)
 #  description                      :string
@@ -188,6 +189,11 @@ class Solicitation < ApplicationRecord
 
   scope :in_unknown_region, -> { where(code_region: nil) }
 
+  # scope destiné à recevoir les solicitations qui ne sortent pas
+  # dans les autres filtres des solicitation.
+  # La méthode d'identification pourra evoluer au fil du temps
+  scope :uncategorisable, -> { in_unknown_region }
+
   # param peut être un id de Territory ou une clé correspondant à un scope ("uncategorisable" par ex)
   scope :by_possible_region, -> (param) {
     begin
@@ -195,13 +201,6 @@ class Solicitation < ApplicationRecord
     rescue ActiveRecord::RecordNotFound => e
       self.send(param)
     end
-  }
-
-  # scope destiné à recevoir les solicitations qui ne sortent pas
-  # dans les autres filtres des solicitation.
-  # La méthode d'identification pourra evoluer au fil du temps
-  scope :uncategorisable, -> {
-    in_unknown_region
   }
 
   scope :out_of_deployed_territories, -> {
@@ -215,11 +214,17 @@ class Solicitation < ApplicationRecord
       .or(where(email: solicitation.email))
   }
 
+  scope :banned, -> { where(banned: true) }
+
   def doublon_solicitations
     Solicitation.where(status: [:in_progress])
       .where.not(id: self.id)
       .from_same_company(self)
       .uniq
+  end
+
+  def from_banned_company?
+    banned? || Solicitation.from_same_company(self).banned.any?
   end
 
   def recent_matched_solicitations

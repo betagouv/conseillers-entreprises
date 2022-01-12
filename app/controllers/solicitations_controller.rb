@@ -1,12 +1,9 @@
 class SolicitationsController < ApplicationController
   include TerritoryFiltrable
 
-  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis]
-  before_action :authorize_index_solicitation, only: [:index, :reminded, :processed, :canceled]
+  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility]
+  before_action :authorize_index_solicitation, :set_category_content, :setup_territory_filters, :count_solicitations, only: [:index, :reminded, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
-  before_action :set_category_content, only: %i[index processed canceled]
-  before_action :setup_territory_filters, only: %i[index reminded processed canceled]
-  before_action :count_solicitations, only: %i[index reminded processed canceled]
 
   layout 'side_menu'
 
@@ -84,6 +81,15 @@ class SolicitationsController < ApplicationController
       flash.alert = @solicitation.prepare_diagnosis_errors.full_messages.to_sentence
       redirect_to @solicitation
     end
+  end
+
+  def ban_facility
+    if Ban::Solicitation.new(@solicitation).toggle
+      flash.notice = @solicitation.banned? ? t('.marked_as_banned') : t('.marked_as_unbanned')
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+    end
+    redirect_to action: :index
   end
 
   private

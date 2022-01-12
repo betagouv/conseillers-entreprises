@@ -35,3 +35,6 @@
       - solicitation.allowed_new_statuses.each do |status|
         = status_action_link(solicitation, status, %w[item])
       .item.show-feedbacks-form{ 'data-feedbackable': "#{solicitation.id}" }= t('feedbacks.add')
+      - banning_action = solicitation.from_banned_company? ? t('.unban_facility') : t('.ban_facility')
+      = link_to banning_action, ban_facility_solicitation_path(solicitation), method: :post, class: 'item'
+
