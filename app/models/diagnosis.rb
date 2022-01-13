@@ -40,7 +40,7 @@ class Diagnosis < ApplicationRecord
 
   ## Constants
   #
-  enum step: { not_started: 1, needs: 2, visit: 3, matches: 4, completed: 5 }, _prefix: true
+  enum step: { not_started: 1, contact: 2, needs: 3, matches: 4, completed: 5 }, _prefix: true
 
   ## Associations
   #
@@ -54,7 +54,7 @@ class Diagnosis < ApplicationRecord
 
   ## Validations and Callbacks
   #
-  validate :step_needs_has_visit
+  validate :step_needs_has_contact
   validate :step_matches_has_needs_attributes
   validate :step_completed_has_matches
   validate :step_completed_has_advisor
@@ -142,10 +142,6 @@ class Diagnosis < ApplicationRecord
     solicitation_id.nil?
   end
 
-  def self.creation_steps
-    { visite: 3, needs: 2, matches: 4 }
-  end
-
   ## Matching
   #
   def notify_matches_made!
@@ -164,7 +160,7 @@ class Diagnosis < ApplicationRecord
     needs.each{ |n| n.update_status }
   end
 
-  def step_needs_has_visit
+  def step_needs_has_contact
     if step_needs?
       if visitee.nil?
         errors.add(:visitee, :blank)

@@ -1,11 +1,11 @@
-- meta title: Diagnosis.human_attribute_value(:step, :visit)
+- meta title: Diagnosis.human_attribute_value(:step, :contact)
 
 .fr-container
-  = render 'header', diagnosis: @diagnosis, current_page_step: 3
+  = render 'header', diagnosis: @diagnosis, current_page_step: 2
 
   #visit-app
     = form_with model: @diagnosis, local: true,
-      url: update_visit_diagnosis_path do |diagnosis_form|
+      url: update_visit_diagnosis_path, local: true do |diagnosis_form|
 
       - @diagnosis.visitee ||= Contact.new
       = diagnosis_form.fields_for :visitee do |contact_form|

@@ -40,7 +40,7 @@ module DiagnosisCreation
         end
       end
 
-      params[:step] = :visit
+      params[:step] = :contact
       params[:content] = get_solicitation_description(params)
       Diagnosis.create(params)
     end
@@ -141,7 +141,7 @@ module DiagnosisCreation
                          email: solicitation.email,
                          phone_number: solicitation.phone_number,
                          company: facility.company)
-      self.step = :visit
+      self.step = :contact
       self.save # Validate and save both the new visitee and the diagnosis
 
       self

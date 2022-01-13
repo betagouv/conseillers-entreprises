@@ -1,7 +1,7 @@
 - meta title: Diagnosis.human_attribute_value(:step, :needs)
 
 .fr-container
-  = render 'header', diagnosis: @diagnosis, current_page_step: 2
+  = render 'header', diagnosis: @diagnosis, current_page_step: 3
 
   - if @diagnosis.solicitation.present? && @diagnosis.facility.needs.diagnosis_completed.many?
     = render partial: 'companies/need', collection: @diagnosis.facility.needs.diagnosis_completed

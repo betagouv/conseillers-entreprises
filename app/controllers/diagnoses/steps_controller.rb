@@ -16,7 +16,7 @@ class Diagnoses::StepsController < ApplicationController
       redirect_to action: :matches
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      redirect_to action: :needs
+      render :needs
     end
   end
 
@@ -36,7 +36,7 @@ class Diagnoses::StepsController < ApplicationController
       redirect_to action: :needs
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      redirect_to action: :visit
+      render :visit
     end
   end
 
@@ -60,7 +60,7 @@ class Diagnoses::StepsController < ApplicationController
       redirect_to diagnosis_path(@diagnosis)
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      redirect_to action: :matches
+      render :matches
     end
   end
 

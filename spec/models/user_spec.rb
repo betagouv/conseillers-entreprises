@@ -100,7 +100,7 @@ RSpec.describe User, type: :model do
 
     describe 'active_diagnosers' do
       it do
-        diagnosis = create :diagnosis, created_at: 1.day.ago, step: :visit, needs: create_list(:need, 1)
+        diagnosis = create :diagnosis, created_at: 1.day.ago, step: :needs, needs: create_list(:need, 1)
         diagnoser = create :user, sent_diagnoses: [diagnosis]
 
         last_30_days = (30.days.ago)..Time.zone.now

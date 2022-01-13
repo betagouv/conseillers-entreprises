@@ -121,10 +121,9 @@ fr:
         step: Étape
       diagnosis/steps:
         completed: Terminée
-        matches: Mise en contact
-        needs: Détection des besoins
+        matches: Mise en relation
+        needs: Besoin exprimé
         not_started: Pas démarrée
-        visit: Détails de la visite
       diagnosis/visitee:
         email: Adresse e-mail de la personne rencontrée
         full_name: Prénom et Nom de la personne rencontrée

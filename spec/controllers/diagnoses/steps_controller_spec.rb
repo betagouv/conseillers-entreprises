@@ -116,7 +116,7 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
 
           diagnosis.reload
           expect(diagnosis.matches.count).to eq 0
-          expect(response).to redirect_to matches_diagnosis_path(diagnosis)
+          expect(response).to render_template("matches")
         }
       end
     end
