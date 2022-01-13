@@ -11,13 +11,10 @@
 // about supported directives.
 
 // = require semantic-ui/tab
-// = require semantic-ui/transition
 // = require semantic-ui/popup
 // = require semantic-ui/dropdown
 // = require semantic-ui/calendar
 // = require semantic-ui/accordion
-// = require semantic-ui/modal
-// = require semantic-ui/dimmer
 // = require semantic-ui/search
 
 // = require ./application/semantic-ui
