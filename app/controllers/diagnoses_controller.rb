@@ -39,7 +39,7 @@ class DiagnosesController < ApplicationController
     @diagnosis = DiagnosisCreation.create_diagnosis(diagnosis_params.merge(advisor: current_user))
 
     if @diagnosis.persisted?
-      redirect_to matches_diagnosis_path(@diagnosis)
+      redirect_to visit_diagnosis_path(@diagnosis)
     else
       render :new, status: :unprocessable_entity
     end
