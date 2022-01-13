@@ -1,20 +1,36 @@
-.fr-breadcrumb.diagnosis-breadcrumb
-  width: 100%
-  .fr-breadcrumb__list
-    display: flex
-    justify-content: center
-    align-items: baseline
-    li
-      font-size: 1.5rem
-      padding: 0 1rem
-      &:before
-        position: absolute
-        left: -0.5rem
-        top: 0.2rem
-      &.active
-        text-decoration: underline
-      &.ri-check-line
-        margin-left: 1rem
+.steps
+  display: grid
+  grid-template-columns: 1fr 1fr 1fr
+  .step
+    width: 100%
+  .step__title
+    position: relative
+    background-color: $fr-g600
+    height: 3rem
+    width: 90%
+    display: grid
+    place-items: center
+    color: #fff
+    font-size: 1.2rem
+    &.active
+      text-decoration: underline
+      font-weight: bold
+    &.completed
+      background-color: $green
+      &:after
+        border-left: 20px solid $green
+    &:before, &:after
+      content: ""
+      position: absolute
+      border-top: 20px solid transparent
+      border-bottom: 20px solid transparent
+    &:before
+      border-left: 20px solid white
+      left: 0
+    &:after
+      border-left: 20px solid $fr-g600
+      right: -20px
+
 
 .diagnosis-creation-header
   background-color: var(--beige)

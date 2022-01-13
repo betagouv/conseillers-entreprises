@@ -1,7 +1,7 @@
-%nav.fr-breadcrumb.diagnosis-breadcrumb
-  %ol.fr-breadcrumb__list
-    - Diagnosis.creation_steps.each_with_index do |(key,value),index|
-      - class_for_step = html_classes_for_step(value, current_page_step, diagnosis_step)
-      %li.fr-breadcrumb__link{ class: class_for_step }
-        #{index + 1} #{Diagnosis.human_attribute_value(:status, key)}
+.steps.fr-my-4w
+  - Diagnosis.creation_steps.each do |key,value|
+    - class_for_step = html_classes_for_step(value, current_page_step, diagnosis_step)
+    .step
+      .step__title{ class: class_for_step }
+        = Diagnosis.human_attribute_value(:status, key)
 
