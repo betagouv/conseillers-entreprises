@@ -24,5 +24,27 @@ module CsvImport
       attributes.delete(:name)
       return antenne, attributes
     end
+
+    def postprocess(antenne, row)
+      attributes = row.transform_keys(&:squish)
+        .slice(*mapping.keys)
+        .transform_keys{ |k| mapping[k] }
+        .compact
+      create_manager(antenne, attributes)
+    end
+
+    def create_manager(antenne, attributes)
+      attributes[:manager_email] = attributes[:manager_email].strip.downcase if attributes[:manager_email].present?
+      return if attributes[:manager_email].blank?
+      manager = User.find_or_initialize_by(email: attributes[:manager_email])
+      manager.update(
+        antenne: antenne,
+        role: 'antenne_manager',
+        job: I18n.t('attributes.manager'),
+        full_name: attributes[:manager_full_name],
+        phone_number: attributes[:manager_phone]
+      )
+      return PreprocessError::ManagerError.new(manager.errors.full_messages.to_sentence) unless manager.valid?
+    end
   end
 end

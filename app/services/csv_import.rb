@@ -40,5 +40,11 @@ module CsvImport
         I18n.t('annuaire.base.import_errors.antenne_not_found', name: super)
       end
     end
+
+    class ManagerError < PreprocessError
+      def message
+        I18n.t('annuaire.base.import_errors.manager_error', errors: super)
+      end
+    end
   end
 end

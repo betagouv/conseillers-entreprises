@@ -38,7 +38,9 @@ module CsvImport
 
           object.update(attributes)
 
-          postprocess(object, row)
+          postprocess = postprocess(object, row)
+          preprocess_errors << postprocess if postprocess.is_a? CsvImport::PreprocessError
+          next if preprocess_errors.present?
 
           object
         end
