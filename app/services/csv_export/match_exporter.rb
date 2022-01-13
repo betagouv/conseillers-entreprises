@@ -16,6 +16,8 @@ module CsvExport
         company_name: -> { company&.name },
         company_naf: -> { facility.naf_code },
         company_effectif: -> { Effectif.intitule_effectif(facility.code_effectif) },
+        inscrit_rcs: -> { company.inscrit_rcs ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
+        inscrit_rm: -> { company.inscrit_rm ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
         solicitation_full_name: -> { solicitation&.full_name },
         solicitation_email: -> { solicitation&.email },
         solicitation_phone_number: -> { solicitation&.phone_number },
