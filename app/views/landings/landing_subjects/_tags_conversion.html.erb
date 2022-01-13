@@ -1,8 +1,10 @@
-<%= javascript_tag nonce: true do -%>
-  document.addEventListener("google_ads_loaded", function() {
-    gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'})
-  })
-  document.addEventListener("facebookpixel_loaded", function() {
-    fbq('track', 'conversion')
-  })
+<% unless defined?(current_user) && current_user.present? %>
+  <%= javascript_tag nonce: true do -%>
+    document.addEventListener("google_ads_loaded", function() {
+      gtag('event', 'conversion', {'send_to': 'AW-415474841/azrUCOHdwrMCEJnJjsYB'})
+    })
+    document.addEventListener("facebookpixel_loaded", function() {
+      fbq('track', 'conversion')
+    })
+  <% end %>
 <% end %>
