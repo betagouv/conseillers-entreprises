@@ -49,7 +49,7 @@ module CsvExport
         :need, :diagnosis, :facility, :company, :related_matches,
         :advisor, :expert, :expert_antenne, :expert_institution,
         :subject, :theme, :solicitation, :company_satisfaction,
-        :badges, :facility_regions,
+        :facility_regions, solicitation: :badges,
         facility: :commune, diagnosis: :visitee,
       ]
     end
