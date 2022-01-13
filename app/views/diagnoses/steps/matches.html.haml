@@ -15,7 +15,7 @@
           %blockquote
             %span= simple_format(auto_link(@diagnosis.content))
 
-    = form_with model: @diagnosis,
+    = form_with model: @diagnosis, local: true,
       url: update_matches_diagnosis_path(@diagnosis),
       class: 'ui form',
       data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |form|

@@ -386,6 +386,8 @@ fr:
               blank: Le contact doit avoir au moins une adresse e-mail ou un numéro de téléphone.
         diagnosis:
           attributes:
+            base:
+              cant_send_need_without_matches: L’un des besoins n’a pas d’expert. Vous pouvez supprimer ce besoin ou ajouter un expert.
             matches:
               format: 'Mises en relation : %{message}.'
               preselected_institution_has_no_relevant_experts: aucun expert de l’institution préselectionnée ne peut prendre en charge cette entreprise

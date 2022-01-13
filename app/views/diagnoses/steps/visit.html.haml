@@ -4,7 +4,7 @@
   = render 'header', diagnosis: @diagnosis, current_page_step: 3
 
   #visit-app
-    = form_with model: @diagnosis,
+    = form_with model: @diagnosis, local: true,
       url: update_visit_diagnosis_path,
       class: 'ui form' do |diagnosis_form|
 
