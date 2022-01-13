@@ -203,20 +203,7 @@ fr:
       visited_at: Visitée le %{date}
       visited_by_html: 'par %{name} (%{job} - %{antenne}) </br> email : %{email}'
     steps:
-      matches:
-        before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
-        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
-        notifications_sent: Les notifications ont bien été envoyées.
-        notify_matches: Notifier les experts sélectionnés
-        select_at_least_one_expert: Cochez au minimum un expert à contacter.
-        solicitation_reminder: Rappel de la sollicitation
-        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
-      needs:
-        diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
-        diagnosis_content_subtitle: Informations générales sur cette entreprise
-        need_content_placeholder: Plus d’infos sur ce besoin
-        select_at_least_one_need: Cochez au minimum un besoin identifié.
-      visit:
+      contact:
         date: Date de la sollicitation
         date_placeholder: jj/mm/aaaa
         email_address: E-mail
@@ -224,6 +211,19 @@ fr:
         full_name_placeholder: 'ex: Marie Dupont'
         phone_number: Numéro de télephone
         your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
+      matches:
+        before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
+        no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
+        notifications_sent: Les notifications ont bien été envoyées.
+        notify_matches: Notifier les experts sélectionnés
+        select_at_least_one_expert: Cochez au minimum un expert à contacter.
+        solicitation_reminder: Rappel du besoin
+        you_can_contact_support: Vous pouvez néanmoins contacter les équipes support et relais locaux.
+      needs:
+        diagnosis_content_placeholder: 'Entrez des informations complémentaires concernant cette entreprise :'
+        diagnosis_content_subtitle: Informations générales sur cette entreprise
+        need_content_placeholder: Plus d’infos sur ce besoin
+        select_at_least_one_need: Cochez au minimum un besoin identifié.
   download_xls: Télécharger XLSX
   experts:
     edit:

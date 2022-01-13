@@ -5,7 +5,7 @@
 
   #visit-app
     = form_with model: @diagnosis, local: true,
-      url: update_visit_diagnosis_path, local: true do |diagnosis_form|
+      url: update_contact_diagnosis_path, local: true do |diagnosis_form|
 
       - @diagnosis.visitee ||= Contact.new
       = diagnosis_form.fields_for :visitee do |contact_form|

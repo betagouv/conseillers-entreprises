@@ -20,23 +20,23 @@ class Diagnoses::StepsController < ApplicationController
     end
   end
 
-  def visit
+  def contact
     @diagnosis.prepare_happened_on_from_solicitation
     @diagnosis.prepare_visitee_from_solicitation
   end
 
-  def update_visit
+  def update_contact
     authorize @diagnosis, :update?
 
     diagnosis_params = params_for_visit
     diagnosis_params[:visitee_attributes][:company_id] = @diagnosis.facility.company.id
-    diagnosis_params[:step] = :needs
+    diagnosis_params[:step] = :needs if @diagnosis.step != 'matches'
 
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :needs
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
-      render :visit
+      render :contact
     end
   end
 

@@ -120,6 +120,7 @@ fr:
         content: Commentaire
         step: Étape
       diagnosis/steps:
+        Contact: Contact de l’entreprise
         completed: Terminée
         matches: Mise en relation
         needs: Besoin exprimé

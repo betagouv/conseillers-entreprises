@@ -9,7 +9,8 @@
   #needs-app
     = form_with model: @diagnosis, local: true,
       url: update_needs_diagnosis_path,
-      data: { checkboxes_require_one_with: t(".select_at_least_one_need") } do |diagnosis_form|
+      data: { checkboxes_require_one_with: t(".select_at_least_one_need") },
+      local: true do |diagnosis_form|
 
       %h1= Diagnosis.human_attribute_value(:step, :needs)
 
@@ -40,7 +41,7 @@
                 = render 'next_step', diagnosis_form: diagnosis_form
 
       .bottom_actions.flex
-        = link_to visit_diagnosis_path, class: 'fr-btn btn-blue fr-btn--icon-left' do
+        = link_to contact_diagnosis_path, class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbolinks: false } do
           %span.ri-arrow-left-line.fr-mr-1w
           = t('previous_step')
 

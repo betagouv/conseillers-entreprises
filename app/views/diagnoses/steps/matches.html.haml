@@ -6,7 +6,8 @@
   #matches-app
     = form_with model: @diagnosis, local: true,
       url: update_matches_diagnosis_path(@diagnosis),
-      data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |form|
+      data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
+      local: true do |form|
 
       %details.fr-callout.fr-mb-2w
         %summary
@@ -34,7 +35,7 @@
         %p.fr-callout__text= t('.before_sending_emails')
 
       .bottom_actions.flex
-        = link_to needs_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left' do
+        = link_to needs_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbolinks: false } do
           %span.ri-arrow-left-line.fr-mr-1w
           = t('previous_step')
 

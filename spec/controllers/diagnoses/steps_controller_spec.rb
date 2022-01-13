@@ -15,15 +15,15 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
     end
   end
 
-  describe 'GET #visit' do
-    subject(:request) { get :visit, params: { id: diagnosis.id } }
+  describe 'GET #contact' do
+    subject(:request) { get :contact, params: { id: diagnosis.id } }
 
     context 'diagnosis step < last' do
       it('returns http success') { expect(response).to be_successful }
     end
   end
 
-  describe 'POST #update_visit' do
+  describe 'POST #update_contact' do
     let(:diagnosis) { create :diagnosis, advisor: advisor, visitee: nil }
     let(:locality) { diagnosis.facility.readable_locality }
 
@@ -41,7 +41,7 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
       end
 
       it 'create a visitee for diagnosis' do
-        post :update_visit, params: params
+        post :update_contact, params: params
         diagnosis.reload
         expect(diagnosis.visitee.full_name).to eq("Edith Piaf")
         expect(diagnosis.facility.readable_locality).to eq(locality)
