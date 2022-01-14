@@ -11,26 +11,23 @@ module CsvImport
     def import
       csv = open_with_best_separator(@input)
       if csv.is_a? CSV::MalformedCSVError
-        return Result.new(rows: [], header_errors: [csv], preprocess_errors: [], objects: [])
+        return Result.new(rows: [], header_errors: [csv], import_errors: [], objects: [])
       end
       header_errors = check_headers(csv.headers.compact)
 
       rows = csv.map(&:to_h)
       objects = []
       preprocess = []
-      preprocess_errors = []
+      import_errors = []
       ActiveRecord::Base.transaction do
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
           # Convert row to user attributes
-          attributes = row.transform_keys(&:squish)
-            .slice(*mapping.keys)
-            .transform_keys{ |k| mapping[k] }
-            .compact
+          attributes = row_to_attributes(row)
 
           preprocess << preprocess(attributes)
-          preprocess_errors = preprocess.filter { |result| result.is_a? CsvImport::PreprocessError }
-          next if preprocess_errors.present?
+          row_errors = preprocess.filter { |result| result.is_a? CsvImport::CsvImportError }
+          next if row_errors.present?
 
           # Create objects
           object, attributes = find_instance(attributes)
@@ -39,21 +36,21 @@ module CsvImport
           object.update(attributes)
 
           postprocess = postprocess(object, row)
-          preprocess_errors << postprocess if postprocess.is_a? CsvImport::PreprocessError
-          next if preprocess_errors.present?
+          row_errors << postprocess if postprocess.is_a? CsvImport::CsvImportError
+          import_errors << row_errors if row_errors.present?
+          next if row_errors.present?
 
           object
         end
-
-        preprocess_errors = preprocess_errors.group_by(&:message).keys
+        import_errors = import_errors.flatten.group_by(&:message).keys
         # Validate all objects to collect errors, but rollback everything if there is one error
         all_valid = objects.map{ |object| object&.validate(:import) }
-        if all_valid.include? false || preprocess_errors.present?
+        if all_valid.include? false || import_errors.present?
           raise ActiveRecord::Rollback
         end
       end
 
-      Result.new(rows: rows, header_errors: header_errors, preprocess_errors: preprocess_errors, objects: objects)
+      Result.new(rows: rows, header_errors: header_errors, import_errors: import_errors, objects: objects)
     end
 
     private
@@ -86,6 +83,13 @@ module CsvImport
       # Find the separator that find the most headers
       best_index = opened_files.map(&:headers).map(&:count).each_with_index.max.second
       opened_files[best_index]
+    end
+
+    def row_to_attributes(row)
+      row.transform_keys(&:squish)
+        .slice(*mapping.keys)
+        .transform_keys{ |k| mapping[k] }
+        .compact
     end
 
     # Methods implemented by subclasses

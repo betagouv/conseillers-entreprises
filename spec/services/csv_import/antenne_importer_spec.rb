@@ -149,10 +149,10 @@ describe CsvImport::AntenneImporter, CsvImport do
 
       it do
         expect(result).to be_success
-        expect(Antenne.find_by(name: 'Antenne1').antenne_managers.size).to eq 1
-        expect(Antenne.find_by(name: 'Antenne1').antenne_managers.first.email).to eq 'mariane.m@gouv.fr'
-        expect(Antenne.find_by(name: 'Antenne1').antenne_managers.first.full_name).to eq 'Mariane Martin'
-        expect(Antenne.find_by(name: 'Antenne1').antenne_managers.first.phone_number).to eq '01 23 45 67 89'
+        expect(Antenne.find_by(name: 'Antenne1').managers.size).to eq 1
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
       end
     end
 
@@ -170,8 +170,8 @@ describe CsvImport::AntenneImporter, CsvImport do
       it do
         expect(result).to be_success
         expect(Antenne.find_by(name: 'Parabolique').insee_codes).to eq '00001'
-        expect(Antenne.find_by(name: 'Parabolique').antenne_managers.size).to eq 1
-        expect(Antenne.find_by(name: 'Parabolique').antenne_managers).to match_array [existing_user]
+        expect(Antenne.find_by(name: 'Parabolique').managers.size).to eq 1
+        expect(Antenne.find_by(name: 'Parabolique').managers).to match_array [existing_user]
       end
     end
 

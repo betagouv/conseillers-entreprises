@@ -26,10 +26,7 @@ module CsvImport
     end
 
     def postprocess(antenne, row)
-      attributes = row.transform_keys(&:squish)
-        .slice(*mapping.keys)
-        .transform_keys{ |k| mapping[k] }
-        .compact
+      attributes = row_to_attributes(row)
       create_manager(antenne, attributes)
     end
 
@@ -44,7 +41,7 @@ module CsvImport
         full_name: attributes[:manager_full_name],
         phone_number: attributes[:manager_phone]
       )
-      return PreprocessError::ManagerError.new(manager.errors.full_messages.to_sentence) unless manager.valid?
+      return CsvImportError::ManagerError.new(manager.errors.full_messages.to_sentence) unless manager.valid?
     end
   end
 end

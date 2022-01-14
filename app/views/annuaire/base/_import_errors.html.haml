@@ -1,9 +1,9 @@
 - unless result.success?
   .fr-alert.fr-alert--error.fr-mb-2w{ role: "alert" }
     %p.fr-alert__title= t('.import_failed')
-    - if result.preprocess_errors.present?
+    - if result.import_errors.present?
       %ul
-        - result.preprocess_errors.each do |message|
+        - result.import_errors.each do |message|
           %li= message
     - if result.header_errors.present?
       %p= t(".unknown_headers", count: result.header_errors.count)

@@ -36,7 +36,7 @@ class Antenne < ApplicationRecord
 
   has_many :experts, -> { not_deleted }, inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
-  has_many :antenne_managers, -> { role_antenne_manager }, class_name: 'User', inverse_of: :antenne
+  has_many :managers, -> { role_antenne_manager }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, dependent: :destroy, inverse_of: :antenne
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
@@ -65,6 +65,8 @@ class Antenne < ApplicationRecord
   ##
   #
   scope :without_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
+
+  scope :without_managers, -> { left_outer_joins(:managers).where(managers: { id: nil }) }
 
   scope :by_antenne_and_institution_names, -> (antennes_and_institutions_names) do
     tuples_array = antennes_and_institutions_names
