@@ -15,6 +15,7 @@ class Diagnoses::StepsController < ApplicationController
     if @diagnosis.update(diagnosis_params)
       redirect_to action: :matches
     else
+      @themes = Theme.ordered_for_interview
       flash.alert = @diagnosis.errors.full_messages.to_sentence
       render :needs
     end

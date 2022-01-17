@@ -16,5 +16,6 @@
 // = require semantic-ui/calendar
 // = require semantic-ui/accordion
 // = require semantic-ui/search
+// = require semantic-ui/transition
 
 // = require ./application/semantic-ui
