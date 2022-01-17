@@ -37,7 +37,7 @@ module CsvImport
   class PreprocessError < StandardError
     class AntenneNotFound < PreprocessError
       def message
-        I18n.t('annuaire.base.preprocess_errors.antenne_not_found', name: super)
+        I18n.t('annuaire.base.import_errors.antenne_not_found', name: super)
       end
     end
   end
