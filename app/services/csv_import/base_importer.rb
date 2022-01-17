@@ -26,8 +26,8 @@ module CsvImport
           attributes = row_to_attributes(row)
 
           preprocess << preprocess(attributes)
-          row_errors = preprocess.filter { |result| result.is_a? CsvImport::CsvImportError }
-          next if row_errors.present?
+          import_errors = preprocess.filter { |result| result.is_a? CsvImport::CsvImportError }
+          next if import_errors.present?
 
           # Create objects
           object, attributes = find_instance(attributes)
@@ -35,14 +35,11 @@ module CsvImport
 
           object.update(attributes)
 
-          postprocess = postprocess(object, row)
-          row_errors << postprocess if postprocess.is_a? CsvImport::CsvImportError
-          import_errors << row_errors if row_errors.present?
-          next if row_errors.present?
-
+          object = postprocess(object, row)
           object
         end
-        import_errors = import_errors.flatten.group_by(&:message).keys
+
+        import_errors = import_errors.group_by(&:message).keys
         # Validate all objects to collect errors, but rollback everything if there is one error
         all_valid = objects.map{ |object| object&.validate(:import) }
         if all_valid.include? false || import_errors.present?

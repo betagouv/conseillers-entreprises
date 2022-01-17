@@ -31,8 +31,11 @@ module CsvImport
     end
 
     def create_manager(antenne, attributes)
-      attributes[:manager_email] = attributes[:manager_email].strip.downcase if attributes[:manager_email].present?
-      return if attributes[:manager_email].blank?
+      if attributes[:manager_email].present?
+        attributes[:manager_email] = attributes[:manager_email].strip.downcase
+      else
+        return antenne
+      end
       manager = User.find_or_initialize_by(email: attributes[:manager_email])
       manager.update(
         antenne: antenne,
@@ -41,7 +44,9 @@ module CsvImport
         full_name: attributes[:manager_full_name],
         phone_number: attributes[:manager_phone]
       )
-      return CsvImportError::ManagerError.new(manager.errors.full_messages.to_sentence) unless manager.valid?
+      # Adds manager so that validations raise error if needed
+      antenne.managers << manager
+      antenne
     end
   end
 end

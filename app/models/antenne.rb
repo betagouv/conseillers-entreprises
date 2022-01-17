@@ -45,6 +45,7 @@ class Antenne < ApplicationRecord
   auto_strip_attributes :name
   validates :name, presence: true, uniqueness: { scope: :institution_id }
   validates :institution, presence: true
+  validates_associated :managers, on: :import, if: -> { managers.any? }
 
   ## “Through” Associations
   #

@@ -35,7 +35,6 @@ fr:
       import_errors:
         antenne_not_found: 'Antenne non reconnue : %{name}'
         import_failed: Échec de l’import
-        manager_error: 'Echec de création du responsable: %{errors}'
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus

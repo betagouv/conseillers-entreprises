@@ -19,11 +19,12 @@ task create_managers: :environment do
         telephone: antenne.manager_phone
       }
     else
+      manager.invite!(User.find_by(email: 'claire.zuliani@beta.gouv.fr'))
       managers_created_count += 1
     end
   end
 
-  puts "#{managers_created_count} responsables créés"
+  puts "#{managers_created_count} responsables créés et invités"
   puts "#{managers_without_users.keys.count} responsables non trouvés"
   puts "liste des responsables restant sans utilisateur :"
   puts managers_without_users
