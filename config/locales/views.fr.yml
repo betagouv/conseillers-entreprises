@@ -32,7 +32,7 @@ fr:
       id: Sollicitation %{id}
   annuaire:
     base:
-      import_errors:
+      preprocess_errors:
         antenne_not_found: 'Antenne non reconnue : %{name}'
         import_failed: Échec de l’import
         unknown_headers:

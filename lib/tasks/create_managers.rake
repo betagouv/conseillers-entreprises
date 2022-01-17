@@ -1,4 +1,4 @@
-desc 'Create antenne manager fields to real users'
+desc 'Create antenne managers'
 task create_managers: :environment do
   managers_without_users = {}
   managers_created_count = 0

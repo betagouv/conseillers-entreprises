@@ -5,7 +5,7 @@
 = render 'import_buttons'
 
 - if @result.present?
-  = render 'import_errors', result: @result
+  = render 'preprocess_errors', result: @result
 
 = form_with url: import_institution_users_path, local: true do |f|
   .fr-input-group.fr-mt-6w

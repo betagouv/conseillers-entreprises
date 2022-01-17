@@ -21,7 +21,7 @@ module CsvImport
       institution = Institution.find_by(name: attributes[:institution]) || @options[:institution]
       antenne = Antenne.flexible_find institution, attributes[:antenne]
       attributes.delete(:institution)
-      return CsvImportError::AntenneNotFound.new(attributes[:antenne]) if antenne.nil?
+      return PreprocessError::AntenneNotFound.new(attributes[:antenne]) if antenne.nil?
       attributes[:antenne] = antenne
     end
 

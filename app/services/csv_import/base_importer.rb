@@ -11,14 +11,14 @@ module CsvImport
     def import
       csv = open_with_best_separator(@input)
       if csv.is_a? CSV::MalformedCSVError
-        return Result.new(rows: [], header_errors: [csv], import_errors: [], objects: [])
+        return Result.new(rows: [], header_errors: [csv], preprocess_errors: [], objects: [])
       end
       header_errors = check_headers(csv.headers.compact)
 
       rows = csv.map(&:to_h)
       objects = []
       preprocess = []
-      import_errors = []
+      preprocess_errors = []
       ActiveRecord::Base.transaction do
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
@@ -26,8 +26,8 @@ module CsvImport
           attributes = row_to_attributes(row)
 
           preprocess << preprocess(attributes)
-          import_errors = preprocess.filter { |result| result.is_a? CsvImport::CsvImportError }
-          next if import_errors.present?
+          preprocess_errors = preprocess.filter { |result| result.is_a? CsvImport::PreprocessError }
+          next if preprocess_errors.present?
 
           # Create objects
           object, attributes = find_instance(attributes)
@@ -39,15 +39,15 @@ module CsvImport
           object
         end
 
-        import_errors = import_errors.group_by(&:message).keys
+        preprocess_errors = preprocess_errors.group_by(&:message).keys
         # Validate all objects to collect errors, but rollback everything if there is one error
         all_valid = objects.map{ |object| object&.validate(:import) }
-        if all_valid.include? false || import_errors.present?
+        if all_valid.include? false || preprocess_errors.present?
           raise ActiveRecord::Rollback
         end
       end
 
-      Result.new(rows: rows, header_errors: header_errors, import_errors: import_errors, objects: objects)
+      Result.new(rows: rows, header_errors: header_errors, preprocess_errors: preprocess_errors, objects: objects)
     end
 
     private

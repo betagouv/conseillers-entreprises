@@ -20,24 +20,24 @@ module CsvImport
   end
 
   class Result
-    attr_reader :rows, :objects, :header_errors, :import_errors
+    attr_reader :rows, :objects, :header_errors, :preprocess_errors
 
-    def initialize(rows:, header_errors:, objects:, import_errors:)
-      @rows, @header_errors, @objects, @import_errors = rows, header_errors, objects, import_errors
+    def initialize(rows:, header_errors:, objects:, preprocess_errors:)
+      @rows, @header_errors, @objects, @preprocess_errors = rows, header_errors, objects, preprocess_errors
     end
 
     def success?
-      @success ||= @header_errors.blank? && @import_errors.blank? && @objects.none?{ |object| object&.errors.present? }
+      @success ||= @header_errors.blank? && @preprocess_errors.blank? && @objects.none?{ |object| object&.errors.present? }
     end
   end
 
   class UnknownHeaderError < StandardError
   end
 
-  class CsvImportError < StandardError
-    class AntenneNotFound < CsvImportError
+  class PreprocessError < StandardError
+    class AntenneNotFound < PreprocessError
       def message
-        I18n.t('annuaire.base.import_errors.antenne_not_found', name: super)
+        I18n.t('annuaire.base.preprocess_errors.antenne_not_found', name: super)
       end
     end
   end
