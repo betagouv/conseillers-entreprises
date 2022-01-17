@@ -3,7 +3,7 @@ class SwitchDiagnosisSteps < ActiveRecord::Migration[6.1]
     diagnoses_needs = Diagnosis.where(step: 'contact')
     diagnoses_visit = Diagnosis.where(step: 'needs')
 
-    diagnoses_needs.update_all(step: 'needs')
-    diagnoses_visit.update_all(step: 'contact')
+    diagnoses_needs.map { |n| n.update(step: 'needs') }
+    diagnoses_visit.map { |n| n.update(step: 'contact') }
   end
 end
