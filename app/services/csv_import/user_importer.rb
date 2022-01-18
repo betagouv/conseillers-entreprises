@@ -52,6 +52,7 @@ module CsvImport
           user.experts.build(expert.attributes)
         end
       end
+      user
     end
 
     def team_mapping

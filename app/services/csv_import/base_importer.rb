@@ -23,10 +23,7 @@ module CsvImport
         # Convert CSV rows to attributes
         objects = rows.each_with_index.map do |row|
           # Convert row to user attributes
-          attributes = row.transform_keys(&:squish)
-            .slice(*mapping.keys)
-            .transform_keys{ |k| mapping[k] }
-            .compact
+          attributes = row_to_attributes(row)
 
           preprocess << preprocess(attributes)
           preprocess_errors = preprocess.filter { |result| result.is_a? CsvImport::PreprocessError }
@@ -38,8 +35,7 @@ module CsvImport
 
           object.update(attributes)
 
-          postprocess(object, row)
-
+          object = postprocess(object, row)
           object
         end
 
@@ -84,6 +80,13 @@ module CsvImport
       # Find the separator that find the most headers
       best_index = opened_files.map(&:headers).map(&:count).each_with_index.max.second
       opened_files[best_index]
+    end
+
+    def row_to_attributes(row)
+      row.transform_keys(&:squish)
+        .slice(*mapping.keys)
+        .transform_keys{ |k| mapping[k] }
+        .compact
     end
 
     # Methods implemented by subclasses

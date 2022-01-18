@@ -117,24 +117,75 @@ describe CsvImport::AntenneImporter, CsvImport do
     end
   end
 
-  context 'Add manager to existing antenne without INSEE codes' do
-    before do
-      create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
+  context 'Antenne manager' do
+    context 'Add manager to existing antenne without INSEE codes' do
+      before do
+        create :antenne, institution: institution, name: 'Antenne1', insee_codes: '00001'
+      end
+
+      let(:csv) do
+        <<~CSV
+          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+          Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00001'
+        expect(Antenne.find_by(name: 'Antenne1').manager_full_name).to eq 'Mariane Martin'
+        expect(Antenne.find_by(name: 'Antenne1').manager_email).to eq 'mariane.m@gouv.fr'
+        expect(Antenne.find_by(name: 'Antenne1').manager_phone).to eq '0123456789'
+      end
     end
 
-    let(:csv) do
-      <<~CSV
-        Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
-        Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
-      CSV
+    context 'Import new manager to new antenne' do
+      let(:csv) do
+        <<~CSV
+          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+          Test Institution,Antenne1,,Mariane Martin, mariane.m@gouv.fr,0123456789
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(Antenne.find_by(name: 'Antenne1').managers.size).to eq 1
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
+      end
     end
 
-    it do
-      expect(result).to be_success
-      expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00001'
-      expect(Antenne.find_by(name: 'Antenne1').manager_full_name).to eq 'Mariane Martin'
-      expect(Antenne.find_by(name: 'Antenne1').manager_email).to eq 'mariane.m@gouv.fr'
-      expect(Antenne.find_by(name: 'Antenne1').manager_phone).to eq '0123456789'
+    context 'Import existing manager to existing antenne without INSEE codes' do
+      let(:antenne) { create :antenne, institution: institution, name: 'Parabolique', insee_codes: '00001' }
+      let!(:existing_user) { create :user, full_name: 'Iznogoud', email: 'test@test.com', phone_number: '4321', antenne: antenne }
+
+      let(:csv) do
+        <<~CSV
+          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+          Test Institution,Parabolique,,Iznogoud, test@test.com,0123456789
+        CSV
+      end
+
+      it do
+        expect(result).to be_success
+        expect(Antenne.find_by(name: 'Parabolique').insee_codes).to eq '00001'
+        expect(Antenne.find_by(name: 'Parabolique').managers.size).to eq 1
+        expect(Antenne.find_by(name: 'Parabolique').managers).to match_array [existing_user]
+      end
+    end
+
+    context 'Import manager with error' do
+      let(:csv) do
+        <<~CSV
+          Institution,Nom,Codes communes,Nom du responsable,Email du responsable,Téléphone du responsable
+          Test Institution,Antenne1,,, mariane.m@gouv.fr,0123456789
+        CSV
+      end
+
+      it do
+        expect(result).not_to be_success
+      end
     end
   end
 

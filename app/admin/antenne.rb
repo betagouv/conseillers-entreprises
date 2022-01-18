@@ -39,9 +39,7 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :received_matches, blank_if_empty: true)
     end
     column(:manager) do |a|
-      div a.manager_full_name
-      div a.manager_email
-      div a.manager_phone
+      div admin_link_to(a, :managers, list: true)
     end
   end
 
@@ -65,6 +63,7 @@ ActiveAdmin.register Antenne do
     column_count :communes
     column_count :sent_matches
     column_count :received_matches
+    column(:managers) { |a| a.managers.pluck(:full_name).join(", ") }
   end
 
   ## Show
@@ -89,9 +88,7 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :received_matches)
       end
       row(:manager) do |a|
-        div a.manager_full_name
-        div a.manager_email
-        div a.manager_phone
+        div admin_link_to(a, :managers, list: true)
       end
       row(I18n.t('active_admin.territory.communes_list')) do |a|
         div displays_insee_codes(a.communes)
