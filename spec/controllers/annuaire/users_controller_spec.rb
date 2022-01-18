@@ -45,4 +45,18 @@ RSpec.describe Annuaire::UsersController, type: :controller do
       end
     end
   end
+
+  describe '#POST send_invitations' do
+    let(:institution) { create :institution }
+    let!(:antenne) { create :antenne, institution: institution }
+    let!(:user) { create :user, antenne: antenne, invitation_sent_at: nil }
+
+    subject(:request) { post :send_invitations, params: { institution_slug: institution.slug, users_ids: "#{user.id}" } }
+
+    before { request }
+
+    it 'expect invitation sent to user' do
+      expect(user.reload.invitation_sent_at).not_to be nil
+    end
+  end
 end

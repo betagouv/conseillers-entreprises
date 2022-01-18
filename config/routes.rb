@@ -56,7 +56,11 @@ Rails.application.routes.draw do
 
     resources :institutions, param: :slug, only: %i[index show], concerns: :region_search do
       resources :subjects, path: 'domaines', only: :index
-      resources :users, path: 'conseillers', only: :index, concerns: [:importable, :region_search]
+      resources :users, path: 'conseillers', only: :index, concerns: [:importable, :region_search] do
+        collection do
+          post :send_invitations
+        end
+      end
       resources :antennes, only: :index, concerns: [:importable, :region_search] do
         resources :users, path: 'conseillers', only: :index
       end

@@ -43,6 +43,15 @@ fr:
       filter: Filtrer
       select_region: Selectionnez une région
     users:
+      index:
+        send_invitations:
+          one: Envoyer une invitation
+          other: Envoyer les %{count} invitations
+      send_invitations:
+        invitations_no_sent: Aucune invitation envoyée
+        invitations_sent:
+          one: Une invitation envoyée
+          other: "%{count} invitations envoyées"
       table:
         edit_expert: Modifier %{expert_name} - %{antenne}
         experts_on_subject: "%{count} experts sur le sujet %{subject}"
