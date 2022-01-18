@@ -230,7 +230,7 @@ class Solicitation < ApplicationRecord
   def recent_matched_solicitations
     Solicitation.joins(:diagnosis).merge(Diagnosis.step_completed)
       .where.not(id: self.id)
-      .created_between(Time.zone.now - 3.weeks, Time.zone.now)
+      .created_between(3.weeks.ago, Time.zone.now)
       .where(landing_subject_id: self.landing_subject_id)
       .from_same_company(self)
       .uniq

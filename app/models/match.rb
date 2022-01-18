@@ -51,7 +51,6 @@ class Match < ApplicationRecord
 
   ## Validations and Callbacks
   #
-  validates :need, presence: true
   validates :expert, uniqueness: { scope: :need_id, allow_nil: true }
   after_update :update_taken_care_of_at
   after_update :update_closed_at

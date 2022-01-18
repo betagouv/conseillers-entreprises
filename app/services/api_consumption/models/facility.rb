@@ -46,7 +46,7 @@ module ApiConsumption::Models
     def readable_locality
       code_postal = adresse&.dig('code_postal')
       localite = adresse&.dig('localite')
-      [code_postal, localite].reject(&:blank?).join(' ').presence
+      [code_postal, localite].compact_blank.join(' ').presence
     end
 
     def region

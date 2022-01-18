@@ -45,7 +45,6 @@ class Facility < ApplicationRecord
 
   ## Validations
   #
-  validates :company, :commune, presence: true
   validates :siret, uniqueness: { allow_nil: true }
 
   ## “Through” Associations

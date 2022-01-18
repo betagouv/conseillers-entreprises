@@ -17,7 +17,6 @@ RSpec.describe Expert, type: :model do
     describe 'presence' do
       it do
         is_expected.to validate_presence_of(:full_name)
-        is_expected.to validate_presence_of(:antenne)
         is_expected.to validate_presence_of(:email)
       end
     end

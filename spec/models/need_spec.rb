@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Need, type: :model do
-  describe 'validations' do
+  describe 'associations' do
     it do
       is_expected.to belong_to :diagnosis
       is_expected.to belong_to :subject
       is_expected.to have_many :matches
-      is_expected.to validate_presence_of :diagnosis
+      is_expected.to belong_to :diagnosis
     end
   end
 
@@ -359,7 +359,7 @@ RSpec.describe Need, type: :model do
 
   describe 'abandoned' do
     let(:need) { create :need_with_matches }
-    let(:date1) { Time.zone.now - 2.months }
+    let(:date1) { 2.months.ago }
     let(:old_need) { travel_to(date1) { create :need_with_matches } }
 
     it do

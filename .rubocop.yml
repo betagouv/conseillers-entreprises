@@ -770,7 +770,7 @@ Rails/RedundantReceiverInWithOptions:
   Enabled: true
 
 Rails/RelativeDateConstant:
-  Enabled: true
+  Enabled: false
 
 Rails/RequestReferer:
   Enabled: true
