@@ -7,7 +7,7 @@
     = render partial: 'companies/need', collection: @diagnosis.facility.needs.diagnosis_completed
 
   #needs-app
-    = form_with model: @diagnosis,
+    = form_with model: @diagnosis, local: true,
       url: update_needs_diagnosis_path,
       class: 'ui form',
       data: { checkboxes_require_one_with: t(".select_at_least_one_need") } do |diagnosis_form|

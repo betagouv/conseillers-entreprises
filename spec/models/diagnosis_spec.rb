@@ -56,6 +56,15 @@ RSpec.describe Diagnosis, type: :model do
         it { is_expected.not_to be_valid }
       end
 
+      context 'with some need without matches' do
+        before do
+          diagnosis.needs << build(:need, matches: [build(:match)])
+          diagnosis.needs << build(:need)
+        end
+
+        it { is_expected.not_to be_valid }
+      end
+
       context 'with matches' do
         before { diagnosis.needs << build(:need, matches: [build(:match)]) }
 
