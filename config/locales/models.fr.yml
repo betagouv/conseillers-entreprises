@@ -385,6 +385,8 @@ fr:
             email:
               blank: Le contact doit avoir au moins une adresse e-mail ou un numéro de téléphone.
         diagnosis:
+          steps:
+            error_no_match: "can’t be step 5 with no matches"
           attributes:
             base:
               cant_send_need_without_matches: L’un des besoins n’a pas d’expert. Vous pouvez supprimer ce besoin ou ajouter un expert.
