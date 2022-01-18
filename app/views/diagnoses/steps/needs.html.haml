@@ -1,26 +1,22 @@
 - meta title: Diagnosis.human_attribute_value(:step, :needs)
 
 .fr-container
-  = render 'header', diagnosis: @diagnosis, current_page_step: 2
+  = render 'header', diagnosis: @diagnosis, current_page_step: 3
 
   - if @diagnosis.solicitation.present? && @diagnosis.facility.needs.diagnosis_completed.many?
     = render partial: 'companies/need', collection: @diagnosis.facility.needs.diagnosis_completed
 
   #needs-app
-    = form_with model: @diagnosis, local: true,
+    = form_with model: @diagnosis,
       url: update_needs_diagnosis_path,
-      class: 'ui form',
-      data: { checkboxes_require_one_with: t(".select_at_least_one_need") } do |diagnosis_form|
+      data: { checkboxes_require_one_with: t(".select_at_least_one_need") },
+      local: true do |diagnosis_form|
 
-      %h1.ui.header
-        = Diagnosis.human_attribute_value(:step, :needs)
+      %h1= Diagnosis.human_attribute_value(:step, :needs)
 
-      .field
-        = diagnosis_form.label t('.diagnosis_content_subtitle')
-        = diagnosis_form.text_area :content, placeholder: t('.diagnosis_content_placeholder'), rows: 2
-
-      %p.small.text.justified
-        = t('.identify_needs', company_name: @diagnosis.company.name)
+      .fr-input-group
+        = diagnosis_form.label t('.diagnosis_content_subtitle'), class: 'fr-label'
+        = diagnosis_form.text_area :content, placeholder: t('.diagnosis_content_placeholder'), rows: 2, class: 'fr-input'
 
       - @themes.each do |theme|
         - subjects = theme.subjects.for_interview
@@ -28,23 +24,25 @@
           - active_class = 'active' if @diagnosis.themes.include?(theme)
           .ui.segments.shadow-less.accordion.theme
             .ui.segment.secondary.title{ class: active_class }
-              %h3.ui.header
+              %h2.fr-text--lead
                 = theme
                 %span.ri-arrow-right-s-fill.float-right
-            .ui.content.subjects.basic.segments{ class: active_class }
+            .ui.content.subjects.basic.segments.fr-py-2w{ class: active_class }
               - all_needs = @diagnosis.needs
               - subjects.each do |subject|
                 - need = all_needs.where(subject: subject).first_or_initialize
-                .ui.checkbox.subject.segment
+                .fr-checkbox-group.subject
                   = diagnosis_form.fields_for :needs, need do |need_form|
                     = need_form.check_box :_destroy, { checked: need.persisted? }, '0', '1'
-                    = need_form.label :_destroy, subject
-                    = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2
+                    = need_form.label :_destroy, subject, class: 'fr-label'
+                    = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2, class: 'fr-input'
                     = need_form.hidden_field :subject_id
-              .ui.subject.actions
+              .fr-mt-2w
                 = render 'next_step', diagnosis_form: diagnosis_form
 
-      .ui.actions
-        = render 'next_step', diagnosis_form: diagnosis_form
+      .bottom_actions.flex
+        = link_to contact_diagnosis_path, class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbolinks: false } do
+          %span.ri-arrow-left-line.fr-mr-1w
+          = t('previous_step')
 
-    .clear
+        = render 'next_step', diagnosis_form: diagnosis_form

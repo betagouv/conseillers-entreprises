@@ -1,7 +1,6 @@
-.ui.mini.ordered.steps.fluid
-  - Diagnosis.steps.except(:not_started, :completed).each do |key, value|
+.steps.fr-my-4w
+  - Diagnosis.steps.except(:not_started, :completed).each do |key,value|
     - class_for_step = html_classes_for_step(value, current_page_step, diagnosis_step)
-    .step{ class: class_for_step }
-      .content
-        .title
-          = Diagnosis.human_attribute_value(:status, key)
+    .step
+      .step__title{ class: class_for_step }
+        = Diagnosis.human_attribute_value(:status, key)

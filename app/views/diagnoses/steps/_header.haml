@@ -1,6 +1,7 @@
-.ui.padded.stackable.grid
-  .row.center.aligned
-    .column
-      = render 'diagnoses/company_details', diagnosis: diagnosis
-  .row
+.fr-grid-row.fr-grid-row--center.diagnosis-creation-header.fr-pt-6w.fr-pb-3w
+  .fr-col.company-description.fr-mb-2w
+    = render 'diagnoses/company_details', diagnosis: diagnosis
+
+.fr-grid-row.fr-grid-row--center
+  .fr-col
     = render 'steps', current_page_step: current_page_step, diagnosis_step: Diagnosis.steps[diagnosis.step]

@@ -15,15 +15,15 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
     end
   end
 
-  describe 'GET #visit' do
-    subject(:request) { get :visit, params: { id: diagnosis.id } }
+  describe 'GET #contact' do
+    subject(:request) { get :contact, params: { id: diagnosis.id } }
 
     context 'diagnosis step < last' do
       it('returns http success') { expect(response).to be_successful }
     end
   end
 
-  describe 'POST #update_visit' do
+  describe 'POST #update_contact' do
     let(:diagnosis) { create :diagnosis, advisor: advisor, visitee: nil }
     let(:locality) { diagnosis.facility.readable_locality }
 
@@ -41,42 +41,10 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
       end
 
       it 'create a visitee for diagnosis' do
-        post :update_visit, params: params
+        post :update_contact, params: params
         diagnosis.reload
         expect(diagnosis.visitee.full_name).to eq("Edith Piaf")
         expect(diagnosis.facility.readable_locality).to eq(locality)
-      end
-    end
-
-    describe 'with custom address' do
-      let(:params) do
-        {
-          id: diagnosis.id,
-          diagnosis: {
-            happened_on: "27/01/2020",
-            visitee_attributes: {
-              full_name: "Edith Piaf", job: "directrice", email: "edith@piaf.fr", phone_number: "0606060606",
-            },
-            facility_attributes: {
-              id: diagnosis.facility_id,
-              insee_code: '78586'
-            }
-          }
-        }
-      end
-      let(:url) { "https://geo.api.gouv.fr/communes/78586?fields=nom,codesPostaux" }
-
-      before do
-        stub_request(:get, url).to_return(
-          body: file_fixture('geo_api_communes_78586.json')
-        )
-      end
-
-      it 'create a visitee for diagnosis and change locality' do
-        post :update_visit, params: params
-        diagnosis.reload
-        expect(diagnosis.visitee.full_name).to eq("Edith Piaf")
-        expect(diagnosis.facility.readable_locality).to eq('78500 Sartrouville')
       end
     end
   end
@@ -148,7 +116,7 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
 
           diagnosis.reload
           expect(diagnosis.matches.count).to eq 0
-          expect(response).to redirect_to matches_diagnosis_path(diagnosis)
+          expect(response).to render_template("matches")
         }
       end
     end

@@ -40,7 +40,7 @@ module DiagnosisCreation
         end
       end
 
-      params[:step] = :needs
+      params[:step] = :contact
       params[:content] = get_solicitation_description(params)
       Diagnosis.create(params)
     end
@@ -72,9 +72,9 @@ module DiagnosisCreation
         )
 
         # Steps 1, 2, 3: fill in with the solicitation data and the preselections
-        diagnosis.prepare_needs_from_solicitation if diagnosis.errors.empty?
         diagnosis.prepare_happened_on_from_solicitation if diagnosis.errors.empty?
         diagnosis.prepare_visitee_from_solicitation if diagnosis.errors.empty?
+        diagnosis.prepare_needs_from_solicitation if diagnosis.errors.empty?
         diagnosis.prepare_matches_from_solicitation if diagnosis.errors.empty?
 
         # Rollback on error!
@@ -121,6 +121,7 @@ module DiagnosisCreation
 
       needs_params = { subject: subject }
       self.needs.create(needs_params)
+      self.step_needs!
 
       self
     end
@@ -140,7 +141,7 @@ module DiagnosisCreation
                          email: solicitation.email,
                          phone_number: solicitation.phone_number,
                          company: facility.company)
-
+      self.step = :contact
       self.save # Validate and save both the new visitee and the diagnosis
 
       self
@@ -148,6 +149,7 @@ module DiagnosisCreation
 
     def prepare_matches_from_solicitation
       return unless solicitation.present? && matches.blank?
+      self.step_matches!
 
       CreateDiagnosis::CreateMatches.new(self).call
     end

@@ -4,46 +4,38 @@
   = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
   #matches-app
-    .ui.info.message
-      = t('.explanation')
-
-    .ui.segment
-      %details
-        %summary
-          %strong Rappel de la sollicitation
-        - if @diagnosis.content.present?
-          %blockquote
-            %span= simple_format(auto_link(@diagnosis.content))
-
-    = form_with model: @diagnosis, local: true,
+    = form_with model: @diagnosis,
       url: update_matches_diagnosis_path(@diagnosis),
-      class: 'ui form',
-      data: { checkboxes_require_one_with: t(".select_at_least_one_expert") } do |form|
+      data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
+      local: true do |form|
+
+      %details.fr-callout.fr-mb-2w
+        %summary
+          %strong= t('.solicitation_reminder')
+        = form.text_area :content, class: 'fr-input fr-mt-2w'
+
       - @diagnosis.needs.ordered_for_interview.each do |need|
-        .ui.segment.shadow-less
-          %h3.ui.header= need.subject
+        .card-matches.fr-mb-2w
+          .card__header
+            %h2.fr-text--lead= need.subject
           - experts_subjects = CreateDiagnosis::FindRelevantExpertSubjects.new(need).call
           - support_subject = ExpertSubject.support_for(@diagnosis)
           - if experts_subjects.present?
             = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: experts_subjects
           - elsif support_subject.present?
-            .field.warning
-              .ui.warning.message
-                = t('.no_expert_subject')
-                = t('.you_can_contact_support')
+            .fr-highlight.fr-mt-2w
+              %p= t('.no_expert_subject')
+              %p= t('.you_can_contact_support')
             = render 'expert_subject_checkboxes', form: form, need: need, experts_subjects: support_subject
           - else
-            %p= t('.no_expert_subject')
+            .fr-highlight.fr-mt-2w
+              %p= t('.no_expert_subject')
 
-      .ui.hidden.divider
-      .field.info
-        .ui.info.message
-          .content
-            .header= t('.before_sending_emails_1')
-            %p= t('.before_sending_emails_2')
+      .fr-callout.fr-fi-information-line.fr-mb-2w
+        %p.fr-callout__text= t('.before_sending_emails')
 
       .bottom_actions.flex
-        = link_to visit_diagnosis_path(@diagnosis), class: 'fr-btn fr-btn--icon-left no-margin' do
+        = link_to needs_diagnosis_path(@diagnosis), class: 'fr-btn btn-blue fr-btn--icon-left', data: { turbolinks: false } do
           %span.ri-arrow-left-line.fr-mr-1w
           = t('previous_step')
 

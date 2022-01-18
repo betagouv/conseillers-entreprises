@@ -107,7 +107,7 @@ RSpec.describe DiagnosesController, type: :controller do
         post :create, params: { diagnosis: some_params }
 
         expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to needs_diagnosis_path(Diagnosis.last)
+        expect(response).to redirect_to contact_diagnosis_path(Diagnosis.last)
       end
     end
   end

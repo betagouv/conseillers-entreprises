@@ -151,8 +151,8 @@ Rails.application.routes.draw do
       controller 'diagnoses/steps' do
         get :needs, path: 'besoins'
         patch :update_needs
-        get :visit, path: 'visite'
-        patch :update_visit
+        get :contact, path: 'contact'
+        patch :update_contact
         get :matches, path: 'selection'
         patch :update_matches
       end

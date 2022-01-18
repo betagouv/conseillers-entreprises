@@ -40,7 +40,7 @@ class Diagnosis < ApplicationRecord
 
   ## Constants
   #
-  enum step: { not_started: 1, needs: 2, visit: 3, matches: 4, completed: 5 }, _prefix: true
+  enum step: { not_started: 1, contact: 2, needs: 3, matches: 4, completed: 5 }, _prefix: true
 
   ## Associations
   #
@@ -54,8 +54,8 @@ class Diagnosis < ApplicationRecord
 
   ## Validations and Callbacks
   #
-  validate :step_visit_has_needs
-  validate :step_matches_has_visit_attributes
+  validate :step_needs_has_contact
+  validate :step_matches_has_needs_attributes
   validate :step_completed_has_matches
   validate :step_completed_has_advisor
   validate :without_solicitation_has_advisor
@@ -160,47 +160,36 @@ class Diagnosis < ApplicationRecord
     needs.each{ |n| n.update_status }
   end
 
-  def step_visit_has_needs
-    if step_visit?
-      if needs.blank?
-        errors.add(:needs, :blank)
-      end
+  def step_needs_has_contact
+    if step_needs?
+      errors.add(:visitee, :blank) if visitee.nil?
+      errors.add(:happened_on, :blank) if happened_on.nil?
     end
   end
 
-  def step_matches_has_visit_attributes
-    if step_matches?
-      if visitee.nil?
-        errors.add(:visitee, :blank)
-      end
-      if happened_on.nil?
-        errors.add(:happened_on, :blank)
-      end
+  def step_matches_has_needs_attributes
+    if step_matches? && needs.blank?
+      errors.add(:needs, :blank)
     end
   end
 
   def step_completed_has_matches
-    if step_completed?
-      # On regarde qu'il n'y ait aucun besoin sans match
-      if needs.empty? || needs&.map(&:matches)&.any?{ |m| m.empty? } # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
-        errors.add(:base, :cant_send_need_without_matches)
-      end
+    # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
+    # On regarde qu'il n'y ait aucun besoin sans match
+    if step_completed? && (needs.empty? || needs&.map(&:matches)&.any?{ |m| m.empty? })
+      errors.add(:base, :cant_send_need_without_matches)
     end
   end
 
   def step_completed_has_advisor
-    if step_completed?
-      if advisor.nil?
-        errors.add(:advisor, :blank)
-      end
+    if step_completed? && advisor.nil?
+      errors.add(:advisor, :blank)
     end
   end
 
   def without_solicitation_has_advisor
-    if solicitation.nil?
-      if advisor.nil?
-        errors.add(:advisor, :blank)
-      end
+    if solicitation.nil? && advisor.nil?
+      errors.add(:advisor, :blank)
     end
   end
 end
