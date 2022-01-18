@@ -162,12 +162,8 @@ class Diagnosis < ApplicationRecord
 
   def step_needs_has_contact
     if step_needs?
-      if visitee.nil?
-        errors.add(:visitee, :blank)
-      end
-      if happened_on.nil?
-        errors.add(:happened_on, :blank)
-      end
+      errors.add(:visitee, :blank) if visitee.nil?
+      errors.add(:happened_on, :blank) if happened_on.nil?
     end
   end
 
@@ -179,11 +175,9 @@ class Diagnosis < ApplicationRecord
 
   def step_completed_has_matches
     # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
-    if step_completed? && needs&.flat_map(&:matches)&.empty?
-      # On regarde qu'il n'y ait aucun besoin sans match
-      if needs.empty? || needs&.map(&:matches)&.any?{ |m| m.empty? } # Note: we can’t rely on `self.matches` (a :through association) before the objects are actually saved
-        errors.add(:base, :cant_send_need_without_matches)
-      end
+    # On regarde qu'il n'y ait aucun besoin sans match
+    if step_completed? && (needs.empty? || needs&.map(&:matches)&.any?{ |m| m.empty? })
+      errors.add(:base, :cant_send_need_without_matches)
     end
   end
 

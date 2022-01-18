@@ -4,7 +4,7 @@
   = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
   #matches-app
-    = form_with model: @diagnosis, local: true,
+    = form_with model: @diagnosis,
       url: update_matches_diagnosis_path(@diagnosis),
       data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
       local: true do |form|
