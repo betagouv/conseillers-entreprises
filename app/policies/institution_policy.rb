@@ -34,4 +34,8 @@ class InstitutionPolicy < ApplicationPolicy
   def clear_search?
     search?
   end
+
+  def send_invitations?
+    admin?
+  end
 end

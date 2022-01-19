@@ -35,6 +35,22 @@ module  Annuaire
       end
     end
 
+    def send_invitations
+      invite_count = 0
+      params[:users_ids].split.each do |user_id|
+        user = User.find user_id
+        next if user.invitation_sent_at.present?
+        user.invite!
+        invite_count += 1
+      end
+      if invite_count > 0
+        flash[:notice] = t('.invitations_sent', count: invite_count)
+      else
+        flash[:alert] = t('.invitations_no_sent')
+      end
+      redirect_to institution_users_path(slug: params[:institution_slug])
+    end
+
     def import; end
 
     def import_create

@@ -6,4 +6,11 @@
 
 = render 'import_buttons'
 
+- if @users.collect(&:invitation_sent_at).include?(nil)
+  - users_not_invited_ids = @users.where(invitation_sent_at: nil).collect(&:id)
+  = form_with url: send_invitations_institution_users_path, local: true do |f|
+    = f.hidden_field :users_ids, value: users_not_invited_ids
+    = f.hidden_field :slug, value: params[:institution_slug]
+    = f.submit t('.send_invitations', count: users_not_invited_ids.length), class: 'fr-btn fr-mb-2w fr-ml-2w'
+
 = render 'table', grouped_subjects: @grouped_subjects, users: @users, antenne: @antenne
