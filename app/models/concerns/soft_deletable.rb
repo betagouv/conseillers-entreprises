@@ -21,6 +21,15 @@ module SoftDeletable
     soft_delete
   end
 
+  def self.persons_attributes
+    {
+      deleted_at: Time.zone.now,
+      email: nil,
+      full_name: nil,
+      phone_number: nil
+    }
+  end
+
   module ActiveAdminResourceController
     # Override methods from ActiveAdmin::ResourceController::DataAccess
 

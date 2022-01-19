@@ -140,4 +140,13 @@ class Institution < ApplicationRecord
     institutions = institutions.in_region(region_id) if region_id.present?
     institutions
   end
+
+  ## Soft deletion
+  #
+  def soft_delete
+    self.transaction do
+      antennes.each { |antenne| antenne.soft_delete }
+      update_columns(deleted_at: Time.zone.now)
+    end
+  end
 end

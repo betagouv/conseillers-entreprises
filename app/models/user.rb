@@ -241,11 +241,11 @@ class User < ApplicationRecord
 
   def soft_delete
     self.transaction do
-      personal_skillsets.each { |expert| expert.soft_delete }
-      update_columns(deleted_at: Time.zone.now,
-                     email: nil,
-                     full_name: nil,
-                     phone_number: nil)
+      experts.each do |expert|
+        next if expert.users.many?
+        expert.soft_delete
+      end
+      update_columns(SoftDeletable.persons_attributes)
     end
   end
 

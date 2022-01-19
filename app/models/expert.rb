@@ -227,10 +227,13 @@ class Expert < ApplicationRecord
   end
 
   def soft_delete
-    update_columns(deleted_at: Time.zone.now,
-                   email: nil,
-                   full_name: nil,
-                   phone_number: nil)
+    self.transaction do
+      users.each do |user|
+        next if (user.experts - user.personal_skillsets).many?
+        user.update_columns(SoftDeletable.persons_attributes)
+      end
+      update_columns(SoftDeletable.persons_attributes)
+    end
   end
 
   ## Reminders
