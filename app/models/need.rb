@@ -55,7 +55,6 @@ class Need < ApplicationRecord
 
   ## Validations
   #
-  validates :diagnosis, presence: true
   validates :subject, uniqueness: { scope: :diagnosis_id }
 
   accepts_nested_attributes_for :matches, allow_destroy: true

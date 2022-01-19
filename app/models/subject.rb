@@ -40,7 +40,7 @@ class Subject < ApplicationRecord
 
   ## Validations
   #
-  validates :theme, :slug, presence: true
+  validates :slug, presence: true
   validates :label, presence: true, uniqueness: true
   before_validation :compute_slug
   before_save :set_support

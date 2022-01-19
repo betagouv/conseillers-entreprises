@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe UnusedUsersService do
-  let(:seven_months_ago) { Time.zone.now - 7.months }
+  let(:seven_months_ago) { 7.months.ago }
 
   describe 'delete_users' do
     describe 'delete users and skillsets' do

@@ -3,14 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe Facility, type: :model do
+  describe 'associations' do
+    it do
+      is_expected.to belong_to :company
+      is_expected.to belong_to :commune
+    end
+  end
+
   describe 'validations' do
     subject { create(:facility) }
 
     it do
-      is_expected.to belong_to :company
-      is_expected.to validate_presence_of :company
       is_expected.to validate_uniqueness_of(:siret).ignoring_case_sensitivity
-      is_expected.to validate_presence_of :commune
     end
   end
 

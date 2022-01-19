@@ -26,7 +26,6 @@ class Search < ApplicationRecord
 
   ## Validations
   #
-  validates :user, presence: true
   validates :query, presence: true
 
   ## Scopes

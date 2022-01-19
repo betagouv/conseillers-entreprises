@@ -47,7 +47,6 @@ class Expert < ApplicationRecord
   ## Validations
   #
   before_validation :fix_flag_values
-  validates :antenne, presence: true
   validates :email, presence: true, unless: :deleted?
   validates_associated :experts_subjects, on: :import
 
