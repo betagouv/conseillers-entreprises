@@ -37,11 +37,13 @@ module ApiEntreprise::Entreprise
     def format_data
       data = @http_request.data
       # utilisation de strings pour fournir un json correctement formaté
-      return {
+      formatted_data = {
         'entreprise' => data["entreprise"],
         'etablissement_siege' => data["etablissement_siege"],
         'errors' => data["errors"]
       }
+      raise ApiEntrepriseError, I18n.t('api_entreprise.invalid_siret_or_siren') if formatted_data.values.any?{|v| v.blank?}
+      return formatted_data
     end
   end
 end
