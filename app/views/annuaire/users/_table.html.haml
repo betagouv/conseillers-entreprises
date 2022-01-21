@@ -4,9 +4,9 @@
       -# For the subjects columns, we'll build our header on 3 rows: theme, subject and institutions_subject.
       %tr
         -# The first 3 columns are for the antenne, team, and user names, spanning the 4 header rows.
-        %th{ rowspan: 4 }
-        %th{ rowspan: 4 }= User.human_attribute_name(:team_full_name)
-        %th{ rowspan: 4 }= User.human_attribute_name(:user)
+        %th{ rowspan: 3 }
+        %th{ rowspan: 3 }= User.human_attribute_name(:team_full_name)
+        %th{ rowspan: 3 }= User.human_attribute_name(:user)
         -# Subjects columns, first row: the themes, column-spanned for the two remaining header rows
         - grouped_subjects.each do |theme, subjects|
           %th{ colspan: subjects.values.sum(&:size) }= theme.label
@@ -34,6 +34,19 @@
                   %span.red.ri-error-warning-fill
                 - if anomalie_more
                   %span.orange.ri-error-warning-fill
+        - if local_assigns[:antenne] && antenne.regional_antenne.present?
+          %tr.users-count
+            %th{ colspan: 3 }= antenne.regional_antenne.name
+            - grouped_subjects.each_value do |subjects|
+              - subjects.each do |subject, institutions_subjects|
+                - institutions_subjects.each do |institution_subject|
+                  - experts = institution_subject.not_deleted_experts.with_users
+                  - experts &= antenne.regional_antenne&.experts || []
+                  - regional_count = experts.count
+                  %th.right.aligned{ title: t('.experts_on_subject', count: regional_count, subject: institution_subject.description),
+                  class: '' }
+                    = regional_count
+
 
     %tbody
       -# `users` contains multiple rows for the same users, for each of their team. (See User.relevant_for_skills)

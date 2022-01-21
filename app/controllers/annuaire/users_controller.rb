@@ -11,8 +11,6 @@ module  Annuaire
       @grouped_subjects = institutions_subjects
         .group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
 
-      xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
-
       respond_to do |format|
         format.html
         format.csv do
@@ -20,6 +18,7 @@ module  Annuaire
           send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
         end
         format.xlsx do
+          xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
           result = @users.export_xlsx(include_expert_team: true, institutions_subjects: institutions_subjects)
           send_data result.xlsx, type: "application/xlsx", filename: xlsx_filename
         end

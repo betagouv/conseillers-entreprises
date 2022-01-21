@@ -95,6 +95,14 @@ class Antenne < ApplicationRecord
     end
   end
 
+  def regional_antenne
+    return if self.regional?
+    same_region_antennes = institution.antennes_in_region(region_ids)
+    same_region_antennes.select do |a|
+      a.regional? && (self.commune_ids - a.commune_ids).empty?
+    end&.first
+  end
+
   def self.flexible_find_or_initialize(institution, name)
     return nil unless institution.present? && name.present?
     antenne = institution.antennes.find_by('lower(name) = ?', name.squish.downcase)
