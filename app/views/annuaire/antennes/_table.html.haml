@@ -29,3 +29,11 @@
                 %li= manager.full_name
                 %li= mail_to manager.email, manager.email, target: :blank
                 %li= link_to(manager.phone_number, "tel:#{manager.phone_number}")
+            - if antenne.managers.empty?
+              %ul
+                - if antenne.manager_full_name.present?
+                  %li= antenne.manager_full_name
+                - if antenne.manager_email.present?
+                  %li= mail_to antenne.manager_email, antenne.manager_email, target: :blank
+                - if antenne.manager_phone.present?
+                  %li= link_to(antenne.manager_phone, "tel:#{antenne.manager_phone}")

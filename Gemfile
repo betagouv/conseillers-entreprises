@@ -131,5 +131,5 @@ group :development do
   gem 'rubocop-faker', require: false
   gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
-  gem "rails-erd", git: 'https://github.com/andrew-newell/rails-erd' # Compatibility for Rails 6.1, until https://github.com/voormedia/rails-erd/pull/365 is merged.
+  gem "rails-erd"
 end
