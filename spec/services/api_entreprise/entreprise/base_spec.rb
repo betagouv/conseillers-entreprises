@@ -90,4 +90,21 @@ RSpec.describe ApiEntreprise::Entreprise::Base do
       expect { api_company }.to raise_error ApiEntreprise::ApiEntrepriseError
     end
   end
+
+  context 'Api entreprise is broken without error message' do
+    let(:token) { '1234' }
+    let(:siren) { '418166096' }
+    let(:url) { "#{base_url}/418166096?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+
+    before do
+      ENV['API_ENTREPRISE_TOKEN'] = token
+      stub_request(:get, url).to_return(
+        body: "{ 'oups' }".to_json
+      )
+    end
+
+    it 'raises an error' do
+      expect { api_company }.to raise_error ApiEntreprise::ApiEntrepriseError
+    end
+  end
 end

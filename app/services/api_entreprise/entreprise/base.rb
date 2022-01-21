@@ -42,8 +42,12 @@ module ApiEntreprise::Entreprise
         'etablissement_siege' => data["etablissement_siege"],
         'errors' => data["errors"]
       }
-      raise ApiEntrepriseError, I18n.t('api_entreprise.invalid_siret_or_siren') if formatted_data.values.any?{|v| v.blank?}
+      raise ApiEntreprise::ApiEntrepriseError, I18n.t('api_entreprise.default_error_message.etablissement') if missing_mandatory_data?(formatted_data)
       return formatted_data
+    end
+
+    def missing_mandatory_data?(data)
+      data['entreprise'].blank? || data['etablissement_siege'].blank?
     end
   end
 end
