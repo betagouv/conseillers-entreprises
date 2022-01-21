@@ -103,9 +103,6 @@ ActiveRecord::Schema.define(version: 2022_03_16_105619) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.string "manager_full_name"
-    t.string "manager_email"
-    t.string "manager_phone"
     t.enum "territorial_level", default: "local", null: false, enum_type: "territorial_level"
     t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"

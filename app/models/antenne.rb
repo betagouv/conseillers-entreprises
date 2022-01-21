@@ -2,16 +2,13 @@
 #
 # Table name: antennes
 #
-#  id                :bigint(8)        not null, primary key
-#  deleted_at        :datetime
-#  manager_email     :string
-#  manager_full_name :string
-#  manager_phone     :string
-#  name              :string
+#  id             :bigint(8)        not null, primary key
+#  deleted_at     :datetime
+#  name           :string
 #  territorial_level :enum             default("local"), not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  institution_id    :bigint(8)        not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  institution_id :bigint(8)        not null
 #
 # Indexes
 #
@@ -45,6 +42,7 @@ class Antenne < ApplicationRecord
 
   has_many :experts, -> { not_deleted }, inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
+  # /!\ Attention, méthode à revoir, un manager peut être hors antenne !
   has_many :managers, -> { role_antenne_manager }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, dependent: :destroy, inverse_of: :antenne
   accepts_nested_attributes_for :match_filters, allow_destroy: true

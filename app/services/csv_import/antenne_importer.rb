@@ -21,7 +21,7 @@ module CsvImport
 
     def find_instance(attributes)
       antenne = Antenne.flexible_find_or_initialize(attributes[:institution], attributes[:name])
-      attributes.delete(:name)
+      attributes.except!(:name, :manager_full_name, :manager_email, :manager_phone)
       return antenne, attributes
     end
 
