@@ -388,8 +388,7 @@ fr:
           attributes:
             base:
               cant_send_need_without_matches: L’un des besoins n’a pas d’expert. Vous pouvez supprimer ce besoin ou ajouter un expert.
-            facility:
-              commune_not_found: commune non trouvée
+              facility_commune_not_found: La commune de l'établissement n'a pas été trouvée
             matches:
               format: 'Mises en relation : %{message}.'
               preselected_institution_has_no_relevant_experts: aucun expert de l’institution préselectionnée ne peut prendre en charge cette entreprise

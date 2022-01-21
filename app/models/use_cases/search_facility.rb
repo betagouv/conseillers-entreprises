@@ -28,7 +28,7 @@ module UseCases
         api_facility = ApiConsumption::Facility.new(siret, options).call
         facility = Facility.find_or_initialize_by siret: siret
         unless api_facility.commune.persisted?
-          raise ApiEntreprise::ApiEntrepriseError.new(:commune_not_found)
+          raise ApiEntreprise::ApiEntrepriseError.new(:facility_commune_not_found)
         end
         facility.update!(
           company: company,
