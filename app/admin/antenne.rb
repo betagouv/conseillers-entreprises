@@ -39,7 +39,13 @@ ActiveAdmin.register Antenne do
       div admin_link_to(a, :received_matches, blank_if_empty: true)
     end
     column(:manager) do |a|
-      div admin_link_to(a, :managers, list: true)
+      if a.managers.any?
+        div admin_link_to(a, :managers, list: true)
+      else
+        div a.manager_full_name
+        div a.manager_email
+        div a.manager_phone
+      end
     end
   end
 
@@ -88,7 +94,13 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :received_matches)
       end
       row(:manager) do |a|
-        div admin_link_to(a, :managers, list: true)
+        if a.managers.any?
+          div admin_link_to(a, :managers, list: true)
+        else
+          div a.manager_full_name
+          div a.manager_email
+          div a.manager_phone
+        end
       end
       row(I18n.t('active_admin.territory.communes_list')) do |a|
         div displays_insee_codes(a.communes)
