@@ -181,12 +181,11 @@ class User < ApplicationRecord
   scope :in_region, -> (region_id) do
     left_joins(antenne: :regions)
       .left_joins(:experts)
-      .select('"antennes".*')
+      .select('"antennes".*, "users".*')
       .where(antennes: { territories: { id: [region_id] } })
-      .or(self.select('"antennes".*').where(experts: { is_global_zone: true }))
+      .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
       .distinct
   end
-
   ## Keys for flags preferences
   #
   FLAGS = %i[
