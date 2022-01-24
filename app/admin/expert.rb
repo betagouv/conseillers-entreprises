@@ -170,10 +170,6 @@ ActiveAdmin.register Expert do
     end
   end
 
-  action_item :normalize_values, only: :show do
-    link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
-  end
-
   ## Form
   #
   permit_params [
@@ -256,7 +252,22 @@ ActiveAdmin.register Expert do
 
   ## Actions
   #
+  config.action_items.delete_at(2)
+
+  action_item :normalize_values, only: :show do
+    link_to t('active_admin.person.normalize_values'), normalize_values_admin_expert_path(expert)
+  end
+
+  action_item :destroy, only: :show do
+    link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation') }
+  end
+
   member_action :normalize_values do
+    resource.normalize_values!
+    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+  end
+
+  member_action :normalize do
     resource.normalize_values!
     redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
   end
@@ -279,5 +290,10 @@ ActiveAdmin.register Expert do
 
     message = I18n.t("active_admin.flag.done.#{inputs[:action]}", flag: User.human_attribute_name(flag))
     redirect_to collection_path, notice: message
+  end
+
+  batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation') do |ids|
+    Expert.where(id: ids).each { |u| u.soft_delete }
+    redirect_to collection_path, notice: I18n.t('active_admin.experts.deleted')
   end
 end
