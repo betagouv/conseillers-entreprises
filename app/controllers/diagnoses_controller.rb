@@ -41,6 +41,7 @@ class DiagnosesController < ApplicationController
     if @diagnosis.persisted?
       redirect_to contact_diagnosis_path(@diagnosis)
     else
+      flash.now[:alert] = @diagnosis.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end

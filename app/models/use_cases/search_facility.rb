@@ -27,7 +27,9 @@ module UseCases
       def create_or_update_facility(siret, company, options = {})
         api_facility = ApiConsumption::Facility.new(siret, options).call
         facility = Facility.find_or_initialize_by siret: siret
-
+        unless api_facility.commune.persisted?
+          raise ApiEntreprise::ApiEntrepriseError.new(:facility_commune_not_found)
+        end
         facility.update!(
           company: company,
           commune: api_facility.commune,

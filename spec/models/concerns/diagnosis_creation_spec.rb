@@ -50,7 +50,7 @@ RSpec.describe DiagnosisCreation do
         end
 
         it 'returns the message in the errors' do
-          expect(create_diagnosis.errors.details).to eq({ facility: [{ error: 'some error message' }] })
+          expect(create_diagnosis.errors.details).to eq({ base: [{ error: 'some error message' }] })
         end
       end
     end

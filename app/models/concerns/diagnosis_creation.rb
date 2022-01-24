@@ -35,7 +35,7 @@ module DiagnosisCreation
         rescue ApiEntreprise::ApiEntrepriseError => e
           # Eat the exception and build a Diagnosis object just to hold the error
           diagnosis = Diagnosis.new
-          diagnosis.errors.add(:facility, e.message)
+          diagnosis.errors.add(:base, e.message)
           return diagnosis
         end
       end
