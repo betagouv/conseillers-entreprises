@@ -112,4 +112,22 @@ RSpec.describe Antenne, type: :model do
 
     it { is_expected.to match_array [a1, a4] }
   end
+
+  describe 'regional_antenne' do
+    let(:commune1) { create :commune }
+    let(:commune2) { create :commune }
+    let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
+    let(:institution1) { create :institution, name: 'Institution 1' }
+    let(:regional_antenne1) { create :antenne, institution: institution1, communes: [commune1, commune2] }
+    let(:territorial_antenne1) { create :antenne, institution: institution1, communes: [commune1] }
+    let(:other_territorial_antenne1) { create :antenne, institution: institution1, communes: [create(:commune)] }
+    let(:territorial_antenne2) { create :antenne, institution: create(:institution), communes: [commune1] }
+
+    it "returns correct regional_antenne" do
+      expect(regional_antenne1.regional_antenne).to eq nil
+      expect(territorial_antenne1.regional_antenne).to eq regional_antenne1
+      expect(other_territorial_antenne1.regional_antenne).not_to eq regional_antenne1
+      expect(territorial_antenne2.regional_antenne).not_to eq regional_antenne1
+    end
+  end
 end

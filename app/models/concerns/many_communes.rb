@@ -68,9 +68,4 @@ module ManyCommunes
       self.territories
     end
   end
-
-  # instance dont le territoire est l'ensemble d'une region
-  def regional?
-    (regions.size == 1) && (commune_ids.size == regions.first.commune_ids.size)
-  end
 end
