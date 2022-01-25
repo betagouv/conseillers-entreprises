@@ -199,6 +199,7 @@ ActiveAdmin.register User do
 
   # Actions
   #
+  # Delete default destroy action to create a new one with more explicit alert message
   config.action_items.delete_at(2)
 
   action_item :destroy, only: :show do
