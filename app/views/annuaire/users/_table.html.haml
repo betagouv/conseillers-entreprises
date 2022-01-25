@@ -25,15 +25,19 @@
               - if local_assigns[:antenne]
                 - experts &= antenne.experts
               - count = experts.count
+              - experts_communes = experts.filter_map(&:communes).compact.flatten
               - anomalie_less = count == 0
               - anomalie_more = local_assigns[:antenne] && count > 1
               %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description),
-              class: (('red' if anomalie_less && !institution_subject.optional) || ('orange' if anomalie_more)) }
-                = count
+              class: (('red' if anomalie_less && !institution_subject.optional) || ('orange' if ((anomalie_more && experts_communes.present? && (local_assigns[:antenne].communes.sort != experts_communes.sort)) || (anomalie_more && experts_communes.empty?)))) }
+                %span= count
                 - if anomalie_less && !institution_subject.optional
+                  %span.red.ri-error-warning-line
+                - elsif anomalie_more && experts_communes.present? && (local_assigns[:antenne].communes.sort != experts_communes.sort)
+                  %span.orange.ri-map-2-line
+                - elsif anomalie_more && experts_communes.empty?
+                  %span.orange.ri-error-warning-line
                   %span.red.ri-error-warning-fill
-                - if anomalie_more
-                  %span.orange.ri-error-warning-fill
         - if local_assigns[:antenne] && antenne.regional_antenne.present?
           %tr.regional-users-count
             %th{ colspan: 3 }= antenne.regional_antenne.name

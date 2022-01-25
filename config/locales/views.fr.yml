@@ -54,7 +54,6 @@ fr:
           other: "%{count} invitations envoyées"
       table:
         edit_expert: Modifier %{expert_name} - %{antenne}
-        experts_on_subject: "%{count} experts sur le sujet %{subject}"
   application:
     footer:
       service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
@@ -272,6 +271,10 @@ fr:
       thank_you_html: "<p class='fr-m-0 fr-ml-16v'><b>Merci, votre commentaire a été publié.</b></p>"
       title: 'Nouveau commentaire :'
   helpers:
+    annuaire:
+      anomalie_less: Aucun expert pour ce sujet
+      anomalie_more: "%{count} experts sur ce sujet"
+      anomalie_more_specific: "%{count} experts sur ce sujet avec des territoires spécifiques qui ne couvrent pas l’antenne"
     page_entries_info:
       many_pages_html: "<strong>%{total}</strong> %{name} (affichage de %{start} à %{end})"
       more_pages:
