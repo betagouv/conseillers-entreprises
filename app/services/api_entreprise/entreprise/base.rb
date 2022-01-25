@@ -37,11 +37,17 @@ module ApiEntreprise::Entreprise
     def format_data
       data = @http_request.data
       # utilisation de strings pour fournir un json correctement formaté
-      return {
+      formatted_data = {
         'entreprise' => data["entreprise"],
         'etablissement_siege' => data["etablissement_siege"],
         'errors' => data["errors"]
       }
+      raise ApiEntreprise::ApiEntrepriseError, I18n.t('api_entreprise.default_error_message.etablissement') if missing_mandatory_data?(formatted_data)
+      return formatted_data
+    end
+
+    def missing_mandatory_data?(data)
+      data['entreprise'].blank? || data['etablissement_siege'].blank?
     end
   end
 end

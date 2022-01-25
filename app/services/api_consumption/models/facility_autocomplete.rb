@@ -24,15 +24,15 @@ module ApiConsumption::Models
     end
 
     def activite
-      @activite ||= siege_facility.libelle_naf
+      @activite ||= siege_facility&.libelle_naf
     end
 
     def lieu
-      @lieu ||= siege_facility.adresse['l6']
+      @lieu ||= siege_facility&.adresse['l6']
     end
 
     def code_region
-      @code_region ||= siege_facility.code_region
+      @code_region ||= siege_facility&.code_region
     end
 
     def as_json(options = {})
