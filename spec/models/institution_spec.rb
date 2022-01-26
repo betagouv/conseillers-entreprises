@@ -37,14 +37,14 @@ RSpec.describe Institution, type: :model do
     context 'manual call' do
       before { institution.compute_slug }
 
-      it { expect(institution.slug).to eq 'my_institution' }
+      it { expect(institution.slug).to eq 'my-institution' }
     end
 
     context 'before_validation hook' do
       before { institution.save }
 
       it do
-        expect(institution.slug).to eq 'my_institution'
+        expect(institution.slug).to eq 'my-institution'
         expect(institution).to be_valid
       end
     end

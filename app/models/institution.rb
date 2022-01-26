@@ -24,6 +24,7 @@
 
 class Institution < ApplicationRecord
   include SoftDeletable
+  include WithSlug
 
   ## Associations
   #
@@ -38,8 +39,7 @@ class Institution < ApplicationRecord
   ## Hooks and Validations
   #
   auto_strip_attributes :name
-  validates :name, :slug, presence: true, uniqueness: true
-  before_validation :compute_slug
+  validates :name, presence: true, uniqueness: true
 
   ## Through Associations
   #
@@ -116,10 +116,8 @@ class Institution < ApplicationRecord
     name
   end
 
-  def compute_slug
-    if name.present?
-      self.slug = name.parameterize.underscore
-    end
+  def slug_field
+    name
   end
 
   def retrieve_antennes(region_id)

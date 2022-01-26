@@ -33,18 +33,14 @@
 #  fk_rails_...  (subject_id => subjects.id)
 #
 class LandingSubject < ApplicationRecord
+  include WithSlug
+
   ## Associations
   #
   belongs_to :subject, inverse_of: :landing_subjects
   belongs_to :landing_theme, inverse_of: :landing_subjects
   has_many :solicitations, inverse_of: :landing_subject, dependent: :restrict_with_exception
   has_and_belongs_to_many :logos, -> { order(:name) }, inverse_of: :landing_subjects
-
-  before_validation :compute_slug
-
-  ## Validation
-  #
-  validates :slug, presence: true, uniqueness: true
 
   ## Scopes
   #
@@ -77,11 +73,5 @@ class LandingSubject < ApplicationRecord
       .filter{ |_, value| value }
       .keys
       .map{ |flag| flag.to_s.delete_prefix('requires_').to_sym }
-  end
-
-  def compute_slug
-    if title.present? && slug.blank?
-      self.slug = title.dasherize.parameterize
-    end
   end
 end

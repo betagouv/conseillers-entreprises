@@ -17,6 +17,8 @@
 #  index_landing_themes_on_slug  (slug) UNIQUE
 #
 class LandingTheme < ApplicationRecord
+  include WithSlug
+
   ## Associations
   #
   has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing_theme, dependent: :destroy
@@ -26,25 +28,11 @@ class LandingTheme < ApplicationRecord
 
   accepts_nested_attributes_for :landing_subjects, allow_destroy: true
 
-  before_validation :compute_slug
-
-  ## Validation
-  #
-  validates :slug, presence: true, uniqueness: true
-
   def to_s
     title
   end
 
   def to_param
     slug
-  end
-
-  private
-
-  def compute_slug
-    if title.present? && slug.blank?
-      self.slug = title.dasherize.parameterize
-    end
   end
 end
