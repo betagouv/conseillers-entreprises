@@ -510,6 +510,7 @@ fr:
       expired: Expirées
       not_for_me: Refusées
       quo: Boite de réception
+      search: Recherche
       taking_care: Prises en charge
     collections_single:
       archived: Expirée
@@ -550,11 +551,6 @@ fr:
       take_care: Je m’en charge !
       validate: Valider
       your_turn_html: C’est à vous de jouer et d’appeler l’entreprise %{company} au %{phone}.
-    menu:
-      for_other_antenne: Toutes les demandes pour %{antenne}
-      for_other_header: Voir aussi
-      for_other_user: Uniquement les demandes pour %{user}
-      for_recipient: Pour %{recipient}
     search:
       clear_search: Réinitialiser
       search_placeholder: Rechercher par entreprise, contact, description, sujet...
