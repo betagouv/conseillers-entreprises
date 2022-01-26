@@ -95,6 +95,22 @@ class Antenne < ApplicationRecord
     end
   end
 
+  # Antenne regionale
+  #
+  # instance dont le territoire est l'ensemble d'une region
+  def regional?
+    (regions.size == 1) && (commune_ids.size == regions.first.commune_ids.size)
+  end
+
+  # A surveiller : une antenne peut-elle avoir plusieurs antennes regionales ?
+  def regional_antenne
+    return if self.regional?
+    same_region_antennes = institution.antennes_in_region(region_ids)
+    same_region_antennes.select do |a|
+      a.regional? && (self.commune_ids - a.commune_ids).empty?
+    end&.first
+  end
+
   def self.flexible_find_or_initialize(institution, name)
     return nil unless institution.present? && name.present?
     antenne = institution.antennes.find_by('lower(name) = ?', name.squish.downcase)

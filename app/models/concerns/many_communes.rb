@@ -43,7 +43,7 @@ module ManyCommunes
     self_communes = communes.ids
     territories_covered = []
     remaining_communes = self_communes.clone
-    all_territories(self).order(:name).each do |territory|
+    all_territories.order(:name).each do |territory|
       territory_communes = territory.communes.ids
       territory_communes_in_self = territory_communes & self_communes
       if territory_communes_in_self.size > 0
@@ -61,11 +61,11 @@ module ManyCommunes
     }
   end
 
-  def all_territories(model)
-    if model.instance_of?(Antenne)
-      model.territories.or(self.regions)
-    elsif model.instance_of?(Expert)
-      model.territories
+  def all_territories
+    if self.instance_of?(Antenne)
+      self.territories.or(self.regions)
+    elsif self.instance_of?(Expert)
+      self.territories
     end
   end
 end
