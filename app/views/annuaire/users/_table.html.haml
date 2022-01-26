@@ -35,7 +35,7 @@
                 - if anomalie_more
                   %span.orange.ri-error-warning-fill
         - if local_assigns[:antenne] && antenne.regional_antenne.present?
-          %tr.users-count
+          %tr.regional-users-count
             %th{ colspan: 3 }= antenne.regional_antenne.name
             - grouped_subjects.each_value do |subjects|
               - subjects.each do |subject, institutions_subjects|
