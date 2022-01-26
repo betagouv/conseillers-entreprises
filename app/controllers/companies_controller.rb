@@ -31,7 +31,7 @@ class CompaniesController < ApplicationController
       @company = company_and_siege.company
       @siege_facility = company_and_siege.siege_facility
     rescue ApiEntreprise::ApiEntrepriseError => e
-      message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
+      message = I18n.t("api_entreprise.generic_error")
       redirect_back fallback_location: { action: :search }, alert: message
       return
     end
