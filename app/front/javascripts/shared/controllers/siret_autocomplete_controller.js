@@ -1,7 +1,6 @@
 import { Controller } from "stimulus";
 import { exists, debounce } from '../utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
-import * as Sentry from "@sentry/webpack-plugin";
 
 export default class extends Controller {
   static targets = [ "field" ]
@@ -55,7 +54,7 @@ export default class extends Controller {
 
   async fetchEtablissements(query) {
     let params = `query=${query}&non_diffusables=${this.displayNonDiffusableSiret()}`;
-    let response = await fetch(`/rech-etablissement?${params}`, {
+    let response = await fetch(`/rech-etablissement.json?${params}`, {
       credentials: "same-origin",
     });
     // Au cas où autre chose que du json est renvoyé

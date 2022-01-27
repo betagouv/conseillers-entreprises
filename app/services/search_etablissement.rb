@@ -13,6 +13,7 @@ class SearchEtablissement
   end
 
   def call
+    return if @query.blank?
     if siret_search_type?
       siret_search
     else
