@@ -21,7 +21,7 @@ import "whatwg-fetch";
 require("@rails/ujs").start();
 require("turbolinks").start();
 require('remixicon/fonts/remixicon.css')
-require('@gouvfr/dsfr/dist/css/dsfr.css')
+require('@gouvfr/dsfr/dist/dsfr/dsfr.css')
 require('stylesheets/application.sass')
 
 require("jquery");
