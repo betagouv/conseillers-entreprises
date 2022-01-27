@@ -296,10 +296,6 @@ fr:
       uncategorisable_label: Inclassables
       uncategorisable_value: uncategorisable
       view_completed_analysis: Voir l’analyse réalisée
-    annuaire:
-      anomalie_less: "Aucun expert pour ce sujet"
-      anomalie_more_specific: "%{count} experts sur ce sujet avec des territoires spécifiques qui ne couvrent pas l’antenne"
-      anomalie_more: "%{count} experts sur ce sujet"
   iframe:
     partners_logo: 'Les partenaires du service susceptibles de vous rappeler :'
   kaminari:
