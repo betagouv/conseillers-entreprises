@@ -14,15 +14,6 @@ describe CompanyMailerService do
       need_8.matches.first.update(status: :done)
       need_9.matches.first.update(status: :done)
       described_class.send_retention_emails
-      p need_2.with_status_done
-      p need_2.diagnosis
-      p need_2.maches
-      p need_2.errors unless need_2.valid?
-      p need_2.diagnosis.errors unless need_2.diagnosis.valid?
-      p Need.joins(:diagnosis)
-      p Need.joins(:diagnosis).where(diagnoses: { retention_email_sent: false })
-      p Need.joins(:diagnosis).where(diagnoses: { retention_email_sent: false }, created_at: (5.months.ago - 2.days)..(5.months.ago))
-      p Need.joins(:diagnosis).where(diagnoses: { retention_email_sent: false }, created_at: (5.months.ago - 2.days)..(5.months.ago)).with_status_done
     end
 
     let(:two_months_ago) { Time.now - 2.months }
