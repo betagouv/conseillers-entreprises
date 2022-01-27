@@ -3,7 +3,7 @@ fr:
   active_admin:
     antenne:
       delete: Supprimer l’antenne
-      delete_confirmation: Voulez-vous supprimer cette antenne ? Cela va également supprimer les experts et utilisateurs qu'elle contient.
+      delete_confirmation: Voulez-vous supprimer cette antenne ? Assurez-vous d’avoir déplacé ou supprimé ses experts et utilisateurs.
     antennes:
       deleted: Antennes supprimées avec succès
     expert:

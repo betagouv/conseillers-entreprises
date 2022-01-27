@@ -145,7 +145,11 @@ class Institution < ApplicationRecord
   #
   def soft_delete
     self.transaction do
-      antennes.each { |antenne| antenne.soft_delete }
+      antennes.each do |antenne|
+        antenne.experts.each { |expert| expert.soft_delete }
+        antenne.advisors.each { |advisor| advisor.soft_delete }
+        antenne.soft_delete
+      end
       update_columns(deleted_at: Time.zone.now)
     end
   end

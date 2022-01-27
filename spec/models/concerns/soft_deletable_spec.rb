@@ -105,20 +105,44 @@ RSpec.describe SoftDeletable do
   end
 
   describe 'For Antennes' do
-    let(:antenne) { create :antenne, advisors: [user_1, user_2], experts: [expert, expert_2] }
-    let(:user_1) { create :user }
-    let(:user_2) { create :user }
-    let!(:expert) { create :expert, users: [user_1] }
-    let!(:expert_2) { create :expert, users: [user_1, user_2] }
-
     before { antenne.destroy }
 
-    it 'Soft delete antenne and his Users and Experts' do
-      expect(antenne.deleted?).to eq true
-      expect(expert.reload.deleted?).to eq true
-      expect(expert_2.reload.deleted?).to eq true
-      expect(user_1.reload.deleted?).to eq true
-      expect(user_2.reload.deleted?).to eq true
+    context 'with experts and advisors' do
+      let(:antenne) { create :antenne, advisors: [user_1, user_2], experts: [expert, expert_2] }
+      let(:user_1) { create :user }
+      let(:user_2) { create :user }
+      let!(:expert) { create :expert, users: [user_1] }
+      let!(:expert_2) { create :expert, users: [user_1, user_2] }
+
+      context 'with active experts and advisors' do
+        it 'Don’t delete antenne' do
+          expect(antenne.deleted?).to eq false
+          expect(expert.reload.deleted?).to eq false
+          expect(expert_2.reload.deleted?).to eq false
+          expect(user_1.reload.deleted?).to eq false
+          expect(user_2.reload.deleted?).to eq false
+        end
+      end
+
+      context 'with deleted experts and advisors' do
+        before do
+          user_1.destroy
+          user_2.destroy
+          antenne.destroy
+        end
+
+        it 'Delete antenne' do
+          expect(antenne.deleted?).to eq true
+        end
+      end
+    end
+
+    context 'without experts or advisors' do
+      let(:antenne) { create :antenne }
+
+      it 'Delete antenne' do
+        expect(antenne.deleted?).to eq true
+      end
     end
   end
 

@@ -125,9 +125,10 @@ class Antenne < ApplicationRecord
   ## Soft deletion
   #
   def soft_delete
+    return self.errors.add(:base) if experts.not_deleted.present? || advisors.not_deleted.present?
     self.transaction do
-      (advisors + experts).each do |object|
-        object.update_columns(SoftDeletable.persons_attributes)
+      (advisors + experts).each do |person|
+        person.update_columns(SoftDeletable.persons_attributes)
       end
       update_columns(deleted_at: Time.zone.now)
     end
