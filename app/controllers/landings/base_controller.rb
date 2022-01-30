@@ -8,7 +8,7 @@ class Landings::BaseController < PagesController
   def retrieve_landing
     landing_slug = params.require(:landing_slug)
     @landing = Rails.cache.fetch("landing-#{landing_slug}", expires_in: 1.minute) do
-      Landing.find_by(slug: landing_slug)
+      Landing.not_archived.find_by(slug: landing_slug)
     end
 
     redirect_to root_path, status: :moved_permanently if @landing.nil?

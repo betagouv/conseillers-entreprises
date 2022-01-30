@@ -3,6 +3,7 @@
 # Table name: landings
 #
 #  id                              :bigint(8)        not null, primary key
+#  archived_at                     :datetime
 #  custom_css                      :string
 #  display_pde_partnership_mention :boolean          default(FALSE)
 #  emphasis                        :boolean          default(FALSE)
@@ -23,6 +24,7 @@
 #
 # Indexes
 #
+#  index_landings_on_archived_at     (archived_at)
 #  index_landings_on_institution_id  (institution_id)
 #  index_landings_on_slug            (slug) UNIQUE
 #
@@ -33,6 +35,7 @@
 
 class Landing < ApplicationRecord
   include WithSlug
+  include Archivable
 
   enum layout: {
     multiple_steps: 1,

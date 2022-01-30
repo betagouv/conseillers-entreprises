@@ -1,15 +1,18 @@
 ActiveAdmin.register Landing do
   menu parent: :themes, priority: 3
 
+  include AdminArchivable
+
   includes :landing_subjects, :landing_themes
 
   controller do
     defaults :finder => :find_by_slug!
   end
 
-  scope :all, default: true
+  scope :not_archived, default: true
   scope :iframes
   scope :locales
+  scope :is_archived
 
   ## Index
   #
@@ -32,6 +35,7 @@ ActiveAdmin.register Landing do
     column :solicitations do |l|
       div l.solicitations.count
     end
+    column :is_archived
     actions dropdown: true do |l|
       item t('active_admin.landings.update_iframe_360_button'), update_iframe_360_admin_landing_path(l), method: :put
     end
@@ -52,6 +56,7 @@ ActiveAdmin.register Landing do
         row :slug do |l|
           div link_to l.slug, l if l.slug.present?
         end
+        row :archived_at
         row(:layout) { |landing| human_attribute_status_tag landing, :layout }
         row :logos
         row :created_at

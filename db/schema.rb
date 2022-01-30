@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_133837) do
+ActiveRecord::Schema.define(version: 2022_01_30_195127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,6 +311,8 @@ ActiveRecord::Schema.define(version: 2022_01_13_133837) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "display_region_logo", default: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
     t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
     t.index ["subject_id"], name: "index_landing_subjects_on_subject_id"
@@ -332,6 +334,8 @@ ActiveRecord::Schema.define(version: 2022_01_13_133837) do
     t.string "meta_description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_landing_themes_on_archived_at"
     t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
   end
 
@@ -353,6 +357,8 @@ ActiveRecord::Schema.define(version: 2022_01_13_133837) do
     t.boolean "iframe", default: false
     t.integer "iframe_category", default: 1
     t.boolean "display_pde_partnership_mention", default: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_landings_on_archived_at"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
   end

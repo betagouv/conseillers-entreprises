@@ -3,6 +3,11 @@
 ActiveAdmin.register LandingTheme do
   menu parent: :themes, priority: 3
 
+  include AdminArchivable
+
+  scope :not_archived, default: true
+  scope :is_archived
+
   controller do
     defaults :finder => :find_by_slug!
     def destroy
@@ -36,6 +41,7 @@ ActiveAdmin.register LandingTheme do
     column :solicitations do |l|
       div l.solicitations.count
     end
+    column :is_archived
     actions dropdown: true
   end
 
@@ -49,6 +55,7 @@ ActiveAdmin.register LandingTheme do
       row :page_title
       row :slug
       row(:description) { |ls| ls.description.html_safe }
+      row :archived_at
       row :created_at
       row :updated_at
       row(:landings) do |t|
@@ -67,6 +74,7 @@ ActiveAdmin.register LandingTheme do
         panel s.title do
           attributes_table_for s do
             row :title
+            row :archived_at
             row(:subject) { |ls| admin_link_to ls.subject }
             row(:description) { |ls| ls.description.html_safe }
             row(:description_explanation) { |ls| ls.description_explanation.html_safe }
@@ -89,7 +97,7 @@ ActiveAdmin.register LandingTheme do
   #
   landing_subjects_attributes = [
     :id, :title, :slug, :subject_id, :description, :description_explanation, :form_title, :form_description,
-    :meta_title, :logo_ids, :meta_description, :requires_location, :requires_requested_help_amount, :requires_siret,
+    :meta_title, :logo_ids, :meta_description, :requires_location, :requires_requested_help_amount, :requires_siret, :archived_at,
     :display_region_logo, :position, :position, :_destroy, logo_ids: []
   ]
 
@@ -112,6 +120,8 @@ ActiveAdmin.register LandingTheme do
     f.inputs I18n.t('activerecord.attributes.landing_themes.landing_subjects') do
       f.has_many :landing_subjects, sortable: :position, sortable_start: 1, allow_destroy: true, new_record: true do |ls|
         ls.input :title
+        ls.input :archived_at, as: :datepicker, datepicker_options: { min_date: "2017-01-01" }
+
         ls.input :slug
         ls.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
         ls.input :description, as: :quill_editor

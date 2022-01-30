@@ -3,6 +3,7 @@
 # Table name: landing_themes
 #
 #  id               :bigint(8)        not null, primary key
+#  archived_at      :datetime
 #  description      :text
 #  meta_description :string
 #  meta_title       :string
@@ -14,10 +15,12 @@
 #
 # Indexes
 #
-#  index_landing_themes_on_slug  (slug) UNIQUE
+#  index_landing_themes_on_archived_at  (archived_at)
+#  index_landing_themes_on_slug         (slug) UNIQUE
 #
 class LandingTheme < ApplicationRecord
   include WithSlug
+  include Archivable
 
   ## Associations
   #
