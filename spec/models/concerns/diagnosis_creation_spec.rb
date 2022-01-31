@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'api_entreprise/base'
 
 RSpec.describe DiagnosisCreation do
   describe 'new_diagnosis' do
