@@ -183,12 +183,6 @@ Rails.application.routes.draw do
       get :not_for_me, path: 'refusees'
       get :expired, path: 'expirees'
 
-      get :antenne_quo, path: 'antenne/boite_de_reception'
-      get :antenne_taking_care, path: 'antenne/prises_en_charge'
-      get :antenne_done, path: 'antenne/cloturees'
-      get :antenne_not_for_me, path: 'antenne/refusees'
-      get :antenne_expired, path: 'antenne/expirees'
-
       get :search, path: 'recherche'
     end
     member do
