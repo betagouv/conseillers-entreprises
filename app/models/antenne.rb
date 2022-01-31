@@ -121,4 +121,11 @@ class Antenne < ApplicationRecord
     return nil unless institution.present? && name.present?
     institution.antennes.find_by('lower(name) = ?', name.squish.downcase)
   end
+
+  ## Soft deletion
+  #
+  def soft_delete
+    return self.errors.add(:base) if experts.not_deleted.present? || advisors.not_deleted.present?
+    update_columns(deleted_at: Time.zone.now)
+  end
 end

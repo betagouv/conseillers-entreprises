@@ -177,4 +177,18 @@ ActiveAdmin.register Antenne do
 
     f.actions
   end
+
+  ## Actions
+  #
+  # Delete default destroy action to create a new one with more explicit alert message
+  config.action_items.delete_at(2)
+
+  action_item :destroy, only: :show do
+    link_to t('active_admin.antenne.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.antenne.delete_confirmation') }
+  end
+
+  batch_action :destroy, confirm: I18n.t('active_admin.antenne.delete_confirmation') do |ids|
+    Antenne.where(id: ids).each { |u| u.soft_delete }
+    redirect_to collection_path, notice: I18n.t('active_admin.antennes.deleted')
+  end
 end

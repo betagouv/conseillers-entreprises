@@ -199,6 +199,13 @@ ActiveAdmin.register User do
 
   # Actions
   #
+  # Delete default destroy action to create a new one with more explicit alert message
+  config.action_items.delete_at(2)
+
+  action_item :destroy, only: :show do
+    link_to t('active_admin.user.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.user.delete_confirmation') }
+  end
+
   member_action :normalize_values do
     resource.normalize_values!
     redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
@@ -227,6 +234,11 @@ ActiveAdmin.register User do
 
     message = I18n.t("active_admin.flag.done.#{inputs[:action]}", flag: User.human_attribute_name(flag))
     redirect_to collection_path, notice: message
+  end
+
+  batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|
+    User.where(id: ids).each { |u| u.soft_delete }
+    redirect_to collection_path, notice: I18n.t('active_admin.user.deleted')
   end
 
   controller do

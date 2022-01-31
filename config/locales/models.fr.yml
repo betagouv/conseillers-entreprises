@@ -1,10 +1,19 @@
 ---
 fr:
   active_admin:
+    antenne:
+      delete: Supprimer l’antenne
+      delete_confirmation: Voulez-vous supprimer cette antenne ? Assurez-vous d’avoir déplacé ou supprimé ses experts et utilisateurs.
+    antennes:
+      deleted: Antennes supprimées avec succès
     expert:
+      delete: Supprimer l’expert
+      delete_confirmation: Voulez-vous supprimer cet expert ? Cela va également supprimer les utilisateurs.
       no_specifique_zone: Cet expert n’a pas de zone spécifique
       skills: Compétences
       specifique_zone: Zone spécifique
+    experts:
+      deleted: Experts supprimés avec succès
     flag:
       action:
         add: Activer une option
@@ -13,6 +22,11 @@ fr:
       done:
         add: Option « %{flag} » activée
         remove: Option « %{flag} » désactivée
+    institution:
+      delete: Supprimer l’institution
+      delete_confirmation: Voulez-vous supprimer cette institution ? Cela va aussi supprimer les antennes, experts et utilisateurs qu’elle contient.
+    institutions:
+      deleted: Institutions supprimées avec succès
     landing_subjects:
       destroy_done: Les sujets de landing ont bien été supprimés
     landings:
@@ -95,12 +109,17 @@ fr:
       entire_territory_assigned: Territoire ajouté
     user:
       connection: Connexion
+      delete: Supprimer l’utilisateur
+      delete_confirmation: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer ses experts ayant un seul membre.
+      deleted: Utilisateurs supprimés avec succès
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
       impersonate: Voir le site comme %{name}
       role: Role
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
+    users:
+      delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leurs experts ayant un seul membre.
   activerecord:
     attributes:
       antenne:
