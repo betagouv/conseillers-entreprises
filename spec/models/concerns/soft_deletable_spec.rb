@@ -13,7 +13,7 @@ RSpec.describe SoftDeletable do
 
       it 'Soft delete the user and his expert' do
         expect(user.deleted?).to eq true
-        expect(Expert.last.deleted?).to eq true
+        expect(expert.reload.deleted?).to eq true
       end
     end
 
