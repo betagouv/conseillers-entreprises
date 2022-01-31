@@ -23,7 +23,7 @@ class Landings::LandingSubjectsController < Landings::BaseController
   def retrieve_landing_subject
     slug = params[:slug]
     @landing_subject = Rails.cache.fetch("landing-subject-#{slug}", expires_in: 1.minute) do
-      LandingSubject.find_by(slug: slug)
+      LandingSubject.not_archived.find_by(slug: slug)
     end
 
     redirect_to root_path, status: :moved_permanently if @landing_subject.nil?

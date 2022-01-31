@@ -3,6 +3,7 @@
 # Table name: landing_subjects
 #
 #  id                             :bigint(8)        not null, primary key
+#  archived_at                    :datetime
 #  description                    :text
 #  description_explanation        :text
 #  display_region_logo            :boolean          default(FALSE)
@@ -23,6 +24,7 @@
 #
 # Indexes
 #
+#  index_landing_subjects_on_archived_at       (archived_at)
 #  index_landing_subjects_on_landing_theme_id  (landing_theme_id)
 #  index_landing_subjects_on_slug              (slug) UNIQUE
 #  index_landing_subjects_on_subject_id        (subject_id)
@@ -34,6 +36,7 @@
 #
 class LandingSubject < ApplicationRecord
   include WithSlug
+  include Archivable
 
   ## Associations
   #
