@@ -2,22 +2,26 @@ module AnnuaireHelper
   def build_count_experts_cell(experts, antenne, institution_subject)
     experts_count = experts.count
     anomalie_less, anomalie_more_specific, anomalie_more = detect_anomalies(experts_count, institution_subject, antenne, experts)
-    classes = (('red' if anomalie_less) || ('orange' if anomalie_more_specific || anomalie_more))
+    alert_classe = alert_class(anomalie_less, anomalie_more, anomalie_more_specific)
     title, icon = set_title_and_icon(experts_count, anomalie_less, anomalie_more_specific, anomalie_more)
 
-    tag.th(class: "right aligned #{classes}", title: title) do
+    tag.th(class: "right aligned #{alert_classe}", title: title) do
       tag.span { experts_count.to_s } + icon.presence
     end
   end
 
   private
 
+  def alert_class(anomalie_less, anomalie_more, anomalie_more_specific)
+    ('red' if anomalie_less) || ('orange' if anomalie_more_specific || anomalie_more)
+  end
+
   def detect_anomalies(experts_count, institution_subject, antenne, experts)
     experts_communes = experts.filter_map(&:communes).compact.flatten
     # No experts on the subject
     anomalie_less = experts_count == 0 && !institution_subject.optional
     # Many Experts on the subject with specific zone but without full antenne coverage
-    anomalie_more_specific = (antenne && experts_count > 1) && experts_communes.present? && (antenne.communes.sort != experts_communes.sort)
+    anomalie_more_specific = (antenne && experts_count > 1) && experts_communes.present? && !(antenne.communes - experts_communes).empty?
     # Many Experts on the subject without specific zone
     anomalie_more = (antenne && experts_count > 1) && experts_communes.empty?
 
