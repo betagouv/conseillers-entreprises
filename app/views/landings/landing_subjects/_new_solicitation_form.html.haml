@@ -10,7 +10,7 @@
 
         - if field == :siret
           // Duplication pour respecter l'accessibilité (id unique, field avec label...)
-          = label_tag "solicitation_siret_autocomplete", t("attributes.siret")
+          = label_tag "solicitation_siret_autocomplete", t(".attributes.label.find_my_facility")
           %span= t(".attributes.help.siret_html")
           %div{ 'data-controller': "pages-siret-autocomplete" }
             %div{ data: { 'pages-siret-autocomplete-target': "field", name: "solicitation[siret]", 'assistive-hint': t(".attributes.help.siret_assistive_hint"), 'landing-theme': solicitation.landing_theme.slug } }
