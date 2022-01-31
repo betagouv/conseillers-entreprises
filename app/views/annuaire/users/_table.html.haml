@@ -24,16 +24,7 @@
                 - experts = experts.joins(:regions).where(territories: { id: session[:annuaire_region_id] }).distinct
               - if local_assigns[:antenne]
                 - experts &= antenne.experts
-              - count = experts.count
-              - anomalie_less = count == 0
-              - anomalie_more = local_assigns[:antenne] && count > 1
-              %th.right.aligned{ title: t('.experts_on_subject', count: count, subject: institution_subject.description),
-              class: (('red' if anomalie_less && !institution_subject.optional) || ('orange' if anomalie_more)) }
-                = count
-                - if anomalie_less && !institution_subject.optional
-                  %span.red.ri-error-warning-fill
-                - if anomalie_more
-                  %span.orange.ri-error-warning-fill
+              = build_count_experts_cell(experts, local_assigns[:antenne], institution_subject)
         - if local_assigns[:antenne] && antenne.regional_antenne.present?
           %tr.regional-users-count
             %th{ colspan: 3 }= antenne.regional_antenne.name
@@ -43,7 +34,7 @@
                   - experts = institution_subject.not_deleted_experts.with_users
                   - experts &= antenne.regional_antenne&.experts || []
                   - regional_count = experts.count
-                  %th.right.aligned{ title: t('.experts_on_subject', count: regional_count, subject: institution_subject.description),
+                  %th.right.aligned{ title: t('.regional_experts_on_subject', count: regional_count),
                   class: '' }
                     = regional_count
 

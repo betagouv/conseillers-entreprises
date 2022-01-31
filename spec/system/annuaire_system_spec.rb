@@ -67,16 +67,54 @@ describe 'annuaire', type: :system, js: true, flaky: true do
       let!(:expert_subject_2) { create :expert_subject, institution_subject: institution_subject, expert: expert_2 }
       let!(:expert_2) { create :expert, antenne: antenne }
       let!(:user_2) { create :user, experts: [expert_2], antenne: antenne }
+      let(:communes_1) { create :commune }
+      let(:communes_2) { create :commune }
+      let(:communes_3) { create :commune }
 
-      it 'display users with orange warning' do
+      before do
+        antenne.communes = [communes_1, communes_2, communes_3]
         visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+      end
 
-        expect(page).to have_selector 'h1', text: institution.name
-        expect(page).to have_css('.fr-table--c-annuaire', count: 1)
-        expect(page).to have_css('.td-header.td-user', count: 2)
-        expect(page).to have_css('.orange.ri-error-warning-fill', count: 1)
-        expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
-        expect(page).to have_css('.yellow', count: 2)
+      # Sans zone spécifique
+      context 'without specifics territories' do
+        it 'display users with orange warning' do
+          expect(page).to have_selector 'h1', text: institution.name
+          expect(page).to have_css('.fr-table--c-annuaire', count: 1)
+          expect(page).to have_css('.td-header.td-user', count: 2)
+          expect(page).to have_css('.orange.ri-error-warning-line', count: 1)
+          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+          expect(page).to have_css('.yellow', count: 2)
+        end
+      end
+
+      # Avec zone spécifique et des communes manquantes
+      context 'experts with specific zone and experts.communes != antenne.communes' do
+        before do
+          expert.communes = [communes_1]
+          visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+        end
+
+        it 'display users with orange warning' do
+          expect(page).to have_css('.orange.ri-map-2-line', count: 1)
+          expect(page).to have_css('.orange.ri-error-warning-line', count: 0)
+          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        end
+      end
+
+      # Avec zone spécifique et toutes les communes
+      context 'experts with specific zone and experts.communes == antennes.communes' do
+        before do
+          expert.communes = [communes_1]
+          expert_2.communes = [communes_2, communes_3]
+          visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+        end
+
+        it 'display users with orange warning' do
+          expect(page).to have_css('.orange.ri-map-2-line', count: 0)
+          expect(page).to have_css('.orange.ri-error-warning-line', count: 0)
+          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        end
       end
     end
 
@@ -89,7 +127,7 @@ describe 'annuaire', type: :system, js: true, flaky: true do
         expect(page).to have_selector 'h1', text: institution.name
         expect(page).to have_css('.fr-table--c-annuaire', count: 1)
         expect(page).to have_css('.td-header.td-user', count: 1)
-        expect(page).to have_css('.red.ri-error-warning-fill', count: 1)
+        expect(page).to have_css('.red.ri-error-warning-line', count: 1)
         expect(page).to have_css('.yellow', count: 0)
       end
     end
@@ -103,7 +141,7 @@ describe 'annuaire', type: :system, js: true, flaky: true do
         expect(page).to have_selector 'h1', text: institution.name
         expect(page).to have_css('.fr-table--c-annuaire', count: 1)
         expect(page).to have_css('.td-header.td-user', count: 1)
-        expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        expect(page).to have_css('.red.ri-error-warning-line', count: 0)
         expect(page).to have_css('.yellow', count: 0)
       end
     end
