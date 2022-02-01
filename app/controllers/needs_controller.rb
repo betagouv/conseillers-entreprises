@@ -2,7 +2,7 @@
 
 class NeedsController < ApplicationController
   include Inbox
-  before_action :retrieve_user_and_antenne, except: %i[index]
+  before_action :retrieve_user, except: %i[index]
   before_action :retrieve_need, only: %i[show archive unarchive]
 
   layout 'side_menu', except: :show
@@ -42,26 +42,6 @@ class NeedsController < ApplicationController
     retrieve_needs(current_user, :expired)
   end
 
-  def antenne_quo
-    retrieve_needs(current_user.antenne, :quo)
-  end
-
-  def antenne_taking_care
-    retrieve_needs(current_user.antenne, :taking_care)
-  end
-
-  def antenne_done
-    retrieve_needs(current_user.antenne, :done)
-  end
-
-  def antenne_not_for_me
-    retrieve_needs(current_user.antenne, :not_for_me)
-  end
-
-  def antenne_expired
-    retrieve_needs(current_user.antenne, :expired)
-  end
-
   def search
     @recipient = current_user
     inbox_collections_counts(@recipient)
@@ -71,14 +51,14 @@ class NeedsController < ApplicationController
       .includes(:company, :advisor, :subject)
       .order(created_at: :desc)
       .page(params[:page])
+    @collection_name = 'search'
     render :index
   end
 
   private
 
-  def retrieve_user_and_antenne
+  def retrieve_user
     @user = current_user
-    @antenne = current_user.antenne
   end
 
   def search_params
