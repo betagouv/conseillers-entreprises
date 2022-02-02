@@ -236,6 +236,8 @@ fr:
         need_content_placeholder: Plus d’infos sur ce besoin
         select_at_least_one_need: Cochez au minimum un besoin identifié.
   download_xls: Télécharger XLSX
+  emails:
+    sent: L’email a été envoyé
   experts:
     edit:
       antenne_and_institution: Structure
@@ -298,6 +300,7 @@ fr:
       view_completed_analysis: Voir l’analyse réalisée
   iframe:
     partners_logo: 'Les partenaires du service susceptibles de vous rappeler :'
+  intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant vos droits à la retraite.
   kaminari:
     page:
       page: Page
@@ -400,6 +403,10 @@ fr:
         reminders: 'Côté relances, voici où nous en sommes :'
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
+    bad_quality:
+      for_better_taking_care: 'Pour la bonne prise en charge de votre demande, nous avons besoin de contexte. Merci d''indiquer :'
+      intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) pour <b>%{subject_label}</b>.
+      upon_receipt: Dès réception de ces éléments de contexte, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
     company_mailer:
       confirmation_solicitation:
         content_for_iframe_html: Nous avons bien reçu votre demande déposée sur le site <strong>%{website}</strong>, en partenariat avec le service public Place des Entreprises.
@@ -429,6 +436,7 @@ fr:
         question_one_html: "<p>Est-ce que vous avez bien été recontacté par au moins un conseiller ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a></p>"
         subject: Avez-vous bien été rappelé ?
         tank_you: Merci pour votre confiance,
+    cordially: Bien cordialement,
     expert_mailer:
       first_notification_help:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
@@ -466,11 +474,67 @@ fr:
       contact_us_mailto_text: nous contacter
     hello: Bonjour,
     hello_name: Bonjour %{name},
+    hope_to_helped: En espérant que ces informations vous soient utiles,
     nice_day: Bonne journée,
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_diagnosis: Voir la demande
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
+    solicitation:
+      base_intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
+      subject: Votre demande sur Place des Entreprises
+    solicitation_mailer:
+      bad_quality_difficulties:
+        amount: le montant de votre besoin de trésorerie
+        bank_demand: si vous avez demandé un prêt garanti par l’État à votre banque (important)
+        origin: l’origine des problèmes selon vous
+        tax_contribution: si vous souhaitez étaler vos cotisations sociales et/ou une dette fiscale
+      bad_quality_investment:
+        amount: le montant de votre besoin de financement
+        bank_relation: l’état de la relation avec votre banque
+        the_goal: le but de l’investissement pour votre entreprise et son coût global
+        you_activity: votre activité
+      creation:
+        cci_initiative_html: 'Nous vous invitons également à contacter les conseillers de la <b>Chambre de Commerce et d’Industrie</b> et du <b>réseau Initiative</b> proches de chez vous. Des conseillers en création peuvent vous accompagner pour financer et lancer votre projet d’entreprise :'
+        funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur le site de Bpifrance ou de la Banque de France :'
+        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) pour votre entreprise en création ou tout juste lancée.
+        no_creation: Ce service public ne s’adresse actuellement qu’aux entreprises déjà existantes.
+      employee_labor_law:
+        contact_dreets_html: En tant que salarié(e), nous vous invitons à contacter le service de renseignement en droit du travail de la <a href='https://dreets.gouv.fr/'>Direction régionale de l’économie, de l’emploi, du travail et des solidarités</a> (DREETS).
+        dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
+        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le <b>droit du travail</b>. Il s'agit cependant d'un service public destiné aux chefs d'entreprises. Nous ne sommes donc pas en mesure de vous apporter une réponse.
+        other_informations: 'Vous trouverez également des informations en droit du travail sur :'
+      footer:
+        linkedin:
+          link_html: Linkedin - %{link}
+          title: linkedin.com/place-des-entreprises
+        team_pde: L’équipe Place des Entreprises
+        website:
+          link_html: Site internet - %{link}
+          title: Place-des-entreprises.beta.gouv.fr
+      moderation:
+        no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelle mise en relation vers ce dernier.
+        quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
+        taking_care_by_experts: Cette demande fait suite à une précédente demande, prise en charge par le ou les conseillers compétents sur votre territoire.
+      out_of_region:
+        banque_de_france_html: 'Les conseillers TPE-PME de la Banque de France peuvent également vous orienter vers la bonne personne en fonction de votre demande : <a href=''https://entreprises.banque-france.fr''>https://entreprises.banque-france.fr</a>'
+        calendar_html: 'Comme indiqué sur le site, le déploiement national se poursuit à grande vitesse ! Le calendrier est en ligne : %{link_to_calendar}.'
+        cci_html: 'CCI : <a href=''https://www.cci.fr/web/organisation-du-reseau/annuaire''>https://www.cci.fr</a>'
+        cma_html: 'CMA : <a href=''https://www.artisanat.fr/reseau-des-cma/un-reseau-de-proximite/annuaire-des-cma''>https://www.artisanat.fr</a>'
+        contact_cma_cci: 'En attendant, n’hésitez pas à contacter les conseillers de la Chambre de Commerce et d’Industrie ou de la Chambre des Métiers et de l’Artisanat proches de chez vous. Voici leurs coordonnées :'
+        intro_html: Vous avez déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service). Cependant <b>le service n'est pas encore disponible dans votre région</b>.
+        newsletter: la newsletter
+        nl_subscription_html: Pour être informé de l’ouverture du service public Place des Entreprises dans votre région, inscrivez-vous à %{link}.
+      particular_retirement:
+        for_companies: Il s’agit néanmoins d’un service public destiné aux chefs d’entreprises.
+        no_responses: Nous ne sommes donc pas en mesure malheureusement de vous apporter une réponse.
+        phone_contact_html: Nous vous invitons à <b>contacter le 3960</b> pour avoir directement un conseiller concernant votre retraite.
+      siret:
+        commune_name_html: Par précaution, indiquez également <b>la commune</b> sur laquelle vous exercez votre activité.
+        siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
+        siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
+        solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
+    thanks_for_your_comprehension: Merci pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
     user_mailer:
       match_feedback:
@@ -714,6 +778,15 @@ fr:
       source: 'Source :'
     solicitation_actions:
       ban_facility: Exclure l'entreprise
+      emails:
+        bad_quality_difficulties: Mauvaise qualité difficultés
+        creation: Création d’entreprise
+        emails_bad_quality_investment: Mauvaise qualité investissement
+        employee_labor_law: Salarié Droit du travail
+        moderation: Modération
+        out_of_region: Demande hors région
+        particular_retirement: Particulier - Retraite
+        siret: SIRET
       prepare_diagnosis_errors:
         one: Erreur à la préparation
         other: "%{count} erreurs à préparation"

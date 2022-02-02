@@ -37,7 +37,7 @@
     - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
       = render 'index_institutions'
 
-  %section.section.section-white.container-newsletter
+  %section.section.section-white.container-newsletter#section-newsletter
     .container
       = render 'newsletter'
 

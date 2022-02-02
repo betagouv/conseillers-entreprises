@@ -1,0 +1,23 @@
+= render 'mailers/header'
+
+%p= t('mailers.hello')
+
+%p= t('.intro_html', link_to_root: link_to(t('app_name'), root_url))
+
+%p= t('.no_creation')
+
+%p= t('.funding_resources')
+%ul
+  %li= link_to('bpifrance-creation.fr', 'https://bpifrance-creation.fr/moment-de-vie/comment-my-retrouver-toutes-aides-a-creation-ou-reprise-dentreprises')
+  %li= link_to('www.mesquestionsdentrepreneur.fr', 'https://www.mesquestionsdentrepreneur.fr/me-financer/les-diff%C3%A9rents-types-de-financement')
+
+%p= t('.cci_initiative_html')
+%ul
+  %li= link_to 'www.cci.fr/web/creation-d-entreprise', 'https://www.cci.fr/web/creation-d-entreprise'
+  %li= link_to 'www.initiative-france.fr/Creer', 'https://www.initiative-france.fr/Creer'
+
+%p= t('mailers.hope_to_helped')
+
+%p= t('mailers.cordially')
+
+= render 'mailers/solicitation_mailer/footer'

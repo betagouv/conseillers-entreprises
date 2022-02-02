@@ -241,6 +241,19 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :emails do
+    controller :solicitations do
+      post :bad_quality_difficulties
+      post :bad_quality_investment
+      post :out_of_region
+      post :employee_labor_law
+      post :particular_retirement
+      post :creation
+      post :siret
+      post :moderation
+    end
+  end
+
   get 'profile' => 'users#show'
   get '/rech-etablissement', to: 'utilities#search_etablissement'
 
