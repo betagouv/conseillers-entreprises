@@ -6,11 +6,12 @@
   .step__title
     position: relative
     background-color: $fr-g600
+    background-color: $grey-dark
     height: 3rem
     width: 90%
     display: grid
     place-items: center
-    color: #fff
+    color: $white
     font-size: 1.2rem
     &.active
       text-decoration: underline
@@ -29,11 +30,12 @@
       left: 0
     &:after
       border-left: 20px solid $fr-g600
+      border-left: 20px solid $grey-dark
       right: -20px
 
 
 .diagnosis-creation-header
-  background-color: var(--beige)
+  background-color: $beige
   margin-top: -3rem
   .company-description
     text-align: center
@@ -43,15 +45,16 @@
 #matches-app
   textarea.fr-input#diagnosis_content
     background-color: $fr-beige
+    background-color: $beige
   .card-matches
     border: 1px solid $fr-g400
-    border: 1px solid var(--g400)
+    border: 1px solid $grey-light
     .card__header
       display: flex
       justify-content: space-between
       align-items: center
       background-color: $fr-beige
-      background-color: var(--beige)
+      background-color: $beige
       padding: 1.5rem
 
 #needs-app

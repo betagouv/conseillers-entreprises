@@ -8,14 +8,14 @@
     = yield :callout
 
     .fr-grid-row.fr-mt-5w
-      .fr-col-md-3
+      .fr-col-md-3.fr-col-12
         %nav.fr-sidemenu.fr-sidemenu--sticky{ "aria-label" => "Menu latéral", role: "navigation" }
           .fr-sidemenu__inner
             %button.fr-sidemenu__btn{ "aria-controls" => "fr-sidemenu-wrapper", "aria-expanded" => "false", :hidden => "" }= t('.mobile_menu')
             .fr-collapse#fr-sidemenu-wrapper
               = yield :menu
 
-      .fr-col-md-9
+      .fr-col-md-9.fr-col-12
         = yield :search
         = yield
 
