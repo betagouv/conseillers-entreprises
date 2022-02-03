@@ -11,6 +11,8 @@ module  Annuaire
       @grouped_subjects = institutions_subjects
         .group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
 
+      @not_invited_users = not_invited_users
+
       respond_to do |format|
         format.html
         format.csv do
@@ -64,6 +66,14 @@ module  Annuaire
     end
 
     private
+
+    def not_invited_users
+      if flash[:table_highlighted_ids].present?
+        User.where(id: flash[:table_highlighted_ids])
+      else
+        @users.where(invitation_sent_at: nil)
+      end
+    end
 
     def retrieve_antenne
       @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
