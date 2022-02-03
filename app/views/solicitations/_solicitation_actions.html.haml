@@ -32,14 +32,11 @@
   .ui.item.dropdown
     %span.ri-mail-add-fill
     .ui.menu
-      = link_to t('.emails.bad_quality_difficulties'), emails_bad_quality_difficulties_path(id: solicitation.id), method: :post, class: 'item'
-      = link_to t('.emails.emails_bad_quality_investment'), emails_bad_quality_investment_path(id: solicitation.id), method: :post, class: 'item'
-      = link_to t('.emails.creation'), emails_creation_path(id: solicitation.id), method: :post, class: 'item'
-      = link_to t('.emails.out_of_region'), emails_out_of_region_path(id: solicitation.id), method: :post, class: 'item'
-      = link_to t('.emails.employee_labor_law'), emails_employee_labor_law_path(id: solicitation.id), method: :post, class: 'item'
-      = link_to t('.emails.particular_retirement'), emails_particular_retirement_path(id: solicitation.id), method: :post, class: 'item'
-      = link_to t('.emails.siret'), emails_siret_path(id: solicitation.id), method: :post, class: 'item'
-      = link_to t('.emails.moderation'), emails_moderation_path(id: solicitation.id), method: :post, class: 'item'
+      - emails_types = Solicitation::GENERIC_EMAILS_TYPES
+      - emails_types.each do |email_type|
+        = link_to t(email_type, scope: 'solicitations.solicitation_actions.emails'),
+          emails_solicitation_generic_path(email_type: email_type, id: solicitation.id),
+          method: :post, class: 'item'
 
   .ui.item.dropdown
     %span.ri-list-settings-fill

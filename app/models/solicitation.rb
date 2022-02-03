@@ -216,6 +216,8 @@ class Solicitation < ApplicationRecord
 
   scope :banned, -> { where(banned: true) }
 
+  GENERIC_EMAILS_TYPES = %i[bad_quality_difficulties bad_quality_investment out_of_region employee_labor_law particular_retirement creation siret moderation]
+
   def doublon_solicitations
     Solicitation.where(status: [:in_progress])
       .where.not(id: self.id)

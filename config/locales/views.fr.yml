@@ -237,6 +237,7 @@ fr:
         select_at_least_one_need: Cochez au minimum un besoin identifié.
   download_xls: Télécharger XLSX
   emails:
+    not_sent: L’email n’a pu être envoyé
     sent: L’email a été envoyé
   experts:
     edit:
@@ -780,8 +781,8 @@ fr:
       ban_facility: Exclure l'entreprise
       emails:
         bad_quality_difficulties: Mauvaise qualité difficultés
+        bad_quality_investment: Mauvaise qualité investissement
         creation: Création d’entreprise
-        emails_bad_quality_investment: Mauvaise qualité investissement
         employee_labor_law: Salarié Droit du travail
         moderation: Modération
         out_of_region: Demande hors région
