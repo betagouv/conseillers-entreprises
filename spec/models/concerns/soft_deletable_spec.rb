@@ -21,18 +21,18 @@ RSpec.describe SoftDeletable do
       # Utilisateur avec plusieurs experts
       let!(:user_1) { create :user }
       let!(:user_2) { create :user }
-      # Expert avec uniquement l'utilisateur supprimé OK
-      let!(:expert_1) { create :expert, users: [user_1] }
-      # Expert avec un autre utilisateur KO
-      let!(:expert_2) { create :expert, users: [user_1, user_2] }
+      let!(:user_3) { create :user }
+      # Expert avec d'autres utilisateurs KO
+      let!(:expert_1) { create :expert, users: [user_1, user_2, user_3] }
 
       before { user_1.destroy }
 
       it "Soft delete only user expert with one user" do
         expect(user_1.deleted?).to eq true
-        expect(user_2.deleted?).to eq false
-        expect(expert_1.reload.deleted?).to eq true
-        expect(expert_2.reload.deleted?).to eq false
+        expect(user_2.reload.deleted?).to eq false
+        expect(user_3.reload.deleted?).to eq false
+        expect(expert_1.reload.users).to match_array [user_2, user_3]
+        expect(expert_1.reload.deleted?).to eq false
       end
     end
   end
@@ -68,9 +68,9 @@ RSpec.describe SoftDeletable do
 
     context 'With some users and personal skillsets' do
       let(:user_1) { create :user }
-      let!(:expert_1) { create :expert, full_name: user_1.full_name, email: user_1.email, users: [user_1] }
+      let!(:expert_1) { user_1.personal_skillsets.first }
       let(:user_2) { create :user }
-      let!(:expert_2) { create :expert, full_name: user_2.full_name, email: user_2.email, users: [user_2] }
+      let!(:expert_2) { user_2.personal_skillsets.first }
       # Expert qui a plusieurs utilisateurs qui on eux même que cet expert OK
       let(:expert) { create :expert, users: [user_1, user_2] }
 
