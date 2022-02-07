@@ -69,7 +69,7 @@ module  Annuaire
 
     def not_invited_users
       if flash[:table_highlighted_ids].present?
-        User.where(id: flash[:table_highlighted_ids])
+        User.where(id: flash[:table_highlighted_ids]).where(invitation_sent_at: nil)
       else
         @users.where(invitation_sent_at: nil)
       end
