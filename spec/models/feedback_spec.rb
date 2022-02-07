@@ -13,7 +13,7 @@ RSpec.describe Feedback, type: :model do
     let(:expert1) { create :expert }
     let(:expert2) { create :expert }
     let(:expert3) { create :expert, users: [user3] }
-    let(:matches) { [create(:match, expert: expert1), create(:match, expert: expert2), create(:match, expert: expert3)] }
+    let(:matches) { [create(:match, expert: expert1, status: 'taking_care'), create(:match, expert: expert2, status: 'done_no_help'), create(:match, expert: expert3, status: 'done_not_reachable')] }
     let(:need) { create :need, advisor: advisor, matches: matches }
     let(:feedback) { create :feedback, :for_need, feedbackable: need, user: author }
 
@@ -34,16 +34,18 @@ RSpec.describe Feedback, type: :model do
       it{ is_expected.to match_array [expert1, expert2, expert3] }
     end
 
-    context 'when an expert refuse the match' do
+    context 'when some experts arent positionned yet' do
       let(:author) { advisor }
       let(:expert_refuse) { create :expert }
       let!(:refused_match) { create :match, expert: expert_refuse, need: need, status: 'not_for_me' }
+      let(:expert_quo) { create :expert }
+      let!(:quo_match) { create :match, expert: expert_quo, need: need, status: 'quo' }
 
       before do
         need.matches << refused_match
       end
 
-      it 'don’t notify expert_refuse' do
+      it 'don’t notify experts not positionned' do
         is_expected.to match_array [expert1, expert2, expert3]
       end
     end
