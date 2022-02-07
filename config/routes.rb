@@ -241,6 +241,12 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :emails do
+    controller :solicitations do
+      post :send_generic_email, as: :solicitation_generic
+    end
+  end
+
   get 'profile' => 'users#show'
   get '/rech-etablissement', to: 'utilities#search_etablissement'
 
