@@ -4,7 +4,7 @@ class Emails::SolicitationsController < ApplicationController
 
   def send_generic_email
     email_type = ActionController::Base.helpers.sanitize(params[:email_type])
-    if email_type.present? && @solicitation.present?
+    if email_type.present? && @solicitation.present? && Solicitation::GENERIC_EMAILS_TYPES.include?(email_type.to_sym)
       SolicitationMailer.send(email_type, @solicitation).deliver_later
       flash.notice = t('emails.sent')
     else
