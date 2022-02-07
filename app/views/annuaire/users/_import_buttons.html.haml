@@ -1,6 +1,6 @@
 .fr-mb-3w
   %span.fr-ml-2w
-    = link_to institution_users_path(format: 'csv') do
+    = link_to institution_users_path(format: 'csv', antenne_id: params[:antenne_id]) do
       %span.ri-download-2-line.fr-mr-1w
       = t('download_csv')
   %span.fr-ml-2w

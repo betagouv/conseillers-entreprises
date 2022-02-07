@@ -11,6 +11,8 @@ module  Annuaire
       @grouped_subjects = institutions_subjects
         .group_by(&:theme).transform_values{ |is| is.group_by(&:subject) }
 
+      @not_invited_users = not_invited_users
+
       respond_to do |format|
         format.html
         format.csv do
@@ -56,7 +58,7 @@ module  Annuaire
       @result = User.import_csv(params.require(:file), institution: @institution)
       if @result.success?
         flash[:table_highlighted_ids] = @result.objects.map(&:id)
-        flash[:highlighted_antennes_ids] = Antenne.where(advisors: @result.objects).ids
+        session[:highlighted_antennes_ids] = Antenne.where(advisors: @result.objects).ids
         redirect_to action: :index
       else
         render :import
@@ -65,20 +67,37 @@ module  Annuaire
 
     private
 
+    def not_invited_users
+      if flash[:table_highlighted_ids].present?
+        User.where(id: flash[:table_highlighted_ids]).where(invitation_sent_at: nil)
+      else
+        @users.where(invitation_sent_at: nil)
+      end
+    end
+
     def retrieve_antenne
       @antenne = @institution.antennes.find_by(id: params[:antenne_id]) # may be nil
     end
 
     def retrieve_users
-      @users = (@antenne || @institution).advisors
+      @users = advisors
         .relevant_for_skills
         .order('antennes.name', 'team_name', 'users.full_name')
-        .joins(:antenne)
         .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
 
       if @region_id.present?
         @users = @users.in_region(@region_id)
       end
+    end
+
+    def advisors
+      advisors = if session[:highlighted_antennes_ids] && @antenne.nil?
+        @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
+      else
+        (@antenne || @institution).advisors.joins(:antenne)
+      end
+      session.delete(:highlighted_antennes_ids)
+      advisors
     end
   end
 end
