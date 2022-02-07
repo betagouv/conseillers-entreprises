@@ -70,32 +70,22 @@
   display: flex
   align-items: center
   justify-content: space-between
+  .details--dropdown
+    position: relative
+    summary::marker
+      display:none
+    summary
+      margin-bottom: 0
+    .details--dropdown__content
+      position: absolute
+      right: 0
+      z-index: 1
+      width: 15rem
+      background-color: $white
+      padding: 1rem
   .status-label
     flex-shrink: 0
     margin-left: auto
-  .fr-accordion, .fr-accordion:not(a):not(:disabled):hover
-    border: none
-    box-shadow: none
-    .fr-accordion__btn
-      display: flex
-      justify-content: center
-      color: #0053b3
-      color: $blue
-      &:before
-        content: ''
-        margin-right: 0
-        margin-left: 0
-      &:hover
-        background-image: none
-        color: #1e70bf
-    .fr-collapse
-      box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17)
-      line-height: 1.8rem
-      position: absolute
-      z-index: 2
-      right: 0
-      background: $white
-      width: 17rem
   .fr-btns-group
     margin-left: 1.5rem
     display: flex
@@ -104,6 +94,13 @@
     width: auto
     > li
       display: block
+    .fr-btn
+      margin-bottom: 0
+    .admin-match-actions
+      button
+        margin-right: 0
+        &:not(:last-child)
+          margin-bottom: 0.5rem
 
 .infos-transmitted-by
   .title
@@ -115,8 +112,4 @@
     font-size: 1.3rem
     font-weight: bold
 
-.admin-match-actions
-  button
-    margin-bottom: 0.5rem
-    &:last-child
-      margin-bottom: 0
+

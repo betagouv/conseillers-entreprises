@@ -1,10 +1,10 @@
 .fr-container
   #flashes
     - if alert
-      .fr-callout.fr-col-md-12.fr-scheme-soft-orange-soft.fr-my-2w
-        %p.fr-callout__text= alert
+      .fr-alert.fr-alert--error
+        %p.fr-alert__title= alert
 
     - if notice
-      .fr-callout.fr-col-md-12.fr-scheme-soft-green-light.fr-my-2w
-        %p.fr-callout__text= notice
+      .fr-alert.fr-alert--success
+        %p.fr-alert__title= notice
 
