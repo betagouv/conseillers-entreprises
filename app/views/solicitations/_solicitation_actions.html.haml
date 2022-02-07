@@ -29,7 +29,7 @@
   - else
     = link_to_diagnosis(solicitation.diagnosis)
 
-  .ui.item.dropdown
+  .ui.item.dropdown#generic-emails
     %span.ri-mail-add-fill
     .ui.menu
       - emails_types = Solicitation::GENERIC_EMAILS_TYPES
