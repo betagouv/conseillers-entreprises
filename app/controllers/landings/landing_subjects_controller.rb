@@ -11,6 +11,10 @@ class Landings::LandingSubjectsController < Landings::BaseController
     sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
     @solicitation = SolicitationModification::Create.call(sanitized_params)
     if @solicitation.persisted?
+      # catches up with the region code if there is a SIRET and no region code
+      if @solicitation.code_region.nil? && FormatSiret.siret_is_valid(FormatSiret.clean_siret(@solicitation.siret))
+        SolicitationRegionCodeJob.new.perform(@solicitation)
+      end
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       @solicitation.delay.prepare_diagnosis(nil)
     end
