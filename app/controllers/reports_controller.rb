@@ -24,6 +24,9 @@ class ReportsController < ApplicationController
   private
 
   def last_quarters
+    return if current_user.antenne.received_matches.blank?
+    first_match_date = current_user.antenne.received_matches.first.created_at.to_date
     @quarters = TimeDurationService.past_year_quarters
+    @quarters.reject! { |range| first_match_date > range.last }
   end
 end

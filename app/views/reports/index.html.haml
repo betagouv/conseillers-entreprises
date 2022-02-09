@@ -1,11 +1,15 @@
 .fr-container.reports
   %h1= t('.title')
   .fr-text--lead.fr-mb-8w= t('.sub_title', name: current_user.antenne.name)
-  - @quarters.each do |quarter|
-    .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-4w
-      .fr-tile__body
-        %h2.fr-h4.fr-tile__title
-          = link_to download_matches_reports_path(start_date: quarter.first, end_date: quarter.last, format: :xlsx), class: 'fr-tile__link' do
-            = t('.interval', start_month: I18n.l(quarter.first, format: :month_name), end_month: I18n.l(quarter.last, format: :month_name), year: quarter.last.year)
-      .fr-tile__img
-        %span.ri-file-download-line
+  - if @quarters.present?
+    - @quarters.each do |quarter|
+      .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-4w
+        .fr-tile__body
+          %h2.fr-h4.fr-tile__title
+            = link_to download_matches_reports_path(start_date: quarter.first, end_date: quarter.last, format: :xlsx), class: 'fr-tile__link' do
+              = t('.interval', start_month: I18n.l(quarter.first, format: :month_name), end_month: I18n.l(quarter.last, format: :month_name), year: quarter.last.year)
+        .fr-tile__img
+          %span.ri-file-download-line
+  - else
+    .fr-alert.fr-alert--info
+      %p.fr-alert__title= t('.no_export_available')
