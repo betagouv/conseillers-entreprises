@@ -750,6 +750,7 @@ fr:
       xslx_name: export-%{number}-trimestre-%{year}.xlsx
     index:
       interval: "%{start_month} à %{end_month} %{year}"
+      no_export_available: Aucun export n’est encore disponible. Ils sont calculés pour un trimestre.
       sub_title: Antenne %{name}
       title: Export des données
   shared:
