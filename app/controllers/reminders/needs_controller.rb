@@ -29,7 +29,9 @@ module Reminders
     def render_collection(action)
       @needs = territory_needs
         .reminders_to(action)
-        .includes(:subject, :feedbacks, :company, :solicitation, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne }).page(params[:page])
+        .includes(:subject, :feedbacks, :company, :solicitation, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+        .page(params[:page])
+        .order(created_at: :desc)
 
       @action = action
       render :index
