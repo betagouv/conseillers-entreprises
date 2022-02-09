@@ -1,0 +1,30 @@
+{
+  "type": "FeatureCollection",
+  "version": "draft",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [-2.286256, 48.591949] },
+      "properties": {
+        "label": "Matignon",
+        "score": 0.9377863636363636,
+        "id": "22143",
+        "type": "municipality",
+        "name": "Matignon",
+        "postcode": "22550",
+        "citycode": "22143",
+        "x": 310448.88,
+        "y": 6845460.22,
+        "population": 1652,
+        "city": "Matignon",
+        "context": "22, Côtes-d'Armor, Bretagne",
+        "importance": 0.31565
+      }
+    }
+  ],
+  "attribution": "BAN",
+  "licence": "ETALAB-2.0",
+  "query": "matignon",
+  "filters": { "type": "municipality" },
+  "limit": 5
+}
