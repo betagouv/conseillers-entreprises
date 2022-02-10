@@ -8,7 +8,7 @@
   window.iFrameResizer = {
     onReady: function() {
       if ('parentIFrame' in window) {
-        window.parentIFrame.scrollTo(0,0);
+        window.parentIFrame.scrollToOffset(0,0);
         return false;
       }
     }
