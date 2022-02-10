@@ -62,7 +62,7 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
   before_create :set_institution_from_landing
-  before_create :set_siret_and_region, if: -> { code_region.blank? && Rails.env != 'test' }
+  before_create :set_siret_and_region, if: -> { code_region.blank? }
 
   ## Callbacks
   #
