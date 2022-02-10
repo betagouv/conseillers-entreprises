@@ -68,7 +68,7 @@ class Facility < ApplicationRecord
   delegate :insee_code, to: :commune, allow_nil: true # commune can be nil in new facility models.
   def insee_code=(insee_code)
     self.commune = Commune.find_or_initialize_by(insee_code: insee_code)
-    city_params = ApiAdresse::Query.city_with_code(insee_code)
+    city_params = ApiGeo::Query.city_with_code(insee_code)
     self.readable_locality = "#{city_params['codesPostaux']&.first} #{city_params['nom']}"
   end
 

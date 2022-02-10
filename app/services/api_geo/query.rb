@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ApiAdresse
+module ApiGeo
   module Query
     def self.city_with_code(citycode)
       citycode = ERB::Util.url_encode(citycode&.strip)

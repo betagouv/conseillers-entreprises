@@ -49,8 +49,14 @@ module DiagnosisCreation
   module SolicitationMethods
     # Some preconditions can be verified without actually trying to create the Diagnosis
     def may_prepare_diagnosis?
-      self.preselected_subject.present? &&
-        FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret)) # TODO: unify the SIRET validation methods
+      if self.with_siret?
+        self.preselected_subject.present? &&
+          FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret))
+      else
+        # 1er appel à l'API adresse, pour vérifier que la `location` est bien une ville
+        # TODO : à revoir quand on aura une meilleure gestion des zones
+        self.preselected_subject.present? && self.location.present? && retrieve_insee_code.present?
+      end
     end
 
     # Attempt to create a diagnosis up to the last step with the information from the solicitation.
@@ -68,7 +74,7 @@ module DiagnosisCreation
         diagnosis = DiagnosisCreation.create_diagnosis(
           advisor: advisor,
           solicitation: self,
-          facility_attributes: { siret: FormatSiret.clean_siret(self.siret) }
+          facility_attributes: computed_facility_attributes
         )
 
         # Steps 1, 2, 3: fill in with the solicitation data and the preselections
@@ -90,6 +96,23 @@ module DiagnosisCreation
       diagnosis
     end
 
+    def computed_facility_attributes
+      if self.with_siret?
+        { siret: FormatSiret.clean_siret(self.siret) }
+      else
+        {
+          insee_code: retrieve_insee_code,
+          company_attributes: { name: self.full_name }
+        }
+      end
+    end
+
+    def retrieve_insee_code
+      # TODO : à revoir quand on aura une meilleure gestion des zones
+      query = location.parameterize
+      ApiAdresse::SearchMunicipality.new(query).call[:insee_code]
+    end
+
     ## Store ActiveModel::Errors details as json…
     #
     def prepare_diagnosis_errors=(diagnosis_errors)
@@ -106,6 +129,10 @@ module DiagnosisCreation
       end
 
       diagnosis_errors
+    end
+
+    def with_siret?
+      self.siret.present?
     end
   end
 
