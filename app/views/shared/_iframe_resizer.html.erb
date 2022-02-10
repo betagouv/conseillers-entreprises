@@ -4,16 +4,20 @@
   }
 </style>
 
-<%= javascript_tag nonce: true do -%>
+<%
+=begin%>
+ <%= javascript_tag nonce: true do -%>
   window.iFrameResizer = {
     onReady: function() {
       if ('parentIFrame' in window) {
-        window.parentIFrame.scrollToOffset(0,0);
+        window.parentIFrame.scrollTo(0,0);
         return false;
       }
     }
   }
 <% end %>
+<%
+=end%>
 
 <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/iframe-resizer@4.3.2/js/iframeResizer.contentWindow.min.js', integrity: "sha256-rbC2imHDJIBYUIXvf+XiYY+2cXmiSlctlHgI+rrezQo=", crossorigin: "anonymous", nonce: true %>
 
