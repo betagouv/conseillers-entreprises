@@ -308,52 +308,59 @@ RSpec.describe Need, type: :model do
       let(:another_antenne) { create :antenne, communes: [commune_inside], institution: institution }
       let(:expert) { create :expert_with_users, antenne: antenne }
       let(:expert_another_antenne) { create :expert_with_users, antenne: another_antenne }
-      let(:user) { create :user, :invitation_accepted, antenne: antenne }
       let(:a_subject) { create :subject }
+
+      let(:a_month_ago) { Time.now - 1.month }
+      let(:a_week_ago) { Time.now - 1.week }
+      let(:now) { Time.now }
 
       # Dans les dates
       # Besoin dans la même antenne que l'utilisateur OK
       let!(:diagnosis_1) { create :diagnosis, facility: facility_inside, needs: [need_1] }
       let(:need_1) { create :need_with_matches }
       let!(:match_1) { create :match, need: need_1, expert: expert, subject: a_subject }
-      # Besoin dans le perimetre de l'antenne avec l'institution dans les MER OK
+      # Besoin dans le périmètre de l'antenne avec l'institution dans les MER OK
       let!(:diagnosis_9) { create :diagnosis, facility: facility_inside, needs: [need_9] }
       let(:need_9) { create :need_with_matches }
       let!(:match_9) { create :match, need: need_9, expert: expert_another_antenne, subject: a_subject }
-      # Besoin dans le perimetre de l'antenne sans l'institution dans les MER KO
+      # Besoin dans le perimeter de l'antenne sans l'institution dans les MER KO
       let!(:diagnosis_2) { create :diagnosis, facility: facility_inside, needs: [need_2] }
       let(:need_2) { create :need_with_matches }
-      # Besoin en dehors du pérmietre de l'antenne avec l'institution dans les MER KO
+      # Besoin en dehors du périmètre de l'antenne avec l'institution dans les MER KO / OK
       let!(:diagnosis_3) { create :diagnosis, facility: facility_outside, needs: [need_3] }
       let(:need_3) { create :need_with_matches }
       let!(:match_3) { create :match, need: need_3, expert: expert, subject: a_subject }
-      # Besoin en dehors du pérmietre de l'antenne sans l'institution dans les MER KO
+      # Besoin en dehors du périmètre de l'antenne sans l'institution dans les MER KO
       let!(:diagnosis_4) { create :diagnosis, facility: facility_outside, needs: [need_4] }
       let(:need_4) { create :need_with_matches }
 
       # En dehors des dates
-      # Besoin dans le perimetre de l'antenne avec l'institution dans les MER KO
+      # Besoin dans le périmètre de l'antenne avec l'institution dans les MER KO
       let!(:diagnosis_5) { create :diagnosis, facility: facility_inside, needs: [need_5] }
       let(:need_5) { create :need_with_matches, created_at: a_month_ago }
       let!(:match_5) { create :match, need: need_5, expert: expert, subject: a_subject }
-      # Besoin dans le perimetre de l'antenne sans l'institution dans les MER KO
+      # Besoin dans le périmètre de l'antenne sans l'institution dans les MER KO
       let!(:diagnosis_6) { create :diagnosis, facility: facility_inside, needs: [need_6] }
       let(:need_6) { create :need_with_matches, created_at: a_month_ago }
-      # Besoin en dehors du pérmietre de l'antenne avec l'institution dans les MER KO
+      # Besoin en dehors du périmètre de l'antenne avec l'institution dans les MER KO
       let!(:diagnosis_7) { create :diagnosis, facility: facility_outside, needs: [need_7] }
       let(:need_7) { create :need_with_matches, created_at: a_month_ago }
       let!(:match_7) { create :match, need: need_7, expert: expert, subject: a_subject }
-      # Besoin en dehors du pérmietre de l'antenne sans l'institution dans les MER KO
+      # Besoin en dehors du périmètre de l'antenne sans l'institution dans les MER KO
       let!(:diagnosis_8) { create :diagnosis, facility: facility_outside, needs: [need_8] }
       let(:need_8) { create :need_with_matches, created_at: a_month_ago }
 
-      let(:a_month_ago) { Time.now - 1.month }
-      let(:a_week_ago) { Time.now - 1.week }
-      let(:now) { Time.now }
-
       subject { described_class.user_antenne_territory_needs(user, a_week_ago, now) }
 
-      it { is_expected.to match_array [need_1, need_9] }
+      context 'expert with antenne territory' do
+        let(:user) { create :user, :invitation_accepted, antenne: antenne }
+
+        it { is_expected.to match_array [need_1, need_9] }
+      end
+
+      context 'expert with national territory' do
+
+      end
     end
   end
 
