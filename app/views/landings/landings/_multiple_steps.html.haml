@@ -1,7 +1,7 @@
 - unless in_iframe?
   %h2.card-section-header= t('you_wish')
 
-.landing-theme-cards-container
+.landing-theme-cards-container{ class: "#{'in-iframe' if in_iframe?}" }
   = render partial: 'landings/landing_themes/card', collection: landing_themes, as: :landing_theme, locals: { landing: landing }
 
 - if in_iframe? && landing.landing_themes.not_archived.pluck(:slug).include?('contactez-nous')
