@@ -55,7 +55,7 @@ module SolicitationHelper
       text = t('helpers.solicitation.analysis_in_progress', step: diagnosis.human_attribute_value(:step))
     end
 
-    link_to text, diagnosis, class: 'ui item'
+    link_to text, diagnosis, class: 'ui item', target: '_blank'
   end
 
   def possible_territories_options(territories = Territory.deployed_regions)
