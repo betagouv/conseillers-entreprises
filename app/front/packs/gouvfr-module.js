@@ -1,1 +1,1 @@
-import "@gouvfr/dsfr/dist/js/dsfr.module.min.js";
+import "@gouvfr/dsfr/dist/dsfr/dsfr.module.min.js";
