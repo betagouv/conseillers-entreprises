@@ -316,7 +316,7 @@ fr:
             indiffusible_siret_html: Nous ne trouvons pas votre SIRET. Peut-être le trouverez-vous <a href="https://annuaire-entreprises.data.gouv.fr"> en suivant ce lien</a> ? <br>Pour que nous puissions bien vous orienter, veuillez préciser la ville de votre établissement dans la description de votre demande.
             not_in_deployed_region_html: Place des Entreprises n’est pas encore ouvert sur votre territoire. Abonnez-vous à la newsletter pour être informé de l’arrivée du service dans votre région.
             siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
-            siret_html: Recherche possible par SIREN, nom ou ville
+            siret_html: Recherche possible par SIREN ou nom de votre entreprise
           label:
             find_my_facility: Trouver votre numéro SIRET
           placeholder:
