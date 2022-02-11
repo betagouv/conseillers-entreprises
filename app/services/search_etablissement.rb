@@ -13,12 +13,8 @@ class SearchEtablissement
   end
 
   def call
-    return if @query.blank?
-    if siret_search_type?
-      siret_search
-    else
-      full_text_search
-    end
+    return if @query.blank? && !siret_search_type?
+    siret_search
   end
 
   private
@@ -40,16 +36,6 @@ class SearchEtablissement
     rescue => e
       Sentry.capture_exception(e)
       return { error: I18n.t('api_entreprise.default_error_message.etablissement') }
-    end
-  end
-
-  def full_text_search
-    response = ApiSirene::FullTextSearch.search(query)
-    if response.success?
-      return response.etablissements
-    else
-      error = response.error_message || I18n.t('companies.search.generic_error')
-      return { error: error }
     end
   end
 end
