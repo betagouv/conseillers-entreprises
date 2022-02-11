@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'send generic emails', type: :feature do
-  let!(:solicitation) { create :solicitation }
+  let!(:solicitation) { create :solicitation, full_name: "Top Entreprise" }
 
   login_admin
 
@@ -14,8 +14,19 @@ describe 'send generic emails', type: :feature do
   end
 
   it 'send bad_quality_difficulties email' do
+    expect(page.html).to include "Top Entreprise"
+    within("#solicitation-#{solicitation.id}-badges") do
+      expect(page).not_to have_content I18n.t('solicitations.solicitation_actions.emails.bad_quality_difficulties')
+    end
     click_link I18n.t('solicitations.solicitation_actions.emails.bad_quality_difficulties')
     expect(page.html).to include I18n.t('emails.sent')
+    expect(page.html).not_to include "Top Entreprise"
+
+    visit processed_solicitations_path
+    expect(page.html).to include "Top Entreprise"
+    within("#solicitation-#{solicitation.id}-badges") do
+      expect(page).to have_content I18n.t('solicitations.solicitation_actions.emails.bad_quality_difficulties')
+    end
   end
 
   it 'send bad_quality_investment email' do

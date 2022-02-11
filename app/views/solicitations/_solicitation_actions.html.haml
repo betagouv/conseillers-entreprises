@@ -11,19 +11,19 @@
           = t('.prepare_diagnosis_retry')
           %span.ri-arrow-down-s-line.fr-ml-1w
           .ui.menu
-            = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'item', method: :post do
+            = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'item', method: :post, target: '_blank', rel: 'noopener' do
               = t('.start_auto_diagnosis')
               %span.ri-arrow-right-s-line.fr-ml-1w
-            = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item' do
+            = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'item', target: '_blank', rel: 'noopener' do
               = t('.start_manual_diagnosis')
               %span.ri-arrow-right-s-line.fr-ml-1w
       - else
-        = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'ui item', method: :post do
+        = link_to prepare_diagnosis_solicitation_path(solicitation), class: 'ui item', method: :post, target: '_blank', rel: 'noopener' do
           %span.ri-rocket-2-fill.fr-mr-1w
           = t('.start_auto_diagnosis')
           %span.ri-arrow-right-s-line.fr-ml-1w
     - else
-      = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item' do
+      = link_to new_diagnosis_path(solicitation: solicitation.id), class: 'ui item', target: '_blank', rel: 'noopener' do
         = t('.start_diagnosis')
         %span.ri-arrow-right-s-line.fr-ml-1w
   - else
