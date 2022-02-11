@@ -782,11 +782,11 @@ fr:
       emails:
         bad_quality_difficulties: Mauvaise qualité difficultés
         bad_quality_investment: Mauvaise qualité investissement
-        creation: Création d’entreprise
+        creation: Création
         employee_labor_law: Salarié Droit du travail
         moderation: Modération
-        out_of_region: Demande hors région
-        particular_retirement: Particulier - Retraite
+        out_of_region: Hors région
+        particular_retirement: Retraite
         siret: SIRET
       prepare_diagnosis_errors:
         one: Erreur à la préparation
