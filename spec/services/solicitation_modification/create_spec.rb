@@ -13,8 +13,9 @@ describe SolicitationModification::Create do
         full_name: "Leslie Crane",
         phone_number: "+974-65-7100124",
         email: "rotoce@gmail.com",
-        siret: "89264276000011",
-        description: "Ma demande"
+        siret: "lala",
+        description: "Ma demande",
+        code_region: nil
       }
     }
     let(:service) { described_class.call(params) }

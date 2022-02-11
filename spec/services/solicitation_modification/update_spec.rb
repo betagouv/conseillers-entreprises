@@ -3,7 +3,7 @@
 require 'rails_helper'
 describe SolicitationModification::Update do
   describe 'call' do
-    let(:solicitation) { create :solicitation, created_at: 2.weeks.ago }
+    let(:solicitation) { create :solicitation, created_at: 2.weeks.ago, code_region: nil, siret: 'wrong siret' }
     let(:service) { described_class.call(solicitation, params) }
 
     context 'with deployed code region' do

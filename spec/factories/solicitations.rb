@@ -9,6 +9,7 @@ FactoryBot.define do
     phone_number { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email }
     siret { Faker::Company.french_siret_number }
+    code_region { 11 }
 
     trait :with_diagnosis do
       diagnosis { build :diagnosis }

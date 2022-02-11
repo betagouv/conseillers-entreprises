@@ -41,6 +41,55 @@ RSpec.describe Solicitation, type: :model do
         it { is_expected.to be_nil }
       end
     end
+
+    describe 'set_siret_and_region' do
+      let(:token) { '1234' }
+      let(:siret) { '41816609600069' }
+
+      context 'with valid siret' do
+        let(:api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+        let(:solicitation) { create :solicitation, siret: siret, code_region: nil }
+
+        before do
+          ENV['API_ENTREPRISE_TOKEN'] = token
+          stub_request(:get, api_url).to_return(
+            body: file_fixture('api_entreprise_get_etablissement.json')
+          )
+        end
+
+        it 'sets correctly siret and code_region' do
+          expect(solicitation.code_region).to eq(11)
+          expect(solicitation.siret).to eq('41816609600069')
+        end
+      end
+
+      context 'with valid siren' do
+        let(:siren) { siret[0,9] }
+        let(:api_url) { "https://entreprise.data.gouv.fr/api/sirene/v1/siren/#{siren}" }
+        let(:solicitation) { create :solicitation, siret: siren, code_region: nil }
+
+        before do
+          ENV['API_ENTREPRISE_TOKEN'] = token
+          stub_request(:get, api_url).to_return(
+            body: file_fixture('entreprise_data_gouv_siren.json')
+          )
+        end
+
+        it 'sets correctly siret and code_region' do
+          expect(solicitation.code_region).to eq(11)
+          expect(solicitation.siret).to eq('41816609600069')
+        end
+      end
+
+      context 'with wrong siret' do
+        let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil }
+
+        it 'doesnt set code_region' do
+          expect(solicitation.code_region).to eq(nil)
+          expect(solicitation.siret).to eq('lalala')
+        end
+      end
+    end
   end
 
   describe '#preselected_subject' do
@@ -137,8 +186,8 @@ RSpec.describe Solicitation, type: :model do
     # - solicitation avec facility dans territoire non déployé
     let!(:solicitation2) { create :solicitation, :with_diagnosis, code_region: 22 }
     # - solicitation inclassables (sans analyse, sans région...)
-    let!(:solicitation_without_diagnosis) { create :solicitation }
-    let!(:solicitation_with_diagnosis_no_region) { create :solicitation, :with_diagnosis, code_region: nil }
+    let!(:solicitation_without_diagnosis) { create :solicitation, siret: 'wrong siret', code_region: nil }
+    let!(:solicitation_with_diagnosis_no_region) { create :solicitation, :with_diagnosis, siret: 'wrong siret', code_region: nil }
 
     before {
       territory1.communes = [solicitation1.diagnosis.facility.commune]
