@@ -259,6 +259,10 @@ class User < ApplicationRecord
     deleted? ? I18n.t('deleted_account.full_name') : self[:full_name]
   end
 
+  def has_global_expert?
+    experts.pluck(:is_global_zone).include?(true)
+  end
+
   ## Expert associations helpers
   #
   def personal_skillsets

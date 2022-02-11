@@ -141,11 +141,15 @@ class Need < ApplicationRecord
 
   # Takes all needs in the user antenne territory and when there is an expert of user institution notified
   scope :user_antenne_territory_needs, -> (user, start_date, end_date) do
-    joins(experts: { antenne: :institution }, facility: :commune)
-      .diagnosis_completed
-      .where(facilities: { commune: user.antenne.communes },
-             experts: { institutions: [user.institution] },
-             created_at: [start_date..end_date])
+    query = joins(experts: { antenne: :institution })
+                   .diagnosis_completed
+                   .where(experts: { institutions: [user.institution] }, created_at: [start_date..end_date])
+    # Take only antenne territory needs if there is no national expert
+    unless user.has_global_expert?
+      query = query.joins(facility: :commune)
+                   .where(facilities: { commune: user.antenne.communes })
+    end
+    query
   end
 
   REMINDERS_DAYS = {

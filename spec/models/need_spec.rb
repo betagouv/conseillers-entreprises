@@ -359,7 +359,10 @@ RSpec.describe Need, type: :model do
       end
 
       context 'expert with national territory' do
+        let(:user) { create :user, :invitation_accepted, antenne: antenne, experts: [national_expert] }
+        let(:national_expert) { create :expert, is_global_zone: true }
 
+        it { is_expected.to match_array [need_1, need_3, need_9] }
       end
     end
   end

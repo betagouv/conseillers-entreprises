@@ -24,7 +24,11 @@ class ReportsController < ApplicationController
   private
 
   def last_quarters
-    first_match_date = current_user.antenne.received_matches.first.created_at.to_date
+    first_match_date = if current_user.has_global_expert?
+                         current_user.institution.received_matches.first.created_at.to_date
+                       else
+                         current_user.antenne.received_matches.first.created_at.to_date
+                       end
     @quarters = TimeDurationService.past_year_quarters
     @quarters.reject! { |range| first_match_date > range.last }
   end
