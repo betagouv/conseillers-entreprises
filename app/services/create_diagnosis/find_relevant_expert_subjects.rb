@@ -36,12 +36,16 @@ module CreateDiagnosis
     # Specific filters -------------------------------
 
     def accepting(match_filter)
-      [
+      base_filters = [
         accepting_min_years_of_existence(match_filter),
-        accepting_subject(match_filter),
         accepting_effectif(match_filter),
         accepting_naf_codes(match_filter)
-      ].inject(:&)
+      ]
+      # Don't verify subject if match_filter is not the same as need subject
+      if !match_filter.subject.nil? && need.subject == match_filter.subject
+        base_filters << accepting_subject(match_filter)
+      end
+      base_filters.inject(:&)
     end
 
     # Ancienneté
@@ -55,7 +59,6 @@ module CreateDiagnosis
     # Sujet
 
     def accepting_subject(match_filter)
-      return true if match_filter.subject.nil?
       need.subject == match_filter.subject
     end
 

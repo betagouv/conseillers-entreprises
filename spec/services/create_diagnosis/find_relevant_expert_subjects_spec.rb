@@ -38,18 +38,18 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       before { es_01.expert.antenne.match_filters << match_filter_01 }
 
-      context 'only matching effectifs' do
-        let(:facility) { create :facility, effectif: 19.4 }
+      context 'matching subject only' do
+        let(:facility) { create :facility, effectif: 21 }
         let(:need_subject) { create :subject }
 
         it { is_expected.to match_array [es_temoin] }
       end
 
-      context 'only matching subject' do
-        let(:need_subject) { tresorerie_subject }
-        let(:facility) { create :facility, effectif: 37.7 }
+      context 'matching effectif only' do
+        let(:need_subject) { create :subject }
+        let(:facility) { create :facility, effectif: 19.4 }
 
-        it { is_expected.to match_array [es_temoin] }
+        it { is_expected.to match_array [es_temoin, es_01] }
       end
 
       context 'matching subject and effectif' do
@@ -70,18 +70,18 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       before { es_01.expert.antenne.match_filters << match_filter_01 }
 
-      context 'only matching naf' do
-        let(:need_subject) { create :subject }
-        let(:facility) { create :facility, naf_code: '1102A' }
+      context 'matching subject only' do
+        let(:need_subject) { difficulte_subject }
+        let(:facility) { create :facility, naf_code: '2202A' }
 
         it { is_expected.to match_array [es_temoin] }
       end
 
-      context 'only matching subject' do
-        let(:need_subject) { difficulte_subject }
-        let(:facility) { create :facility, naf_code: '9001Z' }
+      context 'matching naf only' do
+        let(:need_subject) { create :subject }
+        let(:facility) { create :facility, naf_code: '1102A' }
 
-        it { is_expected.to match_array [es_temoin] }
+        it { is_expected.to match_array [es_temoin, es_01] }
       end
 
       context 'matching naf and subject' do
