@@ -44,6 +44,7 @@ class Solicitation < ApplicationRecord
   include RangeScopes
 
   enum status: { in_progress: 0, processed: 1, canceled: 2, reminded: 3 }, _prefix: true
+  paginates_per 50
 
   ## Associations
   #

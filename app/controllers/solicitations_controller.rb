@@ -36,16 +36,16 @@ class SolicitationsController < ApplicationController
     session.delete(territory_session_param)
     case @solicitation.status
     when 'canceled'
-      page = (Solicitation.status_canceled.where('created_at > ?', @solicitation.created_at).count / nb_per_page) + 1
+      page = (Solicitation.status_canceled.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
       redirect_to canceled_solicitations_path(anchor: @solicitation.id, page: page)
     when 'reminded'
-      page = (Solicitation.status_reminded.where('created_at > ?', @solicitation.created_at).count / nb_per_page) + 1
+      page = (Solicitation.status_reminded.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
       redirect_to reminded_solicitations_path(anchor: @solicitation.id, page: page)
     when 'processed'
-      page = (Solicitation.status_processed.where('created_at > ?', @solicitation.created_at).count / nb_per_page) + 1
+      page = (Solicitation.status_processed.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
       redirect_to processed_solicitations_path(anchor: @solicitation.id, page: page)
     else
-      page = (Solicitation.status_in_progress.where('created_at > ?', @solicitation.created_at).count / nb_per_page) + 1
+      page = (Solicitation.status_in_progress.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
       redirect_to solicitations_path(anchor: @solicitation.id, page: page)
     end
   end
@@ -95,7 +95,7 @@ class SolicitationsController < ApplicationController
   private
 
   def ordered_solicitations
-    solicitations = Solicitation.order(created_at: :desc)
+    solicitations = Solicitation.order(:created_at)
     solicitations = solicitations.by_possible_region(territory_id) if territory_id.present?
     solicitations.page(params[:page]).omnisearch(params[:query]).distinct
       .includes(:badges_solicitations, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo)
