@@ -1,0 +1,15 @@
+= render 'mailers/header'
+
+%p= t('mailers.hello')
+
+%p= t('mailers.solicitation_mailer.intro_html', link_to_root: link_to(t('app_name'), root_url))
+
+%p= t('.for_companies_html')
+
+%p= t('.explications')
+
+%p= t('.explications_2')
+
+%p= t('mailers.thanks_for_your_comprehension')
+
+= render 'mailers/solicitation_mailer/footer'
