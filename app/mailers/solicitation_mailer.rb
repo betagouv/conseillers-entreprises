@@ -39,4 +39,16 @@ class SolicitationMailer < ApplicationMailer
   def particular_retirement(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
+
+  def independent_tva(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
+  def intermediary(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
+
+  def recruitment_foreign_worker(solicitation)
+    mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
+  end
 end

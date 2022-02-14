@@ -1,0 +1,17 @@
+= render 'mailers/header'
+
+%p= t('mailers.hello')
+
+%p= t('mailers.solicitation_mailer.intro_html', link_to_root: link_to(t('app_name'), root_url), solicitation_subject: t('.solicitation_subject_html'))
+
+%p= t('.no_tva_number')
+
+%p= t('.sie_annuaire_html')
+
+%p= t('.sie_on_impots_html')
+
+%p= t('mailers.hope_to_helped')
+
+%p= t('mailers.cordially')
+
+= render 'mailers/solicitation_mailer/footer'
