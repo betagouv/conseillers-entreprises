@@ -301,7 +301,6 @@ fr:
       view_completed_analysis: Voir l’analyse réalisée
   iframe:
     partners_logo: 'Les partenaires du service susceptibles de vous rappeler :'
-  intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant vos droits à la retraite.
   kaminari:
     page:
       page: Page
@@ -318,7 +317,7 @@ fr:
             siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
             siret_html: Recherche possible par SIREN
           label:
-            find_my_facility: Trouver votre numéro SIRET
+            find_my_facility: Votre numéro SIRET
           placeholder:
             description: Décrivez votre demande.
             email: marie.dupont@exemple.fr
@@ -335,6 +334,7 @@ fr:
         clic_newsletter: Je m'abonne.
         description: Description de votre demande
         legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+        no_creation: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).
         submit_in_progress: Envoi en cours...
       new_solicitation_thank_you:
         iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <b>5 jours</b> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
@@ -497,8 +497,8 @@ fr:
       creation:
         cci_initiative_html: 'Nous vous invitons également à contacter les conseillers de la <b>Chambre de Commerce et d’Industrie</b> et du <b>réseau Initiative</b> proches de chez vous. Des conseillers en création peuvent vous accompagner pour financer et lancer votre projet d’entreprise :'
         funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur le site de Bpifrance ou de la Banque de France :'
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) pour votre entreprise en création ou tout juste lancée.
         no_creation: Ce service public ne s’adresse actuellement qu’aux entreprises déjà existantes.
+        solicitation_subject: pour votre entreprise en création ou tout juste lancée
       employee_labor_law:
         contact_dreets_html: En tant que salarié(e), nous vous invitons à contacter le service de renseignement en droit du travail de la <a href='https://dreets.gouv.fr/'>Direction régionale de l’économie, de l’emploi, du travail et des solidarités</a> (DREETS).
         dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
@@ -512,6 +512,16 @@ fr:
         website:
           link_html: Site internet - %{link}
           title: Place-des-entreprises.beta.gouv.fr
+      independent_tva:
+        no_tva_number: Les questions d’obtention du numéro de TVA, de seuil et de déclaration aux impôts relèvent de votre service des impôts des entreprises (SIE).
+        sie_annuaire_html: 'Ce service n’est pas partenaire de Place des Entreprises à ce jour. Nous vous invitons à prendre directement contact avec votre SIE : <a href=''https://lannuaire.service-public.fr/navigation/sie''>https://lannuaire.service-public.fr/navigation/sie</a>.'
+        sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
+        solicitation_subject_html: "<b>concernant la TVA</b>"
+      intermediary:
+        explications: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur d’échanger directement avec les entreprises pour répondre au mieux à leur problématique.
+        explications_2: C’est pourquoi nous vous invitons à accompagner votre interlocuteur / client pour qu’il dépose lui-même une demande sur le site.
+        for_companies_html: Il s'agit d’un service public <b>destiné aux chefs d’entreprises</b>, afin d’aider les petites structures à se développer et à s’adapter.
+      intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
       moderation:
         no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelle mise en relation vers ce dernier.
         quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
@@ -529,6 +539,11 @@ fr:
         for_companies: Il s’agit néanmoins d’un service public destiné aux chefs d’entreprises.
         no_responses: Nous ne sommes donc pas en mesure malheureusement de vous apporter une réponse.
         phone_contact_html: Nous vous invitons à <b>contacter le 3960</b> pour avoir directement un conseiller concernant votre retraite.
+        solicitation_subject: concernant vos droits à la retraite
+      recruitment_foreign_worker:
+        interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
+        phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'
+        solicitation_subject_html: concernant <b>le recrutement d’un travailleur étranger</b>
       siret:
         commune_name_html: Par précaution, indiquez également <b>la commune</b> sur laquelle vous exercez votre activité.
         siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
@@ -784,9 +799,12 @@ fr:
         bad_quality_investment: Mauvaise qualité investissement
         creation: Création
         employee_labor_law: Salarié Droit du travail
+        independent_tva: TVA
+        intermediary: Intermédiaire
         moderation: Modération
         out_of_region: Hors région
         particular_retirement: Retraite
+        recruitment_foreign_worker: Travailleur étranger
         siret: SIRET
       prepare_diagnosis_errors:
         one: Erreur à la préparation

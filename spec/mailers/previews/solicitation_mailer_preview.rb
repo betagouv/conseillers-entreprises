@@ -31,6 +31,18 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.moderation(random_solicitation)
   end
 
+  def independent_tva
+    SolicitationMailer.independent_tva(random_solicitation)
+  end
+
+  def intermediary
+    SolicitationMailer.intermediary(random_solicitation)
+  end
+
+  def recruitment_foreign_worker
+    SolicitationMailer.recruitment_foreign_worker(random_solicitation)
+  end
+
   private
 
   def random_solicitation
