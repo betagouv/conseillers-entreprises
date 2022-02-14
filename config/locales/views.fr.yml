@@ -497,8 +497,8 @@ fr:
       creation:
         cci_initiative_html: 'Nous vous invitons également à contacter les conseillers de la <b>Chambre de Commerce et d’Industrie</b> et du <b>réseau Initiative</b> proches de chez vous. Des conseillers en création peuvent vous accompagner pour financer et lancer votre projet d’entreprise :'
         funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur le site de Bpifrance ou de la Banque de France :'
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) pour votre entreprise en création ou tout juste lancée.
         no_creation: Ce service public ne s’adresse actuellement qu’aux entreprises déjà existantes.
+        solicitation_subject: pour votre entreprise en création ou tout juste lancée
       employee_labor_law:
         contact_dreets_html: En tant que salarié(e), nous vous invitons à contacter le service de renseignement en droit du travail de la <a href='https://dreets.gouv.fr/'>Direction régionale de l’économie, de l’emploi, du travail et des solidarités</a> (DREETS).
         dreets_phone_number_html: Vous pouvez composer le <b>0806 000 126</b> [prix d’un appel local - pas de surcoût] du lundi au vendredi, de 8h45 à 11h30 et de 13h45 à 16h30.
@@ -513,10 +513,10 @@ fr:
           link_html: Site internet - %{link}
           title: Place-des-entreprises.beta.gouv.fr
       independent_tva:
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) <b>concernant la TVA</b>.
         no_tva_number: Les questions d’obtention du numéro de TVA, de seuil et de déclaration aux impôts relèvent de votre service des impôts des entreprises (SIE).
         sie_annuaire_html: 'Ce service n’est pas partenaire de Place des Entreprises à ce jour. Nous vous invitons à prendre directement contact avec votre SIE : <a href=''https://lannuaire.service-public.fr/navigation/sie''>https://lannuaire.service-public.fr/navigation/sie</a>.'
         sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
+        solicitation_subject_html: "<b>concernant la TVA</b>"
       intermediary:
         explications: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur d’échanger directement avec les entreprises pour répondre au mieux à leur problématique.
         explications_2: C’est pourquoi nous vous invitons à accompagner votre interlocuteur / client pour qu’il dépose lui-même une demande sur le site.
@@ -537,13 +537,13 @@ fr:
         nl_subscription_html: Pour être informé de l’ouverture du service public Place des Entreprises dans votre région, inscrivez-vous à %{link}.
       particular_retirement:
         for_companies: Il s’agit néanmoins d’un service public destiné aux chefs d’entreprises.
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant vos droits à la retraite.
         no_responses: Nous ne sommes donc pas en mesure malheureusement de vous apporter une réponse.
         phone_contact_html: Nous vous invitons à <b>contacter le 3960</b> pour avoir directement un conseiller concernant votre retraite.
+        solicitation_subject: concernant vos droits à la retraite
       recruitment_foreign_worker:
         interior_ministry_html: 'La demande d’autorisation de travail relève d’un service en ligne du Ministère de l’Intérieur : <a href=''https://administration-etrangers-en-france.interieur.gouv.fr/immiprousager/#/authentification''>https://administration-etrangers-en-france.interieur.gouv.fr</a>.'
-        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant <b>le recrutement d’un travailleur étranger</b>.
         phone_number_html: 'Pour plus d’informations : <b>0806 001 620</b> (appel gratuit).'
+        solicitation_subject_html: concernant <b>le recrutement d’un travailleur étranger</b>
       siret:
         commune_name_html: Par précaution, indiquez également <b>la commune</b> sur laquelle vous exercez votre activité.
         siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
