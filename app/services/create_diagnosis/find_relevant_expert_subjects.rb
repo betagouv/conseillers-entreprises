@@ -36,6 +36,7 @@ module CreateDiagnosis
     # Specific filters -------------------------------
 
     def accepting(match_filter)
+      return true if match_filter.subject.present? && need.subject != match_filter.subject
       base_filters = [
         accepting_min_years_of_existence(match_filter),
         accepting_effectif(match_filter),
