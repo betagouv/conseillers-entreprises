@@ -40,7 +40,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       context 'matching subject only' do
         let(:facility) { create :facility, effectif: 21 }
-        let(:need_subject) { create :subject }
+        let(:need_subject) { tresorerie_subject }
 
         it { is_expected.to match_array [es_temoin] }
       end
@@ -55,6 +55,13 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       context 'matching subject and effectif' do
         let(:need_subject) { tresorerie_subject }
         let(:facility) { create :facility, effectif: 19.4 }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
+
+      context 'matching nothing' do
+        let(:need_subject) { create :subject }
+        let(:facility) { create :facility, effectif: 21 }
 
         it { is_expected.to match_array [es_temoin, es_01] }
       end
@@ -87,6 +94,13 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       context 'matching naf and subject' do
         let(:need_subject) { difficulte_subject }
         let(:facility) { create :facility, naf_code: '1102A' }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
+
+      context 'matching nothing' do
+        let(:need_subject) { create :subject }
+        let(:facility) { create :facility, naf_code: '2202A' }
 
         it { is_expected.to match_array [es_temoin, es_01] }
       end
