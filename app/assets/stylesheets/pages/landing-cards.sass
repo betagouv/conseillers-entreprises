@@ -2,13 +2,15 @@
   display: grid
   grid-template-columns: repeat(3, 1fr)
   gap: 32pt
+  &.in-iframe
+    grid-template-columns: repeat(2, 1fr)
 
 @media(max-width: 1040px)
   .landing-theme-cards-container
     grid-template-columns: repeat(2, 1fr)
 
 @media(max-width: 750px)
-  .landing-theme-cards-container
+  .landing-theme-cards-container, .landing-theme-cards-container.in-iframe
     grid-template-columns: repeat(1, 1fr)
 
 
