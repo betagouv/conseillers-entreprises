@@ -20,10 +20,14 @@ module AnnuaireHelper
     experts_communes = experts.filter_map(&:communes).compact.flatten
     # No experts on the subject
     anomalie_less = experts_count == 0 && !institution_subject.optional
-    # Many Experts on the subject with specific zone but without full antenne coverage
-    anomalie_more_specific = (antenne && experts_count > 1) && experts_communes.present? && !(antenne.communes - experts_communes).empty?
-    # Many Experts on the subject without specific zone
-    anomalie_more = (antenne && experts_count > 1) && experts_communes.empty?
+    # Experts with specific zone on the subject but no coverage of the whole antenna
+    anomalie_more_specific = (antenne && experts_count > 1) &&
+      experts_communes.present? &&
+      !(antenne.communes - experts_communes).empty? &&
+      experts.filter_map(&:communes).exclude?([])
+    # Many Experts on the subject
+    anomalie_more = (antenne && experts_count > 1) &&
+      (experts_communes.size > antenne.communes.size || experts.filter_map(&:communes).include?([]))
 
     [anomalie_less, anomalie_more_specific, anomalie_more]
   end
