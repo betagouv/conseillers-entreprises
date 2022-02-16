@@ -59,7 +59,10 @@ fr:
           other: "%{count} experts régionaux sur ce sujet"
   annuaire_helper:
     build_user_name_cell:
+      antenne_manager: Responsable d’antenne.
       edit_expert: Modifier %{expert_name} - %{antenne}
+      not_invited: Invitation pas encore envoyée.
+      specific_territories: Équipe avec des territoires spécifiques.
   application:
     footer:
       service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
