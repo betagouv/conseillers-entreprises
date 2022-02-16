@@ -11,7 +11,7 @@ class Emails::SolicitationsController < ApplicationController
     else
       flash.alert = t('emails.not_sent')
     end
-    redirect_to solicitations_path
+    redirect_to solicitations_path(query: params[:query])
   end
 
   private
