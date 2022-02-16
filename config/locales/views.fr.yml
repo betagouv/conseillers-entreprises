@@ -57,6 +57,9 @@ fr:
         regional_experts_on_subject:
           one: "%{count} expert régional sur ce sujet"
           other: "%{count} experts régionaux sur ce sujet"
+  annuaire_helper:
+    build_user_name_cell:
+      edit_expert: Modifier %{expert_name} - %{antenne}
   application:
     footer:
       service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.

@@ -92,6 +92,7 @@ describe 'annuaire', type: :system, js: true, flaky: true do
       context 'experts with specific zone and experts.communes != antenne.communes' do
         before do
           expert.communes = [communes_1]
+          expert_2.communes = [communes_2]
           visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
         end
 
@@ -113,6 +114,35 @@ describe 'annuaire', type: :system, js: true, flaky: true do
         it 'display users with orange warning' do
           expect(page).to have_css('.orange.ri-map-2-line', count: 0)
           expect(page).to have_css('.orange.ri-error-warning-line', count: 0)
+          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        end
+      end
+
+      # Avec zone spécifique et des communes en doublons
+      context 'experts with specific zone and experts.communes > antennes.communes' do
+        before do
+          expert.communes = [communes_1, communes_3]
+          expert_2.communes = [communes_2, communes_3]
+          visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+        end
+
+        it 'display users with orange warning' do
+          expect(page).to have_css('.orange.ri-map-2-line', count: 0)
+          expect(page).to have_css('.orange.ri-error-warning-line', count: 1)
+          expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
+        end
+      end
+
+      # Avec un expert zone spécifique et une équipe sur l’antenne
+      context 'experts with specific zone and expert without' do
+        before do
+          expert.communes = [communes_1]
+          visit "annuaire/institutions/#{institution.slug}/antennes/#{antenne.id}/conseillers"
+        end
+
+        it 'display users with orange warning' do
+          expect(page).to have_css('.orange.ri-map-2-line', count: 0)
+          expect(page).to have_css('.orange.ri-error-warning-line', count: 1)
           expect(page).to have_css('.red.ri-error-warning-fill', count: 0)
         end
       end

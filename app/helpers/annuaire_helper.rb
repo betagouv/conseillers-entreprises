@@ -10,6 +10,14 @@ module AnnuaireHelper
     end
   end
 
+  def build_user_name_cell(user, antenne)
+    html = link_to(user.full_name, edit_admin_expert_path(user.relevant_expert), title: t('annuaire_helper.build_user_name_cell.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne))
+    html << tag.span(class: 'ri-mail-add-fill blue fr-ml-1v') if user.invitation_sent_at.nil?
+    html << tag.span(class: 'ri-nurse-fill blue fr-ml-1v') if user.role_antenne_manager?
+    html << tag.span(class: 'ri-map-2-line blue fr-ml-1v') if user.relevant_expert.communes.any?
+    html
+  end
+
   private
 
   def alert_class(anomalie_less, anomalie_more, anomalie_more_specific)
@@ -20,10 +28,14 @@ module AnnuaireHelper
     experts_communes = experts.filter_map(&:communes).compact.flatten
     # No experts on the subject
     anomalie_less = experts_count == 0 && !institution_subject.optional
-    # Many Experts on the subject with specific zone but without full antenne coverage
-    anomalie_more_specific = (antenne && experts_count > 1) && experts_communes.present? && !(antenne.communes - experts_communes).empty?
-    # Many Experts on the subject without specific zone
-    anomalie_more = (antenne && experts_count > 1) && experts_communes.empty?
+    # Experts with specific zone on the subject but no coverage of the whole antenna
+    anomalie_more_specific = (antenne && experts_count > 1) &&
+      experts_communes.present? &&
+      !(antenne.communes - experts_communes).empty? &&
+      experts.filter_map(&:communes).exclude?([])
+    # Many Experts on the subject
+    anomalie_more = (antenne && experts_count > 1) &&
+      (experts_communes.size > antenne.communes.size || experts.filter_map(&:communes).include?([]))
 
     [anomalie_less, anomalie_more_specific, anomalie_more]
   end

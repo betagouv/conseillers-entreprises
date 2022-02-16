@@ -60,10 +60,9 @@
                 %td.td-header{ rowspan: users.size }
                   - if user.relevant_expert.team?
                     = link_to user.relevant_expert.full_name, edit_admin_expert_path(user.relevant_expert), title: t('.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne)
+
               %td.td-header.td-user
-                = link_to user.full_name, edit_admin_expert_path(user.relevant_expert), title: t('.edit_expert', expert_name: user.relevant_expert.full_name, antenne: antenne)
-                - if user.invitation_sent_at.nil?
-                  %span.ri-mail-add-fill.blue
+                = build_user_name_cell(user, antenne)
               - if index_in_team == 0
                 - grouped_subjects.each_value do |subjects|
                   - subjects.each do |subject, institutions_subjects|
