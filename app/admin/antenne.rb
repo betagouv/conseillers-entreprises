@@ -135,9 +135,6 @@ ActiveAdmin.register Antenne do
         url: :admin_institutions_path,
         search_fields: [:name]
       }
-      f.input :manager_full_name
-      f.input :manager_email
-      f.input :manager_phone
       f.input :insee_codes, as: :text
     end
 
