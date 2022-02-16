@@ -126,7 +126,7 @@ class SolicitationsController < ApplicationController
   end
 
   def count_solicitations
-    @count_solicitations = Rails.cache.fetch(["count-solicitations", ordered_solicitations, territory_id]) do
+    @count_solicitations = Rails.cache.fetch(["count-solicitations", ordered_solicitations.maximum(:updated_at), territory_id]) do
       {
         in_progress: ordered_solicitations.status_in_progress.total_count,
         reminded: ordered_solicitations.status_reminded.total_count
