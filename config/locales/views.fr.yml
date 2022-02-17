@@ -520,10 +520,10 @@ fr:
           link_html: Site internet - %{link}
           title: Place-des-entreprises.beta.gouv.fr
       independent_tva:
-        no_tva_number: Ces questions (TVA, seuil de déclaration, assujettissement aux taxes, Cotisation foncière des entreprises CFE…) relèvent de votre service des impôts des entreprises (SIE).
-        sie_annuaire_html: 'Ce service n’est pas partenaire de Place des Entreprises à ce jour. Nous vous invitons à prendre directement contact avec votre SIE : <a href=''https://lannuaire.service-public.fr/navigation/sie''>https://lannuaire.service-public.fr/navigation/sie</a>.'
+        no_tva_number: Votre question (TVA, seuil de déclaration, CFE, assujettissement aux taxes…) relève de votre service des impôts des entreprises (SIE).
+        sie_annuaire_html: "<b>Malheureusement ce service n’est pas partenaire de Place des Entreprises à ce jour</b>. Nous vous invitons à prendre directement contact avec votre SIE : <a href='https://lannuaire.service-public.fr/navigation/sie'>https://lannuaire.service-public.fr/navigation/sie</a>."
         sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
-        solicitation_subject_html: concernant des questions relatives à la <b>fiscalité</b>
+        solicitation_subject_html: concernant des questions relatives à la fiscalité
       intermediary:
         explications: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur d’échanger directement avec les entreprises pour répondre au mieux à leur problématique.
         explications_2: C’est pourquoi nous vous invitons à accompagner votre interlocuteur / client pour qu’il dépose lui-même une demande sur le site.
@@ -808,7 +808,7 @@ fr:
         bad_quality_investment: Mauvaise qualité investissement
         creation: Création
         employee_labor_law: Salarié Droit du travail
-        independent_tva: TVA
+        independent_tva: SIE - TVA et autres
         intermediary: Intermédiaire
         moderation: Modération
         out_of_region: Hors région
