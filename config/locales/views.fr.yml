@@ -519,15 +519,16 @@ fr:
           link_html: Site internet - %{link}
           title: Place-des-entreprises.beta.gouv.fr
       independent_tva:
-        no_tva_number: Les questions d’obtention du numéro de TVA, de seuil et de déclaration aux impôts relèvent de votre service des impôts des entreprises (SIE).
+        no_tva_number: Ces questions (TVA, seuil de déclaration, assujettissement aux taxes, Cotisation foncière des entreprises CFE…) relèvent de votre service des impôts des entreprises (SIE).
         sie_annuaire_html: 'Ce service n’est pas partenaire de Place des Entreprises à ce jour. Nous vous invitons à prendre directement contact avec votre SIE : <a href=''https://lannuaire.service-public.fr/navigation/sie''>https://lannuaire.service-public.fr/navigation/sie</a>.'
         sie_on_impots_html: Vous pouvez également joindre votre SIE sur votre compte professionnel <a href='https://cfspro-idp.impots.gouv.fr/oauth2/authorize?response_type=code&redirect_uri=https%3A%2F%2Fcfspro.impots.gouv.fr%2F%3Fopenidconnectcallback%3D1&nonce=1644578731_23573&client_id=id_cfspro_prod&display=&state=1644578731_4749&scope=openid%20profile%20email%20info'>impot.gouv.fr</a>, dans votre espace de messagerie personnalisée.
-        solicitation_subject_html: "<b>concernant la TVA</b>"
+        solicitation_subject_html: concernant des questions relatives à la <b>fiscalité</b>
       intermediary:
         explications: Pour la bonne prise en charge de la demande, les conseillers ont besoin du siret de l’entreprise concernée et des coordonnées du dirigeant. Les 40 partenaires publics et parapublics du service ont à cœur d’échanger directement avec les entreprises pour répondre au mieux à leur problématique.
         explications_2: C’est pourquoi nous vous invitons à accompagner votre interlocuteur / client pour qu’il dépose lui-même une demande sur le site.
         for_companies_html: Il s'agit d’un service public <b>destiné aux chefs d’entreprises</b>, afin d’aider les petites structures à se développer et à s’adapter.
       intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
+      intro_with_subject_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) %{solicitation_subject}.
       moderation:
         no_new_element: En l’absence d’élément nouveau, nous ne pouvons réaliser de nouvelle mise en relation vers ce dernier.
         quality_monitoring: Nous assurons le suivi qualité de cette demande initiale afin que vous soyez bien appelé(e) par un conseiller.
