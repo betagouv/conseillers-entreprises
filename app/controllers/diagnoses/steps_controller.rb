@@ -58,7 +58,7 @@ class Diagnoses::StepsController < ApplicationController
       @diagnosis.notify_matches_made!
       @diagnosis.solicitation&.status_processed!
       flash.notice = I18n.t('diagnoses.steps.matches.notifications_sent')
-      redirect_to diagnosis_path(@diagnosis)
+      redirect_to solicitations_path
     else
       flash.alert = @diagnosis.errors.full_messages.to_sentence
       render :matches
