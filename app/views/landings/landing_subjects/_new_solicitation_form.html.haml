@@ -23,7 +23,7 @@
               = t(".attributes.help.not_in_deployed_region_html")
               = link_to t('.clic_newsletter'), '#newsletter'
           = f.text_field field, required: true, placeholder: '12345678900013', minlength: '14', maxlength: '14'
-          %span= t('.no_creation')
+          %span= t('.no_creation_html')
         - else
           = f.label field
           - if help.present?

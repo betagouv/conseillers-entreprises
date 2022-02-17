@@ -341,7 +341,7 @@ fr:
         clic_newsletter: Je m'abonne.
         description: Description de votre demande
         legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
-        no_creation: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).
+        no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).</br>Vous pouvez le trouvez facilement sur <a href='https://annuaire-entreprises.data.gouv.fr'>https://annuaire-entreprises.data.gouv.fr</a>.
         submit_in_progress: Envoi en cours...
       new_solicitation_thank_you:
         iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <b>5 jours</b> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
