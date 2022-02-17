@@ -300,6 +300,7 @@ fr:
       collection_count_html: "<strong>%{size}</strong> %{name}"
     solicitation:
       analysis_in_progress: Analyse en cours (%{step})
+      localisation_html: 'Localisation : <strong>%{region}</strong>'
       out_of_deployed_territories_label: Hors territoires déployés
       out_of_deployed_territories_value: out_of_deployed_territories
       uncategorisable_label: Inclassables
