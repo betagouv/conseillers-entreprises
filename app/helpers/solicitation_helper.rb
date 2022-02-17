@@ -67,4 +67,14 @@ module SolicitationHelper
       [ t('helpers.solicitation.uncategorisable_label'), t('helpers.solicitation.uncategorisable_value') ]
     )
   end
+
+  def display_region(region, territory_params)
+    # display region if there is no region filter
+    return unless ((territory_params.present? &&
+      (territory_params == 'uncategorisable' || territory_params == 'out_of_deployed_territories')) ||
+      territory_params.blank?) && region.present?
+    tag.div(class: 'item') do
+      t('helpers.solicitation.localisation_html', region: region.name)
+    end
+  end
 end

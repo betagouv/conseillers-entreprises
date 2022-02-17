@@ -24,11 +24,11 @@
           .item
             = t('.source')
             %strong= link_to solicitation.landing.slug, landing_path(solicitation.landing)
-
         - if solicitation.landing_subject.present?
           .item
             = t('.landing_subjects')
             = subject_tag(solicitation, "ui small label")
+        = display_region(solicitation.region, params[:territory])
 
       .card__meta
         .meta__warnings

@@ -818,6 +818,10 @@ RSpec/DescribeClass:
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/FilePath:
+  Exclude:
+    - spec/helpers/*
+
 RSpec/ImplicitSubject:
   Enabled: false
 
