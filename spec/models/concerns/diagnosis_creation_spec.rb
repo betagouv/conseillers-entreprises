@@ -245,6 +245,7 @@ RSpec.describe DiagnosisCreation do
     let(:diagnosis) { create :diagnosis, solicitation: solicitation }
     let(:solicitation) { create :solicitation }
     let(:need) { create :need, diagnosis: diagnosis }
+    let!(:other_need_subject) { create :subject, id: 59 }
 
     let!(:expert_subject) do
       create :expert_subject,
@@ -272,6 +273,17 @@ RSpec.describe DiagnosisCreation do
 
       it 'sets an error' do
         expect(diagnosis.errors.details).to eq({ matches: [{ error: :preselected_institution_has_no_relevant_experts }] })
+      end
+    end
+
+    context 'solicitation has other_need_subject' do
+      let(:solicitation) { create :solicitation, landing_subject: create(:landing_subject, subject: other_need_subject) }
+      let(:the_subject) { other_need_subject }
+      let(:communes) { [need.facility.commune] }
+
+      it 'returns silently' do
+        expect(diagnosis.matches).to be_empty
+        expect(diagnosis.errors).to be_empty
       end
     end
   end
