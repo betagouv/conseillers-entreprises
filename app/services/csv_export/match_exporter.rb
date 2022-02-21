@@ -1,6 +1,7 @@
 module CsvExport
   class MatchExporter < BaseExporter
     def fields
+      # /!\ les fields de MatchExporter et SolicitationExporter doivent correspondre pour garantir la cohérence du fichier
       {
         solicitation_created_at: -> { I18n.l(solicitation&.created_at, format: :admin) if solicitation.present? },
         solicitation_id: -> { solicitation&.id },

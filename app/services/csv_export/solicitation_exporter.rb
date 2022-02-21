@@ -60,6 +60,8 @@ module CsvExport
         company_name: -> { diagnosis&.company&.name },
         company_naf: -> { diagnosis&.facility&.naf_code },
         company_effectif: -> { Effectif.intitule_effectif(diagnosis&.facility&.code_effectif) },
+        inscrit_rcs: -> { diagnosis&.company&.inscrit_rcs ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
+        inscrit_rm: -> { diagnosis&.company&.inscrit_rm ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
         solicitation_full_name: -> { full_name },
         solicitation_email: -> { email },
         solicitation_phone_number: -> { phone_number },
