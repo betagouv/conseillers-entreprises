@@ -2,7 +2,7 @@ class SolicitationsController < ApplicationController
   include TerritoryFiltrable
 
   before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility]
-  before_action :authorize_index_solicitation, :set_category_content, :setup_territory_filters, :count_solicitations, only: [:index, :reminded, :processed, :canceled]
+  before_action :authorize_index_solicitation, :set_category_content, :setup_territory_filters, :count_solicitations, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
 
   layout 'side_menu'
@@ -10,12 +10,6 @@ class SolicitationsController < ApplicationController
   def index
     @solicitations = ordered_solicitations.status_in_progress
     @status = t('solicitations.header.index')
-  end
-
-  def reminded
-    @solicitations = ordered_solicitations.status_reminded
-    @status = t('solicitations.header.reminded')
-    render :index
   end
 
   def processed
@@ -38,9 +32,6 @@ class SolicitationsController < ApplicationController
     when 'canceled'
       page = (Solicitation.status_canceled.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
       redirect_to canceled_solicitations_path(anchor: @solicitation.id, page: page)
-    when 'reminded'
-      page = (Solicitation.status_reminded.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
-      redirect_to reminded_solicitations_path(anchor: @solicitation.id, page: page)
     when 'processed'
       page = (Solicitation.status_processed.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
       redirect_to processed_solicitations_path(anchor: @solicitation.id, page: page)
@@ -131,7 +122,6 @@ class SolicitationsController < ApplicationController
     @count_solicitations =
       {
         in_progress: ordered_solicitations.status_in_progress.total_count,
-        reminded: ordered_solicitations.status_reminded.total_count
       }
   end
 

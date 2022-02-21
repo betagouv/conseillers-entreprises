@@ -9,7 +9,6 @@ RSpec.describe SolicitationsController, type: :controller do
     let!(:in_progress) { create :solicitation, status: :in_progress }
     # solicitation in progress with feedback
     let!(:feedback) { create :feedback, :for_solicitation }
-    let!(:reminded) { create :solicitation, status: :reminded }
     let!(:processed) { create :solicitation, status: :processed }
     let!(:canceled) { create :solicitation, status: :canceled }
 
@@ -19,14 +18,6 @@ RSpec.describe SolicitationsController, type: :controller do
       before { request }
 
       it { expect(assigns(:solicitations)).to contain_exactly(in_progress, feedback.solicitation) }
-    end
-
-    describe 'GET #reminded' do
-      subject(:request) { get :reminded }
-
-      before { request }
-
-      it { expect(assigns(:solicitations)).to contain_exactly(reminded) }
     end
 
     describe 'GET #processed' do

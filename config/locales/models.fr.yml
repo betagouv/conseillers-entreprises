@@ -126,7 +126,7 @@ fr:
         match_filters: Filtres pour les mises en relation
       commune:
         insee_code: Code commune
-      company: 
+      company:
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
@@ -330,28 +330,23 @@ fr:
         slug: Slug
         tracking: Suivi
       solicitation/statuses:
-        canceled: Annulée
+        canceled: Abandonnée
         in_progress: Reçue
-        processed: Clôturée
-        reminded: Relancée
+        processed: Mise en relation
       solicitation/statuses/action:
-        canceled: Annuler
+        canceled: Abandonner
         in_progress: Réouvrir
         processed: Clôturer
-        reminded: Relancer
       solicitation/statuses/done:
         canceled:
-          one: annulée
-          other: annulées
+          one: abandonnée
+          other: abandonnées
         in_progress:
           one: réouverte
           other: réouvertes
         processed:
-          one: clôturée
-          other: clôturées
-        reminded:
-          one: relancée
-          other: relancées
+          one: mise en relation
+          other: mises en relation
       subject:
         is_support: Support
       territory:

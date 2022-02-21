@@ -1,6 +1,5 @@
 %ul.fr-sidemenu__list
   = menu_link_with_count(t('.index_html'), count[:in_progress], solicitations_path, active: [solicitations: :index])
-  = menu_link_with_count(t('.reminded_html'), count[:reminded], reminded_solicitations_path)
   %li.fr-sidemenu__item
     = active_link_to(t('.processed'), processed_solicitations_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
   %li.fr-sidemenu__item

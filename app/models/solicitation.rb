@@ -43,7 +43,8 @@ class Solicitation < ApplicationRecord
   include DiagnosisCreation::SolicitationMethods
   include RangeScopes
 
-  enum status: { in_progress: 0, processed: 1, canceled: 2, reminded: 3 }, _prefix: true
+  enum status: { in_progress: 0, processed: 1, canceled: 2 }, _prefix: true
+
   paginates_per 50
 
   ## Associations
@@ -369,7 +370,7 @@ class Solicitation < ApplicationRecord
   end
 
   ##
-  #
+  # TODO : a revoir avec aasm
   def allowed_new_statuses
     self.class.statuses.keys - [self.status]
   end
