@@ -224,13 +224,16 @@ fr:
       match:
         closed_at: Date de clôture
         expert: Expert
-        landing_subject_slug: Sujet choisi sur le site
+        landing_subject_title: Sujet choisi sur le site
+        landing_theme_title: Thème choisi sur le site
         match_created_at: Date de transmission du besoin
         match_id: Id de la mise en relation
         match_status: Statut de la mise en relation
         need: Besoin identifié
         need_id: Identifiant du besoin
         need_status: Statut du besoin
+        real_subject: Sujet réel
+        real_theme: Thème réel
         satisfaction_comment: Commentaire de satisfaction
         satisfaction_contacted_by_expert: Satisfaction - rappel
         satisfaction_useful_exchange: Satisfaction - utilité
@@ -590,8 +593,9 @@ fr:
     intitule_effectif: Effectif
     is_archived: Archivé
     label: Intitulé
-    landing_subject_slug: Option choisie sur le site
+    landing_subject_title: Option choisie sur le site
     landing_subjects: Sujets de landing
+    landing_theme_title: Thème choisi sur le site
     landing_themes: Thèmes de landing
     legal_form_code: Forme juridique
     manager: Responsable
