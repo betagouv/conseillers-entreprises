@@ -242,7 +242,7 @@ RSpec.describe DiagnosisCreation do
   end
 
   describe 'prepare_matches_from_solicitation' do
-    let(:diagnosis) { create :diagnosis, solicitation: solicitation }
+    let(:diagnosis) { create :diagnosis, solicitation: solicitation, step: 'needs' }
     let(:solicitation) { create :solicitation }
     let(:need) { create :need, diagnosis: diagnosis }
     let!(:other_need_subject) { create :subject, id: 59 }
@@ -264,6 +264,7 @@ RSpec.describe DiagnosisCreation do
 
       it 'creates the matches' do
         expect(diagnosis.matches).not_to be_empty
+        expect(diagnosis.step).to eq('matches')
       end
     end
 
@@ -273,6 +274,7 @@ RSpec.describe DiagnosisCreation do
 
       it 'sets an error' do
         expect(diagnosis.errors.details).to eq({ matches: [{ error: :preselected_institution_has_no_relevant_experts }] })
+        expect(diagnosis.step).to eq('matches')
       end
     end
 
@@ -284,6 +286,7 @@ RSpec.describe DiagnosisCreation do
       it 'returns silently' do
         expect(diagnosis.matches).to be_empty
         expect(diagnosis.errors).to be_empty
+        expect(diagnosis.step).to eq('needs')
       end
     end
   end
