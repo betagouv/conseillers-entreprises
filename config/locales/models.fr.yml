@@ -126,7 +126,7 @@ fr:
         match_filters: Filtres pour les mises en relation
       commune:
         insee_code: Code commune
-      company:
+      company: 
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
@@ -335,8 +335,8 @@ fr:
         processed: Mise en relation
       solicitation/statuses/action:
         canceled: Abandonner
-        in_progress: Réouvrir
-        processed: Clôturer
+        in_progress: Réinitialiser
+        processed: Mettre en relation
       solicitation/statuses/done:
         canceled:
           one: abandonnée

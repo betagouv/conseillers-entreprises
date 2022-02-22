@@ -227,7 +227,7 @@ RSpec.describe Solicitation, type: :model do
              siret: siret,
              landing_subject: landing_subject,
              created_at: 2.weeks.ago,
-             diagnosis: create(:diagnosis_completed)
+             status: 'processed'
     }
 
     let!(:parent_email_solicitation) {
@@ -235,7 +235,7 @@ RSpec.describe Solicitation, type: :model do
              email: email,
              landing_subject: landing_subject,
              created_at: 2.weeks.ago,
-             diagnosis: create(:diagnosis_completed)
+             status: 'processed'
     }
 
     let!(:other_siret_solicitation) {
@@ -243,7 +243,7 @@ RSpec.describe Solicitation, type: :model do
              siret: '98765432100099',
              landing_subject: landing_subject,
              created_at: 2.weeks.ago,
-             diagnosis: create(:diagnosis_completed)
+             status: 'processed'
     }
 
     let!(:too_old_solicitation) {
@@ -252,7 +252,7 @@ RSpec.describe Solicitation, type: :model do
              siret: siret,
              landing_subject: landing_subject,
              created_at: 6.weeks.ago,
-             diagnosis: create(:diagnosis_completed)
+             status: 'processed'
     }
 
     let!(:other_subject_solicitation) {
@@ -261,7 +261,7 @@ RSpec.describe Solicitation, type: :model do
              siret: siret,
              landing_subject: create(:landing_subject),
              created_at: 2.weeks.ago,
-             diagnosis: create(:diagnosis_completed)
+             status: 'processed'
     }
 
     let!(:no_match_solicitation) {

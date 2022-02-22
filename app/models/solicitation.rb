@@ -40,10 +40,29 @@
 #
 
 class Solicitation < ApplicationRecord
+  include AASM
   include DiagnosisCreation::SolicitationMethods
   include RangeScopes
 
   enum status: { in_progress: 0, processed: 1, canceled: 2 }, _prefix: true
+
+  aasm column: :status, enum: true do
+    state :in_progress, initial: true
+    state :processed
+    state :canceled
+
+    event :cancel do
+      transitions from: [:in_progress, :processed], to: :canceled
+    end
+
+    event :process do
+      transitions from: [:in_progress, :canceled],  to: :processed, if: :diagnosis_completed?
+    end
+  end
+
+  def diagnosis_completed?
+    self.diagnosis.step_completed?
+  end
 
   paginates_per 50
 
@@ -235,7 +254,7 @@ class Solicitation < ApplicationRecord
   end
 
   def recent_matched_solicitations
-    Solicitation.joins(:diagnosis).merge(Diagnosis.step_completed)
+    Solicitation.processed
       .where.not(id: self.id)
       .created_between(3.weeks.ago, Time.zone.now)
       .where(landing_subject_id: self.landing_subject_id)
@@ -325,7 +344,8 @@ class Solicitation < ApplicationRecord
     end
   end
 
-  # Provenance ----------------
+  # Provenance
+  #
   def provenance_category
     if landing&.iframe?
       :iframe
@@ -367,12 +387,6 @@ class Solicitation < ApplicationRecord
 
   def normalized_siret
     siret.gsub(/(\d{3})(\d{3})(\d{3})(\d*)/, '\1 \2 \3 \4')
-  end
-
-  ##
-  # TODO : a revoir avec aasm
-  def allowed_new_statuses
-    self.class.statuses.keys - [self.status]
   end
 
   def transmitted_at

@@ -43,6 +43,7 @@ gem 'pundit'
 gem 'activerecord-postgres_enum'
 gem 'auto_strip_attributes'
 gem 'acts_as_list'
+gem 'aasm'
 
 # Charts
 gem 'highcharts-rails'
