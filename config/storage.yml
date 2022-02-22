@@ -1,0 +1,15 @@
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+ovh:
+  service: S3
+  access_key_id: <%= ENV['OVH_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['OVH_SECRET_KEY_ID'] %>
+  region: 'GRA'
+  bucket: <%= ENV['OVH_BUCKET'] %>
+  endpoint: <%= ENV['OVH_ENDPOINT'] %>

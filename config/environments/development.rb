@@ -95,6 +95,8 @@ Rails.application.configure do
     Bullet.enable = false
     Bullet.add_footer = true
   end
+
+  config.active_storage.service = :local
 end
 
 PpSql.add_rails_logger_formatting = false

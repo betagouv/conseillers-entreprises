@@ -86,6 +86,9 @@ gem 'rack-attack'
 # Performance
 gem 'scout_apm'
 
+# Storage
+gem "aws-sdk-s3", require: false
+
 group :test do
   gem 'capybara'
   gem 'rails-controller-testing'
