@@ -1,6 +1,7 @@
 module CsvExport
   class MatchExporter < BaseExporter
     def fields
+      # /!\ les fields de MatchExporter et SolicitationExporter doivent correspondre pour garantir la cohérence du fichier
       {
         solicitation_created_at: -> { I18n.l(solicitation&.created_at, format: :admin) if solicitation.present? },
         solicitation_id: -> { solicitation&.id },
@@ -9,7 +10,8 @@ module CsvExport
         solicitation_provenance_title: -> { solicitation&.provenance_title },
         solicitation_provenance_detail: -> { solicitation&.provenance_detail },
         solicitation_gclid: -> { solicitation&.gclid },
-        landing_subject_slug: -> { solicitation&.landing_subject&.slug },
+        landing_theme_title: -> { solicitation&.landing_theme&.title },
+        landing_subject_title: -> { solicitation&.landing_subject&.title },
         siret: -> { facility.siret },
         commune: -> { facility.commune },
         facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
@@ -26,8 +28,8 @@ module CsvExport
         match_created_at:  -> { I18n.l(created_at, format: :admin) },
         need_id: -> { need&.id },
         advisor: :advisor,
-        theme: :theme,
-        subject: :subject,
+        real_theme: :theme,
+        real_subject: :subject,
         match_id: :id,
         expert: :expert,
         expert_antenne: :expert_antenne,
