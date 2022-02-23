@@ -176,9 +176,17 @@ module DiagnosisCreation
 
     def prepare_matches_from_solicitation
       return unless solicitation.present? && matches.blank?
+      # on arrete l'analyse à l'étape needs si le sujet de la solicitation est Autre demande
+      return if other_subject_solicitation?
       self.step_matches!
 
       CreateDiagnosis::CreateMatches.new(self).call
+    end
+
+    private
+
+    def other_subject_solicitation?
+      solicitation.present? && solicitation.landing_subject.subject == Subject.other_need_subject
     end
   end
 end

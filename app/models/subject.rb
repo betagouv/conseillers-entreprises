@@ -109,6 +109,11 @@ class Subject < ApplicationRecord
     update(is_support: true)
   end
 
+  # Sujet avec traitement spécifique
+  def self.other_need_subject
+    Subject.find(59)
+  end
+
   def compute_slug
     if theme&.label.present? && label.present?
       self.slug = [self.theme.label.parameterize.underscore, label.parameterize.underscore].join('_')
