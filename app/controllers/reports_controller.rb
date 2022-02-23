@@ -2,21 +2,17 @@ class ReportsController < ApplicationController
   before_action :last_quarters
 
   def index
+    @antenne = current_user.antenne
     authorize :report, :index?
   end
 
   def download_matches
-    start_date = params[:start_date].to_date
-    end_date = params[:end_date].to_date
-    xlsx_filename = t('.xslx_name', number: TimeDurationService.find_quarter(start_date.month), year: start_date.year)
-
-    @matches = Match.user_antenne_territory_needs(current_user, start_date, end_date)
-
+    quarterly_data = QuarterlyData.find_by(id: params[:id], antenne: current_user.antenne)
+    authorize quarterly_data, policy_class: ReportPolicy
     respond_to do |format|
       format.html
       format.xlsx do
-        result = @matches.export_xlsx
-        send_data result.xlsx, type: "application/xlsx", filename: xlsx_filename
+        send_data quarterly_data.file.download, type: "application/xlsx", filename: quarterly_data.file.filename.to_s
       end
     end
   end
