@@ -28,7 +28,7 @@ module XlsxExport
       end
 
       p.use_shared_strings = true
-      p.to_stream.read
+      p
     end
 
     # Methods implemented by subclasses
