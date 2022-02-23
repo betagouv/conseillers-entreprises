@@ -38,6 +38,7 @@ class Antenne < ApplicationRecord
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :managers, -> { role_antenne_manager }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, dependent: :destroy, inverse_of: :antenne
+  has_many :quarterly_datas
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
   ## Hooks and Validations
@@ -93,6 +94,21 @@ class Antenne < ApplicationRecord
     else
       "#{I18n.t('app_name')} <#{ENV['APPLICATION_EMAIL']}>"
     end
+  end
+
+  scope :antenne_territory_needs, -> (user, start_date, end_date) do
+    joins(experts: { antenne: :institution }, facility: :commune)
+      .diagnosis_completed
+      .where(facilities: { commune: user.antenne.communes },
+             experts: { institutions: [user.institution] },
+             created_at: [start_date..end_date])
+  end
+
+  def territory_needs(start_date, end_date)
+    self.received_diagnoses.joins(experts: { antenne: :institution }, facility: :commune)
+      .where(facilities: { commune: self.communes },
+             experts: { institutions: [self.institution] },
+             created_at: [start_date..end_date])
   end
 
   # Antenne regionale
