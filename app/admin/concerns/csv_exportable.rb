@@ -11,7 +11,7 @@ module CsvExportable
     dsl.send(:collection_action, :export_csv, method: :post) do
       # on integre le scope en cours, a autoriser via self.ransackable_scopes si autre que all
       scope = current_scope.scope_method
-      ransack_params = params.slice(:q).permit(q: {})[:q].merge({scope => true})
+      ransack_params = params.slice(:q).permit(q: {})[:q].merge({ scope => true })
       CsvJob.perform_later(resource_class.name, ransack_params, current_user)
       flash.notice = t('active_admin.csv_export_launched')
       redirect_back fallback_location: admin_root_path
