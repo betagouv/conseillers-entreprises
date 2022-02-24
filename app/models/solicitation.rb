@@ -16,7 +16,7 @@
 #  prepare_diagnosis_errors_details :jsonb
 #  requested_help_amount            :string
 #  siret                            :string
-#  status                           :integer          default("in_progress")
+#  status                           :enum             default("in_progress"), not null
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  institution_id                   :bigint(8)
@@ -31,6 +31,7 @@
 #  index_solicitations_on_landing_id          (landing_id)
 #  index_solicitations_on_landing_slug        (landing_slug)
 #  index_solicitations_on_landing_subject_id  (landing_subject_id)
+#  index_solicitations_on_status              (status)
 #
 # Foreign Keys
 #
@@ -40,10 +41,30 @@
 #
 
 class Solicitation < ApplicationRecord
+  include AASM
   include DiagnosisCreation::SolicitationMethods
   include RangeScopes
 
-  enum status: { in_progress: 0, processed: 1, canceled: 2, reminded: 3 }, _prefix: true
+  enum status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
+
+  aasm column: :status, enum: true do
+    state :in_progress, initial: true
+    state :processed
+    state :canceled
+
+    event :cancel do
+      transitions from: [:in_progress, :processed], to: :canceled
+    end
+
+    event :process do
+      transitions from: [:in_progress, :canceled],  to: :processed, if: :diagnosis_completed?
+    end
+  end
+
+  def diagnosis_completed?
+    self.diagnosis.step_completed?
+  end
+
   paginates_per 50
 
   ## Associations
@@ -234,7 +255,7 @@ class Solicitation < ApplicationRecord
   end
 
   def recent_matched_solicitations
-    Solicitation.joins(:diagnosis).merge(Diagnosis.step_completed)
+    Solicitation.processed
       .where.not(id: self.id)
       .created_between(3.weeks.ago, Time.zone.now)
       .where(landing_subject_id: self.landing_subject_id)
@@ -324,7 +345,8 @@ class Solicitation < ApplicationRecord
     end
   end
 
-  # Provenance ----------------
+  # Provenance
+  #
   def provenance_category
     if landing&.iframe?
       :iframe
@@ -366,12 +388,6 @@ class Solicitation < ApplicationRecord
 
   def normalized_siret
     siret.gsub(/(\d{3})(\d{3})(\d{3})(\d*)/, '\1 \2 \3 \4')
-  end
-
-  ##
-  #
-  def allowed_new_statuses
-    self.class.statuses.keys - [self.status]
   end
 
   def transmitted_at

@@ -248,7 +248,6 @@ fr:
         solicitation_provenance_category: Type de source
         solicitation_provenance_detail: Détail de la source
         solicitation_provenance_title: Intitulé de la source
-        solicitation_status: Relecture des sollicitations
         taken_care_of_at: Date d'intervention
       match/statuses:
         done: Besoin clôturé
@@ -330,28 +329,23 @@ fr:
         slug: Slug
         tracking: Suivi
       solicitation/statuses:
-        canceled: Annulée
+        canceled: Abandonnée
         in_progress: Reçue
-        processed: Clôturée
-        reminded: Relancée
+        processed: Mise en relation
       solicitation/statuses/action:
-        canceled: Annuler
-        in_progress: Réouvrir
-        processed: Clôturer
-        reminded: Relancer
+        canceled: Abandonner
+        in_progress: Réinitialiser
+        processed: Mettre en relation
       solicitation/statuses/done:
         canceled:
-          one: annulée
-          other: annulées
+          one: abandonnée
+          other: abandonnées
         in_progress:
           one: réouverte
           other: réouvertes
         processed:
-          one: clôturée
-          other: clôturées
-        reminded:
-          one: relancée
-          other: relancées
+          one: mise en relation
+          other: mises en relation
       subject:
         is_support: Support
       territory:
@@ -664,7 +658,7 @@ fr:
     solicitation_provenance_category: Type de source
     solicitation_provenance_detail: Détail de la source
     solicitation_provenance_title: Intitulé de la source
-    solicitation_status: Relecture des sollicitations
+    solicitation_status: Statut de la sollicitation
     status: Statut
     subject: Sujet
     subjects:

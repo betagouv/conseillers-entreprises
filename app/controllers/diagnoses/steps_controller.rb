@@ -1,26 +1,6 @@
 class Diagnoses::StepsController < ApplicationController
   before_action :retrieve_diagnosis
 
-  def needs
-    @themes = Theme.ordered_for_interview
-
-    @diagnosis.prepare_needs_from_solicitation
-  end
-
-  def update_needs
-    authorize @diagnosis, :update?
-
-    diagnosis_params = params_for_needs
-    diagnosis_params[:step] = :matches
-    if @diagnosis.update(diagnosis_params)
-      redirect_to action: :matches
-    else
-      @themes = Theme.ordered_for_interview
-      flash.alert = @diagnosis.errors.full_messages.to_sentence
-      render :needs
-    end
-  end
-
   def contact
     @diagnosis.prepare_happened_on_from_solicitation
     @diagnosis.prepare_visitee_from_solicitation
@@ -41,6 +21,26 @@ class Diagnoses::StepsController < ApplicationController
     end
   end
 
+  def needs
+    @themes = Theme.ordered_for_interview
+
+    @diagnosis.prepare_needs_from_solicitation
+  end
+
+  def update_needs
+    authorize @diagnosis, :update?
+
+    diagnosis_params = params_for_needs
+    diagnosis_params[:step] = :matches
+    if @diagnosis.update(diagnosis_params)
+      redirect_to action: :matches
+    else
+      @themes = Theme.ordered_for_interview
+      flash.alert = @diagnosis.errors.full_messages.to_sentence
+      render :needs
+    end
+  end
+
   def matches
     @diagnosis.prepare_matches_from_solicitation
   end
@@ -56,7 +56,7 @@ class Diagnoses::StepsController < ApplicationController
 
     if @diagnosis.update(diagnosis_params)
       @diagnosis.notify_matches_made!
-      @diagnosis.solicitation&.status_processed!
+      @diagnosis.solicitation&.process!
       flash.notice = I18n.t('diagnoses.steps.matches.notifications_sent')
       redirect_to solicitations_path
     else

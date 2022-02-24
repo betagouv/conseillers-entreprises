@@ -95,14 +95,13 @@ Rails.application.routes.draw do
       post :ban_facility
     end
     collection do
-      get :reminded, path: 'relancees'
-      get :processed, path: 'traitees'
-      get :canceled, path: 'annulees'
+      get :processed, path: 'mises-en-relation'
+      get :canceled, path: 'abandonnees'
     end
     collection do # Nice pagination paths instead of the ?page= parameter (for kaminari)
       get 'page/:page', action: :index
-      get 'traitees/page/:page', action: :processed
-      get 'annulees/page/:page', action: :canceled
+      get 'mises-en-relation/page/:page', action: :processed
+      get 'abandonnees/page/:page', action: :canceled
     end
   end
 

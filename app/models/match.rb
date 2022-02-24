@@ -130,7 +130,7 @@ class Match < ApplicationRecord
   end
 
   def self.ransackable_scopes(auth_object = nil)
-    [:solicitation_created_at_gteq_datetime, :solicitation_created_at_lteq_datetime]
+    [:sent, :solicitation_created_at_gteq_datetime, :solicitation_created_at_lteq_datetime]
   end
 
   ##

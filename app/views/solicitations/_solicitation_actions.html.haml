@@ -41,8 +41,7 @@
   .ui.item.dropdown
     %span.ri-list-settings-fill
     .ui.menu
-      - solicitation.allowed_new_statuses.each do |status|
-        = status_action_link(solicitation, status, %w[item])
+      = status_action_link(solicitation, 'canceled', %w[item]) if solicitation.may_cancel?
       .item.show-feedbacks-form{ 'data-feedbackable': "#{solicitation.id}" }= t('feedbacks.add')
       - banning_action = solicitation.from_banned_company? ? t('.unban_facility') : t('.ban_facility')
       = link_to banning_action, ban_facility_solicitation_path(solicitation), method: :post, class: 'item'

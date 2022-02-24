@@ -770,10 +770,9 @@ fr:
       marked_as_banned: Email et entreprise ont été exclus
       marked_as_unbanned: Email et entreprise ont été réintégrés
     header:
-      canceled: annulées
-      index: à traiter
-      processed: traitées
-      reminded: relancées
+      canceled: abandonnées
+      index: reçues
+      processed: mises en relation
     index:
       clear_search: Réinitialiser la recherche
       filter: Filtrer
@@ -783,10 +782,9 @@ fr:
       search_placeholder: Tag, aide demandée…
       title: Sollicitations
     menu:
-      canceled: Annulées
-      index_html: À traiter
-      processed: Traitées
-      reminded_html: Relancées
+      canceled: Abandonnées
+      index_html: Reçues
+      processed: Mises en relation
     set_category_content:
       landings: Page source
       subjects: Sujets de landings

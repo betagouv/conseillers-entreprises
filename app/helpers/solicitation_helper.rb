@@ -24,7 +24,6 @@ module SolicitationHelper
 
   STATUS_ACTION_COLORS = {
     in_progress: %w[yellow],
-    reminded: %w[orange],
     processed: %w[grey],
     canceled: %w[red]
   }
