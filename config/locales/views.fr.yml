@@ -758,7 +758,7 @@ fr:
       xslx_name: export-%{number}-trimestre-%{year}.xlsx
     index:
       interval: "%{start_month} à %{end_month} %{year}"
-      no_export_available: L’export de données et vote rapport trimestriels ne sont pas encore disponibles pour votre antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
+      no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour votre antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
       sub_title: Antenne %{name}
       title: Export des données
   shared:
