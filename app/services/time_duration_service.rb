@@ -15,7 +15,7 @@ class TimeDurationService
     quarters.last(4).reverse
   end
 
-  def self.find_quarter(month)
+  def self.find_quarter(month, format = 'to_text')
     case month
     when 1,2,3
       "1"

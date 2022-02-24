@@ -10,6 +10,8 @@
               = t('.interval', start_month: I18n.l(quarterly_report.start_date, format: :month_name), end_month: I18n.l(quarterly_report.end_date, format: :month_name), year: quarterly_report.end_date.year)
         .fr-tile__img
           %span.ri-file-download-line
+      -# = link_to download_antenne_stats_reports_path(start_date: quarter.first, end_date: quarter.last, format: :xlsx), class: '' do
+      -#   = t('reports.download_antenne_stats.xslx_filename', antenne: current_user.antenne.name.parameterize, number: TimeDurationService.find_quarter(quarter.first.month, 'to_number'), year: quarter.last.year)
   - else
     .fr-alert.fr-alert--info
       %p.fr-alert__title= t('.no_export_available')

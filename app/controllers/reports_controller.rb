@@ -17,6 +17,26 @@ class ReportsController < ApplicationController
     end
   end
 
+  def download_antenne_stats
+    start_date = params[:start_date].to_date
+    end_date = params[:end_date].to_date
+    xlsx_filename = t('.xslx_filename', antenne: current_user.antenne.name.parameterize, number: TimeDurationService.find_quarter(start_date.month), year: start_date.year)
+
+    exporter = XlsxExport::AntenneStatsExporter.new({
+      start_date: start_date,
+      end_date: end_date,
+      antenne: current_user.antenne
+    })
+
+    respond_to do |format|
+      format.xlsx do
+        result = exporter.export
+        send_data result.xlsx, type: "application/xlsx", filename: xlsx_filename
+      end
+    end
+
+  end
+
   private
 
   def last_quarters
