@@ -1,14 +1,10 @@
 module SolicitationModification
   class UpdateAllCreatedInDeployedRegion
-    def self.call(solicitations = Solicitation.where.not(code_region: nil).where(created_in_deployed_region: false))
-      self.new(solicitations).call
-    end
-
     def initialize(solicitations)
       @solicitations = solicitations
     end
 
-    def call
+    def base_call
       @solicitations.find_each do |solicitation|
         region = solicitation.region
         next unless region

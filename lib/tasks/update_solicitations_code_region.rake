@@ -9,7 +9,7 @@ namespace :update_solicitations_code_region do
     solicitations_to_update.joins(:diagnosis).find_each do |solicitation|
       code_region = solicitation.diagnosis_regions&.first&.code_region
       if code_region.present?
-        SolicitationModification::Update.call(solicitation, code_region: code_region)
+        SolicitationModification::Update.new(solicitation, code_region: code_region).call!
         total += 1
       end
     end
@@ -32,7 +32,7 @@ namespace :update_solicitations_code_region do
         etablissement_data = ApiEntreprise::Etablissement::Base.new(solicitation.siret).call
         return if etablissement_data.blank?
         code_region = ApiConsumption::Models::Facility.new(etablissement_data).code_region
-        SolicitationModification::Update.call(solicitation, code_region: code_region)
+        SolicitationModification::Update.new(solicitation, code_region: code_region).call!
         total += 1
       rescue StandardError => e
         next
