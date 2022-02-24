@@ -94,6 +94,9 @@ class Solicitation < ApplicationRecord
       self.code_region = response.siege_social[:region_siege]
       self.siret = response.siege_social[:siret]
     end
+    if self.region.present? && (self.region.deployed? && (self.created_at > self.region.deployed_at))
+      self.created_in_deployed_region = true
+    end
   end
 
   ## Validations
