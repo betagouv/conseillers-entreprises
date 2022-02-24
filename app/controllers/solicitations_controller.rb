@@ -126,12 +126,13 @@ class SolicitationsController < ApplicationController
   end
 
   def count_solicitations
-    @count_solicitations = Rails.cache.fetch(["count-solicitations", ordered_solicitations.maximum(:updated_at), territory_id]) do
+    # ces count varient très souvent (dès que les bizdev travaillent sur les solicitations),
+    # le cache n'avait pas beaucoup de sens ici
+    @count_solicitations =
       {
         in_progress: ordered_solicitations.status_in_progress.total_count,
         reminded: ordered_solicitations.status_reminded.total_count
       }
-    end
   end
 
   # nom de variable spécifique pour ne pas parasiter les autres filtres région
