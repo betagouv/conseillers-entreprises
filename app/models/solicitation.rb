@@ -16,7 +16,7 @@
 #  prepare_diagnosis_errors_details :jsonb
 #  requested_help_amount            :string
 #  siret                            :string
-#  status                           :integer          default("in_progress")
+#  status                           :enum             default("in_progress"), not null
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  institution_id                   :bigint(8)
@@ -31,6 +31,7 @@
 #  index_solicitations_on_landing_id          (landing_id)
 #  index_solicitations_on_landing_slug        (landing_slug)
 #  index_solicitations_on_landing_subject_id  (landing_subject_id)
+#  index_solicitations_on_status              (status)
 #
 # Foreign Keys
 #
@@ -44,7 +45,8 @@ class Solicitation < ApplicationRecord
   include DiagnosisCreation::SolicitationMethods
   include RangeScopes
 
-  enum status: { in_progress: 0, processed: 1, canceled: 2 }, _prefix: true
+  enum status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
+
 
   aasm column: :status, enum: true do
     state :in_progress, initial: true
