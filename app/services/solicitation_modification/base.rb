@@ -1,17 +1,22 @@
 module SolicitationModification
   class Base
-    def self.call(solicitation = Solicitation.new, params = {})
-      self.new(solicitation, params).call
-    end
-
-    def initialize(solicitation, params)
+    def initialize(solicitation = Solicitation.new, params)
       @params = params
       @solicitation = solicitation
     end
 
-    def call
+    def base_call
       check_in_deployed_region
       @solicitation.assign_attributes(@params)
+    end
+
+    def call
+      base_call
+      return @solicitation
+    end
+
+    def call!
+      base_call
       @solicitation.save
       return @solicitation
     end

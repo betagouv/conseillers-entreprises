@@ -60,6 +60,7 @@ RSpec.describe Solicitation, type: :model do
         it 'sets correctly siret and code_region' do
           expect(solicitation.code_region).to eq(11)
           expect(solicitation.siret).to eq('41816609600069')
+          expect(solicitation.created_in_deployed_region).to be true
         end
       end
 
@@ -78,6 +79,7 @@ RSpec.describe Solicitation, type: :model do
         it 'sets correctly siret and code_region' do
           expect(solicitation.code_region).to eq(11)
           expect(solicitation.siret).to eq('41816609600069')
+          expect(solicitation.created_in_deployed_region).to be true
         end
       end
 
@@ -87,6 +89,7 @@ RSpec.describe Solicitation, type: :model do
         it 'doesnt set code_region' do
           expect(solicitation.code_region).to eq(nil)
           expect(solicitation.siret).to eq('lalala')
+          expect(solicitation.created_in_deployed_region).to be false
         end
       end
     end

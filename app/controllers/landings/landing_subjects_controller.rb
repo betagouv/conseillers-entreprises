@@ -9,7 +9,7 @@ class Landings::LandingSubjectsController < Landings::BaseController
 
   def create_solicitation
     sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
-    @solicitation = SolicitationModification::Create.call(sanitized_params)
+    @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       @solicitation.delay.prepare_diagnosis(nil)
