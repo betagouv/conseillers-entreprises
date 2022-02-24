@@ -121,7 +121,7 @@ class SolicitationsController < ApplicationController
     # le cache n'avait pas beaucoup de sens ici
     @count_solicitations =
       {
-        in_progress: ordered_solicitations.status_in_progress.total_count,
+        in_progress: ordered_solicitations.status_in_progress.total_count
       }
   end
 

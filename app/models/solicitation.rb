@@ -47,7 +47,6 @@ class Solicitation < ApplicationRecord
 
   enum status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
 
-
   aasm column: :status, enum: true do
     state :in_progress, initial: true
     state :processed
