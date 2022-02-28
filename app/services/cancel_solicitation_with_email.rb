@@ -1,4 +1,4 @@
-class ProcessSolicitationWithEmail
+class CancelSolicitationWithEmail
   attr_reader :base_faq
 
   def initialize(solicitation, email_type)
@@ -10,9 +10,10 @@ class ProcessSolicitationWithEmail
     @email_type.present? && @solicitation.present? && Solicitation::GENERIC_EMAILS_TYPES.include?(@email_type.to_sym)
   end
 
-  def process
+  def cancel
+    raise StandardError, I18n.t('errors.cancel_solicitation_with_email') unless valid?
     @solicitation.update(badge_ids: @solicitation.badge_ids + [email_type_to_badge_id])
-    @solicitation.update(status: 'processed')
+    @solicitation.cancel!
     SolicitationMailer.send(@email_type, @solicitation).deliver_later
   end
 
