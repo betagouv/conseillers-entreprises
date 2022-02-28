@@ -96,14 +96,6 @@ class Antenne < ApplicationRecord
     end
   end
 
-  scope :antenne_territory_needs, -> (user, start_date, end_date) do
-    joins(experts: { antenne: :institution }, facility: :commune)
-      .diagnosis_completed
-      .where(facilities: { commune: user.antenne.communes },
-             experts: { institutions: [user.institution] },
-             created_at: [start_date..end_date])
-  end
-
   def territory_needs(start_date, end_date)
     self.received_diagnoses.joins(experts: { antenne: :institution }, facility: :commune)
       .where(facilities: { commune: self.communes },
