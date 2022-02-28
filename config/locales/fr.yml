@@ -120,6 +120,7 @@ fr:
       year: Année
   download_csv: Télécharger CSV
   errors:
+    cancel_solicitation_with_email: La sollicitation ne pas pas être mise à jour (solicitation ou type d'email invalide)
     format: "%{attribute} %{message}"
     messages:
       accepted: doit être accepté(e)
