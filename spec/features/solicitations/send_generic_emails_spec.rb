@@ -22,7 +22,7 @@ describe 'send generic emails', type: :feature do
     expect(page.html).to include I18n.t('emails.sent')
     expect(page.html).not_to include "Top Entreprise"
 
-    visit processed_solicitations_path
+    visit canceled_solicitations_path
     expect(page.html).to include "Top Entreprise"
     within("#solicitation-#{solicitation.id}-badges") do
       expect(page).to have_content I18n.t('solicitations.solicitation_actions.emails.bad_quality_difficulties')
