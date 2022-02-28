@@ -7,12 +7,12 @@ class ReportsController < ApplicationController
   end
 
   def download_matches
-    quarterly_data = QuarterlyData.find_by(id: params[:id], antenne: current_user.antenne)
-    authorize quarterly_data, policy_class: ReportPolicy
+    quarterly_report = QuarterlyReport.find_by(id: params[:id], antenne: current_user.antenne)
+    authorize quarterly_report, policy_class: ReportPolicy
     respond_to do |format|
       format.html
       format.xlsx do
-        send_data quarterly_data.file.download, type: "application/xlsx", filename: quarterly_data.file.filename.to_s
+        send_data quarterly_report.file.download, type: "application/xlsx", filename: quarterly_report.file.filename.to_s
       end
     end
   end

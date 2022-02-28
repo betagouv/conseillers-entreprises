@@ -1,13 +1,13 @@
 .fr-container.reports
   %h1= t('.title')
   .fr-text--lead.fr-mb-8w= t('.sub_title', name: current_user.antenne.name)
-  - if @antenne.quarterly_datas.present?
-    - @antenne.quarterly_datas.each do |quarterly_data|
+  - if @antenne.quarterly_reports.present?
+    - @antenne.quarterly_reports.each do |quarterly_report|
       .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-4w
         .fr-tile__body
           %h2.fr-h4.fr-tile__title
-            = link_to download_matches_report_path(quarterly_data, format: :xlsx), class: 'fr-tile__link' do
-              = t('.interval', start_month: I18n.l(quarterly_data.start_date, format: :month_name), end_month: I18n.l(quarterly_data.end_date, format: :month_name), year: quarterly_data.end_date.year)
+            = link_to download_matches_report_path(quarterly_report, format: :xlsx), class: 'fr-tile__link' do
+              = t('.interval', start_month: I18n.l(quarterly_report.start_date, format: :month_name), end_month: I18n.l(quarterly_report.end_date, format: :month_name), year: quarterly_report.end_date.year)
         .fr-tile__img
           %span.ri-file-download-line
   - else

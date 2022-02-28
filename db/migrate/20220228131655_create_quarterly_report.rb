@@ -1,6 +1,6 @@
-class CreateQuarterlyData < ActiveRecord::Migration[6.1]
+class CreateQuarterlyReport < ActiveRecord::Migration[6.1]
   def change
-    create_table :quarterly_data do |t|
+    create_table :quarterly_reports do |t|
       t.date :start_date
       t.date :end_date
       t.references :antenne, null: false, foreign_key: true

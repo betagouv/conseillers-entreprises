@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: quarterly_data
+# Table name: quarterly_reports
 #
 #  id         :bigint(8)        not null, primary key
 #  end_date   :date
@@ -11,13 +11,13 @@
 #
 # Indexes
 #
-#  index_quarterly_data_on_antenne_id  (antenne_id)
+#  index_quarterly_reports_on_antenne_id  (antenne_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (antenne_id => antennes.id)
 #
-class QuarterlyData < ApplicationRecord
+class QuarterlyReport < ApplicationRecord
   belongs_to :antenne
   has_one_attached :file
 end

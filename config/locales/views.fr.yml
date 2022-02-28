@@ -699,7 +699,7 @@ fr:
       inserts: Encarts
   person:
     deleted_person: Compte supprimé
-  quarterly_data_service:
+  quarterly_report_service:
     matches_file_name: export-%{number}-trimestre-%{year}.xlsx
   reminders:
     experts:

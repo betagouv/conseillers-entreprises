@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_22_151731) do
+ActiveRecord::Schema.define(version: 2022_02_28_131655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,12 @@ ActiveRecord::Schema.define(version: 2022_02_22_151731) do
     "not_for_me",
     "done_no_help",
     "done_not_reachable",
+  ], force: :cascade
+
+  create_enum :solicitation_status, [
+    "in_progress",
+    "processed",
+    "canceled",
   ], force: :cascade
 
   create_enum :user_roles, [
@@ -447,13 +453,13 @@ ActiveRecord::Schema.define(version: 2022_02_22_151731) do
     t.index ["subject_id"], name: "index_needs_on_subject_id"
   end
 
-  create_table "quarterly_data", force: :cascade do |t|
+  create_table "quarterly_reports", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
     t.bigint "antenne_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["antenne_id"], name: "index_quarterly_data_on_antenne_id"
+    t.index ["antenne_id"], name: "index_quarterly_reports_on_antenne_id"
   end
 
   create_table "reminders_actions", force: :cascade do |t|
@@ -484,7 +490,6 @@ ActiveRecord::Schema.define(version: 2022_02_22_151731) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "siret"
-    t.integer "status", default: 0
     t.string "full_name"
     t.string "landing_slug"
     t.jsonb "prepare_diagnosis_errors_details", default: {}
@@ -496,12 +501,14 @@ ActiveRecord::Schema.define(version: 2022_02_22_151731) do
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
     t.boolean "banned", default: false
+    t.enum "status", default: "in_progress", null: false, enum_type: "solicitation_status"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"
     t.index ["landing_id"], name: "index_solicitations_on_landing_id"
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
+    t.index ["status"], name: "index_solicitations_on_status"
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|
@@ -616,7 +623,7 @@ ActiveRecord::Schema.define(version: 2022_02_22_151731) do
   add_foreign_key "matches", "subjects"
   add_foreign_key "needs", "diagnoses"
   add_foreign_key "needs", "subjects"
-  add_foreign_key "quarterly_data", "antennes"
+  add_foreign_key "quarterly_reports", "antennes"
   add_foreign_key "reminders_actions", "needs"
   add_foreign_key "searches", "users"
   add_foreign_key "solicitations", "institutions"
