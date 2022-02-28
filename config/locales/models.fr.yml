@@ -131,7 +131,7 @@ fr:
         regional: Régional
       commune:
         insee_code: Code commune
-      company: 
+      company:
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
@@ -506,6 +506,18 @@ fr:
       user:
         one: Utilisateur
         other: Utilisateurs
+  antenne_stats_exporter:
+    count: Nb
+    percentage: '%'
+    needs: Besoins
+    facilities: Etablissements
+    matches: Mises en relation
+    answer_rate: Taux de réponse
+    positionning_rate: Taux de positionnement
+    positionning_accepted_rate: Taux de prise en charge
+    done_rate: Taux de clôture avec aide
+    not_for_me_rate: Taux de refus
+    quo_rate: Taux de sans réponse
   archivable:
     archive: Archiver
     archive_done: Archivé

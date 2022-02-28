@@ -34,7 +34,6 @@ class ReportsController < ApplicationController
         send_data result.xlsx, type: "application/xlsx", filename: xlsx_filename
       end
     end
-
   end
 
   private
