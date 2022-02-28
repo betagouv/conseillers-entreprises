@@ -8,8 +8,9 @@ module GeocoderIp
   def check_region
     return if Rails.env.test?
 
-    ip = ENV['IP_OVERRIDE'] || request.remote_ip
-    if session[:in_deployed_region].blank?
+    Rails.cache.fetch(request.remote_ip, expires_in: 12.hours) do
+      ip = ENV['IP_OVERRIDE'] || request.remote_ip
+
       results = Rails.cache.fetch(ip, expires_in: 12.hours) do
         Geocoder.search(ip)
       end
