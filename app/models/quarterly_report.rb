@@ -18,6 +18,6 @@
 #  fk_rails_...  (antenne_id => antennes.id)
 #
 class QuarterlyReport < ApplicationRecord
-  belongs_to :antenne
+  belongs_to :antenne, inverse_of: :quarterly_reports
   has_one_attached :file
 end
