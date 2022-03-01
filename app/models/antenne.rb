@@ -8,6 +8,7 @@
 #  manager_full_name :string
 #  manager_phone     :string
 #  name              :string
+#  nationale         :boolean          default(FALSE), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  institution_id    :bigint(8)        not null

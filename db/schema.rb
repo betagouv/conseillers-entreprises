@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_28_131655) do
+ActiveRecord::Schema.define(version: 2022_02_28_145743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_131655) do
     t.string "manager_full_name"
     t.string "manager_email"
     t.string "manager_phone"
+    t.boolean "nationale", default: false, null: false
     t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
     t.index ["name", "institution_id"], name: "index_antennes_on_name_and_institution_id", unique: true

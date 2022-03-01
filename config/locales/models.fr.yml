@@ -48,6 +48,7 @@ fr:
       admin: Admins
       all: Tout
       antenne_manager: Responsables d’antenne
+      antenne_manager_national: Responsables d’antenne nationale
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
@@ -609,6 +610,7 @@ fr:
       other: Mises en relation
     naf_code: Code NAF
     name: Nom
+    nationale: Nationale (Temporaire utilisé pour l’export trimestriel des MER)
     need: Besoin
     need_id: Identifiant du besoin
     need_status: Statut du besoin
