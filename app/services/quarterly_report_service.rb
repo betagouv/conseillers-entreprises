@@ -23,7 +23,7 @@ class QuarterlyReportService
         filename = I18n.t('quarterly_report_service.matches_file_name', number: TimeDurationService.find_quarter(quarter.first.month), year: quarter.first.year)
         antenne.quarterly_reports.create(start_date: quarter.first, end_date: quarter.last)
           .file.attach(io: result.xlsx.to_stream(true),
-                       key: "#{Rails.env}/quarterly_report_matches/#{antenne.name.parameterize}/#{filename}",
+                       key: "quarterly_report_matches/#{antenne.name.parameterize}/#{filename}",
                        filename: filename,
                        content_type: 'application/xlsx')
       end

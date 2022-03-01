@@ -700,7 +700,7 @@ fr:
   person:
     deleted_person: Compte supprimé
   quarterly_report_service:
-    matches_file_name: export-%{number}-trimestre-%{year}.xlsx
+    matches_file_name: export-mises-en-relation-%{year}T%{number}.xlsx
   reminders:
     experts:
       expert:
@@ -955,12 +955,6 @@ fr:
         quality: Suivi qualité
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
-  time_duration_service:
-    find_quarter:
-      first: premier
-      fourth: quatrieme
-      second: deuxieme
-      third: troisieme
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:
