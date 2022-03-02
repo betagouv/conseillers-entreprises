@@ -22,4 +22,33 @@ RSpec.describe ReportPolicy, type: :policy do
       it { is_expected.not_to permit(user) }
     end
   end
+
+  permissions :download_matches? do
+    let(:antenne) { create :antenne }
+    let!(:quarterly_report) { create :quarterly_report, antenne: antenne }
+
+    context "denies access if user is an admin" do
+      let(:user) { create :user, role: 'admin' }
+
+      it { is_expected.not_to permit(user, quarterly_report) }
+    end
+
+    context "grants access if user is a region manager for his antenne report" do
+      let(:user) { create :user, role: 'antenne_manager', antenne: antenne }
+
+      it { is_expected.to permit(user, quarterly_report) }
+    end
+
+    context "denies access if user is a region manager for another antenne report" do
+      let(:user) { create :user, role: 'antenne_manager', antenne: create(:antenne) }
+
+      it { is_expected.not_to permit(user, quarterly_report) }
+    end
+
+    context "denies access if user is another user" do
+      let(:user) { create :user, antenne: antenne }
+
+      it { is_expected.not_to permit(user, quarterly_report) }
+    end
+  end
 end

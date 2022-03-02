@@ -18,13 +18,13 @@ class TimeDurationService
   def self.find_quarter(month)
     case month
     when 1,2,3
-      I18n.t('time_duration_service.find_quarter.first')
+      "1"
     when 4,5,6
-      I18n.t('time_duration_service.find_quarter.second')
+      "2"
     when 7,8,9
-      I18n.t('time_duration_service.find_quarter.third')
+      "3"
     when 10,11,12
-      I18n.t('time_duration_service.find_quarter.fourth')
+      "4"
     end
   end
 end

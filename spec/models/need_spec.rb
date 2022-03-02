@@ -298,7 +298,7 @@ RSpec.describe Need, type: :model do
       end
     end
 
-    describe 'user_antenne_territory_needs' do
+    describe 'antenne_territory_needs' do
       let(:commune_inside) { create :commune }
       let(:commune_outside) { create :commune }
       let(:facility_inside) { create :facility, commune: commune_inside }
@@ -350,12 +350,10 @@ RSpec.describe Need, type: :model do
       let!(:diagnosis_8) { create :diagnosis, facility: facility_outside, needs: [need_8] }
       let(:need_8) { create :need_with_matches, created_at: a_month_ago }
 
-      subject { described_class.user_antenne_territory_needs(user, a_week_ago, now) }
+      subject { described_class.antenne_territory_needs(antenne, a_week_ago, now) }
 
-      context 'expert with antenne territory' do
-        let(:user) { create :user, :invitation_accepted, antenne: antenne }
-
-        it { is_expected.to match_array [need_1, need_9] }
+      it 'return needs in antenne territory' do
+        is_expected.to match_array [need_1, need_9]
       end
     end
   end

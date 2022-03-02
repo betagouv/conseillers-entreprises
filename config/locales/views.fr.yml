@@ -699,6 +699,8 @@ fr:
       inserts: Encarts
   person:
     deleted_person: Compte supprimé
+  quarterly_report_service:
+    matches_file_name: export-mises-en-relation-%{year}T%{number}.xlsx
   reminders:
     experts:
       expert:
@@ -754,8 +756,6 @@ fr:
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:
-    download_matches:
-      xslx_name: export-%{number}-trimestre-%{year}.xlsx
     index:
       interval: "%{start_month} à %{end_month} %{year}"
       no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour votre antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
@@ -955,12 +955,6 @@ fr:
         quality: Suivi qualité
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
-  time_duration_service:
-    find_quarter:
-      first: premier
-      fourth: quatrieme
-      second: deuxieme
-      third: troisieme
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

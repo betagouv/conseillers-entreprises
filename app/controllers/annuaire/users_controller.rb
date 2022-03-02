@@ -22,7 +22,7 @@ module  Annuaire
         format.xlsx do
           xlsx_filename = "#{(@antenne || @institution).name.parameterize}-#{@users.model_name.human.pluralize.parameterize}.xlsx"
           result = @users.export_xlsx(include_expert_team: true, institutions_subjects: institutions_subjects)
-          send_data result.xlsx, type: "application/xlsx", filename: xlsx_filename
+          send_data result.xlsx.to_stream.read, type: "application/xlsx", filename: xlsx_filename
         end
       end
     end
