@@ -509,6 +509,8 @@ fr:
   antenne_stats_exporter:
     subtitle: Analyse statistique du flux et du comportement des experts
     quarter_stats: 'Stats trim.'
+    year_stats: 'Stats ann.'
+    from_beginning_of_year: Depuis le début de l’année %{year}
     count: Nb
     percentage: '%'
     needs: Besoins
