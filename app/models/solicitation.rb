@@ -54,7 +54,7 @@ class Solicitation < ApplicationRecord
 
     event :cancel do
       # une solicitation peut être doublement canceled : "mauvais siret" qui se transforme en "hors région"
-      transitions from: [:in_progress, :processed, :cancel], to: :canceled
+      transitions from: [:in_progress, :processed, :canceled], to: :canceled
     end
 
     event :process do
