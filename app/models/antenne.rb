@@ -96,13 +96,6 @@ class Antenne < ApplicationRecord
     end
   end
 
-  def territory_needs(start_date, end_date)
-    self.received_diagnoses.joins(experts: { antenne: :institution }, facility: :commune)
-      .where(facilities: { commune: self.communes },
-             experts: { institutions: [self.institution] },
-             created_at: [start_date..end_date])
-  end
-
   # Antenne regionale
   #
   # instance dont le territoire est l'ensemble d'une region
