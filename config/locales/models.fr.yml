@@ -507,6 +507,8 @@ fr:
         one: Utilisateur
         other: Utilisateurs
   antenne_stats_exporter:
+    subtitle: Analyse statistique du flux et du comportement des experts
+    quarter_stats: 'Stats trim.'
     count: Nb
     percentage: '%'
     needs: Besoins
