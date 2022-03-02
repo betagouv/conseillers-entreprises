@@ -58,7 +58,7 @@ class Solicitation < ApplicationRecord
     end
 
     event :process do
-      transitions from: [:in_progress, :canceled],  to: :processed, if: :diagnosis_completed?
+      transitions from: [:in_progress, :canceled], to: :processed, if: :diagnosis_completed?
     end
   end
 
