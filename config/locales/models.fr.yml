@@ -131,7 +131,7 @@ fr:
         regional: Régional
       commune:
         insee_code: Code commune
-      company:
+      company: 
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
@@ -507,21 +507,21 @@ fr:
         one: Utilisateur
         other: Utilisateurs
   antenne_stats_exporter:
-    subtitle: Analyse statistique du flux et du comportement des experts
-    quarter_stats: 'Stats trim.'
-    year_stats: 'Stats ann.'
-    from_beginning_of_year: Depuis le début de l’année %{year}
-    count: Nb
-    percentage: '%'
-    needs: Besoins
-    facilities: Etablissements
-    matches: Mises en relation
     answer_rate: Taux de réponse
-    positionning_rate: Taux de positionnement
-    positionning_accepted_rate: Taux de prise en charge
+    count: Nb
     done_rate: Taux de clôture avec aide
+    facilities: Etablissements
+    from_beginning_of_year: Depuis le début de l’année %{year}
+    matches: Mises en relation
+    needs: Besoins
     not_for_me_rate: Taux de refus
+    percentage: "%"
+    positionning_accepted_rate: Taux de prise en charge
+    positionning_rate: Taux de positionnement
+    quarter_stats: Stats trim.
     quo_rate: Taux de sans réponse
+    subtitle: Analyse statistique du flux et du comportement des experts
+    year_stats: Stats ann.
   archivable:
     archive: Archiver
     archive_done: Archivé

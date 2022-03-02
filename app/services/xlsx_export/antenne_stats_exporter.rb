@@ -84,7 +84,6 @@ module XlsxExport
       sheet.add_row
     end
 
-
     def generate_needs_stats
       ordered_need_statuses = [:done, :done_no_help, :done_not_reachable, :quo, :not_for_me, :taking_care]
       # On ne prend que les thèmes principaux
@@ -102,7 +101,7 @@ module XlsxExport
       (0...themes.size).to_a.each do |index|
         need_status = ordered_need_statuses[index]
         need_status_size = needs.send("status_#{need_status}")&.size if need_status.present?
-        theme = Theme.find_by(interview_sort_order: index+1)
+        theme = Theme.find_by(interview_sort_order: index + 1)
         needs_by_theme_size = calculate_needs_by_theme_size(theme)
         sheet.add_row [
           need_status.present? ? I18n.t("activerecord.attributes.need/statuses/csv.#{need_status}") : nil,
@@ -162,7 +161,7 @@ module XlsxExport
       when :positionning
         matches.size - matches.status_quo.size
       # Pris en charge, clôturé avec aide, clôturé sans aide, injoignable
-    when :positionning_accepted
+      when :positionning_accepted
         matches.size - (matches.status_quo.size + matches.status_not_for_me.size)
       else
         matches.send("status_#{status}")&.size
@@ -170,7 +169,7 @@ module XlsxExport
     end
 
     def calculate_needs_by_theme_size(theme)
-      needs.joins(subject: :theme).where(subject: {theme: theme}).size
+      needs.joins(subject: :theme).where(subject: { theme: theme }).size
     end
 
     # Style
@@ -180,8 +179,8 @@ module XlsxExport
       @bold         = s.add_style b: true
       @left_header  = s.add_style bg_color: 'FFDFDEDF', b: true, alignment: { horizontal: :left }
       @right_header = s.add_style bg_color: 'FFDFDEDF', b: true, alignment: { horizontal: :right }
-      @label      = s.add_style alignment: { indent: 1 }
-      @rate      = s.add_style format_code: '#0.0%'
+      @label = s.add_style alignment: { indent: 1 }
+      @rate = s.add_style format_code: '#0.0%'
       s
     end
 
