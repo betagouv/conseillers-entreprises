@@ -16,7 +16,7 @@ class QuarterlyReportService
       quarters.each do |quarter|
         next if antenne.quarterly_reports.find_by(start_date: quarter.first).present?
 
-        matches = Match.antenne_territory_needs(antenne, quarter.first, quarter.last)
+        matches = Match.antenne_territory_matches(antenne, quarter.first, quarter.last)
         next if matches.blank?
 
         result = matches.export_xlsx
