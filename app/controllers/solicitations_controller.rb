@@ -8,6 +8,7 @@ class SolicitationsController < ApplicationController
   layout 'side_menu'
 
   def index
+    raise
     @solicitations = ordered_solicitations.status_in_progress
     @status = t('solicitations.header.index')
   end
