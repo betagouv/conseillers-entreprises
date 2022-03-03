@@ -173,6 +173,9 @@ fr:
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
+  contacts:
+    needs_historic:
+      title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
   diagnoses:
     antenne_menu:
       browse_active_diagnoses: Mes analyses
@@ -230,6 +233,9 @@ fr:
         your_contact_in_the_company: 'Contact de l’entreprise %{company_name} :'
       matches:
         before_sending_emails: En cliquant sur le bouton ci-dessous, les experts sélectionnés seront contactés par e-mail et auront accès à la fiche détaillée du besoin.
+        company_needs_historic_title: Cette entreprise a déjà des besoins mis en relation.
+        contact_needs_historic_title: Cette personne a déjà des besoins mis en relation.
+        link_to_historic: Accéder à l’historique
         no_expert_subject: Aucune aide ne répond à ce besoin sur ce territoire pour l’instant.
         notifications_sent: Les notifications ont bien été envoyées.
         notify_matches: Notifier les experts sélectionnés
@@ -794,7 +800,7 @@ fr:
       description: 'Description :'
       email: 'Email :'
       landing_subjects: 'Aides demandées :'
-      needs_historic: 'Historique de l''entreprise :'
+      needs_historic: 'Historique de l’entreprise :'
       siret: 'Siret :'
       solicitation_banned_facility_explanation: Entreprise et email exclus (spam)
       solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'

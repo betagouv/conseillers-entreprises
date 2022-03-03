@@ -171,6 +171,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :contacts, only: [] do
+    member do
+      get :needs_historic, path: 'historique-des-besoins'
+    end
+  end
+
   resources :needs, only: %i[index show], path: 'besoins' do
     collection do
       # TODO: We could use a single route like this:

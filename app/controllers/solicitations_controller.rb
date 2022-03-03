@@ -1,11 +1,11 @@
 class SolicitationsController < ApplicationController
   include TerritoryFiltrable
 
-  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility]
+  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility, :needs_historic]
   before_action :authorize_index_solicitation, :set_category_content, :setup_territory_filters, :count_solicitations, only: [:index, :processed, :canceled]
   before_action :authorize_update_solicitation, only: [:update_status]
 
-  layout 'side_menu'
+  layout 'side_menu', except: :needs_historic
 
   def index
     @solicitations = ordered_solicitations.status_in_progress

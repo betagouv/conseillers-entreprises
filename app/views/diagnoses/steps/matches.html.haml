@@ -4,6 +4,15 @@
   = render 'header', diagnosis: @diagnosis, current_page_step: 4
 
   #matches-app
+    - if @company_needs.present?
+      .fr-alert.fr-alert--warning.fr-mb-2w
+        .fr-alert__title= t('.company_needs_historic_title')
+        %p= link_to t('.link_to_historic'), needs_company_path(siret: @diagnosis.facility.siret), target: :blank, reel: :noopener
+    - if @solicitation_needs.present?
+      .fr-alert.fr-alert--warning.fr-mb-2w
+        .fr-alert__title= t('.contact_needs_historic_title')
+        %p= link_to t('.link_to_historic'), needs_historic_contact_path(@diagnosis.visitee), target: :blank, reel: :noopener
+
     = form_with model: @diagnosis,
       url: update_matches_diagnosis_path(@diagnosis),
       data: { checkboxes_require_one_with: t(".select_at_least_one_expert") },
