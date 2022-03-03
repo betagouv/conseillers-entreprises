@@ -47,8 +47,11 @@ class Antenne < ApplicationRecord
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :managers, -> { role_antenne_manager }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, dependent: :destroy, inverse_of: :antenne
-  has_many :quarterly_reports, dependent: :destroy, inverse_of: :antenne
   accepts_nested_attributes_for :match_filters, allow_destroy: true
+
+  has_many :quarterly_reports, dependent: :destroy, inverse_of: :antenne
+  has_many :matches_reports, -> { category_matches }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
+  has_many :stats_reports, -> { category_stats }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
 
   ## Hooks and Validations
   #

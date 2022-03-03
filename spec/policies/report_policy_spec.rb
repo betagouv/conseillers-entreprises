@@ -23,9 +23,9 @@ RSpec.describe ReportPolicy, type: :policy do
     end
   end
 
-  permissions :download_matches? do
+  permissions :download? do
     let(:antenne) { create :antenne }
-    let!(:quarterly_report) { create :quarterly_report, antenne: antenne }
+    let!(:quarterly_report) { create :quarterly_report, :category_matches, antenne: antenne }
 
     context "denies access if user is an admin" do
       let(:user) { create :user, role: 'admin' }

@@ -1,35 +1,53 @@
 class QuarterlyReportService
   class << self
-    def matches_export
+    def generate_reports
       Antenne.find_each do |antenne|
         quarters = last_quarters(antenne)
         next if quarters.nil?
-
-        generate_matches_files(antenne, quarters)
-        destroy_old_matches_files(antenne, quarters)
+        quarters.each do |quarter|
+          generate_matches_files(antenne, quarter)
+          generate_stats_files(antenne, quarter)
+        end
+        destroy_old_report_files(antenne, quarters)
       end
     end
 
     private
 
-    def generate_matches_files(antenne, quarters)
-      quarters.each do |quarter|
-        next if antenne.quarterly_reports.find_by(start_date: quarter.first).present?
+    def generate_matches_files(antenne, quarter)
+      return if antenne.matches_reports.find_by(start_date: quarter.first).present?
 
-        matches = Match.antenne_territory_matches(antenne, quarter.first, quarter.last)
-        next if matches.blank?
+      matches = Match.antenne_territory_matches(antenne, quarter.first, quarter.last)
+      return if matches.blank?
 
-        result = matches.export_xlsx
-        filename = I18n.t('quarterly_report_service.matches_file_name', number: TimeDurationService.find_quarter(quarter.first.month), year: quarter.first.year)
-        antenne.quarterly_reports.create(start_date: quarter.first, end_date: quarter.last)
-          .file.attach(io: result.xlsx.to_stream(true),
-                       key: "quarterly_report_matches/#{antenne.name.parameterize}/#{filename}",
-                       filename: filename,
-                       content_type: 'application/xlsx')
-      end
+      result = matches.export_xlsx
+      filename = I18n.t('quarterly_report_service.matches_file_name', number: TimeDurationService.find_quarter(quarter.first.month), year: quarter.first.year, antenne: antenne.name.parameterize)
+      antenne.matches_reports.create(start_date: quarter.first, end_date: quarter.last)
+        .file.attach(io: result.xlsx.to_stream(true),
+                     key: "quarterly_report_matches/#{antenne.name.parameterize}/#{filename}",
+                     filename: filename,
+                     content_type: 'application/xlsx')
     end
 
-    def destroy_old_matches_files(antenne, quarters)
+    def generate_stats_files(antenne, quarter)
+      return if antenne.stats_reports.find_by(start_date: quarter.first).present?
+
+      exporter = XlsxExport::AntenneStatsExporter.new({
+        start_date: quarter.first,
+            end_date: quarter.last,
+            antenne: antenne
+      })
+      result = exporter.export
+
+      filename = I18n.t('quarterly_report_service.stats_file_name', number: TimeDurationService.find_quarter(quarter.first.month), year: quarter.first.year, antenne: antenne.name.parameterize)
+      antenne.stats_reports.create(start_date: quarter.first, end_date: quarter.last)
+        .file.attach(io: result.xlsx.to_stream(true),
+                     key: "quarterly_report_stats/#{antenne.name.parameterize}/#{filename}",
+                     filename: filename,
+                     content_type: 'application/xlsx')
+    end
+
+    def destroy_old_report_files(antenne, quarters)
       start_dates = quarters.map(&:first)
       antenne.quarterly_reports.where.not(start_date: start_dates).destroy_all
     end
