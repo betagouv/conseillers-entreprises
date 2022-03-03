@@ -18,7 +18,7 @@ class DiagnosesController < ApplicationController
     authorize Diagnosis
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])
     @diagnosis = DiagnosisCreation.new_diagnosis(@current_solicitation)
-    @needs = Need.joins(diagnosis: :solicitation).where(diagnosis: { solicitations: { email: @current_solicitation&.email } })
+    @needs = Need.historic(@current_solicitation.email, @current_solicitation&.siret)
   end
 
   def index_antenne
