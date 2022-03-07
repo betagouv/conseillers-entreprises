@@ -3,7 +3,6 @@ class ReportsController < ApplicationController
   before_action :retrieve_quarters
 
   def index
-    @quarterly_reports = @antenne.quarterly_reports
     authorize :report, :index?
   end
 

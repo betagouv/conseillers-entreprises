@@ -67,7 +67,7 @@ module XlsxExport
       themes.each do |theme|
         needs_by_theme_size = calculate_needs_by_theme_size(theme)
         sheet.add_row [
-          theme&.label,
+          theme.label,
           needs_by_theme_size,
           calculate_rate(needs_by_theme_size, needs)
         ], style: count_rate_row_style
