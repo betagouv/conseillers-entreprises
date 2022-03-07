@@ -114,7 +114,7 @@ class Antenne < ApplicationRecord
   #
   # instance dont le territoire est l'ensemble d'une region
   def regional?
-    (regions.size == 1) && (commune_ids.size == regions.first.commune_ids.size)
+    (regions.size == 1) && Utilities::Arrays.same?(regions.first.commune_ids, commune_ids)
   end
 
   # A surveiller : une antenne peut-elle avoir plusieurs antennes regionales ?
@@ -122,10 +122,52 @@ class Antenne < ApplicationRecord
     return if self.regional?
     same_region_antennes = institution.antennes_in_region(region_ids)
     same_region_antennes.select do |a|
-      a.regional? && (self.commune_ids - a.commune_ids).empty?
+      a.regional? && Utilities::Arrays.included_in?(commune_ids, a.commune_ids)
     end&.first
   end
 
+  def territorial_antennes
+    return [] unless self.regional?
+    same_region_antennes = institution.antennes_in_region(region_ids)
+    same_region_antennes.select do |a|
+      !a.regional? && Utilities::Arrays.included_in?(a.commune_ids, commune_ids)
+    end
+  end
+
+  ## Périmètre d'exercice
+  #
+  # TODO à completer une fois qu'on aura des antennes nationales
+  def perimeter_received_needs
+    if self.regional?
+      Need.diagnosis_completed.joins(experts: :antenne).scoping do
+        Need.where(experts: { antenne: self })
+          .or(Need.where(experts: { antenne: self.territorial_antennes }))
+      end.distinct
+    else
+      self.received_needs
+    end
+  end
+
+  def perimeter_received_matches_from_needs(needs)
+    if self.regional?
+      # self.received_matches or self.territorial_antennes.received_matches
+      Match.joins(expert: :antenne).scoping do
+        Match.where(
+          need_id: needs.pluck(:id),
+          expert: { antenne: self }
+        )
+          .or(Match.where(
+                need_id: needs.pluck(:id),
+                expert: { antenne: self.territorial_antennes }
+              ))
+      end.distinct
+    else
+      self.received_matches.where(need_id: needs.pluck(:id)).distinct
+    end
+  end
+
+  # Flexible find
+  #
   def self.flexible_find_or_initialize(institution, name)
     return nil unless institution.present? && name.present?
     antenne = institution.antennes.find_by('lower(name) = ?', name.squish.downcase)

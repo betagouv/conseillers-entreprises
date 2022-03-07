@@ -131,15 +131,15 @@ module XlsxExport
     end
 
     def needs
-      @needs ||= @antenne.received_needs.joins(:matches).created_between(@start_date, @end_date).distinct
+      @needs ||= @antenne.perimeter_received_needs.created_between(@start_date, @end_date)
     end
 
     def matches
-      @matches ||= @antenne.received_matches.where(need_id: needs.pluck(:id)).distinct
+      @matches ||= @antenne.perimeter_received_matches_from_needs(needs)
     end
 
     def facilities
-      @facilities ||= @antenne.received_facilities.joins(diagnoses: :needs).where(diagnoses: { needs: needs }).distinct
+      @facilities ||= Facility.joins(diagnoses: :needs).where(diagnoses: { needs: needs }).distinct
     end
 
     # Calculation
