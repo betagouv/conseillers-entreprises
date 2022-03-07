@@ -507,9 +507,12 @@ fr:
         one: Utilisateur
         other: Utilisateurs
   antenne_stats_exporter:
-    answer_rate: Taux de réponse
     count: Nb
     done_rate: Taux de clôture avec aide
+    ecosystem_answering_rate: Taux de réponse de l'écosystème (%{institution} et autres partenaires)
+    ecosystem_positionning: Positionnement de l'écosystème (%{institution} et autres partenaires)
+    experts_answering_rate: Taux de réponse des experts %{institution}
+    experts_positionning: Positionnement des experts %{institution}
     facilities: Etablissements
     from_beginning_of_year: Depuis le début de l’année %{year}
     matches: Mises en relation
@@ -520,7 +523,7 @@ fr:
     positionning_rate: Taux de positionnement
     quarter_stats: Stats trim.
     quo_rate: Taux de sans réponse
-    subtitle: Analyse statistique du flux et du comportement des experts
+    subtitle: Analyse statistique des besoins transmis aux experts
     year_stats: Stats ann.
   archivable:
     archive: Archiver

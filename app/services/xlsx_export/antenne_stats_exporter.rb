@@ -39,6 +39,7 @@ module XlsxExport
 
     def generate
       generate_base_stats
+      generate_themes_stats
       generate_matches_stats
       generate_needs_stats
       finalise_style
@@ -49,67 +50,80 @@ module XlsxExport
       sheet.add_row
 
       sheet.add_row [I18n.t('antenne_stats_exporter.needs'), needs.size], style: [@bold, nil]
-      sheet.add_row [I18n.t('antenne_stats_exporter.matches'), matches.size], style: [@bold, nil]
       sheet.add_row [I18n.t('antenne_stats_exporter.facilities'), facilities.size], style: [@bold, nil]
       sheet.add_row
     end
 
-    def generate_matches_stats
-      ordered_match_statuses = [:done_not_reachable, :done, :done_no_help, :not_for_me, :quo, :taking_care]
-      ordered_positionning_statuses = [:positionning, :positionning_accepted, :done, :not_for_me, :quo, nil]
+    def generate_themes_stats
+      # On ne prend que les thèmes principaux
+      themes = Theme.for_interview.limit(10)
 
       sheet.add_row [
-        I18n.t('attributes.match_status'),
-        I18n.t('antenne_stats_exporter.count'),
-        I18n.t('antenne_stats_exporter.percentage'),nil,
-        I18n.t('antenne_stats_exporter.answer_rate'),
+        Theme.model_name.human,
         I18n.t('antenne_stats_exporter.count'),
         I18n.t('antenne_stats_exporter.percentage')
-      ], style: [@left_header, @right_header, @right_header, nil, @left_header, @right_header, @right_header]
+      ], style: [@left_header, @right_header, @right_header]
 
-      (0...ordered_match_statuses.size).to_a.each do |index|
-        match_status = ordered_match_statuses[index]
+      themes.each do |theme|
+        needs_by_theme_size = calculate_needs_by_theme_size(theme)
+        sheet.add_row [
+          theme&.label,
+          needs_by_theme_size,
+          calculate_rate(needs_by_theme_size, needs)
+        ], style: count_rate_row_style
+      end
+      sheet.add_row
+    end
+
+    def generate_matches_stats
+      sheet.add_row [
+        I18n.t('antenne_stats_exporter.experts_positionning', institution: @antenne.institution.name),
+        I18n.t('antenne_stats_exporter.count'),
+        I18n.t('antenne_stats_exporter.percentage'),nil,
+        I18n.t('antenne_stats_exporter.experts_answering_rate', institution: @antenne.institution.name),
+        I18n.t('antenne_stats_exporter.count'),
+        I18n.t('antenne_stats_exporter.percentage')
+      ], style: count_rate_header_style
+
+      (0...ordered_statuses.size).to_a.each do |index|
+        match_status = ordered_statuses[index]
         match_status_size = matches.send("status_#{match_status}")&.size
         positionning_status = ordered_positionning_statuses[index]
-        positionning_status_size = calculate_positionning_status_size(positionning_status)
+        positionning_status_size = calculate_positionning_status_size(positionning_status, matches)
         sheet.add_row [
           I18n.t("activerecord.attributes.match/statuses/short.#{match_status}"),
           match_status_size,
-          match_rate(match_status_size), nil,
+          calculate_rate(match_status_size, matches), nil,
           positionning_status.present? ? I18n.t("antenne_stats_exporter.#{positionning_status}_rate") : nil,
           positionning_status_size,
-          match_rate(positionning_status_size)
+          calculate_rate(positionning_status_size, matches)
         ], style: count_rate_row_style
       end
       sheet.add_row
     end
 
     def generate_needs_stats
-      ordered_need_statuses = [:done, :done_no_help, :done_not_reachable, :quo, :not_for_me, :taking_care]
-      # On ne prend que les thèmes principaux
-      themes = Theme.for_interview.limit(10)
-
       sheet.add_row [
-        I18n.t('attributes.need_status'),
+        I18n.t('antenne_stats_exporter.ecosystem_positionning', institution: @antenne.institution.name),
         I18n.t('antenne_stats_exporter.count'),
         I18n.t('antenne_stats_exporter.percentage'),nil,
-        Theme.model_name.human,
+        I18n.t('antenne_stats_exporter.ecosystem_answering_rate', institution: @antenne.institution.name),
         I18n.t('antenne_stats_exporter.count'),
         I18n.t('antenne_stats_exporter.percentage')
-      ], style: [@left_header, @right_header, @right_header, nil, @left_header, @right_header, @right_header]
+      ], style: count_rate_header_style
 
-      (0...themes.size).to_a.each do |index|
-        need_status = ordered_need_statuses[index]
+      (0...ordered_statuses.size).to_a.each do |index|
+        need_status = ordered_statuses[index]
         need_status_size = needs.send("status_#{need_status}")&.size if need_status.present?
-        theme = Theme.find_by(interview_sort_order: index + 1)
-        needs_by_theme_size = calculate_needs_by_theme_size(theme)
+        positionning_status = ordered_positionning_statuses[index]
+        positionning_status_size = calculate_positionning_status_size(positionning_status, needs)
         sheet.add_row [
           need_status.present? ? I18n.t("activerecord.attributes.need/statuses/csv.#{need_status}") : nil,
           need_status_size || nil,
-          need_rate(need_status_size), nil,
-          theme&.label,
-          needs_by_theme_size,
-          need_rate(needs_by_theme_size)
+          calculate_rate(need_status_size, needs), nil,
+          positionning_status.present? ? I18n.t("antenne_stats_exporter.#{positionning_status}_rate") : nil,
+          positionning_status_size,
+          calculate_rate(positionning_status_size, matches)
         ], style: count_rate_row_style
       end
       sheet.add_row
@@ -142,29 +156,32 @@ module XlsxExport
       @facilities ||= Facility.joins(diagnoses: :needs).where(diagnoses: { needs: needs }).distinct
     end
 
+    def ordered_statuses
+      @ordered_statuses ||= [:done, :done_not_reachable, :done_no_help, :taking_care, :not_for_me, :quo]
+    end
+
+    def ordered_positionning_statuses
+      @ordered_positionning_statuses ||= [:positionning, :positionning_accepted, :done, :not_for_me, :quo, nil]
+    end
+
     # Calculation
     #
-    def match_rate(status_size)
-      return unless status_size
-      status_size / matches.size.to_f
+    def calculate_rate(status_size, base_relation)
+      return unless status_size && base_relation
+      status_size / base_relation.size.to_f
     end
 
-    def need_rate(status_size)
-      return unless status_size
-      status_size / needs.size.to_f
-    end
-
-    def calculate_positionning_status_size(status)
+    def calculate_positionning_status_size(status, base_relation)
       return unless status
       case status
       # Pris en charge, refusé, clôturé avec aide, clôturé sans aide, injoignable
       when :positionning
-        matches.size - matches.status_quo.size
+        base_relation.size - base_relation.status_quo.size
       # Pris en charge, clôturé avec aide, clôturé sans aide, injoignable
       when :positionning_accepted
-        matches.size - (matches.status_quo.size + matches.status_not_for_me.size)
+        base_relation.size - (base_relation.status_quo.size + base_relation.status_not_for_me.size)
       else
-        matches.send("status_#{status}")&.size
+        base_relation.send("status_#{status}")&.size
       end
     end
 
@@ -182,6 +199,10 @@ module XlsxExport
       @label = s.add_style alignment: { indent: 1 }
       @rate = s.add_style format_code: '#0.0%'
       s
+    end
+
+    def count_rate_header_style
+      [@left_header, @right_header, @right_header, nil, @left_header, @right_header, @right_header]
     end
 
     def count_rate_row_style
