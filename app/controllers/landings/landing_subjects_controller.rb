@@ -4,7 +4,8 @@ class Landings::LandingSubjectsController < Landings::BaseController
   before_action :retrieve_landing_subject
 
   def show
-    @solicitation = @landing.solicitations.new(landing_subject: @landing_subject)
+    solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
+    @solicitation = @landing.solicitations.new(solicitation_params)
   end
 
   def create_solicitation
@@ -42,5 +43,11 @@ class Landings::LandingSubjectsController < Landings::BaseController
     saved_params.merge!(query_params)
     session.delete(:solicitation_form_info)
     { form_info: saved_params }
+  end
+
+  # Params envoyés dans les iframes pour pré-remplir le formulaire
+  def retrieve_solicitation_params
+    saved_params = session[:solicitation_form_info] || {}
+    { siret: saved_params['siret'] }
   end
 end
