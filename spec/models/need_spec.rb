@@ -358,7 +358,7 @@ RSpec.describe Need, type: :model do
       end
 
       context 'antenne with national territory' do
-        let(:antenne) { create :antenne, institution: institution, nationale: true }
+        let(:antenne) { create :antenne, institution: institution, territorial_level: 'national' }
 
         it { is_expected.to match_array [need_1, need_3, need_9] }
       end

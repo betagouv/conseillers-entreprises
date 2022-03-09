@@ -85,7 +85,7 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :communes)
         div intervention_zone_description(a)
       end
-      row(:nationale)
+      row(:territorial_level)
       row(:community) do |a|
         div admin_link_to(a, :advisors)
         div admin_link_to(a, :experts)
@@ -126,7 +126,7 @@ ActiveAdmin.register Antenne do
   ## Form
   #
   match_filters_attributes = [ :id, :min_years_of_existence, :effectif_max, :effectif_min, :subject_id, :raw_accepted_naf_codes, :_destroy ]
-  permit_params :name, :institution_id, :insee_codes, :manager_full_name, :manager_email, :manager_phone, :nationale,
+  permit_params :name, :institution_id, :insee_codes, :manager_full_name, :manager_email, :manager_phone, :territorial_level,
                 advisor_ids: [], expert_ids: [], match_filters_attributes: match_filters_attributes
 
   form do |f|
@@ -137,7 +137,7 @@ ActiveAdmin.register Antenne do
         search_fields: [:name]
       }
       f.input :insee_codes, as: :text
-      f.input :nationale
+      f.input :territorial_level, as: :select, collection: Antenne::territorial_levels
     end
 
     f.inputs do

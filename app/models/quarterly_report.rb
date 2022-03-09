@@ -3,6 +3,7 @@
 # Table name: quarterly_reports
 #
 #  id         :bigint(8)        not null, primary key
+#  category   :enum
 #  end_date   :date
 #  start_date :date
 #  created_at :datetime         not null
@@ -12,6 +13,7 @@
 # Indexes
 #
 #  index_quarterly_reports_on_antenne_id  (antenne_id)
+#  index_quarterly_reports_on_category    (category)
 #
 # Foreign Keys
 #

@@ -145,7 +145,7 @@ class Need < ApplicationRecord
       .diagnosis_completed
       .where(experts: { institutions: [antenne.institution] },
              created_at: [start_date..end_date])
-    unless antenne.nationale
+    unless antenne.territorial_level_national?
       needs = needs.where(facilities: { commune: antenne.communes })
     end
     needs

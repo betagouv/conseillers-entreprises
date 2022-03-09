@@ -32,8 +32,8 @@ namespace :import_prod_to_staging do
     env = `scalingo -a reso-production env`.lines
     pg_url = env.find{ |i| i[/SCALINGO_POSTGRESQL_URL=/] }
     pw = pg_url[/.*:(.*)@/,1]
-    username = 'reso_produc_4107'
-    dbname = 'reso_produc_4107'
+    username = pg_url[/\/\/(.*):.*@/,1]
+    dbname = username
     db_url = "postgres://#{username}:#{pw}@127.0.0.1:10000/#{dbname}?sslmode=require"
 
     sh "pg_dump --clean --if-exists --format c --dbname #{db_url} --file #{export_filename}"
@@ -57,7 +57,7 @@ namespace :import_prod_to_staging do
     kill_staging_tunnel
   end
 
-  task all: %i[dump_prod import_to_staging]
+  task all: %i[import_to_staging]
 end
 
 desc 'import production data in staging db'

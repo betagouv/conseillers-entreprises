@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_28_145743) do
+ActiveRecord::Schema.define(version: 2022_03_09_095737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,10 +46,21 @@ ActiveRecord::Schema.define(version: 2022_02_28_145743) do
     "done_not_reachable",
   ], force: :cascade
 
+  create_enum :quarterly_reports_categories, [
+    "matches",
+    "stats",
+  ], force: :cascade
+
   create_enum :solicitation_status, [
     "in_progress",
     "processed",
     "canceled",
+  ], force: :cascade
+
+  create_enum :territorial_level, [
+    "local",
+    "regional",
+    "national",
   ], force: :cascade
 
   create_enum :user_roles, [
@@ -95,10 +106,11 @@ ActiveRecord::Schema.define(version: 2022_02_28_145743) do
     t.string "manager_full_name"
     t.string "manager_email"
     t.string "manager_phone"
-    t.boolean "nationale", default: false, null: false
+    t.enum "territorial_level", default: "local", null: false, enum_type: "territorial_level"
     t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
     t.index ["name", "institution_id"], name: "index_antennes_on_name_and_institution_id", unique: true
+    t.index ["territorial_level"], name: "index_antennes_on_territorial_level"
     t.index ["updated_at"], name: "index_antennes_on_updated_at"
   end
 
@@ -460,7 +472,9 @@ ActiveRecord::Schema.define(version: 2022_02_28_145743) do
     t.bigint "antenne_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.enum "category", enum_type: "quarterly_reports_categories"
     t.index ["antenne_id"], name: "index_quarterly_reports_on_antenne_id"
+    t.index ["category"], name: "index_quarterly_reports_on_category"
   end
 
   create_table "reminders_actions", force: :cascade do |t|

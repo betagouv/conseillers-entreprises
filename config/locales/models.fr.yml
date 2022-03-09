@@ -125,6 +125,10 @@ fr:
     attributes:
       antenne:
         match_filters: Filtres pour les mises en relation
+      antenne/territorial_levels:
+        local: Local
+        national: National
+        regional: Régional
       commune:
         insee_code: Code commune
       company: 
@@ -610,7 +614,6 @@ fr:
       other: Mises en relation
     naf_code: Code NAF
     name: Nom
-    nationale: Nationale (Temporaire utilisé pour l’export trimestriel des MER)
     need: Besoin
     need_id: Identifiant du besoin
     need_status: Statut du besoin
@@ -670,6 +673,7 @@ fr:
     teams:
       one: Équipe
       other: Équipes
+    territorial_level: Niveau territorial
     territories:
       one: Territoire
       other: Territoires

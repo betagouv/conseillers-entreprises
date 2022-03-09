@@ -110,7 +110,7 @@ class User < ApplicationRecord
   #
   scope :admin, -> { not_deleted.role_admin }
   scope :antenne_manager, -> { not_deleted.role_antenne_manager }
-  scope :antenne_manager_national, -> { not_deleted.role_antenne_manager.joins(:antenne).where(antenne: { nationale: true }) }
+  scope :antenne_manager_national, -> { antenne_manager.joins(:antenne).where(antennes: { territorial_level: 'national' }) }
   scope :not_admin, -> { not_role_admin }
 
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
