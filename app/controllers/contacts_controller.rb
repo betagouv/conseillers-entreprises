@@ -3,7 +3,7 @@
 class ContactsController < ApplicationController
   def needs_historic
     @contact = Contact.find(params[:id])
-    needs = Need.historic(@contact.email)
+    needs = Need.for_email_and_sirets(@contact.email)
     @needs_in_progress = needs.in_progress
     @needs_done = needs.done
   end
