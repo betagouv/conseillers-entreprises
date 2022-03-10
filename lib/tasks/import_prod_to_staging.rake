@@ -57,7 +57,7 @@ namespace :import_prod_to_staging do
     kill_staging_tunnel
   end
 
-  task all: %i[import_to_staging]
+  task all: %i[dump_prod import_to_staging]
 end
 
 desc 'import production data in staging db'
