@@ -304,10 +304,9 @@ RSpec.describe Need, type: :model do
       let(:facility_inside) { create :facility, commune: commune_inside }
       let(:facility_outside) { create :facility, commune: commune_outside }
       let(:institution) { create :institution }
-      let(:antenne) { create :antenne, communes: [commune_inside], institution: institution }
       let(:another_antenne) { create :antenne, communes: [commune_inside], institution: institution }
       let(:expert) { create :expert_with_users, antenne: antenne }
-      let(:expert_another_antenne) { create :expert_with_users, antenne: another_antenne }
+      let!(:expert_another_antenne) { create :expert_with_users, antenne: another_antenne }
       let(:a_subject) { create :subject }
 
       let(:a_month_ago) { Time.now - 1.month }
@@ -352,8 +351,16 @@ RSpec.describe Need, type: :model do
 
       subject { described_class.antenne_territory_needs(antenne, a_week_ago, now) }
 
-      it 'return needs in antenne territory' do
-        is_expected.to match_array [need_1, need_9]
+      context 'antenne with restricted territory' do
+        let(:antenne) { create :antenne, communes: [commune_inside], institution: institution }
+
+        it { is_expected.to match_array [need_1, need_9] }
+      end
+
+      context 'antenne with national territory' do
+        let(:antenne) { create :antenne, institution: institution, territorial_level: 'national' }
+
+        it { is_expected.to match_array [need_1, need_3, need_9] }
       end
     end
   end

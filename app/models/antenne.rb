@@ -8,6 +8,7 @@
 #  manager_full_name :string
 #  manager_phone     :string
 #  name              :string
+#  territorial_level :enum             default("local"), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  institution_id    :bigint(8)        not null
@@ -17,6 +18,7 @@
 #  index_antennes_on_deleted_at               (deleted_at)
 #  index_antennes_on_institution_id           (institution_id)
 #  index_antennes_on_name_and_institution_id  (name,institution_id) UNIQUE
+#  index_antennes_on_territorial_level        (territorial_level)
 #  index_antennes_on_updated_at               (updated_at)
 #
 # Foreign Keys
@@ -26,6 +28,13 @@
 
 class Antenne < ApplicationRecord
   include SoftDeletable
+
+  enum territorial_level: {
+    local: 'local',
+    regional: 'regional',
+    national: 'national'
+  }, _prefix: true
+
   ## Associations
   #
   has_and_belongs_to_many :communes, inverse_of: :antennes

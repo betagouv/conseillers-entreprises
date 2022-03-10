@@ -48,6 +48,7 @@ fr:
       admin: Admins
       all: Tout
       antenne_manager: Responsables d’antenne
+      antenne_manager_national: Responsables d’antenne nationale
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
@@ -124,6 +125,10 @@ fr:
     attributes:
       antenne:
         match_filters: Filtres pour les mises en relation
+      antenne/territorial_levels:
+        local: Local
+        national: National
+        regional: Régional
       commune:
         insee_code: Code commune
       company: 
@@ -668,6 +673,7 @@ fr:
     teams:
       one: Équipe
       other: Équipes
+    territorial_level: Niveau territorial
     territories:
       one: Territoire
       other: Territoires

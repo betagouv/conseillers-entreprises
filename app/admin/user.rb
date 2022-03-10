@@ -20,6 +20,7 @@ ActiveAdmin.register User do
 
   scope :admin, group: :role
   scope :antenne_manager, group: :role
+  scope :antenne_manager_national, group: :role
 
   scope :team_members, group: :teams
   scope :no_team, group: :teams
