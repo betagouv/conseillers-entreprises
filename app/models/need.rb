@@ -227,12 +227,11 @@ class Need < ApplicationRecord
     joins(diagnosis: :facility).merge(Facility.with_siret)
   end
 
-  scope :historic, -> (email, siret = nil) do
-    needs = Need.joins(:diagnosis, :solicitation, :facility).where(diagnosis: { solicitations: { email: email } })
-    if siret.present?
-      needs = needs.or(Need.joins(:diagnosis, :solicitation, :facility).where(diagnosis: { facilities: { siret: siret } }))
+  scope :historic, -> (email, sirets = []) do
+    Need.diagnosis_completed.joins(:diagnosis, :solicitation, :facility).scoping do
+      Need.where(diagnosis: { solicitations: { email: email } })
+        .or(Need.where(diagnosis: { facilities: { siret: sirets } }))
     end
-    needs.diagnosis_completed
   end
 
   ## Search

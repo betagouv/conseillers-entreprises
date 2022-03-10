@@ -39,10 +39,11 @@
           - if solicitation.from_banned_company?
             %span{ title: t('.solicitation_banned_facility_explanation') }
               %i.ri-flag-fill
-        - if solicitation.same_facility_needs.with_siret.any?
+        - needs_historic = Need.historic(solicitation.email, solicitation.valid_sirets).with_siret
+        - if needs_historic.any?
           .meta__items
             .item= t('.needs_historic')
-            - solicitation.same_facility_needs.with_siret.map{ |n| n.facility.siret }.uniq.each do |siret|
+            - needs_historic.map{ |n| n.facility.siret }.uniq.each do |siret|
               = link_to siret, needs_company_path(siret)
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.logo&.filename)
