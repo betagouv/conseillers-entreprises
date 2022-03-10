@@ -16,8 +16,10 @@ class QuarterlyReportService
 
     def generate_matches_files(antenne, quarter)
       return if antenne.matches_reports.find_by(start_date: quarter.first).present?
+      needs = antenne.perimeter_received_needs.created_between(quarter.first, quarter.last)
+      return if needs.blank?
 
-      matches = Match.antenne_territory_matches(antenne, quarter.first, quarter.last)
+      matches = Match.joins(:need).where(need: needs)
       return if matches.blank?
 
       result = matches.export_xlsx

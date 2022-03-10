@@ -108,16 +108,23 @@ class Antenne < ApplicationRecord
     end
   end
 
-  # Antenne regionale
+  # Perimetre territorial
   #
-  # instance dont le territoire est l'ensemble d'une region
+  def local?
+    territorial_level_local?
+  end
+
   def regional?
-    (regions.size == 1) && Utilities::Arrays.same?(regions.first.commune_ids, commune_ids)
+    territorial_level_regional?
+  end
+
+  def national?
+    territorial_level_national?
   end
 
   # A surveiller : une antenne peut-elle avoir plusieurs antennes regionales ?
   def regional_antenne
-    return if self.regional?
+    return unless self.local?
     same_region_antennes = institution.antennes_in_region(region_ids)
     same_region_antennes.select do |a|
       a.regional? && Utilities::Arrays.included_in?(commune_ids, a.commune_ids)
@@ -125,18 +132,20 @@ class Antenne < ApplicationRecord
   end
 
   def territorial_antennes
-    return [] unless self.regional?
+    return [] if self.local?
     same_region_antennes = institution.antennes_in_region(region_ids)
     same_region_antennes.select do |a|
       !a.regional? && Utilities::Arrays.included_in?(a.commune_ids, commune_ids)
     end
   end
 
-  ## Périmètre d'exercice
+  ## Périmètre d'exercice :
+  # tous les besoins auxquels une antenne peut avoir accès suivant son échelon territorial
   #
-  # TODO à completer une fois qu'on aura des antennes nationales
   def perimeter_received_needs
-    if self.regional?
+    if self.national?
+      self.institution.received_needs
+    elsif self.regional?
       Need.diagnosis_completed.joins(experts: :antenne).scoping do
         Need.where(experts: { antenne: self })
           .or(Need.where(experts: { antenne: self.territorial_antennes }))
@@ -147,20 +156,21 @@ class Antenne < ApplicationRecord
   end
 
   def perimeter_received_matches_from_needs(needs)
-    if self.regional?
-      # self.received_matches or self.territorial_antennes.received_matches
-      Match.joins(expert: :antenne).scoping do
+    if self.national?
+      self.institution.received_matches.joins(:need).where(need: needs).distinct
+    elsif self.regional?
+      Match.joins(:need, expert: :antenne).scoping do
         Match.where(
-          need_id: needs.pluck(:id),
+          need: needs,
           expert: { antenne: self }
         )
           .or(Match.where(
-                need_id: needs.pluck(:id),
+                need: needs,
                 expert: { antenne: self.territorial_antennes }
               ))
       end.distinct
     else
-      self.received_matches.where(need_id: needs.pluck(:id)).distinct
+      self.received_matches.joins(:need).where(need: needs).distinct
     end
   end
 

@@ -101,49 +101,60 @@ RSpec.describe Antenne, type: :model do
     let(:commune2) { create :commune }
     let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
     let(:institution1) { create :institution, name: 'Institution 1' }
-    let(:regional_antenne_i1) { create :antenne, institution: institution1, communes: [commune1, commune2] }
-    let(:territorial_antenne_i1) { create :antenne, institution: institution1, communes: [commune1] }
-    let(:other_territorial_antenne_i1) { create :antenne, institution: institution1, communes: [commune2] }
-    let(:territorial_antenne_i2) { create :antenne, institution: create(:institution), communes: [commune1] }
+    let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
+    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
+    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune1] }
+    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune2] }
+    let(:random_local_antenne_i1) { create :antenne, :local, institution: institution1 }
+    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
 
-    let(:expert_territorial_antenne_i1) { create :expert_with_users, antenne: territorial_antenne_i1 }
-    let(:expert_other_territorial_antenne_i1) { create :expert_with_users, antenne: other_territorial_antenne_i1 }
+    let(:expert_local_antenne_i1) { create :expert_with_users, antenne: local_antenne_i1 }
+    let(:expert_other_local_antenne_i1) { create :expert_with_users, antenne: other_local_antenne_i1 }
     let(:expert_regional_antenne_i1) { create :expert_with_users, antenne: regional_antenne_i1 }
-    let(:expert_territorial_antenne_i2) { create :expert_with_users, antenne: territorial_antenne_i2 }
+    let(:expert_local_antenne_i2) { create :expert_with_users, antenne: local_antenne_i2 }
 
     let!(:need_regional_antenne_i1) {
   create :need,
          matches: [create(:match, expert: expert_regional_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
 }
-    let!(:need_territorial_antenne_i1) {
+    let!(:need_local_antenne_i1) {
   create :need,
-         matches: [create(:match, expert: expert_territorial_antenne_i1)],
+         matches: [create(:match, expert: expert_local_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
 }
-    let!(:need_other_territorial_antenne_i1) {
+    let!(:need_other_local_antenne_i1) {
   create :need,
-         matches: [create(:match, expert: expert_other_territorial_antenne_i1)],
+         matches: [create(:match, expert: expert_other_local_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune2))
 }
-    let!(:need_territorial_antenne_i2) {
+    let!(:need_random_local_antenne_i1) {
   create :need,
-         matches: [create(:match, expert: expert_territorial_antenne_i2)],
+         matches: [create(:match, expert: create(:expert, antenne: random_local_antenne_i1))]
+}
+    let!(:need_local_antenne_i2) {
+  create :need,
+         matches: [create(:match, expert: expert_local_antenne_i2)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
 }
 
     before do
-      need_territorial_antenne_i1.update(status: :quo)
-      need_other_territorial_antenne_i1.update(status: :quo)
+      # Je sais pas pourquoi, mais changer le statut a la creation fonctionne pas pour le 2e need
+      need_local_antenne_i1.update(status: :quo)
+      need_other_local_antenne_i1.update(status: :quo)
     end
 
-    it 'displays only antenne needs for territorial antennes' do
-      expect(territorial_antenne_i1.perimeter_received_needs).to match_array [need_territorial_antenne_i1]
-      expect(other_territorial_antenne_i1.perimeter_received_needs).to match_array [need_other_territorial_antenne_i1]
+    it 'displays only antenne needs for local antennes' do
+      expect(local_antenne_i1.perimeter_received_needs).to match_array [need_local_antenne_i1]
+      expect(other_local_antenne_i1.perimeter_received_needs).to match_array [need_other_local_antenne_i1]
     end
 
     it 'displays regional and antenne needs for regional antenne' do
-      expect(regional_antenne_i1.perimeter_received_needs).to match_array [need_regional_antenne_i1, need_territorial_antenne_i1, need_other_territorial_antenne_i1]
+      expect(regional_antenne_i1.perimeter_received_needs).to match_array [need_regional_antenne_i1, need_local_antenne_i1, need_other_local_antenne_i1]
+    end
+
+    it 'displays institution needs for national antenne' do
+      expect(national_antenne_i1.perimeter_received_needs).to match_array [need_regional_antenne_i1, need_local_antenne_i1, need_other_local_antenne_i1, need_random_local_antenne_i1]
     end
   end
 
@@ -155,17 +166,19 @@ RSpec.describe Antenne, type: :model do
     let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
     let!(:region2) { create :territory, :region, code_region: Territory.deployed_codes_regions.second, communes: [commune3] }
 
-    let(:regional_antenne_i1) { create :antenne, institution: institution1, communes: [commune1, commune2] }
-    let(:regional_antenne2_i1) { create :antenne, institution: institution1, communes: [commune3] }
-    let(:territorial_antenne_i1) { create :antenne, institution: institution1, communes: [commune1] }
-    let(:other_territorial_antenne_i1) { create :antenne, institution: institution1, communes: [commune2] }
-    let(:territorial_antenne_i2) { create :antenne, institution: create(:institution), communes: [commune1] }
+    let(:national_antenne_i1) { create :antenne, :national, institution: institution1 }
+    let(:regional_antenne_i1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
+    let(:regional_antenne2_i1) { create :antenne, :regional, institution: institution1, communes: [commune3] }
+    let(:local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune1] }
+    let(:other_local_antenne_i1) { create :antenne, :local, institution: institution1, communes: [commune2] }
+    let(:random_local_antenne_i1) { create :antenne, :local, institution: institution1 }
+    let(:local_antenne_i2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
 
-    let(:expert_territorial_antenne_i1) { create :expert_with_users, antenne: territorial_antenne_i1 }
-    let(:expert_other_territorial_antenne_i1) { create :expert_with_users, antenne: other_territorial_antenne_i1 }
+    let(:expert_local_antenne_i1) { create :expert_with_users, antenne: local_antenne_i1 }
+    let(:expert_other_local_antenne_i1) { create :expert_with_users, antenne: other_local_antenne_i1 }
     let(:expert_regional_antenne_i1) { create :expert_with_users, antenne: regional_antenne_i1 }
     let(:expert_regional_antenne2_i1) { create :expert_with_users, antenne: regional_antenne2_i1 }
-    let(:expert_territorial_antenne_i2) { create :expert_with_users, antenne: territorial_antenne_i2 }
+    let(:expert_local_antenne_i2) { create :expert_with_users, antenne: local_antenne_i2 }
 
     let(:need1) { create :need_with_matches }
     let(:need2) { create :need_with_matches }
@@ -174,17 +187,22 @@ RSpec.describe Antenne, type: :model do
 
     let!(:regional_antenne_i1_match) { create :match, need: need1, expert: expert_regional_antenne_i1 }
     let!(:regional_antenne2_i1_match) { create :match, need: need4, expert: expert_regional_antenne2_i1 }
-    let!(:territorial_antenne_i1_match) { create :match, need: need2, expert: expert_territorial_antenne_i1 }
-    let!(:other_territorial_antenne_i1_match) { create :match, need: need3, expert: expert_other_territorial_antenne_i1 }
-    let!(:territorial_antenne_i2_match) { create :match, need: need2, expert: expert_territorial_antenne_i2 }
+    let!(:local_antenne_i1_match) { create :match, need: need2, expert: expert_local_antenne_i1 }
+    let!(:other_local_antenne_i1_match) { create :match, need: need3, expert: expert_other_local_antenne_i1 }
+    let!(:random_local_antenne_i1_match) { create :match, need: need3, expert: create(:expert, antenne: random_local_antenne_i1) }
+    let!(:local_antenne_i2_match) { create :match, need: need2, expert: expert_local_antenne_i2 }
 
-    it 'displays only antenne matches for territorial antennes' do
-      expect(territorial_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [territorial_antenne_i1_match]
-      expect(other_territorial_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [other_territorial_antenne_i1_match]
+    it 'displays only antenne matches for local antennes' do
+      expect(local_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [local_antenne_i1_match]
+      expect(other_local_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [other_local_antenne_i1_match]
     end
 
     it 'displays regional and antenne matches for regional antenne' do
-      expect(regional_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [regional_antenne_i1_match, territorial_antenne_i1_match, other_territorial_antenne_i1_match]
+      expect(regional_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [regional_antenne_i1_match, local_antenne_i1_match, other_local_antenne_i1_match]
+    end
+
+    it 'displays institution matches for national antenne' do
+      expect(national_antenne_i1.perimeter_received_matches_from_needs([need1, need2, need3, need4])).to match_array [regional_antenne_i1_match, regional_antenne2_i1_match, local_antenne_i1_match, other_local_antenne_i1_match, random_local_antenne_i1_match]
     end
   end
 
@@ -210,23 +228,23 @@ RSpec.describe Antenne, type: :model do
     let(:commune2) { create :commune }
     let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
     let(:institution1) { create :institution, name: 'Institution 1' }
-    let!(:regional_antenne1) { create :antenne, institution: institution1, communes: [commune1, commune2] }
-    let!(:territorial_antenne1) { create :antenne, institution: institution1, communes: [commune1] }
-    let!(:other_territorial_antenne1) { create :antenne, institution: institution1, communes: [commune2] }
-    let!(:out_territorial_antenne1) { create :antenne, institution: institution1, communes: [create(:commune)] }
-    let!(:territorial_antenne2) { create :antenne, institution: create(:institution), communes: [commune1] }
+    let!(:regional_antenne1) { create :antenne, :regional, institution: institution1, communes: [commune1, commune2] }
+    let!(:local_antenne1) { create :antenne, :local, institution: institution1, communes: [commune1] }
+    let!(:other_local_antenne1) { create :antenne, :local, institution: institution1, communes: [commune2] }
+    let!(:out_local_antenne1) { create :antenne, :local, institution: institution1, communes: [create(:commune)] }
+    let!(:local_antenne2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
 
     it "returns correct regional_antenne" do
       expect(regional_antenne1.regional_antenne).to eq nil
-      expect(territorial_antenne1.regional_antenne).to eq regional_antenne1
-      expect(other_territorial_antenne1.regional_antenne).to eq regional_antenne1
-      expect(out_territorial_antenne1.regional_antenne).not_to eq regional_antenne1
-      expect(territorial_antenne2.regional_antenne).not_to eq regional_antenne1
+      expect(local_antenne1.regional_antenne).to eq regional_antenne1
+      expect(other_local_antenne1.regional_antenne).to eq regional_antenne1
+      expect(out_local_antenne1.regional_antenne).not_to eq regional_antenne1
+      expect(local_antenne2.regional_antenne).not_to eq regional_antenne1
     end
 
-    it "returns correct territorial antennes" do
-      expect(regional_antenne1.territorial_antennes).to match_array([territorial_antenne1, other_territorial_antenne1])
-      expect(territorial_antenne1.territorial_antennes).to match_array([])
+    it "returns correct local antennes" do
+      expect(regional_antenne1.territorial_antennes).to match_array([local_antenne1, other_local_antenne1])
+      expect(local_antenne1.territorial_antennes).to match_array([])
     end
   end
 end
