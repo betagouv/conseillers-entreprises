@@ -369,8 +369,6 @@ GEM
     nokogiri (1.13.3)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nokogiri (1.13.3-x86_64-darwin)
-      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.21.0)
     parallel_tests (3.7.3)
@@ -686,7 +684,7 @@ DEPENDENCIES
   puma
   pundit
   rack-attack
-  rails (~> 6.1.4.7)
+  rails
   rails-controller-testing
   rails-erd
   rails-i18n
