@@ -130,7 +130,7 @@ fr:
         regional: Régional
       commune:
         insee_code: Code commune
-      company:
+      company: 
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
@@ -543,6 +543,7 @@ fr:
     antenne_experts:
       one: Expert
       other: Experts
+    antenne_territorial_level: Niveau de l'antenne
     antenne_territories: Territoire de l’antenne
     archived_at: Date d’archivage
     badges:
@@ -670,7 +671,6 @@ fr:
     show_on_list: Afficher le nom sur la liste des partenaires
     siren: SIREN
     siret: SIRET
-    antenne_territorial_level: Niveau de l'antenne
     solicitation_badges: Tags de l’équipe
     solicitation_created_at: Date de sollicitation
     solicitation_description: Description de la sollicitation

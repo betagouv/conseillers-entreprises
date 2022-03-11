@@ -55,10 +55,10 @@ class QuarterlyReportService
     end
 
     def last_quarters(antenne)
-      return if antenne.received_matches.blank?
-      first_match_date = antenne.received_matches.minimum(:created_at).to_date
+      return if antenne.perimeter_received_needs.blank?
+      first_need_date = antenne.perimeter_received_needs.minimum(:created_at).to_date
       quarters = TimeDurationService.past_year_quarters
-      quarters.reject! { |range| first_match_date > range.last }
+      quarters.reject! { |range| first_need_date > range.last }
       quarters
     end
   end
