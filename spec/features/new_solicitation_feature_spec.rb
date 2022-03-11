@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'New Solicitation', type: :system, js: true, flaky: true do
+describe 'New Solicitation', type: :feature, js: true, flaky: true do
   let(:pde_subject) { create :subject }
   let!(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
@@ -10,6 +10,31 @@ describe 'New Solicitation', type: :system, js: true, flaky: true do
 
   describe 'post solicitation' do
     let(:solicitation) { Solicitation.last }
+
+    context "from home page" do
+      before do
+        landing.landing_themes << landing_theme
+      end
+
+      it do
+        visit '/'
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
+        fill_in 'Prénom et nom', with: 'Mariane'
+        fill_in 'Téléphone', with: '0123456789'
+        fill_in 'Description', with: 'Ceci est un test'
+        fill_in 'Votre numéro SIRET', with: '12345678900010'
+        fill_in 'E-mail', with: 'user@example.com'
+        click_button 'Envoyer ma demande'
+        # Only here to avoid flickering test with CI
+        find(".section__title", match: :first)
+        expect(page).to have_content('Merci')
+        expect(solicitation.persisted?).to eq true
+        expect(solicitation.landing).to eq landing
+        expect(solicitation.siret).to eq '12345678900010'
+        expect(solicitation.pk_campaign).to eq nil
+      end
+    end
 
     context "from pk campaign" do
       before do
@@ -21,43 +46,46 @@ describe 'New Solicitation', type: :system, js: true, flaky: true do
         fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
         fill_in 'Téléphone', with: '0123456789'
         fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'solicitation-siret', with: '123 456 789 00010'
+        fill_in 'Votre numéro SIRET', with: '12345678900010'
         fill_in 'E-mail', with: 'user@exemple.com'
         click_button 'Envoyer ma demande'
       end
 
-      xit do
+      it do
         # Only here to avoid flickering test with CI
         find(".section__title", match: :first)
         expect(page).to have_content('Merci')
+        expect(solicitation.persisted?).to eq true
         expect(solicitation.landing).to eq landing
         expect(solicitation.landing_subject.subject).to eq pde_subject
-        expect(solicitation.siret).to eq '123 456 789 00010'
+        expect(solicitation.siret).to eq '12345678900010'
         expect(solicitation.pk_campaign).to eq 'FOO'
         expect(solicitation.pk_kwd).to eq 'BAR'
       end
     end
 
-    context "from home page" do
+    context "with siret in url" do
       before do
         landing.landing_themes << landing_theme
-      end
-
-      xit do
-        visit '/'
+        visit '/?siret=12345678900010'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
-        fill_in 'Prénom et nom', with: 'Mariane'
+      end
+
+      it do
+        # Only here to avoid flickering test with CI
+        expect(page).to have_field('Votre numéro SIRET', with: '12345678900010')
+        fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
         fill_in 'Téléphone', with: '0123456789'
         fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'solicitation-siret', with: '123 456 789 00010'
-        fill_in 'E-mail', with: 'user@example.com'
+        fill_in 'E-mail', with: 'user@exemple.com'
         click_button 'Envoyer ma demande'
-        # Only here to avoid flickering test with CI
         find(".section__title", match: :first)
         expect(page).to have_content('Merci')
+        expect(solicitation.persisted?).to eq true
         expect(solicitation.landing).to eq landing
-        expect(solicitation.siret).to eq '123 456 789 00010'
+        expect(solicitation.landing_subject.subject).to eq pde_subject
+        expect(solicitation.siret).to eq '12345678900010'
         expect(solicitation.pk_campaign).to eq nil
       end
     end
