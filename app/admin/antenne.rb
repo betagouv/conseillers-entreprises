@@ -51,6 +51,7 @@ ActiveAdmin.register Antenne do
 
   filter :name
   filter :institution, as: :ajax_select, data: { url: :admin_institutions_path, search_fields: [:name] }
+  filter :territorial_level, as: :select, collection: -> { Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a }
   filter :territories, as: :ajax_select, collection: -> { Territory.bassins_emploi.pluck(:name, :id) },
          data: { url: :admin_territories_path, search_fields: [:name] }
   filter :regions, as: :ajax_select, collection: -> { Territory.regions.pluck(:name, :id) },
@@ -137,7 +138,7 @@ ActiveAdmin.register Antenne do
         search_fields: [:name]
       }
       f.input :insee_codes, as: :text
-      f.input :territorial_level, as: :select, collection: Antenne::territorial_levels
+      f.input :territorial_level, as: :select, collection: Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a
     end
 
     f.inputs do

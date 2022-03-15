@@ -48,7 +48,6 @@ fr:
       admin: Admins
       all: Tout
       antenne_manager: Responsables d’antenne
-      antenne_manager_national: Responsables d’antenne nationale
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
@@ -506,6 +505,25 @@ fr:
       user:
         one: Utilisateur
         other: Utilisateurs
+  antenne_stats_exporter:
+    count: Nb
+    done_rate: Taux de clôture avec aide
+    ecosystem_answering_rate: Taux de réponse de l’écosystème (%{institution} et autres partenaires)
+    ecosystem_positionning: Positionnement de l’écosystème (%{institution} et autres partenaires)
+    experts_answering_rate: Taux de réponse des experts %{institution}
+    experts_positionning: Positionnement des experts %{institution}
+    facilities: Etablissements
+    from_beginning_of_year: Depuis le début de l’année %{year}
+    matches: Mises en relation
+    needs: Besoins
+    not_for_me_rate: Taux de refus
+    percentage: "%"
+    positionning_accepted_rate: Taux de prise en charge
+    positionning_rate: Taux de positionnement
+    quarter_stats: Stats trim.
+    quo_rate: Taux de sans réponse
+    subtitle: Analyse statistique des besoins transmis aux experts
+    year_stats: Stats ann.
   archivable:
     archive: Archiver
     archive_done: Archivé
@@ -525,6 +543,7 @@ fr:
     antenne_experts:
       one: Expert
       other: Experts
+    antenne_territorial_level: Niveau de l'antenne
     antenne_territories: Territoire de l’antenne
     archived_at: Date d’archivage
     badges:

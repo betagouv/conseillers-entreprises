@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   resources :reports, path: 'export-des-donnees', only: :index do
     member do
-      get :download_matches
+      get :download
     end
   end
 

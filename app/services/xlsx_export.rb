@@ -9,7 +9,7 @@ module XlsxExport
   end
 
   ## Helper method
-  # Just call <Relation>.export_csv(<options>)
+  # Just call <Relation>.export_xlsx(<options>)
   module RecordExtension
     def export_xlsx(options = {})
       ## Note:

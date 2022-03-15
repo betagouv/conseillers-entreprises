@@ -47,8 +47,11 @@ class Antenne < ApplicationRecord
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :managers, -> { role_antenne_manager }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, dependent: :destroy, inverse_of: :antenne
-  has_many :quarterly_reports, dependent: :destroy, inverse_of: :antenne
   accepts_nested_attributes_for :match_filters, allow_destroy: true
+
+  has_many :quarterly_reports, dependent: :destroy, inverse_of: :antenne
+  has_many :matches_reports, -> { category_matches }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
+  has_many :stats_reports, -> { category_stats }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
 
   ## Hooks and Validations
   #
@@ -105,22 +108,74 @@ class Antenne < ApplicationRecord
     end
   end
 
-  # Antenne regionale
+  # Perimetre territorial
   #
-  # instance dont le territoire est l'ensemble d'une region
+  def local?
+    territorial_level_local?
+  end
+
   def regional?
-    (regions.size == 1) && (commune_ids.size == regions.first.commune_ids.size)
+    territorial_level_regional?
+  end
+
+  def national?
+    territorial_level_national?
   end
 
   # A surveiller : une antenne peut-elle avoir plusieurs antennes regionales ?
   def regional_antenne
-    return if self.regional?
+    return unless self.local?
     same_region_antennes = institution.antennes_in_region(region_ids)
     same_region_antennes.select do |a|
-      a.regional? && (self.commune_ids - a.commune_ids).empty?
+      a.regional? && Utilities::Arrays.included_in?(commune_ids, a.commune_ids)
     end&.first
   end
 
+  def territorial_antennes
+    return [] if self.local?
+    same_region_antennes = institution.antennes_in_region(region_ids)
+    same_region_antennes.select do |a|
+      !a.regional? && Utilities::Arrays.included_in?(a.commune_ids, commune_ids)
+    end
+  end
+
+  ## Périmètre d'exercice :
+  # tous les besoins auxquels une antenne peut avoir accès suivant son échelon territorial
+  #
+  def perimeter_received_needs
+    if self.national?
+      self.institution.received_needs
+    elsif self.regional?
+      Need.diagnosis_completed.joins(experts: :antenne).scoping do
+        Need.where(experts: { antenne: self })
+          .or(Need.where(experts: { antenne: self.territorial_antennes }))
+      end.distinct
+    else
+      self.received_needs
+    end
+  end
+
+  def perimeter_received_matches_from_needs(needs)
+    if self.national?
+      self.institution.received_matches.joins(:need).where(need: needs).distinct
+    elsif self.regional?
+      Match.joins(:need, expert: :antenne).scoping do
+        Match.where(
+          need: needs,
+          expert: { antenne: self }
+        )
+          .or(Match.where(
+                need: needs,
+                expert: { antenne: self.territorial_antennes }
+              ))
+      end.distinct
+    else
+      self.received_matches.joins(:need).where(need: needs).distinct
+    end
+  end
+
+  # Flexible find
+  #
   def self.flexible_find_or_initialize(institution, name)
     return nil unless institution.present? && name.present?
     antenne = institution.antennes.find_by('lower(name) = ?', name.squish.downcase)

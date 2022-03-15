@@ -3,7 +3,7 @@ class ReportPolicy < ApplicationPolicy
     @user&.role_antenne_manager?
   end
 
-  def download_matches?
+  def download?
     @user&.role_antenne_manager? && @record.antenne == @user.antenne
   end
 end

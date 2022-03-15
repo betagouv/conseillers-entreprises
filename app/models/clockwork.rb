@@ -31,8 +31,8 @@ module Clockwork
     `rake auto_archive_old_matches`
   end
   if Rails.env == 'production'
-    every(1.day, 'quarterly_matches_export', at: '01:00', if: -> (t) { t.day == 14 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
-      QuarterlyReportService.delay.matches_export
+    every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
+      QuarterlyReportService.delay.generate_reports
     end
   end
 end

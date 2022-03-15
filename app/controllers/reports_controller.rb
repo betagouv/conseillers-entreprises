@@ -1,13 +1,13 @@
 class ReportsController < ApplicationController
-  before_action :last_quarters
+  before_action :retrieve_antenne
+  before_action :retrieve_quarters
 
   def index
-    @antenne = current_user.antenne
     authorize :report, :index?
   end
 
-  def download_matches
-    quarterly_report = QuarterlyReport.find_by(id: params[:id], antenne: current_user.antenne)
+  def download
+    quarterly_report = @antenne.quarterly_reports.find_by(id: params[:id])
     authorize quarterly_report, policy_class: ReportPolicy
     respond_to do |format|
       format.html
@@ -19,10 +19,11 @@ class ReportsController < ApplicationController
 
   private
 
-  def last_quarters
-    return if current_user.antenne.received_matches.blank?
-    first_match_date = current_user.antenne.received_matches.first.created_at.to_date
-    @quarters = TimeDurationService.past_year_quarters
-    @quarters.reject! { |range| first_match_date > range.last }
+  def retrieve_antenne
+    @antenne = current_user.antenne
+  end
+
+  def retrieve_quarters
+    @quarters = @antenne.quarterly_reports.order(start_date: :desc).pluck(:start_date, :end_date).uniq
   end
 end
