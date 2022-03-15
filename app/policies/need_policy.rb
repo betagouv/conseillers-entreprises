@@ -14,7 +14,6 @@ class NeedPolicy < ApplicationPolicy
       @record.advisor == @user ||
       support?(@user, @record) ||
       @record.advisor_antenne == @user.antenne ||
-      @record.in?(@user.antenne.received_needs) ||
       @record.in?(@user&.received_needs)
   end
 
