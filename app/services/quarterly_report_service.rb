@@ -1,7 +1,7 @@
 class QuarterlyReportService
   class << self
     def generate_reports(antennes = Antenne.all)
-      antennes.find_each do |antenne|
+      antennes.each do |antenne|
         quarters = last_quarters(antenne)
         next if quarters.nil?
         quarters.each do |quarter|
