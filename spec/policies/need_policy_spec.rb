@@ -19,10 +19,16 @@ RSpec.describe NeedPolicy, type: :policy do
       it { is_expected.to permit(user, need) }
     end
 
+    context "user belongs to need experts" do
+      let(:user) { create :user, experts: [need.experts.first] }
+
+      it { is_expected.to permit(user, need) }
+    end
+
     context "expert in the same antenne" do
       let(:user) { create :user, antenne: need.expert_antennes.first }
 
-      it { is_expected.to permit(user, need) }
+      it { is_expected.not_to permit(user, need) }
     end
 
     context "grants access if user is admin" do
