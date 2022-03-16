@@ -24,7 +24,6 @@ ActiveAdmin.register Landing do
     column :title do |l|
       div admin_link_to l.institution if l.institution.present?
       div link_to l.title, l if l.slug.present?
-      div l.logos&.truncate(50, separator: ', '), style: 'color: gray'
     end
     column :iframe_category do |l|
       div l.iframe? ? (human_attribute_status_tag l, :iframe_category) : '-'
@@ -58,7 +57,6 @@ ActiveAdmin.register Landing do
         end
         row :archived_at
         row(:layout) { |landing| human_attribute_status_tag landing, :layout }
-        row :logos
         row :created_at
         row :updated_at
       end
@@ -95,7 +93,7 @@ ActiveAdmin.register Landing do
   landing_joint_themes_attributes = %i[id landing_theme_id position _destroy]
 
   permit_params :slug, :title,
-                :layout, :logos,
+                :layout,
                 :emphasis, :home_description, :main_logo,
                 :meta_title, :meta_description,
                 :iframe, :iframe_category, :institution_id,
@@ -107,7 +105,6 @@ ActiveAdmin.register Landing do
       f.input :title
       f.input :slug
       f.input :layout, as: :select, collection: Landing.human_attribute_values(:layout).invert
-      f.input :logos
     end
 
     f.inputs I18n.t("activerecord.attributes.landing.featured_on_home") do
