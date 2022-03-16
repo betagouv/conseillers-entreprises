@@ -41,10 +41,6 @@ ActiveAdmin.register Antenne do
     column(:manager) do |a|
       if a.managers.any?
         div admin_link_to(a, :managers, list: true)
-      else
-        div a.manager_full_name
-        div a.manager_email
-        div a.manager_phone
       end
     end
   end
@@ -98,10 +94,6 @@ ActiveAdmin.register Antenne do
       row(:manager) do |a|
         if a.managers.any?
           div admin_link_to(a, :managers, list: true)
-        else
-          div a.manager_full_name
-          div a.manager_email
-          div a.manager_phone
         end
       end
       row(I18n.t('active_admin.territory.communes_list')) do |a|
