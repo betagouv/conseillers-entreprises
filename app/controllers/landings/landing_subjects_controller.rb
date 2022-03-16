@@ -47,7 +47,8 @@ class Landings::LandingSubjectsController < Landings::BaseController
 
   # Params envoyés dans les iframes pour pré-remplir le formulaire
   def retrieve_solicitation_params
-    saved_params = session[:solicitation_form_info] || {}
-    { siret: saved_params['siret'] }
+    # On ne cherche que dans les params, car contexte d'iframe = pas de session
+    query_params = view_params.slice(:siret)
+    { siret: query_params['siret'] }
   end
 end
