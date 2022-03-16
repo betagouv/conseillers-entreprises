@@ -18,7 +18,8 @@ class DiagnosesController < ApplicationController
     authorize Diagnosis
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])
     @diagnosis = DiagnosisCreation.new_diagnosis(@current_solicitation)
-    @needs = Need.for_email_and_sirets(@current_solicitation&.email, [@current_solicitation&.siret])
+    @needs = @current_solicitation.present? ?
+               Need.for_email_and_sirets(@current_solicitation&.email, [@current_solicitation&.siret]) : []
   end
 
   def index_antenne

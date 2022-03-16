@@ -7,7 +7,7 @@
     - if @company_needs.present?
       .fr-alert.fr-alert--warning.fr-mb-2w
         .fr-alert__title= t('.company_needs_historic_title')
-        %p= link_to t('.link_to_historic'), needs_company_path(siret: @diagnosis.facility.siret), target: :blank, reel: :noopener
+        %p= link_to t('.link_to_historic'), needs_company_path(@diagnosis.facility), target: :blank, reel: :noopener
     - if @contact_needs.present?
       .fr-alert.fr-alert--warning.fr-mb-2w
         .fr-alert__title= t('.contact_needs_historic_title')

@@ -14,7 +14,7 @@
       %li
         #{t('attributes.code_effectif')} : #{t('codes_effectif' + '.' + diagnosis.facility.code_effectif)}
     %li
-      = link_to "SIRET : #{diagnosis.facility.siret}", company_path(diagnosis.facility.siret)
+      = link_to "#{t('attributes.siret')} : #{diagnosis.facility.siret}", company_path(diagnosis.facility)
     .ui.hidden.divider
     %li
       = link_to t('.company_details'), company_path(diagnosis.facility.siret)

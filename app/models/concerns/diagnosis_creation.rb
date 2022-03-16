@@ -3,7 +3,7 @@ module DiagnosisCreation
   # Build a new diagnosis with an new facility and company:
   # The creation params hash for a diagnosis has nested attributes for #facility and #facility#company.
   # These will be used `fields_for` form helpers.
-  def self.new_diagnosis(solicitation)
+  def self.new_diagnosis(solicitation = nil)
     Diagnosis.new(solicitation: solicitation,
                   facility: Facility.new(company: Company.new(name: solicitation&.full_name)))
   end

@@ -162,12 +162,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :companies, only: %i[show], param: :siret, path: 'entreprises' do
+  resources :companies, only: %i[show], path: 'entreprises' do
     member do
       get :needs, path: 'besoins'
     end
     collection do
-      get :search
+      get :search, path: 'search'
+      get :show_with_siret, path: 'siret/:siret'
     end
   end
 

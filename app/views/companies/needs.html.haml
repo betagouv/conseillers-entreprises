@@ -2,7 +2,7 @@
   .fr-mb-8w
     %h1.fr-h2= t('.title_html', company: @facility.company.name, siret: @facility.siret)
 
-    = link_to company_path(@facility.siret), class: "bold blue" do
+    = link_to company_path(@facility), class: "bold blue" do
       %span.ri-arrow-left-line.fr-mr-1w
       = t('.back_to_company')
 
