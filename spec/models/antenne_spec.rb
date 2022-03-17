@@ -29,6 +29,33 @@ RSpec.describe Antenne, type: :model do
         is_expected.to match [active_advisor]
       end
     end
+
+    describe 'manager' do
+      let(:antenne) { create :antenne }
+      let(:manager_antenne) { create :user, :manager, antenne: antenne }
+
+      context 'when adding same antenne manager' do
+        let(:same_antenne_manager) { create :user, :manager, antenne: antenne }
+
+        it 'lets antenne have multiple intern managers' do
+          expect(antenne.managers).to match_array([manager_antenne, same_antenne_manager])
+          expect(same_antenne_manager.antenne).to eq antenne
+          expect(manager_antenne.antenne).to eq antenne
+        end
+      end
+
+      context 'when adding other antenne manager' do
+        let(:other_antenne_user) { create :user, antenne: create(:antenne) }
+
+        before { other_antenne_user.managed_antennes.push antenne }
+
+        it 'lets antenne have multiple intern and extern managers' do
+          expect(antenne.managers).to match_array([manager_antenne, other_antenne_user])
+          expect(other_antenne_user.antenne).not_to eq antenne
+          expect(manager_antenne.antenne).to eq antenne
+        end
+      end
+    end
   end
 
   describe 'name code uniqueness' do
