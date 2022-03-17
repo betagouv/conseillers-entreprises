@@ -26,7 +26,7 @@
             .fr-col-lg-2.fr-grid-row--center.picto-person-block
               %span.ri-building-4-line
             .fr-col-lg-10
-              = render 'companies/facility_infos', facility: @need.facility, need: @need
+              = render 'companies/facility_infos', facility: @need.facility, need: @need, contact: @need.diagnosis.visitee
       .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle
         .fr-container.fr-p-0
           .fr-grid-row

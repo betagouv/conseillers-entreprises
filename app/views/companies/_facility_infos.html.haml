@@ -6,6 +6,8 @@
       %b= facility.company.name
     %li= facility.readable_locality
     %li= t('.workforce', range: Effectif.intitule_effectif(facility.code_effectif))
+    - facility_needs = Need.for_facility(facility).where.not(id: need.id)
+    - contact_needs = NeedPolicy::Scope.new(current_user, Need.for_emails_and_sirets([contact.email])).resolve - facility_needs
     - if facility.siret.present?
       %li #{t('attributes.siret')} : #{facility.siret}
       %li= facility.naf_libelle
@@ -14,5 +16,7 @@
       - if facility.company.inscrit_rm
         %li= t('companies.company.inscrit_rm')
       %li= link_to t('.more_informations'), company_path(facility.id), class: 'bold blue'
-      - if policy(facility).show_needs_history? && Need.for_facility(facility).where.not(id: need.id).any?
+      - if policy(facility).show_needs_history? && facility_needs.any?
         %li= link_to t('.needs_historic'), needs_company_path(facility), class: 'bold blue'
+    - if policy(contact).show_needs_history? && contact_needs.any? && facility_needs.blank?
+      %li= link_to t('.needs_historic'), needs_historic_contact_path(contact), class: 'bold blue'

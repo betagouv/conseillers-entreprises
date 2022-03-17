@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :contact do
     full_name { Faker::Name.unique.name }
+    email { Faker::Internet.unique.email }
     association :company
 
     trait :with_email do
