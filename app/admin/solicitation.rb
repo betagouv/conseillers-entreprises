@@ -171,7 +171,7 @@ ActiveAdmin.register Solicitation do
   form do |f|
     f.inputs do
       f.input :description, as: :text
-      f.input :status, collection: Solicitation.human_attribute_values(:status).invert.to_a
+      f.input :status, as: :select, collection: Solicitation.human_attribute_values(:status).invert.to_a
       f.input :siret
       f.input :full_name
       f.input :phone_number
