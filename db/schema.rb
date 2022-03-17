@@ -401,6 +401,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_080948) do
     t.integer "iframe_category", default: 1
     t.boolean "display_pde_partnership_mention", default: false
     t.datetime "archived_at"
+    t.string "logos"
     t.index ["archived_at"], name: "index_landings_on_archived_at"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true

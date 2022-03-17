@@ -27,11 +27,11 @@ class CreateUserRight < ActiveRecord::Migration[6.1]
     create_enum 'user_roles', role
     add_column :users, :role, :user_roles, default: 'advisor', null: false
 
-    User.joins(:user_rights).where(user_rights: { role: 'admin' }).distinct.each do |user|
+    User.joins(:user_rights).where(user_rights: { right: 'admin' }).distinct.each do |user|
       user.update_columns(role: 'admin')
     end
 
-    User.joins(:user_rights).where(user_rights: { role: 'manager' }).distinct.each do |user|
+    User.joins(:user_rights).where(user_rights: { right: 'manager' }).distinct.each do |user|
       user.update_columns(role: 'antenne_manager')
     end
 
