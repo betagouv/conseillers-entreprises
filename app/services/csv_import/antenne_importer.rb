@@ -39,13 +39,16 @@ module CsvImport
       manager = User.find_or_initialize_by(email: attributes[:manager_email])
       manager.update(
         antenne: antenne,
-        role: 'antenne_manager',
         job: I18n.t('attributes.manager'),
         full_name: attributes[:manager_full_name],
         phone_number: attributes[:manager_phone]
-      )
-      # Adds manager so that validations raise error if needed
-      antenne.managers << manager
+      ) if manager.new_record?
+      if manager.persisted?
+        antenne.managers << manager
+      else
+        # Adds manager so that validations raise error if needed
+        antenne.advisors << manager
+      end
       antenne
     end
   end
