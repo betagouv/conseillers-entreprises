@@ -19,7 +19,7 @@ ActiveAdmin.register User do
   scope :deleted
 
   scope :admin, group: :role
-  scope :antenne_manager, group: :role
+  scope :managers, group: :role
 
   scope :team_members, group: :teams
   scope :no_team, group: :teams
@@ -130,10 +130,17 @@ ActiveAdmin.register User do
     end
   end
 
-  sidebar I18n.t('active_admin.user.role'), only: :show do
-    attributes_table_for user do
-      row :role do |u|
-        I18n.t(u.role, scope: 'activerecord.attributes.user/roles')
+  sidebar I18n.t('active_admin.user.roles'), only: :show do
+    attributes_table do
+      if resource.is_admin?
+        row :admin do
+          div
+        end
+      end
+      resource.managed_antennes.each do |a|
+        row :manager do
+          a.name
+        end
       end
     end
   end
@@ -161,7 +168,9 @@ ActiveAdmin.register User do
 
   # Form
   #
-  permit_params :full_name, :email, :institution, :job, :phone_number, :role, :antenne_id, *User::FLAGS, expert_ids: []
+  user_rights_attributes = [:id, :antenne_id, :right, :_destroy]
+  permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, *User::FLAGS,
+                expert_ids: [], user_rights_attributes: user_rights_attributes
 
   form do |f|
     f.inputs I18n.t('active_admin.user.user_info') do
@@ -184,8 +193,11 @@ ActiveAdmin.register User do
       f.input :phone_number
     end
 
-    f.inputs I18n.t('active_admin.user.role') do
-      f.input :role, as: :select, collection: User.human_attribute_values(:role, raw_values: true).invert.to_a
+    f.inputs I18n.t('active_admin.user.roles') do
+      f.has_many :user_rights, allow_destroy: true, new_record: true do |ur|
+        ur.input :right, as: :select, collection: UserRight.human_attribute_values(:rights, raw_values: true).invert.to_a
+        ur.input :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
+      end
     end
 
     f.inputs I18n.t('attributes.flags') do

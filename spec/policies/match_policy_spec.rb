@@ -8,7 +8,7 @@ RSpec.describe MatchPolicy, type: :policy do
 
   permissions :update? do
     context "grants access if user is an admin" do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it { is_expected.to permit(user, match) }
     end
@@ -28,7 +28,7 @@ RSpec.describe MatchPolicy, type: :policy do
 
   permissions :update_status? do
     context "grants access if user is an admin" do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it { is_expected.to permit(user, match) }
     end

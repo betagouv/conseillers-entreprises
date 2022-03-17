@@ -16,7 +16,7 @@ module UserImpersonate
     config.user_name_column = 'full_name'
 
     # User model staff attribute
-    config.user_is_staff_method = 'role_admin?'
+    config.user_is_staff_method = 'is_admin?'
 
     # Redirect to this path when entering impersonate mode
     config.redirect_on_impersonate = '/mon_compte'

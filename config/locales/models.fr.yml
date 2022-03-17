@@ -115,7 +115,7 @@ fr:
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
       impersonate: Voir le site comme %{name}
-      role: Role
+      roles: Rôles
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
     users:
@@ -383,16 +383,23 @@ fr:
         remember_me: Se souvenir de moi
         reset_password_sent_at: Date de régénération du mot de passe
         reset_password_token: Token de régénération du mot de passe
-        role: Role
+        roles: Rôles
         sign_in_count: Connexions
         team_email: E-mail de l’équipe
         team_full_name: Nom de l’équipe
         team_job: Fonction de l’équipe
         team_phone_number: Téléphone de l’équipe
+        user_rights: rôles
       user/roles:
         admin: Admin
         advisor: Conseiller
-        antenne_manager: Responsable d’antenne
+        manager: Responsable d’antenne
+      user/user_rights:
+        antenne: Antenne
+        right: Droit
+      user_right:
+        antenne: Antenne
+        right: Droit
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
@@ -472,6 +479,9 @@ fr:
       landing_joint_theme:
         one: Thèmes de landing
         other: Thèmes de landing
+      landing_subject:
+        one: Sujet de landing
+        other: Sujets de landing
       landing_subjects:
         one: Sujet de landing
         others: Sujets de landing
@@ -505,6 +515,9 @@ fr:
       user:
         one: Utilisateur
         other: Utilisateurs
+      user_right:
+        one: Droit utilisateur
+        other: Droits utilisateur
   antenne_stats_exporter:
     count: Nb
     done_rate: Taux de clôture avec aide

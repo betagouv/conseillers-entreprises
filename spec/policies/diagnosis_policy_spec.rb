@@ -41,7 +41,7 @@ RSpec.describe DiagnosisPolicy, type: :policy do
     end
 
     context "grants access if user is admin" do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it { is_expected.to permit(user, diagnosis) }
     end
@@ -89,7 +89,7 @@ RSpec.describe DiagnosisPolicy, type: :policy do
       end
 
      context "grants access if user is admin" do
-        let(:user) { create :user, role: 'admin' }
+        let(:user) { create :user, :admin }
 
         it { is_expected.to permit(user, diagnosis) }
       end
@@ -129,7 +129,7 @@ RSpec.describe DiagnosisPolicy, type: :policy do
       end
 
      context "grants access if user is admin" do
-        let(:user) { create :user, role: 'admin' }
+        let(:user) { create :user, :admin }
 
         it { is_expected.to permit(user, diagnosis) }
       end

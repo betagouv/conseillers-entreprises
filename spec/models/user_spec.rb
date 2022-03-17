@@ -79,15 +79,6 @@ RSpec.describe User, type: :model do
   end
 
   describe 'scopes' do
-    describe 'not_admin' do
-      it do
-        create :user, role: 'admin'
-        regular_user = create :user
-
-        expect(described_class.not_admin).to match_array [regular_user]
-      end
-    end
-
     describe 'active_searchers' do
       it do
         searcher = create :user, searches: [(create :search, created_at: 1.day.ago)]

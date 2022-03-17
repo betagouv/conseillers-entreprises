@@ -42,14 +42,17 @@ class Antenne < ApplicationRecord
 
   has_many :experts, -> { not_deleted }, inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
-  # /!\ Attention, méthode à revoir, un manager peut être hors antenne !
-  has_many :managers, -> { role_antenne_manager.not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, dependent: :destroy, inverse_of: :antenne
   accepts_nested_attributes_for :match_filters, allow_destroy: true
 
   has_many :quarterly_reports, dependent: :destroy, inverse_of: :antenne
   has_many :matches_reports, -> { category_matches }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
   has_many :stats_reports, -> { category_stats }, class_name: 'QuarterlyReport', dependent: :destroy, inverse_of: :antenne
+
+  # rights / roles
+  has_many :user_rights, inverse_of: :antenne
+  has_many :user_rights_manager, ->{ right_manager }, class_name: 'UserRight', inverse_of: :antenne
+  has_many :managers, through: :user_rights_manager, source: :user, inverse_of: :managed_antennes
 
   ## Hooks and Validations
   #

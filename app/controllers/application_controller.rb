@@ -7,16 +7,16 @@ class ApplicationController < SharedController
   before_action :authenticate_user!
 
   def authenticate_admin!
-    current_user.role_admin? || not_found
+    current_user.is_admin? || not_found
   end
 
   ## Devise overrides
   def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.sign_in_count == 1
       path = tutoriels_path
-    elsif resource_or_scope.role_antenne_manager?
+    elsif resource_or_scope.is_manager?
       path = reports_path
-    elsif resource_or_scope.role_admin?
+    elsif resource_or_scope.is_admin?
       path = solicitations_path
     else
       path = quo_needs_path

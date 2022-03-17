@@ -24,7 +24,6 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :enum             default("advisor"), not null
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -60,15 +59,16 @@ class User < ApplicationRecord
 
   attr_accessor :cgu_accepted
 
-  enum role: {
-    advisor: 'advisor',
-    admin: 'admin',
-    antenne_manager: 'antenne_manager'
-  }, _prefix: true
-
   ## Associations
   #
   belongs_to :antenne, inverse_of: :advisors
+  # rights / roles
+  has_many :user_rights, inverse_of: :user
+  has_many :user_rights_manager, ->{ right_manager }, class_name: 'UserRight', inverse_of: :user
+  has_many :user_rights_admin, ->{ right_admin }, class_name: 'UserRight', inverse_of: :user
+  has_many :managed_antennes, through: :user_rights_manager, source: :antenne, inverse_of: :managers
+  accepts_nested_attributes_for :user_rights, allow_destroy: true
+
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
 
   has_many :sent_diagnoses, class_name: 'Diagnosis', foreign_key: 'advisor_id', inverse_of: :advisor
@@ -108,9 +108,8 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :admin, -> { not_deleted.role_admin }
-  scope :antenne_manager, -> { not_deleted.role_antenne_manager }
-  scope :not_admin, -> { not_role_admin }
+  scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.right_admin) }
+  scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.right_manager) }
 
   scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
@@ -278,5 +277,15 @@ class User < ApplicationRecord
 
   def synchronize_personal_skillsets
     self.personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
+  end
+
+  ## Rights
+
+  def is_manager?
+    user_rights_manager.any?
+  end
+
+  def is_admin?
+    user_rights_admin.any?
   end
 end

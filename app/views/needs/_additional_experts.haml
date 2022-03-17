@@ -1,5 +1,5 @@
 :ruby
-  return unless current_user&.role_admin?
+  return unless current_user&.is_admin?
 
 .additional-experts.fr-pt-2w{ id: "additional_experts-#{need.id}" }
   .content
