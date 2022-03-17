@@ -39,7 +39,7 @@
           - if solicitation.from_banned_company?
             %span{ title: t('.solicitation_banned_facility_explanation') }
               %i.ri-flag-fill
-        - needs_historic = Need.for_email_and_sirets(solicitation.email, solicitation.valid_sirets).with_siret
+        - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret
         - if needs_historic.any?
           .meta__items
             .item= t('.needs_historic')

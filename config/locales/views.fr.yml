@@ -147,6 +147,7 @@ fr:
       raison_sociale: Raison Sociale
     needs:
       back_to_company: Voir la fiche entreprise
+      company_contacts_needs: 'Liste des besoins pour les contacts de cette entreprise :'
       needs_done: Cloturés
       needs_in_progress: En cours
       others: Autres besoins pour cette entreprise

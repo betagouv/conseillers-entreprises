@@ -39,10 +39,14 @@ class CompaniesController < ApplicationController
   end
 
   def needs
-    ## TODO : afficher aussi les besoins déposés avec le même email (cf cas cession/reprise)
     @facility = Facility.find(params.permit(:id)[:id])
     @needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, @facility.needs).resolve
     @needs_done = NeedDonePolicy::Scope.new(current_user, @facility.needs).resolve
+
+    emails = @facility.company.contacts.pluck(:email).uniq
+    needs = Need.for_emails_and_sirets(emails)
+    @contact_needs_in_progress = NeedInProgressPolicy::Scope.new(current_user, needs.in_progress).resolve - @needs_in_progress
+    @contact_needs_done = NeedDonePolicy::Scope.new(current_user, needs.done).resolve - @needs_done
   end
 
   private

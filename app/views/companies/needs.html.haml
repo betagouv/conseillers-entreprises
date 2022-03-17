@@ -15,3 +15,15 @@
     .fr-grid-row
       %h2.fr-h3= t('.needs_done')
       = render partial: 'need', collection: @needs_done
+
+  - if @contact_needs_in_progress.present? || @contact_needs_done.present?
+    %h2.fr-mt-5w= t('.company_contacts_needs')
+    - if @contact_needs_in_progress.present?
+      .fr-grid-row.fr-mb-4w
+        %h3= t('.needs_in_progress')
+        = render partial: 'need', collection: @contact_needs_in_progress
+
+    - if @contact_needs_done.present?
+      .fr-grid-row
+        %h3= t('.needs_done')
+        = render partial: 'need', collection: @contact_needs_done

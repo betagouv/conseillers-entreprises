@@ -8,7 +8,7 @@
       .fr-alert.fr-alert--warning.fr-mb-2w
         .fr-alert__title= t('.company_needs_historic_title')
         %p= link_to t('.link_to_historic'), needs_company_path(@diagnosis.facility), target: :blank, reel: :noopener
-    - if @contact_needs.present?
+    - if @contact_needs.present? && @company_needs.blank?
       .fr-alert.fr-alert--warning.fr-mb-2w
         .fr-alert__title= t('.contact_needs_historic_title')
         %p= link_to t('.link_to_historic'), needs_historic_contact_path(@diagnosis.visitee), target: :blank, reel: :noopener
