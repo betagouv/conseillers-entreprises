@@ -297,6 +297,40 @@ RSpec.describe Need, type: :model do
         expect(need.feedbacks).to match_array [feedback2]
       end
     end
+
+    describe 'for_emails_and_sirets' do
+      let(:email) { 'dupond@dupont.fr' }
+      let(:siret) { '42322944200011' }
+      let(:other_email) { 'tintin@moulinsart.fr' }
+      let(:facility) { create :facility, siret: siret }
+      let(:other_facility) { create :facility, siret: '32242373200021' }
+      let(:solicitation) { create :solicitation, email: email }
+      let(:other_solicitation) { create :solicitation, email: other_email }
+      #  Besoin avec le meme email OK
+      let(:diagnosis_1) { create :diagnosis, solicitation: solicitation }
+      let!(:need_1) { create :need_with_matches, diagnosis: diagnosis_1 }
+      # Besoin avec le même email et le même siret OK
+      let(:diagnosis_2) { create :diagnosis, solicitation: solicitation, facility: facility }
+      let!(:need_2) { create :need_with_matches, diagnosis: diagnosis_2 }
+      # Besoin avec un autre email KO
+      let(:diagnosis_3) { create :diagnosis, solicitation: other_solicitation }
+      let!(:need_3) { create :need_with_matches, diagnosis: diagnosis_3 }
+      # Besoin avec un autre email et siret KO
+      let(:diagnosis_4) { create :diagnosis, solicitation: other_solicitation, facility: other_facility }
+      let!(:need_4) { create :need_with_matches, diagnosis: diagnosis_4 }
+      # Besoin avec le même email mais sans MER KO
+      let(:diagnosis_5) { create :diagnosis, solicitation: solicitation }
+      let!(:need_5) { create :need, diagnosis: diagnosis_5 }
+      # Besoin avec le même siret mais sans MER KO
+      let(:diagnosis_6) { create :diagnosis, solicitation: solicitation, facility: facility }
+      let!(:need_6) { create :need, diagnosis: diagnosis_6 }
+
+      subject { described_class.for_emails_and_sirets([email], [siret]) }
+
+      it 'return needs historic for email and siret' do
+        is_expected.to match_array [need_1, need_2]
+      end
+    end
   end
 
   describe 'abandoned' do
