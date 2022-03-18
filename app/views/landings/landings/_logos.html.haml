@@ -2,7 +2,9 @@
   = prefet_region_logo(session[:region_code])
   = region_logo(session[:region_code])
 
+  - if defined? landing
+    = landing_and_theme_logos(landing)
   - if defined? landing_theme
-    = landing_theme_logos(landing_theme)
+    = landing_and_theme_logos(landing_theme)
   - if defined? landing_subject
     = landing_subject_logos(landing_subject)

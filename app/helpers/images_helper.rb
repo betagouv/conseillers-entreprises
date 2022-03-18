@@ -11,8 +11,8 @@ module ImagesHelper
     image_tag(image_path(path), params) if path
   end
 
-  def landing_theme_logos(landing_theme)
-    logos = landing_theme.landing_subjects.collect(&:logos).flatten.uniq.sort_by(&:name)
+  def landing_and_theme_logos(landing_or_theme)
+    logos = landing_or_theme.landing_subjects.collect(&:logos).flatten.uniq.sort_by(&:name)
     display_all_logos(logos, 'institutions/')
   end
 
