@@ -59,7 +59,7 @@ fr:
           other: "%{count} experts régionaux sur ce sujet"
   annuaire_helper:
     build_user_name_cell:
-      antenne_manager: Responsable d’antenne.
+      antenne_manager: Responsables d’antenne.
       edit_expert: Modifier %{expert_name} - %{antenne}
       not_invited: Invitation pas encore envoyée.
       specific_territories: Équipe avec des territoires spécifiques.
@@ -586,7 +586,7 @@ fr:
       add_other_experts: Rechercher d’autres experts à mettre en relation
       no_expert_found: Aucun résultat
     antenne_manager:
-      manager_name: 'Responsable : %{name}'
+      manager_name: 'Responsables : %{name}'
     archive:
       archive: Archiver
       archive_done: Besoin de l’entreprise %{company} archivé
@@ -706,7 +706,7 @@ fr:
     experts:
       expert:
         expert_creation_date: Inscription le %{date}
-        manager_name: 'Responsable : %{name}'
+        manager_name: 'Responsables : %{name}'
         matches_total: Demandes depuis le début
         positionning_rate: Taux de positionnement sur 60 jours
         received_matches: reçues

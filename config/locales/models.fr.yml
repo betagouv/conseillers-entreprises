@@ -47,7 +47,6 @@ fr:
       active: Actifs
       admin: Admins
       all: Tout
-      antenne_manager: Responsables d’antenne
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
@@ -60,6 +59,7 @@ fr:
       from_visit: Visites
       invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
+      managers: Responsables d’antenne
       never_used: Non connectable
       no_team: Solo
       not_archived: Non archivés

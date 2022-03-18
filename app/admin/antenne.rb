@@ -91,7 +91,7 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :sent_matches)
         div admin_link_to(a, :received_matches)
       end
-      row(:manager) do |a|
+      row(:managers) do |a|
         if a.managers.any?
           div admin_link_to(a, :managers, list: true)
         end

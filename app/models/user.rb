@@ -62,12 +62,6 @@ class User < ApplicationRecord
   ## Associations
   #
   belongs_to :antenne, inverse_of: :advisors
-  # rights / roles
-  has_many :user_rights, inverse_of: :user
-  has_many :user_rights_manager, ->{ right_manager }, class_name: 'UserRight', inverse_of: :user
-  has_many :user_rights_admin, ->{ right_admin }, class_name: 'UserRight', inverse_of: :user
-  has_many :managed_antennes, through: :user_rights_manager, source: :antenne, inverse_of: :managers
-  accepts_nested_attributes_for :user_rights, allow_destroy: true
 
   has_and_belongs_to_many :experts, -> { not_deleted }, inverse_of: :users
 
@@ -77,6 +71,13 @@ class User < ApplicationRecord
   belongs_to :inviter, class_name: 'User', inverse_of: :invitees, optional: true
   has_many :invitees, class_name: 'User', foreign_key: 'inviter_id', inverse_of: :inviter, counter_cache: :invitations_count
   has_many :supported_territories, class_name: 'Territory', foreign_key: 'support_contact_id', inverse_of: :support_contact
+
+  # :rights / roles
+  has_many :user_rights, inverse_of: :user
+  has_many :user_rights_manager, ->{ right_manager }, class_name: 'UserRight', inverse_of: :user
+  has_many :user_rights_admin, ->{ right_admin }, class_name: 'UserRight', inverse_of: :user
+  has_many :managed_antennes, through: :user_rights_manager, source: :antenne, inverse_of: :managers
+  accepts_nested_attributes_for :user_rights, allow_destroy: true
 
   ## Validations
   #

@@ -392,6 +392,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_080948) do
     t.string "meta_title"
     t.string "meta_description"
     t.string "title"
+    t.string "logos"
     t.string "custom_css"
     t.string "partner_url"
     t.boolean "emphasis", default: false
@@ -401,7 +402,6 @@ ActiveRecord::Schema.define(version: 2022_03_17_080948) do
     t.integer "iframe_category", default: 1
     t.boolean "display_pde_partnership_mention", default: false
     t.datetime "archived_at"
-    t.string "logos"
     t.index ["archived_at"], name: "index_landings_on_archived_at"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
