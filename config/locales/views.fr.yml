@@ -661,7 +661,7 @@ fr:
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
     alert_region:
-      alert_region_html: "<b>Place des Entreprises</b> est un service public progressivement ouvert dans toutes les régions de France. Votre région n'est pas encore concernée."
+      alert_region_html: "Ce service est en fin de déploiement national, il ouvrira prochainement en Occitanie, en Centre Val de Loire et en Bourgogne-Franche-Comté"
       learn_more: En savoir plus
     cookie_text: Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord
     footer:
