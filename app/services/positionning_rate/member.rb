@@ -19,11 +19,15 @@ module PositionningRate
     end
 
     def critical_rate?
-      member_rate > CRITICAL_RATE
+      rate > CRITICAL_RATE
     end
 
     def worrying_rate?
-      member_rate > WORRYING_RATE
+      rate > WORRYING_RATE
+    end
+
+    def pending_rate?
+      rate <= WORRYING_RATE
     end
 
     private
