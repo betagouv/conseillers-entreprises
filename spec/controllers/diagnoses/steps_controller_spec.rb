@@ -124,7 +124,7 @@ RSpec.describe Diagnoses::StepsController, type: :controller do
     describe 'the current admin should become the advisor if needed' do
       let(:solicitation) { create :solicitation }
       let(:diagnosis) { create :diagnosis, advisor: advisor, solicitation: solicitation }
-      let(:current_user) { create :user, role: 'admin' }
+      let(:current_user) { create :user, :admin }
       let(:selected) { true }
 
       context 'advisor is previously nil' do

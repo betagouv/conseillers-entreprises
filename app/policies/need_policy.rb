@@ -1,7 +1,7 @@
 class NeedPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.role_admin?
+      if user.is_admin?
         scope.all
       else
         scope.received_by(user)

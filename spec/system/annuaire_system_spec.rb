@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'system_helper'
 
 describe 'annuaire', type: :system, js: true, flaky: true do
-  let(:user) { create :user, role: 'admin' }
+  let(:user) { create :user, :admin }
   let(:institution) { create :institution }
   let!(:antenne) { create :antenne, institution: institution }
   let!(:another_institution) { create :institution }

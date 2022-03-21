@@ -41,10 +41,6 @@ ActiveAdmin.register Antenne do
     column(:manager) do |a|
       if a.managers.any?
         div admin_link_to(a, :managers, list: true)
-      else
-        div a.manager_full_name
-        div a.manager_email
-        div a.manager_phone
       end
     end
   end
@@ -95,13 +91,9 @@ ActiveAdmin.register Antenne do
         div admin_link_to(a, :sent_matches)
         div admin_link_to(a, :received_matches)
       end
-      row(:manager) do |a|
+      row(:managers) do |a|
         if a.managers.any?
           div admin_link_to(a, :managers, list: true)
-        else
-          div a.manager_full_name
-          div a.manager_email
-          div a.manager_phone
         end
       end
       row(I18n.t('active_admin.territory.communes_list')) do |a|
@@ -127,8 +119,8 @@ ActiveAdmin.register Antenne do
   ## Form
   #
   match_filters_attributes = [ :id, :min_years_of_existence, :effectif_max, :effectif_min, :subject_id, :raw_accepted_naf_codes, :_destroy ]
-  permit_params :name, :institution_id, :insee_codes, :manager_full_name, :manager_email, :manager_phone, :territorial_level,
-                advisor_ids: [], expert_ids: [], match_filters_attributes: match_filters_attributes
+  permit_params :name, :institution_id, :insee_codes, :territorial_level,
+                advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes
 
   form do |f|
     f.inputs do
@@ -137,6 +129,13 @@ ActiveAdmin.register Antenne do
         url: :admin_institutions_path,
         search_fields: [:name]
       }
+      f.input :managers,
+              as: :ajax_select,
+              collection: resource.managers,
+              data: {
+                url: :admin_users_path,
+                search_fields: [:full_name]
+              }
       f.input :insee_codes, as: :text
       f.input :territorial_level, as: :select, collection: Antenne.human_attribute_values(:territorial_levels, raw_values: true).invert.to_a
     end

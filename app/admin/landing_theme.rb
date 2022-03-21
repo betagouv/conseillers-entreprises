@@ -98,7 +98,7 @@ ActiveAdmin.register LandingTheme do
   landing_subjects_attributes = [
     :id, :title, :slug, :subject_id, :description, :description_explanation, :form_title, :form_description,
     :meta_title, :logo_ids, :meta_description, :requires_location, :requires_requested_help_amount, :requires_siret, :archived_at,
-    :display_region_logo, :position, :position, :_destroy, logo_ids: []
+    :display_region_logo, :position, :_destroy, logo_ids: []
   ]
 
   permit_params :title, :page_title, :slug, :description, :meta_title, :meta_description,

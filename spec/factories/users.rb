@@ -14,5 +14,17 @@ FactoryBot.define do
     trait :invitation_accepted do
       invitation_accepted_at { Time.zone.now }
     end
+
+    trait :admin do
+      after(:create) do |user, _|
+        user.user_rights.create(right: 'admin')
+      end
+    end
+
+    trait :manager do
+      after(:create) do |user, _|
+        user.managed_antennes.push(user.antenne)
+      end
+    end
   end
 end

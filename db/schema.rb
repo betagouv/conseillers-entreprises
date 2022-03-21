@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_16_105619) do
+ActiveRecord::Schema.define(version: 2022_03_17_080948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,12 @@ ActiveRecord::Schema.define(version: 2022_03_16_105619) do
     "stats",
   ], force: :cascade
 
+  create_enum :rights, [
+    "advisor",
+    "admin",
+    "manager",
+  ], force: :cascade
+
   create_enum :solicitation_status, [
     "in_progress",
     "processed",
@@ -61,12 +67,6 @@ ActiveRecord::Schema.define(version: 2022_03_16_105619) do
     "local",
     "regional",
     "national",
-  ], force: :cascade
-
-  create_enum :user_roles, [
-    "advisor",
-    "admin",
-    "antenne_manager",
   ], force: :cascade
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -103,9 +103,6 @@ ActiveRecord::Schema.define(version: 2022_03_16_105619) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.string "manager_full_name"
-    t.string "manager_email"
-    t.string "manager_phone"
     t.enum "territorial_level", default: "local", null: false, enum_type: "territorial_level"
     t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
@@ -395,6 +392,7 @@ ActiveRecord::Schema.define(version: 2022_03_16_105619) do
     t.string "meta_title"
     t.string "meta_description"
     t.string "title"
+    t.string "logos"
     t.string "custom_css"
     t.string "partner_url"
     t.boolean "emphasis", default: false
@@ -563,6 +561,16 @@ ActiveRecord::Schema.define(version: 2022_03_16_105619) do
     t.index ["updated_at"], name: "index_themes_on_updated_at"
   end
 
+  create_table "user_rights", force: :cascade do |t|
+    t.bigint "antenne_id"
+    t.bigint "user_id", null: false
+    t.enum "right", default: "advisor", null: false, enum_type: "rights"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["antenne_id"], name: "index_user_rights_on_antenne_id"
+    t.index ["user_id"], name: "index_user_rights_on_user_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
@@ -590,7 +598,6 @@ ActiveRecord::Schema.define(version: 2022_03_16_105619) do
     t.datetime "deleted_at"
     t.jsonb "flags", default: {}
     t.datetime "cgu_accepted_at"
-    t.enum "role", default: "advisor", null: false, enum_type: "user_roles"
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true, where: "((email)::text <> NULL::text)"
@@ -644,6 +651,8 @@ ActiveRecord::Schema.define(version: 2022_03_16_105619) do
   add_foreign_key "solicitations", "landing_subjects"
   add_foreign_key "solicitations", "landings"
   add_foreign_key "subjects", "themes"
+  add_foreign_key "user_rights", "antennes"
+  add_foreign_key "user_rights", "users"
   add_foreign_key "users", "antennes"
   add_foreign_key "users", "users", column: "inviter_id"
 end

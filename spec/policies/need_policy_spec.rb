@@ -32,7 +32,7 @@ RSpec.describe NeedPolicy, type: :policy do
     end
 
     context "grants access if user is admin" do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it { is_expected.to permit(user, need) }
     end
@@ -69,7 +69,7 @@ RSpec.describe NeedPolicy, type: :policy do
     let(:need_scope) { NeedPolicy::Scope.new(user, Need.all).resolve }
 
     context 'admin user' do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it 'allows access to all needs' do
         expect(need_scope.to_a).to match_array([need, other_need])

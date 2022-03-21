@@ -8,7 +8,7 @@ RSpec.describe AntennePolicy, type: :policy do
 
   permissions :show_manager? do
     context "grants access if user is an admin" do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it { is_expected.to permit(user, antenne) }
     end

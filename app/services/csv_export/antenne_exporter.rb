@@ -5,9 +5,9 @@ module CsvExport
         institution: -> { institution.name },
         name: :name,
         insee_codes: :insee_codes,
-        manager_full_name: :manager_full_name,
-        manager_email: :manager_email,
-        manager_phone: :manager_phone
+        manager_full_name: -> { managers.pluck(:full_name).join(', ') },
+        manager_email:  -> { managers.pluck(:email).join(', ') },
+        manager_phone:  -> { managers.pluck(:phone_number).join(', ') },
       }
     end
 
@@ -15,6 +15,7 @@ module CsvExport
       [
         :institution,
         :communes,
+        :managers
       ]
     end
 

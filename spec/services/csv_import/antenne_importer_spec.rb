@@ -61,9 +61,9 @@ describe CsvImport::AntenneImporter, CsvImport do
       expect(Commune.pluck(:insee_code)).to match_array %w[00001 00002 00003 00004]
       expect(Antenne.find_by(name: 'Antenne1').communes.pluck(:insee_code)).to eq %w[00001 00002]
       expect(Antenne.find_by(name: 'Antenne2').communes.pluck(:insee_code)).to eq %w[00003 00004]
-      expect(Antenne.find_by(name: 'Antenne1').manager_full_name).to eq 'Mariane Martin'
-      expect(Antenne.find_by(name: 'Antenne1').manager_email).to eq 'mariane.m@gouv.fr'
-      expect(Antenne.find_by(name: 'Antenne1').manager_phone).to eq '0123456789'
+      expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
+      expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
+      expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
     end
   end
 
@@ -133,9 +133,9 @@ describe CsvImport::AntenneImporter, CsvImport do
       it do
         expect(result).to be_success
         expect(Antenne.find_by(name: 'Antenne1').insee_codes).to eq '00001'
-        expect(Antenne.find_by(name: 'Antenne1').manager_full_name).to eq 'Mariane Martin'
-        expect(Antenne.find_by(name: 'Antenne1').manager_email).to eq 'mariane.m@gouv.fr'
-        expect(Antenne.find_by(name: 'Antenne1').manager_phone).to eq '0123456789'
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.full_name).to eq 'Mariane Martin'
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.email).to eq 'mariane.m@gouv.fr'
+        expect(Antenne.find_by(name: 'Antenne1').managers.first.phone_number).to eq '01 23 45 67 89'
       end
     end
 

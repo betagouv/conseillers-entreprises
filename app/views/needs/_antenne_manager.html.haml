@@ -1,14 +1,12 @@
 .block-infos
   %ul.list-unstyled.fr-pl-1v
-    - if antenne.manager_full_name.present?
+    - antenne.managers.each do |manager|
       %li
         %span.picto.ri-nurse-fill
-        = t('.manager_name', name: antenne.manager_full_name)
-    - if antenne.manager_email.present?
+        = t('.manager_name', name: manager.full_name)
       %li
         %span.picto.ri-mail-fill
-        = mail_to antenne.manager_email, antenne.manager_email, class: 'break-word'
-    - if antenne.manager_phone.present?
+        = mail_to manager.email, manager.email, class: 'break-word'
       %li
         %span.picto.ri-phone-fill
-        = link_to(antenne.manager_phone, "tel:#{antenne.manager_phone}")
+        = link_to(manager.phone_number, "tel:#{manager.phone_number}")

@@ -16,7 +16,7 @@ describe 'ApplicationController specific features', type: :feature do
 
     context 'user is admin' do
       it do
-        current_user.update role: 'admin'
+        current_user.user_rights.create(right: 'admin')
         visit '/admin'
         expect(page.html).to include 'Sollicitations'
       end
@@ -46,13 +46,13 @@ describe 'ApplicationController specific features', type: :feature do
     end
 
     context 'antenne manager connection' do
-      let(:user) { create :user, password: password, password_confirmation: password, sign_in_count: 1, role: 'antenne_manager' }
+      let(:user) { create :user, :manager, password: password, password_confirmation: password, sign_in_count: 1 }
 
       it('redirects to reports page') { expect(current_url).to eq reports_url }
     end
 
     context 'admin manager connection' do
-      let(:user) { create :user, password: password, password_confirmation: password, sign_in_count: 1, role: 'admin' }
+      let(:user) { create :user, :admin, password: password, password_confirmation: password, sign_in_count: 1 }
 
       it('redirects to solicitations page') { expect(current_url).to eq solicitations_url }
     end

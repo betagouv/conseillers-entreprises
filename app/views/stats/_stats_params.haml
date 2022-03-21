@@ -7,7 +7,7 @@
         = select_tag(:territory,
           options_from_collection_for_select(Territory.regions.order(:name), :id, :name, stats.params.territory),
           options.dup)
-      - if current_user.present? && current_user.role_admin?
+      - if current_user.present? && current_user.is_admin?
         .form__group
           = label_tag(t('activerecord.models.institution.one'))
           = select_tag(:institution,

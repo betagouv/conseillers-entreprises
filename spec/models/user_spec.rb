@@ -79,15 +79,6 @@ RSpec.describe User, type: :model do
   end
 
   describe 'scopes' do
-    describe 'not_admin' do
-      it do
-        create :user, role: 'admin'
-        regular_user = create :user
-
-        expect(described_class.not_admin).to match_array [regular_user]
-      end
-    end
-
     describe 'active_searchers' do
       it do
         searcher = create :user, searches: [(create :search, created_at: 1.day.ago)]
@@ -132,19 +123,41 @@ RSpec.describe User, type: :model do
 
       it{ is_expected.to match_array user1 }
     end
-  end
 
-  describe "relevant_for_skills" do
-    let!(:expert1) { create :expert, users: [user] }
-    let!(:expert2) { create :expert, users: [user] }
-    let!(:user) { create :user }
+    describe "relevant_for_skills" do
+      let!(:expert1) { create :expert, users: [user] }
+      let!(:expert2) { create :expert, users: [user] }
+      let!(:user) { create :user }
 
-    subject(:relevant_users_for_skills) { described_class.relevant_for_skills }
+      subject(:relevant_users_for_skills) { described_class.relevant_for_skills }
 
-    it {
-      expect(relevant_users_for_skills.ids).to match_array [user.id, user.id]
-      expect(relevant_users_for_skills.map(&:relevant_expert)).to match_array [expert1, expert2]
-    }
+      it {
+        expect(relevant_users_for_skills.ids).to match_array [user.id, user.id]
+        expect(relevant_users_for_skills.map(&:relevant_expert)).to match_array [expert1, expert2]
+      }
+    end
+
+    describe 'rights scopes' do
+      let(:user_advisor) { create :user }
+      let(:user_manager) { create :user, :manager }
+      let(:user_deleted_manager) { create :user, :manager, deleted_at: 1.day.ago }
+      let(:user_admin) { create :user, :admin }
+      let(:user_poly) { create :user, :admin, :manager }
+
+      subject(:scope) { described_class.send(scope) }
+
+      context 'admin' do
+        let(:scope) { :admin }
+
+        it{ is_expected.to match_array [user_admin, user_poly] }
+      end
+
+      context 'manager' do
+        let(:scope) { :managers }
+
+        it{ is_expected.to match_array [user_manager, user_poly] }
+      end
+    end
   end
 
   describe '#password_required?' do
@@ -256,6 +269,23 @@ RSpec.describe User, type: :model do
       expect(user.reload.full_name).to eq 'Robert'
       expect(personal_skillset.reload.full_name).to eq 'Robert'
       expect(team.reload.full_name).not_to eq 'Robert'
+    end
+  end
+
+  describe '#managed_antennes' do
+    let(:user) { create :user, :manager }
+
+    context "adding a new managed antenne" do
+      let(:new_antenne) { create :antenne }
+
+      before do
+        user.managed_antennes.push(new_antenne)
+      end
+
+      it "lets user manage multiple antennes" do
+        expect(user.managed_antennes.size).to eq 2
+        expect(new_antenne.advisors).not_to include user
+      end
     end
   end
 end

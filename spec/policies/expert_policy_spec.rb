@@ -8,7 +8,7 @@ RSpec.describe ExpertPolicy, type: :policy do
 
   permissions :edit? do
     context "grants access if user is an admin" do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it { is_expected.to permit(user, expert) }
     end
@@ -28,7 +28,7 @@ RSpec.describe ExpertPolicy, type: :policy do
 
   permissions :update? do
     context "grants access if user is an admin" do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it { is_expected.to permit(user, expert) }
     end
@@ -48,7 +48,7 @@ RSpec.describe ExpertPolicy, type: :policy do
 
   permissions :show_deleted_experts? do
     context "grants access if user is an admin" do
-      let(:user) { create :user, role: 'admin' }
+      let(:user) { create :user, :admin }
 
       it { is_expected.to permit(user, expert) }
     end
