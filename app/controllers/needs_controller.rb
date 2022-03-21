@@ -73,6 +73,8 @@ class NeedsController < ApplicationController
     authorize @need
     @origin = params[:origin]
     @matches = @need.matches.order(:created_at)
+    @facility_needs = Need.for_facility(@need.facility).where.not(id: @need.id)
+    @contact_needs = NeedPolicy::Scope.new(current_user, Need.for_emails_and_sirets([@need.diagnosis.visitee.email])).resolve - @facility_needs
   end
 
   def additional_experts
