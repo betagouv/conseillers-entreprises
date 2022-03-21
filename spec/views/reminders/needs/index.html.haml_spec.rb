@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'reminders/needs/index.html.haml', type: :view do
   describe "archive" do
+    login_user
     let!(:action) { :archive }
     let!(:current_date) { Time.zone.now.beginning_of_day }
     let(:thirty_days_ago) { current_date - 30.days }

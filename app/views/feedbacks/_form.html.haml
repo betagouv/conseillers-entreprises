@@ -8,7 +8,7 @@
     = form.label :description, t('.title'), class: 'fr-label'
     - if policy(feedback).prefill?
       %span Préremplissage :
-      - I18n.t("prefill_feedbacks.#{feedback.category}").values.each do |prefill|
+      - I18n.t("prefill_feedbacks.#{feedback.category}").each_value do |prefill|
         %button.fr-btn.fr-btn--secondary.fr-btn--sm{ data: { content: prefill[:content], action: "feedback-form#prefill" } }
           = prefill[:label]
     = form.text_area :description, placeholder: placeholder, class: 'fr-input', rows: 2, required: true, data: { 'feedback-form-target': "prefilledField" }

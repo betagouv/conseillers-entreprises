@@ -109,6 +109,7 @@ ignore_unused:
   - 'regions_codes_to_slugs.*'
   - 'regions_slugs_to_codes.*'
   - 'faq.*'
+  - 'prefill_feedbacks.*'
   - '{date,datetime,errors,helpers,number,support,time}.*'
   - 'solicitation.provenance_categories.*'
   - 'password.missing_elements.*'

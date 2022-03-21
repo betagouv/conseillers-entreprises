@@ -3,14 +3,14 @@ fr:
   prefill_feedbacks:
     need:
       '1':
-        label: Rappel
         content: Bonjour, avez-vous pu rappeler le dirigeant ? Si oui, n’hésitez pas à clôturer votre intervention en cliquant sur les boutons « Aide proposée », « Injoignable » ou « Pas d’aide disponible ». Merci beaucoup pour votre retour. Je reste à votre disposition.
+        label: Rappel
       '2':
-        label: Bof
         content: Bonjour, est-ce que ce besoin vous intéresse ? Merci de vous positionner à l’aide des boutons de prise en charge ou de refus. Cela permet d’éviter les relances et d’apporter une réponse à l’entreprise, même négative (si toute le monde refuse, on s’en occupe !). Je reste à votre disposition.
+        label: Bof
       '3':
-        label: Tuto
         content: Bonjour, merci beaucoup pour la prise en charge. Si vous avez pu apporter une aide ou des conseils au dirigeant, n’oubliez pas de cliquer sur le bouton « Aide proposée » pour éviter les relances. Je me suis permis de le faire pour vous sur ce besoin. Je reste à votre disposition si vous avez des questions. Bien à vous.
+        label: Tuto
       '4':
-        label: Vide
         content: ''
+        label: Vide
