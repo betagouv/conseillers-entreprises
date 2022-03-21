@@ -230,7 +230,7 @@ class Need < ApplicationRecord
   scope :for_emails_and_sirets, -> (emails, sirets = []) do
     Need.diagnosis_completed.joins(:diagnosis, :solicitation, :facility).scoping do
       Need.where(diagnosis: { solicitations: { email: emails } })
-        .or(Need.where(diagnosis: { facilities: { siret: sirets } }))
+        .or(Need.where(diagnosis: { facilities: { siret: sirets.compact } }))
     end
   end
 
