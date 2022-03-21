@@ -21,15 +21,8 @@ RSpec.describe Contact, type: :model do
     describe 'email or phone_number' do
       context 'without any contact type' do
         it do
-          contact = build :contact
+          contact = build :contact, email: nil
           expect(contact).not_to be_valid
-        end
-      end
-
-      context 'with email' do
-        it do
-          contact = build :contact, :with_email
-          expect(contact).to be_valid
         end
       end
 

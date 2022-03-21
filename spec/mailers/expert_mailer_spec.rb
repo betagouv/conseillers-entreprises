@@ -9,7 +9,7 @@ describe ExpertMailer do
 
     let(:expert) { create :expert }
     let(:user) { create :user }
-    let(:diagnosis) { create :diagnosis_completed, advisor: user, visitee: create(:contact, :with_email) }
+    let(:diagnosis) { create :diagnosis_completed, advisor: user, visitee: create(:contact) }
     let(:need) { diagnosis.needs.first }
 
     describe 'email behavior' do

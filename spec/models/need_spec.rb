@@ -344,7 +344,7 @@ RSpec.describe Need, type: :model do
         subject { described_class.for_emails_and_sirets([email], [siret]) }
 
         it 'not return need with' do
-          is_expected.to match_array [need_1]
+          is_expected.to match_array [need]
         end
       end
     end
