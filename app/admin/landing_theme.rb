@@ -120,7 +120,6 @@ ActiveAdmin.register LandingTheme do
     f.inputs I18n.t('activerecord.attributes.landing_themes.landing_subjects') do
       f.has_many :landing_subjects, sortable: :position, sortable_start: 1, allow_destroy: true, new_record: true do |ls|
         ls.input :title
-        ls.input :archived_at, as: :datepicker, datepicker_options: { min_date: "2017-01-01" }
 
         ls.input :slug
         ls.input :subject, as: :ajax_select, data: { url: :admin_subjects_path, search_fields: [:label] }
@@ -135,6 +134,7 @@ ActiveAdmin.register LandingTheme do
         ls.input :display_region_logo
         ls.input :meta_title
         ls.input :meta_description
+        ls.input :archived_at, as: :datepicker, datepicker_options: { min_date: "2017-01-01" }
       end
     end
 
