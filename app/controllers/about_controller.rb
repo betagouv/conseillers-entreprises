@@ -1,4 +1,6 @@
 class AboutController < PagesController
+  include IframePrefix
+
   def cgu; end
 
   def mentions_d_information; end

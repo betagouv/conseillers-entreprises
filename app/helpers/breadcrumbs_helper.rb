@@ -14,6 +14,13 @@ module BreadcrumbsHelper
     html
   end
 
+  # Use for "Mentions d'information" inside iframe
+  def breadcrumbs_iframe_home(landing, title)
+    html = home_link(landing, params)
+    html << title
+    html
+  end
+
   # Breadcrumbs used for other pages
   # Ex : "Déposer une demande › Comment ça marche ?"
   def breadcrumbs_page(title)
