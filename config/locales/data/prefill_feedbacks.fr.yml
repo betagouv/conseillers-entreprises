@@ -11,6 +11,3 @@ fr:
       '3':
         content: Bonjour, merci beaucoup pour la prise en charge. Si vous avez pu apporter une aide ou des conseils au dirigeant, n’oubliez pas de cliquer sur le bouton « Aide proposée » pour éviter les relances. Je me suis permis de le faire pour vous sur ce besoin. Je reste à votre disposition si vous avez des questions. Bien à vous.
         label: Tuto
-      '4':
-        content: ''
-        label: Vide

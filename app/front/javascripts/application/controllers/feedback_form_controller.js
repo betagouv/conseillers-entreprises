@@ -10,4 +10,9 @@ export default class extends Controller {
 
     this.prefilledFieldTarget.value = content
   }
+
+  reset(event) {
+    event.preventDefault()
+    this.prefilledFieldTarget.value = ""
+  }
 }

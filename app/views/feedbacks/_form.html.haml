@@ -7,10 +7,14 @@
     - placeholder = local_assigns[:placeholder].presence || t("feedbacks.form.#{feedback.category.underscore}.placeholder")
     = form.label :description, t('.title'), class: 'fr-label'
     - if policy(feedback).prefill?
-      %span Préremplissage :
-      - I18n.t("prefill_feedbacks.#{feedback.category}").each_value do |prefill|
-        %button.fr-btn.fr-btn--secondary.fr-btn--sm{ data: { content: prefill[:content], action: "feedback-form#prefill" } }
-          = prefill[:label]
+      .fr-my-1w
+        %span.fr-mr-1w= t('.prefill')
+        - I18n.t("prefill_feedbacks.#{feedback.category}").each_value do |prefill|
+          %button.fr-btn.fr-btn--secondary.fr-btn--sm{ data: { content: prefill[:content], action: "feedback-form#prefill" } }
+            = prefill[:label]
+        %button.fr-link{ data: { action: "feedback-form#reset" } }
+          %span.ri.ri-close-circle-line
+          %span= t('.reset')
     = form.text_area :description, placeholder: placeholder, class: 'fr-input', rows: 2, required: true, data: { 'feedback-form-target': "prefilledField" }
     = form.button :submit, class: 'fr-btn btn-blue' do
       = t('.submit')
