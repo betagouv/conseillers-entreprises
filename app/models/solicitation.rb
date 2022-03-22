@@ -264,17 +264,6 @@ class Solicitation < ApplicationRecord
       .uniq
   end
 
-  # On présume qu'un email correspond a une entreprise
-  def same_facility_needs
-    email = self.email
-    sirets = valid_sirets
-    Need.diagnosis_completed
-      .eager_load(:facility, :visitee).where(
-        Facility.arel_table[:siret].in(sirets)
-        .or(Contact.arel_table[:email].eq(email))
-      )
-  end
-
   # Trouver les sirets probables des solicitations pour identifier relances et doublons
   def valid_sirets
     sirets = []

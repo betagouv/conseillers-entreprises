@@ -11,7 +11,7 @@
         - if solicitation.siret.present?
           .item
             = t('.siret')
-            %strong= link_to(solicitation.normalized_siret, company_path(solicitation.siret))
+            %strong= link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret))
         .item
           = t('.email')
           %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')
@@ -39,11 +39,12 @@
           - if solicitation.from_banned_company?
             %span{ title: t('.solicitation_banned_facility_explanation') }
               %i.ri-flag-fill
-        - if solicitation.same_facility_needs.with_siret.any?
+        - needs_historic = Need.for_emails_and_sirets([solicitation.email], solicitation.valid_sirets).with_siret
+        - if needs_historic.any?
           .meta__items
             .item= t('.needs_historic')
-            - solicitation.same_facility_needs.with_siret.map{ |n| n.facility.siret }.uniq.each do |siret|
-              = link_to siret, needs_company_path(siret)
+            - needs_historic.map{ |n| n.facility }.uniq.each do |facility|
+              = link_to facility.company.name, needs_company_path(facility)
         - if solicitation.institution.present?
           .logo-institution= institution_image(solicitation.institution.logo&.filename)
     .card__description

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe CompaniesController, type: :controller do
   login_user
 
-  describe 'GET #show' do
+  describe 'GET #show_with_siret' do
     let(:siret) { '41816609600051' }
     let(:siren) { siret[0,9] }
     let!(:api_facility) { ApiConsumption::Facility.new(siret) }
@@ -22,7 +22,30 @@ RSpec.describe CompaniesController, type: :controller do
     end
 
     it do
-      get :show, params: { siret: siret }
+      get :show_with_siret, params: { siret: siret }
+      expect(response).to be_successful
+    end
+  end
+
+  describe 'GET #show' do
+    let(:facility) { create :facility }
+    let(:siret) { facility.siret }
+    let(:siren) { facility.siret[0,9] }
+    let!(:api_facility) { ApiConsumption::Facility.new(siret) }
+
+    before do
+      allow(ApiConsumption::Facility).to receive(:new).with(siret) { api_facility }
+      allow(api_facility).to receive(:call)
+
+      company_and_siege_adapter_json = JSON.parse(file_fixture('api_company_and_siege_adapter.json').read)
+      company_instance = ApiConsumption::Models::CompanyAndSiege.new(company_and_siege_adapter_json)
+      api_company = ApiConsumption::Company.new(siret)
+      allow(ApiConsumption::CompanyAndSiege).to receive(:new).with(siren) { api_company }
+      allow(api_company).to receive(:call) { company_instance }
+    end
+
+    it do
+      get :show, params: { id: facility.id }
       expect(response).to be_successful
     end
   end
@@ -35,7 +58,7 @@ RSpec.describe CompaniesController, type: :controller do
   end
 
   describe 'GET #needs' do
-    subject(:request) { get :needs, params: { siret: facility.siret } }
+    subject(:request) { get :needs, params: { id: facility.id } }
 
     let(:facility) { create :facility }
     let(:expert) { current_user.experts.first }

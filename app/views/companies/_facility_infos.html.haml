@@ -13,6 +13,8 @@
         %li= t('companies.company.inscrit_rcs')
       - if facility.company.inscrit_rm
         %li= t('companies.company.inscrit_rm')
-      %li= link_to t('.more_informations'), company_path(facility.siret), class: 'bold blue'
-      - if policy(facility).show_needs_history? && Need.for_facility(facility).where.not(id: need.id).any?
-        %li= link_to t('.needs_historic'), needs_company_path(facility.siret), class: 'bold blue'
+      %li= link_to t('.more_informations'), company_path(facility.id), class: 'bold blue'
+      - if defined?(facility_needs) && facility_needs.present? && policy(facility).show_needs_history? && facility_needs.any?
+        %li= link_to t('.needs_historic'), needs_company_path(facility), class: 'bold blue'
+    - if defined?(contact_needs) && contact_needs.present? && policy(need.diagnosis.visitee).show_needs_history? && contact_needs.any? && facility_needs.blank?
+      %li= link_to t('.needs_historic'), needs_historic_contact_path(need.diagnosis.visitee), class: 'bold blue'

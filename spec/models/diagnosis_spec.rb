@@ -23,7 +23,7 @@ RSpec.describe Diagnosis, type: :model do
       end
 
       context 'without happened_on' do
-        let(:visitee) { build :contact, :with_email, :with_phone_number }
+        let(:visitee) { build :contact, :with_phone_number }
         let(:happened_on) { nil }
 
         it { is_expected.not_to be_valid }
@@ -31,7 +31,7 @@ RSpec.describe Diagnosis, type: :model do
       end
 
       context 'with needs' do
-        let(:visitee) { build :contact, :with_email, :with_phone_number }
+        let(:visitee) { build :contact, :with_phone_number }
         let(:happened_on) { Time.now }
 
         it { is_expected.to be_valid }

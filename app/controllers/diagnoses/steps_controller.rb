@@ -43,6 +43,8 @@ class Diagnoses::StepsController < ApplicationController
 
   def matches
     @diagnosis.prepare_matches_from_solicitation
+    @company_needs = @diagnosis.facility.needs.diagnosis_completed
+    @contact_needs = Need.for_emails_and_sirets([@diagnosis.visitee.email])
   end
 
   def update_matches

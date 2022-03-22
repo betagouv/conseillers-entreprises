@@ -12,7 +12,7 @@ def create_base_dummy_data
   create(:badge)
   create(:commune)
   create(:company)
-  create(:contact_with_email)
+  create(:contact)
   create(:diagnosis)
   create(:expert_subject)
   create(:expert)

@@ -1,0 +1,13 @@
+.fr-container.fr-pb-6w
+  .fr-mb-8w
+    %h1.fr-h2= t('.title_html', name: @contact.full_name, email: @contact.email)
+
+  - if @needs_in_progress.present?
+    .fr-grid-row.fr-mb-4w
+      %h2.fr-h3= t('companies.needs.needs_in_progress')
+      = render partial: 'companies/need', collection: @needs_in_progress
+
+  - if @needs_done.present?
+    .fr-grid-row
+      %h2.fr-h3= t('companies.needs.needs_done')
+      = render partial: 'companies/need', collection: @needs_done
