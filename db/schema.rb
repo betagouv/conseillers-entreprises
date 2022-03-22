@@ -392,7 +392,6 @@ ActiveRecord::Schema.define(version: 2022_03_17_080948) do
     t.string "meta_title"
     t.string "meta_description"
     t.string "title"
-    t.string "logos"
     t.string "custom_css"
     t.string "partner_url"
     t.boolean "emphasis", default: false
