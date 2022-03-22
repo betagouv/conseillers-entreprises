@@ -221,7 +221,6 @@ Rails.application.routes.draw do
         get :pending_rate, path: 'taux-positionnement-restant'
       end
       member do
-        post :reminders_notes
         get :quo, path: 'boite_de_reception'
         get :taking_care, path: 'prises_en_charge'
         get :done, path: 'cloturees'

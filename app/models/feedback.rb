@@ -25,7 +25,8 @@
 class Feedback < ApplicationRecord
   enum category: {
     need: 'need',
-    reminder: 'reminder',
+    need_reminder: 'need_reminder',
+    expert_reminder: 'expert_reminder',
     solicitation: 'solicitation'
   }, _prefix: true
 

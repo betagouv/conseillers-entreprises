@@ -22,8 +22,9 @@
                   %span.picto.ri-mail-line
                   = mail_to @expert.email, @expert.email, class: 'break-word'
             .fr-col-md-8
-              %div{ id: "expert_reminders_notes-#{@expert.id}" }
-                = render 'expert_reminders_notes', expert: @expert
+              %div{ id: "display-feedbacks-#{@expert.id}" }
+                = render partial: 'feedbacks/feedback', collection: @expert.reminder_feedbacks.order(:created_at)
+              = render 'feedbacks/form', feedback: @expert.reminder_feedbacks.new
 
 - content_for :header, render('reminders/header', section: :experts, expert: @expert)
 - content_for :menu, render('expert_menu', expert: @expert, collections_counts: @inbox_collections_counts)

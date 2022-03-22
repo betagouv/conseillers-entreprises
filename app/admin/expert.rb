@@ -120,7 +120,6 @@ ActiveAdmin.register Expert do
       row :phone_number
       row :institution
       row :antenne
-      row :reminders_notes
       row(:intervention_zone) do |e|
         if e.is_global_zone
           status_tag t('activerecord.attributes.expert.is_global_zone'), class: 'yes'
@@ -180,7 +179,6 @@ ActiveAdmin.register Expert do
     :phone_number,
     :insee_codes,
     :is_global_zone,
-    :reminders_notes,
     *Expert::FLAGS,
     user_ids: [],
     experts_subjects_ids: [],
@@ -241,10 +239,6 @@ ActiveAdmin.register Expert do
           sub_f.input :intervention_criteria
         end
       end
-    end
-
-    f.inputs do
-      f.input :reminders_notes
     end
 
     f.actions
