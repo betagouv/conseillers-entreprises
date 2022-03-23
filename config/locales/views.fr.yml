@@ -736,6 +736,8 @@ fr:
           worrying_rate: À surveiller
     index:
       title: Relances
+    need:
+      critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique
     needs:
       scopes:
         detail:

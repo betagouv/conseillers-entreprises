@@ -11,7 +11,6 @@
 #  iframe                          :boolean          default(FALSE)
 #  iframe_category                 :integer          default("integral")
 #  layout                          :integer          default("multiple_steps")
-#  logos                           :string
 #  main_logo                       :string
 #  meta_description                :string
 #  meta_title                      :string
