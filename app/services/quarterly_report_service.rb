@@ -12,6 +12,12 @@ class QuarterlyReportService
       end
     end
 
+    def send_emails
+      User.managers.each do |user|
+        ExpertMailer.quarterly_reports(user).deliver_later
+      end
+    end
+
     private
 
     def generate_matches_files(antenne, quarter)

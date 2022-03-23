@@ -32,4 +32,13 @@ class UserMailer < ApplicationMailer
 
     mail(to: @advisor.email, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @company.name))
   end
+
+  def quarterly_report(user)
+    @user = user
+
+    mail(
+      to: @user.email_with_display_name,
+      subject: t('mailers.user_mailer.quarterly_report.subject')
+    )
+  end
 end
