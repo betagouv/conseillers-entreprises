@@ -49,6 +49,7 @@
             .bold= count
             .fr-ml-1v= t(name, scope: 'needs.collections').downcase
 
-    - cache expert do
-      .fr-mt-1w{ id: "expert_reminders_notes-#{expert.id}" }
-        = render 'expert_reminders_notes', expert: expert
+    %div{ id: "display-feedbacks-#{expert.id}" }
+      = render partial: 'feedbacks/feedback', collection: expert.reminder_feedbacks.order(:created_at)
+    = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
+

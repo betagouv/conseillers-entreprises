@@ -1,8 +1,0 @@
-= form_with(model: expert,
-  url: reminders_notes_reminders_expert_path(id: expert),
-  class: 'ui form',
-  method: :post) do |f|
-  .fr-input-group
-    = f.label :reminders_notes, t('activerecord.attributes.expert.reminders_notes'), class: 'fr-label card-expert__subtitle'
-    = f.text_area :reminders_notes, placeholder: t('.placeholder'), rows: 5, class: 'fr-input'
-  = f.submit t('ok'), class: 'fr-btn btn-blue'

@@ -8,8 +8,8 @@ FactoryBot.define do
       association :feedbackable, factory: :need
     end
 
-    trait :for_reminder do
-      category { :reminder }
+    trait :for_need_reminder do
+      category { :need_reminder }
       association :feedbackable, factory: :need
     end
 

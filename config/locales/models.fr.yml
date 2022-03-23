@@ -157,7 +157,6 @@ fr:
         full_name: Nom de l’équipe
         is_global_zone: Global
         job: Fonction
-        reminders_notes: Suivi des relances
         users:
           one: Membre
           other: Membres

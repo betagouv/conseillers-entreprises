@@ -280,9 +280,11 @@ fr:
       delete: Supprimer ce commentaire ?
       delete_comment: Supprimer ce commentaire
     form:
+      expert_reminder:
+        placeholder: " "
       need:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
-      reminder:
+      need_reminder:
         placeholder: " "
       solicitation:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'
@@ -717,8 +719,6 @@ fr:
         matches_total: Demandes depuis le début
         positionning_rate: Taux de positionnement sur 60 jours
         received_matches: reçues
-      expert_reminders_notes:
-        placeholder: Restez factuel :)
       index:
         title: Relances par experts
       scopes:

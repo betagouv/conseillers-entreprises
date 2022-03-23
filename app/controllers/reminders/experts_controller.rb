@@ -41,14 +41,10 @@ module Reminders
       retrieve_needs(@expert, :expired, :quo)
     end
 
-    def reminders_notes
-      @expert.update(safe_params[:expert])
-    end
-
     private
 
     def safe_params
-      params.permit(:id, expert: :reminders_notes)
+      params.permit(:id)
     end
 
     def retrieve_expert
@@ -57,7 +53,7 @@ module Reminders
 
     def render_collection(action)
       @active_experts = PositionningRate::Collection.new(territory_experts).send(action)
-        .includes(:antenne)
+        .includes(:antenne, :reminder_feedbacks)
         .most_needs_quo_first
         .page params[:page]
 

@@ -286,7 +286,7 @@ RSpec.describe Need, type: :model do
 
     describe 'feedbacks' do
       let(:need) { create :need }
-      let!(:feedback1) { create :feedback, :for_reminder, feedbackable: need }
+      let!(:feedback1) { create :feedback, :for_need_reminder, feedbackable: need }
       let!(:feedback2) { create :feedback, :for_need, feedbackable: need }
 
       it 'return only feedbacks for reminders' do
