@@ -736,6 +736,8 @@ fr:
           worrying_rate: À surveiller
     index:
       title: Relances
+    need:
+      critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique
     needs:
       scopes:
         detail:
@@ -758,8 +760,6 @@ fr:
           poke: À relancer
           recall: À rappeler
           warn: Prévenir l’institution
-    need:
-      critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique
     section:
       experts: Par taux de positionnement d’expert
       needs: Par délai du besoin

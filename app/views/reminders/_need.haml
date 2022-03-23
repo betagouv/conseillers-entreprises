@@ -24,7 +24,7 @@
           .item
             ⁃ #{expert.antenne.to_s}
             - if PositionningRate::Member.new(expert).critical_rate?
-              %span.picto.ri-vip-crown-2-fill{ title: t('.critical_rate_expert')}
+              %span.picto.ri-vip-crown-2-fill{ title: t('.critical_rate_expert') }
       .card__feedbacks
         .ui.feed.feedbacks
           %div{ id: "display-feedbacks-#{need.id}" }
