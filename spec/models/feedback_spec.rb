@@ -28,14 +28,7 @@ RSpec.describe Feedback, type: :model do
       it{ is_expected.to match_array [expert1, expert2, user2, advisor] }
     end
 
-    context 'when the author is the diagnosis advisor' do
-      let(:author) { advisor }
-
-      it{ is_expected.to match_array [expert1, expert2, expert3] }
-    end
-
-    context 'when some experts arent positionned yet' do
-      let(:author) { advisor }
+    context 'when some experts arent positioned yet' do
       let(:expert_refuse) { create :expert }
       let!(:refused_match) { create :match, expert: expert_refuse, need: need, status: 'not_for_me' }
       let(:expert_quo) { create :expert }
@@ -43,10 +36,24 @@ RSpec.describe Feedback, type: :model do
 
       before do
         need.matches << refused_match
+        need.matches << quo_match
       end
 
-      it 'don’t notify experts not positionned' do
-        is_expected.to match_array [expert1, expert2, expert3]
+      context 'when author is a normal user' do
+        let(:author) { advisor }
+
+        it 'don’t notify experts not positionned' do
+          is_expected.to match_array [expert1, expert2, expert3]
+        end
+      end
+
+      context 'when author is an admin' do
+        let(:author) { create :user, :admin }
+
+        it 'notify all experts but not the advisor' do
+          expect(feedback.persons_to_notify.length).to eq 5
+          is_expected.to match_array [expert1, expert2, expert3, expert_refuse, expert_quo]
+        end
       end
     end
   end
