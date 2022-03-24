@@ -69,6 +69,6 @@
       - if @need.feedbacks.present?
         = render @need.feedbacks.order(:created_at)
       - else
-        %p#no-comment= t('.no_comment')
+        %p.fr-my-2w#no-comment= t('.no_comment')
 
     = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)
