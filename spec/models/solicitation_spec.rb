@@ -75,9 +75,8 @@ RSpec.describe Solicitation, type: :model do
         end
       end
 
-
       context 'with failing siret' do
-        let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil, email: email  }
+        let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil, email: email }
 
         it 'doesnt set code_region' do
           expect(solicitation.code_region).to eq(nil)

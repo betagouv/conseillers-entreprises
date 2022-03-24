@@ -105,7 +105,7 @@ class Solicitation < ApplicationRecord
 
   def format_email
     # cas des double point qui empêche l'envoi d'email
-    return { email: self.email.gsub(/\.+/, '.') }
+    return { email: self.email.squeeze('.') }
   end
 
   def set_siret_and_region
