@@ -63,10 +63,15 @@ class Feedback < ApplicationRecord
     users_to_notify.delete(self.user)
     experts_to_notify -= self.user.experts
 
-    # don’t notify experts who aren't positionned yet (taking_car, done, done_no_help, done_not_reacheable)
-    experts_to_notify.reject! do |e|
-      expert_match = e.received_matches.find_by(need: self.need)
-      expert_match&.status_quo? || expert_match&.status_not_for_me?
+    if self.user.is_admin?
+      # Don't notify advisor, it's an admin
+      users_to_notify.delete(self.need.advisor)
+    else
+      # don’t notify experts who aren't positionned yet (taking_car, done, done_no_help, done_not_reacheable)
+      experts_to_notify.reject! do |e|
+        expert_match = e.received_matches.find_by(need: self.need)
+        expert_match&.status_quo? || expert_match&.status_not_for_me?
+      end
     end
 
     # mix users and experts
