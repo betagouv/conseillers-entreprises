@@ -274,4 +274,20 @@ RSpec.describe Antenne, type: :model do
       expect(local_antenne1.territorial_antennes).to match_array([])
     end
   end
+
+  describe 'check_territorial_level callback' do
+    let!(:commune1) { create :commune }
+    let!(:commune2) { create :commune }
+    let!(:region) { create :territory, :region, code_region: Territory.deployed_codes_regions.first, communes: [commune1, commune2] }
+    let!(:regional_antenne1) { create :antenne, communes: [commune1, commune2] }
+    let!(:local_antenne1) { create :antenne, communes: [commune1] }
+
+    it 'sets regional_antenne as regional' do
+      expect(regional_antenne1.regional?).to eq true
+    end
+
+    it 'doesnt set regional_antenne as regional' do
+      expect(local_antenne1.regional?).to eq false
+    end
+  end
 end
