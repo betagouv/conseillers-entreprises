@@ -284,9 +284,9 @@ fr:
         placeholder: " "
       need:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise et nous avons convenu d’un rendez-vous le 23/11. »'
-      prefill: 'Préremplissage :'
       need_reminder:
         placeholder: " "
+      prefill: 'Préremplissage :'
       reset: Réinitialiser
       solicitation:
         placeholder: 'Par exemple : « J’ai appelé le chef d’entreprise aujourd’hui mais il n’a pas répondu. »'

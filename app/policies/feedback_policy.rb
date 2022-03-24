@@ -8,7 +8,7 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def prefill?
-    @user.role_admin? && I18n.t("prefill_feedbacks.#{@record.category}").is_a?(Hash)
+    @user.is_admin? && I18n.t("prefill_feedbacks.#{@record.category}").is_a?(Hash)
   end
 
   class Scope < Scope
