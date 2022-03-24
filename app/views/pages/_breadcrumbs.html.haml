@@ -3,5 +3,7 @@
     - if defined? landing_theme
       - landing_subject ||= nil
       = raw breadcrumbs_landing(landing, landing_theme, landing_subject)
+    - elsif defined?(landing) && landing.present?
+      = raw breadcrumbs_iframe_home(landing, title)
     - else
       = breadcrumbs_page(title)

@@ -19,7 +19,7 @@
     - if in_iframe?
       %meta{ name: 'robots', content: 'noindex' }
       = render 'shared/iframe_resizer'
-      - if defined? @landing
+      - if defined?(@landing) && @landing.present?
         %style= @landing.custom_css
 
     = render 'favicon'
