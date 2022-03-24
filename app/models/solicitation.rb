@@ -85,7 +85,7 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
   before_create :set_institution_from_landing
-  before_create :set_siret_and_region, if: -> { code_region.blank? }
+  before_create :format_solicitation
 
   ## Callbacks
   #
@@ -97,9 +97,21 @@ class Solicitation < ApplicationRecord
     touch if persisted?
   end
 
+  def format_solicitation
+    params = set_siret_and_region
+    params.merge!(format_email)
+    SolicitationModification::Update.new(self, params).call
+  end
+
+  def format_email
+    # cas des double point qui empêche l'envoi d'email
+    return { email: self.email.gsub(/\.+/, '.') }
+  end
+
   def set_siret_and_region
-    siret_or_siren = FormatSiret.clean_siret(siret)
+    return {} if code_region.present?
     params = { code_region: self.code_region, siret: self.siret }
+    siret_or_siren = FormatSiret.clean_siret(siret)
     # Solicitation with a valid SIRET
     if FormatSiret.siret_is_valid(siret_or_siren)
       begin
@@ -108,7 +120,7 @@ class Solicitation < ApplicationRecord
         params[:code_region] = ApiConsumption::Models::Facility.new(etablissement_data).code_region
         params[:siret] = siret_or_siren
       rescue ApiEntreprise::ApiEntrepriseError => e
-        return
+        return params
       end
     # Solicitation with a valid SIREN
     elsif FormatSiret.siren_is_valid(siret_or_siren)
@@ -117,7 +129,7 @@ class Solicitation < ApplicationRecord
       params[:code_region] = response.siege_social[:region_siege]
       params[:siret] = response.siege_social[:siret]
     end
-    SolicitationModification::Update.new(self, params).call
+    params
   end
 
   ## Validations
