@@ -8,22 +8,44 @@ RSpec.describe CompaniesController, type: :controller do
   describe 'GET #show_with_siret' do
     let(:siret) { '41816609600051' }
     let(:siren) { siret[0,9] }
-    let!(:api_facility) { ApiConsumption::Facility.new(siret) }
 
-    before do
-      allow(ApiConsumption::Facility).to receive(:new).with(siret) { api_facility }
-      allow(api_facility).to receive(:call)
+    context 'when the api is up' do
+      let!(:api_facility) { ApiConsumption::Facility.new(siret) }
 
-      company_and_siege_adapter_json = JSON.parse(file_fixture('api_company_and_siege_adapter.json').read)
-      company_instance = ApiConsumption::Models::CompanyAndSiege.new(company_and_siege_adapter_json)
-      api_company = ApiConsumption::Company.new(siret)
-      allow(ApiConsumption::CompanyAndSiege).to receive(:new).with(siren) { api_company }
-      allow(api_company).to receive(:call) { company_instance }
+      before do
+        allow(ApiConsumption::Facility).to receive(:new).with(siret) { api_facility }
+        allow(api_facility).to receive(:call)
+
+        company_and_siege_adapter_json = JSON.parse(file_fixture('api_company_and_siege_adapter.json').read)
+        company_instance = ApiConsumption::Models::CompanyAndSiege.new(company_and_siege_adapter_json)
+        api_company = ApiConsumption::Company.new(siret)
+        allow(ApiConsumption::CompanyAndSiege).to receive(:new).with(siren) { api_company }
+        allow(api_company).to receive(:call) { company_instance }
+      end
+
+      it do
+        get :show_with_siret, params: { siret: siret }
+        expect(response).to be_successful
+      end
     end
 
-    it do
-      get :show_with_siret, params: { siret: siret }
-      expect(response).to be_successful
+    context 'when the api is down' do
+      let(:base_url) { 'https://entreprise.api.gouv.fr/v2/etablissements' }
+      let(:url) { "#{base_url}/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+      let(:token) { '1234' }
+
+      before do
+        body = file_fixture('api_down_company_and_siege_adapter.json').read
+        ENV['API_ENTREPRISE_TOKEN'] = token
+        stub_request(:get, url).to_return(
+          status: 502, body: body
+        )
+      end
+
+      it do
+        get :show_with_siret, params: { siret: siret }
+        expect(response).to be_successful
+      end
     end
   end
 

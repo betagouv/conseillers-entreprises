@@ -19,6 +19,9 @@ class CompaniesController < ApplicationController
     facility = Facility.find(params.permit(:id)[:id])
 
     search_facility_informations(facility.siret)
+    if defined? @message
+      render :search, alert: @message
+    end
   end
 
   def show_with_siret
@@ -27,15 +30,18 @@ class CompaniesController < ApplicationController
 
     siret = params.permit(:siret)[:siret]
     clean_siret = FormatSiret.clean_siret(siret)
-    if clean_siret != siret
+    if clean_siret == siret
+      search_facility_informations(siret)
+      if @message.present?
+        flash.now[:alert] = @message
+        render :search
+      else
+        save_search(siret, @company.name) if defined? @company
+        render :show
+      end
+    else
       redirect_to show_with_siret_companies_path(clean_siret, solicitation: current_solicitation&.id)
-      return
     end
-
-    search_facility_informations(siret)
-    save_search(siret, @company.name)
-
-    render :show
   end
 
   def needs
@@ -58,9 +64,7 @@ class CompaniesController < ApplicationController
       @company = company_and_siege.company
       @siege_facility = company_and_siege.siege_facility
     rescue ApiEntreprise::ApiEntrepriseError => e
-      message = I18n.t("api_entreprise.generic_error")
-      redirect_back fallback_location: { action: :search }, alert: message
-      return
+      @message = I18n.t("api_entreprise.generic_error")
     end
   end
 
