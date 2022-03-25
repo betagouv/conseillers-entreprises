@@ -14,7 +14,8 @@ class QuarterlyReportService
 
     def send_emails
       User.managers.each do |user|
-        ExpertMailer.quarterly_reports(user).deliver_later
+        next if user.managed_antennes.map(&:quarterly_reports).blank?
+        UserMailer.quarterly_report(user).deliver_later
       end
     end
 
