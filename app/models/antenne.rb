@@ -76,6 +76,10 @@ class Antenne < ApplicationRecord
   has_many :received_needs, through: :experts, inverse_of: :expert_antennes
   has_many :received_diagnoses, through: :experts, inverse_of: :expert_antennes
 
+  ## Callbacks
+  #
+  after_create :check_territorial_level
+
   ##
   #
   scope :without_communes, -> { left_outer_joins(:communes).where(communes: { id: nil }) }
@@ -111,6 +115,13 @@ class Antenne < ApplicationRecord
 
   # Perimetre territorial
   #
+  # en after_create, sinon les "regions" (en `through`) ne sont pas accessibles
+  def check_territorial_level
+    if (regions.size == 1) && Utilities::Arrays.same?(regions.first.commune_ids, commune_ids)
+      update(territorial_level: :regional)
+    end
+  end
+
   def local?
     territorial_level_local?
   end
