@@ -599,7 +599,7 @@ fr:
           other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service public Place des Entreprises.
         at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
         download_reports: Télécharger mes données
-        quarterly_report_available_html: "<strong>L’ensemble des besoins transmis à vos équipes</strong> sur le dernier trimestre sont disponibles sur votre compte utilisateur, sous forme de fichier excel à télécharger."
+        quarterly_report_available_html: "<strong>L’ensemble des besoins transmis à vos équipes</strong> sur le dernier trimestre est disponibles sur votre compte utilisateur, sous forme de fichier excel à télécharger."
         stats_report_html: Nous mettons également à votre disposition un <strong>rapport statistique</strong> par trimestre et pour l’année en cours.
         subject: Place des Entreprises - Rapport statistique
         support_contact_label: 'En cas de besoin vous pouvez contacter :'
