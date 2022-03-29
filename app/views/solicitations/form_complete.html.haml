@@ -2,27 +2,24 @@
   meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
     description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
 
-- unless in_iframe?
-  %section.section.section-white.landing.less-padding
-    .container
-      .landing-header
-        .title
-          %h1= @solicitation.landing_subject&.form_title.presence || @solicitation.landing_subject.title
-          %p.subtitle= t('landings.landings.home.answer')
+%section.section.section-white.landing.less-padding
+  .container
+    .landing-header
+      .title
+        %h1= @solicitation.landing_subject&.form_title.presence || @solicitation.landing_subject.title
+        %p.subtitle= t('landings.landings.home.answer')
 
 = render 'pages/breadcrumbs', landing: @solicitation.landing, landing_theme: @solicitation.landing_subject.landing_theme, landing_subject: @solicitation.landing_subject
 
 %section.section.section-grey#section-thankyou
   .container.container-medium
     = render 'landings/landing_subjects/new_solicitation_thank_you', solicitation: @solicitation, landing_subject: @landing_subject
-    - unless in_iframe?
-      - if @solicitation.landing_subject.logos.present?
-        = render 'landings/landings/logos', landing_subject: @solicitation.landing_subject
+    - if @solicitation.landing_subject.logos.present?
+      = render 'landings/landings/logos', landing_subject: @solicitation.landing_subject
 
-- unless in_iframe?
-  %section.section.section-white.container-newsletter
-    .container
-      = render 'newsletter', email: @solicitation.email
+%section.section.section-white.container-newsletter
+  .container
+    = render 'newsletter', email: @solicitation.email
 
   %section.section.section-grey
     .container.section__title
@@ -32,6 +29,3 @@
 %section.section.section-white.autocomplete-warning.container-newsletter#newsletter{ 'data-error': "newsletter" }
   .container
     = render 'pages/newsletter'
-
-- if in_iframe? && @solicitation.landing.display_pde_partnership_mention?
-  = render 'landings/landings/pde_partnership_mention'

@@ -2,19 +2,18 @@
   meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
     description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
 
-- unless in_iframe?
-  %section.section.section-white.landing.less-padding
-    .container
-      .landing-header
-        .title
-          %h1= @solicitation.landing_subject&.form_title.presence || @solicitation.landing_subject.title
-          %p.subtitle= t('landings.landings.home.answer')
+%section.section.section-white.landing.less-padding
+  .container
+    .landing-header
+      .title
+        %h1= @solicitation.landing_subject&.form_title.presence || @solicitation.landing_subject.title
+        %p.subtitle= t('landings.landings.home.answer')
 
 = render 'pages/breadcrumbs', landing: @solicitation.landing, landing_theme: @solicitation.landing_subject.landing_theme, landing_subject: @solicitation.landing_subject
 
 %section.section.section-grey.landing#section-formulaire
   .container
-    .solicitation-form{ class: "#{'in-iframe' if in_iframe?}" }
+    .solicitation-form
       = form_with(model: @solicitation, url: update_form_description_solicitation_path(@solicitation), local: true, html: { honeypot: true }) do |f|
         - if @solicitation.errors.present?
           = render 'landings/landing_subjects/matomo_company_contact_failure'
@@ -38,6 +37,3 @@
 %section.section.section-white.autocomplete-warning.container-newsletter#newsletter{ 'data-error': "newsletter" }
   .container
     = render 'pages/newsletter'
-
-- if in_iframe? && @landing.display_pde_partnership_mention?
-  = render 'landings/landings/pde_partnership_mention'
