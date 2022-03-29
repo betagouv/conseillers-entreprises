@@ -371,6 +371,9 @@ fr:
       navigation_page: navigation pages
   landings:
     landing_subjects:
+      form_contact:
+        accompaniments: 'Accompagnements :'
+        five_days_contact_html: Déposez votre demande, un conseiller vous rappelle <b>dans les 5 jours</b> (Délai moyen de prise en charge).
       new_solicitation_form:
         attributes:
           help:
@@ -870,7 +873,7 @@ fr:
     header:
       canceled: abandonnées
       index: reçues
-      processed: mises en relation
+      processed: mises en
     index:
       title: Sollicitations
     set_category_content:
