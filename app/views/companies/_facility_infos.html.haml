@@ -13,7 +13,7 @@
         %li= t('companies.company.inscrit_rcs')
       - if facility.company.inscrit_rm
         %li= t('companies.company.inscrit_rm')
-      %li= link_to t('.more_informations'), company_path(facility.id), class: 'bold blue'
+      %li= link_to t('.more_informations'), company_path(facility.id), class: 'bold blue', data: { turbolinks: false }
       - if defined?(facility_needs) && facility_needs.present? && policy(facility).show_needs_history? && facility_needs.any?
         %li= link_to t('.needs_historic'), needs_company_path(facility), class: 'bold blue'
     - if defined?(contact_needs) && contact_needs.present? && policy(need.diagnosis.visitee).show_needs_history? && contact_needs.any? && facility_needs.blank?

@@ -38,7 +38,7 @@ ActiveAdmin.register Solicitation do
     column "#{t('attributes.coordinates')} | #{t('activerecord.attributes.solicitation.tracking')}" do |s|
       div do
         if s.siret.present?
-          link_to s.siret, show_with_siret_companies_path(s.siret)
+          link_to s.siret, show_with_siret_companies_path(s.siret), data: { turbolinks: false }
         else
           t('active_admin.solicitations.no_siret')
         end
@@ -134,7 +134,7 @@ ActiveAdmin.register Solicitation do
     attributes_table title: t('attributes.coordinates') do
       row :siret do |s|
         if s.siret.present?
-          div link_to s.siret, show_with_siret_companies_path(s.siret)
+          div link_to s.siret, show_with_siret_companies_path(s.siret), data: { turbolinks: false }
         end
       end
       row :full_name

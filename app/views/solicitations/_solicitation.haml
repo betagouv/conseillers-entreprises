@@ -11,7 +11,7 @@
         - if solicitation.siret.present?
           .item
             = t('.siret')
-            %strong= link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret))
+            %strong= link_to(solicitation.normalized_siret, show_with_siret_companies_path(solicitation.siret), data: { turbolinks: false })
         .item
           = t('.email')
           %strong= mail_to(solicitation.email, solicitation.email, target: '_blank')

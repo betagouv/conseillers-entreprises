@@ -20,7 +20,7 @@ class CompaniesController < ApplicationController
 
     search_facility_informations(facility.siret)
     if defined? @message
-      render :search, alert: @message
+      redirect_back fallback_location: { action: :search }, alert: @message
     end
   end
 
@@ -34,7 +34,7 @@ class CompaniesController < ApplicationController
       search_facility_informations(siret)
       if @message.present?
         flash.now[:alert] = @message
-        render :search
+        redirect_back fallback_location: { action: :search }, alert: @message
       else
         save_search(siret, @company.name) if defined? @company
         render :show
