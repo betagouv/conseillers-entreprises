@@ -44,7 +44,7 @@ RSpec.describe CompaniesController, type: :controller do
 
       it do
         get :show_with_siret, params: { siret: siret }
-        expect(response).to be_successful
+        expect(response).to redirect_to search_companies_url
       end
     end
   end
