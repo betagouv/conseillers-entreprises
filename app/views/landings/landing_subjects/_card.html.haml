@@ -1,7 +1,11 @@
 .card.block-link
   .card__content
-    - path = landing_subject_path(landing, landing_subject, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
-    %h3= link_to landing_subject.title.html_safe, path, class: 'click-on-landing-option'
+    - ab_test(:solicitation_form, 'one_page', 'multistep') do |form|
+      - if form == 'multistep'
+        - path = form_contact_landing_subject_path(landing, landing_subject, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
+      - else
+        - path = landing_subject_path(landing, landing_subject, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
+      %h3= link_to landing_subject.title.html_safe, path, class: 'click-on-landing-option'
     - if landing_subject.description?
       %p= sanitize landing_subject.description.html_safe
   .discover_button

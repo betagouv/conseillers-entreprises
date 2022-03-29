@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   # Split A/B Testing
   mount Split::Dashboard, at: 'split'
 
-
   # Partie conseiller ================================================
 
   # Devise
@@ -233,7 +232,6 @@ Rails.application.routes.draw do
       get :form_complete
     end
   end
-
 
   resource :newsletters, only: %i[] do
     post :create

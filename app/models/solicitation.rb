@@ -134,14 +134,23 @@ class Solicitation < ApplicationRecord
 
   ## Validations
   #
-  validates :landing, :description, presence: true, allow_blank: false
+  attr_accessor :step
+
+  validates :step, inclusion: { in: %w[contact company description] }, allow_nil: true
+
+  validates :landing, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate on: :create do
-    # All visible fields are required on creation
-    required_fields.each do |attr|
+  validate if: -> { step == nil || step == :contact } do
+    contact_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
+  validate if: -> { step == nil || step == :company } do
+    company_required_fields.each do |attr|
+      errors.add(attr, :blank) if self.public_send(attr).blank?
+    end
+  end
+  validates :description, presence: true, allow_blank: false, if: -> { step == nil || step == :description }
 
   ## Scopes
   #
@@ -315,12 +324,16 @@ class Solicitation < ApplicationRecord
   BASE_REQUIRED_FIELDS = %i[full_name phone_number email]
   DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
 
+  def contact_required_fields
+    BASE_REQUIRED_FIELDS
+  end
+
+  def company_required_fields
+    landing_subject&.required_fields || %i[siret]
+  end
+
   def required_fields
-    if landing_subject.present?
-      BASE_REQUIRED_FIELDS + landing_subject&.required_fields
-    else
-      DEFAULT_REQUIRED_FIELDS
-    end
+    contact_required_fields + company_required_fields
   end
 
   FIELD_TYPES = {

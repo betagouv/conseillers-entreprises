@@ -1,104 +1,78 @@
-class SolicitationsController < ApplicationController
-  include TerritoryFiltrable
+class SolicitationsController < PagesController
+  before_action :find_solicitation, except: [:create]
 
-  before_action :find_solicitation, only: [:show, :update_status, :update_badges, :prepare_diagnosis, :ban_facility]
-  before_action :authorize_index_solicitation, :set_category_content, :setup_territory_filters, :count_solicitations, only: [:index, :processed, :canceled]
-  before_action :authorize_update_solicitation, only: [:update_status]
-
-  layout 'side_menu'
-
-  def index
-    @solicitations = ordered_solicitations.status_in_progress
-    @status = t('solicitations.header.index')
-  end
-
-  def processed
-    @solicitations = ordered_solicitations.status_processed
-    @status = t('solicitations.header.processed')
-    render :index
-  end
-
-  def canceled
-    @solicitations = ordered_solicitations.status_canceled
-    @status = t('solicitations.header.canceled')
-    render :index
-  end
-
-  def show
-    authorize @solicitation
-    nb_per_page = Solicitation.page(1).limit_value
-    session.delete(territory_session_param)
-    case @solicitation.status
-    when 'canceled'
-      page = (Solicitation.status_canceled.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
-      redirect_to canceled_solicitations_path(anchor: @solicitation.id, page: page)
-    when 'processed'
-      page = (Solicitation.status_processed.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
-      redirect_to processed_solicitations_path(anchor: @solicitation.id, page: page)
-    else
-      page = (Solicitation.status_in_progress.where('created_at < ?', @solicitation.created_at).count / nb_per_page) + 1
-      redirect_to solicitations_path(anchor: @solicitation.id, page: page)
-    end
-  end
-
-  def update_status
-    status = params[:status]
-    @solicitation.update(status: status)
-    if @solicitation.valid?
-      done = Solicitation.human_attribute_value(:status, status, context: :done, count: 1)
-      flash.notice = "#{@solicitation} #{done}"
-      render 'remove'
+  def create
+    sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
+    @solicitation = SolicitationModification::Create.new(sanitized_params).call!
+    if @solicitation.persisted?
+      redirect_to form_company_solicitation_path(@solicitation)
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      redirect_to @solicitation
+      render :form_contact
     end
   end
 
-  def update_badges
-    badges_params = params.require(:solicitation).permit(badge_ids: [])
-    if @solicitation.valid?
-      @solicitation.update(badges_params)
+  def form_contact
+  end
+
+  def update_form_contact
+    sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
+    @solicitation = SolicitationModification::Create.new(sanitized_params).call!
+    if @solicitation.errors.empty?
+      # redirect_to action: :form_company
+      redirect_to form_company_solicitation_path(@solicitation)
+
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      redirect_to @solicitation
+      render :form_contact
     end
   end
 
-  def prepare_diagnosis
-    diagnosis = @solicitation.prepare_diagnosis(current_user)
-    if diagnosis
-      redirect_to diagnosis
-    else
-      flash.alert = @solicitation.prepare_diagnosis_errors.full_messages.to_sentence
-      redirect_to @solicitation
-    end
+  def form_company
   end
 
-  def ban_facility
-    if Ban::Solicitation.new(@solicitation).toggle
-      flash.notice = @solicitation.banned? ? t('.marked_as_banned') : t('.marked_as_unbanned')
+  def update_form_company
+    sanitized_params = sanitize_params(solicitation_params)
+    @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
+    if @solicitation.errors.empty?
+      redirect_to form_description_solicitation_path(@solicitation)
+      # redirect_to action: :form_company
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
+      render :form_company
     end
-    redirect_to action: :index
   end
+
+  def form_description
+  end
+
+  def update_form_description
+    sanitized_params = sanitize_params(solicitation_params)
+    @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
+    if @solicitation.errors.empty?
+      CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+      @solicitation.delay.prepare_diagnosis(nil)
+      ab_finished(:solicitation_form)
+      redirect_to form_complete_solicitation_path(@solicitation)
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+      render :form_description
+    end
+  end
+
+  # def create_solicitation
+  #   sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
+  #   @solicitation = SolicitationModification::Create.new(sanitized_params).call!
+  #   if @solicitation.persisted?
+  #     CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+  #     @solicitation.delay.prepare_diagnosis(nil)
+  #     ab_finished(:solicitation_form)
+  #   end
+
+  #   render :show # rerender the form on error, render the thankyou partial on success
+  # end
 
   private
-
-  def ordered_solicitations
-    solicitations = Solicitation.order(:created_at)
-    solicitations = solicitations.by_possible_region(territory_id) if territory_id.present?
-    solicitations.page(params[:page]).omnisearch(params[:query]).distinct
-      .includes(:badges_solicitations, :badges, :landing, :diagnosis, :facility, feedbacks: { user: :antenne }, landing_subject: :subject, institution: :logo)
-  end
-
-  def authorize_index_solicitation
-    authorize Solicitation, :index?
-  end
-
-  def authorize_update_solicitation
-    authorize @solicitation, :update?
-  end
 
   def find_solicitation
     @solicitation = Solicitation.find(params[:id])
@@ -106,27 +80,20 @@ class SolicitationsController < ApplicationController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:description, :siret, :phone_number, :email, :full_name, form_info: {}, needs: {})
+      .permit(:landing_id, :landing_subject_id, :description, :code_region, :step,
+              *Solicitation::FIELD_TYPES.keys)
   end
 
-  def set_category_content
-    @category_content = Badge
-      .pluck(:title).map { |title| { category: t('solicitations.set_category_content.tags'), title: title } }
-      .concat LandingSubject.pluck(:slug).map { |slug| { category: t('solicitations.set_category_content.subjects'), title: slug } }
-      .concat Landing.pluck(:slug).map { |slug| { category: t('solicitations.set_category_content.landings'), title: slug } }
+  def view_params
+    params.permit(:landing_slug, :slug, :siret, *Solicitation::FORM_INFO_KEYS)
   end
 
-  def count_solicitations
-    # ces count varient très souvent (dès que les bizdev travaillent sur les solicitations),
-    # le cache n'avait pas beaucoup de sens ici
-    @count_solicitations =
-      {
-        in_progress: ordered_solicitations.status_in_progress.total_count
-      }
-  end
-
-  # nom de variable spécifique pour ne pas parasiter les autres filtres région
-  def territory_session_param
-    :s_territory
+  def retrieve_query_params
+    # Les params ne passent pas en session dans les iframe, raison pour laquelle on check ici aussi les params de l'url
+    saved_params = session[:solicitation_form_info] || {}
+    query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS)
+    saved_params.merge!(query_params)
+    session.delete(:solicitation_form_info)
+    { form_info: saved_params }
   end
 end
