@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
       before { user.reload }
 
       it 'return only not deleted experts' do
-        is_expected.to match [active_expert, user.personal_skillsets.first]
+        is_expected.to match_array [active_expert, user.personal_skillsets.first]
       end
     end
   end
