@@ -1,0 +1,6 @@
+%ul.fr-sidemenu__list
+  = menu_link_with_count(t('.index_html'), count[:in_progress], conseiller_solicitations_path, active: [solicitations: :index])
+  %li.fr-sidemenu__item
+    = active_link_to(t('.processed'), processed_conseiller_solicitations_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
+  %li.fr-sidemenu__item
+    = active_link_to(t('.canceled'), canceled_conseiller_solicitations_path, class: 'fr-sidemenu__link', class_active: 'fr-sidemenu__item--active')
