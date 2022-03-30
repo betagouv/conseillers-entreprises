@@ -24,6 +24,13 @@ module Reminders
       render_collection(:archive)
     end
 
+    def send_abandoned_email
+      need = Need.find(params.permit(:id)[:id])
+      need.update(abandoned_email_sent: true)
+      CompanyMailer.abandoned_need(need).deliver_later
+      redirect_to archive_reminders_needs_path, notice: t('.email_sent')
+    end
+
     private
 
     def render_collection(action)

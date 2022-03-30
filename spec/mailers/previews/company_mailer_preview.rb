@@ -22,4 +22,8 @@ class CompanyMailerPreview < ActionMailer::Preview
   def retention
     CompanyMailer.retention(Need.where(status: :done).sample)
   end
+
+  def abandoned_need
+    CompanyMailer.abandoned_need(Diagnosis.completed.from_solicitation.sample.needs.sample)
+  end
 end
