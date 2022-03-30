@@ -29,8 +29,8 @@ describe 'send generic emails', type: :feature do
     end
   end
 
-  it 'send bad_quality_investment email' do
-    click_link I18n.t('solicitations.solicitation_actions.emails.bad_quality_investment')
+  it 'send bad_quality email' do
+    click_link I18n.t('solicitations.solicitation_actions.emails.bad_quality')
     expect(page.html).to include I18n.t('emails.sent')
   end
 

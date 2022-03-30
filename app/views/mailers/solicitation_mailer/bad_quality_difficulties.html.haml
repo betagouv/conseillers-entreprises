@@ -2,16 +2,16 @@
 
 %p= t('mailers.hello')
 
-%p= t('mailers.bad_quality.intro_html', subject_label: @subject_label, link_to_root: link_to(t('app_name'), root_url))
+%p= t('.intro_html', subject_label: @subject_label, link_to_root: link_to(t('app_name'), root_url))
 
-%p= t('mailers.bad_quality.for_better_taking_care')
+%p= t('.for_better_taking_care')
 %ul
   %li= t('.origin')
   %li= t('.amount')
   %li= t('.bank_demand')
   %li= t('.tax_contribution')
 
-%p= t('mailers.bad_quality.upon_receipt')
+%p= t('.upon_receipt')
 
 %p= t('mailers.thanks_for_your_trust')
 
