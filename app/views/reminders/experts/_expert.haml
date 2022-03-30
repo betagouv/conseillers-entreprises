@@ -19,11 +19,12 @@
               %span.picto.ri-mail-line
               = mail_to expert.email, expert.email, class: 'break-word'
         - if expert.users.many?
-          %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-expert-#{expert.id}" }
-            = t('.team_composition')
-          .hidden{ id: "tooltip-expert-#{expert.id}" }
+          %h5.fr-accordion__title
+            %button.fr-accordion__btn{'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false'}
+              = t('.team_composition')
+          .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
             - expert.users.each do |user|
-              = person_block(user)
+              = person_block(user, compact: true)
       .fr-col-5
         - expert.antenne.managers.each do |manager|
           %ul.list-unstyled.card-expert__list

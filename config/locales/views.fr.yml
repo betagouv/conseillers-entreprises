@@ -727,7 +727,7 @@ fr:
         matches_total: Demandes depuis le début
         positionning_rate: Taux de positionnement sur 60 jours
         received_matches: reçues
-        team_composition: "Composition de l'équipe"
+        team_composition: Composition de l'équipe
       index:
         title: Relances par experts
       scopes:
