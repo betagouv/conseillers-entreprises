@@ -20,7 +20,7 @@
               = mail_to expert.email, expert.email, class: 'break-word'
         - if expert.users.many?
           %h5.fr-accordion__title
-            %button.fr-accordion__btn{'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false'}
+            %button.fr-accordion__btn{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
               = t('.team_composition')
           .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
             - expert.users.each do |user|
