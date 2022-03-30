@@ -34,11 +34,7 @@
             - if PositionningRate::Member.new(expert).critical_rate?
               %span.picto.ri-vip-crown-2-fill{ title: t('.critical_rate_expert') }
       .card__feedbacks
-        .ui.feed.feedbacks
-          %div{ id: "display-feedbacks-#{need.id}" }
-            = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
-          = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
+        %div{ id: "display-feedbacks-#{need.id}" }
+          = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
+        = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
 
-        .item.show-feedbacks-form{ 'data-feedbackable': "#{need.id}" }
-          %button.fr-btn.fr-btn--secondary
-            = t('feedbacks.add')
