@@ -508,7 +508,7 @@ fr:
         for_better_taking_care_html: Pour la bonne prise en charge de votre demande, <strong>les conseillers ont besoin d'éléments de contexte</strong>.
         intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service). Il s’agit d'un service public destiné aux chefs d’entreprises, afin d’aider les petites structures à se développer et à s’adapter.
         the_problem: Quelle est votre problématique ?
-        upon_receipt: Dès la réception de ces éléments de contexte, nous transmettons votre demande au conseiller compétent sur votre territoire pour vous aider, parmi plus de 40 partenaires publics et parapublics.
+        upon_receipt: Dès la réception de ces éléments de contexte, nous transmettons votre demande au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider, parmi plus de 40 partenaires publics et parapublics.
         you_activity: Quelle est votre activité ?
       bad_quality_difficulties:
         amount: le montant de votre besoin de trésorerie
