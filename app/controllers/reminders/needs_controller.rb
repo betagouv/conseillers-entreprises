@@ -1,8 +1,8 @@
 module Reminders
   class NeedsController < BaseController
-    before_action :setup_territory_filters
-    before_action :find_current_territory
-    before_action :collections_counts
+    before_action :setup_territory_filters, except: :send_abandoned_email
+    before_action :find_current_territory, except: :send_abandoned_email
+    before_action :collections_counts, except: :send_abandoned_email
 
     def index
       redirect_to action: :poke
