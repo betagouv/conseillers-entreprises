@@ -32,7 +32,9 @@ module Clockwork
   end
   if Rails.env == 'production'
     every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && quarter_condition(t) }) do
-      QuarterlyReportService.delay.generate_reports
+      Antenne.find_in_batches(batch_size: 20) do |antennes|
+        QuarterlyReportService.delay.generate_reports(antennes)
+      end
     end
     every(1.day, 'send_quarterly_reports_emails', at: '01:00', if: -> (t) { t.day == 15 && quarter_condition(t) }) do
       QuarterlyReportService.delay.send_emails
