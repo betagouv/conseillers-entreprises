@@ -276,8 +276,13 @@ class User < ApplicationRecord
     self.experts.create!(self.attributes_shared_with_personal_skills)
   end
 
+  # Bizarrement, qq utilisateurs sont créés sans personal_skillsets (investigation en cours)
   def synchronize_personal_skillsets
-    self.personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
+    if personal_skillsets.present?
+      self.personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
+    else
+      self.experts.create!(self.attributes_shared_with_personal_skills)
+    end
   end
 
   ## Rights
