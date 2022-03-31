@@ -430,7 +430,7 @@ fr:
     company_mailer:
       abandoned_need:
         no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
-        service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation
+        service_improvement: C’est en détectant de nouvelles situations que nous pouvons améliorer ce service. Nous faisons notre maximum pour compléter l’expertise du service en intégrant de nouveaux partenaires. Nous espérons ainsi proposer à terme un conseil personnalisé à toutes les TPE & PME dans votre situation.
         subject: Échec de votre demande Place des Entreprises
         your_need_html: Vous avez déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) concernant le sujet <strong>%{subject}</strong>.
       confirmation_solicitation:
