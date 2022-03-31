@@ -42,6 +42,50 @@ RSpec.describe Solicitation, type: :model do
       end
     end
 
+    describe 'format_solicitation' do
+      let(:token) { '1234' }
+      let(:siret) { '41816609600069' }
+      let(:email) { 'contact..machin@truc.fr' }
+
+      context 'with all fields to be formatted' do
+        let(:api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+        let(:solicitation) { create :solicitation, siret: siret, code_region: nil, email: email }
+
+        before do
+          ENV['API_ENTREPRISE_TOKEN'] = token
+          stub_request(:get, api_url).to_return(
+            body: file_fixture('api_entreprise_get_etablissement.json')
+          )
+        end
+
+        it 'formats correctly fields' do
+          expect(solicitation.code_region).to eq(11)
+          expect(solicitation.siret).to eq('41816609600069')
+          expect(solicitation.email).to eq('contact.machin@truc.fr')
+        end
+      end
+
+      context 'with already set code_region' do
+        let(:solicitation) { create :solicitation, siret: siret, code_region: 11, email: email }
+
+        it 'formats correctly fields' do
+          expect(solicitation.code_region).to eq(11)
+          expect(solicitation.siret).to eq('41816609600069')
+          expect(solicitation.email).to eq('contact.machin@truc.fr')
+        end
+      end
+
+      context 'with failing siret' do
+        let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil, email: email }
+
+        it 'doesnt set code_region' do
+          expect(solicitation.code_region).to eq(nil)
+          expect(solicitation.siret).to eq('lalala')
+          expect(solicitation.email).to eq('contact.machin@truc.fr')
+        end
+      end
+    end
+
     describe 'set_siret_and_region' do
       let(:token) { '1234' }
       let(:siret) { '41816609600069' }
