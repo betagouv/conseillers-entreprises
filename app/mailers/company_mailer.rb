@@ -47,4 +47,10 @@ class CompanyMailer < ApplicationMailer
       subject: t('mailers.company_mailer.retention.subject')
     )
   end
+
+  def abandoned_need(need)
+    @need = need
+
+    mail(to: @need.diagnosis.visitee.email, subject: t('mailers.company_mailer.abandoned_need.subject'))
+  end
 end

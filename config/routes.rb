@@ -229,6 +229,9 @@ Rails.application.routes.draw do
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do
+      member do
+        post :send_abandoned_email
+      end
       collection do
         get :poke, path: 'a-relancer'
         get :recall, path: 'a-rappeler'

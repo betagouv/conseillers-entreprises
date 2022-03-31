@@ -3,6 +3,7 @@
 # Table name: needs
 #
 #  id                      :bigint(8)        not null, primary key
+#  abandoned_email_sent    :boolean          default(FALSE)
 #  archived_at             :datetime
 #  content                 :text
 #  matches_count           :integer

@@ -16,8 +16,16 @@
               .label.label--sm.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
         .card__need-action
           - if action.present?
+            .abandoned-email{ id: "abandoned-email-#{need.id}" }
+              - if action == :archive && !need.abandoned_email_sent
+                = form_with model: need, url: send_abandoned_email_reminders_need_path(need), method: :post do |f|
+                  = f.submit t('.send_abandoned_need_email'), class: 'fr-btn fr-btn--secondary fr-mb-2v'
+              - elsif action == :archive && need.abandoned_email_sent
+                %p.fr-btn.fr-btn--secondary.fr-btn-green.fr-fi-checkbox-circle-line.fr-btn--icon-left.fr-mb-2v
+                  = t('.abandoned_need_email_sent')
             = link_to t(action, scope: 'reminders.needs.scopes.mark_done'), polymorphic_path([action, :reminders_action], { id: need.id }),
               method: :post, class: "fr-btn #{action == :archive ? 'btn-red' : 'btn-green'}"
+
       .card__match-list.fr-mb-2w
         - need.matches.preload(expert: :antenne).each do |match|
           - expert = match.expert
@@ -26,11 +34,7 @@
             - if PositionningRate::Member.new(expert).critical_rate?
               %span.picto.ri-vip-crown-2-fill{ title: t('.critical_rate_expert') }
       .card__feedbacks
-        .ui.feed.feedbacks
-          %div{ id: "display-feedbacks-#{need.id}" }
-            = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
-          = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
+        %div{ id: "display-feedbacks-#{need.id}" }
+          = render partial: 'feedbacks/feedback', collection: need.reminder_feedbacks
+        = render 'feedbacks/form', feedback: need.reminder_feedbacks.new
 
-        .item.show-feedbacks-form{ 'data-feedbackable': "#{need.id}" }
-          %button.fr-btn.fr-btn--secondary
-            = t('feedbacks.add')
