@@ -257,18 +257,36 @@ RSpec.describe User, type: :model do
   end
 
   describe '#synchronize_personal_skillsets' do
-    let(:user) { create :user, email: 'user@email.com', full_name: 'Bob', experts: [personal_skillset, team] }
-    let(:personal_skillset) { create :expert, email: 'user@email.com', full_name: 'Bob', users: [] }
-    let(:team) { create :expert, email: 'team@email.com', full_name: 'Team' }
+    context 'user with skillsets' do
+      let(:user) { create :user, email: 'user@email.com', full_name: 'Bob', experts: [personal_skillset, team] }
+      let(:personal_skillset) { create :expert, email: 'user@email.com', full_name: 'Bob', users: [] }
+      let(:team) { create :expert, email: 'team@email.com', full_name: 'Team' }
 
-    before do
-      user.update(full_name: 'Robert')
+      before do
+        user.update(full_name: 'Robert')
+      end
+
+      it 'automatically synchronizes the info in the personal skillsets' do
+        expect(user.reload.full_name).to eq 'Robert'
+        expect(personal_skillset.reload.full_name).to eq 'Robert'
+        expect(team.reload.full_name).not_to eq 'Robert'
+      end
     end
 
-    it 'automatically synchronizes the info in the personal skillsets' do
-      expect(user.reload.full_name).to eq 'Robert'
-      expect(personal_skillset.reload.full_name).to eq 'Robert'
-      expect(team.reload.full_name).not_to eq 'Robert'
+    context 'user without skillsets' do
+      let(:user) { create :user, email: 'user@email.com', full_name: 'Bob', experts: [team] }
+      let(:team) { create :expert, email: 'team@email.com', full_name: 'Team' }
+
+      before do
+        user.update(full_name: 'Robert')
+      end
+
+      it 'automatically synchronizes the info in the personal skillsets' do
+        expect(user.reload.full_name).to eq 'Robert'
+        expect(user.personal_skillsets).not_to be_empty
+        expect(user.personal_skillsets.first.full_name).to eq 'Robert'
+        expect(team.reload.full_name).not_to eq 'Robert'
+      end
     end
   end
 
