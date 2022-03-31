@@ -230,7 +230,7 @@ Rails.application.routes.draw do
     end
     resources :needs, path: 'besoins', only: %i[index] do
       member do
-        patch :send_abandoned_email
+        post :send_abandoned_email
       end
       collection do
         get :poke, path: 'a-relancer'

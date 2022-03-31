@@ -18,7 +18,7 @@
           - if action.present?
             .abandoned-email{ id: "abandoned-email-#{need.id}" }
               - if action == :archive && !need.abandoned_email_sent
-                = form_with model: need, url: send_abandoned_email_reminders_need_path(need) do |f|
+                = form_with model: need, url: send_abandoned_email_reminders_need_path(need), method: :post do |f|
                   = f.submit t('.send_abandoned_need_email'), class: 'fr-btn fr-btn--secondary fr-mb-2v'
               - elsif action == :archive && need.abandoned_email_sent
                 %p.fr-btn.fr-btn--secondary.fr-btn-green.fr-fi-checkbox-circle-line.fr-btn--icon-left.fr-mb-2v
