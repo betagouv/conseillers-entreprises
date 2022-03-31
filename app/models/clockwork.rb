@@ -35,7 +35,7 @@ module Clockwork
     every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && quarter_condition }) do
       QuarterlyReportService.delay.generate_reports
     end
-    every(1.day, 'generate_quarterly_stats', at: '01:00', if: -> (t) { t.day == 15 && quarter_condition }) do
+    every(1.day, 'send_quarterly_reports_emails', at: '01:00', if: -> (t) { t.day == 15 && quarter_condition }) do
       QuarterlyReportService.delay.send_emails
     end
   end
