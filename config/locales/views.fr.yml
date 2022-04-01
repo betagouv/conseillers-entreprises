@@ -723,10 +723,11 @@ fr:
     experts:
       expert:
         expert_creation_date: Inscription le %{date}
-        manager_name: 'Responsables : %{name}'
+        manager_name: 'Responsable : %{name}'
         matches_total: Demandes depuis le début
         positionning_rate: Taux de positionnement sur 60 jours
         received_matches: reçues
+        team_composition: Composition de l'équipe
       index:
         title: Relances par experts
       scopes:

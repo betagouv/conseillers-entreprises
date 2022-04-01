@@ -3,7 +3,7 @@
     %h4.fr-card__title
       = link_to expert.full_name.presence, quo_reminders_expert_path(expert), class: 'fr-card__link'
     .fr-grid-row
-      .fr-col-7
+      .fr-col-7.fr-pb-2v
         %ul.list-unstyled.card-expert__list
           %li= t('.expert_creation_date', date: I18n.l(expert.created_at.to_date, format: :long))
           - if expert.job.present?
@@ -18,18 +18,26 @@
             %li
               %span.picto.ri-mail-line
               = mail_to expert.email, expert.email, class: 'break-word'
+        - if expert.users.many?
+          %h5.fr-accordion__title
+            %button.fr-accordion__btn{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
+              = t('.team_composition')
+          .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
+            - expert.users.each do |user|
+              = person_block(user, compact: true)
       .fr-col-5
-        %ul.list-unstyled.card-expert__list
-          - expert.antenne.managers.each do |manager|
+        - expert.antenne.managers.each do |manager|
+          %ul.list-unstyled.card-expert__list
             %li
               %span.picto.ri-nurse-fill
               = t('.manager_name', name: manager.full_name)
             %li
               %span.picto.ri-mail-fill
               = mail_to manager.email, manager.email, class: 'break-word'
-            %li
-              %span.picto.ri-phone-fill
-              = link_to(manager.phone_number, "tel:#{manager.phone_number}")
+            - if manager.phone_number.present?
+              %li
+                %span.picto.ri-phone-fill
+                = link_to(manager.phone_number, "tel:#{manager.phone_number}")
     - cache ["positionning_rate", expert, expert.received_quo_matches] do
       .fr-grid-row
         .fr-col-7
