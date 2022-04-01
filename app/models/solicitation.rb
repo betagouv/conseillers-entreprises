@@ -136,7 +136,9 @@ class Solicitation < ApplicationRecord
   #
   attr_accessor :step
 
-  validates :step, inclusion: { in: %w[contact company description] }, allow_nil: true
+  STEPS = %w[contact company description]
+
+  validates :step, inclusion: { in: STEPS }, allow_nil: true
 
   validates :landing, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true

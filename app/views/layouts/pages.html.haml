@@ -33,6 +33,6 @@
     = render 'user_impersonate'
     = render 'shared/flashes_pages'
     %main
-      = yield
-    = render 'footer' unless in_iframe?
+      = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts
 
+    = render 'footer' unless in_iframe?

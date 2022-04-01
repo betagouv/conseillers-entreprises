@@ -2,58 +2,37 @@
   meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
     description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
 
-%section.section.section-white.landing.less-padding
-  .container
-    .landing-header
-      .title
-        %h1= @solicitation.landing_subject&.form_title.presence || @solicitation.landing_subject.title
-        %p.subtitle= t('landings.landings.home.answer')
+- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
 
-= render 'pages/breadcrumbs', landing: @solicitation.landing, landing_theme: @solicitation.landing_subject.landing_theme, landing_subject: @solicitation.landing_subject
+- content_for :form_header do
+  = render 'solicitations/steps', current_step: @step
 
-%section.section.section-grey.landing#section-formulaire
-  .container
-    .solicitation-form
-      = form_with(model: @solicitation, url: update_form_company_solicitation_path(@solicitation), local: true, html: { honeypot: true }) do |f|
-        - if @solicitation.errors.present?
-          = render 'landings/landing_subjects/matomo_company_contact_failure'
-        = f.hidden_field :step, value: :company
+= form_with(model: @solicitation, url: update_form_company_solicitation_path(@solicitation), local: true, html: { honeypot: true }) do |f|
+  - if @solicitation.errors.present?
+    = render 'landings/landing_subjects/matomo_company_contact_failure'
+  = f.hidden_field :step, value: @step
 
-        .form__group
-          - @solicitation.company_required_fields.each do |field|
-            .form__group
-              - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
+  .form__group
+    - @solicitation.company_required_fields.each do |field|
+      .form__group
+        - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
 
-              - if field == :siret
-                // Duplication pour respecter l'accessibilité (id unique, field avec label...)
-                = label_tag "solicitation_siret", t("attributes.find_my_facility")
-                -#
-                  %span= t(".attributes.help.siret_html")
-                  %div{ 'data-controller': "pages-siret-autocomplete" }
-                  %div{ data: { 'pages-siret-autocomplete-target': "field", name: "solicitation[siret]", 'assistive-hint': t(".attributes.help.siret_assistive_hint"), 'landing-theme': solicitation.landing_theme.slug } }
-                  = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField', 'deployed-regions': Territory.deployed_codes_regions }
-                  .notification.warning.autocomplete-warning{ data: { 'pages-siret-autocomplete-target': 'indifusibleBlock' } }
-                    = t(".attributes.help.indiffusible_siret_html")
-                  .notification.warning.autocomplete-warning{ data: { 'pages-siret-autocomplete-target': 'undeployedRegionBlock' } }
-                    = image_tag('info-alert-orange.png', alt: '')
-                    = t(".attributes.help.not_in_deployed_region_html")
-                    = link_to t('.clic_newsletter'), '#newsletter'
-                = f.text_field field, required: true, placeholder: '12345678900013', minlength: '14', maxlength: '14'
-                %span= t('attributes.help.no_creation_html')
-              - else
-                = f.label field
-                - if help.present?
-                  %span= help
-                = f.text_field field,
-                  placeholder: t(".attributes.placeholder.#{field}"),
-                  type: Solicitation::FIELD_TYPES[field],
-                  required: true
+        - if field == :siret
+          = label_tag "solicitation_siret", t("solicitations.creation_form.find_my_facility")
+          = f.text_field field, required: true, placeholder: '12345678900013', minlength: '14', maxlength: '14'
+          %span= t('attributes.help.no_creation_html')
+        - else
+          = f.label field
+          - if help.present?
+            %span= help
+          = f.text_field field,
+            placeholder: t("solicitations.creation_form.placeholder.#{field}"),
+            type: Solicitation::FIELD_TYPES[field],
+            required: true
 
-              .notification.error= @solicitation.errors.full_messages_for(field).to_sentence
-        .form__group
-          = f.submit t('landings.landing_subjects.new_solicitation_form.button.title'), class: 'button large', data: { disable_with: 'todo' }
+        .notification.error= @solicitation.errors.full_messages_for(field).to_sentence
 
+  .form__group.submit-buttons
+    = render 'previous_button', path: form_contact_solicitation_path(@solicitation)
+    = render 'next_button'
 
-%section.section.section-white.autocomplete-warning.container-newsletter#newsletter{ 'data-error': "newsletter" }
-  .container
-    = render 'pages/newsletter'

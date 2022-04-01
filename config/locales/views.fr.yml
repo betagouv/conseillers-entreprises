@@ -370,9 +370,6 @@ fr:
       navigation_page: navigation pages
   landings:
     landing_subjects:
-      form_contact:
-        accompaniments: 'Accompagnements :'
-        five_days_contact_html: Déposez votre demande, un conseiller vous rappelle <b>dans les 5 jours</b> (Délai moyen de prise en charge).
       new_solicitation_form:
         attributes:
           help:
@@ -844,34 +841,42 @@ fr:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: 'Vous êtes ici :'
   solicitations:
-    form_contact:
-      attributes:
-        placeholder:
-          email: marie.dupont@exemple.fr
-          full_name: 'ex: Marie Dupont'
-          phone_number: 'ex: 06 12 34 56 78'
-      button:
-        title: Envoyer ma demande
+    creation_form:
+      accompaniments: 'Accompagnements :'
+      better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
+      buttons:
+        next: Suivant
+        previous: Précédent
+        send: Envoyer ma demande
+      description: Description de votre demande
+      find_my_facility: Votre numéro SIRET
+      five_days_contact_html: Déposez votre demande, un conseiller vous rappelle <b>dans les 5 jours</b> (Délai moyen de prise en charge).
+      give_my_opinion_alt: Je donne mon avis
+      give_my_opinion_title: Je donne mon avis sur cette démarche
       legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+      placeholder:
+        description: Décrivez votre demande.
+        email: marie.dupont@exemple.fr
+        full_name: 'ex: Marie Dupont'
+        location: Hauts-de-France; région de Milly-la-forêt; 91260…
+        phone_number: 'ex: 06 12 34 56 78'
+        siret: 123 456 789 00010
+      steps:
+        company: Votre entreprise
+        contact: Vos coordonnées
+        description: Votre demande
       submit_in_progress: Envoi en cours...
     header:
       canceled: abandonnées
       index: reçues
-      processed: mises en
+      processed: mises en relation
     index:
-      clear_search: Réinitialiser la recherche
-      filter: Filtrer
-      header: Sollicitations %{status}
-      no_result: Il n'y a pas de résultat pour cette recherche.
-      search: Rechercher
-      search_placeholder: Tag, aide demandée…
       title: Sollicitations
     set_category_content:
       landings: Page source
       subjects: Sujets de landings
       tags: Tags
     solicitation_actions:
-      ban_facility: Exclure l'entreprise
       emails:
         bad_quality: Mauvaise qualité générique
         bad_quality_difficulties: Mauvaise qualité difficultés
@@ -884,14 +889,6 @@ fr:
         particular_retirement: Retraite
         recruitment_foreign_worker: Travailleur étranger
         siret: SIRET
-      prepare_diagnosis_errors:
-        one: Erreur à la préparation
-        other: "%{count} erreurs à préparation"
-      prepare_diagnosis_retry: Réessayer
-      start_auto_diagnosis: Analyse automatique
-      start_diagnosis: Démarrer une analyse
-      start_manual_diagnosis: Analyse manuelle
-      unban_facility: Réintégrer l'entreprise
   stats:
     archived: Besoins abandonnés
     in_deployed_regions: Demandes dans une région déployée

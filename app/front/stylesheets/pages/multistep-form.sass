@@ -5,3 +5,13 @@
 .submit-buttons
   display: flex
   justify-content: flex-end
+  .button, .button-outline
+    display: flex
+    &:not(:last-child)
+      margin-right: 1rem
+    i
+      font-size: 1.5rem
+      justify-content: space-between
+
+.steps-form
+  padding-left: 0

@@ -224,7 +224,7 @@ Rails.application.routes.draw do
   resources :solicitations, only: %i[create], path: 'votre-demande' do
     member do
       get :form_contact, path: 'contact'
-      post :update_form_contact
+      patch :update_form_contact
       get :form_company, path: 'etablissement'
       patch :update_form_company
       get :form_description, path: 'description'

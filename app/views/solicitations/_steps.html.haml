@@ -1,0 +1,4 @@
+%ul.steps-form
+  - Solicitation::STEPS.each_with_index do |step, index|
+    %li{ class: solicitation_step_class(index, current_step) }
+      %div= t("solicitations.creation_form.steps.#{step}")

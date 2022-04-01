@@ -4,6 +4,8 @@ class Landings::LandingSubjectsController < Landings::BaseController
   before_action :retrieve_landing_subject
   before_action :retrieve_solicitation, only: [:form_company]
 
+  layout 'solicitation_form', only: [:form_contact]
+
   def show
     solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
     @solicitation = @landing.solicitations.new(solicitation_params)
@@ -12,6 +14,7 @@ class Landings::LandingSubjectsController < Landings::BaseController
   def form_contact
     solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
     @solicitation = @landing.solicitations.new(solicitation_params)
+    @step = :contact
   end
 
   def create_solicitation

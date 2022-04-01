@@ -2,38 +2,25 @@
   meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
     description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
 
-%section.section.section-white.landing.less-padding
-  .container
-    .landing-header
-      .title
-        %h1= @solicitation.landing_subject&.form_title.presence || @solicitation.landing_subject.title
-        %p.subtitle= t('landings.landings.home.answer')
+- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
 
-= render 'pages/breadcrumbs', landing: @solicitation.landing, landing_theme: @solicitation.landing_subject.landing_theme, landing_subject: @solicitation.landing_subject
+= form_with(model: @solicitation, url: update_form_description_solicitation_path(@solicitation), local: true, html: { honeypot: true }) do |f|
+  - if @solicitation.errors.present?
+    = render 'landings/landing_subjects/matomo_company_contact_failure'
+  = f.hidden_field :step, value: @step
 
-%section.section.section-grey.landing#section-formulaire
-  .container
-    .solicitation-form
-      = form_with(model: @solicitation, url: update_form_description_solicitation_path(@solicitation), local: true, html: { honeypot: true }) do |f|
-        - if @solicitation.errors.present?
-          = render 'landings/landing_subjects/matomo_company_contact_failure'
-        = f.hidden_field :step, value: :description
+  .form__group
+    = f.label 'description', t('solicitations.creation_form.description')
+    - if @solicitation.landing_subject&.description_explanation.present?
+      .explanation
+        %div
+          = image_tag('info-alert.png', alt: '')
+          %span
+            = t('solicitations.creation_form.better_taking_care')
+        %div= @solicitation.landing_subject&.description_explanation&.html_safe
+    = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description"), rows: 6, required: true
+    .notification.error= @solicitation.errors.full_messages_for(:description).to_sentence
 
-        .form__group
-          = f.label 'description', t('.description')
-          - if @solicitation.landing_subject&.description_explanation.present?
-            .explanation
-              %div
-                = image_tag('info-alert.png', alt: '')
-                %span
-                  = t('.better_taking_care')
-              %div= @solicitation.landing_subject&.description_explanation&.html_safe
-          = f.text_area 'description', placeholder: t(".attributes.placeholder.description"), rows: 6, required: true
-          .notification.error= @solicitation.errors.full_messages_for(:description).to_sentence
-        .form__group
-          = f.submit t('.button.title'), class: 'button large', data: { disable_with: t('.submit_in_progress') }
-
-
-%section.section.section-white.autocomplete-warning.container-newsletter#newsletter{ 'data-error': "newsletter" }
-  .container
-    = render 'pages/newsletter'
+  .form__group.submit-buttons
+    = render 'previous_button', path: form_company_solicitation_path(@solicitation)
+    = f.submit t('solicitations.creation_form.buttons.send'), class: 'button large', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }

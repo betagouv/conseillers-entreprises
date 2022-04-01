@@ -1,6 +1,8 @@
 class SolicitationsController < PagesController
   before_action :find_solicitation, except: [:create]
 
+  layout 'solicitation_form', except: [:form_complete]
+
   def create
     sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
@@ -13,22 +15,26 @@ class SolicitationsController < PagesController
   end
 
   def form_contact
+    @landing = @solicitation.landing
+    @landing_subject = @solicitation.landing_subject
+    @step = :contact
+    render 'solicitations/form_contact'
   end
 
   def update_form_contact
-    sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
-    @solicitation = SolicitationModification::Create.new(sanitized_params).call!
+    sanitized_params = sanitize_params(solicitation_params)
+    @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
-      # redirect_to action: :form_company
       redirect_to form_company_solicitation_path(@solicitation)
-
     else
+      @step = :contact
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_contact
     end
   end
 
   def form_company
+    @step = :company
   end
 
   def update_form_company
@@ -36,14 +42,15 @@ class SolicitationsController < PagesController
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
       redirect_to form_description_solicitation_path(@solicitation)
-      # redirect_to action: :form_company
     else
+      @step = :company
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_company
     end
   end
 
   def form_description
+    @step = :description
   end
 
   def update_form_description
@@ -55,22 +62,11 @@ class SolicitationsController < PagesController
       ab_finished(:solicitation_form)
       redirect_to form_complete_solicitation_path(@solicitation)
     else
+      @step = :description
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_description
     end
   end
-
-  # def create_solicitation
-  #   sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
-  #   @solicitation = SolicitationModification::Create.new(sanitized_params).call!
-  #   if @solicitation.persisted?
-  #     CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-  #     @solicitation.delay.prepare_diagnosis(nil)
-  #     ab_finished(:solicitation_form)
-  #   end
-
-  #   render :show # rerender the form on error, render the thankyou partial on success
-  # end
 
   private
 
