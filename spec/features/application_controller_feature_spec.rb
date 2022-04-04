@@ -54,7 +54,7 @@ describe 'ApplicationController specific features', type: :feature do
     context 'admin manager connection' do
       let(:user) { create :user, :admin, password: password, password_confirmation: password, sign_in_count: 1 }
 
-      it('redirects to solicitations page') { expect(current_url).to eq solicitations_url }
+      it('redirects to conseiller solicitations page') { expect(current_url).to eq conseiller_solicitations_url }
     end
   end
 end

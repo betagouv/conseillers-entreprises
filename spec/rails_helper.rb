@@ -33,6 +33,7 @@ RSpec.configure do |config|
   config.extend FeatureMacros, type: :system
   config.include Warden::Test::Helpers
   config.include PunditSpecHelper, type: :view
+  config.include SplitHelper
 
   config.infer_spec_type_from_file_location!
 

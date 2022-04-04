@@ -17,6 +17,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
       end
 
       it do
+        use_ab_test(solicitation_form: "onepage")
         visit '/'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
@@ -38,6 +39,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
 
     context "from pk campaign" do
       before do
+        use_ab_test(solicitation_form: "onepage")
         landing.landing_themes << landing_theme
         visit '/?pk_campaign=FOO&pk_kwd=BAR'
         click_link 'Test Landing Theme'
@@ -66,6 +68,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
 
     context "with siret in url" do
       before do
+        use_ab_test(solicitation_form: "onepage")
         landing.landing_themes << landing_theme
         visit '/?siret=12345678900010'
         click_link 'Test Landing Theme'

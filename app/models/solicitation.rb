@@ -142,12 +142,12 @@ class Solicitation < ApplicationRecord
 
   validates :landing, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate if: -> { step == nil || step == :contact } do
+  validate if: -> { (step == nil && !persisted?) || step == :contact } do
     contact_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validate if: -> { step == nil || step == :company } do
+  validate if: -> { (step == nil && !persisted?) || step == :company } do
     company_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end

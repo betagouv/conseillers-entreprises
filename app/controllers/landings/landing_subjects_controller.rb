@@ -15,6 +15,7 @@ class Landings::LandingSubjectsController < Landings::BaseController
     solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
     @solicitation = @landing.solicitations.new(solicitation_params)
     @step = :contact
+    render 'solicitations/form_contact'
   end
 
   def create_solicitation
