@@ -7,4 +7,8 @@ class UserMailerPreview < ActionMailer::Preview
   def notify_match_status
     UserMailer.notify_match_status(Match.all.sample, Match.all.sample.status)
   end
+
+  def quarterly_report
+    UserMailer.quarterly_report(User.managers.sample)
+  end
 end

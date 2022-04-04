@@ -574,6 +574,7 @@ fr:
         siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
         siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
         solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
+    team_pde: L’équipe Place des Entreprises
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
     thanks_for_your_comprehension: Merci pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
@@ -592,6 +593,16 @@ fr:
           taking_care_html: "<p>%{expert} (%{antenne}) a pris en charge ce besoin.</p>"
         need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
         subject: "[Service public Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
+      quarterly_report:
+        antenne_manager:
+          one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service public Place des Entreprises.
+          other: Vous êtes identifié(e) comme responsable des antennes %{antennes} au sein du service public Place des Entreprises.
+        at_your_disposal: Nous restons à votre entière disposition pour toute question sur l’interprétation de ces données.
+        download_reports: Télécharger mes données
+        quarterly_report_available_html: "<strong>L’ensemble des besoins transmis à vos équipes</strong> sur le dernier trimestre est disponible sur votre compte utilisateur, sous forme de fichier excel à télécharger."
+        stats_report_html: Nous mettons également à votre disposition un <strong>rapport statistique</strong> par trimestre et pour l’année en cours.
+        subject: Place des Entreprises - Rapport statistique
+        support_contact_label: 'En cas de besoin vous pouvez contacter :'
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
   matches:
     match:
