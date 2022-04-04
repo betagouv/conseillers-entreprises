@@ -423,10 +423,6 @@ fr:
         reminders: 'Côté relances, voici où nous en sommes :'
         see_you_next_week: À la semaine prochaine pour de nouvelles aventures !
         subject: "[Place des Entreprises] Bon lundi ! Voici les statistiques d’utilisation !"
-    bad_quality:
-      for_better_taking_care: 'Pour la bonne prise en charge de votre demande, nous avons besoin de contexte. Merci d''indiquer :'
-      intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) pour <b>%{subject_label}</b>.
-      upon_receipt: Dès réception de ces éléments de contexte, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
     company_mailer:
       abandoned_need:
         no_experts: Nous avons transmis votre demande au sein de notre réseau de partenaires institutionnels publics et parapublics. Malheureusement et malgré nos efforts de relance, nous avons le regret de vous informer qu’aucun de nos partenaires n’est en mesure de vous accompagner pour votre demande.
@@ -508,16 +504,20 @@ fr:
       base_intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
       subject: Votre demande sur Place des Entreprises
     solicitation_mailer:
+      bad_quality:
+        for_better_taking_care_html: Pour la bonne prise en charge de votre demande, <strong>les conseillers ont besoin d'éléments de contexte</strong>.
+        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service). Il s’agit d'un service public destiné aux chefs d’entreprises, afin d’aider les petites structures à se développer et à s’adapter.
+        the_problem: Quelle est votre problématique ?
+        upon_receipt: Dès la réception de ces éléments de contexte, nous transmettons votre demande au(x) conseiller(s) compétent(s) sur votre territoire pour vous aider, parmi plus de 40 partenaires publics et parapublics.
+        you_activity: Quelle est votre activité ?
       bad_quality_difficulties:
         amount: le montant de votre besoin de trésorerie
         bank_demand: si vous avez demandé un prêt garanti par l’État à votre banque (important)
+        for_better_taking_care: 'Pour la bonne prise en charge de votre demande, nous avons besoin de contexte. Merci d''indiquer :'
+        intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service) pour <b>%{subject_label}</b>.
         origin: l’origine des problèmes selon vous
         tax_contribution: si vous souhaitez étaler vos cotisations sociales et/ou une dette fiscale
-      bad_quality_investment:
-        amount: le montant de votre besoin de financement
-        bank_relation: l’état de la relation avec votre banque
-        the_goal: le but de l’investissement pour votre entreprise et son coût global
-        you_activity: votre activité
+        upon_receipt: Dès réception de ces éléments de contexte, nous transmettons votre demande aux conseillers compétents pour vous aider sur votre territoire. Ces conseillers vous rappelleront directement.
       creation:
         cci_initiative_html: 'Nous vous invitons également à contacter les conseillers de la <b>Chambre de Commerce et d’Industrie</b> et du <b>réseau Initiative</b> proches de chez vous. Des conseillers en création peuvent vous accompagner pour financer et lancer votre projet d’entreprise :'
         funding_resources: 'Vous retrouverez toutes les sources de financement possibles pour votre projet sur le site de Bpifrance ou de la Banque de France :'
@@ -836,8 +836,8 @@ fr:
     solicitation_actions:
       ban_facility: Exclure l'entreprise
       emails:
+        bad_quality: Mauvaise qualité générique
         bad_quality_difficulties: Mauvaise qualité difficultés
-        bad_quality_investment: Mauvaise qualité investissement
         creation: Création
         employee_labor_law: Salarié Droit du travail
         independent_tva: SIE - TVA et autres

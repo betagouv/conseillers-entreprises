@@ -3,8 +3,8 @@ class SolicitationMailerPreview < ActionMailer::Preview
     SolicitationMailer.bad_quality_difficulties(random_solicitation)
   end
 
-  def bad_quality_investment
-    SolicitationMailer.bad_quality_investment(random_solicitation)
+  def bad_quality
+    SolicitationMailer.bad_quality(random_solicitation)
   end
 
   def out_of_region

@@ -10,9 +10,7 @@ class SolicitationMailer < ApplicationMailer
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
-  def bad_quality_investment(solicitation)
-    @subject_label = solicitation.landing_subject.subject.label.downcase
-
+  def bad_quality(solicitation)
     mail(to: solicitation.email, subject: t('mailers.solicitation.subject'))
   end
 
