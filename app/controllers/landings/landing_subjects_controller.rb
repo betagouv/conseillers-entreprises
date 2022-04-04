@@ -2,7 +2,6 @@
 
 class Landings::LandingSubjectsController < Landings::BaseController
   before_action :retrieve_landing_subject
-  before_action :retrieve_solicitation, only: [:form_company]
 
   layout 'solicitation_form', only: [:form_contact]
 

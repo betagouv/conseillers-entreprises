@@ -152,7 +152,7 @@ class Solicitation < ApplicationRecord
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validates :description, presence: true, allow_blank: false, if: -> { step == nil || step == :description }
+  validates :description, presence: true, allow_blank: false, if: -> { (step == nil && !persisted?) || step == :description }
 
   ## Scopes
   #
