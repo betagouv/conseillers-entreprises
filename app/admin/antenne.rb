@@ -106,6 +106,7 @@ ActiveAdmin.register Antenne do
         panel I18n.t('active_admin.match_filter.title_with_index', index: index + 1) do
           attributes_table_for mf do
             row :min_years_of_existence
+            row :max_years_of_existence
             row :effectif_min
             row :effectif_max
             row :subject
@@ -118,7 +119,7 @@ ActiveAdmin.register Antenne do
 
   ## Form
   #
-  match_filters_attributes = [ :id, :min_years_of_existence, :effectif_max, :effectif_min, :subject_id, :raw_accepted_naf_codes, :_destroy ]
+  match_filters_attributes = [ :id, :min_years_of_existence, :max_years_of_existence, :effectif_max, :effectif_min, :subject_id, :raw_accepted_naf_codes, :_destroy ]
   permit_params :name, :institution_id, :insee_codes, :territorial_level,
                 advisor_ids: [], expert_ids: [], manager_ids: [], match_filters_attributes: match_filters_attributes
 
@@ -163,6 +164,7 @@ ActiveAdmin.register Antenne do
     f.inputs do
       f.has_many :match_filters, allow_destroy: true, new_record: true do |mf|
         mf.input :min_years_of_existence
+        mf.input :max_years_of_existence
         mf.input :effectif_min
         mf.input :effectif_max
         if resource.institution.present?
