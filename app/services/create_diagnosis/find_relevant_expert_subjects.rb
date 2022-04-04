@@ -38,7 +38,7 @@ module CreateDiagnosis
     def accepting(match_filter)
       return true if match_filter.subject.present? && need.subject != match_filter.subject
       base_filters = [
-        accepting_min_years_of_existence(match_filter),
+        accepting_years_of_existence(match_filter),
         accepting_effectif(match_filter),
         accepting_naf_codes(match_filter)
       ]
@@ -51,10 +51,23 @@ module CreateDiagnosis
 
     # Ancienneté
 
+    def accepting_years_of_existence(match_filter)
+      [
+        accepting_min_years_of_existence(match_filter),
+        accepting_max_years_of_existence(match_filter)
+      ].inject(:&)
+    end
+
     def accepting_min_years_of_existence(match_filter)
       return true if match_filter.min_years_of_existence.blank?
       return false if company.date_de_creation.blank?
       company.date_de_creation.before?(match_filter.min_years_of_existence.years.ago)
+    end
+
+    def accepting_max_years_of_existence(match_filter)
+      return true if match_filter.max_years_of_existence.blank?
+      return false if company.date_de_creation.blank?
+      company.date_de_creation.after?(match_filter.max_years_of_existence.years.ago)
     end
 
     # Sujet

@@ -7,24 +7,45 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
     let!(:es_temoin) { create :expert_subject }
 
-    context 'min_years_of_existence' do
+    describe 'accepting_years_of_existence' do
       let(:diagnosis) { create :diagnosis, company: company }
       let(:need) { create :need, diagnosis: diagnosis }
       let!(:es_01) { create :expert_subject }
-      let(:match_filter_01) { create :match_filter, min_years_of_existence: 3 }
 
-      before { es_01.expert.antenne.match_filters << match_filter_01 }
+      context 'min_years_of_existence' do
+        let(:match_filter_01) { create :match_filter, min_years_of_existence: 3 }
 
-      context 'young company' do
-        let(:company) { create :company, date_de_creation: 2.years.ago }
+        before { es_01.expert.antenne.match_filters << match_filter_01 }
 
-        it { is_expected.to match_array [es_temoin] }
+        context 'young company' do
+          let(:company) { create :company, date_de_creation: 2.years.ago }
+
+          it { is_expected.to match_array [es_temoin] }
+        end
+
+        context 'old company' do
+          let(:company) { create :company, date_de_creation: 7.years.ago }
+
+          it { is_expected.to match_array [es_01, es_temoin] }
+        end
       end
 
-      context 'old company' do
-        let(:company) { create :company, date_de_creation: 7.years.ago }
+      context 'max_years_of_existence' do
+        let(:match_filter_01) { create :match_filter, max_years_of_existence: 5 }
 
-        it { is_expected.to match_array [es_01, es_temoin] }
+        before { es_01.expert.antenne.match_filters << match_filter_01 }
+
+        context 'young company' do
+          let(:company) { create :company, date_de_creation: 2.years.ago }
+
+          it { is_expected.to match_array [es_01, es_temoin] }
+        end
+
+        context 'old company' do
+          let(:company) { create :company, date_de_creation: 7.years.ago }
+
+          it { is_expected.to match_array [es_temoin] }
+        end
       end
     end
 
