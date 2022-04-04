@@ -14,7 +14,7 @@ class QuarterlyReportService
 
     def send_emails
       User.managers.each do |user|
-        next if user.managed_antennes.map(&:quarterly_reports).blank?
+        next unless user.managed_antennes.map { |antenne| antenne.quarterly_reports.find_by(start_date: 3.months.ago.beginning_of_month) }.any?
         UserMailer.quarterly_report(user).deliver_later
       end
     end
