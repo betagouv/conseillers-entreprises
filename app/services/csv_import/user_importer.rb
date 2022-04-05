@@ -40,10 +40,7 @@ module CsvImport
       # Debug user sans personal skillsets
       if user.personal_skillsets.empty?
         Sentry.with_scope do |scope|
-          scope.set_tags({
-            user: user,
-            antenne: user.antenne
-          })
+          scope.set_tags({ user_id: user.id })
           Sentry.capture_message("import user sans personal_skillset")
         end
       end
