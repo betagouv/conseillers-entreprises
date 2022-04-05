@@ -2,16 +2,29 @@
   max-width: 35rem
   margin: 0 auto
 
-.submit-buttons
-  display: flex
-  justify-content: flex-end
-  .button, .button-outline
-    display: flex
-    &:not(:last-child)
-      margin-right: 1rem
-    i
-      font-size: 1.5rem
-      justify-content: space-between
-
 .steps-form
   padding-left: 0
+
+.multistep-form
+  .submit-buttons
+    display: flex
+    justify-content: flex-end
+    .button, .button-outline
+      display: flex
+      &:not(:last-child)
+        margin-right: 1rem
+      i
+        font-size: 1.5rem
+        justify-content: space-between
+  .contact-delay
+    display: flex
+    margin-bottom: 4rem
+    img
+      margin-right: 0.5rem
+
+  .title-icon
+    display: flex
+    align-items: center
+    img
+      margin-right: 0.5rem
+

@@ -16,11 +16,13 @@
 - content_for :form_header do
   - if @landing_subject&.form_description.present?
     .description.col-center
-      %h2= t('solicitations.creation_form.accompaniments')
+      %h2.title-icon
+        = image_tag('5days-b.png', alt: '')
+        = t('solicitations.creation_form.accompaniments')
       %div= sanitize @landing_subject&.form_description&.html_safe
-    .notification.warning.contact-delay.col-center
-      = image_tag('5days.png', alt: '')
-      %span
+    .contact-delay.col-center
+      = image_tag('5days-b.png', alt: '')
+      %div
         = t('solicitations.creation_form.five_days_contact_html')
   = render 'solicitations/steps', current_step: @step
 
