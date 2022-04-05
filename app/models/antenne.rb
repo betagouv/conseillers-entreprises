@@ -57,7 +57,8 @@ class Antenne < ApplicationRecord
   ## Hooks and Validations
   #
   auto_strip_attributes :name
-  validates :name, presence: true, uniqueness: { scope: :institution_id }
+  validates :name, presence: true
+  validate :uniqueness_name
   validates_associated :managers, on: :import, if: -> { managers.any? }
 
   ## “Through” Associations
@@ -110,6 +111,12 @@ class Antenne < ApplicationRecord
       "#{support_user.full_name} - #{I18n.t('app_name')} <#{support_user.email}>"
     else
       "#{I18n.t('app_name')} <#{ENV['APPLICATION_EMAIL']}>"
+    end
+  end
+
+  def uniqueness_name
+    if Antenne.not_deleted.where(name: name, deleted_at: nil, institution: institution).reject { |a| a == self }.present?
+      self.errors.add(:name, I18n.t('errors.messages.exclusion'))
     end
   end
 

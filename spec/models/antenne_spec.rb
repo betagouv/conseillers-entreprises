@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Antenne, type: :model do
-  describe 'relations' do
+ describe 'relations' do
     describe 'expert' do
       let(:active_expert) { create :expert }
       let(:deleted_expert) { create :expert, deleted_at: Time.now }
@@ -72,10 +72,16 @@ RSpec.describe Antenne, type: :model do
       it { is_expected.to be_valid }
     end
 
-    context 'reused name' do
+    context 'reused name not deleted antenne' do
       before { create :antenne, name: name, institution: institution }
 
       it { is_expected.not_to be_valid }
+    end
+
+    context 'reused name deleted antenne' do
+      before { create :antenne, name: name, institution: institution, deleted_at: Time.now }
+
+      it { is_expected.to be_valid }
     end
 
     context 'same name, another institution' do
