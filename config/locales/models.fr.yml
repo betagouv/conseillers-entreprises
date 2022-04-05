@@ -288,6 +288,7 @@ fr:
         accepted_naf_codes: codes naf acceptés
         effectif_max: effectif maximum
         effectif_min: effectif minimum
+        max_years_of_existence: ancienneté maximum (en année)
         min_years_of_existence: ancienneté minimum (en année)
         raw_accepted_naf_codes: codes naf acceptés
       need:
