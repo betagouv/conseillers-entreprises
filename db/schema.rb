@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_04_153223) do
+ActiveRecord::Schema.define(version: 2022_04_05_092932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -425,6 +425,7 @@ ActiveRecord::Schema.define(version: 2022_04_04_153223) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "max_years_of_existence"
+    t.string "accepted_legal_forms", array: true
     t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
     t.index ["subject_id"], name: "index_match_filters_on_subject_id"
   end
