@@ -56,6 +56,7 @@ describe 'admin panel', type: :feature do
       click_link 'Modifier Expert'
       click_button 'Modifier ce(tte) Expert'
 
+      click_link 'Sollicitations'
       click_link 'Besoins'
 
       click_link 'Mises en relation'

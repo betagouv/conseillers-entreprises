@@ -49,6 +49,7 @@ fr:
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
+      complete: Terminées
       completed: Analyses terminées
       deleted: Supprimés
       diagnosis_completed: Analyses terminées
@@ -56,6 +57,7 @@ fr:
       expert_provider: Fournisseur d'experts
       from_solicitation: Sollicitations
       from_visit: Visites
+      incomplete: Incomplètes
       invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
       managers: Responsables d’antenne
