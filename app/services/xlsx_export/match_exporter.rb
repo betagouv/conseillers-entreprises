@@ -17,7 +17,7 @@ module XlsxExport
         solicitation_phone_number: -> { solicitation&.phone_number },
         match_created_at:  -> { I18n.l(created_at, format: :fr) },
         need_id: -> { need&.id },
-        notified_expert: -> { expert.full_name },
+        notified_expert: -> { expert&.full_name },
         expert_antenne: :expert_antenne,
         expert_institution: :expert_institution,
         match_status_by_expert: -> { human_attribute_value(:status, context: :short) },
