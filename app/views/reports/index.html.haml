@@ -1,6 +1,8 @@
+- meta title: t('.title')
+- content_for :header, render('header', title: t('.title'), antennes: @antennes)
+- content_for :menu, render('menu', antennes: @antennes, current_antenne: @antenne)
+
 .fr-container.reports
-  %h1= t('.title')
-  .fr-text--lead.fr-mb-8w= t('.sub_title', name: current_user.antenne.name)
   - if @quarters.present?
     - @quarters.each do |quarter|
       %section.fr-mt-6w
@@ -11,7 +13,7 @@
         .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-2w
           .fr-tile__body
             %h2.fr-h4.fr-tile__title
-              = link_to download_report_path(matches_report, format: :xlsx), class: 'fr-tile__link' do
+              = link_to download_report_path(matches_report, antenne_id: @antenne.id, format: :xlsx), class: 'fr-tile__link' do
                 = matches_report.file.filename
           .fr-tile__img
             %span.ri-file-download-line
