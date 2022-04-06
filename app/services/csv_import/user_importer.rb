@@ -37,6 +37,13 @@ module CsvImport
     end
 
     def postprocess(user, attributes)
+      # Debug user sans personal skillsets
+      if user.personal_skillsets.empty?
+        Sentry.with_scope do |scope|
+          scope.set_tags({ user_id: user.id })
+          Sentry.capture_message("import user sans personal_skillset")
+        end
+      end
       team = import_team(user, attributes)
       expert = team || user.personal_skillsets.first
       if expert.present?
