@@ -94,6 +94,99 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
     end
   end
 
+  describe 'post solicitation with multistep form' do
+    let(:solicitation) { Solicitation.last }
+
+    context "from home page" do
+      before do
+        use_ab_test(solicitation_form: "multistep")
+        landing.landing_themes << landing_theme
+      end
+
+      it do
+        visit '/'
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
+        fill_in 'Prénom et nom', with: 'Mariane'
+        fill_in 'E-mail', with: 'user@example.com'
+        fill_in 'Téléphone', with: '0123456789'
+        click_button 'Suivant'
+        expect(solicitation.persisted?).to eq true
+        expect(solicitation.pk_campaign).to eq nil
+        expect(solicitation.landing).to eq landing
+
+        fill_in 'Votre numéro SIRET', with: '12345678900010'
+        fill_in 'solicitation_siret', with: '12345678900010'
+        click_button 'Suivant'
+        expect(solicitation.reload.siret).to eq '12345678900010'
+
+        fill_in 'Description', with: 'Ceci est un test'
+        click_button 'Envoyer ma demande'
+        expect(page).to have_content('Merci')
+      end
+    end
+
+    context "from pk campaign" do
+      before do
+        use_ab_test(solicitation_form: "multistep")
+        landing.landing_themes << landing_theme
+        visit '/?pk_campaign=FOO&pk_kwd=BAR'
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
+        # find(".landing-subject-section > div > div.landing-topics > div.landing-topic > h3 > a").click
+        fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+        fill_in 'Téléphone', with: '0123456789'
+        fill_in 'E-mail', with: 'user@exemple.com'
+        click_button 'Suivant'
+      end
+
+      it do
+        expect(solicitation.persisted?).to eq true
+        expect(solicitation.landing).to eq landing
+        expect(solicitation.landing_subject.subject).to eq pde_subject
+        expect(solicitation.pk_campaign).to eq 'FOO'
+        expect(solicitation.pk_kwd).to eq 'BAR'
+
+        fill_in 'Votre numéro SIRET', with: '12345678900010'
+        click_button 'Suivant'
+        expect(solicitation.reload.siret).to eq '12345678900010'
+
+        fill_in 'Description', with: 'Ceci est un test'
+        click_button 'Envoyer ma demande'
+        expect(page).to have_content('Merci')
+      end
+    end
+
+    context "with siret in url" do
+      before do
+        use_ab_test(solicitation_form: "multistep")
+        landing.landing_themes << landing_theme
+        visit '/?siret=12345678900010'
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
+      end
+
+      xit do
+        fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+        fill_in 'E-mail', with: 'user@exemple.com'
+        fill_in 'Téléphone', with: '0123456789'
+        click_button 'Suivant'
+        expect(solicitation.persisted?).to eq true
+        expect(solicitation.landing).to eq landing
+        expect(solicitation.landing_subject.subject).to eq pde_subject
+        expect(solicitation.siret).to eq '12345678900010'
+        expect(solicitation.pk_campaign).to eq nil
+
+        expect(page).to have_field('Votre numéro SIRET', with: '12345678900010')
+        click_button 'Suivant'
+
+        fill_in 'Description', with: 'Ceci est un test'
+        click_button 'Envoyer ma demande'
+        expect(page).to have_content('Merci')
+      end
+    end
+  end
+
   describe 'solicitation with siren' do
     let(:base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises' }
 
