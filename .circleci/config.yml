@@ -8,6 +8,7 @@ defaults: &defaults
   docker:
     - image: cimg/ruby:3.0.2-browsers
     - image: circleci/postgres:13.5
+    - image: cimg/redis:6.2.6
       environment:
         POSTGRES_USER: place_des_entreprises_test
         POSTGRES_PASSWORD: place_des_entreprises_test
