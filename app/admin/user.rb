@@ -226,13 +226,13 @@ ActiveAdmin.register User do
   end
 
   member_action :invite_user do
-    resource.invite!(current_user)
+    resource.invite!(current_user) unless resource.deleted?
     redirect_back fallback_location: collection_path, notice: t('active_admin.user.do_invite_done')
   end
 
   batch_action I18n.t('active_admin.user.do_invite') do |ids|
     batch_action_collection.find(ids).each do |user|
-      user.invite!(current_user)
+      user.invite!(current_user) unless user.deleted?
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
   end
