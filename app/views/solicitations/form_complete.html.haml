@@ -2,6 +2,9 @@
   meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
     description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
 
+- content_for :head do
+  = render 'landings/landing_subjects/tags_conversion'
+
 - content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
 
 %section.section.section-grey#section-thankyou
@@ -14,11 +17,9 @@
   .container
     = render 'newsletter', email: @solicitation.email
 
-  %section.section.section-grey
-    .container.section__title
-      %a{ :href => "https://voxusagers.numerique.gouv.fr/Demarches/2666?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=217cc9ca5ab6c2999a02839fdd402d01", target: '_blank' }
-        %img{ :alt => t('solicitations.creation_form.give_my_opinion_alt'), :src => "https://voxusagers.numerique.gouv.fr/static/bouton-blanc.svg", :title => t('solicitations.creation_form.give_my_opinion_title') }
+%section.section.section-grey
+  .container.section__title
+    %a{ :href => "https://voxusagers.numerique.gouv.fr/Demarches/2666?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=217cc9ca5ab6c2999a02839fdd402d01", target: '_blank' }
+      %img{ :alt => t('solicitations.creation_form.give_my_opinion_alt'), :src => "https://voxusagers.numerique.gouv.fr/static/bouton-blanc.svg", :title => t('solicitations.creation_form.give_my_opinion_title') }
 
-%section.section.section-white.autocomplete-warning.container-newsletter#newsletter{ 'data-error': "newsletter" }
-  .container
-    = render 'pages/newsletter'
+= render 'landings/landing_subjects/matomo_company_contact_success'

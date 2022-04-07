@@ -15,7 +15,7 @@ ActiveAdmin.register Solicitation do
   index do
     selectable_column
     column :solicitation do |s|
-      div link_to I18n.t('active_admin.solicitations.id', id: s.id), solicitation_path(s)
+      div link_to I18n.t('active_admin.solicitations.id', id: s.id), conseiller_solicitation_path(s)
       div l(s.created_at, format: :admin)
       unless s.status_in_progress?
         human_attribute_status_tag s, :status

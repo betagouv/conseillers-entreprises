@@ -8,8 +8,6 @@
   = render 'solicitations/steps', current_step: @step
 
 = form_with(model: @solicitation, url: update_form_company_solicitation_path(@solicitation), local: true, html: { honeypot: true }) do |f|
-  - if @solicitation.errors.present?
-    = render 'landings/landing_subjects/matomo_company_contact_failure'
   = f.hidden_field :step, value: @step
 
   .form__group
