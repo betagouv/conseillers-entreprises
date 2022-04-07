@@ -129,7 +129,7 @@ class Match < ApplicationRecord
   ##
   #
   def to_s
-    "#{I18n.t('activerecord.models.match.one')} avec #{ expert.present? ? expert.full_name : I18n.t('deleted_account.full_name') }"
+    "#{I18n.t('activerecord.models.match.one')} avec #{expert.present? ? expert.full_name : I18n.t('deleted_account.full_name')}"
   end
 
   def status_closed?
