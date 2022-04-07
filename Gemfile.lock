@@ -381,6 +381,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.4-x86_64-darwin)
       racc (~> 1.4)
+    nokogiri (1.13.3-x86_64-darwin)
+      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.22.1)
     parallel_tests (3.8.1)
@@ -577,14 +579,11 @@ GEM
       redis (>= 4.2)
       rubystats (>= 0.3.0)
       sinatra (>= 1.2.6)
-    spring (2.1.1)
+    spring (4.0.0)
     spring-commands-parallel-tests (1.0.1)
       spring (>= 0.9.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
-    spring-watcher-listen (2.0.1)
-      listen (>= 2.7, < 4.0)
-      spring (>= 1.2, < 3.0)
     sprockets (4.0.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -736,10 +735,9 @@ DEPENDENCIES
   sib-api-v3-sdk (~> 7.2)
   simplecov
   split
-  spring
+  spring (>= 3.0.0)
   spring-commands-parallel-tests
   spring-commands-rspec
-  spring-watcher-listen
   turbolinks
   uglifier
   user_impersonate2

@@ -125,8 +125,7 @@ group :development do
   gem 'pp_sql'
   gem 'bullet'
 
-  gem 'spring'
-  gem 'spring-watcher-listen'
+  gem 'spring', ">=3.0.0"
   gem 'spring-commands-rspec'
 
   gem 'rubocop', require: false
