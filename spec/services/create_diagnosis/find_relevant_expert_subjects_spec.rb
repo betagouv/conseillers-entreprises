@@ -127,6 +127,48 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       end
     end
 
+    context 'legal form && subject' do
+      let(:diagnosis) { create :diagnosis, facility: facility }
+      let(:facility) { create :facility, company: company }
+
+      let(:company) { create :company, legal_form_code: '2202A' }
+      let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
+
+      let!(:difficulte_subject) { create :subject }
+      let(:match_filter_01) { create :match_filter, accepted_legal_forms: %w[4 6], subject_id: difficulte_subject.id }
+      let!(:es_01) { create :expert_subject }
+
+      before { es_01.expert.antenne.match_filters << match_filter_01 }
+
+      context 'matching subject only' do
+        let(:need_subject) { difficulte_subject }
+        let(:company) { create :company, legal_form_code: '1000' }
+
+        it { is_expected.to match_array [es_temoin] }
+      end
+
+      context 'matching legal form only' do
+        let(:need_subject) { create :subject }
+        let(:company) { create :company, legal_form_code: '6533' }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
+
+      context 'matching legal form and subject' do
+        let(:need_subject) { difficulte_subject }
+        let(:company) { create :company, legal_form_code: '6533' }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
+
+      context 'matching nothing' do
+        let(:need_subject) { create :subject }
+        let(:company) { create :company, legal_form_code: '1000' }
+
+        it { is_expected.to match_array [es_temoin, es_01] }
+      end
+    end
+
     context 'many filters' do
       let(:diagnosis) { create :diagnosis, facility: facility }
       let(:need) { create :need, diagnosis: diagnosis }

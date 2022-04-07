@@ -3,6 +3,7 @@
 # Table name: match_filters
 #
 #  id                     :bigint(8)        not null, primary key
+#  accepted_legal_forms   :string           is an Array
 #  accepted_naf_codes     :string           is an Array
 #  effectif_max           :integer
 #  effectif_min           :integer
@@ -37,8 +38,17 @@ class MatchFilter < ApplicationRecord
     accepted_naf_codes&.join(' ')
   end
 
+  def raw_accepted_legal_forms
+    accepted_legal_forms&.join(' ')
+  end
+
   def raw_accepted_naf_codes=(naf_codes)
     updated_naf_codes = naf_codes.split(/[,\s]/).delete_if(&:empty?)
     self.accepted_naf_codes = updated_naf_codes
+  end
+
+  def raw_accepted_legal_forms=(legal_form_code)
+    updated_legal_form_code = legal_form_code.split(/[,\s]/).delete_if(&:empty?)
+    self.accepted_legal_forms = updated_legal_form_code
   end
 end

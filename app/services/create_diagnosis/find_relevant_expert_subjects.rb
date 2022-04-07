@@ -40,7 +40,8 @@ module CreateDiagnosis
       base_filters = [
         accepting_years_of_existence(match_filter),
         accepting_effectif(match_filter),
-        accepting_naf_codes(match_filter)
+        accepting_naf_codes(match_filter),
+        accepting_legal_forms_codes(match_filter)
       ]
       # Don't verify subject if match_filter is not the same as need subject
       if !match_filter.subject.nil? && need.subject == match_filter.subject
@@ -102,6 +103,13 @@ module CreateDiagnosis
     def accepting_naf_codes(match_filter)
       return true if match_filter.accepted_naf_codes.blank?
       match_filter.accepted_naf_codes.include?(facility.naf_code)
+    end
+
+    # Forme juridique
+
+    def accepting_legal_forms_codes(match_filter)
+      return true if match_filter.accepted_legal_forms.blank?
+      match_filter.accepted_legal_forms.include?(company.legal_form_code.first)
     end
 
     # Helpers -------------------------------

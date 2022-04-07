@@ -285,11 +285,13 @@ fr:
         quo: Pas de réponse
         taking_care: Pris en charge
       match_filter:
+        accepted_legal_forms: codes forme juridique acceptés (niveau 1)
         accepted_naf_codes: codes naf acceptés
         effectif_max: effectif maximum
         effectif_min: effectif minimum
         max_years_of_existence: ancienneté maximum (en année)
         min_years_of_existence: ancienneté minimum (en année)
+        raw_accepted_legal_forms: codes forme juridique acceptés (niveau 1)
         raw_accepted_naf_codes: codes naf acceptés
       need:
         subject: Sujet
