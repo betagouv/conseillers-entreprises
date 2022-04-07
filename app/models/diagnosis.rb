@@ -50,8 +50,6 @@ class Diagnosis < ApplicationRecord
   belongs_to :solicitation, inverse_of: :diagnosis, optional: true, touch: true
   has_many :needs, dependent: :destroy, inverse_of: :diagnosis
 
-  has_many :themes, through: :needs, inverse_of: :diagnoses
-
   ## Validations and Callbacks
   #
   validate :step_needs_has_contact

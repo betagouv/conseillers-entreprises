@@ -20,7 +20,7 @@ describe SolicitationHelper, type: :helper do
       subject { helper.display_region(region, 'Region Bretagne') }
 
       it 'return nothing' do
-        is_expected.to be nil
+        is_expected.to be_nil
       end
     end
 
@@ -30,7 +30,7 @@ describe SolicitationHelper, type: :helper do
       subject { helper.display_region(region, nil) }
 
       it 'return nothing' do
-        is_expected.to be nil
+        is_expected.to be_nil
       end
     end
   end

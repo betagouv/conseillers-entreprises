@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -101,9 +101,9 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
   create_table "antennes", force: :cascade do |t|
     t.string "name"
     t.bigint "institution_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "deleted_at", precision: nil
     t.enum "territorial_level", default: "local", null: false, enum_type: "territorial_level"
     t.index ["deleted_at"], name: "index_antennes_on_deleted_at"
     t.index ["institution_id"], name: "index_antennes_on_institution_id"
@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
   create_table "badges", force: :cascade do |t|
     t.string "title", null: false
     t.string "color", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "badges_solicitations", id: false, force: :cascade do |t|
@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
 
   create_table "categories", force: :cascade do |t|
     t.string "label", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "categories_institutions", id: false, force: :cascade do |t|
@@ -166,8 +166,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
   create_table "companies", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "siren"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "legal_form_code"
     t.string "code_effectif"
     t.date "date_de_creation"
@@ -182,8 +182,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.boolean "useful_exchange"
     t.text "comment"
     t.bigint "need_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["need_id"], name: "index_company_satisfactions_on_need_id"
   end
 
@@ -191,8 +191,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.string "email"
     t.string "phone_number"
     t.bigint "company_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "full_name"
     t.index ["company_id"], name: "index_contacts_on_company_id"
   end
@@ -202,28 +202,28 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.integer "attempts", default: 0, null: false
     t.text "handler", null: false
     t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
+    t.datetime "run_at", precision: nil
+    t.datetime "locked_at", precision: nil
+    t.datetime "failed_at", precision: nil
     t.string "locked_by"
     t.string "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "diagnoses", force: :cascade do |t|
     t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "step", default: 1
-    t.datetime "archived_at"
+    t.datetime "archived_at", precision: nil
     t.bigint "advisor_id"
     t.bigint "visitee_id"
     t.bigint "facility_id", null: false
     t.date "happened_on"
     t.bigint "solicitation_id"
-    t.datetime "completed_at"
+    t.datetime "completed_at", precision: nil
     t.boolean "retention_email_sent", default: false
     t.index ["advisor_id"], name: "index_diagnoses_on_advisor_id"
     t.index ["archived_at"], name: "index_diagnoses_on_archived_at"
@@ -236,12 +236,12 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.string "email"
     t.string "phone_number"
     t.string "job"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "full_name"
     t.bigint "antenne_id", null: false
     t.boolean "is_global_zone", default: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.jsonb "flags", default: {}
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["deleted_at"], name: "index_experts_on_deleted_at"
@@ -268,8 +268,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
   create_table "facilities", force: :cascade do |t|
     t.bigint "company_id", null: false
     t.string "siret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "naf_code"
     t.string "readable_locality"
     t.bigint "commune_id", null: false
@@ -286,8 +286,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
 
   create_table "feedbacks", force: :cascade do |t|
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.string "feedbackable_type"
     t.bigint "feedbackable_id"
@@ -299,11 +299,11 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
 
   create_table "institutions", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug", null: false
     t.boolean "show_on_list", default: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.integer "code_region"
     t.boolean "display_logo", default: false
     t.text "siren"
@@ -318,8 +318,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.string "description"
     t.bigint "institution_id"
     t.bigint "subject_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "optional", default: false
     t.index ["institution_id"], name: "index_institutions_subjects_on_institution_id"
     t.index ["subject_id", "institution_id", "description"], name: "unique_institution_subject_in_institution", unique: true
@@ -331,8 +331,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.bigint "landing_id"
     t.bigint "landing_theme_id"
     t.integer "position"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["landing_id"], name: "index_landing_joint_themes_on_landing_id"
     t.index ["landing_theme_id"], name: "index_landing_joint_themes_on_landing_theme_id"
   end
@@ -352,10 +352,10 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.boolean "requires_siret", default: false, null: false
     t.boolean "requires_requested_help_amount", default: false, null: false
     t.boolean "requires_location", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "display_region_logo", default: false
-    t.datetime "archived_at"
+    t.datetime "archived_at", precision: nil
     t.index ["archived_at"], name: "index_landing_subjects_on_archived_at"
     t.index ["landing_theme_id"], name: "index_landing_subjects_on_landing_theme_id"
     t.index ["slug"], name: "index_landing_subjects_on_slug", unique: true
@@ -376,17 +376,17 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.text "description"
     t.string "meta_title"
     t.string "meta_description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "archived_at", precision: nil
     t.index ["archived_at"], name: "index_landing_themes_on_archived_at"
     t.index ["slug"], name: "index_landing_themes_on_slug", unique: true
   end
 
   create_table "landings", force: :cascade do |t|
     t.string "slug", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "home_description", default: ""
     t.bigint "institution_id"
     t.string "meta_title"
@@ -400,7 +400,7 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.boolean "iframe", default: false
     t.integer "iframe_category", default: 1
     t.boolean "display_pde_partnership_mention", default: false
-    t.datetime "archived_at"
+    t.datetime "archived_at", precision: nil
     t.index ["archived_at"], name: "index_landings_on_archived_at"
     t.index ["institution_id"], name: "index_landings_on_institution_id"
     t.index ["slug"], name: "index_landings_on_slug", unique: true
@@ -409,8 +409,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
   create_table "logos", force: :cascade do |t|
     t.string "filename"
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "institution_id"
     t.index ["institution_id"], name: "index_logos_on_institution_id"
   end
@@ -422,8 +422,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.integer "min_years_of_existence"
     t.bigint "subject_id"
     t.bigint "antenne_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "max_years_of_existence"
     t.string "accepted_legal_forms", array: true
     t.index ["antenne_id"], name: "index_match_filters_on_antenne_id"
@@ -432,14 +432,14 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
 
   create_table "matches", force: :cascade do |t|
     t.bigint "need_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "taken_care_of_at"
-    t.datetime "closed_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "taken_care_of_at", precision: nil
+    t.datetime "closed_at", precision: nil
     t.bigint "expert_id", null: false
     t.bigint "subject_id", null: false
     t.enum "status", default: "quo", null: false, enum_type: "match_status"
-    t.datetime "archived_at"
+    t.datetime "archived_at", precision: nil
     t.index ["expert_id", "need_id"], name: "index_matches_on_expert_id_and_need_id", unique: true, where: "(expert_id <> NULL::bigint)"
     t.index ["expert_id"], name: "index_matches_on_expert_id"
     t.index ["need_id"], name: "index_matches_on_need_id"
@@ -450,11 +450,11 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
   create_table "needs", force: :cascade do |t|
     t.bigint "diagnosis_id", null: false
     t.bigint "subject_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "content"
     t.integer "matches_count"
-    t.datetime "archived_at"
+    t.datetime "archived_at", precision: nil
     t.boolean "satisfaction_email_sent", default: false, null: false
     t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
     t.boolean "abandoned_email_sent", default: false
@@ -469,8 +469,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.date "start_date"
     t.date "end_date"
     t.bigint "antenne_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.enum "category", enum_type: "quarterly_reports_categories"
     t.index ["antenne_id"], name: "index_quarterly_reports_on_antenne_id"
     t.index ["category"], name: "index_quarterly_reports_on_category"
@@ -479,8 +479,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
   create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
     t.enum "category", null: false, enum_type: "actions_categories"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["category"], name: "index_reminders_actions_on_category"
     t.index ["need_id", "category"], name: "index_reminders_actions_on_need_id_and_category", unique: true
     t.index ["need_id"], name: "index_reminders_actions_on_need_id"
@@ -490,8 +490,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.string "query", null: false
     t.bigint "user_id", null: false
     t.string "label"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["query"], name: "index_searches_on_query"
     t.index ["user_id"], name: "index_searches_on_user_id"
   end
@@ -501,8 +501,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.string "email"
     t.string "phone_number"
     t.jsonb "form_info", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "siret"
     t.string "full_name"
     t.string "landing_slug"
@@ -528,11 +528,11 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
 
   create_table "subjects", id: :serial, force: :cascade do |t|
     t.string "label", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "theme_id", null: false
     t.integer "interview_sort_order"
-    t.datetime "archived_at"
+    t.datetime "archived_at", precision: nil
     t.boolean "is_support", default: false
     t.string "slug", null: false
     t.index ["archived_at"], name: "index_subjects_on_archived_at"
@@ -544,20 +544,20 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
 
   create_table "territories", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "bassin_emploi", default: false, null: false
     t.bigint "support_contact_id"
     t.integer "code_region"
-    t.datetime "deployed_at"
+    t.datetime "deployed_at", precision: nil
     t.index ["code_region"], name: "index_territories_on_code_region"
     t.index ["support_contact_id"], name: "index_territories_on_support_contact_id"
   end
 
   create_table "themes", force: :cascade do |t|
     t.string "label", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "interview_sort_order"
     t.index ["interview_sort_order"], name: "index_themes_on_interview_sort_order"
     t.index ["label"], name: "index_themes_on_label", unique: true
@@ -568,8 +568,8 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.bigint "antenne_id"
     t.bigint "user_id", null: false
     t.enum "right", default: "advisor", null: false, enum_type: "rights"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["antenne_id"], name: "index_user_rights_on_antenne_id"
     t.index ["user_id", "antenne_id", "right"], name: "index_user_rights_on_user_id_and_antenne_id_and_right", unique: true
     t.index ["user_id"], name: "index_user_rights_on_user_id"
@@ -579,29 +579,29 @@ ActiveRecord::Schema.define(version: 2022_04_22_145713) do
     t.string "email", default: ""
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "phone_number"
     t.string "job"
     t.string "full_name"
     t.bigint "antenne_id", null: false
     t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at", precision: nil
+    t.datetime "invitation_sent_at", precision: nil
+    t.datetime "invitation_accepted_at", precision: nil
     t.integer "invitation_limit"
     t.bigint "inviter_id"
     t.integer "invitations_count", default: 0
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.jsonb "flags", default: {}
-    t.datetime "cgu_accepted_at"
+    t.datetime "cgu_accepted_at", precision: nil
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true, where: "((email)::text <> NULL::text)"

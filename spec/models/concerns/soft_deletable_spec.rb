@@ -12,8 +12,8 @@ RSpec.describe SoftDeletable do
       before { user.destroy }
 
       it 'Soft delete the user and his expert' do
-        expect(user.deleted?).to eq true
-        expect(expert.reload.deleted?).to eq true
+        expect(user.deleted?).to be true
+        expect(expert.reload.deleted?).to be true
       end
     end
 
@@ -28,11 +28,11 @@ RSpec.describe SoftDeletable do
       before { user_1.destroy }
 
       it "Soft delete only user expert with one user" do
-        expect(user_1.deleted?).to eq true
-        expect(user_2.reload.deleted?).to eq false
-        expect(user_3.reload.deleted?).to eq false
+        expect(user_1.deleted?).to be true
+        expect(user_2.reload.deleted?).to be false
+        expect(user_3.reload.deleted?).to be false
         expect(expert_1.reload.users).to match_array [user_2, user_3]
-        expect(expert_1.reload.deleted?).to eq false
+        expect(expert_1.reload.deleted?).to be false
       end
     end
   end
@@ -46,8 +46,8 @@ RSpec.describe SoftDeletable do
       before { expert.destroy }
 
       it 'Soft delete the expert and his personal user' do
-        expect(expert.deleted?).to eq true
-        expect(user.reload.deleted?).to eq true
+        expect(expert.deleted?).to be true
+        expect(user.reload.deleted?).to be true
       end
     end
 
@@ -60,9 +60,9 @@ RSpec.describe SoftDeletable do
       before { expert.destroy }
 
       it 'Soft delete the expert and his users' do
-        expect(expert.deleted?).to eq true
-        expect(user_1.reload.deleted?).to eq true
-        expect(user_2.reload.deleted?).to eq true
+        expect(expert.deleted?).to be true
+        expect(user_1.reload.deleted?).to be true
+        expect(user_2.reload.deleted?).to be true
       end
     end
 
@@ -77,11 +77,11 @@ RSpec.describe SoftDeletable do
       before { expert.destroy }
 
       it 'Soft delete the expert and his users' do
-        expect(expert.deleted?).to eq true
-        expect(user_1.reload.deleted?).to eq true
-        expect(expert_1.reload.deleted?).to eq true
-        expect(user_2.reload.deleted?).to eq true
-        expect(expert_2.reload.deleted?).to eq true
+        expect(expert.deleted?).to be true
+        expect(user_1.reload.deleted?).to be true
+        expect(expert_1.reload.deleted?).to be true
+        expect(user_2.reload.deleted?).to be true
+        expect(expert_2.reload.deleted?).to be true
       end
     end
 
@@ -97,9 +97,9 @@ RSpec.describe SoftDeletable do
       before { expert.destroy }
 
       it 'Soft delete only expert' do
-        expect(expert.deleted?).to eq true
-        expect(expert_2.reload.deleted?).to eq false
-        expect(user.reload.deleted?).to eq false
+        expect(expert.deleted?).to be true
+        expect(expert_2.reload.deleted?).to be false
+        expect(user.reload.deleted?).to be false
       end
     end
   end
@@ -116,11 +116,11 @@ RSpec.describe SoftDeletable do
 
       context 'with active experts and advisors' do
         it 'Don’t delete antenne' do
-          expect(antenne.deleted?).to eq false
-          expect(expert.reload.deleted?).to eq false
-          expect(expert_2.reload.deleted?).to eq false
-          expect(user_1.reload.deleted?).to eq false
-          expect(user_2.reload.deleted?).to eq false
+          expect(antenne.deleted?).to be false
+          expect(expert.reload.deleted?).to be false
+          expect(expert_2.reload.deleted?).to be false
+          expect(user_1.reload.deleted?).to be false
+          expect(user_2.reload.deleted?).to be false
         end
       end
 
@@ -132,7 +132,7 @@ RSpec.describe SoftDeletable do
         end
 
         it 'Delete antenne' do
-          expect(antenne.deleted?).to eq true
+          expect(antenne.deleted?).to be true
         end
       end
     end
@@ -141,7 +141,7 @@ RSpec.describe SoftDeletable do
       let(:antenne) { create :antenne }
 
       it 'Delete antenne' do
-        expect(antenne.deleted?).to eq true
+        expect(antenne.deleted?).to be true
       end
     end
   end
@@ -155,10 +155,10 @@ RSpec.describe SoftDeletable do
     before { institution.destroy }
 
     it 'Soft delete antennes, users and experts' do
-      expect(institution.deleted?).to eq true
-      expect(antenne.reload.deleted?).to eq true
-      expect(expert.reload.deleted?).to eq true
-      expect(user.reload.deleted?).to eq true
+      expect(institution.deleted?).to be true
+      expect(antenne.reload.deleted?).to be true
+      expect(expert.reload.deleted?).to be true
+      expect(user.reload.deleted?).to be true
     end
   end
 end

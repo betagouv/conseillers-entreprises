@@ -43,8 +43,8 @@ describe PositionningRate::Collection do
     it do
       expect(result_experts).to match_array([expert_critical_rate_02, expert_critical_rate_01])
       # Test de PositionningRate::Member ici, pour ne pas instancier ailleurs la même floppée d'objets
-      expect(PositionningRate::Member.new(expert_critical_rate_02).critical_rate?).to eq true
-      expect(PositionningRate::Member.new(expert_worrying_rate_01).critical_rate?).to eq false
+      expect(PositionningRate::Member.new(expert_critical_rate_02).critical_rate?).to be true
+      expect(PositionningRate::Member.new(expert_worrying_rate_01).critical_rate?).to be false
     end
   end
 
@@ -53,8 +53,8 @@ describe PositionningRate::Collection do
 
     it do
       expect(result_experts).to match_array([expert_worrying_rate_02, expert_worrying_rate_01])
-      expect(PositionningRate::Member.new(expert_worrying_rate_01).worrying_rate?).to eq true
-      expect(PositionningRate::Member.new(expert_pending_rate).worrying_rate?).to eq false
+      expect(PositionningRate::Member.new(expert_worrying_rate_01).worrying_rate?).to be true
+      expect(PositionningRate::Member.new(expert_pending_rate).worrying_rate?).to be false
     end
   end
 
@@ -63,8 +63,8 @@ describe PositionningRate::Collection do
 
     it do
       expect(result_experts).to match_array([expert_pending_rate])
-      expect(PositionningRate::Member.new(expert_pending_rate).pending_rate?).to eq true
-      expect(PositionningRate::Member.new(expert_critical_rate_02).pending_rate?).to eq false
+      expect(PositionningRate::Member.new(expert_pending_rate).pending_rate?).to be true
+      expect(PositionningRate::Member.new(expert_critical_rate_02).pending_rate?).to be false
     end
   end
 end

@@ -268,7 +268,7 @@ RSpec.describe Antenne, type: :model do
     let!(:local_antenne2) { create :antenne, :local, institution: create(:institution), communes: [commune1] }
 
     it "returns correct regional_antenne" do
-      expect(regional_antenne1.regional_antenne).to eq nil
+      expect(regional_antenne1.regional_antenne).to be_nil
       expect(local_antenne1.regional_antenne).to eq regional_antenne1
       expect(other_local_antenne1.regional_antenne).to eq regional_antenne1
       expect(out_local_antenne1.regional_antenne).not_to eq regional_antenne1
@@ -289,11 +289,11 @@ RSpec.describe Antenne, type: :model do
     let!(:local_antenne1) { create :antenne, communes: [commune1] }
 
     it 'sets regional_antenne as regional' do
-      expect(regional_antenne1.regional?).to eq true
+      expect(regional_antenne1.regional?).to be true
     end
 
     it 'doesnt set regional_antenne as regional' do
-      expect(local_antenne1.regional?).to eq false
+      expect(local_antenne1.regional?).to be false
     end
   end
 end

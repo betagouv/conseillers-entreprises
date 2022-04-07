@@ -22,8 +22,8 @@ describe 'auto_archive_old_matches', type: :task do
     end
 
     it 'succeeds' do
-      expect(match_quo_need_taking_care.is_archived).to eq(true)
-      expect(match_need_quo.is_archived).to eq(false)
+      expect(match_quo_need_taking_care.is_archived).to be(true)
+      expect(match_need_quo.is_archived).to be(false)
     end
   end
 
@@ -37,8 +37,8 @@ describe 'auto_archive_old_matches', type: :task do
     end
 
     it 'succeeds' do
-      expect(match_quo_need_taking_care.is_archived).to eq(false)
-      expect(match_need_quo.is_archived).to eq(false)
+      expect(match_quo_need_taking_care.is_archived).to be(false)
+      expect(match_need_quo.is_archived).to be(false)
     end
   end
 end
