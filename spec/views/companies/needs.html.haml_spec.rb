@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'companies/needs.html.haml', type: :view do
+RSpec.describe 'companies/needs', type: :view do
   login_user
   let(:facility) { create :facility }
   let(:expert) { current_user.expert }

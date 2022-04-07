@@ -2,7 +2,7 @@ class ApplicationController < SharedController
   # Abstract Controller for the App pages
   # implicitly uses the 'application' layout
 
-  include Pundit
+  include Pundit::Authorization
 
   before_action :authenticate_user!
 

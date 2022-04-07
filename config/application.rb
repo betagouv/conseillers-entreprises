@@ -37,5 +37,6 @@ module PlaceDesEntreprises
     config.active_job.queue_adapter = :delayed_job
     config.middleware.insert_after ActionDispatch::RemoteIp, IpAnonymizer::MaskIp
     config.action_view.form_with_generates_remote_forms = true
+    config.active_record.legacy_connection_handling = false
   end
 end

@@ -44,7 +44,7 @@ class InstitutionSubject < ApplicationRecord
   # :institution
   # Other InstitutionSubjects of the same Institution, and the same Subject.
   has_many :similar_institutions_subjects, -> (is) { where(subject: is.subject).where.not(id: is.id) },
-           through: :institution, source: :institutions_subjects, inverse_of: :similar_institutions_subjects
+           through: :institution, source: :institutions_subjects
 
   # Validations
   #
