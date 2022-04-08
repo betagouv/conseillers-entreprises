@@ -31,6 +31,6 @@
         .notification.error= @solicitation.errors.full_messages_for(field).to_sentence
 
   .form__group.submit-buttons
-    = render 'previous_button', path: form_contact_solicitation_path(@solicitation)
+    = render 'previous_button', path: form_contact_solicitation_path(@solicitation, anchor: 'section-formulaire')
     = render 'next_button'
 

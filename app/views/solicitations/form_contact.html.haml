@@ -18,7 +18,7 @@
     .description.col-center
       %h2.title-icon
         = image_tag('5days-b.png', alt: '')
-        = t('solicitations.creation_form.accompaniments')
+        %span= t('solicitations.creation_form.accompaniments')
       %div= sanitize @landing_subject&.form_description&.html_safe
     .contact-delay.col-center
       = image_tag('5days-b.png', alt: '')

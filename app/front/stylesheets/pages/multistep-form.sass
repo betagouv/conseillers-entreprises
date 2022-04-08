@@ -9,10 +9,13 @@
   .submit-buttons
     display: flex
     justify-content: flex-end
+    flex-wrap: wrap
     .button, .button-outline
       display: flex
-      &:not(:last-child)
-        margin-right: 1rem
+      margin-bottom: 0.5rem
+      justify-content: center
+      &:not(:first-child)
+        margin-left: 1rem
       i
         font-size: 1.5rem
         justify-content: space-between
@@ -21,6 +24,8 @@
     margin-bottom: 4rem
     img
       margin-right: 0.5rem
+      width: 50px
+      height: 50px
 
   .title-icon
     display: flex
