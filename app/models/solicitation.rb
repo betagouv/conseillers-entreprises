@@ -116,7 +116,7 @@ class Solicitation < ApplicationRecord
     if FormatSiret.siret_is_valid(siret_or_siren)
       begin
         etablissement_data = ApiEntreprise::Etablissement::Base.new(siret_or_siren).call
-        return if etablissement_data.blank?
+        return params if etablissement_data.blank?
         params[:code_region] = ApiConsumption::Models::Facility.new(etablissement_data).code_region
         params[:siret] = siret_or_siren
       rescue ApiEntreprise::ApiEntrepriseError => e
@@ -125,7 +125,7 @@ class Solicitation < ApplicationRecord
     # Solicitation with a valid SIREN
     elsif FormatSiret.siren_is_valid(siret_or_siren)
       response = ApiSirene::SirenSearch.search(siret_or_siren)
-      return if (!response.success? || response.other_etablissements_sirets.present?)
+      return params if (!response.success? || response.other_etablissements_sirets.present?)
       params[:code_region] = response.siege_social[:region_siege]
       params[:siret] = response.siege_social[:siret]
     end
