@@ -72,10 +72,16 @@ RSpec.describe Antenne, type: :model do
       it { is_expected.to be_valid }
     end
 
-    context 'reused name' do
+    context 'reused name not deleted antenne' do
       before { create :antenne, name: name, institution: institution }
 
       it { is_expected.not_to be_valid }
+    end
+
+    context 'reused name deleted antenne' do
+      before { create :antenne, name: name, institution: institution, deleted_at: Time.now }
+
+      it { is_expected.to be_valid }
     end
 
     context 'same name, another institution' do
@@ -141,29 +147,29 @@ RSpec.describe Antenne, type: :model do
     let(:expert_local_antenne_i2) { create :expert_with_users, antenne: local_antenne_i2 }
 
     let!(:need_regional_antenne_i1) {
-  create :need,
-         matches: [create(:match, expert: expert_regional_antenne_i1)],
+      create :need,
+             matches: [create(:match, expert: expert_regional_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
-}
+    }
     let!(:need_local_antenne_i1) {
-  create :need,
-         matches: [create(:match, expert: expert_local_antenne_i1)],
+      create :need,
+             matches: [create(:match, expert: expert_local_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
-}
+    }
     let!(:need_other_local_antenne_i1) {
-  create :need,
-         matches: [create(:match, expert: expert_other_local_antenne_i1)],
+      create :need,
+             matches: [create(:match, expert: expert_other_local_antenne_i1)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune2))
-}
+    }
     let!(:need_random_local_antenne_i1) {
-  create :need,
-         matches: [create(:match, expert: create(:expert, antenne: random_local_antenne_i1))]
-}
+      create :need,
+             matches: [create(:match, expert: create(:expert, antenne: random_local_antenne_i1))]
+    }
     let!(:need_local_antenne_i2) {
-  create :need,
-         matches: [create(:match, expert: expert_local_antenne_i2)],
+      create :need,
+             matches: [create(:match, expert: expert_local_antenne_i2)],
              diagnosis: create(:diagnosis, facility: create(:facility, commune: commune1))
-}
+    }
 
     before do
       # Je sais pas pourquoi, mais changer le statut a la creation fonctionne pas pour le 2e need

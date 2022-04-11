@@ -12,11 +12,11 @@
 #
 # Indexes
 #
-#  index_antennes_on_deleted_at               (deleted_at)
-#  index_antennes_on_institution_id           (institution_id)
-#  index_antennes_on_name_and_institution_id  (name,institution_id) UNIQUE
-#  index_antennes_on_territorial_level        (territorial_level)
-#  index_antennes_on_updated_at               (updated_at)
+#  index_antennes_on_deleted_at                              (deleted_at)
+#  index_antennes_on_institution_id                          (institution_id)
+#  index_antennes_on_name_and_deleted_at_and_institution_id  (name,deleted_at,institution_id)
+#  index_antennes_on_territorial_level                       (territorial_level)
+#  index_antennes_on_updated_at                              (updated_at)
 #
 # Foreign Keys
 #
@@ -57,7 +57,8 @@ class Antenne < ApplicationRecord
   ## Hooks and Validations
   #
   auto_strip_attributes :name
-  validates :name, presence: true, uniqueness: { scope: :institution_id }
+  validates :name, presence: true
+  validate :uniqueness_name
   validates_associated :managers, on: :import, if: -> { managers.any? }
 
   ## “Through” Associations
@@ -110,6 +111,13 @@ class Antenne < ApplicationRecord
       "#{support_user.full_name} - #{I18n.t('app_name')} <#{support_user.email}>"
     else
       "#{I18n.t('app_name')} <#{ENV['APPLICATION_EMAIL']}>"
+    end
+  end
+
+  def uniqueness_name
+    # Utilise le .reject et .present? car a la mise à jour l’antenne est persisté mais pas à la création
+    if Antenne.not_deleted.where(name: name, institution: institution).reject { |a| a == self }.present?
+      self.errors.add(:name, I18n.t('errors.messages.exclusion'))
     end
   end
 
