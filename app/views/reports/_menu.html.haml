@@ -1,0 +1,8 @@
+%ul.fr-sidemenu__list
+  - antennes.each do |antenne|
+    = active_link_to antenne.name, reports_path(antenne_id: antenne.id),
+    { active: antenne == current_antenne,
+    class: 'fr-sidemenu__link',
+    wrap_tag: :li,
+    wrap_class: 'fr-sidemenu__item',
+    class_active: 'fr-sidemenu__item--active' }

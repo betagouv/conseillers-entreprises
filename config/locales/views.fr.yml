@@ -792,8 +792,7 @@ fr:
   reports:
     index:
       interval: "%{start_month} à %{end_month} %{year}"
-      no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour votre antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
-      sub_title: Antenne %{name}
+      no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
       title: Export des données
   shared:
     breadcrumb:
