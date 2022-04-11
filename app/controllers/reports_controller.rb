@@ -1,11 +1,11 @@
 class ReportsController < ApplicationController
+  before_action :retrieve_antennes, except: :download
   before_action :retrieve_antenne
   before_action :retrieve_quarters, except: :download
 
   layout 'side_menu'
 
   def index
-    @antennes = current_user.managed_antennes
     authorize @antenne, policy_class: ReportPolicy
   end
 
@@ -26,8 +26,12 @@ class ReportsController < ApplicationController
     @antenne = if params[:antenne_id].present?
       Antenne.find(params[:antenne_id])
     else
-      current_user.managed_antennes.first
+      @antennes.first
     end
+  end
+
+  def retrieve_antennes
+    @antennes = current_user.managed_antennes.order(:name)
   end
 
   def retrieve_quarters
