@@ -12,11 +12,11 @@
 #
 # Indexes
 #
-#  index_antennes_on_deleted_at               (deleted_at)
-#  index_antennes_on_institution_id           (institution_id)
-#  index_antennes_on_name_and_institution_id  (name,institution_id) UNIQUE
-#  index_antennes_on_territorial_level        (territorial_level)
-#  index_antennes_on_updated_at               (updated_at)
+#  index_antennes_on_deleted_at                              (deleted_at)
+#  index_antennes_on_institution_id                          (institution_id)
+#  index_antennes_on_name_and_deleted_at_and_institution_id  (name,deleted_at,institution_id)
+#  index_antennes_on_territorial_level                       (territorial_level)
+#  index_antennes_on_updated_at                              (updated_at)
 #
 # Foreign Keys
 #
@@ -115,7 +115,8 @@ class Antenne < ApplicationRecord
   end
 
   def uniqueness_name
-    if Antenne.not_deleted.where(name: name, deleted_at: nil, institution: institution).reject { |a| a == self }.present?
+    # Utilise le .reject et .present? car a la mise à jour l’antenne est persisté mais pas à la création
+    if Antenne.not_deleted.where(name: name, institution: institution).reject { |a| a == self }.present?
       self.errors.add(:name, I18n.t('errors.messages.exclusion'))
     end
   end
