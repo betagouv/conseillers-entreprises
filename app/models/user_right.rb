@@ -11,8 +11,9 @@
 #
 # Indexes
 #
-#  index_user_rights_on_antenne_id  (antenne_id)
-#  index_user_rights_on_user_id     (user_id)
+#  index_user_rights_on_antenne_id              (antenne_id)
+#  index_user_rights_on_user_id                 (user_id)
+#  index_user_rights_on_user_id_and_antenne_id  (user_id,antenne_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -28,4 +29,6 @@ class UserRight < ApplicationRecord
     admin: 'admin',
     manager: 'manager'
   }, _prefix: true
+
+  validates :user_id, uniqueness: { scope: :antenne_id }
 end
