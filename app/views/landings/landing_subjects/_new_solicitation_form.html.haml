@@ -48,6 +48,7 @@
   .form__group
     = f.submit t('.button.title'), class: 'button large', data: { disable_with: t('.submit_in_progress') }
   .legal-notice
+    - mentions_link = in_iframe? ? mentions_d_information_url(landing_slug: solicitation.landing.slug) : mentions_d_information_url
     = t('.legal_notice_html',
       mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
-      informations: link_to('mentions d’information', mentions_d_information_url(landing_slug: solicitation.landing.slug)))
+      informations: link_to('mentions d’information', mentions_link))
