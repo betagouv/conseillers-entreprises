@@ -43,7 +43,7 @@ module CsvImport
         full_name: attributes[:manager_full_name],
         phone_number: attributes[:manager_phone]
       ) if manager.new_record?
-      if manager.persisted?
+      if manager.persisted? && antenne.managers.exclude?(manager)
         antenne.managers << manager
       else
         # Adds manager so that validations raise error if needed
