@@ -60,7 +60,8 @@ fr:
       invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
       managers: Responsables d’antenne
-      never_used: Non connectable
+      managers_never_used: Responsables non invités
+      never_used: Invitations non envoyées
       no_team: Solo
       not_archived: Non archivés
       not_taken_after_3_weeks: 3 semaines sans réponse
