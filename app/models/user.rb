@@ -112,8 +112,8 @@ class User < ApplicationRecord
   scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.right_admin) }
   scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.right_manager) }
 
-  scope :never_used, -> { where(invitation_sent_at: nil).where(encrypted_password: '') }
-  scope :managers_never_used, -> { managers.where(invitation_sent_at: nil).where(encrypted_password: '') }
+  scope :never_used, -> { not_deleted.where(invitation_sent_at: nil).where(encrypted_password: '') }
+  scope :managers_never_used, -> { not_deleted.managers.where(invitation_sent_at: nil).where(encrypted_password: '') }
   # :invitation_not_accepted and :invitation_accepted are declared in devise_invitable/model.rb
 
   scope :ordered_by_institution, -> do
