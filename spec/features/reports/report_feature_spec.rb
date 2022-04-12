@@ -5,8 +5,8 @@ require 'rails_helper'
 describe 'reports', type: :feature do
   describe 'index' do
     login_user
-    let!(:antenne1) { create :antenne, managers: [current_user] }
-    let!(:antenne2) { create :antenne, managers: [current_user] }
+    let!(:antenne1) { create :antenne, name: "Antenne A", managers: [current_user] }
+    let!(:antenne2) { create :antenne, name: "Antenne B", managers: [current_user] }
     let!(:category_matches1) { create :quarterly_report, :category_matches, antenne: antenne1, start_date: Date.new(2021, 01, 01), end_date: Date.new(2021, 03, 31) }
     let!(:category_matches2) { create :quarterly_report, :category_matches, antenne: antenne1, start_date: Date.new(2021, 04, 01), end_date: Date.new(2021, 06, 30) }
     let!(:category_stats1) { create :quarterly_report, :category_stats, antenne: antenne1, start_date: Date.new(2021, 01, 01), end_date: Date.new(2021, 03, 31) }
