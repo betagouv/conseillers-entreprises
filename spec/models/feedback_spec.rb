@@ -10,10 +10,18 @@ RSpec.describe Feedback, type: :model do
   describe 'persons_to_notify' do
     let(:advisor) { create :user }
     let(:user3) { create :user }
-    let(:expert1) { create :expert }
-    let(:expert2) { create :expert }
-    let(:expert3) { create :expert, users: [user3] }
-    let(:matches) { [create(:match, expert: expert1, status: 'taking_care'), create(:match, expert: expert2, status: 'done_no_help'), create(:match, expert: expert3, status: 'done_not_reachable')] }
+    let(:expert_taking_care) { create :expert }
+    let(:expert_no_help) { create :expert }
+    let(:expert_done) { create :expert }
+    let(:expert_not_reachable) { create :expert, users: [user3] }
+    let!(:matches) {
+      [
+        create(:match, expert: expert_taking_care, status: 'taking_care'),
+        create(:match, expert: expert_no_help, status: 'done_no_help'),
+        create(:match, expert: expert_not_reachable, status: 'done_not_reachable'),
+        create(:match, expert: expert_done, status: 'done')
+      ]
+    }
     let(:need) { create :need, advisor: advisor, matches: matches }
     let(:feedback) { create :feedback, :for_need, feedbackable: need, user: author }
 
@@ -25,7 +33,7 @@ RSpec.describe Feedback, type: :model do
       let!(:feedback3) { create :feedback, :for_need, feedbackable: need, user: user3 }
       let(:author) { user3 }
 
-      it{ is_expected.to match_array [expert1, expert2, user2, advisor] }
+      it { is_expected.to match_array [expert_done, expert_taking_care, user2, advisor] }
     end
 
     context 'when some experts arent positioned yet' do
@@ -42,8 +50,8 @@ RSpec.describe Feedback, type: :model do
       context 'when author is a normal user' do
         let(:author) { advisor }
 
-        it 'don’t notify experts not positionned' do
-          is_expected.to match_array [expert1, expert2, expert3]
+        it 'don’t notify experts not positioned' do
+          is_expected.to match_array [expert_done, expert_taking_care, expert_not_reachable]
         end
       end
 
@@ -51,8 +59,7 @@ RSpec.describe Feedback, type: :model do
         let(:author) { create :user, :admin }
 
         it 'notify all experts but not the advisor' do
-          expect(feedback.persons_to_notify.length).to eq 5
-          is_expected.to match_array [expert1, expert2, expert3, expert_refuse, expert_quo]
+          is_expected.to match_array [expert_done, expert_taking_care, expert_not_reachable, expert_quo]
         end
       end
     end
