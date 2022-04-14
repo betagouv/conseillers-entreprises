@@ -214,7 +214,7 @@ Rails.application.routes.draw do
   namespace :reminders, path: 'relances' do
     get '/', to: redirect('/relances/besoins')
 
-    resources :experts, only: %i[index], path: 'experts' do
+    resources :experts, only: %i[index show], path: 'experts' do
       collection do
         get :critical_rate, path: 'taux-positionnement-critique'
         get :worrying_rate, path: 'taux-positionnement-a-surveiller'
