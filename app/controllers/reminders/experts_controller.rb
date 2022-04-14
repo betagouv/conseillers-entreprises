@@ -2,7 +2,7 @@ module Reminders
   class ExpertsController < BaseController
     include Inbox
     helper_method :inbox_collections_counts
-    before_action :setup_territory_filters, :find_current_territory, :collections_counts, only: %i[index critical_rate worrying_rate pending_rate]
+    before_action :setup_territory_filters, :find_current_territory, :collections_counts, only: %i[index show critical_rate worrying_rate pending_rate]
     before_action :retrieve_expert, except: %i[index critical_rate worrying_rate pending_rate]
 
     def index
@@ -39,6 +39,10 @@ module Reminders
 
     def expired
       retrieve_needs(@expert, :expired, :quo)
+    end
+
+    def show
+      @action = :critical_rate
     end
 
     private
