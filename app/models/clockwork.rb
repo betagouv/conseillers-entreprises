@@ -31,17 +31,13 @@ module Clockwork
     `rake auto_archive_old_matches`
   end
   if Rails.env == 'production'
-    every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && quarter_condition(t) }) do
+    every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
       Antenne.find_in_batches(batch_size: 20) do |antennes|
         QuarterlyReportService.delay.generate_reports(antennes)
       end
     end
-    every(1.day, 'send_quarterly_reports_emails', at: '08:00', if: -> (t) { t.day == 15 && quarter_condition(t) }) do
+    every(1.day, 'send_quarterly_reports_emails', at: '08:00', if: -> (t) { t.day == 15 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
       QuarterlyReportService.delay.send_emails
     end
-  end
-
-  def quarter_condition(t)
-    (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10)
   end
 end
