@@ -9,9 +9,9 @@
 #  taken_care_of_at :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  expert_id        :bigint(8)
+#  expert_id        :bigint(8)        not null
 #  need_id          :bigint(8)        not null
-#  subject_id       :bigint(8)
+#  subject_id       :bigint(8)        not null
 #
 # Indexes
 #
@@ -46,12 +46,12 @@ class Match < ApplicationRecord
   ## Associations
   #
   belongs_to :need, counter_cache: true, inverse_of: :matches, touch: true
-  belongs_to :expert, inverse_of: :received_matches, optional: true
-  belongs_to :subject, inverse_of: :matches, optional: true
+  belongs_to :expert, inverse_of: :received_matches
+  belongs_to :subject, inverse_of: :matches
 
   ## Validations and Callbacks
   #
-  validates :expert, uniqueness: { scope: :need_id, allow_nil: true }
+  validates :expert, uniqueness: { scope: :need_id }
   after_update :update_taken_care_of_at
   after_update :update_closed_at
 
