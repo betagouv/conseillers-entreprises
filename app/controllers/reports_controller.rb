@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
-  before_action :retrieve_antennes, except: :download
-  before_action :retrieve_antenne
-  before_action :retrieve_quarters, except: :download
+  before_action :retrieve_antennes, only: :index
+  before_action :retrieve_antenne, only: :index
+  before_action :retrieve_quarters, only: :index
 
   layout 'side_menu'
 
@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   end
 
   def download
-    quarterly_report = @antenne.quarterly_reports.find_by(id: params[:id])
+    quarterly_report = QuarterlyReport.find(params[:id])
     authorize quarterly_report, policy_class: ReportPolicy
     respond_to do |format|
       format.html
@@ -25,13 +25,15 @@ class ReportsController < ApplicationController
   def retrieve_antenne
     @antenne = if params[:antenne_id].present?
       Antenne.find(params[:antenne_id])
-    else
+    elsif @antennes.any?
       @antennes.first
+    else
+      current_user.antenne
     end
   end
 
   def retrieve_antennes
-    @antennes = current_user.managed_antennes.order(:name)
+    @antennes = current_user.managed_antennes&.order(:name)
   end
 
   def retrieve_quarters
