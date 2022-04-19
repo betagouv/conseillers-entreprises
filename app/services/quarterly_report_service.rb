@@ -4,9 +4,10 @@ class QuarterlyReportService
       antennes.each do |antenne|
         quarters = last_quarters(antenne)
         next if quarters.nil?
+
         quarters.each do |quarter|
-          generate_matches_files(antenne, quarter)
-          generate_stats_files(antenne, quarter)
+          check_matches_file(antenne, quarter)
+          check_stats_file(antenne, quarter)
         end
         destroy_old_report_files(antenne, quarters)
       end
@@ -21,8 +22,35 @@ class QuarterlyReportService
 
     private
 
+    def check_matches_file(antenne, quarter)
+      matches_report = antenne.matches_reports.find_by(start_date: quarter.first)
+      begin
+        if matches_report.present?
+          matches_report.file.download
+        else
+          generate_matches_files(antenne, quarter)
+        end
+      rescue
+        matches_report.destroy
+        generate_matches_files(antenne, quarter)
+      end
+    end
+
+    def check_stats_file(antenne, quarter)
+      stats_report = antenne.stats_reports.find_by(start_date: quarter.first)
+      begin
+        if stats_report.present?
+          stats_report.file.download
+        else
+          generate_stats_files(antenne, quarter)
+        end
+      rescue
+        stats_report.destroy
+        generate_stats_files(antenne, quarter)
+      end
+    end
+
     def generate_matches_files(antenne, quarter)
-      return if antenne.matches_reports.find_by(start_date: quarter.first).present?
       needs = antenne.perimeter_received_needs.created_between(quarter.first, quarter.last)
       return if needs.blank?
 
@@ -39,8 +67,6 @@ class QuarterlyReportService
     end
 
     def generate_stats_files(antenne, quarter)
-      return if antenne.stats_reports.find_by(start_date: quarter.first).present?
-
       exporter = XlsxExport::AntenneStatsExporter.new({
         start_date: quarter.first,
             end_date: quarter.last,
