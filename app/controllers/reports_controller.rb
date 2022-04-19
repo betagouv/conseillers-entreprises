@@ -23,8 +23,8 @@ class ReportsController < ApplicationController
   private
 
   def retrieve_antenne
-    @antenne = if params[:antenne_id].present?
-      Antenne.find(params[:antenne_id])
+    @antenne = if params[:id].present?
+      Antenne.find(params[:id])
     else
       @antennes.first
     end
