@@ -858,7 +858,7 @@ fr:
       placeholder:
         description: Décrivez votre demande.
         email: marie.dupont@exemple.fr
-        full_name: 'ex: Marie Dupont'
+        full_name: 'ex : Marie Dupont'
         location : Hauts-de-France ; région de Milly-la-forêt ; 91260…
         phone_number: 'ex: 06 12 34 56 78'
         siret: 123 456 789 00010
