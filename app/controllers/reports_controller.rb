@@ -25,13 +25,15 @@ class ReportsController < ApplicationController
   def retrieve_antenne
     @antenne = if params[:antenne_id].present?
       Antenne.find(params[:antenne_id])
-    else
+    elsif @antennes.any?
       @antennes.first
+    else
+      current_user.antenne
     end
   end
 
   def retrieve_antennes
-    @antennes = current_user.managed_antennes.order(:name)
+    @antennes = current_user.managed_antennes&.order(:name)
   end
 
   def retrieve_quarters
