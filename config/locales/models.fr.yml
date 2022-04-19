@@ -35,7 +35,6 @@ fr:
     match_filter:
       title_with_index: Filtre %{index}
     matches:
-      deleted: Supprimé
       diagnosis_page: Page analyse
       need_page: Page besoin
     move: Déplacer
