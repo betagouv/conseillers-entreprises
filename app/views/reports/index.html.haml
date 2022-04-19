@@ -21,7 +21,7 @@
         .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-2w
           .fr-tile__body
             %h2.fr-h4.fr-tile__title
-              = link_to download_report_path(stats_report, format: :xlsx), class: 'fr-tile__link' do
+              = link_to download_report_path(stats_report, antenne_id: @antenne.id, format: :xlsx), class: 'fr-tile__link' do
                 = stats_report.file.filename
           .fr-tile__img
             %span.ri-file-download-line
