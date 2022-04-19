@@ -152,7 +152,7 @@ ActiveAdmin.register Solicitation do
         render 'badges', badges: s.badges
       end
       row :tracking do |s|
-        render 'solicitations/tracking', solicitation: s
+        render 'conseiller/solicitations/tracking', solicitation: s
       end
       row :institution
     end
