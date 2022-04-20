@@ -8,7 +8,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
   let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
   let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, subject: pde_subject, title: "Super sujet", description: "Description LS", requires_siret: true }
 
-  describe 'post solicitation' do
+  describe 'post' do
     let(:solicitation) { Solicitation.last }
 
     context "from home page" do
@@ -94,7 +94,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
     end
   end
 
-  describe 'post solicitation with multistep form' do
+  describe 'post with multistep form' do
     let(:solicitation) { Solicitation.last }
 
     context "from home page" do
@@ -187,7 +187,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
     end
   end
 
-  describe 'solicitation with siren' do
+  describe 'with siren' do
     let(:base_url) { 'https://entreprise.api.gouv.fr/v2/entreprises' }
 
     context 'SIREN number exists' do
@@ -234,7 +234,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
     end
   end
 
-  describe 'solicitation with fulltext search' do
+  describe 'with fulltext search' do
     let(:base_url) { 'https://entreprise.data.gouv.fr/api/sirene/v1/full_text' }
 
     context 'choose autocomplete choice' do

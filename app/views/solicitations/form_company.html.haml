@@ -7,7 +7,7 @@
 - content_for :form_header do
   = render 'solicitations/steps', current_step: @step
 
-= form_with(model: @solicitation, url: update_form_company_solicitation_path(@solicitation), local: true, html: { honeypot: true }) do |f|
+= form_with(model: @solicitation, url: update_form_company_solicitations_path, local: true, html: { honeypot: true }) do |f|
   = f.hidden_field :step, value: @step
 
   .form__group
@@ -31,6 +31,6 @@
         .notification.error= @solicitation.errors.full_messages_for(field).to_sentence
 
   .form__group.submit-buttons
-    = render 'previous_button', path: form_contact_solicitation_path(@solicitation, anchor: 'section-formulaire')
+    = render 'previous_button', path: form_contact_solicitations_path(anchor: 'section-formulaire')
     = render 'next_button'
 

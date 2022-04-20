@@ -1,26 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "1f1b672745ecf49a2432f8d852d69e16a72c48c9612aad5b19cd5eee424845f0",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/conseiller/solicitations_controller.rb",
-      "line": 70,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Solicitation.find(params[:id]).prepare_diagnosis(current_user))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Conseiller::SolicitationsController",
-        "method": "prepare_diagnosis"
-      },
-      "user_input": "Solicitation.find(params[:id]).prepare_diagnosis(current_user)",
-      "confidence": "High",
-      "note": ""
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "42ece5cab4729c1ad4e9e3035ad7d12e33bcc5621ebf78d4f7991c7bc8fa7f43",
@@ -39,26 +19,6 @@
       "user_input": "sql_received_matches_count",
       "confidence": "Weak",
       "note": "Injection de donnee systeme, ne provenant pas des utilisateurs"
-    },
-    {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "8c0cf3dade4441e78ad5e8f205c8b119a75fd588ae9cab646729864072d6853c",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/experts_controller.rb",
-      "line": 41,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:expert).permit(:full_name, :phone_number, :role, :experts_subjects_attributes => ({}))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "ExpertsController",
-        "method": "expert_params"
-      },
-      "user_input": ":role",
-      "confidence": "Medium",
-      "note": "“role” is considered suspicious by brakeman, but it’s actually not an issue here."
     },
     {
       "warning_type": "Redirect",
@@ -87,7 +47,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 94,
+      "line": 95,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -121,37 +81,6 @@
       "note": ""
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "d152795906dbc5bd395301ed27c7fb9fdb40da7c926d5c63082c881cff952380",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped model attribute",
-      "file": "app/views/solicitations/form_description.html.haml",
-      "line": 20,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Solicitation.find(params[:id]).landing_subject.description_explanation",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "SolicitationsController",
-          "method": "form_description",
-          "line": 54,
-          "file": "app/controllers/solicitations_controller.rb",
-          "rendered": {
-            "name": "solicitations/form_description",
-            "file": "app/views/solicitations/form_description.html.haml"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "solicitations/form_description"
-      },
-      "user_input": null,
-      "confidence": "High",
-      "note": ""
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "d4ad1cd79d04378cc144c08603b2b1b14f8625b08da51d88239d0ca11910dedc",
@@ -172,6 +101,6 @@
       "note": "Injection de donnee systeme, ne provenant pas des utilisateurs"
     }
   ],
-  "updated": "2022-04-01 17:57:11 +0200",
+  "updated": "2022-04-20 15:26:55 +0200",
   "brakeman_version": "5.2.0"
 }

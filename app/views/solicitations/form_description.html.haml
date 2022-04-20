@@ -7,7 +7,7 @@
 - content_for :form_header do
   = render 'solicitations/steps', current_step: @step
 
-= form_with(model: @solicitation, url: update_form_description_solicitation_path(@solicitation), local: true, html: { honeypot: true }) do |f|
+= form_with(model: @solicitation, url: update_form_description_solicitations_path, local: true, html: { honeypot: true }) do |f|
   = f.hidden_field :step, value: @step
 
   .form__group
@@ -18,10 +18,10 @@
           = image_tag('info-alert.png', alt: '')
           %span
             = t('solicitations.creation_form.better_taking_care')
-        %div= @solicitation.landing_subject&.description_explanation&.html_safe
+        %div= h(@solicitation.landing_subject&.description_explanation&.html_safe)
     = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description"), rows: 6, required: true
     .notification.error= @solicitation.errors.full_messages_for(:description).to_sentence
 
   .form__group.submit-buttons
-    = render 'previous_button', path: form_company_solicitation_path(@solicitation, anchor: 'section-formulaire')
+    = render 'previous_button', path: form_company_solicitations_path(anchor: 'section-formulaire')
     = f.submit t('solicitations.creation_form.buttons.send'), class: 'button large', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }

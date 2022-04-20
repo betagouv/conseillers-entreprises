@@ -226,14 +226,14 @@ Rails.application.routes.draw do
   end
 
   resources :solicitations, only: %i[create], path: 'votre-demande' do
-    member do
+    collection do
       get :form_contact, path: 'contact'
       patch :update_form_contact
       get :form_company, path: 'etablissement'
       patch :update_form_company
       get :form_description, path: 'description'
       patch :update_form_description
-      get :form_complete
+      get :form_complete, path: 'merci'
     end
   end
 

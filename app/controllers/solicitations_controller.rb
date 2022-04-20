@@ -7,7 +7,8 @@ class SolicitationsController < PagesController
     sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
-      redirect_to form_company_solicitation_path(@solicitation, anchor: 'section-formulaire')
+      session[:solicitation_form_id] = @solicitation.id
+      redirect_to form_company_solicitations_path(anchor: 'section-formulaire')
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_contact
@@ -25,7 +26,7 @@ class SolicitationsController < PagesController
     sanitized_params = sanitize_params(solicitation_params)
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
-      redirect_to form_company_solicitation_path(@solicitation, anchor: 'section-formulaire')
+      redirect_to form_company_solicitations_path(anchor: 'section-formulaire')
     else
       @step = :contact
       flash.alert = @solicitation.errors.full_messages.to_sentence
@@ -41,7 +42,7 @@ class SolicitationsController < PagesController
     sanitized_params = sanitize_params(solicitation_params)
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
-      redirect_to form_description_solicitation_path(@solicitation, anchor: 'section-formulaire')
+      redirect_to form_description_solicitations_path(anchor: 'section-formulaire')
     else
       @step = :company
       flash.alert = @solicitation.errors.full_messages.to_sentence
@@ -60,7 +61,7 @@ class SolicitationsController < PagesController
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       @solicitation.delay.prepare_diagnosis(nil)
       ab_finished(:solicitation_form)
-      redirect_to form_complete_solicitation_path(@solicitation, anchor: 'section-formulaire')
+      redirect_to form_complete_solicitations_path(anchor: 'section-formulaire')
     else
       @step = :description
       flash.alert = @solicitation.errors.full_messages.to_sentence
@@ -71,7 +72,8 @@ class SolicitationsController < PagesController
   private
 
   def find_solicitation
-    @solicitation = Solicitation.find(params[:id])
+    solicitation_id = session[:solicitation_form_id]
+    @solicitation = Solicitation.find(solicitation_id)
   end
 
   def solicitation_params
