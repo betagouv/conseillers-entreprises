@@ -32,7 +32,7 @@ module Clockwork
   end
   if Rails.env == 'production'
     every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
-      Antenne.find_in_batches(batch_size: 20) do |antennes|
+      Antenne.find_in_batches(batch_size: 10) do |antennes|
         QuarterlyReportService.delay(queue: :low_priority).generate_reports(antennes)
       end
     end
