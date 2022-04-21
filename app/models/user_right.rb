@@ -3,7 +3,7 @@
 # Table name: user_rights
 #
 #  id         :bigint(8)        not null, primary key
-#  right      :enum             default("advisor"), not null
+#  right      :enum             default(NULL), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  antenne_id :bigint(8)
@@ -11,9 +11,9 @@
 #
 # Indexes
 #
-#  index_user_rights_on_antenne_id              (antenne_id)
-#  index_user_rights_on_user_id                 (user_id)
-#  index_user_rights_on_user_id_and_antenne_id  (user_id,antenne_id) UNIQUE
+#  index_user_rights_on_antenne_id                        (antenne_id)
+#  index_user_rights_on_user_id                           (user_id)
+#  index_user_rights_on_user_id_and_antenne_id_and_right  (user_id,antenne_id,right) UNIQUE
 #
 # Foreign Keys
 #
@@ -25,7 +25,6 @@ class UserRight < ApplicationRecord
   belongs_to :user, inverse_of: :user_rights
 
   enum right: {
-    advisor: 'advisor',
     admin: 'admin',
     manager: 'manager'
   }, _prefix: true
