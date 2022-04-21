@@ -30,5 +30,18 @@ class UserRight < ApplicationRecord
     manager: 'manager'
   }, _prefix: true
 
-  validates :user_id, uniqueness: { scope: :antenne_id }
+  validates :user_id, uniqueness: { scope: [:right, :antenne_id] }
+  validate :manager_has_managed_antennes
+
+  before_validation :add_default_managed_antenne
+
+  private
+
+  def manager_has_managed_antennes
+    self.errors.add(:antenne_id, I18n.t('errors.manager_without_managed_antennes')) if (right_manager? && antenne.blank?)
+  end
+
+  def add_default_managed_antenne
+    self.antenne = user.antenne if (right_manager? && antenne.blank?)
+  end
 end
