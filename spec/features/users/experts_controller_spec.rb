@@ -20,8 +20,8 @@ describe 'experts', type: :feature do
 
     it 'updates the expert info' do
       team.reload
-      expect(team.reload.job).to eq 'Doer of things'
-      expect(team.reload.phone_number).to eq '0987654321'
+      expect(team.reload.job).to eq 'Doer Of Things'
+      expect(team.reload.phone_number).to eq '09 87 65 43 21'
     end
   end
 end
