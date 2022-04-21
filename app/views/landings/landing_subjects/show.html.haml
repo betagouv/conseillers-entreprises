@@ -42,8 +42,7 @@
         = render 'new_solicitation_form',
           landing_subject: @landing_subject,
           solicitation: @solicitation,
-          path: create_solicitation_landing_subject_path(@landing, @landing_subject,
-          institution: params[:institution].presence)
+          path: create_solicitation_landing_subject_path(@landing, @landing_subject)
         - unless in_iframe?
           - if @landing_subject&.form_description.present?
             .description
