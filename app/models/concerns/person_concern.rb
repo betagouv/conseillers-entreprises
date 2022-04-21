@@ -9,7 +9,7 @@ module PersonConcern
 
     ## Data sanitization
     #
-    before_validation :normalize_values, on: :create
+    before_validation :normalize_values
   end
 
   ## Display helpers
