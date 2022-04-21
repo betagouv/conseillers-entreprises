@@ -196,7 +196,7 @@ ActiveAdmin.register User do
 
     f.inputs I18n.t('active_admin.user.roles') do
       f.has_many :user_rights, allow_destroy: true, new_record: true do |ur|
-        ur.input :right, as: :select, collection: UserRight.human_attribute_values(:rights, raw_values: true).invert.to_a
+        ur.input :right, as: :select, collection: UserRight.human_attribute_values(:rights, raw_values: true).invert.to_a, include_blank: false
         ur.input :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
       end
     end
