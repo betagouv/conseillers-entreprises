@@ -68,6 +68,7 @@ gem 'ip_anonymizer'
 gem 'highline'
 gem 'caxlsx'
 gem 'caxlsx_rails'
+gem 'split', require: 'split/dashboard'
 
 # Notifiers
 gem "sentry-ruby"

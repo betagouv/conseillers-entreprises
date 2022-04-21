@@ -134,14 +134,25 @@ class Solicitation < ApplicationRecord
 
   ## Validations
   #
-  validates :landing, :description, presence: true, allow_blank: false
+  attr_accessor :step
+
+  STEPS = %w[contact company description]
+
+  validates :step, inclusion: { in: STEPS }, allow_nil: true
+
+  validates :landing, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate on: :create do
-    # All visible fields are required on creation
-    required_fields.each do |attr|
+  validate if: -> { (step == nil && !persisted?) || step == :contact } do
+    contact_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
+  validate if: -> { (step == nil && !persisted?) || step == :company } do
+    company_required_fields.each do |attr|
+      errors.add(attr, :blank) if self.public_send(attr).blank?
+    end
+  end
+  validates :description, presence: true, allow_blank: false, if: -> { (step == nil && !persisted?) || step == :description }
 
   ## Scopes
   #
@@ -254,6 +265,9 @@ class Solicitation < ApplicationRecord
 
   scope :banned, -> { where(banned: true) }
 
+  scope :complete, -> { where.not(description: nil) }
+  scope :incomplete, -> { where(description: nil) }
+
   GENERIC_EMAILS_TYPES = %i[bad_quality bad_quality_difficulties out_of_region employee_labor_law particular_retirement creation siret moderation independent_tva intermediary recruitment_foreign_worker]
 
   def doublon_solicitations
@@ -315,12 +329,16 @@ class Solicitation < ApplicationRecord
   BASE_REQUIRED_FIELDS = %i[full_name phone_number email]
   DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
 
+  def contact_required_fields
+    BASE_REQUIRED_FIELDS
+  end
+
+  def company_required_fields
+    landing_subject&.required_fields || %i[siret]
+  end
+
   def required_fields
-    if landing_subject.present?
-      BASE_REQUIRED_FIELDS + landing_subject&.required_fields
-    else
-      DEFAULT_REQUIRED_FIELDS
-    end
+    contact_required_fields + company_required_fields
   end
 
   FIELD_TYPES = {

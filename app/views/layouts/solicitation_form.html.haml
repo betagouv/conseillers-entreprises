@@ -1,0 +1,11 @@
+- content_for :content do
+  = yield :header
+  %section.section.section-grey.multistep-form#section-formulaire
+    .container
+      = yield :form_header
+      .solicitation-form.col-center
+        = yield
+      = yield :form_footer
+  = yield :footer
+
+= render template: 'layouts/pages'

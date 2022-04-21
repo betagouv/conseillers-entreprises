@@ -1,33 +1,13 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Redirect",
-      "warning_code": 18,
-      "fingerprint": "1f1b672745ecf49a2432f8d852d69e16a72c48c9612aad5b19cd5eee424845f0",
-      "check_name": "Redirect",
-      "message": "Possible unprotected redirect",
-      "file": "app/controllers/solicitations_controller.rb",
-      "line": 81,
-      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(Solicitation.find(params[:id]).prepare_diagnosis(current_user))",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "SolicitationsController",
-        "method": "prepare_diagnosis"
-      },
-      "user_input": "Solicitation.find(params[:id]).prepare_diagnosis(current_user)",
-      "confidence": "High",
-      "note": ""
-    },
-    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "42ece5cab4729c1ad4e9e3035ad7d12e33bcc5621ebf78d4f7991c7bc8fa7f43",
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/positionning_rate/collection.rb",
-      "line": 25,
+      "line": 20,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "base_query.where(\"(#{sql_received_matches_count}) > 0 AND #{sql_ratio} >= ? AND #{sql_ratio} < ?\", 0.4, 0.7)",
       "render_path": null,
@@ -41,24 +21,24 @@
       "note": "Injection de donnee systeme, ne provenant pas des utilisateurs"
     },
     {
-      "warning_type": "Mass Assignment",
-      "warning_code": 105,
-      "fingerprint": "8c0cf3dade4441e78ad5e8f205c8b119a75fd588ae9cab646729864072d6853c",
-      "check_name": "PermitAttributes",
-      "message": "Potentially dangerous key allowed for mass assignment",
-      "file": "app/controllers/experts_controller.rb",
-      "line": 41,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:expert).permit(:full_name, :phone_number, :role, :experts_subjects_attributes => ({}))",
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "940e6e30632c1fe4b0ad604644759dd2912dcaae490e3c1e5f86bc1cb2096672",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/conseiller/solicitations_controller.rb",
+      "line": 70,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Solicitation.find(params[:id]).prepare_diagnosis(current_user))",
       "render_path": null,
       "location": {
         "type": "method",
-        "class": "ExpertsController",
-        "method": "expert_params"
+        "class": "Conseiller::SolicitationsController",
+        "method": "prepare_diagnosis"
       },
-      "user_input": ":role",
-      "confidence": "Medium",
-      "note": "“role” is considered suspicious by brakeman, but it’s actually not an issue here."
+      "user_input": "Solicitation.find(params[:id]).prepare_diagnosis(current_user)",
+      "confidence": "High",
+      "note": ""
     },
     {
       "warning_type": "SQL Injection",
@@ -67,7 +47,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 73,
+      "line": 95,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -107,7 +87,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/positionning_rate/collection.rb",
-      "line": 17,
+      "line": 15,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "base_query.where(\"(#{sql_received_matches_count}) > 0 AND #{sql_ratio} >= ?\", 0.7)",
       "render_path": null,
@@ -121,6 +101,6 @@
       "note": "Injection de donnee systeme, ne provenant pas des utilisateurs"
     }
   ],
-  "updated": "2021-12-14 10:04:48 +0100",
-  "brakeman_version": "5.1.2"
+  "updated": "2022-04-20 15:26:55 +0200",
+  "brakeman_version": "5.2.0"
 }

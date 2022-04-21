@@ -17,7 +17,7 @@ class ApplicationController < SharedController
     elsif resource_or_scope.is_manager?
       path = reports_path
     elsif resource_or_scope.is_admin?
-      path = solicitations_path
+      path = conseiller_solicitations_path
     else
       path = quo_needs_path
     end

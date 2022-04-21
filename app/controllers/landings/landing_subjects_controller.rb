@@ -3,9 +3,18 @@
 class Landings::LandingSubjectsController < Landings::BaseController
   before_action :retrieve_landing_subject
 
+  layout 'solicitation_form', only: [:form_contact]
+
   def show
     solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
     @solicitation = @landing.solicitations.new(solicitation_params)
+  end
+
+  def form_contact
+    solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
+    @solicitation = @landing.solicitations.new(solicitation_params)
+    @step = :contact
+    render 'solicitations/form_contact'
   end
 
   def create_solicitation
@@ -14,6 +23,7 @@ class Landings::LandingSubjectsController < Landings::BaseController
     if @solicitation.persisted?
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       @solicitation.delay.prepare_diagnosis(nil)
+      ab_finished(:solicitation_form)
     end
 
     render :show # rerender the form on error, render the thankyou partial on success
@@ -32,7 +42,7 @@ class Landings::LandingSubjectsController < Landings::BaseController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:landing_id, :landing_subject_id, :description, :code_region,
+      .permit(:landing_id, :landing_subject_id, :description, :code_region, :step,
               *Solicitation::FIELD_TYPES.keys)
   end
 

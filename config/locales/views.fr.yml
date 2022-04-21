@@ -22,6 +22,7 @@ fr:
     mentions_legales:
       title: Mentions légales
   active_admin:
+    admin_link: Lien admin
     badges:
       add_remove: Ajouter / supprimer un tag sur
       modified: Le tag a été %{action}
@@ -175,6 +176,48 @@ fr:
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
     thank_you:
       title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
+  conseiller:
+    solicitations:
+      ban_facility:
+        marked_as_banned: Email et entreprise ont été exclus
+        marked_as_unbanned: Email et entreprise ont été réintégrés
+      index:
+        clear_search: Réinitialiser la recherche
+        filter: Filtrer
+        header: Sollicitations %{status}
+        no_result: Il n'y a pas de résultat pour cette recherche.
+        search: Rechercher
+        search_placeholder: Tag, aide demandée…
+        title: Sollicitations
+      menu:
+        canceled: Abandonnées
+        index_html: Reçues
+        processed: Mises en relation
+      solicitation:
+        description: 'Description :'
+        email: 'Email :'
+        landing_subjects: 'Aides demandées :'
+        needs_historic: 'Historique de l’entreprise :'
+        siret: 'Siret :'
+        solicitation_banned_facility_explanation: Entreprise et email exclus (spam)
+        solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
+        solicitation_relance_explanation: 'Relance suspectée: une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
+        source: 'Source :'
+      solicitation_actions:
+        ban_facility: Exclure l'entreprise
+        prepare_diagnosis_errors:
+          one: Erreur à la préparation
+          other: "%{count} erreurs à préparation"
+        prepare_diagnosis_retry: Réessayer
+        send_email: Emails
+        start_auto_diagnosis: Analyse automatique
+        start_diagnosis: Démarrer une analyse
+        start_manual_diagnosis: Analyse manuelle
+        unban_facility: Réintégrer l'entreprise
+      solicitation_badges:
+        add_remove_badges: Ajouter / Enlever des tags
+      solicitations_tags_js:
+        manage_badges: Gérer les tags
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
@@ -353,7 +396,7 @@ fr:
         clic_newsletter: Je m'abonne.
         description: Description de votre demande
         legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
-        no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).</br>Vous pouvez le trouvez facilement sur <a href='https://annuaire-entreprises.data.gouv.fr'>https://annuaire-entreprises.data.gouv.fr</a>.
+        no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).</br>Vous pouvez le trouvez facilement sur <a href='https://annuaire-entreprises.data.gouv.fr' target='_blank'>https://annuaire-entreprises.data.gouv.fr</a>.
         submit_in_progress: Envoi en cours...
       new_solicitation_thank_you:
         iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <b>5 jours</b> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
@@ -799,41 +842,42 @@ fr:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: 'Vous êtes ici :'
   solicitations:
-    ban_facility:
-      marked_as_banned: Email et entreprise ont été exclus
-      marked_as_unbanned: Email et entreprise ont été réintégrés
+    creation_form:
+      accompaniments: 'Accompagnements proposés :'
+      better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
+      buttons:
+        next: Suivant
+        previous: Précédent
+        send: Envoyer ma demande
+      description: Description de votre demande
+      find_my_facility: Votre numéro SIRET
+      five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours</b> <br>(Délai moyen de prise en charge)."
+      give_my_opinion_alt: Je donne mon avis
+      give_my_opinion_title: Je donne mon avis sur cette démarche
+      legal_notice_html: "<p>Le Ministère du Travail (DGEFP) traite vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
+      placeholder:
+        description: Décrivez votre demande.
+        email: marie.dupont@exemple.fr
+        full_name: 'ex : Marie Dupont'
+        location : Hauts-de-France ; région de Milly-la-forêt ; 91260…
+        phone_number: 'ex: 06 12 34 56 78'
+        siret: 123 456 789 00010
+      steps:
+        company: Votre entreprise
+        contact: Vos coordonnées
+        description: Votre demande
+      submit_in_progress: Envoi en cours...
     header:
       canceled: abandonnées
       index: reçues
       processed: mises en relation
     index:
-      clear_search: Réinitialiser la recherche
-      filter: Filtrer
-      header: Sollicitations %{status}
-      no_result: Il n'y a pas de résultat pour cette recherche.
-      search: Rechercher
-      search_placeholder: Tag, aide demandée…
       title: Sollicitations
-    menu:
-      canceled: Abandonnées
-      index_html: Reçues
-      processed: Mises en relation
     set_category_content:
       landings: Page source
       subjects: Sujets de landings
       tags: Tags
-    solicitation:
-      description: 'Description :'
-      email: 'Email :'
-      landing_subjects: 'Aides demandées :'
-      needs_historic: 'Historique de l’entreprise :'
-      siret: 'Siret :'
-      solicitation_banned_facility_explanation: Entreprise et email exclus (spam)
-      solicitation_doublon_explanation: 'Doublon suspecté : cette entreprise a déposé d’autres demandes récemment'
-      solicitation_relance_explanation: 'Relance suspectée: une mise en relation pour la même entreprise sur le même sujet a été faite il y a moins de 3 semaines'
-      source: 'Source :'
     solicitation_actions:
-      ban_facility: Exclure l'entreprise
       emails:
         bad_quality: Mauvaise qualité générique
         bad_quality_difficulties: Mauvaise qualité difficultés
@@ -846,19 +890,6 @@ fr:
         particular_retirement: Retraite
         recruitment_foreign_worker: Travailleur étranger
         siret: SIRET
-      prepare_diagnosis_errors:
-        one: Erreur à la préparation
-        other: "%{count} erreurs à préparation"
-      prepare_diagnosis_retry: Réessayer
-      send_email: Emails
-      start_auto_diagnosis: Analyse automatique
-      start_diagnosis: Démarrer une analyse
-      start_manual_diagnosis: Analyse manuelle
-      unban_facility: Réintégrer l'entreprise
-    solicitation_badges:
-      add_remove_badges: Ajouter / Enlever des tags
-    solicitations_tags_js:
-      manage_badges: Gérer les tags
   stats:
     archived: Besoins abandonnés
     in_deployed_regions: Demandes dans une région déployée

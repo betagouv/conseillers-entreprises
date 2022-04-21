@@ -49,6 +49,7 @@ fr:
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
+      complete: Terminées
       completed: Analyses terminées
       deleted: Supprimés
       diagnosis_completed: Analyses terminées
@@ -56,6 +57,7 @@ fr:
       expert_provider: Fournisseur d'experts
       from_solicitation: Sollicitations
       from_visit: Visites
+      incomplete: Incomplètes
       invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
       managers: Responsables d’antenne
@@ -614,10 +616,13 @@ fr:
     feedbacks:
       one: Commentaire
       other: Commentaires
+    find_my_facility: Votre numéro SIRET
     flags: Options
     full_name: Prénom et nom
     global_need_status: Statut du besoin au global
     happened_on: Date de la visite
+    help:
+      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).</br>Vous pouvez le trouvez facilement sur <a href='https://annuaire-entreprises.data.gouv.fr' target='_blank'>https://annuaire-entreprises.data.gouv.fr</a>.
     insee_codes: Codes communes
     institution: Institution
     institutions_subjects: Domaines de l’institution

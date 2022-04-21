@@ -7,18 +7,20 @@ ActiveAdmin.register Solicitation do
 
   ## Index
   #
-  scope :all, default: true
+  scope :complete, default: true
+  scope :incomplete
 
   includes :diagnosis, :landing, :institution, :badges, diagnosis: :company
 
   index do
     selectable_column
     column :solicitation do |s|
-      div link_to I18n.t('active_admin.solicitations.id', id: s.id), solicitation_path(s)
+      div link_to I18n.t('active_admin.solicitations.id', id: s.id), conseiller_solicitation_path(s)
       div l(s.created_at, format: :admin)
       unless s.status_in_progress?
         human_attribute_status_tag s, :status
       end
+      div link_to I18n.t('active_admin.admin_link', id: s.id), admin_solicitation_path(s)
     end
     column :description do |s|
       div(admin_link_to(s.landing) || s.landing_slug)
@@ -150,7 +152,7 @@ ActiveAdmin.register Solicitation do
         render 'badges', badges: s.badges
       end
       row :tracking do |s|
-        render 'solicitations/tracking', solicitation: s
+        render 'conseiller/solicitations/tracking', solicitation: s
       end
       row :institution
     end

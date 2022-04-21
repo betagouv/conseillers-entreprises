@@ -1,0 +1,27 @@
+:ruby
+  meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
+    description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
+
+- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
+
+- content_for :form_header do
+  = render 'solicitations/steps', current_step: @step
+
+= form_with(model: @solicitation, url: update_form_description_solicitations_path, local: true, html: { honeypot: true }) do |f|
+  = f.hidden_field :step, value: @step
+
+  .form__group
+    = f.label 'description', t('solicitations.creation_form.description')
+    - if @solicitation.landing_subject&.description_explanation.present?
+      .explanation
+        %div
+          = image_tag('info-alert.png', alt: '')
+          %span
+            = t('solicitations.creation_form.better_taking_care')
+        %div= h(@solicitation.landing_subject&.description_explanation&.html_safe)
+    = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description"), rows: 6, required: true
+    .notification.error= @solicitation.errors.full_messages_for(:description).to_sentence
+
+  .form__group.submit-buttons
+    = render 'previous_button', path: form_company_solicitations_path(anchor: 'section-formulaire')
+    = f.submit t('solicitations.creation_form.buttons.send'), class: 'button large', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }

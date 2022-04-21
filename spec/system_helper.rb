@@ -27,6 +27,7 @@ def create_base_dummy_data
   create(:subject)
   create(:theme)
   create(:user)
+  create(:solicitation)
 end
 
 def side_menu_link(path)

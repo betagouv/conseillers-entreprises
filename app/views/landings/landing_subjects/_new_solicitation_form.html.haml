@@ -1,6 +1,4 @@
 = form_with(model: solicitation, url: path, local: true, html: { honeypot: true }) do |f|
-  - if solicitation.errors.present?
-    = render 'matomo_company_contact_failure'
   = f.hidden_field :landing_subject_id
   = f.hidden_field :landing_id
   .form__group

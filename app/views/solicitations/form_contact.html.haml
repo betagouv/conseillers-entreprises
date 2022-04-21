@@ -1,0 +1,59 @@
+:ruby
+  meta title: @landing_subject.meta_title.presence || @landing_subject.title.presence || @landing_subject.landing_theme.meta_title,
+    description: @landing_subject.meta_description.presence || @landing_subject.description.presence || @landing_subject.landing_theme.meta_description
+
+- content_for :header, render('solicitations/header', landing: @landing, landing_subject: @landing_subject)
+
+- content_for :form_header do
+  - if @landing_subject&.form_description.present?
+    .description.col-center
+      %h2.title-icon
+        %span.ri-phone-fill.blue
+        %span= t('solicitations.creation_form.accompaniments')
+      %div= sanitize @landing_subject&.form_description&.html_safe
+    .contact-delay.col-center
+      = image_tag('5days-b.png', alt: '')
+      %p
+        = t('solicitations.creation_form.five_days_contact_html')
+  = render 'solicitations/steps', current_step: @step
+
+- if @solicitation.persisted?
+  - path = update_form_contact_solicitations_path
+- else
+  - path = solicitations_path
+
+= form_with(model: @solicitation, url: path, local: true, html: { honeypot: true }) do |f|
+  = f.hidden_field :landing_subject_id
+  = f.hidden_field :landing_id
+  = f.hidden_field :step, value: @step
+  .form__group
+    - %i[full_name phone_number email].each do |field|
+      .form__group
+        - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
+        = f.label field
+        - if help.present?
+          %span= help
+        = f.text_field field,
+          placeholder: t("solicitations.creation_form.placeholder.#{field}"),
+          type: Solicitation::FIELD_TYPES[field],
+          required: true
+
+        .notification.error= @solicitation.errors.full_messages_for(field).to_sentence
+
+  .form__group.submit-buttons
+    = render 'solicitations/next_button'
+
+- content_for :form_footer do
+  .legal-notice
+    = t('solicitations.creation_form.legal_notice_html',
+      mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
+      informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url(landing_slug: @solicitation.landing.slug)))
+
+- content_for :footer do
+  %section.section.section-white.landing
+    = render 'pages/how_it_works'
+  - if @landing_subject.logos.present?
+    %section.section.section-grey
+      .container
+        %h2.section__subtitle= t('logos.title')
+        = render 'landings/landings/logos', landing_subject: @landing_subject

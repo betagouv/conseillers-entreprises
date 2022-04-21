@@ -1,4 +1,16 @@
 module SolicitationHelper
+  def solicitation_step_class(index, current_step)
+    steps = Solicitation::STEPS
+    current_step_index = steps.index(current_step.to_s)
+    if index < current_step_index
+      'done'
+    elsif index == current_step_index
+      'active'
+    else
+      ''
+    end
+  end
+
   ## Google Ads helpers
   # Our ads params are
   # pk_campaign=googleads-{campaignid}
@@ -30,7 +42,7 @@ module SolicitationHelper
 
   def status_action_link(solicitation, new_status, classes = %w[])
     name = Solicitation.human_attribute_value(:status, new_status, context: :action)
-    path = update_status_solicitation_path(solicitation, status: new_status)
+    path = update_status_conseiller_solicitation_path(solicitation, status: new_status)
     classes += STATUS_ACTION_COLORS[new_status.to_sym]
     link_to name, path, method: :post, remote: true, class: classes.join(' ')
   end

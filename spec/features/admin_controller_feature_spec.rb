@@ -56,6 +56,11 @@ describe 'admin panel', type: :feature do
       click_link 'Modifier Expert'
       click_button 'Modifier ce(tte) Expert'
 
+      click_link 'Sollicitations'
+      visit "/admin/solicitations/#{Solicitation.first.id}"
+      click_link 'Modifier Sollicitation'
+      click_button 'Modifier ce(tte) Sollicitation'
+
       click_link 'Besoins'
 
       click_link 'Mises en relation'

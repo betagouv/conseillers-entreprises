@@ -8,6 +8,15 @@ Rails.application.routes.draw do
   # LetterOpener
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
+  # Split A/B Testing
+  match "/split" => Split::Dashboard, anchor: false, via: [:get, :post, :delete], constraints: -> (request) do
+    request.env['warden'].authenticated? # are we authenticated?
+    request.env['warden'].authenticate! # authenticate if not already
+    request.env['warden'].user.is_admin?
+  end
+
+  # Partie conseiller ================================================
+
   # Devise
   devise_for :users,
              path: 'mon_compte',
@@ -34,111 +43,32 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace 'conseiller' do
+    resources :solicitations, only: %i[index show], path: 'sollicitations' do
+      member do
+        post :update_status
+        post :update_badges
+        post :prepare_diagnosis
+        post :ban_facility
+      end
+      collection do
+        get :processed, path: 'mises-en-relation'
+        get :canceled, path: 'abandonnees'
+      end
+      collection do # Nice pagination paths instead of the ?page= parameter (for kaminari)
+        get 'page/:page', action: :index
+        get 'mises-en-relation/page/:page', action: :processed
+        get 'abandonnees/page/:page', action: :canceled
+      end
+    end
+  end
+
   resources :reports, path: 'export-des-donnees', only: :index do
     member do
       get :download
     end
   end
 
-  scope :annuaire, module: :annuaire do
-    get '/', to: redirect('/annuaire/institutions')
-
-    concern :importable do
-      get :import, on: :collection
-      post :import, action: :import_create, on: :collection
-    end
-
-    concern :region_search do
-      collection do
-        get :clear_search
-      end
-    end
-
-    resources :institutions, param: :slug, only: %i[index show], concerns: :region_search do
-      resources :subjects, path: 'domaines', only: :index
-      resources :users, path: 'conseillers', only: :index, concerns: [:importable, :region_search] do
-        collection do
-          post :send_invitations
-        end
-      end
-      resources :antennes, only: :index, concerns: [:importable, :region_search] do
-        resources :users, path: 'conseillers', only: :index
-      end
-    end
-  end
-
-  # Pages
-  # root controller: :landings, action: :index
-  root controller: "landings/landings", action: :home
-  resources :landings, param: :landing_slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do
-    # Utilisation de member pour que ce soit :landing_slug qui soit utilisé sur toutes les routes
-    member do
-      resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', only: %i[show]
-      resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', only: %i[show] do
-        post :create_solicitation, on: :member
-      end
-    end
-  end
-
-  resource :newsletters, only: %i[] do
-    post :create
-    get :new, path: 'abonnement', as: :new
-    get :index, to: redirect('/newsletters/abonnement')
-    get :unsubscribe, path: 'desinscription'
-  end
-
-  resources :solicitations, only: %i[index show], path: 'sollicitations' do
-    member do
-      post :update_status
-      post :update_badges
-      post :prepare_diagnosis
-      post :ban_facility
-    end
-    collection do
-      get :processed, path: 'mises-en-relation'
-      get :canceled, path: 'abandonnees'
-    end
-    collection do # Nice pagination paths instead of the ?page= parameter (for kaminari)
-      get 'page/:page', action: :index
-      get 'mises-en-relation/page/:page', action: :processed
-      get 'abandonnees/page/:page', action: :canceled
-    end
-  end
-
-  controller :about do
-    get :comment_ca_marche
-    get :cgu
-    get :mentions_d_information
-    get :mentions_legales
-    get :accessibilite
-  end
-
-  scope :stats, module: :stats do
-    resources :public, only: :index, path: '/'
-    resources :team, only: :index, path: 'equipe' do
-      collection do
-        get :quality, path: 'suivi-qualite'
-        get :matches, path: 'mises-en-relation'
-        get :deployment, path: 'deploiement'
-      end
-    end
-  end
-
-  controller :user_pages do
-    get :tutoriels
-  end
-
-  controller :sitemap do
-    get :sitemap
-  end
-
-  resource :company_satisfactions, only: %i[new create], path: 'satisfaction' do
-    collection do
-      get :thank_you, path: 'merci'
-    end
-  end
-
-  # Application
   resources :diagnoses, only: %i[index new show create], path: 'analyses' do
     collection do
       get :processed, path: 'traitees'
@@ -180,9 +110,6 @@ Rails.application.routes.draw do
 
   resources :needs, only: %i[index show], path: 'besoins' do
     collection do
-      # TODO: We could use a single route like this:
-      # /besoins(/antenne)/:collection_name
-      # See needs_controller.rb and #1278
       get :quo, path: 'boite_de_reception'
       get :taking_care, path: 'prises_en_charge'
       get :done, path: 'cloturees'
@@ -241,6 +168,33 @@ Rails.application.routes.draw do
     end
   end
 
+  scope :annuaire, module: :annuaire do
+    get '/', to: redirect('/annuaire/institutions')
+
+    concern :importable do
+      get :import, on: :collection
+      post :import, action: :import_create, on: :collection
+    end
+
+    concern :region_search do
+      collection do
+        get :clear_search
+      end
+    end
+
+    resources :institutions, param: :slug, only: %i[index show], concerns: :region_search do
+      resources :subjects, path: 'domaines', only: :index
+      resources :users, path: 'conseillers', only: :index, concerns: [:importable, :region_search] do
+        collection do
+          post :send_invitations
+        end
+      end
+      resources :antennes, only: :index, concerns: [:importable, :region_search] do
+        resources :users, path: 'conseillers', only: :index
+      end
+    end
+  end
+
   resources :badges, only: %i[index create destroy]
 
   resources :partner_tools, only: %i[], path: 'outils-partenaires' do
@@ -254,6 +208,76 @@ Rails.application.routes.draw do
       post :send_generic_email, as: :solicitation_generic
     end
   end
+
+  # Partie publique ===================================================
+
+  root controller: "landings/landings", action: :home
+  resources :landings, param: :landing_slug, controller: "landings/landings", only: [:show], path: 'aide-entreprise' do
+    # Utilisation de member pour que ce soit :landing_slug qui soit utilisé sur toutes les routes
+    member do
+      resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', only: %i[show]
+      resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', only: %i[show] do
+        member do
+          post :create_solicitation
+          get :form_contact, path: 'contact'
+        end
+      end
+    end
+  end
+
+  resources :solicitations, only: %i[create], path: 'votre-demande' do
+    collection do
+      get :form_contact, path: 'contact'
+      patch :update_form_contact
+      get :form_company, path: 'etablissement'
+      patch :update_form_company
+      get :form_description, path: 'description'
+      patch :update_form_description
+      get :form_complete, path: 'merci'
+    end
+  end
+
+  resource :newsletters, only: %i[] do
+    post :create
+    get :new, path: 'abonnement', as: :new
+    get :index, to: redirect('/newsletters/abonnement')
+    get :unsubscribe, path: 'desinscription'
+  end
+
+  controller :about do
+    get :comment_ca_marche
+    get :cgu
+    get :mentions_d_information
+    get :mentions_legales
+    get :accessibilite
+  end
+
+  scope :stats, module: :stats do
+    resources :public, only: :index, path: '/'
+    resources :team, only: :index, path: 'equipe' do
+      collection do
+        get :quality, path: 'suivi-qualite'
+        get :matches, path: 'mises-en-relation'
+        get :deployment, path: 'deploiement'
+      end
+    end
+  end
+
+  controller :user_pages do
+    get :tutoriels
+  end
+
+  controller :sitemap do
+    get :sitemap
+  end
+
+  resource :company_satisfactions, only: %i[new create], path: 'satisfaction' do
+    collection do
+      get :thank_you, path: 'merci'
+    end
+  end
+
+  # Redirections =====================================
 
   get 'profile' => 'users#show'
   get '/rech-etablissement', to: 'utilities#search_etablissement'

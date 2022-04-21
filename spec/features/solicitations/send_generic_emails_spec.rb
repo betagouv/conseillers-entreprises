@@ -7,7 +7,7 @@ describe 'send generic emails', type: :feature do
 
   login_admin
 
-  before { visit solicitations_path }
+  before { visit conseiller_solicitations_path }
 
   it 'have email button' do
     expect(page).to have_css('#generic-emails', count: 1)
@@ -22,7 +22,7 @@ describe 'send generic emails', type: :feature do
     expect(page.html).to include I18n.t('emails.sent')
     expect(page.html).not_to include "Top Entreprise"
 
-    visit canceled_solicitations_path
+    visit canceled_conseiller_solicitations_path
     expect(page.html).to include "Top Entreprise"
     within("#solicitation-#{solicitation.id}-badges") do
       expect(page).to have_content I18n.t('solicitations.solicitation_actions.emails.bad_quality_difficulties')

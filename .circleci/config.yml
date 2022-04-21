@@ -7,6 +7,7 @@ defaults: &defaults
   working_directory: ~/place-des-entreprises
   docker:
     - image: cimg/ruby:3.0.2-browsers
+    - image: cimg/redis:6.2.6
     - image: circleci/postgres:13.5
       environment:
         POSTGRES_USER: place_des_entreprises_test

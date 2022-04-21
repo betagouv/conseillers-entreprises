@@ -44,7 +44,7 @@
                 %span.ri-file-text-line.fr-mr-1w
                 = t('.reports')
             - if current_user.is_admin?
-              = active_link_to solicitations_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+              = active_link_to conseiller_solicitations_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-message-2-line.fr-mr-1w
                 = t('solicitations.index.title')
               = active_link_to reminders_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
