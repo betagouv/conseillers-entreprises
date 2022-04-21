@@ -3,7 +3,7 @@
 # Table name: user_rights
 #
 #  id         :bigint(8)        not null, primary key
-#  right      :enum             default(NULL), not null
+#  right      :enum             not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  antenne_id :bigint(8)

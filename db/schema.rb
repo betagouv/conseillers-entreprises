@@ -566,7 +566,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_091150) do
   create_table "user_rights", force: :cascade do |t|
     t.bigint "antenne_id"
     t.bigint "user_id", null: false
-    t.enum "right", default: "advisor", null: false, enum_type: "rights"
+    t.enum "right", null: false, enum_type: "rights"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["antenne_id"], name: "index_user_rights_on_antenne_id"

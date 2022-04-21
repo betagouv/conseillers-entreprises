@@ -12,6 +12,7 @@ class CleanUserRightsEnum < ActiveRecord::Migration[6.1]
     end
 
     remove_enum_value :right, "advisor"
+    change_column_default(:user_rights, :right, nil)
 
     remove_index :user_rights, ["user_id", "antenne_id"], unique: true
     add_index :user_rights, ["user_id", "antenne_id", "right"], unique: true
