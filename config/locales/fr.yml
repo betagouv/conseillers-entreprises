@@ -122,6 +122,7 @@ fr:
   errors:
     cancel_solicitation_with_email: La sollicitation ne pas pas être mise à jour (solicitation ou type d'email invalide)
     format: "%{attribute} %{message}"
+    manager_without_managed_antennes: Une antenne doit être attribuée à ce responsable d'antenne
     messages:
       accepted: doit être accepté(e)
       already_confirmed: a déjà été validé(e), veuillez essayer de vous connecter.
