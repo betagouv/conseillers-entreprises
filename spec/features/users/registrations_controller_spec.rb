@@ -19,7 +19,7 @@ describe 'registrations', type: :feature do
     it 'updates the first name, last name, institution, job and phone number' do
       expect(current_user.reload.full_name).to eq 'John Doe'
       expect(current_user.reload.job).to eq 'Detective'
-      expect(current_user.reload.phone_number).to eq '0987654321'
+      expect(current_user.reload.phone_number).to eq '09 87 65 43 21'
     end
   end
 
