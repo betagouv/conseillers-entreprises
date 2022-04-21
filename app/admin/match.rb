@@ -43,14 +43,9 @@ ActiveAdmin.register Match do
       div admin_link_to(m, :advisor_antenne)
     end
     column :contacted_expert do |m|
-      if m.expert.present?
-        div admin_link_to(m, :expert)
-        div admin_link_to(m, :expert_antenne)
-        div link_to('Page Analyse', diagnosis_path(m.diagnosis))
-      else
-        div "#{m.expert.full_name} - #{m.expert.institution.name}"
-        status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
-      end
+      div admin_link_to(m, :expert)
+      div admin_link_to(m, :expert_antenne)
+      div link_to('Page Analyse', diagnosis_path(m.diagnosis))
     end
     column(:subject) do |m|
       div admin_link_to(m, :theme)
@@ -124,13 +119,8 @@ ActiveAdmin.register Match do
         end
       end
       row :contacted_expert do |m|
-        if m.expert.present?
-          div admin_link_to(m, :expert)
-          div admin_link_to(m, :expert_antenne)
-        else
-          div "#{m.expert.full_name} - #{m.expert.institution.name}"
-          status_tag I18n.t('active_admin.matches.deleted'), class: 'error'
-        end
+        div admin_link_to(m, :expert)
+        div admin_link_to(m, :expert_antenne)
       end
       row :subject
     end
