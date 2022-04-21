@@ -57,7 +57,7 @@ module  Annuaire
     def import_create
       @result = User.import_csv(params.require(:file), institution: @institution)
       if @result.success?
-        flash[:table_highlighted_ids] = @result.objects.map(&:id)
+        flash[:table_highlighted_ids] = @result.objects.compact.map(&:id)
         session[:highlighted_antennes_ids] = Antenne.where(advisors: @result.objects).ids
         redirect_to action: :index
       else

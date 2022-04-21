@@ -23,7 +23,7 @@ module  Annuaire
     def import_create
       @result = Antenne.import_csv(params.require(:file), institution: @institution)
       if @result.success?
-        flash[:table_highlighted_ids] = @result.objects.map(&:id)
+        flash[:table_highlighted_ids] = @result.objects.compact.map(&:id)
         redirect_to action: :index
       else
         render :import
