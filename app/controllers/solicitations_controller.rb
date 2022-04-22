@@ -18,7 +18,7 @@ class SolicitationsController < PagesController
   def form_contact
     @landing = @solicitation.landing
     @landing_subject = @solicitation.landing_subject
-    @step = :contact
+    @solicitation.completion_step = :contact
     render 'solicitations/form_contact'
   end
 
@@ -28,14 +28,13 @@ class SolicitationsController < PagesController
     if @solicitation.errors.empty?
       redirect_to form_company_solicitations_path(anchor: 'section-formulaire')
     else
-      @step = :contact
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_contact
     end
   end
 
   def form_company
-    @step = :company
+    @solicitation.completion_step = :company
   end
 
   def update_form_company
@@ -44,26 +43,24 @@ class SolicitationsController < PagesController
     if @solicitation.errors.empty?
       redirect_to form_description_solicitations_path(anchor: 'section-formulaire')
     else
-      @step = :company
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_company
     end
   end
 
   def form_description
-    @step = :description
+    @solicitation.completion_step = :description
   end
 
   def update_form_description
     sanitized_params = sanitize_params(solicitation_params)
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
+      ab_finished(:solicitation_form)
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       @solicitation.delay.prepare_diagnosis(nil)
-      ab_finished(:solicitation_form)
       redirect_to form_complete_solicitations_path(anchor: 'section-formulaire')
     else
-      @step = :description
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_description
     end
@@ -78,7 +75,7 @@ class SolicitationsController < PagesController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:landing_id, :landing_subject_id, :description, :code_region, :step,
+      .permit(:landing_id, :landing_subject_id, :description, :code_region, :completion_step,
               *Solicitation::FIELD_TYPES.keys)
   end
 

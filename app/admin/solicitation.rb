@@ -10,6 +10,9 @@ ActiveAdmin.register Solicitation do
   scope :complete, default: true
   scope :incomplete
 
+  scope :complete_onepage, group: :ab_testing
+  scope :complete_multistep, group: :ab_testing
+
   includes :diagnosis, :landing, :institution, :badges, diagnosis: :company
 
   index do
@@ -19,6 +22,11 @@ ActiveAdmin.register Solicitation do
       div l(s.created_at, format: :admin)
       unless s.status_in_progress?
         human_attribute_status_tag s, :status
+      end
+      unless s.complete?
+        div t('activerecord.attributes.solicitation.completion_step') + ' : ' do
+          div status_tag s.completion_step
+        end
       end
       div link_to I18n.t('active_admin.admin_link', id: s.id), admin_solicitation_path(s)
     end
