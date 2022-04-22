@@ -5,6 +5,7 @@
 #  id                               :bigint(8)        not null, primary key
 #  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
+#  completion_step                  :integer
 #  created_in_deployed_region       :boolean          default(FALSE)
 #  description                      :string
 #  email                            :string
@@ -45,6 +46,31 @@ class Solicitation < ApplicationRecord
   include DiagnosisCreation::SolicitationMethods
   include RangeScopes
 
+  ## Associations
+  #
+  belongs_to :landing, inverse_of: :solicitations, optional: true
+  belongs_to :landing_subject, inverse_of: :solicitations, optional: true
+  has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
+
+  has_one :diagnosis, inverse_of: :solicitation
+  has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
+  has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
+
+  has_many :feedbacks, as: :feedbackable, dependent: :destroy
+  has_many :matches, through: :diagnosis, inverse_of: :solicitation
+  has_many :needs, through: :diagnosis, inverse_of: :solicitation
+  has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
+  belongs_to :institution, inverse_of: :solicitations, optional: true
+
+  before_create :set_institution_from_landing
+  before_create :format_solicitation
+
+  paginates_per 50
+
+  ## Enums && state machines
+  #
+
+  ## Status
   enum status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
 
   aasm column: :status, enum: true do
@@ -66,26 +92,25 @@ class Solicitation < ApplicationRecord
     self.diagnosis.step_completed?
   end
 
-  paginates_per 50
+  ## Completion steps
 
-  ## Associations
+  enum completion_step: { contact: 0, company: 1, description: 2 }
+
+  ## Validations
   #
-  belongs_to :landing, inverse_of: :solicitations, optional: true
-  belongs_to :landing_subject, inverse_of: :solicitations, optional: true
-  has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
-
-  has_one :diagnosis, inverse_of: :solicitation
-  has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
-  has_one :facility, through: :diagnosis, source: :facility, inverse_of: :diagnoses
-
-  has_many :feedbacks, as: :feedbackable, dependent: :destroy
-  has_many :matches, through: :diagnosis, inverse_of: :solicitation
-  has_many :needs, through: :diagnosis, inverse_of: :solicitation
-  has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
-  belongs_to :institution, inverse_of: :solicitations, optional: true
-
-  before_create :set_institution_from_landing
-  before_create :format_solicitation
+  validates :landing, presence: true, allow_blank: false
+  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
+  validate if: -> { (completion_step == nil && !persisted?) || completion_step == :contact } do
+    contact_required_fields.each do |attr|
+      errors.add(attr, :blank) if self.public_send(attr).blank?
+    end
+  end
+  validate if: -> { (completion_step == nil && !persisted?) || completion_step == :company } do
+    company_required_fields.each do |attr|
+      errors.add(attr, :blank) if self.public_send(attr).blank?
+    end
+  end
+  validates :description, presence: true, allow_blank: false, if: -> { (completion_step == nil && !persisted?) || completion_step == :description }
 
   ## Callbacks
   #
@@ -131,28 +156,6 @@ class Solicitation < ApplicationRecord
     end
     params
   end
-
-  ## Validations
-  #
-  attr_accessor :step
-
-  STEPS = %w[contact company description]
-
-  validates :step, inclusion: { in: STEPS }, allow_nil: true
-
-  validates :landing, presence: true, allow_blank: false
-  validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate if: -> { (step == nil && !persisted?) || step == :contact } do
-    contact_required_fields.each do |attr|
-      errors.add(attr, :blank) if self.public_send(attr).blank?
-    end
-  end
-  validate if: -> { (step == nil && !persisted?) || step == :company } do
-    company_required_fields.each do |attr|
-      errors.add(attr, :blank) if self.public_send(attr).blank?
-    end
-  end
-  validates :description, presence: true, allow_blank: false, if: -> { (step == nil && !persisted?) || step == :description }
 
   ## Scopes
   #
@@ -265,8 +268,16 @@ class Solicitation < ApplicationRecord
 
   scope :banned, -> { where(banned: true) }
 
+  # AB testing
+  #
   scope :complete, -> { where.not(description: nil) }
   scope :incomplete, -> { where(description: nil) }
+
+  scope :ab_testing_onepage, -> { where(completion_step: nil) }
+  scope :ab_testing_multistep, -> { where.not(completion_step: nil) }
+
+  scope :complete_onepage, -> { ab_testing_onepage.complete }
+  scope :complete_multistep, -> { ab_testing_multistep.complete }
 
   GENERIC_EMAILS_TYPES = %i[bad_quality bad_quality_difficulties out_of_region employee_labor_law particular_retirement creation siret moderation independent_tva intermediary recruitment_foreign_worker]
 
@@ -417,5 +428,9 @@ class Solicitation < ApplicationRecord
   def region
     return if code_region.nil?
     Territory.find_by(code_region: self.code_region)
+  end
+
+  def complete?
+    description.present?
   end
 end

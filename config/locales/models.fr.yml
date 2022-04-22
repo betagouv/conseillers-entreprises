@@ -50,6 +50,8 @@ fr:
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
       complete: Terminées
+      complete_multistep: Terminées onepage
+      complete_onepage: Terminées multistep
       completed: Analyses terminées
       deleted: Supprimés
       diagnosis_completed: Analyses terminées
@@ -326,6 +328,7 @@ fr:
         query: Requête
         user: Utilisateur
       solicitation:
+        completion_step: Etape complétée
         landing: Page source
         landing_subject: Intitulé de sujet choisi
         location: Localisation

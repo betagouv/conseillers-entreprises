@@ -10,10 +10,11 @@ class Landings::LandingSubjectsController < Landings::BaseController
     @solicitation = @landing.solicitations.new(solicitation_params)
   end
 
+  # AB testing
   def form_contact
     solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
     @solicitation = @landing.solicitations.new(solicitation_params)
-    @step = :contact
+    @solicitation.completion_step = :contact
     render 'solicitations/form_contact'
   end
 
@@ -21,9 +22,9 @@ class Landings::LandingSubjectsController < Landings::BaseController
     sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
+      ab_finished(:solicitation_form)
       CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
       @solicitation.delay.prepare_diagnosis(nil)
-      ab_finished(:solicitation_form)
     end
 
     render :show # rerender the form on error, render the thankyou partial on success
