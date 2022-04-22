@@ -11,9 +11,9 @@
 #
 # Indexes
 #
-#  index_user_rights_on_antenne_id              (antenne_id)
-#  index_user_rights_on_user_id                 (user_id)
-#  index_user_rights_on_user_id_and_antenne_id  (user_id,antenne_id) UNIQUE
+#  index_user_rights_on_antenne_id                        (antenne_id)
+#  index_user_rights_on_user_id                           (user_id)
+#  index_user_rights_on_user_id_and_antenne_id_and_right  (user_id,antenne_id,right) UNIQUE
 #
 # Foreign Keys
 #
