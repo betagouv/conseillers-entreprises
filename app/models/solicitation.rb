@@ -430,7 +430,19 @@ class Solicitation < ApplicationRecord
     Territory.find_by(code_region: self.code_region)
   end
 
+  # AB testing
+  #
   def complete?
     description.present?
+  end
+
+  def ab_testing_option
+    completion_step.nil? ? :onepage : :multistep
+  end
+
+  # c'est l'étape qui vient d'etre completee qui est enregistrée.
+  # L'étape en cours, celle où l'utilisateur s'est arrêtée, est l'étape suivante
+  def stop_completion_step
+    Solicitation.completion_steps.key(Solicitation.completion_steps[completion_step] + 1)
   end
 end

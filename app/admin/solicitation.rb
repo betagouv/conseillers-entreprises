@@ -23,12 +23,16 @@ ActiveAdmin.register Solicitation do
       unless s.status_in_progress?
         human_attribute_status_tag s, :status
       end
+      div link_to I18n.t('active_admin.admin_link', id: s.id), admin_solicitation_path(s)
+      hr
+      div t('activerecord.attributes.solicitation.ab_testing') + ' : ' do
+        span status_tag s.ab_testing_option
+      end
       unless s.complete?
-        div t('activerecord.attributes.solicitation.completion_step') + ' : ' do
-          div status_tag s.completion_step
+        div t('activerecord.attributes.solicitation.stop_completion_step') + ' : ' do
+          span s.stop_completion_step
         end
       end
-      div link_to I18n.t('active_admin.admin_link', id: s.id), admin_solicitation_path(s)
     end
     column :description do |s|
       div(admin_link_to(s.landing) || s.landing_slug)

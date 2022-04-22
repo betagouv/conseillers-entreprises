@@ -50,7 +50,7 @@ class Conseiller::SolicitationsController < ApplicationController
       render 'remove'
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      redirect_to @solicitation
+      redirect_to [:conseiller, @solicitation]
     end
   end
 
@@ -60,7 +60,7 @@ class Conseiller::SolicitationsController < ApplicationController
       @solicitation.update(badges_params)
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      redirect_to @solicitation
+      redirect_to [:conseiller, @solicitation]
     end
   end
 
@@ -70,7 +70,7 @@ class Conseiller::SolicitationsController < ApplicationController
       redirect_to diagnosis
     else
       flash.alert = @solicitation.prepare_diagnosis_errors.full_messages.to_sentence
-      redirect_to @solicitation
+      redirect_to [:conseiller, @solicitation]
     end
   end
 
