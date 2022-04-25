@@ -13,11 +13,6 @@ class RemindersActionsController < ApplicationController
     redirect_to recall_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
   end
 
-  def warn
-    @need.reminders_actions.create(category: :warn)
-    redirect_to warn_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)
-  end
-
   def archive
     @need.archive!
     redirect_to archive_reminders_needs_path, notice: t('reminders_actions.processed_need', company: @need.company.name)

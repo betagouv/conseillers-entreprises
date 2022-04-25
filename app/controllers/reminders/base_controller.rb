@@ -9,7 +9,7 @@ module Reminders
     private
 
     def collection_names
-      %i[poke recall warn archive]
+      %i[poke recall archive]
     end
 
     def experts_collection_names

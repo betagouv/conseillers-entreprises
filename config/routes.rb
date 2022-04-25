@@ -133,7 +133,6 @@ Rails.application.routes.draw do
     member do
       post :poke
       post :recall
-      post :warn
       post :archive
     end
   end
@@ -162,7 +161,6 @@ Rails.application.routes.draw do
       collection do
         get :poke, path: 'a-relancer'
         get :recall, path: 'a-rappeler'
-        get :warn, path: 'institution-a-prevenir'
         get :archive, path: 'abandonnes'
       end
     end

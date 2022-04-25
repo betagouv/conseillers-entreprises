@@ -16,7 +16,6 @@ class AdminMailerPreview < ActionMailer::Preview
       counts: {
         poke: 18,
         recall: 9,
-        warn: 3,
         archive: 20
       }
     }
