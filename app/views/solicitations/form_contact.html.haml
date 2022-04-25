@@ -42,6 +42,7 @@
 
   .form__group.submit-buttons
     = render 'solicitations/next_button'
+= render 'solicitations/matomo_company_contact_begin'
 
 - content_for :form_footer do
   .legal-notice
@@ -58,4 +59,3 @@
         %h2.section__subtitle= t('logos.title')
         = render 'landings/landings/logos', landing_subject: @landing_subject
 
-= render 'solicitations/matomo_company_contact_begin'
