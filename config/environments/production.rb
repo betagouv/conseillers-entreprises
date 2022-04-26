@@ -37,10 +37,12 @@ Rails.application.configure do
     'Expires' => '0',
     'Pragma' => 'no-cache',
     'X-Content-Type-Options' => 'nosniff',
+    'X-Download-Options' => "noopen",
     'X-Frame-Options' => 'deny',
     'X-Permitted-Cross-Domain-Policies' => 'none',
     'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains; preload',
-    'X-XSS-Protection' => '1; mode=block'
+    'X-XSS-Protection' => '1; mode=block',
+    'Referrer-Policy' => "strict-origin-when-cross-origin"
   }
 
   # Compress JavaScripts and CSS.
