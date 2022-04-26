@@ -1,6 +1,7 @@
 module Stats::Public
   class CompaniesByEmployeesStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Company
@@ -15,13 +16,7 @@ module Stats::Public
     end
 
     def filtered(query)
-      if territory.present?
-        query.merge!(territory.companies)
-      end
-      if institution.present?
-        query.where!(diagnoses: institution.received_diagnoses)
-      end
-      query
+      filtered_companies(query)
     end
 
     def category_group_attribute

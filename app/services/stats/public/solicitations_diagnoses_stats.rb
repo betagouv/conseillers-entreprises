@@ -1,6 +1,7 @@
 module Stats::Public
   class SolicitationsDiagnosesStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Solicitation
@@ -8,19 +9,9 @@ module Stats::Public
         .where(created_at: @start_date..@end_date)
     end
 
-    def filtered(query)
-      if territory.present?
-        query.merge! Solicitation.in_regions(territory.code_region)
-      end
-      if institution.present?
-        query.merge! institution.received_solicitations
-      end
-      query
-    end
-
     def build_series
       query = main_query
-      query = filtered(query)
+      query = filtered_solicitations(query)
 
       @with_diagnosis = []
       @without_diagnosis = []

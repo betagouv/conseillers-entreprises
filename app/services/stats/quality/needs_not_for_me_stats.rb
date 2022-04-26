@@ -1,24 +1,15 @@
 module Stats::Quality
   class NeedsNotForMeStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Need.diagnosis_completed.where(created_at: @start_date..@end_date)
     end
 
-    def filtered(query)
-      if territory.present?
-        query.merge! territory.needs
-      end
-      if institution.present?
-        query.merge! institution.received_needs
-      end
-      query
-    end
-
     def build_series
       query = main_query
-      query = filtered(query)
+      query = filtered_needs(query)
 
       @needs_not_for_me = []
       @needs_other_status = []

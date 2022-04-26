@@ -1,6 +1,7 @@
 module Stats::Public
   class ThemesStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Need
@@ -11,13 +12,7 @@ module Stats::Public
     end
 
     def filtered(query)
-      if territory.present?
-        query.merge! territory.needs
-      end
-      if institution.present?
-        query.merge! institution.received_needs
-      end
-      query
+      filtered_needs(query)
     end
 
     def subtitle

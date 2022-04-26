@@ -967,6 +967,7 @@ fr:
       region: Région
       search: Chercher
       start_date: Date de début
+      iframes: "Iframe"
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées

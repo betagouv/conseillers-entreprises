@@ -1,6 +1,7 @@
 module Stats::Public
   class TakingCareTimeStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Solicitation
@@ -31,16 +32,9 @@ module Stats::Public
       query[false].group_by_month(&:created_at).map { |_, v| v.size }
     end
 
-    def filtered(query)
-      if territory.present?
-        query.where!(diagnosis: territory.diagnoses)
-      end
-      query
-    end
-
     def build_series
       query = main_query
-      query = filtered(query)
+      query = filtered_needs(query)
 
       @taken_care_before = []
       @taken_care_after = []

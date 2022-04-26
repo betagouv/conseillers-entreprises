@@ -6,7 +6,7 @@ module Stats
   end
 
   module BaseStats
-    attr_reader :territory, :institution, :start_date, :end_date
+    attr_reader :territory, :institution, :iframe, :start_date, :end_date
 
     def initialize(params)
       params = OpenStruct.new(params)
@@ -15,6 +15,9 @@ module Stats
       end
       if params.institution.present?
         @institution = Institution.find_by(id: params.institution)
+      end
+      if params.iframe.present?
+        @iframe = Landing.find_by(id: params.iframe)
       end
       @start_date = params.start_date.to_date || (Date.today - 6.months)
       @end_date = params.end_date.to_date || Date.today
