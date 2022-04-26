@@ -18,7 +18,6 @@ export default class extends Controller {
   }
 
   uncheckableCheckboxes() {
-    this.checkboxesTargets.filter(e => console.log(e))
     return this.checkboxesTargets.filter(e => e.dataset.uncheck == 'true')
   }
 
