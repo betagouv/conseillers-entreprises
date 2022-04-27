@@ -362,7 +362,7 @@ describe CsvImport::UserImporter, CsvImport do
       expect(result.objects).to match_array [existing_user]
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
-      expect(other_antenne.advisors).to be_empty
+      expect(other_antenne.reload.advisors).to be_empty
     end
   end
 
@@ -383,7 +383,7 @@ describe CsvImport::UserImporter, CsvImport do
       expect(result.objects).to match_array [existing_user]
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
-      expect(other_antenne.advisors).to be_empty
+      expect(other_antenne.reload.advisors).to be_empty
     end
   end
 

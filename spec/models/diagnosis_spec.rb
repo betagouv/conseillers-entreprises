@@ -19,7 +19,7 @@ RSpec.describe Diagnosis, type: :model do
         let(:happened_on) { Time.now }
 
         it { is_expected.not_to be_valid }
-        it { expect(diagnosis.errors.details).to eq({ visitee: [{ :error => :blank }] }) }
+        it { expect(diagnosis.errors.details).to eq({ 'facility.company.facilities': [{ error: :invalid }], 'facility.diagnoses': [{ error: :invalid }], visitee: [{ error: :blank }] }) }
       end
 
       context 'without happened_on' do
@@ -27,7 +27,7 @@ RSpec.describe Diagnosis, type: :model do
         let(:happened_on) { nil }
 
         it { is_expected.not_to be_valid }
-        it { expect(diagnosis.errors.details).to eq({ happened_on: [{ :error => :blank }] }) }
+        it { expect(diagnosis.errors.details).to eq({ 'facility.company.facilities': [{ error: :invalid }], 'facility.diagnoses': [{ error: :invalid }], happened_on: [{ error: :blank }], 'visitee.diagnoses': [{ error: :invalid }] }) }
       end
 
       context 'with needs' do
@@ -47,7 +47,7 @@ RSpec.describe Diagnosis, type: :model do
         let(:needs) { [] }
 
         it { is_expected.not_to be_valid }
-        it { expect(diagnosis.errors.details).to eq({ needs: [{ :error => :blank }] }) }
+        it { expect(diagnosis.errors.details).to eq({ 'facility.company.facilities': [{ error: :invalid }], 'facility.diagnoses': [{ error: :invalid }], needs: [{ error: :blank }], 'visitee.diagnoses': [{ error: :invalid }] }) }
       end
 
       context 'with needs' do
@@ -91,7 +91,7 @@ RSpec.describe Diagnosis, type: :model do
         let(:advisor) { nil }
 
         it { is_expected.not_to be_valid }
-        it { expect(diagnosis.errors.details).to eq({ advisor: [{ error: :blank }] }) }
+        it { expect(diagnosis.errors.details).to eq({ advisor: [{ error: :blank }], 'facility.company.facilities': [{ error: :invalid }], 'facility.diagnoses': [{ error: :invalid }], 'visitee.diagnoses': [{ error: :invalid }] }) }
       end
 
       context 'with advisor' do
@@ -110,7 +110,7 @@ RSpec.describe Diagnosis, type: :model do
         let(:advisor) { nil }
 
         it { is_expected.not_to be_valid }
-        it { expect(diagnosis.errors.details).to eq({ advisor: [{ error: :blank }] }) }
+        it { expect(diagnosis.errors.details).to eq({ advisor: [{ error: :blank }], 'facility.company.facilities': [{ error: :invalid }], 'facility.diagnoses': [{ error: :invalid }], 'visitee.diagnoses': [{ error: :invalid }] }) }
       end
 
       context 'with advisor' do
