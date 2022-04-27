@@ -10,16 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_25_090751) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_04_25_090751) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_enum :actions_categories, [
-    "poke",
-    "recall",
-    "warn",
-  ], force: :cascade
 
   create_enum :feedbacks_categories, [
     "need",
@@ -478,10 +471,9 @@ ActiveRecord::Schema.define(version: 2022_04_25_090751) do
 
   create_table "reminders_actions", force: :cascade do |t|
     t.bigint "need_id", null: false
-    t.enum "category", null: false, enum_type: "actions_categories"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category"], name: "index_reminders_actions_on_category"
+    t.integer "category", null: false
     t.index ["need_id", "category"], name: "index_reminders_actions_on_need_id_and_category", unique: true
     t.index ["need_id"], name: "index_reminders_actions_on_need_id"
   end
