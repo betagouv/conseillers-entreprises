@@ -78,7 +78,7 @@ RSpec.describe DiagnosisCreation do
     context 'with_siret' do
       let(:solicitation) { create :solicitation }
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
 
     context 'with_location' do
@@ -91,13 +91,13 @@ RSpec.describe DiagnosisCreation do
         )
       end
 
-      it { is_expected.to eq true }
+      it { is_expected.to be true }
     end
 
     context 'without_location' do
       let(:solicitation) { create :solicitation, siret: nil }
 
-      it { is_expected.to eq false }
+      it { is_expected.to be false }
     end
   end
 

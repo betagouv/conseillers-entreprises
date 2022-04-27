@@ -66,7 +66,7 @@ describe 'invitations', type: :system, js: true do
 
     it 'display error message and not validates invitation' do
       user.reload
-      expect(user.invitation_accepted_at).to eq nil
+      expect(user.invitation_accepted_at).to be_nil
       expect(page.html).to include I18n.t('devise.invitations.invitation_token_invalid')
     end
   end

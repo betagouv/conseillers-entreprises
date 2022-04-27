@@ -58,7 +58,7 @@ RSpec.describe Annuaire::UsersController, type: :controller do
     before { request }
 
     it 'expect invitation sent to user' do
-      expect(user.reload.invitation_sent_at).not_to be nil
+      expect(user.reload.invitation_sent_at).not_to be_nil
     end
 
     it 'don’t invite user which have already accept the invitation' do

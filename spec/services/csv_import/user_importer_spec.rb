@@ -44,7 +44,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(institution.experts.teams.count).to eq 1
         team = institution.experts.teams.first
         expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.job).to eq nil
+        expect(team.job).to be_nil
         expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
       end
     end
@@ -127,7 +127,7 @@ describe CsvImport::UserImporter, CsvImport do
       expect(institution.experts.teams.count).to eq 1
       team = institution.experts.teams.first
       expect(team.email).to eq 'equipe@antenne.com'
-      expect(team.job).to eq nil
+      expect(team.job).to be_nil
       expect(team.users.pluck(:email)).to match_array(['marie.dupont@antenne.com', 'mario.dupont@antenne.com'])
     end
   end
@@ -149,7 +149,7 @@ describe CsvImport::UserImporter, CsvImport do
         expect(institution.experts.teams.count).to eq 1
         team = institution.experts.teams.first
         expect(team.email).to eq 'equipe@antenne.com'
-        expect(team.job).to eq nil
+        expect(team.job).to be_nil
         expect(team.users.count).to eq 2
         expect(User.find_by(email: 'marie.dupont@antenne.com').experts).to include(expert)
       end
@@ -362,7 +362,7 @@ describe CsvImport::UserImporter, CsvImport do
       expect(result.objects).to match_array [existing_user]
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
-      expect(other_antenne.advisors).to be_empty
+      expect(other_antenne.reload.advisors).to be_empty
     end
   end
 
@@ -383,7 +383,7 @@ describe CsvImport::UserImporter, CsvImport do
       expect(result.objects).to match_array [existing_user]
       expect(existing_user.full_name).to eq 'Marie Dupont'
       expect(existing_user.institution).to eq institution
-      expect(other_antenne.advisors).to be_empty
+      expect(other_antenne.reload.advisors).to be_empty
     end
   end
 

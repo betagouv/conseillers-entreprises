@@ -79,7 +79,7 @@ RSpec.describe Solicitation, type: :model do
         let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil, email: email }
 
         it 'doesnt set code_region' do
-          expect(solicitation.code_region).to eq(nil)
+          expect(solicitation.code_region).to be_nil
           expect(solicitation.siret).to eq('lalala')
           expect(solicitation.email).to eq('contact.machin@truc.fr')
         end
@@ -131,7 +131,7 @@ RSpec.describe Solicitation, type: :model do
         let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil }
 
         it 'doesnt set code_region' do
-          expect(solicitation.code_region).to eq(nil)
+          expect(solicitation.code_region).to be_nil
           expect(solicitation.siret).to eq('lalala')
           expect(solicitation.created_in_deployed_region).to be false
         end

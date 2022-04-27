@@ -105,8 +105,9 @@ RSpec.describe Expert, type: :model do
     let(:user_double_expert) { create :user, experts: [expert, expert] }
 
     it do
-      expect{ expert_double_user }.to raise_error ActiveRecord::RecordNotUnique
-      expect{ user_double_expert }.to raise_error ActiveRecord::RecordNotUnique
+      expect(expert_double_user.users.count).to eq 1
+      # One expert from user factory and one from [expert, expert]
+      expect(user_double_expert.experts.count).to eq 2
     end
   end
 

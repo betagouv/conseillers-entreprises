@@ -30,10 +30,10 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         # Only here to avoid flickering test with CI
         find(".section__title", match: :first)
         expect(page).to have_content('Merci')
-        expect(solicitation.persisted?).to eq true
+        expect(solicitation.persisted?).to be true
         expect(solicitation.landing).to eq landing
         expect(solicitation.siret).to eq '12345678900010'
-        expect(solicitation.pk_campaign).to eq nil
+        expect(solicitation.pk_campaign).to be_nil
       end
     end
 
@@ -57,7 +57,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         # Only here to avoid flickering test with CI
         find(".section__title", match: :first)
         expect(page).to have_content('Merci')
-        expect(solicitation.persisted?).to eq true
+        expect(solicitation.persisted?).to be true
         expect(solicitation.landing).to eq landing
         expect(solicitation.landing_subject.subject).to eq pde_subject
         expect(solicitation.siret).to eq '12345678900010'
@@ -85,11 +85,11 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         click_button 'Envoyer ma demande'
         find(".section__title", match: :first)
         expect(page).to have_content('Merci')
-        expect(solicitation.persisted?).to eq true
+        expect(solicitation.persisted?).to be true
         expect(solicitation.landing).to eq landing
         expect(solicitation.landing_subject.subject).to eq pde_subject
         expect(solicitation.siret).to eq '12345678900010'
-        expect(solicitation.pk_campaign).to eq nil
+        expect(solicitation.pk_campaign).to be_nil
       end
     end
   end
@@ -111,8 +111,8 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         fill_in 'E-mail', with: 'user@example.com'
         fill_in 'Téléphone', with: '0123456789'
         click_button 'Suivant'
-        expect(solicitation.persisted?).to eq true
-        expect(solicitation.pk_campaign).to eq nil
+        expect(solicitation.persisted?).to be true
+        expect(solicitation.pk_campaign).to be_nil
         expect(solicitation.landing).to eq landing
 
         fill_in 'Votre numéro SIRET', with: '12345678900010'
@@ -141,7 +141,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
       end
 
       it do
-        expect(solicitation.persisted?).to eq true
+        expect(solicitation.persisted?).to be true
         expect(solicitation.landing).to eq landing
         expect(solicitation.landing_subject.subject).to eq pde_subject
         expect(solicitation.pk_campaign).to eq 'FOO'
@@ -171,11 +171,11 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         fill_in 'E-mail', with: 'user@exemple.com'
         fill_in 'Téléphone', with: '0123456789'
         click_button 'Suivant'
-        expect(solicitation.persisted?).to eq true
+        expect(solicitation.persisted?).to be true
         expect(solicitation.landing).to eq landing
         expect(solicitation.landing_subject.subject).to eq pde_subject
         expect(solicitation.siret).to eq '12345678900010'
-        expect(solicitation.pk_campaign).to eq nil
+        expect(solicitation.pk_campaign).to be_nil
 
         expect(page).to have_field('Votre numéro SIRET', with: '12345678900010')
         click_button 'Suivant'

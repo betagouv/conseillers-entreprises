@@ -64,7 +64,7 @@ class Match < ApplicationRecord
   has_one :advisor, through: :need, inverse_of: :sent_matches
   has_one :solicitation, through: :diagnosis, inverse_of: :matches
   has_one :company_satisfaction, through: :need, inverse_of: :matches
-  has_many :related_matches, through: :need, source: :matches, inverse_of: :related_matches
+  has_many :related_matches, through: :need, source: :matches
 
   # :advisor
   has_one :advisor_antenne, through: :advisor, source: :antenne, inverse_of: :sent_matches

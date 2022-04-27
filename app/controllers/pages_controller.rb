@@ -2,7 +2,7 @@ class PagesController < SharedController
   # Abstract Controller for the public pages
   # implicitly uses the 'pages' layout
   include GeocoderIp
-  include Pundit
+  include Pundit::Authorization
 
   before_action :setup_cookie_text
 

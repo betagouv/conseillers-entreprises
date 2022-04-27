@@ -30,11 +30,11 @@ RSpec.describe ApiEntreprise::Entreprise::Base do
     end
 
     it 'doesnt set rcs subscription' do
-      expect(api_company['entreprise']['inscrit_rcs']).to eq nil
+      expect(api_company['entreprise']['inscrit_rcs']).to be_nil
     end
 
     it 'doesnt set rm subscription' do
-      expect(api_company['entreprise']['inscrit_rm']).to eq nil
+      expect(api_company['entreprise']['inscrit_rm']).to be_nil
     end
   end
 

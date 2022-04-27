@@ -29,7 +29,7 @@ RSpec.describe NafCode, type: :model do
     context 'nil code' do
       let(:naf_code) { nil }
 
-      it{ is_expected.to eq nil }
+      it{ is_expected.to be_nil }
     end
   end
 end

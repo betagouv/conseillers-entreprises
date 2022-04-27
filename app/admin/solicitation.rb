@@ -76,7 +76,7 @@ ActiveAdmin.register Solicitation do
     end
   end
 
-  before_filter :only => :index do
+  before_action :only => :index do
     @landing_themes = if params[:q].present? && params[:q][:landing_id_eq].present?
       Landing.find(params[:q][:landing_id_eq]).landing_themes
     else

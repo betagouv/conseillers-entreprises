@@ -7,7 +7,7 @@ require 'axe/rspec'
 require 'active_support/testing/time_helpers'
 require 'capybara/rspec'
 # require 'rspec/retry'
-include Pundit
+include Pundit::Authorization
 
 RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'reminders/needs/index.html.haml', type: :view do
+RSpec.describe 'reminders/needs/index', type: :view do
   describe "archive" do
     login_user
     let!(:action) { :archive }
