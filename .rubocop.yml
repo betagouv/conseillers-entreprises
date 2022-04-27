@@ -990,6 +990,9 @@ Style/ExpandPathArguments:
 Style/ExponentialNotation:
   Enabled: true
 
+Style/FetchEnvVar:
+  Enabled: false
+
 Style/For:
   Enabled: false
 
