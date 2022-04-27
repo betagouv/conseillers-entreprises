@@ -13,8 +13,8 @@ module Stats
       @territory = Territory.find_by(id: params.territory) if params.territory.present?
       @institution = Institution.find_by(id: params.institution) if params.institution.present?
       @iframe = Landing.find_by(id: params.iframe) if params.iframe.present?
-      @pk_campaign = params.pk_campaign if params.pk_campaign.present?
-      @pk_kwd = params.pk_kwd if params.pk_kwd.present?
+      @pk_campaign = params.pk_campaign
+      @pk_kwd = params.pk_kwd
       @start_date = params.start_date.to_date || (Date.today - 6.months)
       @end_date = params.end_date.to_date || Date.today
     end
