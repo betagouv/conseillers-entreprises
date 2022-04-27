@@ -19,7 +19,7 @@ RSpec.describe 'reminders/needs/index', type: :view do
     it "displays coherent needs counts" do
       assign(:action, action)
       assign(:needs, needs_to_archive)
-      assign(:collections_counts, %i[poke recall warn archive].index_with { |name| Need.reminders_to(name).size })
+      assign(:collections_counts, %i[poke recall archive].index_with { |name| Need.reminders_to(name).size })
       assign(:expert_collections_count, %i[critical_rate worrying_rate pending_rate].index_with { |name| PositionningRate::Collection.new(Expert).send(name).distinct.size })
       assign(:territories, Territory.regions.order(:name))
 

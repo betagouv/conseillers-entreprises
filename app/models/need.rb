@@ -115,7 +115,7 @@ class Need < ApplicationRecord
         .status_not_for_me
 
       query1.or(query2)
-    else # :poke, :recall and :warn
+    else # :poke and :recall
       diagnosis_completed
         .archived(false)
         .in_reminders_range(action)
@@ -143,7 +143,6 @@ class Need < ApplicationRecord
   REMINDERS_DAYS = {
     poke: 7,
     recall: 14,
-    warn: 21,
     archive: 30
   }
 

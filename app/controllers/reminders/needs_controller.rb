@@ -16,10 +16,6 @@ module Reminders
       render_collection(:recall)
     end
 
-    def warn
-      render_collection(:warn)
-    end
-
     def archive
       render_collection(:archive)
     end

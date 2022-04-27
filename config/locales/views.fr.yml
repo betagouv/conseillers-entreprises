@@ -809,22 +809,18 @@ fr:
           archive: J+%{days} et refusés
           poke: J+%{days}
           recall: J+%{days}
-          warn: J+%{days}
         instruction:
           archive: Je fais un mail d’échec à l’entreprise
           poke: Je mets un commentaire dans la fiche pour relancer la dynamique
           recall: J’appelle les experts qui ne se sont pas positionnés
-          warn: Je fais un mail au responsable d’antenne pour indiquer que ce besoin reste sans réponse
         mark_done:
           archive: Archiver
           poke: Expert relancé
           recall: Expert rappelé
-          warn: Institution prévenue
         name:
           archive: Abandonnés
           poke: À relancer
           recall: À rappeler
-          warn: Prévenir l’institution
       send_abandoned_email:
         email_sent: L’email a bien été envoyé
     section:
