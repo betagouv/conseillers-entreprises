@@ -966,10 +966,10 @@ fr:
       campaign: Campagne
       end_date: Date de fin
       iframes: Iframe
+      keywords: Mots clés
       region: Région
       search: Chercher
       start_date: Date de début
-      keywords: Mots clés
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
