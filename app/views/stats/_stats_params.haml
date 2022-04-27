@@ -18,6 +18,12 @@
           = select_tag(:iframe,
             options_from_collection_for_select(Landing.not_archived.iframes.order(:title), :id, :title, stats.params.iframe),
             options.dup)
+        .form__group
+          = label_tag(t('.campaign'))
+          = text_field_tag(:pk_campaign, stats.params.pk_campaign)
+        .form__group
+          = label_tag(t('.keywords'))
+          = text_field_tag(:pk_kwd, stats.params.pk_kwd)
       .form__group
         .datepicker
           = label_tag(t('.start_date'))

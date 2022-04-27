@@ -963,11 +963,13 @@ fr:
       transmitted_less_than_72h_stats:
         title: de sollicitations transmises en moins de 72H parmi l’ensemble des sollicitations transmises
     stats_params:
+      campaign: Campagne
       end_date: Date de fin
+      iframes: Iframe
       region: Région
       search: Chercher
       start_date: Date de début
-      iframes: "Iframe"
+      keywords: Mots clés
     stats_table:
       activity:
         companies_diagnosed: Entreprises analysées
