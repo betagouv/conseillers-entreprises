@@ -16,6 +16,7 @@
   %section.section.section-grey#section-thankyou
     .container.container-medium
       = render 'new_solicitation_thank_you', solicitation: @solicitation, landing_subject: @landing_subject
+      = render 'landings/landing_subjects/matomo_company_contact_success'
       - unless in_iframe?
         - if @landing_subject.logos.present?
           = render 'landings/landings/logos', landing_subject: @landing_subject
