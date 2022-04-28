@@ -4,7 +4,7 @@
     - if in_iframe?
       %h3= link_to landing_subject.title.html_safe, landing_subject_path, class: 'click-on-landing-option'
     - else
-      - ab_test(:solicitation_form, 'onepage', 'multistep') do |form|
+      - ab_test(:solicitation_form, { 'onepage' => 1 }, { 'multistep' => 1 }) do |form|
         - if form == 'multistep'
           - path = form_contact_landing_subject_path(landing, landing_subject, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
         - else
