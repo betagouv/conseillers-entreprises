@@ -1,24 +1,15 @@
 module Stats::Public
   class SolicitationsInDeployedRegionsStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Solicitation.where(created_at: @start_date..@end_date)
     end
 
-    def filtered(query)
-      if territory.present?
-        query = query.none
-      end
-      if institution.present?
-        query.merge! institution.received_solicitations
-      end
-      query
-    end
-
     def build_series
       query = main_query
-      query = filtered(query)
+      query = filtered_solicitations(query)
 
       @in_deployed_regions = []
       @out_of_deployed_regions = []

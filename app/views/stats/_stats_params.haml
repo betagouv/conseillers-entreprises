@@ -7,12 +7,23 @@
         = select_tag(:territory,
           options_from_collection_for_select(Territory.regions.order(:name), :id, :name, stats.params.territory),
           options.dup)
-      - if current_user.present? && current_user.is_admin?
+      - if policy(Stats::All).team?
         .form__group
           = label_tag(t('activerecord.models.institution.one'))
           = select_tag(:institution,
             options_from_collection_for_select(Institution.not_deleted.order(:name), :id, :name, stats.params.institution),
             options.dup)
+        .form__group
+          = label_tag(t('.iframes'))
+          = select_tag(:iframe,
+            options_from_collection_for_select(Landing.not_archived.iframes.order(:title), :id, :title, stats.params.iframe),
+            options.dup)
+        .form__group
+          = label_tag(t('.campaign'))
+          = text_field_tag(:pk_campaign, stats.params.pk_campaign)
+        .form__group
+          = label_tag(t('.keywords'))
+          = text_field_tag(:pk_kwd, stats.params.pk_kwd)
       .form__group
         .datepicker
           = label_tag(t('.start_date'))
@@ -21,6 +32,7 @@
           = label_tag(t('.end_date'))
           = date_field_tag(:end_date, stats.params.end_date)
 
-      .form__group
-        = submit_tag t('.search')
-
+      .form__group.stats
+        = submit_tag t('.search'), class: 'button'
+        - if stats.params.table.count > 2
+          = link_to t('.clear_search'), request.fullpath.split('?').first, class: 'button-outline primary'

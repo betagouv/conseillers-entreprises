@@ -6,16 +6,15 @@ module Stats
   end
 
   module BaseStats
-    attr_reader :territory, :institution, :start_date, :end_date
+    attr_reader :territory, :institution, :iframe, :pk_campaign, :pk_kwd, :start_date, :end_date
 
     def initialize(params)
       params = OpenStruct.new(params)
-      if params.territory.present?
-        @territory = Territory.find_by(id: params.territory)
-      end
-      if params.institution.present?
-        @institution = Institution.find_by(id: params.institution)
-      end
+      @territory = Territory.find_by(id: params.territory) if params.territory.present?
+      @institution = Institution.find_by(id: params.institution) if params.institution.present?
+      @iframe = Landing.find_by(id: params.iframe) if params.iframe.present?
+      @pk_campaign = params.pk_campaign
+      @pk_kwd = params.pk_kwd
       @start_date = params.start_date.to_date || (Date.today - 6.months)
       @end_date = params.end_date.to_date || Date.today
     end

@@ -1,6 +1,7 @@
 module Stats::Public
   class ExchangeWithExpertStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       # This stat is available since 2020-09-01
@@ -10,19 +11,9 @@ module Stats::Public
         .where(created_at: @start_date..@end_date)
     end
 
-    def filtered(query)
-      if territory.present?
-        query.merge! territory.needs
-      end
-      if institution.present?
-        query.merge! institution.received_needs
-      end
-      query
-    end
-
     def build_series
       query = main_query
-      query = filtered(query)
+      query = filtered_needs(query)
 
       @needs_with_exchange = []
       @needs_without_exchange = []

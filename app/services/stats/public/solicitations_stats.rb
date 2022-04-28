@@ -1,19 +1,14 @@
 module Stats::Public
   class SolicitationsStats
     include ::Stats::BaseStats
+    include ::Stats::FiltersStats
 
     def main_query
       Solicitation.where(created_at: @start_date..@end_date)
     end
 
     def filtered(query)
-      if territory.present?
-        query.merge! Solicitation.in_regions(territory.code_region)
-      end
-      if institution.present?
-        query.merge! institution.received_solicitations
-      end
-      query
+      filtered_solicitations(query)
     end
 
     def category_group_attribute
