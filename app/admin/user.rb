@@ -169,7 +169,7 @@ ActiveAdmin.register User do
 
   # Form
   #
-  user_rights_attributes = [:id, :antenne_id, :right, :_destroy]
+  user_rights_attributes = [:id, :antenne_id, :category, :_destroy]
   permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, *User::FLAGS,
                 expert_ids: [], user_rights_attributes: user_rights_attributes
 
@@ -196,7 +196,7 @@ ActiveAdmin.register User do
 
     f.inputs I18n.t('active_admin.user.roles') do
       f.has_many :user_rights, allow_destroy: true, new_record: true do |ur|
-        ur.input :right, as: :select, collection: UserRight.human_attribute_values(:rights, raw_values: true).invert.to_a, include_blank: false
+        ur.input :category, as: :select, collection: UserRight.categories.keys.map{ |cat| [I18n.t("activerecord.attributes.user_right/categories.#{cat}"), cat] }, include_blank: false
         ur.input :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
       end
     end

@@ -17,7 +17,7 @@ FactoryBot.define do
 
     trait :admin do
       after(:create) do |user, _|
-        user.user_rights.create(right: 'admin')
+        user.user_rights.create(category: 'admin')
       end
     end
 

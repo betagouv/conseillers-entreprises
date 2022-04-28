@@ -74,8 +74,8 @@ class User < ApplicationRecord
 
   # :rights / roles
   has_many :user_rights, inverse_of: :user
-  has_many :user_rights_manager, ->{ right_manager }, class_name: 'UserRight', inverse_of: :user
-  has_many :user_rights_admin, ->{ right_admin }, class_name: 'UserRight', inverse_of: :user
+  has_many :user_rights_manager, ->{ category_manager }, class_name: 'UserRight', inverse_of: :user
+  has_many :user_rights_admin, ->{ category_admin }, class_name: 'UserRight', inverse_of: :user
   has_many :managed_antennes, through: :user_rights_manager, source: :antenne, inverse_of: :managers
   accepts_nested_attributes_for :user_rights, allow_destroy: true
 
@@ -109,8 +109,8 @@ class User < ApplicationRecord
 
   ## Scopes
   #
-  scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.right_admin) }
-  scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.right_manager) }
+  scope :admin, -> { not_deleted.joins(:user_rights).merge(UserRight.category_admin) }
+  scope :managers, -> { not_deleted.joins(:user_rights).merge(UserRight.category_manager) }
 
   scope :never_used, -> { not_deleted.where(invitation_sent_at: nil).where(encrypted_password: '') }
   scope :managers_never_used, -> { not_deleted.managers.where(invitation_sent_at: nil).where(encrypted_password: '') }

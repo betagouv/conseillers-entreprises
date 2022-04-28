@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_25_090751) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_28_131906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,12 +43,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_25_090751) do
   create_enum :quarterly_reports_categories, [
     "matches",
     "stats",
-  ], force: :cascade
-
-  create_enum :rights, [
-    "advisor",
-    "admin",
-    "manager",
   ], force: :cascade
 
   create_enum :solicitation_status, [
@@ -559,11 +553,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_25_090751) do
   create_table "user_rights", force: :cascade do |t|
     t.bigint "antenne_id"
     t.bigint "user_id", null: false
-    t.enum "right", default: "advisor", null: false, enum_type: "rights"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "category", null: false
     t.index ["antenne_id"], name: "index_user_rights_on_antenne_id"
-    t.index ["user_id", "antenne_id", "right"], name: "index_user_rights_on_user_id_and_antenne_id_and_right", unique: true
+    t.index ["user_id", "antenne_id", "category"], name: "index_user_rights_on_user_id_and_antenne_id_and_category", unique: true
     t.index ["user_id"], name: "index_user_rights_on_user_id"
   end
 

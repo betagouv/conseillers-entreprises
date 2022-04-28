@@ -404,10 +404,14 @@ fr:
         manager: Responsable d’antenne
       user/user_rights:
         antenne: Antenne
-        right: Droit
+        category: Droit
       user_right:
         antenne: Antenne
-        right: Droit
+        category: Droit
+      user_right/categories:
+        admin: Admin
+        advisor: Conseiller
+        manager: Responsable d’antenne
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
