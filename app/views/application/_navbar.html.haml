@@ -35,6 +35,10 @@
                 - cache([current_user, Need.all]) do
                   - if current_user.needs_quo.exists?
                     .ui.orange.empty.circular.horizontal.label.fr-ml-1w
+            - if policy(User).manager?
+              = active_link_to manager_needs_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
+                %span.ri-inbox-fill.fr-mr-1w
+                = current_user.managed_antennes.many? ? t('.antennes_needs') : t('.antenne_needs')
             - if policy(Diagnosis).index?
               = active_link_to diagnoses_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-list-check.fr-mr-1w

@@ -71,6 +71,8 @@ fr:
       account: Compte
       admin: Administration
       annuaire: Annuaire
+      antenne_needs: Demandes de l’antenne
+      antennes_needs: Demandes des antennes
       badges: Tags
       close: Fermer
       diagnoses: Analyses
@@ -657,6 +659,15 @@ fr:
         subject: Place des Entreprises - Rapport statistique
         support_contact_label: 'En cas de besoin vous pouvez contacter :'
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
+  manager:
+    needs:
+      index:
+        title: Demandes reçues de %{name}
+        no_needs: "Aucune demande"
+      search:
+        select_region: "Selectionnez une antenne"
+        all_antennes: "Toutes"
+        filter: "Filtrer"
   matches:
     match:
       change_match_status: Modifier le statut du besoin

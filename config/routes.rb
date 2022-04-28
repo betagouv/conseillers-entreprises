@@ -63,6 +63,18 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace 'manager' do
+    resources :needs, only: :index, path: 'besoins-des-antennes' do
+      collection do
+        get :quo, path: 'boite-de-reception'
+        get :taking_care, path: 'prises-en-charge'
+        get :done, path: 'cloturees'
+        get :not_for_me, path: 'refusees'
+        get :expired, path: 'expirees'
+      end
+    end
+  end
+
   resources :reports, path: 'export-des-donnees', only: :index do
     member do
       get :download

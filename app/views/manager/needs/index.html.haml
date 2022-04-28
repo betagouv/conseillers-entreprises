@@ -1,0 +1,10 @@
+- meta title: t('.title', name: @recipient.to_s)
+- content_for :header, render('header', recipient: @recipient, collection_name: @collection_name)
+- content_for :menu, render('menu', recipient: @recipient, collections_counts: @inbox_collections_counts, user: @user, antenne: @antenne)
+- content_for :search, render('search')
+
+- if @needs.empty?
+  .ui.message
+    .content.header= t('.no_needs')
+- else
+  = render 'needs/received_needs', received_needs: @needs

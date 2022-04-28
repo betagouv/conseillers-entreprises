@@ -1,0 +1,3 @@
+%h1= t('manager.needs.index.title', name: recipient.to_s)
+
+= render 'shared/breadcrumb', pages: [{ title: recipient.to_s, path: needs_path }], current_page: t(collection_name, scope: 'needs.collections')
