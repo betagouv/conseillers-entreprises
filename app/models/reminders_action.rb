@@ -18,12 +18,6 @@
 #  fk_rails_...  (need_id => needs.id)
 #
 class RemindersAction < ApplicationRecord
-  enum old_category: {
-    poke: 'poke', # J+7
-    recall: 'recall', # J+14
-    warn: 'warn', # J+21
-  }, _prefix: true
-
   enum category: {
     poke: 1, # J+7
     recall: 2, # J+14
