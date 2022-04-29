@@ -48,7 +48,7 @@
   .legal-notice
     = t('solicitations.creation_form.legal_notice_html',
       mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
-      informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url(landing_slug: @solicitation.landing.slug)))
+      informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url))
 
 - content_for :footer do
   %section.section.section-white.landing
