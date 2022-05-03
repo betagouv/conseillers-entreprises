@@ -1,5 +1,5 @@
 %ul.fr-sidemenu__list
   - collections_counts.each do |name, count|
     - prefix = :manager
-    - path = polymorphic_path([name, prefix, :needs].compact)
+    - path = polymorphic_path([name, prefix, :needs].compact, antenne_id: params[:antenne_id])
     = menu_link_with_count(t(name, scope: 'needs.collections'), count, path)

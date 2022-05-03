@@ -26,8 +26,12 @@ module Inbox
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
 
-    @needs = Need.in_antenne_perimeters(@recipient).merge!(@recipient.send("needs_#{collection_name}"))
-      .includes(:company, :advisor, :subject)
+    @needs = if recipient.is_a?(Antenne)
+      Need.in_antennes_perimeters(@recipient).merge!(@recipient.send("needs_#{@collection_name}"))
+    else
+      Need.in_antennes_perimeters(@recipient).merge!(Need.where(id: @recipient.collect { |a| a.send("needs_#{@collection_name}") }.flatten))
+    end
+    @needs = @needs.includes(:company, :advisor, :subject)
       .order(created_at: :desc)
       .page params[:page]
     render view
@@ -43,7 +47,7 @@ module Inbox
     if recipient.is_a?(Antenne)
       @inbox_collections_counts = Rails.cache.fetch([Need.in_antenne_perimeters(recipient), Need.in_antenne_perimeters(recipient).pluck(:updated_at).max]) do
         inbox_collection_names.index_with do |name|
-          Need.in_antennes_perimeters(recipient).send("needs_#{name}").distinct.size
+          Need.in_antenne_perimeters(recipient).merge!(recipient.send("needs_#{name}")).distinct.size
         end
       end
     else

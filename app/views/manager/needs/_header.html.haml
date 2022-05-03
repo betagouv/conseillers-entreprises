@@ -1,3 +1,4 @@
-%h1= t('manager.needs.index.title', name: recipient.to_s)
+%h1= title
 
-= render 'shared/breadcrumb', pages: [{ title: recipient.to_s, path: needs_path }], current_page: t(collection_name, scope: 'needs.collections')
+-# TODO on peux mieux faire pour le titre
+= render 'shared/breadcrumb', pages: [{ title: title, path: quo_manager_needs_path(antenne_id: params[:antenne_id]) }], current_page: t(collection_name, scope: 'needs.collections')

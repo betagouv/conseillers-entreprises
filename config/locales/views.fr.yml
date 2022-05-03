@@ -662,12 +662,14 @@ fr:
   manager:
     needs:
       index:
-        title: Demandes reçues de %{name}
-        no_needs: "Aucune demande"
+        many_antennes_title: Demandes reçues des antennes
+        no_needs: Aucune demande
+        one_antenne_title: Demandes reçues de %{name}
       search:
-        select_region: "Selectionnez une antenne"
-        all_antennes: "Toutes"
-        filter: "Filtrer"
+        all_antennes: Toutes
+        clear_search: Réinitialiser le filtre
+        filter: Filtrer
+        select_antenne: Selectionnez une antenne
   matches:
     match:
       change_match_status: Modifier le statut du besoin
