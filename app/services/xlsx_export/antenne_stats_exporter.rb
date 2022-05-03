@@ -39,9 +39,9 @@ module XlsxExport
 
     def generate
       generate_base_stats
-      generate_themes_stats
       generate_matches_stats
       generate_needs_stats
+      generate_themes_stats
       finalise_style
     end
 
@@ -57,19 +57,33 @@ module XlsxExport
     def generate_themes_stats
       # On ne prend que les thèmes principaux
       themes = Theme.for_interview.limit(10)
+      needs_subject_ids = needs.pluck(:subject_id).uniq
+      # On ne répertorie que les sujets pour lesquels on a un besoin référencé
+      subjects = Subject.where(theme_id: themes.pluck(:id)).where(id: needs_subject_ids)
+      max_length = [themes.size, subjects.size].max
 
       sheet.add_row [
         Theme.model_name.human,
         I18n.t('antenne_stats_exporter.count'),
-        I18n.t('antenne_stats_exporter.percentage')
-      ], style: [@left_header, @right_header, @right_header]
+        I18n.t('antenne_stats_exporter.percentage'),
+        Subject.model_name.human,
+        I18n.t('antenne_stats_exporter.count'),
+        I18n.t('antenne_stats_exporter.percentage'),
+      ], style: count_rate_header_style
 
-      themes.each do |theme|
-        needs_by_theme_size = calculate_needs_by_theme_size(theme)
+      (0...max_length).to_a.each do |index|
+        theme = themes[index]
+        needs_by_theme_size = theme.present? ? calculate_needs_by_theme_size(theme) : nil
+        subject = subjects[index]
+        needs_by_subject_size = subject.present? ? calculate_needs_by_subject_size(subject) : nil
+
         sheet.add_row [
-          theme.label,
+          theme&.label,
           needs_by_theme_size,
-          calculate_rate(needs_by_theme_size, needs)
+          calculate_rate(needs_by_theme_size, needs), nil,
+          subject&.label,
+          needs_by_subject_size,
+          calculate_rate(needs_by_subject_size, needs)
         ], style: count_rate_row_style
       end
       sheet.add_row
@@ -79,7 +93,7 @@ module XlsxExport
       sheet.add_row [
         I18n.t('antenne_stats_exporter.experts_positionning', institution: @antenne.institution.name),
         I18n.t('antenne_stats_exporter.count'),
-        I18n.t('antenne_stats_exporter.percentage'),nil,
+        I18n.t('antenne_stats_exporter.percentage'), nil,
         I18n.t('antenne_stats_exporter.experts_answering_rate', institution: @antenne.institution.name),
         I18n.t('antenne_stats_exporter.count'),
         I18n.t('antenne_stats_exporter.percentage')
@@ -187,6 +201,10 @@ module XlsxExport
 
     def calculate_needs_by_theme_size(theme)
       needs.joins(subject: :theme).where(subject: { theme: theme }).size
+    end
+
+    def calculate_needs_by_subject_size(subject)
+      needs.where(subject: subject).size
     end
 
     # Style
