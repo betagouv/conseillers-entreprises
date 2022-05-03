@@ -47,7 +47,7 @@
               = active_link_to reports_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-file-text-line.fr-mr-1w
                 = t('.reports')
-            - if current_user.is_admin?
+            - if policy(User).admin?
               = active_link_to conseiller_solicitations_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-nav__item', class_active: 'fr-nav__item--active' do
                 %span.ri-message-2-line.fr-mr-1w
                 = t('solicitations.index.title')
@@ -63,7 +63,7 @@
                 = t('.account')
               .fr-menu.fr-collapse#fr-nav-item-account
                 %ul.fr-menu__list
-                  - if current_user.is_admin?
+                  - if policy(User).admin?
                     = active_link_to admin_root_path, class: 'fr-nav__link', wrap_tag: :li, wrap_class: 'fr-menu__item', class_active: 'fr-menu__item--active' do
                       %span.ri-auction-line.fr-mr-1w
                       = t('.admin')

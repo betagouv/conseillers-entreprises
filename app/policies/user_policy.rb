@@ -1,5 +1,8 @@
 class UserPolicy < ApplicationPolicy
-  # TODO mettre admin? ici aussi
+  def admin?
+    @user&.is_admin?
+  end
+
   def manager?
     @user.is_manager?
   end
