@@ -1,4 +1,3 @@
 %h1= title
 
--# TODO on peux mieux faire pour le titre
 = render 'shared/breadcrumb', pages: [{ title: title, path: quo_manager_needs_path(antenne_id: params[:antenne_id]) }], current_page: t(collection_name, scope: 'needs.collections')
