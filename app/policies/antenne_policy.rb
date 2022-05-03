@@ -1,5 +1,5 @@
 class AntennePolicy < ApplicationPolicy
   def show_manager?
-    UserPolicy.admin?
+    admin?
   end
 end
