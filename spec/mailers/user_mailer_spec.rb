@@ -25,7 +25,7 @@ describe UserMailer do
     end
 
     describe 'when the recipient is admin' do
-      before { a_match.advisor.user_rights.create(right: 'admin') }
+      before { a_match.advisor.user_rights.create(category: 'admin') }
 
       let(:mail) { subject }
 

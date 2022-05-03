@@ -118,7 +118,7 @@ RSpec.describe CompaniesController, type: :controller do
 
     describe 'for admin' do
       before do
-        current_user.user_rights.create(right: 'admin')
+        current_user.user_rights.create(category: 'admin')
         request
       end
 

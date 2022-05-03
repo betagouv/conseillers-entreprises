@@ -16,7 +16,7 @@ describe 'ApplicationController specific features', type: :feature do
 
     context 'user is admin' do
       it do
-        current_user.user_rights.create(right: 'admin')
+        current_user.user_rights.create(category: 'admin')
         visit '/admin'
         expect(page.html).to include 'Sollicitations'
       end
