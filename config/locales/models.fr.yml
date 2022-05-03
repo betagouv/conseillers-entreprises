@@ -257,7 +257,9 @@ fr:
         solicitation_provenance_category: Type de source
         solicitation_provenance_detail: Détail de la source
         solicitation_provenance_title: Intitulé de la source
+        subject: Sujet
         taken_care_of_at: Date d'intervention
+        theme: Thème
       match/statuses:
         done: Besoin clôturé
         done_no_help: Pas d’aide disponible
