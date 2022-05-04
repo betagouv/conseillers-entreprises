@@ -234,6 +234,10 @@ class Need < ApplicationRecord
     end
   end
 
+  scope :by_region, -> (region) do
+    joins(facility: :commune).merge(Commune.by_region(region))
+  end
+
   ## Search
   #
   scope :omnisearch, -> (query) do

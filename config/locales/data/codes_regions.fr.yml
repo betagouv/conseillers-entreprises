@@ -19,6 +19,25 @@ fr:
     '84': Auvergne-Rhône-Alpes
     '93': Provence-Alpes-Côte d’Azur
     '94': Corse
+  regions_codes_to_short_libelles:
+    '1': Guad.
+    '11': IdF
+    '2': Mart.
+    '24': CVL
+    '27': BFC
+    '28': Norm.
+    '3': Guy.
+    '32': HdF
+    '4': La Réu.
+    '44': GE
+    '5': May.
+    '52': PdL
+    '53': Bret.
+    '75': NA
+    '76': Occ.
+    '84': ARA
+    '93': PACA
+    '94': Corse
   regions_codes_to_slugs:
     '1': guadeloupe
     '11': ile-de-france

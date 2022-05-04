@@ -550,6 +550,8 @@ fr:
     positionning_accepted_rate: Taux de prise en charge
     positionning_rate: Taux de positionnement
     quarter_stats: Stats trim.
+    quarter_stats_by_antenne: Stats trim. %{antenne}
+    quarter_stats_by_region: Stats trim. %{region}
     quo_rate: Taux de sans réponse
     subtitle: Analyse statistique des besoins transmis aux experts
     year_stats: Stats ann.
