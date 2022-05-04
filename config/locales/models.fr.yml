@@ -535,6 +535,9 @@ fr:
         one: Droit utilisateur
         other: Droits utilisateur
   antenne_stats_exporter:
+    antenne: Antenne
+    by_antenne: Par antenne
+    by_region: Par région
     count: Nb
     done_rate: Taux de clôture avec aide
     ecosystem_answering_rate: Taux de réponse de l’écosystème (%{institution} et autres partenaires)
@@ -545,14 +548,16 @@ fr:
     from_beginning_of_year: Depuis le début de l’année %{year}
     matches: Mises en relation
     needs: Besoins
+    needs_count: Nb de besoins
     not_for_me_rate: Taux de refus
     percentage: "%"
     positionning_accepted_rate: Taux de prise en charge
     positionning_rate: Taux de positionnement
     quarter_stats: Stats trim.
-    quarter_stats_by_antenne: Stats trim. %{antenne}
-    quarter_stats_by_region: Stats trim. %{region}
+    quarter_stats_by_antenne: Stats trim. par antenne
+    quarter_stats_by_region: Stats trim. par region
     quo_rate: Taux de sans réponse
+    region: Région
     subtitle: Analyse statistique des besoins transmis aux experts
     year_stats: Stats ann.
   archivable:
