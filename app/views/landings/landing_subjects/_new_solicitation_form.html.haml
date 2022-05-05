@@ -51,4 +51,5 @@
       mailto_link: mail_to('dpo@placedesentreprises.beta.gouv.fr', 'dpo@placedesentreprises.beta.gouv.fr', target: :_blank),
       informations: link_to('mentions d’information', mentions_link))
 
-= render 'landings/landing_subjects/matomo_company_contact_begin'
+- unless in_iframe?
+  = render 'landings/landing_subjects/matomo_company_contact_begin'
