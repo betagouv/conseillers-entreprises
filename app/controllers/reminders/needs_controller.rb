@@ -36,8 +36,8 @@ module Reminders
       @needs = territory_needs
         .reminders_to(action)
         .includes(:subject, :feedbacks, :company, :solicitation, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
+        .order(:created_at)
         .page(params[:page])
-        .order(created_at: :desc)
 
       @action = action
       render :index
