@@ -280,8 +280,10 @@ class User < ApplicationRecord
 
   # Bizarrement, qq utilisateurs sont créés sans personal_skillsets (investigation en cours)
   def synchronize_personal_skillsets
-    if personal_skillsets.present?
-      self.personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
+    user_personal_skillsets = personal_skillsets.presence ||
+      self.experts.where(full_name: self.full_name).or(self.experts.where(email: self.email))
+    if user_personal_skillsets.present?
+      user_personal_skillsets.update_all(self.attributes_shared_with_personal_skills)
     else
       self.experts.create!(self.attributes_shared_with_personal_skills)
     end

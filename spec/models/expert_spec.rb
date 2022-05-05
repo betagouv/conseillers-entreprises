@@ -97,6 +97,84 @@ RSpec.describe Expert, type: :model do
     end
   end
 
+  describe 'update user with personal_skillset' do
+    let(:user) { create :user, email: 'user@example' }
+
+    subject(:expert) { user.experts.first }
+
+    context 'update email' do
+      before do
+        user.update(email: 'user@example.net')
+      end
+
+      it do
+        expect(user.email).to eq 'user@example.net'
+        expect(expert.email).to eq 'user@example.net'
+        expect(user.experts.count).to eq 1
+        is_expected.to be_personal_skillset
+        is_expected.not_to be_team
+        is_expected.not_to be_without_users
+        expect(described_class.personal_skillsets).to include(expert)
+        expect(described_class.teams).not_to include(expert)
+        expect(described_class.without_users).not_to include(expert)
+      end
+    end
+
+    context 'update name' do
+      before do
+        user.update(full_name: 'Mariane')
+      end
+
+      it do
+        expect(user.full_name).to eq 'Mariane'
+        expect(expert.full_name).to eq 'Mariane'
+        expect(user.experts.count).to eq 1
+        is_expected.to be_personal_skillset
+        is_expected.not_to be_team
+        is_expected.not_to be_without_users
+        expect(described_class.personal_skillsets).to include(expert)
+        expect(described_class.teams).not_to include(expert)
+        expect(described_class.without_users).not_to include(expert)
+      end
+    end
+
+    context 'update phone_number' do
+      before do
+        user.update(phone_number: '01 23 45 67 89')
+      end
+
+      it do
+        expect(user.phone_number).to eq '01 23 45 67 89'
+        expect(expert.phone_number).to eq '01 23 45 67 89'
+        expect(user.experts.count).to eq 1
+        is_expected.to be_personal_skillset
+        is_expected.not_to be_team
+        is_expected.not_to be_without_users
+        expect(described_class.personal_skillsets).to include(expert)
+        expect(described_class.teams).not_to include(expert)
+        expect(described_class.without_users).not_to include(expert)
+      end
+    end
+
+    context 'update job' do
+      before do
+        user.update(job: 'Responsable')
+      end
+
+      it do
+        expect(user.job).to eq 'Responsable'
+        expect(expert.job).to eq 'Responsable'
+        expect(user.experts.count).to eq 1
+        is_expected.to be_personal_skillset
+        is_expected.not_to be_team
+        is_expected.not_to be_without_users
+        expect(described_class.personal_skillsets).to include(expert)
+        expect(described_class.teams).not_to include(expert)
+        expect(described_class.without_users).not_to include(expert)
+      end
+    end
+  end
+
   describe 'a user cannot be member of the same team twice' do
     let(:user) { build :user }
     let(:expert) { build :expert }
