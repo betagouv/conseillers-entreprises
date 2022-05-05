@@ -109,7 +109,7 @@ module CreateDiagnosis
 
     def accepting_legal_forms_codes(match_filter)
       return true if match_filter.accepted_legal_forms.blank?
-      match_filter.accepted_legal_forms.include?(company.legal_form_code.first)
+      match_filter.accepted_legal_forms.include?(company.legal_form_code&.first)
     end
 
     # Helpers -------------------------------
