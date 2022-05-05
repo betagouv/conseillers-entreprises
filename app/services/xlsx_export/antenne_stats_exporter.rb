@@ -38,6 +38,12 @@ module XlsxExport
         XlsxExport::AntenneStatsWorksheetGenerator::Base.new(sheet, @antenne, needs.created_between(year_start_date, @end_date), wb.styles).generate
       end
 
+      # Légende
+      wb.add_worksheet(name: I18n.t('antenne_stats_exporter.caption_title')) do |sheet|
+        sheet.add_row [I18n.t('antenne_stats_exporter.caption_title')], style: title
+        XlsxExport::AntenneStatsWorksheetGenerator::Caption.new(sheet, @antenne, wb.styles).generate
+      end
+
       p.use_shared_strings = true
       p
     end
