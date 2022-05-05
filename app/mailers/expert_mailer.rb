@@ -51,4 +51,14 @@ class ExpertMailer < ApplicationMailer
       subject: t('mailers.expert_mailer.remind_involvement.subject')
     )
   end
+
+  def positioning_rate_reminders(expert, support_user)
+    @expert = expert
+    @support_user = support_user
+
+    mail(
+      to: @expert.email_with_display_name,
+      subject: t('mailers.expert_mailer.remind_involvement.subject')
+    )
+  end
 end

@@ -26,6 +26,11 @@ class ExpertMailerPreview < ActionMailer::Preview
     ExpertMailer.remind_involvement(expert)
   end
 
+  def positioning_rate_reminders
+    expert = PositionningRate::Collection.new(Expert.not_deleted).critical_rate.sample
+    ExpertMailer.positioning_rate_reminders(expert, User.support_users.sample)
+  end
+
   private
 
   def active_expert
