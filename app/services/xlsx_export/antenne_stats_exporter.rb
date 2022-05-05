@@ -18,7 +18,7 @@ module XlsxExport
         XlsxExport::AntenneStatsWorksheetGenerator::Base.new(sheet, @antenne, needs.created_between(@start_date, @end_date), wb.styles).generate
       end
 
-      # Detailed stats
+      # Aglomerate stats
       if @antenne.national?
         wb.add_worksheet(name: I18n.t('antenne_stats_exporter.quarter_stats_by_region')) do |sheet|
           sheet.add_row ["#{@antenne.name} - #{I18n.t('antenne_stats_exporter.by_region')} - #{@end_date.year}T#{TimeDurationService.find_quarter(@start_date.month)}"], style: title

@@ -197,6 +197,40 @@ module XlsxExport
       def count_rate_row_style
         [@label, nil, @rate, nil, @label, nil, @rate]
       end
+
+      # Pages résumé
+      #
+      def add_agglomerate_headers
+        sheet.add_row [
+          I18n.t('antenne_stats_exporter.antenne'),
+          I18n.t('antenne_stats_exporter.needs_count'),
+          I18n.t('antenne_stats_exporter.positionning_rate'),
+          I18n.t('antenne_stats_exporter.positionning_accepted_rate'),
+          I18n.t('antenne_stats_exporter.done_rate')
+        ], style: [@left_header, @right_header, @right_header, @right_header, @right_header]
+      end
+
+      def add_agglomerate_rows(needs, row_title)
+        matches = @antenne.perimeter_received_matches_from_needs(needs)
+        positionning_size = calculate_positionning_status_size(:positionning, matches)
+        positionning_accepted_size = calculate_positionning_status_size(:positionning_accepted, matches)
+        done_size = calculate_positionning_status_size(:done, matches)
+        sheet.add_row [
+          row_title,
+          needs.size,
+          calculate_rate(positionning_size, matches),
+          calculate_rate(positionning_accepted_size, matches),
+          calculate_rate(done_size, matches),
+        ], style: [nil, nil, @rate, @rate, @rate]
+      end
+
+      def finalise_agglomerate_style
+        [
+          'A1:G1',
+        ].each { |range| sheet.merge_cells(range) }
+
+        sheet.column_widths 50, 15, 25, 25, 25
+      end
     end
   end
 end
