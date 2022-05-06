@@ -7,9 +7,8 @@
       #{t('attributes.naf_code')} : #{diagnosis.facility.naf_code}
     %li
       #{diagnosis.facility.naf_libelle}
-    - if diagnosis.company.date_de_creation.present?
-      %li
-        #{t('attributes.date_de_creation')} : #{I18n.l(diagnosis.company.date_de_creation)}
+    %li
+      = inscription_registres(diagnosis.company)
     - if diagnosis.facility.code_effectif.present?
       %li
         #{t('attributes.code_effectif')} : #{t('codes_effectif' + '.' + diagnosis.facility.code_effectif)}

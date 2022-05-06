@@ -134,7 +134,9 @@ fr:
         regional: Régional
       commune:
         insee_code: Code commune
-      company: 
+      company:
+        inscrit_rcs: Inscrit au RCS
+        inscrit_rm: Inscrit au RM
       company_satisfaction:
         comment: Commentaire
         contacted_by_expert: Contacté par un expert
