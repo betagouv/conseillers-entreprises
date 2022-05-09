@@ -27,7 +27,7 @@ module Inbox
     @collection_name = collection_name
 
     @needs = if recipient.is_a?(Antenne)
-      Need.in_antennes_perimeters(@recipient).merge!(@recipient.send("needs_#{@collection_name}"))
+      @recipient.perimeter_received_needs.merge!(@recipient.send("needs_#{@collection_name}"))
     else
       Need.in_antennes_perimeters(@recipient).merge!(Need.where(id: @recipient.collect { |a| a.send("needs_#{@collection_name}") }.flatten))
     end
@@ -45,9 +45,9 @@ module Inbox
 
   def antenne_inbox_collections_counts(recipient)
     if recipient.is_a?(Antenne)
-      @inbox_collections_counts = Rails.cache.fetch([Need.in_antenne_perimeters(recipient), Need.in_antenne_perimeters(recipient).pluck(:updated_at).max]) do
+      @inbox_collections_counts = Rails.cache.fetch([recipient.perimeter_received_needs, recipient.perimeter_received_needs.pluck(:updated_at).max]) do
         inbox_collection_names.index_with do |name|
-          Need.in_antenne_perimeters(recipient).merge!(recipient.send("needs_#{name}")).distinct.size
+          recipient.perimeter_received_needs.merge!(recipient.send("needs_#{name}")).distinct.size
         end
       end
     else
