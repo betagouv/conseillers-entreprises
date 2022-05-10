@@ -42,8 +42,8 @@ module Clockwork
     every(1.day, 'send_quarterly_reports_emails', at: '08:00', if: -> (t) { t.day == 15 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
       QuarterlyReportService.delay(queue: :low_priority).send_emails
     end
-  end
-  every(1.day, 'backup_db', at: ('2:10')) do
-    `rake backup_db`
+    every(1.day, 'backup_db', at: ('2:10')) do
+      `rake backup_db`
+    end
   end
 end
