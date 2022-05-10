@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :diagnosis do
     association :advisor, factory: :user
     association :facility
-    association :visitee, factory: :contact
+    association :visitee, factory: [:contact, :with_phone_number]
     content { Faker::Lorem.sentence }
     step { 1 }
     happened_on { 3.days.from_now }
