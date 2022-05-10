@@ -122,8 +122,27 @@ class Match < ApplicationRecord
     joins(:solicitation).where('solicitations.created_at <= ?', val)
   end
 
+  scope :solicitation_pk_campaign_contains, -> (query) {
+    joins(:solicitation).merge(Solicitation.pk_campaign_contains(query))
+  }
+
+  scope :solicitation_pk_campaign_equals, -> (query) {
+    joins(:solicitation).merge(Solicitation.pk_campaign_equals(query))
+  }
+
+  scope :solicitation_pk_campaign_starts_with, -> (query) {
+    joins(:solicitation).merge(Solicitation.pk_campaign_starts_with(query))
+  }
+
+  scope :solicitation_pk_campaign_ends_with, -> (query) {
+    joins(:solicitation).merge(Solicitation.pk_campaign_ends_with,(query))
+  }
+
   def self.ransackable_scopes(auth_object = nil)
-    [:sent, :solicitation_created_at_gteq_datetime, :solicitation_created_at_lteq_datetime]
+    [
+      :sent, :solicitation_created_at_gteq_datetime, :solicitation_created_at_lteq_datetime,
+      :solicitation_pk_campaign_contains, :solicitation_pk_campaign_equals, :solicitation_pk_campaign_starts_with, :solicitation_pk_campaign_ends_with
+    ]
   end
 
   ##

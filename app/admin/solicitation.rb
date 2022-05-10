@@ -104,6 +104,7 @@ ActiveAdmin.register Solicitation do
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :code_region, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :code_region) }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
+  filter :pk_campaign, as: :string
 
   ## Batch actions
   # Statuses

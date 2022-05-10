@@ -209,6 +209,23 @@ class Solicitation < ApplicationRecord
     where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
   }
 
+  # Pour ransack, en admin
+  scope :pk_campaign_equals, -> (query) {
+    where('form_info @> ?', { pk_campaign: query }.to_json)
+  }
+
+  scope :pk_campaign_starts_with, -> (query) {
+    where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "#{query}%")
+  }
+
+  scope :pk_campaign_ends_with, -> (query) {
+    where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}")
+  }
+
+  def self.ransackable_scopes(auth_object = nil)
+    [:pk_campaign_contains, :pk_campaign_equals, :pk_campaign_starts_with, :pk_campaign_ends_with]
+  end
+
   scope :without_diagnosis, -> {
     left_outer_joins(:diagnosis)
       .where(diagnoses: { id: nil })

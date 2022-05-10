@@ -673,6 +673,7 @@ fr:
     optional: Optionnel
     page_title: Titre affiché sur la page
     phone_number: Téléphone
+    pk_campaign: Campagne
     placeholder:
       email: marie.dupont@exemple.fr
       full_name: 'ex : Marie Dupont'
@@ -709,6 +710,7 @@ fr:
     solicitation_gclid: Id GA
     solicitation_id: Id de la sollicitation
     solicitation_phone_number: Téléphone du contact entreprise
+    solicitation_pk_campaign: Campagne de la sollicitation
     solicitation_provenance_category: Type de source
     solicitation_provenance_detail: Détail de la source
     solicitation_provenance_title: Intitulé de la source
