@@ -43,4 +43,7 @@ module Clockwork
       QuarterlyReportService.delay(queue: :low_priority).send_emails
     end
   end
+  every(1.day, 'backup_db', at: ('2:10')) do
+    `rake backup_db`
+  end
 end
