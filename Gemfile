@@ -84,9 +84,6 @@ gem 'active_link_to'
 # Security
 gem 'rack-attack'
 
-# Performance
-gem 'scout_apm'
-
 # Storage
 gem "aws-sdk-s3", require: false
 
@@ -136,4 +133,7 @@ group :development do
   gem 'rubocop-i18n', require: false
   gem 'brakeman', require: false
   gem "rails-erd"
+
+  # Performance
+  gem 'scout_apm'
 end
