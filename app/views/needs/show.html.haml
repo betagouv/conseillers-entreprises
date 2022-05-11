@@ -43,7 +43,7 @@
                 - else
                   = t('.blank_advisor')
 
-- if policy(@need).has_match_for_user?
+- if policy(@need).show_need_actions?
   .lighter-blue-bg
     = render 'match_actions', match: @need.matches.find_by(expert: current_user.experts)
 
