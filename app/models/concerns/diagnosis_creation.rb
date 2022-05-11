@@ -52,10 +52,6 @@ module DiagnosisCreation
       if self.with_siret?
         self.preselected_subject.present? &&
           FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret))
-      else
-        # 1er appel à l'API adresse, pour vérifier que la `location` est bien une ville
-        # TODO : à revoir quand on aura une meilleure gestion des zones
-        self.preselected_subject.present? && self.location.present? && retrieve_insee_code.present?
       end
     end
 
@@ -77,11 +73,7 @@ module DiagnosisCreation
           facility_attributes: computed_facility_attributes
         )
 
-        # Steps 1, 2, 3: fill in with the solicitation data and the preselections
-        diagnosis.prepare_happened_on_from_solicitation if diagnosis.errors.empty?
-        diagnosis.prepare_visitee_from_solicitation if diagnosis.errors.empty?
-        diagnosis.prepare_needs_from_solicitation if diagnosis.errors.empty?
-        diagnosis.prepare_matches_from_solicitation if diagnosis.errors.empty?
+        diagnosis.autofill_steps
 
         # Rollback on error!
         if diagnosis.errors.present?
@@ -181,6 +173,14 @@ module DiagnosisCreation
       self.step_matches!
 
       CreateDiagnosis::CreateMatches.new(self).call
+    end
+
+    def autofill_steps
+      # Steps 1, 2, 3: fill in with the solicitation data and the preselections
+      self.prepare_happened_on_from_solicitation if self.errors.empty?
+      self.prepare_visitee_from_solicitation if self.errors.empty?
+      self.prepare_needs_from_solicitation if self.errors.empty?
+      self.prepare_matches_from_solicitation if self.errors.empty?
     end
 
     private

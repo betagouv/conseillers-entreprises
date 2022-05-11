@@ -6,16 +6,15 @@
   - if @needs.present?
     %h2.fr-h3= t('companies.needs.others')
     = render partial: 'companies/need', collection: @needs
-
   .ui.attached.tabular.menu.head-tab.new-diagnosis
-    %a.item.active{ "data-tab" => "first" }
+    %a.item{ "data-tab" => "find_company" }
       = t('.find_company')
-    %a.item{ "data-tab" => "second" }
+    %a.item.active{ "data-tab" => "search_manually", class: ("active" if @tab == 'search_manually') }
       = t('.search_manually')
-  .ui.bottom.attached.tab.new-diagnosis.segment.active{ "data-tab" => "first" }
+  .ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "find_company" }
     = render partial: 'companies/search_form', locals: { query: @query, solicitation: @diagnosis.solicitation }
 
-  .ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "second" }
+  .ui.bottom.attached.tab.new-diagnosis.segment{ "data-tab" => "search_manually", class: ("active" if @tab == 'search_manually') }
     %h2.ui.header
       = t('.title')
 
@@ -34,7 +33,11 @@
             = label_tag t('.name')
             = company_form.text_field :name, required: true
 
-        = render 'insee_code_field', form: facility_form, required: true
+        -# See also insee_code_field.js
+        .fr-input-group
+          = label_tag 'city-autocomplete', t('.city')
+          %div{ data: { action: 'city-autocomplete', 'default-value': @diagnosis.solicitation&.location } }
+          = facility_form.hidden_field :insee_code, data: { target: 'insee-code' }
 
       .text-right
         = form.button :submit, class: 'fr-btn btn-green btn-icon' do

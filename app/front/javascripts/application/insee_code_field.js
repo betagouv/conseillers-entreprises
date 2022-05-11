@@ -9,7 +9,10 @@ import accessibleAutocomplete from 'accessible-autocomplete';
   function setupCityAutocomplete () {
     const targetField = document.querySelector("[data-target='insee-code']")
     const autocompleteField = document.querySelector("[data-action='city-autocomplete']")
+    const defaultValue = autocompleteField.dataset.defaultValue
+
     if (exists(autocompleteField)) {
+
       accessibleAutocomplete({
         element: autocompleteField,
         id: 'city_autocomplete',
@@ -31,6 +34,10 @@ import accessibleAutocomplete from 'accessible-autocomplete';
           }
         }
       })
+
+      if (exists(defaultValue)) {
+        document.querySelector('#city_autocomplete').value = defaultValue
+      }
     }
   }
 

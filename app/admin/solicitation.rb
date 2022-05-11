@@ -185,12 +185,13 @@ ActiveAdmin.register Solicitation do
   permit_params :description, :status, :siret, :full_name, :phone_number, :email, badge_ids: []
   form do |f|
     f.inputs do
-      f.input :description, as: :text
       f.input :status, as: :select, collection: Solicitation.human_attribute_values(:status).invert.to_a
-      f.input :siret
+      f.input :email
       f.input :full_name
       f.input :phone_number
-      f.input :email
+      f.input :siret
+      f.input :location
+      f.input :description, as: :text
       f.input :badges, collection: Badge.all
     end
 
