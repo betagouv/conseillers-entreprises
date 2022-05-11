@@ -37,6 +37,7 @@ class Antenne < ApplicationRecord
   has_and_belongs_to_many :communes, inverse_of: :antennes
   include ManyCommunes
   include InvolvementConcern
+  include TerritoryNeedsStatus
 
   belongs_to :institution, inverse_of: :antennes
 
