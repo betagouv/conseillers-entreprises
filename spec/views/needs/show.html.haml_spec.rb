@@ -54,7 +54,7 @@ RSpec.describe 'needs/show', type: :view do
         assignments
       end
 
-      it('displays action title') { expect(render).to match 'C‘est à vous de jouer' }
+      it('displays action title') { expect(render).to match 'C’est à vous de jouer' }
       it('displays actions choices') { expect(render).to have_selector('div.close-need-box', count: 3) }
     end
 
