@@ -500,6 +500,7 @@ fr:
         subject: Avez-vous bien été rappelé ?
         tank_you: Merci pour votre confiance,
     cordially: Bien cordialement,
+    email_sent: L’email a bien été envoyé
     expert_mailer:
       first_notification_help:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
@@ -791,6 +792,7 @@ fr:
         matches_total: Demandes depuis le début
         positionning_rate: Taux de positionnement sur 60 jours
         received_matches: reçues
+        send_reminders_email: Envoyer l’email de relance
         team_composition: Composition de l'équipe
       index:
         title: Relances par experts
@@ -807,6 +809,8 @@ fr:
           critical_rate: Critique
           pending_rate: Restant
           worrying_rate: À surveiller
+      send_reminder_email:
+        email_send: Email de relance envoyé
     index:
       title: Relances
     need:
@@ -831,8 +835,6 @@ fr:
           archive: Abandonnés
           poke: À relancer
           recall: À rappeler
-      send_abandoned_email:
-        email_sent: L’email a bien été envoyé
     section:
       experts: Par taux de positionnement d’expert
       needs: Par délai du besoin

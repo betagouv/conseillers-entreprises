@@ -26,7 +26,7 @@ module Reminders
       CompanyMailer.abandoned_need(@need).deliver_later
       respond_to do |format|
         format.js
-        format.html { redirect_to archive_reminders_needs_path, notice: t('.email_sent') }
+        format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.email_sent') }
       end
     end
 
