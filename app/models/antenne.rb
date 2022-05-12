@@ -178,7 +178,7 @@ class Antenne < ApplicationRecord
   end
 
   def perimeter_received_matches_from_needs(needs)
-    Rails.cache.fetch([id, needs.pluck(:id)], expires_in: 1.hour) do
+    Rails.cache.fetch([id, needs], expires_in: 1.hour) do
       if self.national?
         self.institution.received_matches.joins(:need).where(need: needs).distinct
       elsif self.regional?
