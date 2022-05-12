@@ -56,7 +56,7 @@ fr:
       deleted: Supprimés
       diagnosis_completed: Analyses terminées
       done: Clôturé
-      expert_provider: Fournisseur d'experts
+      expert_provider: Fournisseur d’experts
       from_solicitation: Sollicitations
       from_visit: Visites
       incomplete: Incomplètes
@@ -186,9 +186,9 @@ fr:
         users: Conseillers
       landing:
         custom_css: CSS personnalisé
-        display_pde_partnership_mention: Afficher le partenariat PDE (logo + phrase en bas d'iframe)
+        display_pde_partnership_mention: Afficher le partenariat PDE (logo + phrase en bas d’iframe)
         emphasis: Mettre en avant sur la page d’accueil
-        featured_on_home: Champs encart page d'accueil
+        featured_on_home: Champs encart page d’accueil
         home_description: Description sur la page d’accueil
         home_sort_order: Position sur la page d’accueil
         home_title: Titre sur la page d’accueil
@@ -257,7 +257,9 @@ fr:
         solicitation_provenance_category: Type de source
         solicitation_provenance_detail: Détail de la source
         solicitation_provenance_title: Intitulé de la source
-        taken_care_of_at: Date d'intervention
+        subject: Sujet
+        taken_care_of_at: Date d’intervention
+        theme: Thème
       match/statuses:
         done: Besoin clôturé
         done_no_help: Pas d’aide disponible
@@ -274,7 +276,7 @@ fr:
         taking_care: Prendre en charge
       match/statuses/content:
         done: J’ai proposé un accompagnement possible. Je partage un commentaire aux autres experts.
-        done_no_help: Après échange, je n’ai pas d'accompagnement à proposer. Si j’ai des infos, je les partage aux autres experts.
+        done_no_help: Après échange, je n’ai pas d’accompagnement à proposer. Si j’ai des infos, je les partage aux autres experts.
         done_not_reachable: J’ai tenté de joindre l’entreprise à plusieurs reprises sans succès. J’ai laissé un message.
       match/statuses/long:
         done: Aide proposée
@@ -312,8 +314,8 @@ fr:
       need/statuses/csv:
         diagnosis_not_complete: Analyse en cours
         done: Clôturé avec une aide proposée
-        done_no_help: Clôturé en l'absence d’aide disponible
-        done_not_reachable: Clôturé sans avoir pu joindre l'entreprise
+        done_no_help: Clôturé en l’absence d’aide disponible
+        done_not_reachable: Clôturé sans avoir pu joindre l’entreprise
         not_for_me: Refusé
         quo: En attente de réponse
         taking_care: En cours de prise en charge
@@ -340,7 +342,7 @@ fr:
         pk_kwd: Mots-clés
         requested_help_amount: Montant de l’aide demandée
         slug: Slug
-        stop_completion_step: Etape d'arrêt
+        stop_completion_step: Etape d’arrêt
         tracking: Suivi
       solicitation/statuses:
         canceled: Abandonnée
@@ -429,7 +431,7 @@ fr:
           attributes:
             base:
               cant_send_need_without_matches: L’un des besoins n’a pas d’expert. Vous pouvez supprimer ce besoin ou ajouter un expert.
-              facility_commune_not_found: La commune de l'établissement n'a pas été trouvée
+              facility_commune_not_found: La commune de l’établissement n’a pas été trouvée
             matches:
               format: 'Mises en relation : %{message}.'
               preselected_institution_has_no_relevant_experts: aucun expert de l’institution préselectionnée ne peut prendre en charge cette entreprise
@@ -533,7 +535,17 @@ fr:
         one: Droit utilisateur
         other: Droits utilisateur
   antenne_stats_exporter:
+    antenne: Antenne
+    by_antenne: Par antenne
+    by_region: Par région
+    caption_title: Aide à la lecture
     count: Nb
+    done_caption_definition: Besoin pris en charge par un expert et clôturé par une proposition d’aide au sens large (conseils, accompagnement technique, aide financière).
+    done_caption_label: Aide proposée
+    done_no_help_caption_definition: Besoin pris en charge par un expert mais l’échange téléphonique n’a pu aboutir à une proposition d’aide (critère non rempli, situation spécifique...).
+    done_no_help_caption_label: Pas d’aide
+    done_not_reachable_caption_definition: Besoin pris en charge par un expert qui n’a pas réussi à joindre l’entreprise malgré 2 tentatives ; il a laissé ses coordonnées.
+    done_not_reachable_caption_label: Non joignable
     done_rate: Taux de clôture avec aide
     ecosystem_answering_rate: Taux de réponse de l’écosystème (%{institution} et autres partenaires)
     ecosystem_positionning: Positionnement de l’écosystème (%{institution} et autres partenaires)
@@ -543,13 +555,27 @@ fr:
     from_beginning_of_year: Depuis le début de l’année %{year}
     matches: Mises en relation
     needs: Besoins
+    needs_count: Nb de besoins
+    not_for_me_caption_definition: L’expert n’a pas appelé l’entreprise car il sait d’emblée qu’il ne pourra pas l’aider, il refuse le besoin.
+    not_for_me_caption_label: Refusé
     not_for_me_rate: Taux de refus
     percentage: "%"
+    positionning_accepted_caption_definition: Taux de besoins pour lesquels les experts ont indiqué prendre en charge, toutes clôtures confondues (aide proposée, injoignage, pas d’aide).
+    positionning_accepted_caption_label: Taux de prise en charge
     positionning_accepted_rate: Taux de prise en charge
+    positionning_caption_definition: Taux de besoins pour lesquels les experts ont indiqué prendre en charge ou refuser.
+    positionning_caption_label: Taux de positionnement
     positionning_rate: Taux de positionnement
     quarter_stats: Stats trim.
+    quarter_stats_by_antenne: Stats trim. par antenne
+    quarter_stats_by_region: Stats trim. par region
+    quo_caption_definition: L’expert ne s’est pas positionné sur le besoin malgré les relances de l’équipe Place des Entreprises.
+    quo_caption_label: En attente de réponse
     quo_rate: Taux de sans réponse
+    region: Région
     subtitle: Analyse statistique des besoins transmis aux experts
+    taking_care_caption_definition: Besoins pris en charge par un expert, qui n’a pas encore été clôturé après l’appel de l’entreprise.
+    taking_care_caption_label: Pris en charge
     year_stats: Stats ann.
   archivable:
     archive: Archiver
@@ -570,7 +596,7 @@ fr:
     antenne_experts:
       one: Expert
       other: Experts
-    antenne_territorial_level: Niveau de l'antenne
+    antenne_territorial_level: Niveau de l’antenne
     antenne_territories: Territoire de l’antenne
     archived_at: Date d’archivage
     badges:
@@ -583,7 +609,7 @@ fr:
     community: Communauté
     company_effectif: Effectifs
     company_naf: Code NAF
-    company_name: Nom de l'entreprise
+    company_name: Nom de l’entreprise
     company_satisfaction: Satisfaction
     contacted_expert: Expert contacté
     contacts:
@@ -601,10 +627,10 @@ fr:
       one: Analyse
       other: Analyses
     diagnosis: Analyse
-    diagnosis_created_at: Date de l'analyse
-    diagnosis_id: Id de l'analyse
+    diagnosis_created_at: Date de l’analyse
+    diagnosis_id: Id de l’analyse
     diagnosis_regions: Région
-    display_logo: Afficher le logo sur la page d'accueil et la liste des partenaires
+    display_logo: Afficher le logo sur la page d’accueil et la liste des partenaires
     effectif: Effectif
     email: E-mail
     expert: Expert
@@ -632,7 +658,7 @@ fr:
     global_need_status: Statut du besoin au global
     happened_on: Date de la visite
     help:
-      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).</br>Vous pouvez le trouvez facilement sur <a href='https://annuaire-entreprises.data.gouv.fr' target='_blank'>https://annuaire-entreprises.data.gouv.fr</a>.
+      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).</br>Vous pouvez le trouvez facilement sur <a href=’https://annuaire-entreprises.data.gouv.fr’ target=’_blank’>https://annuaire-entreprises.data.gouv.fr</a>.
     insee_codes: Codes communes
     institution: Institution
     institutions_subjects: Domaines de l’institution

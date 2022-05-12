@@ -163,34 +163,38 @@ class Antenne < ApplicationRecord
   # tous les besoins auxquels une antenne peut avoir accès suivant son échelon territorial
   #
   def perimeter_received_needs
-    if self.national?
-      self.institution.received_needs
-    elsif self.regional?
-      Need.diagnosis_completed.joins(experts: :antenne).scoping do
-        Need.where(experts: { antenne: self })
-          .or(Need.where(experts: { antenne: self.territorial_antennes }))
-      end.distinct
-    else
-      self.received_needs
+    Rails.cache.fetch(id, expires_in: 1.hour) do
+      if self.national?
+        self.institution.received_needs
+      elsif self.regional?
+        Need.diagnosis_completed.joins(experts: :antenne).scoping do
+          Need.where(experts: { antenne: self })
+            .or(Need.where(experts: { antenne: self.territorial_antennes }))
+        end.distinct
+      else
+        self.received_needs
+      end
     end
   end
 
   def perimeter_received_matches_from_needs(needs)
-    if self.national?
-      self.institution.received_matches.joins(:need).where(need: needs).distinct
-    elsif self.regional?
-      Match.joins(:need, expert: :antenne).scoping do
-        Match.where(
-          need: needs,
-          expert: { antenne: self }
-        )
-          .or(Match.where(
-                need: needs,
-                expert: { antenne: self.territorial_antennes }
-              ))
-      end.distinct
-    else
-      self.received_matches.joins(:need).where(need: needs).distinct
+    Rails.cache.fetch([id, needs], expires_in: 1.hour) do
+      if self.national?
+        self.institution.received_matches.joins(:need).where(need: needs).distinct
+      elsif self.regional?
+        Match.joins(:need, expert: :antenne).scoping do
+          Match.where(
+            need: needs,
+            expert: { antenne: self }
+          )
+            .or(Match.where(
+                  need: needs,
+                  expert: { antenne: self.territorial_antennes }
+                ))
+        end.distinct
+      else
+        self.received_matches.joins(:need).where(need: needs).distinct
+      end
     end
   end
 
