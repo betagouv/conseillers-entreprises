@@ -185,8 +185,8 @@ module XlsxExport
         @bold         = s.add_style b: true
         @left_header  = s.add_style bg_color: 'FFDFDEDF', b: true, alignment: { horizontal: :left }
         @right_header = s.add_style bg_color: 'FFDFDEDF', b: true, alignment: { horizontal: :right }
-        @label = s.add_style alignment: { indent: 1 }
-        @rate = s.add_style format_code: '#0.0%'
+        @label        = s.add_style alignment: { indent: 1 }
+        @rate         = s.add_style format_code: '#0.0%'
         s
       end
 
