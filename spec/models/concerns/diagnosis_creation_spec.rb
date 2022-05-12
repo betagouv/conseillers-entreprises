@@ -91,7 +91,7 @@ RSpec.describe DiagnosisCreation do
         )
       end
 
-      it { is_expected.to be true }
+      it { is_expected.to be false }
     end
 
     context 'without_location' do

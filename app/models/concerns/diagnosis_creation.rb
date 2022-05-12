@@ -49,10 +49,8 @@ module DiagnosisCreation
   module SolicitationMethods
     # Some preconditions can be verified without actually trying to create the Diagnosis
     def may_prepare_diagnosis?
-      if self.with_siret?
-        self.preselected_subject.present? &&
-          FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret))
-      end
+      self.preselected_subject.present? &&
+        FormatSiret.siret_is_valid(FormatSiret.clean_siret(self.siret))
     end
 
     # Attempt to create a diagnosis up to the last step with the information from the solicitation.
