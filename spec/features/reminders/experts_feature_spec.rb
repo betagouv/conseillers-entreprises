@@ -45,11 +45,11 @@ describe 'reminders experts', type: :feature do
       expect(page.html).to include 'Relances'
       expect(page.html).to include 'Par taux de positionnement d’expert'
       page.click_link(href: "/relances/experts/taux-positionnement-restant")
-      expect(page).to have_css('.fr-card', count: 1)
+      expect(page).to have_css('.card', count: 1)
       page.click_link(href: "/relances/experts/taux-positionnement-critique")
-      expect(page).to have_css('.fr-card', count: 2)
+      expect(page).to have_css('.card', count: 2)
       page.click_link(href: "/relances/experts/taux-positionnement-a-surveiller")
-      expect(page).to have_css('.fr-card', count: 2)
+      expect(page).to have_css('.card', count: 2)
       page.click_link(href: "/relances/experts/#{expert_worrying_rate_02.id}/prises_en_charge")
       expect(page.html).to include expert_worrying_rate_02.full_name
     end
