@@ -101,13 +101,25 @@ RSpec.describe DiagnosesController, type: :controller do
     end
 
     context 'when creation succeeds' do
-      let(:result) { create :diagnosis }
+      let(:result) { create :diagnosis, step: 'contact' }
 
       it 'redirects to the diagnosis page' do
         post :create, params: { diagnosis: some_params }
 
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to contact_diagnosis_path(Diagnosis.last)
+      end
+    end
+
+    context 'when from solicitation creation succeeds' do
+      let(:result) { create :diagnosis, solicitation: create(:solicitation) }
+      let!(:other_need_subject) { create :subject, id: 59 }
+
+      it 'redirects to the diagnosis page' do
+        post :create, params: { diagnosis: some_params }
+
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to matches_diagnosis_path(Diagnosis.last)
       end
     end
   end

@@ -18,8 +18,12 @@ class DiagnosesController < ApplicationController
     authorize Diagnosis
     @current_solicitation = Solicitation.find_by(id: params[:solicitation])
     @diagnosis = DiagnosisCreation.new_diagnosis(@current_solicitation)
-    @needs = @current_solicitation.present? ?
-               Need.for_emails_and_sirets([@current_solicitation&.email], [@current_solicitation&.siret]) : []
+    if @current_solicitation.present?
+      @needs = Need.for_emails_and_sirets([@current_solicitation&.email], [@current_solicitation&.siret])
+      @tab = 'search_manually' if @current_solicitation.siret.nil?
+    else
+      @needs = []
+    end
   end
 
   def index_antenne
@@ -40,7 +44,8 @@ class DiagnosesController < ApplicationController
     @diagnosis = DiagnosisCreation.create_diagnosis(diagnosis_params.merge(advisor: current_user))
 
     if @diagnosis.persisted?
-      redirect_to contact_diagnosis_path(@diagnosis)
+      @diagnosis.autofill_steps
+      redirect_to controller: 'diagnoses/steps', action: @diagnosis.step, id: @diagnosis
     else
       flash.now[:alert] = @diagnosis.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
