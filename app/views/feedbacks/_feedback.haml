@@ -11,9 +11,8 @@
     - if policy(feedback).destroy?
       = form_with(model: feedback, url: feedback_path(feedback), method: :delete, class: 'delete-form',
       data: { confirm: t('.delete') }, remote: true) do |f|
-        = f.button :submit, name: :status, title: t('.delete_comment'), class: 'btn-unstyled' do
+        = f.button :submit, name: :status, title: t('.delete_comment'), class: 'btn-unstyled', id: "delete-feedback-#{feedback.id}" do
           %span.ri-delete-bin-line.red
     .hidden{ id: "tooltip-feedback-#{feedback.id}" }
       = person_block(feedback.user)
   .content= simple_format(auto_link(feedback.description))
-
