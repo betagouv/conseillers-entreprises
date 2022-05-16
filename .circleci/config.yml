@@ -3,7 +3,8 @@ version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@1.2.3
 
-defaults: &defaults
+defaults:
+  &defaults
   working_directory: ~/place-des-entreprises
   docker:
     - image: cimg/ruby:3.0.2-browsers
@@ -14,37 +15,44 @@ defaults: &defaults
         POSTGRES_PASSWORD: place_des_entreprises_test
         POSTGRES_DB: place_des_entreprises_test
 
-bundle_restore_cache: &bundle_restore_cache
+bundle_restore_cache:
+  &bundle_restore_cache
   restore_cache:
     key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
 
-yarn_restore_cache: &yarn_restore_cache
+yarn_restore_cache:
+  &yarn_restore_cache
   restore_cache:
     key: v1-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
 
-bundle_save_cache: &bundle_save_cache
+bundle_save_cache:
+  &bundle_save_cache
   save_cache:
     key: v1-bundle-install-{{ arch }}-{{ checksum "Gemfile.lock" }}
     paths:
       - ~/vendor/bundle
 
-yarn_save_cache: &yarn_save_cache
+yarn_save_cache:
+  &yarn_save_cache
   save_cache:
     key: v1-yarn-cache-{{ arch }}-{{ checksum "yarn.lock" }}
     paths:
       - ~/.cache/yarn
 
-bundle_install: &bundle_install
+bundle_install:
+  &bundle_install
   run:
     name: Install Ruby Dependencies
     command: bundle install
 
-yarn_install: &yarn_install
+yarn_install:
+  &yarn_install
   run:
     name: Install Yarn Dependencies
     command: yarn install --ignore-engines
 
-check_chrome_installation: &check_chrome_installation
+check_chrome_installation:
+  &check_chrome_installation
   run:
     name: Check Chrome install
     command: |
@@ -76,12 +84,14 @@ jobs:
       - *yarn_install
       - run:
           environment:
-            DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_entreprises_test"
+            DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_e\
+              ntreprises_test"
           name: Create DB
           command: bundle exec rake db:create db:schema:load db:migrate RAILS_ENV=test
       - run:
           environment:
-            DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_entreprises_test"
+            DATABASE_URL: "postgres://place_des_entreprises_test@localhost:5432/place_des_e\
+              ntreprises_test"
             APPLICATION_EMAIL: "contact@mailrandom.fr"
             TEST_ERROR_RENDERING: "false"
             CI: 'true'
@@ -96,6 +106,8 @@ jobs:
           path: ~/test-results
       - store_artifacts:
           path: tmp/screenshots
+    # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
+    resource_class: large
   lint:
     <<: *defaults
     steps:
