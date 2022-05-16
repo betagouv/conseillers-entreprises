@@ -61,7 +61,6 @@ RSpec.describe PersonConcern do
         is_expected.to eq "Hervé Dupont-Moriss D'Alençon"
       end
     end
-
   end
 
   describe 'normalize_phone_number' do
