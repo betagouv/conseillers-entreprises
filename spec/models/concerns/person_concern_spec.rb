@@ -49,7 +49,16 @@ RSpec.describe PersonConcern do
 
       it do
         user.normalize_name
-        is_expected.to eq 'Paul Mc Cartney'
+        is_expected.to eq 'Paul McCartney'
+      end
+    end
+
+    context 'With special caracters' do
+      let(:name) { "hervé dupont-moriss d'alençon" }
+
+      it do
+        user.normalize_name
+        is_expected.to eq "Hervé Dupont-Moriss D'Alençon"
       end
     end
   end

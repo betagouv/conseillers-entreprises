@@ -45,7 +45,7 @@ module PersonConcern
   def normalize_name
     return unless self.full_name
 
-    self.full_name = self.full_name.squish.titleize
+    self.full_name = self.full_name.squish.gsub(/\b([a-z])/) { $1.capitalize }
   end
 
   def normalize_email
