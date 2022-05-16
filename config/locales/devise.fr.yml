@@ -84,6 +84,7 @@ fr:
     sessions:
       already_signed_out: Déconnecté.
       new:
+        email: E-mail personnel
         how_to_sign_up_html: |
           <h2>Qui sont les conseillers utilisant Place des Entreprises ?</h2>
           <p>Les conseillers de Place des Entreprises sont des agents des administrations, des organismes publics et parapublics et des collectivités chargés d’accompagner les entreprises. Le service compte aujourd’hui plus de <b>1 000 conseillers par région</b> au sein de 40 partenaires différents !</p>
@@ -91,5 +92,7 @@ fr:
           <p>Ce service vise autant à aider les TPE & PME qu’à <b>faciliter le travail quotidien</b> des conseillers qui les accompagnent, dans une logique de <b>complémentarité et de décloisonnement des institutions</b>. Si vous êtes un acteur de la relation entreprise dans une structure porteuse de solutions, rejoignez-nous !</p>
         meta_description: Les conseillers du service public Place des Entreprises sont des agents des administrations, des organismes publics et parapublics et des collectivités chargés d’accompagner les entreprises.
         meta_title: Accès conseiller | Place des Entreprises
+        placeholders:
+          email: 'Exemple : marie.dupont@mon-organisation.fr'
       signed_in: ''
       signed_out: Déconnecté.
