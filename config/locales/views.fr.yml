@@ -627,7 +627,7 @@ fr:
         siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
         solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
     team_pde: L’équipe Place des Entreprises
-    thank_uou: Merci beaucoup,
+    thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
     thanks_for_your_comprehension: Merci pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
