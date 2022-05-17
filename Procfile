@@ -3,4 +3,4 @@ clock: bundle exec clockwork app/models/clockwork.rb
 delayedjob: bin/delayed_job run
 
 postdeploy: bundle exec rake db:migrate
-backup-builpack: bin/backup-cron.sh
+backup-builpack: bin/pg-backup.sh
