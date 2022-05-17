@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class ExpertMailer < ApplicationMailer
-  SENDER = "#{I18n.t('app_name')} <#{SENDER_EMAIL}>"
-  default from: SENDER, template_path: 'mailers/expert_mailer'
+  default template_path: 'mailers/expert_mailer'
   helper :institutions
 
   def notify_company_needs(expert, need)
@@ -48,6 +47,18 @@ class ExpertMailer < ApplicationMailer
 
     mail(
       to: @expert.email_with_display_name,
+      subject: t('mailers.expert_mailer.remind_involvement.subject')
+    )
+  end
+
+  def positioning_rate_reminders(expert, support_user)
+    @expert = expert
+    @support_user = support_user
+
+    mail(
+      to: @expert.email_with_display_name,
+      from: @support_user.email_with_display_name,
+      reply_to: @support_user.email_with_display_name,
       subject: t('mailers.expert_mailer.remind_involvement.subject')
     )
   end

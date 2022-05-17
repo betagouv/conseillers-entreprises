@@ -88,4 +88,8 @@ class Feedback < ApplicationRecord
   def solicitation
     feedbackable if feedbackable_type == "Solicitation"
   end
+
+  def expert
+    feedbackable if feedbackable_type == "Expert"
+  end
 end

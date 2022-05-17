@@ -1,6 +1,6 @@
-.fr-card.fr-card--no-arrow.fr-my-4w
-  .fr-card__body
-    %h4.fr-card__title
+.fr-my-4w.reminders.card
+  .card__header
+    %h2.fr-h4.fr-card__title
       = link_to expert.full_name.presence, quo_reminders_expert_path(expert), class: 'fr-card__link'
     .fr-grid-row
       .fr-col-7.fr-pb-2v
@@ -18,13 +18,6 @@
             %li
               %span.picto.ri-mail-line
               = mail_to expert.email, expert.email, class: 'break-word'
-        - if expert.users.many?
-          %h5.fr-accordion__title
-            %button.fr-accordion__btn{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
-              = t('.team_composition')
-          .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
-            - expert.users.each do |user|
-              = person_block(user, compact: true)
       .fr-col-5
         - expert.antenne.managers.each do |manager|
           %ul.list-unstyled.card-expert__list
@@ -38,6 +31,16 @@
               %li
                 %span.picto.ri-phone-fill
                 = link_to(manager.phone_number, "tel:#{manager.phone_number}")
+    - if expert.users.many?
+      .fr-grid-row
+        .fr-col-7
+          .fr-accordion__title
+            %button.fr-accordion__btn{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
+              = t('.team_composition')
+          .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
+            - expert.users.each do |user|
+              = person_block(user, compact: true)
+  .fr-card__body
     - cache ["positionning_rate", expert, expert.received_quo_matches] do
       .fr-grid-row
         .fr-col-7
@@ -57,7 +60,12 @@
             .bold= count
             .fr-ml-1v= t(name, scope: 'needs.collections').downcase
 
+    %hr
     %div{ id: "display-feedbacks-#{expert.id}" }
       = render partial: 'feedbacks/feedback', collection: expert.reminder_feedbacks.order(:created_at)
     = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
 
+  - if controller.action_name == 'critical_rate'
+    .card__footer
+      = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
+        = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'

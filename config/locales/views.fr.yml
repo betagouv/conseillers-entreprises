@@ -500,6 +500,7 @@ fr:
         subject: Avez-vous bien été rappelé ?
         tank_you: Merci pour votre confiance,
     cordially: Bien cordialement,
+    email_sent: L’email a bien été envoyé
     expert_mailer:
       first_notification_help:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
@@ -520,6 +521,11 @@ fr:
         support_contact_label: 'Si vous n’arrivez pas à accéder à cette demande, contactez :'
         this_company: L’entreprise
         via_partner_html: Cette demande a été déposée sur le site <a href='%{url}' target='_blank'>%{url}</a> avec lequel le service Place des Entreprises est en partenariat.
+      positioning_rate_reminders:
+        at_your_disposal: Je me tiens également à votre disposition pour toute modification de référencement ou si vous souhaitez faire un point sur la qualité des besoins transmis. Vos retours sont précieux pour nous aider à améliorer le service.
+        call_me: Si jamais vous ne recevez pas les besoins par mail, appelez-moi pour que nous regardions ensemble.
+        needs_quo_html: Je me permets de vous écrire car vous avez <strong>%{count} besoins d’entreprise</strong> en attente de votre positionnement sur Place des Entreprises. Vous pouvez les retrouver facilement en vous connectant sur votre %{account_link}.
+        user_account: compte utilisateur
       remind_involvement:
         needs_for_you: 'Ces entreprises ont besoin de vous :'
         needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
@@ -532,6 +538,9 @@ fr:
         company: Entreprise
       support_contacts:
         support_contact_html: en %{region}, %{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>
+      support_user_signature:
+        beta_gouv: Incubateur de Services Numériques / beta.gouv.fr
+        prime_minister: Services du Premier Ministre
     footer:
       contact_us_html: N’hésitez pas à %{mailto_link} pour toute question, nous sommes à votre service.
       contact_us_mailto_text: nous contacter
@@ -542,6 +551,7 @@ fr:
     place_des_entreprises_team_html: L’équipe %{link_to_root}.
     see_diagnosis: Voir la demande
     see_you_on_place_des_entreprises_html: À très vite sur %{link_to_root}.
+    sincerely: Bien à vous,
     solicitation:
       base_intro_html: Vous avez récemment déposé une demande sur le site %{link_to_root} (ou un site partenaire intégrant le service).
       subject: Votre demande sur Place des Entreprises
@@ -617,6 +627,7 @@ fr:
         siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
         solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
     team_pde: L’équipe Place des Entreprises
+    thank_you: Merci beaucoup,
     thank_you_to_used_our_service: Merci d’avoir utilisé notre service de mise en relation.
     thanks_for_your_comprehension: Merci pour votre compréhension.
     thanks_for_your_trust: Merci pour votre confiance,
@@ -781,6 +792,7 @@ fr:
         matches_total: Demandes depuis le début
         positionning_rate: Taux de positionnement sur 60 jours
         received_matches: reçues
+        send_reminders_email: Envoyer l’email de relance
         team_composition: Composition de l'équipe
       index:
         title: Relances par experts
@@ -797,6 +809,8 @@ fr:
           critical_rate: Critique
           pending_rate: Restant
           worrying_rate: À surveiller
+      send_reminder_email:
+        email_send: Email de relance envoyé
     index:
       title: Relances
     need:
@@ -821,8 +835,6 @@ fr:
           archive: Abandonnés
           poke: À relancer
           recall: À rappeler
-      send_abandoned_email:
-        email_sent: L’email a bien été envoyé
     section:
       experts: Par taux de positionnement d’expert
       needs: Par délai du besoin

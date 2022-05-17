@@ -152,6 +152,7 @@ Rails.application.routes.draw do
         get :done, path: 'cloturees'
         get :not_for_me, path: 'refusees'
         get :expired, path: 'expirees'
+        post :send_reminder_email
       end
     end
     resources :needs, path: 'besoins', only: %i[index] do
