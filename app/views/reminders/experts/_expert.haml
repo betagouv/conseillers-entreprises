@@ -31,16 +31,16 @@
               %li
                 %span.picto.ri-phone-fill
                 = link_to(manager.phone_number, "tel:#{manager.phone_number}")
-  .fr-card__body
     - if expert.users.many?
       .fr-grid-row
         .fr-col-7
           .fr-accordion__title
-            %button.card-expert__subtitle.fr-accordion__btn{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
+            %button.fr-accordion__btn{ 'aria-controls': "accordion-#{expert.id}", 'aria-expanded': 'false' }
               = t('.team_composition')
           .fr-collapse.team-members{ id: "accordion-#{expert.id}" }
             - expert.users.each do |user|
               = person_block(user, compact: true)
+  .fr-card__body
     - cache ["positionning_rate", expert, expert.received_quo_matches] do
       .fr-grid-row
         .fr-col-7
@@ -65,7 +65,7 @@
       = render partial: 'feedbacks/feedback', collection: expert.reminder_feedbacks.order(:created_at)
     = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
 
-  .card__footer
-    - if controller.action_name == 'critical_rate'
+  - if controller.action_name == 'critical_rate'
+    .card__footer
       = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
         = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
