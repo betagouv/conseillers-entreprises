@@ -11,7 +11,7 @@
   = f.hidden_field :completion_step
 
   .form__group
-    - @solicitation.company_required_fields.each do |field|
+    - @solicitation.company_step_required_fields.each do |field|
       .form__group
         - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
 

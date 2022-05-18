@@ -5,7 +5,7 @@
 #  id                               :bigint(8)        not null, primary key
 #  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
-#  completion_step                  :integer
+#  completion_step                  :integer          default("contact")
 #  created_in_deployed_region       :boolean          default(FALSE)
 #  description                      :string
 #  email                            :string
@@ -73,7 +73,7 @@ class Solicitation < ApplicationRecord
   ## Status
   enum status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
 
-  aasm column: :status, enum: true do
+  aasm :status, column: :status, enum: true do
     state :in_progress, initial: true
     state :processed
     state :canceled
@@ -94,23 +94,58 @@ class Solicitation < ApplicationRecord
 
   ## Completion steps
 
-  enum completion_step: { contact: 0, company: 1, description: 2 }
+  enum completion_step: { contact: 0, company: 1, description: 2, completed: 3 }, _prefix: true
+
+  aasm :completion_step, column: :completion_step, enum: true do
+    state :contact, initial: true
+    state :company
+    state :description
+    state :completed
+
+    event :step_company do
+      transitions from: [:contact], to: :company, if: :contact_info_filled?
+    end
+
+    event :step_description do
+      transitions from: [:company], to: :description, if: :company_info_filled?
+    end
+
+    event :step_completed do
+      transitions from: [:description], to: :completed, if: :description_info_filled?
+    end
+  end
+
+  def contact_info_filled?
+    contact_step_required_fields.all? do |attr|
+      self.public_send(attr).present?
+    end
+  end
+
+  def company_info_filled?
+    company_step_required_fields.all? do |attr|
+      self.public_send(attr).present?
+    end
+  end
+
+  def description_info_filled?
+    self.description.present?
+  end
 
   ## Validations
   #
   validates :landing, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate if: -> { (completion_step == nil && !persisted?) || completion_step == :contact } do
-    contact_required_fields.each do |attr|
+  validate if: -> { completion_step_company? } do
+    contact_step_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validate if: -> { (completion_step == nil && !persisted?) || completion_step == :company } do
-    company_required_fields.each do |attr|
+  validate if: -> { completion_step_description? } do
+    company_step_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validates :description, presence: true, allow_blank: false, if: -> { (completion_step == nil && !persisted?) || completion_step == :description }
+  validates :description, presence: true, allow_blank: false, if: -> { completion_step_completed? }
 
   ## Callbacks
   #
@@ -283,18 +318,9 @@ class Solicitation < ApplicationRecord
       .or(where(email: solicitation.email))
   }
 
+  scope :completion_step_incomplete, -> { where.not(completion_step: :completed) }
+
   scope :banned, -> { where(banned: true) }
-
-  # AB testing
-  #
-  scope :complete, -> { where.not(description: nil) }
-  scope :incomplete, -> { where(description: nil) }
-
-  scope :ab_testing_onepage, -> { where(completion_step: nil) }
-  scope :ab_testing_multistep, -> { where.not(completion_step: nil) }
-
-  scope :complete_onepage, -> { ab_testing_onepage.complete }
-  scope :complete_multistep, -> { ab_testing_multistep.complete }
 
   GENERIC_EMAILS_TYPES = %i[bad_quality bad_quality_difficulties out_of_region employee_labor_law particular_retirement creation siret moderation independent_tva intermediary recruitment_foreign_worker]
 
@@ -357,16 +383,16 @@ class Solicitation < ApplicationRecord
   BASE_REQUIRED_FIELDS = %i[full_name phone_number email]
   DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
 
-  def contact_required_fields
+  def contact_step_required_fields
     BASE_REQUIRED_FIELDS
   end
 
-  def company_required_fields
+  def company_step_required_fields
     landing_subject&.required_fields || %i[siret]
   end
 
   def required_fields
-    contact_required_fields + company_required_fields
+    contact_step_required_fields + company_step_required_fields
   end
 
   FIELD_TYPES = {
@@ -445,21 +471,5 @@ class Solicitation < ApplicationRecord
   def region
     return if code_region.nil?
     Territory.find_by(code_region: self.code_region)
-  end
-
-  # AB testing
-  #
-  def complete?
-    description.present?
-  end
-
-  def ab_testing_option
-    completion_step.nil? ? :onepage : :multistep
-  end
-
-  # c'est l'étape qui vient d'etre completee qui est enregistrée.
-  # L'étape en cours, celle où l'utilisateur s'est arrêtée, est l'étape suivante
-  def stop_completion_step
-    Solicitation.completion_steps.key(Solicitation.completion_steps[completion_step] + 1)
   end
 end

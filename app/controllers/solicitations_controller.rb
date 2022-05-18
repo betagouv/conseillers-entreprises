@@ -7,7 +7,6 @@ class SolicitationsController < PagesController
   def new
     solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
     @solicitation = @landing.solicitations.new(solicitation_params)
-    @solicitation.completion_step = :contact
     render :form_contact
   end
 
@@ -26,7 +25,7 @@ class SolicitationsController < PagesController
   def form_contact
     @landing = @solicitation.landing
     @landing_subject = @solicitation.landing_subject
-    @solicitation.completion_step = :contact
+
     render :form_contact
   end
 
@@ -36,13 +35,11 @@ class SolicitationsController < PagesController
     if @solicitation.errors.empty?
       redirect_to form_company_solicitations_path(anchor: 'section-formulaire')
     else
+      @landing = @solicitation.landing
+      @landing_subject = @solicitation.landing_subject
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_contact
     end
-  end
-
-  def form_company
-    @solicitation.completion_step = :company
   end
 
   def update_form_company
@@ -54,10 +51,6 @@ class SolicitationsController < PagesController
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :form_company
     end
-  end
-
-  def form_description
-    @solicitation.completion_step = :description
   end
 
   def update_form_description

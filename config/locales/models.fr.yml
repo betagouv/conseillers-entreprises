@@ -49,17 +49,17 @@ fr:
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
-      complete: Terminées
-      complete_multistep: Terminées multistep
-      complete_onepage: Terminées onepage
       completed: Analyses terminées
+      completion_step_company: Etape entreprise
+      completion_step_completed: Terminées
+      completion_step_description: Etape description
+      completion_step_incomplete: Incomplètes
       deleted: Supprimés
       diagnosis_completed: Analyses terminées
       done: Clôturé
       expert_provider: Fournisseur d’experts
       from_solicitation: Sollicitations
       from_visit: Visites
-      incomplete: Incomplètes
       invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
       managers: Responsables d’antenne
