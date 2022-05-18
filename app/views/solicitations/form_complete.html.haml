@@ -3,13 +3,13 @@
     description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
 
 - content_for :head do
-  = render 'landings/landing_subjects/tags_conversion'
+  = render 'tags_conversion'
 
 - content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
 
 %section.section.section-grey#section-thankyou
   .container.container-medium
-    = render 'landings/landing_subjects/new_solicitation_thank_you', solicitation: @solicitation, landing_subject: @landing_subject
+    = render 'new_solicitation_thank_you', solicitation: @solicitation, landing_subject: @landing_subject
     - if @solicitation.landing_subject.logos.present?
       = render 'landings/landings/logos', landing_subject: @solicitation.landing_subject
 = render 'solicitations/matomo_company_contact_success'

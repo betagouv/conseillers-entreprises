@@ -1,15 +1,7 @@
 .card.block-link
   .card__content
-    - landing_subject_path = landing_subject_path(landing, landing_subject, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
-    - if in_iframe?
-      %h3= link_to landing_subject.title.html_safe, landing_subject_path, class: 'click-on-landing-option'
-    - else
-      - ab_test(:solicitation_form, { 'onepage' => 1 }, { 'multistep' => 2 }) do |form|
-        - if form == 'multistep'
-          - path = form_contact_landing_subject_path(landing, landing_subject, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
-        - else
-          - path = landing_subject_path
-        %h3= link_to landing_subject.title.html_safe, path, class: 'click-on-landing-option'
+    - path = new_solicitation_path(landing_id: landing.id, landing_subject_id: landing_subject.id, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
+    %h3= link_to landing_subject.title.html_safe, path, class: 'click-on-landing-subject'
     - if landing_subject.description?
       %p= sanitize landing_subject.description.html_safe
   .discover_button

@@ -1,7 +1,15 @@
 class SolicitationsController < PagesController
-  before_action :find_solicitation, except: [:create]
+  before_action :retrieve_landing_subject, only: [:new]
+  before_action :find_solicitation, except: [:new, :create]
 
   layout 'solicitation_form', except: [:form_complete]
+
+  def new
+    solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
+    @solicitation = @landing.solicitations.new(solicitation_params)
+    @solicitation.completion_step = :contact
+    render :form_contact
+  end
 
   def create
     sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
@@ -19,7 +27,7 @@ class SolicitationsController < PagesController
     @landing = @solicitation.landing
     @landing_subject = @solicitation.landing_subject
     @solicitation.completion_step = :contact
-    render 'solicitations/form_contact'
+    render :form_contact
   end
 
   def update_form_contact
@@ -90,5 +98,18 @@ class SolicitationsController < PagesController
     saved_params.merge!(query_params)
     session.delete(:solicitation_form_info)
     { form_info: saved_params }
+  end
+
+  def retrieve_landing_subject
+    @landing_subject = LandingSubject.not_archived.find(params[:landing_subject_id])
+    @landing = Landing.not_archived.find(params[:landing_id])
+    redirect_to root_path, status: :moved_permanently if (@landing_subject.nil? || @landing.nil?)
+  end
+
+  # Params envoyés dans les iframes pour pré-remplir le formulaire
+  def retrieve_solicitation_params
+    # On ne cherche que dans les params, car contexte d'iframe = pas de session
+    query_params = view_params.slice(:siret)
+    { siret: query_params['siret'] }
   end
 end

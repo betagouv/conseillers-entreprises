@@ -1,5 +1,5 @@
 - content_for :head do
-  = render 'landings/landing_subjects/tags_conversion'
+  = render 'tags_conversion'
 
 - if in_iframe?
   .thank_you_iframe
@@ -21,7 +21,7 @@
     %p.section__subtitle
       = t('.message_with_institution', institution: solicitation.institution.name)
 
-    = render 'landings/landing_subjects/matomo_partner_contact'
+    = render 'matomo_partner_contact'
 
   - else
     %p.section__subtitle.text-left
