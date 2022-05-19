@@ -45,7 +45,7 @@ ActiveAdmin.register Match do
     column :contacted_expert do |m|
       div admin_link_to(m, :expert)
       div admin_link_to(m, :expert_antenne)
-      div link_to('Page Analyse', diagnosis_path(m.diagnosis))
+      div link_to(I18n.t('active_admin.matches.need_page'), need_path(m.need))
     end
     column(:subject) do |m|
       div admin_link_to(m, :theme)
