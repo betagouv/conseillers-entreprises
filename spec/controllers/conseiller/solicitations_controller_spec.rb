@@ -6,6 +6,8 @@ RSpec.describe Conseiller::SolicitationsController, type: :controller do
   login_admin
 
   describe 'index pages' do
+    let!(:step_company) { create :solicitation, status: :step_company }
+    let!(:step_description) { create :solicitation, status: :step_description, description: nil }
     let!(:in_progress) { create :solicitation, status: :in_progress }
     # solicitation in progress with feedback
     let!(:feedback) { create :feedback, :for_solicitation }

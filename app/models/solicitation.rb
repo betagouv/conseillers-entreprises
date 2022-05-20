@@ -5,7 +5,6 @@
 #  id                               :bigint(8)        not null, primary key
 #  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
-#  completion_step                  :integer          default("contact")
 #  created_in_deployed_region       :boolean          default(FALSE)
 #  description                      :string
 #  email                            :string
@@ -17,7 +16,7 @@
 #  prepare_diagnosis_errors_details :jsonb
 #  requested_help_amount            :string
 #  siret                            :string
-#  status                           :enum             default("in_progress"), not null
+#  status                           :integer          default("step_contact")
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  institution_id                   :bigint(8)
@@ -71,12 +70,34 @@ class Solicitation < ApplicationRecord
   #
 
   ## Status
-  enum status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
+  # # A supprimer une fois migrations passées
+  # enum old_status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
+  # enum completion_step: { contact: 0, company: 1, description: 2, completed: 3 }, _prefix: true
+
+  enum status: {
+    step_contact: 0, step_company: 1, step_description: 2,
+    in_progress: 3, processed: 4, canceled: 5
+  }, _prefix: true
 
   aasm :status, column: :status, enum: true do
-    state :in_progress, initial: true
+    state :step_contact, initial: true
+    state :step_company
+    state :step_description
+    state :in_progress
     state :processed
     state :canceled
+
+    event :go_to_step_company do
+      transitions from: [:step_contact], to: :step_company, if: :contact_info_filled?
+    end
+
+    event :go_to_step_description do
+      transitions from: [:step_company], to: :step_description, if: :company_info_filled?
+    end
+
+    event :complete do
+      transitions from: [:step_description], to: :in_progress, if: :description_info_filled?
+    end
 
     event :cancel do
       # une solicitation peut être doublement canceled : "mauvais siret" qui se transforme en "hors région"
@@ -88,33 +109,8 @@ class Solicitation < ApplicationRecord
     end
   end
 
-  def diagnosis_completed?
-    self.diagnosis.step_completed?
-  end
-
-  ## Completion steps
-
-  enum completion_step: { contact: 0, company: 1, description: 2, completed: 3 }, _prefix: true
-
-  aasm :completion_step, column: :completion_step, enum: true do
-    state :contact, initial: true
-    state :company
-    state :description
-    state :completed
-
-    event :step_company do
-      transitions from: [:contact], to: :company, if: :contact_info_filled?
-    end
-
-    event :step_description do
-      transitions from: [:company], to: :description, if: :company_info_filled?
-    end
-
-    event :step_completed do
-      transitions from: [:description], to: :completed, if: :description_info_filled?
-    end
-  end
-
+  # State machine validations
+  #
   def contact_info_filled?
     contact_step_required_fields.all? do |attr|
       self.public_send(attr).present?
@@ -131,21 +127,37 @@ class Solicitation < ApplicationRecord
     self.description.present?
   end
 
+  def diagnosis_completed?
+    self.diagnosis.step_completed?
+  end
+
+  def self.completion_steps
+    statuses.keys.grep(/^step/)
+  end
+
+  def self.completed_statuses
+    statuses.keys.grep_v(/^step/)
+  end
+
+  def step_complete?
+    self.class.completed_statuses.include?(status)
+  end
+
   ## Validations
   #
   validates :landing, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate if: -> { completion_step_company? } do
+  validate if: -> { status_step_contact? || status_step_company? } do
     contact_step_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validate if: -> { completion_step_description? } do
-    company_step_required_fields.each do |attr|
+  validate if: -> { status_step_description? } do
+    required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validates :description, presence: true, allow_blank: false, if: -> { completion_step_completed? }
+  validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? }
 
   ## Callbacks
   #
@@ -194,6 +206,7 @@ class Solicitation < ApplicationRecord
 
   ## Scopes
   #
+  scope :complete, -> { where(status: completed_statuses)}
   scope :omnisearch, -> (query) do
     if query.present?
       where(id: have_badge(query))
@@ -272,6 +285,9 @@ class Solicitation < ApplicationRecord
       .where(matches: { id: nil })
   }
 
+  scope :step_complete, -> { where(status: [:in_progress, :processed, :canceled]) }
+  scope :step_incomplete, -> { where(status: [:step_contact, :step_company, :step_description]) }
+
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
 
   scope :in_regions, -> (codes_regions) do
@@ -317,8 +333,6 @@ class Solicitation < ApplicationRecord
     where(siret: solicitation.valid_sirets)
       .or(where(email: solicitation.email))
   }
-
-  scope :completion_step_incomplete, -> { where.not(completion_step: :completed) }
 
   scope :banned, -> { where(banned: true) }
 

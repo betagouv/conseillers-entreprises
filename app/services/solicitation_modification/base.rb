@@ -35,10 +35,11 @@ module SolicitationModification
       @params[:code_region].present? && Territory.deployed_codes_regions.include?(@params[:code_region].to_i)
     end
 
+    # on gère automatiquement les étapes du formulaire de création d'une solicitation
     def manage_completion_step
-      return if @solicitation.completion_step_completed?
-      next_possible_steps = @solicitation.aasm(:completion_step).states(permitted: true).map(&:name)
-      @solicitation.completion_step = next_possible_steps.first unless next_possible_steps.empty?
+      return if @solicitation.step_complete?
+      next_possible_statuses = @solicitation.aasm(:status).states(permitted: true).map(&:name)
+      @solicitation.status = next_possible_statuses.first unless next_possible_statuses.empty?
     end
   end
 end

@@ -846,9 +846,9 @@ fr:
         phone_number: 'ex: 06 12 34 56 78'
         siret: 123 456 789 00010
       steps:
-        company: Votre entreprise
-        contact: Vos coordonnées
-        description: Votre demande
+        step_company: Votre entreprise
+        step_contact: Vos coordonnées
+        step_description: Votre demande
       submit_in_progress: Envoi en cours...
     header:
       canceled: abandonnées

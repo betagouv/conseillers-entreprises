@@ -1,6 +1,6 @@
 module SolicitationHelper
   def solicitation_step_class(index, current_step)
-    steps = Solicitation.completion_steps.keys
+    steps = Solicitation.completion_steps
     current_step_index = steps.index(current_step.to_s)
     if index < current_step_index
       'done'
@@ -54,8 +54,8 @@ module SolicitationHelper
       subject = landing_subject.subject
       title_components[t('attributes.subject')] = subject
       title = "#{t('attributes.subject')} : #{subject}"
-
-      link_to landing_subject.title, landing_subject_path(solicitation.landing, solicitation.landing_subject), class: classes, title: title
+      path = new_solicitation_path(landing_id: solicitation.landing.id, landing_subject_id: solicitation.landing_subject.id, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
+      link_to landing_subject.title, path, class: classes, title: title
     end
   end
 

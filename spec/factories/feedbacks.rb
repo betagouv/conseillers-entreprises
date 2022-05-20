@@ -15,7 +15,7 @@ FactoryBot.define do
 
     trait :for_solicitation do
       category { :solicitation }
-      association :feedbackable, factory: :solicitation
+      association :feedbackable, factory: :solicitation, status: :in_progress
     end
   end
 end

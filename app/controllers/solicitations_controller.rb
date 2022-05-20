@@ -76,7 +76,7 @@ class SolicitationsController < PagesController
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:landing_id, :landing_subject_id, :description, :code_region, :completion_step,
+      .permit(:landing_id, :landing_subject_id, :description, :code_region, :status,
               *Solicitation::FIELD_TYPES.keys)
   end
 

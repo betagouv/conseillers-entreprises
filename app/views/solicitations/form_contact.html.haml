@@ -15,7 +15,7 @@
       = image_tag('5days-b.png', alt: '')
       %p
         = t('solicitations.creation_form.five_days_contact_html')
-  = render 'solicitations/steps', current_step: @solicitation.completion_step
+  = render 'solicitations/steps', current_status: @solicitation.status
 
 - if @solicitation.persisted?
   - path = update_form_contact_solicitations_path
@@ -25,7 +25,7 @@
 = form_with(model: @solicitation, url: path, local: true, html: { honeypot: true }) do |f|
   = f.hidden_field :landing_subject_id
   = f.hidden_field :landing_id
-  = f.hidden_field :completion_step
+  = f.hidden_field :status
   .form__group
     - @solicitation.contact_step_required_fields.each do |field|
       .form__group

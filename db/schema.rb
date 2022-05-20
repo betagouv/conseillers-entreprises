@@ -45,12 +45,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_18_135959) do
     "stats",
   ], force: :cascade
 
-  create_enum :solicitation_status, [
-    "in_progress",
-    "processed",
-    "canceled",
-  ], force: :cascade
-
   create_enum :territorial_level, [
     "local",
     "regional",
@@ -501,8 +495,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_18_135959) do
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
     t.boolean "banned", default: false
-    t.enum "status", default: "in_progress", null: false, enum_type: "solicitation_status"
-    t.integer "completion_step", default: 0
+    t.integer "status", default: 0
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"

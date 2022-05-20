@@ -8,11 +8,16 @@ RSpec.describe Solicitation, type: :model do
   end
 
   describe 'validations' do
+    before { allow(subject).to receive(:status_step_contact?).and_return(true) }
+
     it { is_expected.to validate_presence_of :landing }
-    it { is_expected.to validate_presence_of :description }
     it { is_expected.to validate_presence_of :full_name }
     it { is_expected.to validate_presence_of :phone_number }
     it { is_expected.to validate_presence_of :email }
+    context 'in_progress' do
+      before { allow(subject).to receive(:status_in_progress?).and_return(true) }
+      it { is_expected.to validate_presence_of :description }
+    end
   end
 
   describe 'callbacks' do

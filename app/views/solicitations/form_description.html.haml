@@ -5,10 +5,10 @@
 - content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
 
 - content_for :form_header do
-  = render 'solicitations/steps', current_step: @solicitation.completion_step
+  = render 'solicitations/steps', current_status: @solicitation.status
 
 = form_with(model: @solicitation, url: update_form_description_solicitations_path, local: true, html: { honeypot: true }) do |f|
-  = f.hidden_field :completion_step
+  = f.hidden_field :status
 
   .form__group
     = f.label 'description', t('solicitations.creation_form.description')
