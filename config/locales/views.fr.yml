@@ -41,6 +41,9 @@ fr:
     search:
       all_regions: Toutes
       filter: Filtrer
+      many_users:
+        many_users_find: Plusieurs conseillers ont été trouvé, selectionnez celui que vous cherchez.
+      search: Chercher
       select_region: Selectionnez une région
     users:
       index:
@@ -87,6 +90,7 @@ fr:
   at_your_disposal: Nous restons à votre disposition pour tout complément d'informations.
   attributes:
     is_global_zone: Térritoire national
+  back: Retour
   badges:
     index:
       add_badge: Ajouter un tag

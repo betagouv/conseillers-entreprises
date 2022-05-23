@@ -91,10 +91,14 @@ module  Annuaire
     end
 
     def advisors
-      advisors = if session[:highlighted_antennes_ids] && @antenne.nil?
-        @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
+      if params[:advisor].present?
+        searched_advisor = User.find(params[:advisor])
+        flash[:table_highlighted_ids] = [searched_advisor.id]
+        advisors = @antenne.advisors.joins(:antenne)
+      elsif session[:highlighted_antennes_ids] && @antenne.nil?
+        advisors = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
       else
-        (@antenne || @institution).advisors.joins(:antenne)
+        advisors = (@antenne || @institution).advisors.joins(:antenne)
       end
       session.delete(:highlighted_antennes_ids)
       advisors

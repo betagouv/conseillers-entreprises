@@ -193,6 +193,11 @@ Rails.application.routes.draw do
       end
     end
 
+    controller :search do
+      post :search, as: 'annuaire_search'
+      get :many_users
+    end
+
     resources :institutions, param: :slug, only: %i[index show], concerns: :region_search do
       resources :subjects, path: 'domaines', only: :index
       resources :users, path: 'conseillers', only: :index, concerns: [:importable, :region_search] do
