@@ -232,12 +232,12 @@ Rails.application.routes.draw do
 
   resources :solicitations, only: %i[create new], path: 'votre-demande', path_names: { new: 'nouvelle-demande' } do
     collection do
-      get :form_contact, path: 'contact'
-      patch :update_form_contact
-      get :form_company, path: 'etablissement'
-      patch :update_form_company
-      get :form_description, path: 'description'
-      patch :update_form_description
+      get :step_contact, path: 'contact'
+      patch :update_step_contact
+      get :step_company, path: 'etablissement'
+      patch :update_step_company
+      get :step_description, path: 'description'
+      patch :update_step_description
       get :form_complete, path: 'merci'
     end
   end

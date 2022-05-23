@@ -62,7 +62,6 @@ class Solicitation < ApplicationRecord
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
   before_create :set_institution_from_landing
-  before_create :format_solicitation
 
   paginates_per 50
 
@@ -95,7 +94,7 @@ class Solicitation < ApplicationRecord
       transitions from: [:step_company], to: :step_description, if: :company_info_filled?
     end
 
-    event :complete do
+    event :complete, after: :format_solicitation do
       transitions from: [:step_description], to: :in_progress, if: :description_info_filled?
     end
 

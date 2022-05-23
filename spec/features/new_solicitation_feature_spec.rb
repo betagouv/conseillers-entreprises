@@ -13,7 +13,6 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
 
     context "from home page" do
       before do
-        use_ab_test(solicitation_form: "multistep")
         landing.landing_themes << landing_theme
       end
 
@@ -42,7 +41,6 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
 
     context "from pk campaign" do
       before do
-        use_ab_test(solicitation_form: "multistep")
         landing.landing_themes << landing_theme
         visit '/?pk_campaign=FOO&pk_kwd=BAR'
         click_link 'Test Landing Theme'
@@ -73,7 +71,6 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
 
     context "with siret in url" do
       before do
-        use_ab_test(solicitation_form: "multistep")
         landing.landing_themes << landing_theme
         visit '/?siret=12345678900010'
         click_link 'Test Landing Theme'

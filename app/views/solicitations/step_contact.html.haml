@@ -18,7 +18,7 @@
   = render 'solicitations/steps', current_status: @solicitation.status
 
 - if @solicitation.persisted?
-  - path = update_form_contact_solicitations_path
+  - path = update_step_contact_solicitations_path
 - else
   - path = solicitations_path
 
