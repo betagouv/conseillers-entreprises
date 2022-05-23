@@ -40,31 +40,31 @@ RSpec.describe InvolvementConcern do
     describe 'needs_taking_care' do
       subject { user.needs_taking_care }
 
-      it { is_expected.to contain_exactly(need_taking_care) }
+      it { is_expected.to match_array([need_taking_care]) }
     end
 
     describe 'needs_quo' do
       subject { user.needs_quo }
 
-      it { is_expected.to contain_exactly(need_quo, need_other_taking_care, need_other_done) }
+      it { is_expected.to match_array([need_quo, need_other_taking_care, need_other_done]) }
     end
 
     describe 'needs_others_taking_care' do
       subject { user.needs_others_taking_care }
 
-      it { is_expected.to contain_exactly(need_other_taking_care) }
+      it { is_expected.to match_array([need_other_taking_care]) }
     end
 
     describe 'needs_not_for_me' do
       subject { user.needs_not_for_me }
 
-      it { is_expected.to contain_exactly(need_not_for_me) }
+      it { is_expected.to match_array([need_not_for_me]) }
     end
 
     describe 'needs_done' do
       subject { user.needs_done }
 
-      it { is_expected.to contain_exactly(need_done) }
+      it { is_expected.to match_array([need_done]) }
     end
 
     describe 'needs_archived' do
@@ -85,7 +85,7 @@ RSpec.describe InvolvementConcern do
 
       subject { user.needs_archived }
 
-      it { is_expected.to contain_exactly(need_archived, need_quo_expert_match_archived) }
+      it { is_expected.to match_array([need_archived, need_quo_expert_match_archived]) }
     end
   end
 
@@ -112,6 +112,6 @@ RSpec.describe InvolvementConcern do
 
     subject { user.needs_expired }
 
-    it { is_expected.to contain_exactly(need_2, need_4) }
+    it { is_expected.to match_array([need_2, need_4]) }
   end
 end

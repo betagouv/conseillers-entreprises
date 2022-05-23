@@ -234,8 +234,16 @@ class Need < ApplicationRecord
     end
   end
 
+  scope :in_antenne_perimeters, -> (antenne) do
+    Need.where(id: antenne.perimeter_received_needs)
+  end
+
   scope :by_region, -> (region) do
     joins(facility: :commune).merge(Commune.by_region(region))
+  end
+
+  scope :in_antennes_perimeters, -> (antennes) do
+    Need.where(id: antennes.collect(&:perimeter_received_needs).flatten)
   end
 
   ## Search

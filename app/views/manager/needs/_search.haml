@@ -1,0 +1,9 @@
+- if current_user.managed_antennes.many?
+  = form_with url: request.path, method: :get, local: true do |f|
+    .fr-select-group.fr-mb-2w{ role: "search" }
+      = f.label :antenne_id, t('.select_antenne'), class: 'fr-label'
+      = f.collection_select :antenne_id, current_user.managed_antennes.order(:name), :id, :name, { selected: params[:antenne_id],
+        prompt: t('.all_antennes') }, required: true, class: "fr-select fr-mb-2v", include_blank: 'Select a country'
+      = f.submit t('.filter'), class: 'fr-btn'
+      - if params[:antenne_id].present?
+        = link_to t('.clear_search'), request.path, class: 'fr-btn fr-btn--secondary'
