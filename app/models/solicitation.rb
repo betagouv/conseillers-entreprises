@@ -206,7 +206,7 @@ class Solicitation < ApplicationRecord
 
   ## Scopes
   #
-  scope :complete, -> { where(status: completed_statuses)}
+  scope :complete, -> { where(status: completed_statuses) }
   scope :omnisearch, -> (query) do
     if query.present?
       where(id: have_badge(query))
