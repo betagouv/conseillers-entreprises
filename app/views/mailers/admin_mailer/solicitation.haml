@@ -12,7 +12,7 @@
   %li= mail_to @solicitation.email
   %li= @solicitation.normalized_phone_number
   - if @solicitation.siret.present?
-    %li= link_to "SIRET : #{@solicitation.siret}", company_url(@solicitation.siret)
+    %li= link_to "SIRET : #{@solicitation.siret}", show_with_siret_companies_url(@solicitation.siret)
 
 %h3= t('activerecord.attributes.solicitation.tracking')
 = render partial: 'solicitations/tracking', locals: { solicitation: @solicitation }

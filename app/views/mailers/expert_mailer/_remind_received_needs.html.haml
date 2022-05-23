@@ -5,7 +5,7 @@
 - diagnoses = Diagnosis.where(needs: received_needs).distinct.order!(happened_on: :desc)
 - diagnoses.each do |diagnosis|
   %h3
-    - company_link = diagnosis.facility.siret.present? ? company_url(diagnosis.facility.siret) : '#'
+    - company_link = diagnosis.facility.present? ? company_url(diagnosis.facility) : '#'
     = t('.company')
     = link_to diagnosis.company.name, company_link
     - if visited_at
