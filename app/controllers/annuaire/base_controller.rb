@@ -1,6 +1,6 @@
 module Annuaire
   class BaseController < ApplicationController
-    before_action :retrieve_institution
+    before_action :retrieve_institution, except: :search
     layout 'annuaire'
 
     def retrieve_institution
