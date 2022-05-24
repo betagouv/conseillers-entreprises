@@ -187,25 +187,19 @@ Rails.application.routes.draw do
       post :import, action: :import_create, on: :collection
     end
 
-    concern :region_search do
-      collection do
-        get :clear_search
-      end
-    end
-
     controller :search do
       post :search, as: 'annuaire_search'
       get :many_users
     end
 
-    resources :institutions, param: :slug, only: %i[index show], concerns: :region_search do
+    resources :institutions, param: :slug, only: %i[index show] do
       resources :subjects, path: 'domaines', only: :index
-      resources :users, path: 'conseillers', only: :index, concerns: [:importable, :region_search] do
+      resources :users, path: 'conseillers', only: :index, concerns: [:importable] do
         collection do
           post :send_invitations
         end
       end
-      resources :antennes, only: :index, concerns: [:importable, :region_search] do
+      resources :antennes, only: :index, concerns: [:importable] do
         resources :users, path: 'conseillers', only: :index
       end
     end

@@ -106,7 +106,6 @@ fr:
     home_link:
       home: Accueil
       pde: Place des Entreprises
-  clear_search: Réinitialiser la recherche
   companies:
     company:
       capital_social: Capital social
