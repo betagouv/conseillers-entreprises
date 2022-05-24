@@ -31,6 +31,10 @@ class InstitutionPolicy < ApplicationPolicy
     admin?
   end
 
+  def many_users?
+    admin?
+  end
+
   def clear_search?
     search?
   end
