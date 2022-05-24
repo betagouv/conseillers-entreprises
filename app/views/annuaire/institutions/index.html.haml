@@ -3,5 +3,5 @@
 .fr-container
   %h1= title
 
-  = render 'annuaire/search', form_url: institutions_path, init_url: clear_search_institutions_path
+  = render 'annuaire/base/search'
   = render 'table', institutions: @institutions

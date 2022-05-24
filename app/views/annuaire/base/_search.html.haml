@@ -1,0 +1,23 @@
+= form_with url: annuaire_search_path, local: true, class: 'fr-mb-3w' do |f|
+  .fr-grid-row
+    .fr-col
+      .fr-select-group.fr-pr-2v
+        = f.label :by_institution, t('attributes.institution'), class: 'fr-label'
+        = f.collection_select :by_institution, Institution.not_deleted.order(:name), :slug, :name, { selected: params[:by_institution],
+          prompt: t('all.feminine') }, required: true, class: "fr-select"
+    .fr-col
+      .fr-input-group
+        = f.label :by_antenne, t('attributes.antenne'), class: 'fr-label'
+        = f.collection_select :by_antenne, Antenne.not_deleted.order(:name), :id, :name, { selected: params[:by_antenne],
+          prompt: t('all.feminine') }, class: "fr-select"
+  .fr-grid-row.fr-mt-2w
+    .fr-col
+      .fr-select-group.fr-pr-2v
+        = f.label :by_region, t('attributes.region'), class: 'fr-label'
+        = f.collection_select :by_region, Territory.regions.order(:name), :id, :name, { selected: params[:by_region],
+          prompt: t('all.feminine') }, class: "fr-select"
+    .fr-col
+      .fr-input-group
+        = f.label :by_name, t('attributes.advisor'), class: 'fr-label'
+        = f.text_field :by_name, value: params[:by_name], class: 'fr-input'
+  = f.submit t('.submit'), class: 'fr-btn fr-mt-2w'

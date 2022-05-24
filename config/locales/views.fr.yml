@@ -38,13 +38,13 @@ fr:
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
+      search:
+        submit: Chercher
     search:
-      all_regions: Toutes
-      filter: Filtrer
       many_users:
         many_users_find: Plusieurs conseillers ont été trouvé, selectionnez celui que vous cherchez.
-      search: Chercher
-      select_region: Selectionnez une région
+      no_user:
+        no_user: Aucun utilisateur n'a été trouvé
     users:
       index:
         send_invitations:
