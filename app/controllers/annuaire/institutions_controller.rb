@@ -1,6 +1,5 @@
 module  Annuaire
   class InstitutionsController < BaseController
-    before_action :retrieve_region_id, only: :index
     skip_before_action :retrieve_institution
     before_action :retrieve_institutions, only: :index
 
@@ -10,11 +9,6 @@ module  Annuaire
 
     def show
       redirect_to institution_subjects_path(params[:slug])
-    end
-
-    def clear_search
-      clear_annuaire_session
-      redirect_to institutions_path
     end
 
     private

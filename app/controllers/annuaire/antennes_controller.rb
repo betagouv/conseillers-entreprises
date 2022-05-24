@@ -1,6 +1,5 @@
 module  Annuaire
   class AntennesController < BaseController
-    before_action :retrieve_region_id, only: :index
     before_action :retrieve_antennes, only: :index
 
     def index
@@ -11,11 +10,6 @@ module  Annuaire
           send_data result.csv, type: 'text/csv; charset=utf-8', disposition: "attachment; filename=#{result.filename}.csv"
         end
       end
-    end
-
-    def clear_search
-      clear_annuaire_session
-      redirect_to institution_antennes_path(@institution)
     end
 
     def import; end

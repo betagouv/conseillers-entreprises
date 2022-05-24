@@ -1,6 +1,5 @@
 module  Annuaire
   class UsersController < BaseController
-    before_action :retrieve_region_id, only: :index
     before_action :retrieve_antenne, only: :index
     before_action :retrieve_users, only: :index
 
@@ -24,15 +23,6 @@ module  Annuaire
           result = @users.export_xlsx(include_expert_team: true, institutions_subjects: institutions_subjects)
           send_data result.xlsx.to_stream.read, type: "application/xlsx", filename: xlsx_filename
         end
-      end
-    end
-
-    def clear_search
-      clear_annuaire_session
-      if params[:antenne].present?
-        redirect_to institution_antenne_users_path(@institution, params[:antenne])
-      else
-        redirect_to institution_users_path(@institution)
       end
     end
 

@@ -127,6 +127,21 @@ class User < ApplicationRecord
       .merge(Expert.support_experts)
   end
 
+  # Search
+  scope :by_institution, -> (institution_slug) do
+    joins(antenne: :institution)
+      .where(antennes: { institutions: { slug: institution_slug } })
+  end
+
+  scope :by_name, -> (query) do
+    where('full_name ILIKE ?', "%#{query}%")
+  end
+
+  scope :by_antenne, -> (antenne) do
+    where(antenne: antenne)
+  end
+
+
   # Team stuff
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
   scope :team_members, -> { not_deleted.joins(:experts).merge(Expert.teams) }

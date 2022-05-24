@@ -2,7 +2,7 @@
 - content_for :header, render('header', institution: @institution, antenne: @antenne)
 - content_for :menu, render('menu', institution: @institution)
 
-= render 'annuaire/search', form_url: institution_users_path(@institution), init_url: clear_search_institution_users_path(@institution, antenne: @antenne&.id)
+= render 'annuaire/search'
 
 = render 'import_buttons'
 
