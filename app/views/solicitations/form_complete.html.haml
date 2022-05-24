@@ -3,9 +3,9 @@
 
 - content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @landing_subject)
 
-- if in_iframe?
-  %section.section.section-grey#section-thankyou
-    .container.container-medium
+%section.section.section-grey#section-thankyou
+  .container.container-medium
+    - if in_iframe?
       .thank_you_iframe
         %h2.section__title= t('.title')
 
@@ -18,9 +18,7 @@
             %h2.section__subtitle= t('iframe.partners_logo')
             = render 'landings/landings/logos', landing_subject: @landing_subject
 
-- else
-  %section.section.section-grey#section-thankyou
-    .container.container-medium
+    - else
       %h2.section__title.text-left= t('.title')
 
       - if @solicitation.institution
@@ -36,14 +34,14 @@
       - if @landing_subject.logos.present?
         = render 'landings/landings/logos', landing_subject: @landing_subject
 
-    %section.section.section-white.container-newsletter
-      .container
-        = render 'newsletter', email: @solicitation.email
+- unless in_iframe?
+  %section.section.section-white.container-newsletter
+    .container
+      = render 'newsletter', email: @solicitation.email
 
-    %section.section.section-grey
-      .container.section__title
-        %a{ :href => "https://jedonnemonavis.numerique.gouv.fr/Demarches/2666?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=217cc9ca5ab6c2999a02839fdd402d01", target: '_blank' }
-          %img{ :alt => t('solicitations.creation_form.give_my_opinion_alt'), :src => "https://jedonnemonavis.numerique.gouv.fr/static/bouton-blanc.svg", :title => t('solicitations.creation_form.give_my_opinion_title') }
-
+  %section.section.section-grey
+    .container.section__title
+      %a{ :href => "https://voxusagers.numerique.gouv.fr/Demarches/2666?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=217cc9ca5ab6c2999a02839fdd402d01", target: '_blank' }
+        %img{ :alt => t('solicitations.creation_form.give_my_opinion_alt'), :src => "https://voxusagers.numerique.gouv.fr/static/bouton-blanc.svg", :title => t('solicitations.creation_form.give_my_opinion_title') }
 
 = render 'solicitations/matomo_company_contact_success'

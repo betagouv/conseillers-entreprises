@@ -1,8 +1,9 @@
 class SolicitationsController < PagesController
+  include IframePrefix
+
   before_action :retrieve_landing_subject, only: [:new]
   before_action :find_solicitation, except: [:new, :create]
   before_action :retrieve_landing_subject_from_solicitation, only: [:step_contact, :update_step_contact, :form_complete]
-  include IframePrefix
 
   layout 'solicitation_form', except: [:form_complete]
 
