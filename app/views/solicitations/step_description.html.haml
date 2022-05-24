@@ -25,3 +25,6 @@
   .form__group.submit-buttons
     = render 'previous_button', path: step_company_solicitations_path(anchor: 'section-formulaire')
     = f.submit t('solicitations.creation_form.buttons.send'), class: 'button large', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }
+
+- content_for :footer do
+  = render 'iframe_footer', landing: @solicitation.landing

@@ -1,25 +1,49 @@
-:ruby
-  meta title: @solicitation.landing_subject.meta_title.presence || @solicitation.landing_subject.title.presence || @solicitation.landing_subject.landing_theme.meta_title,
-    description: @solicitation.landing_subject.meta_description.presence || @solicitation.landing_subject.description.presence || @solicitation.landing_subject.landing_theme.meta_description
-
 - content_for :head do
   = render 'tags_conversion'
 
-- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
+- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @landing_subject)
 
-%section.section.section-grey#section-thankyou
-  .container.container-medium
-    = render 'new_solicitation_thank_you', solicitation: @solicitation, landing_subject: @landing_subject
-    - if @solicitation.landing_subject.logos.present?
-      = render 'landings/landings/logos', landing_subject: @solicitation.landing_subject
+- if in_iframe?
+  %section.section.section-grey#section-thankyou
+    .container.container-medium
+      .thank_you_iframe
+        %h2.section__title= t('.title')
+
+        .section__subtitle
+          = t('.iframe_message_html')
+        = image_tag 'logo-PDE.svg', alt: t('logos.pde')
+
+        %section.section.section-grey
+          .container
+            %h2.section__subtitle= t('iframe.partners_logo')
+            = render 'landings/landings/logos', landing_subject: @landing_subject
+
+- else
+  %section.section.section-grey#section-thankyou
+    .container.container-medium
+      %h2.section__title.text-left= t('.title')
+
+      - if @solicitation.institution
+        %p.section__subtitle
+          = t('.message_with_institution', institution: @solicitation.institution.name)
+
+        = render 'matomo_partner_contact'
+
+      - else
+        %p.section__subtitle.text-left
+          = t('.message_html')
+
+      - if @landing_subject.logos.present?
+        = render 'landings/landings/logos', landing_subject: @landing_subject
+
+    %section.section.section-white.container-newsletter
+      .container
+        = render 'newsletter', email: @solicitation.email
+
+    %section.section.section-grey
+      .container.section__title
+        %a{ :href => "https://jedonnemonavis.numerique.gouv.fr/Demarches/2666?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=217cc9ca5ab6c2999a02839fdd402d01", target: '_blank' }
+          %img{ :alt => t('solicitations.creation_form.give_my_opinion_alt'), :src => "https://jedonnemonavis.numerique.gouv.fr/static/bouton-blanc.svg", :title => t('solicitations.creation_form.give_my_opinion_title') }
+
+
 = render 'solicitations/matomo_company_contact_success'
-
-%section.section.section-white.container-newsletter
-  .container
-    = render 'newsletter', email: @solicitation.email
-
-%section.section.section-grey
-  .container.section__title
-    %a{ :href => "https://jedonnemonavis.numerique.gouv.fr/Demarches/2666?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=217cc9ca5ab6c2999a02839fdd402d01", target: '_blank' }
-      %img{ :alt => t('solicitations.creation_form.give_my_opinion_alt'), :src => "https://jedonnemonavis.numerique.gouv.fr/static/bouton-blanc.svg", :title => t('solicitations.creation_form.give_my_opinion_title') }
-

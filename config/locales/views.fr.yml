@@ -850,17 +850,17 @@ fr:
         step_contact: Vos coordonnées
         step_description: Votre demande
       submit_in_progress: Envoi en cours...
+    form_complete:
+      iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <b>5 jours</b> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
+      message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
+      message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
+      title: Merci !
     header:
       canceled: abandonnées
       index: reçues
       processed: mises en relation
     index:
       title: Sollicitations
-    new_solicitation_thank_you:
-      iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <b>5 jours</b> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
-      message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
-      message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
-      title: Merci !
     set_category_content:
       landings: Page source
       subjects: Sujets de landings

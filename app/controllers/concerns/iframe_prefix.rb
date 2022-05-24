@@ -10,7 +10,7 @@ module IframePrefix
 
   # Pour s'assurer que in_iframe? fonctionne en toutes circonstances
   def detect_landing_presence
-    @landing ||= Landing.find_by(slug: params[:landing_slug])
+    @landing ||= (Landing.find_by(slug: params[:landing_slug]) || Solicitation.find(session[:solicitation_form_id])&.landing)
   end
 
   def allow_in_iframe

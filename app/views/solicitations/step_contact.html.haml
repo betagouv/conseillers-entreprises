@@ -50,11 +50,12 @@
       informations: link_to(t('about.mentions_d_information.title').downcase, mentions_d_information_url))
 
 - content_for :footer do
-  %section.section.section-white.landing
-    = render 'pages/how_it_works'
-  - if @landing_subject.logos.present?
-    %section.section.section-grey
-      .container
-        %h2.section__subtitle= t('logos.title')
-        = render 'landings/landings/logos', landing_subject: @landing_subject
-
+  - unless in_iframe?
+    %section.section.section-white.landing
+      = render 'pages/how_it_works'
+    - if @landing_subject.logos.present?
+      %section.section.section-grey
+        .container
+          %h2.section__subtitle= t('logos.title')
+          = render 'landings/landings/logos', landing_subject: @landing_subject
+  = render 'iframe_footer', landing: @landing

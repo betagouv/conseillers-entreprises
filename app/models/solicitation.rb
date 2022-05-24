@@ -98,13 +98,13 @@ class Solicitation < ApplicationRecord
       transitions from: [:step_description], to: :in_progress, if: :description_info_filled?
     end
 
+    event :process do
+      transitions from: [:in_progress, :processed, :canceled], to: :processed, if: :diagnosis_completed?
+    end
+
     event :cancel do
       # une solicitation peut être doublement canceled : "mauvais siret" qui se transforme en "hors région"
       transitions from: [:in_progress, :processed, :canceled], to: :canceled
-    end
-
-    event :process do
-      transitions from: [:in_progress, :processed, :canceled], to: :processed, if: :diagnosis_completed?
     end
   end
 

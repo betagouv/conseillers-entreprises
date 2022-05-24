@@ -1,7 +1,8 @@
 class SolicitationsController < PagesController
   before_action :retrieve_landing_subject, only: [:new]
   before_action :find_solicitation, except: [:new, :create]
-  before_action :retrieve_landing_subject_from_solicitation, only: [:step_contact, :update_step_contact]
+  before_action :retrieve_landing_subject_from_solicitation, only: [:step_contact, :update_step_contact, :form_complete]
+  include IframePrefix
 
   layout 'solicitation_form', except: [:form_complete]
 
@@ -43,6 +44,7 @@ class SolicitationsController < PagesController
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
       if step == :step_description
+        @landing_subject = @solicitation.landing_subject
         CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
         @solicitation.delay.prepare_diagnosis(nil)
         redirect_to form_complete_solicitations_path(anchor: 'section-formulaire')
@@ -58,6 +60,7 @@ class SolicitationsController < PagesController
   def find_solicitation
     solicitation_id = session[:solicitation_form_id]
     @solicitation = Solicitation.find(solicitation_id)
+    redirect_to root_path if @solicitation.nil?
   end
 
   def retrieve_landing_subject

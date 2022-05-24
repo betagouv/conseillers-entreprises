@@ -34,3 +34,5 @@
     = render 'previous_button', path: step_contact_solicitations_path(anchor: 'section-formulaire')
     = render 'next_button'
 
+- content_for :footer do
+  = render 'iframe_footer', landing: @solicitation.landing
