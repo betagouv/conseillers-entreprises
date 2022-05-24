@@ -12,8 +12,9 @@ module IframePrefix
   def detect_landing_presence
     if params[:landing_slug].present?
       @landing ||= Landing.find_by(slug: params[:landing_slug])
-    elsif session[:solicitation_form_id].present?
-      @landing ||= Solicitation.find(session[:solicitation_form_id])&.landing
+    elsif params[:uuid].present?
+      @solicitation ||= Solicitation.find_by(uuid: params[:uuid])
+      @landing ||= @solicitation&.landing
     end
   end
 

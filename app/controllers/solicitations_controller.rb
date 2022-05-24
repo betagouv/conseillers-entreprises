@@ -18,7 +18,7 @@ class SolicitationsController < PagesController
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
       session[:solicitation_form_id] = @solicitation.id
-      redirect_to step_company_solicitations_path(anchor: 'section-formulaire')
+      redirect_to step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
     else
       retrieve_landing_subject_from_solicitation
       flash.alert = @solicitation.errors.full_messages.to_sentence
@@ -27,20 +27,20 @@ class SolicitationsController < PagesController
   end
 
   def update_step_contact
-    update_solicitation_from_step(:step_contact)
+    update_solicitation_from_step(:step_contact, step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
   def update_step_company
-    update_solicitation_from_step(:step_company)
+    update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
   def update_step_description
-    update_solicitation_from_step(:step_description)
+    update_solicitation_from_step(:step_description, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
   private
 
-  def update_solicitation_from_step(step)
+  def update_solicitation_from_step(step, redirect_path)
     sanitized_params = sanitize_params(solicitation_params)
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
@@ -48,10 +48,8 @@ class SolicitationsController < PagesController
         @landing_subject = @solicitation.landing_subject
         CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
         @solicitation.delay.prepare_diagnosis(nil)
-        redirect_to form_complete_solicitations_path(anchor: 'section-formulaire')
-      else
-        redirect_to polymorphic_path([@solicitation.status.to_sym, Solicitation], anchor: 'section-formulaire')
       end
+      redirect_to redirect_path
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render step
@@ -59,8 +57,7 @@ class SolicitationsController < PagesController
   end
 
   def find_solicitation
-    solicitation_id = session[:solicitation_form_id]
-    @solicitation = Solicitation.find(solicitation_id)
+    @solicitation = Solicitation.find_by(uuid: params[:uuid])
     redirect_to root_path if @solicitation.nil?
   end
 

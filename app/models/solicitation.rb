@@ -17,6 +17,7 @@
 #  requested_help_amount            :string
 #  siret                            :string
 #  status                           :integer          default("step_contact")
+#  uuid                             :uuid
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  institution_id                   :bigint(8)
@@ -61,6 +62,7 @@ class Solicitation < ApplicationRecord
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
+  before_create :set_uuid
   before_create :set_institution_from_landing
 
   paginates_per 50
@@ -162,6 +164,10 @@ class Solicitation < ApplicationRecord
   #
   def set_institution_from_landing
     self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
+  end
+
+  def set_uuid
+    self.uuid = SecureRandom.uuid
   end
 
   def touch_after_badges_update(_badge)

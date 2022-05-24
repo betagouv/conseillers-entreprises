@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_18_135959) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_24_150053) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -496,6 +496,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_18_135959) do
     t.bigint "landing_subject_id"
     t.boolean "banned", default: false
     t.integer "status", default: 0
+    t.uuid "uuid"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"

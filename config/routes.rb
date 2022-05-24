@@ -230,8 +230,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :solicitations, only: %i[create new], path: 'votre-demande', path_names: { new: 'nouvelle-demande' } do
-    collection do
+  resources :solicitations, only: %i[create new], param: :uuid, path: 'votre-demande', path_names: { new: 'nouvelle-demande' } do
+    member do
       get :step_contact, path: 'contact'
       patch :update_step_contact
       get :step_company, path: 'etablissement'
