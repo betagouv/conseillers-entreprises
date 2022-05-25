@@ -11,27 +11,27 @@ module IframePrefix
   # Pour s'assurer que in_iframe? fonctionne en toutes circonstances
   # Besoin d'identifier @landing sur toutes les pages du process
   def retrieve_main_objects
-    # Controller Landing & LandingTheme && Solicitation#new
-    if params[:landing_subject].present?
-      @landing_subject = LandingSubject.not_archived.find(params[:landing_subject_id])
+    # Controller Landing & LandingTheme
+    landing_slug = params[:landing_slug]
+    if landing_slug.present?
+      @landing = Landing.not_archived.find_by(slug: landing_slug)
+      redirect_to root_path, status: :moved_permanently if @landing.nil?
+    end
+    # Controller Solicitation#new & create
+    landing_id = params[:landing_id] || params.dig(:solicitation, :landing_id)
+    if landing_id.present?
+      @landing = Landing.not_archived.find(landing_id)
+      redirect_to root_path, status: :moved_permanently if @landing.nil?
+    end
+    landing_subject_id = params[:landing_subject_id] || params.dig(:solicitation, :landing_subject_id)
+    if landing_subject_id.present?
+      @landing_subject = LandingSubject.not_archived.find(landing_subject_id)
       redirect_to root_path, status: :moved_permanently if @landing_subject.nil?
     end
-    if params[:landing_slug].present?
-      landing_slug = params[:landing_slug]
-      @landing = Rails.cache.fetch("landing-#{landing_slug}", expires_in: 1.minute) do
-        Landing.not_archived.find_by(slug: landing_slug)
-      end
-      redirect_to root_path, status: :moved_permanently if @landing.nil?
-    end
-    # Controller Solicitation#create
-    if params[:landing_id].present?
-      @landing = Landing.not_archived.find(params[:landing_id])
-      redirect_to root_path, status: :moved_permanently if @landing.nil?
-      @landing_subject = LandingSubject.not_archived.find(params[:landing_subject_id]) if params[:landing_subject_id].present?
-    end
     # Controller Solicitation#other_methods
-    if params[:uuid].present?
-      @solicitation ||= Solicitation.find_by(uuid: params[:uuid])
+    solicitation_uuid = params[:uuid]
+    if solicitation_uuid.present?
+      @solicitation ||= Solicitation.find_by(uuid: solicitation_uuid)
       redirect_to root_path if @solicitation.nil?
       @landing = @solicitation.landing
       @landing_subject = @solicitation.landing_subject
