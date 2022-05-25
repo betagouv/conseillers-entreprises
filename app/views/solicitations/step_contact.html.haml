@@ -15,7 +15,7 @@
       = image_tag('5days-b.png', alt: '')
       %p
         = t('solicitations.creation_form.five_days_contact_html')
-  = render 'solicitations/steps', current_status: @solicitation.status
+  = render 'solicitations/steps', current_status: :step_contact
 
 - if @solicitation.persisted?
   - path = update_step_contact_solicitation_path(@solicitation.uuid)

@@ -5,7 +5,7 @@
 - content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
 
 - content_for :form_header do
-  = render 'solicitations/steps', current_status: @solicitation.status
+  = render 'solicitations/steps', current_status: :step_description
 
 = form_with(model: @solicitation, url: update_step_description_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
   = f.hidden_field :status
