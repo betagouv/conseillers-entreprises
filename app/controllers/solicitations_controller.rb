@@ -1,10 +1,6 @@
 class SolicitationsController < PagesController
   include IframePrefix
 
-  before_action :retrieve_landing_subject, only: [:new]
-  before_action :find_solicitation, except: [:new, :create]
-  before_action :retrieve_landing_subject_from_solicitation, only: [:step_contact, :update_step_contact, :form_complete]
-
   layout 'solicitation_form', except: [:form_complete]
 
   def new
@@ -17,7 +13,6 @@ class SolicitationsController < PagesController
     sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
-      session[:solicitation_form_id] = @solicitation.id
       redirect_to step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
     else
       retrieve_landing_subject_from_solicitation
@@ -54,22 +49,6 @@ class SolicitationsController < PagesController
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render step
     end
-  end
-
-  def find_solicitation
-    @solicitation = Solicitation.find_by(uuid: params[:uuid])
-    redirect_to root_path if @solicitation.nil?
-  end
-
-  def retrieve_landing_subject
-    @landing_subject = LandingSubject.not_archived.find(params[:landing_subject_id])
-    @landing = Landing.not_archived.find(params[:landing_id])
-    redirect_to root_path, status: :moved_permanently if (@landing_subject.nil? || @landing.nil?)
-  end
-
-  def retrieve_landing_subject_from_solicitation
-    @landing = @solicitation.landing
-    @landing_subject = @solicitation.landing_subject
   end
 
   def solicitation_params

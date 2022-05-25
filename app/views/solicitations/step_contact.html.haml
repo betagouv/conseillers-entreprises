@@ -18,14 +18,14 @@
   = render 'solicitations/steps', current_status: @solicitation.status
 
 - if @solicitation.persisted?
-  - path = update_step_contact_solicitations_path
+  - path = update_step_contact_solicitation_path(@solicitation.uuid)
 - else
   - path = solicitations_path
 
 = form_with(model: @solicitation, url: path, local: true, html: { honeypot: true }) do |f|
   = f.hidden_field :landing_subject_id
   = f.hidden_field :landing_id
-  = f.hidden_field :status
+  = f.hidden_field :siret
   .form__group
     - @solicitation.contact_step_required_fields.each do |field|
       .form__group

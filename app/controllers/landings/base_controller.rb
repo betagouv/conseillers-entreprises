@@ -1,18 +1,7 @@
 class Landings::BaseController < PagesController
   include IframePrefix
 
-  before_action :retrieve_landing, except: [:home]
-
   private
-
-  def retrieve_landing
-    landing_slug = params.require(:landing_slug)
-    @landing = Rails.cache.fetch("landing-#{landing_slug}", expires_in: 1.minute) do
-      Landing.not_archived.find_by(slug: landing_slug)
-    end
-
-    redirect_to root_path, status: :moved_permanently if @landing.nil?
-  end
 
   def save_query_params
     saved_params = session[:solicitation_form_info] || {}

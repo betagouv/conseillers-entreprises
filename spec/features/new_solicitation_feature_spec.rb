@@ -27,15 +27,19 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         expect(solicitation.persisted?).to be true
         expect(solicitation.pk_campaign).to be_nil
         expect(solicitation.landing).to eq landing
+        expect(solicitation.landing_subject).to eq landing_subject
+        expect(solicitation.status_step_company?).to be true
 
         fill_in 'Votre numéro SIRET', with: '12345678900010'
         fill_in 'solicitation_siret', with: '12345678900010'
         click_button 'Suivant'
         expect(solicitation.reload.siret).to eq '12345678900010'
+        expect(solicitation.status_step_description?).to be true
 
-        fill_in 'Description', with: 'Ceci est un test'
+        fill_in 'Description', with: 'Ceci n\'est pas un test'
         click_button 'Envoyer ma demande'
         expect(page).to have_content('Merci')
+        expect(solicitation.reload.status_in_progress?).to be true
       end
     end
 
@@ -77,7 +81,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         click_link 'Super sujet'
       end
 
-      xit do
+      it do
         fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
         fill_in 'E-mail', with: 'user@exemple.com'
         fill_in 'Téléphone', with: '0123456789'
