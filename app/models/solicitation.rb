@@ -33,6 +33,7 @@
 #  index_solicitations_on_landing_slug        (landing_slug)
 #  index_solicitations_on_landing_subject_id  (landing_subject_id)
 #  index_solicitations_on_status              (status)
+#  index_solicitations_on_uuid                (uuid)
 #
 # Foreign Keys
 #
@@ -69,6 +70,11 @@ class Solicitation < ApplicationRecord
 
   ## Status
   #
+
+  # # A supprimer une fois migrations passées
+  enum old_status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
+  enum completion_step: { contact: 0, company: 1, description: 2, completed: 3 }, _prefix: true
+
   enum status: {
     step_contact: 0, step_company: 1, step_description: 2,
     in_progress: 3, processed: 4, canceled: 5
@@ -271,7 +277,7 @@ class Solicitation < ApplicationRecord
   def self.ransackable_scopes(auth_object = nil)
     [:pk_campaign_contains, :pk_campaign_equals, :pk_campaign_starts_with, :pk_campaign_ends_with]
   end
-  scope :complete, -> { where(status: completed_statuses) }
+
   scope :without_diagnosis, -> {
     left_outer_joins(:diagnosis)
       .where(diagnoses: { id: nil })

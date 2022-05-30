@@ -504,6 +504,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_24_150053) do
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
     t.index ["status"], name: "index_solicitations_on_status"
+    t.index ["uuid"], name: "index_solicitations_on_uuid"
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|

@@ -15,7 +15,6 @@ class SolicitationsController < PagesController
     if @solicitation.persisted?
       redirect_to step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
     else
-      retrieve_landing_subject_from_solicitation
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :step_contact
     end
