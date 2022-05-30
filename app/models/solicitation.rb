@@ -67,14 +67,8 @@ class Solicitation < ApplicationRecord
 
   paginates_per 50
 
-  ## Enums && state machines
-  #
-
   ## Status
-  # # A supprimer une fois migrations passées
-  # enum old_status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
-  # enum completion_step: { contact: 0, company: 1, description: 2, completed: 3 }, _prefix: true
-
+  #
   enum status: {
     step_contact: 0, step_company: 1, step_description: 2,
     in_progress: 3, processed: 4, canceled: 5
@@ -132,12 +126,12 @@ class Solicitation < ApplicationRecord
     self.diagnosis.step_completed?
   end
 
-  def self.completion_steps
-    statuses.keys.grep(/^step/)
+  def self.incompleted_statuses
+    %w[step_contact step_company step_description]
   end
 
   def self.completed_statuses
-    statuses.keys.grep_v(/^step/)
+    %w[in_progress processed canceled]
   end
 
   def step_complete?
@@ -211,7 +205,6 @@ class Solicitation < ApplicationRecord
 
   ## Scopes
   #
-  scope :complete, -> { where(status: completed_statuses) }
   scope :omnisearch, -> (query) do
     if query.present?
       where(id: have_badge(query))
@@ -278,7 +271,7 @@ class Solicitation < ApplicationRecord
   def self.ransackable_scopes(auth_object = nil)
     [:pk_campaign_contains, :pk_campaign_equals, :pk_campaign_starts_with, :pk_campaign_ends_with]
   end
-
+  scope :complete, -> { where(status: completed_statuses) }
   scope :without_diagnosis, -> {
     left_outer_joins(:diagnosis)
       .where(diagnoses: { id: nil })
@@ -290,8 +283,8 @@ class Solicitation < ApplicationRecord
       .where(matches: { id: nil })
   }
 
-  scope :step_complete, -> { where(status: [:in_progress, :processed, :canceled]) }
-  scope :step_incomplete, -> { where(status: [:step_contact, :step_company, :step_description]) }
+  scope :step_complete, -> { where(status: completed_statuses) }
+  scope :step_incomplete, -> { where(status: incompleted_statuses) }
 
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
 

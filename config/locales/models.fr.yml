@@ -68,8 +68,8 @@ fr:
       personal_skillsets: Individuel
       relevant_for_skills: Compétences visibles
       sent: Mises en relation envoyées
-      status_step_company: Etape entreprise
-      status_step_description: Etape description
+      status_step_company: Étape entreprise
+      status_step_description: Étape description
       step_complete: Terminées
       step_incomplete: Incomplètes
       support_experts: Support
@@ -347,9 +347,9 @@ fr:
         canceled: Abandonnée
         in_progress: Reçue
         processed: Mise en relation
-        step_company: Etape entreprise
-        step_contact: Etape contact
-        step_description: Etape description
+        step_company: Étape entreprise
+        step_contact: Étape contact
+        step_description: Étape description
       solicitation/statuses/action:
         canceled: Abandonner
         in_progress: Réinitialiser

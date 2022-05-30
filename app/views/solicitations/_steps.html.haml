@@ -1,4 +1,4 @@
 %ul.steps-form
-  - Solicitation.completion_steps.each_with_index do |step, index|
+  - Solicitation.incompleted_statuses.each_with_index do |step, index|
     %li{ class: solicitation_step_class(index, current_status) }
       %div= t("solicitations.creation_form.steps.#{step}")
