@@ -5,6 +5,7 @@ module Stats::Public
 
     def main_query
       Solicitation
+        .step_complete
         .joins(diagnosis: [needs: :matches])
         .where(created_at: @start_date..@end_date)
         .merge(Need.where.not(status: [:diagnosis_not_complete, :quo]))

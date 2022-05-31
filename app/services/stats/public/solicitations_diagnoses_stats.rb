@@ -5,6 +5,7 @@ module Stats::Public
 
     def main_query
       Solicitation
+        .step_complete
         .in_deployed_regions
         .where(created_at: @start_date..@end_date)
     end
