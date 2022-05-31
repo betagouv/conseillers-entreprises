@@ -8,11 +8,18 @@ RSpec.describe Solicitation, type: :model do
   end
 
   describe 'validations' do
+    subject { described_class.new }
+
     it { is_expected.to validate_presence_of :landing }
-    it { is_expected.to validate_presence_of :description }
     it { is_expected.to validate_presence_of :full_name }
     it { is_expected.to validate_presence_of :phone_number }
     it { is_expected.to validate_presence_of :email }
+
+    context 'in_progress' do
+      subject { described_class.new(status: :in_progress) }
+
+      it { is_expected.to validate_presence_of :description }
+    end
   end
 
   describe 'callbacks' do
@@ -49,13 +56,14 @@ RSpec.describe Solicitation, type: :model do
 
       context 'with all fields to be formatted' do
         let(:api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
-        let(:solicitation) { create :solicitation, siret: siret, code_region: nil, email: email }
+        let(:solicitation) { create :solicitation, siret: siret, code_region: nil, email: email, status: :step_description }
 
         before do
           ENV['API_ENTREPRISE_TOKEN'] = token
           stub_request(:get, api_url).to_return(
             body: file_fixture('api_entreprise_get_etablissement.json')
           )
+          solicitation.complete
         end
 
         it 'formats correctly fields' do
@@ -66,7 +74,9 @@ RSpec.describe Solicitation, type: :model do
       end
 
       context 'with already set code_region' do
-        let(:solicitation) { create :solicitation, siret: siret, code_region: 11, email: email }
+        let(:solicitation) { create :solicitation, siret: siret, code_region: 11, email: email, status: :step_description }
+
+        before { solicitation.complete }
 
         it 'formats correctly fields' do
           expect(solicitation.code_region).to eq(11)
@@ -76,7 +86,9 @@ RSpec.describe Solicitation, type: :model do
       end
 
       context 'with failing siret' do
-        let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil, email: email }
+        let(:solicitation) { create :solicitation, siret: "lalala", code_region: nil, email: email, status: :step_description }
+
+        before { solicitation.complete }
 
         it 'doesnt set code_region' do
           expect(solicitation.code_region).to be_nil
@@ -92,13 +104,14 @@ RSpec.describe Solicitation, type: :model do
 
       context 'with valid siret' do
         let(:api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
-        let(:solicitation) { create :solicitation, siret: siret, code_region: nil }
+        let(:solicitation) { create :solicitation, siret: siret, code_region: nil, status: :step_description }
 
         before do
           ENV['API_ENTREPRISE_TOKEN'] = token
           stub_request(:get, api_url).to_return(
             body: file_fixture('api_entreprise_get_etablissement.json')
           )
+          solicitation.complete
         end
 
         it 'sets correctly siret and code_region' do
@@ -111,13 +124,14 @@ RSpec.describe Solicitation, type: :model do
       context 'with valid siren' do
         let(:siren) { siret[0,9] }
         let(:api_url) { "https://entreprise.data.gouv.fr/api/sirene/v1/siren/#{siren}" }
-        let(:solicitation) { create :solicitation, siret: siren, code_region: nil }
+        let(:solicitation) { create :solicitation, siret: siren, code_region: nil, status: :step_description }
 
         before do
           ENV['API_ENTREPRISE_TOKEN'] = token
           stub_request(:get, api_url).to_return(
             body: file_fixture('entreprise_data_gouv_siren.json')
           )
+          solicitation.complete
         end
 
         it 'sets correctly siret and code_region' do

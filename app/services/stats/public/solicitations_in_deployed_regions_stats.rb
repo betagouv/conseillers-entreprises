@@ -4,7 +4,7 @@ module Stats::Public
     include ::Stats::FiltersStats
 
     def main_query
-      Solicitation.where(created_at: @start_date..@end_date)
+      Solicitation.step_complete.where(created_at: @start_date..@end_date)
     end
 
     def build_series

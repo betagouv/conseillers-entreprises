@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  const clickOnLandingOption = document.getElementsByClassName("click-on-landing-option")
-  if (clickOnLandingOption.length !== 0) {
-    Array.from(clickOnLandingOption).forEach(function (item) {
+  const clickOnLandingSubject = document.getElementsByClassName("click-on-landing-subject")
+  if (clickOnLandingSubject.length !== 0) {
+    Array.from(clickOnLandingSubject).forEach(function (item) {
       item.addEventListener('click', function () {
         if (typeof _paq !== 'undefined') {
           _paq.push(['trackEvent', 'formulaire', 'success'])

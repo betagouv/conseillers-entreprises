@@ -5,7 +5,6 @@
 #  id                               :bigint(8)        not null, primary key
 #  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
-#  completion_step                  :integer
 #  created_in_deployed_region       :boolean          default(FALSE)
 #  description                      :string
 #  email                            :string
@@ -17,7 +16,8 @@
 #  prepare_diagnosis_errors_details :jsonb
 #  requested_help_amount            :string
 #  siret                            :string
-#  status                           :enum             default("in_progress"), not null
+#  status                           :integer          default("step_contact")
+#  uuid                             :uuid
 #  created_at                       :datetime         not null
 #  updated_at                       :datetime         not null
 #  institution_id                   :bigint(8)
@@ -33,6 +33,7 @@
 #  index_solicitations_on_landing_slug        (landing_slug)
 #  index_solicitations_on_landing_subject_id  (landing_subject_id)
 #  index_solicitations_on_status              (status)
+#  index_solicitations_on_uuid                (uuid)
 #
 # Foreign Keys
 #
@@ -62,60 +63,111 @@ class Solicitation < ApplicationRecord
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   belongs_to :institution, inverse_of: :solicitations, optional: true
 
+  before_create :set_uuid
   before_create :set_institution_from_landing
-  before_create :format_solicitation
 
   paginates_per 50
 
-  ## Enums && state machines
+  ## Status
   #
 
-  ## Status
-  enum status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
+  # # A supprimer une fois migrations passées
+  enum old_status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
+  enum completion_step: { contact: 0, company: 1, description: 2, completed: 3 }, _prefix: true
 
-  aasm column: :status, enum: true do
-    state :in_progress, initial: true
+  enum status: {
+    step_contact: 0, step_company: 1, step_description: 2,
+    in_progress: 3, processed: 4, canceled: 5
+  }, _prefix: true
+
+  aasm :status, column: :status, enum: true do
+    state :step_contact, initial: true
+    state :step_company
+    state :step_description
+    state :in_progress
     state :processed
     state :canceled
 
-    event :cancel do
-      # une solicitation peut être doublement canceled : "mauvais siret" qui se transforme en "hors région"
-      transitions from: [:in_progress, :processed, :canceled], to: :canceled
+    event :go_to_step_company do
+      transitions from: [:step_contact], to: :step_company, if: :contact_info_filled?
+    end
+
+    event :go_to_step_description do
+      transitions from: [:step_company], to: :step_description, if: :company_info_filled?
+    end
+
+    event :complete, after: :format_solicitation do
+      transitions from: [:step_description], to: :in_progress, if: :description_info_filled?
     end
 
     event :process do
       transitions from: [:in_progress, :processed, :canceled], to: :processed, if: :diagnosis_completed?
     end
+
+    event :cancel do
+      # une solicitation peut être doublement canceled : "mauvais siret" qui se transforme en "hors région"
+      transitions from: [:in_progress, :processed, :canceled], to: :canceled
+    end
+  end
+
+  # State machine validations
+  #
+  def contact_info_filled?
+    contact_step_required_fields.all? do |attr|
+      self.public_send(attr).present?
+    end
+  end
+
+  def company_info_filled?
+    company_step_required_fields.all? do |attr|
+      self.public_send(attr).present?
+    end
+  end
+
+  def description_info_filled?
+    self.description.present?
   end
 
   def diagnosis_completed?
     self.diagnosis.step_completed?
   end
 
-  ## Completion steps
+  def self.incompleted_statuses
+    %w[step_contact step_company step_description]
+  end
 
-  enum completion_step: { contact: 0, company: 1, description: 2 }
+  def self.completed_statuses
+    %w[in_progress processed canceled]
+  end
+
+  def step_complete?
+    self.class.completed_statuses.include?(status)
+  end
 
   ## Validations
   #
   validates :landing, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate if: -> { (completion_step == nil && !persisted?) || completion_step == :contact } do
-    contact_required_fields.each do |attr|
+  validate if: -> { status_step_contact? || status_step_company? } do
+    contact_step_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validate if: -> { (completion_step == nil && !persisted?) || completion_step == :company } do
-    company_required_fields.each do |attr|
+  validate if: -> { status_step_description? } do
+    required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
   end
-  validates :description, presence: true, allow_blank: false, if: -> { (completion_step == nil && !persisted?) || completion_step == :description }
+  validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? }
 
   ## Callbacks
   #
   def set_institution_from_landing
     self.institution ||= landing&.institution || Institution.find_by(slug: form_info&.fetch('institution', nil))
+  end
+
+  def set_uuid
+    self.uuid = SecureRandom.uuid
   end
 
   def touch_after_badges_update(_badge)
@@ -237,6 +289,9 @@ class Solicitation < ApplicationRecord
       .where(matches: { id: nil })
   }
 
+  scope :step_complete, -> { where(status: completed_statuses) }
+  scope :step_incomplete, -> { where(status: incompleted_statuses) }
+
   scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
 
   scope :in_regions, -> (codes_regions) do
@@ -284,17 +339,6 @@ class Solicitation < ApplicationRecord
   }
 
   scope :banned, -> { where(banned: true) }
-
-  # AB testing
-  #
-  scope :complete, -> { where.not(description: nil) }
-  scope :incomplete, -> { where(description: nil) }
-
-  scope :ab_testing_onepage, -> { where(completion_step: nil) }
-  scope :ab_testing_multistep, -> { where.not(completion_step: nil) }
-
-  scope :complete_onepage, -> { ab_testing_onepage.complete }
-  scope :complete_multistep, -> { ab_testing_multistep.complete }
 
   GENERIC_EMAILS_TYPES = %i[bad_quality bad_quality_difficulties out_of_region employee_labor_law particular_retirement creation siret moderation independent_tva intermediary recruitment_foreign_worker]
 
@@ -357,16 +401,16 @@ class Solicitation < ApplicationRecord
   BASE_REQUIRED_FIELDS = %i[full_name phone_number email]
   DEFAULT_REQUIRED_FIELDS = %i[full_name phone_number email siret]
 
-  def contact_required_fields
+  def contact_step_required_fields
     BASE_REQUIRED_FIELDS
   end
 
-  def company_required_fields
+  def company_step_required_fields
     landing_subject&.required_fields || %i[siret]
   end
 
   def required_fields
-    contact_required_fields + company_required_fields
+    contact_step_required_fields + company_step_required_fields
   end
 
   FIELD_TYPES = {
@@ -445,21 +489,5 @@ class Solicitation < ApplicationRecord
   def region
     return if code_region.nil?
     Territory.find_by(code_region: self.code_region)
-  end
-
-  # AB testing
-  #
-  def complete?
-    description.present?
-  end
-
-  def ab_testing_option
-    completion_step.nil? ? :onepage : :multistep
-  end
-
-  # c'est l'étape qui vient d'etre completee qui est enregistrée.
-  # L'étape en cours, celle où l'utilisateur s'est arrêtée, est l'étape suivante
-  def stop_completion_step
-    Solicitation.completion_steps.key(Solicitation.completion_steps[completion_step] + 1)
   end
 end

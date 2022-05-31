@@ -8,6 +8,7 @@ module SolicitationModification
     def base_call
       check_in_deployed_region
       @solicitation.assign_attributes(@params)
+      manage_completion_step
     end
 
     def call
@@ -32,6 +33,13 @@ module SolicitationModification
     # Methode a surcharger
     def from_deployed_territory?
       @params[:code_region].present? && Territory.deployed_codes_regions.include?(@params[:code_region].to_i)
+    end
+
+    # on gère automatiquement les étapes du formulaire de création d'une solicitation
+    def manage_completion_step
+      return if @solicitation.step_complete?
+      next_possible_events = @solicitation.aasm(:status).events(permitted: true).map(&:name)
+      @solicitation.send(next_possible_events.first) unless next_possible_events.empty?
     end
   end
 end

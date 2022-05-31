@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_28_131906) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_24_150053) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,12 +43,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_28_131906) do
   create_enum :quarterly_reports_categories, [
     "matches",
     "stats",
-  ], force: :cascade
-
-  create_enum :solicitation_status, [
-    "in_progress",
-    "processed",
-    "canceled",
   ], force: :cascade
 
   create_enum :territorial_level, [
@@ -501,8 +495,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_28_131906) do
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
     t.boolean "banned", default: false
-    t.enum "status", default: "in_progress", null: false, enum_type: "solicitation_status"
-    t.integer "completion_step"
+    t.integer "status", default: 0
+    t.uuid "uuid"
     t.index ["code_region"], name: "index_solicitations_on_code_region"
     t.index ["email"], name: "index_solicitations_on_email"
     t.index ["institution_id"], name: "index_solicitations_on_institution_id"
@@ -510,6 +504,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_28_131906) do
     t.index ["landing_slug"], name: "index_solicitations_on_landing_slug"
     t.index ["landing_subject_id"], name: "index_solicitations_on_landing_subject_id"
     t.index ["status"], name: "index_solicitations_on_status"
+    t.index ["uuid"], name: "index_solicitations_on_uuid"
   end
 
   create_table "subjects", id: :serial, force: :cascade do |t|

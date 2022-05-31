@@ -49,9 +49,6 @@ fr:
       archived: Archivés
       bassins_emploi: Bassins d’emploi
       being_taken_care_of: En cours
-      complete: Terminées
-      complete_multistep: Terminées multistep
-      complete_onepage: Terminées onepage
       completed: Analyses terminées
       deleted: Supprimés
       diagnosis_completed: Analyses terminées
@@ -59,7 +56,6 @@ fr:
       expert_provider: Fournisseur d’experts
       from_solicitation: Sollicitations
       from_visit: Visites
-      incomplete: Incomplètes
       invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
       managers: Responsables d’antenne
@@ -72,6 +68,10 @@ fr:
       personal_skillsets: Individuel
       relevant_for_skills: Compétences visibles
       sent: Mises en relation envoyées
+      status_step_company: Étape entreprise
+      status_step_description: Étape description
+      step_complete: Terminées
+      step_incomplete: Incomplètes
       support_experts: Support
       team_members: Équipiers
       teams: Équipes
@@ -342,12 +342,14 @@ fr:
         pk_kwd: Mots-clés
         requested_help_amount: Montant de l’aide demandée
         slug: Slug
-        stop_completion_step: Etape d’arrêt
         tracking: Suivi
       solicitation/statuses:
         canceled: Abandonnée
         in_progress: Reçue
         processed: Mise en relation
+        step_company: Étape entreprise
+        step_contact: Étape contact
+        step_description: Étape description
       solicitation/statuses/action:
         canceled: Abandonner
         in_progress: Réinitialiser

@@ -10,6 +10,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     siret { Faker::Company.french_siret_number }
     code_region { 11 }
+    status { :in_progress }
 
     trait :with_diagnosis do
       diagnosis { build :diagnosis }

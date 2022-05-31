@@ -17,93 +17,6 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
       end
 
       it do
-        use_ab_test(solicitation_form: "onepage")
-        visit '/'
-        click_link 'Test Landing Theme'
-        click_link 'Super sujet'
-        fill_in 'Prénom et nom', with: 'Mariane'
-        fill_in 'Téléphone', with: '0123456789'
-        fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'Votre numéro SIRET', with: '12345678900010'
-        fill_in 'E-mail', with: 'user@example.com'
-        click_button 'Envoyer ma demande'
-        # Only here to avoid flickering test with CI
-        find(".section__title", match: :first)
-        expect(page).to have_content('Merci')
-        expect(solicitation.persisted?).to be true
-        expect(solicitation.landing).to eq landing
-        expect(solicitation.siret).to eq '12345678900010'
-        expect(solicitation.pk_campaign).to be_nil
-      end
-    end
-
-    context "from pk campaign" do
-      before do
-        use_ab_test(solicitation_form: "onepage")
-        landing.landing_themes << landing_theme
-        visit '/?pk_campaign=FOO&pk_kwd=BAR'
-        click_link 'Test Landing Theme'
-        click_link 'Super sujet'
-        # find(".landing-subject-section > div > div.landing-topics > div.landing-topic > h3 > a").click
-        fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-        fill_in 'Téléphone', with: '0123456789'
-        fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'Votre numéro SIRET', with: '12345678900010'
-        fill_in 'E-mail', with: 'user@exemple.com'
-        click_button 'Envoyer ma demande'
-      end
-
-      it do
-        # Only here to avoid flickering test with CI
-        find(".section__title", match: :first)
-        expect(page).to have_content('Merci')
-        expect(solicitation.persisted?).to be true
-        expect(solicitation.landing).to eq landing
-        expect(solicitation.landing_subject.subject).to eq pde_subject
-        expect(solicitation.siret).to eq '12345678900010'
-        expect(solicitation.pk_campaign).to eq 'FOO'
-        expect(solicitation.pk_kwd).to eq 'BAR'
-      end
-    end
-
-    context "with siret in url" do
-      before do
-        use_ab_test(solicitation_form: "onepage")
-        landing.landing_themes << landing_theme
-        visit '/?siret=12345678900010'
-        click_link 'Test Landing Theme'
-        click_link 'Super sujet'
-      end
-
-      it do
-        # Only here to avoid flickering test with CI
-        expect(page).to have_field('Votre numéro SIRET', with: '12345678900010')
-        fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-        fill_in 'Téléphone', with: '0123456789'
-        fill_in 'Description', with: 'Ceci est un test'
-        fill_in 'E-mail', with: 'user@exemple.com'
-        click_button 'Envoyer ma demande'
-        find(".section__title", match: :first)
-        expect(page).to have_content('Merci')
-        expect(solicitation.persisted?).to be true
-        expect(solicitation.landing).to eq landing
-        expect(solicitation.landing_subject.subject).to eq pde_subject
-        expect(solicitation.siret).to eq '12345678900010'
-        expect(solicitation.pk_campaign).to be_nil
-      end
-    end
-  end
-
-  describe 'post with multistep form' do
-    let(:solicitation) { Solicitation.last }
-
-    context "from home page" do
-      before do
-        use_ab_test(solicitation_form: "multistep")
-        landing.landing_themes << landing_theme
-      end
-
-      it do
         visit '/'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
@@ -114,21 +27,24 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         expect(solicitation.persisted?).to be true
         expect(solicitation.pk_campaign).to be_nil
         expect(solicitation.landing).to eq landing
+        expect(solicitation.landing_subject).to eq landing_subject
+        expect(solicitation.status_step_company?).to be true
 
         fill_in 'Votre numéro SIRET', with: '12345678900010'
         fill_in 'solicitation_siret', with: '12345678900010'
         click_button 'Suivant'
         expect(solicitation.reload.siret).to eq '12345678900010'
+        expect(solicitation.status_step_description?).to be true
 
-        fill_in 'Description', with: 'Ceci est un test'
+        fill_in 'Description', with: 'Ceci n\'est pas un test'
         click_button 'Envoyer ma demande'
         expect(page).to have_content('Merci')
+        expect(solicitation.reload.status_in_progress?).to be true
       end
     end
 
     context "from pk campaign" do
       before do
-        use_ab_test(solicitation_form: "multistep")
         landing.landing_themes << landing_theme
         visit '/?pk_campaign=FOO&pk_kwd=BAR'
         click_link 'Test Landing Theme'
@@ -159,14 +75,13 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
 
     context "with siret in url" do
       before do
-        use_ab_test(solicitation_form: "multistep")
         landing.landing_themes << landing_theme
         visit '/?siret=12345678900010'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
       end
 
-      xit do
+      it do
         fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
         fill_in 'E-mail', with: 'user@exemple.com'
         fill_in 'Téléphone', with: '0123456789'

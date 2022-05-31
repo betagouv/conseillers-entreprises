@@ -1,81 +1,58 @@
 class SolicitationsController < PagesController
-  before_action :find_solicitation, except: [:create]
+  include IframePrefix
 
   layout 'solicitation_form', except: [:form_complete]
+
+  def new
+    solicitation_params = { landing_subject: @landing_subject }.merge(retrieve_solicitation_params)
+    @solicitation = @landing.solicitations.new(solicitation_params)
+    render :step_contact
+  end
 
   def create
     sanitized_params = sanitize_params(solicitation_params).merge(retrieve_query_params)
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
-      session[:solicitation_form_id] = @solicitation.id
-      redirect_to form_company_solicitations_path(anchor: 'section-formulaire')
+      redirect_to step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
-      render :form_contact
+      render :step_contact
     end
   end
 
-  def form_contact
-    @landing = @solicitation.landing
-    @landing_subject = @solicitation.landing_subject
-    @solicitation.completion_step = :contact
-    render 'solicitations/form_contact'
+  def update_step_contact
+    update_solicitation_from_step(:step_contact, step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
-  def update_form_contact
-    sanitized_params = sanitize_params(solicitation_params)
-    @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
-    if @solicitation.errors.empty?
-      redirect_to form_company_solicitations_path(anchor: 'section-formulaire')
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-      render :form_contact
-    end
+  def update_step_company
+    update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
-  def form_company
-    @solicitation.completion_step = :company
-  end
-
-  def update_form_company
-    sanitized_params = sanitize_params(solicitation_params)
-    @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
-    if @solicitation.errors.empty?
-      redirect_to form_description_solicitations_path(anchor: 'section-formulaire')
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-      render :form_company
-    end
-  end
-
-  def form_description
-    @solicitation.completion_step = :description
-  end
-
-  def update_form_description
-    sanitized_params = sanitize_params(solicitation_params)
-    @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
-    if @solicitation.errors.empty?
-      ab_finished(:solicitation_form)
-      CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
-      @solicitation.delay.prepare_diagnosis(nil)
-      redirect_to form_complete_solicitations_path(anchor: 'section-formulaire')
-    else
-      flash.alert = @solicitation.errors.full_messages.to_sentence
-      render :form_description
-    end
+  def update_step_description
+    update_solicitation_from_step(:step_description, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
   private
 
-  def find_solicitation
-    solicitation_id = session[:solicitation_form_id]
-    @solicitation = Solicitation.find(solicitation_id)
+  def update_solicitation_from_step(step, redirect_path)
+    sanitized_params = sanitize_params(solicitation_params)
+    @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
+    if @solicitation.errors.empty?
+      if step == :step_description
+        @landing_subject = @solicitation.landing_subject
+        CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
+        @solicitation.delay.prepare_diagnosis(nil)
+      end
+      redirect_to redirect_path
+    else
+      flash.alert = @solicitation.errors.full_messages.to_sentence
+      render step
+    end
   end
 
   def solicitation_params
     params.require(:solicitation)
-      .permit(:landing_id, :landing_subject_id, :description, :code_region, :completion_step,
+      .permit(:landing_id, :landing_subject_id, :description, :code_region, :status,
               *Solicitation::FIELD_TYPES.keys)
   end
 
@@ -90,5 +67,12 @@ class SolicitationsController < PagesController
     saved_params.merge!(query_params)
     session.delete(:solicitation_form_info)
     { form_info: saved_params }
+  end
+
+  # Params envoyés dans les iframes pour pré-remplir le formulaire
+  def retrieve_solicitation_params
+    # On ne cherche que dans les params, car contexte d'iframe = pas de session
+    query_params = view_params.slice(:siret)
+    { siret: query_params['siret'] }
   end
 end

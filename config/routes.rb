@@ -227,23 +227,17 @@ Rails.application.routes.draw do
     # Utilisation de member pour que ce soit :landing_slug qui soit utilisé sur toutes les routes
     member do
       resources :landing_themes, param: :slug, controller: "landings/landing_themes", path: 'theme', only: %i[show]
-      resources :landing_subjects, param: :slug, controller: "landings/landing_subjects", path: 'demande', only: %i[show] do
-        member do
-          post :create_solicitation
-          get :form_contact, path: 'contact'
-        end
-      end
     end
   end
 
-  resources :solicitations, only: %i[create], path: 'votre-demande' do
-    collection do
-      get :form_contact, path: 'contact'
-      patch :update_form_contact
-      get :form_company, path: 'etablissement'
-      patch :update_form_company
-      get :form_description, path: 'description'
-      patch :update_form_description
+  resources :solicitations, only: %i[create new], param: :uuid, path: 'votre-demande', path_names: { new: 'nouvelle-demande' } do
+    member do
+      get :step_contact, path: 'contact'
+      patch :update_step_contact
+      get :step_company, path: 'etablissement'
+      patch :update_step_company
+      get :step_description, path: 'description'
+      patch :update_step_description
       get :form_complete, path: 'merci'
     end
   end

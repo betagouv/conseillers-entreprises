@@ -7,11 +7,11 @@ ActiveAdmin.register Solicitation do
 
   ## Index
   #
-  scope :complete, default: true
-  scope :incomplete
+  scope :step_complete, default: true
+  scope :step_incomplete
 
-  scope :complete_onepage, group: :ab_testing
-  scope :complete_multistep, group: :ab_testing
+  scope :status_step_company, group: :completion_incomplete
+  scope :status_step_description, group: :completion_incomplete
 
   includes :diagnosis, :landing, :institution, :badges, diagnosis: :company
 
@@ -20,19 +20,8 @@ ActiveAdmin.register Solicitation do
     column :solicitation do |s|
       div link_to I18n.t('active_admin.solicitations.id', id: s.id), conseiller_solicitation_path(s)
       div l(s.created_at, format: :admin)
-      unless s.status_in_progress?
-        human_attribute_status_tag s, :status
-      end
+      human_attribute_status_tag s, :status
       div link_to I18n.t('active_admin.admin_link', id: s.id), admin_solicitation_path(s)
-      hr
-      div t('activerecord.attributes.solicitation.ab_testing') + ' : ' do
-        span status_tag s.ab_testing_option
-      end
-      unless s.complete?
-        div t('activerecord.attributes.solicitation.stop_completion_step') + ' : ' do
-          span s.stop_completion_step
-        end
-      end
     end
     column :description do |s|
       div(admin_link_to(s.landing) || s.landing_slug)
