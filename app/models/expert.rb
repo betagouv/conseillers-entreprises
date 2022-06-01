@@ -230,17 +230,16 @@ class Expert < ApplicationRecord
 
   def soft_delete
     self.transaction do
-      users.each do |user|
-        user.experts.each do |expert|
-          # don't delete expert if he has many users
-          # and the expert is not the expert we want to delete
-          next if expert.users.many? && expert != self
-          expert.update_columns(SoftDeletable.persons_attributes)
-        end
-        # don't delete user if he has another expert with users
-        next if user.experts.pluck(:deleted_at).include?(nil)
-        user.update_columns(SoftDeletable.persons_attributes)
+      if personal_skillset?
+        users.each{ |u| u.update_columns(SoftDeletable.persons_attributes) }
       end
+      update_columns(SoftDeletable.persons_attributes)
+    end
+  end
+
+  def deep_soft_delete
+    self.transaction do
+      users.each{ |user| user.soft_delete }
       update_columns(SoftDeletable.persons_attributes)
     end
   end
