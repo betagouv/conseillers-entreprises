@@ -20,7 +20,7 @@
 - if @solicitation.persisted?
   - path = update_step_contact_solicitation_path(@solicitation.uuid)
 - else
-  - path = solicitations_path
+  - path = solicitations_path(@landing.slug, @landing_subject.slug)
 
 = form_with(model: @solicitation, url: path, local: true, html: { honeypot: true }) do |f|
   = f.hidden_field :landing_subject_id
