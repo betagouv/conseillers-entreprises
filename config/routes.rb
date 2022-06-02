@@ -230,7 +230,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :solicitations, only: %i[create new], param: :uuid, path: 'votre-demande', path_names: { new: 'nouvelle-demande' } do
+  resources :solicitations, only: %i[create], param: :uuid, path: 'votre-demande', path_names: { new: 'nouvelle-demande' } do
     member do
       get :step_contact, path: 'contact'
       patch :update_step_contact
@@ -241,6 +241,7 @@ Rails.application.routes.draw do
       get :form_complete, path: 'merci'
     end
   end
+  get 'aide-entreprise/:landing_slug/demande/:landing_subject_slug', to: 'solicitations#new', as: :new_solicitation
 
   resource :newsletters, only: %i[] do
     post :create

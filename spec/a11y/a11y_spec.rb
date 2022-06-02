@@ -35,7 +35,7 @@ describe 'a11y', type: :feature, js: true do
   describe '/aide-entreprise/:landing_slug/demande/:slug' do
     before do
       landing = Landing.last
-      visit "/votre-demande/nouvelle-demande?landing_id=#{landing.id}&landing_subject_id=#{landing.landing_subjects.first.id}"
+      visit "/aide-entreprise/#{landing.slug}/demande/#{landing.landing_subjects.first.slug}"
     end
 
     it { is_expected.to be_accessible }

@@ -23,7 +23,7 @@ class Landings::LandingsController < Landings::BaseController
       redirect_to landing_theme_path(@landing, landing_theme)
     elsif @landing.form_iframe?
       landing_subject = @landing.landing_subjects.not_archived.first
-      redirect_to new_solicitation_path(landing_id: @landing.id, landing_subject_id: landing_subject.id)
+      redirect_to new_solicitation_path(@landing.slug, landing_subject.slug)
     else
       render :show
     end

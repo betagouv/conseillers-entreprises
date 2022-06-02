@@ -17,15 +17,9 @@ module IframePrefix
       @landing = Landing.not_archived.find_by(slug: landing_slug)
       redirect_to root_path, status: :moved_permanently if @landing.nil?
     end
-    # Controller Solicitation#new & create
-    landing_id = params[:landing_id] || params.dig(:solicitation, :landing_id)
-    if landing_id.present?
-      @landing = Landing.not_archived.find(landing_id)
-      redirect_to root_path, status: :moved_permanently if @landing.nil?
-    end
-    landing_subject_id = params[:landing_subject_id] || params.dig(:solicitation, :landing_subject_id)
-    if landing_subject_id.present?
-      @landing_subject = LandingSubject.not_archived.find(landing_subject_id)
+    landing_subject_slug = params[:landing_subject_slug]
+    if landing_subject_slug.present?
+      @landing_subject = LandingSubject.not_archived.find_by(slug: landing_subject_slug)
       redirect_to root_path, status: :moved_permanently if @landing_subject.nil?
     end
     # Controller Solicitation#other_methods
