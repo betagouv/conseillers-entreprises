@@ -15,7 +15,7 @@ class NeedPolicy < ApplicationPolicy
       support?(@user, @record) ||
       @record.advisor_antenne == @user.antenne ||
       @record.in?(@user&.received_needs) ||
-      @record.in?(@user.antenne.received_needs)
+      (@user.is_manager? && @record.in?(@user.antenne.perimeter_received_needs))
   end
 
   def show_need_actions?
