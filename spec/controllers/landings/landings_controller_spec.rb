@@ -55,7 +55,7 @@ RSpec.describe Landings::LandingsController, type: :controller do
 
       it do
         get :show, params: { landing_slug: landing.slug }
-        expect(response).to redirect_to new_solicitation_path(landing_id: landing.id, landing_subject_id: landing_subject.id)
+        expect(response).to redirect_to new_solicitation_path(landing.slug, landing_subject.slug)
       end
     end
   end
