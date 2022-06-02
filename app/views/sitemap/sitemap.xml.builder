@@ -18,7 +18,7 @@ xml.urlset xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" do
 
       landing_theme.landing_subjects.each do |landing_subject|
         xml.url do
-          xml.loc landing_subject_url(landing, landing_subject)
+          xml.loc new_solicitation_path(landing.slug, landing_subject.slug)
           xml.lastmod landing_subject.updated_at.iso8601
           xml.changefreq 'weekly'
         end
