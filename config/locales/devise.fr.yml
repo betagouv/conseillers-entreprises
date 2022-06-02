@@ -31,7 +31,7 @@ fr:
         accept: Choisir mon mot de passe
         accept_user_invitation_instruction: 'Pour rejoindre la communauté, choisissez votre mot de passe :'
         answer_one: Après une expérimentation réussie en Hauts-de-France, %{institution_name} est partenaire du service Place des Entreprises en vertu d’un accord de coopération national, décliné localement. D’après les données communiquées, vous avez été identifié(e) pour participer à cette nouvelle dynamique.
-        answer_two_html: "<p>Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE & PME.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations, collectivités, organismes publics et parapublics chargés de l’accompagner sur son territoire.</p><p>Vous pouvez ainsi échanger sur une demande d’entreprise avec des conseillers du service public, travaillant dans d’autres structures. Le service compte plus de 40 partenaires ! </p>"
+        answer_two_html: "<p>Financé par le Ministère de l’Économie et le Ministère du Travail, ce service permet d’offrir un conseil humain et de proximité aux TPE et PME.</p><p>En fonction du sujet choisi, le chef d’entreprise est mis en relation avec le(s) bon(s) conseiller(s) au sein des administrations, collectivités, organismes publics et parapublics chargés de l’accompagner sur son territoire.</p><p>Vous pouvez ainsi échanger sur une demande d’entreprise avec des conseillers du service public, travaillant dans d’autres structures. Le service compte plus de 40 partenaires ! </p>"
         description_html: Vous êtes invité·e à rejoindre le service public %{link_to_root}, au sein de l’antenne %{antenne}.
         details_answer: Il permet aux chefs d’entreprises d’être facilement mis en relation avec le bon expert au sein des administrations, organismes publics et parapublics, et collectivités territoriales partenaires.
         details_answer_service: C’est un nouveau service public porté par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
@@ -46,11 +46,13 @@ fr:
         support_contact_label: 'Si vous avez le moindre souci pour votre compte, contactez :'
         training_html: "<strong>Pour en savoir plus, inscrivez-vous à la prochaine démonstration du service</strong> : %{link}"
       reset_password_instructions:
+        account_but_never_connected: Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté·e. Suivez le lien ci-dessous pour définir votre mot de passe et activer votre compte.
         account_but_never_connected_html: "<p>Vous disposez d’un accès à Place des Entreprises mais vous n’êtes pas encore connecté·e. Cliquez sur le bouton ci-dessous pour définir votre mot de passe et activer votre compte.</p>"
         change_my_password: Changer de mot de passe
         choose_my_password: Choisir mon mot de passe
         ignore: Si vous n’êtes pas à l’origine de cette demande, vous pouvez ignorer cet e-mail. Votre mot de passe ne sera pas modifié.
-        once_connected: Une fois connecté, vous pourrez accéder à toutes les demandes qui vous ont été transmises; vous pourrez aussi faire vous même des mises en relation.
+        once_connected: Une fois connecté, vous pourrez accéder à toutes les demandes qui vous ont été transmises ; vous pourrez aussi faire vous même des mises en relation.
+        someone_has_requested_a_link: Le %{date}, une demande de réinitalisation du mot de passe a été faite pour votre compte (%{email}). Suivez-le lien ci-dessous pour choisir un nouveau mot de passe.
         someone_has_requested_a_link_html: "<p>Le %{date}, une demande de réinitalisation du mot de passe a été faite pour votre compte (<code>%{email}</code>).</p><p>Cliquez sur le bouton ci-dessous pour choisir un nouveau mot de passe.</p>"
         subject: 'Place des Entreprises : choisissez un mot de passe pour votre compte'
     omniauth_callbacks:

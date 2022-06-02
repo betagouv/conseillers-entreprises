@@ -1,0 +1,16 @@
+<% if antenne.support_user.present? %>
+- <%= t('.support_contact',
+      region: antenne.regions.first.name,
+      name: antenne.support_user.full_name,
+      tel: antenne.support_user.phone_number,
+      email: antenne.support_user.email) %>
+<% else %>
+<% Territory.deployed_regions.with_support.includes(:support_contact).each do |territory| %>
+<% support_contact = territory.support_contact %>
+- <%= t('.support_contact',
+  region: territory.name,
+  name: support_contact.full_name,
+  tel: support_contact.phone_number,
+  email: support_contact.email) %>
+<% end %>
+<% end %>

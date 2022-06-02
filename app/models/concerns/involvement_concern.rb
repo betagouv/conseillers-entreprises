@@ -9,6 +9,7 @@ module InvolvementConcern
       .where(matches: received_matches.status_quo)
       .where(matches: { archived_at: nil })
       .archived(false)
+      .distinct
   end
 
   def needs_taking_care
@@ -16,6 +17,7 @@ module InvolvementConcern
       .where(matches: received_matches.status_taking_care)
       .where(matches: { archived_at: nil })
       .archived(false)
+      .distinct
   end
 
   def needs_done
@@ -23,6 +25,7 @@ module InvolvementConcern
       .where(matches: received_matches.with_status_done)
       .where(matches: { archived_at: nil })
       .archived(false)
+      .distinct
   end
 
   def needs_not_for_me
@@ -30,12 +33,14 @@ module InvolvementConcern
       .where(matches: received_matches.status_not_for_me)
       .where(matches: { archived_at: nil })
       .archived(false)
+      .distinct
   end
 
   def needs_archived
     received_needs
       .archived(true)
       .or(received_needs.where.not(matches: { archived_at: nil }))
+      .distinct
   end
 
   def needs_expired

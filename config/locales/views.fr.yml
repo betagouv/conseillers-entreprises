@@ -496,11 +496,12 @@ fr:
         needs_taking_care: 'Besoins pris en charge : est ce qu’il y a du nouveau ?'
         subject: "[Service public Place des Entreprises] Rappel : Des entreprises ont besoin de vous !"
         support_contact_label: 'Si vous n’arrivez pas à accéder à une demande, contactez :'
-        visited_days_ago: il y a %{days} par %{advisor}
-        visited_on: le %{date}
+        visited_days_ago: transmis il y a %{days} par %{advisor}
+        visited_on: transmis le %{date}
       remind_received_needs:
         company: Entreprise
       support_contacts:
+        support_contact: 'en %{region} : %{name} – tel: %{tel} – email: %{email}'
         support_contact_html: en %{region}, %{name} – <a href='tel:%{tel}'>%{tel}</a> – <a href='mailto:%{email}'>%{email}</a>
       support_user_signature:
         beta_gouv: Incubateur de Services Numériques / beta.gouv.fr

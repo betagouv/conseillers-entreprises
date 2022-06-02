@@ -1,0 +1,19 @@
+<%= t('mailers.hello') %>
+
+<%= ActionView::Base.full_sanitizer.sanitize(t('.new_comment_html', author: @author.full_name, antenne: @author.antenne, company: @feedback.need.company, date: I18n.l(@feedback.need.diagnosis.display_date))) %>
+
+<%= Subject.model_name.human %> : <%= @feedback.need.subject %>
+
+<%= Feedback.model_name.human %> :
+<%= @feedback.description %>
+
+<% if @match.present? %>
+<%= t('.match_status_html', status: @match.human_attribute_value(:status, context: :long)) %>
+<% end %>
+
+<%= t('mailers.see_diagnosis') %> : <%= need_url(@feedback.need) %>
+
+<%= t('mailers.see_you_on_place_des_entreprises_html', link_to_root: root_url) %>
+
+---
+<%= render 'mailers/footer' %>
