@@ -71,10 +71,6 @@ class Solicitation < ApplicationRecord
   ## Status
   #
 
-  # # A supprimer une fois migrations passées
-  enum old_status: { in_progress: 'in_progress', processed: 'processed', canceled: 'canceled' }, _prefix: true
-  enum completion_step: { contact: 0, company: 1, description: 2, completed: 3 }, _prefix: true
-
   enum status: {
     step_contact: 0, step_company: 1, step_description: 2,
     in_progress: 3, processed: 4, canceled: 5
