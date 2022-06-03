@@ -56,7 +56,7 @@ RSpec.describe NeedPolicy, type: :policy do
         let(:user) { create :user, :manager, antenne: create(:antenne) }
 
         before do
-          allow(user.antenne).to receive(:perimeter_received_needs).and_return([need.expert_antennes.first])
+          allow(user.antenne).to receive(:perimeter_received_needs).and_return([need])
         end
 
         it { is_expected.to permit(user, need) }
