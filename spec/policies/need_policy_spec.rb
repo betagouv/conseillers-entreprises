@@ -37,6 +37,42 @@ RSpec.describe NeedPolicy, type: :policy do
       it { is_expected.to permit(user, need) }
     end
 
+    context "with managing stuff" do
+      context "manager and need in a managed antenne" do
+        let(:user) { create :user, :manager, antenne: create(:antenne) }
+
+        before { user.managed_antennes.push(need.expert_antennes.first) }
+
+        it { is_expected.to permit(user, need) }
+      end
+
+      context "manager and need not in a managed antenne" do
+        let(:user) { create :user, :manager, antenne: create(:antenne) }
+
+        it { is_expected.not_to permit(user, need) }
+      end
+
+      context "manager and need in perimeter received needs" do
+        let(:user) { create :user, :manager, antenne: create(:antenne) }
+
+        before do
+          allow(user.antenne).to receive(:perimeter_received_needs).and_return([need.expert_antennes.first])
+        end
+
+        it { is_expected.to permit(user, need) }
+      end
+
+      context "not manager and need in perimeter received needs" do
+        let(:user) { create :user, antenne: create(:antenne) }
+
+        before do
+          allow(user.antenne).to receive(:perimeter_received_needs).and_return([need.expert_antennes.first])
+        end
+
+        it { is_expected.not_to permit(user, need) }
+      end
+    end
+
     context "grants access if user is support" do
       let(:user) { create :user, experts: [expert] }
       let(:expert) { create :expert, communes: [need.diagnosis.facility.commune] }
