@@ -231,7 +231,7 @@ class Expert < ApplicationRecord
   def soft_delete
     self.transaction do
       if personal_skillset?
-        users.each{ |u| u.update_columns(SoftDeletable.persons_attributes) }
+        users.each { |u| u.update_columns(SoftDeletable.persons_attributes) }
       end
       update_columns(SoftDeletable.persons_attributes)
     end
@@ -239,7 +239,7 @@ class Expert < ApplicationRecord
 
   def deep_soft_delete
     self.transaction do
-      users.each{ |user| user.soft_delete }
+      users.each { |user| user.soft_delete }
       update_columns(SoftDeletable.persons_attributes)
     end
   end

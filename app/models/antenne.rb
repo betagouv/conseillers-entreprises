@@ -221,7 +221,7 @@ class Antenne < ApplicationRecord
 
   def deep_soft_delete
     self.transaction do
-      experts.each{ |e| e.deep_soft_delete }
+      experts.each { |e| e.deep_soft_delete }
       update_columns(deleted_at: Time.zone.now)
     end
   end

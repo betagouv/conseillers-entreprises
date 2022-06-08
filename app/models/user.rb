@@ -244,7 +244,7 @@ class User < ApplicationRecord
   # Suppression de l'utilisateur + personal_skillsets
   def soft_delete
     self.transaction do
-      personal_skillsets.each{ |e| e.update_columns(SoftDeletable.persons_attributes) }
+      personal_skillsets.each { |e| e.update_columns(SoftDeletable.persons_attributes) }
       update_columns(SoftDeletable.persons_attributes)
     end
   end

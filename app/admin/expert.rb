@@ -263,12 +263,12 @@ ActiveAdmin.register Expert do
 
   member_action :deep_soft_delete, method: :delete do
     resource.deep_soft_delete
-    redirect_back fallback_location: collection_path, alert: t('active_admin.person.deep_soft_delete_done')
+    redirect_to collection_path, notice: t('active_admin.person.deep_soft_delete_done')
   end
 
   member_action :normalize_values do
     resource.normalize_values!
-    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+    redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
   end
 
   batch_action I18n.t('active_admin.person.normalize_values') do |ids|

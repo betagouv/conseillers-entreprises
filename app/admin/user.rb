@@ -226,7 +226,7 @@ ActiveAdmin.register User do
 
   member_action :deep_soft_delete, method: :delete do
     resource.deep_soft_delete
-    redirect_back fallback_location: collection_path, alert: t('active_admin.person.deep_soft_delete_done')
+    redirect_to collection_path, notice: t('active_admin.person.deep_soft_delete_done')
   end
 
   member_action :normalize_values do
