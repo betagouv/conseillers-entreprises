@@ -24,12 +24,6 @@ class UserRight < ApplicationRecord
   belongs_to :antenne, inverse_of: :user_rights, optional: true
   belongs_to :user, inverse_of: :user_rights
 
-  enum right: {
-    advisor: 'advisor',
-    admin: 'admin',
-    manager: 'manager'
-  }, _prefix: true
-
   enum category: {
     manager: 0,
     admin: 1
