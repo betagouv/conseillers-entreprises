@@ -1,6 +1,5 @@
 module  Annuaire
   class InstitutionsController < BaseController
-    skip_before_action :retrieve_institution
     before_action :retrieve_institutions, only: :index
 
     def index

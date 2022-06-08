@@ -1,5 +1,6 @@
 module  Annuaire
   class UsersController < BaseController
+    before_action :retrieve_institution
     before_action :retrieve_antenne, only: :index
     before_action :retrieve_users, only: :index
 
