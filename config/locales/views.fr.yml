@@ -38,9 +38,9 @@ fr:
         unknown_headers:
           one: En-tête non reconnu
           other: En-têtes non reconnus
-      search:
-        submit: Chercher
     search:
+      form:
+        submit: Chercher
       many_users:
         many_users_find: Plusieurs conseillers ont été trouvé, selectionnez celui que vous cherchez.
       no_user:

@@ -96,6 +96,8 @@ class Antenne < ApplicationRecord
       .where("(antennes.name, institutions.name) IN (#{(['(?)'] * tuples_array.size).join(', ')})", *tuples_array)
   end
 
+  scope :search_by_name, -> (name) { not_deleted.where("antennes.name ILIKE ?", "%#{name.downcase}%") }
+
   ##
   #
   def to_s

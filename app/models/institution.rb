@@ -80,6 +80,8 @@ class Institution < ApplicationRecord
       .distinct
   end
 
+  scope :search_by_name, -> (name) { not_deleted.where("institutions.name ILIKE ?", "%#{name}%") }
+
   ## Institution subjects helpers
   #
 

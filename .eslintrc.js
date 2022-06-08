@@ -10,6 +10,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
+  ignorePatterns: ["app/front/javascripts/application/controllers/autocomplete_controller.js"],
   rules: {},
   globals: {
     $: true,

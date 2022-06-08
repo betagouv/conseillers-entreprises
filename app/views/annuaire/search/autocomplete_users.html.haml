@@ -1,0 +1,3 @@
+- @users.each do |user|
+  %li.list-group-item{ 'data-autocomplete-value': "#{user.full_name}", role: 'option' }
+    = user.full_name

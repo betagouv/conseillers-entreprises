@@ -1,0 +1,3 @@
+- @institutions.each do |institution|
+  %li.list-group-item{ 'data-autocomplete-value': "#{institution.slug}", role: 'option' }
+    = institution.name

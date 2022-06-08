@@ -39,8 +39,19 @@ module Annuaire
 
     def no_user; end
 
+    def autocomplete_antennes
+      @antennes = Antenne.search_by_name(params[:q]).order(:name).limit(10)
+      render layout: false
+    end
+
     def autocomplete_institutions
-      
+      @institutions = Institution.search_by_name(params[:q]).order(:name).limit(10)
+      render layout: false
+    end
+
+    def autocomplete_users
+      @users = User.by_name(params[:q]).order(:full_name).limit(10)
+      render layout: false
     end
   end
 end

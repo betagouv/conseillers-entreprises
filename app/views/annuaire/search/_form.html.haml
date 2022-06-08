@@ -2,14 +2,19 @@
   .fr-grid-row
     .fr-col
       .fr-select-group.fr-pr-2v
-        = f.label :by_institution, t('attributes.institution'), class: 'fr-label'
-        = f.collection_select :by_institution, Institution.not_deleted.order(:name), :slug, :name, { selected: params[:by_institution],
-          prompt: t('all.feminine') }, required: true, class: "fr-select"
+        .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_institutions_url}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
+          -# TODO mettre ce champ en require
+          = f.label :by_institution, "#{t('attributes.institution')} *", class: 'fr-label'
+          = f.hidden_field :by_institution, 'data-autocomplete-target': 'hidden'
+          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
+          %ul.list-group{ 'data-autocomplete-target': 'results' }
     .fr-col
       .fr-input-group
-        = f.label :by_antenne, t('attributes.antenne'), class: 'fr-label'
-        = f.collection_select :by_antenne, Antenne.not_deleted.order(:name), :id, :name, { selected: params[:by_antenne],
-          prompt: t('all.feminine') }, class: "fr-select"
+        .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_antennes_url}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
+          = f.label :by_antenne, t('attributes.antenne'), class: 'fr-label'
+          = f.hidden_field :by_antenne, 'data-autocomplete-target': 'hidden'
+          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
+          %ul.list-group{ 'data-autocomplete-target': 'results' }
   .fr-grid-row.fr-mt-2w
     .fr-col
       .fr-select-group.fr-pr-2v
@@ -18,6 +23,9 @@
           prompt: t('all.feminine') }, class: "fr-select"
     .fr-col
       .fr-input-group
-        = f.label :by_name, t('attributes.advisor'), class: 'fr-label'
-        = f.text_field :by_name, value: params[:by_name], class: 'fr-input'
+        .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_users_url}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
+          = f.label :by_name, t('attributes.advisor'), class: 'fr-label'
+          = f.hidden_field :by_name, 'data-autocomplete-target': 'hidden'
+          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
+          %ul.list-group{ 'data-autocomplete-target': 'results' }
   = f.submit t('.submit'), class: 'fr-btn fr-mt-2w'
