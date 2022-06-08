@@ -1,0 +1,3 @@
+<% if @expert.users.any?(&:never_used_account?) %>
+<%= t('.you_need_to_use_your_user_account') %>
+<% end %>
