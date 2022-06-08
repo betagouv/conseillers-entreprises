@@ -27,7 +27,7 @@ module Annuaire
       # Si il y a plusieurs antenne et une seule institution
       # on redirige vers les utilisateurs des antennes
       elsif params[:by_name].empty?
-        redirect_to institution_users_path(institution)
+        redirect_to institution_users_path(institution, form_params)
       else
         redirect_to annuaire_no_user_path(form_params)
       end
@@ -38,5 +38,9 @@ module Annuaire
     end
 
     def no_user; end
+
+    def autocomplete_institutions
+      
+    end
   end
 end

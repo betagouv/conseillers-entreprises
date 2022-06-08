@@ -18,25 +18,11 @@ RSpec.describe Annuaire::InstitutionsController, type: :controller do
     let!(:commune_ouest) { create :commune, regions: [region_ouest] }
     let!(:commune_est) { create :commune, regions: [region_est] }
 
-    context 'without region params' do
-      subject(:request) { get :index }
+    subject(:request) { get :index }
 
-      it 'return all institutions' do
-        request
-        expect(assigns(:institutions)).to match_array(Institution.all)
-      end
-    end
-
-    context 'with region params' do
-      subject(:request) { get :index, params: { region_id: region_ouest.id } }
-      # Institution avec une antenne dans la région OK (institution_1)
-      # Institution avec une antenne en dehors de la région KO (institution_2)
-      # Institution avec une antenne dans la région et une antenne en dehors OK (institution_3)
-
-      it 'return institutions for the selected region' do
-        request
-        expect(assigns(:institutions)).to match_array([institution_1, institution_3])
-      end
+    it 'return all institutions' do
+      request
+      expect(assigns(:institutions)).to match_array(Institution.all)
     end
   end
 end
