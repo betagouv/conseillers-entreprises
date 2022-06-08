@@ -35,6 +35,7 @@ class Institution < ApplicationRecord
   has_and_belongs_to_many :categories
   has_one :logo, inverse_of: :institution
   has_many :facilities, inverse_of: :opco
+  has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
 
   ## Hooks and Validations
   #

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_24_150053) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_03_135647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,6 +77,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_24_150053) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "additional_subject_questions", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.string "key"
+    t.integer "position"
+    t.index ["subject_id"], name: "index_additional_subject_questions_on_subject_id"
   end
 
   create_table "antennes", force: :cascade do |t|
@@ -276,6 +283,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_24_150053) do
     t.index ["category"], name: "index_feedbacks_on_category"
     t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedbacks_on_feedbackable_type_and_feedbackable_id"
     t.index ["user_id"], name: "index_feedbacks_on_user_id"
+  end
+
+  create_table "institution_filters", force: :cascade do |t|
+    t.bigint "additional_subject_question_id"
+    t.string "institution_filtrable_type"
+    t.bigint "institution_filtrable_id"
+    t.boolean "filter_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["additional_subject_question_id"], name: "index_institution_filters_on_additional_subject_question_id"
+    t.index ["institution_filtrable_id", "institution_filtrable_type", "additional_subject_question_id"], name: "institution_filtrable_additional_subject_question_index", unique: true
+    t.index ["institution_filtrable_type", "institution_filtrable_id"], name: "index_institution_filters_on_institution_filtrable"
   end
 
   create_table "institutions", force: :cascade do |t|

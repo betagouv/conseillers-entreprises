@@ -136,6 +136,23 @@ fr:
       delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
   activerecord:
     attributes:
+      additional_subject_questions:
+        ameliorer_conditions_travail:
+          label: Avec cet investissement, allez-vous améliorer les conditions de travail de vos salariés (sécurité, pénibilité) ?
+        entreprise_a_reprendre_trouvee:
+          label: Avez-vous déjà trouvé une entreprise à reprendre ?
+        etalement_cotisations_sociales:
+          label: Souhaitez-vous étaler vos cotisations sociales ?
+        moins_de_10k_restant_a_financer:
+          answer_no: 10 000 euros et plus
+          answer_yes: moins de 10 000 euros
+          label: Quel est le montant qu’il reste à financer pour votre projet (hors apport et prêt bancaire) ?
+        personne_formee_salariee_de_lentreprise:
+          label: La personne que vous souhaitez former est-elle salariée de votre entreprise ?
+        recrutement_en_apprentissage:
+          label: Souhaitez-vous recruter en apprentissage ?
+        recrutement_poste_cadre:
+          label: Souhaitez-vous recruter sur un poste de cadre ?
       antenne:
         match_filters: Filtres pour les mises en relation
       antenne/territorial_levels:

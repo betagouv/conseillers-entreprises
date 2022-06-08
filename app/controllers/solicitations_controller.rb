@@ -28,6 +28,10 @@ class SolicitationsController < PagesController
     update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
+  def step_description
+    build_institution_filters
+  end
+
   def update_step_description
     update_solicitation_from_step(:step_description, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
@@ -46,6 +50,7 @@ class SolicitationsController < PagesController
       redirect_to redirect_path
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
+      build_institution_filters if step == :step_description
       render step
     end
   end
@@ -53,7 +58,8 @@ class SolicitationsController < PagesController
   def solicitation_params
     params.require(:solicitation)
       .permit(:landing_id, :landing_subject_id, :description, :code_region, :status,
-              *Solicitation::FIELD_TYPES.keys)
+              *Solicitation::FIELD_TYPES.keys,
+              institution_filters_attributes: [:additional_subject_question_id, :filter_value])
   end
 
   def view_params
@@ -74,5 +80,11 @@ class SolicitationsController < PagesController
     # On ne cherche que dans les params, car contexte d'iframe = pas de session
     query_params = view_params.slice(:siret)
     { siret: query_params['siret'] }
+  end
+
+  def build_institution_filters
+    @solicitation.subject.additional_subject_questions.order(:position).each do |question|
+      @solicitation.institution_filters.build(additional_subject_question: question)
+    end
   end
 end
