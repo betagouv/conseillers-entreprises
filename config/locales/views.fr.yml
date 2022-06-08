@@ -41,6 +41,7 @@ fr:
     search:
       form:
         submit: Chercher
+        search_institution: "Rechercher une institution"
       many_users:
         many_users_find: Plusieurs conseillers ont été trouvé, selectionnez celui que vous cherchez.
       no_user:

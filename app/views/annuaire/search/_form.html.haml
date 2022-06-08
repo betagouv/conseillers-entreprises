@@ -4,9 +4,10 @@
       .fr-select-group.fr-pr-2v
         .autocomplete-field{ 'data-autocomplete-url-value': "#{annuaire_autocomplete_institutions_url}", 'data-controller': 'autocomplete', 'data-autocomplete-min-length': 3 }
           -# TODO mettre ce champ en require
+          -# TODO remettre les params quand il y a eu une recherche
           = f.label :by_institution, "#{t('attributes.institution')} *", class: 'fr-label'
           = f.hidden_field :by_institution, 'data-autocomplete-target': 'hidden'
-          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text' }
+          %input.fr-input{ 'data-autocomplete-target': 'input', type: 'text', placeholder: t('.search_institution') }
           %ul.list-group{ 'data-autocomplete-target': 'results' }
     .fr-col
       .fr-input-group
