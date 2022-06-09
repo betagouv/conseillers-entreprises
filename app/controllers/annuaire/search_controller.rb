@@ -12,9 +12,13 @@ module Annuaire
         redirect_to institution_users_path(antenne.institution.slug, antenne_id: antenne.id)
       when 'Institution'
         institution = Institution.find(id)
-        redirect_to institution_users_path(institution.slug)
+        redirect_to institution_users_path(institution.slug, region_id: params[:region_id])
       else
-        redirect_back(fallback_location: institutions_path)
+        if params[:region_id].present? && params[:query].blank?
+          redirect_to institutions_path(region_id: params[:region_id])
+        else
+          redirect_back(fallback_location: institutions_path)
+        end
       end
     end
 

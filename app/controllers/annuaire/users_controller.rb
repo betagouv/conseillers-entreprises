@@ -76,8 +76,8 @@ module  Annuaire
         .order('antennes.name', 'team_name', 'users.full_name')
         .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
 
-      if @region_id.present?
-        @users = @users.in_region(@region_id)
+      if params[:region_id].present?
+        @users = @users.in_region(params[:region_id])
       end
     end
 

@@ -10,6 +10,6 @@
     .fr-col
       .fr-select-group
         = f.label :by_region, t('attributes.region'), class: 'fr-label'
-        = f.collection_select :by_region, Territory.regions.order(:name), :id, :name, { selected: params[:by_region],
+        = f.collection_select :region_id, Territory.regions.order(:name), :id, :name, { selected: params[:region_id],
           prompt: t('all.feminine') }, class: "fr-select"
   = f.submit t('.submit'), class: 'fr-btn fr-mt-2w'

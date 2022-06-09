@@ -13,7 +13,7 @@ module  Annuaire
     private
 
     def retrieve_institutions
-      @institutions = Institution.retrieve_institutions(session[:annuaire_region_id])
+      @institutions = Institution.retrieve_institutions(params[:region_id])
     end
   end
 end

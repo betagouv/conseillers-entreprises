@@ -7,14 +7,8 @@ RSpec.describe Annuaire::SearchController, type: :controller do
 
   describe 'POST #search' do
     let(:institution_1) { create :institution }
-    let(:subject_1) { create :subject }
     let!(:antenne_1) { create :antenne, institution: institution_1 }
-    let!(:expert_1) { create :expert, users: [user_1], antenne: antenne_1 }
     let!(:user_1) { create :user, :invitation_accepted, full_name: 'Marie Dupont', antenne: antenne_1 }
-    let!(:user_2) { create :user, :invitation_accepted, antenne: antenne_1 }
-    let!(:antenne_2) { create :antenne, institution: institution_1 }
-    let!(:expert_2) { create :expert, users: [user_3], antenne: antenne_2 }
-    let!(:user_3) { create :user, :invitation_accepted, full_name: 'Jean Dupont', antenne: antenne_2 }
 
     context 'the query is a user' do
       it 'redirect to user in this antenne' do
@@ -37,8 +31,15 @@ RSpec.describe Annuaire::SearchController, type: :controller do
       end
     end
 
+    context 'the query is blank and there is a selected region' do
+      it 'redirect to institutions index' do
+        post :search, params: { query: '', region_id: 1 }
+        expect(response).to redirect_to(institutions_path(region_id: 1))
+      end
+    end
+
     context 'No results' do
-      it 'redirects to no results page' do
+      it 'redirect_back' do
         post :search, params: { query: 'aze' }
         expect(response).to redirect_to(institutions_path)
       end
