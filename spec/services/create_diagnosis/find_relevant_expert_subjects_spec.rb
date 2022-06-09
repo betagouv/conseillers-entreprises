@@ -215,6 +215,41 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
     end
   end
 
+  describe 'apply_institution_filters' do
+    subject{ described_class.new(need).apply_institution_filters(ExpertSubject.all) }
+
+    let(:common_subject) { create :subject }
+    let(:additional_question) { create :additional_subject_question, subject: common_subject }
+
+    let(:institution_filter_ok) { create :institution }
+    let!(:es_filter_ok) { create :expert_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ok)) }
+    let(:institution_filter_ko) { create :institution }
+    let!(:es_filter_ko) { create :expert_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ko)) }
+    let!(:es_temoin) { create :expert_subject }
+
+    let(:solicitation) { create :solicitation }
+    let(:need) { create :need, diagnosis: create(:diagnosis, solicitation: solicitation) }
+
+    context 'solicitation with filter' do
+      before do
+        solicitation.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
+        institution_filter_ok.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
+        institution_filter_ko.institution_filters.create(additional_subject_question: additional_question, filter_value: false)
+      end
+
+      it { is_expected.to match_array [es_temoin, es_filter_ok] }
+    end
+
+    context 'solicitation no filter' do
+      before do
+        institution_filter_ok.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
+        institution_filter_ko.institution_filters.create(additional_subject_question: additional_question, filter_value: false)
+      end
+
+      it { is_expected.to match_array [es_temoin, es_filter_ok, es_filter_ko] }
+    end
+  end
+
   describe 'call' do
     subject{ described_class.new(need).call }
 
