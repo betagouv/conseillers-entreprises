@@ -18,13 +18,6 @@ module Annuaire
       end
     end
 
-    # TODO enlever ça
-    def many_users
-      @advisors = User.where(id: params[:advisors])
-    end
-
-    def no_user; end
-
     def autocomplete
       @results = Institution.omnisearch(params[:q]).limit(7) +
         Antenne.omnisearch(params[:q]).limit(7) +

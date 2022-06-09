@@ -189,8 +189,6 @@ Rails.application.routes.draw do
 
     controller :search do
       post :search, as: 'annuaire_search'
-      get :many_users, as: 'annuaire_many_users'
-      get :no_user, as: 'annuaire_no_user'
       get :autocomplete, as: 'annuaire_autocomplete'
     end
 
