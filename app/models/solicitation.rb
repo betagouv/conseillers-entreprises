@@ -163,7 +163,7 @@ class Solicitation < ApplicationRecord
   validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
 
   def subject_with_additional_questions?
-    status_in_progress? && self.subject.additional_subject_questions.any?
+    status_in_progress? && self.subject&.additional_subject_questions&.any?
   end
 
   ## Callbacks
