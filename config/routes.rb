@@ -191,9 +191,7 @@ Rails.application.routes.draw do
       post :search, as: 'annuaire_search'
       get :many_users, as: 'annuaire_many_users'
       get :no_user, as: 'annuaire_no_user'
-      get :autocomplete_antennes, as: 'annuaire_autocomplete_antennes'
-      get :autocomplete_institutions, as: 'annuaire_autocomplete_institutions'
-      get :autocomplete_users, as: 'annuaire_autocomplete_users'
+      get :autocomplete, as: 'annuaire_autocomplete'
     end
 
     resources :institutions, param: :slug, only: %i[index show] do

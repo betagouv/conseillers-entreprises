@@ -1,56 +1,34 @@
 module Annuaire
   class SearchController < BaseController
     def search
-      institution = Institution.find_by(slug: params[:by_institution])
-      advisors = form_params.keys.inject(User.not_deleted) do |relation, filter|
-        next relation if params[filter].blank?
-        relation.send(filter, params[filter])
-      end
-      antennes = advisors.collect(&:antenne).uniq
+      model, id = params[:query].split('-')
 
-      # si il y a un seul utilisateur de trouvé
-      # On affiche l'utilisateur au sein de son antenne
-      if advisors.size == 1
-        advisor = advisors.first
-        redirect_to institution_users_path(institution.slug, { advisor: advisor, antenne_id: advisor.antenne }.merge(form_params))
-
-      # Si il y a un paramètre pour la recherche par nom et plusieurs utilisateurs
-      # On redirige vers la page de choix avec la liste des utilisateurs trouvés
-      elsif params[:by_name].present? && advisors.many?
-        redirect_to annuaire_many_users_path({ advisors: advisors.ids, by_name: params[:by_name] }.merge(form_params))
-
-      # Si il y a un recherche par antenne et pas par nom
-      # on redirige vers les utilisateurs de l'antenne
-      elsif params[:by_name].empty? && antennes.size == 1
-        redirect_to institution_users_path(institution, { antenne_id: advisors.first.antenne }.merge(form_params))
-
-      # Si il y a plusieurs antenne et une seule institution
-      # on redirige vers les utilisateurs des antennes
-      elsif params[:by_name].empty?
-        redirect_to institution_users_path(institution, form_params)
+      case model
+      when 'User'
+        user = User.find(id)
+        redirect_to institution_users_path(user.institution.slug, { advisor: user, antenne_id: user.antenne.id })
+      when 'Antenne'
+        antenne = Antenne.find(id)
+        redirect_to institution_users_path(antenne.institution.slug, antenne_id: antenne.id)
+      when 'Institution'
+        institution = Institution.find(id)
+        redirect_to institution_users_path(institution.slug)
       else
-        redirect_to annuaire_no_user_path(form_params)
+        redirect_back(fallback_location: institutions_path)
       end
     end
 
+    # TODO enlever ça
     def many_users
       @advisors = User.where(id: params[:advisors])
     end
 
     def no_user; end
 
-    def autocomplete_antennes
-      @antennes = Antenne.search_by_name(params[:q]).order(:name).limit(10)
-      render layout: false
-    end
-
-    def autocomplete_institutions
-      @institutions = Institution.search_by_name(params[:q]).order(:name).limit(10)
-      render layout: false
-    end
-
-    def autocomplete_users
-      @users = User.by_name(params[:q]).order(:full_name).limit(10)
+    def autocomplete
+      @results = Institution.omnisearch(params[:q]).limit(7) +
+        Antenne.omnisearch(params[:q]).limit(7) +
+        User.omnisearch(params[:q]).limit(7)
       render layout: false
     end
   end

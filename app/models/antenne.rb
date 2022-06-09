@@ -98,6 +98,12 @@ class Antenne < ApplicationRecord
 
   scope :search_by_name, -> (name) { not_deleted.where("antennes.name ILIKE ?", "%#{name.downcase}%") }
 
+  scope :omnisearch, -> (query) do
+    if query.present?
+      not_deleted.where("antennes.name ILIKE ?", "%#{query}%")
+    end
+  end
+
   ##
   #
   def to_s
