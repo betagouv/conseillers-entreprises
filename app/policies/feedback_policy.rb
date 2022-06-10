@@ -1,4 +1,12 @@
 class FeedbackPolicy < ApplicationPolicy
+  def create?
+    if @record.category_need?
+      true
+    else
+      @user.is_admin?
+    end
+  end
+
   def destroy?
     creator?
   end
