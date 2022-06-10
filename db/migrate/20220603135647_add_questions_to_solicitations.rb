@@ -50,9 +50,9 @@ class AddQuestionsToSolicitations < ActiveRecord::Migration[7.0]
         },
         {
           key: :moins_de_10k_restant_a_financer, subject_id: 55, filters: [
-            { slug: 'initiative-france', value: true },
-            { slug: 'bpi', value: true },
-            { slug: 'adie', value: false }
+            { slug: 'initiative-france', value: false },
+            { slug: 'bpifrance', value: false },
+            { slug: 'adie', value: true }
           ]
         },
         {
