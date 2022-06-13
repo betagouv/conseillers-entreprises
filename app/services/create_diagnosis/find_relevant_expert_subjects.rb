@@ -8,7 +8,26 @@ module CreateDiagnosis
 
     def call
       expert_subjects = apply_base_query
-      apply_match_filters(expert_subjects)
+      [
+        apply_institution_filters(expert_subjects),
+        apply_match_filters(expert_subjects)
+      ].inject(:&)
+    end
+
+    def apply_institution_filters(expert_subjects)
+      return expert_subjects unless need.diagnosis.from_solicitation?
+      solicitation.institution_filters.each do |sol_filter|
+        sol_question_id = sol_filter.additional_subject_question_id
+        sol_value = sol_filter.filter_value
+        expert_subjects = expert_subjects.select do |es|
+          institution_filter = es.expert.institution.institution_filters.find_by(additional_subject_question_id: sol_question_id)
+          # On garde les expert_subjects
+          #- qui n'ont pas de filtre sur cette question additionnelle
+          #- qui ont la même filter_value que la solicitation
+          institution_filter.nil? || (institution_filter.filter_value == sol_value)
+        end
+      end
+      expert_subjects
     end
 
     def apply_base_query
@@ -128,6 +147,10 @@ module CreateDiagnosis
 
     def institutions
       @institutions ||= Institution.not_deleted
+    end
+
+    def solicitation
+      @solicitation ||= need.solicitation
     end
   end
 end

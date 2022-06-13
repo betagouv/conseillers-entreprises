@@ -52,6 +52,7 @@ class Solicitation < ApplicationRecord
   belongs_to :landing, inverse_of: :solicitations, optional: true
   belongs_to :landing_subject, inverse_of: :solicitations, optional: true
   has_one :landing_theme, through: :landing_subject, source: :landing_theme, inverse_of: :landing_subjects
+  has_one :subject, through: :landing_subject, source: :subject, inverse_of: :landing_subjects
 
   has_one :diagnosis, inverse_of: :solicitation
   has_many :diagnosis_regions, -> { regions }, through: :diagnosis, source: :facility_territories, inverse_of: :diagnoses
@@ -62,6 +63,9 @@ class Solicitation < ApplicationRecord
   has_many :needs, through: :diagnosis, inverse_of: :solicitation
   has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   belongs_to :institution, inverse_of: :solicitations, optional: true
+
+  has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
+  accepts_nested_attributes_for :institution_filters, allow_destroy: false
 
   before_create :set_uuid
   before_create :set_institution_from_landing
@@ -155,6 +159,12 @@ class Solicitation < ApplicationRecord
     end
   end
   validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? }
+
+  validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
+
+  def subject_with_additional_questions?
+    status_in_progress? && self.subject&.additional_subject_questions&.any?
+  end
 
   ## Callbacks
   #
