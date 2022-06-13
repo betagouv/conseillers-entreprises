@@ -28,9 +28,9 @@
       %legend= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
       %span
         = ff.hidden_field :additional_subject_question_id
-        = ff.radio_button :filter_value, true, required: true, checked: (params[:response] == 'yes')
+        = ff.radio_button :filter_value, true, required: true, checked: (params[:filter_value] == 'yes')
         = ff.label :filter_value, I18n.t(:answer_yes, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'label-inline'
-        = ff.radio_button :filter_value, false, required: true, checked: (params[:response] == 'no')
+        = ff.radio_button :filter_value, false, required: true, checked: (params[:filter_value] == 'no')
         = ff.label :filter_value, I18n.t(:answer_no, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'label-inline'
 
   .form__group.submit-buttons
