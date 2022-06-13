@@ -17,7 +17,7 @@ module Annuaire
         if params[:region_id].present? && params[:query].blank?
           redirect_to institutions_path(region_id: params[:region_id])
         else
-          redirect_back(fallback_location: institutions_path)
+          redirect_back(fallback_location: institutions_path, flash: { alert: t('.no_results') })
         end
       end
     end

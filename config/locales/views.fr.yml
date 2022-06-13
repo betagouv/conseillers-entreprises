@@ -41,6 +41,8 @@ fr:
     search:
       form:
         submit: Chercher
+      search:
+        no_results: Aucun résultat n'a été trouvé
     users:
       index:
         send_invitations:
