@@ -155,7 +155,7 @@ class Diagnosis < ApplicationRecord
   private
 
   def update_needs
-    needs.each{ |n| n.update_status }
+    needs.each { |n| n.update_status }
   end
 
   def step_needs_has_contact

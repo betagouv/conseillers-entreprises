@@ -124,7 +124,7 @@ ActiveAdmin.register Solicitation do
     column :diagnosis
     column(:badges) { |s| s.badges.map(&:to_s).join(",") }
     column(:regions) { |s| s.region&.name }
-    Solicitation::FORM_INFO_KEYS.each{ |k| column k, humanize_name: false }
+    Solicitation::FORM_INFO_KEYS.each { |k| column k, humanize_name: false }
   end
 
   ## Show

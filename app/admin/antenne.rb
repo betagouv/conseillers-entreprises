@@ -190,8 +190,22 @@ ActiveAdmin.register Antenne do
     link_to t('active_admin.antenne.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.antenne.delete_confirmation') }
   end
 
+  action_item :deep_soft_delete, only: :show do
+    link_to t('active_admin.antenne.deep_soft_delete'), { action: :deep_soft_delete }, method: :delete, data: { confirm: t('active_admin.antenne.deep_soft_delete_confirmation') }
+  end
+
+  member_action :deep_soft_delete, method: :delete do
+    resource.deep_soft_delete
+    redirect_to collection_path, notice: t('active_admin.person.deep_soft_delete_done')
+  end
+
   batch_action :destroy, confirm: I18n.t('active_admin.antenne.delete_confirmation') do |ids|
     Antenne.where(id: ids).each { |u| u.soft_delete }
     redirect_to collection_path, notice: I18n.t('active_admin.antennes.deleted')
+  end
+
+  batch_action I18n.t('active_admin.antenne.deep_soft_delete'), { action: :deep_soft_delete, confirm: I18n.t('active_admin.antenne.deep_soft_delete_confirmation') } do |ids|
+    Antenne.where(id: ids).each { |u| u.deep_soft_delete }
+    redirect_to collection_path, notice: I18n.t('active_admin.antennes.deep_soft_deleted')
   end
 end

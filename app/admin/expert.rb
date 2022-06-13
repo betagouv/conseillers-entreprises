@@ -257,14 +257,18 @@ ActiveAdmin.register Expert do
     link_to t('active_admin.expert.delete'), { action: :destroy }, method: :delete, data: { confirm: t('active_admin.expert.delete_confirmation') }
   end
 
-  member_action :normalize_values do
-    resource.normalize_values!
-    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+  action_item :deep_soft_delete, only: :show do
+    link_to t('active_admin.expert.deep_soft_delete'), { action: :deep_soft_delete }, method: :delete, data: { confirm: t('active_admin.expert.deep_soft_delete_confirmation') }
   end
 
-  member_action :normalize do
+  member_action :deep_soft_delete, method: :delete do
+    resource.deep_soft_delete
+    redirect_to collection_path, notice: t('active_admin.person.deep_soft_delete_done')
+  end
+
+  member_action :normalize_values do
     resource.normalize_values!
-    redirect_back fallback_location: collection_path, alert: t('active_admin.person.normalize_values_done')
+    redirect_back fallback_location: collection_path, notice: t('active_admin.person.normalize_values_done')
   end
 
   batch_action I18n.t('active_admin.person.normalize_values') do |ids|
@@ -285,6 +289,11 @@ ActiveAdmin.register Expert do
 
     message = I18n.t("active_admin.flag.done.#{inputs[:action]}", flag: User.human_attribute_name(flag))
     redirect_to collection_path, notice: message
+  end
+
+  batch_action I18n.t('active_admin.expert.deep_soft_delete'), { action: :deep_soft_delete, confirm: I18n.t('active_admin.expert.deep_soft_delete_confirmation') } do |ids|
+    Expert.where(id: ids).each { |u| u.deep_soft_delete }
+    redirect_to collection_path, notice: I18n.t('active_admin.experts.deep_soft_deleted')
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.expert.delete_confirmation') do |ids|

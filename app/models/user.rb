@@ -241,11 +241,20 @@ class User < ApplicationRecord
     super && !deleted?
   end
 
+  # Suppression de l'utilisateur + personal_skillsets
   def soft_delete
+    self.transaction do
+      personal_skillsets.each { |e| e.update_columns(SoftDeletable.persons_attributes) }
+      update_columns(SoftDeletable.persons_attributes)
+    end
+  end
+
+  # Suppression de l'utilisateur + tous ses experts solo
+  def deep_soft_delete
     self.transaction do
       experts.each do |expert|
         next if expert.users.many?
-        expert.soft_delete
+        expert.update_columns(SoftDeletable.persons_attributes)
       end
       update_columns(SoftDeletable.persons_attributes)
     end

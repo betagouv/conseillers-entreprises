@@ -2,17 +2,23 @@
 fr:
   active_admin:
     antenne:
+      deep_soft_delete: Supprimer l’antenne et ses experts
+      deep_soft_delete_confirmation: Voulez-vous supprimer cette antenne, tous ses experts et ses utilisateurs ?
       delete: Supprimer l’antenne
       delete_confirmation: Voulez-vous supprimer cette antenne ? Assurez-vous d’avoir déplacé ou supprimé ses experts et utilisateurs.
     antennes:
+      deep_soft_deleted: Antennes, experts et utilisateurs supprimés avec succès
       deleted: Antennes supprimées avec succès
     expert:
-      delete: Supprimer l’expert
-      delete_confirmation: Voulez-vous supprimer cet expert ? Cela va également supprimer les utilisateurs.
+      deep_soft_delete: Supprimer l’expert et ses utilisateurs
+      deep_soft_delete_confirmation: Voulez-vous supprimer cet expert et tous ses utilisateurs ?
+      delete: Supprimer l’expert (sans ses utilisateurs)
+      delete_confirmation: Voulez-vous supprimer cet expert ?
       no_specifique_zone: Cet expert n’a pas de zone spécifique
       skills: Compétences
       specifique_zone: Zone spécifique
     experts:
+      deep_soft_deleted: Experts et utilisateurs supprimés avec succès
       deleted: Experts supprimés avec succès
     flag:
       action:
@@ -39,6 +45,7 @@ fr:
       need_page: Page besoin
     move: Déplacer
     person:
+      deep_soft_delete_done: Suppression effectuée
       normalize_values: Normaliser les données
       normalize_values_done: Données normalisées
     scopes:
@@ -113,8 +120,10 @@ fr:
       entire_territory_assigned: Territoire ajouté
     user:
       connection: Connexion
-      delete: Supprimer l’utilisateur
-      delete_confirmation: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer ses experts ayant un seul membre.
+      deep_soft_delete: Supprimer l’utilisateur et ses experts solo
+      deep_soft_delete_confirmation: Voulez-vous supprimer cet utilisateur et ses experts ayant un seul membre ?
+      delete: Supprimer l’utilisateur et son expert personnel
+      delete_confirmation: Voulez-vous supprimer cet utilisateur ? Cela va aussi supprimer son expert personnel.
       deleted: Utilisateurs supprimés avec succès
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
@@ -123,7 +132,8 @@ fr:
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
     users:
-      delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leurs experts ayant un seul membre.
+      deep_soft_deleted: Utilisateurs et experts solo supprimés avec succès
+      delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
   activerecord:
     attributes:
       antenne:
