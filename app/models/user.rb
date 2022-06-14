@@ -133,7 +133,7 @@ class User < ApplicationRecord
       .where(antennes: { institutions: { slug: institution_slug } })
   end
 
-  scope :by_name, -> (query) { not_deleted.where('users.full_name ILIKE ?', "%#{query.downcase}%") }
+  scope :by_name, -> (query) { not_deleted.where('users.full_name ILIKE ?', "%#{query}%") }
 
   scope :by_antenne, -> (antenne_id) { where(antenne: antenne_id) }
 
@@ -214,7 +214,7 @@ class User < ApplicationRecord
   #
   scope :omnisearch, -> (query) do
     if query.present?
-      not_deleted.where("users.full_name ILIKE ?", "%#{query}%")
+      by_name(query)
     end
   end
 

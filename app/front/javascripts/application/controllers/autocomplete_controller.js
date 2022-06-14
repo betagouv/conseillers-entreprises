@@ -7,9 +7,7 @@ export default class Autocomplete extends Controller {
   static targets = ["input", "hidden", "results"];
   static classes = ["selected"];
   static values = { minLength: Number, url: String, ready: Boolean, submitOnEnter: Boolean }
-  values = {
-    delay: { type: Number, default: 300 },
-  };
+
   uniqOptionId = 0;
   connect() {
     this.close()
