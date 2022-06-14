@@ -9,7 +9,6 @@
 #  deleted_at             :datetime
 #  email                  :string           default("")
 #  encrypted_password     :string           default(""), not null
-#  flags                  :jsonb
 #  full_name              :string
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -81,7 +80,6 @@ class User < ApplicationRecord
 
   ## Validations
   #
-  before_validation :fix_flag_values
   validates :full_name, presence: true, unless: :deleted?
   validates :job, presence: true
   validate :password_complexity
@@ -198,14 +196,6 @@ class User < ApplicationRecord
       .where(antennes: { territories: { id: [region_id] } })
       .or(self.select('"antennes".*, "users".*').where(experts: { is_global_zone: true }))
       .distinct
-  end
-  ## Keys for flags preferences
-  #
-  FLAGS = []
-  store_accessor :flags, FLAGS.map(&:to_s)
-
-  def fix_flag_values
-    self.flags.transform_values!(&:to_b)
   end
 
   ## Search

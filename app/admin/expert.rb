@@ -63,10 +63,6 @@ ActiveAdmin.register Expert do
     column(:activity) do |e|
       div admin_link_to(e, :received_matches, blank_if_empty: true)
     end
-
-    column(:flags) do |e|
-      e.flags.filter{ |_, v| v.to_b }.map{ |k, _| Expert.human_attribute_name(k) }.to_sentence
-    end
   end
 
   before_action :only => :index do
@@ -140,13 +136,6 @@ ActiveAdmin.register Expert do
         div admin_link_to(e, :received_matches)
       end
 
-      # Dynamically create a status tag for each Expert::FLAGS
-      attributes_table title: I18n.t('attributes.flags') do
-        Expert::FLAGS.each do |flag|
-          row(flag) { |e| status_tag e.send(flag).to_b }
-        end
-      end
-
       attributes_table title: I18n.t('active_admin.expert.skills') do
         table_for expert.experts_subjects.ordered_for_interview do
           column(:theme)
@@ -179,7 +168,6 @@ ActiveAdmin.register Expert do
     :phone_number,
     :insee_codes,
     :is_global_zone,
-    *Expert::FLAGS,
     user_ids: [],
     experts_subjects_ids: [],
     experts_subjects_attributes: %i[id intervention_criteria institution_subject_id _create _update _destroy]
@@ -216,15 +204,6 @@ ActiveAdmin.register Expert do
 
     f.inputs t('attributes.is_global_zone') do
       f.input :is_global_zone
-    end
-
-    if Expert::FLAGS.any?
-      f.inputs I18n.t('attributes.flags') do
-        # Dynamically create a checkbox for each Expert::FLAGS
-        Expert::FLAGS.each do |flag|
-          f.input flag, as: :boolean
-        end
-      end
     end
 
     if resource.institution.present?
@@ -279,17 +258,8 @@ ActiveAdmin.register Expert do
   end
 
   form_options = {
-    action: [[I18n.t('active_admin.flag.action.add'), :add], [I18n.t('active_admin.flag.action.remove'), :remove]],
-    flag: Expert::FLAGS.map { |f| [Expert.human_attribute_name(f), f] }
+    action: [[I18n.t('active_admin.flag.action.add'), :add], [I18n.t('active_admin.flag.action.remove'), :remove]]
   }
-  batch_action I18n.t('active_admin.flag.add_remove'), form: form_options do |ids, inputs|
-    flag = inputs[:flag]
-    value = inputs[:action] == 'add'
-    Expert.where(id: ids).each { |u| u.update(flag => value) }
-
-    message = I18n.t("active_admin.flag.done.#{inputs[:action]}", flag: User.human_attribute_name(flag))
-    redirect_to collection_path, notice: message
-  end
 
   batch_action I18n.t('active_admin.expert.deep_soft_delete'), { action: :deep_soft_delete, confirm: I18n.t('active_admin.expert.deep_soft_delete_confirmation') } do |ids|
     Expert.where(id: ids).each { |u| u.deep_soft_delete }
