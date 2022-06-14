@@ -718,9 +718,6 @@ fr:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
-    alert_region:
-      alert_region_html: Ce service est bientôt national. Il ouvre prochainement en Bourgogne-Franche-Comté et en Outre-mer.
-      learn_more: En savoir plus
     cookie_text: Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord
     footer:
       cookies: Gestion des cookies

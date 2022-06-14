@@ -52,15 +52,3 @@ Les conseils régionaux sont liés aux régions. Ces institutions doivent donc a
 institution = Institution.where(slug: "collectivite_de_martinique").first_or_initialize
 institution.update(code_region: code_region)
 ```
-
-## 5. Mise à jour du message bandeau
-
-Modifier le texte du bandeau indiquant quelles régions sont ouvertes :
-- `views.fr.yml` : `deployment_html`
-- `views.fr.yml` : `alert_region_html`
-
-
-
-
-
-
