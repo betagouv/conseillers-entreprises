@@ -38,10 +38,7 @@ if ENV['RAILS_ENV'] == 'development'
     phone_number: '0612345678',
     job: 'Test User',
     full_name: 'Edith Piaf',
-    antenne: antenne,
-    flags: {
-      can_view_diagnoses_tab: true
-    }
+    antenne: antenne
   }
 
   ## User and Expert

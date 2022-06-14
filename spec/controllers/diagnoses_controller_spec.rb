@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 RSpec.describe DiagnosesController, type: :controller do
-  login_user
+  login_admin
 
   let(:diagnosis) { create :diagnosis, advisor: advisor }
   let(:archived_diagnosis) { create :diagnosis, :archived, advisor: advisor }

@@ -9,7 +9,6 @@ FactoryBot.define do
     password { 'yX*4Ubo_xPW!u' }
     password_confirmation { 'yX*4Ubo_xPW!u' }
     association :antenne
-    can_view_diagnoses_tab { true }
 
     trait :invitation_accepted do
       invitation_accepted_at { Time.zone.now }

@@ -201,9 +201,7 @@ class User < ApplicationRecord
   end
   ## Keys for flags preferences
   #
-  FLAGS = %i[
-    can_view_diagnoses_tab
-  ]
+  FLAGS = []
   store_accessor :flags, FLAGS.map(&:to_s)
 
   def fix_flag_values
