@@ -210,8 +210,8 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#never_used_account?' do
-    subject { user.never_used_account? }
+  describe '#invitation_not_accepted?' do
+    subject { user.invitation_not_accepted? }
 
     context 'blank user' do
       let(:user) { build :user, invitation_accepted_at: nil }

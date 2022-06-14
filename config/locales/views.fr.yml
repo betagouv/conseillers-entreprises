@@ -475,7 +475,7 @@ fr:
         subject: Place des Entreprises - Besoin d’aide ?
         watch_videos_html: Jetez un œil sur <a href='https://www.youtube.com/channel/UChkL6bCbXqI2mV66tuOZPgQ/featured' target='_blank'>les vidéos de démonstration ici</a> !
         what_is_pde: Qu’est-ce que Place des Entreprises ?
-      never_used_account_warning:
+      invitation_not_accepted_warning:
         you_need_to_use_your_user_account: Place des entreprises nécessite de se connecter à son compte utilisateur pour accéder aux informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
       notify_company_needs:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."

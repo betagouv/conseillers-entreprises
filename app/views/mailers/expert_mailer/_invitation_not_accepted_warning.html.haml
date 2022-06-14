@@ -1,2 +1,2 @@
-- if @expert.users.any?(&:never_used_account?)
+- if @expert.users.any?(&:invitation_not_accepted?)
   %p.warning= t('.you_need_to_use_your_user_account')

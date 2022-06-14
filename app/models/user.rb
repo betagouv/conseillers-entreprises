@@ -251,7 +251,7 @@ class User < ApplicationRecord
     end
   end
 
-  def never_used_account?
+  def invitation_not_accepted?
     invitation_accepted_at.nil?
   end
 
