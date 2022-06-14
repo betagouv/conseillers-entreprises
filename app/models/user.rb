@@ -127,6 +127,18 @@ class User < ApplicationRecord
       .merge(Expert.support_experts)
   end
 
+  # Search
+  scope :by_institution, -> (institution_slug) do
+    joins(antenne: :institution)
+      .where(antennes: { institutions: { slug: institution_slug } })
+  end
+
+  scope :by_name, -> (query) { not_deleted.where('users.full_name ILIKE ?', "%#{query}%") }
+
+  scope :by_antenne, -> (antenne_id) { where(antenne: antenne_id) }
+
+  scope :by_region, -> (region_id) { joins(antenne: { communes: :territories }).where(antenne: { communes: { territories: { id: region_id } } }).distinct }
+
   # Team stuff
   scope :single_expert, -> { joins(:experts).group(:id).having('COUNT(experts.id)=1') }
   scope :team_members, -> { not_deleted.joins(:experts).merge(Expert.teams) }
@@ -147,23 +159,23 @@ class User < ApplicationRecord
   scope :active_diagnosers, -> (date, minimum_step) do
     joins(:sent_diagnoses)
       .merge(Diagnosis.archived(false)
-        .where(created_at: date)
-        .after_step(minimum_step))
+                      .where(created_at: date)
+                      .after_step(minimum_step))
       .distinct
   end
 
   scope :active_matchers, -> (date) do
     joins(sent_diagnoses: [needs: :matches])
       .merge(Diagnosis.archived(false)
-        .where(created_at: date))
+                      .where(created_at: date))
       .distinct
   end
 
   scope :active_answered, -> (date, status) do
     joins(sent_diagnoses: [needs: :matches])
       .merge(Match
-        .where(taken_care_of_at: date)
-        .where(status: status))
+               .where(taken_care_of_at: date)
+               .where(status: status))
       .distinct
   end
 
@@ -196,6 +208,14 @@ class User < ApplicationRecord
 
   def fix_flag_values
     self.flags.transform_values!(&:to_b)
+  end
+
+  ## Search
+  #
+  scope :omnisearch, -> (query) do
+    if query.present?
+      by_name(query)
+    end
   end
 
   ## Password

@@ -1,6 +1,6 @@
 module  Annuaire
   class UsersController < BaseController
-    before_action :retrieve_region_id, only: :index
+    before_action :retrieve_institution
     before_action :retrieve_antenne, only: :index
     before_action :retrieve_users, only: :index
 
@@ -24,15 +24,6 @@ module  Annuaire
           result = @users.export_xlsx(include_expert_team: true, institutions_subjects: institutions_subjects)
           send_data result.xlsx.to_stream.read, type: "application/xlsx", filename: xlsx_filename
         end
-      end
-    end
-
-    def clear_search
-      clear_annuaire_session
-      if params[:antenne].present?
-        redirect_to institution_antenne_users_path(@institution, params[:antenne])
-      else
-        redirect_to institution_users_path(@institution)
       end
     end
 
@@ -85,16 +76,20 @@ module  Annuaire
         .order('antennes.name', 'team_name', 'users.full_name')
         .preload(:antenne, relevant_expert: [:users, :antenne, :experts_subjects])
 
-      if @region_id.present?
-        @users = @users.in_region(@region_id)
+      if params[:region_id].present?
+        @users = @users.in_region(params[:region_id])
       end
     end
 
     def advisors
-      advisors = if session[:highlighted_antennes_ids] && @antenne.nil?
-        @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
+      if params[:advisor].present?
+        searched_advisor = User.find(params[:advisor])
+        flash[:table_highlighted_ids] = [searched_advisor.id]
+        advisors = @antenne.advisors.joins(:antenne)
+      elsif session[:highlighted_antennes_ids] && @antenne.nil?
+        advisors = @institution.advisors.joins(:antenne).where(antenne: { id: session[:highlighted_antennes_ids] })
       else
-        (@antenne || @institution).advisors.joins(:antenne)
+        advisors = (@antenne || @institution).advisors.joins(:antenne)
       end
       session.delete(:highlighted_antennes_ids)
       advisors

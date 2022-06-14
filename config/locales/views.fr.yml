@@ -39,9 +39,10 @@ fr:
           one: En-tête non reconnu
           other: En-têtes non reconnus
     search:
-      all_regions: Toutes
-      filter: Filtrer
-      select_region: Selectionnez une région
+      form:
+        submit: Chercher
+      search:
+        no_results: Aucun résultat n'a été trouvé
     users:
       index:
         send_invitations:
@@ -86,7 +87,7 @@ fr:
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
   at_your_disposal: Nous restons à votre disposition pour tout complément d'informations.
   attributes:
-    is_global_zone: Térritoire national
+    is_global_zone: Territoire national
   badges:
     index:
       add_badge: Ajouter un tag
@@ -102,7 +103,6 @@ fr:
     home_link:
       home: Accueil
       pde: Place des Entreprises
-  clear_search: Réinitialiser la recherche
   companies:
     company:
       capital_social: Capital social

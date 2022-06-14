@@ -738,6 +738,7 @@ fr:
     received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues
+    region: Région
     region_name: Institution de la région
     satisfaction_comment: Commentaire de satisfaction
     satisfaction_contacted_by_expert: Satisfaction - rappel

@@ -2,6 +2,8 @@
 fr:
   active_admin:
     meta: Métadonnée
+  all:
+    feminine: Toutes
   all_choices: Tout
   api_entreprise:
     default_error_message:

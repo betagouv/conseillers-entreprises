@@ -80,6 +80,12 @@ class Institution < ApplicationRecord
       .distinct
   end
 
+  scope :omnisearch, -> (query) do
+    if query.present?
+      not_deleted.where("institutions.name ILIKE ?", "%#{query}%")
+    end
+  end
+
   ## Institution subjects helpers
   #
 

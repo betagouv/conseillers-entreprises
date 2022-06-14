@@ -96,6 +96,12 @@ class Antenne < ApplicationRecord
       .where("(antennes.name, institutions.name) IN (#{(['(?)'] * tuples_array.size).join(', ')})", *tuples_array)
   end
 
+  scope :omnisearch, -> (query) do
+    if query.present?
+      not_deleted.where("antennes.name ILIKE ?", "%#{query}%")
+    end
+  end
+
   ##
   #
   def to_s
