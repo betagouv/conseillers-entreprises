@@ -24,8 +24,8 @@ ActiveAdmin.register User do
   scope :team_members, group: :teams
   scope :no_team, group: :teams
 
-  scope :managers_never_used, group: :invitations
-  scope :never_used, group: :invitations
+  scope :managers_not_invited, group: :invitations
+  scope :not_invited, group: :invitations
   scope :invitation_not_accepted, group: :invitations
 
   index do

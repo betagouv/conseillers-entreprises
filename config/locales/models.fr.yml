@@ -66,10 +66,10 @@ fr:
       invitation_not_accepted: Invitations pas encore acceptées
       is_archived: Archivés
       managers: Responsables d’antenne
-      managers_never_used: Responsables non invités
-      never_used: Invitations non envoyées
+      managers_not_invited: Responsables non invités
       no_team: Solo
       not_archived: Non archivés
+      not_invited: Invitations non envoyées
       not_taken_after_3_weeks: 3 semaines sans réponse
       opco: Opco
       personal_skillsets: Individuel
