@@ -8,7 +8,7 @@ module Inbox
   end
 
   # Common render method for collection actions
-  def retrieve_needs(recipient, collection_name, view = :index)
+  def retrieve_needs(recipient, collection_name, view: :index, order: :desc)
     @recipient = recipient
     inbox_collections_counts(recipient)
     @collection_name = collection_name
@@ -16,7 +16,7 @@ module Inbox
     @needs = recipient
       .send("needs_#{collection_name}") # See InvolvementConcern
       .includes(:company, :advisor, :subject)
-      .order(created_at: :desc)
+      .order(created_at: order)
       .page params[:page]
     render view
   end

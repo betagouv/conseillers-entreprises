@@ -23,7 +23,7 @@ class NeedsController < ApplicationController
   end
 
   def quo
-    retrieve_needs(current_user, :quo)
+    retrieve_needs(current_user, :quo, order: :asc)
   end
 
   def taking_care
