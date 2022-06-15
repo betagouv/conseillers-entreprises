@@ -228,10 +228,6 @@ ActiveAdmin.register User do
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
   end
 
-  form_options = {
-    action: [[I18n.t('active_admin.flag.action.add'), :add], [I18n.t('active_admin.flag.action.remove'), :remove]]
-  }
-
   batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|
     User.where(id: ids).each { |u| u.soft_delete }
     redirect_to collection_path, notice: I18n.t('active_admin.user.deleted')

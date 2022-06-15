@@ -257,10 +257,6 @@ ActiveAdmin.register Expert do
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.person.normalize_values_done')
   end
 
-  form_options = {
-    action: [[I18n.t('active_admin.flag.action.add'), :add], [I18n.t('active_admin.flag.action.remove'), :remove]]
-  }
-
   batch_action I18n.t('active_admin.expert.deep_soft_delete'), { action: :deep_soft_delete, confirm: I18n.t('active_admin.expert.deep_soft_delete_confirmation') } do |ids|
     Expert.where(id: ids).each { |u| u.deep_soft_delete }
     redirect_to collection_path, notice: I18n.t('active_admin.experts.deep_soft_deleted')
