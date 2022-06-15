@@ -115,11 +115,11 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'never_used' do
-      subject { described_class.never_used }
+    describe 'not_invited' do
+      subject { described_class.not_invited }
 
-      let!(:user1) { create :user, invitation_sent_at: nil, encrypted_password: '' }
-      let!(:user2) { create :user, invitation_sent_at: DateTime.now, encrypted_password: 'yX*4Ubo_xPW!u' }
+      let!(:user1) { create :user, invitation_sent_at: nil }
+      let!(:user2) { create :user, invitation_sent_at: DateTime.now }
 
       it{ is_expected.to match_array user1 }
     end
@@ -210,8 +210,8 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#never_used_account?' do
-    subject { user.never_used_account? }
+  describe '#invitation_not_accepted?' do
+    subject { user.invitation_not_accepted? }
 
     context 'blank user' do
       let(:user) { build :user, invitation_accepted_at: nil }
