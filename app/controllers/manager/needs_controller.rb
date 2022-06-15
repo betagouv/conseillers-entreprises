@@ -9,7 +9,7 @@ class Manager::NeedsController < ApplicationController
   end
 
   def quo
-    antenne_retrieve_needs(retrieve_recipient, :quo)
+    antenne_retrieve_needs(retrieve_recipient, :quo, order: :asc)
   end
 
   def taking_care

@@ -8,7 +8,7 @@ module Inbox
   end
 
   # Common render method for collection actions
-  def retrieve_needs(recipient, collection_name, view = :index)
+  def retrieve_needs(recipient, collection_name, view: :index, order: :desc)
     @recipient = recipient
     inbox_collections_counts(recipient)
     @collection_name = collection_name
@@ -16,12 +16,12 @@ module Inbox
     @needs = recipient
       .send("needs_#{collection_name}") # See InvolvementConcern
       .includes(:company, :advisor, :subject)
-      .order(created_at: :desc)
+      .order(created_at: order)
       .page params[:page]
     render view
   end
 
-  def antenne_retrieve_needs(recipient, collection_name, view = :index)
+  def antenne_retrieve_needs(recipient, collection_name, view: :index, order: :desc)
     @recipient = recipient
     antenne_inbox_collections_counts(@recipient)
     @collection_name = collection_name
@@ -32,7 +32,7 @@ module Inbox
       Need.in_antennes_perimeters(@recipient).merge!(Need.where(id: @recipient.collect { |a| a.send("territory_needs_#{@collection_name}") }.flatten))
     end
     @needs = @needs.includes(:company, :advisor, :subject)
-      .order(created_at: :desc)
+      .order(created_at: order)
       .page params[:page]
     render view
   end

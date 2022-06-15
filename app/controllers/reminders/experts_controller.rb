@@ -22,23 +22,23 @@ module Reminders
     end
 
     def quo
-      retrieve_needs(@expert, :quo, :quo)
+      retrieve_needs(@expert, :quo, view: :quo)
     end
 
     def taking_care
-      retrieve_needs(@expert, :taking_care, :quo)
+      retrieve_needs(@expert, :taking_care, view: :quo)
     end
 
     def done
-      retrieve_needs(@expert, :done, :quo)
+      retrieve_needs(@expert, :done, view: :quo)
     end
 
     def not_for_me
-      retrieve_needs(@expert, :not_for_me, :quo)
+      retrieve_needs(@expert, :not_for_me, view: :quo)
     end
 
     def expired
-      retrieve_needs(@expert, :expired, :quo)
+      retrieve_needs(@expert, :expired, view: :quo)
     end
 
     def show
