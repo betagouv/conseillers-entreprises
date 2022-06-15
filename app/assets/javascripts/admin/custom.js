@@ -14,4 +14,18 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     })
   }
+
+  // Formulaire édition expert
+  // Affiche confirmation si on attribue global_zone
+  const expert_is_global_zone_input = document.querySelector('#expert_is_global_zone');
+  if(typeof expert_is_global_zone_input !== 'undefined' && expert_is_global_zone_input != null) {
+    expert_is_global_zone_input.addEventListener("change", function(event) {
+      if (expert_is_global_zone_input.checked == true) {
+        var response = confirm("Voulez-vous vraiment attribuer un territoire national à cet expert ?");
+        if(response) { return true; }
+        expert_is_global_zone_input.checked = false;
+        return false;
+      }
+    })
+  }
 })
