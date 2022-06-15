@@ -54,10 +54,6 @@ ActiveAdmin.register User do
       div admin_link_to(u, :feedbacks, blank_if_empty: true)
     end
 
-    column(:flags) do |u|
-      u.flags.filter{ |_, v| v.to_b }.map{ |k, _| User.human_attribute_name(k) }.to_sentence
-    end
-
     actions dropdown: true do |u|
       item t('active_admin.user.impersonate', name: u.full_name), impersonate_engine.impersonate_user_path(u)
       item t('active_admin.person.normalize_values'), normalize_values_admin_user_path(u)
@@ -119,13 +115,6 @@ ActiveAdmin.register User do
       end
     end
 
-    # Dynamically create a status tag for each User::FLAGS
-    attributes_table title: I18n.t('attributes.flags') do
-      User::FLAGS.each do |flag|
-        row(flag) { |u| status_tag u.send(flag).to_b }
-      end
-    end
-
     attributes_table title: t('activerecord.attributes.user.invitees') do
       row :invitees
     end
@@ -170,7 +159,7 @@ ActiveAdmin.register User do
   # Form
   #
   user_rights_attributes = [:id, :antenne_id, :category, :_destroy]
-  permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id, *User::FLAGS,
+  permit_params :full_name, :email, :institution, :job, :phone_number, :antenne_id,
                 expert_ids: [], user_rights_attributes: user_rights_attributes
 
   form do |f|
@@ -198,13 +187,6 @@ ActiveAdmin.register User do
       f.has_many :user_rights, allow_destroy: true, new_record: true do |ur|
         ur.input :category, as: :select, collection: UserRight.categories.keys.map{ |cat| [I18n.t(cat, scope: "activerecord.attributes.user_right/categories"), cat] }, include_blank: false
         ur.input :antenne, as: :ajax_select, data: { url: :admin_antennes_path, search_fields: [:name] }
-      end
-    end
-
-    f.inputs I18n.t('attributes.flags') do
-      # Dynamically create a checkbox for each User::FLAGS
-      User::FLAGS.each do |flag|
-        f.input flag, as: :boolean
       end
     end
 
@@ -244,19 +226,6 @@ ActiveAdmin.register User do
       user.invite!(current_user) unless user.deleted?
     end
     redirect_back fallback_location: collection_path, notice: I18n.t('active_admin.user.do_invite_done')
-  end
-
-  form_options = {
-    action: [[I18n.t('active_admin.flag.action.add'), :add], [I18n.t('active_admin.flag.action.remove'), :remove]],
-      flag: User::FLAGS.map { |f| [User.human_attribute_name(f), f] }
-  }
-  batch_action I18n.t('active_admin.flag.add_remove'), form: form_options do |ids, inputs|
-    flag = inputs[:flag]
-    value = inputs[:action] == 'add'
-    User.where(id: ids).each { |u| u.update(flag => value) }
-
-    message = I18n.t("active_admin.flag.done.#{inputs[:action]}", flag: User.human_attribute_name(flag))
-    redirect_to collection_path, notice: message
   end
 
   batch_action :destroy, confirm: I18n.t('active_admin.users.delete_confirmation') do |ids|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_03_135647) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_14_151157) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -230,7 +230,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_135647) do
     t.bigint "antenne_id", null: false
     t.boolean "is_global_zone", default: false
     t.datetime "deleted_at", precision: nil
-    t.jsonb "flags", default: {}
     t.index ["antenne_id"], name: "index_experts_on_antenne_id"
     t.index ["deleted_at"], name: "index_experts_on_deleted_at"
     t.index ["email"], name: "index_experts_on_email"
@@ -600,7 +599,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_135647) do
     t.bigint "inviter_id"
     t.integer "invitations_count", default: 0
     t.datetime "deleted_at", precision: nil
-    t.jsonb "flags", default: {}
     t.datetime "cgu_accepted_at", precision: nil
     t.index ["antenne_id"], name: "index_users_on_antenne_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"

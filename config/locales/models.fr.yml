@@ -403,7 +403,6 @@ fr:
         insee_codes: Codes communes
         support_contact: Contact support
       user:
-        can_view_diagnoses_tab: Peut voir l’onglet analyses
         created_at: Création
         current_password: Mot de passe actuel
         current_sign_in_at: Date de connexion

@@ -5,7 +5,6 @@
 #  id             :bigint(8)        not null, primary key
 #  deleted_at     :datetime
 #  email          :string
-#  flags          :jsonb
 #  full_name      :string
 #  is_global_zone :boolean          default(FALSE)
 #  job            :string
@@ -46,7 +45,6 @@ class Expert < ApplicationRecord
 
   ## Validations
   #
-  before_validation :fix_flag_values
   validates :email, presence: true, unless: :deleted?
   validates_associated :experts_subjects, on: :import
 
@@ -82,15 +80,6 @@ class Expert < ApplicationRecord
   scope :support_experts, -> do
     joins(:subjects)
       .where({ subjects: { is_support: true } })
-  end
-
-  ## Keys for flags
-  #
-  FLAGS = %i[]
-  store_accessor :flags, FLAGS.map(&:to_s)
-
-  def fix_flag_values
-    self.flags.transform_values!(&:to_b)
   end
 
   # Team stuff

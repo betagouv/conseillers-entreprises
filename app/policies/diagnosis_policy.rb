@@ -1,6 +1,6 @@
 class DiagnosisPolicy < ApplicationPolicy
   def index?
-    @user.can_view_diagnoses_tab
+    admin?
   end
 
   def show?

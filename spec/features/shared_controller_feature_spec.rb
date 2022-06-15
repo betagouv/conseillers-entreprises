@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'SharedController features', type: :feature do
   describe 'render_error' do
-    login_user
+    login_admin
 
     before do
       ENV['TEST_ERROR_RENDERING'] = 'true'
