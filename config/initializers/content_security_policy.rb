@@ -14,7 +14,7 @@ Rails.application.config.content_security_policy do |p|
   p.style_src   :self, :unsafe_inline, 'https://fonts.googleapis.com'
   p.script_src  :self, :blob, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'https://connect.facebook.net', 'www.pagespeed-mod.com'
   p.script_src_elem :self, :blob, 'https://browser.sentry-cdn.com', 'sentry.io', 'https://stats.data.gouv.fr', 'https://cdn.jsdelivr.net', 'https://www.googletagmanager.com', 'https://www.googleadservices.com', 'https://googleads.g.doubleclick.net', 'https://www.google.com', 'https://connect.facebook.net', 'www.pagespeed-mod.com'
-  p.frame_src :self, 'stats.data.gouv.fr', 'browser.sentry-cdn.com', 'cdn.jsdelivr.net', 'https://bid.g.doubleclick.net', 'https://tube.nocturlab.fr', 'https://www.facebook.com', 'https://tpc.googlesyndication.com'
+  p.frame_src :self, 'stats.data.gouv.fr', 'browser.sentry-cdn.com', 'cdn.jsdelivr.net', 'https://bid.g.doubleclick.net', 'https://tube.nocturlab.fr', 'https://www.facebook.com', 'https://tpc.googlesyndication.com', 'https://www.youtube-nocookie.com'
   if Rails.env.development?
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035', 'https://api-adresse.data.gouv.fr/'
   else

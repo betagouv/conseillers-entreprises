@@ -33,6 +33,8 @@
 
   #learn-more
     - if request.path == comment_ca_marche_path
-      = link_to t('.submit_request'), root_path(anchor: 'section-thematiques'), class: 'button large'
+      .section-video
+        .container-iframe
+          .youtube_player{ autoplay: "0", height: "100%", loading: "0", loop: "0", rel: "0", showinfo: "1", theme: "light", videoid: "t8bOQVgLUm0", width: "100%" }
     - else
       = t('.learn_more_html')
