@@ -1,8 +1,10 @@
 .section-video
-  margin: auto
   width: 100%
+  &.section-grey
+    background-color: var(--theme-background-grey)
   .container-iframe
-    padding-top: 56.25%
+    margin: 0 auto
+    padding-top: 33%
     position: relative
     min-height: 250px
     .dailymotion_player, .youtube_player
@@ -12,9 +14,8 @@
       height: 100%
 
   @media (min-width: 700px)
-    width: 40rem
     .container-iframe
-      padding-top: 56.25%
+      width: 40rem
 
 .padding-bottom-0
   padding-bottom: 0!important
