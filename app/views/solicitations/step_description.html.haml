@@ -24,19 +24,14 @@
 
   = f.fields_for :institution_filters, @solicitation.institution_filters do |ff|
     - key = ff.object.key
-    - if params[:filter_value].present?
-      - checked_yes, checked_no = params[:filter_value] == 'yes', params[:filter_value] == 'no'
-    - elsif @solicitation.form_info[key].present?
-      - checked_yes, checked_no = @solicitation.form_info[key] == 'yes', @solicitation.form_info[key] == 'no'
-    - else
-      - checked_yes, checked_no = false, false
     .form__group.radios.additional_questions
       %legend= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
       %span
+        = ff.hidden_field :id
         = ff.hidden_field :additional_subject_question_id
-        = ff.radio_button :filter_value, true, required: true, checked: checked_yes
+        = ff.radio_button :filter_value, true, required: true
         = ff.label :filter_value, I18n.t(:answer_yes, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'label-inline'
-        = ff.radio_button :filter_value, false, required: true, checked: checked_no
+        = ff.radio_button :filter_value, false, required: true
         = ff.label :filter_value, I18n.t(:answer_no, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'label-inline'
 
   .form__group.submit-buttons

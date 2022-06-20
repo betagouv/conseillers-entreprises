@@ -107,7 +107,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
 
       before do
         landing.landing_themes << landing_theme
-        visit '/?recrutement_poste_cadre=yes&recrutement_en_apprentissage=no'
+        visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
         click_link 'Test Landing Theme'
         click_link 'Super sujet'
       end
