@@ -20,10 +20,10 @@ class Landings::LandingsController < Landings::BaseController
   def redirect_to_iframe_view
     if @landing.subjects_iframe?
       landing_theme = @landing.landing_themes.not_archived.first
-      redirect_to({ controller: "landings/landing_themes", action: "show", landing_slug: landing.slug, slug: landing_theme.slug, anchor: 'section-breadcrumbs' }.merge(query_params))
+      redirect_to({ controller: "landings/landing_themes", action: "show", landing_slug: @landing.slug, slug: landing_theme.slug }.merge(query_params))
     elsif @landing.form_iframe?
       landing_subject = @landing.landing_subjects.not_archived.first
-      redirect_to({ controller: "/solicitations", action: "new", landing_slug: @landing.slug, landing_subject_slug: landing_subject.slug, anchor: 'section-breadcrumbs' }.merge(query_params))
+      redirect_to({ controller: "/solicitations", action: "new", landing_slug: @landing.slug, landing_subject_slug: landing_subject.slug }.merge(query_params))
     else
       render :show
     end
