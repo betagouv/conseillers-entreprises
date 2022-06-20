@@ -3,7 +3,7 @@
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1215.2 435.1" style="enable-background:new 0 0 1215.2 435.1;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FFFFFF;}
+	.st0{fill:none;}
 	.st1{fill:#2A4E96;}
 	.st2{fill:#F1A34F;}
 </style>
@@ -23,7 +23,7 @@
 					c24-27.3,39.3-62.6,41.2-101.7C254.6,187.9,191.7,113.3,107.3,101.2z"/>
 				<path class="st1" d="M236,364.1c-49.6-61.2-26.5-120.8-26.5-120.8c17.7,36.8,53.7,94.6,53.7,94.6L236,364.1z"/>
 				<ellipse transform="matrix(0.5 -0.866 0.866 0.5 19.9281 210.8475)" class="st2" cx="192.6" cy="88.2" rx="32.3" ry="21.9"/>
-				
+
 					<ellipse transform="matrix(0.9297 -0.3682 0.3682 0.9297 -22.73 110.9708)" class="st1" cx="279.4" cy="115" rx="23.1" ry="28.8"/>
 			</g>
 			<g>

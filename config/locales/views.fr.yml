@@ -732,8 +732,11 @@ fr:
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
     menu:
       unfold: Déplier menu
+      submit_request: Déposez votre demande
     navbar:
+      close: Fermer
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
+      menu: Menu
     newsletter:
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
       placeholder_email: Votre adresse email
@@ -816,6 +819,7 @@ fr:
       interval: "%{start_month} à %{end_month} %{year}"
       no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
       title: Export des données
+  republique_francaise_html: République <br /> Française
   shared:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
