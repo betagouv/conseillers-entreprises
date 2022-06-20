@@ -13,6 +13,8 @@
     = tarteaucitron_script
     = stylesheet_link_tag 'pages'
     = stylesheet_pack_tag 'pages', media: 'all'
+    = javascript_pack_tag 'gouvfr-module', type: 'module', nonce: true
+    = javascript_pack_tag 'gouvfr-nomodule', type: 'nomodule', nonce: true
     = javascript_include_tag 'pages'
     = javascript_pack_tag 'pages'
     = javascript_include_tag 'https://browser.sentry-cdn.com/6.2.3/bundle.min.js', crossorigin: 'anonymous', integrity: "sha384-n6TNefxJMUTqJauZtoDyDhAs5Ng0VzcMTy0/afmyZoVZpaQ2clYR1LBa4SqhVySs", nonce: true
