@@ -511,9 +511,6 @@ Lint/UselessAccessModifier:
 Lint/UselessAssignment:
   Enabled: false
 
-Lint/UselessElseWithoutRescue:
-  Enabled: false
-
 Lint/UselessSetterCall:
   Enabled: false
 
@@ -792,6 +789,10 @@ Rails/SkipsModelValidations:
 
 Rails/TimeZone:
   Enabled: false
+
+Rails/TransactionExitStatement:
+  Exclude:
+    - "app/models/concerns/diagnosis_creation.rb"
 
 Rails/UniqBeforePluck:
   Enabled: true
