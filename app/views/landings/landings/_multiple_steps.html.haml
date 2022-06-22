@@ -1,7 +1,10 @@
 - unless in_iframe?
-  %h2.card-section-header= t('you_wish')
+  %h2.fr-h3= t('you_wish')
 
-.landing-theme-cards-container{ class: "#{'in-iframe' if in_iframe?}" }
+/ Tuiles verticales placées dans la grille
+
+
+.fr-grid-row.fr-grid-row--gutters{ class: "#{'in-iframe' if in_iframe?}" }
   = render partial: 'landings/landing_themes/card', collection: landing_themes, as: :landing_theme, locals: { landing: landing }
 
 - if in_iframe? && landing.landing_themes.not_archived.pluck(:slug).include?('contactez-nous')
@@ -13,3 +16,5 @@
   %p.text-center.contact-us
     %b= t('.other_questions')
     %b= link_to t('.contact_us'), landing_path({ landing_slug: 'contactez-nous' }), class: 'click-on-landing'
+
+

@@ -19,7 +19,7 @@
 
 .fr-container-fluid.section-light-grey.blank-section#scroll-section
 
-.fr-container-fluid.section.section-grey.landing-theme-section
+.fr-container-fluid.section.section-grey.fr-py-8w
   .fr-container
     - unless in_iframe?
       - @landing_emphasis.each do |landing|
@@ -32,12 +32,13 @@
             = simple_format(landing.home_description, {}, wrapper_tag: 'span')
             #button-discover= link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
 
-  = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
--#
--# .section.section-lightest-grey.section-partners
--#   .container.text-center
--#     - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
--#       = render 'index_institutions'
+  .fr-container
+    = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
+
+.fr-container-fluid.section.section-partners
+  .fr-container.text-center
+    - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
+      = render 'index_institutions'
 -#
 -#   %section.section.section-white.container-newsletter#section-newsletter
 -#     .container
