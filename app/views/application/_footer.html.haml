@@ -12,7 +12,7 @@
           %li.fr-footer__content-item
             = mail_to ENV['APPLICATION_EMAIL'], 'Contactez-nous', target: :_blank, class: 'fr-footer__content-link'
           %li.fr-footer__content-item
-            = link_to t('pages.footer.service_presentation'), '/book.pdf', 'aria-label': t('pages.footer.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+            = link_to t('pages.footer.service_presentation'), '/dossier-presse.pdf', 'aria-label': t('pages.footer.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
           %li.fr-footer__content-item
             = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
           - if policy(Stats::All).team?
