@@ -16,23 +16,23 @@
               = link_to t('.how-it-works'), comment_ca_marche_path, class: 'text-blue'
       .fr-col-12.fr-col-md-5#col-image
         = image_tag('home.png', alt: "")
--#
--# .section.section-light-grey.blank-section#scroll-section
--#
--# %section.section.section-grey.landing-theme-section
--#   .container
--#     - unless in_iframe?
--#       - @landing_emphasis.each do |landing|
--#         .block-link
--#           .emphasis.notification.warning
--#             .emphasis-header
--#               - if landing.main_logo
--#                 = display_image(name: landing.main_logo)
--#               = simple_format("#{landing.title} : ", {}, wrapper_tag: 'h2')
--#             = simple_format(landing.home_description, {}, wrapper_tag: 'span')
--#             #button-discover= link_to t('.discover_measures'), landing, class: 'button-outline small primary'
--#
--#     = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
+
+.fr-container-fluid.section-light-grey.blank-section#scroll-section
+
+.fr-container-fluid.section.section-grey.landing-theme-section
+  .fr-container
+    - unless in_iframe?
+      - @landing_emphasis.each do |landing|
+        .block-link
+          .emphasis.notification.warning
+            .emphasis-header
+              - if landing.main_logo
+                = display_image(name: landing.main_logo)
+              = simple_format("#{landing.title} : ", {}, wrapper_tag: 'h2')
+            = simple_format(landing.home_description, {}, wrapper_tag: 'span')
+            #button-discover= link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
+
+  = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 -#
 -# .section.section-lightest-grey.section-partners
 -#   .container.text-center

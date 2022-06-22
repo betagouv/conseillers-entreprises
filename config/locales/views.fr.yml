@@ -731,8 +731,8 @@ fr:
     how_it_works:
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
     menu:
-      unfold: Déplier menu
       submit_request: Déposez votre demande
+      unfold: Déplier menu
     navbar:
       close: Fermer
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe

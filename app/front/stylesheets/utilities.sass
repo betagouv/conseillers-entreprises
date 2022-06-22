@@ -96,3 +96,15 @@ a.fr-breadcrumb__item a.break-word, .fr-prose a.break-word, [class*=" fr-"] a.br
 
 .info-icon
   cursor: help
+
+// Clickable items containing an a
+.block-link
+  position: relative
+  a::after
+    z-index: 1
+    position: absolute
+    content: ""
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0

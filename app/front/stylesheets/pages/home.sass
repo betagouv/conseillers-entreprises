@@ -20,3 +20,37 @@
     img
       max-height: 15rem
       max-width: 100%
+
+.emphasis
+  background-color: $emphasis-background
+  border: 1px solid $emphasis-border
+  margin-top: -6.5rem
+  margin-bottom: 3rem
+  padding: 1rem
+  display: flex
+  align-items: center
+  &:hover
+    border: 2px solid $emphasis-border-hover
+    padding: calc(1rem - 1px)
+  .emphasis-header
+    display: flex
+    align-items: center
+  h2
+    line-height: 1.5rem
+    font-size: 1rem
+    margin: 0
+  span
+    margin: 0 0.5rem
+  #button-discover
+    display: flex
+    flex: 1 1 auto
+    justify-content: flex-end
+    a
+      background-color: $white
+      position: static
+  img
+    max-height: 50px
+    margin-right: 0.5rem
+
+.landing-theme-section
+  padding: 4rem 0
