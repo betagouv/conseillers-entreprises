@@ -35,7 +35,7 @@
             .icon.green
               %span.ri-checkbox-circle-fill
             .content
-              %h3.fr-card__title= t('.help_provided.title')
+              %h3.fr-card__title.fr-mb-2v= t('.help_provided.title')
               %p.fr-card__description= t('.help_provided.content')
               = f.button :submit, name: :status, value: :done, class: 'fr-btn btn-green', aria: { label: "#{t('.help_provided.title')}. #{t('.help_provided.content')}" } do
                 = t('.validate')
