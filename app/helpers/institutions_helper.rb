@@ -18,16 +18,16 @@ module InstitutionsHelper
   end
 
   def antennes_count(institution)
-    if session[:annuaire_region_id].present?
-      institution.antennes_in_region(session[:annuaire_region_id]).human_count
+    if params[:region_id].present?
+      institution.antennes_in_region(params[:region_id]).human_count
     else
       institution.not_deleted_antennes.human_count
     end
   end
 
   def advisors_count(institution)
-    if session[:annuaire_region_id].present?
-      institution.advisors_in_region(session[:annuaire_region_id]).human_count
+    if params[:region_id].present?
+      institution.advisors_in_region(params[:region_id]).human_count
     else
       institution.advisors.human_count
     end
