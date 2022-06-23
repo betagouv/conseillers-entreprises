@@ -730,15 +730,13 @@ fr:
       twitter_title: Compte twitter de Place des Entreprises - lien externe
     how_it_works:
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
-    menu:
-      submit_request: Déposez votre demande
-      unfold: Déplier menu
     navbar:
       close: Fermer
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
       menu: Menu
     newsletter:
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
+      newsletter_legal: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la newsletter
       placeholder_email: Votre adresse email
       received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner
