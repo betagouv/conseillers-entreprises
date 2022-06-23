@@ -54,7 +54,7 @@ module SolicitationHelper
       subject = landing_subject.subject
       title_components[t('attributes.subject')] = subject
       title = "#{t('attributes.subject')} : #{subject}"
-      path = new_solicitation_path(solicitation.landing.slug, solicitation.landing_subject.slug, siret: params[:siret].presence, anchor: 'section-breadcrumbs')
+      path = new_solicitation_path(solicitation.landing.slug, solicitation.landing_subject.slug, anchor: 'section-breadcrumbs')
       link_to landing_subject.title, path, class: classes, title: title
     end
   end

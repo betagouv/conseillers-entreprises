@@ -100,6 +100,36 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         expect(page).to have_content('Merci')
       end
     end
+
+    context "with additional_subject_questions in url" do
+      let!(:additional_question_1) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
+      let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
+
+      before do
+        landing.landing_themes << landing_theme
+        visit '/?recrutement_poste_cadre=true&recrutement_en_apprentissage=false'
+        click_link 'Test Landing Theme'
+        click_link 'Super sujet'
+      end
+
+      it do
+        fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+        fill_in 'E-mail', with: 'user@exemple.com'
+        fill_in 'Téléphone', with: '0123456789'
+        click_button 'Suivant'
+        fill_in 'Votre numéro SIRET', with: '12345678900010'
+        click_button 'Suivant'
+        fill_in 'Description', with: 'Ceci est un test'
+        # radio button sur 'Oui' pour recrutement_poste_cadre
+        expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true)
+        expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_false', checked: false)
+        # radio button sur 'Non' pour recrutement_en_apprentissage
+        expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_true", checked: false)
+        expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true)
+        click_button 'Envoyer ma demande'
+        expect(page).to have_content('Merci')
+      end
+    end
   end
 
   describe 'with siren' do

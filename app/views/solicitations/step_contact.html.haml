@@ -20,12 +20,12 @@
 - if @solicitation.persisted?
   - path = update_step_contact_solicitation_path(@solicitation.uuid)
 - else
-  - path = solicitations_path(@landing.slug, @landing_subject.slug)
+  - path = { controller: "/solicitations", action: "create", landing_slug: @landing.slug, landing_subject_slug: @landing_subject.slug }.merge(query_params)
+
 
 = form_with(model: @solicitation, url: path, local: true, html: { honeypot: true }) do |f|
   = f.hidden_field :landing_subject_id
   = f.hidden_field :landing_id
-  = f.hidden_field :siret
   .form__group
     - @solicitation.contact_step_required_fields.each do |field|
       .form__group

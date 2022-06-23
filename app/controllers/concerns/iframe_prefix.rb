@@ -6,6 +6,7 @@ module IframePrefix
     prepend_before_action :retrieve_main_objects
     skip_forgery_protection if: -> { in_iframe? }
     after_action :allow_in_iframe, if: -> { in_iframe? }
+    helper_method :query_params
   end
 
   # Pour s'assurer que in_iframe? fonctionne en toutes circonstances
@@ -30,6 +31,17 @@ module IframePrefix
       @landing = @solicitation.landing
       @landing_subject = @solicitation.landing_subject
     end
+  end
+
+  def query_params
+    saved_params = session[:solicitation_form_info] || {}
+    # pas de session dans les iframe, on recupere les params dans l'url
+    query_params = view_params.slice(*Solicitation::FORM_INFO_KEYS + [:siret] + AdditionalSubjectQuestion.pluck(:key))
+    saved_params.with_indifferent_access.merge!(query_params)
+  end
+
+  def view_params
+    params.permit(:landing_slug, :slug, :siret, *Solicitation::FORM_INFO_KEYS, AdditionalSubjectQuestion.pluck(:key))
   end
 
   def allow_in_iframe
