@@ -46,6 +46,7 @@ module ApiEntreprise::Entreprise
       return formatted_data
     end
 
+    # Impossible d'afficher la page sans ces données
     def missing_mandatory_data?(data)
       data['entreprise'].blank? || data['etablissement_siege'].blank?
     end

@@ -28,7 +28,6 @@ module ApiInsee
     end
 
     def handle_error(http_request)
-      byebug
       raise ApiInseeError, http_request.error_message
     end
 

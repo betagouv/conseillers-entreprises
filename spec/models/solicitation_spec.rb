@@ -101,14 +101,14 @@ RSpec.describe Solicitation, type: :model do
     describe 'set_siret_and_region' do
       let(:token) { '1234' }
       let(:siret) { '41816609600069' }
+      let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
 
       context 'with valid siret' do
-        let(:api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{siret}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
         let(:solicitation) { create :solicitation, siret: siret, code_region: nil, status: :step_description }
 
         before do
           ENV['API_ENTREPRISE_TOKEN'] = token
-          stub_request(:get, api_url).to_return(
+          stub_request(:get, entreprise_api_url).to_return(
             body: file_fixture('api_entreprise_get_etablissement.json')
           )
           solicitation.complete
@@ -123,21 +123,51 @@ RSpec.describe Solicitation, type: :model do
 
       context 'with valid siren' do
         let(:siren) { siret[0,9] }
-        let(:api_url) { "https://entreprise.data.gouv.fr/api/sirene/v1/siren/#{siren}" }
+        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{siren}" }
         let(:solicitation) { create :solicitation, siret: siren, code_region: nil, status: :step_description }
 
         before do
+          ENV['INSEE_CONSUMER_KEY'] = 'consumer_key'
+          ENV['INSEE_CONSUMER_TOKEN'] = 'consumer_token'
+          insee_token = Base64.strict_encode64("consumer_key:consumer_token")
+          stub_request(:post, 'https://api.insee.fr/token')
+            .with(headers: { 'Authorization' => "Basic #{insee_token}" }, body: { grant_type: 'client_credentials' })
+            .to_return(
+              body: "{ 'token1234' }".to_json
+            )
+
+          stub_request(:get, api_url)
+            .with(headers: { 'Authorization' => "Bearer " })
+            .to_return(
+              body: file_fixture(result_file_name)
+            )
+
           ENV['API_ENTREPRISE_TOKEN'] = token
-          stub_request(:get, api_url).to_return(
-            body: file_fixture('entreprise_data_gouv_siren.json')
+          stub_request(:get, entreprise_api_url).to_return(
+            body: file_fixture('api_entreprise_get_etablissement.json')
           )
+
           solicitation.complete
         end
 
-        it 'sets correctly siret and code_region' do
-          expect(solicitation.code_region).to eq(11)
-          expect(solicitation.siret).to eq('41816609600069')
-          expect(solicitation.created_in_deployed_region).to be true
+        context 'with_many_facilities_results' do
+          let(:result_file_name) { 'api_insee_sirets_by_siren_many.json' }
+
+          it 'doesnt change params' do
+            expect(solicitation.code_region).to be_nil
+            expect(solicitation.siret).to eq('418166096')
+            expect(solicitation.created_in_deployed_region).to be false
+          end
+        end
+
+        context 'with_one_facility_results' do
+          let(:result_file_name) { 'api_insee_sirets_by_siren_one.json' }
+
+          it 'sets correctly siret and code_region' do
+            expect(solicitation.code_region).to eq(11)
+            expect(solicitation.siret).to eq('41816609600069')
+            expect(solicitation.created_in_deployed_region).to be true
+          end
         end
       end
 

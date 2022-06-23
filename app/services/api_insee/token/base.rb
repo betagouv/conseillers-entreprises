@@ -1,6 +1,8 @@
 module ApiInsee::Token
   class Base < ApiInsee::Base
+    # rubocop:disable Style/RedundantInitialize
     def initialize; end
+    # rubocop:enable Style/RedundantInitialize
 
     def call
       # token insee valable 7 jours par défaut
