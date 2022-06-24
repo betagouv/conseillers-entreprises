@@ -89,7 +89,7 @@ ActiveAdmin.register Antenne do
       end
       row(:activity) do |a|
         div admin_link_to(a, :sent_matches)
-        div admin_link_to(a, :received_matches)
+        div admin_link_to(a, :received_matches_including_from_deleted_experts)
       end
       row(:managers) do |a|
         if a.managers.any?

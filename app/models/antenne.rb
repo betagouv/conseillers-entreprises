@@ -42,6 +42,7 @@ class Antenne < ApplicationRecord
   belongs_to :institution, inverse_of: :antennes
 
   has_many :experts, -> { not_deleted }, inverse_of: :antenne
+  has_many :experts_including_deleted, class_name: 'Expert', inverse_of: :antenne
   has_many :advisors, -> { not_deleted }, class_name: 'User', inverse_of: :antenne
   has_many :match_filters, dependent: :destroy, inverse_of: :antenne
   accepts_nested_attributes_for :match_filters, allow_destroy: true
@@ -75,6 +76,7 @@ class Antenne < ApplicationRecord
 
   # :experts
   has_many :received_matches, through: :experts, inverse_of: :expert_antenne
+  has_many :received_matches_including_from_deleted_experts, through: :experts_including_deleted, source: :received_matches, inverse_of: :expert_antenne
   has_many :received_needs, through: :experts, inverse_of: :expert_antennes
   has_many :received_diagnoses, through: :experts, inverse_of: :expert_antennes
 
