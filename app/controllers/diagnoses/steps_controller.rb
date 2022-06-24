@@ -75,7 +75,7 @@ class Diagnoses::StepsController < ApplicationController
 
   def params_for_needs
     params.require(:diagnosis)
-      .permit(:content, needs_attributes: [:_destroy, :content, :subject_id, :id])
+      .permit(:content, needs_attributes: [:_destroy, :content, :subject_id, :id, institution_filters_attributes: [:_destroy, :id, :additional_subject_question_id, :filter_value]])
   end
 
   def params_for_visit
