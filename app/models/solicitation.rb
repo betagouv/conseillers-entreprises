@@ -195,6 +195,16 @@ class Solicitation < ApplicationRecord
     return {} if code_region.present?
     params = { code_region: self.code_region, siret: self.siret }
     siret_or_siren = FormatSiret.clean_siret(siret)
+    # Solicitation with a valid SIREN -> find siret
+    if FormatSiret.siren_is_valid(siret_or_siren)
+      begin
+        response = ApiInsee::SiretsBySiren::Base.new(siret_or_siren).call
+        return params if (response['nombre_etablissements_ouverts'] != 1)
+        siret_or_siren = response.dig('etablissements', 0, 'siret')
+      rescue ApiInsee::ApiInseeError => e
+        return params
+      end
+    end
     # Solicitation with a valid SIRET
     if FormatSiret.siret_is_valid(siret_or_siren)
       begin
@@ -205,12 +215,6 @@ class Solicitation < ApplicationRecord
       rescue ApiEntreprise::ApiEntrepriseError => e
         return params
       end
-    # Solicitation with a valid SIREN
-    elsif FormatSiret.siren_is_valid(siret_or_siren)
-      response = ApiSirene::SirenSearch.search(siret_or_siren)
-      return params if (!response.success? || response.other_etablissements_sirets.present?)
-      params[:code_region] = response.siege_social[:region_siege]
-      params[:siret] = response.siege_social[:siret]
     end
     params
   end
