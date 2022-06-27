@@ -15,7 +15,6 @@ module CreateDiagnosis
     end
 
     def apply_institution_filters(expert_subjects)
-      return expert_subjects unless need.diagnosis.from_solicitation?
       need.institution_filters.each do |need_filter|
         need_question_id = need_filter.additional_subject_question_id
         need_value = need_filter.filter_value
