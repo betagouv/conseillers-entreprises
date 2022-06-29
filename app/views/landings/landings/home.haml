@@ -1,6 +1,6 @@
 - meta title: t('.meta.title'), description: t('.meta.description')
 
-.fr-container-fluid.fr-my-3w.home-banner
+.fr-container-fluid.fr-py-3w.fr-mt-3v.home-banner
   .fr-container
     .fr-grid-row.fr-grid-row--gutters
       .fr-col-12.fr-col-md-7#col-text
@@ -24,15 +24,16 @@
     - unless in_iframe?
       - @landing_emphasis.each do |landing|
         .block-link
-          .emphasis.notification.warning
-            .emphasis-header
+          .emphasis.fr-grid-row
+            .fr-col-md-1.fr-col-3.display-flex-center
               - if landing.main_logo
                 = display_image(name: landing.main_logo)
+            .fr-col-md-3.fr-col-9.display-flex-center
               = simple_format("#{landing.title} : ", {}, wrapper_tag: 'h2')
-            = simple_format(landing.home_description, {}, wrapper_tag: 'span')
-            #button-discover= link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
-
-  .fr-container
+            .fr-col-md-5.fr-col-12.fr-my-md-0.fr-my-2w.display-flex-center
+              = simple_format(landing.home_description, {}, wrapper_tag: 'span')
+            .fr-col-md-3.fr-col-12.display-flex-center
+              = link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
     = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
 .fr-container-fluid.section.section-partners.fr-py-4w
