@@ -25,7 +25,7 @@ describe 'New Solicitation', type: :system do
     expect(page).to have_content(companies_count)
 
     click_link 'Accès conseillers'
-    click_link 'Tutoriels'
+    click_link 'Tutoriel'
     click_link 'Chefs d’entreprises, cliquez ici'
 
     click_link 'Conditions d’utilisation'

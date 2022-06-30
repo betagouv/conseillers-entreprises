@@ -1,12 +1,15 @@
 .fr-container.tuto
   %h1= t('.title')
 
-  .fr-grid-row.fr-grid-row--center
+  .fr-grid-row.fr-grid-row--center.fr-mb-5w
     .fr-col-12.fr-col-lg-10
       .fr-content-media
         .fr-responsive-vid
-          %iframe.fr-responsive-vid__player{ :allow => "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", :allowfullscreen => "", :frameborder => "0", :height => "100%", :src => "https://tube.nocturlab.fr/videos/embed/657b2d95-cc7f-44a5-b737-6e06915760c5", :title => "vidéo de présentation du service", :width => "100%" }
-
+          %iframe.fr-responsive-vid__player{ :allow => "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture", :allowfullscreen => "", :frameborder => "0", :height => "100%", :src => "https://tube.nocturlab.fr/videos/embed/9287324a-fe16-4f34-93ce-3780d88fce63", :title => "vidéo de présentation du service", :width => "100%" }
+    .fr-col-12
+      %p.bold= t('.available_on_html',
+        youtube_link: link_to(t('.youtube'), 'https://youtu.be/0RR4Z4gwljc', title: "#{t('.youtube_video_title')}"),
+        dailymotion_link: link_to(t('.dailymotion'), 'https://dai.ly/x8bu8ye', title: "#{t('.dailymotion_video_title')}"))
   .fr-grid-row
     .fr-col-12
       %h2.fr-mb-4w= t('.need_steps')
