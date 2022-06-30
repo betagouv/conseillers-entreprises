@@ -18,7 +18,7 @@ Rails.application.config.content_security_policy do |p|
   if Rails.env.development?
     p.connect_src :self, 'localhost:3035', 'ws://localhost:3035', 'https://api-adresse.data.gouv.fr/'
   else
-    p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/', '*.google.com', 'https://adservice.google.com', 'https://pagead2.googlesyndication.com', 'https://tpc.googlesyndication.com', 'https://googleads.g.doubleclick.net', 'https://stats.data.gouv.fr', 'https://www.facebook.com', 'https://www.googletagmanager.com', 'https://browser.sentry-cdn.com', 'https://cdn.jsdelivr.net/npm/tarteaucitronjs/npm/tarteaucitronjs'
+    p.connect_src :self, '*.sentry.io', 'https://api-adresse.data.gouv.fr/', '*.google.com', 'https://adservice.google.com', 'https://pagead2.googlesyndication.com', 'https://tpc.googlesyndication.com', 'https://googleads.g.doubleclick.net', 'https://stats.data.gouv.fr', 'https://www.facebook.com', 'https://www.googletagmanager.com', 'https://browser.sentry-cdn.com', 'https://cdn.jsdelivr.net/npm/tarteaucitronjs'
     if ENV["CSP_REPORT_URI"].present?
       p.report_uri ENV["CSP_REPORT_URI"]
     end
