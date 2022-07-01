@@ -15,16 +15,15 @@ module CreateDiagnosis
     end
 
     def apply_institution_filters(expert_subjects)
-      return expert_subjects unless need.diagnosis.from_solicitation?
-      solicitation.institution_filters.each do |sol_filter|
-        sol_question_id = sol_filter.additional_subject_question_id
-        sol_value = sol_filter.filter_value
+      need.institution_filters.each do |need_filter|
+        need_question_id = need_filter.additional_subject_question_id
+        need_value = need_filter.filter_value
         expert_subjects = expert_subjects.select do |es|
-          institution_filter = es.expert.institution.institution_filters.find_by(additional_subject_question_id: sol_question_id)
+          institution_filter = es.expert.institution.institution_filters.find_by(additional_subject_question_id: need_question_id)
           # On garde les expert_subjects
           #- qui n'ont pas de filtre sur cette question additionnelle
           #- qui ont la même filter_value que la solicitation
-          institution_filter.nil? || (institution_filter.filter_value == sol_value)
+          institution_filter.nil? || (institution_filter.filter_value == need_value)
         end
       end
       expert_subjects

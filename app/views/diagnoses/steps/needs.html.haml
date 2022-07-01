@@ -32,8 +32,27 @@
                   = diagnosis_form.fields_for :needs, need do |need_form|
                     = need_form.check_box :_destroy, { checked: need.persisted?, data: { action: "change->diagnosis-needs-step#autoUncheck", 'diagnosis-needs-step-target': "checkboxes" } }, '0', '1'
                     = need_form.label :_destroy, subject, class: 'fr-label'
-                    = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2, class: 'fr-input'
                     = need_form.hidden_field :subject_id
+                    -# Institution filters
+                    - additional_subject_questions = AdditionalSubjectQuestion.where(subject: subject)
+                    - additional_subject_questions.each do |question|
+                      - filter = need.institution_filters.where(additional_subject_question: question).first_or_initialize
+                      = need_form.fields_for :institution_filters, filter do |filter_form|
+                        - key = filter_form.object.key
+                        .fr-form-group.additional_questions
+                          %fielset.fr-fieldset.fr-fieldset--inline
+                            %legend.fr-fieldset__legend.fr-text--regular= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
+                            .fr-fieldset__content
+                              = filter_form.hidden_field :id
+                              = filter_form.hidden_field :additional_subject_question_id
+                              .fr-radio-group
+                                = filter_form.radio_button :filter_value, true
+                                = filter_form.label :filter_value, I18n.t(:answer_yes, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
+                              .fr-radio-group
+                                = filter_form.radio_button :filter_value, false
+                                = filter_form.label :filter_value, I18n.t(:answer_no, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
+                    = need_form.text_area :content, placeholder: t('.need_content_placeholder'), rows: 2, class: 'fr-input'
+
               .fr-mt-2w
                 = render 'next_step', diagnosis_form: diagnosis_form
 

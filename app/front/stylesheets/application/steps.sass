@@ -65,9 +65,9 @@
       cursor: pointer
     input[type=checkbox] ~ textarea
       margin-top: 1em
-    input[type=checkbox]:not(checked) ~ textarea
+    input[type=checkbox]:not(checked) ~ textarea, input[type=checkbox]:not(checked) ~ .additional_questions
       display: none
-    input[type=checkbox]:checked ~ textarea
+    input[type=checkbox]:checked ~ textarea, input[type=checkbox]:checked ~ .additional_questions
       display: block
 
 .ui.content.subjects.basic.segments

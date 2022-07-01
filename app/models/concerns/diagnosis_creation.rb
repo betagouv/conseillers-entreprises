@@ -137,7 +137,11 @@ module DiagnosisCreation
       end
 
       needs_params = { subject: subject }
-      self.needs.create(needs_params)
+      need = self.needs.create(needs_params)
+      # On duplique les filtres pour pouvoir les éditer
+      solicitation.institution_filters.each do |filter|
+        need.institution_filters.push(filter.dup)
+      end
       self.step_needs!
 
       self

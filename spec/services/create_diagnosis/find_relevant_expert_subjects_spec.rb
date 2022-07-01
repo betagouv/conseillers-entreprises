@@ -227,12 +227,11 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
     let!(:es_filter_ko) { create :expert_subject, expert: (create :expert, antenne: (create :antenne, institution: institution_filter_ko)) }
     let!(:es_temoin) { create :expert_subject }
 
-    let(:solicitation) { create :solicitation }
-    let(:need) { create :need, diagnosis: create(:diagnosis, solicitation: solicitation) }
+    let(:need) { create :need }
 
-    context 'solicitation with filter' do
+    context 'need with filter' do
       before do
-        solicitation.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
+        need.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
         institution_filter_ok.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
         institution_filter_ko.institution_filters.create(additional_subject_question: additional_question, filter_value: false)
       end
@@ -240,7 +239,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       it { is_expected.to match_array [es_temoin, es_filter_ok] }
     end
 
-    context 'solicitation no filter' do
+    context 'need no filter' do
       before do
         institution_filter_ok.institution_filters.create(additional_subject_question: additional_question, filter_value: true)
         institution_filter_ko.institution_filters.create(additional_subject_question: additional_question, filter_value: false)
