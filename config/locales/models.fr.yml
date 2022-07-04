@@ -737,6 +737,9 @@ fr:
     received_matches:
       one: Mise en relation reçue
       other: Mises en relation reçues
+    received_matches_including_from_deleted_experts:
+      one: Mise en relation reçue
+      other: Mises en relation reçues
     region: Région
     region_name: Institution de la région
     satisfaction_comment: Commentaire de satisfaction
