@@ -1,10 +1,8 @@
 - unless in_iframe?
-  %section.section.section-white.landing.less-padding
-    .container
-      .landing-header
-        .title
-          %h1= landing_subject&.form_title.presence || landing_subject.title
-          %p.subtitle= t('landings.landings.home.answer')
+  .fr-container.landing.fr-py-3w.fr-mt-3v
+    .landing-header
+      %h1.fr-h3= landing_subject&.form_title.presence || landing_subject.title
+      %p.text-dark-grey.fr-text--lg= t('landings.landings.home.answer')
 
 - if show_breadcrumbs?
   = render 'pages/breadcrumbs', landing: landing, landing_theme: landing_subject.landing_theme, landing_subject: landing_subject

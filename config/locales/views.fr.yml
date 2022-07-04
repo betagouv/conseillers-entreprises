@@ -1019,6 +1019,7 @@ fr:
         quality: Suivi qualité
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
+  step_number: Étape %{actual} sur %{total}
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:
