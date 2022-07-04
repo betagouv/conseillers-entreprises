@@ -8,7 +8,8 @@
               %p.fr-logo
                 = t('republique_francaise_html')
             .fr-header__operator
-              = image_tag 'logo-PDE.svg', alt: t('logos.pde_home'), class: 'fr-responsive-img', style: "max-width:9.0625rem;"
+              = link_to root_path do
+                = image_tag 'logo-PDE.svg', alt: t('logos.pde_home'), class: 'fr-responsive-img', style: "max-width:9.0625rem;"
             .fr-header__navbar
               %button.fr-btn--menu.fr-btn#fr-btn-menu-mobile-4{ 'aria-controls': 'modal-responsive-menu', 'aria-haspopup': 'menu', 'data-fr-opened': 'false', title: "#{t('pages.navbar.menu')}" }
                 = t('pages.navbar.menu')
