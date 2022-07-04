@@ -1,37 +1,23 @@
-.container.explanations
-  .row
-    .col
-      .icon
+.fr-container.how-it-works
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-12.fr-col-md-4
+      .icon.fr-mb-2w.text-center
         = image_tag('picto1.png', alt: '')
-      %h2
-        Choisissez un sujet et
-        %span.blue
-          déposez votre demande
-      %p
-        Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
-    .col
-      .icon
+      %h2.fr-h5= t('.choose_subject_html')
+      %p= t('.choose_subject_description')
+    .fr-col-12.fr-col-md-4
+      .icon.fr-mb-2w.text-center
         = image_tag('picto3.png', alt: '')
-      %h2
-        Nous identifions
-        %span.blue
-          le bon conseiller
-        sur votre territoire.
-      %p
-        Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
-    .col
-      .icon
+      %h2.fr-h5= t('select_expert_html')
+      %p= t('.select_expert_description')
+    .fr-col-12.fr-col-md-4
+      .icon.fr-mb-2w.text-center
         = image_tag('picto2.png', alt: '')
-      %h2
-        %span.blue
-          Le conseiller vous contacte
-        directement pour vous aider sous 5 jours*.
-      %p
-        Le conseiller compétent pour votre demande vous contacte et vous accompagne en fonction de votre situation.
-      %p.asterisk
-        * Délai moyen de prise en charge
+      %h2.fr-h5= t('.expert_contacts_you_html')
+      %p= t('expert_contacts_you_description_html')
+      %p.asterisk= t('expert_contacts_you_asterisk_html')
 
-  #learn-more
+  .bold.text-center#learn-more
     - if request.path == comment_ca_marche_path
       .section-video
         .container-iframe

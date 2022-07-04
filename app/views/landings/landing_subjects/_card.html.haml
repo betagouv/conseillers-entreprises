@@ -1,8 +1,10 @@
-.card.block-link
-  .card__content
-    - path = { controller: "/solicitations", action: "new", landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, anchor: 'section-breadcrumbs' }.merge(query_params)
-    %h3= link_to landing_subject.title.html_safe, path, class: 'click-on-landing-subject'
-    - if landing_subject.description?
-      %p= sanitize landing_subject.description.html_safe
-  .discover_button
-    %span.ri-arrow-right-line
+.fr-col-12.fr-col-sm-6.theme-card
+  - path = { controller: "/solicitations", action: "new", landing_slug: landing.slug, landing_subject_slug: landing_subject.slug, anchor: 'section-breadcrumbs' }.merge(query_params)
+  .fr-tile.fr-enlarge-link.fr-p-3w.landing-subject
+    .fr-tile__body
+      %h3.fr-tile__title.fr-h4
+        = link_to landing_subject.title.html_safe, path, class: 'click-on-landing-subject fr-tile__link'
+      - if landing_subject.description?
+        %p= sanitize landing_subject.description.html_safe
+      .discover_button
+        %span.ri-arrow-right-line

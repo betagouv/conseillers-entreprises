@@ -5,6 +5,6 @@
     .fr-tile__body
       %h3.fr-tile__title.fr-h4
         = link_to landing_theme.title, path, class: 'fr-tile__link'
-      %p.fr-tile__desc= simple_format(landing_theme.description, {}, wrapper_tag: 'p')
+      = simple_format(landing_theme.description, class: 'fr-tile__desc')
       .discover_button
         %span.ri-arrow-right-line

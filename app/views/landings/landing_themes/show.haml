@@ -5,16 +5,17 @@
 - cache_unless(flash.present?, [@landing_theme, @landing, @landing_subjects]) do
 
   - unless in_iframe?
-    %section.section.section-white.landing.less-padding
-      .container
-        .row.landing-header
-          .title
-            .heading
-              %h1= @landing_theme.page_title || @landing_theme.title
-            %p.subtitle= t('landings.landings.home.answer')
-            .links
-              = render 'pages/cta_button'
-          .image
+    .fr-container-fluid.fr-py-3w.fr-mt-3v.landing-banner
+      .fr-container
+        .fr-grid-row.fr-grid-row--gutters
+          .fr-col-12.fr-col-md-8#col-text
+            .title
+              %h1.fr-h3= @landing_theme.page_title || @landing_theme.title
+              %p.fr-text--lg.text-dark-grey= t('landings.landings.home.answer')
+              .fr-grid-row#links
+                .fr-col-12
+                  = render 'pages/cta_button'
+          .fr-col-12.fr-col-md-3.fr-col-offset-md-1#col-image
             = image_tag('home.png', alt: "")
 
   - if show_breadcrumbs?
@@ -23,25 +24,24 @@
   - unless in_iframe?
     #scroll-section
 
-  %section.section.section-grey.landing-subject-section
-    .container
+  .fr-container--fluid.section-grey.fr-py-4w
+    .fr-container.landing-subject-section
       %h2.card-section-header= t('you_wish')
-      .landing-subject-cards-container
+      .fr-grid-row.fr-grid-row--gutters
         = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
 
-      - unless in_iframe?
-        .text-center.other
-          %b= t('.back_to_other_subjects_html')
+        - unless in_iframe?
+          .text-center.fr-col-12.fr-mt-3w
+            %b= t('.back_to_other_subjects_html')
 
   - unless in_iframe?
-    %section.section.section-light-grey.landing
+    .fr-container--fluid.section-light-grey.fr-py-5w
       = render 'pages/how_it_works'
 
     - if @landing_theme.landing_subjects.collect(&:logos).present?
-      %section.section.section-white
-        .container
-          %h2.section__subtitle= t('logos.title')
-          = render 'landings/landings/logos', landing_theme: @landing_theme
+      .fr-container.fr-py-5w
+        %h2.text-dark-grey.text-center.text-normal.fr-text--lead= t('logos.title')
+        = render 'landings/landings/logos', landing_theme: @landing_theme
 
   - if in_iframe? && @landing.display_pde_partnership_mention?
     = render 'landings/landings/pde_partnership_mention'

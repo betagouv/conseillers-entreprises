@@ -297,6 +297,8 @@ fr:
   emails:
     not_sent: L’email n’a pu être envoyé
     sent: L’email a été envoyé
+  expert_contacts_you_asterisk_html: "* Délai moyen de prise en charge"
+  expert_contacts_you_description_html: Le conseiller compétent pour votre demande vous contacte et vous accompagne en fonction de votre situation.
   experts:
     edit:
       antenne_and_institution: Structure
@@ -373,7 +375,7 @@ fr:
   landings:
     landing_themes:
       show:
-        back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/">Découvrez les autres sujets.</a>
+        back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/" class='blue'>Découvrez les autres sujets.</a>
     landings:
       admin:
         iframe_fields: Champs iframe
@@ -718,6 +720,9 @@ fr:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
   pages:
+    breadcrumbs:
+      see_breadcrumb: Voir le fil d’Ariane
+      you_are_here: Vous êtes ici
     cookie_text: Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord
     footer:
       cookies: Gestion des cookies
@@ -730,7 +735,11 @@ fr:
       startup_d_etat: Une startup d’État de beta.gouv
       twitter_title: Compte twitter de Place des Entreprises - nouvelle fenêtre
     how_it_works:
-      learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
+      choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
+      choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
+      expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
+      learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
+      select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     navbar:
       close: Fermer
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
