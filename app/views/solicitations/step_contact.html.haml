@@ -9,10 +9,13 @@
     %h2.fr-h3.title-icon
       %span.ri-phone-fill.blue
       %span= t('solicitations.creation_form.accompaniments')
-    %div= sanitize @landing_subject&.form_description&.html_safe
+    .fr-pl-3w= sanitize @landing_subject&.form_description&.html_safe
     .contact-delay.fr-my-5w
       = image_tag('5days-b.png', alt: '')
-      %p.fr-m-0= t('solicitations.creation_form.five_days_contact_html')
+      %p.fr-m-0
+        = t('solicitations.creation_form.five_days_contact_html')
+        %span.fr-text--sm
+          = t('solicitations.creation_form.average_delays')
     = render 'solicitations/steps', current_status: :step_contact
 
 - if @solicitation.persisted?
@@ -35,7 +38,7 @@
             placeholder: t("solicitations.creation_form.placeholder.#{field}"),
             type: Solicitation::FIELD_TYPES[field],
             required: true,
-            class: 'fr-input'
+            class: 'fr-input white-bg'
 
         - if @solicitation.errors.present?
           .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
@@ -52,12 +55,11 @@
 
 - content_for :footer do
   - unless in_iframe?
-    .fr-container--fluid.section-grey.fr-py-3w
+    .fr-container--fluid.section-light-grey.fr-py-3w
       = render 'pages/how_it_works'
     - if @landing_subject.logos.present?
-      .fr-container--fluid.section-light-grey.fr-py-3w
-        .fr-container.fr-py-3w
-          %h2.text-dark-grey.text-center.text-normal.fr-text--lead
-            = t('logos.title')
-          = render 'landings/landings/logos', landing_subject: @landing_subject
+      .fr-container.fr-py-3w
+        %h2.text-dark-grey.text-center.text-normal.fr-text--lead
+          = t('logos.title')
+        = render 'landings/landings/logos', landing_subject: @landing_subject
     = render 'iframe_footer', landing: @landing

@@ -21,7 +21,7 @@
               %span
                 = t('solicitations.creation_form.better_taking_care')
             %div= h(@solicitation.landing_subject&.description_explanation&.html_safe)
-        = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description"), rows: 6, required: true, class: 'fr-input'
+        = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description"), rows: 6, required: true, class: 'fr-input white-bg'
 
         - if @solicitation.errors.present?
           .fr-error-text= @solicitation.errors.full_messages_for(:description).to_sentence
