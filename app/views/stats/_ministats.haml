@@ -1,17 +1,17 @@
-.row
+.fr-grid-row.fr-py-17v
   - stats = Stats::Mini::All.new
-  .stats-item
-    %div
+  .fr-col-12.fr-col-md-4.text-center.stats-item
+    %p.fr-m-0
       = stats.companies_by_employees
-    .text
-      = t('stats.series.companies_by_employees.ministats')
-  .stats-item
-    %div
+      %span.bold.fr-mt-2v
+        = t('stats.series.companies_by_employees.ministats')
+  .fr-col-12.fr-col-md-4.text-center.stats-item
+    %p.fr-m-0
       = stats.needs
-    .text
-      = t('stats.series.needs.title')
-  .stats-item
-    %div
+      %span.bold.fr-mt-2v
+        = t('stats.series.needs.title')
+  .fr-col-12.fr-col-md-4.text-center.stats-item
+    %p.fr-m-0
       = stats.advisors
-    .text
-      = t('stats.series.advisors.title')
+      %span.bold.fr-mt-2v
+        = t('stats.series.advisors.title')

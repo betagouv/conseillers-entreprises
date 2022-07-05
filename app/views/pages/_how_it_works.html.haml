@@ -1,4 +1,4 @@
-.fr-container.how-it-works
+.fr-container.how-it-works.fr-py-5w
   .fr-grid-row.fr-grid-row--gutters
     .fr-col-12.fr-col-md-4
       .icon.fr-mb-2w.text-center
@@ -17,10 +17,13 @@
       %p= t('expert_contacts_you_description_html')
       %p.asterisk= t('expert_contacts_you_asterisk_html')
 
-  .bold.text-center#learn-more
+  #learn-more
     - if request.path == comment_ca_marche_path
-      .section-video
-        .container-iframe
-          .youtube_player{ autoplay: "0", height: "100%", loading: "0", loop: "0", rel: "0", showinfo: "1", theme: "light", videoid: "t8bOQVgLUm0", width: "100%" }
+      .fr-grid-row
+        .fr-col-12.fr-col-md-8.fr-col-offset-md-2
+          .fr-content-media
+            .fr-responsive-vid.youtube_player{ autoplay: "0", height: "100%", loading: "0", loop: "0", rel: "0", showinfo: "1", theme: "light", videoid: "t8bOQVgLUm0", width: "100%" }
+            .fr-content-media__caption= t('.pde_presentation')
     - else
-      %p= t('.learn_more_html')
+      .bold.text-center
+        %p= t('.learn_more_html')

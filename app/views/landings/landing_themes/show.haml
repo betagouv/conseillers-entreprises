@@ -34,7 +34,7 @@
             %b= t('.back_to_other_subjects_html')
 
   - unless in_iframe?
-    .fr-container--fluid.section-light-grey.fr-py-5w
+    .fr-container--fluid.section-light-grey
       = render 'pages/how_it_works'
 
     - if @landing_theme.landing_subjects.collect(&:logos).present?

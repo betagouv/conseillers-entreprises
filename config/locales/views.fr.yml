@@ -14,8 +14,18 @@ fr:
       long_title: Place des Entreprises, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Comment ça marche | Place des Entreprises
+      partners: 'Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
+      pde_testimonial: Témoignage d’un chef d’entreprise.
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
+    index_testimonials:
+      business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
+      testimonial_1_author_html: Clément Francomme<br /> CEO de <strong>UTOCAT</strong> (10 à 19 salariés)
+      testimonial_1_text_html: Place des Entreprises est très réactive et pratique ! Ils nous ont permis une mise en relation rapide avec les bonnes personnes quand nous en avions besoin.<br />Nous avons donc pu clôturer notre dossier dans les délais.
+      testimonial_2_author_html: Christophe B. <br />Dirigeant de <strong>SOS Impact 02</strong> (1 à 2 salariés)
+      testimonial_2_text_html: J’ai découvert qu’il existait des partenaires publics experts de mes besoins d’entreprise. Ils m’ont accompagné sur des questions de ressources humaines, de développement commercial et de réglementation.<br />Ils font un super job.
+      testimonial_3_author_html: Thérèse Debarge<br /><strong>Emballages Hocq</strong> (20 à 49 salariés)
+      testimonial_3_text_html: Grâce à Place des Entreprises, nous avons été contactés par 5 organismes différents prêts à nous conseiller ou nous aider de diverses manières pour le financement de notre nouvel investissement. <br /> Un grand merci pour votre réactivité.
     mentions_d_information:
       title: Mentions d'information
     mentions_legales:
@@ -724,6 +734,8 @@ fr:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: Vous êtes ici
     cookie_text: Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord
+    faq:
+      frequently_questions: Questions fréquentes
     footer:
       cookies: Gestion des cookies
       github_title: Page Github de Place des Entreprises - nouvelle fenêtre
@@ -739,6 +751,7 @@ fr:
       choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
       expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
       learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
+      pde_presentation: Présentation du service Place des Entreprises
       select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     navbar:
       close: Fermer

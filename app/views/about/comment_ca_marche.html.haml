@@ -1,44 +1,45 @@
 - meta title: t('.meta_title'), description: t('.meta_description')
-%section.section.section-white.landing
-  .container.container
-    %h1= t('.long_title')
-    %p.subtitle= t('.subtitle')
+.fr-container.fr-py-7w.fr-mt-3v
+  %h1.fr-h2= t('.long_title')
+  %p.fr-text--lg= t('.subtitle')
 
 = render 'pages/breadcrumbs', title: t('.title')
 
-%section.section.section-white.landing.padding-bottom-0
-  = render 'pages/how_it_works'
+= render 'pages/how_it_works'
 
-%section.section.section-white
-  .container
-    = render 'pages/faq', faq: @faq, ld_json: @ld_json
+.fr-container.fr-pb-5w
+  = render 'pages/faq', faq: @faq, ld_json: @ld_json
 
-%section.section.section-grey#liste-partenaires
-  .container
-    %h2 Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :
+.fr-container--fluid.section-grey.fr-py-7w#liste-partenaires
+  .fr-container
+    %h2.fr-h3= t('.partners')
     .logo-list
       = prefet_region_logo(session[:region_code])
       = region_logo(session[:region_code])
       = all_institutions_images
-    .row.partners-list
+    .fr-grid-row
       - @institutions.each do |institutions_column|
-        %ul
-          - institutions_column.each do |institution|
-            %li= institution
+        .fr-col-md-3.fr-col-sm-6.fr-col-12
+          %ul.list-unstyled.partners-list
+            - institutions_column.each do |institution|
+              %li= institution
 
-.section.section-color
+.fr-container--fluid.section-color
   .container
     = render 'stats/ministats'
 
-%section.section.section-grey#section-testimonials
-  .container
+.fr-container--fluid.section-grey.fr-py-7w#section-testimonials
+  .fr-container
     = render 'index_testimonials'
 
-%section.section-video.section-grey
-  .container-iframe
-    .youtube_player{ autoplay: "0", height: "100%", loading: "0", loop: "0", rel: "0", showinfo: "1", theme: "light", videoid: "QuCt9NvHBPU", width: "100%" }
+.fr-container--fluid.section-grey
+  .fr-container
+    .fr-grid-row
+      .fr-col-12.fr-col-md-8.fr-col-offset-md-2
+        .fr-content-media
+          .fr-responsive-vid.youtube_player{ autoplay: "0", height: "100%", loading: "0", loop: "0", rel: "0", showinfo: "1", theme: "light", videoid: "QuCt9NvHBPU", width: "100%" }
+          .fr-content-media__caption= t('.pde_testimonial')
 
-%section.section#section-contact-us
-  .container
-    %h2.section__title= t('.join_us')
-    %p= t('.contact_us_html', mailto_link: mailto_contact_us(ENV['APPLICATION_EMAIL']))
+.fr-container.text-center.fr-py-6w
+  %h2= t('.join_us')
+  %p= t('.contact_us_html', mailto_link: mailto_contact_us(ENV['APPLICATION_EMAIL'], 'blue'))

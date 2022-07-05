@@ -1,10 +1,10 @@
-%script{ type: "application/ld+json" }
-  !=ld_json
+%h2= t('.frequently_questions')
 
-%h2 Questions fréquentes
-
-- faq.each do |item|
-  %details.faq{ id: item[:id] }
-    %summary
-      %h3= item[:question]
-    %p= simple_format(item[:answer])
+.fr-accordions-group
+  - faq.each do |item|
+    %section.fr-accordion
+      %h3.fr-accordion__title
+        %button.fr-accordion__btn{ 'aria-controls': "accordion-#{item[:id]}", 'aria-expanded': "false" }
+          = item[:question]
+      .fr-collapse{ id: "accordion-#{item[:id]}" }
+        %p= simple_format(item[:answer])

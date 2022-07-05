@@ -21,7 +21,9 @@ module BreadcrumbsHelper
   # Breadcrumbs used for other pages
   # Ex : "Déposer une demande › Comment ça marche ?"
   def breadcrumbs_page(title)
-    content_tag('li', link_to(t('breadcrumbs_helper.home_link.home'), root_path, class: 'fr-breadcrumb__link blue'))
+    html = content_tag('li', link_to(t('breadcrumbs_helper.home_link.home'), root_path, class: 'fr-breadcrumb__link blue'))
+    html << content_tag('li', link_to(title, '#', class: 'fr-breadcrumb__link', 'aria-current': 'page'))
+    html
   end
 
   private
