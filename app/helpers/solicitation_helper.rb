@@ -1,16 +1,4 @@
 module SolicitationHelper
-  def solicitation_step_class(index, current_step)
-    steps = Solicitation.incompleted_statuses
-    current_step_index = steps.index(current_step.to_s)
-    if index < current_step_index
-      'done'
-    elsif index == current_step_index
-      'active'
-    else
-      ''
-    end
-  end
-
   ## Google Ads helpers
   # Our ads params are
   # pk_campaign=googleads-{campaignid}

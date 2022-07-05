@@ -6,22 +6,19 @@
 
 - content_for :form_header do
   - if @landing_subject&.form_description.present?
-    .fr-grid-row
-      .fr-col-12.fr-col-md-6.fr-col-offset-md-3
-        %h2.title-icon
-          %span.ri-phone-fill.blue
-          %span= t('solicitations.creation_form.accompaniments')
-        %div= sanitize @landing_subject&.form_description&.html_safe
-        .contact-delay
-          = image_tag('5days-b.png', alt: '')
-          %p= t('solicitations.creation_form.five_days_contact_html')
-        = render 'solicitations/steps', current_status: :step_contact
+    %h2.fr-h3.title-icon
+      %span.ri-phone-fill.blue
+      %span= t('solicitations.creation_form.accompaniments')
+    %div= sanitize @landing_subject&.form_description&.html_safe
+    .contact-delay.fr-my-5w
+      = image_tag('5days-b.png', alt: '')
+      %p.fr-m-0= t('solicitations.creation_form.five_days_contact_html')
+    = render 'solicitations/steps', current_status: :step_contact
 
 - if @solicitation.persisted?
   - path = update_step_contact_solicitation_path(@solicitation.uuid)
 - else
   - path = { controller: "/solicitations", action: "create", landing_slug: @landing.slug, landing_subject_slug: @landing_subject.slug }.merge(query_params)
-
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3
@@ -40,9 +37,10 @@
             required: true,
             class: 'fr-input'
 
-        .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
+        - if @solicitation.errors.present?
+          .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
 
-      .form__group.submit-buttons
+      .submit-buttons
         = render 'solicitations/next_button'
 
 - content_for :form_footer do
@@ -57,8 +55,8 @@
     .fr-container--fluid.section-grey.fr-py-3w
       = render 'pages/how_it_works'
     - if @landing_subject.logos.present?
-      .fr-container--fluid.fr-py-3w
-        .fr-container
+      .fr-container--fluid.section-light-grey.fr-py-3w
+        .fr-container.fr-py-3w
           %h2.text-dark-grey.text-center.text-normal.fr-text--lead
             = t('logos.title')
           = render 'landings/landings/logos', landing_subject: @landing_subject

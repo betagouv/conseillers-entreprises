@@ -1,7 +1,9 @@
 - content_for :content do
   = yield :header
-  .fr-container.multistep-form.fr-py-5w#section-formulaire
-    = yield :form_header
+  .fr-container.multistep-form.fr-py-4w#section-formulaire
+    .fr-grid-row
+      .fr-col-12.fr-col-md-6.fr-col-offset-md-3
+        = yield :form_header
   .fr-container.multistep-form
     = yield
   .fr-container

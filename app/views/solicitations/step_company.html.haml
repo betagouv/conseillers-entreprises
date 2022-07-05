@@ -7,32 +7,34 @@
 - content_for :form_header do
   = render 'solicitations/steps', current_status: :step_company
 
-= form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
-  = f.hidden_field :status
+.fr-grid-row
+  .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
+    = form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
+      = f.hidden_field :status
+      - @solicitation.company_step_required_fields.each do |field|
+        .fr-mb-2w
+          - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
 
-  .form__group
-    - @solicitation.company_step_required_fields.each do |field|
-      .form__group
-        - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
+          - if field == :siret
+            = label_tag "solicitation_siret", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
+            = f.text_field field, required: true, placeholder: '12345678900013', minlength: '14', maxlength: '14', class: 'fr-input'
+            %span= t('attributes.help.no_creation_html')
+          - else
+            = f.label field, class: 'fr-label'
+            - if help.present?
+              %span.fr-hint-text= help
+            = f.text_field field,
+              placeholder: t("solicitations.creation_form.placeholder.#{field}"),
+              type: Solicitation::FIELD_TYPES[field],
+              required: true,
+              class: 'fr-input'
 
-        - if field == :siret
-          = label_tag "solicitation_siret", t("solicitations.creation_form.find_my_facility")
-          = f.text_field field, required: true, placeholder: '12345678900013', minlength: '14', maxlength: '14'
-          %span= t('attributes.help.no_creation_html')
-        - else
-          = f.label field
-          - if help.present?
-            %span= help
-          = f.text_field field,
-            placeholder: t("solicitations.creation_form.placeholder.#{field}"),
-            type: Solicitation::FIELD_TYPES[field],
-            required: true
+        - if @solicitation.errors.present?
+          .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
 
-        .notification.error= @solicitation.errors.full_messages_for(field).to_sentence
-
-  .form__group.submit-buttons
-    = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
-    = render 'next_button'
+      .submit-buttons
+        = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+        = render 'next_button'
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing
