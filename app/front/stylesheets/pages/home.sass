@@ -21,38 +21,43 @@
       max-height: 15rem
       max-width: 100%
 
-.emphasis.fr-grid-row
-  background-color: $emphasis-background
-  border: 1px solid $emphasis-border
-  margin-top: -5rem
-  margin-bottom: 3rem
-  padding: 1rem
-  display: flex
-  h2
-    line-height: 1.5rem
-    font-size: 1rem
-    margin: 0
-  span
-    margin: 0 0.5rem
-  .fr-btn--secondary
-    background-color: $white
-    position: static
-  img
-    max-height: 50px
-    margin-right: 0.5rem
-
-.theme-card
-  .fr-tile__body
-    text-align: left
-    justify-content: space-between !important
-  .discover_button
-    text-align: right
-    width: 100%
-    color: $blue
-    font-size: 2rem
-
+.home
+  .theme-card
+    .fr-tile__body
+      text-align: left
+      justify-content: space-between !important
+    .discover_button
+      text-align: right
+      width: 100%
+      color: $blue
+      font-size: 2rem
+  .fr-tile
+    box-shadow: none
+    border: 2px solid transparent
+    &:hover
+      border: 2px solid $blue
+  .emphasis.fr-grid-row
+    background-color: $emphasis-background
+    border: 1px solid $emphasis-border
+    margin-top: -5rem
+    margin-bottom: 3rem
+    padding: 1rem
+    display: flex
+    h2
+      line-height: 1.5rem
+      font-size: 1rem
+      margin: 0
+    span
+      margin: 0 0.5rem
+    .fr-btn--secondary
+      background-color: $white
+      position: static
+    img
+      max-height: 50px
+      margin-right: 0.5rem
 .contact-us
   font-size: 1.2rem
   margin: 2rem 0 0 0
   a
     color: $blue
+
