@@ -835,6 +835,7 @@ fr:
   solicitations:
     creation_form:
       accompaniments: 'Accompagnements proposés :'
+      average_delays: "(Délai moyen de prise en charge)"
       better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
       buttons:
         next: Suivant
@@ -858,7 +859,6 @@ fr:
         step_contact: Vos coordonnées
         step_description: Votre demande
       submit_in_progress: Envoi en cours...
-      average_delays: "(Délai moyen de prise en charge)"
     form_complete:
       iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <strong>5 jours</strong> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
       message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
