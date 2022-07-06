@@ -36,12 +36,12 @@
               = link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
     = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
-.fr-container-fluid.section.section-partners.fr-py-4w.section-light-grey
+.fr-container-fluid.section.section-partners.fr-py-7w.section-light-grey
   .fr-container.text-center
     - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
       = render 'index_institutions'
 
-.fr-container-fluid.fr-py-4w
+.fr-container-fluid.fr-py-7w
   .fr-container
     = render 'newsletter'
 
