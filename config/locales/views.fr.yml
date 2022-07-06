@@ -185,7 +185,7 @@ fr:
       title: Donnez votre avis sur Place des Entreprises
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
     thank_you:
-      title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
+      title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   conseiller:
     solicitations:
       ban_facility:
@@ -469,7 +469,7 @@ fr:
         subject: Avez-vous besoin d’aide ?
       satisfaction:
         follow_us: Suivre le service sur LinkedIn
-        intro_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :</p>"
+        intro_html: "Vous avez utilisé le service public Place des Entreprises pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :"
         linkedin_news: Ne loupez pas l’actualité des aides et accompagnements publics !
         outro: Votre avis est important pour nous aider à améliorer ce nouveau service public.
         question_one_html: "<p>Est-ce que vous avez bien été recontacté par au moins un conseiller ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a></p>"
