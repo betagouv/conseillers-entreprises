@@ -1,13 +1,13 @@
 - chart_name = "chart-#{name}"
 
-.card.stats
-  .card__content
+.fr-col-12.card.stats
+  .card__content.white-bg.fr-p-3w
     %h2
       - if data.count.present?
         %span= data.count
       %span= t("stats.series.#{name}.title")
 
-    %p{ id: chart_name,
+    %p.fr-m-0{ id: chart_name,
       'data-chart': data.chart,
       'data-months': data.all_months.map{ |d| I18n.l(d, format: :month) }.to_json.html_safe,
       'data-max-value': data.max_value,

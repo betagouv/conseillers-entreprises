@@ -2,14 +2,14 @@
 - content_for :head do
   - javascript_include_tag 'highcharts', data: { turbolinks_track: 'reload' }
 
-%section.section.section-white.landing
-  .container.container
-    %h1= t('.title')
+.fr-container.fr-py-7w.fr-mt-3v
+  %h1= t('.title')
 
 = render 'pages/breadcrumbs', title: t('.title')
 
-%section.section.section-grey#section-stats
-  .container.container-full
+.fr-container--fluid.fr-py-7w.section-grey#section-stats
+  .fr-container
     = render 'tabs'
     = render 'stats/stats_params', stats: @stats, route: request.url
-    = render 'stats/stats_charts', stats: @stats, charts_names: @charts_names
+    .fr-grid-row.fr-grid-row--gutters#stats-charts
+      = render 'stats/stats_charts', stats: @stats, charts_names: @charts_names

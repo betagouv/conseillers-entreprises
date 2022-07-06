@@ -1,12 +1,23 @@
-.tiles
-  .grid
-    = active_link_to quality_team_index_path, class: 'tile' do
-      %span.ri-award-fill.tile__icon
-      %h2= t('.quality')
-    = active_link_to matches_team_index_path, class: 'tile' do
-      %span.ri-group-line.tile__icon
-      %h2= t('.matches')
-    -# = active_link_to deployment_team_index_path, class: 'tile' do
-    = link_to '#', class: 'tile' do
-      %span.ri-rocket-2-fill.tile__icon
-      %h2= t('.deployment')
+.fr-container.fr-mb-3w
+  .fr-grid-row.fr-grid-row--gutters
+    .fr-col-12.fr-col-md-4
+      .fr-tile.fr-enlarge-link
+        .fr-tile__body
+          %h2.fr-tile__title
+            = active_link_to quality_team_index_path, class: 'fr-tile__link' do
+              %span.ri-award-fill.tile__icon
+              = t('.quality')
+    .fr-col-12.fr-col-md-4
+      .fr-tile.fr-enlarge-link
+        .fr-tile__body
+          %h2.fr-tile__title
+            = active_link_to matches_team_index_path, class: 'fr-tile__link' do
+              %span.ri-group-line.tile__icon
+              = t('.matches')
+    .fr-col-12.fr-col-md-4
+      .fr-tile.fr-enlarge-link
+        .fr-tile__body
+          %h2.fr-tile__title
+            = link_to '#', class: 'fr-tile__link' do
+              %span.ri-rocket-2-fill.tile__icon
+              = t('.deployment')
