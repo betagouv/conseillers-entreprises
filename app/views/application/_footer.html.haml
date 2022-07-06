@@ -1,10 +1,12 @@
 %footer.fr-footer#footer{ role: "contentinfo" }
   .fr-container
     .fr-footer__body
-      .fr-footer__brand
-        = image_tag 'Republique_Francaise_RVB.png', alt: t('logos.republique_francaise'), class: 'fr-logo'
-        = link_to 'https://www.gouvernement.fr/france-relance', class: 'fr-footer__brand-link' do
-          = image_tag 'logo-france-relance.png', alt: t('logos.france_relance'), class: 'fr-footer__logo'
+      .fr-footer__brand.fr-enlarge-link
+        = link_to root_path, title: "#{t('come_back_to_home')}" do
+          %p.fr-logo
+            = t('republique_francaise_html')
+        = link_to root_path, title: "#{t('come_back_to_home')}", class: 'fr-footer__brand-link fr-ml-3w' do
+          = image_tag 'logo-france-relance.png', alt: t('logos.france_relance'), class: 'fr-footer__logo fr-responsive-img'
       .fr-footer__content
         %p.fr-footer__content-desc
           = t('.service_description')
