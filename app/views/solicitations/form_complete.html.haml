@@ -12,10 +12,9 @@
         .fr-text--lg= t('.iframe_message_html')
         .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
 
-        %section.section.section-grey.fr-pt-3w
-          .container
-            %h2.fr-h4.section__subtitle= t('iframe.partners_logo')
-            = render 'landings/landings/logos', landing_subject: @landing_subject
+        .fr-py-4w.text-center
+          %h2.fr-h4= t('iframe.partners_logo')
+          = render 'landings/landings/logos', landing_subject: @landing_subject
 
     - else
       %h2= t('.title')

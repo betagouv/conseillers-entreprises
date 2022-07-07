@@ -31,12 +31,11 @@
         = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
   - unless in_iframe?
-    %section.section.section-grey.landing
+    .fr-container-fluid.section-grey.landing
       = render 'pages/how_it_works'
 
-    %section.section.section-white
-      .container
-        = render 'logos', landing: @landing
+    .fr-container.fr-py-7w
+      = render 'logos', landing: @landing
 
   - if in_iframe? && @landing.display_pde_partnership_mention?
     = render 'landings/landings/pde_partnership_mention'
