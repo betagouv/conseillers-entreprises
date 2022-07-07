@@ -121,6 +121,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         click_button 'Suivant'
         fill_in 'Description', with: 'Ceci est un test'
         # radio button sur 'Oui' pour recrutement_poste_cadre
+        save_and_open_page
         expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true)
         expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_false', checked: false)
         # radio button sur 'Non' pour recrutement_en_apprentissage

@@ -2,7 +2,7 @@
 
 .fr-accordions-group
   - faq.each do |item|
-    %section.fr-accordion
+    %section.fr-accordion.faq
       %h3.fr-accordion__title
         %button.fr-accordion__btn{ 'aria-controls': "accordion-#{item[:id]}", 'aria-expanded': "false" }
           = item[:question]
