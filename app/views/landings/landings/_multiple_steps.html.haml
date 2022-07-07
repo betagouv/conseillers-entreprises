@@ -1,9 +1,7 @@
 - unless in_iframe?
   %h2.fr-h3= t('you_wish')
 
-/ Tuiles verticales placées dans la grille
-
-.fr-grid-row.fr-grid-row--gutters{ class: "#{'in-iframe' if in_iframe?}" }
+.fr-grid-row.fr-grid-row--gutters.landing-theme-container{ class: "#{'in-iframe' if in_iframe?}" }
   = render partial: 'landings/landing_themes/card', collection: landing_themes, as: :landing_theme, locals: { landing: landing }
 
 - if in_iframe? && landing.landing_themes.not_archived.pluck(:slug).include?('contactez-nous')

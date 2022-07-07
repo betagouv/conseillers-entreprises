@@ -5,18 +5,19 @@
 - cache_unless(flash.present?, [@landing, @landing_themes]) do
 
   - unless in_iframe?
-    %section.section.section-white.landing.less-padding
-      .container
-        .row.landing-header
-          .title
-            .heading
-              - if @landing.main_logo
-                = display_image(name: @landing.main_logo)
-              %h1= @landing.title
-            %p.subtitle= t('landings.landings.home.answer')
-            .links
-              = render 'pages/cta_button'
-          .image
+    .fr-container-fluid.fr-py-7w.fr-mt-3v.home-banner
+      .fr-container
+        .fr-grid-row.fr-grid-row--gutters
+          .fr-col-12.fr-col-md-7#col-text
+            .home-title
+              .heading
+                - if @landing.main_logo
+                  = display_image(name: @landing.main_logo, extra_params: { class: 'fr-mr-2w' })
+                %h1.fr-m-0= @landing.title
+              %p.fr-mt-3w= t('landings.landings.home.answer')
+              .fr-grid-row#links
+                = render 'pages/cta_button'
+          .fr-col-12.fr-col-md-5#col-image
             = image_tag('home.png', alt: "")
 
   - unless in_iframe?
@@ -25,8 +26,8 @@
     = render 'single_page', landing_themes: @landing.landing_themes, landing: @landing
 
   - else
-    %section.section.section-grey.landing-theme-section
-      .container
+    .fr-container-fluid.section-grey.fr-py-4w.landing-theme-section.landing
+      .fr-container
         = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
   - unless in_iframe?

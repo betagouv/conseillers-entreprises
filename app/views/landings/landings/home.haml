@@ -19,7 +19,7 @@
 
 .fr-container-fluid.section-light-grey.blank-section#scroll-section
 
-.fr-container-fluid.section.section-grey.fr-py-4w.home
+.fr-container-fluid.section-grey.fr-py-4w.home.landing
   .fr-container
     - unless in_iframe?
       - @landing_emphasis.each do |landing|
@@ -36,7 +36,7 @@
               = link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
     = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
 
-.fr-container-fluid.section.section-partners.fr-py-7w.section-light-grey
+.fr-container-fluid.section-partners.fr-py-7w.section-light-grey
   .fr-container.text-center
     - cache("institutions-#{session[:region_code]}", expires_in: 1.minute) do
       = render 'index_institutions'

@@ -1,8 +1,8 @@
-%section.section.section-grey.landing-subject-section
-  .container
+.fr-container-fluid.section-grey.fr-py-4w.landing-subject-section.landing
+  .fr-container
     - landing_themes.each do |theme|
       %h2.card-section-header= theme.title || t('you_wish')
-      .landing-subject-cards-container
+      .fr-grid-row.fr-grid-row--gutters.landing-subject-cards-container.fr-mb-3w
         = render partial: 'landings/landing_subjects/card', collection: theme.landing_subjects.not_archived, as: :landing_subject, locals: { landing: landing }
 
     - unless in_iframe?

@@ -5,7 +5,6 @@
       %h3.fr-tile__title.fr-h4
         = link_to landing_subject.title.html_safe, path, class: 'click-on-landing-subject fr-tile__link'
       - if landing_subject.description?
-        .fr-pl-3w
-          %p= sanitize landing_subject.description.html_safe
+        %p= sanitize landing_subject.description.html_safe
       .discover_button
         %span.ri-arrow-right-line

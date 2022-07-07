@@ -3,18 +3,18 @@
 
 - content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @landing_subject)
 
-.fr-container--fluid.section-grey.fr-py-4w
+.fr-container--fluid.section-grey.fr-py-4w#section-thankyou
   .fr-container
     - if in_iframe?
       .thank_you_iframe
         %h2= t('.title')
 
         .fr-text--lg= t('.iframe_message_html')
-        = image_tag 'logo-PDE.svg', alt: t('logos.pde')
+        .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
 
-        %section.section.section-grey
+        %section.section.section-grey.fr-pt-3w
           .container
-            %h2.section__subtitle= t('iframe.partners_logo')
+            %h2.fr-h4.section__subtitle= t('iframe.partners_logo')
             = render 'landings/landings/logos', landing_subject: @landing_subject
 
     - else

@@ -1,9 +1,45 @@
 .fr-tile
   flex-direction: column !important
 
-.fr-tile.landing-subject
-  background: #f9fafc
-  box-shadow: none
-  border: 2px solid transparent
-  &:hover
-    border: 2px solid $blue
+
+
+.landing
+  .fr-tile
+    box-shadow: none
+    border: 2px solid transparent
+    &:hover
+      border: 2px solid $blue
+  .landing-subject
+    background: #f9fafc
+    box-shadow: none
+    border: 2px solid transparent
+    &:hover
+      border: 2px solid $blue
+  .landing-theme-container
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    gap: 32pt
+    &.in-iframe
+      grid-template-columns: repeat(2, 1fr)
+      .fr-tile:hover
+        background-color: $white
+  .fr-tile__body
+    text-align: left
+  .theme-card
+    .fr-tile__body
+      justify-content: space-between !important
+      align-items: self-start
+      ul
+        margin-left: 1rem
+    .discover_button
+      text-align: right
+      width: 100%
+      color: $blue
+      font-size: 2rem
+
+  @media (max-width: 1040px)
+    .landing-theme-container
+      grid-template-columns: repeat(2, 1fr)
+  @media (max-width: 570px)
+    .landing-theme-container
+      grid-template-columns: repeat(1, 1fr)
