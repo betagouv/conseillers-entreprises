@@ -15,8 +15,7 @@ class SearchFacility
       if siren_search?
         from_siren
       else
-        # TODO
-        # from_siret
+        from_siret
       end
     else
       from_full_text
@@ -55,8 +54,20 @@ class SearchFacility
   def from_siret
     siret = FormatSiret.siret_from_query(query[0..13])
     return if siret.blank?
-    # TODO
-    return { error: I18n.t('api_entreprise.default_error_message.etablissement') }
+    begin
+      response = ApiInsee::Siret::Base.new(siret).call
+      response[:etablissements].map do |entreprise_params|
+        next if entreprise_params.blank?
+        ApiConsumption::Models::FacilityAutocomplete::FromApiInsee.new({
+          nombre_etablissements_ouverts: response[:nombre_etablissements_ouverts],
+          etablissement: entreprise_params.except('uniteLegale'),
+          entreprise: entreprise_params['uniteLegale']
+        })
+      end
+    rescue ApiInsee::ApiInseeError => e
+      message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
+      return { error: message }
+    end
   end
 
   def from_full_text

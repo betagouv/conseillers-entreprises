@@ -5,7 +5,7 @@
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
-    %h2.fr-h4= t('.select_your_company')
+    %h3.fr-h4= t('.select_your_company')
     - @companies.each do |company|
       .fr-mb-2w
       - if company.nombre_etablissements_ouverts == 1
