@@ -3,11 +3,11 @@
 - content_for :form_header do
   = render 'solicitations/steps', current_status: :step_company
 
-.fr-container
-  %h3= t('.select_your_facility')
-  .fr-grid-row
+.fr-grid-row
+  .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
+    %h2.fr-h4= t('.select_your_facility')
     - @facilities.each do |facility|
-      .fr-col-12.fr-mb-2w
+      .fr-mb-2w
         = render 'facility_tile', company: facility
 
 - content_for :footer do
