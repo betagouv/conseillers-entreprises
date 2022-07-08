@@ -10,7 +10,7 @@
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
     - if @solicitation.company_step_required_fields.include?(:siret)
-      = render 'search_company_form'
+      = render 'search_company_form', solicitation: @solicitation
 
     - else
       = form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|

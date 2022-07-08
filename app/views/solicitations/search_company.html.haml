@@ -8,10 +8,10 @@
   .fr-grid-row
     - @companies.each do |company|
       .fr-col-12.fr-mb-2w
-        - if company.nombre_etablissements_ouverts != 1
-          = render 'company_tile', company: company
-        - else
+        - if company.nombre_etablissements_ouverts == 1
           = render 'facility_tile', company: company
+        - else
+          = render 'company_tile', company: company
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing
