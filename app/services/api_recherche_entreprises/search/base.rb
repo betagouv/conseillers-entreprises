@@ -25,29 +25,15 @@ module ApiRechercheEntreprises::Search
 
   class Responder < ApiRechercheEntreprises::Responder
     def format_data
-      entreprises = []
-      @http_request.data["results"].map do |entreprise|
+      res = @http_request.data["results"].map do |entreprise|
         siege = entreprise['siege']
         next if (siege["code_pays_etranger"].present? || entreprise['nombre_etablissements_ouverts'] < 1)
-        etablissements = [
-          {
-            siret: siege['siret'],
-            code_postal: siege['code_postal'],
-            libelle_commune: siege['libelle_commune'],
-            code_ape: siege['activite_principale'],
-            siege_social: true
-          }
-        ]
-        entreprises.push(
-          {
-            siren: entreprise['siren'],
-            nom: entreprise['nom_complet'],
-            nombre_etablissements_ouverts: entreprise['nombre_etablissements_ouverts'],
-            etablissements: etablissements
-          }
-        )
+        {
+          entreprise: entreprise.except('siege'),
+          etablissement_siege: entreprise['siege']
+        }
       end
-      return { entreprises: entreprises }
+      res.compact
     end
   end
 end

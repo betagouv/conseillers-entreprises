@@ -20,6 +20,26 @@ class SolicitationsController < PagesController
     end
   end
 
+  def search_company
+    @companies = SearchFacility.new(search_params).from_full_text_or_siren
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @companies.as_json
+      end
+    end
+  end
+
+  def search_facility
+    @facilities = SearchFacility.new(search_params).from_siren
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: @facilities.as_json
+      end
+    end
+  end
+
   def update_step_contact
     update_solicitation_from_step(:step_contact, step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
@@ -60,6 +80,10 @@ class SolicitationsController < PagesController
       .permit(:landing_id, :landing_subject_id, :description, :code_region, :status,
               *Solicitation::FIELD_TYPES.keys,
               institution_filters_attributes: [:id, :additional_subject_question_id, :filter_value])
+  end
+
+  def search_params
+    params.permit(:query)
   end
 
   def build_institution_filters

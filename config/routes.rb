@@ -233,6 +233,8 @@ Rails.application.routes.draw do
     member do
       get :step_contact, path: 'contact'
       patch :update_step_contact
+      patch :search_company, path: 'recherche-entreprise'
+      patch :search_facility, path: 'recherche-etablissement'
       get :step_company, path: 'etablissement'
       patch :update_step_company
       get :step_description, path: 'description'

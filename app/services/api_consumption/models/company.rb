@@ -26,12 +26,13 @@ module ApiConsumption::Models
         :diffusable_commercialement,
         :rcs,
         :rm,
-        :effectifs
+        :effectifs,
+        :nombre_etablissements_ouverts
       ]
     end
 
     def name
-      company_name = nom_commercial.presence || raison_sociale.presence
+      company_name = nom_commercial.presence || raison_sociale.presence || nom_complet.presence || nom_raison_sociale.presence
       company_name.present? ? company_name.titleize : nil
     end
 
@@ -54,7 +55,7 @@ module ApiConsumption::Models
     end
 
     def naf_libelle
-      @naf_libelle ||= libelle_naf_entreprise
+      @naf_libelle ||= (libelle_naf_entreprise || NafCode::libelle_naf('level2', NafCode::level2_code(naf_entreprise)))
     end
 
     def effectif

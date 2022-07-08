@@ -27,22 +27,21 @@ module ApiInsee::SiretsBySiren
     def format_data
       data = @http_request.data
       etablissements_ouverts = filter_etablissements_ouverts(data["etablissements"])
+      entreprise = format_entreprise(data["etablissements"][0])
       {
-        'nombre_etablissements' => data.dig('header', 'nombre'),
-        'nombre_etablissements_ouverts' => etablissements_ouverts.size,
-        'etablissements' => data["etablissements"],
-        'etablissements_ouverts' => etablissements_ouverts,
+        entreprise: entreprise,
+        nombre_etablissements_ouverts: etablissements_ouverts.size,
+        etablissements_ouverts: etablissements_ouverts
       }
     end
 
     def filter_etablissements_ouverts(etablissements)
-      etablissements_with_openness_data = etablissements.map do |etablissement|
-        {
-          "siret" => etablissement["siret"],
-          "etatAdministratifEtablissement" => etablissement["periodesEtablissement"][0]["etatAdministratifEtablissement"]
-        }
-      end
-      etablissements_with_openness_data.select { |etablissement| etablissement["etatAdministratifEtablissement"] == 'A' }
+      etablissements
+        .select { |etablissement| etablissement["periodesEtablissement"][0]["etatAdministratifEtablissement"] == 'A' }
+    end
+
+    def format_entreprise(first_etablissement)
+      { siren: first_etablissement['siren'] }.merge(first_etablissement['uniteLegale'])
     end
   end
 end

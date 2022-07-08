@@ -1,0 +1,17 @@
+- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
+
+- content_for :form_header do
+  = render 'solicitations/steps', current_status: :step_company
+
+.fr-container
+  %h3= t('.select_your_company')
+  .fr-grid-row
+    - @companies.each do |company|
+      .fr-col-12.fr-mb-2w
+        - if company.nombre_etablissements_ouverts != 1
+          = render 'company_tile', company: company
+        - else
+          = render 'facility_tile', company: company
+
+- content_for :footer do
+  = render 'iframe_footer', landing: @solicitation.landing

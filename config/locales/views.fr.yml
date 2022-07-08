@@ -851,6 +851,9 @@ fr:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: 'Vous êtes ici :'
   solicitations:
+    company_tile:
+      choose_my_facility: Sélectionner un établissement
+      nombre_etablissements_ouverts: 'Nombre d’établissements ouverts : %{count}'
     creation_form:
       accompaniments: 'Accompagnements proposés :'
       average_delays: "(Délai moyen de prise en charge)"
@@ -858,9 +861,10 @@ fr:
       buttons:
         next: Suivant
         previous: Précédent
+        search: Rechercher
         send: Envoyer ma demande
       description: Description de votre demande
-      find_my_facility: Votre numéro SIRET
+      find_my_facility: Recherchez votre entreprise
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
@@ -872,6 +876,7 @@ fr:
         location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
         phone_number: 'ex: 06 12 34 56 78'
         siret: 123 456 789 00010
+      search_facility_placeholder: Nom, SIREN, SIRET...
       steps:
         step_company: Votre entreprise
         step_contact: Vos coordonnées
@@ -888,6 +893,10 @@ fr:
       processed: mises en relation
     index:
       title: Sollicitations
+    search_company:
+      select_your_company: 'Sélectionnez votre entreprise :'
+    search_facility:
+      select_your_facility: 'Sélectionnez votre établissement :'
     set_category_content:
       landings: Page source
       subjects: Sujets de landings

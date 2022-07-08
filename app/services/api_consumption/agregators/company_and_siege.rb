@@ -1,4 +1,4 @@
-module ApiConsumption::Adapters
+module ApiConsumption::Agregators
   class CompanyAndSiege
     REQUESTS = [
       ApiEntreprise::EntrepriseEffectifMensuel::Base,

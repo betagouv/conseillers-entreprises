@@ -1,0 +1,14 @@
+= form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
+  .form__group
+    - @solicitation.company_step_required_fields.each do |field|
+      .form__group
+        = label_tag "solicitation_query", t("solicitations.creation_form.find_my_facility")
+        = text_field_tag :query, (params[:query] || @solicitation.siret), required: true, placeholder: t("solicitations.creation_form.search_facility_placeholder")
+
+        .notification.error= @solicitation.errors.full_messages_for(field).to_sentence
+
+  .form__group.submit-buttons
+    = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+    = button_tag(class: "button large", data: { disable_with: t('solicitations.creation_form.submit_in_progress') }) do
+      %span= t('solicitations.creation_form.buttons.search')
+      %span.icon.ri-search-line
