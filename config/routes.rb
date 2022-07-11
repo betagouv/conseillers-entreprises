@@ -289,7 +289,6 @@ Rails.application.routes.draw do
   # Redirections =====================================
 
   get 'profile' => 'users#show'
-  get '/rech-etablissement', to: 'utilities#search_etablissement'
 
   ## Redirection for compatibility
   ### Landings - Accueil

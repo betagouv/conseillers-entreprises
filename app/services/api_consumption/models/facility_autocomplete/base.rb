@@ -40,7 +40,7 @@ module ApiConsumption::Models
     end
 
     def as_json(options = {})
-      options[:except] ||= ['entreprise', 'etablissement_siege']
+      options[:except] ||= ['entreprise', 'etablissement_siege', 'etablissement', 'adresseEtablissement', 'adresse2Etablissement', 'periodesEtablissement']
       super(options).merge({
         'siret' => siret,
         'siren' => siren,

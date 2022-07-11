@@ -199,8 +199,8 @@ class Solicitation < ApplicationRecord
     if FormatSiret.siren_is_valid(siret_or_siren)
       begin
         response = ApiInsee::SiretsBySiren::Base.new(siret_or_siren).call
-        return params if (response['nombre_etablissements_ouverts'] != 1)
-        siret_or_siren = response.dig('etablissements', 0, 'siret')
+        return params if (response[:nombre_etablissements_ouverts] != 1)
+        siret_or_siren = response.dig(:etablissements_ouverts, 0, 'siret')
       rescue ApiInsee::ApiInseeError => e
         return params
       end

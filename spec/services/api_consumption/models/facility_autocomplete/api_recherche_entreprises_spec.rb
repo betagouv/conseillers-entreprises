@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApiConsumption::Models::FacilityAutocomplete::FromApiRechercheEntreprises do
+RSpec.describe ApiConsumption::Models::FacilityAutocomplete::ApiRechercheEntreprises do
   describe 'new' do
     let!(:api_model) { described_class.new(params) }
 

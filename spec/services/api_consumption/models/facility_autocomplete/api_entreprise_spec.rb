@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ApiConsumption::Models::FacilityAutocomplete do
+RSpec.describe ApiConsumption::Models::FacilityAutocomplete::ApiEntreprise do
   describe 'new' do
     let!(:api_model) { described_class.new(params) }
 
@@ -20,6 +20,7 @@ RSpec.describe ApiConsumption::Models::FacilityAutocomplete do
       it 'returns the right fields' do
         expect(api_model.as_json).to include({
           'siret' => "41816609600069",
+          'siren' => "418166096",
           'nom' => "Octo Technology",
           'activite' => "Conseil en systèmes et logiciels informatiques",
           'lieu' => "75002 PARIS 2",

@@ -26,18 +26,12 @@ module ApiInsee::Siret
   class Responder < ApiInsee::Responder
     def format_data
       data = @http_request.data
-      etablissements_ouverts = filter_etablissements_ouverts(data["etablissements"])
       entreprise = format_entreprise(data["etablissements"][0])
       {
         entreprise: entreprise,
-        nombre_etablissements_ouverts: etablissements_ouverts.size,
+        nombre_etablissements_ouverts: 1,
         etablissements: data["etablissements"]
       }
-    end
-
-    def filter_etablissements_ouverts(etablissements)
-      etablissements
-        .select { |etablissement| etablissement["periodesEtablissement"][0]["etatAdministratifEtablissement"] == 'A' }
     end
 
     def format_entreprise(first_etablissement)

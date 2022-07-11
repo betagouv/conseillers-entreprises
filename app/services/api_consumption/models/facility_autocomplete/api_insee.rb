@@ -1,5 +1,5 @@
 module ApiConsumption::Models
-  class FacilityAutocomplete::FromApiInsee < FacilityAutocomplete::Base
+  class FacilityAutocomplete::ApiInsee < FacilityAutocomplete::Base
     def self.fields
       [
         :entreprise,
@@ -8,12 +8,16 @@ module ApiConsumption::Models
       ]
     end
 
+    def siren
+      @siren ||= facility.siren
+    end
+
     def company
-      ApiConsumption::Models::Company::FromApiInsee.new(entreprise)
+      @company ||= ::ApiConsumption::Models::Company::ApiInsee.new(entreprise)
     end
 
     def facility
-      ApiConsumption::Models::Facility::FromApiInsee.new(etablissement)
+      @facility ||= ::ApiConsumption::Models::Facility::ApiInsee.new(etablissement)
     end
 
     def lieu

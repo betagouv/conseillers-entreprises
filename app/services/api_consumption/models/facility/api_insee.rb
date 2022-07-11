@@ -1,5 +1,5 @@
 module ApiConsumption::Models
-  class Facility::FromApiInsee < Facility
+  class Facility::ApiInsee < Facility
     def self.fields
       [
         :siren,

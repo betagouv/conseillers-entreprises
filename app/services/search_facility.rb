@@ -5,7 +5,6 @@ class SearchFacility
 
   def initialize(params)
     @query = params[:query]
-    @non_diffusables = params[:non_diffusables]
   end
 
   def from_full_text_or_siren
@@ -29,7 +28,7 @@ class SearchFacility
       response = ApiInsee::SiretsBySiren::Base.new(siren).call
       response[:etablissements_ouverts].map do |entreprise_params|
         next if entreprise_params.blank?
-        ApiConsumption::Models::FacilityAutocomplete::FromApiInsee.new({
+        ApiConsumption::Models::FacilityAutocomplete::ApiInsee.new({
           nombre_etablissements_ouverts: response[:nombre_etablissements_ouverts],
           etablissement: entreprise_params.except('uniteLegale'),
           entreprise: entreprise_params['uniteLegale']
@@ -58,7 +57,7 @@ class SearchFacility
       response = ApiInsee::Siret::Base.new(siret).call
       response[:etablissements].map do |entreprise_params|
         next if entreprise_params.blank?
-        ApiConsumption::Models::FacilityAutocomplete::FromApiInsee.new({
+        ApiConsumption::Models::FacilityAutocomplete::ApiInsee.new({
           nombre_etablissements_ouverts: response[:nombre_etablissements_ouverts],
           etablissement: entreprise_params.except('uniteLegale'),
           entreprise: entreprise_params['uniteLegale']
@@ -75,7 +74,7 @@ class SearchFacility
       response = ApiRechercheEntreprises::Search::Base.new(query).call
       response.map do |entreprise_params|
         next if entreprise_params.blank?
-        ApiConsumption::Models::FacilityAutocomplete::FromApiRechercheEntreprises.new(entreprise_params)
+        ApiConsumption::Models::FacilityAutocomplete::ApiRechercheEntreprises.new(entreprise_params)
       end
     rescue ApiRechercheEntreprises::ApiError => e
       message = e.message.truncate(1000)
