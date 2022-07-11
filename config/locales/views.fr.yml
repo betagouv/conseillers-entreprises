@@ -729,6 +729,8 @@ fr:
     create:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
+    unsubscribe:
+      unsubscribe_successfully: Votre désinscription a bien été prise en compte
   pages:
     breadcrumbs:
       see_breadcrumb: Voir le fil d’Ariane

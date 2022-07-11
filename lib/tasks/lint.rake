@@ -3,7 +3,7 @@ namespace :lint do
   task(:rubocop) { sh 'rubocop' }
 
   desc 'run haml linter'
-  task(:haml) { sh 'haml-lint --parallel --report progress' }
+  task(:haml) { sh 'haml-lint --report progress' }
 
   desc 'run i18n linter'
   task(:i18n) { sh 'i18n-tasks health' }

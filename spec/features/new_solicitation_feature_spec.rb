@@ -121,12 +121,11 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         click_button 'Suivant'
         fill_in 'Description', with: 'Ceci est un test'
         # radio button sur 'Oui' pour recrutement_poste_cadre
-        save_and_open_page
-        expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true)
-        expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_false', checked: false)
+        expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true, visible: :hidden)
+        expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_false', checked: false, visible: :hidden)
         # radio button sur 'Non' pour recrutement_en_apprentissage
-        expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_true", checked: false)
-        expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true)
+        expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_true", checked: false, visible: :hidden)
+        expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true, visible: :hidden)
         click_button 'Envoyer ma demande'
         expect(page).to have_content('Merci')
       end
