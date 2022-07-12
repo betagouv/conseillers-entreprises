@@ -17,7 +17,11 @@ module ApiConsumption::Models
     end
 
     def nombre_etablissements_ouverts
-      company.nombre_etablissements_ouverts
+      @nombre_etablissements_ouverts ||= company.nombre_etablissements_ouverts
+    end
+
+    def afficher_etablissement
+      @nombre_etablissements_ouverts == 1
     end
   end
 end

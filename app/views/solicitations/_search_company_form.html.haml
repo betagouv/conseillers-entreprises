@@ -1,7 +1,7 @@
 = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
   - solicitation.company_step_required_fields.each do |field|
     .fr-mb-2w
-      = label_tag "solicitation_query", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
+      = label_tag "query", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
       = text_field_tag :query, (params[:query] || solicitation.siret), required: true, placeholder: t("solicitations.creation_form.search_facility_placeholder"), class: 'fr-input white-bg'
 
     - if solicitation.errors.present?

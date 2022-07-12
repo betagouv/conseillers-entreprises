@@ -30,7 +30,7 @@ module ApiRechercheEntreprises::Search
         next if (siege["code_pays_etranger"].present? || entreprise['nombre_etablissements_ouverts'] < 1)
         {
           entreprise: entreprise.except('siege'),
-          etablissement_siege: entreprise['siege']
+          etablissement_siege: entreprise['siege'],
         }
       end
       res.compact

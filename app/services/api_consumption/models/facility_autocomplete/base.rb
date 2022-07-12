@@ -39,6 +39,10 @@ module ApiConsumption::Models
       # A renseigner
     end
 
+    def afficher_etablissement
+      true # A adapter
+    end
+
     def as_json(options = {})
       options[:except] ||= ['entreprise', 'etablissement_siege', 'etablissement', 'adresseEtablissement', 'adresse2Etablissement', 'periodesEtablissement']
       super(options).merge({
@@ -48,7 +52,8 @@ module ApiConsumption::Models
         'activite' => activite,
         'lieu' => lieu,
         'code_region' => code_region,
-        'nombre_etablissements_ouverts' => nombre_etablissements_ouverts
+        'nombre_etablissements_ouverts' => nombre_etablissements_ouverts,
+        'afficher_etablissement' => afficher_etablissement
       })
     end
   end

@@ -30,8 +30,8 @@ module ApiInsee::SiretsBySiren
       entreprise = format_entreprise(data["etablissements"][0])
       {
         entreprise: entreprise,
+        etablissements_ouverts: etablissements_ouverts,
         nombre_etablissements_ouverts: etablissements_ouverts.size,
-        etablissements_ouverts: etablissements_ouverts
       }
     end
 

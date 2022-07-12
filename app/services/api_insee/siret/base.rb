@@ -29,8 +29,8 @@ module ApiInsee::Siret
       entreprise = format_entreprise(data["etablissements"][0])
       {
         entreprise: entreprise,
+        etablissements: data["etablissements"],
         nombre_etablissements_ouverts: 1,
-        etablissements: data["etablissements"]
       }
     end
 
