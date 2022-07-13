@@ -474,6 +474,10 @@ fr:
         landing_themes:
           restrict_dependent_destroy:
             solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
+        solicitation:
+          attributes:
+            siret:
+              must_be_a_valid_siret: doit être un numéro à 14 chiffres
         territory:
           attributes:
             insee_codes:

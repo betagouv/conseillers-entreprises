@@ -236,6 +236,7 @@ Rails.application.routes.draw do
       patch :search_company, path: 'recherche-entreprise'
       patch :search_facility, path: 'recherche-etablissement'
       get :step_company, path: 'etablissement'
+      get :step_company_search, path: 'rechercher-mon-etablissement'
       patch :update_step_company
       get :step_description, path: 'description'
       patch :update_step_description

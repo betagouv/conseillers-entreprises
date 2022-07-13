@@ -859,12 +859,14 @@ fr:
       average_delays: "(Délai moyen de prise en charge)"
       better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
       buttons:
+        manual_step_company: Je ne trouve pas mon entreprise
         next: Suivant
         previous: Précédent
         search: Rechercher
         send: Envoyer ma demande
       description: Description de votre demande
-      find_my_facility: Recherchez votre entreprise
+      empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
+      find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom, ville...)
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
@@ -876,7 +878,8 @@ fr:
         location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
         phone_number: 'ex: 06 12 34 56 78'
         siret: 123 456 789 00010
-      search_facility_placeholder: Nom, SIREN, SIRET...
+      search_facility_placeholder: 'ex : Boucherie Sanzot, Moulinsart'
+      siret: Votre numéro SIRET
       steps:
         step_company: Votre entreprise
         step_contact: Vos coordonnées

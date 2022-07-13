@@ -13,7 +13,7 @@ class SolicitationsController < PagesController
     @solicitation = SolicitationModification::Create.new(sanitized_params).call!
     if @solicitation.persisted?
       session.delete(:solicitation_form_info)
-      redirect_to step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+      redirect_to retrieve_company_step_path
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
       render :step_contact
@@ -41,7 +41,7 @@ class SolicitationsController < PagesController
   end
 
   def update_step_contact
-    update_solicitation_from_step(:step_contact, step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+    update_solicitation_from_step(:step_contact, retrieve_company_step_path)
   end
 
   def update_step_company
@@ -58,7 +58,7 @@ class SolicitationsController < PagesController
 
   private
 
-  def update_solicitation_from_step(step, redirect_path)
+  def update_solicitation_from_step(step, next_step_path)
     sanitized_params = sanitize_params(solicitation_params)
     @solicitation = SolicitationModification::Update.new(@solicitation, sanitized_params).call!
     if @solicitation.errors.empty?
@@ -67,7 +67,7 @@ class SolicitationsController < PagesController
         CompanyMailer.confirmation_solicitation(@solicitation).deliver_later
         @solicitation.delay.prepare_diagnosis(nil)
       end
-      redirect_to redirect_path
+      redirect_to next_step_path
     else
       flash.alert = @solicitation.errors.full_messages.to_sentence
       build_institution_filters if step == :step_description
@@ -90,5 +90,10 @@ class SolicitationsController < PagesController
     @solicitation.subject.additional_subject_questions.order(:position).each do |question|
       @solicitation.institution_filters.where(additional_subject_question: question).first_or_initialize
     end
+  end
+
+  # on dirige vers la recherche de siret si le champs "company" est le siret
+  def retrieve_company_step_path
+    @solicitation.siret_company_step? ? step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire') : step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
   end
 end

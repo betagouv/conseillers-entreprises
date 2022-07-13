@@ -10,5 +10,7 @@
       .fr-mb-2w
         = render 'facility_tile', company: facility
 
+= render 'manual_step_company_link', solicitation: @solicitation
+
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing

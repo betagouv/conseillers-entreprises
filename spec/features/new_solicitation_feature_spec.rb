@@ -151,6 +151,55 @@ describe 'New Solicitation', type: :feature do
           expect(solicitation.reload.status_in_progress?).to be true
         end
       end
+
+      context "manual siret" do
+        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+        let(:fixture_file) { 'api_insee_siret.json' }
+        let(:query) { '41816609600069' }
+        let(:entreprise_api_url) { "https://entreprise.api.gouv.fr/v2/etablissements/#{query}?context=PlaceDesEntreprises&non_diffusables=true&object=PlaceDesEntreprises&recipient=PlaceDesEntreprises&token=1234" }
+
+        before do
+        stub_request(:get, "https://recherche-entreprises.api.gouv.fr/search?q=toto")
+          .to_return(status: 200, body: '{"results": []}', headers: {})
+        ENV['API_ENTREPRISE_TOKEN'] = '1234'
+        stub_request(:get, entreprise_api_url).to_return(
+          body: file_fixture('api_entreprise_get_etablissement.json')
+        )
+      end
+
+        it do
+          visit '/'
+          click_link 'Test Landing Theme'
+          click_link 'Super sujet'
+          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+          fill_in 'E-mail', with: 'user@example.com'
+          fill_in 'Téléphone', with: '0123456789'
+          click_button 'Suivant'
+          expect(solicitation.persisted?).to be true
+
+          fill_in 'Recherchez votre entreprise', with: 'toto'
+          click_button 'Rechercher'
+          expect(page).to have_content('Sélectionnez votre entreprise :')
+
+          click_link "Je ne trouve pas mon entreprise"
+          fill_in 'Votre numéro SIRET', with: "n'importe quoi"
+          click_button 'Suivant'
+          expect(page).to have_content('SIRET doit être un numéro à 14 chiffres')
+          expect(solicitation.reload.siret).to be_nil
+
+          fill_in 'Votre numéro SIRET', with: "418 166 096 00069"
+          click_button 'Suivant'
+          expect(solicitation.reload.siret).to eq "41816609600069"
+          expect(solicitation.code_region).to be_nil
+          expect(solicitation.status_step_description?).to be true
+
+          fill_in 'Description', with: 'Ceci n\'est pas un test'
+          click_button 'Envoyer ma demande'
+          expect(page).to have_content('Merci')
+          expect(solicitation.reload.code_region).to eq 11
+          expect(solicitation.reload.status_in_progress?).to be true
+        end
+      end
     end
 
     context "no API calls" do

@@ -13,5 +13,7 @@
       - else
         = render 'company_tile', company: company
 
+= render 'manual_step_company_link', solicitation: @solicitation
+
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing

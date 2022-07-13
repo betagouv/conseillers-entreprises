@@ -9,14 +9,20 @@
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
-    - if @solicitation.company_step_required_fields.include?(:siret)
-      = render 'search_company_form', solicitation: @solicitation
+    - if @solicitation.siret_company_step?
+      .fr-mb-4w
+        .fr-callout
+          %p.fr-callout__text= t("solicitations.creation_form.empty_result_help_html", path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
-    - else
-      = form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
-        = f.hidden_field :status
-        - @solicitation.company_step_required_fields.each do |field|
-          .fr-mb-2w
+    = form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
+
+      - @solicitation.company_step_required_fields.each do |field|
+        .fr-mb-2w
+          - if field == :siret
+            = f.label :siret, t("solicitations.creation_form.siret"), class: 'fr-label'
+            = f.text_field :siret, required: true, placeholder: t("solicitations.creation_form.placeholder.#{field}"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
+            %span.fr-hint-text= t('attributes.help.no_creation_html')
+          - else
             - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
             = f.label field, class: 'fr-label'
             - if help.present?
@@ -27,12 +33,12 @@
               required: true,
               class: 'fr-input white-bg'
 
-          - if @solicitation.errors.present?
-            .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
+        - if @solicitation.errors.present?
+          .fr-error-text= @solicitation.errors.full_messages_for(field).to_sentence
 
-        .submit-buttons
-          = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
-          = render 'next_button'
+      .submit-buttons
+        = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+        = render 'next_button'
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing

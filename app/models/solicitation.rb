@@ -160,7 +160,16 @@ class Solicitation < ApplicationRecord
   end
   validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? }
 
+  validate :valid_siret?, if: -> { siret.present? }
+
   validates :institution_filters, presence: true, if: -> { subject_with_additional_questions? }
+
+  def valid_siret?
+    return true unless siret_company_step?
+    self.siret = FormatSiret.clean_siret(siret)
+    return true if (FormatSiret.siret_is_valid(siret) || FormatSiret.siren_is_valid(siret[0..8]))
+    errors.add(:siret, :must_be_a_valid_siret)
+  end
 
   def subject_with_additional_questions?
     status_in_progress? && self.subject&.additional_subject_questions&.any?
@@ -417,6 +426,10 @@ class Solicitation < ApplicationRecord
 
   def company_step_required_fields
     landing_subject&.required_fields || %i[siret]
+  end
+
+  def siret_company_step?
+    company_step_required_fields == [:siret]
   end
 
   def required_fields
