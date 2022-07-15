@@ -9,7 +9,7 @@
     - if @error_message.present?
       .fr-alert.fr-alert--error.fr-mb-2w
         %p.fr-alert__title
-        %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+        %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
     = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
       .fr-mb-2w

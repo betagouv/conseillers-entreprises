@@ -477,7 +477,7 @@ fr:
         solicitation:
           attributes:
             siret:
-              must_be_a_valid_siret: doit être un numéro à 14 chiffres
+              must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
         territory:
           attributes:
             insee_codes:

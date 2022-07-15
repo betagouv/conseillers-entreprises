@@ -9,7 +9,7 @@
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
-    - if @solicitation.siret_company_step?
+    - if @solicitation.company_step_is_siret?
       .fr-mb-4w
         .fr-callout
           %p.fr-callout__text= t("solicitations.creation_form.empty_result_help_html", path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
@@ -20,7 +20,7 @@
         .fr-mb-2w
           - if field == :siret
             = f.label :siret, t("solicitations.creation_form.siret"), class: 'fr-label'
-            = f.text_field :siret, required: true, placeholder: t("solicitations.creation_form.placeholder.#{field}"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
+            = f.text_field :siret, placeholder: t("solicitations.creation_form.placeholder.#{field}"), class: 'fr-input white-bg', minlength: '9', maxlength: '18'
             %span.fr-hint-text= t('attributes.help.no_creation_html')
           - else
             - help = t(".attributes.help.#{field}_html", default: [".attributes.help.#{field}".to_sym, ''])
