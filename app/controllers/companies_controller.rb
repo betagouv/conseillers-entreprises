@@ -69,13 +69,12 @@ class CompaniesController < ApplicationController
   end
 
   def search_results
-    # TODO
-    response = ApiSirene::FullTextSearch.search(@query)
-    if response.success?
-      @etablissements = response.etablissements
-      @suggestions = response.suggestions
+    result = SearchFacility.new({ query: @query }).from_full_text_or_siren
+    if result[:error].blank?
+      @etablissements = result[:items]
+      pp @etablissements.first
     else
-      flash.now.alert = response.error_message || I18n.t('companies.search.generic_error')
+      flash.now.alert = result[:error] || I18n.t('companies.search.generic_error')
     end
     save_search(@query)
   end
