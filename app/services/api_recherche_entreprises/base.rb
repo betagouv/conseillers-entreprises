@@ -43,7 +43,7 @@ module ApiRechercheEntreprises
   end
 
   class Request
-    DEFAULT_ERROR_MESSAGE = I18n.t('api_entreprise.generic_error')
+    DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.generic_error')
 
     attr_reader :data
 

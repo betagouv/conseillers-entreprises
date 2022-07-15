@@ -4,7 +4,7 @@ module ApiInsee
 
     def initialize(siren_or_siret, options = {})
       @siren_or_siret = FormatSiret.clean_siret(siren_or_siret)
-      raise ApiInseeError, I18n.t('api_entreprise.invalid_siret_or_siren') unless valid_siren_or_siret?
+      raise ApiInseeError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_siren_or_siret?
       @options = options
     end
 
@@ -41,7 +41,7 @@ module ApiInsee
   end
 
   class Request
-    DEFAULT_ERROR_MESSAGE = I18n.t('api_entreprise.generic_error')
+    DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.generic_error')
 
     attr_reader :data
 

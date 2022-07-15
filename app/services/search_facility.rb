@@ -23,10 +23,9 @@ class SearchFacility
 
   def from_siren
     siren = FormatSiret.siren_from_query(query[0..8])
-    return if siren.blank?
     begin
       response = ApiInsee::SiretsBySiren::Base.new(siren).call
-      response[:etablissements_ouverts].map do |entreprise_params|
+      items = response[:etablissements_ouverts].map do |entreprise_params|
         next if entreprise_params.blank?
         ApiConsumption::Models::FacilityAutocomplete::ApiInsee.new({
           nombre_etablissements_ouverts: response[:nombre_etablissements_ouverts],
@@ -35,9 +34,10 @@ class SearchFacility
           entreprise: entreprise_params['uniteLegale']
         })
       end
+      return { items: items, error: nil }
     rescue ApiInsee::ApiInseeError => e
       message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
-      return { error: message }
+      return { items: [], error: message }
     end
   end
 
@@ -53,10 +53,9 @@ class SearchFacility
 
   def from_siret
     siret = FormatSiret.siret_from_query(query[0..13])
-    return if siret.blank?
     begin
       response = ApiInsee::Siret::Base.new(siret).call
-      response[:etablissements].map do |entreprise_params|
+      items = response[:etablissements].map do |entreprise_params|
         next if entreprise_params.blank?
         ApiConsumption::Models::FacilityAutocomplete::ApiInsee.new({
           nombre_etablissements_ouverts: response[:nombre_etablissements_ouverts],
@@ -65,22 +64,24 @@ class SearchFacility
           entreprise: entreprise_params['uniteLegale']
         })
       end
+      return { items: items, error: nil }
     rescue ApiInsee::ApiInseeError => e
       message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
-      return { error: message }
+      return { items: [], error: message }
     end
   end
 
   def from_full_text
     begin
       response = ApiRechercheEntreprises::Search::Base.new(query).call
-      response.map do |entreprise_params|
+      items = response.map do |entreprise_params|
         next if entreprise_params.blank?
         ApiConsumption::Models::FacilityAutocomplete::ApiRechercheEntreprises.new(entreprise_params)
       end
+      return { items: items, error: nil }
     rescue ApiRechercheEntreprises::ApiError => e
       message = e.message.truncate(1000)
-      return { error: message }
+      return { items: [], error: message }
     end
   end
 end

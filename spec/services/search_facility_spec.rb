@@ -7,7 +7,7 @@ RSpec.describe SearchFacility do
   let(:search_params) { { query: "#{query}" } }
 
   describe 'from_full_text_or_siren' do
-    let(:data) { described_class.new(search_params).from_full_text_or_siren.as_json }
+    let(:data) { described_class.new(search_params).from_full_text_or_siren.as_json['items'] }
 
     context 'from_siren' do
       let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{query}" }

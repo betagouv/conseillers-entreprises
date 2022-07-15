@@ -64,11 +64,12 @@ class CompaniesController < ApplicationController
       @company = company_and_siege.company
       @siege_facility = company_and_siege.siege_facility
     rescue ApiEntreprise::ApiEntrepriseError => e
-      @message = I18n.t("api_entreprise.generic_error")
+      @message = I18n.t("api_requests.generic_error")
     end
   end
 
   def search_results
+    # TODO
     response = ApiSirene::FullTextSearch.search(@query)
     if response.success?
       @etablissements = response.etablissements

@@ -20,7 +20,7 @@ module ApiAdresse
 
   class Request
     BASE_URL = 'https://api-adresse.data.gouv.fr/search/?type=municipality&q='
-    DEFAULT_ERROR_MESSAGE = I18n.t('api_entreprise.default_error_message.etablissement')
+    DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.default_error_message.etablissement')
 
     attr_reader :data
 

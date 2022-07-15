@@ -21,21 +21,35 @@ class SolicitationsController < PagesController
   end
 
   def search_company
-    @companies = SearchFacility.new(search_params).from_full_text_or_siren
+    result = SearchFacility.new(search_params).from_full_text_or_siren
     respond_to do |format|
-      format.html
+      format.html do
+        if result[:error].blank?
+          @companies = result[:items]
+        else
+          @error_message = result[:error]
+          render 'step_company_search'
+        end
+      end
       format.json do
-        render json: @companies.as_json
+        render json: result.as_json
       end
     end
   end
 
   def search_facility
-    @facilities = SearchFacility.new(search_params).from_siren
+    result = SearchFacility.new(search_params).from_siren
     respond_to do |format|
-      format.html
+      format.html do
+        if result[:error].blank?
+          @facilities = result[:items]
+        else
+          @error_message = result[:error]
+          render 'step_company_search'
+        end
+      end
       format.json do
-        render json: @facilities.as_json
+        render json: result.as_json
       end
     end
   end

@@ -5,13 +5,17 @@
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
+
+    - if @error_message.present?
+      .fr-alert.fr-alert--error.fr-mb-2w
+        %p.fr-alert__title
+        %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+
     = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
       .fr-mb-2w
         = label_tag "query", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
         = text_field_tag :query, (params[:query] || @solicitation.siret), required: true, placeholder: t("solicitations.creation_form.search_facility_placeholder"), class: 'fr-input white-bg'
 
-      - if @solicitation.errors.present?
-        .fr-error-text= solicitation.errors.full_messages.to_sentence
 
       .submit-buttons
         = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
