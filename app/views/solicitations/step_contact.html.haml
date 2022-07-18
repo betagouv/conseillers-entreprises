@@ -7,11 +7,10 @@
 - content_for :form_header do
   - if @landing_subject&.form_description.present?
     %h2.fr-h3.title-icon
-      %span.ri-phone-fill.blue
       %span= t('solicitations.creation_form.accompaniments')
     .fr-pl-3w= sanitize @landing_subject&.form_description&.html_safe
     .contact-delay.fr-my-5w
-      = image_tag('5days-b.png', alt: '')
+      %span.ri-phone-fill.blue
       %p.fr-m-0
         = t('solicitations.creation_form.five_days_contact_html')
         %span.fr-text--sm
