@@ -14,7 +14,7 @@
             .fr-grid-row#links
               .fr-col-12
                 = render 'pages/cta_button'
-        .fr-col-12.fr-col-md-3.fr-col-offset-md-1#col-image
+        .fr-col-12.fr-col-md-4#col-image
           = image_tag('home.png', alt: "")
 
   - if show_breadcrumbs?
@@ -25,7 +25,7 @@
 
   .fr-container--fluid.section-grey.fr-py-7w.landing
     .fr-container.landing-subject-section
-      %h2.card-section-header= t('you_wish')
+      %h2.fr-h3.card-section-header= t('you_wish')
       .fr-grid-row.fr-grid-row--gutters
         = render partial: 'landings/landing_subjects/card', collection: @landing_subjects, as: :landing_subject, locals: { landing: @landing }
 
