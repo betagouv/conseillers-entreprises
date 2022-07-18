@@ -25,6 +25,7 @@ class CompanySatisfaction < ApplicationRecord
   has_one :landing_subject, through: :solicitation, inverse_of: :solicitations
   has_one :subject, through: :need, inverse_of: :needs
   has_many :matches, through: :need, inverse_of: :need
+  has_many :facility_regions, through: :need, inverse_of: :needs
 
   validates :contacted_by_expert, :useful_exchange, inclusion: { in: [true, false] }
 end

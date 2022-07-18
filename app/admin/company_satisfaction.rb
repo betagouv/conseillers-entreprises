@@ -36,6 +36,7 @@ ActiveAdmin.register CompanySatisfaction do
   filter :useful_exchange
   filter :landing, as: :select, collection: -> { Landing.pluck(:slug, :id) }
   filter :subject, collection: -> { Subject.order(:interview_sort_order) }
+  filter :facility_regions, collection: -> { Territory.regions.order(:name) }
 
   ## CSV
   #
