@@ -19,10 +19,9 @@
               %li
                 = link_to t('about.blog.title'), ENV['BLOG_URL'], title: t('.link_to_blog'), class: 'fr-link'
               %li
-                -# TODO lien actif
-                = active_link_to t('about.comment_ca_marche.title'), comment_ca_marche_path, class: 'fr-link'
+                = link_to t('about.comment_ca_marche.title'), comment_ca_marche_path, class: 'fr-link'
               %li
-                = active_link_to t('experts_login'), user_signed_in? ? needs_path : new_user_session_path, class: 'fr-link'
+                = link_to t('experts_login'), user_signed_in? ? needs_path : new_user_session_path, class: 'fr-link'
   .fr-header__menu.fr-modal#modal-responsive-menu{ 'aria-labelledby': 'fr-btn-menu-mobile-4' }
     .fr-container
       %button.fr-link--close.fr-link{ 'aria-controls': 'modal-responsive-menu' }= t('pages.navbar.close')
