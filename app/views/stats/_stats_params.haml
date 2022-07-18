@@ -25,14 +25,13 @@
         .fr-input-group
           = f.label :pk_kwd, t('.keywords'), class: 'fr-label'
           = f.text_field :pk_kwd, value: stats.params.pk_kwd, class: 'fr-input'
-      -# TODO les datepicker ne fonctionnent pas
       .fr-input-group
         = f.label :start_date, t('.start_date'), class: 'fr-label'
-        .fr-input-wrap.fr-fi-calendar-line
+        .fr-input-wrap
           = f.date_field :start_date, { value: stats.params.start_date, class: 'fr-input' }
       .fr-input-group
         = f.label :end_date, t('.end_date'), class: 'fr-label'
-        .fr-input-wrap.fr-fi-calendar-line
+        .fr-input-wrap
           = f.date_field :end_date, { value: stats.params.end_date, class: 'fr-input' }
       .fr-input-group
         = f.submit t('.search'), class: 'fr-btn'

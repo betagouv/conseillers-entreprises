@@ -23,7 +23,7 @@
 
         .fr-input-group
           = contact_form.label t('.date')
-          .fr-input-wrap.fr-fi-calendar-line
+          .fr-input-wrap
             = diagnosis_form.date_field(:happened_on, placeholder: t('.date_placeholder'), required: true, class: 'fr-input')
 
       .bottom_actions.flex
