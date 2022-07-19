@@ -263,9 +263,9 @@ Rails.application.routes.draw do
     resources :public, only: :index, path: '/'
     resources :team, only: :index, path: 'equipe' do
       collection do
+        get :public, path: 'public'
         get :quality, path: 'suivi-qualite'
         get :matches, path: 'mises-en-relation'
-        get :deployment, path: 'deploiement'
       end
     end
   end

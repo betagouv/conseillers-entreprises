@@ -1030,8 +1030,8 @@ fr:
       index:
         title: Statistiques équipe
       tabs:
-        deployment: Déploiement
         matches: Mises en relation
+        public: Stats publiques
         quality: Suivi qualité
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises

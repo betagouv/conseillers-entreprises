@@ -1,0 +1,12 @@
+- if flash.present?
+  .fr-container.fr-mt-6v.fr-mb-1w
+    - flash.each do |type, message|
+      - case type
+      - when 'notice'
+        .fr-alert.fr-alert--success
+          %p.fr-alert__title
+            = message
+      - when 'alert'
+        .fr-alert.fr-alert--error
+          %p.fr-alert__title
+            = message

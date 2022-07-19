@@ -7,4 +7,4 @@
         %button.fr-accordion__btn{ 'aria-controls': "accordion-#{item[:id]}", 'aria-expanded': "false" }
           = item[:question]
       .fr-collapse{ id: "accordion-#{item[:id]}" }
-        %p= simple_format(item[:answer])
+        = item[:answer].html_safe
