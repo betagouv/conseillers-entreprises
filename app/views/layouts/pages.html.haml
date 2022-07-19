@@ -33,7 +33,7 @@
     = render 'navbar' unless in_iframe?
     = render 'environment_ribbon'
     = render 'user_impersonate'
-    = render 'shared/flashes_pages'
+    = render 'shared/flashes'
     %main
       = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts
 
