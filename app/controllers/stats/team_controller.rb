@@ -3,7 +3,16 @@ module Stats
     before_action :authorize_team
 
     def index
-      redirect_to action: :quality, params: stats_params
+      redirect_to action: :public, params: stats_params
+    end
+
+    def public
+      @stats = Stats::Public::All.new(stats_params)
+      @charts_names = [
+        :solicitations, :solicitations_in_deployed_regions, :solicitations_diagnoses,
+        :exchange_with_expert, :taking_care, :themes, :companies_by_employees, :companies_by_naf_code
+      ]
+      render :index
     end
 
     def quality
@@ -15,11 +24,6 @@ module Stats
     def matches
       @stats = Stats::Matches::All.new(stats_params)
       @charts_names = [:transmitted_less_than_72h_stats, :positioning_rate]
-      render :index
-    end
-
-    def deployment
-      @charts_names = []
       render :index
     end
 

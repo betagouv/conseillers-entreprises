@@ -4,20 +4,20 @@
       .fr-tile.fr-enlarge-link
         .fr-tile__body
           %h2.fr-tile__title
+            = active_link_to public_team_index_path, class: 'fr-tile__link' do
+              %span.ri-bar-chart-fill.tile__icon.fr-mr-2v
+              = t('.public')
+    .fr-col-12.fr-col-md-4
+      .fr-tile.fr-enlarge-link
+        .fr-tile__body
+          %h2.fr-tile__title
             = active_link_to quality_team_index_path, class: 'fr-tile__link' do
-              %span.ri-award-fill.tile__icon
+              %span.ri-award-fill.tile__icon.fr-mr-2v
               = t('.quality')
     .fr-col-12.fr-col-md-4
       .fr-tile.fr-enlarge-link
         .fr-tile__body
           %h2.fr-tile__title
             = active_link_to matches_team_index_path, class: 'fr-tile__link' do
-              %span.ri-group-line.tile__icon
+              %span.ri-group-line.tile__icon.fr-mr-2v
               = t('.matches')
-    .fr-col-12.fr-col-md-4
-      .fr-tile.fr-enlarge-link
-        .fr-tile__body
-          %h2.fr-tile__title
-            = link_to '#', class: 'fr-tile__link' do
-              %span.ri-rocket-2-fill.tile__icon
-              = t('.deployment')
