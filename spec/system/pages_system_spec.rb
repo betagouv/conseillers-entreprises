@@ -16,7 +16,7 @@ describe 'New Solicitation', type: :system do
 
     find("a[href='#{comment_ca_marche_path}']", match: :first).click
     expect(page).to have_content "Questions fréquentes"
-    expect(page).to have_selector 'details.faq', count: 4
+    expect(page).to have_selector '.faq', count: 4
     advisors_count = User.all.distinct.count
     needs_count = Need.diagnosis_completed.count
     companies_count = Company.includes(:needs).references(:needs).where(facilities: { diagnoses: { step: :completed } }).distinct.count

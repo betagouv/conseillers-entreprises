@@ -7,36 +7,43 @@
 - content_for :form_header do
   = render 'solicitations/steps', current_status: :step_description
 
-= form_with(model: @solicitation, url: update_step_description_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
-  = f.hidden_field :status
+.fr-grid-row
+  .fr-col-12.fr-col-md-6.fr-col-offset-md-3.fr-pb-3w
+    = form_with(model: @solicitation, url: update_step_description_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
+      = f.hidden_field :status
 
-  .form__group
-    = f.label 'description', t('solicitations.creation_form.description')
-    - if @solicitation.landing_subject&.description_explanation.present?
-      .explanation
-        %div
-          = image_tag('info-alert.png', alt: '')
-          %span
-            = t('solicitations.creation_form.better_taking_care')
-        %div= h(@solicitation.landing_subject&.description_explanation&.html_safe)
-    = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description"), rows: 6, required: true
-    .notification.error= @solicitation.errors.full_messages_for(:description).to_sentence
+      .fr-input-group
+        = f.label 'description', t('solicitations.creation_form.description'), class: 'fr-label bold'
+        - if @solicitation.landing_subject&.description_explanation.present?
+          .explanation.fr-mt-2w
+            %div
+              = image_tag('info-alert.png', alt: '')
+              %span
+                = t('solicitations.creation_form.better_taking_care')
+            %div= h(@solicitation.landing_subject&.description_explanation&.html_safe)
+        = f.text_area 'description', placeholder: t("solicitations.creation_form.placeholder.description"), rows: 6, required: true, class: 'fr-input white-bg'
 
-  = f.fields_for :institution_filters, @solicitation.institution_filters do |ff|
-    - key = ff.object.key
-    .form__group.radios.additional_questions
-      %legend= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
-      %span
-        = ff.hidden_field :id
-        = ff.hidden_field :additional_subject_question_id
-        = ff.radio_button :filter_value, true, required: true
-        = ff.label :filter_value, I18n.t(:answer_yes, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'label-inline'
-        = ff.radio_button :filter_value, false, required: true
-        = ff.label :filter_value, I18n.t(:answer_no, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'label-inline'
+        - if @solicitation.errors.present?
+          .fr-error-text= @solicitation.errors.full_messages_for(:description).to_sentence
 
-  .form__group.submit-buttons
-    = render 'previous_button', path: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
-    = f.submit t('solicitations.creation_form.buttons.send'), class: 'button large', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }
+      = f.fields_for :institution_filters, @solicitation.institution_filters do |ff|
+        - key = ff.object.key
+        .fr-form-group.radios.additional_questions
+          %fieldset.fr-fieldset
+            %legend= I18n.t(:label, scope: [:activerecord, :attributes, :additional_subject_questions, key])
+            .fr-fieldset__content
+              = ff.hidden_field :id
+              = ff.hidden_field :additional_subject_question_id
+              .fr-radio-group
+                = ff.radio_button :filter_value, true, required: true
+                = ff.label :filter_value, I18n.t(:answer_yes, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('yes').titleize), value: true, class: 'fr-label'
+              .fr-radio-group.fr-ml-2w
+                = ff.radio_button :filter_value, false, required: true
+                = ff.label :filter_value, I18n.t(:answer_no, scope: [:activerecord, :attributes, :additional_subject_questions, key], default: t('no').titleize), value: false, class: 'fr-label'
+
+      .form__group.submit-buttons
+        = render 'previous_button', path: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+        = f.submit t('solicitations.creation_form.buttons.send'), class: 'fr-btn', data: { disable_with: t('solicitations.creation_form.submit_in_progress') }
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing

@@ -1,9 +1,14 @@
-.section.section-light-grey.landing.small-padding#section-breadcrumbs
-  .container.breadcrumbs
-    - if defined? landing_theme
-      - landing_subject ||= nil
-      = raw breadcrumbs_landing(landing, landing_theme, landing_subject)
-    - elsif defined?(landing) && landing.present?
-      = raw breadcrumbs_iframe_home(landing, title)
-    - else
-      = breadcrumbs_page(title)
+.fr-container--fluid.section-light-grey.fr-py-3w
+  .fr-container
+    %nav.fr-breadcrumb.fr-my-1v{ 'aria-label': t('.you_are_here'), role: 'navigation' }
+      %button.fr-breadcrumb__button{ 'aria-controls': "breadcrumb-1", 'aria-expanded': "false" }
+        = t('.see_breadcrumb')
+      .fr-collapse#breadcrumb-1
+        %ol.fr-breadcrumb__list.breadcrumbs
+          - if defined? landing_theme
+            - landing_subject ||= nil
+            = raw breadcrumbs_landing(landing, landing_theme, landing_subject)
+          - elsif defined?(landing) && landing.present?
+            = raw breadcrumbs_iframe_home(landing, title)
+          - else
+            = breadcrumbs_page(title)

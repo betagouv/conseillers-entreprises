@@ -1,34 +1,39 @@
-%section.section.section-white.landing
-  .container
-    %h1= t('.title')
+.fr-container.fr-mt-3w.fr-py-7w
+  %h1.fr-h2= t('.title')
 
-%section.section.section-grey
-  .container
-    %span= t('mailers.company_mailer.satisfaction.intro_html', company: @company_satisfaction.need.company.name)
-    %strong= @company_satisfaction.need.subject.label
+.fr-container--fluid.section-grey.fr-py-7w
+  .fr-container
+    .fr-grid-row
+      .fr-col-12.fr-col-md-6.fr-col-offset-md-3
+        %p= t('mailers.company_mailer.satisfaction.intro_html', company: @company_satisfaction.need.company.name)
+        %p.fr-text--lg.bold= @company_satisfaction.need.subject.label
 
-    = form_with model: @company_satisfaction, class: 'satisfaction-form', local: true do |f|
-      = f.hidden_field :need_id
-
-      .form__group.radios
-        %legend= t('.contacted_by_expert')
-        %span
-          = f.radio_button :contacted_by_expert, true, required: true, checked: (params[:response] == 'yes')
-          = f.label t('yes'), for: 'company_satisfaction_contacted_by_expert_true', class: 'label-inline'
-          = f.radio_button :contacted_by_expert, false, required: true, checked: (params[:response] == 'no')
-          = f.label t('no'), for: 'company_satisfaction_contacted_by_expert_false', class: 'label-inline'
-
-      .form__group.radios
-        %legend= t('.useful_exchange')
-        %span
-          = f.radio_button :useful_exchange, true, required: true
-          = f.label t('yes'), for: 'company_satisfaction_useful_exchange_true', class: 'label-inline'
-          = f.radio_button :useful_exchange, false, required: true
-          = f.label t('no'), for: 'company_satisfaction_useful_exchange_false', class: 'label-inline'
-
-      .form__group
-        = f.label t('.comment')
-        = f.text_area :comment
-
-      .form__group
-        = f.submit t(".send"), class: 'button'
+        = form_with model: @company_satisfaction, class: 'satisfaction-form', local: true do |f|
+          = f.hidden_field :need_id
+          .fr-form-group
+            %fieldset.fr-fieldset.fr-fieldset--inline
+              %legend.fr-fieldset__legend.fr-text--regular
+                = t('.contacted_by_expert')
+              .fr-fieldset__content
+                .fr-radio-group
+                  = f.radio_button :contacted_by_expert, true, required: true, checked: (params[:response] == 'yes')
+                  = f.label t('yes'), for: 'company_satisfaction_contacted_by_expert_true', class: 'fr-label'
+                .fr-radio-group
+                  = f.radio_button :contacted_by_expert, false, required: true, checked: (params[:response] == 'no')
+                  = f.label t('no'), for: 'company_satisfaction_contacted_by_expert_false', class: 'fr-label'
+          .fr-form-group
+            %fieldset.fr-fieldset.fr-fieldset--inline
+              %legend.fr-fieldset__legend.fr-text--regular
+                = t('.useful_exchange')
+              .fr-fieldset__content
+                .fr-radio-group
+                  = f.radio_button :useful_exchange, true, required: true
+                  = f.label t('yes'), for: 'company_satisfaction_useful_exchange_true', class: 'fr-label'
+                .fr-radio-group
+                  = f.radio_button :useful_exchange, false, required: true
+                  = f.label t('no'), for: 'company_satisfaction_useful_exchange_false', class: 'fr-label'
+          .fr-input-group
+            = f.label t('.comment'), class: 'fr-label'
+            = f.text_area :comment, class: 'fr-input white-bg'
+          .fr-input-group
+            = f.submit t(".send"), class: 'fr-btn'

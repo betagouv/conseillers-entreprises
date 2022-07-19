@@ -310,3 +310,4 @@ fr:
       '9300': Fondation
       '9900': Autre personne morale de droit privé
       '9970': Groupement de coopération sanitaire à gestion privée
+  select_expert_html: Nous identifions <span class='blue'>le bon conseiller</span> sur votre territoire.

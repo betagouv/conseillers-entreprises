@@ -1,4 +1,12 @@
-%ul.steps-form
-  - Solicitation.incompleted_statuses.each_with_index do |step, index|
-    %li{ class: solicitation_step_class(index, current_status) }
-      %div= t("solicitations.creation_form.steps.#{step}")
+.fr-stepper
+  - actual_index = Solicitation.incompleted_statuses.find_index(current_status.to_s)
+  - actual_step = actual_index + 1
+  - total_steps = Solicitation.incompleted_statuses.count
+  %h2.fr-stepper__title
+    %span.fr-stepper__state= t('step_number', actual: actual_step, total: total_steps)
+    = t("solicitations.creation_form.steps.#{current_status}")
+  .fr-stepper__steps{ 'data-fr-current-step': actual_step, 'data-fr-steps': total_steps }
+  - if actual_step < total_steps
+    %p.fr-stepper__details
+      %span.fr-text--bold Étape suivante :
+      = t("solicitations.creation_form.steps.#{Solicitation.incompleted_statuses[actual_index + 1]}")

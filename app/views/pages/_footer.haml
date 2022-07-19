@@ -1,32 +1,41 @@
-%footer.footer
-  .container
-    %ul.footer__links
-      %li.marianne
-        = image_tag 'Republique_Francaise_blanc.png', alt: t('logos.republique_francaise')
-      %li.france-relance
-        = image_tag 'logo-france-relance.png', alt: t('logos.france_relance')
-    %ul.footer__links
-      %li.title
-        = image_tag 'place-des-entreprises-logo.png', alt: t('logos.pde'), class: 'logo-footer'
-        %span= 'place-des-entreprises.beta.gouv.fr'
-      %li.beta-link= link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises', title: t('.link_to_beta_gouv')
-      %li.social-network
-        = link_to 'https://www.linkedin.com/company/place-des-entreprises', title: t('.linkedin_title'), target: '_blank', rel: 'noopener' do
-          %span.ri-linkedin-box-fill{ 'aria-hidden': 'true' }
-          %span.visually-hidden Linkedin
-        = link_to 'https://twitter.com/place_des_ets', title: t('.twitter_title'), target: '_blank', rel: 'noopener' do
-          %span.ri-twitter-fill{ 'aria-hidden': 'true' }
-          %span.visually-hidden Twitter
-        = link_to 'https://github.com/betagouv/place-des-entreprises', title: t('.github_title'), target: '_blank', rel: 'noopener' do
-          %span.ri-github-fill{ 'aria-hidden': 'true' }
-          %span.visually-hidden Github
-    %ul.footer__links
-      %li= link_to t('cgu'), cgu_path
-      %li= link_to t('about.mentions_d_information.title'), mentions_d_information_path
-      %li= link_to t('about.mentions_legales.title'), mentions_legales_path
-      %li= link_to t('about.accessibilite.footer_title'), accessibilite_path
-      %li= link_to t('usage_stats'), public_index_path
-      - if policy(Stats::All).team?
-        %li= link_to t('usage_team_stats'), team_index_path
-      %li= link_to t('.service_presentation'), '/dossier-presse.pdf', 'aria-label': t('.service_presentation_title'), target: '_blank', rel: 'noopener'
-      %li= link_to t('.cookies'), '#', id: 'open-cookies-box', 'aria-label': t('.open_cookies')
+%footer.fr-footer#footer{ role: "contentinfo" }
+  .fr-container
+    .fr-footer__body
+      .fr-footer__brand.fr-enlarge-link
+        = link_to root_path, title: "#{t('come_back_to_home')}" do
+          %p.fr-logo
+            = t('republique_francaise_html')
+        = link_to root_path, title: "#{t('come_back_to_home')}", class: 'fr-footer__brand-link fr-ml-3w' do
+          = image_tag 'logo-france-relance.png', alt: t('logos.france_relance'), class: 'fr-footer__logo fr-responsive-img'
+      .fr-footer__content
+        %p.fr-footer__content-desc
+          = link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises', title: t('.link_to_beta_gouv')
+        .fr-my-2v
+          .social-network
+            = link_to 'https://www.linkedin.com/company/place-des-entreprises', title: t('.linkedin_title'), target: '_blank', rel: 'noopener' do
+              %span.ri-linkedin-box-fill{ 'aria-hidden': 'true' }
+            = link_to 'https://twitter.com/place_des_ets', title: t('.twitter_title'), target: '_blank', rel: 'noopener' do
+              %span.ri-twitter-fill{ 'aria-hidden': 'true' }
+            = link_to 'https://github.com/betagouv/place-des-entreprises', title: t('.github_title'), target: '_blank', rel: 'noopener' do
+              %span.ri-github-fill{ 'aria-hidden': 'true' }
+        %div
+          %ul.fr-footer__content-list
+            %li.fr-footer__content-item
+              = link_to t('usage_stats'), public_index_path, class: 'fr-footer__content-link'
+            %li.fr-footer__content-item
+              = link_to t('.service_presentation'), '/dossier-presse.pdf', 'aria-label': t('.service_presentation_title'), target: '_blank', rel: 'noopener', class: 'fr-footer__content-link'
+    .fr-footer__bottom
+      %ul.fr-footer__bottom-list
+        %li.fr-footer__bottom-item
+          = link_to t('about.accessibilite.footer_title'), accessibilite_path, class: 'fr-footer__bottom-link'
+        %li.fr-footer__bottom-item
+          = link_to t('about.mentions_legales.title'), mentions_legales_path, class: 'fr-footer__bottom-link'
+        %li.fr-footer__bottom-item
+          = link_to t('about.mentions_d_information.title'), mentions_d_information_path, class: 'fr-footer__bottom-link'
+        %li.fr-footer__bottom-item
+          = link_to t('cgu'), cgu_path, class: 'fr-footer__bottom-link'
+        %li.fr-footer__bottom-item
+          = link_to t('.cookies'), '#', id: 'open-cookies-box', 'aria-label': t('.open_cookies'), class: 'fr-footer__bottom-link'
+        - if policy(Stats::All).team?
+          %li.fr-footer__bottom-item
+            = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__bottom-link'

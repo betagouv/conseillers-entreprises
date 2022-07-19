@@ -1,10 +1,15 @@
 - content_for :content do
   = yield :header
-  %section.section.section-grey.multistep-form#section-formulaire
-    .container
-      = yield :form_header
-      .solicitation-form.col-center
-        = yield
+  .fr-container--fluid.section-grey.multistep-form.fr-py-7w#section-formulaire
+    .fr-container
+      .fr-grid-row
+        .fr-col-12.fr-col-md-6.fr-col-offset-md-3
+          = yield :form_header
+  .fr-container--fluid.section-grey.multistep-form
+    .fr-container
+      = yield
+  .fr-container--fluid.section-grey.multistep-form
+    .fr-container
       = yield :form_footer
   = yield :footer
 

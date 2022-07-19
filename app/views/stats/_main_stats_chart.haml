@@ -1,24 +1,23 @@
 - chart_name = "chart-#{name}"
 
-.section.section-white
-  .container
-    .header
-      .incipit
-        %i.ri-award-fill
-        = t('.title')
-      %h2
-        %br
-        - if data.count.present?
-          %span.highlight= data.count
-        %span= t("stats.series.#{name}.title")
+.fr-container.main-stat
+  .header
+    .incipit
+      %i.ri-award-fill
+      = t('.title')
+    %h2
+      %br
+      - if data.count.present?
+        %span.highlight= data.count
+      %span= t("stats.series.#{name}.title")
 
-      %p= I18n.t("stats.series.#{name}.subtitle_html").html_safe
+    %p= I18n.t("stats.series.#{name}.subtitle_html").html_safe
 
-    %p{ id: chart_name,
-      'data-chart': data.chart,
-      'data-months': data.all_months.map{ |d| I18n.l(d, format: :month) }.to_json.html_safe,
-      'data-max-value': data.max_value,
-      'data-series': data.series.to_json.html_safe,
-      'data-format': data.format.to_json.html_safe,
-      'data-subtitle': data.subtitle.to_json.html_safe,
-      'data-colors': data.colors.to_json.html_safe }
+  %p{ id: chart_name,
+    'data-chart': data.chart,
+    'data-months': data.all_months.map{ |d| I18n.l(d, format: :month) }.to_json.html_safe,
+    'data-max-value': data.max_value,
+    'data-series': data.series.to_json.html_safe,
+    'data-format': data.format.to_json.html_safe,
+    'data-subtitle': data.subtitle.to_json.html_safe,
+    'data-colors': data.colors.to_json.html_safe }

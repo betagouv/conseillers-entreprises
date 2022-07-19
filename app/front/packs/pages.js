@@ -20,6 +20,7 @@ import "whatwg-fetch";
 
 require("@rails/ujs").start();
 require('remixicon/fonts/remixicon.css');
+require('@gouvfr/dsfr/dist/dsfr/dsfr.css')
 require("jquery");
 require('stylesheets/pages.sass')
 

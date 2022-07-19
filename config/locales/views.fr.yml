@@ -14,8 +14,18 @@ fr:
       long_title: Place des Entreprises, comment ça marche ?
       meta_description: 'Un projet, une difficulté, une question du quotidien ? Service public simple et rapide : vous êtes rappelé par le conseiller qui peut vous aider.'
       meta_title: Comment ça marche | Place des Entreprises
+      partners: 'Place des Entreprises vous met en relation avec le conseiller qui peut vous aider parmi plus de 40 partenaires publics et parapublics :'
+      pde_testimonial: Témoignage d’un chef d’entreprise.
       subtitle: Porté par le Ministère de l’Économie et du Ministère du Travail, le service Place des Entreprises rassemble de nombreux partenaires publics et parapublics chargés d’accompagner les TPE & PME.
       title: Comment ça marche ?
+    index_testimonials:
+      business_owners: Ces chefs d’entreprises utilisent déjà le service. Et vous ?
+      testimonial_1_author_html: Clément Francomme<br /> CEO de <strong>UTOCAT</strong> (10 à 19 salariés)
+      testimonial_1_text_html: Place des Entreprises est très réactive et pratique ! Ils nous ont permis une mise en relation rapide avec les bonnes personnes quand nous en avions besoin.<br />Nous avons donc pu clôturer notre dossier dans les délais.
+      testimonial_2_author_html: Christophe B. <br />Dirigeant de <strong>SOS Impact 02</strong> (1 à 2 salariés)
+      testimonial_2_text_html: J’ai découvert qu’il existait des partenaires publics experts de mes besoins d’entreprise. Ils m’ont accompagné sur des questions de ressources humaines, de développement commercial et de réglementation.<br />Ils font un super job.
+      testimonial_3_author_html: Thérèse Debarge<br /><strong>Emballages Hocq</strong> (20 à 49 salariés)
+      testimonial_3_text_html: Grâce à Place des Entreprises, nous avons été contactés par 5 organismes différents prêts à nous conseiller ou nous aider de diverses manières pour le financement de notre nouvel investissement. <br /> Un grand merci pour votre réactivité.
     mentions_d_information:
       title: Mentions d'information
     mentions_legales:
@@ -103,6 +113,7 @@ fr:
     home_link:
       home: Accueil
       pde: Place des Entreprises
+  come_back_to_home: Retour à l’accueil
   companies:
     company:
       capital_social: Capital social
@@ -174,7 +185,7 @@ fr:
       title: Donnez votre avis sur Place des Entreprises
       useful_exchange: Est-ce que cet échange a été utile pour vous ?
     thank_you:
-      title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
+      title: Merci pour votre avis ! Il va nous aider à améliorer ce service public.
   conseiller:
     solicitations:
       ban_facility:
@@ -296,6 +307,8 @@ fr:
   emails:
     not_sent: L’email n’a pu être envoyé
     sent: L’email a été envoyé
+  expert_contacts_you_asterisk_html: "* Délai moyen de prise en charge"
+  expert_contacts_you_description_html: Le conseiller compétent pour votre demande vous contacte et vous accompagne en fonction de votre situation.
   experts:
     edit:
       antenne_and_institution: Structure
@@ -372,7 +385,7 @@ fr:
   landings:
     landing_themes:
       show:
-        back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/">Découvrez les autres sujets.</a>
+        back_to_other_subjects_html: Vous souhaitez être accompagné sur un autre sujet ? <a href="/" class='blue'>Découvrez les autres sujets.</a>
     landings:
       admin:
         iframe_fields: Champs iframe
@@ -456,7 +469,7 @@ fr:
         subject: Avez-vous besoin d’aide ?
       satisfaction:
         follow_us: Suivre le service sur LinkedIn
-        intro_html: "<p>Vous avez utilisé le service public Place des Entreprises pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :</p>"
+        intro_html: 'Vous avez utilisé le service public Place des Entreprises pour votre entreprise <i>%{company}</i>. Votre demande concernait le sujet :'
         linkedin_news: Ne loupez pas l’actualité des aides et accompagnements publics !
         outro: Votre avis est important pour nous aider à améliorer ce nouveau service public.
         question_one_html: "<p>Est-ce que vous avez bien été recontacté par au moins un conseiller ? <a href='%{link_yes}' target='_blank' class='response-button yes'>Oui</a> <a href='%{link_no}' target='_blank' class='response-button no'>Non</a></p>"
@@ -716,26 +729,39 @@ fr:
     create:
       error_newsletter_subscription: Une erreur s’est produite, merci de réessayer.
       success_newsletter: Merci ! Votre inscription à la newsletter a été prise en compte.
+    unsubscribe:
+      unsubscribe_successfully: Votre désinscription a bien été prise en compte
   pages:
+    breadcrumbs:
+      see_breadcrumb: Voir le fil d’Ariane
+      you_are_here: Vous êtes ici
     cookie_text: Ce site utilise des cookies permettant d’améliorer son fonctionnement et de vous proposer une publicité personnalisée pour le service, en fonction de votre navigation et de votre profil. Ces cookies ne sont déposés que si vous donnez votre accord
+    faq:
+      frequently_questions: Questions fréquentes
     footer:
       cookies: Gestion des cookies
-      github_title: Page Github de Place des Entreprises - lien externe
-      link_to_beta_gouv: Lien vers le site de Beta.gouv.fr - lien externe
-      linkedin_title: Page Linkedin de Place des Entreprises - lien externe
+      github_title: Page Github de Place des Entreprises - nouvelle fenêtre
+      link_to_beta_gouv: Lien vers le site de Beta.gouv.fr - nouvelle fenêtre
+      linkedin_title: Page Linkedin de Place des Entreprises - nouvelle fenêtre
       open_cookies: Ouvre la fenêtre de gestion des cookies
       service_presentation: Présentation du service (PDF 438 ko)
       service_presentation_title: S’ouvre dans un nouvel onglet - Fichier (PDF 438 ko) de présentation de Place des Entreprises
       startup_d_etat: Une startup d’État de beta.gouv
-      twitter_title: Compte twitter de Place des Entreprises - lien externe
+      twitter_title: Compte twitter de Place des Entreprises - nouvelle fenêtre
     how_it_works:
-      learn_more_html: En savoir plus sur <a href='/comment_ca_marche'>Place des Entreprises</a>
-    menu:
-      unfold: Déplier menu
+      choose_subject_description: Décrivez votre projet ou votre problème en donnant quelques éléments de contexte.
+      choose_subject_html: Choisissez un sujet et <span class='blue'>déposez votre demande</span>
+      expert_contacts_you_html: "<span class='blue'>Le conseiller vous contacte</span> directement pour vous aider sous 5 jours*."
+      learn_more_html: En savoir plus sur <a href='/comment_ca_marche' class='blue'>Place des Entreprises</a>
+      pde_presentation: Présentation du service Place des Entreprises
+      select_expert_description: Nous identifions, parmi l’ensemble des partenaires publics et parapublics, le conseiller compétent pour votre demande sur votre territoire.
     navbar:
+      close: Fermer
       link_to_blog: Lien vers le blog de Place des Entreprises - lien externe
+      menu: Menu
     newsletter:
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
+      newsletter_legal: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la newsletter
       placeholder_email: Votre adresse email
       received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner
@@ -816,6 +842,7 @@ fr:
       interval: "%{start_month} à %{end_month} %{year}"
       no_export_available: L’export de données et votre rapport trimestriels ne sont pas encore disponibles pour cette antenne. Nous vous informons par mail dès qu’ils sont à télécharger sur votre compte utilisateur.
       title: Export des données
+  republique_francaise_html: République <br /> Française
   shared:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
@@ -823,6 +850,7 @@ fr:
   solicitations:
     creation_form:
       accompaniments: 'Accompagnements proposés :'
+      average_delays: "(Délai moyen de prise en charge)"
       better_taking_care: 'Pour une meilleure prise en charge de votre demande, indiquez en quelques phrases :'
       buttons:
         next: Suivant
@@ -830,7 +858,7 @@ fr:
         send: Envoyer ma demande
       description: Description de votre demande
       find_my_facility: Votre numéro SIRET
-      five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours</b> <br>(Délai moyen de prise en charge)."
+      five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
       legal_notice_html: "<p>Le Ministère du Travail (DGEFP) et le Ministère de l'Économie (DGE) traitent vos données personnelles dans le cadre d’une mission d’intérêt de service public. Place des Entreprises est un service de l’État qui vise à mettre en relation les TPE & PME avec les bons conseillers publics et ainsi de mobiliser les accompagnements publics existants (aides financières, conseils, accompagnements…) de manière adaptée. Pour mieux vous accompagner, vos données sont transmises aux partenaires publics et parapublics.</p><p>Pour exercer vos droits ou pour toute question relative au traitement de vos données à caractère personnel dans le cadre de ce dispositif, vous pouvez contacter l’équipe Place de Entreprises par voie électronique %{mailto_link} ou par courrier postal, à l’adresse suivante : Ministères Sociaux – DGEFP – FIMOD MISI RGPD 14 avenue Duquesne, 75007, Paris.</p><p>Pour en savoir plus, consultez les %{informations}.</p>"
@@ -847,7 +875,7 @@ fr:
         step_description: Votre demande
       submit_in_progress: Envoi en cours...
     form_complete:
-      iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <b>5 jours</b> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
+      iframe_message_html: "<p>Votre demande a bien été transmise à Place des Entreprises, le service public de mise en relation pour les TPE & PME. </p> <p>Un conseiller va vous appeler dans les <strong>5 jours</strong> ouvrés (en moyenne).</p> <p>Merci pour votre confiance !</p>"
       message_html: Votre demande a bien été envoyée. Le conseiller qui peut vous aider vous appelle dans les <b>5 jours</b> (délai moyen de prise en charge).
       message_with_institution: Votre sollicitation a bien été transmise au service public Place des Entreprises, en partenariat avec %{institution}.
       title: Merci !
@@ -1007,6 +1035,7 @@ fr:
         quality: Suivi qualité
     with_diagnosis: Demandes transmises
     without_diagnosis: Demandes non transmises
+  step_number: Étape %{actual} sur %{total}
   usage_team_stats: Statistiques équipe
   user_pages:
     tutoriels:

@@ -1,42 +1,17 @@
-%h2
-  Ces chefs d’entreprises utilisent déjà le service. Et vous ?
-.cards
-  .row
-    .card
-      .card__content
-        %q
-          Place des Entreprises est très réactive et pratique ! Ils nous ont permis une mise en relation rapide avec les bonnes personnes quand nous en avions besoin.
-          %br
-          Nous avons donc pu clôturer notre dossier dans les délais.
-      .card__extra
-        .article__author
-          Clément Francomme
-          %br
-          CEO de
-          %strong UTOCAT
-          (10 à 19 salariés)
-    .card
-      .card__content
-        %q
-          J’ai découvert qu’il existait des partenaires publics experts de mes besoins d’entreprise. Ils m’ont accompagné sur des questions de ressources humaines, de développement commercial et de réglementation.
-          %br
-          Ils font un super job.
-      .card__extra
-        .article__author
-          Christophe B.
-          %br
-          Dirigeant de
-          %strong SOS Impact 02
-          (1 à 2 salariés)
-    .card
-      .card__content
-        %q
-          Grâce à Place des Entreprises, nous avons été contactés par 5 organismes différents prêts à nous conseiller ou nous aider de diverses manières pour le financement de notre nouvel investissement.
-          %br
-          Un grand merci pour votre réactivité.
-      .card__extra
-        .article__author
-          Thérèse Debarge
-          %br
-          %strong Emballages Hocq
-          (20 à 49 salariés)
+%h2= t('.business_owners')
+.fr-grid-row.fr-grid-row--gutters
+  .fr-col-12.fr-col-md-4
+    .content.white-bg.fr-p-3w
+      %q= t('.testimonial_1_text_html')
+      .fr-mt-4w
+        .article__author= t('.testimonial_1_author_html')
+  .fr-col-12.fr-col-md-4
+    .content.white-bg.fr-p-3w
+      %q= t('.testimonial_2_text_html')
+      .fr-mt-4w
+        .article__author= t('.testimonial_2_author_html')
+  .fr-col-12.fr-col-md-4
+    .content.white-bg.fr-p-3w
+      %q= t('.testimonial_3_text_html')
+      .fr-mt-4w
+        .article__author= t('.testimonial_3_author_html')

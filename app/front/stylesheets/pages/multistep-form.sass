@@ -1,16 +1,9 @@
-.col-center
-  max-width: 35rem
-  margin: 0 auto
-
-.steps-form
-  padding-left: 0
-
 .multistep-form
   .submit-buttons
     display: flex
     justify-content: flex-end
     flex-wrap: wrap
-    .button, .button-outline
+    .fr-btn
       display: flex
       margin-bottom: 0.5rem
       justify-content: center
@@ -21,18 +14,25 @@
         justify-content: space-between
   .contact-delay
     display: flex
-    margin-bottom: 4rem
-    p
-      margin: 0
+    .ri-phone-fill
+      margin-right: 0.5rem
+      font-size: 3rem
+      margin-top: 0.8rem
+  .explanation
     img
-      margin-right: 0.5rem
-      width: 50px
-      height: 50px
-
-  .title-icon
+      height: 1.5rem
+  .fr-fieldset__content
     display: flex
-    align-items: center
-    span:first-of-type
-      font-size: 2.5rem
-      margin-right: 0.5rem
+  .fr-stepper__steps
+    background-image: repeating-linear-gradient(to right, var(--background-active-blue-france) 0%, var(--background-active-blue-france) var(--active-inner), transparent var(--active-inner), transparent var(--active-outer)), repeating-linear-gradient(to right, $white 0%, $white var(--default-inner), transparent var(--default-inner), transparent var(--default-outer)) !important
+.je-donne-mon-avis
+  a
+    background: none
 
+.legal-notice
+  p
+    font-size: 0.7rem
+    margin: 1.5rem auto 0 auto
+    color: $grey-dark
+  img
+    padding-bottom: 2px

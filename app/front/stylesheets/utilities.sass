@@ -10,21 +10,10 @@
       order: 0
 
 .lighter-blue-bg
-  background-color: $blue-lighter-background
+  background-color: $blue-light
 
 .white-bg
-  background-color: #fff
   background-color: $white
-
-.expand-action
-  &::before
-    content: ''
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    cursor: pointer
 
 .hidden
   display: none
@@ -40,11 +29,10 @@
 .float-right
   float: right
 
-.bottom_actions
-  display: flex
-  justify-content: space-between
+.text-center
+  text-align: center
 
-.justify-between
+.bottom_actions
   display: flex
   justify-content: space-between
 
@@ -74,9 +62,6 @@ a.fr-breadcrumb__item a.break-word, .fr-prose a.break-word, [class*=" fr-"] a.br
       margin-bottom: 1rem
       text-decoration: underline
 
-a:hover
-  color: $blue
-
 .warning-main-525-bg
   background-color: $warning-main-525 !important
   &:hover
@@ -99,3 +84,20 @@ a:hover
 
 .info-icon
   cursor: help
+
+// Clickable items containing an a
+.block-link
+  position: relative
+  a::after
+    z-index: 1
+    position: absolute
+    content: ""
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+
+.display-flex-center
+  align-items: center
+  justify-content: center
+  display: flex
