@@ -23,9 +23,10 @@
               = active_link_to root_path, class: 'fr-link', wrap_tag: :li do
                 = t('company_contact')
               = active_link_to tutoriels_path, class: 'fr-link', wrap_tag: :li do
-                %i.ri-tools-line.fr-mr-1w
+                %span.ri-tools-line.fr-mr-1w
                 = t('user_pages.tutoriels.title')
-              = active_link_to new_user_session_path, class: 'fr-link fr-fi-lock-line rf-link--icon-left', wrap_tag: :li do
+              = link_to new_user_session_path, class: 'fr-link', wrap_tag: :li do
+                %span.ri-tools-line.fr-mr-1w
                 = t('sign_in')
   / Navigation principale - à garder pour éviter erreurs js sur mobile
   .fr-header__menu.fr-modal#modal-870{ 'aria-labelledby': 'fr-btn-menu-mobile-2' }
