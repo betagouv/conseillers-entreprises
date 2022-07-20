@@ -275,9 +275,9 @@ fr:
         zero: 0 besoin identifié
       solicitation_related: Sollicitation associée
       solicited_at: Sollicitée le %{date}
-      solicited_by_html: 'par %{name} </br> email : %{email}'
+      solicited_by_html: 'par %{name} <br/> email : %{email}'
       visited_at: Visitée le %{date}
-      visited_by_html: 'par %{name} (%{job} - %{antenne}) </br> email : %{email}'
+      visited_by_html: 'par %{name} (%{job} - %{antenne}) <br/> email : %{email}'
     steps:
       contact:
         date: Date de la sollicitation
