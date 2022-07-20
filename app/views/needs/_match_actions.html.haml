@@ -24,7 +24,7 @@
           - if partner_link.present?
             %p.sub-content= t('.deposited_on_partner_website_html', partner_link: link_to(partner_link, partner_link, target: '_blank', rel: 'noopener'))
         = form_with(model: match, url: match_path(match)) do |f|
-          = f.button :submit, name: :status, value: :quo, class: 'gray-link' do
+          = f.button :submit, name: :status, value: :quo, class: 'gray-link', id: "cancel-match" do
             = t('.cancel_taking_care')
 
     %h2.fr-h3.fr-my-4w= t('.close_need')
@@ -37,7 +37,8 @@
             .content
               %h3.fr-card__title.fr-mb-2v= t('.help_provided.title')
               %p.fr-card__description= t('.help_provided.content')
-              = f.button :submit, name: :status, value: :done, class: 'fr-btn btn-green', aria: { label: "#{t('.help_provided.title')}. #{t('.help_provided.content')}" } do
+              = f.button :submit, name: :status, value: :done, class: 'fr-btn btn-green', id: "match-submit-done",
+              aria: { label: "#{t('.help_provided.title')}. #{t('.help_provided.content')}" } do
                 = t('.validate')
         %li.fr-col-12.fr-col-md-4
           .fr-col.close-need-box.block-button
@@ -46,7 +47,8 @@
             .content
               %h3.fr-card__title= t('.not_reachable.title')
               %p.fr-card__description= t('.not_reachable.content')
-              = f.button :submit, name: :status, value: :done_not_reachable, class: 'fr-btn btn-blue-dark', aria: { label: "#{t('.not_reachable.title')}. #{t('.not_reachable.content')}" } do
+              = f.button :submit, name: :status, value: :done_not_reachable, class: 'fr-btn btn-blue-dark',
+              id: "match-submit-done-not-reachable", aria: { label: "#{t('.not_reachable.title')}. #{t('.not_reachable.content')}" } do
                 = t('.validate')
         %li.fr-col-12.fr-col-md-4
           .fr-col.close-need-box.block-button
@@ -55,7 +57,8 @@
             .content
               %h3.fr-card__title= t('.no_help.title')
               %p.fr-card__description= t('.no_help.content')
-              = f.button :submit, name: :status, value: :done_no_help, class: 'fr-btn btn-orange', aria: { label: "#{t('.no_help.title')}. #{t('.no_help.content')}" } do
+              = f.button :submit, name: :status, value: :done_no_help, class: 'fr-btn btn-orange',
+              id: "match-submit-done-no-help", aria: { label: "#{t('.no_help.title')}. #{t('.no_help.content')}" } do
                 = t('.validate')
 
   - elsif match.status_done? || match.status_done_no_help? || match.status_done_not_reachable?
