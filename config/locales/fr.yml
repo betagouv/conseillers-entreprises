@@ -87,7 +87,7 @@ fr:
         one: environ un an
         other: environ %{count} ans
       almost_x_years:
-        one: presqu'un an
+        one: presque un an
         other: presque %{count} ans
       half_a_minute: une demi-minute
       less_than_x_minutes:
@@ -122,7 +122,7 @@ fr:
       year: Année
   download_csv: Télécharger CSV
   errors:
-    cancel_solicitation_with_email: La sollicitation ne pas pas être mise à jour (solicitation ou type d'email invalide)
+    cancel_solicitation_with_email: La sollicitation ne peut pas être mise à jour (solicitation ou type d'email invalide)
     format: "%{attribute} %{message}"
     manager_without_managed_antennes: Une antenne doit être attribuée à ce responsable d'antenne
     messages:
