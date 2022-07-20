@@ -7,7 +7,7 @@
   .fr-container
     - if in_iframe?
       .thank_you_iframe
-        %h2= t('.title')
+        %h1.fr-h2= t('.title')
 
         .fr-text--lg= t('.iframe_message_html')
         .logo-pde= image_tag 'logo-PDE.svg', alt: t('logos.pde')
@@ -17,7 +17,7 @@
           = render 'landings/landings/logos', landing_subject: @landing_subject
 
     - else
-      %h2= t('.title')
+      %h1.fr-h2= t('.title')
 
       - if @solicitation.institution
         %p.fr-text--lg= t('.message_with_institution', institution: @solicitation.institution.name)
