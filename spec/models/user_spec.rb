@@ -52,7 +52,7 @@ RSpec.describe User, type: :model do
 
     describe 'deleted users get their attributes nilled, and full_name masked' do
       it do
-        expect(user[:full_name]).to be_nil
+        expect(user[:full_name]).to eq I18n.t('deleted_account.full_name')
         expect(user[:email]).to be_nil
         expect(user[:phone_number]).to be_nil
 

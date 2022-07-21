@@ -25,7 +25,7 @@ module SoftDeletable
     {
       deleted_at: Time.zone.now,
       email: nil,
-      full_name: nil,
+      full_name: I18n.t('deleted_account.full_name'),
       phone_number: nil
     }
   end

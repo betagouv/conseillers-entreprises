@@ -252,7 +252,7 @@ RSpec.describe Expert, type: :model do
 
     describe 'deleted experts get their attributes nilled, and full_name masked' do
       it do
-        expect(expert[:full_name]).to be_nil
+        expect(expert[:full_name]).to eq I18n.t('deleted_account.full_name')
         expect(expert[:email]).to be_nil
         expect(expert[:phone_number]).to be_nil
 
