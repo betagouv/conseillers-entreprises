@@ -8,7 +8,7 @@ describe 'diagnosis', type: :system, js: true do
 
   describe 'steps' do
     context 'with quo diagnosis' do
-      let!(:diagnosis) { create :diagnosis, step: :contact }
+      let!(:diagnosis) { create :diagnosis, step: :contact, solicitation: nil }
       let!(:need) { create :need, diagnosis: diagnosis }
       let!(:expert_subject) do
         create :expert_subject,

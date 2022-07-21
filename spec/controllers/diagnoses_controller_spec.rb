@@ -101,7 +101,7 @@ RSpec.describe DiagnosesController, type: :controller do
     end
 
     context 'when creation succeeds' do
-      let(:result) { create :diagnosis, step: 'contact' }
+      let(:result) { create :diagnosis, step: 'contact', solicitation: nil }
 
       it 'redirects to the diagnosis page' do
         post :create, params: { diagnosis: some_params }
