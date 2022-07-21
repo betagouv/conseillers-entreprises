@@ -123,8 +123,8 @@ fr:
       diffusable_commercialement: Diffusable commercialement
       forme_juridique: Forme juridique
       information: Informations sur l’entreprise
-      inscrit_rcs: Inscrit au RCS
-      inscrit_rm: Inscrit au RM
+      inscrit_rcs: 'Inscrit au RCS : %{response}'
+      inscrit_rm: 'Inscrit au RM : %{response}'
       nom: Nom
       nom_commercial: Nom Commercial
       numero_tva_intracommunautaire: Numéro de TVA intracommunautaire
