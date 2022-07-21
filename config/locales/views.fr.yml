@@ -1058,6 +1058,10 @@ fr:
       title: Tutoriel
       youtube: Youtube
       youtube_video_title: Lien vers la video tutoriel sur Youtube - ouvre une nouvelle fenêtre
+      first_image_alt: "Capture d’écran de la page d’un besoin"
+      second_image_alt: "Capture d’écran du message indiquant d’appeler l’entreprise"
+      third_image_alt: "Capture d’écran des trois boutons d’action pour la cloture d’un besoin : 'Aide proposé', 'Entreprise Injoignable' et 'Pas d’aide disponible'"
+      fourth_image_alt: "Capture d’écran de la liste des autres experts notifiés sur un besoin et la liste des commentaires."
   users:
     header:
       title: Mon compte
