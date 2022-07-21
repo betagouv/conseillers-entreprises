@@ -18,9 +18,14 @@ class FeedbacksController < ApplicationController
 
   def destroy
     feedback = retrieve_feedback
-    authorize feedback
-    @feedback_id = feedback.id
-    feedback.destroy!
+    if feedback.nil?
+      # Delete HTML content if the feedback is already destroy
+      @feedback_id = params[:id]
+    else
+      @feedback_id = feedback.id
+      authorize feedback
+      feedback.destroy!
+    end
   end
 
   private
@@ -31,6 +36,6 @@ class FeedbacksController < ApplicationController
 
   def retrieve_feedback
     safe_params = params.permit(:id)
-    Feedback.find(safe_params[:id])
+    Feedback.find_by(id: safe_params[:id])
   end
 end
