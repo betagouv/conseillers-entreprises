@@ -46,6 +46,7 @@ class Expert < ApplicationRecord
   ## Validations
   #
   validates :email, presence: true, unless: :deleted?
+  validates :full_name, presence: true
   validates_associated :experts_subjects, on: :import
 
   ## “Through” Associations
