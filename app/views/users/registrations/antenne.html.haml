@@ -21,11 +21,11 @@
   %ul.list-unstyled.fr-p-0
     - @user.antenne.experts.not_deleted.teams.each do |team|
       - members = team.users.not_deleted
-      %li.fr-mb-1v
+      %li.fr-mb-1v.fr-mb-0.fr-mb-0
         - if @user.in?(members)
           %span.blue.ri-team-fill
         - else
           %span.ri-team-fill
         = team.full_name
-        %p.fr-mb-0
-          = members.pluck(:full_name).to_sentence
+        %br
+        = members.pluck(:full_name).to_sentence
