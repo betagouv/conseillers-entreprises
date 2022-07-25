@@ -11,7 +11,6 @@
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
-
     .fr-col-md-4.order-minus-one.bp-sm
       .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle.fr-mb-2w
         .fr-container.fr-p-0
@@ -67,11 +66,9 @@
     .fr-my-4w.feedbacks-title
       %h2.fr-h3= t('.comments')
       %p= t('.warning_comments')
-
     %div{ id: "display-feedbacks-#{@need.id}" }
       - if @need.feedbacks.present?
         = render @need.feedbacks.order(:created_at)
       - else
         %p.fr-my-2w#no-comment= t('.no_comment')
-
     = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)

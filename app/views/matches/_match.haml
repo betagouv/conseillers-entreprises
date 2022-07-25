@@ -16,8 +16,6 @@
     .fr-col-sm-3.fr-col.col-label.match-admin-actions
       .status-label
         = status_label(match)
-
-
       - if policy(match).update_status?
         %ul.fr-btns-group.fr-btns-group--inline.fr-btns-group--sm
           %li
@@ -26,7 +24,6 @@
                 .ri-edit-box-line
               .details--dropdown__content
                 = admin_match_actions_buttons match
-
           %li
             = link_to quo_reminders_expert_path(match.expert), class: "fr-btn fr-btn--secondary fr-mb-0", title: t('.see_expert_inbox') do
               .ri-inbox-line
