@@ -11,7 +11,6 @@
         %p
           %time.date{ datetime: @need.display_time } Le #{I18n.l(@need.display_time, format: :sentence)}
         = need_general_context(@need)
-
     .fr-col-md-4.order-minus-one.bp-sm
       .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle.fr-mb-2w
         .fr-container.fr-p-0
@@ -19,10 +18,11 @@
             .fr-col-lg-2.fr-grid-row--center.picto-person-block
               %span.ri-map-pin-user-line
             .fr-col-lg-10
-              = person_block(@need.visitee, prefix: t('.person_company_contact'), job: nil)
+              %h2.fr-text--lg.fr-m-0.blue= t('.person_company_contact')
+              = person_block(@need.visitee, job: nil)
       .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle.fr-mb-2w
         .fr-container.fr-p-0
-          .fr-grid-row
+          .fr-grid-row.fr-mt-2v
             .fr-col-lg-2.fr-grid-row--center.picto-person-block
               %span.ri-building-4-line
             .fr-col-lg-10
@@ -33,11 +33,13 @@
             .fr-col-lg-2.fr-grid-row--center.picto-person-block
               %span.ri-mail-send-line
             .fr-col-lg-10.infos-transmitted-by.fr-pl-1v
-              %p.blue-pde.title= t('.transmitted_by')
-              %p
+              %h2.fr-text--lg.fr-mb-1w.blue= t('.transmitted_by')
+              %div
                 - if @need.advisor.present?
-                  %b.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-advisor-#{@need.advisor.id}" }
-                    #{@need.advisor.full_name}
+                  %div
+                    %p
+                      %b.js-simple-tooltip.fr-mt-1w{ 'data-simpletooltip-content-id': "tooltip-advisor-#{@need.advisor.id}", tabindex: "0" }
+                        #{@need.advisor.full_name}
                   .hidden{ id: "tooltip-advisor-#{@need.advisor.id}" }
                     = person_block(@need.advisor)
                 - else
@@ -64,11 +66,9 @@
     .fr-my-4w.feedbacks-title
       %h2.fr-h3= t('.comments')
       %p= t('.warning_comments')
-
     %div{ id: "display-feedbacks-#{@need.id}" }
       - if @need.feedbacks.present?
         = render @need.feedbacks.order(:created_at)
       - else
         %p.fr-my-2w#no-comment= t('.no_comment')
-
     = render 'feedbacks/form', feedback: @need.feedbacks.new(category: :need)

@@ -18,7 +18,7 @@ module Admin
             foreign_objects = object.send(association)
             if foreign_objects.present?
               links = foreign_objects.map { |foreign_object| link_to(foreign_object, polymorphic_path([:admin, foreign_object])) }
-              links.join('</br>').html_safe
+              links.join('<br/>').html_safe
             else
               empty_result
             end

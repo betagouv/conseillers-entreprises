@@ -3,10 +3,11 @@
     .fr-col-sm-1.fr-col-1.col-icon
       = expert_status_icon(match)
     .fr-col-sm-8.fr-col-11
-      %p
-        %b.blue.js-simple-tooltip{ "data-simpletooltip-content-id" => "tooltip-match-#{match.id}" }
-          #{match.expert.full_name}
-        = " - " + match.expert.antenne.name
+      %div
+        %p
+          %b.blue.js-simple-tooltip{ 'data-simpletooltip-content-id': "tooltip-match-#{match.id}", tabindex: "0" }
+            #{match.expert.full_name}
+          = " - " + match.expert.antenne.name
       .hidden{ id: "tooltip-match-#{match.id}" }
         = person_block(match.expert)
         - if (defined? origin) && origin == 'reminders' && policy(match.expert.antenne).show_manager?
@@ -15,8 +16,6 @@
     .fr-col-sm-3.fr-col.col-label.match-admin-actions
       .status-label
         = status_label(match)
-
-
       - if policy(match).update_status?
         %ul.fr-btns-group.fr-btns-group--inline.fr-btns-group--sm
           %li
@@ -25,7 +24,6 @@
                 .ri-edit-box-line
               .details--dropdown__content
                 = admin_match_actions_buttons match
-
           %li
             = link_to quo_reminders_expert_path(match.expert), class: "fr-btn fr-btn--secondary fr-mb-0", title: t('.see_expert_inbox') do
               .ri-inbox-line

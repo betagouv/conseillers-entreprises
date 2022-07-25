@@ -1,7 +1,6 @@
-.fr-mb-3w
-  = form_with url: search_needs_path, method: :get, local: true do
-    .fr-search-bar#search-needs{ role: "search" }
-      = text_field_tag :query, params[:query], placeholder: t('.search_placeholder'), class: "fr-input", required: true
-      = button_tag "", class: 'fr-btn'
+= form_with url: search_needs_path, method: :get, local: true, class: 'fr-search-bar fr-search-bar--lg fr-mb-3w' do
+  = label_tag :query, t('.search_placeholder'), class: 'fr-label'
+  = search_field_tag :query, params[:query], placeholder: t('search'), class: "fr-input", required: true
+  = button_tag t('search'), class: 'fr-btn'
   - if params[:query].present?
     = link_to t('.clear_search'), needs_path, id: 'clear-search'

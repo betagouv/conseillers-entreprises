@@ -4,7 +4,7 @@ module Admin
       def needs_links(needs)
         needs.map do |need|
           I18n.t('active_admin.solicitations.need_show') + link_to(need.subject.label, need_path(need))
-        end.join('</br>')
+        end.join('<br/>')
       end
 
       def diagnosis_link(diagnosis)
