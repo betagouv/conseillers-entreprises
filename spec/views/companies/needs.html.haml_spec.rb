@@ -34,7 +34,7 @@ RSpec.describe 'companies/needs', type: :view do
     it('displays title needs in progress') { expect(render).to have_selector('h2', text: I18n.t('companies.needs.needs_in_progress')) }
     it('not displays title needs done') { expect(render).not_to have_selector('h2', text: I18n.t('companies.needs.needs_done')) }
     it('displays needs') { expect(render).to have_selector('div.company-need', count: 1) }
-    it('displays need subject') { expect(render).to have_selector('a', text: need.subject.label) }
+    it('displays need subject') { expect(render).to have_link(text: need.subject.label) }
   end
 
   describe 'with only done needs' do
@@ -47,8 +47,8 @@ RSpec.describe 'companies/needs', type: :view do
     it('displays title needs done') { expect(render).to have_selector('h2', text: I18n.t('companies.needs.needs_done')) }
     it('not displays title needs in progress') { expect(render).not_to have_selector('h2', text: I18n.t('companies.needs.needs_in_progress')) }
     it('displays needs') { expect(render).to have_selector('div.company-need', count: 2) }
-    it('displays first need subject') { expect(render).to have_selector('a', text: need.subject.label) }
-    it('displays second need subject') { expect(render).to have_selector('a', text: another_need.subject.label) }
+    it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
+    it('displays second need subject') { expect(render).to have_link(text: another_need.subject.label) }
   end
 
   describe 'with done and in progress needs' do
@@ -61,7 +61,7 @@ RSpec.describe 'companies/needs', type: :view do
     it('displays title needs done') { expect(render).to have_selector('h2', text: I18n.t('companies.needs.needs_done')) }
     it('displays title needs in progress') { expect(render).to have_selector('h2', text: I18n.t('companies.needs.needs_in_progress')) }
     it('displays needs') { expect(render).to have_selector('div.company-need', count: 2) }
-    it('displays first need subject') { expect(render).to have_selector('a', text: need.subject.label) }
-    it('displays second need subject') { expect(render).to have_selector('a', text: another_need.subject.label) }
+    it('displays first need subject') { expect(render).to have_link(text: need.subject.label) }
+    it('displays second need subject') { expect(render).to have_link(text: another_need.subject.label) }
   end
 end

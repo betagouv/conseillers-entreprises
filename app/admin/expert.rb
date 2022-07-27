@@ -188,7 +188,7 @@ ActiveAdmin.register Expert do
       f.input :phone_number
     end
 
-    f.inputs t('activerecord.attributes.expert.users') do
+    f.inputs t('activerecord.attributes.expert.users.other') do
       f.input :users, label: t('activerecord.models.user.other'),
               as: :ajax_select,
               collection: resource.users,
