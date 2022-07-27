@@ -39,7 +39,10 @@ namespace :import_dump do
   end
 
   task anonymize: :environment do
-    allowed_models = [Antenne, Institution, Commune, Landing, LandingTheme, LandingSubject, LandingJointTheme, Territory, Theme, Subject]
+    allowed_models = [InstitutionSubject, Logo, Category, Badge, Antenne, Institution, Commune, Landing, LandingTheme, LandingSubject, LandingJointTheme, Territory, Theme, Subject]
+
+    Expert.where(email: nil).update_all(email: 'no@email.com')
+    User.where(email: nil).update_all(email: 'no@email.com')
 
     default_mapping = {
       'content' => -> { Faker::Lorem.paragraph },

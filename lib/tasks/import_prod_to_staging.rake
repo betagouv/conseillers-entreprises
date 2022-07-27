@@ -34,9 +34,8 @@ namespace :import_prod_to_staging do
     pw = pg_url[/.*:(.*)@/,1]
     username = pg_url[/\/\/(.*):.*@/,1]
     dbname = username
-    db_url = "postgres://#{username}:#{pw}@127.0.0.1:10000/#{dbname}?sslmode=require"
 
-    sh "pg_dump --clean --if-exists --format c --dbname #{db_url} --file #{export_filename}"
+    sh "PGPASSWORD=#{pw} pg_dump --no-owner --no-acl #{dbname} > #{export_filename}  -h localhost --format c -p 10000 -U #{username}"
     kill_prod_tunnel
   end
 
@@ -50,9 +49,8 @@ namespace :import_prod_to_staging do
     pw = pg_url[/.*:(.*)@/,1]
     username = pg_url[/\/\/(.*):.*@/,1]
     dbname = username
-    db_url = "postgres://#{username}:#{pw}@127.0.0.1:10000/#{dbname}?sslmode=require"
 
-    sh "pg_restore --clean --if-exists --no-owner --no-privileges --no-comments --dbname #{db_url} #{export_filename}"
+    sh "PGPASSWORD=#{pw} pg_restore --clean --if-exists --no-owner --no-privileges --format c --no-comments -h localhost -p 10002 --dbname #{dbname} #{export_filename} -U #{username}"
 
     kill_staging_tunnel
   end
