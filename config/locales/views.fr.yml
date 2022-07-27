@@ -601,7 +601,7 @@ fr:
       siret:
         commune_name_html: Par précaution, indiquez également <b>la commune</b> sur laquelle vous exercez votre activité.
         siret_error: Il semble cependant qu’il y ait une erreur sur votre numéro de Siret. Pourriez-vous nous le faire parvenir à nouveau ?
-        siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr''>https://annuaire-entreprises.data.gouv.fr</a>'
+        siret_infos_html: 'Le numéro de Siret comporte <b>14 chiffres</b>. Si vous ne le connaissez pas, vous le trouverez facilement ici : <a href=''https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises''>https://annuaire-entreprises.data.gouv.fr</a>'
         solicitation_transmission: Dès réception de ces éléments, nous transmettons votre demande au(x) conseiller(s) compétent(s) pour vous aider sur votre territoire. Ce(s) conseiller(s) vous rappelleront directement.
     team_pde: L’équipe Place des Entreprises
     thank_you: Merci beaucoup,
