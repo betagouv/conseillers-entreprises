@@ -65,7 +65,6 @@
       = render partial: 'feedbacks/feedback', collection: expert.reminder_feedbacks.order(:created_at)
     = render 'feedbacks/form', feedback: expert.reminder_feedbacks.new
 
-  - if controller.action_name == 'critical_rate'
-    .card__footer
-      = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
-        = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
+  .card__footer
+    = form_with model: expert, url: send_reminder_email_reminders_expert_path(expert), method: :post do |f|
+      = f.submit t('.send_reminders_email'), class: 'fr-btn fr-btn--secondary fr-mr-2v'
