@@ -12,8 +12,8 @@ ActiveAdmin.register Diagnosis do
   includes :facility, :company, :advisor, :needs, :matches, :solicitation
   includes facility: :commune
 
-  scope :all, default: true
-  scope :completed
+  scope :completed, group: :status, default: true
+  scope :all, group: :status
   scope :from_solicitation, group: :solicitations
   scope :from_visit, group: :solicitations
 

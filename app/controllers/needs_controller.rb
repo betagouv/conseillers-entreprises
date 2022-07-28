@@ -71,10 +71,15 @@ class NeedsController < ApplicationController
 
   def show
     authorize @need
-    @origin = params[:origin]
-    @matches = @need.matches.order(:created_at)
-    @facility_needs = Need.for_facility(@need.facility).where.not(id: @need.id)
-    @contact_needs = NeedPolicy::Scope.new(current_user, Need.for_emails_and_sirets([@need.diagnosis.visitee.email])).resolve - @facility_needs
+    if @need.status_diagnosis_not_complete?
+      flash[:alert] = t('.diagnosis_not_completed')
+      redirect_to quo_needs_path
+    else
+      @origin = params[:origin]
+      @matches = @need.matches.order(:created_at)
+      @facility_needs = Need.for_facility(@need.facility).where.not(id: @need.id)
+      @contact_needs = NeedPolicy::Scope.new(current_user, Need.for_emails_and_sirets([@need.diagnosis.visitee.email])).resolve - @facility_needs
+    end
   end
 
   def additional_experts

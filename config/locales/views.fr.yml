@@ -717,6 +717,7 @@ fr:
       all_needs: Toutes les demandes
       blank_advisor: "-"
       comments: Discussion entre experts
+      diagnosis_not_completed: Analyse non terminée, vous ne pouvez pas accéder à la page du besoin.
       no_comment: Aucun commentaire
       no_match: Aucun expert de notifié
       person_company_contact: Contact entreprise
