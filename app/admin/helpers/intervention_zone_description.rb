@@ -33,15 +33,23 @@ module Admin
       end
 
       def displays_insee_codes(antenne_communes)
-        communes_grouped = antenne_communes.order(:insee_code).group_by { |x| x.insee_code[0..1] }
+        communes_grouped = antenne_communes.order(:insee_code).group_by do |x|
+          # Prend 2 chiffres pour la métropole et 3 pour les outres-mer
+          x.insee_code.to_i >= 97000 ? x.insee_code[0..2] : x.insee_code[0..1]
+        end
         list = ""
         communes_grouped.map do |department_code, communes|
           department_name = I18n.t(department_code, scope: 'department_codes_to_libelles')
-          list << tag.h3(I18n.t('active_admin.territory.department_number', number: department_code, name: department_name))
-          list << tag.i(I18n.t('active_admin.territory.communes_size', count: communes.size))
-          list << tag.div("#{communes.pluck(:insee_code).flatten.join(' ')}")
+          build_list(list, department_code, department_name, communes)
         end
         list.html_safe
+      end
+
+      def build_list(list, department_code, department_name, communes)
+        list << tag.h3(I18n.t('active_admin.territory.department_number', number: department_code, name: department_name))
+        list << tag.i(I18n.t('active_admin.territory.communes_size', count: communes.size))
+        list << tag.div("#{communes.pluck(:insee_code).flatten.join(' ')}")
+        list
       end
     end
 
