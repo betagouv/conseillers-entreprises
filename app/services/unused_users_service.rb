@@ -12,7 +12,7 @@ class UnusedUsersService
         user.experts.each { |e| e.users.delete(user) }
         Expert.joins(:users).where("users.id" => user.id).each { |e| e.users.delete(user) }
 
-        if expert.present? && expert.users.count < 2
+        if expert.present? && expert.users.count < 2 && expert.received_matches.blank?
           expert.transaction do
             # There is dependent: :destroy but destroy call soft_delete
             expert.experts_subjects.delete_all
