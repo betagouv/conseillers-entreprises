@@ -11,7 +11,7 @@ module Stats::Matches
         query.merge! query.in_region(territory)
       end
       if institution.present?
-        query.merge! query.where(expert_institution: institution)
+        query.merge! query.joins(expert: :institution).where(experts: { institutions: institution })
       end
       query
     end
