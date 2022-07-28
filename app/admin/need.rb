@@ -7,8 +7,8 @@ ActiveAdmin.register Need do
   #
   includes :diagnosis, :subject, :advisor, :matches, :feedbacks, :company
 
-  scope :diagnosis_completed, default: true
-  scope :all, group: :all
+  scope :diagnosis_completed, group: :status, default: true
+  scope :all, group: :status
 
   index do
     selectable_column
