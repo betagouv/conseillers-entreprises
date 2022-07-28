@@ -9,8 +9,8 @@
       %li #{t('attributes.siret')} : #{facility.siret}
       - if facility.naf_libelle.present?
         %li= facility.naf_libelle
-      %li= t('companies.company.inscrit_rcs', response: facility.company.inscrit_rcs ? t('yes') : t('no'))
-      %li= t('companies.company.inscrit_rm', response: facility.company.inscrit_rm ? t('yes') : t('no'))
+      %li= t('companies.company.inscrit_rcs_yes_no', response: facility.company.inscrit_rcs ? t('yes') : t('no'))
+      %li= t('companies.company.inscrit_rm_yes_no', response: facility.company.inscrit_rm ? t('yes') : t('no'))
       %li= link_to t('.more_informations'), company_path(facility.id), class: 'bold blue', data: { turbolinks: false }
       - if defined?(facility_needs) && facility_needs.present? && policy(facility).show_needs_history? && facility_needs.any?
         %li= link_to t('.needs_historic'), needs_company_path(facility), class: 'bold blue'
