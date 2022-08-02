@@ -57,6 +57,7 @@ class Diagnosis < ApplicationRecord
   validate :step_completed_has_matches
   validate :step_completed_has_advisor
   validate :without_solicitation_has_advisor
+  validate :only_one_solicitation
 
   accepts_nested_attributes_for :facility
   accepts_nested_attributes_for :needs, allow_destroy: true
@@ -124,6 +125,12 @@ class Diagnosis < ApplicationRecord
 
   ##
   #
+  def only_one_solicitation
+    if self.solicitation.present? && Diagnosis.joins(:solicitation).where(solicitations: { id: self.solicitation.id }).reject { |d| d == self }.present?
+      self.errors.add(:solicitation, I18n.t('activerecord.errors.models.diagnosis.attributes.solicitation.has_already_a_diagnosis'))
+    end
+  end
+
   def to_s
     "#{company.name} (#{I18n.l display_date})"
   end
