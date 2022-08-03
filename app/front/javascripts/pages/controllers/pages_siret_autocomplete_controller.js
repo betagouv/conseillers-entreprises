@@ -6,8 +6,11 @@ export default class extends SiretAutocompleteController {
   static targets = [ "field", "codeRegionField", "siretField", "unSeulEtablissementField", "loader" ]
 
   connect() {
-    for (const el of document.getElementsByClassName( 'no-js-only' )) { el.style.display = "none" }
-    for (const el of document.getElementsByClassName( 'with-js-only' )) { el.style.display = "block" }
+    if (exists(this.fieldTarget.dataset.defaultValue)) {
+      const siret = this.fieldTarget.dataset.defaultValue;
+      document.querySelector('#query').value = siret;
+      this.fillSiretField(siret);
+    }
   }
 
   manageSourceError(results) {
@@ -19,9 +22,10 @@ export default class extends SiretAutocompleteController {
   }
 
   onConfirm(option) {
-    this.fillCodeRegionField(option);
-    this.fillSiretField(option);
-    this.fillUnSeulEtablissementField(option);
+    if (option) {
+      this.fillCodeRegionField(option.code_region);
+      this.fillSiretField(option.siret);
+    }
   }
 
   // Récupération des résultats ----------------------------------------------------
@@ -32,28 +36,15 @@ export default class extends SiretAutocompleteController {
 
   // Traitement des résultats --------------------------------------------
 
-  fillCodeRegionField(option) {
-    if (option && option.code_region) {
-      this.codeRegionFieldTarget.value = parseInt(option.code_region)
+  fillCodeRegionField(code_region) {
+    if (code_region) {
+      this.codeRegionFieldTarget.value = parseInt(code_region)
     }
   }
 
-  fillSiretField(option) {
-    if (option && option.siret) {
-      this.fieldTarget.value = parseInt(option.siret)
+  fillSiretField(siret) {
+    if (siret) {
+      this.siretFieldTarget.value = parseInt(siret)
     }
   }
-
-  fillUnSeulEtablissementField(option) {
-    if (option && exists(option.un_seul_etablissement)) {
-      this.unSeulEtablissementFieldTarget.value = !!option.un_seul_etablissement
-    }
-  }
-
-  fillNewsletterForm() {
-    const solicitation_form_email = document.getElementById("solicitation_email")
-    const newsletter_form_email = document.getElementById("email")
-    newsletter_form_email.value = solicitation_form_email.value
-  }
-
 }

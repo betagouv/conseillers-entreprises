@@ -861,7 +861,6 @@ fr:
         manual_step_company: Je ne trouve pas mon entreprise
         next: Suivant
         previous: Précédent
-        search: Rechercher
         send: Envoyer ma demande
       description: Description de votre demande
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.

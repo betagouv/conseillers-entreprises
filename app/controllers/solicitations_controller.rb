@@ -21,6 +21,13 @@ class SolicitationsController < PagesController
   end
 
   def search_company
+    # si l'utilisateur a utilisé l'autocompletion
+    if siret_is_set?
+      update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+    elsif siren_is_set?
+      redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
+      redirect_to redirect_path and return
+    end
     result = SearchFacility.new(search_params).from_full_text_or_siren
     respond_to do |format|
       format.html do
@@ -59,10 +66,6 @@ class SolicitationsController < PagesController
   end
 
   def update_step_company
-    if has_many_facilities
-      redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge({ query: solicitation_params[:siret] })
-      redirect_to redirect_path and return
-    end
     update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
@@ -115,7 +118,15 @@ class SolicitationsController < PagesController
     @solicitation.company_step_is_siret? ? step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire') : step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
   end
 
-  def has_many_facilities
-    ActiveModel::Type::Boolean.new.cast(params[:un_seul_etablissement]) == false
+  def siret_is_set?
+    siret_params_present? && solicitation_params[:siret].length == 14
+  end
+
+  def siren_is_set?
+    siret_params_present? && solicitation_params[:siret].length == 9
+  end
+
+  def siret_params_present?
+    params[:solicitation].present? && solicitation_params[:siret].present?
   end
 end

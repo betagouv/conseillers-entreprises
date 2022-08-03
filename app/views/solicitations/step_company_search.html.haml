@@ -11,31 +11,21 @@
         %p.fr-alert__title
         %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
-    .no-js-only
-      = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get) do |f|
-        .fr-mb-2w
+    = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get) do |f|
+      .fr-mb-2w
+        .siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
           = label_tag "query", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
-          = text_field_tag :query, (params[:query] || @solicitation.siret), required: true, placeholder: t("solicitations.creation_form.search_facility_placeholder"), class: 'fr-input white-bg'
-        .submit-buttons
-          = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
-          = button_tag(class: "fr-btn", data: { disable_with: t('solicitations.creation_form.submit_in_progress') }) do
-            %span= t('solicitations.creation_form.buttons.search')
-            %span.icon.ri-search-2-line
+          %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
+          .loader{ data: { 'pages-siret-autocomplete-target': 'loader' } }
 
-    .with-js-only
-      = form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
-        .fr-mb-2w
-          .siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
-            = f.label :siret, t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
-            .loader{ data: { 'pages-siret-autocomplete-target': 'loader' }}
-            %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
-            %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("solicitations.creation_form.siret_assistive_hint"), name: 'solicitation_siret', 'default-value': (params[:query] || @solicitation.siret), url: search_company_solicitation_path(@solicitation.uuid) } }
-            = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
-            = hidden_field_tag :un_seul_etablissement, nil, data: { 'pages-siret-autocomplete-target': 'unSeulEtablissementField' }
+          %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("solicitations.creation_form.siret_assistive_hint"), name: 'query', 'default-value': (params[:query] || @solicitation.siret), url: search_company_solicitation_path(@solicitation.uuid) } }
+          = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
+          = f.hidden_field :siret, data: { 'pages-siret-autocomplete-target': 'siretField' }
+          -# = hidden_field_tag :un_seul_etablissement, nil, data: { 'pages-siret-autocomplete-target': 'unSeulEtablissementField' }
 
-        .submit-buttons
-          = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
-          = render 'next_button'
+      .submit-buttons
+        = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+        = render 'next_button'
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing

@@ -47,7 +47,15 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
           expect(solicitation.pk_campaign).to be_nil
           expect(solicitation.landing).to eq landing
           expect(solicitation.landing_subject).to eq landing_subject
+          expect(solicitation.full_name).to eq 'Hubertine Auclerc'
           expect(solicitation.status_step_company?).to be true
+
+          click_link 'Précédent'
+          expect(solicitation.reload.status_step_company?).to be true
+          fill_in 'Prénom et nom', with: 'Hubertine Auclerc Superstar'
+          click_button 'Suivant'
+          expect(solicitation.reload.status_step_company?).to be true
+          expect(solicitation.full_name).to eq 'Hubertine Auclerc Superstar'
 
           fill_in 'Recherchez votre entreprise', with: query
           option = find(".autocomplete__option", match: :first)
@@ -61,11 +69,11 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
 
           fill_in 'Description', with: 'Ceci n\'est pas un test'
           # radio button sur 'Oui' pour recrutement_poste_cadre
-          expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true)
-          expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_false', checked: false)
+          expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_true', checked: true, visible: :hidden)
+          expect(page).to have_field('solicitation_institution_filters_attributes_0_filter_value_false', checked: false, visible: :hidden)
           # radio button sur 'Non' pour recrutement_en_apprentissage
-          expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_true", checked: false)
-          expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true)
+          expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_true", checked: false, visible: :hidden)
+          expect(page).to have_field("solicitation_institution_filters_attributes_1_filter_value_false", checked: true, visible: :hidden)
 
           click_button 'Envoyer ma demande'
           expect(page).to have_content('Merci')
@@ -76,7 +84,17 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
       context "from siren" do
         let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{query}" }
         let(:fixture_file) { 'api_insee_sirets_by_siren_many.json' }
+        let(:siret_api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}" }
+        let(:siret_fixture_file) { 'api_insee_siret.json' }
+
         let(:query) { siren }
+
+        before do
+          # a la selection d'une option, la valeur de l'input est remplacée par le siret, une rech automatique est lancee
+          stub_request(:get, siret_api_url).to_return(
+            body: file_fixture(siret_fixture_file)
+          )
+        end
 
         it do
           visit '/'
@@ -121,7 +139,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
           )
         end
 
-        xit do
+        it do
           visit '/'
           click_link 'Test Landing Theme'
           click_link 'Super sujet'
@@ -136,13 +154,10 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
           expect(solicitation.status_step_company?).to be true
 
           fill_in 'Recherchez votre entreprise', with: query
-          click_button 'Rechercher'
-          expect(page).to have_content('Sélectionnez votre entreprise :')
-          click_button "#{siren} - Octo Technology"
-
-          expect(page).to have_content("Sélectionnez l'établissement concerné :")
-          click_button "#{siret} - Octo Technology"
-
+          option = find(".autocomplete__option", match: :first)
+          expect(option).to have_content('Octo Technology')
+          page.execute_script("document.querySelector('.autocomplete__option').click()")
+          click_button 'Suivant'
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true
@@ -169,7 +184,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
           )
         end
 
-        xit do
+        it do
           visit '/'
           click_link 'Test Landing Theme'
           click_link 'Super sujet'
@@ -180,7 +195,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
           expect(solicitation.persisted?).to be true
 
           fill_in 'Recherchez votre entreprise', with: 'toto'
-          click_button 'Rechercher'
+          click_button 'Suivant'
           expect(page).to have_content('Sélectionnez votre entreprise :')
 
           click_link "Je ne trouve pas mon entreprise"
@@ -208,7 +223,7 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         let(:fixture_file) { 'api_insee_siret_400.json' }
         let(:query) { 'tata yoyo' }
 
-        xit do
+        it do
           visit '/'
           click_link 'Test Landing Theme'
           click_link 'Super sujet'
@@ -219,50 +234,10 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
           expect(solicitation.persisted?).to be true
 
           fill_in 'Recherchez votre entreprise', with: '40440440440400'
-          click_button 'Rechercher'
+          click_button 'Suivant'
           expect(page).not_to have_content('Sélectionnez votre entreprise :')
 
           expect(page).to have_content("L'identifiant (siret ou siren) est invalide")
-        end
-      end
-    end
-
-    context "no API calls" do
-      context "with PK params in url" do
-        xit do
-          visit '/?pk_campaign=FOO&pk_kwd=BAR'
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'E-mail', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_button 'Suivant'
-          expect(solicitation.persisted?).to be true
-          expect(solicitation.pk_campaign).to eq 'FOO'
-          expect(solicitation.pk_kwd).to eq 'BAR'
-          expect(solicitation.landing).to eq landing
-          expect(solicitation.landing_subject).to eq landing_subject
-          expect(solicitation.status_step_company?).to be true
-        end
-      end
-
-      context "with siret in url" do
-        let(:siret) { "41816609600077" }
-
-        xit do
-          visit "/?siret=#{siret}"
-          click_link 'Test Landing Theme'
-          click_link 'Super sujet'
-          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
-          fill_in 'E-mail', with: 'user@example.com'
-          fill_in 'Téléphone', with: '0123456789'
-          click_button 'Suivant'
-          expect(solicitation.persisted?).to be true
-          expect(solicitation.landing).to eq landing
-          expect(solicitation.landing_subject).to eq landing_subject
-          expect(solicitation.siret).to eq siret
-          expect(solicitation.pk_campaign).to be_nil
-          expect(solicitation.status_step_company?).to be true
         end
       end
     end

@@ -43,8 +43,8 @@ describe 'solicitation_form', type: :feature, js: true do
       fill_in 'Recherchez votre entreprise (SIRET, SIREN, nom, ville...)', with: query
       click_button 'Suivant'
       # ## Search Facility
-      # is_expected.to be_accessible
-      # click_button "#{query} - Octo Technology"
+      is_expected.to be_accessible
+      click_button "#{query} - Octo Technology"
 
       # Third step
       is_expected.to be_accessible

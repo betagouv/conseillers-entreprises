@@ -9,7 +9,7 @@ export default class extends Controller {
     this.accessibleAutocomplete = accessibleAutocomplete({
       element: this.fieldTarget,
       id: this.fieldTarget.dataset.name,
-      name: 'solicitation[siret]',
+      name: 'query',
       showNoOptionsFound: false,
       templates: {
         inputValue: this.inputValueTemplate,
@@ -34,7 +34,7 @@ export default class extends Controller {
 
   connect() {
     if (exists(this.fieldTarget.dataset.defaultValue)) {
-      document.querySelector('#solicitation-siret').value = this.fieldTarget.dataset.defaultValue
+      document.querySelector('#query').value = this.fieldTarget.dataset.defaultValue
     }
   }
 

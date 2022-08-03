@@ -22,11 +22,11 @@ RSpec.describe SearchFacility do
 
       it 'displays correct proposition' do
         expect(data.size).to eq(2)
-        expect(data[0]["siret"]).to eq("41816609600077")
+        expect(data[0]["siret"]).to eq("41816609600069")
         expect(data[0]["siren"]).to eq("418166096")
         expect(data[0]["nom"]).to eq("Octo Technology")
-        expect(data[0]["activite"]).to eq("Activités d'architecture et d'ingénierie ; activités de contrôle et analyses techniques")
-        expect(data[0]["lieu"]).to eq("75001 PARIS 1")
+        expect(data[0]["activite"]).to eq("Programmation, conseil et autres activités informatiques")
+        expect(data[0]["lieu"]).to eq("75002 PARIS 2")
         expect(data[0]["code_region"]).to eq("11")
         expect(data[0]["nombre_etablissements_ouverts"]).to eq(2)
       end
