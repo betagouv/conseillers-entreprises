@@ -1,21 +1,27 @@
+import { exists } from '../../shared/utils.js'
 import  SiretAutocompleteController from "../../shared/controllers/siret_autocomplete_controller.js"
 
-export default class extends SiretAutocompleteController {
-  static targets = [ "field", "codeRegionField", "indifusibleBlock", "undeployedRegionBlock" ]
 
-  manageSourceError() {
-    this.indifusibleBlockTarget.style.display = "block";
+export default class extends SiretAutocompleteController {
+  static targets = [ "field", "codeRegionField", "siretField", "unSeulEtablissementField" ]
+
+  connect() {
+    for (const el of document.getElementsByClassName( 'no-js-only' )) { el.style.display = "none" }
+    for (const el of document.getElementsByClassName( 'with-js-only' )) { el.style.display = "block" }
+  }
+
+  manageSourceError(results) {
+    console.warn(results.error)
   }
 
   manageSourceSuccess() {
-    this.indifusibleBlockTarget.style.display = "none";
+    console.log("success")
   }
 
   onConfirm(option) {
-    this.fillCodeRegionField(option)
-    if (this.fieldTarget.dataset.landingTheme !== 'environnement-transition-ecologique') {
-      this.checkIfInDeployedRegion(option)
-    }
+    this.fillCodeRegionField(option);
+    this.fillSiretField(option);
+    this.fillUnSeulEtablissementField(option);
   }
 
   // Récupération des résultats ----------------------------------------------------
@@ -32,14 +38,15 @@ export default class extends SiretAutocompleteController {
     }
   }
 
-  checkIfInDeployedRegion (option) {
-    if (option && option.code_region) {
-      let codeRegion = parseInt(option.code_region);
-      if (!this.codeRegionFieldTarget.dataset.deployedRegions.includes(codeRegion)) {
-        this.undeployedRegionBlockTarget.style.display = 'block'
-        document.querySelector("[data-error='newsletter']").style.display = 'block'
-        this.fillNewsletterForm()
-      }
+  fillSiretField(option) {
+    if (option && option.siret) {
+      this.fieldTarget.value = parseInt(option.siret)
+    }
+  }
+
+  fillUnSeulEtablissementField(option) {
+    if (option && exists(option.un_seul_etablissement)) {
+      this.unSeulEtablissementFieldTarget.value = !!option.un_seul_etablissement
     }
   }
 

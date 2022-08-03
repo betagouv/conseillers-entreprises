@@ -39,7 +39,7 @@ module ApiConsumption::Models
       # A renseigner
     end
 
-    def afficher_etablissement
+    def un_seul_etablissement
       true # A adapter
     end
 
@@ -53,7 +53,7 @@ module ApiConsumption::Models
         'lieu' => lieu,
         'code_region' => code_region,
         'nombre_etablissements_ouverts' => nombre_etablissements_ouverts,
-        'afficher_etablissement' => afficher_etablissement
+        'un_seul_etablissement' => un_seul_etablissement
       })
     end
   end

@@ -59,6 +59,8 @@ class SolicitationsController < PagesController
   end
 
   def update_step_company
+    redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
+    redirect_to redirect_path and return if has_many_facilities
     update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
@@ -109,5 +111,9 @@ class SolicitationsController < PagesController
   # on dirige vers la recherche de siret si le champs "company" est le siret
   def retrieve_company_step_path
     @solicitation.company_step_is_siret? ? step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire') : step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+  end
+
+  def has_many_facilities
+    ActiveModel::Type::Boolean.new.cast(params[:un_seul_etablissement]) == false
   end
 end

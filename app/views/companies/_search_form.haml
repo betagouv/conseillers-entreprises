@@ -8,5 +8,5 @@
         = hidden_field_tag :solicitation, solicitation.id
       - siret = local_assigns[:solicitation]&.siret
       %div{ 'data-controller': "siret-autocomplete" }
-        %div{ data: { 'siret-autocomplete-target': "field", 'assistive-hint': t(".siret_assistive_hint"), name: 'query', 'default-value': (query || siret) } }
+        %div{ data: { 'siret-autocomplete-target': "field", 'assistive-hint': t(".siret_assistive_hint"), name: 'query', 'default-value': (query || siret), url: "todo" } }
       %button.fr-btn.btn-green.fr-mt-2w{ type: 'submit' }= t('search')

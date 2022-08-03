@@ -12,7 +12,14 @@ fr:
     OQ: Administration publique, enseignement, santé humaine et action sociale
     RU: Autres activités de services
   libelle_naf_level2:
-    '1': Culture et production animale, chasse et services annexes
+    '01': Culture et production animale, chasse et services annexes
+    '02': Sylviculture et exploitation forestière
+    '03': Pêche et aquaculture
+    '05': Extraction de houille et de lignite
+    '06': Extraction d'hydrocarbures
+    '07': Extraction de minerais métalliques
+    '08': Autres industries extractives
+    '09': Services de soutien aux industries extractives
     '10': Industries alimentaires
     '11': Fabrication de boissons
     '12': Fabrication de produits à base de tabac
@@ -23,7 +30,6 @@ fr:
     '17': Industrie du papier et du carton
     '18': Imprimerie et reproduction d'enregistrements
     '19': Cokéfaction et raffinage
-    '2': Sylviculture et exploitation forestière
     '20': Industrie chimique
     '21': Industrie pharmaceutique
     '22': Fabrication de produits en caoutchouc et en plastique
@@ -34,7 +40,6 @@ fr:
     '27': Fabrication d'équipements électriques
     '28': Fabrication de machines et équipements n.c.a.
     '29': Industrie automobile
-    '3': Pêche et aquaculture
     '30': Fabrication d'autres matériels de transport
     '31': Fabrication de meubles
     '32': Autres industries manufacturières
@@ -51,7 +56,6 @@ fr:
     '46': Commerce de gros, à l'exception des automobiles et des motocycles
     '47': Commerce de détail, à l'exception des automobiles et des motocycles
     '49': Transports terrestres et transport par conduites
-    '5': Extraction de houille et de lignite
     '50': Transports par eau
     '51': Transports aériens
     '52': Entreposage et services auxiliaires des transports
@@ -60,7 +64,6 @@ fr:
     '56': Restauration
     '58': Édition
     '59': Production de films cinématographiques, de vidéo et de programmes de télévision ; enregistrement sonore et édition musicale
-    '6': Extraction d'hydrocarbures
     '60': Programmation et diffusion
     '61': Télécommunications
     '62': Programmation, conseil et autres activités informatiques
@@ -70,7 +73,6 @@ fr:
     '66': Activités auxiliaires de services financiers et d'assurance
     '68': Activités immobilières
     '69': Activités juridiques et comptables
-    '7': Extraction de minerais métalliques
     '70': Activités des sièges sociaux ; conseil de gestion
     '71': Activités d'architecture et d'ingénierie ; activités de contrôle et analyses techniques
     '72': Recherche-développement scientifique
@@ -80,7 +82,6 @@ fr:
     '77': Activités de location et location-bail
     '78': Activités liées à l'emploi
     '79': Activités des agences de voyage, voyagistes, services de réservation et activités connexes
-    '8': Autres industries extractives
     '80': Enquêtes et sécurité
     '81': Services relatifs aux bâtiments et aménagement paysager
     '82': Activités administratives et autres activités de soutien aux entreprises
@@ -89,7 +90,6 @@ fr:
     '86': Activités pour la santé humaine
     '87': Hébergement médico-social et social
     '88': Action sociale sans hébergement
-    '9': Services de soutien aux industries extractives
     '90': Activités créatives, artistiques et de spectacle
     '91': Bibliothèques, archives, musées et autres activités culturelles
     '92': Organisation de jeux de hasard et d'argent

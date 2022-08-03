@@ -138,7 +138,7 @@ describe 'New Solicitation', type: :feature do
           expect(page).to have_content('Sélectionnez votre entreprise :')
           click_button "#{siren} - Octo Technology"
 
-          expect(page).to have_content('Sélectionnez votre établissement :')
+          expect(page).to have_content("Sélectionnez l'établissement concerné :")
           click_button "#{siret} - Octo Technology"
 
           expect(solicitation.reload.siret).to eq siret

@@ -11,8 +11,8 @@ describe 'solicitation_form', type: :feature, js: true do
     let!(:landing) { create :landing, slug: 'accueil', title: 'Test Landing' }
     let(:landing_theme) { create :landing_theme, title: "Test Landing Theme" }
     let!(:landing_subject) {
-    create :landing_subject, landing_theme: landing_theme, subject: pde_subject,
-                                  title: "Super sujet", description: "Description LS", requires_siret: true
+      create :landing_subject, landing_theme: landing_theme, subject: pde_subject,
+                                    title: "Super sujet", description: "Description LS", requires_siret: true
     }
     let!(:additional_question_1) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_poste_cadre' }
     let!(:additional_question_2) { create :additional_subject_question, subject: pde_subject, key: 'recrutement_en_apprentissage' }
@@ -40,11 +40,11 @@ describe 'solicitation_form', type: :feature, js: true do
       # Second step
       ## Search company
       is_expected.to be_accessible
-      fill_in 'Recherchez votre entreprise', with: query
-      click_button 'Rechercher'
-      ## Search Facility
-      is_expected.to be_accessible
-      click_button "#{query} - Octo Technology"
+      fill_in 'Recherchez votre entreprise (SIRET, SIREN, nom, ville...)', with: query
+      click_button 'Suivant'
+      # ## Search Facility
+      # is_expected.to be_accessible
+      # click_button "#{query} - Octo Technology"
 
       # Third step
       is_expected.to be_accessible

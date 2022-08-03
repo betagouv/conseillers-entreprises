@@ -877,8 +877,9 @@ fr:
         location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
         phone_number: 'ex: 06 12 34 56 78'
         siret: 123 456 789 00010
-      search_facility_placeholder: 'ex : Boucherie Sanzot, Moulinsart'
+      search_facility_placeholder: 'ex : "Boucherie Sanzot, Moulinsart"'
       siret: Votre numéro SIRET
+      siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
       steps:
         step_company: Votre entreprise
         step_contact: Vos coordonnées
@@ -898,7 +899,7 @@ fr:
     search_company:
       select_your_company: 'Sélectionnez votre entreprise :'
     search_facility:
-      select_your_facility: 'Sélectionnez votre établissement :'
+      select_your_facility: "%{company_name} possède plusieurs établissements. Sélectionnez l'établissement concerné :"
     set_category_content:
       landings: Page source
       subjects: Sujets de landings

@@ -72,7 +72,6 @@ class CompaniesController < ApplicationController
     result = SearchFacility.new({ query: @query }).from_full_text_or_siren
     if result[:error].blank?
       @etablissements = result[:items]
-      pp @etablissements.first
     else
       flash.now.alert = result[:error] || I18n.t('companies.search.generic_error')
     end

@@ -29,7 +29,7 @@ class SearchFacility
         next if entreprise_params.blank?
         ApiConsumption::Models::FacilityAutocomplete::ApiInsee.new({
           nombre_etablissements_ouverts: response[:nombre_etablissements_ouverts],
-          afficher_etablissement: true,
+          un_seul_etablissement: true,
           etablissement: entreprise_params.except('uniteLegale'),
           entreprise: entreprise_params['uniteLegale']
         })
@@ -59,7 +59,7 @@ class SearchFacility
         next if entreprise_params.blank?
         ApiConsumption::Models::FacilityAutocomplete::ApiInsee.new({
           nombre_etablissements_ouverts: response[:nombre_etablissements_ouverts],
-          afficher_etablissement: true,
+          un_seul_etablissement: true,
           etablissement: entreprise_params.except('uniteLegale'),
           entreprise: entreprise_params['uniteLegale']
         })

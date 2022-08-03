@@ -8,8 +8,8 @@ export default class extends Controller {
   initialize() {
     this.accessibleAutocomplete = accessibleAutocomplete({
       element: this.fieldTarget,
-      id: 'solicitation-siret',
-      name: this.fieldTarget.dataset.name,
+      id: this.fieldTarget.dataset.name,
+      name: 'solicitation[siret]',
       showNoOptionsFound: false,
       templates: {
         inputValue: this.inputValueTemplate,
@@ -23,7 +23,7 @@ export default class extends Controller {
           this.manageSourceError(results)
         } else {
           this.manageSourceSuccess(results)
-          populateResults(this.filterResults(results))
+          populateResults(this.filterResults(results.items))
         }
       }, 300),
       onConfirm: (option) => {
@@ -53,8 +53,9 @@ export default class extends Controller {
   // Récupération des résultats ----------------------------------------------------
 
   async fetchEtablissements(query) {
+    let baseUrl = this.fieldTarget.dataset.url
     let params = `query=${query}&non_diffusables=${this.displayNonDiffusableSiret()}`;
-    let response = await fetch(`/rech-etablissement.json?${params}`, {
+    let response = await fetch(`${baseUrl}.json?${params}`, {
       credentials: "same-origin",
     });
     // Au cas où autre chose que du json est renvoyé
@@ -83,14 +84,23 @@ export default class extends Controller {
 
   suggestionTemplate (result) {
     if (!result) return
-    return (
-      result &&
-      `<strong> ${result.siret} (${result.nom}) </strong>
-        <p><span class="small">${result.activite || ''} - ${result.lieu || ''}</span> </p>`
-    );
+    if (result.un_seul_etablissement == false) {
+      return (
+        result &&
+        `<strong> ${result.siren} (${result.nom}) </strong>
+          <p><span class="small">${result.activite || ''}</span> </p>`
+      );
+    } else {
+      return (
+        result &&
+        `<strong> ${result.siret} (${result.nom}) </strong>
+          <p><span class="small">${result.activite || ''} - ${result.lieu || ''}</span> </p>`
+      );
+    }
   }
 
   inputValueTemplate (result) {
-    return result && result.siret;
+    if (!result) return
+    return (result.un_seul_etablissement == true ? result.siret : result.siren)
   }
 }

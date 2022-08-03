@@ -78,12 +78,6 @@
 .autocomplete__option--odd
   background-color: #fafafa
 
-.autocomplete__option--focused, .autocomplete__option:hover
-  background-color: #1d70b8
-  border-color: #1d70b8
-  color: #fff
-  outline: 0
-
 .autocomplete__option--no-results
   background-color: #fafafa
   color: #646b6f
@@ -98,7 +92,12 @@
     font-size: 0.9rem
     color: #646b6f
 
-  &:hover .small
+.autocomplete__option--focused, .autocomplete__option:hover
+  background-color: #1d70b8
+  border-color: #1d70b8
+  color: #fff
+  outline: 0
+  .small
     color: #fff
 
 .autocomplete__hint, .autocomplete__option
