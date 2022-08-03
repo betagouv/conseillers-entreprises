@@ -3,7 +3,7 @@ import  SiretAutocompleteController from "../../shared/controllers/siret_autocom
 
 
 export default class extends SiretAutocompleteController {
-  static targets = [ "field", "codeRegionField", "siretField", "unSeulEtablissementField" ]
+  static targets = [ "field", "codeRegionField", "siretField", "unSeulEtablissementField", "loader" ]
 
   connect() {
     for (const el of document.getElementsByClassName( 'no-js-only' )) { el.style.display = "none" }

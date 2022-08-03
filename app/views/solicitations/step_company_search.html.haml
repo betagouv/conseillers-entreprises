@@ -25,9 +25,10 @@
     .with-js-only
       = form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
         .fr-mb-2w
-          = f.label :siret, t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
-          %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
           .siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
+            = f.label :siret, t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
+            .loader{ data: { 'pages-siret-autocomplete-target': 'loader' }}
+            %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
             %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("solicitations.creation_form.siret_assistive_hint"), name: 'solicitation_siret', 'default-value': (params[:query] || @solicitation.siret), url: search_company_solicitation_path(@solicitation.uuid) } }
             = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
             = hidden_field_tag :un_seul_etablissement, nil, data: { 'pages-siret-autocomplete-target': 'unSeulEtablissementField' }

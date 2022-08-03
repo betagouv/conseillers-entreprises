@@ -3,7 +3,7 @@ import { exists, debounce } from '../utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
 
 export default class extends Controller {
-  static targets = [ "field" ]
+  static targets = [ "field", "loader" ]
 
   initialize() {
     this.accessibleAutocomplete = accessibleAutocomplete({
@@ -53,6 +53,7 @@ export default class extends Controller {
   // Récupération des résultats ----------------------------------------------------
 
   async fetchEtablissements(query) {
+    this.loaderTarget.style.display = 'block'
     let baseUrl = this.fieldTarget.dataset.url
     let params = `query=${query}&non_diffusables=${this.displayNonDiffusableSiret()}`;
     let response = await fetch(`${baseUrl}.json?${params}`, {
@@ -61,8 +62,10 @@ export default class extends Controller {
     // Au cas où autre chose que du json est renvoyé
     try {
       let data = await response.json();
+      this.loaderTarget.style.display = 'none'
       return data;
     } catch(err) {
+      this.loaderTarget.style.display = 'none'
       // eslint-disable-next-line no-undef
       Sentry.captureException(err)
       this.manageSourceError({error: "error reading not json data"})
