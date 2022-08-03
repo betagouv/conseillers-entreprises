@@ -69,6 +69,7 @@ gem 'highline'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'split', require: 'split/dashboard'
+gem 'matrix'
 
 # Notifiers
 gem "sentry-ruby"

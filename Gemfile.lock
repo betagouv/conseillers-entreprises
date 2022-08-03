@@ -377,8 +377,6 @@ GEM
     nokogiri (1.13.8)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nokogiri (1.13.8-x86_64-darwin)
-      racc (~> 1.4)
     orm_adapter (0.5.0)
     parallel (1.22.1)
     parallel_tests (3.11.1)
@@ -697,6 +695,7 @@ DEPENDENCIES
   kaminari
   letter_opener_web
   listen
+  matrix
   metamagic
   parallel_tests
   pg
