@@ -89,15 +89,15 @@ class Solicitation < ApplicationRecord
     state :canceled
 
     event :go_to_step_company do
-      transitions from: [:step_contact], to: :step_company, if: :errors_empty?
+      transitions from: [:step_contact], to: :step_company, if: -> { contact_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
     end
 
     event :go_to_step_description do
-      transitions from: [:step_company], to: :step_description, if: :errors_empty?
+      transitions from: [:step_company], to: :step_description, if: -> { company_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
     end
 
     event :complete, after: :format_solicitation do
-      transitions from: [:step_description], to: :in_progress, if: :errors_empty?
+      transitions from: [:step_description], to: :in_progress, guard: -> { description.present? }
     end
 
     event :process do
@@ -112,11 +112,6 @@ class Solicitation < ApplicationRecord
 
   # State machine validations
   #
-  # On s'appuie sur les validations classiques (le bang n'est pas utilisé, alors on check les validations manuellement)
-  def errors_empty?
-    self.valid?
-  end
-
   def diagnosis_completed?
     self.diagnosis.step_completed?
   end

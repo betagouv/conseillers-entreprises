@@ -49,7 +49,7 @@ module ApiConsumption::Models
     end
 
     def name
-      company_name = denominationUniteLegale.presence
+      company_name = denominationUniteLegale.presence || [nomUniteLegale, prenomUsuelUniteLegale].compact.join(' ').presence
       company_name.present? ? company_name.titleize : nil
     end
 

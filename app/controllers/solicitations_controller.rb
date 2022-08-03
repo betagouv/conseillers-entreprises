@@ -59,8 +59,10 @@ class SolicitationsController < PagesController
   end
 
   def update_step_company
-    redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
-    redirect_to redirect_path and return if has_many_facilities
+    if has_many_facilities
+      redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge({ query: solicitation_params[:siret] })
+      redirect_to redirect_path and return
+    end
     update_solicitation_from_step(:step_company, step_description_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
