@@ -3,7 +3,7 @@ import  SiretAutocompleteController from "../../shared/controllers/siret_autocom
 
 
 export default class extends SiretAutocompleteController {
-  static targets = [ "field", "codeRegionField", "siretField", "unSeulEtablissementField", "loader" ]
+  static targets = [ "field", "loader", "codeRegionField", "siretField", "unSeulEtablissementField", "noResultLink" ]
 
   connect() {
     if (exists(this.fieldTarget.dataset.defaultValue)) {
@@ -13,18 +13,20 @@ export default class extends SiretAutocompleteController {
     }
   }
 
-  manageSourceError(results) {
-    console.warn(results.error)
-  }
-
-  manageSourceSuccess() {
-    console.log("success")
-  }
-
   onConfirm(option) {
     if (option) {
       this.fillCodeRegionField(option.code_region);
       this.fillSiretField(option.siret);
+    }
+  }
+
+  manageSourceSuccess(items) {
+    this.loaderTarget.style.display = 'none'
+    if (items.length == 0) {
+      this.noResultLinkTarget.style.display = 'block'
+      this.statusMessage = "Aucune entreprise trouvée"
+    } else {
+      this.statusMessage = null
     }
   }
 

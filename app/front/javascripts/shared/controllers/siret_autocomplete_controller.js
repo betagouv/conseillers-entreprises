@@ -5,24 +5,39 @@ import accessibleAutocomplete from 'accessible-autocomplete';
 export default class extends Controller {
   static targets = [ "field", "loader" ]
 
+  connect() {
+    if (exists(this.fieldTarget.dataset.defaultValue)) {
+      document.querySelector('#query').value = this.fieldTarget.dataset.defaultValue
+    }
+  }
+
+
   initialize() {
+    this.statusMessage = null;
     this.accessibleAutocomplete = accessibleAutocomplete({
       element: this.fieldTarget,
       id: this.fieldTarget.dataset.name,
       name: 'query',
-      showNoOptionsFound: false,
+      showNoOptionsFound: true,
       templates: {
         inputValue: this.inputValueTemplate,
         suggestion: this.suggestionTemplate
       },
+      tNoResults: () => this.statusMessage,
       tAssistiveHint: () => this.fieldTarget.dataset.assistiveHint,
+      tStatusNoResults: () => this.statusMessage,
+      tStatusSelectedOption: (selectedOption, length, index) => `${selectedOption} ${index + 1} sur ${length} est sélectionné`,
+      tStatusResults: (length, contentSelectedOption) => {
+        const baseSentence = (length === 1) ? "1 résultat trouvé" : `${length} résultats trouvés`
+        return `${baseSentence}. ${contentSelectedOption}`
+      },
       source: debounce(async (query, populateResults) => {
-        const results = await this.fetchEtablissements(query);
+         const results = await this.fetchEtablissements(query);
         if(!results) return;
         if (results.error) {
           this.manageSourceError(results)
         } else {
-          this.manageSourceSuccess(results)
+          this.manageSourceSuccess(results.items)
           populateResults(this.filterResults(results.items))
         }
       }, 300),
@@ -32,18 +47,15 @@ export default class extends Controller {
     })
   }
 
-  connect() {
-    if (exists(this.fieldTarget.dataset.defaultValue)) {
-      document.querySelector('#query').value = this.fieldTarget.dataset.defaultValue
-    }
-  }
-
   manageSourceError(results) {
+    this.loaderTarget.style.display = 'none'
+    this.statusMessage = results.error
     console.warn(results.error)
   }
 
-  manageSourceSuccess() {
-    // here, do nothing. Check children
+  manageSourceSuccess(items) {
+    this.loaderTarget.style.display = 'none'
+    this.statusMessage = (items.length == 0) ? "Aucune entreprise trouvée" : null
   }
 
   onConfirm() {
@@ -55,17 +67,15 @@ export default class extends Controller {
   async fetchEtablissements(query) {
     this.loaderTarget.style.display = 'block'
     let baseUrl = this.fieldTarget.dataset.url
-    let params = `query=${query}&non_diffusables=${this.displayNonDiffusableSiret()}`;
+    let params = `query=${query}`;
     let response = await fetch(`${baseUrl}.json?${params}`, {
       credentials: "same-origin",
     });
     // Au cas où autre chose que du json est renvoyé
     try {
       let data = await response.json();
-      this.loaderTarget.style.display = 'none'
-      return data;
+       return data;
     } catch(err) {
-      this.loaderTarget.style.display = 'none'
       // eslint-disable-next-line no-undef
       Sentry.captureException(err)
       this.manageSourceError({error: "error reading not json data"})
