@@ -864,7 +864,7 @@ fr:
         send: Envoyer ma demande
       description: Description de votre demande
       empty_result_help_html: La recherche de votre entreprise n’a pas été concluante ? Renseignez manuellement votre numéro de SIRET ici ou effectuez une <a href=%{path}> nouvelle recherche</a>.
-      find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom, ville...)
+      find_my_facility: Recherchez votre entreprise (SIRET, SIREN, nom...)
       five_days_contact_html: "<b>Déposez votre demande, un conseiller vous rappelle dans les 5 jours.</b>"
       give_my_opinion_alt: Je donne mon avis
       give_my_opinion_title: Je donne mon avis sur cette démarche
@@ -876,7 +876,7 @@ fr:
         location: Hauts-de-France ; région de Milly-la-forêt ; 91260…
         phone_number: 'ex: 06 12 34 56 78'
         siret: 123 456 789 00010
-      search_facility_placeholder: 'ex : "Boucherie Sanzot, Moulinsart"'
+      search_facility_placeholder: 'ex : "Boucherie Sanzot" ou "130 025 265 00013"'
       siret: Votre numéro SIRET
       siret_assistive_hint: Lorsque les résultats de l’auto-complétion sont disponibles, utilisez les flèches haut et bas pour les examiner et Entrée pour sélectionner une option. Les utilisateurs d’appareils tactiles peuvent sélectionner une option par en glissant et tapotant l'écran.
       steps:

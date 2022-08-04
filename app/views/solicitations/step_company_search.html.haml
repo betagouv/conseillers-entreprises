@@ -8,7 +8,6 @@
 
     - if @error_message.present?
       .fr-alert.fr-alert--error.fr-mb-2w
-        %p.fr-alert__title
         %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
     = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get) do |f|
@@ -16,7 +15,7 @@
         .siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
           = label_tag "query", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
           %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
-          .loader{ data: { 'pages-siret-autocomplete-target': 'loader' } }
+          .loader.hidden{ data: { 'pages-siret-autocomplete-target': 'loader' } }
 
           %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("solicitations.creation_form.siret_assistive_hint"), name: 'query', 'default-value': (params[:query] || @solicitation.siret), url: search_company_solicitation_path(@solicitation.uuid) } }
           = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
@@ -24,7 +23,6 @@
 
           .fr-my-3w.text-center.hidden{ data: { 'pages-siret-autocomplete-target': 'noResultLink' } }
             = link_to t('solicitations.creation_form.buttons.manual_step_company'), step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'), class: 'fr-link'
-
 
       .submit-buttons
         = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')

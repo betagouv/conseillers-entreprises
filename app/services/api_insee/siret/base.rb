@@ -2,7 +2,7 @@
 
 module ApiInsee::Siret
   class Base < ApiInsee::Base
-    def request()
+    def request
       ApiInsee::Siret::Request.new(@siren_or_siret, @options)
     end
 

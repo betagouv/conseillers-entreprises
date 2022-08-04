@@ -37,11 +37,12 @@
   .siret-autocomplete
     position: relative
     .loader
-      display: none
       position: absolute
       z-index: 3
       right: 10px
       top: 6px
+      @media (max-width: $bp-md)
+        top: 40px
 
 .je-donne-mon-avis
   a

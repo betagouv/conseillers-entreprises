@@ -11,7 +11,6 @@ export default class extends Controller {
     }
   }
 
-
   initialize() {
     this.statusMessage = null;
     this.accessibleAutocomplete = accessibleAutocomplete({
@@ -50,7 +49,6 @@ export default class extends Controller {
   manageSourceError(results) {
     this.loaderTarget.style.display = 'none'
     this.statusMessage = results.error
-    console.warn(results.error)
   }
 
   manageSourceSuccess(items) {
