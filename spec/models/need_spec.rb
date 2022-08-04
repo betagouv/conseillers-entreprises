@@ -291,7 +291,12 @@ RSpec.describe Need, type: :model do
       let(:other_email) { 'tintin@moulinsart.fr' }
       let(:facility) { create :facility, siret: siret }
       let(:solicitation) { create :solicitation, email: email }
-      let(:other_solicitation) { create :solicitation, email: other_email }
+      let(:solicitation2) { create :solicitation, email: email }
+      let(:solicitation3) { create :solicitation, email: email }
+      let(:solicitation4) { create :solicitation, email: email }
+      let(:solicitation5) { create :solicitation, email: email }
+      let(:other_email_solicitation) { create :solicitation, email: other_email }
+      let(:other_email_solicitation2) { create :solicitation, email: other_email }
 
       context 'with email and siret not nil' do
         let(:siret) { '42322944200011' }
@@ -300,19 +305,19 @@ RSpec.describe Need, type: :model do
         let(:diagnosis_1) { create :diagnosis, solicitation: solicitation }
         let!(:need_1) { create :need_with_matches, diagnosis: diagnosis_1 }
         # Besoin avec le même email et le même siret OK
-        let(:diagnosis_2) { create :diagnosis, solicitation: solicitation, facility: facility }
+        let(:diagnosis_2) { create :diagnosis, solicitation: solicitation2, facility: facility }
         let!(:need_2) { create :need_with_matches, diagnosis: diagnosis_2 }
         # Besoin avec un autre email KO
-        let(:diagnosis_3) { create :diagnosis, solicitation: other_solicitation }
+        let(:diagnosis_3) { create :diagnosis, solicitation: other_email_solicitation }
         let!(:need_3) { create :need_with_matches, diagnosis: diagnosis_3 }
         # Besoin avec un autre email et siret KO
-        let(:diagnosis_4) { create :diagnosis, solicitation: other_solicitation, facility: other_facility }
+        let(:diagnosis_4) { create :diagnosis, solicitation: other_email_solicitation2, facility: other_facility }
         let!(:need_4) { create :need_with_matches, diagnosis: diagnosis_4 }
         # Besoin avec le même email mais sans MER KO
-        let(:diagnosis_5) { create :diagnosis, solicitation: solicitation }
+        let(:diagnosis_5) { create :diagnosis, solicitation: solicitation3 }
         let!(:need_5) { create :need, diagnosis: diagnosis_5 }
         # Besoin avec le même siret mais sans MER KO
-        let(:diagnosis_6) { create :diagnosis, solicitation: solicitation, facility: facility }
+        let(:diagnosis_6) { create :diagnosis, solicitation: solicitation5, facility: facility }
         let!(:need_6) { create :need, diagnosis: diagnosis_6 }
 
         subject { described_class.for_emails_and_sirets([email], [siret]) }
@@ -326,7 +331,7 @@ RSpec.describe Need, type: :model do
         let(:siret) { nil }
         let(:diagnosis) { create :diagnosis, solicitation: solicitation }
         let!(:need) { create :need_with_matches, diagnosis: diagnosis }
-        let(:diagnosis_siret_nil) { create :diagnosis, solicitation: other_solicitation, facility: facility }
+        let(:diagnosis_siret_nil) { create :diagnosis, solicitation: other_email_solicitation, facility: facility }
         let!(:need_siret_nil) { create :need_with_matches, diagnosis: diagnosis_siret_nil }
 
         subject { described_class.for_emails_and_sirets([email], [siret]) }

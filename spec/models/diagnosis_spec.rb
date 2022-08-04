@@ -119,6 +119,15 @@ RSpec.describe Diagnosis, type: :model do
         it { is_expected.to be_valid }
       end
     end
+
+    describe 'only one diagnosis by solicitation' do
+      let(:solicitation) { create :solicitation }
+      let!(:another_diagnosis) { create :diagnosis, solicitation: solicitation }
+
+      subject(:diagnosis) { build :diagnosis, solicitation: solicitation }
+
+      it { is_expected.not_to be_valid }
+    end
   end
 
   describe 'scopes' do
