@@ -17,7 +17,7 @@
 
           - if field == :siret
             = label_tag "solicitation_siret", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
-            = f.text_field field, required: true, placeholder: '12345678900013', minlength: '14', maxlength: '14', class: 'fr-input white-bg'
+            = f.text_field field, required: true, placeholder: '12345678900013', minlength: '14', maxlength: '17', class: 'fr-input white-bg'
             %span= t('attributes.help.no_creation_html')
           - else
             = f.label field, class: 'fr-label'
