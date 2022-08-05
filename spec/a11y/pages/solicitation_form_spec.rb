@@ -40,7 +40,7 @@ describe 'solicitation_form', type: :feature, js: true do
       # Second step
       ## Search company
       is_expected.to be_accessible
-      fill_in 'Recherchez votre entreprise (SIRET, SIREN, nom, ville...)', with: query
+      fill_in 'Recherchez votre entreprise (SIRET, SIREN, nom...)', with: query
       click_button 'Suivant'
       # ## Search Facility
       is_expected.to be_accessible
