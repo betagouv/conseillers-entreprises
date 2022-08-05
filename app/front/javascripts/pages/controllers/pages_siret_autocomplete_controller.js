@@ -1,17 +1,8 @@
-import { exists } from '../../shared/utils.js'
 import  SiretAutocompleteController from "../../shared/controllers/siret_autocomplete_controller.js"
 
 
 export default class extends SiretAutocompleteController {
-  static targets = [ "field", "loader", "codeRegionField", "siretField", "unSeulEtablissementField", "noResultLink" ]
-
-  connect() {
-    if (exists(this.fieldTarget.dataset.defaultValue)) {
-      const siret = this.fieldTarget.dataset.defaultValue;
-      document.querySelector('#query').value = siret;
-      this.fillSiretField(siret);
-    }
-  }
+  static targets = [ "field", "loader", "siretField", "codeRegionField", "noResultLink" ]
 
   onConfirm(option) {
     if (option) {

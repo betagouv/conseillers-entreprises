@@ -2,14 +2,24 @@
 
 class CompaniesController < ApplicationController
   def search
-    @query = search_query
     @current_solicitation = get_current_solicitation
-    if @query.present?
-      siret = FormatSiret.siret_from_query(@query)
-      if siret.present?
-        redirect_to show_with_siret_companies_path(siret, solicitation: @current_solicitation&.id)
-      else
-        search_results
+    # si l'utilisateur a utilisé l'autocompletion
+    if siret_is_set?
+      redirect_to show_with_siret_companies_path(params[:siret], solicitation: @current_solicitation&.id)
+    else
+      # save_search(search_params[:query])
+      result = SearchFacility.new(search_params).from_full_text_or_siren
+      respond_to do |format|
+        format.html do
+          if result[:error].blank?
+            @etablissements = result[:items]
+          else
+            flash.now.alert = result[:error] || I18n.t('companies.search.generic_error')
+          end
+        end
+        format.json do
+          render json: result.as_json
+        end
       end
     end
   end
@@ -68,19 +78,12 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def search_results
-    result = SearchFacility.new({ query: @query }).from_full_text_or_siren
-    if result[:error].blank?
-      @etablissements = result[:items]
-    else
-      flash.now.alert = result[:error] || I18n.t('companies.search.generic_error')
-    end
-    save_search(@query)
+  def search_params
+    params.permit(:query)
   end
 
-  def search_query
-    query = params['query']
-    query.present? ? query.strip : nil
+  def siret_is_set?
+    params[:siret].present? && params[:siret].length == 14
   end
 
   def save_search(query, label = nil)

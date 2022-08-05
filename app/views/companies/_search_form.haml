@@ -1,12 +1,16 @@
-%h2.ui.header= t('companies.search.search_company')
-%p= t('.subtitle')
+%h2= t('companies.search.search_company')
 
-.ui.form
-  = form_with url: search_companies_path, method: :get, skip_enforcing_utf8: true, local: true do
-    .field
-      - if local_assigns[:solicitation].present?
-        = hidden_field_tag :solicitation, solicitation.id
-      - siret = local_assigns[:solicitation]&.siret
-      %div{ 'data-controller': "siret-autocomplete" }
-        %div{ data: { 'siret-autocomplete-target': "field", 'assistive-hint': t(".siret_assistive_hint"), name: 'query', 'default-value': (query || siret), url: "todo" } }
-      %button.fr-btn.btn-green.fr-mt-2w{ type: 'submit' }= t('search')
+= form_with url: search_companies_path, method: :get, skip_enforcing_utf8: true, local: true do
+  .fr-mb-2w
+    - if local_assigns[:solicitation].present?
+      = hidden_field_tag :solicitation, solicitation.id
+    - siret = local_assigns[:solicitation]&.siret
+
+    .siret-autocomplete{ 'data-controller': "siret-autocomplete" }
+      = label_tag "query", t('.subtitle'), class: 'fr-label'
+      .loader.hidden{ data: { 'siret-autocomplete-target': 'loader' } }
+
+      %div{ data: { 'siret-autocomplete-target': "field", 'assistive-hint': t(".siret_assistive_hint"), name: 'query', 'default-value': (query || siret), url: search_companies_path } }
+      = hidden_field_tag :siret, siret, data: { 'siret-autocomplete-target': 'siretField' }
+
+    %button.fr-btn.btn-green.fr-mt-2w{ type: 'submit' }= t('search')

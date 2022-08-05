@@ -13,6 +13,8 @@
 
 .autocomplete__input
   position: relative
+  @extend .fr-input-custom
+  margin-top: 0.5rem
 
 .autocomplete__hint
   color: #b1b4b6
@@ -113,3 +115,13 @@
   img
     height: 2rem
     margin-right: 1rem
+
+.siret-autocomplete
+  position: relative
+  .loader
+    position: absolute
+    z-index: 3
+    right: 10px
+    top: 6px
+    @media (max-width: $bp-md)
+      top: 40px

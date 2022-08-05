@@ -3,11 +3,13 @@ import { exists, debounce } from '../utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
 
 export default class extends Controller {
-  static targets = [ "field", "loader" ]
+  static targets = [ "field", "loader", "siretField" ]
 
   connect() {
     if (exists(this.fieldTarget.dataset.defaultValue)) {
-      document.querySelector('#query').value = this.fieldTarget.dataset.defaultValue
+      const siret = this.fieldTarget.dataset.defaultValue;
+      document.querySelector('#query').value = siret;
+      this.fillSiretField(siret);
     }
   }
 
@@ -56,8 +58,10 @@ export default class extends Controller {
     this.statusMessage = (items.length == 0) ? "Aucune entreprise trouvée" : null
   }
 
-  onConfirm() {
-    // here, do nothing. Check children
+  onConfirm(option) {
+    if (option) {
+      this.fillSiretField(option);
+    }
   }
 
   // Récupération des résultats ----------------------------------------------------
@@ -87,11 +91,14 @@ export default class extends Controller {
     });
   }
 
-  displayNonDiffusableSiret() {
-    return true;
-  }
-
   // Traitement des résultats --------------------------------------------
+
+  fillSiretField(result) {
+    if (result) {
+      let value = result.un_seul_etablissement == true ? result.siret : result.siren
+      this.siretFieldTarget.value = parseInt(value)
+    }
+  }
 
   suggestionTemplate (result) {
     if (!result) return
@@ -111,7 +118,12 @@ export default class extends Controller {
   }
 
   inputValueTemplate (result) {
-    if (!result) return
+    if (!result) return null
+    return (result.un_seul_etablissement == true ? result.siret : result.siren)
+  }
+
+  companyIdentifier(result) {
+    if (!result) return null
     return (result.un_seul_etablissement == true ? result.siret : result.siren)
   }
 }
