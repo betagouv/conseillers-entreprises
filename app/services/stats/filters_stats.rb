@@ -4,11 +4,15 @@ module Stats
       query.merge! territory.needs if territory.present?
       query.merge! institution.received_needs if institution.present?
       query.merge! Need.joins(solicitation: :landing).where(solicitations: { landings: iframe }) if iframe.present?
-      if pk_campaign.present?
-        query.merge! Need.joins(:solicitation).where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{pk_campaign}%")
+      if mtm_campaign.present?
+        query.merge! Need.joins(:solicitation)
+          .where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{mtm_campaign}%")
+          .or(Need.joins(:solicitation).where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{mtm_campaign}%"))
       end
-      if pk_kwd.present?
-        query.merge! Need.joins(:solicitation).where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{pk_kwd}%")
+      if mtm_kwd.present?
+        query.merge! Need.joins(:solicitation)
+          .where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{mtm_kwd}%")
+          .or(Need.joins(:solicitation).where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{mtm_kwd}%"))
       end
       query
     end
@@ -17,11 +21,13 @@ module Stats
       query.merge! Solicitation.in_regions(territory.code_region) if territory.present?
       query.merge! institution.received_solicitations if institution.present?
       query.merge! Solicitation.joins(:landing).where(landings: iframe) if iframe.present?
-      if pk_campaign.present?
-        query.merge! Solicitation.where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{pk_campaign}%")
+      if mtm_campaign.present?
+        query.merge! Solicitation.where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{mtm_campaign}%")
+          .or(Solicitation.where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{mtm_campaign}%"))
       end
-      if pk_kwd.present?
-        query.merge! Solicitation.where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{pk_kwd}%")
+      if mtm_kwd.present?
+        query.merge! Solicitation.where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{mtm_kwd}%")
+          .or(Solicitation.where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{mtm_kwd}%"))
       end
       query
     end
@@ -32,11 +38,15 @@ module Stats
       if iframe.present?
         query.merge! Company.joins(facilities: { diagnoses: :solicitation }).where(solicitations: { landings: iframe })
       end
-      if pk_campaign.present?
-        query.merge! Company.joins(facilities: { diagnoses: :solicitation }).where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{pk_campaign}%")
+      if mtm_campaign.present?
+        query.merge! Company.joins(facilities: { diagnoses: :solicitation })
+          .where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{mtm_campaign}%")
+          .or(Company.joins(facilities: { diagnoses: :solicitation })
+                                       .where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{mtm_campaign}%"))
       end
-      if pk_kwd.present?
+      if mtm_kwd.present?
         query.merge! Company.joins(facilities: { diagnoses: :solicitation }).where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{pk_kwd}%")
+        query.merge! Company.joins(facilities: { diagnoses: :solicitation }).where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{mtm_kwd}%")
       end
       query
     end

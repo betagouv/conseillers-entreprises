@@ -28,10 +28,10 @@
 
 %p= t('.tank_you')
 
-- link_to_root = link_to t('app_name'), root_url(pk_campaign: 'retention', pk_kwd: 'sequence-mail-pde')
+- link_to_root = link_to t('app_name'), root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
 
 %p.margin-top-2= t('.linkedin_news')
 
 .button
-  = link_to t('.follow_us'), 'https://www.linkedin.com/company/place-des-entreprises/?pk_campaign=Page%20LinkedIn%20-%20PE'
+  = link_to t('.follow_us'), 'https://www.linkedin.com/company/place-des-entreprises/?mtm_campaign=Page%20LinkedIn%20-%20PE'

@@ -18,6 +18,13 @@ RSpec.describe "Landings", type: :request do
           end
         end
 
+        context "with mtm params" do
+          it 'redirects with pk params' do
+            get "/aide-entreprises/recrutement-formation/?mtm_campaign=FOO&mtm_kwd=BAR"
+            expect(response).to redirect_to("/aide-entreprise/accueil/theme/recrutement-formation?mtm_campaign=FOO&mtm_kwd=BAR")
+          end
+        end
+
         context "with subject page" do
           let!(:landing_subject) { create :landing_subject, landing_theme: landing_theme, slug: "bilan-rse" }
 
@@ -61,6 +68,15 @@ RSpec.describe "Landings", type: :request do
           it 'redirects correctly' do
             get "/e?institution=conseil_regional_hauts_de_france&pk_campaign=FOO&pk_kwd=BAR"
             expect(response).to redirect_to("/aide-entreprise/entreprises-haut-de-france?institution=conseil_regional_hauts_de_france&pk_campaign=FOO&pk_kwd=BAR")
+          end
+        end
+
+        context "with mtm" do
+          let!(:landing) { create :landing, slug: 'entreprises-haut-de-france' }
+
+          it 'redirects correctly' do
+            get "/e?institution=conseil_regional_hauts_de_france&mtm_campaign=FOO&mtm_kwd=BAR"
+            expect(response).to redirect_to("/aide-entreprise/entreprises-haut-de-france?institution=conseil_regional_hauts_de_france&mtm_campaign=FOO&mtm_kwd=BAR")
           end
         end
       end

@@ -15,12 +15,12 @@
 = form_with url: inserts_partner_tools_path, local: true, method: :get, class: 'ui form' do |f|
 
   .field
-    = f.label :pk_campaign
-    = f.text_field :pk_campaign, value: @insert[:pk_campaign]
+    = f.label :mtm_campaign
+    = f.text_field :mtm_campaign, value: @insert[:mtm_campaign]
 
   .field
-    = f.label :pk_kwd
-    = f.text_field :pk_kwd, value: @insert[:pk_kwd]
+    = f.label :mtm_kwd
+    = f.text_field :mtm_kwd, value: @insert[:mtm_kwd]
 
   .field
     = f.label :width, t('.width')

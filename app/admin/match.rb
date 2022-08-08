@@ -76,7 +76,7 @@ ActiveAdmin.register Match do
   filter :updated_at
 
   filter :solicitation_created_at, as: :date_range
-  filter :solicitation_pk_campaign, as: :string
+  filter :solicitation_mtm_campaign, as: :string
 
   filter :advisor, as: :ajax_select, data: { url: :admin_users_path, search_fields: [:full_name] }
 

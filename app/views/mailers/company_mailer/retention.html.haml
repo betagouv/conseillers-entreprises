@@ -1,4 +1,4 @@
-- link_to_root = link_to t('app_name'), root_url(pk_campaign: 'retention', pk_kwd: 'mail-retention')
+- link_to_root = link_to t('app_name'), root_url(mtm_campaign: 'retention', mtm_kwd: 'mail-retention')
 
 = render 'mailers/header'
 
@@ -22,4 +22,4 @@
 %p= t('mailers.place_des_entreprises_team_html', link_to_root: link_to_root)
 
 .button
-  = link_to t('.send_solicitation'), root_url(pk_campaign: 'retention', pk_kwd: 'mail-retention')
+  = link_to t('.send_solicitation'), root_url(mtm_campaign: 'retention', mtm_kwd: 'mail-retention')

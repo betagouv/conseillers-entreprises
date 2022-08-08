@@ -14,11 +14,11 @@
         = f.collection_select :iframe, Landing.not_archived.iframes.order(:title), :id, :title, { selected: params[:iframe],
         include_blank: t('all.feminine') }, class: "fr-select"
       .fr-input-group
-        = f.label :pk_campaign, t('stats.stats_params.campaign'), class: 'fr-label'
-        = f.text_field :pk_campaign, value: stats.params.pk_campaign, class: 'fr-input'
+        = f.label :mtm_campaign, t('stats.stats_params.campaign'), class: 'fr-label'
+        = f.text_field :mtm_campaign, value: stats.params.mtm_campaign, class: 'fr-input'
       .fr-input-group
-        = f.label :pk_kwd, t('stats.stats_params.keywords'), class: 'fr-label'
-        = f.text_field :pk_kwd, value: stats.params.pk_kwd, class: 'fr-input'
+        = f.label :mtm_kwd, t('stats.stats_params.keywords'), class: 'fr-label'
+        = f.text_field :mtm_kwd, value: stats.params.mtm_kwd, class: 'fr-input'
       .fr-input-group
         = f.label :start_date, t('stats.stats_params.start_date'), class: 'fr-label'
         .fr-input-wrap

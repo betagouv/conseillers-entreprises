@@ -20,11 +20,11 @@ ActiveAdmin.register CompanySatisfaction do
       admin_link_to(s.landing) || '-'
     end
     column "#{t('activerecord.attributes.solicitation.tracking')}" do |s|
-      if s.solicitation&.pk_campaign&.present?
-        div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s.solicitation)}".html_safe
+      if s.solicitation&.campaign&.present?
+        div "#{t('activerecord.attributes.solicitation.mtm_campaign')} : #{link_to_tracked_campaign(s.solicitation)}".html_safe
       end
-      if s.solicitation&.pk_kwd&.present?
-        div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s.solicitation)} »".html_safe
+      if s.solicitation&.provenance_detail&.present?
+        div "#{t('activerecord.attributes.solicitation.mtm_kwd')} : « #{link_to_tracked_ad(s.solicitation)} »".html_safe
       end
     end
 
@@ -48,7 +48,11 @@ ActiveAdmin.register CompanySatisfaction do
     column :comment
     column(:landing) { |s| s.landing&.slug }
     column(:subject) { |s| s.subject&.slug }
-    column(t('activerecord.attributes.solicitation.pk_campaign')) { |s| s.solicitation&.pk_campaign }
-    column(t('activerecord.attributes.solicitation.pk_kwd')) { |s| s.solicitation&.pk_kwd }
+    column(t('activerecord.attributes.solicitation.mtm_campaign')) do |s|
+      s.solicitation&.campaign.presence
+    end
+    column(t('activerecord.attributes.solicitation.mtm_kwd')) do |s|
+      s.solicitation&.provenance_detail
+    end
   end
 end

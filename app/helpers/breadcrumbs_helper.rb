@@ -34,7 +34,7 @@ module BreadcrumbsHelper
     elsif landing.iframe?
       ''
     else
-      params = params.permit(:landing_slug, :pk_campaign, :pk_kwd) if params.present?
+      params = params.permit(:landing_slug, :pk_campaign, :pk_kwd, :mtm_campaign, :mtm_kwd) if params.present?
       link_to(t('breadcrumbs_helper.home_link.home'), root_path(params), class: 'fr-breadcrumb__link blue')
     end
   end

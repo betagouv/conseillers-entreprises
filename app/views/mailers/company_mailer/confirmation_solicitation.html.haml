@@ -2,7 +2,7 @@
 
 %p= t('mailers.hello')
 
-- link_to_root = link_to t('app_name'), root_url(pk_campaign: 'retention', pk_kwd: 'sequence-mail-pde')
+- link_to_root = link_to t('app_name'), root_url(mtm_campaign: 'retention', mtm_kwd: 'sequence-mail-pde')
 
 - if @solicitation.landing.iframe?
   %p= t('.content_for_iframe_html', website: @solicitation.landing.partner_url)
