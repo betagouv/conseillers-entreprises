@@ -131,9 +131,13 @@ fr:
       roles: Rôles
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
+      created: "Utilisateur créé avec succès"
     users:
       deep_soft_deleted: Utilisateurs et experts solo supprimés avec succès
       delete_confirmation: Voulez-vous supprimer ces utilisateurs ? Cela va aussi supprimer leur expert personnel.
+    actions: "Actions"
+    duplicate_user:
+      new_user_details: "Coordonnées du nouvel utilisateur"
   activerecord:
     attributes:
       additional_subject_questions:

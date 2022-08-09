@@ -68,6 +68,7 @@ fr:
         regional_experts_on_subject:
           one: "%{count} expert régional sur ce sujet"
           other: "%{count} experts régionaux sur ce sujet"
+        duplicate_user: "Dupliquer cet utilisateur"
   annuaire_helper:
     build_user_name_cell:
       antenne_manager: Responsables d’antenne.

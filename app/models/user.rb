@@ -315,4 +315,17 @@ class User < ApplicationRecord
   def is_admin?
     user_rights_admin.any?
   end
+
+  def duplicate(params)
+    params[:job] = params[:job].presence || self.job
+    new_user = User.create(params.merge(antenne: antenne))
+    new_user.relevant_experts = self.relevant_experts
+    # return si user pas save
+    self.user_rights.each do |right|
+      new_right = right.dup
+      new_right.user_id = new_user.id
+      new_right.save
+    end
+    new_user
+  end
 end
