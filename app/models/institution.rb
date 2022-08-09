@@ -37,6 +37,8 @@ class Institution < ApplicationRecord
   has_many :facilities, inverse_of: :opco
   has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
 
+  has_one :api_key
+
   ## Hooks and Validations
   #
   auto_strip_attributes :name
