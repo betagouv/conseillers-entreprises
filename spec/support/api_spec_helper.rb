@@ -6,6 +6,6 @@ module ApiSpecHelper
     else
       organization.create_api_key(token: token)
     end
-    @authentication_headers ||= { 'Authorization'=>"Bearer token=#{token}" }
+    @authentication_headers ||= { 'Authorization' => "Bearer token=#{token}" }
   end
 end

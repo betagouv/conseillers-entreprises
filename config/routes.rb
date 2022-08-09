@@ -15,15 +15,15 @@ Rails.application.routes.draw do
     request.env['warden'].user.is_admin?
   end
 
-    # API ==================================================
+  # API ==================================================
 
-    namespace :api do
-      namespace :v1 do
-        resources :landings, controller: "landings/landings", only: [:index, :show] do
-          resources :landing_themes, controller: "landings/landing_themes", only: %i[show]
-        end
+  namespace :api do
+    namespace :v1 do
+      resources :landings, controller: "landings/landings", only: [:index, :show] do
+        resources :landing_themes, controller: "landings/landing_themes", only: %i[show]
       end
     end
+  end
 
   # Partie conseiller ================================================
 

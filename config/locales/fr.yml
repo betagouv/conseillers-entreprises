@@ -245,6 +245,9 @@ fr:
       '500':
         message_html: Cette erreur était inattendue…<br/>Nous avons été prévenus de son apparition et nous allons la réparer dès que possible !
         title: Erreur !
+      api:
+        '404':
+          message: Cet objet n'a pu être trouvé
     territory_choice:
       region: Région
   sign_in: Connexion

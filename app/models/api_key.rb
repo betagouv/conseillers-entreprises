@@ -46,9 +46,8 @@ class ApiKey < ApplicationRecord
   private
 
   def generate_token_hmac_digest
-    raise ActiveRecord::RecordInvalid, 'token is required' unless token.present?
+    raise ActiveRecord::RecordInvalid, 'token is required' if token.blank?
     digest = OpenSSL::HMAC.hexdigest 'SHA256', HMAC_SECRET_KEY, token
     self.token_digest = digest
   end
-
 end
