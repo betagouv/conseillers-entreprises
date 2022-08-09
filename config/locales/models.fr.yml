@@ -421,8 +421,8 @@ fr:
         password: Mot de passe
         password_confirmation: Confirmation du mot de passe
         remember_me: Se souvenir de moi
-        reset_password_sent_at: Date de régénération du mot de passe
-        reset_password_token: Token de régénération du mot de passe
+        reset_password_sent_at: Date de renouvellement du mot de passe
+        reset_password_token: Le lien de renouvellement du mot de passe
         roles: Rôles
         sign_in_count: Connexions
         team_email: E-mail de l’équipe
