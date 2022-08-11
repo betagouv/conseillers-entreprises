@@ -2,9 +2,13 @@
 - @solicitation.badges.each do |badge|
   - html += "#{badge_label(badge)}"
 
-document.getElementById('solicitation-#{@solicitation.id}-badges').innerHTML = '#{html.html_safe}';
-
 var $div = $('#solicitation-#{@solicitation.id}-badges')
 var $form = $('#solicitation-#{@solicitation.id}-form-badges')
+
+if ($div.length) {
+$div.html('#{html.html_safe}')
 $div.removeClass('hide')
+}
+if ($form.length) {
 $form.addClass('hide')
+}
