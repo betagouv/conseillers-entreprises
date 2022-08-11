@@ -26,7 +26,7 @@
       if ((typeof event.data !== "undefined") && (event.data !== null) &&
       (typeof event.data.timing !== "undefined") && (event.data.timing !== null) ) {
         var loadTimeMs = event.data.timing.visitEnd - event.data.timing.visitStart;
-        _paq.push(['setGenerationTimeMs', loadTimeMs]);
+        _paq.push(['setPagePerformanceTiming', loadTimeMs]);
       }
     }
     window.gMatomoPreviousPageUrl = window.location.href;
