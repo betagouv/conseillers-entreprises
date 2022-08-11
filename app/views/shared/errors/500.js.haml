@@ -1,5 +1,3 @@
 var flashes = "#{j render('flashes')}";
-document.getElementById('flashes').innerHTML = flashes;
 
-:ruby
-  flash.clear
+document.getElementsByTagName('main')[0].insertAdjacentHTML("beforebegin",flashes);
