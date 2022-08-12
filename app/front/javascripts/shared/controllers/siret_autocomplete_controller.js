@@ -6,11 +6,17 @@ export default class extends Controller {
   static targets = [ "field", "loader", "siretField" ]
 
   connect() {
+    // On préremplit les champs avec le siret s'il est fourni
     if (exists(this.fieldTarget.dataset.defaultValue)) {
       const siret = this.fieldTarget.dataset.defaultValue;
       document.querySelector('#query').value = siret;
-      this.fillSiretField(siret);
+      this.siretFieldTarget.value = parseInt(siret)
     }
+    this.addListeners()
+  }
+
+  addListeners() {
+    // a surcharger dans les classes enfantes
   }
 
   initialize() {
@@ -76,7 +82,7 @@ export default class extends Controller {
     // Au cas où autre chose que du json est renvoyé
     try {
       let data = await response.json();
-       return data;
+      return data;
     } catch(err) {
       // eslint-disable-next-line no-undef
       Sentry.captureException(err)

@@ -4,10 +4,16 @@ import  SiretAutocompleteController from "../../shared/controllers/siret_autocom
 export default class extends SiretAutocompleteController {
   static targets = [ "field", "loader", "siretField", "codeRegionField", "noResultLink" ]
 
+  addListeners() {
+    this.fieldTarget.addEventListener('input', () => {
+      if (this.siretFieldTarget.value != this.fieldTarget.value) { this.siretFieldTarget.value = '' }
+    })
+  }
+
   onConfirm(option) {
     if (option) {
       this.fillCodeRegionField(option.code_region);
-      this.fillSiretField(option.siret);
+      this.fillSiretField(option);
     }
   }
 
@@ -32,12 +38,6 @@ export default class extends SiretAutocompleteController {
   fillCodeRegionField(code_region) {
     if (code_region) {
       this.codeRegionFieldTarget.value = parseInt(code_region)
-    }
-  }
-
-  fillSiretField(siret) {
-    if (siret) {
-      this.siretFieldTarget.value = parseInt(siret)
     }
   }
 }

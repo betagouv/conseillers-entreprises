@@ -81,6 +81,46 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
         end
       end
 
+      context "with siret in url and modification" do
+        let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}" }
+        let(:api_url_2) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{query}" }
+        let(:fixture_file) { 'api_insee_siret.json' }
+        let(:query) { '41816609600077' }
+
+        before do
+          authorize_insee_token
+          stub_request(:get, api_url_2).to_return(
+            body: file_fixture(fixture_file)
+          )
+        end
+
+        it do
+          visit "/?siret=#{query}"
+          click_link 'Test Landing Theme'
+          click_link 'Super sujet'
+          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+          fill_in 'E-mail', with: 'user@example.com'
+          fill_in 'Téléphone', with: '0123456789'
+          click_button 'Suivant'
+          expect(solicitation.siret).to eq query
+          expect(page).to have_field('query', with: query)
+
+          click_button 'Suivant'
+          expect(solicitation.reload.siret).to eq query
+          expect(page).to have_field('Description')
+
+          click_link 'Précédent'
+          expect(solicitation.reload.siret).to eq query
+
+          fill_in 'Recherchez votre entreprise', with: siret
+          click_button 'Suivant'
+          expect(page).to have_content("Sélectionnez votre entreprise :")
+
+          click_button "#{siret} - Octo Technology"
+          expect(solicitation.reload.siret).to eq siret
+        end
+      end
+
       context "from siren" do
         let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{query}" }
         let(:fixture_file) { 'api_insee_sirets_by_siren_many.json' }
@@ -158,6 +198,11 @@ describe 'New Solicitation', type: :feature, js: true, flaky: true do
           expect(option).to have_content('Octo Technology')
           page.execute_script("document.querySelector('.autocomplete__option').click()")
           click_button 'Suivant'
+          expect(solicitation.reload.siret).to be_nil
+          expect(solicitation.status_step_description?).to be false
+
+          expect(page).to have_content("Sélectionnez l'établissement concerné :")
+          click_button "#{siret} - Octo Technology"
           expect(solicitation.reload.siret).to eq siret
           expect(solicitation.code_region).to eq 11
           expect(solicitation.status_step_description?).to be true

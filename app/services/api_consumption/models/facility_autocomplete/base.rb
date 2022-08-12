@@ -8,11 +8,11 @@ module ApiConsumption::Models
     end
 
     def company
-      # a renseigner
+      # a renseigner dans les models qui héritent de celui-ci
     end
 
     def facility
-      # a renseigner
+      # a renseigner dans les models qui héritent de celui-ci
     end
 
     def siret
@@ -32,15 +32,15 @@ module ApiConsumption::Models
     end
 
     def lieu
-      # A renseigner
+      # A renseigner dans les models qui héritent de celui-ci
     end
 
     def code_region
-      # A renseigner
+      # A renseigner dans les models qui héritent de celui-ci
     end
 
     def un_seul_etablissement
-      true # A adapter
+      true # A adapter suivant les models et les fournisseurs de données
     end
 
     def as_json(options = {})
