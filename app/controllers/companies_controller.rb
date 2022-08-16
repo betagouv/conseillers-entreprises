@@ -8,13 +8,15 @@ class CompaniesController < ApplicationController
       redirect_to show_with_siret_companies_path(params[:siret], solicitation: @current_solicitation&.id)
     else
       # save_search(search_params[:query])
-      result = SearchFacility.new(search_params).from_full_text_or_siren
+      result = SearchFacility.new(search_params).from_full_text_or_siren if search_params.present?
       respond_to do |format|
         format.html do
-          if result[:error].blank?
-            @etablissements = result[:items]
-          else
-            flash.now.alert = result[:error] || I18n.t('companies.search.generic_error')
+          if result.present?
+            if result[:error].blank?
+              @etablissements = result[:items]
+            else
+              flash.now.alert = result[:error] || I18n.t('companies.search.generic_error')
+            end
           end
         end
         format.json do

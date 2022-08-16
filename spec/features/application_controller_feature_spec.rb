@@ -23,6 +23,21 @@ describe 'ApplicationController specific features', type: :feature do
     end
   end
 
+  describe 'general navigation' do
+    login_user
+
+    it 'shows no errors' do
+      visit '/besoins'
+      visit '/mon_compte'
+      click_link 'Mot de passe'
+      click_link 'Antenne'
+      click_link 'Domaines d’intervention'
+      click_link 'Tutoriel'
+      visit 'entreprises/search'
+      expect(page.html).to include 'Demandes reçues'
+    end
+  end
+
   describe 'after_sign_in_path_for' do
     let(:password) { 'yX*4Ubo_xPW!u' }
 
