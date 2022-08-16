@@ -44,6 +44,7 @@ gem 'activerecord-postgres_enum'
 gem 'auto_strip_attributes'
 gem 'acts_as_list'
 gem 'aasm'
+gem 'active_model_serializers', '~> 0.10'
 
 # Charts
 gem 'highcharts-rails'
