@@ -1,4 +1,4 @@
-ActiveAdmin.register_page "Duplicate user" do
+ActiveAdmin.register_page 'Duplicate user' do
   belongs_to :user
 
   page_action :duplicate, method: :post do
