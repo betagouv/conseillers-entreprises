@@ -307,25 +307,45 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#duplicate" do
+  describe '#duplicate' do
     let(:institution) { create :institution }
     let(:antenne) { create :antenne, institution: institution }
     let(:a_subject) { create :subject }
     let(:institution_subject) { create :institution_subject, institution: institution, subject: a_subject }
     let(:expert_subject) { create :expert_subject, institution_subject: institution_subject }
     let(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne }
-    let(:expert) { create :expert_with_users, experts_subjects: [expert_subject] }
-    let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test@email.com', phone_number: '0303030303' }) }
 
-    it "duplicate a user" do
-      expect(new_user.full_name).to eq 'Bruce Benamran'
-      expect(new_user.email).to eq 'test@email.com'
-      expect(new_user.phone_number).to eq '03 03 03 03 03'
-      expect(new_user.job).to eq old_user.job
-      expect(new_user.antenne).to eq old_user.antenne
-      expect(new_user.experts.map { |e| e.subjects }.flatten).to match_array [a_subject]
-      expect(new_user.relevant_experts).to match_array [expert]
-      expect(new_user.user_rights.count).to eq 1
+    context 'with team' do
+      let(:expert) { create :expert_with_users, experts_subjects: [expert_subject] }
+      let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test1@email.com', phone_number: '0303030303' }) }
+
+      it "duplicate a user" do
+        expect(new_user.full_name).to eq 'Bruce Benamran'
+        expect(new_user.email).to eq 'test1@email.com'
+        expect(new_user.phone_number).to eq '03 03 03 03 03'
+        expect(new_user.job).to eq old_user.job
+        expect(new_user.antenne).to eq old_user.antenne
+        expect(new_user.experts.map { |e| e.subjects }.flatten).to match_array [a_subject]
+        expect(new_user.relevant_experts).to match_array [expert]
+        expect(new_user.user_rights.count).to eq 1
+      end
+    end
+
+    context 'with personal expert' do
+      let(:expert) { create :expert, experts_subjects: [expert_subject], full_name: 'Édith Piaf', email: 'test2@email.com' }
+      let(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne, full_name: 'Édith Piaf', email: 'test2@email.com' }
+      let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303' }) }
+
+      it "duplicate a user" do
+        expect(new_user.full_name).to eq 'Bruce Benamran'
+        expect(new_user.email).to eq 'test3@email.com'
+        expect(new_user.phone_number).to eq '03 03 03 03 03'
+        expect(new_user.job).to eq old_user.job
+        expect(new_user.antenne).to eq old_user.antenne
+        expect(new_user.experts.map { |e| e.subjects }.flatten).to match_array [a_subject]
+        expect(new_user.relevant_experts).to match_array [new_user.personal_skillsets.first]
+        expect(new_user.user_rights.count).to eq 1
+      end
     end
   end
 end
