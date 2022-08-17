@@ -1,20 +1,29 @@
 import  SiretAutocompleteController from "../../shared/controllers/siret_autocomplete_controller.js"
 
+
 export default class extends SiretAutocompleteController {
-  static targets = [ "field", "codeRegionField", "indifusibleBlock", "undeployedRegionBlock" ]
+  static targets = [ "field", "loader", "siretField", "codeRegionField", "noResultLink" ]
 
-  manageSourceError() {
-    this.indifusibleBlockTarget.style.display = "block";
-  }
-
-  manageSourceSuccess() {
-    this.indifusibleBlockTarget.style.display = "none";
+  addListeners() {
+    this.fieldTarget.addEventListener('input', () => {
+      if (this.siretFieldTarget.value != this.fieldTarget.value) { this.siretFieldTarget.value = '' }
+    })
   }
 
   onConfirm(option) {
-    this.fillCodeRegionField(option)
-    if (this.fieldTarget.dataset.landingTheme !== 'environnement-transition-ecologique') {
-      this.checkIfInDeployedRegion(option)
+    if (option) {
+      this.fillCodeRegionField(option.code_region);
+      this.fillSiretField(option);
+    }
+  }
+
+  manageSourceSuccess(items) {
+    this.loaderTarget.style.display = 'none'
+    if (items.length == 0) {
+      this.noResultLinkTarget.style.display = 'block'
+      this.statusMessage = "Aucune entreprise trouvée"
+    } else {
+      this.statusMessage = null
     }
   }
 
@@ -26,27 +35,9 @@ export default class extends SiretAutocompleteController {
 
   // Traitement des résultats --------------------------------------------
 
-  fillCodeRegionField(option) {
-    if (option && option.code_region) {
-      this.codeRegionFieldTarget.value = parseInt(option.code_region)
+  fillCodeRegionField(code_region) {
+    if (code_region) {
+      this.codeRegionFieldTarget.value = parseInt(code_region)
     }
   }
-
-  checkIfInDeployedRegion (option) {
-    if (option && option.code_region) {
-      let codeRegion = parseInt(option.code_region);
-      if (!this.codeRegionFieldTarget.dataset.deployedRegions.includes(codeRegion)) {
-        this.undeployedRegionBlockTarget.style.display = 'block'
-        document.querySelector("[data-error='newsletter']").style.display = 'block'
-        this.fillNewsletterForm()
-      }
-    }
-  }
-
-  fillNewsletterForm() {
-    const solicitation_form_email = document.getElementById("solicitation_email")
-    const newsletter_form_email = document.getElementById("email")
-    newsletter_form_email.value = solicitation_form_email.value
-  }
-
 }

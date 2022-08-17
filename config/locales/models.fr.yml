@@ -474,6 +474,10 @@ fr:
         landing_themes:
           restrict_dependent_destroy:
             solicitations: Vous ne pouvez pas supprimer la thématique car des solicitations y font référence
+        solicitation:
+          attributes:
+            siret:
+              must_be_a_valid_siret: doit être un numéro à 14 chiffres valide
         territory:
           attributes:
             insee_codes:
@@ -688,7 +692,7 @@ fr:
     global_need_status: Statut du besoin au global
     happened_on: Date de la visite
     help:
-      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pouvez le trouvez facilement sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
+      no_creation_html: Le service n’accompagne pas à la création d’entreprise, ce numéro est nécessaire (14 chiffres).<br/>Vous pourrez peut-être le trouver sur <a href='https://annuaire-entreprises.data.gouv.fr/?mtm_campaign=placedesentreprises' target='_blank' class='blue' title='annuaire-entreprises.data.gouv.fr - ouvre une nouvelle fenêtre'>https://annuaire-entreprises.data.gouv.fr</a>.
     insee_codes: Codes communes
     institution: Institution
     institutions_subjects: Domaines de l’institution

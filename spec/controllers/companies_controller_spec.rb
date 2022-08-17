@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'api_helper'
 
 RSpec.describe CompaniesController, type: :controller do
   login_user
 
   describe 'GET #show_with_siret' do
-    let(:siret) { '41816609600051' }
+    let(:siret) { '41816609600069' }
     let(:siren) { siret[0,9] }
 
     context 'when the api is up' do
@@ -72,9 +73,29 @@ RSpec.describe CompaniesController, type: :controller do
     end
   end
 
-  describe 'GET #searchmatch_spec.rb' do
+  describe 'GET #search' do
+    let(:siret) { '41816609600069' }
+    let(:siren) { siret[0,9] }
+    let(:api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siren:#{query}" }
+    let(:fixture_file) { 'api_insee_sirets_by_siren_many.json' }
+    let(:siret_api_url) { "https://api.insee.fr/entreprises/sirene/V3/siret/?q=siret:#{siret}" }
+    let(:siret_fixture_file) { 'api_insee_siret.json' }
+
+    let(:query) { siren }
+
+    before do
+      authorize_insee_token
+      stub_request(:get, api_url).to_return(
+        body: file_fixture(fixture_file)
+      )
+      # a la selection d'une option, la valeur de l'input est remplacée par le siret, une rech automatique est lancee
+      stub_request(:get, siret_api_url).to_return(
+        body: file_fixture(siret_fixture_file)
+      )
+    end
+
     it do
-      get :search
+      get :search, params: { query: siren }
       expect(response).to be_successful
     end
   end

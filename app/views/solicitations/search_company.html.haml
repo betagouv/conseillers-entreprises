@@ -1,0 +1,19 @@
+- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
+
+- content_for :form_header do
+  = render 'solicitations/steps', current_status: :step_company
+
+.fr-grid-row
+  .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
+    %h3.fr-h4= t('.select_your_company')
+    - @companies.each do |company|
+      .fr-mb-2w
+      - if company.un_seul_etablissement == true
+        = render 'facility_tile', company: company
+      - else
+        = render 'company_tile', company: company
+
+= render 'manual_step_company_link', solicitation: @solicitation
+
+- content_for :footer do
+  = render 'iframe_footer', landing: @solicitation.landing

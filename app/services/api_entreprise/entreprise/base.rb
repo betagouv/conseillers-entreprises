@@ -42,7 +42,7 @@ module ApiEntreprise::Entreprise
         'etablissement_siege' => data["etablissement_siege"],
         'errors' => data["errors"]
       }
-      raise ApiEntreprise::ApiEntrepriseError, I18n.t('api_entreprise.default_error_message.etablissement') if missing_mandatory_data?(formatted_data)
+      raise ApiEntreprise::ApiEntrepriseError, I18n.t('api_requests.default_error_message.etablissement') if missing_mandatory_data?(formatted_data)
       return formatted_data
     end
 

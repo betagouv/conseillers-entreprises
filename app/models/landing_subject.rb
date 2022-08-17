@@ -49,6 +49,8 @@ class LandingSubject < ApplicationRecord
   #
   scope :ordered_for_landing, -> { order(:position, :id) }
 
+  validate :unique_required_field_if_siret
+
   def to_s
     slug
   end
@@ -76,5 +78,12 @@ class LandingSubject < ApplicationRecord
       .filter{ |_, value| value }
       .keys
       .map{ |flag| flag.to_s.delete_prefix('requires_').to_sym }
+  end
+
+  def unique_required_field_if_siret
+    if (requires_siret == true) && (required_fields.length > 1)
+      errors.add(:base, "ne peut être coché en même temps que d'autres champs")
+      landing_theme.errors.add(:base, "ne peut être coché en même temps que d'autres champs")
+    end
   end
 end

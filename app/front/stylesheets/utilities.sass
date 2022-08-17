@@ -100,3 +100,35 @@ a.fr-breadcrumb__item a.break-word, .fr-prose a.break-word, [class*=" fr-"] a.br
   align-items: center
   justify-content: center
   display: flex
+
+// Copier-coller du style du dsfr pour pouvoir faire des @extend
+.fr-input-custom
+  display: block
+  width: 100%
+  border-radius: .25rem .25rem 0 0
+  font-size: 1rem
+  line-height: 1.5rem
+  padding: .5rem 1rem
+  color: #161616
+  color: var(--text-label-grey)
+  background-color: #eee
+  background-color: var(--background-contrast-grey)
+  --hover: var(--background-contrast-grey-hover)
+  --active: var(--background-contrast-grey-active)
+  box-shadow: inset 0 -2px 0 0 #3a3a3a
+  box-shadow: inset 0 -2px 0 0 var(--border-plain-grey)
+
+.loader
+  border: 3px solid #f3f3f3
+  border-top: 3px solid $blue
+  border-radius: 50%
+  width: 25px
+  height: 25px
+  animation: spin 0.5s linear infinite
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+
+  100%
+    transform: rotate(360deg)

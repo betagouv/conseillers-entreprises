@@ -21,7 +21,7 @@ module ApiCfadock
 
   class Request
     BASE_URL = 'https://www.cfadock.fr/api/opcos?siret='
-    DEFAULT_ERROR_MESSAGE = I18n.t('api_entreprise.default_error_message.etablissement')
+    DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.default_error_message.etablissement')
 
     attr_reader :data
 

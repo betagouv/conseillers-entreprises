@@ -3,27 +3,49 @@ import { exists, debounce } from '../utils.js'
 import accessibleAutocomplete from 'accessible-autocomplete';
 
 export default class extends Controller {
-  static targets = [ "field" ]
+  static targets = [ "field", "loader", "siretField" ]
+
+  connect() {
+    // On préremplit les champs avec le siret s'il est fourni
+    if (exists(this.fieldTarget.dataset.defaultValue)) {
+      const siret = this.fieldTarget.dataset.defaultValue;
+      document.querySelector('#query').value = siret;
+      this.siretFieldTarget.value = parseInt(siret)
+    }
+    this.addListeners()
+  }
+
+  addListeners() {
+    // a surcharger dans les classes enfantes
+  }
 
   initialize() {
+    this.statusMessage = null;
     this.accessibleAutocomplete = accessibleAutocomplete({
       element: this.fieldTarget,
-      id: 'solicitation-siret',
-      name: this.fieldTarget.dataset.name,
-      showNoOptionsFound: false,
+      id: this.fieldTarget.dataset.name,
+      name: 'query',
+      showNoOptionsFound: true,
       templates: {
         inputValue: this.inputValueTemplate,
         suggestion: this.suggestionTemplate
       },
+      tNoResults: () => this.statusMessage,
       tAssistiveHint: () => this.fieldTarget.dataset.assistiveHint,
+      tStatusNoResults: () => this.statusMessage,
+      tStatusSelectedOption: (selectedOption, length, index) => `${selectedOption} ${index + 1} sur ${length} est sélectionné`,
+      tStatusResults: (length, contentSelectedOption) => {
+        const baseSentence = (length === 1) ? "1 résultat trouvé" : `${length} résultats trouvés`
+        return `${baseSentence}. ${contentSelectedOption}`
+      },
       source: debounce(async (query, populateResults) => {
-        const results = await this.fetchEtablissements(query);
+         const results = await this.fetchEtablissements(query);
         if(!results) return;
         if (results.error) {
           this.manageSourceError(results)
         } else {
-          this.manageSourceSuccess(results)
-          populateResults(this.filterResults(results))
+          this.manageSourceSuccess(results.items)
+          populateResults(this.filterResults(results.items))
         }
       }, 300),
       onConfirm: (option) => {
@@ -32,29 +54,29 @@ export default class extends Controller {
     })
   }
 
-  connect() {
-    if (exists(this.fieldTarget.dataset.defaultValue)) {
-      document.querySelector('#solicitation-siret').value = this.fieldTarget.dataset.defaultValue
-    }
-  }
-
   manageSourceError(results) {
-    console.warn(results.error)
+    this.loaderTarget.style.display = 'none'
+    this.statusMessage = results.error
   }
 
-  manageSourceSuccess() {
-    // here, do nothing. Check children
+  manageSourceSuccess(items) {
+    this.loaderTarget.style.display = 'none'
+    this.statusMessage = (items.length == 0) ? "Aucune entreprise trouvée" : null
   }
 
-  onConfirm() {
-    // here, do nothing. Check children
+  onConfirm(option) {
+    if (option) {
+      this.fillSiretField(option);
+    }
   }
 
   // Récupération des résultats ----------------------------------------------------
 
   async fetchEtablissements(query) {
-    let params = `query=${query}&non_diffusables=${this.displayNonDiffusableSiret()}`;
-    let response = await fetch(`/rech-etablissement.json?${params}`, {
+    this.loaderTarget.style.display = 'block'
+    let baseUrl = this.fieldTarget.dataset.url
+    let params = `query=${query}`;
+    let response = await fetch(`${baseUrl}.json?${params}`, {
       credentials: "same-origin",
     });
     // Au cas où autre chose que du json est renvoyé
@@ -75,22 +97,39 @@ export default class extends Controller {
     });
   }
 
-  displayNonDiffusableSiret() {
-    return true;
-  }
-
   // Traitement des résultats --------------------------------------------
+
+  fillSiretField(result) {
+    if (result) {
+      let value = result.un_seul_etablissement == true ? result.siret : result.siren
+      this.siretFieldTarget.value = parseInt(value)
+    }
+  }
 
   suggestionTemplate (result) {
     if (!result) return
-    return (
-      result &&
-      `<strong> ${result.siret} (${result.nom}) </strong>
-        <p><span class="small">${result.activite || ''} - ${result.lieu || ''}</span> </p>`
-    );
+    if (result.un_seul_etablissement == false) {
+      return (
+        result &&
+        `<strong> ${result.siren} (${result.nom}) </strong>
+          <p><span class="small">${result.activite || ''}</span> </p>`
+      );
+    } else {
+      return (
+        result &&
+        `<strong> ${result.siret} (${result.nom}) </strong>
+          <p><span class="small">${result.activite || ''} - ${result.lieu || ''}</span> </p>`
+      );
+    }
   }
 
   inputValueTemplate (result) {
-    return result && result.siret;
+    if (!result) return null
+    return (result.un_seul_etablissement == true ? result.siret : result.siren)
+  }
+
+  companyIdentifier(result) {
+    if (!result) return null
+    return (result.un_seul_etablissement == true ? result.siret : result.siren)
   }
 }

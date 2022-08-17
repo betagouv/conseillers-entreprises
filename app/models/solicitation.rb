@@ -89,15 +89,15 @@ class Solicitation < ApplicationRecord
     state :canceled
 
     event :go_to_step_company do
-      transitions from: [:step_contact], to: :step_company, if: :contact_info_filled?
+      transitions from: [:step_contact], to: :step_company, if: -> { contact_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
     end
 
     event :go_to_step_description do
-      transitions from: [:step_company], to: :step_description, if: :company_info_filled?
+      transitions from: [:step_company], to: :step_description, if: -> { company_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
     end
 
     event :complete, after: :format_solicitation do
-      transitions from: [:step_description], to: :in_progress, if: :description_info_filled?
+      transitions from: [:step_description], to: :in_progress, guard: -> { description.present? }
     end
 
     event :process do
@@ -112,22 +112,6 @@ class Solicitation < ApplicationRecord
 
   # State machine validations
   #
-  def contact_info_filled?
-    contact_step_required_fields.all? do |attr|
-      self.public_send(attr).present?
-    end
-  end
-
-  def company_info_filled?
-    company_step_required_fields.all? do |attr|
-      self.public_send(attr).present?
-    end
-  end
-
-  def description_info_filled?
-    self.description.present?
-  end
-
   def diagnosis_completed?
     self.diagnosis.step_completed?
   end
@@ -156,6 +140,11 @@ class Solicitation < ApplicationRecord
   validate if: -> { status_step_description? } do
     required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
+    end
+    # on ne vérifie la validité du siret qu'à cette étape, car on a bcp de vieille ou actuelles solicitations avec un siret invalide
+    if company_step_is_siret? && siret.present?
+      self.siret = FormatSiret.clean_siret(siret)
+      errors.add(:siret, :must_be_a_valid_siret) unless FormatSiret.siret_is_valid(siret)
     end
   end
   validates :description, presence: true, allow_blank: false, if: -> { status_in_progress? }
@@ -199,8 +188,8 @@ class Solicitation < ApplicationRecord
     if FormatSiret.siren_is_valid(siret_or_siren)
       begin
         response = ApiInsee::SiretsBySiren::Base.new(siret_or_siren).call
-        return params if (response['nombre_etablissements_ouverts'] != 1)
-        siret_or_siren = response.dig('etablissements', 0, 'siret')
+        return params if (response[:nombre_etablissements_ouverts] != 1)
+        siret_or_siren = response.dig(:etablissements_ouverts, 0, 'siret')
       rescue ApiInsee::ApiInseeError => e
         return params
       end
@@ -417,6 +406,10 @@ class Solicitation < ApplicationRecord
 
   def company_step_required_fields
     landing_subject&.required_fields || %i[siret]
+  end
+
+  def company_step_is_siret?
+    company_step_required_fields == [:siret]
   end
 
   def required_fields

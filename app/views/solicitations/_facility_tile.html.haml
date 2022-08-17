@@ -1,0 +1,9 @@
+= form_with(model: @solicitation, url: update_step_company_solicitation_path(@solicitation.uuid), local: true, html: { honeypot: true }) do |f|
+  = f.hidden_field :siret, value: company.siret
+  = f.hidden_field :code_region, value: company.code_region
+  .fr-tile.search-tile.fr-enlarge-link.fr-tile--horizontal
+    .fr-tile__body
+      %h4.fr-tile__title
+        = button_tag [company.siret, company.nom].compact.join(' - '), class: "fr-tile__link"
+      %p.fr-tile__desc= company.activite
+      %p.fr-tile__desc= company.lieu

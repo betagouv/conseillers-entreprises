@@ -4,7 +4,7 @@ module ApiEntreprise
 
     def initialize(siren_or_siret, options = {})
       @siren_or_siret = FormatSiret.clean_siret(siren_or_siret)
-      raise ApiEntrepriseError, I18n.t('api_entreprise.invalid_siret_or_siren') unless valid_siren_or_siret?
+      raise ApiEntrepriseError, I18n.t('api_requests.invalid_siret_or_siren') unless valid_siren_or_siret?
       @options = options
     end
 
@@ -41,7 +41,7 @@ module ApiEntreprise
   end
 
   class Request
-    DEFAULT_ERROR_MESSAGE = I18n.t('api_entreprise.default_error_message.etablissement')
+    DEFAULT_ERROR_MESSAGE = I18n.t('api_requests.default_error_message.etablissement')
 
     attr_reader :data
 

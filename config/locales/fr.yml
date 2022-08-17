@@ -5,9 +5,10 @@ fr:
   all:
     feminine: Toutes
   all_choices: Tout
-  api_entreprise:
+  api_requests:
     default_error_message:
       etablissement: Erreur lors de la récupération des détails de l’établissement.
+    embraced_error_html: 'La recherche de votre entreprise auprès de nos partenaires a rencontré une erreur : "%{message}". Veuillez modifier votre recherche, réessayer ultérieurement ou <a href=%{url}>renseigner votre SIRET manuellement</a>.'
     generic_error: Nous n'avons pu récupérer les détails de l'entreprise auprès de nos partenaires, veuillez réessayer ultérieurement
     invalid_siret_or_siren: L'identifiant (siret ou siren) est invalide
   app_name: Place des Entreprises

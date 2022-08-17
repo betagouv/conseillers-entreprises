@@ -13,6 +13,8 @@
 
 .autocomplete__input
   position: relative
+  @extend .fr-input-custom
+  margin-top: 0.5rem
 
 .autocomplete__hint
   color: #b1b4b6
@@ -32,7 +34,7 @@
   top: 10px
 
 .autocomplete__menu
-  background-color: #fff
+  background-color: $white
   border: 1px solid #adb9c9
   border-top: 0
   color: #0b0c0c
@@ -78,15 +80,9 @@
 .autocomplete__option--odd
   background-color: #fafafa
 
-.autocomplete__option--focused, .autocomplete__option:hover
-  background-color: #1d70b8
-  border-color: #1d70b8
-  color: #fff
-  outline: 0
-
 .autocomplete__option--no-results
   background-color: #fafafa
-  color: #646b6f
+  color: $grey-dark
   cursor: not-allowed
 
 .autocomplete__option
@@ -96,10 +92,15 @@
   .small
     margin: 0
     font-size: 0.9rem
-    color: #646b6f
+    color: $grey-dark
 
-  &:hover .small
-    color: #fff
+.autocomplete__option--focused, .autocomplete__option:hover
+  background-color: $blue
+  border-color: $blue
+  color: $white
+  outline: 0
+  .small
+    color: $white
 
 .autocomplete__hint, .autocomplete__option
   padding: 5px
@@ -114,3 +115,13 @@
   img
     height: 2rem
     margin-right: 1rem
+
+.siret-autocomplete
+  position: relative
+  .loader
+    position: absolute
+    z-index: 3
+    right: 10px
+    top: 6px
+    @media (max-width: $bp-md)
+      top: 40px

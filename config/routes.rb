@@ -233,7 +233,10 @@ Rails.application.routes.draw do
     member do
       get :step_contact, path: 'contact'
       patch :update_step_contact
+      get :search_company, path: 'recherche-entreprise'
+      get :search_facility, path: 'recherche-etablissement'
       get :step_company, path: 'etablissement'
+      get :step_company_search, path: 'rechercher-mon-etablissement'
       patch :update_step_company
       get :step_description, path: 'description'
       patch :update_step_description
@@ -287,7 +290,6 @@ Rails.application.routes.draw do
   # Redirections =====================================
 
   get 'profile' => 'users#show'
-  get '/rech-etablissement', to: 'utilities#search_etablissement'
 
   ## Redirection for compatibility
   ### Landings - Accueil

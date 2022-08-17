@@ -1,0 +1,32 @@
+- content_for :header, render('solicitations/header', landing: @solicitation.landing, landing_subject: @solicitation.landing_subject)
+
+- content_for :form_header do
+  = render 'solicitations/steps', current_status: :step_company
+
+.fr-grid-row
+  .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
+
+    - if @error_message.present?
+      .fr-alert.fr-alert--error.fr-mb-2w
+        %p= t('api_requests.embraced_error_html', message: @error_message, url: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
+
+    = form_with(model: @solicitation, url: search_company_solicitation_path(@solicitation.uuid), local: true, method: :get) do |f|
+      .fr-mb-2w
+        .siret-autocomplete{ 'data-controller': "pages-siret-autocomplete" }
+          = label_tag "query", t("solicitations.creation_form.find_my_facility"), class: 'fr-label'
+          %span.fr-hint-text= t("solicitations.creation_form.search_facility_placeholder")
+          .loader.hidden{ data: { 'pages-siret-autocomplete-target': 'loader' } }
+
+          %div{ data: { 'pages-siret-autocomplete-target': "field", 'assistive-hint': t("solicitations.creation_form.siret_assistive_hint"), name: 'query', 'default-value': (params[:query] || @solicitation.siret), url: search_company_solicitation_path(@solicitation.uuid) } }
+          = f.hidden_field :code_region, data: { 'pages-siret-autocomplete-target': 'codeRegionField' }
+          = f.hidden_field :siret, data: { 'pages-siret-autocomplete-target': 'siretField' }
+
+          .fr-my-3w.text-center.hidden{ data: { 'pages-siret-autocomplete-target': 'noResultLink' } }
+            = link_to t('solicitations.creation_form.buttons.manual_step_company'), step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'), class: 'fr-link'
+
+      .submit-buttons
+        = render 'previous_button', path: step_contact_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire')
+        = render 'next_button'
+
+- content_for :footer do
+  = render 'iframe_footer', landing: @solicitation.landing

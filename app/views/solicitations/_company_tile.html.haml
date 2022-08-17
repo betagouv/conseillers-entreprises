@@ -1,0 +1,12 @@
+= form_with(model: @solicitation, url: search_facility_solicitation_path(@solicitation.uuid), local: true, method: :get, html: { honeypot: true }) do |f|
+  = hidden_field_tag :query, company.siren
+
+  .fr-tile.search-tile.fr-enlarge-link.fr-tile--horizontal
+    .fr-tile__body
+      %h4.fr-tile__title
+        = button_tag [company.siren, company.nom].compact.join(' - '), class: "fr-tile__link"
+      %p.fr-tile__desc= company.activite
+      %p.fr-tile__desc.custom-tile__metadata.fr-text--sm= t('.nombre_etablissements_ouverts', count: company.nombre_etablissements_ouverts)
+      %p.custom-tile__action.blue.fr-mt-1w
+        = t('.choose_my_facility')
+        %span.ri-arrow-right-s-line
