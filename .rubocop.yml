@@ -841,6 +841,11 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/MessageSpies:
   Enabled: false
 
+RSpec/VariableName:
+  EnforcedStyle: snake_case
+  IgnoredPatterns:
+    - ^Authorization
+
 RSpec/NestedGroups:
   Enabled: false
 

@@ -1,0 +1,47 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/landings":
+    get:
+      summary: Liste des pages formulaires
+      tags:
+      - Landings
+      - Authentication
+      description: Affiche toutes les pages formulaires pour l'organisation authentifiée
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    slug:
+                      type: string
+                    partner_url:
+                      type: string
+        '404':
+          description: Mauvais token
+servers:
+- url: https://{default_host}
+  variables:
+    default_host:
+      default: place-des-entreprises.beta.gouv.fr
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      description: Le jeton vous est fourni après étude de votre demande par Place
+        des Entreprises
+security:
+- bearer_auth: []

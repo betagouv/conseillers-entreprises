@@ -45,6 +45,8 @@ gem 'auto_strip_attributes'
 gem 'acts_as_list'
 gem 'aasm'
 gem 'active_model_serializers', '~> 0.10'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 # Charts
 gem 'highcharts-rails'
@@ -110,6 +112,7 @@ group :development, :test do
   gem 'spring-commands-parallel-tests'
   gem "dotenv-rails"
   gem 'w3c_validators', require: false
+  gem 'rswag-specs'
 end
 
 group :development do
