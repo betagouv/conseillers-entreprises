@@ -8,7 +8,7 @@ class SearchFacility
   end
 
   def from_full_text_or_siren
-    return if @query.blank?
+    return blank_query if @query.blank?
     if number_search?
       @query = FormatSiret.clean_siret(@query)
       if siren_search?
@@ -83,5 +83,9 @@ class SearchFacility
       message = e.message.truncate(1000)
       return { items: [], error: message }
     end
+  end
+
+  def blank_query
+    { items: [], error: I18n.t('api_requests.blank_query') }
   end
 end

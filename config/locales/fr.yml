@@ -6,6 +6,7 @@ fr:
     feminine: Toutes
   all_choices: Tout
   api_requests:
+    blank_query: Champs de recherche vide
     default_error_message:
       etablissement: Erreur lors de la récupération des détails de l’établissement.
     embraced_error_html: 'La recherche de votre entreprise auprès de nos partenaires a rencontré une erreur : "%{message}". Veuillez modifier votre recherche, réessayer ultérieurement ou <a href=%{url}>renseigner votre SIRET manuellement</a>.'

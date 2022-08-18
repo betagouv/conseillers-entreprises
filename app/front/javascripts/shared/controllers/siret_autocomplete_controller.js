@@ -26,6 +26,7 @@ export default class extends Controller {
       id: this.fieldTarget.dataset.name,
       name: 'query',
       showNoOptionsFound: true,
+      required: true,
       templates: {
         inputValue: this.inputValueTemplate,
         suggestion: this.suggestionTemplate
