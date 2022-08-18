@@ -21,7 +21,7 @@ describe 'New Solicitation', type: :feature do
 
     context "no API calls" do
       context "with PK params in url" do
-        it do
+        before do
           visit '/?pk_campaign=FOO&pk_kwd=BAR'
           click_link 'Test Landing Theme'
           click_link 'Super sujet'
@@ -29,6 +29,9 @@ describe 'New Solicitation', type: :feature do
           fill_in 'E-mail', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
           click_button 'Suivant'
+        end
+
+        it do
           expect(solicitation.persisted?).to be true
           expect(solicitation.pk_campaign).to eq 'FOO'
           expect(solicitation.pk_kwd).to eq 'BAR'
@@ -38,10 +41,30 @@ describe 'New Solicitation', type: :feature do
         end
       end
 
+      context "with MTM params in url" do
+        before do
+          visit '/?mtm_campaign=FOO&mtm_kwd=BAR'
+          click_link 'Test Landing Theme'
+          click_link 'Super sujet'
+          fill_in 'Prénom et nom', with: 'Hubertine Auclerc'
+          fill_in 'Téléphone', with: '0123456789'
+          fill_in 'E-mail', with: 'user@exemple.com'
+          click_button 'Suivant'
+        end
+
+        it do
+          expect(solicitation.persisted?).to be true
+          expect(solicitation.landing).to eq landing
+          expect(solicitation.landing_subject.subject).to eq pde_subject
+          expect(solicitation.mtm_campaign).to eq 'FOO'
+          expect(solicitation.mtm_kwd).to eq 'BAR'
+        end
+      end
+
       context "with siret in url" do
         let(:siret) { "41816609600077" }
 
-        it do
+        before do
           visit "/?siret=#{siret}"
           click_link 'Test Landing Theme'
           click_link 'Super sujet'
@@ -49,11 +72,15 @@ describe 'New Solicitation', type: :feature do
           fill_in 'E-mail', with: 'user@example.com'
           fill_in 'Téléphone', with: '0123456789'
           click_button 'Suivant'
+        end
+
+        it do
           expect(solicitation.persisted?).to be true
           expect(solicitation.landing).to eq landing
           expect(solicitation.landing_subject).to eq landing_subject
           expect(solicitation.siret).to eq siret
           expect(solicitation.pk_campaign).to be_nil
+          expect(solicitation.mtm_campaign).to be_nil
           expect(solicitation.status_step_company?).to be true
         end
       end
