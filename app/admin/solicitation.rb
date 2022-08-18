@@ -53,11 +53,11 @@ ActiveAdmin.register Solicitation do
       div admin_attr(s, :requested_help_amount) if s.requested_help_amount.present?
       div admin_attr(s, :location) if s.location.present?
       hr
-      if s.pk_campaign.present?
-        div "#{t('activerecord.attributes.solicitation.pk_campaign')} : #{link_to_tracked_campaign(s)}".html_safe
+      if s.campaign.present?
+        div "#{t('activerecord.attributes.solicitation.mtm_campaign')} : #{link_to_tracked_campaign(s)}".html_safe
       end
-      if s.pk_kwd.present?
-        div "#{t('activerecord.attributes.solicitation.pk_kwd')} : « #{link_to_tracked_ad(s)} »".html_safe
+      if s.provenance_detail.present?
+        div "#{t('activerecord.attributes.solicitation.mtm_kwd')} : « #{link_to_tracked_ad(s)} »".html_safe
       end
       if s.institution.present?
         admin_attr(s, :institution)
@@ -93,7 +93,7 @@ ActiveAdmin.register Solicitation do
   filter :status, as: :select, collection: -> { Solicitation.human_attribute_values(:status, raw_values: true).invert.to_a }
   filter :code_region, as: :select, collection: -> { Territory.deployed_regions.order(:name).pluck(:name, :code_region) }
   filter :facility, as: :ajax_select, data: { url: :admin_facilities_path, search_fields: [:name] }
-  filter :pk_campaign, as: :string
+  filter :mtm_campaign, as: :string
 
   ## Batch actions
   # Statuses

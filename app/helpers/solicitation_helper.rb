@@ -1,24 +1,24 @@
 module SolicitationHelper
   ## Google Ads helpers
   # Our ads params are
-  # pk_campaign=googleads-{campaignid}
-  # pk_kwd={creative}-{keyword}
+  # mtm_campaign=googleads-{campaignid}
+  # mtm_kwd={creative}-{keyword}
   def link_to_tracked_campaign(solicitation)
-    campaign_components = solicitation.pk_campaign&.split('-', 2)
+    campaign_components = solicitation.campaign&.split('-', 2)
     if campaign_components.present? && campaign_components.first == 'googleads'
-      link_to solicitation.pk_campaign, "https://ads.google.com/aw/adgroups?campaignId=#{campaign_components.last}"
+      link_to solicitation.campaign, "https://ads.google.com/aw/adgroups?campaignId=#{campaign_components.last}"
     else
-      solicitation.pk_campaign
+      solicitation.campaign
     end
   end
 
   def link_to_tracked_ad(solicitation)
-    campaign_components = solicitation.pk_campaign&.split('-', 2)
+    campaign_components = solicitation.campaign&.split('-', 2)
     if campaign_components.present? && campaign_components.first == 'googleads'
-      keyword_components = solicitation.pk_kwd.split('-', 2)
-      link_to solicitation.pk_kwd, "https://ads.google.com/aw/ads/versions?adId=#{keyword_components.first}"
+      keyword_components = solicitation.provenance_detail.split('-', 2)
+      link_to solicitation.provenance_detail, "https://ads.google.com/aw/ads/versions?adId=#{keyword_components.first}"
     else
-      solicitation.pk_kwd
+      solicitation.provenance_detail
     end
   end
 

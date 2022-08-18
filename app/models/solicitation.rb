@@ -219,8 +219,8 @@ class Solicitation < ApplicationRecord
         .or(description_contains(query))
         .or(name_contains(query))
         .or(email_contains(query))
-        .or(pk_kwd_contains(query))
-        .or(pk_campaign_contains(query))
+        .or(mtm_kwd_contains(query))
+        .or(mtm_campaign_contains(query))
     end
   end
 
@@ -252,29 +252,34 @@ class Solicitation < ApplicationRecord
     where('solicitations.email ILIKE ?', "%#{query}%")
   end
 
-  scope :pk_kwd_contains, -> (query) {
-    where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%")
+  scope :mtm_kwd_contains, -> (query) {
+    where("solicitations.form_info::json->>'mtm_kwd' ILIKE ?", "%#{query}%")
+      .or(where("solicitations.form_info::json->>'pk_kwd' ILIKE ?", "%#{query}%"))
   }
 
-  scope :pk_campaign_contains, -> (query) {
-    where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%")
+  scope :mtm_campaign_contains, -> (query) {
+    where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}%")
+      .or(where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}%"))
   }
 
   # Pour ransack, en admin
-  scope :pk_campaign_equals, -> (query) {
+  scope :mtm_campaign_equals, -> (query) {
     where('form_info @> ?', { pk_campaign: query }.to_json)
+      .or(where('form_info @> ?', { mtm_campaign: query }.to_json))
   }
 
-  scope :pk_campaign_starts_with, -> (query) {
+  scope :mtm_campaign_starts_with, -> (query) {
     where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "#{query}%")
+      .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "#{query}%"))
   }
 
-  scope :pk_campaign_ends_with, -> (query) {
+  scope :mtm_campaign_ends_with, -> (query) {
     where("solicitations.form_info::json->>'pk_campaign' ILIKE ?", "%#{query}")
+      .or(where("solicitations.form_info::json->>'mtm_campaign' ILIKE ?", "%#{query}"))
   }
 
   def self.ransackable_scopes(auth_object = nil)
-    [:pk_campaign_contains, :pk_campaign_equals, :pk_campaign_starts_with, :pk_campaign_ends_with]
+    [:mtm_campaign_contains, :mtm_campaign_equals, :mtm_campaign_starts_with, :mtm_campaign_ends_with]
   end
 
   scope :without_diagnosis, -> {
@@ -291,7 +296,10 @@ class Solicitation < ApplicationRecord
   scope :step_complete, -> { where(status: completed_statuses) }
   scope :step_incomplete, -> { where(status: incompleted_statuses) }
 
-  scope :of_campaign, -> (campaign) { where("form_info->>'pk_campaign' = ?", campaign) }
+  scope :of_campaign, -> (campaign) do
+    where("form_info->>'pk_campaign' = ?", campaign)
+      .or(where("form_info->>'mtm_campaign' = ?", campaign))
+  end
 
   scope :in_regions, -> (codes_regions) do
     where(code_region: codes_regions)
@@ -376,7 +384,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid]
+  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##
@@ -445,9 +453,9 @@ class Solicitation < ApplicationRecord
   def provenance_category
     if landing&.iframe?
       :iframe
-    elsif pk_campaign&.start_with?('googleads-')
+    elsif pk_campaign&.start_with?('googleads-') || mtm_campaign&.start_with?('googleads-')
       :googleads
-    elsif pk_campaign.present?
+    elsif pk_campaign.present? || mtm_campaign.present?
       :campaign
     end
   end
@@ -456,20 +464,24 @@ class Solicitation < ApplicationRecord
     provenance_category == :iframe
   end
 
-  def from_pk_campaign?
+  def from_campaign?
     provenance_category == :campaign || provenance_category == :googleads
   end
 
   def provenance_title
     if from_iframe?
       landing.slug
-    elsif from_pk_campaign?
-      pk_campaign
+    elsif from_campaign?
+      campaign
     end
   end
 
   def provenance_detail
-    pk_kwd
+    pk_kwd.presence || mtm_kwd.presence
+  end
+
+  def campaign
+    pk_campaign.presence || mtm_campaign.presence
   end
 
   # Else ---------------------
@@ -478,7 +490,7 @@ class Solicitation < ApplicationRecord
   end
 
   def display_attributes
-    %i[normalized_phone_number institution requested_help_amount location pk_campaign pk_kwd]
+    %i[normalized_phone_number institution requested_help_amount location pk_campaign pk_kwd mtm_campaign mtm_kwd]
   end
 
   def normalized_siret

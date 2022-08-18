@@ -363,6 +363,8 @@ fr:
         landing: Page source
         landing_subject: Intitulé de sujet choisi
         location: Localisation
+        mtm_campaign: Campagne
+        mtm_kwd: Mots-clés
         needs: Besoins sélectionnés
         normalized_phone_number: Téléphone
         pk_campaign: Campagne
@@ -721,6 +723,7 @@ fr:
     matches:
       one: Mise en relation
       other: Mises en relation
+    mtm_campaign: Campagne
     naf_code: Code NAF
     name: Nom
     need: Besoin
