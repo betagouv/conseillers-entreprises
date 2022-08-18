@@ -319,7 +319,7 @@ RSpec.describe User, type: :model do
       let(:expert) { create :expert_with_users, experts_subjects: [expert_subject] }
       let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test1@email.com', phone_number: '0303030303' }) }
 
-      it "duplicate a user" do
+      it "duplicate a user and add it to old_user team" do
         expect(new_user.full_name).to eq 'Bruce Benamran'
         expect(new_user.email).to eq 'test1@email.com'
         expect(new_user.phone_number).to eq '03 03 03 03 03'
@@ -336,7 +336,7 @@ RSpec.describe User, type: :model do
       let(:old_user) { create :user, :invitation_accepted, :manager, experts: [expert], antenne: antenne, full_name: 'Édith Piaf', email: 'test2@email.com' }
       let(:new_user) { old_user.duplicate({ full_name: 'Bruce Benamran', email: 'test3@email.com', phone_number: '0303030303' }) }
 
-      it "duplicate a user" do
+      it "duplicate a user and add subjects to his personnal expert" do
         expect(new_user.full_name).to eq 'Bruce Benamran'
         expect(new_user.email).to eq 'test3@email.com'
         expect(new_user.phone_number).to eq '03 03 03 03 03'

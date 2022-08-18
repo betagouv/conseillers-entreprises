@@ -11,7 +11,7 @@ ActiveAdmin.register_page 'Duplicate user' do
     end
   end
 
-  content do
+  content title: I18n.t('active_admin.duplicate_user.title') do
     panel t('active_admin.duplicate_user.new_user_details'), class: 'active-admin-form' do
       table do
         new_user = User.new
