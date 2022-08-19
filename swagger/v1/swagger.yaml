@@ -9,7 +9,6 @@ paths:
       summary: Liste des pages formulaires
       tags:
       - Landings
-      - Authentication
       description: Affiche toutes les pages formulaires pour l'organisation authentifiée
       responses:
         '200':
@@ -23,6 +22,8 @@ paths:
                   properties:
                     id:
                       type: integer
+                    iframe_category:
+                      type: string
                     title:
                       type: string
                     slug:
@@ -31,12 +32,51 @@ paths:
                       type: string
         '404':
           description: Mauvais token
+  "/api/v1/landings/{id}":
+    get:
+      summary: Page formulaire
+      tags:
+      - Landings
+      description: Affiche le détail d’une page formulaire
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Page formulaire trouvée
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/landing"
 servers:
 - url: https://{default_host}
   variables:
     default_host:
       default: place-des-entreprises.beta.gouv.fr
 components:
+  schemas:
+    landing:
+      type: object
+      properties:
+        id:
+          type: integer
+        iframe_category:
+          type: string
+        title:
+          type: string
+        slug:
+          type: string
+        partner_url:
+          type: string
+        landing_themes:
+          type: array
+      required:
+      - id
+      - title
+      - partner_url
   securitySchemes:
     bearer_auth:
       type: http

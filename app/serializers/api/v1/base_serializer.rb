@@ -1,12 +1,9 @@
 class Api::V1::BaseSerializer < ActiveModel::Serializer
-
-
   # {
   #   "data": { ... },
   #   "links": { ... },
   #   "metadata": { ... }
   # }
-
 
   # { "errors": [
   #   { "code": "...",

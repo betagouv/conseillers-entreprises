@@ -33,6 +33,20 @@ RSpec.configure do |config|
         }
       ],
       components: {
+        schemas: {
+          landing: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              iframe_category: { type: :string },
+              title: { type: :string },
+              slug: { type: :string },
+              partner_url: { type: :string },
+              landing_themes: { type: :array }
+            },
+            required: [ 'id', 'title', 'partner_url' ]
+          }
+        },
         securitySchemes: {
           bearer_auth: {
             type: :http,

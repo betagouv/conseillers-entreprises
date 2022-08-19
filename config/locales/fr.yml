@@ -5,6 +5,9 @@ fr:
   all:
     feminine: Toutes
   all_choices: Tout
+  api_pde:
+    errors:
+      not_found: n’existe pas ou est invalide
   api_requests:
     blank_query: Champs de recherche vide
     default_error_message:
@@ -12,9 +15,6 @@ fr:
     embraced_error_html: 'La recherche de votre entreprise auprès de nos partenaires a rencontré une erreur : "%{message}". Veuillez modifier votre recherche, réessayer ultérieurement ou <a href=%{url}>renseigner votre SIRET manuellement</a>.'
     generic_error: Nous n'avons pu récupérer les détails de l'entreprise auprès de nos partenaires, veuillez réessayer ultérieurement
     invalid_siret_or_siren: L'identifiant (siret ou siren) est invalide
-  api_pde:
-    errors:
-      not_found: n’existe pas ou est invalide
   app_name: Place des Entreprises
   boolean:
     text:
@@ -248,9 +248,6 @@ fr:
       '500':
         message_html: Cette erreur était inattendue…<br/>Nous avons été prévenus de son apparition et nous allons la réparer dès que possible !
         title: Erreur !
-      api:
-        '404':
-          message: Cet objet n'a pu être trouvé
     territory_choice:
       region: Région
   sign_in: Connexion
