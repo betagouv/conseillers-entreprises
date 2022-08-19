@@ -12,6 +12,9 @@ fr:
     embraced_error_html: 'La recherche de votre entreprise auprès de nos partenaires a rencontré une erreur : "%{message}". Veuillez modifier votre recherche, réessayer ultérieurement ou <a href=%{url}>renseigner votre SIRET manuellement</a>.'
     generic_error: Nous n'avons pu récupérer les détails de l'entreprise auprès de nos partenaires, veuillez réessayer ultérieurement
     invalid_siret_or_siren: L'identifiant (siret ou siren) est invalide
+  api_pde:
+    errors:
+      not_found: n’existe pas ou est invalide
   app_name: Place des Entreprises
   boolean:
     text:
@@ -31,7 +34,7 @@ fr:
     - ven
     - sam
     abbr_month_names:
-    - 
+    -
     - jan.
     - fév.
     - mar.
@@ -60,7 +63,7 @@ fr:
       month_name: "%B"
       short: "%e %b"
     month_names:
-    - 
+    -
     - janvier
     - février
     - mars

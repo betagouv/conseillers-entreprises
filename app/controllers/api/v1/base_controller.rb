@@ -23,8 +23,10 @@ class Api::V1::BaseController < ActionController::API
     render json: { errors: errors }, status: status
   end
 
-  def record_not_found
-    render_error_payload(errors: I18n.t('shared.errors.api.404.message'), status: 404)
+  def record_not_found(e)
+    key = e.model.constantize.model_name.human
+    errors = [{ key => I18n.t('api_pde.errors.not_found') }]
+    render_error_payload(errors: errors, status: 404)
   end
 
   def current_institution
