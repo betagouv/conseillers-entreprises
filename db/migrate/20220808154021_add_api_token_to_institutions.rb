@@ -3,6 +3,7 @@ class AddApiTokenToInstitutions < ActiveRecord::Migration[7.0]
     create_table :api_keys do |t|
       t.references :institution, null: false, foreign_key: true, index: true
       t.string :token_digest, null: false
+      t.datetime :valid_until
       t.timestamps null: false
     end
 

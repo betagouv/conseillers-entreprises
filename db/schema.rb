@@ -110,6 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_08_154021) do
   create_table "api_keys", force: :cascade do |t|
     t.bigint "institution_id", null: false
     t.string "token_digest", null: false
+    t.datetime "valid_until"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["institution_id"], name: "index_api_keys_on_institution_id"

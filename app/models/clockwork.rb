@@ -3,11 +3,11 @@ require './config/boot'
 require './config/environment'
 
 module Clockwork
+  every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }) do
+    RevokeApiKeys.delay.call
+  end
   every(1.week, 'send_app_administrators_statistics_email', at: 'Monday 07:30') do
     AdminMailersService.delay.send_statistics_email
-  end
-  every(1.day, 'send_failed_jobs_email', at: '10:00') do
-    AdminMailersService.delay.send_failed_jobs
   end
   every(1.week, 'send_experts_reminders', at: 'Tuesday 9:00') do
     ExpertReminderService.delay.send_reminders
@@ -17,6 +17,9 @@ module Clockwork
   end
   every(1.week, 'anonymize_old_diagnoses', at: 'sunday 5:00') do
     `rake anonymize_old_diagnoses`
+  end
+  every(1.day, 'send_failed_jobs_email', at: '10:00') do
+    AdminMailersService.delay.send_failed_jobs
   end
   every(1.day, 'send_retention_emails', at: ('4:41')) do
     CompanyMailerService.delay.send_retention_emails
