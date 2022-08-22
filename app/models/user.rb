@@ -56,7 +56,7 @@ class User < ApplicationRecord
          :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
-  attr_accessor :cgu_accepted
+  attr_accessor :cgu_accepted, :specifics_territories
 
   ## Associations
   #
@@ -330,6 +330,10 @@ class User < ApplicationRecord
         ExpertSubject.create(institution_subject: es.institution_subject,
                              expert: new_user.personal_skillsets.first,
                              intervention_criteria: es.intervention_criteria)
+      end
+      # et les territoires spécifiques si on a coché l'option
+      if params[:specifiques_territories].to_b
+        new_user.personal_skillsets.first.communes = self.personal_skillsets.first.communes
       end
     end
     self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }

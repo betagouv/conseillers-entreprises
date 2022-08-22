@@ -131,6 +131,7 @@ fr:
       deleted: Utilisateurs supprimés avec succès
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
+      duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
       roles: Rôles
       saved: Conseiller mis à jour

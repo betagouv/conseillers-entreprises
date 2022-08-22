@@ -3,7 +3,7 @@ ActiveAdmin.register_page 'Duplicate user' do
 
   page_action :duplicate, method: :post do
     old_user = User.find(params[:user_id])
-    user_params = params.require(:user).permit(:full_name, :email, :phone_number, :job)
+    user_params = params.require(:user).permit(:full_name, :email, :phone_number, :job, :specifics_territories)
     new_user = old_user.duplicate(user_params)
     if new_user.persisted?
       flash[:notice] = t('active_admin.user.created')
@@ -24,6 +24,9 @@ ActiveAdmin.register_page 'Duplicate user' do
           end
           f.input :email
           f.input :phone_number
+          if user.experts.map(&:custom_communes?).any?
+            f.input :specifiques_territories, as: :boolean, label: I18n.t('active_admin.user.duplicate_territories')
+          end
           f.submit
         end
       end
