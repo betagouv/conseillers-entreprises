@@ -17,7 +17,7 @@ RSpec.describe "Authentication API", type: :request do
 
       expect(response).not_to be_successful
       expect(response).to have_http_status(:not_found)
-      expect(json["errors"]).to eq([{"Token d’API"=>"n’existe pas ou est invalide"}])
+      expect(json["errors"]).to eq([{ "Token d’API" => "n’existe pas ou est invalide" }])
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe "Authentication API", type: :request do
 
       expect(response).not_to be_successful
       expect(response).to have_http_status(:not_found)
-      expect(json["errors"]).to eq([{"Token d’API"=>"n’existe pas ou est invalide"}])
+      expect(json["errors"]).to eq([{ "Token d’API" => "n’existe pas ou est invalide" }])
     end
   end
 

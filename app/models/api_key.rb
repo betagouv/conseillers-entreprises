@@ -18,7 +18,7 @@
 #  fk_rails_...  (institution_id => institutions.id)
 #
 class ApiKey < ApplicationRecord
-  HMAC_SECRET_KEY = ENV.fetch('API_KEY_HMAC_SECRET_KEY') { 1234 }
+  HMAC_SECRET_KEY = ENV.fetch('API_KEY_HMAC_SECRET_KEY', 1234)
 
   ## Associations
   #
