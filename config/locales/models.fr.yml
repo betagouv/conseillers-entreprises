@@ -133,6 +133,7 @@ fr:
       do_invite_done: Invitation(s) envoyée(s)
       duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
+      not_created: L’utilisateur n’a pas pu être créé
       roles: Rôles
       saved: Conseiller mis à jour
       user_info: Informations utilisateur

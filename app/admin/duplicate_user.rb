@@ -8,6 +8,9 @@ ActiveAdmin.register_page 'Duplicate user' do
     if new_user.persisted?
       flash[:notice] = t('active_admin.user.created')
       redirect_to admin_users_path
+    else
+      flash[:alert] = t('active_admin.user.not_created')
+      redirect_to admin_user_duplicate_user_path(old_user)
     end
   end
 

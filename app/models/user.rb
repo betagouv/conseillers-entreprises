@@ -332,7 +332,7 @@ class User < ApplicationRecord
                              intervention_criteria: es.intervention_criteria)
       end
       # et les territoires spécifiques si on a coché l'option
-      if params[:specifiques_territories].to_b
+      if params[:specifics_territories].to_b
         new_user.personal_skillsets.first.communes = self.personal_skillsets.first.communes
       end
     end
