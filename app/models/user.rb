@@ -339,4 +339,18 @@ class User < ApplicationRecord
     self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }
     new_user
   end
+
+  def transfer_matches_to(user)
+    personal_skillset = self.personal_skillsets.first
+    begin
+      raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_personal_skillsets', user: self)) if personal_skillset.nil?
+      ActiveRecord::Base.transaction do
+        personal_skillset.received_matches.in_progress.each do |match|
+          match.update(expert: user.personal_skillsets.first)
+        end
+      end
+    rescue StandardError => e
+      StandardError.new(I18n.t('activerecord.attributes.user.errors.cant_transfer_match', error: e.message))
+    end
+  end
 end

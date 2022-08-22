@@ -39,9 +39,16 @@ fr:
     csv_export_launched: La génération du CSV a commencé, vous aller recevoir un email avec le fichier en pièce jointe.
     duplicate_user:
       title: Dupliquer un utilisateur
+    reassign_matches:
+      title: Transférer les mises en relation
     solicitations:
       diagnosis_in_progress: " (En cours)"
       id: Sollicitation %{id}
+  admin:
+    reassign_matches:
+      reassign_matches:
+        save: Enregistrer
+        select_user: Utilisateur pour la réatribution des mises en relation
   annuaire:
     base:
       import_errors:
@@ -68,6 +75,7 @@ fr:
       table:
         duplicate_user: Dupliquer cet utilisateur
         edit_expert: Modifier %{expert_name} - %{antenne}
+        reassign_matches: Réassigner les mises en relation
         regional_experts_on_subject:
           one: "%{count} expert régional sur ce sujet"
           other: "%{count} experts régionaux sur ce sujet"

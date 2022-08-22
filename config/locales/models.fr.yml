@@ -134,6 +134,9 @@ fr:
       duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
       not_created: L’utilisateur n’a pas pu être créé
+      reassign_matches_done:
+        one: 1 mise en relation réattribuée à %{user}
+        other: "%{count} mises en relation réattribuées à %{user}"
       roles: Rôles
       saved: Conseiller mis à jour
       user_info: Informations utilisateur
@@ -416,9 +419,12 @@ fr:
         current_sign_in_at: Date de connexion
         current_sign_in_ip: IP de connexion
         encrypted_password: Mot de passe chiffré
+        errors:
+          cant_transfer_match: 'Les mises en relation n’ont pas pu être transférés : %{error}'
         experts:
           one: Équipe
           other: Équipes
+        have_not_personal_skillsets: "%{user} n’a pas d’expert personnel avec des compétences"
         invitation_accepted_at: Invitation acceptée
         invitation_sent_at: Invitation envoyée
         invitees: Invités

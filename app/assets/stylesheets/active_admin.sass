@@ -206,7 +206,7 @@ body.active_admin nav.pagination
     label
       font-weight: bold
       flex: 0 0 20%
-    input
+    input, select
       height: 1.5rem
       flex: 0 0 50%
   li.boolean
@@ -216,11 +216,15 @@ body.active_admin nav.pagination
       margin: 0.5rem 0.5rem 0.5rem 0
 
 .panel_contents
-  .action
-    border: 1px solid transparent
-    background-color: rgba(8, 97, 199, 0.87)
-    color: #fff
-    text-decoration: none
-    padding: 0.3rem
-    border-radius: 5px
-    font-weight: bold
+  .actions
+    list-style: none
+    li
+      margin-top: 1rem
+    .action
+      border: 1px solid transparent
+      background-color: rgba(8, 97, 199, 0.87)
+      color: #fff
+      text-decoration: none
+      padding: 0.3rem
+      border-radius: 5px
+      font-weight: bold
