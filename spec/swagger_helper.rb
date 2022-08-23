@@ -18,19 +18,22 @@ RSpec.configure do |config|
     'v1/swagger.yaml' => {
       openapi: '3.0.1',
       info: {
-        title: 'API V1',
-        version: 'v1'
+        title: 'API Place des Entreprises V1',
+        description: "API destinée aux partenaires de Place des Entreprises et leur permettant d’interagir avec le service. \n\rSi vous souhaitez un accès, prenez-contact avec nous : nous étudierons votre demande et vous fournirons un token d’accès, le cas échéant.",
+        version: '1.0.0',
+        contact: {
+          name: 'Équipe technique',
+          email: 'tech@place-des-entreprises.beta.gouv.fr'
+        }
       },
       paths: {},
       servers: [
         {
-          url: 'https://{default_host}',
-          variables: {
-            default_host: {
-              default: 'place-des-entreprises.beta.gouv.fr'
-            }
-          }
-        }
+          url: 'https://place-des-entreprises.beta.gouv.fr',
+        },
+        {
+          url: 'https://reso-staging.osc-fr1.scalingo.io',
+        },
       ],
       components: {
         schemas: {
@@ -42,9 +45,33 @@ RSpec.configure do |config|
               title: { type: :string },
               slug: { type: :string },
               partner_url: { type: :string },
-              landing_themes: { type: :array }
+              landing_themes: {
+                type: :array,
+                items: {
+                  '$ref': "#/components/schemas/landing_theme"
+                }
+              }
             },
             required: [ 'id', 'title', 'partner_url' ]
+          },
+          landing_theme: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              title: { type: :string },
+              slug: { type: :string },
+              landing_subjects: {
+                type: :array
+              }
+            },
+            required: [ 'id', 'title' ]
+          },
+          error: {
+            type: :object,
+            properties: {
+              source: { type: :string },
+              message: { type: :string }
+            }
           }
         },
         securitySchemes: {

@@ -81,6 +81,16 @@ You can import production data in staging application, if you want to test featu
  - `rake import_dump:import_to_staging` : import prod db in staging db
 
 You may encounter dependencies problems. If so, you may have to change `/lib/tasks/import_prod_to_staging.rake` in order to drop a few problematic tables in staging before restoring database.
+
+## API PDE
+
+### Documentation
+
+PdE API documentation makes use of swagger (`rswag` gem).
+In order to generate documentation with automatic examples, run :
+
+`rake rswag:specs:swaggerize SWAGGER_DRY_RUN=0`
+
 ---
 
 Next: [Deployment](03-deployment.md)

@@ -20,6 +20,7 @@
 #
 class ApiKey < ApplicationRecord
   HMAC_SECRET_KEY = ENV.fetch('API_KEY_HMAC_SECRET_KEY', '0a1b2c3d')
+  # Durée de vie max d'un token (recommandation ANSI, il me semble)
   LIFETIME = 18.months
 
   ## Associations

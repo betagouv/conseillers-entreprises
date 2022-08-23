@@ -1,4 +1,5 @@
 module Rswag::Ui::CSP
+  # permet que le js automatiquement injecté inline par rswag passe nos CSP (affichage de la doc de l'API)
   def call(env)
     _, headers, _ = response = super
     headers['Content-Security-Policy'] = <<~POLICY.tr "\n", ' '

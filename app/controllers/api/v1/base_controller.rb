@@ -15,17 +15,18 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
-  def render_serialized_payload(status: :ok)
-    render json: yield, status: status
-  end
-
   def render_error_payload(errors: nil, status: :unprocessable_entity)
     render json: { errors: errors }, status: status
   end
 
   def record_not_found(e)
-    key = e.model.constantize.model_name.human
-    errors = [{ key => I18n.t('api_pde.errors.not_found') }]
+    source = e.model.constantize.model_name.human
+    errors = [
+      {
+        source: source,
+            message: I18n.t('api_pde.errors.not_found')
+      }
+    ]
     render_error_payload(errors: errors, status: 404)
   end
 

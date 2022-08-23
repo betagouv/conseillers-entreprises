@@ -3,6 +3,22 @@ require 'swagger_helper'
 
 RSpec.describe "Landings API", type: :request do
   let(:institution) { create(:institution) }
+  let!(:landing_01) { create(:landing, :with_subjects, :api, institution: institution, title: 'DINUM recrutement', slug: 'dinum-recrutement') }
+
+  # Génération automatique des exemples dans la doc
+  after do |example|
+    content = example.metadata[:response][:content] || {}
+    example_spec = {
+      "application/json" => {
+        examples: {
+          test_example: {
+            value: JSON.parse(response.body, symbolize_names: true)
+          }
+        }
+      }
+    }
+    example.metadata[:response][:content] = content.deep_merge(example_spec)
+  end
 
   describe 'index' do
     path '/api/v1/landings' do
@@ -12,20 +28,26 @@ RSpec.describe "Landings API", type: :request do
         produces 'application/json'
 
         response '200', 'ok' do
-          let(:Authorization) { "Bearer token=#{find_token(institution)}" }
-          let!(:landing_01) { create(:landing, :api, institution: institution, title: 'Landing 01') }
-          let!(:landing_02) { create(:landing, :api, title: 'Landing 02') }
-          schema type: :array,
-                 items: {
-                   type: :object,
-                   properties: {
-                     id: { type: :integer },
-                     iframe_category: { type: :string },
-                     title: { type: :string },
-                     slug: { type: :string },
-                     partner_url: { type: :string }
+          schema type: :object,
+                 properties: {
+                   data: {
+                     type: :array,
+                     items: {
+                       '$ref': "#/components/schemas/landing"
+                     }
+                   },
+                   metadata: {
+                     type: :object,
+                     properties: {
+                       total_results: {
+                         type: :integer,
+                         description: 'Nombre de pages formulaires pour l’organisation authentifiée.'
+                       }
+                     }
                    }
                  }
+          let(:Authorization) { "Bearer token=#{find_token(institution)}" }
+          let!(:landing_02) { create(:landing, :api, title: 'Landing 02') }
 
           before do |example|
             submit_request(example.metadata)
@@ -39,18 +61,24 @@ RSpec.describe "Landings API", type: :request do
 
             result_landing = result['data'].first
             expect(result_landing.keys).to match_array(["id", "title", "slug", "partner_url", "iframe_category", "landing_themes"])
-            expect(result_landing["title"]).to eq('Landing 01')
+            expect(result_landing["title"]).to eq('DINUM recrutement')
           end
         end
 
         response '404', 'Mauvais token' do
+          schema errors: {
+            type: :array,
+                 items: {
+                   '$ref': "#/components/schemas/error"
+                 }
+          }
           let(:Authorization) { "Bearer token=tatayoyo}" }
 
           run_test! do |response|
             expect(response.status).to eq(404)
             result = JSON.parse(response.body)
-            expect(result["errors"].first.keys).to eq(['Token d’API'])
-            expect(result["errors"].first.values).to eq(['n’existe pas ou est invalide'])
+            expect(result["errors"].first["source"]).to eq('Token d’API')
+            expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
           end
         end
       end
@@ -66,10 +94,23 @@ RSpec.describe "Landings API", type: :request do
         produces 'application/json'
 
         response '200', 'Page formulaire trouvée' do
-          schema '$ref' => '#/components/schemas/landing'
+          schema type: :object,
+                 properties: {
+                   data: {
+                     '$ref' => '#/components/schemas/landing'
+                   },
+                   metadata: {
+                     type: :object,
+                     properties: {
+                       total_themes: {
+                         type: :integer,
+                         description: 'Nombre de thèmes liée à la page formulaire.'
+                       }
+                     }
+                   }
+                 }
 
           let(:Authorization) { "Bearer token=#{find_token(institution)}" }
-          let(:landing_01) { create(:landing, :with_subjects, :api, institution: institution, title: 'Landing 01') }
           let(:id) { landing_01.id }
 
           before do |example|
@@ -83,7 +124,7 @@ RSpec.describe "Landings API", type: :request do
 
             result_landing = result['data']
             expect(result_landing.keys).to match_array(["id", "title", "slug", "partner_url", "iframe_category", "landing_themes"])
-            expect(result_landing["title"]).to eq('Landing 01')
+            expect(result_landing["title"]).to eq('DINUM recrutement')
             expect(result_landing["landing_themes"].size).to eq(2)
           end
         end
