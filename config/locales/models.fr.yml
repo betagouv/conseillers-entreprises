@@ -1,6 +1,7 @@
 ---
 fr:
   active_admin:
+    actions: Actions
     antenne:
       deep_soft_delete: Supprimer l’antenne et ses experts
       deep_soft_delete_confirmation: Voulez-vous supprimer cette antenne, tous ses experts et ses utilisateurs ?
@@ -9,6 +10,8 @@ fr:
     antennes:
       deep_soft_deleted: Antennes, experts et utilisateurs supprimés avec succès
       deleted: Antennes supprimées avec succès
+    duplicate_user:
+      new_user_details: Coordonnées du nouvel utilisateur
     expert:
       deep_soft_delete: Supprimer l’expert et ses utilisateurs
       deep_soft_delete_confirmation: Voulez-vous supprimer cet expert et tous ses utilisateurs ?
@@ -120,6 +123,7 @@ fr:
       entire_territory_assigned: Territoire ajouté
     user:
       connection: Connexion
+      created: Utilisateur créé avec succès
       deep_soft_delete: Supprimer l’utilisateur et ses experts solo
       deep_soft_delete_confirmation: Voulez-vous supprimer cet utilisateur et ses experts ayant un seul membre ?
       delete: Supprimer l’utilisateur et son expert personnel
@@ -127,7 +131,9 @@ fr:
       deleted: Utilisateurs supprimés avec succès
       do_invite: Envoyer l(es) invitation(s)
       do_invite_done: Invitation(s) envoyée(s)
+      duplicate_territories: Dupliquer les territoires spécifiques
       impersonate: Voir le site comme %{name}
+      not_created: L’utilisateur n’a pas pu être créé
       roles: Rôles
       saved: Conseiller mis à jour
       user_info: Informations utilisateur

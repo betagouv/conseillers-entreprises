@@ -56,7 +56,7 @@ class User < ApplicationRecord
          :validatable,
          :invitable, invited_by_class_name: 'User', validate_on_invite: true
 
-  attr_accessor :cgu_accepted
+  attr_accessor :cgu_accepted, :specifics_territories
 
   ## Associations
   #
@@ -314,5 +314,29 @@ class User < ApplicationRecord
 
   def is_admin?
     user_rights_admin.any?
+  end
+
+  def duplicate(params)
+    params[:job] = params[:job].presence || self.job
+    new_user = User.create(params.merge(antenne: antenne))
+    user_experts = self.relevant_experts - self.personal_skillsets
+    # si c'est une équipe
+    if user_experts.present?
+      new_user.relevant_experts = user_experts
+      new_user.save
+    # si c'est un expert personnel on attribue les sujets à l'expert personnel du nouvel utilisateur
+    elsif self.personal_skillsets.map(&:experts_subjects).present?
+      self.personal_skillsets.first.experts_subjects.map do |es|
+        ExpertSubject.create(institution_subject: es.institution_subject,
+                             expert: new_user.personal_skillsets.first,
+                             intervention_criteria: es.intervention_criteria)
+      end
+      # et les territoires spécifiques si on a coché l'option
+      if params[:specifics_territories].to_b
+        new_user.personal_skillsets.first.communes = self.personal_skillsets.first.communes
+      end
+    end
+    self.user_rights.each { |right| right.dup.update(user_id: new_user.id) }
+    new_user
   end
 end

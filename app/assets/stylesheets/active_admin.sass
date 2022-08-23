@@ -195,3 +195,32 @@ body.active_admin nav.pagination
 
 .index_as_table .logo img
   max-height: 50px
+
+.panel.active-admin-form
+  .panel_contents
+    padding: 1.5rem
+  li
+    margin-bottom: 1rem
+    display: flex
+    align-items: center
+    label
+      font-weight: bold
+      flex: 0 0 20%
+    input
+      height: 1.5rem
+      flex: 0 0 50%
+  li.boolean
+    label
+      flex: 0 0 100%
+    input
+      margin: 0.5rem 0.5rem 0.5rem 0
+
+.panel_contents
+  .action
+    border: 1px solid transparent
+    background-color: rgba(8, 97, 199, 0.87)
+    color: #fff
+    text-decoration: none
+    padding: 0.3rem
+    border-radius: 5px
+    font-weight: bold

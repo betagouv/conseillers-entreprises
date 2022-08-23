@@ -120,6 +120,12 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar I18n.t('active_admin.actions'), only: :show do
+    ul do
+      div link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
+    end
+  end
+
   sidebar I18n.t('active_admin.user.roles'), only: :show do
     attributes_table do
       if resource.is_admin?
@@ -152,7 +158,7 @@ ActiveAdmin.register User do
     link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
   end
 
-  action_item :invite_user, only: :show do
+  sidebar :invite_user, only: :show do
     link_to t('active_admin.user.do_invite'), invite_user_admin_user_path(user)
   end
 
