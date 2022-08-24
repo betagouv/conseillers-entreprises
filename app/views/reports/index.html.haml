@@ -16,7 +16,7 @@
               = link_to download_report_path(matches_report, format: :xlsx), class: 'fr-tile__link' do
                 = matches_report.file.filename
           .fr-tile__img
-            %span.ri-file-download-line
+            %span.ri-file-download-line{ 'aria-hidden': 'true' }
       - if stats_report.present?
         .fr-tile.fr-enlarge-link.fr-tile--horizontal.fr-mt-2w
           .fr-tile__body
@@ -24,7 +24,7 @@
               = link_to download_report_path(stats_report, format: :xlsx), class: 'fr-tile__link' do
                 = stats_report.file.filename
           .fr-tile__img
-            %span.ri-file-download-line
+            %span.ri-file-download-line{ 'aria-hidden': 'true' }
   - else
     .fr-alert.fr-alert--info
       %p.fr-alert__title= t('.no_export_available')

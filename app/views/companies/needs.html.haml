@@ -3,7 +3,7 @@
     %h1.fr-h2= t('.title_html', company: @facility.company.name, siret: @facility.siret)
 
     = link_to company_path(@facility), class: "bold blue" do
-      %span.ri-arrow-left-line.fr-mr-1w
+      %span.ri-arrow-left-line.fr-mr-1w{ 'aria-hidden': 'true' }
       = t('.back_to_company')
 
   - if @needs_in_progress.present?

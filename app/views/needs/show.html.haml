@@ -16,7 +16,7 @@
         .fr-container.fr-p-0
           .fr-grid-row
             .fr-col-lg-2.fr-grid-row--center.picto-person-block
-              %span.ri-map-pin-user-line
+              %span.ri-map-pin-user-line{ 'aria-hidden': 'true' }
             .fr-col-lg-10
               %h2.fr-text--lg.fr-m-0.blue= t('.person_company_contact')
               = person_block(@need.visitee, job: nil)
@@ -24,14 +24,14 @@
         .fr-container.fr-p-0
           .fr-grid-row.fr-mt-2v
             .fr-col-lg-2.fr-grid-row--center.picto-person-block
-              %span.ri-building-4-line
+              %span.ri-building-4-line{ 'aria-hidden': 'true' }
             .fr-col-lg-10
               = render 'companies/facility_infos', facility: @need.facility, need: @need, facility_needs: @facility_needs, contact_needs: @contact_needs
       .fr-grid-row.fr-grid-row--gutter.fr-grid-row--middle
         .fr-container.fr-p-0
           .fr-grid-row
             .fr-col-lg-2.fr-grid-row--center.picto-person-block
-              %span.ri-mail-send-line
+              %span.ri-mail-send-line{ 'aria-hidden': 'true' }
             .fr-col-lg-10.infos-transmitted-by.fr-pl-1v
               %h2.fr-text--lg.fr-mb-1w.blue= t('.transmitted_by')
               %div

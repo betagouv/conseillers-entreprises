@@ -18,7 +18,7 @@
 = form_with url: request.fullpath, method: :get, local: true do |f|
   .ui.search.solicitation
     .ui.input.left.icon.fluid.action
-      %i.ri-search-line.icon
+      %i.ri-search-line.icon{ 'aria-hidden': 'true' }
       = f.text_field :query, value: params[:query], class: 'prompt', placeholder: t('.search_placeholder')
       %button.ui.button.primary{ type: 'submit' }= t('.search')
     .results

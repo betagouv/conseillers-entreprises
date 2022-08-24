@@ -21,9 +21,9 @@
           %li
             %details.details--dropdown
               %summary.fr-btn.fr-btn--secondary{ title: t('.change_match_status') }
-                .ri-edit-box-line
+                .ri-edit-box-line{ 'aria-hidden': 'true' }
               .details--dropdown__content
                 = admin_match_actions_buttons match
           %li
             = link_to quo_active_reminders_expert_path(match.expert), class: "fr-btn fr-btn--secondary fr-mb-0", title: t('.see_expert_inbox') do
-              .ri-inbox-line
+              .ri-inbox-line{ 'aria-hidden': 'true' }
