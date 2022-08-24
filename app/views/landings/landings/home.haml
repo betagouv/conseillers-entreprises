@@ -31,7 +31,7 @@
             .fr-col-md-3.fr-col-9.display-flex-center
               = simple_format("#{landing.title} : ", {}, wrapper_tag: 'h2')
             .fr-col-md-5.fr-col-12.fr-my-md-0.fr-my-2w.display-flex-center
-              = simple_format(landing.home_description, {}, wrapper_tag: 'span')
+              = simple_format(landing.home_description, { class: 'fr-m-0' }, wrapper_tag: 'p')
             .fr-col-md-3.fr-col-12.display-flex-center
               = link_to t('.discover_measures'), landing, class: 'fr-btn fr-btn--secondary'
     = render 'multiple_steps', landing_themes: @landing_themes, landing: @landing
