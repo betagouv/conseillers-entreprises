@@ -12,12 +12,16 @@
           = link_to t('.startup_d_etat'), 'https://beta.gouv.fr/startups/place-des-entreprises', title: t('.link_to_beta_gouv')
         .fr-my-2v
           .social-network
-            = link_to 'https://www.linkedin.com/company/place-des-entreprises', title: t('.linkedin_title'), target: '_blank', rel: 'noopener' do
-              %span.ri-linkedin-box-fill{ 'aria-hidden': 'true' }
-            = link_to 'https://twitter.com/place_des_ets', title: t('.twitter_title'), target: '_blank', rel: 'noopener' do
-              %span.ri-twitter-fill{ 'aria-hidden': 'true' }
-            = link_to 'https://github.com/betagouv/place-des-entreprises', title: t('.github_title'), target: '_blank', rel: 'noopener' do
-              %span.ri-github-fill{ 'aria-hidden': 'true' }
+            %ul
+              %li
+                = link_to 'https://www.linkedin.com/company/place-des-entreprises', title: t('.linkedin_title'), target: '_blank', rel: 'noopener' do
+                  %span.ri-linkedin-box-fill{ 'aria-hidden': 'true' }
+              %li
+                = link_to 'https://twitter.com/place_des_ets', title: t('.twitter_title'), target: '_blank', rel: 'noopener' do
+                  %span.ri-twitter-fill{ 'aria-hidden': 'true' }
+              %li
+                = link_to 'https://github.com/betagouv/place-des-entreprises', title: t('.github_title'), target: '_blank', rel: 'noopener' do
+                  %span.ri-github-fill{ 'aria-hidden': 'true' }
         %div
           %ul.fr-footer__content-list
             %li.fr-footer__content-item
