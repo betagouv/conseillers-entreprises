@@ -798,7 +798,7 @@ fr:
       menu: Menu
     newsletter:
       newsletter_informations: Découvrez chaque mois comment une administration ou un organisme public peut aider votre entreprise
-      newsletter_legal: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la newsletter
+      newsletter_legal_html: Vous pouvez vous désinscrire à tout moment avec le lien de désinscription dans la <span lang='en'>newsletter</span>
       placeholder_email: Votre adresse email
       received_news: 'Découvrez les nouveaux accompagnements publics :'
       subscribe: S’abonner

@@ -8,4 +8,4 @@
     .fr-input-wrap.fr-input-wrap--addon
       = f.email_field :email, placeholder: t('.placeholder_email'), required: true, value: local_assigns[:email], class: 'fr-input', id: 'newsletter-email', 'aria-describedby': 'fr-newsletter-hint-text', 'aria-label': t('.placeholder_email')
       = f.submit t('.subscribe'), class: 'fr-btn', id: 'newsletter-button'
-    %p.fr-hint-text#fr-newsletter-hint-text= t('.newsletter_legal')
+    %p.fr-hint-text#fr-newsletter-hint-text= t('.newsletter_legal_html')
