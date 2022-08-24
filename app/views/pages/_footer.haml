@@ -35,7 +35,8 @@
         %li.fr-footer__bottom-item
           = link_to t('cgu'), cgu_path, class: 'fr-footer__bottom-link'
         %li.fr-footer__bottom-item
-          = link_to t('.cookies'), '#', id: 'open-cookies-box', 'aria-label': t('.open_cookies'), class: 'fr-footer__bottom-link'
+          %button.link.fr-footer__bottom-link{ id: 'open-cookies-box', 'aria-label': t('.open_cookies') }
+            = t('.cookies')
         - if policy(Stats::All).team?
           %li.fr-footer__bottom-item
             = link_to t('usage_team_stats'), team_index_path, class: 'fr-footer__bottom-link'
