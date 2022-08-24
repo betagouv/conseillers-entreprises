@@ -7,11 +7,6 @@
   received_needs: @needs_quo,
   title: t('.needs_quo'),
   visited_at: false %>
-
-<%= render 'mailers/expert_mailer/remind_received_needs',
-  received_needs: @needs_taking_care,
-  title: t('.needs_taking_care'),
-  visited_at: true %>
 ---
 
 <%= render 'mailers/expert_mailer/invitation_not_accepted_warning' %>
