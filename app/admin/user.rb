@@ -124,6 +124,7 @@ ActiveAdmin.register User do
     ul class: 'actions' do
       li link_to t('annuaire.users.table.duplicate_user'), admin_user_duplicate_user_path(user), class: 'action'
       li link_to t('annuaire.users.table.reassign_matches'), admin_user_reassign_matches_path(user), class: 'action'
+      li link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user), class: 'action'
     end
   end
 
@@ -153,10 +154,6 @@ ActiveAdmin.register User do
 
   action_item :impersonate, only: :show do
     link_to t('active_admin.user.impersonate', name: user.full_name), impersonate_engine.impersonate_user_path(user)
-  end
-
-  action_item :normalize_values, only: :show do
-    link_to t('active_admin.person.normalize_values'), normalize_values_admin_user_path(user)
   end
 
   sidebar :invite_user, only: :show do
