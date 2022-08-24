@@ -11,10 +11,10 @@ class NewslettersController < PagesController
 
     begin
       api_instance.create_contact(SibApiV3Sdk::CreateContact.new(contact_params))
-      flash[:success] = t('.success_newsletter')
+      flash[:notice] = t('.success_newsletter')
     rescue SibApiV3Sdk::ApiError => e
       Sentry.capture_exception(e)
-      flash[:warning] = t('.error_newsletter_subscription')
+      flash[:alert] = t('.error_newsletter_subscription')
     end
 
     redirect_back fallback_location: root_path
