@@ -4,7 +4,7 @@ require './config/environment'
 
 module Clockwork
   every(1.day, 'revoke_api_keys', at: ('2:00'), if: -> (t) { t.day == 1 }) do
-    RevokeApiKeys.delay.call
+    ApiKeysManagement.delay.batch_revoke
   end
   every(1.week, 'send_app_administrators_statistics_email', at: 'Monday 07:30') do
     AdminMailersService.delay.send_statistics_email
