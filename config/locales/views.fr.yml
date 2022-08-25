@@ -901,6 +901,8 @@ fr:
     search_company:
       select_your_company: 'Sélectionnez votre entreprise :'
     search_facility:
+      empty_facilities_description_html: Notre moteur de recherche n'a pas trouvé votre entreprise. Vous pouvez toujours <a href=%{manual_path}> renseigner manuellement votre numéro de SIRET</a> ou effectuez une <a href=%{search_path}> nouvelle recherche</a>.
+      empty_facilities_title: Votre recherche n'a donné aucun résultat
       select_your_facility: "%{company_name} possède plusieurs établissements. Sélectionnez l'établissement concerné :"
     set_category_content:
       landings: Page source

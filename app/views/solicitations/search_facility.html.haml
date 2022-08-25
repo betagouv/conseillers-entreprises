@@ -5,12 +5,19 @@
 
 .fr-grid-row
   .fr-col-12.fr-col-md-6.fr-col-offset-md-3.multistep-form.fr-pb-3w
-    %h3.fr-h4= t('.select_your_facility', company_name: @facilities.first.nom)
-    - @facilities.each do |facility|
-      .fr-mb-2w
-        = render 'facility_tile', company: facility
+    - if @facilities.any?
+      %h3.fr-h4= t('.select_your_facility', company_name: @facilities.first.nom)
+      - @facilities.each do |facility|
+        .fr-mb-2w
+          = render 'facility_tile', company: facility
+      = render 'manual_step_company_link', solicitation: @solicitation
+    - else
+      %h3.fr-h4= t('.empty_facilities_title')
+      .fr-mb-4w
+        .fr-callout
+          %p.fr-callout__text= t(".empty_facilities_description_html", search_path: step_company_search_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'), manual_path: step_company_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
 
-= render 'manual_step_company_link', solicitation: @solicitation
+
 
 - content_for :footer do
   = render 'iframe_footer', landing: @solicitation.landing
