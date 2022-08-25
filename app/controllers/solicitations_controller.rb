@@ -35,7 +35,7 @@ class SolicitationsController < PagesController
           @companies = result[:items]
         else
           @error_message = result[:error]
-          render 'step_company_search'
+          render 'step_company_search' and return
         end
       end
       format.json do
