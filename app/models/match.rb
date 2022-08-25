@@ -90,6 +90,8 @@ class Match < ApplicationRecord
 
   scope :with_deleted_expert, ->{ where(expert: nil) }
 
+  scope :not_sent, -> { where(id: joins(:diagnosis).merge(Diagnosis.not_step_completed)) }
+
   scope :sent, -> { where(id: joins(:diagnosis).merge(Diagnosis.step_completed)) }
 
   scope :in_region, -> (region) { joins(:facility_regions).where(facility: { territories: region }) }

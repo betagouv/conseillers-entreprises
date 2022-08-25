@@ -10,14 +10,20 @@ class UnusedUsersService
         next if expert.present? && (expert.received_matches.any? || user.experts.many?)
 
         user.experts.each { |e| e.users.delete(user) }
-        Expert.joins(:users).where("users.id" => user.id).each { |e| e.users.delete(user) }
+        Expert.joins(:users).where('users.id': user.id).each { |e| e.users.delete(user) }
 
-        if expert.present? && expert.users.count < 2 && expert.received_matches.blank?
-          expert.transaction do
-            # There is dependent: :destroy but destroy call soft_delete
-            expert.experts_subjects.delete_all
-            expert.communes = []
-            expert.delete
+        if expert.present? && expert.users.count < 2
+          # If expert has matches with diagnosis not completed
+          if expert.not_received_matches.present? && expert.received_matches.blank?
+            expert.not_received_matches.destroy_all
+          end
+          if expert.received_matches.blank?
+            expert.transaction do
+              # There is dependent: :destroy but destroy call soft_delete
+              expert.experts_subjects.delete_all
+              expert.communes = []
+              expert.delete
+            end
           end
         end
         begin

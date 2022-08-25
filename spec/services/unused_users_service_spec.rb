@@ -66,5 +66,24 @@ describe UnusedUsersService do
         expect(Expert.all).to include(expert_1)
       end
     end
+
+    describe 'Delete expert and users with pending matches' do
+      let!(:user_1) {
+        create :user, invitation_accepted_at: nil, created_at: seven_months_ago,
+               invitation_sent_at: seven_months_ago, encrypted_password: ''
+      }
+      let!(:expert_1) { user_1.personal_skillsets.first }
+      let!(:a_match) { create :match, expert: expert_1 }
+
+      before do
+        a_match.diagnosis.update(step: :matches)
+        described_class.delete_users
+      end
+
+      it do
+        expect(User.all).not_to include(user_1)
+        expect(Expert.all).not_to include(expert_1)
+      end
+    end
   end
 end
