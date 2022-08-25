@@ -897,6 +897,11 @@ fr:
     breadcrumb:
       see_breadcrumb: Voir le fil d’Ariane
       you_are_here: 'Vous êtes ici :'
+    skiplinks:
+      content: Contenu
+      fast_access: Accès rapide
+      footer: Pied de page
+      menu: Menu
   solicitations:
     company_tile:
       choose_my_facility: Sélectionner un établissement

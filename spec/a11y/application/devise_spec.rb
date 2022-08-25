@@ -8,7 +8,10 @@ describe 'devise', type: :feature, js: true do
   describe '/mon_compte/sign_in' do
     before { visit '/mon_compte/sign_in' }
 
-    it { is_expected.to be_accessible }
+    it do
+      is_expected.to be_accessible
+      is_expected.to have_skiplinks_ids
+    end
   end
 
   describe '/mon_compte' do
@@ -21,25 +24,37 @@ describe 'devise', type: :feature, js: true do
     context '/mon_compte/informations' do
       before { visit '/mon_compte/informations' }
 
-      it { is_expected.to be_accessible }
+      it do
+        is_expected.to be_accessible
+        is_expected.to have_skiplinks_ids
+      end
     end
 
     context '/mon_compte/mot_de_passe' do
       before { visit '/mon_compte/mot_de_passe' }
 
-      it { is_expected.to be_accessible }
+      it do
+        is_expected.to be_accessible
+        is_expected.to have_skiplinks_ids
+      end
     end
 
     context '/mon_compte/antenne' do
       before { visit '/mon_compte/antenne' }
 
-      it { is_expected.to be_accessible }
+      it do
+        is_expected.to be_accessible
+        is_expected.to have_skiplinks_ids
+      end
     end
 
     context '/mon_compte/referents/:expert_id/domaines' do
       before { visit "/mon_compte/referents/#{expert.id}/domaines" }
 
-      it { is_expected.to be_accessible }
+      it do
+        is_expected.to be_accessible
+        is_expected.to have_skiplinks_ids
+      end
     end
   end
 end
