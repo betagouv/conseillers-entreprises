@@ -34,7 +34,7 @@
     = render 'environment_ribbon'
     = render 'user_impersonate'
     = render 'shared/flashes'
-    %main
+    %main{ role: 'main' }
       = content_for?(:content) ? yield(:content) : yield # :content is used by sub-layouts
 
     = render 'footer' unless in_iframe?
