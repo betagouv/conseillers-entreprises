@@ -27,19 +27,20 @@ class SolicitationsController < PagesController
     elsif siren_is_set?
       redirect_path = { controller: "/solicitations", action: "search_facility", uuid: @solicitation.uuid, anchor: 'section-formulaire' }.merge(search_params)
       redirect_to redirect_path and return
-    end
-    result = SearchFacility.new(search_params).from_full_text_or_siren
-    respond_to do |format|
-      format.html do
-        if result[:error].blank?
-          @companies = result[:items]
-        else
-          @error_message = result[:error]
-          render 'step_company_search' and return
+    else
+      result = SearchFacility.new(search_params).from_full_text_or_siren
+      respond_to do |format|
+        format.html do
+          if result[:error].blank?
+            @companies = result[:items]
+          else
+            @error_message = result[:error]
+            render 'step_company_search' and return
+          end
         end
-      end
-      format.json do
-        render json: result.as_json
+        format.json do
+          render json: result.as_json
+        end
       end
     end
   end
