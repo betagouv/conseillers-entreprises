@@ -1,0 +1,204 @@
+---
+openapi: 3.0.1
+info:
+  title: API Place des Entreprises V1
+  description: "API destinée aux partenaires de Place des Entreprises et leur permettant
+    d’interagir avec le service. \n\rSi vous souhaitez un accès, prenez-contact avec
+    nous : nous étudierons votre demande et vous fournirons un token d’accès, le cas
+    échéant."
+  version: 1.0.0
+  contact:
+    name: Équipe technique
+    email: tech@place-des-entreprises.beta.gouv.fr
+paths:
+  "/api/v1/landings":
+    get:
+      summary: Liste des pages formulaires
+      tags:
+      - Landings
+      description: Affiche toutes les pages formulaires pour l'organisation authentifiée
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    data:
+                    - id: 116
+                      title: DINUM recrutement
+                      slug: dinum-recrutement
+                      partner_url: https://www.example.com/aides
+                      iframe_category: integral
+                      landing_themes:
+                      - id: 81
+                        title: redefine seamless niches
+                        page_title: 
+                        slug: ltmollitia1
+                        description: At sit consequatur. Nobis magni qui. Pariatur
+                          sint dolorem.
+                        meta_title: 
+                        meta_description: 
+                        created_at: '2022-08-23T13:57:54.737+02:00'
+                        updated_at: '2022-08-23T13:57:54.737+02:00'
+                        archived_at: 
+                      - id: 82
+                        title: streamline back-end communities
+                        page_title: 
+                        slug: ltest4
+                        description: Autem libero ipsa. Hic facere ea. Sapiente reprehenderit
+                          tenetur.
+                        meta_title: 
+                        meta_description: 
+                        created_at: '2022-08-23T13:57:54.865+02:00'
+                        updated_at: '2022-08-23T13:57:54.865+02:00'
+                        archived_at: 
+                    metadata:
+                      total_results: 1
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/landing"
+                  metadata:
+                    type: object
+                    properties:
+                      total_results:
+                        type: integer
+                        description: Nombre de pages formulaires pour l’organisation
+                          authentifiée.
+        '404':
+          description: Mauvais token
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    errors:
+                    - source: Token d’API
+                      message: n’existe pas ou est invalide
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
+  "/api/v1/landings/{id}":
+    get:
+      summary: Page formulaire
+      tags:
+      - Landings
+      description: Affiche le détail d’une page formulaire
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Page formulaire trouvée
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    data:
+                      id: 119
+                      title: DINUM recrutement
+                      slug: dinum-recrutement
+                      partner_url: https://www.example.com/aides
+                      iframe_category: integral
+                      landing_themes:
+                      - id: 85
+                        title: incubate killer portals
+                        page_title: 
+                        slug: ltillum13
+                        description: Ut reiciendis numquam. Laboriosam doloremque
+                          neque. Est expedita suscipit.
+                        meta_title: 
+                        meta_description: 
+                        created_at: '2022-08-23T13:57:55.339+02:00'
+                        updated_at: '2022-08-23T13:57:55.339+02:00'
+                        archived_at: 
+                      - id: 86
+                        title: matrix mission-critical portals
+                        page_title: 
+                        slug: ltsint16
+                        description: Est cumque officiis. Est cumque illo. Aut incidunt
+                          quibusdam.
+                        meta_title: 
+                        meta_description: 
+                        created_at: '2022-08-23T13:57:55.395+02:00'
+                        updated_at: '2022-08-23T13:57:55.395+02:00'
+                        archived_at: 
+                    metadata:
+                      total_themes: 2
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/landing"
+                  metadata:
+                    type: object
+                    properties:
+                      total_themes:
+                        type: integer
+                        description: Nombre de thèmes liée à la page formulaire.
+servers:
+- url: https://place-des-entreprises.beta.gouv.fr
+- url: https://reso-staging.osc-fr1.scalingo.io
+components:
+  schemas:
+    landing:
+      type: object
+      properties:
+        id:
+          type: integer
+        iframe_category:
+          type: string
+        title:
+          type: string
+        slug:
+          type: string
+        partner_url:
+          type: string
+        landing_themes:
+          type: array
+          items:
+            "$ref": "#/components/schemas/landing_theme"
+      required:
+      - id
+      - title
+      - partner_url
+    landing_theme:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        landing_subjects:
+          type: array
+      required:
+      - id
+      - title
+    error:
+      type: object
+      properties:
+        source:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      description: Le jeton vous est fourni après étude de votre demande par Place
+        des Entreprises
+security:
+- bearer_auth: []

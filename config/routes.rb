@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/documentation-api'
+  mount Rswag::Api::Engine => '/documentation-api'
   # ActiveAdmin
   ActiveAdmin.routes(self)
 
@@ -13,6 +15,16 @@ Rails.application.routes.draw do
     request.env['warden'].authenticated? # are we authenticated?
     request.env['warden'].authenticate! # authenticate if not already
     request.env['warden'].user.is_admin?
+  end
+
+  # API ==================================================
+
+  namespace :api do
+    namespace :v1 do
+      resources :landings, controller: "landings/landings", only: [:index, :show] do
+        resources :landing_themes, controller: "landings/landing_themes", only: %i[show]
+      end
+    end
   end
 
   # Partie conseiller ================================================

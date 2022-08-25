@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' if ENV["COVERAGE"]
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
@@ -33,6 +33,7 @@ RSpec.configure do |config|
   config.extend FeatureMacros, type: :system
   config.include Warden::Test::Helpers
   config.include PunditSpecHelper, type: :view
+  config.include ApiSpecHelper, type: :request
   config.include SplitHelper
 
   config.infer_spec_type_from_file_location!

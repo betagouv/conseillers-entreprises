@@ -498,6 +498,9 @@ fr:
       antenne:
         one: Antenne
         other: Antennes
+      api_key:
+        one: Token d’API
+        other: Tokens d’API
       commune:
         one: Commune
         other: Communes

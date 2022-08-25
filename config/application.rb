@@ -40,3 +40,6 @@ module PlaceDesEntreprises
     config.active_record.legacy_connection_handling = false
   end
 end
+
+require "rswag/ui/CSP"
+require "api_adapters/pde_adapter"

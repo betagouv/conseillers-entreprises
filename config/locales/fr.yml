@@ -5,6 +5,9 @@ fr:
   all:
     feminine: Toutes
   all_choices: Tout
+  api_pde:
+    errors:
+      not_found: n’existe pas ou est invalide
   api_requests:
     blank_query: Champs de recherche vide
     default_error_message:

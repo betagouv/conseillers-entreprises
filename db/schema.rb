@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_02_143155) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_08_154021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -105,6 +105,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_143155) do
     t.bigint "commune_id", null: false
     t.index ["antenne_id"], name: "index_antennes_communes_on_antenne_id"
     t.index ["commune_id"], name: "index_antennes_communes_on_commune_id"
+  end
+
+  create_table "api_keys", force: :cascade do |t|
+    t.bigint "institution_id", null: false
+    t.string "token_digest", null: false
+    t.datetime "valid_until"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["institution_id"], name: "index_api_keys_on_institution_id"
+    t.index ["token_digest"], name: "index_api_keys_on_token_digest", unique: true
   end
 
   create_table "badges", force: :cascade do |t|
@@ -614,6 +624,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_143155) do
   add_foreign_key "antennes", "institutions"
   add_foreign_key "antennes_communes", "antennes"
   add_foreign_key "antennes_communes", "communes"
+  add_foreign_key "api_keys", "institutions"
   add_foreign_key "communes_experts", "communes"
   add_foreign_key "communes_experts", "experts"
   add_foreign_key "communes_territories", "communes"
