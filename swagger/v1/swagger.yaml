@@ -26,33 +26,33 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 116
+                    - id: 82
                       title: DINUM recrutement
                       slug: dinum-recrutement
                       partner_url: https://www.example.com/aides
                       iframe_category: integral
                       landing_themes:
-                      - id: 81
-                        title: redefine seamless niches
+                      - id: 139
+                        title: matrix viral vortals
                         page_title: 
-                        slug: ltmollitia1
-                        description: At sit consequatur. Nobis magni qui. Pariatur
-                          sint dolorem.
+                        slug: lttempora1
+                        description: At dolore sequi. Voluptatem labore facilis. Iure
+                          magnam dolorem.
                         meta_title: 
                         meta_description: 
-                        created_at: '2022-08-23T13:57:54.737+02:00'
-                        updated_at: '2022-08-23T13:57:54.737+02:00'
+                        created_at: '2022-08-26T16:29:47.245+02:00'
+                        updated_at: '2022-08-26T16:29:47.245+02:00'
                         archived_at: 
-                      - id: 82
-                        title: streamline back-end communities
+                      - id: 140
+                        title: e-enable intuitive web services
                         page_title: 
-                        slug: ltest4
-                        description: Autem libero ipsa. Hic facere ea. Sapiente reprehenderit
-                          tenetur.
+                        slug: ltaccusantium4
+                        description: Non odio consequatur. Consectetur dolor fugiat.
+                          In doloremque dolores.
                         meta_title: 
                         meta_description: 
-                        created_at: '2022-08-23T13:57:54.865+02:00'
-                        updated_at: '2022-08-23T13:57:54.865+02:00'
+                        created_at: '2022-08-26T16:29:47.366+02:00'
+                        updated_at: '2022-08-26T16:29:47.366+02:00'
                         archived_at: 
                     metadata:
                       total_results: 1
@@ -85,6 +85,102 @@ paths:
                   type: array
                   items:
                     "$ref": "#/components/schemas/error"
+  "/api/v1/landings/search":
+    get:
+      summary: Recherche d’une page formulaire à partir de l’url de sa page d’appel
+      tags:
+      - Landings
+      description: Afin de pouvoir tracer et quantifier les appels, nous enregistrons
+        les url des pages des sites partenaires depuis lesquelles l’API est appelé.
+        Ainsi, pour retrouver la page formulaire devant figurer à l’url XX, vous pouvez
+        faire une recherche via cette url.
+      parameters:
+      - name: url
+        in: query
+        description: url de la page qui appelle l’API
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Page formulaire trouvée
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    data:
+                      id: 85
+                      title: DINUM recrutement
+                      slug: dinum-recrutement
+                      partner_url: https://www.example.com/aides
+                      iframe_category: integral
+                      landing_themes:
+                      - id: 143
+                        title: brand B2B networks
+                        page_title: 
+                        slug: ltcumque13
+                        description: Ab autem rerum. Est voluptatem ab. Praesentium
+                          vitae dolorum.
+                        meta_title: 
+                        meta_description: 
+                        created_at: '2022-08-26T16:29:47.877+02:00'
+                        updated_at: '2022-08-26T16:29:47.877+02:00'
+                        archived_at: 
+                      - id: 144
+                        title: orchestrate frictionless deliverables
+                        page_title: 
+                        slug: ltminima16
+                        description: Maiores dignissimos recusandae. Et voluptates
+                          et. Et porro quibusdam.
+                        meta_title: 
+                        meta_description: 
+                        created_at: '2022-08-26T16:29:47.948+02:00'
+                        updated_at: '2022-08-26T16:29:47.948+02:00'
+                        archived_at: 
+                    metadata:
+                      total_themes: 2
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/landing"
+                  metadata:
+                    type: object
+                    properties:
+                      total_themes:
+                        type: integer
+                        description: Nombre de thèmes liée à la page formulaire.
+        '404':
+          description: Page formulaire inconnue
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    errors:
+                    - source: Landing
+                      message: n’existe pas ou est invalide
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
+        '400':
+          description: Paramètres vides
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    errors:
+                    - source: paramètres de requête
+                      message: malformés ou inconnus
+              schema:
+                errors:
+                  type: array
+                  items:
+                    "$ref": "#/components/schemas/error"
   "/api/v1/landings/{id}":
     get:
       summary: Page formulaire
@@ -106,33 +202,33 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 119
+                      id: 88
                       title: DINUM recrutement
                       slug: dinum-recrutement
                       partner_url: https://www.example.com/aides
                       iframe_category: integral
                       landing_themes:
-                      - id: 85
-                        title: incubate killer portals
+                      - id: 149
+                        title: target interactive technologies
                         page_title: 
-                        slug: ltillum13
-                        description: Ut reiciendis numquam. Laboriosam doloremque
-                          neque. Est expedita suscipit.
+                        slug: ltporro31
+                        description: Reiciendis rerum aut. Voluptatem dolores iusto.
+                          Dolores consequatur minus.
                         meta_title: 
                         meta_description: 
-                        created_at: '2022-08-23T13:57:55.339+02:00'
-                        updated_at: '2022-08-23T13:57:55.339+02:00'
+                        created_at: '2022-08-26T16:29:48.497+02:00'
+                        updated_at: '2022-08-26T16:29:48.497+02:00'
                         archived_at: 
-                      - id: 86
-                        title: matrix mission-critical portals
+                      - id: 150
+                        title: grow frictionless technologies
                         page_title: 
-                        slug: ltsint16
-                        description: Est cumque officiis. Est cumque illo. Aut incidunt
-                          quibusdam.
+                        slug: ltconsequatur34
+                        description: Modi omnis eligendi. Et voluptatem voluptates.
+                          Voluptas quod sint.
                         meta_title: 
                         meta_description: 
-                        created_at: '2022-08-23T13:57:55.395+02:00'
-                        updated_at: '2022-08-23T13:57:55.395+02:00'
+                        created_at: '2022-08-26T16:29:48.553+02:00'
+                        updated_at: '2022-08-26T16:29:48.553+02:00'
                         archived_at: 
                     metadata:
                       total_themes: 2

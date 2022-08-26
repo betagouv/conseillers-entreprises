@@ -4,6 +4,7 @@ require 'swagger_helper'
 RSpec.describe "Landings API", type: :request do
   let(:institution) { create(:institution) }
   let!(:landing_01) { create(:landing, :with_subjects, :api, institution: institution, title: 'DINUM recrutement', slug: 'dinum-recrutement') }
+  let(:Authorization) { "Bearer token=#{find_token(institution)}" }
 
   # Génération automatique des exemples dans la doc
   after do |example|
@@ -46,7 +47,6 @@ RSpec.describe "Landings API", type: :request do
                      }
                    }
                  }
-          let(:Authorization) { "Bearer token=#{find_token(institution)}" }
           let!(:landing_02) { create(:landing, :api, title: 'Landing 02') }
 
           before do |example|
@@ -79,6 +79,81 @@ RSpec.describe "Landings API", type: :request do
             result = JSON.parse(response.body)
             expect(result["errors"].first["source"]).to eq('Token d’API')
             expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
+          end
+        end
+      end
+    end
+  end
+
+  describe 'search_by_url' do
+    path '/api/v1/landings/search' do
+      get 'Recherche d’une page formulaire à partir de l’url de sa page d’appel' do
+        tags 'Landings'
+        description 'Afin de pouvoir tracer et quantifier les appels, nous enregistrons les url des pages des sites partenaires depuis lesquelles l’API est appelé. Ainsi, pour retrouver la page formulaire devant figurer à l’url XX, vous pouvez faire une recherche via cette url.'
+        produces 'application/json'
+        parameter name: :url, in: :query, type: :string, description: 'url de la page qui appelle l’API', required: false
+
+        response '200', 'Page formulaire trouvée' do
+          schema type: :object,
+                 properties: {
+                   data: {
+                     '$ref' => '#/components/schemas/landing'
+                   },
+                   metadata: {
+                     type: :object,
+                     properties: {
+                       total_themes: {
+                         type: :integer,
+                         description: 'Nombre de thèmes liée à la page formulaire.'
+                       }
+                     }
+                   }
+                 }
+          let(:url) { landing_01.partner_url }
+
+          before do |example|
+            submit_request(example.metadata)
+          end
+
+          it 'returns a valid 200 response' do |example|
+            expect(response).to have_http_status(:ok)
+            result = JSON.parse(response.body)
+
+            result_landing = result['data']
+            expect(result_landing["title"]).to eq('DINUM recrutement')
+          end
+        end
+
+        response '404', 'Page formulaire inconnue' do
+          schema errors: {
+            type: :array,
+                 items: {
+                   '$ref': "#/components/schemas/error"
+                 }
+          }
+          let(:url) { 'une-url-fictive.fr' }
+
+          run_test! do |response|
+            expect(response.status).to eq(404)
+            result = JSON.parse(response.body)
+            expect(result["errors"].first["source"]).to eq('Landing')
+            expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
+          end
+        end
+
+        response '400', 'Paramètres vides' do
+          schema errors: {
+            type: :array,
+                 items: {
+                   '$ref': "#/components/schemas/error"
+                 }
+          }
+
+          run_test! do |response|
+            expect(response.status).to eq(400)
+            result = JSON.parse(response.body)
+            expect(result["errors"].first["source"]).to eq('paramètres de requête')
+            expect(result["errors"].first["message"]).to eq('malformés ou inconnus')
           end
         end
       end
