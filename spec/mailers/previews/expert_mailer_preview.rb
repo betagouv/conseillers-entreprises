@@ -22,7 +22,7 @@ class ExpertMailerPreview < ActionMailer::Preview
   end
 
   def remind_involvement
-    expert = Match.sent.status_quo.joins(:expert).where(experts: { deleted_at: nil }).sample.expert
+    expert = Match.sent.status_quo.where(created_at: ..4.days.ago, archived_at: nil).joins(:expert).where(experts: { deleted_at: nil }).sample.expert
     ExpertMailer.remind_involvement(expert)
   end
 
