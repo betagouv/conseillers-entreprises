@@ -135,7 +135,7 @@ fr:
       impersonate: Voir le site comme %{name}
       not_created: L’utilisateur n’a pas pu être créé
       reassign_matches_done:
-        one: 1 mise en relation réattribuée à %{user}
+        one: "%{count} mise en relation réattribuée à %{user}"
         other: "%{count} mises en relation réattribuées à %{user}"
       roles: Rôles
       saved: Conseiller mis à jour

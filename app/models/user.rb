@@ -341,16 +341,11 @@ class User < ApplicationRecord
   end
 
   def transfer_matches_to(user)
-    personal_skillset = self.personal_skillsets.first
-    begin
-      raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_personal_skillsets', user: self)) if personal_skillset.nil?
-      ActiveRecord::Base.transaction do
-        personal_skillset.received_matches.in_progress.each do |match|
-          match.update(expert: user.personal_skillsets.first)
-        end
+    raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_personal_skillsets', user: self)) if self.personal_skillsets.relevant_for_skills.blank?
+    ActiveRecord::Base.transaction do
+      personal_skillsets.first.received_matches.in_progress.each do |match|
+        match.update(expert: user.personal_skillsets.first)
       end
-    rescue StandardError => e
-      StandardError.new(I18n.t('activerecord.attributes.user.errors.cant_transfer_match', error: e.message))
     end
   end
 end
