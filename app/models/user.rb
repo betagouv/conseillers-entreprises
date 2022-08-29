@@ -340,7 +340,7 @@ class User < ApplicationRecord
     new_user
   end
 
-  def transfer_matches_to(user)
+  def transfer_in_progress_matches(user)
     raise StandardError.new(I18n.t('activerecord.attributes.user.have_not_personal_skillsets', user: self)) if self.personal_skillsets.relevant_for_skills.blank?
     ActiveRecord::Base.transaction do
       personal_skillsets.first.received_matches.in_progress.each do |match|

@@ -375,7 +375,7 @@ RSpec.describe User, type: :model do
     # Match not_for_me ko
     let!(:match_not_for_me) { create :match, status: :not_for_me, expert: old_expert }
 
-    before { old_user.transfer_matches_to(new_user) }
+    before { old_user.transfer_in_progress_matches(new_user) }
 
     it 'transfer matches' do
       expect(new_user.received_matches.where(need: match_quo.need, status: :quo).count).to eq 1
