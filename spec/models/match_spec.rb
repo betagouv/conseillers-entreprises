@@ -107,22 +107,6 @@ RSpec.describe Match, type: :model do
       it { is_expected.to match_array [match_updated_two_weeks_ago] }
     end
 
-    describe 'active' do
-      subject { described_class.active }
-
-      let!(:match1) { create :match, status: :quo }
-      let!(:match2) { create :match, status: :quo }
-      let!(:match3) { create :match, status: :quo }
-
-      before do
-        match2.need.matches << create(:match, status: :not_for_me)
-        match3.need.matches << create(:match, status: :done)
-        create :match, status: :not_for_me
-      end
-
-      it { is_expected.to match_array [match1, match2] }
-    end
-
     describe 'sent' do
       let(:match1) { create :match }
       let(:match2) { create :match }

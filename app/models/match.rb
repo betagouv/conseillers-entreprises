@@ -94,13 +94,6 @@ class Match < ApplicationRecord
 
   scope :in_region, -> (region) { joins(:facility_regions).where(facility: { territories: region }) }
 
-  # Utilisé pour les mails de relance
-  scope :active, -> do
-    joins(:need)
-      .merge(Need.active)
-      .where.not(status: :not_for_me)
-  end
-
   scope :in_progress, -> do
     where(status: [:quo, :taking_care])
   end
