@@ -6,6 +6,7 @@
 #  abandoned_email_sent    :boolean          default(FALSE)
 #  archived_at             :datetime
 #  content                 :text
+#  last_reminder_sent_at   :datetime
 #  matches_count           :integer
 #  satisfaction_email_sent :boolean          default(FALSE), not null
 #  status                  :enum             default("diagnosis_not_complete"), not null
@@ -117,7 +118,7 @@ class Need < ApplicationRecord
         .status_not_for_me
 
       query1.or(query2)
-    else # :poke and :recall
+    else # :poke, :recall and :will_be_abandoned
       diagnosis_completed
         .archived(false)
         .in_reminders_range(action)
@@ -145,7 +146,8 @@ class Need < ApplicationRecord
   REMINDERS_DAYS = {
     poke: 7,
     recall: 14,
-    archive: 30
+    will_be_abandoned: 21,
+    archive: 45
   }
 
   def self.reminders_range(action)

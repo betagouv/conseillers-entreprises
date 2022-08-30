@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_08_154021) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_30_085322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -467,6 +467,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_08_154021) do
     t.boolean "satisfaction_email_sent", default: false, null: false
     t.enum "status", default: "diagnosis_not_complete", null: false, enum_type: "need_status"
     t.boolean "abandoned_email_sent", default: false
+    t.datetime "last_reminder_sent_at"
     t.index ["archived_at"], name: "index_needs_on_archived_at"
     t.index ["diagnosis_id"], name: "index_needs_on_diagnosis_id"
     t.index ["status"], name: "index_needs_on_status"
