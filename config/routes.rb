@@ -188,6 +188,7 @@ Rails.application.routes.draw do
       collection do
         get :poke, path: 'a-relancer'
         get :recall, path: 'a-rappeler'
+        get :will_be_abandoned, path: 'vont-etre-abandonne'
         get :archive, path: 'abandonnes'
       end
     end

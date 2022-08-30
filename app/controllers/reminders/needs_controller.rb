@@ -16,6 +16,10 @@ module Reminders
       render_collection(:recall)
     end
 
+    def will_be_abandoned
+      render_collection(:will_be_abandoned)
+    end
+
     def archive
       render_collection(:archive)
     end

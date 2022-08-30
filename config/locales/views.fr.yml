@@ -842,10 +842,12 @@ fr:
           archive: J+%{days} et refusés
           poke: J+%{days}
           recall: J+%{days}
+          will_be_abandoned: J+%{days}
         instruction:
           archive: Je fais un mail d’échec à l’entreprise
-          poke: Je mets un commentaire dans la fiche pour relancer la dynamique
+          poke: Je mets un commentaire sur la fiche pour relancer la dynamique
           recall: J’appelle les experts qui ne se sont pas positionnés
+          will_be_abandoned: J’envoie l'email d’échec aux experts concernés
         mark_done:
           archive: Archiver
           poke: Expert relancé
@@ -854,6 +856,7 @@ fr:
           archive: Abandonnés
           poke: À relancer
           recall: À rappeler
+          will_be_abandoned: En cours d’abandon
     section:
       experts: Par taux de positionnement d’expert
       needs: Par délai du besoin
