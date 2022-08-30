@@ -190,6 +190,7 @@ Rails.application.routes.draw do
         get :recall, path: 'a-rappeler'
         get :will_be_abandoned, path: 'vont-etre-abandonne'
         get :archive, path: 'abandonnes'
+        get :not_for_me, path: 'refuses'
       end
     end
   end

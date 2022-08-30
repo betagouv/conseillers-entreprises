@@ -854,12 +854,14 @@ fr:
           recall: Expert rappelé
         name:
           archive: Abandonnés
+          not_for_me: Refusés
           poke: À relancer
           recall: À rappeler
           will_be_abandoned: En cours d’abandon
     section:
       experts: Par taux de positionnement d’expert
       needs: Par délai du besoin
+      needs_by_statut: Par statut du besoin
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:

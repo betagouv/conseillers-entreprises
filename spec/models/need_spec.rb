@@ -409,7 +409,7 @@ RSpec.describe Need, type: :model do
   describe 'paniers relance' do
     describe 'besoins à relancer (J+7)' do
       # - besoins restés sans réponse (=sans positionnement, personne a cliqué sur les boutons "je prends en charge" ou "je refuse") à plus 7 jours après les mises en relation ;
-      # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ou refusés ET pour lesquels des experts n’ont toujours pas répondu à plus de 7 jours.
+      # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ET pour lesquels des experts n’ont toujours pas répondu à plus de 7 jours.
 
       describe 'contraintes de délais' do
         # DELAIS
@@ -468,7 +468,7 @@ RSpec.describe Need, type: :model do
       end
 
       describe 'contraintes de relations' do
-        # - besoin créé il y a 07 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
+        # - besoin créé il y a 07 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ko
         # - besoin créé il y a 07 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ok
         # - besoin créé il y a 07 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
         # - besoin créé il y a 07 jours, avec 1 commentaire                                                     ok
@@ -484,22 +484,15 @@ RSpec.describe Need, type: :model do
         let!(:need4) { travel_to(seven_days_ago) { create :need_with_matches } }
         let!(:feedback4) { create :feedback, :for_need, feedbackable: need4 }
 
-        before do
-          need1.reload
-          need2.reload
-          need3.reload
-          need4.reload
-        end
-
         it 'retourne les besoins avec certaines relations' do
-          expect(described_class.reminders_to(:poke)).to match_array [need1, need2, need3, need4]
+          expect(described_class.reminders_to(:poke)).to match_array [need2, need3, need4]
         end
       end
     end
 
     describe 'besoins à rappeler (J+14)' do
       # - besoins restés sans réponse à plus 14 jours après les mises en relation ;
-      # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable » ou refusés
+      # - besoins avec une mise en relation clôturée par « pas d’aide disponible » et « non joignable »
       #   ET pour lesquels des experts n’ont toujours pas répondu à plus de 14 jours.
 
       describe 'contraintes de délais' do
@@ -552,7 +545,7 @@ RSpec.describe Need, type: :model do
       end
 
       describe 'contraintes de status' do
-        # - besoin créé il y a 14 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
+        # - besoin créé il y a 14 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ko
         # - besoin créé il y a 14 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ok
         # - besoin créé il y a 14 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
 
@@ -565,14 +558,8 @@ RSpec.describe Need, type: :model do
         let!(:need3) { travel_to(fourteen_days_ago) { create :need_with_matches } }
         let!(:need3_match) { travel_to(fourteen_days_ago) { create :match, need: need3, status: :done_not_reachable } }
 
-        before do
-          need1.reload
-          need2.reload
-          need3.reload
-        end
-
         it 'retourne les besoins avec certains status' do
-          expect(described_class.reminders_to(:recall)).to match_array [need1, need2, need3]
+          expect(described_class.reminders_to(:recall)).to match_array [need2, need3]
         end
       end
     end
@@ -599,7 +586,7 @@ RSpec.describe Need, type: :model do
       end
 
       describe 'contraintes de status' do
-        # - besoin créé il y a 21 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
+        # - besoin créé il y a 21 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ko
         # - besoin créé il y a 21 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ok
         # - besoin créé il y a 21 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
 
@@ -613,12 +600,12 @@ RSpec.describe Need, type: :model do
         let!(:need3_match) { travel_to(twenty_one_days_ago) { create :match, need: need3, status: :done_not_reachable } }
 
         it 'retourne les besoins avec certains status' do
-          expect(described_class.reminders_to(:will_be_abandoned)).to match_array [need1, need2, need3]
+          expect(described_class.reminders_to(:will_be_abandoned)).to match_array [need2, need3]
         end
       end
     end
 
-    describe 'Besoins abandonnés (J+30 ou refusés)' do
+    describe 'Besoins abandonnés (J+45 ou refusés)' do
       # - besoins restés sans réponse de tous les experts à plus 45 jours après les mises en relation
       # - besoins avec une mise en relation refusée ET pour lesquels des experts n’ont toujours pas répondu à plus de 30 jours.
       # - besoins refusés de tous les experts
@@ -664,7 +651,7 @@ RSpec.describe Need, type: :model do
         # - besoin créé il y a 30 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
         # - besoin créé il y a 30 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
         # - besoin créé il y a 30 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ko
-        # - besoin créé il y a moins de 30 jours, avec tous les positionnement « refusé »                       ok
+        # - besoin créé il y a moins de 30 jours, avec tous les positionnement « refusé »                       ko
 
         let(:thirty_days_ago) { Time.zone.now.beginning_of_day - 45.days }
 
@@ -678,29 +665,11 @@ RSpec.describe Need, type: :model do
         let!(:need4_match1) { create :match, need: need4, status: :not_for_me }
         let!(:need4_match2) { create :match, need: need4, status: :not_for_me }
 
-        before do
-          need1.reload
-          need2.reload
-          need3.reload
-          need4.reload
-        end
-
         it 'retourne les besoins avec certaines relations' do
-          expect(described_class.reminders_to(:archive)).to match_array [need1, need4]
+          expect(described_class.reminders_to(:archive)).to match_array [need1]
         end
       end
     end
-
-    # describe 'Besoins pris en charge sans cloture' do
-    #   # - besoins pris en charge mais n’ayant aucune mise en relation de clôturée depuis + 7 jours de la prise en charge.
-    #   # DELAIS
-    #   # - besoin avec un positionnement « prise en charge  » il y a 6 jours    ko
-    #   # - besoin avec un positionnement « prise en charge  » il y a 7 jours    ok
-
-    #   # STATUT
-    #   # - besoin avec un positionnement « prise en charge  » il y a 7 jours et une cloture                ko
-    #   # - besoin avec un positionnement « prise en charge  » il y a 7 jours et un autre il y a 2 jours    ok
-    # end
 
     describe 'reminder' do
       let(:date1) { Time.zone.now.beginning_of_day }

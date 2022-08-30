@@ -9,19 +9,23 @@ module Reminders
     end
 
     def poke
-      render_collection(:poke)
+      render_collection(:poke, :action)
     end
 
     def recall
-      render_collection(:recall)
+      render_collection(:recall, :action)
     end
 
     def will_be_abandoned
-      render_collection(:will_be_abandoned)
+      render_collection(:will_be_abandoned, :action)
     end
 
     def archive
-      render_collection(:archive)
+      render_collection(:archive, :action)
+    end
+
+    def not_for_me
+      render_collection(:not_for_me, :status)
     end
 
     def send_abandoned_email
@@ -36,14 +40,19 @@ module Reminders
 
     private
 
-    def render_collection(action)
-      @needs = territory_needs
-        .reminders_to(action)
+    def render_collection(name, category)
+      case category
+      when :action
+        @needs = territory_needs.reminders_to(name)
+      when :status
+        @needs = territory_needs.where(status: name).archived(false)
+      end
+      @action = name
+      @needs = @needs
         .includes(:subject, :feedbacks, :company, :solicitation, reminder_feedbacks: { user: :antenne }, matches: { expert: :antenne })
         .order(:created_at)
         .page(params[:page])
 
-      @action = action
       render :index
     end
   end

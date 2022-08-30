@@ -8,7 +8,15 @@
       - detail = t(name, scope: 'reminders.needs.scopes.detail', days: Need::REMINDERS_DAYS[name])
       %i (#{detail})
 
-.fr-sidemenu__title.fr-mt-6w
+.fr-sidemenu__title.fr-mt-4w
+  = t('reminders.section.needs_by_statut')
+
+%ul.fr-sidemenu__list
+  - collections_by_status_counts.each do |name, count|
+    = menu_link_with_count(count, [name, :reminders, :needs], class: 'item', title: t(name, scope: [:reminders, :needs, :scopes, :instruction])) do
+      = t(name, scope: 'reminders.needs.scopes.name')
+
+.fr-sidemenu__title.fr-mt-4w
   = t('reminders.section.experts')
 
 %ul.fr-sidemenu__list
