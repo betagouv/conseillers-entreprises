@@ -1,7 +1,6 @@
 class SearchFacility
   # Recherche d'un établissement via l'appel à des API externes
   # Utilisable pour des champs en auto-complétion
-  attr_accessor :query, :non_diffusables
 
   def initialize(params)
     @query = params[:query]
@@ -22,7 +21,8 @@ class SearchFacility
   end
 
   def from_siren
-    siren = FormatSiret.siren_from_query(query[0..8])
+    return blank_query if @query.blank?
+    siren = FormatSiret.siren_from_query(@query[0..8])
     begin
       response = ApiInsee::SiretsBySiren::Base.new(siren).call
       items = response[:etablissements_ouverts].map do |entreprise_params|
@@ -52,7 +52,8 @@ class SearchFacility
   end
 
   def from_siret
-    siret = FormatSiret.siret_from_query(query[0..13])
+    return blank_query if @query.blank?
+    siret = FormatSiret.siret_from_query(@query[0..13])
     begin
       response = ApiInsee::Siret::Base.new(siret).call
       items = response[:etablissements].map do |entreprise_params|
@@ -73,7 +74,7 @@ class SearchFacility
 
   def from_full_text
     begin
-      response = ApiRechercheEntreprises::Search::Base.new(query).call
+      response = ApiRechercheEntreprises::Search::Base.new(@query).call
       items = response.map do |entreprise_params|
         next if entreprise_params.blank?
         ApiConsumption::Models::FacilityAutocomplete::ApiRechercheEntreprises.new(entreprise_params)
