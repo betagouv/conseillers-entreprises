@@ -2,18 +2,18 @@
 #
 # Table name: needs
 #
-#  id                      :bigint(8)        not null, primary key
-#  abandoned_email_sent    :boolean          default(FALSE)
-#  archived_at             :datetime
-#  content                 :text
-#  last_reminder_sent_at   :datetime
-#  matches_count           :integer
-#  satisfaction_email_sent :boolean          default(FALSE), not null
-#  status                  :enum             default("diagnosis_not_complete"), not null
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  diagnosis_id            :bigint(8)        not null
-#  subject_id              :bigint(8)        not null
+#  id                        :bigint(8)        not null, primary key
+#  abandoned_email_sent      :boolean          default(FALSE)
+#  archived_at               :datetime
+#  content                   :text
+#  last_chance_email_sent_at :datetime
+#  matches_count             :integer
+#  satisfaction_email_sent   :boolean          default(FALSE), not null
+#  status                    :enum             default("diagnosis_not_complete"), not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  diagnosis_id              :bigint(8)        not null
+#  subject_id                :bigint(8)        not null
 #
 # Indexes
 #
@@ -348,5 +348,9 @@ class Need < ApplicationRecord
     end
 
     result
+  end
+
+  def last_chance_email_sent?
+    last_chance_email_sent_at.present?
   end
 end

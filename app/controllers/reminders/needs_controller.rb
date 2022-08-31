@@ -1,8 +1,8 @@
 module Reminders
   class NeedsController < BaseController
-    before_action :setup_territory_filters, except: :send_abandoned_email
-    before_action :find_current_territory, except: :send_abandoned_email
-    before_action :collections_counts, except: :send_abandoned_email
+    before_action :setup_territory_filters, except: :send_last_chance_email
+    before_action :find_current_territory, except: :send_last_chance_email
+    before_action :collections_counts, except: :send_last_chance_email
 
     def index
       redirect_to action: :poke
@@ -28,10 +28,12 @@ module Reminders
       render_collection(:not_for_me, :status)
     end
 
-    def send_abandoned_email
+    def send_last_chance_email
       @need = Need.find(params.permit(:id)[:id])
-      @need.update(abandoned_email_sent: true)
-      CompanyMailer.abandoned_need(@need).deliver_later
+      @need.update(last_chance_email_sent_at: Time.zone.now)
+      @need.matches.status_quo.each do |match|
+        ExpertMailer.last_chance(match.expert, @need, current_user).deliver_later
+      end
       respond_to do |format|
         format.js
         format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.email_sent') }

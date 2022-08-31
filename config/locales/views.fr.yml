@@ -511,6 +511,12 @@ fr:
         what_is_pde: Qu’est-ce que Place des Entreprises ?
       invitation_not_accepted_warning:
         you_need_to_use_your_user_account: Place des entreprises nécessite de se connecter à son compte utilisateur pour accéder aux informations des entreprises. Vous allez recevoir un email expliquant comment activer votre compte et choisir votre mot de passe.
+      last_chance:
+        at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
+        company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier :'
+        link_to_need: Lien vers la fiche
+        subject: "[Service public Place des Entreprises] Rappel du besoin de l’entreprise %{company}"
+        we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant resté sans nouvelles.
       notify_company_needs:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
         needs_you_html: a besoin de votre expertise sur <strong>« %{subject} »</strong>
@@ -836,6 +842,8 @@ fr:
       abandoned_need_email_sent: Email d’echec envoyé
       critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique
       send_abandoned_need_email: Envoyer l’email d'échec
+      last_chance_email_sent: Email de la dernière chance envoyé
+      send_last_chance_email: Envoyer l’email de la dernière chance
     needs:
       scopes:
         detail:
@@ -847,7 +855,7 @@ fr:
           archive: Je fais un mail d’échec à l’entreprise
           poke: Je mets un commentaire sur la fiche pour relancer la dynamique
           recall: J’appelle les experts qui ne se sont pas positionnés
-          will_be_abandoned: J’envoie l'email d’échec aux experts concernés
+          will_be_abandoned: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
         mark_done:
           archive: Archiver
           poke: Expert relancé
