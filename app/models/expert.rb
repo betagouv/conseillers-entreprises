@@ -122,7 +122,7 @@ class Expert < ApplicationRecord
   # Utilisé pour les mails de relance
   scope :with_active_matches, -> do
     joins(:received_matches)
-      .merge(Match.active)
+      .merge(Match.status_quo)
       .distinct
   end
 

@@ -509,7 +509,6 @@ fr:
       remind_involvement:
         needs_for_you: 'Ces entreprises ont besoin de vous :'
         needs_quo: 'Besoins restés sans réponse : quelle est votre position ?'
-        needs_taking_care: 'Besoins pris en charge : est ce qu’il y a du nouveau ?'
         subject: "[Service public Place des Entreprises] Rappel : Des entreprises ont besoin de vous !"
         support_contact_label: 'Si vous n’arrivez pas à accéder à une demande, contactez :'
         visited_days_ago: transmis il y a %{days} par %{advisor}
