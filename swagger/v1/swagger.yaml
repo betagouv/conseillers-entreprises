@@ -26,34 +26,27 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 82
+                    - id: 1661
                       title: DINUM recrutement
                       slug: dinum-recrutement
                       partner_url: https://www.example.com/aides
                       iframe_category: integral
                       landing_themes:
-                      - id: 139
-                        title: matrix viral vortals
-                        page_title: 
-                        slug: lttempora1
-                        description: At dolore sequi. Voluptatem labore facilis. Iure
-                          magnam dolorem.
-                        meta_title: 
-                        meta_description: 
-                        created_at: '2022-08-26T16:29:47.245+02:00'
-                        updated_at: '2022-08-26T16:29:47.245+02:00'
-                        archived_at: 
-                      - id: 140
-                        title: e-enable intuitive web services
-                        page_title: 
-                        slug: ltaccusantium4
-                        description: Non odio consequatur. Consectetur dolor fugiat.
-                          In doloremque dolores.
-                        meta_title: 
-                        meta_description: 
-                        created_at: '2022-08-26T16:29:47.366+02:00'
-                        updated_at: '2022-08-26T16:29:47.366+02:00'
-                        archived_at: 
+                      - id: 1726
+                        title: Environnement, transition écologique & RSE
+                        slug: ltet13
+                        description: Optimiser vos consommations d’énergie, valoriser
+                          vos déchets par la revente de matière, éco-concevoir un
+                          produit, mettre en place une démarche RSE, un plan de déplacement
+                          entreprise (PDE).
+                      - id: 1727
+                        title: Améliorer la santé et la sécurité au travail
+                        slug: ltexplicabo14
+                        description: Réviser votre document unique d’évaluation des
+                          risques professionnels, former vos salariés à la prévention
+                          des risques professionnels (DUERP), connaître les règles
+                          d’hygiène, améliorer la qualité de vie au travail pour être
+                          plus performant.
                     metadata:
                       total_results: 1
               schema:
@@ -110,34 +103,27 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 85
+                      id: 1664
                       title: DINUM recrutement
                       slug: dinum-recrutement
                       partner_url: https://www.example.com/aides
                       iframe_category: integral
                       landing_themes:
-                      - id: 143
-                        title: brand B2B networks
-                        page_title: 
-                        slug: ltcumque13
-                        description: Ab autem rerum. Est voluptatem ab. Praesentium
-                          vitae dolorum.
-                        meta_title: 
-                        meta_description: 
-                        created_at: '2022-08-26T16:29:47.877+02:00'
-                        updated_at: '2022-08-26T16:29:47.877+02:00'
-                        archived_at: 
-                      - id: 144
-                        title: orchestrate frictionless deliverables
-                        page_title: 
-                        slug: ltminima16
-                        description: Maiores dignissimos recusandae. Et voluptates
-                          et. Et porro quibusdam.
-                        meta_title: 
-                        meta_description: 
-                        created_at: '2022-08-26T16:29:47.948+02:00'
-                        updated_at: '2022-08-26T16:29:47.948+02:00'
-                        archived_at: 
+                      - id: 1730
+                        title: Environnement, transition écologique & RSE
+                        slug: ltaccusamus17
+                        description: Optimiser vos consommations d’énergie, valoriser
+                          vos déchets par la revente de matière, éco-concevoir un
+                          produit, mettre en place une démarche RSE, un plan de déplacement
+                          entreprise (PDE).
+                      - id: 1731
+                        title: Améliorer la santé et la sécurité au travail
+                        slug: ltex18
+                        description: Réviser votre document unique d’évaluation des
+                          risques professionnels, former vos salariés à la prévention
+                          des risques professionnels (DUERP), connaître les règles
+                          d’hygiène, améliorer la qualité de vie au travail pour être
+                          plus performant.
                     metadata:
                       total_themes: 2
               schema:
@@ -202,34 +188,27 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 88
+                      id: 1667
                       title: DINUM recrutement
                       slug: dinum-recrutement
                       partner_url: https://www.example.com/aides
                       iframe_category: integral
                       landing_themes:
-                      - id: 149
-                        title: target interactive technologies
-                        page_title: 
-                        slug: ltporro31
-                        description: Reiciendis rerum aut. Voluptatem dolores iusto.
-                          Dolores consequatur minus.
-                        meta_title: 
-                        meta_description: 
-                        created_at: '2022-08-26T16:29:48.497+02:00'
-                        updated_at: '2022-08-26T16:29:48.497+02:00'
-                        archived_at: 
-                      - id: 150
-                        title: grow frictionless technologies
-                        page_title: 
-                        slug: ltconsequatur34
-                        description: Modi omnis eligendi. Et voluptatem voluptates.
-                          Voluptas quod sint.
-                        meta_title: 
-                        meta_description: 
-                        created_at: '2022-08-26T16:29:48.553+02:00'
-                        updated_at: '2022-08-26T16:29:48.553+02:00'
-                        archived_at: 
+                      - id: 1736
+                        title: Environnement, transition écologique & RSE
+                        slug: ltearum23
+                        description: Optimiser vos consommations d’énergie, valoriser
+                          vos déchets par la revente de matière, éco-concevoir un
+                          produit, mettre en place une démarche RSE, un plan de déplacement
+                          entreprise (PDE).
+                      - id: 1737
+                        title: Améliorer la santé et la sécurité au travail
+                        slug: ltofficiis24
+                        description: Réviser votre document unique d’évaluation des
+                          risques professionnels, former vos salariés à la prévention
+                          des risques professionnels (DUERP), connaître les règles
+                          d’hygiène, améliorer la qualité de vie au travail pour être
+                          plus performant.
                     metadata:
                       total_themes: 2
               schema:

@@ -1,7 +1,7 @@
 require "rails_helper"
 require 'swagger_helper'
 
-RSpec.describe "Landings API", type: :request do
+RSpec.describe "Landing Themes API", type: :request do
   let(:institution) { create(:institution) }
   let(:landing_01) { create(:landing, :api, institution: institution, title: 'DINUM recrutement', slug: 'dinum-recrutement') }
   let!(:ecolo_theme) { create(:landing_theme, landings: [landing_01], title: 'Environnement, transition écologique & RSE', description: 'Optimiser vos consommations d’énergie, valoriser vos déchets par la revente de matière, éco-concevoir un produit, mettre en place une démarche RSE, un plan de déplacement entreprise (PDE).') }
