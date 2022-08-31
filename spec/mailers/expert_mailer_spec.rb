@@ -21,57 +21,17 @@ describe ExpertMailer do
     describe 'password instructions reminder' do
       let(:expert) { create :expert, users: expert_members }
 
-      context 'solo expert, never use' do
+      # On ne renvoie plus les invitations automatiquement pour ne pas harceler les conseillers
+      context 'any expert' do
         let(:expert_members) { [build(:user, invitation_accepted_at: nil)] }
-
-        it do
-          expect_any_instance_of(User).to receive(:send_reset_password_instructions).once
-
-          mail
-        end
-      end
-
-      context 'solo expert, used account' do
-        let(:expert_members) { [build(:user, invitation_accepted_at: DateTime.now)] }
+        let(:expert_members2) { [build(:user, invitation_accepted_at: DateTime.now)] }
+        let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
+        let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '', deleted_at: Time.zone.now }
 
         it do
           expect_any_instance_of(User).not_to receive(:send_reset_password_instructions)
 
           mail
-        end
-      end
-
-      context 'expert with several users' do
-        let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
-        let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '' }
-        let(:expert_members) { [user1, user2] }
-
-        it do
-          count = 0
-          allow_any_instance_of(User).to receive(:send_reset_password_instructions) do |user|
-            expect(expert_members).to include user
-            count += 1
-          end
-
-          mail
-          expect(count).to eq(2)
-        end
-      end
-
-      context 'expert with deleted user' do
-        let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
-        let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '', deleted_at: Time.zone.now }
-        let(:expert_members) { [user1, user2] }
-
-        it do
-          count = 0
-          allow_any_instance_of(User).to receive(:send_reset_password_instructions) do |user|
-            expect(user2).not_to eq(user)
-            count += 1
-          end
-
-          mail
-          expect(count).to eq(1)
         end
       end
     end
