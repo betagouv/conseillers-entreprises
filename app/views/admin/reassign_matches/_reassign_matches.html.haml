@@ -1,0 +1,10 @@
+.without_sidebar{ id: 'active_admin_content' }
+  %div{ id: 'main_content_wrapper' }
+    %div{ id: 'main_content' }
+      .active-admin-form.panel
+        %h3= t('.select_user')
+        .panel_contents
+          = form_with(url: admin_user_reassign_matches_reassign_path, local: true) do |f|
+            %li.input.required.stringish
+              = f.select(:selected_user_id, options_from_collection_for_select(user.antenne.advisors, :id, :full_name))
+            = f.submit t('.save')

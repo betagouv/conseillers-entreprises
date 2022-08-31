@@ -350,4 +350,40 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe '#reassign matches' do
+    let(:institution) { create :institution }
+    let(:antenne) { create :antenne, institution: institution }
+    let(:a_subject) { create :subject }
+    let(:institution_subject) { create :institution_subject, institution: institution, subject: a_subject }
+    let(:expert_subject) { create :expert_subject, institution_subject: institution_subject }
+    let(:old_expert) { create :expert, experts_subjects: [expert_subject], full_name: 'Édith Piaf', email: 'edith@email.com' }
+    let(:old_user) { create :user, :invitation_accepted, experts: [old_expert], antenne: antenne, full_name: 'Édith Piaf', email: 'edith@email.com' }
+    let(:new_user) { create :user, :invitation_accepted, full_name: 'David Heinemeier Hansson', email: 'david@email.com', phone_number: '0303030303' }
+    let(:new_expert) { create :expert, experts_subjects: [expert_subject], full_name: 'David Heinemeier Hansson', email: 'david@email.com' }
+
+    # Match quo OK
+    let!(:match_quo) { create :match, status: :quo, expert: old_expert }
+    # Match taking_care OK
+    let!(:match_taking_care) { create :match, status: :taking_care, expert: old_expert }
+    # Match done KO
+    let!(:match_done) { create :match, status: :done, expert: old_expert }
+    # Match done_no_help ko
+    let!(:match_done_no_help) { create :match, status: :done_no_help, expert: old_expert }
+    # Match done_not_reachable ko
+    let!(:match_done_not_reachable) { create :match, status: :done_not_reachable, expert: old_expert }
+    # Match not_for_me ko
+    let!(:match_not_for_me) { create :match, status: :not_for_me, expert: old_expert }
+
+    before { old_user.transfer_in_progress_matches(new_user) }
+
+    it 'transfer matches' do
+      expect(new_user.received_matches.where(need: match_quo.need, status: :quo).count).to eq 1
+      expect(new_user.received_matches.where(need: match_taking_care.need, status: :taking_care).count).to eq 1
+      expect(new_user.received_matches.where(need: match_done.need, status: :done).count).to eq 0
+      expect(new_user.received_matches.where(need: match_done_no_help.need, status: :done_no_help).count).to eq 0
+      expect(new_user.received_matches.where(need: match_done_not_reachable.need, status: :done_not_reachable).count).to eq 0
+      expect(new_user.received_matches.where(need: match_not_for_me.need, status: :not_for_me).count).to eq 0
+    end
+  end
 end
