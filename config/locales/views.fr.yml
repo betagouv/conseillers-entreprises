@@ -515,7 +515,7 @@ fr:
         at_your_disposal: Je reste à votre disposition si vous avez besoin d’aide.
         company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier :'
         link_to_need: Lien vers la fiche
-        subject: "[Service public Place des Entreprises] Rappel du besoin de l’entreprise %{company}"
+        subject: "[Service public Place des Entreprises] Le besoin de l’entreprise %{company} va être abandonné "
         we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant resté sans nouvelles.
       notify_company_needs:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
