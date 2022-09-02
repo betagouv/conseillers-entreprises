@@ -17,6 +17,12 @@ export default class extends SiretAutocompleteController {
     }
   }
 
+  manageSourceError(results) {
+    this.loaderTarget.style.display = 'none'
+    this.noResultLinkTarget.style.display = 'block'
+    this.statusMessage = results.error
+  }
+
   manageSourceSuccess(items) {
     this.loaderTarget.style.display = 'none'
     if (items.length == 0) {

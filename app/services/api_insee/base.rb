@@ -28,7 +28,8 @@ module ApiInsee
     end
 
     def handle_error(http_request)
-      raise ApiInseeError, http_request.error_message
+      Sentry.capture_message(http_request.error_message)
+      raise ApiInseeError, I18n.t('api_requests.generic_error')
     end
 
     def id_key

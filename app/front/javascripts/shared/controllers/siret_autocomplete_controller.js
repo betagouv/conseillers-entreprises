@@ -40,7 +40,7 @@ export default class extends Controller {
         return `${baseSentence}. ${contentSelectedOption}`
       },
       source: debounce(async (query, populateResults) => {
-         const results = await this.fetchEtablissements(query);
+        const results = await this.fetchEtablissements(query);
         if(!results) return;
         if (results.error) {
           this.manageSourceError(results)
