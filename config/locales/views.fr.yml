@@ -516,7 +516,7 @@ fr:
         company_solicitation_html: 'Je reviens vers vous concernant le besoin de l’entreprise <strong>%{company}</strong> adressé le %{date} dernier :'
         link_to_need: Lien vers la fiche
         subject: "[Service public Place des Entreprises] Le besoin de l’entreprise %{company} va être abandonné "
-        we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant resté sans nouvelles.
+        we_will_cancel_need: À défaut de prise en charge dans les prochains jours, nous allons devoir envoyer un mail d’échec au dirigeant ou à la dirigeante resté(e) sans nouvelles.
       notify_company_needs:
         advisor_met_company_html: "<strong>%{name}</strong> - %{antenne} - vous a partagé cette demande le %{visit_date}."
         needs_you_html: a besoin de votre expertise sur <strong>« %{subject} »</strong>
@@ -810,6 +810,7 @@ fr:
     matches_file_name: export-mises-en-relation-%{antenne}-%{year}T%{number}.xlsx
     stats_file_name: export-stats-%{antenne}-%{year}T%{number}.xlsx
   reminders:
+    abandoned_need_email_sent: Email d’échec envoyé
     experts:
       expert:
         expert_creation_date: Inscription le %{date}
@@ -838,12 +839,11 @@ fr:
         email_send: Email de relance envoyé
     index:
       title: Relances
+    last_chance_email_sent: Email de la dernière chance envoyé
     need:
       abandoned_need_email_sent: Email d’echec envoyé
       critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique
-      send_abandoned_need_email: Envoyer l’email d'échec
       last_chance_email_sent: Email de la dernière chance envoyé
-      send_last_chance_email: Envoyer l’email de la dernière chance
     needs:
       scopes:
         detail:
@@ -853,12 +853,10 @@ fr:
           will_be_abandoned: J+%{days}
         instruction:
           archive: Je fais un mail d’échec à l’entreprise
+          not_for_me: Besoins avec toutes les mises en relation refusées
           poke: Je mets un commentaire sur la fiche pour relancer la dynamique
           recall: J’appelle les experts qui ne se sont pas positionnés
           will_be_abandoned: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
-        mark_done:
-          poke: Expert relancé
-          recall: Expert rappelé
         name:
           archive: Abandonnés
           not_for_me: Refusés
@@ -866,9 +864,11 @@ fr:
           recall: À rappeler
           will_be_abandoned: En cours d’abandon
     section:
-      experts: Par taux de positionnement d’expert
-      needs: Par délai du besoin
+      experts: Par expert
+      needs: Par besoin
       needs_by_statut: Par statut du besoin
+    send_abandoned_need_email: Envoyer l’email d’échec
+    send_last_chance_email: Envoyer l’email de la dernière chance
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:
