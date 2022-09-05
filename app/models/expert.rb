@@ -40,6 +40,7 @@ class Expert < ApplicationRecord
 
   has_many :experts_subjects, dependent: :destroy, inverse_of: :expert
   has_many :received_matches, -> { sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
+  has_many :not_received_matches, -> { not_sent }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :received_quo_matches, -> { sent.status_quo.distinct }, class_name: 'Match', inverse_of: :expert, dependent: :nullify
   has_many :reminder_feedbacks, -> { where(category: :expert_reminder) }, class_name: :Feedback, dependent: :destroy, as: :feedbackable, inverse_of: :feedbackable
 
