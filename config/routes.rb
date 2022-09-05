@@ -183,6 +183,7 @@ Rails.application.routes.draw do
     end
     resources :needs, path: 'besoins', only: %i[index] do
       member do
+        post :send_abandoned_email
         post :send_last_chance_email
       end
       collection do

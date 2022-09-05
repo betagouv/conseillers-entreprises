@@ -20,10 +20,6 @@ module Reminders
       render_collection(:will_be_abandoned, :action)
     end
 
-    def archive
-      render_collection(:archive, :action)
-    end
-
     def not_for_me
       render_collection(:not_for_me, :status)
     end
@@ -34,6 +30,17 @@ module Reminders
       @need.matches.status_quo.each do |match|
         ExpertMailer.last_chance(match.expert, @need, current_user).deliver_later
       end
+      # TODO compter les emails
+      respond_to do |format|
+        format.js
+        format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.email_sent') }
+      end
+    end
+
+    def send_abandoned_email
+      @need = Need.find(params.permit(:id)[:id])
+      @need.update(abandoned_email_sent: true)
+      CompanyMailer.abandoned_need(@need).deliver_later
       respond_to do |format|
         format.js
         format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.email_sent') }

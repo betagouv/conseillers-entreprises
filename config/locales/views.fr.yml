@@ -857,7 +857,6 @@ fr:
           recall: J’appelle les experts qui ne se sont pas positionnés
           will_be_abandoned: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
         mark_done:
-          archive: Archiver
           poke: Expert relancé
           recall: Expert rappelé
         name:

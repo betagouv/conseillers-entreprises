@@ -5,10 +5,10 @@ require 'rails_helper'
 RSpec.describe Reminders::NeedsController, type: :controller do
   login_admin
 
-  describe 'POST #send_last_chance_email' do
+  describe 'POST #send_abandoned_email' do
     let!(:need) { create :need }
 
-    before { post :send_last_chance_email, params: { id: need.id } }
+    before { post :send_abandoned_email, params: { id: need.id } }
 
     it 'send email and set abandoned_email_sent' do
       expect(ActionMailer::Base.deliveries.count).to eq 1
@@ -16,7 +16,19 @@ RSpec.describe Reminders::NeedsController, type: :controller do
     end
   end
 
-  describe 'GET #refused' do
+  describe 'POST #send_last_chance_email' do
+    let!(:need) { create :need }
+    let!(:a_match) { create :match, status: :quo, need: need }
+
+    before { post :send_last_chance_email, params: { id: need.id } }
+
+    it 'send email and set abandoned_email_sent' do
+      expect(ActionMailer::Base.deliveries.count).to eq 1
+      expect(need.reload.last_chance_email_sent_at).not_to be nil
+    end
+  end
+
+  describe 'GET #not_for_me' do
     # - besoin avec 1 positionnement « refusé », et autres MER sans réponse           ko
     # - besoin avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
     # - besoin avec 1 cloture « injoignable », et autres MER sans réponse             ko
@@ -35,9 +47,9 @@ RSpec.describe Reminders::NeedsController, type: :controller do
     let!(:need5) { create :need, archived_at: Time.now }
     let!(:need5_match) { create :match, need: need5, status: :not_for_me }
 
-    before { get :refused }
+    before { get :not_for_me }
 
-    it 'display only refused needs' do
+    it 'display only not_for_me needs' do
       expect(assigns(:needs)).to match_array [need4]
     end
   end

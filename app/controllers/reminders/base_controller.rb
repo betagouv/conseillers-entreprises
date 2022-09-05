@@ -9,7 +9,7 @@ module Reminders
     private
 
     def collection_names
-      %i[poke recall will_be_abandoned archive]
+      %i[poke recall will_be_abandoned]
     end
 
     def collection_status_name
