@@ -19,9 +19,10 @@ class UserMailer < ApplicationMailer
   end
 
   def notify_match_status(match, previous_status)
+    #TODO a enlever
     @match = match
     @advisor = match.advisor
-    return if (@advisor.deleted? || @advisor.is_admin?)
+    # return if (@advisor.deleted? || @advisor.is_admin?)
 
     @status = {}
     @expert = match.expert
