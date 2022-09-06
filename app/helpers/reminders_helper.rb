@@ -19,6 +19,10 @@ module RemindersHelper
     %i[archive not_for_me]
   end
 
+  def with_reminder_email
+    %i[poke recall]
+  end
+
   def with_action
     %i[poke recall archive not_for_me]
   end
@@ -47,6 +51,8 @@ module RemindersHelper
       else
         form_builder(send_abandoned_email_reminders_need_path(need), t('reminders.send_abandoned_need_email'), need)
       end
+    elsif with_reminder_email.include? action
+      form_builder(send_reminder_email_reminders_need_path(need), t('reminders.send_reminder_email_email'), need)
     end
     tag.div(button, id: "reminder-email-#{need.id}",)
   end

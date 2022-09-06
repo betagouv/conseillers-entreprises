@@ -857,18 +857,24 @@ fr:
           poke: Je mets un commentaire sur la fiche pour relancer la dynamique
           recall: J’appelle les experts qui ne se sont pas positionnés
           will_be_abandoned: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
+        mark_done:
+          archive: Archiver
+          poke: Expert relancé
         name:
           archive: Abandonnés
           not_for_me: Refusés
           poke: À relancer
           recall: À rappeler
           will_be_abandoned: En cours d’abandon
+      send_reminder_email:
+        email_send: Email de relance envoyé
     section:
       experts: Par expert
       needs: Par besoin
       needs_by_statut: Par statut du besoin
     send_abandoned_need_email: Envoyer l’email d’échec
     send_last_chance_email: Envoyer l’email de la dernière chance
+    send_reminder_email_email: Envoyer l’email de relance
   reminders_actions:
     processed_need: Besoin de l’entreprise %{company} traité
   reports:

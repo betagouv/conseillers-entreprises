@@ -185,6 +185,7 @@ Rails.application.routes.draw do
       member do
         post :send_abandoned_email
         post :send_last_chance_email
+        post :send_reminder_email
       end
       collection do
         get :poke, path: 'a-relancer'

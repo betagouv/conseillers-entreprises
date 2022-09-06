@@ -43,7 +43,7 @@ describe 'reminders experts', type: :feature do
     it 'works' do
       visit reminders_path
       expect(page.html).to include 'Relances'
-      expect(page.html).to include 'Par taux de positionnement d’expert'
+      expect(page.html).to include 'Par expert'
       page.click_link(href: "/relances/experts/taux-positionnement-restant")
       expect(page).to have_css('.card', count: 1)
       page.click_link(href: "/relances/experts/taux-positionnement-critique")
