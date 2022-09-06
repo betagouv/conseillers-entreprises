@@ -7,7 +7,7 @@
         %td= etablissement.siret
       %tr
         %td= t('.naf')
-        %td #{etablissement.naf} - #{etablissement.libelle_naf}
+        %td #{etablissement.naf} - #{etablissement.naf_libelle}
       %tr
         %td= t('.date_mise_a_jour')
         %td= date_from_timestamp(etablissement.date_mise_a_jour)

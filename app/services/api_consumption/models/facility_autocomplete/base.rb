@@ -28,7 +28,7 @@ module ApiConsumption::Models
     end
 
     def activite
-      @activite ||= facility&.libelle_naf
+      @activite ||= facility&.naf_libelle
     end
 
     def lieu

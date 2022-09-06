@@ -12,7 +12,7 @@ module ApiConsumption::Models
     end
 
     def siege_facility
-      ApiConsumption::Models::Facility.new(etablissement_siege)
+      ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_siege)
     end
   end
 end

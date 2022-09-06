@@ -4,17 +4,17 @@ module NafCode
   extend ActiveSupport::Concern
 
   def libelle_a10
-    NafCode::libelle_naf(self.libelle_a10)
+    NafCode::naf_libelle(self.libelle_a10)
   end
 
-  def self.libelle_naf(level = 'a10', naf_code)
+  def self.naf_libelle(level = 'a10', naf_code)
     return I18n.t('no_data') if naf_code.nil?
-    I18n.t(naf_code, scope: "libelle_naf_#{level}")
+    I18n.t(naf_code, scope: "naf_libelle_#{level}")
   end
 
   def self.libelle_a10(naf_code_a10)
     return I18n.t('no_data') if naf_code_a10.nil?
-    I18n.t(naf_code_a10, scope: 'libelle_naf_a10')
+    I18n.t(naf_code_a10, scope: 'naf_libelle_a10')
   end
 
   def self.code_a10(naf_code)

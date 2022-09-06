@@ -5,7 +5,7 @@ module ApiConsumption::Models
     end
 
     def facility
-      ApiConsumption::Models::Facility.new(etablissement_siege)
+      ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_siege)
     end
 
     def lieu

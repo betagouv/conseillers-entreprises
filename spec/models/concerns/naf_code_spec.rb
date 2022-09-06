@@ -17,8 +17,8 @@ RSpec.describe NafCode, type: :model do
     end
   end
 
-  describe 'libelle_naf' do
-    subject { described_class::libelle_naf('a10', naf_code_a10) }
+  describe 'naf_libelle' do
+    subject { described_class::naf_libelle('a10', naf_code_a10) }
 
     context 'valid code' do
       let(:naf_code_a10) { 'GI' }
