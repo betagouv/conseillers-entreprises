@@ -97,7 +97,6 @@ ignore_unused:
   - 'department_code_to_region_code.*'
   - 'flash.actions.*'
   - 'landings.new_solicitation_form.attributes.*'
-  - 'mailers.user_mailer.notify_match_status.expert_and_status.*'
   - 'stats.stats_table.*'
   - 'stats.series.*'
   - 'categories_juridiques.*'

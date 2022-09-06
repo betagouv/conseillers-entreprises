@@ -29,8 +29,6 @@ class MatchMailerService
   end
 
   def self.notify_status(match, previous_status)
-    UserMailer.notify_match_status(match, previous_status)&.deliver_later
-
     # Notify everyone if the match is being taken care of *now*
     if should_notify_everyone(previous_status, match.status)
       # Notify the company

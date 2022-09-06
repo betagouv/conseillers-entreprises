@@ -640,16 +640,6 @@ fr:
         match_status_html: 'Votre positionnement sur cette demande d’entreprise : %{status}'
         new_comment_html: "%{author} (%{antenne}) a fait un commentaire sur la demande de l’entreprise <b>%{company}</b>, adressée le %{date}."
         subject: "[Service public Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
-      notify_match_status:
-        expert_and_status:
-          done_html: "<p>%{expert} (%{antenne}) a clôturé ce besoin.</p>"
-          done_no_help_html: "<p>%{expert} (%{antenne}) a échangé avec l’entreprise mais n’a pas d’accompagnement adapté à sa situation.</p>"
-          done_not_reachable_html: "<p>%{expert} (%{antenne}) a clôturé le besoin, après avoir tenté de joindre l’entreprise sans succès à plusieurs reprises.</p>"
-          not_for_me_html: "<p>%{expert} (%{antenne}) a refusé ce besoin.</p><p>Si aucun expert n’intervient, l’Équipe Place des Entreprises prendra le relai.</p>"
-          quo_html: "<p>%{expert} (%{antenne}) a annulé sa dernière action (%{previous_status}).</p>"
-          taking_care_html: "<p>%{expert} (%{antenne}) a pris en charge ce besoin.</p>"
-        need_description_html: Le besoin de l’entreprise <a href='%{path}'>%{company_name}</a> que vous avez adressé le %{date} - %{subject} - a évolué.
-        subject: "[Service public Place des Entreprises] Des nouvelles de l’entreprise %{company_name}"
       quarterly_report:
         antenne_manager:
           one: Vous êtes identifié(e) comme responsable de l’antenne %{antennes} au sein du service public Place des Entreprises.

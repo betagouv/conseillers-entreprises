@@ -18,22 +18,6 @@ class UserMailer < ApplicationMailer
          subject: t('mailers.user_mailer.match_feedback.subject', company_name: feedback.need.company))
   end
 
-  def notify_match_status(match, previous_status)
-    #TODO a enlever
-    @match = match
-    @advisor = match.advisor
-    # return if (@advisor.deleted? || @advisor.is_admin?)
-
-    @status = {}
-    @expert = match.expert
-    @previous_status = previous_status
-    @company = match.company
-    @need = match.need
-    @subject = match.subject
-
-    mail(to: @advisor.email, subject: t('mailers.user_mailer.notify_match_status.subject', company_name: @company.name))
-  end
-
   def quarterly_report(user)
     @user = user
 
