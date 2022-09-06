@@ -98,6 +98,7 @@ class Need < ApplicationRecord
   ## Scopes
   #
   EXPERT_ABANDONED_DELAY = 14.days
+  ARCHIVE_DELAY = 6.months
 
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
@@ -205,6 +206,10 @@ class Need < ApplicationRecord
 
   scope :without_exchange, -> do
     where(status: [:not_for_me, :done_not_reachable, :quo, :taking_care])
+  end
+
+  scope :for_reminders, -> do
+    where(status: [:quo, :done_no_help, :done_not_reachable])
   end
 
   scope :with_exchange, -> do

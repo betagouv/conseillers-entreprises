@@ -18,6 +18,9 @@ module Clockwork
   every(1.week, 'anonymize_old_diagnoses', at: 'sunday 5:00') do
     `rake anonymize_old_diagnoses`
   end
+  every(1.day, 'archive_old_needs', at: '02:11') do
+    NeedService.delay.archive_old_needs
+  end
   every(1.day, 'send_failed_jobs_email', at: '10:00') do
     AdminMailersService.delay.send_failed_jobs
   end
