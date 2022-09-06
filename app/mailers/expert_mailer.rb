@@ -16,13 +16,6 @@ class ExpertMailer < ApplicationMailer
       to: @expert.email_with_display_name,
       subject: t('mailers.expert_mailer.notify_company_needs.subject', company_name: @diagnosis.company.name)
     )
-
-    # Also send a reset link to the expert’s users that have never used their account.
-    # In practice, this only happens to Experts that used to have no corresponding User and
-    # for which we created User accounts automatically.
-    expert.users.not_deleted.filter(&:invitation_not_accepted?).each do |user|
-      user.send_reset_password_instructions
-    end
   end
 
   def first_notification_help(expert)
