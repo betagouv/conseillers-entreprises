@@ -28,11 +28,7 @@ describe ExpertMailer do
         let(:user1) { build :user, invitation_sent_at: nil, encrypted_password: '' }
         let(:user2) { build :user, invitation_sent_at: nil, encrypted_password: '', deleted_at: Time.zone.now }
 
-        it do
-          expect_any_instance_of(User).not_to receive(:send_reset_password_instructions)
-
-          mail
-        end
+        it { expect_any_instance_of(User).not_to receive(:send_reset_password_instructions) }
       end
     end
   end
