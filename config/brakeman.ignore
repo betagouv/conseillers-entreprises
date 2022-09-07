@@ -1,6 +1,36 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "3f8a8d49ee107fbb6b9a9b7d00218316003d2fcc965e798c06845071ed1186c6",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/reminders/_need.haml",
+      "line": 30,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "build_reminders_card_footer(action, (Unresolved Model).new)",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "reminders/_needs",
+          "line": 3,
+          "file": "app/views/reminders/_needs.html.haml",
+          "rendered": {
+            "name": "reminders/_need",
+            "file": "app/views/reminders/_need.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "reminders/_need"
+      },
+      "user_input": "(Unresolved Model).new",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
       "warning_type": "SQL Injection",
       "warning_code": 0,
       "fingerprint": "42ece5cab4729c1ad4e9e3035ad7d12e33bcc5621ebf78d4f7991c7bc8fa7f43",
@@ -47,7 +77,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/antenne.rb",
-      "line": 95,
+      "line": 98,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "joins(:institution).where(\"(antennes.name, institutions.name) IN (#{([\"(?)\"] * antennes_and_institutions_names.size).join(\", \")})\", *antennes_and_institutions_names)",
       "render_path": null,
@@ -67,7 +97,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/services/stats/base_stats.rb",
-      "line": 110,
+      "line": 109,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "query.group(\"DATE_TRUNC('month', #{query.model.name.pluralize}.created_at)\")",
       "render_path": null,
@@ -101,6 +131,6 @@
       "note": "Injection de donnee systeme, ne provenant pas des utilisateurs"
     }
   ],
-  "updated": "2022-04-20 15:26:55 +0200",
-  "brakeman_version": "5.2.0"
+  "updated": "2022-09-07 17:18:08 +0200",
+  "brakeman_version": "5.2.3"
 }
