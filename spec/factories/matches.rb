@@ -9,9 +9,7 @@ FactoryBot.define do
     after(:create) do |match, _|
       match.diagnosis.update(step: :completed, completed_at: Time.zone.now)
       match.need.reload
-      Need.find_each do |n|
-        n.update_status
-      end
+      Need.find_each { |n| n.update_status }
     end
   end
 end

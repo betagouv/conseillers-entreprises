@@ -498,6 +498,10 @@ fr:
         your_solicitation_html: Vous avez entamé une demande concernant le sujet «<strong>%{subject}</strong>» sur le site Place des Entreprises.
     cordially: Bien cordialement,
     email_sent: L’email a bien été envoyé
+    emails_sent:
+      one: 1 email envoyé
+      other: "%{count} emails envoyés"
+      zero: Aucun email envoyé
     expert_mailer:
       first_notification_help:
         answer: C’est un nouveau service public financé par le Ministère de l’Économie et le Ministère du Travail pour favoriser le conseil humain et de proximité des TPE & PME.
@@ -651,10 +655,6 @@ fr:
         subject: Place des Entreprises - Rapport statistique
         support_contact_label: 'En cas de besoin vous pouvez contacter :'
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
-    emails_sent:
-      zero: Aucun email envoyé
-      one: 1 email envoyé
-      other: "%{count} emails envoyés"
   manager:
     needs:
       index:

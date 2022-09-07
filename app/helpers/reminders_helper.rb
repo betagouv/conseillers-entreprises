@@ -1,8 +1,8 @@
 module RemindersHelper
   def build_reminders_card_footer(action, need)
-    #  si c'est dans a relancer, a rappeler, abandonné, pas pour moi, affichage d'une action
+    #  si c'est dans a relancer, a rappeler, pas pour moi, affichage d'une action
     #  si c'est en cours d'abandon afficher le mail de derniere chance
-    #  si c'est abandonné et pas pour moi envoyer l'email d'echec
+    #  si "pas pour moi" envoyer l'email d'echec
     html = ""
     html << email_button(action, need)
     html << action_button(action, need) if with_action.include? action
