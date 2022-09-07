@@ -38,9 +38,6 @@ module TerritoryNeedsStatus
   end
 
   def territory_needs_expired
-    perimeter_received_needs
-      .where(matches: perimeter_received_matches_from_needs(perimeter_received_needs).status_quo)
-      .where("matches.created_at < ?", 60.days.ago)
-      .distinct
+    perimeter_received_needs.abandoned.distinct
   end
 end

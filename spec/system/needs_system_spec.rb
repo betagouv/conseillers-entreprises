@@ -31,7 +31,7 @@ describe 'needs', type: :system do
     ])
   end
   let!(:need_expired) do
-    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, status: :quo, created_at: 61.days.ago, archived_at: Time.zone.now)])
+    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, archived_at: Time.zone.now)], abandoned_at: Time.now)
   end
 
   describe 'user needs' do
