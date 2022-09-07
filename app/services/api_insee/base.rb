@@ -96,6 +96,11 @@ module ApiInsee
     def format_data
       @http_request.data
     end
+
+    def check_if_foreign_facility(etablissement)
+      foreign_country = etablissement['adresseEtablissement']["libellePaysEtrangerEtablissement"]
+      raise ApiInseeError, I18n.t('api_requests.foreign_facility', country: foreign_country.capitalize) if foreign_country.present?
+    end
   end
 
   class ApiInseeError < StandardError; end

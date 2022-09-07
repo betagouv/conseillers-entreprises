@@ -26,10 +26,12 @@ module ApiInsee::Siret
   class Responder < ApiInsee::Responder
     def format_data
       data = @http_request.data
+      etablissements = data["etablissements"]
+      check_if_foreign_facility(etablissements.first)
       entreprise = format_entreprise(data["etablissements"][0])
       {
         entreprise: entreprise,
-        etablissements: data["etablissements"],
+        etablissements: etablissements,
         nombre_etablissements_ouverts: 1,
       }
     end
