@@ -343,20 +343,20 @@ RSpec.describe Need, type: :model do
     end
   end
 
-  describe 'abandoned' do
+  describe 'no_activity' do
     let(:need) { create :need_with_matches }
     let(:date1) { 2.months.ago }
     let(:old_need) { travel_to(date1) { create :need_with_matches } }
 
     it do
-      expect(need).not_to be_abandoned
-      expect(old_need).to be_abandoned
-      expect(described_class.abandoned).to match_array([old_need])
+      expect(need.no_activity?).to be false
+      expect(old_need.no_activity?).to be true
+      expect(described_class.no_activity).to match_array([old_need])
 
       travel_to(2.months.from_now) do
-        expect(need).to be_abandoned
-        expect(old_need).to be_abandoned
-        expect(described_class.abandoned).to match_array([need, old_need])
+        expect(need.no_activity?).to be true
+        expect(old_need.no_activity?).to be true
+        expect(described_class.no_activity).to match_array([need, old_need])
       end
     end
   end

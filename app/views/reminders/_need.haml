@@ -12,7 +12,7 @@
             = need.subject
           .subtitle
             = need.matches.human_count
-            - if need.abandoned?
+            - if need.no_activity?
               .label.label--sm.orange= t('diagnoses.diagnosis.last_activity_date', l: l(need.updated_at.to_date, format: :long))
       .card__match-list.fr-mb-2w
         - need.matches.preload(expert: :antenne).each do |match|
