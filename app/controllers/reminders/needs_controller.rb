@@ -27,13 +27,13 @@ module Reminders
 
     def send_last_chance_email
       @need.update(last_chance_email_sent_at: Time.zone.now)
-      @need.matches.status_quo.each do |match|
+      @needs_quo = @need.matches.status_quo
+      @needs_quo.each do |match|
         ExpertMailer.last_chance(match.expert, @need, current_user).deliver_later
       end
-      # TODO compter les emails
       respond_to do |format|
         format.js
-        format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.email_sent') }
+        format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.emails_sent', count: @needs_quo.count) }
       end
     end
 

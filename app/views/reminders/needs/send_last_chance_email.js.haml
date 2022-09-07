@@ -1,2 +1,2 @@
-var html = "<p class='fr-btn fr-btn--secondary fr-btn-green fr-fi-checkbox-circle-line fr-btn--icon-left fr-mr-2v'>#{I18n.t('reminders.need.last_chance_email_sent')}</p>"
+var html = "<p class='fr-btn fr-btn--secondary fr-btn-green fr-fi-checkbox-circle-line fr-btn--icon-left fr-mr-2v'>#{I18n.t('mailers.emails_sent', count: @needs_quo.count)}</p>"
 $('#reminder-email-#{@need.id}').replaceWith(html);

@@ -651,6 +651,10 @@ fr:
         subject: Place des Entreprises - Rapport statistique
         support_contact_label: 'En cas de besoin vous pouvez contacter :'
     withdraw_request_html: Si vous souhaitez retirer votre demande, %{mailto_link}.
+    emails_sent:
+      zero: Aucun email envoyé
+      one: 1 email envoyé
+      other: "%{count} emails envoyés"
   manager:
     needs:
       index:
@@ -837,7 +841,6 @@ fr:
     need:
       abandoned_need_email_sent: Email d’echec envoyé
       critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique
-      last_chance_email_sent: Email de la dernière chance envoyé
     needs:
       scopes:
         detail:
