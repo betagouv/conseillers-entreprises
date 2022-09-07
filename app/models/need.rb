@@ -99,6 +99,12 @@ class Need < ApplicationRecord
   #
   EXPERT_ABANDONED_DELAY = 14.days
   ARCHIVE_DELAY = 6.months
+  REMINDERS_DAYS = {
+    poke: 7,
+    recall: 14,
+    will_be_abandoned: 21,
+    archive: 45
+  }
 
   scope :ordered_for_interview, -> do
     left_outer_joins(:subject)
@@ -144,13 +150,6 @@ class Need < ApplicationRecord
     joins(:contacted_users).where(users: { id: user_id })
   end
 
-  REMINDERS_DAYS = {
-    poke: 7,
-    recall: 14,
-    will_be_abandoned: 21,
-    archive: 45
-  }
-
   def self.reminders_range(action)
     index = REMINDERS_DAYS.keys.index(action)
     Range.new(REMINDERS_DAYS.values[index + 1]&.days&.ago, REMINDERS_DAYS.values[index].days.ago)
@@ -177,7 +176,11 @@ class Need < ApplicationRecord
   end
 
   # For Reminders, find Needs without taking care since EXPERT_ABANDONED_DELAY
-  scope :abandoned, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
+  scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
+
+  scope :abandoned, -> { where.not(abandoned_at: nil) }
+
+  scope :not_abandoned, -> { where(abandoned_at: nil) }
 
   scope :with_some_matches_in_status, -> (status) do
     # status can be an array
@@ -305,6 +308,10 @@ class Need < ApplicationRecord
   end
 
   def abandoned?
+    abandoned_at.present?
+  end
+
+  def no_activity?
     updated_at < EXPERT_ABANDONED_DELAY.ago
   end
 
