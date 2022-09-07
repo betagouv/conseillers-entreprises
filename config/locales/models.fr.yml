@@ -634,6 +634,7 @@ fr:
     unarchive: Désarchiver
     unarchive_done: Désarchivé
   attributes:
+    abandoned_at: Date d’abandon
     activity: Activité
     advisor: Conseiller
     advisor_antenne: Antenne du conseiller
@@ -716,6 +717,7 @@ fr:
     intervention_zone: Zone d’intervention
     interview_sort_order: Ordre dans le questionnaire
     intitule_effectif: Effectif
+    is_abandoned: Abandonné
     is_archived: Archivé
     label: Intitulé
     landing_subject_title: Option choisie sur le site

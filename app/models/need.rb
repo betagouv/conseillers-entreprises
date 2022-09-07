@@ -365,4 +365,18 @@ class Need < ApplicationRecord
   def last_chance_email_sent?
     last_chance_email_sent_at.present?
   end
+
+  # Filtres pour Ransak
+  scope :search_abandoned, -> (abandoned) do
+    abandoned = ActiveModel::Type::Boolean.new.cast(abandoned)
+    if abandoned
+      where.not(abandoned_at: nil)
+    else
+      where(abandoned_at: nil)
+    end
+  end
+
+  ransacker(:abandoned, formatter: -> (value) {
+    search_abandoned(value).ids.presence
+  }) { |parent| parent.table[:id] }
 end

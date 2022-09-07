@@ -22,6 +22,7 @@ ActiveAdmin.register Need do
     column :status do |need|
       human_attribute_status_tag need, :status
       status_tag I18n.t('attributes.is_archived') if need.is_archived
+      status_tag I18n.t('attributes.is_abandoned') if need.abandoned?
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
@@ -40,6 +41,7 @@ ActiveAdmin.register Need do
   filter :status, as: :select, collection: -> { Need.human_attribute_values(:status, raw_values: true).invert.to_a }
 
   filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
+  filter :abandoned_in, as: :boolean, label: I18n.t('attributes.is_abandoned')
 
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
@@ -75,6 +77,7 @@ ActiveAdmin.register Need do
       row :created_at
       row :updated_at
       row :archived_at
+      row :abandoned_at
       row :content
       row(:status) { |need| human_attribute_status_tag need, :status }
       row(:matches) do |d|
@@ -90,6 +93,14 @@ ActiveAdmin.register Need do
 
   action_item :unarchive, only: :show, if: -> { resource.is_archived } do
     link_to t('archivable.unarchive'), polymorphic_path([:unarchive, :admin, resource])
+  end
+
+  action_item :abandon, only: :show, if: -> { !resource.abandoned? } do
+    link_to t('needs.abandon'), polymorphic_path([:abandon, :admin, resource])
+  end
+
+  action_item :unabandon, only: :show, if: -> { resource.abandoned? } do
+    link_to t('needs.unabandon'), polymorphic_path([:unabandon, :admin, resource])
   end
 
   ## Form
@@ -115,6 +126,16 @@ ActiveAdmin.register Need do
   member_action :unarchive do
     resource.unarchive!
     redirect_back fallback_location: collection_path, notice: t('archivable.unarchive_done')
+  end
+
+  member_action :abandon do
+    resource.update(abandoned_at: Time.zone.now)
+    redirect_back fallback_location: collection_path, notice: t('needs.abandoned_done')
+  end
+
+  member_action :unabandon do
+    resource.update(abandoned_at: nil)
+    redirect_back fallback_location: collection_path, notice: t('needs.unabandoned_done')
   end
 
   batch_action(I18n.t('archivable.archive')) do |ids|
