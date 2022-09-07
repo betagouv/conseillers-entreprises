@@ -71,7 +71,7 @@ module ApiConsumption::Models
     end
 
     def annee_effectif
-      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).annee_effectif
+      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).annee_effectif
     end
   end
 end
