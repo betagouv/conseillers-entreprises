@@ -97,8 +97,9 @@ class Need < ApplicationRecord
 
   ## Scopes
   #
-  EXPERT_ABANDONED_DELAY = 14.days
+  NO_ACTIVITY_DELAY = 14.days
   ARCHIVE_DELAY = 6.months
+  #TODO changer archive en abandon
   REMINDERS_DAYS = {
     poke: 7,
     recall: 14,
@@ -175,8 +176,8 @@ class Need < ApplicationRecord
       .having("MIN(matches.closed_at) BETWEEN ? AND ?", range.begin, range.end)
   end
 
-  # For Reminders, find Needs without taking care since EXPERT_ABANDONED_DELAY
-  scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", EXPERT_ABANDONED_DELAY.ago) }
+  # For Reminders, find Needs without taking care since NO_ACTIVITY_DELAY
+  scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", NO_ACTIVITY_DELAY.ago) }
 
   scope :abandoned, -> { where.not(abandoned_at: nil) }
 
@@ -312,7 +313,7 @@ class Need < ApplicationRecord
   end
 
   def no_activity?
-    updated_at < EXPERT_ABANDONED_DELAY.ago
+    updated_at < NO_ACTIVITY_DELAY.ago
   end
 
   def quo_experts
