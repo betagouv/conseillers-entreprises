@@ -35,9 +35,11 @@ module ApiInsee::SiretsBySiren
       }
     end
 
+    # On ne garde que les établissements ouverts et en France
     def filter_etablissements_ouverts(etablissements)
       etablissements
         .select { |etablissement| etablissement["periodesEtablissement"][0]["etatAdministratifEtablissement"] == 'A' }
+        .select { |etablissement| etablissement['adresseEtablissement']["libellePaysEtrangerEtablissement"] == nil }
     end
 
     def format_entreprise(first_etablissement)
