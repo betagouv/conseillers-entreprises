@@ -38,8 +38,10 @@ module Reminders
     end
 
     def send_abandoned_email
-      @need.update(abandoned_email_sent: true)
-      CompanyMailer.abandoned_need(@need).deliver_later
+      ActiveRecord::Base.transaction do
+        @need.update(abandoned_email_sent: true)
+        CompanyMailer.abandoned_need(@need).deliver_later
+      end
       respond_to do |format|
         format.js
         format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.email_sent') }
