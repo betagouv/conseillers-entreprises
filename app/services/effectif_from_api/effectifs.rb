@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# Permet de gérer l'affichage des effectifs en prenant le meilleur de 2 champs possibles
-module Effectif
+module EffectifFromApi
   class Effectifs
     RANGES = [
       { min: 0,     max: 0,     code: '00' },
@@ -25,7 +24,6 @@ module Effectif
     def initialize(params)
       # si nil est passé, les params par défaut sont pas pris en compte
       @annee = params["annee"]
-      @mois = params["mois"] || '01'
       @effectifs = params["effectifs_mensuels"]&.to_f || params["effectifs_annuels"]&.to_f
     end
 

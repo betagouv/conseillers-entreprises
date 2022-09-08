@@ -59,19 +59,19 @@ module ApiConsumption::Models
     end
 
     def effectif
-      @effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).effectif
+      @effectif ||= EffectifFromApi::Format.new(effectifs, tranche_effectif_salarie_entreprise).effectif
     end
 
     def code_effectif
-      @code_effectif ||= (@code_effectif_entreprise || Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).code_effectif)
+      @code_effectif ||= (@code_effectif_entreprise || EffectifFromApi::Format.new(effectifs, tranche_effectif_salarie_entreprise).code_effectif)
     end
 
     def tranche_effectif
-      @tranche_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).intitule_effectif
+      @tranche_effectif ||= EffectifFromApi::Format.new(effectifs, tranche_effectif_salarie_entreprise).intitule_effectif
     end
 
     def annee_effectif
-      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).annee_effectif
+      @annee_effectif ||= EffectifFromApi::Format.new(effectifs, tranche_effectif_salarie_entreprise).annee_effectif
     end
   end
 end

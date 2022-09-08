@@ -49,6 +49,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       end
     end
 
+    # TODO change to code_effectif
     context 'effectifs && subject' do
       let(:diagnosis) { create :diagnosis, facility: facility }
       let(:need) { create :need, diagnosis: diagnosis, subject: need_subject }
