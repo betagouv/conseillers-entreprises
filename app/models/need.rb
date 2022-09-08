@@ -99,12 +99,11 @@ class Need < ApplicationRecord
   #
   NO_ACTIVITY_DELAY = 14.days
   ARCHIVE_DELAY = 6.months
-  #TODO changer archive en abandon
   REMINDERS_DAYS = {
     poke: 7,
     recall: 14,
     will_be_abandoned: 21,
-    archive: 45
+    abandon: 45
   }
 
   scope :ordered_for_interview, -> do
