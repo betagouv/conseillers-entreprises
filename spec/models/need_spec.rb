@@ -454,14 +454,14 @@ RSpec.describe Need, type: :model do
       end
 
       describe 'contraintes de relations' do
-        # - besoin créé il y a 07 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ko
+        # - besoin créé il y a 07 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
         # - besoin créé il y a 07 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ok
         # - besoin créé il y a 07 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
         # - besoin créé il y a 07 jours, avec 1 commentaire                                                     ok
 
         let(:seven_days_ago) { Time.zone.now.beginning_of_day - 7.days }
 
-        let!(:need1) { travel_to(seven_days_ago) { create :need } }
+        let!(:need1) { travel_to(seven_days_ago) { create :need_with_matches } }
         let!(:need1_match) { travel_to(seven_days_ago) { create :match, need: need1, status: :not_for_me } }
         let!(:need2) { travel_to(seven_days_ago) { create :need_with_matches } }
         let!(:need2_match) { travel_to(seven_days_ago) { create :match, need: need2, status: :done_no_help } }
@@ -471,7 +471,7 @@ RSpec.describe Need, type: :model do
         let!(:feedback4) { create :feedback, :for_need, feedbackable: need4 }
 
         it 'retourne les besoins avec certaines relations' do
-          expect(described_class.reminders_to(:poke)).to match_array [need2, need3, need4]
+          expect(described_class.reminders_to(:poke)).to match_array [need1, need2, need3, need4]
         end
       end
     end
@@ -531,13 +531,13 @@ RSpec.describe Need, type: :model do
       end
 
       describe 'contraintes de status' do
-        # - besoin créé il y a 14 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ko
+        # - besoin créé il y a 14 jours, avec 1 positionnement « refusé », et autres MER sans réponse           ok
         # - besoin créé il y a 14 jours, avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ok
         # - besoin créé il y a 14 jours, avec 1 cloture « injoignable », et autres MER sans réponse             ok
 
         let(:fourteen_days_ago) { Time.zone.now.beginning_of_day - 14.days }
 
-        let!(:need1) { travel_to(fourteen_days_ago) { create :need } }
+        let!(:need1) { travel_to(fourteen_days_ago) { create :need_with_matches } }
         let!(:need1_match) { travel_to(fourteen_days_ago) { create :match, need: need1, status: :not_for_me } }
         let!(:need2) { travel_to(fourteen_days_ago) { create :need_with_matches } }
         let!(:need2_match) { travel_to(fourteen_days_ago) { create :match, need: need2, status: :done_no_help } }
@@ -545,7 +545,7 @@ RSpec.describe Need, type: :model do
         let!(:need3_match) { travel_to(fourteen_days_ago) { create :match, need: need3, status: :done_not_reachable } }
 
         it 'retourne les besoins avec certains status' do
-          expect(described_class.reminders_to(:recall)).to match_array [need2, need3]
+          expect(described_class.reminders_to(:recall)).to match_array [need1, need2, need3]
         end
       end
     end
