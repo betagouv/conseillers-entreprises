@@ -117,16 +117,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_093027) do
     t.index ["token_digest"], name: "index_api_keys_on_token_digest", unique: true
   end
 
+  create_table "badge_badgeables", force: :cascade do |t|
+    t.bigint "badgeable_id", null: false
+    t.string "badgeable_type", null: false
+    t.bigint "badge_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_badge_badgeables_on_badge_id"
+  end
+
   create_table "badges", force: :cascade do |t|
     t.string "title", null: false
     t.string "color", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "badges_solicitations", id: false, force: :cascade do |t|
-    t.bigint "badge_id", null: false
-    t.bigint "solicitation_id", null: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -625,6 +629,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_093027) do
   add_foreign_key "antennes_communes", "antennes"
   add_foreign_key "antennes_communes", "communes"
   add_foreign_key "api_keys", "institutions"
+  add_foreign_key "badge_badgeables", "badges"
   add_foreign_key "communes_experts", "communes"
   add_foreign_key "communes_experts", "experts"
   add_foreign_key "communes_territories", "communes"

@@ -12,12 +12,15 @@
 class Badge < ApplicationRecord
   ## Associations
   #
-  has_and_belongs_to_many :solicitations
+  has_many :badge_badgeables
+  has_many :solicitations, through: :badge_badgeables, source_type: 'Solicitation', source: :badgeable
+  has_many :needs, through: :badge_badgeables, source_type: 'Need', source: :badgeable
 
   ## Callbacks
   #
   after_update -> do
     solicitations.each(&:touch)
+    needs.each(&:touch)
   end
 
   ## Validations

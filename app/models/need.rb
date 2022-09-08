@@ -360,4 +360,8 @@ class Need < ApplicationRecord
 
     result
   end
+
+  def touch_after_badges_update(_badge)
+    touch if persisted?
+  end
 end

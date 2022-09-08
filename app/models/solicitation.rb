@@ -61,9 +61,11 @@ class Solicitation < ApplicationRecord
   has_many :feedbacks, as: :feedbackable, dependent: :destroy
   has_many :matches, through: :diagnosis, inverse_of: :solicitation
   has_many :needs, through: :diagnosis, inverse_of: :solicitation
-  has_and_belongs_to_many :badges, -> { distinct }, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
+  # TODO supprimer old_badges
+  has_and_belongs_to_many :old_badges, -> { distinct }, class_name: 'Badge', after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   belongs_to :institution, inverse_of: :solicitations, optional: true
-
+  has_many :badge_badgeables, as: :badgeable
+  has_many :badges, through: :badge_badgeables, after_add: :touch_after_badges_update, after_remove: :touch_after_badges_update
   has_many :institution_filters, dependent: :destroy, as: :institution_filtrable, inverse_of: :institution_filtrable
   accepts_nested_attributes_for :institution_filters, allow_destroy: false
 
