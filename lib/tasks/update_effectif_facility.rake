@@ -12,9 +12,9 @@ task update_effectif_facility: :environment do
       p [facility.siret, facility.company.name, I18n.l(facility.company.created_at, format: :ym)]
       effectif_data = ApiEntreprise::EtablissementEffectifMensuel::Base.new(facility.siret).call["effectifs"]
       p effectif_data
-      effectif = EffectifFromApi::Format.new(effectif_data).effectif
+      effectif = Effectif::Format.new(effectif_data).effectif
       if effectif.present?
-        code_effectif = EffectifFromApi::Format.new(effectif_data).code_effectif
+        code_effectif = Effectif::Format.new(effectif_data).code_effectif
         total += 1
       else
         facility.update(code_effectif: 'NR')

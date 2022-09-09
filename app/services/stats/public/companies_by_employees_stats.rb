@@ -24,12 +24,12 @@ module Stats::Public
     end
 
     def category_name(category)
-      Effectif::simple_effectif(category)
+      Effectif::CodeEffectif.new(category).simple_effectif
     end
 
     def category_order_attribute
       # Tweak SQL ordering: display 'NN' in the first position, before '00'
-      "REPLACE(companies.code_effectif, '#{Effectif::UNITE_NON_EMPLOYEUSE}', '  ')"
+      "REPLACE(companies.code_effectif, '#{Effectif::CodeEffectif::UNITE_NON_EMPLOYEUSE}', '  ')"
     end
 
     def build_series

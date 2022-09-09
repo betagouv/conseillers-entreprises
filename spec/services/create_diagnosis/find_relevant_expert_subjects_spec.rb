@@ -61,7 +61,7 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       before { es_01.expert.antenne.match_filters << match_filter_01 }
 
       context 'matching subject only' do
-        let(:facility) { create :facility, effectif: 21 }
+        let(:facility) { create :facility, code_effectif: '12' }
         let(:need_subject) { tresorerie_subject }
 
         it { is_expected.to match_array [es_temoin] }
@@ -69,21 +69,21 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       context 'matching effectif only' do
         let(:need_subject) { create :subject }
-        let(:facility) { create :facility, effectif: 19.4 }
+        let(:facility) { create :facility, code_effectif: '11' }
 
         it { is_expected.to match_array [es_temoin, es_01] }
       end
 
       context 'matching subject and effectif' do
         let(:need_subject) { tresorerie_subject }
-        let(:facility) { create :facility, effectif: 19.4 }
+        let(:facility) { create :facility, code_effectif: '11' }
 
         it { is_expected.to match_array [es_temoin, es_01] }
       end
 
       context 'matching nothing' do
         let(:need_subject) { create :subject }
-        let(:facility) { create :facility, effectif: 21 }
+        let(:facility) { create :facility, code_effectif: '12' }
 
         it { is_expected.to match_array [es_temoin, es_01] }
       end
@@ -185,13 +185,13 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
 
       # On n'envoie pas si on n'a pas l'info
       context 'no facility filter data' do
-        let(:facility) { create :facility, effectif: nil, company: create(:company, date_de_creation: nil) }
+        let(:facility) { create :facility, code_effectif: nil, company: create(:company, date_de_creation: nil) }
 
         it { is_expected.to match_array [es_temoin] }
       end
 
       context 'matching none' do
-        let(:facility) { create :facility, effectif: 9.9, company: create(:company, date_de_creation: 2.years.ago) }
+        let(:facility) { create :facility, code_effectif: '03', company: create(:company, date_de_creation: 2.years.ago) }
 
         it { is_expected.to match_array [es_temoin] }
       end
@@ -203,13 +203,13 @@ describe CreateDiagnosis::FindRelevantExpertSubjects do
       end
 
       context 'matching effectif_min' do
-        let(:facility) { create :facility, effectif: 10.1 }
+        let(:facility) { create :facility, code_effectif: '11' }
 
         it { is_expected.to match_array [es_temoin, es_01] }
       end
 
       context 'matching both' do
-        let(:facility) { create :facility, effectif: 10.1, company: create(:company, date_de_creation: 4.years.ago) }
+        let(:facility) { create :facility, code_effectif: '11', company: create(:company, date_de_creation: 4.years.ago) }
 
         it { is_expected.to match_array [es_temoin, es_01] }
       end

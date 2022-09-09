@@ -31,7 +31,7 @@
 #
 
 class Facility < ApplicationRecord
-  include Effectif
+  include WithEffectif
   include NafCode
 
   ## Associations

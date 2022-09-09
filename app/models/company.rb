@@ -20,7 +20,7 @@
 #
 
 class Company < ApplicationRecord
-  include Effectif
+  include WithEffectif
   include CategorieJuridique
 
   ## Relations and Validations

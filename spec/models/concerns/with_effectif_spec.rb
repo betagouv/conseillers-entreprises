@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Effectif, type: :model do
+RSpec.describe WithEffectif, type: :model do
   describe 'intitule_effectif' do
     subject { described_class::intitule_effectif code }
 

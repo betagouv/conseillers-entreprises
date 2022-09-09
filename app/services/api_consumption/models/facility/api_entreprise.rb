@@ -32,19 +32,19 @@ module ApiConsumption::Models
     end
 
     def effectif
-      @effectif ||= EffectifFromApi::Format.new(effectifs, tranche_effectif_salarie_etablissement).effectif
+      @effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).effectif
     end
 
     def code_effectif
-      @code_effectif ||= EffectifFromApi::Format.new(effectifs, tranche_effectif_salarie_etablissement).code_effectif
+      @code_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).code_effectif
     end
 
     def tranche_effectif
-      @tranche_effectif ||= EffectifFromApi::Format.new(effectifs, tranche_effectif_salarie_etablissement).intitule_effectif
+      @tranche_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).intitule_effectif
     end
 
     def annee_effectif
-      @annee_effectif ||= EffectifFromApi::Format.new(effectifs, tranche_effectif_salarie_etablissement).annee_effectif
+      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_etablissement).annee_effectif
     end
 
     def readable_locality

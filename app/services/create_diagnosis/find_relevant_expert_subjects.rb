@@ -106,14 +106,18 @@ module CreateDiagnosis
 
     def accepting_effectif_min(match_filter)
       return true if match_filter.effectif_min.blank?
-      return false if facility.effectif.blank?
-      facility.effectif > match_filter.effectif_min
+      return false if facility.code_effectif.blank?
+      facility_code_effectif.min_bound >= match_filter.effectif_min
     end
 
     def accepting_effectif_max(match_filter)
       return true if match_filter.effectif_max.blank?
-      return false if facility.effectif.blank?
-      facility.effectif < match_filter.effectif_max
+      return false if facility.code_effectif.blank?
+      facility_code_effectif.max_bound < match_filter.effectif_max
+    end
+
+    def facility_code_effectif
+      Effectif::CodeEffectif.new(facility.code_effectif)
     end
 
     # Code naf
@@ -134,10 +138,6 @@ module CreateDiagnosis
 
     def facility
       @facility ||= need.facility
-    end
-
-    def facility_effectif
-      facility.effectif.to_i
     end
 
     def company

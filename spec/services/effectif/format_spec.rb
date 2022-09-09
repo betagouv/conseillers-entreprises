@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-describe EffectifFromApi::Format do
+describe Effectif::Format do
   describe 'code_effectif' do
     subject { described_class.new(effectifs, tranche_effectif).code_effectif }
 

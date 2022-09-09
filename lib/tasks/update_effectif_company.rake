@@ -12,9 +12,9 @@ task update_effectif_company: :environment do
       p [item.siren, item.name, I18n.l(item.created_at, format: :ym)]
       effectif_data = ApiEntreprise::EntrepriseEffectifMensuel::Base.new(item.siren).call["effectifs"]
       p effectif_data
-      effectif = EffectifFromApi::Format.new(effectif_data).effectif
+      effectif = Effectif::Format.new(effectif_data).effectif
       if effectif.present?
-        code_effectif = EffectifFromApi::Format.new(effectif_data).code_effectif
+        code_effectif = Effectif::Format.new(effectif_data).code_effectif
         item.update(code_effectif: code_effectif, effectif: effectif)
         total += 1
       else
