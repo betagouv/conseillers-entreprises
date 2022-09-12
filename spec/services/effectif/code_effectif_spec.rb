@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe WithEffectif, type: :model do
+RSpec.describe Effectif::CodeEffectif, type: :model do
   describe 'intitule_effectif' do
-    subject { described_class::intitule_effectif code }
+    subject { described_class.new(code).intitule_effectif }
 
     context 'valid code' do
       let(:code) { '31' }
