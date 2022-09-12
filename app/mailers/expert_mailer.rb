@@ -49,7 +49,6 @@ class ExpertMailer < ApplicationMailer
 
     mail(
       to: @expert.email_with_display_name,
-      from: @support_user.email_with_display_name,
       reply_to: @support_user.email_with_display_name,
       subject: t('mailers.expert_mailer.remind_involvement.subject')
     )

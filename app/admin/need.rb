@@ -95,14 +95,6 @@ ActiveAdmin.register Need do
     link_to t('archivable.unarchive'), polymorphic_path([:unarchive, :admin, resource])
   end
 
-  action_item :abandon, only: :show, if: -> { !resource.abandoned? } do
-    link_to t('needs.abandon'), polymorphic_path([:abandon, :admin, resource])
-  end
-
-  action_item :unabandon, only: :show, if: -> { resource.abandoned? } do
-    link_to t('needs.unabandon'), polymorphic_path([:unabandon, :admin, resource])
-  end
-
   ## Form
   #
   permit_params :diagnosis_id, :subject_id, :content
@@ -126,16 +118,6 @@ ActiveAdmin.register Need do
   member_action :unarchive do
     resource.unarchive!
     redirect_back fallback_location: collection_path, notice: t('archivable.unarchive_done')
-  end
-
-  member_action :abandon do
-    resource.update(abandoned_at: Time.zone.now)
-    redirect_back fallback_location: collection_path, notice: t('needs.abandoned_done')
-  end
-
-  member_action :unabandon do
-    resource.update(abandoned_at: nil)
-    redirect_back fallback_location: collection_path, notice: t('needs.unabandoned_done')
   end
 
   batch_action(I18n.t('archivable.archive')) do |ids|

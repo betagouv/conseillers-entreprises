@@ -8,7 +8,7 @@ module Reminders
 
     private
 
-    def collection_names
+    def collection_action_names
       %i[poke recall will_be_abandoned]
     end
 
@@ -22,7 +22,7 @@ module Reminders
 
     def collections_counts
       @collections_counts = Rails.cache.fetch(['reminders_need', territory_needs]) do
-        collection_names.index_with { |name| territory_needs.reminders_to(name).size }
+        collection_action_names.index_with { |name| territory_needs.reminders_to(name).size }
       end
       @collections_by_status_counts = Rails.cache.fetch(['reminders_need_by_status', territory_needs]) do
         collection_status_name.index_with { |name| territory_needs.archived(false).where(status: name).size }

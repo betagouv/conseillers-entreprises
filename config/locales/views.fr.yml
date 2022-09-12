@@ -671,8 +671,6 @@ fr:
       change_match_status: Modifier le statut du besoin
       see_expert_inbox: Voir la boîte de réception de l’expert
   needs:
-    abandon: Abandonner
-    abandoned_done: Abandonné
     additional_experts:
       add_match_with: Voulez-vous contacter %{name} au sujet de ce besoin (%{subject}) ?
       add_other_experts: Rechercher d’autres experts à mettre en relation
@@ -747,8 +745,6 @@ fr:
       title: Visite de la société « %{company} »
       transmitted_by: Demande transmise par
       warning_comments: Attention ! Cette discussion n’est pas visible par l’entreprise.
-    unabandon: Désabandonner
-    unabandoned_done: Non abandonné
     unarchive:
       subject_unarchived: Besoin désarchivé
   newsletters:
