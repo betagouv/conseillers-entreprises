@@ -11,12 +11,12 @@ info:
     name: Équipe technique
     email: tech@place-des-entreprises.beta.gouv.fr
 paths:
-  "/api/v1/landings":
+  "/api/v1/landing_themes":
     get:
-      summary: Liste des pages formulaires
+      summary: Liste des thèmes
       tags:
-      - Landings
-      description: Affiche toutes les pages formulaires pour l'organisation authentifiée
+      - Thèmes
+      description: Affiche tous les thèmes pour l’organisation authentifiée
       responses:
         '200':
           description: ok
@@ -26,22 +26,170 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 1661
-                      title: DINUM recrutement
-                      slug: dinum-recrutement
+                    - id: 242
+                      title: Environnement, transition écologique & RSE
+                      slug: environnement-transition-ecologique
+                      description: Optimiser vos consommations d’énergie, valoriser
+                        vos déchets par la revente de matière, éco-concevoir un produit,
+                        mettre en place une démarche RSE, un plan de déplacement entreprise
+                        (PDE).
+                      landing_subjects:
+                      - id: 81
+                        title: Traitement et valorisation des déchets
+                        slug: dechets
+                        description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
+                          vos déchets</li><li>Valoriser la revente de matières, trouver
+                          de nouveaux débouchés</li></ul>"
+                        description_explanation: "<ul><li>quelle est concrètement
+                          votre activité</li><li>ce que votre projet apporte à votre
+                          entreprise</li><li>quel accompagnement vous souhaitez (réflexion
+                          stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
+                        requires_siret: true
+                        requires_location: false
+                      - id: 82
+                        title: Gestion de l’eau
+                        slug: eau
+                        description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
+                          la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
+                          sur votre territoire</li></ul>"
+                        description_explanation: "<ul><li>quelle est concrètement
+                          votre activité</li><li>si vous utilisez de l’eau dans votre
+                          process de fabrication</li><li>ce que votre projet apporte
+                          à votre entreprise</li><li>quel accompagnement vous souhaitez
+                          (réflexion stratégique, appui technique ou appui à la mise
+                          en oeuvre)</li></ul>"
+                        requires_siret: true
+                        requires_location: false
+                    - id: 243
+                      title: Améliorer la santé et la sécurité au travail
+                      slug: sante-securite-travail
+                      description: Réviser votre document unique d’évaluation des
+                        risques professionnels, former vos salariés à la prévention
+                        des risques professionnels (DUERP), connaître les règles d’hygiène,
+                        améliorer la qualité de vie au travail pour être plus performant.
+                      landing_subjects: []
+                    - id: 244
+                      title: Recruter ou former vos salariés, améliorer l’organisation
+                        du travail
+                      slug: recrutement-formation
+                      description: S’informer sur les aides à l’embauche, trouver
+                        des candidats, recruter un travailleur handicapé, identifier
+                        la bonne formation, être accompagné sur la GPEC, gérer les
+                        départs en retraite.
+                      landing_subjects: []
+                    metadata:
+                      total_results: 3
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/landing_theme"
+                  metadata:
+                    type: object
+                    properties:
+                      total_results:
+                        type: integer
+                        description: Nombre de thèmes pour l’organisation authentifiée.
+  "/api/v1/landing_themes/{id}":
+    get:
+      summary: Page thème
+      tags:
+      - Thèmes
+      description: Affiche le détail d’un thème et la liste de ses sujets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Page thème trouvée
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    data:
+                      id: 247
+                      title: Environnement, transition écologique & RSE
+                      slug: environnement-transition-ecologique
+                      description: Optimiser vos consommations d’énergie, valoriser
+                        vos déchets par la revente de matière, éco-concevoir un produit,
+                        mettre en place une démarche RSE, un plan de déplacement entreprise
+                        (PDE).
+                      landing_subjects:
+                      - id: 87
+                        title: Traitement et valorisation des déchets
+                        slug: dechets
+                        description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
+                          vos déchets</li><li>Valoriser la revente de matières, trouver
+                          de nouveaux débouchés</li></ul>"
+                        description_explanation: "<ul><li>quelle est concrètement
+                          votre activité</li><li>ce que votre projet apporte à votre
+                          entreprise</li><li>quel accompagnement vous souhaitez (réflexion
+                          stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
+                        requires_siret: true
+                        requires_location: false
+                      - id: 88
+                        title: Gestion de l’eau
+                        slug: eau
+                        description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
+                          la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
+                          sur votre territoire</li></ul>"
+                        description_explanation: "<ul><li>quelle est concrètement
+                          votre activité</li><li>si vous utilisez de l’eau dans votre
+                          process de fabrication</li><li>ce que votre projet apporte
+                          à votre entreprise</li><li>quel accompagnement vous souhaitez
+                          (réflexion stratégique, appui technique ou appui à la mise
+                          en oeuvre)</li></ul>"
+                        requires_siret: true
+                        requires_location: false
+                    metadata:
+                      total_subjects: 2
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/landing_theme"
+                  metadata:
+                    type: object
+                    properties:
+                      total_themes:
+                        type: integer
+                        description: Nombre de sujets liés aux thèmes.
+  "/api/v1/landings":
+    get:
+      summary: Liste des pages d’atterrissage
+      tags:
+      - Page d’atterrissage
+      description: Affiche toutes les pages d’atterrissage pour l’organisation authentifiée
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              examples:
+                test_example:
+                  value:
+                    data:
+                    - id: 168
+                      title: Page d’atterrissage 01
+                      slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
-                      iframe_category: integral
                       landing_themes:
-                      - id: 1726
+                      - id: 248
                         title: Environnement, transition écologique & RSE
-                        slug: ltet13
+                        slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1727
+                      - id: 249
                         title: Améliorer la santé et la sécurité au travail
-                        slug: ltexplicabo14
+                        slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
                           risques professionnels, former vos salariés à la prévention
                           des risques professionnels (DUERP), connaître les règles
@@ -61,7 +209,7 @@ paths:
                     properties:
                       total_results:
                         type: integer
-                        description: Nombre de pages formulaires pour l’organisation
+                        description: Nombre de pages d’atterrissage pour l’organisation
                           authentifiée.
         '404':
           description: Mauvais token
@@ -80,13 +228,13 @@ paths:
                     "$ref": "#/components/schemas/error"
   "/api/v1/landings/search":
     get:
-      summary: Recherche d’une page formulaire à partir de l’url de sa page d’appel
+      summary: Recherche d’une page d’atterrissage à partir de l’url de sa page d’appel
       tags:
-      - Landings
+      - Page d’atterrissage
       description: Afin de pouvoir tracer et quantifier les appels, nous enregistrons
         les url des pages des sites partenaires depuis lesquelles l’API est appelé.
-        Ainsi, pour retrouver la page formulaire devant figurer à l’url XX, vous pouvez
-        faire une recherche via cette url.
+        Ainsi, pour retrouver la page d’atterrissage devant figurer à l’url XX, vous
+        pouvez faire une recherche via cette url.
       parameters:
       - name: url
         in: query
@@ -96,29 +244,28 @@ paths:
           type: string
       responses:
         '200':
-          description: Page formulaire trouvée
+          description: Page d’atterrissage trouvée
           content:
             application/json:
               examples:
                 test_example:
                   value:
                     data:
-                      id: 1664
-                      title: DINUM recrutement
-                      slug: dinum-recrutement
+                      id: 171
+                      title: Page d’atterrissage 01
+                      slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
-                      iframe_category: integral
                       landing_themes:
-                      - id: 1730
+                      - id: 254
                         title: Environnement, transition écologique & RSE
-                        slug: ltaccusamus17
+                        slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1731
+                      - id: 255
                         title: Améliorer la santé et la sécurité au travail
-                        slug: ltex18
+                        slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
                           risques professionnels, former vos salariés à la prévention
                           des risques professionnels (DUERP), connaître les règles
@@ -136,9 +283,9 @@ paths:
                     properties:
                       total_themes:
                         type: integer
-                        description: Nombre de thèmes liée à la page formulaire.
+                        description: Nombre de thèmes liée à la page d’atterrissage.
         '404':
-          description: Page formulaire inconnue
+          description: Page d’atterrissage inconnue
           content:
             application/json:
               examples:
@@ -169,10 +316,11 @@ paths:
                     "$ref": "#/components/schemas/error"
   "/api/v1/landings/{id}":
     get:
-      summary: Page formulaire
+      summary: Page d’atterrissage
       tags:
-      - Landings
-      description: Affiche le détail d’une page formulaire
+      - Page d’atterrissage
+      description: Affiche le détail d’une page d’atterrissage et la liste de ses
+        thèmes
       parameters:
       - name: id
         in: path
@@ -181,29 +329,28 @@ paths:
           type: string
       responses:
         '200':
-          description: Page formulaire trouvée
+          description: Page d’atterrissage trouvée
           content:
             application/json:
               examples:
                 test_example:
                   value:
                     data:
-                      id: 1667
-                      title: DINUM recrutement
-                      slug: dinum-recrutement
+                      id: 174
+                      title: Page d’atterrissage 01
+                      slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
-                      iframe_category: integral
                       landing_themes:
-                      - id: 1736
+                      - id: 260
                         title: Environnement, transition écologique & RSE
-                        slug: ltearum23
+                        slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 1737
+                      - id: 261
                         title: Améliorer la santé et la sécurité au travail
-                        slug: ltofficiis24
+                        slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
                           risques professionnels, former vos salariés à la prévention
                           des risques professionnels (DUERP), connaître les règles
@@ -221,7 +368,7 @@ paths:
                     properties:
                       total_themes:
                         type: integer
-                        description: Nombre de thèmes liée à la page formulaire.
+                        description: Nombre de thèmes liée à la page d’atterrissage.
 servers:
 - url: https://place-des-entreprises.beta.gouv.fr
 - url: https://reso-staging.osc-fr1.scalingo.io
@@ -257,11 +404,40 @@ components:
           type: string
         slug:
           type: string
+        description:
+          type: string
         landing_subjects:
           type: array
+          items:
+            "$ref": "#/components/schemas/landing_subject"
       required:
       - id
       - title
+    landing_subject:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        description_explanation:
+          type: string
+        requires_siret:
+          type: boolean
+        requires_location:
+          type: boolean
+        landing_subjects:
+          type: array
+          items:
+            "$ref": "#/components/schemas/landing_subject"
+      required:
+      - id
+      - title
+      - slug
     error:
       type: object
       properties:

@@ -60,11 +60,34 @@ RSpec.configure do |config|
               id: { type: :integer },
               title: { type: :string },
               slug: { type: :string },
+              description: { type: :string },
               landing_subjects: {
-                type: :array
+                type: :array,
+                items: {
+                  '$ref': "#/components/schemas/landing_subject"
+                }
               }
             },
             required: [ 'id', 'title' ]
+          },
+          landing_subject: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              title: { type: :string },
+              slug: { type: :string },
+              description: { type: :string },
+              description_explanation: { type: :string },
+              requires_siret: { type: :boolean },
+              requires_location: { type: :boolean },
+              landing_subjects: {
+                type: :array,
+                items: {
+                  '$ref': "#/components/schemas/landing_subject"
+                }
+              }
+            },
+            required: [ 'id', 'title', 'slug' ]
           },
           error: {
             type: :object,

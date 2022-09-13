@@ -3,10 +3,11 @@ require 'swagger_helper'
 
 RSpec.describe "Landing Themes API", type: :request do
   let(:institution) { create(:institution) }
-  let(:landing_01) { create(:landing, :api, institution: institution, title: 'DINUM recrutement', slug: 'dinum-recrutement') }
-  let!(:ecolo_theme) { create(:landing_theme, landings: [landing_01], title: 'Environnement, transition écologique & RSE', description: 'Optimiser vos consommations d’énergie, valoriser vos déchets par la revente de matière, éco-concevoir un produit, mettre en place une démarche RSE, un plan de déplacement entreprise (PDE).') }
-  let!(:sante_theme) { create(:landing_theme, landings: [landing_01], title: 'Améliorer la santé et la sécurité au travail', description: 'Réviser votre document unique d’évaluation des risques professionnels, former vos salariés à la prévention des risques professionnels (DUERP), connaître les règles d’hygiène, améliorer la qualité de vie au travail pour être plus performant.') }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
+  let(:landing_01) { create_base_landing(institution) }
+  let!(:ecolo_theme) { create_ecolo_theme([landing_01]) }
+  let!(:dechet_subject) { create_dechet_subject(ecolo_theme) }
+  let!(:eau_subject) { create_eau_subject(ecolo_theme) }
 
   # Génération automatique des exemples dans la doc
   after do |example|
@@ -24,10 +25,10 @@ RSpec.describe "Landing Themes API", type: :request do
   end
 
   describe 'index' do
-    path '/api/v1/landings' do
-      get 'Liste des pages formulaires' do
-        tags 'Landings'
-        description 'Affiche toutes les pages formulaires pour l\'organisation authentifiée'
+    path '/api/v1/landing_themes' do
+      get 'Liste des thèmes' do
+        tags 'Thèmes'
+        description 'Affiche tous les thèmes pour l’organisation authentifiée'
         produces 'application/json'
 
         response '200', 'ok' do
@@ -36,7 +37,7 @@ RSpec.describe "Landing Themes API", type: :request do
                    data: {
                      type: :array,
                      items: {
-                       '$ref': "#/components/schemas/landing"
+                       '$ref': "#/components/schemas/landing_theme"
                      }
                    },
                    metadata: {
@@ -44,12 +45,16 @@ RSpec.describe "Landing Themes API", type: :request do
                      properties: {
                        total_results: {
                          type: :integer,
-                         description: 'Nombre de pages formulaires pour l’organisation authentifiée.'
+                         description: 'Nombre de thèmes pour l’organisation authentifiée.'
                        }
                      }
                    }
                  }
-          let!(:landing_02) { create(:landing, :api, title: 'Landing 02') }
+
+          let(:landing_02) { create(:landing, :api, institution: institution, title: 'Page d’atterrissage 02', slug: 'page-atterrissage-02') }
+          let!(:sante_theme) { create_sante_theme([landing_02]) }
+          let!(:recrutement_theme) { create_recrutement_theme([landing_01]) }
+          let!(:landing_temoin) { create(:landing, :api, :with_subjects) }
 
           before do |example|
             submit_request(example.metadata)
@@ -59,103 +64,7 @@ RSpec.describe "Landing Themes API", type: :request do
             expect(response).to have_http_status(:ok)
             result = JSON.parse(response.body)
             expect(result.size).to eq(2)
-            expect(result['data'].size).to eq(1)
-
-            result_landing = result['data'].first
-            expect(result_landing.keys).to match_array(["id", "title", "slug", "partner_url", "iframe_category", "landing_themes"])
-            expect(result_landing["title"]).to eq('DINUM recrutement')
-          end
-        end
-
-        response '404', 'Mauvais token' do
-          schema errors: {
-            type: :array,
-                 items: {
-                   '$ref': "#/components/schemas/error"
-                 }
-          }
-          let(:Authorization) { "Bearer token=tatayoyo}" }
-
-          run_test! do |response|
-            expect(response.status).to eq(404)
-            result = JSON.parse(response.body)
-            expect(result["errors"].first["source"]).to eq('Token d’API')
-            expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
-          end
-        end
-      end
-    end
-  end
-
-  describe 'search_by_url' do
-    path '/api/v1/landings/search' do
-      get 'Recherche d’une page formulaire à partir de l’url de sa page d’appel' do
-        tags 'Landings'
-        description 'Afin de pouvoir tracer et quantifier les appels, nous enregistrons les url des pages des sites partenaires depuis lesquelles l’API est appelé. Ainsi, pour retrouver la page formulaire devant figurer à l’url XX, vous pouvez faire une recherche via cette url.'
-        produces 'application/json'
-        parameter name: :url, in: :query, type: :string, description: 'url de la page qui appelle l’API', required: false
-
-        response '200', 'Page formulaire trouvée' do
-          schema type: :object,
-                 properties: {
-                   data: {
-                     '$ref' => '#/components/schemas/landing'
-                   },
-                   metadata: {
-                     type: :object,
-                     properties: {
-                       total_themes: {
-                         type: :integer,
-                         description: 'Nombre de thèmes liée à la page formulaire.'
-                       }
-                     }
-                   }
-                 }
-          let(:url) { landing_01.partner_url }
-
-          before do |example|
-            submit_request(example.metadata)
-          end
-
-          it 'returns a valid 200 response' do |example|
-            expect(response).to have_http_status(:ok)
-            result = JSON.parse(response.body)
-
-            result_landing = result['data']
-            expect(result_landing["title"]).to eq('DINUM recrutement')
-          end
-        end
-
-        response '404', 'Page formulaire inconnue' do
-          schema errors: {
-            type: :array,
-                 items: {
-                   '$ref': "#/components/schemas/error"
-                 }
-          }
-          let(:url) { 'une-url-fictive.fr' }
-
-          run_test! do |response|
-            expect(response.status).to eq(404)
-            result = JSON.parse(response.body)
-            expect(result["errors"].first["source"]).to eq('Landing')
-            expect(result["errors"].first["message"]).to eq('n’existe pas ou est invalide')
-          end
-        end
-
-        response '400', 'Paramètres vides' do
-          schema errors: {
-            type: :array,
-                 items: {
-                   '$ref': "#/components/schemas/error"
-                 }
-          }
-
-          run_test! do |response|
-            expect(response.status).to eq(400)
-            result = JSON.parse(response.body)
-            expect(result["errors"].first["source"]).to eq('paramètres de requête')
-            expect(result["errors"].first["message"]).to eq('malformés ou inconnus')
+            expect(result['data'].size).to eq(3)
           end
         end
       end
@@ -163,32 +72,31 @@ RSpec.describe "Landing Themes API", type: :request do
   end
 
   describe 'show' do
-    path '/api/v1/landings/{id}' do
-      get 'Page formulaire' do
-        tags 'Landings'
-        description 'Affiche le détail d’une page formulaire'
+    path '/api/v1/landing_themes/{id}' do
+      get 'Page thème' do
+        tags 'Thèmes'
+        description 'Affiche le détail d’un thème et la liste de ses sujets'
         parameter name: :id, in: :path, type: :string
         produces 'application/json'
 
-        response '200', 'Page formulaire trouvée' do
+        response '200', 'Page thème trouvée' do
           schema type: :object,
                  properties: {
                    data: {
-                     '$ref' => '#/components/schemas/landing'
+                     '$ref' => '#/components/schemas/landing_theme'
                    },
                    metadata: {
                      type: :object,
                      properties: {
                        total_themes: {
                          type: :integer,
-                         description: 'Nombre de thèmes liée à la page formulaire.'
+                         description: 'Nombre de sujets liés aux thèmes.'
                        }
                      }
                    }
                  }
 
-          let(:Authorization) { "Bearer token=#{find_token(institution)}" }
-          let(:id) { landing_01.id }
+          let(:id) { ecolo_theme.id }
 
           before do |example|
             submit_request(example.metadata)
@@ -199,10 +107,10 @@ RSpec.describe "Landing Themes API", type: :request do
             result = JSON.parse(response.body)
             expect(result.size).to eq(2)
 
-            result_landing = result['data']
-            expect(result_landing.keys).to match_array(["id", "title", "slug", "partner_url", "iframe_category", "landing_themes"])
-            expect(result_landing["title"]).to eq('DINUM recrutement')
-            expect(result_landing["landing_themes"].size).to eq(2)
+            result_item = result['data']
+            expect(result_item.keys).to match_array(["id", "title", "slug", "description", "landing_subjects"])
+            expect(result_item["title"]).to eq('Environnement, transition écologique & RSE')
+            expect(result_item["landing_subjects"].size).to eq(2)
           end
         end
       end
