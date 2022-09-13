@@ -6,7 +6,7 @@ module ApiInsee::Token
 
     def call
       # token insee valable 7 jours par défaut
-      Rails.cache.fetch('insee_token', expires_in: 6.days) do
+      Rails.cache.fetch('insee_token', expires_in: 1.day) do
         http_request = Request.new
         if http_request.success?
           Responder.new(http_request).call
