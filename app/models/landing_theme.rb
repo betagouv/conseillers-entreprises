@@ -26,6 +26,8 @@ class LandingTheme < ApplicationRecord
   #
   has_many :landing_joint_themes, -> { order(:position) }, inverse_of: :landing_theme, dependent: :destroy
   has_many :landings, through: :landing_joint_themes, inverse_of: :landing_themes
+  has_many :institutions, through: :landings, inverse_of: :landing_themes
+
   has_many :landing_subjects, inverse_of: :landing_theme, dependent: :destroy
   has_many :solicitations, through: :landing_subjects, inverse_of: :landing_theme
 

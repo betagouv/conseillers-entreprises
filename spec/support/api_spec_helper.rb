@@ -55,4 +55,13 @@ module ApiSpecHelper
       requires_siret: true,
       requires_requested_help_amount: false)
   end
+
+  def create_obligations_sante_subject(landing_theme)
+    create(:landing_subject, landing_theme: landing_theme,
+      title: 'Répondre à vos obligations en matière de santé et de sécurité', slug: 'obligations-sante-securite',
+      description: "<ul><li>Rédiger ou réviser votre document unique d'évaluation des risques professionnels (DUERP)</li><li>Faire une étude de poste</li><li><span style=\"background-color: rgb(255, 255, 255);\">Réduire la pénibilité au travail, m</span>onter un dossier de subvention Carsat</li><li>Connaître les règles d'hygiène applicables à votre activité</li></ul>",
+      description_explanation: "<ul><li>votre activité</li><li>si vous avez un document unique</li><li>ce qui a déjà été mis en place</li></ul>",
+      requires_siret: true,
+      requires_requested_help_amount: false)
+  end
 end

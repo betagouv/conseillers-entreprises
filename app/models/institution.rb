@@ -51,7 +51,7 @@ class Institution < ApplicationRecord
   has_many :themes, through: :institutions_subjects, inverse_of: :institutions
 
   # :landings
-  has_many :landing_themes, through: :landings
+  has_many :landing_themes, through: :landings, inverse_of: :institutions
   has_many :landing_subjects, through: :landing_themes, inverse_of: :institutions
 
   # :antennes
