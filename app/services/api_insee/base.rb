@@ -11,11 +11,11 @@ module ApiInsee
     def call
       Rails.cache.fetch([id_key, @siren_or_siret].join('-'), expires_in: 12.hours) do
         http_request = request
-        if http_request.success?
-          responder(http_request).call
-        else
+        # if http_request.success?
+        #   responder(http_request).call
+        # else
           handle_error(http_request)
-        end
+        # end
       end
     end
 
@@ -28,6 +28,7 @@ module ApiInsee
     end
 
     def handle_error(http_request)
+      raise UnavailableApiError, I18n.t('api_requests.generic_error') if http_request.status.service_unavailable?
       Sentry.capture_message(http_request.error_message)
       raise ApiInseeError, I18n.t('api_requests.generic_error')
     end
@@ -63,6 +64,10 @@ module ApiInsee
 
     def success?
       @error.nil? && @http_response.status.success?
+    end
+
+    def response_status
+      @http_response.status
     end
 
     def error_message
@@ -104,4 +109,5 @@ module ApiInsee
   end
 
   class ApiInseeError < StandardError; end
+  class UnavailableApiError < StandardError; end
 end
