@@ -13,6 +13,8 @@ module ApiInsee
         http_request = request
         if http_request.success?
           responder(http_request).call
+        elsif http_request.unavailable_api?
+          raise UnavailableApiError, I18n.t('api_requests.generic_error')
         else
           handle_error(http_request)
         end
@@ -62,7 +64,15 @@ module ApiInsee
     end
 
     def success?
-      @error.nil? && @http_response.status.success?
+      @error.nil? && response_status.success?
+    end
+
+    def unavailable_api?
+      response_status.internal_server_error? || response_status.bad_gateway? || response_status.service_unavailable?
+    end
+
+    def response_status
+      @http_response.status
     end
 
     def error_message
@@ -104,4 +114,5 @@ module ApiInsee
   end
 
   class ApiInseeError < StandardError; end
+  class UnavailableApiError < StandardError; end
 end

@@ -35,6 +35,9 @@ class SearchFacility
         })
       end
       return { items: items, error: nil }
+    # fallback si l'API Insee est en carafe
+    rescue ApiInsee::UnavailableApiError => e
+      from_full_text
     rescue ApiInsee::ApiInseeError => e
       message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
       return { items: [], error: message }
@@ -66,7 +69,8 @@ class SearchFacility
         })
       end
       return { items: items, error: nil }
-    rescue ApiInsee::ApiInseeError => e
+    # pas de fallback pour le moment, on trouve pas d'API "equivalente"
+    rescue ApiInsee::UnavailableApiError, ApiInsee::ApiInseeError => e
       message = e.message.truncate(1000) # Avoid overflowing the cookie_store with alert messages.
       return { items: [], error: message }
     end
