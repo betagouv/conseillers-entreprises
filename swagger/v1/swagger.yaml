@@ -2,21 +2,30 @@
 openapi: 3.0.1
 info:
   title: API Place des Entreprises V1
-  description: "API destinée aux partenaires de Place des Entreprises et leur permettant
-    d’interagir avec le service. \n\rSi vous souhaitez un accès, prenez-contact avec
-    nous : nous étudierons votre demande et vous fournirons un token d’accès, le cas
-    échéant."
+  description: "## Bienvenue sur la documentation de l'API de Place des Entreprises\n
+    \       \nCette API permet à une organisation de proposer un formulaire de dépôt
+    de besoin d'entreprise connecté à Place des Entreprises sur son propre site internet.\n
+    \       \nConcrètement, cette API permet de :\n        \n- récupérer la liste
+    des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,\n
+    \       \n- d'envoyer à Place des Entreprises un besoin\n        \n### Limite
+    des requêtes\n        \nLe serveur accepte un maximum de 300 appels  par 5 minutes.\n
+    \       "
   version: 1.0.0
   contact:
     name: Équipe technique
     email: tech@place-des-entreprises.beta.gouv.fr
+tags:
+- name: Page d’atterrissage
+- name: Thèmes
+- name: Sujets
 paths:
   "/api/v1/landing_subjects":
     get:
       summary: Liste des sujets
       tags:
       - Sujets
-      description: Affiche tous les sujets pour l’organisation authentifiée
+      description: "Affiche tous les sujets pour l’organisation authentifiée \n\r\n
+        \       ## titre \n\r\n        lala"
       responses:
         '200':
           description: ok
@@ -26,10 +35,10 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 143
+                    - id: 466
                       title: Traitement et valorisation des déchets
                       slug: dechets
-                      landing_theme_id: 310
+                      landing_theme_id: 769
                       landing_theme_slug: environnement-transition-ecologique
                       description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                         vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -40,10 +49,10 @@ paths:
                         technique ou appui à la mise en oeuvre)</li></ul>"
                       requires_siret: true
                       requires_location: false
-                    - id: 144
+                    - id: 467
                       title: Gestion de l’eau
                       slug: eau
-                      landing_theme_id: 310
+                      landing_theme_id: 769
                       landing_theme_slug: environnement-transition-ecologique
                       description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                         la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -55,11 +64,11 @@ paths:
                         stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                       requires_siret: true
                       requires_location: false
-                    - id: 145
+                    - id: 468
                       title: Répondre à vos obligations en matière de santé et de
                         sécurité
                       slug: obligations-sante-securite
-                      landing_theme_id: 311
+                      landing_theme_id: 770
                       landing_theme_slug: sante-securite-travail
                       description: '<ul><li>Rédiger ou réviser votre document unique
                         d''évaluation des risques professionnels (DUERP)</li><li>Faire
@@ -108,10 +117,10 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 146
+                      id: 469
                       title: Traitement et valorisation des déchets
                       slug: dechets
-                      landing_theme_id: 312
+                      landing_theme_id: 771
                       landing_theme_slug: environnement-transition-ecologique
                       description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                         vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -144,7 +153,7 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 313
+                    - id: 772
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -152,10 +161,10 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 148
+                      - id: 471
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_theme_id: 313
+                        landing_theme_id: 772
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -166,10 +175,10 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 149
+                      - id: 472
                         title: Gestion de l’eau
                         slug: eau
-                        landing_theme_id: 313
+                        landing_theme_id: 772
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -182,7 +191,7 @@ paths:
                           en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                    - id: 314
+                    - id: 773
                       title: Améliorer la santé et la sécurité au travail
                       slug: sante-securite-travail
                       description: Réviser votre document unique d’évaluation des
@@ -190,7 +199,7 @@ paths:
                         des risques professionnels (DUERP), connaître les règles d’hygiène,
                         améliorer la qualité de vie au travail pour être plus performant.
                       landing_subjects: []
-                    - id: 315
+                    - id: 774
                       title: Recruter ou former vos salariés, améliorer l’organisation
                         du travail
                       slug: recrutement-formation
@@ -235,7 +244,7 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 318
+                      id: 777
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -243,10 +252,10 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 154
+                      - id: 477
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_theme_id: 318
+                        landing_theme_id: 777
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -257,10 +266,10 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 155
+                      - id: 478
                         title: Gestion de l’eau
                         slug: eau
-                        landing_theme_id: 318
+                        landing_theme_id: 777
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -301,19 +310,19 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 222
+                    - id: 613
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
                       landing_themes:
-                      - id: 319
+                      - id: 778
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 320
+                      - id: 779
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -377,19 +386,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 225
+                      id: 616
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
                       landing_themes:
-                      - id: 325
+                      - id: 784
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 326
+                      - id: 785
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -462,19 +471,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 228
+                      id: 619
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
                       landing_themes:
-                      - id: 331
+                      - id: 790
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 332
+                      - id: 791
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -575,7 +584,9 @@ components:
     bearer_auth:
       type: http
       scheme: bearer
-      description: Le jeton vous est fourni après étude de votre demande par Place
-        des Entreprises
+      description: "Le jeton vous est fourni après étude de votre demande par Place
+        des Entreprises.\n            \nIl doit être placé dans le header '`Authorization:
+        Bearer VOTRE_JETON`'.\n            \nSa validité est de 18 mois, renouvelable
+        sur demande."
 security:
 - bearer_auth: []

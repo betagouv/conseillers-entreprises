@@ -19,13 +19,25 @@ RSpec.configure do |config|
       openapi: '3.0.1',
       info: {
         title: 'API Place des Entreprises V1',
-        description: "API destinée aux partenaires de Place des Entreprises et leur permettant d’interagir avec le service. \n\rSi vous souhaitez un accès, prenez-contact avec nous : nous étudierons votre demande et vous fournirons un token d’accès, le cas échéant.",
+        description: "## Bienvenue sur la documentation de l'API de Place des Entreprises
+        \nCette API permet à une organisation de proposer un formulaire de dépôt de besoin d'entreprise connecté à Place des Entreprises sur son propre site internet.
+        \nConcrètement, cette API permet de :
+        \n- récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,
+        \n- d'envoyer à Place des Entreprises un besoin
+        \n### Limite des requêtes
+        \nLe serveur accepte un maximum de 300 appels  par 5 minutes.
+        ",
         version: '1.0.0',
         contact: {
           name: 'Équipe technique',
           email: 'tech@place-des-entreprises.beta.gouv.fr'
         }
       },
+      tags: [
+        { name: 'Page d’atterrissage' },
+        { name: 'Thèmes' },
+        { name: 'Sujets' },
+      ],
       paths: {},
       servers: [
         {
@@ -101,7 +113,9 @@ RSpec.configure do |config|
           bearer_auth: {
             type: :http,
             scheme: :bearer,
-            description: "Le jeton vous est fourni après étude de votre demande par Place des Entreprises"
+            description: "Le jeton vous est fourni après étude de votre demande par Place des Entreprises.
+            \nIl doit être placé dans le header '`Authorization: Bearer VOTRE_JETON`'.
+            \nSa validité est de 18 mois, renouvelable sur demande."
           }
         }
       },
