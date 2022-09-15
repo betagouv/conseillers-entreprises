@@ -5,7 +5,7 @@ class TimeDurationService
     years = [today.year - 1, today.year]
     quarters = []
     years.each do |year|
-      date ||= Date.parse("1.1.#{year}")
+      date ||= 1.year.ago
       4.times do
         next if date.end_of_quarter >= today
         quarters << [date.beginning_of_quarter, date.end_of_quarter]

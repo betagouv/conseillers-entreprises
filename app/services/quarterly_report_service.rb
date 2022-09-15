@@ -62,8 +62,7 @@ class QuarterlyReportService
     end
 
     def destroy_old_report_files(antenne, quarters)
-      start_dates = quarters.map(&:first)
-      antenne.quarterly_reports.where.not(start_date: start_dates).destroy_all
+      antenne.quarterly_reports.where.not(start_date: quarters.flatten).destroy_all
     end
 
     def last_quarters(antenne)

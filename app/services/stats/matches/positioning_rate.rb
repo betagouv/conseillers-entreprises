@@ -3,7 +3,7 @@ module Stats::Matches
     include ::Stats::BaseStats
 
     def main_query
-      Match.all
+      Match.joins(:need).where.not(need: { status: :diagnosis_not_complete })
     end
 
     def filtered(query)
