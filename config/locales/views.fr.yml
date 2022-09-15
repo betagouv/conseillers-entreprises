@@ -684,17 +684,17 @@ fr:
       subjet_achived: Le besoin a été archivé
       unarchive: Désarchiver
     collections:
+      abandoned: Expirées
       archived: Expirées
       done: Clôturées
-      expired: Expirées
       not_for_me: Refusées
       quo: Boite de réception
       search: Recherche
       taking_care: Prises en charge
     collections_single:
+      abandoned: Expirée
       archived: Expirée
       done: Clôturée
-      expired: Expirée
       not_for_me: Refusée
       quo: Boite de réception
       taking_care: Prise en charge

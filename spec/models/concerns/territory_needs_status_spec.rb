@@ -82,7 +82,7 @@ RSpec.describe TerritoryNeedsStatus do
     end
   end
 
-  describe 'needs_expired' do
+  describe 'needs_abandoned' do
     # Besoin marqué abandonné     ok
     # Besoin pas marqué abandonné ko
     let!(:match2) { create :match, expert: expert_inside, need: need1 }
@@ -90,7 +90,7 @@ RSpec.describe TerritoryNeedsStatus do
     let!(:match4) { create :match, expert: expert_inside, need: need2 }
     let(:need2) { create(:need, diagnosis: diagnosis) }
 
-    subject { antenne_inside_regional.territory_needs_expired }
+    subject { antenne_inside_regional.territory_needs_abandoned }
 
     it { is_expected.to match_array([need1]) }
   end

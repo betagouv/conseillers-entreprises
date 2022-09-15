@@ -84,7 +84,7 @@ Rails.application.routes.draw do
         get :taking_care, path: 'prises-en-charge'
         get :done, path: 'cloturees'
         get :not_for_me, path: 'refusees'
-        get :expired, path: 'expirees'
+        get :abandoned, path: 'expirees'
       end
     end
   end
@@ -140,7 +140,7 @@ Rails.application.routes.draw do
       get :taking_care, path: 'prises_en_charge'
       get :done, path: 'cloturees'
       get :not_for_me, path: 'refusees'
-      get :expired, path: 'expirees'
+      get :abandoned, path: 'expirees'
 
       get :search, path: 'recherche'
     end
@@ -177,7 +177,7 @@ Rails.application.routes.draw do
         get :taking_care, path: 'prises_en_charge'
         get :done, path: 'cloturees'
         get :not_for_me, path: 'refusees'
-        get :expired, path: 'expirees'
+        get :abandoned, path: 'expirees'
         post :send_reminder_email
       end
     end

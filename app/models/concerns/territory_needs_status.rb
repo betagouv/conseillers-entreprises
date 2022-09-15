@@ -37,7 +37,7 @@ module TerritoryNeedsStatus
       .or(perimeter_received_needs.where.not(matches: { archived_at: nil }))
   end
 
-  def territory_needs_expired
+  def territory_needs_abandoned
     perimeter_received_needs.abandoned.distinct
   end
 end

@@ -43,7 +43,7 @@ module InvolvementConcern
       .distinct
   end
 
-  def needs_expired
+  def needs_abandoned
     received_needs.abandoned.distinct
   end
 
