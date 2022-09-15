@@ -90,12 +90,15 @@ RSpec.describe InvolvementConcern do
   end
 
   describe 'needs_expired' do
-    # Besoin marqué abandonné     ok
-    # Besoin pas marqué abandonné ko
+    # Besoin marqué abandonné             ok
+    # Besoin marqué abandonné et archivé  ko
+    # Besoin pas marqué abandonné         ko
     let(:match1) { create :match, expert: current_expert }
     let!(:need1) { create :need, diagnosis: diagnosis, abandoned_at: Time.now, matches: [match1] }
     let(:match2) { create :match, expert: current_expert, matches: [match2] }
     let!(:need2) { create :need, diagnosis: diagnosis }
+    let(:match3) { create :match, expert: current_expert, matches: [match3], abandoned_at: Time.now, archived_at: Time.now }
+    let!(:need3) { create :need, diagnosis: diagnosis }
 
     subject { user.needs_expired }
 
