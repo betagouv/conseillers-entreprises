@@ -556,13 +556,13 @@ RSpec.describe Need, type: :model do
       #   ET pour lesquels des experts n’ont toujours pas répondu à plus de 21 jours.
 
       describe 'contraintes de délais' do
-        # - besoin créé il y a 19 jours, sans positionnement     ko
+        # - besoin créé il y a 20 jours, sans positionnement     ko
         # - besoin créé il y a 21 jours, sans positionnement     ok
         # - besoin créé il y a 30 jours, sans positionnement     ok
 
         let(:reference_date) { Time.zone.now.beginning_of_day }
 
-        let!(:need1) { travel_to(reference_date - 19.days) { create :need_with_matches } }
+        let!(:need1) { travel_to(reference_date - 20.days) { create :need_with_matches } }
         let!(:need2) { travel_to(reference_date - 21.days) { create :need_with_matches } }
         let!(:need3) { travel_to(reference_date - 30.days) { create :need_with_matches } }
 
