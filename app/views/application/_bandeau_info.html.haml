@@ -1,0 +1,7 @@
+- if ENV['DISPLAY_BANDEAU_INFO'] == 'true' && cookies[:bandeau_info_read].nil?
+  .fr-notice.fr-notice--info{ data: { controller: 'bandeau-info', 'bandeau-info-target': 'blockContent' } }
+    .fr-container
+      .fr-notice__body
+        %p.fr-notice__title= t('.info')
+        %button.fr-btn--close.fr-btn{ title: t('.button_title'), data: { action: 'bandeau-info#close' } }
+          = t('.button_title')
