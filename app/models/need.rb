@@ -307,12 +307,12 @@ class Need < ApplicationRecord
     matches.pluck(:created_at).min
   end
 
-  def abandoned?
-    reminders_actions.find_by(category: :last_chance).present?
-  end
-
   def no_activity?
     updated_at < NO_ACTIVITY_DELAY.ago
+  end
+
+  def has_action?(action)
+    reminders_actions.find_by(category: action).present?
   end
 
   def quo_experts
@@ -360,9 +360,5 @@ class Need < ApplicationRecord
     end
 
     result
-  end
-
-  def last_chance_email_sent?
-    reminders_actions.find_by(category: 'last_chance').present?
   end
 end

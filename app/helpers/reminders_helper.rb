@@ -40,11 +40,7 @@ module RemindersHelper
 
   def email_button(action, need)
     button = if with_last_chance_email.include? action
-      if need.last_chance_email_sent?
-        p_tag_builder(t('reminders.last_chance_email_sent'))
-      else
-        form_builder(send_last_chance_email_reminders_action_path(need), t('reminders.send_last_chance_email'), need)
-      end
+      form_builder(send_last_chance_email_reminders_action_path(need), t('reminders.send_last_chance_email'), need, { local: true })
     elsif with_abandoned_email.include? action
       if need.abandoned_email_sent
         p_tag_builder(t('reminders.abandoned_need_email_sent'))
@@ -61,8 +57,8 @@ module RemindersHelper
     tag.p(text, class: 'fr-btn fr-btn--secondary fr-fi-checkbox-circle-line fr-btn--icon-left fr-btn-green fr-mr-2v')
   end
 
-  def form_builder(path, text, need)
-    form_with model: need, url: path, method: :post, local: true do |f|
+  def form_builder(path, text, need, form_options = {})
+    form_with(model: need, url: path, method: :post, **form_options) do |f|
       f.submit text, class: 'fr-btn fr-btn--secondary fr-mr-2v'
     end.html_safe
   end

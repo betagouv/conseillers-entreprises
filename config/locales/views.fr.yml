@@ -833,7 +833,6 @@ fr:
         email_send: Email de relance envoyé
     index:
       title: Relances
-    last_chance_email_sent: Email de la dernière chance envoyé
     need:
       abandoned_need_email_sent: Email d’echec envoyé
       critical_rate_expert: Cet expert se trouve aussi dans le panier taux de positionnement critique

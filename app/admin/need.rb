@@ -22,7 +22,7 @@ ActiveAdmin.register Need do
     column :status do |need|
       human_attribute_status_tag need, :status
       status_tag I18n.t('attributes.is_archived') if need.is_archived
-      status_tag I18n.t('attributes.is_abandoned') if need.abandoned?
+      status_tag I18n.t('attributes.is_abandoned') if need.has_action?('last_chance')
     end
     column(:matches) do |d|
       div admin_link_to(d, :matches)
