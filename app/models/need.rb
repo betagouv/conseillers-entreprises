@@ -308,7 +308,7 @@ class Need < ApplicationRecord
   end
 
   def abandoned?
-    abandoned_at.present?
+    reminders_actions.find_by(category: :last_chance).present?
   end
 
   def no_activity?
@@ -365,18 +365,4 @@ class Need < ApplicationRecord
   def last_chance_email_sent?
     reminders_actions.find_by(category: 'last_chance').present?
   end
-
-  # Filtres pour Ransak
-  scope :search_abandoned, -> (abandoned) do
-    abandoned = ActiveModel::Type::Boolean.new.cast(abandoned)
-    if abandoned
-      where.not(abandoned_at: nil)
-    else
-      where(abandoned_at: nil)
-    end
-  end
-
-  ransacker(:abandoned, formatter: -> (value) {
-    search_abandoned(value).ids.presence
-  }) { |parent| parent.table[:id] }
 end

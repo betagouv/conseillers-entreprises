@@ -41,7 +41,6 @@ ActiveAdmin.register Need do
   filter :status, as: :select, collection: -> { Need.human_attribute_values(:status, raw_values: true).invert.to_a }
 
   filter :archived_in, as: :boolean, label: I18n.t('attributes.is_archived')
-  filter :abandoned_in, as: :boolean, label: I18n.t('attributes.is_abandoned')
 
   filter :created_at
   filter :company, as: :ajax_select, data: { url: :admin_companies_path, search_fields: [:name] }
@@ -76,7 +75,7 @@ ActiveAdmin.register Need do
       row :advisor
       row :created_at
       row :updated_at
-      row :archived_at
+      row(:archived_at) { |n| n.reminders_actions.find_by(category: :last_chance)&.created_at }
       row :abandoned_at
       row :content
       row(:status) { |need| human_attribute_status_tag need, :status }
