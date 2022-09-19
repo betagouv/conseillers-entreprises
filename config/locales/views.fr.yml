@@ -86,6 +86,9 @@ fr:
       not_invited: Invitation pas encore envoyée.
       specific_territories: Équipe avec des territoires spécifiques.
   application:
+    bandeau_info:
+      button_title: Masquer le message
+      info: L’application du partenaire qui nous fournit les données entreprise connaît actuellement des ralentissements. Vous pourriez avoir des difficultés à accéder aux informations des entreprises. Toutes nos excuses pour la gêne occasionnée.
     footer:
       service_description: Aider ensemble les TPE & PME dans leurs projets, leurs difficultés et leurs transformations.
     navbar:
@@ -106,7 +109,7 @@ fr:
       root_path_title: Accueil Place des Entreprises
       sign_out: Déconnexion
     pde_partnership_mention: Ce service public de mise en relation est proposé par Place des Entreprises.
-  at_your_disposal: Nous restons à votre disposition pour tout complément d'informations.
+  at_your_disposal: Nous restons à votre disposition pour tout complément d’informations.
   attributes:
     is_global_zone: Territoire national
   badges:
@@ -117,7 +120,7 @@ fr:
       color: Couleur
       confirm_delete: Voulez-vous supprimer ce tag ?
       delete: Supprimer
-      no_badges: Il n'y a aucun tag pour le moment
+      no_badges: Il n’y a aucun tag pour le moment
       title: Tags
       title_label: Titre
   breadcrumbs_helper:
