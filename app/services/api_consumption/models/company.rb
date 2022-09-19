@@ -55,7 +55,7 @@ module ApiConsumption::Models
     end
 
     def naf_libelle
-      @naf_libelle ||= (libelle_naf_entreprise || NafCode::naf_libelle('level2', NafCode::level2_code(naf_entreprise)))
+      @naf_libelle ||= (libelle_naf_entreprise || NafCode::naf_libelle(NafCode::level2_code(naf_entreprise), 'level2'))
     end
 
     def effectif
