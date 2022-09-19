@@ -567,7 +567,33 @@ RSpec.describe Need, type: :model do
         let!(:need3) { travel_to(reference_date - 30.days) { create :need_with_matches } }
 
         it 'retourne les besoins dans la bonne période' do
-          expect(described_class.reminders_to(:will_be_abandoned)).to match_array [need2, need3]
+          expect(described_class.reminders_to(:last_chance)).to match_array [need2, need3]
+        end
+      end
+
+      describe 'contraintes de Reminder Action' do
+        # - besoin créé il y a 21 jours, sans positionnement, pas marqué "traité J+21"              ok
+        # - besoin créé il y a 21 jours, sans positionnement, que marqué "traité J+14"              ok
+        # - besoin créé il y a 21 jours, sans positionnement, marqué "traité J+21"                  ko
+        # - besoin créé il y a 21 jours, avec positionnement, pas marqué "traité J+21"              ko
+        # - besoin créé il y a 21 jours, avec positionnement, marqué "traité J+21"                  ko
+        # - besoin créé il y a 21 jours, sans positionnement, marqué "traité J+14" et "traité J+21" ko
+
+        let(:twenty_one_days_ago) { Time.zone.now.beginning_of_day - 21.days }
+        let!(:need1) { travel_to(twenty_one_days_ago) { create :need_with_matches } }
+        let(:need2) { travel_to(twenty_one_days_ago) { create :need_with_matches } }
+        let!(:reminders_action2) { create :reminders_action, category: :poke, need: need2 }
+        let(:need3) { travel_to(twenty_one_days_ago) { create :need_with_matches } }
+        let!(:reminders_action3) { create :reminders_action, category: :last_chance, need: need3 }
+        let!(:need4) { travel_to(twenty_one_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
+        let(:need5) { travel_to(twenty_one_days_ago) { create :need, matches: [create(:match, status: :taking_care)] } }
+        let!(:reminders_action5) { create :reminders_action, category: :last_chance, need: need5 }
+        let(:need6) { travel_to(twenty_one_days_ago) { create :need_with_matches } }
+        let!(:reminders_action6) { create :reminders_action, category: :recall, need: need6 }
+        let!(:reminders_action7) { create :reminders_action, category: :last_chance, need: need6 }
+
+        it 'retourne les besoins sans Reminder Action' do
+          expect(described_class.reminders_to(:last_chance)).to match_array [need1, need2]
         end
       end
 
@@ -586,7 +612,7 @@ RSpec.describe Need, type: :model do
         let!(:need3_match) { travel_to(twenty_one_days_ago) { create :match, need: need3, status: :done_not_reachable } }
 
         it 'retourne les besoins avec certains status' do
-          expect(described_class.reminders_to(:will_be_abandoned)).to match_array [need2, need3]
+          expect(described_class.reminders_to(:last_chance)).to match_array [need2, need3]
         end
       end
     end

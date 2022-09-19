@@ -12,7 +12,7 @@ module RemindersHelper
   private
 
   def with_last_chance_email
-    %i[will_be_abandoned]
+    %i[last_chance]
   end
 
   def with_abandoned_email
@@ -43,7 +43,7 @@ module RemindersHelper
       if need.last_chance_email_sent?
         p_tag_builder(t('reminders.last_chance_email_sent'))
       else
-        form_builder(send_last_chance_email_reminders_need_path(need), t('reminders.send_last_chance_email'), need)
+        form_builder(send_last_chance_email_reminders_action_path(need), t('reminders.send_last_chance_email'), need)
       end
     elsif with_abandoned_email.include? action
       if need.abandoned_email_sent
@@ -62,7 +62,7 @@ module RemindersHelper
   end
 
   def form_builder(path, text, need)
-    form_with model: need, url: path, method: :post do |f|
+    form_with model: need, url: path, method: :post, local: true do |f|
       f.submit text, class: 'fr-btn fr-btn--secondary fr-mr-2v'
     end.html_safe
   end

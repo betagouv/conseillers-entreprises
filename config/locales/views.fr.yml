@@ -841,24 +841,24 @@ fr:
       scopes:
         detail:
           archive: J+%{days} et refusés
+          last_chance: J+%{days}
           poke: J+%{days}
           recall: J+%{days}
-          will_be_abandoned: J+%{days}
         instruction:
           archive: Je fais un mail d’échec à l’entreprise
+          last_chance: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
           not_for_me: Besoins avec toutes les mises en relation refusées
           poke: Je mets un commentaire sur la fiche pour relancer la dynamique
           recall: J’appelle les experts qui ne se sont pas positionnés
-          will_be_abandoned: j’envoie le mail de la dernière chance aux experts, puis le besoin sera automatiquement abandonné
         mark_done:
           archive: Archiver
           poke: Expert relancé
         name:
           archive: Abandonnés
+          last_chance: En cours d’abandon
           not_for_me: Refusés
           poke: À relancer
           recall: À rappeler
-          will_be_abandoned: En cours d’abandon
       send_reminder_email:
         email_send: Email de relance envoyé
     section:

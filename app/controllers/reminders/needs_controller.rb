@@ -17,24 +17,12 @@ module Reminders
       render_collection(:recall, :action)
     end
 
-    def will_be_abandoned
-      render_collection(:will_be_abandoned, :action)
+    def last_chance
+      render_collection(:last_chance, :action)
     end
 
     def not_for_me
       render_collection(:not_for_me, :status)
-    end
-
-    def send_last_chance_email
-      @need.update(last_chance_email_sent_at: Time.zone.now)
-      @needs_quo = @need.matches.status_quo
-      @needs_quo.each do |match|
-        ExpertMailer.last_chance(match.expert, @need, current_user).deliver_later
-      end
-      respond_to do |format|
-        format.js
-        format.html { redirect_to archive_reminders_needs_path, notice: t('mailers.emails_sent', count: @needs_quo.count) }
-      end
     end
 
     def send_abandoned_email

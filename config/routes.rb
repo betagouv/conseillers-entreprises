@@ -160,6 +160,7 @@ Rails.application.routes.draw do
       post :poke
       post :recall
       post :archive
+      post :send_last_chance_email
     end
   end
 
@@ -184,13 +185,12 @@ Rails.application.routes.draw do
     resources :needs, path: 'besoins', only: %i[index] do
       member do
         post :send_abandoned_email
-        post :send_last_chance_email
         post :send_reminder_email
       end
       collection do
         get :poke, path: 'a-relancer'
         get :recall, path: 'a-rappeler'
-        get :will_be_abandoned, path: 'vont-etre-abandonne'
+        get :last_chance, path: 'vont-etre-abandonne'
         get :archive, path: 'abandonnes'
         get :not_for_me, path: 'refuses'
       end

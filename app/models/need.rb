@@ -102,7 +102,7 @@ class Need < ApplicationRecord
   REMINDERS_DAYS = {
     poke: 7,
     recall: 14,
-    will_be_abandoned: 21,
+    last_chance: 21,
     abandon: 45
   }
 
@@ -125,7 +125,7 @@ class Need < ApplicationRecord
         .status_not_for_me
 
       query1.or(query2)
-    else # :poke, :recall and :will_be_abandoned
+    else # :poke, :recall and :last_chance
       diagnosis_completed
         .archived(false)
         .in_reminders_range(action)
@@ -363,7 +363,7 @@ class Need < ApplicationRecord
   end
 
   def last_chance_email_sent?
-    last_chance_email_sent_at.present?
+    reminders_actions.find_by(category: 'last_chance').present?
   end
 
   # Filtres pour Ransak

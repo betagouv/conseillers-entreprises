@@ -16,18 +16,6 @@ RSpec.describe Reminders::NeedsController, type: :controller do
     end
   end
 
-  describe 'POST #send_last_chance_email' do
-    let!(:need) { create :need }
-    let!(:a_match) { create :match, status: :quo, need: need }
-
-    before { post :send_last_chance_email, params: { id: need.id } }
-
-    it 'send email and set abandoned_email_sent' do
-      expect(ActionMailer::Base.deliveries.count).to eq 1
-      expect(need.reload.last_chance_email_sent_at).not_to be_nil
-    end
-  end
-
   describe 'GET #not_for_me' do
     # - besoin avec 1 positionnement « refusé », et autres MER sans réponse           ko
     # - besoin avec 1 cloture « pas d’aide disponible », et autres MER sans réponse   ko
