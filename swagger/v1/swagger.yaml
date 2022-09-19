@@ -24,8 +24,7 @@ paths:
       summary: Liste des sujets
       tags:
       - Sujets
-      description: "Affiche tous les sujets pour l’organisation authentifiée \n\r\n
-        \       ## titre \n\r\n        lala"
+      description: Affiche tous les sujets pour l’organisation authentifiée
       responses:
         '200':
           description: ok
@@ -35,40 +34,56 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 466
-                      title: Traitement et valorisation des déchets
-                      slug: dechets
-                      landing_theme_id: 769
-                      landing_theme_slug: environnement-transition-ecologique
-                      description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
-                        vos déchets</li><li>Valoriser la revente de matières, trouver
-                        de nouveaux débouchés</li></ul>"
-                      description_explanation: "<ul><li>quelle est concrètement votre
-                        activité</li><li>ce que votre projet apporte à votre entreprise</li><li>quel
-                        accompagnement vous souhaitez (réflexion stratégique, appui
-                        technique ou appui à la mise en oeuvre)</li></ul>"
+                    - id: 692
+                      title: Recruter un ou plusieurs salariés
+                      slug: recruter
+                      landing_id: 857
+                      landing_theme_id: 1054
+                      landing_theme_slug: recrutement-formation
+                      description: "<ul><li>S’informer sur les aides à l'embauche
+                        des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
+                        francs en quartiers prioritaires, le contrat de professionnalisation,
+                        le VTE Vert sur les métiers de la transition écologique</li><li>Trouver
+                        des candidats</li></ul>"
+                      description_explanation: "<ul><li>le type de poste</li><li>si
+                        l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez
+                        de recruter une personne en situation de handicap</li></ul>"
                       requires_siret: true
                       requires_location: false
-                    - id: 467
-                      title: Gestion de l’eau
-                      slug: eau
-                      landing_theme_id: 769
-                      landing_theme_slug: environnement-transition-ecologique
-                      description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
-                        la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
-                        sur votre territoire</li></ul>"
-                      description_explanation: "<ul><li>quelle est concrètement votre
-                        activité</li><li>si vous utilisez de l’eau dans votre process
-                        de fabrication</li><li>ce que votre projet apporte à votre
-                        entreprise</li><li>quel accompagnement vous souhaitez (réflexion
-                        stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
+                      questions_additionnelles:
+                      - id: 63
+                        key: recrutement_poste_cadre
+                        position: 
+                        subject_id: 753
+                        question: Souhaitez-vous recruter sur un poste de cadre ?
+                      - id: 64
+                        key: recrutement_en_apprentissage
+                        position: 
+                        subject_id: 753
+                        question: Souhaitez-vous recruter en apprentissage ?
+                    - id: 693
+                      title: Mettre en place un projet de formation
+                      slug: former
+                      landing_id: 857
+                      landing_theme_id: 1054
+                      landing_theme_slug: recrutement-formation
+                      description: "<ul><li>Choisir la bonne formation</li><li>Trouver
+                        votre OPCO, financer la formation</li><li>Mettre en place
+                        un plan de formation entreprise</li><li>Se former en tant
+                        que chef d'entreprise</li><li>Former vos salariés en activité
+                        partielle grâce au FNE formation</li></ul>"
+                      description_explanation: "<ul><li>votre activité</li><li>combien
+                        de salariés vous souhaitez former</li><li>sur quelles thématiques</li><li>dans
+                        quel but</li></ul>"
                       requires_siret: true
                       requires_location: false
-                    - id: 468
+                      questions_additionnelles: []
+                    - id: 694
                       title: Répondre à vos obligations en matière de santé et de
                         sécurité
                       slug: obligations-sante-securite
-                      landing_theme_id: 770
+                      landing_id: 858
+                      landing_theme_id: 1055
                       landing_theme_slug: sante-securite-travail
                       description: '<ul><li>Rédiger ou réviser votre document unique
                         d''évaluation des risques professionnels (DUERP)</li><li>Faire
@@ -81,6 +96,7 @@ paths:
                         en place</li></ul>"
                       requires_siret: true
                       requires_location: false
+                      questions_additionnelles: []
                     metadata:
                       total_results: 3
               schema:
@@ -117,20 +133,33 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 469
-                      title: Traitement et valorisation des déchets
-                      slug: dechets
-                      landing_theme_id: 771
-                      landing_theme_slug: environnement-transition-ecologique
-                      description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
-                        vos déchets</li><li>Valoriser la revente de matières, trouver
-                        de nouveaux débouchés</li></ul>"
-                      description_explanation: "<ul><li>quelle est concrètement votre
-                        activité</li><li>ce que votre projet apporte à votre entreprise</li><li>quel
-                        accompagnement vous souhaitez (réflexion stratégique, appui
-                        technique ou appui à la mise en oeuvre)</li></ul>"
+                      id: 695
+                      title: Recruter un ou plusieurs salariés
+                      slug: recruter
+                      landing_id: 859
+                      landing_theme_id: 1056
+                      landing_theme_slug: recrutement-formation
+                      description: "<ul><li>S’informer sur les aides à l'embauche
+                        des jeunes, à l'apprentissage</li><li>S'informer sur les emplois
+                        francs en quartiers prioritaires, le contrat de professionnalisation,
+                        le VTE Vert sur les métiers de la transition écologique</li><li>Trouver
+                        des candidats</li></ul>"
+                      description_explanation: "<ul><li>le type de poste</li><li>si
+                        l'offre est déjà connue de Pôle emploi</li><li>si vous envisagez
+                        de recruter une personne en situation de handicap</li></ul>"
                       requires_siret: true
                       requires_location: false
+                      questions_additionnelles:
+                      - id: 65
+                        key: recrutement_poste_cadre
+                        position: 
+                        subject_id: 756
+                        question: Souhaitez-vous recruter sur un poste de cadre ?
+                      - id: 66
+                        key: recrutement_en_apprentissage
+                        position: 
+                        subject_id: 756
+                        question: Souhaitez-vous recruter en apprentissage ?
               schema:
                 type: object
                 properties:
@@ -153,7 +182,7 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 772
+                    - id: 1057
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -161,10 +190,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 471
+                      - id: 697
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_theme_id: 772
+                        landing_id: 860
+                        landing_theme_id: 1057
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -175,10 +205,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 472
+                      - id: 698
                         title: Gestion de l’eau
                         slug: eau
-                        landing_theme_id: 772
+                        landing_id: 860
+                        landing_theme_id: 1057
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -191,7 +222,7 @@ paths:
                           en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                    - id: 773
+                    - id: 1058
                       title: Améliorer la santé et la sécurité au travail
                       slug: sante-securite-travail
                       description: Réviser votre document unique d’évaluation des
@@ -199,7 +230,7 @@ paths:
                         des risques professionnels (DUERP), connaître les règles d’hygiène,
                         améliorer la qualité de vie au travail pour être plus performant.
                       landing_subjects: []
-                    - id: 774
+                    - id: 1059
                       title: Recruter ou former vos salariés, améliorer l’organisation
                         du travail
                       slug: recrutement-formation
@@ -244,7 +275,7 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 777
+                      id: 1062
                       title: Environnement, transition écologique & RSE
                       slug: environnement-transition-ecologique
                       description: Optimiser vos consommations d’énergie, valoriser
@@ -252,10 +283,11 @@ paths:
                         mettre en place une démarche RSE, un plan de déplacement entreprise
                         (PDE).
                       landing_subjects:
-                      - id: 477
+                      - id: 703
                         title: Traitement et valorisation des déchets
                         slug: dechets
-                        landing_theme_id: 777
+                        landing_id: 863
+                        landing_theme_id: 1062
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Optimiser votre tri sélectif en entreprise</li><li>Réduire
                           vos déchets</li><li>Valoriser la revente de matières, trouver
@@ -266,10 +298,11 @@ paths:
                           stratégique, appui technique ou appui à la mise en oeuvre)</li></ul>"
                         requires_siret: true
                         requires_location: false
-                      - id: 478
+                      - id: 704
                         title: Gestion de l’eau
                         slug: eau
-                        landing_theme_id: 777
+                        landing_id: 863
+                        landing_theme_id: 1062
                         landing_theme_slug: environnement-transition-ecologique
                         description: "<ul><li>Réduire vos consommations d’eau</li><li>Dimensionner
                           la récupération d’eau pluviale</li><li>Maintenir de la biodiversité
@@ -310,19 +343,19 @@ paths:
                 test_example:
                   value:
                     data:
-                    - id: 613
+                    - id: 864
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
                       landing_themes:
-                      - id: 778
+                      - id: 1063
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 779
+                      - id: 1064
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -386,19 +419,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 616
+                      id: 867
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
                       landing_themes:
-                      - id: 784
+                      - id: 1069
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 785
+                      - id: 1070
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -471,19 +504,19 @@ paths:
                 test_example:
                   value:
                     data:
-                      id: 619
+                      id: 870
                       title: Page d’atterrissage 01
                       slug: page-atterrissage-01
                       partner_url: https://www.example.com/aides
                       landing_themes:
-                      - id: 790
+                      - id: 1075
                         title: Environnement, transition écologique & RSE
                         slug: environnement-transition-ecologique
                         description: Optimiser vos consommations d’énergie, valoriser
                           vos déchets par la revente de matière, éco-concevoir un
                           produit, mettre en place une démarche RSE, un plan de déplacement
                           entreprise (PDE).
-                      - id: 791
+                      - id: 1076
                         title: Améliorer la santé et la sécurité au travail
                         slug: sante-securite-travail
                         description: Réviser votre document unique d’évaluation des
@@ -573,6 +606,38 @@ components:
       - id
       - title
       - slug
+    new_solicitation:
+      type: object
+      properties:
+        landing_id:
+          type: integer
+        landing_subject_id:
+          type: integer
+        description:
+          type: string
+        code_region:
+          type: integer
+        status:
+          type: integer
+        full_name:
+          type: string
+        phone_number:
+          type: string
+        email:
+          type: string
+        siret:
+          type: string
+        location:
+          type: string
+        institution_filters_attributes:
+          type: object
+          properties:
+            id:
+              type: integer
+            additional_subject_question_id:
+              type: integer
+            filter_value:
+              type: string
     error:
       type: object
       properties:

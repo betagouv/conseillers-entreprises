@@ -53,7 +53,7 @@ RSpec.describe "Landing Themes API", type: :request do
 
           let(:landing_02) { create(:landing, :api, institution: institution, title: 'Page d’atterrissage 02', slug: 'page-atterrissage-02') }
           let!(:sante_theme) { create_sante_theme([landing_02]) }
-          let!(:recrutement_theme) { create_recrutement_theme([landing_01]) }
+          let!(:recrutement_theme) { create_rh_theme([landing_01]) }
           let!(:landing_temoin) { create(:landing, :api, :with_subjects) }
 
           before do |example|

@@ -5,9 +5,11 @@ RSpec.describe "Landing Subjects API", type: :request do
   let(:institution) { create(:institution) }
   let(:Authorization) { "Bearer token=#{find_token(institution)}" }
   let(:landing_01) { create_base_landing(institution) }
-  let!(:ecolo_theme) { create_ecolo_theme([landing_01]) }
-  let!(:dechet_subject) { create_dechet_subject(ecolo_theme) }
-  let!(:eau_subject) { create_eau_subject(ecolo_theme) }
+  let!(:rh_theme) { create_rh_theme([landing_01]) }
+  let!(:recrutement_subject) { create_recrutement_subject(rh_theme) }
+  let!(:formation_subject) { create_formation_subject(rh_theme) }
+  let!(:cadre_question) { create_cadre_question(recrutement_subject.subject) }
+  let!(:apprentissage_question) { create_apprentissage_question(recrutement_subject.subject) }
 
   # Génération automatique des exemples dans la doc
   after do |example|
@@ -89,7 +91,7 @@ RSpec.describe "Landing Subjects API", type: :request do
                    }
                  }
 
-          let(:id) { dechet_subject.id }
+          let(:id) { recrutement_subject.id }
 
           before do |example|
             submit_request(example.metadata)
@@ -101,9 +103,9 @@ RSpec.describe "Landing Subjects API", type: :request do
             expect(result.size).to eq(1)
 
             result_item = result['data']
-            expect(result_item.keys).to match_array(["id", "title", "slug", "landing_theme_id", "landing_theme_slug", "description", "description_explanation", "requires_siret", "requires_location"])
-            expect(result_item["title"]).to eq('Traitement et valorisation des déchets')
-            expect(result_item["landing_theme_slug"]).to eq('environnement-transition-ecologique')
+            expect(result_item.keys).to match_array(["id", "title", "slug", "landing_id", "landing_theme_id", "landing_theme_slug", "description", "description_explanation", "requires_siret", "requires_location", "questions_additionnelles"])
+            expect(result_item["title"]).to eq('Recruter un ou plusieurs salariés')
+            expect(result_item["landing_theme_slug"]).to eq('recrutement-formation')
           end
         end
       end
