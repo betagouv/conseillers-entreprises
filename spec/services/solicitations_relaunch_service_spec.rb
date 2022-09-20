@@ -1,0 +1,26 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+describe SolicitationsRelaunchService do
+
+
+  describe '#relaunch_not_completed_solicitations' do
+    # Solicitation non complétée suivi d'une solicitation complété  ko
+    let!(:solicitation1) { create :solicitation, email: 'edith@piaf.fr', status: :step_company, created_at: 1.day.ago }
+    let!(:solicitation1_bis) { create :solicitation, email: 'edith@piaf.fr', status: :in_progress, created_at: 1.day.ago }
+    # Solicitation non complété étape entreprise                    ok
+    let!(:solicitation2) { create :solicitation, email: 'alain@chabat.fr', status: :step_company, created_at: 1.day.ago }
+    # Solicitation non complété étape description                   ok
+    let!(:solicitation3) { create :solicitation, email: 'ada@lovelace.uk', status: :step_description, created_at: 1.day.ago }
+    # Solicitation complété                                         ko
+    let!(:solicitation4) { create :solicitation, email: 'romain@de-la-haye.fr', status: :in_progress, created_at: 1.day.ago }
+    # Solicitation non complété qui date de plus d'un jour          ko
+    let!(:solicitation5) { create :solicitation, email: 'dhh@rails.dk', status: :step_company, created_at: 2.day.ago }
+
+    subject { described_class.find_not_completed_solicitations }
+
+    it 'relaunch not completed solicitations' do
+      is_expected.to match_array([solicitation2, solicitation3])
+    end
+  end
+end
