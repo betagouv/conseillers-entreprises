@@ -55,19 +55,23 @@ module ApiConsumption::Models
     end
 
     def naf_libelle
-      @naf_libelle ||= (libelle_naf_entreprise || NafCode::libelle_naf('level2', NafCode::level2_code(naf_entreprise)))
+      @naf_libelle ||= (libelle_naf_entreprise || NafCode::naf_libelle(NafCode::level2_code(naf_entreprise), 'level2'))
     end
 
     def effectif
-      @effectif ||= EffectifRange.new(effectifs).effectif
+      @effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).effectif
     end
 
     def code_effectif
-      @code_effectif ||= (@code_effectif_entreprise || EffectifRange.new(effectifs).code_effectif)
+      @code_effectif ||= (@code_effectif_entreprise || Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).code_effectif)
     end
 
     def tranche_effectif
-      @tranche_effectif ||= EffectifRange.new(effectifs).intitule_effectif
+      @tranche_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).intitule_effectif
+    end
+
+    def annee_effectif
+      @annee_effectif ||= Effectif::Format.new(effectifs, tranche_effectif_salarie_entreprise).annee_effectif
     end
   end
 end

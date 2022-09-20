@@ -14,7 +14,8 @@
         %td= entreprise.categorie_entreprise
       %tr
         %td= t('.tranche_effectif_salarie_entreprise')
-        %td= entreprise.tranche_effectif_salarie_entreprise['intitule']
+        %td= [entreprise.tranche_effectif, annee_effectif(entreprise.annee_effectif) ].join(' ')
+
       %tr
         %td= t('.siren')
         %td= entreprise.siren

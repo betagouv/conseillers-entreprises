@@ -31,7 +31,7 @@ namespace :update_solicitations_code_region do
       begin
         etablissement_data = ApiEntreprise::Etablissement::Base.new(solicitation.siret).call
         return if etablissement_data.blank?
-        code_region = ApiConsumption::Models::Facility.new(etablissement_data).code_region
+        code_region = ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_data).code_region
         SolicitationModification::Update.new(solicitation, code_region: code_region).call!
         total += 1
       rescue StandardError => e

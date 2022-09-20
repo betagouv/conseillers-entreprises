@@ -7,13 +7,13 @@
         %td= etablissement.siret
       %tr
         %td= t('.naf')
-        %td #{etablissement.naf} - #{etablissement.libelle_naf}
+        %td #{etablissement.naf} - #{etablissement.naf_libelle}
       %tr
         %td= t('.date_mise_a_jour')
         %td= date_from_timestamp(etablissement.date_mise_a_jour)
       %tr
         %td= t('.tranche_effectif_salarie_etablissement')
-        %td= etablissement.tranche_effectif
+        %td= [etablissement.tranche_effectif, annee_effectif(etablissement.annee_effectif) ].join(' ')
       %tr
         %td= t('.date_creation_etablissement')
         %td= date_from_timestamp(etablissement.date_creation_etablissement)

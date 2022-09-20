@@ -32,16 +32,16 @@ module ApiConsumption::Models
       ]
     end
 
+    def insee_code
+      @insee_code ||= commune
+    end
+
     def naf_code_complet
       activite_principale
     end
 
-    def libelle_naf
-      @libelle_naf ||= NafCode::libelle_naf('level2', NafCode::level2_code(naf_code_complet))
-    end
-
-    def insee_code
-      @insee_code ||= commune
+    def naf_libelle
+      @naf_libelle ||= NafCode::naf_libelle(NafCode::level2_code(naf_code_complet), 'level2')
     end
 
     def readable_locality

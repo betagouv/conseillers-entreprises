@@ -1,33 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe NafCode, type: :model do
-  describe 'libelle_a10' do
-    subject { described_class::libelle_a10 naf_code_a10 }
+  describe 'naf_libelle' do
+    subject { described_class::naf_libelle(naf_code, level) }
 
-    context 'valid code' do
-      let(:naf_code_a10) { 'GI' }
+    context 'valid code no level' do
+      subject { described_class::naf_libelle(naf_code) }
 
-      it{ is_expected.to eq 'Commerce de gros et de détail, transports, hébergement et restauration' }
-    end
-
-    context 'nil code' do
-      let(:naf_code_a10) { nil }
-
-      it{ is_expected.to eq 'Données manquantes' }
-    end
-  end
-
-  describe 'libelle_naf' do
-    subject { described_class::libelle_naf('a10', naf_code_a10) }
-
-    context 'valid code' do
-      let(:naf_code_a10) { 'GI' }
+      let(:naf_code) { 'GI' }
 
       it{ is_expected.to eq 'Commerce de gros et de détail, transports, hébergement et restauration' }
     end
 
+    context 'valid code with level' do
+      let(:naf_code) { '16' }
+      let(:level) { 'level2' }
+
+      it{ is_expected.to eq 'Travail du bois et fabrication d’articles en bois et en liège, à l’exception des meubles ; fabrication d’articles en vannerie et sparterie' }
+    end
+
     context 'nil code' do
-      let(:naf_code_a10) { nil }
+      let(:naf_code) { nil }
+      let(:level) { nil }
 
       it{ is_expected.to eq 'Données manquantes' }
     end

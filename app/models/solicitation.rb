@@ -199,7 +199,7 @@ class Solicitation < ApplicationRecord
       begin
         etablissement_data = ApiEntreprise::Etablissement::Base.new(siret_or_siren).call
         return params if etablissement_data.blank?
-        params[:code_region] = ApiConsumption::Models::Facility.new(etablissement_data).code_region
+        params[:code_region] = ApiConsumption::Models::Facility::ApiEntreprise.new(etablissement_data).code_region
         params[:siret] = siret_or_siren
       rescue ApiEntreprise::ApiEntrepriseError => e
         return params

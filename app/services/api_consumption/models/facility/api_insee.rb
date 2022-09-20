@@ -19,16 +19,16 @@ module ApiConsumption::Models
       ]
     end
 
+    def insee_code
+      @insee_code ||= adresseEtablissement["codeCommuneEtablissement"]
+    end
+
     def naf_code_complet
       periodesEtablissement[0]['activitePrincipaleEtablissement']
     end
 
-    def libelle_naf
-      @libelle_naf ||= NafCode::libelle_naf('level2', NafCode::level2_code(naf_code_complet))
-    end
-
-    def insee_code
-      @insee_code ||= adresseEtablissement["codeCommuneEtablissement"]
+    def naf_libelle
+      @naf_libelle ||= NafCode::naf_libelle(NafCode::level2_code(naf_code_complet), 'level2')
     end
 
     def code_postal

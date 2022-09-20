@@ -5,11 +5,11 @@
   "libelle_naf": "Conseil en systèmes et logiciels informatiques",
   "date_mise_a_jour": 1623003213,
   "tranche_effectif_salarie_etablissement": {
-    "de": 250,
-    "a": 499,
-    "code": "32",
+    "de": 200,
+    "a": 249,
+    "code": "31",
     "date_reference": "2018",
-    "intitule": "250 à 499 salariés"
+    "intitule": "200 à 249 salariés"
   },
   "date_creation_etablissement": 1480287600,
   "region_implantation": { "code": "11", "value": "Île-de-France" },

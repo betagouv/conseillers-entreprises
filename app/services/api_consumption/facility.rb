@@ -12,7 +12,7 @@ module ApiConsumption
     private
 
     def model
-      ApiConsumption::Models::Facility
+      ApiConsumption::Models::Facility::ApiEntreprise
     end
 
     def params
