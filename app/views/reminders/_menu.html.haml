@@ -2,7 +2,7 @@
   = t('reminders.section.needs')
 
 %ul.fr-sidemenu__list
-  - collections_counts.each do |name, count|
+  - collections_by_reminders_actions_count.each do |name, count|
     = menu_link_with_count(count, [name, :reminders, :needs], class: 'item', title: t(name, scope: [:reminders, :needs, :scopes, :instruction])) do
       = t(name, scope: 'reminders.needs.scopes.name')
       - detail = t(name, scope: 'reminders.needs.scopes.detail', days: Need::REMINDERS_DAYS[name])
