@@ -78,6 +78,16 @@ class SolicitationsController < PagesController
     update_solicitation_from_step(:step_description, form_complete_solicitation_path(@solicitation.uuid, anchor: 'section-formulaire'))
   end
 
+  def redirect_to_solicitation_step
+    solicitation = Solicitation.find_by(uuid: params[:uuid])
+    case solicitation.status
+    when 'step_company'
+      redirect_to step_company_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
+    when 'step_description'
+      redirect_to step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
+    end
+  end
+
   private
 
   def update_solicitation_from_step(step, next_step_path)
