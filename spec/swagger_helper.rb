@@ -19,9 +19,9 @@ RSpec.configure do |config|
       openapi: '3.0.1',
       info: {
         title: 'API Place des Entreprises V1',
-        description: "## Bienvenue sur la documentation de l'API de Place des Entreprises
+        description: "## Bienvenue sur la documentation de l’API de Place des Entreprises
         \nCette API permet à une organisation de proposer un formulaire de dépôt de besoin d'entreprise connecté à Place des Entreprises sur son propre site internet.
-        \nConcrètement, cette API permet de :
+        \nConcrètement, cette API permet de :
         \n- récupérer la liste des pages d'atterrisage, thèmes et sujets autorisés pour l'organisation concernée,
         \n- d'envoyer à Place des Entreprises un besoin
         \n### Limite des requêtes
