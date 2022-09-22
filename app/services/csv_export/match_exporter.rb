@@ -17,7 +17,7 @@ module CsvExport
         facility_regions: -> { facility_regions&.pluck(:name).uniq.join(", ") },
         company_name: -> { company&.name },
         company_naf: -> { facility.naf_code },
-        company_effectif: -> { Effectif.intitule_effectif(facility.code_effectif) },
+        company_effectif: -> { Effectif::CodeEffectif.new(facility.code_effectif).intitule_effectif },
         inscrit_rcs: -> { company.inscrit_rcs ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
         inscrit_rm: -> { company.inscrit_rm ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
         solicitation_full_name: -> { solicitation&.full_name },

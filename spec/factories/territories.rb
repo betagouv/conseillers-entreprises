@@ -6,6 +6,7 @@ FactoryBot.define do
 
     trait :region do
       bassin_emploi { false }
+      code_region { 32 }
     end
   end
 end

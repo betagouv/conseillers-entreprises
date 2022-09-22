@@ -1,6 +1,6 @@
 module CsvExport
   class SolicitationExporter < BaseExporter
-    # Ici, il s'agit du big fichier qui présente l'historique des solicitataions jusqu'aux fin d'histoire.
+    # Ici, il s'agit du big fichier qui présente l'historique des solicitations jusqu'aux fin d'histoire.
     # Il y a un donc un mélange de solicitations et de matchs
     def initialize(relation, options = {})
       matches_id = relation.preload(:matches).map{ |s| s.matches.pluck(:id) }.flatten
@@ -60,7 +60,7 @@ module CsvExport
         facility_regions: -> { region&.name },
         company_name: -> { diagnosis&.company&.name },
         company_naf: -> { diagnosis&.facility&.naf_code },
-        company_effectif: -> { Effectif.intitule_effectif(diagnosis&.facility&.code_effectif) },
+        company_effectif: -> { Effectif::CodeEffectif.new(diagnosis&.facility&.code_effectif).intitule_effectif },
         inscrit_rcs: -> { diagnosis&.company&.inscrit_rcs ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
         inscrit_rm: -> { diagnosis&.company&.inscrit_rm ? I18n.t('boolean.text.true') : I18n.t('boolean.text.false') },
         solicitation_full_name: -> { full_name },
