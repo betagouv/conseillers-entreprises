@@ -314,10 +314,6 @@ class Need < ApplicationRecord
     reminders_actions.find_by(category: action).present?
   end
 
-  def abandoned?
-    has_action?('last_chance')
-  end
-
   def quo_experts
     Expert.joins(:received_matches).merge(matches.status_quo)
   end

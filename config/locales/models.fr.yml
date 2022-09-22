@@ -634,7 +634,7 @@ fr:
     unarchive: Désarchiver
     unarchive_done: Désarchivé
   attributes:
-    abandoned_at: Date d’abandon
+    abandoned: Abandonné
     activity: Activité
     advisor: Conseiller
     advisor_antenne: Antenne du conseiller
