@@ -2,6 +2,7 @@ module Effectif
   class CodeEffectif
     UNITE_NON_EMPLOYEUSE = 'NN'
     RANGES = [
+      { min: 0,     max: 0,     code: 'NN' },
       { min: 0,     max: 0,     code: '00' },
       { min: 1,     max: 2,     code: '01' },
       { min: 3,     max: 5,     code: '02' },
