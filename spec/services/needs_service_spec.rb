@@ -44,14 +44,10 @@ describe NeedsService do
       before { described_class.abandon_needs }
 
       it 'abandon only old needs without help and send' do
-        expect(need1.reload.abandoned_at).to be_nil
-        expect(need1.abandoned_email_sent).to be false
-        expect(need2.reload.abandoned_at).not_to be_nil
-        expect(need2.abandoned_email_sent).to be true
-        expect(need3.reload.abandoned_at).to be_nil
-        expect(need3.abandoned_email_sent).to be false
-        expect(need4.reload.abandoned_at).to be_nil
-        expect(need4.abandoned_email_sent).to be false
+        expect(need1.reload.abandoned_email_sent).to be false
+        expect(need2.reload.abandoned_email_sent).to be true
+        expect(need3.reload.abandoned_email_sent).to be false
+        expect(need4.reload.abandoned_email_sent).to be false
         expect(ActionMailer::Base.deliveries.count).to eq 1
       end
     end
@@ -61,26 +57,26 @@ describe NeedsService do
       # Besoin quo done_no_help done_not_reachable de plus de 10 jours après le mail   ok
       # Besoin done de moins de 40 jours de moins de 10 jours après le mail            ko
       # Besoin done de plus de 40 jours de plus de 10 jours après le mail              ko
-      let!(:need1) { create :need, matches: [match1], last_chance_email_sent_at: Time.now }
+      let!(:need1) { create :need, matches: [match1], reminders_actions: [reminders_actions1] }
+      let(:reminders_actions1) { create :reminders_action, category: 'last_chance' }
       let(:match1) { create :match, status: :quo }
-      let!(:need2) { create :need, matches: [match2], created_at: 40.days.ago, last_chance_email_sent_at: 11.days.ago }
+      let!(:need2) { create :need, matches: [match2], created_at: 40.days.ago, reminders_actions: [reminders_actions2] }
+      let(:reminders_actions2) { create :reminders_action, category: 'last_chance', created_at: 11.days.ago }
       let(:match2) { create :match, status: :quo, created_at: 40.days.ago }
-      let!(:need3) { create :need, matches: [match3], last_chance_email_sent_at: Time.now }
+      let!(:need3) { create :need, matches: [match3], reminders_actions: [reminders_actions3] }
+      let(:reminders_actions3) { create :reminders_action, category: 'last_chance' }
       let(:match3) { create :match, status: :done }
-      let!(:need4) { create :need, matches: [match4], created_at: 40.days.ago, last_chance_email_sent_at: 11.days.ago }
+      let!(:need4) { create :need, matches: [match4], created_at: 40.days.ago, reminders_actions: [reminders_actions4] }
+      let(:reminders_actions4) { create :reminders_action, category: 'last_chance', created_at: 11.days.ago }
       let(:match4) { create :match, status: :done, created_at: 40.days.ago }
 
       before { described_class.abandon_needs }
 
       it 'abandon only old needs without help and send' do
-        expect(need1.reload.abandoned_at).to be_nil
-        expect(need1.abandoned_email_sent).to be false
-        expect(need2.reload.abandoned_at).not_to be_nil
-        expect(need2.abandoned_email_sent).to be true
-        expect(need3.reload.abandoned_at).to be_nil
-        expect(need3.abandoned_email_sent).to be false
-        expect(need4.reload.abandoned_at).to be_nil
-        expect(need4.abandoned_email_sent).to be false
+        expect(need1.reload.abandoned_email_sent).to be false
+        expect(need2.reload.abandoned_email_sent).to be true
+        expect(need3.reload.abandoned_email_sent).to be false
+        expect(need4.reload.abandoned_email_sent).to be false
         expect(ActionMailer::Base.deliveries.count).to eq 1
       end
     end

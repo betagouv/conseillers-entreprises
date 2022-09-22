@@ -83,10 +83,10 @@ RSpec.describe TerritoryNeedsStatus do
   end
 
   describe 'needs_abandoned' do
-    # Besoin marqué abandonné     ok
-    # Besoin pas marqué abandonné ko
+    # Besoin avec l'email d'abandon envoyé     ok
+    # Besoin sans l'email d'abandon envoyé     ko
     let!(:match2) { create :match, expert: expert_inside, need: need1 }
-    let(:need1) { create :need, diagnosis: diagnosis, abandoned_at: Time.now }
+    let(:need1) { create :need, diagnosis: diagnosis, abandoned_email_sent: true }
     let!(:match4) { create :match, expert: expert_inside, need: need2 }
     let(:need2) { create(:need, diagnosis: diagnosis) }
 

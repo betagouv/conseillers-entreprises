@@ -1,9 +1,9 @@
 module Reminders
   class NeedsController < BaseController
-    before_action :setup_territory_filters, except: :send_last_chance_email
-    before_action :find_current_territory, except: :send_last_chance_email
-    before_action :collections_counts, except: :send_last_chance_email
-    before_action :find_need, only: %i[send_last_chance_email send_abandoned_email send_reminder_email]
+    before_action :setup_territory_filters
+    before_action :find_current_territory
+    before_action :collections_counts
+    before_action :find_need, only: %i[send_abandoned_email send_reminder_email]
 
     def index
       redirect_to action: :poke
@@ -40,7 +40,7 @@ module Reminders
       @feedback = Feedback.create(user: current_user, category: :need_reminder, description: t('.email_send'),
                                   feedbackable_type: 'Need', feedbackable_id: @need.id)
       @need.matches.status_quo.each do |match|
-        ExpertMailer.last_chance(match.expert, @need, current_user).deliver_now
+        ExpertMailer.positioning_rate_reminders(match.expert, current_user).deliver_later
       end
       respond_to do |format|
         format.js

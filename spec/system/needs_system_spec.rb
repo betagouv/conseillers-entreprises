@@ -31,7 +31,7 @@ describe 'needs', type: :system do
     ])
   end
   let!(:need_abandoned) do
-    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, archived_at: Time.zone.now)], abandoned_at: Time.now)
+    create(:need, diagnosis: diagnosis, matches: [create(:match, expert: current_expert, archived_at: Time.zone.now)], abandoned_email_sent: true)
   end
 
   describe 'user needs' do

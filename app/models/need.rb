@@ -2,18 +2,17 @@
 #
 # Table name: needs
 #
-#  id                        :bigint(8)        not null, primary key
-#  abandoned_email_sent      :boolean          default(FALSE)
-#  archived_at               :datetime
-#  content                   :text
-#  last_chance_email_sent_at :datetime
-#  matches_count             :integer
-#  satisfaction_email_sent   :boolean          default(FALSE), not null
-#  status                    :enum             default("diagnosis_not_complete"), not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  diagnosis_id              :bigint(8)        not null
-#  subject_id                :bigint(8)        not null
+#  id                      :bigint(8)        not null, primary key
+#  abandoned_email_sent    :boolean          default(FALSE)
+#  archived_at             :datetime
+#  content                 :text
+#  matches_count           :integer
+#  satisfaction_email_sent :boolean          default(FALSE), not null
+#  status                  :enum             default("diagnosis_not_complete"), not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  diagnosis_id            :bigint(8)        not null
+#  subject_id              :bigint(8)        not null
 #
 # Indexes
 #
@@ -178,9 +177,9 @@ class Need < ApplicationRecord
   # For Reminders, find Needs without taking care since NO_ACTIVITY_DELAY
   scope :no_activity, -> { joins(:matches).where("matches.created_at < ?", NO_ACTIVITY_DELAY.ago) }
 
-  scope :abandoned, -> { where.not(abandoned_at: nil) }
+  scope :abandoned, -> { where(abandoned_email_sent: true) }
 
-  scope :not_abandoned, -> { where(abandoned_at: nil) }
+  scope :not_abandoned, -> { where(abandoned_email_sent: false) }
 
   scope :with_some_matches_in_status, -> (status) do
     # status can be an array
@@ -313,6 +312,10 @@ class Need < ApplicationRecord
 
   def has_action?(action)
     reminders_actions.find_by(category: action).present?
+  end
+
+  def abandoned?
+    has_action?('last_chance')
   end
 
   def quo_experts
