@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SolicitationsRelaunchService
-  def perform
+  def self.perform
     solicitations = find_not_completed_solicitations
     send_emails(solicitations)
   end
