@@ -50,6 +50,10 @@ class Institution < ApplicationRecord
   has_many :subjects, through: :institutions_subjects, inverse_of: :institutions, dependent: :destroy
   has_many :themes, through: :institutions_subjects, inverse_of: :institutions
 
+  # :landings
+  has_many :landing_themes, through: :landings, inverse_of: :institutions
+  has_many :landing_subjects, through: :landing_themes, inverse_of: :institutions
+
   # :antennes
   has_many :experts, through: :antennes, inverse_of: :institution
   has_many :advisors, through: :antennes, inverse_of: :institution

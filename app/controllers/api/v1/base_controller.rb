@@ -1,6 +1,7 @@
 class Api::V1::BaseController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  serialization_scope :current_institution
 
   before_action :authenticate_with_api_key!
 

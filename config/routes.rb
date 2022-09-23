@@ -22,8 +22,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :landings, controller: "landings/landings", only: [:index, :show] do
-        resources :landing_themes, controller: "landings/landing_themes", only: %i[show]
+        get :search, on: :collection
       end
+      resources :landing_themes, controller: "landings/landing_themes", only: [:index, :show]
+      resources :landing_subjects, controller: "landings/landing_subjects", only: [:index, :show]
     end
   end
 
