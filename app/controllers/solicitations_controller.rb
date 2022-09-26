@@ -82,7 +82,7 @@ class SolicitationsController < PagesController
     solicitation = Solicitation.find_by(uuid: params[:uuid])
     case solicitation.status
     when 'step_company'
-      redirect_to step_company_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
+      redirect_to step_company_search_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
     when 'step_description'
       redirect_to step_description_solicitation_path(solicitation.uuid, anchor: 'section-formulaire')
     end
