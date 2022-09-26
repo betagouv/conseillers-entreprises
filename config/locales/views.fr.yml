@@ -491,6 +491,7 @@ fr:
         subject: Avez-vous bien été rappelé ?
         tank_you: Merci pour votre confiance,
       solicitation_relaunch:
+        continue: Reprendre ma demande
         continue_your_solicitation: 'Pour finaliser votre demande, il vous suffit d’indiquer votre problématique et ses principaux éléments de contexte en cliquant sur le lien ci-dessous :'
         service_explanation_html: Place des Entreprises est un <strong>service public</strong> des ministères de l’Économie et du Travail qui vous permet d’échanger <strong>avec LE conseiller qui peut vous aider parmi plus de 40 institutions compétentes</strong>.
         subject: Votre demande au sujet de «%{subject}»
