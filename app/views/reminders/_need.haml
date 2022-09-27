@@ -4,7 +4,7 @@
       .card__title
         %h2= link_to need.company.name, need_path(need, origin: 'reminders')
         %span.subtitle= I18n.l(need.display_date, format: :long)
-      = render 'needs_badges', need: need
+      = render 'reminders/needs_badges', need: need
     .fr-card__body
       .card__need.fr-mb-2w
         .card__need-title

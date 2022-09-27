@@ -858,9 +858,9 @@ fr:
           not_for_me: Refusés
           poke: À relancer
           recall: À rappeler
-      needs_badges:
-        add_remove_badges: "Ajouter ou retirer un tag"
-      send_reminder_email:
+    needs_badges:
+      add_remove_badges: Ajouter ou retirer un tag
+    send_reminder_email:
         email_send: Email de relance envoyé
     section:
       experts: Par expert

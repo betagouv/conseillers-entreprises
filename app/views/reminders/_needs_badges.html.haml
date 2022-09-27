@@ -1,4 +1,4 @@
-.card__badges{ data: { controller: 'badges'} }
+.card__badges{ data: { controller: 'badges' } }
   .badges-list{ id: "need-#{need.id}-badges", 'data-badges-target': 'list' }
     - need.badges.each do |badge|
       = badge_label(badge)
