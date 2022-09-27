@@ -1,8 +1,10 @@
-%div{ id: "solicitation-#{solicitation.id}-badges" }
-  - solicitation.badges.each do |badge|
-    = badge_label(badge)
-= form_with model: solicitation, url: update_badges_conseiller_solicitation_path(solicitation), method: :post, class: 'hide badges', id: "solicitation-#{solicitation.id}-form-badges" do |f|
-  = f.select(:badge_ids, options_from_collection_for_select(Badge.all, :id, :title, solicitation.badge_ids), {}, { multiple: true, class: 'clearable ui search selection dropdown badges' })
+.card__badges{ data: { controller: 'badges' } }
+  .badges-list{ id: "solicitation-#{solicitation.id}-badges", 'data-badges-target': 'list' }
+    - solicitation.badges.each do |badge|
+      = badge_label(badge)
+  .hide.badges{ 'data-badges-target': 'form' }
+    = form_with model: solicitation, url: update_badges_conseiller_solicitation_path(solicitation), method: :post, id: "solicitation-#{solicitation.id}-form-badges" do |f|
+      = f.select(:badge_ids, options_from_collection_for_select(Badge.all, :id, :title, solicitation.badge_ids), {}, { multiple: true, class: 'clearable ui search selection dropdown badges' })
 
-  = f.submit t('ok'), class: 'fr-btn btn-green fr-btn--sm'
-%span.ri-price-tag-3-line.fr-mr-1w.modify-badges{ 'data-id': "#{solicitation.id}", title: t('.add_remove_badges') }
+      = f.submit t('ok'), class: 'fr-btn fr-btn--sm'
+  %button.ri-price-tag-3-line.fr-mr-1w.modify-badges{ data: { action: 'click->badges#toggle', id: "#{solicitation.id}" }, title: t('.add_remove_badges') }

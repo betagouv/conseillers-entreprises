@@ -241,8 +241,6 @@ fr:
         unban_facility: Réintégrer l'entreprise
       solicitation_badges:
         add_remove_badges: Ajouter / Enlever des tags
-      solicitations_tags_js:
-        manage_badges: Gérer les tags
   contacts:
     needs_historic:
       title_html: Liste des besoins pour %{name} <span class="fr-text--lg">(%{email})</span>
