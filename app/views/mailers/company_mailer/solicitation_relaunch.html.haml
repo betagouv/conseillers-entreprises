@@ -8,7 +8,7 @@
 
 %p= t('.continue_your_solicitation')
 
-%p= link_to t('.continue'), redirect_to_solicitation_step_solicitation_url(@solicitation.uuid)
+%p= link_to t('.continue'), redirect_to_solicitation_step_solicitation_url(@solicitation.uuid, mtm_campaign: 'retention', mtm_kwd: 'relance-solicitation')
 
 %p= t('mailers.cordially')
 
