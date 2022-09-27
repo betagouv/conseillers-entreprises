@@ -38,4 +38,14 @@ RSpec.describe Conseiller::SolicitationsController, type: :controller do
       it { expect(assigns(:solicitations)).to contain_exactly(canceled) }
     end
   end
+
+  describe 'POST #update_badges' do
+    let!(:solicitation) { create(:solicitation) }
+    let!(:badge) { create(:badge) }
+    subject(:request) { post :update_badges, params: { id: solicitation.id, solicitation: { badge_ids: [badge.id] } }, format: :js }
+
+    before { request }
+
+    it { expect(solicitation.badges).to match_array([badge])}
+  end
 end
