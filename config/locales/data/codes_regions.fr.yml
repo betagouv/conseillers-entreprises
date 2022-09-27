@@ -1,6 +1,7 @@
 ---
 fr:
   regions_codes_to_libelles:
+    '0': Extra région
     '1': Guadeloupe
     '11': Île-de-France
     '2': Martinique
@@ -20,6 +21,7 @@ fr:
     '93': Provence-Alpes-Côte d’Azur
     '94': Corse
   regions_codes_to_slugs:
+    '0': extra_region
     '1': guadeloupe
     '11': ile-de-france
     '2': martinique
@@ -44,6 +46,7 @@ fr:
     brittany: 53
     centre: 24
     corse: 94
+    extra_region: 0
     grand-est: 44
     guadeloupe: 1
     guyane: 3
