@@ -1,10 +1,10 @@
 - cache [need, action] do
   .card-reminders-need.fr-my-4w.card
-    .card__header.fr-enlarge-link
+    .card__header
       .card__title
         %h2= link_to need.company.name, need_path(need, origin: 'reminders')
         %span.subtitle= I18n.l(need.display_date, format: :long)
-      = status_label(need)
+      = render 'needs_badges', need: need
     .fr-card__body
       .card__need.fr-mb-2w
         .card__need-title

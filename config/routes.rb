@@ -185,6 +185,7 @@ Rails.application.routes.draw do
     resources :needs, path: 'besoins', only: %i[index] do
       member do
         post :send_abandoned_email
+        post :update_badges
         post :send_reminder_email
       end
       collection do

@@ -48,6 +48,17 @@ module Reminders
       end
     end
 
+    def update_badges
+      @need = Need.find(params.permit(:id)[:id])
+      badges_params = params.require(:need).permit(badge_ids: [])
+      if @need.valid?
+        @need.update(badges_params)
+      else
+        flash.alert = @need.errors.full_messages.to_sentence
+        redirect_to
+      end
+    end
+
     private
 
     def find_need

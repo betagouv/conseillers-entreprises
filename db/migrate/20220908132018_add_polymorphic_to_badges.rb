@@ -8,7 +8,8 @@ class AddPolymorphicToBadges < ActiveRecord::Migration[7.0]
     end
 
     up_only do
-      Solicitation.find_each do |solicitation|
+      solicitations = Solicitation.joins(:badges)
+      solicitations.each do |solicitation|
         solicitation.old_badges.each do |badge|
           BadgeBadgeable.create!(badge: badge, badgeable: solicitation)
         end
