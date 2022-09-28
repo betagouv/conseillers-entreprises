@@ -61,10 +61,11 @@ RSpec.describe Reminders::NeedsController, type: :controller do
   describe 'POST #update_badges' do
     let!(:need) { create(:need) }
     let!(:badge) { create(:badge) }
+
     subject(:request) { post :update_badges, params: { id: need.id, need: { badge_ids: [badge.id] } }, format: :js }
 
     before { request }
 
-    it { expect(need.badges).to match_array([badge])}
+    it { expect(need.badges).to match_array([badge]) }
   end
 end

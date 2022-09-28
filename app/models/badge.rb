@@ -3,6 +3,7 @@
 # Table name: badges
 #
 #  id         :bigint(8)        not null, primary key
+#  category   :integer          not null
 #  color      :string           not null
 #  title      :string           not null
 #  created_at :datetime         not null
@@ -10,6 +11,10 @@
 #
 
 class Badge < ApplicationRecord
+  enum category: {
+    solicitations: 0, needs: 1
+  }, _prefix: true
+
   ## Associations
   #
   has_many :badge_badgeables

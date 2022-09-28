@@ -1,0 +1,6 @@
+- meta title: t('.title')
+
+- content_for :header, render('header', title: t('.title'))
+- content_for :menu, render('menu')
+
+= render 'form', badge: @badge

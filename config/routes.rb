@@ -224,7 +224,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :badges, only: %i[index create destroy]
+  resources :badges, except: :show do
+    collection do
+      get :solicitations
+      get :needs
+    end
+  end
 
   resources :partner_tools, only: %i[], path: 'outils-partenaires' do
     collection do
