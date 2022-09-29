@@ -4,7 +4,7 @@
     = f.text_field :title, class: 'fr-input'
   .fr-select-group
     = f.label :category, class: 'fr-label'
-    = f.select :category, [:solicitations, :needs], {}, { class: 'fr-select' }
+    = f.select :category, Badge.categories.map { |c| [t(c.first, scope: 'activerecord.attributes.badge/categories'), c.first] }, {}, { class: 'fr-select' }
   .fr-input-group
     = f.label :color, class: 'fr-label'
     = f.color_field :color

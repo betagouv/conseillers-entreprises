@@ -26,7 +26,7 @@ class BadgesController < ApplicationController
     @badge = Badge.create(safe_params)
     if @badge.persisted?
       flash.notice = t('.badge_created')
-      redirect_to badges_path
+      redirect_to action: @badge.category
     else
       flash.alert = @badge.errors.full_messages.to_sentence
       render 'shared/flashes'

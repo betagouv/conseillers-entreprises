@@ -128,10 +128,10 @@ fr:
       title: Tags
     menu:
       needs: Tags de besoins
-      new: Nouveau tag
+      new: Créer
       solicitations: Tags de sollicitations
     new:
-      title: Nouveau tag
+      title: Créer un tag
     update:
       badge_updated: Le tag à bien été mis à jour
   breadcrumbs_helper:
@@ -868,7 +868,7 @@ fr:
           poke: À relancer
           recall: À rappeler
       send_reminder_email:
-        email_send: "Email de relance envoyé"
+        email_send: Email de relance envoyé
     needs_badges:
       add_remove_badges: Ajouter ou retirer un tag
     section:
