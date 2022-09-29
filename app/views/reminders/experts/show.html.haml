@@ -1,7 +1,7 @@
 - meta title: t('reminders.experts.index.title')
 
 - content_for :header, render('reminders/header', section: :experts, scope: @action)
-- content_for :menu, render('reminders/menu', collections_by_reminders_actions_count: @collections_by_reminders_actions_count, expert_collections_count: @expert_collections_count)
+- content_for :menu, render('reminders/menu', collections_by_reminders_actions_count: @collections_by_reminders_actions_count, collections_by_status_counts: @collections_by_status_counts, expert_collections_count: @expert_collections_count)
 
 %div
   = render 'expert', expert: @expert
