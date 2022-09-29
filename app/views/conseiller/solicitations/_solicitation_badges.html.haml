@@ -7,4 +7,4 @@
       = f.select(:badge_ids, options_from_collection_for_select(Badge.category_solicitations, :id, :title, solicitation.badge_ids), {}, { multiple: true, class: 'clearable ui search selection dropdown badges' })
 
       = f.submit t('ok'), class: 'fr-btn fr-btn--sm'
-  %button.ri-price-tag-3-line.fr-mr-1w.modify-badges{ data: { action: 'click->badges#toggle', id: "#{solicitation.id}" }, title: t('.add_remove_badges') }
+  %button.ri-price-tag-3-line.fr-mr-1w.modify-badges{ data: { action: 'click->badges#toggleForm', id: "#{solicitation.id}" }, title: t('.add_remove_badges') }

@@ -54,7 +54,7 @@ RSpec.describe BadgesController, type: :controller do
     end
   end
 
-  describe '#destroy' do
+  describe 'DELETE #destroy' do
     let(:badge) { create(:badge) }
     let(:request) { delete :destroy, params: { id: badge.id } }
 

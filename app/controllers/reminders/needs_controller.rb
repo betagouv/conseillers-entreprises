@@ -55,7 +55,7 @@ module Reminders
         @need.update(badges_params)
       else
         flash.alert = @need.errors.full_messages.to_sentence
-        redirect_to
+        redirect_back(fallback_location: poke_reminders_needs_path)
       end
     end
 

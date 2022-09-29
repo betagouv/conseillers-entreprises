@@ -46,7 +46,7 @@ class BadgesController < ApplicationController
       flash.notice = t('.badge_updated')
       redirect_to action: @badge.category
     else
-      render edit
+      render :edit
     end
   end
 

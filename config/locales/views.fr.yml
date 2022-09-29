@@ -116,7 +116,7 @@ fr:
     create:
       badge_created: Le tag a bien été créé
     destroy:
-      badge_destroyed: Le tag à bien été supprimé
+      badge_destroyed: Le tag a bien été supprimé
     edit:
       title: Modifier un tag
     form:
@@ -133,7 +133,7 @@ fr:
     new:
       title: Créer un tag
     update:
-      badge_updated: Le tag à bien été mis à jour
+      badge_updated: Le tag a bien été mis à jour
   breadcrumbs_helper:
     home_link:
       home: Accueil

@@ -224,10 +224,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :badges, except: :show do
+  resources :badges, except: :show, path: 'tags' do
     collection do
-      get :solicitations
-      get :needs
+      get :solicitations, path: 'sollicitations'
+      get :needs, path: 'besoins'
     end
   end
 

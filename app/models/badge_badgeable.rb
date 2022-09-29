@@ -21,7 +21,5 @@ class BadgeBadgeable < ApplicationRecord
   belongs_to :badge, touch: true
   belongs_to :badgeable, polymorphic: true, touch: true
 
-  after_destroy -> do
-    badgeable.update(updated_at: Time.zone.now)
-  end
+  after_destroy -> { badgeable.update(updated_at: Time.zone.now) }
 end
