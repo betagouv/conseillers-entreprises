@@ -34,4 +34,12 @@ class Api::V1::BaseController < ActionController::API
   def current_institution
     @current_institution
   end
+
+  def sanitize_params(params)
+    params.each do |key, value|
+      next if value.class != String
+      params[key] = ActionController::Base.helpers.sanitize(value, tags: %w[a p img], attributes: %w[alt])
+    end
+    params
+  end
 end

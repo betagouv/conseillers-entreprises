@@ -101,6 +101,67 @@ RSpec.configure do |config|
             },
             required: [ 'id', 'title', 'slug' ]
           },
+          new_solicitation: {
+            type: :object,
+            properties: {
+              landing_id: { type: :integer },
+              landing_subject_id: { type: :integer },
+              description: { type: :string },
+              code_region: { type: :integer },
+              status: { type: :integer },
+              full_name: { type: :string },
+              phone_number: { type: :string },
+              email: { type: :string },
+              siret: { type: :string },
+              location: { type: :string },
+              questions_additionnelles: {
+                type: :array,
+                items: {
+                  '$ref': "#/components/schemas/question_additionnelle_short"
+                }
+              },
+              api_calling_url: { type: :string }
+            },
+            required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'api_calling_url' ]
+          },
+          solicitation_created: {
+            type: :object,
+            properties: {
+              uuid: { type: :string },
+              landing_subject: { type: :string },
+              full_name: { type: :string },
+              email: { type: :string },
+              phone_number: { type: :string },
+              siret: { type: :string },
+              location: { type: :string },
+              description: { type: :string },
+              code_region: { type: :integer },
+              status: { type: :string },
+              questions_additionnelles: {
+                type: :array,
+                items: {
+                  '$ref': "#/components/schemas/question_additionnelle_long"
+                }
+              },
+              api_calling_url: { type: :string }
+            },
+            required: [ 'landing_id', 'landing_subject_id', 'description', 'full_name', 'email', 'api_calling_url' ]
+          },
+          question_additionnelle_short: {
+            type: :object,
+            properties: {
+              question_id: { type: :integer },
+              answer: { type: :string }
+            }
+          },
+          question_additionnelle_long: {
+            type: :object,
+            properties: {
+              question_id: { type: :integer },
+              question_label: { type: :string },
+              answer: { type: :string }
+            }
+          },
           error: {
             type: :object,
             properties: {

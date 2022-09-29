@@ -5,7 +5,7 @@
 #  id                               :bigint(8)        not null, primary key
 #  banned                           :boolean          default(FALSE)
 #  code_region                      :integer
-#  created_in_deployed_region       :boolean          default(FALSE)
+#  created_in_deployed_region       :boolean          default(TRUE)
 #  description                      :string
 #  email                            :string
 #  form_info                        :jsonb
@@ -98,7 +98,7 @@ class Solicitation < ApplicationRecord
       transitions from: [:step_company], to: :step_description, if: -> { company_step_required_fields.all?{ |attr| self.public_send(attr).present? } }
     end
 
-    event :complete, after: :format_solicitation do
+    event :complete, before: :format_solicitation do
       transitions from: [:step_description], to: :in_progress, guard: -> { description.present? }
     end
 
@@ -134,7 +134,7 @@ class Solicitation < ApplicationRecord
   #
   validates :landing, presence: true, allow_blank: false
   validates :email, format: { with: Devise.email_regexp }, allow_blank: true
-  validate if: -> { status_step_contact? || status_step_company? } do
+  validate if: -> { status_step_contact? || status_step_company? || status_step_description? } do
     contact_step_required_fields.each do |attr|
       errors.add(attr, :blank) if self.public_send(attr).blank?
     end
@@ -173,18 +173,19 @@ class Solicitation < ApplicationRecord
 
   def format_solicitation
     params = set_siret_and_region
-    params.merge!(format_email)
-    SolicitationModification::Update.new(self, params).call
+    self.email = formatted_email
+    self.siret = params[:siret]
+    self.code_region = params[:code_region]
   end
 
-  def format_email
+  def formatted_email
     # cas des double point qui empêche l'envoi d'email
-    return { email: self.email.squeeze('.') }
+    self.email.squeeze('.')
   end
 
   def set_siret_and_region
-    return {} if code_region.present?
     params = { code_region: self.code_region, siret: self.siret }
+    return params if self.code_region.present?
     siret_or_siren = FormatSiret.clean_siret(siret)
     # Solicitation with a valid SIREN -> find siret
     if FormatSiret.siren_is_valid(siret_or_siren)
@@ -386,7 +387,7 @@ class Solicitation < ApplicationRecord
 
   ## JSON Accessors
   #
-  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd]
+  FORM_INFO_KEYS = %i[pk_campaign pk_kwd gclid mtm_campaign mtm_kwd api_calling_url]
   store_accessor :form_info, FORM_INFO_KEYS.map(&:to_s)
 
   ##

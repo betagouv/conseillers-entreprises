@@ -156,7 +156,7 @@ RSpec.describe Solicitation, type: :model do
           it 'doesnt change params' do
             expect(solicitation.code_region).to be_nil
             expect(solicitation.siret).to eq('418166096')
-            expect(solicitation.created_in_deployed_region).to be false
+            expect(solicitation.created_in_deployed_region).to be true
           end
         end
 
@@ -177,7 +177,7 @@ RSpec.describe Solicitation, type: :model do
         it 'doesnt set code_region' do
           expect(solicitation.code_region).to be_nil
           expect(solicitation.siret).to eq('lalala')
-          expect(solicitation.created_in_deployed_region).to be false
+          expect(solicitation.created_in_deployed_region).to be true
         end
       end
     end

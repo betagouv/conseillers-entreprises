@@ -524,7 +524,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_28_134804) do
     t.string "location"
     t.bigint "institution_id"
     t.integer "code_region"
-    t.boolean "created_in_deployed_region", default: false
+    t.boolean "created_in_deployed_region", default: true
     t.bigint "landing_id"
     t.bigint "landing_subject_id"
     t.boolean "banned", default: false

@@ -2,7 +2,6 @@ module SolicitationModification
   class FormatParams
     def initialize(params)
       @params = params
-      p @params
     end
 
     def call
