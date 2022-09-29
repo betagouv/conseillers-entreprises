@@ -4,6 +4,7 @@ RSpec.describe Badge, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of :title }
     it { is_expected.to validate_presence_of :color }
+    it { is_expected.to validate_presence_of :category }
   end
 
   describe 'touch solicitations' do

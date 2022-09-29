@@ -122,23 +122,15 @@ fr:
     form:
       save: Enregistrer
     index:
-      add_badge: Ajouter un tag
-      button:
-        title: Ajouter
-      color: Couleur
       confirm_delete: Voulez-vous supprimer ce tag ?
       delete: Supprimer
       edit: Modifier
-      header: Tags
-      no_badges: Il n’y a aucun tag pour le moment
       title: Tags
-      title_label: Titre
     menu:
       needs: Tags de besoins
       new: Nouveau tag
       solicitations: Tags de sollicitations
     new:
-      save: Enregistrer
       title: Nouveau tag
     update:
       badge_updated: Le tag à bien été mis à jour

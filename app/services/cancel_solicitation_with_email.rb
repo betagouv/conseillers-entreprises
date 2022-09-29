@@ -22,7 +22,7 @@ class CancelSolicitationWithEmail
   def email_type_to_badge_id
     translated_email_type = I18n.t(@email_type, scope: 'solicitations.solicitation_actions.emails')
     badge = Badge.find_by('lower(title) = ?', translated_email_type.squish.downcase)
-    badge = Badge.create(title: translated_email_type, color: "#000000") if badge.nil?
+    badge = Badge.create(title: translated_email_type, color: "#000000", category: :solicitations) if badge.nil?
     badge.id
   end
 end

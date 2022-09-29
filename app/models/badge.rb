@@ -30,7 +30,7 @@ class Badge < ApplicationRecord
 
   ## Validations
   #
-  validates :title, :color, presence: true, allow_blank: false
+  validates :title, :color, :category, presence: true, allow_blank: false
 
   ##
   #
