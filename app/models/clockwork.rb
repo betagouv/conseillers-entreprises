@@ -40,7 +40,7 @@ module Clockwork
     `rake auto_archive_old_matches`
   end
   every(1.day, 'relaunch_solicitations', at: ('12:00')) do
-    SolicitationsRelaunchService.perform
+    SolicitationsRelaunchService.delay.perform
   end
   if Rails.env == 'production'
     every(1.day, 'generate_quarterly_reports', at: '01:00', if: -> (t) { t.day == 14 && (t.month == 1 || t.month == 4 || t.month == 7 || t.month == 10) }) do
